@@ -35,6 +35,8 @@ void	PackInt			(PackPtr self, long value);
 void	PackFloat		(PackPtr self, double value);
 void	PackList		(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap);
 void	PackAnything	(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap);
+void	PackMessage		(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap);
+void	PackAttribute	(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap);
 TTErr  	PackReset		(PackPtr self, long vectorSize);
 TTErr  	PackSetup		(PackPtr self);
 
@@ -59,6 +61,8 @@ int main(void)
 	class_addmethod(c, (method)PackFloat,			"float",			A_LONG, 0);
 	class_addmethod(c, (method)PackList,			"list",				A_GIMME, 0);
 	class_addmethod(c, (method)PackAnything,		"anything",			A_GIMME, 0);
+	class_addmethod(c, (method)PackMessage,			"message",			A_GIMME, 0);
+	class_addmethod(c, (method)PackAttribute,		"attribute",		A_GIMME, 0);
 	
 	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphSetup,		"graph.setup",		A_CANT, 0);
@@ -367,9 +371,90 @@ void PackAnything(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
 		self->graphDictionary->setSchema(TT("symbol"));
 		v.set(0, TT(s->s_name));
 	}
-
+	
 	self->graphDictionary->setValue(v);
 	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 
+
+void PackMessage(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
+{
+	TTValue v;
+	
+	if (ac < 1)
+		return;
+	
+	self->graphDictionary->setSchema(TT("message"));
+	self->graphDictionary->append(TT("name"), TT(atom_getsym(ap)->s_name));
+	
+	v.setSize(ac-1);
+	if (ac > 2) {
+		
+		for (int i=0; i < ac-1; i++) {
+			switch (atom_gettype(ap+i)) {
+				case A_LONG:
+					v.set(i+1, (int)atom_getlong(ap+i));
+					break;
+				case A_FLOAT:
+					v.set(i+1, atom_getfloat(ap+i));
+					break;
+				case A_SYM:
+					v.set(i+1, TT(atom_getsym(ap+i)->s_name));
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	else if (ac > 1) {
+		if (atom_gettype(ap+1) == A_SYM)
+			v.set(0, TT(s->s_name));
+		else if (atom_gettype(ap+1) == A_LONG || atom_gettype(ap+1) == A_FLOAT)
+			v.set(0, atom_getfloat(ap+1));
+	}
+	
+	self->graphDictionary->setValue(v);
+	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
+}
+
+
+void PackAttribute(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
+{
+	TTValue v;
+	
+	if (ac < 1)
+		return;
+	
+	self->graphDictionary->setSchema(TT("attribute"));
+	self->graphDictionary->append(TT("name"), TT(atom_getsym(ap)->s_name));
+	
+	v.setSize(ac-1);
+	if (ac > 2) {
+		
+		for (int i=0; i < ac-1; i++) {
+			switch (atom_gettype(ap+i)) {
+				case A_LONG:
+					v.set(i+1, (int)atom_getlong(ap+i));
+					break;
+				case A_FLOAT:
+					v.set(i+1, atom_getfloat(ap+i));
+					break;
+				case A_SYM:
+					v.set(i+1, TT(atom_getsym(ap+i)->s_name));
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	else if (ac > 1) {
+		if (atom_gettype(ap+1) == A_SYM)
+			v.set(0, TT(s->s_name));
+		else if (atom_gettype(ap+1) == A_LONG || atom_gettype(ap+1) == A_FLOAT)
+			v.set(0, atom_getfloat(ap+1));
+	}
+	
+	self->graphDictionary->setValue(v);
+	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
+}
 
