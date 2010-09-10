@@ -128,7 +128,7 @@ TTErr MaxAudioGraphSetup(WrappedInstancePtr self)
 	atom_setobj(a+0, ObjectPtr(self->audioGraphObject));
 	while (self->audioGraphOutlets[i]) {
 		atom_setlong(a+1, i);
-		outlet_anything(self->audioGraphOutlets[i], gensym("audio.connect"), 2, a);
+		outlet_anything(self->audioGraphOutlets[i], GENSYM("audio.connect"), 2, a);
 		i++;
 	}
 	return kTTErrNone;
@@ -150,7 +150,7 @@ TTErr MaxAudioGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject
 	TTAudioGraphObjectPtr	sourceObject = NULL;
 	TTErr 					err;
 	
-	err = (TTErr)int(object_method(sourceMaxObject, gensym("audio.object"), &sourceObject));
+	err = (TTErr)int(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
 	if (self->audioGraphObject && sourceObject && !err)
 		err = self->audioGraphObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);	
 	return err;
@@ -434,9 +434,9 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 			
 			// Add display styles for the Max 5 inspector
 			if (attr->type == kTypeBoolean)
-				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, "onoff");
+				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, (char*)"onoff");
 			if (name == TT("fontFace"))
-				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	"fontFace", 0, "font");
+				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	(char*)"fontFace", 0, (char*)"font");
 		}
 		delete nameCString;
 		nameCString = NULL;
