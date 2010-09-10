@@ -17,7 +17,7 @@
 
 TT_OBJECT_CONSTRUCTOR
 {
-	addMessageWithArgument(dictionary);
+	addMessageWithArgument(Dictionary);
 }
 
 
@@ -27,7 +27,7 @@ TTGraphOutput::~TTGraphOutput()
 }
 
 
-TTErr TTGraphOutput::dictionary(const TTValue& aDictionaryValue)
+TTErr TTGraphOutput::Dictionary(const TTValue& aDictionaryValue)
 {
 	this->sendNotification(TT("dictionaryReceived"), aDictionaryValue);
 	return kTTErrNone;

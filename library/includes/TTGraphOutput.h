@@ -20,7 +20,7 @@ class TTGRAPH_EXPORT TTGraphOutput : public TTObject
 {
 	TTCLASS_SETUP(TTGraphOutput)
 	
-	TTErr dictionary(const TTValue& aDictionary);
+	TTErr Dictionary(const TTValue& aDictionary);
 };
 
 
