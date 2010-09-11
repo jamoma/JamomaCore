@@ -54,7 +54,7 @@ int TTAudioGraphDescription::exportRubyNode(TTString& content, int& index, TTStr
 	for (TTGraphDescriptionIter input = mControlDescription.mInputDescriptions.begin(); input != mControlDescription.mInputDescriptions.end(); input++) {
 		int inputIndex = input->exportRubyNode(content, index, nodeNames); // note: calls into TTGraph's exportRubyNode
 		content += objName;
-		content += ".connect";
+		content += ".connect ";
 		content += nodeNames[inputIndex];
 		content += "\n";
 	}
