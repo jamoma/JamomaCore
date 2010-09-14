@@ -15,7 +15,6 @@
 void		WrapTTPresetManagerClass(WrappedClassPtr c);
 void		WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
-t_max_err	preset_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		preset_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void		preset_share_context_node(TTPtr self, TTNodePtr *contextNode);
@@ -42,7 +41,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 void WrapTTPresetManagerClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)preset_notify,					"notify",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)preset_assist,					"assist",				A_CANT, 0L);
 	
 	class_addmethod(c->maxClass, (method)preset_share_context_node,		"share_context_node",	A_CANT,	0);
@@ -111,28 +109,6 @@ void preset_build(TTPtr self, SymbolPtr address)
 		object_attach_byptr_register(x, context, _sym_box);
 
 	}
-}
-
-t_max_err preset_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	ObjectPtr context;
-	x->subscriberObject->getAttributeValue(TT("Context"), v);
-	v.get(0, (TTPtr*)&context);
-	
-	// if the patcher is deleted
-	if (sender == context)
-		if (msg == _sym_free) {
-			
-			// delete
-			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-			
-			// no more notification
-			object_detach_byptr((ObjectPtr)x, context);
-		}
-	
-	return MAX_ERR_NONE;
 }
 
 // Method for Assistance Messages

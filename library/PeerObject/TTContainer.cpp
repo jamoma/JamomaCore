@@ -16,6 +16,7 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
 mPriority(0), 
 mDescription(kTTSymEmpty),
+mType(TT("control")),
 mInitialized(NO),
 mDirectory(NULL),
 mReturnAddressCallback(NULL),
@@ -34,6 +35,7 @@ mObserver(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeSymbol);
+	addAttribute(Type, kTypeSymbol);
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(Initialised, readOnly, YES);
@@ -292,20 +294,22 @@ TTErr TTContainer::unbind()
 			mObjectsObserversCache->lookup(key, cacheElement);
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
-			// it is a Parameter
-			if (anObject->getName() == TT("Parameter")) {
-				
-				// delete Value observer
-				cacheElement.get(1, (TTPtr*)&aValueObserver);
-				anAttribute = NULL;
-				err = anObject->findAttribute(kTTSym_Value, &anAttribute);
-				
-				if(!err){
+			if (anObject) {
+				// is it a Parameter ?
+				if (anObject->getName() == TT("Parameter")) {
 					
-					err = anAttribute->unregisterObserverForNotifications(*aValueObserver);
+					// delete Value observer
+					cacheElement.get(1, (TTPtr*)&aValueObserver);
+					anAttribute = NULL;
+					err = anObject->findAttribute(kTTSym_Value, &anAttribute);
 					
-					if(!err)
-						TTObjectRelease(&aValueObserver);
+					if (!err) {
+						
+						err = anAttribute->unregisterObserverForNotifications(*aValueObserver);
+						
+						if (!err)
+							TTObjectRelease(&aValueObserver);
+					}
 				}
 			}
 			
@@ -314,11 +318,11 @@ TTErr TTContainer::unbind()
 			anAttribute = NULL;
 			err = anObject->findAttribute(kTTSym_Initialized, &anAttribute);
 			
-			if(!err){
+			if (!err) {
 				
 				err = anAttribute->unregisterObserverForNotifications(*aValueObserver);
 				
-				if(!err)
+				if (!err)
 					TTObjectRelease(&anInitObserver);
 			}
 		}
@@ -331,7 +335,7 @@ TTErr TTContainer::unbind()
 		
 		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
 		
-		if(!err)
+		if (!err)
 			TTObjectRelease(&mObserver);
 	}
 	
@@ -501,12 +505,15 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 	
 	o = n->getObject();
 	c = n->getContext();
-	p_c = n->getParent()->getContext();
+	if (n->getParent())
+		p_c = n->getParent()->getContext();
+	else
+		return NO; // don't keep the root
 	
 	if (o && c)
-		// Keep only Parameter from our context or Container of the context below 
-		// TO TEST : filtering Containers which are not just below this Container ?
-		// get the Context of his parent and compare it to our context : it should be equal...
+		// Keep only Parameter from our context or Container from the context below 
+		// To keep Containers which are not just below this Container :
+		// get the Context of his parent and compare it to our context (it should be equal...)
 		return (o->getName() == parameter && c == t_c) || (o->getName() == container && c != t_c && p_c == t_c);
 	else
 		return NO;

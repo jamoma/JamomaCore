@@ -15,7 +15,6 @@
 void		WrapTTContainerClass(WrappedClassPtr c);
 void		WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
-t_max_err	node_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		node_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void		node_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
@@ -26,6 +25,8 @@ void		node_return_address(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 void		node_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 void		node_build(TTPtr self, SymbolPtr address);
+
+void		node_set_viewpanel(TTPtr self, long n);
 
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -40,7 +41,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 void WrapTTContainerClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)node_notify,					"notify",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)node_assist,					"assist",				A_CANT, 0L);
 	
 	class_addmethod(c->maxClass, (method)node_share_context_node,		"share_context_node",	A_CANT,	0);
@@ -50,6 +50,7 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)node_list,						"anything",				A_GIMME, 0L);
 	
+	class_addmethod(c->maxClass, (method)node_set_viewpanel,			"has_panel",			A_LONG, 0L);
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -75,7 +76,12 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	
+	// Prepare memory to store attributes
+	//x->attr_long = (long*)sysmem_newptr(sizeof(long) * 1);
 
+	// Prepare memory to store internal parameters
+	x->internals = new TTHash();
 }
 
 void node_build(TTPtr self, SymbolPtr address)
@@ -122,28 +128,6 @@ void node_build(TTPtr self, SymbolPtr address)
 	}
 }
 
-t_max_err node_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	ObjectPtr context;
-	x->subscriberObject->getAttributeValue(TT("Context"), v);
-	v.get(0, (TTPtr*)&context);
-	
-	// if the patcher is deleted
-	if (sender == context)
-		if (msg == _sym_free) {
-			
-			// delete
-			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-			
-			// no more notification
-			object_detach_byptr((ObjectPtr)x, context);
-		}
-	
-	return MAX_ERR_NONE;
-}
-
 // Method for Assistance Messages
 void node_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
@@ -184,4 +168,30 @@ void node_share_context_node(TTPtr self, TTNodePtr *contextNode)
 	}
 	else
 		*contextNode = NULL;
+}
+
+void node_set_viewpanel(TTPtr self, long n)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTObjectPtr					aParameter;
+	TTValue						v;
+	TTSymbolPtr					address;
+	
+	x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
+	v.get(0, &address);
+	
+	if (n) {
+		
+		// Add a /view/panel parameter
+		makeInternals_parameter(self, address, TT("view/panel"), gensym("return_value"), &aParameter);
+		
+		// Set attribute of the parameter
+		aParameter->setAttributeValue(kTTSym_Type, kTTSym_none);
+		aParameter->setAttributeValue(kTTSym_Description, TT("Open an a module's control panel (inspector) if one is present."));
+		aParameter->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
+		// TODO : add the @service attribute to set this as a message
+	}
+	else
+		// Remove a /view/panel parameter
+		removeInternals_parameter(self, address, TT("view/panel"));
 }

@@ -52,6 +52,8 @@ public:
 	TTValue			mValue;						///< ATTRIBUTE: The parameter's value
 	TTValue			mValueDefault;				///< ATTRIBUTE: The parameter's default value
 	TTFloat32		mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
+	TTSymbolPtr		mvalueFlow;					///< ATTRIBUTE: how the value flows round the parameter : as input, as output or through.
+												///< Note : this attribute is not exposed as a main attribute to avoid it during the wrapping process
 	
 	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this parameter's value
 	TTUInt8			mPriority;					///< ATTRIBUTE: does this parameter have a priority over other parameters ?

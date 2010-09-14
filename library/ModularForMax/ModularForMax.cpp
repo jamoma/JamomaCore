@@ -480,7 +480,6 @@ TTErr jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 	TTObjectInstantiate(TT("Parameter"), TTObjectHandle(returnedParameter), args);
 	
 	return kTTErrNone;
-	
 }
 
 /**	Send Max data command */
@@ -817,18 +816,23 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
-	SymbolPtr	msg;
+	SymbolPtr	msg, method;
 	long		argc = 0;
 	AtomPtr		argv = NULL;
 	
-	// unpack baton (a t_object* and the name of the method to call)
+	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
+	
+	if (b->getSize() == 2)
+		b->get(1, (TTPtr*)&method);
+	else
+		method = jps_return_value;
 
 	jamoma_ttvalue_to_Atom(v, &msg, &argc, &argv);
 	
 	// send data to an external using the return_value method
-	object_method(x, jps_return_value, msg, argc, argv);
+	object_method(x, method, msg, argc, argv);
 	
 	sysmem_freeptr(argv);
 }

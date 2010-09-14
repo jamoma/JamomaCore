@@ -15,7 +15,6 @@
 void		WrapTTExplorerClass(WrappedClassPtr c);
 void		WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
-MaxErr		nmspc_notify(TTPtr self, SymbolPtr s, SymbolPtr msg, void *sender, void *data);
 void		nmspc_assist(TTPtr self, void *b, long m, long a, char *s);
 
 void		nmspc_share_context_node(TTPtr self, TTNodePtr *contextNode);
@@ -51,7 +50,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTExplorerClass(WrappedClassPtr c)
 {
 	// add methods
-	class_addmethod(c->maxClass, (method)nmspc_notify,				"notify",					A_CANT, 0);
 	class_addmethod(c->maxClass, (method)nmspc_assist,				"assist",					A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)nmspc_share_context_node,	"share_context_node",		A_CANT,	0);
@@ -109,11 +107,6 @@ void nmspc_build(TTPtr self, SymbolPtr address)
 		x->wrappedObject->setAttributeValue(kTTSym_Address, v);
 	}
 	 */
-}
-
-t_max_err nmspc_notify(TTPtr self, SymbolPtr s, SymbolPtr msg, void *sender, void *data)
-{
-	return MAX_ERR_NONE;
 }
 
 void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)

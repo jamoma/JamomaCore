@@ -18,7 +18,6 @@ void		WrapTTParameterClass(WrappedClassPtr c);
 void		WrappedParameterClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void		WrappedParameterClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-t_max_err	param_notify(TTPtr self, SymbolPtr s, SymbolPtr msg, TTPtr sender, TTPtr data);
 void		param_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		param_share_context_node(TTPtr self, TTNodePtr *contextNode);
@@ -49,7 +48,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 void WrapTTParameterClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)param_notify,						"notify",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)param_assist,						"assist",				A_CANT, 0L);
 	
 	class_addmethod(c->maxClass, (method)param_share_context_node,			"share_context_node",	A_CANT,	0);
@@ -144,36 +142,6 @@ void param_build(TTPtr self, SymbolPtr address)
 		object_attach_byptr_register(x, context, _sym_box);
 
 	}
-}
-
-t_max_err param_notify(TTPtr self, SymbolPtr s, SymbolPtr msg, TTPtr sender, TTPtr data)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	ObjectPtr	context;
-	TTSymbolPtr	contextAddress;
-	TTValue		v;
-
-	x->subscriberObject->getAttributeValue(TT("Context"), v);
-	v.get(0, (TTPtr*)&context);
-	
-	// if the patcher is deleted
-	if (sender == context)
-		if (msg == _sym_free) {
-			
-			// delete the context node if it exists
-			x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
-			v.get(0, &contextAddress);
-			
-			TTModularDirectory->TTNodeRemove(contextAddress);
-			
-			// delete the subscriber
-			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-			
-			// no more notification
-			object_detach_byptr((ObjectPtr)x, context);
-		}
-	
-	return MAX_ERR_NONE;
 }
 
 // Method for Assistance Messages

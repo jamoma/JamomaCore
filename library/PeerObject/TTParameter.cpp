@@ -16,6 +16,7 @@ TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
 mValueDefault(TTValue(0.0)),
 mValueStepsize(TTValue(0.0)),
+mvalueFlow(TT("through")),
 mType(kTTSym_generic),
 mPriority(0),
 mDescription(kTTSymEmpty),
@@ -789,7 +790,7 @@ TTErr TTParameter::setDataspaceUnitDisplay(const TTValue& value)
 
 TTBoolean TTParameter::checkType(const TTValue& value)
 {
-	if (mType == kTTSym_generic) return true;
+	if (mType == kTTSym_generic || mType == kTTSym_array) return true;
 	
 	switch (value.getType()) 
 	{

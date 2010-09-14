@@ -12,13 +12,11 @@
 #define set_out 0
 #define	dump_out 1
 
-
 // Definitions
 void	WrapTTViewerClass(WrappedClassPtr c);
 void	WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void	view_assist(TTPtr self, void *b, long msg, long arg, char *dst);
-t_max_err view_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void	view_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
@@ -51,7 +49,7 @@ void WrapTTViewerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)view_share_context_node,	"share_context_node",	A_CANT,	0);
 	
-	class_addmethod(c->maxClass, (method)view_bang,				"bang",					0L);
+	class_addmethod(c->maxClass, (method)view_bang,					"bang",					0L);
 	class_addmethod(c->maxClass, (method)view_int,					"int",					A_LONG, 0L);
 	class_addmethod(c->maxClass, (method)view_float,				"float",				A_FLOAT, 0L);
 	class_addmethod(c->maxClass, (method)view_list,					"list",					A_GIMME, 0L);
@@ -99,28 +97,6 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 				break;
 		}
  	}
-}
-
-t_max_err view_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	ObjectPtr context;
-	x->subscriberObject->getAttributeValue(TT("Context"), v);
-	v.get(0, (TTPtr*)&context);
-	
-	// if the patcher is deleted
-	if (sender == context)
-		if (msg == _sym_free) {
-			
-			// delete
-			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-			
-			// no more notification
-			object_detach_byptr((ObjectPtr)x, context);
-		}
-	
-	return MAX_ERR_NONE;
 }
 
 void view_build(TTPtr self, SymbolPtr address)
