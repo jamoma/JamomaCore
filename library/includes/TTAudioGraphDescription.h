@@ -19,8 +19,8 @@ class TTAudioGraphDescription;
 typedef std::vector<TTAudioGraphDescription>		TTAudioGraphDescriptionVector;
 typedef TTAudioGraphDescriptionVector::iterator	TTAudioGraphDescriptionIter;
 
-typedef std::vector<TTString>	TTStringVector;
-
+typedef std::vector<TTString>		TTStringVector;
+typedef TTStringVector::iterator	TTStringIter;
 
 /**	This object represents a single 'outlet' from a TTAudioGraphObject.
 	TTAudioGraphObject maintains a vector of these outlets.
