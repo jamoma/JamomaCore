@@ -12,6 +12,6 @@
 int main(void)
 {
 	TTAudioGraphInit();
-	return wrapAsMaxAudioGraph(TT("Overdrive"), "jcom.overdrive≈", NULL);
+	return wrapAsMaxAudioGraph(TT("overdrive"), "jcom.overdrive≈", NULL);
 }
 
