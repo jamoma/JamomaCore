@@ -50,8 +50,8 @@ TTErr jamoma_directory_dump_by_type(void)
 	TTSymbolPtr osc_adrs;
 	TTErr err;
 	
-	// dump all parameters of the tree
-	err = jamoma_directory_get_node_by_type(TT("/"), TT("Parameter"), returnedTTNodes, &firstReturnedTTNode);
+	// dump all datas of the tree
+	err = jamoma_directory_get_node_by_type(TT("/"), TT("Data"), returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == kTTErrNone){
 		
@@ -60,15 +60,15 @@ TTErr jamoma_directory_dump_by_type(void)
 				
 				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
 				osc_adrs = jamoma_node_OSC_address(n_r);
-				post("parameter : %s", osc_adrs->getCString());
+				post("data : %s", osc_adrs->getCString());
 			}
 			post(" SIZE : %d", returnedTTNodes.getSize());
 		}
 		else
-			post("no parameter");
+			post("no data");
 	}
 	else
-		post("dump parameter error");
+		post("dump data error");
 	
 	return err;
 }
@@ -286,7 +286,7 @@ void jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data)
 	
 	// TODO : find a way to cache those t_symbol else where ...
 	_sym_jcomnode = gensym("jcom.node");
-	_sym_jcomparam = gensym("jcom.parameter");
+	_sym_jcomparam = gensym("jcom.data");
 	_sym_share = gensym("share_context_node");
 	
 	while (obj) {
@@ -457,11 +457,11 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 	return kTTErrGeneric;
 }
 
-// Method to deal with TTParameter
+// Method to deal with TTData
 ///////////////////////////////////////////////////////////////////////
 
-/**	Create a parameter object */
-TTErr jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
+/**	Create a data object */
+TTErr jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -476,22 +476,24 @@ TTErr jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
 	
-	*returnedParameter = NULL;
-	TTObjectInstantiate(TT("Parameter"), TTObjectHandle(returnedParameter), args);
+	args.append(service);
+	
+	*returnedData = NULL;
+	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
 	
 	return kTTErrNone;
 }
 
 /**	Send Max data command */
-TTErr jamoma_parameter_command(TTParameterPtr aParameter, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+TTErr jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	TTValue		v;
 	
-	if (aParameter) {
+	if (aData) {
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		aParameter->sendMessage(kTTSym_command, v);
+		aData->sendMessage(kTTSym_command, v);
 		return kTTErrNone;
 	}
 	
@@ -808,7 +810,7 @@ void jamoma_callback_return_address(TTPtr p_baton, TTValue& data)
 	// unpack data (address)
 	data.get(0, &address);
 	
-	// send data to a parameter using the return_value method
+	// send data to a data using the return_value method
 	object_method(x, jps_return_address, SymbolGen(address->getCString()), 0, 0);
 }
 
@@ -852,7 +854,7 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, A
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * (*argc));
 	
-	if (*argc) {
+	if (*argc || v == kTTValNONE) {
 		for (i=0; i<*argc; i++) {
 			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
 				TTFloat64	value;
@@ -877,8 +879,11 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, A
 		if (i>1)
 			*msg = _sym_list;
 	}
-	else
+	else {
 		*msg = _sym_bang;
+		*argc = 0;
+		*argv = NULL;
+	}
 }
 
 

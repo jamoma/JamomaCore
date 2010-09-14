@@ -75,12 +75,12 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	TTValue		commParamValue;
 	TTString	commParamValueStr;
 	TTUInt8		i;
-	std::map<std::string, std::string> commParameters;
+	std::map<std::string, std::string> commDatas;
 
 	value.get(0, &deviceName);
 	value.get(1, &pluginToUse);
 	
-	// prepare commParameters
+	// prepare commDatas
 	for (i=2; i<(value.getSize()-1); i=i+2) {
 		
 		if (value.getType(i) == kTypeSymbol) {
@@ -106,7 +106,7 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 				commParamValue.toString();
 				commParamValue.get(0, commParamValueStr);
 				
-				commParameters[commParamName->getCString()] = commParamValueStr.data();
+				commDatas[commParamName->getCString()] = commParamValueStr.data();
 			}
 			else return kTTErrGeneric;
 		}
@@ -115,7 +115,7 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	
 
 	// create device
-	this->mDeviceManager->deviceAdd(deviceName->getCString(), pluginToUse->getCString(), &commParameters);
+	this->mDeviceManager->deviceAdd(deviceName->getCString(), pluginToUse->getCString(), &commDatas);
 	
 	return kTTErrNone;
 }
@@ -421,15 +421,15 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 					instanceName += aChild->getInstance()->getString();
 				}
 				
-				// if the node is a parameter : add it as a leaf
+				// if the node is a data : add it as a leaf
 				// else : add it as a node
 				aChild->getAttributeValue(TT("Object"), v);
 				v.get(0, (TTPtr*)&o);
 				
-				// if the object is a Parameter : push his name in the leaves list
+				// if the object is a Data : push his name in the leaves list
 				if (o) {
 					type = o->getName();
-					if(type == TT("Parameter")) {
+					if(type == TT("Data")) {
 						returnedLeaves.push_back(instanceName.c_str());
 						continue;
 					}
@@ -450,8 +450,8 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 				type = o->getName();
 				
 				// Add the access attribute which is not a jamoma attribute
-				// only for the parameter
-				if(type == TT("Parameter"))
+				// only for the data
+				if(type == TT("Data"))
 					returnedAttributes.push_back(NAMESPACE_ATTR_ACCESS);
 				
 				// Add all other attributes
@@ -562,7 +562,7 @@ void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attri
 			v.get(0, (TTPtr*)&o);
 			nodeType = o->getName();
 			
-			if(nodeType == TT("Parameter")){
+			if(nodeType == TT("Data")){
 				
 				v.clear();
 				v.append(newValue);

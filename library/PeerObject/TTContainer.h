@@ -26,7 +26,7 @@ public:
 	TTUInt8				mPriority;						///< ATTRIBUTE: does this container have a priority over other containers ?
 	TTSymbolPtr			mDescription;					///< ATTRIBUTE: a text label to describe the role of this container
 	TTSymbolPtr			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
-	TTBoolean			mInitialized;					///< ATTRIBUTE: is all TTParameters below have been initialized ?
+	TTBoolean			mInitialized;					///< ATTRIBUTE: is all TTDatas below have been initialized ?
 	
 private:
 	

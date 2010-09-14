@@ -30,7 +30,7 @@ extern "C" {
 	/** Get the node(s) at the given address (with wildcard too) */
 	TTErr			jamoma_directory_get_node(TTSymbolPtr address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
-	/** Get all parameters below the given address (with wildcard too) */
+	/** Get all datas below the given address (with wildcard too) */
 	TTErr			jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	bool			testTTNodeType(TTNodePtr n, void *args);
 	
@@ -97,14 +97,14 @@ extern "C" {
 	TTErr			jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv);
 	
 	
-	// Method to deal with TTParameter
+	// Method to deal with TTData
 	///////////////////////////////////////////////////////////////////////
 	
-	/**	Create a parameter object */
-	TTErr			jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter);
+	/**	Create a data object */
+	TTErr			jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service);
 	
 	/**	Send Max data command */
-	TTErr			jamoma_parameter_command(TTParameterPtr aParameter, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+	TTErr			jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	
 	
 	// Method to deal with TTSender

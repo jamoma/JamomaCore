@@ -33,9 +33,11 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Initialized;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_map;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_message;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_parameter;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Priority;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RangeBounds;
@@ -45,6 +47,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampFunction;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Readonly;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RepetitionsAllow;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_send;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;

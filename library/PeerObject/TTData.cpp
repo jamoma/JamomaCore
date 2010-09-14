@@ -1,22 +1,21 @@
 /* 
- * A Parameter Object
+ * A Data Object
  * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTParameter.h"
+#include "TTData.h"
 
-#define thisTTClass			TTParameter
-#define thisTTClassName		"Parameter"
-#define thisTTClassTags		"parameter"
+#define thisTTClass			TTData
+#define thisTTClassName		"Data"
+#define thisTTClassTags		"data"
 
 TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
 mValueDefault(TTValue(0.0)),
 mValueStepsize(TTValue(0.0)),
-mvalueFlow(TT("through")),
 mType(kTTSym_generic),
 mPriority(0),
 mDescription(kTTSymEmpty),
@@ -26,7 +25,7 @@ mViewFreeze(NO),
 mInitialized(NO),
 mRangeBounds(0.0, 1.0),
 mRangeClipmode(kTTSym_none),
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 mRampDrive(kTTSym_none),
 mRampFunction(kTTSymEmpty),
 #endif
@@ -34,15 +33,19 @@ mDataspace(kTTSym_none),
 mDataspaceUnitNative(kTTSym_none),
 mDataspaceUnitActive(kTTSym_none),
 mDataspaceUnitDisplay(kTTSym_none),
+mservice(kTTSym_parameter),
 mReturnValueCallback(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTParameter", arguments.getSize() == 1);
+	TT_ASSERT("Correct number of args to create TTData", arguments.getSize() == 1);
 	
 	arguments.get(0, (TTPtr*)&mReturnValueCallback);
-	TT_ASSERT("Return Value Callback passed to TTParameter is not NULL", mReturnValueCallback);
+	TT_ASSERT("Return Value Callback passed to TTData is not NULL", mReturnValueCallback);
 	
-	addAttributeWithSetter(Value, kTypeNone);
-	addAttributeWithSetter(ValueDefault, kTypeNone);
+	if (arguments.getSize() == 2)
+		arguments.get(1, &mservice);
+	
+	addAttributeWithGetterAndSetter(Value, kTypeNone);
+	addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
 	addAttributeWithSetter(ValueStepsize, kTypeFloat32);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
@@ -58,7 +61,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(RangeBounds, kTypeLocalValue);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
 	
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
 	addAttributeWithSetter(RampFunction, kTypeSymbol);
 #endif
@@ -68,6 +71,8 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(DataspaceUnitActive, kTypeSymbol);
 	addAttributeWithSetter(DataspaceUnitDisplay, kTypeSymbol);
 	
+	addAttribute(service, kTypeSymbol);
+	
 	addMessage(Reset);
 	addMessageWithArgument(Inc);
 	addMessageWithArgument(Dec);
@@ -75,9 +80,9 @@ mReturnValueCallback(NULL)
 	
 	mIsSending = NO;
 	
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	mRamper = NULL;
-	mRampParameterNames = new TTHash();
+	mRampDataNames = new TTHash();
 #endif
 	dataspace_active2native	= NULL;
 	dataspace_override2active = NULL;
@@ -85,9 +90,9 @@ mReturnValueCallback(NULL)
 	dataspace_display2active = NULL;
 }
 
-TTParameter::~TTParameter()
+TTData::~TTData()
 {
-#ifdef TTPARAMETER_RAMPLIB	
+#ifdef TTDATA_RAMPLIB	
 	if (mRamper)
 		TTObjectRelease(TTObjectHandle(&mRamper));
 #endif
@@ -96,13 +101,13 @@ TTParameter::~TTParameter()
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 }
 
-TTErr TTParameter::Reset()
+TTErr TTData::Reset()
 {
 	// if valueDefault type is right
 	if (checkType(mValueDefault))
 		setValue(mValueDefault);
 	
-	// Set parameter to be uninitialised
+	// Set data to be uninitialised
 	// to circumvent filtering of repetitions when outputing value from default preset
 	mInitialized = NO;
 	notifyObservers(kTTSym_Initialized, NO);
@@ -110,7 +115,7 @@ TTErr TTParameter::Reset()
 	return kTTErrNone;
 }
 
-TTErr TTParameter::Inc(const TTValue& value)
+TTErr TTData::Inc(const TTValue& value)
 {
 	TTUInt32	i;
 	TTFloat64	inc, ramptime, v;
@@ -175,7 +180,7 @@ TTErr TTParameter::Inc(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::Dec(const TTValue& value)
+TTErr TTData::Dec(const TTValue& value)
 {
 	TTUInt32	i;
 	TTFloat64	dec, ramptime, v;
@@ -240,9 +245,9 @@ TTErr TTParameter::Dec(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::command(const TTValue& command)
+TTErr TTData::command(const TTValue& command)
 {
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	double		time;
 #endif
 	int			commandSize;
@@ -380,7 +385,7 @@ TTErr TTParameter::command(const TTValue& command)
 	
 	// 5. Ramp the convertedValue
 	/////////////////////////////////
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	if (hasRamp) {
 		
 		command.get(commandSize - 1, time);
@@ -425,14 +430,20 @@ TTErr TTParameter::command(const TTValue& command)
 		
 		setValue(convertedValue);
 		
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	}
 #endif
 	
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setValue(const TTValue& value)
+TTErr TTData::getValue(TTValue& value)
+{
+	value = mValue;
+	return kTTErrNone;
+}
+
+TTErr TTData::setValue(const TTValue& value)
 {
 	TTValue r, n;
 	
@@ -464,7 +475,7 @@ TTErr TTParameter::setValue(const TTValue& value)
 			if (mType == kTTSym_boolean)
 				mValue.booleanize();
 			
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 			if (clipValue() && mRamper)
 				mRamper->stop();
 #else
@@ -489,10 +500,12 @@ TTErr TTParameter::setValue(const TTValue& value)
 		n = mValue;
 		
 		// return the value to his owner
-		this->mReturnValueCallback->notify(r);
+		if (!(mservice == kTTSym_return))
+			this->mReturnValueCallback->notify(r);
 		
 		// notify each observers
-		notifyObservers(kTTSym_Value, n);
+		if (!(mservice == kTTSym_message))
+			notifyObservers(kTTSym_Value, n);
 		
 		// unlock
 		mIsSending = NO;
@@ -503,7 +516,13 @@ TTErr TTParameter::setValue(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTParameter::setValueDefault(const TTValue& value)
+TTErr TTData::getValueDefault(TTValue& value)
+{
+	value = mValueDefault;
+	return kTTErrNone;
+}
+
+TTErr TTData::setValueDefault(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mValueDefault = value;
@@ -511,7 +530,7 @@ TTErr TTParameter::setValueDefault(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setValueStepsize(const TTValue& value)
+TTErr TTData::setValueStepsize(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mValueStepsize = value;
@@ -519,7 +538,7 @@ TTErr TTParameter::setValueStepsize(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setType(const TTValue& value)
+TTErr TTData::setType(const TTValue& value)
 {
 	// if the new type is different
 	if (!(TTValue(mType) == value)) {
@@ -534,59 +553,59 @@ TTErr TTParameter::setType(const TTValue& value)
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
 			mValue = TTValue(0);
-			addAttributeWithSetter(Value, kTypeInt32);
+			addAttributeWithGetterAndSetter(Value, kTypeInt32);
 			mValueDefault = TTValue(0);
-			addAttributeWithSetter(ValueDefault, kTypeInt32);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
 			mRangeBounds = TTValue(0, 1);
 		}
 		else if (mType == kTTSym_decimal) {
 			mValue = TTValue(0.);
-			addAttributeWithSetter(Value, kTypeFloat64);
+			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithSetter(ValueDefault, kTypeFloat64);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds = TTValue(0., 1.);
 		}
 		else if (mType == kTTSym_string) {
-			mValue = TTValue("");
-			addAttributeWithSetter(Value, kTypeSymbol);
-			mValueDefault = TTValue("");
-			addAttributeWithSetter(ValueDefault, kTypeSymbol);
+			mValue = TTValue(kTTSymEmpty);
+			addAttributeWithGetterAndSetter(Value, kTypeSymbol);
+			mValueDefault = TTValue(kTTSymEmpty);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeSymbol);
 			mRangeBounds = kTTValNONE;
 		}
 		else if (mType == kTTSym_boolean) {
 			mValue = TTValue(NO);
-			addAttributeWithSetter(Value, kTypeBoolean);
+			addAttributeWithGetterAndSetter(Value, kTypeBoolean);
 			mValueDefault = TTValue(NO);
-			addAttributeWithSetter(ValueDefault, kTypeBoolean);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeBoolean);
 			mRangeBounds = TTValue(0, 1);
 		}
 		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
 			mValue = TTValue(0.);
-			addAttributeWithSetter(Value, kTypeFloat64);
+			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithSetter(ValueDefault, kTypeFloat64);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds = TTValue(0., 1.);
 		}
 	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
 			mValue = kTTValNONE;
-			addAttributeWithSetter(Value, kTypeNone);
+			addAttributeWithGetterAndSetter(Value, kTypeNone);
 			mValueDefault = kTTValNONE;
-			addAttributeWithSetter(ValueDefault, kTypeNone);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
 			mRangeBounds = kTTValNONE;
 		}
 	//#endif // JMOD_MESSAGE
 		else {
 			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
 			mValue = TTValue(0.);
-			addAttributeWithSetter(Value, kTypeFloat64);
+			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithSetter(ValueDefault, kTypeFloat64);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds = TTValue(0., 1.);
 			return kTTErrGeneric;
 		}
 
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 		rampSetup();
 #endif
 		
@@ -595,7 +614,7 @@ TTErr TTParameter::setType(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setRepetitionsAllow(const TTValue& value)
+TTErr TTData::setRepetitionsAllow(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mRepetitionsAllow = value;
@@ -603,7 +622,7 @@ TTErr TTParameter::setRepetitionsAllow(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setReadonly(const TTValue& value)
+TTErr TTData::setReadonly(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mReadonly = value;
@@ -611,7 +630,7 @@ TTErr TTParameter::setReadonly(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setViewFreeze(const TTValue& value)
+TTErr TTData::setViewFreeze(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mViewFreeze = value;
@@ -619,7 +638,7 @@ TTErr TTParameter::setViewFreeze(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setRangeBounds(const TTValue& value)
+TTErr TTData::setRangeBounds(const TTValue& value)
 {	
 	TTValue n;				// use new value to protect the attribute
 	mRangeBounds = value;
@@ -633,7 +652,7 @@ TTErr TTParameter::setRangeBounds(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setRangeClipmode(const TTValue& value)
+TTErr TTData::setRangeClipmode(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mRangeClipmode = value;
@@ -641,8 +660,8 @@ TTErr TTParameter::setRangeClipmode(const TTValue& value)
 	return kTTErrNone;
 }
 
-#ifdef TTPARAMETER_RAMPLIB
-TTErr TTParameter::setRampDrive(const TTValue& value)
+#ifdef TTDATA_RAMPLIB
+TTErr TTData::setRampDrive(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mRampDrive = value;
@@ -653,7 +672,7 @@ TTErr TTParameter::setRampDrive(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setRampFunction(const TTValue& value)
+TTErr TTData::setRampFunction(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mRampFunction = value;
@@ -669,8 +688,8 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 			 TTString	nameString;
 			 
 			// cache the function's attribute names
-			mRampParameterNames->clear();
-			mRamper->getFunctionParameterNames(names);
+			mRampDataNames->clear();
+			mRamper->getFunctionDataNames(names);
 			n = names.getSize();
 			for (int i=0; i<n; i++) {
 				
@@ -678,13 +697,13 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 				nameString = aName->getString();
 				
 				if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
-					continue;										// don't publish these parameters
+					continue;										// don't publish these datas
 				
 				if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
 					nameString[0] += 32;							// convert first letter to lower-case for Max
 					
 					TTValuePtr v = new TTValue(aName);
-					mRampParameterNames->append(TT(nameString.c_str()), *v);
+					mRampDataNames->append(TT(nameString.c_str()), *v);
 				}
 			}
 	}
@@ -694,7 +713,7 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 }
 #endif
 
-TTErr TTParameter::setDataspace(const TTValue& value)
+TTErr TTData::setDataspace(const TTValue& value)
 {
 	TTErr	err;
 	TTValue n = value;				// use new value to protect the attribute
@@ -744,7 +763,7 @@ TTErr TTParameter::setDataspace(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setDataspaceUnitNative(const TTValue& value)
+TTErr TTData::setDataspaceUnitNative(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnitNative = value;
@@ -755,7 +774,7 @@ TTErr TTParameter::setDataspaceUnitNative(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setDataspaceUnitActive(const TTValue& value)
+TTErr TTData::setDataspaceUnitActive(const TTValue& value)
 {	
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnitActive = value;
@@ -773,7 +792,7 @@ TTErr TTParameter::setDataspaceUnitActive(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setDataspaceUnitDisplay(const TTValue& value)
+TTErr TTData::setDataspaceUnitDisplay(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnitDisplay = value;
@@ -788,7 +807,7 @@ TTErr TTParameter::setDataspaceUnitDisplay(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTBoolean TTParameter::checkType(const TTValue& value)
+TTBoolean TTData::checkType(const TTValue& value)
 {
 	if (mType == kTTSym_generic || mType == kTTSym_array) return true;
 	
@@ -816,7 +835,7 @@ TTBoolean TTParameter::checkType(const TTValue& value)
 	}
 }
 
-TTBoolean TTParameter::clipValue()
+TTBoolean TTData::clipValue()
 {
 	//bool	didClipAll = false;
 	
@@ -845,8 +864,8 @@ TTBoolean TTParameter::clipValue()
 	return false;
 }
 
-#ifdef TTPARAMETER_RAMPLIB
-TTErr TTParameter::rampSetup()
+#ifdef TTDATA_RAMPLIB
+TTErr TTData::rampSetup()
 {
 
 	// 1. destroy the old rampunit
@@ -860,10 +879,10 @@ TTErr TTParameter::rampSetup()
 	if (mType == kTTSym_none || mType == kTTSym_string || mType == kTTSym_generic)
 		mRampDrive = kTTSym_none;
 	else 
-		RampLib::createUnit(mRampDrive, &mRamper, &TTParameterRampUnitCallback, (void *)this);
+		RampLib::createUnit(mRampDrive, &mRamper, &TTDataRampUnitCallback, (void *)this);
 	
 	if (mRamper == NULL)
-		return kTTErrGeneric; //error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
+		return kTTErrGeneric; //error("jcom.data (%s module): could not allocate memory for ramp unit!", x->common.module_name);
 	
 	// 3. reset the ramp function
 	setRampFunction(mRampFunction);
@@ -872,7 +891,7 @@ TTErr TTParameter::rampSetup()
 }
 #endif
 
-TTErr TTParameter::convertUnit(const TTValue& inValue, TTValue& outValue)
+TTErr TTData::convertUnit(const TTValue& inValue, TTValue& outValue)
 {
 	if (mDataspace && dataspace_active2native && (mDataspaceUnitActive != mDataspaceUnitNative))
 		dataspace_active2native->convert(inValue, outValue);
@@ -882,7 +901,7 @@ TTErr TTParameter::convertUnit(const TTValue& inValue, TTValue& outValue)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
+TTErr TTData::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 {
 	TTAttributePtr	anAttribute = NULL;
 	TTErr			err;
@@ -900,10 +919,10 @@ TTErr TTParameter::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-#ifdef TTPARAMETER_RAMPLIB
-void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
+#ifdef TTDATA_RAMPLIB
+void TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
-	TTParameterPtr	aParameter = (TTParameterPtr)o;
+	TTDataPtr	aData = (TTDataPtr)o;
 	TTValue			rampedValue;
 	TTUInt16		i;
 	
@@ -911,14 +930,14 @@ void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	for (i=0; i<n; i++)
 		rampedValue.set(i, rampedArray[i]);
 	
-	if (aParameter->mType == kTTSym_integer)
+	if (aData->mType == kTTSym_integer)
 		rampedValue.truncate();
 	
-	if (!aParameter->mRepetitionsAllow)
-		if (aParameter->mValue == rampedValue)
+	if (!aData->mRepetitionsAllow)
+		if (aData->mValue == rampedValue)
 			return;
 		
 	// set internal value
-	aParameter->setValue(rampedValue);
+	aData->setValue(rampedValue);
 }
 #endif

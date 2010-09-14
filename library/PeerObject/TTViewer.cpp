@@ -27,6 +27,7 @@ mReturnValueCallback(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
+	addMessage(Refresh);
 	addMessageWithArgument(send);
 }
 
@@ -86,15 +87,23 @@ TTErr TTViewer::setAddress(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTViewer::Refresh()
+{
+	if (mReceiver)
+		return mReceiver->sendMessage(TT("get"));
+	
+	return kTTErrGeneric;
+}
+
 TTErr TTViewer::send(TTValue& valueToSend)
 {
 	// TODO : add a dataspace for the Viewer
 	//aViewer->processDataspace(v);
 	
 	if (mSender)
-		mSender->sendMessage(kTTSym_send, valueToSend);
+		return mSender->sendMessage(kTTSym_send, valueToSend);
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 #if 0

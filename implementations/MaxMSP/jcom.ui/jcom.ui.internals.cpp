@@ -9,37 +9,37 @@
 
 #include "jcom.ui.h"
 
-void ui_create_colors(t_ui* obj)
+void ui_create_all_datas(t_ui* obj)
 {
 	TTObjectPtr			anObject;
 	TTValue				v;
 	
 	// view/color/contentBackground
-	ui_create_parameter(obj, &anObject, gensym("return_color_contentBackground"), TT("view/color/contentBackground"));
+	ui_create_data(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_parameter, TT("view/color/contentBackground"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The background color of the module in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/color/toolbarBackground
-	ui_create_parameter(obj, &anObject, gensym("return_color_toolbarBackground"), TT("view/color/toolbarBackground"));
+	ui_create_data(obj, &anObject, gensym("return_color_toolbarBackground"), kTTSym_parameter, TT("view/color/toolbarBackground"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/color/toolbarText
-	ui_create_parameter(obj, &anObject, gensym("return_color_toolbarText"), TT("view/color/toolbarText"));
+	ui_create_data(obj, &anObject, gensym("return_color_toolbarText"), kTTSym_parameter, TT("view/color/toolbarText"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/color/border
-	ui_create_parameter(obj, &anObject, gensym("return_color_border"), TT("view/color/border"));
+	ui_create_data(obj, &anObject, gensym("return_color_border"), kTTSym_parameter, TT("view/color/border"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The border color of the module in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/size
-	ui_create_parameter(obj, &anObject, gensym("return_view_size"), TT("view/size"));
+	ui_create_data(obj, &anObject, gensym("return_view_size"), kTTSym_parameter, TT("view/size"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The size of the module's UI."));
@@ -49,34 +49,40 @@ void ui_create_colors(t_ui* obj)
 	anObject->setAttributeValue(kTTSym_Value, v);
 	
 	// view/freeze
-	ui_create_parameter(obj, &anObject, gensym("return_view_freeze"), TT("view/freeze"));
+	ui_create_data(obj, &anObject, gensym("return_view_freeze"), kTTSym_parameter, TT("view/freeze"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_boolean);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("Freeze each jcom.view in the patch"));
+	
+	// view/freeze
+	ui_create_data(obj, &anObject, gensym("return_view_refresh"), kTTSym_message, TT("view/refresh"));
+	anObject->setAttributeValue(kTTSym_Type, kTTSym_none);
+	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
+	anObject->setAttributeValue(kTTSym_Description, TT("Refresh each jcom.view in the patch"));
 }
 
-void ui_destroy_colors(t_ui *obj)
+void ui_destroy_all_datas(t_ui *obj)
 {
 	TTValue			hk, v;
 	TTSymbolPtr		key;
 	TTUInt8			i;
 	
-	// delete all parameters
-	if (obj->hash_parameters) {
+	// delete all datas
+	if (obj->hash_datas) {
 		
-		obj->hash_parameters->getKeys(hk);
+		obj->hash_datas->getKeys(hk);
 		
-		for (i=0; i<obj->hash_parameters->getSize(); i++) {
+		for (i=0; i<obj->hash_datas->getSize(); i++) {
 			
 			hk.get(i,(TTSymbolPtr*)&key);
-			ui_destroy_parameter(obj, key);
+			ui_destroy_data(obj, key);
 		}
 		
-		delete obj->hash_parameters;
+		delete obj->hash_datas;
 	}
 }
 								   
-void ui_create_parameter(t_ui *obj, TTObjectPtr *returnedParameter, SymbolPtr aCallbackMethod, TTSymbolPtr name)
+void ui_create_data(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbolPtr service, TTSymbolPtr name)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -85,7 +91,7 @@ void ui_create_parameter(t_ui *obj, TTObjectPtr *returnedParameter, SymbolPtr aC
 	TTBoolean		nodeCreated;
 	TTSymbolPtr		paramAddress;
 	
-	// Prepare arguments to create a TTParameter object
+	// Prepare arguments to create a TTData object
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(obj));
@@ -94,25 +100,25 @@ void ui_create_parameter(t_ui *obj, TTObjectPtr *returnedParameter, SymbolPtr aC
 	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
 	
-	*returnedParameter = NULL;
-	TTObjectInstantiate(TT("Parameter"), TTObjectHandle(returnedParameter), args);
+	*returnedData = NULL;
+	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
 	
-	// Register parameter
+	// Register data
 	joinOSCAddress(obj->modelAddress, name, &paramAddress);
-	TTModularDirectory->TTNodeCreate(paramAddress, *returnedParameter, NULL, &aNode, &nodeCreated);
+	TTModularDirectory->TTNodeCreate(paramAddress, *returnedData, NULL, &aNode, &nodeCreated);
 	
-	// Store the parameter
-	args = TTValue(TTPtr(*returnedParameter));
-	obj->hash_parameters->append(name, args);
+	// Store the data
+	args = TTValue(TTPtr(*returnedData));
+	obj->hash_datas->append(name, args);
 }								   
 
-void ui_destroy_parameter(t_ui *obj, TTSymbolPtr name)
+void ui_destroy_data(t_ui *obj, TTSymbolPtr name)
 {
 	TTValue			storedObject;
 	TTObjectPtr		anObject;
 	TTSymbolPtr		paramAddress;
 	
-	obj->hash_parameters->lookup(name, storedObject);
+	obj->hash_datas->lookup(name, storedObject);
 	storedObject.get(0, (TTPtr*)&anObject);
 	
 	joinOSCAddress(obj->modelAddress, name, &paramAddress);
@@ -123,13 +129,13 @@ void ui_destroy_parameter(t_ui *obj, TTSymbolPtr name)
 		TTObjectRelease(&anObject);
 }
 
-void ui_send_parameter(t_ui *obj, TTSymbolPtr name, TTValue v)
+void ui_send_data(t_ui *obj, TTSymbolPtr name, TTValue v)
 {
 	TTValue			storedObject;
 	TTObjectPtr		anObject;
 	TTSymbolPtr		paramAddress;
 	
-	obj->hash_parameters->lookup(name, storedObject);
+	obj->hash_datas->lookup(name, storedObject);
 	storedObject.get(0, (TTPtr*)&anObject);
 	
 	anObject->setAttributeValue(kTTSym_Value, v);
@@ -219,7 +225,7 @@ void ui_send_viewer(t_ui *obj, TTSymbolPtr name, TTValue v)
 #pragma mark message handlers
 #endif
 
-void ui_observe_parameter(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
 	SymbolPtr	paramName;
@@ -235,11 +241,11 @@ void ui_observe_parameter(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 	TTBoolean	preset = false;			// is there a /preset node in the model ?
 	TTBoolean	help = false;			// is there a help patch for the model ?
 	TTBoolean	ref = false;			// is there a ref page for the model ?
-										// note : we don't look for some other parameters because 
+										// note : we don't look for some other datas because 
 										// they exist for any model (/view/refresh, /autodoc, ...)
 	TTBoolean	change = false;
 	
-	// look the namelist to know which parameter exist
+	// look the namelist to know which data exist
 	for (long i=0; i<argc; i++) {
 		
 		paramName = atom_getsym(argv+i);
@@ -260,7 +266,7 @@ void ui_observe_parameter(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 			panel = true;
 		else if (paramName == gensym("/audio/meters/freeze"))
 			meters = true;
-		else if (paramName == gensym("/preset/load"))			// the internal TTExplorer looks for Parameters (not for node like /preset)
+		else if (paramName == gensym("/preset/load"))			// the internal TTExplorer looks for Datas (not for node like /preset)
 			preset = true;
 		else if (paramName == gensym("/model/help"))			// TODO : create sender (a viewer is useless)
 			help = true;
@@ -268,7 +274,7 @@ void ui_observe_parameter(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 			ref = true;
 	}
 	
-	// if a parameter appears or disappears : create or remove the viewer
+	// if a data appears or disappears : create or remove the viewer
 	
 	// gain
 	if (gain != obj->has_gain) {
@@ -410,6 +416,35 @@ void ui_return_view_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	t_ui* obj = (t_ui*)self;
 	
 	; // do nothing ?
+}
+
+void ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	TTValue			hk, v;
+	TTSymbolPtr		key;
+	TTUInt8			i;
+	TTValue			storedObject;
+	TTObjectPtr		anObject;
+	
+	// delete all viewers
+	if (obj->hash_viewers) {
+		
+		obj->hash_viewers->getKeys(hk);
+		
+		for (i=0; i<obj->hash_viewers->getSize(); i++) {
+			
+			hk.get(i,(TTSymbolPtr*)&key);
+			obj->hash_viewers->lookup(key, storedObject);
+			storedObject.get(0, (TTPtr*)&anObject);
+				
+			if (anObject)
+				anObject->sendMessage(TT("Refresh"), kTTValNONE);
+
+		}
+		
+		delete obj->hash_viewers;
+	}
 }
 
 void ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

@@ -81,23 +81,23 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 }
 
 
-TTErr RampUnit::getFunctionParameterNames(TTValue& names)
+TTErr RampUnit::getFunctionDataNames(TTValue& names)
 {
 	functionUnit->getAttributeNames(names);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::setFunctionParameterValue(TTSymbol* parameterName, TTValue& newValue)
+TTErr RampUnit::setFunctionDataValue(TTSymbol* dataName, TTValue& newValue)
 {
-	functionUnit->setAttributeValue(parameterName, newValue);
+	functionUnit->setAttributeValue(dataName, newValue);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::getFunctionParameterValue(TTSymbol* parameterName, TTValue& value)
+TTErr RampUnit::getFunctionDataValue(TTSymbol* dataName, TTValue& value)
 {
-	functionUnit->getAttributeValue(parameterName, value);
+	functionUnit->getAttributeValue(dataName, value);
 	return kTTErrNone;
 }
 

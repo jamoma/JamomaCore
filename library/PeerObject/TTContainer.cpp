@@ -75,7 +75,7 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 			AddressAndValue.get(0, &aRelativeAddress);
 			AddressAndValue.get(1, (TTPtr*)&valueToSend);
 				
-			// get the Parameter object
+			// get the Data object
 			err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
 			
 			// if the relativeAddress is in the cache
@@ -83,14 +83,16 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 				
 				cacheElement.get(0, (TTPtr*)&anObject);
 				
-				// it is a Parameter
-				if (anObject->getName() == TT("Parameter")) {
+				// it is a Data
+				if (anObject->getName() == TT("Data")) {
 					// set the value attribute using a command
 					anObject->sendMessage(kTTSym_command, *valueToSend);
 				}
 			}
 			// if not use TTModularDirectory instead
 			else {
+				// unlock
+				mIsSending = false;
 				return kTTErrGeneric; // TODO : this would allow us to use * also
 			}
 				
@@ -122,15 +124,15 @@ TTErr TTContainer::bind()
 	
 	mObjectsObserversCache  = new TTHash();
 	
-	// 1. Look for all Parameters under the address into the directory with the same Context
+	// 1. Look for all Datas under the address into the directory with the same Context
 	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
 	
-	v.append(TT("Parameter"));
+	v.append(TT("Data"));
 	v.append(TT("Container"));
 	v.append(aNode->getContext());
 	err = mDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
 	
-	// 2. make a cache containing each relativeAddress : Parameter and Observer
+	// 2. make a cache containing each relativeAddress : Data and Observer
 	for (allObjectsNodes.begin(); allObjectsNodes.end(); allObjectsNodes.next()) {
 		
 		allObjectsNodes.current().get(0, (TTPtr*)&aNode);
@@ -160,7 +162,7 @@ TTErr TTContainer::bind()
 TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 {
 	TTValue			cacheElement, v;
-	TTSymbolPtr		aRelativeAddress;
+	TTSymbolPtr		aRelativeAddress, service;
 	TTObjectPtr		anObject, newObserver;
 	TTAttributePtr	anAttribute = NULL;
 	TTValuePtr		newBaton;
@@ -168,12 +170,19 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	// process the relative address
 	aNode->getOscAddress(&aRelativeAddress, mAddress);
 	
-	// add Parameter or Container to the cacheElement
+	// add Data or Container to the cacheElement
 	anObject = aNode->getObject();
 	cacheElement.append((TTPtr)anObject);
 	
-	// it is a Parameter
-	if (anObject->getName() == TT("Parameter")) {
+	// it is a Data
+	if (anObject->getName() == TT("Data")) {
+		
+		// Is the Data a return ?
+		anObject->getAttributeValue(TT("service"), v);
+		v.get(0, &service);
+		if (service == kTTSym_return)
+			// don't keep return and don't observe his initialisation state
+			return kTTErrGeneric;
 		
 		// create a Value Attribute observer on it
 		anObject->findAttribute(kTTSym_Value, &anAttribute);
@@ -238,8 +247,8 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	if (!err) {
 		cacheElement.get(0, (TTPtr*)&anObject);
 		
-		// it is a Parameter
-		if (anObject->getName() == TT("Parameter")) {
+		// it is a Data
+		if (anObject->getName() == TT("Data")) {
 			
 			// delete Value observer
 			cacheElement.get(1, (TTPtr*)&aValueObserver);
@@ -269,7 +278,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 		}
 	}
 
-	// remove cacheParameter
+	// remove cacheData
 	return mObjectsObserversCache->remove(aRelativeAddress);
 }
 
@@ -283,7 +292,7 @@ TTErr TTContainer::unbind()
 	TTUInt8			i;
 	TTErr			err;
 	
-	// delete all attribute observers of mParametersObserversCache
+	// delete all attribute observers of mDatasObserversCache
 	if (mObjectsObserversCache) {
 		
 		mObjectsObserversCache->getKeys(hk);
@@ -295,8 +304,8 @@ TTErr TTContainer::unbind()
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
 			if (anObject) {
-				// is it a Parameter ?
-				if (anObject->getName() == TT("Parameter")) {
+				// is it a Data ?
+				if (anObject->getName() == TT("Data")) {
 					
 					// delete Value observer
 					cacheElement.get(1, (TTPtr*)&aValueObserver);
@@ -416,7 +425,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(3, (TTPtr*)&anObserver);
 	
 	// Prepare argument
-	arg.append(TT("Parameter"));
+	arg.append(TT("Data"));
 	arg.append(TT("Container"));
 	arg.append(hisContext);
 	
@@ -496,10 +505,10 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 	TTValuePtr	av;
 	TTPtr		c, t_c, p_c;
 	TTObjectPtr o;
-	TTSymbolPtr parameter, container;
+	TTSymbolPtr data, container;
 	
 	av = (TTValuePtr)args;
-	av->get(0, &parameter);
+	av->get(0, &data);
 	av->get(1, &container);
 	av->get(2, (TTPtr*)&t_c);
 	
@@ -511,10 +520,10 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 		return NO; // don't keep the root
 	
 	if (o && c)
-		// Keep only Parameter from our context or Container from the context below 
+		// Keep only Data from our context or Container from the context below 
 		// To keep Containers which are not just below this Container :
 		// get the Context of his parent and compare it to our context (it should be equal...)
-		return (o->getName() == parameter && c == t_c) || (o->getName() == container && c != t_c && p_c == t_c);
+		return (o->getName() == data && c == t_c) || (o->getName() == container && c != t_c && p_c == t_c);
 	else
 		return NO;
 }

@@ -84,7 +84,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_mouseup,							"mouseup",							A_CANT, 0);
 	class_addmethod(c, (method)ui_oksize,							"oksize",							A_CANT, 0);
 	
-	class_addmethod(c, (method)ui_observe_parameter,				"return_value",						A_CANT, 0);
+	class_addmethod(c, (method)ui_observe_data,				"return_value",						A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_color_contentBackground,	"return_color_contentBackground",	A_CANT, 0);
 	class_addmethod(c, (method)ui_return_color_toolbarBackground,	"return_color_toolbarBackground",	A_CANT, 0);
@@ -165,7 +165,7 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->outlet = outlet_new(x, 0L);
 		x->menu_items = NULL;
 		x->refmenu_items = NULL;
-		x->hash_parameters = new TTHash();
+		x->hash_datas = new TTHash();
 		x->hash_viewers = new TTHash();
 		
 		attr_dictionary_process(x, d); 					// handle attribute args
@@ -197,7 +197,7 @@ void ui_free(t_ui *x)
 	x->refmenu_qelem = NULL;
 	object_free(x->refmenu_items);
 	
-	ui_destroy_colors(x);
+	ui_destroy_all_datas(x);
 	ui_destroy_all_viewers(x);
 }
 
@@ -248,13 +248,13 @@ void ui_build(t_ui *x)
 	// Build the address to bind
 	jamoma_viewer_get_model_address((ObjectPtr)x, &x->modelAddress, (TTPtr*)&aPatcher);
 	
-	// Create internal parameters to expose colors attribute
-	ui_create_colors(x);
+	// Create internal datas to expose colors attribute
+	ui_create_all_datas(x);
 	
 	// Create internal Explorer to observe the namespace
-	// by this way, the creation of any widgets depends on the existence of the parameter
+	// by this way, the creation of any widgets depends on the existence of the data
 	jamoma_explorer_create((ObjectPtr)x, &x->explorer);
-	v = TTValue(TT("Parameter"));
+	v = TTValue(TT("Data"));
 	x->explorer->setAttributeValue(TT("Lookfor"), v);
 	v = TTValue(x->modelAddress);
 	x->explorer->setAttributeValue(kTTSym_Address, v);
@@ -659,7 +659,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		return;
 	
 	if (px.x > 18) {//(rect.width - 112)) {
-		// we check the gain and mix knobs first because they are continuous parameters and should run as fast as possible
+		// we check the gain and mix knobs first because they are continuous datas and should run as fast as possible
 		if (x->has_gain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)) {
 			x->gainDragging = true;
 			x->anchor.x = x->anchor.y = 0.0;
@@ -673,7 +673,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if (x->has_panel && px.x >= x->rect_panel.x && px.x <= (x->rect_panel.x + x->rect_panel.width))
-			ui_send_parameter(x, TT("view/panel"), kTTValNONE);
+			ui_send_data(x, TT("view/panel"), kTTValNONE);
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			ui_send_viewer(x, TT("preview"), TTValue(!x->is_previewing));
 		else if (x->has_freeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
@@ -793,12 +793,12 @@ void ui_menu_qfn(t_ui *x)
 	}
 	else if (item->sym == gensym("Disable UI Updates")) {
 		if (x->ui_freeze)
-			ui_send_parameter(x, TT("view/freeze"), kTTVal0);
+			ui_send_data(x, TT("view/freeze"), kTTVal0);
 		else
-			ui_send_parameter(x, TT("view/freeze"), kTTVal1);
+			ui_send_data(x, TT("view/freeze"), kTTVal1);
 	}
 	else if (item->sym == gensym("Refresh UI"))
-		; // TODO : jcom.node /view/refresh
+		; // TODO : jcom.ui /view/refresh
 	else if (item->sym == gensym("Load Settings..."))
 		; // TODO : jcom.preset /preset/load
 	else if (item->sym == gensym("Save Settings..."))
@@ -917,7 +917,7 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
 		else {
-//TODO: Instead of passing NULL for the 4th parameter, we can pass a custom color for "header" items			
+//TODO: Instead of passing NULL for the 4th data, we can pass a custom color for "header" items			
 			jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 		// TODO: use jpopupmenu_addheader instead -- requires that Max export this function though (which it currently doesn't)
 		//	if (item->flags)
@@ -976,11 +976,11 @@ void ui_refmenu_build(t_ui *x)
 	
 	ll = linklist_new();
 	// TODO : explore the namespace
-	//object_method_obj(x->obj_remote, gensym("fetchParameterNamesInLinklist"), (t_object*)ll, NULL);
+	//object_method_obj(x->obj_remote, gensym("fetchDataNamesInLinklist"), (t_object*)ll, NULL);
 	if (linklist_getsize(ll)) {
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Parameters"));
+		item = (t_symobject *)symobject_new(gensym("Datas"));
 		linklist_append(x->refmenu_items, item);
 		item->flags = 1;	// mark to disable this item (we use it as a label)
 

@@ -62,9 +62,9 @@ class TTMODULAR_EXPORT RampUnit : public TTObject {
 		virtual ~RampUnit();
 		
 	public:
-		TTErr getFunctionParameterNames(TTValue& names);
-		TTErr setFunctionParameterValue(TTSymbol* parameterName, TTValue& newValue);
-		TTErr getFunctionParameterValue(TTSymbol* parameterName, TTValue& value);
+		TTErr getFunctionDataNames(TTValue& names);
+		TTErr setFunctionDataValue(TTSymbol* dataName, TTValue& newValue);
+		TTErr getFunctionDataValue(TTSymbol* dataName, TTValue& value);
 		
 		/** start a ramp over time in milliseconds */
 		virtual void go(TTUInt32 numValues, TTFloat64 *values, TTFloat64 time) = 0;

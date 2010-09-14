@@ -26,18 +26,19 @@ class TTMODULAR_EXPORT TTViewer : public TTObject
 	
 public:
 	
-	TTSymbolPtr			mAddress;					///< ATTRIBUTE : address of the parameter to bind
+	TTSymbolPtr			mAddress;					///< ATTRIBUTE : address of the data to bind
 	
 private:
 	
 	TTNodeDirectoryPtr	mDirectory;					///< the directory
-	TTReceiverPtr		mReceiver;					///< the receiver which binds on our parameter
-	TTSenderPtr			mSender;					///< the sender which binds on our parameter
+	TTReceiverPtr		mReceiver;					///< the receiver which binds on our data
+	TTSenderPtr			mSender;					///< the sender which binds on our data
 	
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this viewer
 	
 public:
 
+	TTErr Refresh();
 	
 private :
 	

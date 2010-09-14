@@ -80,7 +80,7 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare memory to store attributes
 	//x->attr_long = (long*)sysmem_newptr(sizeof(long) * 1);
 
-	// Prepare memory to store internal parameters
+	// Prepare memory to store internal datas
 	x->internals = new TTHash();
 }
 
@@ -173,7 +173,7 @@ void node_share_context_node(TTPtr self, TTNodePtr *contextNode)
 void node_set_viewpanel(TTPtr self, long n)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTObjectPtr					aParameter;
+	TTObjectPtr					aData;
 	TTValue						v;
 	TTSymbolPtr					address;
 	
@@ -182,16 +182,16 @@ void node_set_viewpanel(TTPtr self, long n)
 	
 	if (n) {
 		
-		// Add a /view/panel parameter
-		makeInternals_parameter(self, address, TT("view/panel"), gensym("return_value"), &aParameter);
+		// Add a /view/panel data
+		makeInternals_data(self, address, TT("view/panel"), gensym("return_value"), kTTSym_message, &aData);
 		
-		// Set attribute of the parameter
-		aParameter->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aParameter->setAttributeValue(kTTSym_Description, TT("Open an a module's control panel (inspector) if one is present."));
-		aParameter->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
+		// Set attribute of the data
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_Description, TT("Open an a module's control panel (inspector) if one is present."));
+		aData->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 		// TODO : add the @service attribute to set this as a message
 	}
 	else
-		// Remove a /view/panel parameter
-		removeInternals_parameter(self, address, TT("view/panel"));
+		// Remove a /view/panel data
+		removeInternals_data(self, address, TT("view/panel"));
 }

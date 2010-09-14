@@ -23,7 +23,7 @@
 typedef struct _ui{
 	t_jbox				box;
 	TTPtr				outlet;					///< outlet -- used for sending preview to jit.pwindow
-	TTHashPtr			hash_parameters;		///< hash table of TTParameter
+	TTHashPtr			hash_datas;		///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
 	TTObjectPtr			explorer;				///< internal TTExplorer object to observe the namespace
 	
@@ -107,13 +107,13 @@ void		ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers);
 void 		ui_refmenu_qfn(t_ui *x);
 void 		ui_refmenu_build(t_ui *x);
 
-// prototypes: internal TTParameter and TTViewer
-void		ui_create_colors(t_ui* obj);
-void		ui_destroy_colors(t_ui* obj);
+// prototypes: internal TTData and TTViewer
+void		ui_create_all_datas(t_ui* obj);
+void		ui_destroy_all_datas(t_ui* obj);
 
-void		ui_create_parameter(t_ui *obj, TTObjectPtr *returnedParameter, SymbolPtr aCallbackMethod, TTSymbolPtr name);
-void		ui_destroy_parameter(t_ui *obj, TTSymbolPtr name);
-void		ui_send_parameter(t_ui *obj, TTSymbolPtr name, TTValue v);
+void		ui_create_data(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbolPtr service, TTSymbolPtr name);
+void		ui_destroy_data(t_ui *obj, TTSymbolPtr name);
+void		ui_send_data(t_ui *obj, TTSymbolPtr name, TTValue v);
 
 void		ui_create_all_viewers(t_ui* obj);
 void		ui_destroy_all_viewers(t_ui* obj);
@@ -122,7 +122,7 @@ void		ui_create_viewer(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallba
 void		ui_destroy_viewer(t_ui *obj, TTSymbolPtr name);
 void		ui_send_viewer(t_ui *obj, TTSymbolPtr name, TTValue v);
 
-void		ui_observe_parameter(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);	// this callback is used by the Explorer to return parameters name list 
+void		ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);	// this callback is used by the Explorer to return datas name list 
 
 void		ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_color_toolbarBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -130,6 +130,7 @@ void		ui_return_color_toolbarText(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 void		ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_view_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

@@ -88,9 +88,9 @@ TTErr TTPreset::Fill()
 	
 	Clear();
 	
-	// DEBUG : store only Value of Parameter objects
+	// DEBUG : store only Value of Data objects
 	// TODO : pass this as argument of the Fill method
-	mToStore->append(TT("Parameter"), TTValue(kTTSym_Value));
+	mToStore->append(TT("Data"), TTValue(kTTSym_Value));
 	mToStore->append(TT("Container"), TTValue(kTTSym_Priority));
 	
 	mToStore->getKeys(hk);
