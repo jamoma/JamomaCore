@@ -446,9 +446,12 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 	
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphReset,		"audio.reset",		A_CANT, 0);
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphSetup,		"audio.setup",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphConnect,		"audio.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphConnect,	"audio.connect",	A_OBJ, A_LONG, 0);
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphDrop,		"audio.drop",		A_CANT, 0);
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphObject,		"audio.object",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxGraphConnect,			"graph.connect",		A_OBJ, A_LONG, 0);
+ 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxGraphDrop,			"graph.drop",			A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxGraphObject,			"graph.object",			A_CANT, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphWrappedClass_assist, 	"assist",				A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);
