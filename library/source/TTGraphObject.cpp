@@ -57,6 +57,7 @@ TTGraphObject::~TTGraphObject()
 void TTGraphObject::getDescription(TTGraphDescription& desc)
 {
 	desc.mClassName = mKernel->getName();
+	desc.mObjectInstance = mKernel;
 	desc.mInputDescriptions.clear();
 	for (TTGraphInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
 		inlet->getDescriptions(desc.mInputDescriptions);

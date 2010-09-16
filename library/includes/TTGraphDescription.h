@@ -28,8 +28,9 @@ typedef std::vector<TTString>	TTStringVector;
 
 class TTGRAPH_EXPORT TTGraphDescription {
 public:
-	TTSymbolPtr						mClassName;
+	TTSymbolPtr					mClassName;
 	TTGraphDescriptionVector	mInputDescriptions;
+	TTObjectPtr					mObjectInstance;
 	
 	void exportRuby(const TTString& fullpathToFile);
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
