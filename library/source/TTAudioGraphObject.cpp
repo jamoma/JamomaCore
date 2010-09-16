@@ -86,6 +86,7 @@ TTAudioGraphObject::~TTAudioGraphObject()
 void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 {
 	desc.mClassName = mKernel->getName();
+	desc.mObjectInstance = mKernel;
 	desc.mAudioDescriptions.clear();
 	for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
 		inlet->getDescriptions(desc.mAudioDescriptions);

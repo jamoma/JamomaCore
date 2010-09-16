@@ -31,6 +31,7 @@ public:
 	TTSymbolPtr						mClassName;
 	TTAudioGraphDescriptionVector	mAudioDescriptions;
 	TTGraphDescription				mControlDescription;
+	TTObjectPtr						mObjectInstance;
 	
 	void exportRuby(const TTString& fullpathToFile);
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
