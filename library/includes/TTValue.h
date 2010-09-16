@@ -603,7 +603,7 @@ public:
 					break;
 				case kTypeUInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%iu ", (unsigned int)data[i].uint32);
+					snprintf(temp, 16, "%u ", (unsigned int)data[i].uint32);
 					break;
 				case kTypeInt64:
 					temp = new char[16];
