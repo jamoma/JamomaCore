@@ -96,6 +96,12 @@ public:
 	}
 		
 	
+	void prepareDescriptions()
+	{
+		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
+			source->prepareDescription();
+	}
+	
 	void getDescriptions(TTGraphDescriptionVector& descs);
 	
 };

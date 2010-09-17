@@ -56,6 +56,12 @@ void TTGraphSource::create()
 }
 
 
+void TTGraphSource::prepareDescription()
+{
+	mSourceObject->prepareDescription();
+}
+
+
 void TTGraphSource::getDescription(TTGraphDescription& desc)
 {
 	mSourceObject->getDescription(desc);

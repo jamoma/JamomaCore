@@ -22,7 +22,7 @@
 //	3. (optional) Number of outlets, default = 1
 
 TT_OBJECT_CONSTRUCTOR,
-//	mFlags(kTTGraphProcessor), 
+	mDescription(NULL),
 	mKernel(NULL)
 {
 	TTErr		err = kTTErrNone;
@@ -54,13 +54,33 @@ TTGraphObject::~TTGraphObject()
 }
 
 
+void TTGraphObject::prepareDescription()
+{
+	if (valid && mDescription) {
+		mDescription->sIndex = 0;
+		mDescription = NULL;
+		
+		for (TTGraphInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
+			inlet->prepareDescriptions();
+	}
+}
+
+
 void TTGraphObject::getDescription(TTGraphDescription& desc)
 {
-	desc.mClassName = mKernel->getName();
-	desc.mObjectInstance = mKernel;
-	desc.mInputDescriptions.clear();
-	for (TTGraphInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
-		inlet->getDescriptions(desc.mInputDescriptions);
+	if (mDescription) {		// a description for this object has already been created -- use it.
+		desc = *mDescription;
+	}
+	else {					// create a new description for this object.
+		desc.mClassName = mKernel->getName();
+		desc.mObjectInstance = mKernel;
+		desc.mInputDescriptions.clear();
+		desc.mID = desc.sIndex++;
+		mDescription = &desc;
+		
+		for (TTGraphInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
+			inlet->getDescriptions(desc.mInputDescriptions);
+	}
 }
 
 

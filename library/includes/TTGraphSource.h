@@ -106,6 +106,7 @@ public:
 	
 	// Info Methods
 	
+	void prepareDescription();
 	void getDescription(TTGraphDescription& desc);
 	
 	// Graph Methods

@@ -14,6 +14,9 @@
 using namespace std;
 
 
+TTInt32 TTGraphDescription::sIndex = 0;
+
+
 void TTGraphDescription::exportRuby(const TTString& fullpathToFile)
 {
 	TTString		rubyContent;

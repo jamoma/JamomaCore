@@ -31,6 +31,21 @@ public:
 	TTSymbolPtr					mClassName;
 	TTGraphDescriptionVector	mInputDescriptions;
 	TTObjectPtr					mObjectInstance;
+
+	TTInt32						mID;					///< An index number that uniquely identifies this instance
+	TTPtr						mUserData;				///< A place for a descriptions' user to store custom information, per node
+	
+	static TTInt32				sIndex;					///< Used for creating mID
+	
+	
+	TTGraphDescription() :
+		mClassName(NULL),
+		mObjectInstance(NULL),
+		mUserData(NULL)
+	{
+		;
+	}
+
 	
 	void exportRuby(const TTString& fullpathToFile);
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
@@ -43,6 +58,8 @@ public:
 	
 	
 };
+
+typedef TTGraphDescription*	TTGraphDescriptionPtr;
 
 
 #endif // __TTGRAPH_DESCRIPTION_H__
