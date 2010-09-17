@@ -103,6 +103,11 @@ public:
 	
 	// Info Methods
 	
+	void prepareDescription()
+	{
+		mSourceObject->prepareAudioDescription();
+	}
+	
 	void getDescription(TTAudioGraphDescription& desc)
 	{
 		mSourceObject->getAudioDescription(desc);

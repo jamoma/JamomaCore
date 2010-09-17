@@ -22,26 +22,36 @@ typedef TTAudioGraphDescriptionVector::iterator		TTAudioGraphDescriptionIter;
 typedef std::vector<TTString>		TTStringVector;
 typedef TTStringVector::iterator	TTStringIter;
 
-/**	This object represents a single 'outlet' from a TTAudioGraphObject.
-	TTAudioGraphObject maintains a vector of these outlets.
+
+/**	This object provides a description of a TTAudioGraphObject
+	and its sources.
 */
 
-class TTAUDIOGRAPH_EXPORT TTAudioGraphDescription {
+class TTAUDIOGRAPH_EXPORT TTAudioGraphDescription : public TTGraphDescription {
 public:
-	TTSymbolPtr						mClassName;
-	TTAudioGraphDescriptionVector	mAudioDescriptions;
-	TTGraphDescription				mControlDescription;
-	TTObjectPtr						mObjectInstance;
+	TTAudioGraphDescriptionVector	mAudioDescriptions;		///< A list of descriptions for the nodes whose outlets connect to this node
+	TTGraphDescription				mControlDescription;	///< AudioGraph objects are also Graph objects, so this contains the description in a Graph
+
+	
+	TTAudioGraphDescription()
+	{
+		;
+	}
+	
 	
 	void exportRuby(const TTString& fullpathToFile);
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
 	
+	
 	void exportCpp(const TTString& fullpathToFile);
 	int exportCppNode(TTString& content, int& index, TTStringVector& nodeNames);
+	
 	
 	void exportMax(const TTString& fullpathToFile);
 	int exportMaxNode(TTString& content, int& index, TTStringVector& nodeNames);
 };
+
+typedef TTAudioGraphDescription* TTAudioGraphDescriptionPtr;
 
 
 #endif // __TTAUDIOGRAPH_DESCRIPTION_H__

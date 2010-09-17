@@ -42,6 +42,11 @@ enum TTAudioGraphProcessStatus {
 	kTTAudioGraphProcessComplete
 };
 
+enum TTAudioGraphDescriptionStatus {
+	kTTAudioGraphDescriptionUnknown = 0,
+	kTTAudioGraphDescriptionNotStarted,
+	kTTAudioGraphDescriptionHasStarted,	
+};
 
 // values to be used as a bitmask
 enum TTAudioGraphFlags {

@@ -171,6 +171,13 @@ public:
 	}
 	
 	
+	void prepareDescriptions()
+	{
+		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
+			source->prepareDescription();
+	}
+
+	
 	void getDescriptions(TTAudioGraphDescriptionVector& descs)
 	{
 		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
