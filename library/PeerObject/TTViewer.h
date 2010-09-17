@@ -27,6 +27,7 @@ class TTMODULAR_EXPORT TTViewer : public TTObject
 public:
 	
 	TTSymbolPtr			mAddress;					///< ATTRIBUTE : address of the data to bind
+	TTBoolean			mFreeze;					///< ATTRIBUTE : Freeze data returning
 	
 private:
 	
@@ -44,6 +45,9 @@ private :
 	
 	/** set the address */
 	TTErr setAddress(const TTValue& value);
+	
+	/** set the freeze */
+	TTErr setFreeze(const TTValue& value);
 	
 	TTErr send(TTValue& valueToSend);				// to -- lower case in order to hide the message during the Class wrapping process
 	

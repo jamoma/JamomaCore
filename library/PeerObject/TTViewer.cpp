@@ -14,6 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
+mFreeze(NO),
 mDirectory(NULL),
 mReceiver(NULL),
 mSender(NULL),
@@ -26,6 +27,7 @@ mReturnValueCallback(NULL)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
+	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
 	addMessage(Refresh);
 	addMessageWithArgument(send);
@@ -85,6 +87,14 @@ TTErr TTViewer::setAddress(const TTValue& value)
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
 	
 	return kTTErrNone;
+}
+
+TTErr TTViewer::setFreeze(const TTValue& value)
+{
+	mFreeze = value;
+	
+	if (mReceiver)
+		mReceiver->setAttributeValue(TT("Enable"), !mFreeze);
 }
 
 TTErr TTViewer::Refresh()

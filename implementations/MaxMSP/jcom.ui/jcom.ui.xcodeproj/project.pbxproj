@@ -16,6 +16,7 @@
 		22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F81810333A130062F7B8 /* MaxObjectTypes.h */; };
 		A79D2CD11205BBAF006A158E /* tt-max-modular.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A79D2CD01205BBAF006A158E /* tt-max-modular.xcconfig */; };
 		D28349D5123E44FD0044E461 /* ModularForMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D28349D4123E44FD0044E461 /* ModularForMax.h */; };
+		D2838441124219E20069977D /* jcom.ui.presets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2838440124219E20069977D /* jcom.ui.presets.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		2FBBEAE508F335360078DB84 /* jcom.ui.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.ui.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		A79D2CD01205BBAF006A158E /* tt-max-modular.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-modular.xcconfig"; path = "../tt-max-modular.xcconfig"; sourceTree = SOURCE_ROOT; };
 		D28349D4123E44FD0044E461 /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModularForMax.h; path = ../../../library/ModularForMax/ModularForMax.h; sourceTree = SOURCE_ROOT; };
+		D2838440124219E20069977D /* jcom.ui.presets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.ui.presets.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				22C6B293109A5DFB00AD8BBF /* jcom.ui.h */,
 				22C6B292109A5DFB00AD8BBF /* jcom.ui.cpp */,
 				22C6B294109A5DFB00AD8BBF /* jcom.ui.internals.cpp */,
+				D2838440124219E20069977D /* jcom.ui.presets.cpp */,
 				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
 			);
 			name = Source;
@@ -166,6 +169,7 @@
 				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
 				22C6B295109A5DFB00AD8BBF /* jcom.ui.cpp in Sources */,
 				22C6B297109A5DFB00AD8BBF /* jcom.ui.internals.cpp in Sources */,
+				D2838441124219E20069977D /* jcom.ui.presets.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

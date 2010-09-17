@@ -177,11 +177,12 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	// it is a Data
 	if (anObject->getName() == TT("Data")) {
 		
-		// Is the Data a return ?
+		// What kind of service the data is used for ?
 		anObject->getAttributeValue(TT("service"), v);
 		v.get(0, &service);
+		
+		// don't keep return and don't observe his initialisation state
 		if (service == kTTSym_return)
-			// don't keep return and don't observe his initialisation state
 			return kTTErrGeneric;
 		
 		// create a Value Attribute observer on it
@@ -201,28 +202,36 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		
 		// add observer to the cacheElement
 		cacheElement.append((TTPtr)newObserver);
+		
 	}
 	// add NULL to the cacheElement
 	else
 		cacheElement.append(NULL);
 
-	// create an Initialized Attribute Observer on it
-	anObject->findAttribute(kTTSym_Initialized, &anAttribute);
-	
-	newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
-	
-	newBaton = new TTValue(TTPtr(this));
-	newBaton->append(aRelativeAddress);
-	
-	newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-	newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerInitializedAttributeCallback));
-	newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
-	
-	anAttribute->registerObserverForNotifications(*newObserver);
-	
-	// add observer to the cacheElement
-	cacheElement.append((TTPtr)newObserver);
+	// keep message but don't observe his initialisation state
+	if (service == kTTSym_message) {
+		// add observer to the cacheElement
+		cacheElement.append(NULL);
+	}
+	else {
+		// create an Initialized Attribute Observer on it
+		anObject->findAttribute(kTTSym_Initialized, &anAttribute);
+		
+		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+		
+		newBaton = new TTValue(TTPtr(this));
+		newBaton->append(aRelativeAddress);
+		
+		newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+		newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerInitializedAttributeCallback));
+		newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
+		
+		anAttribute->registerObserverForNotifications(*newObserver);
+		
+		// add observer to the cacheElement
+		cacheElement.append((TTPtr)newObserver);
+	}
 	
 	// append the cacheElement to the cache hash table
 	mObjectsObserversCache->append(aRelativeAddress, cacheElement);

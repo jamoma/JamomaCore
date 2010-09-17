@@ -23,11 +23,12 @@
 typedef struct _ui{
 	t_jbox				box;
 	TTPtr				outlet;					///< outlet -- used for sending preview to jit.pwindow
-	TTHashPtr			hash_datas;		///< hash table of TTData
+	TTHashPtr			hash_datas;				///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
 	TTObjectPtr			explorer;				///< internal TTExplorer object to observe the namespace
 	
 	TTSymbolPtr			modelAddress;
+	ObjectPtr			patcher;
 
 	t_jrgba				bgcolor;
 	t_jrgba				bordercolor;
@@ -46,6 +47,9 @@ typedef struct _ui{
 	long				refmenu_selection;		// ...
 	t_linklist			*refmenu_items;			// ...
 
+	long				has_preset;				// is the binded model have preset features ?
+	long				has_help;				// is the binded model have help patch ?
+	long				has_ref;				// is the binded model have reference page ?
 	
 	long				has_panel;				// is the binded model have a panel ?
 	t_rect				rect_panel;
@@ -115,9 +119,6 @@ void		ui_create_data(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMe
 void		ui_destroy_data(t_ui *obj, TTSymbolPtr name);
 void		ui_send_data(t_ui *obj, TTSymbolPtr name, TTValue v);
 
-void		ui_create_all_viewers(t_ui* obj);
-void		ui_destroy_all_viewers(t_ui* obj);
-
 void		ui_create_viewer(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name);
 void		ui_destroy_viewer(t_ui *obj, TTSymbolPtr name);
 void		ui_send_viewer(t_ui *obj, TTSymbolPtr name, TTValue v);
@@ -130,7 +131,9 @@ void		ui_return_color_toolbarText(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 void		ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_view_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+long		jcom_view_freeze_iterator(t_ui *x, t_object *b);
 void		ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+long		jcom_view_refresh_iterator(t_ui *x, t_object *b);
 
 void		ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -139,3 +142,8 @@ void		ui_return_mix(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_gain(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+// prototype: ui handling for preset features
+void		ui_preset_store_next(t_ui *x);
+void		ui_preset_doread(t_ui *x);
+void		ui_preset_dowrite(t_ui *x);

@@ -21,7 +21,9 @@ mContextAddress(kTTSymEmpty),
 mNewInstanceCreated(false),
 mDirectory(NULL),
 mShareContextNodeCallback(NULL),
-mGetContextListCallback(NULL)
+mGetContextListCallback(NULL),
+mExposedMessages(NULL),
+mExposedAttributes(NULL)
 {
 	TTObjectPtr anObject;
 	
@@ -58,6 +60,9 @@ mGetContextListCallback(NULL)
 	
 	if	(mDirectory && mShareContextNodeCallback && mGetContextListCallback)
 		this->subscribe(anObject);
+	
+	mExposedMessages = new TTHash();
+	mExposedAttributes = new TTHash();
 }
 
 TTSubscriber::~TTSubscriber()
@@ -266,37 +271,156 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 	return kTTErrNone;
 }
 
-TTErr TTObjectGetAttributeCallbackMethod(TTPtr baton, TTValue& data)
+TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName, TTDataPtr *returnedData)
 {
-	TTValuePtr	b;
-	TTObjectPtr	x;
-	TTSymbolPtr	aName;
+	TTValue			args, v;
+	TTDataPtr		aData;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	TTSymbolPtr		nameToAddress;
+	TTSymbolPtr		dataAddress;
+	TTNodePtr		aNode;
+	TTBoolean		nodeCreated;
+	TTPtr			aContext;
 	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, TTObjectHandle(&x));
-	b->get(1, (TTPtr*)&aName);
+	// prepare arguments
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(this));
+	returnValueBaton->append(messageName);
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&TTSubscriberMessageReturnValueCallback));
+	args.append(returnValueCallback);
 	
-	return x->getAttributeValue(aName, data);
+	args.append(kTTSym_message);
+	
+	aData = NULL;
+	TTObjectInstantiate(TT("Data"), TTObjectHandle(&aData), args);
+	
+	// register TTData into the tree
+	nameToAddress = convertPublicNameInAddress(messageName);
+	joinOSCAddress(mNodeAddress, nameToAddress, &dataAddress);
+	aContext = mNode->getContext();
+	mDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+	
+	// store TTData and given object
+	v = TTValue((TTPtr)aData);
+	v.append((TTPtr)anObject);
+	mExposedMessages->append(messageName, v);
+	
+	*returnedData = aData;
+	
+	return kTTErrNone;
 }
 
-TTErr TTObjectSetAttributeCallbackMethod(TTPtr baton, TTValue& data)
+TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeName, TTDataPtr *returnedData)
 {
-	TTValuePtr	b;
-	TTObjectPtr	x;
-	TTSymbolPtr	aName;
+	TTValue			args, v;
+	TTDataPtr		aData;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	TTSymbolPtr		nameToAddress;
+	TTSymbolPtr		dataAddress;
+	TTNodePtr		aNode;
+	TTBoolean		nodeCreated;
+	TTPtr			aContext;
 	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, (TTPtr*)&aName);
+	// prepare arguments
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(this));
+	returnValueBaton->append(attributeName);
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&TTSubscriberAttributeReturnValueCallback));
+	args.append(returnValueCallback);
 	
-	return x->setAttributeValue(aName, data);
+	args.append(kTTSym_message);
+	
+	aData = NULL;
+	TTObjectInstantiate(TT("Data"), TTObjectHandle(&aData), args);
+	
+	// register TTData into the tree
+	nameToAddress = convertPublicNameInAddress(attributeName);
+	joinOSCAddress(mNodeAddress, nameToAddress, &dataAddress);
+	aContext = mNode->getContext();
+	mDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+	
+	// store TTData and given object
+	v = TTValue((TTPtr)aData);
+	v.append((TTPtr)anObject);
+	mExposedAttributes->append(attributeName, v);
+	
+	*returnedData = aData;
+	
+	return kTTErrNone;
 }
-
 
 #if 0
 #pragma mark -
 #pragma mark Some Methods
 #endif
+
+TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
+{
+	TTSubscriberPtr aSubscriber;
+	TTObjectPtr		anObject;
+	TTSymbolPtr		messageName;
+	TTValuePtr		b;
+	TTValue			v;
+	TTErr			err;
+	
+	// unpack baton (a TTSubscriber)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aSubscriber);
+	b->get(1, &messageName);
+	
+	// get the exposed TTObject
+	err = aSubscriber->mExposedMessages->lookup(messageName, v);
+	
+	if (!err) {
+		v.get(1, (TTPtr*)&anObject);
+		
+		// protect data
+		v = data;
+		
+		// send data
+		anObject->sendMessage(messageName, data);
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data)
+{
+	TTSubscriberPtr aSubscriber;
+	TTObjectPtr		anObject;
+	TTSymbolPtr		attributeName;
+	TTValuePtr		b;
+	TTValue			v;
+	TTErr			err;
+	
+	// unpack baton (a TTSubscriber)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aSubscriber);
+	b->get(1, &attributeName);
+	
+	// get the exposed TTObject
+	err = aSubscriber->mExposedAttributes->lookup(attributeName, v);
+	
+	if (!err) {
+		v.get(1, (TTPtr*)&anObject);
+		
+		// protect data
+		v = data;
+		
+		// send data
+		anObject->setAttributeValue(attributeName, data);
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
 

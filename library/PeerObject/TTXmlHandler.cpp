@@ -13,12 +13,16 @@
 #define thisTTClassTags		"xml, handler"
 
 TT_MODULAR_CONSTRUCTOR,
+mObject(NULL),
+mFilePath(kTTSymEmpty),
 mWriter(NULL),
 mReader(NULL),
 mIsWriting(false),
 mIsReading(false)
 {
 	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.getSize() == 0);
+	
+	addAttribute(Object, kTypePointer);
 	
 	addMessageWithArgument(Write);
 	addMessageWithArgument(Read);
@@ -35,71 +39,81 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 	TTObjectPtr			aTTObject;
 	int					ret;
 	
-	// the first argument have to be a kTypePointer : this is a pointer on our TTObject
-	if (args.getType() == kTypePointer)
-		args.get(0, (TTPtr*)&aTTObject);
-	else
+	// an object have to be selected
+	if (mObject == NULL)
 		return kTTErrGeneric;
 	
-	// if a second argument is kTypeSymbol : this is an *absolute* file path
+	// memorize this object because it could change if the handler is used recursively
+	aTTObject = mObject;
+	
+	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
-	if (args.getSize() == 2) {
-		if (args.getType(1) == kTypeSymbol) {
+	if (args.getSize() == 1) {
+		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(1, &mFilePath);
+			args.get(0, &mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
-			// Create a new XmlWriter for filePath, with no compression.
-			mWriter = xmlNewTextWriterFilename(mFilePath->getCString(), 0);
-			if (mWriter == NULL) {
-				TT_ASSERT("testXmlwriterFilename: Error creating the xml writer\n", true);
-				return kTTErrGeneric;
-			}
-			
-			/* Start the document with the xml default for the version,
-			 * encoding ISO 8859-1 and the default for the standalone
-			 * declaration. */
-			ret = xmlTextWriterStartDocument(mWriter, NULL, TTMODULAR_XML_ENCODING, "yes");
-			if (ret < 0) {
-				TT_ASSERT("testXmlwriterFilename: Error at xmlTextWriterStartDocument\n", true);
-				return kTTErrGeneric;
-			}
-			
-			mIsWriting = true;
-			
-			// to write a human readable file
-			xmlTextWriterSetIndent(mWriter, 1);
-			
-			// Start Header information
-			xmlTextWriterStartElement(mWriter, BAD_CAST "jamoma");
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",  BAD_CAST "0.6");
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi", BAD_CAST "'http://www.w3.org/2001/XMLSchema-instance'");
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST "'http://jamoma.org/ file:jamoma.xsd'");
-	
-			// Write data of the given TTObject (which have to implement a writeAsXml message)
-			v.clear();
-			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("writeAsXml"), v);
-			
-			// End Header information
-			xmlTextWriterEndElement(mWriter);
-			
-			/* Here we could close the elements ORDER and EXAMPLE using the
-			 * function xmlTextWriterEndElement, but since we do not want to
-			 * write any other elements, we simply call xmlTextWriterEndDocument,
-			 * which will do all the work. */
-			xmlTextWriterEndDocument(mWriter);
-			
-			xmlFreeTextWriter(mWriter);
-			
-			mIsWriting = false;
-			
-			// memorize the TTObject as the last handled object
-			mObject = aTTObject;
-			
-			return kTTErrNone;
+			// TODO : Create a file on the disk	(for instant it is Max which do it)	
+			//FILE * pFile;
+			//pFile = fopen("/Users/TO/Documents/Jamoma/Tools/debugging/MVC_Prototyping_2/cuelist.txt", "wt");
+			//if (pFile != NULL)
+			//{				
+				// Create a new XmlWriter for filePath, with no compression.
+				mWriter = xmlNewTextWriterFilename(mFilePath->getCString(), 0);
+				if (mWriter == NULL) {
+					TT_ASSERT("testXmlwriterFilename: Error creating the xml writer\n", true);
+					return kTTErrGeneric;
+				}
+				
+				/* Start the document with the xml default for the version,
+				 * encoding ISO 8859-1 and the default for the standalone
+				 * declaration. */
+				ret = xmlTextWriterStartDocument(mWriter, NULL, TTMODULAR_XML_ENCODING, "yes");
+				if (ret < 0) {
+					TT_ASSERT("testXmlwriterFilename: Error at xmlTextWriterStartDocument\n", true);
+					return kTTErrGeneric;
+				}
+				
+				mIsWriting = true;
+				
+				// to write a human readable file
+				xmlTextWriterSetIndent(mWriter, 1);
+				
+				// Start Header information
+				xmlTextWriterStartElement(mWriter, BAD_CAST "jamoma");
+				xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",  BAD_CAST "0.6");
+				xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi", BAD_CAST "'http://www.w3.org/2001/XMLSchema-instance'");
+				xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST "'http://jamoma.org/ file:jamoma.xsd'");
+				
+				// Write data of the given TTObject (which have to implement a writeAsXml message)
+				v.clear();
+				v.append((TTPtr)this);
+				aTTObject->sendMessage(TT("writeAsXml"), v);
+				
+				// End Header information
+				xmlTextWriterEndElement(mWriter);
+				
+				/* Here we could close the elements ORDER and EXAMPLE using the
+				 * function xmlTextWriterEndElement, but since we do not want to
+				 * write any other elements, we simply call xmlTextWriterEndDocument,
+				 * which will do all the work. */
+				xmlTextWriterEndDocument(mWriter);
+				
+				xmlFreeTextWriter(mWriter);
+
+				mIsWriting = false;
+				
+				// memorize the TTObject as the last handled object
+				mObject = aTTObject;
+				
+				return kTTErrNone;
+				
+			//}
+			//else
+			//	return kTTErrGeneric;
 		}
 	}
 	
@@ -112,7 +126,6 @@ TTErr TTXmlHandler::WriteAgain()
 {
 	TTValue args;
 	
-	args.append(mObject);
 	args.append(mFilePath);
 	return Write(args);
 }
@@ -123,19 +136,20 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 	TTObjectPtr			aTTObject;
 	TTValue				v;
 	int					ret;
-
-	// the first argument have to be a kTypePointer : this is a pointer on our TTObject
-	if (args.getType() == kTypePointer)
-		args.get(0, (TTPtr*)&aTTObject);
-	else
+	
+	// an object have to be selected
+	if (mObject == NULL)
 		return kTTErrGeneric;
 	
-	// if a second argument is kTypeSymbol : this is an *absolute* file path
+	// memorize this object because it could change if the handler is used recursively
+	aTTObject = mObject;
+	
+	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
-	if (args.getSize() == 2)
-		if (args.getType(1) == kTypeSymbol) {
+	if (args.getSize() == 1) {
+		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(1, &mFilePath);
+			args.get(0, &mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -153,7 +167,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 						break;
 					mXmlNodeName = TT((char*)xName);
 					xmlFree((void*)xName);
-
+					
 					// Header node
 					if (mXmlNodeName == TT("jamoma")) {
 						
@@ -168,7 +182,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 							mXmlNodeName = TT("end");
 						}
 					}
-
+					
 					v.append((TTPtr)this);
 					aTTObject->sendMessage(TT("readFromXml"), v);
 					
@@ -190,7 +204,8 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 			
 			return kTTErrNone;
 		}
-	
+	}
+		
 	// else
 	v.append((TTPtr)this);
 	return aTTObject->sendMessage(TT("readFromXml"), v);
@@ -200,7 +215,6 @@ TTErr TTXmlHandler::ReadAgain()
 {
 	TTValue args;
 	
-	args.append(mObject);
 	args.append(mFilePath);
 	return Read(args);
 }

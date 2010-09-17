@@ -74,15 +74,20 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	
+	// Prepare Internals hash to store XmlHanler and TextHandler object
+	x->internals = new TTHash();
 }
 
 void preset_build(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, n, p, args;
+	TTValue						v, n, args;
 	TTString					presetLevelAddress;
 	TTSymbolPtr					absoluteAddress;
 	TTNodePtr					node = NULL;
+	TTDataPtr					aData;
+	TTXmlHandlerPtr				aXmlHandler;
 	TTPtr						context;
 	
 	// add 'preset' after the address
@@ -107,7 +112,49 @@ void preset_build(TTPtr self, SymbolPtr address)
 		 node->getAttributeValue(TT("Context"), v);
 		v.get(0, (TTPtr*)&context);
 		object_attach_byptr_register(x, context, _sym_box);
-
+		
+		// expose messages of TTPreset as TTData in the tree structure
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_array);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreCurrent"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreNext"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StorePrevious"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
+		
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_generic);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallCurrent"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallNext"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallPrevious"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_generic);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveCurrent"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveNext"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemovePrevious"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		
+		// create internal TTXmlHandler and expose Read and Write message
+		aXmlHandler = NULL;
+		TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+		v = TTValue(TTPtr(aXmlHandler));
+		x->internals->append(TT("XmlHandler"), v);
+		v = TTValue(TTPtr(x->wrappedObject));
+		aXmlHandler->setAttributeValue(kTTSym_Object, v);
+		
+		x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
+		x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
+		
+		// TODO : create internal TTTextHandler and expose Read and Write message
 	}
 }
 
@@ -152,11 +199,11 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;							// pathID#
     long			filetype = 'TEXT', outtype;		// the file type that is actually true
-	TTValue			args, v;
+	TTValue			o, v;
 	SymbolPtr		userpath;
 	TTSymbolPtr		nodeAddress;
 	TTXmlHandlerPtr	aXmlHandler = NULL;
-	//TTTextHandlerPtr	aTaextHandler;
+	//TTTextHandlerPtr	aTextHandler;
 	TTErr			tterr;
 	
 	if (argc && argv)
@@ -189,26 +236,23 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (x->wrappedObject) {
 		v.clear();
-		v.append((TTPtr)x->wrappedObject);
 		v.append(TT(fullpath));
 		
 		// select method to use
 		if (msg == gensym("read/xml")) {
-			tterr = TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+			tterr = x->internals->lookup(TT("XmlHandler"), o);
 			
 			if (!tterr) {
+				
+				o.get(0, (TTPtr*)&aXmlHandler);
 				
 				critical_enter(0);
 				aXmlHandler->sendMessage(TT("Read"), v);
 				critical_exit(0);
-				
-				TTObjectRelease(TTObjectHandle(&aXmlHandler));
 			}
 		}
 		else if (msg == gensym("read/text")) 
-			;// TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler));
-			 // aTextHandler->senMessage(TT("Read"), v);
-			 // TTObjectRelease(aTextHandler);
+			;// aTextHandler->senMessage(TT("Read"), v);
 	}
 }
 
@@ -225,11 +269,11 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	short 			path, err;						// pathID#, error number
 	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
 	long			filetype = 'TEXT', outtype;		// the file type that is actually true
-	TTValue			args, v;
+	TTValue			o, v;
 	SymbolPtr		userpath;
 	TTSymbolPtr		nodeAddress;
-	TTXmlHandlerPtr	aXmlHandler = NULL;
-	//TTTextHandlerPtr	aTaextHandler;
+	TTXmlHandlerPtr	aXmlHandler;
+	//TTTextHandlerPtr	aTextHandler;
 	TTErr			tterr;
 	
 	if (argc && argv)
@@ -263,25 +307,22 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (x->wrappedObject) {
 		v.clear();
-		v.append((TTPtr)x->wrappedObject);
 		v.append(TT(fullpath));
 		
 		// select method to use
 		if (msg == gensym("write/xml")) {
-			tterr = TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+			tterr = x->internals->lookup(TT("XmlHandler"), o);
 			
 			if (!tterr) {
+				
+				o.get(0, (TTPtr*)&aXmlHandler);
 				
 				critical_enter(0);
 				aXmlHandler->sendMessage(TT("Write"), v);
 				critical_exit(0);
-				
-				TTObjectRelease(TTObjectHandle(&aXmlHandler));
 			}
 		}
 		else if (msg == gensym("write/text")) 
-			;// TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler));
-			 // aTextHandler->senMessage(TT("Write"), v);
-			 // TTObjectRelease(aTextHandler);
+			;// aTextHandler->senMessage(TT("Write"), v);
 	}
 }

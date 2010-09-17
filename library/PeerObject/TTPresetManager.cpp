@@ -417,9 +417,9 @@ TTErr TTPresetManager::writeAsXml(const TTValue& value)
 
 		mPresetList->current().get(0, (TTPtr*)&aPreset);
 		
-		v.clear();
-		v.append((TTPtr)aPreset);
-		aXmlHandler->sendMessage(TT("Write"), v);
+		v = TTValue(TTPtr(aPreset));
+		aXmlHandler->setAttributeValue(kTTSym_Object, v);
+		aXmlHandler->sendMessage(TT("Write"));
 		
 		// End a preset
 		xmlTextWriterEndElement(aXmlHandler->mWriter);
@@ -508,9 +508,9 @@ TTErr TTPresetManager::readFromXml(const TTValue& value)
 	
 	// fill the current preset by reading his content 
 	// from the xml file using the XmlHandler
-	v.clear();
-	v.append((TTPtr)currentPreset);
-	return aXmlHandler->sendMessage(TT("Read"), v);
+	v = TTValue(TTPtr(currentPreset));
+	aXmlHandler->setAttributeValue(kTTSym_Object, v);
+	return aXmlHandler->sendMessage(TT("Read"));
 }
 
 TTPresetPtr TTPresetManager::getPresetCurrent()

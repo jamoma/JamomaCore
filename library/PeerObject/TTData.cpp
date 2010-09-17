@@ -456,7 +456,7 @@ TTErr TTData::setValue(const TTValue& value)
 		if (value == kTTValNONE) {
 			
 			// if mType is 'none' we have had our value set at least once
-			if (mType == kTTSym_none && !mInitialized) {
+			if (mservice == kTTSym_parameter && mType == kTTSym_none && !mInitialized) {
 				mInitialized = YES;
 				notifyObservers(kTTSym_Initialized, YES);
 			}
@@ -483,7 +483,7 @@ TTErr TTData::setValue(const TTValue& value)
 #endif
 			
 			// we have had our value set at least once
-			if (!mInitialized) {
+			if (mservice == kTTSym_parameter && !mInitialized) {
 				mInitialized = YES;
 				notifyObservers(kTTSym_Initialized, YES);
 			}

@@ -92,6 +92,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_return_color_border,				"return_color_border",				A_CANT, 0);
 	class_addmethod(c, (method)ui_return_view_size,					"return_view_size",					A_CANT, 0);
 	class_addmethod(c, (method)ui_return_view_freeze,				"return_view_freeze",				A_CANT, 0);
+	class_addmethod(c, (method)ui_return_view_refresh,				"return_view_refresh",				A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_metersdefeated,			"return_metersdefeated",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_mute,						"return_mute",						A_CANT, 0);
@@ -198,7 +199,9 @@ void ui_free(t_ui *x)
 	object_free(x->refmenu_items);
 	
 	ui_destroy_all_datas(x);
-	ui_destroy_all_viewers(x);
+	
+	if (x->explorer)
+		TTObjectRelease(&x->explorer);
 }
 
 
@@ -238,7 +241,6 @@ void ui_build(t_ui *x)
 {
 	TTValue			v, n, p, args;
 	TTSymbolPtr		viewAddress;
-	ObjectPtr		aPatcher;
 	SymbolPtr		aContext;
 	ObjectPtr		textfield;
 	ObjectPtr		box;
@@ -246,7 +248,7 @@ void ui_build(t_ui *x)
 	t_rect			uiRect;
 	
 	// Build the address to bind
-	jamoma_viewer_get_model_address((ObjectPtr)x, &x->modelAddress, (TTPtr*)&aPatcher);
+	jamoma_viewer_get_model_address((ObjectPtr)x, &x->modelAddress, (TTPtr*)&x->patcher);
 	
 	// Create internal datas to expose colors attribute
 	ui_create_all_datas(x);
@@ -262,13 +264,13 @@ void ui_build(t_ui *x)
 	
 
 	// Examine the context to resize the view, set textfield, ...
-	aContext = jamoma_patcher_getcontext(aPatcher);
+	aContext = jamoma_patcher_getcontext(x->patcher);
 	
 	if (aContext == gensym("toplevel")) {
 		x->modelAddress = TT("/editing_this_view");
 	}
 	else {
-		box = object_attr_getobj(aPatcher, jps_box);
+		box = object_attr_getobj(x->patcher, jps_box);
 		
 		if (aContext == gensym("bpatcher")) {
 			object_attr_get_rect((ObjectPtr)x, _sym_presentation_rect, &uiRect);
@@ -283,17 +285,17 @@ void ui_build(t_ui *x)
 		}
 		else if (aContext == gensym("subpatcher")) {
 			object_attr_get_rect((ObjectPtr)x, _sym_presentation_rect, &uiRect);
-			object_attr_get_rect(aPatcher, _sym_defrect, &boxRect);
+			object_attr_get_rect(x->patcher, _sym_defrect, &boxRect);
 			boxRect.width = uiRect.width;
 			boxRect.height = uiRect.height;				
-			object_attr_set_rect(aPatcher, _sym_defrect, &boxRect);				
-			object_attr_setchar(aPatcher, _sym_toolbarvisible, 0);	
-			object_method_parse(aPatcher, _sym_window, "flags nogrow", NULL);		// get rid of the grow thingies
-			object_method_parse(aPatcher, _sym_window, "flags nozoom", NULL);		// disable maximize button 
-			object_method_parse(aPatcher, _sym_window, "exec", NULL); 
-			object_attr_setsym(aPatcher, _sym_title, gensym("TODO : model class"));	// TODO : set the window title to the module class, jcom.ui shows osc_name already 
-			object_attr_setchar(aPatcher, _sym_enablehscroll, 0);					// turn off scroll bars
-			object_attr_setchar(aPatcher, _sym_enablevscroll, 0);				
+			object_attr_set_rect(x->patcher, _sym_defrect, &boxRect);				
+			object_attr_setchar(x->patcher, _sym_toolbarvisible, 0);	
+			object_method_parse(x->patcher, _sym_window, "flags nogrow", NULL);		// get rid of the grow thingies
+			object_method_parse(x->patcher, _sym_window, "flags nozoom", NULL);		// disable maximize button 
+			object_method_parse(x->patcher, _sym_window, "exec", NULL); 
+			object_attr_setsym(x->patcher, _sym_title, gensym("TODO : model class"));	// TODO : set the window title to the module class, jcom.ui shows osc_name already 
+			object_attr_setchar(x->patcher, _sym_enablehscroll, 0);					// turn off scroll bars
+			object_attr_setchar(x->patcher, _sym_enablevscroll, 0);				
 		}
 	}
 	
@@ -787,28 +789,28 @@ void ui_menu_qfn(t_ui *x)
 
 	if (item->sym == gensym("Defeat Signal Meters")) {
 		if (x->is_metersdefeated)
-			ui_send_viewer(x, TT("audio/meters/freeze"), kTTVal0);
+			ui_send_viewer(x, TT("audio/meters/freeze"), NO);
 		else
-			ui_send_viewer(x, TT("audio/meters/freeze"), kTTVal1);
+			ui_send_viewer(x, TT("audio/meters/freeze"), YES);
 	}
 	else if (item->sym == gensym("Disable UI Updates")) {
 		if (x->ui_freeze)
-			ui_send_data(x, TT("view/freeze"), kTTVal0);
+			ui_send_data(x, TT("view/freeze"), NO);
 		else
-			ui_send_data(x, TT("view/freeze"), kTTVal1);
+			ui_send_data(x, TT("view/freeze"), YES);
 	}
 	else if (item->sym == gensym("Refresh UI"))
-		; // TODO : jcom.ui /view/refresh
+		ui_send_data(x, TT("view/refresh"), kTTValNONE);
 	else if (item->sym == gensym("Load Settings..."))
-		; // TODO : jcom.preset /preset/load
+		defer(x, (method)ui_preset_doread, NULL, 0, 0L);
 	else if (item->sym == gensym("Save Settings..."))
-		; // TODO : jcom.preset /preset/write
+		defer(x, (method)ui_preset_dowrite, NULL, 0, 0L);
 	else if (item->sym == gensym("Restore Default Settings"))
-		; // TODO : jcom.preset /preset/default
+		ui_send_viewer(x, TT("preset/recall"), 1);
 	else if (item->sym == gensym("Store Current Preset"))
-		; // TODO : jcom.preset /preset/store
+		ui_send_viewer(x, TT("preset/store/current"), kTTValNONE);
 	else if (item->sym == gensym("Store as Next Preset"))
-		; // TODO : jcom.preset /preset/storeNext
+		ui_preset_store_next(x);
 	else if (item->sym == gensym("Open Preset Interface"))
 		; // TODO : jcom.preset /preset/interface
 	else if (item->sym == gensym("Get Current State as Text"))
@@ -820,7 +822,7 @@ void ui_menu_qfn(t_ui *x)
 	else if (item->sym == gensym("Open Reference Page"))
 		; // TODO : jcom.node /model/reference
 	else	// assume the menu item is a preset name
-		; // TODO : jcom.preset /preset/recall
+		ui_send_viewer(x, TT("preset/recall"), TT(item->sym->s_name));
 }
 
 void ui_menu_build(t_ui *x)
@@ -849,33 +851,41 @@ void ui_menu_build(t_ui *x)
 		linklist_append(x->menu_items, item);
 	}
 	
-	item = (t_symobject *)symobject_new(gensym("Load Settings..."));
-	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Save Settings..."));
-	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Restore Default Settings"));
-	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Store Current Preset"));
-	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Store as Next Preset"));
-	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Open Preset Interface"));
+	if (x->has_preset) {
+		item = (t_symobject *)symobject_new(gensym("Load Settings..."));
+		linklist_append(x->menu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Save Settings..."));
+		linklist_append(x->menu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Restore Default Settings"));
+		linklist_append(x->menu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Store Current Preset"));
+		linklist_append(x->menu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Store as Next Preset"));
+		linklist_append(x->menu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Open Preset Interface"));
+	}
+		
 	linklist_append(x->menu_items, item);
 	item = (t_symobject *)symobject_new(gensym("Get Current State as Text"));
 	linklist_append(x->menu_items, item);
 	
 	item = (t_symobject *)symobject_new(gensym("-"));
-	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Open Reference Page"));
+	if (x->has_ref) {
+		linklist_append(x->menu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Open Reference Page"));
+	}
+	
+	if (x->has_help) {
 	linklist_append(x->menu_items, item);
 	item = (t_symobject *)symobject_new(gensym("Open Help Patch"));
+	}
+	
 	linklist_append(x->menu_items, item);
 	item = (t_symobject *)symobject_new(gensym("View Internal Components"));
 	linklist_append(x->menu_items, item);	
 	
+	/* TODO : get preset name list
 	ll = linklist_new();
-	// TODO : explore the namespace
-	//object_method_obj(x->obj_remote, gensym("fetchPresetNamesInLinklist"), (t_object*)ll, NULL);
 	if (linklist_getsize(ll)) {
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->menu_items, item);
@@ -886,6 +896,7 @@ void ui_menu_build(t_ui *x)
 		}
 	}
 	linklist_chuck(ll);
+	 */
 }
 
 void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)

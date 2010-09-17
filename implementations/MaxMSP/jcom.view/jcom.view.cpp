@@ -18,9 +18,11 @@ void	WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void	view_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void	view_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void	view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	view_share_context_node(TTPtr self, TTNodePtr *contextNode);
+
+void	view_remote_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);	// no way to use wrapped method with object_method(_typed) ??
 
 void	view_bang(TTPtr self);
 void	view_int(TTPtr self, long value);
@@ -48,6 +50,8 @@ void WrapTTViewerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)view_return_value,			"return_value",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)view_share_context_node,	"share_context_node",	A_CANT,	0);
+	
+	class_addmethod(c->maxClass, (method)view_remote_refresh,		"remote_refresh",		A_GIMME, 0); // no way to use wrapped method with object_method(_typed) ??
 	
 	class_addmethod(c->maxClass, (method)view_bang,					"bang",					0L);
 	class_addmethod(c->maxClass, (method)view_int,					"int",					A_LONG, 0L);
@@ -115,24 +119,6 @@ void view_build(TTPtr self, SymbolPtr address)
 	
 	// Set Address attribute of the Viewer object
 	x->wrappedObject->setAttributeValue(kTTSym_Address, viewAddress);
-
-	/*
-	 jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)mapperLevelAddress.data()), &x->subscriberObject);
-	 
-	 // if the subscription is successful
-	 if (x->subscriberObject) {
-	 
-	 // get the Node
-	 x->subscriberObject->getAttributeValue(TT("Node"), n);
-	 n.get(0, (TTPtr*)&node);
-	 
-	 // attach to the patcher to be notified of his destruction
-	 node->getAttributeValue(TT("Context"), v);
-	 v.get(0, (TTPtr*)&context);
-	 object_attach_byptr_register(x, context, _sym_box);
-	 
-	 }
-	 */
 }
 
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -183,6 +169,12 @@ void view_share_context_node(TTPtr self, TTNodePtr *contextNode)
 	}
 	else
 		*contextNode = NULL;
+}
+
+void view_remote_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	object_post((ObjectPtr)x, "refresh !");
 }
 
 void view_bang(TTPtr self)

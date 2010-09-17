@@ -90,6 +90,7 @@ TTErr TTPreset::Fill()
 	
 	// DEBUG : store only Value of Data objects
 	// TODO : pass this as argument of the Fill method
+	// TODO : how to filter message Data for example ?
 	mToStore->append(TT("Data"), TTValue(kTTSym_Value));
 	mToStore->append(TT("Container"), TTValue(kTTSym_Priority));
 	

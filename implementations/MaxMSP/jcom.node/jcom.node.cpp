@@ -177,21 +177,25 @@ void node_set_viewpanel(TTPtr self, long n)
 	TTValue						v;
 	TTSymbolPtr					address;
 	
-	x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
-	v.get(0, &address);
-	
-	if (n) {
+	if (x->subscriberObject) {
+		x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
+		v.get(0, &address);
 		
-		// Add a /view/panel data
-		makeInternals_data(self, address, TT("view/panel"), gensym("return_value"), kTTSym_message, &aData);
-		
-		// Set attribute of the data
-		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_Description, TT("Open an a module's control panel (inspector) if one is present."));
-		aData->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
-		// TODO : add the @service attribute to set this as a message
+		if (n) {
+			
+			// Add a /view/panel data
+			makeInternals_data(self, address, TT("view/panel"), gensym("return_value"), kTTSym_message, &aData);
+			
+			// Set attribute of the data
+			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_Description, TT("Open an a module's control panel (inspector) if one is present."));
+			aData->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
+			// TODO : add the @service attribute to set this as a message
+		}
+		else
+			// Remove a /view/panel data
+			removeInternals_data(self, address, TT("view/panel"));
 	}
 	else
-		// Remove a /view/panel data
-		removeInternals_data(self, address, TT("view/panel"));
+		object_error((ObjectPtr)x, "node_set_viewpanel : can't create /view/panel message at loadbang (TODO)");
 }

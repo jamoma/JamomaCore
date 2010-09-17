@@ -854,7 +854,7 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, A
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * (*argc));
 	
-	if (*argc || v == kTTValNONE) {
+	if (*argc && !(v == kTTValNONE)) {
 		for (i=0; i<*argc; i++) {
 			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
 				TTFloat64	value;
@@ -909,62 +909,15 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 	}
 }
 
+/** Convert a TTSymbolPtr "MyObjectMessage" into a SymbolPtr "my/object/message" 
+ or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
 SymbolPtr jamoma_TTName_To_MaxName(TTSymbolPtr TTName)
 {
-	TTCString	TTNameCString = NULL;
-	TTUInt32	TTNameSize = 0;
-	TTUInt32	nbUpperCase = 0;
-	TTUInt32	i;
-	TTCString	MaxNameCString = NULL;
-	TTUInt32	MaxNameSize = 0;
-	SymbolPtr	MaxNameSymbol;
-	
-	TTNameSize = strlen(TTName->getCString());
-	TTNameCString = new char[TTNameSize+1];
-	strncpy_zero(TTNameCString, TTName->getCString(), TTNameSize+1);
-	
-	// only expose TTName to Max if they begin with an upper-case letter
-	if (TTNameCString[0] > 64 && TTNameCString[0] < 91) {
-		
-		//  count how many upper-case letter there are in the TTName after the first letter
-		for (i=1; i<TTNameSize; i++) {
-			if (TTNameCString[i] > 64 && TTNameCString[i] < 91)
-				nbUpperCase++;
-		}
-		
-		// prepare the MaxName
-		MaxNameSize = TTNameSize + nbUpperCase;
-		MaxNameCString = new char[MaxNameSize+1];
-		
-		// convert first letter to lower-case for Max
-		MaxNameCString[0] = TTNameCString[0] + 32;													
-		
-		// copy each letter while checking upper-case letter to replace them by a / + lower-case letter
-		nbUpperCase = 0;
-		for (i=1; i<TTNameSize; i++) {
-			if (TTNameCString[i] > 64 && TTNameCString[i] < 91) {
-				MaxNameCString[i + nbUpperCase] = '/';
-				MaxNameCString[i + nbUpperCase + 1] = TTNameCString[i] + 32;
-				nbUpperCase++; 
-			}
-			else
-				MaxNameCString[i + nbUpperCase] = TTNameCString[i];
-		}
-		
-		// ends the CString with a NULL letter
-		MaxNameCString[MaxNameSize] = NULL;
-		
-		MaxNameSymbol = gensym(MaxNameCString);
-	}
-	else 
-		MaxNameSymbol = NULL;
-	
-	delete TTNameCString;
-	TTNameCString = NULL;
-	delete MaxNameCString;
-	MaxNameCString = NULL;
-	
-	return MaxNameSymbol;
+	TTSymbolPtr MaxName = convertPublicNameInAddress(TTName);
+	if (MaxName)
+		return gensym((char*)MaxName->getCString());
+	else
+		return NULL;
 }
 
 /** Get the Context Node of relative to a jcom.external */

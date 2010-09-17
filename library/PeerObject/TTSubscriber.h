@@ -29,6 +29,9 @@
  
  */
 
+class TTData;
+typedef TTData* TTDataPtr;
+
 class TTMODULAR_EXPORT TTSubscriber : public TTObject
 {
 	
@@ -58,23 +61,34 @@ private:
 													///< Important Note : 
 													///<	- the top level context have to be the first element of the list.
 													///<	- each element have to be TTValue with < context name, context pointer >
-
+	
+	TTHashPtr			mExposedMessages;
+	TTHashPtr			mExposedAttributes;
+	
+public:
 	
 	/** Make all needed registrations to set up a TTNode in the tree strucuture for a given TTObject */
 	TTErr subscribe(TTObjectPtr anObject);
 	
+	/** Expose a message of any TTObject as TTData in the same context than subscribed object */
+	TTErr exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName, TTDataPtr *returnedData);
+	
+	/** Expose an attribute of any TTObject as TTData in the same context than subscribed object */
+	TTErr exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeName, TTDataPtr *returnedData);
+	
+private:
+
 	/** Register each given Context of the list as TTNode if they don't exist yet */
 	TTErr registerContextList(TTListPtr aContextList);
-	
-	/** Register a TTObject as TTNode */
-	//TTErr registerTTObject(TTSymbolPtr oscAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
-	
+
+	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTSubscriber* TTSubscriberPtr;
 
-TTErr TTMODULAR_EXPORT TTObjectGetAttributeCallbackMethod(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
 
-TTErr TTMODULAR_EXPORT TTObjectSetAttributeCallbackMethod(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_SUBSCRIBER_H__
