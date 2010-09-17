@@ -17,7 +17,7 @@
 
 class TTAudioGraphDescription;
 typedef std::vector<TTAudioGraphDescription>		TTAudioGraphDescriptionVector;
-typedef TTAudioGraphDescriptionVector::iterator	TTAudioGraphDescriptionIter;
+typedef TTAudioGraphDescriptionVector::iterator		TTAudioGraphDescriptionIter;
 
 typedef std::vector<TTString>		TTStringVector;
 typedef TTStringVector::iterator	TTStringIter;
