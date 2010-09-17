@@ -40,12 +40,33 @@ public:
 	
 	// AudioGraph objects are also Graph objects, so this contains the description in a Graph
 	TTGraphDescription				mControlDescription;
+	TTUInt32						mOutletNumber;			// instantaneous outlet number for a connection
 	
 	
-	TTAudioGraphDescription()
+	TTAudioGraphDescription() :
+		mOutletNumber(0)
 	{
 		;
 	}
+	
+	
+	TTAudioGraphDescription& operator = (const TTAudioGraphDescription &newValue)
+	{
+		// inherited
+		mClassName = newValue.mClassName;
+		mInputDescriptions = newValue.mInputDescriptions;
+		mObjectInstance = newValue.mObjectInstance;
+		mID = newValue.mID;		
+		mUserData = newValue.mUserData;
+		//sIndex = newValue.sIndex;
+		
+		// audio specific
+		mAudioDescriptionsForInlets = newValue.mAudioDescriptionsForInlets;
+		mControlDescription = newValue.mControlDescription;
+		mOutletNumber = newValue.mOutletNumber;
+		return *this;
+	}
+
 	
 	
 	void exportRuby(const TTString& fullpathToFile);

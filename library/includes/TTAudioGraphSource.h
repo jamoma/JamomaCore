@@ -111,6 +111,7 @@ public:
 	void getDescription(TTAudioGraphDescription& desc)
 	{
 		mSourceObject->getAudioDescription(desc);
+		desc.mOutletNumber = this->mOutletNumber;
 	}
 	
 	// Graph Methods

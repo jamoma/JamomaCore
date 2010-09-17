@@ -88,7 +88,8 @@ TTAudioGraphObject::~TTAudioGraphObject()
 void TTAudioGraphObject::prepareAudioDescription()
 {
 	if (valid && mDescription) {
-		mDescription->sIndex = 0;
+//		mDescription->sIndex = 0;
+		delete mDescription;
 		mDescription = NULL;
 		
 		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
@@ -107,7 +108,8 @@ void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 		desc.mObjectInstance = mKernel;
 		desc.mAudioDescriptionsForInlets.clear();
 		desc.mID = desc.sIndex++;
-		mDescription = &desc;
+		mDescription = new TTAudioGraphDescription;
+		(*mDescription) = desc;
 		
 		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 			TTAudioGraphDescriptionVector	vector;
