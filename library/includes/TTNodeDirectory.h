@@ -230,6 +230,11 @@ TTAddressComparisonFlag TTFOUNDATION_EXPORT compareOSCAddress(TTSymbolPtr oscAdd
  @return							The number of C_SEPARATOR */
 unsigned int TTFOUNDATION_EXPORT countSeparator(TTSymbolPtr oscAddress);
 
+/**	Make a "public/name" symbol from "PublicName" symbol
+ @param	oscAddress					"PublicName" symbol
+ @return							"public/name" symbol */
+TTSymbolPtr TTFOUNDATION_EXPORT convertPublicNameInAddress(TTSymbolPtr publicName);
+
 /**	An test tool : test the type of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						An TTSymbolPtr argument for the type

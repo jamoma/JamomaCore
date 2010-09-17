@@ -775,6 +775,64 @@ TTAddressComparisonFlag compareOSCAddress(TTSymbolPtr oscAddress1, TTSymbolPtr o
 	return kAddressDifferent;
 }
 
+TTSymbolPtr convertPublicNameInAddress(TTSymbolPtr publicName)
+{
+	TTUInt32	publicNameSize = 0;
+	TTCString	publicNameCString;
+	TTUInt32	nbUpperCase = 0;
+	TTUInt32	i;
+	TTCString	addrNameCString = NULL;
+	TTUInt32	addrNameSize = 0;
+	TTSymbolPtr	addrNameSymbol;
+	
+	publicNameSize = strlen(publicName->getCString());
+	publicNameCString = new char[publicNameSize+1];
+	strncpy(publicNameCString, publicName->getCString(), publicNameSize+1);
+	
+	// only expose "PublicName" as "public/name" address (they begin with an upper-case letter)
+	if (publicNameCString[0] > 64 && publicNameCString[0] < 91) {
+		
+		//  count how many upper-case letter there are in the TTName after the first letter
+		for (i=1; i<publicNameSize; i++) {
+			if (publicNameCString[i] > 64 && publicNameCString[i] < 91)
+				nbUpperCase++;
+		}
+		
+		// prepare the addrName
+		addrNameSize = publicNameSize + nbUpperCase;
+		addrNameCString = new char[addrNameSize+1];
+		
+		// convert first letter to lower-case
+		addrNameCString[0] = publicNameCString[0] + 32;													
+		
+		// copy each letter while checking upper-case letter to replace them by a / + lower-case letter
+		nbUpperCase = 0;
+		for (i=1; i<publicNameSize; i++) {
+			if (publicNameCString[i] > 64 && publicNameCString[i] < 91) {
+				addrNameCString[i + nbUpperCase] = '/';
+				addrNameCString[i + nbUpperCase + 1] = publicNameCString[i] + 32;
+				nbUpperCase++; 
+			}
+			else
+				addrNameCString[i + nbUpperCase] = publicNameCString[i];
+		}
+		
+		// ends the CString with a NULL letter
+		addrNameCString[addrNameSize] = NULL;
+		
+		addrNameSymbol = TT(addrNameCString);
+	}
+	else 
+		addrNameSymbol = NULL;
+	
+	delete publicNameCString;
+	publicNameCString = NULL;
+	delete addrNameCString;
+	addrNameCString = NULL;
+	
+	return addrNameSymbol;
+}
+
 unsigned int countSeparator(TTSymbolPtr oscAddress)
 {
 	TTString toCount = oscAddress->getCString();
