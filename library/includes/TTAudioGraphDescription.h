@@ -19,6 +19,10 @@ class TTAudioGraphDescription;
 typedef std::vector<TTAudioGraphDescription>		TTAudioGraphDescriptionVector;
 typedef TTAudioGraphDescriptionVector::iterator		TTAudioGraphDescriptionIter;
 
+typedef std::vector<TTAudioGraphDescriptionVector>	TTAudioGraphDescriptionVectors;
+typedef TTAudioGraphDescriptionVectors::iterator	TTAudioGraphDescriptionVectorsIter;
+
+
 typedef std::vector<TTString>		TTStringVector;
 typedef TTStringVector::iterator	TTStringIter;
 
@@ -29,9 +33,14 @@ typedef TTStringVector::iterator	TTStringIter;
 
 class TTAUDIOGRAPH_EXPORT TTAudioGraphDescription : public TTGraphDescription {
 public:
-	TTAudioGraphDescriptionVector	mAudioDescriptions;		///< A list of descriptions for the nodes whose outlets connect to this node
-	TTGraphDescription				mControlDescription;	///< AudioGraph objects are also Graph objects, so this contains the description in a Graph
+//	TTAudioGraphDescriptionVector	mAudioDescriptions;		///< A list of descriptions for the nodes whose outlets connect to this node
 
+	// A bunch of arrays (one for each inlet), each with an array of descriptions for nodes connected to that inlet
+	TTAudioGraphDescriptionVectors	mAudioDescriptionsForInlets;
+	
+	// AudioGraph objects are also Graph objects, so this contains the description in a Graph
+	TTGraphDescription				mControlDescription;
+	
 	
 	TTAudioGraphDescription()
 	{

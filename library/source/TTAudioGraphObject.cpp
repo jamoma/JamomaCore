@@ -105,12 +105,19 @@ void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 	else {					// create a new description for this object.
 		desc.mClassName = mKernel->getName();
 		desc.mObjectInstance = mKernel;
-		desc.mAudioDescriptions.clear();
+//		desc.mAudioDescriptions.clear();
+desc.mAudioDescriptionsForInlets.clear();
 		desc.mID = desc.sIndex++;
 		mDescription = &desc;
 		
-		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
-			inlet->getDescriptions(desc.mAudioDescriptions);
+//		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
+//			inlet->getDescriptions(desc.mAudioDescriptions);
+		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
+			TTAudioGraphDescriptionVector	vector;
+
+			inlet->getDescriptions(vector);
+			desc.mAudioDescriptionsForInlets.push_back(vector);
+		}
 		
 		getDescription(desc.mControlDescription);
 	}

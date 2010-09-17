@@ -43,7 +43,7 @@ int TTAudioGraphDescription::exportRubyNode(TTString& content, int& index, TTStr
 	content += " = TTAudio.new \"";
 	content += mClassName->getString();
 	content += "\"\n";
-
+#ifdef SORRY_THIS_IS_BROKEN
 	for (TTAudioGraphDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex = input->exportRubyNode(content, index, nodeNames);
 		content += objName;
@@ -58,6 +58,7 @@ int TTAudioGraphDescription::exportRubyNode(TTString& content, int& index, TTStr
 		content += nodeNames[inputIndex];
 		content += "\n";
 	}
+#endif	
 	return localIndex;
 }
 
@@ -99,6 +100,7 @@ int TTAudioGraphDescription::exportCppNode(TTString& content, int& index, TTStri
 	content += ", TTValue(TT(\"";
 	content += mClassName->getString();
 	content += "\")))\n\n";
+#ifdef SORRY_THIS_IS_BROKEN
 	
 	for (TTAudioGraphDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex = input->exportCppNode(content, index, nodeNames);
@@ -116,6 +118,7 @@ int TTAudioGraphDescription::exportCppNode(TTString& content, int& index, TTStri
 		content += nodeNames[inputIndex];
 		content += ");\n";
 	}	
+#endif
 	return localIndex;
 }
 
@@ -180,7 +183,8 @@ int TTAudioGraphDescription::exportMaxNode(TTString& content, int& index, TTStri
 	content += ", 100.0, 20.0]\n";
 	content += "				}\n";
 	content += "			}\n";
-		
+#ifdef SORRY_THIS_IS_BROKEN
+	
 	for (TTAudioGraphDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex;
 		
@@ -228,7 +232,7 @@ int TTAudioGraphDescription::exportMaxNode(TTString& content, int& index, TTStri
 		content += "				}\n";
 		content += "			}\n";
 	}
-		
+#endif		
 	
 	return localIndex;
 }
