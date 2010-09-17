@@ -9,6 +9,8 @@
 
 #include "TTDSP.h"
 
+#include "TTFilter.h"
+
 #include "TTAllpass.h"
 #include "TTAllpass1.h"
 #include "TTAllpass1a.h"
@@ -55,6 +57,8 @@
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
 	TTDSPInit();
+	
+	TTFilter::registerClass();
 	
 	TTAllpass::registerClass();
 	TTAllpass1::registerClass();
