@@ -32,3 +32,4 @@ This project hosted is hosted at http://github.com/tap/Jamoma
 
 Change Log
 The change log can be found at http://redmine.jamoma.org
+
