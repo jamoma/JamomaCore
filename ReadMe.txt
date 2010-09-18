@@ -37,4 +37,3 @@ See the issue tracker at http://redmine.jamoma.org/projects/graph/issues
 
 Change Log
 The change log can be found at http://redmine.jamoma.org/wiki/graph
-
