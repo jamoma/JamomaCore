@@ -88,7 +88,7 @@ TTAudioGraphObject::~TTAudioGraphObject()
 void TTAudioGraphObject::prepareAudioDescription()
 {
 	if (valid && mDescription) {
-//		mDescription->sIndex = 0;
+		mDescription->sIndex = 0;
 		delete mDescription;
 		mDescription = NULL;
 		

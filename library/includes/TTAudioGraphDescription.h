@@ -33,8 +33,6 @@ typedef TTStringVector::iterator	TTStringIter;
 
 class TTAUDIOGRAPH_EXPORT TTAudioGraphDescription : public TTGraphDescription {
 public:
-//	TTAudioGraphDescriptionVector	mAudioDescriptions;		///< A list of descriptions for the nodes whose outlets connect to this node
-
 	// A bunch of arrays (one for each inlet), each with an array of descriptions for nodes connected to that inlet
 	TTAudioGraphDescriptionVectors	mAudioDescriptionsForInlets;
 	
