@@ -35,3 +35,4 @@ This project hosted is hosted at http://github.com/
 
 Change Log
 The change log can be found at http://redmine.jamoma.org
+
