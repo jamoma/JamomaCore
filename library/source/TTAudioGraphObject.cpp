@@ -106,6 +106,8 @@ void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 	else {					// create a new description for this object.
 		desc.mClassName = mKernel->getName();
 		desc.mObjectInstance = mKernel;
+		desc.mNumInlets = mInlets.size();
+		desc.mNumOutlets = mOutlets.size();
 		desc.mAudioDescriptionsForInlets.clear();
 		desc.mID = desc.sIndex++;
 		mDescription = new TTAudioGraphDescription;
