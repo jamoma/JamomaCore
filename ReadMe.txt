@@ -43,3 +43,4 @@ See the issue tracker at http://redmine.jamoma.org/projects/audiograph/issues
 
 Change Log
 The change log can be found at http://redmine.jamoma.org/wiki/audiograph
+
