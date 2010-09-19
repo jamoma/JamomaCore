@@ -168,6 +168,7 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 		err = mKernel->setAttributeValue(nameSymbol, v);
 		
 		mDictionary->setSchema(TT("attribute"));
+		mDictionary->remove(TT("name"));
 		mDictionary->append(TT("name"), nameValue);
 		mDictionary->setValue(v);
 	}
