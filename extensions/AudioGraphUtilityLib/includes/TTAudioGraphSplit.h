@@ -50,8 +50,10 @@ class TTAudioGraphSplit : public TTAudioObject {
 			// TODO: we don't really want to alloc this memory every time!
 			out.setMaxNumChannels(numChannels);
 			out.setNumChannels(numChannels);
+			// TODO: what happens when the incomming multicable has less audio channels than we want to split?
 			TTAudioSignal::copySubset(in, out, channelOffset, channelOffset+numChannels-1);
 			channelOffset += numChannels;
+			// TODO: what happens when the incomming multicable has more audio channels than we want to split? Should there be an extra 'overflow' outlet similar to 'route' or 'sel'? 
 		}
 		return kTTErrNone;
 	}
