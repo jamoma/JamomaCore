@@ -22,6 +22,20 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-12",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 624.0, 316.0, 24.0, 19.0 ],
+					"text" : "t b"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 32,
@@ -1203,13 +1217,13 @@
 ,
 					"patching_rect" : [ 547.0, 230.0, 448.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p returns",
@@ -1408,7 +1422,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 402.0, 500.0, 178.0, 31.0 ],
+					"patching_rect" : [ 544.0, 277.0, 178.0, 31.0 ],
 					"text" : "jcom.message clear @type none @description \"clears meters\""
 				}
 
@@ -1573,7 +1587,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 403.0, 479.0, 56.0, 16.0 ],
+					"patching_rect" : [ 544.0, 256.0, 56.0, 16.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 265.0, 2.0, 16.0, 16.0 ],
 					"text" : "C"
@@ -2159,13 +2173,13 @@
 ,
 									"patching_rect" : [ 223.0, 130.0, 44.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"fontname" : "Verdana",
 										"default_fontname" : "Verdana",
-										"globalpatchername" : "",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p clear"
@@ -2453,13 +2467,13 @@
 ,
 													"patching_rect" : [ 144.0, 207.0, 59.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 10.0,
 														"default_fontface" : 0,
-														"fontname" : "Verdana",
 														"default_fontname" : "Verdana",
-														"globalpatchername" : "",
+														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
-														"fontface" : 0
+														"fontface" : 0,
+														"fontsize" : 10.0,
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p connect"
@@ -2636,13 +2650,13 @@
 ,
 													"patching_rect" : [ 326.0, 208.0, 52.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 10.0,
 														"default_fontface" : 0,
-														"fontname" : "Verdana",
 														"default_fontname" : "Verdana",
-														"globalpatchername" : "",
+														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
-														"fontface" : 0
+														"fontface" : 0,
+														"fontsize" : 10.0,
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p defeat"
@@ -2967,13 +2981,13 @@
 ,
 													"patching_rect" : [ 224.0, 207.0, 73.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 10.0,
 														"default_fontface" : 0,
-														"fontname" : "Verdana",
 														"default_fontname" : "Verdana",
-														"globalpatchername" : "",
+														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
-														"fontface" : 0
+														"fontface" : 0,
+														"fontsize" : 10.0,
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p disconnect"
@@ -3076,13 +3090,13 @@
 ,
 									"patching_rect" : [ 55.0, 151.0, 108.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"fontname" : "Verdana",
 										"default_fontname" : "Verdana",
-										"globalpatchername" : "",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p scripting"
@@ -3181,13 +3195,13 @@
 ,
 					"patching_rect" : [ 28.0, 486.0, 100.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p"
@@ -3243,6 +3257,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-10", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 633.5, 340.0, 485.0, 340.0, 485.0, 111.0, 411.5, 111.0 ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
@@ -3387,6 +3410,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 94.5, 267.0, 39.5, 267.0 ],
 					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 1 ]
 				}
 
 			}
