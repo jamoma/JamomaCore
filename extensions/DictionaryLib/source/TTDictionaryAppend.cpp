@@ -20,7 +20,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mValue = new TTValue(0);
 	
 	addAttribute(Key, kTypeSymbol);
-	addAttributeWithSetter(Value, kTypeSymbol); // TODO: make this a generic TTValue
+	addAttributeWithGetterAndSetter(Value, kTypeSymbol); // TODO: make this a generic TTValue
 	addMessageWithArgument(Dictionary);
 }
 
@@ -43,6 +43,13 @@ TTErr TTDictionaryAppend::Dictionary(TTValue& input)
 		return kTTErrNone;
 	}
 	return kTTErrInvalidValue;
+}
+
+
+TTErr TTDictionaryAppend::getValue(TTValue& newValue)
+{
+	newValue = (*mValue);
+	return kTTErrNone;
 }
 
 

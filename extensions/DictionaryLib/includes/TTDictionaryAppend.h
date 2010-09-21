@@ -20,6 +20,7 @@ class TTDictionaryAppend : public TTObject {
 	TTValuePtr	mValue;
 	
 	TTErr Dictionary(TTValue& input);
+	TTErr getValue(TTValue& newValue);
 	TTErr setValue(const TTValue& newValue);
 };
 
