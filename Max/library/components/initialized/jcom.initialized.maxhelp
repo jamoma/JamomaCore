@@ -27,7 +27,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 340.0, 360.0, 53.0, 17.0 ],
+					"patching_rect" : [ 340.0, 355.0, 53.0, 17.0 ],
 					"text" : "jcom.init"
 				}
 
