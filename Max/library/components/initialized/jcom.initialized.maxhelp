@@ -27,7 +27,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 340.0, 355.0, 53.0, 17.0 ],
+					"patching_rect" : [ 341.0, 355.0, 53.0, 17.0 ],
 					"text" : "jcom.init"
 				}
 
@@ -70,7 +70,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 335.0, 335.0, 52.0, 19.0 ],
+					"patching_rect" : [ 336.0, 335.0, 52.0, 19.0 ],
 					"text" : "See also"
 				}
 
