@@ -286,6 +286,7 @@ void 		hub_preset_dowrite(t_hub *x, t_symbol *userpath);
 void 		hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number or name
 
 void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
+void hub_preset_mix (t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 
 
 /** Copies a preset by number or name.
