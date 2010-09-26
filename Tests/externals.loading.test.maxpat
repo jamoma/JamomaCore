@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 200.0, 189.0, 744.0, 601.0 ],
+		"rect" : [ -787.0, -66.0, 750.0, 725.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 200.0, 189.0, 744.0, 601.0 ],
+		"defrect" : [ -787.0, -66.0, 750.0, 725.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,12 +22,82 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 578.0, 587.0, 138.0, 19.0 ],
+					"text" : "jcom.soundfile.recorder≈"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "audio.connect", "audio.connect", "" ],
+					"patching_rect" : [ 579.0, 564.0, 126.0, 19.0 ],
+					"text" : "jcom.soundfile.player≈"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 580.0, 539.0, 93.0, 19.0 ],
+					"text" : "jcom.resample≈"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 580.0, 438.0, 94.0, 19.0 ],
+					"text" : "jcom.overdrive≈"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "audio.connect", "audio.connect", "" ],
+					"patching_rect" : [ 579.0, 240.0, 79.0, 19.0 ],
+					"text" : "jcom.hilbert≈"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-43",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 565.0, 85.0, 19.0 ],
+					"patching_rect" : [ 580.0, 685.0, 85.0, 19.0 ],
 					"text" : "jcom.window≈"
 				}
 
@@ -41,7 +111,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 540.0, 98.0, 19.0 ],
+					"patching_rect" : [ 580.0, 660.0, 98.0, 19.0 ],
 					"text" : "jcom.wavetable≈"
 				}
 
@@ -55,7 +125,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 580.0, 515.0, 83.0, 19.0 ],
+					"patching_rect" : [ 580.0, 635.0, 83.0, 19.0 ],
 					"text" : "jcom.unpack≈"
 				}
 
@@ -69,7 +139,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 490.0, 68.0, 19.0 ],
+					"patching_rect" : [ 580.0, 610.0, 68.0, 19.0 ],
 					"text" : "jcom.split≈"
 				}
 
@@ -83,7 +153,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 465.0, 91.0, 19.0 ],
+					"patching_rect" : [ 580.0, 515.0, 91.0, 19.0 ],
 					"text" : "jcom.pulsesub≈"
 				}
 
@@ -97,7 +167,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 440.0, 81.0, 19.0 ],
+					"patching_rect" : [ 580.0, 490.0, 81.0, 19.0 ],
 					"text" : "jcom.phasor≈"
 				}
 
@@ -111,7 +181,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 415.0, 70.0, 19.0 ],
+					"patching_rect" : [ 580.0, 465.0, 70.0, 19.0 ],
 					"text" : "jcom.pack≈"
 				}
 
@@ -125,7 +195,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 390.0, 59.0, 19.0 ],
+					"patching_rect" : [ 580.0, 415.0, 59.0, 19.0 ],
 					"text" : "jcom.op≈"
 				}
 
@@ -139,7 +209,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 365.0, 73.0, 19.0 ],
+					"patching_rect" : [ 580.0, 390.0, 73.0, 19.0 ],
 					"text" : "jcom.noise≈"
 				}
 
@@ -153,7 +223,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 340.0, 79.0, 19.0 ],
+					"patching_rect" : [ 580.0, 365.0, 79.0, 19.0 ],
 					"text" : "jcom.matrix≈"
 				}
 
@@ -167,7 +237,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 315.0, 108.0, 19.0 ],
+					"patching_rect" : [ 580.0, 340.0, 108.0, 19.0 ],
 					"text" : "jcom.matrixmixer≈"
 				}
 
@@ -181,7 +251,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 290.0, 79.0, 19.0 ],
+					"patching_rect" : [ 580.0, 315.0, 79.0, 19.0 ],
 					"text" : "jcom.limiter≈"
 				}
 
@@ -195,7 +265,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 580.0, 265.0, 65.0, 19.0 ],
+					"patching_rect" : [ 580.0, 290.0, 65.0, 19.0 ],
 					"text" : "jcom.join≈"
 				}
 
@@ -209,7 +279,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 580.0, 240.0, 65.0, 19.0 ],
+					"patching_rect" : [ 580.0, 265.0, 65.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -346,10 +416,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 195.0, 325.0, 335.0, 19.0 ],
-					"text" : "test.assert.equal \"TEST Multicore AllExternalsLoadingProperly\" 1"
+					"patching_rect" : [ 195.0, 325.0, 348.0, 19.0 ],
+					"text" : "test.assert.equal \"TEST AudioGraph AllExternalsLoadingProperly\" 1"
 				}
 
 			}
@@ -374,8 +444,8 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "bang", "bang" ],
 					"patching_rect" : [ 50.0, 85.0, 57.0, 19.0 ],
 					"text" : "test.start"
 				}
