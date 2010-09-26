@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 129.0, 75.0, 964.0, 553.0 ],
+		"rect" : [ 129.0, 75.0, 871.0, 425.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 129.0, 75.0, 964.0, 553.0 ],
+		"defrect" : [ 129.0, 75.0, 871.0, 425.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,12 +22,26 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
+					"patching_rect" : [ 581.0, 47.0, 80.0, 19.0 ],
+					"text" : "jcom.append!"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
-					"patching_rect" : [ 585.0, 165.0, 55.0, 19.0 ],
+					"patching_rect" : [ 581.0, 70.0, 55.0, 19.0 ],
 					"text" : "jcom.op!"
 				}
 
@@ -41,7 +55,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 585.0, 100.0, 79.0, 19.0 ],
+					"patching_rect" : [ 581.0, 119.0, 79.0, 19.0 ],
 					"text" : "jcom.unpack!"
 				}
 
@@ -55,7 +69,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
-					"patching_rect" : [ 585.0, 75.0, 66.0, 19.0 ],
+					"patching_rect" : [ 581.0, 94.0, 66.0, 19.0 ],
 					"text" : "jcom.pack!"
 				}
 
@@ -66,10 +80,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 195.0, 325.0, 335.0, 19.0 ],
-					"text" : "test.assert.equal \"TEST Multicore AllExternalsLoadingProperly\" 1"
+					"patching_rect" : [ 195.0, 325.0, 320.0, 19.0 ],
+					"text" : "test.assert.equal \"TEST Graph AllExternalsLoadingProperly\" 1"
 				}
 
 			}
@@ -94,8 +108,8 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "bang", "bang" ],
 					"patching_rect" : [ 50.0, 85.0, 57.0, 19.0 ],
 					"text" : "test.start"
 				}
