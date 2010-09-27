@@ -3,7 +3,7 @@
 using namespace std;
 
 
-void myParameter_return_value_callback(TTPtr baton, TTValue& v);
+void myData_return_value_callback(TTPtr baton, TTValue& v);
 
 void myReceiver_return_value_callback(TTPtr baton, TTValue& v);
 void myReceiver_return_address_callback(TTPtr baton, TTValue& v);
@@ -89,38 +89,38 @@ main(int argc, char **argv)
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&myUnregistrationObserver), args);
 
 
-	// Create a TTParameter
+	// Create a TTData
 	/////////////////////////////////////////////////////////
-	TTParameterPtr	myParameter = NULL;
+	TTDataPtr		myData = NULL;
 	TTCallbackPtr	p_returnValueCallback = NULL;
 	TTValuePtr		p_returnValueBaton;
 	
-	// prepare arguments : see TTParameter.h to know which args are needed
+	// prepare arguments : see TTData.h to know which args are needed
 	args.clear();
 	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
 	p_returnValueBaton = new TTValue(NULL);		// Here it is NULL but it could be usefull to pass 
 												// an object in order to process the returned value
 	p_returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(p_returnValueBaton));
-	p_returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&myParameter_return_value_callback));
+	p_returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&myData_return_value_callback));
 	args.append(p_returnValueCallback);
 	
-	// create an instance of TTParameter
-	TTObjectInstantiate(TT("Parameter"), TTObjectHandle(&myParameter), args);
+	// create an instance of TTData
+	TTObjectInstantiate(TT("Data"), TTObjectHandle(&myData), args);
 
-	// set TTParameter mType attribute as integer
-	myParameter->setAttributeValue(kTTSym_Type, kTTSym_integer);
+	// set TTData mType attribute as integer
+	myData->setAttributeValue(kTTSym_Type, kTTSym_integer);
 
-	// set TTParameter mValueDefault attribute as 0
-	myParameter->setAttributeValue(kTTSym_ValueDefault, 0);
+	// set TTData mValueDefault attribute as 0
+	myData->setAttributeValue(kTTSym_ValueDefault, 0);
 
 
 	// Register a TTObject into the TTModularDirectory
 	/////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Register myParameter into the TTModularDirectory *** \n");
+	TTLogMessage("\n*** Register myData into the TTModularDirectory *** \n");
 	TTNodePtr		returnedNode;
 	TTBoolean		newInstanceCreated;
 
-	TTModularDirectory->TTNodeCreate(TT("/audio/filter/frequency"), myParameter, NULL, &returnedNode, &newInstanceCreated);
+	TTModularDirectory->TTNodeCreate(TT("/audio/filter/frequency"), myData, NULL, &returnedNode, &newInstanceCreated);
 	// note : our myRegistrationObserver is informed
 
 
@@ -171,39 +171,39 @@ main(int argc, char **argv)
 
 
 
-	// Set mValue attribute of our parameter directly
+	// Set mValue attribute of our data directly
 	//////////////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Set mValue attribute of our parameter directly *** \n");
+	TTLogMessage("\n*** Set mValue attribute of our data directly *** \n");
 	TTValue	v = TTValue(1);
-	myParameter->setAttributeValue(kTTSym_Value, v);
-	// note : the value is returned by the Parameter and the Receiver
+	myData->setAttributeValue(kTTSym_Value, v);
+	// note : the value is returned by the Data and the Receiver
 
 
 
-	// Set mValue attribute of our parameter using mySender
+	// Set mValue attribute of our data using mySender
 	//////////////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Set mValue attribute of our parameter using mySender *** \n");
+	TTLogMessage("\n*** Set mValue attribute of our data using mySender *** \n");
 	v = TTValue(2);
 	mySender->sendMessage(kTTSym_Send, v);
-	// note : the value is returned by the Parameter and the Receiver
+	// note : the value is returned by the Data and the Receiver
 
 
 
-	// Get our parameter using TTModularDirectory
+	// Get our data using TTModularDirectory
 	//////////////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Get some attribute of our parameter using TTModularDirectory *** \n");
-	// get the node which represent our parameter
+	TTLogMessage("\n*** Get some attribute of our data using TTModularDirectory *** \n");
+	// get the node which represent our data
 	TTList			aNodeList;
 	TTNodePtr		aNode;
 	TTModularDirectory->Lookup(TT("/audio/filter/frequency"), aNodeList, &aNode);
 
 	// get the object store in the node
-	TTParameterPtr	anObject;
+	TTDataPtr	anObject;
 	aNode->getAttributeValue(kTTSym_Object, v);
 	v.get(0, (TTPtr*)&anObject);
 
-	if (anObject == myParameter)
-		TTLogMessage("anObject is myParameter \n");
+	if (anObject == myData)
+		TTLogMessage("anObject is myData \n");
 
 	// get the mValue attribute value of the object
 	v.clear();
@@ -227,11 +227,11 @@ main(int argc, char **argv)
 	// reset the mValue to mValueDefault
 	TTLogMessage("\n*** reset the mValue to mValueDefault *** \n");
 	anObject->sendMessage(TT("Reset"));
-	// note : the value is returned by the Parameter and the Receiver
+	// note : the value is returned by the Data and the Receiver
 
 	// Unregister /audio/filter/frequency from the TTModularDirectory
 	//////////////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Unregister myParameter from the TTModularDirectory *** \n");
+	TTLogMessage("\n*** Unregister myData from the TTModularDirectory *** \n");
 	TTModularDirectory->TTNodeRemove(TT("/audio/filter/frequency"));
 	// note : our myUnregistrationObserver is informed
 
@@ -257,7 +257,7 @@ main(int argc, char **argv)
 	delete r_returnAddressBaton;
 	delete r_returnValueBaton;
 
-	TTObjectRelease(TTObjectHandle(&myParameter));
+	TTObjectRelease(TTObjectHandle(&myData));
 	TTObjectRelease(TTObjectHandle(&p_returnValueCallback));
 	delete p_returnValueBaton;
 
@@ -268,7 +268,7 @@ main(int argc, char **argv)
 	return EXIT_SUCCESS;
 }
 
-void myParameter_return_value_callback(TTPtr baton, TTValue& v)
+void myData_return_value_callback(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	TTPtr		x;
@@ -282,7 +282,7 @@ void myParameter_return_value_callback(TTPtr baton, TTValue& v)
 	// print the returned value
 	v.toString();
 	v.get(0, s);
-	TTLogMessage("myParameter returns %s \n", s.data());
+	TTLogMessage("myData returns %s \n", s.data());
 }
 
 void myReceiver_return_value_callback(TTPtr baton, TTValue& v)
