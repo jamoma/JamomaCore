@@ -15,6 +15,9 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -24,7 +27,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 193.0, 231.0, 45.0, 18.0 ],
+					"patching_rect" : [ 193.0, 231.0, 46.0, 19.0 ],
 					"text" : "jcom.in"
 				}
 
@@ -39,7 +42,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 214.0, 562.0, 30.0 ],
+					"patching_rect" : [ 487.0, 214.0, 562.0, 31.0 ],
 					"text" : "jcom.message send @repetitions/allow 1 @description \"An Open Sound Control message to send out over the network.\""
 				}
 
@@ -54,7 +57,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 194.0, 286.0, 599.0, 30.0 ],
+					"patching_rect" : [ 193.0, 286.0, 599.0, 31.0 ],
 					"text" : "jcom.return receive @repetitions/allow 1 @type generic @description \"Open Sound Control messages coming in from the network are reported here.\""
 				}
 
@@ -87,7 +90,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 490.0, 95.0, 525.0, 18.0 ],
+					"patching_rect" : [ 490.0, 95.0, 525.0, 19.0 ],
 					"text" : "jcom.parameter mode @type string @description \"Choose between single IP or multicast usage\"",
 					"varname" : "mode"
 				}
@@ -120,7 +123,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 51.0, 107.0, 135.0, 16.0 ],
+					"patching_rect" : [ 51.0, 107.0, 137.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -134,7 +137,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 188.0, 107.0, 37.0, 16.0 ],
+					"patching_rect" : [ 188.0, 107.0, 37.0, 17.0 ],
 					"text" : "/init"
 				}
 
@@ -148,7 +151,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 193.0, 262.0, 106.0, 18.0 ],
+					"patching_rect" : [ 193.0, 262.0, 106.0, 19.0 ],
 					"text" : "jalg.oscnet.maxpat"
 				}
 
@@ -163,7 +166,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 16.0, 134.0, 342.0, 42.0 ],
+					"patching_rect" : [ 16.0, 134.0, 345.0, 43.0 ],
 					"text" : "jcom.hub @description \"Send and receive Open Sound Control (OSC) over a network port.  You may receive directly or join up to 2 multicast addresses in addition to receiving directly.\"",
 					"varname" : "jcom.hub"
 				}
@@ -208,19 +211,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
+					"destination" : [ "obj-14", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-14", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 1 ]
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
@@ -237,17 +231,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 25.5, 126.0, 25.5, 141.0 ],
-					"source" : [ "obj-16", 0 ]
+					"midpoints" : [ 197.5, 130.0, 25.5, 130.0 ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-15", 0 ],
+					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 197.5, 130.0, 25.5, 130.0 ],
-					"source" : [ "obj-13", 0 ]
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}
@@ -262,10 +256,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 25.5, 126.0, 25.5, 141.0 ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-1", 0 ]
+					"source" : [ "obj-4", 1 ]
 				}
 
 			}
@@ -280,10 +283,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-4", 1 ]
+					"source" : [ "obj-6", 1 ]
 				}
 
 			}
