@@ -34,6 +34,12 @@
 #define addMessageProperty(messageName, propertyName, initialValue)		registerMessageProperty(TT(#messageName), TT(#propertyName), initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
 
 
+/**	An 'update' is a message sent to a subclass instance from its parent class.
+	For example, to update the sample rate of the subclass when the parent's sample rate attribute has changed.
+ */
+#define addUpdate(updateName)	addMessageWithArgument(update##updateName); addMessageProperty(update##updateName, hidden, YES);
+
+
 /****************************************************************************************************/
 // Class Specifications
 
