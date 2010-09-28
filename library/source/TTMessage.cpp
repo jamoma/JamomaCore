@@ -10,8 +10,12 @@
 #include "TTEnvironment.h"
 
 
-TTMessage::TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags)
-	: TTObject(kTTValNONE), name(newName), flags(newFlags), method(newMethod)
+TTMessage::TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags) : 
+	TTObject(kTTValNONE), 
+	name(newName), 
+	flags(newFlags),
+	method(newMethod),
+	hidden(NO)
 {
 	;
 }
@@ -22,3 +26,15 @@ TTMessage::~TTMessage()
 	;
 }
 
+
+TTErr TTMessage::sethidden(const TTValue& newHiddenFlag)
+{
+	hidden = newHiddenFlag;
+	return kTTErrNone;
+}
+
+TTErr TTMessage::gethidden(TTValue& currentHiddenFlag)
+{
+	currentHiddenFlag = hidden;
+	return kTTErrNone;
+}

@@ -192,14 +192,19 @@ public:
 	TTErr setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
 
 	TTErr registerAttributeProperty(const TTSymbolPtr attributeName, const TTSymbolPtr propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
-
+	TTErr registerMessageProperty(const TTSymbolPtr messageName, const TTSymbolPtr propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
 	
 	TTErr getAttribute(const TTSymbolPtr name, TTAttributePtr* attributeObject)
 	{
 		return findAttribute(name, attributeObject);
 	}
 	
-
+	TTErr getMessage(const TTSymbolPtr name, TTMessagePtr* messageObject)
+	{
+		return findMessage(name, messageObject);
+	}
+	
+	
 	/** return a list of names of the available attributes */
 	void getAttributeNames(TTValue& attributeNameList);
 	

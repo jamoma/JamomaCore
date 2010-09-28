@@ -26,6 +26,14 @@
 #define registerMessageWithArgument(name)	registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
 
 
+/** A convenience macro to be used for registering properties of messages.
+ This assumes that the property is one that has been explicitly supported by TTMessage through the definition of accessor methods.
+ If you are adding a custom property then you must define your own accessor methods and register the property by calling the
+ TTObject::registerMessageProperty() method directly.
+ */
+#define addMessageProperty(messageName, propertyName, initialValue)		registerMessageProperty(TT(#messageName), TT(#propertyName), initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
+
+
 /****************************************************************************************************/
 // Class Specifications
 
@@ -40,9 +48,14 @@ public:
 	const TTSymbolPtr	name;		///< the name of the message.
 	TTMessageFlags		flags;		///< define the behavior of the message.
 	TTMethod			method;		///< method associated with this message.
+	TTBoolean			hidden;		///< Property: this message is private/hidden from outside usage
 
 	TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags);
 	virtual ~TTMessage();
+	
+	TTErr sethidden(const TTValue& newHiddenFlag);
+	TTErr gethidden(TTValue& currentHiddenFlag);
+	
 };
 
 
