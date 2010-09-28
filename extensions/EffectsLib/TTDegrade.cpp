@@ -25,12 +25,12 @@ TT_AUDIO_CONSTRUCTOR
 	addAttribute(SrRatio,				kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(MaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("Bitdepth"),		24);
-	setAttributeValue(TT("SrRatio"),		1.0);
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("bitdepth"),		24);
+	setAttributeValue(TT("srRatio"),		1.0);
 	setProcessMethod(processAudio);
 }
 

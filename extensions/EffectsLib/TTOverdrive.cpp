@@ -26,18 +26,18 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithGetterAndSetter(Preamp,		kTypeFloat64);
 	
 	// Register Messages
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 	
 	// Additional Initialization
 	TTObjectInstantiate(kTTSym_dcblock, &dcBlockerUnit, initialMaxNumChannels);
 
 	// Set Defaults
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("Mode"), 1);
-	setAttributeValue(TT("Preamp"), 0.0);
-	setAttributeValue(TT("Drive"), 3.0);
-	setAttributeValue(TT("DcBlocker"), kTTBoolYes);
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("mode"), 1);
+	setAttributeValue(TT("preamp"), 0.0);
+	setAttributeValue(TT("drive"), 3.0);
+	setAttributeValue(TT("dcBlocker"), kTTBoolYes);
 }
 
 
@@ -49,7 +49,7 @@ TTOverdrive::~TTOverdrive()
 
 TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {	
-	return dcBlockerUnit->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+	return dcBlockerUnit->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 }
 
 
@@ -81,7 +81,7 @@ TTErr TTOverdrive::setDrive(const TTValue& newValue)
 TTErr TTOverdrive::setDcBlocker(const TTValue& newValue)
 {
 	mDcBlocker = newValue;
-	return dcBlockerUnit->setAttributeValue(TT("Bypass"), !mDcBlocker);
+	return dcBlockerUnit->setAttributeValue(TT("bypass"), !mDcBlocker);
 }
 
 
@@ -109,9 +109,9 @@ TTErr TTOverdrive::setPreamp(const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::Clear()
+TTErr TTOverdrive::clear()
 {
-	return dcBlockerUnit->sendMessage(TT("Clear"));
+	return dcBlockerUnit->sendMessage(TT("clear"));
 }
 
 

@@ -26,23 +26,24 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	outputArray(NULL) 
 {
 	// Convention: 'Public' attribute names begin with a capital letter, 'Private' attribute names begin with a lower case letter
-	registerAttribute(TT("MaxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
-	registerAttribute(kTTSym_SampleRate,	kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
-	registerAttribute(TT("Bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
-	registerAttribute(TT("Mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
+	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
+	registerAttribute(kTTSym_sampleRate,	kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
+	registerAttribute(TT("bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
+	registerAttribute(TT("mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
 	registerAttribute(TT("processInPlace"), kTypeBoolean,	&attrProcessInPlace);
-
-	registerMessage(TT("Calculate"), (TTMethod)&TTAudioObject::calculateMessage);
+	addAttributeProperty(processInPlace,	hidden,	YES);
+	
+	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
 	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
 
 	// Set Defaults...
 		
-	setAttributeValue(kTTSym_SampleRate,	ttEnvironment->mSampleRate);
+	setAttributeValue(kTTSym_sampleRate,	ttEnvironment->mSampleRate);
 	setProcess(&TTAudioObject::bypassProcess);
     setCalculate(&TTAudioObject::defaultCalculateMethod);
-	setAttributeValue(TT("Bypass"),			kTTBoolNo);
+	setAttributeValue(TT("bypass"),			kTTBoolNo);
 	setAttributeValue(TT("processInPlace"), kTTBoolNo);
 }
 
@@ -68,10 +69,12 @@ TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 
 TTErr TTAudioObject::setSr(const TTValue& newValue)
 {
+	TTValue oldSampleRate(sr);
+	
 	sr = newValue;
 	srInv = 1.0/sr;
 	srMill = sr * 0.001;
-	sendMessage(TT("updateSr"));
+	sendMessage(TT("updateSampleRate"), oldSampleRate);
 	return kTTErrNone;
 }
 

@@ -21,7 +21,7 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeProperty(Fade,	rangeChecking,	TT("clip"));
 	
 	// Set Defaults:
-	setAttributeValue(TT("Fade"), 0.1);
+	setAttributeValue(TT("fade"), 0.1);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);

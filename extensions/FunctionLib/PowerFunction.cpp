@@ -19,8 +19,8 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Symmetry,	kTypeSymbol);
 	addAttributeWithSetter(PowerValue,	kTypeFloat64);
 	
-	setAttributeValue(TT("PowerValue"), 1.0);
-	setAttributeValue(TT("Symmetry"), TT("none"));
+	setAttributeValue(TT("powerValue"), 1.0);
+	setAttributeValue(TT("symmetry"), TT("none"));
 	
 	setProcessMethod(processAudio);
 }

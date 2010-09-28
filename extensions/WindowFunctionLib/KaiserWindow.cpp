@@ -18,7 +18,7 @@ TT_AUDIO_CONSTRUCTOR
 {
 	addAttributeWithSetter(Beta, kTypeFloat64);
 	
-	setAttributeValue(TT("Beta"), 6.0);
+	setAttributeValue(TT("beta"), 6.0);
 
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);

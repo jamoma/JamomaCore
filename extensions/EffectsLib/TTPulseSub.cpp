@@ -24,18 +24,18 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
-	registerAttribute(TT("Attack"),		kTypeFloat64,	&attrAttack,	(TTSetterMethod)&TTPulseSub::setAttack);
-	registerAttribute(TT("Decay"),		kTypeFloat64,	&attrDecay,		(TTSetterMethod)&TTPulseSub::setDecay);
-	registerAttribute(TT("Release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTPulseSub::setRelease);
-	registerAttribute(TT("Sustain"),	kTypeFloat64,	&attrSustain,	(TTSetterMethod)&TTPulseSub::setSustain);
-	registerAttribute(TT("Trigger"),	kTypeBoolean,	&attrTrigger,	(TTSetterMethod)&TTPulseSub::setTrigger);
-	registerAttribute(TT("Mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTPulseSub::setMode);
-	registerAttribute(TT("Frequency"),	kTypeFloat64,	&attrFrequency,	(TTSetterMethod)&TTPulseSub::setFrequency);
-	registerAttribute(TT("Length"),		kTypeFloat64,	&attrLength,	(TTSetterMethod)&TTPulseSub::setLength);
+	registerAttribute(TT("attack"),		kTypeFloat64,	&attrAttack,	(TTSetterMethod)&TTPulseSub::setAttack);
+	registerAttribute(TT("decay"),		kTypeFloat64,	&attrDecay,		(TTSetterMethod)&TTPulseSub::setDecay);
+	registerAttribute(TT("release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTPulseSub::setRelease);
+	registerAttribute(TT("sustain"),	kTypeFloat64,	&attrSustain,	(TTSetterMethod)&TTPulseSub::setSustain);
+	registerAttribute(TT("trigger"),	kTypeBoolean,	&attrTrigger,	(TTSetterMethod)&TTPulseSub::setTrigger);
+	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTPulseSub::setMode);
+	registerAttribute(TT("frequency"),	kTypeFloat64,	&attrFrequency,	(TTSetterMethod)&TTPulseSub::setFrequency);
+	registerAttribute(TT("length"),		kTypeFloat64,	&attrLength,	(TTSetterMethod)&TTPulseSub::setLength);
 
 	// register for notifications
-	registerMessageWithArgument(updateMaxNumChannels);
-	registerMessageSimple(updateSr);
+	addUpdate(MaxNumChannels);
+	addUpdate(SampleRate);
 
 	TTObjectInstantiate(kTTSym_adsr, &env_gen, initialMaxNumChannels);
 	TTObjectInstantiate(kTTSym_phasor, &phasor, initialMaxNumChannels);
@@ -43,15 +43,15 @@ TT_AUDIO_CONSTRUCTOR,
 	TTObjectInstantiate(kTTSym_operator, &scaler, initialMaxNumChannels);	
 	TTObjectInstantiate(kTTSym_audiosignal, &sig1, 1);	
 	TTObjectInstantiate(kTTSym_audiosignal, &sig2, 1);	
-	offset->setAttributeValue(TT("Operator"), TT("+"));
-	scaler->setAttributeValue(TT("Operator"), TT("*"));
+	offset->setAttributeValue(TT("operator"), TT("+"));
+	scaler->setAttributeValue(TT("operator"), TT("*"));
 
-	setAttributeValue(TT("Attack"), 50.);
-	setAttributeValue(TT("Decay"), 100.);
-	setAttributeValue(TT("Sustain"), -6.);
-	setAttributeValue(TT("Release"), 500.);
-	setAttributeValue(TT("Mode"), TT("linear"));	// <-- sets the process method
-	setAttributeValue(TT("Length"), 0.25);
+	setAttributeValue(TT("attack"), 50.);
+	setAttributeValue(TT("decay"), 100.);
+	setAttributeValue(TT("sustain"), -6.);
+	setAttributeValue(TT("release"), 500.);
+	setAttributeValue(TT("mode"), TT("linear"));	// <-- sets the process method
+	setAttributeValue(TT("length"), 0.25);
 	
 	setProcessMethod(processAudio);
 }
@@ -67,22 +67,22 @@ TTPulseSub::~TTPulseSub()
 }
 
 
-TTErr TTPulseSub::updateSr()
+TTErr TTPulseSub::updateSampleRate(const TTValue& oldSampleRate)
 {
-	phasor->setAttributeValue(TT("SampleRate"), sr);
-	offset->setAttributeValue(TT("SampleRate"), sr);
-	env_gen->setAttributeValue(TT("SampleRate"), sr);
-	scaler->setAttributeValue(TT("SampleRate"), sr);
+	phasor->setAttributeValue(kTTSym_sampleRate, sr);
+	offset->setAttributeValue(kTTSym_sampleRate, sr);
+	env_gen->setAttributeValue(kTTSym_sampleRate, sr);
+	scaler->setAttributeValue(kTTSym_sampleRate, sr);
 	return kTTErrNone;
 }
 
 
 TTErr TTPulseSub::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	phasor->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
-	offset->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
-	env_gen->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
-	scaler->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+	phasor->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	offset->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	env_gen->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	scaler->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 	return kTTErrNone;
 }
 
@@ -90,52 +90,52 @@ TTErr TTPulseSub::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 TTErr TTPulseSub::setAttack(const TTValue& newValue)
 {
 	attrAttack = newValue;
-	return env_gen->setAttributeValue(TT("Attack"), const_cast<TTValue&>(newValue));
+	return env_gen->setAttributeValue(TT("attack"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTPulseSub::setDecay(const TTValue& newValue)
 {
 	attrDecay = newValue;
-	return env_gen->setAttributeValue(TT("Decay"), attrDecay);
+	return env_gen->setAttributeValue(TT("decay"), attrDecay);
 }
 
 
 TTErr TTPulseSub::setSustain(const TTValue& newValue)
 {
 	attrSustain = newValue;
-	return env_gen->setAttributeValue(TT("Sustain"), const_cast<TTValue&>(newValue));
+	return env_gen->setAttributeValue(TT("sustain"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTPulseSub::setRelease(const TTValue& newValue)
 {
 	attrRelease = newValue;
-	return env_gen->setAttributeValue(TT("Release"), const_cast<TTValue&>(newValue));
+	return env_gen->setAttributeValue(TT("release"), const_cast<TTValue&>(newValue));
 }
 
 
 TTErr TTPulseSub::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;
-	return env_gen->setAttributeValue(TT("Mode"), const_cast<TTValue&>(newValue));
+	return env_gen->setAttributeValue(TT("mode"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTPulseSub::setTrigger(const TTValue& newValue)
 {
 	attrTrigger = newValue;
-	return env_gen->setAttributeValue(TT("Trigger"), const_cast<TTValue&>(newValue));
+	return env_gen->setAttributeValue(TT("trigger"), const_cast<TTValue&>(newValue));
 }
 
 
 TTErr TTPulseSub::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = newValue;
-	return phasor->setAttributeValue(TT("Frequency"), attrFrequency);
+	return phasor->setAttributeValue(TT("frequency"), attrFrequency);
 }
 
 TTErr TTPulseSub::setLength(const TTValue& newValue)
 {
 	attrLength = newValue;
-	return offset->setAttributeValue(TT("Operand"), attrLength - 0.5);
+	return offset->setAttributeValue(TT("operand"), attrLength - 0.5);
 }
 
 

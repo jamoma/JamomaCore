@@ -32,17 +32,17 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Interpolation,		kTypeSymbol);
 
 	// declare messages
-	addMessage(Clear);
+	addMessage(clear);
 	
 	// updates from the parent class
-	addMessage(updateSr);
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(SampleRate);
+	addUpdate(MaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("DelayMaxInSamples"), 256);
-	setAttributeValue(TT("DelayInSamples"), 100);
-	setAttributeValue(TT("Interpolation"), TT("cubic"));
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("delayMaxInSamples"), 256);
+	setAttributeValue(TT("delayInSamples"), 100);
+	setAttributeValue(TT("interpolation"), TT("cubic"));
 }
 
 
@@ -79,14 +79,14 @@ TTErr TTDelay::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTDelay::updateSr()
+TTErr TTDelay::updateSampleRate(const TTValue& oldSampleRate)
 {
 	init(long(srMill * mDelayMax));		// allocate a larger delay buffer if neccessary	
 	return setDelay(mDelay);			// hold the delay time in ms constant, despite the change of sr
 }
 
 
-TTErr TTDelay::Clear()
+TTErr TTDelay::clear()
 {
 	for_each(mBuffers.begin(), mBuffers.end(), mem_fun_ref(&TTDelayBuffer::clear));
 	return kTTErrNone;

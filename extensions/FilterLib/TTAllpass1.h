@@ -30,7 +30,7 @@ class TTAllpass1 : public TTAudioObject {
 	
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr updateSr();
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
 
 	/** Internal initialization of buffers and pointers etc. */
 	TTErr init(TTUInt64 newDelayMaxInSamples);
@@ -62,7 +62,7 @@ class TTAllpass1 : public TTAudioObject {
 	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
-	TTErr Clear();
+	TTErr clear();
 	
 
 	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr* data);

@@ -25,24 +25,24 @@ TT_AUDIO_CONSTRUCTOR,
 	TTErr		err;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mR0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mDelay, initialMaxNumChannels);
 
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("Mode"), TT("lowpass"));
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("mode"), TT("lowpass"));
 	
 	// this coefficient gives w0 (stopband edge) at 0.48 * F_nyquist, with an attentuation of -85dB
-	mF0->setAttributeValue(TT("Alpha"), 0.334654061320571);
-	mR0->setAttributeValue(TT("Alpha"), 0.334654061320571);
+	mF0->setAttributeValue(TT("alpha"), 0.334654061320571);
+	mR0->setAttributeValue(TT("alpha"), 0.334654061320571);
 	
 	// this coefficient gives w0 (stopband edge) at 0.45 * F_nyquist, with an attentuation of -60dB
-	//mF0->setAttributeValue(TT("Alpha"), 0.341748648258737);
-	//mR0->setAttributeValue(TT("Alpha"), 0.341748648258737);
+	//mF0->setAttributeValue(TT("alpha"), 0.341748648258737);
+	//mR0->setAttributeValue(TT("alpha"), 0.341748648258737);
 	
-	mDelay->setAttributeValue(TT("Alpha"), 0.0);
+	mDelay->setAttributeValue(TT("alpha"), 0.0);
 }
 
 
@@ -178,7 +178,7 @@ TTErr TTHalfband3::processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() / 2;
-	TTErr			err;
+	//TTErr			err;
 	
 	out.changeVectorSize(targetVectorSize);
 	out.setSampleRate(in.getSampleRate() / 2);

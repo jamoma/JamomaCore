@@ -37,8 +37,8 @@ class TTLowpassFourPole : public TTAudioObject {
 					
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr updateSr();
-    TTErr Clear();
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
+    TTErr clear();
 	
 	void calculateCoefficients();
 	/**	Standard single value calculate method as used by DSP objects. */

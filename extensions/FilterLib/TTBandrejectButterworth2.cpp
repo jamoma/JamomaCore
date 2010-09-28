@@ -23,16 +23,16 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Q,			kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(MaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	addMessage(updateSr);
+	addUpdate(SampleRate);
 	// make the clear method available to the outside world
-	addMessage(Clear);
+	addMessage(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	arguments);			// This attribute is inherited
-	setAttributeValue(TT("Frequency"),		1000.0);
-	setAttributeValue(TT("Q"),				50.0);
+	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
+	setAttributeValue(TT("frequency"),		1000.0);
+	setAttributeValue(TT("q"),				50.0);
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
 
@@ -51,19 +51,19 @@ TTErr TTBandRejectButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumCha
 	mX2.resize(maxNumChannels);
 	mY1.resize(maxNumChannels);
 	mY2.resize(maxNumChannels);	
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTBandRejectButterworth2::updateSr()
+TTErr TTBandRejectButterworth2::updateSampleRate(const TTValue& oldSampleRate)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTBandRejectButterworth2::Clear()
+TTErr TTBandRejectButterworth2::clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);

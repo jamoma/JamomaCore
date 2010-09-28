@@ -29,8 +29,8 @@ TT_AUDIO_CONSTRUCTOR,
 	TTUInt16	initialMaxNumChannels = arguments;
 	TTErr		err;
 	
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("delay"), (TTObjectPtr*)&mP0Delay, initialMaxNumChannels);
 	
@@ -41,20 +41,20 @@ TT_AUDIO_CONSTRUCTOR,
 	err = TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF3, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF4, initialMaxNumChannels);
 	
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 		
-	mP0Delay->setAttributeValue(TT("DelayMaxInSamples"), 16);
-	mP0Delay->setAttributeValue(TT("DelayInSamples"), 16);
+	mP0Delay->setAttributeValue(TT("delayMaxInSamples"), 16);
+	mP0Delay->setAttributeValue(TT("delayInSamples"), 16);
 	
-	mP1Delay->setAttributeValue(TT("Alpha"), 0.0);
-	mF0->setAttributeValue(TT("Alpha"), -0.8323021656083688);
-	mF1->setAttributeValue(TT("Alpha"), 0.4212854250030528);
-	mF2->setAttributeValue(TT("C1"), -0.6763427968689864);
-	mF2->setAttributeValue(TT("C2"), 0.2319808172827758);
-	mF3->setAttributeValue(TT("C1"), -0.003589671833320152);
-	mF3->setAttributeValue(TT("C2"), 0.1916472793306732);
-	mF4->setAttributeValue(TT("C1"), 0.59696896155334);
-	mF4->setAttributeValue(TT("C2"), 0.1802094400534031);
+	mP1Delay->setAttributeValue(TT("alpha"), 0.0);
+	mF0->setAttributeValue(TT("alpha"), -0.8323021656083688);
+	mF1->setAttributeValue(TT("alpha"), 0.4212854250030528);
+	mF2->setAttributeValue(TT("c1"), -0.6763427968689864);
+	mF2->setAttributeValue(TT("c2"), 0.2319808172827758);
+	mF3->setAttributeValue(TT("c1"), -0.003589671833320152);
+	mF3->setAttributeValue(TT("c2"), 0.1916472793306732);
+	mF4->setAttributeValue(TT("c1"), 0.59696896155334);
+	mF4->setAttributeValue(TT("c2"), 0.1802094400534031);
 	
 	setProcessMethod(processAudio);
 }
@@ -77,12 +77,12 @@ TTErr TTHilbertLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	// TODO: update internal filters
 
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTHilbertLinear33::Clear()
+TTErr TTHilbertLinear33::clear()
 {
 	// TODO: update internal filters
 	return kTTErrNone;

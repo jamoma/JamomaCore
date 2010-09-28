@@ -29,8 +29,8 @@ class TTHighMidLowShelf : public TTAudioObject {
 
 	/** Receives notifications when there are changes to the inherited 
 		sr attribute.						*/
-	TTErr updateSr();
-	TTErr Clear();
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr clear();
 	TTErr calculateCoefficients();
 
 	/**	Standard audio processing method as used by TTBlue objects. */

@@ -44,21 +44,21 @@ public:
 	{
 		addAttributeWithSetter(Plugin,	kTypeSymbol);
 		
-		addMessageWithArgument(GetPluginNames);
-		addMessageWithArgument(GetParameterNames);
-		addMessageWithArgument(GetPresetNames);
+		addMessageWithArgument(getPluginNames);
+		addMessageWithArgument(getParameterNames);
+		addMessageWithArgument(getPresetNames);
 		
-		addMessageWithArgument(SetParameter);
-		addMessageWithArgument(GetParameter);
-		addMessageWithArgument(RecallPreset);
+		addMessageWithArgument(setParameter);
+		addMessageWithArgument(getParameter);
+		addMessageWithArgument(recallPreset);
 
-		addMessageWithArgument(updateMaxNumChannels);
+		addUpdate(MaxNumChannels);
 
 		parameterNames = new TTHash;
 		timeStamp.mSampleTime = 0;
 		timeStamp.mFlags = kAudioTimeStampSampleTimeValid;
 		
-		setAttributeValue(TT("Plugin"), TT("AULowpass"));
+		setAttributeValue(TT("plugin"), TT("AULowpass"));
 		setProcessMethod(processAudio);
 	}
 	
@@ -99,7 +99,7 @@ public:
 	}
 	
 	
-	TTErr GetPluginNames(TTValue& pluginNames)
+	TTErr getPluginNames(TTValue& pluginNames)
 	{
 		ComponentDescription	searchDesc;
 		Component				comp = NULL;
@@ -232,13 +232,13 @@ public:
 	}
 	
 	
-	TTErr GetParameterNames(TTValue& returnedParameterNames)
+	TTErr getParameterNames(TTValue& returnedParameterNames)
 	{
 		return parameterNames->getKeys(returnedParameterNames);
 	}
 
 	
-	TTErr SetParameter(const TTValue& nameAndValue)
+	TTErr setParameter(const TTValue& nameAndValue)
 	{
 		TTSymbolPtr	parameterName;
 		TTFloat32	parameterValue;
@@ -259,7 +259,7 @@ public:
 	}
 	
 	
-	TTErr GetParameter(TTValue& nameInAndValueOut)
+	TTErr getParameter(TTValue& nameInAndValueOut)
 	{
 		TTSymbolPtr	parameterName = nameInAndValueOut;
 		TTValue		v;
@@ -277,7 +277,7 @@ public:
 	}
 	
 
-	TTErr GetPresetNames(TTValue& returnedPresetNames)
+	TTErr getPresetNames(TTValue& returnedPresetNames)
 	{
 		CFArrayRef	factoryPresets = NULL;
 		UInt32		size = sizeof(CFArrayRef);
@@ -304,7 +304,7 @@ public:
 	
 	
 	// We could also keep a hash of factory presets and allow a symbol to set the preset by name at some point...
-	TTErr RecallPreset(const TTValue& presetNumber)
+	TTErr recallPreset(const TTValue& presetNumber)
 	{
 		AUPreset	presetInfo;
 		OSStatus	err = noErr;

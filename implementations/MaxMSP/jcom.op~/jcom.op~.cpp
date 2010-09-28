@@ -92,7 +92,7 @@ void* op_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
+		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
 		TTObjectInstantiate(TT("operator"), &x->op, x->maxNumChannels);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
@@ -192,14 +192,14 @@ void op_dsp(t_op *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setAttributeValue(TT("NumChannels"), x->maxNumChannels);
-	x->audioOut->setAttributeValue(TT("NumChannels"), x->maxNumChannels);
-	x->audioIn->setAttributeValue(TT("VectorSize"), x->vs);
-	x->audioOut->setAttributeValue(TT("VectorSize"), x->vs);
+	x->audioIn->setAttributeValue(kTTSym_numChannels, x->maxNumChannels);
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->maxNumChannels);
+	x->audioIn->setAttributeValue(kTTSym_vectorSize, x->vs);
+	x->audioOut->setAttributeValue(kTTSym_vectorSize, x->vs);
 	//audioIn will be set in the perform method
 	x->audioOut->sendMessage(TT("alloc"));
 	
-	x->op->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
+	x->op->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	dsp_addv(op_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
@@ -210,7 +210,7 @@ t_max_err op_setOperator(t_op *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrOperator = atom_getsym(argv);
-		x->op->setAttributeValue(TT("Operator"), TT(x->attrOperator->s_name));
+		x->op->setAttributeValue(TT("operator"), TT(x->attrOperator->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -220,7 +220,7 @@ t_max_err op_setOperand(t_op *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrOperand = atom_getfloat(argv);
-		x->op->setAttributeValue(TT("Operand"), x->attrOperand);
+		x->op->setAttributeValue(TT("operand"), x->attrOperand);
 	}
 	return MAX_ERR_NONE;
 }

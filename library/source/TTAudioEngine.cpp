@@ -49,15 +49,17 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithSetter(InputDevice,		kTypeSymbol);
 	addAttributeWithSetter(OutputDevice,	kTypeSymbol);
 	
-	addMessage(Start);
-	addMessage(Stop);
-	addMessageWithArgument(GetCpuLoad);
+	addMessage(start);
+	addMessage(stop);
+	addMessageWithArgument(getCpuLoad);
 
-	addMessageWithArgument(GetAvailableInputDeviceNames);
-	addMessageWithArgument(GetAvailableOutputDeviceNames);
+	addMessageWithArgument(getAvailableInputDeviceNames);
+	addMessageWithArgument(getAvailableOutputDeviceNames);
 	
 	addMessageWithArgument(addCallbackObserver);
+	addMessageProperty(addCallbackObserver, hidden, YES);
 	addMessageWithArgument(removeCallbackObserver);
+	addMessageProperty(removeCallbackObserver, hidden, YES);
 
 	// Set defaults -- there are no devices actually named 'default', so we set the values directly
 	mInputDevice = TT("default");
@@ -71,7 +73,7 @@ TTAudioEngine::~TTAudioEngine()
 
 	if (mStream) {
 		if (mIsRunning)
-			Stop();
+			stop();
 				
 		err = Pa_CloseStream(mStream);
 		if (err != paNoError)
@@ -89,7 +91,7 @@ TTErr TTAudioEngine::initStream()
 	TTBoolean	shouldRun = mIsRunning;
 		
 	if (mIsRunning)
-		Stop();
+		stop();
 		
 	if (mStream) {
 		Pa_CloseStream(mStream);
@@ -150,13 +152,13 @@ TTErr TTAudioEngine::initStream()
 	mOutputBuffer->alloc();
 	
 	if (shouldRun)
-		Start();
+		start();
 	
 	return (TTErr)err;
 }
 
 
-TTErr TTAudioEngine::Start()
+TTErr TTAudioEngine::start()
 {
 	PaError err = paNoError;
 	
@@ -174,7 +176,7 @@ TTErr TTAudioEngine::Start()
 }
 
 
-TTErr TTAudioEngine::Stop()
+TTErr TTAudioEngine::stop()
 {
 	PaError err = paNoError;
 	
@@ -188,7 +190,7 @@ TTErr TTAudioEngine::Stop()
 }
 
 
-TTErr TTAudioEngine::GetCpuLoad(TTValue& returnedValue)
+TTErr TTAudioEngine::getCpuLoad(TTValue& returnedValue)
 {
 	TTFloat64 cpuLoad = Pa_GetStreamCpuLoad(mStream);
 	
@@ -197,7 +199,7 @@ TTErr TTAudioEngine::GetCpuLoad(TTValue& returnedValue)
 }
 
 
-TTErr TTAudioEngine::GetAvailableInputDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioEngine::getAvailableInputDeviceNames(TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
@@ -219,7 +221,7 @@ TTErr TTAudioEngine::GetAvailableInputDeviceNames(TTValue& returnedDeviceNames)
 }
 
 
-TTErr TTAudioEngine::GetAvailableOutputDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioEngine::getAvailableOutputDeviceNames(TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;

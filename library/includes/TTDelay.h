@@ -32,7 +32,7 @@ class TTDelay : public TTAudioObject {
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	/** Receives notifications when there are changes to the inherited sr attribute. */
-	TTErr updateSr();
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
 	
 	// internal - set up the buffer memory
 	TTErr init(TTUInt64 newDelayMaxInSamples);
@@ -41,7 +41,7 @@ class TTDelay : public TTAudioObject {
 	void reset();
 
 	/** Zero out the delay's buffer. */
-	TTErr Clear();
+	TTErr clear();
 	
 	/** Attribute Accessor */
 	TTErr setDelay(const TTValue& newValue);

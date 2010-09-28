@@ -27,15 +27,15 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Mode,		kTypeSymbol);
 
 	// register methods
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
-	addMessage(updateSr);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
+	addUpdate(SampleRate);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	arguments);			// This attribute is inherited
-	setAttributeValue(TT("Mode"),			TT("lowpass"));
-	setAttributeValue(TT("Frequency"),		1000.0);
-	setAttributeValue(TT("Resonance"),		1.0);
+	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
+	setAttributeValue(TT("mode"),			TT("lowpass"));
+	setAttributeValue(TT("frequency"),		1000.0);
+	setAttributeValue(TT("resonance"),		1.0);
 }
 
 
@@ -52,19 +52,19 @@ TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mBandpass_output.resize(maxNumChannels);
 	mNotch_output.resize(maxNumChannels);
 	mPeak_output.resize(maxNumChannels);
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTSvf::updateSr()
+TTErr TTSvf::updateSampleRate(const TTValue& oldSampleRate)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTSvf::Clear()
+TTErr TTSvf::clear()
 {
 	mLowpass_output.assign(maxNumChannels, 0.0);
 	mHighpass_output.assign(maxNumChannels, 0.0);

@@ -73,9 +73,9 @@ TT_AUDIO_CONSTRUCTOR_EXPORT
 	}
 	
 	// Set Defaults (the attribute setters will set the process method for us)...
-	setAttributeValue(TT("Position"),	0.5);
-	setAttributeValue(TT("Shape"),		TT("equalPower"));
-	setAttributeValue(TT("Mode"),		TT("lookup"));
+	setAttributeValue(TT("position"),	0.5);
+	setAttributeValue(TT("shape"),		TT("equalPower"));
+	setAttributeValue(TT("mode"),		TT("lookup"));
 }
 
 

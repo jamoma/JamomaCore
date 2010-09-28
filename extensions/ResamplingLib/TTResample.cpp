@@ -22,11 +22,11 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addAttributeWithSetter(Direction, kTypeSymbol);
 	addAttributeWithSetter(Mode, kTypeSymbol);
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(MaxNumChannels);
 	
-	setAttributeValue(TT("Mode"), TT("staircase"));
-	setAttributeValue(TT("Direction"), TT("down"));
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("mode"), TT("staircase"));
+	setAttributeValue(TT("direction"), TT("down"));
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 
 	setProcessMethod(processAudio);
 }
@@ -42,9 +42,9 @@ TTErr TTResample::setDirection(const TTValue& newDirection)
 {
 	mDirection = newDirection;
 	if (mDirection == TT("up"))
-		return mResamplingFilter->setAttributeValue(TT("Mode"), TT("upsample"));
+		return mResamplingFilter->setAttributeValue(TT("mode"), TT("upsample"));
 	else // mDirection == TT("down")
-		return mResamplingFilter->setAttributeValue(TT("Mode"), TT("downsample"));
+		return mResamplingFilter->setAttributeValue(TT("mode"), TT("downsample"));
 }
 
 
@@ -71,7 +71,7 @@ TTErr TTResample::setMode(const TTValue& newMode)
 	else // mMode == TT("staircase")
 		err = TTObjectInstantiate(TT("staircase"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
 	
-	setAttributeValue(TT("Direction"), mDirection);
+	setAttributeValue(TT("direction"), mDirection);
 	
 	return err;
 }
@@ -79,7 +79,7 @@ TTErr TTResample::setMode(const TTValue& newMode)
 
 TTErr TTResample::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	return mResamplingFilter->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+	return mResamplingFilter->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 }
 
 

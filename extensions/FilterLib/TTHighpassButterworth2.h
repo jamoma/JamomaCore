@@ -30,8 +30,8 @@ class TTHighpassButterworth2 : public TTAudioObject {
 	 maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
 	 so that each channel's previous values are remembered.		*/
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr updateSr();
-	TTErr Clear();
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr clear();
 	
 	void calculateCoefficients();
 	

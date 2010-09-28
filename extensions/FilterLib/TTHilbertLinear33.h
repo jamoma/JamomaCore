@@ -45,7 +45,7 @@ class TTHilbertLinear33 : TTAudioObject {
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	// Zero filter history
-	TTErr Clear();
+	TTErr clear();
 	
 	inline void filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel);
 

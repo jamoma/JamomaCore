@@ -37,8 +37,8 @@ class TTSoundfilePlayer : public TTAudioObject {
 	TTErr setFilePath(const TTValue& value);
 	TTErr setPlay(const TTValue& value);
 	TTErr setSeek(const TTValue& value);
-	TTErr Pause();
-	TTErr Resume();
+	TTErr pause();
+	TTErr resume();
 	
 	// Block-based Audio Processing Methods
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

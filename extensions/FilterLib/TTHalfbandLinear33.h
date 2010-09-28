@@ -71,7 +71,7 @@ class TTHalfbandLinear33 : TTAudioObject {
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	// Zero filter history
-	TTErr Clear();
+	TTErr clear();
 	
 	// Attributes
 	TTErr setMode(const TTValue& newValue);

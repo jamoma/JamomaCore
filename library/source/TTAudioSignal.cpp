@@ -32,7 +32,8 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttribute(			Bitdepth, kTypeUInt8);
 	addAttributeProperty(	Bitdepth, readOnly, kTTVal1);
 	
-	addMessage(Clear);
+	addMessage(clear);
+	
 	addMessage(alloc);
 	addMessageWithArgument(allocWithNewVectorSize);
 	addMessageWithArgument(setVector32);
@@ -40,8 +41,15 @@ TT_OBJECT_CONSTRUCTOR,
 	addMessageWithArgument(setVector64);
 	addMessageWithArgument(getVector64);
 	
-	setAttributeValue(TT("MaxNumChannels"), initialMaxNumChannels);
-	setAttributeValue(TT("NumChannels"), initialMaxNumChannels);
+	addMessageProperty(alloc,					hidden, YES);
+	addMessageProperty(allocWithNewVectorSize,	hidden, YES);
+	addMessageProperty(setVector32,				hidden, YES);
+	addMessageProperty(getVector32,				hidden, YES);
+	addMessageProperty(setVector64,				hidden, YES);
+	addMessageProperty(getVector64,				hidden, YES);
+	
+	setAttributeValue(kTTSym_maxNumChannels, initialMaxNumChannels);
+	setAttributeValue(kTTSym_numChannels, initialMaxNumChannels);
 }
 
 

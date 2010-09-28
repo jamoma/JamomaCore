@@ -21,15 +21,15 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Frequency, kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(MaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	addMessage(updateSr);
+	addUpdate(SampleRate);
 	// make the clear method available to the outside world
-	addMessage(Clear);
+	addMessage(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);		// This attribute is inherited
-	setAttributeValue(TT("Frequency"),		10.0);						// Default frequency is 10 Hz
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);		// This attribute is inherited
+	setAttributeValue(TT("frequency"),		10.0);						// Default frequency is 10 Hz
 	setProcessMethod(processAudio);
 }
 
@@ -48,18 +48,18 @@ TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	xm2B.resize(maxNumChannels);
 	ym1B.resize(maxNumChannels);
 	ym2B.resize(maxNumChannels);	
-	return Clear();
+	return clear();
 }
 
 
-TTErr TTBalance::updateSr()
+TTErr TTBalance::updateSampleRate(const TTValue& oldSampleRate)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTBalance::Clear()
+TTErr TTBalance::clear()
 {
 	xm1A.assign(maxNumChannels, 0.0);
 	xm2A.assign(maxNumChannels, 0.0);

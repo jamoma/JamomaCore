@@ -29,8 +29,8 @@ TT_AUDIO_CONSTRUCTOR,
 	TTErr		err;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("delay"), (TTObjectPtr*)&mP0Delay, initialMaxNumChannels);
 	
@@ -41,21 +41,21 @@ TT_AUDIO_CONSTRUCTOR,
 	err = TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF3, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF4, initialMaxNumChannels);
 
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("Mode"), TT("lowpass"));
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("mode"), TT("lowpass"));
 	
-	mP0Delay->setAttributeValue(TT("DelayMaxInSamples"), 16);
-	mP0Delay->setAttributeValue(TT("DelayInSamples"), 16);
+	mP0Delay->setAttributeValue(TT("delayMaxInSamples"), 16);
+	mP0Delay->setAttributeValue(TT("delayInSamples"), 16);
 	
-	mP1Delay->setAttributeValue(TT("Alpha"), 0.0);
-	mF0->setAttributeValue(TT("Alpha"), 0.832280776);
-	mF1->setAttributeValue(TT("Alpha"), -0.421241137);
-	mF2->setAttributeValue(TT("C1"), 0.67623706);
-	mF2->setAttributeValue(TT("C2"), 0.23192313);
-	mF3->setAttributeValue(TT("C1"), 0.00359228);
-	mF3->setAttributeValue(TT("C2"), 0.19159423);
-	mF4->setAttributeValue(TT("C1"), -0.59689082);
-	mF4->setAttributeValue(TT("C2"), 0.18016931);
+	mP1Delay->setAttributeValue(TT("alpha"), 0.0);
+	mF0->setAttributeValue(TT("alpha"), 0.832280776);
+	mF1->setAttributeValue(TT("alpha"), -0.421241137);
+	mF2->setAttributeValue(TT("c1"), 0.67623706);
+	mF2->setAttributeValue(TT("c2"), 0.23192313);
+	mF3->setAttributeValue(TT("c1"), 0.00359228);
+	mF3->setAttributeValue(TT("c2"), 0.19159423);
+	mF4->setAttributeValue(TT("c1"), -0.59689082);
+	mF4->setAttributeValue(TT("c2"), 0.18016931);
 }
 
 
@@ -75,12 +75,12 @@ TTHalfbandLinear33::~TTHalfbandLinear33()
 TTErr TTHalfbandLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	// TODO: update internal filters
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTHalfbandLinear33::Clear()
+TTErr TTHalfbandLinear33::clear()
 {
 	// TODO: update internal filters
 	return kTTErrNone;

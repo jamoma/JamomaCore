@@ -143,7 +143,7 @@ void FFTDsp(FFTPtr self, t_signal **sp, short *count)
 	self->audioOut->setVectorSizeWithInt(vs);
 	//audioIn will be set in the perform method
 	self->audioOut->alloc();	
-	self->fft->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
+	self->fft->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	dsp_add(FFTPerform, 4, self, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec);
 }

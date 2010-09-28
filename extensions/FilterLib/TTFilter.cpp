@@ -26,15 +26,15 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addMessageWithArgument(getTypes);
 	addMessage(clear);
-	addMessageWithArgument(Mode);	// some filters have a 'mode' attribute, some don't, so this is a message instead of an attribute 
+	addMessageWithArgument(mode);	// some filters have a 'mode' attribute, some don't, so this is a message instead of an attribute 
 	
-	addMessageWithArgument(updateMaxNumChannels);
-	addMessage(updateSr);
+	addUpdate(SampleRate);
+	addUpdate(MaxNumChannels);
 	
-	setAttributeValue(TT("MaxNumChannels"), arguments);
-	setAttributeValue(TT("Type"), TT("lowpass.1"));
-	setAttributeValue(TT("Frequency"), 1000.0);
-	setAttributeValue(TT("Q"), 1.0);
+	setAttributeValue(kTTSym_maxNumChannels, arguments);
+	setAttributeValue(TT("type"), TT("lowpass.1"));
+	setAttributeValue(TT("frequency"), 1000.0);
+	setAttributeValue(TT("q"), 1.0);
 	setProcessMethod(processAudio);
 }
 

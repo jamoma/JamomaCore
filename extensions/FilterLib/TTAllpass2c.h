@@ -39,7 +39,7 @@ class TTAllpass2c : public TTAudioObject {
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
 	// Zero filter history
-	TTErr Clear();
+	TTErr clear();
 	
 	// Do the processing
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

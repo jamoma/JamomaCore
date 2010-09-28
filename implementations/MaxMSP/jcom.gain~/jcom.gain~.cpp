@@ -118,8 +118,8 @@ void* gain_new(t_symbol* s, long argc, t_atom* argv)
 		//x->signalOut = new TTAudioSignal(x->numChannels);
 		//x->signalIn = new TTAudioSignal(x->numChannels*2);
 		
-		x->xfade->setAttributeValue(TT("Position"), 1.0);		// defaults
-		x->gain->setAttributeValue(TT("LinearGain"), 0.0);
+		x->xfade->setAttributeValue(TT("position"), 1.0);		// defaults
+		x->gain->setAttributeValue(TT("linearGain"), 0.0);
 		
 		x->attrBypass = 0;
 		x->attrGain = 0;
@@ -168,7 +168,7 @@ void gain_assist(t_gain *x, void *b, long msg, long arg, char *dst)
 t_max_err attr_set_gain(t_gain *x, void *attr, long argc, t_atom *argv)
 {
 	x->attrGain = atom_getfloat(argv);
-	x->gain->setAttributeValue(TT("MidiGain"), x->attrGain);
+	x->gain->setAttributeValue(TT("midiGain"), x->attrGain);
 	return MAX_ERR_NONE;
 }
 
@@ -178,7 +178,7 @@ t_max_err attr_set_mix(t_gain *x, void *attr, long argc, t_atom *argv)
 {
 	x->attrMix = atom_getfloat(argv);
 	if(x->attrBypass == 0)
-		x->xfade->setAttributeValue(TT("Position"), x->attrMix * 0.01);
+		x->xfade->setAttributeValue(TT("position"), x->attrMix * 0.01);
 	return MAX_ERR_NONE;
 }
 
@@ -188,9 +188,9 @@ t_max_err attr_set_bypass(t_gain *x, void *attr, long argc, t_atom *argv)
 {
 	x->attrBypass = atom_getlong(argv);
 	if(x->attrBypass == 0)
-		x->xfade->setAttributeValue(TT("Position"), x->attrMix * 0.01);
+		x->xfade->setAttributeValue(TT("position"), x->attrMix * 0.01);
 	else
-		x->xfade->setAttributeValue(TT("Position"), 0.0);
+		x->xfade->setAttributeValue(TT("position"), 0.0);
 	return MAX_ERR_NONE;
 }
 
@@ -267,8 +267,8 @@ void gain_dsp(t_gain *x, t_signal **sp, short *count)
 	x->signalOut->alloc();
 	x->signalTemp->alloc();
 	
-	x->xfade->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
-	x->gain->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
+	x->xfade->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
+	x->gain->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	dsp_addv(gain_perform, l, audioVectors);
 	sysmem_freeptr(audioVectors);

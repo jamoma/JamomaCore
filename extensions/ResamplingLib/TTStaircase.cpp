@@ -17,7 +17,7 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	addAttributeWithSetter(Mode, kTypeSymbol);
-	setAttributeValue(TT("Mode"), TT("down"));					  
+	setAttributeValue(TT("mode"), TT("down"));					  
 }
 
 

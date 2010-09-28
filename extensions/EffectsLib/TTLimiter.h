@@ -52,7 +52,7 @@ class TTLimiter : public TTAudioObject {
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
-	TTErr updateSr();
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
 
 	/** Private utility used by the audio processing routine. */
 	void setRecover();
@@ -88,7 +88,7 @@ class TTLimiter : public TTAudioObject {
 	TTErr setDCBlocker(TTValue& newValue);
 	
 	/** Clear the history: reset the limiter. */
-	TTErr Clear();	
+	TTErr clear();	
 };
 
 

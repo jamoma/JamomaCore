@@ -18,13 +18,13 @@ TT_AUDIO_CONSTRUCTOR,
 	mFeedback(NULL)
 {
 	addAttributeWithSetter(Coefficient, kTypeFloat64);
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 	
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	arguments);			// This attribute is inherited
-	setAttributeValue(TT("Coefficient"), 0.75);
-	sendMessage(TT("Clear"));
+	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
+	setAttributeValue(TT("coefficient"), 0.75);
+	sendMessage(TT("clear"));
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
@@ -40,11 +40,11 @@ TTErr LowpassFunction::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	delete[] mFeedback;
 	mFeedback = new TTFloat64[maxNumChannels];
-	return Clear();
+	return clear();
 }
 
 
-TTErr LowpassFunction::Clear()
+TTErr LowpassFunction::clear()
 {
 	for (TTUInt16 channel=0; channel<maxNumChannels; channel++)
 		mFeedback[channel] = 0.0;

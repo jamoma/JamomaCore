@@ -158,7 +158,7 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		x->sr = sr;
-		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
+		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
 		object_attr_setsym(x, _sym_type, gensym("lowpass.butterworth.2"));
 
 		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, x->maxNumChannels);
@@ -214,7 +214,7 @@ void filter_assist(t_filter *x, void *b, long msg, long arg, char *dst)
 
 void filter_clear(t_filter *x)
 {
-	x->filter->sendMessage(TT("Clear"));
+	x->filter->sendMessage(TT("clear"));
 }
 
 
@@ -241,7 +241,7 @@ t_max_err filter_setBypass(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);
-		x->filter->setAttributeValue(TT("Bypass"), (TTBoolean)x->attrBypass);
+		x->filter->setAttributeValue(kTTSym_bypass, (TTBoolean)x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
@@ -250,7 +250,7 @@ t_max_err filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrFrequency = atom_getfloat(argv);
-		x->filter->setAttributeValue(TT("Frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }
@@ -261,9 +261,9 @@ t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
 	
 	if(argc){
 		x->attrQ = atom_getfloat(argv);
-		err = x->filter->setAttributeValue(TT("Q"), x->attrQ);
+		err = x->filter->setAttributeValue(TT("q"), x->attrQ);
 		if(err == kTTErrInvalidAttribute)
-			err = x->filter->setAttributeValue(TT("Resonance"), x->attrQ);
+			err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
 	}
 	return MAX_ERR_NONE;
 }
@@ -279,12 +279,12 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			TTObjectInstantiate(TT(x->attrType->s_name), &x->filter, x->maxNumChannels);			
 			if(x->filter){
 				// Now that we have our new filter, update it with the current state of the external:
-				x->filter->setAttributeValue(TT("Frequency"), x->attrFrequency);
-				err = x->filter->setAttributeValue(TT("Q"), x->attrQ);
+				x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
+				err = x->filter->setAttributeValue(TT("q"), x->attrQ);
 				if(err == kTTErrInvalidAttribute)
-					err = x->filter->setAttributeValue(TT("Resonance"), x->attrQ);
-				x->filter->setAttributeValue(TT("Bypass"), (TTBoolean)x->attrBypass);
-				x->filter->setAttributeValue(TT("SampleRate"), (TTUInt32)x->sr);
+					err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
+				x->filter->setAttributeValue(kTTSym_bypass, (TTBoolean)x->attrBypass);
+				x->filter->setAttributeValue(kTTSym_sampleRate, (TTUInt32)x->sr);
 			}
 		}
 	}
@@ -295,7 +295,7 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 t_max_err filter_setMode(t_filter *x, void *attr, long argc, t_atom *argv)
 {	
 	if (argc)
-		x->filter->setAttributeValue(TT("Mode"), TT(atom_getsym(argv)->s_name));
+		x->filter->setAttributeValue(TT("mode"), TT(atom_getsym(argv)->s_name));
 	return MAX_ERR_NONE;
 }
 
@@ -342,7 +342,7 @@ t_int *filter_perform_freq(t_int *w)
 
 	if(!x->obj.z_disabled){
 		x->attrFrequency = *freq;
-		x->filter->setAttributeValue(TT("Frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
 		x->filter->process(x->audioIn, x->audioOut);
 	}
 
@@ -370,7 +370,7 @@ t_int *filter_perform_q(t_int *w)
 
 	if(!x->obj.z_disabled){
 		x->attrQ = *q;
-		x->filter->setAttributeValue(TT("Q"), x->attrQ);
+		x->filter->setAttributeValue(TT("q"), x->attrQ);
 		x->filter->process(x->audioIn, x->audioOut);
 	}
 
@@ -401,8 +401,8 @@ t_int *filter_perform_freq_q(t_int *w)
 	if(!x->obj.z_disabled){
 		x->attrFrequency = *freq;
 		x->attrQ = *q;
-		x->filter->setAttributeValue(TT("Frequency"), x->attrFrequency);
-		x->filter->setAttributeValue(TT("Q"), x->attrQ);
+		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("q"), x->attrQ);
 		x->filter->process(x->audioIn, x->audioOut);
 	}
 
@@ -456,15 +456,15 @@ void filter_dsp(t_filter *x, t_signal **sp, short *count)
 		hasQ = true;
 	}
 	
-	x->audioIn->setAttributeValue(TT("NumChannels"), x->numChannels);
-	x->audioOut->setAttributeValue(TT("NumChannels"), x->numChannels);
-	x->audioIn->setAttributeValue(kTTSym_VectorSize, x->vs);
-	x->audioOut->setAttributeValue(kTTSym_VectorSize, x->vs);
+	x->audioIn->setAttributeValue(kTTSym_numChannels, x->numChannels);
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->numChannels);
+	x->audioIn->setAttributeValue(kTTSym_vectorSize, x->vs);
+	x->audioOut->setAttributeValue(kTTSym_vectorSize, x->vs);
 	//audioIn will be set in the perform method
 	x->audioOut->sendMessage(kTTSym_alloc);
 
 	x->sr = sp[0]->s_sr;	
-	x->filter->setAttributeValue(kTTSym_SampleRate, sp[0]->s_sr);
+	x->filter->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	if(hasFreq && hasQ)
 		dsp_addv(filter_perform_freq_q, k, audioVectors);

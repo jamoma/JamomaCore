@@ -33,7 +33,7 @@ class TTOnePole : public TTAudioObject {
 
 	/** Receives notifications when there are changes to the inherited 
 		sr attribute.						*/
-	TTErr updateSr();
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
 
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
@@ -41,7 +41,7 @@ class TTOnePole : public TTAudioObject {
 	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
-	TTErr Clear();	
+	TTErr clear();	
 
 
 	/**	Setter for the mode attribute.

@@ -31,16 +31,16 @@ TTAverage::TTAverage(TTUInt16 newMaxNumChannels)
 	addAttributeWithSetter(Mode,			kTypeSymbol);
 	
 	// register methods
-	addMessage(Clear);
+	addMessage(clear);
 
 	// register for notifications
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(MaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
-	setAttributeValue(TT("MaxInterval"),	256);
-	setAttributeValue(TT("Interval"),		100);
-	setAttributeValue(TT("Mode"),			TT("absolute"));
+	setAttributeValue(kTTSym_maxNumChannels,	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxInterval"),	256);
+	setAttributeValue(TT("interval"),		100);
+	setAttributeValue(TT("mode"),			TT("absolute"));
 }
 
 

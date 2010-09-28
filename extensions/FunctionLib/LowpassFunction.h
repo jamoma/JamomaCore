@@ -27,7 +27,7 @@ class LowpassFunction : TTAudioObject {
 	TTFloat64*		mFeedback;
 
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr Clear();
+	TTErr clear();
 	TTErr setCoefficient(const TTValue& newValue);
 
 	/** y = f(x) for a single value */

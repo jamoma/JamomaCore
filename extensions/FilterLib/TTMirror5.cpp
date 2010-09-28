@@ -26,16 +26,16 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addAttributeWithSetter(Frequency, kTypeFloat64);
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
 
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("Mode"),			TT("lowpass"));
-	setAttributeValue(TT("Frequency"),		sr/4.0);
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("mode"),			TT("lowpass"));
+	setAttributeValue(TT("frequency"),		sr/4.0);
 }
 
 
@@ -50,12 +50,12 @@ TTMirror5::~TTMirror5()
 TTErr TTMirror5::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	// TODO: update internal filters
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTMirror5::Clear()
+TTErr TTMirror5::clear()
 {
 	// TODO: update internal filters
 	return kTTErrNone;
@@ -93,14 +93,14 @@ TTErr TTMirror5::setFrequency(const TTValue& newValue)
 	TTFloat64		c_1 = ((2.0 * b) + (2.0 * b * alpha_0)) / (1 + alpha_0 * (b * b));
 	TTFloat64		c_2 = ((b*b) + alpha_0) / (1 + alpha_0 * (b*b));
 	
-	mF0->setAttributeValue(TT("C1"), c_1);
-	mF0->setAttributeValue(TT("C2"), c_2);
+	mF0->setAttributeValue(TT("c1"), c_1);
+	mF0->setAttributeValue(TT("c2"), c_2);
 
 	c_1 = ((2.0 * b) + (2.0 * b * alpha_1)) / (1 + alpha_1 * (b * b));
 	c_2 = ((b*b) + alpha_1) / (1 + alpha_1 * (b*b));
-	mF1->setAttributeValue(TT("Alpha"), b);
-	mF2->setAttributeValue(TT("C1"), c_1);
-	mF2->setAttributeValue(TT("C2"), c_2);
+	mF1->setAttributeValue(TT("alpha"), b);
+	mF2->setAttributeValue(TT("c1"), c_1);
+	mF2->setAttributeValue(TT("c2"), c_2);
 
 	return kTTErrNone;
 }

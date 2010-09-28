@@ -25,16 +25,16 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeProperty(Resonance,			rangeChecking,	TT("cliplow"));
 
 	// register methods
-	addMessage(Clear);
+	addMessage(clear);
 
 	// register for notifications
-	addMessageWithArgument(updateMaxNumChannels);
-	addMessage(updateSr);
+	addUpdate(MaxNumChannels);
+	addUpdate(SampleRate);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	arguments);			// This attribute is inherited
-	setAttributeValue(TT("Frequency"),		1000.0);
-	setAttributeValue(TT("Resonance"),		1.0);
+	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
+	setAttributeValue(TT("frequency"),		1000.0);
+	setAttributeValue(TT("resonance"),		1.0);
 	
 	setCalculateMethod(calculateValue);
 	setProcessMethod(processAudio);
@@ -57,19 +57,19 @@ TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mY2.resize(maxNumChannels);
 	mY3.resize(maxNumChannels);
 	mY4.resize(maxNumChannels);
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTLowpassFourPole::updateSr()
+TTErr TTLowpassFourPole::updateSampleRate(const TTValue& oldSampleRate)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTLowpassFourPole::Clear()
+TTErr TTLowpassFourPole::clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);

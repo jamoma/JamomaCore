@@ -30,7 +30,7 @@ class TTMirror5 : TTAudioObject {
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	// Zero filter history
-	TTErr Clear();
+	TTErr clear();
 	
 	// attribute accessor
 	TTErr setMode(const TTValue& newValue);

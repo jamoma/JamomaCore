@@ -36,7 +36,7 @@ class TTDSP_EXPORT TTBuffer : public TTDataObject {
 	TTErr chuck();
 
 	/** Notification from the parent class of a sample-rate change. */
-	TTErr updateSr();
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
 	
 public:
 	/**	Attribute accessor: set the number of channels for this buffer.
@@ -53,12 +53,12 @@ public:
           
 	/**	Set all values to zero.
 	 	@return Returns a TTErr error code.	*/
-	TTErr Clear();
+	TTErr clear();
 
 	// METHOD: SET_BUFFER
 	//	void set_buffer(tt_buffer *newbuffer);
 
-	TTErr	GetValueAtIndex(TTValue& index);
+	TTErr	getValueAtIndex(TTValue& index);
 	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value);
 	
 	/**	Set the sample value for a given index.
@@ -66,11 +66,11 @@ public:
 		If there are three numbers passed, then the second number, if passed, will designate the channel index (defaults to zero).
 		The final value will be used as the sample value that will be copied to the designated index.
 	*/
-	TTErr	SetValueAtIndex(const TTValue& index);
+	TTErr	setValueAtIndex(const TTValue& index);
 	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value);
 	
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
-	TTErr	Fill(const TTValue& value);
+	TTErr	fill(const TTValue& value);
 
 	/** Get a pointer to the buffer's memory.
 		WARNING: You need to be very careful about accessing the memory in case it goes away or is freed, etc. 

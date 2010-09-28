@@ -28,13 +28,13 @@ public:
 	TTErr setFrequency(const TTValue& newValue)
 	{	
 		mFrequency = newValue;
-		return mActualFilterObject->setAttributeValue(TT("Frequency"), mFrequency);
+		return mActualFilterObject->setAttributeValue(TT("frequency"), mFrequency);
 	}
 	
 	TTErr setQ(const TTValue& newValue)
 	{	
 		mQ = newValue;
-		return mActualFilterObject->setAttributeValue(TT("Q"), mQ);
+		return mActualFilterObject->setAttributeValue(TT("q"), mQ);
 	}
 	
 	TTErr setType(const TTValue& newValue)
@@ -50,12 +50,12 @@ public:
 		err = TTObjectInstantiate(mType, &mActualFilterObject, maxNumChannels);			
 		if (!err) {
 			// Now that we have our new filter, update it with the current state of the wrapper:
-			mActualFilterObject->setAttributeValue(TT("Frequency"), mFrequency);
-			err = mActualFilterObject->setAttributeValue(TT("Q"), mQ);
+			mActualFilterObject->setAttributeValue(TT("frequency"), mFrequency);
+			err = mActualFilterObject->setAttributeValue(TT("q"), mQ);
 			if (err == kTTErrInvalidAttribute)
-				err = mActualFilterObject->setAttributeValue(TT("Resonance"), mQ);
-			mActualFilterObject->setAttributeValue(TT("Bypass"), this->attrBypass);
-			mActualFilterObject->setAttributeValue(TT("SampleRate"), sr);
+				err = mActualFilterObject->setAttributeValue(TT("resonance"), mQ);
+			mActualFilterObject->setAttributeValue(TT("bypass"), this->attrBypass);
+			mActualFilterObject->setAttributeValue(kTTSym_sampleRate, sr);
 		}
 		return err;
 	}
@@ -69,14 +69,14 @@ public:
 	
 	TTErr clear()
 	{
-		return mActualFilterObject->sendMessage(TT("Clear"));
+		return mActualFilterObject->sendMessage(TT("clear"));
 	}
 	
 	
-	TTErr Mode(const TTValue& newMode)
+	TTErr mode(const TTValue& newMode)
 	{
 		if (mActualFilterObject)
-			return mActualFilterObject->setAttributeValue(TT("Mode"), const_cast<TTValue&>(newMode));
+			return mActualFilterObject->setAttributeValue(TT("mode"), const_cast<TTValue&>(newMode));
 		else
 			return kTTErrNone;
 	}
@@ -85,15 +85,15 @@ public:
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	{
 		if (mActualFilterObject)
-			return mActualFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+			return mActualFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 		else
 			return kTTErrNone;
 	}
 	
 	
-	TTErr updateSr()
+	TTErr updateSampleRate(const TTValue& oldSampleRate)
 	{
-		return mActualFilterObject->setAttributeValue(kTTSym_SampleRate, sr);
+		return mActualFilterObject->setAttributeValue(kTTSym_sampleRate, sr);
 	}
 	
 	

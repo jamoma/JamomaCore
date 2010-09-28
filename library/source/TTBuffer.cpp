@@ -23,16 +23,16 @@ TT_DATA_CONSTRUCTOR,
 	addAttributeWithSetter(Length,			kTypeFloat64);
 	addAttributeWithSetter(LengthInSamples,	kTypeUInt64);
 
-	addMessage(Clear);
-	addMessageWithArgument(Fill);
+	addMessage(clear);
+	addMessageWithArgument(fill);
 
-	addMessageWithArgument(GetValueAtIndex);
-	registerMessage(TT("Peek"), (TTMethod)&TTBuffer::GetValueAtIndex);
+	addMessageWithArgument(getValueAtIndex);
+	registerMessage(TT("peek"), (TTMethod)&TTBuffer::getValueAtIndex);
 
-	addMessageWithArgument(SetValueAtIndex);
-	registerMessage(TT("Poke"), (TTMethod)&TTBuffer::SetValueAtIndex);
+	addMessageWithArgument(setValueAtIndex);
+	registerMessage(TT("poke"), (TTMethod)&TTBuffer::setValueAtIndex);
 
-	addMessage(updateSr);
+	addUpdate(SampleRate);
 
 	// TODO: more messages to implement
 	//	"readFile"
@@ -53,7 +53,7 @@ TTErr TTBuffer::init()
 		mContents = new TTSampleValuePtr[mNumChannels];
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++)
 			mContents[channel] = new TTSampleValue[mLengthInSamples];
-		Clear();
+		clear();
 	}
 	return kTTErrNone;
 }
@@ -117,14 +117,14 @@ TTSampleValue* TTBuffer::getContentsForChannel(TTUInt16 channel)
 }
 
 
-TTErr TTBuffer::updateSr()
+TTErr TTBuffer::updateSampleRate(const TTValue& oldSampleRate)
 {
 	// TODO: When this changes do we need to re-init the buffer?  Or resize it keeping the data?
 	return kTTErrNone;
 }
 
 
-TTErr TTBuffer::Clear()
+TTErr TTBuffer::clear()
 {
 	for (TTUInt16 channel=0; channel<mNumChannels; channel++)
 		memset(mContents[channel], 0, sizeof(TTSampleValue) * mLengthInSamples);
@@ -133,7 +133,7 @@ TTErr TTBuffer::Clear()
 
 
 
-TTErr TTBuffer::GetValueAtIndex(TTValue& index)
+TTErr TTBuffer::getValueAtIndex(TTValue& index)
 {
 	TTUInt32		sampleIndex;
 	TTUInt16		sampleChannel = 0;
@@ -167,7 +167,7 @@ TTErr TTBuffer::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue
 	If there are three numbers passed, then the second number, if passed, will designate the channel index (defaults to zero).
 	The final value will be used as the sample value that will be copied to the designated index.
 */
-TTErr TTBuffer::SetValueAtIndex(const TTValue& index)
+TTErr TTBuffer::setValueAtIndex(const TTValue& index)
 {
 	TTUInt32		sampleIndex;
 	TTUInt16		sampleChannel = 0;
@@ -194,7 +194,7 @@ TTErr TTBuffer::poke(const TTUInt64 index, const TTUInt16 channel, const TTSampl
 
 
 // TODO: At some point it would be nice to add band-limited waveforms here...
-TTErr TTBuffer::Fill(const TTValue& value)
+TTErr TTBuffer::fill(const TTValue& value)
 {
 //	TTSymbol*	fillAlgorithm = value[0];
 // FIXME: implement this once we get [] operators for TTValue;

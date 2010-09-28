@@ -32,7 +32,7 @@ mNumBufferFrames(0)
 
 TTSoundfileRecorder::~TTSoundfileRecorder()
 {
-	setAttributeValue(TT("Record"), kTTBoolNo);
+	setAttributeValue(TT("record"), kTTBoolNo);
 	if (mSoundFile)
 		sf_close(mSoundFile);
 }

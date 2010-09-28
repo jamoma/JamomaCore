@@ -173,7 +173,7 @@ void fade_assist(t_fade *x, void *b, long msg, long arg, char *dst)
 void fade_float(t_fade *x, double value)
 {
 	x->attr_position = value;
-	x->xfade->setAttributeValue(TT("Position"), value);
+	x->xfade->setAttributeValue(TT("position"), value);
 }
 
 
@@ -190,11 +190,11 @@ t_max_err attr_set_shape(t_fade *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_shape = atom_getlong(argv);
 	if(x->attr_shape == 0) 
-		x->xfade->setAttributeValue(TT("Shape"), TT("equalPower"));
+		x->xfade->setAttributeValue(TT("shape"), TT("equalPower"));
 	else if(x->attr_shape == 2)  
-	    x->xfade->setAttributeValue(TT("Shape"), TT("squareRoot"));
+	    x->xfade->setAttributeValue(TT("shape"), TT("squareRoot"));
 	else
-		x->xfade->setAttributeValue(TT("Shape"), TT("linear"));
+		x->xfade->setAttributeValue(TT("shape"), TT("linear"));
 	
 	return MAX_ERR_NONE;
 }
@@ -312,7 +312,7 @@ void fade_dsp(t_fade *x, t_signal **sp, short *count)
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();	
 	
-	x->xfade->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
+	x->xfade->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	if(count[x->numChannels * 2])		// SIGNAL RATE CROSSFADE CONNECTED
 		dsp_addv(fade_perform2, l, audioVectors);

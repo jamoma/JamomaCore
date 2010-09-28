@@ -31,17 +31,17 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Frequency, kTypeFloat64);
 	addAttributeWithSetter(Bandwidth, kTypeFloat64);
 	addAttributeWithSetter(Q, kTypeFloat64);
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("allpass.4a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.2c"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.4a"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
 
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("Mode"),			TT("bandpass"));
-	setAttributeValue(TT("Frequency"),		sr/4.0);
-	setAttributeValue(TT("Q"),				1.0);
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("mode"),			TT("bandpass"));
+	setAttributeValue(TT("frequency"),		sr/4.0);
+	setAttributeValue(TT("q"),				1.0);
 }
 
 
@@ -56,12 +56,12 @@ TTMirrorBandpass10::~TTMirrorBandpass10()
 TTErr TTMirrorBandpass10::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	// TODO: update internal filters
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTMirrorBandpass10::Clear()
+TTErr TTMirrorBandpass10::clear()
 {
 	// TODO: update internal filters
 	return kTTErrNone;
@@ -113,18 +113,18 @@ TTErr TTMirrorBandpass10::calculateCoefficients(void)
 	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;	// This equation is wrong in the Safari-online version of the F.H. Book
 	d_4 = (alpha + b*b)							/  d_0;
 	
-	mF0->setAttributeValue(TT("D1"), d_1);
-	mF0->setAttributeValue(TT("D2"), d_2);
-	mF0->setAttributeValue(TT("D3"), d_3);
-	mF0->setAttributeValue(TT("D4"), d_4);
+	mF0->setAttributeValue(TT("d1"), d_1);
+	mF0->setAttributeValue(TT("d2"), d_2);
+	mF0->setAttributeValue(TT("d3"), d_3);
+	mF0->setAttributeValue(TT("d4"), d_4);
 	
 	// Path-1
 	
 	e_1 = -c - c*b;
 	e_2 = b;
 
-	mF1->setAttributeValue(TT("E1"), e_1);
-	mF1->setAttributeValue(TT("E2"), e_2);
+	mF1->setAttributeValue(TT("e1"), e_1);
+	mF1->setAttributeValue(TT("e2"), e_2);
 	
 	alpha = 0.589994872274064;							// these values for alpha give us a -60dB stopband
 	d_0 = 1 + alpha*b*b;
@@ -133,10 +133,10 @@ TTErr TTMirrorBandpass10::calculateCoefficients(void)
 	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;	// This equation is wrong in the Safari-online version of the F.H. Book
 	d_4 = (alpha + b*b)							/  d_0;
 	
-	mF2->setAttributeValue(TT("D1"), d_1);
-	mF2->setAttributeValue(TT("D2"), d_2);
-	mF2->setAttributeValue(TT("D3"), d_3);
-	mF2->setAttributeValue(TT("D4"), d_4);
+	mF2->setAttributeValue(TT("d1"), d_1);
+	mF2->setAttributeValue(TT("d2"), d_2);
+	mF2->setAttributeValue(TT("d3"), d_3);
+	mF2->setAttributeValue(TT("d4"), d_4);
 	
 	return kTTErrNone;
 

@@ -104,7 +104,7 @@ public:
 	TTErr adaptMaxNumChannels(const TTUInt16 newMaxNumChannels)
 	{
 		if (newMaxNumChannels > maxNumChannels)
-			return setAttributeValue(TT("MaxNumChannels"), newMaxNumChannels);
+			return setAttributeValue(kTTSym_maxNumChannels, newMaxNumChannels);
 		else
 			return kTTErrNone;
 	}
@@ -117,7 +117,7 @@ public:
 	TTErr setSampleRate(const TTUInt32& newSampleRate)
 	{
 		if (newSampleRate && newSampleRate != sr)
-			return setAttributeValue(kTTSym_SampleRate, newSampleRate);
+			return setAttributeValue(kTTSym_sampleRate, newSampleRate);
 		else
 			return kTTErrNone;
 	}

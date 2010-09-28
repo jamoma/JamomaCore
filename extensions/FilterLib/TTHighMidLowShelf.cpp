@@ -35,19 +35,19 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeProperty(GainH,					rangeChecking,	TT("clip"));
 	
 	// register for notifications from the parent class so we can allocate memory as required
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(MaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	addMessage(updateSr);
+	addUpdate(SampleRate);
 	// make the clear method available to the outside world
-	addMessage(Clear);
+	addMessage(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),		arguments);			// This attribute is inherited
-	setAttributeValue(TT("FrequencyMh"),		3000.0);
-	setAttributeValue(TT("FrequencyLm"),		300.0);
-	setAttributeValue(TT("GainL"),				1.0);
-	setAttributeValue(TT("GainM"),				1.0);
-	setAttributeValue(TT("GainH"),				1.0);
+	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
+	setAttributeValue(TT("frequencyMh"),		3000.0);
+	setAttributeValue(TT("frequencyLm"),		300.0);
+	setAttributeValue(TT("gainL"),				1.0);
+	setAttributeValue(TT("gainM"),				1.0);
+	setAttributeValue(TT("gainH"),				1.0);
 	setCalculateMethod(calculateValue);
 	setProcessMethod(processAudio);
 }
@@ -66,18 +66,18 @@ TTErr TTHighMidLowShelf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mX1.resize(maxNumChannels);
 	mX2.resize(maxNumChannels);
 	mX0.resize(maxNumChannels);
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTHighMidLowShelf::updateSr()
+TTErr TTHighMidLowShelf::updateSampleRate(const TTValue& oldSampleRate)
 { 
 	return calculateCoefficients();
 }
 
 
-TTErr TTHighMidLowShelf::Clear()
+TTErr TTHighMidLowShelf::clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);

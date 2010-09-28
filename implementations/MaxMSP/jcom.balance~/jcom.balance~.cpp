@@ -105,7 +105,7 @@ void* balance_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
+		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
 		TTObjectInstantiate(TT("balance"), &x->balance, x->maxNumChannels);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels*2);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
@@ -157,7 +157,7 @@ void balance_assist(t_balance *x, void *b, long msg, long arg, char *dst)
 
 void balance_clear(t_balance *x)
 {
-	x->balance->sendMessage(TT("Clear"));
+	x->balance->sendMessage(TT("clear"));
 }
 
 
@@ -217,14 +217,14 @@ void balance_dsp(t_balance *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioOut->setAttributeValue(TT("NumChannels"), x->numChannels*2);
-	x->audioOut->setAttributeValue(TT("NumChannels"), x->numChannels);
-	x->audioIn->setAttributeValue(TT("VectorSize"), x->vs);
-	x->audioOut->setAttributeValue(TT("VectorSize"), x->vs);
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->numChannels*2);
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->numChannels);
+	x->audioIn->setAttributeValue(kTTSym_vectorSize, x->vs);
+	x->audioOut->setAttributeValue(kTTSym_vectorSize, x->vs);
 	//audioIn will be set in the perform method
 	x->audioOut->sendMessage(TT("alloc"));
 	
-	x->balance->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
+	x->balance->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	dsp_addv(balance_perform, l, audioVectors);
 	sysmem_freeptr(audioVectors);
@@ -235,7 +235,7 @@ t_max_err balance_setBypass(t_balance *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);		
-		x->balance->setAttributeValue(TT("Bypass"), (TTBoolean)x->attrBypass);
+		x->balance->setAttributeValue(kTTSym_bypass, (TTBoolean)x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
@@ -245,7 +245,7 @@ t_max_err balance_setFrequency(t_balance *x, void *attr, long argc, t_atom *argv
 {
 	if(argc){
 		x->attrFrequency = atom_getfloat(argv);
-		x->balance->setAttributeValue(TT("Frequency"), x->attrFrequency);
+		x->balance->setAttributeValue(TT("frequency"), x->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }

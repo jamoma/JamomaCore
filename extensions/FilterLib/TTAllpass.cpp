@@ -21,14 +21,14 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	addAttributeWithSetter(Filter,	kTypeSymbol);
 	
-	addMessage(Clear);
-	addMessage(updateSr);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(SampleRate);
+	addUpdate(MaxNumChannels);
 	
 	addMessageWithArgument(SetCoefficients);
 	
-	setAttributeValue(TT("MaxNumChannels"), arguments);
-	setAttributeValue(TT("Filter"), TT("allpass.1a"));
+	setAttributeValue(kTTSym_maxNumChannels, arguments);
+	setAttributeValue(TT("filter"), TT("allpass.1a"));
 	setProcessMethod(processAudio);
 }
 
@@ -52,7 +52,7 @@ TTErr TTAllpass::setFilter(const TTValue& filter)
 TTErr TTAllpass::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if (mFilterObject)
-		return mFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+		return mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 	else
 		return kTTErrNone;
 }
@@ -67,33 +67,33 @@ TTErr TTAllpass::SetCoefficients(const TTValue& coefficients)
 			TTFloat64 alpha;
 			
 			coefficients.get(0, alpha);
-			err = mFilterObject->setAttributeValue(TT("Alpha"), maxNumChannels);
+			err = mFilterObject->setAttributeValue(TT("alpha"), maxNumChannels);
 		}
 	}
 	else if (mFilter == TT("allpass.2a") || mFilter == TT("allpass.2b")) {
-		mFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 		if (coefficients.getSize() == 2) {
 			TTFloat64 c1, c2;
 			
 			coefficients.get(0, c1);
 			coefficients.get(1, c2);
-			err = mFilterObject->setAttributeValue(TT("C1"), c1);
-			err = mFilterObject->setAttributeValue(TT("C2"), c2);
+			err = mFilterObject->setAttributeValue(TT("c1"), c1);
+			err = mFilterObject->setAttributeValue(TT("c2"), c2);
 		}
 	}
 	else if (mFilter == TT("allpass.2c")) {
-		mFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 		if (coefficients.getSize() == 2) {
 			TTFloat64 e1, e2;
 			
 			coefficients.get(0, e1);
 			coefficients.get(1, e2);
-			err = mFilterObject->setAttributeValue(TT("E1"), e1);
-			err = mFilterObject->setAttributeValue(TT("E2"), e2);
+			err = mFilterObject->setAttributeValue(TT("e1"), e1);
+			err = mFilterObject->setAttributeValue(TT("e2"), e2);
 		}
 	}
 	else if (mFilter == TT("allpass.4a")) {
-		mFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 		if (coefficients.getSize() == 4) {
 			TTFloat64 d1, d2, d3, d4;
 			
@@ -101,10 +101,10 @@ TTErr TTAllpass::SetCoefficients(const TTValue& coefficients)
 			coefficients.get(1, d2);
 			coefficients.get(2, d3);
 			coefficients.get(3, d4);
-			err = mFilterObject->setAttributeValue(TT("D1"), d1);
-			err = mFilterObject->setAttributeValue(TT("D2"), d2);
-			err = mFilterObject->setAttributeValue(TT("D3"), d3);
-			err = mFilterObject->setAttributeValue(TT("D4"), d4);
+			err = mFilterObject->setAttributeValue(TT("d1"), d1);
+			err = mFilterObject->setAttributeValue(TT("d2"), d2);
+			err = mFilterObject->setAttributeValue(TT("d3"), d3);
+			err = mFilterObject->setAttributeValue(TT("d4"), d4);
 		}
 	}
 	
@@ -112,15 +112,15 @@ TTErr TTAllpass::SetCoefficients(const TTValue& coefficients)
 }
 
 
-TTErr TTAllpass::updateSr()
+TTErr TTAllpass::updateSampleRate(const TTValue& oldSampleRate)
 {
-	return mFilterObject->setAttributeValue(kTTSym_SampleRate, sr);
+	return mFilterObject->setAttributeValue(kTTSym_sampleRate, sr);
 }
 
 
-TTErr TTAllpass::Clear()
+TTErr TTAllpass::clear()
 {
-	return mFilterObject->sendMessage(TT("Clear"));
+	return mFilterObject->sendMessage(TT("clear"));
 }
 
 

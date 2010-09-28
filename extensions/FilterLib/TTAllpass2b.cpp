@@ -25,10 +25,10 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttribute(C1, kTypeFloat64);
 	addAttribute(C2, kTypeFloat64);
 	
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setProcessMethod(processAudio);
 }
 
@@ -49,12 +49,12 @@ TTErr TTAllpass2b::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mY2.resize(maxNumChannels);
 	mY3.resize(maxNumChannels);
 	mY4.resize(maxNumChannels);
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTAllpass2b::Clear()
+TTErr TTAllpass2b::clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);

@@ -26,8 +26,8 @@ TT_AUDIO_CONSTRUCTOR,
 	TTUInt16	initialMaxNumChannels = arguments;
 	TTErr		err;
 	
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
@@ -35,17 +35,17 @@ TT_AUDIO_CONSTRUCTOR,
 	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF3, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mDelay, initialMaxNumChannels);
 
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 		
 	// for the simple 1-sample delay, we set alpha (the feedback coefficient) to zero
-	mDelay->setAttributeValue(TT("Alpha"), 0.0);
+	mDelay->setAttributeValue(TT("alpha"), 0.0);
 	
 	// These coefficients are sign-flipped copies from the TTHalfband9 filter
-	mF0->setAttributeValue(TT("Alpha"), -0.043646929608759);
-	mF2->setAttributeValue(TT("Alpha"), -0.399125646691078);
+	mF0->setAttributeValue(TT("alpha"), -0.043646929608759);
+	mF2->setAttributeValue(TT("alpha"), -0.399125646691078);
 	
-	mF1->setAttributeValue(TT("Alpha"), -0.174628080915462);
-	mF3->setAttributeValue(TT("Alpha"), -0.749510679417446);
+	mF1->setAttributeValue(TT("alpha"), -0.174628080915462);
+	mF3->setAttributeValue(TT("alpha"), -0.749510679417446);
 	
 	setProcessMethod(processAudio);
 }
@@ -65,12 +65,12 @@ TTErr TTHilbert9::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	// TODO: update internal filters
 
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTHilbert9::Clear()
+TTErr TTHilbert9::clear()
 {
 	// TODO: update internal filters
 	return kTTErrNone;

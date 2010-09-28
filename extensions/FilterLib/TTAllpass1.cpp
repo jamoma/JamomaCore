@@ -31,14 +31,14 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(LinearGain,			kTypeFloat64);
 	addAttributeWithSetter(Gain,				kTypeFloat64);
 	
-	addMessage(Clear);
-	addMessage(updateSr);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(SampleRate);
+	addUpdate(MaxNumChannels);
 
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("LinearGain"), 1.0);
-	setAttributeValue(TT("DelayMax"), 100.0);
-	setAttributeValue(TT("Delay"), 0.0);
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("linearGain"), 1.0);
+	setAttributeValue(TT("delayMax"), 100.0);
+	setAttributeValue(TT("delay"), 0.0);
 	setProcessMethod(processAudio);
 }
 
@@ -90,14 +90,14 @@ TTErr TTAllpass1::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTAllpass1::updateSr()
+TTErr TTAllpass1::updateSampleRate(const TTValue& oldSampleRate)
 {
 	init(long(srMill * mDelayMax));		// allocate a larger delay buffer if neccessary	
 	return setDelay(mDelay);			// hold the delay time in ms constant, despite the change of sr
 }
 
 
-TTErr TTAllpass1::Clear()
+TTErr TTAllpass1::clear()
 {
 	for_each(mFeedforward.begin(), mFeedforward.end(), mem_fun_ref(&TTDelayBuffer::clear));
 	for_each(mFeedback.begin(), mFeedback.end(), mem_fun_ref(&TTDelayBuffer::clear));

@@ -30,16 +30,16 @@ mNumBufferFrames(0)
 	addAttribute(			NumChannels,	kTypeUInt16);
 	addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
 	
-	addMessage(Pause);
-	addMessage(Resume);
+	addMessage(pause);
+	addMessage(resume);
 	setProcessMethod(processAudio);
-	//setAttributeValue(TT("MaxNumChannels"),	arguments);			// This attribute is inherited
+	//setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
 }
 
 
 TTSoundfilePlayer::~TTSoundfilePlayer()
 {
-	setAttributeValue(TT("Play"), kTTBoolNo);
+	setAttributeValue(TT("play"), kTTBoolNo);
 	if (mSoundFile)
 		sf_close(mSoundFile);
 }
@@ -107,13 +107,13 @@ TTErr TTSoundfilePlayer::setSeek(const TTValue& newValue)
 		return kTTErrGeneric;	
 }
 
-TTErr TTSoundfilePlayer::Pause()
+TTErr TTSoundfilePlayer::pause()
 {   
 	mContinue = 0;
 	return kTTErrNone;
 }
 
-TTErr TTSoundfilePlayer::Resume()
+TTErr TTSoundfilePlayer::resume()
 {   
 	mContinue = 1;
 	return kTTErrNone;

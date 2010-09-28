@@ -58,7 +58,7 @@ class TTHilbert9 : TTAudioObject {
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	// Zero filter history
-	TTErr Clear();
+	TTErr clear();
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 };

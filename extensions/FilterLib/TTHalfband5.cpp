@@ -27,8 +27,8 @@ TT_AUDIO_CONSTRUCTOR,
 	TTErr		err;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
-	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(clear);
+	addUpdate(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
@@ -36,23 +36,23 @@ TT_AUDIO_CONSTRUCTOR,
 	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mR0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mR1, initialMaxNumChannels);
 
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("Mode"), TT("lowpass"));
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(TT("mode"), TT("lowpass"));
 		
 	// for the simple 1-sample delay, we set alpha (the feedback coefficient) to zero
-	mDelay->setAttributeValue(TT("Alpha"), 0.0);
+	mDelay->setAttributeValue(TT("alpha"), 0.0);
 	
 	// -60 db attenuation, stopband starts at fs * 0.37
-	//mF0->setAttributeValue(TT("Alpha"), 0.1413486);
-	//mF1->setAttributeValue(TT("Alpha"), 0.5899948);
-	//mR0->setAttributeValue(TT("Alpha"), 0.1413486);
-	//mR1->setAttributeValue(TT("Alpha"), 0.5899948);
+	//mF0->setAttributeValue(TT("alpha"), 0.1413486);
+	//mF1->setAttributeValue(TT("alpha"), 0.5899948);
+	//mR0->setAttributeValue(TT("alpha"), 0.1413486);
+	//mR1->setAttributeValue(TT("alpha"), 0.5899948);
 	
 	// -83 db attenuation, stopband starts at f_s * 0.42
-	mF0->setAttributeValue(TT("Alpha"), 0.117266261862726);
-	mF1->setAttributeValue(TT("Alpha"), 0.549470222366184);
-	mR0->setAttributeValue(TT("Alpha"), 0.117266261862726);
-	mR1->setAttributeValue(TT("Alpha"), 0.549470222366184);
+	mF0->setAttributeValue(TT("alpha"), 0.117266261862726);
+	mF1->setAttributeValue(TT("alpha"), 0.549470222366184);
+	mR0->setAttributeValue(TT("alpha"), 0.117266261862726);
+	mR1->setAttributeValue(TT("alpha"), 0.549470222366184);
 }
 
 
@@ -77,12 +77,12 @@ TTErr TTHalfband5::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mY1.assign(maxNumChannels, 0.0);
 
 	// TODO: update internal filters
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTHalfband5::Clear()
+TTErr TTHalfband5::clear()
 {
 	// TODO: update internal filters
 	return kTTErrNone;
@@ -233,7 +233,7 @@ TTErr TTHalfband5::processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() / 2;
-	TTErr			err;
+	//TTErr			err;
 	
 	out.changeVectorSize(targetVectorSize);
 	out.setSampleRate(in.getSampleRate() / 2);

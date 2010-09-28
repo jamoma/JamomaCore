@@ -16,13 +16,13 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// make the clear method available to be called:
-	addMessage(Clear);
+	addMessage(clear);
 	
 	// this next one is called by the parent class so we can allocate memory as required
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdate(MaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	arguments);
+	setAttributeValue(kTTSym_maxNumChannels,	arguments);
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
 
@@ -39,12 +39,12 @@ TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	mLastInput.resize(maxNumChannels);
 	mLastOutput.resize(maxNumChannels);
-	Clear();
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTDCBlock::Clear()
+TTErr TTDCBlock::clear()
 {   
 	mLastInput.assign(maxNumChannels, 0.0);
 	mLastOutput.assign(maxNumChannels, 0.0);

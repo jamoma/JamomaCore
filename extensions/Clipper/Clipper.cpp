@@ -44,8 +44,8 @@ TT_AUDIO_CONSTRUCTOR_EXPORT
 	addAttribute(LowBound,	kTypeFloat64);
 	addAttribute(HighBound,	kTypeFloat64);
 	
-	setAttributeValue(TT("LowBound"), -1.0);
-	setAttributeValue(TT("HighBound"), 1.0);
+	setAttributeValue(TT("lowBound"), -1.0);
+	setAttributeValue(TT("highBound"), 1.0);
 	setProcessMethod(processAudio);	
 }
 
