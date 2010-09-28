@@ -19,7 +19,7 @@ class TTDictionaryAppend : public TTObject {
 	TTSymbolPtr	mKey;
 	TTValuePtr	mValue;
 	
-	TTErr Dictionary(TTValue& input);
+	TTErr dictionary(TTValue& input);
 	TTErr getValue(TTValue& newValue);
 	TTErr setValue(const TTValue& newValue);
 };

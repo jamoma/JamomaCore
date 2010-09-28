@@ -50,10 +50,10 @@ TTGraphDestination::~TTGraphDestination()
 
 void TTGraphDestination::create()
 {
-	TTObjectInstantiate(TT("Callback"), &mCallbackHandler, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
 	
-	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTGraphDestinationObserverCallback));
-	mCallbackHandler->setAttributeValue(TT("Baton"), TTPtr(this));	
+	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTGraphDestinationObserverCallback));
+	mCallbackHandler->setAttributeValue(TT("baton"), TTPtr(this));	
 }
 
 

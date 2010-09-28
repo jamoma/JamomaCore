@@ -49,10 +49,10 @@ TTGraphSource::~TTGraphSource()
 
 void TTGraphSource::create()
 {
-	TTObjectInstantiate(TT("Callback"), &mCallbackHandler, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
 	
-	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTGraphSourceObserverCallback));
-	mCallbackHandler->setAttributeValue(TT("Baton"), TTPtr(this));	
+	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTGraphSourceObserverCallback));
+	mCallbackHandler->setAttributeValue(TT("baton"), TTPtr(this));	
 }
 
 

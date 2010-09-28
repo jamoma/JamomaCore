@@ -21,7 +21,7 @@ TT_OBJECT_CONSTRUCTOR,
 	
 	addAttribute(Key, kTypeSymbol);
 	addAttributeWithGetterAndSetter(Value, kTypeSymbol); // TODO: make this a generic TTValue
-	addMessageWithArgument(Dictionary);
+	addMessageWithArgument(dictionary);
 }
 
 
@@ -32,7 +32,7 @@ TTDictionaryAppend::~TTDictionaryAppend()
 }
 
 
-TTErr TTDictionaryAppend::Dictionary(TTValue& input)
+TTErr TTDictionaryAppend::dictionary(TTValue& input)
 {
 	TTDictionaryPtr d = NULL;
 	
