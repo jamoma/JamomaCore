@@ -40,9 +40,9 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_resonance;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_value;
-//extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
-extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
-extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
+//extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sampleRate;
 
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_tcp;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_udp;

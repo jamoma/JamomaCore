@@ -41,7 +41,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_value;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
-TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sampleRate;
 
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_tcp;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_udp;
@@ -99,8 +99,8 @@ void TTSymbolCacheInit()
 	kTTSym_updateSr					= TT("updateSr");
 	kTTSym_value					= TT("value");
 	kTTSym_vectorSize				= TT("vectorSize");
-	kTTSym_VectorSize				= TT("VectorSize");
-	kTTSym_SampleRate				= TT("SampleRate");
+	//kTTSym_VectorSize				= TT("VectorSize");
+	kTTSym_sampleRate				= TT("sampleRate");
 
 	kTTSym_tcp						= TT("tcp");
 	kTTSym_udp						= TT("udp");
