@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 158.0, 83.0, 680.0, 378.0 ],
+		"rect" : [ -812.0, -67.0, 722.0, 527.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 158.0, 83.0, 680.0, 378.0 ],
+		"defrect" : [ -812.0, -67.0, 722.0, 527.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,12 +22,96 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-19",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 8,
+					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal" ],
+					"patching_rect" : [ 525.0, 385.0, 113.5, 19.0 ],
+					"text" : "jcom.vimic~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-17",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 525.0, 288.0, 99.0, 19.0 ],
+					"text" : "jcom.onepole~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-16",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 525.0, 163.0, 101.0, 19.0 ],
+					"text" : "jcom.fft~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 525.0, 138.0, 102.0, 19.0 ],
+					"text" : "jcom.delay~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 525.0, 68.0, 100.0, 19.0 ],
+					"text" : "jcom.clip~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-11",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 525.0, 22.0, 100.0, 19.0 ],
+					"text" : "jcom.allpass~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-47",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 325.0, 100.0, 19.0 ],
+					"patching_rect" : [ 524.0, 432.0, 100.0, 19.0 ],
 					"text" : "jcom.zerox~"
 				}
 
@@ -41,7 +125,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 525.0, 300.0, 100.0, 19.0 ],
+					"patching_rect" : [ 524.0, 407.0, 100.0, 19.0 ],
 					"text" : "jcom.xfade~"
 				}
 
@@ -55,7 +139,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 275.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 363.0, 100.0, 19.0 ],
 					"text" : "jcom.ramp~"
 				}
 
@@ -69,7 +153,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 250.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 338.0, 100.0, 19.0 ],
 					"text" : "jcom.overdrive~"
 				}
 
@@ -83,7 +167,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 225.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 313.0, 100.0, 19.0 ],
 					"text" : "jcom.op~"
 				}
 
@@ -97,7 +181,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 200.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 264.0, 100.0, 19.0 ],
 					"text" : "jcom.limiter~"
 				}
 
@@ -111,7 +195,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 175.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 239.0, 100.0, 19.0 ],
 					"text" : "jcom.hmlshelf~"
 				}
 
@@ -125,7 +209,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 525.0, 150.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 214.0, 100.0, 19.0 ],
 					"text" : "jcom.gain~"
 				}
 
@@ -139,7 +223,7 @@
 					"numinlets" : 4,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 125.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 189.0, 100.0, 19.0 ],
 					"text" : "jcom.filter~"
 				}
 
@@ -153,7 +237,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 100.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 115.0, 100.0, 19.0 ],
 					"text" : "jcom.degrade~"
 				}
 
@@ -167,7 +251,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 525.0, 75.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 90.0, 100.0, 19.0 ],
 					"text" : "jcom.dcblock~"
 				}
 
@@ -181,7 +265,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 525.0, 50.0, 100.0, 19.0 ],
+					"patching_rect" : [ 525.0, 45.0, 100.0, 19.0 ],
 					"text" : "jcom.balance~"
 				}
 
