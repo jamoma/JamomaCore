@@ -146,13 +146,13 @@ TTErr AdcSetup(AdcPtr self)
 
 TTErr AdcStart(AdcPtr self)
 {
-	return self->audioGraphObject->getUnitGenerator()->sendMessage(TT("Start"));
+	return self->audioGraphObject->getUnitGenerator()->sendMessage(TT("start"));
 }
 
 
 TTErr AdcStop(AdcPtr self)
 {	
-	return self->audioGraphObject->getUnitGenerator()->sendMessage(TT("Stop"));
+	return self->audioGraphObject->getUnitGenerator()->sendMessage(TT("stop"));
 }
 
 
@@ -164,7 +164,7 @@ void AdcGetDeviceNames(AdcPtr self)
 	AtomPtr		ap;
 	TTSymbolPtr	name;
 	
-	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("GetAvailableDeviceNames"), v);
+	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), v);
 	if (!err) {
 		ac = v.getSize();
 		ap = new Atom[ac];
@@ -183,7 +183,7 @@ MaxErr AdcSetSampleRate(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sr);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -192,7 +192,7 @@ MaxErr AdcGetSampleRate(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("SampleRate"), sr);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("sampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -206,7 +206,7 @@ MaxErr AdcSetVectorSize(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), vs);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("vectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
@@ -215,7 +215,7 @@ MaxErr AdcGetVectorSize(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vs);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("vectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -229,7 +229,7 @@ MaxErr AdcSetDevice(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		SymbolPtr s = atom_getsym(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Device"), TT(s->s_name));
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("device"), TT(s->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -239,7 +239,7 @@ MaxErr AdcGetDevice(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 	TTValue		v;
 	TTSymbolPtr	s;
 	
-	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("Device"), v);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("device"), v);
 	v.get(0, &s);
 	if (!s)
 		return MAX_ERR_GENERIC;

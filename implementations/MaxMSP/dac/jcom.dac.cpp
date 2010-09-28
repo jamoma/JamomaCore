@@ -333,13 +333,13 @@ TTErr DacStart(DacPtr self)
 	DacAttachToPatchlinesForPatcher(self, self->patcher);
 	
 	outputObject->mInitData.vectorSize = vectorSize;
-	return outputObject->sendMessage(TT("Start"));
+	return outputObject->sendMessage(TT("start"));
 }
 
 
 TTErr DacStop(DacPtr self)
 {	
-	return self->audioGraphObject->getUnitGenerator()->sendMessage(TT("Stop"));
+	return self->audioGraphObject->getUnitGenerator()->sendMessage(TT("stop"));
 }
 
 
@@ -351,7 +351,7 @@ void DacGetDeviceNames(DacPtr self)
 	AtomPtr		ap;
 	TTSymbolPtr	name;
 	
-	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("GetAvailableDeviceNames"), v);
+	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), v);
 	if (!err) {
 		ac = v.getSize();
 		ap = new Atom[ac];
@@ -370,7 +370,7 @@ TTErr DacGetCpuLoad(DacPtr self)
 {
 	TTValue cpuload = -1.0;
 	
-	self->audioGraphObject->getUnitGenerator()->sendMessage(TT("GetCpuLoad"), cpuload);
+	self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getCpuLoad"), cpuload);
 	outlet_float(self->outlet, TTFloat64(cpuload));
 	return kTTErrNone;
 }

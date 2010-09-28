@@ -99,13 +99,13 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if(attrstart && argv)
 			self->maxNumChannels = atom_getlong(argv);
 
-		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
+		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
 		
 		v.setSize(2);
 		v.set(0, TT("gain"));
 		v.set(1, 1); // arg is the number of inlets
 		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), 1.0);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("linearGain"), 1.0);
 		
 		attr_args_process(self, argc, argv);
 		
@@ -391,7 +391,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
@@ -404,7 +404,7 @@ MaxErr OutSetGain(OutPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->gain = atom_getfloat(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), self->gain);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("linearGain"), self->gain);
 	}
 	return MAX_ERR_NONE;
 }

@@ -25,14 +25,14 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithGetterAndSetter(VectorSize, kTypeUInt16);
 	addAttributeWithGetterAndSetter(Device,		kTypeSymbol);
 
-	addMessage(Start);
-	addMessage(Stop);
-	addMessageWithArgument(GetAvailableDeviceNames);
+	addMessage(start);
+	addMessage(stop);
+	addMessageWithArgument(getAvailableDeviceNames);
 	
 	setProcessMethod(processAudio);
 	
-	setAttributeValue(kTTSym_SampleRate, 44100);
-	setAttributeValue(kTTSym_VectorSize, 512);
+	setAttributeValue(kTTSym_sampleRate, 44100);
+	setAttributeValue(kTTSym_vectorSize, 512);
 }
 
 
@@ -43,55 +43,55 @@ TTAudioGraphInput::~TTAudioGraphInput()
 }
 
 
-TTErr TTAudioGraphInput::GetAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioGraphInput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
 {
 	return mAudioEngine->sendMessage(TT("GetAvailableInputDeviceNames"), returnedDeviceNames);
 }
 
 
-TTErr TTAudioGraphInput::Start()
+TTErr TTAudioGraphInput::start()
 {
-	mAudioEngine->sendMessage(TT("Start"));
+	mAudioEngine->sendMessage(TT("start"));
 	return kTTErrNone;
 }
 
 
-TTErr TTAudioGraphInput::Stop()
+TTErr TTAudioGraphInput::stop()
 {
-	mAudioEngine->sendMessage(TT("Stop"));
+	mAudioEngine->sendMessage(TT("stop"));
 	return kTTErrNone;
 }
 
 TTErr TTAudioGraphInput::setSampleRate(const TTValue& newValue)
 {
-	return mAudioEngine->setAttributeValue(kTTSym_SampleRate, const_cast<TTValue&>(newValue));
+	return mAudioEngine->setAttributeValue(kTTSym_sampleRate, const_cast<TTValue&>(newValue));
 }
 
 TTErr TTAudioGraphInput::getSampleRate(TTValue& returnedValue)
 {
-	return mAudioEngine->getAttributeValue(kTTSym_SampleRate, returnedValue);
+	return mAudioEngine->getAttributeValue(kTTSym_sampleRate, returnedValue);
 }
 
 
 TTErr TTAudioGraphInput::setVectorSize(const TTValue& newValue)
 {
-	return mAudioEngine->setAttributeValue(kTTSym_VectorSize, const_cast<TTValue&>(newValue));
+	return mAudioEngine->setAttributeValue(kTTSym_vectorSize, const_cast<TTValue&>(newValue));
 }
 
 TTErr TTAudioGraphInput::getVectorSize(TTValue& returnedValue)
 {
-	return mAudioEngine->getAttributeValue(kTTSym_VectorSize, returnedValue);
+	return mAudioEngine->getAttributeValue(kTTSym_vectorSize, returnedValue);
 }
 
 
 TTErr TTAudioGraphInput::setDevice(const TTValue& newValue)
 {
-	return mAudioEngine->setAttributeValue(TT("InputDevice"), const_cast<TTValue&>(newValue));
+	return mAudioEngine->setAttributeValue(TT("inputDevice"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTAudioGraphInput::getDevice(TTValue& returnedValue)
 {
-	return mAudioEngine->getAttributeValue(TT("InputDevice"), returnedValue);
+	return mAudioEngine->getAttributeValue(TT("inputDevice"), returnedValue);
 }
 
 

@@ -17,7 +17,7 @@ TT_AUDIO_CONSTRUCTOR
 {
 	addAttributeWithGetterAndSetter(Groups, kTypeUInt16);
 	
-	setAttributeValue(TT("MaxNumChannels"), arguments);		
+	setAttributeValue(TT("maxNumChannels"), arguments);		
 	setProcessMethod(processAudio);
 }
 

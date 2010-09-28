@@ -86,8 +86,8 @@ public:
 	{
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedInput, 1);
 		// alloc to set up a default buffer
-		mBufferedInput->setAttributeValue(TT("MaxNumChannels"), 1);
-		mBufferedInput->setAttributeValue(TT("NumChannels"), 1);
+		mBufferedInput->setAttributeValue(TT("maxNumChannels"), 1);
+		mBufferedInput->setAttributeValue(TT("numChannels"), 1);
 		mBufferedInput->allocWithVectorSize(64);		
 	}
 	

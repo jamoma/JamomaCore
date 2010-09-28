@@ -95,7 +95,7 @@ public:
 	TTUInt32 getSampleRate()
 	{
 		TTUInt32 sr;
-		mKernel->getAttributeValue(kTTSym_SampleRate, sr);
+		mKernel->getAttributeValue(kTTSym_sampleRate, sr);
 		return sr;
 	}
 	

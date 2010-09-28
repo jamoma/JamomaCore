@@ -158,7 +158,7 @@ MaxErr OscilSetMode(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrWaveform = atom_getsym(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Mode"), TT(self->attrWaveform->s_name));
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("mode"), TT(self->attrWaveform->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -168,7 +168,7 @@ MaxErr OscilSetInterpolation(OscilPtr self, void* attr, AtomCount argc, AtomPtr 
 {
 	if (argc) {
 		self->attrInterpolation = atom_getsym(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Interpolation"), TT(self->attrInterpolation->s_name));
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("interpolation"), TT(self->attrInterpolation->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -178,7 +178,7 @@ MaxErr OscilSetFrequency(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv
 {
 	if (argc) {
 		self->attrFrequency = atom_getfloat(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Frequency"), self->attrFrequency);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("frequency"), self->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }
@@ -188,7 +188,7 @@ MaxErr OscilSetGain(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrGain	= atom_getfloat(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Gain"), self->attrGain);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("gain"), self->attrGain);
 	}
 	return MAX_ERR_NONE;
 }

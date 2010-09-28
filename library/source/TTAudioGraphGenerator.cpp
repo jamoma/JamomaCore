@@ -20,11 +20,11 @@ TT_AUDIO_CONSTRUCTOR,
 	TTObjectInstantiate(kTTSym_audiosignal, &mBuffer, arguments);
 
 	addAttributeWithSetter(VectorSize, kTypeUInt16);
-	addMessageWithArgument(updateMaxNumChannels);
-	addMessageWithArgument(updateSr);
+	addUpdate(MaxNumChannels);
+	addUpdate(SampleRate);
 
-	setAttributeValue(kTTSym_VectorSize, 64);
-	setAttributeValue(TT("MaxNumChannels"), 1);
+	setAttributeValue(kTTSym_vectorSize, 64);
+	setAttributeValue(TT("maxNumChannels"), 1);
 	setProcessMethod(processAudio);
 }
 
@@ -38,19 +38,19 @@ TTAudioGraphGenerator::~TTAudioGraphGenerator()
 TTErr TTAudioGraphGenerator::setVectorSize(const TTValue& newVectorSize)
 {
 	mVectorSize = newVectorSize;
-	return mBuffer->setAttributeValue(TT("VectorSize"), mVectorSize);
+	return mBuffer->setAttributeValue(TT("vectorSize"), mVectorSize);
 }
 
 
-TTErr TTAudioGraphGenerator::updateMaxNumChannels(const TTValue&)
+TTErr TTAudioGraphGenerator::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	mBuffer->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
-	mBuffer->setAttributeValue(TT("NumChannels"), maxNumChannels);
+	mBuffer->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	mBuffer->setAttributeValue(TT("numChannels"), maxNumChannels);
 	return mBuffer->sendMessage(TT("alloc"));
 }
 
 
-TTErr TTAudioGraphGenerator::updateSr(const TTValue&)
+TTErr TTAudioGraphGenerator::updateSampleRate(const TTValue& oldSampleRate)
 {
 	return kTTErrNone;
 }

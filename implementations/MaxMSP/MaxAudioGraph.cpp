@@ -386,13 +386,10 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 		nameCString = new char[nameSize+1];
 		strncpy_zero(nameCString, name->getCString(), nameSize+1);
 
-		if (nameCString[0] > 64 && nameCString[0] < 91) {
-			nameCString[0] += 32;							// convert first letter to lower-case for Max
-			nameMaxSymbol = gensym(nameCString);
-			
-			hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name));
-			class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphWrappedClass_anything, nameCString, A_GIMME, 0);
-		}
+		nameMaxSymbol = gensym(nameCString);			
+		hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name));
+		class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphWrappedClass_anything, nameCString, A_GIMME, 0);
+
 		delete nameCString;
 		nameCString = NULL;
 	}
@@ -407,37 +404,33 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 		nameSize = name->getString().length();
 		nameCString = new char[nameSize+1];
 		strncpy_zero(nameCString, name->getCString(), nameSize+1);
-
-		// only expose messages to Max if they begin with an upper-case letter
-		if (nameCString[0]>64 && nameCString[0]<91) {
-			nameCString[0] += 32;
-			nameMaxSymbol = gensym(nameCString);
-					
-			if (name == TT("MaxNumChannels"))
-				continue;						// don't expose these attributes to Max users
-			if (name == TT("Bypass")) {
-				if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), isGenerator))
-					continue;					// generators don't have inputs, and so don't really provide a bypass
-			}
-			
-			o->findAttribute(name, &attr);
-			
-			if (attr->type == kTypeFloat32)
-				maxType = _sym_float32;
-			else if (attr->type == kTypeFloat64)
-				maxType = _sym_float64;
-			else if (attr->type == kTypeSymbol || attr->type == kTypeString)
-				maxType = _sym_symbol;
-			
-			hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name));
-			class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)MaxAudioGraphWrappedClass_attrGet, (method)MaxAudioGraphWrappedClass_attrSet, NULL));
-			
-			// Add display styles for the Max 5 inspector
-			if (attr->type == kTypeBoolean)
-				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, (char*)"onoff");
-			if (name == TT("fontFace"))
-				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	(char*)"fontFace", 0, (char*)"font");
+		nameMaxSymbol = gensym(nameCString);
+				
+		if (name == TT("maxNumChannels"))
+			continue;						// don't expose these attributes to Max users
+		if (name == TT("bypass")) {
+			if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), isGenerator))
+				continue;					// generators don't have inputs, and so don't really provide a bypass
 		}
+		
+		o->findAttribute(name, &attr);
+		
+		if (attr->type == kTypeFloat32)
+			maxType = _sym_float32;
+		else if (attr->type == kTypeFloat64)
+			maxType = _sym_float64;
+		else if (attr->type == kTypeSymbol || attr->type == kTypeString)
+			maxType = _sym_symbol;
+		
+		hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name));
+		class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)MaxAudioGraphWrappedClass_attrGet, (method)MaxAudioGraphWrappedClass_attrSet, NULL));
+		
+		// Add display styles for the Max 5 inspector
+		if (attr->type == kTypeBoolean)
+			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, (char*)"onoff");
+		if (name == TT("fontFace"))
+			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	(char*)"fontFace", 0, (char*)"font");
+
 		delete nameCString;
 		nameCString = NULL;
 	}

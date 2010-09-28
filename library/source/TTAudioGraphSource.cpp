@@ -49,10 +49,10 @@ TTAudioGraphSource::~TTAudioGraphSource()
 
 void TTAudioGraphSource::create()
 {
-	TTObjectInstantiate(TT("Callback"), &mCallbackHandler, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
 	
-	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTAudioGraphSourceObserverCallback));
-	mCallbackHandler->setAttributeValue(TT("Baton"), TTPtr(this));	
+	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTAudioGraphSourceObserverCallback));
+	mCallbackHandler->setAttributeValue(TT("baton"), TTPtr(this));	
 }
 
 

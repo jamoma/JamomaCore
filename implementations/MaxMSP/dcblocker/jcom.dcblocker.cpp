@@ -124,7 +124,7 @@ void DCBlockerAssist(DCBlockerPtr self, void* b, long msg, long arg, char* dst)
 
 void DCBlockerClear(DCBlockerPtr self)
 {
-	self->audioGraphObject->getUnitGenerator()->sendMessage(TT("Clear"));
+	self->audioGraphObject->getUnitGenerator()->sendMessage(TT("clear"));
 }
 
 
@@ -159,7 +159,7 @@ MaxErr DCBlockerSetBypass(DCBlockerPtr self, void* attr, AtomCount argc, AtomPtr
 {
 	if (argc) {
 		self->attrBypass = atom_getlong(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Bypass"), (TTBoolean)self->attrBypass);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("bypass"), (TTBoolean)self->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
