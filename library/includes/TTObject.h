@@ -193,6 +193,12 @@ public:
 
 	TTErr registerAttributeProperty(const TTSymbolPtr attributeName, const TTSymbolPtr propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
 
+	
+	TTErr getAttribute(const TTSymbolPtr name, TTAttributePtr* attributeObject)
+	{
+		return findAttribute(name, attributeObject);
+	}
+	
 
 	/** return a list of names of the available attributes */
 	void getAttributeNames(TTValue& attributeNameList);

@@ -232,7 +232,27 @@ TTErr TTObject::setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags
 
 void TTObject::getAttributeNames(TTValue& attributeNameList)
 {
-	attributes->getKeys(attributeNameList);
+//	attributes->getKeys(attributeNameList);
+	
+	TTValue			unfilteredNameList;
+	TTUInt32		attributeCount;
+		
+	attributes->getKeys(unfilteredNameList);
+	attributeCount = unfilteredNameList.getSize();
+	
+	attributeNameList.clear();
+	
+	for (TTUInt32 i=0; i<attributeCount; i++) {
+		TTAttributePtr	attribute;
+		TTSymbolPtr		attributeName;
+		
+		unfilteredNameList.get(i, &attributeName);
+		getAttribute(attributeName, &attribute);
+		
+		if (attribute->hidden == NO)
+			attributeNameList.append(attributeName);
+	}
+	
 }
 
 
