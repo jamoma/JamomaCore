@@ -9,7 +9,7 @@
 #include "TTCallback.h"
 
 #define thisTTClass			TTCallback
-#define thisTTClassName		"Callback"
+#define thisTTClassName		"callback"
 #define thisTTClassTags		"system"
 
 TT_OBJECT_CONSTRUCTOR,

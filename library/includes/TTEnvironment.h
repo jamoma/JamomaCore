@@ -50,7 +50,7 @@ public:
 
 	
 	/**	Retrieve the environment version number. */
-	TTErr GetVersion(TTValue &value);
+	TTErr getVersion(TTValue &value);
 
 	
 	/**	Register the unit name, and associate it with the constructor to be called. 
