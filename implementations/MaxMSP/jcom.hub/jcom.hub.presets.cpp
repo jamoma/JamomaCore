@@ -289,6 +289,138 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	
 }
 
+
+static void mix_one_preset (t_preset_item *item1, int nmix, float position, float *val, t_atom *newValue)
+{   // we can assume item1 and item2 are the same type if they are the same parameter (see above)
+    if (item1->type == jps_integer) {
+	*val += atom_getfloat(&item1->value_list[0]) * position;
+	atom_setfloat(&newValue[0], *val);
+    } else if (item1->type == jps_decimal) {
+	*val += atom_getfloat(&item1->value_list[0]) * position;
+	atom_setfloat(&newValue[0], *val);
+    } else if (item1->type == jps_boolean) {	// bool: mean thresholded to bool
+	*val += atom_getlong(&item1->value);
+	atom_setlong(&newValue[0], (*val / nmix >= 0.5));
+    } else if (item1->type == jps_array || item1->type == gensym("list_int") || item1->type == gensym("list_float")) 
+    {
+	for (int i = 0; i < item1->list_size; i++) {
+	    val[i] += atom_getfloat(&item1->value_list[i]) * position;
+	    atom_setfloat(&newValue[i], val[i]);
+	}
+    } else if (item1->type == jps_string) {	// symbol: take max coef
+	if (position > *val)
+	{
+	    atom_setsym(&newValue[0], atom_getsym(&item1->value));
+	    *val = position;
+	}
+    }
+}
+
+void mix_presets(t_hub *x, int nmix, t_preset **p, float *position)
+{
+    presetItemList	 **itemlist = (presetItemList **) alloca(nmix * sizeof(presetItemList *));
+    presetItemListIterator *iter     = (presetItemListIterator *) alloca(nmix * sizeof(presetItemListIterator));
+    t_preset_item	  *item1, *item2;
+    float val[LISTSIZE];
+    t_atom newValue[LISTSIZE];
+    bool found = false;
+    int i;
+
+    if (nmix == 0)
+	return;
+
+    // initialise iterators (iter[0] is the master for which parameters will be mixed)
+    for (i = 0; i < nmix; i++)
+    {
+	itemlist[i] = p[i]->item;
+        iter[i]     = itemlist[i]->begin();
+    }
+
+    for (; iter[0] != itemlist[0]->end(); ++iter[0]) 
+    {
+	item1 = *iter[0];
+
+	for (i = 0; i < item1->list_size; i++)
+	    val[i] = 0;	// init all elems when array or list param
+
+	// mix first preset (todo: ensure string is taken)
+	mix_one_preset(item1, nmix, position[0], val, newValue);
+
+	for (i = 1; i < nmix; i++)
+	{
+	    found = false;
+
+	    if (iter[i] != itemlist[i]->end())
+	    {
+		item2 = *iter[i];
+
+		if (item1->param_name != item2->param_name) 
+		{   // parameter names don't match -> find the parameter
+		    for (iter[i] = itemlist[i]->begin(); iter[i] != itemlist[i]->end(); ++iter[i]) 
+		    {
+			item2 = *iter[i];
+			if (item1->param_name != item2->param_name)
+			    continue;
+			else 
+			{
+			    found = true;
+			    // if params are out of order we need reset list two to the beginning [[why?]]
+			    iter[i] = itemlist[i]->begin();
+			    break;
+			}
+		    }
+		} 
+		else
+		    found = true;
+	    }
+
+	    // couldn't find parameter, skip it
+	    if (!found) 
+	    {
+		object_error((t_object*) x, "can't find match for parameter %s of preset 0 in preset %d", 
+			     item1->param_name->s_name, i);
+
+		iter[i] = itemlist[i]->begin();
+		continue;	// go to next mix component for this parameter
+	    }
+
+	    mix_one_preset(item2, nmix, position[i], val, newValue);
+	    ++iter[i];	// advance other preset param iter
+	}
+
+	hub_symbol(x, item1->param_name, item1->list_size, &newValue[0]);
+    }
+}
+
+void hub_preset_mix (t_hub *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	int nmix = argc / 2, i;
+	t_preset **plist  = (t_preset **) alloca(nmix * sizeof(t_preset *));
+	float     *mixval = (float *) alloca(nmix * sizeof(float));
+	presetList *presetll = x->preset;
+	t_symbol *pname;
+	
+	if (argc != nmix * 2) {
+		object_error((t_object*)x, "%s module: preset mix requires a list of pairs of (preset name, mix value)", x->attr_name);
+		return;
+	}
+
+	for (i = 0; i < nmix; i++)
+	{
+	    pname  = atom_getsym(argv + i*2);
+	    mixval[i] = atom_getfloat(argv + i*2 + 1);
+	    plist[i] = find_preset(presetll, pname);
+
+	    if (!plist[i]) {
+		object_error((t_object*)x, "can't find preset %s", pname);
+		return;
+	    }
+	}
+	
+        mix_presets(x, nmix, plist, mixval);
+}
+
+
 void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// number & optional name
 {
 	long			preset_num = 0;

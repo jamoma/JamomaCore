@@ -105,6 +105,10 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_preset_interpolate, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/interpolate"), (t_object*)anObject);
 
+	anObject = new hubInternalObject("jcom.message", 	"preset/mix",			x->container,	"array",		"none",	"Mix list of pairs of (preset name, mix value) using a ratio (float).", 0);
+	anObject->setAction((method)hub_preset_mix, (t_object*)x);
+	hashtab_store(x->hash_internals, gensym("preset/mix"), (t_object*)anObject);
+
 	anObject = new hubInternalObject("jcom.message", 	"preset/default",			x->container,	"none",		"none",	"Open the default preset file and recall the first preset in that file.", 1);
 	anObject->setAction((method)hub_preset_default, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/default"), (t_object*)anObject);
