@@ -145,8 +145,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
 			nameString = aName->getString();
-			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
-				nameString[0] += 32;							// convert first letter to lower-case for Max
+			{
 				TTValuePtr v = new TTValue(aName);
 				instance->parameterNames->append(TT(nameString.c_str()), *v);
 			}
@@ -158,8 +157,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
 			nameString = aName->getString();
-			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
-				nameString[0] += 32;							// convert first letter to lower-case for Max
+			{
 				TTValuePtr v = new TTValue(aName);
 				instance->messageNames->append(TT(nameString.c_str()), *v);
 			}
@@ -543,8 +541,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
 			nameString = aName->getString();
-			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
-				nameString[0] += 32;							// convert first letter to lower-case for Max
+			{
 				TTValuePtr v = new TTValue(aName);
 				instance->parameterNames->append(TT(nameString.c_str()), *v);
 			}
@@ -556,8 +553,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
 			nameString = aName->getString();
-			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
-				nameString[0] += 32;							// convert first letter to lower-case for Max
+			{
 				TTValuePtr v = new TTValue(aName);
 				instance->messageNames->append(TT(nameString.c_str()), *v);
 			}
