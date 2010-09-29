@@ -267,7 +267,7 @@ void DacIterateResetCallback(DacPtr self, ObjectPtr obj)
 	method		audioResetMethod = zgetfn(obj, gensym("audio.reset"));
 	
 	if (audioResetMethod) {
-		self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vectorSize);
+		self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("vectorSize"), vectorSize);
 		audioResetMethod(obj, vectorSize);
 	}
 }
@@ -303,7 +303,7 @@ TTErr DacStart(DacPtr self)
 	long					result = 0;
 	TTAudioGraphOutputPtr	outputObject = TTAudioGraphOutputPtr(self->audioGraphObject->getUnitGenerator());
 	
-	outputObject->getAttributeValue(TT("VectorSize"), vectorSize);
+	outputObject->getAttributeValue(TT("vectorSize"), vectorSize);
 	
 	err = object_obex_lookup(self, gensym("#P"), &patcher);
 	
@@ -458,7 +458,7 @@ MaxErr DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sr);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -467,7 +467,7 @@ MaxErr DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("SampleRate"), sr);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("sampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -481,7 +481,7 @@ MaxErr DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), vs);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("vectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
@@ -490,7 +490,7 @@ MaxErr DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vs);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("vectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -504,7 +504,7 @@ MaxErr DacSetDevice(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		SymbolPtr s = atom_getsym(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Device"), TT(s->s_name));
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("device"), TT(s->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -514,7 +514,7 @@ MaxErr DacGetDevice(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 	TTValue		v;
 	TTSymbolPtr	s;
 	
-	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("Device"), v);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("device"), v);
 	v.get(0, &s);
 	if (!s)
 		return MAX_ERR_GENERIC;

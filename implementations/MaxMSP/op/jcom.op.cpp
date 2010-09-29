@@ -219,7 +219,7 @@ MaxErr OpSetOperand(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperand = atom_getfloat(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Operand"), self->attrOperand);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("operand"), self->attrOperand);
 	}
 	return MAX_ERR_NONE;
 }
@@ -229,7 +229,7 @@ MaxErr OpGetOperand(OpPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	TTValue v;
 	
-	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("Operand"), v);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("operand"), v);
 	
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
