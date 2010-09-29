@@ -19,8 +19,8 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Operand, kTypeFloat64);
 	
 	// Set Defaults...
-	setAttributeValue(TT("Operator"),	TT("+"));
-	setAttributeValue(TT("Operand"),	1.0);
+	setAttributeValue(TT("operator"),	TT("+"));
+	setAttributeValue(TT("operand"),	1.0);
 }
 
 

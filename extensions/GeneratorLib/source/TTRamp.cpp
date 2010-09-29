@@ -24,7 +24,7 @@ TT_AUDIO_CONSTRUCTOR
 	addMessage(Stop);
 	addMessage(RampTimeInSamples);
 
-	setAttributeValue(TT("Mode"), TT("vector"));
+	setAttributeValue(TT("mode"), TT("vector"));
 }
 
 

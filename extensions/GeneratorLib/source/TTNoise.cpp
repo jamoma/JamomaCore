@@ -22,8 +22,8 @@ mNumChannels(0)
 	addAttributeWithSetter(Mode,			kTypeSymbol); 
 	addAttributeWithGetterAndSetter(Gain,	kTypeFloat64);
 	
-	setAttributeValue(TT("Mode"), TT("white"));    
-	setAttributeValue(TT("Gain"), 0.0);			// 0 dB 
+	setAttributeValue(TT("mode"), TT("white"));    
+	setAttributeValue(TT("gain"), 0.0);			// 0 dB 
 }
 
 

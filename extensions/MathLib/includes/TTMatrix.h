@@ -25,10 +25,10 @@ class TTMatrix : TTAudioObject {
 	TTErr setNumOutputs(const TTValue& newValue);
 	
 	// Messages
-	TTErr Clear();
-	TTErr SetGain(const TTValue& newValue);
-	TTErr SetLinearGain(const TTValue& newValue);
-	TTErr SetMidiGain(const TTValue& newValue);	
+	TTErr clear();
+	TTErr setGain(const TTValue& newValue);
+	TTErr setLinearGain(const TTValue& newValue);
+	TTErr setMidiGain(const TTValue& newValue);	
 	
 	// Audio
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	

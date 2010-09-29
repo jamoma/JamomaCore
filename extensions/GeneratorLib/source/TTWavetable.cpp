@@ -26,7 +26,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Interpolation,	kTypeSymbol);
 	addAttributeWithSetter(Size,			kTypeInt64);
 
-	addMessage(updateSr);
+	addUpdate(SampleRate);
 
 	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&mWavetable, kTTValNONE);
 	if (!mWavetable)
@@ -34,12 +34,12 @@ TT_AUDIO_CONSTRUCTOR,
 	mWavetable->setNumChannels(TTUInt32(1));
 
 	// Set Defaults...
-	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("Size"), 4096);
-	setAttributeValue(TT("Mode"), kTTSym_sine);
-	setAttributeValue(TT("Frequency"), 440.0);
-	setAttributeValue(TT("Gain"), 0.0);			// 0 dB
-	setAttributeValue(TT("Interpolation"), TT("linear"));
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("size"), 4096);
+	setAttributeValue(TT("mode"), kTTSym_sine);
+	setAttributeValue(TT("frequency"), 440.0);
+	setAttributeValue(TT("gain"), 0.0);			// 0 dB
+	setAttributeValue(TT("interpolation"), TT("linear"));
 }
 
 
@@ -49,9 +49,9 @@ TTWavetable::~TTWavetable()
 }
 
 
-TTErr TTWavetable::updateSr()
+TTErr TTWavetable::updateSampleRate(const TTValue&)
 {
-	setAttributeValue(TT("Frequency"), mFrequency);
+	setAttributeValue(TT("frequency"), mFrequency);
 	return kTTErrNone;
 }
 
@@ -61,7 +61,7 @@ TTErr TTWavetable::setFrequency(const TTValue& newValue)
 	TTValue	v;
 
 	mFrequency = TTClip<TTFloat64>(newValue, 0.0, sr/2.0);
-	mWavetable->getAttributeValue(TT("LengthInSamples"), v);
+	mWavetable->getAttributeValue(TT("lengthInSamples"), v);
 	mIndexDelta = mFrequency * TTFloat64(v) / sr;
 	return kTTErrNone;
 }

@@ -23,11 +23,11 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttribute(NumInputs, kTypeUInt16);	// TODO: set readonly property for this attribute
 	addAttribute(NumOutputs, kTypeUInt16);	// TODO: set readonly property for this attribute
 	
-	addMessageWithArgument(SetGain);
-	addMessageWithArgument(SetLinearGain);
-	addMessageWithArgument(SetMidiGain);
+	addMessageWithArgument(setGain);
+	addMessageWithArgument(setLinearGain);
+	addMessageWithArgument(setMidiGain);
 	//registerMessageWithArgument(updateMaxNumChannels);
-	addMessage(Clear);
+	addMessage(clear);
 
 	//setAttributeValue(TT("MaxNumChannels"), newMaxNumChannels);
 	setProcessMethod(processAudio);
@@ -68,7 +68,7 @@ TTErr TTMatrixMixer::setNumOutputs(const TTUInt16 newValue)
 }
 
 
-TTErr TTMatrixMixer::Clear()
+TTErr TTMatrixMixer::clear()
 {
 	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
 		column->assign(mNumOutputs, 0.0);
@@ -76,7 +76,7 @@ TTErr TTMatrixMixer::Clear()
 }
 
 
-TTErr TTMatrixMixer::SetGain(const TTValue& newValue)
+TTErr TTMatrixMixer::setGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -93,7 +93,7 @@ TTErr TTMatrixMixer::SetGain(const TTValue& newValue)
 }
 
 
-TTErr TTMatrixMixer::SetLinearGain(const TTValue& newValue)
+TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -112,7 +112,7 @@ TTErr TTMatrixMixer::SetLinearGain(const TTValue& newValue)
 }
 
 
-TTErr TTMatrixMixer::SetMidiGain(const TTValue& newValue)
+TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;

@@ -162,7 +162,7 @@ public:
 	
 	/**	Zero out all of the sample values in the audio signal.
 		@return An error code.	*/
-	TTErr Clear()
+	TTErr clear()
 	{
 		if (!mSampleVectors)
 			return kTTErrGeneric;
@@ -177,8 +177,6 @@ public:
 		
 		return kTTErrNone;
 	}
-	
-	TTErr clear() {return Clear();}
 	
 	
 	/**	Copy the audio from one signal into another.	*/

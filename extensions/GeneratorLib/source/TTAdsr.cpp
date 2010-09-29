@@ -16,22 +16,22 @@
 TT_AUDIO_CONSTRUCTOR
 , output(0.), output_db(NOISE_FLOOR), eg_state(k_eg_inactive), trigger(false), attrMode(TT("linear"))
 {
-	registerAttribute(TT("Attack"), kTypeFloat64, &attack_ms, (TTSetterMethod)&TTAdsr::setAttack);
-	registerAttribute(TT("Decay"), kTypeFloat64, &decay_ms, (TTSetterMethod)&TTAdsr::setDecay);
-	registerAttribute(TT("Release"), kTypeFloat64, &release_ms, (TTSetterMethod)&TTAdsr::setRelease);
-	registerAttribute(TT("LinearSustain"), kTypeFloat64, &sustain_amp, (TTSetterMethod)&TTAdsr::setSustainAmp);
-	registerAttribute(TT("Sustain"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, (TTSetterMethod)&TTAdsr::setSustainDb);
-	registerAttribute(TT("Trigger"), kTypeBoolean, &trigger);
-	registerAttribute(TT("Mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
+	registerAttribute(TT("attack"), kTypeFloat64, &attack_ms, (TTSetterMethod)&TTAdsr::setAttack);
+	registerAttribute(TT("decay"), kTypeFloat64, &decay_ms, (TTSetterMethod)&TTAdsr::setDecay);
+	registerAttribute(TT("release"), kTypeFloat64, &release_ms, (TTSetterMethod)&TTAdsr::setRelease);
+	registerAttribute(TT("linearSustain"), kTypeFloat64, &sustain_amp, (TTSetterMethod)&TTAdsr::setSustainAmp);
+	registerAttribute(TT("sustain"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, (TTSetterMethod)&TTAdsr::setSustainDb);
+	registerAttribute(TT("trigger"), kTypeBoolean, &trigger);
+	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
 
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessageSimple(updateSr);
+	addUpdate(SampleRate);
 
-	setAttributeValue(TT("Attack"), 50.);
-	setAttributeValue(TT("Decay"), 100.);
-	setAttributeValue(TT("Sustain"), -6.);
-	setAttributeValue(TT("Release"), 500.);
-	setAttributeValue(TT("Mode"), TT("hybrid"));	// <-- sets the process method
+	setAttributeValue(TT("attack"), 50.);
+	setAttributeValue(TT("decay"), 100.);
+	setAttributeValue(TT("sustain"), -6.);
+	setAttributeValue(TT("release"), 500.);
+	setAttributeValue(TT("mode"), TT("hybrid"));	// <-- sets the process method
 }
 
 TTAdsr::~TTAdsr()
@@ -40,7 +40,7 @@ TTAdsr::~TTAdsr()
 }
 
 
-TTErr TTAdsr::updateSr()
+TTErr TTAdsr::updateSampleRate(const TTValue&)
 {
 	TTValue	v;
 

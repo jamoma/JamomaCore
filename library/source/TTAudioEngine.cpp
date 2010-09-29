@@ -347,8 +347,8 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 						const PaStreamCallbackTimeInfo*	timeInfo, 
 						PaStreamCallbackFlags			statusFlags)
 {
-	mInputBuffer->Clear();
-	mOutputBuffer->Clear();
+	mInputBuffer->clear();
+	mOutputBuffer->clear();
 
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples

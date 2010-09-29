@@ -23,11 +23,11 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(NumInputs, kTypeUInt16);
 	addAttributeWithSetter(NumOutputs, kTypeUInt16);
 	
-	addMessageWithArgument(SetGain);
-	addMessageWithArgument(SetLinearGain);
-	addMessageWithArgument(SetMidiGain);
+	addMessageWithArgument(setGain);
+	addMessageWithArgument(setLinearGain);
+	addMessageWithArgument(setMidiGain);
 	//registerMessageWithArgument(updateMaxNumChannels);
-	addMessage(Clear);	
+	addMessage(clear);	
 
 	setProcessMethod(processAudio);
 }
@@ -69,7 +69,7 @@ TTErr TTMatrix::setNumOutputs(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::Clear()
+TTErr TTMatrix::clear()
 {
 	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
 		column->assign(mNumOutputs, 0.0);
@@ -77,7 +77,7 @@ TTErr TTMatrix::Clear()
 }
 
 
-TTErr TTMatrix::SetGain(const TTValue& newValue)
+TTErr TTMatrix::setGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -97,7 +97,7 @@ TTErr TTMatrix::SetGain(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::SetLinearGain(const TTValue& newValue)
+TTErr TTMatrix::setLinearGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -117,7 +117,7 @@ TTErr TTMatrix::SetLinearGain(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::SetMidiGain(const TTValue& newValue)
+TTErr TTMatrix::setMidiGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;

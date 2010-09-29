@@ -31,7 +31,7 @@ public:
 	void clearAll()
 	{
 		for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
-			audioSignals[i]->Clear();
+			audioSignals[i]->clear();
 	}
 	
 	void		allocAllWithVectorSize(TTUInt16 vs);

@@ -42,7 +42,7 @@ class TTAdsr : TTAudioObject {
 	
 	TTSymbol*	attrMode;
 	
-	TTErr updateSr();
+	TTErr updateSampleRate(const TTValue&);
 
 	TTErr processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
