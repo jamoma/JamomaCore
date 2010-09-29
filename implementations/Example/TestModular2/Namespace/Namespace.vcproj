@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\source&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Foundation\library\includes&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\PeerObject&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\DataspaceLib&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\FunctionLib&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\source&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Foundation\library\includes&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\PeerObject&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\DataspaceLib&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\FunctionLib&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\DeviceManagerLib&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\DSP\library\includes&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Foundation\library\libxml2\win32\include&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Foundation\library\libiconv\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;NAMESPACE_STATIC;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -176,11 +176,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Includes.h"
+				RelativePath=".\Namespace.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Namespace.h"
+				RelativePath=".\NSPIncludes.h"
 				>
 			</File>
 			<File
@@ -194,10 +194,6 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
