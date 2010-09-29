@@ -216,6 +216,38 @@ void ui_send_viewer(t_ui *obj, TTSymbolPtr name, TTValue v)
 	}
 }
 
+void ui_freeze_viewer(t_ui *obj, TTSymbolPtr name, TTBoolean f)
+{
+	TTValue			storedObject;
+	TTObjectPtr		anObject;
+	TTErr			err;
+	if (obj->hash_viewers) {
+		err = obj->hash_viewers->lookup(name, storedObject);
+		
+		if (!err) {
+			storedObject.get(0, (TTPtr*)&anObject);
+			if (anObject)
+				anObject->setAttributeValue(kTTSym_Freeze, f);
+		}
+	}
+}
+
+void ui_refresh_viewer(t_ui *obj, TTSymbolPtr name)
+{
+	TTValue			storedObject;
+	TTObjectPtr		anObject;
+	TTErr			err;
+	if (obj->hash_viewers) {
+		err = obj->hash_viewers->lookup(name, storedObject);
+		
+		if (!err) {
+			storedObject.get(0, (TTPtr*)&anObject);
+			if (anObject)
+				anObject->sendMessage(kTTSym_Refresh, kTTValNONE);
+		}
+	}
+}
+
 #if 0
 #pragma mark -
 #pragma mark message handlers
@@ -233,6 +265,7 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTBoolean	preview = false;
 	TTBoolean	mute = false;
 	TTBoolean	panel = false;
+	TTBoolean	internals = false;
 	TTBoolean	meters = false;
 	TTBoolean	preset = false;			// is there a /preset node in the model ?
 	TTBoolean	help = false;			// is there a help patch for the model ?
@@ -260,6 +293,8 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			mute = true;
 		else if (paramName == gensym("/view/panel"))			// TODO : create sender (a viewer is useless)
 			panel = true;
+		else if (paramName == gensym("/view/internals"))		// TODO : create sender (a viewer is useless)
+			internals = true;
 		else if (paramName == gensym("/audio/meters/freeze"))
 			meters = true;
 		else if (paramName == gensym("/preset/store"))			// the internal TTExplorer looks for Datas (not for node like /preset)
@@ -340,9 +375,20 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (panel != obj->has_panel) {
 		obj->has_panel = panel;
 		if (panel) 
-			ui_create_viewer(obj, &anObject, gensym("return_panel"), TT("panel"));
+			ui_create_viewer(obj, &anObject, NULL, TT("view/panel"));
 		else
-			ui_destroy_viewer(obj, TT("panel"));
+			ui_destroy_viewer(obj, TT("view/panel"));
+		
+		change = true;
+	}
+	
+	// internals
+	if (internals != obj->has_internals) {
+		obj->has_internals = internals;
+		if (internals) 
+			ui_create_viewer(obj, &anObject, NULL, TT("view/internals"));
+		else
+			ui_destroy_viewer(obj, TT("view/internals"));
 		
 		change = true;
 	}
@@ -356,7 +402,7 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			ui_create_viewer(obj, &anObject, NULL, TT("preset/recall"));
 			ui_create_viewer(obj, &anObject, NULL, TT("preset/store/current"));
 			ui_create_viewer(obj, &anObject, NULL, TT("preset/store/next"));
-			// TODO : view the preset list
+			ui_create_viewer(obj, &anObject, gensym("return_preset_names"), TT("preset/names"));
 		}
 		else {
 			ui_destroy_viewer(obj, TT("preset/write"));
@@ -364,6 +410,7 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			ui_destroy_viewer(obj, TT("preset/recall"));
 			ui_destroy_viewer(obj, TT("preset/store/current"));
 			ui_destroy_viewer(obj, TT("preset/store/next"));
+			ui_destroy_viewer(obj, TT("preset/names"));
 		}
 		
 		change = true;
@@ -373,7 +420,7 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (help != obj->has_help) {
 		obj->has_help = help;
 		if (help) 
-			ui_create_viewer(obj, &anObject, gensym("return_help"), TT("model/help"));
+			ui_create_viewer(obj, &anObject, NULL, TT("model/help"));
 		else
 			ui_destroy_viewer(obj, TT("model/help"));
 		
@@ -384,7 +431,7 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (ref != obj->has_ref) {
 		obj->has_ref = ref;
 		if (ref) 
-			ui_create_viewer(obj, &anObject, gensym("return_ref"), TT("model/reference"));
+			ui_create_viewer(obj, &anObject, NULL, TT("model/reference"));
 		else
 			ui_destroy_viewer(obj, TT("model/reference"));
 		
@@ -465,6 +512,32 @@ void ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	
 	// refresh all jcom.view in the patch
 	object_method(obj->patcher, _sym_iterate, jcom_view_refresh_iterator, (void *)obj, PI_WANTBOX | PI_DEEP, &result);
+	
+	// refresh all widgets
+	// gain
+	if (obj->has_gain)
+		ui_refresh_viewer(obj, TT("gain"));
+	
+	// mix
+	if (obj->has_mix)
+		ui_refresh_viewer(obj, TT("mix"));
+	
+	// bypass
+	if (obj->has_bypass)
+		ui_refresh_viewer(obj, TT("bypass"));
+	
+	// freeze
+	if (obj->has_freeze)
+		ui_refresh_viewer(obj, TT("freeze"));
+	
+	// preview
+	if (obj->has_preview)
+		ui_refresh_viewer(obj, TT("preview"));
+	
+	// mute
+	if (obj->has_mute) 
+		ui_refresh_viewer(obj, TT("mute"));
+	
 }
 
 long jcom_view_refresh_iterator(t_ui *x, t_object *b)
@@ -473,8 +546,8 @@ long jcom_view_refresh_iterator(t_ui *x, t_object *b)
 	SymbolPtr cls = object_classname(jbox_get_object(b));
 	
 	if (cls == gensym("jcom.view")) {
-		object_post((ObjectPtr)x, "trying to refresh ...");
-		object_method_typed(b, gensym("remote_refresh"), 0, NULL, NULL); /// TODO : ???
+		object_warn((ObjectPtr)x, "TODO : jcom_view_refresh_iterator : refresh all jcom.view");
+		object_method(b, gensym("remote_refresh")); // it doesn't work !!?
 	}
 	
 	return 0;
@@ -487,9 +560,37 @@ void ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr ar
 	
 	if (argc == 1)
 		object_attr_setvalueof(obj, gensym("ui_is_frozen"), argc, argv);
-	
 	// freeze all jcom.view in the patch
 	object_method(obj->patcher, _sym_iterate, jcom_view_freeze_iterator, (void *)obj, PI_WANTBOX | PI_DEEP, &result);
+	
+	// freeze all widgets
+	// gain
+	if (obj->has_gain)
+		ui_freeze_viewer(obj, TT("gain"), obj->ui_freeze);
+	
+	// mix
+	if (obj->has_mix)
+		ui_freeze_viewer(obj, TT("mix"), obj->ui_freeze);
+	
+	// bypass
+	if (obj->has_bypass)
+		ui_freeze_viewer(obj, TT("bypass"), obj->ui_freeze);
+		
+	// freeze
+	if (obj->has_freeze)
+		ui_freeze_viewer(obj, TT("freeze"), obj->ui_freeze);
+	
+	// preview
+	if (obj->has_preview)
+		ui_freeze_viewer(obj, TT("preview"), obj->ui_freeze);
+
+	// mute
+	if (obj->has_mute) 
+		ui_freeze_viewer(obj, TT("mute"), obj->ui_freeze);
+	
+	// if freeze is disabled : refresh
+	if (!obj->ui_freeze)
+		ui_return_view_refresh(self, _sym_nothing, argc, argv);
 }
 
 long jcom_view_freeze_iterator(t_ui *x, t_object *b)

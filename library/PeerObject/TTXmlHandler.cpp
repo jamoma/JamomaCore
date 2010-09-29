@@ -56,64 +56,55 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
-			// TODO : Create a file on the disk	(for instant it is Max which do it)	
-			//FILE * pFile;
-			//pFile = fopen("/Users/TO/Documents/Jamoma/Tools/debugging/MVC_Prototyping_2/cuelist.txt", "wt");
-			//if (pFile != NULL)
-			//{				
-				// Create a new XmlWriter for filePath, with no compression.
-				mWriter = xmlNewTextWriterFilename(mFilePath->getCString(), 0);
-				if (mWriter == NULL) {
-					TT_ASSERT("testXmlwriterFilename: Error creating the xml writer\n", true);
-					return kTTErrGeneric;
-				}
-				
-				/* Start the document with the xml default for the version,
-				 * encoding ISO 8859-1 and the default for the standalone
-				 * declaration. */
-				ret = xmlTextWriterStartDocument(mWriter, NULL, TTMODULAR_XML_ENCODING, "yes");
-				if (ret < 0) {
-					TT_ASSERT("testXmlwriterFilename: Error at xmlTextWriterStartDocument\n", true);
-					return kTTErrGeneric;
-				}
-				
-				mIsWriting = true;
-				
-				// to write a human readable file
-				xmlTextWriterSetIndent(mWriter, 1);
-				
-				// Start Header information
-				xmlTextWriterStartElement(mWriter, BAD_CAST "jamoma");
-				xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",  BAD_CAST "0.6");
-				xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi", BAD_CAST "'http://www.w3.org/2001/XMLSchema-instance'");
-				xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST "'http://jamoma.org/ file:jamoma.xsd'");
-				
-				// Write data of the given TTObject (which have to implement a writeAsXml message)
-				v.clear();
-				v.append((TTPtr)this);
-				aTTObject->sendMessage(TT("writeAsXml"), v);
-				
-				// End Header information
-				xmlTextWriterEndElement(mWriter);
-				
-				/* Here we could close the elements ORDER and EXAMPLE using the
-				 * function xmlTextWriterEndElement, but since we do not want to
-				 * write any other elements, we simply call xmlTextWriterEndDocument,
-				 * which will do all the work. */
-				xmlTextWriterEndDocument(mWriter);
-				
-				xmlFreeTextWriter(mWriter);
-
-				mIsWriting = false;
-				
-				// memorize the TTObject as the last handled object
-				mObject = aTTObject;
-				
-				return kTTErrNone;
-				
-			//}
-			//else
-			//	return kTTErrGeneric;
+			// Create a new XmlWriter for filePath, with no compression.
+			mWriter = xmlNewTextWriterFilename(mFilePath->getCString(), 0);
+			if (mWriter == NULL) {
+				TT_ASSERT("testXmlwriterFilename: Error creating the xml writer\n", true);
+				return kTTErrGeneric;
+			}
+			
+			/* Start the document with the xml default for the version,
+			 * encoding ISO 8859-1 and the default for the standalone
+			 * declaration. */
+			ret = xmlTextWriterStartDocument(mWriter, NULL, TTMODULAR_XML_ENCODING, "yes");
+			if (ret < 0) {
+				TT_ASSERT("testXmlwriterFilename: Error at xmlTextWriterStartDocument\n", true);
+				return kTTErrGeneric;
+			}
+			
+			mIsWriting = true;
+			
+			// to write a human readable file
+			xmlTextWriterSetIndent(mWriter, 1);
+			
+			// Start Header information
+			xmlTextWriterStartElement(mWriter, BAD_CAST "jamoma");
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",  BAD_CAST "0.6");
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi", BAD_CAST "'http://www.w3.org/2001/XMLSchema-instance'");
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST "'http://jamoma.org/ file:jamoma.xsd'");
+			
+			// Write data of the given TTObject (which have to implement a writeAsXml message)
+			v.clear();
+			v.append((TTPtr)this);
+			aTTObject->sendMessage(TT("writeAsXml"), v);
+			
+			// End Header information
+			xmlTextWriterEndElement(mWriter);
+			
+			/* Here we could close the elements ORDER and EXAMPLE using the
+			 * function xmlTextWriterEndElement, but since we do not want to
+			 * write any other elements, we simply call xmlTextWriterEndDocument,
+			 * which will do all the work. */
+			xmlTextWriterEndDocument(mWriter);
+			
+			xmlFreeTextWriter(mWriter);
+			
+			mIsWriting = false;
+			
+			// memorize the TTObject as the last handled object
+			mObject = aTTObject;
+			
+			return kTTErrNone;
 		}
 	}
 	
@@ -205,7 +196,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 			return kTTErrNone;
 		}
 	}
-		
+	
 	// else
 	v.append((TTPtr)this);
 	return aTTObject->sendMessage(TT("readFromXml"), v);

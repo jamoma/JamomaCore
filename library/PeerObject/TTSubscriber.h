@@ -73,8 +73,8 @@ public:
 	/** Expose a message of any TTObject as TTData in the same context than subscribed object */
 	TTErr exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName, TTDataPtr *returnedData);
 	
-	/** Expose an attribute of any TTObject as TTData in the same context than subscribed object */
-	TTErr exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeName, TTDataPtr *returnedData);
+	/** Expose an attribute of any TTObject as TTData (parameter or return) in the same context than subscribed object */
+	TTErr exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeName, TTSymbolPtr service, TTDataPtr *returnedData);
 	
 private:
 
@@ -83,6 +83,7 @@ private:
 
 	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTSubscriber* TTSubscriberPtr;
@@ -90,5 +91,7 @@ typedef TTSubscriber* TTSubscriberPtr;
 TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
 
 TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
+
+TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_SUBSCRIBER_H__

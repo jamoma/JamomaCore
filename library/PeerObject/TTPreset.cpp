@@ -280,6 +280,7 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 	TTNodePtr			aNode;
 	TTValue				v, attributeToStore;
 	TTUInt8				i;
+	TTErr				err;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
@@ -338,18 +339,22 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 			if (mItemList->lookup(mCurrentItem, v)) {
 				
 				joinOSCAddress(mAddress, mCurrentItem, &absAddress);
-				mDirectory->getTTNodeForOSC(absAddress, &aNode);
-				anItem = new Item(aNode);
-				mItemList->append(mCurrentItem, TTValue((TTPtr)anItem));
+				err = mDirectory->getTTNodeForOSC(absAddress, &aNode);
 				
-				// fill the item
-				for (i=0; i<attributeToStore.getSize(); i++) {
-					attributeToStore.get(i, &attributeName);
+				// if the address exist
+				if (!err) {
+					anItem = new Item(aNode);
+					mItemList->append(mCurrentItem, TTValue((TTPtr)anItem));
 					
-					if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST attributeName->getCString()) == 1) {
+					// fill the item
+					for (i=0; i<attributeToStore.getSize(); i++) {
+						attributeToStore.get(i, &attributeName);
 						
-						aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-						anItem->state->append(attributeName, v);
+						if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST attributeName->getCString()) == 1) {
+							
+							aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+							anItem->state->append(attributeName, v);
+						}
 					}
 				}
 			}

@@ -28,6 +28,8 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Description;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Destroyed;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Freeze;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Initialized;
@@ -46,6 +48,8 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RangeClipmode;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampDrive;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampFunction;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Readonly;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RepetitionsAllow;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
 
@@ -78,6 +82,8 @@ void TTModularSymbolCacheInit()
 	kTTSym_Description				= TT("Description");
 	kTTSym_Destroyed				= TT("Destroyed");
 	
+	kTTSym_Freeze					= TT("Freeze");
+	
 	kTTSym_generic					= TT("generic");
 	
 	kTTSym_Initialized				= TT("Initialized");
@@ -96,6 +102,8 @@ void TTModularSymbolCacheInit()
 	kTTSym_RampDrive				= TT("RampDrive");
 	kTTSym_RampFunction				= TT("RampFunction");
 	kTTSym_Readonly					= TT("Readonly");
+	kTTSym_Receiver					= TT("Receiver");
+	kTTSym_Refresh					= TT("Refresh");
 	kTTSym_RepetitionsAllow			= TT("RepetitionsAllow");
 	kTTSym_return					= TT("return");
 	

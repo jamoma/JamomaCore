@@ -148,6 +148,8 @@ extern "C" {
 	 note : a contextPatcher is a patcher named [jview.modelName /addressToBind] 
 	 return the model address and the patcher. */
 	void			jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext);
+	long			jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr b);
+	TTBoolean		TTMODULAR_EXPORT jamoma_view_find_context(TTNodePtr n, TTPtr args);
 	
 	// Method to deal with TTExplorer
 	///////////////////////////////////////////////////////////////////////
@@ -189,6 +191,9 @@ extern "C" {
 	
 	/** Get the Context Node of relative to a jcom.external */
 	TTNodePtr		jamoma_context_node_get(ObjectPtr x);
+	
+	/** Get the get the model or view class of a jcom.external */
+	void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass);
 	
 #ifdef __cplusplus
 }

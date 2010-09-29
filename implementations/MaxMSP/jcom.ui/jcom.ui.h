@@ -28,6 +28,7 @@ typedef struct _ui{
 	TTObjectPtr			explorer;				///< internal TTExplorer object to observe the namespace
 	
 	TTSymbolPtr			modelAddress;
+	TTSymbolPtr			modelClass;
 	ObjectPtr			patcher;
 
 	t_jrgba				bgcolor;
@@ -37,10 +38,12 @@ typedef struct _ui{
 	
 	long				ui_freeze;				// freeze all viewers of the jview (TODO)
 	
-	t_jpopupmenu		*menu;					// module menu
+	t_jpopupmenu		*menu;					// model menu
 	void				*menu_qelem;			// ...
 	long				menu_selection;			// ...
 	t_linklist			*menu_items;			// ...
+	AtomPtr				preset_names;
+	AtomCount			preset_num;
 
 	t_jpopupmenu		*refmenu;				// reference menu
 	void				*refmenu_qelem;			// ...
@@ -50,6 +53,8 @@ typedef struct _ui{
 	long				has_preset;				// is the binded model have preset features ?
 	long				has_help;				// is the binded model have help patch ?
 	long				has_ref;				// is the binded model have reference page ?
+	
+	long				has_internals;			// is the binded model have internals pather ? (always yes...)
 	
 	long				has_panel;				// is the binded model have a panel ?
 	t_rect				rect_panel;
@@ -94,6 +99,7 @@ t_ui*		ui_new(t_symbol *s, long argc, t_atom *argv);
 void 		ui_free(t_ui *x);
 t_max_err	ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		ui_build(t_ui *x);
+void		ui_do_build(t_ui *x);
 void 		ui_bang(t_ui *x);
 
 // prototypes: drawing/ui
@@ -102,6 +108,7 @@ void 		ui_mousedown(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void		ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void		ui_mouseup(t_ui *x, t_object *patcherview);
 void*		ui_oksize(t_ui *x, t_rect *rect);
+void		ui_preset_interface(t_ui *x);
 
 // prototypes: menus
 void		ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers);
@@ -122,6 +129,8 @@ void		ui_send_data(t_ui *obj, TTSymbolPtr name, TTValue v);
 void		ui_create_viewer(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name);
 void		ui_destroy_viewer(t_ui *obj, TTSymbolPtr name);
 void		ui_send_viewer(t_ui *obj, TTSymbolPtr name, TTValue v);
+void		ui_freeze_viewer(t_ui *obj, TTSymbolPtr name, TTBoolean f);
+void		ui_refresh_viewer(t_ui *obj, TTSymbolPtr name);
 
 void		ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);	// this callback is used by the Explorer to return datas name list 
 
@@ -147,3 +156,4 @@ void		ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void		ui_preset_store_next(t_ui *x);
 void		ui_preset_doread(t_ui *x);
 void		ui_preset_dowrite(t_ui *x);
+void		ui_return_preset_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

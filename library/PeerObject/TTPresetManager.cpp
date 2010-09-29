@@ -18,16 +18,12 @@ mNames(kTTValNONE),
 mCurrent(kTTValNONE),
 mDirectory(NULL),
 mPresetList(NULL),
-mCurrentIndex(0),
-mReturnValueCallback(NULL)
+mCurrentIndex(0)
 {
 	TTValue v;
 	
 	arguments.get(0, (TTPtr*)&mDirectory);
 	TT_ASSERT("Directory passed to TTPresetManager is not NULL", mDirectory);
-	
-	if(arguments.getSize() == 2)
-		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -67,9 +63,6 @@ TTPresetManager::~TTPresetManager()
 	
 	delete mPresetList;
 	mPresetList = NULL;
-	
-	if (mReturnValueCallback)
-		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 }
 
 TTErr TTPresetManager::getNames(TTValue& value)
@@ -119,6 +112,9 @@ TTErr TTPresetManager::New()
 	mPresetList = new TTList();
 	mCurrentIndex = 0;
 	
+	// notify observers of the preset list
+	notifyNamesObservers();
+	
 	return kTTErrNone;
 }
 
@@ -160,6 +156,9 @@ TTErr TTPresetManager::Store(const TTValue& value)
 	mCurrentIndex = index;
 	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
 	
+	// notify observers of the preset list
+	notifyNamesObservers();
+	
 	return kTTErrNone;
 }
 
@@ -173,6 +172,9 @@ TTErr TTPresetManager::StoreCurrent()
 	
 	currentPreset->sendMessage(TT("Clear"));
 	currentPreset->sendMessage(TT("Fill"));
+	
+	// notify observers of the preset list
+	notifyNamesObservers();
 	
 	return kTTErrNone;
 }
@@ -204,6 +206,9 @@ TTErr TTPresetManager::StoreNext(const TTValue& value)
 	// Insert AFTER current
 	mCurrentIndex++;
 	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
+	
+	// notify observers of the preset list
+	notifyNamesObservers();
 	
 	return kTTErrNone;
 }
@@ -237,6 +242,9 @@ TTErr TTPresetManager::StorePrevious(const TTValue& value)
 	if (mCurrentIndex < 1) 
 		mCurrentIndex = 1;
 	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
+	
+	// notify observers of the preset list
+	notifyNamesObservers();
 	
 	return kTTErrNone;
 }
@@ -350,6 +358,9 @@ TTErr TTPresetManager::Remove(const TTValue& value)
 	mPresetList->remove(TTValue((TTPtr)currentPreset));
 	TTObjectRelease(TTObjectHandle(&currentPreset));
 	
+	// notify observers of the preset list
+	notifyNamesObservers();
+	
 	return kTTErrNone;
 }
 
@@ -363,6 +374,9 @@ TTErr TTPresetManager::RemoveCurrent()
 	
 	mPresetList->remove(TTValue((TTPtr)currentPreset));
 	TTObjectRelease(TTObjectHandle(&currentPreset));
+	
+	// notify observers of the preset list
+	notifyNamesObservers();
 	
 	return kTTErrNone;
 }
@@ -379,6 +393,9 @@ TTErr TTPresetManager::RemoveNext()
 	mPresetList->remove(TTValue((TTPtr)nextPreset));
 	TTObjectRelease(TTObjectHandle(&nextPreset));
 	
+	// notify observers of the preset list
+	notifyNamesObservers();
+	
 	return kTTErrNone;
 }
 
@@ -393,6 +410,9 @@ TTErr TTPresetManager::RemovePrevious()
 	
 	mPresetList->remove(TTValue((TTPtr)previousPreset));
 	TTObjectRelease(TTObjectHandle(&previousPreset));
+	
+	// notify observers of the preset list
+	notifyNamesObservers();
 	
 	return kTTErrNone;
 }
@@ -453,6 +473,10 @@ TTErr TTPresetManager::readFromXml(const TTValue& value)
 	// Ends reading
 	if (aXmlHandler->mXmlNodeName == TT("end")) {
 		mCurrentIndex = 1;
+		
+		// notify observers of the preset list
+		notifyNamesObservers();
+		
 		return kTTErrNone;
 	}
 	
@@ -590,6 +614,22 @@ TTPresetPtr TTPresetManager::getPresetWithName(TTSymbolPtr name)
 		mCurrentIndex = 0;
 		return NULL;
 	}
+}
+
+TTErr TTPresetManager::notifyNamesObservers()
+{
+	TTValue v;
+	TTAttributePtr	anAttribute = NULL;
+	TTErr			err;
+	
+	err = this->findAttribute(TT("Names"), &anAttribute);
+	
+	if (!err) {
+		getNames(v);
+		anAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
+	}
+	
+	return kTTErrNone;
 }
 
 #if 0

@@ -598,18 +598,9 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager)
 {
 	TTValue			args;
-	TTObjectPtr		returnValueCallback;
-	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
 	args.append(TTModularDirectory);
-	
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
-	returnValueBaton = new TTValue(TTPtr(x));
-	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
-	args.append(returnValueCallback);
 	
 	*returnedPresetManager = NULL;
 	TTObjectInstantiate(TT("PresetManager"), TTObjectHandle(returnedPresetManager), args);
@@ -678,9 +669,10 @@ void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTP
 	bool			isJviewPatcher;
 	ObjectPtr		box, patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context;
-	SymbolPtr		patcherName;
+	SymbolPtr		patcherName, jmodPatcherName, arg;
 	SymbolPtr		address = _sym_nothing;
-	TTString		addSlash;
+	TTString		addJmod;
+	long			result = 0;
 	
 	// If z is a bpatcher, the patcher is NULL
 	if (!patcher){
@@ -716,11 +708,21 @@ void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTP
 		}
 		
 		// If the contextName is still nothing
-		// get it from the patcher name if it start by "jview."
 		if (address == _sym_nothing) {
-			addSlash = S_SEPARATOR->getCString();
-			addSlash += patcherName->s_name;
-			address = gensym((char*)addSlash.data());
+			
+			// find a jmod.patcherName patcher below
+			addJmod = "jmod.";
+			addJmod += patcherName->s_name;
+			addJmod += ".maxpat";
+			jmodPatcherName = gensym((char*)addJmod.data());
+			arg = jmodPatcherName;
+			
+			object_method(patcher, gensym("iterate"), jamoma_view_find_jmod, (void *)&arg, PI_WANTBOX | PI_DEEP, &result);
+			// during iteration jmodPatcherName is replaced by the name of the model below
+			if (arg != jmodPatcherName)
+				address = arg;
+			else
+				address = patcherName;
 		}
 		
 		// return the address and patcher
@@ -745,6 +747,61 @@ void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTP
 	}
 }
 
+long jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr z)
+{
+	SymbolPtr filename = object_attr_getsym(z, _sym_filename);
+	ObjectPtr context = jbox_get_object(z);
+	SymbolPtr cls = object_classname(context);
+	
+	if (filename && cls == _sym_jpatcher)
+		if (filename == *name) {
+			
+			// look for the first node with the same context
+			TTList whereToSearch;
+			TTList returnedTTNodes;
+			TTNodePtr root, firstReturnedTTNode;
+			TTString strName;
+			
+			root = TTModularDirectory->getRoot();
+			whereToSearch.append(new TTValue((TTPtr)root));
+			
+			TTModularDirectory->LookFor(&whereToSearch, &jamoma_view_find_context, (TTPtr)context, returnedTTNodes, &firstReturnedTTNode);
+			
+			if (firstReturnedTTNode) {
+				strName = "/";
+				strName += firstReturnedTTNode->getName()->getCString();
+				if (!(firstReturnedTTNode->getInstance() == NO_INSTANCE)) {
+					strName += ".";
+					strName += firstReturnedTTNode->getInstance()->getCString();
+				}
+				
+				*name = gensym((char*)strName.data());
+				
+				return 1; // stop iteration
+			}
+		}
+	
+	return 0;
+}
+
+TTBoolean jamoma_view_find_context(TTNodePtr n, TTPtr args)
+{
+	TTValue		v;
+	TTPtr		context;
+	TTPtr		c;
+	TTObjectPtr o;
+	
+	context = (TTPtr)args;
+	
+	o = n->getObject();
+	c = n->getContext();
+	
+	if (o && c)
+		// Keep only TTContainer with the same context
+		return (o->getName() == TT("Container") && c == context);
+	else
+		return NO;
+}
 
 
 // Method to deal with TTExplorer
@@ -838,7 +895,6 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	
 	sysmem_freeptr(argv);
 }
-
 
 
 // Method to deal with TTValue
@@ -946,3 +1002,86 @@ TTNodePtr jamoma_context_node_get(ObjectPtr x)
 	
 	return contextNode;
 }
+
+/** Get the get the model or view class of a jcom.external */
+void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
+{
+	bool			isJviewPatcher, isJmodPatcher;
+	ObjectPtr		patcher = jamoma_object_getpatcher(z);
+	SymbolPtr		context, filename;
+	SymbolPtr		patcherName, className;
+	TTString		addSlash;
+	long			len, pos;
+	char			*last_dot;
+	char			*to_split, *modelstr;
+	
+	// If z is a bpatcher, the patcher is NULL
+	if (!patcher){
+		patcher = object_attr_getobj(z, _sym_parentpatcher);
+	}
+	
+	context = jamoma_patcher_getcontext(patcher);
+	patcherName = object_attr_getsym(patcher, _sym_name);
+	
+	// if the patcher name begin by "jview."
+	// Strip jview. from the beginning of patch name
+	isJviewPatcher = strncmp(patcherName->s_name, "jview.", 6) == 0;
+	if (isJviewPatcher)
+		patcherName = gensym(patcherName->s_name + 6);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	
+	// if the patcher name begin by "jmod."
+	// Strip jmod. from the beginning of patch name
+	isJmodPatcher = strncmp(patcherName->s_name, "jmod.", 5) == 0;
+	if (isJmodPatcher)
+		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	
+	// Is the patcher embedded in a jmod.patcher ?
+	// The topLevel patcher name have not to be include in the address
+	if ((isJviewPatcher || isJmodPatcher) && ((context == _sym_bpatcher) || (context == _sym_subpatcher)))
+		// Get the filename to extract model class name
+		filename = object_attr_getsym(patcher, _sym_filename);
+	
+	// case where the object is in a subpatcher
+	else if (!isJviewPatcher && (context == _sym_subpatcher))
+		// ignore this level
+		jamoma_patcher_get_model_class(patcher, modelClass);
+
+	// case where the user is editing the module 
+	// or because there are jcom to register in the toplevel patcher
+	else if (context == gensym("toplevel"))
+		filename = object_attr_getsym(patcher, _sym_filename);
+	
+	else {
+		*modelClass = kTTSymEmpty;
+		return;
+	}
+	
+	// Get the filename to extract model class name
+	if (isJmodPatcher) {
+		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name + 5)+1));
+		strcpy(to_split, filename->s_name + 5);
+	}
+	
+	else if (isJviewPatcher) {
+		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name + 6)+1));
+		strcpy(to_split,filename->s_name + 6);
+	}
+	else {
+		*modelClass = kTTSymEmpty;
+		return;
+	}
+		
+	// find the last '.' (.maxpat)
+	// if exists, split the TTNode part in a name part and an instance part
+	len = strlen(to_split);
+	last_dot = strrchr(to_split,'.');
+	pos = (long)last_dot - (long)to_split;
+	
+	if (last_dot > 0) {
+		to_split[pos] = NULL;	// split to keep only the model part
+		*modelClass = TT(to_split);
+	}
+	else
+		*modelClass = kTTSymEmpty;
+}
+

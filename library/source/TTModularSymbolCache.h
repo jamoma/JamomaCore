@@ -27,6 +27,8 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Description;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Destroyed;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Freeze;
+
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Initialized;
@@ -46,6 +48,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampDrive;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampFunction;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Readonly;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RepetitionsAllow;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
 

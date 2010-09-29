@@ -22,7 +22,7 @@ void	view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	view_share_context_node(TTPtr self, TTNodePtr *contextNode);
 
-void	view_remote_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);	// no way to use wrapped method with object_method(_typed) ??
+void	view_remote_refresh(TTPtr self);
 
 void	view_bang(TTPtr self);
 void	view_int(TTPtr self, long value);
@@ -30,6 +30,7 @@ void	view_float(TTPtr self, double value);
 void	view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	view_build(TTPtr self, SymbolPtr address);
+void	view_do_build(TTPtr self, SymbolPtr address);
 
 void	view_ui_queuefn(TTPtr self);
 
@@ -46,12 +47,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTViewerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)view_assist,				"assist",				A_CANT, 0L);
-	
 	class_addmethod(c->maxClass, (method)view_return_value,			"return_value",			A_CANT, 0);
-	
 	class_addmethod(c->maxClass, (method)view_share_context_node,	"share_context_node",	A_CANT,	0);
-	
-	class_addmethod(c->maxClass, (method)view_remote_refresh,		"remote_refresh",		A_GIMME, 0); // no way to use wrapped method with object_method(_typed) ??
+	class_addmethod(c->maxClass, (method)view_remote_refresh,		"remote_refresh",		A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)view_bang,					"bang",					0L);
 	class_addmethod(c->maxClass, (method)view_int,					"int",					A_LONG, 0L);
@@ -104,6 +102,13 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 }
 
 void view_build(TTPtr self, SymbolPtr address)
+{
+	// The following must be deferred because 
+	// we have to wait each model/parameter are built
+	defer_low((ObjectPtr)self, (method)view_do_build, address, 0, 0);
+}
+
+void view_do_build(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, p, args;
@@ -171,7 +176,7 @@ void view_share_context_node(TTPtr self, TTNodePtr *contextNode)
 		*contextNode = NULL;
 }
 
-void view_remote_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void view_remote_refresh(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	object_post((ObjectPtr)x, "refresh !");
