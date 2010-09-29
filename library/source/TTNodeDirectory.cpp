@@ -318,8 +318,10 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
 	TTList lk_children;
-	TTNodePtr n_r, n_child;
+	TTNodePtr n_r, n_child, n_first;
 	TTErr err;
+	
+	*firstReturnedTTNode = NULL;
 	
 	// if there are nodes from where to start
 	if (!whereToSearch->isEmpty()) {
@@ -335,20 +337,27 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 			if (!lk_children.isEmpty()) {
 				
 				// test each of them and add those which are ok
+				n_first = NULL;
 				for (lk_children.begin(); lk_children.end(); lk_children.next()) {
 					
 					lk_children.current().get(0, (TTPtr*)&n_child);
 					
 					// test the child and fill the returnedTTNodes
-					if (testFunction(n_child, argument))
+					if (testFunction(n_child, argument)) {
 						returnedTTNodes.append(new TTValue((TTPtr)n_child));
+						
+						if (!n_first)
+							n_first = n_child;
+					}
 				}
 				
 				// continu the research below all children
 				err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode);
 				
-				if(!returnedTTNodes.isEmpty())
+				if(!returnedTTNodes.isEmpty() && !n_first)
 					returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
+				else if (n_first)
+					*firstReturnedTTNode = n_first;
 				
 				if (err != kTTErrNone)
 					return err;
