@@ -44,10 +44,11 @@ void TTModularInit(TTString appName)
 		// register classes -- both internal and external
 		TTSubscriber::registerClass();
 		TTContainer::registerClass();
-		TTParameter::registerClass();
+		TTData::registerClass();
 		TTSender::registerClass();
 		TTReceiver::registerClass();
 		TTMapper::registerClass();
+		TTViewer::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
 		TTExplorer::registerClass();

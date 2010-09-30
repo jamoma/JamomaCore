@@ -30,7 +30,7 @@ extern "C" {
 	/** Get the node(s) at the given address (with wildcard too) */
 	TTErr			jamoma_directory_get_node(TTSymbolPtr address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
-	/** Get all parameters below the given address (with wildcard too) */
+	/** Get all datas below the given address (with wildcard too) */
 	TTErr			jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	bool			testTTNodeType(TTNodePtr n, void *args);
 	
@@ -80,7 +80,7 @@ extern "C" {
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
 	void			jamoma_subscriber_get_context_list(TTPtr p_baton, TTValue& data);
 	
-	/** Look recursively to every jmod.contextPatcher above an object in order to know his place in the tree
+	/** Look recursively for every jmod.contextPatcher above an object in order to know his place in the tree
 	 note : a contextPatcher is a patcher named [jmod.something otherName] 
 	 return a <formatedContextName, patcher> list 
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
@@ -97,14 +97,14 @@ extern "C" {
 	TTErr			jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv);
 	
 	
-	// Method to deal with TTParameter
+	// Method to deal with TTData
 	///////////////////////////////////////////////////////////////////////
 	
-	/**	Create a parameter object */
-	TTErr			jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter);
+	/**	Create a data object */
+	TTErr			jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service);
 	
 	/**	Send Max data command */
-	TTErr			jamoma_parameter_command(TTParameterPtr aParameter, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+	TTErr			jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	
 	
 	// Method to deal with TTSender
@@ -137,6 +137,19 @@ extern "C" {
 	/**	Create a mapper object */
 	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper);
 	
+	
+	// Method to deal with TTViewer
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create a viewer object */
+	TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer);
+	
+	/** Look for the jview.contextPatcher above an object in order to know the address of the model it binds
+	 note : a contextPatcher is a patcher named [jview.modelName /addressToBind] 
+	 return the model address and the patcher. */
+	void			jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext);
+	long			jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr b);
+	TTBoolean		TTMODULAR_EXPORT jamoma_view_find_context(TTNodePtr n, TTPtr args);
 	
 	// Method to deal with TTExplorer
 	///////////////////////////////////////////////////////////////////////
@@ -178,6 +191,9 @@ extern "C" {
 	
 	/** Get the Context Node of relative to a jcom.external */
 	TTNodePtr		jamoma_context_node_get(ObjectPtr x);
+	
+	/** Get the get the model or view class of a jcom.external */
+	void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass);
 	
 #ifdef __cplusplus
 }

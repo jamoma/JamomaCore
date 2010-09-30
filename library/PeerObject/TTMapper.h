@@ -26,8 +26,8 @@ class TTMODULAR_EXPORT TTMapper : public TTObject
 	
 public:
 	
-	TTSymbolPtr			mInput;						///< ATTRIBUTE : address of the parameter for the incoming value
-	TTSymbolPtr			mOutput;					///< ATTRIBUTE : address of the parameter for the value to control
+	TTSymbolPtr			mInput;						///< ATTRIBUTE : address of the data for the incoming value
+	TTSymbolPtr			mOutput;					///< ATTRIBUTE : address of the data for the value to control
 	
 	TTFloat64			mInputMin;					///< ATTRIBUTE : 
 	TTFloat64			mInputMax;					///< ATTRIBUTE : 
@@ -36,14 +36,14 @@ public:
 	
 	TTValue				mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
 	TTSymbolPtr			mFunction;					///< ATTRIBUTE : name of the map function
-	TTValue				mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
+	TTValue				mFunctionDatas;		///< ATTRIBUTE : names of data's function
 	TTValue				mFunctionSamples;			///< ATTRIBUTE : an overview of the mapping (each value between [map(InputMin) :: map(InputMax)])
 	
 private:
 	
 	TTNodeDirectoryPtr	mDirectory;					///< the directory
-	TTReceiverPtr		mReceiver;					///< the receiver which binds on In parameter(s)
-	TTSenderPtr			mSender;					///< the sender which binds on Out parameter(s)
+	TTReceiverPtr		mReceiver;					///< the receiver which binds on In data(s)
+	TTSenderPtr			mSender;					///< the sender which binds on Out data(s)
 	
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this mapper
 	
@@ -82,7 +82,7 @@ private :
 	/** */
 	TTErr setOutputMax(const TTValue& value);
 	
-	/** set the function unit and set parameters name extending attributes of the unit */
+	/** set the function unit and set datas name extending attributes of the unit */
 	TTErr setFunction(const TTValue& value);
 	
 	/** process mapping */

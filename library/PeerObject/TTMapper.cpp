@@ -21,7 +21,7 @@ mOutputMin(0.),
 mOutputMax(1.),
 mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
-mFunctionParameters(kTTValNONE),
+mFunctionDatas(kTTValNONE),
 mFunctionSamples(kTTValNONE),
 mDirectory(NULL),
 mReceiver(NULL),
@@ -31,7 +31,7 @@ mFunctionUnit(NULL),
 mValid(NO)
 {	
 	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTReceiver is not NULL", mDirectory);
+	TT_ASSERT("Directory passed to TTMapper is not NULL", mDirectory);
 	
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
@@ -49,8 +49,8 @@ mValid(NO)
 	
 	addAttributeWithSetter(Function, kTypeSymbol);
 	
-	addAttribute(FunctionParameters, kTypeLocalValue);
-	addAttributeProperty(FunctionParameters, readOnly, YES);
+	addAttribute(FunctionDatas, kTypeLocalValue);
+	addAttributeProperty(FunctionDatas, readOnly, YES);
 	
 	addAttributeWithGetter(FunctionSamples, kTypeLocalValue);
 	addAttributeProperty(FunctionSamples, readOnly, YES);
@@ -68,17 +68,17 @@ TTMapper::~TTMapper() // TODO : delete things...
 	
 	if (mFunctionUnit) {
 		
-		// Remove former parameters
-		n = mFunctionParameters.getSize();
+		// Remove former datas
+		n = mFunctionDatas.getSize();
 		for (int i=0; i<n; i++) {
-			mFunctionParameters.get(i, &aName);
+			mFunctionDatas.get(i, &aName);
 			this->removeAttribute(aName);
 		}
 		
 		TTObjectRelease(TTObjectHandle(&mFunctionUnit));
 		mFunctionUnit = NULL;
 		mFunction = kTTSymEmpty;
-		mFunctionParameters.clear();
+		mFunctionDatas.clear();
 	}
 	
 	if (mReturnValueCallback)
@@ -159,7 +159,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mReceiver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
 	
-	// Trying to get the Parameter at this address 
+	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// (but if the mapper created before we give up)
 	err = mDirectory->getTTNodeForOSC(mInput, &aNode);
@@ -167,7 +167,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	if (!err) {
 
 		if (anObject = aNode->getObject())
-			if (anObject->getName() == TT("Parameter")) {
+			if (anObject->getName() == TT("Data")) {
 				
 				anObject->getAttributeValue(kTTSym_RangeBounds, v);
 				
@@ -196,7 +196,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	mSender = NULL;
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), args);
 	
-	// Trying to get the Parameter at this address 
+	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// (but if the mapper created before we give up)
 	err = mDirectory->getTTNodeForOSC(mOutput, &aNode);
@@ -204,7 +204,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	if (!err) {
 
 		if (anObject = aNode->getObject())
-			if (anObject->getName() == TT("Parameter")) {
+			if (anObject->getName() == TT("Data")) {
 				
 				anObject->getAttributeValue(kTTSym_RangeBounds, v);
 				
@@ -225,17 +225,17 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	
 	if (mFunctionUnit) {
 
-		// Remove former parameters
-		n = mFunctionParameters.getSize();
+		// Remove former datas
+		n = mFunctionDatas.getSize();
 		for (int i=0; i<n; i++) {
-			mFunctionParameters.get(i, &aName);
+			mFunctionDatas.get(i, &aName);
 			this->removeAttribute(aName);
 		}
 		
 		TTObjectRelease(TTObjectHandle(&mFunctionUnit));
 		mFunctionUnit = NULL;
 		mFunction = kTTSymEmpty;
-		mFunctionParameters.clear();
+		mFunctionDatas.clear();
 	}
 	
 	// Create a new function unit
@@ -253,7 +253,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 			
 			names.get(i, &aName);
 			
-			 // don't publish these parameters
+			 // don't publish these datas
 			if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
 				continue;
 			
@@ -264,12 +264,12 @@ TTErr TTMapper::setFunction(const TTValue& value)
 			
 			// extend attribute with the same name
 			this->extendAttribute(aName, mFunctionUnit, aName);
-			mFunctionParameters.append(aName);
+			mFunctionDatas.append(aName);
 		}
 		
 		mValid = true;
 		notifyObservers(TT("Function"), value);
-		notifyObservers(TT("FunctionParameters"), mFunctionParameters);
+		notifyObservers(TT("FunctionDatas"), mFunctionDatas);
 		return kTTErrNone;
 	}
 	

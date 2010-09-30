@@ -13,6 +13,7 @@
 #define __TT_XML_HANDLER_H__
 
 #include "TTModular.h"
+#include <stdio.h>
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/xmlreader.h>

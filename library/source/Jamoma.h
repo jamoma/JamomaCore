@@ -21,6 +21,7 @@
 #include "ext_common.h"
 #include "ext_strings.h"			// String Functions
 #include "ext_critical.h"
+#include "jpatcher_api.h"
 #include "z_dsp.h"
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 

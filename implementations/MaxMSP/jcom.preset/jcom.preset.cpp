@@ -8,6 +8,7 @@
  */
 
 #include "TTModularClassWrapperMax.h"
+#include "jpatcher_api.h"
 
 #define data_out 0
 
@@ -15,17 +16,17 @@
 void		WrapTTPresetManagerClass(WrappedClassPtr c);
 void		WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
-t_max_err	preset_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		preset_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void		preset_share_context_node(TTPtr self, TTNodePtr *contextNode);
 
-void		preset_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void		preset_return_names(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 void		preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		preset_default(TTPtr self);
 
 void		preset_build(TTPtr self, SymbolPtr address);
 
@@ -42,12 +43,11 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 void WrapTTPresetManagerClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)preset_notify,					"notify",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)preset_assist,					"assist",				A_CANT, 0L);
 	
 	class_addmethod(c->maxClass, (method)preset_share_context_node,		"share_context_node",	A_CANT,	0);
 	
-	class_addmethod(c->maxClass, (method)preset_return_value,			"return_value",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)preset_return_names,			"return_names",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)preset_read,					"read/xml",				A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)preset_write,					"write/xml",			A_GIMME, 0);
@@ -76,15 +76,20 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	
+	// Prepare Internals hash to store XmlHanler and TextHandler object
+	x->internals = new TTHash();
 }
 
 void preset_build(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, n, p, args;
+	TTValue						v, n, args;
 	TTString					presetLevelAddress;
 	TTSymbolPtr					absoluteAddress;
 	TTNodePtr					node = NULL;
+	TTDataPtr					aData;
+	TTXmlHandlerPtr				aXmlHandler;
 	TTPtr						context;
 	
 	// add 'preset' after the address
@@ -109,30 +114,57 @@ void preset_build(TTPtr self, SymbolPtr address)
 		 node->getAttributeValue(TT("Context"), v);
 		v.get(0, (TTPtr*)&context);
 		object_attach_byptr_register(x, context, _sym_box);
-
+		
+		// expose messages of TTPreset as TTData in the tree structure
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_array);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreCurrent"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreNext"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StorePrevious"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
+		
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_generic);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallCurrent"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallNext"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallPrevious"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_generic);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveCurrent"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveNext"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemovePrevious"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+		
+		// expose attributes of TTPreset as TTData in the tree structure
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Names"), kTTSym_return, &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_array);
+		
+		// create internal TTXmlHandler and expose Read and Write message
+		aXmlHandler = NULL;
+		TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+		v = TTValue(TTPtr(aXmlHandler));
+		x->internals->append(TT("XmlHandler"), v);
+		v = TTValue(TTPtr(x->wrappedObject));
+		aXmlHandler->setAttributeValue(kTTSym_Object, v);
+		
+		x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
+		x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
+		
+		// TODO : create internal TTTextHandler and expose Read and Write message
+	
+		// load default jmod.model.xml file preset
+		defer_low(x, (method)preset_default, 0, 0, 0L);
 	}
-}
-
-t_max_err preset_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	ObjectPtr context;
-	x->subscriberObject->getAttributeValue(TT("Context"), v);
-	v.get(0, (TTPtr*)&context);
-	
-	// if the patcher is deleted
-	if (sender == context)
-		if (msg == _sym_free) {
-			
-			// delete
-			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-			
-			// no more notification
-			object_detach_byptr((ObjectPtr)x, context);
-		}
-	
-	return MAX_ERR_NONE;
 }
 
 // Method for Assistance Messages
@@ -144,10 +176,10 @@ void preset_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "");
 }
 
-void preset_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void preset_return_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[data_out], msg, argc, argv);
+	outlet_anything(x->outlets[data_out], gensym("names"), argc, argv);
 }
 
 void preset_share_context_node(TTPtr self, TTNodePtr *contextNode)
@@ -176,18 +208,20 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;							// pathID#
     long			filetype = 'TEXT', outtype;		// the file type that is actually true
-	TTValue			args, v;
+	TTValue			o, v;
 	SymbolPtr		userpath;
 	TTSymbolPtr		nodeAddress;
 	TTXmlHandlerPtr	aXmlHandler = NULL;
-	//TTTextHandlerPtr	aTaextHandler;
+	//TTTextHandlerPtr	aTextHandler;
 	TTErr			tterr;
 	
 	if (argc && argv)
 		if (atom_gettype(argv) == A_SYM)
 			userpath = atom_getsym(argv);
-		else
+		else {
 			object_error((t_object*)x, "%s : needs a symbol", msg->s_name);
+			return;
+		}
 	
 	// select file format
 	if (msg == gensym("read/xml"))
@@ -213,26 +247,23 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (x->wrappedObject) {
 		v.clear();
-		v.append((TTPtr)x->wrappedObject);
 		v.append(TT(fullpath));
 		
 		// select method to use
 		if (msg == gensym("read/xml")) {
-			tterr = TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+			tterr = x->internals->lookup(TT("XmlHandler"), o);
 			
 			if (!tterr) {
+				
+				o.get(0, (TTPtr*)&aXmlHandler);
 				
 				critical_enter(0);
 				aXmlHandler->sendMessage(TT("Read"), v);
 				critical_exit(0);
-				
-				TTObjectRelease(TTObjectHandle(&aXmlHandler));
 			}
 		}
 		else if (msg == gensym("read/text")) 
-			;// TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler));
-			 // aTextHandler->senMessage(TT("Read"), v);
-			 // TTObjectRelease(aTextHandler);
+			;// aTextHandler->senMessage(TT("Read"), v);
 	}
 }
 
@@ -249,18 +280,20 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	short 			path, err;						// pathID#, error number
 	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
 	long			filetype = 'TEXT', outtype;		// the file type that is actually true
-	TTValue			args, v;
+	TTValue			o, v;
 	SymbolPtr		userpath;
 	TTSymbolPtr		nodeAddress;
-	TTXmlHandlerPtr	aXmlHandler = NULL;
-	//TTTextHandlerPtr	aTaextHandler;
+	TTXmlHandlerPtr	aXmlHandler;
+	//TTTextHandlerPtr	aTextHandler;
 	TTErr			tterr;
 	
 	if (argc && argv)
 		if (atom_gettype(argv) == A_SYM)
 			userpath = atom_getsym(argv);
-		else
+		else {
 			object_error((t_object*)x, "%s : needs a symbol", msg->s_name);
+			return;
+		}
 	
 	// select file format
 	if (msg == gensym("write/xml"))
@@ -287,25 +320,44 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (x->wrappedObject) {
 		v.clear();
-		v.append((TTPtr)x->wrappedObject);
 		v.append(TT(fullpath));
 		
 		// select method to use
 		if (msg == gensym("write/xml")) {
-			tterr = TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+			tterr = x->internals->lookup(TT("XmlHandler"), o);
 			
 			if (!tterr) {
+				
+				o.get(0, (TTPtr*)&aXmlHandler);
 				
 				critical_enter(0);
 				aXmlHandler->sendMessage(TT("Write"), v);
 				critical_exit(0);
-				
-				TTObjectRelease(TTObjectHandle(&aXmlHandler));
 			}
 		}
 		else if (msg == gensym("write/text")) 
-			;// TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler));
-			 // aTextHandler->senMessage(TT("Write"), v);
-			 // TTObjectRelease(aTextHandler);
+			;// aTextHandler->senMessage(TT("Write"), v);
 	}
 }
+
+void preset_default(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTSymbolPtr modelClass;
+	AtomPtr		a;
+
+	jamoma_patcher_get_model_class((ObjectPtr)x, &modelClass);
+	
+	TTString xmlfile = "jmod.";
+	xmlfile += modelClass->getCString();
+	xmlfile += ".xml";
+	
+	post("preset_default : %s", (char*)xmlfile.data());
+	
+	atom_setsym(a, gensym((char*)xmlfile.data()));
+	defer_low(self, (method)preset_doread, gensym("read/xml"), 1, a);
+	
+	// TODO : defer recalling 
+	x->wrappedObject->sendMessage(TT("Recall"), kTTVal1);
+}
+

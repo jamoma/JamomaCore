@@ -13,12 +13,16 @@
 #define thisTTClassTags		"xml, handler"
 
 TT_MODULAR_CONSTRUCTOR,
+mObject(NULL),
+mFilePath(kTTSymEmpty),
 mWriter(NULL),
 mReader(NULL),
 mIsWriting(false),
 mIsReading(false)
 {
 	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.getSize() == 0);
+	
+	addAttribute(Object, kTypePointer);
 	
 	addMessageWithArgument(Write);
 	addMessageWithArgument(Read);
@@ -35,18 +39,19 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 	TTObjectPtr			aTTObject;
 	int					ret;
 	
-	// the first argument have to be a kTypePointer : this is a pointer on our TTObject
-	if (args.getType() == kTypePointer)
-		args.get(0, (TTPtr*)&aTTObject);
-	else
+	// an object have to be selected
+	if (mObject == NULL)
 		return kTTErrGeneric;
 	
-	// if a second argument is kTypeSymbol : this is an *absolute* file path
+	// memorize this object because it could change if the handler is used recursively
+	aTTObject = mObject;
+	
+	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
-	if (args.getSize() == 2) {
-		if (args.getType(1) == kTypeSymbol) {
+	if (args.getSize() == 1) {
+		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(1, &mFilePath);
+			args.get(0, &mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -77,7 +82,7 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",  BAD_CAST "0.6");
 			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi", BAD_CAST "'http://www.w3.org/2001/XMLSchema-instance'");
 			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST "'http://jamoma.org/ file:jamoma.xsd'");
-	
+			
 			// Write data of the given TTObject (which have to implement a writeAsXml message)
 			v.clear();
 			v.append((TTPtr)this);
@@ -112,7 +117,6 @@ TTErr TTXmlHandler::WriteAgain()
 {
 	TTValue args;
 	
-	args.append(mObject);
 	args.append(mFilePath);
 	return Write(args);
 }
@@ -123,19 +127,20 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 	TTObjectPtr			aTTObject;
 	TTValue				v;
 	int					ret;
-
-	// the first argument have to be a kTypePointer : this is a pointer on our TTObject
-	if (args.getType() == kTypePointer)
-		args.get(0, (TTPtr*)&aTTObject);
-	else
+	
+	// an object have to be selected
+	if (mObject == NULL)
 		return kTTErrGeneric;
 	
-	// if a second argument is kTypeSymbol : this is an *absolute* file path
+	// memorize this object because it could change if the handler is used recursively
+	aTTObject = mObject;
+	
+	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
-	if (args.getSize() == 2)
-		if (args.getType(1) == kTypeSymbol) {
+	if (args.getSize() == 1) {
+		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(1, &mFilePath);
+			args.get(0, &mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -153,7 +158,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 						break;
 					mXmlNodeName = TT((char*)xName);
 					xmlFree((void*)xName);
-
+					
 					// Header node
 					if (mXmlNodeName == TT("jamoma")) {
 						
@@ -168,7 +173,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 							mXmlNodeName = TT("end");
 						}
 					}
-
+					
 					v.append((TTPtr)this);
 					aTTObject->sendMessage(TT("readFromXml"), v);
 					
@@ -190,6 +195,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 			
 			return kTTErrNone;
 		}
+	}
 	
 	// else
 	v.append((TTPtr)this);
@@ -200,7 +206,6 @@ TTErr TTXmlHandler::ReadAgain()
 {
 	TTValue args;
 	
-	args.append(mObject);
 	args.append(mFilePath);
 	return Read(args);
 }

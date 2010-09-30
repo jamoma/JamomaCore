@@ -17,7 +17,6 @@ void	WrapTTMapperClass(WrappedClassPtr c);
 void	WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void	map_assist(TTPtr self, void *b, long msg, long arg, char *dst);
-t_max_err map_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void	map_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
@@ -77,28 +76,6 @@ void map_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "");		
 	else if (msg==2)		// Outlets
 		strcpy(dst, "");
-}
-
-t_max_err map_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	ObjectPtr context;
-	x->subscriberObject->getAttributeValue(TT("Context"), v);
-	v.get(0, (TTPtr*)&context);
-	
-	// if the patcher is deleted
-	if (sender == context)
-		if (msg == _sym_free) {
-			
-			// delete
-			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-			
-			// no more notification
-			object_detach_byptr((ObjectPtr)x, context);
-		}
-	
-	return MAX_ERR_NONE;
 }
 
 void map_build(TTPtr self, SymbolPtr address)

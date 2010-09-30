@@ -37,7 +37,7 @@ class TTMODULAR_EXPORT TTPreset : public TTObject
 	TTCLASS_SETUP(TTPreset)
 	
 public:
-	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the parent address of each stored parameter
+	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the parent address of each stored data
 	TTSymbolPtr			mName;							///< ATTRIBUTE: the name of the preset
 	TTSymbolPtr			mComment;						///< TODO
 	TTValue				mExtra;							///< TODO

@@ -35,7 +35,6 @@ private:
 	TTNodeDirectoryPtr	mDirectory;						///< the directory
 	TTListPtr			mPresetList;					///< a list containing <TTPresetPtr> sorted by Number attribute
 	TTUInt8				mCurrentIndex;					///< ATTRIBUTE : the position of the current preset in the list (from 1 to list size, 0 mean no current index)
-	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this preset manager
 	
 public:
 	
@@ -80,6 +79,8 @@ private :
 	TTPresetPtr getPresetWithName(TTSymbolPtr name);
 	
 	TTErr refreshList();
+	
+	TTErr notifyNamesObservers();
 };
 
 typedef TTPresetManager* TTPresetManagerPtr;

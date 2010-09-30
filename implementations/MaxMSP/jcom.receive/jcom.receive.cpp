@@ -84,7 +84,12 @@ void receive_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 void receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[data_out], msg, argc, argv);
+	
+	// avoid blank before data
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[data_out], argc, argv);
+	else
+		outlet_anything(x->outlets[data_out], msg, argc, argv);
 }
 
 void receive_bang(TTPtr self)

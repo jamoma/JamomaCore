@@ -12,7 +12,7 @@
 #define TTMODULAR_VERSION_STRING "0.1"
 #define TTMODULAR_XML_ENCODING "ISO-8859-1"
 
-#define TTPARAMETER_RAMPLIB // to build TTParameter with the RampLib
+#define TTPARAMETER_RAMPLIB // to build TTData with the RampLib
 
 #ifdef TT_PLATFORM_WIN
 #include "windows.h"
@@ -46,10 +46,11 @@
 
 #include "TTSubscriber.h"
 #include "TTContainer.h"
-#include "TTParameter.h"
+#include "TTData.h"
 #include "TTSender.h"
 #include "TTReceiver.h"
 #include "TTMapper.h"
+#include "TTViewer.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
 #include "TTExplorer.h"

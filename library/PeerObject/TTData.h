@@ -1,61 +1,61 @@
 /* 
- * A Parameter Object
+ * A Data Object
  * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TT_PARAMETER_H__
-#define __TT_PARAMETER_H__
+#ifndef __TT_DATA_H__
+#define __TT_DATA_H__
 
 #include "TTModular.h"
 
 #include "DataspaceLib.h"
 #include "FunctionLib.h"
 
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 #include "RampLib.h"			// Excluding RampLib because it use MaxAPI...
 #endif
 
-/**	TTParameter ... TODO : an explanation
+/**	TTData ... TODO : an explanation
  
 TODO LIST : 
  
  -> type							DONE (make some test)
  -> RangeBounds						How to declare this attribute in order to see 2 values ?
  -> setDataspace					DONE (make some test)
- -> Parameter, Message, Return :	add an attribute to deal with three cases					(see in several place...)
- -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTParameter::clipValue method)
- -> handleProperty :				used TTObject message mecanism...							(see in TTParameter::Command method)
- -> rampParameterNames :			relative to handleProperty									(see in TTParameter::setRampFunction)
- -> inc :							TODO
- -> dec :							TODO
+ -> Data, Message, Return :	add an attribute to deal with three cases					(see in several place...)
+ -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTData::clipValue method)
+ -> handleProperty :				used TTObject message mecanism...							(see in TTData::Command method)
+ -> rampDataNames :			relative to handleProperty									(see in TTData::setRampFunction)
+ -> inc :							DONE
+ -> dec :							DONE
  -> dump :							TODO
  
  */				
 
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 class RampUnit;
 typedef RampUnit*	RampUnitPtr;
 #endif
 class DataspaceLib;
 typedef DataspaceLib*	DataspaceLibPtr;
 
-class TTMODULAR_EXPORT TTParameter : public TTObject
+class TTMODULAR_EXPORT TTData : public TTObject
 {
 
-	TTCLASS_SETUP(TTParameter)
+	TTCLASS_SETUP(TTData)
 	
 public:
 	
-	TTValue			mValue;						///< ATTRIBUTE: The parameter's value
-	TTValue			mValueDefault;				///< ATTRIBUTE: The parameter's default value
+	TTValue			mValue;						///< ATTRIBUTE: The data's value
+	TTValue			mValueDefault;				///< ATTRIBUTE: The data's default value
 	TTFloat32		mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
-	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this parameter's value
-	TTUInt8			mPriority;					///< ATTRIBUTE: does this parameter have a priority over other parameters ?
-	TTSymbolPtr		mDescription;				///< ATTRIBUTE: a text label to describe the role of this parameter
+	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this data's value
+	TTUInt8			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
+	TTSymbolPtr		mDescription;				///< ATTRIBUTE: a text label to describe the role of this data
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
 	TTBoolean		mReadonly;					///< ATTRIBUTE: 
 	TTBoolean		mViewFreeze;				///< ATTRIBUTE: freeze updating of graphical user interface
@@ -64,32 +64,38 @@ public:
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
 	TTSymbolPtr		mRangeClipmode;				///< ATTRIBUTE: 
 
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
 	TTSymbolPtr		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
 #endif
 	
-	TTSymbolPtr		mDataspace;					///< ATTRIBUTE: The dataspace that this parameter uses (default is 'none')
+	TTSymbolPtr		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none')
 	TTSymbolPtr		mDataspaceUnitNative;		///< ATTRIBUTE: The native (model/algorithm) unit within the dataspace.
 	TTSymbolPtr		mDataspaceUnitActive;		///< ATTRIBUTE: The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
 	TTSymbolPtr		mDataspaceUnitDisplay;		///< ATTRIBUTE: The display unit within the dataspace -- sent to/from the inlet/outlet of this instance
 	
 private:
 	
-	TTCallbackPtr	mReturnValueCallback;		///< Callback to return back value to the owner of this parameter
+	TTSymbolPtr		mservice;					///< how the data flows into our environnement :
+												///<	as parameter : the data is in full access mode
+												///<	as message : the data don't notify observers it's changing but the value is still returned to his owner
+												///<	as return : the value is not returned to his owner anymore but the data notify observers it's changing
+												///< Notice that in each case the value can be queried using a getAttributeValue method.
+	
+	TTCallbackPtr	mReturnValueCallback;		///< Callback to return back value to the owner of this data
 	
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
-	TTHashPtr		mRampParameterNames;		///< Cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
+	TTHashPtr		mRampDataNames;		///< Cache of data names, mapped from lowercase (Max) to uppercase (TT)
 #endif
 	
 	DataspaceLibPtr	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
 	DataspaceLibPtr	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
-	DataspaceLibPtr	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
+	DataspaceLibPtr	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the data display
 	DataspaceLibPtr	dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
-	TTSymbolPtr		mUnitOverride;				///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
+	TTSymbolPtr		mUnitOverride;				///< An internal unit conversion that is used temporarily when the data's value is set with a non-active unit.
 
 	// it was in the Max external code :	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
 	
@@ -114,10 +120,12 @@ public:
 	 */
 	TTErr Dec(const TTValue& value);
 	
-	/**	Setter for mValue attribute. */
+	/**	Getter and Setter for mValue attribute. */
+	TTErr getValue(TTValue& value);
 	TTErr setValue(const TTValue& value);
 
-	/**	Setter for mValueDefault attribute. */
+	/**	Getter and Setter for mValueDefault attribute. */
+	TTErr getValueDefault(TTValue& value);
 	TTErr setValueDefault(const TTValue& value);
 	
 	/**	Setter for m attribute. */
@@ -141,7 +149,7 @@ public:
 	/**	Setter for m attribute. */
 	TTErr setRangeClipmode(const TTValue& value);
 
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	/**	Setter for m attribute. */
 	TTErr setRampDrive(const TTValue& value);
 	
@@ -163,7 +171,7 @@ public:
 	
 private:
 	
-	/** control the parameter using a command like < value (unit) (ramp ramptime) >
+	/** control the data using a command like < value (unit) (ramp ramptime) >
 	 It depends on the command size :
 	 1		: 1 value 
 	 2		: 2 values || 1 value + unit
@@ -177,21 +185,21 @@ private:
 	TTErr		convertUnit(const TTValue& inValue, TTValue& outValue);
 	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 	TTErr		rampSetup();
-	friend void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+	friend void TTMODULAR_EXPORT TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 #endif
 	
 };
 
-typedef TTParameter* TTParameterPtr;
+typedef TTData* TTDataPtr;
 
-#ifdef TTPARAMETER_RAMPLIB
+#ifdef TTDATA_RAMPLIB
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+void TTMODULAR_EXPORT TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 #endif
 
-#endif // __TT_PARAMETER_H__
+#endif // __TT_DATA_H__

@@ -170,7 +170,7 @@ public:
 	void pluginLoad(std::string path);
 
 	/*!
-	 * Configure the plugins parameters with a xml file 
+	 * Configure the plugins datas with a xml file 
 	 * Has to be called before the pluginConfigure method
 	 *
 	 * \param filename : the xml filename.
@@ -185,21 +185,21 @@ public:
 	void pluginWriteConfigXML(std::string filename);
 
 	/*!
-	 * Set a plugin parameter
+	 * Set a plugin data
 	 *
 	 */
-	void pluginSetCommParameter(std::string pluginName, std::string parameterName, std::string parameterValue);
+	void pluginSetCommData(std::string pluginName, std::string dataName, std::string dataValue);
 	
 	/*!
-	 * Get a plugin parameter value
+	 * Get a plugin data value
 	 * 
-	 * \return the value for parameter "parameterName" according to the pluginName
+	 * \return the value for data "dataName" according to the pluginName
 	 */
-	std::string pluginGetCommParameter(std::string pluginName, std::string parameterName);				// to -- This should be done on a device ...
+	std::string pluginGetCommData(std::string pluginName, std::string dataName);				// to -- This should be done on a device ...
 
 	/*!
-	 * Configure plugin with added parameters
-	 * Has to be called after pluginSetCommParameter() and pluginLoadConfigXml() methods because run the receiving thread
+	 * Configure plugin with added datas
+	 * Has to be called after pluginSetCommData() and pluginLoadConfigXml() methods because run the receiving thread
 	 *
 	 */
 	void pluginLaunch();
@@ -226,7 +226,7 @@ public:
 	 ************************************************/
 
 	/*!
-	 * Configure the devices parameters with a xml file
+	 * Configure the devices datas with a xml file
 	 *
 	 * \param filename : the xml filename.
 	 */
@@ -260,15 +260,15 @@ public:
 	Device* deviceGet(std::string deviceName);
 	
 	/*!
-	 * Add one device manually according to the genericity of the different plugins parameters
+	 * Add one device manually according to the genericity of the different plugins datas
 	 *
 	 * \param deviceName : the device name to add
 	 * \param pluginToUse : the plugin name to use which has to be the same string of the plugin name given by his developper. ("OSC", "Minuit", ...)
-	 * \param commParameters : a map containing couples <parameterName, parameterValue> to communicate according to the plugin 
+	 * \param commDatas : a map containing couples <dataName, dataValue> to communicate according to the plugin 
 	 *
 	 * \return 0 if the device is added, -1 if deviceName already exist or if pluginToUse doesn't exist
 	 */
-	int deviceAdd(std::string deviceName, std::string pluginToUse, std::map<std::string, std::string> *commParameters);
+	int deviceAdd(std::string deviceName, std::string pluginToUse, std::map<std::string, std::string> *commDatas);
 	
 	/*!
 	 * Remove a device in the netDevices map using the device name

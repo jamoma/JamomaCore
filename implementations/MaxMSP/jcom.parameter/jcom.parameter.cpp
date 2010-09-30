@@ -1,5 +1,5 @@
 /* 
- *	jcom.parameter
+ *	jcom.parameter/message/return
  *	External object
  *	Copyright © 2010 by Théo de la Hogue
  * 
@@ -14,59 +14,84 @@
 #define	dump_out 2
 
 // Definitions
-void		WrapTTParameterClass(WrappedClassPtr c);
-void		WrappedParameterClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
-void		WrappedParameterClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		WrapTTDataClass(WrappedClassPtr c);
+void		WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
-t_max_err	param_notify(TTPtr self, SymbolPtr s, SymbolPtr msg, TTPtr sender, TTPtr data);
-void		param_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
+void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
-void		param_share_context_node(TTPtr self, TTNodePtr *contextNode);
-void		param_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		data_share_context_node(TTPtr self, TTNodePtr *contextNode);
 
-void		param_build(TTPtr self, SymbolPtr address);
+#ifndef JMOD_RETURN
+void		data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+#endif
 
-void		param_bang(TTPtr self);
-void		param_int(TTPtr self, long value);
-void		param_float(TTPtr self, double value);
-void		param_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		data_build(TTPtr self, SymbolPtr address);
 
-void		param_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		param_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+#ifndef JMOD_MESSAGE
+void		WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		data_bang(TTPtr self);
+void		data_int(TTPtr self, long value);
+void		data_float(TTPtr self, double value);
+void		data_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		param_ui_queuefn(TTPtr self);
+void		data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+#endif
 
+#ifndef JMOD_RETURN
+void		data_ui_queuefn(TTPtr self);
+#endif
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
-	spec->_wrap = &WrapTTParameterClass;
-	spec->_new = &WrappedParameterClass_new;
-	spec->_any = &WrappedParameterClass_anything;
+	spec->_wrap = &WrapTTDataClass;
+	spec->_new = &WrappedDataClass_new;
+#ifndef JMOD_MESSAGE
+	spec->_any = &WrappedDataClass_anything;
+#else
+	spec->_any = NULL;
+#endif
 	
-	return wrapTTModularClassAsMaxClass(TT("Parameter"), "jcom.parameter", NULL, spec);
+#ifdef JMOD_MESSAGE
+	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.message", NULL, spec);
+#endif
+	
+#ifdef JMOD_RETURN
+	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.return", NULL, spec);
+#endif
+	
+#ifndef JMOD_MESSAGE
+#ifndef JMOD_RETURN
+	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.parameter", NULL, spec);
+#endif
+#endif
 }
 
-void WrapTTParameterClass(WrappedClassPtr c)
+void WrapTTDataClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)param_notify,						"notify",				A_CANT, 0);
-	class_addmethod(c->maxClass, (method)param_assist,						"assist",				A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)data_assist,						"assist",				A_CANT, 0L);
 	
-	class_addmethod(c->maxClass, (method)param_share_context_node,			"share_context_node",	A_CANT,	0);
-	class_addmethod(c->maxClass, (method)param_return_value,				"return_value",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)data_share_context_node,			"share_context_node",	A_CANT,	0);
 	
-	class_addmethod(c->maxClass, (method)param_bang,						"bang",					0L);
-	class_addmethod(c->maxClass, (method)param_int,							"int",					A_LONG, 0);
-	class_addmethod(c->maxClass, (method)param_float,						"float",				A_FLOAT, 0);
-	class_addmethod(c->maxClass, (method)param_list,						"list",					A_GIMME, 0);
+#ifndef JMOD_RETURN
+	class_addmethod(c->maxClass, (method)data_return_value,					"return_value",			A_CANT, 0);
+#endif
 	
-	class_addmethod(c->maxClass, (method)WrappedParameterClass_anything,	"symbol",				A_SYM, 0);
+#ifndef JMOD_MESSAGE	
+	class_addmethod(c->maxClass, (method)data_bang,							"bang",					0L);
+	class_addmethod(c->maxClass, (method)data_int,							"int",					A_LONG, 0);
+	class_addmethod(c->maxClass, (method)data_float,						"float",				A_FLOAT, 0);
+	class_addmethod(c->maxClass, (method)data_list,							"list",					A_GIMME, 0);
 	
-	class_addmethod(c->maxClass, (method)param_inc,							"+",					A_GIMME, 0);
-	class_addmethod(c->maxClass, (method)param_dec,							"-",					A_GIMME, 0);
+	class_addmethod(c->maxClass, (method)WrappedDataClass_anything,			"symbol",				A_SYM, 0);
+	
+	class_addmethod(c->maxClass, (method)data_inc,							"+",					A_GIMME, 0);
+	class_addmethod(c->maxClass, (method)data_dec,							"-",					A_GIMME, 0);
+#endif
 }
 
-void WrappedParameterClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
+void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					address;
@@ -78,34 +103,50 @@ void WrappedParameterClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	// create the parameter
-	jamoma_parameter_create((ObjectPtr)x, &x->wrappedObject);
+	// create the data
+#ifdef JMOD_MESSAGE
+	jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_message);
+#endif
+	
+#if JMOD_RETURN
+	jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_return);
+#endif
+	
+#ifndef JMOD_MESSAGE
+#ifndef JMOD_RETURN
+	jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_parameter);
+#endif
+#endif
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)param_build, address, 0, 0);
+	defer_low((ObjectPtr)x, (method)data_build, address, 0, 0);
 
-	// Make one outlet
+	// Make outlets
+#ifndef JMOD_RETURN
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
-	
+
 	// Make qelem object
-	x->ui_qelem = qelem_new(x, (method)param_ui_queuefn);
+	x->ui_qelem = qelem_new(x, (method)data_ui_queuefn);
+#endif
 }
 
-void WrappedParameterClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+#ifndef JMOD_MESSAGE
+void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_atom a;
 	
 	if (!argc) {
 		atom_setsym(&a, msg);
-		param_list(self, _sym_symbol, 1, &a);
+		data_list(self, _sym_symbol, 1, &a);
 	}
 }
+#endif
 
-void param_build(TTPtr self, SymbolPtr address)
+void data_build(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
@@ -126,7 +167,7 @@ void param_build(TTPtr self, SymbolPtr address)
 		if (newInstance) {
 			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
 			v.get(0, &relativeAddress);
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.parameter with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.data with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
 		}
 
 		// debug
@@ -146,38 +187,8 @@ void param_build(TTPtr self, SymbolPtr address)
 	}
 }
 
-t_max_err param_notify(TTPtr self, SymbolPtr s, SymbolPtr msg, TTPtr sender, TTPtr data)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	ObjectPtr	context;
-	TTSymbolPtr	contextAddress;
-	TTValue		v;
-
-	x->subscriberObject->getAttributeValue(TT("Context"), v);
-	v.get(0, (TTPtr*)&context);
-	
-	// if the patcher is deleted
-	if (sender == context)
-		if (msg == _sym_free) {
-			
-			// delete the context node if it exists
-			x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
-			v.get(0, &contextAddress);
-			
-			TTModularDirectory->TTNodeRemove(contextAddress);
-			
-			// delete the subscriber
-			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-			
-			// no more notification
-			object_detach_byptr((ObjectPtr)x, context);
-		}
-	
-	return MAX_ERR_NONE;
-}
-
 // Method for Assistance Messages
-void param_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
+void data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 {
 	if (msg==1) 						// Inlet
 		strcpy(dst, "input");
@@ -196,36 +207,37 @@ void param_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
  	}
 }
 
-void param_bang(TTPtr self)
+#ifndef JMOD_MESSAGE
+void data_bang(TTPtr self)
 {
-	param_list(self, _sym_bang, 0, NULL);
+	data_list(self, _sym_bang, 0, NULL);
 }
 
-void param_int(TTPtr self, long value)
+void data_int(TTPtr self, long value)
 {
 	t_atom a;
 	
 	atom_setlong(&a, value);
-	param_list(self, _sym_int, 1, &a);
+	data_list(self, _sym_int, 1, &a);
 }
 
-void param_float(TTPtr self, double value)
+void data_float(TTPtr self, double value)
 {
 	t_atom a;
 	
 	atom_setfloat(&a, value);
-	param_list(self, _sym_float, 1, &a);
+	data_list(self, _sym_float, 1, &a);
 }
 
-void param_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+void data_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 
-	jamoma_parameter_command((TTParameterPtr)x->wrappedObject, msg, argc, argv);
+	jamoma_data_command((TTDataPtr)x->wrappedObject, msg, argc, argv);
 }
+#endif
 
-
-void param_share_context_node(TTPtr self, TTNodePtr *contextNode)
+void data_share_context_node(TTPtr self, TTNodePtr *contextNode)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue	v;
@@ -239,14 +251,19 @@ void param_share_context_node(TTPtr self, TTNodePtr *contextNode)
 		*contextNode = NULL;
 }
 
-void param_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+#ifndef JMOD_RETURN
+void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	TTBoolean	freeze;
 	TTUInt8		i;
 	
-	outlet_anything(x->outlets[data_out], msg, argc, argv);
+	// avoid blank before data
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[data_out], argc, argv);
+	else
+		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
 	// Check ViewFreeze attribute
 	x->wrappedObject->getAttributeValue(kTTSym_ViewFreeze, v);
@@ -269,13 +286,15 @@ void param_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
-void param_ui_queuefn(TTPtr self)
+void data_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
 }
+#endif
 
-void param_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+#ifndef JMOD_MESSAGE
+void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue v;
@@ -284,8 +303,7 @@ void param_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	x->wrappedObject->sendMessage(TT("Inc"), v);
 }
 
-
-void param_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue v;
@@ -293,3 +311,4 @@ void param_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 	x->wrappedObject->sendMessage(TT("Dec"), v);
 }
+#endif
