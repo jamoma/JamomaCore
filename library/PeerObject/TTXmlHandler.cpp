@@ -1,9 +1,12 @@
 /* 
- * TTModular Library to handle xml reading and writing
+ * TTObject to handle xml file reading and writing
+ * to be able to store / recall state of an object 
+ * into/from xml files.
+ *
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTXmlHandler.h"

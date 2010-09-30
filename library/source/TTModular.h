@@ -2,8 +2,8 @@
  * TTModular Library
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_MODULAR_H__
@@ -11,8 +11,6 @@
 
 #define TTMODULAR_VERSION_STRING "0.1"
 #define TTMODULAR_XML_ENCODING "ISO-8859-1"
-
-#define TTPARAMETER_RAMPLIB // to build TTData with the RampLib
 
 #ifdef TT_PLATFORM_WIN
 #include "windows.h"
@@ -56,6 +54,7 @@
 #include "TTExplorer.h"
 #include "TTDeviceManager.h"
 
+#include "TTTextHandler.h"
 #include "TTXmlHandler.h"
 
 // Macros

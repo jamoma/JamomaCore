@@ -2,8 +2,8 @@
  * A Data Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_DATA_H__
@@ -189,6 +189,9 @@ private:
 	TTErr		rampSetup();
 	friend void TTMODULAR_EXPORT TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 #endif
+	
+	/**  needed to be handled by a TTTextHandler */
+	TTErr writeAsText(const TTValue& value);
 	
 };
 

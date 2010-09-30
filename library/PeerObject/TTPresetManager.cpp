@@ -2,8 +2,8 @@
  * A TTHarvester Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTPresetManager.h"
@@ -59,7 +59,12 @@ mCurrentIndex(0)
 
 TTPresetManager::~TTPresetManager()
 {
-	New();
+	TTPresetPtr oldPreset;
+	
+	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
+		mPresetList->current().get(0, (TTPtr*)&oldPreset);
+		TTObjectRelease(TTObjectHandle(&oldPreset));
+	}
 	
 	delete mPresetList;
 	mPresetList = NULL;

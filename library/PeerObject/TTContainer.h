@@ -2,8 +2,8 @@
  * A Container object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_CONTAINER_H__
@@ -27,6 +27,7 @@ public:
 	TTSymbolPtr			mDescription;					///< ATTRIBUTE: a text label to describe the role of this container
 	TTSymbolPtr			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
 	TTBoolean			mInitialized;					///< ATTRIBUTE: is all TTDatas below have been initialized ?
+	TTValue				mContent;						///< ATTRIBUTE: all contained relative address
 	
 private:
 	
@@ -45,19 +46,27 @@ private:
 	
 public:
 	
-		TTErr send(TTValue& AddressAndValue);
+	TTErr send(TTValue& AddressAndValue);
 	
 private:
 	
-		TTErr setAddress(const TTValue& value);
+	TTErr setAddress(const TTValue& value);
 	
-		TTErr bind();
-		TTErr unbind();
+	TTErr getContent(TTValue& value);
 	
-		TTErr makeCacheElement(TTNodePtr aNode);
-		TTErr deleteCacheElement(TTNodePtr aNode);
+	TTErr bind();
+	TTErr unbind();
 	
-		TTErr isInitialized();
+	TTErr makeCacheElement(TTNodePtr aNode);
+	TTErr deleteCacheElement(TTNodePtr aNode);
+	
+	TTErr isInitialized();
+	
+	/**  needed to be handled by a TTTextHandler */
+	TTErr writeAsText(const TTValue& value);
+	void dataHeading(ofstream *file);		// Generates table heading for Datas
+	void cssDefinition(ofstream *file);		// CSS definitions -- we include them in the html file itself so that we don't have problems with paths to external references
+	
 };
 
 typedef TTContainer* TTContainerPtr;

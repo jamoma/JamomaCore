@@ -2,8 +2,8 @@
  * TTBlue Class for caching common symbols for speed
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTValueCache.h"
@@ -54,6 +54,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RepetitionsAllow;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_send;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Type;
@@ -108,6 +109,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_return					= TT("return");
 	
 	kTTSym_send						= TT("send");
+	kTTSym_service					= TT("service");
 	kTTSym_string					= TT("string");
 
 	kTTSym_Type						= TT("Type");

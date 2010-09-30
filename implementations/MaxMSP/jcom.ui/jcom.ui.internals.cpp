@@ -15,31 +15,31 @@ void ui_create_all_datas(t_ui* obj)
 	TTValue				v;
 	
 	// view/color/contentBackground
-	ui_create_data(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_parameter, TT("view/color/contentBackground"));
+	ui_create_data(obj, &anObject, gensym("return_color_contentBackground"), (TTPtr)obj->patcher, kTTSym_parameter, TT("view/color/contentBackground"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The background color of the module in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/color/toolbarBackground
-	ui_create_data(obj, &anObject, gensym("return_color_toolbarBackground"), kTTSym_parameter, TT("view/color/toolbarBackground"));
+	ui_create_data(obj, &anObject, gensym("return_color_toolbarBackground"), (TTPtr)obj->patcher, kTTSym_parameter, TT("view/color/toolbarBackground"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/color/toolbarText
-	ui_create_data(obj, &anObject, gensym("return_color_toolbarText"), kTTSym_parameter, TT("view/color/toolbarText"));
+	ui_create_data(obj, &anObject, gensym("return_color_toolbarText"), (TTPtr)obj->patcher, kTTSym_parameter, TT("view/color/toolbarText"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/color/border
-	ui_create_data(obj, &anObject, gensym("return_color_border"), kTTSym_parameter, TT("view/color/border"));
+	ui_create_data(obj, &anObject, gensym("return_color_border"), (TTPtr)obj->patcher, kTTSym_parameter, TT("view/color/border"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The border color of the module in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/size
-	ui_create_data(obj, &anObject, gensym("return_view_size"), kTTSym_parameter, TT("view/size"));
+	ui_create_data(obj, &anObject, gensym("return_view_size"), (TTPtr)obj->patcher, kTTSym_parameter, TT("view/size"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("The size of the module's UI."));
@@ -49,13 +49,13 @@ void ui_create_all_datas(t_ui* obj)
 	anObject->setAttributeValue(kTTSym_Value, v);
 	
 	// view/freeze
-	ui_create_data(obj, &anObject, gensym("return_view_freeze"), kTTSym_parameter, TT("view/freeze"));
+	ui_create_data(obj, &anObject, gensym("return_view_freeze"), (TTPtr)obj->patcher, kTTSym_parameter, TT("view/freeze"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_boolean);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("Freeze each jcom.view in the patch"));
 	
 	// view/refresh
-	ui_create_data(obj, &anObject, gensym("return_view_refresh"), kTTSym_message, TT("view/refresh"));
+	ui_create_data(obj, &anObject, gensym("return_view_refresh"), (TTPtr)obj->patcher, kTTSym_message, TT("view/refresh"));
 	anObject->setAttributeValue(kTTSym_Type, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("Refresh each jcom.view in the patch"));
@@ -82,7 +82,7 @@ void ui_destroy_all_datas(t_ui *obj)
 	}
 }
 								   
-void ui_create_data(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbolPtr service, TTSymbolPtr name)
+void ui_create_data(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTPtr context, TTSymbolPtr service, TTSymbolPtr name)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -105,7 +105,7 @@ void ui_create_data(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	
 	// Register data
 	joinOSCAddress(obj->modelAddress, name, &paramAddress);
-	TTModularDirectory->TTNodeCreate(paramAddress, *returnedData, NULL, &aNode, &nodeCreated);
+	TTModularDirectory->TTNodeCreate(paramAddress, *returnedData, context, &aNode, &nodeCreated);
 	
 	// Store the data
 	args = TTValue(TTPtr(*returnedData));

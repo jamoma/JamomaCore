@@ -2,8 +2,8 @@
  * A contextual subscriber to register TTObject as TTNode in a TTNodeDirectory
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_SUBSCRIBER_H__

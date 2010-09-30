@@ -53,6 +53,9 @@ void		node_model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr ar
 void		node_view_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		node_view_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+void		node_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		node_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
@@ -75,6 +78,7 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)node_model_reference,			"model_reference",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)node_view_internals,			"view_internals",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)node_view_panel,				"view_panel",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)node_autodoc,					"doc_generate",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)node_list,						"anything",				A_GIMME, 0L);
 	
@@ -84,6 +88,8 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)node_model_reference,			"model/reference",		0);
 	class_addmethod(c->maxClass, (method)node_view_internals,			"view/internals",		0);
 	class_addmethod(c->maxClass, (method)node_view_panel,				"view/panel",			0);
+	
+	class_addmethod(c->maxClass, (method)node_autodoc,					"documentation/generate",A_GIMME, 0);
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -125,6 +131,7 @@ void node_build(TTPtr self, SymbolPtr address)
 	TTBoolean					newInstance;
 	TTSymbolPtr					nodeAddress, relativeAddress;
 	TTObjectPtr					aData;
+	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
 	
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, &x->subscriberObject);
@@ -157,23 +164,39 @@ void node_build(TTPtr self, SymbolPtr address)
 		v.get(0, (TTPtr*)&node);
 		
 		// attach to the patcher to be notified of his destruction
-		 node->getAttributeValue(TT("Context"), v);
+		node->getAttributeValue(TT("Context"), v);
 		v.get(0, (TTPtr*)&context);
 		object_attach_byptr_register(x, context, _sym_box);
 		
 		// special case for jcom.node at the root of the model
 		if ((address == gensym("/") || address == _sym_nothing)) {
 			// Add a /model/help data
-			makeInternals_data(x, nodeAddress, TT("/model/help"), gensym("model_help"), kTTSym_message, &aData);
+			makeInternals_data(x, nodeAddress, TT("/model/help"), gensym("model_help"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_Description, TT("Open the maxhelp patch of this model"));
 		
 			// Add a /model/reference data
-			makeInternals_data(x, nodeAddress, TT("/model/reference"), gensym("model_reference"), kTTSym_message, &aData);
+			makeInternals_data(x, nodeAddress, TT("/model/reference"), gensym("model_reference"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_Description, TT("Open the reference page of this model"));
 			
 			// Add a /view/internals data
-			makeInternals_data(x, nodeAddress, TT("/view/internals"), gensym("view_internals"), kTTSym_message, &aData);
+			makeInternals_data(x, nodeAddress, TT("/view/internals"), gensym("view_internals"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_Description, TT("Open the patch of this model"));
+			
+			// Add a /documentation/generate data
+			makeInternals_data(x, nodeAddress, TT("/documentation/generate"), gensym("doc_generate"), context, kTTSym_message, &aData);
+			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_Description, TT("Make a html page to describe the model"));
+			
+			// create internal TTTextHandler and expose Write message
+			aTextHandler = NULL;
+			TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler), args);
+			v = TTValue(TTPtr(aTextHandler));
+			x->internals->append(TT("TextHandler"), v);
+			v = TTValue(TTPtr(x->wrappedObject));
+			aTextHandler->setAttributeValue(kTTSym_Object, v);
 		}
 	}
 }
@@ -226,19 +249,26 @@ void node_set_viewpanel(TTPtr self, long n)
 	TTObjectPtr					aData;
 	TTValue						v;
 	TTSymbolPtr					address;
+	TTNodePtr					node = NULL;
+	TTPtr						context;
 	
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
 		v.get(0, &address);
 		
+		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		v.get(0, (TTPtr*)&node);
+		node->getAttributeValue(TT("Context"), v);
+		v.get(0, (TTPtr*)&context);
+		
 		if (n) {
 			
 			// Add a /view/panel data
-			makeInternals_data(self, address, TT("view/panel"), gensym("view_panel"), kTTSym_message, &aData);
+			makeInternals_data(self, address, TT("view/panel"), gensym("view_panel"), context, kTTSym_message, &aData);
 			
 			// Set attribute of the data
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open an a module's control panel (inspector) if one is present."));
+			aData->setAttributeValue(kTTSym_Description, TT("Open a module's control panel (inspector) if one is present."));
 			aData->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 		}
 		else
@@ -325,6 +355,65 @@ void node_view_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		o = NULL;
 		name = NULL;
 		connecteds = connecteds->d_next;
+	}
+}
+
+void node_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	defer(self, (method)node_doautodoc, msg, argc, argv);
+}
+
+void node_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
+	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
+	short 			path, err;						// pathID#, error number
+	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
+	long			filetype = 'TEXT', outtype;		// the file type that is actually true
+	TTValue			o, v;
+	SymbolPtr		userpath;
+	TTSymbolPtr		nodeAddress;
+	TTTextHandlerPtr aTextHandler;
+	TTErr			tterr;
+	
+	if (argc && argv)
+		if (atom_gettype(argv) == A_SYM)
+			userpath = atom_getsym(argv);
+		else {
+			object_error((t_object*)x, "%s : needs a symbol", msg->s_name);
+			return;
+		}
+	
+	// Create a file using Max API
+	path = 0;
+	strcpy(filepath, userpath->s_name);									// Copy symbol argument to a local string
+	err = path_createsysfile(filepath, path, filetype, &file_handle);
+	
+	// Get absolute filepath using Max API
+	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
+		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		v.get(0, (TTPtr*)&nodeAddress);
+		object_error((t_object*)x, "%s : file not created", gensym((char*)nodeAddress->getCString()));
+		return;
+	}
+	
+	jcom_core_getfilepath(path, filepath, fullpath);
+	
+	if (x->wrappedObject) {
+		v.clear();
+		v.append(TT(fullpath));
+		
+		tterr = x->internals->lookup(TT("TextHandler"), o);
+			
+		if (!tterr) {
+				
+			o.get(0, (TTPtr*)&aTextHandler);
+				
+			critical_enter(0);
+			aTextHandler->sendMessage(TT("Write"), v);
+			critical_exit(0);
+		}
 	}
 }
 

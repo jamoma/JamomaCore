@@ -56,6 +56,7 @@
 		D2CA88471213F4F60090DE41 /* libDeviceManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA883D1213F4F60090DE41 /* libDeviceManager.a */; };
 		D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */; };
 		D2CDAD6E123A338B00801029 /* TTViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CDAD6C123A338B00801029 /* TTViewer.cpp */; };
+		D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +153,8 @@
 		D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D2CDAD6C123A338B00801029 /* TTViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
 		D2CDAD6D123A338B00801029 /* TTViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewer.h; sourceTree = "<group>"; };
+		D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTextHandler.cpp; sourceTree = "<group>"; };
+		D2DDA0AF1254982B00E2C831 /* TTTextHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTextHandler.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -367,6 +370,8 @@
 				D2CA88241213F47D0090DE41 /* TTSubscriber.cpp */,
 				D2CDAD6D123A338B00801029 /* TTViewer.h */,
 				D2CDAD6C123A338B00801029 /* TTViewer.cpp */,
+				D2DDA0AF1254982B00E2C831 /* TTTextHandler.h */,
+				D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */,
 				D2CA88271213F47D0090DE41 /* TTXmlHandler.h */,
 				D2CA88261213F47D0090DE41 /* TTXmlHandler.cpp */,
 			);
@@ -482,6 +487,7 @@
 				D2CA88361213F4A80090DE41 /* TTModularSymbolCache.cpp in Sources */,
 				D2CDAD6E123A338B00801029 /* TTViewer.cpp in Sources */,
 				D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */,
+				D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +530,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = JamomaPrefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = TTDATA_RAMPLIB;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",

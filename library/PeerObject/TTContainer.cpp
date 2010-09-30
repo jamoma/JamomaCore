@@ -2,8 +2,8 @@
  * A Container object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTContainer.h"
@@ -17,6 +17,7 @@ mAddress(kTTSymEmpty),
 mPriority(0), 
 mDescription(kTTSymEmpty),
 mType(TT("control")),
+mContent(kTTValNONE),
 mInitialized(NO),
 mDirectory(NULL),
 mReturnAddressCallback(NULL),
@@ -37,10 +38,16 @@ mObserver(NULL)
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	
+	addAttributeWithGetter(Content, kTypeLocalValue);
+	addAttributeProperty(Content, readOnly, YES);
+	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(Initialised, readOnly, YES);
 
 	addMessageWithArgument(send);
+	
+	// needed to be handled by a TTTextHandler
+	addMessageWithArgument(writeAsText);
 	
 	mIsSending = false;	
 }
@@ -58,10 +65,10 @@ TTContainer::~TTContainer()
 
 TTErr TTContainer::send(TTValue& AddressAndValue)
 {
-	TTValue			cacheElement;
+	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		aRelativeAddress;
+	TTSymbolPtr		aRelativeAddress, service;
 	TTErr			err;
 	
 	if (!mIsSending) {
@@ -85,6 +92,14 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 				
 				// it is a Data
 				if (anObject->getName() == TT("Data")) {
+					
+					// What kind of service the data is used for ?
+					anObject->getAttributeValue(TT("service"), v);
+					v.get(0, &service);
+					
+					if (service == kTTSym_return)
+						return kTTErrNone;
+					
 					// set the value attribute using a command
 					anObject->sendMessage(kTTSym_command, *valueToSend);
 				}
@@ -112,6 +127,11 @@ TTErr TTContainer::setAddress(const TTValue& value)
 	unbind();
 	mAddress = value;
 	return bind();
+}
+
+TTErr TTContainer::getContent(TTValue& value)
+{
+	return mObjectsObserversCache->getKeys(value);
 }
 
 TTErr TTContainer::bind()
@@ -181,35 +201,37 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		anObject->getAttributeValue(TT("service"), v);
 		v.get(0, &service);
 		
-		// don't keep return and don't observe his initialisation state
-		if (service == kTTSym_return)
-			return kTTErrGeneric;
-		
-		// create a Value Attribute observer on it
-		anObject->findAttribute(kTTSym_Value, &anAttribute);
-		
-		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
-		
-		newBaton = new TTValue(TTPtr(this));
-		newBaton->append(aRelativeAddress);
-		
-		newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-		newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerValueAttributeCallback));
-		newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
-		
-		anAttribute->registerObserverForNotifications(*newObserver);
-		
-		// add observer to the cacheElement
-		cacheElement.append((TTPtr)newObserver);
-		
+		// observe the Value attribute of parameter and return
+		if (service == kTTSym_parameter || service == kTTSym_return) {
+			
+			// create a Value Attribute observer on it
+			anObject->findAttribute(kTTSym_Value, &anAttribute);
+			
+			newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+			
+			newBaton = new TTValue(TTPtr(this));
+			newBaton->append(aRelativeAddress);
+			
+			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+			newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerValueAttributeCallback));
+			newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
+			
+			anAttribute->registerObserverForNotifications(*newObserver);
+			
+			// add observer to the cacheElement
+			cacheElement.append((TTPtr)newObserver);
+		}
+		// add NULL to the cacheElement
+		else
+			cacheElement.append(NULL);
 	}
 	// add NULL to the cacheElement
 	else
 		cacheElement.append(NULL);
 
-	// keep message but don't observe his initialisation state
-	if (service == kTTSym_message) {
+	// don't observe his initialisation state of message and return
+	if (service == kTTSym_message || service == kTTSym_return) {
 		// add observer to the cacheElement
 		cacheElement.append(NULL);
 	}
@@ -404,6 +426,419 @@ TTErr TTContainer::isInitialized()
 	}
 	
 	return kTTErrNone;
+}
+
+TTErr TTContainer::writeAsText(const TTValue& value)
+{
+	TTTextHandlerPtr aTextHandler;
+	ofstream		*file;
+	TTUInt16		i;
+	TTValue			keys, cacheElement, s, arg;
+	TTSymbolPtr		name, service;
+	TTObjectPtr		anObject;
+	
+	value.get(0, (TTPtr*)&aTextHandler);
+	file = aTextHandler->mWriter;
+	
+	// html header
+	*file <<  "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";	
+	*file << "<html>";
+	*file << "\t<head>";
+	*file << "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=ISO-8859-1\">";
+	*file << "<title>" << this->mAddress->getCString() << "</title>";	
+	
+	this->cssDefinition(file);
+	
+	*file << "\t</head>";
+	*file << "";
+	
+	// html body
+	*file << "<body>";
+	*file << "\t<div id=\"jmod_header\">";
+	
+	// Top of page displaying name of module etc.
+	*file << "\t<img src=\"../../../documentation/graphics/jmodular.icon.png\" width=\"128\" height=\"128\">";	
+	*file << "\t<h1>" << this->mAddress->getCString() << "</h1>";
+	*file << "\t<h2>" << this->mDescription->getCString() << "</h2>";
+	
+	// Menu
+	*file << "\t<h6><a href=\"../../../documentation/html/index.html\">Table of Contents</a> | <a href=\"../../../documentation/html/modules.html\">Index of Modules</a> | <a href=\"../../../documentation/html/credits.html\">Credits</a> | <a href=\"http://pledgie.com/campaigns/5615\">Donate</a> | <a href=\"http://www.jamoma.org/\">Jamoma.org</a></h6>";
+	*file << "\t</div>";
+	*file << "";
+	
+	/* 
+		Configuration
+	*/
+	*file << "\t<h3> Configuration </h3>";
+	*file << "\t<p> Model Type: <code>" << this->mType->getCString() << "</code> <br>";
+	
+	/* 
+		Inlets and outlets Objects 
+	*/
+	
+	// TODO : Make TTIn and TTOut and store them
+	*file << "\t<p>Number of signal inlets: <code> 0 </code> <br/>";
+	*file << "\t<p>Number of signal outlets: <code> 0 </code> <br/>";
+
+	
+	mObjectsObserversCache->getKeys(keys);
+	/* 
+		Data @service parameter
+	*/
+	*file << "\t<h3> Parameters </h3>";	
+	this->dataHeading(file);
+
+	for (i=0; i<keys.getSize(); i++)
+	{
+		keys.get(i, &name);
+		mObjectsObserversCache->lookup(name, cacheElement);
+		cacheElement.get(0, (TTPtr*)&anObject);
+		
+		if (anObject->getName() == TT("Data")) {
+			anObject->getAttributeValue(kTTSym_service, s);
+			s.get(0, &service);
+			
+			if (service == kTTSym_parameter) {
+				*file << "\t\t<tr>";
+				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
+				
+				arg = TTValue(TTPtr(anObject));
+				aTextHandler->setAttributeValue(kTTSym_Object, arg);
+				
+				arg = TTValue(TTPtr(aTextHandler));
+				anObject->sendMessage(TT("writeAsText"), arg);
+				*file << "\t\t<tr>";
+			}
+		}
+	}
+	
+	// End of table
+	*file << "\t</table>";
+	*file << "";
+	*file << "\t<p>&nbsp;</p>";
+	*file << "";
+	
+	
+	/* 
+	 Data @service message
+	 */
+	*file << "\t<h3> Messages </h3>";	
+	this->dataHeading(file);
+	
+	for (i=0; i<keys.getSize(); i++)
+	{
+		keys.get(i, &name);
+		mObjectsObserversCache->lookup(name, cacheElement);
+		cacheElement.get(0, (TTPtr*)&anObject);
+		
+		if (anObject->getName() == TT("Data")) {
+			anObject->getAttributeValue(kTTSym_service, s);
+			s.get(0, &service);
+			
+			if (service == kTTSym_message) {
+				*file << "\t\t<tr>";
+				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
+				
+				arg = TTValue(TTPtr(anObject));
+				aTextHandler->setAttributeValue(kTTSym_Object, arg);
+				
+				arg = TTValue(TTPtr(aTextHandler));
+				anObject->sendMessage(TT("writeAsText"), arg);
+				*file << "\t\t<tr>";
+			}
+		}
+	}
+	
+	// End of table
+	*file << "\t</table>";
+	*file << "";
+	*file << "\t<p>&nbsp;</p>";
+	*file << "";
+	
+	
+	/* 
+	 Data @service return
+	 */
+	*file << "\t<h3> Returns </h3>";	
+	this->dataHeading(file);
+	
+	for (i=0; i<keys.getSize(); i++)
+	{
+		keys.get(i, &name);
+		mObjectsObserversCache->lookup(name, cacheElement);
+		cacheElement.get(0, (TTPtr*)&anObject);
+		
+		if (anObject->getName() == TT("Data")) {
+			anObject->getAttributeValue(kTTSym_service, s);
+			s.get(0, &service);
+			
+			if (service == kTTSym_return) {
+				*file << "\t\t<tr>";
+				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
+				
+				arg = TTValue(TTPtr(anObject));
+				aTextHandler->setAttributeValue(kTTSym_Object, arg);
+				
+				arg = TTValue(TTPtr(aTextHandler));
+				anObject->sendMessage(TT("writeAsText"), arg);
+				*file << "\t\t<tr>";
+			}
+		}
+	}
+	
+	// End of table
+	*file << "\t</table>";
+	*file << "";
+	*file << "\t<p>&nbsp;</p>";
+	*file << "";
+	
+	
+	// Some final info on Jamoma
+	*file << "\t<h3> About Jamoma </h3>";		
+	*file << "\t<p> Jamoma is a system for creating and exchanging structured Max patches. ";
+	*file << "\tIt consists of both a set of guidelines and an implementation of those guidelines. ";
+	*file << "\tFor more information please visit <a href=\"http://jamoma.org/\">jamoma.org</a>. </p> ";
+	
+	// End of page
+	*file << "</body>";
+	*file << "</html>";
+
+	return kTTErrNone;
+}
+
+void TTContainer::dataHeading(ofstream *file)
+{		
+	*file << "\t<table>";
+	*file << "\t\t<tr class=\"tableHeading2\">";
+	*file << "\t\t\t<td> /name </td>";
+	*file << "\t\t\t<td> /type </td>";
+	*file << "\t\t\t<td> /range/bounds </td>";
+	*file << "\t\t\t<td> /range/clipmode </td>";
+#ifdef TTDATA_RAMPLIB
+	*file << "\t\t\t<td> /ramp/drive </td>";
+	*file << "\t\t\t<td> /ramp/function </td>";
+#endif
+	*file << "\t\t\t<td> /dataspace </td>"; 
+	*file << "\t\t\t<td> /dataspace/unit/native </td>"; 
+	*file << "\t\t\t<td> /repetitions/allow </td>";	
+	*file << "\t\t\t<td> /description </td>";
+	*file << "\t\t<tr>";
+}
+
+void TTContainer::cssDefinition(ofstream *file)
+{
+	*file << "<style type=\"text/css\">";
+	
+	*file <<	"\
+				body {\
+				margin: 0px;\
+				font-family: Arial, Helvetica, sans-serif;\
+				}\
+				\
+				h1 {\
+				font-size: 24px;\
+				font-weight:100;\
+				padding-top: 1em;\
+				margin: 0;\
+				}\
+				\
+				\
+				h2 {\
+				font-size: 18px;\
+				font-weight:200;\
+				margin: 0;\
+				color: #555;\
+				text-transform: lowercase;\
+				}\
+				\
+				h3 {\
+				color: #888;\
+				border-bottom: 1px solid #333;\
+				font-size: 18px;\
+				font-weight:100;\
+				margin-top: 20px;\
+				margin-bottom: 10px;\
+				margin-left: 2%;\
+				margin-right: 2%;\
+				}\
+				\
+				h4{\
+				color: #333;\
+				font-size: 14px;\
+				font-weight: bold;\
+				margin-bottom: 0px;\
+				margin-left: 2%;\
+				margin-right: 2%;\
+				}\
+				\
+				h6 {\
+				font-size: 12px;\
+				font-weight:100;\
+				line-height: 1.2;\
+				margin-right: 2%;\
+				margin-left: 2%;\
+				}\
+				\
+				p {\
+				font-size: 12px;\
+				font-weight:100;\
+				margin: 5px 2%;\
+				padding-bottom: 1em;\
+				}\
+				\
+				ul{\
+				margin-top:0;\
+				padding-top:0;\
+				}\
+				\
+				li {\
+				font-size: 12px;\
+				font-weight:100;\
+				margin-top: 0;\
+				margin-left: 10px;\
+				padding: 0em 0em 0.3em;\
+				}\
+				\
+				img {\
+				padding: 10px 10px 0px 0px;\
+				}\
+				\
+				\
+				#jmod_header{\
+				display: block;\
+				margin: 0 0 40px 0;\
+				}\
+				\
+				#jmod_header img{\
+				float: left;\
+				}\
+				\
+				\
+				.objectname {\
+				font-size: 24px;\
+				font-weight: bold;\
+				}\
+				\
+				\
+				.moduleName {\
+				font-size: 2em;\
+				background-color: #c5c5c5;\
+				text-align: right;\
+				vertical-align: top;\
+				font-weight: bold;\
+				}\
+				.moduleDescription {\
+				font-size: 1em;\
+				background-color: #000000;\
+				color: #c5c5c5;\
+				text-align: right;\
+				vertical-align: top;\
+				}\
+				\
+				.tableHeading2 {\
+				background-color: #eee;\
+				text-align: left;\
+				vertical-align: top;\
+				font-weight:bold;\
+				font-size: 12px;\
+				}\
+				\
+				table {\
+				border: 0px;\
+				width: 96%;\
+				margin-top: 10px;\
+				margin-bottom: 10px;\
+				margin-left: 2%;\
+				font-size: 14px;\
+				}\
+				";
+	
+	*file <<	"\
+				\
+				.instructionName {\
+				font-family: 'Courier New', Courier, mono;\
+				background-color: #edd;\
+				vertical-align: top;\
+				}\
+				\
+				.instructionType {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eee;\
+				vertical-align: top;\
+				}\
+				\
+				.instructionDataspace {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eed;\
+				vertical-align: top;\
+				}\
+				\
+				.instructionDataspaceUnitNative {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eee;\
+				vertical-align: top;\
+				}\
+				\
+				.instructionRangeBounds {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eed;\
+				vertical-align: top;\
+				}\
+				.instructionRangeClipmode {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eee;\
+				vertical-align: top;\
+				}\
+				.instructionRampDrive {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eed;\
+				vertical-align: top;\
+				}\
+				.instructionRampFunction {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eee;\
+				vertical-align: top;\
+				}\
+				.instructionRepetitionsAllow {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eed;\
+				vertical-align: top;\
+				}\
+				.instructionDescription {\
+				font-family: 'Times New Roman', Times, serif;\
+				background-color: #eee;\
+				vertical-align: top;\
+				}\
+				td {\
+				padding-right: 5px;\
+				padding-left: 5px;\
+				}\
+				ul {\
+				list-style-type: disc;\
+				}\
+				.patchimage {\
+				clear: both;\
+				}\
+				.comment {\
+				color: #6666FF;\
+				}\
+				.smallTable {\
+				width: 400px;\
+				border: none;\
+				}\
+				caption {\
+				font-size: 11px;\
+				font-style: italic;\
+				}\
+				.filepath {\
+				font-family: 'Courier New', Courier, mono;\
+				}\
+				.instruction {\
+				font-family: 'Courier New', Courier, mono;\
+				}\
+				";
+	
+	*file << "</style>";
 }
 
 #if 0
