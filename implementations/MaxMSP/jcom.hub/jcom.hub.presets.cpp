@@ -275,13 +275,13 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	p1 = find_preset(presetll, p1Name);
 	if (!p1) {
-		object_error((t_object*)x, "can't find preset %s", p1Name);
+		object_error((t_object*)x, "can't find preset %s", p1Name->s_name);
 		return;
 	}
 	
 	p2 = find_preset(presetll, p2Name);
 	if (!p2) {
-		object_error((t_object*)x, "can't find preset %s", p1Name);
+		object_error((t_object*)x, "can't find preset %s", p2Name->s_name);
 		return;
 	}
 	
@@ -337,7 +337,7 @@ void mix_presets(t_hub *x, int nmix, t_preset **p, float *position)
     }
 
     for (; iter[0] != itemlist[0]->end(); ++iter[0]) 
-    {
+    {	// iterate over all parameters of first given preset
 	item1 = *iter[0];
 
 	for (i = 0; i < item1->list_size; i++)
@@ -384,6 +384,7 @@ void mix_presets(t_hub *x, int nmix, t_preset **p, float *position)
 		continue;	// go to next mix component for this parameter
 	    }
 
+	    // add further presets to the mix for this parameter
 	    mix_one_preset(item2, nmix, position[i], val, newValue);
 	    ++iter[i];	// advance other preset param iter
 	}
@@ -412,7 +413,7 @@ void hub_preset_mix (t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	    plist[i] = find_preset(presetll, pname);
 
 	    if (!plist[i]) {
-		object_error((t_object*)x, "can't find preset %s", pname);
+		object_error((t_object*)x, "can't find preset %s", pname->s_name);
 		return;
 	    }
 	}
@@ -436,7 +437,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 		// write over the last preset recalled
 			
 		if (preset->empty()) {
-			object_error((t_object*)x, "%s module: no preset specified active", x->attr_name);
+			object_error((t_object*)x, "%s module: no preset specified active", x->attr_name->s_name);
 			return;
 		}
 		// Recall the number of the preset we recalled last	
@@ -575,7 +576,6 @@ void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 
 	atom_setlong(&b[0], x->preset->size() + 1);
 	hub_preset_store(x, gensym("/preset/store"), 2, b);
-	
 	// TODO: do we not have to free text?
 }
 
@@ -1060,7 +1060,7 @@ void hub_preset_write_again(t_hub *x)
 		defer(x, (method)hub_preset_write, NULL, 1, &a);
 	}
 	else
-		object_error((t_object*)x, "%s module: no preset file specified active", x->attr_name);
+		object_error((t_object*)x, "%s module: no preset file specified active", x->attr_name->s_name);
 }
 
 void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
