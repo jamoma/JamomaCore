@@ -89,7 +89,7 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_preset_copy, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/copy"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/store",				x->container,	"array",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/store",				x->container,	"array",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a /preset/write message to the module.", 1);
 	anObject->setAction((method)hub_preset_store, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/store"), (t_object*)anObject);
 
