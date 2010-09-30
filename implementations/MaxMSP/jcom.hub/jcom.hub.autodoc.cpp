@@ -658,7 +658,7 @@ void table_headingTex(t_filehandle *file_handle, long *myEof)
 	jcom_core_file_writeline(file_handle, myEof, "\\begin{longtable}{llp{1.5cm}llllll p{7cm}} \\hline \\hline ");
 	jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\textbf{/repetitions} & \\textbf{/description}\\\\");
     jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit/native} & \\textbf{/allow} & \\\\");
-	jcom_core_file_writeline(file_handle, myEof, "\\hline\\hline ");
+	jcom_core_file_writeline(file_handle, myEof, "\\hline\\hline \\endhead");
 }
 
 // CSS definitions -- we include them in the html file itself so that we don't have problems with paths to external references
