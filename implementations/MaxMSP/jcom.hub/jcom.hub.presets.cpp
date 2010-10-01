@@ -290,33 +290,37 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
-static void mix_one_preset (t_preset_item *item1, int nmix, float position, float *val, t_atom *newValue)
+static float mix_one_preset (t_preset_item *item1, int nmix, float factor, float *val, t_atom *newValue)
 {   // we can assume item1 and item2 are the same type if they are the same parameter (see above)
+    float mixweight = item1->mixweight;
+
     if (item1->type == jps_integer) {
-	*val += atom_getfloat(&item1->value_list[0]) * position;
+	*val += atom_getfloat(&item1->value_list[0]) * factor * mixweight;
 	atom_setfloat(&newValue[0], *val);
     } else if (item1->type == jps_decimal) {
-	*val += atom_getfloat(&item1->value_list[0]) * position;
+	*val += atom_getfloat(&item1->value_list[0]) * factor * mixweight;
 	atom_setfloat(&newValue[0], *val);
     } else if (item1->type == jps_boolean) {	// bool: mean thresholded to bool
-	*val += atom_getlong(&item1->value);
+	*val += atom_getlong(&item1->value) * factor * mixweight;
 	atom_setlong(&newValue[0], (*val / nmix >= 0.5));
     } else if (item1->type == jps_array || item1->type == gensym("list_int") || item1->type == gensym("list_float")) 
     {
 	for (int i = 0; i < item1->list_size; i++) {
-	    val[i] += atom_getfloat(&item1->value_list[i]) * position;
+	    val[i] += atom_getfloat(&item1->value_list[i]) * factor * mixweight;
 	    atom_setfloat(&newValue[i], val[i]);
 	}
     } else if (item1->type == jps_string) {	// symbol: take max coef
-	if (position > *val)
+	if (factor * mixweight > *val)
 	{
 	    atom_setsym(&newValue[0], atom_getsym(&item1->value));
-	    *val = position;
+	    *val = factor * mixweight;
 	}
     }
+
+    return mixweight * factor;
 }
 
-void mix_presets(t_hub *x, int nmix, t_preset **p, float *position)
+void mix_presets(t_hub *x, int nmix, t_preset **p, float *factor)
 {
     presetItemList	 **itemlist = (presetItemList **) alloca(nmix * sizeof(presetItemList *));
     presetItemListIterator *iter     = (presetItemListIterator *) alloca(nmix * sizeof(presetItemListIterator));
@@ -324,6 +328,7 @@ void mix_presets(t_hub *x, int nmix, t_preset **p, float *position)
     float val[LISTSIZE];
     t_atom newValue[LISTSIZE];
     bool found = false;
+    float sum;
     int i;
 
     if (nmix == 0)
@@ -344,7 +349,7 @@ void mix_presets(t_hub *x, int nmix, t_preset **p, float *position)
 	    val[i] = 0;	// init all elems when array or list param
 
 	// mix first preset (todo: ensure string is taken)
-	mix_one_preset(item1, nmix, position[0], val, newValue);
+	sum = mix_one_preset(item1, nmix, factor[0], val, newValue);
 
 	for (i = 1; i < nmix; i++)
 	{
@@ -385,11 +390,28 @@ void mix_presets(t_hub *x, int nmix, t_preset **p, float *position)
 	    }
 
 	    // add further presets to the mix for this parameter
-	    mix_one_preset(item2, nmix, position[i], val, newValue);
+	    sum += mix_one_preset(item2, nmix, factor[i], val, newValue);
 	    ++iter[i];	// advance other preset param iter
 	}
 
-	hub_symbol(x, item1->param_name, item1->list_size, &newValue[0]);
+	if (sum > 0)
+	{   // normalise by sum of mixweight, if numeric
+	    if (item1->type == jps_integer  ||  item1->type == jps_decimal) 
+	    {
+		val[0] /= sum;
+		atom_setfloat(&newValue[0], val[0]);
+	    } 
+	    else if (item1->type == jps_array || item1->type == gensym("list_int") || item1->type == gensym("list_float")) 	
+	    {
+		for (int i = 0; i < item1->list_size; i++) 
+		{
+		    val[i] /= sum;
+		    atom_setfloat(&newValue[i], val[i]);
+		}
+	    }
+
+	    hub_symbol(x, item1->param_name, item1->list_size, &newValue[0]);
+	}
     }
 }
 
@@ -531,6 +553,10 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 			ac = NULL; av = NULL;												// init
 			object_attr_getvalueof(t->object, jps_priority, &ac, &av);	// get
 			newItem->priority = atom_getlong(av);									// copy
+
+			ac = NULL; av = NULL;												// init
+			object_attr_getvalueof(t->object, gensym("mix/weight"), &ac, &av);	// get jps_mixweight
+			newItem->mixweight = atom_getfloat(av);									// copy
 			
 			ac = NULL; av = NULL;												// init
 			object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get
@@ -715,6 +741,7 @@ void hub_preset_parse(t_hub *x, char *path)
 	t_preset_item		*item = NULL;			// the current preset item we are parsing
 	const xmlChar		*type = 0;				// data type of the current preset item
 	const xmlChar		*priority = 0;
+	const xmlChar		*mixweight = 0;
 	int 				preset_num = 0;			// temporary holder
 	short				result = 0;
 	bool				item_opened = false;	// is there currently an item open for writing?
@@ -782,13 +809,20 @@ void hub_preset_parse(t_hub *x, char *path)
 						sscanf((char *)priority, "%ld", &item->priority);
 					else
 						item->priority = 0;
+					mixweight = xmlTextReaderGetAttribute(reader, (xmlChar *)"mixweight");
+					if (mixweight)
+						sscanf((char *) mixweight, "%f", &item->mixweight);
+					else
+						item->mixweight = 1;
 					xmlFree((void *)name);
 					name = NULL;
 					xmlFree((void *)type);
 					type = NULL;
 					/* XXX should we also be calling xmlFree(reader, (xmlChar*)"priority") right here? */
 					xmlFree((void*)priority); 
+					xmlFree((void*)mixweight); 
 					priority = NULL;
+					mixweight = NULL;
 				}
 				else if (xmlTextReaderNodeType(reader) == 15) { 		// element close
 					preset->item->push_back(item);
@@ -1011,20 +1045,20 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 			int type = presetItem->value.a_type; // presetItem->value_list[0].a_type;
             
 			if (presetItem->type == jps_integer  ||  presetItem->type == jps_boolean  ||  (singleton  &&  type == A_LONG)) {
-				object_post((t_object*)x, "    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
-				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
+				object_post((t_object*)x, "    %s (type %s, priority %i, mix/weight %g): %ld", presetItem->param_name->s_name,
+				 	presetItem->type->s_name, presetItem->priority, presetItem->mixweight, atom_getlong(&(presetItem->value)));
 			}
 			else if (presetItem->type == jps_decimal  ||  (singleton  &&  type == A_FLOAT))
-				object_post((t_object*)x, "    %s (type %s, priority %i): %f", presetItem->param_name->s_name, 
-					presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
+				object_post((t_object*)x, "    %s (type %s, priority %i, mix/weight %g): %f", presetItem->param_name->s_name, 
+					presetItem->type->s_name, presetItem->priority, presetItem->mixweight, atom_getfloat(&(presetItem->value)));
 			else if (presetItem->type == jps_string  ||  (singleton  &&  type == A_SYM))
-				object_post((t_object*)x, "    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
-				 	presetItem->type->s_name, presetItem->priority, 
+				object_post((t_object*)x, "    %s (type %s, priority %i, mix/weight %g): %s", presetItem->param_name->s_name,
+				 	presetItem->type->s_name, presetItem->priority, presetItem->mixweight, 
 					atom_getsym(&(presetItem->value))->s_name);
 			else // non-singleton array, generic, none
 			{
-			  object_post((t_object*)x, "    %s (type %s, priority %i, list size %d):", presetItem->param_name->s_name, 
-				      presetItem->type->s_name, presetItem->priority, presetItem->list_size);
+			  object_post((t_object*)x, "    %s (type %s, priority %i, mix/weight %g, list size %d):", presetItem->param_name->s_name, 
+				      presetItem->type->s_name, presetItem->priority, presetItem->mixweight, presetItem->list_size);
 
 			  for (int i = 0; i < presetItem->list_size; i++)
 			    switch (presetItem->value_list[i].a_type)
@@ -1208,18 +1242,18 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 			} else {
 				if (presetItem->value.a_type == A_SYM) {
 					result = atom_getsym(&(presetItem->value));
-					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%s</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld' mixweight='%g'>%s</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, 
-						presetItem->priority, result->s_name);
+						presetItem->priority, presetItem->mixweight, result->s_name);
 				}
 				else if (presetItem->value.a_type == A_FLOAT)
-					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%f</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld' mixweight='%g'>%f</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
-						atom_getfloat(&(presetItem->value)));
+						presetItem->mixweight, atom_getfloat(&(presetItem->value)));
 				else if (presetItem->value.a_type == A_LONG)
-					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%ld</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld' mixweight='%g'>%ld</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
-						atom_getlong(&(presetItem->value)));
+						presetItem->mixweight, atom_getlong(&(presetItem->value)));
 				
 				jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			}
