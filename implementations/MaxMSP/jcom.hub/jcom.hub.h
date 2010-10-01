@@ -36,6 +36,7 @@ typedef struct _preset_item{
 	t_symbol		*param_name;
 	t_symbol		*type;
 	long			priority;
+    float           mixweight;
 	t_atom			value_list[LISTSIZE];
 	long			list_size;
 } t_preset_item;
