@@ -89,7 +89,20 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 		object_error((t_object*)x, "%s module: preset to copy not found", x->attr_name);
 }
 			
-	
+
+static void hub_set_weight_from_preset (t_hub *x, t_preset_item *item)
+{
+#   define HUB_MSG_SIZE 1024
+    char setw[HUB_MSG_SIZE];
+    float weight = item->mixweight;
+    t_atom a;
+
+    // todo: check if weight in preset is different from that in parameter, only send if changed
+    atom_setfloat(&a, weight);
+    snprintf(setw, HUB_MSG_SIZE, "%s:/mix/weight", item->param_name->s_name);
+    hub_symbol(x, gensym(setw), 1, &a);
+}
+
 	
 void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number or name
 {
@@ -158,6 +171,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 				if (presetItem->priority == i) {
 					hub_symbol(x, presetItem->param_name, presetItem->list_size,
 						&(presetItem->value_list[0]));
+					hub_set_weight_from_preset(x, presetItem);
 					num_items_recalled++;
 				}
 			}
@@ -167,14 +181,20 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 		for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
 			if (presetItem->priority == 0)
-				hub_symbol(x, presetItem->param_name, presetItem->list_size, &(presetItem->value_list[0]));
+			{
+			    hub_symbol(x, presetItem->param_name, presetItem->list_size, &(presetItem->value_list[0]));
+			    hub_set_weight_from_preset(x, presetItem);
+			}
 		}		
 	}
 	else {
 		for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
 			if (presetItem->priority == 0)
-				hub_symbol(x, presetItem->param_name, presetItem->list_size, &(presetItem->value_list[0]));
+			{
+			    hub_symbol(x, presetItem->param_name, presetItem->list_size, &(presetItem->value_list[0]));
+			    hub_set_weight_from_preset(x, presetItem);
+			}
 		}
 	}
 	critical_exit(0);
