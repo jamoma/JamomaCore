@@ -195,11 +195,13 @@ void 		hub_ui_refresh(t_hub *x, t_symbol*, long, t_atom*);
 void		hub_receive_callback(void *x, t_symbol *msg, long argc, t_atom *argv);
 // These are in jcom.hub.autodoc.cpp
 void		hub_autodoc(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
-void		hub_doautodoc(t_hub *x, t_symbol *userpath);
-void		hub_autodoc_node(t_filehandle *file_handle, long *myEof, t_subscriber* t);
+void		hub_doautodocHtml(t_hub *x, t_symbol *userpath);
+void		hub_doautodocTex(t_hub *x, t_symbol *userpath);
+void		hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* t);
+void		hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t);
 void		hub_autodoc_css(t_filehandle *file_handle, long *myEof);
-void 		table_heading(t_filehandle *file_handle, long *myEof);
-
+void 		table_headingHtml(t_filehandle *file_handle, long *myEof);
+void 		table_headingTex(t_filehandle *file_handle, long *myEof);
 
 // These are in jcom.hub.internals.cpp
 /** Create parameters, messages, and other internal subscribers to the hub.
