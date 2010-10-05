@@ -130,10 +130,18 @@ void ramp_free(t_ramp *x)
 // Method for Assistance Messages
 void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 	// Inlets
-		strcpy(dst, "(signal) input, control messages");		
-	else if(msg==2) // Outlets
-		strcpy(dst, "(signal) Filtered output");
+	if(msg==1){ 	// Inlets
+		if(arg == 0)
+			strcpy(dst, "(signal) input 1, control messages");					
+		else 
+			snprintf(dst, 256, "(signal) input %ld", arg+1); 
+	}
+	else if(msg==2){ // Outlets
+		if(arg == x->maxNumChannels)
+			strcpy(dst, "dumpout");					
+		else 
+			snprintf(dst, 256, "(signal) Filtered output %ld", arg+1); 
+	}
 }
 
 
