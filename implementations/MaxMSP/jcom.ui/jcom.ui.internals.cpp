@@ -70,14 +70,16 @@ void ui_destroy_all_datas(t_ui *obj)
 	// delete all datas
 	if (obj->hash_datas) {
 		
-		obj->hash_datas->getKeys(hk);
-		
-		for (i=0; i<obj->hash_datas->getSize(); i++) {
+		if (!obj->hash_datas->isEmpty()) {
 			
-			hk.get(i,(TTSymbolPtr*)&key);
-			ui_destroy_data(obj, key);
+			obj->hash_datas->getKeys(hk);
+			
+			for (i=0; i<obj->hash_datas->getSize(); i++) {
+				
+				hk.get(i,(TTSymbolPtr*)&key);
+				ui_destroy_data(obj, key);
+			}
 		}
-		
 		delete obj->hash_datas;
 	}
 }
@@ -149,7 +151,6 @@ void ui_create_viewer(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTSymbolPtr		viewerAddress;
 	
 	if (!obj->modelAddress) {
 		object_error((ObjectPtr)obj, "ui_create_viewer : can't create any viewer without model address (TODO)");
@@ -171,9 +172,10 @@ void ui_create_viewer(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	TTObjectInstantiate(TT("Viewer"), TTObjectHandle(returnedViewer), args);
 	
 	// Set address attribute
-	joinOSCAddress(obj->modelAddress, name, &viewerAddress);
-	args = TTValue(viewerAddress);
-	(*returnedViewer)->setAttributeValue(kTTSym_Address, args);
+	args = TTValue(obj->modelAddress);
+	(*returnedViewer)->setAttributeValue(TT("AddressMain"), args);
+	args = TTValue(name);
+	(*returnedViewer)->setAttributeValue(TT("AddressSub"), args);
 	
 	// Store the Viewer
 	args = TTValue(TTPtr(*returnedViewer));
@@ -197,6 +199,30 @@ void ui_destroy_viewer(t_ui *obj, TTSymbolPtr name)
 		
 			obj->hash_viewers->remove(name);
 		}
+	}
+}
+
+void ui_destroy_all_viewers(t_ui *obj)
+{
+	TTValue			hk, v;
+	TTSymbolPtr		key;
+	TTUInt8			i;
+	
+	// delete all datas
+	if (obj->hash_viewers) {
+		
+		if (!obj->hash_viewers->isEmpty()) {
+			
+			obj->hash_viewers->getKeys(hk);
+			
+			for (i=0; i<obj->hash_viewers->getSize(); i++) {
+				
+				hk.get(i,(TTSymbolPtr*)&key);
+				ui_destroy_viewer(obj, key);
+			}
+		}
+		
+		delete obj->hash_viewers;
 	}
 }
 
@@ -291,17 +317,17 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			preview = true;
 		else if (paramName == gensym("/mute"))
 			mute = true;
-		else if (paramName == gensym("/view/panel"))			// TODO : create sender (a viewer is useless)
+		else if (paramName == gensym("/panel"))			// TODO : create sender (a viewer is useless)
 			panel = true;
-		else if (paramName == gensym("/view/internals"))		// TODO : create sender (a viewer is useless)
+		else if (paramName == gensym("/internals"))		// TODO : create sender (a viewer is useless)
 			internals = true;
 		else if (paramName == gensym("/audio/meters/freeze"))
 			meters = true;
-		else if (paramName == gensym("/preset/store"))			// the internal TTExplorer looks for Datas (not for node like /preset)
+		else if (paramName == gensym("/preset/store"))	// the internal TTExplorer looks for Datas (not for node like /preset)
 			preset = true;
-		else if (paramName == gensym("/model/help"))			// TODO : create sender (a viewer is useless)
+		else if (paramName == gensym("/help"))			// TODO : create sender (a viewer is useless)
 			help = true;
-		else if (paramName == gensym("/model/reference"))		// TODO : create sender (a viewer is useless)
+		else if (paramName == gensym("/reference"))		// TODO : create sender (a viewer is useless)
 			ref = true;
 	}
 	
@@ -375,9 +401,9 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (panel != obj->has_panel) {
 		obj->has_panel = panel;
 		if (panel) 
-			ui_create_viewer(obj, &anObject, NULL, TT("view/panel"));
+			ui_create_viewer(obj, &anObject, NULL, TT("panel"));
 		else
-			ui_destroy_viewer(obj, TT("view/panel"));
+			ui_destroy_viewer(obj, TT("panel"));
 		
 		change = true;
 	}
@@ -386,9 +412,9 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (internals != obj->has_internals) {
 		obj->has_internals = internals;
 		if (internals) 
-			ui_create_viewer(obj, &anObject, NULL, TT("view/internals"));
+			ui_create_viewer(obj, &anObject, NULL, TT("internals"));
 		else
-			ui_destroy_viewer(obj, TT("view/internals"));
+			ui_destroy_viewer(obj, TT("internals"));
 		
 		change = true;
 	}
@@ -420,9 +446,9 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (help != obj->has_help) {
 		obj->has_help = help;
 		if (help) 
-			ui_create_viewer(obj, &anObject, NULL, TT("model/help"));
+			ui_create_viewer(obj, &anObject, NULL, TT("help"));
 		else
-			ui_destroy_viewer(obj, TT("model/help"));
+			ui_destroy_viewer(obj, TT("help"));
 		
 		change = true;
 	}
@@ -431,9 +457,9 @@ void ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (ref != obj->has_ref) {
 		obj->has_ref = ref;
 		if (ref) 
-			ui_create_viewer(obj, &anObject, NULL, TT("model/reference"));
+			ui_create_viewer(obj, &anObject, NULL, TT("reference"));
 		else
-			ui_destroy_viewer(obj, TT("model/reference"));
+			ui_destroy_viewer(obj, TT("reference"));
 		
 		change = true;
 	}
@@ -510,8 +536,9 @@ void ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	t_ui* obj = (t_ui*)self;
 	long result = 0;
 	
-	// refresh all jcom.view in the patch
-	object_method(obj->patcher, _sym_iterate, jcom_view_refresh_iterator, (void *)obj, PI_WANTBOX | PI_DEEP, &result);
+	// TODO : refresh all jcom.view of the jview. patch
+	// 1. Get the TTContainer object of the jview patch
+	// 2. use his send message : /*.*:refresh
 	
 	// refresh all widgets
 	// gain
@@ -540,19 +567,6 @@ void ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	
 }
 
-long jcom_view_refresh_iterator(t_ui *x, t_object *b)
-{
-	Atom a;
-	SymbolPtr cls = object_classname(jbox_get_object(b));
-	
-	if (cls == gensym("jcom.view")) {
-		object_warn((ObjectPtr)x, "TODO : jcom_view_refresh_iterator : refresh all jcom.view");
-		object_method(b, gensym("remote_refresh")); // it doesn't work !!?
-	}
-	
-	return 0;
-}
-
 void ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
@@ -560,8 +574,10 @@ void ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr ar
 	
 	if (argc == 1)
 		object_attr_setvalueof(obj, gensym("ui_is_frozen"), argc, argv);
-	// freeze all jcom.view in the patch
-	object_method(obj->patcher, _sym_iterate, jcom_view_freeze_iterator, (void *)obj, PI_WANTBOX | PI_DEEP, &result);
+	
+	// TODO : Freeze all jcom.view of the jview. patch
+	// 1. Get the TTContainer object of the jview patch
+	// 2. use his send message : /*.*:freeze 0/1
 	
 	// freeze all widgets
 	// gain
@@ -592,20 +608,6 @@ void ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr ar
 	if (!obj->ui_freeze)
 		ui_return_view_refresh(self, _sym_nothing, argc, argv);
 }
-
-long jcom_view_freeze_iterator(t_ui *x, t_object *b)
-{
-	Atom a;
-	SymbolPtr cls = object_classname(jbox_get_object(b));
-	
-	if (cls == gensym("jcom.view")) {
-		atom_setlong(&a, x->ui_freeze);
-		object_attr_setvalueof(b, gensym("freeze"), 1, &a);
-	}
-		
-	return 0;	
-}
-
 
 void ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {

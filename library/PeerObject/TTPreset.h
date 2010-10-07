@@ -45,7 +45,8 @@ public:
 private:
 	
 	TTNodeDirectoryPtr	mDirectory;						///< the directory
-	TTHashPtr			mToStore;						///< a hash table containing <typeOfObjectToStore, attributeToStore>
+	TTCallbackPtr		mTestObjectCallback;			///< a callback used to validate object storage
+	TTHashPtr			mToStore;						///< a hash table containing <objectType, all Attribute names to store>
 	TTHashPtr			mItemList;						///< a hash table containing <relativeAddress, ItemPtr>
 	
 	TTSymbolPtr			mCurrentItem;					///< a key to retrieve the current Item in the ItemList
@@ -61,13 +62,13 @@ public:
 	
 private :
 	
+	/**  needed to be handled by a TTXmlHandler */
 	TTErr writeAsXml(const TTValue& value);
 	TTErr readFromXml(const TTValue& value);
 	
-	/* TODO :
-	 TTErr WriteAsText(const TTValue& value);			// pass an text buffer ?
-	 TTErr ReadFromText(const TTValue& value);			// pass an text buffer ?
-	 */
+	/**  needed to be handled by a TTTextHandler */
+	TTErr writeAsText(const TTValue& value);
+	TTErr readFromText(const TTValue& value);
 };
 
 typedef TTPreset* TTPresetPtr;

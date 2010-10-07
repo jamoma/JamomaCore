@@ -22,7 +22,6 @@ public:
 	
 	TTCLASS_SETUP(TTContainer)
 	
-	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the address of the container in the directory
 	TTUInt8				mPriority;						///< ATTRIBUTE: does this container have a priority over other containers ?
 	TTSymbolPtr			mDescription;					///< ATTRIBUTE: a text label to describe the role of this container
 	TTSymbolPtr			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
@@ -30,6 +29,8 @@ public:
 	TTValue				mContent;						///< ATTRIBUTE: all contained relative address
 	
 private:
+	
+	TTSymbolPtr			maddress;						///< ATTRIBUTE: the address of the container in the directory
 	
 	TTNodeDirectoryPtr	mDirectory;						///< the directory
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
@@ -50,7 +51,7 @@ public:
 	
 private:
 	
-	TTErr setAddress(const TTValue& value);
+	TTErr setaddress(const TTValue& value);
 	
 	TTErr getContent(TTValue& value);
 	

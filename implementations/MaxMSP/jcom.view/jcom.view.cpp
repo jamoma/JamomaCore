@@ -22,15 +22,12 @@ void	view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	view_share_context_node(TTPtr self, TTNodePtr *contextNode);
 
-void	view_remote_refresh(TTPtr self);
-
 void	view_bang(TTPtr self);
 void	view_int(TTPtr self, long value);
 void	view_float(TTPtr self, double value);
 void	view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	view_build(TTPtr self, SymbolPtr address);
-void	view_do_build(TTPtr self, SymbolPtr address);
 
 void	view_ui_queuefn(TTPtr self);
 
@@ -49,7 +46,6 @@ void WrapTTViewerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)view_assist,				"assist",				A_CANT, 0L);
 	class_addmethod(c->maxClass, (method)view_return_value,			"return_value",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)view_share_context_node,	"share_context_node",	A_CANT,	0);
-	class_addmethod(c->maxClass, (method)view_remote_refresh,		"remote_refresh",		A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)view_bang,					"bang",					0L);
 	class_addmethod(c->maxClass, (method)view_int,					"int",					A_LONG, 0L);
@@ -89,7 +85,7 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1) 						// Inlet
 		strcpy(dst, "input");
-	else {							// Outlets
+	else {								// Outlets
 		switch(arg) {
 			case set_out:
 				strcpy(dst, "set: connect to ui object");
@@ -103,27 +99,43 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 
 void view_build(TTPtr self, SymbolPtr address)
 {
-	// The following must be deferred because 
-	// we have to wait each model/parameter are built
-	defer_low((ObjectPtr)self, (method)view_do_build, address, 0, 0);
-}
-
-void view_do_build(TTPtr self, SymbolPtr address)
-{
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, n, p, args;
-	TTSymbolPtr					modelAddress, viewAddress;
-	TTPtr						aContext;
+	TTValue						v, args;
+	TTNodePtr					node = NULL;
+	TTBoolean					newInstance;
+	TTSymbolPtr					nodeAddress, relativeAddress;
+	TTPtr						context;
 	
-	// Build the address to bind
-	jamoma_viewer_get_model_address((ObjectPtr)x, &modelAddress, &aContext);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, x->patcherType, &x->subscriberObject);
 	
-	joinOSCAddress(modelAddress, TT(address->s_name), &viewAddress);
-	
-	object_post((ObjectPtr)x, "address = %s", viewAddress->getCString());
-	
-	// Set Address attribute of the Viewer object
-	x->wrappedObject->setAttributeValue(kTTSym_Address, viewAddress);
+	// if the subscription is successful
+	if (x->subscriberObject) {
+		
+		// Is a new instance have been created ?
+		x->subscriberObject->getAttributeValue(TT("NewInstanceCreated"), v);
+		v.get(0, newInstance);
+		
+		if (newInstance) {
+			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
+			v.get(0, &relativeAddress);
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.view with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
+		}
+		
+		// debug
+		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		v.get(0, &nodeAddress);
+		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
+		
+		// get the Node
+		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		v.get(0, (TTPtr*)&node);
+		
+		// attach to the patcher to be notified of his destruction
+		node->getAttributeValue(TT("Context"), v);
+		v.get(0, (TTPtr*)&context);
+		object_attach_byptr_register(x, context, _sym_box);
+	}
 }
 
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -134,7 +146,7 @@ void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTUInt8		i;
 	
 	/*
-	// Check ViewFreeze attribute
+	// TODO : Check ViewFreeze attribute
 	x->wrappedObject->getAttributeValue(kTTSym_ViewFreeze, v);
 	v.get(0, freeze);
 	
@@ -174,12 +186,6 @@ void view_share_context_node(TTPtr self, TTNodePtr *contextNode)
 	}
 	else
 		*contextNode = NULL;
-}
-
-void view_remote_refresh(TTPtr self)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	object_post((ObjectPtr)x, "refresh !");
 }
 
 void view_bang(TTPtr self)

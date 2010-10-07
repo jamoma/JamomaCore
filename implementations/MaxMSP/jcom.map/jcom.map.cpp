@@ -89,7 +89,7 @@ void map_build(TTPtr self, SymbolPtr address)
 	// add '/mapper' node
 	mapperLevelAddress = "/mapper";
 	
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)mapperLevelAddress.data()), &x->subscriberObject);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)mapperLevelAddress.data()), TT("jmod"), &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {

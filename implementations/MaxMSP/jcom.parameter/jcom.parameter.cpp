@@ -155,7 +155,8 @@ void data_build(TTPtr self, SymbolPtr address)
 	TTSymbolPtr					nodeAddress, relativeAddress;
 	TTPtr						context;
 	
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, &x->subscriberObject);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, x->patcherType, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {

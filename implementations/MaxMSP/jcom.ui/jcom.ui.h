@@ -98,8 +98,9 @@ typedef struct _ui{
 t_ui*		ui_new(t_symbol *s, long argc, t_atom *argv);
 void 		ui_free(t_ui *x);
 t_max_err	ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+t_max_err	ui_modelAddress_set(t_ui *x, t_object *attr, long argc, t_atom *argv);
+t_max_err	ui_modelAddress_get(t_ui *x, t_object *attr, long *argc, t_atom **argv);
 void		ui_build(t_ui *x);
-void		ui_do_build(t_ui *x);
 void 		ui_bang(t_ui *x);
 
 // prototypes: drawing/ui
@@ -128,6 +129,7 @@ void		ui_send_data(t_ui *obj, TTSymbolPtr name, TTValue v);
 
 void		ui_create_viewer(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name);
 void		ui_destroy_viewer(t_ui *obj, TTSymbolPtr name);
+void		ui_destroy_all_viewers(t_ui *obj);
 void		ui_send_viewer(t_ui *obj, TTSymbolPtr name, TTValue v);
 void		ui_freeze_viewer(t_ui *obj, TTSymbolPtr name, TTBoolean f);
 void		ui_refresh_viewer(t_ui *obj, TTSymbolPtr name);
@@ -140,9 +142,7 @@ void		ui_return_color_toolbarText(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 void		ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_view_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-long		jcom_view_freeze_iterator(t_ui *x, t_object *b);
 void		ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-long		jcom_view_refresh_iterator(t_ui *x, t_object *b);
 
 void		ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

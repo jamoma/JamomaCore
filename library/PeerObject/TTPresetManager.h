@@ -32,7 +32,7 @@ public:
 
 private:
 	
-	TTNodeDirectoryPtr	mDirectory;						///< the directory
+	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)
 	TTListPtr			mPresetList;					///< a list containing <TTPresetPtr> sorted by Number attribute
 	TTUInt8				mCurrentIndex;					///< ATTRIBUTE : the position of the current preset in the list (from 1 to list size, 0 mean no current index)
 	
@@ -61,10 +61,9 @@ private :
 	TTErr writeAsXml(const TTValue& value);
 	TTErr readFromXml(const TTValue& value);
 	
-	/* TODO :
-	 TTErr writeAsText(const TTValue& value);											// pass a text buffer ?
-	 TTErr readFromText(const TTValue& value);											// pass a text buffer ?
-	 */
+	/**  needed to be handled by a TTTextHandler */
+	 TTErr writeAsText(const TTValue& value);
+	 TTErr readFromText(const TTValue& value);
 	
 	/** */
 	TTErr getNames(TTValue& value);

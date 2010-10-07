@@ -96,7 +96,7 @@ void preset_build(TTPtr self, SymbolPtr address)
 	presetLevelAddress = address->s_name;
 	presetLevelAddress += "/preset";
 	
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)presetLevelAddress.data()), &x->subscriberObject);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)presetLevelAddress.data()), TT("jmod"), &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -358,13 +358,15 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void preset_default(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr modelClass;
+	TTSymbolPtr patcherClass;
+	TTSymbolPtr patcherType;
 	AtomPtr		a;
 
-	jamoma_patcher_get_model_class((ObjectPtr)x, &modelClass);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
 	
-	TTString xmlfile = "jmod.";
-	xmlfile += modelClass->getCString();
+	TTString xmlfile = patcherType->getCString();
+	xmlfile += ".";
+	xmlfile += patcherClass->getCString();
 	xmlfile += ".xml";
 	
 	post("preset_default : %s", (char*)xmlfile.data());

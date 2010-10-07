@@ -70,7 +70,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a subscriber object and register an object to the tree */
-	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress,  TTSubscriberPtr *returnedSubscriber);
+	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress,  TTSymbolPtr contextType, TTSubscriberPtr *returnedSubscriber);
 	
 	/** Share the context node between subscribed object
 		To understand how this method have to work see in TTSubscriber.h and .cpp */
@@ -84,7 +84,7 @@ extern "C" {
 	 note : a contextPatcher is a patcher named [jmod.something otherName] 
 	 return a <formatedContextName, patcher> list 
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
-	void			jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextList, long *nbLevel);
+	void			jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextType, TTListPtr aContextList, long *nbLevel);
 	
 	
 	// Method to deal with TTContainer
@@ -129,6 +129,9 @@ extern "C" {
 	
 	/**	Create a container object */
 	TTErr			jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager);
+	
+	/** Return kTTErrNone if the node have to be part of a preset */
+	void			jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data);
 	
 	
 	// Method to deal with TTMapper
@@ -192,8 +195,8 @@ extern "C" {
 	/** Get the Context Node of relative to a jcom.external */
 	TTNodePtr		jamoma_context_node_get(ObjectPtr x);
 	
-	/** Get the get the model or view class of a jcom.external */
-	void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass);
+	/** Get the context type and class from a jcom.external looking at the patcher */
+	void			jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass);
 	
 #ifdef __cplusplus
 }

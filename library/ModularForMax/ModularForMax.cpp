@@ -234,7 +234,7 @@ void jamoma_node_attribute_observer_remove(TTNodePtr node, TTSymbolPtr attrname,
 // Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
+TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSymbolPtr contextType, TTSubscriberPtr *returnedSubscriber)
 {
 	TTValue			args;
 	TTObjectPtr		shareCallback, contextListCallback;
@@ -255,6 +255,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	contextListCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &contextListCallback, kTTValNONE);
 	contextListBaton = new TTValue(TTPtr(x));
+	contextListBaton->append(contextType);
 	contextListCallback->setAttributeValue(TT("Baton"), TTPtr(contextListBaton));
 	contextListCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_subscriber_get_context_list));
 	args.append(contextListCallback);
@@ -271,7 +272,7 @@ void jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data)
 	ObjectPtr	x;
 	ObjectPtr	contextPatcher, obj;
 	TTNodePtr	returnedContextNode;
-	SymbolPtr	objclass = NULL,	_sym_jcomnode, _sym_jcomparam, _sym_share;
+	SymbolPtr	objclass = NULL,	_sym_jcomnode, _sym_jcomparam, _sym_jcommessage, _sym_jcomreturn, _sym_share;
 	
 	// unpack baton
 	b = (TTValuePtr)p_baton;
@@ -286,7 +287,9 @@ void jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data)
 	
 	// TODO : find a way to cache those t_symbol else where ...
 	_sym_jcomnode = gensym("jcom.node");
-	_sym_jcomparam = gensym("jcom.data");
+	_sym_jcomparam = gensym("jcom.parameter");
+	_sym_jcommessage = gensym("jcom.message");
+	_sym_jcomreturn = gensym("jcom.return");
 	_sym_share = gensym("share_context_node");
 	
 	while (obj) {
@@ -310,30 +313,33 @@ void jamoma_subscriber_get_context_list(TTPtr p_baton, TTValue& data)
 	TTValuePtr	b;
 	ObjectPtr	x;
 	TTListPtr	aContextList;
+	TTSymbolPtr	aContextType;
 	long		nbLevel = 0;
 	
 	// unpack baton
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
+	b->get(1, &aContextType);
 	
 	// unpack data to get a TTListPtr
 	data.get(0, (TTPtr*)&aContextList);
 	
-	// Get all jmod.modelPatcher above the jcom and their modelName 
+	// Get all aContextType.name (jmod/jview . modelName/viewName) above the jcom and their specific names
 	// looking recursively at all parent patcher.
-	jamoma_subscriber_get_context_list_method(x, aContextList, &nbLevel);
+	jamoma_subscriber_get_context_list_method(x, aContextType, aContextList, &nbLevel);
 }
 
-void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextList, long *nbLevel)
+void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextType, TTListPtr aContextList, long *nbLevel)
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
-	bool			isJmodPatcher;
+	bool			isCtxPatcher;
 	ObjectPtr		box, patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context;
 	SymbolPtr		patcherName;
 	SymbolPtr		contextName = _sym_nothing;
-	TTString		contextEditionName;
+	TTString		contextEditionName, contextTypeStr;
+	TTUInt8			contextTypeLen;
 	TTValuePtr		v;
 	
 	// If z is a bpatcher, the patcher is NULL
@@ -344,24 +350,28 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 	context = jamoma_patcher_getcontext(patcher);
 	patcherName = object_attr_getsym(patcher, _sym_name);
 	
-	// if the patcher name begin by "jmod."
-	// Strip jmod. from the beginning of patch name
-	isJmodPatcher = strncmp(patcherName->s_name, "jmod.", 5) == 0;
-	if (isJmodPatcher)
-		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	contextTypeStr = contextType->getCString();
+	contextTypeStr += ".";
+	contextTypeLen = strlen(contextTypeStr.data());
 	
-	// Is the patcher embedded in a jmod.patcher ?
+	// if the patcher name begin by contextTypeStr ("jmod." or "jview.")
+	// Strip jmod. from the beginning of patch name
+	isCtxPatcher = strncmp(patcherName->s_name, contextTypeStr.data(), contextTypeLen) == 0;
+	if (isCtxPatcher)
+		patcherName = gensym(patcherName->s_name + contextTypeLen);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	
+	// Is the patcher embedded in a contextType patcher ?
 	// The topLevel patcher name have not to be include in the address
-	if (isJmodPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher)) ) {
+	if (isCtxPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher)) ) {
 		
 		(*nbLevel)++;
-		jamoma_subscriber_get_context_list_method(patcher, aContextList, nbLevel);
+		jamoma_subscriber_get_context_list_method(patcher, contextType, aContextList, nbLevel);
 		
 		// Try to get context name from the patcher arguments
 		jamoma_patcher_getargs(patcher, &ac, &av);
-		if ((context == _sym_subpatcher) && (ac == 2))
+		if ((context == _sym_subpatcher) && (ac >= 2))
 			contextName = atom_getsym(av+1);
-		else if ((context == _sym_bpatcher) && (ac == 1))
+		else if ((context == _sym_bpatcher) && (ac >= 1))
 			contextName = atom_getsym(av);
 		
 		// Try to get context name from the patcher scripting name
@@ -373,7 +383,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 		}
 		
 		// If the contextName is still nothing
-		// get it from the patcher name if it start by "jmod."
+		// get it from the patcher name if it start by contextType
 		if (contextName == _sym_nothing)
 			contextName = patcherName;
 		
@@ -386,11 +396,11 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 			sysmem_freeptr(av);
 	}
 	// case where the object is in a subpatcher
-	else if (!isJmodPatcher && (context == _sym_subpatcher) ) {
+	else if (!isCtxPatcher && (context == _sym_subpatcher) ) {
 		// ignore this level
-		jamoma_subscriber_get_context_list_method(patcher, aContextList, nbLevel);
+		jamoma_subscriber_get_context_list_method(patcher, contextType, aContextList, nbLevel);
 	}
-	// case where the user is editing the module 
+	// case where the user is editing the patcher 
 	// or because there are jcom to register in the toplevel patcher
 	else if ((context == gensym("toplevel")) && (*nbLevel == 0)) {
 		
@@ -447,10 +457,9 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 		data.append(r);
 		
 		jamoma_ttvalue_from_Atom(v, relativeAddress, argc, argv);
-		
 		data.append((TTPtr)&v);
 		
-		aContainer->sendMessage(kTTSym_send, data);
+		aContainer->sendMessage(kTTSym_send, data); // data is [address, [address, x, x, ,x , ...]]
 		return kTTErrNone;
 	}
 	
@@ -598,14 +607,62 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager)
 {
 	TTValue			args;
+	TTObjectPtr		testObjectCallback;
+	TTValuePtr		testObjectBaton;
+	TTHashPtr		toStore = new TTHash();
+	TTValue			attr;
 	
 	// prepare arguments
 	args.append(TTModularDirectory);
+	
+	testObjectCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &testObjectCallback, kTTValNONE);
+	testObjectBaton = new TTValue(TTPtr(x));
+	testObjectCallback->setAttributeValue(TT("Baton"), TTPtr(testObjectBaton));
+	testObjectCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_presetManager_test_object_callback));
+	args.append(testObjectCallback);
+	
+	// Here we decide to store only Value and Priority attributes for Data object
+	attr = TTValue(kTTSym_Value);
+	attr.append(kTTSym_Priority);
+	toStore->append(TT("Data"), attr);
+	
+	args.append((TTPtr)toStore);
 	
 	*returnedPresetManager = NULL;
 	TTObjectInstantiate(TT("PresetManager"), TTObjectHandle(returnedPresetManager), args);
 	
 	return kTTErrNone;
+}
+
+/** Sets args as kTTVal1 if the node have to be part of a preset */
+void jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	TTObjectPtr o;
+	TTNodePtr	aNode;
+	TTValue		v;
+	TTSymbolPtr s;
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (address)
+	data.get(0, (TTPtr*)&aNode);
+	
+	// Here we decide to keep only Data with @service == parameter
+	data = kTTVal0;
+	if (o = aNode->getObject()) {
+		if (o->getName() == TT("Data")) {
+			o->getAttributeValue(kTTSym_service, v);
+			v.get(0, &s);
+			
+			if (s == kTTSym_parameter)
+				data = kTTVal1;
+		}
+	}
 }
 
 
@@ -694,9 +751,9 @@ void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTP
 		
 		// Try to get context name from the patcher arguments
 		jamoma_patcher_getargs(patcher, &ac, &av);
-		if ((context == _sym_subpatcher) && (ac == 2))
+		if ((context == _sym_subpatcher) && (ac >= 2))
 			address = atom_getsym(av+1);
-		else if ((context == _sym_bpatcher) && (ac == 1))
+		else if ((context == _sym_bpatcher) && (ac >= 1))
 			address = atom_getsym(av);
 		
 		// Try to get context name from the patcher scripting name
@@ -850,7 +907,6 @@ TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *retu
 	return kTTErrNone;
 }
 
-
 // Method to return data
 ///////////////////////////////////////////////////////////////////////
 
@@ -883,8 +939,11 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
 	
-	if (b->getSize() == 2)
+	if (b->getSize() == 2) {
 		b->get(1, (TTPtr*)&method);
+		if (!method)
+			return;
+		}
 	else
 		method = jps_return_value;
 
@@ -895,7 +954,6 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	
 	sysmem_freeptr(argv);
 }
-
 
 // Method to deal with TTValue
 /////////////////////////////////////////
@@ -977,7 +1035,7 @@ SymbolPtr jamoma_TTName_To_MaxName(TTSymbolPtr TTName)
 }
 
 /** Get the Context Node of relative to a jcom.external */
-TTNodePtr jamoma_context_node_get(ObjectPtr x)
+TTNodePtr jamoma_context_node_get(ObjectPtr x, TTSymbolPtr contextType)
 {
 	TTValue						c;
 	TTNodePtr					contextNode = NULL;
@@ -987,7 +1045,7 @@ TTNodePtr jamoma_context_node_get(ObjectPtr x)
 	TTBoolean					isThere = NO;
 	
 	// Get the context list 
-	jamoma_subscriber_get_context_list_method(x, &aContextList, &nbLevel);
+	jamoma_subscriber_get_context_list_method(x, contextType, &aContextList, &nbLevel);
 	
 	// Get the last context
 	if (aContextList.isEmpty())
@@ -1003,17 +1061,17 @@ TTNodePtr jamoma_context_node_get(ObjectPtr x)
 	return contextNode;
 }
 
-/** Get the get the model or view class of a jcom.external */
-void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
+/** Get the context type and class from a jcom.external looking at the patcher */
+void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass)
 {
 	bool			isJviewPatcher, isJmodPatcher;
 	ObjectPtr		patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context, filename;
-	SymbolPtr		patcherName, className;
+	SymbolPtr		patcherName;
 	TTString		addSlash;
 	long			len, pos;
 	char			*last_dot;
-	char			*to_split, *modelstr;
+	char			*to_split;
 	
 	// If z is a bpatcher, the patcher is NULL
 	if (!patcher){
@@ -1023,17 +1081,23 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 	context = jamoma_patcher_getcontext(patcher);
 	patcherName = object_attr_getsym(patcher, _sym_name);
 	
+	*returnedContextType = kTTSymEmpty;
+	
 	// if the patcher name begin by "jview."
 	// Strip jview. from the beginning of patch name
 	isJviewPatcher = strncmp(patcherName->s_name, "jview.", 6) == 0;
-	if (isJviewPatcher)
+	if (isJviewPatcher) {
 		patcherName = gensym(patcherName->s_name + 6);						// TODO : replace each "." by the Uppercase of the letter after the "."
+		*returnedContextType = TT("jview");
+	}
 	
 	// if the patcher name begin by "jmod."
 	// Strip jmod. from the beginning of patch name
 	isJmodPatcher = strncmp(patcherName->s_name, "jmod.", 5) == 0;
-	if (isJmodPatcher)
+	if (isJmodPatcher) {
 		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
+		*returnedContextType = TT("jmod");
+	}
 	
 	// Is the patcher embedded in a jmod.patcher ?
 	// The topLevel patcher name have not to be include in the address
@@ -1044,7 +1108,7 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 	// case where the object is in a subpatcher
 	else if (!isJviewPatcher && (context == _sym_subpatcher))
 		// ignore this level
-		jamoma_patcher_get_model_class(patcher, modelClass);
+		jamoma_patcher_type_and_class(patcher, returnedContextType, returnedClass);
 
 	// case where the user is editing the module 
 	// or because there are jcom to register in the toplevel patcher
@@ -1052,7 +1116,7 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 		filename = object_attr_getsym(patcher, _sym_filename);
 	
 	else {
-		*modelClass = kTTSymEmpty;
+		*returnedClass = kTTSymEmpty;
 		return;
 	}
 	
@@ -1067,7 +1131,7 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 		strcpy(to_split,filename->s_name + 6);
 	}
 	else {
-		*modelClass = kTTSymEmpty;
+		*returnedClass = kTTSymEmpty;
 		return;
 	}
 		
@@ -1079,9 +1143,9 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 	
 	if (last_dot > 0) {
 		to_split[pos] = NULL;	// split to keep only the model part
-		*modelClass = TT(to_split);
+		*returnedClass = TT(to_split);
 	}
 	else
-		*modelClass = kTTSymEmpty;
+		*returnedClass = kTTSymEmpty;
 }
 

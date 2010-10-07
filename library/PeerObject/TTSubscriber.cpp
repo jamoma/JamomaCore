@@ -93,7 +93,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 {
 	TTSymbolPtr		contextAddress, absoluteAddress;
 	TTValue			aTempValue, args;
-	TTPtr			ourContext;
+	TTPtr			ourContext, hisContext;
 	TTListPtr		aContextList;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
@@ -162,7 +162,18 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 				// !!! Maybe this could introduce confusion for namespace observer !!!
 				// introduce a new flag (kAddressObjectChanged) ?
 				mDirectory->notifyObservers(absoluteAddress, aNode, kAddressCreated);
+			}
+			
+			// Get his context
+			hisContext = aNode->getContext();
+			
+			// if there is no context
+			if (!hisContext) {
 				
+				// set our context instead
+				aTempValue.clear();
+				aTempValue.append((TTPtr)ourContext);
+				aNode->setAttributeValue(kTTSym_Context, aTempValue);
 			}
 			
 			// else there is already an object
@@ -258,8 +269,13 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 					this->mDirectory->TTNodeCreate(TT(lowerContextAddress.data()), NULL, aContext, &contextNode, &newInstanceCreated);
 
 				}
-				else
+				else {
 					contextNode = this->mDirectory->getRoot();
+					
+					// if the current context of the root is NULL : set our context
+					if (!contextNode->getContext())
+						contextNode->setAttributeValue(kTTSym_Context, aContext);
+				}
 			}
 			else
 				contextNode = lowerContextNode;

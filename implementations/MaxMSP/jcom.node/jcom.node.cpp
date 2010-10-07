@@ -46,12 +46,12 @@ void		node_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 void		node_build(TTPtr self, SymbolPtr address);
 
-void		node_set_viewpanel(TTPtr self, long n);
+void		node_set_panel(TTPtr self, long n);
 
-void		node_model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		node_model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		node_view_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		node_view_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		node_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		node_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		node_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		node_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		node_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		node_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -74,20 +74,20 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)node_return_address,			"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)node_return_value,				"return_value",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)node_model_help,				"model_help",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)node_model_reference,			"model_reference",		A_CANT, 0);
-	class_addmethod(c->maxClass, (method)node_view_internals,			"view_internals",		A_CANT, 0);
-	class_addmethod(c->maxClass, (method)node_view_panel,				"view_panel",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)node_help,						"node_help",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)node_reference,				"node_reference",		A_CANT, 0);
+	class_addmethod(c->maxClass, (method)node_internals,				"node_internals",		A_CANT, 0);
+	class_addmethod(c->maxClass, (method)node_panel,					"node_panel",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)node_autodoc,					"doc_generate",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)node_list,						"anything",				A_GIMME, 0L);
 	
-	class_addmethod(c->maxClass, (method)node_set_viewpanel,			"has_panel",			A_LONG, 0L);
+	class_addmethod(c->maxClass, (method)node_set_panel,				"has_panel",			A_LONG, 0L);
 	
-	class_addmethod(c->maxClass, (method)node_model_help,				"model/help",			0);
-	class_addmethod(c->maxClass, (method)node_model_reference,			"model/reference",		0);
-	class_addmethod(c->maxClass, (method)node_view_internals,			"view/internals",		0);
-	class_addmethod(c->maxClass, (method)node_view_panel,				"view/panel",			0);
+	class_addmethod(c->maxClass, (method)node_help,						"help",					0);
+	class_addmethod(c->maxClass, (method)node_reference,				"reference",			0);
+	class_addmethod(c->maxClass, (method)node_internals,				"internals",			0);
+	class_addmethod(c->maxClass, (method)node_panel,					"panel",				0);
 	
 	class_addmethod(c->maxClass, (method)node_autodoc,					"documentation/generate",A_GIMME, 0);
 }
@@ -104,7 +104,7 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	// create the container
+	// create a container
 	jamoma_container_create((ObjectPtr)x, &x->wrappedObject);
 	
 	// The following must be deferred because we have to interrogate our box,
@@ -134,7 +134,8 @@ void node_build(TTPtr self, SymbolPtr address)
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
 	
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, &x->subscriberObject);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, x->patcherType, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -149,9 +150,9 @@ void node_build(TTPtr self, SymbolPtr address)
 			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.node with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
 		}
 		
-		// Set the Address attribute of the Container
+		// Set the address attribute of the Container
 		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
-		x->wrappedObject->setAttributeValue(kTTSym_Address, v);
+		x->wrappedObject->setAttributeValue(TT("address"), v);
 		
 		// get absolute node address
 		v.get(0, &nodeAddress);
@@ -170,25 +171,25 @@ void node_build(TTPtr self, SymbolPtr address)
 		
 		// special case for jcom.node at the root of the model
 		if ((address == gensym("/") || address == _sym_nothing)) {
-			// Add a /model/help data
-			makeInternals_data(x, nodeAddress, TT("/model/help"), gensym("model_help"), context, kTTSym_message, &aData);
+			// Add a /help data
+			makeInternals_data(x, nodeAddress, TT("/help"), gensym("node_help"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open the maxhelp patch of this model"));
+			aData->setAttributeValue(kTTSym_Description, TT("Open the maxhelp patch"));
 		
-			// Add a /model/reference data
-			makeInternals_data(x, nodeAddress, TT("/model/reference"), gensym("model_reference"), context, kTTSym_message, &aData);
+			// Add a /reference data
+			makeInternals_data(x, nodeAddress, TT("/reference"), gensym("node_reference"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open the reference page of this model"));
+			aData->setAttributeValue(kTTSym_Description, TT("Open the reference page"));
 			
-			// Add a /view/internals data
-			makeInternals_data(x, nodeAddress, TT("/view/internals"), gensym("view_internals"), context, kTTSym_message, &aData);
+			// Add a /internals data
+			makeInternals_data(x, nodeAddress, TT("/internals"), gensym("node_internals"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open the patch of this model"));
+			aData->setAttributeValue(kTTSym_Description, TT("Open the patcher"));
 			
 			// Add a /documentation/generate data
 			makeInternals_data(x, nodeAddress, TT("/documentation/generate"), gensym("doc_generate"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Make a html page to describe the model"));
+			aData->setAttributeValue(kTTSym_Description, TT("Make a html page description"));
 			
 			// create internal TTTextHandler and expose Write message
 			aTextHandler = NULL;
@@ -243,7 +244,7 @@ void node_share_context_node(TTPtr self, TTNodePtr *contextNode)
 		*contextNode = NULL;
 }
 
-void node_set_viewpanel(TTPtr self, long n)
+void node_set_panel(TTPtr self, long n)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTObjectPtr					aData;
@@ -263,53 +264,57 @@ void node_set_viewpanel(TTPtr self, long n)
 		
 		if (n) {
 			
-			// Add a /view/panel data
-			makeInternals_data(self, address, TT("view/panel"), gensym("view_panel"), context, kTTSym_message, &aData);
+			// Add a /panel data
+			makeInternals_data(self, address, TT("/panel"), gensym("node_panel"), context, kTTSym_message, &aData);
 			
 			// Set attribute of the data
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open a module's control panel (inspector) if one is present."));
+			aData->setAttributeValue(kTTSym_Description, TT("Open a control panel if one is present."));
 			aData->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 		}
 		else
 			// Remove a /view/panel data
-			removeInternals_data(self, address, TT("view/panel"));
+			removeInternals_data(self, address, TT("/panel"));
 	}
 	else
-		object_error((ObjectPtr)x, "Can't create /view/panel message at loadbang. Please use a deferlow.");
+		object_error((ObjectPtr)x, "Can't create /panel message at loadbang. Please use a deferlow.");
 }
 
-void node_model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void node_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr modelClass;
+	TTSymbolPtr patcherType;
+	TTSymbolPtr patcherClass;
 	
-	jamoma_patcher_get_model_class((ObjectPtr)x, &modelClass);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
 	
-	TTString helpfile = "jmod.";
-	helpfile += modelClass->getCString();
+	TTString helpfile = patcherType->getCString();
+	helpfile += ".";
+	helpfile += patcherClass->getCString();
 	
-	post("node_model_help : %s", (char*)helpfile.data());
+	post("node_help : %s", (char*)helpfile.data());
 	
 	classname_openhelp((char*)helpfile.data());
 }
 
-void node_model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void node_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr modelClass;
+	TTSymbolPtr patcherType;
+	TTSymbolPtr patcherClass;
 	
-	jamoma_patcher_get_model_class((ObjectPtr)x, &modelClass);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
 	
-	TTString refpage = "jmod.";
-	refpage += modelClass->getCString();
+	TTString refpage = patcherType->getCString();
+	refpage += ".";
+	refpage += patcherClass->getCString();
 	
-	post("node_model_reference : %s", (char*)refpage.data());
+	post("node_reference : %s", (char*)refpage.data());
 	
 	classname_openrefpage((char*)refpage.data());
 }
 
-void node_view_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void node_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
@@ -318,7 +323,7 @@ void node_view_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	object_method(p, _sym_vis);
 }
 
-void node_view_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void node_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	ObjectPtr	box;

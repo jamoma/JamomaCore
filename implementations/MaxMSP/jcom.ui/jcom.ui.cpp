@@ -128,6 +128,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");
 	CLASS_STICKY_ATTR(c,					"category",			0, "Jamoma");
 
+	CLASS_ATTR_SYM(c,						"address",			0, t_ui,	modelAddress);
+	CLASS_ATTR_STYLE(c,						"address",			0, "text");
+	CLASS_ATTR_DEFAULT(c,					"address",			0, "");
+	CLASS_ATTR_ACCESSORS(c,					"address",			ui_modelAddress_get, ui_modelAddress_set);
+	
 	CLASS_ATTR_LONG(c,						"ui_is_frozen",		0, t_ui, ui_freeze);
 	CLASS_ATTR_STYLE(c,						"ui_is_frozen",		0, "onoff");
 	CLASS_ATTR_DEFAULT(c,					"ui_is_frozen",		0, "0");
@@ -165,8 +170,8 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->outlet = outlet_new(x, 0L);
 		x->menu_items = NULL;
 		x->refmenu_items = NULL;
-		x->hash_datas = new TTHash();
-		x->hash_viewers = new TTHash();
+		x->hash_datas = NULL;
+		x->hash_viewers = NULL;
 		x->preset_names = NULL;
 		x->preset_num = 0;
 		
@@ -178,6 +183,9 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 
 		x->refmenu_items = (t_linklist *)linklist_new();
 		x->refmenu_qelem = qelem_new(x, (method)ui_refmenu_qfn);
+		
+		x->modelAddress = kTTSymEmpty;
+		x->explorer = NULL;
 		
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
@@ -238,14 +246,49 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 	return jbox_notify((t_jbox*)x, s, msg, sender, data);
 }
 
-void ui_build(t_ui *x)
+t_max_err ui_modelAddress_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 {
-	// The following must be deferred because 
-	// we have to wait each model/parameter are built
-	defer_low((ObjectPtr)x, (method)ui_do_build, NULL, 0, 0);
+	t_symbol *adrs = atom_getsym(argv);
+	
+	if (adrs != _sym_nothing) {
+		
+		// destroy former datas, viewers and explorer
+		ui_destroy_all_datas(x);
+		ui_destroy_all_viewers(x);
+		TTObjectRelease(TTObjectHandle(&x->explorer));
+		
+		x->has_preset = false;
+		x->has_help = false;
+		x->has_ref = false;
+		x->has_internals = false;
+		x->has_panel = false;
+		
+		x->has_mute = false;
+		x->has_gain = false;
+		x->has_bypass = false;
+		x->has_mix = false;
+		x->has_preview = false;
+		x->has_freeze = false;
+		
+		x->modelAddress = TT(adrs->s_name);
+		
+		// The following must be deferred because 
+		// we have to wait each model/parameter are built
+		defer_low((ObjectPtr)x, (method)ui_build, NULL, 0, 0);
+	}
+		
+	return 0;
 }
 
-void ui_do_build(t_ui *x)
+t_max_err ui_modelAddress_get(t_ui *x, t_object *attr, long *argc, t_atom **argv)
+{
+	char alloc;
+	atom_alloc(argc, argv, &alloc);     // allocate return atom
+	atom_setsym(*argv, gensym((char*)x->modelAddress->getCString()));
+	return 0;
+}
+
+void ui_build(t_ui *x)
 {
 	TTValue			v, n, p, args;
 	SymbolPtr		aContext;
@@ -254,26 +297,12 @@ void ui_do_build(t_ui *x)
 	t_rect			boxRect;
 	t_rect			uiRect;
 	
-	// Build the address to bind
-	jamoma_viewer_get_model_address((ObjectPtr)x, &x->modelAddress, (TTPtr*)&x->patcher);
-	
-	// Create internal datas to expose colors attribute
-	ui_create_all_datas(x);
-	
-	// Create internal Explorer to observe the namespace
-	// by this way, the creation of any widgets depends on the existence of the data
-	jamoma_explorer_create((ObjectPtr)x, &x->explorer);
-	v = TTValue(TT("Data"));
-	x->explorer->setAttributeValue(TT("Lookfor"), v);
-	v = TTValue(x->modelAddress);
-	x->explorer->setAttributeValue(kTTSym_Address, v);
-	x->explorer->sendMessage(TT("Explore"), kTTValNONE);
-	
 	// Examine the context to resize the view, set textfield, ...
+	x->patcher = jamoma_object_getpatcher((ObjectPtr)x);
 	aContext = jamoma_patcher_getcontext(x->patcher);
 	
 	if (aContext == gensym("toplevel")) {
-		x->modelAddress = TT("/editing_this_view");
+		x->modelAddress = kTTSymEmpty;
 	}
 	else {
 		box = object_attr_getobj(x->patcher, jps_box);
@@ -308,7 +337,29 @@ void ui_do_build(t_ui *x)
 	// Set the textfield to display the modelAddress
 	textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
-		object_method(textfield, gensym("settext"), x->modelAddress->getCString());
+		if (x->modelAddress != kTTSymEmpty)
+			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
+		else
+			object_method(textfield, gensym("settext"), "/editing_this_view");
+	
+	// Bind on the model
+	if (x->modelAddress != kTTSymEmpty) {
+		
+		x->hash_datas = new TTHash();
+		x->hash_viewers = new TTHash();
+		
+		// Create internal datas to expose colors attribute
+		ui_create_all_datas(x);
+		
+		// Create internal Explorer to observe the namespace
+		// by this way, the creation of any widgets depends on the existence of the data
+		jamoma_explorer_create((ObjectPtr)x, &x->explorer);
+		v = TTValue(TT("Data"));
+		x->explorer->setAttributeValue(TT("Lookfor"), v);
+		v = TTValue(x->modelAddress);
+		x->explorer->setAttributeValue(kTTSym_Address, v);
+		x->explorer->sendMessage(TT("Explore"), kTTValNONE);
+	}
 	
 	// Redraw
 	jbox_redraw(&x->box);
@@ -681,7 +732,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if (x->has_panel && px.x >= x->rect_panel.x && px.x <= (x->rect_panel.x + x->rect_panel.width))
-			ui_send_viewer(x, TT("view/panel"), kTTValNONE);
+			ui_send_viewer(x, TT("panel"), kTTValNONE);
 		
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			ui_send_viewer(x, TT("preview"), TTValue(!x->is_previewing));
@@ -835,13 +886,13 @@ void ui_menu_qfn(t_ui *x)
 		; // TODO : jcom.node /getstate
 	
 	else if (item->sym == gensym("View Internal Components"))
-		ui_send_viewer(x, TT("view/internals"), kTTValNONE);
+		ui_send_viewer(x, TT("internals"), kTTValNONE);
 	
 	else if (item->sym == gensym("Open Help Patch"))
-		ui_send_viewer(x, TT("model/help"), kTTValNONE);
+		ui_send_viewer(x, TT("help"), kTTValNONE);
 	
 	else if (item->sym == gensym("Open Reference Page"))
-		ui_send_viewer(x, TT("model/reference"), kTTValNONE);
+		ui_send_viewer(x, TT("reference"), kTTValNONE);
 	
 	else	// assume the menu item is a preset name
 		ui_send_viewer(x, TT("preset/recall"), TT(item->sym->s_name));

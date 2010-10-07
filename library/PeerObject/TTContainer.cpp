@@ -13,12 +13,12 @@
 #define thisTTClassTags		"node, container"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
 mPriority(0), 
 mDescription(kTTSymEmpty),
 mType(TT("control")),
 mInitialized(NO),
 mContent(kTTValNONE),
+maddress(kTTSymEmpty),
 mDirectory(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
@@ -33,7 +33,6 @@ mObserver(NULL)
 		arguments.get(2, (TTPtr*)&mReturnValueCallback);
 	}
 	
-	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
@@ -43,6 +42,8 @@ mObserver(NULL)
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(Initialised, readOnly, YES);
+	
+	addAttributeWithSetter(address, kTypeSymbol);
 
 	addMessageWithArgument(send);
 	
@@ -90,6 +91,7 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 				
 				cacheElement.get(0, (TTPtr*)&anObject);
 				
+				// TODO : a generic way to send things to any object
 				// it is a Data
 				if (anObject->getName() == TT("Data")) {
 					
@@ -102,6 +104,12 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 					
 					// set the value attribute using a command
 					anObject->sendMessage(kTTSym_command, *valueToSend);
+				}
+				// it is a Viewer
+				else if (anObject->getName() == TT("Viewer")) {
+					
+					// set the address attribute
+					anObject->setAttributeValue(kTTSym_Address, *valueToSend);
 				}
 			}
 			// if not use TTModularDirectory instead
@@ -122,10 +130,10 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 	return kTTErrNone;
 }
 
-TTErr TTContainer::setAddress(const TTValue& value)
+TTErr TTContainer::setaddress(const TTValue& value)
 {	
 	unbind();
-	mAddress = value;
+	maddress = value;
 	return bind();
 }
 
@@ -138,6 +146,7 @@ TTErr TTContainer::bind()
 {
 	TTNodePtr		aNode;
 	TTValuePtr		newBaton;
+	TTPtr			aContext;
 	TTList			aNodeList, allObjectsNodes;
 	TTValue			v;
 	TTErr			err = kTTErrNone;
@@ -145,11 +154,13 @@ TTErr TTContainer::bind()
 	mObjectsObserversCache  = new TTHash();
 	
 	// 1. Look for all Datas under the address into the directory with the same Context
-	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
+	err = mDirectory->Lookup(maddress, aNodeList, &aNode);
+	aContext = aNode->getContext();
 	
 	v.append(TT("Data"));
+	v.append(TT("Viewer"));
 	v.append(TT("Container"));
-	v.append(aNode->getContext());
+	v.append(aContext);
 	err = mDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Data and Observer
@@ -164,14 +175,14 @@ TTErr TTContainer::bind()
 	TTObjectInstantiate(TT("Callback"), &mObserver, kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
-	newBaton->append(TTPtr(aNode->getContext()));
+	newBaton->append(aContext);
 	
 	mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
 	mObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerDirectoryCallback));
 	
 	mObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));		// this is usefull only to debug
 	
-	mDirectory->addObserverForNotifications(mAddress, *mObserver);
+	mDirectory->addObserverForNotifications(maddress, *mObserver);
 	
 	// 4. Check if all cache elements are initialized
 	isInitialized();
@@ -186,11 +197,12 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	TTObjectPtr		anObject, newObserver;
 	TTAttributePtr	anAttribute = NULL;
 	TTValuePtr		newBaton;
+	TTErr			err;
 	
 	// process the relative address
-	aNode->getOscAddress(&aRelativeAddress, mAddress);
+	aNode->getOscAddress(&aRelativeAddress, maddress);
 	
-	// add Data or Container to the cacheElement
+	// add Data, Viewer or Container to the cacheElement
 	anObject = aNode->getObject();
 	cacheElement.append((TTPtr)anObject);
 	
@@ -237,22 +249,26 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	}
 	else {
 		// create an Initialized Attribute Observer on it
-		anObject->findAttribute(kTTSym_Initialized, &anAttribute);
+		err = anObject->findAttribute(kTTSym_Initialized, &anAttribute);
 		
-		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
-		
-		newBaton = new TTValue(TTPtr(this));
-		newBaton->append(aRelativeAddress);
-		
-		newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-		newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerInitializedAttributeCallback));
-		newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
-		
-		anAttribute->registerObserverForNotifications(*newObserver);
-		
-		// add observer to the cacheElement
-		cacheElement.append((TTPtr)newObserver);
+		if (!err) {
+			newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+			
+			newBaton = new TTValue(TTPtr(this));
+			newBaton->append(aRelativeAddress);
+			
+			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+			newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerInitializedAttributeCallback));
+			newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
+			
+			anAttribute->registerObserverForNotifications(*newObserver);
+			
+			// add observer to the cacheElement
+			cacheElement.append((TTPtr)newObserver);
+		}
+		else
+			cacheElement.append(NULL);
 	}
 	
 	// append the cacheElement to the cache hash table
@@ -270,7 +286,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	TTErr			err;
 	
 	// process the relative address
-	aNode->getOscAddress(&aRelativeAddress, mAddress);
+	aNode->getOscAddress(&aRelativeAddress, maddress);
 	
 	// delete attribute observers
 	err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
@@ -373,13 +389,13 @@ TTErr TTContainer::unbind()
 	// stop life cycle observation
 	if (mObserver && mDirectory) {
 		
-		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
+		err = mDirectory->removeObserverForNotifications(maddress, *mObserver);
 		
 		if (!err)
 			TTObjectRelease(&mObserver);
 	}
 	
-	mAddress = kTTSymEmpty;
+	maddress = kTTSymEmpty;
 	
 	return kTTErrNone;
 }
@@ -445,7 +461,7 @@ TTErr TTContainer::writeAsText(const TTValue& value)
 	*file << "<html>";
 	*file << "\t<head>";
 	*file << "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=ISO-8859-1\">";
-	*file << "<title>" << this->mAddress->getCString() << "</title>";	
+	*file << "<title>" << this->maddress->getCString() << "</title>";	
 	
 	this->cssDefinition(file);
 	
@@ -458,7 +474,7 @@ TTErr TTContainer::writeAsText(const TTValue& value)
 	
 	// Top of page displaying name of module etc.
 	*file << "\t<img src=\"../../../documentation/graphics/jmodular.icon.png\" width=\"128\" height=\"128\">";	
-	*file << "\t<h1>" << this->mAddress->getCString() << "</h1>";
+	*file << "\t<h1>" << this->maddress->getCString() << "</h1>";
 	*file << "\t<h2>" << this->mDescription->getCString() << "</h2>";
 	
 	// Menu
@@ -870,6 +886,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// Prepare argument
 	arg.append(TT("Data"));
+	arg.append(TT("Viewer"));
 	arg.append(TT("Container"));
 	arg.append(hisContext);
 	
@@ -949,12 +966,13 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 	TTValuePtr	av;
 	TTPtr		c, t_c, p_c;
 	TTObjectPtr o;
-	TTSymbolPtr data, container;
+	TTSymbolPtr data, viewer, container;
 	
 	av = (TTValuePtr)args;
 	av->get(0, &data);
-	av->get(1, &container);
-	av->get(2, (TTPtr*)&t_c);
+	av->get(1, &viewer);
+	av->get(2, &container);
+	av->get(3, (TTPtr*)&t_c);
 	
 	o = n->getObject();
 	c = n->getContext();
@@ -967,7 +985,7 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 		// Keep only Data from our context or Container from the context below 
 		// To keep Containers which are not just below this Container :
 		// get the Context of his parent and compare it to our context (it should be equal...)
-		return (o->getName() == data && c == t_c) || (o->getName() == container && c != t_c && p_c == t_c);
+		return (o->getName() == data && c == t_c) || (o->getName() == viewer && c == t_c) || (o->getName() == container && c != t_c && p_c == t_c);
 	else
 		return NO;
 }
