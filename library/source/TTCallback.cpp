@@ -39,6 +39,7 @@ TTErr TTCallback::notify(TTValue& arguments)
 {
 	if (mFunction)
 		mFunction(mBaton, arguments);
+	
 	return kTTErrNone;
 }
 

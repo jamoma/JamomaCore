@@ -247,4 +247,10 @@ TTBoolean TTFOUNDATION_EXPORT testNodeObjectType(TTNodePtr n, TTPtr args);
  @return							true if the object have the correct context */
 TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
 
+/**	An test tool : test a node using a TTCallback. This method could be used as testFunction for the LookFor or IsThere methods.
+ @param	node						A node
+ @param args						A TTCallback argument
+ @return							true if the TTCallback argument is replaced by kTTVal1 */
+TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
+
 #endif // __TT_NODE_DIRECTORY_H__

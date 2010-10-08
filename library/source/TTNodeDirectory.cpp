@@ -875,3 +875,13 @@ TTBoolean testNodeContext(TTNodePtr n, TTPtr args)
 		return NO;
 }
 
+TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
+{
+	TTValue			v = TTValue((TTPtr)n);
+	TTCallbackPtr	aCallback = (TTCallbackPtr)args;
+	
+	aCallback->notify(v);
+	
+	return v == kTTVal1;
+}
+
