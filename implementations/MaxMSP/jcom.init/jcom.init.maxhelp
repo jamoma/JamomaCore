@@ -444,7 +444,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 120.0, 137.0, 308.0, 43.0 ],
-					"text" : "jmod.init connects to jmod.hub in order to link to all other instances of jmod.init within the same module. It also makes jmod.hub reset all parameters to the default preset."
+					"text" : "jcom.init connects to jcom.hub in order to link to all other instances of jcom.init within the same module. It also makes jcom.hub reset all parameters to the default preset."
 				}
 
 			}
@@ -584,7 +584,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 40.0, 115.0, 299.0, 19.0 ],
-									"text" : "The presence of jmod.hub makes this a separate module."
+									"text" : "The presence of jcom.hub makes this a separate module."
 								}
 
 							}
@@ -780,7 +780,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 30.0, 105.0, 299.0, 19.0 ],
-									"text" : "The presence of jmod.hub makes this a separate module."
+									"text" : "The presence of jcom.hub makes this a separate module."
 								}
 
 							}
@@ -876,7 +876,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 120.0, 92.0, 293.0, 43.0 ],
-					"text" : "jmod.init is a kind of loadbang local to the module. This way it is possible to initialize one module without resetting all preexisting modules."
+					"text" : "jcom.init is a kind of loadbang local to the module. This way it is possible to initialize one module without resetting all preexisting modules."
 				}
 
 			}
@@ -890,7 +890,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 120.0, 397.0, 281.0, 31.0 ],
-					"text" : "Example illustrating that jmod.init works locally on one module only:"
+					"text" : "Example illustrating that jcom.init works locally on one module only:"
 				}
 
 			}
