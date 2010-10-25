@@ -16,6 +16,8 @@
 using namespace std;
 #define value value_list[0]
 
+#define MAX_INT_STRING	12	/*-2^32: 32bit -> 10 digits, minus sign, EOS*/
+
 extern t_object	 *g_jcom_send_notifications;
 
 
@@ -90,6 +92,38 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 }
 			
 
+t_preset* find_preset(presetList *preset, t_atom *name)
+{
+	presetListIterator pIter;
+	presetItemListIterator itemIterator;
+	t_preset* p;
+
+	// Search the linked list of presets for the specified preset by name
+	if (name->a_type == A_SYM) {
+		for (pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+			if ((*pIter)->name == name->a_w.w_sym) {
+			  p = *pIter;
+			  return p;
+			}
+			//pIter = preset->find_if (preset->begin(), preset->end(), presetByName);
+			//found = pIter != preset->end() ? true : false;
+		}
+	}
+	else {
+		long preset_num = atom_getlong(name);
+		for (pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+			if ((*pIter)->number == preset_num) {
+			  p = *pIter;
+			  return p;
+			}
+			//pIter = preset->find_if (pIter, preset->end(), presetByNumber);
+			//found = pIter != preset->end() ? true : false;
+		}
+	}
+	
+	return NULL;
+}
+
 static void hub_set_weight_from_preset (t_hub *x, t_preset_item *item)
 {
 #   define HUB_MSG_SIZE 1024
@@ -106,9 +140,8 @@ static void hub_set_weight_from_preset (t_hub *x, t_preset_item *item)
 	
 void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number or name
 {
-	presetList		*preset = x->preset;
-	presetItemList	*item;
-	bool			found = false;
+	t_preset*		pres;
+	presetItemList		*item;
 	short			num_items_with_priority = 0;
 	short			num_items_recalled = 0;
 	short			i;
@@ -120,42 +153,28 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 
 	presetListIterator pIter;
 	critical_enter(0);	
-	// Search the linked list of presets for the specified preset by name
-	if (argv->a_type == A_SYM) {
-		for (pIter = preset->begin(); pIter != preset->end(); ++pIter) {
-			if ((*pIter)->name == argv->a_w.w_sym) {
-				found = true;
-				break;
-			}
-			//pIter = preset->find_if (preset->begin(), preset->end(), presetByName);
-			//found = pIter != preset->end() ? true : false;
-		}
-	}
-	else {
-		long preset_num = atom_getlong(argv);
-		for (pIter = preset->begin(); pIter != preset->end(); ++pIter) {
-			if ((*pIter)->number == preset_num) {
-				found = true;
-				break;
-			}
-			//pIter = preset->find_if (pIter, preset->end(), presetByNumber);
-			//found = pIter != preset->end() ? true : false;
-		}
-	}
 	
-	if (!found) {
+	pres = find_preset(x->preset, argv);
+
+	if (pres == NULL) {
+	        char pnum[MAX_INT_STRING], *pid;
+		if (argv[0].a_type == A_SYM)
+		  pid = atom_getsym(argv)->s_name;
+		else
+		  pid = pnum, snprintf(pnum, MAX_INT_STRING, "%ld", atom_getlong(argv));
+
 		if (x->attr_name != gensym("/editing_this_module"))
-			object_error((t_object*)x, "%s module: preset.recall - invalid preset specified", x->attr_name->s_name);
+		  object_error((t_object*)x, "%s module: preset.recall - invalid preset %s specified", x->attr_name->s_name, pid);
 		critical_exit(0);
 		return;
 	}
 	
 	// Store the number of the preset we recalled last in the first preset (the one being recalled now)
-	(*(x->preset->begin()))->last_preset_num = (*pIter)->number;
+	(*(x->preset->begin()))->last_preset_num = pres->number;
 	// Store the name as well
-	(*(x->preset->begin()))->last_preset_name = (*pIter)->name;
+	(*(x->preset->begin()))->last_preset_name = pres->name;
 	// Now take our preset items and send them out!
-	item = (*pIter)->item;
+	item = pres->item;
 	presetItemListIterator itemIterator;
 	for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 		if ((*itemIterator)->priority)
@@ -198,22 +217,6 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 		}
 	}
 	critical_exit(0);
-}
-
-t_preset* find_preset(presetList *presetll, t_symbol* name)
-{
-	presetListIterator pIter;
-	presetItemListIterator itemIterator;
-	t_preset* p;
-	//presetList *presetll = x->preset;
-		
-	for (pIter = presetll->begin(); pIter != presetll->end(); ++pIter) {
-		p = *pIter;
-		if (p->name == name)
-			return p;
-	}
-	
-	return NULL;
 }
 
 void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
@@ -282,27 +285,36 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_preset *p1, *p2;
 	presetList *presetll = x->preset;
-	t_symbol *p1Name, *p2Name;
 	float position;
-	
+	char pnum[MAX_INT_STRING], *pid;
+
 	if (argc < 3) {
 		object_error((t_object*)x, "%s module: interpolation requires three arguments", x->attr_name);
 		return;
 	}
 
-	p1Name = atom_getsym(argv); p2Name = atom_getsym(argv+1);
 	position = atom_getfloat(argv+2);
 	
-	p1 = find_preset(presetll, p1Name);
+	p1 = find_preset(presetll, argv);
 	if (!p1) {
-		object_error((t_object*)x, "can't find preset %s", p1Name->s_name);
-		return;
+	  if (argv[0].a_type == A_SYM)
+	    pid = atom_getsym(argv)->s_name;
+	  else
+	    pid = pnum, snprintf(pnum, MAX_INT_STRING, "%ld", atom_getlong(argv));
+
+	  object_error((t_object*)x, "can't find preset %s", pid);
+	  return;
 	}
 	
-	p2 = find_preset(presetll, p2Name);
+	p2 = find_preset(presetll, argv + 1);
 	if (!p2) {
-		object_error((t_object*)x, "can't find preset %s", p2Name->s_name);
-		return;
+	  if (argv[1].a_type == A_SYM)
+	    pid = atom_getsym(argv + 1)->s_name;
+	  else
+	    pid = pnum, snprintf(pnum, MAX_INT_STRING, "%ld", atom_getlong(argv));
+
+	  object_error((t_object*)x, "can't find preset %s", pid);
+	  return;
 	}
 	
 	interpolate_presets(x, p1, p2, position);
@@ -441,22 +453,26 @@ void hub_preset_mix (t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	t_preset **plist  = (t_preset **) alloca(nmix * sizeof(t_preset *));
 	float     *mixval = (float *) alloca(nmix * sizeof(float));
 	presetList *presetll = x->preset;
-	t_symbol *pname;
+	char pnum[MAX_INT_STRING], *pid;
 	
 	if (argc != nmix * 2) {
-		object_error((t_object*)x, "%s module: preset mix requires a list of pairs of (preset name, mix value)", x->attr_name);
+		object_error((t_object*)x, "%s module: preset mix requires a list of pairs of (preset id, mix value)", x->attr_name);
 		return;
 	}
 
 	for (i = 0; i < nmix; i++)
 	{
-	    pname  = atom_getsym(argv + i*2);
+	    plist[i] = find_preset(presetll, argv + i*2);
 	    mixval[i] = atom_getfloat(argv + i*2 + 1);
-	    plist[i] = find_preset(presetll, pname);
 
 	    if (!plist[i]) {
-		object_error((t_object*)x, "can't find preset %s", pname->s_name);
-		return;
+	      if (argv[i * 2].a_type == A_SYM)
+		pid = atom_getsym(argv + i * 2)->s_name;
+	      else
+		pid = pnum, snprintf(pnum, MAX_INT_STRING, "%ld", atom_getlong(argv + i * 2));
+	      
+	      object_error((t_object*)x, "can't find preset %s", pid);
+	      return;
 	    }
 	}
 	
