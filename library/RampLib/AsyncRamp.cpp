@@ -72,9 +72,9 @@ void AsyncRamp::tick()
 		}
 		else {
 			ratio = (currentTime - startTime) / (float)ramptime;
-			functionUnit->calculate(ratio, mapped);
+			functionUnit->calculate(ratio, mapped);			
 			for (i=0; i < numValues; i++)
-				current[i] = (target[i] * mapped) + (start[i] * (1 - mapped));
+				current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		}
 		(callback)(baton, numValues, currentValue);		// send the value to the host
 	}
