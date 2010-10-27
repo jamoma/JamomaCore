@@ -21,7 +21,7 @@ void ui_preset_store_next(t_ui *x)
 	if (result != 1)
 		return;
 	
-	ui_send_viewer(x, TT("preset/store/next"), TT(text));
+	ui_viewer_send(x, TT("preset/store/next"), TT(text));
 	
 	// TODO: do we not have to free text?
 }
@@ -38,7 +38,7 @@ void ui_preset_doread(t_ui *x)
 
 	jcom_core_getfilepath(path, filename, fullpath);
 	
-	ui_send_viewer(x, TT("preset/read"), TT(fullpath));
+	ui_viewer_send(x, TT("preset/read"), TT(fullpath));
 }
 
 void ui_preset_dowrite(t_ui *x)
@@ -51,7 +51,7 @@ void ui_preset_dowrite(t_ui *x)
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
 
 	
-	snprintf(filename, MAX_FILENAME_CHARS, "%s.xml", x->modelAddress->getCString());		// Default File Name
+	snprintf(filename, MAX_FILENAME_CHARS, "%s.xml", x->address->getCString());		// Default File Name
 	saveas_promptset("Save Preset...");											// Instructional Text in the dialog
 	err = saveasdialog_extended(filename, &path, &outtype, &type, 1);			// Returns 0 if successful
 	if (err)																	// User Cancelled
@@ -68,7 +68,7 @@ void ui_preset_dowrite(t_ui *x)
 	if (path) jcom_core_getfilepath(path, filename, fullpath);
 	else strcpy(fullpath, filename);
 	
-	ui_send_viewer(x, TT("preset/write"), TT(fullpath));
+	ui_viewer_send(x, TT("preset/write"), TT(fullpath));
 }
 
 void ui_return_preset_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -84,4 +84,37 @@ void ui_return_preset_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	for (int i=0; i<argc; i++) {
 		atom_setsym(&obj->preset_names[i], atom_getsym(&argv[i]));
 	}
+}
+
+void ui_preset_interface(t_ui *x)
+{
+	char			filename[MAX_FILENAME_CHARS];
+	short			path;
+	long			type;
+	long			filetype = 'JSON';
+	t_dictionary*	d;
+	ObjectPtr		p;
+	Atom			a;
+	
+	strncpy_zero(filename, "jcom.preset_interface.maxpat", MAX_FILENAME_CHARS);
+	locatefile_extended(filename, &path, &type, &filetype, 1);
+	dictionary_read(filename, path, &d);
+	
+	atom_setobj(&a, d);
+	p = (t_object*)object_new_typed(_sym_nobox, _sym_jpatcher, 1, &a);
+	object_attr_setlong(p, _sym_locked, 1);										// start out locked
+	object_attr_setchar(p, _sym_enablehscroll, 0);								// turn off scroll bars
+	object_attr_setchar(p, _sym_enablevscroll, 0);
+	object_attr_setchar(p, _sym_openinpresentation, 1);	
+	object_attr_setchar(p, _sym_toolbarvisible, 0);	
+	object_attr_setsym(p, _sym_title, gensym("preset_interface"));		
+	object_method_parse(p, _sym_window, "constrain 5 320 179 595", NULL);
+	object_attach_byptr_register(x, p, _sym_nobox);
+	
+	object_method(p, _sym_vis);													// "vis" happens immediately, "front" is defer_lowed
+	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
+	
+	OBJ_ATTR_SYM(p, "jmod/modelname", 0, gensym((char*)x->address->getCString()));						// to use in jmod.receive etc.
+	
+	object_method(p, _sym_loadbang);
 }

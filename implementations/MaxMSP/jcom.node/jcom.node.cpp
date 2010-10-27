@@ -47,6 +47,7 @@ void		node_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void		node_build(TTPtr self, SymbolPtr address);
 
 void		node_set_panel(TTPtr self, long n);
+void		node_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 void		node_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		node_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -246,12 +247,20 @@ void node_share_context_node(TTPtr self, TTNodePtr *contextNode)
 
 void node_set_panel(TTPtr self, long n)
 {
+	Atom a;
+	atom_setlong(&a, n);
+	defer_low((ObjectPtr)self, (method)node_do_set_panel, NULL, 1, &a);
+}
+
+void node_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+{
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTObjectPtr					aData;
 	TTValue						v;
 	TTSymbolPtr					address;
 	TTNodePtr					node = NULL;
 	TTPtr						context;
+	long						n = atom_getlong(argv);
 	
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
@@ -333,7 +342,7 @@ void node_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	SymbolPtr	name;
 	TTValue		v;
 	TTSymbolPtr nodeAddress;
-	AtomPtr		a;
+	Atom		a;
 	
 	object_obex_lookup(x, _sym_pound_B, &box);
 	myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 1);
@@ -352,8 +361,8 @@ void node_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				// get absolute node address
 				x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
 				v.get(0, &nodeAddress);
-				atom_setsym(a, gensym((char*)nodeAddress->getCString()));
-				object_attr_setvalueof(o, _sym_title, 1, a);
+				atom_setsym(&a, gensym((char*)nodeAddress->getCString()));
+				object_attr_setvalueof(o, _sym_title, 1, &a);
 				object_method(o, _sym_vis);
 			}
 		}

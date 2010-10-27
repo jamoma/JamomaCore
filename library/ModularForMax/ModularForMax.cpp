@@ -405,7 +405,8 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	else if ((context == gensym("toplevel")) && (*nbLevel == 0)) {
 		
 		// add the < /, patcher > to the contextList
-		v = new TTValue(S_SEPARATOR);
+		//v = new TTValue(S_SEPARATOR);
+		v = new TTValue(TT(object_attr_getsym(patcher, _sym_name)->s_name));
 		v->append((TTPtr)patcher);
 		aContextList->append(v);
 	}
@@ -941,7 +942,7 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	
 	if (b->getSize() == 2) {
 		b->get(1, (TTPtr*)&method);
-		if (!method)
+		if (method == NULL || method == _sym_nothing)
 			return;
 		}
 	else

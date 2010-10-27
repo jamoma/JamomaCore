@@ -543,71 +543,72 @@ TTErr TTData::setValueStepsize(const TTValue& value)
 
 TTErr TTData::setType(const TTValue& value)
 {
+	TTAttributePtr valueAttribute, valueDefaultAttribute;
 	// if the new type is different
 	if (!(TTValue(mType) == value)) {
 		
 		TTValue n = value;				// use new value to protect the attribute
 		mType = value;
-
-		// Unregister mValue and mValueDefault Attribute
-		removeAttribute(kTTSym_Value);
-		removeAttribute(kTTSym_ValueDefault);
+		
+		// Get Value and ValueDefault attributes
+		this->findAttribute(kTTSym_Value, &valueAttribute);
+		this->findAttribute(kTTSym_Value, &valueDefaultAttribute);
 
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
+			valueAttribute->type = kTypeInt32;
+			valueDefaultAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
-			addAttributeWithGetterAndSetter(Value, kTypeInt32);
 			mValueDefault = TTValue(0);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
 			mRangeBounds.set(0, TTUInt16(0));
 			mRangeBounds.set(1, TTUInt16(1));
 		}
 		else if (mType == kTTSym_decimal) {
+			valueAttribute->type = kTypeFloat64;
+			valueDefaultAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
 		}
 		else if (mType == kTTSym_string) {
+			valueAttribute->type = kTypeSymbol;
+			valueDefaultAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
-			addAttributeWithGetterAndSetter(Value, kTypeSymbol);
 			mValueDefault = TTValue(kTTSymEmpty);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeSymbol);
 			mRangeBounds = kTTValNONE;
 		}
 		else if (mType == kTTSym_boolean) {
+			valueAttribute->type = kTypeBoolean;
+			valueDefaultAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
-			addAttributeWithGetterAndSetter(Value, kTypeBoolean);
 			mValueDefault = TTValue(NO);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeBoolean);
 			mRangeBounds.set(0, NO);
 			mRangeBounds.set(1, YES);
 		}
 		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
+			valueAttribute->type = kTypeFloat64;
+			valueDefaultAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
 		}
 	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
+			valueAttribute->type = kTypeNone;
+			valueDefaultAttribute->type = kTypeNone;
 			mValue = kTTValNONE;
-			addAttributeWithGetterAndSetter(Value, kTypeNone);
 			mValueDefault = kTTValNONE;
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
 			mRangeBounds = kTTValNONE;
 		}
 	//#endif // JMOD_MESSAGE
 		else {
+			valueAttribute->type = kTypeFloat64;
+			valueDefaultAttribute->type = kTypeFloat64;
 			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
 			mValue = TTValue(0.);
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds = TTValue(0., 1.);
 			return kTTErrGeneric;
 		}

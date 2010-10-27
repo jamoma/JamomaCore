@@ -167,6 +167,7 @@ TTErr TTExplorer::Explore()
 				
 				allObjectNodes.current().get(0, (TTPtr*)&aNode);
 				aNode->getOscAddress(&name, mAddress);
+				
 				mResult->append(name, kTTValNONE);
 			}
 		}
@@ -403,11 +404,16 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	// get relative address of this type of objects
 	else {
 		
-		if (o = aNode->getObject()) {
+		if (o = aNode->getObject()) { 
 			if (anExplorer->mLookfor == o->getName()) {
 				aNode->getOscAddress(&relativeAddress, anExplorer->mAddress);
 				v.append(relativeAddress);
 			}
+		}
+		// sometimes the object can be destroyed before his address
+		else if(flag == kAddressDestroyed) {
+			aNode->getOscAddress(&relativeAddress, anExplorer->mAddress);
+			v.append(relativeAddress);
 		}
 	}
 	

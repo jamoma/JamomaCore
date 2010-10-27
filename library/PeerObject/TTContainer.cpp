@@ -153,13 +153,10 @@ TTErr TTContainer::bind()
 	
 	mObjectsObserversCache  = new TTHash();
 	
-	// 1. Look for all Datas under the address into the directory with the same Context
+	// 1. Look for all nodes under the address into the directory with the same Context
 	err = mDirectory->Lookup(maddress, aNodeList, &aNode);
 	aContext = aNode->getContext();
 	
-	v.append(TT("Data"));
-	v.append(TT("Viewer"));
-	v.append(TT("Container"));
 	v.append(aContext);
 	err = mDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
 	
@@ -202,10 +199,14 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	// process the relative address
 	aNode->getOscAddress(&aRelativeAddress, maddress);
 	
-	// add Data, Viewer or Container to the cacheElement
+	// Filter NULL object
 	anObject = aNode->getObject();
+	if (!anObject)
+		return kTTErrGeneric;
+	
 	cacheElement.append((TTPtr)anObject);
 	
+	// Special case for Data : observe his value
 	// it is a Data
 	if (anObject->getName() == TT("Data")) {
 		
@@ -241,7 +242,8 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	// add NULL to the cacheElement
 	else
 		cacheElement.append(NULL);
-
+	
+	
 	// don't observe his initialisation state of message and return
 	if (service == kTTSym_message || service == kTTSym_return) {
 		// add observer to the cacheElement
@@ -292,36 +294,42 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
 	
 	if (!err) {
-		cacheElement.get(0, (TTPtr*)&anObject);
 		
-		// it is a Data
-		if (anObject->getName() == TT("Data")) {
+		// get the object using the node instead of the stored one
+		anObject = aNode->getObject();
+		
+		// Filter NULL object
+		if (anObject) {
 			
-			// delete Value observer
-			cacheElement.get(1, (TTPtr*)&aValueObserver);
+			// it is a Data
+			if (anObject->getName() == TT("Data")) {
+				
+				// delete Value observer
+				cacheElement.get(1, (TTPtr*)&aValueObserver);
+				anAttribute = NULL;
+				err = anObject->findAttribute(kTTSym_Value, &anAttribute);
+				
+				if(!err){
+					
+					err = anAttribute->unregisterObserverForNotifications(*aValueObserver);
+					
+					if(!err)
+						TTObjectRelease(&aValueObserver);
+				}
+			}
+			
+			// delete Initialized observer
+			cacheElement.get(2, (TTPtr*)&anInitObserver);
 			anAttribute = NULL;
-			err = anObject->findAttribute(kTTSym_Value, &anAttribute);
+			err = anObject->findAttribute(kTTSym_Initialized, &anAttribute);
 			
 			if(!err){
 				
-				err = anAttribute->unregisterObserverForNotifications(*aValueObserver);
+				err = anAttribute->unregisterObserverForNotifications(*anInitObserver);
 				
 				if(!err)
-					TTObjectRelease(&aValueObserver);
+					TTObjectRelease(&anInitObserver);
 			}
-		}
-		
-		// delete Initialized observer
-		cacheElement.get(2, (TTPtr*)&anInitObserver);
-		anAttribute = NULL;
-		err = anObject->findAttribute(kTTSym_Initialized, &anAttribute);
-		
-		if(!err){
-			
-			err = anAttribute->unregisterObserverForNotifications(*anInitObserver);
-			
-			if(!err)
-				TTObjectRelease(&anInitObserver);
 		}
 	}
 
@@ -885,9 +893,6 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(3, (TTPtr*)&anObserver);
 	
 	// Prepare argument
-	arg.append(TT("Data"));
-	arg.append(TT("Viewer"));
-	arg.append(TT("Container"));
 	arg.append(hisContext);
 	
 	switch (flag) {
@@ -965,27 +970,23 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 	TTValue		v;
 	TTValuePtr	av;
 	TTPtr		c, t_c, p_c;
-	TTObjectPtr o;
-	TTSymbolPtr data, viewer, container;
 	
+	// our context
 	av = (TTValuePtr)args;
-	av->get(0, &data);
-	av->get(1, &viewer);
-	av->get(2, &container);
-	av->get(3, (TTPtr*)&t_c);
+	av->get(0, (TTPtr*)&t_c);
 	
-	o = n->getObject();
+	// context of the tested node
 	c = n->getContext();
-	if (n->getParent())
-		p_c = n->getParent()->getContext();
-	else
-		return NO; // don't keep the root
 	
-	if (o && c)
-		// Keep only Data from our context or Container from the context below 
-		// To keep Containers which are not just below this Container :
-		// get the Context of his parent and compare it to our context (it should be equal...)
-		return (o->getName() == data && c == t_c) || (o->getName() == viewer && c == t_c) || (o->getName() == container && c != t_c && p_c == t_c);
-	else
-		return NO;
+	// context of the parent of the tested node
+	if (n->getParent())
+		if (n->getParent()->getName() != S_SEPARATOR)
+			p_c = n->getParent()->getContext();
+		else
+			p_c = NULL;
+	
+	// Keep only nodes from our context if they aren't under the root (p_c is NULL)
+	// if contexts are different, check also if the parent context is the same as our context
+	return (c == t_c && p_c ) || (c != t_c && p_c == t_c );
+
 }

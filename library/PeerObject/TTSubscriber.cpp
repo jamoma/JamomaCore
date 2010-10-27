@@ -67,8 +67,14 @@ mExposedAttributes(NULL)
 
 TTSubscriber::~TTSubscriber()
 {	
-	TTList		childrenList;
-	TTValue		aTempValue;
+	TTList			childrenList;
+	TTValue			aTempValue;
+	TTValue			keys;
+	TTValue			storedObject;
+	TTSymbolPtr		k, objectAddress, nameToAddress;
+	TTObjectPtr		anObject;
+	TTUInt8			i;
+	TTErr			err;
 	
 	// If node have no more child : destroy the node (except for root)
 	this->mNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
@@ -87,6 +93,48 @@ TTSubscriber::~TTSubscriber()
 	
 	if (mGetContextListCallback)
 		TTObjectRelease(TTObjectHandle(&mGetContextListCallback));
+	
+	// Clear exposed Messages
+	err = mExposedMessages->getKeys(keys);
+	if (!err) {
+		for (i=0; i<keys.getSize(); i++) {
+			
+			keys.get(i, &k);
+			mExposedMessages->lookup(k, storedObject);
+			storedObject.get(0, (TTPtr*)&anObject);
+			
+			nameToAddress = convertPublicNameInAddress(k);
+			joinOSCAddress(mNodeAddress, nameToAddress, &objectAddress);
+			
+			this->mDirectory->TTNodeRemove(objectAddress);
+			
+			if (anObject)
+				TTObjectRelease(&anObject);
+			
+			mExposedMessages->remove(k);
+		}
+	}
+	
+	// Clear exposed Attributes
+	err = mExposedAttributes->getKeys(keys);
+	if (!err) {
+		for (i=0; i<keys.getSize(); i++) {
+			
+			keys.get(i, &k);
+			mExposedAttributes->lookup(k, storedObject);
+			storedObject.get(0, (TTPtr*)&anObject);
+			
+			nameToAddress = convertPublicNameInAddress(k);
+			joinOSCAddress(mNodeAddress, nameToAddress, &objectAddress);
+			
+			this->mDirectory->TTNodeRemove(objectAddress);
+			
+			if (anObject)
+				TTObjectRelease(&anObject);
+			
+			mExposedAttributes->remove(k);
+		}
+	}
 }
 
 TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)

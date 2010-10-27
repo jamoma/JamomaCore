@@ -105,6 +105,7 @@ void view_build(TTPtr self, SymbolPtr address)
 	TTBoolean					newInstance;
 	TTSymbolPtr					nodeAddress, relativeAddress;
 	TTPtr						context;
+
 	
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, x->patcherType, &x->subscriberObject);
