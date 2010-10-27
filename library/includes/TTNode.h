@@ -137,7 +137,7 @@ public:
 		@param	from					An address from where to start the returned address in order to have a relative address */
 	TTErr			getOscAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr from = S_SEPARATOR);
 	
-	/** Get a pointer to the object binded by this node */
+	/** Get a pointer to the object binded by this node. It return also NUL when the object is not valid */
 	TTObjectPtr		getObject();
 	
 	/** Get a pointer to the context of this node */

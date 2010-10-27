@@ -25,8 +25,10 @@ TT_OBJECT_CONSTRUCTOR,
 
 	addAttribute(Name, kTypeSymbol);
 	
-	// a new TTNodeDirectory have no lifeCycleObservers
+	// create a lifeCycleObservers and protect it from multithreading access
+	// why ? because observers could disappear when they know an address is destroyed
 	this->mObservers = new TTHash();
+	this->mObservers->setThreadProtection(true);
 
 	// create a root (OSC style)
 	TTNodeCreate(S_SEPARATOR, NULL, this, &mRoot, &nodeCreated);
@@ -284,7 +286,7 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 			
 			if (!lk_selection.isEmpty()) {
 				returnedTTNodes.merge(lk_selection);
-				returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
+				returnedTTNodes.getHead().get(0, (TTPtr*)firstReturnedTTNode);
 			}
 			else
 				err = kTTErrGeneric;
@@ -355,7 +357,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 				err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode);
 				
 				if(!returnedTTNodes.isEmpty() && !n_first)
-					returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
+					returnedTTNodes.getHead().get(0, (TTPtr*)firstReturnedTTNode);
 				else if (n_first)
 					*firstReturnedTTNode = n_first;
 				
@@ -466,9 +468,10 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, co
 			lk_o->remove(v);
 		
 		// was it the last observer ?
-		if(lk_o->getSize() == 0)
+		if(lk_o->getSize() == 0) {
 			// remove the key
 			this->mObservers->remove(oscAddress);
+		}
 	}
 
 	return err;
