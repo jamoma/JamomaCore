@@ -5,7 +5,7 @@
 <title> jmod.sur.setup </title>
 <style type="text/css">
 body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 24px;	font-weight:100;	padding-top: 1em;	margin: 0;}h2 {	font-size: 18px;	font-weight:200;	margin: 0;	color: #555;	text-transform: lowercase;}h3 {	color: #888;	border-bottom: 1px solid #333;	font-size: 18px;	font-weight:100;	margin-top: 20px;	margin-bottom: 10px;	margin-left: 2%;	margin-right: 2%;}h4{	color: #333;	font-size: 14px;	font-weight: bold;	margin-bottom: 0px;	margin-left: 2%;	margin-right: 2%;}h6 {	font-size: 12px;	font-weight:100;	line-height: 1.2;	margin-right: 2%;	margin-left: 2%;}p {	font-size: 12px;	font-weight:100;	margin: 5px 2%;	padding-bottom: 1em;}ul{	margin-top:0;	padding-top:0;}li {	font-size: 12px;	font-weight:100;	margin-top: 0;	margin-left: 10px;	padding: 0em 0em 0.3em;}img {	padding: 10px 10px 0px 0px;}#jmod_header{	display: block;	margin: 0 0 40px 0;}#jmod_header img{	float: left;}.objectname {	font-size: 24px;	font-weight: bold;}.moduleName {	font-size: 2em;	background-color: #c5c5c5;	text-align: right;	vertical-align: top;	font-weight: bold;}.moduleDescription {	font-size: 1em;	background-color: #000000;	color: #c5c5c5;	text-align: right;	vertical-align: top;}.tableHeading2 {	background-color: #eee;	text-align: left;	vertical-align: top;	font-weight:bold;	font-size: 12px;}table {	border: 0px;	width: 96%;	margin-top: 10px;	margin-bottom: 10px;	margin-left: 2%;	font-size: 14px;}
-.instructionName {	font-family: 'Courier New', Courier, mono;	background-color: #edd;	vertical-align: top;}.instructionType {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDataspace {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRangeBounds {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRangeClipmode {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRampDrive {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRampFunction {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRepetitionsAllow {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDescription {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}td {	padding-right: 5px;	padding-left: 5px;}ul {	list-style-type: disc;}.patchimage {	clear: both;}.comment {	color: #6666FF;}.smallTable {	width: 400px;	border: none;}caption {	font-size: 11px;	font-style: italic;}.filepath {	font-family: 'Courier New', Courier, mono;}.instruction {	font-family: 'Courier New', Courier, mono;}
+.instructionName {	font-family: 'Courier New', Courier, mono;	background-color: #edd;	vertical-align: top;}.instructionType {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDataspace {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionDataspaceUnitNative {font-family: 'Times New Roman', Times, serif;background-color: #eee;vertical-align: top; } .instructionRangeBounds {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRangeClipmode {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRampDrive {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRampFunction {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRepetitionsAllow {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionDescription {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}td {	padding-right: 5px;	padding-left: 5px;}ul {	list-style-type: disc;}.patchimage {	clear: both;}.comment {	color: #6666FF;}.smallTable {	width: 400px;	border: none;}caption {	font-size: 11px;	font-style: italic;}.filepath {	font-family: 'Courier New', Courier, mono;}.instruction {	font-family: 'Courier New', Courier, mono;}
 </style>
 	</head>
 
@@ -21,7 +21,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<p> Module Type: <code> control </code> <br>
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
-	<p>Number of signal inlets: <code> 0 </ code> <br/>
+	<p>Number of signal inlets: <code> 0 </code> <br/>
 	Number of signal outlets: <code> 1 </code> </p>
 	<h3> Parameters </h3>
 	<table>
@@ -33,6 +33,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
 			<td> /dataspace </td>
+			<td> /dataspace/unit/native </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>
@@ -44,6 +45,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Number of channels in the set. </td>
 		<tr>
@@ -52,9 +54,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 1th voice as xyz coordinate. </td>
 		<tr>
@@ -63,9 +66,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 10th voice as xyz coordinate. </td>
 		<tr>
@@ -74,9 +78,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 11th voice as xyz coordinate. </td>
 		<tr>
@@ -85,9 +90,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 12th voice as xyz coordinate. </td>
 		<tr>
@@ -96,9 +102,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 13th voice as xyz coordinate. </td>
 		<tr>
@@ -107,9 +114,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 14th voice as xyz coordinate. </td>
 		<tr>
@@ -118,9 +126,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 15th voice as xyz coordinate. </td>
 		<tr>
@@ -129,9 +138,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 16th voice as xyz coordinate. </td>
 		<tr>
@@ -140,9 +150,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 17th voice as xyz coordinate. </td>
 		<tr>
@@ -151,9 +162,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 18th voice as xyz coordinate. </td>
 		<tr>
@@ -162,9 +174,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 19th voice as xyz coordinate. </td>
 		<tr>
@@ -173,9 +186,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 2th voice as xyz coordinate. </td>
 		<tr>
@@ -184,9 +198,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 20th voice as xyz coordinate. </td>
 		<tr>
@@ -195,9 +210,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 21th voice as xyz coordinate. </td>
 		<tr>
@@ -206,9 +222,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 22th voice as xyz coordinate. </td>
 		<tr>
@@ -217,9 +234,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 23th voice as xyz coordinate. </td>
 		<tr>
@@ -228,9 +246,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 24th voice as xyz coordinate. </td>
 		<tr>
@@ -239,9 +258,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 25th voice as xyz coordinate. </td>
 		<tr>
@@ -250,9 +270,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 26th voice as xyz coordinate. </td>
 		<tr>
@@ -261,9 +282,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 27th voice as xyz coordinate. </td>
 		<tr>
@@ -272,9 +294,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 28th voice as xyz coordinate. </td>
 		<tr>
@@ -283,9 +306,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 29th voice as xyz coordinate. </td>
 		<tr>
@@ -294,9 +318,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 3th voice as xyz coordinate. </td>
 		<tr>
@@ -305,9 +330,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 30th voice as xyz coordinate. </td>
 		<tr>
@@ -316,9 +342,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 31th voice as xyz coordinate. </td>
 		<tr>
@@ -327,9 +354,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 32th voice as xyz coordinate. </td>
 		<tr>
@@ -338,9 +366,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 4th voice as xyz coordinate. </td>
 		<tr>
@@ -349,9 +378,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 5th voice as xyz coordinate. </td>
 		<tr>
@@ -360,9 +390,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 6th voice as xyz coordinate. </td>
 		<tr>
@@ -371,9 +402,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 7th voice as xyz coordinate. </td>
 		<tr>
@@ -382,9 +414,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 8th voice as xyz coordinate. </td>
 		<tr>
@@ -393,9 +426,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Position of 9th voice as xyz coordinate. </td>
 		<tr>
@@ -407,6 +441,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Type of instances </td>
 		<tr>
@@ -418,6 +453,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
@@ -429,6 +465,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
@@ -440,6 +477,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
@@ -451,6 +489,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
@@ -462,6 +501,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		<tr>
@@ -473,6 +513,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The size of the module's UI. </td>
 		<tr>
@@ -490,6 +531,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
 			<td> /dataspace </td>
+			<td> /dataspace/unit/native </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>
@@ -498,9 +540,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 1th voice as xyz coordinate. </td>
 		<tr>
@@ -509,9 +552,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 10th voice as xyz coordinate. </td>
 		<tr>
@@ -520,9 +564,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 11th voice as xyz coordinate. </td>
 		<tr>
@@ -531,9 +576,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 12th voice as xyz coordinate. </td>
 		<tr>
@@ -542,9 +588,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 13th voice as xyz coordinate. </td>
 		<tr>
@@ -553,9 +600,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 14th voice as xyz coordinate. </td>
 		<tr>
@@ -564,9 +612,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 15th voice as xyz coordinate. </td>
 		<tr>
@@ -575,9 +624,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 16th voice as xyz coordinate. </td>
 		<tr>
@@ -586,9 +636,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 17th voice as xyz coordinate. </td>
 		<tr>
@@ -597,9 +648,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 18th voice as xyz coordinate. </td>
 		<tr>
@@ -608,9 +660,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 19th voice as xyz coordinate. </td>
 		<tr>
@@ -619,9 +672,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 2th voice as xyz coordinate. </td>
 		<tr>
@@ -630,9 +684,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 20th voice as xyz coordinate. </td>
 		<tr>
@@ -641,9 +696,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 21th voice as xyz coordinate. </td>
 		<tr>
@@ -652,9 +708,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 22th voice as xyz coordinate. </td>
 		<tr>
@@ -663,9 +720,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 23th voice as xyz coordinate. </td>
 		<tr>
@@ -674,9 +732,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 24th voice as xyz coordinate. </td>
 		<tr>
@@ -685,9 +744,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 25th voice as xyz coordinate. </td>
 		<tr>
@@ -696,9 +756,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 26th voice as xyz coordinate. </td>
 		<tr>
@@ -707,9 +768,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 27th voice as xyz coordinate. </td>
 		<tr>
@@ -718,9 +780,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 28th voice as xyz coordinate. </td>
 		<tr>
@@ -729,9 +792,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 29th voice as xyz coordinate. </td>
 		<tr>
@@ -740,9 +804,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 3th voice as xyz coordinate. </td>
 		<tr>
@@ -751,9 +816,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 30th voice as xyz coordinate. </td>
 		<tr>
@@ -762,9 +828,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 31th voice as xyz coordinate. </td>
 		<tr>
@@ -773,9 +840,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 32th voice as xyz coordinate. </td>
 		<tr>
@@ -784,9 +852,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 4th voice as xyz coordinate. </td>
 		<tr>
@@ -795,9 +864,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 5th voice as xyz coordinate. </td>
 		<tr>
@@ -806,9 +876,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 6th voice as xyz coordinate. </td>
 		<tr>
@@ -817,9 +888,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 7th voice as xyz coordinate. </td>
 		<tr>
@@ -828,9 +900,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 8th voice as xyz coordinate. </td>
 		<tr>
@@ -839,9 +912,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Alternative description of position of 9th voice as xyz coordinate. </td>
 		<tr>
@@ -853,6 +927,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
 		<tr>
@@ -864,6 +939,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Bang to send all positions </td>
 		<tr>
@@ -875,6 +951,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
@@ -886,6 +963,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> alternative description of number of channels to display. </td>
 		<tr>
@@ -897,6 +975,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> alternative description of number of channels to display. </td>
 		<tr>
@@ -908,6 +987,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Clears all presets, providing a blank slate for saving new presets. </td>
 		<tr>
@@ -919,6 +999,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
 		<tr>
@@ -930,6 +1011,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
 		<tr>
@@ -941,6 +1023,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Dump all preset names. </td>
 		<tr>
@@ -952,6 +1035,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
 		<tr>
@@ -963,6 +1047,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Post all presets to the Max window. </td>
 		<tr>
@@ -974,6 +1059,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
 		<tr>
@@ -985,6 +1071,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		<tr>
@@ -996,6 +1083,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
 		<tr>
@@ -1007,6 +1095,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store on the last recalled or stored preset </td>
 		<tr>
@@ -1018,6 +1107,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
 		<tr>
@@ -1029,6 +1119,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		<tr>
@@ -1040,8 +1131,33 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write on same xml-preset file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> radius/dec </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> change the radius of the speaker arrangement </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> radius/inc </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> change the radius of the speaker arrangement </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/internals </td>
@@ -1051,6 +1167,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
 		<tr>
@@ -1062,6 +1179,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
 		<tr>
@@ -1073,6 +1191,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		<tr>
@@ -1084,6 +1203,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
 		<tr>
@@ -1101,358 +1221,391 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
 			<td> /dataspace </td>
+			<td> /dataspace/unit/native </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.1/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 1th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.10/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 10th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.11/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 11th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.12/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 12th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.13/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 13th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.14/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 14th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.15/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 15th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.16/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 16th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.17/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 17th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.18/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 18th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.19/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 19th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.2/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 2th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.20/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 20th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.21/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 21th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.22/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 22th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.23/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 23th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.24/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 24th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.25/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 25th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.26/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 26th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.27/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 27th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.28/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 28th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.29/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 29th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.3/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 3th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.30/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 30th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.31/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 31th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.32/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 32th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.4/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 4th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.5/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 5th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.6/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 6th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.7/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 7th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.8/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 8th voice status </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.9/active </td>
-			<td class ="instructionType"> integer </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionDataspace">  </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> 9th voice status </td>
 		<tr>

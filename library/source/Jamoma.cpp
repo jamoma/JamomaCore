@@ -17,10 +17,11 @@
 
 
 // constants
-const double k_pi = 3.1415926535897932;		// pi
+/* those constants are now defined in TTElement.h 
+const double k_pi = 3.1415926535897932;		// pi 
 const double k_twopi = 6.2831853071795864;	// 2 * pi
 const double k_anti_denormal_value = 1e-18;	
-
+*/
 // statics and globals
 static long			initialized = false;
 static t_hashtab	*hash_modules = NULL;				// a hashtab of all modules (jcom.hubs) currently instantiated
@@ -277,7 +278,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	object_obex_dumpout(o, sAttrName, ac, av);
 	if (x->hub != NULL) {
 		char		s[256];
-		t_atom		a[4];
+		t_atom		*a = (t_atom *) alloca((ac + 1) * sizeof(t_atom));
 	
 		snprintf(s, 256, "%s:/%s", x->attr_name->s_name, attrName->s_name);
 		atom_setsym(a+0, SymbolGen(s));

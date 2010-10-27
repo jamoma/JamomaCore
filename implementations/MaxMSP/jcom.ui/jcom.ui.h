@@ -17,7 +17,7 @@
 #include "ModularForMax.h"			// Jamoma Modular for Max
 #include "MaxObjectTypes.h"
 #include "ext_symobject.h"
-
+#include "TTElement.h"
 
 // members
 typedef struct _ui{

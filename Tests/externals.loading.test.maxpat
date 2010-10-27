@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 296.0, 68.0, 1067.0, 689.0 ],
+		"rect" : [ -1040.0, -33.0, 1067.0, 689.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 296.0, 68.0, 1067.0, 689.0 ],
+		"defrect" : [ -1040.0, -33.0, 1067.0, 689.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -26,8 +26,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 195.0, 325.0, 272.0, 19.0 ],
-					"text" : "test.assert.equal TESTallExternalsLoadingProperly 1"
+					"patching_rect" : [ 195.0, 325.0, 329.0, 19.0 ],
+					"text" : "test.assert.equal \"TEST Modular allExternalsLoadingProperly\" 1"
 				}
 
 			}
@@ -177,7 +177,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 690.0, 430.0, 78.0, 19.0 ],
+					"patching_rect" : [ 730.0, 430.0, 78.0, 19.0 ],
 					"text" : "jcom.unfocus"
 				}
 
@@ -189,7 +189,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 690.0, 355.0, 300.0, 70.0 ],
+					"patching_rect" : [ 730.0, 355.0, 300.0, 70.0 ],
 					"text" : "/Jamoma"
 				}
 
@@ -201,7 +201,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 690.0, 330.0, 160.0, 20.0 ],
+					"patching_rect" : [ 730.0, 330.0, 160.0, 20.0 ],
 					"text" : "textslider"
 				}
 
@@ -215,7 +215,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 6,
 					"outlettype" : [ "int", "float", "float", "float", "float", "" ],
-					"patching_rect" : [ 690.0, 305.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 305.0, 100.0, 19.0 ],
 					"text" : "jcom.stats"
 				}
 
@@ -229,7 +229,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 690.0, 280.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 280.0, 100.0, 19.0 ],
 					"text" : "jcom.send~"
 				}
 
@@ -243,7 +243,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 690.0, 255.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 255.0, 100.0, 19.0 ],
 					"text" : "jcom.send"
 				}
 
@@ -257,7 +257,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 690.0, 230.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 230.0, 100.0, 19.0 ],
 					"text" : "jcom.savebang"
 				}
 
@@ -271,7 +271,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 690.0, 205.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 205.0, 100.0, 19.0 ],
 					"text" : "jcom.route"
 				}
 
@@ -285,7 +285,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 690.0, 180.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 180.0, 100.0, 19.0 ],
 					"text" : "jcom.return"
 				}
 
@@ -299,7 +299,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 690.0, 155.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 155.0, 100.0, 19.0 ],
 					"text" : "jcom.remote"
 				}
 
@@ -313,7 +313,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 690.0, 130.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 130.0, 100.0, 19.0 ],
 					"text" : "jcom.receive~"
 				}
 
@@ -327,7 +327,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 690.0, 105.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 105.0, 100.0, 19.0 ],
 					"text" : "jcom.receive"
 				}
 
@@ -341,7 +341,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 690.0, 80.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 80.0, 100.0, 19.0 ],
 					"text" : "jcom.ramp"
 				}
 
@@ -355,7 +355,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 690.0, 55.0, 100.0, 19.0 ],
+					"patching_rect" : [ 730.0, 55.0, 100.0, 19.0 ],
 					"text" : "jcom.pass"
 				}
 
@@ -363,13 +363,13 @@
 , 			{
 				"box" : 				{
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"description" : "\"\\\"\\\\\\\"This parameter should do something.\\\\\\\"\\\"\"",
+					"description" : "\"\\\"\\\\\\\"\\\\\\\\\\\\\\\"This parameter should do something.\\\\\\\\\\\\\\\"\\\\\\\"\\\"\"",
 					"id" : "obj-31",
 					"maxclass" : "jcom.paramui",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 490.0, 550.0, 144.0, 15.0 ],
+					"patching_rect" : [ 530.0, 550.0, 144.0, 15.0 ],
 					"ramp/function" : "none",
 					"text" : "my/parameter",
 					"textcolor" : [ 0.65, 0.65, 0.65, 1.0 ]
@@ -385,7 +385,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 490.0, 525.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 525.0, 100.0, 19.0 ],
 					"text" : "jcom.parameter"
 				}
 
@@ -399,7 +399,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 490.0, 500.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 500.0, 100.0, 19.0 ],
 					"text" : "jcom.out~"
 				}
 
@@ -413,7 +413,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 490.0, 475.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 475.0, 100.0, 19.0 ],
 					"text" : "jcom.out"
 				}
 
@@ -427,7 +427,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 490.0, 450.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 450.0, 100.0, 19.0 ],
 					"text" : "jcom.oscroute"
 				}
 
@@ -441,7 +441,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 490.0, 425.0, 102.0, 19.0 ],
+					"patching_rect" : [ 530.0, 425.0, 102.0, 19.0 ],
 					"text" : "jcom.oscinstance"
 				}
 
@@ -453,7 +453,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 490.0, 405.0, 100.0, 12.0 ]
+					"patching_rect" : [ 530.0, 405.0, 100.0, 12.0 ]
 				}
 
 			}
@@ -466,7 +466,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 490.0, 380.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 380.0, 100.0, 19.0 ],
 					"text" : "jcom.message"
 				}
 
@@ -477,9 +477,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-21",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 490.0, 355.0, 100.0, 19.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 530.0, 355.0, 100.0, 19.0 ],
 					"text" : "jcom.map"
 				}
 
@@ -492,7 +493,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 490.0, 330.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 330.0, 100.0, 19.0 ],
 					"text" : "jcom.loader"
 				}
 
@@ -506,7 +507,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 490.0, 280.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 280.0, 100.0, 19.0 ],
 					"text" : "jcom.in~"
 				}
 
@@ -520,7 +521,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 490.0, 305.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 305.0, 100.0, 19.0 ],
 					"text" : "jcom.init"
 				}
 
@@ -534,7 +535,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 490.0, 255.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 255.0, 100.0, 19.0 ],
 					"text" : "jcom.in"
 				}
 
@@ -548,7 +549,7 @@
 					"numinlets" : 4,
 					"numoutlets" : 5,
 					"outlettype" : [ "float", "float", "float", "float", "" ],
-					"patching_rect" : [ 490.0, 230.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 230.0, 100.0, 19.0 ],
 					"text" : "jcom.gang"
 				}
 
@@ -562,7 +563,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 490.0, 205.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 205.0, 100.0, 19.0 ],
 					"text" : "jcom.folder"
 				}
 
@@ -576,7 +577,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 490.0, 180.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 180.0, 100.0, 19.0 ],
 					"text" : "jcom.envexp"
 				}
 
@@ -590,7 +591,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "float", "float", "float", "" ],
-					"patching_rect" : [ 490.0, 155.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 155.0, 100.0, 19.0 ],
 					"text" : "jcom.delta"
 				}
 
@@ -604,7 +605,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 490.0, 130.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 130.0, 100.0, 19.0 ],
 					"text" : "jcom.dbap"
 				}
 
@@ -618,7 +619,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 490.0, 105.0, 100.0, 19.0 ],
+					"patching_rect" : [ 530.0, 105.0, 100.0, 19.0 ],
 					"text" : "jcom.dataspace"
 				}
 
@@ -632,7 +633,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 490.0, 80.0, 107.0, 19.0 ],
+					"patching_rect" : [ 530.0, 80.0, 107.0, 19.0 ],
 					"text" : "jcom.cuemanager"
 				}
 
@@ -646,7 +647,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "float", "bang", "" ],
-					"patching_rect" : [ 490.0, 55.0, 127.0, 19.0 ],
+					"patching_rect" : [ 530.0, 55.0, 127.0, 19.0 ],
 					"text" : "jcom.cubicInterpolate"
 				}
 

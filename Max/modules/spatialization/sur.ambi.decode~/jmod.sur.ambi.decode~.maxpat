@@ -275,15 +275,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 602.0, 575.0, 271.0, 19.0 ],
+					"patching_rect" : [ 602.0, 575.0, 308.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p set_multislider"
@@ -646,13 +646,13 @@
 ,
 									"patching_rect" : [ 395.0, 86.0, 85.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"fontsize" : 12.0,
+										"default_fontface" : 0,
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p setCellblock"
@@ -954,13 +954,13 @@
 ,
 					"patching_rect" : [ 488.0, 556.0, 48.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p panel"
@@ -1081,8 +1081,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 602.0, 527.0, 249.0, 43.0 ],
-					"text" : "jcom.parameter orderWeights @type array @description \"manually set weights for given number of orders.\" @repetitions/allow 0"
+					"patching_rect" : [ 602.0, 528.0, 291.0, 43.0 ],
+					"text" : "jcom.parameter orderWeights @type array @description \"manually set weights for given number of orders.\" @repetitions/allow 0 @ramp/drive scheduler"
 				}
 
 			}
@@ -1529,7 +1529,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-37", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 611.5, 425.5, 863.5, 425.5 ],
+					"midpoints" : [ 611.5, 425.5, 900.5, 425.5 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -1664,7 +1664,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-20", 2 ],
 					"hidden" : 0,
-					"midpoints" : [ 863.5, 607.0, 564.0, 607.0, 564.0, 551.0, 526.5, 551.0 ],
+					"midpoints" : [ 900.5, 607.0, 564.0, 607.0, 564.0, 551.0, 526.5, 551.0 ],
 					"source" : [ "obj-37", 1 ]
 				}
 

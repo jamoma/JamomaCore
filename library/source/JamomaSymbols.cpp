@@ -32,6 +32,8 @@ t_symbol	*jps_done,
 			*jps_string,
 			*jps_array,
 			*jps_boolean, 
+            *jps_list_int,
+            *jps_list_float,
 			*jps_none,				// this type only used by jcom.message
 			*jps_jcom_hub, 
 			*jps_feedback,
@@ -205,6 +207,8 @@ void jamomaSymbolsInit()
 	jps_string					= SymbolGen("string");
 	jps_array					= SymbolGen("array");
 	jps_boolean					= SymbolGen("boolean");
+    jps_list_int                    = SymbolGen("list_int");
+    jps_list_float                  = SymbolGen("list_float");
 	jps_none					= SymbolGen("none");			// this type only used by jcom.message
 	jps_jcom_hub					= SymbolGen("jcom.hub"); 
     jps_feedback					= SymbolGen("__feedback__");		// used for parameter feedback to the hub

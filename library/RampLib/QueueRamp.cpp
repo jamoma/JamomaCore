@@ -82,7 +82,7 @@ void QueueRamp::tick()
 			ratio = (currentTime - startTime) / (float)ramptime;
 			functionUnit->calculate(ratio, mapped);
 			for (i=0; i < numValues; i++)
-				current[i] = (target[i] * mapped) + (start[i] * (1 - mapped));
+				current[i] = start[i] + ((target[i] - start[i]) * mapped);
 			qelem_set(qelem);							// set the qelem element to run again
 		}
 		(callback)(baton, numValues, currentValue);		// send the value to the host
