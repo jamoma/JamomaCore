@@ -11,6 +11,7 @@
 
 #include "TTElement.h"
 #include "TTValue.h"
+#include "TTMutex.h"
 #if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
 #include <ext/hash_map>
 using namespace __gnu_cxx;
@@ -51,6 +52,12 @@ private:
 //	#endif
 	TTHashMap	hashMap;
 	
+	TTBoolean	mThreadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
+	TTMutexPtr	mMutex;
+	
+	void lock();
+	void unlock();
+	
 public:
 	TTHash();
 	virtual ~TTHash();
@@ -75,6 +82,11 @@ public:
 	
 	/** Return true if the hash has nothing stored in it. */
 	TTBoolean isEmpty();
+	
+	void setThreadProtection(TTBoolean threadProtection)
+	{	
+		mThreadProtection = threadProtection;
+	}
 };
 
 
