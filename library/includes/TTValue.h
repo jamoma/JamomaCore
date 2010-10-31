@@ -153,6 +153,7 @@ private:
 	
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
+	
 
 
 public:
@@ -161,6 +162,9 @@ public:
 	
 	/** Set the number of values, and allocate any needed memory. */	
 	void setSize(const TTUInt16 arg);
+	
+	/** Copy a value starting at index */
+	void copyFrom(const TTValue& newValue, TTUInt16 index);
 	
 	TTValue& operator = (const TTValue &newValue);
 

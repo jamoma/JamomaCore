@@ -235,6 +235,19 @@ void TTValue::setSize(const TTUInt16 arg)
 	}
 }
 
+void TTValue::copyFrom(const TTValue& obj, TTUInt16 index)
+{
+	TTUInt16 s = obj.getSize() - index;
+	TTPtr t = (obj.type)+index;
+	TTPtr d = (obj.data)+index;
+	
+	setSize(s);
+	memcpy(type, t, sizeof(TTDataType) * s);
+	memcpy(data, d, sizeof(DataValue) * s);
+	
+	reserved = obj.reserved;
+	stringsPresent = obj.stringsPresent;
+}
 
 void TTValue::copy(const TTValue& obj)
 {
@@ -247,12 +260,11 @@ void TTValue::copy(const TTValue& obj)
 	stringsPresent = obj.stringsPresent;
 }
 
-
 TTValue& TTValue::operator = (const TTValue &newValue)
 {
 	copy(newValue);
 	return *this;
-}	
+}
 
 
 // FLOAT32
