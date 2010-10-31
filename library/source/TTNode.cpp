@@ -132,6 +132,12 @@ TTObjectPtr		TTNode::getObject()
 	return this->mObject;
 }
 
+TTErr TTNode::setContext(TTPtr aContext)
+{
+	this->mContext = aContext;
+	return kTTErrNone;
+}
+
 TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
@@ -600,6 +606,7 @@ TTErr TTNode::setChild(TTNodePtr child)
 
 		// if not
 		if (err == kTTErrValueNotFound) {
+			
 			// add the child to the hashtab
 			ht_i->append(child->instance,child);
 

@@ -25,10 +25,14 @@ TT_OBJECT_CONSTRUCTOR,
 
 	addAttribute(Name, kTypeSymbol);
 	
+	addMessageWithArgument(dumpObservers);
+	
 	// create a lifeCycleObservers and protect it from multithreading access
 	// why ? because observers could disappear when they know an address is destroyed
 	this->mObservers = new TTHash();
 	this->mObservers->setThreadProtection(true);
+	
+	mMutex = new TTMutex(true);
 
 	// create a root (OSC style)
 	TTNodeCreate(S_SEPARATOR, NULL, this, &mRoot, &nodeCreated);
@@ -177,6 +181,9 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 
 			// add the new TTNode as a children of his parent
 			newTTNode->getParent()->setChild(newTTNode);
+			
+			// if the new TTNode have a NULL context, set the parent context
+			if (!aContext) newTTNode->setContext(newTTNode->getParent()->getContext());
 		}
 		else
 			// the new TTNode is the root : no parent
@@ -429,6 +436,9 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTSymbolPtr oscAddress, const
 	TTValuePtr o = new TTValue(observer);
 	TTListPtr lk_o;
 	
+	// enable observers protection
+	mMutex->lock();
+	
 	// is the key already exists ?
 	err = this->mObservers->lookup(oscAddress, lk);
 	
@@ -445,6 +455,9 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTSymbolPtr oscAddress, const
 		lk_o->appendUnique(o);
 	}
 	
+	// disable observers protection
+	mMutex->unlock();
+	
 	return kTTErrNone;
 }
 
@@ -453,6 +466,9 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, co
 	TTErr err;
 	TTValue lk, o, v;
 	TTListPtr lk_o;
+	
+	// enable observers protection
+	mMutex->lock();
 	
 	// is the key exists ?
 	err = this->mObservers->lookup(oscAddress, lk);
@@ -473,6 +489,9 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, co
 			this->mObservers->remove(oscAddress);
 		}
 	}
+	
+	// disable observers protection
+	mMutex->unlock();
 
 	return err;
 }
@@ -487,26 +506,29 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 	TTCallbackPtr anObserver;
 	bool foundObsv = false;
 	
-	// if there are observers in mObservers tab
-	if(this->mObservers->getSize()){
+	// if there are observers
+	if (!this->mObservers->isEmpty()) {
+		
+		// enable observers protection
+		mMutex->lock();
 		
 		this->mObservers->getKeys(hk);
 
 		// for each key of mObserver tab
-		for(i=0; i<this->mObservers->getSize(); i++){
+		for (i=0; i<hk.getSize(); i++) {
 			
 			hk.get(i,(TTSymbolPtr*)&key);
 			
 			// compare the key with the oscAddress
 			comp = compareOSCAddress(oscAddress, key);
 			
-			if((comp == kAddressEqual) || (comp == kAddressLower)){
+			if ((comp == kAddressEqual) || (comp == kAddressLower)){
 				
 				// get the Observers list
 				this->mObservers->lookup(key, lk);
 				lk.get(0,(TTPtr*)&lk_o);
 				
-				if(!lk_o->isEmpty()) {
+				if (!lk_o->isEmpty()) {
 					for (lk_o->begin(); lk_o->end(); lk_o->next()) 
 					{
 						anObserver = NULL;
@@ -524,7 +546,10 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 			}
 		}
 		
-		if(foundObsv)
+		// disable observers protection
+		mMutex->unlock();
+		
+		if (foundObsv)
 			return kTTErrNone;
 		else
 			return kTTErrGeneric;
@@ -532,6 +557,72 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 	else
 		return kTTErrGeneric;
 }
+
+TTErr TTNodeDirectory::dumpObservers(TTValue& value)
+{
+	unsigned int i, s;
+	TTValue hk, lk, vo;
+	TTValuePtr vk;
+	TTSymbolPtr key, owner;
+	TTString ownerptStr;
+	TTListPtr lk_o;
+	TTCallbackPtr anObserver;
+	
+	value.clear();
+	
+	// if there are observers in mObservers tab
+	if (!this->mObservers->isEmpty()) {
+		
+		// enable observers protection
+		mMutex->lock();
+		
+		this->mObservers->getKeys(hk);
+		
+		// for each key of mObserver tab
+		s = hk.getSize();
+		for (i=0; i<s; i++) {
+			
+			hk.get(i,(TTSymbolPtr*)&key);
+			
+			vk = new TTValue(key);
+			
+			// get the Observers list
+			this->mObservers->lookup(key, lk);
+			lk.get(0,(TTPtr*)&lk_o);
+			
+			if (!lk_o->isEmpty())
+				for (lk_o->begin(); lk_o->end(); lk_o->next()) 
+				{
+					anObserver = NULL;
+					lk_o->current().get(0, TTObjectHandle(&anObserver));
+					TT_ASSERT("TTNode observer list member is not NULL", anObserver);
+					
+					anObserver->getAttributeValue(TT("Owner"), vo);
+					vo.get(0, &owner);
+					
+					// edit a "owner (pointer)" string
+					ownerptStr = owner->getCString();
+					
+					char buf[20];
+					snprintf(buf, sizeof(char)*20, "( %p )", (TTPtr)anObserver);
+					ownerptStr += buf;
+					free(buf);
+					
+					vk->append(TT(ownerptStr.data()));
+				}
+			else
+				vk->append(TT("<empty>"));
+			
+			value.append((TTPtr)vk);
+		}
+	}
+	
+	// disable observers protection
+	mMutex->unlock();
+	
+	return kTTErrNone;
+}
+
 
 /***********************************************************************************
  *
@@ -854,7 +945,6 @@ unsigned int countSeparator(TTSymbolPtr oscAddress)
 
 TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 {
-	TTValue		v;
 	TTObjectPtr o;
 	
 	o = n->getObject();
@@ -867,7 +957,6 @@ TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 
 TTBoolean testNodeContext(TTNodePtr n, TTPtr args)
 {
-	TTValue		v;
 	TTPtr		c;
 	
 	c = n->getContext();
@@ -886,5 +975,59 @@ TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
 	aCallback->notify(v);
 	
 	return v == kTTVal1;
+}
+
+TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
+{
+	TTHashPtr		objectCriteria = (TTHashPtr)args;
+	TTHashPtr		attributeCriteria;
+	TTObjectPtr		o;
+	TTValue			v, keys, valueCriteria;
+	TTSymbolPtr		k;
+	TTBoolean		test = true;
+	
+	// if there is an object
+	if (o = n->getObject()) {
+		
+		// if objectCriteria table is empty return YES
+		// else
+		if (!objectCriteria->isEmpty()) {
+			
+			// if his type exists into the objectCriteria table
+			if (!objectCriteria->lookup(o->getName(), v)) {
+				
+				// get attributeCriteria table
+				v.get(0, (TTPtr*)&attributeCriteria);
+				
+				// if attributeCriteria table is empty return YES
+				// else
+				if (!attributeCriteria->isEmpty()) {
+					
+					// for each attribute name : test the value
+					attributeCriteria->getKeys(keys);
+					for (TTUInt16 i=0; i<keys.getSize(); i++) {
+						
+						keys.get(i, &k);
+						attributeCriteria->lookup(k, valueCriteria);
+						
+						if (!o->getAttributeValue(k, v))
+							test &= (v == valueCriteria) || (valueCriteria == kTTValNONE);
+						else
+							test = NO;
+						
+						if (!test) break;
+					}
+				}
+				
+				return test;
+			}
+			else
+				return NO;
+		}
+		else
+			return YES;
+	}
+	
+	return NO;
 }
 

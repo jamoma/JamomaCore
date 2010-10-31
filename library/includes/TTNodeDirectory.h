@@ -19,6 +19,7 @@
 #include "TTValue.h"
 #include "TTHash.h"
 #include "TTList.h"
+#include "TTMutex.h"
 
 class TTNodeDirectory;
 typedef TTNodeDirectory*	TTNodeDirectoryPtr;
@@ -75,6 +76,7 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subcl
 	TTHashPtr		mDirectory;				///< a pointer to a global hashtab which reference all osc address of the tree
 	TTHashPtr		mObservers;				///< a pointer to a hashtab which register all life cycle observers below that node
 											///< (address/relative/to/this/node, TTList of all observers below that address)
+	TTMutexPtr		mMutex;					///< a Mutex to protect the mObservers hash table.
 
 #if THE_NON_TT_WAY_OF_DOING_THINGS
 	/** Get the name of the TTNodeDirectory */
@@ -173,6 +175,8 @@ public:
 	 @return						a kTTErrGeneric if there isn't observer	*/
 	TTErr			notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
 	
+	TTErr			dumpObservers(TTValue& value);
+	
 	/** TODO :
 			:/catalog?
 			:/namespace?
@@ -252,5 +256,15 @@ TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
  @param args						A TTCallback argument
  @return							true if the TTCallback argument is replaced by kTTVal1 */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
+
+/**	An test tool : test a node using a Criteria table.
+	a Criteria table is a hash table of hash table containing <ObjectType, <AttributeName, Value>>
+		- if the Attribute hash table is empty this means any object of the given type matches the test.
+		- if a value is KTTValNone this means any value matches the test.
+	This method could be used as testFunction for the LookFor or IsThere methods.
+ @param	node						A node
+ @param args						A TTHashPtr argument
+ @return							true if the TTObject of thenode matches all criterias */
+TTBoolean TTFOUNDATION_EXPORT testNodeUsingCriteria(TTNodePtr n, TTPtr args);
 
 #endif // __TT_NODE_DIRECTORY_H__

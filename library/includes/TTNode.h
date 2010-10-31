@@ -142,6 +142,9 @@ public:
 	
 	/** Get a pointer to the context of this node */
 	TTPtr			getContext();
+	
+	/** Set the context of this node */
+	TTErr			setContext(TTPtr aContext);
 
 	/** Generate a new instance of a given child
 		@param childName		the name of a child.
