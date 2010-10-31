@@ -12,6 +12,8 @@
 #include "TTModular.h"
 
 /**	TTViewer ... TODO : an explanation
+ 
+ 
  */
 
 class TTReceiver;
@@ -19,6 +21,9 @@ typedef TTReceiver* TTReceiverPtr;
 
 class TTSender;
 typedef TTSender* TTSenderPtr;
+
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
 
 class TTMODULAR_EXPORT TTViewer : public TTObject
 {
@@ -33,7 +38,7 @@ public:
 	
 private:
 	
-	TTNodeDirectoryPtr	mDirectory;					///< the directory
+	TTApplicationPtr	mApplication;					///< the application
 	TTReceiverPtr		mReceiver;					///< the receiver which binds on our data
 	TTSenderPtr			mSender;					///< the sender which binds on our data
 	

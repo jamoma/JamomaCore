@@ -23,15 +23,15 @@ mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
 mFunctionDatas(kTTValNONE),
 mFunctionSamples(kTTValNONE),
-mDirectory(NULL),
+mApplication(NULL),
 mReceiver(NULL),
 mSender(NULL),
 mReturnValueCallback(NULL),
 mFunctionUnit(NULL),
 mValid(NO)
 {	
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTMapper is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTMapper is not NULL", mApplication);
 	
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
@@ -138,7 +138,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mInput = value;
 	
 	// Make a TTReceiver object
-	args.append(TTModularDirectory);
+	args.append(mApplication);
 	args.append(mInput);
 	args.append(kTTSym_Value);
 	
@@ -162,7 +162,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// (but if the mapper created before we give up)
-	err = mDirectory->getTTNodeForOSC(mInput, &aNode);
+	err = getDirectoryFrom(this)->getTTNodeForOSC(mInput, &aNode);
 	
 	if (!err) {
 
@@ -189,7 +189,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	mOutput = value;
 		
 	// Make a TTSender object
-	args.append(TTModularDirectory);
+	args.append(mApplication);
 	args.append(mOutput);
 	args.append(kTTSym_Value);
 	
@@ -199,7 +199,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// (but if the mapper created before we give up)
-	err = mDirectory->getTTNodeForOSC(mOutput, &aNode);
+	err = getDirectoryFrom(this)->getTTNodeForOSC(mOutput, &aNode);
 	
 	if (!err) {
 

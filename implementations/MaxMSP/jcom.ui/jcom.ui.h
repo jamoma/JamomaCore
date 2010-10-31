@@ -33,7 +33,6 @@ typedef struct _ui{
 	TTSymbolPtr			patcherType;
 	TTSymbolPtr			patcherClass;
 	TTSymbolPtr			patcherName;
-	TTSymbolPtr			viewName;
 	ObjectPtr			patcher;
 
 	t_jrgba				bgcolor;

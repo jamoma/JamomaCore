@@ -37,14 +37,14 @@ mAddress(kTTSymEmpty),
 mName(kTTSymEmpty),
 mComment(kTTSymEmpty),
 mExtra(kTTValNONE),
-mDirectory(NULL),
+mApplication(NULL),
 mTestObjectCallback(NULL),
 mToStore(NULL),
 mItemList(NULL),
 mCurrentItem(kTTSymEmpty)
 {
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTPreset is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTPreset is not NULL", mApplication);
 	
 	arguments.get(1, (TTPtr*)&mTestObjectCallback);
 	TT_ASSERT("TestObjectCallback passed to TTPreset is not NULL", mTestObjectCallback);
@@ -95,8 +95,8 @@ TTErr TTPreset::Fill()
 	Clear();
 		
 	// 1. Look for all Objects under the address into the directory
-	mDirectory->Lookup(mAddress, aNodeList, &aNode);
-	mDirectory->LookFor(&aNodeList, testNodeUsingCallback, (TTPtr)mTestObjectCallback, allObjectNodes, &aNode);
+	getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
+	getDirectoryFrom(this)->LookFor(&aNodeList, testNodeUsingCallback, (TTPtr)mTestObjectCallback, allObjectNodes, &aNode);
 	
 	// 2. Make an Item for each found object and store it at relativeAddress key.
 	for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
@@ -329,7 +329,7 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 			if (mItemList->lookup(mCurrentItem, v)) {
 				
 				joinOSCAddress(mAddress, mCurrentItem, &absAddress);
-				err = mDirectory->getTTNodeForOSC(absAddress, &aNode);
+				err = getDirectoryFrom(this)->getTTNodeForOSC(absAddress, &aNode);
 				
 				// if the address exist
 				if (!err) {

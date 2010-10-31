@@ -19,14 +19,14 @@ mType(TT("control")),
 mInitialized(NO),
 mContent(kTTValNONE),
 maddress(kTTSymEmpty),
-mDirectory(NULL),
+mApplication(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObjectsObserversCache(NULL),
 mObserver(NULL)
 {
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTContainer is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTContainer is not NULL", mApplication);
 	
 	if(arguments.getSize() == 3) {
 		arguments.get(1, (TTPtr*)&mReturnAddressCallback);
@@ -104,6 +104,18 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 					
 					// set the value attribute using a command
 					anObject->sendMessage(kTTSym_command, *valueToSend);
+					
+					// passing messages through the container
+					if (service == kTTSym_message)
+						if (mReturnAddressCallback && mReturnValueCallback) {
+							// return the address
+							v = TTValue(aRelativeAddress);
+							mReturnAddressCallback->notify(v);
+							
+							// return the value
+							mReturnValueCallback->notify(*valueToSend);
+						}
+						
 				}
 				// it is a Viewer
 				else if (anObject->getName() == TT("Viewer")) {
@@ -154,11 +166,11 @@ TTErr TTContainer::bind()
 	mObjectsObserversCache  = new TTHash();
 	
 	// 1. Look for all nodes under the address into the directory with the same Context
-	err = mDirectory->Lookup(maddress, aNodeList, &aNode);
+	err = getDirectoryFrom(this)->Lookup(maddress, aNodeList, &aNode);
 	aContext = aNode->getContext();
 	
 	v.append(aContext);
-	err = mDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
+	err = getDirectoryFrom(this)->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Data and Observer
 	for (allObjectsNodes.begin(); allObjectsNodes.end(); allObjectsNodes.next()) {
@@ -179,7 +191,7 @@ TTErr TTContainer::bind()
 	
 	mObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));		// this is usefull only to debug
 	
-	mDirectory->addObserverForNotifications(maddress, *mObserver);
+	getDirectoryFrom(this)->addObserverForNotifications(maddress, *mObserver);
 	
 	// 4. Check if all cache elements are initialized
 	isInitialized();
@@ -395,9 +407,9 @@ TTErr TTContainer::unbind()
 	}
 	
 	// stop life cycle observation
-	if (mObserver && mDirectory) {
+	if (mObserver && getDirectoryFrom(this)) {
 		
-		err = mDirectory->removeObserverForNotifications(maddress, *mObserver);
+		err = getDirectoryFrom(this)->removeObserverForNotifications(maddress, *mObserver);
 		
 		if (!err)
 			TTObjectRelease(&mObserver);
@@ -961,10 +973,6 @@ TTErr TTContainerInitializedAttributeCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-/**	
- @param	baton						..
- @param	data						..
- @return							an error code */
 TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;

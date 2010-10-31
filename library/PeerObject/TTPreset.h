@@ -14,6 +14,7 @@
 
 /**	TTPreset ... TODO : an explanation
  
+ 
  */
 
 /** Internal class to store an Object and his state <attribute, value> 
@@ -30,7 +31,8 @@ class Item
 	};
 typedef Item* ItemPtr;
 
-
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
 
 class TTMODULAR_EXPORT TTPreset : public TTObject
 {
@@ -44,7 +46,7 @@ public:
 	
 private:
 	
-	TTNodeDirectoryPtr	mDirectory;						///< the directory
+	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mTestObjectCallback;			///< a callback used to validate object storage
 	TTHashPtr			mToStore;						///< a hash table containing <objectType, all Attribute names to store>
 	TTHashPtr			mItemList;						///< a hash table containing <relativeAddress, ItemPtr>

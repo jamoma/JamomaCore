@@ -11,11 +11,10 @@
 
 void ui_data_create_all(t_ui* obj)
 {
-	TTObjectPtr			anObject;
-	TTNodePtr			viewNode, parentNode;
-	TTBoolean			newInstance;
-	TTString			viewStr, parentStr, dataStr;
-	TTValue				v;
+	TTObjectPtr		anObject;
+	TTNodePtr		viewNode, parentNode;
+	TTString		viewStr, parentStr, dataStr;
+	TTValue			v;
 	
 	jamoma_patcher_type_and_class((ObjectPtr)obj, &obj->patcherType, &obj->patcherClass);
 	
@@ -28,18 +27,6 @@ void ui_data_create_all(t_ui* obj)
 	// get the /view node
 	obj->viewSubscriber->getAttributeValue(TT("Node"), v);
 	v.get(0, (TTPtr*)&viewNode);
-	
-	// make the real view "name.instance" string
-	obj->viewSubscriber->getAttributeValue(TT("NewInstanceCreated"), newInstance);
-	viewStr = "/view";
-	if (newInstance) {
-		viewStr += ".";
-		viewStr += viewNode->getInstance()->getCString();
-	}
-	obj->viewName = TT(viewStr.data());
-	
-	// DEBUG
-	object_post((ObjectPtr)obj, "viewName : %s", obj->viewName->getCString());
 	
 	// make the name of our jview. patcher
 	parentNode = viewNode->getParent();
@@ -110,7 +97,7 @@ void ui_data_create_all(t_ui* obj)
 	anObject->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_Description, TT("Set the model address to bind"));
 	
-	// observe the entire namespace
+	// else observe the entire namespace
 	obj->nmspcExplorer->setAttributeValue(TT("Lookfor"), TT("Container"));
 	obj->nmspcExplorer->setAttributeValue(kTTSym_Address, S_SEPARATOR);
 	obj->nmspcExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -155,11 +142,13 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
 	
+	args.append(service);
+	
 	*returnedData = NULL;
 	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
 	
 	// Register data
-	joinOSCAddress(obj->viewName, name, &dataAddress);
+	joinOSCAddress(TT("/view"), name, &dataAddress);
 	jamoma_subscriber_create((ObjectPtr)obj, *returnedData, gensym((char*)dataAddress->getCString()), obj->patcherType, &aSubscriber);
 	
 	// Store data
@@ -208,7 +197,7 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -329,7 +318,7 @@ void ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr me
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -346,6 +335,8 @@ void ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr me
 void ui_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
+	TTNodePtr	patcherNode;
+	TTObjectPtr anObject;
 	TTSymbolPtr parent, name, instance, attribute, nameInstance;
 	Atom		a;
 	SymbolPtr	paramName;
@@ -357,11 +348,25 @@ void ui_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		for (long i=0; i<argc; i++) {
 			
 			paramName = atom_getsym(argv+i);
+			
+			// try to bind on the patherName
+			// (in case the jcom.ui is embedded in the jmod. patcher)
+			if (!JamomaDirectory->getTTNodeForOSC(obj->patcherName, &patcherNode))
+				if (anObject = patcherNode->getObject())
+					if (anObject->getName() == TT("Container")) {
+						// DEBUG
+						object_post((ObjectPtr)obj, "set address : %s", obj->patcherName->getCString());
+						
+						atom_setsym(&a, gensym((char*)obj->patcherName->getCString()));
+						object_attr_setvalueof(obj, gensym("address"), 1, &a);
+						
+						return;
+					}
+
+			// else if a name is equal to the patcherClass 
+			// and different of the patcherName
 			splitOSCAddress(TT(paramName->s_name), &parent, &name, &instance, &attribute);
 			mergeOSCAddress(&nameInstance, NO_PARENT, name, instance, NO_ATTRIBUTE);
-			
-			// if a name is equal to the patcherClass 
-			// and different of the patcherName
 			if (name == obj->patcherClass && nameInstance != obj->patcherName) {
 				
 				// DEBUG
@@ -416,17 +421,17 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 				preview = true;
 			else if (paramName == gensym("/mute"))
 				mute = true;
-			else if (paramName == gensym("/panel"))			// TODO : create sender (a viewer is useless)
+			else if (paramName == gensym("/model/panel"))					// TODO : create sender (a viewer is useless)
 				panel = true;
-			else if (paramName == gensym("/internals"))		// TODO : create sender (a viewer is useless)
+			else if (paramName == gensym("/model/internals"))		// TODO : create sender (a viewer is useless)
 				internals = true;
 			else if (paramName == gensym("/audio/meters/freeze"))
 				meters = true;
-			else if (paramName == gensym("/preset/store"))	// the internal TTExplorer looks for Datas (not for node like /preset)
+			else if (paramName == gensym("/preset/store"))			// the internal TTExplorer looks for Datas (not for node like /preset)
 				preset = true;
-			else if (paramName == gensym("/help"))			// TODO : create sender (a viewer is useless)
+			else if (paramName == gensym("/model/help"))			// TODO : create sender (a viewer is useless)
 				help = true;
-			else if (paramName == gensym("/reference"))		// TODO : create sender (a viewer is useless)
+			else if (paramName == gensym("/model/reference"))		// TODO : create sender (a viewer is useless)
 				ref = true;
 		}
 		
@@ -512,10 +517,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (panel != obj->has_panel) {
 			obj->has_panel = panel;
 			if (panel) 
-				ui_viewer_create(obj, &anObject, NULL, TT("panel"));
+				ui_viewer_create(obj, &anObject, NULL, TT("model/panel"));
 			else {
-				ui_viewer_destroy(obj, TT("panel"));
-				obj->hash_viewers->remove(TT("panel"));
+				ui_viewer_destroy(obj, TT("model/panel"));
+				obj->hash_viewers->remove(TT("model/panel"));
 			}
 			
 			change = true;
@@ -525,10 +530,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (internals != obj->has_internals) {
 			obj->has_internals = internals;
 			if (internals) 
-				ui_viewer_create(obj, &anObject, NULL, TT("internals"));
+				ui_viewer_create(obj, &anObject, NULL, TT("model/internals"));
 			else {
-				ui_viewer_destroy(obj, TT("internals"));
-				obj->hash_viewers->remove(TT("internals"));
+				ui_viewer_destroy(obj, TT("model/internals"));
+				obj->hash_viewers->remove(TT("model/internals"));
 			}
 			
 			change = true;
@@ -567,10 +572,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (help != obj->has_help) {
 			obj->has_help = help;
 			if (help) 
-				ui_viewer_create(obj, &anObject, NULL, TT("help"));
+				ui_viewer_create(obj, &anObject, NULL, TT("model/help"));
 			else {
-				ui_viewer_destroy(obj, TT("help"));
-				obj->hash_viewers->remove(TT("help"));
+				ui_viewer_destroy(obj, TT("model/help"));
+				obj->hash_viewers->remove(TT("model/help"));
 			}
 			
 			change = true;
@@ -580,10 +585,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (ref != obj->has_ref) {
 			obj->has_ref = ref;
 			if (ref) 
-				ui_viewer_create(obj, &anObject, NULL, TT("reference"));
+				ui_viewer_create(obj, &anObject, NULL, TT("model/reference"));
 			else {
-				ui_viewer_destroy(obj, TT("reference"));
-				obj->hash_viewers->remove(TT("reference"));
+				ui_viewer_destroy(obj, TT("model/reference"));
+				obj->hash_viewers->remove(TT("model/reference"));
 			}
 			
 			change = true;

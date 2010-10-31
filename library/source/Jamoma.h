@@ -43,6 +43,9 @@
 #include "RampLib.h"
 #include "ModularForMax.h"
 
+#define JamomaDirectory TTApplicationGetDirectory(TTObjectPtr(JamomaApplication))
+
+#define JAMOMA "Jamoma"
 #define JAMOMA_UNIT_HEIGHT 35.0
 #define JAMOMA_UNIT_WIDTH 150.0
 #define JAMOMA_MENU_FONT "Arial"
@@ -50,7 +53,6 @@
 #define JAMOMA_DEFAULT_FONT "Verdana"
 #define JAMOMA_DEFAULT_FONTSIZE 9.0
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
-
 
 extern "C" {
 

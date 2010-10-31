@@ -12,6 +12,9 @@
 #include "TTModular.h"
 #include "TTSubscriber.h"
 
+extern TTSymbolPtr			kTTSym_Jamoma;
+extern TTApplicationPtr		JamomaApplication;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -24,6 +27,8 @@ extern "C" {
 	TTErr			jamoma_directory_free(void);
 
 	/** Dump all the OSC address of the directory in the max window */
+	TTErr			jamoma_directory_dump_observers(void);
+	
 	TTErr			jamoma_directory_dump(void);
 	TTErr			jamoma_directory_dump_by_type(void);
 
@@ -150,16 +155,15 @@ extern "C" {
 	/** Look for the jview.contextPatcher above an object in order to know the address of the model it binds
 	 note : a contextPatcher is a patcher named [jview.modelName /addressToBind] 
 	 return the model address and the patcher. */
-	void			jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext);
-	long			jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr b);
-	TTBoolean		TTMODULAR_EXPORT jamoma_view_find_context(TTNodePtr n, TTPtr args);
+	//void			jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext);
+	//long			jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr b);
+	//TTBoolean		TTMODULAR_EXPORT jamoma_view_find_context(TTNodePtr n, TTPtr args);
 	
 	// Method to deal with TTExplorer
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create an explorer object */
 	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer);
-	
 
 	// Method to deal with TTDeviceManager
 	///////////////////////////////////////////////////////////////////////
@@ -176,7 +180,7 @@ extern "C" {
 	
 	
 	/** Return the value to a jcom. external */
-	void			jamoma_callback_return_value(TTPtr p_baton, TTValue& v);
+	void			jamoma_callback_return_value(TTPtr p_baton, TTValue& data);
 	
 	
 	// Tools

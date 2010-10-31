@@ -13,6 +13,7 @@
 
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Address;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_AppName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
@@ -27,6 +28,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitNative;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Description;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Destroyed;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Directory;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Freeze;
 
@@ -57,6 +59,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_send;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_TTName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Type;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Value;
@@ -68,6 +71,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ViewFreeze;
 void TTModularSymbolCacheInit()
 {
 	kTTSym_Address					= TT("Address");
+	kTTSym_AppName					= TT("AppName");
 	kTTSym_array					= TT("array");
 	
 	kTTSym_boolean					= TT("boolean");
@@ -82,6 +86,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_decimal					= TT("decimal");
 	kTTSym_Description				= TT("Description");
 	kTTSym_Destroyed				= TT("Destroyed");
+	kTTSym_Directory				= TT("Directory");
 	
 	kTTSym_Freeze					= TT("Freeze");
 	
@@ -112,6 +117,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_service					= TT("service");
 	kTTSym_string					= TT("string");
 
+	kTTSym_TTName					= TT("TTName");
 	kTTSym_Type						= TT("Type");
 	
 	kTTSym_Value					= TT("Value");

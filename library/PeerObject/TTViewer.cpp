@@ -16,13 +16,13 @@ TT_MODULAR_CONSTRUCTOR,
 mAddressMain(kTTSymEmpty),
 mAddressSub(kTTSymEmpty),
 mFreeze(NO),
-mDirectory(NULL),
+mApplication(NULL),
 mReceiver(NULL),
 mSender(NULL),
 mReturnValueCallback(NULL)
 {	
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTViewer is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTViewer is not NULL", mApplication);
 	
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
@@ -82,7 +82,7 @@ TTErr TTViewer::bind()
 	joinOSCAddress(mAddressMain, mAddressSub, &address);
 	
 	// Prepare aguments
-	args.append(TTModularDirectory);
+	args.append(mApplication);
 	args.append(address);
 	args.append(kTTSym_Value);
 	

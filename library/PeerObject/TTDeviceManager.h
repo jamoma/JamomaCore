@@ -15,17 +15,23 @@
 class TTSender;
 class TTReceiver;
 
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
+
 typedef DeviceManager* DeviceManagerPtr;
 
 /**	TTDeviceManager ... TODO : an explanation
+ 
+ 
  */
+
 class TTMODULAR_EXPORT TTDeviceManager : public TTObject
 {
 	TTCLASS_SETUP(TTDeviceManager)
 	
 public:
 	
-	TTNodeDirectoryPtr	mDirectory;
+	TTApplicationPtr	mApplication;			///< the application
 	TTSymbolPtr			mName;					///< ATTRIBUTE: the name the device manager will present to any client
 	
 	DeviceManagerPtr	mDeviceManager;

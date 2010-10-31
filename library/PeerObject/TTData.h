@@ -44,7 +44,6 @@ typedef DataspaceLib*	DataspaceLibPtr;
 
 class TTMODULAR_EXPORT TTData : public TTObject
 {
-
 	TTCLASS_SETUP(TTData)
 	
 public:

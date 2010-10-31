@@ -12,6 +12,7 @@
 #include "TTSymbol.h"
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Address;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_AppName;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
@@ -26,6 +27,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitNative;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Description;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Destroyed;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Directory;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Freeze;
 
@@ -56,6 +58,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_send;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_TTName;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Type;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Value;

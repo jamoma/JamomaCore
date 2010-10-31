@@ -20,19 +20,21 @@
 
 TTErr jamoma_directory_free(void)
 {
-	return TTObjectRelease(TTObjectHandle(&TTModularDirectory));
+	return kTTErrGeneric;//return TTObjectRelease(TTObjectHandle(&JamomaDirectory));
 }
 
 TTErr jamoma_directory_dump(void)
 {
+/*
 	unsigned int i;
 	TTValue hk;
 	TTSymbolPtr key;
 
-	if(TTModularDirectory){	
-		TTModularDirectory->getDirectory()->getKeys(hk);
 
-		for(i=0; i<TTModularDirectory->getDirectory()->getSize(); i++){
+	if(JamomaDirectory){	
+		JamomaDirectory->getDirectory()->getKeys(hk);
+
+		for(i=0; i<JamomaDirectory->getDirectory()->getSize(); i++){
 			hk.get(i,(TTSymbol**)&key);
 			post("%s",key->getCString());
 		}
@@ -40,11 +42,43 @@ TTErr jamoma_directory_dump(void)
 	}
 	
 	post("TTModularDirectory_dump : create a directory before");
+*/
+	
 	return kTTErrGeneric;
+}
+
+TTErr jamoma_directory_dump_observers(void)
+{
+	unsigned int i, j, s;
+	TTValue v;
+	TTValuePtr pv;
+	TTSymbolPtr key, owner;
+	
+	post("--- JamomaDirectory Observers ---");
+	JamomaDirectory->sendMessage(TT("dumpObservers"), v);
+	
+	s = v.getSize();
+	for (i=0; i<s; i++) {
+		
+		v.get(i,(TTPtr*)&pv);
+		pv->get(0, &key);
+		post("%s :", key->getCString());
+		
+		for (j=1; j<pv->getSize(); j++) {
+		
+			pv->get(j, &owner);
+			post("    %s", owner->getCString());
+		}
+	}
+	
+	post("----------------------------------------------");
+	
+	return kTTErrNone;
 }
 
 TTErr jamoma_directory_dump_by_type(void)
 {
+/*
 	TTList returnedTTNodes;
 	TTNodePtr firstReturnedTTNode, n_r;
 	TTSymbolPtr osc_adrs;
@@ -71,34 +105,41 @@ TTErr jamoma_directory_dump_by_type(void)
 		post("dump data error");
 	
 	return err;
+*/
+	
+	return kTTErrGeneric;
 }
 
 TTErr jamoma_directory_get_node(TTSymbolPtr address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
+/*
 	TTErr err;
 
-	if(TTModularDirectory){
-		err = TTModularDirectory->Lookup(address, returnedTTNodes, firstReturnedTTNode);
+	if(JamomaDirectory){
+		err = JamomaDirectory->Lookup(address, returnedTTNodes, firstReturnedTTNode);
 
 		return err;
 	}
 	
 	post("TTModularDirectory_get_node %s : create a directory before", address->getCString());
+*/
+	
 	return kTTErrGeneric;
 }
 
 TTErr jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
+/*
 	TTList whereToSearch;
 	TTErr err;
 	
-	if(TTModularDirectory){
+	if(JamomaDirectory){
 		
-		err = TTModularDirectory->Lookup(addressToStart, whereToSearch, firstReturnedTTNode);
+		err = JamomaDirectory->Lookup(addressToStart, whereToSearch, firstReturnedTTNode);
 		
 		if(err == kTTErrNone){
 			
-			err = TTModularDirectory->LookFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
+			err = JamomaDirectory->LookFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
 			
 			return err;
 		}
@@ -107,6 +148,7 @@ TTErr jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr 
 	}
 	
 	post("TTModularDirectory_get_node_by_type %s : create a directory before", addressToStart->getCString());
+*/
 	return kTTErrGeneric;
 }
 
@@ -243,7 +285,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	// prepare arguments
 	args.append(TTPtr(aTTObject));
 	args.append(TT(relativeAddress->s_name));
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	shareCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &shareCallback, kTTValNONE);
@@ -424,7 +466,7 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 	
 	// prepare arguments
 	
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
@@ -524,7 +566,7 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 	
 	// Make a TTSender object
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	args.append(oscAddress_noAttribute);
 	
 	// TODO : convert attribute from value/stepsize into ValueStepsize
@@ -572,7 +614,7 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 	
 	// Make a TTReceiver object
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	args.append(oscAddress_noAttribute);
 	
 	if (oscAddress_attribute != NO_ATTRIBUTE)
@@ -614,7 +656,7 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 	TTValue			attr;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	testObjectCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &testObjectCallback, kTTValNONE);
@@ -678,7 +720,7 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -705,7 +747,7 @@ TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -720,6 +762,7 @@ TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	return kTTErrNone;
 }
 
+/*
 void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext)
 {
 	AtomCount		ac = 0;
@@ -860,7 +903,8 @@ TTBoolean jamoma_view_find_context(TTNodePtr n, TTPtr args)
 	else
 		return NO;
 }
-
+ 
+*/
 
 // Method to deal with TTExplorer
 ///////////////////////////////////////////////////////////////////////
@@ -869,11 +913,11 @@ TTBoolean jamoma_view_find_context(TTNodePtr n, TTPtr args)
 TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 {
 	TTValue			args;
-	TTObjectPtr		returnValueCallback;
-	TTValuePtr		returnValueBaton;
+	TTObjectPtr		returnValueCallback, lookForCallback;
+	TTValuePtr		returnValueBaton, lookForBaton;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -888,8 +932,6 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	return kTTErrNone;
 }
 
-
-
 // Method to deal with TTDeviceManager
 ///////////////////////////////////////////////////////////////////////
 
@@ -899,7 +941,7 @@ TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *retu
 	TTValue			args;
 	
 	// Make a TTDeviceManager object
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	args.append(TT(name->s_name));
 	
 	*returnedDeviceManager = NULL;
@@ -1056,8 +1098,8 @@ TTNodePtr jamoma_context_node_get(ObjectPtr x, TTSymbolPtr contextType)
 	c.get(0, (TTPtr*)&context);
 	
 	// Is there a node with the same context
-	whereToSearch.append(TTModularDirectory->getRoot());
-	TTModularDirectory->IsThere(&whereToSearch, testNodeContext, context, &isThere, &contextNode);
+	whereToSearch.append(JamomaDirectory->getRoot());
+	JamomaDirectory->IsThere(&whereToSearch, testNodeContext, context, &isThere, &contextNode);
 	
 	return contextNode;
 }

@@ -747,7 +747,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if (x->has_panel && px.x >= x->rect_panel.x && px.x <= (x->rect_panel.x + x->rect_panel.width))
-			ui_viewer_send(x, TT("panel"), kTTValNONE);
+			ui_viewer_send(x, TT("model/panel"), kTTValNONE);
 		
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			ui_viewer_send(x, TT("preview"), TTValue(!x->is_previewing));
@@ -901,13 +901,13 @@ void ui_menu_qfn(t_ui *x)
 		; // TODO : jcom.node /getstate
 	
 	else if (item->sym == gensym("View Internal Components"))
-		ui_viewer_send(x, TT("internals"), kTTValNONE);
+		ui_viewer_send(x, TT("model/internals"), kTTValNONE);
 	
 	else if (item->sym == gensym("Open Help Patch"))
-		ui_viewer_send(x, TT("help"), kTTValNONE);
+		ui_viewer_send(x, TT("model/help"), kTTValNONE);
 	
 	else if (item->sym == gensym("Open Reference Page"))
-		ui_viewer_send(x, TT("reference"), kTTValNONE);
+		ui_viewer_send(x, TT("model/reference"), kTTValNONE);
 	
 	else	// assume the menu item is a preset name
 		ui_viewer_send(x, TT("preset/recall"), TT(item->sym->s_name));

@@ -11,17 +11,20 @@
 
 #include "TTModular.h"
 
-/*
+/** TTContainer ... TODO : an explanation
+ 
  
  */
 
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
+
 class TTMODULAR_EXPORT TTContainer : public TTObject
 {
-	
-public:
-	
 	TTCLASS_SETUP(TTContainer)
 	
+public:
+
 	TTUInt8				mPriority;						///< ATTRIBUTE: does this container have a priority over other containers ?
 	TTSymbolPtr			mDescription;					///< ATTRIBUTE: a text label to describe the role of this container
 	TTSymbolPtr			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
@@ -32,7 +35,7 @@ private:
 	
 	TTSymbolPtr			maddress;						///< ATTRIBUTE: the address of the container in the directory
 	
-	TTNodeDirectoryPtr	mDirectory;						///< the directory
+	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
 	TTHashPtr			mObjectsObserversCache;			///< a hast table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
