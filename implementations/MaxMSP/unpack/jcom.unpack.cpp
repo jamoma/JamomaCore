@@ -82,9 +82,9 @@ UnpackPtr UnpackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			return NULL;
 		}
 		
-		err = TTObjectInstantiate(TT("Callback"), (TTObjectPtr*)&self->callback, kTTValNONE);
-		self->callback->setAttributeValue(TT("Function"), TTPtr(&UnpackGraphCallback));
-		self->callback->setAttributeValue(TT("Baton"), TTPtr(self));	
+		err = TTObjectInstantiate(TT("callback"), (TTObjectPtr*)&self->callback, kTTValNONE);
+		self->callback->setAttributeValue(TT("function"), TTPtr(&UnpackGraphCallback));
+		self->callback->setAttributeValue(TT("baton"), TTPtr(self));	
 		// dynamically add a message to the callback object so that it can handle the 'dictionaryReceived' notification
 		self->callback->registerMessage(TT("dictionaryReceived"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
 		// tell the graph object that we want to watch it

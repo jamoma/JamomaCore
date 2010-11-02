@@ -126,7 +126,7 @@ MaxErr OpSetOperator(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperator = atom_getsym(argv);
-		self->graphObject->mKernel->setAttributeValue(TT("Operator"), TT(self->attrOperator->s_name));
+		self->graphObject->mKernel->setAttributeValue(TT("operator"), TT(self->attrOperator->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -136,7 +136,7 @@ MaxErr OpSetOperand(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperand = atom_getfloat(argv);
-		self->graphObject->mKernel->setAttributeValue(TT("Operand"), self->attrOperand);
+		self->graphObject->mKernel->setAttributeValue(TT("operand"), self->attrOperand);
 	}
 	return MAX_ERR_NONE;
 }

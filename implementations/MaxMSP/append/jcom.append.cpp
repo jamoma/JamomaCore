@@ -126,7 +126,7 @@ MaxErr AppendSetKey(AppendPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrKey = atom_getsym(argv);
-		self->graphObject->mKernel->setAttributeValue(TT("Key"), TT(self->attrKey->s_name));
+		self->graphObject->mKernel->setAttributeValue(TT("key"), TT(self->attrKey->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -136,7 +136,7 @@ MaxErr AppendSetValue(AppendPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrValue = atom_getsym(argv);
-		self->graphObject->mKernel->setAttributeValue(TT("Value"), TT(self->attrValue->s_name));
+		self->graphObject->mKernel->setAttributeValue(TT("value"), TT(self->attrValue->s_name));
 	}
 	return MAX_ERR_NONE;
 }
