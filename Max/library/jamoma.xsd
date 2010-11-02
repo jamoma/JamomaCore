@@ -14,6 +14,7 @@
 											<xs:attribute name="name" type="xs:string"/>
 											<xs:attribute name="type" type="xs:string"/>
 											<xs:attribute name="priority" type="xs:string"/>
+											<xs:attribute name="mixweight" type="xs:float"/>
 										</xs:extension>
 									</xs:simpleContent>
 								</xs:complexType>

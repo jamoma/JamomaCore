@@ -27,7 +27,7 @@ class SampleUnit : DataspaceUnit{
 	// note that we aren't using the SI base unit for time, because the SI base unit for time is a bit wacky
 	// we are just going to use ms because that is the native unit for Max
 	private:
-		long	sample_rate;	///< samples per second
+		//long	sample_rate;	///< samples per second
 		double	msr;			///< samples per millisecond
 		double	rmsr;			///< reciprocal of msr
 

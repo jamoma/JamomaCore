@@ -138,6 +138,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_class_attr_new(c,		"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
 	jamoma_class_attr_new(c,		"dataspace/unit/display",	_sym_symbol, (method)param_attr_setdisplayunit, (method)param_attr_getdisplayunit);
 	// the override dataspace is not exposed as an attribute
+
+	// ATTRIBUTE: mixweight - used by preset/mix message
+	jamoma_class_attr_new(c,		"mix/weight",			_sym_float32, (method)param_attr_setmixweight, (method)param_attr_getmixweight);
 	
 	// Default Attribute Order for the Inspector
 	CLASS_ATTR_ORDER(c, "name",						0, "1");
@@ -158,6 +161,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ORDER(c, "value",					0, "16");
 	CLASS_ATTR_ORDER(c, "value/default",			0, "17");
 	CLASS_ATTR_ORDER(c, "value/stepsize",			0, "18");
+	CLASS_ATTR_ORDER(c, "mix/weight",			0, "19");
 		// Finalize our class
 	class_register(_sym_box, c);
 	parameter_class = c;
@@ -211,6 +215,7 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->common.attr_name = name;
 		x->attr_ui_freeze = 0;
 		x->attr_stepsize = 1.0;
+		x->attr_mixweight = 1.0;			// default: include parameter in mix
 		x->attr_priority = 0;						// default is no priority
 		x->param_output = &param_output_generic;	// set function pointer to default
 		x->attr_dataspace = jps_none;
@@ -499,7 +504,7 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 // This function allocates memory -- caller must free it!
 void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 {
-	*count = 18;
+	*count = 19;
 	*names = (SymbolPtr*)sysmem_newptr(sizeof(SymbolPtr) * *count);
 	
 	// These should be alphabetized
@@ -522,6 +527,7 @@ void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 		*(*names+15) = gensym("value");
 		*(*names+16) = gensym("value/default");
 		*(*names+17) = gensym("value/stepsize");
+		*(*names+18) = gensym("mix/weight");
 	}
 }
 
@@ -679,6 +685,23 @@ MaxErr param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr ar
 {
 	if (argc && argv)
 		x->attr_stepsize = atom_getfloat(argv);
+	return MAX_ERR_NONE;
+}
+
+
+MaxErr param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
+	atom_setfloat(*argv, x->attr_mixweight);
+	return MAX_ERR_NONE;
+}
+
+MaxErr param_attr_setmixweight(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
+{
+	if (argc && argv)
+		x->attr_mixweight = atom_getfloat(argv);
 	return MAX_ERR_NONE;
 }
 
@@ -1042,7 +1065,7 @@ void param_dump(t_param *x)
 		memcpy(av+1, x->atom_listDefault, sizeof(Atom) * x->listDefault_size);
 		object_method_typed(x->common.hub, jps_feedback, ac, av, NULL);
 		if (ac && av)
-			free(av); //FIXME: do we have a memory leack if there is no default value defined?		
+			free(av); //FIXME: do we have a memory leak if there is no default value defined?		
 		
 		snprintf(s, 256, "%s:/value/stepsize", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
@@ -1054,6 +1077,10 @@ void param_dump(t_param *x)
 		atom_setlong(&a[1], x->attr_ui_freeze);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 				
+		snprintf(s, 256, "%s:/mix/weight", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setfloat(&a[1], x->attr_mixweight);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 	}
 }
 
@@ -1494,8 +1521,19 @@ int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
 		short type;
 		
 		for (int i = 0; i < lengthx; i++) {
-			if ((x->a_type) != (y->a_type))
-				return 0; // not identical, types differ
+			if (x->a_type != y->a_type)
+			{   // check combinations of numeric types
+			    if ((x->a_type == A_FLOAT  &&  y->a_type == A_LONG  &&
+				 x->a_w.w_float != y->a_w.w_long)  || 
+				((x->a_type == A_LONG  &&  y->a_type == A_FLOAT &&
+				  x->a_w.w_long != y->a_w.w_float)))
+			    {
+				x++; y++;  // keep going
+				continue;
+			    }
+				
+			    return 0; // not identical, types differ
+			}
 			
 			type = x->a_type;
 			if ((type == A_FLOAT) && (x->a_w.w_float != y->a_w.w_float))

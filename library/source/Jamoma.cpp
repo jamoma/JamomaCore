@@ -17,10 +17,11 @@
 
 
 // constants
-const double k_pi = 3.1415926535897932;		// pi
+/* those constants are now defined in TTElement.h 
+const double k_pi = 3.1415926535897932;		// pi 
 const double k_twopi = 6.2831853071795864;	// 2 * pi
 const double k_anti_denormal_value = 1e-18;	
-
+*/
 // statics and globals
 static long			initialized = false;
 static t_hashtab	*hash_modules = NULL;			// a hashtab of all modules (jcom.hubs) currently instantiated

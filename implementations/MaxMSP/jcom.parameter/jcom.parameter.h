@@ -47,6 +47,7 @@ typedef struct _param{
 	float			attr_stepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	long			attr_priority;				///< ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
 	long			attr_readonly;
+	float			attr_mixweight;				///< ATTRIBUTE: weight for preset/mix message
 	//	Atom			name_atom;					///< the above name, but cached as an atom for quick referencing
 	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
 	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
@@ -201,6 +202,8 @@ MaxErr	param_attr_getfreeze(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setfreeze(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getstepsize(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setmixweight(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getreadonly(t_param *x, void *attr, long *argc, AtomPtr *argv);
