@@ -499,10 +499,10 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 		r = TT(relativeAddress->s_name);
 		data.append(r);
 		
-		jamoma_ttvalue_from_Atom(v, relativeAddress, argc, argv);
+		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
 		
-		aContainer->sendMessage(kTTSym_send, data); // data is [address, [address, x, x, ,x , ...]]
+		aContainer->sendMessage(kTTSym_send, data); // data is [address, [x, x, ,x , ...]]
 		return kTTErrNone;
 	}
 	
@@ -706,6 +706,184 @@ void jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data)
 				data = kTTVal1;
 		}
 	}
+}
+
+
+// Method to deal with TTInput
+///////////////////////////////////////////////////////////////////////
+
+/**	Create an input object for any signal */
+TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number)
+{	
+	TTValue			args;
+	TTObjectPtr		signalOutCallback = NULL;
+	TTValuePtr		signalOutBaton;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	args.append(TTUInt16(number));
+	args.append(TT("anything"));
+	
+	TTObjectInstantiate(TT("Callback"), &signalOutCallback, kTTValNONE);
+	signalOutBaton = new TTValue(TTPtr(x));
+	signalOutBaton->append(TTPtr(jps_return_signal));
+	signalOutCallback->setAttributeValue(TT("Baton"), TTPtr(signalOutBaton));
+	signalOutCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(signalOutCallback);
+	
+	*returnedInput = NULL;
+	TTObjectInstantiate(TT("Input"), TTObjectHandle(returnedInput), args);
+	
+	return kTTErrNone;
+}
+
+/**	Create an input object for audio signal */
+TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long number)
+{
+	TTValue			args;
+	TTObjectPtr		signalOutCallback = NULL;
+	TTValuePtr		signalOutBaton;
+	TTAudioSignal*	audioIn = NULL;
+	TTAudioSignal*	audioOut = NULL;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	args.append(TTUInt16(number));
+	args.append(TT("audio"));
+	
+	TTObjectInstantiate(TT("Callback"), &signalOutCallback, kTTValNONE);
+	signalOutBaton = new TTValue(TTPtr(x));
+	signalOutBaton->append(TTPtr(jps_return_signal));
+	signalOutCallback->setAttributeValue(TT("Baton"), TTPtr(signalOutBaton));
+	signalOutCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(signalOutCallback);
+	
+	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, number);
+	args.append((TTPtr)audioIn);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, number);
+	args.append((TTPtr)audioOut);
+	
+	*returnedInput = NULL;
+	TTObjectInstantiate(TT("Input"), TTObjectHandle(returnedInput), args);
+	
+	return kTTErrNone;
+}
+
+/**	Send any signal to an input object */
+TTErr jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{	
+	TTValue		v;
+	
+	if (anInput) {
+		
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+		
+		anInput->sendMessage(kTTSym_send, v);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+
+// Method to deal with TTOutput
+///////////////////////////////////////////////////////////////////////
+
+/**	Create an output object for signal */
+TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number)
+{	
+	TTValue			args;
+	TTObjectPtr		signalOutCallback = NULL;
+	TTValuePtr		signalOutBaton;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	args.append(TTUInt16(number));
+	args.append(TT("anything"));
+	
+	TTObjectInstantiate(TT("Callback"), &signalOutCallback, kTTValNONE);
+	signalOutBaton = new TTValue(TTPtr(x));
+	signalOutBaton->append(TTPtr(jps_return_signal));
+	signalOutCallback->setAttributeValue(TT("Baton"), TTPtr(signalOutBaton));
+	signalOutCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(signalOutCallback);
+	
+	*returnedOutput = NULL;
+	TTObjectInstantiate(TT("Output"), TTObjectHandle(returnedOutput), args);
+	
+	return kTTErrNone;
+}
+
+/**	Create an output object for audio signal */
+TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long number)
+{
+	TTValue				args;
+	TTObjectPtr			signalOutCallback = NULL;
+	TTValuePtr			signalOutBaton;
+	TTAudioSignalPtr	audioIn = NULL;
+	TTAudioSignalPtr	audioOut = NULL;
+	TTAudioSignalPtr	audioTemp = NULL;
+	TTAudioSignalPtr	audioZero = NULL;
+	TTObjectPtr			mixUnit = NULL;
+	TTObjectPtr			gainUnit = NULL;
+	TTObjectPtr			rampMixUnit = NULL;
+	TTObjectPtr			rampGainUnit = NULL;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	args.append(TTUInt16(number));
+	args.append(TT("audio"));
+	
+	signalOutCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &signalOutCallback, kTTValNONE);
+	signalOutBaton = new TTValue(TTPtr(x));
+	signalOutBaton->append(TTPtr(jps_return_signal));
+	signalOutCallback->setAttributeValue(TT("Baton"), TTPtr(signalOutBaton));
+	signalOutCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(signalOutCallback);
+	
+	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, number);
+	args.append((TTPtr)audioIn);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, number);
+	args.append((TTPtr)audioOut);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioTemp, number);
+	args.append((TTPtr)audioTemp);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, number);
+	args.append((TTPtr)audioZero);
+	
+	TTObjectInstantiate(TT("crossfade"), &mixUnit, number);
+	mixUnit->setAttributeValue(TT("Position"), 1.0);
+	args.append((TTPtr)mixUnit);
+	
+	TTObjectInstantiate(TT("gain"), &gainUnit, number);
+	gainUnit->setAttributeValue(TT("LinearGain"), 1.0);
+	args.append((TTPtr)gainUnit);
+	
+	TTObjectInstantiate(TT("ramp"), &rampMixUnit, number);
+	args.append((TTPtr)rampMixUnit);
+	TTObjectInstantiate(TT("ramp"), &rampGainUnit, number);
+	args.append((TTPtr)rampGainUnit);
+	
+	*returnedOutput = NULL;
+	TTObjectInstantiate(TT("Output"), TTObjectHandle(returnedOutput), args);
+	
+	return kTTErrNone;
+}
+
+/**	Send any signal to an output object */
+TTErr jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{	
+	TTValue		v;
+	
+	if (anOutput) {
+		
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+		
+		anOutput->sendMessage(kTTSym_send, v);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
 }
 
 
@@ -913,8 +1091,8 @@ TTBoolean jamoma_view_find_context(TTNodePtr n, TTPtr args)
 TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 {
 	TTValue			args;
-	TTObjectPtr		returnValueCallback, lookForCallback;
-	TTValuePtr		returnValueBaton, lookForBaton;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
 	args.append(JamomaApplication);
@@ -953,14 +1131,14 @@ TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *retu
 // Method to return data
 ///////////////////////////////////////////////////////////////////////
 
-void jamoma_callback_return_address(TTPtr p_baton, TTValue& data)
+void jamoma_callback_return_address(TTPtr baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
 	TTSymbolPtr	address;
 	
 	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
+	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&x);
 	
 	// unpack data (address)
@@ -970,7 +1148,7 @@ void jamoma_callback_return_address(TTPtr p_baton, TTValue& data)
 	object_method(x, jps_return_address, SymbolGen(address->getCString()), 0, 0);
 }
 
-void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
+void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
@@ -979,7 +1157,7 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	AtomPtr		argv = NULL;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
-	b = (TTValuePtr)p_baton;
+	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&x);
 	
 	if (b->getSize() == 2) {
@@ -994,6 +1172,60 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	
 	// send data to an external using the return_value method
 	object_method(x, method, msg, argc, argv);
+	
+	sysmem_freeptr(argv);
+}
+
+/** Return any signal */
+void jamoma_callback_return_signal(TTPtr baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	TTPtr		signal;
+	long		i, argc = 0;
+	AtomPtr		argv = NULL;
+	
+	// unpack baton (a t_object*)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (signal)
+	argc = data.getSize();
+	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
+	for (i=0; i<argc; i++) {
+		data.get(i, (TTPtr*)&signal);
+		atom_setobj(argv+i, signal);
+	}
+					
+	// send signal using the return_signal method
+	object_method(x, jps_return_signal, _sym_nothing, argc, argv);
+	
+	sysmem_freeptr(argv);
+}
+
+/** Return audio signal */
+void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	TTPtr		signal;
+	long		i, argc = 0;
+	AtomPtr		argv = NULL;
+	
+	// unpack baton (a t_object*)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (signal)
+	argc = data.getSize();
+	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
+	for (i=0; i<argc; i++) {
+		data.get(i, (TTPtr*)&signal);
+		atom_setobj(argv+i, signal);
+	}
+	
+	// send signal using the return_signal method
+	object_method(x, jps_return_signal, _sym_nothing, argc, argv);
 	
 	sysmem_freeptr(argv);
 }
@@ -1047,21 +1279,32 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, A
 /** TODO : Make a TTValue from Atom array */
 void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	AtomCount	i;
+	AtomCount	i, start;
 	
-	if (msg == _sym_bang || argc == 0)
+	if (msg == _sym_bang && argc == 0)
 		v = kTTValNONE;
 	else {
+		
+		// add msg to the value
+		if (msg != _sym_nothing && msg != _sym_int && msg != _sym_float && msg != _sym_symbol && msg != _sym_list) {
+			v.setSize(argc+1);
+			v.set(0, TT(msg->s_name));
+			start = 1;
+		}
+		else {
+			v.setSize(argc);
+			start = 0;
+		}
+			
 		// convert Atom to TTValue
-		v.setSize(argc);
 		for (i=0; i<argc; i++) 
 		{
 			if (atom_gettype(argv+i) == A_LONG)
-				v.set(i, (int)atom_getlong(argv+i));
+				v.set(i+start, (int)atom_getlong(argv+i));
 			else if (atom_gettype(argv+i) == A_FLOAT)
-				v.set(i, atom_getfloat(argv+i));
+				v.set(i+start, atom_getfloat(argv+i));
 			else if (atom_gettype(argv+i) == A_SYM)
-				v.set(i, TT(atom_getsym(argv+i)->s_name));
+				v.set(i+start, TT(atom_getsym(argv+i)->s_name));
 		}
 	}
 }
@@ -1192,3 +1435,89 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 		*returnedClass = kTTSymEmpty;
 }
 
+/** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
+long jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format)
+{
+	int len, flen, pos, i_num = 1;
+	char *start_bracket = NULL;
+	char *end_bracket = NULL;
+	char *to_parse = NULL;
+	
+	if(s){
+		
+		to_parse = (char *)malloc(sizeof(char)*(strlen(s->s_name)+1));
+		
+		strcpy(to_parse,s->s_name);
+		
+		// find '[' and ']' in the instance
+		start_bracket = strrchr(to_parse,'[');
+		end_bracket = strrchr(to_parse,']');
+		
+		// if both exist, keep only what there is beetween
+		if(start_bracket && end_bracket){
+			
+			sscanf(start_bracket+1, "%d", &i_num);
+			
+			// prepare memory
+			pos = (int)start_bracket - (int)to_parse;
+			len = (int)end_bracket - (int)start_bracket;		// the lenght of the "[N]" part
+			flen = strlen(to_parse) - len + 2;					// +3 for \%d
+			*si_format = (char *)malloc(sizeof(char)*(flen+1));
+			*ss_format = (char *)malloc(sizeof(char)*(flen+1));	// only a * instead of \%d
+			
+			// edit a format string for interger
+			strncpy(*si_format, to_parse, pos);
+			(*si_format)[pos] = '\%';
+			(*si_format)[pos+1] = 'd';
+			(*si_format)[pos+2] = '\0';
+			strncat(*si_format, end_bracket+1, strlen(end_bracket));
+			(*si_format)[flen+1] = '\0';
+			
+			// edit a format string for symbol
+			strncpy(*ss_format, to_parse, pos);
+			(*ss_format)[pos] = '\%';
+			(*ss_format)[pos+1] = 's';
+			(*ss_format)[pos+2] = '\0';
+			strncat(*ss_format, end_bracket+1, strlen(end_bracket));
+			(*ss_format)[flen+1] = '\0';
+			
+			free(to_parse);
+			
+			return i_num;
+		}	
+	}
+	
+	*si_format = NULL;
+	*ss_format = NULL;
+	return NULL;	
+}
+
+/** edit a new instance of the given format address using interger */
+void jamoma_edit_numeric_instance(char* format, t_symbol **returnedName, long i)
+{
+	char *s_num;
+	long len;
+	
+	if (i > 0) {
+		len = strlen(format) + (long)trunc(log10(i)); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
+		s_num = (char *)malloc(sizeof(char)*len);
+		snprintf(s_num, len, format, i);
+		*returnedName = gensym(s_num);
+		free(s_num);
+	}
+}
+
+/** edit a new instance of the given format address using string */
+void jamoma_edit_string_instance(char* format, t_symbol **returnedName,  char* s)
+{
+	char *s_str;
+	long len;
+	
+	if (s) {
+		len = strlen(format) + strlen(s);
+		s_str = (char *)malloc(sizeof(char)*len);
+		snprintf(s_str, len, format, s);
+		*returnedName = gensym(s_str);
+		free(s_str);
+	}
+}

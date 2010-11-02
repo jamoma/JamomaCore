@@ -83,10 +83,13 @@ TTErr TTPresetManager::getNames(TTValue& value)
 {	
 	TTPresetPtr aPreset;
 	
-	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
-		mPresetList->current().get(0, (TTPtr*)&aPreset);
-		value.append(aPreset->mName);
-	}
+	if (mPresetList->isEmpty())
+		value = kTTSymEmpty;
+	else
+		for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
+			mPresetList->current().get(0, (TTPtr*)&aPreset);
+			value.append(aPreset->mName);
+		}
 	
 	return kTTErrNone;
 }

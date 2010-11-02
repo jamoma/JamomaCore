@@ -1,7 +1,6 @@
 /* 
- * TTObject to handle xml file reading and writing
- * to be able to store / recall state of an object 
- * into/from xml files.
+ * TTObject to handle application data structure
+ * like a TTNodeDirectory and a hash tables of names
  *
  * Copyright © 2010, Théo de la Hogue
  * 

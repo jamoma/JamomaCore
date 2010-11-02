@@ -139,11 +139,41 @@ extern "C" {
 	void			jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data);
 	
 	
+	
+	// Method to deal with TTInput
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create an input object for signal */
+	TTErr			jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number);
+	
+	/**	Create an input object for audio signal */
+	TTErr			jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long number);
+	
+	/**	Send any signal to an input object */
+	TTErr			jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+	
+	
+	// Method to deal with TTOutput
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create an output object for signal */
+	TTErr			jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number);
+	
+	/**	Create an output object for audio signal */
+	TTErr			jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long number);
+	
+	/**	Send any signal to an output object */
+	TTErr			jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+	
+	
+	
 	// Method to deal with TTMapper
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a mapper object */
 	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper);
+	
 	
 	
 	// Method to deal with TTViewer
@@ -176,12 +206,17 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/** Return an address to a jcom. external */
-	void			jamoma_callback_return_address(TTPtr p_baton, TTValue& data);
+	void			jamoma_callback_return_address(TTPtr baton, TTValue& data);
 	
 	
 	/** Return the value to a jcom. external */
-	void			jamoma_callback_return_value(TTPtr p_baton, TTValue& data);
+	void			jamoma_callback_return_value(TTPtr baton, TTValue& data);
 	
+	/** Return any signal */
+	void			jamoma_callback_return_signal(TTPtr baton, TTValue& data);
+	
+	/** Return audio signal */
+	void			jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data);
 	
 	// Tools
 	///////////////////////////////////////////////
@@ -201,6 +236,15 @@ extern "C" {
 	
 	/** Get the context type and class from a jcom.external looking at the patcher */
 	void			jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass);
+	
+	/** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
+	long			jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format);
+	
+	/** edit a new instance of the given format address using interger */
+	void			jamoma_edit_numeric_instance(char* format, t_symbol **returnedName, long i);
+	
+	/** edit a new instance of the given format address using string */
+	void			jamoma_edit_string_instance(char* format, t_symbol **returnedName,  char* s);
 	
 #ifdef __cplusplus
 }

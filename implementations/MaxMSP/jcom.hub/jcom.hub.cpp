@@ -53,6 +53,7 @@ void		hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -75,10 +76,11 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)hub_return_address,			"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_return_value,				"return_value",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)hub_help,						"hub_help",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)hub_help,						"hub_help",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_reference,					"hub_reference",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_internals,					"hub_internals",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_panel,						"hub_panel",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)hub_mute,						"hub_mute",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"doc_generate",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)hub_list,						"anything",				A_GIMME, 0L);
@@ -89,8 +91,9 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)hub_reference,					"reference",			0);
 	class_addmethod(c->maxClass, (method)hub_internals,					"internals",			0);
 	class_addmethod(c->maxClass, (method)hub_panel,						"panel",				0);
-	
+	class_addmethod(c->maxClass, (method)hub_mute,						"mute",					A_LONG, 0);
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"documentation/generate",A_GIMME, 0);
+	
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -116,12 +119,12 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
-	
-	// Prepare memory to store attributes
-	//x->attr_long = (long*)sysmem_newptr(sizeof(long) * 1);
 
 	// Prepare memory to store internal datas
 	x->internals = new TTHash();
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 }
 
 void hub_build(TTPtr self, SymbolPtr address)
@@ -131,7 +134,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 	TTNodePtr					node = NULL;
 	TTBoolean					newInstance;
 	TTSymbolPtr					nodeAddress, relativeAddress;
-	TTSymbolPtr					helpAdrs, refAdrs, internalsAdrs, documentationAdrs;
+	TTSymbolPtr					helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
 	TTObjectPtr					aData;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
@@ -179,18 +182,21 @@ void hub_build(TTPtr self, SymbolPtr address)
 				refAdrs = TT("/model/reference");
 				internalsAdrs = TT("/model/internals");
 				documentationAdrs = TT("/model/documentation/generate");
+				muteAdrs = TT("/model/mute");
 			}
 			else if (x->patcherType == TT("jview")) {
 				helpAdrs =  TT("/view/help");
 				refAdrs = TT("/view/reference");
 				internalsAdrs = TT("/view/internals");
 				documentationAdrs = TT("/view/documentation/generate");
+				muteAdrs = TT("/view/mute");
 			}
 			else {
 				helpAdrs =  TT("/help");
 				refAdrs = TT("/reference");
 				internalsAdrs = TT("/internals");
 				documentationAdrs = TT("/documentation/generate");
+				muteAdrs = TT("/mute");
 			}
 			
 			// Add a /help data
@@ -212,6 +218,11 @@ void hub_build(TTPtr self, SymbolPtr address)
 			makeInternals_data(x, nodeAddress, documentationAdrs, gensym("doc_generate"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
 			aData->setAttributeValue(kTTSym_Description, TT("Make a html page description"));
+			
+			// Add a /model/mute data
+			makeInternals_data(x, nodeAddress, documentationAdrs, gensym("hub_mute"), context, kTTSym_message, &aData);
+			aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
+			aData->setAttributeValue(kTTSym_Description, TT("Turned off patcher processing to save CPU"));
 			
 			// create internal TTTextHandler and expose Write message
 			aTextHandler = NULL;
@@ -459,3 +470,21 @@ void hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
+void hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	ObjectPtr					patcher = jamoma_object_getpatcher((ObjectPtr)x);
+	long						mute;
+	t_atom						a[2];
+	
+	// 'setrock' is the message that is used by pcontrol to enable patcher
+	// it was inside former jcom.in or out. Not sure for what it was used (audio mute maybe...)
+	
+	if (argc && argv)
+		if (atom_gettype(argv) == A_LONG) {
+			mute = atom_getlong(argv);
+			atom_setlong(a+0, !mute);
+			atom_setlong(a+1, 1);
+			object_method(patcher, gensym("setrock"), 2, a);
+		}
+}

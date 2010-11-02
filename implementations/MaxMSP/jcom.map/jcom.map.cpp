@@ -67,6 +67,9 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 }
 
 // Method for Assistance Messages

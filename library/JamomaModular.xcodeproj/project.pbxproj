@@ -41,6 +41,8 @@
 		224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AADF74127980AA00629B73 /* TTApplication.cpp */; };
 		D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AB7E74123FC21E00DAD340 /* TTData.cpp */; };
+		D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */; };
+		D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF8127DFBC900979D42 /* TTInput.cpp */; };
 		D2CA88101213F4740090DE41 /* ModularForMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA880E1213F4740090DE41 /* ModularForMax.cpp */; };
 		D2CA88281213F47D0090DE41 /* TTContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88121213F47D0090DE41 /* TTContainer.cpp */; };
 		D2CA88291213F47D0090DE41 /* TTDeviceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88141213F47D0090DE41 /* TTDeviceManager.cpp */; };
@@ -125,6 +127,10 @@
 		D2AADF75127980AA00629B73 /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
 		D2AB7E74123FC21E00DAD340 /* TTData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTData.cpp; sourceTree = "<group>"; };
 		D2AB7E75123FC21E00DAD340 /* TTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTData.h; sourceTree = "<group>"; };
+		D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutput.cpp; sourceTree = "<group>"; };
+		D2ADBFF7127DFBC900979D42 /* TTOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOutput.h; sourceTree = "<group>"; };
+		D2ADBFF8127DFBC900979D42 /* TTInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTInput.cpp; sourceTree = "<group>"; };
+		D2ADBFF9127DFBC900979D42 /* TTInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTInput.h; sourceTree = "<group>"; };
 		D2CA880E1213F4740090DE41 /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
 		D2CA880F1213F4740090DE41 /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModularForMax.h; sourceTree = "<group>"; };
 		D2CA88121213F47D0090DE41 /* TTContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTContainer.cpp; sourceTree = "<group>"; };
@@ -361,8 +367,12 @@
 				D2CA88141213F47D0090DE41 /* TTDeviceManager.cpp */,
 				D2CA88171213F47D0090DE41 /* TTExplorer.h */,
 				D2CA88161213F47D0090DE41 /* TTExplorer.cpp */,
+				D2ADBFF9127DFBC900979D42 /* TTInput.h */,
+				D2ADBFF8127DFBC900979D42 /* TTInput.cpp */,
 				D2CA88191213F47D0090DE41 /* TTMapper.h */,
 				D2CA88181213F47D0090DE41 /* TTMapper.cpp */,
+				D2ADBFF7127DFBC900979D42 /* TTOutput.h */,
+				D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */,
 				D2CA881D1213F47D0090DE41 /* TTPreset.h */,
 				D2CA881C1213F47D0090DE41 /* TTPreset.cpp */,
 				D2CA881F1213F47D0090DE41 /* TTPresetManager.h */,
@@ -494,6 +504,8 @@
 				D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */,
 				D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */,
 				D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */,
+				D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */,
+				D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

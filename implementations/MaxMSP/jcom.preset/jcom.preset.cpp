@@ -27,6 +27,7 @@ void		preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_default(TTPtr self);
+void		preset_dorecall_first(TTPtr self);
 
 void		preset_build(TTPtr self, SymbolPtr address);
 
@@ -79,6 +80,9 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare Internals hash to store XmlHanler and TextHandler object
 	x->internals = new TTHash();
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 }
 
 void preset_build(TTPtr self, SymbolPtr address)
@@ -373,8 +377,13 @@ void preset_default(TTPtr self)
 	
 	atom_setsym(a, gensym((char*)xmlfile.data()));
 	defer_low(self, (method)preset_doread, gensym("read/xml"), 1, a);
+	defer_low((ObjectPtr)x, (method)preset_dorecall_first, NULL, 0, 0);
+}
+
+void preset_dorecall_first(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	// TODO : defer recalling 
 	x->wrappedObject->sendMessage(TT("Recall"), kTTVal1);
 }
 

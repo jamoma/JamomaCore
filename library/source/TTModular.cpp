@@ -40,7 +40,9 @@ void TTModularInit(TTString applicationStr)
 		TTData::registerClass();
 		TTDeviceManager::registerClass();
 		TTExplorer::registerClass();
+		TTInput::registerClass();
 		TTMapper::registerClass();
+		TTOutput::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
 		TTReceiver::registerClass();

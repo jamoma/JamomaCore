@@ -109,6 +109,7 @@ t_symbol	*jps_done,
 			*jps_return_address,
 			*jps_return_extended,
 			*jps_return_value,
+			*jps_return_signal,
 			*jps_go,
 			*jps_init,
 			*jps_ATTRIBUTES,
@@ -293,6 +294,7 @@ void jamomaSymbolsInit()
 	jps_return_address				= SymbolGen("return_address");	// method call by jamoma_callback_return_address
 	jps_return_extended				= SymbolGen("return_extended");
 	jps_return_value				= SymbolGen("return_value");	// method call by jamoma_callback_return_value
+	jps_return_signal				= SymbolGen("return_signal");	// method call by jamoma_callback_return_signal
 	jps_go							= SymbolGen("go");				// method in jcom.init called by the hub
 	jps_init						= SymbolGen("/init");			// method in the hub called from jcom.init
 	jps_ATTRIBUTES					= SymbolGen("ATTRIBUTES");

@@ -57,6 +57,8 @@ public:
 	
 };
 
+typedef TTApplication* TTApplicationPtr;
+
 /**	To have a direct acces on the directory
  @param	baton						..
  @param	data						..

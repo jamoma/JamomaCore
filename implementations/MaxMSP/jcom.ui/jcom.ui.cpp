@@ -84,8 +84,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_mouseup,							"mouseup",							A_CANT, 0);
 	class_addmethod(c, (method)ui_oksize,							"oksize",							A_CANT, 0);
 	
-	class_addmethod(c, (method)ui_nmspcExplorer_callback,			"return_nmpscExploreration",		A_CANT, 0);
-	class_addmethod(c, (method)ui_modelExplorer_callback,			"return_modelExploreration",		A_CANT, 0);
+	class_addmethod(c, (method)ui_nmspcExplorer_callback,			"return_nmpscExploration",			A_CANT, 0);
+	class_addmethod(c, (method)ui_modelExplorer_callback,			"return_modelExploration",			A_CANT, 0);
+	class_addmethod(c, (method)ui_modelParamExplorer_callback,		"return_modelParamExploration",		A_CANT, 0);
+	class_addmethod(c, (method)ui_modelMessExplorer_callback,		"return_modelMessExploration",		A_CANT, 0);
+	class_addmethod(c, (method)ui_modelRetExplorer_callback,		"return_modelRetExploration",		A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_color_contentBackground,	"return_color_contentBackground",	A_CANT, 0);
 	class_addmethod(c, (method)ui_return_color_toolbarBackground,	"return_color_toolbarBackground",	A_CANT, 0);
@@ -199,8 +202,8 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->has_preview = false;
 		x->has_freeze = false;
 		
-		ui_explorer_create((ObjectPtr)x, &x->nmspcExplorer, gensym("return_nmpscExploreration"));
-		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploreration"));
+		ui_explorer_create((ObjectPtr)x, &x->nmspcExplorer, gensym("return_nmpscExploration"));
+		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploration"));
 		
 		attr_dictionary_process(x, d); 	// handle attribute args
 		
@@ -750,16 +753,16 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			ui_viewer_send(x, TT("model/panel"), kTTValNONE);
 		
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
-			ui_viewer_send(x, TT("preview"), TTValue(!x->is_previewing));
+			ui_viewer_send(x, TT("out.*/preview"), TTValue(!x->is_previewing));
 		
 		else if (x->has_freeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
-			ui_viewer_send(x, TT("freeze"), TTValue(!x->is_frozen));
+			ui_viewer_send(x, TT("out.*/freeze"), TTValue(!x->is_frozen));
 		
 		else if (x->has_bypass && px.x >= x->rect_bypass.x && px.x <= (x->rect_bypass.x + x->rect_bypass.width))
-			ui_viewer_send(x, TT("bypass"), TTValue(!x->is_bypassed));
+			ui_viewer_send(x, TT("in.*/bypass"), TTValue(!x->is_bypassed));
 		
 		else if (x->has_mute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
-			ui_viewer_send(x, TT("mute"), TTValue(!x->is_muted));
+			ui_viewer_send(x, TT("*.*/mute"), TTValue(!x->is_muted));
 		
 		else if (px.x < 100)
 			ui_refmenu_do(x, patcherview, px, modifiers);
@@ -782,12 +785,12 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	if (x->mixDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 100.0f);
-		ui_viewer_send(x, TT("mix"), TTValue(x->anchorValue));
+		ui_viewer_send(x, TT("out.*/mix"), TTValue(x->anchorValue));
 	}
 	else if (x->gainDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 127.0f);
-		ui_viewer_send(x, TT("gain"), TTValue(x->anchorValue));
+		ui_viewer_send(x, TT("out.*/gain"), TTValue(x->anchorValue));
 	}
 }
 
@@ -1057,71 +1060,53 @@ void ui_refmenu_build(t_ui *x)
 	char		tempStr[512];
 	t_linklist	*ll;
 	int			i;
+	TTValue		criteria;
 	
 	if (!x->refmenu_items)
 		return;
 	
+	// Prepare a new refmenu
 	linklist_clear(x->refmenu_items);
 	
+	// Edit refmenu title
 	if (x->address != kTTSymEmpty)
-		snprintf(tempStr, 512, "Module: %s", x->address->getCString());
+		snprintf(tempStr, 512, "Model: %s", x->address->getCString());
 	else
-		strncpy_zero(tempStr, "Module: ?", 512);
+		strncpy_zero(tempStr, "Model: ?", 512);
 	
 	item = (t_symobject *)symobject_new(gensym(tempStr));
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	ll = linklist_new();
-	// TODO : explore the namespace
-	//object_method_obj(x->obj_remote, gensym("fetchDataNamesInLinklist"), (t_object*)ll, NULL);
-	if (linklist_getsize(ll)) {
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(x->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Datas"));
-		linklist_append(x->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
-		
-		for (i=0; i<linklist_getsize(ll); i++) {
-			item = (t_symobject*)linklist_getindex(ll, i);
-			linklist_append(x->refmenu_items, item);
-		}
-	}
-	linklist_chuck(ll);
+	// Look for parameters into the model
+	ui_explorer_create((ObjectPtr)x, &x->modelParamExplorer, gensym("return_modelParamExploration"));
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_service);
+	criteria.append(kTTSym_parameter);
+	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelParamExplorer->setAttributeValue(kTTSym_Address, x->address);
+	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
 	
-	ll = linklist_new();
-	// TODO : explore the namespace
-	//object_method_obj(x->obj_remote, gensym("fetchMessageNamesInLinklist"), (t_object*)ll, NULL);
-	if (linklist_getsize(ll)) {
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(x->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Messages"));
-		linklist_append(x->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
-		
-		for (i=0; i<linklist_getsize(ll); i++) {
-			item = (t_symobject*)linklist_getindex(ll, i);
-			linklist_append(x->refmenu_items, item);
-		}
-	}
-	linklist_chuck(ll);
+	// Look for messages into the model
+	ui_explorer_create((ObjectPtr)x, &x->modelMessExplorer, gensym("return_modelMessExploration"));
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_service);
+	criteria.append(kTTSym_message);
+	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelMessExplorer->setAttributeValue(kTTSym_Address, x->address);
+	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));
 	
-	ll = linklist_new();
-	// TODO : explore the namespace
-	//object_method_obj(x->obj_remote, gensym("fetchReturnNamesInLinklist"), (t_object*)ll, NULL);
-	if (linklist_getsize(ll)) {
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(x->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Returns"));
-		linklist_append(x->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
-		
-		for (i=0; i<linklist_getsize(ll); i++) {
-			item = (t_symobject*)linklist_getindex(ll, i);
-			linklist_append(x->refmenu_items, item);
-		}
-	}
-	linklist_chuck(ll);
+	// Look for returns into the model
+	ui_explorer_create((ObjectPtr)x, &x->modelRetExplorer, gensym("return_modelRetExploration"));
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_service);
+	criteria.append(kTTSym_return);
+	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelRetExplorer->setAttributeValue(kTTSym_Address, x->address);
+	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	TTObjectRelease(TTObjectHandle(&x->modelRetExplorer));
 }
 
 void* ui_oksize(t_ui *x, t_rect *rect)

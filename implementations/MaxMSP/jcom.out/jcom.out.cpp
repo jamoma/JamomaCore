@@ -1,294 +1,475 @@
 /* 
- * jcom.out~
- * External for Jamoma: manage audio outputs for a module
- * By Tim Place, Copyright � 2006
+ * jcom.out (~) (TODO %)
+ * External for Jamoma: manage any signal outputs
+ * Copyright © 2010 by Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
+#include "TTModularClassWrapperMax.h"
 
-/*
-	The user specifies @channel_config mono or @channel_config stereo 
-	as arg to the module.  That makes the hub responsible for cleaning
-	up an unused inlets and outlets for the configuration.  
-	
-	It may also signal to the module to handle the poly differently,
-	i.e. if the algorithm should be true stereo instead of multi-mono
-	
-	This all means that we need this object to subscribe to the hub.
-*/
+#ifdef JCOM_OUT_TILDE
 
+#define info_numChannels 0
+#define info_vectorSize 1
 
-#include "Jamoma.h"
-#include "jcom.out.h"
+#endif
 
 // Constants
 const double kPollIntervalDefault = 150;	// for meters to update
 
-// Globals
-t_class*	out_class;
+// Definitions
+void		WrapTTOutputClass(WrappedClassPtr c);
+void		WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void		out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
+void		out_share_context_node(TTPtr self, TTNodePtr *contextNode);
+void		out_build(TTPtr self, long number);
+
+//TODO :	void out_register_preview(t_out *x, void *preview_object){ x->preview_object = preview_object; }
+
+#ifdef JCOM_OUT_TILDE
+t_int*		out_perform(t_int *w);
+void		out_dsp(TTPtr self, t_signal **sp, short *count);
+
+void		out_register_meter(t_out *x, int meternum, void *meter_object);
+void		out_remove_meters(t_out *x);
+void		update_meters(t_out *x);
+
+#else
+
+void		out_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		out_bang(TTPtr self);
+void		out_int(TTPtr self, long value);
+void		out_float(TTPtr self, double value);
+void		out_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		WrappedOutputClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+#endif
 
 
-/************************************************************************************/
-// Main() Function
 
-int JAMOMA_EXPORT_MAXOBJ main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
-	long 		attrflags = 0;
-	t_class 	*c;
-	t_object 	*attr = NULL;
+	ModularSpec *spec = new ModularSpec;
+	spec->_wrap = &WrapTTOutputClass;
+	spec->_new = &WrappedOutputClass_new;
+#ifndef JCOM_OUT_TILDE
+	spec->_any = &WrappedOutputClass_anything;
+#endif
 	
-	jamoma_init();
-	common_symbols_init();
-
-	// Define our class
 #ifdef JCOM_OUT_TILDE
-	c = class_new("jcom.out~",(method)out_new, (method)out_free, sizeof(t_out), (method)0L, A_GIMME, 0);
+	return wrapTTModularClassAsMaxClass(TT("Output"), "jcom.out~", NULL, spec);
 #else
-	c = class_new("jcom.out",(method)out_new, (method)out_free, sizeof(t_out), (method)0L, A_GIMME, 0);
+	return wrapTTModularClassAsMaxClass(TT("Output"), "jcom.out", NULL, spec);
 #endif
+	
+}
 
-	// Make methods accessible for our class: 
-	class_addmethod(c, (method)out_dispatched,			"dispatched",			A_GIMME, 0L);
-	class_addmethod(c, (method)out_algorithm_message,	"algorithm_message",	A_GIMME, 0L);
-	class_addmethod(c, (method)out_link_to_in_object,	"link_in", 				A_CANT, 0L);
-	class_addmethod(c, (method)out_unlink,				"unlink_in",			0L);
-	class_addmethod(c, (method)out_register_meter,		"register_meter",		A_CANT, 0L);
-	class_addmethod(c, (method)out_remove_meters,		"remove_meters",		A_CANT, 0L);
-	class_addmethod(c, (method)out_register_preview,	"register_preview",		A_CANT, 0L);
+void WrapTTOutputClass(WrappedClassPtr c)
+{
+	class_addmethod(c->maxClass, (method)out_assist,						"assist",				A_CANT, 0L);
+	
+	class_addmethod(c->maxClass, (method)out_share_context_node,			"share_context_node",	A_CANT,	0);
+	
+	//class_addmethod(c, (method)out_register_preview,						"register_preview",		A_CANT, 0L);
+	
 #ifdef JCOM_OUT_TILDE
-	class_addmethod(c, (method)out_getAudioForChannel,	"getAudioForChannel",	A_CANT, 0);
-	class_addmethod(c, (method)out_dsp,					"dsp", 					A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)out_dsp,							"dsp", 					A_GIMME, 0L);
+	//class_addmethod(c->maxClass, (method)out_remoteaudio,					"remoteaudio",			A_CANT, 0);
+	//class_addmethod(c, (method)out_getAudioForChannel,					"getAudioForChannel",	A_CANT, 0);
+	
+	//class_addmethod(c, (method)out_register_meter,						"register_meter",		A_CANT, 0L);
+	//class_addmethod(c, (method)out_remove_meters,							"remove_meters",		A_CANT, 0L);
 #else
-	class_addmethod(c, (method)out_anything,			"anything",				A_GIMME, 0L);
-	class_addmethod(c, (method)out_sendbypassedvalue,	"sendbypassedvalue",	A_CANT, 0L);
-	class_addmethod(c, (method)out_sendlastvalue,		"sendlastvalue",		A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)out_return_signal,					"return_signal",		A_CANT, 0);
+	
+	class_addmethod(c->maxClass, (method)out_bang,							"bang", 				0L);
+	class_addmethod(c->maxClass, (method)out_int,							"int", 					A_LONG, 0L);
+	class_addmethod(c->maxClass, (method)out_float,							"float", 				A_FLOAT, 0L);
+	class_addmethod(c->maxClass, (method)out_list,							"list", 				A_GIMME, 0L);
 #endif
-	class_addmethod(c, (method)out_release,				"release",				A_CANT, 0L);	// notification of hub being freed
-    class_addmethod(c, (method)out_assist,				"assist", 				A_CANT, 0L);
-
-	jcom_core_subscriber_classinit_common(c, attr);	
 		
-	// ATTRIBUTE: num_inputs
-	attr = attr_offset_new("num_outputs", _sym_long, attrflags,
-		(method)0, (method)0, calcoffset(t_out, numOutputs));
-	class_addattr(c, attr);	
-
 #ifdef JCOM_OUT_TILDE
 	// Setup our class to work with MSP
-	class_dspinit(c);
-#endif 
-
-	// Finalize our class
-	class_register(CLASS_BOX, c);
-	out_class = c;
-	return 0;
-}
-
-
-/************************************************************************************/
-// Object Life
-
-// Create
-void *out_new(t_symbol *s, long argc, t_atom *argv)
-{
-	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	t_out 		*x = (t_out *)object_alloc(out_class);
-	short 		i;
-
-	if (x) {
-		x->dumpout = outlet_new(x, NULL);
-		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
-
-		x->numOutputs =  1;
-		x->attr_preview = 0;
-		x->preview_object = NULL;
-		x->attr_bypass = 0;
-		x->attr_mute = 0;
-		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix is false
-		if (attrstart > 0) {
-			int argument = atom_getlong(argv);
-			x->numOutputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
-		}
-#ifdef JCOM_OUT_TILDE
-		if (x->numOutputs > 0)
-			dsp_setup((t_pxobject *)x, x->numOutputs);		// Create Object and Inlets
-		else
-			dsp_setup((t_pxobject *)x, 1);					// Create Object and Inlets
-			
-		x->common.ob.z_misc = Z_NO_INPLACE | Z_PUT_LAST;	// Z_PUT_LAST so that thispoly~ gets it's message properly?  		
-		for (i=0; i < (x->numOutputs); i++)
-			outlet_new((t_pxobject *)x, "signal");			// Create a signal Outlet   		
-
-		x->clock = clock_new(x, (method)update_meters);
-		x->clock_is_set = 0;
-		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, x->numOutputs);
-		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, x->numOutputs);
-		TTObjectInstantiate(kTTSym_audiosignal, &x->audioTemp, x->numOutputs);
-		TTObjectInstantiate(kTTSym_audiosignal, &x->zeroSignal, x->numOutputs);
-		
-		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numOutputs);
-		x->xfade->setAttributeValue(TT("Position"), 1.0);
-		TTObjectInstantiate(TT("gain"), &x->gain, x->numOutputs);
-		//TTObjectInstantiate(TT("limiter"), &x->gain, x->numOutputs);
-		TTObjectInstantiate(TT("ramp"), &x->ramp_gain, x->numOutputs);
-		TTObjectInstantiate(TT("ramp"), &x->ramp_xfade, x->numOutputs);
-
-//		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
-		x->gain->setAttributeValue(TT("LinearGain"), 1.0);
-#else
-		for (i=x->numOutputs-1; i >= 1; i--)
-			x->inlet[i] = proxy_new(x, i, 0L);
-		for (i=x->numOutputs-1; i >= 0; i--)
-			x->outlet[i] = outlet_new(x, 0L);
-#endif		
-		jcom_core_subscriber_new_common(&x->common, jps__jcom_out__, jps_subscribe_out);
-		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &out_subscribe);
-		
-		attr_args_process(x, argc, argv);					// handle attribute args				
-		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
-	}
-	return (x);												// Return the pointer
-}
-
-
-// deferred function for registering with the jcom.hub object
-void out_subscribe(void *z)
-{
-	long		argc;
-	t_atom		a;
-	t_atom		*argv = &a;
-	t_out		*x = (t_out *)z;
-	
-	if (x->common.hub != NULL) {
-		object_attr_getvalueof(x->common.hub, jps_name, &argc, &argv);
-		x->common.module_name = atom_getsym(argv);
-	}
-}
-
-
-// Destroy
-void out_free(t_out *x)
-{
-#ifdef JCOM_OUT_TILDE
-	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
-	freeobject((t_object *)x->clock);	// delete our clock
-	
-	TTObjectRelease(&x->audioIn);
-	TTObjectRelease(&x->audioOut);
-	TTObjectRelease(&x->audioTemp);
-	TTObjectRelease(&x->zeroSignal);
-	TTObjectRelease(&x->xfade);
-	TTObjectRelease(&x->gain);
-	TTObjectRelease(&x->ramp_gain);
-	TTObjectRelease(&x->ramp_xfade);
+	class_dspinit(c->maxClass);
 #endif
-	jcom_core_subscriber_common_free(&x->common);
-}
-
-
-// Notification that the hub no longer exists
-void out_release(t_out *x)
-{
-	short i;
 	
-	jcom_core_subscriber_hubrelease(&x->common);	
-	x->in_object = NULL;
-	for (i=0; i<MAX_NUM_CHANNELS; i++)
-		x->meter_object[i] = NULL;
-	x->num_meter_objects = 0;
-	x->preview_object = NULL;
 }
 
+void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	long						i, number = 0;
+	Atom						a;
+ 	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
+	
+	if (attrstart && argv) 
+		number = atom_getlong(argv);
+	
+	if (number < 1)
+		number = 1;
+	
+	// Create Object, Inlets and Outlets
+	
+	x->inlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * number);
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * number);
+	
+#ifdef JCOM_OUT_TILDE
+	
+	jamoma_output_create_audio((ObjectPtr)x, &x->wrappedObject, number);
+	
+	dsp_setup((t_pxobject *)x, number);	
+	x->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
+	
+	for (i=0; i < number; i++)
+		outlet_new((t_pxobject *)x, "signal");
+	
+	// x->clock = clock_new(x, (method)update_meters);
+	// x->clock_is_set = 0;
+#else
+	
+	jamoma_output_create((ObjectPtr)x, &x->wrappedObject, number);
+	
+	for (i = number-1; i >= 1; i--)
+		x->inlets[i] = proxy_new(x, i, &x->index);
+	
+	for (i = number-1; i >= 0; i--)
+		x->outlets[i] = outlet_new(x, 0L);
+#endif
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
+	
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	atom_setlong(&a, number);
+	defer_low((ObjectPtr)x, (method)out_build, NULL, 1, &a);
+}
 
-/************************************************************************************/
-// Methods bound to input/inlets
+void out_build(TTPtr self, long number)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue						v, args;
+	TTNodePtr					node = NULL;
+	TTBoolean					newInstance;
+	TTSymbolPtr					nodeAddress, relativeAddress, parentAddress;
+	TTDataPtr					aData;
+	TTPtr						context;
+	TTString					inAddress;
+	
+	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/out"), x->patcherType, &x->subscriberObject);
+	
+	// if the subscription is successful
+	if (x->subscriberObject) {
+		
+		// Is a new instance have been created ?
+		x->subscriberObject->getAttributeValue(TT("NewInstanceCreated"), v);
+		v.get(0, newInstance);
+		
+		if (newInstance) {
+			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
+			v.get(0, &relativeAddress);
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.in with the same OSC identifier (/out).  Using %s instead.", relativeAddress->getCString());
+		}
+		
+		// debug
+		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		v.get(0, &nodeAddress);
+		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
+		
+		// get the Node
+		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		v.get(0, (TTPtr*)&node);
+		
+		// attach to the patcher to be notified of his destruction
+		node->getAttributeValue(TT("Context"), v);
+		v.get(0, (TTPtr*)&context);
+		object_attach_byptr_register(x, context, _sym_box);
+		
+		// observe /parent/in address in order to link/unlink with an Input object below
+		node->getParent()->getOscAddress(&parentAddress, S_SEPARATOR);
+		inAddress = parentAddress->getCString();
+		inAddress += "/in";
+		if (node->getInstance() != NO_INSTANCE) {
+			inAddress += ".";
+			inAddress += node->getInstance()->getCString();
+		}
+		x->wrappedObject->setAttributeValue(TT("InputAddress"), TT(inAddress.data()));
+		
+		// expose attributes of TTOutput as TTData in the tree structure
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Mute"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_Description, TT("When active, this attribute turns off model's outputs."));
+		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Mix"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_decimal);
+		v = TTValue(0., 100.);
+		aData->setAttributeValue(kTTSym_RangeBounds, v);
+		v = TTValue(100.);
+		aData->setAttributeValue(kTTSym_ValueDefault, v);							// Assume 100%, so that processed signal is passed through
+		aData->setAttributeValue(kTTSym_Description, TT("Controls the wet/dry mix of the model's processing routine in percent."));
+		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Gain"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_decimal);
+		v = TTValue(0., 127.);
+		aData->setAttributeValue(kTTSym_RangeBounds, v);
+		v = TTValue(100.);
+		aData->setAttributeValue(kTTSym_ValueDefault, v);
+		aData->setAttributeValue(kTTSym_Description, TT("Set gain of model's outputs (as MIDI value by default)."));
+		
+#ifndef JCOM_IN_TILDE		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Freeze"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_Description, TT("Freezes the last state of model's outputs from the  processing algorithm."));
+#endif
+		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Preview"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_Description, TT("Turns on/off preview display of model's outputs from the  processing algorithm."));
+	}
+}
 
 // Method for Assistance Messages
-void out_assist(t_out *x, void *b, long msg, long arg, char *dst)
+void out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 {
-	if (msg==1) 	// Inlets
-		strcpy(dst, "(signal) connect to the module algorithm");
-	else if (msg==2) { // Outlets
-		if (arg < x->numOutputs) 
-			strcpy(dst, "(signal) connect to the module's outlets");
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if (msg==1)				// Inlets
+		strcpy(dst, "(signal) connect to the algorithm");
+	else if (msg==2) {		// Outlets
+		if (arg < TTOutputPtr(x->wrappedObject)->mNumber) 
+			strcpy(dst, "(signal) output of the model");
 		else 
 			strcpy(dst, "dumpout");
 	}
 }
 
-
-// messages received from jcom.hub for the algorithm
-void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
+void out_share_context_node(TTPtr self, TTNodePtr *contextNode)
 {
-	if (argc < 2)
-		return;
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue	v;
+	
+	if (x->subscriberObject) {
 		
-	if (argv->a_type == A_SYM) {
-// jamoma 0.4
-//		if ((argv->a_w.w_sym == jps_slash_audio_gain_midi) || (argv->a_w.w_sym == jps_audio_gain_midi)) {
-// jamoma 0.5
-		if ((argv->a_w.w_sym == gensym("/audio/gain")) || (argv->a_w.w_sym == gensym("audio/gain")) || (argv->a_w.w_sym == gensym("gain")) || (argv->a_w.w_sym == gensym("/gain"))) {
-			// Do gain control here...
-			// Should be that the gain change triggers a short tt_ramp to the new value
-			x->attr_gain = atom_getfloat(argv+1);	// store as midi values
-#ifdef JCOM_OUT_TILDE
-			x->gain->setAttributeValue(TT("MidiGain"), x->attr_gain);
-#endif
-		}
-		else if ((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))) {
-			x->attr_mute = atom_getlong(argv+1);
-#ifdef JCOM_OUT_TILDE
-			if (x->attr_mute)
-				x->gain->setAttributeValue(TT("LinearGain"), 0.0);
-			else 
-				x->gain->setAttributeValue(TT("MidiGain"), x->attr_gain);			
-#endif
-		}
-		else if ((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))) {
-			x->attr_bypass = atom_getlong(argv+1);
-#ifdef JCOM_OUT_TILDE
-			if (x->attr_bypass == 0)
-				x->xfade->setAttributeValue(TT("Position"), x->attr_mix * 0.01);
-			else
-				x->xfade->setAttributeValue(TT("Position"), 0.0);
-#endif
-		}
-		else if ((argv->a_w.w_sym == jps_audio_mix) || (argv->a_w.w_sym == jps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))) {
-			x->attr_mix = atom_getfloat(argv+1);
-#ifdef JCOM_OUT_TILDE
-			if (x->attr_bypass == 0)
-				x->xfade->setAttributeValue(TT("Position"), x->attr_mix * 0.01);		
-#endif
-		}
-		else if ((argv->a_w.w_sym == jps_audio_meters_freeze) || (argv->a_w.w_sym == jps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))) {
-			x->attr_defeat_meters = atom_getlong(argv+1);
-		}
-		else if ((argv->a_w.w_sym == jps_video_preview) || (argv->a_w.w_sym == jps_slash_video_preview) || (argv->a_w.w_sym == gensym("preview")) || (argv->a_w.w_sym == gensym("/preview")))
-			x->attr_preview = atom_getlong(argv+1);
+		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
+		v.get(0, TTObjectHandle(contextNode));
 	}
+	else
+		*contextNode = NULL;
 }
 
-
-void out_link_to_in_object(t_out *x, t_in *y)
+#ifndef JCOM_OUT_TILDE
+void out_bang(TTPtr self)
 {
-	x->in_object = y;
+	out_list(self, _sym_bang, 0, NULL);
 }
 
-void out_unlink(t_out *x)
+void out_int(TTPtr self, long value)
 {
-	x->in_object = NULL;
+	t_atom a;
+	
+	atom_setlong(&a, value);
+	out_list(self, _sym_int, 1, &a);
 }
 
+void out_float(TTPtr self, double value)
+{
+	t_atom a;
+	
+	atom_setfloat(&a, value);
+	out_list(self, _sym_float, 1, &a);
+}
 
+void out_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	TTOutputPtr(x->wrappedObject)->mIndex = proxy_getinlet((ObjectPtr)x);
+	jamoma_output_send((TTOutputPtr)x->wrappedObject, msg, argc, argv);
+}
+
+void WrappedOutputClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	TTOutputPtr(x->wrappedObject)->mIndex = proxy_getinlet((ObjectPtr)x);
+	jamoma_output_send((TTOutputPtr)x->wrappedObject, msg, argc, argv);
+}
+
+void out_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	long index = TTOutputPtr(x->wrappedObject)->mIndex;
+	outlet_anything(x->outlets[index], msg, argc, argv);
+}
+#endif
+
+#ifdef JCOM_OUT_TILDE
+// Perform Method - just pass the whole vector straight through
+// (the work is all done in the dsp method)
+t_int *out_perform(t_int *w)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)(w[1]);
+	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
+	TTInputPtr					anInput = anOutput->mInputObject;
+	TTUInt8						inNumCh, numChannels = 0;
+	TTUInt16					vectorSize = 0;
+	short						i, j;
+	
+	/* TODO
+	TTUInt16					n;
+	float						currentvalue = 0;
+	float						peakvalue = 0;	// values for calculating metering
+	 */
+	
+	// get numChannels and vectorSize
+	anOutput->mInfo.get(info_numChannels, numChannels);
+	anOutput->mInfo.get(info_vectorSize, vectorSize);
+	
+	// Store the input from the inlets
+	for (i=0; i < numChannels; i++) {
+		j = (i*2) + 1;
+		TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
+	}
+	
+	// if the output signal is muted
+	if (anOutput->mMute)
+		TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalZero), *TTAudioSignalPtr(anOutput->mSignalOut));
+	
+	// if input signal exists
+	else if (anInput) {
+		
+		// if input signal is bypassed
+		if (anInput->mBypass)
+			// copy input (in Temp)
+			TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
+		
+		// otherwise mix input and output signals
+		else {
+			
+			// perform bypass/mix control (in Temp)
+			anInput->mInfo.get(info_numChannels, inNumCh);
+			if (inNumCh == numChannels)
+				TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));	
+			else
+				TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
+		}
+		
+		// then perform gain control (from Temp)
+		TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
+	
+	// otherwise just perform gain control
+	} else
+		TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
+		
+	
+	// Send signal on to the outlets 
+	for (i=0; i<numChannels; i++) {
+		j = (i*2) + 1;
+		TTAudioSignalPtr(anOutput->mSignalOut)->getVector(i, vectorSize, (TTFloat32*)w[j+2]);
+		
+		/* TODO
+		// since we are already looping through the channels here, we will also do the per-channel metering here
+		if (x->attr_defeat_meters == 0 && x->num_meter_objects && !anOutput->mMute) {
+			t_float* envelope = (t_float *)(w[j+2]);
+			peakvalue = 0.0;
+			
+			n = x->vectorSize;
+			while (n--) {
+				if ((*envelope) < 0 )						// get the current sample's absolute value
+					currentvalue = -(*envelope);
+				else
+					currentvalue = *envelope;
+				
+				if (currentvalue > peakvalue) 				// if it's a new peak amplitude...
+					peakvalue = currentvalue;
+				envelope++; 								// increment pointer in the vector
+			}
+			if (peakvalue > x->peakamp[i])
+				x->peakamp[i] = peakvalue;
+		}
+		*/
+	}
+	
+	return w + ((numChannels*2)+2);
+}
+
+// DSP Method
+void out_dsp(TTPtr self, t_signal **sp, short *count)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
+	short						i, j, k=0;
+	void**						audioVectors = NULL;
+	TTUInt8						numChannels = 0;
+	TTUInt16					vectorsize = sp[0]->s_n;
+	int							sr = sp[0]->s_sr;
+	
+	anOutput->mRampGainUnit->setAttributeValue(TT("SampleRate"), sr);	// convert midi to db for tap_gain
+	anOutput->mRampMixUnit->setAttributeValue(TT("SampleRate"), sr);	// convert midi to db for tap_gain
+	
+	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((anOutput->mNumber * 2) + 1));
+	audioVectors[k] = x;
+	k++;
+	
+	for (i=0; i < anOutput->mNumber; i++) {
+		j = anOutput->mNumber + i;
+		if (count[i] || count[j]) {
+			numChannels++;
+			if (sp[i]->s_n > vectorsize)
+				vectorsize = sp[i]->s_n;
+			
+			audioVectors[k] = sp[i]->s_vec;
+			k++;
+			audioVectors[k] = sp[j]->s_vec;
+			k++;
+		}
+	}
+	
+	// keep numChannels and vectorSize
+	anOutput->mInfo.set(info_numChannels, numChannels);
+	anOutput->mInfo.set(info_vectorSize, vectorsize);
+	
+	anOutput->mSignalIn->setAttributeValue(TT("NumChannels"), numChannels);
+	anOutput->mSignalOut->setAttributeValue(TT("NumChannels"), numChannels);
+	anOutput->mSignalTemp->setAttributeValue(TT("NumChannels"), numChannels);
+	anOutput->mSignalZero->setAttributeValue(TT("NumChannels"), numChannels);
+	
+	anOutput->mSignalIn->setAttributeValue(TT("VectorSize"), vectorsize);
+	anOutput->mSignalOut->setAttributeValue(TT("VectorSize"), vectorsize);
+	anOutput->mSignalTemp->setAttributeValue(TT("VectorSize"), vectorsize);
+	anOutput->mSignalZero->setAttributeValue(TT("VectorSize"), vectorsize);
+	
+	//audioIn will be set in the perform method
+	anOutput->mSignalOut->sendMessage(TT("alloc"));
+	anOutput->mSignalTemp->sendMessage(TT("alloc"));
+	anOutput->mSignalZero->sendMessage(TT("alloc"));
+	anOutput->mSignalZero->sendMessage(TT("Clear"));
+	
+	dsp_addv(out_perform, k, audioVectors);
+	sysmem_freeptr(audioVectors);
+	
+	/* TODO
+	// start the meters
+	if (x->num_meter_objects) {
+		for (i=0; i<MAX_NUM_CHANNELS; i++)
+			x->peakamp[i] = 0;
+		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
+	}
+	 */
+	
+}
+ 
+/* TODO
 void out_register_meter(t_out *x, int meternum, void *meter_object)
 {
 	x->meter_object[meternum] = meter_object;
 	if ((meternum+1) > x->num_meter_objects)
 		x->num_meter_objects = meternum+1;
 }
-
 
 void out_remove_meters(t_out *x)
 {
@@ -297,61 +478,6 @@ void out_remove_meters(t_out *x)
 		x->meter_object[i] = NULL;
 	x->num_meter_objects = 0;
 }
-
-
-void out_register_preview(t_out *x, void *preview_object)
-{
-	x->preview_object = preview_object;
-}
-
-
-// messages received from jcom.hub
-void out_dispatched(t_out *x, t_symbol *msg, long argc, t_atom *argv)
-{
-	;
-}
-
-
-// messages received from jcom.in
-void out_sendbypassedvalue(t_out *x, short inletnum, t_symbol *msg, long argc, t_atom *argv)
-{
-	if (inletnum < x->numOutputs)
-		outlet_anything(x->outlet[inletnum], msg, argc, argv);
-}
-
-
-void out_sendlastvalue(t_out *x)
-{
-	// we need to cache the most recently sent values for this to work...
-	// in the case of jitter, i guess we need to cache a *copy* of a Jitter matrix
-	// ick
-	// or maybe we just send the matrix name as passed in from this out objects inlets
-	// because it shouldn't have changed since input to the algorithm is turned off...
-	short i;
-
-	for (i=0; i< x->numOutputs; i++)
-		outlet_anything(x->outlet[i], x->last_msg[i], x->last_argc[i], x->last_argv[i]);
-}
-
-
-void out_anything(t_out *x, t_symbol *msg, long argc, t_atom *argv)
-{
-	short inletnum = proxy_getinlet((t_object *)x);
-	x->last_msg[inletnum] = msg;
-	x->last_argc[inletnum] = argc;
-	sysmem_copyptr(argv, x->last_argv[inletnum], argc * sizeof(t_atom));
-	
-	if (x->attr_preview == 1) {
-		if (msg == _sym_jit_matrix)
-			object_method_typed(x->preview_object, _sym_jit_matrix, argc, argv, NULL);
-		else if (msg == _sym_jit_gl_texture)
-			object_method_typed(x->preview_object, _sym_jit_gl_texture, argc, argv, NULL);
-	}
-	outlet_anything(x->outlet[inletnum], msg, argc, argv);
-}
-
-
-#ifdef JCOM_OUT_TILDE
 
 void update_meters(t_out *x)
 {
@@ -371,149 +497,6 @@ void update_meters(t_out *x)
 	clock_delay(x->clock, kPollIntervalDefault); 			// restart the clock
 }
 
-
-// Perform Method - just pass the whole vector straight through
-// (the work is all done in the dsp method)
-t_int *out_perform(t_int *w)
-{
-  	t_out*			x = (t_out *)(w[1]);
-	short			i, j;
-	TTUInt16		n;
-	float			currentvalue = 0;
-	float			peakvalue = 0;	// values for calculating metering
-	
-	// Store the input from the inlets
-	for (i=0; i<x->numChannels; i++) {
-		j = (i*2) + 1;
-		x->audioIn->setVector(i, x->vectorSize, (TTFloat32*)w[j+1]);
-	}
-	
-	if (x->attr_bypass)
-		TTAudioSignal::copy(*x->in_object->audioOut, *x->audioOut);
-	else if (x->attr_mute)
-		TTAudioSignal::copy(*x->zeroSignal, *x->audioOut);
-	else {
-		if (x->in_object && x->in_object->numChannels)
-			x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);	// perform bypass/mix control
-		else
-			TTAudioSignal::copy(*x->audioIn, *x->audioTemp);
-	
-		x->gain->process(x->audioTemp, x->audioOut);								// perform gain control
-	}
-	
-	// Send the input on to the outlets for the algorithm
-	for (i=0; i<x->numChannels; i++) {
-		j = (i*2) + 1;
-		x->audioOut->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
-		
-		// since we are already looping through the channels here, we will also do the per-channel metering here
-		if (x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute) {
-			t_float* envelope = (t_float *)(w[j+2]);
-			peakvalue = 0.0;
-			
-			n = x->vectorSize;
-			while (n--) {
-				if ((*envelope) < 0 )						// get the current sample's absolute value
-					currentvalue = -(*envelope);
-				else
-					currentvalue = *envelope;
-			
-				if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
-					peakvalue = currentvalue;
-				envelope++; 										// increment pointer in the vector
-			}
-//			if (peakvalue != x->peakamp[i]) {					// filter out repetitions
-			if (peakvalue > x->peakamp[i])
-				x->peakamp[i] = peakvalue;
-//				if (x->clock_is_set == 0) {
-//					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
-//					x->clock_is_set = 1;
-//				}
-//			}
-		}		
-	}
-
-	return w + ((x->numChannels*2)+2);
-}
-
-
-void out_getAudioForChannel(t_out *x, int channel, float **vector)
-{
-//	*vector = x->out_vectors[channel];
-}
-
-
-// DSP Method
-void out_dsp(t_out *x, t_signal **sp, short *count)
-{
-	short		i, j, k=0;
-	void**		audioVectors = NULL;
-	TTUInt8		numChannels = 0;
-	TTUInt16	vs = sp[0]->s_n;
-	int			sr = sp[0]->s_sr;
-
-	x->ramp_gain->setAttributeValue(TT("SampleRate"), sr);	// convert midi to db for tap_gain
-	x->ramp_xfade->setAttributeValue(TT("SampleRate"), sr);	// convert midi to db for tap_gain
-
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->numOutputs * 2) + 1));
-	audioVectors[k] = x;
-	k++;
-	
-	for (i=0; i < x->numOutputs; i++) {
-		j = x->numOutputs + i;
-		if (count[i] || count[j]) {
-			numChannels++;
-			if (sp[i]->s_n > vs)
-				vs = sp[i]->s_n;
-				
-			audioVectors[k] = sp[i]->s_vec;
-			k++;
-			audioVectors[k] = sp[j]->s_vec;
-			k++;
-		}
-	}
-	
-	x->numChannels = numChannels;
-	x->audioIn->setAttributeValue(TT("NumChannels"), numChannels);
-	x->audioOut->setAttributeValue(TT("NumChannels"), numChannels);
-	x->audioTemp->setAttributeValue(TT("NumChannels"), numChannels);
-	x->zeroSignal->setAttributeValue(TT("NumChannels"), numChannels);
-	
-	x->vectorSize = vs;
-	x->audioIn->setAttributeValue(TT("VectorSize"), vs);
-	x->audioOut->setAttributeValue(TT("VectorSize"), vs);
-	x->audioTemp->setAttributeValue(TT("VectorSize"), vs);
-	x->zeroSignal->setAttributeValue(TT("VectorSize"), vs);
-	
-	//audioIn will be set in the perform method
-	x->audioOut->sendMessage(TT("alloc"));
-	x->audioTemp->sendMessage(TT("alloc"));
-	x->zeroSignal->sendMessage(TT("alloc"));
-	x->zeroSignal->sendMessage(TT("Clear"));
-		
-	dsp_addv(out_perform, k, audioVectors);
-	sysmem_freeptr(audioVectors);
-
-	// start the meters
-	if (x->num_meter_objects) {
-		for (i=0; i<MAX_NUM_CHANNELS; i++)
-			x->peakamp[i] = 0;
-		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
-	}
-}
-
-
-void out_alloc(t_out *x, int vector_size)
-{
-// TODO: Do we still need this?  The remote audio from jcom.send~ still needs to be re-implemented!
-/*
-	if (vector_size != x->vector_size) {
-		x->vector_size = vector_size;
-		x->signal_temp->alloc(vector_size);		
-		x->ramp_gain->set_vectorsize(vector_size);
-		x->ramp_xfade->set_vectorsize(vector_size);
-	}
 */
-}
 
 #endif // JCOM_OUT_TILDE

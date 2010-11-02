@@ -427,7 +427,7 @@ TTErr TTContainer::isInitialized()
 	TTValue			cacheElement;
 	TTObjectPtr		anObject;
 	TTBoolean		init, result;
-	TTSymbolPtr		key;
+	TTSymbolPtr		key, service;
 	TTUInt8			i;
 	TTErr			err;
 	
@@ -442,13 +442,24 @@ TTErr TTContainer::isInitialized()
 			hk.get(i,(TTSymbolPtr*)&key);
 			mObjectsObserversCache->lookup(key, cacheElement);
 			cacheElement.get(0, (TTPtr*)&anObject);
-			anObject->getAttributeValue(kTTSym_Initialized, v);
-			v.get(0, init);
 			
-			result &= init;
+			if (anObject->getName() == TT("Data")) {
+				
+				// What kind of service the data is used for ?
+				anObject->getAttributeValue(TT("service"), v);
+				v.get(0, &service);
+				
+				if (service == kTTSym_parameter) {
+				
+					anObject->getAttributeValue(kTTSym_Initialized, v);
+					v.get(0, init);
 			
-			if (!result)
-				break;
+					result &= init;
+			
+					if (!result)
+						break;
+				}
+			}
 		}
 	}
 	

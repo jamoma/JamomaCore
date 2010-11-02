@@ -58,6 +58,9 @@ void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	jamoma_sender_create((ObjectPtr)x, address, &x->wrappedObject);
 	
 	// No outlets
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 }
 
 void WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

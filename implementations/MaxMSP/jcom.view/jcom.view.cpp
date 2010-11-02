@@ -78,6 +78,9 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make qelem object
 	x->ui_qelem = qelem_new(x, (method)view_ui_queuefn);
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 }
 
 // Method for Assistance Messages

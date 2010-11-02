@@ -697,7 +697,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 			 
 			// cache the function's attribute names
 			mRampDataNames->clear();
-			mRamper->getFunctionDataNames(names);
+			mRamper->getFunctionParameterNames(names);
 			n = names.getSize();
 			for (int i=0; i<n; i++) {
 				

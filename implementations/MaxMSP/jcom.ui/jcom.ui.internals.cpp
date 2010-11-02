@@ -351,17 +351,18 @@ void ui_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			
 			// try to bind on the patherName
 			// (in case the jcom.ui is embedded in the jmod. patcher)
-			if (!JamomaDirectory->getTTNodeForOSC(obj->patcherName, &patcherNode))
-				if (anObject = patcherNode->getObject())
-					if (anObject->getName() == TT("Container")) {
-						// DEBUG
-						object_post((ObjectPtr)obj, "set address : %s", obj->patcherName->getCString());
-						
-						atom_setsym(&a, gensym((char*)obj->patcherName->getCString()));
-						object_attr_setvalueof(obj, gensym("address"), 1, &a);
-						
-						return;
-					}
+			if (obj->patcherType == TT("jmod"))
+				if (!JamomaDirectory->getTTNodeForOSC(obj->patcherName, &patcherNode))
+					if (anObject = patcherNode->getObject())
+						if (anObject->getName() == TT("Container")) {
+							// DEBUG
+							object_post((ObjectPtr)obj, "set address : %s", obj->patcherName->getCString());
+							
+							atom_setsym(&a, gensym((char*)obj->patcherName->getCString()));
+							object_attr_setvalueof(obj, gensym("address"), 1, &a);
+							
+							return;
+						}
 
 			// else if a name is equal to the patcherClass 
 			// and different of the patcherName
@@ -411,15 +412,15 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			
 			if (paramName == gensym("/gain"))
 				gain = true;
-			else if (paramName == gensym("/mix"))
+			else if (paramName == gensym("/out/mix"))
 				mix = true;
-			else if (paramName == gensym("/bypass"))
+			else if (paramName == gensym("/in/bypass"))
 				bypass = true;
-			else if (paramName == gensym("/freeze"))
+			else if (paramName == gensym("/out/freeze"))
 				freeze = true;
-			else if (paramName == gensym("/preview"))
+			else if (paramName == gensym("/out/preview"))
 				preview = true;
-			else if (paramName == gensym("/mute"))
+			else if (paramName == gensym("/in/mute") || paramName == gensym("/out/mute"))
 				mute = true;
 			else if (paramName == gensym("/model/panel"))					// TODO : create sender (a viewer is useless)
 				panel = true;
@@ -441,10 +442,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (gain != obj->has_gain) {
 			obj->has_gain = gain;
 			if (gain) 
-				ui_viewer_create(obj, &anObject, gensym("return_gain"), TT("gain"));
+				ui_viewer_create(obj, &anObject, gensym("return_gain"), TT("out.*/gain"));
 			else {
-				ui_viewer_destroy(obj, TT("gain"));
-				obj->hash_viewers->remove(TT("gain"));
+				ui_viewer_destroy(obj, TT("out.*/gain"));
+				obj->hash_viewers->remove(TT("out.*/gain"));
 			}
 		}
 		
@@ -452,10 +453,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (mix != obj->has_mix) {
 			obj->has_mix = mix;
 			if (mix) 
-				ui_viewer_create(obj, &anObject, gensym("return_mix"), TT("mix"));
+				ui_viewer_create(obj, &anObject, gensym("return_mix"), TT("out.*/mix"));
 			else {
-				ui_viewer_destroy(obj, TT("mix"));
-				obj->hash_viewers->remove(TT("mix"));
+				ui_viewer_destroy(obj, TT("out.*/mix"));
+				obj->hash_viewers->remove(TT("out.*/mix"));
 			}
 			
 			change = true;
@@ -465,10 +466,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (bypass != obj->has_bypass) {
 			obj->has_bypass = bypass;
 			if (bypass) 
-				ui_viewer_create(obj, &anObject, gensym("return_bypass"), TT("bypass"));
+				ui_viewer_create(obj, &anObject, gensym("return_bypass"), TT("in.*/bypass"));
 			else {
-				ui_viewer_destroy(obj, TT("bypass"));
-				obj->hash_viewers->remove(TT("bypass"));
+				ui_viewer_destroy(obj, TT("in.*/bypass"));
+				obj->hash_viewers->remove(TT("in.*/bypass"));
 			}
 			
 			change = true;
@@ -478,10 +479,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (freeze != obj->has_freeze) {
 			obj->has_freeze = freeze;
 			if (freeze) 
-				ui_viewer_create(obj, &anObject, gensym("return_freeze"), TT("freeze"));
+				ui_viewer_create(obj, &anObject, gensym("return_freeze"), TT("out.*/freeze"));
 			else {
-				ui_viewer_destroy(obj, TT("freeze"));
-				obj->hash_viewers->remove(TT("freeze"));
+				ui_viewer_destroy(obj, TT("out.*/freeze"));
+				obj->hash_viewers->remove(TT("out.*/freeze"));
 			}
 			
 			change = true;
@@ -491,10 +492,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (preview != obj->has_preview) {
 			obj->has_preview = preview;
 			if (preview) 
-				ui_viewer_create(obj, &anObject, gensym("return_preview"), TT("preview"));
+				ui_viewer_create(obj, &anObject, gensym("return_preview"), TT("out.*/preview"));
 			else {
-				ui_viewer_destroy(obj, TT("preview"));
-				obj->hash_viewers->remove(TT("preview"));
+				ui_viewer_destroy(obj, TT("out.*/preview"));
+				obj->hash_viewers->remove(TT("out.*/preview"));
 			}
 			
 			change = true;
@@ -504,10 +505,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (mute != obj->has_mute) {
 			obj->has_mute = mute;
 			if (mute) 
-				ui_viewer_create(obj, &anObject, gensym("return_mute"), TT("mute"));
+				ui_viewer_create(obj, &anObject, gensym("return_mute"), TT("*.*/mute"));
 			else {
-				ui_viewer_destroy(obj, TT("mute"));
-				obj->hash_viewers->remove(TT("mute"));
+				ui_viewer_destroy(obj, TT("*.*/mute"));
+				obj->hash_viewers->remove(TT("*.*/mute"));
 			}
 			
 			change = true;
@@ -597,6 +598,72 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (change)
 			jbox_redraw(&obj->box);
 		
+	}
+}
+	
+void ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	t_symobject	*item = NULL;
+	
+	// model's message namespace observation
+	if (obj->address != kTTSymEmpty) {
+		
+		item = (t_symobject *)symobject_new(gensym("-"));
+		linklist_append(obj->refmenu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Parameters"));
+		linklist_append(obj->refmenu_items, item);
+		item->flags = 1;	// mark to disable this item (we use it as a label)
+		
+		// fill item list
+		for (long i=0; i<argc; i++) {
+			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
+			linklist_append(obj->refmenu_items, item);
+		}
+	}
+}
+
+void ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	t_symobject	*item = NULL;
+	
+	// model's message namespace observation
+	if (obj->address != kTTSymEmpty) {
+		
+		item = (t_symobject *)symobject_new(gensym("-"));
+		linklist_append(obj->refmenu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Messages"));
+		linklist_append(obj->refmenu_items, item);
+		item->flags = 1;	// mark to disable this item (we use it as a label)
+		
+		// fill item list
+		for (long i=0; i<argc; i++) {
+			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
+			linklist_append(obj->refmenu_items, item);
+		}
+	}
+}
+
+void ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	t_symobject	*item = NULL;
+	
+	// model's message namespace observation
+	if (obj->address != kTTSymEmpty) {
+		
+		item = (t_symobject *)symobject_new(gensym("-"));
+		linklist_append(obj->refmenu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Returns"));
+		linklist_append(obj->refmenu_items, item);
+		item->flags = 1;	// mark to disable this item (we use it as a label)
+		
+		// fill item list
+		for (long i=0; i<argc; i++) {
+			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
+			linklist_append(obj->refmenu_items, item);
+		}
 	}
 }
 
