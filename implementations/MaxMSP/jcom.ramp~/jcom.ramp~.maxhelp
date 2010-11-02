@@ -61,8 +61,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 320.0, 245.0, 172.0, 67.0 ],
-					"text" : "jcom.ramp~ can be used as an alternative to msp's line~ object. The two objects are very similar, though tap.ramp~ has some extra options available.",
+					"patching_rect" : [ 320.0, 245.0, 175.0, 67.0 ],
+					"text" : "jcom.ramp~ can be used as an alternative to msp's line~ object. The two objects are very similar, though jcom.ramp~ has some extra options available.",
 					"textcolor" : [ 0.003922, 0.003922, 0.003922, 1.0 ]
 				}
 
