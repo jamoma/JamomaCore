@@ -61,7 +61,7 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_init, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("init"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	x->container,	"generic",	"none",	"Generate a documentation page for this module and save it to disk.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	x->container,	"generic",	"none",	"Generate a html documentation page for this module and save it to disk. The argument 'tex' creates a Latex document.", 1);
 	anObject->setAction((method)hub_autodoc, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("documentation/generate"), (t_object*)anObject);
 
@@ -89,7 +89,7 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_preset_copy, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/copy"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/store",				x->container,	"array",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/store",				x->container,	"array",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a /preset/write message to the module.", 1);
 	anObject->setAction((method)hub_preset_store, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/store"), (t_object*)anObject);
 
@@ -104,6 +104,10 @@ void hub_internals_create(t_hub *x)
 	anObject = new hubInternalObject("jcom.message", 	"preset/interpolate",		x->container,	"array",		"none",	"Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.", 0);
 	anObject->setAction((method)hub_preset_interpolate, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/interpolate"), (t_object*)anObject);
+
+	anObject = new hubInternalObject("jcom.message", 	"preset/mix",			x->container,	"array",		"none",	"Mix list of pairs of (preset name, mix value) using a ratio (float).", 0);
+	anObject->setAction((method)hub_preset_mix, (t_object*)x);
+	hashtab_store(x->hash_internals, gensym("preset/mix"), (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/default",			x->container,	"none",		"none",	"Open the default preset file and recall the first preset in that file.", 1);
 	anObject->setAction((method)hub_preset_default, (t_object*)x);
