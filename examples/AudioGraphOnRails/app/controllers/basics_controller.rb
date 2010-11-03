@@ -53,7 +53,7 @@ class BasicsController < ApplicationController
     
     render :text => slider_value
     
-    $tt_gain.set "Gain", slider_value.to_f
+    $tt_gain.set "gain", slider_value.to_f
     
   end
 
