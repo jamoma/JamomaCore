@@ -1521,19 +1521,8 @@ int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
 		short type;
 		
 		for (int i = 0; i < lengthx; i++) {
-			if (x->a_type != y->a_type)
-			{   // check combinations of numeric types
-			    if ((x->a_type == A_FLOAT  &&  y->a_type == A_LONG  &&
-				 x->a_w.w_float != y->a_w.w_long)  || 
-				((x->a_type == A_LONG  &&  y->a_type == A_FLOAT &&
-				  x->a_w.w_long != y->a_w.w_float)))
-			    {
-				x++; y++;  // keep going
-				continue;
-			    }
-				
-			    return 0; // not identical, types differ
-			}
+			if ((x->a_type) != (y->a_type))
+				return 0; // not identical, types differ
 			
 			type = x->a_type;
 			if ((type == A_FLOAT) && (x->a_w.w_float != y->a_w.w_float))
