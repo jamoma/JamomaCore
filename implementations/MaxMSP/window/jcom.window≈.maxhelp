@@ -199,7 +199,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 85.0, 250.0, 73.0, 19.0 ],
+					"patching_rect" : [ 85.0, 250.0, 91.0, 19.0 ],
 					"text" : "jcom.unpack≈ 1"
 				}
 
@@ -209,13 +209,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-13",
-					"linecount" : 2,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 85.0, 210.0, 191.0, 31.0 ],
-					"text" : "jcom.window≈ @mode apply @padding 100 @function hamming"
+					"patching_rect" : [ 85.0, 190.0, 115.0, 55.0 ],
+					"text" : "jcom.window≈ @mode apply @padding 10 @function hamming"
 				}
 
 			}
@@ -228,7 +228,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 85.0, 130.0, 66.0, 19.0 ],
+					"patching_rect" : [ 85.0, 130.0, 78.0, 19.0 ],
 					"text" : "jcom.pack≈ 1"
 				}
 
@@ -300,13 +300,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-24",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 260.0, 165.0, 285.0, 31.0 ],
+					"patching_rect" : [ 250.0, 170.0, 285.0, 31.0 ],
 					"text" : "lookup mode functions the same as generate, except that it uses output values from a lookup table."
 				}
 
