@@ -163,7 +163,7 @@ TTErr TTMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 		numOutputChannels = mNumOutputs;
 	}
 	
-	out.Clear();
+	out.clear();
 	
 	// TODO: this multiply-nested for-loop has got to be horrendously slow, there should be a much faster way to do this?
 	

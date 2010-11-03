@@ -163,7 +163,7 @@ TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 	for (TTUInt16 y=0; y < mNumOutputs; y++) {
 		TTAudioSignal&	out = outputs->getSignal(y);
 		
-		out.Clear();
+		out.clear();
 		for (TTUInt16 x=0; x < mNumInputs; x++) {
 			TTAudioSignal&	in = inputs->getSignal(x);
 			
