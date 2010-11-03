@@ -32,14 +32,14 @@ postTableFromWindowFunction("trapezoid")
 puts "  Testing the trapezoid clipping range: we set it out of range, which should be limited between just-above-zero and 0.5:"
   trapFunction = TTObject.new("trapezoid")
 
-  puts "    Fade = #{trapFunction.get("Fade")}"
+  puts "    Fade = #{trapFunction.get("fade")}"
 
-  trapFunction.set("Fade", 0.2)
-  puts "    Fade = #{trapFunction.get("Fade")}"
-  trapFunction.set("Fade", -0.2)
-  puts "    Fade = #{trapFunction.get("Fade")}"
-  trapFunction.set("Fade", 1.5)
-  puts "    Fade = #{trapFunction.get("Fade")}"
+  trapFunction.set("fade", 0.2)
+  puts "    Fade = #{trapFunction.get("fade")}"
+  trapFunction.set("fade", -0.2)
+  puts "    Fade = #{trapFunction.get("fade")}"
+  trapFunction.set("fade", 1.5)
+  puts "    Fade = #{trapFunction.get("fade")}"
   puts
 
 
