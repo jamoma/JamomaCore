@@ -15,7 +15,7 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mFunctionObject(NULL),
-	mNumPoints(512),
+	mNumPoints(8192),
 	mPadding(0)
 {
 	addAttributeWithSetter(Function,	kTypeSymbol);
@@ -52,8 +52,10 @@ TTErr WindowFunction::fill()
 {
 	mLookupTable.assign(mNumPoints, 0.0);
 	if (mFunctionObject) {
-		TTUInt32 numPoints = mNumPoints-(mPadding*2);
-		for (TTUInt32 i=0; i<numPoints; i++)
+		TTInt32 numPoints = mNumPoints-(mPadding*2);
+		
+		TTLimitMin<TTInt32>(numPoints, 0);
+		for (TTInt32 i=0; i<numPoints; i++)
 			mFunctionObject->calculate(i/TTFloat64(numPoints), mLookupTable[i+mPadding]);
 	}
 	else
