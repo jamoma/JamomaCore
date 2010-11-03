@@ -39,7 +39,7 @@ SampleUnit::SampleUnit()
 {   
 	TTValue globalSampleRate;	
 	
-	ttEnvironment->getAttributeValue(TT("SampleRate"), globalSampleRate);
+	ttEnvironment->getAttributeValue(TT("sampleRate"), globalSampleRate);
 	//TODO: the samplerate is only updated when we change to this dataspace, how can we make it more dynamic? [NP]
 	msr = double(globalSampleRate) / 1000.0;
 	rmsr = 1.0 / msr;

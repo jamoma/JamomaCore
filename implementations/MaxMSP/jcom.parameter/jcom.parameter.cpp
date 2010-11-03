@@ -611,7 +611,7 @@ MaxErr param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPt
 		TTString	nameString;
 		
 		// set the function
-		x->ramper->setAttributeValue(TT("Function"), TT(x->attr_rampfunction->s_name));
+		x->ramper->setAttributeValue(TT("function"), TT(x->attr_rampfunction->s_name));
 		
 		// cache the function's attribute names
 		x->rampParameterNames->clear();
@@ -621,7 +621,7 @@ MaxErr param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPt
 			names.get(i, &aName);
 			nameString = aName->getString();
 			
-			if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 				continue;										// don't publish these parameters
 			
 			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
