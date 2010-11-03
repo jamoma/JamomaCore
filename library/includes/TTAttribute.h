@@ -11,34 +11,45 @@
 
 #include "TTObject.h"
 
-/**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
-	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
-	@param	type	The type of the value.
-*/
-#define addAttribute(name, type)					registerAttribute(TT(#name), type, &m##name)
-#define registerAttributeSimple(name, type)    		registerAttribute(TT(#name), type, &name)
+// for now, we support the old macros...
+#define SUPPORT_OLD_ATTRIBUTE_REGISTRATION
 
 /**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
 	@param	type	The type of the value.
 */
-#define addAttributeWithGetter(name, type)			registerAttribute(TT(#name), type, &m##name, (TTGetterMethod)& thisTTClass ::get##name )
-#define registerAttributeWithGetter(name, type) 	registerAttribute(TT(#name), type, &name,    (TTGetterMethod)& thisTTClass ::get##name )
+#define addAttribute(name, type)							TTString _attrname_##name(#name); _attrname_##name[0]=tolower(_attrname_##name[0]); registerAttribute(TT(_attrname_##name), type, &m##name)
+#ifdef SUPPORT_OLD_ATTRIBUTE_REGISTRATION
+#define registerAttributeSimple(name, type)					registerAttribute(TT(#name), type, &name)
+#endif
+
+/**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
+	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
+	@param	type	The type of the value.
+*/
+#define addAttributeWithGetter(name, type)					TTString _attrname_##name(#name); _attrname_##name[0]=tolower(_attrname_##name[0]); registerAttribute(TT(_attrname_##name), type, &m##name, (TTGetterMethod)& thisTTClass ::get##name )
+#ifdef SUPPORT_OLD_ATTRIBUTE_REGISTRATION
+#define registerAttributeWithGetter(name, type)				registerAttribute(TT(#name), type, &name,    (TTGetterMethod)& thisTTClass ::get##name )
+#endif
 
 /**	A convenience macro to be used by subclasses for registering attributes with a custom setter.
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the setter method name.
 	@param	type	The type of the value.
 */
-#define addAttributeWithSetter(name, type)			registerAttribute(TT(#name), type, &m##name, (TTSetterMethod)& thisTTClass ::set##name )
-#define registerAttributeWithSetter(name, type)		registerAttribute(TT(#name), type, &name,    (TTSetterMethod)& thisTTClass ::set##name )
+#define addAttributeWithSetter(name, type)					TTString _attrname_##name(#name); _attrname_##name[0]=tolower(_attrname_##name[0]); registerAttribute(TT(_attrname_##name), type, &m##name, (TTSetterMethod)& thisTTClass ::set##name )
+#ifdef SUPPORT_OLD_ATTRIBUTE_REGISTRATION
+#define registerAttributeWithSetter(name, type)				registerAttribute(TT(#name), type, &name,    (TTSetterMethod)& thisTTClass ::set##name )
+#endif
 
 /**	A convenience macro to be used by subclasses for registering attributes with a custom getter and setter.
 	Note that we don't bother passing the address of the value in this macro, because the default setter/getter is not used to access it.
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter/setter method names.
 	@param	type	The type of the value.
 */
-#define addAttributeWithGetterAndSetter						registerAttributeWithSetterAndGetter
+#define addAttributeWithGetterAndSetter(name, type)			TTString _attrname_##name(#name); _attrname_##name[0]=tolower(_attrname_##name[0]); registerAttribute(TT(_attrname_##name), type, NULL, 	 (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
+#ifdef SUPPORT_OLD_ATTRIBUTE_REGISTRATION
 #define registerAttributeWithSetterAndGetter(name, type)    registerAttribute(TT(#name), type, NULL, 	 (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
+#endif
 
 
 /** A convenience macro to be used for registering properties of attributes.
@@ -76,8 +87,7 @@ public:
 	TTFloat64			rangeLowBound;	///< If the range property is defined, this is the bottom of a value's range.
 	TTFloat64			rangeHighBound;	///< If the range property is defined, this is the top of a value's range.
 	TTSymbolPtr			rangeChecking;	///< If the rangeChecking property is defined, the value should be checked for range and modified accordingly.
-	TTPtrSizedInt		reserved1;		///< Reserved for future use.
-	TTPtrSizedInt		reserved2;		///< Reserved for future use.
+	TTBoolean			hidden;			///< Property: this attribute is private/invisible to the outside world
 	
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress);
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
@@ -111,6 +121,9 @@ public:
 	
 	TTErr setrangeChecking(const TTValue& newRangeCheckingMode);
 	TTErr getrangeChecking(TTValue& currentRangeCheckingMode);
+	
+	TTErr sethidden(const TTValue& newHiddenFlag);
+	TTErr gethidden(TTValue& currentHiddenFlag);
 	
 };
 

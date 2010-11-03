@@ -246,7 +246,24 @@ TTErr TTObject::setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags
 
 void TTObject::getAttributeNames(TTValue& attributeNameList)
 {
-	attributes->getKeys(attributeNameList);
+	TTValue			unfilteredNameList;
+	TTUInt32		attributeCount;
+		
+	attributes->getKeys(unfilteredNameList);
+	attributeCount = unfilteredNameList.getSize();
+	
+	attributeNameList.clear();
+	
+	for (TTUInt32 i=0; i<attributeCount; i++) {
+		TTAttributePtr	attribute;
+		TTSymbolPtr		attributeName;
+		
+		unfilteredNameList.get(i, &attributeName);
+		getAttribute(attributeName, &attribute);
+		
+		if (attribute->hidden == NO)
+			attributeNameList.append(attributeName);
+	}
 }
 
 
@@ -266,9 +283,42 @@ TTErr TTObject::registerAttributeProperty(const TTSymbolPtr attributeName, const
 }
 
 
+TTErr TTObject::registerMessageProperty(const TTSymbolPtr messageName, const TTSymbolPtr propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
+{
+	TTMessagePtr	theMessage = NULL;
+	TTValue			v;
+	TTErr			err;
+	
+	err = messages->lookup(messageName, v);
+	if (!err) {
+		theMessage = TTMessagePtr(TTPtr(v));
+		err = theMessage->registerAttribute(propertyName, kTypeLocalValue, NULL, getter, setter);
+		theMessage->setAttributeValue(propertyName, (TTValue&)initialValue);
+	}
+	return err;
+}
+
+
 void TTObject::getMessageNames(TTValue& messageNameList)
 {
-	messages->getKeys(messageNameList);
+	TTValue			unfilteredNameList;
+	TTUInt32		messageCount;
+	
+	messages->getKeys(unfilteredNameList);
+	messageCount = unfilteredNameList.getSize();
+	
+	messageNameList.clear();
+	
+	for (TTUInt32 i=0; i<messageCount; i++) {
+		TTMessagePtr	message;
+		TTSymbolPtr		messageName;
+		
+		unfilteredNameList.get(i, &messageName);
+		getMessage(messageName, &message);
+		
+		if (message->hidden == NO)
+			messageNameList.append(messageName);
+	}
 }
 
 

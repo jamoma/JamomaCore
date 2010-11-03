@@ -21,7 +21,9 @@ mSocket(NULL)
 	addAttributeWithSetter(Port,	kTypeUInt16);
 	addAttributeWithSetter(Mode,	kTypeSymbol);
 
-	addMessageWithArgument(networkSocketReceive);	// callback from mSocket
+	// callback from mSocket
+	addMessageWithArgument(networkSocketReceive);
+	addMessageProperty(networkSocketReceive, hidden, YES);
 }
 
 

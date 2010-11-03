@@ -23,7 +23,8 @@ TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* ne
   	readOnly(NO), 
 	rangeLowBound(0.0), 
 	rangeHighBound(1.0), 
-	rangeChecking(TT("none"))
+	rangeChecking(TT("none")),
+	hidden(NO)
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
@@ -31,28 +32,28 @@ TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* ne
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
 : TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getter(newGetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
-  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
+  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none")), hidden(NO)
 {
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
 : TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), setter(newSetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
-  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
+  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none")), hidden(NO)
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
 : TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
-  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
+  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none")), hidden(NO)
 {
 	;
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject)
 : TTObject(kTTValNONE), name(newName), type(kTypeNone), getterObject(newGetterObject), setterObject(newSetterObject), getterFlags(kTTAttrPassObject), setterFlags(kTTAttrPassObject),
-  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
+  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none")), hidden(NO)
 {
 	getter = (TTGetterMethod)&TTAttribute::callbackGetter;
 	setter = (TTSetterMethod)&TTAttribute::callbackSetter;
@@ -278,5 +279,18 @@ TTErr TTAttribute::setrangeChecking(const TTValue& newRangeCheckingMode)
 TTErr TTAttribute::getrangeChecking(TTValue& currentRangeCheckingMode)
 {
 	currentRangeCheckingMode = rangeChecking;
+	return kTTErrNone;
+}
+
+
+TTErr TTAttribute::sethidden(const TTValue& newHiddenFlag)
+{
+	hidden = newHiddenFlag;
+	return kTTErrNone;
+}
+
+TTErr TTAttribute::gethidden(TTValue& currentHiddenFlag)
+{
+	currentHiddenFlag = hidden;
 	return kTTErrNone;
 }

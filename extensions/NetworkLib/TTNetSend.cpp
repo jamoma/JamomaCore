@@ -23,7 +23,7 @@ mSocket(NULL)
 	addAttributeWithSetter(Port,		kTypeUInt16);
 	addAttributeWithSetter(Mode,		kTypeSymbol);
 	
-	addMessageWithArgument(Send);
+	addMessageWithArgument(send);
 }
 
 
@@ -84,7 +84,7 @@ TTErr TTNetSend::setMode(const TTValue& newValue)
 }
 
 
-TTErr TTNetSend::Send(const TTValue& arguments)
+TTErr TTNetSend::send(const TTValue& arguments)
 {
 	if (mSocket) {
 		TTValue message = arguments;

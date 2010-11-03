@@ -29,10 +29,10 @@ TTEnvironment::TTEnvironment()
 	addAttribute(DebugMessaging,	kTypeBoolean);
 	addAttribute(SampleRate,		kTypeUInt32);
 
-	addMessageWithArgument(GetVersion);
+	addMessageWithArgument(getVersion);
 
 	// can't use the SymbolCache here because it hasn't been initialized yet!
-	setAttributeValue(TT("SampleRate"), TTUInt32(44100));
+	setAttributeValue(TT("sampleRate"), TTUInt32(44100));
 }
 
 
@@ -46,7 +46,7 @@ TTEnvironment::~TTEnvironment()
 }
 
 
-TTErr TTEnvironment::GetVersion(TTValue &value)
+TTErr TTEnvironment::getVersion(TTValue &value)
 {
 	value = TTFOUNDATION_VERSION_STRING;
 	return kTTErrNone;
