@@ -2,8 +2,8 @@
  * Modular For Max
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "ModularForMax.h"
@@ -20,19 +20,21 @@
 
 TTErr jamoma_directory_free(void)
 {
-	return TTObjectRelease(TTObjectHandle(&TTModularDirectory));
+	return kTTErrGeneric;//return TTObjectRelease(TTObjectHandle(&JamomaDirectory));
 }
 
 TTErr jamoma_directory_dump(void)
 {
+/*
 	unsigned int i;
 	TTValue hk;
 	TTSymbolPtr key;
 
-	if(TTModularDirectory){	
-		TTModularDirectory->getDirectory()->getKeys(hk);
 
-		for(i=0; i<TTModularDirectory->getDirectory()->getSize(); i++){
+	if(JamomaDirectory){	
+		JamomaDirectory->getDirectory()->getKeys(hk);
+
+		for(i=0; i<JamomaDirectory->getDirectory()->getSize(); i++){
 			hk.get(i,(TTSymbol**)&key);
 			post("%s",key->getCString());
 		}
@@ -40,11 +42,43 @@ TTErr jamoma_directory_dump(void)
 	}
 	
 	post("TTModularDirectory_dump : create a directory before");
+*/
+	
 	return kTTErrGeneric;
+}
+
+TTErr jamoma_directory_dump_observers(void)
+{
+	unsigned int i, j, s;
+	TTValue v;
+	TTValuePtr pv;
+	TTSymbolPtr key, owner;
+	
+	post("--- JamomaDirectory Observers ---");
+	JamomaDirectory->sendMessage(TT("dumpObservers"), v);
+	
+	s = v.getSize();
+	for (i=0; i<s; i++) {
+		
+		v.get(i,(TTPtr*)&pv);
+		pv->get(0, &key);
+		post("%s :", key->getCString());
+		
+		for (j=1; j<pv->getSize(); j++) {
+		
+			pv->get(j, &owner);
+			post("    %s", owner->getCString());
+		}
+	}
+	
+	post("----------------------------------------------");
+	
+	return kTTErrNone;
 }
 
 TTErr jamoma_directory_dump_by_type(void)
 {
+/*
 	TTList returnedTTNodes;
 	TTNodePtr firstReturnedTTNode, n_r;
 	TTSymbolPtr osc_adrs;
@@ -71,34 +105,41 @@ TTErr jamoma_directory_dump_by_type(void)
 		post("dump data error");
 	
 	return err;
+*/
+	
+	return kTTErrGeneric;
 }
 
 TTErr jamoma_directory_get_node(TTSymbolPtr address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
+/*
 	TTErr err;
 
-	if(TTModularDirectory){
-		err = TTModularDirectory->Lookup(address, returnedTTNodes, firstReturnedTTNode);
+	if(JamomaDirectory){
+		err = JamomaDirectory->Lookup(address, returnedTTNodes, firstReturnedTTNode);
 
 		return err;
 	}
 	
 	post("TTModularDirectory_get_node %s : create a directory before", address->getCString());
+*/
+	
 	return kTTErrGeneric;
 }
 
 TTErr jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
+/*
 	TTList whereToSearch;
 	TTErr err;
 	
-	if(TTModularDirectory){
+	if(JamomaDirectory){
 		
-		err = TTModularDirectory->Lookup(addressToStart, whereToSearch, firstReturnedTTNode);
+		err = JamomaDirectory->Lookup(addressToStart, whereToSearch, firstReturnedTTNode);
 		
 		if(err == kTTErrNone){
 			
-			err = TTModularDirectory->LookFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
+			err = JamomaDirectory->LookFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
 			
 			return err;
 		}
@@ -107,6 +148,7 @@ TTErr jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr 
 	}
 	
 	post("TTModularDirectory_get_node_by_type %s : create a directory before", addressToStart->getCString());
+*/
 	return kTTErrGeneric;
 }
 
@@ -234,7 +276,7 @@ void jamoma_node_attribute_observer_remove(TTNodePtr node, TTSymbolPtr attrname,
 // Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
+TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSymbolPtr contextType, TTSubscriberPtr *returnedSubscriber)
 {
 	TTValue			args;
 	TTObjectPtr		shareCallback, contextListCallback;
@@ -243,7 +285,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	// prepare arguments
 	args.append(TTPtr(aTTObject));
 	args.append(TT(relativeAddress->s_name));
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	shareCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &shareCallback, kTTValNONE);
@@ -255,6 +297,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	contextListCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &contextListCallback, kTTValNONE);
 	contextListBaton = new TTValue(TTPtr(x));
+	contextListBaton->append(contextType);
 	contextListCallback->setAttributeValue(TT("Baton"), TTPtr(contextListBaton));
 	contextListCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_subscriber_get_context_list));
 	args.append(contextListCallback);
@@ -271,7 +314,7 @@ void jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data)
 	ObjectPtr	x;
 	ObjectPtr	contextPatcher, obj;
 	TTNodePtr	returnedContextNode;
-	SymbolPtr	objclass = NULL,	_sym_jcomnode, _sym_jcomparam, _sym_share;
+	SymbolPtr	objclass = NULL,	_sym_jcomnode, _sym_jcomparam, _sym_jcommessage, _sym_jcomreturn, _sym_share;
 	
 	// unpack baton
 	b = (TTValuePtr)p_baton;
@@ -286,7 +329,9 @@ void jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data)
 	
 	// TODO : find a way to cache those t_symbol else where ...
 	_sym_jcomnode = gensym("jcom.node");
-	_sym_jcomparam = gensym("jcom.data");
+	_sym_jcomparam = gensym("jcom.parameter");
+	_sym_jcommessage = gensym("jcom.message");
+	_sym_jcomreturn = gensym("jcom.return");
 	_sym_share = gensym("share_context_node");
 	
 	while (obj) {
@@ -310,30 +355,33 @@ void jamoma_subscriber_get_context_list(TTPtr p_baton, TTValue& data)
 	TTValuePtr	b;
 	ObjectPtr	x;
 	TTListPtr	aContextList;
+	TTSymbolPtr	aContextType;
 	long		nbLevel = 0;
 	
 	// unpack baton
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
+	b->get(1, &aContextType);
 	
 	// unpack data to get a TTListPtr
 	data.get(0, (TTPtr*)&aContextList);
 	
-	// Get all jmod.modelPatcher above the jcom and their modelName 
+	// Get all aContextType.name (jmod/jview . modelName/viewName) above the jcom and their specific names
 	// looking recursively at all parent patcher.
-	jamoma_subscriber_get_context_list_method(x, aContextList, &nbLevel);
+	jamoma_subscriber_get_context_list_method(x, aContextType, aContextList, &nbLevel);
 }
 
-void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextList, long *nbLevel)
+void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextType, TTListPtr aContextList, long *nbLevel)
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
-	bool			isJmodPatcher;
+	bool			isCtxPatcher;
 	ObjectPtr		box, patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context;
 	SymbolPtr		patcherName;
 	SymbolPtr		contextName = _sym_nothing;
-	TTString		contextEditionName;
+	TTString		contextEditionName, contextTypeStr;
+	TTUInt8			contextTypeLen;
 	TTValuePtr		v;
 	
 	// If z is a bpatcher, the patcher is NULL
@@ -344,24 +392,28 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 	context = jamoma_patcher_getcontext(patcher);
 	patcherName = object_attr_getsym(patcher, _sym_name);
 	
-	// if the patcher name begin by "jmod."
-	// Strip jmod. from the beginning of patch name
-	isJmodPatcher = strncmp(patcherName->s_name, "jmod.", 5) == 0;
-	if (isJmodPatcher)
-		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	contextTypeStr = contextType->getCString();
+	contextTypeStr += ".";
+	contextTypeLen = strlen(contextTypeStr.data());
 	
-	// Is the patcher embedded in a jmod.patcher ?
+	// if the patcher name begin by contextTypeStr ("jmod." or "jview.")
+	// Strip jmod. from the beginning of patch name
+	isCtxPatcher = strncmp(patcherName->s_name, contextTypeStr.data(), contextTypeLen) == 0;
+	if (isCtxPatcher)
+		patcherName = gensym(patcherName->s_name + contextTypeLen);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	
+	// Is the patcher embedded in a contextType patcher ?
 	// The topLevel patcher name have not to be include in the address
-	if (isJmodPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher)) ) {
+	if (isCtxPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher)) ) {
 		
 		(*nbLevel)++;
-		jamoma_subscriber_get_context_list_method(patcher, aContextList, nbLevel);
+		jamoma_subscriber_get_context_list_method(patcher, contextType, aContextList, nbLevel);
 		
 		// Try to get context name from the patcher arguments
 		jamoma_patcher_getargs(patcher, &ac, &av);
-		if ((context == _sym_subpatcher) && (ac == 2))
+		if ((context == _sym_subpatcher) && (ac >= 2))
 			contextName = atom_getsym(av+1);
-		else if ((context == _sym_bpatcher) && (ac == 1))
+		else if ((context == _sym_bpatcher) && (ac >= 1))
 			contextName = atom_getsym(av);
 		
 		// Try to get context name from the patcher scripting name
@@ -373,7 +425,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 		}
 		
 		// If the contextName is still nothing
-		// get it from the patcher name if it start by "jmod."
+		// get it from the patcher name if it start by contextType
 		if (contextName == _sym_nothing)
 			contextName = patcherName;
 		
@@ -386,16 +438,17 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 			sysmem_freeptr(av);
 	}
 	// case where the object is in a subpatcher
-	else if (!isJmodPatcher && (context == _sym_subpatcher) ) {
+	else if (!isCtxPatcher && (context == _sym_subpatcher) ) {
 		// ignore this level
-		jamoma_subscriber_get_context_list_method(patcher, aContextList, nbLevel);
+		jamoma_subscriber_get_context_list_method(patcher, contextType, aContextList, nbLevel);
 	}
-	// case where the user is editing the module 
+	// case where the user is editing the patcher 
 	// or because there are jcom to register in the toplevel patcher
 	else if ((context == gensym("toplevel")) && (*nbLevel == 0)) {
 		
 		// add the < /, patcher > to the contextList
-		v = new TTValue(S_SEPARATOR);
+		//v = new TTValue(S_SEPARATOR);
+		v = new TTValue(TT(object_attr_getsym(patcher, _sym_name)->s_name));
 		v->append((TTPtr)patcher);
 		aContextList->append(v);
 	}
@@ -413,7 +466,7 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 	
 	// prepare arguments
 	
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
@@ -446,11 +499,10 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 		r = TT(relativeAddress->s_name);
 		data.append(r);
 		
-		jamoma_ttvalue_from_Atom(v, relativeAddress, argc, argv);
-		
+		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
 		
-		aContainer->sendMessage(kTTSym_send, data);
+		aContainer->sendMessage(kTTSym_send, data); // data is [address, [x, x, ,x , ...]]
 		return kTTErrNone;
 	}
 	
@@ -514,7 +566,7 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 	
 	// Make a TTSender object
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	args.append(oscAddress_noAttribute);
 	
 	// TODO : convert attribute from value/stepsize into ValueStepsize
@@ -562,7 +614,7 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 	
 	// Make a TTReceiver object
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	args.append(oscAddress_noAttribute);
 	
 	if (oscAddress_attribute != NO_ATTRIBUTE)
@@ -598,14 +650,240 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager)
 {
 	TTValue			args;
+	TTObjectPtr		testObjectCallback;
+	TTValuePtr		testObjectBaton;
+	TTHashPtr		toStore = new TTHash();
+	TTValue			attr;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
+	
+	testObjectCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &testObjectCallback, kTTValNONE);
+	testObjectBaton = new TTValue(TTPtr(x));
+	testObjectCallback->setAttributeValue(TT("Baton"), TTPtr(testObjectBaton));
+	testObjectCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_presetManager_test_object_callback));
+	args.append(testObjectCallback);
+	
+	// Here we decide to store only Value and Priority attributes for Data object
+	attr = TTValue(kTTSym_Value);
+	attr.append(kTTSym_Priority);
+	toStore->append(TT("Data"), attr);
+	
+	args.append((TTPtr)toStore);
 	
 	*returnedPresetManager = NULL;
 	TTObjectInstantiate(TT("PresetManager"), TTObjectHandle(returnedPresetManager), args);
 	
 	return kTTErrNone;
+}
+
+/** Sets args as kTTVal1 if the node have to be part of a preset */
+void jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	TTObjectPtr o;
+	TTNodePtr	aNode;
+	TTValue		v;
+	TTSymbolPtr s;
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (address)
+	data.get(0, (TTPtr*)&aNode);
+	
+	// Here we decide to keep only Data with @service == parameter
+	data = kTTVal0;
+	if (o = aNode->getObject()) {
+		if (o->getName() == TT("Data")) {
+			o->getAttributeValue(kTTSym_service, v);
+			v.get(0, &s);
+			
+			if (s == kTTSym_parameter)
+				data = kTTVal1;
+		}
+	}
+}
+
+
+// Method to deal with TTInput
+///////////////////////////////////////////////////////////////////////
+
+/**	Create an input object for any signal */
+TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number)
+{	
+	TTValue			args;
+	TTObjectPtr		signalOutCallback = NULL;
+	TTValuePtr		signalOutBaton;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	args.append(TTUInt16(number));
+	args.append(TT("anything"));
+	
+	TTObjectInstantiate(TT("Callback"), &signalOutCallback, kTTValNONE);
+	signalOutBaton = new TTValue(TTPtr(x));
+	signalOutBaton->append(TTPtr(jps_return_signal));
+	signalOutCallback->setAttributeValue(TT("Baton"), TTPtr(signalOutBaton));
+	signalOutCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(signalOutCallback);
+	
+	*returnedInput = NULL;
+	TTObjectInstantiate(TT("Input"), TTObjectHandle(returnedInput), args);
+	
+	return kTTErrNone;
+}
+
+/**	Create an input object for audio signal */
+TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long number)
+{
+	TTValue			args;
+	TTObjectPtr		signalOutCallback = NULL;
+	TTValuePtr		signalOutBaton;
+	TTAudioSignal*	audioIn = NULL;
+	TTAudioSignal*	audioOut = NULL;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	args.append(TTUInt16(number));
+	args.append(TT("audio"));
+	
+	TTObjectInstantiate(TT("Callback"), &signalOutCallback, kTTValNONE);
+	signalOutBaton = new TTValue(TTPtr(x));
+	signalOutBaton->append(TTPtr(jps_return_signal));
+	signalOutCallback->setAttributeValue(TT("Baton"), TTPtr(signalOutBaton));
+	signalOutCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(signalOutCallback);
+	
+	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, number);
+	args.append((TTPtr)audioIn);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, number);
+	args.append((TTPtr)audioOut);
+	
+	*returnedInput = NULL;
+	TTObjectInstantiate(TT("Input"), TTObjectHandle(returnedInput), args);
+	
+	return kTTErrNone;
+}
+
+/**	Send any signal to an input object */
+TTErr jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{	
+	TTValue		v;
+	
+	if (anInput) {
+		
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+		
+		anInput->sendMessage(kTTSym_send, v);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+
+// Method to deal with TTOutput
+///////////////////////////////////////////////////////////////////////
+
+/**	Create an output object for signal */
+TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number)
+{	
+	TTValue			args;
+	TTObjectPtr		signalOutCallback = NULL;
+	TTValuePtr		signalOutBaton;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	args.append(TTUInt16(number));
+	args.append(TT("anything"));
+	
+	TTObjectInstantiate(TT("Callback"), &signalOutCallback, kTTValNONE);
+	signalOutBaton = new TTValue(TTPtr(x));
+	signalOutBaton->append(TTPtr(jps_return_signal));
+	signalOutCallback->setAttributeValue(TT("Baton"), TTPtr(signalOutBaton));
+	signalOutCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(signalOutCallback);
+	
+	*returnedOutput = NULL;
+	TTObjectInstantiate(TT("Output"), TTObjectHandle(returnedOutput), args);
+	
+	return kTTErrNone;
+}
+
+/**	Create an output object for audio signal */
+TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long number)
+{
+	TTValue				args;
+	TTObjectPtr			signalOutCallback = NULL;
+	TTValuePtr			signalOutBaton;
+	TTAudioSignalPtr	audioIn = NULL;
+	TTAudioSignalPtr	audioOut = NULL;
+	TTAudioSignalPtr	audioTemp = NULL;
+	TTAudioSignalPtr	audioZero = NULL;
+	TTObjectPtr			mixUnit = NULL;
+	TTObjectPtr			gainUnit = NULL;
+	TTObjectPtr			rampMixUnit = NULL;
+	TTObjectPtr			rampGainUnit = NULL;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	args.append(TTUInt16(number));
+	args.append(TT("audio"));
+	
+	signalOutCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &signalOutCallback, kTTValNONE);
+	signalOutBaton = new TTValue(TTPtr(x));
+	signalOutBaton->append(TTPtr(jps_return_signal));
+	signalOutCallback->setAttributeValue(TT("Baton"), TTPtr(signalOutBaton));
+	signalOutCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(signalOutCallback);
+	
+	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, number);
+	args.append((TTPtr)audioIn);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, number);
+	args.append((TTPtr)audioOut);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioTemp, number);
+	args.append((TTPtr)audioTemp);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, number);
+	args.append((TTPtr)audioZero);
+	
+	TTObjectInstantiate(TT("crossfade"), &mixUnit, number);
+	mixUnit->setAttributeValue(TT("Position"), 1.0);
+	args.append((TTPtr)mixUnit);
+	
+	TTObjectInstantiate(TT("gain"), &gainUnit, number);
+	gainUnit->setAttributeValue(TT("LinearGain"), 1.0);
+	args.append((TTPtr)gainUnit);
+	
+	TTObjectInstantiate(TT("ramp"), &rampMixUnit, number);
+	args.append((TTPtr)rampMixUnit);
+	TTObjectInstantiate(TT("ramp"), &rampGainUnit, number);
+	args.append((TTPtr)rampGainUnit);
+	
+	*returnedOutput = NULL;
+	TTObjectInstantiate(TT("Output"), TTObjectHandle(returnedOutput), args);
+	
+	return kTTErrNone;
+}
+
+/**	Send any signal to an output object */
+TTErr jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{	
+	TTValue		v;
+	
+	if (anOutput) {
+		
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+		
+		anOutput->sendMessage(kTTSym_send, v);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
 }
 
 
@@ -620,7 +898,7 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -647,7 +925,7 @@ TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -662,6 +940,7 @@ TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	return kTTErrNone;
 }
 
+/*
 void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext)
 {
 	AtomCount		ac = 0;
@@ -694,9 +973,9 @@ void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTP
 		
 		// Try to get context name from the patcher arguments
 		jamoma_patcher_getargs(patcher, &ac, &av);
-		if ((context == _sym_subpatcher) && (ac == 2))
+		if ((context == _sym_subpatcher) && (ac >= 2))
 			address = atom_getsym(av+1);
-		else if ((context == _sym_bpatcher) && (ac == 1))
+		else if ((context == _sym_bpatcher) && (ac >= 1))
 			address = atom_getsym(av);
 		
 		// Try to get context name from the patcher scripting name
@@ -802,7 +1081,8 @@ TTBoolean jamoma_view_find_context(TTNodePtr n, TTPtr args)
 	else
 		return NO;
 }
-
+ 
+*/
 
 // Method to deal with TTExplorer
 ///////////////////////////////////////////////////////////////////////
@@ -815,7 +1095,7 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -830,8 +1110,6 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	return kTTErrNone;
 }
 
-
-
 // Method to deal with TTDeviceManager
 ///////////////////////////////////////////////////////////////////////
 
@@ -841,7 +1119,7 @@ TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *retu
 	TTValue			args;
 	
 	// Make a TTDeviceManager object
-	args.append(TTModularDirectory);
+	args.append(JamomaApplication);
 	args.append(TT(name->s_name));
 	
 	*returnedDeviceManager = NULL;
@@ -850,18 +1128,17 @@ TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *retu
 	return kTTErrNone;
 }
 
-
 // Method to return data
 ///////////////////////////////////////////////////////////////////////
 
-void jamoma_callback_return_address(TTPtr p_baton, TTValue& data)
+void jamoma_callback_return_address(TTPtr baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
 	TTSymbolPtr	address;
 	
 	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
+	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&x);
 	
 	// unpack data (address)
@@ -871,7 +1148,7 @@ void jamoma_callback_return_address(TTPtr p_baton, TTValue& data)
 	object_method(x, jps_return_address, SymbolGen(address->getCString()), 0, 0);
 }
 
-void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
+void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
@@ -880,11 +1157,14 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	AtomPtr		argv = NULL;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
-	b = (TTValuePtr)p_baton;
+	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&x);
 	
-	if (b->getSize() == 2)
+	if (b->getSize() == 2) {
 		b->get(1, (TTPtr*)&method);
+		if (method == NULL || method == _sym_nothing)
+			return;
+		}
 	else
 		method = jps_return_value;
 
@@ -896,6 +1176,59 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	sysmem_freeptr(argv);
 }
 
+/** Return any signal */
+void jamoma_callback_return_signal(TTPtr baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	TTPtr		signal;
+	long		i, argc = 0;
+	AtomPtr		argv = NULL;
+	
+	// unpack baton (a t_object*)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (signal)
+	argc = data.getSize();
+	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
+	for (i=0; i<argc; i++) {
+		data.get(i, (TTPtr*)&signal);
+		atom_setobj(argv+i, signal);
+	}
+					
+	// send signal using the return_signal method
+	object_method(x, jps_return_signal, _sym_nothing, argc, argv);
+	
+	sysmem_freeptr(argv);
+}
+
+/** Return audio signal */
+void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	TTPtr		signal;
+	long		i, argc = 0;
+	AtomPtr		argv = NULL;
+	
+	// unpack baton (a t_object*)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (signal)
+	argc = data.getSize();
+	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
+	for (i=0; i<argc; i++) {
+		data.get(i, (TTPtr*)&signal);
+		atom_setobj(argv+i, signal);
+	}
+	
+	// send signal using the return_signal method
+	object_method(x, jps_return_signal, _sym_nothing, argc, argv);
+	
+	sysmem_freeptr(argv);
+}
 
 // Method to deal with TTValue
 /////////////////////////////////////////
@@ -946,21 +1279,32 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, A
 /** TODO : Make a TTValue from Atom array */
 void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	AtomCount	i;
+	AtomCount	i, start;
 	
-	if (msg == _sym_bang || argc == 0)
+	if (msg == _sym_bang && argc == 0)
 		v = kTTValNONE;
 	else {
+		
+		// add msg to the value
+		if (msg != _sym_nothing && msg != _sym_int && msg != _sym_float && msg != _sym_symbol && msg != _sym_list) {
+			v.setSize(argc+1);
+			v.set(0, TT(msg->s_name));
+			start = 1;
+		}
+		else {
+			v.setSize(argc);
+			start = 0;
+		}
+			
 		// convert Atom to TTValue
-		v.setSize(argc);
 		for (i=0; i<argc; i++) 
 		{
 			if (atom_gettype(argv+i) == A_LONG)
-				v.set(i, (int)atom_getlong(argv+i));
+				v.set(i+start, (int)atom_getlong(argv+i));
 			else if (atom_gettype(argv+i) == A_FLOAT)
-				v.set(i, atom_getfloat(argv+i));
+				v.set(i+start, atom_getfloat(argv+i));
 			else if (atom_gettype(argv+i) == A_SYM)
-				v.set(i, TT(atom_getsym(argv+i)->s_name));
+				v.set(i+start, TT(atom_getsym(argv+i)->s_name));
 		}
 	}
 }
@@ -977,7 +1321,7 @@ SymbolPtr jamoma_TTName_To_MaxName(TTSymbolPtr TTName)
 }
 
 /** Get the Context Node of relative to a jcom.external */
-TTNodePtr jamoma_context_node_get(ObjectPtr x)
+TTNodePtr jamoma_context_node_get(ObjectPtr x, TTSymbolPtr contextType)
 {
 	TTValue						c;
 	TTNodePtr					contextNode = NULL;
@@ -987,7 +1331,7 @@ TTNodePtr jamoma_context_node_get(ObjectPtr x)
 	TTBoolean					isThere = NO;
 	
 	// Get the context list 
-	jamoma_subscriber_get_context_list_method(x, &aContextList, &nbLevel);
+	jamoma_subscriber_get_context_list_method(x, contextType, &aContextList, &nbLevel);
 	
 	// Get the last context
 	if (aContextList.isEmpty())
@@ -997,23 +1341,23 @@ TTNodePtr jamoma_context_node_get(ObjectPtr x)
 	c.get(0, (TTPtr*)&context);
 	
 	// Is there a node with the same context
-	whereToSearch.append(TTModularDirectory->getRoot());
-	TTModularDirectory->IsThere(&whereToSearch, testNodeContext, context, &isThere, &contextNode);
+	whereToSearch.append(JamomaDirectory->getRoot());
+	JamomaDirectory->IsThere(&whereToSearch, testNodeContext, context, &isThere, &contextNode);
 	
 	return contextNode;
 }
 
-/** Get the get the model or view class of a jcom.external */
-void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
+/** Get the context type and class from a jcom.external looking at the patcher */
+void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass)
 {
 	bool			isJviewPatcher, isJmodPatcher;
 	ObjectPtr		patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context, filename;
-	SymbolPtr		patcherName, className;
+	SymbolPtr		patcherName;
 	TTString		addSlash;
 	long			len, pos;
 	char			*last_dot;
-	char			*to_split, *modelstr;
+	char			*to_split;
 	
 	// If z is a bpatcher, the patcher is NULL
 	if (!patcher){
@@ -1023,17 +1367,23 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 	context = jamoma_patcher_getcontext(patcher);
 	patcherName = object_attr_getsym(patcher, _sym_name);
 	
+	*returnedContextType = kTTSymEmpty;
+	
 	// if the patcher name begin by "jview."
 	// Strip jview. from the beginning of patch name
 	isJviewPatcher = strncmp(patcherName->s_name, "jview.", 6) == 0;
-	if (isJviewPatcher)
+	if (isJviewPatcher) {
 		patcherName = gensym(patcherName->s_name + 6);						// TODO : replace each "." by the Uppercase of the letter after the "."
+		*returnedContextType = TT("jview");
+	}
 	
 	// if the patcher name begin by "jmod."
 	// Strip jmod. from the beginning of patch name
 	isJmodPatcher = strncmp(patcherName->s_name, "jmod.", 5) == 0;
-	if (isJmodPatcher)
+	if (isJmodPatcher) {
 		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
+		*returnedContextType = TT("jmod");
+	}
 	
 	// Is the patcher embedded in a jmod.patcher ?
 	// The topLevel patcher name have not to be include in the address
@@ -1044,7 +1394,7 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 	// case where the object is in a subpatcher
 	else if (!isJviewPatcher && (context == _sym_subpatcher))
 		// ignore this level
-		jamoma_patcher_get_model_class(patcher, modelClass);
+		jamoma_patcher_type_and_class(patcher, returnedContextType, returnedClass);
 
 	// case where the user is editing the module 
 	// or because there are jcom to register in the toplevel patcher
@@ -1052,7 +1402,7 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 		filename = object_attr_getsym(patcher, _sym_filename);
 	
 	else {
-		*modelClass = kTTSymEmpty;
+		*returnedClass = kTTSymEmpty;
 		return;
 	}
 	
@@ -1067,7 +1417,7 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 		strcpy(to_split,filename->s_name + 6);
 	}
 	else {
-		*modelClass = kTTSymEmpty;
+		*returnedClass = kTTSymEmpty;
 		return;
 	}
 		
@@ -1079,9 +1429,95 @@ void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass)
 	
 	if (last_dot > 0) {
 		to_split[pos] = NULL;	// split to keep only the model part
-		*modelClass = TT(to_split);
+		*returnedClass = TT(to_split);
 	}
 	else
-		*modelClass = kTTSymEmpty;
+		*returnedClass = kTTSymEmpty;
 }
 
+/** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
+long jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format)
+{
+	int len, flen, pos, i_num = 1;
+	char *start_bracket = NULL;
+	char *end_bracket = NULL;
+	char *to_parse = NULL;
+	
+	if(s){
+		
+		to_parse = (char *)malloc(sizeof(char)*(strlen(s->s_name)+1));
+		
+		strcpy(to_parse,s->s_name);
+		
+		// find '[' and ']' in the instance
+		start_bracket = strrchr(to_parse,'[');
+		end_bracket = strrchr(to_parse,']');
+		
+		// if both exist, keep only what there is beetween
+		if(start_bracket && end_bracket){
+			
+			sscanf(start_bracket+1, "%d", &i_num);
+			
+			// prepare memory
+			pos = (int)start_bracket - (int)to_parse;
+			len = (int)end_bracket - (int)start_bracket;		// the lenght of the "[N]" part
+			flen = strlen(to_parse) - len + 2;					// +3 for \%d
+			*si_format = (char *)malloc(sizeof(char)*(flen+1));
+			*ss_format = (char *)malloc(sizeof(char)*(flen+1));	// only a * instead of \%d
+			
+			// edit a format string for interger
+			strncpy(*si_format, to_parse, pos);
+			(*si_format)[pos] = '\%';
+			(*si_format)[pos+1] = 'd';
+			(*si_format)[pos+2] = '\0';
+			strncat(*si_format, end_bracket+1, strlen(end_bracket));
+			(*si_format)[flen+1] = '\0';
+			
+			// edit a format string for symbol
+			strncpy(*ss_format, to_parse, pos);
+			(*ss_format)[pos] = '\%';
+			(*ss_format)[pos+1] = 's';
+			(*ss_format)[pos+2] = '\0';
+			strncat(*ss_format, end_bracket+1, strlen(end_bracket));
+			(*ss_format)[flen+1] = '\0';
+			
+			free(to_parse);
+			
+			return i_num;
+		}	
+	}
+	
+	*si_format = NULL;
+	*ss_format = NULL;
+	return NULL;	
+}
+
+/** edit a new instance of the given format address using interger */
+void jamoma_edit_numeric_instance(char* format, t_symbol **returnedName, long i)
+{
+	char *s_num;
+	long len;
+	
+	if (i > 0) {
+		len = strlen(format) + (long)trunc(log10(i)); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
+		s_num = (char *)malloc(sizeof(char)*len);
+		snprintf(s_num, len, format, i);
+		*returnedName = gensym(s_num);
+		free(s_num);
+	}
+}
+
+/** edit a new instance of the given format address using string */
+void jamoma_edit_string_instance(char* format, t_symbol **returnedName,  char* s)
+{
+	char *s_str;
+	long len;
+	
+	if (s) {
+		len = strlen(format) + strlen(s);
+		s_str = (char *)malloc(sizeof(char)*len);
+		snprintf(s_str, len, format, s);
+		*returnedName = gensym(s_str);
+		free(s_str);
+	}
+}

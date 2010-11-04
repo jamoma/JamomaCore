@@ -2,8 +2,8 @@
  * A Device Manager Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_DEVICE_MANAGER_H__
@@ -15,17 +15,23 @@
 class TTSender;
 class TTReceiver;
 
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
+
 typedef DeviceManager* DeviceManagerPtr;
 
 /**	TTDeviceManager ... TODO : an explanation
+ 
+ 
  */
+
 class TTMODULAR_EXPORT TTDeviceManager : public TTObject
 {
 	TTCLASS_SETUP(TTDeviceManager)
 	
 public:
 	
-	TTNodeDirectoryPtr	mDirectory;
+	TTApplicationPtr	mApplication;			///< the application
 	TTSymbolPtr			mName;					///< ATTRIBUTE: the name the device manager will present to any client
 	
 	DeviceManagerPtr	mDeviceManager;

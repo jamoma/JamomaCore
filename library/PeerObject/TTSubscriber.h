@@ -2,8 +2,8 @@
  * A contextual subscriber to register TTObject as TTNode in a TTNodeDirectory
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_SUBSCRIBER_H__
@@ -32,6 +32,9 @@
 class TTData;
 typedef TTData* TTDataPtr;
 
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
+
 class TTMODULAR_EXPORT TTSubscriber : public TTObject
 {
 	
@@ -51,7 +54,7 @@ private:
 	
 	TTBoolean			mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
 	
-	TTNodeDirectoryPtr	mDirectory;					///< the directory of the tree structure
+	TTApplicationPtr	mApplication;				///< the application
 	
 	TTCallbackPtr		mShareContextNodeCallback;	///< A callback to ask the Context node to other subscribers created before this one
 													///< Here we expect the callback fill the given value with a pointer to a ContextNode or NULL.

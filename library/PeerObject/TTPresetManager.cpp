@@ -2,8 +2,8 @@
  * A TTHarvester Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTPresetManager.h"
@@ -16,14 +16,13 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
 mNames(kTTValNONE),
 mCurrent(kTTValNONE),
-mDirectory(NULL),
+mPresetArguments(kTTValNONE),
 mPresetList(NULL),
 mCurrentIndex(0)
 {
 	TTValue v;
 	
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTPresetManager is not NULL", mDirectory);
+	mPresetArguments = arguments;
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -59,20 +58,38 @@ mCurrentIndex(0)
 
 TTPresetManager::~TTPresetManager()
 {
-	New();
+	TTPresetPtr oldPreset;
+	TTCallbackPtr oldCallback = NULL;
+	TTHashPtr oldToStore = NULL;
+	
+	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
+		mPresetList->current().get(0, (TTPtr*)&oldPreset);
+		TTObjectRelease(TTObjectHandle(&oldPreset));
+	}
 	
 	delete mPresetList;
 	mPresetList = NULL;
+	
+	mPresetArguments.get(1, (TTPtr*)&oldCallback);
+	if (oldCallback)
+		TTObjectRelease(TTObjectHandle(&oldCallback));
+	
+	mPresetArguments.get(2, (TTPtr*)&oldToStore);
+	if (oldToStore)
+		delete oldToStore;
 }
 
 TTErr TTPresetManager::getNames(TTValue& value)
 {	
 	TTPresetPtr aPreset;
 	
-	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
-		mPresetList->current().get(0, (TTPtr*)&aPreset);
-		value.append(aPreset->mName);
-	}
+	if (mPresetList->isEmpty())
+		value = kTTSymEmpty;
+	else
+		for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
+			mPresetList->current().get(0, (TTPtr*)&aPreset);
+			value.append(aPreset->mName);
+		}
 	
 	return kTTErrNone;
 }
@@ -144,8 +161,7 @@ TTErr TTPresetManager::Store(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// Create a new preset
-	args.append(mDirectory);
-	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), args);
+	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
 	
 	newPreset->setAttributeValue(TT("Address"), mAddress);
 	newPreset->setAttributeValue(TT("Name"), presetName);
@@ -195,8 +211,7 @@ TTErr TTPresetManager::StoreNext(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// Create a new preset
-	args.append(mDirectory);
-	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), args);
+	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
 	
 	newPreset->setAttributeValue(TT("Address"), mAddress);
 	newPreset->setAttributeValue(TT("Name"), presetName);
@@ -229,8 +244,7 @@ TTErr TTPresetManager::StorePrevious(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// Create a new preset
-	args.append(mDirectory);
-	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), args);
+	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
 	
 	newPreset->setAttributeValue(TT("Address"), mAddress);
 	newPreset->setAttributeValue(TT("Name"), presetName);
@@ -512,8 +526,7 @@ TTErr TTPresetManager::readFromXml(const TTValue& value)
 		
 		// Create a new preset
 		newPreset = NULL;
-		args.append(mDirectory);
-		TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), args);
+		TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
 		
 		newPreset->setAttributeValue(TT("Address"), mAddress);
 		newPreset->setAttributeValue(TT("Name"), presetName);
@@ -535,6 +548,32 @@ TTErr TTPresetManager::readFromXml(const TTValue& value)
 	v = TTValue(TTPtr(currentPreset));
 	aXmlHandler->setAttributeValue(kTTSym_Object, v);
 	return aXmlHandler->sendMessage(TT("Read"));
+}
+
+TTErr TTPresetManager::writeAsText(const TTValue& value)
+{
+	TTTextHandlerPtr aTextHandler;
+	ofstream		*file;
+	
+	value.get(0, (TTPtr*)&aTextHandler);
+	file = aTextHandler->mWriter;
+	
+	*file << "TTPresetManager::writeAsText -- TODO";
+	
+	return kTTErrNone;
+}
+
+TTErr TTPresetManager::readFromText(const TTValue& value)
+{
+	TTTextHandlerPtr aTextHandler;
+	ifstream		*file;
+	
+	value.get(0, (TTPtr*)&aTextHandler);
+	file = aTextHandler->mReader;
+	
+	// TODO
+	
+	return kTTErrNone;
 }
 
 TTPresetPtr TTPresetManager::getPresetCurrent()

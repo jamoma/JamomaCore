@@ -2,8 +2,8 @@
  * A Receiver Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_RECEIVER_H__
@@ -12,7 +12,13 @@
 #include "TTModular.h"
 
 /**	TTReceiver ... TODO : an explanation
+ 
+ 
  */
+
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
+
 class TTMODULAR_EXPORT TTReceiver : public TTObject
 {
 	TTCLASS_SETUP(TTReceiver)
@@ -25,7 +31,7 @@ public:
 	
 private :
 	
-	TTNodeDirectoryPtr	mDirectory;					///< the directory
+	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this receiver
 	TTObjectPtr			mObserver;					///< a life cycle observer

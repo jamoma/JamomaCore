@@ -2,8 +2,8 @@
  * A Device Manager Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTDeviceManager.h"
@@ -13,13 +13,13 @@
 #define thisTTClassTags		"device, manager"
 
 TT_MODULAR_CONSTRUCTOR,
-mDirectory(NULL), 
+mApplication(NULL), 
 mName(kTTSymEmpty)
 {
 	TT_ASSERT("Correct number of args to create TTDeviceManager", arguments.getSize() == 2);
 	
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTDeviceManager is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTDeviceManager is not NULL", mApplication);
 	arguments.get(1, &mName);
 	
 	addAttribute(Name, kTypeSymbol);
@@ -404,7 +404,7 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 	if(aTTDeviceManager){
 		
 		// Get the Node at the given address
-		err = aTTDeviceManager->mDirectory->getTTNodeForOSC(whereToDiscover.c_str(), &nodeToDiscover);
+		err = getDirectoryFrom(aTTDeviceManager)->getTTNodeForOSC(whereToDiscover.c_str(), &nodeToDiscover);
 		
 		if(!err){
 			
@@ -488,7 +488,7 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 	if(aTTDeviceManager){
 		
 		// Get the Node at the given address
-		err = aTTDeviceManager->mDirectory->getTTNodeForOSC(whereToGet.c_str(), &nodeToGet);
+		err = getDirectoryFrom(aTTDeviceManager)->getTTNodeForOSC(whereToGet.c_str(), &nodeToGet);
 		
 		if(!err){
 			
@@ -553,7 +553,7 @@ void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attri
 	if(aTTDeviceManager){
 		
 		// Get the Node at the given address
-		err = aTTDeviceManager->mDirectory->getTTNodeForOSC(whereToSet.c_str(), &nodeToSet);
+		err = getDirectoryFrom(aTTDeviceManager)->getTTNodeForOSC(whereToSet.c_str(), &nodeToSet);
 		
 		if(!err){
 			
@@ -605,7 +605,7 @@ void TTDeviceManager::enableListening(std::string whereToSend, Address whereToLi
 	TTString		keyLink;
 	
 	// Get the Node at the given address
-	err = this->mDirectory->getTTNodeForOSC(whereToListen.c_str(), &nodeToListen);
+	err = getDirectoryFrom(this)->getTTNodeForOSC(whereToListen.c_str(), &nodeToListen);
 	
 	if(!err){
 		
@@ -625,7 +625,7 @@ void TTDeviceManager::enableListening(std::string whereToSend, Address whereToLi
 			newListener->setAttributeValue(TT("Baton"), TTPtr(newBaton));
 			newListener->setAttributeValue(TT("Function"), TTPtr(&TTDeviceManagerDirectoryCallback));
 			
-			this->mDirectory->addObserverForNotifications(S_SEPARATOR, *newListener);
+			getDirectoryFrom(this)->addObserverForNotifications(S_SEPARATOR, *newListener);
 		}
 		// enable attribute listening
 		else{
@@ -671,7 +671,7 @@ void TTDeviceManager::disableListening(std::string whereToSend, Address whereToL
 	TTString keyLink;
 	
 	// Get the Node at the given address
-	err = this->mDirectory->getTTNodeForOSC(whereToListen.c_str(), &nodeListened);
+	err = getDirectoryFrom(this)->getTTNodeForOSC(whereToListen.c_str(), &nodeListened);
 	
 	if(!err){
 		
@@ -685,7 +685,7 @@ void TTDeviceManager::disableListening(std::string whereToSend, Address whereToL
 		{
 			if(!err) {
 				
-				err = this->mDirectory->removeObserverForNotifications(TT(whereToListen), *oldListener);
+				err = getDirectoryFrom(this)->removeObserverForNotifications(TT(whereToListen), *oldListener);
 				
 				if(!err)
 					TTObjectRelease(&oldListener);

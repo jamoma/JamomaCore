@@ -2,8 +2,8 @@
  * Jamoma Tree
  * Copyright © 2008, Théo de la Hogue & Tim Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "Jamoma.h"
@@ -11,6 +11,9 @@
 #include "TTNodeDirectory.h"
 #include "TTModular.h"
 #include "TTSubscriber.h"
+
+extern TTSymbolPtr			kTTSym_Jamoma;
+extern TTApplicationPtr		JamomaApplication;
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,6 +27,8 @@ extern "C" {
 	TTErr			jamoma_directory_free(void);
 
 	/** Dump all the OSC address of the directory in the max window */
+	TTErr			jamoma_directory_dump_observers(void);
+	
 	TTErr			jamoma_directory_dump(void);
 	TTErr			jamoma_directory_dump_by_type(void);
 
@@ -70,7 +75,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a subscriber object and register an object to the tree */
-	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress,  TTSubscriberPtr *returnedSubscriber);
+	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress,  TTSymbolPtr contextType, TTSubscriberPtr *returnedSubscriber);
 	
 	/** Share the context node between subscribed object
 		To understand how this method have to work see in TTSubscriber.h and .cpp */
@@ -84,7 +89,7 @@ extern "C" {
 	 note : a contextPatcher is a patcher named [jmod.something otherName] 
 	 return a <formatedContextName, patcher> list 
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
-	void			jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextList, long *nbLevel);
+	void			jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextType, TTListPtr aContextList, long *nbLevel);
 	
 	
 	// Method to deal with TTContainer
@@ -130,12 +135,45 @@ extern "C" {
 	/**	Create a container object */
 	TTErr			jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager);
 	
+	/** Return kTTErrNone if the node have to be part of a preset */
+	void			jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data);
+	
+	
+	
+	// Method to deal with TTInput
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create an input object for signal */
+	TTErr			jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number);
+	
+	/**	Create an input object for audio signal */
+	TTErr			jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long number);
+	
+	/**	Send any signal to an input object */
+	TTErr			jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+	
+	
+	// Method to deal with TTOutput
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create an output object for signal */
+	TTErr			jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number);
+	
+	/**	Create an output object for audio signal */
+	TTErr			jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long number);
+	
+	/**	Send any signal to an output object */
+	TTErr			jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+	
+	
 	
 	// Method to deal with TTMapper
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a mapper object */
 	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper);
+	
 	
 	
 	// Method to deal with TTViewer
@@ -147,16 +185,15 @@ extern "C" {
 	/** Look for the jview.contextPatcher above an object in order to know the address of the model it binds
 	 note : a contextPatcher is a patcher named [jview.modelName /addressToBind] 
 	 return the model address and the patcher. */
-	void			jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext);
-	long			jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr b);
-	TTBoolean		TTMODULAR_EXPORT jamoma_view_find_context(TTNodePtr n, TTPtr args);
+	//void			jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext);
+	//long			jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr b);
+	//TTBoolean		TTMODULAR_EXPORT jamoma_view_find_context(TTNodePtr n, TTPtr args);
 	
 	// Method to deal with TTExplorer
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create an explorer object */
 	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer);
-	
 
 	// Method to deal with TTDeviceManager
 	///////////////////////////////////////////////////////////////////////
@@ -169,12 +206,17 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/** Return an address to a jcom. external */
-	void			jamoma_callback_return_address(TTPtr p_baton, TTValue& data);
+	void			jamoma_callback_return_address(TTPtr baton, TTValue& data);
 	
 	
 	/** Return the value to a jcom. external */
-	void			jamoma_callback_return_value(TTPtr p_baton, TTValue& v);
+	void			jamoma_callback_return_value(TTPtr baton, TTValue& data);
 	
+	/** Return any signal */
+	void			jamoma_callback_return_signal(TTPtr baton, TTValue& data);
+	
+	/** Return audio signal */
+	void			jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data);
 	
 	// Tools
 	///////////////////////////////////////////////
@@ -192,8 +234,17 @@ extern "C" {
 	/** Get the Context Node of relative to a jcom.external */
 	TTNodePtr		jamoma_context_node_get(ObjectPtr x);
 	
-	/** Get the get the model or view class of a jcom.external */
-	void jamoma_patcher_get_model_class(ObjectPtr z,TTSymbolPtr *modelClass);
+	/** Get the context type and class from a jcom.external looking at the patcher */
+	void			jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass);
+	
+	/** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
+	long			jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format);
+	
+	/** edit a new instance of the given format address using interger */
+	void			jamoma_edit_numeric_instance(char* format, t_symbol **returnedName, long i);
+	
+	/** edit a new instance of the given format address using string */
+	void			jamoma_edit_string_instance(char* format, t_symbol **returnedName,  char* s);
 	
 #ifdef __cplusplus
 }

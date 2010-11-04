@@ -5,12 +5,6 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='type' type='string' priority='1'>speaker</item>
-    <item name='numSpeakers' type='integer' priority='2'>4</item>
-    <item name='speaker.1/position' type='array' priority='3'>0.000000 5.000000 0.000000 </item> 
-    <item name='speaker.2/position' type='array' priority='3'>5.000000 0.000000 0.000000 </item>
-    <item name='speaker.3/position' type='array' priority='3'>0.000000 -5.000000 0.000000 </item>
-    <item name='speaker.4/position' type='array' priority='3'>-5.000000 -0.000000 0.000000 </item>
     <item name='type' type='string' priority='4'>source</item>
     <item name='numSources' type='integer' priority='5'>4</item>
     <item name='source.1/position' type='array' priority='5'>4 4 0.000000 </item>

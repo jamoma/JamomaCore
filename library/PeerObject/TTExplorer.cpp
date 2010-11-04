@@ -2,8 +2,8 @@
  * A Namespace Explorer Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTExplorer.h"
@@ -17,15 +17,16 @@ mAddress(kTTSymEmpty),
 mLookfor(kTTSymEmpty),
 mEqual(kTTValNONE),
 mDifferent(kTTValNONE),
-mDirectory(NULL),
+mApplication(NULL),
 mObserver(NULL),
 mReturnValueCallback(NULL),
+mLookforObjectCriteria(NULL),
 mTempNode(NULL),
 mTempName(kTTSymEmpty),
 mResult(NULL)
 {
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTPreset is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTPreset is not NULL", mApplication);
 	
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
@@ -37,6 +38,10 @@ mResult(NULL)
 	
 	addMessage(Explore);
 	
+	addMessageWithArgument(CriteriaAdd);
+	addMessage(CriteriaClear);
+	
+	mLookforObjectCriteria = new TTHash();
 	mResult = new TTHash();
 }
 
@@ -51,13 +56,15 @@ TTExplorer::~TTExplorer()
 		addressToObserve = mAddress;
 	
 	if (mObserver && addressToObserve != kTTSymEmpty) {
-		mDirectory->removeObserverForNotifications(addressToObserve, *mObserver);
+		getDirectoryFrom(this)->removeObserverForNotifications(addressToObserve, *mObserver);
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
 	if (mReturnValueCallback)
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 	
+	CriteriaClear();
+	delete mLookforObjectCriteria;
 	delete mResult;
 }
 
@@ -77,7 +84,7 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	
 	// delete the old observer
 	if (mObserver && mTempObserve != kTTSymEmpty) {
-		mDirectory->removeObserverForNotifications(mTempObserve, *mObserver);
+		getDirectoryFrom(this)->removeObserverForNotifications(mTempObserve, *mObserver);
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
@@ -108,7 +115,7 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 		
 		mObserver->setAttributeValue(TT("Owner"), TT("TTExplorer"));						// this is usefull only to debug
 		
-		mDirectory->addObserverForNotifications(mTempObserve, *mObserver);
+		getDirectoryFrom(this)->addObserverForNotifications(mTempObserve, *mObserver);
 	}
 	
 	return kTTErrNone;
@@ -126,14 +133,11 @@ TTErr TTExplorer::Explore()
 	mResult->clear();
 	mTempNode = NULL;
 	
-	if (mLookfor == kTTSymEmpty)
-		return kTTErrGeneric;
-	
 	// bind the right node
 	if (mLookfor == TT("Instances"))
-		err = mDirectory->Lookup(mTempParent, aNodeList, &mTempNode);
+		err = getDirectoryFrom(this)->Lookup(mTempParent, aNodeList, &mTempNode);
 	else
-		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
+		err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
 		
@@ -158,15 +162,22 @@ TTErr TTExplorer::Explore()
 			}
 		}
 		
-		// get relative address of this type of objects
+		// get relative address of objects looking at mLookforObjectCriteria
 		else {
-			mDirectory->LookFor(&aNodeList, testNodeObjectType, mLookfor, allObjectNodes, &aNode);
+			
+			// if mLookforObjectCriteria table is empty and mLookfor != kTTSymEmpty
+			// use mLookfor as an entry for mLookforObjectCriteria table
+			if (mLookforObjectCriteria->isEmpty() && mLookfor != kTTSymEmpty)
+				CriteriaAdd(mLookfor);
+			
+			getDirectoryFrom(this)->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
 			
 			// Memorized the result in a hash table
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 				
 				allObjectNodes.current().get(0, (TTPtr*)&aNode);
 				aNode->getOscAddress(&name, mAddress);
+				
 				mResult->append(name, kTTValNONE);
 			}
 		}
@@ -189,6 +200,67 @@ TTErr TTExplorer::Explore()
 			mReturnValueCallback->notify(v);
 		}
 		
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTExplorer::CriteriaAdd(const TTValue& value)
+{
+	TTUInt16	s = value.getSize();
+	TTSymbolPtr	objectType, attributeName;
+	TTHashPtr	attributeCriteria;
+	TTValue		v, valueCriteria;
+	
+	if (s > 0)
+		if (value.getType() == kTypeSymbol) {
+			
+			value.get(0, &objectType);
+			if (mLookforObjectCriteria->lookup(objectType, v)) {
+				
+				attributeCriteria = new TTHash();
+				mLookforObjectCriteria->append(objectType, TTValue(TTPtr(attributeCriteria)));
+			}
+			else
+				v.get(0, (TTPtr*)&attributeCriteria);
+		}
+	
+	if (s > 1) {
+		if (value.getType(1) == kTypeSymbol) {
+			
+			value.get(1, &attributeName);
+			if (s > 2) {
+				valueCriteria.copyFrom(value, 2);
+				attributeCriteria->remove(attributeName);
+				attributeCriteria->append(attributeName, valueCriteria);
+			}
+			else
+				attributeCriteria->append(attributeName, kTTValNONE);
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTExplorer::CriteriaClear()
+{
+	TTHashPtr	attributeCriteria;
+	TTValue			v, keys;
+	TTSymbolPtr		k;
+	
+	if (!mLookforObjectCriteria->isEmpty()) {
+		
+		mLookforObjectCriteria->getKeys(keys);
+		for (TTUInt16 i=0; i<keys.getSize(); i++) {
+			
+			keys.get(i, &k);
+			mLookforObjectCriteria->lookup(k, v);
+			v.get(0, (TTPtr*)&attributeCriteria);
+			delete attributeCriteria;
+		}
+		
+		delete mLookforObjectCriteria;
+		mLookforObjectCriteria = new TTHash();
 	}
 	
 	return kTTErrNone;
@@ -371,10 +443,6 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(2, flag);
 	data.get(3, (TTPtr*)&anObserver);
 	
-	// Switch on what the explorer is looking for
-	if (anExplorer->mLookfor == kTTSymEmpty)
-		return kTTErrGeneric;
-	
 	// get children names
 	if (anExplorer->mLookfor == TT("Children")) {
 		if (aNode->getParent() == anExplorer->mTempNode)
@@ -400,14 +468,17 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 		}
 	}
 	
-	// get relative address of this type of objects
+	// get relative address of nodes matching criteria
 	else {
-		
-		if (o = aNode->getObject()) {
-			if (anExplorer->mLookfor == o->getName()) {
+			
+		if (testNodeUsingCriteria(aNode, (TTPtr)anExplorer->mLookforObjectCriteria)) { 
 				aNode->getOscAddress(&relativeAddress, anExplorer->mAddress);
 				v.append(relativeAddress);
-			}
+		}
+		// sometimes the object can be destroyed before his address
+		else if (flag == kAddressDestroyed) {
+			aNode->getOscAddress(&relativeAddress, anExplorer->mAddress);
+			v.append(relativeAddress);
 		}
 	}
 	
@@ -424,7 +495,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 				v.get(i, &key);
 				anExplorer->mResult->append(key, kTTValNONE);
 			}
-				break;
+			break;
 		}
 			
 		case kAddressDestroyed :

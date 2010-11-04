@@ -2,8 +2,8 @@
  * A Preset Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTPreset.h"
@@ -37,12 +37,20 @@ mAddress(kTTSymEmpty),
 mName(kTTSymEmpty),
 mComment(kTTSymEmpty),
 mExtra(kTTValNONE),
-mDirectory(NULL),
+mApplication(NULL),
+mTestObjectCallback(NULL),
+mToStore(NULL),
 mItemList(NULL),
 mCurrentItem(kTTSymEmpty)
 {
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTPreset is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTPreset is not NULL", mApplication);
+	
+	arguments.get(1, (TTPtr*)&mTestObjectCallback);
+	TT_ASSERT("TestObjectCallback passed to TTPreset is not NULL", mTestObjectCallback);
+	
+	arguments.get(2, (TTPtr*)&mToStore);
+	TT_ASSERT("ToStore passed to TTPreset is not NULL", mToStore);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Name, kTypeSymbol);
@@ -59,7 +67,6 @@ mCurrentItem(kTTSymEmpty)
 	addMessageWithArgument(writeAsXml);
 	addMessageWithArgument(readFromXml);
 	
-	mToStore = new TTHash();
 	mItemList = new TTHash();
 }
 
@@ -81,36 +88,23 @@ TTErr TTPreset::Fill()
 {
 	TTNodePtr		aNode;
 	TTList			aNodeList, allObjectNodes;
-	TTSymbolPtr		aRelativeAddress, objectToStore;
+	TTSymbolPtr		aRelativeAddress;
 	ItemPtr			aNewItem = NULL;
 	TTValue			hk, attributeToStore;
-	TTUInt8			i;
 	
 	Clear();
+		
+	// 1. Look for all Objects under the address into the directory
+	getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
+	getDirectoryFrom(this)->LookFor(&aNodeList, testNodeUsingCallback, (TTPtr)mTestObjectCallback, allObjectNodes, &aNode);
 	
-	// DEBUG : store only Value of Data objects
-	// TODO : pass this as argument of the Fill method
-	// TODO : how to filter message Data for example ?
-	mToStore->append(TT("Data"), TTValue(kTTSym_Value));
-	mToStore->append(TT("Container"), TTValue(kTTSym_Priority));
-	
-	mToStore->getKeys(hk);
-	for (i=0; i<mToStore->getSize(); i++) {
+	// 2. Make an Item for each found object and store it at relativeAddress key.
+	for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 		
-		hk.get(i,(TTSymbolPtr*)&objectToStore);
-		
-		// 1. Look for all Objects under the address into the directory
-		mDirectory->Lookup(mAddress, aNodeList, &aNode);
-		mDirectory->LookFor(&aNodeList, testNodeObjectType, objectToStore, allObjectNodes, &aNode);
-		
-		// 2. Make an Item for each found object and store it at relativeAddress key.
-		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
-			
-			allObjectNodes.current().get(0, (TTPtr*)&aNode);
-			aNode->getOscAddress(&aRelativeAddress, mAddress);
-			aNewItem = new Item(aNode);
-			mItemList->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
-		}
+		allObjectNodes.current().get(0, (TTPtr*)&aNode);
+		aNode->getOscAddress(&aRelativeAddress, mAddress);
+		aNewItem = new Item(aNode);
+		mItemList->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
 	}
 	
 	Update();
@@ -124,10 +118,6 @@ TTErr TTPreset::Clear()
 	TTValue			hk, v;
 	TTSymbolPtr		key;
 	TTUInt8			i;
-	
-	delete mToStore;
-	mToStore = NULL;
-	mToStore = new TTHash();
 	
 	mItemList->getKeys(hk);
 	for (i=0; i<mItemList->getSize(); i++) {
@@ -339,7 +329,7 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 			if (mItemList->lookup(mCurrentItem, v)) {
 				
 				joinOSCAddress(mAddress, mCurrentItem, &absAddress);
-				err = mDirectory->getTTNodeForOSC(absAddress, &aNode);
+				err = getDirectoryFrom(this)->getTTNodeForOSC(absAddress, &aNode);
 				
 				// if the address exist
 				if (!err) {
@@ -361,6 +351,32 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 		}
 	}
 		
+	return kTTErrNone;
+}
+
+TTErr TTPreset::writeAsText(const TTValue& value)
+{
+	TTTextHandlerPtr aTextHandler;
+	ofstream		*file;
+	
+	value.get(0, (TTPtr*)&aTextHandler);
+	file = aTextHandler->mWriter;
+	
+	*file << "TTPreset::writeAsText -- TODO";
+	
+	return kTTErrNone;
+}
+
+TTErr TTPreset::readFromText(const TTValue& value)
+{
+	TTTextHandlerPtr aTextHandler;
+	ifstream		*file;
+	
+	value.get(0, (TTPtr*)&aTextHandler);
+	file = aTextHandler->mReader;
+	
+	// TODO
+	
 	return kTTErrNone;
 }
 

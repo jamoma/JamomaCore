@@ -1,25 +1,30 @@
-<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
-
-<jamoma version='0.4'
-		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
->
-  <preset number='1' name='default'>
-    <item name='audio/active' type='boolean' priority='0'>0</item>
-    <item name='audio/gain' type='decimal' priority='0'>0.000000</item>
-    <item name='balance' type='decimal' priority='0'>0.000000</item>
-    <item name='ch.1' type='integer' priority='0'>1</item>
-    <item name='ch.2' type='integer' priority='0'>2</item>
-    <item name='clicktrain/rate' type='decimal' priority='0'>1.000001</item>
-    <item name='soundfile/loop' type='boolean' priority='0'>1</item>
-    <item name='soundfile/play' type='boolean' priority='0'>0</item>
-    <item name='source' type='string' priority='0'>none</item>
-    <item name='testtone/frequency' type='integer' priority='0'>1000</item>
-    <item name='view/color/border' type='array' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
-    <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 140 </item>
-  </preset>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
+ <!--TODO : TTContainer Description at mAddress-->
+ <preset number="1" name="default">
+  <!---->
+  <Data address="/source" Value="" Priority="0"/>
+  <Data address="/view/color/border" Value="0.000000" Priority="0"/>
+  <Data address="/in/mute" Value="0" Priority="0"/>
+  <Data address="/view/color/contentBackground" Value="0.000000" Priority="0"/>
+  <Data address="/out/freeze" Value="0" Priority="0"/>
+  <Data address="/out/preview" Value="0" Priority="0"/>
+  <Data address="/audio/gain" Value="0.000000" Priority="0"/>
+  <Data address="/view/color/toolbarText" Value="0.000000" Priority="0"/>
+  <Data address="/view/color/toolbarBackground" Value="0.000000" Priority="0"/>
+  <Data address="/balance" Value="0.000000" Priority="0"/>
+  <Data address="/out/mix" Value="0.000000" Priority="0"/>
+  <Data address="/out/mute" Value="0" Priority="0"/>
+  <Data address="/view/size" Value="300.000000 140.000000" Priority="0"/>
+  <Data address="/in/bypass" Value="0" Priority="0"/>
+  <Data address="/soundfile/play" Value="0" Priority="0"/>
+  <Data address="/testtone/frequency" Value="0" Priority="0"/>
+  <Data address="/clicktrain/rate" Value="0.000000" Priority="0"/>
+  <Data address="/ch.2" Value="0" Priority="0"/>
+  <Data address="/soundfile/loop" Value="0" Priority="0"/>
+  <Data address="/ch.1" Value="0" Priority="0"/>
+  <Data address="/out/gain" Value="0.000000" Priority="0"/>
+  <Data address="/audio/active" Value="0" Priority="0"/>
+  <Data address="/view/freeze" Value="0" Priority="0"/>
+ </preset>
 </jamoma>

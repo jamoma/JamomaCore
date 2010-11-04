@@ -64,6 +64,9 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
 	x->outlets[address_out] = outlet_new(x, NULL);					// anything outlet to output address
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 }
 
 // Method for Assistance Messages

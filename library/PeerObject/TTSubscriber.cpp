@@ -2,8 +2,8 @@
  * A contextual subscriber to register TTObject as TTNode in a TTNodeDirectory
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTSubscriber.h"
@@ -19,7 +19,7 @@ mNodeAddress(kTTSymEmpty),
 mContextNode(NULL),
 mContextAddress(kTTSymEmpty),
 mNewInstanceCreated(false),
-mDirectory(NULL),
+mApplication(NULL),
 mShareContextNodeCallback(NULL),
 mGetContextListCallback(NULL),
 mExposedMessages(NULL),
@@ -35,8 +35,8 @@ mExposedAttributes(NULL)
 	if (mRelativeAddress == kTTSymEmpty)
 		mRelativeAddress = S_SEPARATOR;
 	
-	arguments.get(2, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTSubscriber is not NULL", mDirectory);
+	arguments.get(2, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTSubscriber is not NULL", mApplication);
 	
 	arguments.get(3, (TTPtr*)&mShareContextNodeCallback);
 	TT_ASSERT("Share Callback passed to TTSubscriber is not NULL", mShareContextNodeCallback);
@@ -58,7 +58,7 @@ mExposedAttributes(NULL)
 	addAttributeProperty(ContextAddress, readOnly, YES);
 	addAttributeProperty(NewInstanceCreated, readOnly, YES);
 	
-	if	(mDirectory && mShareContextNodeCallback && mGetContextListCallback)
+	if	(getDirectoryFrom(this) && mShareContextNodeCallback && mGetContextListCallback)
 		this->subscribe(anObject);
 	
 	mExposedMessages = new TTHash();
@@ -67,16 +67,29 @@ mExposedAttributes(NULL)
 
 TTSubscriber::~TTSubscriber()
 {	
-	TTList		childrenList;
-	TTValue		aTempValue;
+	TTNodeDirectoryPtr aDirectory = getDirectoryFrom(this);
+	TTList				childrenList;
+	TTValue				aTempValue;
+	TTValue				keys;
+	TTValue				storedObject;
+	TTSymbolPtr			k, objectAddress, nameToAddress;
+	TTObjectPtr			anObject;
+	TTUInt8				i;
+	TTErr				err;
 	
 	// If node have no more child : destroy the node (except for root)
 	this->mNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
-	if (childrenList.isEmpty() && this->mNode != this->mDirectory->getRoot())
-		this->mDirectory->TTNodeRemove(this->mNodeAddress);
+	if (childrenList.isEmpty() && this->mNode != aDirectory->getRoot())
+		aDirectory->TTNodeRemove(this->mNodeAddress);
 	
-	// Set NULL object
+	// else notify for the unregistration of the object
+	// !!! Maybe this could introduce confusion for namespace observer !!!
+	// introduce a new flag (kAddressObjectUnregistered) ?
 	else {
+
+		aDirectory->notifyObservers(this->mNodeAddress, this->mNode, kAddressDestroyed);
+		
+		// Set NULL object
 		aTempValue.clear();
 		aTempValue.append((TTPtr)NULL);
 		this->mNode->setAttributeValue(kTTSym_Object, aTempValue);
@@ -87,18 +100,61 @@ TTSubscriber::~TTSubscriber()
 	
 	if (mGetContextListCallback)
 		TTObjectRelease(TTObjectHandle(&mGetContextListCallback));
+	
+	// Clear exposed Messages
+	err = mExposedMessages->getKeys(keys);
+	if (!err) {
+		for (i=0; i<keys.getSize(); i++) {
+			
+			keys.get(i, &k);
+			mExposedMessages->lookup(k, storedObject);
+			storedObject.get(0, (TTPtr*)&anObject);
+			
+			nameToAddress = convertPublicNameInAddress(k);
+			joinOSCAddress(mNodeAddress, nameToAddress, &objectAddress);
+			
+			aDirectory->TTNodeRemove(objectAddress);
+			
+			if (anObject)
+				TTObjectRelease(&anObject);
+			
+			mExposedMessages->remove(k);
+		}
+	}
+	
+	// Clear exposed Attributes
+	err = mExposedAttributes->getKeys(keys);
+	if (!err) {
+		for (i=0; i<keys.getSize(); i++) {
+			
+			keys.get(i, &k);
+			mExposedAttributes->lookup(k, storedObject);
+			storedObject.get(0, (TTPtr*)&anObject);
+			
+			nameToAddress = convertPublicNameInAddress(k);
+			joinOSCAddress(mNodeAddress, nameToAddress, &objectAddress);
+			
+			aDirectory->TTNodeRemove(objectAddress);
+			
+			if (anObject)
+				TTObjectRelease(&anObject);
+			
+			mExposedAttributes->remove(k);
+		}
+	}
 }
 
 TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 {
-	TTSymbolPtr		contextAddress, absoluteAddress;
-	TTValue			aTempValue, args;
-	TTPtr			ourContext;
-	TTListPtr		aContextList;
-	TTList			aNodeList;
-	TTNodePtr		aNode;
-	TTObjectPtr		hisObject;
-	TTErr			err;
+	TTNodeDirectoryPtr aDirectory = getDirectoryFrom(this);
+	TTSymbolPtr			contextAddress, absoluteAddress;
+	TTValue				aTempValue, args;
+	TTPtr				ourContext, hisContext;
+	TTListPtr			aContextList;
+	TTList				aNodeList;
+	TTNodePtr			aNode;
+	TTObjectPtr			hisObject;
+	TTErr				err;
 	
 	// look for any other registered subscriber in the Context
 	// to ask them the Context node using the shareCallback.
@@ -138,11 +194,11 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 			joinOSCAddress(contextAddress, this->mRelativeAddress, &absoluteAddress);
 		
 		// Check if the node exists
-		err = this->mDirectory->Lookup(absoluteAddress, aNodeList, &aNode);
+		err = aDirectory->Lookup(absoluteAddress, aNodeList, &aNode);
 		
 		// if the node doesn't exist, create it
 		if (err)
-			this->mDirectory->TTNodeCreate(absoluteAddress, ourObject, ourContext,  &aNode, &this->mNewInstanceCreated);
+			aDirectory->TTNodeCreate(absoluteAddress, ourObject, ourContext,  &aNode, &this->mNewInstanceCreated);
 		
 		// else the node already exists
 		else {
@@ -158,20 +214,30 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 				aTempValue.append((TTPtr)ourObject);
 				aNode->setAttributeValue(kTTSym_Object, aTempValue);
 				
-				// notify for the creation of the address when replacing the Object
+				// get his context
+				hisContext = aNode->getContext();
+				
+				// if there is no context
+				if (!hisContext) {
+					
+					// set our context instead
+					aTempValue.clear();
+					aTempValue.append((TTPtr)ourContext);
+					aNode->setAttributeValue(kTTSym_Context, aTempValue);
+				}
+				
+				// notify for the creation of the address when replacing the Object and Context
 				// !!! Maybe this could introduce confusion for namespace observer !!!
 				// introduce a new flag (kAddressObjectChanged) ?
-				mDirectory->notifyObservers(absoluteAddress, aNode, kAddressCreated);
-				
+				aDirectory->notifyObservers(absoluteAddress, aNode, kAddressCreated);
 			}
-			
 			// else there is already an object
 			else {
 				
 				// if it is the ContextNode, do nothing (our object can't be refered)
 				// else create another instance to refer our object
 				if (aNode != this->mContextNode)
-					this->mDirectory->TTNodeCreate(absoluteAddress, ourObject, ourContext,  &aNode, &this->mNewInstanceCreated);
+					aDirectory->TTNodeCreate(absoluteAddress, ourObject, ourContext,  &aNode, &this->mNewInstanceCreated);
 			}
 		}
 
@@ -188,20 +254,21 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 
 TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 {
-	TTValue			aTempValue, args;
-	TTSymbolPtr		formatedContextName, contextAddress, context_parent, context_name, context_instance, context_attribute;
-	TTList			contextNodeList, attributesAccess;
-	TTNodePtr		contextNode, lowerContextNode;
-	TTString		lowerContextAddress;
-	TTPtr			aContext, lowerContext;
-	TTBoolean		found, newInstanceCreated;
-	TTErr			err;
+	TTNodeDirectoryPtr	aDirectory = getDirectoryFrom(this);
+	TTValue				aTempValue, args;
+	TTSymbolPtr			formatedContextName, contextAddress, context_parent, context_name, context_instance, context_attribute;
+	TTList				contextNodeList, attributesAccess;
+	TTNodePtr			contextNode, lowerContextNode;
+	TTString			lowerContextAddress;
+	TTPtr				aContext, lowerContext;
+	TTBoolean			found, newInstanceCreated;
+	TTErr				err;
 	
 	// Build the /topContext/subContext/.../contextName/ structure
 	// Check each context instance looking at the patcher.
 	
 	// start by the root
-	contextNode = mDirectory->getRoot();
+	contextNode = aDirectory->getRoot();
 	
 	// if there are contexts in the context list
 	if(!aContextList->isEmpty()){
@@ -255,11 +322,16 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 					lowerContextAddress += formatedContextName->getCString();
 					
 					// Make a TTNode with no object
-					this->mDirectory->TTNodeCreate(TT(lowerContextAddress.data()), NULL, aContext, &contextNode, &newInstanceCreated);
+					aDirectory->TTNodeCreate(TT(lowerContextAddress.data()), NULL, aContext, &contextNode, &newInstanceCreated);
 
 				}
-				else
-					contextNode = this->mDirectory->getRoot();
+				else {
+					contextNode = aDirectory->getRoot();
+					
+					// if the current context of the root is NULL : set our context
+					if (!contextNode->getContext())
+						contextNode->setAttributeValue(kTTSym_Context, aContext);
+				}
 			}
 			else
 				contextNode = lowerContextNode;
@@ -301,7 +373,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 	nameToAddress = convertPublicNameInAddress(messageName);
 	joinOSCAddress(mNodeAddress, nameToAddress, &dataAddress);
 	aContext = mNode->getContext();
-	mDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+	getDirectoryFrom(this)->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
 	
 	// store TTData and given object
 	v = TTValue((TTPtr)aData);
@@ -348,7 +420,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		nameToAddress = convertPublicNameInAddress(attributeName);
 		joinOSCAddress(mNodeAddress, nameToAddress, &dataAddress);
 		aContext = mNode->getContext();
-		mDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+		getDirectoryFrom(this)->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
 		
 		// observe the attribute of the object
 		err = anObject->findAttribute(attributeName, &anAttribute);

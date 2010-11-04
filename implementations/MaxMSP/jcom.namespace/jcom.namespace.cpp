@@ -89,6 +89,8 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);
 	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 }
 
 void nmspc_build(TTPtr self, SymbolPtr address)
@@ -137,7 +139,6 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	x->wrappedObject->getAttributeValue(TT("Lookfor"), v);
 	v.get(0, &lookfor);
 	
-
 	x->wrappedObject->getAttributeValue(kTTSym_Address, v);
 	v.get(0, &address);
 		
@@ -168,9 +169,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (lookfor == TT("Instances") && s == _sym_nothing)
 			s = gensym("_");
-		
-		atom_setsym(a, s);
-		outlet_anything(x->outlets[data_out], _sym_append, 1, a);
+		if (s) {
+			atom_setsym(a, s);
+			outlet_anything(x->outlets[data_out], _sym_append, 1, a);
+		}
 	}
 	
 	if (argc == 0)

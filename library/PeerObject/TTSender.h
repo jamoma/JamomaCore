@@ -2,8 +2,8 @@
  * A Sender Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_SENDER_H__
@@ -12,14 +12,20 @@
 #include "TTModular.h"
 
 /**	TTSender ... TODO : an explanation
+ 
+ 
  */
+
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
+
 class TTMODULAR_EXPORT TTSender : public TTObject
 {
 	TTCLASS_SETUP(TTSender)
 	
 public:
 	
-	TTNodeDirectoryPtr	mDirectory;					///< the directory
+	TTApplicationPtr	mApplication;				///< the application
 	TTSymbolPtr			mAddress;					///< ATTRIBUTE: the address to bind
 	TTSymbolPtr			mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
 

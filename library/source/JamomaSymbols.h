@@ -49,6 +49,8 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_none,
 				*jps_string,					// 
 				*jps_array,						//
 				*jps_boolean,					// 
+                *jps_list_int,
+                *jps_list_float,
 				*jps_none,						// this type only used by jcom.message
 				*jps_jcom_hub, 
 				*jps_feedback,
@@ -124,6 +126,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_none,
 				*jps_return_address,
 				*jps_return_extended,
 				*jps_return_value,
+				*jps_return_signal,
 				*jps_go,
 				*jps_init,
 				*jps_ATTRIBUTES,					// used by the hub for setting up the gui...

@@ -2,8 +2,8 @@
  * A PresetManager Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_PRESET_MANAGER_H__
@@ -12,6 +12,8 @@
 #include "TTModular.h"
 
 /**	TTPresetManager ... TODO : an explanation
+ 
+ 
  */
 
 class TTPreset;
@@ -32,7 +34,7 @@ public:
 
 private:
 	
-	TTNodeDirectoryPtr	mDirectory;						///< the directory
+	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)
 	TTListPtr			mPresetList;					///< a list containing <TTPresetPtr> sorted by Number attribute
 	TTUInt8				mCurrentIndex;					///< ATTRIBUTE : the position of the current preset in the list (from 1 to list size, 0 mean no current index)
 	
@@ -61,10 +63,9 @@ private :
 	TTErr writeAsXml(const TTValue& value);
 	TTErr readFromXml(const TTValue& value);
 	
-	/* TODO :
-	 TTErr writeAsText(const TTValue& value);											// pass a text buffer ?
-	 TTErr readFromText(const TTValue& value);											// pass a text buffer ?
-	 */
+	/**  needed to be handled by a TTTextHandler */
+	 TTErr writeAsText(const TTValue& value);
+	 TTErr readFromText(const TTValue& value);
 	
 	/** */
 	TTErr getNames(TTValue& value);

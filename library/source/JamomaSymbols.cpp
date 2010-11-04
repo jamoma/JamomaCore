@@ -32,6 +32,8 @@ t_symbol	*jps_done,
 			*jps_string,
 			*jps_array,
 			*jps_boolean, 
+            *jps_list_int,
+            *jps_list_float,
 			*jps_none,				// this type only used by jcom.message
 			*jps_jcom_hub, 
 			*jps_feedback,
@@ -107,6 +109,7 @@ t_symbol	*jps_done,
 			*jps_return_address,
 			*jps_return_extended,
 			*jps_return_value,
+			*jps_return_signal,
 			*jps_go,
 			*jps_init,
 			*jps_ATTRIBUTES,
@@ -205,6 +208,8 @@ void jamomaSymbolsInit()
 	jps_string					= SymbolGen("string");
 	jps_array					= SymbolGen("array");
 	jps_boolean					= SymbolGen("boolean");
+    jps_list_int                    = SymbolGen("list_int");
+    jps_list_float                  = SymbolGen("list_float");
 	jps_none					= SymbolGen("none");			// this type only used by jcom.message
 	jps_jcom_hub					= SymbolGen("jcom.hub"); 
     jps_feedback					= SymbolGen("__feedback__");		// used for parameter feedback to the hub
@@ -289,6 +294,7 @@ void jamomaSymbolsInit()
 	jps_return_address				= SymbolGen("return_address");	// method call by jamoma_callback_return_address
 	jps_return_extended				= SymbolGen("return_extended");
 	jps_return_value				= SymbolGen("return_value");	// method call by jamoma_callback_return_value
+	jps_return_signal				= SymbolGen("return_signal");	// method call by jamoma_callback_return_signal
 	jps_go							= SymbolGen("go");				// method in jcom.init called by the hub
 	jps_init						= SymbolGen("/init");			// method in the hub called from jcom.init
 	jps_ATTRIBUTES					= SymbolGen("ATTRIBUTES");

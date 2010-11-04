@@ -2,8 +2,8 @@
  * A Receiver Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTReceiver.h"
@@ -17,7 +17,7 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
 mAttribute(kTTSym_value),
 mEnable(YES),
-mDirectory(NULL),
+mApplication(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObserver(NULL),
@@ -25,8 +25,8 @@ mNodesObserversCache(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 5);
 	
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTReceiver is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTReceiver is not NULL", mApplication);
 	arguments.get(1, &mAddress);
 	arguments.get(2, &mAttribute);
 	arguments.get(3, (TTPtr*)&mReturnAddressCallback);
@@ -40,7 +40,7 @@ mNodesObserversCache(NULL)
 	
 	addMessage(get);
 	
-	if	(mDirectory && mReturnAddressCallback && mReturnValueCallback && mAddress != kTTSymEmpty)
+	if	(getDirectoryFrom(this) && mReturnAddressCallback && mReturnValueCallback && mAddress != kTTSymEmpty)
 		bind();
 }
 
@@ -150,7 +150,7 @@ TTErr TTReceiver::bind()
 	if ((mAttribute != kTTSym_Created) && (mAttribute != kTTSym_Destroyed))
 	{
 		// Look for node(s) into the directory
-		err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
+		err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
 		
 		// Start attribute observation on each existing node of the selection
 		if (!err) {
@@ -205,18 +205,19 @@ TTErr TTReceiver::bind()
 		
 	mObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));							// this is usefull only to debug
 		
-	mDirectory->addObserverForNotifications(mAddress, *mObserver);
+	getDirectoryFrom(this)->addObserverForNotifications(mAddress, *mObserver);
 
 	return kTTErrNone;
 }
 
 TTErr TTReceiver::unbind()
 {
-	TTValue			c, v;
-	TTNodePtr		p_node;
-	TTObjectPtr		oldObserver, o;
-	TTAttributePtr	anAttribute;
-	TTErr			err = kTTErrNone;
+	TTValue				c, v;
+	TTNodePtr			p_node;
+	TTObjectPtr			oldObserver, o;
+	TTAttributePtr		anAttribute;
+	TTNodeDirectoryPtr	aDirectory;
+	TTErr				err = kTTErrNone;
 	
 	// stop attribute obeservation
 	// for each node of the selection
@@ -257,9 +258,10 @@ TTErr TTReceiver::unbind()
 	}
 	
 	// stop life cycle observation
-	if (mObserver && mDirectory) {
+	aDirectory = getDirectoryFrom(this);
+	if (mObserver && aDirectory) {
 		
-		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
+		err = aDirectory->removeObserverForNotifications(mAddress, *mObserver);
 		
 		if(!err)
 			TTObjectRelease(&mObserver);

@@ -17,15 +17,18 @@
 
 
 // constants
-const double k_pi = 3.1415926535897932;		// pi
+/* those constants are now defined in TTElement.h 
+const double k_pi = 3.1415926535897932;		// pi 
 const double k_twopi = 6.2831853071795864;	// 2 * pi
 const double k_anti_denormal_value = 1e-18;	
-
+*/
 // statics and globals
-static long			initialized = false;
-static t_hashtab	*hash_modules = NULL;				// a hashtab of all modules (jcom.hubs) currently instantiated
-bool				max5 = false;
+static long					initialized = false;
+static t_hashtab			*hash_modules = NULL;				// a hashtab of all modules (jcom.hubs) currently instantiated
+bool						max5 = false;
 
+TTSymbolPtr					kTTSym_Jamoma = NULL;
+TTApplicationPtr			JamomaApplication = NULL;
 
 /************************************************************************************/
 // Init the framework
@@ -33,14 +36,19 @@ bool				max5 = false;
 void jamoma_init(void)
 {
 	if (!initialized) {
-		t_object*	max = SymbolGen("max")->s_thing;
-		t_symbol*	meth = SymbolGen("objectfile");
-		t_atom		a[4];
+		ObjectPtr	max = SymbolGen("max")->s_thing;
+		SymbolPtr	meth = SymbolGen("objectfile");
+		Atom		a[4];
+		TTValue		v;
 	
 		if (maxversion() >= 0x0500)
 			max5 = true;
 		
-		TTModularInit("Jamoma");
+		
+		TTModularInit(JAMOMA);
+		kTTSym_Jamoma = TT(JAMOMA);
+		JamomaApplication = (TTApplicationPtr)TTModularGetApplication(kTTSym_Jamoma);
+		
 		TTDSPInit();
 		
 		AsyncRamp::registerClass();
@@ -88,9 +96,9 @@ void jamoma_init(void)
 		object_method_typed(max, SymbolGen("definecommand"), 4, a, NULL);
 
 		// I -- Input: a new audio input module
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat", NULL);
 		// O -- Output: a new audio output module	
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat", NULL);
 	
 		// B -- BPatcher: a new module in a bpatcher
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
@@ -98,7 +106,7 @@ void jamoma_init(void)
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"D patcher inserttextobj \"bpatcher @name jmod.\"", NULL);		
 
 		// X -- Continuous Mapper module
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat @args /mapper", NULL);		
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat", NULL);		
 
 		// !!!! --- x is defined here to work around a 'bug' in the Max Toolbox b13 ( http://code.google.com/p/maxtoolbox/downloads/list )
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"x patcher nothing", NULL);		
@@ -277,7 +285,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	object_obex_dumpout(o, sAttrName, ac, av);
 	if (x->hub != NULL) {
 		char		s[256];
-		t_atom		a[4];
+		t_atom		*a = (t_atom *) alloca((ac + 1) * sizeof(t_atom));
 	
 		snprintf(s, 256, "%s:/%s", x->attr_name->s_name, attrName->s_name);
 		atom_setsym(a+0, SymbolGen(s));

@@ -2,8 +2,8 @@
  * A Viewer Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTViewer.h"
@@ -13,20 +13,22 @@
 #define thisTTClassTags		"viewer"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
+mAddressMain(kTTSymEmpty),
+mAddressSub(kTTSymEmpty),
 mFreeze(NO),
-mDirectory(NULL),
+mApplication(NULL),
 mReceiver(NULL),
 mSender(NULL),
 mReturnValueCallback(NULL)
 {	
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTViewer is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTViewer is not NULL", mApplication);
 	
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
-	addAttributeWithSetter(Address, kTypeSymbol);
+	addAttributeWithSetter(AddressMain, kTypeSymbol);
+	addAttributeWithSetter(AddressSub, kTypeSymbol);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
 	addMessage(Refresh);
@@ -45,17 +47,43 @@ TTViewer::~TTViewer() // TODO : delete things...
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 }
 
-TTErr TTViewer::setAddress(const TTValue& value)
+TTErr TTViewer::setAddressMain(const TTValue& value)
+{
+	mAddressMain = value;
+	
+	if (mAddressMain != kTTSymEmpty && mAddressSub != kTTSymEmpty) {
+		bind();
+		Refresh();
+	}
+	
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewer::setAddressSub(const TTValue& value)
+{
+	mAddressSub = value;
+	
+	if (mAddressMain != kTTSymEmpty && mAddressSub != kTTSymEmpty) {
+		bind();
+		Refresh();
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewer::bind()
 {
 	TTValue			args, v, min, max;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTSymbolPtr		address;
 	
-	mAddress = value;
+	joinOSCAddress(mAddressMain, mAddressSub, &address);
 	
 	// Prepare aguments
-	args.append(TTModularDirectory);
-	args.append(mAddress);
+	args.append(mApplication);
+	args.append(address);
 	args.append(kTTSym_Value);
 	
 	// Replace a TTSender object
@@ -95,6 +123,8 @@ TTErr TTViewer::setFreeze(const TTValue& value)
 	
 	if (mReceiver)
 		mReceiver->setAttributeValue(TT("Enable"), !mFreeze);
+	
+	return kTTErrNone;
 }
 
 TTErr TTViewer::Refresh()

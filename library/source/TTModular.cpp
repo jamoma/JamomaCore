@@ -2,8 +2,8 @@
  * TTModular Library
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 
@@ -12,52 +12,79 @@
 // Statics and Globals
 static bool TTModularHasInitialized = false;
 
-TTNodeDirectoryPtr TTModularDirectory = NULL;
+TTHashPtr	TTModularApplications = NULL;
 
-void TTModularRegisterInternalClasses();
+void		TTModularRegisterInternalClasses();
 
 
 /****************************************************************************************************/
 
-void TTModularInit(TTString appName)
+void TTModularInit(TTString applicationStr)
 {
-	TTErr err;
+	TTValue				v;
+	TTSymbolPtr			applicationName;
+	TTApplicationPtr	anApplication;
+	
+	// Initialized Foundation framework
 	TTFoundationInit();
+	
+	applicationName = TT(applicationStr.data());
 	
 	if (!TTModularHasInitialized) {
 		
 		TTModularHasInitialized = true;
+		
+		// register classes -- both internal and external
+		TTApplication::registerClass();
+		TTContainer::registerClass();
+		TTData::registerClass();
+		TTDeviceManager::registerClass();
+		TTExplorer::registerClass();
+		TTInput::registerClass();
+		TTMapper::registerClass();
+		TTMapperManager::registerClass();
+		TTOutput::registerClass();
+		TTPreset::registerClass();
+		TTPresetManager::registerClass();
+		TTReceiver::registerClass();
+		TTSender::registerClass();
+		TTSubscriber::registerClass();
+		TTTextHandler::registerClass();
+		TTViewer::registerClass();
+		TTXmlHandler::registerClass();
+		
+		TTModularRegisterInternalClasses();
 				
 		// TODO: someday implement these so that we have project-scoped caches and don't stuff everything into the foundation?
 		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
 		
-		err = TTObjectInstantiate(TT("NodeDirectory"), TTObjectHandle(&TTModularDirectory), TT(appName));
-		TT_ASSERT("NodeDirectory created successfully", !err);
+		// Create a hash table to store each Modular application
+		TTModularApplications = new TTHash();
 		
 #ifdef TT_DEBUG
 		TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
 #else
 		TTLogMessage("Modular -- Version %s\n", TTMODULAR_VERSION_STRING);
 #endif
-		
-		// register classes -- both internal and external
-		TTSubscriber::registerClass();
-		TTContainer::registerClass();
-		TTData::registerClass();
-		TTSender::registerClass();
-		TTReceiver::registerClass();
-		TTMapper::registerClass();
-		TTMapperManager::registerClass();
-		TTViewer::registerClass();
-		TTPreset::registerClass();
-		TTPresetManager::registerClass();
-		TTExplorer::registerClass();
-		TTDeviceManager::registerClass();
-		TTXmlHandler::registerClass();
-		
-		TTModularRegisterInternalClasses();
+
 	}
+	
+	// if this application doesn't exist yet
+	if (TTModularApplications)
+		if (TTModularApplications->lookup(applicationName, v)) {
+			
+			// Create the application giving a name and the version
+			v = TTValue(applicationName);
+			v.append(TT(TTMODULAR_VERSION_STRING));
+			anApplication = NULL;
+			TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), v);
+			
+			// Store it in the TTModularApplications hash table
+			TTModularApplications->append(applicationName, TTPtr(anApplication));
+		}
+		else
+			TTLogMessage("Modular -- \"%s\" application already exists", applicationName->getCString()); 
 }
 
 #ifdef TT_PLATFORM_LINUX
@@ -77,6 +104,17 @@ void TTModularRegisterInternalClasses()
 {
 }
 
-
 /****************************************************************************************************/
 
+TTObjectPtr TTModularGetApplication(TTSymbolPtr applicationName)
+{
+	TTValue v;
+	TTApplicationPtr anApplication;
+	
+	if (!TTModularApplications->lookup(applicationName, v)) {
+		v.get(0, (TTPtr*)&anApplication);
+		return anApplication;
+	}
+	
+	return NULL;
+}

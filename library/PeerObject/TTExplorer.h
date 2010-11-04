@@ -2,8 +2,8 @@
  * A Namespace Explorer Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_EXPLORER_H__
@@ -17,6 +17,9 @@
  
  */
 
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
+
 class TTMODULAR_EXPORT TTExplorer : public TTObject
 {
 	TTCLASS_SETUP(TTExplorer)
@@ -24,15 +27,19 @@ class TTMODULAR_EXPORT TTExplorer : public TTObject
 public:
 	
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE : 
-	TTSymbolPtr			mLookfor;						///< ATTRIBUTE : what the explorer is looking for from the address (Children, Instance, Attribute, ObjectType)
+	TTSymbolPtr			mLookfor;						///< ATTRIBUTE : what the explorer is looking for from the address (Children, Instance, Attribute else use ObjectCriteria table)
 	TTValue				mEqual;							///< ATTRIBUTE : each found elements have to be equal to one element of this attribute (use KTTValNone to don't use this)
 	TTValue				mDifferent;						///< ATTRIBUTE : each found elements have to be different from all elements of this attribute (use KTTValNone to don't use this)
 	
 private:
 	
-	TTNodeDirectoryPtr	mDirectory;						///< the directory
+	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mObserver;						///< a life cycle observer
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
+	TTHashPtr			mLookforObjectCriteria;			///< hash table of hash table containing <ObjectType, <AttributeName, Value>>
+														///<	- if the Attribute hash table is empty this means any object of the given type matches the test.
+														///<	- if a value is KTTValNone this means any value matches the test.
+	
 	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done (Children and Instances cases)
 	TTSymbolPtr			mTempName;						///< remember the name on which the exploration have been done (Instances case)
 	TTSymbolPtr			mTempParent;					///< remember the parent address (Instances case)
@@ -42,6 +49,10 @@ private:
 public:
 	
 	TTErr Explore();
+	
+	TTErr CriteriaAdd(const TTValue& value);
+	TTErr CriteriaClear();
+	
 	// TODO : TTErr Dump();
 	
 private :

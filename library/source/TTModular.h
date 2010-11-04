@@ -2,8 +2,8 @@
  * TTModular Library
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_MODULAR_H__
@@ -11,8 +11,6 @@
 
 #define TTMODULAR_VERSION_STRING "0.1"
 #define TTMODULAR_XML_ENCODING "ISO-8859-1"
-
-#define TTPARAMETER_RAMPLIB // to build TTData with the RampLib
 
 #ifdef TT_PLATFORM_WIN
 #include "windows.h"
@@ -44,19 +42,23 @@
 
 #include "TTModularSymbolCache.h"
 
-#include "TTSubscriber.h"
+#include "TTApplication.h"
 #include "TTContainer.h"
 #include "TTData.h"
-#include "TTSender.h"
-#include "TTReceiver.h"
+#include "TTDeviceManager.h"
+#include "TTExplorer.h"
+#include "TTInput.h"
 #include "TTMapper.h"
 #include "TTMapperManager.h"
 #include "TTViewer.h"
+#include "TTOutput.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
-#include "TTExplorer.h"
-#include "TTDeviceManager.h"
-
+#include "TTReceiver.h"
+#include "TTSender.h"
+#include "TTSubscriber.h"
+#include "TTTextHandler.h"
+#include "TTViewer.h"
 #include "TTXmlHandler.h"
 
 // Macros
@@ -84,10 +86,12 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 
 
 // Global
-extern TTMODULAR_EXPORT TTNodeDirectoryPtr TTModularDirectory;
+extern				TTMODULAR_EXPORT TTHashPtr	TTModularApplications;
+
+TTObjectPtr			TTMODULAR_EXPORT TTModularGetApplication(TTSymbolPtr applicationName);
 
 // Prototypes
 // init the modular lib, and the foundation if needed
-void TTMODULAR_EXPORT TTModularInit(TTString appName);
+void				TTMODULAR_EXPORT TTModularInit(TTString applicationStr);
 
 #endif // __TT_MODULAR_H__

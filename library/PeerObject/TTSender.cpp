@@ -2,8 +2,8 @@
  * A Sender Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTSender.h"
@@ -13,7 +13,7 @@
 #define thisTTClassTags		"node, sender"
 
 TT_MODULAR_CONSTRUCTOR,
-mDirectory(NULL),
+mApplication(NULL),
 mAddress(kTTSymEmpty),
 mAttribute(kTTSym_value),
 mObjectCache(NULL),
@@ -21,8 +21,8 @@ mObserver(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 3);
 		
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTSender is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTSender is not NULL", mApplication);
 	arguments.get(1, &mAddress);
 	arguments.get(2, &mAttribute);
 
@@ -33,7 +33,7 @@ mObserver(NULL)
 	
 	mIsSending = false;
 	
-	if (mDirectory)
+	if (getDirectoryFrom(this))
 		bind();
 }
 
@@ -115,7 +115,7 @@ TTErr TTSender::bind()
 	TTErr		err;
 	
 	// 1. Look for the node(s) into the directory
-	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
+	err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
 	
 	// 2. make a cache containing each object
 	mObjectCache  = new TTList();
@@ -142,7 +142,7 @@ TTErr TTSender::bind()
 	
 	mObserver->setAttributeValue(TT("Owner"), TT("TTSender"));		// this is usefull only to debug
 	
-	mDirectory->addObserverForNotifications(mAddress, *mObserver);
+	getDirectoryFrom(this)->addObserverForNotifications(mAddress, *mObserver);
 	
 	return kTTErrNone;
 }
@@ -156,9 +156,9 @@ TTErr TTSender::unbind()
 		mObjectCache = NULL;
 	
 	// stop life cycle observation
-	if(mObserver && mDirectory) {
+	if(mObserver && getDirectoryFrom(this)) {
 		
-		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
+		err = getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
 	
 		if(!err)
 			TTObjectRelease(&mObserver);

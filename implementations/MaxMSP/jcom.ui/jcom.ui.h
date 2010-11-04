@@ -17,7 +17,7 @@
 #include "ModularForMax.h"			// Jamoma Modular for Max
 #include "MaxObjectTypes.h"
 #include "ext_symobject.h"
-
+#include "TTElement.h"
 
 // members
 typedef struct _ui{
@@ -25,10 +25,17 @@ typedef struct _ui{
 	TTPtr				outlet;					///< outlet -- used for sending preview to jit.pwindow
 	TTHashPtr			hash_datas;				///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
-	TTObjectPtr			explorer;				///< internal TTExplorer object to observe the namespace
+	TTObjectPtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
+	TTObjectPtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
+	TTObjectPtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
+	TTObjectPtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
+	TTObjectPtr			modelRetExplorer;		///< internal TTExplorer object to observe returns
+	TTSubscriberPtr		viewSubscriber;			///< internal TTSubscriber object to create a /view node
 	
-	TTSymbolPtr			modelAddress;
-	TTSymbolPtr			modelClass;
+	TTSymbolPtr			address;
+	TTSymbolPtr			patcherType;
+	TTSymbolPtr			patcherClass;
+	TTSymbolPtr			patcherName;
 	ObjectPtr			patcher;
 
 	t_jrgba				bgcolor;
@@ -98,8 +105,9 @@ typedef struct _ui{
 t_ui*		ui_new(t_symbol *s, long argc, t_atom *argv);
 void 		ui_free(t_ui *x);
 t_max_err	ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+t_max_err	ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv);
+t_max_err	ui_address_get(t_ui *x, t_object *attr, long *argc, t_atom **argv);
 void		ui_build(t_ui *x);
-void		ui_do_build(t_ui *x);
 void 		ui_bang(t_ui *x);
 
 // prototypes: drawing/ui
@@ -119,20 +127,25 @@ void 		ui_refmenu_qfn(t_ui *x);
 void 		ui_refmenu_build(t_ui *x);
 
 // prototypes: internal TTData and TTViewer
-void		ui_create_all_datas(t_ui* obj);
-void		ui_destroy_all_datas(t_ui* obj);
+void		ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbolPtr service, TTSymbolPtr name);
+void		ui_data_create_all(t_ui* obj);
+void		ui_data_destroy(t_ui *obj, TTSymbolPtr name);
+void		ui_data_destroy_all(t_ui* obj);
+void		ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v);
 
-void		ui_create_data(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbolPtr service, TTSymbolPtr name);
-void		ui_destroy_data(t_ui *obj, TTSymbolPtr name);
-void		ui_send_data(t_ui *obj, TTSymbolPtr name, TTValue v);
+void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name);
+void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);
+void		ui_viewer_destroy_all(t_ui *obj);
+void		ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v);
+void		ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f);
+void		ui_viewer_refresh(t_ui *obj, TTSymbolPtr name);
 
-void		ui_create_viewer(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name);
-void		ui_destroy_viewer(t_ui *obj, TTSymbolPtr name);
-void		ui_send_viewer(t_ui *obj, TTSymbolPtr name, TTValue v);
-void		ui_freeze_viewer(t_ui *obj, TTSymbolPtr name, TTBoolean f);
-void		ui_refresh_viewer(t_ui *obj, TTSymbolPtr name);
-
-void		ui_observe_data(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);	// this callback is used by the Explorer to return datas name list 
+void		ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr method);
+void		ui_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv); 
+void		ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_color_toolbarBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -140,9 +153,8 @@ void		ui_return_color_toolbarText(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 void		ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_view_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-long		jcom_view_freeze_iterator(t_ui *x, t_object *b);
 void		ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-long		jcom_view_refresh_iterator(t_ui *x, t_object *b);
+void		ui_return_view_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

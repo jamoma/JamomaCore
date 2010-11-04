@@ -2,8 +2,8 @@
  * A Data Object
  * Copyright © 2010, Théo de la Hogue
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTData.h"
@@ -77,6 +77,9 @@ mReturnValueCallback(NULL)
 	addMessageWithArgument(Inc);
 	addMessageWithArgument(Dec);
 	addMessageWithArgument(command);
+	
+	// needed to be handled by a TTTextHandler
+	addMessageWithArgument(writeAsText);
 	
 	mIsSending = NO;
 	
@@ -540,67 +543,72 @@ TTErr TTData::setValueStepsize(const TTValue& value)
 
 TTErr TTData::setType(const TTValue& value)
 {
+	TTAttributePtr valueAttribute, valueDefaultAttribute;
 	// if the new type is different
 	if (!(TTValue(mType) == value)) {
 		
 		TTValue n = value;				// use new value to protect the attribute
 		mType = value;
-
-		// Unregister mValue and mValueDefault Attribute
-		removeAttribute(kTTSym_Value);
-		removeAttribute(kTTSym_ValueDefault);
+		
+		// Get Value and ValueDefault attributes
+		this->findAttribute(kTTSym_Value, &valueAttribute);
+		this->findAttribute(kTTSym_Value, &valueDefaultAttribute);
 
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
+			valueAttribute->type = kTypeInt32;
+			valueDefaultAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
-			addAttributeWithGetterAndSetter(Value, kTypeInt32);
 			mValueDefault = TTValue(0);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
-			mRangeBounds = TTValue(0, 1);
+			mRangeBounds.set(0, TTUInt16(0));
+			mRangeBounds.set(1, TTUInt16(1));
 		}
 		else if (mType == kTTSym_decimal) {
+			valueAttribute->type = kTypeFloat64;
+			valueDefaultAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
-			mRangeBounds = TTValue(0., 1.);
+			mRangeBounds.set(0, 0.);
+			mRangeBounds.set(1, 1.);
 		}
 		else if (mType == kTTSym_string) {
+			valueAttribute->type = kTypeSymbol;
+			valueDefaultAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
-			addAttributeWithGetterAndSetter(Value, kTypeSymbol);
 			mValueDefault = TTValue(kTTSymEmpty);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeSymbol);
 			mRangeBounds = kTTValNONE;
 		}
 		else if (mType == kTTSym_boolean) {
+			valueAttribute->type = kTypeBoolean;
+			valueDefaultAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
-			addAttributeWithGetterAndSetter(Value, kTypeBoolean);
 			mValueDefault = TTValue(NO);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeBoolean);
-			mRangeBounds = TTValue(0, 1);
+			mRangeBounds.set(0, NO);
+			mRangeBounds.set(1, YES);
 		}
 		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
+			valueAttribute->type = kTypeFloat64;
+			valueDefaultAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
-			mRangeBounds = TTValue(0., 1.);
+			mRangeBounds.set(0, 0.);
+			mRangeBounds.set(1, 1.);
 		}
 	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
+			valueAttribute->type = kTypeNone;
+			valueDefaultAttribute->type = kTypeNone;
 			mValue = kTTValNONE;
-			addAttributeWithGetterAndSetter(Value, kTypeNone);
 			mValueDefault = kTTValNONE;
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
 			mRangeBounds = kTTValNONE;
 		}
 	//#endif // JMOD_MESSAGE
 		else {
+			valueAttribute->type = kTypeFloat64;
+			valueDefaultAttribute->type = kTypeFloat64;
 			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
 			mValue = TTValue(0.);
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds = TTValue(0., 1.);
 			return kTTErrGeneric;
 		}
@@ -689,7 +697,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 			 
 			// cache the function's attribute names
 			mRampDataNames->clear();
-			mRamper->getFunctionDataNames(names);
+			mRamper->getFunctionParameterNames(names);
 			n = names.getSize();
 			for (int i=0; i<n; i++) {
 				
@@ -911,6 +919,57 @@ TTErr TTData::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 	if (!err)
 		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	
+	return kTTErrNone;
+}
+
+TTErr TTData::writeAsText(const TTValue& value)
+{
+	TTTextHandlerPtr aTextHandler;
+	ofstream		*file;
+	TTValue			toString;
+	TTString		line;
+	
+	value.get(0, (TTPtr*)&aTextHandler);
+	file = aTextHandler->mWriter;
+	
+	// Type
+	*file << "\t\t\t<td class =\"instructionType\">" << this->mType->getCString() <<  "</td>";
+
+	// range/bounds
+	toString = this->mRangeBounds;
+	toString.toString();
+	toString.get(0, line);
+	
+	if ( (this->mType == kTTSym_integer) || (this->mType == kTTSym_boolean) || (this->mType == kTTSym_decimal) || (this->mType == kTTSym_generic) )
+		*file << "\t\t\t<td class =\"instructionRangeBounds\">" << line.data() << "</td>";
+	else
+		*file << "\t\t\t<td class = \"instructionRangeBounds\"> N/A </td>";
+
+	// range/clipmode
+	*file << "\t\t\t<td class =\"instructionRangeClipmode\">" << this->mRangeClipmode->getCString() << "</td>";
+
+#ifdef TTDATA_RAMPLIB
+	// ramp/drive
+	*file << "\t\t\t<td class =\"instructionRampDrive\">" << this->mRampDrive->getCString() << "</td>";
+	
+	// ramp/function
+	*file << "\t\t\t<td class =\"instructionRampFunction\">" << this->mRampFunction->getCString() << "</td>";
+#endif
+	
+	// dataspace
+	*file << "\t\t\t<td class =\"instructionDataspace\">" << this->mDataspace->getCString() << "</td>";
+	
+	// dataspace/unit/native
+	*file << "\t\t\t<td class =\"instructionDataspaceUnitNative\">" << this->mDataspaceUnitNative->getCString() << "</td>";
+	
+	// repetitions/allow
+	toString = this->mRepetitionsAllow;
+	toString.toString();
+	toString.get(0, line);
+	*file << "\t\t\t<td class =\"instructionRepetitionsAllow\">" << line.data() << "</td>";
+	
+	// description
+	*file << "\t\t\t<td class =\"instructionDescription\">" << this->mDescription->getCString() << "</td>";
 	return kTTErrNone;
 }
 

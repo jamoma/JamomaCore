@@ -21,11 +21,15 @@ void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		data_share_context_node(TTPtr self, TTNodePtr *contextNode);
 
+void		data_build(TTPtr self, SymbolPtr address);
+void		data_build_array(TTPtr self);
+void		data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index);
+void		data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+
 #ifndef JMOD_RETURN
 void		data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		data_array_return_value(TTPtr baton, TTValue& v);
 #endif
-
-void		data_build(TTPtr self, SymbolPtr address);
 
 #ifndef JMOD_MESSAGE
 void		WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -74,6 +78,8 @@ void WrapTTDataClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)data_share_context_node,			"share_context_node",	A_CANT,	0);
 	
+	class_addmethod(c->maxClass, (method)data_array_select,					"array/select",			A_GIMME,0);
+	
 #ifndef JMOD_RETURN
 	class_addmethod(c->maxClass, (method)data_return_value,					"return_value",			A_CANT, 0);
 #endif
@@ -84,8 +90,6 @@ void WrapTTDataClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)data_float,						"float",				A_FLOAT, 0);
 	class_addmethod(c->maxClass, (method)data_list,							"list",					A_GIMME, 0);
 	
-	class_addmethod(c->maxClass, (method)WrappedDataClass_anything,			"symbol",				A_SYM, 0);
-	
 	class_addmethod(c->maxClass, (method)data_inc,							"+",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)data_dec,							"-",					A_GIMME, 0);
 #endif
@@ -94,57 +98,108 @@ void WrapTTDataClass(WrappedClassPtr c)
 void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					address;
+	SymbolPtr					address, instanceAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
+	long						number, i = 0;
+	TTObjectPtr					anObject;
+	TTValue						v;
 	
-	// A Modular object needs an address argument
+	// Check address argument
 	if (attrstart && argv) 
 		address = atom_getsym(argv);
 	else
 		address = _sym_nothing;
 	
-	// create the data
+	number = jamoma_parse_bracket(address, &x->i_format, &x->s_format);
+	
+	
+	
+	// Make one object only
+	/////////////////////////////////////////////////////////////////////////////////
+	if (!number) {
+		
+		// create the data
 #ifdef JMOD_MESSAGE
-	jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_message);
+		jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_message);
 #endif
-	
+		
 #if JMOD_RETURN
-	jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_return);
+		jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_return);
 #endif
-	
+		
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-	jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_parameter);
+		jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_parameter);
 #endif
 #endif
+		
+		attr_args_process(x, argc, argv);
+		
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low((ObjectPtr)x, (method)data_build, address, 0, 0);
+	}
 	
-	// The following must be deferred because we have to interrogate our box,
-	// and our box is not yet valid until we have finished instantiating the object.
-	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)data_build, address, 0, 0);
+	
+	
+	// Make an array of object
+	/////////////////////////////////////////////////////////////////////////////////
+	else {
+		
+		x->useInternals = true;
+		x->internals = new TTHash();
+		x->cursor = kTTSymEmpty;
+		for (i = 1; i <= number; i++) {
+			
+			jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
+			
+			// create a data
+#ifdef JMOD_MESSAGE
+			data_array_create((ObjectPtr)x, &anObject, kTTSym_message, i);
+#endif
+			
+#if JMOD_RETURN
+			data_array_create((ObjectPtr)x, &anObject, kTTSym_return, i);
+#endif
+			
+#ifndef JMOD_MESSAGE
+#ifndef JMOD_RETURN
+			data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
+#endif
+#endif
+			
+			// append the data to the internals table
+			v = TTValue(TTPtr(anObject));
+			v.append(TT(instanceAddress->s_name));
+			x->internals->append(TT(instanceAddress->s_name), v);
+			
+			// handle attribute args to set attribute of each internals data
+			x->cursor = TT(instanceAddress->s_name);
+			attr_args_process(x, argc, argv);
+		}
+		
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low((ObjectPtr)x, (method)data_build_array, NULL, 0, NULL);
+	}
+	
+	
 
 	// Make outlets
+	/////////////////////////////////////////////////////////////////////////////////
 #ifndef JMOD_RETURN
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
 
+	
 	// Make qelem object
+	/////////////////////////////////////////////////////////////////////////////////
 	x->ui_qelem = qelem_new(x, (method)data_ui_queuefn);
 #endif
 }
-
-#ifndef JMOD_MESSAGE
-void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	t_atom a;
-	
-	if (!argc) {
-		atom_setsym(&a, msg);
-		data_list(self, _sym_symbol, 1, &a);
-	}
-}
-#endif
 
 void data_build(TTPtr self, SymbolPtr address)
 {
@@ -155,7 +210,8 @@ void data_build(TTPtr self, SymbolPtr address)
 	TTSymbolPtr					nodeAddress, relativeAddress;
 	TTPtr						context;
 	
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, &x->subscriberObject);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, x->patcherType, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -185,6 +241,111 @@ void data_build(TTPtr self, SymbolPtr address)
 		object_attach_byptr_register(x, context, _sym_box);
 
 	}
+}
+
+void data_build_array(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTSymbolPtr		address, nodeAddress, relativeAddress;
+	TTValue			keys, storedObject, v, args;
+	TTSubscriberPtr	aSubscriber;
+	TTObjectPtr		anObject;
+	TTBoolean		newInstance;			
+		
+	x->internals->getKeys(keys);
+	
+	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	
+	for (int i=0; i<keys.getSize(); i++) {
+		
+		keys.get(i, &address);
+		x->cursor = address;
+		anObject = selectedObject;
+		
+		// suscribe object
+		jamoma_subscriber_create((ObjectPtr)x, anObject, gensym((char*)address->getCString()), x->patcherType, &aSubscriber);
+		
+		// if the subscription is successful
+		if (aSubscriber) {
+			
+			// Is a new instance have been created ?
+			aSubscriber->getAttributeValue(TT("NewInstanceCreated"), v);
+			v.get(0, newInstance);
+			
+			if (newInstance) {
+				aSubscriber->getAttributeValue(TT("RelativeAddress"), v);
+				v.get(0, &relativeAddress);
+				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.data with the same OSC identifier (%s).  Using %s instead.", address->getCString(), relativeAddress->getCString());
+			}
+			
+			// debug
+			aSubscriber->getAttributeValue(TT("NodeAddress"), v);
+			v.get(0, &nodeAddress);
+			object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
+		}
+	}
+	
+	// default : listen all datas
+	x->index = -1;
+}
+
+void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index)
+{
+	TTValue			args;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	
+	// prepare arguments
+	
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+#ifndef JMOD_RETURN
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueBaton->append(TTUInt32(index));
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&data_array_return_value));
+#endif
+	
+	args.append(returnValueCallback);
+	
+	args.append(service);
+	
+	*returnedData = NULL;
+	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
+}
+
+void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	SymbolPtr					instanceAddress;
+	unsigned long				i;
+	TTValue						v;
+	
+	if (x->useInternals)
+		
+		if (argc && argv) {
+			if (atom_gettype(argv) == A_LONG) {
+				i = atom_getlong(argv);
+				if (i > 0 && i <= x->internals->getSize()) {
+					x->index = i;
+					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
+					x->cursor = TT(instanceAddress->s_name);
+				}
+				else
+					object_error((ObjectPtr)x, "array/select : %ld is not a valid index", i);
+			}
+			else if (atom_gettype(argv) == A_SYM) {
+				instanceAddress = atom_getsym(argv);
+				if (instanceAddress == gensym("*")) {
+					x->index = -1;
+					x->cursor = kTTSymEmpty;
+				}
+				else
+					object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
+			}
+		}
+	else
+		object_error((ObjectPtr)x, "array/select : this method is not available. Use an [] in address argument to create an array");
 }
 
 // Method for Assistance Messages
@@ -233,7 +394,46 @@ void data_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 
-	jamoma_data_command((TTDataPtr)x->wrappedObject, msg, argc, argv);
+	if (!x->useInternals)
+		jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+	else {
+		
+		// send to each data
+		if (x->index == -1) {
+			TTValue keys;
+			x->internals->getKeys(keys);
+			for (int i=0; i<keys.getSize(); i++) {
+				keys.get(i, &x->cursor);
+				jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+			}
+			x->cursor = kTTSymEmpty;
+		}
+		else
+			jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+	}
+}
+
+void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if (!x->useInternals)
+		jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+	else {
+		
+		// send to each data
+		if (x->index == -1) {
+			TTValue keys;
+			x->internals->getKeys(keys);
+			for (int i=0; i<keys.getSize(); i++) {
+				keys.get(i, &x->cursor);
+				jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+			}
+			x->cursor = kTTSymEmpty;
+		}
+		else
+			jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+	}
 }
 #endif
 
@@ -266,7 +466,7 @@ void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
 	// Check ViewFreeze attribute
-	x->wrappedObject->getAttributeValue(kTTSym_ViewFreeze, v);
+	selectedObject->getAttributeValue(kTTSym_ViewFreeze, v);
 	v.get(0, freeze);
 	
 	if (!freeze) {
@@ -286,6 +486,32 @@ void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
+void data_array_return_value(TTPtr baton, TTValue& v)
+{
+	WrappedModularInstancePtr	x;
+	TTValuePtr					b;
+	SymbolPtr					msg, iAdrs;
+	long						i, argc = 0;
+	AtomPtr						argv = NULL;
+	
+	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&x);
+	b->get(1, i);
+	
+	if (x->index == -1) {
+		jamoma_edit_numeric_instance(x->i_format, &iAdrs, i);
+		x->cursor = TT(iAdrs->s_name);
+	}
+	else
+		if (i != x->index) return;
+	
+	jamoma_ttvalue_to_Atom(v, &msg, &argc, &argv);
+	data_return_value(x, msg, argc, argv);
+	
+	sysmem_freeptr(argv);
+}
+
 void data_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
@@ -300,7 +526,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 
 	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
-	x->wrappedObject->sendMessage(TT("Inc"), v);
+	selectedObject->sendMessage(TT("Inc"), v);
 }
 
 void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -309,6 +535,6 @@ void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
-	x->wrappedObject->sendMessage(TT("Dec"), v);
+	selectedObject->sendMessage(TT("Dec"), v);
 }
 #endif

@@ -67,6 +67,9 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 }
 
 // Method for Assistance Messages
@@ -89,7 +92,8 @@ void map_build(TTPtr self, SymbolPtr address)
 	// add '/mapper' node
 	mapperLevelAddress = "/mapper";
 	
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)mapperLevelAddress.data()), &x->subscriberObject);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)mapperLevelAddress.data()), x->patcherType, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {

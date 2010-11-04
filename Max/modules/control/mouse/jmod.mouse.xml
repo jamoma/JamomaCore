@@ -1,11 +1,28 @@
-<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
-
-<jamoma version='0.4'
-		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
->
-  <preset number='1' name='default'>
-    <item name='reference' type='generic'>screen</item>
-    <item name='active' type='integer'>0</item>
-  </preset>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
+ <!--TODO : TTContainer Description at mAddress-->
+ <preset number="1" name="default">
+  <!---->
+  <Data address="/reference" Value="screen" Priority="0"/>
+  <Data address="/view/address" Value="/mouse" Priority="0"/>
+  <Data address="/view/size" Value="150.000000 70.000000" Priority="0"/>
+  <Data address="/view/freeze" Value="0" Priority="0"/>
+  <Data address="/view/color/border" Value="0.000000" Priority="0"/>
+  <Data address="/view/color/contentBackground" Value="0.000000" Priority="0"/>
+  <Data address="/active" Value="0" Priority="0"/>
+  <Data address="/view/color/toolbarText" Value="0.000000" Priority="0"/>
+  <Data address="/view/color/toolbarBackground" Value="0.000000" Priority="0"/>
+ </preset>
+ <preset number="2" name="click">
+  <!---->
+  <Data address="/reference" Value="click" Priority="0"/>
+  <Data address="/view/address" Value="/mouse.1" Priority="0"/>
+  <Data address="/view/size" Value="150.000000 70.000000" Priority="0"/>
+  <Data address="/view/freeze" Value="0" Priority="0"/>
+  <Data address="/view/color/border" Value="0.000000" Priority="0"/>
+  <Data address="/view/color/contentBackground" Value="0.000000" Priority="0"/>
+  <Data address="/active" Value="0" Priority="0"/>
+  <Data address="/view/color/toolbarText" Value="0.000000" Priority="0"/>
+  <Data address="/view/color/toolbarBackground" Value="0.000000" Priority="0"/>
+ </preset>
 </jamoma>
