@@ -48,6 +48,7 @@ void TTModularInit(TTString appName)
 		TTSender::registerClass();
 		TTReceiver::registerClass();
 		TTMapper::registerClass();
+		TTMapperManager::registerClass();
 		TTViewer::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
