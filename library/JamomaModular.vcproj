@@ -430,11 +430,27 @@
 			Name="PeerObjectLib"
 			>
 			<File
+				RelativePath=".\PeerObject\TTApplication.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTApplication.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PeerObject\TTContainer.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTContainer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTData.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTData.h"
 				>
 			</File>
 			<File
@@ -446,11 +462,43 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PeerObject\TTExplorer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTExplorer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTInput.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTInput.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PeerObject\TTMapper.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTMapper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTMapperManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTMapperManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTOutput.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTOutput.h"
 				>
 			</File>
 			<File
@@ -467,6 +515,14 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTPreset.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTPresetManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTPresetManager.h"
 				>
 			</File>
 			<File
@@ -491,6 +547,30 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTSubscriber.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTTextHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTTextHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTViewer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTViewer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTXmlHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTXmlHandler.h"
 				>
 			</File>
 		</Filter>
