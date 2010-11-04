@@ -15,6 +15,10 @@
 TT_MODULAR_CONSTRUCTOR,
 mObject(NULL),
 mFilePath(kTTSymEmpty),
+mHeaderNodeName(TT("jamoma")),
+mVersion(TT("0.6")),
+mXmlSchemaInstance(TT("'http://www.w3.org/2001/XMLSchema-instance'")),
+mXmlSchemaLocation(TT("'http://jamoma.org/ file:jamoma.xsd'")),
 mWriter(NULL),
 mReader(NULL),
 mIsWriting(false),
@@ -23,6 +27,10 @@ mIsReading(false)
 	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.getSize() == 0);
 	
 	addAttribute(Object, kTypePointer);
+
+	addAttribute(HeaderNodeName, kTypeSymbol);
+	addAttribute(Version, kTypeSymbol);
+	addAttribute(XmlSchemaLocation, kTypeSymbol);
 	
 	addMessageWithArgument(Write);
 	addMessageWithArgument(Read);
@@ -78,10 +86,10 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 			xmlTextWriterSetIndent(mWriter, 1);
 			
 			// Start Header information
-			xmlTextWriterStartElement(mWriter, BAD_CAST "jamoma");
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",  BAD_CAST "0.6");
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi", BAD_CAST "'http://www.w3.org/2001/XMLSchema-instance'");
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST "'http://jamoma.org/ file:jamoma.xsd'");
+			xmlTextWriterStartElement(mWriter, BAD_CAST mHeaderNodeName->getCString());
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",			BAD_CAST mVersion->getCString());
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi",			BAD_CAST mXmlSchemaInstance->getCString());
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST mXmlSchemaLocation->getCString());
 			
 			// Write data of the given TTObject (which have to implement a writeAsXml message)
 			v.clear();
@@ -160,7 +168,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 					xmlFree((void*)xName);
 					
 					// Header node
-					if (mXmlNodeName == TT("jamoma")) {
+					if (mXmlNodeName == mHeaderNodeName) {
 						
 						// Starting
 						if (!mIsReading) {
