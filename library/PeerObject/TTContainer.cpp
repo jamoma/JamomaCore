@@ -41,8 +41,8 @@ mObserver(NULL)
 	addAttributeProperty(content, readOnly, YES);
 	
 	addAttribute(Initialized, kTypeBoolean);
-	addAttributeProperty(initialised, readOnly, YES);
-	addAttributeProperty(initialised, hidden, YES);
+	addAttributeProperty(initialized, readOnly, YES);
+	addAttributeProperty(initialized, hidden, YES);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeProperty(address, hidden, YES);
