@@ -135,7 +135,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// prepare umenu prefix 
 	// (except in case the explorer look for Instances)
-	x->wrappedObject->getAttributeValue(TT("Lookfor"), v);
+	x->wrappedObject->getAttributeValue(TT("lookfor"), v);
 	v.get(0, &lookfor);
 	
 	x->wrappedObject->getAttributeValue(kTTSym_address, v);
