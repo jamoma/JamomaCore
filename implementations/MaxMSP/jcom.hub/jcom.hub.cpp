@@ -270,12 +270,13 @@ void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTObjectPtr					aData;
 	TTValue						v;
-	TTSymbolPtr					address, panelAdrs;
+	TTSymbolPtr					address, panelName;
 	TTNodePtr					node = NULL;
 	TTPtr						context;
 	long						n = atom_getlong(argv);
 	
 	if (x->subscriberObject) {
+		
 		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
 		v.get(0, &address);
 		
@@ -283,17 +284,18 @@ void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 		v.get(0, (TTPtr*)&node);
 		context = node->getContext();
 		
+		// Edit a /panel name
+		if (x->patcherType == TT("jmod"))
+			panelName = TT("/model/panel");
+		else if (x->patcherType == TT("jview"))
+			panelName = TT("/view/panel");
+		else
+			panelName = TT("/panel");
+		
 		if (n) {
 			
-			// Add a /panel data
-			if (x->patcherType == TT("jmod"))
-				panelAdrs = TT("/model/panel");
-			else if (x->patcherType == TT("jview"))
-				panelAdrs = TT("/view/panel");
-			else
-				panelAdrs = TT("/panel");
-			
-			makeInternals_data(self, address, panelAdrs, gensym("hub_panel"), context, kTTSym_message, &aData);
+			// Make a /panel data
+			makeInternals_data(self, address, panelName, gensym("hub_panel"), context, kTTSym_message, &aData);
 			
 			// Set attribute of the data
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
@@ -301,8 +303,9 @@ void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 			aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		}
 		else
-			// Remove a /view/panel data
-			removeInternals_data(self, address, TT("/panel"));
+			// Remove a /panel data
+			removeInternals_data(self, address, panelName);
+
 	}
 	else
 		object_error((ObjectPtr)x, "Can't create /panel message at loadbang. Please use a deferlow.");
@@ -320,7 +323,7 @@ void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	helpfile += ".";
 	helpfile += patcherClass->getCString();
 	
-	post("hub_help : %s", (char*)helpfile.data());
+	//post("hub_help : %s", (char*)helpfile.data());
 	
 	classname_openhelp((char*)helpfile.data());
 }
@@ -337,7 +340,7 @@ void hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	refpage += ".";
 	refpage += patcherClass->getCString();
 	
-	post("hub_reference : %s", (char*)refpage.data());
+	//post("hub_reference : %s", (char*)refpage.data());
 	
 	classname_openrefpage((char*)refpage.data());
 }

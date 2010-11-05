@@ -355,7 +355,8 @@ void preset_default(TTPtr self)
 	xmlfile += patcherClass->getCString();
 	xmlfile += ".xml";
 	
-	post("preset_default : %s", (char*)xmlfile.data());
+	// DEBUG
+	//post("preset_default : %s", (char*)xmlfile.data());
 	
 	atom_setsym(a, gensym((char*)xmlfile.data()));
 	defer_low(self, (method)preset_doread, gensym("read/xml"), 1, a);

@@ -19,7 +19,7 @@ void ui_data_create_all(t_ui* obj)
 	jamoma_patcher_type_and_class((ObjectPtr)obj, &obj->patcherType, &obj->patcherClass);
 	
 	// DEBUG
-	object_post((ObjectPtr)obj, "patcherClass : %s", obj->patcherClass->getCString());
+	//object_post((ObjectPtr)obj, "patcherClass : %s", obj->patcherClass->getCString());
 	
 	// create a /view node with our pather as context
 	jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/view"), obj->patcherType, &obj->viewSubscriber);
@@ -43,7 +43,7 @@ void ui_data_create_all(t_ui* obj)
 		obj->patcherName = S_SEPARATOR;
 	
 	// DEBUG
-	object_post((ObjectPtr)obj, "patcherName : %s", obj->patcherName->getCString());
+	//object_post((ObjectPtr)obj, "patcherName : %s", obj->patcherName->getCString());
 	
 	// view/color/contentBackground
 	ui_data_create(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_parameter, TT("color/contentBackground"));
@@ -173,7 +173,8 @@ void ui_data_destroy(t_ui *obj, TTSymbolPtr name)
 			// Delete data
 			storedObject.get(0, (TTPtr*)&aData);
 			if (aData)
-				TTObjectRelease(&aData);
+				if (aData->valid)	// to -- should be better to understand why the data is not valid
+					TTObjectRelease(&aData);
 			
 			// don't remove from the hash_table here !
 		}
@@ -229,7 +230,8 @@ void ui_viewer_destroy(t_ui *obj, TTSymbolPtr name)
 			
 			storedObject.get(0, (TTPtr*)&aViewer);
 			if (aViewer)
-				TTObjectRelease(&aViewer);
+				if (aViewer->valid)	// to -- should be better to understand why the viewer is not valid
+					TTObjectRelease(&aViewer);
 			
 			// don't remove from the hash_table here !
 		}
@@ -355,8 +357,9 @@ void ui_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 				if (!JamomaDirectory->getTTNodeForOSC(obj->patcherName, &patcherNode))
 					if (anObject = patcherNode->getObject())
 						if (anObject->getName() == TT("Container")) {
+							
 							// DEBUG
-							object_post((ObjectPtr)obj, "set address : %s", obj->patcherName->getCString());
+							object_post((ObjectPtr)obj, "address : %s", obj->patcherName->getCString());
 							
 							atom_setsym(&a, gensym((char*)obj->patcherName->getCString()));
 							object_attr_setvalueof(obj, gensym("address"), 1, &a);
@@ -371,7 +374,7 @@ void ui_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (name == obj->patcherClass && nameInstance != obj->patcherName) {
 				
 				// DEBUG
-				object_post((ObjectPtr)obj, "set address : %s", paramName->s_name);
+				object_post((ObjectPtr)obj, "address : %s", paramName->s_name);
 				
 				atom_setsym(&a, paramName);
 				object_attr_setvalueof(obj, gensym("address"), 1, &a);
