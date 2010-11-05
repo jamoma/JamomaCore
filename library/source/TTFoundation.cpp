@@ -61,8 +61,6 @@ void TTFoundationInit(const char* pathToBinaries)
 		
 		// register classes -- both internal and external
 		TTCallback::registerClass();
-		TTNode::registerClass();
-		TTNodeDirectory::registerClass();
 
 		TTFoundationLoadExternalClasses();
 	}

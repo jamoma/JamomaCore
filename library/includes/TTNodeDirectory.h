@@ -42,6 +42,10 @@ enum TTAddressNotificationFlag{
 	kAddressCreated = 1,				///< this flag means that a TTNode have been created in the tree structure
 };
 
+
+/****************************************************************************************************/
+// Class Specifications
+
 /**
 	We build a tree of TTNodes, and you can request a pointer for any TTNode, or add an observer to any TTNode, etc.
 	
@@ -57,40 +61,34 @@ enum TTAddressNotificationFlag{
 	The case of wildcards is handled, because a request is cached (keyed on the request),
 	and the value is a linked list of all of the matches.
 	
-	ADDITIONAL TTNode:
-	
-	One tricky part of this design is that observers need to be recursive -- so they need to report all activity for the specific TTNode, 
-	but any activity at sub-TTNodes will also need to be propagated upwards to notify any observers at higher levels too
-
-	jcom.receive is then implemented as an observer for a specified TTNode.
-	jcom.send registers as a lifecycleObserver, but then otherwise sends messages to the TTNode.
-	
 */
 
-class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
+class TTFOUNDATION_EXPORT TTNodeDirectory : public TTElement
 {
-	TTCLASS_SETUP(TTNodeDirectory)
+	
+private:
 
-	TTSymbolPtr		mName;					///< the name of the tree
-	TTNodePtr		mRoot;					///< the root of the tree
-	TTHashPtr		mDirectory;				///< a pointer to a global hashtab which reference all osc address of the tree
-	TTHashPtr		mObservers;				///< a pointer to a hashtab which register all life cycle observers below that node
+	TTSymbolPtr		name;					///< the name of the tree
+	TTNodePtr		root;					///< the root of the tree
+	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
+	TTHashPtr		observers;				///< a pointer to a hashtab which register all life cycle observers below that node
 											///< (address/relative/to/this/node, TTList of all observers below that address)
-	TTMutexPtr		mMutex;					///< a Mutex to protect the mObservers hash table.
-
-#if THE_NON_TT_WAY_OF_DOING_THINGS
-	/** Get the name of the TTNodeDirectory */
-	TTSymbolPtr		getName();
+	TTMutexPtr		mutex;					///< a Mutex to protect the mObservers hash table.
+	
+public:
+	
+	/** Constructor */
+	TTNodeDirectory (TTSymbolPtr aName);
+	
+	/** Destructor */
+	virtual ~TTNodeDirectory ();
 
 	/** Set the name of the TTNodeDirectory. 
 		@param	newName				The name to set */
-	TTErr			setName(TTSymbolPtr name);
+	TTErr			setName(TTSymbolPtr aname);
 
-	// Notice that we don't need these at all with the TT way, because the accessors are provided for free
-	// via setAttributeValue() and getAttributeValue()
-#endif
-
-public:
+	/** Get the name of the TTNodeDirectory */
+	TTSymbolPtr		getName();
 	
 	/** Get the root of the TTNodeDirectory */
 	TTNodePtr		getRoot();
@@ -98,7 +96,6 @@ public:
 	/** Get the directory of the TTNodeDirectory */
 	TTHashPtr		getDirectory();
 
-	
 	/**	Given a string with an OSC address, return a pointer to a TTNode.
 	 @param	oscAddress				The Open Sound Control string for which to find the TTNode.
 	 @param	returnedTTNode			The .
@@ -160,13 +157,13 @@ public:
 	 @param oscAddress				an OSC address
 	 @param observer				a TTCallbackPtr to add
 	 @return						an error code */
-	TTErr			addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& observer);
+	TTErr			addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& anObserver);
 	
 	/** Remove a TTCallback as a life cycle observer of all nodes below this one
 	 @param oscAddress				an OSC address
 	 @param observer				a TTCallbackPtr to remove
 	 @return						a kTTErrGeneric if there isn't observer */
-	TTErr			removeObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& observer);
+	TTErr			removeObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& anObserver);
 	
 	/** Notify life cycle observers that something appends below this TTNode
 	 @param data					an OSC address where something append
@@ -176,17 +173,7 @@ public:
 	TTErr			notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
 	
 	TTErr			dumpObservers(TTValue& value);
-	
-	/** TODO :
-			:/catalog?
-			:/namespace?
-			?				// synonym for :/value?
-			:/dump?
-	TTErr	getCatalog();
-	TTErr	setCatalog();	
-	TTErr	getNamespace();	// how do we return this?  Just a big block of formatted text?
-	TTErr	getDump();	// how do we return this?
-	**/
+
 };
 
 /**	An OSC parsing tool : split an OSC address in two part from a given '/' position
@@ -237,7 +224,7 @@ unsigned int TTFOUNDATION_EXPORT countSeparator(TTSymbolPtr oscAddress);
 /**	Make a "public/name" symbol from "PublicName" symbol
  @param	oscAddress					"PublicName" symbol
  @return							"public/name" symbol */
-TTSymbolPtr TTFOUNDATION_EXPORT convertPublicNameInAddress(TTSymbolPtr publicName);
+TTSymbolPtr TTFOUNDATION_EXPORT convertTTNameInAddress(TTSymbolPtr ttName);
 
 /**	An test tool : test the type of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node

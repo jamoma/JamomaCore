@@ -8,72 +8,52 @@
 
 #include "TTNodeDirectory.h"
 
-#define thisTTClass			TTNodeDirectory
-#define thisTTClassName		"NodeDirectory"
-#define thisTTClassTags		"node, tree, directory"
-
-
-TT_OBJECT_CONSTRUCTOR,
-	mRoot(NULL)
+TTNodeDirectory::TTNodeDirectory(TTSymbolPtr aName)
 {
 	TTBoolean nodeCreated = NO;
 	
-	// Set the name of the tree
-	TT_ASSERT("Correct number of args to create TTNodeDirectory", arguments.getSize() == 1);
-	mName = arguments;
-	mDirectory = new TTHash();	// create a new directory
+	// set the name of the tree
+	name = aName;
+	
+	// create a new directory
+	directory = new TTHash();
 
-	addAttribute(Name, kTypeSymbol);
-	
-	addMessageWithArgument(dumpObservers);
-	
 	// create a lifeCycleObservers and protect it from multithreading access
 	// why ? because observers could disappear when they know an address is destroyed
-	this->mObservers = new TTHash();
-	this->mObservers->setThreadProtection(true);
+	this->observers = new TTHash();
+	this->observers->setThreadProtection(true);
 	
-	mMutex = new TTMutex(true);
+	mutex = new TTMutex(true);
 
-	// create a root (OSC style)
-	TTNodeCreate(S_SEPARATOR, NULL, this, &mRoot, &nodeCreated);
+	// create a root
+	TTNodeCreate(S_SEPARATOR, NULL, this, &this->root, &nodeCreated);
 }
 
 TTNodeDirectory::~TTNodeDirectory()
 {
-	// This handles the reference counting and null checking (no need to worry about double freeing)
-	TTObjectRelease(TTObjectHandle(&mRoot));
-}
-
-
-#if 0
-#pragma mark -
-#pragma mark Static Methods
-#endif
-
-
-#if THE_NON_TT_WAY_OF_DOING_THINGS
-TTSymbolPtr	TTNodeDirectory::getName()
-{
-	return mName;
+	delete root;
 }
 
 TTErr TTNodeDirectory::setName(TTSymbolPtr aName)
 {
-	mName = aName;
+	name = aName;
 	return kTTErrNone;
 }
-#endif
+
+TTSymbolPtr	TTNodeDirectory::getName()
+{
+	return name;
+}
 
 TTNodePtr	TTNodeDirectory::getRoot()
 {
-	return mRoot;
+	return root;
 }
 
 TTHashPtr	TTNodeDirectory::getDirectory()
 {
-	return mDirectory;
+	return directory;
 }
-
 
 TTErr TTNodeDirectory::getTTNodeForOSC(const char* oscAddress, TTNodePtr* returnedTTNode)
 {
@@ -85,9 +65,9 @@ TTErr TTNodeDirectory::getTTNodeForOSC(TTSymbolPtr oscAddress, TTNodePtr* return
 	TTErr err;
 	TTValue* found = new TTValue();
 	
-	if (mDirectory) {
+	if (directory) {
 		// look into the hashtab to check if the address exist in the tree
-		err = mDirectory->lookup(oscAddress, *found);
+		err = directory->lookup(oscAddress, *found);
 
 		// if this address doesn't exist
 		if (err == kTTErrValueNotFound) {
@@ -112,7 +92,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 	TTValue			v, c;
 
 	// Split the OSC address in /parent/name.instance:/property
-	err = splitOSCAddress(oscAddress,&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_property);
+	err = splitOSCAddress(oscAddress, &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_property);
 
 	// if no error in the parsing of the OSC address
 	if (err == kTTErrNone) {
@@ -121,9 +101,9 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 		if(oscAddress_property != NO_ATTRIBUTE){
 
 			// get the TTNode
-			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_ATTRIBUTE);
+			mergeOSCAddress(&oscAddress_got, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 			found = new TTValue();
-			err = mDirectory->lookup(oscAddress_got, *found);
+			err = directory->lookup(oscAddress_got, *found);
 
 			// if the TTNode doesn't exist
 			if (err == kTTErrValueNotFound)
@@ -140,7 +120,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 
 		// is there a TTNode with this address in the tree ?
 		found = new TTValue();
-		err = mDirectory->lookup(oscAddress, *found);
+		err = directory->lookup(oscAddress, *found);
 
 		// if it's the first at this address
 		if (err == kTTErrValueNotFound) {
@@ -162,15 +142,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 		///////////////////////////
 
 		// 1. Create a new TTNode
-		v.setSize(5);
-		v.set(0, oscAddress_name);
-		v.set(1, newInstance);
-		v.set(2, (TTPtr)newObject);
-		v.set(3, aContext);
-		v.set(4, TTObjectRef(*this));
-		
-		err = TTObjectInstantiate(TT("Node"), TTObjectHandle(&newTTNode), v);
-		TT_ASSERT("new TTNode successful", !err);
+		newTTNode = new TTNode(oscAddress_name, newInstance, newObject, aContext, this);
 
 		// 2. Ensure that the path to the new TTNode exists
 		if (oscAddress_parent != NO_PARENT) {
@@ -191,7 +163,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 
 		// 3. Add the effective address (with the generated instance) to the global hashtab
 		newTTNode->getOscAddress(&oscAddress_got);
-		mDirectory->append(oscAddress_got,TTValue(newTTNode));
+		directory->append(oscAddress_got, TTValue(newTTNode));
 		
 		// 4. Notify observers that a node have been created AFTER the creation
 		this->notifyObservers(oscAddress_got, newTTNode, kAddressCreated);
@@ -225,19 +197,18 @@ TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 			this->notifyObservers(oscAddress, oldNode, kAddressDestroyed);
 			
 			// Remove his address
-			err = mDirectory->remove(oscAddress);
+			err = directory->remove(oscAddress);
 			
 			// Get parent node
 			parentNode = oldNode->getParent();
 			
 			// Destroy the TTNode
 			if (!err)
-				err = TTObjectRelease(TTObjectHandle(&oldNode));
+				delete oldNode;
 			
 			// If parent node have no more child and refers to NULL object : destroy
 			parentNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
-			parentNode->getAttributeValue(kTTSym_Object, v);
-			v.get(0, (TTPtr*)&obj);
+			obj = parentNode->getObject();
 			
 			if (childrenList.isEmpty() && !obj) {
 				// find the TTNode in the directory
@@ -429,25 +400,25 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject&  observer)
+TTErr TTNodeDirectory::addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject&  anObserver)
 {
 	TTErr err;
 	TTValue lk;
-	TTValuePtr o = new TTValue(observer);
+	TTValuePtr o = new TTValue(anObserver);
 	TTListPtr lk_o;
 	
 	// enable observers protection
-	mMutex->lock();
+	mutex->lock();
 	
 	// is the key already exists ?
-	err = this->mObservers->lookup(oscAddress, lk);
+	err = this->observers->lookup(oscAddress, lk);
 	
 	// create a new observers list for this address
 	if(err == kTTErrValueNotFound){
 		lk_o = new TTList();
 		lk_o->appendUnique(o);
 		
-		this->mObservers->append(oscAddress, TTValue(lk_o));
+		this->observers->append(oscAddress, TTValue(lk_o));
 	}
 	// add it to the existing list
 	else{
@@ -456,29 +427,29 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTSymbolPtr oscAddress, const
 	}
 	
 	// disable observers protection
-	mMutex->unlock();
+	mutex->unlock();
 	
 	return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, const TTObject&  observer)
+TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, const TTObject&  anObserver)
 {
 	TTErr err;
 	TTValue lk, o, v;
 	TTListPtr lk_o;
 	
 	// enable observers protection
-	mMutex->lock();
+	mutex->lock();
 	
 	// is the key exists ?
-	err = this->mObservers->lookup(oscAddress, lk);
+	err = this->observers->lookup(oscAddress, lk);
 	
 	if(err != kTTErrValueNotFound){
 		// get the observers list
 		lk.get(0,(TTPtr*)&lk_o);
 		
 		// is observer exists ?
-		o = TTValue(observer);
+		o = TTValue(anObserver);
 		err = lk_o->findEquals(o, v);
 		if(!err)
 			lk_o->remove(v);
@@ -486,12 +457,12 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, co
 		// was it the last observer ?
 		if(lk_o->getSize() == 0) {
 			// remove the key
-			this->mObservers->remove(oscAddress);
+			this->observers->remove(oscAddress);
 		}
 	}
 	
 	// disable observers protection
-	mMutex->unlock();
+	mutex->unlock();
 
 	return err;
 }
@@ -507,12 +478,12 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 	bool foundObsv = false;
 	
 	// if there are observers
-	if (!this->mObservers->isEmpty()) {
+	if (!this->observers->isEmpty()) {
 		
 		// enable observers protection
-		mMutex->lock();
+		mutex->lock();
 		
-		this->mObservers->getKeys(hk);
+		this->observers->getKeys(hk);
 
 		// for each key of mObserver tab
 		for (i=0; i<hk.getSize(); i++) {
@@ -525,7 +496,7 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 			if ((comp == kAddressEqual) || (comp == kAddressLower)){
 				
 				// get the Observers list
-				this->mObservers->lookup(key, lk);
+				this->observers->lookup(key, lk);
 				lk.get(0,(TTPtr*)&lk_o);
 				
 				if (!lk_o->isEmpty()) {
@@ -547,7 +518,7 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 		}
 		
 		// disable observers protection
-		mMutex->unlock();
+		mutex->unlock();
 		
 		if (foundObsv)
 			return kTTErrNone;
@@ -571,12 +542,12 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 	value.clear();
 	
 	// if there are observers in mObservers tab
-	if (!this->mObservers->isEmpty()) {
+	if (!this->observers->isEmpty()) {
 		
 		// enable observers protection
-		mMutex->lock();
+		mutex->lock();
 		
-		this->mObservers->getKeys(hk);
+		this->observers->getKeys(hk);
 		
 		// for each key of mObserver tab
 		s = hk.getSize();
@@ -587,7 +558,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 			vk = new TTValue(key);
 			
 			// get the Observers list
-			this->mObservers->lookup(key, lk);
+			this->observers->lookup(key, lk);
 			lk.get(0,(TTPtr*)&lk_o);
 			
 			if (!lk_o->isEmpty())
@@ -618,7 +589,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 	}
 	
 	// disable observers protection
-	mMutex->unlock();
+	mutex->unlock();
 	
 	return kTTErrNone;
 }
@@ -878,46 +849,50 @@ TTAddressComparisonFlag compareOSCAddress(TTSymbolPtr oscAddress1, TTSymbolPtr o
 	return kAddressDifferent;
 }
 
-TTSymbolPtr convertPublicNameInAddress(TTSymbolPtr publicName)
+TTSymbolPtr convertTTNameInAddress(TTSymbolPtr ttName)
 {
-	TTUInt32	publicNameSize = 0;
-	TTCString	publicNameCString;
+	TTUInt32	ttNameSize = 0;
+	TTCString	ttNameCString;
 	TTUInt32	nbUpperCase = 0;
 	TTUInt32	i;
 	TTCString	addrNameCString = NULL;
 	TTUInt32	addrNameSize = 0;
 	TTSymbolPtr	addrNameSymbol;
 	
-	publicNameSize = strlen(publicName->getCString());
-	publicNameCString = new char[publicNameSize+1];
-	strncpy(publicNameCString, publicName->getCString(), publicNameSize+1);
+	ttNameSize = strlen(ttName->getCString());
+	ttNameCString = new char[ttNameSize+1];
+	strncpy(ttNameCString, ttName->getCString(), ttNameSize+1);
 	
-	// only expose "PublicName" as "public/name" address (they begin with an upper-case letter)
-	if (publicNameCString[0] > 64 && publicNameCString[0] < 91) {
+	// "ExampleName"	to	"example/name"
+	// "anyOtherExample" to	"any/other/example"
+	if ((ttNameCString[0] > 64 && ttNameCString[0] < 91) || (ttNameCString[0] > 96 && ttNameCString[0] < 123)) {
 		
 		//  count how many upper-case letter there are in the TTName after the first letter
-		for (i=1; i<publicNameSize; i++) {
-			if (publicNameCString[i] > 64 && publicNameCString[i] < 91)
+		for (i=1; i<ttNameSize; i++) {
+			if (ttNameCString[i] > 64 && ttNameCString[i] < 91)
 				nbUpperCase++;
 		}
 		
 		// prepare the addrName
-		addrNameSize = publicNameSize + nbUpperCase;
+		addrNameSize = ttNameSize + nbUpperCase;
 		addrNameCString = new char[addrNameSize+1];
 		
-		// convert first letter to lower-case
-		addrNameCString[0] = publicNameCString[0] + 32;													
+		// convert first letter to lower-case if needed
+		if (ttNameCString[0] > 64 && ttNameCString[0] < 91)
+			addrNameCString[0] = ttNameCString[0] + 32;
+		else
+			addrNameCString[0] = ttNameCString[0];
 		
 		// copy each letter while checking upper-case letter to replace them by a / + lower-case letter
 		nbUpperCase = 0;
-		for (i=1; i<publicNameSize; i++) {
-			if (publicNameCString[i] > 64 && publicNameCString[i] < 91) {
+		for (i=1; i<ttNameSize; i++) {
+			if (ttNameCString[i] > 64 && ttNameCString[i] < 91) {
 				addrNameCString[i + nbUpperCase] = '/';
-				addrNameCString[i + nbUpperCase + 1] = publicNameCString[i] + 32;
+				addrNameCString[i + nbUpperCase + 1] = ttNameCString[i] + 32;
 				nbUpperCase++; 
 			}
 			else
-				addrNameCString[i + nbUpperCase] = publicNameCString[i];
+				addrNameCString[i + nbUpperCase] = ttNameCString[i];
 		}
 		
 		// ends the CString with a NULL letter
@@ -928,8 +903,8 @@ TTSymbolPtr convertPublicNameInAddress(TTSymbolPtr publicName)
 	else 
 		addrNameSymbol = NULL;
 	
-	delete publicNameCString;
-	publicNameCString = NULL;
+	delete ttNameCString;
+	ttNameCString = NULL;
 	delete addrNameCString;
 	addrNameCString = NULL;
 	
