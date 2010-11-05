@@ -119,7 +119,7 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 void init_build(t_init *x, SymbolPtr address)		// address : could be used to binds on a sub level jcom.hub
 {
 	TTSymbolPtr		patcherType, patcherClass;
-	TTSymbolPtr		contextAddress;
+	TTSymbolPtr		contextAddress, levelAddress;
 	TTValue			v, args;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
@@ -131,30 +131,38 @@ void init_build(t_init *x, SymbolPtr address)		// address : could be used to bin
 		
 		x->contextNode->getOscAddress(&contextAddress, S_SEPARATOR);
 		
-		// Make a TTReceiver object
-		args.append(JamomaApplication);
-		args.append(contextAddress);
-		args.append(kTTSym_initialized);
+		if (address == _sym_nothing)
+			levelAddress = contextAddress;
+		else
+			joinOSCAddress(contextAddress, TT(address->s_name), &levelAddress);
 		
-		returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
-		returnAddressBaton = new TTValue(TTPtr(x));
-		returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
-		returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
-		args.append(returnAddressCallback);
-		
-		returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
-		returnValueBaton = new TTValue(TTPtr(x));
-		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
-		args.append(returnValueCallback);
-		
-		x->initReceiver = NULL;
-		TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&x->initReceiver), args);
-		
-		// Ask a result in case the initialisation has been done
-		x->initReceiver->sendMessage(TT("Get"));
+		if (!JamomaDirectory->getTTNodeForOSC(levelAddress, &x->contextNode)) {
+			
+			// Make a TTReceiver object
+			args.append(JamomaApplication);
+			args.append(levelAddress);
+			args.append(kTTSym_initialized);
+			
+			returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+			returnAddressBaton = new TTValue(TTPtr(x));
+			returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
+			returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
+			args.append(returnAddressCallback);
+			
+			returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+			returnValueBaton = new TTValue(TTPtr(x));
+			returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+			returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+			args.append(returnValueCallback);
+			
+			x->initReceiver = NULL;
+			TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&x->initReceiver), args);
+			
+			// Ask a result in case the initialisation has been done
+			x->initReceiver->sendMessage(TT("Get"));
+		}
 		
 	}
 	// While the context node is not registered : try to build (to --Is this not dangerous ?)
