@@ -3,26 +3,26 @@
  <!--TODO : TTContainer Description at mAddress-->
  <preset number="1" name="default">
   <!---->
-  <Data address="/reference" Value="screen" Priority="0"/>
-  <Data address="/view/address" Value="/mouse" Priority="0"/>
-  <Data address="/view/size" Value="150.000000 70.000000" Priority="0"/>
-  <Data address="/view/freeze" Value="0" Priority="0"/>
-  <Data address="/view/color/border" Value="0.000000" Priority="0"/>
-  <Data address="/view/color/contentBackground" Value="0.000000" Priority="0"/>
-  <Data address="/active" Value="0" Priority="0"/>
-  <Data address="/view/color/toolbarText" Value="0.000000" Priority="0"/>
-  <Data address="/view/color/toolbarBackground" Value="0.000000" Priority="0"/>
+  <Data address="/active" priority="0" value="0"/>
+  <Data address="/view/size" priority="0" value="150.000000 70.000000"/>
+  <Data address="/model/mute" priority="0" value="0"/>
+  <Data address="/view/color/toolbarText" priority="0" value="0.000000"/>
+  <Data address="/view/color/contentBackground" priority="0" value="0.000000"/>
+  <Data address="/view/freeze" priority="0" value="0"/>
+  <Data address="/reference" priority="0" value="screen"/>
+  <Data address="/view/color/toolbarBackground" priority="0" value="0.000000"/>
+  <Data address="/view/color/border" priority="0" value="0.000000"/>
  </preset>
  <preset number="2" name="click">
   <!---->
-  <Data address="/reference" Value="click" Priority="0"/>
-  <Data address="/view/address" Value="/mouse.1" Priority="0"/>
-  <Data address="/view/size" Value="150.000000 70.000000" Priority="0"/>
-  <Data address="/view/freeze" Value="0" Priority="0"/>
-  <Data address="/view/color/border" Value="0.000000" Priority="0"/>
-  <Data address="/view/color/contentBackground" Value="0.000000" Priority="0"/>
-  <Data address="/active" Value="0" Priority="0"/>
-  <Data address="/view/color/toolbarText" Value="0.000000" Priority="0"/>
-  <Data address="/view/color/toolbarBackground" Value="0.000000" Priority="0"/>
+  <Data address="/active" priority="0" value="1"/>
+  <Data address="/view/size" priority="0" value="150.000000 70.000000"/>
+  <Data address="/model/mute" priority="0" value="0"/>
+  <Data address="/view/color/toolbarText" priority="0" value="0.000000"/>
+  <Data address="/view/color/contentBackground" priority="0" value="0.000000"/>
+  <Data address="/view/freeze" priority="0" value="0"/>
+  <Data address="/reference" priority="0" value="click"/>
+  <Data address="/view/color/toolbarBackground" priority="0" value="0.000000"/>
+  <Data address="/view/color/border" priority="0" value="0.000000"/>
  </preset>
 </jamoma>
