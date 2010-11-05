@@ -20,8 +20,6 @@ void	view_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void	view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	view_share_context_node(TTPtr self, TTNodePtr *contextNode);
-
 void	view_bang(TTPtr self);
 void	view_int(TTPtr self, long value);
 void	view_float(TTPtr self, double value);
@@ -44,8 +42,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTViewerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)view_assist,				"assist",				A_CANT, 0L);
+	
 	class_addmethod(c->maxClass, (method)view_return_value,			"return_value",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)view_share_context_node,	"share_context_node",	A_CANT,	0);
 	
 	class_addmethod(c->maxClass, (method)view_bang,					"bang",					0L);
 	class_addmethod(c->maxClass, (method)view_int,					"int",					A_LONG, 0L);
@@ -117,28 +115,27 @@ void view_build(TTPtr self, SymbolPtr address)
 	if (x->subscriberObject) {
 		
 		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("NewInstanceCreated"), v);
+		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
 		v.get(0, newInstance);
 		
 		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
+			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
 			v.get(0, &relativeAddress);
 			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.view with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
 		}
 		
 		// debug
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &nodeAddress);
 		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		
 		// get the Node
-		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
 		// attach to the patcher to be notified of his destruction
-		node->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
-		object_attach_byptr_register(x, context, _sym_box);
+		context = node->getContext();
+		// Crash : object_attach_byptr_register(x, context, _sym_box);
 	}
 }
 
@@ -150,8 +147,8 @@ void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTUInt8		i;
 	
 	/*
-	// TODO : Check ViewFreeze attribute
-	x->wrappedObject->getAttributeValue(kTTSym_ViewFreeze, v);
+	// TODO : Check viewFreeze attribute
+	x->wrappedObject->getAttributeValue(kTTSym_viewFreeze, v);
 	v.get(0, freeze);
 	
 	if (!freeze) {
@@ -176,20 +173,6 @@ void view_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
-}
-
-void view_share_context_node(TTPtr self, TTNodePtr *contextNode)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
-		v.get(0, TTObjectHandle(contextNode));
-	}
-	else
-		*contextNode = NULL;
 }
 
 void view_bang(TTPtr self)
@@ -220,5 +203,5 @@ void view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 	
-	x->wrappedObject->sendMessage(kTTSym_send, v);
+	x->wrappedObject->sendMessage(kTTSym_Send, v);
 }

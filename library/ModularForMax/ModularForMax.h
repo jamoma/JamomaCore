@@ -19,57 +19,12 @@ extern TTApplicationPtr		JamomaApplication;
 extern "C" {
 #endif
 
-
 	// Method to deal with the jamoma directory
 	/////////////////////////////////////////
-	
-	/** Free the directory */
-	TTErr			jamoma_directory_free(void);
 
 	/** Dump all the OSC address of the directory in the max window */
 	TTErr			jamoma_directory_dump_observers(void);
 	
-	TTErr			jamoma_directory_dump(void);
-	TTErr			jamoma_directory_dump_by_type(void);
-
-	/** Get the node(s) at the given address (with wildcard too) */
-	TTErr			jamoma_directory_get_node(TTSymbolPtr address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
-	
-	/** Get all datas below the given address (with wildcard too) */
-	TTErr			jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
-	bool			testTTNodeType(TTNodePtr n, void *args);
-	
-	
-	// Method to deal with a node
-	////////////////////////////////////
-	
-	/** Return the OSC address of a node */
-	TTSymbolPtr		jamoma_node_OSC_address(TTNodePtr node);
-
-	/** Set the name of a node
-		@return		a new instance created (or NULL if not)	*/
-	TTSymbolPtr		jamoma_node_set_name(TTNodePtr node, t_symbol *name);
-
-	/** Set the instance of a node
-		@return		a new instance created (or NULL if not)	*/
-	TTSymbolPtr		jamoma_node_set_instance(TTNodePtr node, t_symbol *instance);
-
-	/** Return the type of a node*/
-	TTSymbolPtr		jamoma_node_type(TTNodePtr node);
-
-	/** Return all children of a node */
-	TTErr			jamoma_node_children(TTNodePtr node, TTList& lk_children);
-	
-	
-	// Method to deal with the attributes of a node
-	////////////////////////////////////////////////////
-
-	/** Add an TTObject as an observer of an attribute of a node */
-	void			jamoma_node_attribute_observer_add(TTNodePtr node, TTSymbolPtr attrname, TTObjectPtr object, void* method, TTObjectPtr *returnedObserver);
-	
-	/** Remove an observer of an attribute of a node */
-	void			jamoma_node_attribute_observer_remove(TTNodePtr node, TTSymbolPtr attrname, TTObjectPtr oldObserver);
-
 	
 	// Method to deal with TTSubscriber
 	///////////////////////////////////////////////////////////////////////
@@ -139,7 +94,6 @@ extern "C" {
 	void			jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data);
 	
 	
-	
 	// Method to deal with TTInput
 	///////////////////////////////////////////////////////////////////////
 	
@@ -152,7 +106,6 @@ extern "C" {
 	/**	Send any signal to an input object */
 	TTErr			jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-	
 	
 	// Method to deal with TTOutput
 	///////////////////////////////////////////////////////////////////////
@@ -167,7 +120,6 @@ extern "C" {
 	TTErr			jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	
 	
-	
 	// Method to deal with TTMapper
 	///////////////////////////////////////////////////////////////////////
 	
@@ -175,19 +127,12 @@ extern "C" {
 	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper);
 	
 	
-	
 	// Method to deal with TTViewer
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a viewer object */
 	TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer);
-	
-	/** Look for the jview.contextPatcher above an object in order to know the address of the model it binds
-	 note : a contextPatcher is a patcher named [jview.modelName /addressToBind] 
-	 return the model address and the patcher. */
-	//void			jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext);
-	//long			jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr b);
-	//TTBoolean		TTMODULAR_EXPORT jamoma_view_find_context(TTNodePtr n, TTPtr args);
+
 	
 	// Method to deal with TTExplorer
 	///////////////////////////////////////////////////////////////////////
@@ -195,6 +140,7 @@ extern "C" {
 	/**	Create an explorer object */
 	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer);
 
+	
 	// Method to deal with TTDeviceManager
 	///////////////////////////////////////////////////////////////////////
 	
@@ -208,7 +154,6 @@ extern "C" {
 	/** Return an address to a jcom. external */
 	void			jamoma_callback_return_address(TTPtr baton, TTValue& data);
 	
-	
 	/** Return the value to a jcom. external */
 	void			jamoma_callback_return_value(TTPtr baton, TTValue& data);
 	
@@ -217,6 +162,7 @@ extern "C" {
 	
 	/** Return audio signal */
 	void			jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data);
+	
 	
 	// Tools
 	///////////////////////////////////////////////
@@ -231,8 +177,10 @@ extern "C" {
 		or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
 	SymbolPtr		jamoma_TTName_To_MaxName(TTSymbolPtr TTName);
 	
-	/** Get the Context Node of relative to a jcom.external */
-	TTNodePtr		jamoma_context_node_get(ObjectPtr x);
+	/** Get the Context Node relative to a jcom.external  if it is possible (else return the root)
+		This method have to be defered low while the Context is not registered in the namespace.
+		see jcom.init to get an example */
+	TTNodePtr		jamoma_context_get_node(ObjectPtr x, TTSymbolPtr contextType);
 	
 	/** Get the context type and class from a jcom.external looking at the patcher */
 	void			jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass);

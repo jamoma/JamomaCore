@@ -21,7 +21,7 @@ mOutputMin(0.),
 mOutputMax(1.),
 mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
-mFunctionDatas(kTTValNONE),
+mFunctionParameters(kTTValNONE),
 mFunctionSamples(kTTValNONE),
 mApplication(NULL),
 mReceiver(NULL),
@@ -45,17 +45,18 @@ mValid(NO)
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
 	
 	addAttributeWithGetter(FunctionLibrary, kTypeLocalValue);
-	addAttributeProperty(FunctionLibrary, readOnly, YES);
+	addAttributeProperty(functionLibrary, readOnly, YES);
 	
 	addAttributeWithSetter(Function, kTypeSymbol);
 	
-	addAttribute(FunctionDatas, kTypeLocalValue);
-	addAttributeProperty(FunctionDatas, readOnly, YES);
+	addAttribute(FunctionParameters, kTypeLocalValue);
+	addAttributeProperty(functionParameters, readOnly, YES);
 	
 	addAttributeWithGetter(FunctionSamples, kTypeLocalValue);
-	addAttributeProperty(FunctionSamples, readOnly, YES);
+	addAttributeProperty(functionSamples, readOnly, YES);
 	
-	addMessageWithArgument(map);
+	addMessageWithArgument(Map);
+	addMessageProperty(Map, hidden, YES);
 	
 	scaleInput();
 	scaleOutput();
@@ -69,16 +70,16 @@ TTMapper::~TTMapper() // TODO : delete things...
 	if (mFunctionUnit) {
 		
 		// Remove former datas
-		n = mFunctionDatas.getSize();
+		n = mFunctionParameters.getSize();
 		for (int i=0; i<n; i++) {
-			mFunctionDatas.get(i, &aName);
+			mFunctionParameters.get(i, &aName);
 			this->removeAttribute(aName);
 		}
 		
 		TTObjectRelease(TTObjectHandle(&mFunctionUnit));
 		mFunctionUnit = NULL;
 		mFunction = kTTSymEmpty;
-		mFunctionDatas.clear();
+		mFunctionParameters.clear();
 	}
 	
 	if (mReturnValueCallback)
@@ -91,13 +92,13 @@ TTMapper::~TTMapper() // TODO : delete things...
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 }
 
-TTErr TTMapper::map(TTValue& value)
+TTErr TTMapper::Map(TTValue& value)
 {
 	processMapping(value);
 	
 	// return value
 	if (mSender)
-		mSender->sendMessage(kTTSym_send, value);
+		mSender->sendMessage(kTTSym_Send, value);
 	
 	if (mReturnValueCallback)
 		mReturnValueCallback->notify(value);
@@ -140,20 +141,20 @@ TTErr TTMapper::setInput(const TTValue& value)
 	// Make a TTReceiver object
 	args.append(mApplication);
 	args.append(mInput);
-	args.append(kTTSym_Value);
+	args.append(kTTSym_value);
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
 	returnAddressBaton = new TTValue(TTPtr(this));
-	returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
-	returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&TTMapperReceiveAddressCallback));
+	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
+	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperReceiveAddressCallback));
 	args.append(returnAddressCallback);
 	
 	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(this));
-	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&TTMapperReceiveValueCallback));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
 	args.append(returnValueCallback);
 	
 	mReceiver = NULL;
@@ -169,7 +170,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 		if (anObject = aNode->getObject())
 			if (anObject->getName() == TT("Data")) {
 				
-				anObject->getAttributeValue(kTTSym_RangeBounds, v);
+				anObject->getAttributeValue(kTTSym_rangeBounds, v);
 				
 				setInputMin(v.getFloat64(0));
 				setInputMax(v.getFloat64(1));
@@ -191,7 +192,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	// Make a TTSender object
 	args.append(mApplication);
 	args.append(mOutput);
-	args.append(kTTSym_Value);
+	args.append(kTTSym_value);
 	
 	mSender = NULL;
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), args);
@@ -206,7 +207,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 		if (anObject = aNode->getObject())
 			if (anObject->getName() == TT("Data")) {
 				
-				anObject->getAttributeValue(kTTSym_RangeBounds, v);
+				anObject->getAttributeValue(kTTSym_rangeBounds, v);
 				
 				setOutputMin(v.getFloat64(0));
 				setOutputMax(v.getFloat64(1));
@@ -226,16 +227,16 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	if (mFunctionUnit) {
 
 		// Remove former datas
-		n = mFunctionDatas.getSize();
+		n = mFunctionParameters.getSize();
 		for (int i=0; i<n; i++) {
-			mFunctionDatas.get(i, &aName);
+			mFunctionParameters.get(i, &aName);
 			this->removeAttribute(aName);
 		}
 		
 		TTObjectRelease(TTObjectHandle(&mFunctionUnit));
 		mFunctionUnit = NULL;
 		mFunction = kTTSymEmpty;
-		mFunctionDatas.clear();
+		mFunctionParameters.clear();
 	}
 	
 	// Create a new function unit
@@ -254,7 +255,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 			names.get(i, &aName);
 			
 			 // don't publish these datas
-			if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+			if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
 				continue;
 			
 			// ignore attribute not starting with upper-case
@@ -264,12 +265,12 @@ TTErr TTMapper::setFunction(const TTValue& value)
 			
 			// extend attribute with the same name
 			this->extendAttribute(aName, mFunctionUnit, aName);
-			mFunctionDatas.append(aName);
+			mFunctionParameters.append(aName);
 		}
 		
 		mValid = true;
-		notifyObservers(TT("Function"), value);
-		notifyObservers(TT("FunctionDatas"), mFunctionDatas);
+		notifyObservers(kTTSym_function, value);
+		notifyObservers(TT("functionParameters"), mFunctionParameters);
 		return kTTErrNone;
 	}
 	
@@ -279,28 +280,28 @@ TTErr TTMapper::setFunction(const TTValue& value)
 TTErr TTMapper::setInputMin(const TTValue& value)
 {
 	mInputMin = value;
-	notifyObservers(TT("InputMin"), value);
+	notifyObservers(TT("inputMin"), value);
 	return scaleInput();
 }
 
 TTErr TTMapper::setInputMax(const TTValue& value)
 {
 	mInputMax = value;
-	notifyObservers(TT("InputMax"), value);
+	notifyObservers(TT("inputMax"), value);
 	return scaleInput();
 }
 
 TTErr TTMapper::setOutputMin(const TTValue& value)
 {
 	mOutputMin = value;
-	notifyObservers(TT("OutputMin"), value);
+	notifyObservers(TT("outputMin"), value);
 	return scaleOutput();
 }
 
 TTErr TTMapper::setOutputMax(const TTValue& value)
 {
 	mOutputMax = value;
-	notifyObservers(TT("OutputMax"), value);
+	notifyObservers(TT("outputMax"), value);
 	return scaleOutput();
 }
 
@@ -403,7 +404,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	
 	// return value
 	if (aMapper->mSender)
-		aMapper->mSender->sendMessage(kTTSym_send, v);
+		aMapper->mSender->sendMessage(kTTSym_Send, v);
 	
 	if (aMapper->mReturnValueCallback)
 		aMapper->mReturnValueCallback->notify(v);

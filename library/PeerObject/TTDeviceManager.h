@@ -29,18 +29,16 @@ class TTMODULAR_EXPORT TTDeviceManager : public TTObject
 {
 	TTCLASS_SETUP(TTDeviceManager)
 	
-public:
-	
-	TTApplicationPtr	mApplication;			///< the application
-	TTSymbolPtr			mName;					///< ATTRIBUTE: the name the device manager will present to any client
+public:		// make DeviceManagerPtr public while we used DeviceManagerLib (TODO : TTFashionized it !)
 	
 	DeviceManagerPtr	mDeviceManager;
-
+	
 private:
 	
-	TTHashPtr			mListernersCache;
+	TTSymbolPtr			mName;					///< ATTRIBUTE: the name the device manager will present to any client
 	
-public:
+	TTApplicationPtr	mApplication;			///< the application
+	TTHashPtr			mListernersCache;
 	
 	/** Load all Plugins at a given location */
 	TTErr LoadPlugins(const TTValue& value);

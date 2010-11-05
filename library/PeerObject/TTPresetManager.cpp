@@ -27,10 +27,10 @@ mCurrentIndex(0)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
 	addAttributeWithGetter(Names, kTypeLocalValue);
-	addAttributeProperty(Names, readOnly, YES);
+	addAttributeProperty(names, readOnly, YES);
 	
 	addAttributeWithGetter(Current, kTypeLocalValue);
-	addAttributeProperty(Current, readOnly, YES);
+	addAttributeProperty(current, readOnly, YES);
 	
 	addMessage(New);
 	
@@ -50,8 +50,11 @@ mCurrentIndex(0)
 	addMessage(RemovePrevious);
 
 	// needed to be handled by a TTXmlHandler
-	addMessageWithArgument(writeAsXml);
-	addMessageWithArgument(readFromXml);
+	addMessageWithArgument(WriteAsXml);
+	addMessageProperty(WriteAsXml, hidden, YES);
+	
+	addMessageWithArgument(ReadFromXml);
+	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mPresetList = new TTList();
 }
@@ -163,8 +166,8 @@ TTErr TTPresetManager::Store(const TTValue& value)
 	// Create a new preset
 	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
 	
-	newPreset->setAttributeValue(TT("Address"), mAddress);
-	newPreset->setAttributeValue(TT("Name"), presetName);
+	newPreset->setAttributeValue(kTTSym_address, mAddress);
+	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
 	newPreset->sendMessage(TT("Fill"));
 	
@@ -213,8 +216,8 @@ TTErr TTPresetManager::StoreNext(const TTValue& value)
 	// Create a new preset
 	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
 	
-	newPreset->setAttributeValue(TT("Address"), mAddress);
-	newPreset->setAttributeValue(TT("Name"), presetName);
+	newPreset->setAttributeValue(kTTSym_address, mAddress);
+	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
 	newPreset->sendMessage(TT("Fill"));
 	
@@ -246,8 +249,8 @@ TTErr TTPresetManager::StorePrevious(const TTValue& value)
 	// Create a new preset
 	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
 	
-	newPreset->setAttributeValue(TT("Address"), mAddress);
-	newPreset->setAttributeValue(TT("Name"), presetName);
+	newPreset->setAttributeValue(kTTSym_address, mAddress);
+	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
 	newPreset->sendMessage(TT("Fill"));
 	
@@ -293,7 +296,7 @@ TTErr TTPresetManager::Recall(const TTValue& value)
 	if (!currentPreset)
 		return kTTErrGeneric;
 	
-	currentPreset->sendMessage(TT("Send"));
+	currentPreset->sendMessage(kTTSym_Send);
 	
 	return kTTErrNone;
 }
@@ -306,7 +309,7 @@ TTErr TTPresetManager::RecallCurrent()
 	if (!currentPreset)
 		return kTTErrGeneric;
 	
-	currentPreset->sendMessage(TT("Send"));
+	currentPreset->sendMessage(kTTSym_Send);
 	
 	return kTTErrNone;
 }
@@ -320,7 +323,7 @@ TTErr TTPresetManager::RecallNext()
 	if (!nextPreset)
 		return kTTErrGeneric;
 		
-	nextPreset->sendMessage(TT("Send"));
+	nextPreset->sendMessage(kTTSym_Send);
 			
 	return kTTErrNone;
 }
@@ -334,7 +337,7 @@ TTErr TTPresetManager::RecallPrevious()
 	if (!previousPreset)
 		return kTTErrGeneric;
 	
-	previousPreset->sendMessage(TT("Send"));
+	previousPreset->sendMessage(kTTSym_Send);
 	
 	return kTTErrNone;
 }
@@ -431,7 +434,7 @@ TTErr TTPresetManager::RemovePrevious()
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::writeAsXml(const TTValue& value)
+TTErr TTPresetManager::WriteAsXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTPresetPtr			aPreset;
@@ -452,7 +455,7 @@ TTErr TTPresetManager::writeAsXml(const TTValue& value)
 		mPresetList->current().get(0, (TTPtr*)&aPreset);
 		
 		v = TTValue(TTPtr(aPreset));
-		aXmlHandler->setAttributeValue(kTTSym_Object, v);
+		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		aXmlHandler->sendMessage(TT("Write"));
 		
 		// End a preset
@@ -464,7 +467,7 @@ TTErr TTPresetManager::writeAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::readFromXml(const TTValue& value)
+TTErr TTPresetManager::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		presetName;
@@ -528,8 +531,8 @@ TTErr TTPresetManager::readFromXml(const TTValue& value)
 		newPreset = NULL;
 		TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
 		
-		newPreset->setAttributeValue(TT("Address"), mAddress);
-		newPreset->setAttributeValue(TT("Name"), presetName);
+		newPreset->setAttributeValue(kTTSym_address, mAddress);
+		newPreset->setAttributeValue(kTTSym_name, presetName);
 		
 		mPresetList->append(new TTValue((TTPtr)newPreset));
 		
@@ -546,11 +549,11 @@ TTErr TTPresetManager::readFromXml(const TTValue& value)
 	// fill the current preset by reading his content 
 	// from the xml file using the XmlHandler
 	v = TTValue(TTPtr(currentPreset));
-	aXmlHandler->setAttributeValue(kTTSym_Object, v);
+	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	return aXmlHandler->sendMessage(TT("Read"));
 }
 
-TTErr TTPresetManager::writeAsText(const TTValue& value)
+TTErr TTPresetManager::WriteAsText(const TTValue& value)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
@@ -558,12 +561,12 @@ TTErr TTPresetManager::writeAsText(const TTValue& value)
 	value.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
-	*file << "TTPresetManager::writeAsText -- TODO";
+	*file << "TTPresetManager::WriteAsText -- TODO";
 	
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::readFromText(const TTValue& value)
+TTErr TTPresetManager::ReadFromText(const TTValue& value)
 {
 	TTTextHandlerPtr aTextHandler;
 	ifstream		*file;
@@ -635,7 +638,7 @@ TTPresetPtr TTPresetManager::getPresetWithName(TTSymbolPtr name)
 
 			mPresetList->current().get(0, (TTPtr*)&aPreset);
 			
-			aPreset->getAttributeValue(TT("Name"), v);
+			aPreset->getAttributeValue(kTTSym_name, v);
 			v.get(0, &n);
 			if (n == name) {
 				found = true;
@@ -661,7 +664,7 @@ TTErr TTPresetManager::notifyNamesObservers()
 	TTAttributePtr	anAttribute = NULL;
 	TTErr			err;
 	
-	err = this->findAttribute(TT("Names"), &anAttribute);
+	err = this->findAttribute(TT("names"), &anAttribute);
 	
 	if (!err) {
 		getNames(v);

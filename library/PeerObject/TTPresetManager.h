@@ -26,46 +26,62 @@ class TTMODULAR_EXPORT TTPresetManager : public TTObject
 {
 	TTCLASS_SETUP(TTPresetManager)
 	
-public:
+private:
 	
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE : the address of the preset manager in the directory
 	TTValue				mNames;							///< ATTRIBUTE : all preset names
 	TTValue				mCurrent;						///< ATTRIBUTE : <index, name> of the current preset
 
-private:
-	
 	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)
 	TTListPtr			mPresetList;					///< a list containing <TTPresetPtr> sorted by Number attribute
 	TTUInt8				mCurrentIndex;					///< ATTRIBUTE : the position of the current preset in the list (from 1 to list size, 0 mean no current index)
 	
-public:
-	
+	/** */
 	TTErr New();
 	
+	/** */
 	TTErr Store(const TTValue& value);
+	
+	/** */
 	TTErr StoreCurrent();
+	
+	/** */
 	TTErr StoreNext(const TTValue& value);
+	
+	/** */
 	TTErr StorePrevious(const TTValue& value);
 	
+	/** */
 	TTErr Recall(const TTValue& value);
+	
+	/** */
 	TTErr RecallCurrent();
+	
+	/** */
 	TTErr RecallNext();
+	
+	/** */
 	TTErr RecallPrevious();
 	
+	/** */
 	TTErr Remove(const TTValue& value);
+	
+	/** */
 	TTErr RemoveCurrent();
+	
+	/** */
 	TTErr RemoveNext();
+	
+	/** */
 	TTErr RemovePrevious();
 	
-private :
-	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr writeAsXml(const TTValue& value);
-	TTErr readFromXml(const TTValue& value);
+	TTErr WriteAsXml(const TTValue& value);
+	TTErr ReadFromXml(const TTValue& value);
 	
 	/**  needed to be handled by a TTTextHandler */
-	 TTErr writeAsText(const TTValue& value);
-	 TTErr readFromText(const TTValue& value);
+	 TTErr WriteAsText(const TTValue& value);
+	 TTErr ReadFromText(const TTValue& value);
 	
 	/** */
 	TTErr getNames(TTValue& value);
@@ -76,11 +92,16 @@ private :
 	/** */
 	TTErr setAddress(const TTValue& value);
 	
+	/** */
 	TTPresetPtr getPresetCurrent();
+	
+	/** */
 	TTPresetPtr getPresetWithName(TTSymbolPtr name);
 	
+	/** */
 	TTErr refreshList();
 	
+	/** */
 	TTErr notifyNamesObservers();
 };
 

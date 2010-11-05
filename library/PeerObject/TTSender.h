@@ -23,19 +23,15 @@ class TTMODULAR_EXPORT TTSender : public TTObject
 {
 	TTCLASS_SETUP(TTSender)
 	
-public:
+private:
 	
-	TTApplicationPtr	mApplication;				///< the application
 	TTSymbolPtr			mAddress;					///< ATTRIBUTE: the address to bind
 	TTSymbolPtr			mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
 
-private:
-	
+	TTApplicationPtr	mApplication;				///< the application
 	TTBoolean			mIsSending;					///< a flag to lock the object in case of infinite loop
 	TTListPtr			mObjectCache;				///< a cache containing all binded objects for quick access
 	TTObjectPtr			mObserver;					///< a life cycle observer
-	
-public:
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
@@ -43,13 +39,13 @@ public:
 	/**	Setter for mAttribute attribute. */
 	TTErr setAttribute(const TTValue& value);
 	
-	TTErr send(TTValue& valueToSend);				// to -- lower case in order to hide the message during the Class wrapping process
+	/** */
+	TTErr Send(TTValue& valueToSend);				// to -- lower case in order to hide the message during the Class wrapping process
 	
-private :
-	
-	
+	/** */
 	TTErr bind();
 	
+	/** */
 	TTErr unbind();
 	
 	friend TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(TTPtr baton, TTValue& data);

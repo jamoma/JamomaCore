@@ -18,8 +18,6 @@ void		WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void		preset_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void		preset_share_context_node(TTPtr self, TTNodePtr *contextNode);
-
 void		preset_return_names(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 void		preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -45,8 +43,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTPresetManagerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)preset_assist,					"assist",				A_CANT, 0L);
-	
-	class_addmethod(c->maxClass, (method)preset_share_context_node,		"share_context_node",	A_CANT,	0);
 	
 	class_addmethod(c->maxClass, (method)preset_return_names,			"return_names",			A_CANT, 0);
 	
@@ -100,69 +96,69 @@ void preset_build(TTPtr self, SymbolPtr address)
 	presetLevelAddress = address->s_name;
 	presetLevelAddress += "/preset";
 	
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)presetLevelAddress.data()), TT("jmod"), &x->subscriberObject);
+	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)presetLevelAddress.data()), x->patcherType, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
 		
 		// get the Node (.../preset) and his parent
-		x->subscriberObject->getAttributeValue(TT("Node"), n);
+		x->subscriberObject->getAttributeValue(TT("node"), n);
 		n.get(0, (TTPtr*)&node);
 		
 		// set the Address attribute of the PresetManager
 		node->getParent()->getOscAddress(&absoluteAddress);
 		v.append(absoluteAddress);
-		x->wrappedObject->setAttributeValue(kTTSym_Address, v);
+		x->wrappedObject->setAttributeValue(kTTSym_address, v);
 
 		// attach to the patcher to be notified of his destruction
-		 node->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
-		object_attach_byptr_register(x, context, _sym_box);
+		context = node->getContext();
+		// Crash : object_attach_byptr_register(x, context, _sym_box);
 		
 		// expose messages of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_array);
-		aData->setAttributeValue(kTTSym_Description, TT("Store a preset giving his index and his name"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+		aData->setAttributeValue(kTTSym_description, TT("Store a preset giving his index and his name"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_Description, TT("Store into the current preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_description, TT("Store into the current preset"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreNext"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
-		aData->setAttributeValue(kTTSym_Description, TT("Store into the next preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_description, TT("Store into the next preset"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StorePrevious"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
-		aData->setAttributeValue(kTTSym_Description, TT("Store into the previous preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_description, TT("Store into the previous preset"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_Description, TT("Recall a preset using his name or his index"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Recall a preset using his name or his index"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_Description, TT("Recall the current preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(v, TT("Recall the current preset"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallNext"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_Description, TT("Recall the next preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_description, TT("Recall the next preset"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallPrevious"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_Description, TT("Recall the previous preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_description, TT("Recall the previous preset"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_Description, TT("Remove a preset using his name or his index"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Remove a preset using his name or his index"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_Description, TT("Recall the current preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_description, TT("Recall the current preset"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveNext"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_Description, TT("Recall the next preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_description, TT("Recall the next preset"));
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemovePrevious"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_Description, TT("Recall the previous preset"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_description, TT("Recall the previous preset"));
 		
 		// expose attributes of TTPreset as TTData in the tree structure
-		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Names"), kTTSym_return, &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_array);
-		aData->setAttributeValue(kTTSym_Description, TT("The preset name list"));
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_names, kTTSym_return, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+		aData->setAttributeValue(kTTSym_description, TT("The preset name list"));
 		
 		// create internal TTXmlHandler and expose Read and Write message
 		aXmlHandler = NULL;
@@ -170,14 +166,14 @@ void preset_build(TTPtr self, SymbolPtr address)
 		v = TTValue(TTPtr(aXmlHandler));
 		x->internals->append(TT("XmlHandler"), v);
 		v = TTValue(TTPtr(x->wrappedObject));
-		aXmlHandler->setAttributeValue(kTTSym_Object, v);
+		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
 		x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
-		aData->setAttributeValue(kTTSym_Description, TT("Read a xml preset file"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_description, TT("Read a xml preset file"));
 		x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_string);
-		aData->setAttributeValue(kTTSym_Description, TT("Write a xml preset file"));
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_description, TT("Write a xml preset file"));
 		
 		// TODO : create internal TTTextHandler and expose Read and Write message
 	
@@ -199,20 +195,6 @@ void preset_return_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	outlet_anything(x->outlets[data_out], gensym("names"), argc, argv);
-}
-
-void preset_share_context_node(TTPtr self, TTNodePtr *contextNode)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
-		v.get(0, TTObjectHandle(contextNode));
-	}
-	else
-		*contextNode = NULL;
 }
 
 void preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -256,7 +238,7 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	strcpy(filepath, userpath->s_name);									// Copy symbol argument to a local string
 	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
 		
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, (TTPtr*)&nodeAddress);
 		// TODO :object_error((t_object*)x, "%s : file not found", gensym((char*)nodeAddress->getCString()));
 		return;
@@ -329,7 +311,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// Get absolute filepath using Max API
 	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, (TTPtr*)&nodeAddress);
 		object_error((t_object*)x, "%s : file not created", gensym((char*)nodeAddress->getCString()));
 		return;
@@ -377,13 +359,36 @@ void preset_default(TTPtr self)
 	
 	atom_setsym(a, gensym((char*)xmlfile.data()));
 	defer_low(self, (method)preset_doread, gensym("read/xml"), 1, a);
+	
 	defer_low((ObjectPtr)x, (method)preset_dorecall_first, NULL, 0, 0);
 }
 
 void preset_dorecall_first(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	
+	TTValue		v;
+	TTNodePtr	contextNode;
+	TTObjectPtr	o;
+	TTBoolean	initialized;
+
 	x->wrappedObject->sendMessage(TT("Recall"), kTTVal1);
+	
+	// Check Context Node
+	if (x->subscriberObject) {
+		
+		x->subscriberObject->getAttributeValue(TT("contextNode"), v);
+		v.get(0, (TTPtr*)&contextNode);
+		
+		// If it is a none initialized Container : initialize it
+		if (o = contextNode->getObject())
+			if (o->getName() == TT("Container")) {
+				
+				o->getAttributeValue(kTTSym_initialized, v);
+				v.get(0, initialized);
+				
+				if (!initialized)
+					o->sendMessage(TT("Init"));
+			}
+	}
 }
 

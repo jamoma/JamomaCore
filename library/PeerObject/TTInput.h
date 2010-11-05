@@ -27,7 +27,7 @@ class TTMODULAR_EXPORT TTInput : public TTObject
 {
 	TTCLASS_SETUP(TTInput)
 	
-public:
+public:	// use public for quick acces during signal processing
 	
 	TTUInt16			mNumber;					///< ATTRIBUTE : number of Input signals
 	TTSymbolPtr			mType;						///< ATTRIBUTE : the type of the input signal (like audio, video, ...)
@@ -55,13 +55,13 @@ private:
 	TTCallbackPtr		mObserver;					///< to observe mOutputAddress creation/destruction
 	
 	/** Send signal */
-	TTErr send(TTValue& value);
+	TTErr Send(TTValue& value);
 	
 	/** Set outputObject */
-	TTErr link(const TTValue& value);
+	TTErr Link(const TTValue& value);
 	
 	/** Remove outputObject */
-	TTErr unlink();
+	TTErr Unlink();
 	
 	/** Set the outputAddress attribute */
 	TTErr setOutputAddress(const TTValue& value);

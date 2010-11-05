@@ -32,7 +32,9 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
 	addMessage(Refresh);
-	addMessageWithArgument(send);
+	
+	addMessageWithArgument(Send);
+	addMessageProperty(Send, hidden, YES);
 }
 
 TTViewer::~TTViewer() // TODO : delete things...
@@ -84,7 +86,7 @@ TTErr TTViewer::bind()
 	// Prepare aguments
 	args.append(mApplication);
 	args.append(address);
-	args.append(kTTSym_Value);
+	args.append(kTTSym_value);
 	
 	// Replace a TTSender object
 	if (mSender)
@@ -98,17 +100,17 @@ TTErr TTViewer::bind()
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
 	returnAddressBaton = new TTValue(TTPtr(this));
-	returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
-	returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&TTViewerReceiveAddressCallback));
+	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
+	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveAddressCallback));
 	args.append(returnAddressCallback);
 	
 	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(this));
-	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&TTViewerReceiveValueCallback));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveValueCallback));
 	args.append(returnValueCallback);
 	
 	mReceiver = NULL;						// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -122,7 +124,7 @@ TTErr TTViewer::setFreeze(const TTValue& value)
 	mFreeze = value;
 	
 	if (mReceiver)
-		mReceiver->setAttributeValue(TT("Enable"), !mFreeze);
+		mReceiver->setAttributeValue(TT("enable"), !mFreeze);
 	
 	return kTTErrNone;
 }
@@ -130,18 +132,18 @@ TTErr TTViewer::setFreeze(const TTValue& value)
 TTErr TTViewer::Refresh()
 {
 	if (mReceiver)
-		return mReceiver->sendMessage(TT("get"));
+		return mReceiver->sendMessage(TT("Get"));
 	
 	return kTTErrGeneric;
 }
 
-TTErr TTViewer::send(TTValue& valueToSend)
+TTErr TTViewer::Send(TTValue& valueToSend)
 {
 	// TODO : add a dataspace for the Viewer
 	//aViewer->processDataspace(v);
 	
 	if (mSender)
-		return mSender->sendMessage(kTTSym_send, valueToSend);
+		return mSender->sendMessage(kTTSym_Send, valueToSend);
 	
 	return kTTErrGeneric;
 }

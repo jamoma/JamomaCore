@@ -39,8 +39,6 @@ void		hub_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void		hub_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		hub_share_context_node(TTPtr self, TTNodePtr *contextNode);
-
 void		hub_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
@@ -71,8 +69,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTContainerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)hub_assist,					"assist",				A_CANT, 0L);
-	
-	class_addmethod(c->maxClass, (method)hub_share_context_node,		"share_context_node",	A_CANT,	0);
 	
 	class_addmethod(c->maxClass, (method)hub_return_address,			"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_return_value,				"return_value",			A_CANT, 0);
@@ -146,17 +142,17 @@ void hub_build(TTPtr self, SymbolPtr address)
 	if (x->subscriberObject) {
 		
 		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("NewInstanceCreated"), v);
+		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
 		v.get(0, newInstance);
 		
 		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
+			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
 			v.get(0, &relativeAddress);
 			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.node with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
 		}
 		
 		// Set the address attribute of the Container
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		x->wrappedObject->setAttributeValue(TT("address"), v);
 		
 		// get absolute node address
@@ -166,13 +162,12 @@ void hub_build(TTPtr self, SymbolPtr address)
 		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		
 		// get the Node
-		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
 		// attach to the patcher to be notified of his destruction
-		node->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
-		object_attach_byptr_register(x, context, _sym_box);
+		context = node->getContext();
+		// Crash : object_attach_byptr_register(x, context, _sym_box);
 		
 		// special case for jcom.node at the root of the model
 		if ((address == gensym("/") || address == _sym_nothing)) {
@@ -201,28 +196,28 @@ void hub_build(TTPtr self, SymbolPtr address)
 			
 			// Add a /help data
 			makeInternals_data(x, nodeAddress, helpAdrs, gensym("hub_help"), context, kTTSym_message, &aData);
-			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open the maxhelp patch"));
+			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_description, TT("Open the maxhelp patch"));
 		
 			// Add a /reference data
 			makeInternals_data(x, nodeAddress, refAdrs, gensym("hub_reference"), context, kTTSym_message, &aData);
-			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open the reference page"));
+			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_description, TT("Open the reference page"));
 			
 			// Add a /internals data
 			makeInternals_data(x, nodeAddress, internalsAdrs, gensym("hub_internals"), context, kTTSym_message, &aData);
-			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open the patcher"));
+			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_description, TT("Open the patcher"));
 			
 			// Add a /documentation/generate data
 			makeInternals_data(x, nodeAddress, documentationAdrs, gensym("doc_generate"), context, kTTSym_message, &aData);
-			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Make a html page description"));
+			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_description, TT("Make a html page description"));
 			
 			// Add a /model/mute data
-			makeInternals_data(x, nodeAddress, documentationAdrs, gensym("hub_mute"), context, kTTSym_message, &aData);
-			aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
-			aData->setAttributeValue(kTTSym_Description, TT("Turned off patcher processing to save CPU"));
+			makeInternals_data(x, nodeAddress, muteAdrs, gensym("hub_mute"), context, kTTSym_parameter, &aData);
+			aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+			aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
 			
 			// create internal TTTextHandler and expose Write message
 			aTextHandler = NULL;
@@ -230,7 +225,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 			v = TTValue(TTPtr(aTextHandler));
 			x->internals->append(TT("TextHandler"), v);
 			v = TTValue(TTPtr(x->wrappedObject));
-			aTextHandler->setAttributeValue(kTTSym_Object, v);
+			aTextHandler->setAttributeValue(kTTSym_object, v);
 		}
 	}
 }
@@ -263,20 +258,6 @@ void hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	outlet_anything(x->outlets[data_out], x->msg, argc, argv);
 }
 
-void hub_share_context_node(TTPtr self, TTNodePtr *contextNode)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
-		v.get(0, TTObjectHandle(contextNode));
-	}
-	else
-		*contextNode = NULL;
-}
-
 void hub_set_panel(TTPtr self, long n)
 {
 	Atom a;
@@ -295,13 +276,12 @@ void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	long						n = atom_getlong(argv);
 	
 	if (x->subscriberObject) {
-		x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
 		v.get(0, &address);
 		
-		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
-		node->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
+		context = node->getContext();
 		
 		if (n) {
 			
@@ -316,9 +296,9 @@ void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 			makeInternals_data(self, address, panelAdrs, gensym("hub_panel"), context, kTTSym_message, &aData);
 			
 			// Set attribute of the data
-			aData->setAttributeValue(kTTSym_Type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_Description, TT("Open a control panel if one is present."));
-			aData->setAttributeValue(kTTSym_RampDrive, kTTSym_none);
+			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
+			aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		}
 		else
 			// Remove a /view/panel data
@@ -398,7 +378,7 @@ void hub_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			if (name == _sym_jpatcher) {
 				
 				// get absolute node address
-				x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+				x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 				v.get(0, &nodeAddress);
 				atom_setsym(&a, gensym((char*)nodeAddress->getCString()));
 				object_attr_setvalueof(o, _sym_title, 1, &a);
@@ -445,7 +425,7 @@ void hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// Get absolute filepath using Max API
 	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, (TTPtr*)&nodeAddress);
 		object_error((t_object*)x, "%s : file not created", gensym((char*)nodeAddress->getCString()));
 		return;

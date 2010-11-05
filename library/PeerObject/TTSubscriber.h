@@ -68,25 +68,23 @@ private:
 	TTHashPtr			mExposedMessages;
 	TTHashPtr			mExposedAttributes;
 	
-public:
-	
 	/** Make all needed registrations to set up a TTNode in the tree strucuture for a given TTObject */
 	TTErr subscribe(TTObjectPtr anObject);
+	
+	/** Register each given Context of the list as TTNode if they don't exist yet */
+	TTErr registerContextList(TTListPtr aContextList);
+	
+	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data);
+	
+public:
 	
 	/** Expose a message of any TTObject as TTData in the same context than subscribed object */
 	TTErr exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName, TTDataPtr *returnedData);
 	
 	/** Expose an attribute of any TTObject as TTData (parameter or return) in the same context than subscribed object */
 	TTErr exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeName, TTSymbolPtr service, TTDataPtr *returnedData);
-	
-private:
-
-	/** Register each given Context of the list as TTNode if they don't exist yet */
-	TTErr registerContextList(TTListPtr aContextList);
-
-	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTSubscriber* TTSubscriberPtr;

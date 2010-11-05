@@ -20,7 +20,6 @@
 void		WrapTTInputClass(WrappedClassPtr c);
 void		WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void		in_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
-void		in_share_context_node(TTPtr self, TTNodePtr *contextNode);
 void		in_build(TTPtr self, long number);
 
 #ifdef JCOM_IN_TILDE
@@ -59,8 +58,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTInputClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)in_assist,						"assist",				A_CANT, 0L);
-	
-	class_addmethod(c->maxClass, (method)in_share_context_node,			"share_context_node",	A_CANT,	0);
 	
 #ifdef JCOM_IN_TILDE
 	class_addmethod(c->maxClass, (method)in_dsp,						"dsp", 					A_GIMME, 0L);
@@ -147,28 +144,27 @@ void in_build(TTPtr self, long number)
 	if (x->subscriberObject) {
 		
 		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("NewInstanceCreated"), v);
+		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
 		v.get(0, newInstance);
 		
 		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
+			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
 			v.get(0, &relativeAddress);
 			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.in with the same OSC identifier (/in).  Using %s instead.", relativeAddress->getCString());
 		}
 		
 		// debug
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &nodeAddress);
 		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		
 		// get the Node
-		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
 		// attach to the patcher to be notified of his destruction
-		node->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
-		object_attach_byptr_register(x, context, _sym_box);
+		context = node->getContext();
+		// Crash : object_attach_byptr_register(x, context, _sym_box);
 		
 		// observe /parent/out address in order to link/unlink with an Input object below
 		node->getParent()->getOscAddress(&parentAddress, S_SEPARATOR);
@@ -178,16 +174,16 @@ void in_build(TTPtr self, long number)
 			outAddress += ".";
 			outAddress += node->getInstance()->getCString();
 		}
-		x->wrappedObject->setAttributeValue(TT("OutputAddress"), TT(outAddress.data()));
+		x->wrappedObject->setAttributeValue(TT("outputAddress"), TT(outAddress.data()));
 		
 		// expose bypass and mute attributes of TTInput as TTData in the tree structure
-		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Bypass"), kTTSym_parameter, &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
-		aData->setAttributeValue(kTTSym_Description, TT("When active, this attribute bypasses the model's processing algtorithm, letting incoming signal pass through unaffected"));
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_bypass, kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute bypasses the model's processing algtorithm, letting incoming signal pass through unaffected"));
 		
-		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Mute"), kTTSym_parameter, &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
-		aData->setAttributeValue(kTTSym_Description, TT("When active, this attribute turns off model's inputs."));
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's inputs."));
 	}
 }
 
@@ -205,24 +201,6 @@ void in_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 			strcpy(dst, "dumpout");
 	}
 }
-
-void in_share_context_node(TTPtr self, TTNodePtr *contextNode)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
-		v.get(0, TTObjectHandle(contextNode));
-	}
-	else
-		*contextNode = NULL;
-}
-
-// TODO : enable patcher
-// 'setrock' is the message that is used for pcontrol sends to the patcher of enabling
-//object_method(o, gensym("setrock"), 2, a);
 
 #ifndef JCOM_IN_TILDE
 void in_bang(TTPtr self)
@@ -353,13 +331,13 @@ void in_dsp(TTPtr self, t_signal **sp, short *count)
 	anInput->mInfo.set(info_numChannels, numChannels);
 	anInput->mInfo.set(info_vectorSize, vectorsize);
 	
-	anInput->mSignalIn->setAttributeValue(TT("NumChannels"), numChannels);
-	anInput->mSignalOut->setAttributeValue(TT("NumChannels"), numChannels);
-	anInput->mSignalIn->setAttributeValue(TT("VectorSize"), vectorsize);
-	anInput->mSignalOut->setAttributeValue(TT("VectorSize"), vectorsize);
+	anInput->mSignalIn->setAttributeValue(kTTSym_numChannels, numChannels);
+	anInput->mSignalOut->setAttributeValue(kTTSym_numChannels, numChannels);
+	anInput->mSignalIn->setAttributeValue(kTTSym_vectorSize, vectorsize);
+	anInput->mSignalOut->setAttributeValue(kTTSym_vectorSize, vectorsize);
 	
 	// anInput->mSignalIn will be set in the perform method
-	anInput->mSignalOut->sendMessage(TT("alloc"));
+	anInput->mSignalOut->sendMessage(kTTSym_alloc);
 	
 	dsp_addv(in_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);

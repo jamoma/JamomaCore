@@ -49,7 +49,7 @@ void jamoma_init(void)
 		kTTSym_Jamoma = TT(JAMOMA);
 		JamomaApplication = (TTApplicationPtr)TTModularGetApplication(kTTSym_Jamoma);
 		
-		TTDSPInit();
+		//TTDSPInit();
 		
 		AsyncRamp::registerClass();
 		NoneRamp::registerClass();

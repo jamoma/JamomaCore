@@ -15,12 +15,7 @@
 // Item CONSTRUCTOR / DESTRUCTOR
 Item::Item(TTNodePtr aNode)
 {
-	TTObjectPtr	anObject;
-	TTValue		v;
-	
 	// Get object
-	aNode->getAttributeValue(kTTSym_Object, v);
-	v.get(0, (TTPtr*)&anObject);
 	object = aNode->getObject();
 
 	// Prepare an empty state
@@ -33,8 +28,8 @@ Item::~Item()
 }
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
 mName(kTTSymEmpty),
+mAddress(kTTSymEmpty),
 mComment(kTTSymEmpty),
 mExtra(kTTValNONE),
 mApplication(NULL),
@@ -52,20 +47,22 @@ mCurrentItem(kTTSymEmpty)
 	arguments.get(2, (TTPtr*)&mToStore);
 	TT_ASSERT("ToStore passed to TTPreset is not NULL", mToStore);
 	
-	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Name, kTypeSymbol);
+	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
 	addAttribute(Extra, kTypeNone);
 	addAttribute(ItemList, kTypePointer);
-	addAttributeProperty(ItemList, readOnly, YES);
+	addAttributeProperty(itemList, readOnly, YES);
 	
 	addMessage(Fill);
 	addMessage(Clear);
 	addMessage(Update);
 	addMessage(Send);
 	
-	addMessageWithArgument(writeAsXml);
-	addMessageWithArgument(readFromXml);
+	addMessageWithArgument(WriteAsXml);
+	addMessageProperty(WriteAsXml, hidden, YES);
+	addMessageWithArgument(ReadFromXml);
+	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mItemList = new TTHash();
 }
@@ -203,7 +200,7 @@ TTErr TTPreset::Send()
 		return kTTErrNone;
 }
 
-TTErr TTPreset::writeAsXml(const TTValue& value)
+TTErr TTPreset::WriteAsXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	ItemPtr				anItem;
@@ -262,7 +259,7 @@ TTErr TTPreset::writeAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPreset::readFromXml(const TTValue& value)
+TTErr TTPreset::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	TTSymbolPtr			absAddress, attributeName;
@@ -354,7 +351,7 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPreset::writeAsText(const TTValue& value)
+TTErr TTPreset::WriteAsText(const TTValue& value)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
@@ -362,12 +359,12 @@ TTErr TTPreset::writeAsText(const TTValue& value)
 	value.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
-	*file << "TTPreset::writeAsText -- TODO";
+	*file << "TTPreset::WriteAsText -- TODO";
 	
 	return kTTErrNone;
 }
 
-TTErr TTPreset::readFromText(const TTValue& value)
+TTErr TTPreset::ReadFromText(const TTValue& value)
 {
 	TTTextHandlerPtr aTextHandler;
 	ifstream		*file;

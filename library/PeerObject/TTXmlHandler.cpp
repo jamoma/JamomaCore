@@ -86,10 +86,10 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi", BAD_CAST "'http://www.w3.org/2001/XMLSchema-instance'");
 			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST "'http://jamoma.org/ file:jamoma.xsd'");
 			
-			// Write data of the given TTObject (which have to implement a writeAsXml message)
+			// Write data of the given TTObject (which have to implement a WriteAsXml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("writeAsXml"), v);
+			aTTObject->sendMessage(TT("WriteAsXml"), v);
 			
 			// End Header information
 			xmlTextWriterEndElement(mWriter);
@@ -113,7 +113,7 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("writeAsXml"), v);
+	return aTTObject->sendMessage(TT("WriteAsXml"), v);
 }
 
 TTErr TTXmlHandler::WriteAgain()
@@ -178,7 +178,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 					}
 					
 					v.append((TTPtr)this);
-					aTTObject->sendMessage(TT("readFromXml"), v);
+					aTTObject->sendMessage(TT("ReadFromXml"), v);
 					
 					// next node
 					ret = xmlTextReaderRead(mReader);
@@ -202,7 +202,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("readFromXml"), v);
+	return aTTObject->sendMessage(TT("ReadFromXml"), v);
 }
 
 TTErr TTXmlHandler::ReadAgain()

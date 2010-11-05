@@ -23,17 +23,14 @@ class TTMODULAR_EXPORT TTContainer : public TTObject
 {
 	TTCLASS_SETUP(TTContainer)
 	
-public:
+private:
 
 	TTUInt8				mPriority;						///< ATTRIBUTE: does this container have a priority over other containers ?
 	TTSymbolPtr			mDescription;					///< ATTRIBUTE: a text label to describe the role of this container
 	TTSymbolPtr			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
-	TTBoolean			mInitialized;					///< ATTRIBUTE: is all TTDatas below have been initialized ?
+	TTBoolean			mInitialized;					///< ATTRIBUTE: is it initialized ?
 	TTValue				mContent;						///< ATTRIBUTE: all contained relative address
-	
-private:
-	
-	TTSymbolPtr			maddress;						///< ATTRIBUTE: the address of the container in the directory
+	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the address of the container in the directory
 	
 	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
@@ -42,35 +39,40 @@ private:
 	TTObjectPtr			mObserver;						///< a life cycle observer
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop 
 	
-	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
+	/** */
+	TTErr Send(TTValue& AddressAndValue);
 	
-	friend TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& data);
+	/** */
+	TTErr Init();
 	
-	friend TTErr TTMODULAR_EXPORT TTContainerInitializedAttributeCallback(TTPtr baton, TTValue& data);
+	/**  needed to be handled by a TTTextHandler */
+	TTErr WriteAsText(const TTValue& value);
 	
-public:
+	/** */
+	TTErr setAddress(const TTValue& value);
 	
-	TTErr send(TTValue& AddressAndValue);
-	
-private:
-	
-	TTErr setaddress(const TTValue& value);
-	
+	/** */
 	TTErr getContent(TTValue& value);
 	
+	/** */
 	TTErr bind();
+	
+	/** */
 	TTErr unbind();
 	
+	/** */
 	TTErr makeCacheElement(TTNodePtr aNode);
 	TTErr deleteCacheElement(TTNodePtr aNode);
 	
-	TTErr isInitialized();
+	/** Generates table heading for Datas */
+	void dataHeading(ofstream *file);
 	
-	/**  needed to be handled by a TTTextHandler */
-	TTErr writeAsText(const TTValue& value);
-	void dataHeading(ofstream *file);		// Generates table heading for Datas
-	void cssDefinition(ofstream *file);		// CSS definitions -- we include them in the html file itself so that we don't have problems with paths to external references
+	/** CSS definitions -- we include them in the html file itself so that we don't have problems with paths to external references */
+	void cssDefinition(ofstream *file);
 	
+	
+	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTContainer* TTContainerPtr;

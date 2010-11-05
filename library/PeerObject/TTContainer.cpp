@@ -18,7 +18,7 @@ mDescription(kTTSymEmpty),
 mType(TT("control")),
 mInitialized(NO),
 mContent(kTTValNONE),
-maddress(kTTSymEmpty),
+mAddress(kTTSymEmpty),
 mApplication(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
@@ -38,17 +38,23 @@ mObserver(NULL)
 	addAttribute(Type, kTypeSymbol);
 	
 	addAttributeWithGetter(Content, kTypeLocalValue);
-	addAttributeProperty(Content, readOnly, YES);
+	addAttributeProperty(content, readOnly, YES);
 	
 	addAttribute(Initialized, kTypeBoolean);
-	addAttributeProperty(Initialised, readOnly, YES);
+	addAttributeProperty(initialised, readOnly, YES);
+	addAttributeProperty(initialised, hidden, YES);
 	
-	addAttributeWithSetter(address, kTypeSymbol);
+	addAttributeWithSetter(Address, kTypeSymbol);
+	addAttributeProperty(address, hidden, YES);
 
-	addMessageWithArgument(send);
+	addMessageWithArgument(Send);
+	addMessageProperty(Send, hidden, YES);
+	
+	addMessage(Init);
 	
 	// needed to be handled by a TTTextHandler
-	addMessageWithArgument(writeAsText);
+	addMessageWithArgument(WriteAsText);
+	addMessageProperty(WriteAsText, hidden, YES);
 	
 	mIsSending = false;	
 }
@@ -64,7 +70,7 @@ TTContainer::~TTContainer()
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 }
 
-TTErr TTContainer::send(TTValue& AddressAndValue)
+TTErr TTContainer::Send(TTValue& AddressAndValue)
 {
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
@@ -103,7 +109,7 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 						return kTTErrNone;
 					
 					// set the value attribute using a command
-					anObject->sendMessage(kTTSym_command, *valueToSend);
+					anObject->sendMessage(kTTSym_Command, *valueToSend);
 					
 					// passing messages through the container
 					if (service == kTTSym_message)
@@ -121,7 +127,7 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 				else if (anObject->getName() == TT("Viewer")) {
 					
 					// set the address attribute
-					anObject->setAttributeValue(kTTSym_Address, *valueToSend);
+					anObject->setAttributeValue(kTTSym_address, *valueToSend);
 				}
 			}
 			// if not use TTModularDirectory instead
@@ -142,10 +148,54 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 	return kTTErrNone;
 }
 
-TTErr TTContainer::setaddress(const TTValue& value)
+TTErr TTContainer::Init()
+{
+	TTValue			hk, v;
+	TTValue			cacheElement;
+	TTObjectPtr		anObject;
+	TTAttributePtr	anAttribute;
+	TTSymbolPtr		key;
+	TTUInt8			i;
+	
+	// Restart initialisation
+	mInitialized = NO;
+	
+	// Notify observers
+	findAttribute(kTTSym_initialized, &anAttribute);
+	anAttribute->sendNotification(kTTSym_notify, mInitialized);
+		
+		// Send Init message to all Containers below
+		if (mObjectsObserversCache) {
+			
+			mObjectsObserversCache->getKeys(hk);
+			
+			for (i=0; i<mObjectsObserversCache->getSize(); i++) {
+				
+				hk.get(i,(TTSymbolPtr*)&key);
+				mObjectsObserversCache->lookup(key, cacheElement);
+				anObject = NULL;
+				cacheElement.get(0, (TTPtr*)&anObject);
+				
+				if (anObject)
+					if (anObject->getName() == TT("Container"))
+						anObject->sendMessage(TT("Init"));
+			}
+		}
+	
+	// End of initialisation
+	mInitialized = YES;
+
+	// Notify observers
+	findAttribute(kTTSym_initialized, &anAttribute);
+	anAttribute->sendNotification(kTTSym_notify, mInitialized);
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::setAddress(const TTValue& value)
 {	
 	unbind();
-	maddress = value;
+	mAddress = value;
 	return bind();
 }
 
@@ -166,7 +216,7 @@ TTErr TTContainer::bind()
 	mObjectsObserversCache  = new TTHash();
 	
 	// 1. Look for all nodes under the address into the directory with the same Context
-	err = getDirectoryFrom(this)->Lookup(maddress, aNodeList, &aNode);
+	err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
 	aContext = aNode->getContext();
 	
 	v.append(aContext);
@@ -181,20 +231,17 @@ TTErr TTContainer::bind()
 	
 	// 3. Observe any creation or destruction below the address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &mObserver, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &mObserver, kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
 	newBaton->append(aContext);
 	
-	mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-	mObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerDirectoryCallback));
+	mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+	mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerDirectoryCallback));
 	
-	mObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));		// this is usefull only to debug
+	mObserver->setAttributeValue(TT("owner"), TT("TTContainer"));		// this is usefull only to debug
 	
-	getDirectoryFrom(this)->addObserverForNotifications(maddress, *mObserver);
-	
-	// 4. Check if all cache elements are initialized
-	isInitialized();
+	getDirectoryFrom(this)->addObserverForNotifications(mAddress, *mObserver);
 	
 	return kTTErrNone;
 }
@@ -206,10 +253,9 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	TTObjectPtr		anObject, newObserver;
 	TTAttributePtr	anAttribute = NULL;
 	TTValuePtr		newBaton;
-	TTErr			err;
 	
 	// process the relative address
-	aNode->getOscAddress(&aRelativeAddress, maddress);
+	aNode->getOscAddress(&aRelativeAddress, mAddress);
 	
 	// Filter NULL object
 	anObject = aNode->getObject();
@@ -223,24 +269,24 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	if (anObject->getName() == TT("Data")) {
 		
 		// What kind of service the data is used for ?
-		anObject->getAttributeValue(TT("service"), v);
+		anObject->getAttributeValue(kTTSym_service, v);
 		v.get(0, &service);
 		
 		// observe the Value attribute of parameter and return
 		if (service == kTTSym_parameter || service == kTTSym_return) {
 			
 			// create a Value Attribute observer on it
-			anObject->findAttribute(kTTSym_Value, &anAttribute);
+			anObject->findAttribute(kTTSym_value, &anAttribute);
 			
 			newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+			TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
 			
 			newBaton = new TTValue(TTPtr(this));
 			newBaton->append(aRelativeAddress);
 			
-			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-			newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerValueAttributeCallback));
-			newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
+			newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+			newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+			newObserver->setAttributeValue(TT("owner"), TT("TTContainer"));					// this is usefull only to debug
 			
 			anAttribute->registerObserverForNotifications(*newObserver);
 			
@@ -255,36 +301,6 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	else
 		cacheElement.append(NULL);
 	
-	
-	// don't observe his initialisation state of message and return
-	if (service == kTTSym_message || service == kTTSym_return) {
-		// add observer to the cacheElement
-		cacheElement.append(NULL);
-	}
-	else {
-		// create an Initialized Attribute Observer on it
-		err = anObject->findAttribute(kTTSym_Initialized, &anAttribute);
-		
-		if (!err) {
-			newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
-			
-			newBaton = new TTValue(TTPtr(this));
-			newBaton->append(aRelativeAddress);
-			
-			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-			newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerInitializedAttributeCallback));
-			newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
-			
-			anAttribute->registerObserverForNotifications(*newObserver);
-			
-			// add observer to the cacheElement
-			cacheElement.append((TTPtr)newObserver);
-		}
-		else
-			cacheElement.append(NULL);
-	}
-	
 	// append the cacheElement to the cache hash table
 	mObjectsObserversCache->append(aRelativeAddress, cacheElement);
 	
@@ -295,12 +311,12 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 {
 	TTSymbolPtr		aRelativeAddress;
 	TTValue			cacheElement;
-	TTObjectPtr		anObject, aValueObserver, anInitObserver;
+	TTObjectPtr		anObject, aValueObserver;
 	TTAttributePtr	anAttribute;
 	TTErr			err;
 	
 	// process the relative address
-	aNode->getOscAddress(&aRelativeAddress, maddress);
+	aNode->getOscAddress(&aRelativeAddress, mAddress);
 	
 	// delete attribute observers
 	err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
@@ -319,7 +335,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				// delete Value observer
 				cacheElement.get(1, (TTPtr*)&aValueObserver);
 				anAttribute = NULL;
-				err = anObject->findAttribute(kTTSym_Value, &anAttribute);
+				err = anObject->findAttribute(kTTSym_value, &anAttribute);
 				
 				if(!err){
 					
@@ -328,19 +344,6 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 					if(!err)
 						TTObjectRelease(&aValueObserver);
 				}
-			}
-			
-			// delete Initialized observer
-			cacheElement.get(2, (TTPtr*)&anInitObserver);
-			anAttribute = NULL;
-			err = anObject->findAttribute(kTTSym_Initialized, &anAttribute);
-			
-			if(!err){
-				
-				err = anAttribute->unregisterObserverForNotifications(*anInitObserver);
-				
-				if(!err)
-					TTObjectRelease(&anInitObserver);
 			}
 		}
 	}
@@ -377,7 +380,7 @@ TTErr TTContainer::unbind()
 					// delete Value observer
 					cacheElement.get(1, (TTPtr*)&aValueObserver);
 					anAttribute = NULL;
-					err = anObject->findAttribute(kTTSym_Value, &anAttribute);
+					err = anObject->findAttribute(kTTSym_value, &anAttribute);
 					
 					if (!err) {
 						
@@ -388,19 +391,6 @@ TTErr TTContainer::unbind()
 					}
 				}
 			}
-			
-			// delete Initialized observer
-			cacheElement.get(2, (TTPtr*)&anInitObserver);
-			anAttribute = NULL;
-			err = anObject->findAttribute(kTTSym_Initialized, &anAttribute);
-			
-			if (!err) {
-				
-				err = anAttribute->unregisterObserverForNotifications(*aValueObserver);
-				
-				if (!err)
-					TTObjectRelease(&anInitObserver);
-			}
 		}
 		
 		delete mObjectsObserversCache;
@@ -409,73 +399,18 @@ TTErr TTContainer::unbind()
 	// stop life cycle observation
 	if (mObserver && getDirectoryFrom(this)) {
 		
-		err = getDirectoryFrom(this)->removeObserverForNotifications(maddress, *mObserver);
+		err = getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
 		
 		if (!err)
 			TTObjectRelease(&mObserver);
 	}
 	
-	maddress = kTTSymEmpty;
+	mAddress = kTTSymEmpty;
 	
 	return kTTErrNone;
 }
 
-TTErr TTContainer::isInitialized()
-{
-	TTAttributePtr	anAttribute = NULL;
-	TTValue			hk, v;
-	TTValue			cacheElement;
-	TTObjectPtr		anObject;
-	TTBoolean		init, result;
-	TTSymbolPtr		key, service;
-	TTUInt8			i;
-	TTErr			err;
-	
-	// check all initialization states
-	result = YES;
-	if (mObjectsObserversCache) {
-		
-		mObjectsObserversCache->getKeys(hk);
-		
-		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
-			
-			hk.get(i,(TTSymbolPtr*)&key);
-			mObjectsObserversCache->lookup(key, cacheElement);
-			cacheElement.get(0, (TTPtr*)&anObject);
-			
-			if (anObject->getName() == TT("Data")) {
-				
-				// What kind of service the data is used for ?
-				anObject->getAttributeValue(TT("service"), v);
-				v.get(0, &service);
-				
-				if (service == kTTSym_parameter) {
-				
-					anObject->getAttributeValue(kTTSym_Initialized, v);
-					v.get(0, init);
-			
-					result &= init;
-			
-					if (!result)
-						break;
-				}
-			}
-		}
-	}
-	
-	// set mInitilized if it changes and notify observers
-	if (result != mInitialized) {
-		mInitialized = result;
-		err = this->findAttribute(kTTSym_Initialized, &anAttribute);
-		
-		if (!err)
-			anAttribute->sendNotification(kTTSym_notify, mInitialized);	// we use kTTSym_notify because we know that observers are TTCallback
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTContainer::writeAsText(const TTValue& value)
+TTErr TTContainer::WriteAsText(const TTValue& value)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
@@ -492,7 +427,7 @@ TTErr TTContainer::writeAsText(const TTValue& value)
 	*file << "<html>";
 	*file << "\t<head>";
 	*file << "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=ISO-8859-1\">";
-	*file << "<title>" << this->maddress->getCString() << "</title>";	
+	*file << "<title>" << this->mAddress->getCString() << "</title>";	
 	
 	this->cssDefinition(file);
 	
@@ -505,7 +440,7 @@ TTErr TTContainer::writeAsText(const TTValue& value)
 	
 	// Top of page displaying name of module etc.
 	*file << "\t<img src=\"../../../documentation/graphics/jmodular.icon.png\" width=\"128\" height=\"128\">";	
-	*file << "\t<h1>" << this->maddress->getCString() << "</h1>";
+	*file << "\t<h1>" << this->mAddress->getCString() << "</h1>";
 	*file << "\t<h2>" << this->mDescription->getCString() << "</h2>";
 	
 	// Menu
@@ -550,10 +485,10 @@ TTErr TTContainer::writeAsText(const TTValue& value)
 				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
 				
 				arg = TTValue(TTPtr(anObject));
-				aTextHandler->setAttributeValue(kTTSym_Object, arg);
+				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("writeAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -587,10 +522,10 @@ TTErr TTContainer::writeAsText(const TTValue& value)
 				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
 				
 				arg = TTValue(TTPtr(anObject));
-				aTextHandler->setAttributeValue(kTTSym_Object, arg);
+				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("writeAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -624,10 +559,10 @@ TTErr TTContainer::writeAsText(const TTValue& value)
 				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
 				
 				arg = TTValue(TTPtr(anObject));
-				aTextHandler->setAttributeValue(kTTSym_Object, arg);
+				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("writeAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -965,21 +900,6 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 	}
 	else
 		return kTTErrGeneric;
-	
-	return kTTErrNone;
-}
-
-TTErr TTContainerInitializedAttributeCallback(TTPtr baton, TTValue& data)
-{
-	TTValuePtr		b;
-	TTContainerPtr	aContainer;
-	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aContainer);
-	
-	// Check if all cache elements are initialized
-	aContainer->isInitialized();
 	
 	return kTTErrNone;
 }

@@ -286,8 +286,8 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		
 		x->address = adrs;
 		
-		if (!x->hash_datas->lookup(TT("address"), v));
-			ui_data_send(x, TT("address"), x->address);
+		if (!x->hash_datas->lookup(kTTSym_address, v));
+			ui_data_send(x, kTTSym_address, x->address);
 		
 		// Clear all viewers
 		ui_viewer_destroy_all(x);
@@ -308,8 +308,8 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 	
 		// observe the namespace of the model
 		// by this way, the creation of any widgets depends on the existence of the data		
-		x->modelExplorer->setAttributeValue(TT("Lookfor"), TT("Data"));
-		x->modelExplorer->setAttributeValue(kTTSym_Address, x->address);
+		x->modelExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
+		x->modelExplorer->setAttributeValue(kTTSym_address, x->address);
 		x->modelExplorer->sendMessage(TT("Explore"), kTTValNONE);
 
 		// The following must be deferred because 
@@ -762,7 +762,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			ui_viewer_send(x, TT("in.*/bypass"), TTValue(!x->is_bypassed));
 		
 		else if (x->has_mute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
-			ui_viewer_send(x, TT("*.*/mute"), TTValue(!x->is_muted));
+			ui_viewer_send(x, TT("out.*/mute"), TTValue(!x->is_muted));
 		
 		else if (px.x < 100)
 			ui_refmenu_do(x, patcherview, px, modifiers);
@@ -1084,7 +1084,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_parameter);
 	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelParamExplorer->setAttributeValue(kTTSym_Address, x->address);
+	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->address);
 	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
 	
@@ -1094,7 +1094,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_message);
 	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelMessExplorer->setAttributeValue(kTTSym_Address, x->address);
+	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->address);
 	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));
 	
@@ -1104,7 +1104,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_return);
 	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelRetExplorer->setAttributeValue(kTTSym_Address, x->address);
+	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->address);
 	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelRetExplorer));
 }

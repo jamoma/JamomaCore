@@ -13,8 +13,8 @@
 #define thisTTClassTags		"device, manager"
 
 TT_MODULAR_CONSTRUCTOR,
-mApplication(NULL), 
-mName(kTTSymEmpty)
+mName(kTTSymEmpty),
+mApplication(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTDeviceManager", arguments.getSize() == 2);
 	
@@ -274,22 +274,22 @@ TTErr TTDeviceManager::Snapshot(TTSymbolPtr device, TTSymbolPtr address)
 
 std::string TTDeviceManager::convertAttributeFromJamoma(std::string attribute)
 {
-	if(attribute == "Value")
+	if(attribute == "value")
 		return NAMESPACE_ATTR_VALUE;
 	
-	if(attribute == "Access")
+	if(attribute == "service")
 		return NAMESPACE_ATTR_ACCESS;
 	
-	if(attribute == "Type")
+	if(attribute == "type")
 		return NAMESPACE_ATTR_TYPE;
 	
-	if(attribute == "Priority")
+	if(attribute == "priority")
 		return NAMESPACE_ATTR_PRIORITY;
 	
-	if(attribute == "Description")
+	if(attribute == "description")
 		return NAMESPACE_ATTR_COMMENT;
 	
-	if(attribute == "RangeBounds")
+	if(attribute == "rangeBounds")
 		return NAMESPACE_ATTR_RANGE;
 	
 	return "";
@@ -298,22 +298,22 @@ std::string TTDeviceManager::convertAttributeFromJamoma(std::string attribute)
 TTSymbolPtr TTDeviceManager::convertAttributeToJamoma(std::string attribute)
 {
 	if(attribute == NAMESPACE_ATTR_VALUE)
-		return TT("Value");
+		return kTTSym_value;
 	
 	if(attribute == NAMESPACE_ATTR_ACCESS)
-		return TT("Access");
+		return kTTSym_service;
 	
 	if(attribute == NAMESPACE_ATTR_TYPE)
-		return TT("Type");
+		return kTTSym_type;
 	
 	if(attribute == NAMESPACE_ATTR_PRIORITY)
-		return TT("Priority");
+		return kTTSym_priority;
 	
 	if(attribute == NAMESPACE_ATTR_COMMENT)
-		return TT("Description");
+		return kTTSym_description;
 	
 	if(attribute == NAMESPACE_ATTR_RANGE)
-		return TT("RangeBounds");
+		return kTTSym_rangeBounds;
 	
 	return kTTSymEmpty;
 }
@@ -421,13 +421,8 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 					instanceName += aChild->getInstance()->getString();
 				}
 				
-				// if the node is a data : add it as a leaf
-				// else : add it as a node
-				aChild->getAttributeValue(TT("Object"), v);
-				v.get(0, (TTPtr*)&o);
-				
 				// if the object is a Data : push his name in the leaves list
-				if (o) {
+				if (o = aChild->getObject()) {
 					type = o->getName();
 					if(type == TT("Data")) {
 						returnedLeaves.push_back(instanceName.c_str());
@@ -440,12 +435,9 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 			}
 			
 			// Edit the vector with all attributes name
-			nodeToDiscover->getAttributeValue(TT("Object"), v);
-			v.get(0, (TTPtr*)&o);
-			
 			// if there is an object push all
 			// this attributes in the attribute list
-			if (o) {
+			if (o = nodeToDiscover->getObject()) {
 				
 				type = o->getName();
 				
@@ -479,8 +471,7 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 	TTNodePtr nodeToGet;
 	TTList allChildren;
 	TTSymbolPtr nodeType, attributeName;
-	TTValue v, min, max;
-	TTString s_min, s_max;
+	TTValue v;
 	TTObjectPtr o;
 	
 	TTDeviceManagerPtr aTTDeviceManager = (TTDeviceManagerPtr) arg;
@@ -493,8 +484,7 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 		if(!err){
 			
 			// test node type to get the access status
-			nodeToGet->getAttributeValue(TT("Object"), v);
-			v.get(0, (TTPtr*)&o);
+			o = nodeToGet->getObject();
 			nodeType = o->getName();
 			
 			// Convert attribute into Jamoma style
@@ -502,22 +492,19 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 			attributeName = TT(attribute);
 			
 			// filter Access attribute
-			if(attributeName == TT("Access")){
+			if(attributeName == kTTSym_service){
 				
 				// TODO : add a Jamoma attribute for this
 				returnedValue = "getsetter";
 				
 			}
 			// filter RangBounds attribute
-			else if(attributeName == TT("RangeBounds")){
+			else if(attributeName == kTTSym_rangeBounds){
 				
-				err = o->getAttributeValue(TT("RangeBoundsMin"), min);
-				err = o->getAttributeValue(TT("RangeBoundsMax"), max);
-				min.toString();
-				max.toString();
-				min.get(0, s_min);
-				max.get(0, s_max);
-				returnedValue = s_min + s_max;
+				err = o->getAttributeValue(kTTSym_rangeBounds, v);
+				
+				v.toString();
+				v.get(0, returnedValue);
 			}
 			else{
 				
@@ -558,8 +545,7 @@ void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attri
 		if(!err){
 			
 			// test node type to get the access status
-			nodeToSet->getAttributeValue(TT("Object"), v);
-			v.get(0, (TTPtr*)&o);
+			o = nodeToSet->getObject();
 			nodeType = o->getName();
 			
 			if(nodeType == TT("Data")){
@@ -570,8 +556,8 @@ void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attri
 				
 				//attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
 				attrName = TT(attribute);
-				if (attrName == kTTSym_Value)
-					o->sendMessage(kTTSym_command, v);
+				if (attrName == kTTSym_value)
+					o->sendMessage(kTTSym_Command, v);
 				else
 					o->setAttributeValue(attrName, v);
 				
@@ -615,15 +601,15 @@ void TTDeviceManager::enableListening(std::string whereToSend, Address whereToLi
 			// create an observer of the root in order to notify the device manager
 			// for creation and destruction of node
 			newListener = NULL;					// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("Callback"), &newListener, kTTValNONE);
+			TTObjectInstantiate(TT("callback"), &newListener, kTTValNONE);
 			
 			newBaton = new TTValue(TTPtr(this));
 			newBaton->append(TT(whereToSend));
 			newBaton->append(TT(whereToListen));
 			newBaton->append(TT(attributeToListen));
 			
-			newListener->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-			newListener->setAttributeValue(TT("Function"), TTPtr(&TTDeviceManagerDirectoryCallback));
+			newListener->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+			newListener->setAttributeValue(kTTSym_function, TTPtr(&TTDeviceManagerDirectoryCallback));
 			
 			getDirectoryFrom(this)->addObserverForNotifications(S_SEPARATOR, *newListener);
 		}
@@ -631,23 +617,22 @@ void TTDeviceManager::enableListening(std::string whereToSend, Address whereToLi
 		else{
 			
 			// if the attribute exist
-			nodeToListen->getAttributeValue(TT("Object"), v);
-			v.get(0, (TTPtr*)&o);
+			o = nodeToListen->getObject();
 			err = o->findAttribute(convertAttributeToJamoma(attributeToListen.c_str()), &anAttribute);
 			
 			
 			if(!err){
 				
 				newListener = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-				TTObjectInstantiate(TT("Callback"), &newListener, kTTValNONE);
+				TTObjectInstantiate(TT("callback"), &newListener, kTTValNONE);
 				
 				newBaton = new TTValue(TTPtr(this));
 				newBaton->append(TT(whereToSend));
 				newBaton->append(TT(whereToListen));
 				newBaton->append(TT(attributeToListen));
 				
-				newListener->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-				newListener->setAttributeValue(TT("Function"), TTPtr(&TTDeviceManagerAttributeCallback));
+				newListener->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+				newListener->setAttributeValue(kTTSym_function, TTPtr(&TTDeviceManagerAttributeCallback));
 				
 				anAttribute->registerObserverForNotifications(*newListener);
 			}
@@ -698,8 +683,7 @@ void TTDeviceManager::disableListening(std::string whereToSend, Address whereToL
 			if(!err) {
 				
 				// if the attribute exist
-				nodeListened->getAttributeValue(TT("Object"), v);
-				v.get(0, (TTPtr*)&o);
+				o = nodeListened->getObject();
 				err = o->findAttribute(convertAttributeToJamoma(attributeToListen), &anAttribute);
 				
 				if(!err){

@@ -46,7 +46,7 @@ class TTMODULAR_EXPORT TTData : public TTObject
 {
 	TTCLASS_SETUP(TTData)
 	
-public:
+private:
 	
 	TTValue			mValue;						///< ATTRIBUTE: The data's value
 	TTValue			mValueDefault;				///< ATTRIBUTE: The data's default value
@@ -73,9 +73,7 @@ public:
 	TTSymbolPtr		mDataspaceUnitActive;		///< ATTRIBUTE: The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
 	TTSymbolPtr		mDataspaceUnitDisplay;		///< ATTRIBUTE: The display unit within the dataspace -- sent to/from the inlet/outlet of this instance
 	
-private:
-	
-	TTSymbolPtr		mservice;					///< how the data flows into our environnement :
+	TTSymbolPtr		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode
 												///<	as message : the data don't notify observers it's changing but the value is still returned to his owner
 												///<	as return : the value is not returned to his owner anymore but the data notify observers it's changing
@@ -87,7 +85,7 @@ private:
 
 #ifdef TTDATA_RAMPLIB
 	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
-	TTHashPtr		mRampDataNames;		///< Cache of data names, mapped from lowercase (Max) to uppercase (TT)
+	TTHashPtr		mRampDataNames;				///< Cache of data names, mapped from lowercase (Max) to uppercase (TT)
 #endif
 	
 	DataspaceLibPtr	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
@@ -96,12 +94,17 @@ private:
 	DataspaceLibPtr	dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
 	TTSymbolPtr		mUnitOverride;				///< An internal unit conversion that is used temporarily when the data's value is set with a non-active unit.
 
-	// it was in the Max external code :	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
+	/** Reset value to default value */
+	TTErr	Reset();
 	
-public:
-	
-	/** reset value to default value */
-	TTErr Reset();
+	/** Control the data using a command like < value (unit) (ramp ramptime) >
+		It depends on the command size :
+			1		: 1 value 
+			2		: 2 values || 1 value + unit
+			3		: 3 values || 2 values + unit || 1 value + ramp ramptime
+			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
+	 */
+	TTErr	Command(const TTValue& command);
 	
 	/**	Increment mValue attribute (and ramp this incrementation)
 		It depends on the command size :
@@ -109,76 +112,69 @@ public:
 			3		: 1 incrementation step + ramp ramptime
 			default	: no value or wrong value
 	 */
-	TTErr Inc(const TTValue& value);
+	TTErr	Inc(const TTValue& value);
 	
 	/**	Decrement mValue attribute (and ramp this decrementation)
-	 It depends on the command size :
-	 1		: 1 decrementation step
-	 3		: 1 decrementation step + ramp ramptime
-	 default	: no value or wrong value
+		It depends on the command size :
+			1		: 1 decrementation step
+			3		: 1 decrementation step + ramp ramptime
+			default	: no value or wrong value
 	 */
-	TTErr Dec(const TTValue& value);
+	TTErr	Dec(const TTValue& value);
 	
 	/**	Getter and Setter for mValue attribute. */
-	TTErr getValue(TTValue& value);
-	TTErr setValue(const TTValue& value);
+	TTErr	getValue(TTValue& value);
+	TTErr	setValue(const TTValue& value);
 
 	/**	Getter and Setter for mValueDefault attribute. */
-	TTErr getValueDefault(TTValue& value);
-	TTErr setValueDefault(const TTValue& value);
+	TTErr	getValueDefault(TTValue& value);
+	TTErr	setValueDefault(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setValueStepsize(const TTValue& value);
+	TTErr	setValueStepsize(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setType(const TTValue& value);
+	TTErr	setType(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setRepetitionsAllow(const TTValue& value);
+	TTErr	setRepetitionsAllow(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setReadonly(const TTValue& value);
+	TTErr	setReadonly(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setViewFreeze(const TTValue& value);
+	TTErr	setViewFreeze(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setRangeBounds(const TTValue& value);
+	TTErr	setRangeBounds(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setRangeClipmode(const TTValue& value);
+	TTErr	setRangeClipmode(const TTValue& value);
 
 #ifdef TTDATA_RAMPLIB
 	/**	Setter for m attribute. */
-	TTErr setRampDrive(const TTValue& value);
+	TTErr	setRampDrive(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setRampFunction(const TTValue& value);
+	TTErr	setRampFunction(const TTValue& value);
 #endif
 	
 	/**	Setter for m attribute. */
-	TTErr setDataspace(const TTValue& value);
+	TTErr	setDataspace(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setDataspaceUnitNative(const TTValue& value);
+	TTErr	setDataspaceUnitNative(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setDataspaceUnitActive(const TTValue& value);
+	TTErr	setDataspaceUnitActive(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setDataspaceUnitDisplay(const TTValue& value);
+	TTErr	setDataspaceUnitDisplay(const TTValue& value);
 	
-private:
+	/**  needed to be handled by a TTTextHandler */
+	TTErr WriteAsText(const TTValue& value);
 	
-	/** control the data using a command like < value (unit) (ramp ramptime) >
-	 It depends on the command size :
-	 1		: 1 value 
-	 2		: 2 values || 1 value + unit
-	 3		: 3 values || 2 values + unit || 1 value + ramp ramptime
-	 X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
-	 */
-	TTErr		command(const TTValue& command);
-	
+	/** */
 	TTBoolean	checkType(const TTValue& value);
 	TTBoolean	clipValue();
 	TTErr		convertUnit(const TTValue& inValue, TTValue& outValue);
@@ -188,10 +184,7 @@ private:
 	TTErr		rampSetup();
 	friend void TTMODULAR_EXPORT TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 #endif
-	
-	/**  needed to be handled by a TTTextHandler */
-	TTErr writeAsText(const TTValue& value);
-	
+
 };
 
 typedef TTData* TTDataPtr;

@@ -29,26 +29,21 @@ class TTMODULAR_EXPORT TTViewer : public TTObject
 {
 	TTCLASS_SETUP(TTViewer)
 	
-public:
+private:
 	
 	TTSymbolPtr			mAddressMain;				///< ATTRIBUTE : main part of the data address to bind
 	TTSymbolPtr			mAddressSub;				///< ATTRIBUTE : sub part of the data address to bind
 													/// So the viewer will bind on the data at /main/sub address
 	TTBoolean			mFreeze;					///< ATTRIBUTE : Freeze data returning
 	
-private:
-	
-	TTApplicationPtr	mApplication;					///< the application
+	TTApplicationPtr	mApplication;				///< the application
 	TTReceiverPtr		mReceiver;					///< the receiver which binds on our data
 	TTSenderPtr			mSender;					///< the sender which binds on our data
 	
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this viewer
 	
-public:
-
+	/** */
 	TTErr Refresh();
-	
-private :
 	
 	/** set the main part of the address */
 	TTErr setAddressMain(const TTValue& value);
@@ -59,8 +54,10 @@ private :
 	/** set the freeze */
 	TTErr setFreeze(const TTValue& value);
 	
-	TTErr send(TTValue& valueToSend);				// to -- lower case in order to hide the message during the Class wrapping process
+	/** */
+	TTErr Send(TTValue& valueToSend);
 	
+	/** */
 	TTErr bind();
 	
 	friend TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data);

@@ -36,11 +36,11 @@
  
 	If you want to read in Xml format you set the Object attribute as myTopObject then you call the Read message with 
 	aValueContainingFullPathToaFile. Then this method (as a friend of your TTTopObject class) will automatically create 
-	an XmlReader data structure and call readFromXml(aValueContainingAnXmlReader) on your myTopObject.
+	an XmlReader data structure and call ReadFromXml(aValueContainingAnXmlReader) on your myTopObject.
  
 	Because your TTTopObject class used TTLowerObject to describe himself (and have to extract their xml description 
-	from the xml file to set them up) the readFromXml method sets recursively the Object Attribute with aLowerObject 
-	and then calls the Read message with an empty value : this would calls the readFromXml(aValueContainingAnXmlReader)
+	from the xml file to set them up) the ReadFromXml method sets recursively the Object Attribute with aLowerObject 
+	and then calls the Read message with an empty value : this would calls the ReadFromXml(aValueContainingAnXmlReader)
 	on your TTLowerObject.
  
  */
@@ -49,7 +49,7 @@ class TTMODULAR_EXPORT TTXmlHandler : public TTObject
 {
 	TTCLASS_SETUP(TTXmlHandler)
 	
-public:
+public:	// use public for recursive access
 	
 	TTObjectPtr			mObject;						///< the last handled object
 	TTSymbolPtr			mFilePath;						///< the path to the last writen/read file
@@ -61,17 +61,17 @@ public:
 	
 
 	/** TTXmlWriter could takes absolute file path or nothing.
-		In the path case, TTXmlWriter starts xml file writting and then calls the writeAsXml 
+		In the path case, TTXmlWriter starts xml file writting and then calls the WriteAsXml 
 		method of mObject attribute
-		In the second case, it directly calls the writeAsXml method */
+		In the second case, it directly calls the WriteAsXml method */
 	TTErr Write(const TTValue& args);
 	TTErr WriteAgain();
 	
 	
 	/** TTXmlReader could takes absolute file path or nothing.
-		In the path case, TTXmlReader starts xml file reading and then calls the readFromXml 
+		In the path case, TTXmlReader starts xml file reading and then calls the ReadFromXml 
 		method of mObject attribute
-		In the second case, it directly calls the readFromXml method */
+		In the second case, it directly calls the ReadFromXml method */
 	TTErr Read(const TTValue& args);
 	TTErr ReadAgain();
 	

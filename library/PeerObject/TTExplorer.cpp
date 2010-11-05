@@ -50,7 +50,7 @@ TTExplorer::~TTExplorer()
 	TTSymbolPtr addressToObserve;
 	
 	// bind the right node
-	if (mLookfor == TT("Instances"))
+	if (mLookfor == kTTSym_instances)
 		addressToObserve = mTempParent;
 	else
 		addressToObserve = mAddress;
@@ -95,7 +95,7 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	splitOSCAddress(mAddress, &mTempParent, &mTempName, &inst, &attr);
 	
 	// bind the new node
-	if (mLookfor == TT("Instances"))
+	if (mLookfor == kTTSym_instances)
 		mTempObserve = mTempParent;
 	else
 		mTempObserve = mAddress;
@@ -105,15 +105,15 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 		
 		// observe any creation or destruction below the address
 		mObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), TTObjectHandle(&mObserver), kTTValNONE);
+		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		newBaton->append(TTPtr(kTTSymEmpty));
 		
-		mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-		mObserver->setAttributeValue(TT("Function"), TTPtr(&TTExplorerDirectoryCallback));
+		mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 		
-		mObserver->setAttributeValue(TT("Owner"), TT("TTExplorer"));						// this is usefull only to debug
+		mObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
 		
 		getDirectoryFrom(this)->addObserverForNotifications(mTempObserve, *mObserver);
 	}
@@ -134,7 +134,7 @@ TTErr TTExplorer::Explore()
 	mTempNode = NULL;
 	
 	// bind the right node
-	if (mLookfor == TT("Instances"))
+	if (mLookfor == kTTSym_instances)
 		err = getDirectoryFrom(this)->Lookup(mTempParent, aNodeList, &mTempNode);
 	else
 		err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &mTempNode);
@@ -142,15 +142,15 @@ TTErr TTExplorer::Explore()
 	if (!err){
 		
 		// get children names
-		if (mLookfor == TT("Children"))
+		if (mLookfor == kTTSym_children)
 			mTempNode->getChildrenName(nameList);
 		
 		// get instances names
-		else if (mLookfor == TT("Instances"))
+		else if (mLookfor == kTTSym_instances)
 			mTempNode->getChildrenInstance(mTempName, nameList);
 		
 		// get attributes names
-		else if (mLookfor == TT("Attributes")) {
+		else if (mLookfor == kTTSym_attributes) {
 			if (o = mTempNode->getObject()) {
 				v.clear();
 				o->getAttributeNames(v);
@@ -266,7 +266,7 @@ TTErr TTExplorer::CriteriaClear()
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::writeAsXml(const TTValue& value)
+TTErr TTExplorer::WriteAsXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	/*
@@ -328,7 +328,7 @@ TTErr TTExplorer::writeAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::readFromXml(const TTValue& value)
+TTErr TTExplorer::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	/*
@@ -444,20 +444,20 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(3, (TTPtr*)&anObserver);
 	
 	// get children names
-	if (anExplorer->mLookfor == TT("Children")) {
+	if (anExplorer->mLookfor == kTTSym_children) {
 		if (aNode->getParent() == anExplorer->mTempNode)
 			v.append(aNode->getName());
 	}
 	
 	// get instances names
-	else if (anExplorer->mLookfor == TT("Instances")) {
+	else if (anExplorer->mLookfor == kTTSym_instances) {
 		 // TODO : if the TempNode is destroyed then rebuilt, the test below fails => observe his destruction and replace mTempNode
 		if ((aNode->getParent() == anExplorer->mTempNode) && (aNode->getName() == anExplorer->mTempName))
 			v.append(aNode->getInstance());
 	}
 	
 	// get attributes names
-	else if (anExplorer->mLookfor == TT("Attributes")) {
+	else if (anExplorer->mLookfor == kTTSym_attributes) {
 		if (aNode == anExplorer->mTempNode) {
 			
 			// always clear the result

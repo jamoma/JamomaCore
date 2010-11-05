@@ -29,7 +29,7 @@ class TTMODULAR_EXPORT TTMapper : public TTObject
 {
 	TTCLASS_SETUP(TTMapper)
 	
-public:
+private:
 	
 	TTSymbolPtr			mInput;						///< ATTRIBUTE : address of the data for the incoming value
 	TTSymbolPtr			mOutput;					///< ATTRIBUTE : address of the data for the value to control
@@ -41,10 +41,8 @@ public:
 	
 	TTValue				mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
 	TTSymbolPtr			mFunction;					///< ATTRIBUTE : name of the map function
-	TTValue				mFunctionDatas;		///< ATTRIBUTE : names of data's function
+	TTValue				mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
 	TTValue				mFunctionSamples;			///< ATTRIBUTE : an overview of the mapping (each value between [map(InputMin) :: map(InputMax)])
-	
-private:
 	
 	TTApplicationPtr	mApplication;					///< the application
 	TTReceiverPtr		mReceiver;					///< the receiver which binds on In data(s)
@@ -56,12 +54,8 @@ private:
 	TTAudioObjectPtr	mFunctionUnit;
 	TTBoolean			mValid;						// true if the functionUnit can be used
 	
-public:
-	
 	/** process mapping */
-	TTErr map(TTValue& value);
-	
-private :
+	TTErr Map(TTValue& value);
 	
 	/** */
 	TTErr getFunctionLibrary(TTValue& value);
@@ -93,9 +87,13 @@ private :
 	/** process mapping */
 	TTErr processMapping(TTValue& value);
 	
+	/** */
 	TTErr scaleInput();
+	
+	/** */
 	TTErr scaleOutput();
 	
+	/** */
 	TTErr notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
 	friend TTErr TTMODULAR_EXPORT TTMapperReceiveAddressCallback(TTPtr baton, TTValue& data);

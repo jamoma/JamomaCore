@@ -21,33 +21,30 @@ mDirectory(NULL),
 mAppToTT(NULL),
 mTTToApp(NULL)
 {
-	TTErr err;
-	
 	TT_ASSERT("Correct number of args to create TTApplication", arguments.getSize() == 2);
 	
 	arguments.get(0, &mName);
 	arguments.get(1, &mVersion);
 	
 	addAttribute(Name, kTypeSymbol);
-	addAttributeProperty(Name, readOnly, YES);
+	addAttributeProperty(name, readOnly, YES);
 	
 	addAttribute(Version, kTypeSymbol);
-	addAttributeProperty(Version, readOnly, YES);
+	addAttributeProperty(version, readOnly, YES);
 	
 	addAttribute(Directory, kTypePointer);
-	addAttributeProperty(Directory, readOnly, YES);
+	addAttributeProperty(directory, readOnly, YES);
 	
 	addMessage(AppName);
 	addMessage(TTName);
 	
-	err = TTObjectInstantiate(TT("NodeDirectory"), TTObjectHandle(&mDirectory), mName);
+	mDirectory = new TTNodeDirectory(mName);
 	TT_ASSERT("NodeDirectory created successfully", !err);
 }
 
 TTApplication::~TTApplication()
 {
-	TTObjectRelease(TTObjectHandle(&mDirectory));
-	
+	delete mDirectory;
 	delete mTTToApp;
 	delete mAppToTT;
 }
@@ -97,9 +94,7 @@ TTNodeDirectoryPtr TTApplicationGetDirectory(TTObjectPtr anApplication)
 		
 		d = TTApplicationPtr(anApplication)->mDirectory;
 		
-		if (d)
-			if (d->valid)
-				return d;
+		if (d) return d;
 	}
 	
 	return NULL;

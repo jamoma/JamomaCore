@@ -24,14 +24,14 @@ class TTMODULAR_EXPORT TTExplorer : public TTObject
 {
 	TTCLASS_SETUP(TTExplorer)
 	
-public:
+private:
 	
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE : 
 	TTSymbolPtr			mLookfor;						///< ATTRIBUTE : what the explorer is looking for from the address (Children, Instance, Attribute else use ObjectCriteria table)
 	TTValue				mEqual;							///< ATTRIBUTE : each found elements have to be equal to one element of this attribute (use KTTValNone to don't use this)
 	TTValue				mDifferent;						///< ATTRIBUTE : each found elements have to be different from all elements of this attribute (use KTTValNone to don't use this)
 	
-private:
+
 	
 	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mObserver;						///< a life cycle observer
@@ -46,25 +46,33 @@ private:
 	TTSymbolPtr			mTempObserve;					///< remember the observed address (Instances case)
 	TTHashPtr			mResult;						///< hash table containing all elements found by the explorer
 		
-public:
-	
+	/** */
 	TTErr Explore();
 	
+	/** */
 	TTErr CriteriaAdd(const TTValue& value);
+	
+	/** */
 	TTErr CriteriaClear();
 	
+	/** */
 	// TODO : TTErr Dump();
 	
-private :
-	
+	/** */
 	TTErr setLookfor(const TTValue& value);
+	
+	/** */
 	TTErr setAddress(const TTValue& value);
+	
+	/** */
 	TTErr setUpdate(const TTValue& value);
 	
+	/** */
 	TTErr getObjectsByType(TTValue& value);
 	
-	TTErr writeAsXml(const TTValue& value);
-	TTErr readFromXml(const TTValue& value);
+	/**  needed to be handled by a TTXmlHandler */
+	TTErr WriteAsXml(const TTValue& value);
+	TTErr ReadFromXml(const TTValue& value);
 	
 	/* TODO :
 	 TTErr WriteAsText(const TTValue& value);			// pass an text buffer ?

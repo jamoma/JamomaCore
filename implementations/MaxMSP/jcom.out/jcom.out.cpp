@@ -23,7 +23,6 @@ const double kPollIntervalDefault = 150;	// for meters to update
 void		WrapTTOutputClass(WrappedClassPtr c);
 void		WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void		out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
-void		out_share_context_node(TTPtr self, TTNodePtr *contextNode);
 void		out_build(TTPtr self, long number);
 
 //TODO :	void out_register_preview(t_out *x, void *preview_object){ x->preview_object = preview_object; }
@@ -68,8 +67,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTOutputClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)out_assist,						"assist",				A_CANT, 0L);
-	
-	class_addmethod(c->maxClass, (method)out_share_context_node,			"share_context_node",	A_CANT,	0);
 	
 	//class_addmethod(c, (method)out_register_preview,						"register_preview",		A_CANT, 0L);
 	
@@ -165,28 +162,27 @@ void out_build(TTPtr self, long number)
 	if (x->subscriberObject) {
 		
 		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("NewInstanceCreated"), v);
+		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
 		v.get(0, newInstance);
 		
 		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
+			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
 			v.get(0, &relativeAddress);
 			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.in with the same OSC identifier (/out).  Using %s instead.", relativeAddress->getCString());
 		}
 		
 		// debug
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &nodeAddress);
 		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		
 		// get the Node
-		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
 		// attach to the patcher to be notified of his destruction
-		node->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
-		object_attach_byptr_register(x, context, _sym_box);
+		context = node->getContext();
+		// Crash : object_attach_byptr_register(x, context, _sym_box);
 		
 		// observe /parent/in address in order to link/unlink with an Input object below
 		node->getParent()->getOscAddress(&parentAddress, S_SEPARATOR);
@@ -196,38 +192,38 @@ void out_build(TTPtr self, long number)
 			inAddress += ".";
 			inAddress += node->getInstance()->getCString();
 		}
-		x->wrappedObject->setAttributeValue(TT("InputAddress"), TT(inAddress.data()));
+		x->wrappedObject->setAttributeValue(TT("inputAddress"), TT(inAddress.data()));
 		
 		// expose attributes of TTOutput as TTData in the tree structure
-		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Mute"), kTTSym_parameter, &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
-		aData->setAttributeValue(kTTSym_Description, TT("When active, this attribute turns off model's outputs."));
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's outputs."));
 		
-		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Mix"), kTTSym_parameter, &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_decimal);
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mix, kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		v = TTValue(0., 100.);
-		aData->setAttributeValue(kTTSym_RangeBounds, v);
+		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		v = TTValue(100.);
-		aData->setAttributeValue(kTTSym_ValueDefault, v);							// Assume 100%, so that processed signal is passed through
-		aData->setAttributeValue(kTTSym_Description, TT("Controls the wet/dry mix of the model's processing routine in percent."));
+		aData->setAttributeValue(kTTSym_valueDefault, v);							// Assume 100%, so that processed signal is passed through
+		aData->setAttributeValue(kTTSym_description, TT("Controls the wet/dry mix of the model's processing routine in percent."));
 		
-		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Gain"), kTTSym_parameter, &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_decimal);
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_gain, kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		v = TTValue(0., 127.);
-		aData->setAttributeValue(kTTSym_RangeBounds, v);
+		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		v = TTValue(100.);
-		aData->setAttributeValue(kTTSym_ValueDefault, v);
-		aData->setAttributeValue(kTTSym_Description, TT("Set gain of model's outputs (as MIDI value by default)."));
+		aData->setAttributeValue(kTTSym_valueDefault, v);
+		aData->setAttributeValue(kTTSym_description, TT("Set gain of model's outputs (as MIDI value by default)."));
 		
 #ifndef JCOM_IN_TILDE		
-		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Freeze"), kTTSym_parameter, &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
-		aData->setAttributeValue(kTTSym_Description, TT("Freezes the last state of model's outputs from the  processing algorithm."));
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_freeze, kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_description, TT("Freezes the last state of model's outputs from the  processing algorithm."));
 #endif
 		
-		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("Preview"), kTTSym_parameter, &aData);
-		aData->setAttributeValue(kTTSym_Type, kTTSym_boolean);
-		aData->setAttributeValue(kTTSym_Description, TT("Turns on/off preview display of model's outputs from the  processing algorithm."));
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_preview, kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_description, TT("Turns on/off preview display of model's outputs from the  processing algorithm."));
 	}
 }
 
@@ -244,20 +240,6 @@ void out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 		else 
 			strcpy(dst, "dumpout");
 	}
-}
-
-void out_share_context_node(TTPtr self, TTNodePtr *contextNode)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
-		v.get(0, TTObjectHandle(contextNode));
-	}
-	else
-		*contextNode = NULL;
 }
 
 #ifndef JCOM_OUT_TILDE
@@ -408,8 +390,8 @@ void out_dsp(TTPtr self, t_signal **sp, short *count)
 	TTUInt16					vectorsize = sp[0]->s_n;
 	int							sr = sp[0]->s_sr;
 	
-	anOutput->mRampGainUnit->setAttributeValue(TT("SampleRate"), sr);	// convert midi to db for tap_gain
-	anOutput->mRampMixUnit->setAttributeValue(TT("SampleRate"), sr);	// convert midi to db for tap_gain
+	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
+	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
 	
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((anOutput->mNumber * 2) + 1));
 	audioVectors[k] = x;
@@ -433,21 +415,21 @@ void out_dsp(TTPtr self, t_signal **sp, short *count)
 	anOutput->mInfo.set(info_numChannels, numChannels);
 	anOutput->mInfo.set(info_vectorSize, vectorsize);
 	
-	anOutput->mSignalIn->setAttributeValue(TT("NumChannels"), numChannels);
-	anOutput->mSignalOut->setAttributeValue(TT("NumChannels"), numChannels);
-	anOutput->mSignalTemp->setAttributeValue(TT("NumChannels"), numChannels);
-	anOutput->mSignalZero->setAttributeValue(TT("NumChannels"), numChannels);
+	anOutput->mSignalIn->setAttributeValue(kTTSym_numChannels, numChannels);
+	anOutput->mSignalOut->setAttributeValue(kTTSym_numChannels, numChannels);
+	anOutput->mSignalTemp->setAttributeValue(kTTSym_numChannels, numChannels);
+	anOutput->mSignalZero->setAttributeValue(kTTSym_numChannels, numChannels);
 	
-	anOutput->mSignalIn->setAttributeValue(TT("VectorSize"), vectorsize);
-	anOutput->mSignalOut->setAttributeValue(TT("VectorSize"), vectorsize);
-	anOutput->mSignalTemp->setAttributeValue(TT("VectorSize"), vectorsize);
-	anOutput->mSignalZero->setAttributeValue(TT("VectorSize"), vectorsize);
+	anOutput->mSignalIn->setAttributeValue(kTTSym_vectorSize, vectorsize);
+	anOutput->mSignalOut->setAttributeValue(kTTSym_vectorSize, vectorsize);
+	anOutput->mSignalTemp->setAttributeValue(kTTSym_vectorSize, vectorsize);
+	anOutput->mSignalZero->setAttributeValue(kTTSym_vectorSize, vectorsize);
 	
 	//audioIn will be set in the perform method
-	anOutput->mSignalOut->sendMessage(TT("alloc"));
-	anOutput->mSignalTemp->sendMessage(TT("alloc"));
-	anOutput->mSignalZero->sendMessage(TT("alloc"));
-	anOutput->mSignalZero->sendMessage(TT("Clear"));
+	anOutput->mSignalOut->sendMessage(kTTSym_alloc);
+	anOutput->mSignalTemp->sendMessage(kTTSym_alloc);
+	anOutput->mSignalZero->sendMessage(kTTSym_alloc);
+	anOutput->mSignalZero->sendMessage(kTTSym_clear);
 	
 	dsp_addv(out_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);

@@ -19,8 +19,6 @@ void		WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
-void		data_share_context_node(TTPtr self, TTNodePtr *contextNode);
-
 void		data_build(TTPtr self, SymbolPtr address);
 void		data_build_array(TTPtr self);
 void		data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index);
@@ -76,10 +74,6 @@ void WrapTTDataClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)data_assist,						"assist",				A_CANT, 0L);
 	
-	class_addmethod(c->maxClass, (method)data_share_context_node,			"share_context_node",	A_CANT,	0);
-	
-	class_addmethod(c->maxClass, (method)data_array_select,					"array/select",			A_GIMME,0);
-	
 #ifndef JMOD_RETURN
 	class_addmethod(c->maxClass, (method)data_return_value,					"return_value",			A_CANT, 0);
 #endif
@@ -93,6 +87,8 @@ void WrapTTDataClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)data_inc,							"+",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)data_dec,							"-",					A_GIMME, 0);
 #endif
+	
+	class_addmethod(c->maxClass, (method)data_array_select,					"array/select",			A_GIMME,0);
 }
 
 void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -112,7 +108,18 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	number = jamoma_parse_bracket(address, &x->i_format, &x->s_format);
 	
+	// Make outlets (before attr_args_process)
+	/////////////////////////////////////////////////////////////////////////////////
+#ifndef JMOD_RETURN
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
+	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
 	
+	
+	// Make qelem object
+	/////////////////////////////////////////////////////////////////////////////////
+	x->ui_qelem = qelem_new(x, (method)data_ui_queuefn);
+#endif
 	
 	// Make one object only
 	/////////////////////////////////////////////////////////////////////////////////
@@ -184,21 +191,6 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
 		defer_low((ObjectPtr)x, (method)data_build_array, NULL, 0, NULL);
 	}
-	
-	
-
-	// Make outlets
-	/////////////////////////////////////////////////////////////////////////////////
-#ifndef JMOD_RETURN
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
-	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
-	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
-
-	
-	// Make qelem object
-	/////////////////////////////////////////////////////////////////////////////////
-	x->ui_qelem = qelem_new(x, (method)data_ui_queuefn);
-#endif
 }
 
 void data_build(TTPtr self, SymbolPtr address)
@@ -217,28 +209,27 @@ void data_build(TTPtr self, SymbolPtr address)
 	if (x->subscriberObject) {
 		
 		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("NewInstanceCreated"), v);
+		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
 		v.get(0, newInstance);
 		
 		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
+			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
 			v.get(0, &relativeAddress);
 			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.data with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
 		}
 
 		// debug
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &nodeAddress);
 		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		
 		// get the Node
-		x->subscriberObject->getAttributeValue(TT("Node"), v);
+		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
 		// attach to the patcher to be notified of his destruction
-		node->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
-		object_attach_byptr_register(x, context, _sym_box);
+		context = node->getContext();
+		// Crash : object_attach_byptr_register(x, context, _sym_box);
 
 	}
 }
@@ -269,17 +260,17 @@ void data_build_array(TTPtr self)
 		if (aSubscriber) {
 			
 			// Is a new instance have been created ?
-			aSubscriber->getAttributeValue(TT("NewInstanceCreated"), v);
+			aSubscriber->getAttributeValue(TT("newInstanceCreated"), v);
 			v.get(0, newInstance);
 			
 			if (newInstance) {
-				aSubscriber->getAttributeValue(TT("RelativeAddress"), v);
+				aSubscriber->getAttributeValue(TT("relativeAddress"), v);
 				v.get(0, &relativeAddress);
 				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.data with the same OSC identifier (%s).  Using %s instead.", address->getCString(), relativeAddress->getCString());
 			}
 			
 			// debug
-			aSubscriber->getAttributeValue(TT("NodeAddress"), v);
+			aSubscriber->getAttributeValue(TT("nodeAddress"), v);
 			v.get(0, &nodeAddress);
 			object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		}
@@ -298,12 +289,12 @@ void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr servi
 	// prepare arguments
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 #ifndef JMOD_RETURN
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTUInt32(index));
-	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&data_array_return_value));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&data_array_return_value));
 #endif
 	
 	args.append(returnValueCallback);
@@ -437,20 +428,6 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 }
 #endif
 
-void data_share_context_node(TTPtr self, TTNodePtr *contextNode)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
-		v.get(0, TTObjectHandle(contextNode));
-	}
-	else
-		*contextNode = NULL;
-}
-
 #ifndef JMOD_RETURN
 void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
@@ -466,7 +443,7 @@ void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
 	// Check ViewFreeze attribute
-	selectedObject->getAttributeValue(kTTSym_ViewFreeze, v);
+	selectedObject->getAttributeValue(kTTSym_viewFreeze, v);
 	v.get(0, freeze);
 	
 	if (!freeze) {

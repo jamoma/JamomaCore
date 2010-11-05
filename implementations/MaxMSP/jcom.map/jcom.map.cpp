@@ -20,8 +20,6 @@ void	map_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void	map_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
-void	map_share_context_node(TTPtr self, TTNodePtr *contextNode);
-
 void	map_int(TTPtr self, long value);
 void	map_float(TTPtr self, double value);
 void	map_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -44,8 +42,6 @@ void WrapTTMapperClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)map_return_value,			"return_value",			A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)map_share_context_node,	"share_context_node",	A_CANT,	0);
-	
 	class_addmethod(c->maxClass, (method)map_int,					"int",					A_LONG, 0L);
 	class_addmethod(c->maxClass, (method)map_float,					"float",				A_FLOAT, 0L);
 	class_addmethod(c->maxClass, (method)map_list,					"list",					A_GIMME, 0L);
@@ -54,8 +50,6 @@ void WrapTTMapperClass(WrappedClassPtr c)
 void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
- 	
-	attr_args_offset(argc, argv);			// support normal arguments
 	
 	jamoma_mapper_create((ObjectPtr)x, &x->wrappedObject);
 	
@@ -99,13 +93,12 @@ void map_build(TTPtr self, SymbolPtr address)
 	if (x->subscriberObject) {
 		
 		// get the Node
-		x->subscriberObject->getAttributeValue(TT("Node"), n);
+		x->subscriberObject->getAttributeValue(TT("node"), n);
 		n.get(0, (TTPtr*)&node);
 		
 		// attach to the patcher to be notified of his destruction
-		node->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
-		object_attach_byptr_register(x, context, _sym_box);
+		context = node->getContext();
+		// Crash : object_attach_byptr_register(x, context, _sym_box);
 		
 	}
 }
@@ -114,20 +107,6 @@ void map_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	outlet_anything(x->outlets[data_out], msg, argc, argv);
-}
-
-void map_share_context_node(TTPtr self, TTNodePtr *contextNode)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
-		v.get(0, TTObjectHandle(contextNode));
-	}
-	else
-		*contextNode = NULL;
 }
 
 void map_bang(TTPtr self)
@@ -158,5 +137,5 @@ void map_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-	x->wrappedObject->sendMessage(kTTSym_map, v);
+	x->wrappedObject->sendMessage(kTTSym_Map, v);
 }

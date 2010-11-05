@@ -17,7 +17,6 @@ void		WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void		nmspc_assist(TTPtr self, void *b, long m, long a, char *s);
 
-void		nmspc_share_context_node(TTPtr self, TTNodePtr *contextNode);
 void		nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		nmspc_bang(TTPtr self);
@@ -52,7 +51,6 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 	// add methods
 	class_addmethod(c->maxClass, (method)nmspc_assist,				"assist",					A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)nmspc_share_context_node,	"share_context_node",		A_CANT,	0);
 	class_addmethod(c->maxClass, (method)nmspc_return_value,		"return_value",				A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)nmspc_bang,				"bang",						0);
@@ -96,11 +94,12 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 void nmspc_build(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v;
-	TTNodePtr					node;
-	TTSymbolPtr					absoluteAddress;
+	//TTValue						v;
+	//TTNodePtr					node;
+	//TTSymbolPtr					absoluteAddress;
 	
-	/*
+	/* To make jcom.namespace relative to his context...
+	 
 	if (node = jamoma_context_node_get((ObjectPtr)self)) {
 	
 		// Get his absolute address
@@ -139,7 +138,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	x->wrappedObject->getAttributeValue(TT("Lookfor"), v);
 	v.get(0, &lookfor);
 	
-	x->wrappedObject->getAttributeValue(kTTSym_Address, v);
+	x->wrappedObject->getAttributeValue(kTTSym_address, v);
 	v.get(0, &address);
 		
 	if(address == S_SEPARATOR)
@@ -147,11 +146,11 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	else{
 		TTString prefix = address->getCString();
 			
-		if(lookfor == TT("Children"))
+		if(lookfor == kTTSym_children)
 			prefix += "/";
-		if(lookfor == TT("Instances"))
+		if(lookfor == kTTSym_instances)
 			prefix += ".";
-		if(lookfor == TT("Attributes"))
+		if(lookfor == kTTSym_attributes)
 			prefix += ":";
 		else
 			prefix += "";
@@ -164,10 +163,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	for (long i=0; i<argc; i++) {
 		s = atom_getsym(argv+i);
 		
-		if(lookfor == TT("Attributes"))
+		if(lookfor == kTTSym_attributes)
 			s = jamoma_TTName_To_MaxName(TT(s->s_name));
 		
-		if (lookfor == TT("Instances") && s == _sym_nothing)
+		if (lookfor == kTTSym_instances && s == _sym_nothing)
 			s = gensym("_");
 		if (s) {
 			atom_setsym(a, s);
@@ -181,21 +180,6 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (argc == 1)
 		outlet_anything(x->outlets[data_out], _sym_one, 0, NULL);
 	
-}
-
-
-void nmspc_share_context_node(TTPtr self, TTNodePtr *contextNode)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("ContextNode"), v);
-		v.get(0, TTObjectHandle(contextNode));
-	}
-	else
-		*contextNode = NULL;
 }
 
 void nmspc_bang(TTPtr self)
@@ -212,7 +196,7 @@ void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	
 	if (msg->s_name[0] == C_SEPARATOR) {
 		v.append(TT(nmspc_filter_underscore_instance(msg)->s_name));
-		x->wrappedObject->setAttributeValue(kTTSym_Address, v);
+		x->wrappedObject->setAttributeValue(kTTSym_address, v);
 		x->wrappedObject->sendMessage(TT("Explore"));
 	}
 }
@@ -234,7 +218,7 @@ void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	SymbolPtr		userpath;
 	TTSymbolPtr		nodeAddress;
 	TTXmlHandlerPtr	aXmlHandler = NULL;
-	//TTTextHandlerPtr	aTaextHandler;
+	//TTTextHandlerPtr	aTextHandler;
 	TTErr			tterr;
 	
 	if (argc && argv)
@@ -258,7 +242,7 @@ void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// Get absolute filepath using Max API
 	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, (TTPtr*)&nodeAddress);
 		object_error((t_object*)x, "%s : file not created", gensym((char*)nodeAddress->getCString()));
 		return;

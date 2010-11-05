@@ -36,7 +36,7 @@ RampUnit::RampUnit(TTValue& arguments) :
 	arguments.get(1, (TTPtr*)&baton);
 	
 	addAttributeWithSetter(Function, kTypeSymbol);
-	setAttributeValue(TT("Function"), TT("linear"));
+	setAttributeValue(kTTSym_function, TT("linear"));
 }
 
 

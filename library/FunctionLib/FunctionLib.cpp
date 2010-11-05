@@ -31,6 +31,6 @@ TTErr FunctionLib::createUnit(const TTSymbolPtr unitName, TTObject **unit)
 
 void FunctionLib::getUnitNames(TTValue& unitNames)
 {
-	TTGetRegisteredClassNamesForTags(unitNames, TT("function"));
+	TTGetRegisteredClassNamesForTags(unitNames, kTTSym_function);
 }
 

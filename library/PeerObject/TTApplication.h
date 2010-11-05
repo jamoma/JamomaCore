@@ -45,8 +45,6 @@ private:
 	TTHashPtr					mAppToTT;			// Hash table to convert Application names into TT names
 	TTHashPtr					mTTToApp;			// Hash table to convert TT names into Application names
 	
-public:
-	
 	/** Convert TTName into AppName */
 	TTErr AppName(TTValue& value);
 	

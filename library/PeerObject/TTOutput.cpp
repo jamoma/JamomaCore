@@ -64,10 +64,10 @@ mObserver(NULL)
 	}
 	
 	addAttribute(Number, kTypeUInt16);
-	addAttributeProperty(Number, readOnly, YES);
+	addAttributeProperty(number, readOnly, YES);
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(Type, readOnly, YES);
+	addAttributeProperty(type, readOnly, YES);
 	
 	addAttributeWithSetter(InputAddress, kTypeSymbol);
 	
@@ -78,10 +78,17 @@ mObserver(NULL)
 	addAttribute(Preview, kTypeBoolean);
 	addAttribute(Info, kTypeLocalValue);
 	
-	addMessageWithArgument(send);
-	addMessageWithArgument(sendBypassed);
-	addMessageWithArgument(link);
-	addMessage(unlink);
+	addMessageWithArgument(Send);
+	addMessageProperty(Send, hidden, YES);
+	
+	addMessageWithArgument(SendBypassed);
+	addMessageProperty(SendBypassed, hidden, YES);
+	
+	addMessageWithArgument(Link);
+	addMessageProperty(Link, hidden, YES);
+	
+	addMessage(Unlink);
+	addMessageProperty(Unlink, hidden, YES);
 	
 	mLast = new TTValue[mNumber];
 	for (TTUInt16 i=0; i<mNumber; i++)
@@ -129,7 +136,7 @@ TTOutput::~TTOutput()
 	delete [] mLast;
 }
 
-TTErr TTOutput::send(TTValue& value)
+TTErr TTOutput::Send(TTValue& value)
 {
 	TTErr err;
 	
@@ -152,24 +159,24 @@ TTErr TTOutput::send(TTValue& value)
 	return err;
 }
 
-TTErr TTOutput::sendBypassed(TTValue& value)
+TTErr TTOutput::SendBypassed(TTValue& value)
 {
 	if (mInputObject)
 		if (mInputObject->mIndex < mNumber) {
 			mIndex = mInputObject->mIndex;
-			return send(value);
+			return Send(value);
 		}
 	
 	return kTTErrGeneric;
 }
 
-TTErr TTOutput::link(const TTValue& value)
+TTErr TTOutput::Link(const TTValue& value)
 {
 	value.get(0, (TTPtr*)&mInputObject);
 	return kTTErrNone;
 }
 
-TTErr TTOutput::unlink()
+TTErr TTOutput::Unlink()
 {
 	mInputObject = NULL;
 	return kTTErrNone;
@@ -188,19 +195,19 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	if (!getDirectoryFrom(this)->getTTNodeForOSC(newAddress, &aNode)) {
 		if (o = aNode->getObject())
 			if (o->getName() == TT("Input"))
-				link((TTPtr)o);
+				Link((TTPtr)o);
 	}
 
 	if (!mObserver) {
 		
 		// prepare arguments
 		mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), TTObjectHandle(&mObserver), kTTValNONE);
+		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
-		mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-		mObserver->setAttributeValue(TT("Function"), TTPtr(&TTOutputDirectoryCallback));
-		mObserver->setAttributeValue(TT("Owner"), TT("TTOutput"));		// this is usefull only to debug
+		mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
+		mObserver->setAttributeValue(TT("owner"), TT("TTOutput"));		// this is usefull only to debug
 	}
 	
 	if (mObserver) {
@@ -220,9 +227,9 @@ TTErr TTOutput::setMute(const TTValue& value)
 	
 	if (mGainUnit)
 		if (mMute)
-			return mGainUnit->setAttributeValue(TT("LinearGain"), 0.0);
+			return mGainUnit->setAttributeValue(TT("linearGain"), 0.0);
 		else 
-			return mGainUnit->setAttributeValue(TT("MidiGain"), mGain);
+			return mGainUnit->setAttributeValue(TT("midiGain"), mGain);
 	
 	return kTTErrNone;
 }
@@ -232,7 +239,7 @@ TTErr TTOutput::setMix(const TTValue& value)
 	mMix = value;
 	
 	if (mMixUnit)
-		return mMixUnit->setAttributeValue(TT("Position"), mMix * 0.01);
+		return mMixUnit->setAttributeValue(TT("position"), mMix * 0.01);
 	
 	return kTTErrNone;
 }
@@ -242,7 +249,7 @@ TTErr TTOutput::setGain(const TTValue& value)
 	mGain = value;
 	
 	if (mGainUnit)
-		return mGainUnit->setAttributeValue(TT("MidiGain"), mGain);
+		return mGainUnit->setAttributeValue(TT("midiGain"), mGain);
 	
 	return kTTErrNone;
 }
@@ -277,13 +284,13 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anOutput->link((TTPtr)o);
+					anOutput->Link((TTPtr)o);
 					break;
 				}
 					
 				case kAddressDestroyed :
 				{
-					anOutput->unlink();
+					anOutput->Unlink();
 					break;
 				}
 					

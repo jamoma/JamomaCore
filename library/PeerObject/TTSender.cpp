@@ -13,9 +13,9 @@
 #define thisTTClassTags		"node, sender"
 
 TT_MODULAR_CONSTRUCTOR,
-mApplication(NULL),
 mAddress(kTTSymEmpty),
 mAttribute(kTTSym_value),
+mApplication(NULL),
 mObjectCache(NULL),
 mObserver(NULL)
 {
@@ -29,7 +29,8 @@ mObserver(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Attribute, kTypeSymbol);
 	
-	addMessageWithArgument(send);
+	addMessageWithArgument(Send);
+	addMessageProperty(Send, hidden, YES);
 	
 	mIsSending = false;
 	
@@ -64,7 +65,7 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 #pragma mark Some Methods
 #endif
 
-TTErr TTSender::send(TTValue& valueToSend)
+TTErr TTSender::Send(TTValue& valueToSend)
 {
 	TTObjectPtr		anObject;
 	TTValue			aCacheElement;
@@ -88,9 +89,9 @@ TTErr TTSender::send(TTValue& valueToSend)
 				aCacheElement.get(0, (TTPtr*)&anObject);
 				
 				if (anObject) {
-					if (mAttribute == kTTSym_Value)
+					if (mAttribute == kTTSym_value)
 						// set the value attribute using a command
-						anObject->sendMessage(kTTSym_command, valueToSend);
+						anObject->sendMessage(kTTSym_Command, valueToSend);
 					else
 						// set the attribute of the object
 						anObject->setAttributeValue(mAttribute, valueToSend);
@@ -132,15 +133,15 @@ TTErr TTSender::bind()
 	
 	// 3. Observe any creation or destruction below the address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &mObserver, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &mObserver, kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
 	newBaton->append(TTPtr(kTTSymEmpty));
 	
-	mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-	mObserver->setAttributeValue(TT("Function"), TTPtr(&TTSenderDirectoryCallback));
+	mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+	mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
 	
-	mObserver->setAttributeValue(TT("Owner"), TT("TTSender"));		// this is usefull only to debug
+	mObserver->setAttributeValue(TT("owner"), TT("TTSender"));		// this is usefull only to debug
 	
 	getDirectoryFrom(this)->addObserverForNotifications(mAddress, *mObserver);
 	
@@ -171,8 +172,8 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b, aCacheElement;
 	TTSenderPtr		aSender;
-	TTNodePtr		aNode, aCacheObject;
-	TTObjectPtr		anObject;
+	TTNodePtr		aNode;
+	TTObjectPtr		anObject, aCacheObject;
 	TTSymbolPtr		anAddress;
 	TTValue			v;
 	TTUInt8			flag;

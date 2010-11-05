@@ -67,10 +67,10 @@ TTErr TTTextHandler::Write(const TTValue& args)
 			/* Start the document */
 			mIsWriting = true;
 			
-			// Write data of the given TTObject (which have to implement a writeAsXml message)
+			// Write data of the given TTObject (which have to implement a WriteAsXml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("writeAsText"), v);
+			aTTObject->sendMessage(TT("WriteAsText"), v);
 			
 			/* End the document */
 			mWriter->close();
@@ -86,7 +86,7 @@ TTErr TTTextHandler::Write(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("writeAsText"), v);
+	return aTTObject->sendMessage(TT("WriteAsText"), v);
 }
 
 TTErr TTTextHandler::WriteAgain()
@@ -132,7 +132,7 @@ TTErr TTTextHandler::Read(const TTValue& args)
 				getline(mReader, line);
 					
 				v.append((TTPtr)this);
-				aTTObject->sendMessage(TT("readFromText"), v);
+				aTTObject->sendMessage(TT("ReadFromText"), v);
 			}
 			
 			/* End document */
@@ -149,7 +149,7 @@ TTErr TTTextHandler::Read(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("readFromText"), v);
+	return aTTObject->sendMessage(TT("ReadFromText"), v);
 }
 
 TTErr TTTextHandler::ReadAgain()

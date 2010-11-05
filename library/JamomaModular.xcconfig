@@ -12,7 +12,7 @@
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
 PRODUCT_VERSION = 0.5.2b1
-SVNREV = 0551e
+SVNREV = 680d7
 
 
 // Paths

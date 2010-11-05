@@ -96,7 +96,7 @@ TTPtr TTModSnapshotNew(SymbolPtr name, AtomCount argc, AtomPtr argv)
         TTUInt32 i=0;
 
         self->snapshots = new SnapshotCollection;
-        self->tree = jamoma_directory_init();
+        self->tree = JamomaDirectory;
 
         self->excludes[i++] = gensym("ch");
         self->excludes[i++] = gensym("view");
@@ -142,7 +142,7 @@ void TTModSnapshotAssist(TTModSnapshotPtr self, void* b, long msg, long arg, cha
 
 void TTModSnapshotDump(TTModSnapshotPtr self)
 {
-    jamoma_directory_dump(); // dump all the address of the tree in the Max window
+    //jamoma_directory_dump(); // dump all the address of the tree in the Max window
 }
 
 
@@ -176,7 +176,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
     snapshot = new Snapshot;
 
 
-    err = rootNode->getChildren(TT("*"), TT("*"), returnedChildren);
+    err = rootNode->getChildren(S_WILDCARD, S_WILDCARD, returnedChildren);
 
     returnedChildren.assignToValue(moduleNodes);
     numModules = moduleNodes.getSize();
@@ -186,101 +186,105 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 
         moduleNodes.get(i, (TTPtr*)(&module));
         if (module) {
-            type = module->getType();
-            if (type == TT("hub")) {
-                TTValue     parameterNodes;
-                TTUInt32    numParameters;
-
-                post("  Module: %s", module->getName()->getCString());
-                err = module->getChildren(TT("*"), TT("*"), returnedChildren);
-                returnedChildren.assignToValue(parameterNodes);
-                numParameters = parameterNodes.getSize();
-                for (TTUInt32 i=0; i<numParameters; i++) {
-                    TTNodePtr   parameter = NULL;
-                    TTSymbolPtr childType;
-
-                    parameterNodes.get(i, (TTPtr*)(&parameter));
-                    if (parameter) {
-                        bool exclude = false;
-                        // first check for the name in the excludes list
-                        for (TTInt32 e=0; e < self->excludeSize; e++) {
-                            TTSymbolPtr s1 = parameter->getName();
-                            TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
-
-                            if (s1 == s2) {
-                                exclude = true;
-                                break;
-                            }
-                        }
-                        if (exclude)
-                            continue;
-
-                        // then make sure it is actually a parameter
-                        childType = parameter->getType();
-                        if (childType == TT("subscribe_parameter")) {   // FIXME: this name sucks for the type.
-                            ObjectPtr maxObject = (ObjectPtr)parameter->getObject();
-                            SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
-
-                            // we're ignoring non-int, non-float params for the time being
-                            if (maxType == SymbolGen("decimal") || maxType == SymbolGen("integer")) {
-                                TTFloat64               value = object_attr_getfloat(maxObject, SymbolGen("value"));
-                                SnapshotParameterValue  spv(value, maxObject);
-
-                                snapshot->push_back(spv);
-                                post("    parameter: %s -- value: %lf", parameter->getName()->getCString(), value);
-                            }
-                        }
-                        // FIXME: the code below sucks big-time -- need to redo as a recursive function
-                        else if (childType == TT("container")) {
-							TTValue     containerNodes;
-							TTUInt32    numParameters2;
-							TTList		containerChildren;
+			if (module->getObject()) {
+				
+				type = module->getObject()->getName();
+				if (type == TT("Container")) {
+					TTValue     parameterNodes;
+					TTUInt32    numParameters;
+					
+					post("  Module: %s", module->getName()->getCString());
+					err = module->getChildren(S_WILDCARD, S_WILDCARD, returnedChildren);
+					returnedChildren.assignToValue(parameterNodes);
+					numParameters = parameterNodes.getSize();
+					for (TTUInt32 i=0; i<numParameters; i++) {
+						TTNodePtr   parameter = NULL;
+						TTSymbolPtr childType;
+						
+						parameterNodes.get(i, (TTPtr*)(&parameter));
+						if (parameter) {
+							bool exclude = false;
+							// first check for the name in the excludes list
+							for (TTInt32 e=0; e < self->excludeSize; e++) {
+								TTSymbolPtr s1 = parameter->getName();
+								TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
+								
+								if (s1 == s2) {
+									exclude = true;
+									break;
+								}
+							}
+							if (exclude)
+								continue;
 							
-							post("  Container: %s", parameter->getName()->getCString());
-							err = parameter->getChildren(TT("*"), TT("*"), containerChildren);
-							containerChildren.assignToValue(containerNodes);
-							numParameters2 = containerNodes.getSize();
-							for (TTUInt32 i=0; i<numParameters2; i++) {
-								TTNodePtr   parameter2 = NULL;
-								TTSymbolPtr childType2;
-
-								containerNodes.get(i, (TTPtr*)(&parameter2));
-								if (parameter2) {
-									bool exclude = false;
-									// first check for the name in the excludes list
-									for (TTInt32 e=0; e < self->excludeSize; e++) {
-										TTSymbolPtr s1 = parameter2->getName();
-										TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
-
-										if (s1 == s2) {
-											exclude = true;
-											break;
+							// then make sure it is actually a parameter
+							if (parameter->getObject()) {
+								childType = parameter->getObject()->getName();
+							if (childType == TT("Data")) {   // FIXME: this name sucks for the type.
+								ObjectPtr maxObject = (ObjectPtr)parameter->getObject();
+								SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
+								
+								// we're ignoring non-int, non-float params for the time being
+								if (maxType == SymbolGen("decimal") || maxType == SymbolGen("integer")) {
+									TTFloat64               value = object_attr_getfloat(maxObject, SymbolGen("value"));
+									SnapshotParameterValue  spv(value, maxObject);
+									
+									snapshot->push_back(spv);
+									post("    parameter: %s -- value: %lf", parameter->getName()->getCString(), value);
+								}
+							}
+							// FIXME: the code below sucks big-time -- need to redo as a recursive function
+							else if (childType == TT("container")) {
+								TTValue     containerNodes;
+								TTUInt32    numParameters2;
+								TTList		containerChildren;
+								
+								post("  Container: %s", parameter->getName()->getCString());
+								err = parameter->getChildren(TT("*"), TT("*"), containerChildren);
+								containerChildren.assignToValue(containerNodes);
+								numParameters2 = containerNodes.getSize();
+								for (TTUInt32 i=0; i<numParameters2; i++) {
+									TTNodePtr   parameter2 = NULL;
+									TTSymbolPtr childType2;
+									
+									containerNodes.get(i, (TTPtr*)(&parameter2));
+									if (parameter2) {
+										bool exclude = false;
+										// first check for the name in the excludes list
+										for (TTInt32 e=0; e < self->excludeSize; e++) {
+											TTSymbolPtr s1 = parameter2->getName();
+											TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
+											
+											if (s1 == s2) {
+												exclude = true;
+												break;
+											}
 										}
-									}
-									if (exclude)
-										continue;
-
-									// then make sure it is actually a parameter
-									childType2 = parameter2->getType();
-									if (childType2 == TT("subscribe_parameter")) {   // FIXME: this name sucks for the type.
-										ObjectPtr maxObject = (ObjectPtr)parameter2->getObject();
-										SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
-
-										// we're ignoring non-int, non-float params for the time being
-										if (maxType == SymbolGen("decimal") || maxType == SymbolGen("integer")) {
-											TTFloat64               value = object_attr_getfloat(maxObject, SymbolGen("value"));
-											SnapshotParameterValue  spv(value, maxObject);
-
-											snapshot->push_back(spv);
-											post("    parameter: %s -- value: %lf", parameter2->getName()->getCString(), value);
+										if (exclude)
+											continue;
+										
+										// then make sure it is actually a parameter
+										childType2 = parameter2->getType();
+										if (childType2 == TT("subscribe_parameter")) {   // FIXME: this name sucks for the type.
+											ObjectPtr maxObject = (ObjectPtr)parameter2->getObject();
+											SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
+											
+											// we're ignoring non-int, non-float params for the time being
+											if (maxType == SymbolGen("decimal") || maxType == SymbolGen("integer")) {
+												TTFloat64               value = object_attr_getfloat(maxObject, SymbolGen("value"));
+												SnapshotParameterValue  spv(value, maxObject);
+												
+												snapshot->push_back(spv);
+												post("    parameter: %s -- value: %lf", parameter2->getName()->getCString(), value);
+											}
 										}
 									}
 								}
-        }
-                        }
-                    }
-                }
-            }
+							}
+						}
+					}
+				}
+			}
         }
     }
     (*self->snapshots)[snapshotIndex] = snapshot;

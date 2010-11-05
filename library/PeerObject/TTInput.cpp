@@ -44,10 +44,10 @@ mObserver(NULL)
 	}
 	
 	addAttribute(Number, kTypeUInt16);
-	addAttributeProperty(Number, readOnly, YES);
+	addAttributeProperty(number, readOnly, YES);
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(Type, readOnly, YES);
+	addAttributeProperty(type, readOnly, YES);
 	
 	addAttributeWithSetter(OutputAddress, kTypeSymbol);
 	
@@ -56,9 +56,14 @@ mObserver(NULL)
 	
 	addAttribute(Info, kTypeLocalValue);
 	
-	addMessageWithArgument(send);
-	addMessageWithArgument(link);
-	addMessage(unlink);
+	addMessageWithArgument(Send);
+	addMessageProperty(Send, hidden, YES);
+	
+	addMessageWithArgument(Link);
+	addMessageProperty(Link, hidden, YES);
+	
+	addMessage(Unlink);
+	addMessageProperty(Unlink, hidden, YES);
 }
 
 TTInput::~TTInput()
@@ -79,25 +84,25 @@ TTInput::~TTInput()
 	}
 }
 
-TTErr TTInput::send(TTValue& value)
+TTErr TTInput::Send(TTValue& value)
 {	
 	if (mIndex >= mNumber)
 		return kTTErrGeneric;
 	else if (mMute)
 		return kTTErrNone;
 	else if (mBypass && mOutputObject)
-		return mOutputObject->sendMessage(TT("sendBypassed"), value);
+		return mOutputObject->sendMessage(TT("SendBypassed"), value);
 	else
 		return mReturnSignalCallback->notify(value);
 }
 
-TTErr TTInput::link(const TTValue& value)
+TTErr TTInput::Link(const TTValue& value)
 {
 	value.get(0, (TTPtr*)&mOutputObject);
 	return kTTErrNone;
 }
 
-TTErr TTInput::unlink()
+TTErr TTInput::Unlink()
 {
 	mOutputObject = NULL;
 	return kTTErrNone;
@@ -117,18 +122,18 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	if (!getDirectoryFrom(this)->getTTNodeForOSC(newAddress, &aNode)) {
 		if (o = aNode->getObject())
 			if (o->getName() == TT("Output"))
-				link((TTPtr)o);
+				Link((TTPtr)o);
 	}
 	
 	if (!mObserver) {
 		// prepare arguments
 		mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), TTObjectHandle(&mObserver), kTTValNONE);
+		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
-		mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-		mObserver->setAttributeValue(TT("Function"), TTPtr(&TTInputDirectoryCallback));
-		mObserver->setAttributeValue(TT("Owner"), TT("TTInput"));		// this is usefull only to debug
+		mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
+		mObserver->setAttributeValue(TT("owner"), TT("TTInput"));		// this is usefull only to debug
 	}
 	
 	if (mObserver) {
@@ -172,13 +177,13 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anInput->link((TTPtr)o);
+					anInput->Link((TTPtr)o);
 					break;
 				}
 					
 				case kAddressDestroyed :
 				{
-					anInput->unlink();
+					anInput->Unlink();
 					break;
 				}
 					

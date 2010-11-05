@@ -99,5 +99,5 @@ void receive_bang(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	x->wrappedObject->sendMessage(TT("get"));
+	x->wrappedObject->sendMessage(TT("Get"));
 }

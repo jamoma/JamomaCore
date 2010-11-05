@@ -23,21 +23,18 @@ class TTMODULAR_EXPORT TTReceiver : public TTObject
 {
 	TTCLASS_SETUP(TTReceiver)
 	
-public:
+private:
 	
-	TTSymbolPtr			mAddress;					///< the address to bind
-	TTSymbolPtr			mAttribute;					///< the attribute to bind (default : value)
-	TTBoolean			mEnable;					///< if false, received data won't be output without unregistered attribute observers (default true).
+	TTSymbolPtr			mAddress;					///< ATTRIBUTE: the address to bind
+	TTSymbolPtr			mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
+	TTBoolean			mEnable;					///< ATTRIBUTE: if false, received data won't be output without unregistered attribute observers (default true).
 	
-private :
-	
-	TTApplicationPtr	mApplication;					///< the application
+	TTApplicationPtr	mApplication;				///< the application
 	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this receiver
 	TTObjectPtr			mObserver;					///< a life cycle observer
 	TTListPtr			mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
-	
-public:
+
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
@@ -49,16 +46,15 @@ public:
 	TTErr setEnable(const TTValue& value);
 	
 	/** Ask the value directly */
-	TTErr get();
+	TTErr Get();
 	
-private :
-	
+	/** */
 	TTErr bind();
 	
+	/**  */
 	TTErr unbind();
 	
 	friend TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
-	
 	friend TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
 	
 };

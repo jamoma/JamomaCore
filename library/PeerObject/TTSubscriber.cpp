@@ -51,12 +51,12 @@ mExposedAttributes(NULL)
 	addAttribute(ContextAddress, kTypeSymbol);
 	addAttribute(NewInstanceCreated, kTypeBoolean);
 	
-	addAttributeProperty(RelativeAddress, readOnly, YES);
-	addAttributeProperty(Node, readOnly, YES);
-	addAttributeProperty(NodeAddress, readOnly, YES);
-	addAttributeProperty(ContextNode, readOnly, YES);
-	addAttributeProperty(ContextAddress, readOnly, YES);
-	addAttributeProperty(NewInstanceCreated, readOnly, YES);
+	addAttributeProperty(relativeAddress, readOnly, YES);
+	addAttributeProperty(node, readOnly, YES);
+	addAttributeProperty(nodeAddress, readOnly, YES);
+	addAttributeProperty(contextNode, readOnly, YES);
+	addAttributeProperty(contextAddress, readOnly, YES);
+	addAttributeProperty(newInstanceCreated, readOnly, YES);
 	
 	if	(getDirectoryFrom(this) && mShareContextNodeCallback && mGetContextListCallback)
 		this->subscribe(anObject);
@@ -90,9 +90,7 @@ TTSubscriber::~TTSubscriber()
 		aDirectory->notifyObservers(this->mNodeAddress, this->mNode, kAddressDestroyed);
 		
 		// Set NULL object
-		aTempValue.clear();
-		aTempValue.append((TTPtr)NULL);
-		this->mNode->setAttributeValue(kTTSym_Object, aTempValue);
+		this->mNode->setObject(NULL);
 	}
 	
 	if (mShareContextNodeCallback)
@@ -110,7 +108,7 @@ TTSubscriber::~TTSubscriber()
 			mExposedMessages->lookup(k, storedObject);
 			storedObject.get(0, (TTPtr*)&anObject);
 			
-			nameToAddress = convertPublicNameInAddress(k);
+			nameToAddress = convertTTNameInAddress(k);
 			joinOSCAddress(mNodeAddress, nameToAddress, &objectAddress);
 			
 			aDirectory->TTNodeRemove(objectAddress);
@@ -131,7 +129,7 @@ TTSubscriber::~TTSubscriber()
 			mExposedAttributes->lookup(k, storedObject);
 			storedObject.get(0, (TTPtr*)&anObject);
 			
-			nameToAddress = convertPublicNameInAddress(k);
+			nameToAddress = convertTTNameInAddress(k);
 			joinOSCAddress(mNodeAddress, nameToAddress, &objectAddress);
 			
 			aDirectory->TTNodeRemove(objectAddress);
@@ -183,7 +181,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 	if (this->mContextNode) {
 		
 		// Get our Context
-		this->mContextNode->getAttributeValue(kTTSym_Context, aTempValue);
+		ourContext = this->mContextNode->getContext();
 		aTempValue.get(0, (TTPtr*)&ourContext);
 		
 		// Make absolute address 
@@ -210,9 +208,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 			if (!hisObject) {
 				
 				// set our object instead
-				aTempValue.clear();
-				aTempValue.append((TTPtr)ourObject);
-				aNode->setAttributeValue(kTTSym_Object, aTempValue);
+				aNode->setObject(ourObject);
 				
 				// get his context
 				hisContext = aNode->getContext();
@@ -223,7 +219,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 					// set our context instead
 					aTempValue.clear();
 					aTempValue.append((TTPtr)ourContext);
-					aNode->setAttributeValue(kTTSym_Context, aTempValue);
+					aNode->setContext(ourContext);
 				}
 				
 				// notify for the creation of the address when replacing the Object and Context
@@ -255,11 +251,11 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 {
 	TTNodeDirectoryPtr	aDirectory = getDirectoryFrom(this);
-	TTValue				aTempValue, args;
-	TTSymbolPtr			formatedContextName, contextAddress, context_parent, context_name, context_instance, context_attribute;
+	TTValue				args;
+	TTSymbolPtr			formatedContextName, contextAddress, lowerContextAddress;
+	TTSymbolPtr			context_parent, context_name, context_instance, context_attribute;
 	TTList				contextNodeList, attributesAccess;
 	TTNodePtr			contextNode, lowerContextNode;
-	TTString			lowerContextAddress;
 	TTPtr				aContext, lowerContext;
 	TTBoolean			found, newInstanceCreated;
 	TTErr				err;
@@ -300,8 +296,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 				contextNodeList.current().get(0, (TTPtr*)&lowerContextNode);
 				
 				// Check if objects are the same
-				lowerContextNode->getAttributeValue(kTTSym_Context, aTempValue);
-				aTempValue.get(0, (TTPtr*)&lowerContext);
+				lowerContext = lowerContextNode->getContext();
 				
 				if (aContext == lowerContext) {
 					found = true;
@@ -316,13 +311,11 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 				
 				// don't create another root !
 				if (formatedContextName != S_SEPARATOR) {
-					lowerContextAddress = contextAddress->getCString();
-					if (contextAddress != S_SEPARATOR)
-						lowerContextAddress += C_SEPARATOR;
-					lowerContextAddress += formatedContextName->getCString();
+					
+					joinOSCAddress(contextAddress, formatedContextName, &lowerContextAddress);
 					
 					// Make a TTNode with no object
-					aDirectory->TTNodeCreate(TT(lowerContextAddress.data()), NULL, aContext, &contextNode, &newInstanceCreated);
+					aDirectory->TTNodeCreate(lowerContextAddress, NULL, aContext, &contextNode, &newInstanceCreated);
 
 				}
 				else {
@@ -330,7 +323,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 					
 					// if the current context of the root is NULL : set our context
 					if (!contextNode->getContext())
-						contextNode->setAttributeValue(kTTSym_Context, aContext);
+						contextNode->setContext(aContext);
 				}
 			}
 			else
@@ -357,11 +350,11 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(this));
 	returnValueBaton->append(messageName);
-	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&TTSubscriberMessageReturnValueCallback));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
 	args.append(returnValueCallback);
 	
 	args.append(kTTSym_message);
@@ -370,7 +363,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 	TTObjectInstantiate(TT("Data"), TTObjectHandle(&aData), args);
 	
 	// register TTData into the tree
-	nameToAddress = convertPublicNameInAddress(messageName);
+	nameToAddress = convertTTNameInAddress(messageName);
 	joinOSCAddress(mNodeAddress, nameToAddress, &dataAddress);
 	aContext = mNode->getContext();
 	getDirectoryFrom(this)->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
@@ -405,11 +398,11 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		
 		// prepare arguments
 		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+		TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 		returnValueBaton = new TTValue(TTPtr(this));
 		returnValueBaton->append(attributeName);
-		returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-		returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&TTSubscriberAttributeReturnValueCallback));
+		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
 		args.append(returnValueCallback);
 		args.append(service);
 		
@@ -417,7 +410,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		TTObjectInstantiate(TT("Data"), TTObjectHandle(&aData), args);
 		
 		// register TTData into the tree
-		nameToAddress = convertPublicNameInAddress(attributeName);
+		nameToAddress = convertTTNameInAddress(attributeName);
 		joinOSCAddress(mNodeAddress, nameToAddress, &dataAddress);
 		aContext = mNode->getContext();
 		getDirectoryFrom(this)->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
@@ -427,11 +420,11 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		if (!err) {
 			
 			observeValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("Callback"), &observeValueCallback, kTTValNONE);
+			TTObjectInstantiate(TT("callback"), &observeValueCallback, kTTValNONE);
 			observeValueBaton = new TTValue(TTPtr(this));
 			observeValueBaton->append(attributeName);
-			observeValueCallback->setAttributeValue(TT("Baton"), TTPtr(observeValueBaton));
-			observeValueCallback->setAttributeValue(TT("Function"), TTPtr(&TTSubscriberAttributeObserveValueCallback));
+			observeValueCallback->setAttributeValue(kTTSym_baton, TTPtr(observeValueBaton));
+			observeValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
 			
 			anAttribute->registerObserverForNotifications(*observeValueCallback);
 		}
@@ -543,7 +536,7 @@ TTErr TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data)
 		v = data;
 		
 		// set data
-		aData->setAttributeValue(kTTSym_Value, data);
+		aData->setAttributeValue(kTTSym_value, data);
 		
 		return kTTErrNone;
 	}
