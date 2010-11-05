@@ -39,6 +39,7 @@
 		224B09C211DEA32100B6EF48 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F7E79907B2D74100F64583 /* CoreData.framework */; };
 		224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
+		D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D242BB5A12841CE40036A509 /* TTMapperManager.cpp */; };
 		D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AADF74127980AA00629B73 /* TTApplication.cpp */; };
 		D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AB7E74123FC21E00DAD340 /* TTData.cpp */; };
 		D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */; };
@@ -123,6 +124,8 @@
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
+		D242BB5A12841CE40036A509 /* TTMapperManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
+		D242BB5B12841CE40036A509 /* TTMapperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapperManager.h; sourceTree = "<group>"; };
 		D2AADF74127980AA00629B73 /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
 		D2AADF75127980AA00629B73 /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
 		D2AB7E74123FC21E00DAD340 /* TTData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTData.cpp; sourceTree = "<group>"; };
@@ -371,6 +374,8 @@
 				D2ADBFF8127DFBC900979D42 /* TTInput.cpp */,
 				D2CA88191213F47D0090DE41 /* TTMapper.h */,
 				D2CA88181213F47D0090DE41 /* TTMapper.cpp */,
+				D242BB5B12841CE40036A509 /* TTMapperManager.h */,
+				D242BB5A12841CE40036A509 /* TTMapperManager.cpp */,
 				D2ADBFF7127DFBC900979D42 /* TTOutput.h */,
 				D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */,
 				D2CA881D1213F47D0090DE41 /* TTPreset.h */,
@@ -506,6 +511,7 @@
 				D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */,
 				D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */,
 				D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */,
+				D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,6 +1,6 @@
 /* 
  * A Mapper Manager Object
- * Copyright © 2010, Laurent Garnier
+ * Copyright ï¿½ 2010, Laurent Garnier
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD
@@ -30,8 +30,8 @@ mMapperList(NULL)
 	addMessage(New);
 
 	// needed to be handled by a TTXmlHandler
-	addMessageWithArgument(writeAsXml);
-	addMessageWithArgument(readFromXml);
+	addMessageWithArgument(WriteAsXml);
+	addMessageWithArgument(ReadFromXml);
 
 	mMapperList = new TTList();
 }
@@ -60,7 +60,7 @@ TTErr TTMapperManager::New()
 	return kTTErrNone;
 }
 
-TTErr TTMapperManager::writeAsXml(const TTValue& value)
+TTErr TTMapperManager::WriteAsXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTMapperPtr			aMapper;
@@ -98,7 +98,7 @@ TTErr TTMapperManager::writeAsXml(const TTValue& value)
 		
 		v.clear();
 		v = TTValue(TTPtr(aMapper));
-		aXmlHandler->setAttributeValue(kTTSym_Object, v);
+		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		aXmlHandler->sendMessage(TT("Write"));
 		
 		// End a mapper
@@ -109,7 +109,7 @@ TTErr TTMapperManager::writeAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTMapperManager::readFromXml(const TTValue& value)
+TTErr TTMapperManager::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		attributeName, mute;
@@ -215,8 +215,8 @@ char* convertAttributeFromJamoma(TTSymbolPtr attribute)
 	if(attribute == TT("Function"))
 		return "function";
 
-	if(attribute == TT("FunctionDatas"))
-		return "functionDatas";
+	if(attribute == TT("FunctionParameters"))
+		return "functionParameters";
 
 	return "";
 }
@@ -244,8 +244,8 @@ TTSymbolPtr convertAttributeToJamoma(TTSymbolPtr attribute)
 	if(attribute == TT("function"))
 		return TT("Function");
 
-	if(attribute == TT("functionDatas"))
-		return TT("FunctionDatas");
+	if(attribute == TT("functionParameters"))
+		return TT("FunctionParameters");
 
 	return kTTSymEmpty;
 }

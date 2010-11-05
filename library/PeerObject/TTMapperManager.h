@@ -1,6 +1,6 @@
 /* 
  * A MapperManager Object
- * Copyright © 2010, Laurent Garnier
+ * Copyright ï¿½ 2010, Laurent Garnier
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD
@@ -42,8 +42,8 @@ public:
 private :
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr writeAsXml(const TTValue& value);
-	TTErr readFromXml(const TTValue& value);
+	TTErr WriteAsXml(const TTValue& value);
+	TTErr ReadFromXml(const TTValue& value);
 
 	/** A setter for the address attribute */
 	TTErr setAddress(const TTValue& value);
