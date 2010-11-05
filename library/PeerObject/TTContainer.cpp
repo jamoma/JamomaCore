@@ -57,6 +57,8 @@ mObserver(NULL)
 	addMessageProperty(WriteAsText, hidden, YES);
 	
 	mIsSending = false;	
+	
+	mObjectsObserversCache = new TTHash();
 }
 
 TTContainer::~TTContainer()

@@ -41,6 +41,8 @@ mNodesObserversCache(NULL)
 	addMessage(Get);
 	addMessageProperty(Get, hidden, YES);
 	
+	mNodesObserversCache = new TTList();
+	
 	if	(getDirectoryFrom(this) && mReturnAddressCallback && mReturnValueCallback && mAddress != kTTSymEmpty)
 		bind();
 }
