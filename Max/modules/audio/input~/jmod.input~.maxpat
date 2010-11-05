@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 39.0, 52.0, 300.0, 140.0 ],
+		"rect" : [ 63.0, 60.0, 1377.0, 753.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 371.0, 60.0, 1377.0, 753.0 ],
+		"defrect" : [ 63.0, 60.0, 1377.0, 753.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -69,7 +69,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1129.0, 333.0, 116.0, 19.0 ],
+					"patching_rect" : [ 1105.0, 334.0, 116.0, 19.0 ],
 					"text" : "s #0_xxx_filename"
 				}
 
@@ -83,7 +83,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "int" ],
-					"patching_rect" : [ 1129.0, 311.0, 53.0, 19.0 ],
+					"patching_rect" : [ 1105.0, 312.0, 53.0, 19.0 ],
 					"text" : "strippath"
 				}
 
@@ -111,7 +111,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
-					"patching_rect" : [ 1092.0, 289.0, 56.0, 19.0 ],
+					"patching_rect" : [ 1068.0, 290.0, 56.0, 19.0 ],
 					"text" : "sel bang"
 				}
 
@@ -614,13 +614,13 @@
 ,
 					"patching_rect" : [ 170.0, 398.0, 130.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p time"
@@ -873,13 +873,13 @@
 ,
 					"patching_rect" : [ 1056.0, 47.0, 17.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p"
@@ -1368,7 +1368,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"outlettype" : [ "signal", "" ],
 					"patching_rect" : [ 59.0, 337.0, 56.0, 19.0 ],
 					"text" : "jcom.in~"
 				}
@@ -1838,13 +1838,13 @@
 ,
 									"patching_rect" : [ 623.0, 312.0, 99.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p clicktrain~"
@@ -2410,13 +2410,13 @@
 ,
 									"patching_rect" : [ 20.0, 557.0, 185.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p smooth_in_out"
@@ -3149,13 +3149,13 @@
 ,
 									"patching_rect" : [ 20.0, 520.0, 185.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p gain"
@@ -3557,13 +3557,13 @@
 ,
 													"patching_rect" : [ 354.0, 261.0, 68.0, 19.0 ],
 													"saved_object_attributes" : 													{
+														"globalpatchername" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
-														"default_fontsize" : 10.0,
 														"fontname" : "Verdana",
-														"globalpatchername" : ""
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p h:m:s:ms"
@@ -3881,13 +3881,13 @@
 ,
 													"patching_rect" : [ 8.0, 72.0, 101.0, 19.0 ],
 													"saved_object_attributes" : 													{
+														"globalpatchername" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
-														"default_fontsize" : 10.0,
 														"fontname" : "Verdana",
-														"globalpatchername" : ""
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p OLD_open_stuff"
@@ -4258,13 +4258,13 @@
 ,
 									"patching_rect" : [ 376.0, 315.0, 56.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p sfplay~"
@@ -4536,13 +4536,13 @@
 ,
 									"patching_rect" : [ 270.0, 313.0, 61.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p audio_in"
@@ -4696,13 +4696,13 @@
 ,
 									"patching_rect" : [ 455.0, 313.0, 70.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p testtone~"
@@ -4812,13 +4812,13 @@
 ,
 									"patching_rect" : [ 540.0, 313.0, 48.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p pink~"
@@ -5307,13 +5307,13 @@
 ,
 					"patching_rect" : [ 45.0, 376.0, 143.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p Sound_sources"
@@ -5330,8 +5330,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 824.0, 255.0, 555.0, 31.0 ],
-					"text" : "jcom.parameter soundfile/open @type generic @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\" @value bang",
+					"patching_rect" : [ 824.0, 255.0, 507.0, 31.0 ],
+					"text" : "jcom.parameter soundfile/open @type string @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 					"varname" : "jcom.parameter.mxb[10]"
 				}
 
@@ -5572,7 +5572,7 @@
 					"patching_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
-					"text" : "/editing_this_view"
+					"text" : "/jmod.input~"
 				}
 
 			}

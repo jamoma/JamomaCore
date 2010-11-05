@@ -3,28 +3,30 @@
  <!--TODO : TTContainer Description at mAddress-->
  <preset number="1" name="default">
   <!---->
-  <Data address="/source" Value="" Priority="0"/>
-  <Data address="/view/color/border" Value="0.000000" Priority="0"/>
-  <Data address="/in/mute" Value="0" Priority="0"/>
-  <Data address="/view/color/contentBackground" Value="0.000000" Priority="0"/>
-  <Data address="/out/freeze" Value="0" Priority="0"/>
-  <Data address="/out/preview" Value="0" Priority="0"/>
-  <Data address="/audio/gain" Value="0.000000" Priority="0"/>
-  <Data address="/view/color/toolbarText" Value="0.000000" Priority="0"/>
-  <Data address="/view/color/toolbarBackground" Value="0.000000" Priority="0"/>
-  <Data address="/balance" Value="0.000000" Priority="0"/>
-  <Data address="/out/mix" Value="0.000000" Priority="0"/>
-  <Data address="/out/mute" Value="0" Priority="0"/>
-  <Data address="/view/size" Value="300.000000 140.000000" Priority="0"/>
-  <Data address="/in/bypass" Value="0" Priority="0"/>
-  <Data address="/soundfile/play" Value="0" Priority="0"/>
-  <Data address="/testtone/frequency" Value="0" Priority="0"/>
-  <Data address="/clicktrain/rate" Value="0.000000" Priority="0"/>
-  <Data address="/ch.2" Value="0" Priority="0"/>
-  <Data address="/soundfile/loop" Value="0" Priority="0"/>
-  <Data address="/ch.1" Value="0" Priority="0"/>
-  <Data address="/out/gain" Value="0.000000" Priority="0"/>
-  <Data address="/audio/active" Value="0" Priority="0"/>
-  <Data address="/view/freeze" Value="0" Priority="0"/>
+  <Data address="/source" value="" priority="0"/>
+  <Data address="/model/mute" value="0" priority="0"/>
+  <Data address="/view/color/toolbarText" value="0.000000" priority="0"/>
+  <Data address="/view/color/contentBackground" value="0.000000" priority="0"/>
+  <Data address="/out/mute" value="0" priority="0"/>
+  <Data address="/soundfile/play" value="0" priority="0"/>
+  <Data address="/audio/active" value="0" priority="0"/>
+  <Data address="/out/gain" value="0.000000" priority="0"/>
+  <Data address="/ch.2" value="0" priority="0"/>
+  <Data address="/audio/gain" value="0" priority="0"/>
+  <Data address="/out/mix" value="0.000000" priority="0"/>
+  <Data address="/view/color/border" value="0.000000" priority="0"/>
+  <Data address="/clicktrain/rate" value="0.010000" priority="0"/>
+  <Data address="/balance" value="0.000000" priority="0"/>
+  <Data address="/ch.1" value="0" priority="0"/>
+  <Data address="/view/color/toolbarBackground" value="0.000000" priority="0"/>
+  <Data address="/testtone/frequency" value="0" priority="0"/>
+  <Data address="/view/size" value="300.000000 140.000000" priority="0"/>
+  <Data address="/soundfile/open" value="0.000000" priority="0"/>
+  <Data address="/out/preview" value="0" priority="0"/>
+  <Data address="/in/mute" value="0" priority="0"/>
+  <Data address="/view/freeze" value="0" priority="0"/>
+  <Data address="/out/freeze" value="0" priority="0"/>
+  <Data address="/soundfile/loop" value="0" priority="0"/>
+  <Data address="/in/bypass" value="0" priority="0"/>
  </preset>
 </jamoma>
