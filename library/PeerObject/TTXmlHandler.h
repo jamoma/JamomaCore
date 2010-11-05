@@ -53,6 +53,12 @@ public:	// use public for recursive access
 	
 	TTObjectPtr			mObject;						///< the last handled object
 	TTSymbolPtr			mFilePath;						///< the path to the last writen/read file
+
+	TTSymbolPtr			mHeaderNodeName;				///< the name of the header node in the xml file
+	TTSymbolPtr			mVersion;						///< the version number 
+	TTSymbolPtr			mXmlSchemaInstance;				///< the URL of the schema instance location
+	TTSymbolPtr			mXmlSchemaLocation;				///< the URL of the xml schema location
+
 	
 	xmlTextWriterPtr	mWriter;
 	xmlTextReaderPtr	mReader;

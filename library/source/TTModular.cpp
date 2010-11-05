@@ -42,6 +42,7 @@ void TTModularInit(TTString applicationStr)
 		TTExplorer::registerClass();
 		TTInput::registerClass();
 		TTMapper::registerClass();
+		TTMapperManager::registerClass();
 		TTOutput::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
@@ -66,7 +67,7 @@ void TTModularInit(TTString applicationStr)
 #else
 		TTLogMessage("Modular -- Version %s\n", TTMODULAR_VERSION_STRING);
 #endif
-		
+
 	}
 	
 	// if this application doesn't exist yet

@@ -55,12 +55,19 @@ TTDeviceManager::~TTDeviceManager()
 
 TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 {
-	TTSymbolPtr path;
-	value.get(0, &path);
-	
-	mDeviceManager->pluginLoad(path->getCString());
+	TTSymbolPtr pluginsPath;
+	value.get(0, &pluginsPath);
+
+	mDeviceManager->pluginLoad(pluginsPath->getCString());
+
+	if (value.getSize() > 1) {
+		TTSymbolPtr xmlConfigPath;
+		value.get(1, &xmlConfigPath);
+
+		mDeviceManager->pluginLoadConfigXml(xmlConfigPath->getCString());
+	}
+
 	mDeviceManager->pluginLaunch();
-	
 	return kTTErrNone;
 }
 
@@ -117,6 +124,14 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	// create device
 	this->mDeviceManager->deviceAdd(deviceName->getCString(), pluginToUse->getCString(), &commDatas);
 	
+	return kTTErrNone;
+}
+
+TTErr TTDeviceManager::LoadDeviceXmlConfig(const TTValue& value)
+{
+	TTSymbolPtr path;
+	value.get(0, &path);
+	mDeviceManager->deviceLoadConfigXml(path->getCString());
 	return kTTErrNone;
 }
 

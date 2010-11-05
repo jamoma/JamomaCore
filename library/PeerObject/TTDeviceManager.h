@@ -40,11 +40,14 @@ private:
 	TTApplicationPtr	mApplication;			///< the application
 	TTHashPtr			mListernersCache;
 	
-	/** Load all Plugins at a given location */
+	/** Load all Plugins at a given location (second instance contained in TTValue could optionnaly be xml config path)*/
 	TTErr LoadPlugins(const TTValue& value);
 	
 	/** Add a device manually giving < DeviceName, PluginToUse, commParamName1, commParamValue1, commParamName2, commParamValue2, ... > */
 	TTErr AddDevice(const TTValue& value);
+
+	/** Add devices with a xml config file */
+	TTErr LoadDeviceXmlConfig(const TTValue& value);
 	
 	/** Scan the network in order to add devices automatically */
 	TTErr Scan();

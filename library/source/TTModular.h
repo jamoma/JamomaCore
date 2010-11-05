@@ -49,6 +49,8 @@
 #include "TTExplorer.h"
 #include "TTInput.h"
 #include "TTMapper.h"
+#include "TTMapperManager.h"
+#include "TTViewer.h"
 #include "TTOutput.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
