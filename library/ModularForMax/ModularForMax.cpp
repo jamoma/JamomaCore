@@ -235,6 +235,13 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		v->append((TTPtr)patcher);
 		aContextList->append(v);
 	}
+	else {
+		
+		// add the < /, patcher > to the contextList
+		v = new TTValue(S_SEPARATOR);
+		v->append((TTPtr)patcher);
+		aContextList->append(v);
+	}
 }
 
 // Method to deal with TTContainer
@@ -1168,7 +1175,7 @@ TTNodePtr jamoma_context_get_node(ObjectPtr x, TTSymbolPtr contextType)
 /** Get the context type and class from a jcom.external looking at the patcher */
 void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass)
 {
-	bool			isJviewPatcher, isJmodPatcher;
+	bool			isJviewPatcher, isJmodPatcher, isJcomPatcher;
 	ObjectPtr		patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context, filename;
 	SymbolPtr		patcherName;
@@ -1203,14 +1210,22 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 		*returnedContextType = TT("jmod");
 	}
 	
+	// if the patcher name begin by "jmod."
+	// Strip jmod. from the beginning of patch name
+	isJcomPatcher = strncmp(patcherName->s_name, "jcom.", 5) == 0;
+	if (isJcomPatcher) {
+		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
+		*returnedContextType = TT("jcom");
+	}
+	
 	// Is the patcher embedded in a jmod.patcher ?
 	// The topLevel patcher name have not to be include in the address
-	if ((isJviewPatcher || isJmodPatcher) && ((context == _sym_bpatcher) || (context == _sym_subpatcher)))
+	if ((isJviewPatcher || isJmodPatcher || isJcomPatcher) && ((context == _sym_bpatcher) || (context == _sym_subpatcher)))
 		// Get the filename to extract model class name
 		filename = object_attr_getsym(patcher, _sym_filename);
 	
 	// case where the object is in a subpatcher
-	else if (!isJviewPatcher && (context == _sym_subpatcher))
+	else if (context == _sym_subpatcher)
 		// ignore this level
 		jamoma_patcher_type_and_class(patcher, returnedContextType, returnedClass);
 
@@ -1233,6 +1248,10 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 	else if (isJviewPatcher) {
 		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name + 6)+1));
 		strcpy(to_split,filename->s_name + 6);
+	}
+	else if (isJcomPatcher) {
+		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name + 5)+1));
+		strcpy(to_split, filename->s_name + 5);
 	}
 	else {
 		*returnedClass = kTTSymEmpty;
