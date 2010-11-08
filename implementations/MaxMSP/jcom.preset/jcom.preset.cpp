@@ -346,22 +346,25 @@ void preset_default(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr patcherClass;
 	TTSymbolPtr patcherType;
-	AtomPtr		a;
+	Atom		a;
 
 	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
 	
-	TTString xmlfile = patcherType->getCString();
-	xmlfile += ".";
-	xmlfile += patcherClass->getCString();
-	xmlfile += ".xml";
-	
-	// DEBUG
-	//post("preset_default : %s", (char*)xmlfile.data());
-	
-	atom_setsym(a, gensym((char*)xmlfile.data()));
-	defer_low(self, (method)preset_doread, gensym("read/xml"), 1, a);
-	
-	defer_low((ObjectPtr)x, (method)preset_dorecall_first, NULL, 0, 0);
+	if (patcherType != kTTSymEmpty && patcherClass != kTTSymEmpty) {
+		
+		TTString xmlfile = patcherType->getCString();
+		xmlfile += ".";
+		xmlfile += patcherClass->getCString();
+		xmlfile += ".xml";
+		
+		// DEBUG
+		//post("preset_default : %s", (char*)xmlfile.data());
+		
+		atom_setsym(&a, gensym((char*)xmlfile.data()));
+		defer_low(self, (method)preset_doread, gensym("read/xml"), 1, &a);
+		
+		defer_low((ObjectPtr)x, (method)preset_dorecall_first, NULL, 0, 0);
+	}
 }
 
 void preset_dorecall_first(TTPtr self)
