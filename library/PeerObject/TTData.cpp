@@ -508,10 +508,12 @@ TTErr TTData::setValue(const TTValue& value)
 			notifyObservers(kTTSym_value, n);
 		
 		// we have had our value set at least once
+		// only parameters notify their initialisation
 		if (mService == kTTSym_parameter && !mInitialized) {
 			mInitialized = YES;
 			notifyObservers(kTTSym_initialized, YES);
 		}
+		else if (!mInitialized) mInitialized = YES;
 		
 		// unlock
 		mIsSending = NO;
