@@ -1251,13 +1251,15 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 		*returnedContextType = TT("jmod");
 	}
 	
-	// if the patcher name begin by "jmod."
+	// if the patcher name begin by "jcom."
 	// Strip jmod. from the beginning of patch name
+	/*
 	isJcomPatcher = strncmp(patcherName->s_name, "jcom.", 5) == 0;
 	if (isJcomPatcher) {
 		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
 		*returnedContextType = TT("jcom");
 	}
+	 */
 	
 	// Is the patcher embedded in a jmod.patcher ?
 	// The topLevel patcher name have not to be include in the address
