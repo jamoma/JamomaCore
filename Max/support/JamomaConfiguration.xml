@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
- <!--Conversio tables and options-->
- <table language="english">
- <!---->
-  <symbol App="dataspace/unit/active" TT="dataspaceUnitActive"/>
-  <symbol App="dataspace/unit/display" TT="dataspaceUnitDisplay"/>
-  <symbol App="dataspace/unit/native" TT="dataspaceUnitNative"/>
-  <symbol App="range/bounds" TT="rangeBounds"/>
-  <symbol App="range/clipmode" TT="rangeClipmode"/>
-  <symbol App="ramp/drive" TT="rampDrive"/>
-  <symbol App="ramp/function" TT="rampFunction"/>
-  <symbol App="repetitions/allow" TT="repetitionsAllow"/>
-  <symbol App="value/default" TT="valueDefault"/>
-  <symbol App="value/stepsize" TT="valueStepsize"/>
-  <symbol App="view/freeze" TT="viewFreeze"/>
-  <symbol App="jcom.parameter" TT="Data service parameter"/>
-  <symbol App="jcom.message" TT="Data service message"/>
-  <symbol App="jcom.return" TT="Data service return"/>
-  <symbol App="jcom.hub" TT="Container"/>
-  <symbol App="jcom.view" TT="Viewer"/>
- </mAppToTT>
+    <!--Conversion tables and options-->
+    <conversionTable language="english">
+    <!---->
+        <entry App="jcom.hub" TT="Container"/>
+        <entry App="jcom.view" TT="Viewer"/>
+        <entry App="jcom.parameter" TT="Data service parameter"/>
+        <entry App="jcom.message" TT="Data service message"/>
+        <entry App="jcom.return" TT="Data service return"/>
+        <entry App="dataspace/unit/active" TT="dataspaceUnitActive"/>
+        <entry App="dataspace/unit/display" TT="dataspaceUnitDisplay"/>
+        <entry App="dataspace/unit/native" TT="dataspaceUnitNative"/>
+        <entry App="range/bounds" TT="rangeBounds"/>
+        <entry App="range/clipmode" TT="rangeClipmode"/>
+        <entry App="ramp/drive" TT="rampDrive"/>
+        <entry App="ramp/function" TT="rampFunction"/>
+        <entry App="repetitions/allow" TT="repetitionsAllow"/>
+        <entry App="value/default" TT="valueDefault"/>
+        <entry App="value/stepsize" TT="valueStepsize"/>
+        <entry App="view/freeze" TT="viewFreeze"/>
+    </mAppToTT>
 </jamoma>
 
 
