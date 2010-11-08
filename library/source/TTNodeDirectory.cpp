@@ -638,11 +638,11 @@ TTErr splitAtOSCAddress(TTSymbolPtr oscAddress, int whereToSplit, TTSymbolPtr* r
 	return err;
 }
 
-TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedTTNodeName, TTSymbolPtr* returnedTTNodeInstance, TTSymbolPtr* returnedTTNodeProperty)
+TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentAddress, TTSymbolPtr* returnedName, TTSymbolPtr* returnedInstance, TTSymbolPtr* returnedAttribute)
 {
 	long len, pos;
 	char *last_colon, *last_slash, *last_dot;
-	char *property, *parent, *instance;
+	char *attribute, *parent, *instance;
 	char *to_split;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
@@ -655,23 +655,22 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	strcpy(to_split,oscAddress->getCString());
 
 	// find the last ':' in the OSCaddress
-	// if exists, split the OSC address in an address part (to split) and an property part
+	// if exists, split the OSC address in an address part (to split) and an attribute part
 	len = strlen(to_split);
 	last_colon = strrchr(to_split, C_PROPERTY);
 	pos = (long)last_colon - (long)to_split;
 
 	if (last_colon) {
-		property = (char *)malloc(sizeof(char)*(len - (pos+1)));
-		strcpy(property,to_split + pos+1);
-		*returnedTTNodeProperty = TT(property);
+		attribute = (char *)malloc(sizeof(char)*(len - (pos+1)));
+		strcpy(attribute,to_split + pos+1);
+		*returnedAttribute = TT(attribute);
 
-		to_split[pos] = NULL;	// split to keep only the address part
+		to_split[pos] = NULL;
 	}
 	else
-		*returnedTTNodeProperty = NO_ATTRIBUTE;
+		*returnedAttribute = NO_ATTRIBUTE;
 	
 	// find the last '/' in the address part
-	// if exists, split the address part in a TTNode part (to split) and a parent part
 	len = strlen(to_split);
 	last_slash = strrchr(to_split, C_SEPARATOR);
 	pos = (long)last_slash - (long)to_split;
@@ -681,24 +680,24 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 			parent = (char *)malloc(sizeof(char)*(pos+1));
 			strncpy(parent,to_split,pos);
 			parent[pos] = NULL;
-			*returnedParentOscAdress = TT(parent);
-			to_split = last_slash+1;	// split to keep only the TTNode part
+			*returnedParentAddress = TT(parent);
+			to_split = last_slash+1;
 		}
 		else {
 			// Is it the root or a child of the root ?
 			if (strlen(to_split) > 1) {
-				*returnedParentOscAdress = S_SEPARATOR;
-				to_split = last_slash+1;	// split to keep only the TTNode part
+				*returnedParentAddress = S_SEPARATOR;
+				to_split = last_slash+1;
 			}
 			else
-				*returnedParentOscAdress = NO_PARENT;
+				*returnedParentAddress = NO_PARENT;
 		}
 	}
 	else
-		*returnedParentOscAdress = NO_PARENT;
+		*returnedParentAddress = NO_PARENT;
 
-	// find the last '.' in the TTNode part
-	// if exists, split the TTNode part in a name part and an instance part
+	// find the last '.' in the name.instance part
+	// if exists, split the name.instance part
 	len = strlen(to_split);
 	last_dot = strrchr(to_split,C_INSTANCE);
 	pos = (long)last_dot - (long)to_split;
@@ -706,23 +705,51 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	if (last_dot > 0) {
 		instance = (char *)malloc(sizeof(char)*(len - (pos+1)));
 		strcpy(instance,to_split + pos+1);
-		*returnedTTNodeInstance = TT(instance);
+		*returnedInstance = TT(instance);
 
 		to_split[pos] = NULL;	// split to keep only the name part
 	}
 	else
-		*returnedTTNodeInstance = NO_INSTANCE;
+		*returnedInstance = NO_INSTANCE;
 
-	// TODO : ??? (detect unusual characters in a TTNode name)
+	// TODO : ??? (detect unusual characters in a name)
 	if (strlen(to_split) > 0)
-		*returnedTTNodeName = TT(to_split);
+		*returnedName = TT(to_split);
 	else
-		*returnedTTNodeName = NO_NAME;
-
+		*returnedName = NO_NAME;
+	
 	return kTTErrNone;
 }
 
-TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr property)
+TTErr splitAttribute(TTSymbolPtr oscAddress, TTSymbolPtr* returnedAddress, TTSymbolPtr* returnedAttribute)
+{
+	if (oscAddress != kTTSymEmpty) {
+		
+		TTString addressStr = oscAddress->getCString();
+		TTString attributeStr = oscAddress->getCString();
+		TTString colon = ":";
+		size_t found = 0, size = 0;
+		
+		found = addressStr.find(colon);
+		size = addressStr.size();
+		
+		if (found != string::npos) {
+			
+			*returnedAddress = TT(addressStr.substr(0, found).data());
+			*returnedAttribute = TT(attributeStr.substr(found+1, size).data());
+			
+			return kTTErrNone;
+		}
+		
+	}
+	
+	*returnedAddress = oscAddress;
+	*returnedAttribute = kTTSymEmpty;
+	return kTTErrGeneric;
+	
+}
+
+TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr attribute)
 {
 	TTString address;
 
@@ -740,9 +767,9 @@ TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSym
 		address += instance->getCString();
 	}
 
-	if(property != NO_ATTRIBUTE){
+	if(attribute != NO_ATTRIBUTE){
 		address += S_PROPERTY->getCString();
-		address += property->getCString();
+		address += attribute->getCString();
 	}
 
 	*returnedOscAddress = TT(address);
