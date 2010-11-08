@@ -18,6 +18,11 @@ extern TTApplicationPtr		JamomaApplication;
 #ifdef __cplusplus
 extern "C" {
 #endif
+	
+	// Method to deal with the jamoma application
+	/////////////////////////////////////////
+	
+	TTErr jamoma_application_dump_conversion(void);
 
 	// Method to deal with the jamoma directory
 	/////////////////////////////////////////
@@ -54,7 +59,7 @@ extern "C" {
 	TTErr			jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer);
 	
 	/**	Send Max data using a container object */
-	TTErr			jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv);
+	TTErr			jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddressAndAttribute, AtomCount argc, AtomPtr argv);
 	
 	
 	// Method to deal with TTData

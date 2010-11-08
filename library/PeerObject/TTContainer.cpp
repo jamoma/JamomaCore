@@ -46,7 +46,7 @@ mObserver(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeProperty(address, hidden, YES);
-
+	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);
 	
@@ -72,12 +72,14 @@ TTContainer::~TTContainer()
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 }
 
-TTErr TTContainer::Send(TTValue& AddressAndValue)
+TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 {
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		aRelativeAddress, service;
+	TTSymbolPtr		aRelativeAddress, attribute, service;
+	TTAttributePtr	anAttribute;
+	TTMessagePtr	aMessage;
 	TTErr			err;
 	
 	if (!mIsSending) {
@@ -87,10 +89,14 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 		
 		if (mObjectsObserversCache) {
 			
-			// get relativeAddress and valueToSend
-			AddressAndValue.get(0, &aRelativeAddress);
-			AddressAndValue.get(1, (TTPtr*)&valueToSend);
-				
+			// Replace none TTnames (because the Attribute can be customized in order to have a specific application's namespace)
+			ToTTName(AddressAttributeAndValue);
+			
+			// get relativeAddress, attribute and valueToSend
+			AddressAttributeAndValue.get(0, &aRelativeAddress);
+			AddressAttributeAndValue.get(1, &attribute);
+			AddressAttributeAndValue.get(2, (TTPtr*)&valueToSend);
+			
 			// get the Data object
 			err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
 			
@@ -99,11 +105,10 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 				
 				cacheElement.get(0, (TTPtr*)&anObject);
 				
-				// TODO : a generic way to send things to any object
-				// it is a Data
-				if (anObject->getName() == TT("Data")) {
+				// DATA CASE for value attribute
+				if (anObject->getName() == TT("Data") && attribute == kTTSym_value) {
 					
-					// What kind of service the data is used for ?
+					// what kind of service the data is used for ?
 					anObject->getAttributeValue(TT("service"), v);
 					v.get(0, &service);
 					
@@ -123,30 +128,27 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 							// return the value
 							mReturnValueCallback->notify(*valueToSend);
 						}
-						
-				}
-				// it is a Viewer
-				else if (anObject->getName() == TT("Viewer")) {
 					
-					// set the address attribute
-					anObject->setAttributeValue(kTTSym_address, *valueToSend);
+					// unlock
+					mIsSending = false;	
+					return kTTErrNone;
 				}
-			}
-			// if not use TTModularDirectory instead
-			else {
-				// unlock
-				mIsSending = false;
-				return kTTErrGeneric; // TODO : this would allow us to use * also
-			}
 				
-			//TODO : send to other attribute ?
-			
+				// DEFAULT CASE
+				// Look for attribute and set it
+				if (!anObject->findAttribute(attribute, &anAttribute))
+					anObject->setAttributeValue(attribute, *valueToSend);
+				
+				// Or look for message and send it
+				else if (!anObject->findMessage(attribute, &aMessage))
+					anObject->sendMessage(attribute, *valueToSend);
+				
+			}
 		}
-
-		// unlock
-		mIsSending = false;	
 	}
 	
+	// unlock
+	mIsSending = false;	
 	return kTTErrNone;
 }
 
@@ -165,28 +167,28 @@ TTErr TTContainer::Init()
 	// Notify observers
 	findAttribute(kTTSym_initialized, &anAttribute);
 	anAttribute->sendNotification(kTTSym_notify, mInitialized);
+	
+	// Send Init message to all Containers below
+	if (mObjectsObserversCache) {
 		
-		// Send Init message to all Containers below
-		if (mObjectsObserversCache) {
+		mObjectsObserversCache->getKeys(hk);
+		
+		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
 			
-			mObjectsObserversCache->getKeys(hk);
+			hk.get(i,(TTSymbolPtr*)&key);
+			mObjectsObserversCache->lookup(key, cacheElement);
+			anObject = NULL;
+			cacheElement.get(0, (TTPtr*)&anObject);
 			
-			for (i=0; i<mObjectsObserversCache->getSize(); i++) {
-				
-				hk.get(i,(TTSymbolPtr*)&key);
-				mObjectsObserversCache->lookup(key, cacheElement);
-				anObject = NULL;
-				cacheElement.get(0, (TTPtr*)&anObject);
-				
-				if (anObject)
-					if (anObject->getName() == TT("Container"))
-						anObject->sendMessage(TT("Init"));
-			}
+			if (anObject)
+				if (anObject->getName() == TT("Container"))
+					anObject->sendMessage(TT("Init"));
 		}
+	}
 	
 	// End of initialisation
 	mInitialized = YES;
-
+	
 	// Notify observers
 	findAttribute(kTTSym_initialized, &anAttribute);
 	anAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -349,7 +351,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 			}
 		}
 	}
-
+	
 	// remove cacheData
 	return mObjectsObserversCache->remove(aRelativeAddress);
 }
@@ -451,27 +453,27 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 	*file << "";
 	
 	/* 
-		Configuration
-	*/
+	 Configuration
+	 */
 	*file << "\t<h3> Configuration </h3>";
 	*file << "\t<p> Model Type: <code>" << this->mType->getCString() << "</code> <br>";
 	
 	/* 
-		Inlets and outlets Objects 
-	*/
+	 Inlets and outlets Objects 
+	 */
 	
 	// TODO : Make TTIn and TTOut and store them
 	*file << "\t<p>Number of signal inlets: <code> 0 </code> <br/>";
 	*file << "\t<p>Number of signal outlets: <code> 0 </code> <br/>";
-
+	
 	
 	mObjectsObserversCache->getKeys(keys);
 	/* 
-		Data @service parameter
-	*/
+	 Data @service parameter
+	 */
 	*file << "\t<h3> Parameters </h3>";	
 	this->dataHeading(file);
-
+	
 	for (i=0; i<keys.getSize(); i++)
 	{
 		keys.get(i, &name);
@@ -586,7 +588,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 	// End of page
 	*file << "</body>";
 	*file << "</html>";
-
+	
 	return kTTErrNone;
 }
 
@@ -614,213 +616,213 @@ void TTContainer::cssDefinition(ofstream *file)
 	*file << "<style type=\"text/css\">";
 	
 	*file <<	"\
-				body {\
-				margin: 0px;\
-				font-family: Arial, Helvetica, sans-serif;\
-				}\
-				\
-				h1 {\
-				font-size: 24px;\
-				font-weight:100;\
-				padding-top: 1em;\
-				margin: 0;\
-				}\
-				\
-				\
-				h2 {\
-				font-size: 18px;\
-				font-weight:200;\
-				margin: 0;\
-				color: #555;\
-				text-transform: lowercase;\
-				}\
-				\
-				h3 {\
-				color: #888;\
-				border-bottom: 1px solid #333;\
-				font-size: 18px;\
-				font-weight:100;\
-				margin-top: 20px;\
-				margin-bottom: 10px;\
-				margin-left: 2%;\
-				margin-right: 2%;\
-				}\
-				\
-				h4{\
-				color: #333;\
-				font-size: 14px;\
-				font-weight: bold;\
-				margin-bottom: 0px;\
-				margin-left: 2%;\
-				margin-right: 2%;\
-				}\
-				\
-				h6 {\
-				font-size: 12px;\
-				font-weight:100;\
-				line-height: 1.2;\
-				margin-right: 2%;\
-				margin-left: 2%;\
-				}\
-				\
-				p {\
-				font-size: 12px;\
-				font-weight:100;\
-				margin: 5px 2%;\
-				padding-bottom: 1em;\
-				}\
-				\
-				ul{\
-				margin-top:0;\
-				padding-top:0;\
-				}\
-				\
-				li {\
-				font-size: 12px;\
-				font-weight:100;\
-				margin-top: 0;\
-				margin-left: 10px;\
-				padding: 0em 0em 0.3em;\
-				}\
-				\
-				img {\
-				padding: 10px 10px 0px 0px;\
-				}\
-				\
-				\
-				#jmod_header{\
-				display: block;\
-				margin: 0 0 40px 0;\
-				}\
-				\
-				#jmod_header img{\
-				float: left;\
-				}\
-				\
-				\
-				.objectname {\
-				font-size: 24px;\
-				font-weight: bold;\
-				}\
-				\
-				\
-				.moduleName {\
-				font-size: 2em;\
-				background-color: #c5c5c5;\
-				text-align: right;\
-				vertical-align: top;\
-				font-weight: bold;\
-				}\
-				.moduleDescription {\
-				font-size: 1em;\
-				background-color: #000000;\
-				color: #c5c5c5;\
-				text-align: right;\
-				vertical-align: top;\
-				}\
-				\
-				.tableHeading2 {\
-				background-color: #eee;\
-				text-align: left;\
-				vertical-align: top;\
-				font-weight:bold;\
-				font-size: 12px;\
-				}\
-				\
-				table {\
-				border: 0px;\
-				width: 96%;\
-				margin-top: 10px;\
-				margin-bottom: 10px;\
-				margin-left: 2%;\
-				font-size: 14px;\
-				}\
-				";
+	body {\
+	margin: 0px;\
+	font-family: Arial, Helvetica, sans-serif;\
+	}\
+	\
+	h1 {\
+	font-size: 24px;\
+	font-weight:100;\
+	padding-top: 1em;\
+	margin: 0;\
+	}\
+	\
+	\
+	h2 {\
+	font-size: 18px;\
+	font-weight:200;\
+	margin: 0;\
+	color: #555;\
+	text-transform: lowercase;\
+	}\
+	\
+	h3 {\
+	color: #888;\
+	border-bottom: 1px solid #333;\
+	font-size: 18px;\
+	font-weight:100;\
+	margin-top: 20px;\
+	margin-bottom: 10px;\
+	margin-left: 2%;\
+	margin-right: 2%;\
+	}\
+	\
+	h4{\
+	color: #333;\
+	font-size: 14px;\
+	font-weight: bold;\
+	margin-bottom: 0px;\
+	margin-left: 2%;\
+	margin-right: 2%;\
+	}\
+	\
+	h6 {\
+	font-size: 12px;\
+	font-weight:100;\
+	line-height: 1.2;\
+	margin-right: 2%;\
+	margin-left: 2%;\
+	}\
+	\
+	p {\
+	font-size: 12px;\
+	font-weight:100;\
+	margin: 5px 2%;\
+	padding-bottom: 1em;\
+	}\
+	\
+	ul{\
+	margin-top:0;\
+	padding-top:0;\
+	}\
+	\
+	li {\
+	font-size: 12px;\
+	font-weight:100;\
+	margin-top: 0;\
+	margin-left: 10px;\
+	padding: 0em 0em 0.3em;\
+	}\
+	\
+	img {\
+	padding: 10px 10px 0px 0px;\
+	}\
+	\
+	\
+	#jmod_header{\
+	display: block;\
+	margin: 0 0 40px 0;\
+	}\
+	\
+	#jmod_header img{\
+	float: left;\
+	}\
+	\
+	\
+	.objectname {\
+	font-size: 24px;\
+	font-weight: bold;\
+	}\
+	\
+	\
+	.moduleName {\
+	font-size: 2em;\
+	background-color: #c5c5c5;\
+	text-align: right;\
+	vertical-align: top;\
+	font-weight: bold;\
+	}\
+	.moduleDescription {\
+	font-size: 1em;\
+	background-color: #000000;\
+	color: #c5c5c5;\
+	text-align: right;\
+	vertical-align: top;\
+	}\
+	\
+	.tableHeading2 {\
+	background-color: #eee;\
+	text-align: left;\
+	vertical-align: top;\
+	font-weight:bold;\
+	font-size: 12px;\
+	}\
+	\
+	table {\
+	border: 0px;\
+	width: 96%;\
+	margin-top: 10px;\
+	margin-bottom: 10px;\
+	margin-left: 2%;\
+	font-size: 14px;\
+	}\
+	";
 	
 	*file <<	"\
-				\
-				.instructionName {\
-				font-family: 'Courier New', Courier, mono;\
-				background-color: #edd;\
-				vertical-align: top;\
-				}\
-				\
-				.instructionType {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eee;\
-				vertical-align: top;\
-				}\
-				\
-				.instructionDataspace {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eed;\
-				vertical-align: top;\
-				}\
-				\
-				.instructionDataspaceUnitNative {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eee;\
-				vertical-align: top;\
-				}\
-				\
-				.instructionRangeBounds {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eed;\
-				vertical-align: top;\
-				}\
-				.instructionRangeClipmode {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eee;\
-				vertical-align: top;\
-				}\
-				.instructionRampDrive {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eed;\
-				vertical-align: top;\
-				}\
-				.instructionRampFunction {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eee;\
-				vertical-align: top;\
-				}\
-				.instructionRepetitionsAllow {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eed;\
-				vertical-align: top;\
-				}\
-				.instructionDescription {\
-				font-family: 'Times New Roman', Times, serif;\
-				background-color: #eee;\
-				vertical-align: top;\
-				}\
-				td {\
-				padding-right: 5px;\
-				padding-left: 5px;\
-				}\
-				ul {\
-				list-style-type: disc;\
-				}\
-				.patchimage {\
-				clear: both;\
-				}\
-				.comment {\
-				color: #6666FF;\
-				}\
-				.smallTable {\
-				width: 400px;\
-				border: none;\
-				}\
-				caption {\
-				font-size: 11px;\
-				font-style: italic;\
-				}\
-				.filepath {\
-				font-family: 'Courier New', Courier, mono;\
-				}\
-				.instruction {\
-				font-family: 'Courier New', Courier, mono;\
-				}\
-				";
+	\
+	.instructionName {\
+	font-family: 'Courier New', Courier, mono;\
+	background-color: #edd;\
+	vertical-align: top;\
+	}\
+	\
+	.instructionType {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eee;\
+	vertical-align: top;\
+	}\
+	\
+	.instructionDataspace {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eed;\
+	vertical-align: top;\
+	}\
+	\
+	.instructionDataspaceUnitNative {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eee;\
+	vertical-align: top;\
+	}\
+	\
+	.instructionRangeBounds {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eed;\
+	vertical-align: top;\
+	}\
+	.instructionRangeClipmode {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eee;\
+	vertical-align: top;\
+	}\
+	.instructionRampDrive {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eed;\
+	vertical-align: top;\
+	}\
+	.instructionRampFunction {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eee;\
+	vertical-align: top;\
+	}\
+	.instructionRepetitionsAllow {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eed;\
+	vertical-align: top;\
+	}\
+	.instructionDescription {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eee;\
+	vertical-align: top;\
+	}\
+	td {\
+	padding-right: 5px;\
+	padding-left: 5px;\
+	}\
+	ul {\
+	list-style-type: disc;\
+	}\
+	.patchimage {\
+	clear: both;\
+	}\
+	.comment {\
+	color: #6666FF;\
+	}\
+	.smallTable {\
+	width: 400px;\
+	border: none;\
+	}\
+	caption {\
+	font-size: 11px;\
+	font-style: italic;\
+	}\
+	.filepath {\
+	font-family: 'Courier New', Courier, mono;\
+	}\
+	.instruction {\
+	font-family: 'Courier New', Courier, mono;\
+	}\
+	";
 	
 	*file << "</style>";
 }
@@ -856,11 +858,11 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	arg.append(hisContext);
 	
 	switch (flag) {
-
+			
 		case kAddressCreated :
 		{
 			if (TTContainerTestObjectAndContext(aNode, &arg))
-			   aContainer->makeCacheElement(aNode);
+				aContainer->makeCacheElement(aNode);
 			
 			break;
 		}
@@ -868,7 +870,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 		case kAddressDestroyed :
 		{
 			if (TTContainerTestObjectAndContext(aNode, &arg)) 
-				 aContainer->deleteCacheElement(aNode);
+				aContainer->deleteCacheElement(aNode);
 			
 			break;
 		}
@@ -886,7 +888,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 	TTContainerPtr	aContainer;
 	TTSymbolPtr		relativeAddress;
 	TTValue			address;
-		
+	
 	// unpack baton
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aContainer);
@@ -929,5 +931,5 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 	// Keep only nodes from our context if they aren't under the root (p_c is NULL)
 	// if contexts are different, check also if the parent context is the same as our context
 	return (c == t_c && p_c ) || (c != t_c && p_c == t_c );
-
+	
 }

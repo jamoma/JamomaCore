@@ -226,6 +226,8 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 		v.get(0, (TTPtr*)&anItem);
 		
 		// Start an Item by the type of his object
+		// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
+		// TODO : ToAppName(arguments);
 		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST anItem->object->getName()->getCString());
 		
 		// Write address attribute
@@ -262,7 +264,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 TTErr TTPreset::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTSymbolPtr			absAddress, attributeName;
+	TTSymbolPtr			absAddress, convertedName, ttAttributeName;
 	ItemPtr				anItem;
 	TTNodePtr			aNode;
 	TTValue				v, attributeToStore;
@@ -315,8 +317,10 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 					// Get attribute name
 					aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
 					if (v.getType() == kTypeSymbol) {
-						v.get(0, &attributeName);
-						attributeToStore.append(attributeName);
+						// Replace AppName by TTName (because object name can be customized in order to have a specific application's namespace)
+						// TODO : ToTTName(v);
+						v.get(0, &ttAttributeName);
+						attributeToStore.append(ttAttributeName);
 					}
 				}
 				mToStore->append(aXmlHandler->mXmlNodeName, attributeToStore);
@@ -335,12 +339,16 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 					
 					// fill the item
 					for (i=0; i<attributeToStore.getSize(); i++) {
-						attributeToStore.get(i, &attributeName);
+						attributeToStore.get(i, &ttAttributeName);
 						
-						if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST attributeName->getCString()) == 1) {
+						convertedName = ttAttributeName;
+						// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
+						// TODO : ToAppName(convertedName);
+						
+						if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST convertedName->getCString()) == 1) {
 							
 							aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-							anItem->state->append(attributeName, v);
+							anItem->state->append(ttAttributeName, v);
 						}
 					}
 				}

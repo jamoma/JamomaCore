@@ -43,6 +43,13 @@ mNodesObserversCache(NULL)
 	
 	mNodesObserversCache = new TTList();
 	
+	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
+	if (mApplication) {
+		TTValue v = TTValue(mAttribute);
+		ToTTName(v);
+		v.get(0, &mAttribute);
+	}
+	
 	if	(getDirectoryFrom(this) && mReturnAddressCallback && mReturnValueCallback && mAddress != kTTSymEmpty)
 		bind();
 }
@@ -66,8 +73,13 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 }
 
 TTErr TTReceiver::setAttribute(const TTValue& newValue)
-{
+{	
 	mAttribute = newValue;
+	
+	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
+	TTValue v = TTValue(mAttribute);
+	ToTTName(v);
+	v.get(0, &mAttribute);
 	
 	if (mAttribute == NO_ATTRIBUTE)
 		mAttribute = kTTSym_value;
@@ -91,10 +103,9 @@ TTErr TTReceiver::Get()
 {
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
-	TTSymbolPtr	oscAddress;
+	TTSymbolPtr	oscAddress, attributeName;
 	TTString	fullAddress;
-	TTValue		address;
-	TTValue		data, v;
+	TTValue		address, data, v, appValue;
 	TTErr		err;
 	
 	if (!mNodesObserversCache->isEmpty()) {
@@ -117,7 +128,13 @@ TTErr TTReceiver::Get()
 					fullAddress = oscAddress->getCString();
 					if (mAttribute != kTTSym_value) {
 						fullAddress += C_PROPERTY;
-						fullAddress += mAttribute->getCString();
+						
+						// Replace none AppNames (because the mAttribute can be customized in order to have a specific application's namespace)
+						appValue = TTValue(mAttribute);
+						ToAppName(appValue);
+						appValue.get(0, &attributeName);
+						
+						fullAddress += attributeName->getCString();
 					}
 					
 					// return the address
@@ -422,9 +439,9 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
-	TTSymbolPtr		oscAddress;
+	TTSymbolPtr		oscAddress, attributeName;
 	TTString		fullAddress;
-	TTValue			address;
+	TTValue			address, appValue;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -437,7 +454,13 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 		fullAddress = oscAddress->getCString();
 		if (aReceiver->mAttribute != kTTSym_value) {
 			fullAddress += C_PROPERTY;
-			fullAddress += aReceiver->mAttribute->getCString();
+			
+			// Replace none AppNames (because the mAttribute can be customized in order to have a specific application's namespace)
+			appValue = TTValue(aReceiver->mAttribute);
+			aReceiver->ToAppName(appValue);
+			appValue.get(0, &attributeName);
+			
+			fullAddress += attributeName->getCString();
 		}
 		address.append(TT(fullAddress.data()));
 		aReceiver->mReturnAddressCallback->notify(address);

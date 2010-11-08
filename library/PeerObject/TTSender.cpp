@@ -34,6 +34,13 @@ mObserver(NULL)
 	
 	mIsSending = false;
 	
+	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
+	if (mApplication) {
+		TTValue v = TTValue(mAttribute);
+		ToTTName(v);
+		v.get(0, &mAttribute);
+	}
+	
 	if (getDirectoryFrom(this))
 		bind();
 }
@@ -51,8 +58,13 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 }
 
 TTErr TTSender::setAttribute(const TTValue& newValue)
-{
+{	
 	mAttribute = newValue;
+	
+	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
+	TTValue v = TTValue(mAttribute);
+	ToTTName(v);
+	v.get(0, &mAttribute);
 	
 	if (mAttribute == NO_ATTRIBUTE)
 		mAttribute = kTTSym_value;

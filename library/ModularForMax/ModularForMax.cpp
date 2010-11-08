@@ -15,6 +15,36 @@
 *
 ************************************************************************************/
 
+// Method to deal with the jamoma application
+/////////////////////////////////////////
+
+TTErr jamoma_application_dump_conversion(void)
+{
+	TTUInt16 i;
+	TTValue v, appNames;
+	TTSymbolPtr anAppKey;
+	TTValue toConvert;
+	TTString aTTStr;
+	
+	post("--- Jamoma Application : Symbol Convertion ---");
+	JamomaApplication->getAttributeValue(TT("allAppNames"), appNames);
+	
+	for (i=0; i<appNames.getSize(); i++) {
+		
+		appNames.get(i, &anAppKey);
+		
+		toConvert = TTValue(anAppKey);
+		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, toConvert); 
+		toConvert.toString();
+		toConvert.get(0, aTTStr);
+		post("%s <-> %s", anAppKey->getCString(), aTTStr.data());
+	}
+	
+	post("----------------------------------------------");
+	
+	return kTTErrNone;
+}
+
 // Method to deal with the jamoma directory
 /////////////////////////////////////////
 
@@ -279,20 +309,30 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 }
 
 /**	Send Max data using a container object */
-TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
+TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddressAndAttribute, AtomCount argc, AtomPtr argv)
 {
-	TTSymbolPtr	r;
+	TTSymbolPtr	oscAddress, attribute;
 	TTValue		v, data;
 	
 	if (aContainer) {
 		
-		r = TT(relativeAddress->s_name);
-		data.append(r);
+		// Get address part and attribute part
+		splitAttribute(TT(relativeAddressAndAttribute->s_name), &oscAddress, &attribute);
+		
+		data.append(oscAddress);
+		
+		if (attribute != NO_ATTRIBUTE)
+			data.append(attribute);
+		else
+			data.append(kTTSym_value);
 		
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
 		
-		aContainer->sendMessage(kTTSym_Send, data); // data is [address, [x, x, ,x , ...]]
+		// Replace none TTnames
+		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, data);
+		
+		aContainer->sendMessage(kTTSym_Send, data); // data is [address, attribute, [x, x, ,x , ...]]
 		return kTTErrNone;
 	}
 	
@@ -348,22 +388,23 @@ TTErr jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPt
 /**	Create a sender object */
 TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedSender)
 {
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
-	TTValue args;
+	TTSymbolPtr	oscAddress, attribute;
+	TTValue		args;
 	
 	// Get address part and attribute part
-	splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
-	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
+	splitAttribute(TT(addressAndAttribute->s_name), &oscAddress, &attribute);
 	
-	// Make a TTSender object
+	// Make a TTReceiver object
 	args.append(JamomaApplication);
-	args.append(oscAddress_noAttribute);
+	args.append(oscAddress);
 	
-	// TODO : convert attribute from value/stepsize into ValueStepsize
-	if (oscAddress_attribute != NO_ATTRIBUTE)
-		args.append(oscAddress_attribute);
+	if (attribute != NO_ATTRIBUTE)
+		args.append(attribute);
 	else
 		args.append(kTTSym_value);
+	
+	// Replace none TTnames
+	JamomaApplication->sendMessage(kTTSym_ConvertToTTName, args);
 	
 	*returnedSender = NULL;
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
@@ -392,25 +433,25 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 /**	Create a receiver object */
 TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver)
 {
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
+	TTSymbolPtr		oscAddress, attribute;
 	TTValue			args;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
-	
-	// prepare arguments
 
 	// Get address part and attribute part
-	splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
-	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
+	splitAttribute(TT(addressAndAttribute->s_name), &oscAddress, &attribute);
 	
 	// Make a TTReceiver object
 	args.append(JamomaApplication);
-	args.append(oscAddress_noAttribute);
+	args.append(oscAddress);
 	
-	if (oscAddress_attribute != NO_ATTRIBUTE)
-		args.append(oscAddress_attribute);
+	if (attribute != NO_ATTRIBUTE)
+		args.append(attribute);
 	else
 		args.append(kTTSym_value);
+	
+	// Replace none TTnames
+	JamomaApplication->sendMessage(kTTSym_ConvertToTTName, args);
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);

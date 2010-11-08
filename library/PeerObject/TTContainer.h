@@ -40,7 +40,7 @@ private:
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop 
 	
 	/** */
-	TTErr Send(TTValue& AddressAndValue);
+	TTErr Send(TTValue& AddressAttributeAndValue);
 	
 	/** */
 	TTErr Init();

@@ -19,7 +19,7 @@ void		TTModularRegisterInternalClasses();
 
 /****************************************************************************************************/
 
-void TTModularInit(TTString applicationStr)
+void TTModularInit(TTString applicationStr, TTString configFilePath)
 {
 	TTValue				v;
 	TTSymbolPtr			applicationName;
@@ -82,6 +82,18 @@ void TTModularInit(TTString applicationStr)
 			
 			// Store it in the TTModularApplications hash table
 			TTModularApplications->append(applicationName, TTPtr(anApplication));
+			
+			// Read xml configuration file
+			TTValue			v;
+			TTXmlHandlerPtr anXmlHandler = NULL;
+			
+			TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&anXmlHandler), v);
+			
+			v = TTValue(TTPtr(anApplication));
+			anXmlHandler->setAttributeValue(kTTSym_object, v);
+			
+			v = TTValue(TT(configFilePath));
+			anXmlHandler->sendMessage(TT("Read"), v);
 		}
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", applicationName->getCString()); 

@@ -207,15 +207,20 @@ TTErr TTExplorer::Explore()
 
 TTErr TTExplorer::CriteriaAdd(const TTValue& value)
 {
-	TTUInt16	s = value.getSize();
+	TTUInt16	s;
 	TTSymbolPtr	objectType, attributeName;
 	TTHashPtr	attributeCriteria;
-	TTValue		v, valueCriteria;
+	TTValue		converted, v, valueCriteria;
 	
+	// Replace none TTnames (because object and attribute names can be customized in order to have a specific application's namespace)
+	converted = value;
+	ToTTName(converted);
+	
+	s = converted.getSize();
 	if (s > 0)
-		if (value.getType() == kTypeSymbol) {
+		if (converted.getType() == kTypeSymbol) {
 			
-			value.get(0, &objectType);
+			converted.get(0, &objectType);
 			if (mLookforObjectCriteria->lookup(objectType, v)) {
 				
 				attributeCriteria = new TTHash();
@@ -226,11 +231,11 @@ TTErr TTExplorer::CriteriaAdd(const TTValue& value)
 		}
 	
 	if (s > 1) {
-		if (value.getType(1) == kTypeSymbol) {
+		if (converted.getType(1) == kTypeSymbol) {
 			
-			value.get(1, &attributeName);
+			converted.get(1, &attributeName);
 			if (s > 2) {
-				valueCriteria.copyFrom(value, 2);
+				valueCriteria.copyFrom(converted, 2);
 				attributeCriteria->remove(attributeName);
 				attributeCriteria->append(attributeName, valueCriteria);
 			}

@@ -22,15 +22,15 @@
 // This maro have to be used on a TTObject with a mApplication member.
 #define	getDirectoryFrom(aTTObject) TTApplicationGetDirectory((TTObjectPtr)aTTObject->mApplication)
 
-// Macro to convert a TTSymbolPtr ttName into an application name.
+// Macro to convert a TTValue with tt names inside into a value with application names inside.
 // This maro have tobe used inside a TTObject with a mApplication member.
-#define	ToAppName(ttName) \
-		mApplication->sendMessage(kTTSym_AppName, TTValue(ttName)); \
+#define	ToAppName(ttNames) \
+		mApplication->sendMessage(kTTSym_ConvertToAppName, ttNames); \
 
-// Macro to convert a TTSymbolPtr appName into a TT name.
+// Macro to convert a TTValue with application names inside into a value with tt names inside.
 // This maro have tobe used inside a TTObject with a mApplication member.
-#define	ToTTName(appName) \
-		mApplication->sendMessage(kTTSym_TTName, TTValue(appName)); \
+#define	ToTTName(appNames) \
+		mApplication->sendMessage(kTTSym_ConvertToTTName, appNames); \
 
 class TTMODULAR_EXPORT TTApplication : public TTObject
 {
@@ -43,13 +43,25 @@ private:
 	TTNodeDirectoryPtr			mDirectory;			// ATTRIBUTE : the namespace directory of the application
 	
 	TTHashPtr					mAppToTT;			// Hash table to convert Application names into TT names
+	TTValue						mAllAppNames;		// All Application names
 	TTHashPtr					mTTToApp;			// Hash table to convert TT names into Application names
+	TTValue						mAllTTNames;		// All TT names
+	
+	/** Get all AppNames */
+	TTErr getAllAppNames(TTValue& value);
+	
+	/** Get all AppNames */
+	TTErr getAllTTNames(TTValue& value);
 	
 	/** Convert TTName into AppName */
-	TTErr AppName(TTValue& value);
+	TTErr ConvertToAppName(TTValue& value);
 	
 	/** Convert AppName into TTName */
-	TTErr TTName(TTValue& value);
+	TTErr ConvertToTTName(TTValue& value);
+	
+	/**  needed to be handled by a TTXmlHandler */
+	TTErr WriteAsXml(const TTValue& value);
+	TTErr ReadFromXml(const TTValue& value);
 	
 	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTObjectPtr anApplication);
 	

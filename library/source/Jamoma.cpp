@@ -45,9 +45,17 @@ void jamoma_init(void)
 			max5 = true;
 		
 		
-		TTModularInit(JAMOMA);
+		TTModularInit(JAMOMA, "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml");
 		kTTSym_Jamoma = TT(JAMOMA);
 		JamomaApplication = (TTApplicationPtr)TTModularGetApplication(kTTSym_Jamoma);
+		
+		// Is the conversion table empty ?
+		JamomaApplication->getAttributeValue(TT("allAppNames"), v);
+		if (!v.getSize())
+			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
+		
+		// DEBUG
+		jamoma_application_dump_conversion();
 		
 		//TTDSPInit();
 		

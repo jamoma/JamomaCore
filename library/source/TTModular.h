@@ -92,6 +92,6 @@ TTObjectPtr			TTMODULAR_EXPORT TTModularGetApplication(TTSymbolPtr applicationNa
 
 // Prototypes
 // init the modular lib, and the foundation if needed
-void				TTMODULAR_EXPORT TTModularInit(TTString applicationStr);
+void				TTMODULAR_EXPORT TTModularInit(TTString applicationStr, TTString configFilePath);
 
 #endif // __TT_MODULAR_H__

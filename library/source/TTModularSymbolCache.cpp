@@ -13,7 +13,6 @@
 
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_address;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_appName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_attributes;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
@@ -21,6 +20,8 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_children;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Command;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToAppName;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToTTName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspace;
@@ -71,7 +72,6 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ttName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_type;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
@@ -82,7 +82,6 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_viewFreeze;
 void TTModularSymbolCacheInit()
 {
 	kTTSym_address					= TT("address");
-	kTTSym_appName					= TT("appName");
 	kTTSym_attributes				= TT("attributes");
 	kTTSym_array					= TT("array");
 	
@@ -90,6 +89,8 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_children					= TT("children");
 	kTTSym_Command					= TT("Command");
+	kTTSym_ConvertToAppName			= TT("ConvertToAppName");
+	kTTSym_ConvertToTTName			= TT("ConvertToTTName");
 	kTTSym_created					= TT("created");
 	
 	kTTSym_dataspace				= TT("dataspace");
@@ -140,7 +141,6 @@ void TTModularSymbolCacheInit()
 	kTTSym_service					= TT("service");
 	kTTSym_string					= TT("string");
 
-	kTTSym_ttName					= TT("ttName");
 	kTTSym_type						= TT("type");
 	
 	kTTSym_value					= TT("value");
