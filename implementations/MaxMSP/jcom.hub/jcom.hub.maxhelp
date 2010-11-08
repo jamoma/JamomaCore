@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 15.0, 44.0, 1162.0, 681.0 ],
+		"rect" : [ 3.0, 49.0, 1162.0, 681.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 15.0, 44.0, 1162.0, 681.0 ],
+		"defrect" : [ 3.0, 49.0, 1162.0, 681.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,56 @@
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-33",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 885.0, 275.0, 247.0, 17.0 ],
+					"text" : "And thanks for all the fish!"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-30",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 862.0, 275.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-27",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 913.0, 391.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-20",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 913.0, 414.0, 176.0, 17.0 ],
+					"text" : "/mymessage:repetitionsAllow $1"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -85,7 +135,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 44.0, 519.0, 253.0, 31.0 ],
+					"patching_rect" : [ 44.0, 519.0, 254.0, 31.0 ],
 					"text" : "In Jamoma 0.6 the jcom.hub is directly embbed inside your algorithm (which is a model)"
 				}
 
@@ -170,7 +220,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 885.0, 280.0, 205.0, 31.0 ],
+					"patching_rect" : [ 886.0, 300.0, 205.0, 31.0 ],
 					"text" : "as a smarter alternative to pvar, you can use Max5's presentation mode"
 				}
 
@@ -424,7 +474,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 885.0, 376.0, 74.0, 19.0 ],
+					"patching_rect" : [ 885.0, 440.0, 74.0, 19.0 ],
 					"text" : "s incoming"
 				}
 
@@ -438,7 +488,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 885.0, 326.0, 118.0, 17.0 ],
+					"patching_rect" : [ 885.0, 350.0, 118.0, 17.0 ],
 					"text" : "/mymessage So Long"
 				}
 
@@ -452,8 +502,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 901.0, 351.0, 211.0, 17.0 ],
-					"text" : "/mymessage And thanks for all the fish!"
+					"patching_rect" : [ 900.0, 370.0, 208.0, 17.0 ],
+					"text" : "mymessage And thanks for all the fish!"
 				}
 
 			}
@@ -467,7 +517,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 595.0, 469.0, 75.0, 19.0 ],
+					"patching_rect" : [ 595.0, 463.0, 75.0, 19.0 ],
 					"text" : "loadmess set"
 				}
 
@@ -481,8 +531,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 885.0, 245.0, 248.0, 19.0 ],
-					"text" : "jcom.message mymessage @type generic"
+					"patching_rect" : [ 885.0, 245.0, 214.0, 19.0 ],
+					"text" : "jcom.message mymessage @type string"
 				}
 
 			}
@@ -509,7 +559,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 645.0, 294.0, 187.0, 17.0 ],
+					"patching_rect" : [ 645.0, 288.0, 187.0, 17.0 ],
 					"text" : "And thanks for all the fish!",
 					"varname" : "MyMessage"
 				}
@@ -524,7 +574,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 695.0, 384.0, 73.0, 19.0 ],
+					"patching_rect" : [ 695.0, 378.0, 73.0, 19.0 ],
 					"text" : "r incoming"
 				}
 
@@ -534,12 +584,11 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-54",
-					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 595.0, 489.0, 202.0, 29.0 ],
+					"patching_rect" : [ 595.0, 483.0, 229.0, 17.0 ],
 					"text" : "/mymessage And thanks for all the fish!"
 				}
 
@@ -553,7 +602,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 550.0, 359.0, 84.0, 24.0 ],
+					"patching_rect" : [ 550.0, 353.0, 84.0, 24.0 ],
 					"text" : "jcom.hub"
 				}
 
@@ -569,7 +618,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 555.0, 424.0, 200.0, 31.0 ],
+					"patching_rect" : [ 555.0, 418.0, 201.0, 31.0 ],
 					"text" : "jcom.hub @type control @description \"this model doesn't do anything\"",
 					"varname" : "jcom.hub"
 				}
@@ -584,7 +633,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 590.0, 384.0, 88.0, 19.0 ],
+					"patching_rect" : [ 590.0, 378.0, 88.0, 19.0 ],
 					"text" : "command input"
 				}
 
@@ -597,7 +646,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 555.0, 384.0, 26.0, 26.0 ]
+					"patching_rect" : [ 555.0, 378.0, 26.0, 26.0 ]
 				}
 
 			}
@@ -608,7 +657,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 555.0, 489.0, 26.0, 26.0 ]
+					"patching_rect" : [ 555.0, 483.0, 26.0, 26.0 ]
 				}
 
 			}
@@ -621,7 +670,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 565.0, 294.0, 75.0, 19.0 ],
+					"patching_rect" : [ 565.0, 288.0, 75.0, 19.0 ],
 					"text" : "my_message"
 				}
 
@@ -635,7 +684,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 550.0, 234.0, 82.0, 24.0 ],
+					"patching_rect" : [ 550.0, 228.0, 82.0, 24.0 ],
 					"text" : "jcom.ui"
 				}
 
@@ -649,7 +698,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 555.0, 524.0, 177.0, 19.0 ],
+					"patching_rect" : [ 555.0, 518.0, 177.0, 19.0 ],
 					"text" : "Reporting to the rest of the world"
 				}
 
@@ -679,7 +728,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 80.0, 596.0, 31.0 ],
+					"patching_rect" : [ 16.0, 80.0, 599.0, 31.0 ],
 					"text" : "jcom.hub is the central brain in a jamoma model. It parses input, distributes messaging to subscribed jcom external (as jcom.parmater, jcom.view, jcom.preset, ...) and generates documentation about it."
 				}
 
@@ -705,7 +754,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 545.0, 259.0, 300.0, 70.0 ],
+					"patching_rect" : [ 545.0, 253.0, 300.0, 70.0 ],
 					"text" : "/editing_this_view"
 				}
 
@@ -720,7 +769,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 535.0, 221.0, 323.0, 120.0 ],
+					"patching_rect" : [ 535.0, 215.0, 323.0, 120.0 ],
 					"rounded" : 15
 				}
 
@@ -735,7 +784,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 535.0, 349.0, 325.0, 210.0 ],
+					"patching_rect" : [ 535.0, 343.0, 325.0, 210.0 ],
 					"rounded" : 15
 				}
 
@@ -788,10 +837,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-45", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 0 ]
 				}
 
 			}
@@ -851,9 +918,27 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 894.5, 268.0, 871.5, 268.0 ],
+					"source" : [ "obj-49", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-33", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-49", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-50", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 894.5, 271.0, 877.0, 271.0, 877.0, 211.0, 894.5, 211.0 ],
+					"midpoints" : [ 894.5, 268.0, 871.0, 268.0, 871.0, 216.0, 894.5, 216.0 ],
 					"source" : [ "obj-49", 0 ]
 				}
 
@@ -871,7 +956,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-59", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 704.5, 416.0, 564.5, 416.0 ],
+					"midpoints" : [ 704.5, 410.0, 564.5, 410.0 ],
 					"source" : [ "obj-52", 0 ]
 				}
 
@@ -880,7 +965,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-54", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 564.5, 465.0, 787.5, 465.0 ],
+					"midpoints" : [ 564.5, 459.0, 814.5, 459.0 ],
 					"source" : [ "obj-59", 0 ]
 				}
 

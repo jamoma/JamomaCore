@@ -40,7 +40,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 807.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 805.0, 70.0 ]
 				}
 
 			}
@@ -105,7 +105,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-63",
-					"items" : [ "Init", ",", "Mise" ],
+					"items" : [ "Init", ",", "Mise", ",", "Act I" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -593,7 +593,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 502.0, 300.0, 136.0, 18.0 ],
-					"text" : "0.03"
+					"text" : "0.02"
 				}
 
 			}
@@ -623,7 +623,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 116.0, 140.0, 33.0, 18.0 ],
+					"patching_rect" : [ 116.0, 139.0, 33.0, 18.0 ],
 					"text" : "new",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
@@ -839,7 +839,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 502.0, 350.0, 120.0, 18.0 ],
-					"text" : "56"
+					"text" : "45"
 				}
 
 			}
@@ -867,7 +867,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 502.0, 399.0, 116.0, 18.0 ],
-					"text" : "foo"
+					"text" : "nono"
 				}
 
 			}
@@ -911,7 +911,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 501.0, 448.0, 109.0, 18.0 ],
-					"text" : "33 gege 7.9"
+					"text" : "65 toto 4.5"
 				}
 
 			}

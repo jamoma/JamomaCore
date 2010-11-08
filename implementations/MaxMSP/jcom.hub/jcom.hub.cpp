@@ -242,6 +242,14 @@ void hub_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 void hub_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTString					addSlash;
+	
+	// if the address part doesn't begin by a slash : add it.
+	if (msg->s_name[0] != C_SEPARATOR) {
+		addSlash = "/";
+		addSlash += msg->s_name;
+		jamoma_container_send((TTContainerPtr)x->wrappedObject, gensym((char*)addSlash.data()), argc, argv);
+	}
 	
 	jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
 }

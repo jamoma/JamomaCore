@@ -22,7 +22,8 @@ void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 void		data_build(TTPtr self, SymbolPtr address);
 void		data_build_array(TTPtr self);
 void		data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index);
-void		data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void		data_array_select(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		data_address(TTPtr self, SymbolPtr name);
 
 #ifndef JMOD_RETURN
 void		data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -89,6 +90,8 @@ void WrapTTDataClass(WrappedClassPtr c)
 #endif
 	
 	class_addmethod(c->maxClass, (method)data_array_select,					"array/select",			A_GIMME,0);
+	
+	class_addmethod(c->maxClass, (method)data_address,							"address",					A_SYM,0);
 }
 
 void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -96,7 +99,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					address, instanceAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
-	long						number, i = 0;
+	long						number, i = 0, flag = 0;
 	TTObjectPtr					anObject;
 	TTValue						v;
 	
@@ -106,15 +109,23 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
+	// Check dynamic address changes flag
+	if (argc == 2)
+		if (atom_gettype(&argv[1]) == A_LONG)
+			flag = atom_getlong(&argv[1]);
+	
 	number = jamoma_parse_bracket(address, &x->i_format, &x->s_format);
 	
 	// Make outlets (before attr_args_process)
 	/////////////////////////////////////////////////////////////////////////////////
 #ifndef JMOD_RETURN
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
-	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
-	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
 	
+	// Don't create outlets during dynamic changes
+	if (!flag) {
+		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
+		x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+		x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
+	}
 	
 	// Make qelem object
 	/////////////////////////////////////////////////////////////////////////////////
@@ -337,6 +348,20 @@ void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 		}
 	else
 		object_error((ObjectPtr)x, "array/select : this method is not available. Use an [] in address argument to create an array");
+}
+
+void data_address(TTPtr self, SymbolPtr address)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	Atom a[2];
+	
+	// destroy everything
+	wrappedModularClass_free(x);
+	
+	// rebuild everything (use dynamic changes flag)
+	atom_setsym(&a[0], address);
+	atom_setlong(&a[1], 1);
+	WrappedDataClass_new(self, 2, a);
 }
 
 // Method for Assistance Messages

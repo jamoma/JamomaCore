@@ -3,35 +3,23 @@
  <!--TODO : TTContainer Description at mAddress-->
  <preset number="1" name="Init">
   <!---->
-  <Parameter address="/other/myParameter" Value="0.020000"/>
-  <Parameter address="/level/myLabel" Value="nono"/>
-  <Parameter address="/other/myIndex" Value="45"/>
-  <Parameter address="/other/myLabel" Value="nono"/>
-  <Parameter address="/other/any" Value="65 toto 4.500000"/>
-  <Parameter address="/level/any" Value="65 toto 4.500000"/>
-  <Parameter address="/level/myIndex" Value="45"/>
-  <Parameter address="/level/myParameter" Value="0.020000"/>
+  <Parameter address="/myParameter" Value="0.020000"/>
+  <Parameter address="/myLabel" Value="nono"/>
+  <Parameter address="/myIndex" Value="45"/>
+  <Parameter address="/any" Value="65 toto 4.500000"/>
  </preset>
  <preset number="2" name="Mise">
   <!---->
-  <Parameter address="/other/myParameter" Value="0.030000"/>
-  <Parameter address="/level/myLabel" Value="foo"/>
-  <Parameter address="/other/myIndex" Value="56"/>
-  <Parameter address="/other/myLabel" Value="foo"/>
-  <Parameter address="/other/any" Value="33 gege 7.900000"/>
-  <Parameter address="/level/any" Value="33 gege 7.900000"/>
-  <Parameter address="/level/myIndex" Value="56"/>
-  <Parameter address="/level/myParameter" Value="0.030000"/>
+  <Parameter address="/myParameter" Value="0.030000"/>
+  <Parameter address="/myLabel" Value="foo"/>
+  <Parameter address="/myIndex" Value="56"/>
+  <Parameter address="/any" Value="33 gege 7.900000"/>
  </preset>
  <preset number="3" name="Act I">
   <!---->
-  <Parameter address="/other/myParameter" Value="1000"/>
-  <Parameter address="/level/myLabel" Value="ernest"/>
-  <Parameter address="/other/myIndex" Value="2"/>
-  <Parameter address="/other/myLabel" Value="ernest"/>
-  <Parameter address="/other/any" Value="bla bla bla"/>
-  <Parameter address="/level/any" Value="bla bla bla"/>
-  <Parameter address="/level/myIndex" Value="2"/>
-  <Parameter address="/level/myParameter" Value="1000"/>
+  <Parameter address="/myParameter" Value="1000"/>
+  <Parameter address="/myLabel" Value="ernest"/>
+  <Parameter address="/myIndex" Value="2"/>
+  <Parameter address="/any" Value="bla bla bla"/>
  </preset>
 </jamoma>

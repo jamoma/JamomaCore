@@ -19,7 +19,8 @@ void	send_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 void	send_bang(TTPtr self);
 void	send_int(TTPtr self, long value);
 void	send_float(TTPtr self, double value);
-void	send_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void	send_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	send_set(TTPtr self, SymbolPtr address);
 
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -39,6 +40,7 @@ void WrapTTSenderClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)send_int,		"int",		A_LONG, 0L);
 	class_addmethod(c->maxClass, (method)send_float,	"float",	A_FLOAT, 0L);
 	class_addmethod(c->maxClass, (method)send_list,		"list",		A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)send_set,	"set",		A_SYM, 0L);
 	
 	class_addmethod(c->maxClass, (method)WrappedSenderClass_anything,	"symbol",	A_SYM, 0L);
 }
@@ -103,22 +105,21 @@ void send_float(TTPtr self, double value)
 	send_list(self, _sym_float, 1, &a);
 }
 
-void send_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+void send_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue		c;
-	TTSenderPtr	aTempSender;
-	
-	// Make a temporary sender
-	if (msg->s_name[0] == C_SEPARATOR)
-	{
-		if (jamoma_sender_create((ObjectPtr)x, msg, TTObjectHandle(&aTempSender))) 
-		{
-			jamoma_sender_send(aTempSender, _sym_list, argc, argv);
-			TTObjectRelease(TTObjectHandle(&aTempSender));
-		}
-	}
-	else
-		jamoma_sender_send((TTSenderPtr)x->wrappedObject, msg, argc, argv);
+
+	jamoma_sender_send((TTSenderPtr)x->wrappedObject, msg, argc, argv);
 }
 
+void send_set(TTPtr self, SymbolPtr address)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTSymbolPtr ad, at;
+	
+	if (address->s_name[0] == C_SEPARATOR)
+		if (!splitAttribute(TT(address->s_name), &ad, &at)) {
+			x->wrappedObject->setAttributeValue(kTTSym_address, ad);
+			x->wrappedObject->setAttributeValue(TT("attribute"), at);
+		}
+}
