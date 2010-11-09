@@ -182,7 +182,6 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 		
 		// Get our Context
 		ourContext = this->mContextNode->getContext();
-		aTempValue.get(0, (TTPtr*)&ourContext);
 		
 		// Make absolute address 
 		this->mContextNode->getOscAddress(&contextAddress);
