@@ -44,8 +44,7 @@ void jamoma_init(void)
 		if (maxversion() >= 0x0500)
 			max5 = true;
 		
-		
-		TTModularInit(JAMOMA, "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml");
+		TTModularInit(JAMOMA, JamomaConfigurationFilePath);
 		kTTSym_Jamoma = TT(JAMOMA);
 		JamomaApplication = (TTApplicationPtr)TTModularGetApplication(kTTSym_Jamoma);
 		
@@ -55,7 +54,7 @@ void jamoma_init(void)
 			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
 		
 		// DEBUG
-		jamoma_application_dump_conversion();
+		jamoma_application_dump_configuration();
 		
 		//TTDSPInit();
 		

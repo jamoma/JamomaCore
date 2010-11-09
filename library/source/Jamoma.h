@@ -43,6 +43,7 @@
 #include "RampLib.h"
 #include "ModularForMax.h"
 
+#define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
 #define JamomaDirectory TTApplicationGetDirectory(TTObjectPtr(JamomaApplication))
 
 #define JAMOMA "Jamoma"
