@@ -259,18 +259,8 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 		if (textfield)
 			textfield_set_textcolor(textfield, &x->textcolor);
 		
-		if (attrname == gensym("module_name"))
+		if (attrname == gensym("address"))
 			object_method(textfield, gensym("settext"), x->address->getCString());
-		
-		char str[5];
-		if (x->gainDragging) {
-			snprintf(str, sizeof(str), "%f", x->gain);
-			object_method(textfield, gensym("settext"), str);
-		}
-		if (x->mixDragging) {
-			snprintf(str, sizeof(str), "%f", x->mix);
-			object_method(textfield, gensym("settext"), str);
-		}
 		
 		jbox_redraw(&x->box);
 	}
@@ -774,23 +764,34 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 // mousedragdelta sends the amount the mouse moved in t_pt
 void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-	t_rect	rect;
-	double	factor = 1.0;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
+	ObjectPtr	textfield = jbox_get_textfield((t_object*) x);
+	t_rect		rect;
+	char		str[5];
+	double		factor = 1.0;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	
 	if (modifiers & eShiftKey)
 		factor = 0.02;
 	
+	if (textfield)
+		textfield_set_textcolor(textfield, &x->textcolor);
+	
 	if (x->mixDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 100.0f);
 		ui_viewer_send(x, TT("out.*/mix"), TTValue(x->anchorValue));
+		
+		snprintf(str, sizeof(str), "%f", x->mix);
+		object_method(textfield, gensym("settext"), str);
 	}
 	else if (x->gainDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 127.0f);
 		ui_viewer_send(x, TT("out.*/gain"), TTValue(x->anchorValue));
+		
+		snprintf(str, sizeof(str), "%f", x->gain);
+		object_method(textfield, gensym("settext"), str);
 	}
 }
 
@@ -798,6 +799,12 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 {
 	x->mixDragging = false;
 	x->gainDragging = false;
+	t_object *textfield = jbox_get_textfield((t_object*) x);
+	if (textfield)
+		if (x->address != kTTSymEmpty)
+			object_method(textfield, gensym("settext"), x->address->getCString());
+		else
+			object_method(textfield, gensym("settext"), "/editing_this_view");
 	
 	jbox_redraw(&x->box);
 }

@@ -127,7 +127,7 @@ void ui_data_destroy_all(t_ui *obj)
 								   
 void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbolPtr service, TTSymbolPtr name)
 {
-	TTValue			args;
+	TTValue			args, v;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	TTSubscriberPtr	aSubscriber;
@@ -155,6 +155,11 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	args = TTValue(TTPtr(*returnedData));
 	args.append(TTPtr(aSubscriber));
 	obj->hash_datas->append(name, args);
+	
+	// DEBUG
+	aSubscriber->getAttributeValue(TT("nodeAddress"), v);
+	v.get(0, &dataAddress);
+	object_post((ObjectPtr)obj, "Make internal /view/%s object at : %s", name->getCString(), dataAddress->getCString());
 }								   
 
 void ui_data_destroy(t_ui *obj, TTSymbolPtr name)
