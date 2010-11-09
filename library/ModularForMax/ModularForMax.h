@@ -22,7 +22,9 @@ extern "C" {
 	// Method to deal with the jamoma application
 	/////////////////////////////////////////
 	
-	TTErr jamoma_application_dump_conversion(void);
+	TTErr jamoma_application_dump_configuration(void);
+	
+	TTErr jamoma_application_write_configuration(void);
 
 	// Method to deal with the jamoma directory
 	/////////////////////////////////////////

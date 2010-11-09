@@ -18,7 +18,7 @@
 // Method to deal with the jamoma application
 /////////////////////////////////////////
 
-TTErr jamoma_application_dump_conversion(void)
+TTErr jamoma_application_dump_configuration(void)
 {
 	TTUInt16 i;
 	TTValue v, appNames;
@@ -43,6 +43,21 @@ TTErr jamoma_application_dump_conversion(void)
 	post("----------------------------------------------");
 	
 	return kTTErrNone;
+}
+
+TTErr jamoma_application_write_configuration(void)
+{
+	// Read xml configuration file
+	TTValue			v;
+	TTXmlHandlerPtr anXmlHandler = NULL;
+	
+	TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&anXmlHandler), v);
+	
+	v = TTValue(TTPtr(JamomaApplication));
+	anXmlHandler->setAttributeValue(kTTSym_object, v);
+	
+	v = TTValue(TT(JamomaConfigurationFilePath));
+	return anXmlHandler->sendMessage(TT("Write"), v);
 }
 
 // Method to deal with the jamoma directory
@@ -328,9 +343,6 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 		
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
-		
-		// Replace none TTnames
-		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, data);
 		
 		aContainer->sendMessage(kTTSym_Send, data); // data is [address, attribute, [x, x, ,x , ...]]
 		return kTTErrNone;
