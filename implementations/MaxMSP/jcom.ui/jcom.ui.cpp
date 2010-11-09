@@ -881,7 +881,7 @@ void ui_menu_qfn(t_ui *x)
 	else if (item->sym == gensym("Store Current Preset"))
 		object_method_sym(x->obj_remote, gensym("/preset/store"), item->sym, NULL);
 	else if (item->sym == gensym("Store as Next Preset"))
-		object_method_sym(x->obj_remote, gensym("/preset/storenext"), item->sym, NULL);
+		object_method_typed(x->obj_remote, gensym("/preset/storenext"), 0, NULL, NULL); // don't send menu item
 	else if (item->sym == gensym("Open Preset Interface"))
 		object_method_sym(x->obj_remote, gensym("/preset/interface"), item->sym, NULL);
 	else if (item->sym == gensym("Get Current State as Text"))
@@ -1024,7 +1024,7 @@ void ui_refmenu_qfn(t_ui *x)
 		TODO: When a menu item is selected here, what we should do is open a dialog with
 		the message in it.  When the use clicks 'ok' in the dialog then the message
 		should be sent to the module.
-	*/
+	*/ 
 }
 
 

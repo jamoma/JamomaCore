@@ -27,7 +27,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 900.0, 640.0, 86.0, 17.0 ],
+					"patching_rect" : [ 899.0, 640.0, 86.0, 17.0 ],
 					"text" : "jcom.initialized"
 				}
 
@@ -41,7 +41,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 900.0, 620.0, 53.0, 17.0 ],
+					"patching_rect" : [ 899.0, 620.0, 53.0, 17.0 ],
 					"text" : "jcom.init"
 				}
 
@@ -378,12 +378,12 @@
 ,
 					"patching_rect" : [ 555.0, 625.0, 112.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
 						"default_fontface" : 0
 					}
 ,
@@ -439,7 +439,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 900.0, 600.0, 53.0, 17.0 ],
+					"patching_rect" : [ 899.0, 600.0, 53.0, 17.0 ],
 					"text" : "jcom.ui"
 				}
 
@@ -453,7 +453,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 900.0, 580.0, 69.0, 17.0 ],
+					"patching_rect" : [ 899.0, 580.0, 69.0, 17.0 ],
 					"text" : "jcom.return"
 				}
 
@@ -467,7 +467,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 900.0, 560.0, 82.0, 17.0 ],
+					"patching_rect" : [ 899.0, 560.0, 82.0, 17.0 ],
 					"text" : "jcom.message"
 				}
 
@@ -649,7 +649,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 900.0, 540.0, 90.0, 17.0 ],
+					"patching_rect" : [ 899.0, 540.0, 90.0, 17.0 ],
 					"text" : "jcom.parameter"
 				}
 
@@ -664,7 +664,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 995.0, 575.0, 76.0, 19.0 ],
+					"patching_rect" : [ 994.0, 575.0, 76.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
@@ -679,7 +679,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 995.0, 600.0, 51.0, 19.0 ],
+					"patching_rect" : [ 994.0, 600.0, 51.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -963,7 +963,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 545.0, 220.0, 300.0, 70.0 ],
-					"text" : "/editing_this_module.1",
+					"text" : "/editing_this_module",
 					"textcolor" : [ 0.65, 0.65, 0.65, 1.0 ]
 				}
 

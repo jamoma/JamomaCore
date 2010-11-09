@@ -360,7 +360,7 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 			names.get(i, &aName);
 			nameString = aName->getString();
 			
-			if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 				continue;										// don't publish these parameters
 			
 			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case

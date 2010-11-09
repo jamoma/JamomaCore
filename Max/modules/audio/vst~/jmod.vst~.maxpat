@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 6.0, 44.0, 1102.0, 820.0 ],
+		"rect" : [ 0.0, 44.0, 1280.0, 726.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 6.0, 44.0, 1102.0, 820.0 ],
+		"defrect" : [ 0.0, 44.0, 1280.0, 726.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,62 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-28",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 430.0, 40.0, 86.0, 19.0 ],
+					"text" : "jcom.savebang"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-14",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "view/panel" ],
+					"patching_rect" : [ 384.0, 210.0, 73.0, 19.0 ],
+					"text" : "t view/panel"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"border" : 1,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-27",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"patching_rect" : [ 360.0, 150.0, 67.0, 55.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 190.0, 177.0, 98.0, 28.0 ],
+					"rounded" : 8.0,
+					"text" : "more parameter",
+					"truncate" : 0,
+					"varname" : "panelButton"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 575.0, 685.0, 495.0, 19.0 ],
-					"text" : "jcom.message raw/midievent @type list @description \"Send raw midi messages to the plug-in.\""
+					"patching_rect" : [ 575.0, 685.0, 506.0, 19.0 ],
+					"text" : "jcom.message raw/midievent @type array @description \"Send raw midi messages to the plug-in.\""
 				}
 
 			}
@@ -160,7 +209,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-8",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -183,7 +231,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 575.0, 470.0, 90.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 190.0, 150.0, 98.0, 21.000002 ],
+					"presentation_rect" : [ 190.0, 145.0, 98.0, 21.000002 ],
 					"prototypename" : "jamoma settings",
 					"rounded" : 8.0,
 					"text" : "Write Program",
@@ -205,7 +253,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 575.0, 405.0, 90.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 190.0, 125.0, 98.0, 21.000002 ],
+					"presentation_rect" : [ 190.0, 120.0, 98.0, 21.000002 ],
 					"prototypename" : "jamoma settings",
 					"rounded" : 8.0,
 					"text" : "Write Bank",
@@ -227,7 +275,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 575.0, 340.0, 90.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 190.0, 100.0, 98.0, 21.000002 ],
+					"presentation_rect" : [ 190.0, 95.0, 98.0, 21.000002 ],
 					"prototypename" : "jamoma settings",
 					"rounded" : 8.0,
 					"text" : "Read Bank",
@@ -249,7 +297,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 575.0, 265.0, 90.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 190.0, 75.0, 98.0, 21.000002 ],
+					"presentation_rect" : [ 190.0, 70.0, 98.0, 21.000002 ],
 					"prototypename" : "jamoma settings",
 					"rounded" : 8.0,
 					"text" : "View Interface",
@@ -419,7 +467,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -736,13 +783,13 @@
 ,
 					"patching_rect" : [ 575.0, 235.0, 81.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p regex-magic"
@@ -941,13 +988,13 @@
 ,
 					"patching_rect" : [ 575.0, 100.0, 65.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p fill_menu"
@@ -974,7 +1021,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-23",
-					"items" : [ "+binaural.vst", ",", "+morphfilter.vst", ",", "+spectralcompand.vst", ",", "+spectralgate.vst", ",", "20 Bands Eq.vst", ",", "5 Band Eq.vst", ",", "Audio Ease/Altiverb 6.vst", ",", "Bassdrum.vst", ",", "Buff rice.vst", ",", "Compressor.vst", ",", "Convolution reverb mono.vst", ",", "Convolution reverb stereo.vst", ",", "DC Blocker.vst", ",", "endless series/endless flanger.vst", ",", "endless series/endless phaser.vst", ",", "endless series/endless shifter.vst", ",", "endless series/endless tone.vst", ",", "Flying monkey synth.vst", ",", "Funky repeater.vst", ",", "Gate.vst", ",", "Graphic Equalizer.vst", ",", "Hipno/Amogwai.vst", ",", "Hipno/Brita.vst", ",", "Hipno/Bus.Envelope.vst", ",", "Hipno/Bus.Receive.vst", ",", "Hipno/Bus.Send.vst", ",", "Hipno/Bus.Xover.vst", ",", "Hipno/ChannelStrip.vst", ",", "Hipno/Chazoohm.vst", ",", "Hipno/CrackVerb.vst", ",", "Hipno/Deluge.vst", ",", "Hipno/DrunkenSailor.vst", ",", "Hipno/GoMoDo.vst", ",", "Hipno/GrainBandit.vst", ",", "Hipno/GrainStream.vst", ",", "Hipno/Greequaincer.vst", ",", "Hipno/Invertonudge.vst", ",", "Hipno/LiquiDigital.vst", ",", "Hipno/LoopDeeLa.vst", ",", "Hipno/MasterNeedle.vst", ",", "Hipno/Modulator.Gen.vst", ",", "Hipno/Modulator.Human.vst", ",", "Hipno/Modulator.Remap.vst", ",", "Hipno/Modulator.VColorTrack.vst", ",", "Hipno/Modulator.VMotion.vst", ",", "Hipno/Modulator.VScene.vst", ",", "Hipno/Morphulescence.vst", ",", "Hipno/Multilution.vst", ",", "Hipno/RTAQ.vst", ",", "Hipno/Sbinulator.vst", ",", "Hipno/Sffizzlerr.vst", ",", "Hipno/SfylterBank.vst", ",", "Hipno/SfylterSynth.vst", ",", "Hipno/Shypht.vst", ",", "Hipno/Spuntorrt.vst", ",", "Hipno/Squeegee.vst", ",", "Hipno/SquiglyQ.vst", ",", "Hipno/Substrate.vst", ",", "Hipno/Technifly.vst", ",", "Hipno/Technishypht.vst", ",", "Hipno/VAirTime.vst", ",", "Hipno/VDelay.vst", ",", "Hipno/VSynth.vst", ",", "Hipno/VTheremin.vst", ",", "Hum remover.vst", ",", "JACK-insert.vst", ",", "Limiter.vst", ",", "Mackie Plug-ins/DSR.vst", ",", "Mackie Plug-ins/FinalMix.vst", ",", "Mackie Plug-ins/Mono Comp.vst", ",", "Mackie Plug-ins/Mono Sidechain Comp.vst", ",", "Mackie Plug-ins/Stereo Comp.vst", ",", "Mackie Plug-ins/Stereo Sidechain Comp.vst", ",", "Mackie Plug-ins/Three Band Comp.vst", ",", "mda_vst_ub/mda Ambience.vst", ",", "mda_vst_ub/mda Bandisto.vst", ",", "mda_vst_ub/mda BeatBox.vst", ",", "mda_vst_ub/mda Combo.vst", ",", "mda_vst_ub/mda De-ess.vst", ",", "mda_vst_ub/mda Degrade.vst", ",", "mda_vst_ub/mda Delay.vst", ",", "mda_vst_ub/mda Detune.vst", ",", "mda_vst_ub/mda Dither.vst", ",", "mda_vst_ub/mda DubDelay.vst", ",", "mda_vst_ub/mda DX10.vst", ",", "mda_vst_ub/mda Dynamics.vst", ",", "mda_vst_ub/mda ePiano.vst", ",", "mda_vst_ub/mda Image.vst", ",", "mda_vst_ub/mda JX10.vst", ",", "mda_vst_ub/mda Leslie.vst", ",", "mda_vst_ub/mda Limiter.vst", ",", "mda_vst_ub/mda Looplex.vst", ",", "mda_vst_ub/mda Loudness.vst", ",", "mda_vst_ub/mda MultiBand.vst", ",", "mda_vst_ub/mda Overdrive.vst", ",", "mda_vst_ub/mda Piano.vst", ",", "mda_vst_ub/mda RePsycho!.vst", ",", "mda_vst_ub/mda RezFilter.vst", ",", "mda_vst_ub/mda RingMod.vst", ",", "mda_vst_ub/mda RoundPan.vst", ",", "mda_vst_ub/mda Shepard.vst", ",", "mda_vst_ub/mda Splitter.vst", ",", "mda_vst_ub/mda Stereo.vst", ",", "mda_vst_ub/mda SubBass.vst", ",", "mda_vst_ub/mda Talkbox.vst", ",", "mda_vst_ub/mda TestTone.vst", ",", "mda_vst_ub/mda ThruZero.vst", ",", "mda_vst_ub/mda Tracker.vst", ",", "mda_vst_ub/mda VocInput.vst", ",", "mda_vst_ub/mda Vocoder.vst", ",", "MIDI Filter.vst", ",", "Multiband freeverb.vst", ",", "Multiband scraper.vst", ",", "noatikl_VSTi_mac.vst", ",", "Pianoteq21.vst", ",", "Pianoteq22.vst", ",", "Pianoteq23.vst", ",", "Pianoteq30.vst", ",", "Pianoteq35.vst", ",", "PlogueBiduleVSTOSX/PlogueBiduleVST.vst", ",", "PlogueBiduleVSTOSX/PlogueBiduleVSTi.vst", ",", "Pluggo/additive heaven.vst", ",", "Pluggo/analogue drums.vst", ",", "Pluggo/analogue percussion.vst", ",", "Pluggo/Audio Rate Pan.vst", ",", "Pluggo/Audio2Control.vst", ",", "Pluggo/Average Injector.vst", ",", "Pluggo/bassline.vst", ",", "Pluggo/beatN.vst", ",", "Pluggo/big ben bell.vst", ",", "Pluggo/Breakpoints.vst", ",", "Pluggo/Center Channel.vst", ",", "Pluggo/Chamberverb.vst", ",", "Pluggo/Chorus x2.vst", ",", "Pluggo/Comber.vst", ",", "Pluggo/Control2Audio.vst", ",", "Pluggo/Convolver.vst", ",", "Pluggo/Cyclotron.vst", ",", "Pluggo/D-Meter.vst", ",", "Pluggo/deep bass.vst", ",", "Pluggo/Degrader.vst", ",", "Pluggo/Dynamical.vst", ",", "Pluggo/easy sampler.vst", ",", "Pluggo/Env Follower.vst", ",", "Pluggo/Feedback Network.vst", ",", "Pluggo/filtered drums.vst", ",", "Pluggo/FilterTaps.vst", ",", "Pluggo/Flange-o-tron.vst", ",", "Pluggo/flying waves.vst", ",", "Pluggo/fm 4-op.vst", ",", "Pluggo/Fragulator.vst", ",", "Pluggo/Frequency Shift.vst", ",", "Pluggo/Generic Effect.vst", ",", "Pluggo/Granular-to-Go.vst", ",", "Pluggo/harmonic dreamz.vst", ",", "Pluggo/Harmonic Filter.vst", ",", "Pluggo/HF Ring Mod.vst", ",", "Pluggo/Jet.vst", ",", "Pluggo/Key Triggers.vst", ",", "Pluggo/KnaveStories.vst", ",", "Pluggo/Laverne.vst", ",", "Pluggo/LFO.vst", ",", "Pluggo/Light Organ.vst", ",", "Pluggo/Limi.vst", ",", "Pluggo/lofi drums.vst", ",", "Pluggo/LongStereoDelay.vst", ",", "Pluggo/M2M.vst", ",", "Pluggo/Mangle Filter.vst", ",", "Pluggo/Monstercrunch.vst", ",", "Pluggo/Mouse Mod.vst", ",", "Pluggo/Moving Filters.vst", ",", "Pluggo/moving waves.vst", ",", "Pluggo/Multi-Filter.vst", ",", "Pluggo/Multi-Filter[S].vst", ",", "Pluggo/Nebula.vst", ",", "Pluggo/Noyzckippr.vst", ",", "Pluggo/OneByEight.vst", ",", "Pluggo/Pendulum.vst", ",", "Pluggo/pgs-1.vst", ",", "Pluggo/Phase Scope.vst", ",", "Pluggo/Phase Shifter.vst", ",", "Pluggo/Phone Filter.vst", ",", "Pluggo/PluggoBus Rcv.vst", ",", "Pluggo/PluggoBus Send.vst", ",", "Pluggo/PluggoFuzz.vst", ",", "Pluggo/PluggoSync.vst", ",", "Pluggo/PlugLogic.vst", ",", "Pluggo/PlugLoop.vst", ",", "Pluggo/qsynth.vst", ",", "Pluggo/quick drums.vst", ",", "Pluggo/Raindrops.vst", ",", "Pluggo/Randomizer.vst", ",", "Pluggo/Resonation.vst", ",", "Pluggo/Resosweep.vst", ",", "Pluggo/Ring Modulator.vst", ",", "Pluggo/Rough Reverb.vst", ",", "Pluggo/Rye.vst", ",", "Pluggo/shape synth.vst", ",", "Pluggo/ShepardTones.vst", ",", "Pluggo/Shuffler.vst", ",", "Pluggo/Sine Bank.vst", ",", "Pluggo/Sizzle Delays.vst", ",", "Pluggo/Slice-n-Dice.vst", ",", "Pluggo/Space Echo.vst", ",", "Pluggo/Spectral Filter.vst", ",", "Pluggo/Speed Shifter.vst", ",", "Pluggo/SquirrelParade.vst", ",", "Pluggo/Step Sequencer.vst", ",", "Pluggo/Stereo Adjuster.vst", ",", "Pluggo/Stereo Faker.vst", ",", "Pluggo/Stutterer.vst", ",", "Pluggo/Swirl.vst", ",", "Pluggo/Swish.vst", ",", "Pluggo/TapNet.vst", ",", "Pluggo/Tapped Delay.vst", ",", "Pluggo/Tremellow.vst", ",", "Pluggo/Very Long Delay.vst", ",", "Pluggo/Vibrato Cauldron.vst", ",", "Pluggo/vocalese.vst", ",", "Pluggo/Vocoder 10-band.vst", ",", "Pluggo/Vocoder 16-band.vst", ",", "Pluggo/Warble.vst", ",", "Pluggo/Warpoon.vst", ",", "Pluggo/WasteBand.vst", ",", "Pluggo/Waveshaper.vst", ",", "Pluggo/wavy waves.vst", ",", "Pluggo/Wheat.vst", ",", "Pluggo/white grains.vst", ",", "Pluggo/Xformer.vst", ",", "Pluggo/xmod synth.vst", ",", "Rainy synth.vst", ",", "Simple reverb.vst", ",", "Spectral Shapers/+binaural.vst", ",", "Spectral Shapers/+chebyshev.vst", ",", "Spectral Shapers/+compand.vst", ",", "Spectral Shapers/+decimate.vst", ",", "Spectral Shapers/+matrix.vst", ",", "Spectral Shapers/+morphfilter.vst", ",", "Spectral Shapers/+phasescope.vst", ",", "Spectral Shapers/+spectralcompand.vst", ",", "Spectral Shapers/+spectralgate.vst", ",", "SPS200SurroundZoneVSTi.vst", ",", "Swamp buffer.vst", ",", "Synful Orchestra VST.vst", ",", "UVIWorkstationVST.vst", ",", "Valve warmer.vst", ",", "Width Enhancer.vst" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1029,9 +1076,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 102.0, 44.0, 186.0, 432.0 ],
+						"rect" : [ 103.0, 44.0, 186.0, 432.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 102.0, 44.0, 186.0, 432.0 ],
+						"defrect" : [ 103.0, 44.0, 186.0, 432.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
@@ -1040,11 +1087,11 @@
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
-						"toolbarvisible" : 1,
+						"toolbarvisible" : 0,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
-						"enablehscroll" : 1,
-						"enablevscroll" : 1,
+						"enablehscroll" : 0,
+						"enablevscroll" : 0,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
@@ -1057,9 +1104,9 @@
 									"outlettype" : [ "", "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
-										"rect" : [ 443.0, 87.0, 879.0, 740.0 ],
+										"rect" : [ 401.0, 87.0, 879.0, 740.0 ],
 										"bglocked" : 0,
-										"defrect" : [ 443.0, 87.0, 879.0, 740.0 ],
+										"defrect" : [ 401.0, 87.0, 879.0, 740.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -1078,12 +1125,281 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
+													"id" : "obj-36",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patcher" : 													{
+														"fileversion" : 1,
+														"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+														"bglocked" : 0,
+														"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
+														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+														"openinpresentation" : 0,
+														"default_fontsize" : 12.0,
+														"default_fontface" : 0,
+														"default_fontname" : "Arial",
+														"gridonopen" : 0,
+														"gridsize" : [ 15.0, 15.0 ],
+														"gridsnaponopen" : 0,
+														"toolbarvisible" : 1,
+														"boxanimatetime" : 200,
+														"imprint" : 0,
+														"enablehscroll" : 1,
+														"enablevscroll" : 1,
+														"devicewidth" : 0.0,
+														"boxes" : [ 															{
+																"box" : 																{
+																	"fontname" : "Verdana",
+																	"fontsize" : 10.0,
+																	"id" : "obj-23",
+																	"maxclass" : "message",
+																	"numinlets" : 2,
+																	"numoutlets" : 1,
+																	"outlettype" : [ "" ],
+																	"patching_rect" : [ 65.0, 171.0, 132.0, 17.0 ],
+																	"text" : "script show panelButton"
+																}
+
+															}
+, 															{
+																"box" : 																{
+																	"fontname" : "Verdana",
+																	"fontsize" : 10.0,
+																	"id" : "obj-4",
+																	"maxclass" : "message",
+																	"numinlets" : 2,
+																	"numoutlets" : 1,
+																	"outlettype" : [ "" ],
+																	"patching_rect" : [ 50.0, 196.0, 127.0, 17.0 ],
+																	"text" : "script hide panelButton"
+																}
+
+															}
+, 															{
+																"box" : 																{
+																	"fontname" : "Verdana",
+																	"fontsize" : 10.0,
+																	"id" : "obj-9",
+																	"maxclass" : "newobj",
+																	"numinlets" : 1,
+																	"numoutlets" : 3,
+																	"outlettype" : [ "bang", "bang", "" ],
+																	"patching_rect" : [ 51.0, 141.0, 46.0, 19.0 ],
+																	"text" : "sel 0 1"
+																}
+
+															}
+, 															{
+																"box" : 																{
+																	"fontname" : "Verdana",
+																	"fontsize" : 10.0,
+																	"id" : "obj-17",
+																	"maxclass" : "newobj",
+																	"numinlets" : 1,
+																	"numoutlets" : 3,
+																	"outlettype" : [ "", "int", "int" ],
+																	"patching_rect" : [ 84.0, 100.0, 56.0, 19.0 ],
+																	"text" : "change 0"
+																}
+
+															}
+, 															{
+																"box" : 																{
+																	"fontname" : "Verdana",
+																	"fontsize" : 10.0,
+																	"id" : "obj-16",
+																	"maxclass" : "message",
+																	"numinlets" : 2,
+																	"numoutlets" : 1,
+																	"outlettype" : [ "" ],
+																	"patching_rect" : [ 86.0, 122.0, 149.0, 17.0 ],
+																	"text" : "script send ui has_panel $1"
+																}
+
+															}
+, 															{
+																"box" : 																{
+																	"comment" : "",
+																	"id" : "obj-34",
+																	"maxclass" : "inlet",
+																	"numinlets" : 0,
+																	"numoutlets" : 1,
+																	"outlettype" : [ "" ],
+																	"patching_rect" : [ 84.0, 40.0, 25.0, 25.0 ]
+																}
+
+															}
+, 															{
+																"box" : 																{
+																	"comment" : "",
+																	"id" : "obj-35",
+																	"maxclass" : "outlet",
+																	"numinlets" : 1,
+																	"numoutlets" : 0,
+																	"patching_rect" : [ 62.0, 273.0, 25.0, 25.0 ]
+																}
+
+															}
+ ],
+														"lines" : [ 															{
+																"patchline" : 																{
+																	"destination" : [ "obj-35", 0 ],
+																	"hidden" : 0,
+																	"midpoints" : [  ],
+																	"source" : [ "obj-16", 0 ]
+																}
+
+															}
+, 															{
+																"patchline" : 																{
+																	"destination" : [ "obj-16", 0 ],
+																	"hidden" : 0,
+																	"midpoints" : [  ],
+																	"source" : [ "obj-17", 0 ]
+																}
+
+															}
+, 															{
+																"patchline" : 																{
+																	"destination" : [ "obj-9", 0 ],
+																	"hidden" : 0,
+																	"midpoints" : [  ],
+																	"source" : [ "obj-17", 0 ]
+																}
+
+															}
+, 															{
+																"patchline" : 																{
+																	"destination" : [ "obj-35", 0 ],
+																	"hidden" : 0,
+																	"midpoints" : [  ],
+																	"source" : [ "obj-23", 0 ]
+																}
+
+															}
+, 															{
+																"patchline" : 																{
+																	"destination" : [ "obj-17", 0 ],
+																	"hidden" : 0,
+																	"midpoints" : [  ],
+																	"source" : [ "obj-34", 0 ]
+																}
+
+															}
+, 															{
+																"patchline" : 																{
+																	"destination" : [ "obj-35", 0 ],
+																	"hidden" : 0,
+																	"midpoints" : [  ],
+																	"source" : [ "obj-4", 0 ]
+																}
+
+															}
+, 															{
+																"patchline" : 																{
+																	"destination" : [ "obj-23", 0 ],
+																	"hidden" : 0,
+																	"midpoints" : [  ],
+																	"source" : [ "obj-9", 1 ]
+																}
+
+															}
+, 															{
+																"patchline" : 																{
+																	"destination" : [ "obj-4", 0 ],
+																	"hidden" : 0,
+																	"midpoints" : [  ],
+																	"source" : [ "obj-9", 0 ]
+																}
+
+															}
+ ]
+													}
+,
+													"patching_rect" : [ 53.0, 413.0, 96.0, 19.0 ],
+													"saved_object_attributes" : 													{
+														"default_fontface" : 0,
+														"default_fontname" : "Arial",
+														"fontname" : "Arial",
+														"default_fontsize" : 12.0,
+														"globalpatchername" : "",
+														"fontface" : 0,
+														"fontsize" : 12.0
+													}
+,
+													"text" : "p setPanelButton"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-31",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 632.0, 354.0, 35.0, 17.0 ],
+													"text" : "set 0"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-32",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 2,
+													"outlettype" : [ "bang", "bang" ],
+													"patching_rect" : [ 653.0, 327.0, 34.0, 19.0 ],
+													"text" : "t b b"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-33",
+													"linecount" : 2,
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 669.0, 354.0, 155.0, 29.0 ],
+													"text" : "script send ui has_panel 0, script hide panelButton"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-13",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "int" ],
+													"patching_rect" : [ 53.0, 326.0, 32.5, 19.0 ],
+													"text" : "> 5"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
 													"id" : "obj-1",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "bang" ],
-													"patching_rect" : [ 50.0, 375.0, 22.0, 19.0 ],
+													"patching_rect" : [ 656.0, 425.0, 22.0, 19.0 ],
 													"text" : "t b"
 												}
 
@@ -1097,7 +1413,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 401.0, 59.0, 19.0 ],
+													"patching_rect" : [ 656.0, 451.0, 59.0, 19.0 ],
 													"text" : "qlim 2000"
 												}
 
@@ -1112,7 +1428,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 425.0, 111.0, 29.0 ],
+													"patching_rect" : [ 656.0, 475.0, 111.0, 29.0 ],
 													"text" : "window flags zoom, window exec"
 												}
 
@@ -1413,13 +1729,13 @@
 ,
 													"patching_rect" : [ 575.0, 140.0, 72.0, 19.0 ],
 													"saved_object_attributes" : 													{
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana"
+														"fontsize" : 10.0
 													}
 ,
 													"text" : "p set_values"
@@ -1715,13 +2031,13 @@
 ,
 													"patching_rect" : [ 495.0, 140.0, 70.0, 19.0 ],
 													"saved_object_attributes" : 													{
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana"
+														"fontsize" : 10.0
 													}
 ,
 													"text" : "p delete_old"
@@ -1781,9 +2097,9 @@
 													"outlettype" : [ "" ],
 													"patcher" : 													{
 														"fileversion" : 1,
-														"rect" : [ 0.0, 87.0, 1535.0, 587.0 ],
+														"rect" : [ -122.0, 111.0, 1535.0, 587.0 ],
 														"bglocked" : 0,
-														"defrect" : [ 0.0, 87.0, 1535.0, 587.0 ],
+														"defrect" : [ -122.0, 111.0, 1535.0, 587.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
 														"default_fontsize" : 10.0,
@@ -1858,7 +2174,6 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-24",
 																	"linecount" : 3,
 																	"maxclass" : "comment",
@@ -1873,7 +2188,6 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-23",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -2332,13 +2646,13 @@
 ,
 																	"patching_rect" : [ 212.0, 111.0, 76.0, 19.0 ],
 																	"saved_object_attributes" : 																	{
+																		"default_fontface" : 0,
+																		"default_fontname" : "Verdana",
 																		"fontname" : "Verdana",
 																		"default_fontsize" : 10.0,
 																		"globalpatchername" : "",
 																		"fontface" : 0,
-																		"fontsize" : 10.0,
-																		"default_fontface" : 0,
-																		"default_fontname" : "Verdana"
+																		"fontsize" : 10.0
 																	}
 ,
 																	"text" : "p xy-position"
@@ -2501,7 +2815,6 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-15",
 																	"linecount" : 2,
 																	"maxclass" : "comment",
@@ -2761,13 +3074,13 @@
 ,
 													"patching_rect" : [ 290.0, 295.0, 137.0, 19.0 ],
 													"saved_object_attributes" : 													{
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana"
+														"fontsize" : 10.0
 													}
 ,
 													"text" : "p create_new_parameter"
@@ -2949,6 +3262,15 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-36", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-13", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-11", 1 ],
 													"hidden" : 0,
 													"midpoints" : [ 530.0, 324.0, 287.5, 324.0 ],
@@ -2960,7 +3282,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-27", 2 ],
 													"hidden" : 0,
-													"midpoints" : [  ],
+													"midpoints" : [ 504.5, 164.0, 324.0, 164.0 ],
 													"source" : [ "obj-14", 0 ]
 												}
 
@@ -2989,6 +3311,15 @@
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-15", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-32", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-15", 1 ]
 												}
 
 											}
@@ -3084,6 +3415,15 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-13", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 299.5, 189.0, 62.5, 189.0 ],
+													"source" : [ "obj-27", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-8", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -3106,6 +3446,51 @@
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-3", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-36", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 641.5, 391.5, 62.5, 391.5 ],
+													"source" : [ "obj-31", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-31", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-32", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-33", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-32", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-30", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 678.5, 401.0, 287.5, 401.0 ],
+													"source" : [ "obj-33", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-30", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-36", 0 ]
 												}
 
 											}
@@ -3150,13 +3535,13 @@
 ,
 									"patching_rect" : [ 25.0, 85.0, 79.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p scripting"
@@ -3167,7 +3552,6 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-4",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3292,13 +3676,13 @@
 ,
 					"patching_rect" : [ 360.0, 505.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p inspector",
@@ -3311,7 +3695,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-31",
-					"items" : "Default",
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -3329,7 +3713,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-32",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3416,7 +3799,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-42",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3521,7 +3903,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-50",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3557,7 +3938,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-53",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3571,7 +3951,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-54",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -3602,7 +3981,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-56",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3644,7 +4022,8 @@
 					"prefix" : "audio",
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 210.0 ],
-					"text" : "/editing_this_module"
+					"text" : "/editing_this_module",
+					"varname" : "ui"
 				}
 
 			}
@@ -3718,6 +4097,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-41", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 393.5, 258.0, 39.5, 258.0 ],
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}
@@ -3826,6 +4214,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-26", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 0 ]
 				}
 
 			}
