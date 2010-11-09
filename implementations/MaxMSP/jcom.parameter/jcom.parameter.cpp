@@ -371,10 +371,10 @@ void data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 		strcpy(dst, "input");
 	else {							// Outlets
 		switch(arg) {
-			case data_out:
+			case set_out:
 				strcpy(dst, "set: connect to ui object");
 				break;
-			case set_out:
+			case data_out:
 				strcpy(dst, "direct: values");
 				break;
 			case dump_out:
