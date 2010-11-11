@@ -8,7 +8,7 @@
     <item name='audio/bypass' type='boolean' priority='0'>0</item>
     <item name='audio/gain' type='decimal' priority='0'>64</item>
     <item name='audio/mute' type='boolean' priority='0'>0</item>
-    <item name='harmonic_step' type='decimal' priority='0'>60.000000</item>
+    <item name='harmonicsteps' type='decimal' priority='0'>60.000000</item>
     <item name='offset' type='decimal' priority='0'>60.000000</item>
     <item name='scaling' type='decimal' priority='0'>1.000000</item>
     <item name='smooth/frequency' type='decimal' priority='0'>10.000000</item>

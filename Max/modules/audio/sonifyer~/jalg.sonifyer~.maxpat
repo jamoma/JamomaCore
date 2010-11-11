@@ -213,13 +213,13 @@
 ,
 					"patching_rect" : [ 487.0, 78.0, 100.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p find-matrix-size"
@@ -320,9 +320,9 @@
 					"outlettype" : [ "signal" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 415.0, 126.0, 459.0, 306.0 ],
+						"rect" : [ 717.0, 231.0, 459.0, 306.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 415.0, 126.0, 459.0, 306.0 ],
+						"defrect" : [ 717.0, 231.0, 459.0, 306.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -359,7 +359,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 103.0, 51.0, 250.0, 20.0 ],
-									"text" : "jcom.oscroute /scaling /harmonic_step /offset"
+									"text" : "jcom.oscroute /scaling /harmonicsteps /offset"
 								}
 
 							}
@@ -667,13 +667,13 @@
 ,
 					"patching_rect" : [ 333.0, 200.0, 86.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
+						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p audio-magic"

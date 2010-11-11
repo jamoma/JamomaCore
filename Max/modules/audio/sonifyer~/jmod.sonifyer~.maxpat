@@ -220,7 +220,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 439.0, 123.0, 582.0, 31.0 ],
-					"text" : "jcom.parameter harmonic_step @type decimal @range/bounds 0. 100. @range/clipmode low @ramp/drive none @description \"Harmonic steps in the range.\"",
+					"text" : "jcom.parameter harmonicsteps @type decimal @range/bounds 0. 100. @range/clipmode low @ramp/drive none @description \"Harmonic steps in the range.\"",
 					"varname" : "dimensions/width[1]"
 				}
 
