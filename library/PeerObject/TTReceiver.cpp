@@ -74,6 +74,8 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 
 TTErr TTReceiver::setAttribute(const TTValue& newValue)
 {	
+	unbind();
+	
 	mAttribute = newValue;
 	
 	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
@@ -84,7 +86,7 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 	if (mAttribute == NO_ATTRIBUTE)
 		mAttribute = kTTSym_value;
 	
-	return kTTErrNone;
+	return bind();
 }
 
 TTErr TTReceiver::setEnable(const TTValue& newValue)
@@ -149,6 +151,8 @@ TTErr TTReceiver::Get()
 			}
 		}
 	}
+	else
+		return kTTErrGeneric;
 	
 	return kTTErrNone;
 }

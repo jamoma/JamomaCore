@@ -201,6 +201,9 @@ extern "C" {
 	/** edit a new instance of the given format address using string */
 	void			jamoma_edit_string_instance(char* format, t_symbol **returnedName,  char* s);
 	
+	/** Parse #N inside address and replace them by parent patcher arguments if there are */
+	SymbolPtr		jamoma_parse_dieze(ObjectPtr x, SymbolPtr address);
+	
 #ifdef __cplusplus
 }
 #endif

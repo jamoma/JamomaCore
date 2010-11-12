@@ -57,7 +57,7 @@ void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	jamoma_sender_create((ObjectPtr)x, address, &x->wrappedObject);
+	jamoma_sender_create((ObjectPtr)x, jamoma_parse_dieze((ObjectPtr)x, address), &x->wrappedObject);
 	
 	// No outlets
 	

@@ -209,6 +209,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	SymbolPtr		context;
 	SymbolPtr		patcherName;
 	SymbolPtr		contextName = _sym_nothing;
+	TTSymbolPtr		patcherClass;
 	TTString		contextEditionName, contextTypeStr;
 	TTUInt8			contextTypeLen;
 	TTValuePtr		v;
@@ -221,15 +222,25 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	context = jamoma_patcher_getcontext(patcher);
 	patcherName = object_attr_getsym(patcher, _sym_name);
 	
-	contextTypeStr = contextType->getCString();
-	contextTypeStr += ".";
-	contextTypeLen = strlen(contextTypeStr.data());
-	
-	// if the patcher name begin by contextTypeStr ("jmod." or "jview.")
-	// Strip jmod. from the beginning of patch name
-	isCtxPatcher = strncmp(patcherName->s_name, contextTypeStr.data(), contextTypeLen) == 0;
-	if (isCtxPatcher)
-		patcherName = gensym(patcherName->s_name + contextTypeLen);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	// If no context has been found below 
+	// try to get it from parent patcher (and get the name too)
+	if (contextType == kTTSymEmpty && context != gensym("toplevel")) {
+		jamoma_patcher_type_and_class(patcher, &contextType, &patcherClass);
+		contextTypeLen = strlen(contextType->getCString());
+		isCtxPatcher = strncmp(patcherName->s_name, contextType->getCString(), contextTypeLen) == 0;
+	}
+	// test if the context type is good at this level
+	else {
+		contextTypeStr = contextType->getCString();
+		contextTypeStr += ".";
+		contextTypeLen = strlen(contextTypeStr.data());
+		
+		// if the patcher name begin by contextTypeStr ("jmod." or "jview.")
+		// Strip jmod. from the beginning of patch name
+		isCtxPatcher = strncmp(patcherName->s_name, contextTypeStr.data(), contextTypeLen) == 0;
+		if (isCtxPatcher)
+			patcherName = gensym(patcherName->s_name + contextTypeLen);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	}
 	
 	// Is the patcher embedded in a contextType patcher ?
 	// The topLevel patcher name have not to be include in the address
@@ -267,7 +278,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 			sysmem_freeptr(av);
 	}
 	// case where the object is in a subpatcher
-	else if (!isCtxPatcher && (context == _sym_subpatcher) ) {
+	else if (!isCtxPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher))) {
 		// ignore this level
 		jamoma_subscriber_get_context_list_method(patcher, contextType, aContextList, nbLevel);
 	}
@@ -281,11 +292,10 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		aContextList->append(v);
 	}
 	else {
-		
-		// add the < /, patcher > to the contextList
-		v = new TTValue(S_SEPARATOR);
-		v->append((TTPtr)patcher);
-		aContextList->append(v);
+			// add the < /, patcher > to the contextList
+			v = new TTValue(S_SEPARATOR);
+			v->append((TTPtr)patcher);
+			aContextList->append(v);
 	}
 }
 
@@ -1335,7 +1345,7 @@ long jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format)
 	char *end_bracket = NULL;
 	char *to_parse = NULL;
 	
-	if(s){
+	if (s != _sym_nothing) {
 		
 		to_parse = (char *)malloc(sizeof(char)*(strlen(s->s_name)+1));
 		
@@ -1346,37 +1356,42 @@ long jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format)
 		end_bracket = strrchr(to_parse,']');
 		
 		// if both exist, keep only what there is beetween
-		if(start_bracket && end_bracket){
+		if (start_bracket && end_bracket) {
 			
 			sscanf(start_bracket+1, "%d", &i_num);
 			
-			// prepare memory
-			pos = (int)start_bracket - (int)to_parse;
-			len = (int)end_bracket - (int)start_bracket;		// the lenght of the "[N]" part
-			flen = strlen(to_parse) - len + 2;					// +3 for \%d
-			*si_format = (char *)malloc(sizeof(char)*(flen+1));
-			*ss_format = (char *)malloc(sizeof(char)*(flen+1));	// only a * instead of \%d
-			
-			// edit a format string for interger
-			strncpy(*si_format, to_parse, pos);
-			(*si_format)[pos] = '\%';
-			(*si_format)[pos+1] = 'd';
-			(*si_format)[pos+2] = '\0';
-			strncat(*si_format, end_bracket+1, strlen(end_bracket));
-			(*si_format)[flen+1] = '\0';
-			
-			// edit a format string for symbol
-			strncpy(*ss_format, to_parse, pos);
-			(*ss_format)[pos] = '\%';
-			(*ss_format)[pos+1] = 's';
-			(*ss_format)[pos+2] = '\0';
-			strncat(*ss_format, end_bracket+1, strlen(end_bracket));
-			(*ss_format)[flen+1] = '\0';
-			
-			free(to_parse);
+			if (i_num) {
+				
+				// prepare memory
+				pos = (int)start_bracket - (int)to_parse;
+				len = (int)end_bracket - (int)start_bracket;		// the lenght of the "[N]" part
+				flen = strlen(to_parse) - len + 2;					// +3 for \%d
+				*si_format = (char *)malloc(sizeof(char)*(flen+1));
+				*ss_format = (char *)malloc(sizeof(char)*(flen+1));	// only a * instead of \%d
+				
+				// edit a format string for interger
+				strncpy(*si_format, to_parse, pos);
+				(*si_format)[pos] = '\%';
+				(*si_format)[pos+1] = 'd';
+				(*si_format)[pos+2] = '\0';
+				strncat(*si_format, end_bracket+1, strlen(end_bracket));
+				(*si_format)[flen+1] = '\0';
+				
+				// edit a format string for symbol
+				strncpy(*ss_format, to_parse, pos);
+				(*ss_format)[pos] = '\%';
+				(*ss_format)[pos+1] = 's';
+				(*ss_format)[pos+2] = '\0';
+				strncat(*ss_format, end_bracket+1, strlen(end_bracket));
+				(*ss_format)[flen+1] = '\0';
+				
+				free(to_parse);
+			}
 			
 			return i_num;
-		}	
+		}
+		
+		return -1;
 	}
 	
 	*si_format = NULL;
@@ -1412,4 +1427,76 @@ void jamoma_edit_string_instance(char* format, t_symbol **returnedName,  char* s
 		*returnedName = gensym(s_str);
 		free(s_str);
 	}
+}
+
+/** Parse #N inside address and replace them by parent patcher arguments if there are */
+SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
+{
+	TTString	diezeStr, argsStr, addressStr = address->s_name;
+	ObjectPtr	patcher  = jamoma_object_getpatcher(x);
+	SymbolPtr	context;
+	char		dieze[5];
+	char		args[64];
+	size_t		found = 0;
+	long		i, sd, sa;
+	AtomCount	ac = 0;
+	AtomPtr		av = NULL;
+	
+	// If x is in a bpatcher, the patcher is NULL
+	if (!patcher){
+		patcher = object_attr_getobj(x, _sym_parentpatcher);
+	}
+	
+	if (patcher) {
+		
+		context = jamoma_patcher_getcontext(patcher);
+		
+		// Try to get the patcher arguments
+		jamoma_patcher_getargs(patcher, &ac, &av);
+		if ((context == _sym_subpatcher)) {
+			av++;
+			ac--;
+		}
+		
+		// if there are arguments
+		if (ac > 0 && av) {
+			
+			i = 1;
+			do {
+				
+				// prepare to parse #i
+				snprintf(dieze, sizeof(dieze), "#%li", i);
+				found = addressStr.find(dieze);
+				
+				// if #i found
+				if (found != string::npos) {
+					
+					// get av+i atom
+					if (i-1 < ac) {
+						
+						if (atom_gettype(av+i-1) == A_LONG)
+							snprintf(args, sizeof(args), "%li", atom_getlong(av+i-1));
+						else if (atom_gettype(av+i-1) == A_SYM)
+							snprintf(args, sizeof(args), "%s", atom_getsym(av+i-1)->s_name);
+						else {
+							i++;
+							continue;
+						}
+						
+						diezeStr = dieze;
+						argsStr	= args;
+						sd = diezeStr.size();
+						sa = argsStr.size();
+						addressStr.replace(found, sd, args, sa);
+					}
+				}
+				i++;
+				
+			} while (i-1 < ac); // while there are argument
+			
+			return gensym((char*)addressStr.data());
+		}
+	}
+	
+	return address;
 }

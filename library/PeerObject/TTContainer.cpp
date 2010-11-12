@@ -177,7 +177,6 @@ TTErr TTContainer::Init()
 			
 			hk.get(i,(TTSymbolPtr*)&key);
 			mObjectsObserversCache->lookup(key, cacheElement);
-			anObject = NULL;
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
 			if (anObject)

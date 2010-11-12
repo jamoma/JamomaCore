@@ -21,10 +21,10 @@ void ui_data_create_all(t_ui* obj)
 	// DEBUG
 	//object_post((ObjectPtr)obj, "patcherClass : %s", obj->patcherClass->getCString());
 	
-	// create a /view node with our pather as context
-	jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/view"), obj->patcherType, &obj->viewSubscriber);
+	// create a /ui node with our pather as context
+	jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/ui"), obj->patcherType, &obj->viewSubscriber);
 	
-	// get the /view node
+	// get the /ui node
 	obj->viewSubscriber->getAttributeValue(TT("node"), v);
 	v.get(0, (TTPtr*)&viewNode);
 	
@@ -70,29 +70,29 @@ void ui_data_create_all(t_ui* obj)
 	anObject->setAttributeValue(kTTSym_description, TT("The border color of the module in the format RGBA where values range [0.0, 1.0]."));
 	
 	// view/size
-	ui_data_create(obj, &anObject, gensym("return_view_size"), kTTSym_parameter, TT("size"));
+	ui_data_create(obj, &anObject, gensym("return_ui_size"), kTTSym_parameter, TT("size"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("The size of the module's UI."));
+	anObject->setAttributeValue(kTTSym_description, TT("The size of the jview's UI."));
 	
 	v = TTValue(obj->box.b_patching_rect.width);
 	v.append(obj->box.b_patching_rect.height);
 	anObject->setAttributeValue(kTTSym_value, v);
 	
 	// view/freeze
-	ui_data_create(obj, &anObject, gensym("return_view_freeze"), kTTSym_parameter, TT("freeze"));
+	ui_data_create(obj, &anObject, gensym("return_ui_freeze"), kTTSym_parameter, TT("freeze"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_boolean);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("Freeze each jcom.view in the patch"));
 	
 	// view/refresh
-	ui_data_create(obj, &anObject, gensym("return_view_refresh"), kTTSym_message, TT("refresh"));
+	ui_data_create(obj, &anObject, gensym("return_ui_refresh"), kTTSym_message, TT("refresh"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("Refresh each jcom.view in the patch"));
 	
 	// view/address
-	ui_data_create(obj, &anObject, gensym("return_view_address"), kTTSym_message, TT("address"));
+	ui_data_create(obj, &anObject, gensym("return_ui_address"), kTTSym_message, TT("address"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_string);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("Set the model address to bind"));
@@ -148,7 +148,7 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
 	
 	// Register data
-	joinOSCAddress(TT("/view"), name, &dataAddress);
+	joinOSCAddress(TT("/ui"), name, &dataAddress);
 	jamoma_subscriber_create((ObjectPtr)obj, *returnedData, gensym((char*)dataAddress->getCString()), obj->patcherType, &aSubscriber);
 	
 	// Store data
@@ -159,7 +159,7 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	// DEBUG
 	aSubscriber->getAttributeValue(TT("nodeAddress"), v);
 	v.get(0, &dataAddress);
-	object_post((ObjectPtr)obj, "Make internal /view/%s object at : %s", name->getCString(), dataAddress->getCString());
+	object_post((ObjectPtr)obj, "Make internal /ui/%s object at : %s", name->getCString(), dataAddress->getCString());
 }								   
 
 void ui_data_destroy(t_ui *obj, TTSymbolPtr name)
@@ -731,14 +731,14 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	jbox_redraw(&obj->box);
 }
 
-void ui_return_view_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void ui_return_ui_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
 	
 	; // do nothing ?
 }
 
-void ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
 	long result = 0;
@@ -774,7 +774,7 @@ void ui_return_view_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	
 }
 
-void ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
 	long result = 0;
@@ -813,7 +813,7 @@ void ui_return_view_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr ar
 	
 	// if freeze is disabled : refresh
 	if (!obj->ui_freeze)
-		ui_return_view_refresh(self, _sym_nothing, argc, argv);
+		ui_return_ui_refresh(self, _sym_nothing, argc, argv);
 }
 
 void ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -849,7 +849,7 @@ void ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 		object_attr_setvalueof(obj, gensym("bordercolor"), argc, argv);
 }
 
-void ui_return_view_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void ui_return_ui_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
 	

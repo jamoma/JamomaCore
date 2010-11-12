@@ -97,7 +97,7 @@ void preset_build(TTPtr self, SymbolPtr address)
 	presetLevelAddress += "/preset";
 	
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)presetLevelAddress.data()), x->patcherType, &x->subscriberObject);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), x->patcherType, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {

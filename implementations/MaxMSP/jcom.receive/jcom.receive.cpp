@@ -59,7 +59,7 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	jamoma_receiver_create((ObjectPtr)x, address, &x->wrappedObject);
+	jamoma_receiver_create((ObjectPtr)x, jamoma_parse_dieze((ObjectPtr)x, address), &x->wrappedObject);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
@@ -100,7 +100,9 @@ void receive_bang(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	x->wrappedObject->sendMessage(TT("Get"));
+	// catch error : dump an error
+	if (x->wrappedObject->sendMessage(TT("Get")))
+		object_obex_dumpout(self, _sym_error, 0, NULL);
 }
 
 void receive_set(TTPtr self, SymbolPtr address)

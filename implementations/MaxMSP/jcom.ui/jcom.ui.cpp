@@ -94,10 +94,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_return_color_toolbarBackground,	"return_color_toolbarBackground",	A_CANT, 0);
 	class_addmethod(c, (method)ui_return_color_toolbarText,			"return_color_toolbarText",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_color_border,				"return_color_border",				A_CANT, 0);
-	class_addmethod(c, (method)ui_return_view_size,					"return_view_size",					A_CANT, 0);
-	class_addmethod(c, (method)ui_return_view_freeze,				"return_view_freeze",				A_CANT, 0);
-	class_addmethod(c, (method)ui_return_view_refresh,				"return_view_refresh",				A_CANT, 0);
-	class_addmethod(c, (method)ui_return_view_address,				"return_view_address",				A_CANT, 0);
+	class_addmethod(c, (method)ui_return_ui_size,					"return_ui_size",					A_CANT, 0);
+	class_addmethod(c, (method)ui_return_ui_freeze,					"return_ui_freeze",				A_CANT, 0);
+	class_addmethod(c, (method)ui_return_ui_refresh,				"return_ui_refresh",				A_CANT, 0);
+	class_addmethod(c, (method)ui_return_ui_address,				"return_ui_address",				A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_metersdefeated,			"return_metersdefeated",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_mute,						"return_mute",						A_CANT, 0);

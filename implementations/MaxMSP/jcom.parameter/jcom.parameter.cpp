@@ -19,6 +19,7 @@ void		WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
+void		data_new_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		data_build(TTPtr self, SymbolPtr address);
 void		data_build_array(TTPtr self);
 void		data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index);
@@ -91,50 +92,58 @@ void WrapTTDataClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)data_array_select,					"array/select",			A_GIMME,0);
 	
-	class_addmethod(c->maxClass, (method)data_address,							"address",					A_SYM,0);
+	class_addmethod(c->maxClass, (method)data_address,						"address",				A_SYM,0);
 }
 
 void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					address, instanceAddress;
- 	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
-	long						number, i = 0, flag = 0;
-	TTObjectPtr					anObject;
-	TTValue						v;
+	SymbolPtr					address;
+	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
-	// Check address argument
-	if (attrstart && argv) 
-		address = atom_getsym(argv);
-	else
-		address = _sym_nothing;
-	
-	// Check dynamic address changes flag
-	if (argc == 2)
-		if (atom_gettype(&argv[1]) == A_LONG)
-			flag = atom_getlong(&argv[1]);
-	
-	number = jamoma_parse_bracket(address, &x->i_format, &x->s_format);
+	// check address argument
+	address = _sym_nothing;
+	if (attrstart && argv)
+		if (atom_gettype(argv) == A_SYM)
+			address = atom_getsym(argv);
 	
 	// Make outlets (before attr_args_process)
 	/////////////////////////////////////////////////////////////////////////////////
 #ifndef JMOD_RETURN
 	
 	// Don't create outlets during dynamic changes
-	if (!flag) {
 		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
 		x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 		x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
-	}
 	
 	// Make qelem object
 	/////////////////////////////////////////////////////////////////////////////////
 	x->ui_qelem = qelem_new(x, (method)data_ui_queuefn);
 #endif
+
+	data_new_address(self, address, argc--, argv++);
+}
+	
+void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	long						number, i;
+	TTObjectPtr					anObject;
+	SymbolPtr					instanceAddress;
+	TTValue						v;
+	
+	number = jamoma_parse_bracket(address, &x->i_format, &x->s_format);
+	
+	// no address or [0]
+	if (number == 0)
+		return;
 	
 	// Make one object only
 	/////////////////////////////////////////////////////////////////////////////////
-	if (!number) {
+	if (number == -1) {
+		
+		x->useInternals = false;
+		x->internals = NULL;
 		
 		// create the data
 #ifdef JMOD_MESSAGE
@@ -159,14 +168,13 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		defer_low((ObjectPtr)x, (method)data_build, address, 0, 0);
 	}
 	
-	
-	
 	// Make an array of object
 	/////////////////////////////////////////////////////////////////////////////////
-	else {
+	else if (number) {
 		
 		x->useInternals = true;
 		x->internals = new TTHash();
+		x->internals->setThreadProtection(YES);
 		x->cursor = kTTSymEmpty;
 		for (i = 1; i <= number; i++) {
 			
@@ -214,7 +222,7 @@ void data_build(TTPtr self, SymbolPtr address)
 	TTPtr						context;
 	
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, x->patcherType, &x->subscriberObject);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherType, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -226,7 +234,15 @@ void data_build(TTPtr self, SymbolPtr address)
 		if (newInstance) {
 			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
 			v.get(0, &relativeAddress);
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.data with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
+#ifdef JMOD_MESSAGE
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.message with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
+#else 
+#ifdef JMOD_RETURN
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.return with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
+#else
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.parameter with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
+#endif
+#endif
 		}
 
 		// debug
@@ -248,11 +264,15 @@ void data_build(TTPtr self, SymbolPtr address)
 void data_build_array(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr		address, nodeAddress, relativeAddress;
-	TTValue			keys, storedObject, v, args;
+	TTSymbolPtr		keyAddress, nodeAddress, relativeAddress;
+	TTValue			keys, storedObject, v, args, element;
 	TTSubscriberPtr	aSubscriber;
 	TTObjectPtr		anObject;
-	TTBoolean		newInstance;			
+	TTBoolean		newInstance;
+	TTHashPtr		newInternals;
+	
+	newInternals = new TTHash();
+	newInternals->setThreadProtection(YES);
 		
 	x->internals->getKeys(keys);
 	
@@ -260,12 +280,12 @@ void data_build_array(TTPtr self)
 	
 	for (int i=0; i<keys.getSize(); i++) {
 		
-		keys.get(i, &address);
-		x->cursor = address;
+		keys.get(i, &keyAddress);
+		x->cursor = keyAddress;
 		anObject = selectedObject;
-		
+
 		// suscribe object
-		jamoma_subscriber_create((ObjectPtr)x, anObject, gensym((char*)address->getCString()), x->patcherType, &aSubscriber);
+		jamoma_subscriber_create((ObjectPtr)x, anObject, gensym((char*)keyAddress->getCString()), x->patcherType, &aSubscriber);
 		
 		// if the subscription is successful
 		if (aSubscriber) {
@@ -276,8 +296,16 @@ void data_build_array(TTPtr self)
 			
 			if (newInstance) {
 				aSubscriber->getAttributeValue(TT("relativeAddress"), v);
-				v.get(0, &relativeAddress);
-				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.data with the same OSC identifier (%s).  Using %s instead.", address->getCString(), relativeAddress->getCString());
+				v.get(0, &relativeAddress);		
+#ifdef JMOD_MESSAGE
+				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.message with the same OSC identifier (%s).  Using %s instead.", keyAddress->getCString(), relativeAddress->getCString());
+#else 
+#ifdef JMOD_RETURN
+				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.return with the same OSC identifier (%s).  Using %s instead.", keyAddress->getCString(), relativeAddress->getCString());
+#else
+				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.parameter with the same OSC identifier (%s).  Using %s instead.", keyAddress->getCString(), relativeAddress->getCString());
+#endif
+#endif
 			}
 			
 			// debug
@@ -285,7 +313,16 @@ void data_build_array(TTPtr self)
 			v.get(0, &nodeAddress);
 			object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		}
+		
+		// prepare new internals
+		element = TTValue((TTPtr)anObject);
+		element.append(keyAddress);
+		element.append((TTPtr)aSubscriber);
+		newInternals->append(keyAddress, element);
 	}
+	
+	delete x->internals;
+	x->internals = newInternals;
 	
 	// default : listen all datas
 	x->index = -1;
@@ -353,15 +390,17 @@ void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 void data_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	Atom a[2];
 	
 	// destroy everything
 	wrappedModularClass_free(x);
 	
-	// rebuild everything (use dynamic changes flag)
-	atom_setsym(&a[0], address);
-	atom_setlong(&a[1], 1);
-	WrappedDataClass_new(self, 2, a);
+	// rebuild everything
+	defer_low(self,(method)data_new_address, address, 0, NULL); // TODO : give all @attribute too
+}
+
+void data_defered_new(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedDataClass_new(self, argc, argv);
 }
 
 // Method for Assistance Messages
@@ -412,15 +451,18 @@ void data_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 
 	if (!x->useInternals)
 		jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+	
 	else {
 		
 		// send to each data
 		if (x->index == -1) {
 			TTValue keys;
-			x->internals->getKeys(keys);
-			for (int i=0; i<keys.getSize(); i++) {
-				keys.get(i, &x->cursor);
-				jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+			if (!x->internals->isEmpty()) {
+				x->internals->getKeys(keys);
+				for (int i=0; i<keys.getSize(); i++) {
+					keys.get(i, &x->cursor);
+					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+				}
 			}
 			x->cursor = kTTSymEmpty;
 		}
@@ -440,12 +482,14 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		// send to each data
 		if (x->index == -1) {
 			TTValue keys;
-			x->internals->getKeys(keys);
-			for (int i=0; i<keys.getSize(); i++) {
-				keys.get(i, &x->cursor);
-				jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+			if (!x->internals->isEmpty()) {
+				x->internals->getKeys(keys);
+				for (int i=0; i<keys.getSize(); i++) {
+					keys.get(i, &x->cursor);
+					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+				}
+				x->cursor = kTTSymEmpty;
 			}
-			x->cursor = kTTSymEmpty;
 		}
 		else
 			jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);

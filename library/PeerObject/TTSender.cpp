@@ -59,6 +59,8 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 
 TTErr TTSender::setAttribute(const TTValue& newValue)
 {	
+	unbind();
+	
 	mAttribute = newValue;
 	
 	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
@@ -69,7 +71,7 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 	if (mAttribute == NO_ATTRIBUTE)
 		mAttribute = kTTSym_value;
 	
-	return kTTErrNone;
+	return bind();
 }
 
 #if 0

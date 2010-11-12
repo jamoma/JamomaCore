@@ -136,7 +136,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 	TTPtr						context;
 	
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, x->patcherType, &x->subscriberObject);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherType, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -148,7 +148,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 		if (newInstance) {
 			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
 			v.get(0, &relativeAddress);
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.node with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.node with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
 		}
 		
 		// Set the address attribute of the Container
@@ -226,6 +226,13 @@ void hub_build(TTPtr self, SymbolPtr address)
 			x->internals->append(TT("TextHandler"), v);
 			v = TTValue(TTPtr(x->wrappedObject));
 			aTextHandler->setAttributeValue(kTTSym_object, v);
+			
+			// output ContextNode address
+			Atom a;
+			x->subscriberObject->getAttributeValue(TT("contextNodeAddress"), v);
+			v.get(0, &nodeAddress);
+			atom_setsym(&a, gensym((char*)nodeAddress->getCString()));
+			object_obex_dumpout(self, gensym("address"), 1, &a);
 		}
 	}
 }
