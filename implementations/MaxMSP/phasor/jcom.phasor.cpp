@@ -18,6 +18,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 	options->append(TT("generator"), value);
 	wrapAsMaxAudioGraph(TT("phasor"), "jcom.phasor≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("phasor"), "phasor≈", NULL, options);
 	return 0;
 }
 

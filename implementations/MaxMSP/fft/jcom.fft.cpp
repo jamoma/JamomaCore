@@ -12,5 +12,6 @@
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	wrapAsMaxAudioGraph(TT("fft"), "jcom.fft≈", NULL);
+	wrapAsMaxAudioGraph(TT("fft"), "fft≈", NULL);
 	return 0;
 }

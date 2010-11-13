@@ -20,5 +20,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	value = 1L;
 	options->append(TT("argumentDefinesNumOutlets"), value);
 	wrapAsMaxAudioGraph(TT("matrixmixer"), "jcom.matrixmixer≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("matrixmixer"), "matrixmixer≈", NULL, options);
 	return 0;
 }

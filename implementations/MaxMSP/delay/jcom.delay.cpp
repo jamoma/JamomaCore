@@ -19,7 +19,10 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	
 	wrapAsMaxAudioGraph(TT("delay"), "jcom.delay≈", &c, options);
 	CLASS_ATTR_ENUM(c->maxClass, "interpolation", 0, "none linear cubic");
-	
+
+	wrapAsMaxAudioGraph(TT("delay"), "delay≈", &c, options);
+	CLASS_ATTR_ENUM(c->maxClass, "interpolation", 0, "none linear cubic");
+
 	return 0;
 }
 

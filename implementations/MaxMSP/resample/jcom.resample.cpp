@@ -13,6 +13,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	TTAudioGraphInit();
 	wrapAsMaxAudioGraph(TT("resample"), "jcom.resample≈", NULL);
+	wrapAsMaxAudioGraph(TT("resample"), "resample≈", NULL);
 	return 0;
 }
 

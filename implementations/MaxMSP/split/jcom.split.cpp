@@ -18,6 +18,7 @@ int main(void)
 	TTAudioGraphInit();
 	
 	options->append(TT("argumentDefinesNumOutlets"), value);
-	return wrapAsMaxAudioGraph(TT("audio.split"), "jcom.split≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("audio.split"), "jcom.split≈", NULL, options);
+	return wrapAsMaxAudioGraph(TT("audio.split"), "split≈", NULL, options);
 }
 

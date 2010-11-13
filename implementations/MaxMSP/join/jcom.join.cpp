@@ -19,5 +19,6 @@ int main(void)
 	
 	options->append(TT("argumentDefinesNumInlets"), value);
 	options->append(TT("nonadapting"), value); // don't change the number of out-channels in response to changes in the number of in-channels
-	return wrapAsMaxAudioGraph(TT("audio.join"), "jcom.join≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("audio.join"), "jcom.join≈", NULL, options);
+	return wrapAsMaxAudioGraph(TT("audio.join"), "join≈", NULL, options);
 }

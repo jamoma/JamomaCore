@@ -13,5 +13,6 @@
 int main(void)
 {
 	TTAudioGraphInit();
-	return wrapAsMaxAudioGraph(TT("filter"), "jcom.filter≈", NULL);
+	wrapAsMaxAudioGraph(TT("filter"), "jcom.filter≈", NULL);
+	return wrapAsMaxAudioGraph(TT("filter"), "filter≈", NULL);
 }

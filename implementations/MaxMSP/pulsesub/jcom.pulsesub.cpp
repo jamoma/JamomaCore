@@ -13,6 +13,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	TTAudioGraphInit();
 	wrapAsMaxAudioGraph(TT("pulsesub"), "jcom.pulsesub≈", NULL);
+	wrapAsMaxAudioGraph(TT("pulsesub"), "pulsesub≈", NULL);
 	return 0;
 }
 
