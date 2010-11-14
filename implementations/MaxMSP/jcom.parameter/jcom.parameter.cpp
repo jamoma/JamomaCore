@@ -143,7 +143,6 @@ void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr arg
 	if (number == -1) {
 		
 		x->useInternals = false;
-		x->internals = NULL;
 		
 		// create the data
 #ifdef JMOD_MESSAGE
@@ -159,8 +158,8 @@ void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr arg
 		jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_parameter);
 #endif
 #endif
-		
-		attr_args_process(x, argc, argv);
+		if (argc && argv)
+			attr_args_process(x, argc, argv);
 		
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
@@ -202,7 +201,9 @@ void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr arg
 			
 			// handle attribute args to set attribute of each internals data
 			x->cursor = TT(instanceAddress->s_name);
-			attr_args_process(x, argc, argv);
+			
+			if (argc && argv)
+				attr_args_process(x, argc, argv);
 		}
 		
 		// The following must be deferred because we have to interrogate our box,
@@ -391,16 +392,11 @@ void data_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	// destroy everything
-	wrappedModularClass_free(x);
+	// unregister wrapped object (or internals)
+	wrappedModularClass_unregister(x);
 	
-	// rebuild everything
+	// rebuild wrapped object (or internals)
 	defer_low(self,(method)data_new_address, address, 0, NULL); // TODO : give all @attribute too
-}
-
-void data_defered_new(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedDataClass_new(self, argc, argv);
 }
 
 // Method for Assistance Messages

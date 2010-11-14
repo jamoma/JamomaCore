@@ -352,6 +352,11 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 						}
 					}
 				}
+				
+				// if the address doesn't exist
+				else {
+					;// TODO : observe his creation and send it data
+				}
 			}
 		}
 	}
