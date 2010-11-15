@@ -12,18 +12,16 @@
 #define thisTTClassName		"MapperManager"
 #define thisTTClassTags		"mapper, manager"
 
-char* convertAttributeFromJamoma(TTSymbolPtr attribute);
-TTSymbolPtr convertAttributeToJamoma(TTSymbolPtr attribute);
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
-mDirectory(NULL),
+mApplication(NULL),
 mMapperList(NULL)
 {
 	TTValue v;
 
-	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTMapperManager is not NULL", mDirectory);
+	arguments.get(0, (TTPtr*)&mApplication);
+	TT_ASSERT("Application passed to TTMapperManager is not NULL", mApplication);
 
 	addAttributeWithSetter(Address, kTypeSymbol);
 
@@ -84,13 +82,13 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& value)
 			attributesList.get(i, &attributeName);
 
 			// Get string value and fill xml except for FunctionLibrary & FunctionSamples attributes (don't need in xml)
-			if (attributeName != TT("FunctionLibrary") && attributeName != TT("FunctionSamples")) {
+			if (attributeName != TT("functionLibrary") && attributeName != TT("functionSamples")) {
 
 				aMapper->getAttributeValue(attributeName, v);
 				v.toString();
 				v.get(0, s);
 
-				xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST convertAttributeFromJamoma(attributeName), "%s", BAD_CAST s.c_str());
+				xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST attributeName, "%s", BAD_CAST s.c_str());
 				v.clear();
 				s.clear();
 			}
@@ -153,7 +151,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& value)
 
 			// Create a new mapper
 			newMapper = NULL;
-			args.append(mDirectory);
+			args.append(mApplication);
 			TTObjectInstantiate(TT("Mapper"), TTObjectHandle(&newMapper), args);
 
 			// Browse attributes in xml
@@ -169,7 +167,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& value)
 					aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 					
 					// fill the current mapper
-					newMapper->setAttributeValue(convertAttributeToJamoma(attributeName), v);
+					newMapper->setAttributeValue(attributeName, v);
 				}
 			}
 
@@ -186,66 +184,4 @@ TTErr TTMapperManager::setAddress(const TTValue& value)
 	New();
 	mAddress = value;
 	return kTTErrNone;
-}
-
-
-// Convert Jamoma attributes into / from xml attributes
-////////////////////////////////////////////////////////////////
-
-char* convertAttributeFromJamoma(TTSymbolPtr attribute)
-{
-	if(attribute == TT("Input"))
-		return "input";
-
-	if(attribute == TT("Output"))
-		return "output";
-
-	if(attribute == TT("InputMin"))
-		return "inputMin";
-
-	if(attribute == TT("InputMax"))
-		return "inputMax";
-
-	if(attribute == TT("OutputMin"))
-		return "outputMin";
-
-	if(attribute == TT("OutputMax"))
-		return "outputMax";
-
-	if(attribute == TT("Function"))
-		return "function";
-
-	if(attribute == TT("FunctionParameters"))
-		return "functionParameters";
-
-	return "";
-}
-
-TTSymbolPtr convertAttributeToJamoma(TTSymbolPtr attribute)
-{
-	if(attribute == TT("input"))
-		return TT("Input");
-
-	if(attribute == TT("output"))
-		return TT("Output");
-
-	if(attribute == TT("inputMin"))
-		return TT("InputMin");
-
-	if(attribute == TT("inputMax"))
-		return TT("InputMax");
-
-	if(attribute == TT("outputMin"))
-		return TT("OutputMin");
-
-	if(attribute == TT("outputMax"))
-		return TT("OutputMax");
-
-	if(attribute == TT("function"))
-		return TT("Function");
-
-	if(attribute == TT("functionParameters"))
-		return TT("FunctionParameters");
-
-	return kTTSymEmpty;
 }

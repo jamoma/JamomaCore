@@ -32,7 +32,7 @@ public:
 
 private:
 	
-	TTNodeDirectoryPtr	mDirectory;						///< the directory
+	TTApplicationPtr	mApplication;					///< the application
 	TTListPtr			mMapperList;					///< a list containing <TTMapperPtr>
 	
 public:
