@@ -130,7 +130,7 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	TTMessagePtr	message = NULL;
 	
 	// If an object defines a 'dictionary' message then this trumps all the others
-	err = mKernel->findMessage(TT("Dictionary"), &message);
+	err = mKernel->findMessage(TT("dictionary"), &message);
 	if (!err && message) {
 		(*mDictionary) = aDictionary;
 		v.set(0, TTPtr(mDictionary));
