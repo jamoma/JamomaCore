@@ -31,8 +31,8 @@ class TTAudioGraphJoin : public TTAudioObject {
 		}
 		
 		// 2. setup our output buffer for the correct number of channels
-		out.setAttributeValue(TT("MaxNumChannels"), numAccumulatedChannels); 
-		out.setAttributeValue(TT("NumChannels"), numAccumulatedChannels);
+		out.setAttributeValue(TT("maxNumChannels"), numAccumulatedChannels); 
+		out.setAttributeValue(TT("numChannels"), numAccumulatedChannels);
 		
 		// 3. copy the data to the output buffer
 		numAccumulatedChannels = 0;

@@ -45,7 +45,7 @@ TTAudioGraphInput::~TTAudioGraphInput()
 
 TTErr TTAudioGraphInput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
 {
-	return mAudioEngine->sendMessage(TT("GetAvailableInputDeviceNames"), returnedDeviceNames);
+	return mAudioEngine->sendMessage(TT("getAvailableInputDeviceNames"), returnedDeviceNames);
 }
 
 
