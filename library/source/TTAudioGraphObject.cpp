@@ -34,15 +34,14 @@ extern "C" void TTAudioGraphObject::registerClass()
 
 
 TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
-	mStatus(kTTAudioGraphProcessUnknown),
 	TTGraphObject(arguments),
+	mStatus(kTTAudioGraphProcessUnknown),
 	mDescription(NULL),
 	mAudioFlags(kTTAudioGraphProcessor), 
 	mInputSignals(NULL), 
 	mOutputSignals(NULL), 
 	mVectorSize(0)
 {
-	TTErr		err = kTTErrNone;
 	TTSymbolPtr	wrappedObjectName = NULL;
 	TTUInt16	numInlets = 1;
 	TTUInt16	numOutlets = 1;

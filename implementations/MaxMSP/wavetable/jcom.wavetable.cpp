@@ -30,6 +30,8 @@ void		OscilFree(OscilPtr self);
 void		OscilAssist(OscilPtr self, void* b, long msg, long arg, char* dst);
 TTErr		OscilReset(OscilPtr self);
 TTErr		OscilSetup(OscilPtr self);
+TTErr		OscilConnectAudio(OscilPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr		OscilDropAudio(OscilPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
 MaxErr		OscilSetMode(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr		OscilSetInterpolation(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr		OscilSetFrequency(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
@@ -53,9 +55,10 @@ int main(void)
 
 	c = class_new("jcom.wavetable≈", (method)OscilNew, (method)OscilFree, sizeof(Oscil), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)OscilReset,			"audio.reset",	A_CANT, 0);
-	class_addmethod(c, (method)OscilSetup,			"audio.setup",	A_CANT,	0);
-	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
+	class_addmethod(c, (method)OscilReset,			"audio.reset",		A_CANT, 0);
+	class_addmethod(c, (method)OscilSetup,			"audio.setup",		A_CANT,	0);
+	class_addmethod(c, (method)OscilConnectAudio,	"audio.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)OscilDropAudio,		"audio.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
 	class_addmethod(c, (method)OscilAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
@@ -150,6 +153,28 @@ TTErr OscilSetup(OscilPtr self)
 	atom_setlong(a+1, 0);
 	outlet_anything(self->audioGraphOutlet, gensym("audio.connect"), 2, a);
 	return kTTErrNone;
+}
+
+
+TTErr OscilConnectAudio(OscilPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
+{
+	self->audioGraphObject->removeAudioFlag(kTTAudioGraphGenerator);
+	self->audioGraphObject->setAttributeValue(TT("numAudioInlets"), 1);
+	return self->audioGraphObject->connectAudio(audioSourceObject, sourceOutletNumber);
+}
+
+
+TTErr OscilDropAudio(OscilPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
+{
+	TTAudioGraphObjectPtr	sourceObject = NULL;
+	TTErr 					err;
+	
+	self->audioGraphObject->setAttributeValue(TT("numAudioInlets"), 0);
+	self->audioGraphObject->addAudioFlag(kTTAudioGraphGenerator);
+	err = (TTErr)int(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
+	if (self->audioGraphObject && sourceObject && !err)
+		err = self->audioGraphObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);	
+	return err;
 }
 
 

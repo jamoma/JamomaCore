@@ -60,6 +60,11 @@ public:
 		mAudioFlags |= flag;
 	}
 	
+	void removeAudioFlag(TTAudioGraphFlags flag)
+	{
+		mAudioFlags = mAudioFlags & ~flag;
+	}
+	
 	
 	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
 	{
