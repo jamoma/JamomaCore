@@ -82,13 +82,13 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& value)
 			attributesList.get(i, &attributeName);
 
 			// Get string value and fill xml except for FunctionLibrary & FunctionSamples attributes (don't need in xml)
-			if (attributeName != TT("functionLibrary") && attributeName != TT("functionSamples")) {
+			if (attributeName != TT("functionLibrary") && attributeName != TT("functionSamples") && attributeName != TT("functionParameters")) {
 
 				aMapper->getAttributeValue(attributeName, v);
 				v.toString();
 				v.get(0, s);
 
-				xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST attributeName, "%s", BAD_CAST s.c_str());
+				xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST attributeName->getCString(), "%s", BAD_CAST s.c_str());
 				v.clear();
 				s.clear();
 			}
