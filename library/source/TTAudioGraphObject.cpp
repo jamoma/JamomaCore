@@ -190,6 +190,7 @@ TTErr TTAudioGraphObject::preprocess(const TTAudioGraphPreprocessData& initData)
 			if (mVectorSize != initData.vectorSize) {
 				mVectorSize = initData.vectorSize;					
 				mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
+				mInputSignals->setMaxNumAudioSignals(0);
 			}			
 		}
 	}
