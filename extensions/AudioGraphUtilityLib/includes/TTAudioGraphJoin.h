@@ -1,6 +1,6 @@
 /* 
- * DSP Matrix Object
- * Copyright © 2010, Timothy Place
+ * TTAudioGraphJoin Object
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/

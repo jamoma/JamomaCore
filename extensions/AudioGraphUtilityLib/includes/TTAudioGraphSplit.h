@@ -1,6 +1,6 @@
 /* 
- * DSP Matrix Mixer Object
- * Copyright © 2009, Timothy Place
+ * TTAudioGraphSplit Object
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
