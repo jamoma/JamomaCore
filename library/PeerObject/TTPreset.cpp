@@ -329,7 +329,12 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 			// if the item doesn't exist create it 
 			if (mItemList->lookup(mCurrentItem, v)) {
 				
-				joinOSCAddress(mAddress, mCurrentItem, &absAddress);
+				if (mAddress != kTTSymEmpty) {
+					joinOSCAddress(mAddress, mCurrentItem, &absAddress);
+				} else {
+					absAddress = mCurrentItem;
+				}
+
 				err = getDirectoryFrom(this)->getTTNodeForOSC(absAddress, &aNode);
 				
 				// if the address exist
