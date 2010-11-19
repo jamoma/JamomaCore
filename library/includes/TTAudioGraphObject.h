@@ -34,11 +34,19 @@ protected:
 	TTUInt32					mAudioFlags;		///< A bitmask of values defined in #TTAudioGraphFlags
 	TTAudioGraphInletVector		mAudioInlets;		///< The inlets through which we pull audio from sources
 	TTAudioGraphOutletVector	mAudioOutlets;		///< The inlets through which we pull audio from sources
+	TTUInt32					mNumAudioInlets;	///< Attribute
+	TTUInt32					mNumAudioOutlets;	///< Attribute
 	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
 	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it
 	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess
 	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTAudioGraphObjects to prevent changes to the graph while processing.
 
+	
+	// Attribute Setters
+	TTErr setNumAudioInlets(const TTValue& newNumInlets);
+	TTErr setNumAudioOutlets(const TTValue& newNumOutlets);	
+	
+	
 public:
 
 	TTAudioObjectPtr getUnitGenerator()

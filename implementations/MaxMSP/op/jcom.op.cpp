@@ -16,6 +16,8 @@ struct Op {
    	Object					obj;
 	TTAudioGraphObjectPtr	audioGraphObject;
 	TTPtr					outlet;
+	TTPtr					inlet;				// proxy for the right inlet
+	long					inletnum;			// proxy input inlet number
 	SymbolPtr				attrOperator;
 	TTFloat32				attrOperand;
 };
@@ -30,6 +32,7 @@ TTErr  	OpResetAudio	(OpPtr self, long vectorSize);
 TTErr  	OpSetupAudio	(OpPtr self);
 //TTErr	OpSetup			(OpPtr self);
 TTErr  	OpConnectAudio	(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr	OpDropAudio		(OpPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
 MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	OpGetOperator	(OpPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv);
 MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
@@ -55,7 +58,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	class_addmethod(c, (method)OpResetAudio,		"audio.reset",		A_CANT, 0);
 	class_addmethod(c, (method)OpSetupAudio,		"audio.setup",		A_CANT, 0);
 	class_addmethod(c, (method)OpConnectAudio,		"audio.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
+	class_addmethod(c, (method)OpDropAudio,			"audio.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphReset,	"graph.reset",			A_CANT, 0);
 	//class_addmethod(c, (method)OpSetup,			"graph.setup",			A_CANT, 0); // no setup -- no graph outlets
@@ -90,10 +93,11 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     if (self) {
     	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
 		self->outlet = outlet_new(self, "audio.connect");
+		self->inlet  = proxy_new(self, 1, &self->inletnum);
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));
-		v.set(1, TTUInt32(1));
+		v.set(1, TTUInt32(1));	// we set it up with 1 inlet, and later modify to 2 inlets if the connection is made
 		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 
 		if (!self->audioGraphObject->getUnitGenerator()) {
@@ -111,6 +115,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void OpFree(OpPtr self)
 {
 	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+	object_free(self->inlet);
 }
 
 
@@ -135,6 +140,7 @@ void OpAssist(OpPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr OpResetAudio(OpPtr self, long vectorSize)
 {
+	self->audioGraphObject->setAttributeValue(TT("numAudioInlets"), 1);
 	return self->audioGraphObject->resetAudio();
 }
 
@@ -169,7 +175,25 @@ TTErr OpSetup(OpPtr self)
 
 TTErr OpConnectAudio(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->audioGraphObject->connectAudio(audioSourceObject, sourceOutletNumber);
+	long inletNumber = proxy_getinlet(SELF);
+	
+	if (inletNumber == 1)
+		self->audioGraphObject->setAttributeValue(TT("numAudioInlets"), 2);
+	return self->audioGraphObject->connectAudio(audioSourceObject, sourceOutletNumber, inletNumber);
+}
+
+
+TTErr OpDropAudio(OpPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
+{
+	TTAudioGraphObjectPtr	sourceObject = NULL;
+	TTErr 					err;
+	
+	if (inletNumber == 1)
+		self->audioGraphObject->setAttributeValue(TT("numAudioInlets"), 1);
+	err = (TTErr)int(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
+	if (self->audioGraphObject && sourceObject && !err)
+		err = self->audioGraphObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);	
+	return err;
 }
 
 
