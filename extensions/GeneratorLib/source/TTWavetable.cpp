@@ -35,7 +35,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("size"), 4096);
+	setAttributeValue(TT("size"), 8192);
 	setAttributeValue(TT("mode"), kTTSym_sine);
 	setAttributeValue(TT("frequency"), 440.0);
 	setAttributeValue(TT("gain"), 0.0);			// 0 dB
