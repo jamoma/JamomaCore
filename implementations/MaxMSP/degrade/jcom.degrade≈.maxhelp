@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 250.0, 76.0, 549.0, 601.0 ],
+		"rect" : [ 468.0, 127.0, 589.0, 570.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 250.0, 76.0, 549.0, 601.0 ],
+		"defrect" : [ 468.0, 127.0, 589.0, 570.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -29,7 +29,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 145.0, 210.0, 32.5, 17.0 ],
-					"presentation_rect" : [ 120.0, 209.0, 0.0, 0.0 ],
 					"text" : "1"
 				}
 
@@ -184,7 +183,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 95.0, 425.0, 70.0, 17.0 ],
+					"patching_rect" : [ 95.0, 450.0, 70.0, 17.0 ],
 					"text" : "startwindow"
 				}
 
@@ -197,7 +196,7 @@
 					"numoutlets" : 2,
 					"orientation" : 2,
 					"outlettype" : [ "signal", "int" ],
-					"patching_rect" : [ 85.0, 350.0, 28.0, 52.0 ]
+					"patching_rect" : [ 85.0, 375.0, 28.0, 52.0 ]
 				}
 
 			}
@@ -208,7 +207,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 51.0, 413.0, 43.0, 43.0 ]
+					"patching_rect" : [ 51.0, 438.0, 43.0, 43.0 ]
 				}
 
 			}
@@ -221,7 +220,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 50.0, 480.0, 62.0, 19.0 ],
+					"patching_rect" : [ 50.0, 505.0, 62.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9
 				}
@@ -238,7 +237,7 @@
 					"numleds" : 20,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
-					"patching_rect" : [ 50.0, 465.0, 80.0, 13.0 ],
+					"patching_rect" : [ 50.0, 490.0, 80.0, 13.0 ],
 					"tepidcolor" : [ 0.6, 0.729412, 0.0, 1.0 ],
 					"warmcolor" : [ 0.85098, 0.85098, 0.0, 1.0 ]
 				}
@@ -252,7 +251,7 @@
 					"numoutlets" : 2,
 					"orientation" : 2,
 					"outlettype" : [ "signal", "int" ],
-					"patching_rect" : [ 50.0, 350.0, 28.0, 52.0 ]
+					"patching_rect" : [ 50.0, 375.0, 28.0, 52.0 ]
 				}
 
 			}
@@ -343,7 +342,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-24", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 94.5, 408.0, 84.5, 408.0 ],
+					"midpoints" : [ 94.5, 433.0, 84.5, 433.0 ],
 					"source" : [ "obj-23", 0 ]
 				}
 
@@ -370,7 +369,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-29", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 59.5, 344.0, 45.0, 344.0, 45.0, 461.0, 59.5, 461.0 ],
+					"midpoints" : [ 59.5, 358.0, 45.0, 358.0, 45.0, 486.0, 59.5, 486.0 ],
 					"source" : [ "obj-3", 0 ]
 				}
 
