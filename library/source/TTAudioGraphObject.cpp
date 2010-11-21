@@ -159,6 +159,10 @@ TTErr TTAudioGraphObject::connectAudio(TTAudioGraphObjectPtr anObject, TTUInt16 
 	// if the resize of the vector can't happen in-place, then the whole thing gets copied and the old one destroyed
 
 	sSharedMutex->lock();
+	
+	if (toInletNumber+1 > mAudioInlets.size())
+		setNumAudioInlets(toInletNumber+1);
+	
 	err = mAudioInlets[toInletNumber].connect(anObject, fromOutletNumber);
 	sSharedMutex->unlock();
 	return err;
