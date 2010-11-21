@@ -67,8 +67,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 210.0, 90.0, 50.0, 19.0 ],
-									"presentation_rect" : [ 208.0, 91.0, 0.0, 0.0 ]
+									"patching_rect" : [ 210.0, 90.0, 50.0, 19.0 ]
 								}
 
 							}
@@ -82,7 +81,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 130.0, 90.0, 76.0, 17.0 ],
-									"presentation_rect" : [ 128.0, 91.0, 0.0, 0.0 ],
 									"text" : "linearGain $1"
 								}
 
@@ -659,7 +657,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-25", 0 ],
-									"hidden" : 0,
+									"hidden" : 1,
 									"midpoints" : [  ],
 									"source" : [ "obj-27", 0 ]
 								}
@@ -668,7 +666,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-27", 0 ],
-									"hidden" : 0,
+									"hidden" : 1,
 									"midpoints" : [  ],
 									"source" : [ "obj-29", 0 ]
 								}
@@ -713,7 +711,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-31", 0 ],
-									"hidden" : 0,
+									"hidden" : 1,
 									"midpoints" : [  ],
 									"source" : [ "obj-30", 0 ]
 								}
@@ -722,7 +720,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-26", 0 ],
-									"hidden" : 0,
+									"hidden" : 1,
 									"midpoints" : [  ],
 									"source" : [ "obj-31", 0 ]
 								}
@@ -769,13 +767,13 @@
 ,
 					"patching_rect" : [ 329.0, 140.0, 115.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p splitting+summing"
@@ -1387,13 +1385,13 @@
 ,
 					"patching_rect" : [ 196.0, 140.0, 60.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p splitting"
@@ -1951,13 +1949,13 @@
 ,
 					"patching_rect" : [ 56.0, 140.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p summing"

@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 71.0, 69.0, 996.0, 661.0 ],
+		"rect" : [ 331.0, 113.0, 996.0, 661.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 71.0, 69.0, 996.0, 661.0 ],
+		"defrect" : [ 331.0, 113.0, 996.0, 661.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,6 +20,20 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-55",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 427.0, 170.0, 150.0, 19.0 ],
+					"text" : "this bangs all jcom.info≈"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "@name", "jcom.split≈", "@description", "Takes a multichannel signal, and splits it into N smaller multichannel signals" ],
 					"bgmode" : 1,
 					"id" : "obj-53",
@@ -27,7 +41,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 984.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 996.0, 70.0 ]
 				}
 
 			}
@@ -40,7 +54,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 270.0, 570.0, 50.0, 19.0 ]
+					"patching_rect" : [ 323.0, 571.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -53,7 +67,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 210.0, 570.0, 63.0, 19.0 ],
+					"patching_rect" : [ 263.0, 571.0, 63.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -67,7 +81,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 475.0, 570.0, 50.0, 19.0 ]
+					"patching_rect" : [ 528.0, 571.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -80,7 +94,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 415.0, 570.0, 63.0, 19.0 ],
+					"patching_rect" : [ 468.0, 571.0, 63.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -94,7 +108,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 680.0, 570.0, 50.0, 19.0 ]
+					"patching_rect" : [ 733.0, 571.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -107,7 +121,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 620.0, 570.0, 63.0, 19.0 ],
+					"patching_rect" : [ 673.0, 571.0, 63.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -122,7 +136,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 725.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 778.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -137,7 +151,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 665.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 718.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -152,7 +166,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 605.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 658.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -166,7 +180,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 605.0, 595.0, 198.5, 19.0 ],
+					"patching_rect" : [ 658.0, 596.0, 198.5, 19.0 ],
 					"text" : "jcom.unpack≈ 3"
 				}
 
@@ -181,7 +195,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 520.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 573.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -196,7 +210,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 460.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 513.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -211,7 +225,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 400.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 453.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -225,7 +239,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 400.0, 595.0, 198.5, 19.0 ],
+					"patching_rect" : [ 453.0, 596.0, 198.5, 19.0 ],
 					"text" : "jcom.unpack≈ 3"
 				}
 
@@ -240,7 +254,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 315.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 368.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -255,7 +269,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 255.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 308.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -270,7 +284,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 195.0, 625.0, 56.0, 19.0 ],
+					"patching_rect" : [ 248.0, 626.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -284,7 +298,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 195.0, 595.0, 198.5, 19.0 ],
+					"patching_rect" : [ 248.0, 596.0, 198.5, 19.0 ],
 					"text" : "jcom.unpack≈ 3"
 				}
 
@@ -298,7 +312,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "audio.connect", "audio.connect", "audio.connect", "" ],
-					"patching_rect" : [ 195.0, 525.0, 153.0, 19.0 ],
+					"patching_rect" : [ 248.0, 526.0, 153.0, 19.0 ],
 					"text" : "jcom.split≈ 3 @groups 2 1 2"
 				}
 
@@ -312,7 +326,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 475.0, 460.0, 43.0, 19.0 ],
+					"patching_rect" : [ 528.0, 461.0, 43.0, 19.0 ],
 					"text" : "sig~ 5"
 				}
 
@@ -326,7 +340,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 405.0, 460.0, 43.0, 19.0 ],
+					"patching_rect" : [ 458.0, 461.0, 43.0, 19.0 ],
 					"text" : "sig~ 4"
 				}
 
@@ -340,7 +354,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 335.0, 460.0, 43.0, 19.0 ],
+					"patching_rect" : [ 388.0, 461.0, 43.0, 19.0 ],
 					"text" : "sig~ 3"
 				}
 
@@ -354,7 +368,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 265.0, 460.0, 43.0, 19.0 ],
+					"patching_rect" : [ 318.0, 461.0, 43.0, 19.0 ],
 					"text" : "sig~ 2"
 				}
 
@@ -368,7 +382,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 195.0, 460.0, 43.0, 19.0 ],
+					"patching_rect" : [ 248.0, 461.0, 43.0, 19.0 ],
 					"text" : "sig~ 1"
 				}
 
@@ -382,7 +396,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 195.0, 495.0, 299.0, 19.0 ],
+					"patching_rect" : [ 248.0, 496.0, 299.0, 19.0 ],
 					"text" : "jcom.pack≈ 5"
 				}
 
@@ -397,7 +411,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 635.0, 205.0, 187.0, 43.0 ],
+					"patching_rect" : [ 688.0, 206.0, 187.0, 43.0 ],
 					"text" : "first arg defines the maximum number of groups (outlets) to which the signal can be split."
 				}
 
@@ -411,7 +425,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 500.0, 315.0, 50.0, 19.0 ]
+					"patching_rect" : [ 553.0, 316.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -424,7 +438,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 440.0, 315.0, 63.0, 19.0 ],
+					"patching_rect" : [ 493.0, 316.0, 63.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -438,7 +452,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 405.0, 290.0, 196.0, 19.0 ],
+					"patching_rect" : [ 458.0, 291.0, 196.0, 19.0 ],
 					"text" : "jcom.op≈ @operator * @operand 10"
 				}
 
@@ -453,7 +467,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 480.0, 390.0, 70.0, 19.0 ],
+					"patching_rect" : [ 533.0, 391.0, 70.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -467,7 +481,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 480.0, 105.0, 67.0, 19.0 ],
+					"patching_rect" : [ 533.0, 106.0, 67.0, 19.0 ],
 					"text" : "sig~ 3.14"
 				}
 
@@ -482,7 +496,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 185.0, 159.0, 79.0 ],
+					"patching_rect" : [ 18.0, 250.0, 159.0, 79.0 ],
 					"text" : "Takes a multichannel signal, and splits it into N smaller multichannel signals, whose number of channels is defined by the @groups attribute."
 				}
 
@@ -494,7 +508,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 725.0, 350.0, 20.0, 20.0 ]
+					"patching_rect" : [ 402.0, 170.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -507,7 +521,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 500.0, 245.0, 50.0, 19.0 ]
+					"patching_rect" : [ 553.0, 246.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -520,7 +534,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 440.0, 245.0, 63.0, 19.0 ],
+					"patching_rect" : [ 493.0, 246.0, 63.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -534,7 +548,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 295.0, 170.0, 50.0, 19.0 ]
+					"patching_rect" : [ 348.0, 171.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -547,7 +561,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 235.0, 170.0, 63.0, 19.0 ],
+					"patching_rect" : [ 288.0, 171.0, 63.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -561,7 +575,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 295.0, 245.0, 50.0, 19.0 ]
+					"patching_rect" : [ 348.0, 246.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -574,7 +588,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 235.0, 245.0, 63.0, 19.0 ],
+					"patching_rect" : [ 288.0, 246.0, 63.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -589,7 +603,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 320.0, 340.0, 56.0, 19.0 ],
+					"patching_rect" : [ 373.0, 341.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -604,7 +618,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 405.0, 390.0, 69.0, 19.0 ],
+					"patching_rect" : [ 458.0, 391.0, 69.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -618,7 +632,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 405.0, 355.0, 169.0, 19.0 ],
+					"patching_rect" : [ 458.0, 356.0, 169.0, 19.0 ],
 					"text" : "jcom.unpack≈ 2"
 				}
 
@@ -632,7 +646,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "audio.connect", "audio.connect", "" ],
-					"patching_rect" : [ 200.0, 215.0, 428.0, 19.0 ],
+					"patching_rect" : [ 253.0, 216.0, 428.0, 19.0 ],
 					"text" : "jcom.split≈ 2 @groups 3 2"
 				}
 
@@ -643,7 +657,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 70.0, 310.0, 45.0, 45.0 ]
+					"patching_rect" : [ 77.0, 483.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -657,7 +671,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 260.0, 340.0, 56.0, 19.0 ],
+					"patching_rect" : [ 313.0, 341.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -672,7 +686,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 200.0, 340.0, 56.0, 19.0 ],
+					"patching_rect" : [ 253.0, 341.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -686,7 +700,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 410.0, 105.0, 68.0, 19.0 ],
+					"patching_rect" : [ 463.0, 106.0, 68.0, 19.0 ],
 					"text" : "sig~ -200"
 				}
 
@@ -700,7 +714,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 340.0, 105.0, 63.0, 19.0 ],
+					"patching_rect" : [ 393.0, 106.0, 63.0, 19.0 ],
 					"text" : "sig~ 200"
 				}
 
@@ -714,7 +728,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 270.0, 105.0, 68.0, 19.0 ],
+					"patching_rect" : [ 323.0, 106.0, 68.0, 19.0 ],
 					"text" : "sig~ -100"
 				}
 
@@ -728,7 +742,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 200.0, 105.0, 63.0, 19.0 ],
+					"patching_rect" : [ 253.0, 106.0, 63.0, 19.0 ],
 					"text" : "sig~ 100"
 				}
 
@@ -742,7 +756,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 200.0, 290.0, 198.5, 19.0 ],
+					"patching_rect" : [ 253.0, 291.0, 198.5, 19.0 ],
 					"text" : "jcom.unpack≈ 3"
 				}
 
@@ -756,7 +770,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 200.0, 140.0, 299.0, 19.0 ],
+					"patching_rect" : [ 253.0, 141.0, 299.0, 19.0 ],
 					"text" : "jcom.pack≈ 5"
 				}
 
@@ -818,8 +832,9 @@
 			}
 , 			{
 				"patchline" : 				{
+					"color" : [ 0.858824, 0.858824, 0.858824, 1.0 ],
 					"destination" : [ "obj-16", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-19", 0 ]
 				}
@@ -827,8 +842,9 @@
 			}
 , 			{
 				"patchline" : 				{
+					"color" : [ 0.858824, 0.858824, 0.858824, 1.0 ],
 					"destination" : [ "obj-18", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-19", 0 ]
 				}
@@ -836,8 +852,9 @@
 			}
 , 			{
 				"patchline" : 				{
+					"color" : [ 0.858824, 0.858824, 0.858824, 1.0 ],
 					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-19", 0 ]
 				}
@@ -845,8 +862,9 @@
 			}
 , 			{
 				"patchline" : 				{
+					"color" : [ 0.858824, 0.858824, 0.858824, 1.0 ],
 					"destination" : [ "obj-29", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-19", 0 ]
 				}
@@ -854,8 +872,9 @@
 			}
 , 			{
 				"patchline" : 				{
+					"color" : [ 0.858824, 0.858824, 0.858824, 1.0 ],
 					"destination" : [ "obj-48", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-19", 0 ]
 				}
@@ -863,8 +882,9 @@
 			}
 , 			{
 				"patchline" : 				{
+					"color" : [ 0.858824, 0.858824, 0.858824, 1.0 ],
 					"destination" : [ "obj-50", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-19", 0 ]
 				}
@@ -872,8 +892,9 @@
 			}
 , 			{
 				"patchline" : 				{
+					"color" : [ 0.858824, 0.858824, 0.858824, 1.0 ],
 					"destination" : [ "obj-52", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-19", 0 ]
 				}
@@ -1054,7 +1075,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 249.166672, 562.0, 409.5, 562.0 ],
+					"midpoints" : [ 302.166656, 563.0, 462.5, 563.0 ],
 					"source" : [ "obj-34", 1 ]
 				}
 
@@ -1063,7 +1084,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-46", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 293.833344, 552.0, 614.5, 552.0 ],
+					"midpoints" : [ 346.833344, 553.0, 667.5, 553.0 ],
 					"source" : [ "obj-34", 2 ]
 				}
 
@@ -1072,7 +1093,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-48", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 293.833344, 549.0, 629.5, 549.0 ],
+					"midpoints" : [ 346.833344, 550.0, 682.5, 550.0 ],
 					"source" : [ "obj-34", 2 ]
 				}
 
@@ -1081,7 +1102,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-50", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 249.166672, 559.0, 424.5, 559.0 ],
+					"midpoints" : [ 302.166656, 560.0, 477.5, 560.0 ],
 					"source" : [ "obj-34", 1 ]
 				}
 
@@ -1090,7 +1111,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-52", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 204.5, 563.0, 219.5, 563.0 ],
+					"midpoints" : [ 257.5, 564.0, 272.5, 564.0 ],
 					"source" : [ "obj-34", 0 ]
 				}
 

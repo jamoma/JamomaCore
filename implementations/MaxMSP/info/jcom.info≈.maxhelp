@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 144.0, 64.0, 1144.0, 533.0 ],
+		"rect" : [ 262.0, 104.0, 1040.0, 542.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 144.0, 64.0, 1144.0, 533.0 ],
+		"defrect" : [ 262.0, 104.0, 1040.0, 542.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,7 +27,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1140.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 1144.0, 70.0 ]
 				}
 
 			}
@@ -423,7 +423,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 95.0, 285.0, 45.0, 45.0 ]
+					"patching_rect" : [ 543.0, 305.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -708,7 +708,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 354.5, 374.0, 64.5, 374.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -825,7 +825,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 44.5, 249.0, 354.5, 249.0 ],
 					"source" : [ "obj-37", 0 ]
 				}
 
