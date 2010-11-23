@@ -9,7 +9,8 @@
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 
-TTNode::TTNode(TTSymbolPtr aName, TTSymbolPtr anInstance, TTObjectPtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory)
+TTNode::TTNode(TTSymbolPtr aName, TTSymbolPtr anInstance, TTObjectPtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
+parent(NULL)
 {
 	name = aName;
 	instance = anInstance;
