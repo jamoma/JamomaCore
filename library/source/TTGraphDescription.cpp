@@ -158,7 +158,7 @@ int TTGraphDescription::exportMaxNode(TTString& content, int& index, TTStringVec
 	else
 		content += mClassName->getString();
 	
-	content += "!\",\n";
+	content += "#\",\n";
 	content += "					\"patching_rect\" : [ 50.0, ";
 	snprintf(location, 16, "%f", 400.0 - (index * 40.0));
 	content += location;
