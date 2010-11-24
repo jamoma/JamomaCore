@@ -28,7 +28,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
 					"patching_rect" : [ 581.0, 47.0, 80.0, 19.0 ],
-					"text" : "jcom.append!"
+					"text" : "jcom.append#"
 				}
 
 			}
@@ -42,7 +42,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
 					"patching_rect" : [ 581.0, 70.0, 55.0, 19.0 ],
-					"text" : "jcom.op!"
+					"text" : "jcom.op#"
 				}
 
 			}
@@ -56,7 +56,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 581.0, 119.0, 79.0, 19.0 ],
-					"text" : "jcom.unpack!"
+					"text" : "jcom.unpack#"
 				}
 
 			}
@@ -70,7 +70,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
 					"patching_rect" : [ 581.0, 94.0, 66.0, 19.0 ],
-					"text" : "jcom.pack!"
+					"text" : "jcom.pack#"
 				}
 
 			}

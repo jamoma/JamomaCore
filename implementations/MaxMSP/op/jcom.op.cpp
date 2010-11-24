@@ -43,7 +43,7 @@ int main(void)
 	TTGraphInit();	
 	common_symbols_init();
 	
-	c = class_new("jcom.op!", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.op#", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphSetup,		"graph.setup",		A_CANT, 0);

@@ -69,7 +69,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 345.0, 235.0, 79.0, 19.0 ],
-					"text" : "jcom.unpack!"
+					"text" : "jcom.unpack#"
 				}
 
 			}
@@ -96,7 +96,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 250.0, 235.0, 79.0, 19.0 ],
-					"text" : "jcom.unpack!"
+					"text" : "jcom.unpack#"
 				}
 
 			}
@@ -110,7 +110,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 250.0, 205.0, 194.0, 19.0 ],
-					"text" : "jcom.op! @operator + @operand 12"
+					"text" : "jcom.op# @operator + @operand 12"
 				}
 
 			}
@@ -150,7 +150,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 450.0, 235.0, 79.0, 19.0 ],
-					"text" : "jcom.unpack!"
+					"text" : "jcom.unpack#"
 				}
 
 			}
@@ -164,7 +164,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 450.0, 205.0, 194.0, 19.0 ],
-					"text" : "jcom.op! @operator + @operand 10"
+					"text" : "jcom.op# @operator + @operand 10"
 				}
 
 			}
@@ -178,7 +178,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 375.0, 155.0, 66.0, 19.0 ],
-					"text" : "jcom.pack!"
+					"text" : "jcom.pack#"
 				}
 
 			}
@@ -210,7 +210,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.op!", "@description", "A multi-operator graph object" ],
+					"args" : [ "@name", "jcom.op#", "@description", "A multi-operator graph object" ],
 					"bgmode" : 1,
 					"id" : "obj-21",
 					"maxclass" : "bpatcher",
@@ -245,7 +245,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 260.0, 79.0, 19.0 ],
-					"text" : "jcom.unpack!"
+					"text" : "jcom.unpack#"
 				}
 
 			}
@@ -259,7 +259,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 215.0, 187.0, 19.0 ],
-					"text" : "jcom.op! @operator + @operand 5"
+					"text" : "jcom.op# @operator + @operand 5"
 				}
 
 			}
@@ -273,7 +273,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 135.0, 66.0, 19.0 ],
-					"text" : "jcom.pack!"
+					"text" : "jcom.pack#"
 				}
 
 			}

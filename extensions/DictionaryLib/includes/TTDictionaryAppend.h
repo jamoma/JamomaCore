@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-/**	The append! object takes a dictionary and adds a key/value to that dictionary */
+/**	The append# object takes a dictionary and adds a key/value to that dictionary */
 class TTDictionaryAppend : public TTObject {
 	TTCLASS_SETUP(TTDictionaryAppend)
 	

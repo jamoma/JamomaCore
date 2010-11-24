@@ -1,5 +1,5 @@
 /* 
- *	pack!
+ *	pack#
  *	External object for Max/MSP to bring Max values into a Jamoma Graph.
  *	Copyright © 2010 by Timothy Place
  * 
@@ -55,7 +55,7 @@ int main(void)
 	TTGraphInit();	
 	common_symbols_init();
 	
-	c = class_new("jcom.pack!", (method)PackNew, (method)PackFree, sizeof(Pack), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.pack#", (method)PackNew, (method)PackFree, sizeof(Pack), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)PackInt,				"int",				A_LONG, 0);
 	class_addmethod(c, (method)PackFloat,			"float",			A_LONG, 0);
