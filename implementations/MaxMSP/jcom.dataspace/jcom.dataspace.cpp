@@ -164,7 +164,8 @@ void dataspace_float(t_dataspace *obj, double x)
 
 
 void dataspace_list(t_dataspace *obj, t_symbol *msg, long argc, t_atom *argv)
-{
+{   
+	//TODO: add dataspace support for lists of single dimensional data conversion
 	obj->dataspace->convert(argc, argv, &obj->ac, &obj->av);
 	outlet_anything(obj->outlet_native, _sym_list, obj->ac, obj->av);
 	//outlet_anything(obj->outlet_active, _sym_list, argc, argv);
