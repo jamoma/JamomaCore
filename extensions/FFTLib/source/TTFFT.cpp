@@ -31,8 +31,8 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Mode,		kTypeSymbol);
 	addAttributeWithSetter(Algorithm,	kTypeSymbol);
 	
-	setAttributeValue(TT("Mode"), TT("real"));
-	setAttributeValue(TT("Algorithm"), TT("ooura"));
+	setAttributeValue(TT("mode"), TT("real"));
+	setAttributeValue(TT("algorithm"), TT("ooura"));
 	
 	// TODO: add the ooura-radix4 -- maybe it should even be the should be the default?
 	// (based on benchmarks @ fftw's site and powers-of-two?) or maybe the split-radix is fine... 
