@@ -53,6 +53,10 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 		setCalculateMethod(calculateModulo);
 		setProcessMethod(processModulo);
 	}
+	else if (mOperator == TT("sqrt")) {
+		setCalculateMethod(calculateSqrt);
+		setProcessMethod(processSqrt);
+	}
 	else
 		return kTTErrInvalidValue;
 	
@@ -113,6 +117,12 @@ TTErr TTOperator::calculateModulo(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 	TTUInt64 operander = (TTUInt64)mOperand;
 	
 	y = fmod(x, operander);	
+	return kTTErrNone;
+}
+
+TTErr TTOperator::calculateSqrt(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{	
+	y = sqrt(x);	
 	return kTTErrNone;
 }
 
@@ -379,3 +389,12 @@ TTErr TTOperator::processModuloSignal(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	}
 	return kTTErrNone;
 }
+
+
+TTErr TTOperator::processSqrt(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TT_WRAP_CALCULATE_METHOD(calculateSqrt);
+
+}
+
+

@@ -27,6 +27,7 @@ class TTOperator : TTAudioObject {
 	TTErr calculateMultiply(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	TTErr calculateDivide(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	TTErr calculateModulo(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateSqrt(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	
 	/**	A standard audio processing method as used by TTBlue objects. */
@@ -44,7 +45,9 @@ class TTOperator : TTAudioObject {
 
 	TTErr processModulo				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processModuloSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	
+
+	TTErr processSqrt				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 public:
 	
 	/** setter for the operator attribute. */
