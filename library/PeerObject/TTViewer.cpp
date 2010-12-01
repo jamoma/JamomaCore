@@ -13,8 +13,9 @@
 #define thisTTClassTags		"viewer"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddressMain(kTTSymEmpty),
-mAddressSub(kTTSymEmpty),
+mAddress(kTTSymEmpty),
+mType(kTTSymEmpty),
+mSelected(NO),
 mFreeze(NO),
 mApplication(NULL),
 mReceiver(NULL),
@@ -27,8 +28,9 @@ mReturnValueCallback(NULL)
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
-	addAttributeWithSetter(AddressMain, kTypeSymbol);
-	addAttributeWithSetter(AddressSub, kTypeSymbol);
+	addAttributeWithSetter(Address, kTypeSymbol);
+	addAttribute(Type, kTypeSymbol);
+	addAttribute(Selected, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
 	addMessage(Refresh);
@@ -49,24 +51,11 @@ TTViewer::~TTViewer() // TODO : delete things...
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 }
 
-TTErr TTViewer::setAddressMain(const TTValue& value)
+TTErr TTViewer::setAddress(const TTValue& value)
 {
-	mAddressMain = value;
+	mAddress = value;
 	
-	if (mAddressMain != kTTSymEmpty && mAddressSub != kTTSymEmpty) {
-		bind();
-		Refresh();
-	}
-	
-	
-	return kTTErrNone;
-}
-
-TTErr TTViewer::setAddressSub(const TTValue& value)
-{
-	mAddressSub = value;
-	
-	if (mAddressMain != kTTSymEmpty && mAddressSub != kTTSymEmpty) {
+	if (mAddress != kTTSymEmpty) {
 		bind();
 		Refresh();
 	}
@@ -79,13 +68,10 @@ TTErr TTViewer::bind()
 	TTValue			args, v, min, max;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
-	TTSymbolPtr		address;
-	
-	joinOSCAddress(mAddressMain, mAddressSub, &address);
 	
 	// Prepare aguments
 	args.append(mApplication);
-	args.append(address);
+	args.append(mAddress);
 	args.append(kTTSym_value);
 	
 	// Replace a TTSender object

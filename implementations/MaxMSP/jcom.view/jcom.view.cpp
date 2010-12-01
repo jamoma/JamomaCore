@@ -19,6 +19,7 @@ void	WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void	view_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void	view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	view_return_view_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	view_bang(TTPtr self);
 void	view_int(TTPtr self, long value);
@@ -44,6 +45,7 @@ void WrapTTViewerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)view_assist,				"assist",				A_CANT, 0L);
 	
 	class_addmethod(c->maxClass, (method)view_return_value,			"return_value",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)view_return_view_address,	"return_view_address",	A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)view_bang,					"bang",					0L);
 	class_addmethod(c->maxClass, (method)view_int,					"int",					A_LONG, 0L);
@@ -64,6 +66,11 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		address = _sym_nothing;
 	
 	jamoma_viewer_create((ObjectPtr)x, &x->wrappedObject);
+	
+	x->cursor = TT(address->s_name);
+	
+	// Prepare memory to store internal objects
+	x->internals = new TTHash();
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
@@ -104,7 +111,8 @@ void view_build(TTPtr self, SymbolPtr address)
 	TTValue						v, args;
 	TTNodePtr					node = NULL;
 	TTBoolean					newInstance;
-	TTSymbolPtr					nodeAddress, relativeAddress;
+	TTSymbolPtr					nodeAddress, relativeAddress, contextAddress;
+	TTObjectPtr					anObject;
 	TTPtr						context;
 
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
@@ -127,6 +135,16 @@ void view_build(TTPtr self, SymbolPtr address)
 		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &nodeAddress);
 		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
+		
+		// in jview patch
+		// get the context address
+		// and make a viewer on contextAddress/view/address parameter
+		if (x->patcherType == TT("jview")) {
+			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+			v.get(0, &contextAddress);
+			makeInternals_viewer(x, contextAddress, TT("/view/address"), gensym("return_view_address"), &anObject);
+			anObject->sendMessage(kTTSym_Refresh);
+		}
 		
 		// get the Node
 		x->subscriberObject->getAttributeValue(TT("node"), v);
@@ -203,4 +221,18 @@ void view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 	
 	x->wrappedObject->sendMessage(kTTSym_Send, v);
+}
+
+void view_return_view_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTSymbolPtr address;
+	
+	if (argc)
+		if (atom_gettype(argv) == A_SYM) {
+			
+			// set address attribute of the wrapped Viewer object
+			joinOSCAddress(TT(atom_getsym(argv)->s_name), x->cursor, &address);
+			x->wrappedObject->setAttributeValue(kTTSym_address, address);
+		}
 }

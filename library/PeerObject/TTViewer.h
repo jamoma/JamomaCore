@@ -31,9 +31,9 @@ class TTMODULAR_EXPORT TTViewer : public TTObject
 	
 private:
 	
-	TTSymbolPtr			mAddressMain;				///< ATTRIBUTE : main part of the data address to bind
-	TTSymbolPtr			mAddressSub;				///< ATTRIBUTE : sub part of the data address to bind
-													/// So the viewer will bind on the data at /main/sub address
+	TTSymbolPtr			mAddress;					///< ATTRIBUTE : the data address to bind
+	TTSymbolPtr			mType;						///< ATTRIBUTE : the type of the gui
+	TTBoolean			mSelected;					///< ATTRIBUTE : the selection state of the gui
 	TTBoolean			mFreeze;					///< ATTRIBUTE : Freeze data returning
 	
 	TTApplicationPtr	mApplication;				///< the application
@@ -45,11 +45,8 @@ private:
 	/** */
 	TTErr Refresh();
 	
-	/** set the main part of the address */
-	TTErr setAddressMain(const TTValue& value);
-	
-	/** set the sub part of the address */
-	TTErr setAddressSub(const TTValue& value);
+	/** set the address */
+	TTErr setAddress(const TTValue& value);
 	
 	/** set the freeze */
 	TTErr setFreeze(const TTValue& value);

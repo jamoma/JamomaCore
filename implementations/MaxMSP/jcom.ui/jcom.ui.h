@@ -30,7 +30,7 @@ typedef struct _ui{
 	TTObjectPtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
 	TTObjectPtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
 	TTObjectPtr			modelRetExplorer;		///< internal TTExplorer object to observe returns
-	TTSubscriberPtr		viewSubscriber;			///< internal TTSubscriber object to create a /view node
+	TTSubscriberPtr		uiSubscriber;			///< internal TTSubscriber object to create a /ui node
 	
 	TTSymbolPtr			address;
 	TTSymbolPtr			patcherType;
@@ -133,7 +133,7 @@ void		ui_data_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_data_destroy_all(t_ui* obj);
 void		ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v);
 
-void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name);
+void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTSymbolPtr address);
 void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_viewer_destroy_all(t_ui *obj);
 void		ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v);
@@ -141,7 +141,6 @@ void		ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f);
 void		ui_viewer_refresh(t_ui *obj, TTSymbolPtr name);
 
 void		ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr method);
-void		ui_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv); 
 void		ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -154,7 +153,8 @@ void		ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr 
 void		ui_return_ui_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		ui_return_ui_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+void		ui_return_view_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

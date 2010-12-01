@@ -64,7 +64,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_receiver;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_refresh;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_repetitionsAllow;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
 
@@ -133,7 +133,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_rampFunction				= TT("rampFunction");
 	kTTSym_readonly					= TT("readonly");
 	kTTSym_receiver					= TT("receiver");
-	kTTSym_refresh					= TT("refresh");
+	kTTSym_Refresh					= TT("Refresh");
 	kTTSym_repetitionsAllow			= TT("repetitionsAllow");
 	kTTSym_return					= TT("return");
 	

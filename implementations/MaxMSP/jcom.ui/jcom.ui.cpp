@@ -84,7 +84,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_mouseup,							"mouseup",							A_CANT, 0);
 	class_addmethod(c, (method)ui_oksize,							"oksize",							A_CANT, 0);
 	
-	class_addmethod(c, (method)ui_nmspcExplorer_callback,			"return_nmpscExploration",			A_CANT, 0);
 	class_addmethod(c, (method)ui_modelExplorer_callback,			"return_modelExploration",			A_CANT, 0);
 	class_addmethod(c, (method)ui_modelParamExplorer_callback,		"return_modelParamExploration",		A_CANT, 0);
 	class_addmethod(c, (method)ui_modelMessExplorer_callback,		"return_modelMessExploration",		A_CANT, 0);
@@ -95,9 +94,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_return_color_toolbarText,			"return_color_toolbarText",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_color_border,				"return_color_border",				A_CANT, 0);
 	class_addmethod(c, (method)ui_return_ui_size,					"return_ui_size",					A_CANT, 0);
-	class_addmethod(c, (method)ui_return_ui_freeze,					"return_ui_freeze",				A_CANT, 0);
+	class_addmethod(c, (method)ui_return_ui_freeze,					"return_ui_freeze",					A_CANT, 0);
 	class_addmethod(c, (method)ui_return_ui_refresh,				"return_ui_refresh",				A_CANT, 0);
-	class_addmethod(c, (method)ui_return_ui_address,				"return_ui_address",				A_CANT, 0);
+	
+	class_addmethod(c, (method)ui_return_view_address,				"return_view_address",				A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_metersdefeated,			"return_metersdefeated",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_mute,						"return_mute",						A_CANT, 0);
@@ -202,7 +202,6 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->has_preview = false;
 		x->has_freeze = false;
 		
-		ui_explorer_create((ObjectPtr)x, &x->nmspcExplorer, gensym("return_nmpscExploration"));
 		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploration"));
 		
 		attr_dictionary_process(x, d); 	// handle attribute args
@@ -238,9 +237,10 @@ void ui_free(t_ui *x)
 	if (x->modelExplorer)
 		TTObjectRelease(&x->modelExplorer);
 	
-	TTObjectRelease(TTObjectHandle(&x->viewSubscriber));
+	TTObjectRelease(TTObjectHandle(&x->uiSubscriber));
 	
 	ui_data_destroy_all(x);
+	ui_viewer_destroy(x, TT("view/address"));
 	ui_viewer_destroy_all(x);
 }
 
@@ -275,9 +275,6 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 	if ((x->address == kTTSymEmpty && adrs != kTTSymEmpty) || adrs != x->address) {
 		
 		x->address = adrs;
-		
-		if (!x->hash_datas->lookup(kTTSym_address, v));
-			ui_data_send(x, kTTSym_address, x->address);
 		
 		// Clear all viewers
 		ui_viewer_destroy_all(x);
@@ -326,6 +323,10 @@ void ui_build(t_ui *x)
 	ObjectPtr		box;
 	t_rect			boxRect;
 	t_rect			uiRect;
+	
+	// if there no address try to get /view/address value
+	if (x->address == kTTSymEmpty)
+		ui_viewer_refresh(x, TT("view/address"));
 	
 	// Examine the context to resize the view, set textfield, ...
 	x->patcher = jamoma_object_getpatcher((ObjectPtr)x);
@@ -1065,8 +1066,6 @@ void ui_refmenu_build(t_ui *x)
 {
 	t_symobject	*item = NULL;
 	char		tempStr[512];
-	t_linklist	*ll;
-	int			i;
 	TTValue		criteria;
 	
 	if (!x->refmenu_items)

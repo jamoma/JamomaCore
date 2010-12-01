@@ -63,7 +63,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_receiver;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_refresh;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_repetitionsAllow;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
 
