@@ -565,6 +565,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
 			mValueDefault = TTValue(0);
+			mValueStepsize = TTValue(1);
 			mRangeBounds.set(0, TTUInt16(0));
 			mRangeBounds.set(1, TTUInt16(1));
 		}
@@ -573,6 +574,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
 			mValueDefault = TTValue(0.);
+			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
 		}

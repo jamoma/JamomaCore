@@ -52,7 +52,7 @@ mTTToApp(NULL)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mDirectory = new TTNodeDirectory(mName);
-	TT_ASSERT("NodeDirectory created successfully", !err);
+	TT_ASSERT("NodeDirectory created successfully", mDirectory != NULL);
 	
 	mAppToTT = new TTHash();
 	mTTToApp = new TTHash();
