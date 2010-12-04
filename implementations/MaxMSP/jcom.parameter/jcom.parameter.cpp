@@ -567,7 +567,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue v;
 
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 	selectedObject->sendMessage(TT("Inc"), v);
 }
 
@@ -576,7 +576,7 @@ void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue v;
 	
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 	selectedObject->sendMessage(TT("Dec"), v);
 }
 #endif
