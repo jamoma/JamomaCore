@@ -1,9 +1,9 @@
 /*
- * TTBlue Audio Buffer Object
+ * Jamoma DSP Audio Buffer Object 
  * Copyright © 2003, Timothy Place
- *
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html
+ * 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTBuffer.h"
@@ -35,8 +35,8 @@ TT_DATA_CONSTRUCTOR,
 	addUpdate(SampleRate);
 
 	// TODO: more messages to implement
-	//	"readFile"
-	//	"writeFile"
+	//	"readFile"   (requires libsndfile straightening-out)
+	//	"writeFile"  (requires libsndfile straightening-out)
 	//	a way to query attributes: for example what is the sr and bpm of an AIFF file?
 }
 

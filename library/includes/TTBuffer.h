@@ -1,5 +1,5 @@
 /* 
- * TTBlue Audio Buffer Object 
+ * Jamoma DSP Audio Buffer Object 
  * Copyright © 2003, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
