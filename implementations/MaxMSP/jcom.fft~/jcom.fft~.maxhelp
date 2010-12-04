@@ -260,7 +260,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.xfade~", "@description", "Crossfade object for n channels" ],
+					"args" : [ "@name", "jcom.fft~", "@description", "computing the FFT" ],
 					"bgmode" : 1,
 					"id" : "obj-16",
 					"maxclass" : "bpatcher",
