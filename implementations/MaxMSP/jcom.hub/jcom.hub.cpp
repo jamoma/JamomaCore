@@ -138,7 +138,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 	TTNodePtr					node = NULL;
 	TTBoolean					newInstance;
 	TTSymbolPtr					nodeAddress, relativeAddress;
-	TTSymbolPtr					helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
+	TTSymbolPtr					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
 	TTObjectPtr					aData, anExplorer;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
@@ -181,6 +181,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 		if ((address == gensym("/") || address == _sym_nothing)) {
 			
 			if (x->patcherType == TT("jmod")) {
+				classAdrs = TT("/model/class");
 				helpAdrs =  TT("/model/help");
 				refAdrs = TT("/model/reference");
 				internalsAdrs = TT("/model/internals");
@@ -188,6 +189,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 				muteAdrs = TT("/model/mute");
 			}
 			else if (x->patcherType == TT("jview")) {
+				classAdrs = TT("/view/class");
 				helpAdrs =  TT("/view/help");
 				refAdrs = TT("/view/reference");
 				internalsAdrs = TT("/view/internals");
@@ -195,12 +197,19 @@ void hub_build(TTPtr self, SymbolPtr address)
 				muteAdrs = TT("/view/mute");
 			}
 			else {
+				classAdrs = TT("/class");
 				helpAdrs =  TT("/help");
 				refAdrs = TT("/reference");
 				internalsAdrs = TT("/internals");
 				documentationAdrs = TT("/documentation/generate");
 				muteAdrs = TT("/mute");
 			}
+			
+			// Add a /class data
+			makeInternals_data(x, nodeAddress, classAdrs, gensym("hub_class"), context, kTTSym_return, &aData);
+			aData->setAttributeValue(kTTSym_type, kTTSym_string);
+			aData->setAttributeValue(kTTSym_description, TT("The patcher class"));
+			aData->setAttributeValue(kTTSym_value, x->patcherClass);
 			
 			// Add a /help data
 			makeInternals_data(x, nodeAddress, helpAdrs, gensym("hub_help"), context, kTTSym_message, &aData);
@@ -523,12 +532,38 @@ void hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTList		returnedTTNodes;
+	TTNodePtr	firstReturnedTTNode;
+	TTValue		v;
+	TTSymbolPtr patcherClass, patcherClassAdrs;
+	TTObjectPtr anObject;
+	TTErr		err;
 	
-	if (atom_gettype(argv) == A_SYM)
+	if (atom_gettype(argv) == A_SYM) {
 		x->cursor = TT(atom_getsym(argv)->s_name);		// use cursor member to store /view/address
 		
-	// DEBUG
-	object_post((ObjectPtr)x, "set /view/address : %s", x->cursor->getCString());
+		// Test the class of the /view/address patcher
+		joinOSCAddress(x->cursor, TT("/model/class"), &patcherClassAdrs);
+		err = JamomaDirectory->Lookup(patcherClassAdrs, returnedTTNodes, &firstReturnedTTNode);
+		
+		if (!err) {
+			if (anObject = firstReturnedTTNode->getObject()) {
+				
+				anObject->getAttributeValue(kTTSym_value, v);
+				v.get(0, &patcherClass);
+				
+				if (patcherClass == x->patcherClass)
+					// DEBUG
+					object_post((ObjectPtr)x, "set /view/address : %s", x->cursor->getCString());
+				else
+					object_warn((ObjectPtr)x, "/view/address is binding on a \"%s\" model instead of a \"%s\" model", patcherClass->getCString(), x->patcherClass->getCString());
+			}
+			else
+				object_warn((ObjectPtr)x, "/view/address is not binding on jmod patcher");
+		}
+		else
+			object_warn((ObjectPtr)x, "/view/address is not binding on a jmod patcher");
+	}
 }
 
 void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
