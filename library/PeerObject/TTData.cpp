@@ -403,6 +403,15 @@ TTErr TTData::Command(const TTValue& command)
 		}	
 		
 		if (!mRepetitionsAllow && mInitialized) {
+			
+			// float to integer case
+			if (mType == kTTSym_integer)
+				convertedValue.truncate();
+			
+			// integer/float to boolean case
+			if (mType == kTTSym_boolean)
+				convertedValue.booleanize();
+			
 			if (mValue == convertedValue)
 				return kTTErrNone;	// nothing to do
 		}
@@ -431,6 +440,15 @@ TTErr TTData::Command(const TTValue& command)
 #endif
 		// check repetitions
 		if (!mRepetitionsAllow && mInitialized) {
+			
+			// float to integer case
+			if (mType == kTTSym_integer)
+				convertedValue.truncate();
+			
+			// integer/float to boolean case
+			if (mType == kTTSym_boolean)
+				convertedValue.booleanize();
+			
 			if (mValue == convertedValue)
 				return kTTErrNone;	// nothing to do
 		}
