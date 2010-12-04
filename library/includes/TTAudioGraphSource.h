@@ -85,7 +85,7 @@ public:
 		// - we definitely can not copy the mCallbackHandler pointer
 		// - not certain about the mSourceObject
 
-		if (original.mSourceObject)
+		if (original.mSourceObject && original.mSourceObject->valid)
 			connect(original.mSourceObject, original.mOutletNumber);
 		
 		return *this;
