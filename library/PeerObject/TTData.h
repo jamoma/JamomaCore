@@ -57,7 +57,6 @@ private:
 	TTSymbolPtr		mDescription;				///< ATTRIBUTE: a text label to describe the role of this data
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
 	TTBoolean		mReadonly;					///< ATTRIBUTE: 
-	TTBoolean		mViewFreeze;				///< ATTRIBUTE: freeze updating of graphical user interface
 	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
@@ -141,9 +140,6 @@ private:
 	
 	/**	Setter for m attribute. */
 	TTErr	setReadonly(const TTValue& value);
-	
-	/**	Setter for m attribute. */
-	TTErr	setViewFreeze(const TTValue& value);
 	
 	/**	Setter for m attribute. */
 	TTErr	setRangeBounds(const TTValue& value);
