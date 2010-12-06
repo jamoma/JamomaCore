@@ -56,6 +56,19 @@ public:
 		mDestinationObjects.clear();
 	}
 	
+	
+	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 toInletNumber)
+	{
+		for (TTGraphDestinationIter	dest = mDestinationObjects.begin(); dest != mDestinationObjects.end(); dest++) {
+			if (dest->match(anObject, toInletNumber)) {
+				drop(*dest);
+				break;
+			}
+		}
+		return kTTErrNone;
+	}
+	
+	
 	void drop(TTGraphDestination& aDestination)
 	{
 		TTGraphDestinationIter iter = find(mDestinationObjects.begin(), mDestinationObjects.end(), aDestination);
@@ -63,6 +76,7 @@ public:
 		if (iter != mDestinationObjects.end())
 			mDestinationObjects.erase(iter);
 	}
+	
 	
 	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 toInletNumber)
 	{
