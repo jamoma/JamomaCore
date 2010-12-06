@@ -14,8 +14,9 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
+mDescription(kTTSymEmpty),
 mType(kTTSymEmpty),
-mSelected(NO),
+mSelected(YES),
 mFreeze(NO),
 mApplication(NULL),
 mReceiver(NULL),
@@ -29,6 +30,7 @@ mReturnValueCallback(NULL)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
+	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	addAttribute(Selected, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);

@@ -31,10 +31,11 @@ class TTMODULAR_EXPORT TTViewer : public TTObject
 	
 private:
 	
-	TTSymbolPtr			mAddress;					///< ATTRIBUTE : the data address to bind
-	TTSymbolPtr			mType;						///< ATTRIBUTE : the type of the gui
-	TTBoolean			mSelected;					///< ATTRIBUTE : the selection state of the gui
-	TTBoolean			mFreeze;					///< ATTRIBUTE : Freeze data returning
+	TTSymbolPtr			mAddress;					///< ATTRIBUTE : data address to bind
+	TTSymbolPtr			mDescription;				///< ATTRIBUTE : text to describe the role of this data
+	TTSymbolPtr			mType;						///< ATTRIBUTE : type of the gui
+	TTBoolean			mSelected;					///< ATTRIBUTE : selection state of the gui
+	TTBoolean			mFreeze;					///< ATTRIBUTE : freeze data returning
 	
 	TTApplicationPtr	mApplication;				///< the application
 	TTReceiverPtr		mReceiver;					///< the receiver which binds on our data

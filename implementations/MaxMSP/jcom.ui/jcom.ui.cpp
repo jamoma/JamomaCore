@@ -82,6 +82,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_mousedown,						"mousedown",						A_CANT, 0);
 	class_addmethod(c, (method)ui_mousedragdelta,					"mousedragdelta",					A_CANT, 0);
 	class_addmethod(c, (method)ui_mouseup,							"mouseup",							A_CANT, 0);
+	class_addmethod(c, (method)ui_mousemove,						"mousemove",						A_CANT, 0);
+	class_addmethod(c, (method)ui_mouseleave,						"mouseleave",						A_CANT, 0);
 	class_addmethod(c, (method)ui_oksize,							"oksize",							A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_modelExplorer_callback,			"return_modelExploration",			A_CANT, 0);
@@ -808,6 +810,42 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 			object_method(textfield, gensym("settext"), "/editing_this_view");
 	
 	jbox_redraw(&x->box);
+}
+
+void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
+{
+	SymbolPtr objclass;
+	ObjectPtr obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+	
+	// TODO : select all / unselect all by control+click on the jcom.ui
+	
+	while (obj) {
+		objclass = object_attr_getsym(obj, _sym_maxclass);
+		if (objclass == gensym("jcom.view")) {
+			
+			object_method(object_attr_getobj(obj, _sym_object), gensym("mousemove"), patcherview, pt, modifiers);
+
+		}
+		obj = object_attr_getobj(obj, _sym_nextobject);
+	}
+}
+
+void ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
+{	
+	SymbolPtr objclass;
+	ObjectPtr obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+	
+	// TODO : select all / unselect all by control+click on the jcom.ui
+	
+	while (obj) {
+		objclass = object_attr_getsym(obj, _sym_maxclass);
+		if (objclass == gensym("jcom.view")) {
+			
+			object_method(object_attr_getobj(obj, _sym_object), gensym("mouseleave"), patcherview, pt, modifiers);
+			
+		}
+		obj = object_attr_getobj(obj, _sym_nextobject);
+	}
 }
 
 #pragma mark -

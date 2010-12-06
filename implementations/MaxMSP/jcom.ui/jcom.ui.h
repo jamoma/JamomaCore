@@ -115,6 +115,8 @@ void 		ui_paint(t_ui *x, t_object *view);
 void 		ui_mousedown(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void		ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void		ui_mouseup(t_ui *x, t_object *patcherview);
+void 		ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
+void 		ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void*		ui_oksize(t_ui *x, t_rect *rect);
 void		ui_preset_interface(t_ui *x);
 
