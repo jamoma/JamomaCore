@@ -194,6 +194,9 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->viewAddress = kTTSymEmpty;
 		x->modelAddress = kTTSymEmpty;
 		
+		x->hover = false;
+		x->selectAll = false;
+		
 		x->has_preset = false;
 		x->has_help = false;
 		x->has_ref = false;
@@ -724,14 +727,39 @@ void ui_paint(t_ui *x, t_object *view)
 
 void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 {
-	t_rect	rect;
+	ObjectPtr	obj;
+	SymbolPtr	objclass;
+	t_rect		rect;
+	Atom		a;
 	
 	// usually we don't want mousedragdelta -- we turn it on below as necessary
 	jbox_set_mousedragdelta((t_object *)x, 0);
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect); 
-	if (px.y > 20.0)	// we only handle clicks in the title bar
-		return;
+	
+	// a click on jcom.ui panel will select/unselect all jcom.view
+	if (px.y > 20.0) {
+		
+		// if the control key is pressed
+		if (modifiers & eControlKey) {
+			
+			x->selectAll = !x->selectAll;
+			obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+			atom_setlong(&a, x->selectAll);
+			while (obj) {
+				objclass = object_attr_getsym(obj, _sym_maxclass);
+				if (objclass == gensym("jcom.view")) {
+					
+					object_method(object_attr_getobj(obj, _sym_object), gensym("selected"), 1, &a);
+					
+				}
+				obj = object_attr_getobj(obj, _sym_nextobject);
+			}
+			
+			// update the mouse position to display
+			ui_mousemove(x, patcherview, px, modifiers);
+		}
+	}
 	
 	if (px.x > 18) {//(rect.width - 112)) {
 		// we check the gain and mix knobs first because they are continuous datas and should run as fast as possible
@@ -819,10 +847,30 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 
 void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-	SymbolPtr objclass;
-	ObjectPtr obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+	SymbolPtr	objclass;
+	ObjectPtr	obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+	Atom		selected_color[4];
 	
-	// TODO : select all / unselect all by control+click on the jcom.ui
+	// if the control key is pressed
+	if (modifiers & eControlKey) {
+		// Is the mouse wasn't hover the jcom.ui panel
+		if (!x->hover) {
+			x->hover = true;
+			atom_setfloat(&selected_color[0], 0.62);
+			atom_setfloat(&selected_color[1], 0.);
+			atom_setfloat(&selected_color[2], 0.36);
+			atom_setfloat(&selected_color[3], 0.70);
+			x->memo_bordercolor = x->bordercolor;
+			object_attr_setvalueof(x, gensym("bordercolor"), 4, selected_color);
+		}
+	}
+	else {
+		if (x->hover) {
+			x->hover = false;
+			object_attr_setcolor((ObjectPtr)x, gensym("bordercolor"), &x->memo_bordercolor);
+		}
+	}
+	
 	while (obj) {
 		objclass = object_attr_getsym(obj, _sym_maxclass);
 		if (objclass == gensym("jcom.view")) {
@@ -839,12 +887,18 @@ void ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	SymbolPtr objclass;
 	ObjectPtr obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
 	
-	// TODO : select all / unselect all by control+click on the jcom.ui
+	// Is the mouse leave outside the jcom.ui (not hover an ui object)
+	if (	pt.x <= x->box.b_presentation_rect.x || pt.x >= (x->box.b_presentation_rect.x + x->box.b_presentation_rect.width)
+		||	pt.y <= x->box.b_presentation_rect.y || pt.y >= (x->box.b_presentation_rect.y + x->box.b_presentation_rect.height)) {
+		x->hover = false;
+		object_attr_setcolor((ObjectPtr)x, gensym("bordercolor"), &x->memo_bordercolor);
+	}
+	
 	while (obj) {
 		objclass = object_attr_getsym(obj, _sym_maxclass);
 		if (objclass == gensym("jcom.view")) {
 			
-			object_method(object_attr_getobj(obj, _sym_object), gensym("mouseleave"), patcherview, pt, modifiers);
+			object_method(object_attr_getobj(obj, _sym_object), gensym("mouseleave"), patcherview, pt, modifiers*x->hover); // * hover allows to return to a normal display
 			
 		}
 		obj = object_attr_getobj(obj, _sym_nextobject);

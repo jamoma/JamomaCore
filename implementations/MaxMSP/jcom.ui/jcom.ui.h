@@ -39,6 +39,10 @@ typedef struct _ui{
 	TTSymbolPtr			patcherClass;
 	TTSymbolPtr			patcherName;
 	ObjectPtr			patcher;
+	
+	TTBoolean			hover;					// is the mouse hover the jcom.ui panel ?
+	TTBoolean			selectAll;				// to select/unselect all jcom.view
+	t_jrgba				memo_bordercolor;		// to keep the choosen border color during selection
 
 	t_jrgba				bgcolor;
 	t_jrgba				bordercolor;
