@@ -26,13 +26,15 @@ typedef struct _ui{
 	TTHashPtr			hash_datas;				///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
 	TTObjectPtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
+	TTObjectPtr			viewExplorer;			///< internal TTExplorer object to observe the view namespace
 	TTObjectPtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
 	TTObjectPtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
 	TTObjectPtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
 	TTObjectPtr			modelRetExplorer;		///< internal TTExplorer object to observe returns
 	TTSubscriberPtr		uiSubscriber;			///< internal TTSubscriber object to create a /ui node
 	
-	TTSymbolPtr			address;
+	TTSymbolPtr			viewAddress;
+	TTSymbolPtr			modelAddress;
 	TTSymbolPtr			patcherType;
 	TTSymbolPtr			patcherClass;
 	TTSymbolPtr			patcherName;
@@ -143,6 +145,7 @@ void		ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f);
 void		ui_viewer_refresh(t_ui *obj, TTSymbolPtr name);
 
 void		ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr method);
+void		ui_viewExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv); 
 void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv); 
 void		ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

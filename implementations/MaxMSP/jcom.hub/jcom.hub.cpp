@@ -34,6 +34,7 @@ typedef struct inlet {
 // Definitions
 void		WrapTTContainerClass(WrappedClassPtr c);
 void		WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void		WrappedContainerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
@@ -65,7 +66,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTContainerClass;
 	spec->_new = &WrappedContainerClass_new;
-	spec->_any = NULL;
+	spec->_any = &WrappedContainerClass_anything;
 	
 	return wrapTTModularClassAsMaxClass(TT("Container"), "jcom.hub", NULL, spec);
 }
@@ -84,8 +85,6 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)hub_mute,						"hub_mute",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_address,					"hub_address",			A_CANT, 0);			// only in jview patch
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"doc_generate",			A_CANT, 0);
-	
-	class_addmethod(c->maxClass, (method)hub_list,						"anything",				A_GIMME, 0L);
 	
 	class_addmethod(c->maxClass, (method)hub_help,						"help",					0);
 	class_addmethod(c->maxClass, (method)hub_reference,					"reference",			0);
@@ -246,7 +245,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 				makeInternals_explorer((ObjectPtr)x, TT("nmspcExplorer"), gensym("return_nmpscExploration"), &anExplorer);
 				
 				// observe the entire namespace
-				x->cursor = kTTSymEmpty;		// use cursor member to store /view/address
+				x->extra = kTTSymEmpty;		// use extra member to store /view/address
 				anExplorer->setAttributeValue(kTTSym_lookfor, TT("Container"));
 				anExplorer->setAttributeValue(kTTSym_address, S_SEPARATOR);
 				anExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -279,7 +278,22 @@ void hub_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "");
 }
 
-void hub_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+void hub_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTString					addSlash;
+	
+	// if the address part doesn't begin by a slash : add it.
+	if (msg->s_name[0] != C_SEPARATOR) {
+		addSlash = "/";
+		addSlash += msg->s_name;
+		jamoma_container_send((TTContainerPtr)x->wrappedObject, gensym((char*)addSlash.data()), argc, argv);
+	}
+	
+	jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
+}
+
+void WrappedContainerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTString					addSlash;
@@ -332,40 +346,41 @@ void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	TTPtr						context;
 	long						n = atom_getlong(argv);
 	
-	if (x->subscriberObject) {
+	// create panel only for view patcher
+	if (x->patcherType == TT("jview") || x->patcherType == kTTSymEmpty) {
 		
-		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, &address);
-		
-		x->subscriberObject->getAttributeValue(TT("node"), v);
-		v.get(0, (TTPtr*)&node);
-		context = node->getContext();
-		
-		// Edit a /panel name
-		if (x->patcherType == TT("jmod"))
-			panelName = TT("/model/panel");
-		else if (x->patcherType == TT("jview"))
-			panelName = TT("/view/panel");
-		else
-			panelName = TT("/panel");
-		
-		if (n) {
+		if (x->subscriberObject) {
 			
-			// Make a /panel data
-			makeInternals_data(self, address, panelName, gensym("hub_panel"), context, kTTSym_message, &aData);
+			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+			v.get(0, &address);
 			
-			// Set attribute of the data
-			aData->setAttributeValue(kTTSym_type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
-			aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+			x->subscriberObject->getAttributeValue(TT("node"), v);
+			v.get(0, (TTPtr*)&node);
+			context = node->getContext();
+			
+			// Edit a /panel name
+			if (x->patcherType == TT("jview"))
+				panelName = TT("/view/panel");
+			else
+				panelName = TT("/panel");
+			
+			if (n) {
+				
+				// Make a /panel data
+				makeInternals_data(self, address, panelName, gensym("hub_panel"), context, kTTSym_message, &aData);
+				
+				// Set attribute of the data
+				aData->setAttributeValue(kTTSym_type, kTTSym_none);
+				aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
+				aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+			}
+			else
+				// Remove a /panel data
+				removeInternals_data(self, address, panelName);
 		}
-		else
-			// Remove a /panel data
-			removeInternals_data(self, address, panelName);
-		
 	}
 	else
-		object_error((ObjectPtr)x, "Can't create /panel message at loadbang. Please use a deferlow.");
+		object_error((ObjectPtr)x, "Can't create /panel message in %s patcher", x->patcherType->getCString());
 }
 
 void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -540,10 +555,10 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTErr		err;
 	
 	if (atom_gettype(argv) == A_SYM) {
-		x->cursor = TT(atom_getsym(argv)->s_name);		// use cursor member to store /view/address
+		x->extra = TT(atom_getsym(argv)->s_name);		// use extra member to store /view/address
 		
 		// Test the class of the /view/address patcher
-		joinOSCAddress(x->cursor, TT("/model/class"), &patcherClassAdrs);
+		joinOSCAddress((TTSymbolPtr)x->extra, TT("/model/class"), &patcherClassAdrs);
 		err = JamomaDirectory->Lookup(patcherClassAdrs, returnedTTNodes, &firstReturnedTTNode);
 		
 		if (!err) {
@@ -554,7 +569,7 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				
 				if (patcherClass == x->patcherClass)
 					// DEBUG
-					object_post((ObjectPtr)x, "set /view/address : %s", x->cursor->getCString());
+					object_post((ObjectPtr)x, "set /view/address : %s", ((TTSymbolPtr)x->extra)->getCString());
 				else
 					object_warn((ObjectPtr)x, "/view/address is binding on a \"%s\" model instead of a \"%s\" model", patcherClass->getCString(), x->patcherClass->getCString());
 			}
@@ -575,7 +590,7 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 	TTObjectPtr	aData;
 	
 	// if there is no address
-	if (x->cursor == kTTSymEmpty) {			// use cursor member to store /view/address
+	if (x->extra == kTTSymEmpty) {			// use extra member to store /view/address
 		
 		// look the namelist to know which data exist
 		for (long i=0; i<argc; i++) {

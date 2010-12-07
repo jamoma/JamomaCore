@@ -86,6 +86,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_mouseleave,						"mouseleave",						A_CANT, 0);
 	class_addmethod(c, (method)ui_oksize,							"oksize",							A_CANT, 0);
 	
+	class_addmethod(c, (method)ui_viewExplorer_callback,			"return_viewExploration",			A_CANT, 0);
 	class_addmethod(c, (method)ui_modelExplorer_callback,			"return_modelExploration",			A_CANT, 0);
 	class_addmethod(c, (method)ui_modelParamExplorer_callback,		"return_modelParamExploration",		A_CANT, 0);
 	class_addmethod(c, (method)ui_modelMessExplorer_callback,		"return_modelMessExploration",		A_CANT, 0);
@@ -135,7 +136,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");
 	CLASS_STICKY_ATTR(c,					"category",			0, "Jamoma");
 	
-	CLASS_ATTR_SYM(c,						"address",			0, t_ui,	address);
+	CLASS_ATTR_SYM(c,						"address",			0, t_ui,	modelAddress);
 	CLASS_ATTR_STYLE(c,						"address",			0, "text");
 	CLASS_ATTR_DEFAULT(c,					"address",			0, "");
 	CLASS_ATTR_ACCESSORS(c,					"address",			ui_address_get, ui_address_set);
@@ -190,7 +191,8 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->refmenu_items = (t_linklist *)linklist_new();
 		x->refmenu_qelem = qelem_new(x, (method)ui_refmenu_qfn);
 		
-		x->address = kTTSymEmpty;
+		x->viewAddress = kTTSymEmpty;
+		x->modelAddress = kTTSymEmpty;
 		
 		x->has_preset = false;
 		x->has_help = false;
@@ -204,7 +206,9 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->has_preview = false;
 		x->has_freeze = false;
 		
+		ui_explorer_create((ObjectPtr)x, &x->viewExplorer, gensym("return_viewExploration"));
 		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploration"));
+		
 		
 		attr_dictionary_process(x, d); 	// handle attribute args
 		
@@ -236,6 +240,9 @@ void ui_free(t_ui *x)
 	if (x->nmspcExplorer)
 		TTObjectRelease(&x->nmspcExplorer);
 	
+	if (x->viewExplorer)
+		TTObjectRelease(&x->viewExplorer);
+	
 	if (x->modelExplorer)
 		TTObjectRelease(&x->modelExplorer);
 	
@@ -262,7 +269,7 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 			textfield_set_textcolor(textfield, &x->textcolor);
 		
 		if (attrname == gensym("address"))
-			object_method(textfield, gensym("settext"), x->address->getCString());
+			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		
 		jbox_redraw(&x->box);
 	}
@@ -274,9 +281,9 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 	TTSymbolPtr	adrs = TT(atom_getsym(argv)->s_name);
 	TTValue		v;
 
-	if ((x->address == kTTSymEmpty && adrs != kTTSymEmpty) || adrs != x->address) {
+	if ((x->modelAddress == kTTSymEmpty && adrs != kTTSymEmpty) || adrs != x->modelAddress) {
 		
-		x->address = adrs;
+		x->modelAddress = adrs;
 		
 		// Clear all viewers
 		ui_viewer_destroy_all(x);
@@ -286,8 +293,6 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		x->has_help = false;
 		x->has_ref = false;
 		x->has_internals = false;
-		x->has_panel = false;
-		
 		x->has_mute = false;
 		x->has_gain = false;
 		x->has_bypass = false;
@@ -298,7 +303,7 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		// observe the namespace of the model
 		// by this way, the creation of any widgets depends on the existence of the data		
 		x->modelExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
-		x->modelExplorer->setAttributeValue(kTTSym_address, x->address);
+		x->modelExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 		x->modelExplorer->sendMessage(TT("Explore"), kTTValNONE);
 
 		// The following must be deferred because 
@@ -313,7 +318,7 @@ t_max_err ui_address_get(t_ui *x, t_object *attr, long *argc, t_atom **argv)
 {
 	char alloc;
 	atom_alloc(argc, argv, &alloc);     // allocate return atom
-	atom_setsym(*argv, gensym((char*)x->address->getCString()));
+	atom_setsym(*argv, gensym((char*)x->modelAddress->getCString()));
 	return 0;
 }
 
@@ -327,7 +332,7 @@ void ui_build(t_ui *x)
 	t_rect			uiRect;
 	
 	// if there no address try to get /view/address value
-	if (x->address == kTTSymEmpty)
+	if (x->modelAddress == kTTSymEmpty)
 		ui_viewer_refresh(x, TT("view/address"));
 	
 	// Examine the context to resize the view, set textfield, ...
@@ -367,8 +372,8 @@ void ui_build(t_ui *x)
 	// Set the textfield to display the address
 	textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
-		if (x->address != kTTSymEmpty)
-			object_method(textfield, gensym("settext"), x->address->getCString());
+		if (x->modelAddress != kTTSymEmpty)
+			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		else
 			object_method(textfield, gensym("settext"), "/editing_this_view");
 	
@@ -743,7 +748,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if (x->has_panel && px.x >= x->rect_panel.x && px.x <= (x->rect_panel.x + x->rect_panel.width))
-			ui_viewer_send(x, TT("model/panel"), kTTValNONE);
+			ui_viewer_send(x, TT("view/panel"), kTTValNONE);
 		
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			ui_viewer_send(x, TT("out.*/preview"), TTValue(!x->is_previewing));
@@ -804,8 +809,8 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 	x->gainDragging = false;
 	t_object *textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
-		if (x->address != kTTSymEmpty)
-			object_method(textfield, gensym("settext"), x->address->getCString());
+		if (x->modelAddress != kTTSymEmpty)
+			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		else
 			object_method(textfield, gensym("settext"), "/editing_this_view");
 	
@@ -818,7 +823,6 @@ void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	ObjectPtr obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
 	
 	// TODO : select all / unselect all by control+click on the jcom.ui
-	
 	while (obj) {
 		objclass = object_attr_getsym(obj, _sym_maxclass);
 		if (objclass == gensym("jcom.view")) {
@@ -836,7 +840,6 @@ void ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	ObjectPtr obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
 	
 	// TODO : select all / unselect all by control+click on the jcom.ui
-	
 	while (obj) {
 		objclass = object_attr_getsym(obj, _sym_maxclass);
 		if (objclass == gensym("jcom.view")) {
@@ -1113,8 +1116,8 @@ void ui_refmenu_build(t_ui *x)
 	linklist_clear(x->refmenu_items);
 	
 	// Edit refmenu title
-	if (x->address != kTTSymEmpty)
-		snprintf(tempStr, 512, "Model: %s", x->address->getCString());
+	if (x->modelAddress != kTTSymEmpty)
+		snprintf(tempStr, 512, "Model: %s", x->modelAddress->getCString());
 	else
 		strncpy_zero(tempStr, "Model: ?", 512);
 	
@@ -1128,7 +1131,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_parameter);
 	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->address);
+	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
 	
@@ -1138,7 +1141,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_message);
 	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->address);
+	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));
 	
@@ -1148,7 +1151,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_return);
 	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->address);
+	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelRetExplorer));
 }

@@ -31,15 +31,19 @@ typedef struct extra {
 	long		y;				// our ui object y presentation
 	long		w;				// our ui object width presentation
 	long		h;				// our ui object heigth presentation
+	TTBoolean	sensible;		// is the ui object is mouse sensible (comment and panel are not)
+	TTBoolean	hover;			// is the mouse hover a none sensible object ?
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
 #define set_out 0
-#define	dump_out 1
+#define select_out 1
+#define	dump_out 2
 
 // Definitions
 void	WrapTTViewerClass(WrappedClassPtr c);
 void	WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void	view_assist(TTPtr self, void *b, long msg, long arg, char *dst);
@@ -65,7 +69,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTViewerClass;
 	spec->_new = &WrappedViewerClass_new;
-	spec->_any = &wrappedModularClass_anything;
+	spec->_any = &WrappedViewerClass_anything;
 	spec->_notify = &WrappedViewerClass_notify;
 	
 	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.view", NULL, spec);
@@ -113,6 +117,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
+	x->outlets[select_out] = outlet_new(x, NULL);					// anything outlet to select ui
 	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data
 	
 	// Make qelem object
@@ -146,45 +151,8 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue		v;
-	TTBoolean	selected;
-	Atom		selected_color[4];
-	AtomCount	ac;
-	
 	// DEBUG
 	//object_post((ObjectPtr)x, "notify %s", msg->s_name);
-	
-	/* if connected object send any notification
-	if (sender == EXTRA->connected) {
-
-		// if the control key is pressed
-		if (jkeyboard_getcurrentmodifiers() & eControlKey) {
-			
-			// if mouse is over
-			object_attr_getvalueof(EXTRA->connected, _sym_presentation_rect , &ac, (AtomPtr*)&EXTRA->presentation_rect);
-			object_attr_getvalueof(EXTRA->connected, _sym_patching_rect , &ac, (AtomPtr*)&EXTRA->patching_rect);
-			
-			x->wrappedObject->getAttributeValue(TT("selected"), v);
-			v.get(0, selected);
-			
-			// reverse selected attribute and change background color
-			if (selected) {
-				x->wrappedObject->setAttributeValue(TT("selected"), NO);
-				object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
-			}
-			else {
-				x->wrappedObject->setAttributeValue(TT("selected"), YES);
-				
-				atom_setfloat(&selected_color[0], 0.62);
-				atom_setfloat(&selected_color[1], 0.);
-				atom_setfloat(&selected_color[2], 0.36);
-				atom_setfloat(&selected_color[3], 0.70);
-				
-				object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, selected_color);
-			}
-		}
-	}
-	 */
 	
 	return MAX_ERR_NONE;
 }
@@ -197,8 +165,8 @@ void view_build(TTPtr self, SymbolPtr address)
 	TTBoolean					newInstance;
 	TTSymbolPtr					nodeAddress, relativeAddress, contextAddress;
 	TTObjectPtr					anObject;
-	TTPtr						context;
-	SymbolPtr					s_namespace, s_registered;
+	//TTPtr						context;
+	//SymbolPtr					s_namespace, s_registered;
 
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherType, &x->subscriberObject);
@@ -313,6 +281,16 @@ void view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	x->wrappedObject->sendMessage(kTTSym_Send, v);
 }
 
+void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue		v;
+	
+	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+	
+	x->wrappedObject->sendMessage(kTTSym_Send, v);
+}
+
 void view_return_view_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
@@ -334,60 +312,39 @@ void view_attach(TTPtr self)
 	t_outlet*	myoutlet = NULL;
 	t_dll*		connecteds = NULL;
 	ObjectPtr	o;
-	SymbolPtr	name;
 	TTValue		v;
-	TTSymbolPtr type;
-	SymbolPtr	s_type, s_namespace, s_registered;
-	TTBoolean	found = false;
 	AtomCount	ac;
 	AtomPtr		av;
 	
-	// get type attribute
-	x->wrappedObject->getAttributeValue(TT("type"), v);
-	v.get(0, &type);
-	s_type = gensym((char*)type->getCString());
-	
-	// search through all connected objects for object like type attribute
+	// get the first object connected to the select_out
 	object_obex_lookup(x, _sym_pound_B, &box);
 	
-	myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 0);
+	myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, select_out);
 	if (myoutlet)
 		connecteds = (t_dll*)myoutlet->o_dll;
 	
-	while (connecteds && !found) {
+	if (connecteds) {
 		o = (t_object*)connecteds->d_x1;
-		name = object_classname(o);
-		
-		if (name == s_type) {
-			
-			found = true;
-			object_findregisteredbyptr(&s_namespace, &s_registered, o);
 
-			if (EXTRA->connected = (ObjectPtr)object_attach(s_namespace, s_registered, x)) {
-				// DEBUG
-				object_post((ObjectPtr)x, "attached to %s", name->s_name);
-				
-				ac = 0;
-				EXTRA->bgcolor = NULL;
-				object_attr_getvalueof(EXTRA->connected, _sym_bgcolor, &ac, (AtomPtr*)&EXTRA->bgcolor);
-				
-				ac = 0;
-				av = NULL;
-				object_attr_getvalueof(EXTRA->connected, _sym_presentation_rect , &ac, &av);
-				if (ac && av) {
-					EXTRA->x = atom_getlong(av+0);
-					EXTRA->y = atom_getlong(av+1);
-					EXTRA->w = atom_getlong(av+2);
-					EXTRA->h = atom_getlong(av+3);
-				}
+		if (EXTRA->connected = o) {
+
+			ac = 0;
+			EXTRA->bgcolor = NULL;
+			object_attr_getvalueof(EXTRA->connected, _sym_bgcolor, &ac, (AtomPtr*)&EXTRA->bgcolor);
+			
+			ac = 0;
+			av = NULL;
+			object_attr_getvalueof(EXTRA->connected, _sym_presentation_rect , &ac, &av);
+			if (ac && av) {
+				EXTRA->x = atom_getlong(av+0);
+				EXTRA->y = atom_getlong(av+1);
+				EXTRA->w = atom_getlong(av+2);
+				EXTRA->h = atom_getlong(av+3);
 			}
-			else 
-				object_error((ObjectPtr)x, "can't attach to %s. The object is not registered", name->s_name);
+			
+			EXTRA->sensible = !(	object_classname(EXTRA->connected) == gensym("comment") 
+								||	object_classname(EXTRA->connected) == gensym("panel"));
 		}
-		
-		o = NULL;
-		name = NULL;
-		connecteds = connecteds->d_next;
 	}
 }
 
@@ -398,16 +355,30 @@ void view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 	TTValue		v;
 	TTBoolean	selected;
 	Atom		selected_color[4];
+	long		around = 2; //offset to select our object easily
 	
 	if (EXTRA->connected) {
 		
 		// if the control key is pressed
 		if (modifiers & eControlKey) {
 			
+			// Special case for none mouse sensible ui object
+			if (!EXTRA->sensible) {
+				if (pt.x > EXTRA->x-around && pt.x < EXTRA->x+EXTRA->w+around && pt.y > EXTRA->y-around && pt.y < EXTRA->y+EXTRA->h+around) {
+					if (!EXTRA->hover) {
+						EXTRA->hover = true;
+						view_mouseleave(self, patcherview, pt, modifiers);
+					}
+				}
+				else
+					if (EXTRA->hover)
+						EXTRA->hover = false;
+			}
+			
 			// display selected attribute by changing background color if selected
 			x->wrappedObject->getAttributeValue(TT("selected"), v);
 			v.get(0, selected);
-			
+				
 			if (selected) {
 				
 				atom_setfloat(&selected_color[0], 0.62);
@@ -443,6 +414,8 @@ void view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 			
 			// if mouse leave jcom.ui maybe it is on our object
 			if (pt.x > EXTRA->x-around && pt.x < EXTRA->x+EXTRA->w+around && pt.y > EXTRA->y-around && pt.y < EXTRA->y+EXTRA->h+around) {
+				
+				// DEBUG
 				object_post((ObjectPtr)x, "mouse on %s", object_classname(EXTRA->connected)->s_name);
 				
 				x->wrappedObject->getAttributeValue(TT("selected"), v);
