@@ -54,9 +54,8 @@ void ui_data_create_all(t_ui* obj)
 	obj->viewExplorer->setAttributeValue(kTTSym_address, obj->viewAddress);
 	obj->viewExplorer->sendMessage(TT("Explore"), kTTValNONE);
 
-	// in jview patch : make a viewer on contextAddress/view/address parameter
-	if (obj->patcherType == TT("jview"))
-		ui_viewer_create(obj, &anObject, gensym("return_view_address"), TT("view/address"), obj->viewAddress);
+	// make a viewer on contextAddress/model/address data
+	ui_viewer_create(obj, &anObject, gensym("return_model_address"), TT("model/address"), obj->viewAddress);
 
 	// Then create all internal datas concerning the jcom.ui
 	// ui/color/contentBackground
@@ -263,8 +262,8 @@ void ui_viewer_destroy_all(t_ui *obj)
 				
 				hk.get(i,(TTSymbolPtr*)&key);
 				
-				// don't destroy /view/address viewer
-				if (key != TT("view/address"))
+				// don't destroy /model/address viewer
+				if (key != TT("model/address"))
 					ui_viewer_destroy(obj, key);
 			}
 		}
@@ -821,7 +820,7 @@ void ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 		object_attr_setvalueof(obj, gensym("bordercolor"), argc, argv);
 }
 
-void ui_return_view_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
 	

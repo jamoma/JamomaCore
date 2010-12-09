@@ -29,6 +29,13 @@ typedef struct inlet {
 	struct object *i_owner;
 } t_inlet;
 
+// This is used to store extra data
+typedef struct extra {
+	ObjectPtr	modelInternal;		// store an internal model patcher
+	TTSymbolPtr modelAddress;		// store the /model/address parameter
+} t_extra;
+#define EXTRA ((t_extra*)x->extra)
+
 #define data_out 0
 
 // Definitions
@@ -125,6 +132,9 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare memory to store internal datas
 	x->internals = new TTHash();
+	
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
@@ -235,17 +245,22 @@ void hub_build(TTPtr self, SymbolPtr address)
 			aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 			aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
 			
-			// In jview patch only : add /view/address parameter and create a namespace explorer
+			// In jmod *and* jview patcher : Add /model/address data
+			if (x->patcherType == TT("jmod")) // as return
+				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
+			if (x->patcherType == TT("jview")) // as parameter
+				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
+			aData->setAttributeValue(kTTSym_type, kTTSym_string);
+			aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A jmod patcher bind on himself"));
+			
+			// In jmod patcher : set /modeladdress with his address
+			if (x->patcherType == TT("jmod"))
+				aData->setAttributeValue(kTTSym_value, nodeAddress);
+			
+			// In jview patcher : observe the entire namespace to find a model of our class
 			if (x->patcherType == TT("jview")) {
-				
-				makeInternals_data(x, nodeAddress,  TT("/view/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
-				aData->setAttributeValue(kTTSym_type, kTTSym_string);
-				aData->setAttributeValue(kTTSym_description, TT("The model address this view is binding"));
-				
 				makeInternals_explorer((ObjectPtr)x, TT("nmspcExplorer"), gensym("return_nmpscExploration"), &anExplorer);
-				
-				// observe the entire namespace
-				x->extra = kTTSymEmpty;		// use extra member to store /view/address
+				EXTRA->modelAddress = kTTSymEmpty;
 				anExplorer->setAttributeValue(kTTSym_lookfor, TT("Container"));
 				anExplorer->setAttributeValue(kTTSym_address, S_SEPARATOR);
 				anExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -554,30 +569,34 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTObjectPtr anObject;
 	TTErr		err;
 	
-	if (atom_gettype(argv) == A_SYM) {
-		x->extra = TT(atom_getsym(argv)->s_name);		// use extra member to store /view/address
+	// In jview patcher only
+	if (x->patcherType == TT("jview")) {
 		
-		// Test the class of the /view/address patcher
-		joinOSCAddress((TTSymbolPtr)x->extra, TT("/model/class"), &patcherClassAdrs);
-		err = JamomaDirectory->Lookup(patcherClassAdrs, returnedTTNodes, &firstReturnedTTNode);
-		
-		if (!err) {
-			if (anObject = firstReturnedTTNode->getObject()) {
-				
-				anObject->getAttributeValue(kTTSym_value, v);
-				v.get(0, &patcherClass);
-				
-				if (patcherClass == x->patcherClass)
-					// DEBUG
-					object_post((ObjectPtr)x, "set /view/address : %s", ((TTSymbolPtr)x->extra)->getCString());
+		if (atom_gettype(argv) == A_SYM) {
+			EXTRA->modelAddress = TT(atom_getsym(argv)->s_name);
+			
+			// Test the class of the /model/address patcher
+			joinOSCAddress(EXTRA->modelAddress, TT("/model/class"), &patcherClassAdrs);
+			err = JamomaDirectory->Lookup(patcherClassAdrs, returnedTTNodes, &firstReturnedTTNode);
+			
+			if (!err) {
+				if (anObject = firstReturnedTTNode->getObject()) {
+					
+					anObject->getAttributeValue(kTTSym_value, v);
+					v.get(0, &patcherClass);
+					
+					if (patcherClass == x->patcherClass)
+						// DEBUG
+						object_post((ObjectPtr)x, "set /model/address : %s", EXTRA->modelAddress->getCString());
+					else
+						object_warn((ObjectPtr)x, "/model/address refers to a \"%s\" model instead of a \"%s\" model", patcherClass->getCString(), x->patcherClass->getCString());
+				}
 				else
-					object_warn((ObjectPtr)x, "/view/address is binding on a \"%s\" model instead of a \"%s\" model", patcherClass->getCString(), x->patcherClass->getCString());
+					object_warn((ObjectPtr)x, "/model/address doesn't refer to a jmod patcher");
 			}
 			else
-				object_warn((ObjectPtr)x, "/view/address is not binding on jmod patcher");
+				object_warn((ObjectPtr)x, "/model/address doesn't refer to a jmod patcher");
 		}
-		else
-			object_warn((ObjectPtr)x, "/view/address is not binding on a jmod patcher");
 	}
 }
 
@@ -590,7 +609,7 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 	TTObjectPtr	aData;
 	
 	// if there is no address
-	if (x->extra == kTTSymEmpty) {			// use extra member to store /view/address
+	if (EXTRA->modelAddress == kTTSymEmpty) {
 		
 		// look the namelist to know which data exist
 		for (long i=0; i<argc; i++) {
@@ -598,18 +617,14 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 			paramName = atom_getsym(argv+i);
 			
 			// try to bind on the patherName
-			// (in case the jcom.hub is embedded in the jview. patcher)
-			if (x->patcherType == TT("jview")) {
+			// if a name is equal to the patcherClass and parent is /
+			splitOSCAddress(TT(paramName->s_name), &parent, &name, &instance, &attribute);
+			if (name == x->patcherClass && parent == S_SEPARATOR) {
 				
-				// if a name is equal to the patcherClass and parent is /
-				splitOSCAddress(TT(paramName->s_name), &parent, &name, &instance, &attribute);
-				if (name == x->patcherClass && parent == S_SEPARATOR) {
-
-					if (!x->internals->lookup(TT("/view/address"), v)) {
-						
-						v.get(0, (TTPtr*)&aData);
-						aData->setAttributeValue(kTTSym_value, TT(paramName->s_name));
-					}
+				if (!x->internals->lookup(TT("/model/address"), v)) {
+					
+					v.get(0, (TTPtr*)&aData);
+					aData->setAttributeValue(kTTSym_value, TT(paramName->s_name));
 				}
 			}
 		}

@@ -100,7 +100,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_return_ui_freeze,					"return_ui_freeze",					A_CANT, 0);
 	class_addmethod(c, (method)ui_return_ui_refresh,				"return_ui_refresh",				A_CANT, 0);
 	
-	class_addmethod(c, (method)ui_return_view_address,				"return_view_address",				A_CANT, 0);
+	class_addmethod(c, (method)ui_return_model_address,				"return_model_address",				A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_metersdefeated,			"return_metersdefeated",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_mute,						"return_mute",						A_CANT, 0);
@@ -252,7 +252,7 @@ void ui_free(t_ui *x)
 	TTObjectRelease(TTObjectHandle(&x->uiSubscriber));
 	
 	ui_data_destroy_all(x);
-	ui_viewer_destroy(x, TT("view/address"));
+	ui_viewer_destroy(x, TT("model/address"));
 	ui_viewer_destroy_all(x);
 }
 
@@ -334,9 +334,9 @@ void ui_build(t_ui *x)
 	t_rect			boxRect;
 	t_rect			uiRect;
 	
-	// if there no address try to get /view/address value
+	// if there no address try to get /model/address value
 	if (x->modelAddress == kTTSymEmpty)
-		ui_viewer_refresh(x, TT("view/address"));
+		ui_viewer_refresh(x, TT("model/address"));
 	
 	// Examine the context to resize the view, set textfield, ...
 	x->patcher = jamoma_object_getpatcher((ObjectPtr)x);
@@ -366,7 +366,7 @@ void ui_build(t_ui *x)
 			object_method_parse(x->patcher, _sym_window, "flags nogrow", NULL);		// get rid of the grow thingies
 			object_method_parse(x->patcher, _sym_window, "flags nozoom", NULL);		// disable maximize button 
 			object_method_parse(x->patcher, _sym_window, "exec", NULL); 
-			object_attr_setsym(x->patcher, _sym_title, gensym("TODO : model class"));	// TODO : set the window title to the module class, jcom.ui shows osc_name already 
+			object_attr_setsym(x->patcher, _sym_title, gensym((char*)x->patcherClass->getCString()));	// set the window title to the module class, jcom.ui shows osc_name already 
 			object_attr_setchar(x->patcher, _sym_enablehscroll, 0);					// turn off scroll bars
 			object_attr_setchar(x->patcher, _sym_enablevscroll, 0);				
 		}
@@ -929,11 +929,10 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 						JAMOMA_MENU_FONTSIZE);
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
-	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, x->bgcolor);
 	size = linklist_getsize(x->menu_items);
 	for (i=0; i<size; i++) {
 		item = (t_symobject *)linklist_getindex(x->menu_items, i);
-		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
+		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')
 			jpopupmenu_addseperator(p);
 		else {
 			if (item->sym == gensym("Defeat Signal Meters")) {
@@ -954,8 +953,8 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	}
 	
 	object_method(patcherview, gensym("canvastoscreen"), 0.0, 0.0, &coord_x, &coord_y);	
-	coord_x += x->box.b_patching_rect.x;
-	coord_y += x->box.b_patching_rect.y;
+	coord_x += x->box.b_presentation_rect.x;
+	coord_y += x->box.b_presentation_rect.y;
 	pt.x = coord_x;
 	pt.y = coord_y;
 	selectedId = jpopupmenu_popup(p, pt, x->refmenu_selection+1);
@@ -1113,8 +1112,6 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 						JAMOMA_MENU_FONTSIZE);
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
-	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, x->bgcolor);
-	//	jpopupmenu_setheadercolor(<#t_jpopupmenu * menu#>, <#t_jrgba * hc#>)
 	size = linklist_getsize(x->refmenu_items);
 	for (i=0; i<size; i++) {
 		item = (t_symobject *)linklist_getindex(x->refmenu_items, i);
@@ -1132,8 +1129,8 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	}
 	
 	object_method(patcherview, gensym("canvastoscreen"), 0.0, 0.0, &coord_x, &coord_y);	
-	coord_x += x->box.b_patching_rect.x;
-	coord_y += x->box.b_patching_rect.y;
+	coord_x += x->box.b_presentation_rect.x;
+	coord_y += x->box.b_presentation_rect.y;
 	pt.x = coord_x + 20.0;
 	pt.y = coord_y;
 	
