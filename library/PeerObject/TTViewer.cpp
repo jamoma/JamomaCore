@@ -14,6 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
+mAttribute(kTTSym_value),
 mDescription(kTTSymEmpty),
 mType(kTTSymEmpty),
 mSelected(YES),
@@ -30,6 +31,7 @@ mReturnValueCallback(NULL)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
+	addAttributeWithSetter(Attribute, kTypeSymbol);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	addAttribute(Selected, kTypeBoolean);
@@ -65,6 +67,26 @@ TTErr TTViewer::setAddress(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTViewer::setAttribute(const TTValue& value)
+{
+	mAttribute = value;
+	
+	if (mAttribute == kTTSymEmpty)
+		mAttribute = kTTSym_value;
+	
+	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
+	TTValue v = TTValue(mAttribute);
+	ToTTName(v);
+	v.get(0, &mAttribute);
+		
+	if (mAttribute != kTTSymEmpty) {
+		bind();
+		Refresh();
+	}
+	
+	return kTTErrNone;
+}
+
 TTErr TTViewer::bind()
 {
 	TTValue			args, v, min, max;
@@ -74,7 +96,7 @@ TTErr TTViewer::bind()
 	// Prepare aguments
 	args.append(mApplication);
 	args.append(mAddress);
-	args.append(kTTSym_value);
+	args.append(mAttribute);
 	
 	// Replace a TTSender object
 	if (mSender)

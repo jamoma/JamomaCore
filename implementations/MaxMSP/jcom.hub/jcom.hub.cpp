@@ -312,15 +312,16 @@ void WrappedContainerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, A
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTString					addSlash;
+	TTErr						err;
 	
 	// if the address part doesn't begin by a slash : add it.
 	if (msg->s_name[0] != C_SEPARATOR) {
 		addSlash = "/";
 		addSlash += msg->s_name;
-		jamoma_container_send((TTContainerPtr)x->wrappedObject, gensym((char*)addSlash.data()), argc, argv);
+		err = jamoma_container_send((TTContainerPtr)x->wrappedObject, gensym((char*)addSlash.data()), argc, argv);
 	}
-	
-	jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
+	else
+		err = jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
 }
 
 void hub_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

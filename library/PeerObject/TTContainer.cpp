@@ -77,10 +77,10 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		aRelativeAddress, attribute, service;
+	TTSymbolPtr		aRelativeAddress, attribute, service, viewerAttribute;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
-	TTErr			err;
+	TTErr			err = kTTErrNone;
 	
 	if (!mIsSending) {
 		
@@ -134,6 +134,23 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 					return kTTErrNone;
 				}
 				
+				// VIEWER CASE for a same attribute
+				if (anObject->getName() == TT("Viewer")) {
+					
+					// what attribute is it binding ?
+					anObject->getAttributeValue(TT("attribute"), v);
+					v.get(0, &viewerAttribute);
+					
+					// if attribute is the same than the actual one
+					if (viewerAttribute = attribute)
+						// send the value
+						anObject->sendMessage(kTTSym_Send, *valueToSend);
+					
+					// unlock
+					mIsSending = false;	
+					return kTTErrNone;
+				}
+				
 				// DEFAULT CASE
 				// Look for attribute and set it
 				if (!anObject->findAttribute(attribute, &anAttribute))
@@ -149,7 +166,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 	
 	// unlock
 	mIsSending = false;	
-	return kTTErrNone;
+	return err;
 }
 
 TTErr TTContainer::Init()

@@ -354,8 +354,7 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
 		
-		aContainer->sendMessage(kTTSym_Send, data); // data is [address, attribute, [x, x, ,x , ...]]
-		return kTTErrNone;
+		return aContainer->sendMessage(kTTSym_Send, data); // data is [address, attribute, [x, x, ,x , ...]]
 	}
 	
 	return kTTErrGeneric;
@@ -442,8 +441,7 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		aSender->sendMessage(kTTSym_Send, v);
-		return kTTErrNone;
+		return aSender->sendMessage(kTTSym_Send, v);
 	}
 	
 	return kTTErrGeneric;

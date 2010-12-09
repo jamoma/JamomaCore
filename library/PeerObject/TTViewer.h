@@ -32,6 +32,7 @@ class TTMODULAR_EXPORT TTViewer : public TTObject
 private:
 	
 	TTSymbolPtr			mAddress;					///< ATTRIBUTE : data address to bind
+	TTSymbolPtr			mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
 	TTSymbolPtr			mDescription;				///< ATTRIBUTE : text to describe the role of this data
 	TTSymbolPtr			mType;						///< ATTRIBUTE : type of the gui
 	TTBoolean			mSelected;					///< ATTRIBUTE : selection state of the gui
@@ -48,6 +49,9 @@ private:
 	
 	/** set the address */
 	TTErr setAddress(const TTValue& value);
+	
+	/** set the address */
+	TTErr setAttribute(const TTValue& value);
 	
 	/** set the freeze */
 	TTErr setFreeze(const TTValue& value);
