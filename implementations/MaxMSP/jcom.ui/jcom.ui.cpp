@@ -758,10 +758,12 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			
 			// update the mouse position to display
 			ui_mousemove(x, patcherview, px, modifiers);
+			
+			return;
 		}
 	}
 	
-	if (px.x > 18) {//(rect.width - 112)) {
+	if (px.x > 18 && px.y < 20.0) {//(rect.width - 112)) {
 		// we check the gain and mix knobs first because they are continuous datas and should run as fast as possible
 		if (x->has_gain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)) {
 			x->gainDragging = true;
