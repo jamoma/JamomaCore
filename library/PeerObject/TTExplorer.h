@@ -31,8 +31,6 @@ private:
 	TTValue				mEqual;							///< ATTRIBUTE : each found elements have to be equal to one element of this attribute (use KTTValNone to don't use this)
 	TTValue				mDifferent;						///< ATTRIBUTE : each found elements have to be different from all elements of this attribute (use KTTValNone to don't use this)
 	
-
-	
 	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mObserver;						///< a life cycle observer
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
