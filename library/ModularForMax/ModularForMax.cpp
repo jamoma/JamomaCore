@@ -210,7 +210,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	SymbolPtr		patcherName;
 	SymbolPtr		contextName = _sym_nothing;
 	TTSymbolPtr		patcherClass;
-	TTString		contextEditionName, contextTypeStr;
+	TTString		contextEditionName, contextTypeStr, jviewName;
 	TTUInt8			contextTypeLen;
 	TTValuePtr		v;
 	
@@ -266,8 +266,21 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		
 		// If the contextName is still nothing
 		// get it from the patcher name if it start by contextType
-		if (contextName == _sym_nothing)
-			contextName = patcherName;
+		if (contextName == _sym_nothing) {
+			
+			// for jview patcher :
+			// wrap the patcherName with < > in order to create 
+			// a different address than default model name.
+			if (contextType == TT("jview")) {
+				jviewName = "/<";
+				jviewName += patcherName->s_name;
+				jviewName += ">";
+				contextName = gensym(jviewName.data());
+			}
+			else
+				contextName = patcherName;
+			
+		}
 		
 		// add the < contextName, patcher > to the contextList
 		v = new TTValue(TT(contextName->s_name));
