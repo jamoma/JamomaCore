@@ -46,7 +46,7 @@ public:	// use public for quick acces during signal processing
 	
 	TTUInt16			mIndex;						///< index of current input signal [0 :: mNumber]
 	
-	TTOutputPtr			mOutputObject;				///< TTOuput object to pass signal through
+	TTOutputPtr			mOutputObject;				///< TTOutput object to pass signal through
 	
 private:
 	
@@ -54,7 +54,7 @@ private:
 	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this input
 	TTCallbackPtr		mObserver;					///< to observe mOutputAddress creation/destruction
 	
-	/** Send signal */
+	/** Send signal. The mIndex have to be choosen before */
 	TTErr Send(TTValue& value);
 	
 	/** Set outputObject */

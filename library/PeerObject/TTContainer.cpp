@@ -285,7 +285,6 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	cacheElement.append((TTPtr)anObject);
 	
 	// Special case for Data : observe his value
-	// it is a Data
 	if (anObject->getName() == TT("Data")) {
 		
 		// What kind of service the data is used for ?
@@ -317,9 +316,33 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		else
 			cacheElement.append(NULL);
 	}
+	
+	// Special case for Viewer : observe what it returns
+	else if (anObject->getName() == TT("Viewer")) {
+		
+		// create a returnedValue Attribute observer on it
+		anObject->findAttribute(kTTSym_returnedValue, &anAttribute);
+		
+		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
+		
+		newBaton = new TTValue(TTPtr(this));
+		newBaton->append(aRelativeAddress);
+		
+		newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+		newObserver->setAttributeValue(TT("owner"), TT("TTContainer"));					// this is usefull only to debug
+		
+		anAttribute->registerObserverForNotifications(*newObserver);
+		
+		// add observer to the cacheElement
+		cacheElement.append((TTPtr)newObserver);
+	}
+	
 	// add NULL to the cacheElement
 	else
-		cacheElement.append(NULL);
+	cacheElement.append(NULL);
+
 	
 	// append the cacheElement to the cache hash table
 	mObjectsObserversCache->append(aRelativeAddress, cacheElement);

@@ -38,6 +38,9 @@ private:
 	TTBoolean			mSelected;					///< ATTRIBUTE : selection state of the gui
 	TTBoolean			mFreeze;					///< ATTRIBUTE : freeze data returning
 	
+	TTBoolean			mEnable;					///< ATTRIBUTE: if false, received data won't be output
+	TTValue				mReturnedValue;				///< ATTRIBUTE : a local value to allow observation of this viewer
+	
 	TTApplicationPtr	mApplication;				///< the application
 	TTReceiverPtr		mReceiver;					///< the receiver which binds on our data
 	TTSenderPtr			mSender;					///< the sender which binds on our data
@@ -55,6 +58,9 @@ private:
 	
 	/** set the freeze */
 	TTErr setFreeze(const TTValue& value);
+	
+	/** set the returnedValue */
+	TTErr setReturnedValue(const TTValue& value);
 	
 	/** */
 	TTErr Send(TTValue& valueToSend);

@@ -782,7 +782,7 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a viewer object */
-TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
+TTErr jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;

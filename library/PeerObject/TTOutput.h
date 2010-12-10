@@ -72,7 +72,7 @@ private:
 	TTCallbackPtr		mObserver;					///< to observe mInputAddress creation/destruction
 	
 	
-	/** Send signal */
+	/** Send signal. The mIndex have to be choosen before */
 	TTErr Send(TTValue& value);
 	TTErr SendBypassed(TTValue& value);
 	
