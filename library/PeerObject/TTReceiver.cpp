@@ -20,6 +20,7 @@ mEnable(YES),
 mApplication(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
+mReturnLifeCallback(NULL),
 mObserver(NULL),
 mNodesObserversCache(NULL)
 {
@@ -29,10 +30,15 @@ mNodesObserversCache(NULL)
 	TT_ASSERT("Application passed to TTReceiver is not NULL", mApplication);
 	arguments.get(1, &mAddress);
 	arguments.get(2, &mAttribute);
-	arguments.get(3, (TTPtr*)&mReturnAddressCallback);
-	TT_ASSERT("Return Address Callback passed to TTReceiver is not NULL", mReturnAddressCallback);
-	arguments.get(4, (TTPtr*)&mReturnValueCallback);
-	TT_ASSERT("Return Value Callback passed to TTReceiver is not NULL", mReturnValueCallback);
+	
+	if (arguments.getSize() >= 4)
+		arguments.get(3, (TTPtr*)&mReturnAddressCallback);
+	
+	if (arguments.getSize() >= 5)
+		arguments.get(4, (TTPtr*)&mReturnValueCallback);
+	
+	if (arguments.getSize() >= 6)
+		arguments.get(5, (TTPtr*)&mReturnLifeCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Attribute, kTypeSymbol);
@@ -63,6 +69,9 @@ TTReceiver::~TTReceiver()
 	
 	if (mReturnValueCallback)
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	
+	if (mReturnLifeCallback)
+		TTObjectRelease(TTObjectHandle(&mReturnLifeCallback));
 }
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
@@ -141,10 +150,13 @@ TTErr TTReceiver::Get()
 					
 					// return the address
 					address.append(TT(fullAddress.data()));
-					this->mReturnAddressCallback->notify(address);
+					
+					if (mReturnAddressCallback)
+						mReturnAddressCallback->notify(address);
 					
 					// return the value
-					this->mReturnValueCallback->notify(data);
+					if (mReturnValueCallback)
+						mReturnValueCallback->notify(data);
 				}
 				else
 					;// TODO : error "%s doesn't exist"
@@ -164,7 +176,7 @@ TTErr TTReceiver::bind()
 	TTObjectPtr		newObserver, o;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
-	TTValue			v;
+	TTValue			v, data;
 	TTValuePtr		newBaton, newCouple;
 	TTErr			err;
 	
@@ -211,6 +223,15 @@ TTErr TTReceiver::bind()
 						newCouple = new TTValue((TTPtr)aNode);
 						newCouple->append((TTPtr)newObserver);
 						mNodesObserversCache->appendUnique(newCouple);
+						
+						// notify life cycle observer
+						if (mReturnLifeCallback) {
+							data.append(oscAddress);
+							data.append((TTPtr)aNode);
+							data.append(kAddressCreated);
+							data.append(NULL); // no observer
+							mReturnLifeCallback->notify(data);
+						}
 					}
 				}
 			}
@@ -332,7 +353,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			{
 				// return the address
 				address.append(oscAddress);
-				aReceiver->mReturnAddressCallback->notify(address);
+				if (aReceiver->mReturnAddressCallback)
+					aReceiver->mReturnAddressCallback->notify(address);
 			}
 			else if (aReceiver->mAttribute != kTTSym_destroyed)
 			{
@@ -381,6 +403,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							newCouple->append((TTPtr)newObserver);
 							aReceiver->mNodesObserversCache->appendUnique(newCouple);
 						}
+						
+						// notify life cycle observer
+						if (aReceiver->mReturnLifeCallback)
+							aReceiver->mReturnLifeCallback->notify(data);
 					}
 				}
 			}
@@ -394,7 +420,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			{
 				// return the address
 				address.append(oscAddress);
-				aReceiver->mReturnAddressCallback->notify(address);
+				if (aReceiver->mReturnAddressCallback)
+					aReceiver->mReturnAddressCallback->notify(address);
 			}
 			else if (aReceiver->mAttribute != kTTSym_created)
 			{
@@ -427,6 +454,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							
 					// forget this couple
 					aReceiver->mNodesObserversCache->remove(c);
+					
+					// notify life cycle observer
+					if (aReceiver->mReturnLifeCallback)
+						aReceiver->mReturnLifeCallback->notify(data);
 				}
 			}
 			break;

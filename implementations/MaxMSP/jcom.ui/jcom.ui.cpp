@@ -781,16 +781,16 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			ui_viewer_send(x, TT("view/panel"), kTTValNONE);
 		
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
-			ui_viewer_send(x, TT("out.*/preview"), TTValue(!x->is_previewing));
+			ui_viewer_send(x, TT("out/preview"), TTValue(!x->is_previewing));
 		
 		else if (x->has_freeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
-			ui_viewer_send(x, TT("out.*/freeze"), TTValue(!x->is_frozen));
+			ui_viewer_send(x, TT("out/freeze"), TTValue(!x->is_frozen));
 		
 		else if (x->has_bypass && px.x >= x->rect_bypass.x && px.x <= (x->rect_bypass.x + x->rect_bypass.width))
-			ui_viewer_send(x, TT("in.*/bypass"), TTValue(!x->is_bypassed));
+			ui_viewer_send(x, TT("in/bypass"), TTValue(!x->is_bypassed));
 		
 		else if (x->has_mute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
-			ui_viewer_send(x, TT("out.*/mute"), TTValue(!x->is_muted));
+			ui_viewer_send(x, TT("out/mute"), TTValue(!x->is_muted));
 		
 		else if (px.x < 100)
 			ui_refmenu_do(x, patcherview, px, modifiers);
@@ -818,7 +818,7 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	if (x->mixDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 100.0f);
-		ui_viewer_send(x, TT("out.*/mix"), TTValue(x->anchorValue));
+		ui_viewer_send(x, TT("out/mix"), TTValue(x->anchorValue));
 		
 		snprintf(str, sizeof(str), "%f", x->mix);
 		object_method(textfield, gensym("settext"), str);
@@ -826,7 +826,7 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	else if (x->gainDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 127.0f);
-		ui_viewer_send(x, TT("out.*/gain"), TTValue(x->anchorValue));
+		ui_viewer_send(x, TT("out/gain"), TTValue(x->anchorValue));
 		
 		snprintf(str, sizeof(str), "%f", x->gain);
 		object_method(textfield, gensym("settext"), str);

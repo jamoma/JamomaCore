@@ -55,7 +55,7 @@ void ui_data_create_all(t_ui* obj)
 	obj->viewExplorer->sendMessage(TT("Explore"), kTTValNONE);
 
 	// make a viewer on contextAddress/model/address data
-	ui_viewer_create(obj, &anObject, gensym("return_model_address"), TT("model/address"), obj->viewAddress);
+	ui_viewer_create(obj, &anObject, gensym("return_model_address"), TT("model/address"), obj->viewAddress, NO);
 
 	// Then create all internal datas concerning the jcom.ui
 	// ui/color/contentBackground
@@ -198,12 +198,13 @@ void ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v)
 	anObject->setAttributeValue(kTTSym_value, v);
 }
 
-void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTSymbolPtr address)
+void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTSymbolPtr address, TTBoolean subscribe)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	TTSymbolPtr		adrs;
+	TTSubscriberPtr aSubscriber = NULL;
 	
 	// prepare arguments
 	args.append(JamomaApplication);
@@ -223,19 +224,30 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	joinOSCAddress(address, name, &adrs);
 	(*returnedViewer)->setAttributeValue(TT("address"), adrs);
 	
+	// Suscribe the viewer into the namespace
+	if (subscribe)
+		jamoma_subscriber_create((ObjectPtr)obj, *returnedViewer, gensym((char*)name->getCString()), obj->patcherType, &aSubscriber);
+	
 	// Store the Viewer
 	args = TTValue(TTPtr(*returnedViewer));
+	args.append(TTPtr(aSubscriber));
 	obj->hash_viewers->append(name, args);
 }
 
 void ui_viewer_destroy(t_ui *obj, TTSymbolPtr name)
 {
 	TTValue			storedObject;
-	TTObjectPtr		aViewer;
+	TTObjectPtr		aViewer, aSubscriber;
 
 	if (obj->hash_viewers)
 		if (!obj->hash_viewers->lookup(name, storedObject)) {
 			
+			// unsuscribe
+			storedObject.get(1, (TTPtr*)&aSubscriber);
+			if (aSubscriber)
+					TTObjectRelease(&aSubscriber);
+			
+			// delete
 			storedObject.get(0, (TTPtr*)&aViewer);
 			if (aViewer)
 				if (aViewer->valid)	// to -- should be better to understand why the viewer is not valid
@@ -367,7 +379,7 @@ void ui_viewExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 	if (panel != obj->has_panel) {
 		obj->has_panel = panel;
 		if (panel) 
-			ui_viewer_create(obj, &anObject, NULL, TT("view/panel"), obj->viewAddress);
+			ui_viewer_create(obj, &anObject, NULL, TT("view/panel"), obj->viewAddress, NO);
 		else {
 			ui_viewer_destroy(obj, TT("view/panel"));
 			obj->hash_viewers->remove(TT("view/panel"));
@@ -436,10 +448,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (gain != obj->has_gain) {
 			obj->has_gain = gain;
 			if (gain) 
-				ui_viewer_create(obj, &anObject, gensym("return_gain"), TT("out.*/gain"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, gensym("return_gain"), TT("out/gain"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out.*/gain"));
-				obj->hash_viewers->remove(TT("out.*/gain"));
+				ui_viewer_destroy(obj, TT("out/gain"));
+				obj->hash_viewers->remove(TT("out/gain"));
 			}
 		}
 		
@@ -447,10 +459,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (mix != obj->has_mix) {
 			obj->has_mix = mix;
 			if (mix) 
-				ui_viewer_create(obj, &anObject, gensym("return_mix"), TT("out.*/mix"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, gensym("return_mix"), TT("out/mix"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out.*/mix"));
-				obj->hash_viewers->remove(TT("out.*/mix"));
+				ui_viewer_destroy(obj, TT("out/mix"));
+				obj->hash_viewers->remove(TT("out/mix"));
 			}
 			
 			change = true;
@@ -460,10 +472,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (bypass != obj->has_bypass) {
 			obj->has_bypass = bypass;
 			if (bypass) 
-				ui_viewer_create(obj, &anObject, gensym("return_bypass"), TT("in.*/bypass"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, gensym("return_bypass"), TT("in/bypass"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("in.*/bypass"));
-				obj->hash_viewers->remove(TT("in.*/bypass"));
+				ui_viewer_destroy(obj, TT("in/bypass"));
+				obj->hash_viewers->remove(TT("in/bypass"));
 			}
 			
 			change = true;
@@ -473,10 +485,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (freeze != obj->has_freeze) {
 			obj->has_freeze = freeze;
 			if (freeze) 
-				ui_viewer_create(obj, &anObject, gensym("return_freeze"), TT("out.*/freeze"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, gensym("return_freeze"), TT("out/freeze"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out.*/freeze"));
-				obj->hash_viewers->remove(TT("out.*/freeze"));
+				ui_viewer_destroy(obj, TT("out/freeze"));
+				obj->hash_viewers->remove(TT("out/freeze"));
 			}
 			
 			change = true;
@@ -486,10 +498,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (preview != obj->has_preview) {
 			obj->has_preview = preview;
 			if (preview) 
-				ui_viewer_create(obj, &anObject, gensym("return_preview"), TT("out.*/preview"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, gensym("return_preview"), TT("out/preview"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out.*/preview"));
-				obj->hash_viewers->remove(TT("out.*/preview"));
+				ui_viewer_destroy(obj, TT("out/preview"));
+				obj->hash_viewers->remove(TT("out/preview"));
 			}
 			
 			change = true;
@@ -499,10 +511,10 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (mute != obj->has_mute) {
 			obj->has_mute = mute;
 			if (mute) 
-				ui_viewer_create(obj, &anObject, gensym("return_mute"), TT("out.*/mute"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, gensym("return_mute"), TT("out/mute"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out.*/mute"));
-				obj->hash_viewers->remove(TT("out.*/mute"));
+				ui_viewer_destroy(obj, TT("out/mute"));
+				obj->hash_viewers->remove(TT("out/mute"));
 			}
 			
 			change = true;
@@ -512,7 +524,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (internals != obj->has_internals) {
 			obj->has_internals = internals;
 			if (internals) 
-				ui_viewer_create(obj, &anObject, NULL, TT("model/internals"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, NULL, TT("model/internals"), obj->modelAddress, NO);
 			else {
 				ui_viewer_destroy(obj, TT("model/internals"));
 				obj->hash_viewers->remove(TT("model/internals"));
@@ -525,12 +537,12 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (preset != obj->has_preset) {
 			obj->has_preset = preset;
 			if (preset) {
-				ui_viewer_create(obj, &anObject, NULL, TT("preset/write"), obj->modelAddress);
-				ui_viewer_create(obj, &anObject, NULL, TT("preset/read"), obj->modelAddress);
-				ui_viewer_create(obj, &anObject, NULL, TT("preset/recall"), obj->modelAddress);
-				ui_viewer_create(obj, &anObject, NULL, TT("preset/store/current"), obj->modelAddress);
-				ui_viewer_create(obj, &anObject, NULL, TT("preset/store/next"), obj->modelAddress);
-				ui_viewer_create(obj, &anObject, gensym("return_preset_names"), TT("preset/names"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, NULL, TT("preset/write"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TT("preset/read"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TT("preset/recall"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TT("preset/store/current"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TT("preset/store/next"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, gensym("return_preset_names"), TT("preset/names"), obj->modelAddress, NO);
 			}
 			else {
 				ui_viewer_destroy(obj, TT("write"));
@@ -554,7 +566,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (help != obj->has_help) {
 			obj->has_help = help;
 			if (help) 
-				ui_viewer_create(obj, &anObject, NULL, TT("model/help"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, NULL, TT("model/help"), obj->modelAddress, NO);
 			else {
 				ui_viewer_destroy(obj, TT("model/help"));
 				obj->hash_viewers->remove(TT("model/help"));
@@ -567,7 +579,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (ref != obj->has_ref) {
 			obj->has_ref = ref;
 			if (ref) 
-				ui_viewer_create(obj, &anObject, NULL, TT("model/reference"), obj->modelAddress);
+				ui_viewer_create(obj, &anObject, NULL, TT("model/reference"), obj->modelAddress, NO);
 			else {
 				ui_viewer_destroy(obj, TT("model/reference"));
 				obj->hash_viewers->remove(TT("model/reference"));

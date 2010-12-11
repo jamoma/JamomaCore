@@ -14,16 +14,18 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
-mAttribute(kTTSym_value),
+mAttribute(kTTSymEmpty),
+mMessage(kTTSymEmpty),
 mDescription(kTTSymEmpty),
 mType(kTTSymEmpty),
 mSelected(YES),
 mFreeze(NO),
+mEnable(YES),
+mReturnedValue(kTTValNONE),
 mApplication(NULL),
 mReceiver(NULL),
 mSender(NULL),
-mEnable(YES),
-mReturnedValue(kTTValNONE),
+mLifeObserver(NULL),
 mReturnValueCallback(NULL)
 {	
 	arguments.get(0, (TTPtr*)&mApplication);
@@ -34,6 +36,7 @@ mReturnValueCallback(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Attribute, kTypeSymbol);
+	addAttributeWithSetter(Message, kTypeSymbol);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	addAttribute(Selected, kTypeBoolean);
@@ -62,52 +65,22 @@ TTViewer::~TTViewer() // TODO : delete things...
 	
 	if (mReceiver)
 		TTObjectRelease(TTObjectHandle(&mReceiver));
+	
+	if (mLifeObserver)
+		TTObjectRelease(TTObjectHandle(&mLifeObserver));
 }
 
 TTErr TTViewer::setAddress(const TTValue& value)
 {
-	//TTSymbolPtr service;
-	//TTNodePtr	aNode;
-	//TTObjectPtr	anObject;
-	//TTValue		v;
-	
 	mAddress = value;
 	
-	if (mAddress != kTTSymEmpty) {
-		
-		bind();
-		
-		// TODO : check what kind of Object is registered at this address
-		// to custom the viewer => so we have to observe the creation of the address
-		
-		/*
-		//if (!getDirectoryFrom(this)->getTTNodeForOSC(mAddress, &aNode)) {
-			
-			if (anObject = aNode->getObject()) {
-				
-				if (anObject->getName() == TT("Container"))
-					;
-				
-				else if (anObject->getName() == TT("Data")) {
-					
-					anObject->getAttributeValue(kTTSym_service, v);
-					v.get(0, &service);
-					
-					// Don't output any value if it is a message
-					mEnable = service != kTTSym_message;
-				}
-				
-				else if (anObject->getName() == TT("Input"))
-					;
-				
-				else if (anObject->getName() == TT("Output"))
-					;
-			}
-		}
-		 */
-		
-		Refresh();
-	}
+	// if it binds on an attribute : refresh
+	if (mLifeObserver)
+		TTObjectRelease(TTObjectHandle(&mLifeObserver));
+	
+	if (!bind())
+		if (mAttribute != kTTSymEmpty)
+			Refresh();
 	
 	return kTTErrNone;
 }
@@ -115,19 +88,31 @@ TTErr TTViewer::setAddress(const TTValue& value)
 TTErr TTViewer::setAttribute(const TTValue& value)
 {
 	mAttribute = value;
-	
-	if (mAttribute == kTTSymEmpty)
-		mAttribute = kTTSym_value;
+	mMessage = kTTSymEmpty;
 	
 	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
 	TTValue v = TTValue(mAttribute);
 	ToTTName(v);
 	v.get(0, &mAttribute);
-		
-	if (mAttribute != kTTSymEmpty) {
-		bind();
+	
+	// if it binds : refresh
+	if (!bind())
 		Refresh();
-	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewer::setMessage(const TTValue& value)
+{
+	mMessage = value;
+	mAttribute = kTTSymEmpty;
+	
+	// Replace none TTnames (because the mMessage can be customized in order to have a specific application's namespace)
+	TTValue v = TTValue(mMessage);
+	ToTTName(v);
+	v.get(0, &mMessage);
+	
+	bind();
 	
 	return kTTErrNone;
 }
@@ -135,13 +120,42 @@ TTErr TTViewer::setAttribute(const TTValue& value)
 TTErr TTViewer::bind()
 {
 	TTValue			args, v, min, max;
-	TTObjectPtr		returnAddressCallback, returnValueCallback;
-	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTObjectPtr		returnAddressCallback, returnValueCallback, returnLifeCallback;
+	TTValuePtr		returnAddressBaton, returnValueBaton, returnLifeBaton;
 	
 	// Prepare aguments
 	args.append(mApplication);
-	args.append(mAddress);
-	args.append(mAttribute);
+	
+	if (mAddress != kTTSymEmpty)
+		args.append(mAddress);
+	else
+		return kTTErrGeneric;
+	
+	if (mAttribute != kTTSymEmpty)
+		args.append(mAttribute);
+	else if (mMessage != kTTSymEmpty)
+		args.append(mMessage);
+	else
+		args.append(kTTSymEmpty);
+	
+	// The first time : Create a Life observer for the address
+	if (!mLifeObserver) {
+		
+		args.append(NULL);
+		args.append(NULL);
+		
+		returnLifeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("callback"), &returnLifeCallback, kTTValNONE);
+		returnLifeBaton = new TTValue(TTPtr(this));
+		returnLifeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnLifeBaton));
+		returnLifeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveLifeCallback));
+		args.append(returnLifeCallback);
+		
+		mLifeObserver = NULL;						// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mLifeObserver), args);
+		
+		return kTTErrNone;
+	}
 	
 	// Replace a TTSender object
 	if (mSender)
@@ -154,20 +168,26 @@ TTErr TTViewer::bind()
 	if (mReceiver)
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 	
-	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
-	returnAddressBaton = new TTValue(TTPtr(this));
-	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
-	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveAddressCallback));
-	args.append(returnAddressCallback);
-	
-	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
-	returnValueBaton = new TTValue(TTPtr(this));
-	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveValueCallback));
-	args.append(returnValueCallback);
-	
+	if (mAttribute != kTTSymEmpty) {
+		returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+		returnAddressBaton = new TTValue(TTPtr(this));
+		returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
+		returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveAddressCallback));
+		args.append(returnAddressCallback);
+		
+		returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+		returnValueBaton = new TTValue(TTPtr(this));
+		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveValueCallback));
+		args.append(returnValueCallback);
+	}
+	else if (mMessage != kTTSymEmpty) {
+		args.append(NULL);
+		args.append(NULL);
+	}
+
 	mReceiver = NULL;						// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
 	
@@ -234,7 +254,6 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 	TTValuePtr	b;
 	TTValue		v;
 	
-	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aViewer);
@@ -256,3 +275,67 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
+TTErr TTViewerReceiveLifeCallback(TTPtr baton, TTValue& data)
+{
+	TTValuePtr		b;
+	TTViewerPtr		aViewer;
+	TTSymbolPtr		oscAddress;
+	TTNodePtr		aNode;
+	TTUInt8			flag;
+	TTCallbackPtr	anObserver;
+	TTSymbolPtr		service;
+	TTObjectPtr		anObject;
+	TTValue			v;
+
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aViewer);
+	
+	// Unpack data (oscAddress, aNode, flag, anObserver)
+	data.get(0, &oscAddress);
+	data.get(1, (TTPtr*)&aNode);
+	data.get(2, flag);
+	data.get(3, (TTPtr*)&anObserver);
+	
+	if (flag == kAddressCreated) {
+		// check what kind of Object is registered
+		// to custom the viewer because the view of
+		// a Data is not the same than the view of 
+		// an Input for example...
+		if (anObject = aNode->getObject()) {
+			
+			if (anObject->getName() == TT("Container")) {
+				
+				// Bind on Send message by default
+				if (aViewer->mMessage == kTTSymEmpty) {
+					aViewer->mMessage = kTTSym_Send;
+					aViewer->bind();
+				}
+			}
+			else if (anObject->getName() == TT("Data")) {
+				
+				anObject->getAttributeValue(kTTSym_service, v);
+				v.get(0, &service);
+				
+				// Don't output any value if it is a message
+				aViewer->mEnable = (service != kTTSym_message);
+				
+				// Bind on value attribute by default
+				if (aViewer->mAttribute == kTTSymEmpty) {
+					
+					aViewer->mAttribute = kTTSym_value;
+					aViewer->bind();
+					aViewer->Refresh();
+				}
+			}
+			
+			else if (anObject->getName() == TT("Input"))
+				;
+			
+			else if (anObject->getName() == TT("Output"))
+				;
+		}
+	}
+	
+	return kTTErrNone;
+}
