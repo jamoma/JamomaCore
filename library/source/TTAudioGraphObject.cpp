@@ -36,7 +36,7 @@ extern "C" void TTAudioGraphObject::registerClass()
 TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 	TTGraphObject(arguments),
 	mStatus(kTTAudioGraphProcessUnknown),
-	mDescription(NULL),
+	mAudioDescription(NULL),
 	mAudioFlags(kTTAudioGraphProcessor), 
 	mInputSignals(NULL), 
 	mOutputSignals(NULL), 
@@ -101,10 +101,12 @@ TTErr TTAudioGraphObject::setNumAudioOutlets(const TTValue& newNumOutlets)
 
 void TTAudioGraphObject::prepareAudioDescription()
 {
-	if (valid && mDescription) {
-		mDescription->sIndex = 0;
-		delete mDescription;
-		mDescription = NULL;
+	if (valid && mAudioDescription) {
+		mAudioDescription->sIndex = 0;
+		delete mAudioDescription;
+		mAudioDescription = NULL;
+		
+		prepareDescription();
 		
 		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
 			inlet->prepareDescriptions();
@@ -114,8 +116,8 @@ void TTAudioGraphObject::prepareAudioDescription()
 
 void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 {
-	if (mDescription) {		// a description for this object has already been created -- use it.
-		desc = *mDescription;
+	if (mAudioDescription) {		// a description for this object has already been created -- use it.
+		desc = *mAudioDescription;
 	}
 	else {					// create a new description for this object.
 		desc.mClassName = mKernel->getName();
@@ -124,8 +126,8 @@ void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 		desc.mNumOutlets = mOutlets.size();
 		desc.mAudioDescriptionsForInlets.clear();
 		desc.mID = desc.sIndex++;
-		mDescription = new TTAudioGraphDescription;
-		(*mDescription) = desc;
+		mAudioDescription = new TTAudioGraphDescription;
+		(*mAudioDescription) = desc;
 		
 		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 			TTAudioGraphDescriptionVector	vector;
