@@ -41,7 +41,9 @@ class TTAudioGraphSplit : public TTAudioObject {
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
 		TTAudioSignal&	in = inputs->getSignal(0);
+		TTUInt16		inputChannelCount = in.getNumChannelsAsInt();
 		TTUInt16		channelOffset = 0;
+		TTUInt16		channelBound = 0;
 		
 		for (TTUInt16 i=0; i < outputs->numAudioSignals; i++) {
 			TTAudioSignal&	out = outputs->getSignal(i);
@@ -50,8 +52,16 @@ class TTAudioGraphSplit : public TTAudioObject {
 			// TODO: we don't really want to alloc this memory every time!
 			out.setMaxNumChannels(numChannels);
 			out.setNumChannels(numChannels);
-			// TODO: what happens when the incomming multicable has less audio channels than we want to split?
-			TTAudioSignal::copySubset(in, out, channelOffset, channelOffset+numChannels-1);
+			
+			// if we have run out of channels to split, then stop splitting them.
+			if (channelOffset >= inputChannelCount)
+				break;
+			
+			channelBound = channelOffset+numChannels-1;
+			if (channelBound >= inputChannelCount)
+				channelBound = inputChannelCount-1;
+			
+			TTAudioSignal::copySubset(in, out, channelOffset, channelBound);
 			channelOffset += numChannels;
 			// TODO: what happens when the incomming multicable has more audio channels than we want to split? Should there be an extra 'overflow' outlet similar to 'route' or 'sel'? 
 		}
