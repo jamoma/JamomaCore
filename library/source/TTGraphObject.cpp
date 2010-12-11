@@ -117,7 +117,9 @@ TTErr TTGraphObject::drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, 
 	TTErr err = kTTErrInvalidValue;
 	
 	if (toInletNumber < mInlets.size())
-		err = mInlets[toInletNumber].drop(anObject, fromOutletNumber);	
+		err = mInlets[toInletNumber].drop(anObject, fromOutletNumber);
+	if (fromOutletNumber < mOutlets.size())
+		err = mOutlets[fromOutletNumber].drop(anObject, toInletNumber);
 	return err;
 }
 

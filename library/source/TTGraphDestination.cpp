@@ -13,7 +13,7 @@
 #include "TTGraphObject.h"
 
 
-// C Callback from any Graph Source objects we are observing
+// C Callback from any Graph Destination objects we are observing
 void TTGraphDestinationObserverCallback(TTGraphDestinationPtr self, TTValue& arg)
 {
 	// at the moment we only receive one callback, which is for the object being deleted
@@ -23,7 +23,7 @@ void TTGraphDestinationObserverCallback(TTGraphDestinationPtr self, TTValue& arg
 }
 
 
-// Implementation for Graph Source class
+// Implementation for Graph Destination class
 
 TTGraphDestination::TTGraphDestination() :
 	mDestinationObject(NULL),
