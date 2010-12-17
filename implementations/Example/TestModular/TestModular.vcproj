@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../Foundation/library/includes;../../../../DSP/library/includes;../../../library/source;../../../library/DataspaceLib;../../../library/FunctionLib;../../../library/RampLib;../../../library/PeerObject;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;"
+				AdditionalIncludeDirectories="../../../../Foundation/library/includes;../../../../DSP/library/includes;../../../library/source;../../../library/DataspaceLib;../../../library/FunctionLib;../../../library/RampLib;../../../library/PeerObject;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;;../../../library/DeviceManagerLib;../../../../Foundation\library\libxml2\win32\include;../../../../Foundation\library\libiconv\include"
 				PreprocessorDefinitions="TT_PLATFORM_WIN;WIN32;_DEBUG;_WINDOWS;WIN_VERSION;_CRT_SECURE_NO_WARNINGS"
 				ExceptionHandling="1"
 				RuntimeLibrary="3"
@@ -60,9 +60,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib $(NOINHERIT)"
+				UseUnicodeResponseFiles="true"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib DeviceManager.lib $(NOINHERIT)"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;;../../../library/DeviceManagerLib"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
