@@ -27,12 +27,11 @@ private:
 	
 	TTSymbolPtr			mAddress;					///< ATTRIBUTE: the address to bind
 	TTSymbolPtr			mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
-	TTBoolean			mEnable;					///< ATTRIBUTE: if false, received data won't be output without unregistered attribute observers (default true).
+	TTBoolean			mEnable;					///< ATTRIBUTE: if false, received data won't be output without unregister the attribute observer (default true).
 	
 	TTApplicationPtr	mApplication;				///< the application
 	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this receiver
-	TTCallbackPtr		mReturnLifeCallback;		///< a way to return created/destroyed address to the owner of this receiver
 	TTObjectPtr			mObserver;					///< a life cycle observer
 	TTListPtr			mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
 

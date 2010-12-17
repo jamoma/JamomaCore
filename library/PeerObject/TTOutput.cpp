@@ -76,7 +76,7 @@ mObserver(NULL)
 	addAttributeWithSetter(Gain, kTypeFloat32);
 	addAttribute(Freeze, kTypeBoolean);
 	addAttribute(Preview, kTypeBoolean);
-	addAttribute(Info, kTypeLocalValue);
+	addAttributeWithSetter(Info, kTypeLocalValue);
 	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);
@@ -250,6 +250,13 @@ TTErr TTOutput::setGain(const TTValue& value)
 	
 	if (mGainUnit)
 		return mGainUnit->setAttributeValue(TT("midiGain"), mGain);
+	
+	return kTTErrNone;
+}
+
+TTErr TTOutput::setInfo(const TTValue& value)
+{	
+	mInfo = value;
 	
 	return kTTErrNone;
 }

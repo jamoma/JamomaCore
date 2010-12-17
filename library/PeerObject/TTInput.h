@@ -66,6 +66,9 @@ private:
 	/** Set the outputAddress attribute */
 	TTErr setOutputAddress(const TTValue& value);
 	
+	/** Set the info attribute */
+	TTErr setInfo(const TTValue& value);
+	
 	friend TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(TTPtr baton, TTValue& data);
 
 };

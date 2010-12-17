@@ -94,6 +94,9 @@ private:
 	/** Set the gain attribute */
 	TTErr setGain(const TTValue& value);
 	
+	/** Set the info attribute */
+	TTErr setInfo(const TTValue& value);
+	
 	friend TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(TTPtr baton, TTValue& data);
 };
 

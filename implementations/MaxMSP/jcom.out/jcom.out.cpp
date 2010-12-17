@@ -13,27 +13,35 @@
 
 #define info_numChannels 0
 #define info_vectorSize 1
+#define info_startMeter 2
 
-#endif
+// This is used to store extra data
+typedef struct extra {
+	
+	void	*clock;			///< clock to update amplitude returns
+	//short	clock_is_set;	///< is the clock currently scheduled to fire?
+	
+} t_extra;
+#define EXTRA ((t_extra*)x->extra)
 
 // Constants
-const double kPollIntervalDefault = 150;	// for meters to update
+const double kPollIntervalDefault = 150;	// for amplitude updates
+
+#endif
 
 // Definitions
 void		WrapTTOutputClass(WrappedClassPtr c);
 void		WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void		WrappedOutputClass_free(TTPtr self);
 void		out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
-void		out_build(TTPtr self, long number);
+void		out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 //TODO :	void out_register_preview(t_out *x, void *preview_object){ x->preview_object = preview_object; }
 
 #ifdef JCOM_OUT_TILDE
 t_int*		out_perform(t_int *w);
 void		out_dsp(TTPtr self, t_signal **sp, short *count);
-
-void		out_register_meter(t_out *x, int meternum, void *meter_object);
-void		out_remove_meters(t_out *x);
-void		update_meters(t_out *x);
+void		out_update_amplitude(TTPtr self);
 
 #else
 
@@ -52,6 +60,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTOutputClass;
 	spec->_new = &WrappedOutputClass_new;
+	spec->_free = &WrappedOutputClass_free;
 #ifndef JCOM_OUT_TILDE
 	spec->_any = &WrappedOutputClass_anything;
 #endif
@@ -75,8 +84,6 @@ void WrapTTOutputClass(WrappedClassPtr c)
 	//class_addmethod(c->maxClass, (method)out_remoteaudio,					"remoteaudio",			A_CANT, 0);
 	//class_addmethod(c, (method)out_getAudioForChannel,					"getAudioForChannel",	A_CANT, 0);
 	
-	//class_addmethod(c, (method)out_register_meter,						"register_meter",		A_CANT, 0L);
-	//class_addmethod(c, (method)out_remove_meters,							"remove_meters",		A_CANT, 0L);
 #else
 	class_addmethod(c->maxClass, (method)out_return_signal,					"return_signal",		A_CANT, 0);
 	
@@ -98,6 +105,7 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	long						i, number = 0;
 	Atom						a;
+	TTValue						v;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
 	if (attrstart && argv) 
@@ -107,7 +115,6 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		number = 1;
 	
 	// Create Object, Inlets and Outlets
-	
 	x->inlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * number);
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * number);
 	
@@ -121,8 +128,23 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	for (i=0; i < number; i++)
 		outlet_new((t_pxobject *)x, "signal");
 	
-	// x->clock = clock_new(x, (method)update_meters);
-	// x->clock_is_set = 0;
+	// prepare signal info
+	v.append(TTUInt16(number));		// numChannel
+	v.append(0);					// vectorSize
+	for (i = 0; i < number; i++)	// meter[i]
+		v.append(0);
+
+	for (i = 0; i < number; i++)	// peak[i]
+		v.append(0);
+	
+	x->wrappedObject->setAttributeValue(TT("info"), v);
+	
+	// Prepare memory to store internal datas
+	x->internals = new TTHash();
+	
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	
 #else
 	
 	jamoma_output_create((ObjectPtr)x, &x->wrappedObject, number);
@@ -132,6 +154,7 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	for (i = number-1; i >= 0; i--)
 		x->outlets[i] = outlet_new(x, 0L);
+	
 #endif
 	
 	// handle attribute args
@@ -144,16 +167,28 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	defer_low((ObjectPtr)x, (method)out_build, NULL, 1, &a);
 }
 
-void out_build(TTPtr self, long number)
+void WrappedOutputClass_free(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+#ifdef JCOM_OUT_TILDE
+	dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
+	freeobject((t_object *)EXTRA->clock);	// delete our clock
+#endif
+}
+
+void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
+	long						i, number = atom_getlong(argv);
 	TTNodePtr					node = NULL;
 	TTBoolean					newInstance;
 	TTSymbolPtr					nodeAddress, relativeAddress, parentAddress;
 	TTDataPtr					aData;
 	TTPtr						context;
 	TTString					inAddress;
+	SymbolPtr					outAmplitudeInstance, outDescription;
 	
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/out"), x->patcherType, &x->subscriberObject);
@@ -193,6 +228,28 @@ void out_build(TTPtr self, long number)
 			inAddress += node->getInstance()->getCString();
 		}
 		x->wrappedObject->setAttributeValue(TT("inputAddress"), TT(inAddress.data()));
+
+#ifdef JCOM_OUT_TILDE
+		// make internal data to return out/amplitude
+		v = TTValue(0., 1.);
+		for (i = 0; i < number; i++) {
+			
+			jamoma_edit_numeric_instance("amplitude.%d", &outAmplitudeInstance, i+1);
+			jamoma_edit_numeric_instance("instant amplitude of the signal %d", &outDescription, i+1);
+			
+			makeInternals_data(x, nodeAddress, TT(outAmplitudeInstance->s_name), NULL, context, kTTSym_return, (TTObjectPtr*)&aData);
+			aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+			aData->setAttributeValue(kTTSym_rangeBounds, v);
+			aData->setAttributeValue(kTTSym_description, TT(outDescription->s_name));
+			aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
+			aData->setAttributeValue(kTTSym_dataspaceUnitActive, TT("linear"));
+		}
+		
+		// launch the clock to update amplitude regulary
+		EXTRA->clock = clock_new(x, (method)out_update_amplitude);
+		clock_delay(EXTRA->clock, kPollIntervalDefault);
+		//EXTRA->clock_is_set = 0;
+#endif
 		
 		// expose attributes of TTOutput as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
@@ -215,7 +272,7 @@ void out_build(TTPtr self, long number)
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 		aData->setAttributeValue(kTTSym_description, TT("Set gain of model's outputs (as MIDI value by default)."));
 		
-#ifndef JCOM_IN_TILDE		
+#ifndef JCOM_OUT_TILDE		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_freeze, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_description, TT("Freezes the last state of model's outputs from the  processing algorithm."));
@@ -300,12 +357,10 @@ t_int *out_perform(t_int *w)
 	TTUInt8						inNumCh, numChannels = 0;
 	TTUInt16					vectorSize = 0;
 	short						i, j;
-	
-	/* TODO
+	t_float*					envelope;
 	TTUInt16					n;
 	float						currentvalue = 0;
-	float						peakvalue = 0;	// values for calculating metering
-	 */
+	float						peakamp, peakvalue = 0;	// values for calculating metering
 	
 	// get numChannels and vectorSize
 	anOutput->mInfo.get(info_numChannels, numChannels);
@@ -353,13 +408,12 @@ t_int *out_perform(t_int *w)
 		j = (i*2) + 1;
 		TTAudioSignalPtr(anOutput->mSignalOut)->getVector(i, vectorSize, (TTFloat32*)w[j+2]);
 		
-		/* TODO
-		// since we are already looping through the channels here, we will also do the per-channel metering here
-		if (x->attr_defeat_meters == 0 && x->num_meter_objects && !anOutput->mMute) {
-			t_float* envelope = (t_float *)(w[j+2]);
+		// metering
+		if (!anOutput->mMute) {
+			envelope = (t_float *)(w[j+2]);
 			peakvalue = 0.0;
 			
-			n = x->vectorSize;
+			n = vectorSize;
 			while (n--) {
 				if ((*envelope) < 0 )						// get the current sample's absolute value
 					currentvalue = -(*envelope);
@@ -370,10 +424,15 @@ t_int *out_perform(t_int *w)
 					peakvalue = currentvalue;
 				envelope++; 								// increment pointer in the vector
 			}
-			if (peakvalue > x->peakamp[i])
-				x->peakamp[i] = peakvalue;
+			
+			// set meter[i]
+			anOutput->mInfo.set(info_startMeter+i, peakvalue);
+			
+			// set peak[i]
+			anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
+			if (peakvalue > peakamp)
+				anOutput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
 		}
-		*/
 	}
 	
 	return w + ((numChannels*2)+2);
@@ -433,52 +492,47 @@ void out_dsp(TTPtr self, t_signal **sp, short *count)
 	
 	dsp_addv(out_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
-	
-	/* TODO
-	// start the meters
-	if (x->num_meter_objects) {
-		for (i=0; i<MAX_NUM_CHANNELS; i++)
-			x->peakamp[i] = 0;
-		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
-	}
-	 */
-	
-}
- 
-/* TODO
-void out_register_meter(t_out *x, int meternum, void *meter_object)
-{
-	x->meter_object[meternum] = meter_object;
-	if ((meternum+1) > x->num_meter_objects)
-		x->num_meter_objects = meternum+1;
 }
 
-void out_remove_meters(t_out *x)
+void out_update_amplitude(TTPtr self)
 {
-	short i;
-	for (i=0; i<MAX_NUM_CHANNELS; i++)
-		x->meter_object[i] = NULL;
-	x->num_meter_objects = 0;
-}
-
-void update_meters(t_out *x)
-{
-	short	i;
-	t_atom	a[2];
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTOutputPtr		anOutput = (TTOutputPtr)x->wrappedObject;
+	float			metervalue;
+	short			i;
+	TTValue			keys;
+	TTSymbolPtr		name;
+	TTValue			storedObject;
+	TTObjectPtr		anObject;
+	TTErr			err;
 	
-	x->clock_is_set = 0;
-	for (i=0; i < x->num_meter_objects; i++) {
-		if (x->meter_object[i] && x->peakamp[i] != x->lastPeakamp[i]) {
-			atom_setsym(&a[0], _sym_float);
-			atom_setfloat(&a[1], x->peakamp[i]);
-			object_method_typed(x->meter_object[i], jps_dispatched, 2, a, NULL);
-			x->lastPeakamp[i] = x->peakamp[i];
-			x->peakamp[i] = 0;
+	//EXTRA->clock_is_set = 0;
+	
+	if (x->internals) {
+		if (!x->internals->isEmpty()) {
+			
+			err = x->internals->getKeys(keys);
+			
+			if (!err) {
+				for (i=0; i<keys.getSize(); i++) {
+					
+					keys.get(i, &name);
+					// get internal data object
+					x->internals->lookup(name, storedObject);
+					storedObject.get(0, (TTPtr*)&anObject);
+					
+					// get current meter value
+					anOutput->mInfo.get(info_startMeter+i, metervalue);
+					//anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
+					
+					// set the value
+					anObject->setAttributeValue(kTTSym_value, metervalue);
+				}
+			}
 		}
 	}
-	clock_delay(x->clock, kPollIntervalDefault); 			// restart the clock
+	
+	clock_delay(EXTRA->clock, kPollIntervalDefault); // restart the clock
 }
-
-*/
 
 #endif // JCOM_OUT_TILDE

@@ -14,7 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
-mAttribute(kTTSym_value),
+mAttribute(kTTSym_value),	 // TODO : set kTTSymEmpty because a Sender can bind on any object (not only data)
 mApplication(NULL),
 mObjectCache(NULL),
 mObserver(NULL)
@@ -59,8 +59,6 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 
 TTErr TTSender::setAttribute(const TTValue& newValue)
 {	
-	unbind();
-	
 	mAttribute = newValue;
 	
 	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
@@ -68,10 +66,7 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 	ToTTName(v);
 	v.get(0, &mAttribute);
 	
-	if (mAttribute == NO_ATTRIBUTE)
-		mAttribute = kTTSym_value;
-	
-	return bind();
+	return kTTErrNone;
 }
 
 #if 0
@@ -103,7 +98,9 @@ TTErr TTSender::Send(TTValue& valueToSend)
 				aCacheElement.get(0, (TTPtr*)&anObject);
 				
 				if (anObject) {
-					if (mAttribute == kTTSym_value) {
+					
+					// DATA CASE for value attribute
+					if (anObject->getName() == TT("Data") && mAttribute == kTTSym_value) {
 						// set the value attribute using a command
 						anObject->sendMessage(kTTSym_Command, valueToSend);
 					}

@@ -54,7 +54,7 @@ mObserver(NULL)
 	addAttribute(Mute, kTypeBoolean);
 	addAttribute(Bypass, kTypeBoolean);
 	
-	addAttribute(Info, kTypeLocalValue);
+	addAttributeWithSetter(Info, kTypeLocalValue);
 	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);
@@ -143,6 +143,13 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	}
 	
 	mOutputAddress = newAddress;
+	
+	return kTTErrNone;
+}
+
+TTErr TTInput::setInfo(const TTValue& value)
+{	
+	mInfo = value;
 	
 	return kTTErrNone;
 }
