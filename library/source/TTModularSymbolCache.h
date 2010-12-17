@@ -32,9 +32,12 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_description;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_enable;
+
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Get;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_instances;
@@ -63,9 +66,10 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_receiver;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_refresh;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_repetitionsAllow;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;

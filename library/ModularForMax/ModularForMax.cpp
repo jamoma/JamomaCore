@@ -210,7 +210,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	SymbolPtr		patcherName;
 	SymbolPtr		contextName = _sym_nothing;
 	TTSymbolPtr		patcherClass;
-	TTString		contextEditionName, contextTypeStr;
+	TTString		contextEditionName, contextTypeStr, jviewName;
 	TTUInt8			contextTypeLen;
 	TTValuePtr		v;
 	
@@ -266,8 +266,21 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		
 		// If the contextName is still nothing
 		// get it from the patcher name if it start by contextType
-		if (contextName == _sym_nothing)
-			contextName = patcherName;
+		if (contextName == _sym_nothing) {
+			
+			// for jview patcher :
+			// wrap the patcherName with < > in order to create 
+			// a different address than default model name.
+			if (contextType == TT("jview")) {
+				jviewName = "/<";
+				jviewName += patcherName->s_name;
+				jviewName += ">";
+				contextName = gensym(jviewName.data());
+			}
+			else
+				contextName = patcherName;
+			
+		}
 		
 		// add the < contextName, patcher > to the contextList
 		v = new TTValue(TT(contextName->s_name));
@@ -354,8 +367,7 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
 		
-		aContainer->sendMessage(kTTSym_Send, data); // data is [address, attribute, [x, x, ,x , ...]]
-		return kTTErrNone;
+		return aContainer->sendMessage(kTTSym_Send, data); // data is [address, attribute, [x, x, ,x , ...]]
 	}
 	
 	return kTTErrGeneric;
@@ -442,8 +454,7 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		aSender->sendMessage(kTTSym_Send, v);
-		return kTTErrNone;
+		return aSender->sendMessage(kTTSym_Send, v);
 	}
 	
 	return kTTErrGeneric;
@@ -771,7 +782,7 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a viewer object */
-TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
+TTErr jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;

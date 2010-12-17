@@ -13,12 +13,17 @@
 #define thisTTClassTags		"viewer"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddressMain(kTTSymEmpty),
-mAddressSub(kTTSymEmpty),
+mAddress(kTTSymEmpty),
+mAttribute(kTTSym_value),
+mDescription(kTTSymEmpty),
+mType(kTTSymEmpty),
+mSelected(YES),
 mFreeze(NO),
 mApplication(NULL),
 mReceiver(NULL),
 mSender(NULL),
+mEnable(YES),
+mReturnedValue(kTTValNONE),
 mReturnValueCallback(NULL)
 {	
 	arguments.get(0, (TTPtr*)&mApplication);
@@ -27,9 +32,19 @@ mReturnValueCallback(NULL)
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
-	addAttributeWithSetter(AddressMain, kTypeSymbol);
-	addAttributeWithSetter(AddressSub, kTypeSymbol);
+	addAttributeWithSetter(Address, kTypeSymbol);
+	addAttributeWithSetter(Attribute, kTypeSymbol);
+	addAttribute(Description, kTypeSymbol);
+	addAttribute(Type, kTypeSymbol);
+	addAttribute(Selected, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
+	
+	addAttribute(Enable, kTypeBoolean);
+	addAttributeProperty(enable, hidden, YES);
+	
+	addAttributeWithSetter(ReturnedValue, kTypeLocalValue);
+	addAttributeProperty(returnedValue, readOnly, YES);
+	addAttributeProperty(returnedValue, hidden, YES);
 	
 	addMessage(Refresh);
 	
@@ -49,24 +64,67 @@ TTViewer::~TTViewer() // TODO : delete things...
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 }
 
-TTErr TTViewer::setAddressMain(const TTValue& value)
+TTErr TTViewer::setAddress(const TTValue& value)
 {
-	mAddressMain = value;
+	//TTSymbolPtr service;
+	//TTNodePtr	aNode;
+	//TTObjectPtr	anObject;
+	//TTValue		v;
 	
-	if (mAddressMain != kTTSymEmpty && mAddressSub != kTTSymEmpty) {
+	mAddress = value;
+	
+	if (mAddress != kTTSymEmpty) {
+		
 		bind();
+		
+		// TODO : check what kind of Object is registered at this address
+		// to custom the viewer => so we have to observe the creation of the address
+		
+		/*
+		//if (!getDirectoryFrom(this)->getTTNodeForOSC(mAddress, &aNode)) {
+			
+			if (anObject = aNode->getObject()) {
+				
+				if (anObject->getName() == TT("Container"))
+					;
+				
+				else if (anObject->getName() == TT("Data")) {
+					
+					anObject->getAttributeValue(kTTSym_service, v);
+					v.get(0, &service);
+					
+					// Don't output any value if it is a message
+					mEnable = service != kTTSym_message;
+				}
+				
+				else if (anObject->getName() == TT("Input"))
+					;
+				
+				else if (anObject->getName() == TT("Output"))
+					;
+			}
+		}
+		 */
+		
 		Refresh();
 	}
-	
 	
 	return kTTErrNone;
 }
 
-TTErr TTViewer::setAddressSub(const TTValue& value)
+TTErr TTViewer::setAttribute(const TTValue& value)
 {
-	mAddressSub = value;
+	mAttribute = value;
 	
-	if (mAddressMain != kTTSymEmpty && mAddressSub != kTTSymEmpty) {
+	if (mAttribute == kTTSymEmpty)
+		mAttribute = kTTSym_value;
+	
+	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
+	TTValue v = TTValue(mAttribute);
+	ToTTName(v);
+	v.get(0, &mAttribute);
+		
+	if (mAttribute != kTTSymEmpty) {
 		bind();
 		Refresh();
 	}
@@ -79,14 +137,11 @@ TTErr TTViewer::bind()
 	TTValue			args, v, min, max;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
-	TTSymbolPtr		address;
-	
-	joinOSCAddress(mAddressMain, mAddressSub, &address);
 	
 	// Prepare aguments
 	args.append(mApplication);
-	args.append(address);
-	args.append(kTTSym_value);
+	args.append(mAddress);
+	args.append(mAttribute);
 	
 	// Replace a TTSender object
 	if (mSender)
@@ -124,7 +179,22 @@ TTErr TTViewer::setFreeze(const TTValue& value)
 	mFreeze = value;
 	
 	if (mReceiver)
-		mReceiver->setAttributeValue(TT("enable"), !mFreeze);
+		mReceiver->setAttributeValue(kTTSym_enable, !mFreeze);
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewer::setReturnedValue(const TTValue& value)
+{
+	TTAttributePtr	anAttribute = NULL;
+	TTErr			err;
+	
+	mReturnedValue = value;
+	
+	err = this->findAttribute(kTTSym_returnedValue, &anAttribute);
+	
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mReturnedValue);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }
@@ -132,7 +202,7 @@ TTErr TTViewer::setFreeze(const TTValue& value)
 TTErr TTViewer::Refresh()
 {
 	if (mReceiver)
-		return mReceiver->sendMessage(TT("Get"));
+		return mReceiver->sendMessage(kTTSym_Get);
 	
 	return kTTErrGeneric;
 }
@@ -164,19 +234,24 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 	TTValuePtr	b;
 	TTValue		v;
 	
+	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aViewer);
 	
-	 // protect data
-	v = data;
-	
-	// TODO : add a dataspace for the Viewer
-	//aViewer->processDataspace(v);
-	
-	// return value
-	if (aViewer->mReturnValueCallback)
-		aViewer->mReturnValueCallback->notify(v);
+	if (aViewer->mEnable) {
+		// protect data
+		v = data;
+		
+		// TODO : add a dataspace for the Viewer
+		//aViewer->processDataspace(v);
+		
+		// return value
+		if (aViewer->mReturnValueCallback) {
+			aViewer->mReturnValueCallback->notify(v);
+			aViewer->setReturnedValue(v);
+		}
+	}
 	
 	return kTTErrNone;
 }

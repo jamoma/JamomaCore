@@ -498,7 +498,6 @@ void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTBoolean	freeze;
 	TTUInt8		i;
 	
 	// avoid blank before data
@@ -507,25 +506,18 @@ void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	else
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
-	// Check ViewFreeze attribute
-	selectedObject->getAttributeValue(kTTSym_viewFreeze, v);
-	v.get(0, freeze);
+	// Copy atom in order to avoid losing data
+	x->argc = argc;
+	x->argv = NULL;
+	x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
 	
-	if (!freeze) {
-		
-		// Copy atom in order to avoid losing data
-		x->argc = argc;
-		x->argv = NULL;
-		x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
-		
-		if (argc) {
-			for (i=0; i<argc; i++) {
-				x->argv[i] = argv[i];
-			}
+	if (argc) {
+		for (i=0; i<argc; i++) {
+			x->argv[i] = argv[i];
 		}
-		
-		qelem_set(x->ui_qelem);
 	}
+	
+	qelem_set(x->ui_qelem);
 }
 
 void data_array_return_value(TTPtr baton, TTValue& v)
@@ -567,7 +559,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue v;
 
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 	selectedObject->sendMessage(TT("Inc"), v);
 }
 
@@ -576,7 +568,7 @@ void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue v;
 	
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 	selectedObject->sendMessage(TT("Dec"), v);
 }
 #endif

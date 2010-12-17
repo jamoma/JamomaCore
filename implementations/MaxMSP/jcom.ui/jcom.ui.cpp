@@ -82,9 +82,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_mousedown,						"mousedown",						A_CANT, 0);
 	class_addmethod(c, (method)ui_mousedragdelta,					"mousedragdelta",					A_CANT, 0);
 	class_addmethod(c, (method)ui_mouseup,							"mouseup",							A_CANT, 0);
+	class_addmethod(c, (method)ui_mousemove,						"mousemove",						A_CANT, 0);
+	class_addmethod(c, (method)ui_mouseleave,						"mouseleave",						A_CANT, 0);
 	class_addmethod(c, (method)ui_oksize,							"oksize",							A_CANT, 0);
 	
-	class_addmethod(c, (method)ui_nmspcExplorer_callback,			"return_nmpscExploration",			A_CANT, 0);
+	class_addmethod(c, (method)ui_viewExplorer_callback,			"return_viewExploration",			A_CANT, 0);
 	class_addmethod(c, (method)ui_modelExplorer_callback,			"return_modelExploration",			A_CANT, 0);
 	class_addmethod(c, (method)ui_modelParamExplorer_callback,		"return_modelParamExploration",		A_CANT, 0);
 	class_addmethod(c, (method)ui_modelMessExplorer_callback,		"return_modelMessExploration",		A_CANT, 0);
@@ -95,9 +97,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_return_color_toolbarText,			"return_color_toolbarText",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_color_border,				"return_color_border",				A_CANT, 0);
 	class_addmethod(c, (method)ui_return_ui_size,					"return_ui_size",					A_CANT, 0);
-	class_addmethod(c, (method)ui_return_ui_freeze,					"return_ui_freeze",				A_CANT, 0);
+	class_addmethod(c, (method)ui_return_ui_freeze,					"return_ui_freeze",					A_CANT, 0);
 	class_addmethod(c, (method)ui_return_ui_refresh,				"return_ui_refresh",				A_CANT, 0);
-	class_addmethod(c, (method)ui_return_ui_address,				"return_ui_address",				A_CANT, 0);
+	
+	class_addmethod(c, (method)ui_return_model_address,				"return_model_address",				A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_metersdefeated,			"return_metersdefeated",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_mute,						"return_mute",						A_CANT, 0);
@@ -133,7 +136,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");
 	CLASS_STICKY_ATTR(c,					"category",			0, "Jamoma");
 	
-	CLASS_ATTR_SYM(c,						"address",			0, t_ui,	address);
+	CLASS_ATTR_SYM(c,						"address",			0, t_ui,	modelAddress);
 	CLASS_ATTR_STYLE(c,						"address",			0, "text");
 	CLASS_ATTR_DEFAULT(c,					"address",			0, "");
 	CLASS_ATTR_ACCESSORS(c,					"address",			ui_address_get, ui_address_set);
@@ -188,7 +191,11 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->refmenu_items = (t_linklist *)linklist_new();
 		x->refmenu_qelem = qelem_new(x, (method)ui_refmenu_qfn);
 		
-		x->address = kTTSymEmpty;
+		x->viewAddress = kTTSymEmpty;
+		x->modelAddress = kTTSymEmpty;
+		
+		x->hover = false;
+		x->selectAll = false;
 		
 		x->has_preset = false;
 		x->has_help = false;
@@ -202,8 +209,9 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->has_preview = false;
 		x->has_freeze = false;
 		
-		ui_explorer_create((ObjectPtr)x, &x->nmspcExplorer, gensym("return_nmpscExploration"));
+		ui_explorer_create((ObjectPtr)x, &x->viewExplorer, gensym("return_viewExploration"));
 		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploration"));
+		
 		
 		attr_dictionary_process(x, d); 	// handle attribute args
 		
@@ -235,12 +243,16 @@ void ui_free(t_ui *x)
 	if (x->nmspcExplorer)
 		TTObjectRelease(&x->nmspcExplorer);
 	
+	if (x->viewExplorer)
+		TTObjectRelease(&x->viewExplorer);
+	
 	if (x->modelExplorer)
 		TTObjectRelease(&x->modelExplorer);
 	
-	TTObjectRelease(TTObjectHandle(&x->viewSubscriber));
+	TTObjectRelease(TTObjectHandle(&x->uiSubscriber));
 	
 	ui_data_destroy_all(x);
+	ui_viewer_destroy(x, TT("model/address"));
 	ui_viewer_destroy_all(x);
 }
 
@@ -260,7 +272,7 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 			textfield_set_textcolor(textfield, &x->textcolor);
 		
 		if (attrname == gensym("address"))
-			object_method(textfield, gensym("settext"), x->address->getCString());
+			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		
 		jbox_redraw(&x->box);
 	}
@@ -272,12 +284,9 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 	TTSymbolPtr	adrs = TT(atom_getsym(argv)->s_name);
 	TTValue		v;
 
-	if ((x->address == kTTSymEmpty && adrs != kTTSymEmpty) || adrs != x->address) {
+	if ((x->modelAddress == kTTSymEmpty && adrs != kTTSymEmpty) || adrs != x->modelAddress) {
 		
-		x->address = adrs;
-		
-		if (!x->hash_datas->lookup(kTTSym_address, v));
-			ui_data_send(x, kTTSym_address, x->address);
+		x->modelAddress = adrs;
 		
 		// Clear all viewers
 		ui_viewer_destroy_all(x);
@@ -287,8 +296,6 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		x->has_help = false;
 		x->has_ref = false;
 		x->has_internals = false;
-		x->has_panel = false;
-		
 		x->has_mute = false;
 		x->has_gain = false;
 		x->has_bypass = false;
@@ -299,7 +306,7 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		// observe the namespace of the model
 		// by this way, the creation of any widgets depends on the existence of the data		
 		x->modelExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
-		x->modelExplorer->setAttributeValue(kTTSym_address, x->address);
+		x->modelExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 		x->modelExplorer->sendMessage(TT("Explore"), kTTValNONE);
 
 		// The following must be deferred because 
@@ -314,7 +321,7 @@ t_max_err ui_address_get(t_ui *x, t_object *attr, long *argc, t_atom **argv)
 {
 	char alloc;
 	atom_alloc(argc, argv, &alloc);     // allocate return atom
-	atom_setsym(*argv, gensym((char*)x->address->getCString()));
+	atom_setsym(*argv, gensym((char*)x->modelAddress->getCString()));
 	return 0;
 }
 
@@ -326,6 +333,10 @@ void ui_build(t_ui *x)
 	ObjectPtr		box;
 	t_rect			boxRect;
 	t_rect			uiRect;
+	
+	// if there no address try to get /model/address value
+	if (x->modelAddress == kTTSymEmpty)
+		ui_viewer_refresh(x, TT("model/address"));
 	
 	// Examine the context to resize the view, set textfield, ...
 	x->patcher = jamoma_object_getpatcher((ObjectPtr)x);
@@ -355,7 +366,7 @@ void ui_build(t_ui *x)
 			object_method_parse(x->patcher, _sym_window, "flags nogrow", NULL);		// get rid of the grow thingies
 			object_method_parse(x->patcher, _sym_window, "flags nozoom", NULL);		// disable maximize button 
 			object_method_parse(x->patcher, _sym_window, "exec", NULL); 
-			object_attr_setsym(x->patcher, _sym_title, gensym("TODO : model class"));	// TODO : set the window title to the module class, jcom.ui shows osc_name already 
+			object_attr_setsym(x->patcher, _sym_title, gensym((char*)x->patcherClass->getCString()));	// set the window title to the module class, jcom.ui shows osc_name already 
 			object_attr_setchar(x->patcher, _sym_enablehscroll, 0);					// turn off scroll bars
 			object_attr_setchar(x->patcher, _sym_enablevscroll, 0);				
 		}
@@ -364,8 +375,8 @@ void ui_build(t_ui *x)
 	// Set the textfield to display the address
 	textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
-		if (x->address != kTTSymEmpty)
-			object_method(textfield, gensym("settext"), x->address->getCString());
+		if (x->modelAddress != kTTSymEmpty)
+			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		else
 			object_method(textfield, gensym("settext"), "/editing_this_view");
 	
@@ -716,16 +727,43 @@ void ui_paint(t_ui *x, t_object *view)
 
 void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 {
-	t_rect	rect;
+	ObjectPtr	obj;
+	SymbolPtr	objclass;
+	t_rect		rect;
+	Atom		a;
 	
 	// usually we don't want mousedragdelta -- we turn it on below as necessary
 	jbox_set_mousedragdelta((t_object *)x, 0);
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect); 
-	if (px.y > 20.0)	// we only handle clicks in the title bar
-		return;
 	
-	if (px.x > 18) {//(rect.width - 112)) {
+	// a click on jcom.ui panel will select/unselect all jcom.view
+	if (px.y > 20.0) {
+		
+		// if the control key is pressed
+		if (modifiers & eControlKey) {
+			
+			x->selectAll = !x->selectAll;
+			obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+			atom_setlong(&a, x->selectAll);
+			while (obj) {
+				objclass = object_attr_getsym(obj, _sym_maxclass);
+				if (objclass == gensym("jcom.view")) {
+					
+					object_method(object_attr_getobj(obj, _sym_object), gensym("selected"), 1, &a);
+					
+				}
+				obj = object_attr_getobj(obj, _sym_nextobject);
+			}
+			
+			// update the mouse position to display
+			ui_mousemove(x, patcherview, px, modifiers);
+			
+			return;
+		}
+	}
+	
+	if (px.x > 18 && px.y < 20.0) {//(rect.width - 112)) {
 		// we check the gain and mix knobs first because they are continuous datas and should run as fast as possible
 		if (x->has_gain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)) {
 			x->gainDragging = true;
@@ -740,7 +778,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if (x->has_panel && px.x >= x->rect_panel.x && px.x <= (x->rect_panel.x + x->rect_panel.width))
-			ui_viewer_send(x, TT("model/panel"), kTTValNONE);
+			ui_viewer_send(x, TT("view/panel"), kTTValNONE);
 		
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			ui_viewer_send(x, TT("out.*/preview"), TTValue(!x->is_previewing));
@@ -801,12 +839,72 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 	x->gainDragging = false;
 	t_object *textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
-		if (x->address != kTTSymEmpty)
-			object_method(textfield, gensym("settext"), x->address->getCString());
+		if (x->modelAddress != kTTSymEmpty)
+			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		else
 			object_method(textfield, gensym("settext"), "/editing_this_view");
 	
 	jbox_redraw(&x->box);
+}
+
+void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
+{
+	SymbolPtr	objclass;
+	ObjectPtr	obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+	Atom		selected_color[4];
+	
+	// if the control key is pressed
+	if (modifiers & eControlKey) {
+		// Is the mouse wasn't hover the jcom.ui panel
+		if (!x->hover) {
+			x->hover = true;
+			atom_setfloat(&selected_color[0], 0.62);
+			atom_setfloat(&selected_color[1], 0.);
+			atom_setfloat(&selected_color[2], 0.36);
+			atom_setfloat(&selected_color[3], 0.70);
+			x->memo_bordercolor = x->bordercolor;
+			object_attr_setvalueof(x, gensym("bordercolor"), 4, selected_color);
+		}
+	}
+	else {
+		if (x->hover) {
+			x->hover = false;
+			object_attr_setcolor((ObjectPtr)x, gensym("bordercolor"), &x->memo_bordercolor);
+		}
+	}
+	
+	while (obj) {
+		objclass = object_attr_getsym(obj, _sym_maxclass);
+		if (objclass == gensym("jcom.view")) {
+			
+			object_method(object_attr_getobj(obj, _sym_object), gensym("mousemove"), patcherview, pt, modifiers);
+
+		}
+		obj = object_attr_getobj(obj, _sym_nextobject);
+	}
+}
+
+void ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
+{	
+	SymbolPtr objclass;
+	ObjectPtr obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+	
+	// Is the mouse leave outside the jcom.ui (not hover an ui object)
+	if (	pt.x <= x->box.b_presentation_rect.x || pt.x >= (x->box.b_presentation_rect.x + x->box.b_presentation_rect.width)
+		||	pt.y <= x->box.b_presentation_rect.y || pt.y >= (x->box.b_presentation_rect.y + x->box.b_presentation_rect.height)) {
+		x->hover = false;
+		object_attr_setcolor((ObjectPtr)x, gensym("bordercolor"), &x->memo_bordercolor);
+	}
+	
+	while (obj) {
+		objclass = object_attr_getsym(obj, _sym_maxclass);
+		if (objclass == gensym("jcom.view")) {
+			
+			object_method(object_attr_getobj(obj, _sym_object), gensym("mouseleave"), patcherview, pt, modifiers*x->hover); // * hover allows to return to a normal display
+			
+		}
+		obj = object_attr_getobj(obj, _sym_nextobject);
+	}
 }
 
 #pragma mark -
@@ -833,11 +931,10 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 						JAMOMA_MENU_FONTSIZE);
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
-	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, x->bgcolor);
 	size = linklist_getsize(x->menu_items);
 	for (i=0; i<size; i++) {
 		item = (t_symobject *)linklist_getindex(x->menu_items, i);
-		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
+		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')
 			jpopupmenu_addseperator(p);
 		else {
 			if (item->sym == gensym("Defeat Signal Meters")) {
@@ -858,8 +955,8 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	}
 	
 	object_method(patcherview, gensym("canvastoscreen"), 0.0, 0.0, &coord_x, &coord_y);	
-	coord_x += x->box.b_patching_rect.x;
-	coord_y += x->box.b_patching_rect.y;
+	coord_x += x->box.b_presentation_rect.x;
+	coord_y += x->box.b_presentation_rect.y;
 	pt.x = coord_x;
 	pt.y = coord_y;
 	selectedId = jpopupmenu_popup(p, pt, x->refmenu_selection+1);
@@ -1017,8 +1114,6 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 						JAMOMA_MENU_FONTSIZE);
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
-	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, x->bgcolor);
-	//	jpopupmenu_setheadercolor(<#t_jpopupmenu * menu#>, <#t_jrgba * hc#>)
 	size = linklist_getsize(x->refmenu_items);
 	for (i=0; i<size; i++) {
 		item = (t_symobject *)linklist_getindex(x->refmenu_items, i);
@@ -1036,8 +1131,8 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	}
 	
 	object_method(patcherview, gensym("canvastoscreen"), 0.0, 0.0, &coord_x, &coord_y);	
-	coord_x += x->box.b_patching_rect.x;
-	coord_y += x->box.b_patching_rect.y;
+	coord_x += x->box.b_presentation_rect.x;
+	coord_y += x->box.b_presentation_rect.y;
 	pt.x = coord_x + 20.0;
 	pt.y = coord_y;
 	
@@ -1065,8 +1160,6 @@ void ui_refmenu_build(t_ui *x)
 {
 	t_symobject	*item = NULL;
 	char		tempStr[512];
-	t_linklist	*ll;
-	int			i;
 	TTValue		criteria;
 	
 	if (!x->refmenu_items)
@@ -1076,8 +1169,8 @@ void ui_refmenu_build(t_ui *x)
 	linklist_clear(x->refmenu_items);
 	
 	// Edit refmenu title
-	if (x->address != kTTSymEmpty)
-		snprintf(tempStr, 512, "Model: %s", x->address->getCString());
+	if (x->modelAddress != kTTSymEmpty)
+		snprintf(tempStr, 512, "Model: %s", x->modelAddress->getCString());
 	else
 		strncpy_zero(tempStr, "Model: ?", 512);
 	
@@ -1091,7 +1184,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_parameter);
 	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->address);
+	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
 	
@@ -1101,7 +1194,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_message);
 	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->address);
+	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));
 	
@@ -1111,7 +1204,7 @@ void ui_refmenu_build(t_ui *x)
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_return);
 	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
-	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->address);
+	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
 	TTObjectRelease(TTObjectHandle(&x->modelRetExplorer));
 }

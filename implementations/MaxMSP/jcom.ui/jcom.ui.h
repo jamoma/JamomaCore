@@ -26,17 +26,23 @@ typedef struct _ui{
 	TTHashPtr			hash_datas;				///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
 	TTObjectPtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
+	TTObjectPtr			viewExplorer;			///< internal TTExplorer object to observe the view namespace
 	TTObjectPtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
 	TTObjectPtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
 	TTObjectPtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
 	TTObjectPtr			modelRetExplorer;		///< internal TTExplorer object to observe returns
-	TTSubscriberPtr		viewSubscriber;			///< internal TTSubscriber object to create a /view node
+	TTSubscriberPtr		uiSubscriber;			///< internal TTSubscriber object to create a /ui node
 	
-	TTSymbolPtr			address;
+	TTSymbolPtr			viewAddress;
+	TTSymbolPtr			modelAddress;
 	TTSymbolPtr			patcherType;
 	TTSymbolPtr			patcherClass;
 	TTSymbolPtr			patcherName;
 	ObjectPtr			patcher;
+	
+	TTBoolean			hover;					// is the mouse hover the jcom.ui panel ?
+	TTBoolean			selectAll;				// to select/unselect all jcom.view
+	t_jrgba				memo_bordercolor;		// to keep the choosen border color during selection
 
 	t_jrgba				bgcolor;
 	t_jrgba				bordercolor;
@@ -115,6 +121,8 @@ void 		ui_paint(t_ui *x, t_object *view);
 void 		ui_mousedown(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void		ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void		ui_mouseup(t_ui *x, t_object *patcherview);
+void 		ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
+void 		ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void*		ui_oksize(t_ui *x, t_rect *rect);
 void		ui_preset_interface(t_ui *x);
 
@@ -133,7 +141,7 @@ void		ui_data_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_data_destroy_all(t_ui* obj);
 void		ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v);
 
-void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name);
+void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTSymbolPtr address);
 void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_viewer_destroy_all(t_ui *obj);
 void		ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v);
@@ -141,7 +149,7 @@ void		ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f);
 void		ui_viewer_refresh(t_ui *obj, TTSymbolPtr name);
 
 void		ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr method);
-void		ui_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_viewExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv); 
 void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv); 
 void		ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -154,7 +162,8 @@ void		ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr 
 void		ui_return_ui_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		ui_return_ui_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+void		ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

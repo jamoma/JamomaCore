@@ -9,21 +9,57 @@
 
 #include "TTModularClassWrapperMax.h"
 
+// those stuffes are needed for handling patchers without using the pcontrol object
+#include "jpatcher_api.h"
+typedef struct dll {
+	t_object d_ob;
+	struct dll *d_next;
+	struct dll *d_prev;
+	void *d_x1;
+} t_dll;
+
+typedef struct outlet {
+	struct tinyobject o_ob;
+	struct dll *o_dll;
+} t_outlet;
+
+// This is used to store extra data
+typedef struct extra {
+	TTSymbolPtr address;		// the first arg address
+	ObjectPtr	connected;		// our ui object
+	AtomPtr		bgcolor;		// our ui object bgcolor
+	long		x;				// our ui object x presentation
+	long		y;				// our ui object y presentation
+	long		w;				// our ui object width presentation
+	long		h;				// our ui object heigth presentation
+	TTBoolean	sensible;		// is the ui object is mouse sensible (comment and panel are not)
+	TTBoolean	hover;			// is the mouse hover a none sensible object ?
+} t_extra;
+#define EXTRA ((t_extra*)x->extra)
+
 #define set_out 0
-#define	dump_out 1
+#define select_out 1
+#define	dump_out 2
 
 // Definitions
 void	WrapTTViewerClass(WrappedClassPtr c);
 void	WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void	view_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void	view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	view_bang(TTPtr self);
 void	view_int(TTPtr self, long value);
 void	view_float(TTPtr self, double value);
 void	view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+void	view_attach(TTPtr self);
+void 	view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
+void	view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
 
 void	view_build(TTPtr self, SymbolPtr address);
 
@@ -34,7 +70,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTViewerClass;
 	spec->_new = &WrappedViewerClass_new;
-	spec->_any = &wrappedModularClass_anything;
+	spec->_any = &WrappedViewerClass_anything;
+	spec->_notify = &WrappedViewerClass_notify;
 	
 	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.view", NULL, spec);
 }
@@ -43,7 +80,11 @@ void WrapTTViewerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)view_assist,				"assist",				A_CANT, 0L);
 	
+	class_addmethod(c->maxClass, (method)view_mousemove,			"mousemove",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)view_mouseleave,			"mouseleave",			A_CANT, 0);
+	
 	class_addmethod(c->maxClass, (method)view_return_value,			"return_value",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)view_return_model_address,	"return_model_address",	A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)view_bang,					"bang",					0L);
 	class_addmethod(c->maxClass, (method)view_int,					"int",					A_LONG, 0L);
@@ -63,7 +104,15 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	EXTRA->connected = NULL;
+	EXTRA->address = TT(address->s_name);
+	
 	jamoma_viewer_create((ObjectPtr)x, &x->wrappedObject);
+	
+	// Prepare memory to store internal objects
+	x->internals = new TTHash();
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
@@ -72,6 +121,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
+	x->outlets[select_out] = outlet_new(x, NULL);					// anything outlet to select ui
 	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data
 	
 	// Make qelem object
@@ -98,14 +148,23 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
+t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	// DEBUG
+	//object_post((ObjectPtr)x, "notify %s", msg->s_name);
+	
+	return MAX_ERR_NONE;
+}
+
 void view_build(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
 	TTNodePtr					node = NULL;
 	TTBoolean					newInstance;
-	TTSymbolPtr					nodeAddress, relativeAddress;
-	TTPtr						context;
+	TTSymbolPtr					nodeAddress, relativeAddress, contextAddress;
+	TTObjectPtr					anObject;
 
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherType, &x->subscriberObject);
@@ -128,13 +187,19 @@ void view_build(TTPtr self, SymbolPtr address)
 		v.get(0, &nodeAddress);
 		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		
+		// get the context address
+		// and make a viewer on contextAddress/model/address parameter
+		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+		v.get(0, &contextAddress);
+		makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+		anObject->sendMessage(kTTSym_Refresh);
+		
 		// get the Node
 		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
-		// attach to the patcher to be notified of his destruction
-		context = node->getContext();
-		// Crash : object_attach_byptr_register(x, context, _sym_box);
+		// attach the jcom.view to connected ui object
+		view_attach(self);
 	}
 }
 
@@ -203,4 +268,168 @@ void view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 	
 	x->wrappedObject->sendMessage(kTTSym_Send, v);
+}
+
+void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue		v;
+	
+	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+	
+	x->wrappedObject->sendMessage(kTTSym_Send, v);
+}
+
+void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTSymbolPtr address;
+	
+	if (argc)
+		if (atom_gettype(argv) == A_SYM) {
+			
+			// set address attribute of the wrapped Viewer object
+			joinOSCAddress(TT(atom_getsym(argv)->s_name), EXTRA->address, &address);
+			x->wrappedObject->setAttributeValue(kTTSym_address, address);
+		}
+}
+
+void view_attach(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	ObjectPtr	box;
+	t_outlet*	myoutlet = NULL;
+	t_dll*		connecteds = NULL;
+	ObjectPtr	o;
+	TTValue		v;
+	AtomCount	ac;
+	AtomPtr		av;
+	
+	// get the first object connected to the select_out
+	object_obex_lookup(x, _sym_pound_B, &box);
+	
+	myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, select_out);
+	if (myoutlet)
+		connecteds = (t_dll*)myoutlet->o_dll;
+	
+	if (connecteds) {
+		o = (t_object*)connecteds->d_x1;
+
+		if (EXTRA->connected = o) {
+
+			ac = 0;
+			EXTRA->bgcolor = NULL;
+			object_attr_getvalueof(EXTRA->connected, _sym_bgcolor, &ac, (AtomPtr*)&EXTRA->bgcolor);
+			
+			ac = 0;
+			av = NULL;
+			object_attr_getvalueof(EXTRA->connected, _sym_presentation_rect , &ac, &av);
+			if (ac && av) {
+				EXTRA->x = atom_getlong(av+0);
+				EXTRA->y = atom_getlong(av+1);
+				EXTRA->w = atom_getlong(av+2);
+				EXTRA->h = atom_getlong(av+3);
+			}
+			
+			EXTRA->sensible = !(	object_classname(EXTRA->connected) == gensym("comment") 
+								||	object_classname(EXTRA->connected) == gensym("panel"));
+		}
+	}
+}
+
+// When the mouse is moving on the jcom.ui (not our view !)
+void view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue		v;
+	TTBoolean	selected;
+	Atom		selected_color[4];
+	long		around = 2; //offset to select our object easily
+	
+	if (EXTRA->connected) {
+		
+		// if the control key is pressed
+		if (modifiers & eControlKey) {
+			
+			// Special case for none mouse sensible ui object
+			if (!EXTRA->sensible) {
+				if (pt.x > EXTRA->x-around && pt.x < EXTRA->x+EXTRA->w+around && pt.y > EXTRA->y-around && pt.y < EXTRA->y+EXTRA->h+around) {
+					if (!EXTRA->hover) {
+						EXTRA->hover = true;
+						view_mouseleave(self, patcherview, pt, modifiers);
+					}
+				}
+				else
+					if (EXTRA->hover)
+						EXTRA->hover = false;
+			}
+			
+			// display selected attribute by changing background color if selected
+			x->wrappedObject->getAttributeValue(TT("selected"), v);
+			v.get(0, selected);
+				
+			if (selected) {
+				
+				atom_setfloat(&selected_color[0], 0.62);
+				atom_setfloat(&selected_color[1], 0.);
+				atom_setfloat(&selected_color[2], 0.36);
+				atom_setfloat(&selected_color[3], 0.70);
+				
+				object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, selected_color);
+			}
+			else
+				object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
+		}
+		// else set default color
+		// TODO : do this only one time !!!
+		else
+			object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
+	}
+}
+
+// When the mouse is leaving on the jcom.ui (not our view !)
+void view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue		v;
+	TTBoolean	selected;
+	Atom		selected_color[4];
+	long		around = 2; //offset to select our object easily
+	
+	if (EXTRA->connected) {
+		
+		// if the control key is pressed
+		if (modifiers & eControlKey) {
+			
+			// if mouse leave jcom.ui maybe it is on our object
+			if (pt.x > EXTRA->x-around && pt.x < EXTRA->x+EXTRA->w+around && pt.y > EXTRA->y-around && pt.y < EXTRA->y+EXTRA->h+around) {
+				
+				// DEBUG
+				object_post((ObjectPtr)x, "mouse on %s", object_classname(EXTRA->connected)->s_name);
+				
+				x->wrappedObject->getAttributeValue(TT("selected"), v);
+				v.get(0, selected);
+				
+				// reverse selected attribute and change background color
+				if (selected) {
+					x->wrappedObject->setAttributeValue(TT("selected"), NO);
+					object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
+				}
+				else {
+					x->wrappedObject->setAttributeValue(TT("selected"), YES);
+					
+					atom_setfloat(&selected_color[0], 0.62);
+					atom_setfloat(&selected_color[1], 0.);
+					atom_setfloat(&selected_color[2], 0.36);
+					atom_setfloat(&selected_color[3], 0.70);
+					
+					object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, selected_color);
+				}
+			}
+		}
+		// else set default color
+		// TODO : do this only one time !!!
+		else
+			object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
+	}
 }

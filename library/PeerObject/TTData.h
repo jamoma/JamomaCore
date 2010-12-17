@@ -48,16 +48,15 @@ class TTMODULAR_EXPORT TTData : public TTObject
 	
 private:
 	
-	TTValue			mValue;						///< ATTRIBUTE: The data's value
-	TTValue			mValueDefault;				///< ATTRIBUTE: The data's default value
+	TTValue			mValue;						///< ATTRIBUTE: data's value
+	TTValue			mValueDefault;				///< ATTRIBUTE: data's default value
 	TTFloat32		mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
 	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this data's value
 	TTUInt8			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
-	TTSymbolPtr		mDescription;				///< ATTRIBUTE: a text label to describe the role of this data
+	TTSymbolPtr		mDescription;				///< ATTRIBUTE: text to describe the role of this data
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
 	TTBoolean		mReadonly;					///< ATTRIBUTE: 
-	TTBoolean		mViewFreeze;				///< ATTRIBUTE: freeze updating of graphical user interface
 	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
@@ -141,9 +140,6 @@ private:
 	
 	/**	Setter for m attribute. */
 	TTErr	setReadonly(const TTValue& value);
-	
-	/**	Setter for m attribute. */
-	TTErr	setViewFreeze(const TTValue& value);
 	
 	/**	Setter for m attribute. */
 	TTErr	setRangeBounds(const TTValue& value);

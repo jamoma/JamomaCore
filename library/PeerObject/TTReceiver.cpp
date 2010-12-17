@@ -50,7 +50,7 @@ mNodesObserversCache(NULL)
 		v.get(0, &mAttribute);
 	}
 	
-	if	(getDirectoryFrom(this) && mReturnAddressCallback && mReturnValueCallback && mAddress != kTTSymEmpty)
+	if	(getDirectoryFrom(this) && mAddress != kTTSymEmpty)
 		bind();
 }
 
@@ -467,10 +467,14 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 			fullAddress += attributeName->getCString();
 		}
 		address.append(TT(fullAddress.data()));
-		aReceiver->mReturnAddressCallback->notify(address);
+		
+		// return address
+		if (aReceiver->mReturnAddressCallback)
+			aReceiver->mReturnAddressCallback->notify(address);
 											  
 		// return the value
-		aReceiver->mReturnValueCallback->notify(data);
+		if (aReceiver->mReturnValueCallback)
+			aReceiver->mReturnValueCallback->notify(data);
 	}
 	
 	return kTTErrNone;

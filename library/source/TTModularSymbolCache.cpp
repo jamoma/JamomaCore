@@ -33,9 +33,12 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_description;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_enable;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Get;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_instances;
@@ -64,9 +67,10 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_receiver;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_refresh;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_repetitionsAllow;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
@@ -102,9 +106,12 @@ void TTModularSymbolCacheInit()
 	kTTSym_destroyed				= TT("destroyed");
 	kTTSym_directory				= TT("directory");
 	
+	kTTSym_enable					= TT("enable");
+	
 	kTTSym_freeze					= TT("freeze");
 	
 	kTTSym_generic					= TT("generic");
+	kTTSym_Get						= TT("Get");
 	
 	kTTSym_initialized				= TT("initialized");
 	kTTSym_instances				= TT("instances");
@@ -133,9 +140,10 @@ void TTModularSymbolCacheInit()
 	kTTSym_rampFunction				= TT("rampFunction");
 	kTTSym_readonly					= TT("readonly");
 	kTTSym_receiver					= TT("receiver");
-	kTTSym_refresh					= TT("refresh");
+	kTTSym_Refresh					= TT("Refresh");
 	kTTSym_repetitionsAllow			= TT("repetitionsAllow");
 	kTTSym_return					= TT("return");
+	kTTSym_returnedValue				= TT("returnedValue");
 	
 	kTTSym_Send						= TT("Send");
 	kTTSym_service					= TT("service");

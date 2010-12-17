@@ -29,11 +29,19 @@ typedef struct inlet {
 	struct object *i_owner;
 } t_inlet;
 
+// This is used to store extra data
+typedef struct extra {
+	ObjectPtr	modelInternal;		// store an internal model patcher
+	TTSymbolPtr modelAddress;		// store the /model/address parameter
+} t_extra;
+#define EXTRA ((t_extra*)x->extra)
+
 #define data_out 0
 
 // Definitions
 void		WrapTTContainerClass(WrappedClassPtr c);
 void		WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void		WrappedContainerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
@@ -44,7 +52,8 @@ void		hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_build(TTPtr self, SymbolPtr address);
 
-void		hub_set_panel(TTPtr self, long n);
+t_max_err	hub_get_panel(TTPtr self, t_object *attr, long *argc, t_atom **argv);
+t_max_err	hub_set_panel(TTPtr self, t_object *attr, long argc, t_atom *argv);
 void		hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 void		hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -52,16 +61,19 @@ void		hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// only in jview patch
 
 void		hub_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+void		hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTContainerClass;
 	spec->_new = &WrappedContainerClass_new;
-	spec->_any = NULL;
+	spec->_any = &WrappedContainerClass_anything;
 	
 	return wrapTTModularClassAsMaxClass(TT("Container"), "jcom.hub", NULL, spec);
 }
@@ -72,16 +84,14 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)hub_return_address,			"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_return_value,				"return_value",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)hub_nmspcExplorer_callback,	"return_nmpscExploration",A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_help,						"hub_help",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_reference,					"hub_reference",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_internals,					"hub_internals",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_panel,						"hub_panel",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_mute,						"hub_mute",				A_CANT, 0);
+	class_addmethod(c->maxClass, (method)hub_address,					"hub_address",			A_CANT, 0);			// only in jview patch
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"doc_generate",			A_CANT, 0);
-	
-	class_addmethod(c->maxClass, (method)hub_list,						"anything",				A_GIMME, 0L);
-	
-	class_addmethod(c->maxClass, (method)hub_set_panel,					"has_panel",			A_LONG, 0L);
 	
 	class_addmethod(c->maxClass, (method)hub_help,						"help",					0);
 	class_addmethod(c->maxClass, (method)hub_reference,					"reference",			0);
@@ -90,6 +100,10 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)hub_mute,						"mute",					A_LONG, 0);
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"documentation/generate",A_GIMME, 0);
 	
+	CLASS_ATTR_LONG(c->maxClass,				"has_panel",	0, WrappedModularInstance, index);
+	CLASS_ATTR_STYLE(c->maxClass,				"has_panel",	0, "panel");
+	CLASS_ATTR_DEFAULT(c->maxClass,				"has_panel",	0, "0");
+	CLASS_ATTR_ACCESSORS(c->maxClass,			"has_panel",	NULL, hub_set_panel); 
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -115,9 +129,12 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
-
+	
 	// Prepare memory to store internal datas
 	x->internals = new TTHash();
+	
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
@@ -130,8 +147,8 @@ void hub_build(TTPtr self, SymbolPtr address)
 	TTNodePtr					node = NULL;
 	TTBoolean					newInstance;
 	TTSymbolPtr					nodeAddress, relativeAddress;
-	TTSymbolPtr					helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
-	TTObjectPtr					aData;
+	TTSymbolPtr					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
+	TTObjectPtr					aData, anExplorer;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
 	
@@ -173,6 +190,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 		if ((address == gensym("/") || address == _sym_nothing)) {
 			
 			if (x->patcherType == TT("jmod")) {
+				classAdrs = TT("/model/class");
 				helpAdrs =  TT("/model/help");
 				refAdrs = TT("/model/reference");
 				internalsAdrs = TT("/model/internals");
@@ -180,6 +198,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 				muteAdrs = TT("/model/mute");
 			}
 			else if (x->patcherType == TT("jview")) {
+				classAdrs = TT("/view/class");
 				helpAdrs =  TT("/view/help");
 				refAdrs = TT("/view/reference");
 				internalsAdrs = TT("/view/internals");
@@ -187,6 +206,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 				muteAdrs = TT("/view/mute");
 			}
 			else {
+				classAdrs = TT("/class");
 				helpAdrs =  TT("/help");
 				refAdrs = TT("/reference");
 				internalsAdrs = TT("/internals");
@@ -194,11 +214,17 @@ void hub_build(TTPtr self, SymbolPtr address)
 				muteAdrs = TT("/mute");
 			}
 			
+			// Add a /class data
+			makeInternals_data(x, nodeAddress, classAdrs, gensym("hub_class"), context, kTTSym_return, &aData);
+			aData->setAttributeValue(kTTSym_type, kTTSym_string);
+			aData->setAttributeValue(kTTSym_description, TT("The patcher class"));
+			aData->setAttributeValue(kTTSym_value, x->patcherClass);
+			
 			// Add a /help data
 			makeInternals_data(x, nodeAddress, helpAdrs, gensym("hub_help"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
 			aData->setAttributeValue(kTTSym_description, TT("Open the maxhelp patch"));
-		
+			
 			// Add a /reference data
 			makeInternals_data(x, nodeAddress, refAdrs, gensym("hub_reference"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
@@ -218,6 +244,27 @@ void hub_build(TTPtr self, SymbolPtr address)
 			makeInternals_data(x, nodeAddress, muteAdrs, gensym("hub_mute"), context, kTTSym_parameter, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 			aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
+			
+			// In jmod *and* jview patcher : Add /model/address data
+			if (x->patcherType == TT("jmod")) // as return
+				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
+			if (x->patcherType == TT("jview")) // as parameter
+				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
+			aData->setAttributeValue(kTTSym_type, kTTSym_string);
+			aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A jmod patcher bind on himself"));
+			
+			// In jmod patcher : set /modeladdress with his address
+			if (x->patcherType == TT("jmod"))
+				aData->setAttributeValue(kTTSym_value, nodeAddress);
+			
+			// In jview patcher : observe the entire namespace to find a model of our class
+			if (x->patcherType == TT("jview")) {
+				makeInternals_explorer((ObjectPtr)x, TT("nmspcExplorer"), gensym("return_nmpscExploration"), &anExplorer);
+				EXTRA->modelAddress = kTTSymEmpty;
+				anExplorer->setAttributeValue(kTTSym_lookfor, TT("Container"));
+				anExplorer->setAttributeValue(kTTSym_address, S_SEPARATOR);
+				anExplorer->sendMessage(TT("Explore"), kTTValNONE);
+			}
 			
 			// create internal TTTextHandler and expose Write message
 			aTextHandler = NULL;
@@ -246,7 +293,7 @@ void hub_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "");
 }
 
-void hub_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+void hub_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTString					addSlash;
@@ -261,6 +308,22 @@ void hub_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
 }
 
+void WrappedContainerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTString					addSlash;
+	TTErr						err;
+	
+	// if the address part doesn't begin by a slash : add it.
+	if (msg->s_name[0] != C_SEPARATOR) {
+		addSlash = "/";
+		addSlash += msg->s_name;
+		err = jamoma_container_send((TTContainerPtr)x->wrappedObject, gensym((char*)addSlash.data()), argc, argv);
+	}
+	else
+		err = jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
+}
+
 void hub_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
@@ -273,11 +336,20 @@ void hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	outlet_anything(x->outlets[data_out], x->msg, argc, argv);
 }
 
-void hub_set_panel(TTPtr self, long n)
+t_max_err hub_get_panel(TTPtr self, t_object *attr, long *argc, t_atom **argv)
 {
-	Atom a;
-	atom_setlong(&a, n);
-	defer_low((ObjectPtr)self, (method)hub_do_set_panel, NULL, 1, &a);
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	char alloc;
+	
+	atom_alloc(argc, argv, &alloc);     // allocate return atom
+	atom_setlong(*argv, x->index);
+	return 0;
+}
+
+t_max_err hub_set_panel(TTPtr self, t_object *attr, long argc, t_atom *argv)
+{
+	defer_low((ObjectPtr)self, (method)hub_do_set_panel, NULL, argc, argv);
+	return 0;
 }
 
 void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
@@ -290,40 +362,41 @@ void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	TTPtr						context;
 	long						n = atom_getlong(argv);
 	
-	if (x->subscriberObject) {
+	// create panel only for view patcher
+	if (x->patcherType == TT("jview") || x->patcherType == kTTSymEmpty) {
 		
-		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, &address);
-		
-		x->subscriberObject->getAttributeValue(TT("node"), v);
-		v.get(0, (TTPtr*)&node);
-		context = node->getContext();
-		
-		// Edit a /panel name
-		if (x->patcherType == TT("jmod"))
-			panelName = TT("/model/panel");
-		else if (x->patcherType == TT("jview"))
-			panelName = TT("/view/panel");
-		else
-			panelName = TT("/panel");
-		
-		if (n) {
+		if (x->subscriberObject) {
 			
-			// Make a /panel data
-			makeInternals_data(self, address, panelName, gensym("hub_panel"), context, kTTSym_message, &aData);
+			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+			v.get(0, &address);
 			
-			// Set attribute of the data
-			aData->setAttributeValue(kTTSym_type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
-			aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+			x->subscriberObject->getAttributeValue(TT("node"), v);
+			v.get(0, (TTPtr*)&node);
+			context = node->getContext();
+			
+			// Edit a /panel name
+			if (x->patcherType == TT("jview"))
+				panelName = TT("/view/panel");
+			else
+				panelName = TT("/panel");
+			
+			if (n) {
+				
+				// Make a /panel data
+				makeInternals_data(self, address, panelName, gensym("hub_panel"), context, kTTSym_message, &aData);
+				
+				// Set attribute of the data
+				aData->setAttributeValue(kTTSym_type, kTTSym_none);
+				aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
+				aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+			}
+			else
+				// Remove a /panel data
+				removeInternals_data(self, address, panelName);
 		}
-		else
-			// Remove a /panel data
-			removeInternals_data(self, address, panelName);
-
 	}
 	else
-		object_error((ObjectPtr)x, "Can't create /panel message at loadbang. Please use a deferlow.");
+		object_error((ObjectPtr)x, "Can't create /panel message in %s patcher", x->patcherType->getCString());
 }
 
 void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -456,11 +529,11 @@ void hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.append(TT(fullpath));
 		
 		tterr = x->internals->lookup(TT("TextHandler"), o);
-			
+		
 		if (!tterr) {
-				
+			
 			o.get(0, (TTPtr*)&aTextHandler);
-				
+			
 			critical_enter(0);
 			aTextHandler->sendMessage(TT("Write"), v);
 			critical_exit(0);
@@ -485,4 +558,76 @@ void hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			atom_setlong(a+1, 1);
 			object_method(patcher, gensym("setrock"), 2, a);
 		}
+}
+
+void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTList		returnedTTNodes;
+	TTNodePtr	firstReturnedTTNode;
+	TTValue		v;
+	TTSymbolPtr patcherClass, patcherClassAdrs;
+	TTObjectPtr anObject;
+	TTErr		err;
+	
+	// In jview patcher only
+	if (x->patcherType == TT("jview")) {
+		
+		if (atom_gettype(argv) == A_SYM) {
+			EXTRA->modelAddress = TT(atom_getsym(argv)->s_name);
+			
+			// Test the class of the /model/address patcher
+			joinOSCAddress(EXTRA->modelAddress, TT("/model/class"), &patcherClassAdrs);
+			err = JamomaDirectory->Lookup(patcherClassAdrs, returnedTTNodes, &firstReturnedTTNode);
+			
+			if (!err) {
+				if (anObject = firstReturnedTTNode->getObject()) {
+					
+					anObject->getAttributeValue(kTTSym_value, v);
+					v.get(0, &patcherClass);
+					
+					if (patcherClass == x->patcherClass)
+						// DEBUG
+						object_post((ObjectPtr)x, "set /model/address : %s", EXTRA->modelAddress->getCString());
+					else
+						object_warn((ObjectPtr)x, "/model/address refers to a \"%s\" model instead of a \"%s\" model", patcherClass->getCString(), x->patcherClass->getCString());
+				}
+				else
+					object_warn((ObjectPtr)x, "/model/address doesn't refer to a jmod patcher");
+			}
+			else
+				object_warn((ObjectPtr)x, "/model/address doesn't refer to a jmod patcher");
+		}
+	}
+}
+
+void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTSymbolPtr parent, name, instance, attribute;
+	SymbolPtr	paramName;
+	TTValue		v;
+	TTObjectPtr	aData;
+	
+	// if there is no address
+	if (EXTRA->modelAddress == kTTSymEmpty) {
+		
+		// look the namelist to know which data exist
+		for (long i=0; i<argc; i++) {
+			
+			paramName = atom_getsym(argv+i);
+			
+			// try to bind on the patherName
+			// if a name is equal to the patcherClass and parent is /
+			splitOSCAddress(TT(paramName->s_name), &parent, &name, &instance, &attribute);
+			if (name == x->patcherClass && parent == S_SEPARATOR) {
+				
+				if (!x->internals->lookup(TT("/model/address"), v)) {
+					
+					v.get(0, (TTPtr*)&aData);
+					aData->setAttributeValue(kTTSym_value, TT(paramName->s_name));
+				}
+			}
+		}
+	}
 }

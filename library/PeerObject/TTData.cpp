@@ -21,7 +21,6 @@ mPriority(0),
 mDescription(kTTSymEmpty),
 mRepetitionsAllow(YES),
 mReadonly(NO),
-mViewFreeze(NO),
 mInitialized(NO),
 mRangeBounds(0.0, 1.0),
 mRangeClipmode(kTTSym_none),
@@ -53,7 +52,6 @@ mReturnValueCallback(NULL)
 	addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	addAttributeWithSetter(Readonly, kTypeBoolean);
-	addAttributeWithSetter(ViewFreeze, kTypeBoolean);
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(initialized, readOnly, YES);
@@ -403,6 +401,15 @@ TTErr TTData::Command(const TTValue& command)
 		}	
 		
 		if (!mRepetitionsAllow && mInitialized) {
+			
+			// float to integer case
+			if (mType == kTTSym_integer)
+				convertedValue.truncate();
+			
+			// integer/float to boolean case
+			if (mType == kTTSym_boolean)
+				convertedValue.booleanize();
+			
 			if (mValue == convertedValue)
 				return kTTErrNone;	// nothing to do
 		}
@@ -431,6 +438,15 @@ TTErr TTData::Command(const TTValue& command)
 #endif
 		// check repetitions
 		if (!mRepetitionsAllow && mInitialized) {
+			
+			// float to integer case
+			if (mType == kTTSym_integer)
+				convertedValue.truncate();
+			
+			// integer/float to boolean case
+			if (mType == kTTSym_boolean)
+				convertedValue.booleanize();
+			
 			if (mValue == convertedValue)
 				return kTTErrNone;	// nothing to do
 		}
@@ -642,14 +658,6 @@ TTErr TTData::setReadonly(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mReadonly = value;
 	notifyObservers(kTTSym_readonly, n);
-	return kTTErrNone;
-}
-
-TTErr TTData::setViewFreeze(const TTValue& value)
-{
-	TTValue n = value;				// use new value to protect the attribute
-	mViewFreeze = value;
-	notifyObservers(kTTSym_viewFreeze, n);
 	return kTTErrNone;
 }
 

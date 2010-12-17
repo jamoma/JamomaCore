@@ -31,10 +31,15 @@ class TTMODULAR_EXPORT TTViewer : public TTObject
 	
 private:
 	
-	TTSymbolPtr			mAddressMain;				///< ATTRIBUTE : main part of the data address to bind
-	TTSymbolPtr			mAddressSub;				///< ATTRIBUTE : sub part of the data address to bind
-													/// So the viewer will bind on the data at /main/sub address
-	TTBoolean			mFreeze;					///< ATTRIBUTE : Freeze data returning
+	TTSymbolPtr			mAddress;					///< ATTRIBUTE : data address to bind
+	TTSymbolPtr			mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
+	TTSymbolPtr			mDescription;				///< ATTRIBUTE : text to describe the role of this data
+	TTSymbolPtr			mType;						///< ATTRIBUTE : type of the gui
+	TTBoolean			mSelected;					///< ATTRIBUTE : selection state of the gui
+	TTBoolean			mFreeze;					///< ATTRIBUTE : freeze data returning
+	
+	TTBoolean			mEnable;					///< ATTRIBUTE: if false, received data won't be output
+	TTValue				mReturnedValue;				///< ATTRIBUTE : a local value to allow observation of this viewer
 	
 	TTApplicationPtr	mApplication;				///< the application
 	TTReceiverPtr		mReceiver;					///< the receiver which binds on our data
@@ -45,14 +50,17 @@ private:
 	/** */
 	TTErr Refresh();
 	
-	/** set the main part of the address */
-	TTErr setAddressMain(const TTValue& value);
+	/** set the address */
+	TTErr setAddress(const TTValue& value);
 	
-	/** set the sub part of the address */
-	TTErr setAddressSub(const TTValue& value);
+	/** set the address */
+	TTErr setAttribute(const TTValue& value);
 	
 	/** set the freeze */
 	TTErr setFreeze(const TTValue& value);
+	
+	/** set the returnedValue */
+	TTErr setReturnedValue(const TTValue& value);
 	
 	/** */
 	TTErr Send(TTValue& valueToSend);
