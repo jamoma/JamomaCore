@@ -41,6 +41,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTExplorerClass;
 	spec->_new = &WrappedExplorerClass_new;
+	spec->_free = NULL;
 	spec->_any = NULL;
 	
 	return wrapTTModularClassAsMaxClass(TT("Explorer"), "jcom.namespace", NULL, spec);

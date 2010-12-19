@@ -51,6 +51,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTDataClass;
 	spec->_new = &WrappedDataClass_new;
+	spec->_free = NULL;
 #ifndef JMOD_MESSAGE
 	spec->_any = &WrappedDataClass_anything;
 #else

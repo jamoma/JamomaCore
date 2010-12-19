@@ -76,7 +76,9 @@ mObserver(NULL)
 	addAttributeWithSetter(Gain, kTypeFloat32);
 	addAttribute(Freeze, kTypeBoolean);
 	addAttribute(Preview, kTypeBoolean);
+	
 	addAttributeWithSetter(Info, kTypeLocalValue);
+	addAttributeProperty(info, hidden, YES);
 	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);

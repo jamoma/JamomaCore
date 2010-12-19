@@ -41,6 +41,7 @@ typedef struct extra {
 // Definitions
 void		WrapTTContainerClass(WrappedClassPtr c);
 void		WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void		WrappedContainerClass_free(TTPtr self);
 void		WrappedContainerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_assist(TTPtr self, void *b, long msg, long arg, char *dst);
@@ -73,6 +74,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTContainerClass;
 	spec->_new = &WrappedContainerClass_new;
+	spec->_free = &WrappedContainerClass_free;
 	spec->_any = &WrappedContainerClass_anything;
 	
 	return wrapTTModularClassAsMaxClass(TT("Container"), "jcom.hub", NULL, spec);
@@ -138,6 +140,12 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
+}
+
+void WrappedContainerClass_free(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	free(EXTRA);
 }
 
 void hub_build(TTPtr self, SymbolPtr address)

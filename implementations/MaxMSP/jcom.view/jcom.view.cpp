@@ -44,6 +44,7 @@ typedef struct extra {
 // Definitions
 void	WrapTTViewerClass(WrappedClassPtr c);
 void	WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrappedViewerClass_free(TTPtr self);
 void	WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
@@ -70,6 +71,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTViewerClass;
 	spec->_new = &WrappedViewerClass_new;
+	spec->_free = &WrappedViewerClass_free;
 	spec->_any = &WrappedViewerClass_anything;
 	spec->_notify = &WrappedViewerClass_notify;
 	
@@ -146,6 +148,12 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 				break;
 		}
  	}
+}
+
+void WrappedViewerClass_free(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	free(EXTRA);
 }
 
 t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)

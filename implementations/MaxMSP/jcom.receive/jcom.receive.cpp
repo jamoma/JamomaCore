@@ -31,6 +31,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTReceiverClass;
 	spec->_new = &WrappedReceiverClass_new;
+	spec->_free = NULL;
 	spec->_any = NULL;
 	
 	return wrapTTModularClassAsMaxClass(TT("Receiver"), "jcom.receive", NULL, spec);

@@ -35,6 +35,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTPresetManagerClass;
 	spec->_new = &WrappedPresetManagerClass_new;
+	spec->_free = NULL;
 	spec->_any = NULL;
 	
 	return wrapTTModularClassAsMaxClass(TT("PresetManager"), "jcom.preset", NULL, spec);

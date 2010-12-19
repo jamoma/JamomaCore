@@ -55,6 +55,7 @@ mObserver(NULL)
 	addAttribute(Bypass, kTypeBoolean);
 	
 	addAttributeWithSetter(Info, kTypeLocalValue);
+	addAttributeProperty(info, hidden, YES);
 	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);

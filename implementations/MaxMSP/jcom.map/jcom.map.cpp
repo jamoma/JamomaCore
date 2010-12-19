@@ -31,6 +31,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTMapperClass;
 	spec->_new = &WrappedMapperClass_new;
+	spec->_free = NULL;
 	spec->_any = NULL;
 	
 	return wrapTTModularClassAsMaxClass(TT("Mapper"), "jcom.map", NULL, spec);
