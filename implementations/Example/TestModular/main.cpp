@@ -17,14 +17,18 @@ void myUnregistrationObserver_return_address_callback(TTPtr baton, TTValue& v);
 int 
 main(int argc, char **argv) 
 {
-	TTValue			args;
+	TTValue				args;
+	TTApplicationPtr	mApplication = NULL;
+	TTNodeDirectoryPtr	mDirectory	 = NULL;		
 
 	TTLogMessage("\n*** Starting my TTModular application *** \n");
 
 	// Initialize TT environments
 	/////////////////////////////////////////////////////////
-	TTModularInit("TestModularApp");
-
+	TTModularInit("TestModularApp", "");
+	
+	mApplication	= (TTApplicationPtr)TTModularGetApplication(TT("TestModularApp"));
+	mDirectory		= TTApplicationGetDirectory(TTObjectPtr(mApplication));
 
 
 	// Create a TTReceiver to observe any registration under the root
@@ -36,23 +40,23 @@ main(int argc, char **argv)
 	
 	// prepare arguments : see TTReceiver.h to know which args are needed
 	args.clear();
-	args.append(TTModularDirectory);
+	args.append(mApplication);
 	args.append(TT("/"));
 	args.append(kTTSym_created);
 		
-	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&ro_returnAddressCallback), kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&ro_returnAddressCallback), kTTValNONE);
 	ro_returnAddressBaton = new TTValue(NULL);	// Here it is NULL but it could be usefull to pass 
 												// an object in order to process the returned value
-	ro_returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(ro_returnAddressBaton));
-	ro_returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&myRegistrationObserver_return_address_callback));
+	ro_returnAddressCallback->setAttributeValue(TT("baton"), TTPtr(ro_returnAddressBaton));
+	ro_returnAddressCallback->setAttributeValue(TT("function"), TTPtr(myRegistrationObserver_return_address_callback));
 	args.append(ro_returnAddressCallback);
 	
 
-	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&ro_returnValueCallback), kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&ro_returnValueCallback), kTTValNONE);
 	ro_returnValueBaton = new TTValue(NULL);	// Here it is NULL but it could be usefull to pass 
 												// an object in order to process the returned address;
-	ro_returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(ro_returnValueBaton));
-	ro_returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&myRegistrationObserver_return_value_callback));
+	ro_returnValueCallback->setAttributeValue(TT("baton"), TTPtr(ro_returnValueBaton));
+	ro_returnValueCallback->setAttributeValue(TT("function"), TTPtr(myRegistrationObserver_return_value_callback));
 	args.append(ro_returnValueCallback);
 		
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&myRegistrationObserver), args);
@@ -67,23 +71,23 @@ main(int argc, char **argv)
 	
 	// prepare arguments : see TTReceiver.h to know which args are needed
 	args.clear();
-	args.append(TTModularDirectory);
+	args.append(mApplication);
 	args.append(TT("/"));
 	args.append(kTTSym_destroyed);
 		
-	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&uo_returnAddressCallback), kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&uo_returnAddressCallback), kTTValNONE);
 	uo_returnAddressBaton = new TTValue(NULL);	// Here it is NULL but it could be usefull to pass 
 												// an object in order to process the returned value
-	uo_returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(uo_returnAddressBaton));
-	uo_returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&myUnregistrationObserver_return_address_callback));
+	uo_returnAddressCallback->setAttributeValue(TT("baton"), TTPtr(uo_returnAddressBaton));
+	uo_returnAddressCallback->setAttributeValue(TT("function"), TTPtr(myUnregistrationObserver_return_address_callback));
 	args.append(uo_returnAddressCallback);
 	
 
-	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&uo_returnValueCallback), kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&uo_returnValueCallback), kTTValNONE);
 	uo_returnValueBaton = new TTValue(NULL);	// Here it is NULL but it could be usefull to pass 
 												// an object in order to process the returned address;
-	uo_returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(uo_returnValueBaton));
-	uo_returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&myUnregistrationObserver_return_value_callback));
+	uo_returnValueCallback->setAttributeValue(TT("baton"), TTPtr(uo_returnValueBaton));
+	uo_returnValueCallback->setAttributeValue(TT("function"), TTPtr(myUnregistrationObserver_return_value_callback));
 	args.append(uo_returnValueCallback);
 		
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&myUnregistrationObserver), args);
@@ -97,21 +101,22 @@ main(int argc, char **argv)
 	
 	// prepare arguments : see TTData.h to know which args are needed
 	args.clear();
-	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
 	p_returnValueBaton = new TTValue(NULL);		// Here it is NULL but it could be usefull to pass 
 												// an object in order to process the returned value
-	p_returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(p_returnValueBaton));
-	p_returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&myData_return_value_callback));
+	p_returnValueCallback->setAttributeValue(TT("baton"), TTPtr(p_returnValueBaton));
+	p_returnValueCallback->setAttributeValue(TT("function"), TTPtr(myData_return_value_callback));
 	args.append(p_returnValueCallback);
 	
 	// create an instance of TTData
 	TTObjectInstantiate(TT("Data"), TTObjectHandle(&myData), args);
 
 	// set TTData mType attribute as integer
-	myData->setAttributeValue(kTTSym_Type, kTTSym_integer);
+	myData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 
 	// set TTData mValueDefault attribute as 0
-	myData->setAttributeValue(kTTSym_ValueDefault, 0);
+	myData->setAttributeValue(kTTSym_valueDefault, 0);
+	myData->setAttributeValue(kTTSym_description, TT("Il etait une fois"));
 
 
 	// Register a TTObject into the TTModularDirectory
@@ -120,7 +125,7 @@ main(int argc, char **argv)
 	TTNodePtr		returnedNode;
 	TTBoolean		newInstanceCreated;
 
-	TTModularDirectory->TTNodeCreate(TT("/audio/filter/frequency"), myData, NULL, &returnedNode, &newInstanceCreated);
+	mDirectory->TTNodeCreate(TT("/audio/filter/frequency"), myData, NULL, &returnedNode, &newInstanceCreated);
 	// note : our myRegistrationObserver is informed
 
 
@@ -134,23 +139,23 @@ main(int argc, char **argv)
 	
 	// prepare arguments : see TTReceiver.h to know which args are needed
 	args.clear();
-	args.append(TTModularDirectory);
+	args.append(mApplication);
 	args.append(TT("/audio/filter/frequency"));
-	args.append(kTTSym_Value);
+	args.append(kTTSym_value);
 		
-	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&r_returnAddressCallback), kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&r_returnAddressCallback), kTTValNONE);
 	r_returnAddressBaton = new TTValue(NULL);		// Here it is NULL but it could be usefull to pass 
 												// an object in order to process the returned value
-	r_returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(r_returnAddressBaton));
-	r_returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&myReceiver_return_address_callback));
+	r_returnAddressCallback->setAttributeValue(TT("baton"), TTPtr(r_returnAddressBaton));
+	r_returnAddressCallback->setAttributeValue(TT("function"), TTPtr(myReceiver_return_address_callback));
 	args.append(r_returnAddressCallback);
 	
 
-	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&r_returnValueCallback), kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&r_returnValueCallback), kTTValNONE);
 	r_returnValueBaton = new TTValue(NULL);		// Here it is NULL but it could be usefull to pass 
 												// an object in order to process the returned address;
-	r_returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(r_returnValueBaton));
-	r_returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&myReceiver_return_value_callback));
+	r_returnValueCallback->setAttributeValue(TT("baton"), TTPtr(r_returnValueBaton));
+	r_returnValueCallback->setAttributeValue(TT("function"), TTPtr(myReceiver_return_value_callback));
 	args.append(r_returnValueCallback);
 		
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&myReceiver), args);
@@ -163,9 +168,9 @@ main(int argc, char **argv)
 
 	// prepare arguments : see TTSender.h to know which args are needed
 	args.clear();
-	args.append(TTModularDirectory);
+	args.append(mApplication);
 	args.append(TT("/audio/filter/frequency"));
-	args.append(kTTSym_Value);
+	args.append(kTTSym_value);
 		
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mySender), args);
 
@@ -175,7 +180,7 @@ main(int argc, char **argv)
 	//////////////////////////////////////////////////////////////////
 	TTLogMessage("\n*** Set mValue attribute of our data directly *** \n");
 	TTValue	v = TTValue(1);
-	myData->setAttributeValue(kTTSym_Value, v);
+	myData->setAttributeValue(kTTSym_value, v);
 	// note : the value is returned by the Data and the Receiver
 
 
@@ -195,19 +200,18 @@ main(int argc, char **argv)
 	// get the node which represent our data
 	TTList			aNodeList;
 	TTNodePtr		aNode;
-	TTModularDirectory->Lookup(TT("/audio/filter/frequency"), aNodeList, &aNode);
+	mDirectory->Lookup(TT("/audio/filter/frequency"), aNodeList, &aNode);
 
 	// get the object store in the node
-	TTDataPtr	anObject;
-	aNode->getAttributeValue(kTTSym_Object, v);
-	v.get(0, (TTPtr*)&anObject);
+	TTObjectPtr	anObject;
+	anObject = aNode->getObject();
 
 	if (anObject == myData)
 		TTLogMessage("anObject is myData \n");
 
 	// get the mValue attribute value of the object
 	v.clear();
-	anObject->getAttributeValue(kTTSym_Value, v);
+	anObject->getAttributeValue(kTTSym_value, v);
 
 	// print the value
 	TTString s;
@@ -215,53 +219,67 @@ main(int argc, char **argv)
 	v.get(0, s);
 	TTLogMessage("anObject mValue is %s \n", s.data());
 
-	// get the mValueDefault attribute value of the object
+	// get the mdescription attribute value of the object
 	v.clear();
-	anObject->getAttributeValue(kTTSym_ValueDefault, v);
+	s.clear();
+	anObject->getAttributeValue(kTTSym_description, v);
 
 	// print the value
 	v.toString();
 	v.get(0, s);
-	TTLogMessage("anObject mValueDefault is %s \n", s.data());
+	TTLogMessage("anObject mDescription is %s \n", s.data());
+
+	//// get the mRangeBounds attribute value of the object
+	//v.clear();
+	//s.clear();
+	//anObject->getAttributeValue(kTTSym_rangeBounds, v);
+
+	//// print the value
+	//v.toString();
+	//v.get(0, s);
+	//TTLogMessage("anObject mRangeBounds is %s \n", s.data());
+	
 
 	// reset the mValue to mValueDefault
-	TTLogMessage("\n*** reset the mValue to mValueDefault *** \n");
-	anObject->sendMessage(TT("Reset"));
+	//TTLogMessage("\n*** reset the mValue to mValueDefault *** \n");
+	//anObject->sendMessage(TT("Reset"));
 	// note : the value is returned by the Data and the Receiver
+
+
 
 	// Unregister /audio/filter/frequency from the TTModularDirectory
 	//////////////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Unregister myData from the TTModularDirectory *** \n");
-	TTModularDirectory->TTNodeRemove(TT("/audio/filter/frequency"));
+	//TTLogMessage("\n*** Unregister myData from the TTModularDirectory *** \n");
+	//mDirectory->TTNodeRemove(TT("/audio/filter/frequency"));
 	// note : our myUnregistrationObserver is informed
 
 
 
 	// Delete every TTObject and TTValuePtr
 	//////////////////////////////////////////////////////////////////
-	TTObjectRelease(TTObjectHandle(&myRegistrationObserver));
-	TTObjectRelease(TTObjectHandle(&ro_returnAddressCallback)); 
-	TTObjectRelease(TTObjectHandle(&ro_returnValueCallback));
-	delete ro_returnAddressBaton;
-	delete ro_returnValueBaton;
+	//TTObjectRelease(TTObjectHandle(&myRegistrationObserver));
+	//TTObjectRelease(TTObjectHandle(&ro_returnAddressCallback)); 
+	//TTObjectRelease(TTObjectHandle(&ro_returnValueCallback));
+	//delete ro_returnAddressBaton;
+	//delete ro_returnValueBaton;
 
-	TTObjectRelease(TTObjectHandle(&myUnregistrationObserver));
-	TTObjectRelease(TTObjectHandle(&uo_returnAddressCallback)); 
-	TTObjectRelease(TTObjectHandle(&uo_returnValueCallback));
-	delete uo_returnAddressBaton;
-	delete uo_returnValueBaton;
+	//TTObjectRelease(TTObjectHandle(&myUnregistrationObserver));
+	//TTObjectRelease(TTObjectHandle(&uo_returnAddressCallback)); 
+	//TTObjectRelease(TTObjectHandle(&uo_returnValueCallback));
+	//delete uo_returnAddressBaton;
+	//delete uo_returnValueBaton;
 
-	TTObjectRelease(TTObjectHandle(&myReceiver));
-	TTObjectRelease(TTObjectHandle(&r_returnAddressCallback)); 
-	TTObjectRelease(TTObjectHandle(&r_returnValueCallback));
-	delete r_returnAddressBaton;
-	delete r_returnValueBaton;
+	//TTObjectRelease(TTObjectHandle(&myReceiver));
+	//TTObjectRelease(TTObjectHandle(&r_returnAddressCallback)); 
+	//TTObjectRelease(TTObjectHandle(&r_returnValueCallback));
+	//delete r_returnAddressBaton;
+	//delete r_returnValueBaton;
 
-	TTObjectRelease(TTObjectHandle(&myData));
-	TTObjectRelease(TTObjectHandle(&p_returnValueCallback));
-	delete p_returnValueBaton;
+	//TTObjectRelease(TTObjectHandle(&myData));
+	//TTObjectRelease(TTObjectHandle(&p_returnValueCallback));
+	//delete p_returnValueBaton;
 
-	TTObjectRelease(TTObjectHandle(&mySender));
+	//TTObjectRelease(TTObjectHandle(&mySender));
 
 	TTLogMessage("\n*** Ending my TTModular application *** \n");
 
