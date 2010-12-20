@@ -327,7 +327,7 @@ void preset_default(TTPtr self)
 		jcom_core_getfilepath(outvol, (char*)xmlfile.data(), fullpath);
 		
 		atom_setsym(&a, gensym(fullpath));
-		defer_low(self, (method)preset_doread, gensym("read/xml"), 1, &a);
+		defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 		
 		// recall first preset
 		atom_setlong(&a, 1);
@@ -358,7 +358,7 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	jcom_core_getfilepath(path, filename, fullpath);
 	
 	atom_setsym(&a, gensym(fullpath));
-	defer_low(self, (method)preset_doread, gensym("read/xml"), 1, &a);
+	defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 	
 	// try to recall last current preset
 	v.get(0, i);
@@ -376,7 +376,7 @@ void preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 	if (argc && argv) {
 		if (atom_gettype(argv) == A_LONG) {
-			v = TTValue(TTUInt16(atom_getlong(argv)));
+			v = TTValue((int)atom_getlong(argv));
 			x->wrappedObject->sendMessage(TT("Recall"), v);
 		}
 		
