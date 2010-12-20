@@ -206,53 +206,20 @@ void preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {	
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
-	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
-	short 			path;							// pathID#
-    long			filetype = 'TEXT', outtype;		// the file type that is actually true
 	TTValue			o, v;
-	SymbolPtr		userpath;
-	TTSymbolPtr		nodeAddress;
+	TTSymbolPtr		fullpath;
 	TTXmlHandlerPtr	aXmlHandler = NULL;
 	//TTTextHandlerPtr	aTextHandler;
 	TTErr			tterr;
 	
-	if (argc && argv)
-		if (atom_gettype(argv) == A_SYM)
-			userpath = atom_getsym(argv);
-		else {
-			object_error((t_object*)x, "%s : needs a symbol", msg->s_name);
-			return;
-		}
-	
-	// select file format
-	if (msg == gensym("read/xml"))
-		filetype = 'TEXT';
-	else if (msg == gensym("read/text")) 
-		filetype = 'TEXT';
-	else {
-		object_error((t_object*)x, "%s : no file format specified", msg->s_name);
-		return;
-	}
-	
-	// Get absolute filepath using Max API
-	strcpy(filepath, userpath->s_name);									// Copy symbol argument to a local string
-	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-		
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, (TTPtr*)&nodeAddress);
-		// TODO :object_error((t_object*)x, "%s : file not found", gensym((char*)nodeAddress->getCString()));
-		return;
-	}
-	
-	jcom_core_getfilepath(path, filepath, fullpath);
-	
 	if (x->wrappedObject) {
-		v.clear();
-		v.append(TT(fullpath));
 		
-		// select method to use
+		fullpath = jamoma_file_read((ObjectPtr)x, argc, argv);
+		v.append(fullpath);
+		
+		// select handler to use
 		if (msg == gensym("read/xml")) {
+			
 			tterr = x->internals->lookup(TT("XmlHandler"), o);
 			
 			if (!tterr) {
@@ -277,59 +244,26 @@ void preset_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
-	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
-	short 			path, err;						// pathID#, error number
-	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
-	long			filetype = 'TEXT', outtype;		// the file type that is actually true
+	char 			filename[MAX_FILENAME_CHARS];
+	TTSymbolPtr		fullpath;
 	TTValue			o, v;
-	SymbolPtr		userpath;
-	TTSymbolPtr		nodeAddress;
 	TTXmlHandlerPtr	aXmlHandler;
 	//TTTextHandlerPtr	aTextHandler;
 	TTErr			tterr;
 	
-	if (argc && argv)
-		if (atom_gettype(argv) == A_SYM)
-			userpath = atom_getsym(argv);
-		else {
-			object_error((t_object*)x, "%s : needs a symbol", msg->s_name);
-			return;
-		}
-	
-	// select file format
-	if (msg == gensym("write/xml"))
-		filetype = 'TEXT';
-	else if (msg == gensym("write/text"))
-		filetype = 'TEXT';
-	else
-		object_error((t_object*)x, "%s : no file format specified", msg->s_name);
-	
-	// Create a file using Max API
-	path = 0;
-	strcpy(filepath, userpath->s_name);									// Copy symbol argument to a local string
-	err = path_createsysfile(filepath, path, filetype, &file_handle);
-	
-	// Get absolute filepath using Max API
-	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, (TTPtr*)&nodeAddress);
-		object_error((t_object*)x, "%s : file not created", gensym((char*)nodeAddress->getCString()));
-		return;
-	}
-	
-	jcom_core_getfilepath(path, filepath, fullpath);
-	
 	if (x->wrappedObject) {
-		v.clear();
-		v.append(TT(fullpath));
-		
-		// select method to use
+
+		// select handler to use
 		if (msg == gensym("write/xml")) {
+			
+			// Default XML File Name
+			snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherType->getCString(), x->patcherClass->getCString());
+			fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
+			v.append(fullpath);
+			
 			tterr = x->internals->lookup(TT("XmlHandler"), o);
 			
 			if (!tterr) {
-				
 				o.get(0, (TTPtr*)&aXmlHandler);
 				
 				critical_enter(0);
@@ -347,6 +281,9 @@ void preset_default(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr patcherClass;
 	TTSymbolPtr patcherType;
+	short		outvol;
+	long		outtype, filetype = 'TEXT';
+	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	Atom		a;
 
 	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
@@ -358,10 +295,14 @@ void preset_default(TTPtr self)
 		xmlfile += patcherClass->getCString();
 		xmlfile += ".xml";
 		
-		// DEBUG
-		//post("preset_default : %s", (char*)xmlfile.data());
+		if (locatefile_extended((char*)xmlfile.data(), &outvol, &outtype, &filetype, 1)) {
+			object_warn((ObjectPtr)x, "preset_default : can't find %s file in the Max search path", xmlfile.data());
+			return;
+		}
 		
-		atom_setsym(&a, gensym((char*)xmlfile.data()));
+		jcom_core_getfilepath(outvol, (char*)xmlfile.data(), fullpath);
+		
+		atom_setsym(&a, gensym(fullpath));
 		defer_low(self, (method)preset_doread, gensym("read/xml"), 1, &a);
 		
 		defer_low((ObjectPtr)x, (method)preset_dorecall_first, NULL, 0, 0);

@@ -204,6 +204,12 @@ extern "C" {
 	/** Parse #N inside address and replace them by parent patcher arguments if there are */
 	SymbolPtr		jamoma_parse_dieze(ObjectPtr x, SymbolPtr address);
 	
+	/** Get BOOT style filepath from args or, if no args open a dialog to write a file */
+	TTSymbolPtr		jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* default_filename);
+	
+	/** Get BOOT style filepath from args or, if no args open a dialog to read a file */
+	TTSymbolPtr		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv);
+	
 #ifdef __cplusplus
 }
 #endif

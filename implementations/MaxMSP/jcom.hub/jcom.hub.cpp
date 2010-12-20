@@ -95,13 +95,6 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)hub_address,					"hub_address",			A_CANT, 0);			// only in jview patch
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"doc_generate",			A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)hub_help,						"help",					0);
-	class_addmethod(c->maxClass, (method)hub_reference,					"reference",			0);
-	class_addmethod(c->maxClass, (method)hub_internals,					"internals",			0);
-	class_addmethod(c->maxClass, (method)hub_panel,						"panel",				0);
-	class_addmethod(c->maxClass, (method)hub_mute,						"mute",					A_LONG, 0);
-	class_addmethod(c->maxClass, (method)hub_autodoc,					"documentation/generate",A_GIMME, 0);
-	
 	CLASS_ATTR_LONG(c->maxClass,				"has_panel",	0, WrappedModularInstance, index);
 	CLASS_ATTR_STYLE(c->maxClass,				"has_panel",	0, "panel");
 	CLASS_ATTR_DEFAULT(c->maxClass,				"has_panel",	0, "0");
@@ -498,48 +491,22 @@ void hub_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
-	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
-	short 			path, err;						// pathID#, error number
-	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
-	long			filetype = 'TEXT', outtype;		// the file type that is actually true
-	TTValue			o, v;
-	SymbolPtr		userpath;
-	TTSymbolPtr		nodeAddress;
-	TTTextHandlerPtr aTextHandler;
-	TTErr			tterr;
-	
-	if (argc && argv)
-		if (atom_gettype(argv) == A_SYM)
-			userpath = atom_getsym(argv);
-		else {
-			object_error((t_object*)x, "%s : needs a symbol", msg->s_name);
-			return;
-		}
-	
-	// Create a file using Max API
-	path = 0;
-	strcpy(filepath, userpath->s_name);									// Copy symbol argument to a local string
-	err = path_createsysfile(filepath, path, filetype, &file_handle);
-	
-	// Get absolute filepath using Max API
-	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, (TTPtr*)&nodeAddress);
-		object_error((t_object*)x, "%s : file not created", gensym((char*)nodeAddress->getCString()));
-		return;
-	}
-	
-	jcom_core_getfilepath(path, filepath, fullpath);
+	char				filename[MAX_FILENAME_CHARS];
+	TTSymbolPtr			fullpath;
+	TTValue				o, v;
+	TTTextHandlerPtr	aTextHandler;
+	TTErr				tterr;
 	
 	if (x->wrappedObject) {
-		v.clear();
-		v.append(TT(fullpath));
+		
+		// Default HTML file name
+		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.html", x->patcherType->getCString(), x->patcherClass->getCString());
+		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
+		v.append(fullpath);
 		
 		tterr = x->internals->lookup(TT("TextHandler"), o);
 		
 		if (!tterr) {
-			
 			o.get(0, (TTPtr*)&aTextHandler);
 			
 			critical_enter(0);
