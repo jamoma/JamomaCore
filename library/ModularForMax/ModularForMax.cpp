@@ -1139,7 +1139,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 {
 	AtomCount	i, start;
 	
-	if (msg == _sym_bang && argc == 0)
+	if ((msg == _sym_bang || msg == _sym_nothing) && argc == 0)
 		v = kTTValNONE;
 	else {
 		
@@ -1514,38 +1514,44 @@ TTSymbolPtr jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* d
 	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
 	long			filetype = 'TEXT', outtype;		// the file type that is actually true
 	SymbolPtr		userpath;
+	TTSymbolPtr		result = kTTSymEmpty;
 	
 	// Give a path ...
 	if (argc && argv) {
-		
-		if (atom_gettype(argv) == A_SYM)
+		if (atom_gettype(argv) == A_SYM) {
 			userpath = atom_getsym(argv);
-		else
-			return kTTSymEmpty;
-		
-		// Use BOOT style path
-		path = 0;
-		path_nameconform(userpath->s_name, fullpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);// Copy symbol argument to a local string
-		
-		// Create a file using Max API
-		path_createsysfile(fullpath, path, filetype, &file_handle);
-		
+			
+			if (userpath != _sym_nothing) {
+				// Use BOOT style path
+				path = 0;
+				path_nameconform(userpath->s_name, fullpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);// Copy symbol argument to a local string
+				
+				// Create a file using Max API
+				path_createsysfile(fullpath, path, filetype, &file_handle);
+				
+				result = TT(fullpath);
+			}
+		}
+	} 
+	
 	// ... or open a dialog
-	} else {
+	if (result == kTTSymEmpty) {
 		
 		saveas_promptset("Save Preset...");												// Instructional Text in the dialog
 		err = saveasdialog_extended(default_filename, &path, &outtype, &filetype, 1);	// Returns 0 if successful
-		if (err) // User Cancelled
-			return kTTSymEmpty;
-		
-		// Create a file using Max API
-		path_createsysfile(default_filename, path, filetype, &file_handle);
-		
-		// Use BOOT style path
-		jcom_core_getfilepath(path, default_filename, fullpath);
+		if (!err) { // User Cancelled
+			
+			// Create a file using Max API
+			path_createsysfile(default_filename, path, filetype, &file_handle);
+			
+			// Use BOOT style path
+			jcom_core_getfilepath(path, default_filename, fullpath);
+			
+			result = TT(fullpath);
+		}
 	}
 	
-	return TT(fullpath);
+	return result;
 }
 
 /** Get BOOT style filepath grom args or, if no args open a dialog to read a file */
@@ -1556,27 +1562,29 @@ TTSymbolPtr jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv)
 	short 			path;							// pathID#
     long			filetype = 'TEXT', outtype;		// the file type that is actually true
 	SymbolPtr		userpath;
+	TTSymbolPtr		result = kTTSymEmpty;
 	
 	// Give a path ...
 	if (argc && argv) {
-		
-		if (atom_gettype(argv) == A_SYM)
+		if (atom_gettype(argv) == A_SYM) {
 			userpath = atom_getsym(argv);
-		else
-			return kTTSymEmpty;
-		
-		// Use BOOT style path
-		path = 0;
-		path_nameconform(userpath->s_name, fullpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);// Copy symbol argument to a local string
-	
-	// ... or open a dialog
-	} else {
-		
-		if (open_dialog(filepath, &path, &outtype, &filetype, 1))	// Returns 0 if successful
-			return kTTSymEmpty;										// User Cancelled
-		
-		jcom_core_getfilepath(path, filepath, fullpath);
+			
+			if (userpath != _sym_nothing) {
+				// Use BOOT style path
+				path = 0;
+				path_nameconform(userpath->s_name, fullpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);// Copy symbol argument to a local string
+				
+				result = TT(fullpath);
+			}
+		}
 	}
 	
-	return TT(fullpath);
+	// ... or open a dialog
+	if (result == kTTSymEmpty)
+		if (!open_dialog(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
+			jcom_core_getfilepath(path, filepath, fullpath);
+			result = TT(fullpath);
+		}
+	
+	return result;
 }
