@@ -352,8 +352,6 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	long		i;
 	Atom		a;
 	
-	object_post((ObjectPtr)x, "filechanged %s", filename);
-	
 	// get current preset
 	x->wrappedObject->sendMessage(TT("current"), v);
 	
