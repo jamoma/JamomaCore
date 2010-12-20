@@ -497,7 +497,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		// preview
 		if (preview != obj->has_preview) {
 			obj->has_preview = preview;
-			if (preview) 
+			if (preview)
 				ui_viewer_create(obj, &anObject, gensym("return_preview"), TT("out/preview"), obj->modelAddress, YES);
 			else {
 				ui_viewer_destroy(obj, TT("out/preview"));
@@ -710,9 +710,52 @@ void ui_return_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	t_ui* obj = (t_ui*)self;
+	t_ui*			obj = (t_ui*)self;
+	TTSymbolPtr		outAdrs;
+	TTValue			v;
+	TTNodePtr		aNode;
+	TTObjectPtr		newObserver;
+	TTValuePtr		newBaton;
+	TTAttributePtr	anAttribute = NULL;
+	TTErr			err;
 	
 	obj->is_previewing = atom_getlong(argv);
+	
+	if (obj->is_previewing) {
+		
+		// observe the hidden signalPreview attribute of the jcom.out
+		joinOSCAddress(obj->modelAddress, TT("out"), &outAdrs);
+		JamomaDirectory->getTTNodeForOSC(outAdrs, &aNode);
+		
+		if (obj->modelOutput = (TTOutputPtr)aNode->getObject()) {
+			
+			// TODO : check type (audio or control ?)
+			
+			err = obj->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+			
+			if (!err) {
+				
+				newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+				TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
+				
+				newBaton = new TTValue(TTPtr(self));
+				
+				newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+				newObserver->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_signal));
+				
+				newObserver->setAttributeValue(TT("owner"), TT("jcom.ui"));					// this is usefull only to debug
+				
+				anAttribute->registerObserverForNotifications(*newObserver);
+				
+			}
+			
+			
+		}
+			
+	}
+	else
+		;
+
 	jbox_redraw(&obj->box);
 }
 
@@ -838,4 +881,19 @@ void ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr 
 	
 	if (argc)
 		object_attr_setvalueof(obj, gensym("address"), argc, argv);
+}
+
+void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	long index;
+	
+	if (argc && argv) {
+		
+		index = obj->modelOutput->mIndex;
+		
+		// only output first signal
+		if (index == 0)
+			outlet_anything(obj->outlet, msg, argc, argv);
+	}
 }

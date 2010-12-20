@@ -32,6 +32,8 @@ typedef struct _ui{
 	TTObjectPtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
 	TTObjectPtr			modelRetExplorer;		///< internal TTExplorer object to observe returns
 	TTSubscriberPtr		uiSubscriber;			///< internal TTSubscriber object to create a /ui node
+	TTCallbackPtr		previewSignal;			///< internal TTCallback to get back preview signal
+	TTOutputPtr			modelOutput;			///< a pointer to TTOutput object of the binded model
 	
 	TTSymbolPtr			viewAddress;
 	TTSymbolPtr			modelAddress;
@@ -172,6 +174,8 @@ void		ui_return_mix(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_gain(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+void		ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 // prototype: ui handling for preset features
 void		ui_preset_store_next(t_ui *x);

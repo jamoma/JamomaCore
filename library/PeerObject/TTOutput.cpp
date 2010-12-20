@@ -26,7 +26,6 @@ mSignalIn(NULL),
 mSignalOut(NULL),
 mSignalTemp(NULL),
 mSignalZero(NULL),
-mSignalPreview(NULL),
 mMixUnit(NULL),
 mGainUnit(NULL),
 mRampMixUnit(NULL),
@@ -37,7 +36,9 @@ mInputObject(NULL),
 mApplication(NULL),
 mReturnSignalCallback(NULL),
 mLast(NULL),
-mObserver(NULL)
+mObserver(NULL),
+mSignalPreview(kTTValNONE),
+mSignalPreviewAttr(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 4);
 	
@@ -80,6 +81,9 @@ mObserver(NULL)
 	addAttributeWithSetter(Info, kTypeLocalValue);
 	addAttributeProperty(info, hidden, YES);
 	
+	addAttribute(SignalPreview, kTypeLocalValue);
+	addAttributeProperty(signalPreview, hidden, YES);
+	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);
 	
@@ -95,6 +99,8 @@ mObserver(NULL)
 	mLast = new TTValue[mNumber];
 	for (TTUInt16 i=0; i<mNumber; i++)
 		mLast[i] = kTTValNONE;
+	
+	this->findAttribute(TT("signalPreview"), &mSignalPreviewAttr);
 }
 
 TTOutput::~TTOutput()
@@ -113,9 +119,6 @@ TTOutput::~TTOutput()
 	
 	if (mSignalZero)
 		TTObjectRelease(&mSignalZero);
-	
-	if (mSignalPreview)
-		TTObjectRelease(&mSignalPreview);
 	
 	if (mMixUnit)
 		TTObjectRelease(&mMixUnit);
@@ -156,7 +159,8 @@ TTErr TTOutput::Send(TTValue& value)
 	if (!mFreeze)
 		mLast[mIndex] = value;
 	
-	// TODO : preview mecanism (it could be also used to register and notify meters...)
+	// preview
+	notifySignalPreview(value);
 	
 	return err;
 }
@@ -260,6 +264,16 @@ TTErr TTOutput::setInfo(const TTValue& value)
 {	
 	mInfo = value;
 	
+	return kTTErrNone;
+}
+
+TTErr TTOutput::notifySignalPreview(const TTValue& value)
+{	
+	mSignalPreview = value;
+	
+	if (mPreview)
+		mSignalPreviewAttr->sendNotification(kTTSym_notify, mSignalPreview);	// we use kTTSym_notify because we know that observers are TTCallback
+
 	return kTTErrNone;
 }
 

@@ -224,6 +224,14 @@ void in_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->wrappedObject->setAttributeValue(TT("outputAddress"), TT(outAddress.data()));
 		
 #ifdef JCOM_IN_TILDE
+		// set audio type
+		x->wrappedObject->setAttributeValue(kTTSym_type, TT("audio"));
+#else
+		// set control type
+		x->wrappedObject->setAttributeValue(kTTSym_type, TT("control"));
+#endif
+		
+#ifdef JCOM_IN_TILDE
 		// make internal data to return in/amplitude
 		v = TTValue(0., 1.);
 		for (i = 0; i < number; i++) {

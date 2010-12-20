@@ -228,8 +228,17 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			inAddress += node->getInstance()->getCString();
 		}
 		x->wrappedObject->setAttributeValue(TT("inputAddress"), TT(inAddress.data()));
+		
+#ifdef JCOM_OUT_TILDE
+		// set audio type
+		x->wrappedObject->setAttributeValue(kTTSym_type, TT("audio"));
+#else
+		// set control type
+		x->wrappedObject->setAttributeValue(kTTSym_type, TT("control"));
+#endif
 
 #ifdef JCOM_OUT_TILDE
+		
 		// make internal data to return out/amplitude
 		v = TTValue(0., 1.);
 		for (i = 0; i < number; i++) {

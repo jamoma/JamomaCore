@@ -1045,24 +1045,18 @@ void jamoma_callback_return_signal(TTPtr baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
-	TTPtr		signal;
-	long		i, argc = 0;
+	SymbolPtr	msg;
+	long		argc = 0;
 	AtomPtr		argv = NULL;
 	
 	// unpack baton (a t_object*)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&x);
 	
-	// unpack data (signal)
-	argc = data.getSize();
-	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
-	for (i=0; i<argc; i++) {
-		data.get(i, (TTPtr*)&signal);
-		atom_setobj(argv+i, signal);
-	}
-					
+	jamoma_ttvalue_to_Atom(data, &msg, &argc, &argv);
+	
 	// send signal using the return_signal method
-	object_method(x, jps_return_signal, _sym_nothing, argc, argv);
+	object_method(x, jps_return_signal, msg, argc, argv);
 	
 	sysmem_freeptr(argv);
 }

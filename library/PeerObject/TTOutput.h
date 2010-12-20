@@ -47,7 +47,6 @@ public:	// use public for quick acces during signal processing
 	
 	TTObjectPtr			mSignalTemp;				///< a temporary signal
 	TTObjectPtr			mSignalZero;				///< a zero signal
-	TTObjectPtr			mSignalPreview;				///< the preview signal
 	
 	TTObjectPtr			mMixUnit;					///< the unit used to mix the signal
 	TTObjectPtr			mGainUnit;					///< the unit used to apply the gain value on the signal
@@ -70,6 +69,9 @@ private:
 	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this output
 	TTValuePtr			mLast;						///< keep a copy of the last sent signal for each index
 	TTCallbackPtr		mObserver;					///< to observe mInputAddress creation/destruction
+	
+	TTValue				mSignalPreview;				///< ATTRIBUTE : a hidden attribute to allow signal preview
+	TTAttributePtr		mSignalPreviewAttr;			///< a direct acces to the signal preview attribute to notify observers
 	
 	
 	/** Send signal. The mIndex have to be choosen before */
@@ -96,6 +98,9 @@ private:
 	
 	/** Set the info attribute */
 	TTErr setInfo(const TTValue& value);
+	
+	/** Notify signal preview observer */
+	TTErr notifySignalPreview(const TTValue& value);
 	
 	friend TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(TTPtr baton, TTValue& data);
 };

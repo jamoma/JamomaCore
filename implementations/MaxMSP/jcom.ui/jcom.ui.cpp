@@ -111,6 +111,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_return_preview,					"return_preview",					A_CANT, 0);
 	class_addmethod(c, (method)ui_return_preset_names,				"return_preset_names",				A_CANT, 0);
 	
+	class_addmethod(c, (method)ui_return_signal,					"return_signal",					A_CANT, 0);
+	
 	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0, "0. 0. 300. 70.");
 	CLASS_ATTR_DEFAULT(c,					"fontname",			0, JAMOMA_DEFAULT_FONT);
 	CLASS_ATTR_DEFAULT(c,					"fontsize",			0, "11");
@@ -211,7 +213,6 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		
 		ui_explorer_create((ObjectPtr)x, &x->viewExplorer, gensym("return_viewExploration"));
 		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploration"));
-		
 		
 		attr_dictionary_process(x, d); 	// handle attribute args
 		
