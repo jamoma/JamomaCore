@@ -38,9 +38,7 @@ mReturnValueCallback(NULL)
 	addAttribute(Type, kTypeSymbol);
 	addAttribute(Selected, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
-	
 	addAttribute(Enable, kTypeBoolean);
-	addAttributeProperty(enable, hidden, YES);
 	
 	addAttributeWithSetter(ReturnedValue, kTypeLocalValue);
 	addAttributeProperty(returnedValue, readOnly, YES);
