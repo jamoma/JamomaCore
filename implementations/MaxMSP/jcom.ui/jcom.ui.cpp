@@ -255,14 +255,13 @@ void ui_free(t_ui *x)
 	
 	TTObjectRelease(TTObjectHandle(&x->uiSubscriber));
 	
-	if (x->previewSignal) {
-		
-		TTAttributePtr	anAttribute = NULL;
-		x->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
-		
-		anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
-		
-		TTObjectRelease(TTObjectHandle(&x->previewSignal));
+	if (x->previewSignal && x->modelOutput) {
+		if (x->modelOutput->valid) {
+			TTAttributePtr	anAttribute = NULL;
+			x->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+			anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
+			TTObjectRelease(TTObjectHandle(&x->previewSignal));
+		}
 	}
 	
 	ui_data_destroy_all(x);
@@ -321,11 +320,13 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		
 		// reset output object and preview signal
 		if (x->previewSignal && x->modelOutput) {
-			err = x->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
-			if (!err) {
-				anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
-				TTObjectRelease(TTObjectHandle(&x->previewSignal));
-				x->previewSignal = NULL;
+			if (x->modelOutput->valid) {
+				err = x->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+				if (!err) {
+					anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
+					TTObjectRelease(TTObjectHandle(&x->previewSignal));
+					x->previewSignal = NULL;
+				}
 			}
 		}
 		x->modelOutput = NULL;

@@ -727,34 +727,38 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		obj->modelOutput = (TTOutputPtr)aNode->getObject();
 	}
 	
-	err = obj->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
-	// TODO : check type (audio or control ?)
-	if (!err) {
+	
+	if (obj->modelOutput->valid) {
 		
-		if (obj->is_previewing) {
+		err = obj->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+		// TODO : check type (audio or control ?)
+		if (!err) {
 			
-			// reset preview signal
-			if (obj->previewSignal) {
-				anAttribute->unregisterObserverForNotifications(*(obj->previewSignal));
-				TTObjectRelease(TTObjectHandle(&obj->previewSignal));
-				obj->previewSignal = NULL;
+			if (obj->is_previewing) {
+				
+				// reset preview signal
+				if (obj->previewSignal) {
+					anAttribute->unregisterObserverForNotifications(*(obj->previewSignal));
+					TTObjectRelease(TTObjectHandle(&obj->previewSignal));
+					obj->previewSignal = NULL;
+				}
+				
+				TTObjectInstantiate(TT("callback"), TTObjectHandle(&obj->previewSignal), kTTValNONE);
+				
+				newBaton = new TTValue(TTPtr(self));
+				obj->previewSignal->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+				obj->previewSignal->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_signal));
+				obj->previewSignal->setAttributeValue(TT("owner"), TT("jcom.ui"));					// this is usefull only to debug
+				
+				anAttribute->registerObserverForNotifications(*(obj->previewSignal));
 			}
-			
-			TTObjectInstantiate(TT("callback"), TTObjectHandle(&obj->previewSignal), kTTValNONE);
-			
-			newBaton = new TTValue(TTPtr(self));
-			obj->previewSignal->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-			obj->previewSignal->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_signal));
-			obj->previewSignal->setAttributeValue(TT("owner"), TT("jcom.ui"));					// this is usefull only to debug
-			
-			anAttribute->registerObserverForNotifications(*(obj->previewSignal));
-		}
-		else {
-			
-			if (obj->previewSignal) {
-				anAttribute->unregisterObserverForNotifications(*(obj->previewSignal));
-				TTObjectRelease(TTObjectHandle(&obj->previewSignal));
-				obj->previewSignal = NULL;
+			else {
+				
+				if (obj->previewSignal) {
+					anAttribute->unregisterObserverForNotifications(*(obj->previewSignal));
+					TTObjectRelease(TTObjectHandle(&obj->previewSignal));
+					obj->previewSignal = NULL;
+				}
 			}
 		}
 	}
