@@ -714,47 +714,50 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTSymbolPtr		outAdrs;
 	TTValue			v;
 	TTNodePtr		aNode;
-	TTObjectPtr		newObserver;
 	TTValuePtr		newBaton;
 	TTAttributePtr	anAttribute = NULL;
 	TTErr			err;
 	
 	obj->is_previewing = atom_getlong(argv);
 	
-	if (obj->is_previewing) {
-		
-		// observe the hidden signalPreview attribute of the jcom.out
+	// get the TTOutput object
+	if (!obj->modelOutput) {
 		joinOSCAddress(obj->modelAddress, TT("out"), &outAdrs);
 		JamomaDirectory->getTTNodeForOSC(outAdrs, &aNode);
+		obj->modelOutput = (TTOutputPtr)aNode->getObject();
+	}
+	
+	err = obj->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+	// TODO : check type (audio or control ?)
+	if (!err) {
 		
-		if (obj->modelOutput = (TTOutputPtr)aNode->getObject()) {
+		if (obj->is_previewing) {
 			
-			// TODO : check type (audio or control ?)
-			
-			err = obj->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
-			
-			if (!err) {
-				
-				newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-				TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
-				
-				newBaton = new TTValue(TTPtr(self));
-				
-				newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-				newObserver->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_signal));
-				
-				newObserver->setAttributeValue(TT("owner"), TT("jcom.ui"));					// this is usefull only to debug
-				
-				anAttribute->registerObserverForNotifications(*newObserver);
-				
+			// reset preview signal
+			if (obj->previewSignal) {
+				anAttribute->unregisterObserverForNotifications(*(obj->previewSignal));
+				TTObjectRelease(TTObjectHandle(&obj->previewSignal));
+				obj->previewSignal = NULL;
 			}
 			
+			TTObjectInstantiate(TT("callback"), TTObjectHandle(&obj->previewSignal), kTTValNONE);
 			
+			newBaton = new TTValue(TTPtr(self));
+			obj->previewSignal->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+			obj->previewSignal->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_signal));
+			obj->previewSignal->setAttributeValue(TT("owner"), TT("jcom.ui"));					// this is usefull only to debug
+			
+			anAttribute->registerObserverForNotifications(*(obj->previewSignal));
 		}
+		else {
 			
+			if (obj->previewSignal) {
+				anAttribute->unregisterObserverForNotifications(*(obj->previewSignal));
+				TTObjectRelease(TTObjectHandle(&obj->previewSignal));
+				obj->previewSignal = NULL;
+			}
+		}
 	}
-	else
-		;
 
 	jbox_redraw(&obj->box);
 }

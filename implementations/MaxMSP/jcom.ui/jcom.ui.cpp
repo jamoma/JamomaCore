@@ -211,6 +211,9 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->has_preview = false;
 		x->has_freeze = false;
 		
+		x->modelOutput = NULL;
+		x->previewSignal = NULL;
+		
 		ui_explorer_create((ObjectPtr)x, &x->viewExplorer, gensym("return_viewExploration"));
 		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploration"));
 		
@@ -252,6 +255,16 @@ void ui_free(t_ui *x)
 	
 	TTObjectRelease(TTObjectHandle(&x->uiSubscriber));
 	
+	if (x->previewSignal) {
+		
+		TTAttributePtr	anAttribute = NULL;
+		x->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+		
+		anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
+		
+		TTObjectRelease(TTObjectHandle(&x->previewSignal));
+	}
+	
 	ui_data_destroy_all(x);
 	ui_viewer_destroy(x, TT("model/address"));
 	ui_viewer_destroy_all(x);
@@ -282,8 +295,10 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 
 t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 {
-	TTSymbolPtr	adrs = TT(atom_getsym(argv)->s_name);
-	TTValue		v;
+	TTSymbolPtr		adrs = TT(atom_getsym(argv)->s_name);
+	TTValue			v;
+	TTAttributePtr anAttribute;
+	TTErr			err;
 
 	if ((x->modelAddress == kTTSymEmpty && adrs != kTTSymEmpty) || adrs != x->modelAddress) {
 		
@@ -303,6 +318,17 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		x->has_mix = false;
 		x->has_preview = false;
 		x->has_freeze = false;
+		
+		// reset output object and preview signal
+		if (x->previewSignal && x->modelOutput) {
+			err = x->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+			if (!err) {
+				anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
+				TTObjectRelease(TTObjectHandle(&x->previewSignal));
+				x->previewSignal = NULL;
+			}
+		}
+		x->modelOutput = NULL;
 	
 		// observe the namespace of the model
 		// by this way, the creation of any widgets depends on the existence of the data		
