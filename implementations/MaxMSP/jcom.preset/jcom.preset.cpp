@@ -287,7 +287,8 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTErr			tterr;
 	
 	// stop filewatcher
-	filewatcher_stop(EXTRA->filewatcher);
+	if (EXTRA->filewatcher)
+		filewatcher_stop(EXTRA->filewatcher);
 	
 	if (x->wrappedObject) {
 		
@@ -308,7 +309,8 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 	
 	// start filewatcher
-	filewatcher_start(EXTRA->filewatcher);
+	if (EXTRA->filewatcher)
+		filewatcher_start(EXTRA->filewatcher);
 }
 
 void preset_default(TTPtr self)

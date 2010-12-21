@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 1.0, 44.0, 805.0, 548.0 ],
+		"rect" : [ 1.0, 44.0, 842.0, 529.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 1.0, 44.0, 805.0, 548.0 ],
+		"defrect" : [ 1.0, 44.0, 842.0, 529.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -20,26 +20,13 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"bgcolor" : [ 0.2, 0.2, 0.2, 0.0 ],
-					"border" : 3,
-					"bordercolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"id" : "obj-12",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 472.0, 88.0, 307.0, 389.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "@name", "jcom.preset", "@description", "Store and recall the state of a model" ],
 					"id" : "obj-10",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 805.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 842.0, 70.0 ]
 				}
 
 			}
@@ -500,7 +487,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 483.0, 483.0, 285.0, 34.0 ],
+					"patching_rect" : [ 503.0, 483.0, 285.0, 34.0 ],
 					"text" : "TODO : output/previous, output/current, output/next (to have a look to a preset without recall it)"
 				}
 
@@ -591,8 +578,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 502.0, 285.0, 136.0, 18.0 ],
-					"text" : "0.02"
+					"patching_rect" : [ 502.0, 285.0, 167.0, 18.0 ],
+					"text" : "1000"
 				}
 
 			}
@@ -605,8 +592,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 261.0, 252.0, 20.0 ],
-					"text" : "jcom.parameter myParameter @type decimal",
+					"patching_rect" : [ 502.0, 261.0, 314.0, 20.0 ],
+					"text" : "jcom.parameter myParameter @type decimal @priority 1",
 					"varname" : "_param"
 				}
 
@@ -787,8 +774,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 502.0, 335.0, 120.0, 18.0 ],
-					"text" : "45"
+					"patching_rect" : [ 502.0, 335.0, 151.0, 18.0 ],
+					"text" : "2"
 				}
 
 			}
@@ -801,8 +788,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 311.0, 221.0, 20.0 ],
-					"text" : "jcom.parameter myIndex @type integer"
+					"patching_rect" : [ 502.0, 311.0, 282.0, 20.0 ],
+					"text" : "jcom.parameter myIndex @type integer @priority 2"
 				}
 
 			}
@@ -816,7 +803,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 502.0, 384.0, 116.0, 18.0 ],
-					"text" : "nono"
+					"text" : "ernest"
 				}
 
 			}
@@ -860,7 +847,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 501.0, 433.0, 109.0, 18.0 ],
-					"text" : "65 toto 4.5"
+					"text" : "bla bla bla"
 				}
 
 			}
@@ -903,6 +890,19 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 148.0, 287.0, 91.0, 18.0 ],
 					"text" : "names, current"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.2, 0.2, 0.2, 0.0 ],
+					"border" : 3,
+					"bordercolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"id" : "obj-12",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 472.0, 88.0, 356.0, 391.0 ]
 				}
 
 			}

@@ -51,7 +51,9 @@ private:
 	TTCallbackPtr		mTestObjectCallback;			///< a callback used to validate object storage
 	TTHashPtr			mToStore;						///< a hash table containing <objectType, all Attribute names to store>
 	TTHashPtr			mItemList;						///< a hash table containing <relativeAddress, ItemPtr>
+	TTListPtr			mItemKeysSorted;				///< a linked list containing keys of sorted item
 	TTSymbolPtr			mCurrentItem;					///< a key to retrieve the current Item in the ItemList
+	
 	
 	/** */
 	TTErr setAddress(const TTValue& value);
@@ -64,6 +66,10 @@ private:
 	
 	/** */
 	TTErr Update();
+	
+	/** Sort items of a preset using priority attribute (if it is stored) */
+	TTErr SortByPriority();
+	TTInt32 getItemPriority(TTSymbolPtr relativeAddress, ItemPtr *anItem);
 	
 	/** */
 	TTErr Send();
