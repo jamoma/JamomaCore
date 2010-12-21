@@ -67,7 +67,7 @@ TTErr TTTextHandler::Write(const TTValue& args)
 			/* Start the document */
 			mIsWriting = true;
 			
-			// Write data of the given TTObject (which have to implement a WriteAsXml message)
+			// Write data of the given TTObject (which have to implement a WriteAsText message)
 			v.clear();
 			v.append((TTPtr)this);
 			aTTObject->sendMessage(TT("WriteAsText"), v);
@@ -75,6 +75,30 @@ TTErr TTTextHandler::Write(const TTValue& args)
 			/* End the document */
 			mWriter->close();
 			
+			mIsWriting = false;
+			
+			// memorize the TTObject as the last handled object
+			mObject = aTTObject;
+			
+			return kTTErrNone;
+		}
+		else if (args.getType(0) == kTypePointer) {
+			
+			//args.get(0, (TTPtr*)&mBuffer);
+			
+			// Create a new TextWriter for a buffer.
+			//ostream buffer;
+			//mWriter = &buffer;
+			
+			/* Start the writing */
+			mIsWriting = true;
+			
+			// Write data of the given TTObject (which have to implement a WriteAsText message)
+			v.clear();
+			v.append((TTPtr)this);
+			aTTObject->sendMessage(TT("WriteAsText"), v);
+			
+			/* End the writing */
 			mIsWriting = false;
 			
 			// memorize the TTObject as the last handled object

@@ -14,7 +14,10 @@
 
 // This is used to store extra data
 typedef struct extra {
-	TTPtr	filewatcher;		// a preset filewather
+	TTPtr		filewatcher;		// a preset filewather
+	char*		text;				// text used by /getstate window
+	TTUInt32	textSize;			// how many chars are alloc'd to text
+	ObjectPtr	textEditor;			// the text editor window
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
@@ -34,6 +37,9 @@ void		preset_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_default(TTPtr self);
 void		preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+void		preset_edit(TTPtr self);
+void		preset_edclose(TTPtr self, char **text, long size);
 
 void		preset_build(TTPtr self, SymbolPtr address);
 
@@ -58,6 +64,9 @@ void WrapTTPresetManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)preset_read,					"preset_read",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)preset_write,					"preset_write",			A_CANT, 0);
+	
+	class_addmethod(c->maxClass, (method)preset_edit,					"dblclick",				A_CANT, 0);
+	class_addmethod(c->maxClass, (method)preset_edclose,				"edclose",				A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)preset_read,					"read",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)preset_write,					"write",				A_GIMME, 0);
@@ -93,6 +102,8 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->filewatcher = NULL;
+	EXTRA->textSize = 0;
+	EXTRA->textEditor = NULL;
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
@@ -400,3 +411,65 @@ void preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
+void preset_edit(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	char* text = NULL;
+	long textsize = 0;
+	
+	if (!EXTRA->textEditor)
+		EXTRA->textEditor = (t_object*)object_new(_sym_nobox, _sym_jed, x, 0);
+	
+	if (!EXTRA->textSize) {
+		EXTRA->textSize = 4096;
+		EXTRA->text = (char*)malloc(sizeof(char) * EXTRA->textSize);
+	}
+	EXTRA->text[0] = 0;
+	
+	critical_enter(0);
+	// TODO : fill the editor
+	/*
+	 for (i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if (t->type == jps_subscribe_parameter) {
+			long ac = NULL;
+			t_atom* av = NULL;
+	 
+			object_attr_getvalueof(t->object, jps_value, &ac, &av); // get
+			atom_gettext(ac, av, &textsize, &text, 0);
+	 
+			// this is a really lame way to do this...
+			if (strlen(x->text) > (x->textSize - 1024)) {
+				x->textSize += 4096;
+				x->text = (char*)realloc(x->text, x->textSize);
+			}
+	 
+			strncat_zero(x->text, x->osc_name->s_name, x->textSize);
+			strncat_zero(x->text, "/", x->textSize);
+			strncat_zero(x->text, t->name->s_name, x->textSize);
+			strncat_zero(x->text, " ", x->textSize);
+			strncat_zero(x->text, text, x->textSize);
+			strncat_zero(x->text, "\n", x->textSize);
+	 
+			sysmem_freeptr(text);
+			text = NULL;
+			textsize = 0;
+		}
+	 }
+	 */
+	critical_exit(0);
+	
+	// TODO : pass the buffer
+	object_method(EXTRA->textEditor, _sym_settext, EXTRA->text, _sym_utf_8);
+	object_attr_setchar(EXTRA->textEditor, gensym("scratch"), 1);
+	object_attr_setsym(EXTRA->textEditor, _sym_title, gensym("jamoma module state"));
+	
+	sysmem_freeptr(text);
+}
+
+void preset_edclose(TTPtr self, char **text, long size)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	EXTRA->textEditor = NULL;
+}

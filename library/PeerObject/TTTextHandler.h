@@ -51,7 +51,7 @@ public:	// use public for recursive access
 	
 	TTObjectPtr			mObject;						///< the last handled object
 	TTSymbolPtr			mFilePath;						///< the path to the last writen/read file
-	
+
 	ofstream			*mWriter;
 	ifstream			*mReader;
 
@@ -62,7 +62,6 @@ public:	// use public for recursive access
 	TTErr Write(const TTValue& args);
 	TTErr WriteAgain();
 	
-	
 	/** TTTextReader could takes absolute file path or nothing.
 		In the path case, TTXmlReader starts xml file reading and then calls the ReadFromXml 
 		method of mObject attribute
@@ -72,8 +71,8 @@ public:	// use public for recursive access
 	
 private :
 	
-	TTBoolean				mIsWriting;				///< a flag to know if the preset manager is writing a file
-	TTBoolean				mIsReading;				///< a flag to know if the preset manager is reading a file
+	TTBoolean				mIsWriting;				///< a flag to know if it is writing a file
+	TTBoolean				mIsReading;				///< a flag to know if it is reading a file
 	
 };
 

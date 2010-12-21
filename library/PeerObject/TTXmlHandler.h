@@ -86,8 +86,8 @@ public:	// use public for recursive access
 	
 private :
 	
-	TTBoolean				mIsWriting;				///< a flag to know if the preset manager is writing a file
-	TTBoolean				mIsReading;				///< a flag to know if the preset manager is reading a file
+	TTBoolean				mIsWriting;				///< a flag to know if it is writing a file
+	TTBoolean				mIsReading;				///< a flag to know if it is reading a file
 	
 };
 
