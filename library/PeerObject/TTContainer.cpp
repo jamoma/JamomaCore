@@ -142,13 +142,14 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 					v.get(0, &viewerAttribute);
 					
 					// if attribute is the same than the actual one
-					if (viewerAttribute = attribute)
+					if (viewerAttribute == attribute) {
 						// send the value
 						anObject->sendMessage(kTTSym_Send, *valueToSend);
 					
-					// unlock
-					mIsSending = false;	
-					return kTTErrNone;
+						// unlock
+						mIsSending = false;	
+						return kTTErrNone;
+					}
 				}
 				
 				// DEFAULT CASE
