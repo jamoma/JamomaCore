@@ -48,11 +48,6 @@ void ui_data_create_all(t_ui* obj)
 	// get the view address
 	obj->uiSubscriber->getAttributeValue(TT("contextAddress"), v);
 	v.get(0, &obj->viewAddress);
-	
-	// observe the view namespace
-	obj->viewExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
-	obj->viewExplorer->setAttributeValue(kTTSym_address, obj->viewAddress);
-	obj->viewExplorer->sendMessage(TT("Explore"), kTTValNONE);
 
 	// make a viewer on contextAddress/model/address data
 	ui_viewer_create(obj, &anObject, gensym("return_model_address"), TT("model/address"), obj->viewAddress, NO);

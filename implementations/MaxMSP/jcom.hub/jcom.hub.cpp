@@ -363,41 +363,39 @@ void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	TTPtr						context;
 	long						n = atom_getlong(argv);
 	
-	// create panel only for view patcher
-	if (x->patcherType == TT("jview") || x->patcherType == kTTSymEmpty) {
+	if (x->subscriberObject) {
 		
-		if (x->subscriberObject) {
+		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+		v.get(0, &address);
+		
+		x->subscriberObject->getAttributeValue(TT("node"), v);
+		v.get(0, (TTPtr*)&node);
+		context = node->getContext();
+		
+		// Edit a /panel name
+		if (x->patcherType != kTTSymEmpty)
+			panelName = TT("/view/panel");
+		else
+			panelName = TT("/panel");
+		
+		// advise user
+		if (x->patcherType == TT("jmod"))
+			object_warn((ObjectPtr)x, "%s message shouldn't be created in a jmod patcher", panelName->getCString());
+		
+		if (n) {
 			
-			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-			v.get(0, &address);
+			// Make a /panel data
+			makeInternals_data(self, address, panelName, gensym("hub_panel"), context, kTTSym_message, &aData);
 			
-			x->subscriberObject->getAttributeValue(TT("node"), v);
-			v.get(0, (TTPtr*)&node);
-			context = node->getContext();
-			
-			// Edit a /panel name
-			if (x->patcherType == TT("jview"))
-				panelName = TT("/view/panel");
-			else
-				panelName = TT("/panel");
-			
-			if (n) {
-				
-				// Make a /panel data
-				makeInternals_data(self, address, panelName, gensym("hub_panel"), context, kTTSym_message, &aData);
-				
-				// Set attribute of the data
-				aData->setAttributeValue(kTTSym_type, kTTSym_none);
-				aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
-				aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-			}
-			else
-				// Remove a /panel data
-				removeInternals_data(self, address, panelName);
+			// Set attribute of the data
+			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
+			aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		}
+		else
+			// Remove a /panel data
+			removeInternals_data(self, address, panelName);
 	}
-	else
-		object_error((ObjectPtr)x, "Can't create /panel message in %s patcher", x->patcherType->getCString());
 }
 
 void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

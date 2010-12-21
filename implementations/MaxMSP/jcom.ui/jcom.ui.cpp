@@ -336,6 +336,11 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		x->modelExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
 		x->modelExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 		x->modelExplorer->sendMessage(TT("Explore"), kTTValNONE);
+		
+		// observe the namespace of the view
+		x->viewExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
+		x->viewExplorer->setAttributeValue(kTTSym_address, x->viewAddress);
+		x->viewExplorer->sendMessage(TT("Explore"), kTTValNONE);
 
 		// The following must be deferred because 
 		// we have to wait each model/parameter are built
