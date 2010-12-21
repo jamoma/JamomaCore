@@ -300,7 +300,11 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	else if ((context == gensym("toplevel")) && (*nbLevel == 0)) {
 		
 		// add the < /patcherName, patcher > to the contextList
-		v = new TTValue(TT(object_attr_getsym(patcher, _sym_name)->s_name));
+		if (isCtxPatcher)
+			v = new TTValue(TT(patcherName->s_name));
+		else
+			v = new TTValue(TT(object_attr_getsym(patcher, _sym_name)->s_name));
+		
 		v->append((TTPtr)patcher);
 		aContextList->append(v);
 	}
