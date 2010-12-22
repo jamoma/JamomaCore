@@ -150,17 +150,22 @@ TTErr TTOutput::Send(TTValue& value)
 	
 	if (mMute)
 		err = kTTErrNone;
-	else if (mFreeze)
+	else if (mFreeze) {
 		err = mReturnSignalCallback->notify(mLast[mIndex]);
-	else
+		
+		// preview
+		notifySignalPreview(mLast[mIndex]);
+	}
+	else {
 		err = mReturnSignalCallback->notify(value);
+		
+		// preview
+		notifySignalPreview(value);
+	}
 		
 	// copy
 	if (!mFreeze)
 		mLast[mIndex] = value;
-	
-	// preview
-	notifySignalPreview(value);
 	
 	return err;
 }

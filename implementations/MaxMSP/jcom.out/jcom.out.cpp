@@ -264,7 +264,8 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's outputs."));
-		
+
+#ifdef JCOM_OUT_TILDE
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mix, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		v = TTValue(0., 100.);
@@ -280,16 +281,17 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 		aData->setAttributeValue(kTTSym_description, TT("Set gain of model's outputs (as MIDI value by default)."));
+#endif
 		
 #ifndef JCOM_OUT_TILDE		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_freeze, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_description, TT("Freezes the last state of model's outputs from the  processing algorithm."));
-#endif
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_preview, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_description, TT("Turns on/off preview display of model's outputs from the  processing algorithm."));
+#endif
 	}
 }
 
