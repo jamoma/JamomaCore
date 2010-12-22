@@ -269,12 +269,12 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		if (contextName == _sym_nothing) {
 			
 			// for jview patcher :
-			// wrap the patcherName with < > in order to create 
+			// wrap the patcherName with _ _ in order to create 
 			// a different address than default model name.
 			if (contextType == TT("jview")) {
-				jviewName = "/<";
+				jviewName = "/_";
 				jviewName += patcherName->s_name;
-				jviewName += ">";
+				jviewName += "_";
 				contextName = gensym(jviewName.data());
 			}
 			else

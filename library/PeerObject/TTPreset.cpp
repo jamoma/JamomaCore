@@ -107,10 +107,13 @@ TTErr TTPreset::Fill()
 		aNode->getOscAddress(&aRelativeAddress, mAddress);
 		aNewItem = new Item(aNode);
 		mItemList->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
+		mItemKeysSorted->append(new TTValue(aRelativeAddress));
 	}
 	
-	// 3. Update item's state and sort them by priority
+	// 3. Update item's state
 	Update();
+	
+	// TODO : let the user choose the sorted method
 	SortByPriority();
 	
 	return kTTErrNone;

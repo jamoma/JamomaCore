@@ -147,10 +147,13 @@ void preset_build(TTPtr self, SymbolPtr address)
 		x->subscriberObject->getAttributeValue(TT("node"), n);
 		n.get(0, (TTPtr*)&node);
 		
-		// set the Address attribute of the PresetManager
-		node->getParent()->getOscAddress(&absoluteAddress);
-		v.append(absoluteAddress);
-		x->wrappedObject->setAttributeValue(kTTSym_address, v);
+		// set the Address attribute of the PresetManager if it is empty
+		x->wrappedObject->getAttributeValue(kTTSym_address, v);
+		v.get(0, &absoluteAddress);
+		if (absoluteAddress == kTTSymEmpty) {
+			node->getParent()->getOscAddress(&absoluteAddress);
+			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+		}
 
 		// attach to the patcher to be notified of his destruction
 		context = node->getContext();
