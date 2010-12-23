@@ -97,8 +97,17 @@ extern "C" {
 	/**	Create a container object */
 	TTErr			jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager);
 	
-	/** Return kTTErrNone if the node have to be part of a preset */
+	/** Sets data as kTTVal1 if the node have to be part of a preset */
 	void			jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data);
+	
+	/**  */
+	void			jamoma_presetManager_update_item_callback(TTPtr p_baton, TTValue& data);
+	
+	/**  */
+	void			jamoma_presetManager_sort_item_callback(TTPtr p_baton, TTValue& data);
+	
+	/**  */
+	void			jamoma_presetManager_send_item_callback(TTPtr p_baton, TTValue& data);
 	
 	
 	// Method to deal with TTInput

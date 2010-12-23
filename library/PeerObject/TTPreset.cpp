@@ -34,8 +34,10 @@ mComment(kTTSymEmpty),
 mExtra(kTTValNONE),
 mApplication(NULL),
 mTestObjectCallback(NULL),
-mToStore(NULL),
-mItemList(NULL),
+mUpdateItemCallback(NULL),
+mSortItemCallback(NULL),
+mSendItemCallback(NULL),
+mItemTable(NULL),
 mItemKeysSorted(NULL),
 mCurrentItem(kTTSymEmpty)
 {
@@ -45,19 +47,26 @@ mCurrentItem(kTTSymEmpty)
 	arguments.get(1, (TTPtr*)&mTestObjectCallback);
 	TT_ASSERT("TestObjectCallback passed to TTPreset is not NULL", mTestObjectCallback);
 	
-	arguments.get(2, (TTPtr*)&mToStore);
-	TT_ASSERT("ToStore passed to TTPreset is not NULL", mToStore);
+	arguments.get(2, (TTPtr*)&mUpdateItemCallback);
+	TT_ASSERT("UpdateItemCallback passed to TTPreset is not NULL", mUpdateItemCallback);
+	
+	arguments.get(3, (TTPtr*)&mSortItemCallback);
+	TT_ASSERT("SortItemCallback passed to TTPreset is not NULL", mSortItemCallback);
+	
+	arguments.get(4, (TTPtr*)&mSendItemCallback);
+	TT_ASSERT("SendItemCallback passed to TTPreset is not NULL", mSendItemCallback);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
 	addAttribute(Extra, kTypeNone);
-	addAttribute(ItemList, kTypePointer);
-	addAttributeProperty(itemList, readOnly, YES);
+	addAttribute(ItemTable, kTypePointer);
+	addAttributeProperty(itemTable, readOnly, YES);
 	
 	addMessage(Fill);
 	addMessage(Clear);
 	addMessage(Update);
+	addMessage(Sort);
 	addMessage(Send);
 	
 	addMessageWithArgument(WriteAsXml);
@@ -65,18 +74,20 @@ mCurrentItem(kTTSymEmpty)
 	addMessageWithArgument(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
-	mItemList = new TTHash();
+	mItemTable = new TTHash();
 	mItemKeysSorted = new TTList();
 }
 
 TTPreset::~TTPreset()
 {
 	Clear();
-	delete mItemList;
-	mItemList = NULL;
+	delete mItemTable;
+	mItemTable = NULL;
 	
 	delete mItemKeysSorted;
 	mItemKeysSorted = NULL;
+	
+	// DO NOT DESTROY CALLBACK BECAUSE THEY ARE SHARED WITH OTHER PRESETS
 }
 
 TTErr TTPreset::setAddress(const TTValue& value)
@@ -106,15 +117,15 @@ TTErr TTPreset::Fill()
 		allObjectNodes.current().get(0, (TTPtr*)&aNode);
 		aNode->getOscAddress(&aRelativeAddress, mAddress);
 		aNewItem = new Item(aNode);
-		mItemList->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
+		mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
 		mItemKeysSorted->append(new TTValue(aRelativeAddress));
 	}
 	
 	// 3. Update item's state
 	Update();
 	
-	// TODO : let the user choose the sorted method
-	SortByPriority();
+	// 4. Sort item using the list of keys
+	Sort();
 	
 	return kTTErrNone;
 }
@@ -126,18 +137,18 @@ TTErr TTPreset::Clear()
 	TTSymbolPtr		key;
 	TTUInt8			i;
 	
-	mItemList->getKeys(hk);
-	for (i=0; i<mItemList->getSize(); i++) {
+	mItemTable->getKeys(hk);
+	for (i=0; i<mItemTable->getSize(); i++) {
 		hk.get(i,(TTSymbolPtr*)&key);
-		mItemList->lookup(key, v);
+		mItemTable->lookup(key, v);
 		v.get(0, (TTPtr*)&oldItem);
 		
 		delete oldItem;
 	}
 	
-	delete mItemList;
-	mItemList = NULL;
-	mItemList = new TTHash();
+	delete mItemTable;
+	mItemTable = NULL;
+	mItemTable = new TTHash();
 	
 	delete mItemKeysSorted;
 	mItemKeysSorted = NULL;
@@ -151,136 +162,51 @@ TTErr TTPreset::Clear()
 TTErr TTPreset::Update()
 {
 	ItemPtr			anItem;
-	TTValue			hk, hsk, v, a, attributeToStore;
-	TTSymbolPtr		key, skey;
-	TTUInt8			i, j;
-	TTErr			err;
+	TTValue			hk, v;
+	TTSymbolPtr		key;
+	TTUInt8			i;
 	
 	// for each item
-	mItemList->getKeys(hk);
-	for (i=0; i<mItemList->getSize(); i++) {
+	mItemTable->getKeys(hk);
+	for (i=0; i<mItemTable->getSize(); i++) {
 		
 		hk.get(i,(TTSymbolPtr*)&key);
-		mItemList->lookup(key, v);
+		mItemTable->lookup(key, v);
 		v.get(0, (TTPtr*)&anItem);
 		
-		mToStore->lookup(anItem->object->getName(), attributeToStore);
-		
-		// get state
-		anItem->state->clear();
-		for (j=0; j<attributeToStore.getSize(); j++) {
-			attributeToStore.get(j, &skey);
-			
-			err = anItem->object->getAttributeValue(skey, a);
-			
-			if (!err) {
-				
-				// Don't store kTTValNONE
-				if (a == kTTValNONE)
-					continue;
-				anItem->state->append(skey, a);
-			}
-		}
+		mUpdateItemCallback->notify(v);
 	}
 	
 	return kTTErrNone;
 }
 
-TTErr TTPreset::SortByPriority()
-{
-	ItemPtr			anItem;
-	TTValue			hk, v;
-	TTSymbolPtr		key;
-	TTUInt8			i, nbItemToSort, nbItemSorted;
-	TTInt32			p, priority;
-	
-	// clear the sorted list
-	delete mItemKeysSorted;
-	mItemKeysSorted = NULL;
-	mItemKeysSorted = new TTList();
-	
-	// start by sorting item with priority to 1 
-	// until all item with priority != 0 are sorted
-	priority = 1;
-	nbItemSorted = 0;
-	nbItemToSort = mItemList->getSize();
-	mItemList->getKeys(hk);
-	while (nbItemSorted < nbItemToSort) {
-		
-		// for each item
-		for (i=0; i<mItemList->getSize(); i++) {
-			
-			// sort item with priority to i
-			hk.get(i,(TTSymbolPtr*)&key);
-			p = getItemPriority(key, &anItem);
-			if (p == priority) {
-				mItemKeysSorted->append(new TTValue(key));
-				nbItemSorted++;
-			}
-			
-			// ignore item with priority to 0
-			// (do it one time only, when sorting priority == 1)
-			if (priority == 1 && p == 0)
-				nbItemToSort--;
-		}
-		priority++;
-	}
-	
-	// sort item with priority to 0
-	for (i=0; i<mItemList->getSize(); i++) {
-		hk.get(i,(TTSymbolPtr*)&key);
-		p = getItemPriority(key, &anItem);
-		if (p == 0) {
-			mItemKeysSorted->append(new TTValue(key));
-			nbItemSorted++;
-		}
-	}
-	
-	if (nbItemSorted == mItemList->getSize())
-		return kTTErrNone;
-	else
-		return kTTErrGeneric;
-}
-
-TTInt32 TTPreset::getItemPriority(TTSymbolPtr relativeAddress, ItemPtr *anItem)
+TTErr TTPreset::Sort()
 {
 	TTValue v;
-	TTInt32 priority;
 	
-	mItemList->lookup(relativeAddress, v);
-	v.get(0, (TTPtr*)anItem);
-	if (!(*anItem)->state->lookup(kTTSym_priority, v))
-		v.get(0, priority);
-	else
-		priority = 0;
+	// get the table of item to sort
+	v.append((TTPtr)this->mItemTable);
+	mSortItemCallback->notify(v);
 	
-	return priority;
+	// get the list of sorted keys
+	v.get(0, (TTPtr*)&mItemKeysSorted);
+	
+	return kTTErrNone;
 }
 
 TTErr TTPreset::Send()
 {
 	ItemPtr			anItem;
-	TTValue			hsk, v, a;
-	TTSymbolPtr		key, skey;
-	TTUInt8			j;
+	TTValue			v;
+	TTSymbolPtr		key;
 	
 	for (mItemKeysSorted->begin(); mItemKeysSorted->end(); mItemKeysSorted->next()) {
 		
 		mItemKeysSorted->current().get(0, (TTSymbolPtr*)&key);
-		mItemList->lookup(key, v);
+		mItemTable->lookup(key, v);
 		v.get(0, (TTPtr*)&anItem);
 		
-		anItem->state->getKeys(hsk);
-		for (j=0; j<anItem->state->getSize(); j++) {
-			hsk.get(j,(TTSymbolPtr*)&skey);
-			anItem->state->lookup(skey, a);
-			
-			// Don't send kTTValNONE
-			if (a == kTTValNONE)
-				continue;
-					
-			anItem->object->setAttributeValue(skey, a);
-		}
+		mSendItemCallback->notify(v);
 	}
 	return kTTErrNone;
 }
@@ -306,7 +232,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 	for (mItemKeysSorted->begin(); mItemKeysSorted->end(); mItemKeysSorted->next()) {
 		
 		mItemKeysSorted->current().get(0, (TTSymbolPtr*)&key);
-		mItemList->lookup(key, v);
+		mItemTable->lookup(key, v);
 		v.get(0, (TTPtr*)&anItem);
 		
 		// Start an Item by the type of his object
@@ -351,11 +277,10 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 TTErr TTPreset::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTSymbolPtr			absAddress, convertedName, ttAttributeName;
+	TTSymbolPtr			absAddress, ttAttributeName;
 	ItemPtr				anItem;
 	TTNodePtr			aNode;
-	TTValue				v, attributeToStore;
-	TTUInt8				i;
+	TTValue				v;
 	TTErr				err;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
@@ -393,27 +318,9 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 		if (v.getType() == kTypeSymbol) {
 			v.get(0, &mCurrentItem);
-			
-			// Fill the toStore table
-			// If the entry doesn't exist or is empty
-			mToStore->lookup(aXmlHandler->mXmlNodeName, attributeToStore);
-			if (attributeToStore.getSize() == 0) {
-				while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
-					
-					// Get attribute name
-					aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
-					if (v.getType() == kTypeSymbol) {
-						// Replace AppName by TTName (because object name can be customized in order to have a specific application's namespace)
-						// TODO : ToTTName() on ttAttributeName
-						v.get(0, &ttAttributeName);
-						attributeToStore.append(ttAttributeName);
-					}
-				}
-				mToStore->append(aXmlHandler->mXmlNodeName, attributeToStore);
-			}
 				
 			// if the item doesn't exist create it 
-			if (mItemList->lookup(mCurrentItem, v)) {
+			if (mItemTable->lookup(mCurrentItem, v)) {
 				
 				if (mAddress != kTTSymEmpty) {
 					joinOSCAddress(mAddress, mCurrentItem, &absAddress);
@@ -426,21 +333,27 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 				// if the address exist
 				if (!err) {
 					anItem = new Item(aNode);
-					mItemList->append(mCurrentItem, TTValue((TTPtr)anItem));
+					mItemTable->append(mCurrentItem, TTValue((TTPtr)anItem));
 					mItemKeysSorted->append(new TTValue(mCurrentItem));
 					
 					// fill the item
-					for (i=0; i<attributeToStore.getSize(); i++) {
-						attributeToStore.get(i, &ttAttributeName);
+					while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
 						
-						convertedName = ttAttributeName;
-						// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
-						// TODO : ToAppName() on convertedName
-						
-						if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST convertedName->getCString()) == 1) {
+						// Get attribute name
+						aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+						if (v.getType() == kTypeSymbol) {
+							// Replace AppName by TTName (because object name can be customized in order to have a specific application's namespace)
+							// TODO : ToTTName() on ttAttributeName
+							v.get(0, &ttAttributeName);
 							
-							aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-							anItem->state->append(ttAttributeName, v);
+							// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
+							// TODO : ToAppName() on convertedName
+							
+							if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST ttAttributeName->getCString()) == 1) {
+								
+								aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+								anItem->state->append(ttAttributeName, v);
+							}
 						}
 					}
 				}

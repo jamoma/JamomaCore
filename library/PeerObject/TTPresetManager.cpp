@@ -63,7 +63,6 @@ TTPresetManager::~TTPresetManager()
 {
 	TTPresetPtr oldPreset;
 	TTCallbackPtr oldCallback = NULL;
-	TTHashPtr oldToStore = NULL;
 	
 	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
 		mPresetList->current().get(0, (TTPtr*)&oldPreset);
@@ -77,9 +76,17 @@ TTPresetManager::~TTPresetManager()
 	if (oldCallback)
 		TTObjectRelease(TTObjectHandle(&oldCallback));
 	
-	mPresetArguments.get(2, (TTPtr*)&oldToStore);
-	if (oldToStore)
-		delete oldToStore;
+	mPresetArguments.get(2, (TTPtr*)&oldCallback);
+	if (oldCallback)
+		TTObjectRelease(TTObjectHandle(&oldCallback));
+	
+	mPresetArguments.get(3, (TTPtr*)&oldCallback);
+	if (oldCallback)
+		TTObjectRelease(TTObjectHandle(&oldCallback));
+	
+	mPresetArguments.get(4, (TTPtr*)&oldCallback);
+	if (oldCallback)
+		TTObjectRelease(TTObjectHandle(&oldCallback));
 }
 
 TTErr TTPresetManager::getNames(TTValue& value)

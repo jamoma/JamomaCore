@@ -518,9 +518,8 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager)
 {
 	TTValue			args;
-	TTObjectPtr		testObjectCallback;
-	TTValuePtr		testObjectBaton;
-	TTHashPtr		toStore = new TTHash();
+	TTObjectPtr		testObjectCallback, updateItemCallback, sortItemCallback, sendItemCallback;
+	TTValuePtr		testObjectBaton, updateItemBaton, sortItemBaton, sendItemBaton;
 	TTValue			attr;
 	
 	// prepare arguments
@@ -533,12 +532,26 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 	testObjectCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_test_object_callback));
 	args.append(testObjectCallback);
 	
-	// Here we decide to store only Value and Priority attributes for Data object
-	attr = TTValue(kTTSym_value);
-	attr.append(kTTSym_priority);
-	toStore->append(TT("Data"), attr);
+	updateItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &updateItemCallback, kTTValNONE);
+	updateItemBaton = new TTValue(TTPtr(x));
+	updateItemCallback->setAttributeValue(kTTSym_baton, TTPtr(updateItemBaton));
+	updateItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_update_item_callback));
+	args.append(updateItemCallback);
 	
-	args.append((TTPtr)toStore);
+	sortItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &sortItemCallback, kTTValNONE);
+	sortItemBaton = new TTValue(TTPtr(x));
+	sortItemCallback->setAttributeValue(kTTSym_baton, TTPtr(sortItemBaton));
+	sortItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_sort_item_callback));
+	args.append(sortItemCallback);
+	
+	sendItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &sendItemCallback, kTTValNONE);
+	sendItemBaton = new TTValue(TTPtr(x));
+	sendItemCallback->setAttributeValue(kTTSym_baton, TTPtr(sendItemBaton));
+	sendItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_send_item_callback));
+	args.append(sendItemCallback);
 	
 	*returnedPresetManager = NULL;
 	TTObjectInstantiate(TT("PresetManager"), TTObjectHandle(returnedPresetManager), args);
@@ -546,7 +559,7 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 	return kTTErrNone;
 }
 
-/** Sets args as kTTVal1 if the node have to be part of a preset */
+/** Sets data as kTTVal1 if the node have to be part of a preset */
 void jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
@@ -554,25 +567,256 @@ void jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data)
 	TTObjectPtr o;
 	TTNodePtr	aNode;
 	TTValue		v;
-	TTSymbolPtr s;
+	TTBoolean	selected;
+	TTSymbolPtr s, absoluteAddress;
 	
-	// unpack baton (a t_object* and the name of the method to call)
+	// unpack baton (a t_object*)
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
 	
 	// unpack data (address)
 	data.get(0, (TTPtr*)&aNode);
 	
-	// Here we decide to keep only Data with @service == parameter
+	// Here we decide to keep :
+	//		- Data with @service == parameter
+	//		- Viewer which binds on a Data @service == parameter
 	data = kTTVal0;
 	if (o = aNode->getObject()) {
+		
 		if (o->getName() == TT("Data")) {
 			o->getAttributeValue(kTTSym_service, v);
 			v.get(0, &s);
-			
 			if (s == kTTSym_parameter)
 				data = kTTVal1;
+			return;
 		}
+		
+		if (o->getName() == TT("Viewer")) {
+			
+			// Is the viewer selected ?
+			o->getAttributeValue(kTTSym_selected, v);
+			v.get(0, selected);
+			
+			if (selected) {
+				// get object binded by the viewer
+				o->getAttributeValue(kTTSym_address, v);
+				v.get(0, &absoluteAddress);
+				JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+				
+				if (o = aNode->getObject()) {
+					if (o->getName() == TT("Data")) {
+						o->getAttributeValue(kTTSym_service, v);
+						v.get(0, &s);
+						if (s == kTTSym_parameter)
+							data = kTTVal1;
+						
+					}	
+				}
+			}
+			
+			return;
+		}
+	}
+}
+
+/**  */
+void jamoma_presetManager_update_item_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	ItemPtr		anItem;
+	TTValue		v;
+	TTNodePtr	aNode;
+	TTSymbolPtr absoluteAddress;
+	TTObjectPtr o;
+	
+	// unpack baton (a t_object*)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (an item)
+	data.get(0, (TTPtr*)&anItem);
+	
+	// DATA case
+	if (anItem->object->getName() == TT("Data")) {
+	
+		anItem->state->clear();
+		
+		// store value (don't store kTTValNONE)
+		anItem->object->getAttributeValue(kTTSym_value, v);
+		if (v == kTTValNONE)
+			return;
+		anItem->state->append(kTTSym_value, v);
+		
+		// store priority
+		anItem->object->getAttributeValue(kTTSym_priority, v);
+		anItem->state->append(kTTSym_priority, v);
+		
+		return;
+	}
+	
+	// VIEWER case
+	if (anItem->object->getName() == TT("Viewer")) {
+		
+		anItem->state->clear();
+		
+		// get object binded by the viewer
+		anItem->object->getAttributeValue(kTTSym_address, v);
+		v.get(0, &absoluteAddress);
+		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+		
+		if (o = aNode->getObject()) {
+			if (o->getName() == TT("Data")) {
+				
+				// store value (don't store kTTValNONE)
+				o->getAttributeValue(kTTSym_value, v);
+				if (v == kTTValNONE)
+					return;
+				anItem->state->append(kTTSym_value, v);
+				
+				// store priority
+				o->getAttributeValue(kTTSym_priority, v);
+				anItem->state->append(kTTSym_priority, v);
+			}
+		}
+		
+		return;
+	}
+}
+
+/**  */
+void jamoma_presetManager_sort_item_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr		b;
+	ObjectPtr		x;
+	TTHashPtr		anItemTable;
+	TTListPtr		anItemKeysSorted;
+	ItemPtr			anItem;
+	TTValue			hk, v;
+	TTSymbolPtr		key;
+	TTUInt8			i, nbItemToSort, nbItemSorted;
+	TTInt32			p, priority;
+	
+	// unpack baton a (t_object*)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (an item table)
+	data.get(0, (TTPtr*)&anItemTable);
+	
+	anItemKeysSorted = new TTList();
+	
+	// Start by sorting item with priority to 1 
+	// until all item with priority != 0 are sorted
+	priority = 1;
+	nbItemSorted = 0;
+	nbItemToSort = anItemTable->getSize();
+	anItemTable->getKeys(hk);
+	while (nbItemSorted < nbItemToSort) {
+		
+		// for each item
+		for (i=0; i<anItemTable->getSize(); i++) {
+			
+			// sort item with priority to i
+			hk.get(i,(TTSymbolPtr*)&key);
+			
+			// get priority
+			anItemTable->lookup(key, v);
+			v.get(0, (TTPtr*)&anItem);
+			if (!anItem->state->lookup(kTTSym_priority, v))
+				v.get(0, p);
+			else
+				p = 0;
+			
+			if (p == priority) {
+				anItemKeysSorted->append(new TTValue(key));
+				nbItemSorted++;
+			}
+			
+			// ignore item with priority to 0
+			// (do it one time only, when sorting priority == 1)
+			if (priority == 1 && p == 0)
+				nbItemToSort--;
+		}
+		priority++;
+	}
+	
+	// sort item with priority to 0
+	for (i=0; i<anItemTable->getSize(); i++) {
+		hk.get(i,(TTSymbolPtr*)&key);
+		
+		// get priority
+		anItemTable->lookup(key, v);
+		v.get(0, (TTPtr*)&anItem);
+		if (!anItem->state->lookup(kTTSym_priority, v))
+			v.get(0, p);
+		else
+			p = 0;
+		
+		if (p == 0) {
+			anItemKeysSorted->append(new TTValue(key));
+			nbItemSorted++;
+		}
+	}
+	
+	data.clear();
+	data.append((TTPtr*)anItemKeysSorted);
+}
+
+/**  */
+void jamoma_presetManager_send_item_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	ItemPtr		anItem;
+	TTValue		v;
+	TTNodePtr	aNode;
+	TTSymbolPtr absoluteAddress;
+	TTObjectPtr o;
+	
+	// unpack baton a t_object*)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (an item)
+	data.get(0, (TTPtr*)&anItem);
+	
+	// DATA case
+	if (anItem->object->getName() == TT("Data")) {
+		
+		anItem->state->lookup(kTTSym_value, v);
+		
+		// Don't send kTTValNONE
+		if (v == kTTValNONE)
+			return;
+		
+		anItem->object->setAttributeValue(kTTSym_value, v);
+	}
+	
+	// VIEWER case
+	if (anItem->object->getName() == TT("Viewer")) {
+		
+		anItem->state->clear();
+		
+		// get object binded by the viewer
+		anItem->object->getAttributeValue(kTTSym_address, v);
+		v.get(0, &absoluteAddress);
+		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+		
+		if (o = aNode->getObject()) {
+			if (o->getName() == TT("Data")) {
+				
+				anItem->state->lookup(kTTSym_value, v);
+				
+				// Don't send kTTValNONE
+				if (v == kTTValNONE)
+					return;
+				
+				o->setAttributeValue(kTTSym_value, v);
+			}
+		}
+		
+		return;
 	}
 }
 
@@ -1190,10 +1434,10 @@ TTNodePtr jamoma_context_get_node(ObjectPtr x, TTSymbolPtr contextType)
 	TTValue		v;
 	TTList		whereToSearch, aContextList;
 	long		nbLevel = 0;
-	SymbolPtr	context, objclass = NULL, _sym_jcomhub, _sym_jcomparam, _sym_jcommessage, _sym_jcomreturn, _sym_share;
+	SymbolPtr	objclass = NULL, _sym_jcomhub, _sym_jcomparam, _sym_jcommessage, _sym_jcomreturn, _sym_share;
 	TTNodePtr	contextNode;
 	TTPtr		contextPtr;
-	ObjectPtr	contextPatcher, obj;
+	ObjectPtr	obj;
 	TTBoolean	subscriberExist = false;	
 	
 	// Get the context list 

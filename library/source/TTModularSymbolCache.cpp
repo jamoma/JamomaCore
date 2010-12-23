@@ -73,6 +73,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_selected;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
@@ -146,6 +147,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_returnedValue				= TT("returnedValue");
 	
 	kTTSym_Send						= TT("Send");
+	kTTSym_selected					= TT("selected");
 	kTTSym_service					= TT("service");
 	kTTSym_string					= TT("string");
 

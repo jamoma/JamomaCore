@@ -48,9 +48,11 @@ public:		// use public to allow PresetManager to have a direct access
 private:	
 	
 	TTApplicationPtr	mApplication;					///< the application
-	TTCallbackPtr		mTestObjectCallback;			///< a callback used to validate object storage
-	TTHashPtr			mToStore;						///< a hash table containing <objectType, all Attribute names to store>
-	TTHashPtr			mItemList;						///< a hash table containing <relativeAddress, ItemPtr>
+	TTCallbackPtr		mTestObjectCallback;			///< a callback used to test object to store in item or not
+	TTCallbackPtr		mUpdateItemCallback;			///< a callback used to update the item's state
+	TTCallbackPtr		mSortItemCallback;				///< a callback used to sort the item list
+	TTCallbackPtr		mSendItemCallback;				///< a callback used to send the item's state
+	TTHashPtr			mItemTable;						///< a hash table containing <relativeAddress, ItemPtr>
 	TTListPtr			mItemKeysSorted;				///< a linked list containing keys of sorted item
 	TTSymbolPtr			mCurrentItem;					///< a key to retrieve the current Item in the ItemList
 	
@@ -67,10 +69,9 @@ private:
 	/** */
 	TTErr Update();
 	
-	/** Sort items of a preset using priority attribute (if it is stored) */
-	TTErr SortByPriority();
-	TTInt32 getItemPriority(TTSymbolPtr relativeAddress, ItemPtr *anItem);
-	
+	/** */
+	TTErr Sort();
+
 	/** */
 	TTErr Send();
 	
