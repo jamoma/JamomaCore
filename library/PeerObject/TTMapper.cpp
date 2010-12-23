@@ -360,7 +360,6 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	long		n;
 	TTValue		names;
 	TTSymbolPtr	aName;
-	TTString	nameString;
 	
 	if (mFunctionUnit) {
 
@@ -394,11 +393,6 @@ TTErr TTMapper::setFunction(const TTValue& value)
 			
 			 // don't publish these datas
 			if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
-				continue;
-			
-			// ignore attribute not starting with upper-case
-			nameString = aName->getString();
-			if (nameString[0] <= 64 || nameString[0] >= 91)
 				continue;
 			
 			// extend attribute with the same name
