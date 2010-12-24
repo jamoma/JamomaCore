@@ -23,7 +23,7 @@ class Item
 	{
 		public :
 		
-		TTObjectPtr		object;
+		TTNodePtr		node;
 		TTHashPtr		state;
 		
 		Item(TTNodePtr aNode);

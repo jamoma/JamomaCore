@@ -16,7 +16,7 @@
 Item::Item(TTNodePtr aNode)
 {
 	// Get object
-	object = aNode->getObject();
+	node = aNode;
 
 	// Prepare an empty state
 	state = new TTHash();
@@ -172,7 +172,6 @@ TTErr TTPreset::Update()
 		
 		hk.get(i,(TTSymbolPtr*)&key);
 		mItemTable->lookup(key, v);
-		v.get(0, (TTPtr*)&anItem);
 		
 		mUpdateItemCallback->notify(v);
 	}
@@ -204,7 +203,6 @@ TTErr TTPreset::Send()
 		
 		mItemKeysSorted->current().get(0, (TTSymbolPtr*)&key);
 		mItemTable->lookup(key, v);
-		v.get(0, (TTPtr*)&anItem);
 		
 		mSendItemCallback->notify(v);
 	}
@@ -238,7 +236,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 		// Start an Item by the type of his object
 		// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
 		// TODO : ToAppName() on object name
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST anItem->object->getName()->getCString());
+		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST anItem->node->getObject()->getName()->getCString());
 		
 		// Write address attribute
 		xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST key->getCString());

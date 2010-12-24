@@ -638,30 +638,30 @@ void jamoma_presetManager_update_item_callback(TTPtr p_baton, TTValue& data)
 	data.get(0, (TTPtr*)&anItem);
 	
 	// DATA case
-	if (anItem->object->getName() == TT("Data")) {
+	if (anItem->node->getObject()->getName() == TT("Data")) {
 	
 		anItem->state->clear();
 		
 		// store value (don't store kTTValNONE)
-		anItem->object->getAttributeValue(kTTSym_value, v);
+		anItem->node->getObject()->getAttributeValue(kTTSym_value, v);
 		if (v == kTTValNONE)
 			return;
 		anItem->state->append(kTTSym_value, v);
 		
 		// store priority
-		anItem->object->getAttributeValue(kTTSym_priority, v);
+		anItem->node->getObject()->getAttributeValue(kTTSym_priority, v);
 		anItem->state->append(kTTSym_priority, v);
 		
 		return;
 	}
 	
 	// VIEWER case
-	if (anItem->object->getName() == TT("Viewer")) {
+	if (anItem->node->getObject()->getName() == TT("Viewer")) {
 		
 		anItem->state->clear();
 		
 		// get object binded by the viewer
-		anItem->object->getAttributeValue(kTTSym_address, v);
+		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
 		v.get(0, &absoluteAddress);
 		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
 		
@@ -782,7 +782,7 @@ void jamoma_presetManager_send_item_callback(TTPtr p_baton, TTValue& data)
 	data.get(0, (TTPtr*)&anItem);
 	
 	// DATA case
-	if (anItem->object->getName() == TT("Data")) {
+	if (anItem->node->getObject()->getName() == TT("Data")) {
 		
 		anItem->state->lookup(kTTSym_value, v);
 		
@@ -790,16 +790,16 @@ void jamoma_presetManager_send_item_callback(TTPtr p_baton, TTValue& data)
 		if (v == kTTValNONE)
 			return;
 		
-		anItem->object->setAttributeValue(kTTSym_value, v);
+		anItem->node->getObject()->setAttributeValue(kTTSym_value, v);
 	}
 	
 	// VIEWER case
-	if (anItem->object->getName() == TT("Viewer")) {
+	if (anItem->node->getObject()->getName() == TT("Viewer")) {
 		
 		anItem->state->clear();
 		
 		// get object binded by the viewer
-		anItem->object->getAttributeValue(kTTSym_address, v);
+		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
 		v.get(0, &absoluteAddress);
 		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
 		
