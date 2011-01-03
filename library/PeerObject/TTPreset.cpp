@@ -15,7 +15,7 @@
 // Item CONSTRUCTOR / DESTRUCTOR
 Item::Item(TTNodePtr aNode)
 {
-	// Get object
+	// Set node
 	node = aNode;
 
 	// Prepare an empty state
@@ -25,6 +25,60 @@ Item::Item(TTNodePtr aNode)
 Item::~Item()
 {
 	delete state;
+}
+
+TTSymbolPtr Item::getType() 
+{
+	TTObjectPtr o;
+	
+	if (!(o = node->getObject()))
+		return kTTSymEmpty;
+	
+	return o->getName();
+}
+
+TTErr Item::clear()
+{
+	return state->clear();
+}
+
+TTErr Item::set(TTSymbolPtr attributeName)
+{
+	TTObjectPtr o;
+	TTValue v;
+	
+	if (!(o = node->getObject()))
+		return kTTErrGeneric;
+	
+	if (o->getAttributeValue(attributeName, v))
+		return kTTErrGeneric;
+	
+	if (v == kTTValNONE)
+		return kTTErrGeneric;
+	
+	return state->append(kTTSym_value, v);
+}
+
+TTErr Item::get(TTSymbolPtr attributeName, TTValue& value)
+{
+	return state->lookup(kTTSym_priority, value);
+}
+
+TTErr Item::send(TTSymbolPtr attributeName)
+{
+	TTObjectPtr o;
+	TTValue v;
+	
+	if (!(o = node->getObject()))
+		return kTTErrGeneric;
+	
+	if (state->lookup(attributeName, v))
+		return kTTErrGeneric;
+	
+	if (v == kTTValNONE)
+		return kTTErrGeneric;
+	
+	return o->setAttributeValue(attributeName, v);
 }
 
 TT_MODULAR_CONSTRUCTOR,
@@ -117,8 +171,9 @@ TTErr TTPreset::Fill()
 		allObjectNodes.current().get(0, (TTPtr*)&aNode);
 		aNode->getOscAddress(&aRelativeAddress, mAddress);
 		aNewItem = new Item(aNode);
+		
 		mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
-		mItemKeysSorted->append(new TTValue(aRelativeAddress));
+		mItemKeysSorted->appendUnique(new TTValue(aRelativeAddress));
 	}
 	
 	// 3. Update item's state

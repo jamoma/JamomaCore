@@ -39,6 +39,8 @@ private:
 	TTFloat64			mOutputMin;					///< ATTRIBUTE : 
 	TTFloat64			mOutputMax;					///< ATTRIBUTE : 
 	
+	TTBoolean			mEnable;					///< ATTRIBUTE : do observe Input rangeBounds attribute ?
+	
 	TTValue				mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
 	TTSymbolPtr			mFunction;					///< ATTRIBUTE : name of the map function
 	TTValue				mFunctionParameters;		///< ATTRIBUTE : names of parameter's function

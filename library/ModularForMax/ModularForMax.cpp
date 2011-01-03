@@ -577,7 +577,7 @@ void jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data)
 	// unpack data (address)
 	data.get(0, (TTPtr*)&aNode);
 	
-	// Here we decide to keep :
+	// Here we decide to keep nodes which binds on :
 	//		- Data with @service == parameter
 	//		- Viewer which binds on a Data @service == parameter
 	data = kTTVal0;
@@ -637,46 +637,31 @@ void jamoma_presetManager_update_item_callback(TTPtr p_baton, TTValue& data)
 	// unpack data (an item)
 	data.get(0, (TTPtr*)&anItem);
 	
-	// DATA case
-	if (anItem->node->getObject()->getName() == TT("Data")) {
+	// clear the item in any case
+	anItem->clear();
 	
-		anItem->state->clear();
+	// DATA case
+	if (anItem->getType() == TT("Data")) {
 		
-		// store value (don't store kTTValNONE)
-		anItem->node->getObject()->getAttributeValue(kTTSym_value, v);
-		if (v == kTTValNONE)
-			return;
-		anItem->state->append(kTTSym_value, v);
-		
-		// store priority
-		anItem->node->getObject()->getAttributeValue(kTTSym_priority, v);
-		anItem->state->append(kTTSym_priority, v);
-		
+		anItem->set(kTTSym_value);
+		anItem->set(kTTSym_priority);
 		return;
 	}
 	
 	// VIEWER case
-	if (anItem->node->getObject()->getName() == TT("Viewer")) {
+	if (anItem->getType() == TT("Viewer")) {
 		
-		anItem->state->clear();
-		
-		// get object binded by the viewer
+		// get address binded by the viewer
 		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
 		v.get(0, &absoluteAddress);
 		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
 		
+		// if the address binds on a Data object
 		if (o = aNode->getObject()) {
 			if (o->getName() == TT("Data")) {
 				
-				// store value (don't store kTTValNONE)
-				o->getAttributeValue(kTTSym_value, v);
-				if (v == kTTValNONE)
-					return;
-				anItem->state->append(kTTSym_value, v);
-				
-				// store priority
-				o->getAttributeValue(kTTSym_priority, v);
-				anItem->state->append(kTTSym_priority, v);
+				anItem->set(kTTSym_value);
+				anItem->set(kTTSym_priority);
 			}
 		}
 		
@@ -723,7 +708,7 @@ void jamoma_presetManager_sort_item_callback(TTPtr p_baton, TTValue& data)
 			// get priority
 			anItemTable->lookup(key, v);
 			v.get(0, (TTPtr*)&anItem);
-			if (!anItem->state->lookup(kTTSym_priority, v))
+			if (!anItem->get(kTTSym_priority, v))
 				v.get(0, p);
 			else
 				p = 0;
@@ -748,7 +733,7 @@ void jamoma_presetManager_sort_item_callback(TTPtr p_baton, TTValue& data)
 		// get priority
 		anItemTable->lookup(key, v);
 		v.get(0, (TTPtr*)&anItem);
-		if (!anItem->state->lookup(kTTSym_priority, v))
+		if (!anItem->get(kTTSym_priority, v))
 			v.get(0, p);
 		else
 			p = 0;
@@ -782,39 +767,20 @@ void jamoma_presetManager_send_item_callback(TTPtr p_baton, TTValue& data)
 	data.get(0, (TTPtr*)&anItem);
 	
 	// DATA case
-	if (anItem->node->getObject()->getName() == TT("Data")) {
-		
-		anItem->state->lookup(kTTSym_value, v);
-		
-		// Don't send kTTValNONE
-		if (v == kTTValNONE)
-			return;
-		
-		anItem->node->getObject()->setAttributeValue(kTTSym_value, v);
-	}
+	if (anItem->getType() == TT("Data"))
+		anItem->send(kTTSym_value);
 	
 	// VIEWER case
-	if (anItem->node->getObject()->getName() == TT("Viewer")) {
-		
-		anItem->state->clear();
+	if (anItem->getType() == TT("Viewer")) {
 		
 		// get object binded by the viewer
 		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
 		v.get(0, &absoluteAddress);
 		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
 		
-		if (o = aNode->getObject()) {
-			if (o->getName() == TT("Data")) {
-				
-				anItem->state->lookup(kTTSym_value, v);
-				
-				// Don't send kTTValNONE
-				if (v == kTTValNONE)
-					return;
-				
-				o->setAttributeValue(kTTSym_value, v);
-			}
-		}
+		if (o = aNode->getObject())
+			if (o->getName() == TT("Data"))
+				anItem->send(kTTSym_value);
 		
 		return;
 	}

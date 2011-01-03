@@ -21,13 +21,19 @@
 	The attributes to store are chosen when the item is created */
 class Item
 	{
-		public :
-		
-		TTNodePtr		node;
-		TTHashPtr		state;
+	public :
+		TTNodePtr	node;
+		TTHashPtr	state;
 		
 		Item(TTNodePtr aNode);
 		~Item();
+		
+		TTSymbolPtr getType();
+		
+		TTErr clear();
+		TTErr set(TTSymbolPtr attributeName);
+		TTErr get(TTSymbolPtr attributeName, TTValue& value);
+		TTErr send(TTSymbolPtr attributeName);
 	};
 typedef Item* ItemPtr;
 

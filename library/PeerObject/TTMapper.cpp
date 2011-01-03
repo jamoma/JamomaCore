@@ -19,6 +19,7 @@ mInputMin(0.),
 mInputMax(1.),
 mOutputMin(0.),
 mOutputMax(1.),
+mEnable(YES),
 mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
 mFunctionParameters(kTTValNONE),
@@ -49,6 +50,8 @@ mValid(NO)
 	addAttributeWithSetter(InputMax, kTypeFloat64);
 	addAttributeWithSetter(OutputMin, kTypeFloat64);
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
+	
+	addAttribute(Enable, kTypeBoolean);
 	
 	addAttributeWithGetter(FunctionLibrary, kTypeLocalValue);
 	addAttributeProperty(functionLibrary, readOnly, YES);
@@ -492,6 +495,7 @@ TTErr TTMapper::processMapping(TTValue& value)
 	TTFloat64	f;
 	TTInt32		i, size;
 	
+	if (mEnable) {
 	size = value.getSize();
 	
 	// clip Input value
@@ -519,6 +523,7 @@ TTErr TTMapper::processMapping(TTValue& value)
 	
 	// clip output value
 	value.clip(mOutputMin, mOutputMax);
+	}
 	
 	return kTTErrNone;
 }
