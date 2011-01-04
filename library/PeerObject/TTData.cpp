@@ -15,7 +15,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
 mValueDefault(TTValue(0.0)),
-mValueStepsize(TTValue(0.0)),
+mValueStepsize(TTValue(0.1)),
 mType(kTTSym_generic),
 mPriority(0),
 mDescription(kTTSymEmpty),
@@ -24,6 +24,8 @@ mReadonly(NO),
 mInitialized(NO),
 mRangeBounds(0.0, 1.0),
 mRangeClipmode(kTTSym_none),
+mDynamicInstances(NO),
+mInstanceBounds(0, -1),
 #ifdef TTDATA_RAMPLIB
 mRampDrive(kTTSym_none),
 mRampFunction(kTTSymEmpty),
@@ -45,7 +47,7 @@ mReturnValueCallback(NULL)
 	
 	addAttributeWithGetterAndSetter(Value, kTypeNone);
 	addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
-	addAttributeWithSetter(ValueStepsize, kTypeFloat32);
+	addAttributeWithGetterAndSetter(ValueStepsize, kTypeNone);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
 	addAttribute(Priority, kTypeUInt8);
@@ -59,6 +61,11 @@ mReturnValueCallback(NULL)
 	
 	addAttributeWithSetter(RangeBounds, kTypeLocalValue);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
+	
+	addAttribute(DynamicInstances, kTypeBoolean);
+	addAttributeProperty(dynamicInstances, hidden, YES);
+	addAttributeWithSetter(InstanceBounds, kTypeLocalValue);
+	addAttributeProperty(instanceBounds, hidden, YES);
 	
 #ifdef TTDATA_RAMPLIB
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
@@ -123,9 +130,11 @@ TTErr TTData::Reset()
 TTErr TTData::Inc(const TTValue& value)
 {
 	TTUInt32	i;
-	TTFloat64	inc, ramptime, v;
+	TTFloat64	inc, ramptime, v, vStepsize;
 	TTSymbolPtr	ramp;
 	TTValue		command;
+	
+	mValueStepsize.get(0, vStepsize);
 	
 	switch (value.getSize()) {
 			
@@ -137,7 +146,7 @@ TTErr TTData::Inc(const TTValue& value)
 				
 				for (i=0; i<mValue.getSize(); i++) {
 					mValue.get(i, v);
-					command.append(v + inc * mValueStepsize);
+					command.append(v + inc * vStepsize);
 				}
 			}
 			break;
@@ -151,7 +160,7 @@ TTErr TTData::Inc(const TTValue& value)
 				
 				for (i=0; i<mValue.getSize(); i++) {
 					mValue.get(i, v);
-					command.append(v + inc * mValueStepsize);
+					command.append(v + inc * vStepsize);
 				}
 				
 				if (value.getType(1) == kTypeSymbol) {
@@ -173,7 +182,7 @@ TTErr TTData::Inc(const TTValue& value)
 		{
 			for (i=0; i<mValue.getSize(); i++) {
 				mValue.get(i, v);
-				command.append(v + mValueStepsize);
+				command.append(v + vStepsize);
 			}
 			
 			break;	
@@ -188,9 +197,11 @@ TTErr TTData::Inc(const TTValue& value)
 TTErr TTData::Dec(const TTValue& value)
 {
 	TTUInt32	i;
-	TTFloat64	dec, ramptime, v;
+	TTFloat64	dec, ramptime, v, vStepsize;
 	TTSymbolPtr	ramp;
 	TTValue		command;
+	
+	mValueStepsize.get(0, vStepsize);
 	
 	switch (value.getSize()) {
 			
@@ -202,7 +213,7 @@ TTErr TTData::Dec(const TTValue& value)
 				
 				for (i=0; i<mValue.getSize(); i++) {
 					mValue.get(i, v);
-					command.append(v - dec * mValueStepsize);
+					command.append(v - dec * vStepsize);
 				}
 			}
 			break;
@@ -216,7 +227,7 @@ TTErr TTData::Dec(const TTValue& value)
 				
 				for (i=0; i<mValue.getSize(); i++) {
 					mValue.get(i, v);
-					command.append(v - dec * mValueStepsize);
+					command.append(v - dec * vStepsize);
 				}
 				
 				if (value.getType(1) == kTypeSymbol) {
@@ -238,7 +249,7 @@ TTErr TTData::Dec(const TTValue& value)
 		{
 			for (i=0; i<mValue.getSize(); i++) {
 				mValue.get(i, v);
-				command.append(v - mValueStepsize);
+				command.append(v - vStepsize);
 			}
 			
 			break;	
@@ -554,6 +565,12 @@ TTErr TTData::setValueDefault(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTData::getValueStepsize(TTValue& value)
+{
+	value = mValueStepsize;
+	return kTTErrNone;
+}
+
 TTErr TTData::setValueStepsize(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -564,23 +581,28 @@ TTErr TTData::setValueStepsize(const TTValue& value)
 
 TTErr TTData::setType(const TTValue& value)
 {
-	TTAttributePtr valueAttribute, valueDefaultAttribute;
+	TTAttributePtr valueAttribute, valueDefaultAttribute, valueStepSizeAttribute;
 	// if the new type is different
 	if (!(TTValue(mType) == value)) {
 		
 		TTValue n = value;				// use new value to protect the attribute
 		mType = value;
 		
-		// Get Value and ValueDefault attributes
+		// Get Value, ValueDefault and ValueStepsize attributes
 		this->findAttribute(kTTSym_value, &valueAttribute);
 		this->findAttribute(kTTSym_value, &valueDefaultAttribute);
+		this->findAttribute(kTTSym_valueStepsize, &valueStepSizeAttribute);
 
+		mInstanceBounds.set(0, TTInt16(0));
+		mInstanceBounds.set(1, TTInt16(-1));
+		
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
 			valueAttribute->type = kTypeInt32;
 			valueDefaultAttribute->type = kTypeInt32;
+			valueStepSizeAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
-			mValueDefault = TTValue(0);
+			mValueDefault = TTValue(1);
 			mValueStepsize = TTValue(1);
 			mRangeBounds.set(0, TTUInt16(0));
 			mRangeBounds.set(1, TTUInt16(1));
@@ -588,6 +610,7 @@ TTErr TTData::setType(const TTValue& value)
 		else if (mType == kTTSym_decimal) {
 			valueAttribute->type = kTypeFloat64;
 			valueDefaultAttribute->type = kTypeFloat64;
+			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
 			mValueDefault = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
@@ -597,23 +620,29 @@ TTErr TTData::setType(const TTValue& value)
 		else if (mType == kTTSym_string) {
 			valueAttribute->type = kTypeSymbol;
 			valueDefaultAttribute->type = kTypeSymbol;
+			valueStepSizeAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
 			mValueDefault = TTValue(kTTSymEmpty);
+			mValueStepsize = kTTValNONE;
 			mRangeBounds = kTTValNONE;
 		}
 		else if (mType == kTTSym_boolean) {
 			valueAttribute->type = kTypeBoolean;
 			valueDefaultAttribute->type = kTypeBoolean;
+			valueStepSizeAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
 			mValueDefault = TTValue(NO);
+			mValueStepsize = TTValue(YES);
 			mRangeBounds.set(0, NO);
 			mRangeBounds.set(1, YES);
 		}
 		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
 			valueAttribute->type = kTypeFloat64;
 			valueDefaultAttribute->type = kTypeFloat64;
+			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
 			mValueDefault = TTValue(0.);
+			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
 		}
@@ -621,17 +650,21 @@ TTErr TTData::setType(const TTValue& value)
 		else if (mType == kTTSym_none) {
 			valueAttribute->type = kTypeNone;
 			valueDefaultAttribute->type = kTypeNone;
+			valueStepSizeAttribute->type = kTypeNone;
 			mValue = kTTValNONE;
 			mValueDefault = kTTValNONE;
+			mValueStepsize = kTTValNONE;
 			mRangeBounds = kTTValNONE;
 		}
 	//#endif // JMOD_MESSAGE
 		else {
 			valueAttribute->type = kTypeFloat64;
 			valueDefaultAttribute->type = kTypeFloat64;
+			valueStepSizeAttribute->type = kTypeFloat64;
 			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
 			mValue = TTValue(0.);
 			mValueDefault = TTValue(0.);
+			mValueStepsize = TTValue(0.1);
 			mRangeBounds = TTValue(0., 1.);
 			return kTTErrGeneric;
 		}
@@ -680,6 +713,18 @@ TTErr TTData::setRangeClipmode(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mRangeClipmode = value;
 	notifyObservers(kTTSym_rangeClipmode, n);
+	return kTTErrNone;
+}
+
+TTErr TTData::setInstanceBounds(const TTValue& value)
+{
+	TTValue n;				// use new value to protect the attribute
+	TTInt16 vmin, vmax;
+	value.get(0, vmin);
+	value.get(1, vmax);
+	mInstanceBounds.set(0, vmin);
+	mInstanceBounds.set(1, vmax);
+	
 	return kTTErrNone;
 }
 

@@ -40,6 +40,7 @@ private:
 	TTApplicationPtr	mApplication;			///< the application
 	TTHashPtr			mListernersCache;
 	
+public:
 	/** Load all Plugins at a given location (second instance contained in TTValue could optionnaly be xml config path)*/
 	TTErr LoadPlugins(const TTValue& value);
 	

@@ -50,7 +50,7 @@ private:
 	
 	TTValue			mValue;						///< ATTRIBUTE: data's value
 	TTValue			mValueDefault;				///< ATTRIBUTE: data's default value
-	TTFloat32		mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
+	TTValue			mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
 	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this data's value
 	TTUInt8			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
@@ -61,6 +61,9 @@ private:
 	
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
 	TTSymbolPtr		mRangeClipmode;				///< ATTRIBUTE: 
+	
+	TTBoolean		mDynamicInstances;			///< ATTRIBUTE: is the data can be dynamically instanciated
+	TTValue			mInstanceBounds;			///< ATTRIBUTE: two TTValues for a range of dynamic instances (-1 = infini)
 
 #ifdef TTDATA_RAMPLIB
 	TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
@@ -130,6 +133,7 @@ private:
 	TTErr	setValueDefault(const TTValue& value);
 	
 	/**	Setter for m attribute. */
+	TTErr   getValueStepsize(TTValue& value);
 	TTErr	setValueStepsize(const TTValue& value);
 	
 	/**	Setter for m attribute. */
@@ -146,6 +150,9 @@ private:
 	
 	/**	Setter for m attribute. */
 	TTErr	setRangeClipmode(const TTValue& value);
+	
+	/**	Setter for m attribute. */
+	TTErr	setInstanceBounds(const TTValue& value);
 
 #ifdef TTDATA_RAMPLIB
 	/**	Setter for m attribute. */
