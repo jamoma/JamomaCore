@@ -47,9 +47,8 @@ class TTMODULAR_EXPORT TTPreset : public TTObject
 public:		// use public to allow PresetManager to have a direct access
 	
 	TTSymbolPtr			mName;							///< ATTRIBUTE: the name of the preset
-	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the parent address of each stored data
-	TTSymbolPtr			mComment;						///< TODO
-	TTValue				mExtra;							///< TODO
+	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the parent address from where to search object to store
+	TTSymbolPtr			mComment;						///< ATTRIBUTE: a comment for the preset
 	
 private:	
 	
@@ -60,7 +59,7 @@ private:
 	TTCallbackPtr		mSendItemCallback;				///< a callback used to send the item's state
 	TTHashPtr			mItemTable;						///< a hash table containing <relativeAddress, ItemPtr>
 	TTListPtr			mItemKeysSorted;				///< a linked list containing keys of sorted item
-	TTSymbolPtr			mCurrentItem;					///< a key to retrieve the current Item in the ItemList
+	TTSymbolPtr			mCurrentItem;					///< a key to retrieve the current Item in the ItemTable
 	
 	
 	/** */

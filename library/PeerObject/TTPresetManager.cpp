@@ -1,5 +1,5 @@
 /* 
- * A TTHarvester Object
+ * A TTPresetManager Object
  * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the "New BSD License"

@@ -56,12 +56,12 @@ TTErr Item::set(TTSymbolPtr attributeName)
 	if (v == kTTValNONE)
 		return kTTErrGeneric;
 	
-	return state->append(kTTSym_value, v);
+	return state->append(attributeName, v);
 }
 
 TTErr Item::get(TTSymbolPtr attributeName, TTValue& value)
 {
-	return state->lookup(kTTSym_priority, value);
+	return state->lookup(attributeName, value);
 }
 
 TTErr Item::send(TTSymbolPtr attributeName)
@@ -85,7 +85,6 @@ TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mAddress(kTTSymEmpty),
 mComment(kTTSymEmpty),
-mExtra(kTTValNONE),
 mApplication(NULL),
 mTestObjectCallback(NULL),
 mUpdateItemCallback(NULL),
@@ -113,7 +112,6 @@ mCurrentItem(kTTSymEmpty)
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
-	addAttribute(Extra, kTypeNone);
 	addAttribute(ItemTable, kTypePointer);
 	addAttributeProperty(itemTable, readOnly, YES);
 	
@@ -216,7 +214,6 @@ TTErr TTPreset::Clear()
 
 TTErr TTPreset::Update()
 {
-	ItemPtr			anItem;
 	TTValue			hk, v;
 	TTSymbolPtr		key;
 	TTUInt8			i;
@@ -250,7 +247,6 @@ TTErr TTPreset::Sort()
 
 TTErr TTPreset::Send()
 {
-	ItemPtr			anItem;
 	TTValue			v;
 	TTSymbolPtr		key;
 	
