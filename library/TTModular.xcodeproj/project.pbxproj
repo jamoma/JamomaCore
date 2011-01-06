@@ -1,0 +1,545 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		224B076C11DEA19B00B6EF48 /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3200D0DB77900F7762D /* FunctionLib.cpp */; };
+		224B076D11DEA19B00B6EF48 /* DataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */; };
+		224B076E11DEA19B00B6EF48 /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */; };
+		224B076F11DEA19B00B6EF48 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */; };
+		224B077011DEA19B00B6EF48 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */; };
+		224B077211DEA19B00B6EF48 /* TimeDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C931A0D1C45CC00BDA981 /* TimeDataspace.cpp */; };
+		224B077311DEA19B00B6EF48 /* PitchDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */; };
+		224B077411DEA19B00B6EF48 /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
+		224B077511DEA19B00B6EF48 /* AngleDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */; };
+		224B077611DEA19B00B6EF48 /* PositionDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */; };
+		224B077711DEA19B00B6EF48 /* NoneDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */; };
+		224B086811DEA31700B6EF48 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
+		224B09C111DEA32100B6EF48 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
+		224B09C211DEA32100B6EF48 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
+		224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F7E79907B2D74100F64583 /* CoreData.framework */; };
+		224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
+		4DF70AEE12CB9C9F00AEABFC /* TTOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = D2ADBFF7127DFBC900979D42 /* TTOutput.h */; };
+		4DF70AEF12CB9C9F00AEABFC /* TTXmlHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88271213F47D0090DE41 /* TTXmlHandler.h */; };
+		4DF70AF012CB9C9F00AEABFC /* TTSender.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88231213F47D0090DE41 /* TTSender.h */; };
+		4DF70AF112CB9C9F00AEABFC /* TTApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = D2AADF75127980AA00629B73 /* TTApplication.h */; };
+		4DF70AF212CB9C9F00AEABFC /* TTTextHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = D2DDA0AF1254982B00E2C831 /* TTTextHandler.h */; };
+		4DF70AF312CB9C9F00AEABFC /* TTReceiver.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88211213F47D0090DE41 /* TTReceiver.h */; };
+		4DF70AF412CB9C9F00AEABFC /* TTInput.h in Headers */ = {isa = PBXBuildFile; fileRef = D2ADBFF9127DFBC900979D42 /* TTInput.h */; };
+		4DF70AF512CB9C9F00AEABFC /* TTMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88191213F47D0090DE41 /* TTMapper.h */; };
+		4DF70AF612CB9C9F00AEABFC /* TTPreset.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA881D1213F47D0090DE41 /* TTPreset.h */; };
+		4DF70AF712CB9C9F00AEABFC /* TTViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CDAD6D123A338B00801029 /* TTViewer.h */; };
+		4DF70AF812CB9C9F00AEABFC /* TTData.h in Headers */ = {isa = PBXBuildFile; fileRef = D2AB7E75123FC21E00DAD340 /* TTData.h */; };
+		4DF70AF912CB9C9F00AEABFC /* TTContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88131213F47D0090DE41 /* TTContainer.h */; };
+		4DF70AFA12CB9C9F00AEABFC /* TTPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA881F1213F47D0090DE41 /* TTPresetManager.h */; };
+		4DF70AFB12CB9C9F00AEABFC /* TTMapperManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D242BB5B12841CE40036A509 /* TTMapperManager.h */; };
+		4DF70AFC12CB9C9F00AEABFC /* TTExplorer.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88171213F47D0090DE41 /* TTExplorer.h */; };
+		4DF70AFD12CB9C9F00AEABFC /* TTDeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88151213F47D0090DE41 /* TTDeviceManager.h */; };
+		4DF70AFE12CB9C9F00AEABFC /* TTSubscriber.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88251213F47D0090DE41 /* TTSubscriber.h */; };
+		4DF70AFF12CB9CA800AEABFC /* TTModularSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88371213F4B90090DE41 /* TTModularSymbolCache.h */; };
+		4DF70B0012CB9CA800AEABFC /* TTModular.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88381213F4B90090DE41 /* TTModular.h */; };
+		4DF70B0112CB9CB400AEABFC /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C950D1FD9960099D8CA /* GainDataspace.h */; };
+		4DF70B0212CB9CB400AEABFC /* TimeDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C931B0D1C45CC00BDA981 /* TimeDataspace.h */; };
+		4DF70B0312CB9CB400AEABFC /* NoneDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BF45A40D2564F2001FAA14 /* NoneDataspace.h */; };
+		4DF70B0412CB9CB400AEABFC /* TemperatureDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */; };
+		4DF70B0512CB9CB400AEABFC /* ColorDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C91B10D1B2E9100BDA981 /* ColorDataspace.h */; };
+		4DF70B0612CB9CB400AEABFC /* DistanceDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */; };
+		4DF70B0712CB9CB400AEABFC /* AngleDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */; };
+		4DF70B0812CB9CB400AEABFC /* PositionDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D9A1F60D21F49300A16E9A /* PositionDataspace.h */; };
+		4DF70B0912CB9CB400AEABFC /* DataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D7F5F10D105827009E4AF4 /* DataspaceLib.h */; };
+		4DF70B0A12CB9CB400AEABFC /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */; };
+		4DF70B0B12CB9CBA00AEABFC /* FunctionLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF3210D0DB77900F7762D /* FunctionLib.h */; };
+		4DF70B0C12CB9CC000AEABFC /* DeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA883A1213F4F60090DE41 /* DeviceManager.h */; };
+		D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D242BB5A12841CE40036A509 /* TTMapperManager.cpp */; };
+		D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AADF74127980AA00629B73 /* TTApplication.cpp */; };
+		D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AB7E74123FC21E00DAD340 /* TTData.cpp */; };
+		D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */; };
+		D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF8127DFBC900979D42 /* TTInput.cpp */; };
+		D2CA88281213F47D0090DE41 /* TTContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88121213F47D0090DE41 /* TTContainer.cpp */; };
+		D2CA88291213F47D0090DE41 /* TTDeviceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88141213F47D0090DE41 /* TTDeviceManager.cpp */; };
+		D2CA882A1213F47D0090DE41 /* TTExplorer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88161213F47D0090DE41 /* TTExplorer.cpp */; };
+		D2CA882B1213F47D0090DE41 /* TTMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88181213F47D0090DE41 /* TTMapper.cpp */; };
+		D2CA882D1213F47D0090DE41 /* TTPreset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA881C1213F47D0090DE41 /* TTPreset.cpp */; };
+		D2CA882E1213F47D0090DE41 /* TTPresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA881E1213F47D0090DE41 /* TTPresetManager.cpp */; };
+		D2CA882F1213F47D0090DE41 /* TTReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88201213F47D0090DE41 /* TTReceiver.cpp */; };
+		D2CA88301213F47D0090DE41 /* TTSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88221213F47D0090DE41 /* TTSender.cpp */; };
+		D2CA88311213F47D0090DE41 /* TTSubscriber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88241213F47D0090DE41 /* TTSubscriber.cpp */; };
+		D2CA88321213F47D0090DE41 /* TTXmlHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88261213F47D0090DE41 /* TTXmlHandler.cpp */; };
+		D2CA88351213F4A80090DE41 /* TTModular.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88331213F4A80090DE41 /* TTModular.cpp */; };
+		D2CA88361213F4A80090DE41 /* TTModularSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */; };
+		D2CA88471213F4F60090DE41 /* libDeviceManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA883D1213F4F60090DE41 /* libDeviceManager.a */; };
+		D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */; };
+		D2CDAD6E123A338B00801029 /* TTViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CDAD6C123A338B00801029 /* TTViewer.cpp */; };
+		D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		224B076511DEA0E000B6EF48 /* TTModular.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TTModular.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DistanceDataspace.cpp; path = DataspaceLib/DistanceDataspace.cpp; sourceTree = "<group>"; };
+		225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DistanceDataspace.h; path = DataspaceLib/DistanceDataspace.h; sourceTree = "<group>"; };
+		225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorDataspace.cpp; path = DataspaceLib/ColorDataspace.cpp; sourceTree = "<group>"; };
+		225C91B10D1B2E9100BDA981 /* ColorDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorDataspace.h; path = DataspaceLib/ColorDataspace.h; sourceTree = "<group>"; };
+		225C931A0D1C45CC00BDA981 /* TimeDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeDataspace.cpp; path = DataspaceLib/TimeDataspace.cpp; sourceTree = "<group>"; };
+		225C931B0D1C45CC00BDA981 /* TimeDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeDataspace.h; path = DataspaceLib/TimeDataspace.h; sourceTree = "<group>"; };
+		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22AEF3200D0DB77900F7762D /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
+		22AEF3210D0DB77900F7762D /* FunctionLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
+		22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoneDataspace.cpp; path = DataspaceLib/NoneDataspace.cpp; sourceTree = "<group>"; };
+		22BF45A40D2564F2001FAA14 /* NoneDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoneDataspace.h; path = DataspaceLib/NoneDataspace.h; sourceTree = "<group>"; };
+		22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AngleDataspace.cpp; path = DataspaceLib/AngleDataspace.cpp; sourceTree = "<group>"; };
+		22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AngleDataspace.h; path = DataspaceLib/AngleDataspace.h; sourceTree = "<group>"; };
+		22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemperatureDataspace.h; path = DataspaceLib/TemperatureDataspace.h; sourceTree = "<group>"; };
+		22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataspaceLib.cpp; path = DataspaceLib/DataspaceLib.cpp; sourceTree = "<group>"; };
+		22D7F5F10D105827009E4AF4 /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataspaceLib.h; path = DataspaceLib/DataspaceLib.h; sourceTree = "<group>"; };
+		22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TemperatureDataspace.cpp; path = DataspaceLib/TemperatureDataspace.cpp; sourceTree = "<group>"; };
+		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		4DF70B1212CB9CE700AEABFC /* TTModular.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = TTModular.xcconfig; sourceTree = "<group>"; };
+		66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PositionDataspace.cpp; path = DataspaceLib/PositionDataspace.cpp; sourceTree = "<group>"; };
+		66D9A1F60D21F49300A16E9A /* PositionDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PositionDataspace.h; path = DataspaceLib/PositionDataspace.h; sourceTree = "<group>"; };
+		A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PitchDataspace.cpp; path = DataspaceLib/PitchDataspace.cpp; sourceTree = SOURCE_ROOT; };
+		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
+		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
+		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
+		D242BB5A12841CE40036A509 /* TTMapperManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
+		D242BB5B12841CE40036A509 /* TTMapperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapperManager.h; sourceTree = "<group>"; };
+		D2AADF74127980AA00629B73 /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
+		D2AADF75127980AA00629B73 /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
+		D2AB7E74123FC21E00DAD340 /* TTData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTData.cpp; sourceTree = "<group>"; };
+		D2AB7E75123FC21E00DAD340 /* TTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTData.h; sourceTree = "<group>"; };
+		D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutput.cpp; sourceTree = "<group>"; };
+		D2ADBFF7127DFBC900979D42 /* TTOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOutput.h; sourceTree = "<group>"; };
+		D2ADBFF8127DFBC900979D42 /* TTInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTInput.cpp; sourceTree = "<group>"; };
+		D2ADBFF9127DFBC900979D42 /* TTInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTInput.h; sourceTree = "<group>"; };
+		D2CA88121213F47D0090DE41 /* TTContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTContainer.cpp; sourceTree = "<group>"; };
+		D2CA88131213F47D0090DE41 /* TTContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTContainer.h; sourceTree = "<group>"; };
+		D2CA88141213F47D0090DE41 /* TTDeviceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDeviceManager.cpp; sourceTree = "<group>"; };
+		D2CA88151213F47D0090DE41 /* TTDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDeviceManager.h; sourceTree = "<group>"; };
+		D2CA88161213F47D0090DE41 /* TTExplorer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTExplorer.cpp; sourceTree = "<group>"; };
+		D2CA88171213F47D0090DE41 /* TTExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTExplorer.h; sourceTree = "<group>"; };
+		D2CA88181213F47D0090DE41 /* TTMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapper.cpp; sourceTree = "<group>"; };
+		D2CA88191213F47D0090DE41 /* TTMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapper.h; sourceTree = "<group>"; };
+		D2CA881C1213F47D0090DE41 /* TTPreset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPreset.cpp; sourceTree = "<group>"; };
+		D2CA881D1213F47D0090DE41 /* TTPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreset.h; sourceTree = "<group>"; };
+		D2CA881E1213F47D0090DE41 /* TTPresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPresetManager.cpp; sourceTree = "<group>"; };
+		D2CA881F1213F47D0090DE41 /* TTPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPresetManager.h; sourceTree = "<group>"; };
+		D2CA88201213F47D0090DE41 /* TTReceiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTReceiver.cpp; sourceTree = "<group>"; };
+		D2CA88211213F47D0090DE41 /* TTReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTReceiver.h; sourceTree = "<group>"; };
+		D2CA88221213F47D0090DE41 /* TTSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSender.cpp; sourceTree = "<group>"; };
+		D2CA88231213F47D0090DE41 /* TTSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSender.h; sourceTree = "<group>"; };
+		D2CA88241213F47D0090DE41 /* TTSubscriber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSubscriber.cpp; sourceTree = "<group>"; };
+		D2CA88251213F47D0090DE41 /* TTSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSubscriber.h; sourceTree = "<group>"; };
+		D2CA88261213F47D0090DE41 /* TTXmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
+		D2CA88271213F47D0090DE41 /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
+		D2CA88331213F4A80090DE41 /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModular.cpp; path = source/TTModular.cpp; sourceTree = "<group>"; };
+		D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularSymbolCache.cpp; path = source/TTModularSymbolCache.cpp; sourceTree = "<group>"; };
+		D2CA88371213F4B90090DE41 /* TTModularSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularSymbolCache.h; path = source/TTModularSymbolCache.h; sourceTree = "<group>"; };
+		D2CA88381213F4B90090DE41 /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModular.h; path = source/TTModular.h; sourceTree = "<group>"; };
+		D2CA883A1213F4F60090DE41 /* DeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManager.h; sourceTree = "<group>"; };
+		D2CA883D1213F4F60090DE41 /* libDeviceManager.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDeviceManager.a; path = DeviceManagerLib/libDeviceManager.a; sourceTree = "<group>"; };
+		D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		D2CDAD6C123A338B00801029 /* TTViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
+		D2CDAD6D123A338B00801029 /* TTViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewer.h; sourceTree = "<group>"; };
+		D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTextHandler.cpp; sourceTree = "<group>"; };
+		D2DDA0AF1254982B00E2C831 /* TTTextHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTextHandler.h; sourceTree = "<group>"; };
+		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		224B076311DEA0E000B6EF48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				224B09C111DEA32100B6EF48 /* AppKit.framework in Frameworks */,
+				224B09C211DEA32100B6EF48 /* CoreAudio.framework in Frameworks */,
+				224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */,
+				224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */,
+				224B086811DEA31700B6EF48 /* Cocoa.framework in Frameworks */,
+				224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */,
+				D2CA88471213F4F60090DE41 /* libDeviceManager.a in Frameworks */,
+				D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				224B076511DEA0E000B6EF48 /* TTModular.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* MaxObject */ = {
+			isa = PBXGroup;
+			children = (
+				4DF70B1212CB9CE700AEABFC /* TTModular.xcconfig */,
+				22FD2DCF0CEE5B770039C226 /* Headers */,
+				08FB77AEFE84172EC02AAC07 /* Sources */,
+				D2CA88111213F47D0090DE41 /* PeerObject */,
+				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
+				22AEF31F0D0DB77900F7762D /* FunctionLib */,
+				D2CA88391213F4F60090DE41 /* DeviceManagerLib */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = MaxObject;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+				22A403830CAD7B9400E5299E /* Carbon.framework */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+				D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */,
+				D2CA883D1213F4F60090DE41 /* libDeviceManager.a */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D2CA88331213F4A80090DE41 /* TTModular.cpp */,
+				D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				22F4249C0CFA79820088332F /* CoreAudio.framework */,
+				D2F7E79907B2D74100F64583 /* CoreData.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		22AEF31F0D0DB77900F7762D /* FunctionLib */ = {
+			isa = PBXGroup;
+			children = (
+				22AEF3210D0DB77900F7762D /* FunctionLib.h */,
+				22AEF3200D0DB77900F7762D /* FunctionLib.cpp */,
+			);
+			path = FunctionLib;
+			sourceTree = "<group>";
+		};
+		22D7F5EA0D10576E009E4AF4 /* DataspaceLib */ = {
+			isa = PBXGroup;
+			children = (
+				22D7F5F10D105827009E4AF4 /* DataspaceLib.h */,
+				22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */,
+				22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */,
+				22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */,
+				225C91B10D1B2E9100BDA981 /* ColorDataspace.h */,
+				225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */,
+				225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */,
+				225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */,
+				A7CA9C950D1FD9960099D8CA /* GainDataspace.h */,
+				A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */,
+				22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */,
+				22BF45A40D2564F2001FAA14 /* NoneDataspace.h */,
+				A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */,
+				A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */,
+				66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */,
+				66D9A1F60D21F49300A16E9A /* PositionDataspace.h */,
+				22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */,
+				22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */,
+				225C931B0D1C45CC00BDA981 /* TimeDataspace.h */,
+				225C931A0D1C45CC00BDA981 /* TimeDataspace.cpp */,
+			);
+			name = DataspaceLib;
+			sourceTree = "<group>";
+		};
+		22FD2DCF0CEE5B770039C226 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				D2CA88381213F4B90090DE41 /* TTModular.h */,
+				D2CA88371213F4B90090DE41 /* TTModularSymbolCache.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		D2CA88111213F47D0090DE41 /* PeerObject */ = {
+			isa = PBXGroup;
+			children = (
+				D2AADF75127980AA00629B73 /* TTApplication.h */,
+				D2AADF74127980AA00629B73 /* TTApplication.cpp */,
+				D2CA88131213F47D0090DE41 /* TTContainer.h */,
+				D2CA88121213F47D0090DE41 /* TTContainer.cpp */,
+				D2AB7E75123FC21E00DAD340 /* TTData.h */,
+				D2AB7E74123FC21E00DAD340 /* TTData.cpp */,
+				D2CA88151213F47D0090DE41 /* TTDeviceManager.h */,
+				D2CA88141213F47D0090DE41 /* TTDeviceManager.cpp */,
+				D2CA88171213F47D0090DE41 /* TTExplorer.h */,
+				D2CA88161213F47D0090DE41 /* TTExplorer.cpp */,
+				D2ADBFF9127DFBC900979D42 /* TTInput.h */,
+				D2ADBFF8127DFBC900979D42 /* TTInput.cpp */,
+				D2CA88191213F47D0090DE41 /* TTMapper.h */,
+				D2CA88181213F47D0090DE41 /* TTMapper.cpp */,
+				D242BB5B12841CE40036A509 /* TTMapperManager.h */,
+				D242BB5A12841CE40036A509 /* TTMapperManager.cpp */,
+				D2ADBFF7127DFBC900979D42 /* TTOutput.h */,
+				D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */,
+				D2CA881D1213F47D0090DE41 /* TTPreset.h */,
+				D2CA881C1213F47D0090DE41 /* TTPreset.cpp */,
+				D2CA881F1213F47D0090DE41 /* TTPresetManager.h */,
+				D2CA881E1213F47D0090DE41 /* TTPresetManager.cpp */,
+				D2CA88211213F47D0090DE41 /* TTReceiver.h */,
+				D2CA88201213F47D0090DE41 /* TTReceiver.cpp */,
+				D2CA88231213F47D0090DE41 /* TTSender.h */,
+				D2CA88221213F47D0090DE41 /* TTSender.cpp */,
+				D2CA88251213F47D0090DE41 /* TTSubscriber.h */,
+				D2CA88241213F47D0090DE41 /* TTSubscriber.cpp */,
+				D2CDAD6D123A338B00801029 /* TTViewer.h */,
+				D2CDAD6C123A338B00801029 /* TTViewer.cpp */,
+				D2DDA0AF1254982B00E2C831 /* TTTextHandler.h */,
+				D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */,
+				D2CA88271213F47D0090DE41 /* TTXmlHandler.h */,
+				D2CA88261213F47D0090DE41 /* TTXmlHandler.cpp */,
+			);
+			path = PeerObject;
+			sourceTree = "<group>";
+		};
+		D2CA88391213F4F60090DE41 /* DeviceManagerLib */ = {
+			isa = PBXGroup;
+			children = (
+				D2CA883A1213F4F60090DE41 /* DeviceManager.h */,
+			);
+			path = DeviceManagerLib;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4DF70AED12CB9C8C00AEABFC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DF70B0C12CB9CC000AEABFC /* DeviceManager.h in Headers */,
+				4DF70B0B12CB9CBA00AEABFC /* FunctionLib.h in Headers */,
+				4DF70B0112CB9CB400AEABFC /* GainDataspace.h in Headers */,
+				4DF70B0212CB9CB400AEABFC /* TimeDataspace.h in Headers */,
+				4DF70B0312CB9CB400AEABFC /* NoneDataspace.h in Headers */,
+				4DF70B0412CB9CB400AEABFC /* TemperatureDataspace.h in Headers */,
+				4DF70B0512CB9CB400AEABFC /* ColorDataspace.h in Headers */,
+				4DF70B0612CB9CB400AEABFC /* DistanceDataspace.h in Headers */,
+				4DF70B0712CB9CB400AEABFC /* AngleDataspace.h in Headers */,
+				4DF70B0812CB9CB400AEABFC /* PositionDataspace.h in Headers */,
+				4DF70B0912CB9CB400AEABFC /* DataspaceLib.h in Headers */,
+				4DF70B0A12CB9CB400AEABFC /* PitchDataspace.h in Headers */,
+				4DF70AFF12CB9CA800AEABFC /* TTModularSymbolCache.h in Headers */,
+				4DF70B0012CB9CA800AEABFC /* TTModular.h in Headers */,
+				4DF70AEE12CB9C9F00AEABFC /* TTOutput.h in Headers */,
+				4DF70AEF12CB9C9F00AEABFC /* TTXmlHandler.h in Headers */,
+				4DF70AF012CB9C9F00AEABFC /* TTSender.h in Headers */,
+				4DF70AF112CB9C9F00AEABFC /* TTApplication.h in Headers */,
+				4DF70AF212CB9C9F00AEABFC /* TTTextHandler.h in Headers */,
+				4DF70AF312CB9C9F00AEABFC /* TTReceiver.h in Headers */,
+				4DF70AF412CB9C9F00AEABFC /* TTInput.h in Headers */,
+				4DF70AF512CB9C9F00AEABFC /* TTMapper.h in Headers */,
+				4DF70AF612CB9C9F00AEABFC /* TTPreset.h in Headers */,
+				4DF70AF712CB9C9F00AEABFC /* TTViewer.h in Headers */,
+				4DF70AF812CB9C9F00AEABFC /* TTData.h in Headers */,
+				4DF70AF912CB9C9F00AEABFC /* TTContainer.h in Headers */,
+				4DF70AFA12CB9C9F00AEABFC /* TTPresetManager.h in Headers */,
+				4DF70AFB12CB9C9F00AEABFC /* TTMapperManager.h in Headers */,
+				4DF70AFC12CB9C9F00AEABFC /* TTExplorer.h in Headers */,
+				4DF70AFD12CB9C9F00AEABFC /* TTDeviceManager.h in Headers */,
+				4DF70AFE12CB9C9F00AEABFC /* TTSubscriber.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		224B076411DEA0E000B6EF48 /* TTModular */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 224B076811DEA11D00B6EF48 /* Build configuration list for PBXNativeTarget "TTModular" */;
+			buildPhases = (
+				224B076211DEA0E000B6EF48 /* Sources */,
+				224B076311DEA0E000B6EF48 /* Frameworks */,
+				4DF70AED12CB9C8C00AEABFC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TTModular;
+			productName = JamomaModular;
+			productReference = 224B076511DEA0E000B6EF48 /* TTModular.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "TTModular" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* MaxObject */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				224B076411DEA0E000B6EF48 /* TTModular */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		224B076211DEA0E000B6EF48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				224B076C11DEA19B00B6EF48 /* FunctionLib.cpp in Sources */,
+				224B076D11DEA19B00B6EF48 /* DataspaceLib.cpp in Sources */,
+				224B076E11DEA19B00B6EF48 /* TemperatureDataspace.cpp in Sources */,
+				224B076F11DEA19B00B6EF48 /* DistanceDataspace.cpp in Sources */,
+				224B077011DEA19B00B6EF48 /* ColorDataspace.cpp in Sources */,
+				224B077211DEA19B00B6EF48 /* TimeDataspace.cpp in Sources */,
+				224B077311DEA19B00B6EF48 /* PitchDataspace.cpp in Sources */,
+				224B077411DEA19B00B6EF48 /* GainDataspace.cpp in Sources */,
+				224B077511DEA19B00B6EF48 /* AngleDataspace.cpp in Sources */,
+				224B077611DEA19B00B6EF48 /* PositionDataspace.cpp in Sources */,
+				224B077711DEA19B00B6EF48 /* NoneDataspace.cpp in Sources */,
+				D2CA88281213F47D0090DE41 /* TTContainer.cpp in Sources */,
+				D2CA88291213F47D0090DE41 /* TTDeviceManager.cpp in Sources */,
+				D2CA882A1213F47D0090DE41 /* TTExplorer.cpp in Sources */,
+				D2CA882B1213F47D0090DE41 /* TTMapper.cpp in Sources */,
+				D2CA882D1213F47D0090DE41 /* TTPreset.cpp in Sources */,
+				D2CA882E1213F47D0090DE41 /* TTPresetManager.cpp in Sources */,
+				D2CA882F1213F47D0090DE41 /* TTReceiver.cpp in Sources */,
+				D2CA88301213F47D0090DE41 /* TTSender.cpp in Sources */,
+				D2CA88311213F47D0090DE41 /* TTSubscriber.cpp in Sources */,
+				D2CA88321213F47D0090DE41 /* TTXmlHandler.cpp in Sources */,
+				D2CA88351213F4A80090DE41 /* TTModular.cpp in Sources */,
+				D2CA88361213F4A80090DE41 /* TTModularSymbolCache.cpp in Sources */,
+				D2CDAD6E123A338B00801029 /* TTViewer.cpp in Sources */,
+				D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */,
+				D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */,
+				D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */,
+				D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */,
+				D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */,
+				D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91B208733DA50010E9CD /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				PRODUCT_NAME = TTModular;
+				SDKROOT = macosx10.4;
+			};
+			name = Development;
+		};
+		1DEB91B308733DA50010E9CD /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.4;
+			};
+			name = Deployment;
+		};
+		224B076611DEA0E000B6EF48 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DF70B1212CB9CE700AEABFC /* TTModular.xcconfig */;
+			buildSettings = {
+				ARCHS = i386;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
+					"\"$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = JamomaPrefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/DeviceManagerLib\"",
+					"\"$(SRCROOT)/DeviceManagerLib/plugins\"",
+				);
+				SKIP_INSTALL = NO;
+			};
+			name = Development;
+		};
+		224B076711DEA0E000B6EF48 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
+					"\"$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
+				);
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = JamomaPrefix.pch;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/DeviceManagerLib\"",
+					"\"$(SRCROOT)/DeviceManagerLib/plugins\"",
+				);
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "TTModular" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Development */,
+				1DEB91B308733DA50010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		224B076811DEA11D00B6EF48 /* Build configuration list for PBXNativeTarget "TTModular" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				224B076611DEA0E000B6EF48 /* Development */,
+				224B076711DEA0E000B6EF48 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
