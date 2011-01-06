@@ -37,6 +37,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 		// register classes -- both internal and external
 		TTApplication::registerClass();
 		TTContainer::registerClass();
+		TTCue::registerClass();
 		TTData::registerClass();
 		TTDeviceManager::registerClass();
 		TTExplorer::registerClass();

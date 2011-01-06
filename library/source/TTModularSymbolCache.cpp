@@ -13,6 +13,7 @@
 
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_address;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_addresses;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_attributes;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
@@ -35,6 +36,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_enable;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Fill;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
@@ -87,6 +89,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_viewFreeze;
 void TTModularSymbolCacheInit()
 {
 	kTTSym_address					= TT("address");
+	kTTSym_addresses				= TT("addresses");
 	kTTSym_attributes				= TT("attributes");
 	kTTSym_array					= TT("array");
 	
@@ -109,6 +112,7 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_enable					= TT("enable");
 	
+	kTTSym_Fill						= kTTSym_Fill;
 	kTTSym_freeze					= TT("freeze");
 	
 	kTTSym_generic					= TT("generic");

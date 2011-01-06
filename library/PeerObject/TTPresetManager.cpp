@@ -176,7 +176,7 @@ TTErr TTPresetManager::Store(const TTValue& value)
 	newPreset->setAttributeValue(kTTSym_address, mAddress);
 	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
-	newPreset->sendMessage(TT("Fill"));
+	newPreset->sendMessage(kTTSym_Fill);
 	
 	// Insert at index
 	mCurrentIndex = index;
@@ -197,7 +197,7 @@ TTErr TTPresetManager::StoreCurrent()
 		return kTTErrGeneric;
 	
 	currentPreset->sendMessage(TT("Clear"));
-	currentPreset->sendMessage(TT("Fill"));
+	currentPreset->sendMessage(kTTSym_Fill);
 	
 	// notify observers of the preset list
 	notifyNamesObservers();
@@ -226,7 +226,7 @@ TTErr TTPresetManager::StoreNext(const TTValue& value)
 	newPreset->setAttributeValue(kTTSym_address, mAddress);
 	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
-	newPreset->sendMessage(TT("Fill"));
+	newPreset->sendMessage(kTTSym_Fill);
 	
 	// Insert AFTER current
 	mCurrentIndex++;
@@ -259,7 +259,7 @@ TTErr TTPresetManager::StorePrevious(const TTValue& value)
 	newPreset->setAttributeValue(kTTSym_address, mAddress);
 	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
-	newPreset->sendMessage(TT("Fill"));
+	newPreset->sendMessage(kTTSym_Fill);
 	
 	// Insert BEFORE current
 	mCurrentIndex--;

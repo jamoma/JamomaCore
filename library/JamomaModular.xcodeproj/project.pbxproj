@@ -62,6 +62,7 @@
 		D2CDAD6E123A338B00801029 /* TTViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CDAD6C123A338B00801029 /* TTViewer.cpp */; };
 		D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */; };
 		D2E27E9A12D53B2000C3EF05 /* TTCue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E27E9812D53B2000C3EF05 /* TTCue.cpp */; };
+		D2E27EA612D54B7000C3EF05 /* TTCueManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E27EA512D54B7000C3EF05 /* TTCueManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -170,6 +171,8 @@
 		D2DDA0AF1254982B00E2C831 /* TTTextHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTextHandler.h; sourceTree = "<group>"; };
 		D2E27E9812D53B2000C3EF05 /* TTCue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCue.cpp; sourceTree = "<group>"; };
 		D2E27E9912D53B2000C3EF05 /* TTCue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCue.h; sourceTree = "<group>"; };
+		D2E27EA412D54B7000C3EF05 /* TTCueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCueManager.h; sourceTree = "<group>"; };
+		D2E27EA512D54B7000C3EF05 /* TTCueManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCueManager.cpp; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -387,6 +390,8 @@
 				D2CA881E1213F47D0090DE41 /* TTPresetManager.cpp */,
 				D2E27E9912D53B2000C3EF05 /* TTCue.h */,
 				D2E27E9812D53B2000C3EF05 /* TTCue.cpp */,
+				D2E27EA412D54B7000C3EF05 /* TTCueManager.h */,
+				D2E27EA512D54B7000C3EF05 /* TTCueManager.cpp */,
 				D2CA88211213F47D0090DE41 /* TTReceiver.h */,
 				D2CA88201213F47D0090DE41 /* TTReceiver.cpp */,
 				D2CA88231213F47D0090DE41 /* TTSender.h */,
@@ -518,6 +523,7 @@
 				D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */,
 				D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */,
 				D2E27E9A12D53B2000C3EF05 /* TTCue.cpp in Sources */,
+				D2E27EA612D54B7000C3EF05 /* TTCueManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

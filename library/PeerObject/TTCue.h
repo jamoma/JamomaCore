@@ -26,12 +26,14 @@ class TTMODULAR_EXPORT TTCue : public TTObject
 {
 	TTCLASS_SETUP(TTCue)
 	
-private:
+public:		// use public to allow CueManager to have a direct access
 	
 	TTSymbolPtr			mName;							///< ATTRIBUTE: the name of the cue
 	TTValue				mAddresses;						///< ATTRIBUTE : all addresses to store into presets
 	TTSymbolPtr			mComment;						///< ATTRIBUTE: a comment for the cue
 
+private:
+	
 	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)
 	TTHashPtr			mPresetTable;					///< a hash table containing <relativeAddress, PresetPtr>
 	TTSymbolPtr			mCurrentPreset;					///< a key to retrieve the current Preset in the PresetTable

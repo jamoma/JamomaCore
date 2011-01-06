@@ -529,28 +529,28 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 	TTObjectInstantiate(TT("callback"), &testObjectCallback, kTTValNONE);
 	testObjectBaton = new TTValue(TTPtr(x));
 	testObjectCallback->setAttributeValue(kTTSym_baton, TTPtr(testObjectBaton));
-	testObjectCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_test_object_callback));
+	testObjectCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_test_object));
 	args.append(testObjectCallback);
 	
 	updateItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &updateItemCallback, kTTValNONE);
 	updateItemBaton = new TTValue(TTPtr(x));
 	updateItemCallback->setAttributeValue(kTTSym_baton, TTPtr(updateItemBaton));
-	updateItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_update_item_callback));
+	updateItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_update_item));
 	args.append(updateItemCallback);
 	
 	sortItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &sortItemCallback, kTTValNONE);
 	sortItemBaton = new TTValue(TTPtr(x));
 	sortItemCallback->setAttributeValue(kTTSym_baton, TTPtr(sortItemBaton));
-	sortItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_sort_item_callback));
+	sortItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_sort_item));
 	args.append(sortItemCallback);
 	
 	sendItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &sendItemCallback, kTTValNONE);
 	sendItemBaton = new TTValue(TTPtr(x));
 	sendItemCallback->setAttributeValue(kTTSym_baton, TTPtr(sendItemBaton));
-	sendItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_send_item_callback));
+	sendItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_send_item));
 	args.append(sendItemCallback);
 	
 	*returnedPresetManager = NULL;
@@ -559,8 +559,53 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 	return kTTErrNone;
 }
 
+/**	Create a cue manager object */
+TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager)
+{
+	TTValue			args;
+	TTObjectPtr		testObjectCallback, updateItemCallback, sortItemCallback, sendItemCallback;
+	TTValuePtr		testObjectBaton, updateItemBaton, sortItemBaton, sendItemBaton;
+	TTValue			attr;
+	
+	// prepare arguments
+	args.append(JamomaApplication);
+	
+	testObjectCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &testObjectCallback, kTTValNONE);
+	testObjectBaton = new TTValue(TTPtr(x));
+	testObjectCallback->setAttributeValue(kTTSym_baton, TTPtr(testObjectBaton));
+	testObjectCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_test_object));
+	args.append(testObjectCallback);
+	
+	updateItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &updateItemCallback, kTTValNONE);
+	updateItemBaton = new TTValue(TTPtr(x));
+	updateItemCallback->setAttributeValue(kTTSym_baton, TTPtr(updateItemBaton));
+	updateItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_update_item));
+	args.append(updateItemCallback);
+	
+	sortItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &sortItemCallback, kTTValNONE);
+	sortItemBaton = new TTValue(TTPtr(x));
+	sortItemCallback->setAttributeValue(kTTSym_baton, TTPtr(sortItemBaton));
+	sortItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_sort_item));
+	args.append(sortItemCallback);
+	
+	sendItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &sendItemCallback, kTTValNONE);
+	sendItemBaton = new TTValue(TTPtr(x));
+	sendItemCallback->setAttributeValue(kTTSym_baton, TTPtr(sendItemBaton));
+	sendItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_send_item));
+	args.append(sendItemCallback);
+	
+	*returnedCueManager = NULL;
+	TTObjectInstantiate(TT("CueManager"), TTObjectHandle(returnedCueManager), args);
+	
+	return kTTErrNone;
+}
+
 /** Sets data as kTTVal1 if the node have to be part of a preset */
-void jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data)
+void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
@@ -620,7 +665,7 @@ void jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data)
 }
 
 /**  */
-void jamoma_presetManager_update_item_callback(TTPtr p_baton, TTValue& data)
+void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
@@ -670,7 +715,7 @@ void jamoma_presetManager_update_item_callback(TTPtr p_baton, TTValue& data)
 }
 
 /**  */
-void jamoma_presetManager_sort_item_callback(TTPtr p_baton, TTValue& data)
+void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr		b;
 	ObjectPtr		x;
@@ -749,7 +794,7 @@ void jamoma_presetManager_sort_item_callback(TTPtr p_baton, TTValue& data)
 }
 
 /**  */
-void jamoma_presetManager_send_item_callback(TTPtr p_baton, TTValue& data)
+void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;

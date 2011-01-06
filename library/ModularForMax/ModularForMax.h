@@ -91,23 +91,26 @@ extern "C" {
 	TTErr			jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver);
 	
 	
-	// Method to deal with TTPresetManager
+	// Method to deal with TTPresetManager and TTCueManager
 	///////////////////////////////////////////////////////////////////////
 	
-	/**	Create a container object */
+	/**	Create a preset manager object */
 	TTErr			jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager);
 	
+	/**	Create a cue manager object */
+	TTErr			jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager);
+	
 	/** Sets data as kTTVal1 if the node have to be part of a preset */
-	void			jamoma_presetManager_test_object_callback(TTPtr p_baton, TTValue& data);
+	void			jamoma_callback_test_object(TTPtr p_baton, TTValue& data);
 	
 	/**  */
-	void			jamoma_presetManager_update_item_callback(TTPtr p_baton, TTValue& data);
+	void			jamoma_callback_update_item(TTPtr p_baton, TTValue& data);
 	
 	/**  */
-	void			jamoma_presetManager_sort_item_callback(TTPtr p_baton, TTValue& data);
+	void			jamoma_callback_sort_item(TTPtr p_baton, TTValue& data);
 	
 	/**  */
-	void			jamoma_presetManager_send_item_callback(TTPtr p_baton, TTValue& data);
+	void			jamoma_callback_send_item(TTPtr p_baton, TTValue& data);
 	
 	
 	// Method to deal with TTInput

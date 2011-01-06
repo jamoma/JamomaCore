@@ -73,7 +73,7 @@ TTErr TTCue::Fill()
 			
 			mAddresses.get(i,(TTSymbolPtr*)&address);
 			newPreset->setAttributeValue(kTTSym_address, address);
-			newPreset->sendMessage(TT("Fill"));
+			newPreset->sendMessage(kTTSym_Fill);
 		}
 	}
 	
