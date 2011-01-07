@@ -54,6 +54,7 @@ private:
 	
 	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mTestObjectCallback;			///< a callback used to test object to store in item or not
+	TTCallbackPtr		mReadItemCallback;				///< a callback used when item's state is read from a file
 	TTCallbackPtr		mUpdateItemCallback;			///< a callback used to update the item's state
 	TTCallbackPtr		mSortItemCallback;				///< a callback used to sort the item list
 	TTCallbackPtr		mSendItemCallback;				///< a callback used to send the item's state

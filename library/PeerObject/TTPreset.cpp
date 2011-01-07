@@ -87,6 +87,7 @@ mAddress(kTTSymEmpty),
 mComment(kTTSymEmpty),
 mApplication(NULL),
 mTestObjectCallback(NULL),
+mReadItemCallback(NULL),
 mUpdateItemCallback(NULL),
 mSortItemCallback(NULL),
 mSendItemCallback(NULL),
@@ -100,13 +101,16 @@ mCurrentItem(kTTSymEmpty)
 	arguments.get(1, (TTPtr*)&mTestObjectCallback);
 	TT_ASSERT("TestObjectCallback passed to TTPreset is not NULL", mTestObjectCallback);
 	
-	arguments.get(2, (TTPtr*)&mUpdateItemCallback);
+	arguments.get(2, (TTPtr*)&mReadItemCallback);
+	TT_ASSERT("ReadItemCallback passed to TTPreset is not NULL", mReadItemCallback);
+	
+	arguments.get(3, (TTPtr*)&mUpdateItemCallback);
 	TT_ASSERT("UpdateItemCallback passed to TTPreset is not NULL", mUpdateItemCallback);
 	
-	arguments.get(3, (TTPtr*)&mSortItemCallback);
+	arguments.get(4, (TTPtr*)&mSortItemCallback);
 	TT_ASSERT("SortItemCallback passed to TTPreset is not NULL", mSortItemCallback);
 	
-	arguments.get(4, (TTPtr*)&mSendItemCallback);
+	arguments.get(5, (TTPtr*)&mSendItemCallback);
 	TT_ASSERT("SendItemCallback passed to TTPreset is not NULL", mSendItemCallback);
 	
 	addAttribute(Name, kTypeSymbol);
@@ -405,6 +409,10 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 							}
 						}
 					}
+					
+					// call the read item callback to allow specific application process
+					mItemTable->lookup(mCurrentItem, v);
+					mReadItemCallback->notify(v);
 				}
 				
 				// if the address doesn't exist

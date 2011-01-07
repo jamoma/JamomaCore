@@ -134,8 +134,10 @@ void cue_build(TTPtr self, SymbolPtr address)
 	TTPtr						context;
 	
 	// add 'cue' after the address
-	cueLevelAddress = address->s_name;
-	cueLevelAddress += "/cue";
+	if (address == _sym_nothing)
+		cueLevelAddress = "/cue";
+	else
+		cueLevelAddress = address->s_name;
 	
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)cueLevelAddress.data())), x->patcherType, &x->subscriberObject);
@@ -143,17 +145,10 @@ void cue_build(TTPtr self, SymbolPtr address)
 	// if the subscription is successful
 	if (x->subscriberObject) {
 		
-		// get the Node (.../cue) and his parent
+		// get the Node address
 		x->subscriberObject->getAttributeValue(TT("node"), n);
 		n.get(0, (TTPtr*)&node);
-		
-		// set the Address attribute of the CueManager if it is empty
-		x->wrappedObject->getAttributeValue(kTTSym_addresses, v);
-		v.get(0, &absoluteAddress);
-		if (absoluteAddress == kTTSymEmpty) {
-			node->getParent()->getOscAddress(&absoluteAddress);
-			x->wrappedObject->setAttributeValue(kTTSym_addresses, absoluteAddress);
-		}
+		node->getParent()->getOscAddress(&absoluteAddress);
 		
 		// attach to the patcher to be notified of his destruction
 		context = node->getContext();
@@ -213,12 +208,12 @@ void cue_build(TTPtr self, SymbolPtr address)
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
-		makeInternals_data(self, absoluteAddress, TT("cue/read"), gensym("cue_read"), context, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TT("read"), gensym("cue_read"), context, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_description, TT("Read a xml cue file"));
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
-		makeInternals_data(self, absoluteAddress, TT("cue/write"), gensym("cue_write"), context, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TT("write"), gensym("cue_write"), context, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_description, TT("Write a xml cue file"));
 		

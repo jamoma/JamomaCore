@@ -24,7 +24,7 @@ mCurrentIndex(0)
 	
 	mPresetArguments = arguments;
 	
-	addAttribute(Addresses, kTypeLocalValue);
+	addAttributeWithSetter(Addresses, kTypeLocalValue);
 	
 	addAttributeWithGetter(Names, kTypeLocalValue);
 	addAttributeProperty(names, readOnly, YES);
@@ -87,6 +87,16 @@ TTCueManager::~TTCueManager()
 	mPresetArguments.get(4, (TTPtr*)&oldCallback);
 	if (oldCallback)
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	
+	mPresetArguments.get(5, (TTPtr*)&oldCallback);
+	if (oldCallback)
+		TTObjectRelease(TTObjectHandle(&oldCallback));
+}
+
+TTErr TTCueManager::setAddresses(const TTValue& value)
+{	
+	mAddresses = value;
+	return kTTErrNone;
 }
 
 TTErr TTCueManager::getNames(TTValue& value)
@@ -189,7 +199,7 @@ TTErr TTCueManager::StoreCurrent()
 	if (!currentCue)
 		return kTTErrGeneric;
 	
-	currentCue->sendMessage(TT("Clear"));
+	currentCue->setAttributeValue(kTTSym_addresses, mAddresses);
 	currentCue->sendMessage(kTTSym_Fill);
 	
 	// notify observers of the cue list

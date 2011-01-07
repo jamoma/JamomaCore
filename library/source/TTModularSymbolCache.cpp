@@ -112,7 +112,7 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_enable					= TT("enable");
 	
-	kTTSym_Fill						= kTTSym_Fill;
+	kTTSym_Fill						= TT("Fill");
 	kTTSym_freeze					= TT("freeze");
 	
 	kTTSym_generic					= TT("generic");

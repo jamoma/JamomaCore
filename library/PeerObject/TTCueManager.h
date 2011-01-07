@@ -37,6 +37,9 @@ private:
 	TTUInt8				mCurrentIndex;					///< ATTRIBUTE : the position of the current cue in the list (from 1 to list size, 0 mean no current index)
 	
 	/** */
+	TTErr setAddresses(const TTValue& value);
+	
+	/** */
 	TTErr New();
 	
 	/** */

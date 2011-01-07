@@ -104,6 +104,9 @@ extern "C" {
 	void			jamoma_callback_test_object(TTPtr p_baton, TTValue& data);
 	
 	/**  */
+	void			jamoma_callback_read_item(TTPtr p_baton, TTValue& data);
+	
+	/**  */
 	void			jamoma_callback_update_item(TTPtr p_baton, TTValue& data);
 	
 	/**  */

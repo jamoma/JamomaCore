@@ -45,6 +45,7 @@
 #include "TTApplication.h"
 #include "TTContainer.h"
 #include "TTCue.h"
+#include "TTCueManager.h"
 #include "TTData.h"
 #include "TTDeviceManager.h"
 #include "TTExplorer.h"

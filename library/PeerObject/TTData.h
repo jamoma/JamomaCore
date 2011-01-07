@@ -53,7 +53,7 @@ private:
 	TTValue			mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
 	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this data's value
-	TTUInt8			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
+	TTInt8			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
 	TTSymbolPtr		mDescription;				///< ATTRIBUTE: text to describe the role of this data
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
 	TTBoolean		mReadonly;					///< ATTRIBUTE: 

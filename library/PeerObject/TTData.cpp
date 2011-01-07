@@ -50,7 +50,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithGetterAndSetter(ValueStepsize, kTypeNone);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
-	addAttribute(Priority, kTypeUInt8);
+	addAttribute(Priority, kTypeInt8);
 	addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	addAttributeWithSetter(Readonly, kTypeBoolean);

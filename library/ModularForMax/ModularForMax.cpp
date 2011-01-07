@@ -518,8 +518,8 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager)
 {
 	TTValue			args;
-	TTObjectPtr		testObjectCallback, updateItemCallback, sortItemCallback, sendItemCallback;
-	TTValuePtr		testObjectBaton, updateItemBaton, sortItemBaton, sendItemBaton;
+	TTObjectPtr		testObjectCallback, readItemCallback, updateItemCallback, sortItemCallback, sendItemCallback;
+	TTValuePtr		testObjectBaton, readItemBaton, updateItemBaton, sortItemBaton, sendItemBaton;
 	TTValue			attr;
 	
 	// prepare arguments
@@ -531,6 +531,13 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 	testObjectCallback->setAttributeValue(kTTSym_baton, TTPtr(testObjectBaton));
 	testObjectCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_test_object));
 	args.append(testObjectCallback);
+	
+	readItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &readItemCallback, kTTValNONE);
+	readItemBaton = new TTValue(TTPtr(x));
+	readItemCallback->setAttributeValue(kTTSym_baton, TTPtr(readItemBaton));
+	readItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_read_item));
+	args.append(readItemCallback);
 	
 	updateItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &updateItemCallback, kTTValNONE);
@@ -563,8 +570,8 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager)
 {
 	TTValue			args;
-	TTObjectPtr		testObjectCallback, updateItemCallback, sortItemCallback, sendItemCallback;
-	TTValuePtr		testObjectBaton, updateItemBaton, sortItemBaton, sendItemBaton;
+	TTObjectPtr		testObjectCallback, readItemCallback, updateItemCallback, sortItemCallback, sendItemCallback;
+	TTValuePtr		testObjectBaton, readItemBaton, updateItemBaton, sortItemBaton, sendItemBaton;
 	TTValue			attr;
 	
 	// prepare arguments
@@ -576,6 +583,13 @@ TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager)
 	testObjectCallback->setAttributeValue(kTTSym_baton, TTPtr(testObjectBaton));
 	testObjectCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_test_object));
 	args.append(testObjectCallback);
+	
+	readItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &readItemCallback, kTTValNONE);
+	readItemBaton = new TTValue(TTPtr(x));
+	readItemCallback->setAttributeValue(kTTSym_baton, TTPtr(readItemBaton));
+	readItemCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_read_item));
+	args.append(readItemCallback);
 	
 	updateItemCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &updateItemCallback, kTTValNONE);
@@ -665,6 +679,49 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 }
 
 /**  */
+void jamoma_callback_read_item(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	ItemPtr		anItem;
+	TTValue		v;
+	TTNodePtr	aNode;
+	TTSymbolPtr absoluteAddress;
+	TTObjectPtr o;
+	
+	// unpack baton (a t_object*)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (an item)
+	data.get(0, (TTPtr*)&anItem);
+	
+	// DATA case : do nothing
+	
+	// VIEWER case : they are replaced by Data
+	// so after reading they should disappear from the preset
+	if (anItem->getType() == TT("Viewer")) {
+		
+		// get address binded by the viewer
+		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
+		v.get(0, &absoluteAddress);
+		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+		
+		// if the address binds on a Data object
+		if (o = aNode->getObject()) {
+			if (o->getName() == TT("Data")) {
+				
+				// replace the Viewer node by the Data node
+				anItem->node = aNode;
+			}
+		}
+		
+		return;
+	}
+}
+
+
+/**  */
 void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
@@ -693,7 +750,8 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 		return;
 	}
 	
-	// VIEWER case
+	// VIEWER case : they are replaced by Data
+	// so after a first update they should disappear from the preset
 	if (anItem->getType() == TT("Viewer")) {
 		
 		// get address binded by the viewer
@@ -704,6 +762,9 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 		// if the address binds on a Data object
 		if (o = aNode->getObject()) {
 			if (o->getName() == TT("Data")) {
+				
+				// replace the Viewer node by the Data node
+				anItem->node = aNode;
 				
 				anItem->set(kTTSym_value);
 				anItem->set(kTTSym_priority);
@@ -725,7 +786,7 @@ void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 	TTValue			hk, v;
 	TTSymbolPtr		key;
 	TTUInt8			i, nbItemToSort, nbItemSorted;
-	TTInt32			p, priority;
+	TTInt8			p, priority;
 	
 	// unpack baton a (t_object*)
 	b = (TTValuePtr)p_baton;
@@ -736,9 +797,10 @@ void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 	
 	anItemKeysSorted = new TTList();
 	
-	// Start by sorting item with priority to 1 
+	// Start by sorting item with priority to -1 
+	//(-1 are for very high priority data like /model/address)
 	// until all item with priority != 0 are sorted
-	priority = 1;
+	priority = -1;
 	nbItemSorted = 0;
 	nbItemToSort = anItemTable->getSize();
 	anItemTable->getKeys(hk);
@@ -764,11 +826,15 @@ void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 			}
 			
 			// ignore item with priority to 0
-			// (do it one time only, when sorting priority == 1)
-			if (priority == 1 && p == 0)
+			// (do it one time only, when sorting priority == -1)
+			if (priority == -1 && p == 0)
 				nbItemToSort--;
 		}
-		priority++;
+		
+		if (priority == -1)
+			priority = 1;
+		else
+			priority++;
 	}
 	
 	// sort item with priority to 0
@@ -815,20 +881,8 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 	if (anItem->getType() == TT("Data"))
 		anItem->send(kTTSym_value);
 	
-	// VIEWER case
-	if (anItem->getType() == TT("Viewer")) {
-		
-		// get object binded by the viewer
-		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
-		v.get(0, &absoluteAddress);
-		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
-		
-		if (o = aNode->getObject())
-			if (o->getName() == TT("Data"))
-				anItem->send(kTTSym_value);
-		
-		return;
-	}
+	// VIEWER case : they should have been replaced by DATA
+
 }
 
 

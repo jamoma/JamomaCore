@@ -253,6 +253,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
 			aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A jmod patcher bind on himself"));
+			aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
 			
 			// In jmod patcher : set /modeladdress with his address
 			if (x->patcherType == TT("jmod"))

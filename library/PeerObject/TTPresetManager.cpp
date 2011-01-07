@@ -87,6 +87,10 @@ TTPresetManager::~TTPresetManager()
 	mPresetArguments.get(4, (TTPtr*)&oldCallback);
 	if (oldCallback)
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	
+	mPresetArguments.get(5, (TTPtr*)&oldCallback);
+	if (oldCallback)
+		TTObjectRelease(TTObjectHandle(&oldCallback));
 }
 
 TTErr TTPresetManager::getNames(TTValue& value)
