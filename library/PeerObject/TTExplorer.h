@@ -43,6 +43,7 @@ private:
 	TTSymbolPtr			mTempParent;					///< remember the parent address (Instances case)
 	TTSymbolPtr			mTempObserve;					///< remember the observed address (Instances case)
 	TTHashPtr			mResult;						///< hash table containing all elements found by the explorer
+	TTValue				mLastResult;					///< keep the last result to filter unchanged list
 		
 	/** */
 	TTErr Explore();

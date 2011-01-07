@@ -41,6 +41,7 @@ mCurrentPreset(kTTSymEmpty)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mPresetTable = new TTHash();	
+	mAddresses = TTValue(kTTSymEmpty);
 }
 
 TTCue::~TTCue()
@@ -87,24 +88,28 @@ TTErr TTCue::Fill()
 TTErr TTCue::Clear()
 {	
 	TTPresetPtr		oldPreset;
-	TTValue			hk, v;
+	TTValue			v;
 	TTSymbolPtr		key;
 	TTUInt8			i;
+	TTErr			err;
 	
-	mPresetTable->getKeys(hk);
-	for (i=0; i<mPresetTable->getSize(); i++) {
-		hk.get(i,(TTSymbolPtr*)&key);
-		mPresetTable->lookup(key, v);
-		v.get(0, (TTPtr*)&oldPreset);
+	for (i=0; i<mAddresses.getSize(); i++) {
+		mAddresses.get(i,(TTSymbolPtr*)&key);
+		err = mPresetTable->lookup(key, v);
 		
-		TTObjectRelease(TTObjectHandle(&oldPreset));
+		if (!err) {
+			v.get(0, (TTPtr*)&oldPreset);
+			
+			if (oldPreset)
+				TTObjectRelease(TTObjectHandle(&oldPreset));
+		}
 	}
 	
 	delete mPresetTable;
 	mPresetTable = NULL;
 	mPresetTable = new TTHash();
 	
-	mAddresses = kTTValNONE;
+	mAddresses = TTValue(kTTSymEmpty);
 	mCurrentPreset = kTTSymEmpty;
 	
 	return kTTErrNone;	
@@ -113,17 +118,21 @@ TTErr TTCue::Clear()
 TTErr TTCue::Update()
 {
 	TTPresetPtr		aPreset;
-	TTValue			hk, v;
+	TTValue			v;
 	TTSymbolPtr		key;
 	TTUInt8			i;
+	TTErr			err;
 	
-	mPresetTable->getKeys(hk);
-	for (i=0; i<mPresetTable->getSize(); i++) {
-		hk.get(i,(TTSymbolPtr*)&key);
-		mPresetTable->lookup(key, v);
-		v.get(0, (TTPtr*)&aPreset);
+	for (i=0; i<mAddresses.getSize(); i++) {
+		mAddresses.get(i,(TTSymbolPtr*)&key);
+		err = mPresetTable->lookup(key, v);
 		
-		aPreset->sendMessage(TT("Update"));
+		if (!err) {
+			v.get(0, (TTPtr*)&aPreset);
+			
+			if (aPreset)
+				aPreset->sendMessage(TT("Update"));
+		}
 	}
 	
 	return kTTErrNone;
@@ -132,17 +141,21 @@ TTErr TTCue::Update()
 TTErr TTCue::Send()
 {
 	TTPresetPtr		aPreset;
-	TTValue			hk, v;
+	TTValue			v;
 	TTSymbolPtr		key;
 	TTUInt8			i;
+	TTErr			err;
 	
-	mPresetTable->getKeys(hk);
-	for (i=0; i<mPresetTable->getSize(); i++) {
-		hk.get(i,(TTSymbolPtr*)&key);
-		mPresetTable->lookup(key, v);
-		v.get(0, (TTPtr*)&aPreset);
+	for (i=0; i<mAddresses.getSize(); i++) {
+		mAddresses.get(i,(TTSymbolPtr*)&key);
+		err = mPresetTable->lookup(key, v);
 		
-		aPreset->sendMessage(TT("Send"));
+		if (!err) {
+			v.get(0, (TTPtr*)&aPreset);
+		
+			if (aPreset)
+				aPreset->sendMessage(TT("Send"));
+		}
 	}
 	
 	return kTTErrNone;
@@ -152,10 +165,12 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTPresetPtr			aPreset;
-	TTValue				hk, v;
+	TTValue				v;
 	TTSymbolPtr			key;
 	TTString			aString;
 	TTUInt8				i;
+	TTErr				err;
+
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	
@@ -166,22 +181,26 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 	xmlTextWriterWriteFormatComment(aXmlHandler->mWriter, "%s", BAD_CAST mComment->getCString());
 	
 	// Write Presets
-	mPresetTable->getKeys(hk);
-	for (i=0; i<mPresetTable->getSize();  i++) {
+	for (i=0; i<mAddresses.getSize();  i++) {
 		
-		hk.get(i, (TTSymbolPtr*)&key);
-		mPresetTable->lookup(key, v);
-		v.get(0, (TTPtr*)&aPreset);
+		mAddresses.get(i, (TTSymbolPtr*)&key);
+		err = mPresetTable->lookup(key, v);
 		
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "preset");
-		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "address", "%s", BAD_CAST key->getCString());
+		if (!err) {
+			v.get(0, (TTPtr*)&aPreset);
 		
-		v = TTValue(TTPtr(aPreset));
-		aXmlHandler->setAttributeValue(kTTSym_object, v);
-		aXmlHandler->sendMessage(TT("Write"));
+			if (aPreset) {
+				xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "preset");
+				xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "address", "%s", BAD_CAST key->getCString());
 		
-		// End a preset
-		xmlTextWriterEndElement(aXmlHandler->mWriter);
+				v = TTValue(TTPtr(aPreset));
+				aXmlHandler->setAttributeValue(kTTSym_object, v);
+				aXmlHandler->sendMessage(TT("Write"));
+		
+				// End a preset
+				xmlTextWriterEndElement(aXmlHandler->mWriter);
+			}
+		}
 	}
 	
 	return kTTErrNone;

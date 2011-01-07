@@ -23,7 +23,8 @@ mReturnValueCallback(NULL),
 mLookforObjectCriteria(NULL),
 mTempNode(NULL),
 mTempName(kTTSymEmpty),
-mResult(NULL)
+mResult(NULL),
+mLastResult(kTTValNONE)
 {
 	arguments.get(0, (TTPtr*)&mApplication);
 	TT_ASSERT("Application passed to TTPreset is not NULL", mApplication);
@@ -131,6 +132,7 @@ TTErr TTExplorer::Explore()
 	TTErr		err;
 	
 	mResult->clear();
+	mLastResult = kTTValNONE;
 	mTempNode = NULL;
 	
 	// bind the right node
@@ -197,7 +199,10 @@ TTErr TTExplorer::Explore()
 		v.clear();
 		if (mReturnValueCallback) {
 			mResult->getKeys(v);
-			mReturnValueCallback->notify(v);
+			if (!(v == mLastResult)) {
+				mReturnValueCallback->notify(v);
+				mLastResult = v;
+			}
 		}
 		
 	}
@@ -519,7 +524,10 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	// Return the value result back
 	if (anExplorer->mReturnValueCallback) {
 		anExplorer->mResult->getKeys(v);
-		anExplorer->mReturnValueCallback->notify(v);
+		if (!(v == anExplorer->mLastResult)) {
+			anExplorer->mReturnValueCallback->notify(v);
+			anExplorer->mLastResult = v;
+		}
 	}
 	
 	return kTTErrNone;

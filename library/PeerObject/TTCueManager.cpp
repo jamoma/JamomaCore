@@ -57,6 +57,7 @@ mCurrentIndex(0)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mCueList = new TTList();
+	mAddresses = TTValue(kTTSymEmpty);
 }
 
 TTCueManager::~TTCueManager()
@@ -141,6 +142,7 @@ TTErr TTCueManager::New()
 	mCueList = NULL;
 	mCueList = new TTList();
 	mCurrentIndex = 0;
+	mAddresses = TTValue(kTTSymEmpty);
 	
 	// notify observers of the cue list
 	notifyNamesObservers();
@@ -194,11 +196,13 @@ TTErr TTCueManager::Store(const TTValue& value)
 TTErr TTCueManager::StoreCurrent()
 {
 	TTCuePtr currentCue;
+	TTValue	newAddresses = mAddresses;	// to don't store with the current cue addresses
 	
 	currentCue = getCueCurrent();
 	if (!currentCue)
 		return kTTErrGeneric;
 	
+	mAddresses = newAddresses;
 	currentCue->setAttributeValue(kTTSym_addresses, mAddresses);
 	currentCue->sendMessage(kTTSym_Fill);
 	
@@ -500,6 +504,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 	// Ends reading
 	if (aXmlHandler->mXmlNodeName == TT("end")) {
 		mCurrentIndex = 1;
+		getCueCurrent()->getAttributeValue(kTTSym_addresses, mAddresses);
 		
 		// notify observers of the cue list
 		notifyNamesObservers();
@@ -626,6 +631,7 @@ TTCuePtr TTCueManager::getCueCurrent()
 	}
 	
 	mCurrentIndex = i;
+	aCue->getAttributeValue(kTTSym_addresses, mAddresses);
 	return aCue;
 }
 
@@ -660,10 +666,12 @@ TTCuePtr TTCueManager::getCueWithName(TTSymbolPtr name)
 	
 	if (found) {
 		mCurrentIndex = i;
+		aCue->getAttributeValue(kTTSym_addresses, mAddresses);
 		return aCue;
 	}
 	else {
 		mCurrentIndex = 0;
+		mAddresses = kTTValNONE;
 		return NULL;
 	}
 }
