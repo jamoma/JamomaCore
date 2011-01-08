@@ -22,16 +22,18 @@
 class Item
 	{
 	public :
+		TTObjectPtr manager;
 		TTNodePtr	node;
 		TTHashPtr	state;
 		
-		Item(TTNodePtr aNode);
+		Item(TTObjectPtr aManager, TTNodePtr aNode);
 		~Item();
 		
 		TTSymbolPtr getType();
 		
 		TTErr clear();
-		TTErr set(TTSymbolPtr attributeName);
+		TTErr update(TTSymbolPtr attributeName);
+		TTErr set(TTSymbolPtr attributeName, const TTValue& value);
 		TTErr get(TTSymbolPtr attributeName, TTValue& value);
 		TTErr send(TTSymbolPtr attributeName);
 	};
@@ -53,6 +55,7 @@ public:		// use public to allow PresetManager to have a direct access
 private:	
 	
 	TTApplicationPtr	mApplication;					///< the application
+	TTObjectPtr			mManager;						///< the object which is currently managing this preset
 	TTCallbackPtr		mTestObjectCallback;			///< a callback used to test object to store in item or not
 	TTCallbackPtr		mReadItemCallback;				///< a callback used when item's state is read from a file
 	TTCallbackPtr		mUpdateItemCallback;			///< a callback used to update the item's state

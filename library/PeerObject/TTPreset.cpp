@@ -13,8 +13,11 @@
 #define thisTTClassTags		"preset"
 
 // Item CONSTRUCTOR / DESTRUCTOR
-Item::Item(TTNodePtr aNode)
+Item::Item(TTObjectPtr aManager, TTNodePtr aNode)
 {
+	// Set manager
+	manager = aManager;
+	
 	// Set node
 	node = aNode;
 
@@ -42,7 +45,7 @@ TTErr Item::clear()
 	return state->clear();
 }
 
-TTErr Item::set(TTSymbolPtr attributeName)
+TTErr Item::update(TTSymbolPtr attributeName)
 {
 	TTObjectPtr o;
 	TTValue v;
@@ -57,6 +60,11 @@ TTErr Item::set(TTSymbolPtr attributeName)
 		return kTTErrGeneric;
 	
 	return state->append(attributeName, v);
+}
+
+TTErr Item::set(TTSymbolPtr attributeName, const TTValue& value)
+{
+	return state->append(attributeName, value);
 }
 
 TTErr Item::get(TTSymbolPtr attributeName, TTValue& value)
@@ -86,6 +94,7 @@ mName(kTTSymEmpty),
 mAddress(kTTSymEmpty),
 mComment(kTTSymEmpty),
 mApplication(NULL),
+mManager(NULL),
 mTestObjectCallback(NULL),
 mReadItemCallback(NULL),
 mUpdateItemCallback(NULL),
@@ -112,6 +121,9 @@ mCurrentItem(kTTSymEmpty)
 	
 	arguments.get(5, (TTPtr*)&mSendItemCallback);
 	TT_ASSERT("SendItemCallback passed to TTPreset is not NULL", mSendItemCallback);
+	
+	arguments.get(6, (TTPtr*)&mManager);
+	TT_ASSERT("Manager passed to TTPreset is not NULL", mManager);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
@@ -172,7 +184,7 @@ TTErr TTPreset::Fill()
 		
 		allObjectNodes.current().get(0, (TTPtr*)&aNode);
 		aNode->getOscAddress(&aRelativeAddress, mAddress);
-		aNewItem = new Item(aNode);
+		aNewItem = new Item(mManager, aNode);
 		
 		mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
 		mItemKeysSorted->appendUnique(new TTValue(aRelativeAddress));
@@ -385,7 +397,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 				
 				// if the address exist
 				if (!err) {
-					anItem = new Item(aNode);
+					anItem = new Item(mManager, aNode);
 					mItemTable->append(mCurrentItem, TTValue((TTPtr)anItem));
 					mItemKeysSorted->append(new TTValue(mCurrentItem));
 					

@@ -29,9 +29,10 @@ class TTMODULAR_EXPORT TTCue : public TTObject
 public:		// use public to allow CueManager to have a direct access
 	
 	TTSymbolPtr			mName;							///< ATTRIBUTE: the name of the cue
-	TTValue				mAddresses;						///< ATTRIBUTE : all addresses to store into presets
+	TTUInt32			mRamp;							///< ATTRIBUTE:	a global ramp time use to send the cue (in millisecond)
 	TTSymbolPtr			mComment;						///< ATTRIBUTE: a comment for the cue
-
+	TTValue				mAddresses;						///< ATTRIBUTE : all addresses to store into presets
+	
 private:
 	
 	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)

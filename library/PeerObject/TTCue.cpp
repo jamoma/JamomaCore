@@ -14,8 +14,9 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
-mAddresses(kTTValNONE),
+mRamp(0),
 mComment(kTTSymEmpty),
+mAddresses(kTTValNONE),
 mPresetArguments(kTTValNONE),
 mPresetTable(NULL),
 mCurrentPreset(kTTSymEmpty)
@@ -23,10 +24,13 @@ mCurrentPreset(kTTSymEmpty)
 	TTValue v;
 	
 	mPresetArguments = arguments;
+	mPresetArguments.append((TTPtr)this);	// append the preset manager object (here this cue) as argument
 	
 	addAttribute(Name, kTypeSymbol);
-	addAttributeWithSetter(Addresses, kTypeLocalValue);
+	addAttribute(Ramp, kTypeUInt32);
 	addAttribute(Comment, kTypeSymbol);
+	addAttributeWithSetter(Addresses, kTypeLocalValue);
+
 	addAttribute(PresetTable, kTypePointer);
 	addAttributeProperty(presetTable, readOnly, YES);
 	
@@ -101,7 +105,8 @@ TTErr TTCue::Clear()
 			v.get(0, (TTPtr*)&oldPreset);
 			
 			if (oldPreset)
-				TTObjectRelease(TTObjectHandle(&oldPreset));
+				if (oldPreset->valid)
+					TTObjectRelease(TTObjectHandle(&oldPreset));
 		}
 	}
 	
@@ -176,6 +181,9 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 	
 	// Write name attribute
 	xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST mName->getCString());
+	
+	// Write ramp attribute
+	xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "ramp", "%ld", BAD_CAST mRamp);
 	
 	// Write comment attribute
 	xmlTextWriterWriteFormatComment(aXmlHandler->mWriter, "%s", BAD_CAST mComment->getCString());

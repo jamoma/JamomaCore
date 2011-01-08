@@ -41,6 +41,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Get;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_global;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_instances;
@@ -117,6 +118,7 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_generic					= TT("generic");
 	kTTSym_Get						= TT("Get");
+	kTTSym_global					= TT("global");
 	
 	kTTSym_initialized				= TT("initialized");
 	kTTSym_instances				= TT("instances");

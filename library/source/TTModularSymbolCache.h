@@ -40,6 +40,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Get;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_global;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_instances;

@@ -16,6 +16,8 @@ TT_MODULAR_CONSTRUCTOR,
 mAddresses(kTTValNONE),
 mNames(kTTValNONE),
 mCurrent(kTTValNONE),
+mPrevious(kTTValNONE),
+mNext(kTTValNONE),
 mPresetArguments(kTTValNONE),
 mCueList(NULL),
 mCurrentIndex(0)
@@ -31,6 +33,12 @@ mCurrentIndex(0)
 	
 	addAttributeWithGetter(Current, kTypeLocalValue);
 	addAttributeProperty(current, readOnly, YES);
+	
+	addAttributeWithGetter(Previous, kTypeLocalValue);
+	addAttributeProperty(previous, readOnly, YES);
+	
+	addAttributeWithGetter(Next, kTypeLocalValue);
+	addAttributeProperty(next, readOnly, YES);
 	
 	addMessage(New);
 	
@@ -124,7 +132,47 @@ TTErr TTCueManager::getCurrent(TTValue& value)
 	if (aCue) {
 		value.append(mCurrentIndex);
 		value.append(aCue->mName);
+		value.append(aCue->mRamp);
+		value.append(aCue->mComment);
 	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTCueManager::getPrevious(TTValue& value)
+{	
+	TTCuePtr previousCue;
+	
+	mCurrentIndex--;
+	previousCue = getCueCurrent();
+	
+	if (previousCue) {
+		value.append(mCurrentIndex);
+		value.append(previousCue->mName);
+		value.append(previousCue->mRamp);
+		value.append(previousCue->mComment);
+	}
+	
+	mCurrentIndex++;
+	
+	return kTTErrNone;
+}
+
+TTErr TTCueManager::getNext(TTValue& value)
+{	
+	TTCuePtr nextCue;
+	
+	mCurrentIndex++;
+	nextCue = getCueCurrent();
+	
+	if (nextCue) {
+		value.append(mCurrentIndex);
+		value.append(nextCue->mName);
+		value.append(nextCue->mRamp);
+		value.append(nextCue->mComment);
+	}
+	
+	mCurrentIndex--;
 	
 	return kTTErrNone;
 }
@@ -154,6 +202,7 @@ TTErr TTCueManager::Store(const TTValue& value)
 {
 	TTUInt8		index;
 	TTSymbolPtr	cueName = kTTSymEmpty;
+	TTUInt32	rampTime;
 	TTCuePtr	newCue = NULL;
 	TTValue		args;
 	
@@ -175,11 +224,22 @@ TTErr TTCueManager::Store(const TTValue& value)
 	else
 		return kTTErrGeneric;
 	
+	// Third arg (optional) : ramp time
+	if (value.getSize() > 2)
+		if (value.getType(2) == kTypeInt32) {
+			value.get(2, rampTime);
+			if (rampTime < 0)
+				return kTTErrGeneric;
+		}
+		else
+			return kTTErrGeneric;
+	
 	// Create a new cue
 	TTObjectInstantiate(TT("Cue"), TTObjectHandle(&newCue), mPresetArguments);
 	
 	newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 	newCue->setAttributeValue(kTTSym_name, cueName);
+	newCue->setAttributeValue(kTTSym_ramp, rampTime);
 	
 	newCue->sendMessage(kTTSym_Fill);
 	
@@ -215,6 +275,7 @@ TTErr TTCueManager::StoreCurrent()
 TTErr TTCueManager::StoreNext(const TTValue& value)
 {
 	TTSymbolPtr	cueName = kTTSymEmpty;
+	TTUInt32	rampTime;
 	TTCuePtr	newCue = NULL;
 	TTValue		args;
 	
@@ -227,11 +288,22 @@ TTErr TTCueManager::StoreNext(const TTValue& value)
 	else
 		return kTTErrGeneric;
 	
+	// Second arg (optional) : ramp time
+	if (value.getSize() > 1)
+		if (value.getType(1) == kTypeInt32) {
+			value.get(1, rampTime);
+			if (rampTime < 0)
+				return kTTErrGeneric;
+		}
+		else
+			return kTTErrGeneric;
+	
 	// Create a new cue
 	TTObjectInstantiate(TT("Cue"), TTObjectHandle(&newCue), mPresetArguments);
 	
 	newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 	newCue->setAttributeValue(kTTSym_name, cueName);
+	newCue->setAttributeValue(kTTSym_ramp, rampTime);
 	
 	newCue->sendMessage(kTTSym_Fill);
 	
@@ -248,6 +320,7 @@ TTErr TTCueManager::StoreNext(const TTValue& value)
 TTErr TTCueManager::StorePrevious(const TTValue& value)
 {
 	TTSymbolPtr	cueName = kTTSymEmpty;
+	TTUInt32	rampTime;
 	TTCuePtr	newCue = NULL;
 	TTValue		args;
 	
@@ -260,11 +333,22 @@ TTErr TTCueManager::StorePrevious(const TTValue& value)
 	else
 		return kTTErrGeneric;
 	
+	// Second arg (optional) : ramp time
+	if (value.getSize() > 1)
+		if (value.getType(1) == kTypeInt32) {
+			value.get(1, rampTime);
+			if (rampTime < 0)
+				return kTTErrGeneric;
+		}
+		else
+			return kTTErrGeneric;
+	
 	// Create a new cue
 	TTObjectInstantiate(TT("Cue"), TTObjectHandle(&newCue), mPresetArguments);
 	
 	newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 	newCue->setAttributeValue(kTTSym_name, cueName);
+	newCue->setAttributeValue(kTTSym_ramp, rampTime);
 	
 	newCue->sendMessage(kTTSym_Fill);
 	
@@ -486,6 +570,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		cueName;
 	TTUInt8			cueNumber;
+	TTUInt32		cueRamp;
 	TTCuePtr		newCue, currentCue;
 	TTValue			v, args;
 	
@@ -537,6 +622,13 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 				v.get(0, &cueName);
 		}
 		
+		// get ramp
+		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "ramp") == 1) {
+			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+			if (v.getType() == kTypeInt32)
+				v.get(0, cueRamp);
+		}
+		
 		// Is it the beginning of a new cue or the end of one ?
 		if (currentCue)
 			if (cueName == currentCue->mName && cueNumber == mCurrentIndex)
@@ -548,6 +640,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 		
 		newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 		newCue->setAttributeValue(kTTSym_name, cueName);
+		newCue->setAttributeValue(kTTSym_ramp, cueRamp);
 		
 		mCueList->append(new TTValue((TTPtr)newCue));
 		

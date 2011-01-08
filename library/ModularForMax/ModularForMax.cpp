@@ -726,10 +726,11 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
+	TTUInt32	ramp;
 	ItemPtr		anItem;
-	TTValue		v;
+	TTValue		v, r;
 	TTNodePtr	aNode;
-	TTSymbolPtr absoluteAddress;
+	TTSymbolPtr type, absoluteAddress;
 	TTObjectPtr o;
 	
 	// unpack baton (a t_object*)
@@ -745,8 +746,21 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 	// DATA case
 	if (anItem->getType() == TT("Data")) {
 		
-		anItem->set(kTTSym_value);
-		anItem->set(kTTSym_priority);
+		anItem->update(kTTSym_value);
+		anItem->update(kTTSym_priority);
+		
+		// If the manager have a ramp attribute
+		if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
+			
+			// for integer and decimal data
+			anItem->node->getObject()->getAttributeValue(kTTSym_type, v);
+			v.get(0, &type);
+			
+			// set ramp time as global
+			if (type == kTTSym_integer || type == kTTSym_decimal)
+				anItem->set(kTTSym_ramp, kTTSym_global);
+		}
+		
 		return;
 	}
 	
@@ -766,8 +780,20 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 				// replace the Viewer node by the Data node
 				anItem->node = aNode;
 				
-				anItem->set(kTTSym_value);
-				anItem->set(kTTSym_priority);
+				anItem->update(kTTSym_value);
+				anItem->update(kTTSym_priority);
+				
+				// If the manager have a ramp attribute
+				if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
+					
+					// for integer and decimal data
+					anItem->node->getObject()->getAttributeValue(kTTSym_type, v);
+					v.get(0, &type);
+					
+					// set ramp time as global
+					if (type == kTTSym_integer || type == kTTSym_decimal)
+						anItem->set(kTTSym_ramp, kTTSym_global);
+				}
 			}
 		}
 		
@@ -864,11 +890,10 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
+	TTUInt32	ramp;
+	TTSymbolPtr rampSymbol;
 	ItemPtr		anItem;
-	TTValue		v;
-	TTNodePtr	aNode;
-	TTSymbolPtr absoluteAddress;
-	TTObjectPtr o;
+	TTValue		v, r;
 	
 	// unpack baton a t_object*)
 	b = (TTValuePtr)p_baton;
@@ -878,8 +903,37 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 	data.get(0, (TTPtr*)&anItem);
 	
 	// DATA case
-	if (anItem->getType() == TT("Data"))
-		anItem->send(kTTSym_value);
+	if (anItem->getType() == TT("Data")) {
+		
+		// if the item have a ramp state
+		if (!anItem->get(kTTSym_ramp, r)) {
+			
+			// prepare a command
+			anItem->get(kTTSym_value, v);
+			v.append(kTTSym_ramp);
+			
+			// Is ramp specific to the item ?
+			if (r.getType() == kTypeUInt32)
+				r.get(0, ramp);
+			
+			// or global ?
+			else if (r.getType() == kTypeSymbol) {
+				r.get(0, &rampSymbol);
+				if (rampSymbol == kTTSym_global)
+					if (!anItem->manager->getAttributeValue(kTTSym_ramp, r))
+						r.get(0, ramp);
+			}
+			
+			// or no
+			else
+				anItem->send(kTTSym_value);
+				
+			v.append(ramp);
+			anItem->node->getObject()->sendMessage(kTTSym_Command, v);
+		}
+		else
+			anItem->send(kTTSym_value);
+	}
 	
 	// VIEWER case : they should have been replaced by DATA
 

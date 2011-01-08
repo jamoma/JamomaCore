@@ -16,6 +16,8 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
 mNames(kTTValNONE),
 mCurrent(kTTValNONE),
+mPrevious(kTTValNONE),
+mNext(kTTValNONE),
 mPresetArguments(kTTValNONE),
 mPresetList(NULL),
 mCurrentIndex(0)
@@ -23,6 +25,7 @@ mCurrentIndex(0)
 	TTValue v;
 	
 	mPresetArguments = arguments;
+	mPresetArguments.append((TTPtr)this);	// append the preset manager object as argument
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -31,6 +34,12 @@ mCurrentIndex(0)
 	
 	addAttributeWithGetter(Current, kTypeLocalValue);
 	addAttributeProperty(current, readOnly, YES);
+	
+	addAttributeWithGetter(Previous, kTypeLocalValue);
+	addAttributeProperty(previous, readOnly, YES);
+	
+	addAttributeWithGetter(Next, kTypeLocalValue);
+	addAttributeProperty(next, readOnly, YES);
 	
 	addMessage(New);
 	
@@ -117,7 +126,44 @@ TTErr TTPresetManager::getCurrent(TTValue& value)
 	if (aPreset) {
 		value.append(mCurrentIndex);
 		value.append(aPreset->mName);
+		value.append(aPreset->mComment);
 	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTPresetManager::getPrevious(TTValue& value)
+{	
+	TTPresetPtr previousPreset;
+	
+	mCurrentIndex--;
+	previousPreset = getPresetCurrent();
+	
+	if (previousPreset) {
+		value.append(mCurrentIndex);
+		value.append(previousPreset->mName);
+		value.append(previousPreset->mComment);
+	}
+	
+	mCurrentIndex++;
+	
+	return kTTErrNone;
+}
+
+TTErr TTPresetManager::getNext(TTValue& value)
+{	
+	TTPresetPtr nextPreset;
+	
+	mCurrentIndex++;
+	nextPreset = getPresetCurrent();
+	
+	if (nextPreset) {
+		value.append(mCurrentIndex);
+		value.append(nextPreset->mName);
+		value.append(nextPreset->mComment);
+	}
+	
+	mCurrentIndex--;
 	
 	return kTTErrNone;
 }

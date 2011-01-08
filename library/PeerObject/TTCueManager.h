@@ -30,7 +30,9 @@ private:
 	
 	TTValue				mAddresses;						///< ATTRIBUTE : all addresses to store into presets
 	TTValue				mNames;							///< ATTRIBUTE : all cue names
-	TTValue				mCurrent;						///< ATTRIBUTE : <index, name> of the current cue
+	TTValue				mCurrent;						///< ATTRIBUTE : <index, name, ramp, comment> of the current cue
+	TTValue				mPrevious;						///< ATTRIBUTE : <index, name, ramp, comment> of the previous cue
+	TTValue				mNext;							///< ATTRIBUTE : <index, name, ramp, comment> of the next cue
 
 	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)
 	TTListPtr			mCueList;						///< a list containing <TTCuePtr> sorted by Number attribute
@@ -91,6 +93,12 @@ private:
 	
 	/** */
 	TTErr getCurrent(TTValue& value);
+	
+	/** */
+	TTErr getPrevious(TTValue& value);
+	
+	/** */
+	TTErr getNext(TTValue& value);
 	
 	/** */
 	TTCuePtr getCueCurrent();
