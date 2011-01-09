@@ -1,5 +1,5 @@
 /* 
- * TTMatrix Object
+ * Object that appends keys/values to a dictionary
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
