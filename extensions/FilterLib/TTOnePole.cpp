@@ -101,7 +101,7 @@ TTErr TTOnePole::setFrequency(const TTValue& newValue)
 	mFrequency = newValue;
 	radians = hertzToRadians(mFrequency);
 
-	mLowpassCoefficient = TTClip(radians / kTTPi, 0.0, 1.0);	
+	mLowpassCoefficient = sin(radians);
 	mOneMinusLowpassCoefficient = 1.0 - mLowpassCoefficient;
 	
 	mHighpassCoefficient = -mOneMinusLowpassCoefficient;
@@ -120,7 +120,9 @@ TTErr TTOnePole::setCoefficient(const TTValue& newValue)
 	
 	mHighpassCoefficient = -mOneMinusLowpassCoefficient;
 	mOneMinusHighpassCoefficient = -mLowpassCoefficient;
-		
+	
+	// FIXME: this isn't really accurate -- the frequency uses a trig function
+	
 	radians = mLowpassCoefficient * kTTPi;
 	mFrequency = radiansToHertz(radians);
 	return kTTErrNone;
