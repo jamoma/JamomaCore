@@ -176,6 +176,7 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	}
 	else {
 		// not sure what to do with other dictionary schemas yet...
+		(*mDictionary) = aDictionary;
 	}
 	
 	for (TTGraphOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++)
