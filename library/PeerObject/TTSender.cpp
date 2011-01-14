@@ -77,7 +77,7 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 TTErr TTSender::Send(TTValue& valueToSend)
 {
 	TTObjectPtr		anObject;
-	TTValue			aCacheElement;
+	TTValue			aCacheElement, v;
 	
 	if (mAddress == kTTSymEmpty)
 		return kTTErrGeneric;
@@ -98,9 +98,14 @@ TTErr TTSender::Send(TTValue& valueToSend)
 				aCacheElement.get(0, (TTPtr*)&anObject);
 				
 				if (anObject) {
-					
+					// DeviceManager case : need address & value
+					if (anObject->getName() == TT("Device")) {
+						v.append(mAddress);
+						v.append(&valueToSend);
+						anObject->sendMessage(kTTSym_Command, v);
+					}
 					// DATA CASE for value attribute
-					if (anObject->getName() == TT("Data") && mAttribute == kTTSym_value) {
+					else if (anObject->getName() == TT("Data") && mAttribute == kTTSym_value) {
 						// set the value attribute using a command
 						anObject->sendMessage(kTTSym_Command, valueToSend);
 					}

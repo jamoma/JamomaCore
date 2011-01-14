@@ -1,6 +1,6 @@
 /* 
  * A MapperManager Object
- * Copyright � 2010, Laurent Garnier
+ * Copyright © 2010, Laurent Garnier
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD

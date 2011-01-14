@@ -33,9 +33,12 @@ mInputRangeObserver(NULL),
 mOutputRangeObserver(NULL),
 mObserveInputRange(true),
 mObserveOutputRange(true),
-mReturnValueCallback(NULL),
+mReturnValueCallback(NULL)
+#ifdef TTDSP
+,
 mFunctionUnit(NULL),
 mValid(NO)
+#endif
 {	
 	arguments.get(0, (TTPtr*)&mApplication);
 	TT_ASSERT("Application passed to TTMapper is not NULL", mApplication);
@@ -75,7 +78,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 {
 	long		n;
 	TTSymbolPtr	aName;
-	
+#ifdef TTDSP	
 	if (mFunctionUnit) {
 		
 		// Remove former datas
@@ -90,7 +93,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 		mFunction = kTTSymEmpty;
 		mFunctionParameters.clear();
 	}
-	
+#endif	
 	if (mReturnValueCallback)
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 	
@@ -363,7 +366,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	long		n;
 	TTValue		names;
 	TTSymbolPtr	aName;
-	
+#ifdef TTDSP	
 	if (mFunctionUnit) {
 
 		// Remove former datas
@@ -408,7 +411,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		notifyObservers(TT("functionParameters"), mFunctionParameters);
 		return kTTErrNone;
 	}
-	
+#endif	
 	return kTTErrGeneric;
 }
 
@@ -506,11 +509,12 @@ TTErr TTMapper::processMapping(TTValue& value)
 		value.get(i, f);
 		in.append(mA * f + mB);
 	}
-
+#ifdef TTDSP
 	// process function
 	if (mFunctionUnit)
 		mFunctionUnit->calculate(in, out);
 	else
+#endif		
 		out = in;
 	
 	value.clear();

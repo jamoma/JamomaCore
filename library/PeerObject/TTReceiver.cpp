@@ -188,7 +188,7 @@ TTErr TTReceiver::Get()
 			// get the value of the attribute
 			if (anObject = aNode->getObject()) {
 				
-				err = anObject->getAttributeValue(mAttribute, data);
+				err = anObject->getAttributeValue(mAttribute, data); 
 				
 				if (!err) {
 					

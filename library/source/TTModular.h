@@ -35,7 +35,10 @@
 #include <math.h>
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
+
+#ifdef TTDSP
 #include "TTDSP.h"
+#endif
 
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
@@ -45,6 +48,7 @@
 #include "TTApplication.h"
 #include "TTContainer.h"
 #include "TTData.h"
+#include "TTDevice.h"
 #include "TTDeviceManager.h"
 #include "TTExplorer.h"
 #include "TTInput.h"

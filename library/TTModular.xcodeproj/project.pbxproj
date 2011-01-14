@@ -24,6 +24,11 @@
 		224B09C211DEA32100B6EF48 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F7E79907B2D74100F64583 /* CoreData.framework */; };
 		224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
+		4D0D37EA12D617CE000CC332 /* TTDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0D37E812D617CE000CC332 /* TTDevice.h */; };
+		4D0D37EB12D617CE000CC332 /* TTDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D0D37E912D617CE000CC332 /* TTDevice.cpp */; };
+		4D6307B212DC722200BE0ABB /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6307B112DC722200BE0ABB /* Plugin.h */; };
+		4D9726AD12DB681F00CE301C /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D9726AB12DB681F00CE301C /* PluginFactories.cpp */; };
+		4D9726AE12DB681F00CE301C /* PluginFactories.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9726AC12DB681F00CE301C /* PluginFactories.h */; };
 		4DF70AEE12CB9C9F00AEABFC /* TTOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = D2ADBFF7127DFBC900979D42 /* TTOutput.h */; };
 		4DF70AEF12CB9C9F00AEABFC /* TTXmlHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88271213F47D0090DE41 /* TTXmlHandler.h */; };
 		4DF70AF012CB9C9F00AEABFC /* TTSender.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CA88231213F47D0090DE41 /* TTSender.h */; };
@@ -101,6 +106,11 @@
 		22D7F5F10D105827009E4AF4 /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataspaceLib.h; path = DataspaceLib/DataspaceLib.h; sourceTree = "<group>"; };
 		22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TemperatureDataspace.cpp; path = DataspaceLib/TemperatureDataspace.cpp; sourceTree = "<group>"; };
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		4D0D37E812D617CE000CC332 /* TTDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDevice.h; sourceTree = "<group>"; };
+		4D0D37E912D617CE000CC332 /* TTDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDevice.cpp; sourceTree = "<group>"; };
+		4D6307B112DC722200BE0ABB /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = PeerObject/Plugin.h; sourceTree = "<group>"; };
+		4D9726AB12DB681F00CE301C /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PluginFactories.cpp; path = PeerObject/PluginFactories.cpp; sourceTree = "<group>"; };
+		4D9726AC12DB681F00CE301C /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PluginFactories.h; path = PeerObject/PluginFactories.h; sourceTree = "<group>"; };
 		4DF70B1212CB9CE700AEABFC /* TTModular.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = TTModular.xcconfig; sourceTree = "<group>"; };
 		66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PositionDataspace.cpp; path = DataspaceLib/PositionDataspace.cpp; sourceTree = "<group>"; };
 		66D9A1F60D21F49300A16E9A /* PositionDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PositionDataspace.h; path = DataspaceLib/PositionDataspace.h; sourceTree = "<group>"; };
@@ -189,6 +199,7 @@
 				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				D2CA88391213F4F60090DE41 /* DeviceManagerLib */,
+				4D9726BC12DB6D5500CE301C /* PluginLib */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -272,6 +283,16 @@
 			name = Headers;
 			sourceTree = "<group>";
 		};
+		4D9726BC12DB6D5500CE301C /* PluginLib */ = {
+			isa = PBXGroup;
+			children = (
+				4D6307B112DC722200BE0ABB /* Plugin.h */,
+				4D9726AB12DB681F00CE301C /* PluginFactories.cpp */,
+				4D9726AC12DB681F00CE301C /* PluginFactories.h */,
+			);
+			name = PluginLib;
+			sourceTree = "<group>";
+		};
 		D2CA88111213F47D0090DE41 /* PeerObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +302,8 @@
 				D2CA88121213F47D0090DE41 /* TTContainer.cpp */,
 				D2AB7E75123FC21E00DAD340 /* TTData.h */,
 				D2AB7E74123FC21E00DAD340 /* TTData.cpp */,
+				4D0D37E812D617CE000CC332 /* TTDevice.h */,
+				4D0D37E912D617CE000CC332 /* TTDevice.cpp */,
 				D2CA88151213F47D0090DE41 /* TTDeviceManager.h */,
 				D2CA88141213F47D0090DE41 /* TTDeviceManager.cpp */,
 				D2CA88171213F47D0090DE41 /* TTExplorer.h */,
@@ -359,6 +382,9 @@
 				4DF70AFC12CB9C9F00AEABFC /* TTExplorer.h in Headers */,
 				4DF70AFD12CB9C9F00AEABFC /* TTDeviceManager.h in Headers */,
 				4DF70AFE12CB9C9F00AEABFC /* TTSubscriber.h in Headers */,
+				4D0D37EA12D617CE000CC332 /* TTDevice.h in Headers */,
+				4D9726AE12DB681F00CE301C /* PluginFactories.h in Headers */,
+				4D6307B212DC722200BE0ABB /* Plugin.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +465,8 @@
 				D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */,
 				D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */,
 				D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */,
+				4D0D37EB12D617CE000CC332 /* TTDevice.cpp in Sources */,
+				4D9726AD12DB681F00CE301C /* PluginFactories.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
