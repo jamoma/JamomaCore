@@ -32,11 +32,6 @@ TT_OBJECT_CONSTRUCTOR,
 		logError("err %ld from Pm_Initialize()", err);
 	}
 	
-//	mPollingThread = new TTThread;
-	
-//	mCallbackObservers = new TTList;
-//	mCallbackObservers->setThreadProtection(NO);	// ... because we make calls into this at very high speeds
-
 	addAttribute(Owner,				kTypePointer);
 	addAttributeWithSetter(Device,	kTypeSymbol);
 	
@@ -54,24 +49,7 @@ TTMidiInput::~TTMidiInput()
 	if (mPollingThread)
 		mPollingThread->wait();
 	delete mPollingThread;
-	
-//	delete mCallbackObservers;
 }
-
-
-
-//TTErr TTMidiInput::addCallbackObserver(const TTValue& objectToReceiveNotifications)
-//{
-//	mCallbackObservers->append(objectToReceiveNotifications);
-//	return kTTErrNone;
-//}
-
-
-//TTErr TTMidiInput::removeCallbackObserver(const TTValue& objectCurrentlyReceivingNotifications)
-//{
-//	mCallbackObservers->remove(objectCurrentlyReceivingNotifications);
-//	return kTTErrNone;
-//}
 
 
 TTErr TTMidiInput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
@@ -191,8 +169,4 @@ TTErr TTMidiInput::setDevice(TTValue& newDeviceName)
 	}
 	return kTTErrNone;
 }
-
-
-
-
 
