@@ -15,6 +15,7 @@
 		2287F7E912DAA69C006CE3AB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2287F7E612DAA69C006CE3AB /* CoreAudio.framework */; };
 		2287FD8E12E0B05D006CE3AB /* JamomaGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2287FD8C12E0B05D006CE3AB /* JamomaGraph.dylib */; };
 		2287FD8F12E0B05D006CE3AB /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2287FD8D12E0B05D006CE3AB /* JamomaDSP.dylib */; };
+		2287FF1D12E100F4006CE3AB /* TTMidiOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2287FF1C12E100F4006CE3AB /* TTMidiOutput.cpp */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,8 @@
 		2287FD7E12E0B002006CE3AB /* JamomaGraphExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaGraphExtensions.xcconfig; path = ../JamomaGraphExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		2287FD8C12E0B05D006CE3AB /* JamomaGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraph.dylib; path = ../../library/build/UninstalledProducts/JamomaGraph.dylib; sourceTree = SOURCE_ROOT; };
 		2287FD8D12E0B05D006CE3AB /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		2287FF1B12E100E1006CE3AB /* TTMidiOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMidiOutput.h; path = includes/TTMidiOutput.h; sourceTree = "<group>"; };
+		2287FF1C12E100F4006CE3AB /* TTMidiOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMidiOutput.cpp; path = source/TTMidiOutput.cpp; sourceTree = "<group>"; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* MidiLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = MidiLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -106,6 +109,8 @@
 			children = (
 				2287F74C12DA918A006CE3AB /* TTMidiInput.h */,
 				2287F74A12DA9183006CE3AB /* TTMidiInput.cpp */,
+				2287FF1B12E100E1006CE3AB /* TTMidiOutput.h */,
+				2287FF1C12E100F4006CE3AB /* TTMidiOutput.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 			files = (
 				2287F74912DA917B006CE3AB /* MidiLib.cpp in Sources */,
 				2287F74B12DA9183006CE3AB /* TTMidiInput.cpp in Sources */,
+				2287FF1D12E100F4006CE3AB /* TTMidiOutput.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

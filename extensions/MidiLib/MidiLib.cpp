@@ -9,6 +9,7 @@
 
 #include "TTDSP.h"
 #include "TTMidiInput.h"
+#include "TTMidiOutput.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
@@ -16,6 +17,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTDSPInit();
 
 	TTMidiInput::registerClass();
+	TTMidiOutput::registerClass();
 	
 	return kTTErrNone;
 }
