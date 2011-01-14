@@ -1,6 +1,6 @@
 /* 
  *	midi.in#
- *	Jamoma AudioGraph external object for Max
+ *	Jamoma Graph external object for Max
  *	Copyright © 2011 by Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -30,11 +30,6 @@ void		PackStartTracking		(MidiInPtr self);
 MaxErr		PackNotify				(MidiInPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPtr data);
 void		PackQFn					(MidiInPtr self);
 void		MidiInAssist			(MidiInPtr self, void* b, long msg, long arg, char* dst);
-//void		MidiInIterateResetCallback(MidiInPtr self, ObjectPtr obj);
-//void		MidiInIterateSetupCallback(MidiInPtr self, ObjectPtr obj);
-//TTErr		MidiInInt(MidiInPtr self, long value);
-//TTErr		MidiInStart(MidiInPtr self);
-//TTErr		MidiInStop(MidiInPtr self);
 void		MidiInGetDeviceNames	(MidiInPtr self);
 // Prototypes for attribute accessors
 MaxErr		MidiInSetDevice			(MidiInPtr self, void* attr, AtomCount argc, AtomPtr argv);
@@ -57,16 +52,11 @@ int main(void)
 	
 	c = class_new("jcom.midi.in#", (method)MidiInNew, (method)MidiInFree, sizeof(MidiIn), (method)0L, A_GIMME, 0);
 	
-	//class_addmethod(c, (method)MidiInStart,			"start",					0);
-	//class_addmethod(c, (method)MidiInStop,			"stop",						0);
 	class_addmethod(c, (method)MidiInGetDeviceNames,	"getAvailableDeviceNames",	0);
-	//class_addmethod(c, (method)MidiInInt,				"int",						A_LONG, 0);
-	
 	class_addmethod(c, (method)MaxGraphReset,			"graph.reset",				A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphSetup,			"graph.setup",				A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphDrop,			"graph.drop",				A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphObject,			"graph.object",				A_CANT, 0);
-	
  	class_addmethod(c, (method)PackNotify,				"notify",					A_CANT, 0); 
 	class_addmethod(c, (method)MidiInAssist,			"assist",					A_CANT, 0); 
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT, 0);  
@@ -298,57 +288,6 @@ void MidiInAssist(MidiInPtr self, void* b, long msg, long arg, char* dst)
 }
 
 
-/*
-TTErr MidiInStart(MidiInPtr self)
-{
-	MaxErr					err;
-	ObjectPtr				patcher = NULL;
-	ObjectPtr				parent = NULL;
-	ObjectPtr				patcherview = NULL;
-	long					vectorSize;
-	long					result = 0;
-	TTAudioGraphOutputPtr	outputObject = TTAudioGraphOutputPtr(self->audioGraphObject->getUnitGenerator());
-	
-	outputObject->getAttributeValue(TT("vectorSize"), vectorSize);
-	
-	err = object_obex_lookup(self, gensym("#P"), &patcher);
-	
-	// first find the top-level patcher
-	err = object_obex_lookup(self, gensym("#P"), &patcher);
-	parent = patcher;
-	while (parent) {
-		patcher = parent;
-		parent = object_attr_getobj(patcher, _sym_parentpatcher);
-	}
-	
-	// Do we really want to reset any more?  It's not clear that it's needed or desired.
-	//object_method(patcher, gensym("iterate"), (method)MidiInIterateResetCallback, self, PI_DEEP, &result);
-	object_method(patcher, gensym("iterate"), (method)MidiInIterateSetupCallback, self, PI_DEEP, &result);
-	
-	// now let's attach to the patcherview to get notifications about any further changes to the patch cords
-	// the patcher 'dirty' attribute is not modified for each change, but the patcherview 'dirty' attribute is
-	if (!self->patcherview) {
-		patcherview = jpatcher_get_firstview(patcher);
-		self->patcherview = patcherview;
-		self->patcher = patcher;
-		object_attach_byptr_register(self, patcherview, _sym_nobox);			
-	}
-	
-	// now we want to go a step further and attach to all of the patch cords 
-	// this is how we will know if one is deleted
-	MidiInAttachToPatchlinesForPatcher(self, self->patcher);
-	
-	outputObject->mInitData.vectorSize = vectorSize;
-	return outputObject->sendMessage(TT("start"));
-}
-
-
-TTErr MidiInStop(MidiInPtr self)
-{	
-	return self->audioGraphObject->getUnitGenerator()->sendMessage(TT("stop"));
-}
-*/
-
 void MidiInGetDeviceNames(MidiInPtr self)
 {
 	TTValue		v;
@@ -380,6 +319,7 @@ MaxErr MidiInSetDevice(MidiInPtr self, void* attr, AtomCount argc, AtomPtr argv)
 	}
 	return MAX_ERR_NONE;
 }
+
 
 MaxErr MidiInGetDevice(MidiInPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
