@@ -12,17 +12,14 @@
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
-	//	TTValue								value(0);
-	MaxAudioGraphWrappedClassPtr			c = NULL;
+	MaxAudioGraphWrappedClassPtr		c = NULL;
 	
 	TTAudioGraphInit();
 	
-	//	options->append(TT("generator"), value);
 	options->append(TT("generator"), kTTBoolYes);
 	options->append(TT("userCanSetNumChannels"), kTTBoolYes);
 	wrapAsMaxAudioGraph(TT("audio.sig"), "jcom.sig≈", &c, options);
 	wrapAsMaxAudioGraph(TT("audio.sig"), "sig≈", &c, options);
 	
-	//CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "white pink brown blue");
 	return 0;
 }
