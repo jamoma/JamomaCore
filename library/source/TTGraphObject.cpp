@@ -136,47 +136,50 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	if (!err && message) {
 		(*mDictionary) = aDictionary;
 		v.set(0, TTPtr(mDictionary));
-		err = mKernel->sendMessage(TT("dictionary"), v);
+		err = mKernel->sendMessage(TT("dictionary"), v);	// returns an error if dictionary is unhandled
 	}
-	else if (schema == TT("number")) {
-		aDictionary.getValue(v);
-		// TODO: maybe try seeing if there is a "number" message first and then prefer that if it exists?
-		err = mKernel->sendMessage(TT("calculate"), v);
-		
-		mDictionary->setSchema(TT("number"));
-		mDictionary->setValue(v);
-		// NOTE: doesn't have inlet/outlet info at this point
-	}
-	else if (schema == TT("message")) {
-		TTValue		nameValue;
-		TTSymbolPtr	nameSymbol = NULL;
-		
-		aDictionary.lookup(TT("name"), nameValue);
-		aDictionary.getValue(v);
-		nameValue.get(0, &nameSymbol);
-		err = mKernel->sendMessage(nameSymbol, v);
-
-		mDictionary->setSchema(TT("message"));
-		mDictionary->append(TT("name"), nameValue);
-		mDictionary->setValue(v);
-	}
-	else if (schema == TT("attribute")) {
-		TTValue		nameValue;
-		TTSymbolPtr	nameSymbol = NULL;
-		
-		aDictionary.lookup(TT("name"), nameValue);
-		aDictionary.getValue(v);
-		nameValue.get(0, &nameSymbol);
-		err = mKernel->setAttributeValue(nameSymbol, v);
-		
-		mDictionary->setSchema(TT("attribute"));
-		mDictionary->remove(TT("name"));
-		mDictionary->append(TT("name"), nameValue);
-		mDictionary->setValue(v);
-	}
-	else {
-		// not sure what to do with other dictionary schemas yet...
-		(*mDictionary) = aDictionary;
+	
+	if (err) {
+		if (schema == TT("number")) {
+			aDictionary.getValue(v);
+			// TODO: maybe try seeing if there is a "number" message first and then prefer that if it exists?
+			err = mKernel->sendMessage(TT("calculate"), v);
+			
+			mDictionary->setSchema(TT("number"));
+			mDictionary->setValue(v);
+			// NOTE: doesn't have inlet/outlet info at this point
+		}
+		else if (schema == TT("message")) {
+			TTValue		nameValue;
+			TTSymbolPtr	nameSymbol = NULL;
+			
+			aDictionary.lookup(TT("name"), nameValue);
+			aDictionary.getValue(v);
+			nameValue.get(0, &nameSymbol);
+			err = mKernel->sendMessage(nameSymbol, v);
+			
+			mDictionary->setSchema(TT("message"));
+			mDictionary->append(TT("name"), nameValue);
+			mDictionary->setValue(v);
+		}
+		else if (schema == TT("attribute")) {
+			TTValue		nameValue;
+			TTSymbolPtr	nameSymbol = NULL;
+			
+			aDictionary.lookup(TT("name"), nameValue);
+			aDictionary.getValue(v);
+			nameValue.get(0, &nameSymbol);
+			err = mKernel->setAttributeValue(nameSymbol, v);
+			
+			mDictionary->setSchema(TT("attribute"));
+			mDictionary->remove(TT("name"));
+			mDictionary->append(TT("name"), nameValue);
+			mDictionary->setValue(v);
+		}
+		else {
+			// not sure what to do with other dictionary schemas yet...
+			(*mDictionary) = aDictionary;
+		}
 	}
 	
 	for (TTGraphOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++)
