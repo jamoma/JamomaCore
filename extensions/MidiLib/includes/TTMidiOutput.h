@@ -27,10 +27,6 @@ public:
 	const PmDeviceInfo*	mDeviceInfo;		///< selected device info struct
 	PmDeviceID			mID;				///< selected device ID number
 	PortMidiStream*		mStream;			///< a descriptor for a MIDI device that is opened when the device is set
-//	TTThreadPtr			mPollingThread;		///< our loop that constantly polls for new input
-//	TTBoolean			mRunning;			///< should the thread be running?  If NO then the thread will know to abort itself
-//	TTListPtr			mCallbackObservers;
-//	TTGraphObjectPtr	mOwner;				///< a graph object that can receive push() calls when we receive MIDI
 	
 	TTErr dictionary(const TTValue& aDictionary);
 	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);

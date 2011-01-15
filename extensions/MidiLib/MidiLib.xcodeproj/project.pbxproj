@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		227EF55412E132D200B8DD63 /* TTMidiFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EF55312E132D200B8DD63 /* TTMidiFilter.cpp */; };
 		2287F74912DA917B006CE3AB /* MidiLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2287F74812DA917B006CE3AB /* MidiLib.cpp */; };
 		2287F74B12DA9183006CE3AB /* TTMidiInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2287F74A12DA9183006CE3AB /* TTMidiInput.cpp */; };
 		2287F74E12DA9197006CE3AB /* libportmidi-jamoma.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2287F74D12DA9197006CE3AB /* libportmidi-jamoma.a */; };
@@ -22,6 +23,8 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		227EF54E12E132BC00B8DD63 /* TTMidiFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMidiFilter.h; path = includes/TTMidiFilter.h; sourceTree = "<group>"; };
+		227EF55312E132D200B8DD63 /* TTMidiFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMidiFilter.cpp; path = source/TTMidiFilter.cpp; sourceTree = "<group>"; };
 		2287F74812DA917B006CE3AB /* MidiLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiLib.cpp; sourceTree = "<group>"; };
 		2287F74A12DA9183006CE3AB /* TTMidiInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMidiInput.cpp; path = source/TTMidiInput.cpp; sourceTree = "<group>"; };
 		2287F74C12DA918A006CE3AB /* TTMidiInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMidiInput.h; path = includes/TTMidiInput.h; sourceTree = "<group>"; };
@@ -107,6 +110,8 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				227EF54E12E132BC00B8DD63 /* TTMidiFilter.h */,
+				227EF55312E132D200B8DD63 /* TTMidiFilter.cpp */,
 				2287F74C12DA918A006CE3AB /* TTMidiInput.h */,
 				2287F74A12DA9183006CE3AB /* TTMidiInput.cpp */,
 				2287FF1B12E100E1006CE3AB /* TTMidiOutput.h */,
@@ -206,6 +211,7 @@
 				2287F74912DA917B006CE3AB /* MidiLib.cpp in Sources */,
 				2287F74B12DA9183006CE3AB /* TTMidiInput.cpp in Sources */,
 				2287FF1D12E100F4006CE3AB /* TTMidiOutput.cpp in Sources */,
+				227EF55412E132D200B8DD63 /* TTMidiFilter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

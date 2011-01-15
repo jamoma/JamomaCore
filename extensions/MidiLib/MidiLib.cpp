@@ -8,6 +8,7 @@
  */
 
 #include "TTDSP.h"
+#include "TTMidiFilter.h"
 #include "TTMidiInput.h"
 #include "TTMidiOutput.h"
 
@@ -16,6 +17,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
 	TTDSPInit();
 
+	TTMidiFilter::registerClass();
 	TTMidiInput::registerClass();
 	TTMidiOutput::registerClass();
 	
