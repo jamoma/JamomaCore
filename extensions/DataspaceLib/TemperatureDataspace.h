@@ -9,27 +9,27 @@
 #ifndef __TEMPERATUREDATASPACE_H__
 #define __TEMPERATUREDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "TTDataspace.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class CelsiusUnit : DataspaceUnit{
+class CelsiusUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(CelsiusUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class FahrenheitUnit : DataspaceUnit{
+class FahrenheitUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(FahrenheitUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class KelvinUnit : DataspaceUnit{
+class KelvinUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(KelvinUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -38,7 +38,7 @@ public:
 
 
 // Specification of our base class
-class TemperatureDataspace : DataspaceLib {
+class TemperatureDataspace : public TTObject, public TTDataspace {
 	TTCLASS_SETUP(TemperatureDataspace)
 };
 

@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		227EF71812E20D6C00B8DD63 /* TTDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EF71612E20D6C00B8DD63 /* TTDataspace.cpp */; };
+		227EF72312E2118200B8DD63 /* TTDataspaceUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EF72112E2118200B8DD63 /* TTDataspaceUnit.cpp */; };
+		227EF76F12E21C5F00B8DD63 /* TTDataspaceConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EF76D12E21C5F00B8DD63 /* TTDataspaceConverter.cpp */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
-		22FD47EF11E24A57007BBF7E /* DataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD47ED11E24A57007BBF7E /* DataspaceLib.h */; };
-		22FD47F011E24A57007BBF7E /* DataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47EE11E24A57007BBF7E /* DataspaceLib.cpp */; };
+		22FD47EF11E24A57007BBF7E /* TTDataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD47ED11E24A57007BBF7E /* TTDataspaceLib.h */; };
+		22FD47F011E24A57007BBF7E /* TTDataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47EE11E24A57007BBF7E /* TTDataspaceLib.cpp */; };
 		22FD480311E24A63007BBF7E /* AngleDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD47F111E24A63007BBF7E /* AngleDataspace.h */; };
 		22FD480411E24A63007BBF7E /* AngleDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47F211E24A63007BBF7E /* AngleDataspace.cpp */; };
 		22FD480511E24A63007BBF7E /* ColorDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD47F311E24A63007BBF7E /* ColorDataspace.h */; };
@@ -33,10 +36,16 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		227EF71612E20D6C00B8DD63 /* TTDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspace.cpp; sourceTree = "<group>"; };
+		227EF71712E20D6C00B8DD63 /* TTDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspace.h; sourceTree = "<group>"; };
+		227EF72012E2118200B8DD63 /* TTDataspaceUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspaceUnit.h; sourceTree = "<group>"; };
+		227EF72112E2118200B8DD63 /* TTDataspaceUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspaceUnit.cpp; sourceTree = "<group>"; };
+		227EF76D12E21C5F00B8DD63 /* TTDataspaceConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspaceConverter.cpp; sourceTree = "<group>"; };
+		227EF76E12E21C5F00B8DD63 /* TTDataspaceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspaceConverter.h; sourceTree = "<group>"; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FD47EC11E24A37007BBF7E /* JamomaFoundationExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaFoundationExtensions.xcconfig; path = ../JamomaFoundationExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
-		22FD47ED11E24A57007BBF7E /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataspaceLib.h; sourceTree = "<group>"; };
-		22FD47EE11E24A57007BBF7E /* DataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataspaceLib.cpp; sourceTree = "<group>"; };
+		22FD47ED11E24A57007BBF7E /* TTDataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspaceLib.h; sourceTree = "<group>"; };
+		22FD47EE11E24A57007BBF7E /* TTDataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspaceLib.cpp; sourceTree = "<group>"; };
 		22FD47F111E24A63007BBF7E /* AngleDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngleDataspace.h; sourceTree = "<group>"; };
 		22FD47F211E24A63007BBF7E /* AngleDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AngleDataspace.cpp; sourceTree = "<group>"; };
 		22FD47F311E24A63007BBF7E /* ColorDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorDataspace.h; sourceTree = "<group>"; };
@@ -102,8 +111,8 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22FD47ED11E24A57007BBF7E /* DataspaceLib.h */,
-				22FD47EE11E24A57007BBF7E /* DataspaceLib.cpp */,
+				22FD47ED11E24A57007BBF7E /* TTDataspaceLib.h */,
+				22FD47EE11E24A57007BBF7E /* TTDataspaceLib.cpp */,
 				2217FAAA0E4F284D00806778 /* Classes */,
 			);
 			name = Source;
@@ -112,6 +121,12 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				227EF72012E2118200B8DD63 /* TTDataspaceUnit.h */,
+				227EF72112E2118200B8DD63 /* TTDataspaceUnit.cpp */,
+				227EF71712E20D6C00B8DD63 /* TTDataspace.h */,
+				227EF71612E20D6C00B8DD63 /* TTDataspace.cpp */,
+				227EF76E12E21C5F00B8DD63 /* TTDataspaceConverter.h */,
+				227EF76D12E21C5F00B8DD63 /* TTDataspaceConverter.cpp */,
 				22FD47F111E24A63007BBF7E /* AngleDataspace.h */,
 				22FD47F211E24A63007BBF7E /* AngleDataspace.cpp */,
 				22FD47F311E24A63007BBF7E /* ColorDataspace.h */,
@@ -141,7 +156,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22FD47EF11E24A57007BBF7E /* DataspaceLib.h in Headers */,
+				22FD47EF11E24A57007BBF7E /* TTDataspaceLib.h in Headers */,
 				22FD480311E24A63007BBF7E /* AngleDataspace.h in Headers */,
 				22FD480511E24A63007BBF7E /* ColorDataspace.h in Headers */,
 				22FD480711E24A63007BBF7E /* DistanceDataspace.h in Headers */,
@@ -182,7 +197,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "DataspaceLib" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
 			projectDirPath = "";
@@ -214,7 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22FD47F011E24A57007BBF7E /* DataspaceLib.cpp in Sources */,
+				22FD47F011E24A57007BBF7E /* TTDataspaceLib.cpp in Sources */,
 				22FD480411E24A63007BBF7E /* AngleDataspace.cpp in Sources */,
 				22FD480611E24A63007BBF7E /* ColorDataspace.cpp in Sources */,
 				22FD480811E24A63007BBF7E /* DistanceDataspace.cpp in Sources */,
@@ -224,6 +246,9 @@
 				22FD481011E24A63007BBF7E /* PositionDataspace.cpp in Sources */,
 				22FD481211E24A63007BBF7E /* TemperatureDataspace.cpp in Sources */,
 				22FD481411E24A63007BBF7E /* TimeDataspace.cpp in Sources */,
+				227EF71812E20D6C00B8DD63 /* TTDataspace.cpp in Sources */,
+				227EF72312E2118200B8DD63 /* TTDataspaceUnit.cpp in Sources */,
+				227EF76F12E21C5F00B8DD63 /* TTDataspaceConverter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

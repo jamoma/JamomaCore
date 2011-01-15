@@ -18,7 +18,10 @@
 #define thisTTClassName		"unit.cart3d"
 #define thisTTClassTags		"dataspace, position"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 Cartesian3DUnit::~Cartesian3DUnit(){;}
 
 void Cartesian3DUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -45,7 +48,10 @@ void Cartesian3DUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"unit.cart2d"
 #define thisTTClassTags		"dataspace, position"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 Cartesian2DUnit::~Cartesian2DUnit(){;}
 
 void Cartesian2DUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -71,7 +77,10 @@ void Cartesian2DUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"unit.spherical"
 #define thisTTClassTags		"dataspace, position"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 SphericalUnit::~SphericalUnit(){;}
 
 void SphericalUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -127,7 +136,10 @@ void SphericalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"unit.polar"
 #define thisTTClassTags		"dataspace, position"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 PolarUnit::~PolarUnit(){;}
 
 void PolarUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -169,7 +181,10 @@ void PolarUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"unit.openGL"
 #define thisTTClassTags		"dataspace, position"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 OpenGlUnit::~OpenGlUnit(){;}
 
 void OpenGlUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -216,7 +231,10 @@ void OpenGlUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"unit.cylindrical"
 #define thisTTClassTags		"dataspace, position"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 CylindricalUnit::~CylindricalUnit(){;}
 
 // Cylindrical coordinate System (according to ISO 31-11 http://en.wikipedia.org/wiki/ISO_31-11#Coordinate_systems )  = radius azimut hight
@@ -264,7 +282,7 @@ void CylindricalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"dataspace.position"
 #define thisTTClassTags		"dataspace, position"
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.cart3d"),			TT("cart3D"));

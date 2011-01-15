@@ -9,40 +9,40 @@
 #ifndef __COLORDATASPACE_H__
 #define __COLORDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "TTDataspace.h"
 
 /****************************************************************************************************/
 // Class Specifications
 
-class CMYUnit : DataspaceUnit{
+class CMYUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(CMYUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class HSLUnit : DataspaceUnit{
+class HSLUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(HSLUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class HSVUnit : DataspaceUnit{
+class HSVUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(HSVUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class RGBUnit : DataspaceUnit{
+class RGBUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(RGBUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class RGB8Unit : DataspaceUnit{
+class RGB8Unit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(RGB8Unit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -50,7 +50,7 @@ public:
 };
 
 // Specification of our base class
-class ColorDataspace : DataspaceLib {
+class ColorDataspace : public TTObject, public TTDataspace {
 	TTCLASS_SETUP(ColorDataspace)
 };
 

@@ -13,7 +13,10 @@
 #define thisTTClassName		"unit.none"
 #define thisTTClassTags		"dataspace, none"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 NoneUnit::~NoneUnit(){;}		
 
 void NoneUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -38,7 +41,7 @@ void NoneUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"dataspace.none"
 #define thisTTClassTags		"dataspace, none"
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.none"),	TT("none"));

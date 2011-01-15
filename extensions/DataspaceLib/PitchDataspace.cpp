@@ -16,7 +16,10 @@
 #define thisTTClassName		"unit.midi.pitch"
 #define thisTTClassTags		"dataspace, pitch"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 MidiPitchUnit::~MidiPitchUnit(){;}		
 
 void MidiPitchUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -47,7 +50,10 @@ void MidiPitchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"unit.cent"
 #define thisTTClassTags		"dataspace, pitch"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 CentUnit::~CentUnit(){;}		
 
 void CentUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -78,7 +84,10 @@ void CentUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"unit.hz"
 #define thisTTClassTags		"dataspace, pitch"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 FrequencyUnit::~FrequencyUnit(){;}		
 		
 void FrequencyUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -103,7 +112,10 @@ void FrequencyUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"unit.speed"
 #define thisTTClassTags		"dataspace, pitch"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 SpeedUnit::~SpeedUnit(){;}		
 
 void SpeedUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -134,7 +146,7 @@ void SpeedUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"dataspace.pitch"
 #define thisTTClassTags		"dataspace, pitch"
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.cent"),		TT("cents"));
