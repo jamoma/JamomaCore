@@ -18,6 +18,9 @@ class TTAudioGraphSig : public TTAudioObject {
 
 	TTFloat64	mValue;
 	
+	/** A value passed in as a dictionary will set the value attribute
+		If an array is passed in for the value in the dictionary, the first item in the array is used. */
+	TTErr dictionary(TTValue& input);
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
