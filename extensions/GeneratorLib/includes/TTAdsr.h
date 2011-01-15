@@ -44,6 +44,20 @@ class TTAdsr : TTAudioObject {
 	
 	TTErr updateSampleRate(const TTValue&);
 
+	/** Sending a dictionary to this object may perform one of several functions.
+		
+		1.	If the dictionary contains a MidiNoteEvent, then the midi note velocity 
+			(second item of the value array for the dictionary) is used to set the ADSR trigger 
+			as on or off.
+	 
+		2.	For setting attributes, etc., we rely on the external system (e.g. Jamoma Graph) to
+			implement the infrastructure.  By returning an error code if the dictionary is not a
+			MidiNoteEvent, we indicate to the calling system that it is free to perform other 
+			tasks with the dictionary.
+	*/
+	TTErr dictionary(TTValue& input);
+	
+	
 	TTErr processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioHybrid(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
