@@ -15,7 +15,7 @@
 
 
 Cartesian3DUnit::Cartesian3DUnit()
-	: DataspaceUnit("cart3D")
+	: MaxDataspaceUnit("cart3D")
 {;}
 
 
@@ -43,7 +43,7 @@ void Cartesian3DUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 
 /***********************************************************************************************/
 Cartesian2DUnit::Cartesian2DUnit()
-	: DataspaceUnit("cart2D")
+	: MaxDataspaceUnit("cart2D")
 {;}
 
 Cartesian2DUnit::~Cartesian2DUnit()
@@ -67,7 +67,7 @@ void Cartesian2DUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 
 
 SphericalUnit::SphericalUnit()
-	: DataspaceUnit("spherical")
+	: MaxDataspaceUnit("spherical")
 {;}
 
 
@@ -105,7 +105,7 @@ void SphericalUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 /***********************************************************************************************/
 
 PolarUnit::PolarUnit()
-	: DataspaceUnit("polar")
+	: MaxDataspaceUnit("polar")
 {;}
 
 
@@ -141,7 +141,7 @@ void PolarUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 /***********************************************************************************************/
 
 OpenGlUnit::OpenGlUnit()
-	: DataspaceUnit("openGl")
+	: MaxDataspaceUnit("openGl")
 {;}
 
 
@@ -171,7 +171,7 @@ void OpenGlUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 
 CylindricalUnit::CylindricalUnit()
-	: DataspaceUnit("cylindrical")
+	: MaxDataspaceUnit("cylindrical")
 {;}
 
 
@@ -211,7 +211,7 @@ void CylindricalUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 
 /***********************************************************************************************/
 PositionDataspace::PositionDataspace()
-	: DataspaceLib("position", "xyz")
+	: MaxDataspaceLib("position", "xyz")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new Cartesian3DUnit,	SymbolGen("cart3D"));

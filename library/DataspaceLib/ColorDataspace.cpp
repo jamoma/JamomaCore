@@ -30,7 +30,7 @@ double hls_value(double n1, double n2, double hue)
 // Actual Colorspace Units
 
 CMYUnit::CMYUnit()
-	: DataspaceUnit("cmy")
+	: MaxDataspaceUnit("cmy")
 {;}
 
 
@@ -58,7 +58,7 @@ void CMYUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 /***********************************************************************************************/
 HSLUnit::HSLUnit()
-	: DataspaceUnit("hsl")
+	: MaxDataspaceUnit("hsl")
 {;}
 
 
@@ -176,7 +176,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 HSVUnit::HSVUnit()
-	: DataspaceUnit("hsv")
+	: MaxDataspaceUnit("hsv")
 {;}
 
 
@@ -278,7 +278,7 @@ void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 /***********************************************************************************************/
 RGBUnit::RGBUnit()
-	: DataspaceUnit("rgb")
+	: MaxDataspaceUnit("rgb")
 {;}
 
 
@@ -306,7 +306,7 @@ void RGBUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 /***********************************************************************************************/
 RGB8Unit::RGB8Unit()
-	: DataspaceUnit("rgb8")
+	: MaxDataspaceUnit("rgb8")
 {;}
 
 
@@ -336,7 +336,7 @@ void RGB8Unit::convertFromNeutral(long inputNumArgs, double *input, long *output
 
 /***********************************************************************************************/
 ColorDataspace::ColorDataspace()
-	: DataspaceLib("color", "rgb")
+	: MaxDataspaceLib("color", "rgb")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CMYUnit,		SymbolGen("cmy"));

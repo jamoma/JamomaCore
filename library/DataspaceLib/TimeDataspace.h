@@ -9,12 +9,12 @@
 #ifndef __TIME_DATASPACE_H__
 #define __TIME_DATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 /****************************************************************************************************/
 // Class Specifications
 
-class MillisecondUnit : DataspaceUnit{
+class MillisecondUnit : MaxDataspaceUnit{
 	public:
 		MillisecondUnit();
 		~MillisecondUnit();
@@ -23,7 +23,7 @@ class MillisecondUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class SampleUnit : DataspaceUnit{
+class SampleUnit : MaxDataspaceUnit{
 	// note that we aren't using the SI base unit for time, because the SI base unit for time is a bit wacky
 	// we are just going to use ms because that is the native unit for Max
 	private:
@@ -39,7 +39,7 @@ class SampleUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class SecondUnit : DataspaceUnit{
+class SecondUnit : MaxDataspaceUnit{
 	public:
 		SecondUnit();
 		~SecondUnit();
@@ -48,7 +48,7 @@ class SecondUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class UpdaterateUnit : DataspaceUnit{
+class UpdaterateUnit : MaxDataspaceUnit{
 	public:
 		UpdaterateUnit();
 		~UpdaterateUnit();
@@ -57,7 +57,7 @@ class UpdaterateUnit : DataspaceUnit{
 	void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class BpmUnit : DataspaceUnit{
+class BpmUnit : MaxDataspaceUnit{
 	public:
 	BpmUnit();
 	~BpmUnit();
@@ -68,7 +68,7 @@ class BpmUnit : DataspaceUnit{
 
 
 // Specification of our base class
-class TimeDataspace : DataspaceLib{
+class TimeDataspace : MaxDataspaceLib{
 	public:
 		TimeDataspace();
 		~TimeDataspace();

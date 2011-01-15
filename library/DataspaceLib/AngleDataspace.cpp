@@ -11,7 +11,7 @@
 /***********************************************************************************************/
 // rad is also the neutral format
 RadianUnit::RadianUnit()
-	: DataspaceUnit("radian")
+	: MaxDataspaceUnit("radian")
 {;}
 
 
@@ -35,7 +35,7 @@ void RadianUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 DegreeUnit::DegreeUnit()
-	: DataspaceUnit("degree")
+	: MaxDataspaceUnit("degree")
 {;}
 
 
@@ -58,7 +58,7 @@ void DegreeUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 AngleDataspace::AngleDataspace()
-	: DataspaceLib("angle", "radian") //would "<" be possible ??
+	: MaxDataspaceLib("angle", "radian") //would "<" be possible ??
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new RadianUnit,	SymbolGen("radian"));

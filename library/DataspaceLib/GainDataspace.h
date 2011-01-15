@@ -9,13 +9,13 @@
 #ifndef __GAINDATASPACE_H__
 #define __GAINDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class LinearAmplitudeUnit : DataspaceUnit{
+class LinearAmplitudeUnit : MaxDataspaceUnit{
 	public:
 		LinearAmplitudeUnit();
 		~LinearAmplitudeUnit();
@@ -25,7 +25,7 @@ class LinearAmplitudeUnit : DataspaceUnit{
 };
 
 
-class MidiGainUnit : DataspaceUnit{
+class MidiGainUnit : MaxDataspaceUnit{
 	public:
 		MidiGainUnit();
 		~MidiGainUnit();
@@ -35,7 +35,7 @@ class MidiGainUnit : DataspaceUnit{
 };
 
 
-class DecibelUnit : DataspaceUnit{
+class DecibelUnit : MaxDataspaceUnit{
 	public:
 		DecibelUnit();
 		~DecibelUnit();
@@ -46,7 +46,7 @@ class DecibelUnit : DataspaceUnit{
 
 
 // Specification of our base class
-class GainDataspace : DataspaceLib{
+class GainDataspace : MaxDataspaceLib{
 	public:
 		GainDataspace();
 		~GainDataspace();

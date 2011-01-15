@@ -9,13 +9,13 @@
 #ifndef __DISTANCEDATASPACE_H__
 #define __DISTANCEDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class CentimeterUnit : DataspaceUnit{
+class CentimeterUnit : MaxDataspaceUnit{
 	public:
 		CentimeterUnit();
 		~CentimeterUnit();
@@ -24,7 +24,7 @@ class CentimeterUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class InchUnit : DataspaceUnit{
+class InchUnit : MaxDataspaceUnit{
 	public:
 		InchUnit();
 		~InchUnit();
@@ -33,7 +33,7 @@ class InchUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class FootUnit : DataspaceUnit{
+class FootUnit : MaxDataspaceUnit{
 	public:
 		FootUnit();
 		~FootUnit();
@@ -42,7 +42,7 @@ class FootUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class MeterUnit : DataspaceUnit{
+class MeterUnit : MaxDataspaceUnit{
 	public:
 		MeterUnit();
 		~MeterUnit();
@@ -53,7 +53,7 @@ class MeterUnit : DataspaceUnit{
 
 
 // Specification of our base class
-class DistanceDataspace : DataspaceLib{
+class DistanceDataspace : MaxDataspaceLib{
 	public:
 		DistanceDataspace();
 		~DistanceDataspace();

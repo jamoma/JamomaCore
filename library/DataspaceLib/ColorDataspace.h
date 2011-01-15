@@ -9,12 +9,12 @@
 #ifndef __COLORDATASPACE_H__
 #define __COLORDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 /****************************************************************************************************/
 // Class Specifications
 
-class CMYUnit : DataspaceUnit{
+class CMYUnit : MaxDataspaceUnit{
 	public:
 		CMYUnit();
 		~CMYUnit();
@@ -23,7 +23,7 @@ class CMYUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class HSLUnit : DataspaceUnit{
+class HSLUnit : MaxDataspaceUnit{
 	public:
 		HSLUnit();
 		~HSLUnit();
@@ -32,7 +32,7 @@ class HSLUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class HSVUnit : DataspaceUnit{
+class HSVUnit : MaxDataspaceUnit{
 	public:
 		HSVUnit();
 		~HSVUnit();
@@ -41,7 +41,7 @@ class HSVUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class RGBUnit : DataspaceUnit{
+class RGBUnit : MaxDataspaceUnit{
 	public:
 		RGBUnit();
 		~RGBUnit();
@@ -50,7 +50,7 @@ class RGBUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class RGB8Unit : DataspaceUnit{
+class RGB8Unit : MaxDataspaceUnit{
 	public:
 		RGB8Unit();
 		~RGB8Unit();
@@ -60,7 +60,7 @@ class RGB8Unit : DataspaceUnit{
 };
 
 // Specification of our base class
-class ColorDataspace : DataspaceLib{
+class ColorDataspace : MaxDataspaceLib{
 	public:
 		ColorDataspace();
 		~ColorDataspace();

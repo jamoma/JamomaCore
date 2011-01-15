@@ -54,10 +54,10 @@ typedef struct _param{
 	SymbolPtr		attr_rampfunction;			///< Attribute for setting the function used by the ramping
 	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
-	DataspaceLib*	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
-	DataspaceLib*	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
-	DataspaceLib*	dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
-	DataspaceLib*	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
+	MaxDataspaceLib*	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
+	MaxDataspaceLib*	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
+	MaxDataspaceLib*	dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
+	MaxDataspaceLib*	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
 	SymbolPtr		attr_unitNative;			///< The native (model/algorithm) unit within the dataspace.
 	SymbolPtr		attr_unitActive;			///< The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
 	SymbolPtr		attr_unitDisplay;			///< The display unit within the dataspace -- sent to/from the inlet/outlet of this instance

@@ -15,7 +15,7 @@ typedef struct _dataspace{
 	t_object		ob;
 	//void			*outlet_active;
 	void			*outlet_native;
-	DataspaceLib	*dataspace;
+	MaxDataspaceLib	*dataspace;
 	long			ac;						// for return values from the dataspace conversion
 	t_atom			*av;					//	...
 	t_symbol		*attr_dataspace;		// name of the dataspace -- e.g. "temperature"

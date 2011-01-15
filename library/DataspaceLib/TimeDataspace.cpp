@@ -11,7 +11,7 @@
 
 
 MillisecondUnit::MillisecondUnit()
-	: DataspaceUnit("millisecond")
+	: MaxDataspaceUnit("millisecond")
 {;}
 
 
@@ -35,7 +35,7 @@ void MillisecondUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 
 /***********************************************************************************************/
 SampleUnit::SampleUnit()
-	: DataspaceUnit("sample")
+	: MaxDataspaceUnit("sample")
 {   
 	TTValue globalSampleRate;	
 	
@@ -66,7 +66,7 @@ void SampleUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 SecondUnit::SecondUnit()
-	: DataspaceUnit("second")
+	: MaxDataspaceUnit("second")
 {;}
 
 
@@ -89,7 +89,7 @@ void SecondUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 UpdaterateUnit::UpdaterateUnit()
-	: DataspaceUnit("fps") //frames per second; also update rate e.g. of gestural devices etc. 
+	: MaxDataspaceUnit("fps") //frames per second; also update rate e.g. of gestural devices etc. 
 {;}
 
 
@@ -112,7 +112,7 @@ void UpdaterateUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 //TODO: prevent division with zero
 /***********************************************************************************************/
 BpmUnit::BpmUnit()
-: DataspaceUnit("bpm") //beats per minute
+: MaxDataspaceUnit("bpm") //beats per minute
 {;}
 
 
@@ -137,7 +137,7 @@ void BpmUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 /***********************************************************************************************/
 TimeDataspace::TimeDataspace()
-	: DataspaceLib("time", "millisecond")
+	: MaxDataspaceLib("time", "millisecond")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new BpmUnit,			SymbolGen("bpm"));

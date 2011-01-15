@@ -9,13 +9,13 @@
 #ifndef __TEMPERATUREDATASPACE_H__
 #define __TEMPERATUREDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class CelsiusUnit : DataspaceUnit{
+class CelsiusUnit : MaxDataspaceUnit{
 	public:
 		CelsiusUnit();
 		~CelsiusUnit();
@@ -24,7 +24,7 @@ class CelsiusUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class FahrenheitUnit : DataspaceUnit{
+class FahrenheitUnit : MaxDataspaceUnit{
 	public:
 		FahrenheitUnit();
 		~FahrenheitUnit();
@@ -33,7 +33,7 @@ class FahrenheitUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class KelvinUnit : DataspaceUnit{
+class KelvinUnit : MaxDataspaceUnit{
 	public:
 		KelvinUnit();
 		~KelvinUnit();
@@ -44,7 +44,7 @@ class KelvinUnit : DataspaceUnit{
 
 
 // Specification of our base class
-class TemperatureDataspace : DataspaceLib{
+class TemperatureDataspace : MaxDataspaceLib{
 	public:
 		TemperatureDataspace();
 		~TemperatureDataspace();

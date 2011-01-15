@@ -9,13 +9,13 @@
 #ifndef __ANGLEDATASPACE_H__
 #define __ANGLEDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class RadianUnit : DataspaceUnit{
+class RadianUnit : MaxDataspaceUnit{
 	public:
 		RadianUnit();
 		~RadianUnit();
@@ -24,7 +24,7 @@ class RadianUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class DegreeUnit : DataspaceUnit{
+class DegreeUnit : MaxDataspaceUnit{
 	public:
 		DegreeUnit();
 		~DegreeUnit();
@@ -35,7 +35,7 @@ class DegreeUnit : DataspaceUnit{
 
 
 // Specification of our base class
-class AngleDataspace : DataspaceLib{
+class AngleDataspace : MaxDataspaceLib{
 	public:
 		AngleDataspace();
 		~AngleDataspace();

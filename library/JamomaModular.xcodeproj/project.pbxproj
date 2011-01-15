@@ -11,7 +11,7 @@
 		224B076A11DEA19B00B6EF48 /* jcom.core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */; };
 		224B076B11DEA19B00B6EF48 /* JamomaSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */; };
 		224B076C11DEA19B00B6EF48 /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3200D0DB77900F7762D /* FunctionLib.cpp */; };
-		224B076D11DEA19B00B6EF48 /* DataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */; };
+		224B076D11DEA19B00B6EF48 /* MaxDataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F00D105827009E4AF4 /* MaxDataspaceLib.cpp */; };
 		224B076E11DEA19B00B6EF48 /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */; };
 		224B076F11DEA19B00B6EF48 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */; };
 		224B077011DEA19B00B6EF48 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */; };
@@ -79,8 +79,8 @@
 		22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AngleDataspace.h; path = DataspaceLib/AngleDataspace.h; sourceTree = "<group>"; };
 		22C9F74E1033191A0062F7B8 /* JamomaModular.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaModular.xcconfig; sourceTree = "<group>"; };
 		22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemperatureDataspace.h; path = DataspaceLib/TemperatureDataspace.h; sourceTree = "<group>"; };
-		22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataspaceLib.cpp; path = DataspaceLib/DataspaceLib.cpp; sourceTree = "<group>"; };
-		22D7F5F10D105827009E4AF4 /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataspaceLib.h; path = DataspaceLib/DataspaceLib.h; sourceTree = "<group>"; };
+		22D7F5F00D105827009E4AF4 /* MaxDataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaxDataspaceLib.cpp; path = DataspaceLib/MaxDataspaceLib.cpp; sourceTree = "<group>"; };
+		22D7F5F10D105827009E4AF4 /* MaxDataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxDataspaceLib.h; path = DataspaceLib/MaxDataspaceLib.h; sourceTree = "<group>"; };
 		22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TemperatureDataspace.cpp; path = DataspaceLib/TemperatureDataspace.cpp; sourceTree = "<group>"; };
 		22E6C74B0D4AB21B00DA75EE /* AsyncRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AsyncRamp.cpp; path = RampLib/AsyncRamp.cpp; sourceTree = "<group>"; };
 		22E6C74C0D4AB21B00DA75EE /* AsyncRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncRamp.h; path = RampLib/AsyncRamp.h; sourceTree = "<group>"; };
@@ -214,8 +214,8 @@
 		22D7F5EA0D10576E009E4AF4 /* DataspaceLib */ = {
 			isa = PBXGroup;
 			children = (
-				22D7F5F10D105827009E4AF4 /* DataspaceLib.h */,
-				22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */,
+				22D7F5F10D105827009E4AF4 /* MaxDataspaceLib.h */,
+				22D7F5F00D105827009E4AF4 /* MaxDataspaceLib.cpp */,
 				22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */,
 				22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */,
 				225C91B10D1B2E9100BDA981 /* ColorDataspace.h */,
@@ -347,7 +347,7 @@
 				224B076A11DEA19B00B6EF48 /* jcom.core.cpp in Sources */,
 				224B076B11DEA19B00B6EF48 /* JamomaSymbols.cpp in Sources */,
 				224B076C11DEA19B00B6EF48 /* FunctionLib.cpp in Sources */,
-				224B076D11DEA19B00B6EF48 /* DataspaceLib.cpp in Sources */,
+				224B076D11DEA19B00B6EF48 /* MaxDataspaceLib.cpp in Sources */,
 				224B076E11DEA19B00B6EF48 /* TemperatureDataspace.cpp in Sources */,
 				224B076F11DEA19B00B6EF48 /* DistanceDataspace.cpp in Sources */,
 				224B077011DEA19B00B6EF48 /* ColorDataspace.cpp in Sources */,

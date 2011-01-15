@@ -6,15 +6,15 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
-DataspaceUnit::DataspaceUnit(const char *cName)
+MaxDataspaceUnit::MaxDataspaceUnit(const char *cName)
 {
 	name = SymbolGen(cName);
 }
 
 
-DataspaceUnit::~DataspaceUnit()
+MaxDataspaceUnit::~MaxDataspaceUnit()
 {
 	;
 }
@@ -22,7 +22,7 @@ DataspaceUnit::~DataspaceUnit()
 
 /***********************************************************************************/
 
-DataspaceLib::DataspaceLib(const char *cName, const char *cNativeUnit)
+MaxDataspaceLib::MaxDataspaceLib(const char *cName, const char *cNativeUnit)
 	: inUnit(NULL), outUnit(NULL)
 {
 	unitHash = hashtab_new(0);
@@ -31,12 +31,12 @@ DataspaceLib::DataspaceLib(const char *cName, const char *cNativeUnit)
 }
 
 
-DataspaceLib::~DataspaceLib()
+MaxDataspaceLib::~MaxDataspaceLib()
 {
 	t_symbol		**keys = NULL;
 	long			numKeys = 0;
 	long			i;
-	DataspaceUnit	*unit;
+	MaxDataspaceUnit	*unit;
 
 	hashtab_getkeys(unitHash, &numKeys, &keys);
 	for (i=0; i<numKeys; i++) {
@@ -52,7 +52,7 @@ DataspaceLib::~DataspaceLib()
 
 
 // remember, we are relying on memory passed in for the outputAtoms		
-JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
+JamomaError MaxDataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
 {
 	double	value[3];	// right now we only handle a maximum of 3 values in the neutral unit passing
 	long	numvalues;
@@ -69,7 +69,7 @@ JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *o
 }
 
 		
-JamomaError DataspaceLib::setInputUnit(t_symbol *inUnitName)
+JamomaError MaxDataspaceLib::setInputUnit(t_symbol *inUnitName)
 {
 	t_object*	newUnit = NULL;
 	JamomaError	err;
@@ -79,13 +79,13 @@ JamomaError DataspaceLib::setInputUnit(t_symbol *inUnitName)
 	else {
 		err = (JamomaError)hashtab_lookup(unitHash, inUnitName, (t_object**)&newUnit);
 		if (!err && newUnit)
-			inUnit = (DataspaceUnit*)newUnit;
+			inUnit = (MaxDataspaceUnit*)newUnit;
 		return err;
 	}
 }
 
 
-JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
+JamomaError MaxDataspaceLib::setOutputUnit(t_symbol *outUnitName)
 {
 	t_object*	newUnit = NULL;
 	JamomaError	err;
@@ -95,19 +95,19 @@ JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
 	else {
 		err = (JamomaError)hashtab_lookup(unitHash, outUnitName, (t_object**)&newUnit);
 		if (!err && newUnit)
-			outUnit = (DataspaceUnit*)newUnit;
+			outUnit = (MaxDataspaceUnit*)newUnit;
 		return err;
 	}
 }
 
 
-void DataspaceLib::registerUnit(void *unit, t_symbol *unitName)
+void MaxDataspaceLib::registerUnit(void *unit, t_symbol *unitName)
 {
 	hashtab_store(unitHash, unitName, (t_object*)unit);
 }
 
 
-void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
+void MaxDataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 {
 	hashtab_getkeys(unitHash, numUnits, unitNames);
 }
@@ -129,7 +129,7 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 #include "TimeDataspace.h"
 
 
-JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace)
+JamomaError jamoma_getDataspace(t_symbol *dataspaceName, MaxDataspaceLib **dataspace)
 {	
 	if (*dataspace) {
 		if (dataspaceName == (*dataspace)->name)
@@ -142,26 +142,26 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 
 	// These should be alphabetized
 	if (dataspaceName == SymbolGen("angle"))
-		*dataspace = (DataspaceLib*) new AngleDataspace;
+		*dataspace = (MaxDataspaceLib*) new AngleDataspace;
 	else if (dataspaceName == SymbolGen("color"))
-		*dataspace = (DataspaceLib*) new ColorDataspace;
+		*dataspace = (MaxDataspaceLib*) new ColorDataspace;
 	else if (dataspaceName == SymbolGen("distance"))
-		*dataspace = (DataspaceLib*) new DistanceDataspace;
+		*dataspace = (MaxDataspaceLib*) new DistanceDataspace;
 	else if (dataspaceName == SymbolGen("gain"))
-		*dataspace = (DataspaceLib*) new GainDataspace;
+		*dataspace = (MaxDataspaceLib*) new GainDataspace;
 	else if (dataspaceName == SymbolGen("none"))
-		*dataspace = (DataspaceLib*) new NoneDataspace;
+		*dataspace = (MaxDataspaceLib*) new NoneDataspace;
 	else if (dataspaceName == SymbolGen("pitch"))
-		*dataspace = (DataspaceLib*) new PitchDataspace;
+		*dataspace = (MaxDataspaceLib*) new PitchDataspace;
 	else if (dataspaceName == SymbolGen("position")) 
-		*dataspace = (DataspaceLib*) new PositionDataspace;
+		*dataspace = (MaxDataspaceLib*) new PositionDataspace;
 	else if (dataspaceName == SymbolGen("temperature"))
-		*dataspace = (DataspaceLib*) new TemperatureDataspace;
+		*dataspace = (MaxDataspaceLib*) new TemperatureDataspace;
 	else if (dataspaceName == SymbolGen("time"))
-		*dataspace = (DataspaceLib*) new TimeDataspace;
+		*dataspace = (MaxDataspaceLib*) new TimeDataspace;
 	else 
 		// Invalid -- default to temperature
-		*dataspace = (DataspaceLib*) new TemperatureDataspace;
+		*dataspace = (MaxDataspaceLib*) new TemperatureDataspace;
 	
 	return JAMOMA_ERR_NONE;
 }

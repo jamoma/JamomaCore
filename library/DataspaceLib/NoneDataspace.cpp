@@ -10,7 +10,7 @@
 
 
 NoneUnit::NoneUnit()
-	: DataspaceUnit("none")
+	: MaxDataspaceUnit("none")
 {;}
 
 
@@ -34,7 +34,7 @@ void NoneUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 
 /***********************************************************************************************/
 NoneDataspace::NoneDataspace()
-	: DataspaceLib("none", "none")
+	: MaxDataspaceLib("none", "none")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new NoneUnit,	SymbolGen("none"));

@@ -9,13 +9,13 @@
 #ifndef __POSITIONDATASPACE_H__
 #define __POSITIONDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class Cartesian3DUnit : DataspaceUnit{
+class Cartesian3DUnit : MaxDataspaceUnit{
 	public:
 		Cartesian3DUnit();
 		~Cartesian3DUnit();
@@ -24,7 +24,7 @@ class Cartesian3DUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class Cartesian2DUnit : DataspaceUnit{
+class Cartesian2DUnit : MaxDataspaceUnit{
 	public:
 		Cartesian2DUnit();
 		~Cartesian2DUnit();
@@ -33,7 +33,7 @@ class Cartesian2DUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class SphericalUnit : DataspaceUnit{
+class SphericalUnit : MaxDataspaceUnit{
 	public:
 		SphericalUnit();
 		~SphericalUnit();
@@ -42,7 +42,7 @@ class SphericalUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class PolarUnit : DataspaceUnit{
+class PolarUnit : MaxDataspaceUnit{
 	public:
 		PolarUnit();
 		~PolarUnit();
@@ -51,7 +51,7 @@ class PolarUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 		
-class OpenGlUnit : DataspaceUnit{
+class OpenGlUnit : MaxDataspaceUnit{
 	public:
 		OpenGlUnit();
 		~OpenGlUnit();
@@ -61,7 +61,7 @@ class OpenGlUnit : DataspaceUnit{
 
 };
 
-class CylindricalUnit : DataspaceUnit{
+class CylindricalUnit : MaxDataspaceUnit{
 	public:
 		CylindricalUnit();
 		~CylindricalUnit();
@@ -74,7 +74,7 @@ class CylindricalUnit : DataspaceUnit{
 
 
 // Specification of our base class
-class PositionDataspace : DataspaceLib{
+class PositionDataspace : MaxDataspaceLib{
 	public:
 		PositionDataspace();
 		~PositionDataspace();

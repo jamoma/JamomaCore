@@ -10,7 +10,7 @@
 
 
 CelsiusUnit::CelsiusUnit()
-	: DataspaceUnit("Celsius")
+	: MaxDataspaceUnit("Celsius")
 {;}
 
 
@@ -34,7 +34,7 @@ void CelsiusUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 
 /***********************************************************************************************/
 FahrenheitUnit::FahrenheitUnit()
-	: DataspaceUnit("Fahrenheit")
+	: MaxDataspaceUnit("Fahrenheit")
 {;}
 
 
@@ -58,7 +58,7 @@ void FahrenheitUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 
 /***********************************************************************************************/
 KelvinUnit::KelvinUnit()
-	: DataspaceUnit("Kelvin")
+	: MaxDataspaceUnit("Kelvin")
 {;}
 
 
@@ -82,7 +82,7 @@ void KelvinUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 TemperatureDataspace::TemperatureDataspace()
-	: DataspaceLib("temperature", "Kelvin")
+	: MaxDataspaceLib("temperature", "Kelvin")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CelsiusUnit,		SymbolGen("C"));

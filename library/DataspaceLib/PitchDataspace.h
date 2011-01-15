@@ -9,14 +9,14 @@
 #ifndef __PITCHDATASPACE_H__
 #define __PITCHDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
 
-class SpeedUnit : DataspaceUnit{
+class SpeedUnit : MaxDataspaceUnit{
 	public:
 		SpeedUnit();
 		~SpeedUnit();
@@ -25,7 +25,7 @@ class SpeedUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class MidiPitchUnit : DataspaceUnit{
+class MidiPitchUnit : MaxDataspaceUnit{
 	public:
 		MidiPitchUnit();
 		~MidiPitchUnit();
@@ -34,7 +34,7 @@ class MidiPitchUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class FrequencyUnit : DataspaceUnit{
+class FrequencyUnit : MaxDataspaceUnit{
 	public:
 		FrequencyUnit();
 		~FrequencyUnit();
@@ -43,7 +43,7 @@ class FrequencyUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
-class CentUnit : DataspaceUnit{
+class CentUnit : MaxDataspaceUnit{
 	public:
 		CentUnit();
 		~CentUnit();
@@ -53,7 +53,7 @@ class CentUnit : DataspaceUnit{
 };
 
 // Specification of our base class
-class PitchDataspace : DataspaceLib{
+class PitchDataspace : MaxDataspaceLib{
 	public:
 		PitchDataspace();
 		~PitchDataspace();

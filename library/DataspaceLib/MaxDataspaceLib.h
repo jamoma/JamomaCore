@@ -6,8 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __DATASPACELIB_H__
-#define __DATASPACELIB_H__
+#ifndef __MAXDATASPACELIB_H__
+#define __MAXDATASPACELIB_H__
 
 #ifdef WIN_VERSION
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
@@ -35,18 +35,18 @@ static const double inv255 = 1./255.;
 // Class Specification
 
 
-// Specification for the base class of each DataspaceUnit
-// A DataspaceUnit converts from a specific unit to a neutral unit
+// Specification for the base class of each MaxDataspaceUnit
+// A MaxDataspaceUnit converts from a specific unit to a neutral unit
 // and is used by a DataspaceLib to do a conversion
-class JAMOMA_EXPORT DataspaceUnit{
+class JAMOMA_EXPORT MaxDataspaceUnit{
 	public:
 		t_symbol *name;				/// < name of this unit
 
-		/** Constructor. Must be passed the name of this DataspaceUnit as a C-string. */
-		DataspaceUnit(const char *cName);
+		/** Constructor. Must be passed the name of this MaxDataspaceUnit as a C-string. */
+		MaxDataspaceUnit(const char *cName);
 		
 		/** Destructor */
-		virtual ~DataspaceUnit();
+		virtual ~MaxDataspaceUnit();
 		
 		/** Converts from an actual unit to a 'neutral' unit that can be interpreted by other units within this dataspace.
 			This must be defined by a sub-class.*/
@@ -60,10 +60,10 @@ class JAMOMA_EXPORT DataspaceUnit{
 
 
 // Specification of our base class
-class JAMOMA_EXPORT DataspaceLib{
+class JAMOMA_EXPORT MaxDataspaceLib{
 	private:
-		DataspaceUnit	*inUnit;
-		DataspaceUnit	*outUnit;
+		MaxDataspaceUnit	*inUnit;
+		MaxDataspaceUnit	*outUnit;
 		t_hashtab		*unitHash;
 
 	protected:
@@ -74,24 +74,16 @@ class JAMOMA_EXPORT DataspaceLib{
 		t_symbol		*name;
 
 		/** Constructor. 
-			This constructor maintains a cache of all DataspaceUnits that are associated with
+			This constructor maintains a cache of all MaxDataspaceUnits that are associated with
 			the given dataspace.  To maintain the cache, the subclasses must register each unit.
 			@param cName		The name of the total Dataspace as a C-string
 			@param cNativeUnit	The name of the neutral unit that is used for translating
 								between units within this Dataspace. */
-		DataspaceLib(const char *cName, const char *cNeutralUnit);
+		MaxDataspaceLib(const char *cName, const char *cNeutralUnit);
 		
 		/** Destructor. */
-		virtual ~DataspaceLib();
+		virtual ~MaxDataspaceLib();
 		
-/*		JamomaError convert(long		inputNumArgs, 
-							t_atom		*inputAtoms, 
-							t_symbol	*inputDataspace, 
-							long		*outputNumArgs, 
-							t_atom		**outputAtoms, 
-							t_symbol	*outputDataspace, 
-							);
-*/
 
 		/** converts input to output, possibly doing a unit conversion.
 			EXTREMELY IMPORTANT: We are expecting that **output atoms has its memory passed in already.
@@ -101,8 +93,6 @@ class JAMOMA_EXPORT DataspaceLib{
 							long		*outputNumArgs,
 							t_atom		**outputAtoms
 							);
-		// could also create a class that wraps a unit with it's dataspace information and args and whateverelse
-		// and then have an alternative (overridden) version of the convert method
 		
 		/** set the input unit type for this dataspace object by it's name as a symbol */
 		JamomaError setInputUnit(t_symbol *inUnitName);
@@ -118,7 +108,7 @@ class JAMOMA_EXPORT DataspaceLib{
 extern "C" {
 
 	/** Create a dataspace object by specifying the name of the dataspace you want as a symbol. */
-	JamomaError		jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace);
+	JamomaError		jamoma_getDataspace(t_symbol *dataspaceName, MaxDataspaceLib **dataspace);
 
 	/** Get a list of names of all the available dataspaces.  
 		The caller of this function is responsible for freeing memory allocated by this call. */
@@ -126,4 +116,4 @@ extern "C" {
 
 }
 
-#endif // __DATASPACELIB_H__
+#endif // __MAXDATASPACELIB_H__

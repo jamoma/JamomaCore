@@ -13,7 +13,7 @@
 
 
 MidiPitchUnit::MidiPitchUnit()
-	: DataspaceUnit("midi")
+	: MaxDataspaceUnit("midi")
 {;}
 
 
@@ -42,7 +42,7 @@ void MidiPitchUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 
 
 CentUnit::CentUnit()
-	: DataspaceUnit("cents")
+	: MaxDataspaceUnit("cents")
 {;}
 
 
@@ -69,7 +69,7 @@ void CentUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 
 /***********************************************************************************************/
 FrequencyUnit::FrequencyUnit()
-	: DataspaceUnit("Hz")
+	: MaxDataspaceUnit("Hz")
 {;}
 
 
@@ -94,7 +94,7 @@ void FrequencyUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 /***********************************************************************************************/
 
 SpeedUnit::SpeedUnit()
-	: DataspaceUnit("speed")
+	: MaxDataspaceUnit("speed")
 {;}
 
 
@@ -121,7 +121,7 @@ void SpeedUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 /***********************************************************************************************/
 PitchDataspace::PitchDataspace()
-	: DataspaceLib("pitch", "Hz")
+	: MaxDataspaceLib("pitch", "Hz")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CentUnit,			SymbolGen("cents"));

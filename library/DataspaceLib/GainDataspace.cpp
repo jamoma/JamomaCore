@@ -14,7 +14,7 @@
 
 
 LinearAmplitudeUnit::LinearAmplitudeUnit()
-	: DataspaceUnit("linear")
+	: MaxDataspaceUnit("linear")
 {;}
 
 
@@ -43,7 +43,7 @@ void LinearAmplitudeUnit::convertFromNeutral(long inputNumArgs, double *input, l
 
 /***********************************************************************************************/
 MidiGainUnit::MidiGainUnit()
-	: DataspaceUnit("midi")
+	: MaxDataspaceUnit("midi")
 {;}
 
 
@@ -73,7 +73,7 @@ void MidiGainUnit::convertFromNeutral(long inputNumArgs, double *input, long *ou
 
 /***********************************************************************************************/
 DecibelUnit::DecibelUnit()
-	: DataspaceUnit("dB")
+	: MaxDataspaceUnit("dB")
 {;}
 
 
@@ -97,7 +97,7 @@ void DecibelUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 
 /***********************************************************************************************/
 GainDataspace::GainDataspace()
-	: DataspaceLib("gain", "linear")
+	: MaxDataspaceLib("gain", "linear")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new LinearAmplitudeUnit,	SymbolGen("linear"));

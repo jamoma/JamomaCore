@@ -9,14 +9,14 @@
 #ifndef __NONE_DATASPACE_H__
 #define __NONE_DATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "MaxDataspaceLib.h"
 
 #define DEFAULT_SAMPLE_RATE	44100.0
 
 /****************************************************************************************************/
 // Class Specifications
 
-class NoneUnit : DataspaceUnit{
+class NoneUnit : MaxDataspaceUnit{
 	public:
 		NoneUnit();
 		~NoneUnit();
@@ -27,7 +27,7 @@ class NoneUnit : DataspaceUnit{
 
 
 // Specification of our base class
-class NoneDataspace : DataspaceLib{
+class NoneDataspace : MaxDataspaceLib{
 	public:
 		NoneDataspace();
 		~NoneDataspace();
