@@ -14,7 +14,7 @@
 
 #define thisTTClass			MillisecondUnit
 #define thisTTClassName		"unit.ms"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
 TT_OBJECT_CONSTRUCTOR,
@@ -43,7 +43,7 @@ void MillisecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			SampleUnit
 #define thisTTClassName		"unit.sample"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
 TT_OBJECT_CONSTRUCTOR,
@@ -79,7 +79,7 @@ void SampleUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			SecondUnit
 #define thisTTClassName		"unit.second"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
 TT_OBJECT_CONSTRUCTOR,
@@ -107,7 +107,7 @@ void SecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			UpdaterateUnit
 #define thisTTClassName		"unit.rate"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
 TT_OBJECT_CONSTRUCTOR,
@@ -137,7 +137,7 @@ void UpdaterateUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			BpmUnit
 #define thisTTClassName		"unit.bpm"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
 TT_OBJECT_CONSTRUCTOR,

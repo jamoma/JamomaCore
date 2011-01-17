@@ -13,7 +13,7 @@
 
 #define thisTTClass			RadianUnit
 #define thisTTClassName		"unit.radian"
-#define thisTTClassTags		"dataspace, angle"
+#define thisTTClassTags		"dataspace.unit, angle"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -41,7 +41,7 @@ void RadianUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			DegreeUnit
 #define thisTTClassName		"unit.degree"
-#define thisTTClassTags		"dataspace, angle"
+#define thisTTClassTags		"dataspace.unit, angle"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

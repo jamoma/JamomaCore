@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTDataspaceConverter
 #define thisTTClassName		"dataspace"
-#define thisTTClassTags		"dataspace, converter"
+#define thisTTClassTags		"dataspace.converter"
 
 
 TT_OBJECT_CONSTRUCTOR,
@@ -46,6 +46,8 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 	// TODO: validate the name provided before proceeding
 	objectName += name->getString();
 	err = TTObjectInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
+	if (err)
+		throw TTException("Error trying to load dataspace with that name");
 	mDataspaceObject = dynamic_cast<TTDataspacePtr>(mDataspaceTTObject);
 	mDataspace = name;
 	
@@ -53,9 +55,15 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 }
 
 
-TTErr TTDataspaceConverter::convert(const TTValue& input, TTValue& output)
+TTErr TTDataspaceConverter::convert(TTValue& io)
 {
-	return mDataspaceObject->convert(input, output);
+	TTValue	output;
+	TTErr	err;
+	
+	err = mDataspaceObject->convert(io, output);
+	io = output;
+	
+	return err;
 }
 
 
@@ -93,6 +101,22 @@ TTErr TTDataspaceConverter::getAvailableUnits(TTValue& unitNames)
 
 TTErr TTDataspaceConverter::getAvailableDataspaces(TTValue& dataspaceNames)
 {
-	return TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));
+	TTErr err;
+	
+	err = TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));
+	if (!err) {
+		// strip the leading "dataspace." prefix off all the names
+		for (int i=0; i < dataspaceNames.getSize(); i++) {
+			TTSymbolPtr s;
+			TTString	str;
+			
+			dataspaceNames.get(i, &s);
+			str = s->getString();
+			str.erase(0, 10);
+			s = TT(str);
+			dataspaceNames.set(i, s);
+		}
+	}
+	return err;
 }
 

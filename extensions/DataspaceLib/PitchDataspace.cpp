@@ -14,7 +14,7 @@
 
 #define thisTTClass			MidiPitchUnit
 #define thisTTClassName		"unit.midi.pitch"
-#define thisTTClassTags		"dataspace, pitch"
+#define thisTTClassTags		"dataspace.unit, pitch"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -48,7 +48,7 @@ void MidiPitchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			CentUnit
 #define thisTTClassName		"unit.cent"
-#define thisTTClassTags		"dataspace, pitch"
+#define thisTTClassTags		"dataspace.unit, pitch"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -82,7 +82,7 @@ void CentUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			FrequencyUnit
 #define thisTTClassName		"unit.hz"
-#define thisTTClassTags		"dataspace, pitch"
+#define thisTTClassTags		"dataspace.unit, pitch"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -110,7 +110,7 @@ void FrequencyUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			SpeedUnit
 #define thisTTClassName		"unit.speed"
-#define thisTTClassTags		"dataspace, pitch"
+#define thisTTClassTags		"dataspace.unit, pitch"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

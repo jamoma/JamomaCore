@@ -11,7 +11,7 @@
 
 #define thisTTClass			CentimeterUnit
 #define thisTTClassName		"unit.centimeter"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -43,7 +43,7 @@ void CentimeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			FootUnit
 #define thisTTClassName		"unit.foot"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -75,7 +75,7 @@ void FootUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			InchUnit
 #define thisTTClassName		"unit.inch"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -107,7 +107,7 @@ void InchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			MeterUnit
 #define thisTTClassName		"unit.meter"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
