@@ -433,6 +433,12 @@ void meter_paint(t_meter *x, t_object *view)
 		meter_dopaint_vertical(x,view);
 }
 
+
+// Constants from the DataspaceLib:
+static const double kGainMidiPower = log(pow(10.,10./20.))/log(127./100.);
+static const double kGainMidiPowerInv = 1./kGainMidiPower;
+
+
 void meter_dopaint_horizontal(t_meter *x, t_object *view) {
 
 	t_rect			rect;
