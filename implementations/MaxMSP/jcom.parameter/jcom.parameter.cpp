@@ -8,6 +8,7 @@
  */
 
 #include "jcom.parameter.h"			// everything we need is in here
+#include "TTClassWrapperMax.h"
 
 // Globals
 static ClassPtr	parameter_class;	// Required: Global pointer for our class
@@ -24,27 +25,29 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	ClassPtr		c;
 	ObjectPtr		attr = NULL;
-	long			numDataspaces = 0;
-	SymbolPtr*		dataspaceNames = NULL;
+	TTValue			dataspaceNames;
 	TTValue			functionNames;
 	TTSymbol*		functionName;
 	char			dataspaces[2048];
 	char			functions[2048];
 	char			drives[2048];
 	short			i;
-	
+
 	// Initialize Globals
 	jamoma_init();
 	common_symbols_init();
 	
 	// Get list of dataspace and ramb library units
-	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
+	TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));	
 	dataspaces[0] = 0;
-	for (i=0; i<numDataspaces; i++)
-	{
-		strcat(dataspaces, dataspaceNames[i]->s_name);
+	for (int i=0; i < dataspaceNames.getSize(); i++) {
+		TTSymbolPtr	name;
+		
+		dataspaceNames.get(i, &name);
+		strcat(dataspaces, name->getCString());
 		strcat(dataspaces, " ");
 	}
+	
 	
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
@@ -200,6 +203,11 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->ui_qelem = qelem_new(x, (method)param_ui_queuefn);
 		x->rampParameterNames = new TTHash;
 
+		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2active, kTTValNONE);
+		TTObjectInstantiate(TT("dataspace"), &x->dataspace_active2display, kTTValNONE);
+		TTObjectInstantiate(TT("dataspace"), &x->dataspace_display2active, kTTValNONE);
+		TTObjectInstantiate(TT("dataspace"), &x->dataspace_active2native, kTTValNONE);		
+		
 		// set defaults...
 		x->attr_rampfunction = _sym_nothing;
 		x->attr_ramp = _sym_none;
@@ -275,6 +283,11 @@ void param_free(t_param *x)
 	if (x->receive)
 		object_free(x->receive);
 	delete x->rampParameterNames;
+	
+	TTObjectRelease(&x->dataspace_override2active);
+	TTObjectRelease(&x->dataspace_active2display);
+	TTObjectRelease(&x->dataspace_display2active);
+	TTObjectRelease(&x->dataspace_active2native);	
 }
 
 
@@ -792,47 +805,60 @@ MaxErr param_attr_getdataspace(t_param *x, void *attr, long *argc, AtomPtr *argv
 MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
-		MaxErr	err;
+		MaxErr		err;
+		TTValue		v;
+		TTSymbolPtr	s;
 		
 		x->attr_dataspace = atom_getsym(argv);
-		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_active2native);
-		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_active2display);
-		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_display2active);
-		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_override2active);
-
+		
+		v = TT(x->attr_dataspace->s_name);
+		x->dataspace_active2native->setAttributeValue(TT("dataspace"), v);
+		x->dataspace_active2display->setAttributeValue(TT("dataspace"), v);
+		x->dataspace_display2active->setAttributeValue(TT("dataspace"), v);
+		x->dataspace_override2active->setAttributeValue(TT("dataspace"), v);
+		
 		// If there is already a unit defined, then we try to use that
 		// Otherwise we use the default (neutral) unit.
 		err = MAX_ERR_GENERIC;
 		if (x->attr_unitActive) {
-			err = x->dataspace_active2native->setInputUnit(x->attr_unitActive);
-			err = x->dataspace_active2display->setInputUnit(x->attr_unitActive);
-			err = x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
+			err = x->dataspace_active2native->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
+			err = x->dataspace_active2display->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
+			err = x->dataspace_display2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
 
 			// override always defaults to the active unit
-			err = x->dataspace_override2active->setInputUnit(x->attr_unitActive);
-			err = x->dataspace_override2active->setOutputUnit(x->attr_unitActive);
+			err = x->dataspace_override2active->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
+			err = x->dataspace_override2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
 		}
 		if (err) {
-			x->attr_unitActive = x->dataspace_active2native->neutralUnit;
-			err = x->dataspace_active2native->setInputUnit(x->attr_unitActive);
-			err = x->dataspace_active2display->setInputUnit(x->attr_unitActive);
-			err = x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
-			err = x->dataspace_override2active->setOutputUnit(x->attr_unitActive);
+			x->dataspace_active2native->getAttributeValue(TT("inputUnit"), v);
+			v.get(0, &s);
+			x->attr_unitActive = gensym(s->getCString());
+
+			err = x->dataspace_active2native->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
+			err = x->dataspace_active2display->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
+			err = x->dataspace_display2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
+			err = x->dataspace_override2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
 		}
 		
 		err = MAX_ERR_GENERIC;
 		if (x->attr_unitNative) 
-			err = x->dataspace_active2native->setOutputUnit(x->attr_unitNative);
-		if (err)
-			x->attr_unitNative = x->dataspace_active2native->neutralUnit;
-
+			err = x->dataspace_active2native->setAttributeValue(TT("outputUnit"), TT(x->attr_unitNative->s_name));
+		if (err) {
+			x->dataspace_active2native->getAttributeValue(TT("inputUnit"), v);
+			v.get(0, &s);
+			x->attr_unitNative = gensym(s->getCString());
+		}
+		
 		err = MAX_ERR_GENERIC;
 		if (x->attr_unitDisplay) {
-			err = x->dataspace_active2display->setOutputUnit(x->attr_unitDisplay);
-			err = x->dataspace_display2active->setInputUnit(x->attr_unitDisplay);
+			err = x->dataspace_active2display->setAttributeValue(TT("outputUnit"), TT(x->attr_unitDisplay->s_name));
+			err = x->dataspace_display2active->setAttributeValue(TT("inputUnit"), TT(x->attr_unitDisplay->s_name));
 		}
-		if (err)
-			x->attr_unitNative = x->dataspace_active2native->neutralUnit;
+		if (err) {
+			x->dataspace_active2native->getAttributeValue(TT("inputUnit"), v);
+			v.get(0, &s);
+			x->attr_unitDisplay = gensym(s->getCString());
+		}
 	}
 	return MAX_ERR_NONE;
 }
@@ -851,12 +877,10 @@ MaxErr param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr 
 {
 	if (argc && argv) {
 		x->attr_unitActive = atom_getsym(argv);
-		if (x->dataspace_active2native)
-			x->dataspace_active2native->setInputUnit(x->attr_unitActive);
-		if (x->dataspace_active2display)
-			x->dataspace_active2native->setInputUnit(x->attr_unitActive);
-		if (x->dataspace_display2active)
-			x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
+
+		x->dataspace_active2native->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
+		x->dataspace_active2native->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
+		x->dataspace_display2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -875,8 +899,7 @@ MaxErr param_attr_setnativeunit(t_param *x, void *attr, AtomCount argc, AtomPtr 
 {
 	if (argc && argv) {
 		x->attr_unitNative = atom_getsym(argv);
-		if (x->dataspace_active2native)
-			x->dataspace_active2native->setOutputUnit(x->attr_unitNative);
+		x->dataspace_active2native->setAttributeValue(TT("outputUnit"), TT(x->attr_unitNative->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -895,10 +918,8 @@ MaxErr param_attr_setdisplayunit(t_param *x, void *attr, AtomCount argc, AtomPtr
 {
 	if (argc && argv) {
 		x->attr_unitDisplay = atom_getsym(argv);
-		if (x->dataspace_active2display)
-			x->dataspace_active2display->setOutputUnit(x->attr_unitDisplay);
-		if (x->dataspace_display2active)
-			x->dataspace_display2active->setInputUnit(x->attr_unitDisplay);
+		x->dataspace_active2display->setAttributeValue(TT("outputUnit"), TT(x->attr_unitDisplay->s_name));
+		x->dataspace_display2active->setAttributeValue(TT("inputUnit"), TT(x->attr_unitDisplay->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -1491,9 +1512,14 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				return;
 			
 			if (x->dataspace_active2native) {
-				AtomPtr r = (AtomPtr)sysmem_newptr(sizeof(Atom));
-				x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
-				jcom_core_atom_copy(&x->attr_value, r);
+				TTValue	v;
+				
+//				AtomPtr r = (AtomPtr)sysmem_newptr(sizeof(Atom));
+//				x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
+				TTValueFromAtoms(v, 1, argv);
+				x->dataspace_active2native->sendMessage(TT("convert"), v);
+				TTAtomsFromValue(v, &x->list_size, (AtomPtr*)&x->atom_list);				
+//				jcom_core_atom_copy(&x->attr_value, r);
 			}
 			else
 				jcom_core_atom_copy(&x->attr_value, argv);
@@ -1546,12 +1572,14 @@ int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
 void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
 {
 	if ((x->attr_dataspace && x->dataspace_active2native) && (x->attr_unitActive != x->attr_unitNative)) {
-		long	count;
-
+		TTValue	v;
+		
 		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
 		
-		x->dataspace_active2native->convert(argc, argv, &count, rv);
-		*rc = count;
+		TTValueFromAtoms(v, argc, argv);
+		x->dataspace_active2native->sendMessage(TT("convert"), v);
+		TTAtomsFromValue(v, rc, rv);				
+
 		*alloc = true;
 	}
 	else {
