@@ -1511,15 +1511,12 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			if (x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x->atom_list, x->list_size, argv, argc)) 
 				return;
 			
-			if (x->dataspace_active2native) {
+			if (x->attr_dataspace != _sym_none) {
 				TTValue	v;
 				
-//				AtomPtr r = (AtomPtr)sysmem_newptr(sizeof(Atom));
-//				x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
 				TTValueFromAtoms(v, 1, argv);
 				x->dataspace_active2native->sendMessage(TT("convert"), v);
 				TTAtomsFromValue(v, &x->list_size, (AtomPtr*)&x->atom_list);				
-//				jcom_core_atom_copy(&x->attr_value, r);
 			}
 			else
 				jcom_core_atom_copy(&x->attr_value, argv);
@@ -1571,7 +1568,7 @@ int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
 
 void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
 {
-	if ((x->attr_dataspace && x->dataspace_active2native) && (x->attr_unitActive != x->attr_unitNative)) {
+	if ((x->attr_dataspace != _sym_none) && (x->attr_unitActive != x->attr_unitNative)) {
 		TTValue	v;
 		
 		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
