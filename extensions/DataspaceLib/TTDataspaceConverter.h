@@ -27,6 +27,7 @@ class TTDataspaceConverter : public TTObject {
 	
 	/** converts input to output, possibly doing a unit conversion.  */
 	TTErr convert(TTValue& io);
+	TTErr dictionary(TTValue& io);
 
 	/** set the input unit type for this dataspace object by it's name as a symbol */
 	TTErr setInputUnit(const TTValue& inUnitName);

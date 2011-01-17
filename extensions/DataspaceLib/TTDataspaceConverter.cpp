@@ -21,7 +21,9 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithGetterAndSetter(InputUnit, kTypeSymbol);
 	addAttributeWithGetterAndSetter(OutputUnit, kTypeSymbol);
 
+	addMessageWithArgument(dictionary);
 	addMessageWithArgument(convert);
+	
 	addMessageWithArgument(getAvailableUnits);
 	addMessageWithArgument(getAvailableDataspaces);
 	
@@ -62,6 +64,21 @@ TTErr TTDataspaceConverter::convert(TTValue& io)
 	
 	err = mDataspaceObject->convert(io, output);
 	io = output;
+	
+	return err;
+}
+
+
+TTErr TTDataspaceConverter::dictionary(TTValue& input)
+{
+	TTDictionaryPtr	d = NULL;
+	TTValue			v;
+	TTErr			err;
+	
+	input.get(0, (TTPtr*)(&d));
+	d->getValue(v);
+	err = convert(v);
+	d->setValue(v);
 	
 	return err;
 }
