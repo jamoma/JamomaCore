@@ -9,19 +9,7 @@
 #include "TTDataspaceUnit.h"
 
 
-//#define thisTTClass			TTDataspaceUnit
-//#define thisTTClassName		"dataspace.unit"
-//#define thisTTClassTags		"dataspace, private"
-
-
-//TT_OBJECT_CONSTRUCTOR
 TTDataspaceUnit::TTDataspaceUnit(TTValue& arguments)
 {
 	arguments.get(0, &name);
 }
-
-
-//TTDataspaceUnit::~TTDataspaceUnit()
-//{
-//	;
-//}

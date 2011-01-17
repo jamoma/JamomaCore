@@ -16,50 +16,39 @@
 /****************************************************************************************************/
 // Class Specification
 
-//class TT_DATASPACE_EXPORT Dataspace : public TTObject {
 class TTDataspace {
-//	TTCLASS_SETUP(TTDataspace)
-	/** Constructor. Must be passed the name of this DataspaceUnit as a TTSymbolPtr. */
+	
+	TTObjectPtr			inUnitTT;	// we maintain individual pointers to the two base-classes (multiple-inheritance)
+	TTDataspaceUnitPtr  inUnit;		//    so we can quickly access both without expensive casting during operation
+	TTObjectPtr			outUnitTT;
+	TTDataspaceUnitPtr  outUnit;
+	TTHashPtr			unitHash;
 public:
+	TTSymbolPtr			neutralUnit;
+	
+	
 	TTDataspace();
-	
-	
-	/** Destructor */
 	virtual ~TTDataspace();
+
+
+	/** converts input to output, possibly doing a unit conversion.  */
+	TTErr convert(const TTValue& input, TTValue& output);
+
+	/** set the input unit type for this dataspace object by it's name as a symbol */
+	TTErr setInputUnit(TTSymbolPtr inUnitName);
+	TTSymbolPtr getInputUnit();
+
+	/** set the output unit type for this dataspace object by it's name as a symbol */
+	TTErr setOutputUnit(TTSymbolPtr outUnitName);
+	TTSymbolPtr getOutputUnit();
+
+	/** return a list of all available units for this dataspace */
+	TTErr getAvailableUnits(TTValue& unitNames);
 	
-	private:
-		TTDataspaceUnitPtr  inUnit;
-		TTDataspaceUnitPtr  outUnit;
-		TTHashPtr			unitHash;
+protected:
+	/** Called by subclasses to register units with the dataspace */
+	void registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName);
 
-	protected:
-		/** Called by subclasses to register units with the dataspace */
-		void registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName);
-
-	public:
-		TTSymbolPtr	      neutralUnit;
-	
-		/** Constructor.
-			This constructor maintains a cache of all DataspaceUnits that are associated with
-			the given dataspace.  To maintain the cache, the subclasses must register each unit.
-			@param cName		The name of the total Dataspace as a C-string
-			@param cNativeUnit	The name of the neutral unit that is used for translating
-								between units within this Dataspace. */
-		//TTDataspace(TTValue& arguments);
-		//virtual ~TTDataspace();
-
-		/** converts input to output, possibly doing a unit conversion.  */
-        TTErr convert(const TTValue& input, TTValue& output);
-
-		/** set the input unit type for this dataspace object by it's name as a symbol */
-		TTErr setInputUnit(TTSymbolPtr inUnitName);
-
-		/** set the output unit type for this dataspace object by it's name as a symbol */
-		TTErr setOutputUnit(TTSymbolPtr outUnitName);
-
-		/** return a list of all available units for this dataspace */
-		//void getAvailableUnits(long *numUnits, t_symbol ***unitNames);
-		TTErr getAvailableUnits(TTValue& unitNames);
 };
 
 typedef TTDataspace* TTDataspacePtr;

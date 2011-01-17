@@ -19,25 +19,22 @@ class TTDataspaceConverter : public TTObject {
 	TTCLASS_SETUP(TTDataspaceConverter)
 	
 	TTSymbolPtr			mDataspace;
-	TTDataspacePtr		mDataspaceObject;
-	TTSymbolPtr			mInputUnit;
-	TTDataspaceUnitPtr	mInputUnitObject;
-	TTSymbolPtr			mOutputUnit;
-	TTDataspaceUnitPtr	mOutputUnitObject;
-	
-	
+	TTObjectPtr			mDataspaceTTObject;	// TTObject
+	TTDataspacePtr		mDataspaceObject;	//   the above, cast to it's other parent class
+		
 	// Attribute Accessor
 	TTErr setDataspace(const TTValue& newValue);
-
 	
 	/** converts input to output, possibly doing a unit conversion.  */
 	TTErr convert(const TTValue& input, TTValue& output);
 
 	/** set the input unit type for this dataspace object by it's name as a symbol */
 	TTErr setInputUnit(const TTValue& inUnitName);
+	TTErr getInputUnit(TTValue& inUnitName);
 
 	/** set the output unit type for this dataspace object by it's name as a symbol */
 	TTErr setOutputUnit(const TTValue& outUnitName);
+	TTErr getOutputUnit(TTValue& inUnitName);
 
 	/** return a list of all available units for this dataspace */
 	//void getAvailableUnits(long *numUnits, t_symbol ***unitNames);

@@ -10,7 +10,9 @@
 
 
 TTDataspace::TTDataspace() :
+	inUnitTT(NULL),
 	inUnit(NULL),
+	outUnitTT(NULL),
     outUnit(NULL)
 {
 	unitHash = new TTHash;
@@ -20,8 +22,8 @@ TTDataspace::TTDataspace() :
 TTDataspace::~TTDataspace()
 {
     delete unitHash;	
-	TTObjectRelease((TTObjectPtr*)&inUnit);
-	TTObjectRelease((TTObjectPtr*)&outUnit);
+	TTObjectRelease((TTObjectPtr*)&inUnitTT);
+	TTObjectRelease((TTObjectPtr*)&outUnitTT);
 }
 
 
@@ -51,11 +53,19 @@ TTErr TTDataspace::setInputUnit(TTSymbolPtr inUnitName)
 		err = unitHash->lookup(inUnitName, v);
 		newUnitClassName = TTSymbolPtr(v);
 		if (!err && newUnitClassName) {
-			v.clear();
-			err = TTObjectInstantiate(newUnitClassName, (TTObject**)&inUnit, v);	// this will free a pre-existing unit
+			//v.clear();
+			v = inUnitName;
+			err = TTObjectInstantiate(newUnitClassName, &inUnitTT, v);	// this will free a pre-existing unit
+			inUnit = dynamic_cast<TTDataspaceUnitPtr>(inUnitTT);
 		}
 		return err;
 	}
+}
+
+
+TTSymbolPtr TTDataspace::getInputUnit()
+{
+	return inUnit->name;
 }
 
 
@@ -71,11 +81,19 @@ TTErr TTDataspace::setOutputUnit(TTSymbolPtr outUnitName)
 		err = unitHash->lookup(outUnitName, v);
 		newUnitClassName = TTSymbolPtr(v);
 		if (!err && newUnitClassName) {
-			v.clear();
-			err = TTObjectInstantiate(newUnitClassName, (TTObject**)&outUnit, v);	// this will free a pre-existing unit
+			//v.clear();
+			v = outUnitName;
+			err = TTObjectInstantiate(newUnitClassName, &outUnitTT, v);	// this will free a pre-existing unit
+			outUnit = dynamic_cast<TTDataspaceUnitPtr>(outUnitTT);
 		}
 		return err;
 	}
+}
+
+
+TTSymbolPtr TTDataspace::getOutputUnit()
+{
+	return outUnit->name;
 }
 
 
@@ -83,7 +101,7 @@ void TTDataspace::registerUnit(const TTSymbolPtr className, const TTSymbolPtr un
 {
 	TTValuePtr v = new TTValue(className);
 
-	unitHash->append(unitName, v);
+	unitHash->append(unitName, *v);
 }
 
 

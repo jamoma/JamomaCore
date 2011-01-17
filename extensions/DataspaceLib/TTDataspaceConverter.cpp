@@ -14,13 +14,12 @@
 
 
 TT_OBJECT_CONSTRUCTOR,
-	mDataspaceObject(NULL),
-	mInputUnitObject(NULL),
-    mOutputUnitObject(NULL)
+	mDataspaceTTObject(NULL),
+	mDataspaceObject(NULL)
 {
 	addAttributeWithSetter(Dataspace, kTypeSymbol);
-	addAttributeWithSetter(InputUnit, kTypeSymbol);
-	addAttributeWithSetter(OutputUnit, kTypeSymbol);
+	addAttributeWithGetterAndSetter(InputUnit, kTypeSymbol);
+	addAttributeWithGetterAndSetter(OutputUnit, kTypeSymbol);
 
 	addMessageWithArgument(convert);
 	addMessageWithArgument(getAvailableUnits);
@@ -32,7 +31,7 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTDataspaceConverter::~TTDataspaceConverter()
 {
-	TTObjectRelease((TTObjectPtr*)&mDataspace);
+	TTObjectRelease((TTObjectPtr*)&mDataspaceTTObject);
 }
 
 
@@ -40,12 +39,14 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 {
 	TTSymbolPtr		name;
 	TTErr			err;
+	TTString		objectName = "dataspace.";
 	
 	newValue.get(0, &name);
 	
 	// TODO: validate the name provided before proceeding
-	
-	err = TTObjectInstantiate(name, (TTObjectPtr*)&mDataspaceObject, kTTValNONE);
+	objectName += name->getString();
+	err = TTObjectInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
+	mDataspaceObject = dynamic_cast<TTDataspacePtr>(mDataspaceTTObject);
 	mDataspace = name;
 	
 	return err;
@@ -58,16 +59,28 @@ TTErr TTDataspaceConverter::convert(const TTValue& input, TTValue& output)
 }
 
 
+TTErr TTDataspaceConverter::getInputUnit(TTValue& inUnitName)
+{
+	inUnitName = mDataspaceObject->getInputUnit();
+	return kTTErrNone;
+}
+
+
 TTErr TTDataspaceConverter::setInputUnit(const TTValue& inUnitName)
 {
-	inUnitName.get(0, &mInputUnit);
 	return mDataspaceObject->setInputUnit(inUnitName);
+}
+
+
+TTErr TTDataspaceConverter::getOutputUnit(TTValue& outUnitName)
+{
+	outUnitName = mDataspaceObject->getOutputUnit();
+	return kTTErrNone;
 }
 
 
 TTErr TTDataspaceConverter::setOutputUnit(const TTValue& outUnitName)
 {
-	outUnitName.get(0, &mOutputUnit);
 	return mDataspaceObject->setOutputUnit(outUnitName);
 }
 
