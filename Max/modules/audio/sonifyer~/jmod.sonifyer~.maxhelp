@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 998.0, 632.0 ],
+		"rect" : [ 0.0, 44.0, 996.0, 511.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 998.0, 632.0 ],
+		"defrect" : [ 0.0, 44.0, 996.0, 511.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,15 +20,25 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-2",
+					"maxclass" : "meter~",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 88.0, 418.0, 100.0, 25.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
-					"linecount" : 9,
+					"linecount" : 11,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 331.0, 94.0, 387.0, 116.0 ],
+					"patching_rect" : [ 326.0, 82.0, 316.0, 140.0 ],
 					"text" : "This module works as a \"reverse\" spectrogram. It takes a motiongram as input, and plays it back as if it were a spectrogram. Time runs from left to right, and frequencies go from bottom to top. \n\nThe different parameters can be used for controlling the frequency range and spread, as well as the smoothing in both frequency and time. \n\nTry to experiment with the threshold of the motion image, which may lead to interesting sonic results."
 				}
 
@@ -37,13 +47,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"linecount" : 5,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 382.0, 539.0, 226.0, 67.0 ],
+					"patching_rect" : [ 682.0, 109.0, 226.0, 67.0 ],
 					"text" : "How to get this going: \n1. turn on video (camera or file)\n2. turn on audio and adjust the volume\n3. move and listen\n4. experiment with the various parameters"
 				}
 
@@ -57,7 +66,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 10.0, 322.0, 107.0, 19.0 ],
+					"patching_rect" : [ 5.0, 310.0, 107.0, 19.0 ],
 					"text" : "jcom.pass /counter"
 				}
 
@@ -72,8 +81,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "signal" ],
-					"patching_rect" : [ 10.0, 348.0, 300.0, 105.0 ],
-					"presentation_rect" : [ 45.0, 45.0, 300.0, 105.0 ]
+					"patching_rect" : [ 5.0, 336.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 45.0, 45.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -84,9 +93,9 @@
 					"maxclass" : "gain~",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"orientation" : 2,
+					"orientation" : 1,
 					"outlettype" : [ "signal", "int" ],
-					"patching_rect" : [ 292.0, 464.0, 21.0, 85.0 ]
+					"patching_rect" : [ 206.0, 418.0, 100.0, 25.0 ]
 				}
 
 			}
@@ -96,7 +105,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 282.0, 561.0, 45.0, 45.0 ]
+					"patching_rect" : [ 206.0, 449.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -110,7 +119,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 10.0, 96.0, 300.0, 70.0 ],
+					"patching_rect" : [ 5.0, 84.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 30.0, 30.0, 300.0, 70.0 ],
 					"varname" : "/input%"
 				}
@@ -126,7 +135,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 10.0, 245.0, 300.0, 70.0 ],
+					"patching_rect" : [ 5.0, 233.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 30.0, 30.0, 300.0, 70.0 ]
 				}
 
@@ -139,7 +148,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 659.0, 246.0, 320.0, 240.0 ],
+					"patching_rect" : [ 654.0, 234.0, 320.0, 240.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 320.0, 240.0 ]
 				}
 
@@ -152,7 +161,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 334.0, 246.0, 320.0, 240.0 ],
+					"patching_rect" : [ 329.0, 234.0, 320.0, 240.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 320.0, 240.0 ]
 				}
 
@@ -167,7 +176,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 10.0, 170.0, 300.0, 70.0 ],
+					"patching_rect" : [ 5.0, 158.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 30.0, 30.0, 300.0, 70.0 ],
 					"varname" : "/motion%"
 				}
@@ -182,7 +191,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1026.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 1037.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -202,7 +211,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 300.5, 166.0, 300.5, 166.0 ],
+					"midpoints" : [ 295.5, 154.0, 295.5, 154.0 ],
 					"source" : [ "obj-10", 1 ]
 				}
 
@@ -219,8 +228,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 300.5, 324.0, 326.5, 324.0, 326.5, 236.0, 668.5, 236.0 ],
+					"hidden" : 1,
+					"midpoints" : [ 295.5, 312.0, 321.5, 312.0, 321.5, 224.0, 663.5, 224.0 ],
 					"source" : [ "obj-14", 2 ]
 				}
 
@@ -236,9 +245,18 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 295.5, 412.0, 97.5, 412.0 ],
+					"source" : [ "obj-3", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 295.5, 412.0, 215.5, 412.0 ],
 					"source" : [ "obj-3", 1 ]
 				}
 
@@ -247,7 +265,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-14", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 300.5, 239.0, 300.5, 239.0 ],
+					"midpoints" : [ 295.5, 227.0, 295.5, 227.0 ],
 					"source" : [ "obj-8", 1 ]
 				}
 
@@ -255,8 +273,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 300.5, 241.0, 343.5, 241.0 ],
+					"hidden" : 1,
+					"midpoints" : [ 295.5, 229.0, 338.5, 229.0 ],
 					"source" : [ "obj-8", 1 ]
 				}
 

@@ -59,22 +59,23 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class 	*c;
 	t_object 	*attr = NULL;
-	long		numDataspaces = 0;
-	SymbolPtr*	dataspaceNames = NULL;
+	TTValue		dataspaceNames;
 	char		dataspaces[2048];
 	short		i;
 
 	jamoma_init();
 	common_symbols_init();
 	
-	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
+	TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));	
 	dataspaces[0] = 0;
-	for (i=0; i<numDataspaces; i++)
-	{
-		strcat(dataspaces, dataspaceNames[i]->s_name);
+	for (int i=0; i < dataspaceNames.getSize(); i++) {
+		TTSymbolPtr	name;
+		
+		dataspaceNames.get(i, &name);
+		strcat(dataspaces, name->getCString());
 		strcat(dataspaces, " ");
 	}
-
+	
 	// Define our class
 	c = class_new("jcom.return",(method)return_new, (method)return_free, sizeof(t_return), (method)0L, A_GIMME, 0);
 	

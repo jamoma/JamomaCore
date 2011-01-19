@@ -11,17 +11,7 @@
 		224B076A11DEA19B00B6EF48 /* jcom.core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */; };
 		224B076B11DEA19B00B6EF48 /* JamomaSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */; };
 		224B076C11DEA19B00B6EF48 /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3200D0DB77900F7762D /* FunctionLib.cpp */; };
-		224B076D11DEA19B00B6EF48 /* DataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */; };
-		224B076E11DEA19B00B6EF48 /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */; };
-		224B076F11DEA19B00B6EF48 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */; };
-		224B077011DEA19B00B6EF48 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */; };
 		224B077111DEA19B00B6EF48 /* JamomaObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */; };
-		224B077211DEA19B00B6EF48 /* TimeDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C931A0D1C45CC00BDA981 /* TimeDataspace.cpp */; };
-		224B077311DEA19B00B6EF48 /* PitchDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */; };
-		224B077411DEA19B00B6EF48 /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
-		224B077511DEA19B00B6EF48 /* AngleDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */; };
-		224B077611DEA19B00B6EF48 /* PositionDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */; };
-		224B077711DEA19B00B6EF48 /* NoneDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */; };
 		224B077811DEA19B00B6EF48 /* jcom.receive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2200FCAC0D3ECD3D0078B045 /* jcom.receive.cpp */; };
 		224B077911DEA19B00B6EF48 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */; };
 		224B077A11DEA19B00B6EF48 /* jcom.send.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2200FCAE0D3ECD3D0078B045 /* jcom.send.cpp */; };
@@ -55,14 +45,8 @@
 		2236907C0D00DFC3002D560B /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = source/JamomaSymbols.h; sourceTree = "<group>"; };
 		224B076511DEA0E000B6EF48 /* JamomaModular.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaModular.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaThreading.h; path = source/JamomaThreading.h; sourceTree = "<group>"; };
-		225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DistanceDataspace.cpp; path = DataspaceLib/DistanceDataspace.cpp; sourceTree = "<group>"; };
-		225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DistanceDataspace.h; path = DataspaceLib/DistanceDataspace.h; sourceTree = "<group>"; };
-		225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorDataspace.cpp; path = DataspaceLib/ColorDataspace.cpp; sourceTree = "<group>"; };
-		225C91B10D1B2E9100BDA981 /* ColorDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorDataspace.h; path = DataspaceLib/ColorDataspace.h; sourceTree = "<group>"; };
 		225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaObject.cpp; path = source/JamomaObject.cpp; sourceTree = "<group>"; };
 		225C92740D1BEFFF00BDA981 /* JamomaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaObject.h; path = source/JamomaObject.h; sourceTree = "<group>"; };
-		225C931A0D1C45CC00BDA981 /* TimeDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeDataspace.cpp; path = DataspaceLib/TimeDataspace.cpp; sourceTree = "<group>"; };
-		225C931B0D1C45CC00BDA981 /* TimeDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeDataspace.h; path = DataspaceLib/TimeDataspace.h; sourceTree = "<group>"; };
 		226951D90DEE665200911DE0 /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
 		226951DA0DEE665200911DE0 /* jcom.send~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
 		227C7ED8109A36C400D4D8EF /* MaxObjectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxObjectTypes.h; path = ../supports/objectivemax/MaxObject/MaxObjectTypes.h; sourceTree = SOURCE_ROOT; };
@@ -73,15 +57,7 @@
 		22AEF3200D0DB77900F7762D /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
 		22AEF3210D0DB77900F7762D /* FunctionLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
 		22AEF32C0D0DB98500F7762D /* JamomaTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaTypes.h; path = source/JamomaTypes.h; sourceTree = "<group>"; };
-		22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoneDataspace.cpp; path = DataspaceLib/NoneDataspace.cpp; sourceTree = "<group>"; };
-		22BF45A40D2564F2001FAA14 /* NoneDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoneDataspace.h; path = DataspaceLib/NoneDataspace.h; sourceTree = "<group>"; };
-		22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AngleDataspace.cpp; path = DataspaceLib/AngleDataspace.cpp; sourceTree = "<group>"; };
-		22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AngleDataspace.h; path = DataspaceLib/AngleDataspace.h; sourceTree = "<group>"; };
 		22C9F74E1033191A0062F7B8 /* JamomaModular.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaModular.xcconfig; sourceTree = "<group>"; };
-		22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemperatureDataspace.h; path = DataspaceLib/TemperatureDataspace.h; sourceTree = "<group>"; };
-		22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataspaceLib.cpp; path = DataspaceLib/DataspaceLib.cpp; sourceTree = "<group>"; };
-		22D7F5F10D105827009E4AF4 /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataspaceLib.h; path = DataspaceLib/DataspaceLib.h; sourceTree = "<group>"; };
-		22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TemperatureDataspace.cpp; path = DataspaceLib/TemperatureDataspace.cpp; sourceTree = "<group>"; };
 		22E6C74B0D4AB21B00DA75EE /* AsyncRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AsyncRamp.cpp; path = RampLib/AsyncRamp.cpp; sourceTree = "<group>"; };
 		22E6C74C0D4AB21B00DA75EE /* AsyncRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncRamp.h; path = RampLib/AsyncRamp.h; sourceTree = "<group>"; };
 		22E6C74D0D4AB21B00DA75EE /* NoneRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoneRamp.cpp; path = RampLib/NoneRamp.cpp; sourceTree = "<group>"; };
@@ -101,12 +77,6 @@
 		22FD2DC30CEE5B6F0039C226 /* jcom.list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.list.h; path = source/jcom.list.h; sourceTree = "<group>"; };
 		22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.prefix.pch; path = source/jcom.prefix.pch; sourceTree = "<group>"; };
 		22FD2DC50CEE5B6F0039C226 /* jcom.sendreceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.sendreceive.h; path = source/jcom.sendreceive.h; sourceTree = "<group>"; };
-		66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PositionDataspace.cpp; path = DataspaceLib/PositionDataspace.cpp; sourceTree = "<group>"; };
-		66D9A1F60D21F49300A16E9A /* PositionDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PositionDataspace.h; path = DataspaceLib/PositionDataspace.h; sourceTree = "<group>"; };
-		A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PitchDataspace.cpp; path = DataspaceLib/PitchDataspace.cpp; sourceTree = SOURCE_ROOT; };
-		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
-		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
-		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -144,7 +114,6 @@
 				227C7ED8109A36C400D4D8EF /* MaxObjectTypes.h */,
 				22FD2DCF0CEE5B770039C226 /* Headers */,
 				08FB77AEFE84172EC02AAC07 /* Sources */,
-				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
 				2200FCAB0D3ECD3D0078B045 /* Internals */,
@@ -209,33 +178,6 @@
 				22AEF3200D0DB77900F7762D /* FunctionLib.cpp */,
 			);
 			path = FunctionLib;
-			sourceTree = "<group>";
-		};
-		22D7F5EA0D10576E009E4AF4 /* DataspaceLib */ = {
-			isa = PBXGroup;
-			children = (
-				22D7F5F10D105827009E4AF4 /* DataspaceLib.h */,
-				22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */,
-				22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */,
-				22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */,
-				225C91B10D1B2E9100BDA981 /* ColorDataspace.h */,
-				225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */,
-				225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */,
-				225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */,
-				A7CA9C950D1FD9960099D8CA /* GainDataspace.h */,
-				A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */,
-				22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */,
-				22BF45A40D2564F2001FAA14 /* NoneDataspace.h */,
-				A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */,
-				A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */,
-				66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */,
-				66D9A1F60D21F49300A16E9A /* PositionDataspace.h */,
-				22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */,
-				22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */,
-				225C931B0D1C45CC00BDA981 /* TimeDataspace.h */,
-				225C931A0D1C45CC00BDA981 /* TimeDataspace.cpp */,
-			);
-			name = DataspaceLib;
 			sourceTree = "<group>";
 		};
 		22FD2DCF0CEE5B770039C226 /* Headers */ = {
@@ -347,17 +289,7 @@
 				224B076A11DEA19B00B6EF48 /* jcom.core.cpp in Sources */,
 				224B076B11DEA19B00B6EF48 /* JamomaSymbols.cpp in Sources */,
 				224B076C11DEA19B00B6EF48 /* FunctionLib.cpp in Sources */,
-				224B076D11DEA19B00B6EF48 /* DataspaceLib.cpp in Sources */,
-				224B076E11DEA19B00B6EF48 /* TemperatureDataspace.cpp in Sources */,
-				224B076F11DEA19B00B6EF48 /* DistanceDataspace.cpp in Sources */,
-				224B077011DEA19B00B6EF48 /* ColorDataspace.cpp in Sources */,
 				224B077111DEA19B00B6EF48 /* JamomaObject.cpp in Sources */,
-				224B077211DEA19B00B6EF48 /* TimeDataspace.cpp in Sources */,
-				224B077311DEA19B00B6EF48 /* PitchDataspace.cpp in Sources */,
-				224B077411DEA19B00B6EF48 /* GainDataspace.cpp in Sources */,
-				224B077511DEA19B00B6EF48 /* AngleDataspace.cpp in Sources */,
-				224B077611DEA19B00B6EF48 /* PositionDataspace.cpp in Sources */,
-				224B077711DEA19B00B6EF48 /* NoneDataspace.cpp in Sources */,
 				224B077811DEA19B00B6EF48 /* jcom.receive.cpp in Sources */,
 				224B077911DEA19B00B6EF48 /* jcom.receivemaster.cpp in Sources */,
 				224B077A11DEA19B00B6EF48 /* jcom.send.cpp in Sources */,
