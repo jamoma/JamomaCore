@@ -258,23 +258,20 @@ void hub_examine_context(t_hub *x)
 	else
 		x->osc_name = _sym_nothing;
 	
-	// Try to get OSC Name of module from scripting name
+	// Try to get OSC name of module from scripting name
 	if (x->osc_name == _sym_nothing)
 		x->osc_name = jamoma_patcher_getvarname(x->container);
 
-	// In this case we overwrite whatever happened above
+	// For a top level patch we overwrite whatever happened above
 	if (context == gensym("toplevel")) {
 		x->osc_name = gensym("/editing_this_module");
 		x->editing = true;
 	}
-		
-	// TODO: This code is repeated below in the else part, and could be DRYed up
-	
-	// Get the size of the module in display mode
+			
+	// Do we have a jcom.ui in the patch?
 	t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
 	t_object*	ui = NULL;
-	t_symbol*	objclass = NULL;
-	
+	t_symbol*	objclass = NULL;	
 	ui = object_attr_getobj(patcher, gensym("firstobject"));
 	while (ui) {
 		objclass = object_attr_getsym(ui, gensym("maxclass"));
@@ -282,64 +279,44 @@ void hub_examine_context(t_hub *x)
 			break;
 		ui = object_attr_getobj(ui, gensym("nextobject"));
 	}
+	
 	if (ui) {
 		t_rect	uiRect;
+		
+		// Get and store the size of the module in display mode
 		object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 		x->attr_size[0] = uiRect.width;
 		x->attr_size[1] = uiRect.height;
-	}
 	
-	if (context != gensym("toplevel")) {
-		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);		//--
-		t_object*	box = object_attr_getobj(patcher, jps_box);			
-		t_object*	ui = NULL;												//--
-		t_symbol*	objclass = NULL;										//--
-		
-		x->editing = false;		
-		ui = object_attr_getobj(patcher, gensym("firstobject"));			//--
-		while (ui) {														//--
-			objclass = object_attr_getsym(ui, gensym("maxclass"));			//--
-			if (objclass == gensym("jcom.ui"))								//--
-				break;														//--
-			ui = object_attr_getobj(ui, gensym("nextobject"));				//--
-		}
-		
-		if (ui) {															//--
-			t_rect	boxRect;
-			t_rect	uiRect;													//--
+		t_object*	box = object_attr_getobj(patcher, jps_box);		
+		t_rect	boxRect;
 			
-			if (context == gensym("bpatcher")) {
-				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);	//--
-				object_attr_get_rect(box, _sym_patching_rect, &boxRect);
-				boxRect.width = uiRect.width;
-				boxRect.height = uiRect.height;
-				// Save info on the size of jcom.ui in presentation mode
-				x->attr_size[0] = uiRect.width;								//--
-				x->attr_size[1] = uiRect.height;							//--
-				object_attr_set_rect(box, _sym_patching_rect, &boxRect);
-				object_attr_get_rect(box, _sym_presentation_rect, &boxRect);
-				boxRect.width = uiRect.width;
-				boxRect.height = uiRect.height;
-				object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
-			}
-			else if (context == gensym("subpatcher")) {
-				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
-				object_attr_get_rect(patcher, _sym_defrect, &boxRect);
-				boxRect.width = uiRect.width;
-				boxRect.height = uiRect.height;
-				// Save info on the size of jcom.ui in presentation mode
-				x->attr_size[0] = uiRect.width;
-				x->attr_size[1] = uiRect.height;
-				object_attr_set_rect(patcher, _sym_defrect, &boxRect);				
-				object_attr_setchar(patcher, _sym_toolbarvisible, 0);	
-				object_method_parse(patcher, _sym_window, "flags nogrow", NULL); //get rid of the grow thingies
-				object_method_parse(patcher, _sym_window, "flags nozoom", NULL); //disable maximize button 
-				object_method_parse(patcher, _sym_window, "exec", NULL); 
-				object_attr_setsym(patcher, _sym_title, x->attr_name); //set the window title to the module class, jcom.ui shows osc_name already 
-				object_attr_setchar(patcher, _sym_enablehscroll, 0);   // turn off scroll bars
-				object_attr_setchar(patcher, _sym_enablevscroll, 0);				
-			}
-		
+		if (context == gensym("bpatcher")) {
+			// Set box size in patching mode
+			object_attr_get_rect(box, _sym_patching_rect, &boxRect);
+			boxRect.width  = x->attr_size[0];
+			boxRect.height = x->attr_size[1];
+			object_attr_set_rect(box, _sym_patching_rect, &boxRect);
+			// Set box size in presentation mode
+			object_attr_get_rect(box, _sym_presentation_rect, &boxRect);
+			boxRect.width  = x->attr_size[0];
+			boxRect.height = x->attr_size[1];
+			object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
+		}
+		else if (context == gensym("subpatcher")) {
+			// Set submodule window size
+			object_attr_get_rect(patcher, _sym_defrect, &boxRect);
+			boxRect.width  = x->attr_size[0];
+			boxRect.height = x->attr_size[1];
+			object_attr_set_rect(patcher, _sym_defrect, &boxRect);
+			// and additional settings for the window
+			object_attr_setchar(patcher, _sym_toolbarvisible, 0);	
+			object_method_parse(patcher, _sym_window, "flags nogrow", NULL); //get rid of the grow thingies
+			object_method_parse(patcher, _sym_window, "flags nozoom", NULL); //disable maximize button 
+			object_method_parse(patcher, _sym_window, "exec", NULL); 
+			object_attr_setsym(patcher, _sym_title, x->attr_name); //set the window title to the module class, jcom.ui shows osc_name already 
+			object_attr_setchar(patcher, _sym_enablehscroll, 0);   // turn off scroll bars
+			object_attr_setchar(patcher, _sym_enablevscroll, 0);				
 		}
 	}
 
