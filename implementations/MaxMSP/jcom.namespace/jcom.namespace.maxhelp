@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 1251.0, 468.0 ],
+		"rect" : [ 4.0, 44.0, 1251.0, 468.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 1251.0, 468.0 ],
+		"defrect" : [ 4.0, 44.0, 1251.0, 468.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -260,8 +260,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 5,
 									"outlettype" : [ "", "", "", "", "" ],
-									"patching_rect" : [ 194.0, 123.0, 157.0, 20.0 ],
-									"text" : "regexp Mac:/ @substitute \\\\"
+									"patching_rect" : [ 193.0, 122.0, 144.0, 20.0 ],
+									"text" : "regexp .+:/ @substitute \\\\"
 								}
 
 							}
@@ -329,7 +329,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-77", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 307.0, 145.0, 203.5, 145.0 ],
+									"midpoints" : [ 296.25, 145.0, 203.5, 145.0 ],
 									"source" : [ "obj-80", 3 ]
 								}
 
@@ -357,13 +357,13 @@
 ,
 					"patching_rect" : [ 87.0, 255.0, 79.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p filter_Mac:/"
@@ -990,7 +990,7 @@
 					"id" : "obj-36",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
-					"numinlets" : 1,
+					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 0.0, 0.0, 1251.0, 70.0 ],
 					"presentation" : 1,
@@ -1451,13 +1451,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-3",
-					"items" : [ "/input~", ",", "/output~", ",", "/input~.1", ",", "/output~.1" ],
+					"items" : [ "/mouse", ",", "/output~", ",", "/output~.1", ",", "/input~.1", ",", "/output~.2", ",", "/input~.3", ",", "/player.A", ",", "/player.B", ",", "/_movie_", ",", "/player.B/file", ",", "/movie", ",", "/input~", ",", "/output~.3", ",", "/movie/file", ",", "/player.A/file", ",", "/input~.2" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 12.0, 233.0, 168.0, 20.0 ],
-					"prefix" : "Mac:/",
+					"prefix" : "Mac Book HD:/",
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
