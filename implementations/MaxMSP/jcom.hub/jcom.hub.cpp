@@ -108,7 +108,7 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
 	// A Modular object needs an address argument
-	if (attrstart && argv) 
+	if (attrstart && argv)
 		address = atom_getsym(argv);
 	else
 		address = _sym_nothing;
@@ -130,6 +130,7 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	EXTRA->modelAddress = kTTSymEmpty;
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
@@ -152,6 +153,9 @@ void hub_build(TTPtr self, SymbolPtr address)
 	TTObjectPtr					aData, anExplorer;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
+	AtomCount					ac;
+	AtomPtr						av;
+	ObjectPtr					patcher;
 	
 	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherType, &x->subscriberObject);
@@ -259,13 +263,32 @@ void hub_build(TTPtr self, SymbolPtr address)
 			if (x->patcherType == TT("jmod"))
 				aData->setAttributeValue(kTTSym_value, nodeAddress);
 			
-			// In jview patcher : observe the entire namespace to find a model of our class
+			// In jview patcher :
+			// if exists, the second argument of the patcher is the /model/address value
+			// else observe the entire namespace to find a model of our class
 			if (x->patcherType == TT("jview")) {
-				makeInternals_explorer((ObjectPtr)x, TT("nmspcExplorer"), gensym("return_nmpscExploration"), &anExplorer);
-				EXTRA->modelAddress = kTTSymEmpty;
-				anExplorer->setAttributeValue(kTTSym_lookfor, TT("Container"));
-				anExplorer->setAttributeValue(kTTSym_address, S_SEPARATOR);
-				anExplorer->sendMessage(TT("Explore"), kTTValNONE);
+				
+				ac = 0;
+				av = NULL;
+				patcher = jamoma_object_getpatcher((ObjectPtr)x);
+				
+				// If x is in a bpatcher, the patcher is NULL
+				if (!patcher){
+					patcher = object_attr_getobj(x, _sym_parentpatcher);
+				}
+				
+				jamoma_patcher_getargs(patcher, &ac, &av);
+				if (ac == 2) {
+					EXTRA->modelAddress = TT(atom_getsym(av+1)->s_name);
+					aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
+				}
+				
+				if (EXTRA->modelAddress != kTTSymEmpty) {
+					makeInternals_explorer((ObjectPtr)x, TT("nmspcExplorer"), gensym("return_nmpscExploration"), &anExplorer);
+					anExplorer->setAttributeValue(kTTSym_lookfor, TT("Container"));
+					anExplorer->setAttributeValue(kTTSym_address, S_SEPARATOR);
+					anExplorer->sendMessage(TT("Explore"), kTTValNONE);
+				}
 			}
 			
 			// create internal TTTextHandler and expose Write message
