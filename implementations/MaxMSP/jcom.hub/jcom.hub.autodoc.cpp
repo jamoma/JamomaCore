@@ -99,7 +99,7 @@ void hub_doautodocTex(t_hub *x, t_symbol *userpath)
 	snprintf(tempstring, 1024, "Algorithm Type:\\> \\texttt{%s}\\\\", x->attr_algorithm_type->s_name);
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	jcom_core_file_writeline(&file_handle, &myEof, "\\\\");
-	snprintf(tempstring, 1024, "Interface Size:\\> \\texttt{%s}\\\\", x->attr_size->s_name);
+	snprintf(tempstring, 1024, "Interface Size:\\> \\texttt{%ld x %ld pixels}\\\\", x->attr_size[0], x->attr_size[1]);
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	jcom_core_file_writeline(&file_handle, &myEof, "\\\\");
 	// Inlets and outlets
@@ -308,7 +308,7 @@ void hub_doautodocHtml(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	snprintf(tempstring, 1024, "\tAlgorithm Type: <code> %s </code> </p>", x->attr_algorithm_type->s_name);
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);		
-	snprintf(tempstring, 1024, "\t<p>Interface Size: <code> %s </code> </p>", x->attr_size->s_name);
+	snprintf(tempstring, 1024, "\t<p>Interface Size: <code> %ldx%ld pixels </code> </p>", x->attr_size[0], x->attr_size[1]);
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	
 	// Inlets and outlets

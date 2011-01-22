@@ -166,7 +166,8 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_type = jps_control;
 		x->attr_description = _sym_nothing;
 		x->attr_algorithm_type = jps_default;		// poly for audio, jitter for video, control for control
-		x->attr_size = jps_1U_half;
+		x->attr_size[0] = 300;						// default size for jcom.ui in display mode
+		x->attr_size[1] = 70;
 		x->attr_inspector = 0;
 		x->using_wildcard = false;
 		x->in_object = NULL;						// module MUST have a jcom.in object
@@ -265,6 +266,25 @@ void hub_examine_context(t_hub *x)
 	if (context == gensym("toplevel")) {
 		x->osc_name = gensym("/editing_this_module");
 		x->editing = true;
+		
+		// TODO: This code is repeated below in the else part, and could be DRYed up
+		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
+		t_object*	ui = NULL;
+		t_symbol*	objclass = NULL;
+		
+		ui = object_attr_getobj(patcher, gensym("firstobject"));
+		while (ui) {
+			objclass = object_attr_getsym(ui, gensym("maxclass"));
+			if (objclass == gensym("jcom.ui"))
+				break;
+			ui = object_attr_getobj(ui, gensym("nextobject"));
+		}
+		if (ui) {
+			t_rect	uiRect;
+			object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
+			x->attr_size[0] = uiRect.width;
+			x->attr_size[1] = uiRect.height;
+		}	
 	}
 	else {
 		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
@@ -290,6 +310,9 @@ void hub_examine_context(t_hub *x)
 				object_attr_get_rect(box, _sym_patching_rect, &boxRect);
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
+				// Save info on the size of jcom.ui in presentation mode
+				x->attr_size[0] = uiRect.width;
+				x->attr_size[1] = uiRect.height;
 				object_attr_set_rect(box, _sym_patching_rect, &boxRect);
 				object_attr_get_rect(box, _sym_presentation_rect, &boxRect);
 				boxRect.width = uiRect.width;
@@ -300,7 +323,10 @@ void hub_examine_context(t_hub *x)
 				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 				object_attr_get_rect(patcher, _sym_defrect, &boxRect);
 				boxRect.width = uiRect.width;
-				boxRect.height = uiRect.height;				
+				boxRect.height = uiRect.height;
+				// Save info on the size of jcom.ui in presentation mode
+				x->attr_size[0] = uiRect.width;
+				x->attr_size[1] = uiRect.height;
 				object_attr_set_rect(patcher, _sym_defrect, &boxRect);				
 				object_attr_setchar(patcher, _sym_toolbarvisible, 0);	
 				object_method_parse(patcher, _sym_window, "flags nogrow", NULL); //get rid of the grow thingies

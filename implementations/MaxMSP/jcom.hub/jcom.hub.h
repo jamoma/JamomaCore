@@ -73,7 +73,7 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*gui_object;				///< cache the jcom.remote object in the gui for quick access
 	t_symbol		*attr_name;					///< ATTRIBUTE: module name
 	t_symbol		*attr_type;					///< ATTRIBUTE: what kind of module is this?  (audio, video, control, etc.)
-	t_symbol		*attr_size;					///< ATTRIBUTE: gui size
+	long			attr_size[2];				///< ATTRIBUTE: gui size (x and y)
 	t_symbol		*attr_description;			///< ATTRIBUTE: textual description of this module
 	t_symbol		*attr_algorithm_type;		///< ATTRIBUTE: control, jitter, etc.
 	long			attr_inspector;
