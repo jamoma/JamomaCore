@@ -9,48 +9,48 @@
 #ifndef __POSITIONDATASPACE_H__
 #define __POSITIONDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "TTDataspace.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class Cartesian3DUnit : DataspaceUnit{
+class Cartesian3DUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(Cartesian3DUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class Cartesian2DUnit : DataspaceUnit{
+class Cartesian2DUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(Cartesian2DUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class SphericalUnit : DataspaceUnit{
+class SphericalUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(SphericalUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class PolarUnit : DataspaceUnit{
+class PolarUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(PolarUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 		
-class OpenGlUnit : DataspaceUnit{
+class OpenGlUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(OpenGlUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class CylindricalUnit : DataspaceUnit{
+class CylindricalUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(CylindricalUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -60,7 +60,7 @@ public:
 
 
 // Specification of our base class
-class PositionDataspace : DataspaceLib {
+class PositionDataspace : public TTObject, public TTDataspace {
 	TTCLASS_SETUP(PositionDataspace)
 };
 

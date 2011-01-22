@@ -31,9 +31,12 @@ double hls_value(double n1, double n2, double hue)
 
 #define thisTTClass			CMYUnit
 #define thisTTClassName		"unit.cmy"
-#define thisTTClassTags		"dataspace, color"
+#define thisTTClassTags		"dataspace.unit, color"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 CMYUnit::~CMYUnit(){;}		
 
 void CMYUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -62,9 +65,12 @@ void CMYUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			HSLUnit
 #define thisTTClassName		"unit.hsl"
-#define thisTTClassTags		"dataspace, color"
+#define thisTTClassTags		"dataspace.unit, color"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 HSLUnit::~HSLUnit(){;}		
 		
 void HSLUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -181,9 +187,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #define thisTTClass			HSVUnit
 #define thisTTClassName		"unit.hsv"
-#define thisTTClassTags		"dataspace, color"
+#define thisTTClassTags		"dataspace.unit, color"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 HSVUnit::~HSVUnit(){;}		
 
 void HSVUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -286,9 +295,12 @@ void HSVUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			RGBUnit
 #define thisTTClassName		"unit.rgb"
-#define thisTTClassTags		"dataspace, color"
+#define thisTTClassTags		"dataspace.unit, color"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 RGBUnit::~RGBUnit(){;}		
 
 void RGBUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -311,9 +323,12 @@ void RGBUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			RGB8Unit
 #define thisTTClassName		"unit.rgb8"
-#define thisTTClassTags		"dataspace, color"
+#define thisTTClassTags		"dataspace.unit, color"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 RGB8Unit::~RGB8Unit(){;}		
 
 void RGB8Unit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -344,7 +359,7 @@ void RGB8Unit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"dataspace.color"
 #define thisTTClassTags		"dataspace, color"
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.cmy"),	TT("cmy"));

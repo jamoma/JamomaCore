@@ -13,9 +13,12 @@
 
 #define thisTTClass			RadianUnit
 #define thisTTClassName		"unit.radian"
-#define thisTTClassTags		"dataspace, angle"
+#define thisTTClassTags		"dataspace.unit, angle"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 RadianUnit::~RadianUnit(){;}
 
 
@@ -38,9 +41,12 @@ void RadianUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			DegreeUnit
 #define thisTTClassName		"unit.degree"
-#define thisTTClassTags		"dataspace, angle"
+#define thisTTClassTags		"dataspace.unit, angle"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 DegreeUnit::~DegreeUnit(){;}
 
 
@@ -65,7 +71,7 @@ void DegreeUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"dataspace.angle"
 #define thisTTClassTags		"dataspace, angle"
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {	
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.radian"),	TT("radian"));

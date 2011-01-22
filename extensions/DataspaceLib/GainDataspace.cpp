@@ -14,9 +14,12 @@
 
 #define thisTTClass			LinearAmplitudeUnit
 #define thisTTClassName		"unit.linear"
-#define thisTTClassTags		"dataspace, gain"
+#define thisTTClassTags		"dataspace.unit, gain"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 LinearAmplitudeUnit::~LinearAmplitudeUnit(){;}		
 
 void LinearAmplitudeUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -40,9 +43,12 @@ void LinearAmplitudeUnit::convertFromNeutral(const TTValue& input, TTValue& outp
 
 #define thisTTClass			MidiGainUnit
 #define thisTTClassName		"unit.midi.gain"
-#define thisTTClassTags		"dataspace, gain"
+#define thisTTClassTags		"dataspace.unit, gain"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 MidiGainUnit::~MidiGainUnit(){;}		
 
 void MidiGainUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -65,9 +71,12 @@ void MidiGainUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			DecibelUnit
 #define thisTTClassName		"unit.db"
-#define thisTTClassTags		"dataspace, gain"
+#define thisTTClassTags		"dataspace.unit, gain"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 DecibelUnit::~DecibelUnit(){;}		
 
 void DecibelUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -92,7 +101,7 @@ void DecibelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"dataspace.gain"
 #define thisTTClassTags		"dataspace, gain"
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.linear"),		TT("linear"));

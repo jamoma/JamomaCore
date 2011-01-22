@@ -11,9 +11,12 @@
 
 #define thisTTClass			CentimeterUnit
 #define thisTTClassName		"unit.centimeter"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 CentimeterUnit::~CentimeterUnit(){;}		
 
 void CentimeterUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -40,9 +43,12 @@ void CentimeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			FootUnit
 #define thisTTClassName		"unit.foot"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 FootUnit::~FootUnit(){;}		
 
 void FootUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -69,9 +75,12 @@ void FootUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			InchUnit
 #define thisTTClassName		"unit.inch"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 InchUnit::~InchUnit(){;}		
 
 void InchUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -98,9 +107,12 @@ void InchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			MeterUnit
 #define thisTTClassName		"unit.meter"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 MeterUnit::~MeterUnit(){;}
 		
 void MeterUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -125,7 +137,7 @@ void MeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"dataspace.distance"
 #define thisTTClassTags		"dataspace, distance"
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.centimeter"),		TT("cm"));

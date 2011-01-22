@@ -9,34 +9,34 @@
 #ifndef __DISTANCEDATASPACE_H__
 #define __DISTANCEDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "TTDataspace.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class CentimeterUnit : DataspaceUnit{
+class CentimeterUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(CentimeterUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class InchUnit : DataspaceUnit{
+class InchUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(InchUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class FootUnit : DataspaceUnit{
+class FootUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(FootUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class MeterUnit : DataspaceUnit{
+class MeterUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(MeterUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -45,7 +45,7 @@ public:
 
 
 // Specification of our base class
-class DistanceDataspace : DataspaceLib {
+class DistanceDataspace : public TTObject, public TTDataspace {
 	TTCLASS_SETUP(DistanceDataspace)
 };
 

@@ -11,9 +11,12 @@
 
 #define thisTTClass			CelsiusUnit
 #define thisTTClassName		"unit.celsius"
-#define thisTTClassTags		"dataspace, temperature"
+#define thisTTClassTags		"dataspace.unit, temperature"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 CelsiusUnit::~CelsiusUnit(){;}
 
 void CelsiusUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -40,9 +43,12 @@ void CelsiusUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			FahrenheitUnit
 #define thisTTClassName		"unit.fahrenheit"
-#define thisTTClassTags		"dataspace, temperature"
+#define thisTTClassTags		"dataspace.unit, temperature"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 FahrenheitUnit::~FahrenheitUnit(){;}
 
 void FahrenheitUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -69,9 +75,12 @@ void FahrenheitUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			KelvinUnit
 #define thisTTClassName		"unit.kelvin"
-#define thisTTClassTags		"dataspace, temperature"
+#define thisTTClassTags		"dataspace.unit, temperature"
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 KelvinUnit::~KelvinUnit(){;}
 
 void KelvinUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -96,7 +105,7 @@ void KelvinUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassName		"dataspace.temperature"
 #define thisTTClassTags		"dataspace, temperature"
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.celsius"),	TT("C"));

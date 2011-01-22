@@ -9,14 +9,14 @@
 #ifndef __NONE_DATASPACE_H__
 #define __NONE_DATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "TTDataspace.h"
 
 #define DEFAULT_SAMPLE_RATE	44100.0
 
 /****************************************************************************************************/
 // Class Specifications
 
-class NoneUnit : DataspaceUnit{
+class NoneUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(NoneUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -25,7 +25,7 @@ public:
 
 
 // Specification of our base class
-class NoneDataspace : DataspaceLib {
+class NoneDataspace : public TTObject, public TTDataspace {
 	TTCLASS_SETUP(NoneDataspace)
 };
 

@@ -9,13 +9,13 @@
 #ifndef __GAINDATASPACE_H__
 #define __GAINDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "TTDataspace.h"
 
 
 /****************************************************************************************************/
 // Class Specifications
 
-class LinearAmplitudeUnit : DataspaceUnit{
+class LinearAmplitudeUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(LinearAmplitudeUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -23,7 +23,7 @@ public:
 };
 
 
-class MidiGainUnit : DataspaceUnit{
+class MidiGainUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(MidiGainUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -31,7 +31,7 @@ public:
 };
 
 
-class DecibelUnit : DataspaceUnit{
+class DecibelUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(DecibelUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -40,7 +40,7 @@ public:
 
 
 // Specification of our base class
-class GainDataspace : DataspaceLib {
+class GainDataspace : public TTObject, public TTDataspace {
 	TTCLASS_SETUP(GainDataspace)
 };
 

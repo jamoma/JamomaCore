@@ -9,19 +9,19 @@
 #ifndef __ANGLEDATASPACE_H__
 #define __ANGLEDATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "TTDataspace.h"
 
 
 /****************************************************************************************************/
 
-class RadianUnit : public DataspaceUnit {
+class RadianUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(RadianUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class DegreeUnit : public DataspaceUnit {
+class DegreeUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(DegreeUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -31,7 +31,7 @@ public:
 
 /****************************************************************************************************/
 
-class AngleDataspace : public DataspaceLib {
+class AngleDataspace : public TTObject, public TTDataspace {
 	TTCLASS_SETUP(AngleDataspace)
 };
 

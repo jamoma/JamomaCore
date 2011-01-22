@@ -1,0 +1,57 @@
+/*
+ * Jamoma Dataspace Library
+ * Copyright © 2007
+ *
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
+ */
+
+#ifndef __TTDATASPACE_H__
+#define __TTDATASPACE_H__
+
+#include "TTDataspaceLib.h"
+#include "TTDataspaceUnit.h"
+
+
+/****************************************************************************************************/
+// Class Specification
+
+class TTDataspace {
+	
+	TTObjectPtr			inUnitTT;	// we maintain individual pointers to the two base-classes (multiple-inheritance)
+	TTDataspaceUnitPtr  inUnit;		//    so we can quickly access both without expensive casting during operation
+	TTObjectPtr			outUnitTT;
+	TTDataspaceUnitPtr  outUnit;
+	TTHashPtr			unitHash;
+public:
+	TTSymbolPtr			neutralUnit;
+	
+	
+	TTDataspace();
+	virtual ~TTDataspace();
+
+
+	/** converts input to output, possibly doing a unit conversion.  */
+	TTErr convert(const TTValue& input, TTValue& output);
+
+	/** set the input unit type for this dataspace object by it's name as a symbol */
+	TTErr setInputUnit(TTSymbolPtr inUnitName);
+	TTSymbolPtr getInputUnit();
+
+	/** set the output unit type for this dataspace object by it's name as a symbol */
+	TTErr setOutputUnit(TTSymbolPtr outUnitName);
+	TTSymbolPtr getOutputUnit();
+
+	/** return a list of all available units for this dataspace */
+	TTErr getAvailableUnits(TTValue& unitNames);
+	
+protected:
+	/** Called by subclasses to register units with the dataspace */
+	void registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName);
+
+};
+
+typedef TTDataspace* TTDataspacePtr;
+
+
+#endif // __TTDATASPACE_H__

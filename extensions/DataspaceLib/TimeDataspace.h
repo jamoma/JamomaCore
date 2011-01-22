@@ -9,19 +9,20 @@
 #ifndef __TIME_DATASPACE_H__
 #define __TIME_DATASPACE_H__
 
-#include "DataspaceLib.h"
+#include "TTDataspace.h"
 
 /****************************************************************************************************/
 // Class Specifications
 
-class MillisecondUnit : DataspaceUnit{
+class MillisecondUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(MillisecondUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class SampleUnit : DataspaceUnit{
+
+class SampleUnit : public TTObject, public TTDataspaceUnit {
 	// note that we aren't using the SI base unit for time, because the SI base unit for time is a bit wacky
 	// we are just going to use ms because that is the native unit for Max
 	private:
@@ -35,21 +36,24 @@ public:
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class SecondUnit : DataspaceUnit{
+
+class SecondUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(SecondUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class UpdaterateUnit : DataspaceUnit{
+
+class UpdaterateUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(UpdaterateUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class BpmUnit : DataspaceUnit{
+
+class BpmUnit : public TTObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(BpmUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -58,7 +62,7 @@ public:
 
 
 // Specification of our base class
-class TimeDataspace : DataspaceLib {
+class TimeDataspace : public TTObject, public TTDataspace {
 	TTCLASS_SETUP(TimeDataspace)
 };
 

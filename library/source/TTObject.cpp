@@ -510,7 +510,11 @@ TTErr TTObject::logError(TTImmutableCString fmtstring, ...)
 	va_end(ap);
 	str[4095] = 0;
 	
-	strncpy(fullstr, classPtr->name->getCString(), 4095);
+	// classPtr can be NULL if a post happens during construction
+	if (classPtr)
+		strncpy(fullstr, classPtr->name->getCString(), 4095);
+	else
+		strncpy(fullstr, "<class name not available>", 4095);
 	strncat(fullstr, " : ", 4095);
 	strncat(fullstr, str, 4095);
 	TTLogError(fullstr);

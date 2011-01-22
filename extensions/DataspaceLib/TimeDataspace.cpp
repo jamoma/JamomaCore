@@ -14,10 +14,13 @@
 
 #define thisTTClass			MillisecondUnit
 #define thisTTClassName		"unit.ms"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 MillisecondUnit::~MillisecondUnit(){;}		
 
 void MillisecondUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -40,10 +43,11 @@ void MillisecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			SampleUnit
 #define thisTTClassName		"unit.sample"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
-TT_DATASPACEUNIT_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
 {   
 	TTValue globalSampleRate;	
 	
@@ -75,10 +79,13 @@ void SampleUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			SecondUnit
 #define thisTTClassName		"unit.second"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 SecondUnit::~SecondUnit(){;}		
 
 void SecondUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -100,10 +107,13 @@ void SecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			UpdaterateUnit
 #define thisTTClassName		"unit.rate"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 UpdaterateUnit::~UpdaterateUnit(){;}		
 
 void UpdaterateUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -127,10 +137,13 @@ void UpdaterateUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			BpmUnit
 #define thisTTClassName		"unit.bpm"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"dataspace.unit, time"
 
 
-TT_DATASPACEUNIT_CONSTRUCTOR{;}
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
 BpmUnit::~BpmUnit(){;}		
 
 void BpmUnit::convertToNeutral(const TTValue& input, TTValue& output)
@@ -157,7 +170,7 @@ void BpmUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, time"
 
 
-TT_DATASPACELIB_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR
 {	
 	// Register unit names for this dataspace, 
 	// and map them to the actual object names implementing the conversion.
