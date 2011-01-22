@@ -289,9 +289,7 @@ void hub_examine_context(t_hub *x)
 		x->attr_size[1] = uiRect.height;
 	}
 	
-	
-	
-	else {
+	if (context != gensym("toplevel")) {
 		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);		//--
 		t_object*	box = object_attr_getobj(patcher, jps_box);			
 		t_object*	ui = NULL;												//--
