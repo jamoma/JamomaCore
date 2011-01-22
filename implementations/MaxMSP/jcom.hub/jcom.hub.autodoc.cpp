@@ -546,7 +546,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	long			repetitionAllow; 
 	t_atom			a[2];
 	t_atom			*argv = &a[0];
-	t_symbol		*resultClimpode;
+	t_symbol		*resultClipMode;
 	t_symbol		*resultRampDrive;
 	t_symbol		*resultRampFct;
 	t_symbol		*resultDataspace;
@@ -591,7 +591,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	argc = NULL;
 	argv = NULL;
 	object_attr_getvalueof(t->object ,jps_range_clipmode , &argc, &argv);
-	resultClimpode = atom_getsym(argv);
+	resultClipMode = atom_getsym(argv);
 
 	// ramp/drive
 	argc = NULL;
@@ -629,7 +629,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	object_attr_getvalueof(t->object ,jps_description , &argc, &argv);
 	resultDescription = atom_getsym(argv);
 	
-	snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClimpode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnitActive->s_name, repetitionAllow, resultDescription->s_name);
+	snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClipMode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnitActive->s_name, repetitionAllow, resultDescription->s_name);
 	jcom_core_file_writeline(file_handle, myEof, tempstring); 
 	
 }
