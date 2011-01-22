@@ -737,6 +737,7 @@ void dbap_calculate1D(t_dbap *x, long n)
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
 	
+	atom_setlong(&a[0], n);
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
 		atom_setfloat(&a[2], k/dia[i]);
