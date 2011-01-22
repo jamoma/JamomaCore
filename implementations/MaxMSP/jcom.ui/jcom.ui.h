@@ -45,6 +45,7 @@ typedef struct _ui{
 	ObjectPtr			patcher;
 	
 	TTBoolean			hover;					// is the mouse hover the jcom.ui panel ?
+	TTBoolean			selection;				// is the user selecting things ?
 	TTBoolean			selectAll;				// to select/unselect all jcom.view
 	t_jrgba				memo_bordercolor;		// to keep the choosen border color during selection
 
@@ -52,6 +53,7 @@ typedef struct _ui{
 	t_jrgba				bordercolor;
 	t_jrgba				headercolor;
 	t_jrgba				textcolor;
+	t_jrgba				selectcolor;
 	
 	long				ui_freeze;				// freeze all viewers of the jview (TODO)
 	
@@ -82,27 +84,33 @@ typedef struct _ui{
 
 	long				has_mute;				// is the binded model have a mute ?
 	long				is_muted;
+	long				sel_mute;				// selection state of mute
 	t_rect				rect_mute;
 
 	long				has_bypass;				// is the binded model have a bypass ?
 	long				is_bypassed;
+	long				sel_bypass;				// selection state of bypass
 	t_rect				rect_bypass;
 
 	long				has_freeze;				// is the binded model have a freeze ?
 	long				is_frozen;
+	long				sel_freeze;				// selection state of freeze
 	t_rect				rect_freeze;
 
 	long				has_preview;			// is the binded model have a preview ?
 	long				is_previewing;
+	long				sel_preview;			// selection state of preview
 	t_rect				rect_preview;
 
 	long				has_gain;				// is the binded model have a gain ?
 	float				gain;
+	long				sel_gain;				// selection state of gain
 	t_rect				rect_gain;
 	bool				gainDragging;
 	
 	long				has_mix;				// is the binded model have a mix ?
 	float				mix;
+	long				sel_mix;				// selection state of mix
 	t_rect				rect_mix;
 	bool				mixDragging;
 	
@@ -149,6 +157,7 @@ void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallba
 void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_viewer_destroy_all(t_ui *obj);
 void		ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v);
+void		ui_viewer_select(t_ui *obj, TTSymbolPtr name, TTBoolean s);
 void		ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f);
 void		ui_viewer_refresh(t_ui *obj, TTSymbolPtr name);
 

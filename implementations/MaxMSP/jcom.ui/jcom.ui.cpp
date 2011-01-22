@@ -52,6 +52,8 @@ static t_jrgba		s_color_green_button		= {0.2,			0.7,		0.2,		1.0};
 static t_jrgba		s_color_green_ring			= {0.25,		0.75,		0.25,		1.0};
 static t_jrgba		s_color_darkgreen			= {0.05,		0.4,		0.05,		1.0};
 
+static t_jrgba		s_color_selected			= {0.62,		0.,			0.36,		0.70};
+
 
 #pragma mark -
 #pragma mark life cycle
@@ -210,6 +212,13 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->has_mix = false;
 		x->has_preview = false;
 		x->has_freeze = false;
+		
+		x->sel_mute = true;
+		x->sel_gain = true;
+		x->sel_bypass = true;
+		x->sel_mix = true;
+		x->sel_preview = true;
+		x->sel_freeze = true;
 		
 		x->modelOutput = NULL;
 		x->previewSignal = NULL;
@@ -513,7 +522,10 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 		
-		jgraphics_set_source_jrgba(g, &s_color_border_button);
+		if (x->selection && x->sel_gain)
+			jgraphics_set_source_jrgba(g, &s_color_selected);
+		else
+			jgraphics_set_source_jrgba(g, &s_color_border_button);
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 		
@@ -559,7 +571,10 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 		
-		jgraphics_set_source_jrgba(g, &s_color_border_button);
+		if (x->selection && x->sel_mix)
+			jgraphics_set_source_jrgba(g, &s_color_selected);
+		else
+			jgraphics_set_source_jrgba(g, &s_color_border_button);
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 		
@@ -604,7 +619,10 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 		
-		jgraphics_set_source_jrgba(g, &s_color_border_button);
+		if (x->selection && x->sel_mute)
+			jgraphics_set_source_jrgba(g, &s_color_selected);
+		else
+			jgraphics_set_source_jrgba(g, &s_color_border_button);
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 		
@@ -644,7 +662,10 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 		
-		jgraphics_set_source_jrgba(g, &s_color_border_button);
+		if (x->selection && x->sel_bypass)
+			jgraphics_set_source_jrgba(g, &s_color_selected);
+		else
+			jgraphics_set_source_jrgba(g, &s_color_border_button);
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 		
@@ -681,7 +702,10 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 		
-		jgraphics_set_source_jrgba(g, &s_color_border_button);
+		if (x->selection && x->sel_freeze)
+			jgraphics_set_source_jrgba(g, &s_color_selected);
+		else
+			jgraphics_set_source_jrgba(g, &s_color_border_button);
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 		
@@ -716,7 +740,10 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 		
-		jgraphics_set_source_jrgba(g, &s_color_border_button);
+		if (x->selection && x->sel_preview)
+			jgraphics_set_source_jrgba(g, &s_color_selected);
+		else
+			jgraphics_set_source_jrgba(g, &s_color_border_button);
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 		
@@ -774,9 +801,6 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		
 		// if the control key is pressed
 		if (modifiers & eShiftKey) {
-			
-			// DEBUG
-			object_post((ObjectPtr)x, "mouse down and tab pressed");
 
 			obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
 			while (obj) {
@@ -799,31 +823,64 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	if (px.x > 18 && px.y < 20.0) {//(rect.width - 112)) {
 		// we check the gain and mix knobs first because they are continuous datas and should run as fast as possible
 		if (x->has_gain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)) {
-			x->gainDragging = true;
-			x->anchor.x = x->anchor.y = 0.0;
-			x->anchorValue = x->gain;			
-			jbox_set_mousedragdelta((t_object *)x, 1);
+			if (x->selection) {
+				x->sel_gain = !x->sel_gain;
+				ui_viewer_select(x, TT("out/gain"), x->sel_gain);
+			}
+			else {
+				x->gainDragging = true;
+				x->anchor.x = x->anchor.y = 0.0;
+				x->anchorValue = x->gain;			
+				jbox_set_mousedragdelta((t_object *)x, 1);
+			}
 		}
 		else if (x->has_mix && px.x >= x->rect_mix.x && px.x <= (x->rect_mix.x + x->rect_mix.width)) {
-			x->mixDragging = true;
-			x->anchor.x = x->anchor.y = 0.0;
-			x->anchorValue = x->mix;			
-			jbox_set_mousedragdelta((t_object *)x, 1);
+			if (x->selection) {
+				x->sel_mix = !x->sel_mix;
+				ui_viewer_select(x, TT("out/mix"), x->sel_mix);
+			}
+			else {
+				x->mixDragging = true;
+				x->anchor.x = x->anchor.y = 0.0;
+				x->anchorValue = x->mix;			
+				jbox_set_mousedragdelta((t_object *)x, 1);
+			}
 		}
 		else if (x->has_panel && px.x >= x->rect_panel.x && px.x <= (x->rect_panel.x + x->rect_panel.width))
 			ui_viewer_send(x, TT("view/panel"), kTTValNONE);
 		
-		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
-			ui_viewer_send(x, TT("out/preview"), TTValue(!x->is_previewing));
-		
-		else if (x->has_freeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
-			ui_viewer_send(x, TT("out/freeze"), TTValue(!x->is_frozen));
-		
-		else if (x->has_bypass && px.x >= x->rect_bypass.x && px.x <= (x->rect_bypass.x + x->rect_bypass.width))
-			ui_viewer_send(x, TT("in/bypass"), TTValue(!x->is_bypassed));
-		
-		else if (x->has_mute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
-			ui_viewer_send(x, TT("out/mute"), TTValue(!x->is_muted));
+		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width)) {
+			if (x->selection) {
+				x->sel_preview = !x->sel_preview;
+				ui_viewer_select(x, TT("out/preview"), x->sel_preview);
+			}
+			else
+				ui_viewer_send(x, TT("out/preview"), TTValue(!x->is_previewing));
+		}
+		else if (x->has_freeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width)) {
+			if (x->selection) {
+				x->sel_freeze = !x->sel_freeze;
+				ui_viewer_select(x, TT("out/freeze"), x->sel_freeze);
+			}
+			else
+				ui_viewer_send(x, TT("out/freeze"), TTValue(!x->is_frozen));
+		}
+		else if (x->has_bypass && px.x >= x->rect_bypass.x && px.x <= (x->rect_bypass.x + x->rect_bypass.width)) {
+			if (x->selection) {
+				x->sel_bypass = !x->sel_bypass;
+				ui_viewer_select(x, TT("in/bypass"), x->sel_bypass);
+			}
+			else
+				ui_viewer_send(x, TT("in/bypass"), TTValue(!x->is_bypassed));
+		}
+		else if (x->has_mute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width)) {
+			if (x->selection) {
+				x->sel_mute = !x->sel_mute;
+				ui_viewer_select(x, TT("out/mute"), x->sel_mute);
+			}
+			else
+				ui_viewer_send(x, TT("out/mute"), TTValue(!x->is_muted));
+		}
 		
 		else if (px.x < 100)
 			ui_refmenu_do(x, patcherview, px, modifiers);
@@ -888,6 +945,9 @@ void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	
 	// if the control key is pressed
 	if (modifiers & eShiftKey) {
+		
+		x->selection = true;
+		
 		// Is the mouse wasn't hover the jcom.ui panel
 		if (!x->hover) {
 			x->hover = true;
@@ -900,6 +960,9 @@ void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 		}
 	}
 	else {
+		
+		x->selection = false;
+		
 		if (x->hover) {
 			x->hover = false;
 			object_attr_setcolor((ObjectPtr)x, gensym("bordercolor"), &x->memo_bordercolor);

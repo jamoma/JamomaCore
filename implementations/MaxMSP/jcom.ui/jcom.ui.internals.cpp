@@ -294,6 +294,22 @@ void ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v)
 	}
 }
 
+void ui_viewer_select(t_ui *obj, TTSymbolPtr name, TTBoolean s)
+{
+	TTValue			storedObject;
+	TTObjectPtr		anObject;
+	TTErr			err;
+	if (obj->hash_viewers) {
+		err = obj->hash_viewers->lookup(name, storedObject);
+		
+		if (!err) {
+			storedObject.get(0, (TTPtr*)&anObject);
+			if (anObject)
+				anObject->setAttributeValue(kTTSym_selected, s);
+		}
+	}
+}
+
 void ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f)
 {
 	TTValue			storedObject;
