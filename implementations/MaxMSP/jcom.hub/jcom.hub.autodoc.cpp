@@ -139,7 +139,7 @@ void hub_doautodocTex(t_hub *x, t_symbol *userpath)
 	//jcom_core_file_writeline(&file_handle, &myEof, "\\vspace{1cm}");		
 	jcom_core_file_writeline(&file_handle, &myEof, "\\subsection*{Parameters}");
 	jcom_core_file_writeline(&file_handle, &myEof, "\\hrule");
-	table_headingTex(&file_handle, &myEof);
+	table_headingTex(&file_handle, &myEof, PARAMETER);
 	
 	// Process each parameter
 	critical_enter(0);
@@ -149,7 +149,7 @@ void hub_doautodocTex(t_hub *x, t_symbol *userpath)
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_parameter) {
-			hub_autodoc_nodeTex(&file_handle, &myEof, t);
+			hub_autodoc_nodeTex(&file_handle, &myEof, t, PARAMETER);
 		}
 	}	
 	critical_exit(0);
@@ -168,14 +168,14 @@ void hub_doautodocTex(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, "\\vspace{1cm}");	
 	jcom_core_file_writeline(&file_handle, &myEof, "\\subsection*{Messages}");	
 	jcom_core_file_writeline(&file_handle, &myEof, "\\hrule");
-	table_headingTex(&file_handle, &myEof);
+	table_headingTex(&file_handle, &myEof, MESSAGE);
 	
 	// Process each message
 	critical_enter(0);
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_message) {
-			hub_autodoc_nodeTex(&file_handle, &myEof, t);
+			hub_autodoc_nodeTex(&file_handle, &myEof, t, MESSAGE);
 		}
 	}
 	critical_exit(0);
@@ -194,14 +194,14 @@ void hub_doautodocTex(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, "\\vspace{1cm}");
 	jcom_core_file_writeline(&file_handle, &myEof, "\\subsection*{Returns}");
 	jcom_core_file_writeline(&file_handle, &myEof, "\\hrule");
-	table_headingTex(&file_handle, &myEof);
+	table_headingTex(&file_handle, &myEof, RETURN);
 	
 	// Process each return
 	critical_enter(0);
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_return) {
-			hub_autodoc_nodeTex(&file_handle, &myEof, t);
+			hub_autodoc_nodeTex(&file_handle, &myEof, t, RETURN);
 		}
 	}
 	critical_exit(0);
@@ -553,10 +553,11 @@ void hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* 
 	jcom_core_file_writeline(file_handle, myEof, "\t\t<tr>");
 }
 
-void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t)
+void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t, int nodeType)
 {	
 	long			argc;
-	long			repetitionAllow; 
+	long			repetitionAllow;
+	long			resultEnable;
 	t_atom			a[2];
 	t_atom			*argv = &a[0];
 	t_symbol		*resultClipMode;
@@ -564,7 +565,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	t_symbol		*resultRampFct;
 	t_symbol		*resultDataspace;
 	t_symbol		*resultDataspaceUnitActive;
-	t_symbol		*resultDescription;	
+	t_symbol		*resultDescription;
 	t_symbol		*msg_type;
 	float			range[2];
 	char			*humantype;
@@ -635,6 +636,14 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	argv = NULL;
 	object_attr_getvalueof(t->object ,jps_repetitions_allow , &argc, &argv);		
 	repetitionAllow = atom_getlong(argv);
+
+	// enable
+	if (nodeType == RETURN) {
+		argc = NULL;
+		argv = NULL;
+		object_attr_getvalueof(t->object ,jps_enable , &argc, &argv);		
+		resultEnable = atom_getlong(argv);
+	}
 	
 	// description
 	argc = NULL;
@@ -642,7 +651,10 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	object_attr_getvalueof(t->object ,jps_description , &argc, &argv);
 	resultDescription = atom_getsym(argv);
 	
-	snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClipMode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnitActive->s_name, repetitionAllow, resultDescription->s_name);
+	if (nodeType == RETURN)
+		snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClipMode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnitActive->s_name, repetitionAllow, resultEnable, resultDescription->s_name);
+	else
+		snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClipMode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnitActive->s_name, repetitionAllow, resultDescription->s_name);
 	jcom_core_file_writeline(file_handle, myEof, tempstring); 
 	
 }
@@ -667,11 +679,14 @@ void table_headingHtml(t_filehandle *file_handle, long *myEof, int nodeType)
 	jcom_core_file_writeline(file_handle, myEof, "\t\t<tr>");
 }
 
-void table_headingTex(t_filehandle *file_handle, long *myEof)
+void table_headingTex(t_filehandle *file_handle, long *myEof, int nodeType)
 {	
 	jcom_core_file_writeline(file_handle, myEof, "\\rowcolors{2}{gray!10}{}\\footnotesize");
 	jcom_core_file_writeline(file_handle, myEof, "\\begin{longtable}{llp{1.5cm}llllll p{7cm}} \\hline \\hline ");
-	jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\textbf{/repetitions} & \\textbf{/description}\\\\");
+	if (nodeType == RETURN)
+		jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\textbf{/repetitions} & \\textbf{/enable} & \\textbf{/description}\\\\");
+	else
+		jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\textbf{/repetitions} & \\textbf{/description}\\\\");
     jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit/native} & \\textbf{/allow} & \\\\");
 	jcom_core_file_writeline(file_handle, myEof, "\\hline\\hline \\endhead");
 }
