@@ -9,6 +9,11 @@
 
 #include "jcom.hub.h"
 
+enum {	PARAMETER, 
+		MESSAGE, 
+		RETURN
+};
+
 
 void hub_autodoc(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
@@ -341,7 +346,7 @@ void hub_doautodocHtml(t_hub *x, t_symbol *userpath)
 	///////////////////////////////////////////////////
 
 	jcom_core_file_writeline(&file_handle, &myEof, "\t<h3> Parameters </h3>");	
-	table_headingHtml(&file_handle, &myEof);
+	table_headingHtml(&file_handle, &myEof, PARAMETER);
 
 	// Process each parameter
 	critical_enter(0);
@@ -351,7 +356,7 @@ void hub_doautodocHtml(t_hub *x, t_symbol *userpath)
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_parameter) {
-			hub_autodoc_nodeHtml(&file_handle, &myEof, t);
+			hub_autodoc_nodeHtml(&file_handle, &myEof, t, PARAMETER);
 		}
 	}	
 	critical_exit(0);
@@ -369,14 +374,14 @@ void hub_doautodocHtml(t_hub *x, t_symbol *userpath)
 	///////////////////////////////////////////////////
 
 	jcom_core_file_writeline(&file_handle, &myEof, "\t<h3> Messages </h3>");	
-	table_headingHtml(&file_handle, &myEof);
+	table_headingHtml(&file_handle, &myEof, MESSAGE);
 		
 	// Process each message
 	critical_enter(0);
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_message) {
-			hub_autodoc_nodeHtml(&file_handle, &myEof, t);
+			hub_autodoc_nodeHtml(&file_handle, &myEof, t, MESSAGE);
 		}
 	}
 	critical_exit(0);
@@ -394,14 +399,14 @@ void hub_doautodocHtml(t_hub *x, t_symbol *userpath)
 	///////////////////////////////////////////////////
 
 	jcom_core_file_writeline(&file_handle, &myEof, "\t<h3> Return </h3>");	
-	table_headingHtml(&file_handle, &myEof);
+	table_headingHtml(&file_handle, &myEof, RETURN);
 		
 	// Process each return
 	critical_enter(0);
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_return) {
-			hub_autodoc_nodeHtml(&file_handle, &myEof, t);
+			hub_autodoc_nodeHtml(&file_handle, &myEof, t, RETURN);
 		}
 	}
 	critical_exit(0);
@@ -437,7 +442,7 @@ void hub_doautodocHtml(t_hub *x, t_symbol *userpath)
 }
 
 
-void hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* t)
+void hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* t, int nodeType)
 {	
 	long			argc;
 	t_atom			a[2];
@@ -529,7 +534,15 @@ void hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* 
 	object_attr_getvalueof(t->object ,jps_repetitions_allow , &argc, &argv);		
 	snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRepetitionsAllow\"> %ld </td>", atom_getlong(argv));
 	jcom_core_file_writeline(file_handle, myEof, tempstring);
-	
+
+	// enable
+	if (nodeType == RETURN) {
+		argc = NULL;
+		argv = NULL;
+		object_attr_getvalueof(t->object, jps_enable, &argc, &argv);
+		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionEnable\"> %ld </td>", atom_getlong(argv));
+		jcom_core_file_writeline(file_handle, myEof, tempstring);
+	}
 	// description
 	argc = NULL;
 	argv = NULL;
@@ -635,7 +648,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 }
 
 //	Generates table heading for parameters and messages
-void table_headingHtml(t_filehandle *file_handle, long *myEof)
+void table_headingHtml(t_filehandle *file_handle, long *myEof, int nodeType)
 {		
 	jcom_core_file_writeline(file_handle, myEof, "\t<table>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t<tr class=\"tableHeading2\">");
@@ -648,6 +661,8 @@ void table_headingHtml(t_filehandle *file_handle, long *myEof)
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace </td>"); 
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace/unit/native </td>"); 
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /repetitions/allow </td>");	
+	if (nodeType == RETURN)
+		jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /enable </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /description </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t<tr>");
 }
@@ -839,6 +854,11 @@ vertical-align: top;\
 .instructionRepetitionsAllow {\
 	font-family: 'Times New Roman', Times, serif;\
 	background-color: #eed;\
+	vertical-align: top;\
+}\
+.instructionEnable {\
+	font-family: 'Times New Roman', Times, serif;\
+	background-color: #eee;\
 	vertical-align: top;\
 }\
 .instructionDescription {\
