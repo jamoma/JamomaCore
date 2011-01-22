@@ -27,13 +27,13 @@ typedef struct outlet {
 typedef struct extra {
 	TTSymbolPtr address;		// the first arg address
 	ObjectPtr	connected;		// our ui object
-	AtomPtr		bgcolor;		// our ui object bgcolor
 	long		x;				// our ui object x presentation
 	long		y;				// our ui object y presentation
 	long		w;				// our ui object width presentation
 	long		h;				// our ui object heigth presentation
-	TTBoolean	sensible;		// is the ui object is mouse sensible (comment and panel are not)
-	TTBoolean	hover;			// is the mouse hover a none sensible object ?
+	ObjectPtr	label;			// label to display selection state
+	AtomPtr		color0;			// label color for selection state == 0
+	AtomPtr		color1;			// label color for selection state == 1
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
@@ -61,6 +61,7 @@ void	view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	view_attach(TTPtr self);
 void 	view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
 void	view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
+void	view_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
 
 void	view_build(TTPtr self, SymbolPtr address);
 
@@ -84,6 +85,7 @@ void WrapTTViewerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)view_mousemove,			"mousemove",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)view_mouseleave,			"mouseleave",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)view_mousedown,			"mousedown",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)view_return_value,			"return_value",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)view_return_model_address,	"return_model_address",	A_CANT, 0);
@@ -109,7 +111,20 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->connected = NULL;
+	EXTRA->label = NULL;
 	EXTRA->address = TT(address->s_name);
+	
+	EXTRA->color0 = (AtomPtr)sysmem_newptr(sizeof(Atom) * 4);
+	atom_setfloat(EXTRA->color0, 0);
+	atom_setfloat(EXTRA->color0+1, 0.);
+	atom_setfloat(EXTRA->color0+2, 0.);
+	atom_setfloat(EXTRA->color0+3, 1.);
+	
+	EXTRA->color1 = (AtomPtr)sysmem_newptr(sizeof(Atom) * 4);
+	atom_setfloat(EXTRA->color1, 0.62);
+	atom_setfloat(EXTRA->color1+1, 0.);
+	atom_setfloat(EXTRA->color1+2, 0.36);
+	atom_setfloat(EXTRA->color1+3, 0.70);
 	
 	jamoma_viewer_create((ObjectPtr)x, &x->wrappedObject);
 	
@@ -305,11 +320,9 @@ void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 void view_attach(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	ObjectPtr	box;
 	t_outlet*	myoutlet = NULL;
 	t_dll*		connecteds = NULL;
-	ObjectPtr	o;
-	TTValue		v;
+	ObjectPtr	o, box;
 	AtomCount	ac;
 	AtomPtr		av;
 	
@@ -324,10 +337,6 @@ void view_attach(TTPtr self)
 		o = (t_object*)connecteds->d_x1;
 
 		if (EXTRA->connected = o) {
-
-			ac = 0;
-			EXTRA->bgcolor = NULL;
-			object_attr_getvalueof(EXTRA->connected, _sym_bgcolor, &ac, (AtomPtr*)&EXTRA->bgcolor);
 			
 			ac = 0;
 			av = NULL;
@@ -338,9 +347,6 @@ void view_attach(TTPtr self)
 				EXTRA->w = atom_getlong(av+2);
 				EXTRA->h = atom_getlong(av+3);
 			}
-			
-			EXTRA->sensible = !(	object_classname(EXTRA->connected) == gensym("comment") 
-								||	object_classname(EXTRA->connected) == gensym("panel"));
 		}
 	}
 }
@@ -351,47 +357,59 @@ void view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	TTBoolean	selected;
-	Atom		selected_color[4];
-	long		around = 2; //offset to select our object easily
+	ObjectPtr	patcher;
+	AtomCount	ac;
+	AtomPtr		av;
+	Atom		a;
 	
 	if (EXTRA->connected) {
 		
 		// if the control key is pressed
-		if (modifiers & eControlKey) {
+		if (modifiers & eShiftKey) {
 			
-			// Special case for none mouse sensible ui object
-			if (!EXTRA->sensible) {
-				if (pt.x > EXTRA->x-around && pt.x < EXTRA->x+EXTRA->w+around && pt.y > EXTRA->y-around && pt.y < EXTRA->y+EXTRA->h+around) {
-					if (!EXTRA->hover) {
-						EXTRA->hover = true;
-						view_mouseleave(self, patcherview, pt, modifiers);
-					}
+			// hide gui
+			atom_setlong(&a, 1);
+			object_attr_setvalueof(EXTRA->connected, _sym_hidden, 1, &a);
+			
+			// create a comment object
+			if(!EXTRA->label) {
+				patcher = NULL;
+				ac = 0;
+				av = NULL;
+				object_obex_lookup(x, gensym("#P"), &patcher);
+				EXTRA->label = newobject_sprintf(patcher, "@maxclass comment @presentation 1");
+				object_attr_getvalueof(EXTRA->connected, _sym_presentation_rect , &ac, &av);
+				if (ac && av && EXTRA->label) {
+					object_method_long(EXTRA->label, _sym_fontsize, 10, &a);
+					object_method_sym(EXTRA->label, _sym_set, gensym((char*)EXTRA->address->getCString()), &a);
+					object_method_typed(EXTRA->label, _sym_presentation_rect, ac, av, &a);
 				}
-				else
-					if (EXTRA->hover)
-						EXTRA->hover = false;
 			}
 			
 			// display selected attribute by changing background color if selected
 			x->wrappedObject->getAttributeValue(TT("selected"), v);
 			v.get(0, selected);
-				
-			if (selected) {
-				
-				atom_setfloat(&selected_color[0], 0.62);
-				atom_setfloat(&selected_color[1], 0.);
-				atom_setfloat(&selected_color[2], 0.36);
-				atom_setfloat(&selected_color[3], 0.70);
-				
-				object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, selected_color);
-			}
-			else
-				object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
+			
+			if (EXTRA->label)
+				if (selected)
+					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color1);
+				else
+					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color0);
 		}
 		// else set default color
 		// TODO : do this only one time !!!
-		else
-			object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
+		else {
+			
+			// show gui
+			atom_setlong(&a, 0);
+			object_attr_setvalueof(EXTRA->connected, _sym_hidden, 1, &a);
+			
+			// delete label
+			if (EXTRA->label) {
+				object_free(EXTRA->label);
+				EXTRA->label = NULL;
+			}
+		}
 	}
 }
 
@@ -399,45 +417,52 @@ void view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 void view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	Atom		a;
+	
+	// if mouse leaves jcom.ui maybe it is on our object
+	if (pt.x > EXTRA->x && pt.x < EXTRA->x+EXTRA->w && pt.y > EXTRA->y && pt.y < EXTRA->y+EXTRA->h)
+		return;
+	
+	// else the mouse leaves outside the jcom.ui
+	else {
+		
+		// show gui
+		atom_setlong(&a, 0);
+		object_attr_setvalueof(EXTRA->connected, _sym_hidden, 1, &a);
+		
+		// delete label
+		if (EXTRA->label) {
+			object_free(EXTRA->label);
+			EXTRA->label = NULL;
+		}
+	}
+}
+
+void view_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	TTBoolean	selected;
-	Atom		selected_color[4];
-	long		around = 2; //offset to select our object easily
 	
-	if (EXTRA->connected) {
+	// if the control key is pressed
+	if (modifiers & eShiftKey) {
 		
-		// if the control key is pressed
-		if (modifiers & eControlKey) {
+		// if mouse leave jcom.ui maybe it is on our object
+		if (pt.x > EXTRA->x && pt.x < EXTRA->x+EXTRA->w && pt.y > EXTRA->y && pt.y < EXTRA->y+EXTRA->h) {
 			
-			// if mouse leave jcom.ui maybe it is on our object
-			if (pt.x > EXTRA->x-around && pt.x < EXTRA->x+EXTRA->w+around && pt.y > EXTRA->y-around && pt.y < EXTRA->y+EXTRA->h+around) {
-				
-				// DEBUG
-				object_post((ObjectPtr)x, "mouse on %s", object_classname(EXTRA->connected)->s_name);
-				
-				x->wrappedObject->getAttributeValue(TT("selected"), v);
-				v.get(0, selected);
-				
-				// reverse selected attribute and change background color
+			x->wrappedObject->getAttributeValue(TT("selected"), v);
+			v.get(0, selected);
+			
+			// reverse selected attribute and change color
+			if (EXTRA->label)
 				if (selected) {
 					x->wrappedObject->setAttributeValue(TT("selected"), NO);
-					object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
+					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color0);
 				}
 				else {
 					x->wrappedObject->setAttributeValue(TT("selected"), YES);
-					
-					atom_setfloat(&selected_color[0], 0.62);
-					atom_setfloat(&selected_color[1], 0.);
-					atom_setfloat(&selected_color[2], 0.36);
-					atom_setfloat(&selected_color[3], 0.70);
-					
-					object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, selected_color);
+					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color1);
 				}
-			}
 		}
-		// else set default color
-		// TODO : do this only one time !!!
-		else
-			object_attr_setvalueof(EXTRA->connected, _sym_bgcolor, 4, (AtomPtr)EXTRA->bgcolor);
 	}
 }

@@ -447,6 +447,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			else {
 				ui_viewer_destroy(obj, TT("out/gain"));
 				obj->hash_viewers->remove(TT("out/gain"));
+				
+				// TODO : remove modelOutput
 			}
 		}
 		

@@ -19,6 +19,8 @@
 #include "ext_symobject.h"
 #include "TTElement.h"
 
+#define NO_MODEL_STRING "waiting for a /model/address"
+
 // members
 typedef struct _ui{
 	t_jbox				box;

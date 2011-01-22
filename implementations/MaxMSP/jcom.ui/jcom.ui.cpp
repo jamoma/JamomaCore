@@ -411,7 +411,7 @@ void ui_build(t_ui *x)
 		if (x->modelAddress != kTTSymEmpty)
 			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		else
-			object_method(textfield, gensym("settext"), "/editing_this_view");
+			object_method(textfield, gensym("settext"), NO_MODEL_STRING);
 	
 	// Redraw
 	jbox_redraw(&x->box);
@@ -763,7 +763,6 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	ObjectPtr	obj;
 	SymbolPtr	objclass;
 	t_rect		rect;
-	Atom		a;
 	
 	// usually we don't want mousedragdelta -- we turn it on below as necessary
 	jbox_set_mousedragdelta((t_object *)x, 0);
@@ -774,26 +773,27 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	if (px.y > 20.0) {
 		
 		// if the control key is pressed
-		if (modifiers & eControlKey) {
+		if (modifiers & eShiftKey) {
 			
-			x->selectAll = !x->selectAll;
+			// DEBUG
+			object_post((ObjectPtr)x, "mouse down and tab pressed");
+
 			obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
-			atom_setlong(&a, x->selectAll);
 			while (obj) {
 				objclass = object_attr_getsym(obj, _sym_maxclass);
 				if (objclass == gensym("jcom.view")) {
 					
-					object_method(object_attr_getobj(obj, _sym_object), gensym("selected"), 1, &a);
+					object_method(object_attr_getobj(obj, _sym_object), gensym("mousedown"), patcherview, px, modifiers);
 					
 				}
 				obj = object_attr_getobj(obj, _sym_nextobject);
 			}
 			
 			// update the mouse position to display
-			ui_mousemove(x, patcherview, px, modifiers);
-			
-			return;
+			//ui_mousemove(x, patcherview, px, modifiers);
 		}
+		
+		return;
 	}
 	
 	if (px.x > 18 && px.y < 20.0) {//(rect.width - 112)) {
@@ -875,7 +875,7 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 		if (x->modelAddress != kTTSymEmpty)
 			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		else
-			object_method(textfield, gensym("settext"), "/editing_this_view");
+			object_method(textfield, gensym("settext"),NO_MODEL_STRING);
 	
 	jbox_redraw(&x->box);
 }
@@ -887,7 +887,7 @@ void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	Atom		selected_color[4];
 	
 	// if the control key is pressed
-	if (modifiers & eControlKey) {
+	if (modifiers & eShiftKey) {
 		// Is the mouse wasn't hover the jcom.ui panel
 		if (!x->hover) {
 			x->hover = true;
@@ -928,7 +928,7 @@ void ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 		x->hover = false;
 		object_attr_setcolor((ObjectPtr)x, gensym("bordercolor"), &x->memo_bordercolor);
 	}
-	
+
 	while (obj) {
 		objclass = object_attr_getsym(obj, _sym_maxclass);
 		if (objclass == gensym("jcom.view")) {
@@ -992,7 +992,7 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	coord_y += x->box.b_presentation_rect.y;
 	pt.x = coord_x;
 	pt.y = coord_y;
-	selectedId = jpopupmenu_popup(p, pt, x->refmenu_selection+1);
+	selectedId = jpopupmenu_popup(p, pt, x->menu_selection+1);
 	if (selectedId) {
 		x->menu_selection = selectedId -1;
 		qelem_set(x->menu_qelem);
@@ -1181,13 +1181,15 @@ void ui_refmenu_qfn(t_ui *x)
 {
 	t_symobject *item = (t_symobject *)linklist_getindex(x->refmenu_items, x->refmenu_selection);
 	item = item;	// silencing a warning
+	
+	//post("item : %s", item->sym->s_name);
+	
 	/*
 	 TODO: When a menu item is selected here, what we should do is open a dialog with
 	 the message in it.  When the use clicks 'ok' in the dialog then the message
 	 should be sent to the module.
 	 */
 }
-
 
 void ui_refmenu_build(t_ui *x)
 {
