@@ -266,53 +266,58 @@ void hub_examine_context(t_hub *x)
 	if (context == gensym("toplevel")) {
 		x->osc_name = gensym("/editing_this_module");
 		x->editing = true;
-		
-		// TODO: This code is repeated below in the else part, and could be DRYed up
-		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
-		t_object*	ui = NULL;
-		t_symbol*	objclass = NULL;
-		
-		ui = object_attr_getobj(patcher, gensym("firstobject"));
-		while (ui) {
-			objclass = object_attr_getsym(ui, gensym("maxclass"));
-			if (objclass == gensym("jcom.ui"))
-				break;
-			ui = object_attr_getobj(ui, gensym("nextobject"));
-		}
-		if (ui) {
-			t_rect	uiRect;
-			object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
-			x->attr_size[0] = uiRect.width;
-			x->attr_size[1] = uiRect.height;
-		}	
 	}
+		
+	// TODO: This code is repeated below in the else part, and could be DRYed up
+	
+	// Get the size of the module in display mode
+	t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
+	t_object*	ui = NULL;
+	t_symbol*	objclass = NULL;
+	
+	ui = object_attr_getobj(patcher, gensym("firstobject"));
+	while (ui) {
+		objclass = object_attr_getsym(ui, gensym("maxclass"));
+		if (objclass == gensym("jcom.ui"))
+			break;
+		ui = object_attr_getobj(ui, gensym("nextobject"));
+	}
+	if (ui) {
+		t_rect	uiRect;
+		object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
+		x->attr_size[0] = uiRect.width;
+		x->attr_size[1] = uiRect.height;
+	}
+	
+	
+	
 	else {
-		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
-		t_object*	box = object_attr_getobj(patcher, jps_box);
-		t_object*	ui = NULL;
-		t_symbol*	objclass = NULL;
+		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);		//--
+		t_object*	box = object_attr_getobj(patcher, jps_box);			
+		t_object*	ui = NULL;												//--
+		t_symbol*	objclass = NULL;										//--
 		
 		x->editing = false;		
-		ui = object_attr_getobj(patcher, gensym("firstobject"));
-		while (ui) {
-			objclass = object_attr_getsym(ui, gensym("maxclass"));
-			if (objclass == gensym("jcom.ui"))
-				break;
-			ui = object_attr_getobj(ui, gensym("nextobject"));
+		ui = object_attr_getobj(patcher, gensym("firstobject"));			//--
+		while (ui) {														//--
+			objclass = object_attr_getsym(ui, gensym("maxclass"));			//--
+			if (objclass == gensym("jcom.ui"))								//--
+				break;														//--
+			ui = object_attr_getobj(ui, gensym("nextobject"));				//--
 		}
 		
-		if (ui) {
+		if (ui) {															//--
 			t_rect	boxRect;
-			t_rect	uiRect;
+			t_rect	uiRect;													//--
 			
 			if (context == gensym("bpatcher")) {
-				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
+				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);	//--
 				object_attr_get_rect(box, _sym_patching_rect, &boxRect);
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
 				// Save info on the size of jcom.ui in presentation mode
-				x->attr_size[0] = uiRect.width;
-				x->attr_size[1] = uiRect.height;
+				x->attr_size[0] = uiRect.width;								//--
+				x->attr_size[1] = uiRect.height;							//--
 				object_attr_set_rect(box, _sym_patching_rect, &boxRect);
 				object_attr_get_rect(box, _sym_presentation_rect, &boxRect);
 				boxRect.width = uiRect.width;
