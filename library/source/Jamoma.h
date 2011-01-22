@@ -38,7 +38,6 @@
 #include "JamomaTypes.h"
 #include "JamomaSymbols.h"
 
-#include "DataspaceLib.h"
 #include "FunctionLib.h"
 #include "RampLib.h"
 #include "ModularForMax.h"

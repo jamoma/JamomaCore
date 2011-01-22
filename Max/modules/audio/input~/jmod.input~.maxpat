@@ -164,7 +164,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 819.0, 119.0, 595.0, 43.0 ],
-					"text" : "jcom.parameter testtone/frequency @type integer @ramp/drive scheduler @description \"The Frequency of the test tone. in [Hz] by default.\" @range/bounds 0.2 16000. @range/clipmode both @dataspace frequency @dataspace/unit/active hz @dataspace/unit/native hz @dataspace/unit/display hz",
+					"text" : "jcom.parameter testtone/frequency @type integer @ramp/drive scheduler @description \"The Frequency of the test tone. in [Hz] by default.\" @range/bounds 0.2 16000. @range/clipmode both @dataspace pitch @dataspace/unit/active hz @dataspace/unit/native hz @dataspace/unit/display hz",
 					"varname" : "ch_1[2]"
 				}
 

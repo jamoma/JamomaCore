@@ -1771,7 +1771,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 125.0, 165.0, 217.0, 31.0 ],
-									"text" : "jcom.dataspace @dataspace nonexisting @input a @output b"
+									"text" : "jcom.dataspace @dataspace none @input a @output b"
 								}
 
 							}

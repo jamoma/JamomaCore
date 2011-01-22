@@ -215,7 +215,7 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 
 void ramp_clock(t_ramp *x, t_symbol *clockName)
 {
-	x->rampUnit->setAttributeValue(TT("Clock"), TT(clockName->s_name));
+	x->rampUnit->setAttributeValue(TT("clock"), TT(clockName->s_name));
 }
 
 
@@ -406,7 +406,7 @@ void ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv)
 	
 	// set the function
 	x->attr_function = atom_getsym(argv);
-	x->rampUnit->setAttributeValue(TT("Function"), TT(x->attr_function->s_name));
+	x->rampUnit->setAttributeValue(TT("function"), TT(x->attr_function->s_name));
 	
 	// cache the function's attribute names
 	x->parameterNames->clear();
@@ -416,7 +416,7 @@ void ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv)
 		names.get(i, &aName);
 		nameString = aName->getString();
 		
-		if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+		if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 			continue;										// don't publish these parameters
 		
 		if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case

@@ -126,7 +126,8 @@ void jamoma_init(void)
 			jamomaSymbol->s_thing = jamoma_object_new();
 		}
 		
-		post("Jamoma %s (build %s) - www.jamoma.org", TT_MODULAR_VERSION, TT_MODULAR_REV);
+		post("Jamoma (build %s)                        Version %s | jamoma.org", TT_MODULAR_REV, TT_MODULAR_VERSION);
+
 		initialized = true;
 	}
 }
