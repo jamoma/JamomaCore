@@ -99,12 +99,15 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_SYM(c,						"dataspace",					0,	t_return, attrDataspace);
 	CLASS_ATTR_LABEL(c,						"dataspace",					0,	"dataspace");
 	CLASS_ATTR_ENUM(c,						"dataspace",					0, dataspaces);
+	class_addmethod(c, (method)jamoma_class_attr_get, "dataspace/get", A_GIMME, 0);
 
 	CLASS_ATTR_SYM(c,						"dataspace/unit/native",		0,	t_return, attrUnitNative);
 	CLASS_ATTR_LABEL(c,						"dataspace/unit/native",		0,	"dataspace/unit/native");
-		
+	class_addmethod(c, (method)jamoma_class_attr_get, "dataspace/unit/native/get", A_GIMME, 0);
+
 	CLASS_ATTR_CHAR(c,						"enable",						0,	t_return,	attrEnable);
 	CLASS_ATTR_STYLE(c,						"enable",						0,	"onoff");
+	class_addmethod(c, (method)jamoma_class_attr_get, "enable/get", A_GIMME, 0);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
