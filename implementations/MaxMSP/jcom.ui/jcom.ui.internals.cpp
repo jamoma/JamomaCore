@@ -56,30 +56,35 @@ void ui_data_create_all(t_ui* obj)
 	// ui/color/contentBackground
 	ui_data_create(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_parameter, TT("color/contentBackground"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("The background color of the module in the format RGBA where values range [0.0, 1.0]."));
 	
 	// ui/color/toolbarBackground
 	ui_data_create(obj, &anObject, gensym("return_color_toolbarBackground"), kTTSym_parameter, TT("color/toolbarBackground"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]."));
 	
 	// ui/color/toolbarText
 	ui_data_create(obj, &anObject, gensym("return_color_toolbarText"), kTTSym_parameter, TT("color/toolbarText"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]."));
 	
 	// ui/color/border
 	ui_data_create(obj, &anObject, gensym("return_color_border"), kTTSym_parameter, TT("color/border"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("The border color of the module in the format RGBA where values range [0.0, 1.0]."));
 	
 	// ui/size
 	ui_data_create(obj, &anObject, gensym("return_ui_size"), kTTSym_parameter, TT("size"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("The size of the jview's UI."));
 	
@@ -90,12 +95,14 @@ void ui_data_create_all(t_ui* obj)
 	// ui/freeze
 	ui_data_create(obj, &anObject, gensym("return_ui_freeze"), kTTSym_parameter, TT("freeze"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_boolean);
+	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("Freeze each jcom.view in the patch"));
 	
 	// ui/refresh
 	ui_data_create(obj, &anObject, gensym("return_ui_refresh"), kTTSym_message, TT("refresh"));
 	anObject->setAttributeValue(kTTSym_type, kTTSym_none);
+	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("Refresh each jcom.view in the patch"));
 }

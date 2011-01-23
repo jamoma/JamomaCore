@@ -49,7 +49,7 @@ private:
 	TTErr Explore();
 	
 	/** */
-	TTErr CriteriaAdd(const TTValue& value);
+	TTErr CriteriaInclude(const TTValue& value);
 	
 	/** */
 	TTErr CriteriaClear();

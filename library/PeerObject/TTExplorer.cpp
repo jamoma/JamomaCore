@@ -39,7 +39,7 @@ mLastResult(kTTValNONE)
 	
 	addMessage(Explore);
 	
-	addMessageWithArgument(CriteriaAdd);
+	addMessageWithArgument(CriteriaInclude);
 	addMessage(CriteriaClear);
 	
 	mLookforObjectCriteria = new TTHash();
@@ -170,7 +170,7 @@ TTErr TTExplorer::Explore()
 			// if mLookforObjectCriteria table is empty and mLookfor != kTTSymEmpty
 			// use mLookfor as an entry for mLookforObjectCriteria table
 			if (mLookforObjectCriteria->isEmpty() && mLookfor != kTTSymEmpty)
-				CriteriaAdd(mLookfor);
+				CriteriaInclude(mLookfor);
 			
 			getDirectoryFrom(this)->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
 			
@@ -210,7 +210,7 @@ TTErr TTExplorer::Explore()
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::CriteriaAdd(const TTValue& value)
+TTErr TTExplorer::CriteriaInclude(const TTValue& value)
 {
 	TTUInt16	s;
 	TTSymbolPtr	objectType, attributeName;

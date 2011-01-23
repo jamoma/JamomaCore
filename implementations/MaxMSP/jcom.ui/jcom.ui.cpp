@@ -1281,12 +1281,12 @@ void ui_refmenu_build(t_ui *x)
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_parameter);
-	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
 	criteria.append(kTTSymEmpty);
-	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1303,12 +1303,12 @@ void ui_refmenu_build(t_ui *x)
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_message);
-	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
 	criteria.append(kTTSymEmpty);
-	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1326,12 +1326,12 @@ void ui_refmenu_build(t_ui *x)
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_return);
-	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
 	criteria.append(kTTSymEmpty);
-	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1348,12 +1348,12 @@ void ui_refmenu_build(t_ui *x)
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_parameter);
-	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
 	criteria.append(kTTSym_generic);
-	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1370,12 +1370,12 @@ void ui_refmenu_build(t_ui *x)
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_message);
-	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
 	criteria.append(kTTSym_generic);
-	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1392,12 +1392,12 @@ void ui_refmenu_build(t_ui *x)
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_return);
-	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
 	criteria.append(kTTSym_generic);
-	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
