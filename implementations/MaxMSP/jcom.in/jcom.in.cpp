@@ -342,7 +342,6 @@ t_int *in_perform(t_int *w)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)(w[1]);
 	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
-	TTOutputPtr					anOutput = anInput->mOutputObject;
 	TTUInt8						numChannels = 0;
 	TTUInt16					vectorSize = 0;
 	short						i, j;
@@ -361,18 +360,12 @@ t_int *in_perform(t_int *w)
 		TTAudioSignalPtr(anInput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
 	}
 	
-	// if output exists
-	if (anOutput)
-		// if signal is bypassed : send a zero signal to the algorithm
-		if (anInput->mBypass) TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalZero), *TTAudioSignalPtr(anInput->mSignalOut));
-		// else copy in to out
-		else TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
-	
-	// otherwise copy in to out
+	// if signal is bypassed or muted : send a zero signal to the algorithm
+	if (anInput->mBypass || anInput->mMute) TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalZero), *TTAudioSignalPtr(anInput->mSignalOut));
+	// else copy in to out
 	else TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
 	
 	// TODO : need to mix in input here from jcom.send~ objects
-	
 
 	// Send the input on to the outlets for the algorithm
 	for (i=0; i < numChannels; i++) {

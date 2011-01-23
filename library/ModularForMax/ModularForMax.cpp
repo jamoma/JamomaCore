@@ -667,7 +667,6 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 						v.get(0, &s);
 						if (s == kTTSym_parameter)
 							data = kTTVal1;
-						
 					}	
 				}
 			}
@@ -725,7 +724,6 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
-	TTUInt32	ramp;
 	ItemPtr		anItem;
 	TTValue		v, r;
 	TTNodePtr	aNode;
@@ -978,11 +976,12 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number)
 /**	Create an input object for audio signal */
 TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long number)
 {
-	TTValue			args;
-	TTObjectPtr		signalOutCallback = NULL;
-	TTValuePtr		signalOutBaton;
-	TTAudioSignal*	audioIn = NULL;
-	TTAudioSignal*	audioOut = NULL;
+	TTValue				args;
+	TTObjectPtr			signalOutCallback = NULL;
+	TTValuePtr			signalOutBaton;
+	TTAudioSignalPtr	audioIn = NULL;
+	TTAudioSignalPtr	audioOut = NULL;
+	TTAudioSignalPtr	audioZero = NULL;
 	
 	// prepare arguments
 	args.append(JamomaApplication);
@@ -1000,6 +999,8 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long nu
 	args.append((TTPtr)audioIn);
 	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, number);
 	args.append((TTPtr)audioOut);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, number);
+	args.append((TTPtr)audioZero);
 	
 	*returnedInput = NULL;
 	TTObjectInstantiate(TT("Input"), TTObjectHandle(returnedInput), args);

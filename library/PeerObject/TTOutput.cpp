@@ -200,6 +200,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTSymbolPtr		newAddress;
 	TTNodePtr		aNode;
 	TTObjectPtr		o;
+	TTValue			n = value;		// use new value to protect the attribute
 	
 	newAddress = value;
 	

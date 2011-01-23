@@ -39,6 +39,8 @@ public:	// use public for quick acces during signal processing
 	TTObjectPtr			mSignalIn;					///< any data structure to receive complex signal 
 	TTObjectPtr			mSignalOut;					///< any data structure to send complex signal
 	
+	TTObjectPtr			mSignalZero;				///< a zero signal
+	
 	TTValue				mInfo;						///< any info needed to process the signal
 													///< example : 
 													///<	- for audio signal : <numChannels, vectorSize>
