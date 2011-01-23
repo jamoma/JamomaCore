@@ -1028,7 +1028,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 19.0, 543.0, 232.0, 43.0 ],
-					"text" : "jcom.hub @description \"A generic module for stereo audio output. Includes saturation , limiter and recording device\"",
+					"text" : "jcom.hub @description \"A generic module for stereo audio output. Includes saturation, limiter and recording device\"",
 					"varname" : "jcom.hub"
 				}
 
