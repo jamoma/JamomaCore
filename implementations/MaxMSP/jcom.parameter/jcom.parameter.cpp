@@ -379,7 +379,8 @@ void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 				instanceAddress = atom_getsym(argv);
 				if (instanceAddress == gensym("*")) {
 					x->index = -1;
-					x->cursor = kTTSymEmpty;
+					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, 1);
+					x->cursor = TT(instanceAddress->s_name);
 				}
 				else
 					object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
