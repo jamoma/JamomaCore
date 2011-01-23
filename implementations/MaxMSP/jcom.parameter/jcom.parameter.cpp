@@ -1727,11 +1727,8 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 		
 		// Avoid copying more than one atom if the type only can have one argument
-		if (x->common.attr_type != jps_array && x->common.attr_type != jps_generic
-			&& x->common.attr_type != jps_none && x->common.attr_type != jps_string) {
-			// If attr_type is != to anyone of the above values then we know 
-			// that it must be == to a scalar type.  This ensures it will behave
-			// as a scalar and not a list.
+		if (x->common.attr_type != jps_array && x->common.attr_type != jps_generic && x->common.attr_type != jps_none) {
+			// If attr_type is not equal to the above we know that it is a scalar or symbol.
 			ac = 1;
 		}
 			
