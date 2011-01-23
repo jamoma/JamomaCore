@@ -3118,7 +3118,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 158.0, 87.0, 143.0, 19.0 ],
-					"text" : "js jcom.preset_interface.js"
+					"text" : "js jcom.interfaceArguments.js"
 				}
 
 			}

@@ -1243,15 +1243,8 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 void ui_refmenu_qfn(t_ui *x)
 {
 	t_symobject *item = (t_symobject *)linklist_getindex(x->refmenu_items, x->refmenu_selection);
-	item = item;	// silencing a warning
 	
-	//post("item : %s", item->sym->s_name);
-	
-	/*
-	 TODO: When a menu item is selected here, what we should do is open a dialog with
-	 the message in it.  When the use clicks 'ok' in the dialog then the message
-	 should be sent to the module.
-	 */
+	ui_data_interface(x, TT(item->sym->s_name));
 }
 
 void ui_refmenu_build(t_ui *x)

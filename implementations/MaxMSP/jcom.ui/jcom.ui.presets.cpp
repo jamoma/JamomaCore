@@ -113,7 +113,7 @@ void ui_preset_interface(t_ui *x)
 	object_method(p, _sym_vis);													// "vis" happens immediately, "front" is defer_lowed
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 	
-	OBJ_ATTR_SYM(p, "jmod/modelname", 0, gensym((char*)x->modelAddress->getCString()));						// to use in jmod.receive etc.
+	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)x->modelAddress->getCString()));						// to use in jmod.receive etc.
 	
 	object_method(p, _sym_loadbang);
 }
