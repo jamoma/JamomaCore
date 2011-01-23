@@ -99,6 +99,9 @@ private:
 	/** */
 	TTErr setOutputMax(const TTValue& value);
 	
+	/** */
+	TTErr setEnable(const TTValue& value);
+	
 	/** set the function unit and set datas name extending attributes of the unit */
 	TTErr setFunction(const TTValue& value);
 	

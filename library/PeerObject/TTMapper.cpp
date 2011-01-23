@@ -51,7 +51,7 @@ mValid(NO)
 	addAttributeWithSetter(OutputMin, kTypeFloat64);
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
 	
-	addAttribute(Enable, kTypeBoolean);
+	addAttributeWithSetter(Enable, kTypeBoolean);
 	
 	addAttributeWithGetter(FunctionLibrary, kTypeLocalValue);
 	addAttributeProperty(functionLibrary, readOnly, YES);
@@ -115,14 +115,17 @@ TTMapper::~TTMapper() // TODO : delete things...
 
 TTErr TTMapper::Map(TTValue& value)
 {
-	processMapping(value);
-	
-	// return value
-	if (mSender)
-		mSender->sendMessage(kTTSym_Send, value);
-	
-	if (mReturnValueCallback)
-		mReturnValueCallback->notify(value);
+	if (mEnable) {
+		
+		processMapping(value);
+		
+		// return value
+		if (mSender)
+			mSender->sendMessage(kTTSym_Send, value);
+		
+		if (mReturnValueCallback)
+			mReturnValueCallback->notify(value);
+	}
 	
 	return kTTErrNone;
 }
@@ -473,6 +476,14 @@ TTErr TTMapper::setOutputMax(const TTValue& value)
 	return scaleOutput();
 }
 
+TTErr TTMapper::setEnable(const TTValue& value)
+{
+	mEnable = value;
+	
+	notifyObservers(kTTSym_enable, value);
+	return kTTErrNone;
+}
+
 // Recalculate values to use for scaling of input values
 TTErr TTMapper::scaleInput()
 {
@@ -500,7 +511,6 @@ TTErr TTMapper::processMapping(TTValue& value)
 	TTFloat64	f;
 	TTInt32		i, size;
 	
-	if (mEnable) {
 	size = value.getSize();
 	
 	// clip Input value
@@ -511,7 +521,7 @@ TTErr TTMapper::processMapping(TTValue& value)
 		value.get(i, f);
 		in.append(mA * f + mB);
 	}
-
+	
 	// process function
 	if (mFunctionUnit)
 		mFunctionUnit->calculate(in, out);
@@ -528,7 +538,6 @@ TTErr TTMapper::processMapping(TTValue& value)
 	
 	// clip output value
 	value.clip(mOutputMin, mOutputMax);
-	}
 	
 	return kTTErrNone;
 }
@@ -689,18 +698,21 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aMapper);
 	
-	 // protect data
-	v = data;
-	
-	// process the mapping
-	aMapper->processMapping(v);
-	
-	// return value
-	if (aMapper->mSender)
-		aMapper->mSender->sendMessage(kTTSym_Send, v);
-	
-	if (aMapper->mReturnValueCallback)
-		aMapper->mReturnValueCallback->notify(v);
+	if (aMapper->mEnable) {
+		
+		// protect data
+		v = data;
+		
+		// process the mapping
+		aMapper->processMapping(v);
+		
+		// return value
+		if (aMapper->mSender)
+			aMapper->mSender->sendMessage(kTTSym_Send, v);
+		
+		if (aMapper->mReturnValueCallback)
+			aMapper->mReturnValueCallback->notify(v);
+	}
 	
 	return kTTErrNone;
 }
