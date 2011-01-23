@@ -24,7 +24,6 @@ CUE oh
     /backgroundMovie/view/color/toolbarText 0
     /backgroundMovie/view/size 300 105
 # Module /cue_script
-    /cue_script/listen 0
     /cue_script/view/freeze 0
     /cue_script/view/color/border 0
     /cue_script/view/color/contentBackground 0
