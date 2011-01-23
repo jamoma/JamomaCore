@@ -2,7 +2,8 @@
  * jcom.hub - autodoc
  * Generate HTML documentation for the jcom.hub external
  * By Tim Place & Trond Lossius, Copyright � 2006
- * 
+ * Tex support added by Nils Peters 2010
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -77,6 +78,11 @@ void hub_doautodocTex(t_hub *x, t_symbol *userpath)
 	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
 	
 	// tex header
+	jcom_core_file_writeline(&file_handle, &myEof, "% ");
+	jcom_core_file_writeline(&file_handle, &myEof, "% This file was automatically generated and should compile in Latex in most cases.");
+	jcom_core_file_writeline(&file_handle, &myEof, "% However, depending on the module's namespace, there may be some edits necessary.");
+	jcom_core_file_writeline(&file_handle, &myEof, "% For instance underscores '_' in a namespace have to be replaced with '\\_' ");
+	jcom_core_file_writeline(&file_handle, &myEof, "% ");
 	jcom_core_file_writeline(&file_handle, &myEof, "\\documentclass[a4paper,landscape]{article}");	
 	jcom_core_file_writeline(&file_handle, &myEof, "\\usepackage[utf8]{inputenc}");
 	jcom_core_file_writeline(&file_handle, &myEof, "\\usepackage{fullpage,listings,longtable,url}");
@@ -127,7 +133,7 @@ void hub_doautodocTex(t_hub *x, t_symbol *userpath)
 		
 	}	
 	else {
-		jcom_core_file_writeline(&file_handle, &myEof, "Number of signal outlets: \texttt{0}\\\\");
+		jcom_core_file_writeline(&file_handle, &myEof, "Number of signal outlets:\\> \\texttt{0}\\\\");
 	}
 		jcom_core_file_writeline(&file_handle, &myEof, "\\end{tabbing}");
 	
@@ -597,7 +603,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	if ( (msg_type==jps_integer) || (msg_type==jps_boolean) )
 		snprintf(rangeBounds, 32, "%ld %ld", (long)range[0], (long)range[1]);
 	else if ( (msg_type==jps_decimal) || (msg_type==jps_generic) )
-		snprintf(rangeBounds, 32, "%f %f", range[0], range[1]);
+		snprintf(rangeBounds, 32, "%.3f %.3f", range[0], range[1]);
 	else
 		snprintf(rangeBounds, 32, "N/A");
 
@@ -682,12 +688,16 @@ void table_headingHtml(t_filehandle *file_handle, long *myEof, int nodeType)
 void table_headingTex(t_filehandle *file_handle, long *myEof, int nodeType)
 {	
 	jcom_core_file_writeline(file_handle, myEof, "\\rowcolors{2}{gray!10}{}\\footnotesize");
-	jcom_core_file_writeline(file_handle, myEof, "\\begin{longtable}{llp{1.5cm}llllll p{7cm}} \\hline \\hline ");
-	if (nodeType == RETURN)
-		jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\textbf{/repetitions} & \\textbf{/enable} & \\textbf{/description}\\\\");
-	else
-		jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\textbf{/repetitions} & \\textbf{/description}\\\\");
-    jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit/native} & \\textbf{/allow} & \\\\");
+	if (nodeType == RETURN){
+		jcom_core_file_writeline(file_handle, myEof, "\\begin{longtable}{llp{1.5cm}lllllcc p{6cm}} \\hline \\hline ");
+		jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\multicolumn{1}{l}{\\textbf{/repetitions}} & \\multicolumn{1}{l}{\\textbf{/enable}} & \\textbf{/description}\\\\");
+		jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit/native} & \\multicolumn{1}{l}{\\textbf{/allow}} & & \\\\");
+		}
+	else{
+		jcom_core_file_writeline(file_handle, myEof, "\\begin{longtable}{llp{1.5cm}lllllc p{7cm}} \\hline \\hline ");
+		jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\multicolumn{1}{l}{\\textbf{/repetitions}} & \\textbf{/description}\\\\");
+		jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit/native} & \\multicolumn{1}{l}{\\textbf{/allow}} & \\\\");
+		}
 	jcom_core_file_writeline(file_handle, myEof, "\\hline\\hline \\endhead");
 }
 
