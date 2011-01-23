@@ -11,9 +11,6 @@
 
 #include "TTModular.h"
 
-#include "TTDataspaceLib.h"
-#include "FunctionLib.h"
-
 #ifdef TTDATA_RAMPLIB
 #include "RampLib.h"			// Excluding RampLib because it use MaxAPI...
 #endif
