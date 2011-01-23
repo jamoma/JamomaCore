@@ -385,23 +385,28 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	FunctionLib::createUnit(mFunction, (TTObject **)&mFunctionUnit);
 	
 	// Extend function unit attributes as attributes of this mapper
-	// and set mPArameters attribute
+	// and set mFunctionParameters attribute
 	if (mFunctionUnit) {
 
 		mFunctionUnit->getAttributeNames(names);
 		n = names.getSize();
-		for (int i=0; i<n; i++) {
-			
-			names.get(i, &aName);
-			
-			 // don't publish these datas
-			if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
-				continue;
-			
-			// extend attribute with the same name
-			this->extendAttribute(aName, mFunctionUnit, aName);
-			mFunctionParameters.append(aName);
+		
+		if (n) {
+			for (int i=0; i<n; i++) {
+				
+				names.get(i, &aName);
+				
+				// don't publish these datas
+				if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
+					continue;
+				
+				// extend attribute with the same name
+				this->extendAttribute(aName, mFunctionUnit, aName);
+				mFunctionParameters.append(aName);
+			}
 		}
+		else
+			mFunctionParameters.append(kTTSym_none);
 		
 		mValid = true;
 		notifyObservers(kTTSym_function, value);
