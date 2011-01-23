@@ -34,8 +34,8 @@ mLastResult(kTTValNONE)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Lookfor, kTypeSymbol);
-	addAttribute(Equal, kTypeLocalValue);
-	addAttribute(Different, kTypeLocalValue);
+	// TODO : addAttribute(Equal, kTypeLocalValue);
+	// TODO : addAttribute(Different, kTypeLocalValue);
 	
 	addMessage(Explore);
 	
