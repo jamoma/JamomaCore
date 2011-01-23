@@ -199,6 +199,7 @@
 			}
 , 			{
 				"box" : 				{
+					"background" : 1,
 					"id" : "obj-20",
 					"maxclass" : "jcom.ui",
 					"numinlets" : 1,

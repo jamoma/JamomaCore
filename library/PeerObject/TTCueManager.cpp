@@ -202,7 +202,7 @@ TTErr TTCueManager::Store(const TTValue& value)
 {
 	TTUInt8		index;
 	TTSymbolPtr	cueName = kTTSymEmpty;
-	TTUInt32	rampTime;
+	TTUInt32	rampTime = 0;
 	TTCuePtr	newCue = NULL;
 	TTValue		args;
 	
@@ -275,7 +275,7 @@ TTErr TTCueManager::StoreCurrent()
 TTErr TTCueManager::StoreNext(const TTValue& value)
 {
 	TTSymbolPtr	cueName = kTTSymEmpty;
-	TTUInt32	rampTime;
+	TTUInt32	rampTime = 0;
 	TTCuePtr	newCue = NULL;
 	TTValue		args;
 	
@@ -320,7 +320,7 @@ TTErr TTCueManager::StoreNext(const TTValue& value)
 TTErr TTCueManager::StorePrevious(const TTValue& value)
 {
 	TTSymbolPtr	cueName = kTTSymEmpty;
-	TTUInt32	rampTime;
+	TTUInt32	rampTime = 0;
 	TTCuePtr	newCue = NULL;
 	TTValue		args;
 	

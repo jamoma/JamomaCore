@@ -729,6 +729,7 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 	ItemPtr		anItem;
 	TTValue		v, r;
 	TTNodePtr	aNode;
+	TTBoolean	selected;
 	TTSymbolPtr type, absoluteAddress;
 	TTObjectPtr o;
 	
@@ -767,31 +768,38 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 	// so after a first update they should disappear from the preset
 	if (anItem->getType() == TT("Viewer")) {
 		
-		// get address binded by the viewer
-		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
-		v.get(0, &absoluteAddress);
-		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+		// Is the viewer selected ?
+		anItem->node->getObject()->getAttributeValue(kTTSym_selected, v);
+		v.get(0, selected);
 		
-		// if the address binds on a Data object
-		if (o = aNode->getObject()) {
-			if (o->getName() == TT("Data")) {
-				
-				// replace the Viewer node by the Data node
-				anItem->node = aNode;
-				
-				anItem->update(kTTSym_value);
-				anItem->update(kTTSym_priority);
-				
-				// If the manager have a ramp attribute
-				if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
+		if (selected) {
+			
+			// get address binded by the viewer
+			anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
+			v.get(0, &absoluteAddress);
+			JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+			
+			// if the address binds on a Data object
+			if (o = aNode->getObject()) {
+				if (o->getName() == TT("Data")) {
 					
-					// for integer and decimal data
-					anItem->node->getObject()->getAttributeValue(kTTSym_type, v);
-					v.get(0, &type);
+					// replace the Viewer node by the Data node
+					anItem->node = aNode;
 					
-					// set ramp time as global
-					if (type == kTTSym_integer || type == kTTSym_decimal)
-						anItem->set(kTTSym_ramp, kTTSym_global);
+					anItem->update(kTTSym_value);
+					anItem->update(kTTSym_priority);
+					
+					// If the manager have a ramp attribute
+					if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
+						
+						// for integer and decimal data
+						anItem->node->getObject()->getAttributeValue(kTTSym_type, v);
+						v.get(0, &type);
+						
+						// set ramp time as global
+						if (type == kTTSym_integer || type == kTTSym_decimal)
+							anItem->set(kTTSym_ramp, kTTSym_global);
+					}
 				}
 			}
 		}
@@ -926,7 +934,7 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 			// or no
 			else
 				anItem->send(kTTSym_value);
-				
+			
 			v.append(ramp);
 			anItem->node->getObject()->sendMessage(kTTSym_Command, v);
 		}

@@ -175,7 +175,6 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 	TTString			aString;
 	TTUInt8				i;
 	TTErr				err;
-
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	
@@ -183,7 +182,10 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 	xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST mName->getCString());
 	
 	// Write ramp attribute
-	xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "ramp", "%ld", BAD_CAST mRamp);
+	if (mRamp)
+		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "ramp", "%ld", BAD_CAST mRamp);
+	else
+		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "ramp", "0", BAD_CAST mRamp);
 	
 	// Write comment attribute
 	xmlTextWriterWriteFormatComment(aXmlHandler->mWriter, "%s", BAD_CAST mComment->getCString());
