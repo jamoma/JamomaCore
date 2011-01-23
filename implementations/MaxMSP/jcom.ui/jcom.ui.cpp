@@ -1276,34 +1276,142 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	// Look for parameters into the model
+	// Look for User-Defined Parameters into the model
+	item = (t_symobject *)symobject_new(gensym("-"));
+	linklist_append(x->refmenu_items, item);
+	item = (t_symobject *)symobject_new(gensym("User-Defined Parameters"));
+	linklist_append(x->refmenu_items, item);
+	item->flags = 1;	// mark to disable this item (we use it as a label)
+	
 	ui_explorer_create((ObjectPtr)x, &x->modelParamExplorer, gensym("return_modelParamExploration"));
+	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_parameter);
 	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_tag);
+	criteria.append(kTTSymEmpty);
+	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
 	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
-	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
 	
-	// Look for messages into the model
+	// Look for User-Defined Messages into the model
+	item = (t_symobject *)symobject_new(gensym("-"));
+	linklist_append(x->refmenu_items, item);
+	item = (t_symobject *)symobject_new(gensym("User-Defined Messages"));
+	linklist_append(x->refmenu_items, item);
+	item->flags = 1;	// mark to disable this item (we use it as a label)
+	
 	ui_explorer_create((ObjectPtr)x, &x->modelMessExplorer, gensym("return_modelMessExploration"));
+	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_message);
 	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_tag);
+	criteria.append(kTTSymEmpty);
+	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
 	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
-	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));
 	
-	// Look for returns into the model
+	
+	// Look for User-Defined Returns into the model
+	item = (t_symobject *)symobject_new(gensym("-"));
+	linklist_append(x->refmenu_items, item);
+	item = (t_symobject *)symobject_new(gensym("User-Defined Returns"));
+	linklist_append(x->refmenu_items, item);
+	item->flags = 1;	// mark to disable this item (we use it as a label)
+	
 	ui_explorer_create((ObjectPtr)x, &x->modelRetExplorer, gensym("return_modelRetExploration"));
+	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_service);
 	criteria.append(kTTSym_return);
 	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_tag);
+	criteria.append(kTTSymEmpty);
+	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
+
+	// Look for Generic Parameters into the model
+	item = (t_symobject *)symobject_new(gensym("-"));
+	linklist_append(x->refmenu_items, item);
+	item = (t_symobject *)symobject_new(gensym("Generic Parameters"));
+	linklist_append(x->refmenu_items, item);
+	item->flags = 1;	// mark to disable this item (we use it as a label)
+	
+	x->modelParamExplorer->sendMessage(TT("CriteriaClear"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_service);
+	criteria.append(kTTSym_parameter);
+	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_tag);
+	criteria.append(kTTSym_generic);
+	x->modelParamExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
+	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	
+	// Look for Generic Messages into the model
+	item = (t_symobject *)symobject_new(gensym("-"));
+	linklist_append(x->refmenu_items, item);
+	item = (t_symobject *)symobject_new(gensym("Generic Messages"));
+	linklist_append(x->refmenu_items, item);
+	item->flags = 1;	// mark to disable this item (we use it as a label)
+	
+	x->modelMessExplorer->sendMessage(TT("CriteriaClear"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_service);
+	criteria.append(kTTSym_message);
+	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_tag);
+	criteria.append(kTTSym_generic);
+	x->modelMessExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
+	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	
+	// Look for Generic Returns into the model
+	item = (t_symobject *)symobject_new(gensym("-"));
+	linklist_append(x->refmenu_items, item);
+	item = (t_symobject *)symobject_new(gensym("Generic Returns"));
+	linklist_append(x->refmenu_items, item);
+	item->flags = 1;	// mark to disable this item (we use it as a label)
+	
+	x->modelRetExplorer->sendMessage(TT("CriteriaClear"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_service);
+	criteria.append(kTTSym_return);
+	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	criteria = TTValue(TT("Data"));
+	criteria.append(kTTSym_tag);
+	criteria.append(kTTSym_generic);
+	x->modelRetExplorer->sendMessage(TT("CriteriaAdd"), criteria);
+	
+	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
+	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	
+	
+	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
+	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));
 	TTObjectRelease(TTObjectHandle(&x->modelRetExplorer));
 }
 

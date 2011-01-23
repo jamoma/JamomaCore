@@ -222,32 +222,38 @@ void hub_build(TTPtr self, SymbolPtr address)
 			// Add a /class data
 			makeInternals_data(x, nodeAddress, classAdrs, gensym("hub_class"), context, kTTSym_return, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("The patcher class"));
 			aData->setAttributeValue(kTTSym_value, x->patcherClass);
 			
 			// Add a /help data
 			makeInternals_data(x, nodeAddress, helpAdrs, gensym("hub_help"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Open the maxhelp patch"));
 			
 			// Add a /reference data
 			makeInternals_data(x, nodeAddress, refAdrs, gensym("hub_reference"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Open the reference page"));
 			
 			// Add a /internals data
 			makeInternals_data(x, nodeAddress, internalsAdrs, gensym("hub_internals"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Open the patcher"));
 			
 			// Add a /documentation/generate data
 			makeInternals_data(x, nodeAddress, documentationAdrs, gensym("doc_generate"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Make a html page description"));
 			
 			// Add a /model/mute data
 			makeInternals_data(x, nodeAddress, muteAdrs, gensym("hub_mute"), context, kTTSym_parameter, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
 			
 			// In jmod *and* jview patcher : Add /model/address data
@@ -256,6 +262,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 			if (x->patcherType == TT("jview")) // as parameter
 				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A jmod patcher bind on himself"));
 			aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
 			

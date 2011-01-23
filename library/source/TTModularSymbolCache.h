@@ -79,6 +79,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_selected;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_tag;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_type;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;

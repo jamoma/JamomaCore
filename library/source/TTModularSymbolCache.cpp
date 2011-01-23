@@ -80,6 +80,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_selected;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_tag;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_type;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
@@ -150,13 +151,14 @@ void TTModularSymbolCacheInit()
 	kTTSym_Refresh					= TT("Refresh");
 	kTTSym_repetitionsAllow			= TT("repetitionsAllow");
 	kTTSym_return					= TT("return");
-	kTTSym_returnedValue				= TT("returnedValue");
+	kTTSym_returnedValue			= TT("returnedValue");
 	
 	kTTSym_Send						= TT("Send");
 	kTTSym_selected					= TT("selected");
 	kTTSym_service					= TT("service");
 	kTTSym_string					= TT("string");
 
+	kTTSym_tag						= TT("tag");
 	kTTSym_type						= TT("type");
 	
 	kTTSym_value					= TT("value");

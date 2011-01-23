@@ -615,12 +615,6 @@ void ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, A
 	// model's message namespace observation
 	if (obj->modelAddress != kTTSymEmpty) {
 		
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(obj->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Parameters"));
-		linklist_append(obj->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
-		
 		// fill item list
 		for (long i=0; i<argc; i++) {
 			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
@@ -637,12 +631,6 @@ void ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, At
 	// model's message namespace observation
 	if (obj->modelAddress != kTTSymEmpty) {
 		
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(obj->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Messages"));
-		linklist_append(obj->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
-		
 		// fill item list
 		for (long i=0; i<argc; i++) {
 			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
@@ -658,12 +646,6 @@ void ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 	
 	// model's message namespace observation
 	if (obj->modelAddress != kTTSymEmpty) {
-		
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(obj->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Returns"));
-		linklist_append(obj->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
 		
 		// fill item list
 		for (long i=0; i<argc; i++) {

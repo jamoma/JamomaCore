@@ -248,6 +248,7 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			makeInternals_data(x, nodeAddress, TT(outAmplitudeInstance->s_name), NULL, context, kTTSym_return, (TTObjectPtr*)&aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_rangeBounds, v);
 			aData->setAttributeValue(kTTSym_description, TT(outDescription->s_name));
 			aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
@@ -263,11 +264,13 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// expose attributes of TTOutput as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's outputs."));
 
 #ifdef JCOM_OUT_TILDE
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mix, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue(0., 100.);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		v = TTValue(100.);
@@ -276,6 +279,7 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_gain, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue(0., 127.);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		v = TTValue(100.);
@@ -286,10 +290,12 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 #ifndef JCOM_OUT_TILDE		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_freeze, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Freezes the last state of model's outputs from the  processing algorithm."));
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_preview, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Turns on/off preview display of model's outputs from the  processing algorithm."));
 #endif
 	}

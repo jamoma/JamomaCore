@@ -17,6 +17,7 @@ mValue(TTValue(0.0)),
 mValueDefault(TTValue(0.0)),
 mValueStepsize(TTValue(0.1)),
 mType(kTTSym_generic),
+mTag(kTTSymEmpty),
 mPriority(0),
 mDescription(kTTSymEmpty),
 mRepetitionsAllow(YES),
@@ -50,6 +51,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithGetterAndSetter(ValueStepsize, kTypeNone);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
+	addAttributeWithSetter(Tag, kTypeSymbol);
 	addAttribute(Priority, kTypeInt8);
 	addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
@@ -672,6 +674,14 @@ TTErr TTData::setType(const TTValue& value)
 		
 		notifyObservers(kTTSym_type, n);
 	}
+	return kTTErrNone;
+}
+
+TTErr TTData::setTag(const TTValue& value)
+{
+	TTValue n = value;				// use new value to protect the attribute
+	mTag = value;
+	notifyObservers(kTTSym_tag, n);
 	return kTTErrNone;
 }
 

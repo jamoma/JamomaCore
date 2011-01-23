@@ -50,6 +50,7 @@ private:
 	TTValue			mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
 	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this data's value
+	TTSymbolPtr		mTag;						///< ATTRIBUTE: tags for this data
 	TTInt8			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
 	TTSymbolPtr		mDescription;				///< ATTRIBUTE: text to describe the role of this data
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
@@ -129,33 +130,36 @@ private:
 	TTErr	getValueDefault(TTValue& value);
 	TTErr	setValueDefault(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mValueStepsize attribute. */
 	TTErr   getValueStepsize(TTValue& value);
 	TTErr	setValueStepsize(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mType attribute. */
 	TTErr	setType(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mTag attribute. */
+	TTErr	setTag(const TTValue& value);
+	
+	/**	Setter for mRepetitionsAllow attribute. */
 	TTErr	setRepetitionsAllow(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mReadonly attribute. */
 	TTErr	setReadonly(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mRangeBounds attribute. */
 	TTErr	setRangeBounds(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mRangeClipmode attribute. */
 	TTErr	setRangeClipmode(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mInstanceBounds attribute. */
 	TTErr	setInstanceBounds(const TTValue& value);
 
 #ifdef TTDATA_RAMPLIB
-	/**	Setter for m attribute. */
+	/**	Setter for mRampDrive attribute. */
 	TTErr	setRampDrive(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mRampFunction attribute. */
 	TTErr	setRampFunction(const TTValue& value);
 #endif
 	

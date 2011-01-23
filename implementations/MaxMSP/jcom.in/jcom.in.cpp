@@ -241,6 +241,7 @@ void in_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			makeInternals_data(x, nodeAddress, TT(inAmplitudeInstance->s_name), NULL, context, kTTSym_return, (TTObjectPtr*)&aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_rangeBounds, v);
 			aData->setAttributeValue(kTTSym_description, TT(inDescription->s_name));
 			aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
@@ -256,10 +257,12 @@ void in_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// expose bypass and mute attributes of TTInput as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_bypass, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute bypasses the model's processing algtorithm, letting incoming signal pass through unaffected"));
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's inputs."));
 	}
 }

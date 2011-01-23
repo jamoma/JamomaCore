@@ -162,46 +162,68 @@ void preset_build(TTPtr self, SymbolPtr address)
 		// expose messages of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store a preset giving his index and his name"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreCurrent"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store into the current preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreNext"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store into the next preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StorePrevious"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store into the previous preset"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall a preset using his name or his index"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallCurrent"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(v, TT("Recall the current preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallNext"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the next preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallPrevious"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the previous preset"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Remove a preset using his name or his index"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveCurrent"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the current preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveNext"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the next preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemovePrevious"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the previous preset"));
 		
 		// expose attributes of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_names, kTTSym_return, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("The preset name list"));
 		
 		// create internal TTXmlHandler and internal messages for Read and Write
@@ -215,11 +237,13 @@ void preset_build(TTPtr self, SymbolPtr address)
 		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
 		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), context, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Read a xml preset file"));
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
 		makeInternals_data(self, absoluteAddress, TT("preset/write"), gensym("preset_write"), context, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Write a xml preset file"));
 		
 		// TODO : create internal TTTextHandler to edit in Max edition window
