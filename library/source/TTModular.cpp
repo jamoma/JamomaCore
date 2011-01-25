@@ -40,7 +40,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 		TTCue::registerClass();
 		TTCueManager::registerClass();
 		TTData::registerClass();
-		TTDeviceManager::registerClass();
+		//TTDeviceManager::registerClass();
 		TTExplorer::registerClass();
 		TTInput::registerClass();
 		TTMapper::registerClass();
