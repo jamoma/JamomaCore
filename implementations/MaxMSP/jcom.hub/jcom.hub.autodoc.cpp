@@ -81,7 +81,9 @@ void hub_doautodocTex(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, "% ");
 	jcom_core_file_writeline(&file_handle, &myEof, "% This file was automatically generated and should compile in Latex in most cases.");
 	jcom_core_file_writeline(&file_handle, &myEof, "% However, depending on the module's namespace, there may be some edits necessary.");
-	jcom_core_file_writeline(&file_handle, &myEof, "% For instance underscores '_' in a namespace have to be replaced with '\\_' ");
+	jcom_core_file_writeline(&file_handle, &myEof, "% For instance:");
+	jcom_core_file_writeline(&file_handle, &myEof, "%                '_' in a namespace have to be replaced with '\\_' ");
+	jcom_core_file_writeline(&file_handle, &myEof, "%                '&' in a description have to be replaced with '\\&', etc. ");
 	jcom_core_file_writeline(&file_handle, &myEof, "% ");
 	jcom_core_file_writeline(&file_handle, &myEof, "\\documentclass[a4paper,landscape]{article}");	
 	jcom_core_file_writeline(&file_handle, &myEof, "\\usepackage[utf8]{inputenc}");
