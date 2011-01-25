@@ -203,6 +203,10 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->ui_qelem = qelem_new(x, (method)param_ui_queuefn);
 		x->rampParameterNames = new TTHash;
 
+		// TODO: we shouldn't really allocate this much memory unless we actually need it...
+		x->atom_list = new Atom[LISTSIZE];
+		x->atom_listDefault = new Atom[LISTSIZE];
+		
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2active, kTTValNONE);
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_active2display, kTTValNONE);
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_display2active, kTTValNONE);
@@ -287,7 +291,10 @@ void param_free(t_param *x)
 	TTObjectRelease(&x->dataspace_override2active);
 	TTObjectRelease(&x->dataspace_active2display);
 	TTObjectRelease(&x->dataspace_display2active);
-	TTObjectRelease(&x->dataspace_active2native);	
+	TTObjectRelease(&x->dataspace_active2native);
+	
+	delete [] x->atom_list;
+	delete [] x->atom_listDefault;
 }
 
 
@@ -1412,7 +1419,7 @@ void param_float(t_param *x, double value)
 		param_convert_units(x, 1, &a, &count, &r, &alloc);
 		atom_setfloat(&x->attr_value, r->a_w.w_float);
 		if (alloc)
-			sysmem_freeptr(r);
+			delete[] r;
 	}
 //	atom_setfloat(&x->attr_value, value);
 	x->param_output(x);
@@ -1516,7 +1523,7 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				
 				TTValueFromAtoms(v, 1, argv);
 				x->dataspace_active2native->sendMessage(TT("convert"), v);
-				TTAtomsFromValue(v, &x->list_size, (AtomPtr*)&x->atom_list);				
+				TTAtomsFromValue(v, &x->list_size, &x->atom_list);				
 			}
 			else
 				jcom_core_atom_copy(&x->attr_value, argv);
@@ -1753,7 +1760,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 	
 	if (alloc)
-		sysmem_freeptr(av);
+		delete[] av;
 }
 
 
