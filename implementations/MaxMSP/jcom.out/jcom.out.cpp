@@ -359,7 +359,12 @@ void out_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	long index = TTOutputPtr(x->wrappedObject)->mIndex;
-	outlet_anything(x->outlets[index], msg, argc, argv);
+	
+	// filter bogus list symbol for jitter matrix case
+	if (msg == _sym_list)
+		outlet_atoms(x->outlets[index], argc, argv);
+	else
+		outlet_anything(x->outlets[index], msg, argc, argv);
 }
 #endif
 
