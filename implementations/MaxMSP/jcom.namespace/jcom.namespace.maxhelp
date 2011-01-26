@@ -1092,13 +1092,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-13",
-					"items" : "<empty>",
+					"items" : "_",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 831.0, 555.0, 35.0, 20.0 ],
-					"prefix" : "/output~.",
+					"prefix" : "/input~/audio/gain.",
 					"presentation" : 1,
 					"presentation_rect" : [ 478.0, 240.0, 35.0, 20.0 ],
 					"types" : [  ]
@@ -1114,13 +1114,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-47",
-					"items" : "<empty>",
+					"items" : [ "amplitude", ",", "panic", ",", "active", ",", "gain" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 760.0, 330.0, 168.0, 20.0 ],
-					"prefix" : "/output~/",
+					"prefix" : "/input~/audio/",
 					"presentation" : 1,
 					"presentation_rect" : [ 345.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
@@ -1152,7 +1152,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 760.0, 242.0, 103.0, 48.0 ],
+					"patching_rect" : [ 760.0, 242.0, 105.0, 48.0 ],
 					"text" : "jcom.namespace @lookfor children @format umenu"
 				}
 
@@ -1185,7 +1185,7 @@
 					"patching_rect" : [ 438.0, 735.0, 152.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 195.0, 405.0, 419.0, 20.0 ],
-					"text" : "0"
+					"text" : "0.00"
 				}
 
 			}
@@ -1201,7 +1201,7 @@
 					"patching_rect" : [ 149.0, 735.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/output~.1/limiter/active"
+					"text" : "/input~/audio/gain:value/default"
 				}
 
 			}
@@ -1272,8 +1272,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 306.0, 543.0, 205.0, 20.0 ],
-					"text" : "jcom.namespace @lookfor attributes"
+					"patching_rect" : [ 306.0, 543.0, 295.0, 20.0 ],
+					"text" : "jcom.namespace @lookfor attributes @format umenu"
 				}
 
 			}
@@ -1286,13 +1286,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : "<empty>",
+					"items" : [ "type", ",", "dataspace/unit/native", ",", "value", ",", "readonly", ",", "range/clipmode", ",", "dataspace", ",", "dataspace/unit/active", ",", "value/default", ",", "ramp/drive", ",", "priority", ",", "value/stepsize", ",", "tag", ",", "description", ",", "dataspace/unit/display", ",", "repetitions/allow", ",", "ramp/function", ",", "range/bounds" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 598.0, 119.0, 20.0 ],
-					"prefix" : "/output~.1/limiter/active:",
+					"prefix" : "/input~/audio/gain:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1308,7 +1308,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-20",
-					"items" : "<empty>",
+					"items" : [ "/cpu", ",", "/model/class", ",", "/model/address", ",", "/preset/names", ",", "/in/amplitude.2", ",", "/in/amplitude.1", ",", "/audio/amplitude.2", ",", "/audio/amplitude.1" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1330,7 +1330,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "<empty>",
+					"items" : [ "/model/help", ",", "/preset/remove/next", ",", "/preset/remove/previous", ",", "/view/panel", ",", "/preset/store/next", ",", "/preset/recall", ",", "/model/documentation/generate", ",", "/preset/remove", ",", "/model/internals", ",", "/record/active", ",", "/ui/refresh", ",", "/preset/write", ",", "/preset/recall/current", ",", "/preset/store", ",", "/audio/panic", ",", "/preset/store/previous", ",", "/preset/recall/next", ",", "/preset/recall/previous", ",", "/preset/remove/current", ",", "/dspStatus", ",", "/preset/store/current", ",", "/model/reference", ",", "/preset/read" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1352,7 +1352,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : "<empty>",
+					"items" : [ "/ch.1", ",", "/record/samptype", ",", "/ch.2", ",", "/audio/active", ",", "/limiter/preamp", ",", "/ui/size", ",", "/ui/color/contentBackground", ",", "/in/mute", ",", "/record/filetype", ",", "/ui/color/border", ",", "/limiter/mode", ",", "/audio/gain", ",", "/limiter/release", ",", "/balance", ",", "/limiter/dcblocker/active", ",", "/limiter/threshold", ",", "/ui/color/toolbarText", ",", "/model/mute", ",", "/limiter/postamp", ",", "/saturation/active", ",", "/limiter/active", ",", "/ui/freeze", ",", "/saturation/depth", ",", "/limiter/lookahead", ",", "/ui/color/toolbarBackground", ",", "/in/bypass" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1376,7 +1376,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 396.0, 383.0, 100.0, 34.0 ],
+					"patching_rect" : [ 396.0, 383.0, 103.0, 34.0 ],
 					"text" : "jcom.namespace @format umenu"
 				}
 
@@ -1392,7 +1392,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 246.0, 383.0, 100.0, 34.0 ],
+					"patching_rect" : [ 246.0, 383.0, 103.0, 34.0 ],
 					"text" : "jcom.namespace @format umenu"
 				}
 
@@ -1408,7 +1408,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 87.0, 383.0, 100.0, 34.0 ],
+					"patching_rect" : [ 87.0, 383.0, 103.0, 34.0 ],
 					"text" : "jcom.namespace @format umenu"
 				}
 
@@ -1454,13 +1454,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-3",
-					"items" : [ "/mouse", ",", "/output~", ",", "/output~.1", ",", "/input~.1", ",", "/output~.2", ",", "/input~.3", ",", "/player.A", ",", "/player.B", ",", "/_movie_", ",", "/player.B/file", ",", "/movie", ",", "/input~", ",", "/output~.3", ",", "/movie/file", ",", "/player.A/file", ",", "/input~.2" ],
+					"items" : [ "/input~.1", ",", "/output~", ",", "/output~.1", ",", "/input~" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 12.0, 248.0, 168.0, 20.0 ],
-					"prefix" : "Mac Book HD:/",
+					"prefix" : "Mac:/",
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
@@ -1478,7 +1478,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 12.0, 194.0, 110.0, 48.0 ],
+					"patching_rect" : [ 12.0, 194.0, 112.0, 48.0 ],
 					"text" : "jcom.namespace @lookfor jcom.hub @format umenu"
 				}
 
