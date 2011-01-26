@@ -17,6 +17,7 @@ mAddress(kTTSymEmpty),
 mAttribute(kTTSym_value), // TODO : set kTTSymEmpty because a Viewer can bind on any object (not only data)
 mDescription(kTTSymEmpty),
 mType(kTTSymEmpty),
+mTag(kTTSymEmpty),
 mSelected(YES),
 mFreeze(NO),
 mEnable(YES),
@@ -36,6 +37,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Attribute, kTypeSymbol);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
+	addAttribute(Tag, kTypeSymbol);
 	addAttribute(Selected, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	addAttribute(Enable, kTypeBoolean);

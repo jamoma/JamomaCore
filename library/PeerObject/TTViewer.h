@@ -35,6 +35,7 @@ private:
 	TTSymbolPtr			mAttribute;					///< ATTRIBUTE : the attribute to bind
 	TTSymbolPtr			mDescription;				///< ATTRIBUTE : text to describe the role of this data
 	TTSymbolPtr			mType;						///< ATTRIBUTE : type of the gui
+	TTSymbolPtr			mTag;						///< ATTRIBUTE: a tag for this viewer
 	TTBoolean			mSelected;					///< ATTRIBUTE : selection state of the gui
 	TTBoolean			mFreeze;					///< ATTRIBUTE : freeze data returning
 	

@@ -158,6 +158,9 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 			case set_out:
 				strcpy(dst, "set: connect to ui object");
 				break;
+			case select_out:
+				strcpy(dst, "select: connect to ui object to manage selection state");
+				break;
 			case dump_out:
 				strcpy(dst, "dumpout");
 				break;
