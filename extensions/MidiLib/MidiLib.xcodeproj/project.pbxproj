@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224C986B12F0E1D0000D63EE /* TTMidiFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 224C986A12F0E1D0000D63EE /* TTMidiFormat.cpp */; };
 		227EF55412E132D200B8DD63 /* TTMidiFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EF55312E132D200B8DD63 /* TTMidiFilter.cpp */; };
 		2287F74912DA917B006CE3AB /* MidiLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2287F74812DA917B006CE3AB /* MidiLib.cpp */; };
 		2287F74B12DA9183006CE3AB /* TTMidiInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2287F74A12DA9183006CE3AB /* TTMidiInput.cpp */; };
@@ -23,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		224C986912F0E1C2000D63EE /* TTMidiFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMidiFormat.h; path = includes/TTMidiFormat.h; sourceTree = "<group>"; };
+		224C986A12F0E1D0000D63EE /* TTMidiFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMidiFormat.cpp; path = source/TTMidiFormat.cpp; sourceTree = "<group>"; };
 		227EF54E12E132BC00B8DD63 /* TTMidiFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMidiFilter.h; path = includes/TTMidiFilter.h; sourceTree = "<group>"; };
 		227EF55312E132D200B8DD63 /* TTMidiFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMidiFilter.cpp; path = source/TTMidiFilter.cpp; sourceTree = "<group>"; };
 		2287F74812DA917B006CE3AB /* MidiLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiLib.cpp; sourceTree = "<group>"; };
@@ -112,6 +115,8 @@
 			children = (
 				227EF54E12E132BC00B8DD63 /* TTMidiFilter.h */,
 				227EF55312E132D200B8DD63 /* TTMidiFilter.cpp */,
+				224C986912F0E1C2000D63EE /* TTMidiFormat.h */,
+				224C986A12F0E1D0000D63EE /* TTMidiFormat.cpp */,
 				2287F74C12DA918A006CE3AB /* TTMidiInput.h */,
 				2287F74A12DA9183006CE3AB /* TTMidiInput.cpp */,
 				2287FF1B12E100E1006CE3AB /* TTMidiOutput.h */,
@@ -212,6 +217,7 @@
 				2287F74B12DA9183006CE3AB /* TTMidiInput.cpp in Sources */,
 				2287FF1D12E100F4006CE3AB /* TTMidiOutput.cpp in Sources */,
 				227EF55412E132D200B8DD63 /* TTMidiFilter.cpp in Sources */,
+				224C986B12F0E1D0000D63EE /* TTMidiFormat.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
