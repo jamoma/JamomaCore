@@ -38,8 +38,10 @@ typedef struct _param{
 	t_jcom_core_subscriber_extended	common;
 	pf_noargs		param_output;				///< bang method for the instance points to an optimized function
 	TTPtr 			outlets[num_outlets];		///< my outlet array
-	Atom			atom_list[LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
-	Atom			atom_listDefault[LISTSIZE];
+//	Atom			atom_list[LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
+//	Atom			atom_listDefault[LISTSIZE];
+	AtomPtr			atom_list;
+	AtomPtr			atom_listDefault;
 	long			list_size;					///< size of currently stored list
 	long			listDefault_size;
 	SymbolPtr		attr_ramp;					///< ATTRIBUTE: ramp mode 
