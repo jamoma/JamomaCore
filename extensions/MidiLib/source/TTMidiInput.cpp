@@ -114,7 +114,8 @@ void* TTMidiPoll(TTMidiInput* self)
 				}
 			}
 		}
-		sleep(1);
+
+		self->mPollingThread->sleep(1);
 	}
 	return NULL;
 }
