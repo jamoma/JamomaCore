@@ -2,6 +2,9 @@
 
 using namespace std;
 
+#define APP_NAME		TT("TestModularApp")
+#define	PLUGINS_PATH	TT("../../../../../library/DeviceManagerLib/Plugins")
+#define CONFIG_PATH		TT("/Users/laurent/Travail/Galamus/Jamoma/Modules/Modular/implementations/Example/Config.xml")
 
 void myData_return_value_callback(TTPtr baton, TTValue& v);
 
@@ -27,7 +30,7 @@ main(int argc, char **argv)
 	/////////////////////////////////////////////////////////
 	TTModularInit("TestModularApp", "");
 	
-	mApplication	= (TTApplicationPtr)TTModularGetApplication(TT("TestModularApp"));
+	mApplication	= (TTApplicationPtr)TTModularGetApplication(APP_NAME);
 	mDirectory		= TTApplicationGetDirectory(TTObjectPtr(mApplication));
 
 
@@ -91,6 +94,23 @@ main(int argc, char **argv)
 	args.append(uo_returnValueCallback);
 		
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&myUnregistrationObserver), args);
+	
+	// Create a TTDeviceManager
+	/////////////////////////////////////////////////////////
+	TTLogMessage("\n*** Creating a DeviceManager Object *** \n");
+	TTDeviceManagerPtr mDeMan = NULL;
+	args.clear();
+	args.append(mApplication);
+	args.append(APP_NAME);
+	
+	TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(&mDeMan), args);
+	
+	args.clear();
+	args.append(PLUGINS_PATH);
+	args.append(CONFIG_PATH);
+	mDeMan->sendMessage(TT("LoadPlugins"), args);
+	
+	
 
 
 	// Create a TTData
@@ -111,10 +131,8 @@ main(int argc, char **argv)
 	// create an instance of TTData
 	TTObjectInstantiate(TT("Data"), TTObjectHandle(&myData), args);
 
-	// set TTData mType attribute as integer
+	// set TTData attributes
 	myData->setAttributeValue(kTTSym_type, kTTSym_decimal);
-
-	// set TTData mValueDefault attribute as 0
 	myData->setAttributeValue(kTTSym_valueDefault, 0);
 	myData->setAttributeValue(kTTSym_description, TT("Il etait une fois"));
 
@@ -125,7 +143,7 @@ main(int argc, char **argv)
 	TTNodePtr		returnedNode;
 	TTBoolean		newInstanceCreated;
 
-	mDirectory->TTNodeCreate(TT("/audio/filter/frequency"), myData, NULL, &returnedNode, &newInstanceCreated);
+	mDirectory->TTNodeCreate(TT("/control/volume"), myData, NULL, &returnedNode, &newInstanceCreated);
 	// note : our myRegistrationObserver is informed
 
 
@@ -140,7 +158,7 @@ main(int argc, char **argv)
 	// prepare arguments : see TTReceiver.h to know which args are needed
 	args.clear();
 	args.append(mApplication);
-	args.append(TT("/audio/filter/frequency"));
+	args.append(TT("/control/volume"));
 	args.append(kTTSym_value);
 		
 	TTObjectInstantiate(TT("callback"), TTObjectHandle(&r_returnAddressCallback), kTTValNONE);
@@ -169,7 +187,7 @@ main(int argc, char **argv)
 	// prepare arguments : see TTSender.h to know which args are needed
 	args.clear();
 	args.append(mApplication);
-	args.append(TT("/audio/filter/frequency"));
+	args.append(TT("/control/volume"));
 	args.append(kTTSym_value);
 		
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mySender), args);
@@ -200,7 +218,7 @@ main(int argc, char **argv)
 	// get the node which represent our data
 	TTList			aNodeList;
 	TTNodePtr		aNode;
-	mDirectory->Lookup(TT("/audio/filter/frequency"), aNodeList, &aNode);
+	mDirectory->Lookup(TT("/control/volume"), aNodeList, &aNode);
 
 	// get the object store in the node
 	TTObjectPtr	anObject;
@@ -249,19 +267,19 @@ main(int argc, char **argv)
 
 	// Unregister /audio/filter/frequency from the TTModularDirectory
 	//////////////////////////////////////////////////////////////////
-	//TTLogMessage("\n*** Unregister myData from the TTModularDirectory *** \n");
-	//mDirectory->TTNodeRemove(TT("/audio/filter/frequency"));
+//	TTLogMessage("\n*** Unregister myData from the TTModularDirectory *** \n");
+//	mDirectory->TTNodeRemove(TT("/audio/filter/frequency"));
 	// note : our myUnregistrationObserver is informed
 
 
 
 	// Delete every TTObject and TTValuePtr
 	//////////////////////////////////////////////////////////////////
-	//TTObjectRelease(TTObjectHandle(&myRegistrationObserver));
-	//TTObjectRelease(TTObjectHandle(&ro_returnAddressCallback)); 
-	//TTObjectRelease(TTObjectHandle(&ro_returnValueCallback));
-	//delete ro_returnAddressBaton;
-	//delete ro_returnValueBaton;
+//	TTObjectRelease(TTObjectHandle(&myRegistrationObserver));
+//	TTObjectRelease(TTObjectHandle(&ro_returnAddressCallback)); 
+//	TTObjectRelease(TTObjectHandle(&ro_returnValueCallback));
+//	delete ro_returnAddressBaton;
+//	delete ro_returnValueBaton;
 
 	//TTObjectRelease(TTObjectHandle(&myUnregistrationObserver));
 	//TTObjectRelease(TTObjectHandle(&uo_returnAddressCallback)); 
@@ -281,6 +299,9 @@ main(int argc, char **argv)
 
 	//TTObjectRelease(TTObjectHandle(&mySender));
 
+	while (true) {
+		;
+	}
 	TTLogMessage("\n*** Ending my TTModular application *** \n");
 
 	return EXIT_SUCCESS;

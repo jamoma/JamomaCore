@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<deviceManager version='1.0'>
+    <device name="DeviceTest" plugin="Minuit" ip="127.0.0.1" port="9998" />
+    <device name="TestModularApp" plugin="Minuit" ip="127.0.0.1" port="7002" />
+</deviceManager>
