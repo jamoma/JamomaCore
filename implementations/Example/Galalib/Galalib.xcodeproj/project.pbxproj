@@ -1,0 +1,272 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4DFF9EC012832FA200B6BDA7 /* Namespace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9EB912832FA200B6BDA7 /* Namespace.cpp */; };
+		4DFF9EC112832FA200B6BDA7 /* Namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFF9EBA12832FA200B6BDA7 /* Namespace.h */; };
+		4DFF9EC212832FA200B6BDA7 /* Network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9EBB12832FA200B6BDA7 /* Network.cpp */; };
+		4DFF9EC312832FA200B6BDA7 /* Network.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFF9EBC12832FA200B6BDA7 /* Network.h */; };
+		4DFF9EC412832FA200B6BDA7 /* NSPIncludes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFF9EBD12832FA200B6BDA7 /* NSPIncludes.h */; };
+		4DFF9EC512832FA200B6BDA7 /* xmlParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9EBE12832FA200B6BDA7 /* xmlParser.cpp */; };
+		4DFF9EC612832FA200B6BDA7 /* xmlParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFF9EBF12832FA200B6BDA7 /* xmlParser.h */; };
+		4DFF9ECD1283385900B6BDA7 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFF9ECC1283385900B6BDA7 /* JamomaFoundation.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4DFF9EB912832FA200B6BDA7 /* Namespace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Namespace.cpp; sourceTree = "<group>"; };
+		4DFF9EBA12832FA200B6BDA7 /* Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Namespace.h; sourceTree = "<group>"; };
+		4DFF9EBB12832FA200B6BDA7 /* Network.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Network.cpp; sourceTree = "<group>"; };
+		4DFF9EBC12832FA200B6BDA7 /* Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Network.h; sourceTree = "<group>"; };
+		4DFF9EBD12832FA200B6BDA7 /* NSPIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPIncludes.h; sourceTree = "<group>"; };
+		4DFF9EBE12832FA200B6BDA7 /* xmlParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xmlParser.cpp; sourceTree = "<group>"; };
+		4DFF9EBF12832FA200B6BDA7 /* xmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlParser.h; sourceTree = "<group>"; };
+		4DFF9ECC1283385900B6BDA7 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
+		4DFF9ECE1283386700B6BDA7 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaModular.dylib"; sourceTree = "<absolute>"; };
+		5073E0C609E734A800EC74B6 /* GalalibProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = GalalibProj.xcconfig; sourceTree = "<group>"; };
+		5073E0C709E734A800EC74B6 /* GalalibTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = GalalibTarget.xcconfig; sourceTree = "<group>"; };
+		D2AAC09D05546B4700DB518D /* Galalib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Galalib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC09B05546B4700DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DFF9ECD1283385900B6BDA7 /* JamomaFoundation.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DDFF38A45A11DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC09D05546B4700DB518D /* Galalib.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* Galalib */ = {
+			isa = PBXGroup;
+			children = (
+				5073E0CA09E734BC00EC74B6 /* Configuration Files */,
+				4DFF9EC7128336AC00B6BDA7 /* Headers */,
+				08FB77ACFE841707C02AAC07 /* Sources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DDFF38A45A11DB9C8B /* Products */,
+			);
+			name = Galalib;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				4DFF9ECC1283385900B6BDA7 /* JamomaFoundation.dylib */,
+				4DFF9ECE1283386700B6BDA7 /* JamomaModular.dylib */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4DFF9EB912832FA200B6BDA7 /* Namespace.cpp */,
+				4DFF9EBB12832FA200B6BDA7 /* Network.cpp */,
+				4DFF9EBE12832FA200B6BDA7 /* xmlParser.cpp */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		4DFF9EC7128336AC00B6BDA7 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				4DFF9EBA12832FA200B6BDA7 /* Namespace.h */,
+				4DFF9EBC12832FA200B6BDA7 /* Network.h */,
+				4DFF9EBD12832FA200B6BDA7 /* NSPIncludes.h */,
+				4DFF9EBF12832FA200B6BDA7 /* xmlParser.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		5073E0CA09E734BC00EC74B6 /* Configuration Files */ = {
+			isa = PBXGroup;
+			children = (
+				5073E0C609E734A800EC74B6 /* GalalibProj.xcconfig */,
+				5073E0C709E734A800EC74B6 /* GalalibTarget.xcconfig */,
+			);
+			name = "Configuration Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC09905546B4700DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DFF9EC112832FA200B6BDA7 /* Namespace.h in Headers */,
+				4DFF9EC312832FA200B6BDA7 /* Network.h in Headers */,
+				4DFF9EC412832FA200B6BDA7 /* NSPIncludes.h in Headers */,
+				4DFF9EC612832FA200B6BDA7 /* xmlParser.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC09C05546B4700DB518D /* Galalib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "Galalib" */;
+			buildPhases = (
+				D2AAC09905546B4700DB518D /* Headers */,
+				D2AAC09B05546B4700DB518D /* Frameworks */,
+				D2AAC09A05546B4700DB518D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Galalib;
+			productName = libGalalib;
+			productReference = D2AAC09D05546B4700DB518D /* Galalib.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "Galalib" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* Galalib */;
+			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC09C05546B4700DB518D /* Galalib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC09A05546B4700DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DFF9EC012832FA200B6BDA7 /* Namespace.cpp in Sources */,
+				4DFF9EC212832FA200B6BDA7 /* Network.cpp in Sources */,
+				4DFF9EC512832FA200B6BDA7 /* xmlParser.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB916108733D950010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5073E0C709E734A800EC74B6 /* GalalibTarget.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(FOUNDATION)/library/build/UninstalledProducts\"/",
+					"\"$(MODULAR)/library/build/UninstalledProducts\"/",
+				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
+				SHARED_PRECOMPS_DIR = "";
+			};
+			name = Debug;
+		};
+		1DEB916208733D950010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5073E0C709E734A800EC74B6 /* GalalibTarget.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Galalib_Prefix.pch;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../../Jamoma/Modules/Modular/library/build/UninstalledProducts\"",
+				);
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Release;
+		};
+		1DEB916508733D950010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5073E0C609E734A800EC74B6 /* GalalibProj.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB916608733D950010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5073E0C609E734A800EC74B6 /* GalalibProj.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "Galalib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB916108733D950010E9CD /* Debug */,
+				1DEB916208733D950010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "Galalib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB916508733D950010E9CD /* Debug */,
+				1DEB916608733D950010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

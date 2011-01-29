@@ -14,16 +14,23 @@
 #ifndef NAMESPACE_H
 #define NAMESPACE_H
 
-#ifdef NAMESPACE_EXPORTS
-	#define NAMESPACE_API __declspec(dllexport)
-#else
-#ifdef NAMESPACE_STATIC
-	#define NAMESPACE_API
-#else
-	#define NAMESPACE_API __declspec(dllimport)
+#ifdef NSP_PLATFORM_WIN
+	#ifdef NAMESPACE_EXPORTS
+		#define NAMESPACE_API __declspec(dllexport)
+	#else
+	#ifdef NAMESPACE_STATIC
+		#define NAMESPACE_API
+	#else
+		#define NAMESPACE_API __declspec(dllimport)
+	#endif
+	#endif
+#else //PLATFORM MAC, LINUX
+	#ifdef NAMESPACE_EXPORTS
+		#define NAMESPACE_API __attribute__((visibility("default")))
+	#else
+		#define NAMESPACE_API
+	#endif
 #endif
-#endif
-
 
 #include "NSPIncludes.h"
 #include "xmlParser.h"
@@ -45,16 +52,16 @@
 
 /** NSP Parameter attribute symbols :	attribute names in the xml*/
 
-//#define NSPAttr_VAL				//< Value
-//#define NSPAttr_DEFAULT			//< ValueDefault
-//#define NSPAttr_TYPE				//< Type			(could be array, boolean, integer, decimal, string, generic)
-//#define NSPAttr_RANGE				//< RangeBounds		(list of two values, if type="decimal" or type="integer")
-//#define NSPAttr_RANGECLIPMODE		//< RangeClipmode	(could be both, high, low, none, wrap, fold)
-//#define NSPAttr_STEP				//< ValueStepsize	(a value that represents incrementation step)
-//#define NSPAttr_PRIORITY			//< Priority		(an integer)
-//#define NSPAttr_DESCRIPTION		//< Description		(a string)
-//#define NSPAttr_REPETITION		//< RepetitionsAllow("true" or "false")
-//#define NSPAttr_READONLY			//< Readonly		("true" or "false")
+//#define NSPAttr_VAL				//< value
+//#define NSPAttr_DEFAULT			//< valueDefault
+//#define NSPAttr_TYPE				//< type			(could be array, boolean, integer, decimal, string, generic)
+//#define NSPAttr_RANGE				//< rangeBounds		(list of two values, if type="decimal" or type="integer")
+//#define NSPAttr_RANGECLIPMODE		//< rangeClipmode	(could be both, high, low, none, wrap, fold)
+//#define NSPAttr_STEP				//< valueStepsize	(a value that represents incrementation step)
+//#define NSPAttr_PRIORITY			//< priority		(an integer)
+//#define NSPAttr_DESCRIPTION		//< description		(a string)
+//#define NSPAttr_REPETITION		//< repetitionsAllow("true" or "false")
+//#define NSPAttr_READONLY			//< readonly		("true" or "false")
 
 /** NSP Task symbols */
 
@@ -80,25 +87,30 @@ public:
 	NSPStatus namespaceFree(void);
 
 	/** Create a parameter object and register it in the namespace according to address arg 
+		The application name is automatically added at the beginning of the address : /"appName"
 		Callback methods can be passed to process the value and/or address of the parameter value attribute when change */
 	NSPStatus namespaceParameterCreate(std::string address, void* object, void (*returnValueCallback)	 (void*, NSPValue&) = NULL
 																		, void (*returnAddressCallback)  (void*, NSPValue&) = NULL);
 	
-	/** Set the value of a parameter attribute (usefull to init it) */
+	/** Set the value of a parameter attribute (usefull to init it) 
+		The application name is automatically added at the beginning of the address : /"appName" */
 	NSPStatus namespaceAttributeSet(std::string address, NSPSymbol attribute, NSPValue value);
 
-	/** Get the value of a parameter attribute */
+	/** Get the value of a parameter attribute 
+		The application name is automatically added at the beginning of the address : /"appName" */
 	NSPStatus namespaceAttributeGet(std::string address, NSPSymbol attribute, NSPValue& value);
 
-	/** Create an oserver object on a parameter attribute which could execute callback methods when attribute value is updated */
+	/** Create an oserver object on a parameter attribute which could execute callback methods when attribute value is updated 
+		The application name is automatically added at the beginning of the address : /"appName" */
 	NSPStatus namespaceObserverCreate(std::string address, NSPSymbol attribute, void* object, void (*returnValueCallback)	 (void*, NSPValue&)
 																						    , void (*returnAddressCallback)  (void*, NSPValue&));
 
 	/** Send a value to update a parameter attribute 
+		The application name is automatically added at the beginning of the address : /"appName"
 		Each registrated observer on this parameter attribute will be notified by this update */
 	NSPStatus namespaceValueSend(std::string address, NSPSymbol attribute, NSPValue value);
 	
-	/** Display the namespace keys on console (usefull to debug) */
+	/** Display namespace addresses on console (usefull to debug) */
 	NSPStatus namespaceDisplay(void);
 
 	/** Save the namespace in a xml file */
@@ -108,8 +120,18 @@ public:
 		Note that namespace observers are not created */
 	NSPStatus namespaceLoadFromXml(std::string filepath);
 
-	void namespaceMapperCreate(void (*returnValueCallback)	(void*, NSPValue&));
+	/** Load and build a mapping on the namespace tree by parsing a xml file */
+	NSPStatus namespaceMappingLoadFromXml(std::string filepath);
+	
+	/** Load and build preset manager on namespace tree parameters by parsing a xml file */
+	NSPStatus namespacePresetsLoadFromXml(std::string filepath);
+	
+	/** Call a specific preset listed by the preset manager using it name */
+	NSPStatus namespacePresetCall(std::string name);
 
+	/** Call a specific preset listed by the preset manager using it number */
+	NSPStatus namespacePresetCall(int number);
+	
 	/** Methods to get and set the private variables */
 	void setAppName(const std::string _appName);
 	void setAppVersion(const std::string _appVersion);
@@ -125,6 +147,10 @@ private:
 	std::string m_creatorName;
 
 	void parseXmlParameters(XMLNode xmlNode, std::string address);
+	
+	TTPresetManagerPtr m_presetManager;
+	TTDeviceManagerPtr m_deMan;
+	
 };
 
 #endif /*NAMESPACE_H*/
