@@ -8,6 +8,7 @@
  */
 
 #include "TTDevice.h"
+#include "Plugin.h"
 
 #define thisTTClass			TTDevice
 #define thisTTClassName		"Device"
@@ -27,6 +28,7 @@ mEnabled(YES)
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttribute(Address, kTypeSymbol);
+	addAttribute(AddressToSpeakWith, kTypeSymbol);
 	
 	addMessageWithArgument(Command);
 	addMessageWithArgument(Discover);
@@ -44,8 +46,25 @@ TTDevice::~TTDevice()
 	mParameters = NULL;
 }
 
+TTErr TTDevice::getCommParameter(TTSymbolPtr name, TTValue &value)
+{
+	TTValue v;
+	TTErr	err;
+	
+	err = mParameters->lookup(name, v);
+	
+	if (err) {
+		return kTTErrGeneric;
+	}
+	
+	value = v;
+	
+	return kTTErrNone;
+}
+
 TTErr TTDevice::Command(const TTValue& command)
 {
+	std::cout << "Command" << std::endl;
 	return kTTErrNone;
 }
 
@@ -94,50 +113,54 @@ TTErr TTDevice::Discover(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTDevice::Get(const TTValue& value)
+TTErr TTDevice::Get(TTValue& value)
 {
-	//TSymbolPtr address, TTValue& data)
-//	Value returnedValue;
-//	
-//	// TODO : deal with any attribute
-//	int result = this->mDeviceManager->deviceSendGetRequest(device->getCString(), address->getCString(), NAMESPACE_ATTR_VALUE, &returnedValue); 
+	std::cout << "Get" << std::endl;
+	TTValue		v, addressAndAttr;
+	TTSymbolPtr address, attr;
+	TTNodePtr	nodeToSet;
+	TTObjectPtr	o;
+	TTErr		err;
 	
-//	switch(result){
-//		case REQUEST_NOT_SENT :{
-//			;//post("dvmg_get %s %s : REQUEST_NOT_SENT", device->s_name, address->s_name);
-//			break;
-//		}
-//		case TIMEOUT_EXCEEDED :{
-//			;//post("dvmg_get %s %s : TIMEOUT_EXCEEDED", device->s_name, address->s_name);
-//			break;
-//		}
-//		case NO_ANSWER :{
-//			;//post("dvmg_get %s %s : NO_ANSWER", device->s_name, address->s_name);
-//			break;
-//		}
-//		case ANSWER_RECEIVED :{
-//			;//post("dvmg_get %s %s : ANSWER_RECEIVED", device->s_name, address->s_name);
-//			;//post("		<Value = %s", returnedValue.data());
-//			
-//			break;
-//		}
-//		default :{
-//			;//post("dvmg_get %s %s : NO_ANSWER", device->s_name, address->s_name);
-//			break;
-//		}
-//	}
+	// extract address and attribute to get
+	value.get(0, &address);
+	value.get(1, &attr);
+	
+	addressAndAttr.append(address);
+	addressAndAttr.append(attr);
+	
+	// send a get request at a remote device using plugin instance
+	mPlugin->deviceSendGetRequest(this, addressAndAttr, v);
+	
+	// update the local directory of the remote device if it was already discovered
+	err = getDirectoryFrom(this)->getTTNodeForOSC(address, &nodeToSet);
+	if (!err) {
+		if (o = nodeToSet->getObject()) {
+			o->setAttributeValue(attr, v);
+		}
+	}
+	
+	// clear the value and return the got value
+	value.clear();
+	value = v;
+	
 	return kTTErrNone;
 }
 
 TTErr TTDevice::Set(const TTValue& value)
 {
-	TTSymbolPtr address;
+	std::cout << "Set" << std::endl;
 	TTValue		valueToSend;
+	TTString	s;
 	
-	value.get(0, &address);
-	value.get(1, (TTPtr*)&valueToSend);
+	valueToSend = value;
 	
-	mPlugin->deviceSendSetRequest(address, valueToSend);
+//	v.toString();
+//	v.get(0, s);
+//	std::cout << s << std::endl;
+	
+	// send a set request at a remote device using plugin instance
+	mPlugin->deviceSendSetRequest(this, mAddressToSpeakWith, valueToSend);
 	
 	return kTTErrNone;
 }

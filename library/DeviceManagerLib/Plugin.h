@@ -8,26 +8,49 @@
 
 
 class TTDeviceManager;
-typedef TTDeviceManager* TTDeviceManagerPtr; 
+typedef TTDeviceManager* TTDeviceManagerPtr;
+
+class TTDevice;
+typedef TTDevice* TTDevicePtr;
 
 #ifndef __PLUGIN_H__
 #define __PLUGIN_H__
+
+#ifdef TT_PLATFORM_WIN
+	#include "windows.h"
+	#ifdef TTMODULAR_EXPORTS
+		#define PLUGIN_EXPORT __declspec(dllexport)
+	#else
+	#ifdef TTSTATIC
+		#define PLUGIN_EXPORT
+	#else
+		#define PLUGIN_EXPORT __declspec(dllimport)
+	#endif
+#endif // _DLL_EXPORT
+
+#else // TT_PLATFORM_MAC
+	#ifdef TTMODULAR_EXPORTS
+		#define PLUGIN_EXPORT __attribute__((visibility("default")))
+	#else
+		#define PLUGIN_EXPORT
+	#endif
+#endif
+
 
 #include "TTModular.h"
 
 #include <map>
 
-/**	Plugin ... TODO : an explanation
- 
- 
+/**	Plugin and PluginFactory are abstract classes, interfaces to develop plugins.
+	Every communication plugins developped in the futur will have to be implemented according to this model.
  */
 
-class Plugin
+class PLUGIN_EXPORT Plugin
 {
 	
 public:
 	
-	TTDeviceManagerPtr	mDeviceManager;
+	TTDeviceManager*	mDeviceManager;
 	TTHashPtr			mParameters;
 	
 	//	void (*m_waitedMessageAction)(void*, std::string);
@@ -43,11 +66,11 @@ public:
 	/*!
 	 * A plugin need to know the DeviceManager to access it methods
 	 */
-	void setDeviceManager(TTDeviceManagerPtr deviceManager) {
+	void setDeviceManager(TTDeviceManager* deviceManager) {
 		mDeviceManager = deviceManager;
 	}
 	
-	TTDeviceManagerPtr getDeviceManager() {
+	TTDeviceManager* getDeviceManager() {
 		return mDeviceManager;
 	}
 	
@@ -70,7 +93,7 @@ public:
 	 * Has to be called to instantiate the m_parameter map
 	 *
 	 */
-	virtual void commDefineParameters(std::map<std::string, std::string>* parameters = NULL)=0;
+	virtual void commDefineParameters(TTHashPtr parameters = NULL)=0;
 	
 //	/*!
 //	 * Set a plugin parameter (if does not exist add it)
@@ -142,28 +165,30 @@ public:
 //										  std::vector<std::string>* returnedNodes,
 //										  std::vector<std::string>* returnedLeaves,
 //										  std::vector<std::string>* returnedAttributes)=0;
-//	
-//	/*!
-//	 * Send a get request to a device to get a value at the given address
-//	 *
-//	 * \param device : a pointer to a Device instance
-//	 * \param address : something like "/<subDeviceName>/.../<input>"
-//	 * \param attribute : the asked attribute
-//	 * \param returnedValue : the Value which is going to be full
-//	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
-//	 */
-//	virtual int deviceSendGetRequest(Device* device, Address address,
-//									 std::string attribute, Value* returnedValue)=0;
-//	
+	
 	/*!
-	 * Send a set request to set a value of a specific device
+	 * Send a get request to a device to get a value at the given address
 	 *
 	 * \param device : a pointer to a Device instance
 	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param attribute : the asked attribute
+	 * \param returnedValue : the Value which is going to be full
+	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
+	 */
+	virtual int deviceSendGetRequest(TTDevicePtr device, 
+									 const TTValue& addressAndAttribute, 
+									 TTValue& returnedValue)=0;
+	
+	/*!
+	 * Send a set request to set a value of a specific device
+	 *
+	 * \param device : a pointer to a TTDevice instance
+	 * \param address : something like "/<subDeviceName>/.../<input>"
 	 * \param value : anything to send
 	 */
-	virtual int deviceSendSetRequest(TTSymbolPtr address,
-									 TTValue& newValue)=0;
+	virtual int deviceSendSetRequest(TTDevicePtr device, 
+									 TTSymbolPtr address,
+									 TTValue& value)=0;
 	
 //	/*!
 //	 * Send a listen request to a specific device
@@ -195,18 +220,18 @@ public:
 //										  std::vector<std::string>& returnedNodes,
 //										  std::vector<std::string>& returnedLeaves,
 //										  std::vector<std::string>& returnedAttributes)=0;
-//	
-//	/*!
-//	 * Send a get answer to a device which ask for.
-//	 *
-//	 * \param to : the device where to send answer
-//	 * \param address : the address where comes from the value
-//	 * \param attribute : the attribute where comes from the value
-//	 * \param returnedValue : the value of the attribute at the address
-//	 */
-//	virtual void deviceSendGetAnswer(Device* to, Address address,
-//									 std::string attribute, Value& returnedValue)=0;
-//	
+	
+	/*!
+	 * Send a get answer to a device which ask for.
+	 *
+	 * \param to : the device where to send answer
+	 * \param address : the address where comes from the value
+	 * \param attribute : the attribute where comes from the value
+	 * \param returnedValue : the value of the attribute at the address
+	 */
+	virtual void deviceSendGetAnswer(TTDevicePtr to, TTSymbolPtr address,
+									 TTSymbolPtr attribute, TTValue& returnedValue)=0;
+	
 //	/*!
 //	 * Send a listen answer to a device which ask for.
 //	 *
@@ -215,8 +240,8 @@ public:
 //	 * \param attribute : the attribute where comes from the value
 //	 * \param returnedValue : the value of the attribute at the address
 //	 */
-//	virtual void deviceSendListenAnswer(Device* to, Address address,
-//										std::string attribute, Value& returnedValue)=0;
+//	virtual void deviceSendListenAnswer(TTDevicePtr to, TTSymbolPtr address,
+//										TTSymbolPtr attribute, TTValue& returnedValue)=0;
 //	
 //	/**************************************************************************************************************************
 //	 *
@@ -247,46 +272,49 @@ public:
 //		this->deviceSendDiscoverAnswer(from, address, returnedNodes,
 //									   returnedLeaves, returnedAttributes);
 //	}
-//	
-//	/*!
-//	 * Notify the plugin that a device ask for value
-//	 *
-//	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
-//	 *
-//	 * \param from : the device where comes from the request
-//	 * \param address : the address the device wants to get
-//	 * \param attribute : the attribute the device wants to get
-//	 */
-//	void deviceReceiveGetRequest(Device* from, Address address,
-//								 std::string attribute) {
-//		Value returnedValue;
-//		
-//		// get the value from the local namespace
-//		this->mDeviceManager->namespaceGet(address, attribute, returnedValue);
-//		
-//		// TODO : test error and send notification if error
-//		
-//		// send result
-//		this->deviceSendGetAnswer(from, address, attribute, returnedValue);
-//	}
-//	
-//	/*!
-//	 * Notify the plugin that a device wants to set value
-//	 *
-//	 * !!! This a built-in plugin method which set automatically the value (or send a notification if error)
-//	 *
-//	 * \param from : the device where comes from the request
-//	 * \param address : the address the device wants to get
-//	 * \param attribute : the attribute the device wants to get
-//	 */
-//	void deviceReceiveSetRequest(Device* from, Address address,
-//								 std::string attribute, Value& newValue) {
-//		// set the value of the local namespace
-//		this->mDeviceManager->namespaceSet(address, attribute, newValue);
-//		
-//		// TODO : test error and send notification if error
-//	}
-//	
+	
+	/*!
+	 * Notify the plugin that a device ask for value
+	 *
+	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
+	 *
+	 * \param from : the device where comes from the request
+	 * \param address : the address the device wants to get
+	 * \param attribute : the attribute the device wants to get
+	 */
+	void deviceReceiveGetRequest(TTDevicePtr from, TTSymbolPtr address,
+								 TTSymbolPtr attribute) {
+		TTValue returnedValue;
+		
+		// get the value from the local namespace
+		if (mDeviceManager != NULL)
+			mDeviceManager->namespaceGet(address, attribute, returnedValue);
+		
+		// TODO : test error and send notification if error
+		
+		// send result
+		this->deviceSendGetAnswer(from, address, attribute, returnedValue);
+	}
+
+	/*!
+	 * Notify the plugin that a device wants to set value
+	 *
+	 * !!! This a built-in plugin method which set automatically the value (or send a notification if error)
+	 *
+	 * \param from : the device where comes from the request
+	 * \param address : the address the device wants to get
+	 * \param attribute : the attribute the device wants to get
+	 */
+	void deviceReceiveSetRequest(TTDevicePtr from, TTSymbolPtr address,
+								 TTSymbolPtr attribute, TTValue& newValue) {
+		
+		// set the value of the local namespace
+		if (mDeviceManager != NULL)
+			mDeviceManager->namespaceSet(address, attribute, newValue);
+		
+		// TODO : test error and send notification if error
+	}
+	
 //	/*!
 //	 * Notify the plugin that a device wants to listen (or not) the namespace
 //	 *
@@ -329,12 +357,12 @@ typedef Plugin*			PluginPtr;
  * 
  */
 
-class PluginFactory {
+class PLUGIN_EXPORT PluginFactory {
 public:
 	virtual std::string getPluginName()=0;
 	virtual std::string getPluginVersion()=0;
 	virtual std::string getPluginAuthor()=0;
-	virtual PluginPtr	getInstance(TTDeviceManagerPtr deviceManager)=0;
+	virtual PluginPtr	getInstance(TTDeviceManager* deviceManager)=0;
 };
 
 typedef PluginFactory*	PluginFactoryPtr;

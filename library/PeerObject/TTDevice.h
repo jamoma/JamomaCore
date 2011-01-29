@@ -23,15 +23,19 @@ class TTMODULAR_EXPORT TTDevice : public TTObject
 {
 	TTCLASS_SETUP(TTDevice)
 	
+public:
+	
+	TTErr getCommParameter(TTSymbolPtr name, TTValue &value); 
+	
 private:
 	
 	TTSymbolPtr			mName;							///< ATTRIBUTE: name of the device
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE: address of the device in the directory
-	//TTSymbolPtr			mPlugin;						///< ATTRIBUTE: name of the plugin to use with device
 	PluginPtr			mPlugin;
 	
-	TTHashPtr			mParameters;					///< ATTRIBUTE: a hash table containing <TTSymbolPtr paramName, TTSymbolPtr paramValue>
+	TTHashPtr			mParameters;					///< ATTRIBUTE: a hash table containing <TTSymbolPtr paramName, TTValue paramValue>
 	TTBoolean			mEnabled;						///< ATTRIBUTE: is this device enabled ?
+	TTSymbolPtr			mAddressToSpeakWith;
 	
 	/** Control the device using a command	 */
 	TTErr	Command(const TTValue& command);
@@ -40,7 +44,7 @@ private:
 	TTErr	Discover(const TTValue& value);
 	
 	/** to get a value from a remote device on the network */
-	TTErr	Get(const TTValue& value);
+	TTErr	Get(TTValue& value);
 	
 	/** to set a value into a remote device on the network 
 		arg1 : address (TTSymbolPtr) 

@@ -98,7 +98,8 @@ TTErr TTSender::Send(TTValue& valueToSend)
 				aCacheElement.get(0, (TTPtr*)&anObject);
 				
 				if (anObject) {
-					// DeviceManager case : need address & value
+					
+					// Device case : need address & value
 					if (anObject->getName() == TT("Device")) {
 						v.append(mAddress);
 						v.append(&valueToSend);

@@ -7,15 +7,24 @@
  */
 
 #include "TTDeviceManager.h"
+#include "PluginFactories.h"
+#include "Plugin.h"
 
 #define thisTTClass			TTDeviceManager
 #define thisTTClassName		"DeviceManager"
 #define thisTTClassTags		"device, manager"
 
 TT_MODULAR_CONSTRUCTOR,
+mApplication(NULL),
 mName(kTTSymEmpty),
-mAddress(TT("/deviceManager")),
-mApplication(NULL)
+mfactories(NULL),
+mListernersCache(NULL),
+mPlugins(NULL),
+mDevices(NULL),
+mDiscoverCallback(NULL),
+mGetCallback(NULL),
+mSetCallback(NULL),
+mListenCallback(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTDeviceManager", arguments.getSize() == 2);
 	
@@ -29,13 +38,20 @@ mApplication(NULL)
 	addMessageWithArgument(AddDevice);
 	addMessageWithArgument(Scan);
 	
-	// Pass callbacks to the DeviceManager
+	// needed to be handled by a TTXmlHandler
+	addMessageWithArgument(WriteAsXml);
+	addMessageWithArgument(ReadFromXml);
+	
+	// pass callbacks to the DeviceManager
 //	this->mDeviceManager->namespaceDiscoverAddCallback(this, &TTDeviceManagerDiscoverCallback);
 //	this->mDeviceManager->namespaceGetAddCallback(this, &TTDeviceManagerGetCallback);
 //	this->mDeviceManager->namespaceSetAddCallback(this, &TTDeviceManagerSetCallback);
 //	this->mDeviceManager->namespaceListenAddCallback(this, &TTDeviceManagerListenCallback);
+	mfactories = new PluginFactories();
 	
-	this->mListernersCache = new TTHash();
+	mListernersCache	= new TTHash();
+	mPlugins			= new TTHash();
+	mDevices			= new TTHash();
 }
 
 TTDeviceManager::~TTDeviceManager()
@@ -45,7 +61,10 @@ TTDeviceManager::~TTDeviceManager()
 
 TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 {
-	TTSymbolPtr pluginsPath;
+	TTXmlHandlerPtr	aXmlHandler	= NULL;
+	TTValue			v, args;
+	TTSymbolPtr		pluginsPath;
+	
 	value.get(0, &pluginsPath);
 
 	mfactories->loadPlugins(pluginsPath->getString());
@@ -55,32 +74,46 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 	
 	while (it.hasNext()) {
 		std::string pname = it.next();
-		//std::cout << pname << std::endl;
+		std::cout << pname << std::endl;
 		PluginPtr p = mfactories->createPlugin(pname, this);
 		if (p != 0) {
-			mPlugins->append(TT(pname), p);//have to cast to TTValue ?
+			std::cout << "p!=0" << std::endl;
+			mPlugins->append(TT(pname), p);
 		}
 	}	
 	
-	// define parameters for each plugin available
-	TTHashMapIter itr = mPlugins->begin();
-	while (itr != mPlugins->end()) {
-		PluginPtr pluginPtr = NULL;
-		TTValue v = itr->second;
-		v.get(0, (TTPtr*)pluginPtr);
-		if (pluginPtr != NULL) {
-			pluginPtr->commDefineParameters();
-		}
-		itr++;
-	}
-
-	// TODO : add xml config file load using TTXmlHandler
-//	if (value.getSize() > 1) {
-//		TTSymbolPtr xmlConfigPath;
-//		value.get(1, &xmlConfigPath);
-//
-//		mDeviceManager->pluginLoadConfigXml(xmlConfigPath->getCString());
+//	// define parameters for each plugin available
+//	TTHashMapIter itr = mPlugins->begin();
+//	while (itr != mPlugins->end()) {
+//		PluginPtr pluginPtr = NULL;
+//		TTValue v = itr->second;
+//		v.get(0, (TTPtr*)&pluginPtr);
+//		if (pluginPtr != NULL) {
+//			pluginPtr->commDefineParameters();
+//		}
+//		itr++;
 //	}
+
+	// load a xml config file 
+	if (value.getSize() > 1) {
+		TTSymbolPtr xmlConfigPath;
+		value.get(1, &xmlConfigPath);
+
+		// instanciate a XmlHandler
+		args.clear();
+		TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler),	args);
+		
+		// set XmlHandler being used by DeviceManager
+		v = TTValue(TTPtr(this));
+		aXmlHandler->setAttributeValue(kTTSym_object, v);
+		aXmlHandler->setAttributeValue(TT("headerNodeName"),	TT("deviceManager"));
+//		aXmlHandler->setAttributeValue(TT("version"),			TT(XML_MAPPING_VERSION));
+//		aXmlHandler->setAttributeValue(TT("xmlSchemaLocation"), TT(XML_MAPPING_SCHEMA_LOCATION));
+		
+		v.clear();
+		v.append(xmlConfigPath);
+		aXmlHandler->sendMessage(TT("Read"), v);//TODO : return an error code if fail
+	}
 
 	launchPlugins();
 	
@@ -89,12 +122,12 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 
 TTErr TTDeviceManager::launchPlugins()
 {
-	//run a reception thread for each plugin available
+	// run a reception thread for each plugin available
 	TTHashMapIter itr = mPlugins->begin();
 	while (itr != mPlugins->end()) {		
 		PluginPtr pluginPtr = NULL;
 		TTValue v = itr->second;
-		v.get(0, (TTPtr*)pluginPtr);
+		v.get(0, (TTPtr*)&pluginPtr);
 		if (pluginPtr != NULL) {
 			pluginPtr->commRunReceivingThread();
 		}
@@ -120,16 +153,20 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	TTDevicePtr device		= NULL;
 	TTNodePtr	returnedNode= NULL;
 	TTBoolean	newInstanceCreated;
-	TTPtr		vName, vValue;
 	TTHashPtr	commDatas;
+	TTErr		err;
 
+	std::cout << "AddDevice" << std::endl;
 	value.get(0, &deviceName);
 	value.get(1, &pluginToUse);
 	
 	// get the plugin ptr corresponding to it name
-	mPlugins->lookup(pluginToUse, pluginPtrValue);
+	err = mPlugins->lookup(pluginToUse, pluginPtrValue);
+	if (err) {
+		return kTTErrGeneric;
+	}
 	
-	pluginPtrValue.get(0, (TTPtr*)pluginPtr);
+	pluginPtrValue.get(0, (TTPtr*)&pluginPtr);
 	//pluginPtr->deviceAdd(deviceName);//really need it ?
 	
 	// prepare TTDevice arguments
@@ -142,7 +179,6 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 		
 		if (value.getType(i) == kTypeSymbol) {
 			value.get(i, &commParamName);
-			
 			if ((i+1)<value.getSize() ) {
 				
 				commParamValue.clear();
@@ -160,10 +196,8 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 				}
 				else return kTTErrGeneric;
 				
-				commParamValue.toString();
-				commParamValue.get(0, commParamValueStr);
+				commDatas->append(commParamName, commParamValue);
 				
-				commDatas->append(commParamName, commParamValueStr);
 			}
 			else return kTTErrGeneric;
 		}
@@ -178,19 +212,11 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	
 	// register the TTDevice object in the namespace directory
 	deviceAddress = TT("/" + deviceName->getString());
+	std::cout << deviceAddress->getString() << std::endl;
 	getDirectoryFrom(this)->TTNodeCreate(deviceAddress, (TTObjectPtr)device, NULL, &returnedNode, &newInstanceCreated);
 	
 	mDevices->append(deviceAddress, device);
 	
-	return kTTErrNone;
-}
-
-TTErr TTDeviceManager::LoadDeviceXmlConfig(const TTValue& value)
-{
-	// TODO : use a TTXmlHandler
-//	TTSymbolPtr path;
-//	value.get(0, &path);
-//	mDeviceManager->deviceLoadConfigXml(path->getCString());
 	return kTTErrNone;
 }
 
@@ -219,6 +245,192 @@ TTErr TTDeviceManager::Scan()
 //		
 //		++it;
 //	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTDeviceManager::namespaceSet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue)
+{
+	std::cout << "TTDeviceManager::namespaceSet" << std::endl;
+	TTErr				err;
+	TTNodePtr			nodeToSet;
+	TTSymbolPtr			nodeType;
+	TTObjectPtr			o;
+	
+	err = getDirectoryFrom(this)->getTTNodeForOSC(address, &nodeToSet);
+	
+	if (!err) {
+	
+		// test node type to get the access status
+		o = nodeToSet->getObject();
+		nodeType = o->getName();
+		
+		if (nodeType == TT("Data")) {
+			
+			//attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
+			
+			if (attribute == kTTSym_value)
+				o->sendMessage(kTTSym_Command, newValue);
+			else
+				o->setAttributeValue(attribute, newValue);
+			
+			// TODO : case of RangeBondsMin and Max
+			// managed by the Data ?
+		}
+		
+		return kTTErrNone;
+	}
+	else {
+		return kTTErrGeneric; //TODO send a notification : Jamoma!set #address /address:attribute value
+	}
+}
+
+TTErr TTDeviceManager::namespaceGet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue)
+{
+	std::cout << "TTDeviceManager::namespaceGet" << std::endl;
+	TTErr				err;
+	TTNodePtr			nodeToSet;
+	TTSymbolPtr			nodeType;
+	TTObjectPtr			o;
+	
+	err = getDirectoryFrom(this)->getTTNodeForOSC(address, &nodeToSet);
+	
+	if (!err) {
+		
+		// test node type to get the access status
+		o = nodeToSet->getObject();
+		nodeType = o->getName();
+		
+		if (nodeType == TT("Data")) {
+			
+			//attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
+			
+			o->getAttributeValue(attribute, newValue);
+		}
+		
+		return kTTErrNone;
+		
+	} 
+	else {
+		return kTTErrGeneric; //TODO send a notification : Jamoma!set #address /address:attribute value
+	}
+}
+
+TTErr TTDeviceManager::WriteAsXml(const TTValue& value)
+{
+
+	
+	return kTTErrNone;
+}
+
+TTErr TTDeviceManager::ReadFromXml(const TTValue& value)
+{
+	TTXmlHandlerPtr	aXmlHandler = NULL;	
+	TTSymbolPtr		deviceName, pluginName, attributeName;
+	TTValue			v, args;
+	PluginPtr		plugin;
+	
+	value.get(0, (TTPtr*)&aXmlHandler);
+	if (!aXmlHandler)
+		return kTTErrGeneric;
+	
+	// Switch on the name of the XML node
+	
+	// Starts reading
+	if (aXmlHandler->mXmlNodeName == TT("start")) {
+
+		return kTTErrNone;
+	}
+	
+	// Ends reading
+	if (aXmlHandler->mXmlNodeName == TT("end")) {
+		
+		return kTTErrNone;
+	}
+	
+	// Comment node
+	if (aXmlHandler->mXmlNodeName == TT("#comment"))
+		return kTTErrNone;
+	
+	// Device node
+	if (aXmlHandler->mXmlNodeName == TT("device")) {
+		
+		// Get the device name 
+		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		if (v.getType() == kTypeSymbol) {
+			v.get(0, &deviceName);
+		}
+		
+		std::cout << "deviceName " << deviceName->getString() << std::endl;
+		
+		// Get the plugin name
+		v.clear();
+		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("plugin"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		if (v.getType() == kTypeSymbol) {
+			v.get(0, &pluginName);
+		}
+		
+		std::cout << "pluginName " << pluginName->getString() << std::endl;
+		
+		// Get the plugin instance
+		v.clear();
+		mPlugins->lookup(pluginName, v);
+		v.get(0, (TTPtr*)&plugin);
+		
+		// Local Device process (define plugin parameters)
+		if (deviceName == mName) {
+			TTHashPtr params = new TTHash();
+			
+			// Browse other attributes in xml
+			while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+				
+				// Get attribute name
+				aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+				if (v.getType() == kTypeSymbol) {
+					v.get(0, &attributeName);
+					v.clear();
+					
+					// Get attribute value
+					aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+					
+					// Fill the hash table
+					params->append(attributeName, v);
+				}
+			}
+			
+			// define plugin parameters
+			plugin->commDefineParameters(params);
+			
+		} 
+		// Remote Device process (add the device)
+		else {
+			args.append(deviceName);
+			args.append(pluginName);
+			
+			// Browse other attributes in xml
+			while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+				
+				// Get attribute name
+				aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+				if (v.getType() == kTypeSymbol) {
+					v.get(0, &attributeName);
+					v.clear();
+					
+					// Get attribute value
+					aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+					
+					// Add device arguments
+					args.append(attributeName);
+					args.append(&v);
+				}
+			}
+			
+			// Add the Device
+			AddDevice(args); 
+		}
+	}
 	
 	return kTTErrNone;
 }
@@ -480,6 +692,8 @@ TTErr TTDeviceManagerGetCallback(TTPtr baton, TTValue& data)
 
 TTErr TTDeviceManagerSetCallback(TTPtr baton, TTValue& data)
 {
+	std::cout << "TTDeviceManagerSetCallback" << std::endl;
+	
 	TTValuePtr			b;
 	TTDeviceManagerPtr	aTTDeviceManager;
 	TTSymbolPtr			whereToSet, attrName, nodeType;
@@ -492,16 +706,19 @@ TTErr TTDeviceManagerSetCallback(TTPtr baton, TTValue& data)
 	// unpack baton
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aTTDeviceManager);
-	b->get(1, &whereToSet);
-	b->get(2, &attrName);
 	
-	if(aTTDeviceManager){
+	// unpack data
+	data.get(0, &whereToSet);
+	data.get(1, &attrName);
+	data.get(2, (TTPtr*)&attributeValue);// don't work well
+	
+	if (aTTDeviceManager) {
 		
 		// Get the Node at the given address
 		err = getDirectoryFrom(aTTDeviceManager)->getTTNodeForOSC(whereToSet, &nodeToSet);
 		
 		if(!err){
-			
+			std::cout << "ok" << std::endl;
 			// test node type to get the access status
 			o = nodeToSet->getObject();
 			nodeType = o->getName();
@@ -511,15 +728,15 @@ TTErr TTDeviceManagerSetCallback(TTPtr baton, TTValue& data)
 				//attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
 				//attrName = TT(attribute);
 				if (attrName == kTTSym_value)
-					o->sendMessage(kTTSym_Command, data);
+					o->sendMessage(kTTSym_Command, attributeValue);
 				else
-					o->setAttributeValue(attrName, data);
+					o->setAttributeValue(attrName, attributeValue);
 				
 				// TODO : case of RangeBondsMin and Max
 				// managed by the Data ?
 			}
 		}
-		else{
+		else {
 			; //TODO send a notification : Jamoma!set #address /address:attribute value
 		}
 		

@@ -49,7 +49,12 @@
 
 #include <map>
 #include <string>
-#include "Plugin.h"
+//#include "Plugin.h"
+class Plugin;
+typedef Plugin* PluginPtr;
+
+class PluginFactory;
+typedef PluginFactory* PluginFactoryPtr;
 
 #ifndef __ITERATOR_PLUGIN_NAMES_H_
 #define __ITERATOR_PLUGIN_NAMES_H_

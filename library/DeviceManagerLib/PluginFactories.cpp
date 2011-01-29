@@ -48,6 +48,7 @@ knowledge of the CeCILL-C license and that you accept its terms.
 */
 
 #include "PluginFactories.h"
+#include "Plugin.h"
 
 #include <iostream>
 
@@ -112,7 +113,7 @@ void PluginFactories::loadPlugins(std::string path)
 	struct dirent **namelist;//la structure qui recoit les noms des fichiers plugins dans le champ d_name
 	int n = scandir(path.c_str(), &namelist, 0, alphasort);//scan le rep source des plugins
 
-	if(n-3 == 0) {std::cout << "No plugin available" << std::endl;}
+//	if(n-3 == 0) {std::cout << "No plugin available" << std::endl;}
 
 	while (n-- > 0) {
 		std::string tmp = path + "/" + namelist[n]->d_name;

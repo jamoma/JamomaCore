@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		224B086811DEA31700B6EF48 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
+		224B09C111DEA32100B6EF48 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
+		224B09C211DEA32100B6EF48 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
+		224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F7E79907B2D74100F64583 /* CoreData.framework */; };
+		224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
+		4D175C6F12E72D1300BDF8D0 /* Minuit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D175C6E12E72D1300BDF8D0 /* Minuit.cpp */; };
+		4D175C7112E72D2A00BDF8D0 /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D175C7012E72D2A00BDF8D0 /* Plugin.h */; };
+		4DB6C32512E89A32001546E4 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB6C32412E89A32001546E4 /* JamomaFoundation.dylib */; };
+		4DB6C32712E89A32001546E4 /* TTModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB6C32612E89A32001546E4 /* TTModular.dylib */; };
+		4DB6C33112E89C9A001546E4 /* MinuitCommunicationMethods.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32A12E89C9A001546E4 /* MinuitCommunicationMethods.hpp */; };
+		4DB6C33212E89C9A001546E4 /* MinuitDiscoverAnswer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32B12E89C9A001546E4 /* MinuitDiscoverAnswer.hpp */; };
+		4DB6C33312E89C9A001546E4 /* MinuitGetAnswer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32C12E89C9A001546E4 /* MinuitGetAnswer.hpp */; };
+		4DB6C33412E89C9A001546E4 /* MinuitInclude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32D12E89C9A001546E4 /* MinuitInclude.hpp */; };
+		4DB6C33512E89C9A001546E4 /* OSCFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32E12E89C9A001546E4 /* OSCFunctions.hpp */; };
+		4DB6C33612E89C9A001546E4 /* OSCParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32F12E89C9A001546E4 /* OSCParser.hpp */; };
+		4DB6C33712E89C9A001546E4 /* ReceiveOSCThread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C33012E89C9A001546E4 /* ReceiveOSCThread.hpp */; };
+		4DB6C33E12E89CAB001546E4 /* MinuitCommunicationMethods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33812E89CAB001546E4 /* MinuitCommunicationMethods.cpp */; };
+		4DB6C33F12E89CAB001546E4 /* MinuitDiscoverAnswer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33912E89CAB001546E4 /* MinuitDiscoverAnswer.cpp */; };
+		4DB6C34012E89CAB001546E4 /* MinuitGetAnswer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33A12E89CAB001546E4 /* MinuitGetAnswer.cpp */; };
+		4DB6C34112E89CAB001546E4 /* OSCFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33B12E89CAB001546E4 /* OSCFunctions.cpp */; };
+		4DB6C34212E89CAB001546E4 /* OSCParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33C12E89CAB001546E4 /* OSCParser.cpp */; };
+		4DB6C34312E89CAB001546E4 /* ReceiveOSCThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33D12E89CAB001546E4 /* ReceiveOSCThread.cpp */; };
+		4DB6C35C12E89CD2001546E4 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C34712E89CD2001546E4 /* IpEndpointName.cpp */; };
+		4DB6C35D12E89CD2001546E4 /* IpEndpointName.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C34812E89CD2001546E4 /* IpEndpointName.h */; };
+		4DB6C35E12E89CD2001546E4 /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C34912E89CD2001546E4 /* NetworkingUtils.cpp */; };
+		4DB6C35F12E89CD2001546E4 /* NetworkingUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C34A12E89CD2001546E4 /* NetworkingUtils.h */; };
+		4DB6C36012E89CD2001546E4 /* PacketListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C34B12E89CD2001546E4 /* PacketListener.h */; };
+		4DB6C36112E89CD2001546E4 /* TimerListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C34C12E89CD2001546E4 /* TimerListener.h */; };
+		4DB6C36212E89CD2001546E4 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C34D12E89CD2001546E4 /* UdpSocket.cpp */; };
+		4DB6C36312E89CD2001546E4 /* UdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C34E12E89CD2001546E4 /* UdpSocket.h */; };
+		4DB6C36412E89CD2001546E4 /* MessageMappingOscPacketListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C35012E89CD2001546E4 /* MessageMappingOscPacketListener.h */; };
+		4DB6C36512E89CD2001546E4 /* OscException.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C35112E89CD2001546E4 /* OscException.h */; };
+		4DB6C36612E89CD2001546E4 /* OscHostEndianness.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C35212E89CD2001546E4 /* OscHostEndianness.h */; };
+		4DB6C36712E89CD2001546E4 /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C35312E89CD2001546E4 /* OscOutboundPacketStream.cpp */; };
+		4DB6C36812E89CD2001546E4 /* OscOutboundPacketStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C35412E89CD2001546E4 /* OscOutboundPacketStream.h */; };
+		4DB6C36912E89CD2001546E4 /* OscPacketListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C35512E89CD2001546E4 /* OscPacketListener.h */; };
+		4DB6C36A12E89CD2001546E4 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C35612E89CD2001546E4 /* OscPrintReceivedElements.cpp */; };
+		4DB6C36B12E89CD2001546E4 /* OscPrintReceivedElements.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C35712E89CD2001546E4 /* OscPrintReceivedElements.h */; };
+		4DB6C36C12E89CD2001546E4 /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C35812E89CD2001546E4 /* OscReceivedElements.cpp */; };
+		4DB6C36D12E89CD2001546E4 /* OscReceivedElements.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C35912E89CD2001546E4 /* OscReceivedElements.h */; };
+		4DB6C36E12E89CD2001546E4 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C35A12E89CD2001546E4 /* OscTypes.cpp */; };
+		4DB6C36F12E89CD2001546E4 /* OscTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C35B12E89CD2001546E4 /* OscTypes.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		224B076511DEA0E000B6EF48 /* Minuit.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Minuit.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		4D175C6E12E72D1300BDF8D0 /* Minuit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Minuit.cpp; sourceTree = "<group>"; };
+		4D175C7012E72D2A00BDF8D0 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
+		4DB6C32412E89A32001546E4 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
+		4DB6C32612E89A32001546E4 /* TTModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = TTModular.dylib; path = "/Library/Application Support/Jamoma/Libraries/TTModular.dylib"; sourceTree = "<absolute>"; };
+		4DB6C32A12E89C9A001546E4 /* MinuitCommunicationMethods.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitCommunicationMethods.hpp; path = Minuit/MinuitCommunicationMethods.hpp; sourceTree = "<group>"; };
+		4DB6C32B12E89C9A001546E4 /* MinuitDiscoverAnswer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitDiscoverAnswer.hpp; path = Minuit/MinuitDiscoverAnswer.hpp; sourceTree = "<group>"; };
+		4DB6C32C12E89C9A001546E4 /* MinuitGetAnswer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitGetAnswer.hpp; path = Minuit/MinuitGetAnswer.hpp; sourceTree = "<group>"; };
+		4DB6C32D12E89C9A001546E4 /* MinuitInclude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitInclude.hpp; path = Minuit/MinuitInclude.hpp; sourceTree = "<group>"; };
+		4DB6C32E12E89C9A001546E4 /* OSCFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OSCFunctions.hpp; path = Minuit/OSCFunctions.hpp; sourceTree = "<group>"; };
+		4DB6C32F12E89C9A001546E4 /* OSCParser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OSCParser.hpp; path = Minuit/OSCParser.hpp; sourceTree = "<group>"; };
+		4DB6C33012E89C9A001546E4 /* ReceiveOSCThread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ReceiveOSCThread.hpp; path = Minuit/ReceiveOSCThread.hpp; sourceTree = "<group>"; };
+		4DB6C33812E89CAB001546E4 /* MinuitCommunicationMethods.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MinuitCommunicationMethods.cpp; path = Minuit/MinuitCommunicationMethods.cpp; sourceTree = "<group>"; };
+		4DB6C33912E89CAB001546E4 /* MinuitDiscoverAnswer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MinuitDiscoverAnswer.cpp; path = Minuit/MinuitDiscoverAnswer.cpp; sourceTree = "<group>"; };
+		4DB6C33A12E89CAB001546E4 /* MinuitGetAnswer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MinuitGetAnswer.cpp; path = Minuit/MinuitGetAnswer.cpp; sourceTree = "<group>"; };
+		4DB6C33B12E89CAB001546E4 /* OSCFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OSCFunctions.cpp; path = Minuit/OSCFunctions.cpp; sourceTree = "<group>"; };
+		4DB6C33C12E89CAB001546E4 /* OSCParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OSCParser.cpp; path = Minuit/OSCParser.cpp; sourceTree = "<group>"; };
+		4DB6C33D12E89CAB001546E4 /* ReceiveOSCThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReceiveOSCThread.cpp; path = Minuit/ReceiveOSCThread.cpp; sourceTree = "<group>"; };
+		4DB6C34712E89CD2001546E4 /* IpEndpointName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
+		4DB6C34812E89CD2001546E4 /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
+		4DB6C34912E89CD2001546E4 /* NetworkingUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingUtils.cpp; sourceTree = "<group>"; };
+		4DB6C34A12E89CD2001546E4 /* NetworkingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingUtils.h; sourceTree = "<group>"; };
+		4DB6C34B12E89CD2001546E4 /* PacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketListener.h; sourceTree = "<group>"; };
+		4DB6C34C12E89CD2001546E4 /* TimerListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerListener.h; sourceTree = "<group>"; };
+		4DB6C34D12E89CD2001546E4 /* UdpSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UdpSocket.cpp; sourceTree = "<group>"; };
+		4DB6C34E12E89CD2001546E4 /* UdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdpSocket.h; sourceTree = "<group>"; };
+		4DB6C35012E89CD2001546E4 /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMappingOscPacketListener.h; sourceTree = "<group>"; };
+		4DB6C35112E89CD2001546E4 /* OscException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscException.h; sourceTree = "<group>"; };
+		4DB6C35212E89CD2001546E4 /* OscHostEndianness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscHostEndianness.h; sourceTree = "<group>"; };
+		4DB6C35312E89CD2001546E4 /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscOutboundPacketStream.cpp; sourceTree = "<group>"; };
+		4DB6C35412E89CD2001546E4 /* OscOutboundPacketStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscOutboundPacketStream.h; sourceTree = "<group>"; };
+		4DB6C35512E89CD2001546E4 /* OscPacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscPacketListener.h; sourceTree = "<group>"; };
+		4DB6C35612E89CD2001546E4 /* OscPrintReceivedElements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscPrintReceivedElements.cpp; sourceTree = "<group>"; };
+		4DB6C35712E89CD2001546E4 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscPrintReceivedElements.h; sourceTree = "<group>"; };
+		4DB6C35812E89CD2001546E4 /* OscReceivedElements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscReceivedElements.cpp; sourceTree = "<group>"; };
+		4DB6C35912E89CD2001546E4 /* OscReceivedElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscReceivedElements.h; sourceTree = "<group>"; };
+		4DB6C35A12E89CD2001546E4 /* OscTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscTypes.cpp; sourceTree = "<group>"; };
+		4DB6C35B12E89CD2001546E4 /* OscTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscTypes.h; sourceTree = "<group>"; };
+		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		224B076311DEA0E000B6EF48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				224B09C111DEA32100B6EF48 /* AppKit.framework in Frameworks */,
+				224B09C211DEA32100B6EF48 /* CoreAudio.framework in Frameworks */,
+				224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */,
+				224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */,
+				224B086811DEA31700B6EF48 /* Cocoa.framework in Frameworks */,
+				224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */,
+				4DB6C32512E89A32001546E4 /* JamomaFoundation.dylib in Frameworks */,
+				4DB6C32712E89A32001546E4 /* TTModular.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				224B076511DEA0E000B6EF48 /* Minuit.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* MaxObject */ = {
+			isa = PBXGroup;
+			children = (
+				22FD2DCF0CEE5B770039C226 /* Headers */,
+				08FB77AEFE84172EC02AAC07 /* Sources */,
+				4DB6C34612E89CD2001546E4 /* ip */,
+				4DB6C34F12E89CD2001546E4 /* osc */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = MaxObject;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+				22A403830CAD7B9400E5299E /* Carbon.framework */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+				4DB6C32412E89A32001546E4 /* JamomaFoundation.dylib */,
+				4DB6C32612E89A32001546E4 /* TTModular.dylib */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4D175C6E12E72D1300BDF8D0 /* Minuit.cpp */,
+				4DB6C33812E89CAB001546E4 /* MinuitCommunicationMethods.cpp */,
+				4DB6C33912E89CAB001546E4 /* MinuitDiscoverAnswer.cpp */,
+				4DB6C33A12E89CAB001546E4 /* MinuitGetAnswer.cpp */,
+				4DB6C33B12E89CAB001546E4 /* OSCFunctions.cpp */,
+				4DB6C33C12E89CAB001546E4 /* OSCParser.cpp */,
+				4DB6C33D12E89CAB001546E4 /* ReceiveOSCThread.cpp */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				22F4249C0CFA79820088332F /* CoreAudio.framework */,
+				D2F7E79907B2D74100F64583 /* CoreData.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		22FD2DCF0CEE5B770039C226 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				4D175C7012E72D2A00BDF8D0 /* Plugin.h */,
+				4DB6C32A12E89C9A001546E4 /* MinuitCommunicationMethods.hpp */,
+				4DB6C32B12E89C9A001546E4 /* MinuitDiscoverAnswer.hpp */,
+				4DB6C32C12E89C9A001546E4 /* MinuitGetAnswer.hpp */,
+				4DB6C32D12E89C9A001546E4 /* MinuitInclude.hpp */,
+				4DB6C32E12E89C9A001546E4 /* OSCFunctions.hpp */,
+				4DB6C32F12E89C9A001546E4 /* OSCParser.hpp */,
+				4DB6C33012E89C9A001546E4 /* ReceiveOSCThread.hpp */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		4DB6C34612E89CD2001546E4 /* ip */ = {
+			isa = PBXGroup;
+			children = (
+				4DB6C34712E89CD2001546E4 /* IpEndpointName.cpp */,
+				4DB6C34812E89CD2001546E4 /* IpEndpointName.h */,
+				4DB6C34912E89CD2001546E4 /* NetworkingUtils.cpp */,
+				4DB6C34A12E89CD2001546E4 /* NetworkingUtils.h */,
+				4DB6C34B12E89CD2001546E4 /* PacketListener.h */,
+				4DB6C34C12E89CD2001546E4 /* TimerListener.h */,
+				4DB6C34D12E89CD2001546E4 /* UdpSocket.cpp */,
+				4DB6C34E12E89CD2001546E4 /* UdpSocket.h */,
+			);
+			name = ip;
+			path = NetworkCommunication/ip;
+			sourceTree = "<group>";
+		};
+		4DB6C34F12E89CD2001546E4 /* osc */ = {
+			isa = PBXGroup;
+			children = (
+				4DB6C35012E89CD2001546E4 /* MessageMappingOscPacketListener.h */,
+				4DB6C35112E89CD2001546E4 /* OscException.h */,
+				4DB6C35212E89CD2001546E4 /* OscHostEndianness.h */,
+				4DB6C35312E89CD2001546E4 /* OscOutboundPacketStream.cpp */,
+				4DB6C35412E89CD2001546E4 /* OscOutboundPacketStream.h */,
+				4DB6C35512E89CD2001546E4 /* OscPacketListener.h */,
+				4DB6C35612E89CD2001546E4 /* OscPrintReceivedElements.cpp */,
+				4DB6C35712E89CD2001546E4 /* OscPrintReceivedElements.h */,
+				4DB6C35812E89CD2001546E4 /* OscReceivedElements.cpp */,
+				4DB6C35912E89CD2001546E4 /* OscReceivedElements.h */,
+				4DB6C35A12E89CD2001546E4 /* OscTypes.cpp */,
+				4DB6C35B12E89CD2001546E4 /* OscTypes.h */,
+			);
+			name = osc;
+			path = NetworkCommunication/osc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4DF70AED12CB9C8C00AEABFC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D175C7112E72D2A00BDF8D0 /* Plugin.h in Headers */,
+				4DB6C33112E89C9A001546E4 /* MinuitCommunicationMethods.hpp in Headers */,
+				4DB6C33212E89C9A001546E4 /* MinuitDiscoverAnswer.hpp in Headers */,
+				4DB6C33312E89C9A001546E4 /* MinuitGetAnswer.hpp in Headers */,
+				4DB6C33412E89C9A001546E4 /* MinuitInclude.hpp in Headers */,
+				4DB6C33512E89C9A001546E4 /* OSCFunctions.hpp in Headers */,
+				4DB6C33612E89C9A001546E4 /* OSCParser.hpp in Headers */,
+				4DB6C33712E89C9A001546E4 /* ReceiveOSCThread.hpp in Headers */,
+				4DB6C35D12E89CD2001546E4 /* IpEndpointName.h in Headers */,
+				4DB6C35F12E89CD2001546E4 /* NetworkingUtils.h in Headers */,
+				4DB6C36012E89CD2001546E4 /* PacketListener.h in Headers */,
+				4DB6C36112E89CD2001546E4 /* TimerListener.h in Headers */,
+				4DB6C36312E89CD2001546E4 /* UdpSocket.h in Headers */,
+				4DB6C36412E89CD2001546E4 /* MessageMappingOscPacketListener.h in Headers */,
+				4DB6C36512E89CD2001546E4 /* OscException.h in Headers */,
+				4DB6C36612E89CD2001546E4 /* OscHostEndianness.h in Headers */,
+				4DB6C36812E89CD2001546E4 /* OscOutboundPacketStream.h in Headers */,
+				4DB6C36912E89CD2001546E4 /* OscPacketListener.h in Headers */,
+				4DB6C36B12E89CD2001546E4 /* OscPrintReceivedElements.h in Headers */,
+				4DB6C36D12E89CD2001546E4 /* OscReceivedElements.h in Headers */,
+				4DB6C36F12E89CD2001546E4 /* OscTypes.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		224B076411DEA0E000B6EF48 /* Minuit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 224B076811DEA11D00B6EF48 /* Build configuration list for PBXNativeTarget "Minuit" */;
+			buildPhases = (
+				224B076211DEA0E000B6EF48 /* Sources */,
+				224B076311DEA0E000B6EF48 /* Frameworks */,
+				4DF70AED12CB9C8C00AEABFC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Minuit;
+			productName = JamomaModular;
+			productReference = 224B076511DEA0E000B6EF48 /* Minuit.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Minuit" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* MaxObject */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				224B076411DEA0E000B6EF48 /* Minuit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		224B076211DEA0E000B6EF48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D175C6F12E72D1300BDF8D0 /* Minuit.cpp in Sources */,
+				4DB6C33E12E89CAB001546E4 /* MinuitCommunicationMethods.cpp in Sources */,
+				4DB6C33F12E89CAB001546E4 /* MinuitDiscoverAnswer.cpp in Sources */,
+				4DB6C34012E89CAB001546E4 /* MinuitGetAnswer.cpp in Sources */,
+				4DB6C34112E89CAB001546E4 /* OSCFunctions.cpp in Sources */,
+				4DB6C34212E89CAB001546E4 /* OSCParser.cpp in Sources */,
+				4DB6C34312E89CAB001546E4 /* ReceiveOSCThread.cpp in Sources */,
+				4DB6C35C12E89CD2001546E4 /* IpEndpointName.cpp in Sources */,
+				4DB6C35E12E89CD2001546E4 /* NetworkingUtils.cpp in Sources */,
+				4DB6C36212E89CD2001546E4 /* UdpSocket.cpp in Sources */,
+				4DB6C36712E89CD2001546E4 /* OscOutboundPacketStream.cpp in Sources */,
+				4DB6C36A12E89CD2001546E4 /* OscPrintReceivedElements.cpp in Sources */,
+				4DB6C36C12E89CD2001546E4 /* OscReceivedElements.cpp in Sources */,
+				4DB6C36E12E89CD2001546E4 /* OscTypes.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91B208733DA50010E9CD /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "$(SRCROOT)/Plugins";
+				LD_DYLIB_INSTALL_NAME = "$(SRCROOT)/Plugins/Minuit.dylib";
+				PREBINDING = NO;
+				PRODUCT_NAME = Minuit;
+				SDKROOT = "";
+			};
+			name = Development;
+		};
+		1DEB91B308733DA50010E9CD /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.4;
+			};
+			name = Deployment;
+		};
+		224B076611DEA0E000B6EF48 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../Foundation/library/includes\"",
+					"\"$(SRCROOT)/../PeerObject\"",
+					"\"$(SRCROOT)/../source\"",
+					"\"$(SRCROOT)/../DataspaceLib\"",
+					"\"$(SRCROOT)/../FunctionLib\"",
+				);
+				INSTALL_PATH = "$(SRCROOT)/Plugins";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
+				SKIP_INSTALL = NO;
+			};
+			name = Development;
+		};
+		224B076711DEA0E000B6EF48 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
+					"\"$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
+				);
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = JamomaPrefix.pch;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/DeviceManagerLib\"",
+					"\"$(SRCROOT)/DeviceManagerLib/plugins\"",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
+				PRODUCT_NAME = Minuit;
+				SDKROOT = "";
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Minuit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Development */,
+				1DEB91B308733DA50010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		224B076811DEA11D00B6EF48 /* Build configuration list for PBXNativeTarget "Minuit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				224B076611DEA0E000B6EF48 /* Development */,
+				224B076711DEA0E000B6EF48 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

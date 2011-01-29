@@ -10,7 +10,9 @@
 #define __TT_DEVICE_MANAGER_H__
 
 #include "TTModular.h"
-#include "PluginFactories.h"
+//#include "PluginFactories.h"
+
+class PluginFactories;
 
 class TTSender;
 class TTReceiver;
@@ -27,19 +29,21 @@ typedef TTApplication* TTApplicationPtr;
 class TTMODULAR_EXPORT TTDeviceManager : public TTObject
 {
 	TTCLASS_SETUP(TTDeviceManager)
+	
+public:
+	TTErr namespaceSet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue);
+	TTErr namespaceGet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue);
+
+
+	TTApplicationPtr	mApplication;			///< the application
 
 private:
 	
 	TTSymbolPtr			mName;					///< ATTRIBUTE: the name the device manager will present to any client
-	TTSymbolPtr			mAddress;				///< ATTRIBUTE: address of the DeviceManager in the directory
 
-public:
-	TTApplicationPtr	mApplication;			///< the application
-	
-private:
-	TTHashPtr			mListernersCache;
 	PluginFactories*	mfactories;				///< the plugin factories
 	
+	TTHashPtr			mListernersCache;
 	TTHashPtr			mPlugins;				///< hash table containing <TTSymbol pluginName, TTPluginPtr pluginPointer>
 	TTHashPtr			mDevices;				///< hash table containing <TTSymbol deviceName, TTPluginPtr devicePointer>
 	
@@ -49,16 +53,17 @@ private:
 	TTCallbackPtr		mListenCallback;		///< a callback used when a device wants to be notified when something changed in the namespace
 
 	/** Load all Plugins at a given location (second instance contained in TTValue could optionnaly be xml config path)*/
-	TTErr LoadPlugins(const TTValue& value); // TODO with a TTXmlHandler 
+	TTErr LoadPlugins(const TTValue& value);
 	
 	/** Add a device manually giving < DeviceName, PluginToUse, commParamName1, commParamValue1, commParamName2, commParamValue2, ... > */
 	TTErr AddDevice(const TTValue& value);
-
-	/** Add devices with a xml config file */
-	TTErr LoadDeviceXmlConfig(const TTValue& value); // TODO with a TTXmlHandler
 	
 	/** Scan the network in order to add devices automatically */
 	TTErr Scan(); // TODO
+	
+	/**  needed to be handled by a TTXmlHandler */
+	TTErr WriteAsXml(const TTValue& value); // TODO
+	TTErr ReadFromXml(const TTValue& value);
 	
 	/** Configure plugins with added parameters */
 	TTErr launchPlugins();
@@ -68,7 +73,6 @@ private:
 	// TODO : std::vector<std::string> pluginGetLoadedByName()
 	// TODO : bool pluginIsLoaded(std::string pluginName)	
 	// TODO : void deviceRemove(std::string deviceName)
-	
 	
 	TTErr enableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen);
 	TTErr disableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen);
