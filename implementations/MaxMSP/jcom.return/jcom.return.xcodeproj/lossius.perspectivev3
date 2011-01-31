@@ -197,7 +197,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>A765CED012EC9BE0009C3401</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>jcom.return.cpp</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>A765CED112EC9BE0009C3401</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>jcom.return.cpp</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>A72802BB12F6D80000B530E4</string>
+						<key>history</key>
+						<array>
+							<string>A7F57A4912F6D7F000D50C87</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1001, 777}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>439 60 1001 818 0 0 1440 878 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -232,8 +273,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -297,7 +336,7 @@
 							<real>185</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>315 308 810 487 0 0 1440 878 </string>
+						<string>254 322 810 487 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -313,13 +352,23 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>A79D2C541205BB06006A158E</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>&lt;No Editor&gt;</string>
+								<string>jcom.return.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>A79D2C551205BB06006A158E</string>
+										<key>PBXProjectModuleLabel</key>
+										<string>jcom.return.cpp</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>A72802BA12F6D80000B530E4</string>
+										<key>history</key>
+										<array>
+											<string>A7F57A4812F6D7F000D50C87</string>
+										</array>
 									</dict>
 									<key>SplitCount</key>
 									<string>1</string>
@@ -332,21 +381,23 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {603, 0}}</string>
+								<string>{{0, 0}, {603, 86}}</string>
 								<key>RubberWindowFrame</key>
-								<string>315 308 810 487 0 0 1440 878 </string>
+								<string>254 322 810 487 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>0pt</string>
+							<string>86pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>441pt</string>
+							<string>355pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
@@ -357,9 +408,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {603, 414}}</string>
+										<string>{{10, 27}, {603, 328}}</string>
 										<key>RubberWindowFrame</key>
-										<string>315 308 810 487 0 0 1440 878 </string>
+										<string>254 322 810 487 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -441,11 +492,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A79D2C561205BB06006A158E</string>
+				<string>A72802B612F6D80000B530E4</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>A79D2C571205BB06006A158E</string>
+				<string>A72802B712F6D80000B530E4</string>
 				<string>A79D2C541205BB06006A158E</string>
-				<string>A79D2C581205BB06006A158E</string>
+				<string>A72802B812F6D80000B530E4</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -615,10 +666,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>A765CED012EC9BE0009C3401</string>
 		<string>/Users/lossius/dev/Jamoma/Modules/Modular/implementations/MaxMSP/jcom.return/jcom.return.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>315 308 810 487 0 0 1440 878 </string>
+	<string>254 322 810 487 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
