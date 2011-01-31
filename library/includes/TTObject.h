@@ -115,6 +115,9 @@ public:
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
+	
+	/** Extend the attribute of an existing TTObject to this TTObject (using another attribute name) */
+	TTErr extendAttribute(const TTSymbolPtr name, const TTObjectPtr extendedObject, const TTSymbolPtr extendedName);
 
 	TTErr removeAttribute(const TTSymbolPtr name);
 	
@@ -155,15 +158,15 @@ public:
 	
 	TT_SETATTR_WRAP(TTInt8)
 	TT_SETATTR_WRAP(TTInt16)
-#if 1 // defined(TT_PLATFORM_MAC)	// <-- seems to be we need it this way on Windows too
-	TT_SETATTR_WRAP(int)
-//	TTErr setAttributeValue(const TTSymbolPtr name, const int value)	
-//	{																	
-//		TTValue v((TTInt32)value);												
-//		return setAttributeValue(name, v);								
-//	}	
-#else
+#ifdef USE_TTInt32
 	TT_SETATTR_WRAP(TTInt32)
+#else
+	TT_SETATTR_WRAP(int) // defined(TT_PLATFORM_MAC)	// <-- seems to be we need it this way on Windows too
+	//	TTErr setAttributeValue(const TTSymbolPtr name, const int value)	
+	//	{																	
+	//		TTValue v((TTInt32)value);												
+	//		return setAttributeValue(name, v);								
+	//	}
 #endif
 	TT_SETATTR_WRAP(TTInt64)
 	TT_SETATTR_WRAP(TTUInt8)

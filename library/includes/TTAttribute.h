@@ -94,6 +94,7 @@ public:
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	TTAttribute(const TTSymbolPtr newName, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
+	TTAttribute(TTAttributePtr extendedAttribute, const TTObjectPtr extendedObject);
 	virtual ~TTAttribute();
 	
 	void setGetterFlags(TTAttributeFlags newFlags);
@@ -107,6 +108,9 @@ public:
 	
 	TTErr callbackGetter(const TTAttribute& attribute, TTValue& value);
 	TTErr callbackSetter(const TTAttribute& attribute, TTValue& value);
+	
+	TTErr extendedGetter(const TTAttribute& attribute, TTValue& value);
+	TTErr extendedSetter(const TTAttribute& attribute, TTValue& value);
 	
 	// Potential Attributes of TTAttribute
 	TTErr setreadOnly(const TTValue& newReadOnlyValue);

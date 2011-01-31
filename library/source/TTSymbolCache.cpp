@@ -24,13 +24,17 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_getVector64;
 
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_alloc;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_baton;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_both;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clear;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_fold;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_function;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_notify;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_processInPlace;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_range;
@@ -82,13 +86,17 @@ void TTSymbolCacheInit()
 
 	kTTSym_alloc					= TT("alloc");
 	kTTSym_audioEngineWillProcess	= TT("audioEngineWillProcess");
+	kTTSym_baton					= TT("baton");
 	kTTSym_both						= TT("both");
 	kTTSym_bypass					= TT("bypass");
 	kTTSym_clear					= TT("clear");
 	kTTSym_clipmode					= TT("clipmode");
+	kTTSym_fold						= TT("fold");
+	kTTSym_function					= TT("function");
 	kTTSym_high						= TT("high");
 	kTTSym_low						= TT("low");
 	kTTSym_maxNumChannels			= TT("maxNumChannels");
+	kTTSym_notify					= TT("notify");
 	kTTSym_numChannels				= TT("numChannels");
 	kTTSym_processInPlace			= TT("processInPlace");
 	kTTSym_range					= TT("range");

@@ -91,9 +91,27 @@ public:
 	
 	void appendUnique(const TTValuePtr newValue);
 	
+	/** Insert a value into the list at a given location.
+		@param	index		The location of the value after insertion.
+		@param	newValue	The value to add to the list.
+		@return	kTTErrGeneric if the value can't be inserted (bad index) */
+	void insert(TTUInt32 index, const TTValue& newValue);
+	
+	/**	If we don't define a version of this function that takes a pointer, 
+	 then when a pointer is provided a new temporary TTValue is created to provide the reference
+	 and then when the temporary is deleted we end up with a corrupt entry in the linked list.		*/
+	void insert(TTUInt32 index, const TTValuePtr newValue)
+	{
+		insert(index, *newValue);
+	}
+	
 	/** Appends a list to the list.  
 		@param	newList	The list to add to the list.  */
 	void merge(TTList& newList);
+	
+	/** Sort a list using a comparison function
+		@param	comparisonFunction which return true if the first element have to be before the second */
+	void sort(TTBoolean(comparisonFunction)(TTValuePtr, TTValuePtr));
 	
 	/** Find a value in the list that is equal to a value passed-in. */
 	TTErr findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue);

@@ -19,6 +19,7 @@
 #include "TTValue.h"
 #include "TTHash.h"
 #include "TTList.h"
+#include "TTMutex.h"
 
 class TTNodeDirectory;
 typedef TTNodeDirectory*	TTNodeDirectoryPtr;
@@ -39,16 +40,11 @@ enum TTAddressComparisonFlag{
 enum TTAddressNotificationFlag{
 	kAddressDestroyed = 0,				///< this flag means that a TTNode have been destroyed in the tree structure
 	kAddressCreated = 1,				///< this flag means that a TTNode have been created in the tree structure
-	
-	kAddressInitialized = 2				///< this flag means that a TTNode have been initialized (this notification is sent by the application)
-										/*	TODO -- the last flag makes appears a futur problem : how to allow users of NodeLib to pass specific
-											notifications. Maybe we could have two NotifyObservers method : one private that used TTAddressNotificationFlag
-											and one public which used just a long but this would be a problem for obervers that received the notification
-											because they couln't make difference between TTAddressNotificationFlag and a long... so maybe TTAddressNotificationFlag
-											have to be struct with a boolean member that said if this is an internal TTAddressNotificationFlag or a specific application
-											notification flag... (?)
-										 */
 };
+
+
+/****************************************************************************************************/
+// Class Specifications
 
 /**
 	We build a tree of TTNodes, and you can request a pointer for any TTNode, or add an observer to any TTNode, etc.
@@ -65,39 +61,34 @@ enum TTAddressNotificationFlag{
 	The case of wildcards is handled, because a request is cached (keyed on the request),
 	and the value is a linked list of all of the matches.
 	
-	ADDITIONAL TTNode:
-	
-	One tricky part of this design is that observers need to be recursive -- so they need to report all activity for the specific TTNode, 
-	but any activity at sub-TTNodes will also need to be propagated upwards to notify any observers at higher levels too
-
-	jcom.receive is then implemented as an observer for a specified TTNode.
-	jcom.send registers as a lifecycleObserver, but then otherwise sends messages to the TTNode.
-	
 */
 
-class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
+class TTFOUNDATION_EXPORT TTNodeDirectory : public TTElement
 {
-	TTCLASS_SETUP(TTNodeDirectory)
+	
+private:
 
-	TTSymbolPtr		mName;					///< the name of the tree
-	TTNodePtr		mRoot;					///< the root of the tree
-	TTHashPtr		mDirectory;				///< a pointer to a global hashtab which reference all osc address of the tree
-	TTHashPtr		mObservers;				///< a pointer to a hashtab which register all life cycle observers below that node
+	TTSymbolPtr		name;					///< the name of the tree
+	TTNodePtr		root;					///< the root of the tree
+	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
+	TTHashPtr		observers;				///< a pointer to a hashtab which register all life cycle observers below that node
 											///< (address/relative/to/this/node, TTList of all observers below that address)
-
-#if THE_NON_TT_WAY_OF_DOING_THINGS
-	/** Get the name of the TTNodeDirectory */
-	TTSymbolPtr		getName();
+	TTMutexPtr		mutex;					///< a Mutex to protect the mObservers hash table.
+	
+public:
+	
+	/** Constructor */
+	TTNodeDirectory (TTSymbolPtr aName);
+	
+	/** Destructor */
+	virtual ~TTNodeDirectory ();
 
 	/** Set the name of the TTNodeDirectory. 
 		@param	newName				The name to set */
-	TTErr			setName(TTSymbolPtr name);
+	TTErr			setName(TTSymbolPtr aname);
 
-	// Notice that we don't need these at all with the TT way, because the accessors are provided for free
-	// via setAttributeValue() and getAttributeValue()
-#endif
-
-public:
+	/** Get the name of the TTNodeDirectory */
+	TTSymbolPtr		getName();
 	
 	/** Get the root of the TTNodeDirectory */
 	TTNodePtr		getRoot();
@@ -105,7 +96,6 @@ public:
 	/** Get the directory of the TTNodeDirectory */
 	TTHashPtr		getDirectory();
 
-	
 	/**	Given a string with an OSC address, return a pointer to a TTNode.
 	 @param	oscAddress				The Open Sound Control string for which to find the TTNode.
 	 @param	returnedTTNode			The .
@@ -123,7 +113,7 @@ public:
 	TTErr			Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/**	Find TTNodes by testing each TTNodes below an address 
-	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
+	 @param	oscAddress				A TTNode list from where to start the research
 	 @param testFunction			the test function have to take a TTNode as first argument, and a pointer to something as second argument (a structure for example) 
 									it have to return a boolean (true means that the node is ok).
 	 @param argument				argument for the testFunction
@@ -131,7 +121,7 @@ public:
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
 	 @return						An error code. */
-	TTErr			LookingFor(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	TTErr			LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/**	Is there is one TTNode or more that respect a test below an address 
 	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
@@ -150,15 +140,12 @@ public:
 									If you specify an instance name/number that already exists, then returnedTTNode will be a pointer to
 									the already existing TTNode upon return and no new TTNode will be created.
 									If you do not specify an instance name/number, then one will be generated for you automatically.
-	 @param	newType					The type of TTNode to be created.
-									For example, one of the following: hub, parameter, message, return, init, in, out, container, etc.
 	 @param	newObject				The object, if applicable, that is represented by this TTNode.
 	 @param aContext				The context in which the object is.
-	 @param attributesAccess		A TTList containing <attributeName, aGetterCallback, aSetterCallback>
 	 @param	returnedTTNode			A pointer to the TTNode at the given address 
 	 @param	nodeCreated				A boolean : true if a TTNode have been created, else false
 	 @return						An error code. */
-	TTErr			TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, void *aContext, TTList& attributesAccess, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
+	TTErr			TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
 	
 	/**	Remove a TTNodefrom the directory.
 	 @param	oscAddress				The OSC address for which you wish to remove the TTNode.
@@ -170,13 +157,13 @@ public:
 	 @param oscAddress				an OSC address
 	 @param observer				a TTCallbackPtr to add
 	 @return						an error code */
-	TTErr			addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& observer);
+	TTErr			addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& anObserver);
 	
 	/** Remove a TTCallback as a life cycle observer of all nodes below this one
 	 @param oscAddress				an OSC address
 	 @param observer				a TTCallbackPtr to remove
 	 @return						a kTTErrGeneric if there isn't observer */
-	TTErr			removeObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& observer);
+	TTErr			removeObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& anObserver);
 	
 	/** Notify life cycle observers that something appends below this TTNode
 	 @param data					an OSC address where something append
@@ -185,16 +172,8 @@ public:
 	 @return						a kTTErrGeneric if there isn't observer	*/
 	TTErr			notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
 	
-	/** TODO :
-			:/catalog?
-			:/namespace?
-			?				// synonym for :/value?
-			:/dump?
-	TTErr	getCatalog();
-	TTErr	setCatalog();	
-	TTErr	getNamespace();	// how do we return this?  Just a big block of formatted text?
-	TTErr	getDump();	// how do we return this?
-	**/
+	TTErr			dumpObservers(TTValue& value);
+
 };
 
 /**	An OSC parsing tool : split an OSC address in two part from a given '/' position
@@ -206,22 +185,38 @@ public:
 TTErr TTFOUNDATION_EXPORT splitAtOSCAddress(TTSymbolPtr oscAddress, int whereToSplit, TTSymbolPtr* returnedPart1, TTSymbolPtr* returnedPart2);
 
 /**	An OSC parsing tool : split an OSC address in four part /parent/node.instance:property
-	@param	oscAddress					The OSC address to spilt
-	@param	returnedParentOscAddress	A pointer to TTNode parent symbol is returned in this parameter
-	@param	returnedTTNodeName			A pointer to the TTNode name symbol is returned in this parameter
-	@param	returnedTTNodeInstance		A pointer to the TTNode instance symbol is returned in this parameter
-	@param	returnedTTNodeProperty		A pointer to the TTNode property symbol is returned in this parameter
-	@return								An error code. */
-TTErr TTFOUNDATION_EXPORT splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAddress, TTSymbolPtr* returnedTTNodeName, TTSymbolPtr* returnedTTNodeInstance, TTSymbolPtr* returnedTTNodeProperty);
+	and replace all inside the address ".0" by ""
+	@param	oscAddress				The OSC address to spilt
+	@param	returnedParentAddress	A pointer to parent address symbol is returned in this parameter
+	@param	returnedName			A pointer to the name symbol is returned in this parameter
+	@param	returnedInstance		A pointer to the instance symbol is returned in this parameter
+	@param	returnedAttribute		A pointer to the attribute symbol is returned in this parameter
+	@return							An error code. */
+TTErr TTFOUNDATION_EXPORT splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentAddress, TTSymbolPtr* returnedName, TTSymbolPtr* returnedInstance, TTSymbolPtr* returnedAttribute);
+
+/**	An OSC parsing tool : split an OSC address in four part /parent/node.instance:property
+ and replace all inside the address ".0" by ""
+ @param	oscAddress					The OSC address to spilt
+ @param	returnedAddress				A pointer to address symbol is returned in this parameter
+ @param	returnedTTNodeProperty		A pointer to the atribute symbol is returned in this parameter
+ @return								An error code. */
+TTErr TTFOUNDATION_EXPORT splitAttribute(TTSymbolPtr oscAddress, TTSymbolPtr* returnedAddress, TTSymbolPtr* returnedAttribute);
 
 /**	An OSC merging tool
-	@param	oscAddress					A pointer to osc address symbol is returned in this parameter
-	@param	parent						A TTNode parent symbol
-	@param	name						A TTNode name symbol
-	@param	instance					A TTNode instance symbol
-	@param	property					A pointer to the TTNode property symbol
+	@param	oscAddress				A pointer to osc address symbol is returned in this parameter
+	@param	parent					A parent address symbol
+	@param	name					A name symbol
+	@param	instance				An instance symbol
+	@param	attribute				An attribute symbol
+	@return							An error code. */
+TTErr TTFOUNDATION_EXPORT mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr attribute);
+
+/**	An OSC merging tool
+	@param	firstPart					A first part address
+	@param	secondPart					A second part address
+	@param	returnedAddress				The result
 	@return								An error code. */
-TTErr TTFOUNDATION_EXPORT mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr property);
+TTErr TTFOUNDATION_EXPORT joinOSCAddress(TTSymbolPtr firstPart, TTSymbolPtr secondPart, TTSymbolPtr *returnedAddress);
 
 /**	An OSC comparison tool
 	@param	oscAddress1					An OSC address to compare
@@ -233,5 +228,38 @@ TTAddressComparisonFlag TTFOUNDATION_EXPORT compareOSCAddress(TTSymbolPtr oscAdd
  @param	oscAddress					An OSC address
  @return							The number of C_SEPARATOR */
 unsigned int TTFOUNDATION_EXPORT countSeparator(TTSymbolPtr oscAddress);
+
+/**	Make a "public/name" symbol from "PublicName" symbol
+ @param	oscAddress					"PublicName" symbol
+ @return							"public/name" symbol */
+TTSymbolPtr TTFOUNDATION_EXPORT convertTTNameInAddress(TTSymbolPtr ttName);
+
+/**	An test tool : test the type of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
+ @param	node						A node
+ @param args						An TTSymbolPtr argument for the type
+ @return							true if the object have the correct type */
+TTBoolean TTFOUNDATION_EXPORT testNodeObjectType(TTNodePtr n, TTPtr args);
+
+/**	An test tool : test the context of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
+ @param	node						A node
+ @param args						An TTSymbolPtr argument for the type
+ @return							true if the object have the correct context */
+TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
+
+/**	An test tool : test a node using a TTCallback. This method could be used as testFunction for the LookFor or IsThere methods.
+ @param	node						A node
+ @param args						A TTCallback argument
+ @return							true if the TTCallback argument is replaced by kTTVal1 */
+TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
+
+/**	An test tool : test a node using a Criteria table.
+	a Criteria table is a hash table of hash table containing <ObjectType, <AttributeName, Value>>
+		- if the Attribute hash table is empty this means any object of the given type matches the test.
+		- if a value is KTTValNone this means any value matches the test.
+	This method could be used as testFunction for the LookFor or IsThere methods.
+ @param	node						A node
+ @param args						A TTHashPtr argument
+ @return							true if the TTObject of thenode matches all criterias */
+TTBoolean TTFOUNDATION_EXPORT testNodeUsingCriteria(TTNodePtr n, TTPtr args);
 
 #endif // __TT_NODE_DIRECTORY_H__

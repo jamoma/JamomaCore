@@ -61,12 +61,11 @@ TTValue::TTValue(const TTUInt16 initialValue)
 	*type = kTypeUInt16;
 }
 
-#if 1
-	TTValue::TTValue(const int initialValue)
-#else
+#ifdef USE_TTInt32
 	TTValue::TTValue(const TTInt32 initialValue)
+#else
+	TTValue::TTValue(const int initialValue)
 #endif	
-//TTValue::TTValue(const TTInt32 initialValue)
 {
 	init();
 	data->int32 = initialValue;
@@ -236,6 +235,19 @@ void TTValue::setSize(const TTUInt16 arg)
 	}
 }
 
+void TTValue::copyFrom(const TTValue& obj, TTUInt16 index)
+{
+	TTUInt16 s = obj.getSize() - index;
+	TTPtr t = (obj.type)+index;
+	TTPtr d = (obj.data)+index;
+	
+	setSize(s);
+	memcpy(type, t, sizeof(TTDataType) * s);
+	memcpy(data, d, sizeof(DataValue) * s);
+	
+	reserved = obj.reserved;
+	stringsPresent = obj.stringsPresent;
+}
 
 void TTValue::copy(const TTValue& obj)
 {
@@ -248,12 +260,11 @@ void TTValue::copy(const TTValue& obj)
 	stringsPresent = obj.stringsPresent;
 }
 
-
 TTValue& TTValue::operator = (const TTValue &newValue)
 {
 	copy(newValue);
 	return *this;
-}	
+}
 
 
 // FLOAT32
@@ -645,12 +656,12 @@ void TTValue::set(const TTUInt16 index, const TTUInt16 newValue)
 	data[index].uint16 = newValue;
 }
 
-# if 1
-	void TTValue::set(const TTUInt16 index, const int newValue)
-#else
+#ifdef USE_TTInt32
 	void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
+	
+#else
+	void TTValue::set(const TTUInt16 index, const int newValue)
 #endif
-//void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
 {
 	type[index] = kTypeInt32;
 	data[index].int32 = newValue;
@@ -760,7 +771,11 @@ void TTValue::get(const TTUInt16 index, TTUInt16 &value) const
 		CONVERT(TTUInt16)
 }
 
+#if 1   // always use TTInt32 for the get method
 void TTValue::get(const TTUInt16 index, TTInt32 &value) const
+#else
+void TTValue::get(const TTUInt16 index, int &value) const
+#endif
 {
 	if (type[index] == kTypeInt32)
 		value = (data+index)->int32;
@@ -867,8 +882,11 @@ void TTValue::append(const TTUInt16 newValue)
 	set(numValues-1, newValue);
 }
 
-//void TTValue::append(const TTInt32 newValue)
+#ifdef USE_TTInt32
+void TTValue::append(const TTInt32 newValue)
+#else
 void TTValue::append(const int newValue)
+#endif
 {
 	setSize(numValues + 1);
 	set(numValues-1, newValue);
@@ -983,4 +1001,47 @@ void TTValue::test()
 	TT_ASSERT("== comparison for the same value", bool(a == c));
 	TT_ASSERT("== comparison for different values", !bool(a == b));
 }
+
+TTBoolean isTTInt32( const TTString & str )
+{
+	std::istringstream iss( str );
+	
+	TTInt32 tmp;
+	
+	return ( iss >> tmp ) && ( iss.eof() );
+}
+
+TTBoolean isTTFloat32( const TTString & str )
+{
+	std::istringstream iss( str );
+	
+	TTFloat32 tmp;
+	
+	return ( iss >> tmp ) && ( iss.eof() );
+}
+
+TTInt32 toTTInt32( const TTString & str )
+{
+	std::istringstream iss(str);
+	
+	TTInt32 result;
+	
+	iss >> result;
+	
+	return result;
+}
+
+TTFloat32 toTTFloat32( const TTString & str )
+{
+	std::istringstream iss(str);
+	
+	TTFloat32 result;
+	
+	iss >> result;
+	
+	return result;
+}
+
+
+
 

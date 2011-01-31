@@ -12,10 +12,12 @@
 #include "TTElement.h"
 #include "TTLimits.h"
 #include "TTSymbol.h"
+#include "TTSymbolTable.h"
 
 
 class TTObject;
 
+//#define USE_TTInt32				// to -- To easily change for TTInt32 instead of int in order to make test
 
 // macro for converting from one type to another regardless of type
 #define	CONVERT(dType) switch(*(type+index)) {\
@@ -57,6 +59,11 @@ class TTObject;
 				break;\
 		}
 
+TTBoolean TTFOUNDATION_EXPORT	isTTInt32( const TTString & str );
+TTBoolean TTFOUNDATION_EXPORT	isTTFloat32( const TTString & str );
+
+TTInt32 TTFOUNDATION_EXPORT		toTTInt32( const TTString & str );
+TTFloat32 TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str );
 
 
 /****************************************************************************************************/
@@ -104,10 +111,10 @@ public:
 	TTValue(const TTUInt8 initialValue);
 	TTValue(const TTInt16 initialValue);
 	TTValue(const TTUInt16 initialValue);
-#if 1
-	TTValue(const int initialValue);
-#else
+#ifdef USE_TTInt32
 	TTValue(const TTInt32 initialValue);
+#else
+	TTValue(const int initialValue);
 #endif	
 	TTValue(const TTUInt32 initialValue);
 	TTValue(const TTInt64 initialValue);
@@ -146,6 +153,7 @@ private:
 	
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
+	
 
 
 public:
@@ -154,6 +162,9 @@ public:
 	
 	/** Set the number of values, and allocate any needed memory. */	
 	void setSize(const TTUInt16 arg);
+	
+	/** Copy a value starting at index */
+	void copyFrom(const TTValue& newValue, TTUInt16 index);
 	
 	TTValue& operator = (const TTValue &newValue);
 
@@ -227,10 +238,10 @@ public:
 	void set(const TTUInt16 index, const TTUInt8 newValue);
 	void set(const TTUInt16 index, const TTInt16 newValue);
 	void set(const TTUInt16 index, const TTUInt16 value);
-# if 1
-	void set(const TTUInt16 index, const int newValue);
-#else
+#ifdef USE_TTInt32
 	void set(const TTUInt16 index, const TTInt32 newValue);
+#else
+	void set(const TTUInt16 index, const int newValue);
 #endif
 	void set(const TTUInt16 index, const TTUInt32 newValue);
 	void set(const TTUInt16 index, const TTInt64 newValue);
@@ -250,7 +261,11 @@ public:
 	void get(const TTUInt16 index, TTUInt8 &value) const;
 	void get(const TTUInt16 index, TTInt16 &value) const;
 	void get(const TTUInt16 index, TTUInt16 &value) const;
+#if 1 // always use TTInt32 for the get method
 	void get(const TTUInt16 index, TTInt32 &value) const;
+#else
+	void get(const TTUInt16 index, int &value) const;
+#endif
 	void get(const TTUInt16 index, TTUInt32 &value) const;
 	void get(const TTUInt16 index, TTInt64 &value) const;
 	void get(const TTUInt16 index, TTUInt64 &value) const;
@@ -286,8 +301,11 @@ public:
 	void append(const TTUInt8 newValue);
 	void append(const TTInt16 newValue);
 	void append(const TTUInt16 value);
-	//void append(const TTInt32 newValue);
+#ifdef USE_TTInt32
+	void append(const TTInt32 newValue);
+#else
 	void append(const int newValue);
+#endif
 	void append(const TTUInt32 newValue);
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);
@@ -563,6 +581,78 @@ public:
 		}
 	}
 	
+	void truncate()
+	{
+		for (TTUInt16 i=0; i<numValues; i++) {
+			if (TTDataInfo::getIsNumerical(type[i])) {
+				// TODO: find a way to make this routine faster
+				switch(type[i]) {
+					case kTypeFloat32:
+						data[i].float32 = (TTInt32)data[i].float32;
+						break;
+					case kTypeFloat64:
+						data[i].float64 = (TTInt32)data[i].float64;
+						break;
+
+					default:
+						break;
+				}
+			}
+		}
+	}
+	
+	void booleanize()
+	{
+		for (TTUInt16 i=0; i<numValues; i++) {
+			if (TTDataInfo::getIsNumerical(type[i])) {
+				// TODO: find a way to make this routine faster
+				switch(type[i]) {
+					case kTypeFloat32:
+						data[i].boolean = data[i].float32 != 0.;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeFloat64:
+						data[i].boolean = data[i].float64 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeInt8:
+						data[i].boolean = data[i].int8 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeUInt8:
+						data[i].boolean = data[i].uint8 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeInt16:
+						data[i].boolean = data[i].int16 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeUInt16:
+						data[i].boolean = data[i].uint16 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeInt32:
+						data[i].boolean = data[i].int32 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeUInt32:
+						data[i].boolean = data[i].uint32 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeInt64:
+						data[i].boolean = data[i].int64 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeUInt64:
+						data[i].boolean = data[i].uint64 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
 	
 	void toString()
 	{
@@ -575,76 +665,73 @@ public:
 			switch(type[i]) {
 				case kTypeFloat32:
 					temp = new char[16];
-					snprintf(temp, 16, "%f ", data[i].float32);
+					snprintf(temp, 16, "%f", data[i].float32);
 					break;
 				case kTypeFloat64:
 					temp = new char[16];
-					snprintf(temp, 16, "%lf ", data[i].float64);
+					snprintf(temp, 16, "%lf", data[i].float64);
 					break;
 				case kTypeInt8:
 					temp = new char[16];
-					snprintf(temp, 16, "%i ", data[i].int8);
+					snprintf(temp, 16, "%i", data[i].int8);
 					break;
 				case kTypeUInt8:
 					temp = new char[16];
-					snprintf(temp, 16, "%u ", data[i].uint8);
+					snprintf(temp, 16, "%u", data[i].uint8);
 					break;
 				case kTypeInt16:
 					temp = new char[16];
-					snprintf(temp, 16, "%i ", data[i].int16);
+					snprintf(temp, 16, "%i", data[i].int16);
 					break;
 				case kTypeUInt16:
 					temp = new char[16];
-					snprintf(temp, 16, "%u ", data[i].uint16);
+					snprintf(temp, 16, "%u", data[i].uint16);
 					break;
 				case kTypeInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%i ", (int)data[i].int32);
+					snprintf(temp, 16, "%i", (int)data[i].int32);
 					break;
 				case kTypeUInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%u ", (unsigned int)data[i].uint32);
+					snprintf(temp, 16, "%iu", (unsigned int)data[i].uint32);
 					break;
 				case kTypeInt64:
 					temp = new char[16];
 #ifdef __LP64__ // Mac 64-Bit
-					snprintf(temp, 16, "%ld ", data[i].int64);
+					snprintf(temp, 16, "%ld", data[i].int64);
 #else
-					snprintf(temp, 16, "%lld ", data[i].int64);
+					snprintf(temp, 16, "%lld", data[i].int64);
 #endif
 					break;
 				case kTypeUInt64:
 					temp = new char[16];
 #ifdef __LP64__ // Mac 64-Bit
-					snprintf(temp, 16, "%lu ", data[i].int64);
+					snprintf(temp, 16, "%lu", data[i].int64);
 #else
-					snprintf(temp, 16, "%llu ", data[i].uint64);
+					snprintf(temp, 16, "%llu", data[i].uint64);
 #endif
 					break;
 				case kTypeBoolean:
 					if (data[i].boolean)
-						str->append("1 ");
+						str->append("1");
 					else
-						str->append("0 ");
+						str->append("0");
 					break;
 				case kTypeSymbol:
 					str->append(data[i].sym->getString());
-					str->append(" ");
 					break;
 				case kTypeString:
 					str->append(*data[i].stringPtr);
-					str->append(" ");
 					break;
 				case kTypeObject:
 					temp = new char[16];
-					snprintf(temp, 16, "%ld ", (TTPtrSizedInt)data[i].object);
+					snprintf(temp, 16, "%ld", (TTPtrSizedInt)data[i].object);
 					break;
 				case kTypePointer:
 					temp = new char[16];
-					snprintf(temp, 16, "%ld ", (TTPtrSizedInt)data[i].ptr);
+					snprintf(temp, 16, "%ld", (TTPtrSizedInt)data[i].ptr);
 					break;
 				default:
-					str->append(" ");
 					break;
 			}
 			
@@ -652,16 +739,83 @@ public:
 				str->append(temp);
 				delete temp;
 			}
+			
+			// no space at end
+			if (i < (numValues-1))
+				str->append(" ");
 		}
 		
-		// CHANGED: no longer calling this as it was corrupting memory on the Mac [TAP]
-		//str->erase(str->end());	// strip the trailing space
-
 		// now set the value to the string
 		clear();
 		append(*str);	// CHANGED: If we pass a pointer then this is appended at a generic TTPtr [TAP]
 	}
 	
+	void fromString()
+	{
+		if (*type == kTypeString) {
+			
+			TTUInt32 n = 0;
+			std::vector<std::string> strList;
+			
+			std::istringstream iss(*(data->stringPtr));
+			std::copy(
+				 std::istream_iterator<string>( iss ),
+				 std::istream_iterator<string>(),
+				 back_inserter( strList ) );
+			
+			if (strList.size() > 0) {
+				
+				setSize(strList.size());
+				
+				for (unsigned int i = 0; i < strList.size(); ++i) {
+					TTString currentString = strList.at(i);
+					if (isTTInt32(currentString)) {
+						
+						data[n].int32 = toTTInt32(currentString);
+						type[n] = kTypeInt32;
+						n++;
+						
+					} else if (isTTFloat32(currentString)) {
+						
+						data[n].float32 = toTTFloat32(currentString);
+						type[n] = kTypeFloat32;
+						n++;
+						
+					} else {
+						
+						if (currentString.data()[0] == '"') {
+							
+							TTString editString = currentString.substr(1, currentString.size());	// don't keep the leading "
+							
+							while (currentString.data()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
+								i++;
+								currentString = strList.at(i);
+								
+								editString += " ";
+								editString += currentString;
+							}
+							
+							data[n].sym = TT(editString.substr(0, editString.size()-1));			// don't keep the last "
+							type[n] = kTypeSymbol;
+							n++;
+
+						} else {
+							TTSymbolPtr editSymbol = TT(currentString.data());
+							data[n].sym = editSymbol;
+							type[n] = kTypeSymbol;
+							n++;
+						}
+					}
+				}
+			}
+			
+			// resize value
+			setSize(n);
+		}
+		else
+			this->clear();
+	}
+		
 	
 	static void test();
 };
@@ -670,7 +824,7 @@ public:
 typedef TTValue* TTValuePtr;
 typedef TTValue& TTValueRef;
 typedef const TTValue& TTValueConstRef;
-
-
+	
+	
 #endif // __TT_VALUE_H__
 

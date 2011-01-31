@@ -105,6 +105,20 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTObjectPtr newG
 	return kTTErrNone;
 }
 
+TTErr TTObject::extendAttribute(const TTSymbolPtr name, const TTObjectPtr extendedObject, const TTSymbolPtr extendedName)
+{
+	TTAttributePtr	extendedAttribute = NULL;
+	TTAttributePtr	newAttribute;
+	TTErr			err = extendedObject->findAttribute(extendedName, &extendedAttribute);
+	
+	if (!err) {
+		newAttribute = new TTAttribute(extendedAttribute, extendedObject);
+		attributes->append(name, TTPtr(newAttribute));
+		return kTTErrNone;
+	}
+	else
+		return err;
+}
 
 TTErr TTObject::removeAttribute(const TTSymbolPtr name)
 {
