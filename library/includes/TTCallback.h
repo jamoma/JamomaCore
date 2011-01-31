@@ -32,6 +32,9 @@ public:
 	/**	message called because we are registered as an observer to some other object, and then 
 		calls our external function. */
 	TTErr notify(TTValue& arguments);
+	
+	/**	usefull to easily free the baton in case the pointer is a TTValue of something which need to be freed corectly */
+	TTPtr getBaton(){return mBaton;};
 };
 
 typedef TTCallback* TTCallbackPtr;

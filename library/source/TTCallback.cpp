@@ -29,8 +29,6 @@ TT_OBJECT_CONSTRUCTOR,
 TTCallback::~TTCallback()
 {
 	mFunction = NULL;
-	
-	delete mBaton;		// to -- there is a warning here... However mBaton is often a TTValue we have to delete... 
 	mBaton = NULL;
 }
 
