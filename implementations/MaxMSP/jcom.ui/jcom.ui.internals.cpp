@@ -935,7 +935,13 @@ void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		index = obj->modelOutput->mIndex;
 		
 		// only output first signal
-		if (index == 0)
-			outlet_anything(obj->outlet, msg, argc, argv);
+		if (index == 0) {
+			
+			// filter bogus list symbol for jitter matrix case
+			if (msg == _sym_list)
+				outlet_atoms(obj->outlet, argc, argv);
+			else
+				outlet_anything(obj->outlet, msg, argc, argv);
+		}
 	}
 }
