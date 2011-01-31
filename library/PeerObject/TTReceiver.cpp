@@ -66,7 +66,7 @@ TTReceiver::~TTReceiver()
 	}
 	
 	if (mReturnValueCallback) {
-		delete (TTValuePtr)mReturnAddressCallback->getBaton();
+		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 	}
 }
