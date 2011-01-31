@@ -61,8 +61,10 @@ TTExplorer::~TTExplorer()
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
-	if (mReturnValueCallback)
+	if (mReturnValueCallback) {
+		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	}
 	
 	CriteriaClear();
 	delete mLookforObjectCriteria;

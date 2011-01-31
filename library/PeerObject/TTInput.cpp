@@ -71,8 +71,10 @@ mObserver(NULL)
 
 TTInput::~TTInput()
 {
-	if (mReturnSignalCallback)
+	if (mReturnSignalCallback) {
+		delete (TTValuePtr)mReturnSignalCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnSignalCallback));
+	}
 	
 	if (mSignalIn)
 		TTObjectRelease(TTObjectHandle(&mSignalIn));

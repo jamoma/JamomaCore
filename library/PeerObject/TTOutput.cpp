@@ -105,8 +105,10 @@ mSignalPreviewAttr(NULL)
 
 TTOutput::~TTOutput()
 {
-	if (mReturnSignalCallback)
+	if (mReturnSignalCallback) {
+		delete (TTValuePtr)mReturnSignalCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnSignalCallback));
+	}
 	
 	if (mSignalIn)
 		TTObjectRelease(&mSignalIn);

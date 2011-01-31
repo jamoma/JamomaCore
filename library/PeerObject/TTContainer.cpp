@@ -65,8 +65,10 @@ TTContainer::~TTContainer()
 {
 	unbind();
 	
-	if (mReturnAddressCallback)
+	if (mReturnAddressCallback) {
+		delete (TTValuePtr)mReturnAddressCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnAddressCallback));
+	}
 	
 	if (mReturnValueCallback)
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));

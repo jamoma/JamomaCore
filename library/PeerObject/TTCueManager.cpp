@@ -82,24 +82,34 @@ TTCueManager::~TTCueManager()
 	mCueList = NULL;
 	
 	mPresetArguments.get(1, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(2, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(3, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(4, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(5, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 }
 
 TTErr TTCueManager::setAddresses(const TTValue& value)

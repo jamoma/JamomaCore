@@ -54,8 +54,10 @@ mReturnValueCallback(NULL)
 
 TTViewer::~TTViewer() // TODO : delete things...
 {
-	if (mReturnValueCallback)
+	if (mReturnValueCallback) {
+		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	}
 	
 	if (mSender)
 		TTObjectRelease(TTObjectHandle(&mSender));

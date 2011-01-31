@@ -93,11 +93,15 @@ TTSubscriber::~TTSubscriber()
 		this->mNode->setObject(NULL);
 	}
 	
-	if (mShareContextNodeCallback)
+	if (mShareContextNodeCallback) {
+		delete (TTValuePtr)mShareContextNodeCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mShareContextNodeCallback));
+	}
 	
-	if (mGetContextListCallback)
+	if (mGetContextListCallback) {
+		delete (TTValuePtr)mGetContextListCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mGetContextListCallback));
+	}
 	
 	// Clear exposed Messages
 	err = mExposedMessages->getKeys(keys);

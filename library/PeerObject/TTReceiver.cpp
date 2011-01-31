@@ -60,11 +60,15 @@ TTReceiver::~TTReceiver()
 {
 	unbind();
 	
-	if (mReturnAddressCallback)
+	if (mReturnAddressCallback) {
+		delete (TTValuePtr)mReturnAddressCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnAddressCallback));
+	}
 	
-	if (mReturnValueCallback)
+	if (mReturnValueCallback) {
+		delete (TTValuePtr)mReturnAddressCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	}
 }
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)

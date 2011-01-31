@@ -82,24 +82,34 @@ TTPresetManager::~TTPresetManager()
 	mPresetList = NULL;
 	
 	mPresetArguments.get(1, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(2, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(3, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(4, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(5, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 }
 
 TTErr TTPresetManager::getNames(TTValue& value)

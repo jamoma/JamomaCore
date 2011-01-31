@@ -111,8 +111,10 @@ TTData::~TTData()
 		TTObjectRelease(TTObjectHandle(&mRamper));
 #endif
 	
-	if (mReturnValueCallback)
+	if (mReturnValueCallback) {
+		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	}
 }
 
 TTErr TTData::Reset()
