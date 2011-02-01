@@ -52,7 +52,7 @@ mReturnValueCallback(NULL)
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
 	addAttributeWithSetter(Tag, kTypeSymbol);
-	addAttribute(Priority, kTypeInt8);
+	addAttribute(Priority, kTypeInt32);
 	addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	addAttributeWithSetter(Readonly, kTypeBoolean);
