@@ -162,11 +162,13 @@ void init_build(t_init *x, SymbolPtr address)		// address : could be used to bin
 			
 			// Ask a result in case the initialisation has been done
 			x->initReceiver->sendMessage(TT("Get"));
+			
+			return;
 		}
-		
 	}
+	
 	// While the context node is not registered : try to build (to --Is this not dangerous ?)
-	else if (x->contextNode != JamomaDirectory->getRoot()) {
+	if (x->contextNode != JamomaDirectory->getRoot()) {
 		
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
