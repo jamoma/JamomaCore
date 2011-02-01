@@ -21,14 +21,36 @@
 
 #define NO_MODEL_STRING "waiting for a /model/address"
 
+#define preview_out 0
+#define panel_out 1
+
+// those stuffes are needed for handling patchers without using the pcontrol object
+#include "jpatcher_api.h"
+typedef struct dll {
+	t_object d_ob;
+	struct dll *d_next;
+	struct dll *d_prev;
+	void *d_x1;
+} t_dll;
+
+typedef struct outlet {
+	struct tinyobject o_ob;
+	struct dll *o_dll;
+} t_outlet;
+
+typedef struct inlet {
+	struct tinyobject i_ob;
+	void *i_who;
+	struct object *i_owner;
+} t_inlet;
+
 // members
 typedef struct _ui{
 	t_jbox				box;
-	TTPtr				outlet;					///< outlet -- used for sending preview to jit.pwindow
+	TTHandle			outlets;
 	TTHashPtr			hash_datas;				///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
 	TTObjectPtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
-	TTObjectPtr			viewExplorer;			///< internal TTExplorer object to observe the view namespace
 	TTObjectPtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
 	TTObjectPtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
 	TTObjectPtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
@@ -77,6 +99,7 @@ typedef struct _ui{
 	
 	long				has_panel;				// is the binded model have a panel ?
 	t_rect				rect_panel;
+	ObjectPtr			patcher_panel;
 
 	long				has_meters;				// is the binded model have meters ? (set number of meters, not just a toggle)
 	long				is_metersdefeated;
@@ -168,6 +191,9 @@ void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 void		ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+void		ui_view_panel_attach(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void		ui_view_panel_return(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_color_toolbarBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

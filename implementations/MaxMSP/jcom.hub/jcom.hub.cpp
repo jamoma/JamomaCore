@@ -9,26 +9,6 @@
 
 #include "TTModularClassWrapperMax.h"
 
-// those stuffes are needed for handling patchers without using the pcontrol object
-#include "jpatcher_api.h"
-typedef struct dll {
-	t_object d_ob;
-	struct dll *d_next;
-	struct dll *d_prev;
-	void *d_x1;
-} t_dll;
-
-typedef struct outlet {
-	struct tinyobject o_ob;
-	struct dll *o_dll;
-} t_outlet;
-
-typedef struct inlet {
-	struct tinyobject i_ob;
-	void *i_who;
-	struct object *i_owner;
-} t_inlet;
-
 // This is used to store extra data
 typedef struct extra {
 	ObjectPtr	modelInternal;		// store an internal model patcher
@@ -53,14 +33,9 @@ void		hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_build(TTPtr self, SymbolPtr address);
 
-t_max_err	hub_get_panel(TTPtr self, t_object *attr, long *argc, t_atom **argv);
-t_max_err	hub_set_panel(TTPtr self, t_object *attr, long argc, t_atom *argv);
-void		hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
-
 void		hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		hub_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// only in jview patch
 
@@ -90,15 +65,10 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)hub_help,						"hub_help",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_reference,					"hub_reference",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_internals,					"hub_internals",		A_CANT, 0);
-	class_addmethod(c->maxClass, (method)hub_panel,						"hub_panel",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_mute,						"hub_mute",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_address,					"hub_address",			A_CANT, 0);			// only in jview patch
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"doc_generate",			A_CANT, 0);
-	
-	CLASS_ATTR_LONG(c->maxClass,				"has_panel",	0, WrappedModularInstance, index);
-	CLASS_ATTR_STYLE(c->maxClass,				"has_panel",	0, "panel");
-	CLASS_ATTR_DEFAULT(c->maxClass,				"has_panel",	0, "0");
-	CLASS_ATTR_ACCESSORS(c->maxClass,			"has_panel",	NULL, hub_set_panel); 
+
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -368,67 +338,6 @@ void hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	outlet_anything(x->outlets[data_out], x->msg, argc, argv);
 }
 
-t_max_err hub_get_panel(TTPtr self, t_object *attr, long *argc, t_atom **argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char alloc;
-	
-	atom_alloc(argc, argv, &alloc);     // allocate return atom
-	atom_setlong(*argv, x->index);
-	return 0;
-}
-
-t_max_err hub_set_panel(TTPtr self, t_object *attr, long argc, t_atom *argv)
-{
-	defer_low((ObjectPtr)self, (method)hub_do_set_panel, NULL, argc, argv);
-	return 0;
-}
-
-void hub_do_set_panel(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTObjectPtr					aData;
-	TTValue						v;
-	TTSymbolPtr					address, panelName;
-	TTNodePtr					node = NULL;
-	TTPtr						context;
-	long						n = atom_getlong(argv);
-	
-	if (x->subscriberObject) {
-		
-		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, &address);
-		
-		x->subscriberObject->getAttributeValue(TT("node"), v);
-		v.get(0, (TTPtr*)&node);
-		context = node->getContext();
-		
-		// Edit a /panel name
-		if (x->patcherType != kTTSymEmpty)
-			panelName = TT("/view/panel");
-		else
-			panelName = TT("/panel");
-		
-		// advise user
-		if (x->patcherType == TT("jmod"))
-			object_warn((ObjectPtr)x, "%s message shouldn't be created in a jmod patcher", panelName->getCString());
-		
-		if (n) {
-			
-			// Make a /panel data
-			makeInternals_data(self, address, panelName, gensym("hub_panel"), context, kTTSym_message, &aData);
-			
-			// Set attribute of the data
-			aData->setAttributeValue(kTTSym_type, kTTSym_none);
-			aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
-			aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-		}
-		else
-			// Remove a /panel data
-			removeInternals_data(self, address, panelName);
-	}
-}
-
 void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
@@ -470,46 +379,6 @@ void hub_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	ObjectPtr p = jamoma_object_getpatcher((ObjectPtr)x);
 	
 	object_method(p, _sym_vis);
-}
-
-void hub_panel(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	ObjectPtr	box;
-	t_outlet*	myoutlet = NULL;
-	t_dll*		connecteds = NULL;
-	ObjectPtr	o;
-	SymbolPtr	name;
-	TTValue		v;
-	TTSymbolPtr nodeAddress;
-	Atom		a;
-	
-	object_obex_lookup(x, _sym_pound_B, &box);
-	myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 1);
-	if (myoutlet)
-		connecteds = (t_dll*)myoutlet->o_dll;
-	
-	// search through all connected objects for a patcher object
-	while (connecteds) {
-		o = (t_object*)connecteds->d_x1;
-		name = object_classname(o);
-		if (name == _sym_inlet) {
-			o = ((t_inlet *)connecteds->d_x1)->i_owner;
-			name = object_classname(o);
-			if (name == _sym_jpatcher) {
-				
-				// get absolute node address
-				x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-				v.get(0, &nodeAddress);
-				atom_setsym(&a, gensym((char*)nodeAddress->getCString()));
-				object_attr_setvalueof(o, _sym_title, 1, &a);
-				object_method(o, _sym_vis);
-			}
-		}
-		o = NULL;
-		name = NULL;
-		connecteds = connecteds->d_next;
-	}
 }
 
 void hub_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
