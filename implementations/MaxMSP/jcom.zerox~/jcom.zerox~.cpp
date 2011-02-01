@@ -155,7 +155,7 @@ void zerox_dsp(t_zerox *x, t_signal **sp, short *count)
 	dsp_add(zerox_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
 		
 	x->signalIn->setAttributeValue(kTTSym_vectorSize, (TTUInt16)sp[0]->s_n);
-	x->signalOut->setAttributeValue(kTTSym_vectorSize, (TTUInt32)sp[0]->s_n);
+	x->signalOut->setAttributeValue(kTTSym_vectorSize, (int) sp[0]->s_n);
 	
 	//signalIn will be set (alloc'd) in the perform method
 	x->signalOut->sendMessage(TT("alloc"));
