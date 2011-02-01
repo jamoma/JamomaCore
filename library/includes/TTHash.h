@@ -32,6 +32,9 @@ typedef hash_map<TTPtrSizedInt,TTValue>		TTHashMap;
 typedef TTHashMap::const_iterator			TTHashMapIter;
 
 
+typedef void (*TTHashIteratorType)(TTPtr, const TTKeyVal&);
+
+
 /****************************************************************************************************/
 // Class Specification
 
@@ -74,6 +77,9 @@ public:
 	/** Remove all items from the hash table. */
 	TTErr clear();
 	
+	/**	For each item in the hash, run specified function.	*/
+	TTErr iterate(const TTPtr target, const TTHashIteratorType callback);
+
 	/** Get an array of all of the keys for the hash table. */
 	TTErr getKeys(TTValue& hashKeys);
 	

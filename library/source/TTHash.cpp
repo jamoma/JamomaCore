@@ -85,6 +85,16 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 }
 
 
+TTErr TTHash::iterate(const TTPtr target, const TTHashIteratorType callback)
+{
+	lock();
+	for (TTHashMapIter iter = hashMap.begin(); iter != hashMap.end(); iter++)	
+		callback(target, *iter);
+	unlock();
+	return kTTErrNone;	
+}
+
+
 TTUInt32 TTHash::getSize()
 {
 	return hashMap.size();
