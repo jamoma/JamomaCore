@@ -88,11 +88,12 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_mouseleave,						"mouseleave",						A_CANT, 0);
 	class_addmethod(c, (method)ui_oksize,							"oksize",							A_CANT, 0);
 	
-	class_addmethod(c, (method)ui_viewExplorer_callback,			"return_viewExploration",			A_CANT, 0);
 	class_addmethod(c, (method)ui_modelExplorer_callback,			"return_modelExploration",			A_CANT, 0);
 	class_addmethod(c, (method)ui_modelParamExplorer_callback,		"return_modelParamExploration",		A_CANT, 0);
 	class_addmethod(c, (method)ui_modelMessExplorer_callback,		"return_modelMessExploration",		A_CANT, 0);
 	class_addmethod(c, (method)ui_modelRetExplorer_callback,		"return_modelRetExploration",		A_CANT, 0);
+	
+	class_addmethod(c, (method)ui_view_panel_return,				"return_view_panel",				A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_color_contentBackground,	"return_color_contentBackground",	A_CANT, 0);
 	class_addmethod(c, (method)ui_return_color_toolbarBackground,	"return_color_toolbarBackground",	A_CANT, 0);
@@ -179,7 +180,12 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		
 		jbox_new(&x->box, flags, argc, argv);
 		x->box.b_firstin = (t_object *)x;
-		x->outlet = outlet_new(x, 0L);
+		
+		// Make two outlets
+		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
+		x->outlets[panel_out] = outlet_new(x, NULL);						// outlet to open panel
+		x->outlets[preview_out] = outlet_new(x, NULL);						// outlet to output preview signal
+		
 		x->menu_items = NULL;
 		x->refmenu_items = NULL;
 		x->hash_datas = new TTHash();
@@ -223,7 +229,6 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->modelOutput = NULL;
 		x->previewSignal = NULL;
 		
-		ui_explorer_create((ObjectPtr)x, &x->viewExplorer, gensym("return_viewExploration"));
 		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploration"));
 		
 		attr_dictionary_process(x, d); 	// handle attribute args
@@ -237,6 +242,11 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
 		defer_low((ObjectPtr)x, (method)ui_build, NULL, 0, 0);
+		
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low((ObjectPtr)x, (method)ui_view_panel_attach, NULL, 0, 0);
 	}
 	return x;
 }
@@ -255,9 +265,6 @@ void ui_free(t_ui *x)
 	
 	if (x->nmspcExplorer)
 		TTObjectRelease(&x->nmspcExplorer);
-	
-	if (x->viewExplorer)
-		TTObjectRelease(&x->viewExplorer);
 	
 	if (x->modelExplorer)
 		TTObjectRelease(&x->modelExplorer);
@@ -345,11 +352,6 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		x->modelExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
 		x->modelExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 		x->modelExplorer->sendMessage(TT("Explore"), kTTValNONE);
-		
-		// observe the namespace of the view
-		x->viewExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
-		x->viewExplorer->setAttributeValue(kTTSym_address, x->viewAddress);
-		x->viewExplorer->sendMessage(TT("Explore"), kTTValNONE);
 
 		// The following must be deferred because 
 		// we have to wait each model/parameter are built
@@ -847,7 +849,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			}
 		}
 		else if (x->has_panel && px.x >= x->rect_panel.x && px.x <= (x->rect_panel.x + x->rect_panel.width))
-			ui_viewer_send(x, TT("view/panel"), kTTValNONE);
+			ui_data_send(x, TT("view/panel"), kTTValNONE);
 		
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width)) {
 			if (x->selection) {
