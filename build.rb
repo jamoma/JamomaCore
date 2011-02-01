@@ -5,7 +5,7 @@ puts "Building Ruby Language Extensions..."
 if (RUBY_PLATFORM == "universal-darwin9.0")
   `cd library; ARCHFLAGS="-arch i386" ruby extconf.rb; make clean; make`
 else
-  `cd library; ruby extconf.rb; make clean; make`
+  `cd library; /usr/bin/ruby extconf.rb; make clean; make`
 end
 
 # TODO: what if the person is using Ruby 1.9? Will this still work?
