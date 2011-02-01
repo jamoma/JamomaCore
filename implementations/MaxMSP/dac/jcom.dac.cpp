@@ -458,7 +458,7 @@ MaxErr DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sr);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), (uint)sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -481,7 +481,7 @@ MaxErr DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("vectorSize"), vs);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("vectorSize"), (uint)vs);
 	}
 	return MAX_ERR_NONE;
 }
