@@ -284,7 +284,7 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 				if(err == kTTErrInvalidAttribute)
 					err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
 				x->filter->setAttributeValue(kTTSym_bypass, (TTBoolean)x->attrBypass);
-				x->filter->setAttributeValue(kTTSym_sampleRate, (TTUInt32)x->sr);
+				x->filter->setAttributeValue(kTTSym_sampleRate, (uint)x->sr);
 			}
 		}
 	}
