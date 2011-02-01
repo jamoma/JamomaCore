@@ -411,41 +411,6 @@ void ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr me
 	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);
 }
 
-void ui_viewExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	t_ui* obj = (t_ui*)self;
-	TTBoolean	panel = false;			// is there a panel for the view ?
-	TTBoolean	change = false;
-	SymbolPtr	paramName;
-	TTObjectPtr anObject;
-	
-	// view namespace observation
-	// look the namelist to know which data exist
-	for (long i=0; i<argc; i++) {
-		
-		paramName = atom_getsym(argv+i);
-		
-		if (paramName == gensym("/view/panel"))
-			panel = true;
-	}
-	
-	// panel
-	if (panel != obj->has_panel) {
-		obj->has_panel = panel;
-		if (panel) 
-			ui_viewer_create(obj, &anObject, NULL, TT("view/panel"), obj->viewAddress, NO);
-		else {
-			ui_viewer_destroy(obj, TT("view/panel"));
-			obj->hash_viewers->remove(TT("view/panel"));
-		}
-		
-		change = true;
-	}
-	
-	if (change)
-		jbox_redraw(&obj->box);
-}
-
 void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
@@ -695,6 +660,64 @@ void ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 		}
 	}
 }
+ 
+void ui_view_panel_attach(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_ui* obj = (t_ui*)self;
+	ObjectPtr	box;
+	t_outlet*	myoutlet = NULL;
+	t_dll*		connecteds = NULL;
+	ObjectPtr	o;
+	SymbolPtr	name;
+	TTObjectPtr aData;
+	TTValue		v;
+	
+	// search through all connected objects for a patcher object
+	object_obex_lookup(obj, _sym_pound_B, &box);
+	myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 1);
+	if (myoutlet)
+		connecteds = (t_dll*)myoutlet->o_dll;
+	
+	while (connecteds) {
+		o = (t_object*)connecteds->d_x1;
+		name = object_classname(o);
+		if (name == _sym_inlet) {
+			o = ((t_inlet *)connecteds->d_x1)->i_owner;
+			name = object_classname(o);
+			if (name == _sym_jpatcher) {
+				
+				obj->patcher_panel = o;
+				obj->has_panel = true;
+				
+				// view/panel
+				ui_data_create(obj, &aData, gensym("return_view_panel"), kTTSym_message, TT("view/panel"));
+				
+				// Set attribute of the data
+				aData->setAttributeValue(kTTSym_type, kTTSym_none);
+				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+				aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
+				aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+				
+				jbox_redraw(&obj->box);
+				return;
+			}
+		}
+		o = NULL;
+		name = NULL;
+		connecteds = connecteds->d_next;
+	}
+}
+
+void ui_view_panel_return(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	Atom		a;
+	
+	// open view panel and set title
+	atom_setsym(&a, gensym((char*)obj->viewAddress->getCString()));
+	object_attr_setvalueof(obj->patcher_panel, _sym_title, 1, &a);
+	object_method(obj->patcher_panel, _sym_vis);
+}
 
 void ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
@@ -939,9 +962,9 @@ void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// filter bogus list symbol for jitter matrix case
 			if (msg == _sym_list)
-				outlet_atoms(obj->outlet, argc, argv);
+				outlet_atoms(obj->outlets[preview_out], argc, argv);
 			else
-				outlet_anything(obj->outlet, msg, argc, argv);
+				outlet_anything(obj->outlets[preview_out], msg, argc, argv);
 		}
 	}
 }
