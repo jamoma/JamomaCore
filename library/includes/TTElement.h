@@ -128,6 +128,10 @@ typedef unsigned short		TTUInt16;
 	#endif
 #endif
 
+#ifndef uint
+#define uint unsigned int
+#endif
+
 typedef float				TTFloat32;
 typedef double				TTFloat64;
 

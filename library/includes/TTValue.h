@@ -113,10 +113,12 @@ public:
 	TTValue(const TTUInt16 initialValue);
 #ifdef USE_TTInt32
 	TTValue(const TTInt32 initialValue);
+	TTValue(const TTUInt32 initialValue);
 #else
 	TTValue(const int initialValue);
-#endif	
+//	TTValue(const unsigned int initialValue);
 	TTValue(const TTUInt32 initialValue);
+#endif
 	TTValue(const TTInt64 initialValue);
 	TTValue(const TTUInt64 initialValue);
 	TTValue(const TTBoolean initialValue);

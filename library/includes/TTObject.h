@@ -171,7 +171,16 @@ public:
 	TT_SETATTR_WRAP(TTInt64)
 	TT_SETATTR_WRAP(TTUInt8)
 	TT_SETATTR_WRAP(TTUInt16)
+#ifdef USE_TTInt32
 	TT_SETATTR_WRAP(TTUInt32)
+#else
+//	TT_SETATTR_WRAP(unsigned int)
+	TTErr setAttributeValue(const TTSymbolPtr name, const unsigned int value)	
+	{																	
+		TTValue v((TTUInt32)value);
+		return setAttributeValue(name, v);
+	}
+#endif
 	TT_SETATTR_WRAP(TTUInt64)
 	TT_SETATTR_WRAP(TTFloat32)
 	TT_SETATTR_WRAP(TTFloat64)

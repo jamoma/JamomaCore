@@ -32,7 +32,7 @@ TTEnvironment::TTEnvironment()
 	addMessageWithArgument(getVersion);
 
 	// can't use the SymbolCache here because it hasn't been initialized yet!
-	setAttributeValue(TT("sampleRate"), TTUInt32(44100));
+	setAttributeValue(TT("sampleRate"), 44100);
 }
 
 
