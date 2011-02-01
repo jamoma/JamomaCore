@@ -221,6 +221,17 @@ void TTList::assignToValue(TTValue& value)
 }
 
 
+TTErr TTList::iterate(const TTObjectPtr target, const TTFunctionWithBatonAndValue callback)
+{
+	lock();
+	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+		callback(target, **iter);
+	}
+	unlock();
+	return kTTErrNone;	
+}
+
+
 TTErr TTList::iterate(const TTObjectPtr target, const TTSymbolPtr messageName)
 {
 	lock();

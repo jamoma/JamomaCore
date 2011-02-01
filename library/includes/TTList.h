@@ -130,6 +130,10 @@ public:
 	/**	Assign the contents of the list to a value as an array.	*/
 	void assignToValue(TTValue& value);
 	
+
+	/**	Traverse the entire list, sending each item of the list to a specified function.	*/
+	TTErr iterate(const TTObjectPtr target, const TTFunctionWithBatonAndValue callback);
+
 	/**	Traverse the entire list, sending each item of the list to a specified object with the specified message.	*/
 	TTErr iterate(const TTObjectPtr target, const TTSymbolPtr messageName);
 	
