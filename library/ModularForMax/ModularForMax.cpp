@@ -227,7 +227,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	if (contextType == kTTSymEmpty && context != gensym("toplevel")) {
 		jamoma_patcher_type_and_class(patcher, &contextType, &patcherClass);
 		contextTypeLen = strlen(contextType->getCString());
-		isCtxPatcher = strncmp(patcherName->s_name, contextType->getCString(), contextTypeLen) == 0;
+		isCtxPatcher = strncmp(patcherName->s_name, contextType->getCString(), contextTypeLen) == 0 && contextTypeLen;
 	}
 	// test if the context type is good at this level
 	else {
@@ -237,7 +237,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		
 		// if the patcher name begin by contextTypeStr ("jmod." or "jview.")
 		// Strip jmod. from the beginning of patch name
-		isCtxPatcher = strncmp(patcherName->s_name, contextTypeStr.data(), contextTypeLen) == 0;
+		isCtxPatcher = strncmp(patcherName->s_name, contextTypeStr.data(), contextTypeLen) == 0 && contextTypeLen;
 		if (isCtxPatcher)
 			patcherName = gensym(patcherName->s_name + contextTypeLen);						// TODO : replace each "." by the Uppercase of the letter after the "."
 	}
