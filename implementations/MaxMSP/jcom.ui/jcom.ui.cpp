@@ -850,7 +850,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			}
 		}
 		else if (x->has_panel && px.x >= x->rect_panel.x && px.x <= (x->rect_panel.x + x->rect_panel.width))
-			ui_data_send(x, TT("view/panel"), kTTValNONE);
+			ui_data_send(x, TT("panel"), kTTValNONE);
 		
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width)) {
 			if (x->selection) {
