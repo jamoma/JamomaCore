@@ -317,7 +317,8 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 
 	if ((x->modelAddress == kTTSymEmpty && adrs != kTTSymEmpty) || adrs != x->modelAddress) {
 		
-		x->modelAddress = adrs;
+		// don't care if it misses a slash before..
+		joinOSCAddress(S_SEPARATOR, adrs, &x->modelAddress);
 		
 		// Clear all viewers
 		ui_viewer_destroy_all(x);

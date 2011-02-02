@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 108.0, 96.0, 569.0, 465.0 ],
+		"rect" : [ 157.0, 80.0, 569.0, 465.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 108.0, 96.0, 569.0, 465.0 ],
+		"defrect" : [ 157.0, 80.0, 569.0, 465.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,20 @@
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-17",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 20.0, 270.0, 70.0, 19.0 ],
+					"text" : "jcom.preset"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -206,13 +220,13 @@
 ,
 					"patching_rect" : [ 26.0, 397.0, 105.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p /other_sub_level",
@@ -315,22 +329,27 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 610.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 569.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"bgcolor2" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frozen_box_attributes" : [ "gradient" ],
+					"gradient" : 0,
 					"id" : "obj-22",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 249.0, 207.0, 32.5, 17.0 ],
-					"text" : "init"
+					"patching_rect" : [ 20.0, 218.0, 32.5, 17.0 ],
+					"text" : "init",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -343,23 +362,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 317.0, 251.0, 123.0, 19.0 ],
+					"patching_rect" : [ 317.0, 244.0, 123.0, 19.0 ],
 					"text" : "jcom.parameter foo",
 					"varname" : "foo"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-2",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 20.0, 207.0, 212.0, 17.0 ],
-					"text" : "/preset/store 1 default, /preset/write"
 				}
 
 			}
@@ -372,7 +377,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 20.0, 250.0, 57.0, 19.0 ],
+					"patching_rect" : [ 20.0, 244.0, 57.0, 19.0 ],
 					"text" : "jcom.hub"
 				}
 
@@ -629,15 +634,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 138.0, 249.0, 133.0, 19.0 ],
+					"patching_rect" : [ 138.0, 244.0, 133.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p subpatch_of_module"
@@ -735,12 +740,12 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-12",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 124.0, 312.0, 43.0 ],
-					"text" : "jcom.init connects to jcom.hub in order to link to all other instances of jcom.init within the same model. It also makes jcom.preset reset all parameters to the default preset."
+					"patching_rect" : [ 9.0, 124.0, 313.0, 55.0 ],
+					"text" : "jcom.init connects to jcom.hub in order to link to all other instances of jcom.init within the same model. It also makes jcom.preset reset all parameters to the default preset (so the needs a jcom.preset and a preset file to load)."
 				}
 
 			}
@@ -932,13 +937,13 @@
 ,
 					"patching_rect" : [ 26.0, 374.0, 72.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p /sub_level",
@@ -982,7 +987,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 79.0, 260.0, 43.0 ],
+					"patching_rect" : [ 9.0, 79.0, 261.0, 43.0 ],
 					"text" : "jcom.init is a kind of loadbang local to the model. This way it is possible to initialize one module without resetting all preexisting modules."
 				}
 
@@ -997,7 +1002,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 24.0, 325.0, 250.0, 43.0 ],
+					"patching_rect" : [ 24.0, 325.0, 251.0, 43.0 ],
 					"text" : "Example illustrating that jcom.init works locally sub level of a model's namespace. Noticed that upper jcom.init are banging lowerones"
 				}
 
@@ -1044,15 +1049,6 @@
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 258.5, 238.0, 29.5, 238.0 ],
 					"source" : [ "obj-22", 0 ]
 				}
 

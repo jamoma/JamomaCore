@@ -249,7 +249,7 @@ TTErr TTCueManager::Store(const TTValue& value)
 	
 	newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 	newCue->setAttributeValue(kTTSym_name, cueName);
-	newCue->setAttributeValue(kTTSym_ramp, (uint)rampTime);
+	newCue->setAttributeValue(kTTSym_ramp, rampTime);
 	
 	newCue->sendMessage(kTTSym_Fill);
 	
@@ -313,7 +313,7 @@ TTErr TTCueManager::StoreNext(const TTValue& value)
 	
 	newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 	newCue->setAttributeValue(kTTSym_name, cueName);
-	newCue->setAttributeValue(kTTSym_ramp, (uint)rampTime);
+	newCue->setAttributeValue(kTTSym_ramp, rampTime);
 	
 	newCue->sendMessage(kTTSym_Fill);
 	
@@ -358,7 +358,7 @@ TTErr TTCueManager::StorePrevious(const TTValue& value)
 	
 	newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 	newCue->setAttributeValue(kTTSym_name, cueName);
-	newCue->setAttributeValue(kTTSym_ramp, (uint)rampTime);
+	newCue->setAttributeValue(kTTSym_ramp, rampTime);
 	
 	newCue->sendMessage(kTTSym_Fill);
 	
@@ -650,7 +650,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 		
 		newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 		newCue->setAttributeValue(kTTSym_name, cueName);
-		newCue->setAttributeValue(kTTSym_ramp, (uint)cueRamp);
+		newCue->setAttributeValue(kTTSym_ramp, cueRamp);
 		
 		mCueList->append(new TTValue((TTPtr)newCue));
 		
