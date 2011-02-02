@@ -255,8 +255,8 @@ void hub_build(TTPtr self, SymbolPtr address)
 				}
 				
 				jamoma_patcher_getargs(patcher, &ac, &av);
-				if (ac == 2) {
-					EXTRA->modelAddress = TT(atom_getsym(av+1)->s_name);
+				if (ac) {
+					EXTRA->modelAddress = TT(atom_getsym(av)->s_name);
 					aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
 				}
 				

@@ -257,7 +257,13 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		jamoma_patcher_getargs(patcher, &ac, &av);
 		if ((context == _sym_subpatcher) && (ac >= 2))
 			contextName = atom_getsym(av+1);
-		else if ((context == _sym_bpatcher) && (ac >= 1))
+		
+		// For bpatcher of ViewPatcher, we expect it as the second argument (the first is reserved for the /model/address)
+		else if (contextType == TT(ViewPatcher) && (context == _sym_bpatcher) && (ac >= 2)) 
+			contextName = atom_getsym(av+1);
+		
+		// For bpatcher of ModelPatcher, we expect it as the first argument
+		else if (contextType == TT(ModelPatcher) && (context == _sym_bpatcher) && ac)
 			contextName = atom_getsym(av);
 		
 		// Try to get context name from the patcher scripting name
