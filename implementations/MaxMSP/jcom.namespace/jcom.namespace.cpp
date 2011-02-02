@@ -10,6 +10,7 @@
 #include "TTModularClassWrapperMax.h"
 
 #define data_out 0
+#define none_one_out 1
 
 // Definitions
 void		WrapTTExplorerClass(WrappedClassPtr c);
@@ -93,7 +94,8 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	defer_low((ObjectPtr)x, (method)nmspc_build, address, 0, 0);
 	
 	// Make two outlets
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
+	x->outlets[none_one_out] = outlet_new(x, NULL);
 	x->outlets[data_out] = outlet_new(x, NULL);
 	
 	x->msg = _sym_none;
@@ -190,10 +192,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 		
 		if (argc == 0)
-			outlet_anything(x->outlets[data_out], _sym_none, 0, NULL);
+			outlet_anything(x->outlets[none_one_out], _sym_none, 0, NULL);
 		
 		if (argc == 1)
-			outlet_anything(x->outlets[data_out], _sym_one, 0, NULL);
+			outlet_anything(x->outlets[none_one_out], _sym_one, 0, NULL);
 		
 		return;
 	}
