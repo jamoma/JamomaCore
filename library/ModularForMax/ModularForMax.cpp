@@ -243,7 +243,6 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 			strncpy(to_split, patcherName->s_name, patcherNameLen);
 			to_split[patcherNameLen] = NULL;
 			patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
-			object_post(z, "C-patcherName %s", patcherName->s_name);
 		}
 	}
 	
@@ -1506,7 +1505,6 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 		strncpy(to_split, patcherName->s_name, patcherNameLen);
 		to_split[patcherNameLen] = NULL;
 		patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
-		object_post(z, "A-patcherName %s", patcherName->s_name);
 		*returnedContextType = TT(ViewPatcher);
 	}
 	
@@ -1519,7 +1517,6 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 		strncpy(to_split, patcherName->s_name, patcherNameLen);
 		to_split[patcherNameLen] = NULL;
 		patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
-		object_post(z, "B-patcherName %s", patcherName->s_name);
 		*returnedContextType = TT(ModelPatcher);
 	}
 	
