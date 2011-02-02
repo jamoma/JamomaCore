@@ -360,11 +360,7 @@ void out_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	long index = TTOutputPtr(x->wrappedObject)->mIndex;
 	
-	// filter bogus list symbol for jitter matrix case
-	if (msg == _sym_list)
-		outlet_atoms(x->outlets[index], argc, argv);
-	else
-		outlet_anything(x->outlets[index], msg, argc, argv);
+	outlet_anything(x->outlets[index], msg, argc, argv);
 }
 #endif
 
