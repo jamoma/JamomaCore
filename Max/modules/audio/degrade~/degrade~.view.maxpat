@@ -1,11 +1,11 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 632.0, 198.0, 318.0, 275.0 ],
+		"rect" : [ 117.0, 97.0, 873.0, 468.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 632.0, 198.0, 318.0, 275.0 ],
+		"defrect" : [ 117.0, 97.0, 873.0, 468.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
-		"openinpresentation" : 0,
+		"openinpresentation" : 1,
 		"default_fontsize" : 13.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Helvetica Neue Light",
@@ -27,8 +27,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 45.0, 106.0, 22.0 ],
-					"presentation_rect" : [ 147.0, 241.0, 0.0, 0.0 ],
+					"patching_rect" : [ 372.0, 154.0, 106.0, 22.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 128.0, 31.0, 106.0, 22.0 ],
 					"text" : "sample rate ratio"
 				}
 
@@ -42,7 +43,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 205.0, 45.0, 58.0, 22.0 ],
+					"patching_rect" : [ 394.0, 80.0, 58.0, 22.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 6.0, 33.0, 58.0, 22.0 ],
 					"text" : "bitdepth"
 				}
 
@@ -56,7 +59,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 155.0, 90.0, 119.0, 22.0 ],
+					"patching_rect" : [ 508.0, 78.0, 119.0, 22.0 ],
 					"text" : "jcom.view bitdepth"
 				}
 
@@ -70,7 +73,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 110.0, 115.0, 164.0, 22.0 ],
+					"patching_rect" : [ 555.0, 153.0, 164.0, 22.0 ],
 					"text" : "jcom.view samplerateRatio"
 				}
 
@@ -84,7 +87,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 205.0, 25.0, 50.0, 22.0 ]
+					"patching_rect" : [ 454.0, 79.0, 50.0, 22.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 66.0, 32.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -97,7 +102,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 20.0, 25.0, 50.0, 22.0 ]
+					"patching_rect" : [ 486.0, 153.0, 50.0, 22.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 242.0, 30.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -111,8 +118,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"text" : "waiting for a /model/address",
-					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
+					"presentation" : 1,
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"text" : "waiting for a /model/address"
 				}
 
 			}
@@ -148,8 +156,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 20.0, 195.0, 64.0, 22.0 ],
-					"text" : "jcom.hub"
+					"patching_rect" : [ 20.0, 195.0, 365.0, 22.0 ],
+					"text" : "jcom.hub @description \"A default view for the degrade.model~\""
 				}
 
 			}
