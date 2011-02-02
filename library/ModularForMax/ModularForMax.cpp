@@ -212,7 +212,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	SymbolPtr		contextName = _sym_nothing;
 	TTSymbolPtr		patcherClass;
 	TTString		contextEditionName, contextTypeStr, viewName;
-	TTUInt8			contextTypeLen;
+	TTUInt8			contextTypeLen, patcherNameLen;
 	TTValuePtr		v;
 	
 	// If z is a bpatcher, the patcher is NULL
@@ -234,13 +234,14 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	else {
 		contextTypeStr = contextType->getCString();
 		contextTypeLen = strlen(contextTypeStr.data());
+		patcherNameLen = strlen(patcherName->s_name) - contextTypeLen;
 		
-		// if the patcher name begin by contextTypeStr ("jmod." or "jview.")
-		// Strip jmod. from the beginning of patch name
+		// if the patcher name contains the contextTypeStr : remove it
 		isCtxPatcher = strstr(patcherName->s_name, contextType->getCString()) && contextTypeLen;
 		if (isCtxPatcher) {
-			to_split = (char *)malloc(sizeof(char)*(strlen(patcherName->s_name) - contextTypeLen));
-			strncpy(to_split, patcherName->s_name, strlen(patcherName->s_name) - contextTypeLen);
+			to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
+			strncpy(to_split, patcherName->s_name, patcherNameLen);
+			to_split[patcherNameLen] = NULL;
 			patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
 		}
 	}
@@ -1481,7 +1482,7 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 	SymbolPtr		context, filename;
 	SymbolPtr		patcherName;
 	TTString		addSlash;
-	long			len, pos;
+	long			len, pos, patcherNameLen;
 	char			*last_dot;
 	char			*to_split;
 	
@@ -1499,8 +1500,10 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 	// Strip .view from the patch name
 	isViewPatcher = strstr(patcherName->s_name, ViewPatcher);
 	if (isViewPatcher) {
-		to_split = (char *)malloc(sizeof(char)*(strlen(patcherName->s_name) - strlen(ViewPatcher)));
-		strncpy(to_split, patcherName->s_name, strlen(patcherName->s_name) - strlen(ViewPatcher));
+		patcherNameLen = strlen(patcherName->s_name) - strlen(ViewPatcher);
+		to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
+		strncpy(to_split, patcherName->s_name, patcherNameLen);
+		to_split[patcherNameLen] = NULL;
 		patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
 		*returnedContextType = TT(ViewPatcher);
 	}
@@ -1509,8 +1512,10 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 	// Strip .model from patch name
 	isModPatcher = strstr(patcherName->s_name, ModelPatcher);
 	if (isModPatcher) {
-		to_split = (char *)malloc(sizeof(char)*(strlen(patcherName->s_name) - strlen(ModelPatcher)));
-		strncpy(to_split, patcherName->s_name, strlen(patcherName->s_name) - strlen(ModelPatcher));
+		patcherNameLen = strlen(patcherName->s_name) - strlen(ModelPatcher);
+		to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
+		strncpy(to_split, patcherName->s_name, patcherNameLen);
+		to_split[patcherNameLen] = NULL;
 		patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
 		*returnedContextType = TT(ModelPatcher);
 	}
