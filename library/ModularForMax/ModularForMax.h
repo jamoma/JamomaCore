@@ -15,6 +15,9 @@
 extern TTSymbolPtr			kTTSym_Jamoma;
 extern TTApplicationPtr		JamomaApplication;
 
+#define ModelPatcher ".model" 
+#define ViewPatcher ".view" 
+
 #ifdef __cplusplus
 extern "C" {
 #endif

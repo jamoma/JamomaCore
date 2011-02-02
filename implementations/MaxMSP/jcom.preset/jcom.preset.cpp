@@ -248,7 +248,7 @@ void preset_build(TTPtr self, SymbolPtr address)
 		
 		// TODO : create internal TTTextHandler to edit in Max edition window
 	
-		// load default jmod.model.xml file preset
+		// load default xxx.patcherType.xml file preset
 		defer_low(x, (method)preset_default, 0, 0, 0L);
 	}
 }
@@ -320,7 +320,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherType->getCString(), x->patcherClass->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "%s%s.xml", x->patcherClass->getCString(), x->patcherType->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
@@ -354,9 +354,8 @@ void preset_default(TTPtr self)
 	
 	if (patcherType != kTTSymEmpty && patcherClass != kTTSymEmpty) {
 		
-		TTString xmlfile = patcherType->getCString();
-		xmlfile += ".";
-		xmlfile += patcherClass->getCString();
+		TTString xmlfile = patcherClass->getCString();
+		xmlfile += patcherType->getCString();
 		xmlfile += ".xml";
 		
 		if (locatefile_extended((char*)xmlfile.data(), &outvol, &outtype, &filetype, 1)) {

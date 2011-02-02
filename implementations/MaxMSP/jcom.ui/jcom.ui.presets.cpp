@@ -50,7 +50,7 @@ void ui_preset_dowrite(t_ui *x)
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
 	
-	snprintf(filename, MAX_FILENAME_CHARS, "jmod.%s.xml", x->patcherClass->getCString());		// Default File Name
+	snprintf(filename, MAX_FILENAME_CHARS, "%s%s.xml", x->patcherClass->getCString(), x->patcherType->getCString());	// Default File Name
 	saveas_promptset("Save Preset...");											// Instructional Text in the dialog
 	err = saveasdialog_extended(filename, &path, &outtype, &type, 1);			// Returns 0 if successful
 	if (err)																	// User Cancelled
@@ -113,7 +113,7 @@ void ui_preset_interface(t_ui *x)
 	object_method(p, _sym_vis);													// "vis" happens immediately, "front" is defer_lowed
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 	
-	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)x->modelAddress->getCString()));						// to use in jmod.receive etc.
+	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)x->modelAddress->getCString()));	// the patch needs a [jcom.interfaceArguments.js]
 	
 	object_method(p, _sym_loadbang);
 }

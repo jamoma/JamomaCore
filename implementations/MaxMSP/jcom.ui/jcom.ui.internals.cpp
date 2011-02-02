@@ -28,7 +28,7 @@ void ui_data_create_all(t_ui* obj)
 	obj->uiSubscriber->getAttributeValue(TT("node"), v);
 	v.get(0, (TTPtr*)&uiNode);
 	
-	// make the name of our jview. patcher
+	// make the name of our view patcher
 	parentNode = uiNode->getParent();
 	if (parentNode) {
 		parentStr = "/";
@@ -86,7 +86,7 @@ void ui_data_create_all(t_ui* obj)
 	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
 	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("The size of the jview's UI."));
+	anObject->setAttributeValue(kTTSym_description, TT("The size of the view's UI."));
 	
 	v = TTValue(obj->box.b_patching_rect.width);
 	v.append(obj->box.b_patching_rect.height);
@@ -230,7 +230,7 @@ void ui_data_interface(t_ui *x, TTSymbolPtr name)
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 	
 	joinOSCAddress(x->modelAddress, name, &address);
-	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)address->getCString()));	// to use in jmod.receive etc.
+	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)address->getCString()));		// the patch needs a [jcom.interfaceArguments.js]
 	
 	object_method(p, _sym_loadbang);
 }
@@ -835,8 +835,8 @@ void ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 {
 	t_ui* obj = (t_ui*)self;
 	
-	// TODO : refresh all jcom.view of the jview. patch
-	// 1. Get the TTContainer object of the jview patch
+	// TODO : refresh all jcom.view of the view patch
+	// 1. Get the TTContainer object of the view patch
 	// 2. use his send message : /*.*:refresh
 	
 	// refresh all widgets
@@ -873,8 +873,8 @@ void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	if (argc == 1)
 		object_attr_setvalueof(obj, gensym("ui_is_frozen"), argc, argv);
 	
-	// TODO : Freeze all jcom.view of the jview. patch
-	// 1. Get the TTContainer object of the jview patch
+	// TODO : Freeze all jcom.view of the view patch
+	// 1. Get the TTContainer object of the view patch
 	// 2. use his send message : /*.*:freeze 0/1
 	
 	// freeze all widgets

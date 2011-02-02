@@ -77,7 +77,7 @@ typedef struct _ui{
 	t_jrgba				textcolor;
 	t_jrgba				selectcolor;
 	
-	long				ui_freeze;				// freeze all viewers of the jview (TODO)
+	long				ui_freeze;				// freeze all viewers of the view (TODO)
 	
 	t_jpopupmenu		*menu;					// model menu
 	void				*menu_qelem;			// ...
