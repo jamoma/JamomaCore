@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 632.0, 199.0, 640.0, 480.0 ],
+		"rect" : [ 567.0, 196.0, 640.0, 480.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 632.0, 199.0, 640.0, 480.0 ],
+		"defrect" : [ 567.0, 196.0, 640.0, 480.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -63,14 +63,14 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/jhgcfxgfx", "/degrade.1" ],
+					"args" : [ "/foo", "/help_degrade~" ],
 					"id" : "obj-8",
 					"maxclass" : "bpatcher",
 					"name" : "degrade~.view.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 206.0, 300.0, 70.0 ],
+					"patching_rect" : [ 30.0, 210.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 64.0, 342.0, 300.0, 70.0 ]
 				}
 
@@ -98,8 +98,8 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 411.0, 207.0, 153.0, 19.0 ],
-					"text" : "degrade~.model /degrade.1"
+					"patching_rect" : [ 411.0, 207.0, 179.0, 19.0 ],
+					"text" : "degrade~.model /help_degrade~"
 				}
 
 			}
