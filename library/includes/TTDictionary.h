@@ -10,16 +10,22 @@
 #define __TT_DICTIONARY_H__
 
 #include "TTHash.h"
+#include "TTList.h"
 
 
 /****************************************************************************************************/
 // Class Specification
 
 /**	
+	The dictionary is a data structure that combines the fast lookup of a hashtable,
+	but may be sorted like a linked-list.
+ 
+	The linked list contains the key-value pairs of the hash a linked-list of TTKeyValues.
 */
 class TTFOUNDATION_EXPORT TTDictionary : TTElement {
 private:
 	TTHashPtr	mHashTable;
+	TTListPtr	mList;
 	
 public:
 	TTDictionary();

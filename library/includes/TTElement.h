@@ -167,6 +167,10 @@ typedef void (*TTFunctionWithArgPtr)(TTPtr);
 class TTValue;
 typedef void (*TTFunctionWithBatonAndValue)(TTPtr, TTValue&);
 
+/** Use for finding stuff in a list or a hash or a dictionary. */
+typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found);
+
+
 
 /****************************************************************************************************/
 

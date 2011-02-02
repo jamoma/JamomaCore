@@ -113,6 +113,9 @@ public:
 		@param	comparisonFunction which return true if the first element have to be before the second */
 	void sort(TTBoolean(comparisonFunction)(TTValuePtr, TTValuePtr));
 	
+	/** Find a value in the list by using a passed-in matching function. */
+	TTErr find(TTFunctionMatch aMatchFunction, TTPtr aBaton, TTValue& returnedValue);
+
 	/** Find a value in the list that is equal to a value passed-in. */
 	TTErr findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue);
 	

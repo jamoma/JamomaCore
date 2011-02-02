@@ -31,7 +31,7 @@ typedef hash_map<TTPtrSizedInt,TTValue>		TTHashMap;
 #endif
 typedef TTHashMap::const_iterator			TTHashMapIter;
 
-
+typedef	TTKeyVal*							TTKeyValPtr;
 typedef void (*TTHashIteratorType)(TTPtr, const TTKeyVal&);
 
 

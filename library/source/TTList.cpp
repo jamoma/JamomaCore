@@ -151,6 +151,25 @@ void TTList::sort(TTBoolean(comparisonFunction)(TTValuePtr, TTValuePtr))
 }
 
 
+TTErr TTList::find(TTFunctionMatch aMatchFunction, TTPtr aBaton, TTValue& returnedValue)
+{
+	TTErr		err = kTTErrGeneric;
+	TTBoolean	found = NO;
+	
+	lock();
+	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+		aMatchFunction(**iter, aBaton, found);
+		if (found) {
+			returnedValue = **iter;
+			err = kTTErrNone;
+			break;
+		}
+	}
+	unlock();
+	return err;
+}
+
+
 TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue)
 {
 	TTErr err = kTTErrValueNotFound;

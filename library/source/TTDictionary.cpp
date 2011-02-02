@@ -8,31 +8,40 @@
 
 #include "TTDictionary.h"
 #include "TTSymbolTable.h"
-//#include "TTMutex.h"
 
-//static TTMutex* sListMutex=NULL;
+
+void TTDictionaryFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found)
+{
+	TTKeyValPtr keyval = TTKeyValPtr(TTPtr(valueToCheck));
+	TTSymbolPtr key = TTSymbolPtr(baton);
+	
+	if (TTSymbolPtr(keyval->first) == key)
+		found = YES;
+}
+
 
 /****************************************************************************************************/
 
 TTDictionary::TTDictionary()
 {
-//	if (!sListMutex)
-//		sListMutex = new TTMutex(false);
-//	hashMap = new TTHashMap;
 	mHashTable = new TTHash;
+	mList = new TTList;
 }
 
 
 TTDictionary::~TTDictionary()
 {
-	//clear();
 	delete mHashTable;
+	delete mList;
 }
 
 
 TTErr TTDictionary::setSchema(const TTSymbolPtr schemaName)
 {
-	mHashTable->remove(TT("schema"));
+	TTValue v = new TTKeyVal(TTPtrSizedInt(TT("schema")), TTValue(schemaName));
+
+	remove(schemaName);	
+	mList->append(v);
 	return append(TT("schema"), schemaName);
 }
 
@@ -49,7 +58,10 @@ TTSymbolPtr TTDictionary::getSchema() const
 
 TTErr TTDictionary::setValue(const TTValue& newValue)
 {
-	mHashTable->remove(TT("value"));
+	TTValue v = new TTKeyVal(TTPtrSizedInt(TT("value")), newValue);
+	
+	remove(TT("value"));	
+	mList->append(v);
 	return append(TT("value"), newValue);
 }
 
@@ -62,6 +74,10 @@ TTErr TTDictionary::getValue(TTValue& returnedValue) const
 
 TTErr TTDictionary::append(const TTSymbolPtr key, const TTValue& value)
 {
+	TTValue v = new TTKeyVal(TTPtrSizedInt(key), value);
+	
+	remove(key);
+	mList->append(v);
 	return mHashTable->append(key, value);
 }
 
@@ -74,12 +90,19 @@ TTErr TTDictionary::lookup(const TTSymbolPtr key, TTValue& value) const
 
 TTErr TTDictionary::remove(const TTSymbolPtr key)
 {
+	TTValue	v;
+	TTErr	err;
+	
+	err = mList->find(TTDictionaryFindKeyInList, key, v);
+	if (!err)
+		mList->remove(v);
 	return mHashTable->remove(key);
 }
 
 
 TTErr TTDictionary::clear()
 {
+	mList->clear();
 	return mHashTable->clear();
 }
 
