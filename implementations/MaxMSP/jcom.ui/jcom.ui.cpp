@@ -1106,13 +1106,13 @@ void ui_menu_qfn(t_ui *x)
 	else if (item->sym == gensym("Get Current State as Text"))
 		; // TODO : jcom.node /getstate
 	
-	else if (item->sym == gensym("View Internal Components"))
+	else if (item->sym == gensym("Open Model Internal"))
 		ui_viewer_send(x, TT("model/internals"), kTTValNONE);
 	
-	else if (item->sym == gensym("Open Help Patch"))
+	else if (item->sym == gensym("Open Model Help Patch"))
 		ui_viewer_send(x, TT("model/help"), kTTValNONE);
 	
-	else if (item->sym == gensym("Open Reference Page"))
+	else if (item->sym == gensym("Open Model Reference Page"))
 		ui_viewer_send(x, TT("model/reference"), kTTValNONE);
 	
 	else	// assume the menu item is a preset name
@@ -1165,17 +1165,17 @@ void ui_menu_build(t_ui *x)
 	item = (t_symobject *)symobject_new(gensym("-"));
 	if (x->has_ref) {
 		linklist_append(x->menu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Open Reference Page"));
+		item = (t_symobject *)symobject_new(gensym("Open Model Reference Page"));
 	}
 	
 	if (x->has_help) {
 		linklist_append(x->menu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Open Help Patch"));
+		item = (t_symobject *)symobject_new(gensym("Open Model Help Patch"));
 	}
 	
 	if (x->has_internals) {
 		linklist_append(x->menu_items, item);
-		item = (t_symobject *)symobject_new(gensym("View Internal Components"));
+		item = (t_symobject *)symobject_new(gensym("Open Model Internal"));
 	}
 	
 	linklist_append(x->menu_items, item);	
@@ -1288,7 +1288,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
-	criteria.append(kTTSymEmpty);
+	criteria.append(kTTSym_none);
 	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
@@ -1310,7 +1310,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
-	criteria.append(kTTSymEmpty);
+	criteria.append(kTTSym_none);
 	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
@@ -1333,7 +1333,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	criteria = TTValue(TT("Data"));
 	criteria.append(kTTSym_tag);
-	criteria.append(kTTSymEmpty);
+	criteria.append(kTTSym_none);
 	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
 	
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
