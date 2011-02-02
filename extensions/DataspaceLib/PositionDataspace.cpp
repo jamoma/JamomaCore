@@ -26,8 +26,8 @@ Cartesian3DUnit::~Cartesian3DUnit(){;}
 
 void Cartesian3DUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = input;
 	output.setSize(3);
+	output = input;
 }
 
 
@@ -56,8 +56,9 @@ Cartesian2DUnit::~Cartesian2DUnit(){;}
 
 void Cartesian2DUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
+	output.setSize(3);
 	output = input;
-	output.setSize(2);
+	output.set(2, 0);
 }
 
 void Cartesian2DUnit::convertFromNeutral(const TTValue& input, TTValue& output)
@@ -151,9 +152,10 @@ void PolarUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	input.get(1, dd);
 	aa *= kDegreesToRadians;
 
-    output.setSize(2);
-	output.set(0, sin(aa) * dd); //x
-	output.set(1, cos(aa) * dd); //y
+    output.setSize(3);
+	output.set(0, sin(aa) * dd);	// x
+	output.set(1, cos(aa) * dd);	// y
+	output.set(2, 0);				// z
 }
 
 
