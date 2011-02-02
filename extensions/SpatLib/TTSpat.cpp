@@ -63,7 +63,12 @@ TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 
 TTErr TTSpat::getSpatFunctions(TTValue& listOfSpatFunctionsToReturn)
 {
-	return TTGetRegisteredClassNamesForTags(listOfSpatFunctionsToReturn, TT("spatialization"));
+	TTValue v;
+	
+	v.setSize(2);
+	v.set(0, TT("spatialization"));
+	v.set(1, TT("processing")); // more efficent than append
+	return TTGetRegisteredClassNamesForTags(listOfSpatFunctionsToReturn, v);
 }
 
 

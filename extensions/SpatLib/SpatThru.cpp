@@ -10,7 +10,7 @@
 
 #define thisTTClass			SpatThru
 #define thisTTClassName		"spat.thru"
-#define thisTTClassTags		"audio, spatialization, bypass"
+#define thisTTClassTags		"audio, spatialization, DSP, bypass, processing"
 
 
 TT_AUDIO_CONSTRUCTOR

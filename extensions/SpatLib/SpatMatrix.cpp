@@ -10,7 +10,7 @@
 
 #define thisTTClass			SpatMatrix
 #define thisTTClassName		"spat.matrix"
-#define thisTTClassTags		"audio, spatialization, bypass"
+#define thisTTClassTags		"audio, spatialization, bypass, processing"
 
 
 TT_AUDIO_CONSTRUCTOR,
