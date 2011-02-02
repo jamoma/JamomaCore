@@ -204,13 +204,14 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
-	bool			isCtxPatcher;
+	TTBoolean		isCtxPatcher;
+	char			*to_split;
 	ObjectPtr		box, patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context;
 	SymbolPtr		patcherName;
 	SymbolPtr		contextName = _sym_nothing;
 	TTSymbolPtr		patcherClass;
-	TTString		contextEditionName, contextTypeStr, jviewName;
+	TTString		contextEditionName, contextTypeStr, viewName;
 	TTUInt8			contextTypeLen;
 	TTValuePtr		v;
 	
@@ -227,19 +228,21 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	if (contextType == kTTSymEmpty && context != gensym("toplevel")) {
 		jamoma_patcher_type_and_class(patcher, &contextType, &patcherClass);
 		contextTypeLen = strlen(contextType->getCString());
-		isCtxPatcher = strncmp(patcherName->s_name, contextType->getCString(), contextTypeLen) == 0 && contextTypeLen;
+		isCtxPatcher = strstr(patcherName->s_name, contextType->getCString()) && contextTypeLen;
 	}
 	// test if the context type is good at this level
 	else {
 		contextTypeStr = contextType->getCString();
-		contextTypeStr += ".";
 		contextTypeLen = strlen(contextTypeStr.data());
 		
 		// if the patcher name begin by contextTypeStr ("jmod." or "jview.")
 		// Strip jmod. from the beginning of patch name
-		isCtxPatcher = strncmp(patcherName->s_name, contextTypeStr.data(), contextTypeLen) == 0 && contextTypeLen;
-		if (isCtxPatcher)
-			patcherName = gensym(patcherName->s_name + contextTypeLen);						// TODO : replace each "." by the Uppercase of the letter after the "."
+		isCtxPatcher = strstr(patcherName->s_name, contextType->getCString()) && contextTypeLen;
+		if (isCtxPatcher) {
+			to_split = (char *)malloc(sizeof(char)*(strlen(patcherName->s_name) - contextTypeLen));
+			strncpy(to_split, patcherName->s_name, strlen(patcherName->s_name) - contextTypeLen);
+			patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
+		}
 	}
 	
 	// Is the patcher embedded in a contextType patcher ?
@@ -265,20 +268,19 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		}
 		
 		// If the contextName is still nothing
-		// get it from the patcher name if it start by contextType
+		// get it from the patcher name if it contains the contextType
 		if (contextName == _sym_nothing) {
 			
 			// for jview patcher :
-			// wrap the patcherName with _ _ in order to create 
+			// add "(view") to the patcherName in order to create 
 			// a different address than default model name.
-			if (contextType == TT("jview")) {
-				jviewName = patcherName->s_name;
-				jviewName += "(view)";
-				contextName = gensym(jviewName.data());
+			if (contextType == TT(ViewPatcher)) {
+				viewName = patcherName->s_name;
+				viewName += "(view)";
+				contextName = gensym(viewName.data());
 			}
 			else
 				contextName = patcherName;
-			
 		}
 		
 		// add the < contextName, patcher > to the contextList
@@ -1179,150 +1181,6 @@ TTErr jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	return kTTErrNone;
 }
 
-/*
-void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext)
-{
-	AtomCount		ac = 0;
-	AtomPtr			av = NULL;
-	bool			isJviewPatcher;
-	ObjectPtr		box, patcher = jamoma_object_getpatcher(z);
-	SymbolPtr		context;
-	SymbolPtr		patcherName, jmodPatcherName, arg;
-	SymbolPtr		address = _sym_nothing;
-	TTString		addJmod;
-	long			result = 0;
-	
-	// If z is a bpatcher, the patcher is NULL
-	if (!patcher){
-		patcher = object_attr_getobj(z, _sym_parentpatcher);
-	}
-	
-	context = jamoma_patcher_getcontext(patcher);
-	patcherName = object_attr_getsym(patcher, _sym_name);
-	
-	// if the patcher name begin by "jview."
-	// Strip jview. from the beginning of patch name
-	isJviewPatcher = strncmp(patcherName->s_name, "jview.", 6) == 0;
-	if (isJviewPatcher)
-		patcherName = gensym(patcherName->s_name + 6);						// TODO : replace each "." by the Uppercase of the letter after the "."
-	
-	// Is the patcher embedded in a jmod.patcher ?
-	// The topLevel patcher name have not to be include in the address
-	if (isJviewPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher)) ) {
-		
-		// Try to get context name from the patcher arguments
-		jamoma_patcher_getargs(patcher, &ac, &av);
-		if ((context == _sym_subpatcher) && (ac >= 2))
-			address = atom_getsym(av+1);
-		else if ((context == _sym_bpatcher) && (ac >= 1))
-			address = atom_getsym(av);
-		
-		// Try to get context name from the patcher scripting name
-		else {
-			box = object_attr_getobj(patcher, jps_box);
-			address = object_attr_getsym(box, _sym_varname);
-			if (!address)
-				address = _sym_nothing;
-		}
-		
-		// If the contextName is still nothing
-		if (address == _sym_nothing) {
-			
-			// find a jmod.patcherName patcher below
-			addJmod = "jmod.";
-			addJmod += patcherName->s_name;
-			addJmod += ".maxpat";
-			jmodPatcherName = gensym((char*)addJmod.data());
-			arg = jmodPatcherName;
-			
-			object_method(patcher, gensym("iterate"), jamoma_view_find_jmod, (void *)&arg, PI_WANTBOX | PI_DEEP, &result);
-			// during iteration jmodPatcherName is replaced by the name of the model below
-			if (arg != jmodPatcherName)
-				address = arg;
-			else
-				address = patcherName;
-		}
-		
-		// return the address and patcher
-		*modelAddress = TT(address->s_name);
-		*aContext = (TTPtr)patcher;
-
-		if (av)
-			sysmem_freeptr(av);
-	}
-	// case where the object is in a subpatcher
-	else if (!isJviewPatcher && (context == _sym_subpatcher) ) {
-		// ignore this level
-		jamoma_viewer_get_model_address(patcher, modelAddress, aContext);
-	}
-	// case where the user is editing the module 
-	// or because there are jcom to register in the toplevel patcher
-	else if (context == gensym("toplevel")) {
-		
-		// return / and patcher
-		*modelAddress = S_SEPARATOR;
-		*aContext = (TTPtr)patcher;
-	}
-}
-
-long jamoma_view_find_jmod(SymbolPtr *name, ObjectPtr z)
-{
-	SymbolPtr filename = object_attr_getsym(z, _sym_filename);
-	ObjectPtr context = jbox_get_object(z);
-	SymbolPtr cls = object_classname(context);
-	
-	if (filename && cls == _sym_jpatcher)
-		if (filename == *name) {
-			
-			// look for the first node with the same context
-			TTList whereToSearch;
-			TTList returnedTTNodes;
-			TTNodePtr root, firstReturnedTTNode;
-			TTString strName;
-			
-			root = TTModularDirectory->getRoot();
-			whereToSearch.append(new TTValue((TTPtr)root));
-			
-			TTModularDirectory->LookFor(&whereToSearch, &jamoma_view_find_context, (TTPtr)context, returnedTTNodes, &firstReturnedTTNode);
-			
-			if (firstReturnedTTNode) {
-				strName = "/";
-				strName += firstReturnedTTNode->getName()->getCString();
-				if (!(firstReturnedTTNode->getInstance() == NO_INSTANCE)) {
-					strName += ".";
-					strName += firstReturnedTTNode->getInstance()->getCString();
-				}
-				
-				*name = gensym((char*)strName.data());
-				
-				return 1; // stop iteration
-			}
-		}
-	
-	return 0;
-}
-
-TTBoolean jamoma_view_find_context(TTNodePtr n, TTPtr args)
-{
-	TTValue		v;
-	TTPtr		context;
-	TTPtr		c;
-	TTObjectPtr o;
-	
-	context = (TTPtr)args;
-	
-	o = n->getObject();
-	c = n->getContext();
-	
-	if (o && c)
-		// Keep only TTContainer with the same context
-		return (o->getName() == TT("Container") && c == context);
-	else
-		return NO;
-}
- 
-*/
-
 // Method to deal with TTExplorer
 ///////////////////////////////////////////////////////////////////////
 
@@ -1571,7 +1429,7 @@ TTNodePtr jamoma_context_get_node(ObjectPtr x, TTSymbolPtr contextType)
 	jamoma_subscriber_get_context_list_method(x, contextType, &aContextList, &nbLevel);
 	
 	// Get the last context patcher 
-	// (the first "jmod" or "jview" patcher above our object)
+	// (the first Model or View patcher above our object)
 	if (aContextList.isEmpty())
 		return JamomaDirectory->getRoot();
 	
@@ -1618,7 +1476,7 @@ TTNodePtr jamoma_context_get_node(ObjectPtr x, TTSymbolPtr contextType)
 /** Get the context type and class from a jcom.external looking at the patcher */
 void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass)
 {
-	bool			isJviewPatcher, isJmodPatcher, isJcomPatcher;
+	char			*isViewPatcher, *isModPatcher;
 	ObjectPtr		patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context, filename;
 	SymbolPtr		patcherName;
@@ -1637,35 +1495,29 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 	
 	*returnedContextType = kTTSymEmpty;
 	
-	// if the patcher name begin by "jview."
-	// Strip jview. from the beginning of patch name
-	isJviewPatcher = strncmp(patcherName->s_name, "jview.", 6) == 0;
-	if (isJviewPatcher) {
-		patcherName = gensym(patcherName->s_name + 6);						// TODO : replace each "." by the Uppercase of the letter after the "."
-		*returnedContextType = TT("jview");
+	// if the patcher name have ".view" inside
+	// Strip .view from the patch name
+	isViewPatcher = strstr(patcherName->s_name, ViewPatcher);
+	if (isViewPatcher) {
+		to_split = (char *)malloc(sizeof(char)*(strlen(patcherName->s_name) - strlen(ViewPatcher)));
+		strncpy(to_split, patcherName->s_name, strlen(patcherName->s_name) - strlen(ViewPatcher));
+		patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
+		*returnedContextType = TT(ViewPatcher);
 	}
 	
-	// if the patcher name begin by "jmod."
-	// Strip jmod. from the beginning of patch name
-	isJmodPatcher = strncmp(patcherName->s_name, "jmod.", 5) == 0;
-	if (isJmodPatcher) {
-		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
-		*returnedContextType = TT("jmod");
+	// if the patcher name have ".model" inside
+	// Strip .model from patch name
+	isModPatcher = strstr(patcherName->s_name, ModelPatcher);
+	if (isModPatcher) {
+		to_split = (char *)malloc(sizeof(char)*(strlen(patcherName->s_name) - strlen(ModelPatcher)));
+		strncpy(to_split, patcherName->s_name, strlen(patcherName->s_name) - strlen(ModelPatcher));
+		patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
+		*returnedContextType = TT(ModelPatcher);
 	}
-	
-	// if the patcher name begin by "jcom."
-	// Strip jmod. from the beginning of patch name
-	/*
-	isJcomPatcher = strncmp(patcherName->s_name, "jcom.", 5) == 0;
-	if (isJcomPatcher) {
-		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
-		*returnedContextType = TT("jcom");
-	}
-	 */
 	
 	// Is the patcher embedded in a jmod.patcher ?
 	// The topLevel patcher name have not to be include in the address
-	if ((isJviewPatcher || isJmodPatcher || isJcomPatcher) && ((context == _sym_bpatcher) || (context == _sym_subpatcher)))
+	if ((isViewPatcher || isModPatcher) && ((context == _sym_bpatcher) || (context == _sym_subpatcher)))
 		// Get the filename to extract model class name
 		filename = object_attr_getsym(patcher, _sym_filename);
 	
@@ -1685,29 +1537,29 @@ void jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType
 	}
 	
 	// Get the filename to extract model class name
-	if (isJmodPatcher) {
-		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name + 5)+1));
-		strcpy(to_split, filename->s_name + 5);
+	if (isModPatcher) {
+		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name)+1));
+		strcpy(to_split, filename->s_name);
+		
+		// find the dot before ".model"
+		len = strlen(to_split);
+		last_dot = strrchr(to_split,'.');
+		pos = (long)last_dot - (long)to_split - strlen(ModelPatcher);
 	}
 	
-	else if (isJviewPatcher) {
-		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name + 6)+1));
-		strcpy(to_split,filename->s_name + 6);
-	}
-	else if (isJcomPatcher) {
-		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name + 5)+1));
-		strcpy(to_split, filename->s_name + 5);
+	else if (isViewPatcher) {
+		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name)+1));
+		strcpy(to_split,filename->s_name);
+		
+		// find the dot before ".view"
+		len = strlen(to_split);
+		last_dot = strrchr(to_split,'.');
+		pos = (long)last_dot - (long)to_split - strlen(ViewPatcher);
 	}
 	else {
 		*returnedClass = kTTSymEmpty;
 		return;
 	}
-		
-	// find the last '.' (.maxpat)
-	// if exists, split the TTNode part in a name part and an instance part
-	len = strlen(to_split);
-	last_dot = strrchr(to_split,'.');
-	pos = (long)last_dot - (long)to_split;
 	
 	if (last_dot > 0) {
 		to_split[pos] = NULL;	// split to keep only the model part

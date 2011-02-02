@@ -164,7 +164,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 		// special case for jcom.node at the root of the model
 		if ((address == gensym("/") || address == _sym_nothing)) {
 			
-			if (x->patcherType == TT("jmod")) {
+			if (x->patcherType == TT(ModelPatcher)) {
 				classAdrs = TT("/model/class");
 				helpAdrs =  TT("/model/help");
 				refAdrs = TT("/model/reference");
@@ -172,7 +172,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 				documentationAdrs = TT("/model/documentation/generate");
 				muteAdrs = TT("/model/mute");
 			}
-			else if (x->patcherType == TT("jview")) {
+			else if (x->patcherType == TT(ViewPatcher)) {
 				classAdrs = TT("/view/class");
 				helpAdrs =  TT("/view/help");
 				refAdrs = TT("/view/reference");
@@ -227,9 +227,9 @@ void hub_build(TTPtr self, SymbolPtr address)
 			aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
 			
 			// In jmod *and* jview patcher : Add /model/address data
-			if (x->patcherType == TT("jmod")) // as return
+			if (x->patcherType == TT(ModelPatcher)) // as return
 				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
-			if (x->patcherType == TT("jview")) // as parameter
+			if (x->patcherType == TT(ViewPatcher)) // as parameter
 				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
@@ -237,13 +237,13 @@ void hub_build(TTPtr self, SymbolPtr address)
 			aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
 			
 			// In jmod patcher : set /modeladdress with his address
-			if (x->patcherType == TT("jmod"))
+			if (x->patcherType == TT(ModelPatcher))
 				aData->setAttributeValue(kTTSym_value, nodeAddress);
 			
 			// In jview patcher :
 			// if exists, the second argument of the patcher is the /model/address value
 			// else observe the entire namespace to find a model of our class
-			if (x->patcherType == TT("jview")) {
+			if (x->patcherType == TT(ViewPatcher)) {
 				
 				ac = 0;
 				av = NULL;
@@ -398,7 +398,7 @@ void hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default HTML file name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.html", x->patcherType->getCString(), x->patcherClass->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "%s%s.html", x->patcherClass->getCString(), x->patcherType->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
@@ -444,7 +444,7 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTErr		err;
 	
 	// In jview patcher only
-	if (x->patcherType == TT("jview")) {
+	if (x->patcherType == TT(ViewPatcher)) {
 		
 		if (atom_gettype(argv) == A_SYM) {
 			EXTRA->modelAddress = TT(atom_getsym(argv)->s_name);
@@ -466,10 +466,10 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 						object_warn((ObjectPtr)x, "/model/address refers to a \"%s\" model instead of a \"%s\" model", patcherClass->getCString(), x->patcherClass->getCString());
 				}
 				else
-					object_warn((ObjectPtr)x, "/model/address doesn't refer to a jmod patcher");
+					object_warn((ObjectPtr)x, "/model/address doesn't refer to a %s patcher", ModelPatcher);
 			}
 			else
-				object_warn((ObjectPtr)x, "/model/address doesn't refer to a jmod patcher");
+				object_warn((ObjectPtr)x, "/model/address doesn't refer to a %s patcher", ModelPatcher);
 		}
 	}
 }
