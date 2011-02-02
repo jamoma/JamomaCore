@@ -27,7 +27,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 350.0, 140.0, 51.0, 19.0 ],
+					"patching_rect" : [ 411.0, 177.0, 51.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -41,7 +41,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 350.0, 110.0, 35.0, 17.0 ],
+					"patching_rect" : [ 411.0, 147.0, 35.0, 17.0 ],
 					"text" : "open"
 				}
 
@@ -98,7 +98,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 350.0, 170.0, 153.0, 19.0 ],
+					"patching_rect" : [ 411.0, 207.0, 153.0, 19.0 ],
 					"text" : "degrade~.model /degrade.1"
 				}
 
