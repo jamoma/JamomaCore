@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 18.0, 317.0, 584.0, 483.0 ],
+		"rect" : [ 30.0, 206.0, 584.0, 483.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 18.0, 317.0, 584.0, 483.0 ],
+		"defrect" : [ 30.0, 206.0, 584.0, 483.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -20,13 +20,26 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Helvetica Neue Light",
+					"fontsize" : 13.0,
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 90.0, 420.0, 93.0, 22.0 ],
+					"text" : "jcom.out~ 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"comment" : "",
 					"id" : "obj-16",
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 75.0, 25.0, 25.0 ],
-					"presentation_rect" : [ 24.0, 81.0, 0.0, 0.0 ]
+					"patching_rect" : [ 25.0, 75.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -38,8 +51,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 25.0, 15.0, 25.0, 25.0 ],
-					"presentation_rect" : [ 24.0, 9.0, 0.0, 0.0 ]
+					"patching_rect" : [ 25.0, 15.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -50,7 +62,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 165.0, 425.0, 25.0, 25.0 ]
+					"patching_rect" : [ 125.0, 450.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -73,7 +85,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 90.0, 425.0, 25.0, 25.0 ]
+					"patching_rect" : [ 90.0, 450.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -99,7 +111,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 165.0, 395.0, 66.0, 22.0 ],
-					"presentation_rect" : [ 336.0, 385.0, 0.0, 0.0 ],
 					"text" : "degrade~"
 				}
 
@@ -111,8 +122,8 @@
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
-					"numoutlets" : 4,
-					"outlettype" : [ "signal", "signal", "", "" ],
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 90.0, 325.0, 71.0, 22.0 ],
 					"text" : "jcom.in~ 2"
 				}
@@ -183,7 +194,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 105.0, 105.0, 228.0, 117.0 ],
+					"patching_rect" : [ 105.0, 105.0, 231.0, 117.0 ],
 					"text" : "jcom.parameter samplerateRatio @type decimal @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\""
 				}
 
@@ -214,7 +225,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
+					"destination" : [ "obj-4", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-10", 0 ]
@@ -268,6 +279,24 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-10", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -304,7 +333,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-8", 0 ]
@@ -315,7 +344,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 116.833336, 358.0, 174.5, 358.0 ],
+					"midpoints" : [ 125.5, 358.0, 174.5, 358.0 ],
 					"source" : [ "obj-9", 1 ]
 				}
 
