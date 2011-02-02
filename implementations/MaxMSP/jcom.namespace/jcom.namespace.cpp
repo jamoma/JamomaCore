@@ -10,6 +10,7 @@
 #include "TTModularClassWrapperMax.h"
 
 #define data_out 0
+#define none_one_out 1
 
 // Definitions
 void		WrapTTExplorerClass(WrappedClassPtr c);
@@ -67,7 +68,7 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 	
 	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	msg);	// use msg member to store format
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	nmspc_get_format,	nmspc_set_format);
-	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"none umenu jit.cellblock");
+	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"none umenu umenu_prefix jit.cellblock");
 
 	
 }
@@ -93,7 +94,8 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	defer_low((ObjectPtr)x, (method)nmspc_build, address, 0, 0);
 	
 	// Make two outlets
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
+	x->outlets[none_one_out] = outlet_new(x, NULL);
 	x->outlets[data_out] = outlet_new(x, NULL);
 	
 	x->msg = _sym_none;
@@ -138,41 +140,44 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	Atom		a[1];
 	
 	// UMENU FORMAT
-	if (x->msg == gensym("umenu")) {
+	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
 		
 		// clear umenu
 		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
 		
 		// prepare umenu prefix to be concatenated
-		atom_setlong(a, 0);
-		outlet_anything(x->outlets[data_out], gensym("prefix_mode"), 1, a);
-		
-		// prepare umenu prefix 
-		// (except in case the explorer look for Instances)
-		x->wrappedObject->getAttributeValue(TT("lookfor"), v);
-		v.get(0, &lookfor);
-		
-		x->wrappedObject->getAttributeValue(kTTSym_address, v);
-		v.get(0, &address);
-		
-		if(address == S_SEPARATOR)
-			atom_setsym(a, gensym((char*)address->getCString()));
-		else{
-			TTString prefix = address->getCString();
+		if (x->msg == gensym("umenu_prefix")) {
 			
-			if(lookfor == kTTSym_children)
-				prefix += "/";
-			if(lookfor == kTTSym_instances)
-				prefix += ".";
-			if(lookfor == kTTSym_attributes)
-				prefix += ":";
-			else
-				prefix += "";
+			atom_setlong(a, 0);
+			outlet_anything(x->outlets[data_out], gensym("prefix_mode"), 1, a);
 			
-			atom_setsym(a, gensym((char*)prefix.data()));
+			// prepare umenu prefix 
+			// (except in case the explorer look for Instances)
+			x->wrappedObject->getAttributeValue(TT("lookfor"), v);
+			v.get(0, &lookfor);
+			
+			x->wrappedObject->getAttributeValue(kTTSym_address, v);
+			v.get(0, &address);
+			
+			if(address == S_SEPARATOR)
+				atom_setsym(a, gensym((char*)address->getCString()));
+			else{
+				TTString prefix = address->getCString();
+				
+				if(lookfor == kTTSym_children)
+					prefix += "/";
+				if(lookfor == kTTSym_instances)
+					prefix += ".";
+				if(lookfor == kTTSym_attributes)
+					prefix += ":";
+				else
+					prefix += "";
+				
+				atom_setsym(a, gensym((char*)prefix.data()));
+			}
+			
+			outlet_anything(x->outlets[data_out], gensym("prefix"), 1, a);
 		}
-		
-		outlet_anything(x->outlets[data_out], gensym("prefix"), 1, a);
 		
 		// fill umenu
 		for (long i=0; i<argc; i++) {
@@ -190,10 +195,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 		
 		if (argc == 0)
-			outlet_anything(x->outlets[data_out], _sym_none, 0, NULL);
+			outlet_anything(x->outlets[none_one_out], _sym_none, 0, NULL);
 		
 		if (argc == 1)
-			outlet_anything(x->outlets[data_out], _sym_one, 0, NULL);
+			outlet_anything(x->outlets[none_one_out], _sym_one, 0, NULL);
 		
 		return;
 	}

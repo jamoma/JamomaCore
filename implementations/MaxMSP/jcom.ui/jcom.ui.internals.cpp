@@ -690,7 +690,7 @@ void ui_view_panel_attach(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 				obj->has_panel = true;
 				
 				// view/panel
-				ui_data_create(obj, &aData, gensym("return_view_panel"), kTTSym_message, TT("view/panel"));
+				ui_data_create(obj, &aData, gensym("return_view_panel"), kTTSym_message, TT("panel"));
 				
 				// Set attribute of the data
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
