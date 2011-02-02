@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 30.0, 206.0, 584.0, 483.0 ],
+		"rect" : [ 30.0, 206.0, 546.0, 553.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 30.0, 206.0, 584.0, 483.0 ],
+		"defrect" : [ 30.0, 206.0, 546.0, 553.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -22,12 +22,26 @@
 				"box" : 				{
 					"fontname" : "Helvetica Neue Light",
 					"fontsize" : 13.0,
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 40.0, 70.0, 78.0, 22.0 ],
+					"text" : "jcom.preset"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Helvetica Neue Light",
+					"fontsize" : 13.0,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 90.0, 420.0, 93.0, 22.0 ],
+					"patching_rect" : [ 70.0, 460.0, 93.0, 22.0 ],
 					"text" : "jcom.out~ 2"
 				}
 
@@ -39,7 +53,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 75.0, 25.0, 25.0 ]
+					"patching_rect" : [ 25.0, 100.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -62,7 +76,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 125.0, 450.0, 25.0, 25.0 ]
+					"patching_rect" : [ 105.0, 490.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -74,7 +88,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 120.0, 290.0, 25.0, 25.0 ]
+					"patching_rect" : [ 100.0, 330.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -85,7 +99,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 90.0, 450.0, 25.0, 25.0 ]
+					"patching_rect" : [ 70.0, 490.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -97,7 +111,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 90.0, 290.0, 25.0, 25.0 ]
+					"patching_rect" : [ 70.0, 330.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -110,7 +124,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 165.0, 395.0, 66.0, 22.0 ],
+					"patching_rect" : [ 145.0, 435.0, 66.0, 22.0 ],
 					"text" : "degrade~"
 				}
 
@@ -124,7 +138,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 90.0, 325.0, 71.0, 22.0 ],
+					"patching_rect" : [ 70.0, 365.0, 71.0, 22.0 ],
 					"text" : "jcom.in~ 2"
 				}
 
@@ -138,7 +152,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 90.0, 395.0, 66.0, 22.0 ],
+					"patching_rect" : [ 70.0, 435.0, 66.0, 22.0 ],
 					"text" : "degrade~"
 				}
 
@@ -152,7 +166,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 425.0, 275.0, 50.0, 22.0 ]
+					"patching_rect" : [ 405.0, 315.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -165,7 +179,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 210.0, 230.0, 50.0, 22.0 ]
+					"patching_rect" : [ 190.0, 270.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -179,7 +193,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 345.0, 105.0, 179.0, 164.0 ],
+					"patching_rect" : [ 325.0, 145.0, 179.0, 164.0 ],
 					"text" : "jcom.parameter bitdepth @type integer @range/bounds 1 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"The number of bits that will be retained in each sample - use this for bit crunching effects\""
 				}
 
@@ -194,7 +208,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 105.0, 105.0, 231.0, 117.0 ],
+					"patching_rect" : [ 85.0, 145.0, 231.0, 117.0 ],
 					"text" : "jcom.parameter samplerateRatio @type decimal @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\""
 				}
 
@@ -245,7 +259,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-9", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 129.5, 319.5, 151.5, 319.5 ],
+					"midpoints" : [ 109.5, 359.5, 131.5, 359.5 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -344,7 +358,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 125.5, 358.0, 174.5, 358.0 ],
+					"midpoints" : [ 105.5, 398.0, 154.5, 398.0 ],
 					"source" : [ "obj-9", 1 ]
 				}
 
