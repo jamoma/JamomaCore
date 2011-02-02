@@ -124,27 +124,57 @@ TTErr TTEnvironment::getAllClassNames(TTValue& returnedClassNames)
 
 
 TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags)
-{
-	// TODO: right now we only look for the first tag, we should look for each and then do a union on the results.
-	// Well, that's not what's really happening, but the point is that this really only works if we are searching for one tag.
-	
+{	
 	TTUInt16	size = searchTags.getSize();
 	TTSymbolPtr	tag;
 	TTValue		tagObjects;
 	TTErr		err = kTTErrGeneric;
 	TTList*		classNamesForTag;
 	
-	for (TTUInt16 i=0; i<size; i++) {
-		searchTags.get(i, &tag);
+	classNames.clear();
+	
+	searchTags.get(0, &tag);
+	err = tags->lookup(tag, tagObjects);
+	if (err)
+		return err;
+	
+	classNamesForTag = (TTList*)(TTPtr(tagObjects));
+	
+	for (TTUInt16 i=0; i<classNamesForTag->getSize(); i++) {
+		TTValue classNameValue; 
+		TTSymbolPtr className;
+		TTValue tags;
+		TTValue   aClassValue;
+		TTClassPtr aClass;
+		TTUInt16	success = 0;
 		
-		err = tags->lookup(tag, tagObjects);
-		if (!err) {
-			classNamesForTag = (TTList*)(TTPtr(tagObjects));
-			classNamesForTag->assignToValue(classNames);
+		classNamesForTag->getIndex(i, classNameValue); 
+		classNameValue.get(0, &className);
+		
+		classes->lookup(className, aClassValue);
+		aClass = TTClassPtr(TTPtr(aClassValue));
+		tags = aClass->tags;
+		
+		for (TTUInt16 j=0; j<tags.getSize(); j++){
+			TTSymbolPtr someTag;
+			
+			tags.get(j, &someTag);
+			
+			for (TTUInt16 k=1; k<size; k++){
+				searchTags.get(k, &tag);
+				if (tag==someTag) {
+					success += 1;
+					break;
+				}
+			}
+				
+			if (success==size-1)
+				break;
 		}
+		if (success==size-1) 			
+			classNames.append(className);
 	}
-
-	return err;
+	return kTTErrNone;
 }
 
 
