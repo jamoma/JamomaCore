@@ -16,6 +16,8 @@
 #include "PowerFunction.h"
 #include "TanhFunction.h"
 
+#include "Function.h"
+
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
@@ -28,6 +30,8 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	LowpassFunction::registerClass();
 	PowerFunction::registerClass();
 	TanhFunction::registerClass();
+	
+	TTFunction::registerClass();
 	
 	return kTTErrNone;
 }
