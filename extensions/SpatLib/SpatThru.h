@@ -15,8 +15,15 @@
 /**	This implements a window function which basically does nothing: 
 	y = 1.0
  */
-class SpatThru : TTAudioObject {
+class SpatThru : public TTAudioObject {
 	TTCLASS_SETUP(SpatThru)
+	
+	TTUInt16 = mSourceCount;
+	TTUInt16 = mDestinationCount;
+	
+	// Attributes
+	TTErr setSourceCount(const TTValue& value);
+	TTErr setDestinationCount(const TTValue& value);	
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

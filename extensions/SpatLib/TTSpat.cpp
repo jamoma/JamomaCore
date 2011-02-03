@@ -29,10 +29,6 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue(TT("spatFunction"), TT("spat.thru"));
 	setAttributeValue(TT("sourceCount"), 2);
 	setAttributeValue(TT("destinationCount"), 8);
-	v.set(0, 0);
-	v.set(1, 0);
-	v.set(2, 0);
-	setAttributeValue(TT("position"), v);
 }
 
 

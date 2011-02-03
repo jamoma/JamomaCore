@@ -15,6 +15,14 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
+	addAttributeWithSetter(SourceCount,			kTypeInt16);
+	//addAttributeProperty(SourceCount,			range,			TTValue(1, 1024));
+	//addAttributeProperty(SourceCount,			rangeChecking,	TT("low"));
+	
+	addAttributeWithSetter(DestinationCount,			kTypeInt16);
+	//addAttributeProperty(DestinationCount,			range,			TTValue(1, 1024));
+	//addAttributeProperty(DestinationCount,			rangeChecking,	TT("low"));
+	
 	setProcessMethod(processAudio);
 }
 
@@ -38,6 +46,18 @@ TTErr SpatThru::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	
 	TTUInt16		srcChannelCount = src.getNumChannelsAsInt();
 	TTUInt16		dstChannelCount = dst.getNumChannelsAsInt();
+	
+	if (srcChannelCount != mSourceCount) {
+		mSourceCount(srcChannelCount);
+	}
+	if (dstChannelCount != mDestinationCount) {
+		TTValue v = Destination;
+		
+		out.setMaxNumChannels(v);
+		out.setNumChannels(v);
+		mDestinationCount = mDestinationCount;
+	}
+	
 	
 	for (channel=0; channel<numchannels; channel++) {
 		srcSample = src.mSampleVectors[channel];
