@@ -2,8 +2,8 @@
 // Copyright © 2009, Timothy Place
 // License: New BSD License -- http://creativecommons.org/licenses/BSD/
 
-#include "TTAudioGraphAPI.h"
 #include "ruby.h"
+#include "TTAudioGraphAPI.h"
 
 
 //
