@@ -11,7 +11,7 @@
 
 #define thisTTClass			TTTrajectory
 #define thisTTClassName		"trajectory"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassTags		"trajectory"
 
 
 TT_AUDIO_CONSTRUCTOR,

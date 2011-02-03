@@ -64,7 +64,11 @@ public:
 	
 	TTErr getTypes(TTValue& listOfTrajectoryTypesToReturn)
 	{
-		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, TT("trajectory"));
+		TTValue v;
+		v.setSize(2);
+		v.set(0, TT("trajectory"));
+		v.set(1, TT("audio")); 
+		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 	
 	

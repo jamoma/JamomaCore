@@ -104,8 +104,8 @@ TTErr LissajousTrajectory::processAudioFunction2D(TTAudioSignalArrayPtr inputs, 
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
 
 	for (int i=0; i<vs; i++) {	
-			outSampleX[i] = cos((inSampleX[i]*mA+ mDeltaX)*kTTTwoPi);
-			outSampleY[i] = cos(inSampleY[i]* mB * kTTTwoPi);
+			outSampleX[i] = cos((inSampleX[i] * mA + mDeltaX) * kTTTwoPi);
+			outSampleY[i] = cos(inSampleY[i] * mB * kTTTwoPi);
 		}
 return kTTErrNone;
 }

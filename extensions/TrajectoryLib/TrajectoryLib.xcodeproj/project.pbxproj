@@ -84,12 +84,6 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E89557D612A6358600A72559 /* RoseTrajectory.cpp */,
-				E89557D712A6358600A72559 /* RoseTrajectory.h */,
-				E895566E12A23E5400A72559 /* LissajousTrajectory.cpp */,
-				E895566F12A23E5400A72559 /* LissajousTrajectory.h */,
-				E895564F12A2393400A72559 /* LinearTrajectory.cpp */,
-				E895565012A2393400A72559 /* LinearTrajectory.h */,
 				E895565312A2393B00A72559 /* TTTrajectory.cpp */,
 				E895565412A2393B00A72559 /* TTTrajectory.h */,
 				22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */,
@@ -101,6 +95,12 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E89557D612A6358600A72559 /* RoseTrajectory.cpp */,
+				E89557D712A6358600A72559 /* RoseTrajectory.h */,
+				E895566E12A23E5400A72559 /* LissajousTrajectory.cpp */,
+				E895566F12A23E5400A72559 /* LissajousTrajectory.h */,
+				E895564F12A2393400A72559 /* LinearTrajectory.cpp */,
+				E895565012A2393400A72559 /* LinearTrajectory.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";

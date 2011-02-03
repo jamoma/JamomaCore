@@ -124,9 +124,9 @@ TTErr RoseTrajectory::processAudioFunction3D(TTAudioSignalArrayPtr inputs, TTAud
 	TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];
 	
 	for (int i=0; i<vs; i++) {	
-		outSampleX[i] = cos((inSampleX[i]*mA+ mDeltaX)*kTTTwoPi);
-		outSampleY[i] = cos( inSampleY[i]* mB * kTTTwoPi);
-		outSampleZ[i] = cos( inSampleZ[i]* mC * kTTTwoPi);
+		outSampleX[i] = cos((inSampleX[i] * mA + mDeltaX) * kTTTwoPi);
+		outSampleY[i] = cos( inSampleY[i] * mB * kTTTwoPi);
+		outSampleZ[i] = cos( inSampleZ[i] * mC * kTTTwoPi);
 		}
 return kTTErrNone;
 }
