@@ -272,6 +272,12 @@ public:
 		return locked > 0;
 	}
 	
+	virtual TTErr test(TTValue& returnedTestInfo)
+	{
+		logMessage("No Tests have been written for this class -- please supply a test method.\n");
+		return kTTErrGeneric;
+	}
+	
 };
 
 
