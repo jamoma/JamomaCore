@@ -141,12 +141,12 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 	classNamesForTag = (TTList*)(TTPtr(tagObjects));
 	
 	for (TTUInt16 i=0; i<classNamesForTag->getSize(); i++) {
-		TTValue classNameValue; 
+		TTValue		classNameValue; 
 		TTSymbolPtr className;
-		TTValue tags;
-		TTValue   aClassValue;
-		TTClassPtr aClass;
-		TTUInt16	success = 0;
+		TTValue		tags;
+		TTValue		aClassValue;
+		TTClassPtr	aClass;
+		TTUInt16	success = 1;
 		
 		classNamesForTag->getIndex(i, classNameValue); 
 		classNameValue.get(0, &className);
@@ -162,16 +162,16 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 			
 			for (TTUInt16 k=1; k<size; k++){
 				searchTags.get(k, &tag);
-				if (tag==someTag) {
+				if (tag == someTag) {
 					success += 1;
 					break;
 				}
 			}
 				
-			if (success==size-1)
+			if (success == size)
 				break;
 		}
-		if (success==size-1) 			
+		if (success == size) 			
 			classNames.append(className);
 	}
 	return kTTErrNone;
