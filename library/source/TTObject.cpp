@@ -10,8 +10,6 @@
 #include "TTEnvironment.h"
 #include "TTClass.h"
 
-#define thisTTClass TTObject
-
 TTObject::TTObject(TTValue& arguments)
 	: classPtr(NULL), observers(NULL), messageObservers(NULL), attributeObservers(NULL), 
 	  locked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
@@ -20,8 +18,6 @@ TTObject::TTObject(TTValue& arguments)
 	attributes = new TTHash;
 	observers = new TTList;
 	// 'valid' will be set true by the Environment class which is the factory for all objects
-	
-	addMessage(test);
 }
 
 
