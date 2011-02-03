@@ -25,6 +25,7 @@ typedef struct outlet {
 
 // This is used to store extra data
 typedef struct extra {
+	TTPtr		ui_qelem;		///< to output "qlim'd" data for ui object
 	TTSymbolPtr address;		// the first arg address
 	ObjectPtr	connected;		// our ui object
 	long		x;				// our ui object x presentation
@@ -142,7 +143,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data
 	
 	// Make qelem object
-	x->ui_qelem = qelem_new(x, (method)view_ui_queuefn);
+	EXTRA->ui_qelem = qelem_new(x, (method)view_ui_queuefn);
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
@@ -171,6 +172,7 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 void WrappedViewerClass_free(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	free(EXTRA->ui_qelem);
 	free(EXTRA);
 }
 
@@ -255,7 +257,7 @@ void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			}
 		}
 		
-		qelem_set(x->ui_qelem);
+		qelem_set(EXTRA->ui_qelem);
 	//}
 }
 
