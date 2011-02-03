@@ -11,6 +11,7 @@
 
 #define data_out 0
 #define none_one_out 1
+#define dumpout 2
 
 // Definitions
 void		WrapTTExplorerClass(WrappedClassPtr c);
@@ -125,10 +126,21 @@ void nmspc_build(TTPtr self, SymbolPtr address)
 
 void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
-	if (msg==1)			// Inlets
-		strcpy(dst, "");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "");	
+	if (msg==1) 						// Inlet
+		strcpy(dst, "input");
+	else {							// Outlets
+		switch(arg) {
+			case data_out:
+				strcpy(dst, "result of exploration");
+				break;
+			case none_one_out:
+				strcpy(dst, "output 'none' or 'one' flag");
+				break;
+			case dumpout:
+				strcpy(dst, "dumpout");
+				break;
+		}
+ 	}
 }
 
 void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -139,9 +151,16 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	SymbolPtr	s;
 	Atom		a[1];
 	
+	// Ask Explorer object
+	x->wrappedObject->getAttributeValue(TT("lookfor"), v);
+	v.get(0, &lookfor);
+	
+	x->wrappedObject->getAttributeValue(kTTSym_address, v);
+	v.get(0, &address);
+	
 	// UMENU FORMAT
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
-		
+
 		// clear umenu
 		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
 		
@@ -153,12 +172,6 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// prepare umenu prefix 
 			// (except in case the explorer look for Instances)
-			x->wrappedObject->getAttributeValue(TT("lookfor"), v);
-			v.get(0, &lookfor);
-			
-			x->wrappedObject->getAttributeValue(kTTSym_address, v);
-			v.get(0, &address);
-			
 			if(address == S_SEPARATOR)
 				atom_setsym(a, gensym((char*)address->getCString()));
 			else{
@@ -180,6 +193,19 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 		
 		// fill umenu
+		// output msg
+		s = msg;
+		if(lookfor == kTTSym_attributes)
+			s = jamoma_TTName_To_MaxName(TT(s->s_name));
+		
+		if (lookfor == kTTSym_instances && s == _sym_nothing)
+			s = gensym("_");
+		if (s) {
+			atom_setsym(a, s);
+			outlet_anything(x->outlets[data_out], _sym_append, 1, a);
+		}
+		
+		// output argv
 		for (long i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
