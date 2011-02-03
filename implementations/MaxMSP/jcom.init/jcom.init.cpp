@@ -26,7 +26,7 @@ void init_assist(t_init *x, void *b, long m, long a, char *s);		// Assistance Me
 void init_build(t_init *x, SymbolPtr address);
 void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void init_return_value(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void init_bang(t_init *x);
+//void init_bang(t_init *x);
 
 // Globals
 t_class			*g_init_class;			// Required. Global pointing to this class
@@ -46,7 +46,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	c = class_new("jcom.init",(method)init_new, (method)init_free, sizeof(t_init), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)init_bang,				"bang",				0L);
+	//class_addmethod(c, (method)init_bang,				"bang",				0L);
 	class_addmethod(c, (method)init_return_address,		"return_address",	A_CANT, 0);
 	class_addmethod(c, (method)init_return_value,		"return_value",		A_CANT, 0);
     class_addmethod(c, (method)init_assist,				"assist",			A_CANT, 0L);
@@ -106,11 +106,11 @@ void init_free(t_init *x)
 // Method for Assistance Messages
 void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 {
-	if (msg==1) 	// Inlets
-		strcpy(dst, "bang is passed through to the outlet");
+	if (msg==1)			// Inlets
+		strcpy(dst, "");
 	else if (msg==2) { // Outlets
 		if (arg == 0) 
-			strcpy(dst, "bang on initialization");
+			strcpy(dst, "0 when initialization starts, 1 when initilization is done");
 		else 
 			strcpy(dst, "dumpout");
 	}
@@ -185,12 +185,11 @@ void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // GO !
 void init_return_value(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	if (atom_gettype(argv) == A_LONG) {
-		if (atom_getlong(argv))
-			outlet_bang(x->outlet);
-	}
+	if (atom_gettype(argv) == A_LONG)
+		outlet_int(x->outlet, atom_getlong(argv));
 }
 
+/*
 // BANG !
 void init_bang(t_init *x)
 {
@@ -198,3 +197,4 @@ void init_bang(t_init *x)
 		if (x->contextNode->getObject())
 			x->contextNode->getObject()->sendMessage(TT("Init"));
 }
+ */

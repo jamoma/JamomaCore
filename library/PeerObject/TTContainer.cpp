@@ -79,7 +79,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		aRelativeAddress, attribute, service, viewerAttribute;
+	TTSymbolPtr		aRelativeAddress, attrOrMess, service, viewerAttribute;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTErr			err = kTTErrNone;
@@ -96,7 +96,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 			
 			// get relativeAddress, attribute and valueToSend
 			AddressAttributeAndValue.get(0, &aRelativeAddress);
-			AddressAttributeAndValue.get(1, &attribute);
+			AddressAttributeAndValue.get(1, &attrOrMess);
 			AddressAttributeAndValue.get(2, (TTPtr*)&valueToSend);
 			
 			// get the Data object
@@ -107,8 +107,15 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 				
 				cacheElement.get(0, (TTPtr*)&anObject);
 				
+				/* ANY CASE : is it a message of the object
+				if (!anObject->findMessage(attrOrMess, &aMessage)) {
+					anObject->sendMessage(attrOrMess, *valueToSend);
+					return kTTErrNone;
+				}
+				 */
+				
 				// DATA CASE for value attribute
-				if (anObject->getName() == TT("Data") && attribute == kTTSym_value) {
+				if (anObject->getName() == TT("Data") && attrOrMess == kTTSym_value) {
 					
 					// what kind of service the data is used for ?
 					anObject->getAttributeValue(TT("service"), v);
@@ -144,7 +151,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 					v.get(0, &viewerAttribute);
 					
 					// if attribute is the same than the actual one
-					if (viewerAttribute == attribute) {
+					if (viewerAttribute == attrOrMess) {
 						// send the value
 						anObject->sendMessage(kTTSym_Send, *valueToSend);
 					
@@ -156,12 +163,12 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 				
 				// DEFAULT CASE
 				// Look for attribute and set it
-				if (!anObject->findAttribute(attribute, &anAttribute))
-					anObject->setAttributeValue(attribute, *valueToSend);
+				if (!anObject->findAttribute(attrOrMess, &anAttribute))
+					anObject->setAttributeValue(attrOrMess, *valueToSend);
 				
 				// Or look for message and send it
-				else if (!anObject->findMessage(attribute, &aMessage))
-					anObject->sendMessage(attribute, *valueToSend);
+				else if (!anObject->findMessage(attrOrMess, &aMessage))
+					anObject->sendMessage(attrOrMess, *valueToSend);
 				
 			}
 		}
@@ -178,7 +185,7 @@ TTErr TTContainer::Init()
 	TTValue			cacheElement;
 	TTObjectPtr		anObject;
 	TTAttributePtr	anAttribute;
-	TTSymbolPtr		key;
+	TTSymbolPtr		key, service;
 	TTUInt8			i;
 	
 	// Restart initialisation
@@ -188,11 +195,30 @@ TTErr TTContainer::Init()
 	findAttribute(kTTSym_initialized, &anAttribute);
 	anAttribute->sendNotification(kTTSym_notify, mInitialized);
 	
-	// Send Init message to all Containers below
+	// Send Init message to all Object in the cache
+	// TODO : send it according their priority order
 	if (mObjectsObserversCache) {
 		
 		mObjectsObserversCache->getKeys(hk);
 		
+		// Send Reset message to all Data service parameter
+		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
+			
+			hk.get(i,(TTSymbolPtr*)&key);
+			mObjectsObserversCache->lookup(key, cacheElement);
+			cacheElement.get(0, (TTPtr*)&anObject);
+			
+			if (anObject)
+				if (anObject->getName() == TT("Data")) {
+					anObject->getAttributeValue(TT("service"), v);
+					v.get(0, &service);
+					if (service == kTTSym_parameter)
+						anObject->sendMessage(TT("Reset"));
+				}
+		}
+		
+		// Send Init message to all Container below
+		// using priority order
 		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
 			
 			hk.get(i,(TTSymbolPtr*)&key);
