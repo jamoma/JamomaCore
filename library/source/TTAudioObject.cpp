@@ -34,7 +34,8 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	addAttributeProperty(processInPlace,	hidden,	YES);
 	
 	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
-	
+	registerMessage(TT("test"), TTMethod(&TTObject::test));
+
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
 
