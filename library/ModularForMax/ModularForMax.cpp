@@ -261,8 +261,8 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		}
 		
 		// add the < contextName, patcher > to the contextList
-		v = new TTValue(TT(contextName->s_name));
-		v->append((TTPtr)patcher);
+		v = TT(contextName->s_name);
+		v.append((TTPtr)patcher);
 		aContextList->append(v);
 		
 		if (av)
@@ -278,19 +278,19 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	// case where the user is editing the patcher
 	else if ((hierarchy == _sym_topmost) && (*nbLevel == 0)) {
 		
-		// add the < patcherClass, patcher > to the contextList
-		if (patcherContext != kTTSym_none)
-			v = new TTValue(patcherClass);
+		// add the < /patcherName, patcher > to the contextList
+		if (isCtxPatcher)
+			v = TT(patcherName->s_name);
 		else
-			v = new TTValue(TT(object_attr_getsym(patcher, _sym_name)->s_name));
+			v = TT(object_attr_getsym(patcher, _sym_name)->s_name);
 		
-		v->append((TTPtr)patcher);
+		v.append((TTPtr)patcher);
 		aContextList->append(v);
 	}
 	else {
 			// add the < /, patcher > to the contextList
-			v = new TTValue(S_SEPARATOR);
-			v->append((TTPtr)patcher);
+			v = S_SEPARATOR;
+			v.append((TTPtr)patcher);
 			aContextList->append(v);
 	}
 }
@@ -942,7 +942,7 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number)
 	
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
-	signalOutBaton->append(TTPtr(gensym("return_signal")));
+	signalOutBaton->append(TTPtr(jps_return_signal));
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
 	signalOutCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(signalOutCallback);
@@ -970,7 +970,7 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long nu
 	
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
-	signalOutBaton->append(TTPtr(gensym("return_signal")));
+	signalOutBaton->append(TTPtr(jps_return_signal));
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
 	signalOutCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(signalOutCallback);
@@ -1022,7 +1022,7 @@ TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number
 	
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
-	signalOutBaton->append(TTPtr(gensym("return_signal")));
+	signalOutBaton->append(TTPtr(jps_return_signal));
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
 	signalOutCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(signalOutCallback);
@@ -1056,7 +1056,7 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long 
 	signalOutCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
-	signalOutBaton->append(TTPtr(gensym("return_signal")));
+	signalOutBaton->append(TTPtr(jps_return_signal));
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
 	signalOutCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(signalOutCallback);
@@ -1220,7 +1220,7 @@ void jamoma_callback_return_address(TTPtr baton, TTValue& data)
 	data.get(0, &address);
 	
 	// send data to a data using the return_value method
-	object_method(x, gensym("return_address"), SymbolGen(address->getCString()), 0, 0);
+	object_method(x, jps_return_address, SymbolGen(address->getCString()), 0, 0);
 }
 
 void jamoma_callback_return_value(TTPtr baton, TTValue& v)
@@ -1230,6 +1230,7 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 	SymbolPtr	msg, method;
 	long		argc = 0;
 	AtomPtr		argv = NULL;
+	TTBoolean	shifted = false;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
@@ -1241,13 +1242,15 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 			return;
 		}
 	else
-		method = gensym("return_value");
+		method = jps_return_value;
 
-	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv);
+	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv, shifted);
 	
 	// send data to an external using the return_value method
 	object_method(x, method, msg, argc, argv);
 	
+	if (shifted)
+		argv--;
 	sysmem_freeptr(argv);
 }
 
@@ -1259,16 +1262,19 @@ void jamoma_callback_return_signal(TTPtr baton, TTValue& data)
 	SymbolPtr	msg;
 	long		argc = 0;
 	AtomPtr		argv = NULL;
+	TTBoolean	shifted = NO;
 	
 	// unpack baton (a t_object*)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&x);
 	
-	jamoma_ttvalue_to_Msg_Atom(data, &msg, &argc, &argv);
+	jamoma_ttvalue_to_Msg_Atom(data, &msg, &argc, &argv, shifted);
 	
 	// send signal using the return_signal method
-	object_method(x, gensym("return_signal"), msg, argc, argv);
+	object_method(x, jps_return_signal, msg, argc, argv);
 	
+	if (shifted)
+		argv--;
 	sysmem_freeptr(argv);
 }
 
@@ -1294,7 +1300,7 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data)
 	}
 	
 	// send signal using the return_signal method
-	object_method(x, gensym("return_signal"), _sym_nothing, argc, argv);
+	object_method(x, jps_return_signal, _sym_nothing, argc, argv);
 	
 	sysmem_freeptr(argv);
 }
@@ -1303,7 +1309,7 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data)
 /////////////////////////////////////////
 
 /** Make a Message prepended Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
-void jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv)
+void jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv, TTBoolean& shifted)
 {
 	AtomCount	i;
 	
@@ -1334,11 +1340,12 @@ void jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *arg
 			}
 		}
 		
-		if (i>1) {
+		if (i>0) {
 			if (atom_gettype(*argv) == A_SYM) {
 				*msg = atom_getsym(*argv);
 				*argc = (*argc)-1;
 				*argv = (*argv)+1;
+				shifted = true;
 			}
 			else
 				*msg = _sym_list;

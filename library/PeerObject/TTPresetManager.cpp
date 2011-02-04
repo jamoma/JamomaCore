@@ -240,7 +240,7 @@ TTErr TTPresetManager::Store(const TTValue& value)
 	
 	// Insert at index
 	mCurrentIndex = index;
-	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
+	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the preset list
 	notifyNamesObservers();
@@ -290,7 +290,7 @@ TTErr TTPresetManager::StoreNext(const TTValue& value)
 	
 	// Insert AFTER current
 	mCurrentIndex++;
-	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
+	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the preset list
 	notifyNamesObservers();
@@ -325,7 +325,7 @@ TTErr TTPresetManager::StorePrevious(const TTValue& value)
 	mCurrentIndex--;
 	if (mCurrentIndex < 1) 
 		mCurrentIndex = 1;
-	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
+	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the preset list
 	notifyNamesObservers();
@@ -601,7 +601,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& value)
 		newPreset->setAttributeValue(kTTSym_address, mAddress);
 		newPreset->setAttributeValue(kTTSym_name, presetName);
 		
-		mPresetList->append(new TTValue((TTPtr)newPreset));
+		mPresetList->append((TTPtr)newPreset);
 		
 		mCurrentIndex++;
 		

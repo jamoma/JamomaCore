@@ -255,7 +255,7 @@ TTErr TTCueManager::Store(const TTValue& value)
 	
 	// Insert at index
 	mCurrentIndex = index;
-	mCueList->insert(mCurrentIndex-1, new TTValue((TTPtr)newCue));		// -1 because user starts at 1 and TTList starts at 0
+	mCueList->insert(mCurrentIndex-1, (TTPtr)newCue);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the cue list
 	notifyNamesObservers();
@@ -319,7 +319,7 @@ TTErr TTCueManager::StoreNext(const TTValue& value)
 	
 	// Insert AFTER current
 	mCurrentIndex++;
-	mCueList->insert(mCurrentIndex-1, new TTValue((TTPtr)newCue));		// -1 because user starts at 1 and TTList starts at 0
+	mCueList->insert(mCurrentIndex-1, (TTPtr)newCue);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the cue list
 	notifyNamesObservers();
@@ -366,7 +366,7 @@ TTErr TTCueManager::StorePrevious(const TTValue& value)
 	mCurrentIndex--;
 	if (mCurrentIndex < 1) 
 		mCurrentIndex = 1;
-	mCueList->insert(mCurrentIndex-1, new TTValue((TTPtr)newCue));		// -1 because user starts at 1 and TTList starts at 0
+	mCueList->insert(mCurrentIndex-1, (TTPtr)newCue);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the cue list
 	notifyNamesObservers();
@@ -652,7 +652,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 		newCue->setAttributeValue(kTTSym_name, cueName);
 		newCue->setAttributeValue(kTTSym_ramp, (uint)cueRamp);
 		
-		mCueList->append(new TTValue((TTPtr)newCue));
+		mCueList->append((TTPtr)newCue);
 		
 		mCurrentIndex++;
 		

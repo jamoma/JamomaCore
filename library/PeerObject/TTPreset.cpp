@@ -187,7 +187,7 @@ TTErr TTPreset::Fill()
 		aNewItem = new Item(mManager, aNode);
 		
 		mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
-		mItemKeysSorted->appendUnique(new TTValue(aRelativeAddress));
+		mItemKeysSorted->appendUnique(aRelativeAddress);
 	}
 	
 	// 3. Update item's state
@@ -399,7 +399,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 				if (!err) {
 					anItem = new Item(mManager, aNode);
 					mItemTable->append(mCurrentItem, TTValue((TTPtr)anItem));
-					mItemKeysSorted->append(new TTValue(mCurrentItem));
+					mItemKeysSorted->append(mCurrentItem);
 					
 					// fill the item
 					while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
