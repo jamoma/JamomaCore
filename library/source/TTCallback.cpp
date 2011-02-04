@@ -20,6 +20,7 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttribute(Function, kTypePointer);
 	addAttribute(Baton, kTypePointer);
 	
+	// Théo says this is only used for debugging purposes [tap]
 	addAttribute(Owner, kTypeSymbol);
 	
 	addMessageWithArgument(notify);

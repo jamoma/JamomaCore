@@ -93,14 +93,15 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 
 				// TODO: We need to factor out a function to add a tag for a named class (or a given class ptr)
 				
-				//classNamesForTag->append(className);
-				classNamesForTag->append(*new TTValue(className));
+				classNamesForTag->append(className);
+				//classNamesForTag->append(TTValue(className));
 			}
 			else {
 				classNamesForTag = new TTList;
 				tagObjects = TTPtr(classNamesForTag);
 				tags->append(tag ,tagObjects);
-				classNamesForTag->append(*new TTValue(className));
+				//classNamesForTag->append(*new TTValue(className));
+				classNamesForTag->append(className);
 			}
 		}	
 		

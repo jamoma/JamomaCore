@@ -17,7 +17,7 @@ using namespace std;
 
 class TTObject;
 typedef TTObject* TTObjectPtr;
-typedef list<TTValue*>::iterator	TTListIter;
+typedef list<TTValue>::iterator	TTListIter;
 
 /****************************************************************************************************/
 // Class Specification
@@ -30,7 +30,7 @@ private:
 	#ifdef TT_PLATFORM_WIN
 	#pragma warning(disable:4251)
 	#endif
-	std::list<TTValue*>	theList;
+	std::list<TTValue>	theList;
 	TTListIter theIter;
 	
 	void lock();
@@ -84,12 +84,12 @@ public:
 	/**	If we don't define a version of this function that takes a pointer, 
 		then when a pointer is provided a new temporary TTValue is created to provide the reference
 		and then when the temporary is deleted we end up with a corrupt entry in the linked list.		*/
-	void append(const TTValuePtr newValue)
+/*	void append(const TTValuePtr newValue)
 	{
 		append(*newValue);
 	}
-	
-	void appendUnique(const TTValuePtr newValue);
+*/	
+	void appendUnique(const TTValue& newValue);
 	
 	/** Insert a value into the list at a given location.
 		@param	index		The location of the value after insertion.
@@ -100,18 +100,18 @@ public:
 	/**	If we don't define a version of this function that takes a pointer, 
 	 then when a pointer is provided a new temporary TTValue is created to provide the reference
 	 and then when the temporary is deleted we end up with a corrupt entry in the linked list.		*/
-	void insert(TTUInt32 index, const TTValuePtr newValue)
+/*	void insert(TTUInt32 index, const TTValuePtr newValue)
 	{
 		insert(index, *newValue);
 	}
-	
+*/	
 	/** Appends a list to the list.  
 		@param	newList	The list to add to the list.  */
 	void merge(TTList& newList);
 	
 	/** Sort a list using a comparison function
 		@param	comparisonFunction which return true if the first element have to be before the second */
-	void sort(TTBoolean(comparisonFunction)(TTValuePtr, TTValuePtr));
+	void sort(TTBoolean(comparisonFunction)(TTValue&, TTValue&));
 	
 	/** Find a value in the list by using a passed-in matching function. */
 	TTErr find(TTFunctionMatch aMatchFunction, TTPtr aBaton, TTValue& returnedValue);

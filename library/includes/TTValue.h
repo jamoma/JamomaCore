@@ -317,7 +317,8 @@ public:
 	void append(const TTObject& newValue);
 	void append(const TTPtr newValue);
 	void append(const TTValue* newValue);
-		
+	void append(const TTValue& newValue);
+
 // TODO: implement this!	
 //	TTValue& operator [] (int)
 
@@ -401,6 +402,80 @@ public:
 		}
 		return true;
 	}
+	
+	/**
+		We define the < operator for sorting of linked-list and other STL calls that require sorting ability of TTValue.
+		However, we have only done the minimum work here to enable compiling, and should make this method more
+		generally useful for comparison in the future.
+	 */
+	friend bool operator < (const TTValue &a1, const TTValue &a2)
+	{
+		switch(*a1.type) {
+			case kTypeInt8:
+				if ( (a1.data)->int8 > (a2.data)->int8 )
+					return false;
+				break;
+			case kTypeUInt8:
+				if ( (a1.data)->uint8 != (a2.data)->uint8 )
+					return false;
+				break;
+			case kTypeInt16:
+				if ( (a1.data)->int16 != (a2.data)->int16 )
+					return false;
+				break;
+			case kTypeUInt16:
+				if ( (a1.data)->uint16 != (a2.data)->uint16 )
+					return false;
+				break;
+			case kTypeInt32:
+				if ( (a1.data)->int32 != (a2.data)->int32 )
+					return false;
+				break;
+			case kTypeUInt32:
+				if ( (a1.data)->uint32 != (a2.data)->uint32 )
+					return false;
+				break;
+			case kTypeInt64:
+				if ( (a1.data)->int64 != (a2.data)->int64 )
+					return false;
+				break;
+			case kTypeUInt64:
+				if ( (a1.data)->uint64 != (a2.data)->uint64 )
+					return false;
+				break;
+			case kTypeFloat32:
+				if ( (a1.data)->float32 != (a2.data)->float32 )
+					return false;
+				break;
+			case kTypeFloat64:
+				if ( (a1.data)->float64 != (a2.data)->float64 )
+					return false;
+				break;
+			case kTypeBoolean:
+				if ( (a1.data)->boolean != (a2.data)->boolean )
+					return false;
+				break;
+			case kTypeSymbol:
+				if ( (a1.data)->sym != (a2.data)->sym )
+					return false;
+				break;
+			case kTypeString:
+				if ( *(a1.data)->stringPtr != *(a2.data)->stringPtr )
+					return false;
+				break;
+			case kTypeObject:
+				if ( (a1.data)->object != (a2.data)->object )
+					return false;
+				break;
+			case kTypePointer:
+				if ( (a1.data)->ptr != (a2.data)->ptr )
+					return false;
+				break;
+			default:
+				return false;
+		}
+		return true;
+	}		
 	
 	
 	/**	In-place method that converts the internal value, if it is a TTString, from a comma-separated-value string into

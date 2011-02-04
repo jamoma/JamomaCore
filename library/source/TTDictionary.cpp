@@ -15,7 +15,7 @@ void TTDictionaryFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoole
 	TTKeyValPtr keyval = TTKeyValPtr(TTPtr(valueToCheck));
 	TTSymbolPtr key = TTSymbolPtr(baton);
 	
-	if (TTSymbolPtr(keyval->first) == key)
+	if (keyval && TTSymbolPtr(keyval->first) == key)
 		found = YES;
 }
 

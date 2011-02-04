@@ -63,18 +63,18 @@ TTErr TTNodeDirectory::getTTNodeForOSC(const char* oscAddress, TTNodePtr* return
 TTErr TTNodeDirectory::getTTNodeForOSC(TTSymbolPtr oscAddress, TTNodePtr* returnedTTNode)
 {
 	TTErr err;
-	TTValue* found = new TTValue();
+	TTValue found;
 	
 	if (directory) {
 		// look into the hashtab to check if the address exist in the tree
-		err = directory->lookup(oscAddress, *found);
+		err = directory->lookup(oscAddress, found);
 
 		// if this address doesn't exist
 		if (err == kTTErrValueNotFound) {
 			return kTTErrGeneric;
 		}
 		else {
-			found->get(0,(TTPtr*)returnedTTNode);
+			found.get(0,(TTPtr*)returnedTTNode);
 			return kTTErrNone;
 		}
 	}
@@ -85,7 +85,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 {
 	TTSymbolPtr		oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_property, newInstance, oscAddress_got;
 	TTBoolean		parent_created;
-	TTValue*		found;
+	TTValue			found;
 	TTNodePtr		newTTNode = NULL;
 	TTNodePtr		n_found = NULL;
 	TTErr			err;
@@ -102,8 +102,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 
 			// get the TTNode
 			mergeOSCAddress(&oscAddress_got, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
-			found = new TTValue();
-			err = directory->lookup(oscAddress_got, *found);
+			err = directory->lookup(oscAddress_got, found);
 
 			// if the TTNode doesn't exist
 			if (err == kTTErrValueNotFound)
@@ -111,7 +110,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 
 			else {
 				// get the TTNode at this address
-				found->get(0,(TTPtr*)&n_found);
+				found.get(0,(TTPtr*)&n_found);
 				//n_found->addProperty(oscAddress_property, NULL, NULL);  // TODO : what todo in that case ?
 
 				return kTTErrNone;
@@ -119,8 +118,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 		}
 
 		// is there a TTNode with this address in the tree ?
-		found = new TTValue();
-		err = directory->lookup(oscAddress, *found);
+		err = directory->lookup(oscAddress, found);
 
 		// if it's the first at this address
 		if (err == kTTErrValueNotFound) {
@@ -131,7 +129,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 		else {
 			// this address already exists
 			// get the TTNode at this address
-			found->get(0,(TTPtr*)&n_found);
+			found.get(0,(TTPtr*)&n_found);
 
 			// Autogenerate a new instance
 			n_found->getParent()->generateInstance(n_found->getName(), &newInstance);
@@ -287,7 +285,7 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 		
 		// if the node exists
 		if (err == kTTErrNone) {
-			returnedTTNodes.append(new TTValue((TTPtr)n_r));
+			returnedTTNodes.append(TTValue((TTPtr)n_r));
 			*firstReturnedTTNode = n_r;
 		}
 		
@@ -324,7 +322,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 					
 					// test the child and fill the returnedTTNodes
 					if (testFunction(n_child, argument)) {
-						returnedTTNodes.append(new TTValue((TTPtr)n_child));
+						returnedTTNodes.append(TTValue((TTPtr)n_child));
 						
 						if (!n_first)
 							n_first = n_child;
@@ -400,11 +398,11 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject&  anObserver)
+TTErr TTNodeDirectory::addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& anObserver)
 {
 	TTErr err;
 	TTValue lk;
-	TTValuePtr o = new TTValue(anObserver);
+	TTValue o = anObserver;
 	TTListPtr lk_o;
 	
 	// enable observers protection

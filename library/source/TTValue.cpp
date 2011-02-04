@@ -224,6 +224,8 @@ void TTValue::setSize(const TTUInt16 arg)
 		TTDataType*	t = new TTDataType[numValues];
 		DataValue*	d = new DataValue[numValues];
 		
+		memset(t, 0, numValues * sizeof(TTDataType));
+		
 		if (safeNumValues) {
 			memcpy(t, type, sizeof(TTDataType) * safeNumValues);
 			memcpy(d, data, sizeof(TTValue::DataValue) * safeNumValues);
@@ -947,6 +949,10 @@ void TTValue::append(const TTValue* newValue)
 	type[numValues-1] = newValue->type[0];
 }
 
+void TTValue::append(const TTValue& newValue)
+{
+	append(&newValue);
+}
 
 
 TTErr TTValue::transformCSVStringToSymbolArray()

@@ -51,8 +51,8 @@ TTNode::~TTNode()
 				nb_i = ht_i->getSize();
 				if (nb_i) {
 
-					hk_i = new TTValue();
-					c_i = new TTValue();
+					//hk_i = new TTValue();
+					//c_i = new TTValue();
 					ht_i->getKeys(hk_i);
 					
 					// for each instance
@@ -386,7 +386,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 							ht_i->lookup(key_i, c_i);
 							c_i.get(0,(TTPtr*)&n_c);
 							
-							returnedChildren.append(new TTValue((TTPtr)n_c));
+							returnedChildren.append((TTPtr)n_c);
 						}
 					}
 					// there is an instance
@@ -394,7 +394,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 						err = ht_i->lookup(anInstance, c_i);
 						if (err == kTTErrNone) {
 							c_i.get(0,(TTPtr*)&n_c);
-							returnedChildren.append(new TTValue((TTPtr)n_c));
+							returnedChildren.append((TTPtr)n_c);
 						}
 						// don't stop because there are maybe other names
 					}
@@ -419,7 +419,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 							ht_i->lookup(key_i, c_i);
 							c_i.get(0,(TTPtr*)&n_c);
 							
-							returnedChildren.append(new TTValue((TTPtr)n_c));
+							returnedChildren.append((TTPtr)n_c);
 						}
 					}
 					// there is an instance
@@ -427,7 +427,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 						err = ht_i->lookup(anInstance, c_i);
 						if (err == kTTErrNone) {
 							c_i.get(0,(TTPtr*)&n_c);
-							returnedChildren.append(new TTValue((TTPtr)n_c));
+							returnedChildren.append((TTPtr)n_c);
 						}
 						else
 							return err;
@@ -462,7 +462,7 @@ TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 		for(i=0; i<this->children->getSize(); i++){
 			
 			hk.get(i,(TTSymbolPtr*)&key);
-			returnedChildrenName.append(new TTValue(key));
+			returnedChildrenName.append(key);
 		}
 	}
 	else
@@ -500,7 +500,7 @@ TTErr TTNode::getChildrenInstance(TTSymbolPtr aName, TTList& returnedChildrenIns
 				for(j=0; j<ht_i->getSize(); j++){
 					
 					hk_i.get(j,(TTSymbolPtr*)&key_i);
-					returnedChildrenInstance.append(new TTValue(key_i));
+					returnedChildrenInstance.append(TTValue(key_i));
 				}
 			}
 			else
