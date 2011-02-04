@@ -123,7 +123,8 @@ TTErr TTSender::bind()
 {
 	TTNodePtr	aNode;
 	TTObjectPtr	anObject;
-	TTValuePtr	newBaton, aCacheElement;
+	TTValuePtr	newBaton;
+	TTValue		aCacheElement;
 	TTList		aNodeList;
 	TTValue		v;
 	TTErr		err;
@@ -135,12 +136,9 @@ TTErr TTSender::bind()
 	mObjectCache  = new TTList();
 	
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
-		
 		aNodeList.current().get(0, (TTPtr*)&aNode);
 		anObject = aNode->getObject();
-		
-		aCacheElement = new TTValue((TTPtr)anObject);
-		
+		aCacheElement = (TTPtr)anObject;
 		mObjectCache->append(aCacheElement);
 	}
 	
@@ -183,7 +181,8 @@ TTErr TTSender::unbind()
 
 TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 {
-	TTValuePtr		b, aCacheElement;
+	TTValuePtr		b;
+	TTValue			aCacheElement;
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject, aCacheObject;
@@ -205,9 +204,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 		case kAddressCreated :
 		{
 			anObject = aNode->getObject();
-			
-			aCacheElement = new TTValue((TTPtr)anObject);
-			
+			aCacheElement = (TTPtr)anObject;
 			aSender->mObjectCache->appendUnique(aCacheElement);
 			break;
 		}

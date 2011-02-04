@@ -83,7 +83,8 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 	TTSymbolPtr			oldAttribute, oscAddress;
 	TTValue				oldElement;
 	TTObjectPtr			oldObserver, newObserver, o;
-	TTValuePtr			newBaton, newElement;
+	TTValuePtr			newBaton;
+	TTValue				newElement;
 	TTNodePtr			aNode;
 	TTAttributePtr		anAttribute;
 	TTListPtr			newNodesObserversCache;
@@ -145,8 +146,8 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 					anAttribute->registerObserverForNotifications(*newObserver);
 					
 					// memorize the node and his attribute observer
-					newElement = new TTValue((TTPtr)aNode);
-					newElement->append((TTPtr)newObserver);
+					newElement = (TTPtr)aNode;
+					newElement.append((TTPtr)newObserver);
 					newNodesObserversCache->appendUnique(newElement);
 				}
 				
@@ -238,8 +239,8 @@ TTErr TTReceiver::bind()
 	TTObjectPtr		newObserver, o;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
-	TTValue			v, data;
-	TTValuePtr		newBaton, newElement;
+	TTValue			v, data, newElement;
+	TTValuePtr		newBaton;
 	TTErr			err;
 	
 	mNodesObserversCache = new TTList();
@@ -282,8 +283,8 @@ TTErr TTReceiver::bind()
 						anAttribute->registerObserverForNotifications(*newObserver);
 						
 						// memorize the node and his attribute observer
-						newElement = new TTValue((TTPtr)aNode);
-						newElement->append((TTPtr)newObserver);
+						newElement = (TTPtr)aNode;
+						newElement.append((TTPtr)newObserver);
 						mNodesObserversCache->appendUnique(newElement);
 					}
 				}
@@ -380,7 +381,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	TTUInt8			flag;
 	TTBoolean		found;
 	TTCallbackPtr	anObserver;
-	TTValuePtr		newBaton, newCouple;
+	TTValuePtr		newBaton;
+	TTValue			newCouple;
 	TTErr			err;
 	
 	// unpack baton
@@ -452,8 +454,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							anAttribute->registerObserverForNotifications(*newObserver);
 							
 							// memorize the node and his attribute observer
-							newCouple = new TTValue((TTPtr)aNode);
-							newCouple->append((TTPtr)newObserver);
+							newCouple = (TTPtr)aNode;
+							newCouple.append((TTPtr)newObserver);
 							aReceiver->mNodesObserversCache->appendUnique(newCouple);
 						}
 					}

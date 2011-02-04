@@ -193,7 +193,7 @@ extern "C" {
 	///////////////////////////////////////////////
 	
 	/** Make a Message prepended Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
-	void			jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv);
+	void			jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv, TTBoolean& shifted);
 	
 	/** Make an Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
 	void			jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv);

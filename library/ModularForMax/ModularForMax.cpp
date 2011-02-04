@@ -213,7 +213,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	TTSymbolPtr		patcherClass;
 	TTString		contextEditionName, contextTypeStr, viewName;
 	TTUInt8			contextTypeLen, patcherNameLen;
-	TTValuePtr		v;
+	TTValue			v;
 	
 	// If z is a bpatcher, the patcher is NULL
 	if (!patcher){
@@ -291,8 +291,8 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		}
 		
 		// add the < contextName, patcher > to the contextList
-		v = new TTValue(TT(contextName->s_name));
-		v->append((TTPtr)patcher);
+		v = TT(contextName->s_name);
+		v.append((TTPtr)patcher);
 		aContextList->append(v);
 		
 		if (av)
@@ -309,17 +309,17 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		
 		// add the < /patcherName, patcher > to the contextList
 		if (isCtxPatcher)
-			v = new TTValue(TT(patcherName->s_name));
+			v = TT(patcherName->s_name);
 		else
-			v = new TTValue(TT(object_attr_getsym(patcher, _sym_name)->s_name));
+			v = TT(object_attr_getsym(patcher, _sym_name)->s_name);
 		
-		v->append((TTPtr)patcher);
+		v.append((TTPtr)patcher);
 		aContextList->append(v);
 	}
 	else {
 			// add the < /, patcher > to the contextList
-			v = new TTValue(S_SEPARATOR);
-			v->append((TTPtr)patcher);
+			v = S_SEPARATOR;
+			v.append((TTPtr)patcher);
 			aContextList->append(v);
 	}
 }
@@ -1259,6 +1259,7 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 	SymbolPtr	msg, method;
 	long		argc = 0;
 	AtomPtr		argv = NULL;
+	TTBoolean	shifted = false;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
@@ -1272,11 +1273,13 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 	else
 		method = jps_return_value;
 
-	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv);
+	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv, shifted);
 	
 	// send data to an external using the return_value method
 	object_method(x, method, msg, argc, argv);
 	
+	if (shifted)
+		argv--;
 	sysmem_freeptr(argv);
 }
 
@@ -1288,16 +1291,19 @@ void jamoma_callback_return_signal(TTPtr baton, TTValue& data)
 	SymbolPtr	msg;
 	long		argc = 0;
 	AtomPtr		argv = NULL;
+	TTBoolean	shifted = NO;
 	
 	// unpack baton (a t_object*)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&x);
 	
-	jamoma_ttvalue_to_Msg_Atom(data, &msg, &argc, &argv);
+	jamoma_ttvalue_to_Msg_Atom(data, &msg, &argc, &argv, shifted);
 	
 	// send signal using the return_signal method
 	object_method(x, jps_return_signal, msg, argc, argv);
 	
+	if (shifted)
+		argv--;
 	sysmem_freeptr(argv);
 }
 
@@ -1332,7 +1338,7 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data)
 /////////////////////////////////////////
 
 /** Make a Message prepended Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
-void jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv)
+void jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv, TTBoolean& shifted)
 {
 	AtomCount	i;
 	
@@ -1363,11 +1369,12 @@ void jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *arg
 			}
 		}
 		
-		if (i>1) {
+		if (i>0) {
 			if (atom_gettype(*argv) == A_SYM) {
 				*msg = atom_getsym(*argv);
 				*argc = (*argc)-1;
 				*argv = (*argv)+1;
+				shifted = true;
 			}
 			else
 				*msg = _sym_list;
