@@ -127,7 +127,8 @@ void Init_TTRuby()
 VALUE TTRubyInitialize(VALUE self, VALUE className)
 {	
 	TTRubyInstance* instance = new TTRubyInstance;
-	TTValue*		v = new TTValue;
+//	TTValue*		v = new TTValue;
+	TTValue			v;
 	TTValue			args;
 	TTErr			err = kTTErrNone;
 	VALUE			classNameStr = StringValue(className);
@@ -146,8 +147,8 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 			names.get(i, &aName);
 			nameString = aName->getString();
 			{
-				TTValuePtr v = new TTValue(aName);
-				instance->parameterNames->append(TT(nameString.c_str()), *v);
+				v = aName;
+				instance->parameterNames->append(TT(nameString.c_str()), v);
 			}
 		}
 				
@@ -158,14 +159,14 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 			names.get(i, &aName);
 			nameString = aName->getString();
 			{
-				TTValuePtr v = new TTValue(aName);
-				instance->messageNames->append(TT(nameString.c_str()), *v);
+				v = aName;
+				instance->messageNames->append(TT(nameString.c_str()), v);
 			}
 		}
 				
-		v->setSize(1);
-		v->set(0, TTPtr(instance));
-		gTTRubyInstances->append(TTSymbolPtr(self), *v);
+		v.setSize(1);
+		v.set(0, TTPtr(instance));
+		gTTRubyInstances->append(TTSymbolPtr(self), v);
 		return self;
 	}
 	else
@@ -483,7 +484,7 @@ VALUE TTRubyCalculate(VALUE self, VALUE x)
 VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 {	
 	TTAudioInstance*	instance = new TTAudioInstance;
-	TTValue*			v = new TTValue;
+	TTValue				v;
 	TTValue				args;
 	TTErr				err = kTTErrNone;
 	//VALUE				classNameStr = StringValue(className);
@@ -542,8 +543,8 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 			names.get(i, &aName);
 			nameString = aName->getString();
 			{
-				TTValuePtr v = new TTValue(aName);
-				instance->parameterNames->append(TT(nameString.c_str()), *v);
+				v = aName;
+				instance->parameterNames->append(TT(nameString.c_str()), v);
 			}
 		}
 
@@ -554,14 +555,14 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 			names.get(i, &aName);
 			nameString = aName->getString();
 			{
-				TTValuePtr v = new TTValue(aName);
-				instance->messageNames->append(TT(nameString.c_str()), *v);
+				v = aName;
+				instance->messageNames->append(TT(nameString.c_str()), v);
 			}
 		}
 				
-		v->setSize(1);
-		v->set(0, TTPtr(instance));
-		gTTAudioInstances->append(TTSymbolPtr(self), *v);
+		v.setSize(1);
+		v.set(0, TTPtr(instance));
+		gTTAudioInstances->append(TTSymbolPtr(self), v);
 		return self;
 	}
 	else {
