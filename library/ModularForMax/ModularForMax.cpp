@@ -213,7 +213,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	TTSymbolPtr		patcherClass;
 	TTString		contextEditionName, contextTypeStr, viewName;
 	TTUInt8			contextTypeLen, patcherNameLen;
-	TTValuePtr		v;
+	TTValue			v;
 	
 	// If z is a bpatcher, the patcher is NULL
 	if (!patcher){
@@ -291,8 +291,8 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		}
 		
 		// add the < contextName, patcher > to the contextList
-		v = new TTValue(TT(contextName->s_name));
-		v->append((TTPtr)patcher);
+		v = TT(contextName->s_name);
+		v.append((TTPtr)patcher);
 		aContextList->append(v);
 		
 		if (av)
@@ -309,17 +309,17 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 		
 		// add the < /patcherName, patcher > to the contextList
 		if (isCtxPatcher)
-			v = new TTValue(TT(patcherName->s_name));
+			v = TT(patcherName->s_name);
 		else
-			v = new TTValue(TT(object_attr_getsym(patcher, _sym_name)->s_name));
+			v = TT(object_attr_getsym(patcher, _sym_name)->s_name);
 		
-		v->append((TTPtr)patcher);
+		v.append((TTPtr)patcher);
 		aContextList->append(v);
 	}
 	else {
 			// add the < /, patcher > to the contextList
-			v = new TTValue(S_SEPARATOR);
-			v->append((TTPtr)patcher);
+			v = S_SEPARATOR;
+			v.append((TTPtr)patcher);
 			aContextList->append(v);
 	}
 }

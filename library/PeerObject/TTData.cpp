@@ -779,8 +779,8 @@ TTErr TTData::setRampFunction(const TTValue& value)
 				if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
 					nameString[0] += 32;							// convert first letter to lower-case for Max
 					
-					TTValuePtr v = new TTValue(aName);
-					mRampDataNames->append(TT(nameString.c_str()), *v);
+					TTValue v = aName;
+					mRampDataNames->append(TT(nameString.c_str()), v);
 				}
 			}
 	}
