@@ -16,7 +16,8 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mActualTrajectoryObject(NULL),
-	mType(NULL)
+	mType(NULL),
+	mPhasorOutputSignals(NULL)
 {    
 	for (int i=0; i<3; i++)
 		TTObjectInstantiate(TT("phasor"), &mPhasors[i], kTTVal1);	
@@ -36,7 +37,7 @@ TT_AUDIO_CONSTRUCTOR,
 		TTObjectInstantiate(kTTSym_audiosignal, &anAudioSignal, 1);
 		mPhasorOutputSignals->setSignal(i, (TTAudioSignal*)anAudioSignal);
 	}
-	
+	//addAttributeWithSetter(Dimensions,		kTypeFloat64); // look at TTOverdrive
 	addAttributeWithSetter(A,				kTypeFloat64);
 	addAttributeWithSetter(B,				kTypeFloat64);
 	addAttributeWithSetter(C,				kTypeFloat64);
