@@ -32,6 +32,10 @@ class TTGain : public TTAudioObject {
 	
 	/** retreive the gain in midi units. */
 	TTErr getMidiGain(TTValue& value);
+	
+
+	virtual TTErr test(TTValue& returnedTestInfo);
+
 };
 
 
