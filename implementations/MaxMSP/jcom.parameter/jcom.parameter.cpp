@@ -515,6 +515,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	SymbolPtr					msg, iAdrs;
 	long						i, argc = 0;
 	AtomPtr						argv = NULL;
+	TTBoolean					shifted = NO;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
@@ -528,9 +529,11 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	else
 		if (i != x->index) return;
 	
-	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv);
+	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv, shifted);
 	data_return_value(x, msg, argc, argv);
 	
+	if (shifted)
+		argv--;
 	sysmem_freeptr(argv);
 }
 #endif
