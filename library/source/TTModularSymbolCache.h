@@ -51,6 +51,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_lookfor;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Map;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_message;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mix;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_model;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_name;
@@ -85,6 +86,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_type;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueStepsize;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_viewFreeze;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_view;
 
 void TTModularSymbolCacheInit();
 

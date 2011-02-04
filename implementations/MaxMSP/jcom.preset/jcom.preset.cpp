@@ -137,8 +137,8 @@ void preset_build(TTPtr self, SymbolPtr address)
 	presetLevelAddress = address->s_name;
 	presetLevelAddress += "/preset";
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), x->patcherType, &x->subscriberObject);
+	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -248,7 +248,7 @@ void preset_build(TTPtr self, SymbolPtr address)
 		
 		// TODO : create internal TTTextHandler to edit in Max edition window
 	
-		// load default xxx.patcherType.xml file preset
+		// load default xxx.patcherContext.xml file preset
 		defer_low(x, (method)preset_default, 0, 0, 0L);
 	}
 }
@@ -320,7 +320,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s%s.xml", x->patcherClass->getCString(), x->patcherType->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "%s%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
@@ -343,19 +343,19 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void preset_default(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr patcherClass;
-	TTSymbolPtr patcherType;
 	short		outvol;
 	long		outtype, filetype = 'TEXT';
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	Atom		a;
 
-	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
-	
-	if (patcherType != kTTSymEmpty && patcherClass != kTTSymEmpty) {
+	if (x->patcherClass != kTTSymEmpty) {
 		
-		TTString xmlfile = patcherClass->getCString();
-		xmlfile += patcherType->getCString();
+		TTString xmlfile = x->patcherClass->getCString();
+		if (x->patcherContext != kTTSym_none) {
+			xmlfile += ".";
+			xmlfile +=  x->patcherContext->getCString();
+		}
+		
 		xmlfile += ".xml";
 		
 		if (locatefile_extended((char*)xmlfile.data(), &outvol, &outtype, &filetype, 1)) {
@@ -363,7 +363,7 @@ void preset_default(TTPtr self)
 			return;
 		}
 		
-		jcom_core_getfilepath(outvol, (char*)xmlfile.data(), fullpath);
+		jcom_file_get_path(outvol, (char*)xmlfile.data(), fullpath);
 		
 		atom_setsym(&a, gensym(fullpath));
 		defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
@@ -394,7 +394,7 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	// get current preset
 	x->wrappedObject->sendMessage(TT("current"), v);
 	
-	jcom_core_getfilepath(path, filename, fullpath);
+	jcom_file_get_path(path, filename, fullpath);
 	
 	atom_setsym(&a, gensym(fullpath));
 	defer_low(self, (method)preset_doread, gensym("read"), 1, &a);

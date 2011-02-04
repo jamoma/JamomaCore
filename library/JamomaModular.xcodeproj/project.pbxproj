@@ -8,18 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		224B076911DEA19B00B6EF48 /* Jamoma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */; };
-		224B076A11DEA19B00B6EF48 /* jcom.core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */; };
-		224B076B11DEA19B00B6EF48 /* JamomaSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */; };
 		224B076C11DEA19B00B6EF48 /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3200D0DB77900F7762D /* FunctionLib.cpp */; };
 		224B077111DEA19B00B6EF48 /* JamomaObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */; };
-		224B077911DEA19B00B6EF48 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */; };
 		224B077B11DEA19B00B6EF48 /* AsyncRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C74B0D4AB21B00DA75EE /* AsyncRamp.cpp */; };
 		224B077C11DEA19B00B6EF48 /* NoneRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C74D0D4AB21B00DA75EE /* NoneRamp.cpp */; };
 		224B077D11DEA19B00B6EF48 /* QueueRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C74F0D4AB21B00DA75EE /* QueueRamp.cpp */; };
 		224B077E11DEA19B00B6EF48 /* RampLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C7520D4AB21B00DA75EE /* RampLib.cpp */; };
 		224B077F11DEA19B00B6EF48 /* SchedulerRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C7540D4AB21B00DA75EE /* SchedulerRamp.cpp */; };
-		224B078011DEA19B00B6EF48 /* jcom.receive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226951D90DEE665200911DE0 /* jcom.receive~.cpp */; };
-		224B078111DEA19B00B6EF48 /* jcom.send~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226951DA0DEE665200911DE0 /* jcom.send~.cpp */; };
 		224B078211DEA19B00B6EF48 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227C7EE6109A374300D4D8EF /* commonsyms.cpp */; };
 		224B086611DEA31700B6EF48 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227C7ED9109A372800D4D8EF /* MaxAPI.framework */; };
 		224B086711DEA31700B6EF48 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227C7EDC109A373000D4D8EF /* MaxAudioAPI.framework */; };
@@ -36,6 +31,7 @@
 		D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AB7E74123FC21E00DAD340 /* TTData.cpp */; };
 		D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */; };
 		D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF8127DFBC900979D42 /* TTInput.cpp */; };
+		D2AE71F012FC41BD004B5887 /* JamomaSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AE71EF12FC41BD004B5887 /* JamomaSymbols.cpp */; };
 		D2CA88101213F4740090DE41 /* ModularForMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA880E1213F4740090DE41 /* ModularForMax.cpp */; };
 		D2CA88281213F47D0090DE41 /* TTContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88121213F47D0090DE41 /* TTContainer.cpp */; };
 		D2CA882A1213F47D0090DE41 /* TTExplorer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88161213F47D0090DE41 /* TTExplorer.cpp */; };
@@ -59,16 +55,11 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
 		22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaPrefix.pch; sourceTree = "<group>"; };
-		2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaSymbols.cpp; path = source/JamomaSymbols.cpp; sourceTree = "<group>"; };
-		2236907C0D00DFC3002D560B /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = source/JamomaSymbols.h; sourceTree = "<group>"; };
 		224B076511DEA0E000B6EF48 /* JamomaModular.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaModular.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaThreading.h; path = source/JamomaThreading.h; sourceTree = "<group>"; };
 		225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaObject.cpp; path = source/JamomaObject.cpp; sourceTree = "<group>"; };
 		225C92740D1BEFFF00BDA981 /* JamomaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaObject.h; path = source/JamomaObject.h; sourceTree = "<group>"; };
-		226951D90DEE665200911DE0 /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
-		226951DA0DEE665200911DE0 /* jcom.send~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
 		227C7ED8109A36C400D4D8EF /* MaxObjectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxObjectTypes.h; path = ../supports/objectivemax/MaxObject/MaxObjectTypes.h; sourceTree = SOURCE_ROOT; };
 		227C7ED9109A372800D4D8EF /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		227C7EDC109A373000D4D8EF /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
@@ -91,10 +82,6 @@
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = source/Jamoma.cpp; sourceTree = "<group>"; };
 		22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Jamoma.h; path = source/Jamoma.h; sourceTree = "<group>"; };
-		22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.core.cpp; path = source/jcom.core.cpp; sourceTree = "<group>"; };
-		22FD2DC10CEE5B6F0039C226 /* jcom.core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.core.h; path = source/jcom.core.h; sourceTree = "<group>"; };
-		22FD2DC20CEE5B6F0039C226 /* jcom.io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.io.h; path = source/jcom.io.h; sourceTree = "<group>"; };
-		22FD2DC30CEE5B6F0039C226 /* jcom.list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.list.h; path = source/jcom.list.h; sourceTree = "<group>"; };
 		22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.prefix.pch; path = source/jcom.prefix.pch; sourceTree = "<group>"; };
 		D209279D12EC546100BD289A /* TTDataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspaceLib.h; sourceTree = "<group>"; };
 		D20927D312EC598400BD289A /* TTDataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspaceLib.cpp; sourceTree = "<group>"; };
@@ -109,6 +96,8 @@
 		D2ADBFF7127DFBC900979D42 /* TTOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOutput.h; sourceTree = "<group>"; };
 		D2ADBFF8127DFBC900979D42 /* TTInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTInput.cpp; sourceTree = "<group>"; };
 		D2ADBFF9127DFBC900979D42 /* TTInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTInput.h; sourceTree = "<group>"; };
+		D2AE71EE12FC419A004B5887 /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = source/JamomaSymbols.h; sourceTree = "<group>"; };
+		D2AE71EF12FC41BD004B5887 /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaSymbols.cpp; path = source/JamomaSymbols.cpp; sourceTree = "<group>"; };
 		D2CA880E1213F4740090DE41 /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
 		D2CA880F1213F4740090DE41 /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModularForMax.h; sourceTree = "<group>"; };
 		D2CA88121213F47D0090DE41 /* TTContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTContainer.cpp; sourceTree = "<group>"; };
@@ -186,7 +175,6 @@
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
 				D2AC891D12EB3CBA00758BD6 /* DataspaceLib */,
-				2200FCAB0D3ECD3D0078B045 /* Internals */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
@@ -215,8 +203,7 @@
 				D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */,
 				22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */,
 				225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */,
-				2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */,
-				22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */,
+				D2AE71EF12FC41BD004B5887 /* JamomaSymbols.cpp */,
 				22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */,
 			);
 			name = Sources;
@@ -231,16 +218,6 @@
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		2200FCAB0D3ECD3D0078B045 /* Internals */ = {
-			isa = PBXGroup;
-			children = (
-				2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */,
-				226951D90DEE665200911DE0 /* jcom.receive~.cpp */,
-				226951DA0DEE665200911DE0 /* jcom.send~.cpp */,
-			);
-			path = Internals;
 			sourceTree = "<group>";
 		};
 		22AEF31F0D0DB77900F7762D /* FunctionLib */ = {
@@ -260,12 +237,9 @@
 				22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */,
 				225C92740D1BEFFF00BDA981 /* JamomaObject.h */,
 				22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */,
-				2236907C0D00DFC3002D560B /* JamomaSymbols.h */,
+				D2AE71EE12FC419A004B5887 /* JamomaSymbols.h */,
 				225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */,
 				22AEF32C0D0DB98500F7762D /* JamomaTypes.h */,
-				22FD2DC10CEE5B6F0039C226 /* jcom.core.h */,
-				22FD2DC20CEE5B6F0039C226 /* jcom.io.h */,
-				22FD2DC30CEE5B6F0039C226 /* jcom.list.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -420,18 +394,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				224B076911DEA19B00B6EF48 /* Jamoma.cpp in Sources */,
-				224B076A11DEA19B00B6EF48 /* jcom.core.cpp in Sources */,
-				224B076B11DEA19B00B6EF48 /* JamomaSymbols.cpp in Sources */,
 				224B076C11DEA19B00B6EF48 /* FunctionLib.cpp in Sources */,
 				224B077111DEA19B00B6EF48 /* JamomaObject.cpp in Sources */,
-				224B077911DEA19B00B6EF48 /* jcom.receivemaster.cpp in Sources */,
 				224B077B11DEA19B00B6EF48 /* AsyncRamp.cpp in Sources */,
 				224B077C11DEA19B00B6EF48 /* NoneRamp.cpp in Sources */,
 				224B077D11DEA19B00B6EF48 /* QueueRamp.cpp in Sources */,
 				224B077E11DEA19B00B6EF48 /* RampLib.cpp in Sources */,
 				224B077F11DEA19B00B6EF48 /* SchedulerRamp.cpp in Sources */,
-				224B078011DEA19B00B6EF48 /* jcom.receive~.cpp in Sources */,
-				224B078111DEA19B00B6EF48 /* jcom.send~.cpp in Sources */,
 				224B078211DEA19B00B6EF48 /* commonsyms.cpp in Sources */,
 				D2CA88101213F4740090DE41 /* ModularForMax.cpp in Sources */,
 				D2CA88281213F47D0090DE41 /* TTContainer.cpp in Sources */,
@@ -455,6 +424,7 @@
 				D2E27E9A12D53B2000C3EF05 /* TTCue.cpp in Sources */,
 				D2E27EA612D54B7000C3EF05 /* TTCueManager.cpp in Sources */,
 				D20927D412EC598400BD289A /* TTDataspaceLib.cpp in Sources */,
+				D2AE71F012FC41BD004B5887 /* JamomaSymbols.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -36,7 +36,7 @@ void ui_preset_doread(t_ui *x)
 	if (open_dialog(filename, &path, &outtype, &filetype, 1))		// Returns 0 if successful
 		return;														// User Cancelled
 
-	jcom_core_getfilepath(path, filename, fullpath);
+	jcom_file_get_path(path, filename, fullpath);
 	
 	ui_viewer_send(x, TT("preset/read"), TT(fullpath));
 }
@@ -50,7 +50,7 @@ void ui_preset_dowrite(t_ui *x)
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
 	
-	snprintf(filename, MAX_FILENAME_CHARS, "%s%s.xml", x->patcherClass->getCString(), x->patcherType->getCString());	// Default File Name
+	snprintf(filename, MAX_FILENAME_CHARS, "%s%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());	// Default File Name
 	saveas_promptset("Save Preset...");											// Instructional Text in the dialog
 	err = saveasdialog_extended(filename, &path, &outtype, &type, 1);			// Returns 0 if successful
 	if (err)																	// User Cancelled
@@ -64,7 +64,7 @@ void ui_preset_dowrite(t_ui *x)
 	}
 	
 	// ... AND WE SAVE THE fullpath IN THE HUB ATTRIBUTE user_path.
-	if (path) jcom_core_getfilepath(path, filename, fullpath);
+	if (path) jcom_file_get_path(path, filename, fullpath);
 	else strcpy(fullpath, filename);
 	
 	ui_viewer_send(x, TT("preset/write"), TT(fullpath));

@@ -190,8 +190,8 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTString					inAddress;
 	SymbolPtr					outAmplitudeInstance, outDescription;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/out"), x->patcherType, &x->subscriberObject);
+	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/out"), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {

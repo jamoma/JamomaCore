@@ -16,13 +16,13 @@ void ui_data_create_all(t_ui* obj)
 	TTString		uiStr, parentStr, dataStr;
 	TTValue			v;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)obj, &obj->patcherType, &obj->patcherClass);
+	jamoma_patcher_get_context_class((ObjectPtr)obj, &obj->patcherContext, &obj->patcherClass);
 	
 	// DEBUG
 	//object_post((ObjectPtr)obj, "patcherClass : %s", obj->patcherClass->getCString());
 	
 	// create a /ui node with our pather as context
-	jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/ui"), obj->patcherType, &obj->uiSubscriber);
+	jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/ui"), obj->patcherContext, &obj->uiSubscriber);
 	
 	// get the /ui node
 	obj->uiSubscriber->getAttributeValue(TT("node"), v);
@@ -153,7 +153,7 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	
 	// Register data
 	joinOSCAddress(TT("/ui"), name, &dataAddress);
-	jamoma_subscriber_create((ObjectPtr)obj, *returnedData, gensym((char*)dataAddress->getCString()), obj->patcherType, &aSubscriber);
+	jamoma_subscriber_create((ObjectPtr)obj, *returnedData, gensym((char*)dataAddress->getCString()), obj->patcherContext, &aSubscriber);
 	
 	// Store data
 	args = TTValue(TTPtr(*returnedData));
@@ -264,7 +264,7 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	
 	// Suscribe the viewer into the namespace
 	if (subscribe)
-		jamoma_subscriber_create((ObjectPtr)obj, *returnedViewer, gensym((char*)name->getCString()), obj->patcherType, &aSubscriber);
+		jamoma_subscriber_create((ObjectPtr)obj, *returnedViewer, gensym((char*)name->getCString()), obj->patcherContext, &aSubscriber);
 	
 	// Store the Viewer
 	args = TTValue(TTPtr(*returnedViewer));

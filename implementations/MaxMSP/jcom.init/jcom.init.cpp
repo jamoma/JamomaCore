@@ -118,14 +118,14 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 
 void init_build(t_init *x, SymbolPtr address)		// address : could be used to binds on a sub level jcom.hub
 {
-	TTSymbolPtr		patcherType, patcherClass;
+	TTSymbolPtr		patcherContext, patcherClass;
 	TTSymbolPtr		contextAddress, levelAddress;
 	TTValue			v, args;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
-	x->contextNode = jamoma_context_get_node((ObjectPtr)x, patcherType);
+	jamoma_patcher_get_context_class((ObjectPtr)x, &patcherContext, &patcherClass);
+	x->contextNode = jamoma_context_get_node((ObjectPtr)x, patcherContext);
 	
 	if (x->contextNode) {
 		

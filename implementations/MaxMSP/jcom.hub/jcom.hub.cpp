@@ -46,6 +46,9 @@ void		hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+t_max_err	nmspc_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
+t_max_err	nmspc_set_context(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
+
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
@@ -70,7 +73,10 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)hub_mute,						"hub_mute",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_address,					"hub_address",			A_CANT, 0);			// only in jview patch
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"doc_generate",			A_CANT, 0);
-
+	
+	CLASS_ATTR_SYM(c->maxClass,			"context",	0,		WrappedModularInstance,	patcherContext);	// use msg member to store format
+	CLASS_ATTR_ACCESSORS(c->maxClass,	"context",			nmspc_get_context,	nmspc_set_context);
+	CLASS_ATTR_ENUM(c->maxClass,		"context",	0,		"none .model .view");
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -88,6 +94,16 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// create a container
 	jamoma_container_create((ObjectPtr)x, &x->wrappedObject);
 	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
+	
+	// if the hub have an address : it shouldn't get his context from the attribute
+	// but from the hub at the root of the patch. So set it at none.
+	if (address != _sym_nothing) {
+		x->patcherContext = kTTSym_none;
+		object_warn((ObjectPtr)x, "can't set the context attribute for %s hub. Only unnamed hub can set this attribute", address->s_name);
+	}
+	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
@@ -103,9 +119,6 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->modelAddress = kTTSymEmpty;
-	
-	// handle attribute args
-	attr_args_process(x, argc, argv);
 }
 
 void WrappedContainerClass_free(TTPtr self)
@@ -129,8 +142,17 @@ void hub_build(TTPtr self, SymbolPtr address)
 	AtomPtr						av;
 	ObjectPtr					patcher;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherType, &x->subscriberObject);
+	if (x->patcherContext == kTTSym_none) {
+		jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+		object_post((ObjectPtr)x, "context : %s", x->patcherContext->getCString());
+		
+		if (x->patcherContext == kTTSym_none) {
+			object_error((ObjectPtr)x, "can't find any context. Have you set the context attribute or named your patch with .model or .view at the end");
+			return;
+		}
+	}
+		
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -166,7 +188,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 		// special case for jcom.node at the root of the model
 		if ((address == gensym("/") || address == _sym_nothing)) {
 			
-			if (x->patcherType == TT(ModelPatcher)) {
+			if (x->patcherContext == TT(ModelPatcher)) {
 				classAdrs = TT("/model/class");
 				helpAdrs =  TT("/model/help");
 				refAdrs = TT("/model/reference");
@@ -174,7 +196,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 				documentationAdrs = TT("/model/documentation/generate");
 				muteAdrs = TT("/model/mute");
 			}
-			else if (x->patcherType == TT(ViewPatcher)) {
+			else if (x->patcherContext == TT(ViewPatcher)) {
 				classAdrs = TT("/view/class");
 				helpAdrs =  TT("/view/help");
 				refAdrs = TT("/view/reference");
@@ -229,9 +251,9 @@ void hub_build(TTPtr self, SymbolPtr address)
 			aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
 			
 			// In jmod *and* jview patcher : Add /model/address data
-			if (x->patcherType == TT(ModelPatcher)) // as return
+			if (x->patcherContext == TT(ModelPatcher)) // as return
 				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
-			if (x->patcherType == TT(ViewPatcher)) // as parameter
+			if (x->patcherContext == TT(ViewPatcher)) // as parameter
 				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
@@ -239,24 +261,24 @@ void hub_build(TTPtr self, SymbolPtr address)
 			aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
 			
 			// In jmod patcher : set /modeladdress with his address
-			if (x->patcherType == TT(ModelPatcher))
+			if (x->patcherContext == TT(ModelPatcher))
 				aData->setAttributeValue(kTTSym_value, nodeAddress);
 			
 			// In jview patcher :
 			// if exists, the second argument of the patcher is the /model/address value
 			// else observe the entire namespace to find a model of our class
-			if (x->patcherType == TT(ViewPatcher)) {
+			if (x->patcherContext == TT(ViewPatcher)) {
 				
 				ac = 0;
 				av = NULL;
-				patcher = jamoma_object_getpatcher((ObjectPtr)x);
+				patcher = jamoma_patcher_get((ObjectPtr)x);
 				
 				// If x is in a bpatcher, the patcher is NULL
 				if (!patcher){
 					patcher = object_attr_getobj(x, _sym_parentpatcher);
 				}
 				
-				jamoma_patcher_getargs(patcher, &ac, &av);
+				jamoma_patcher_get_args(patcher, &ac, &av);
 				if (ac) {
 					EXTRA->modelAddress = TT(atom_getsym(av)->s_name);
 					aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
@@ -353,14 +375,10 @@ void hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr patcherType;
-	TTSymbolPtr patcherClass;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
-	
-	TTString helpfile = patcherType->getCString();
+	TTString helpfile = x->patcherContext->getCString();
 	helpfile += ".";
-	helpfile += patcherClass->getCString();
+	helpfile += x->patcherClass->getCString();
 	
 	//post("hub_help : %s", (char*)helpfile.data());
 	
@@ -370,14 +388,10 @@ void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr patcherType;
-	TTSymbolPtr patcherClass;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
-	
-	TTString refpage = patcherType->getCString();
+	TTString refpage = x->patcherContext->getCString();
 	refpage += ".";
-	refpage += patcherClass->getCString();
+	refpage += x->patcherClass->getCString();
 	
 	//post("hub_reference : %s", (char*)refpage.data());
 	
@@ -388,7 +402,7 @@ void hub_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	ObjectPtr p = jamoma_object_getpatcher((ObjectPtr)x);
+	ObjectPtr p = jamoma_patcher_get((ObjectPtr)x);
 	
 	object_method(p, _sym_vis);
 }
@@ -410,7 +424,7 @@ void hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default HTML file name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s%s.html", x->patcherClass->getCString(), x->patcherType->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "%s%s.html", x->patcherClass->getCString(), x->patcherContext->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
@@ -429,7 +443,7 @@ void hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	ObjectPtr					patcher = jamoma_object_getpatcher((ObjectPtr)x);
+	ObjectPtr					patcher = jamoma_patcher_get((ObjectPtr)x);
 	long						mute;
 	t_atom						a[2];
 	
@@ -456,7 +470,7 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTErr		err;
 	
 	// In jview patcher only
-	if (x->patcherType == TT(ViewPatcher)) {
+	if (x->patcherContext == TT(ViewPatcher)) {
 		
 		if (atom_gettype(argv) == A_SYM) {
 			EXTRA->modelAddress = TT(atom_getsym(argv)->s_name);
@@ -516,3 +530,39 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 		}
 	}
 }
+
+
+t_max_err nmspc_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if ((*ac)&&(*av)) {
+		//memory passed in, use it
+	} else {
+		//otherwise allocate memory
+		*ac = 1;
+		if (!(*av = (AtomPtr)getbytes(sizeof(Atom)*(*ac)))) {
+			*ac = 0;
+			return MAX_ERR_OUT_OF_MEM;
+		}
+	}
+	
+	atom_setsym(*av, gensym((char*)x->patcherContext->getCString()));
+	
+	return MAX_ERR_NONE;
+}
+
+t_max_err nmspc_set_context(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if (ac&&av) {
+		x->patcherContext = TT(atom_getsym(av)->s_name);
+	}
+	else
+		x->patcherContext = kTTSym_none;
+	
+	return MAX_ERR_NONE;
+}
+
+

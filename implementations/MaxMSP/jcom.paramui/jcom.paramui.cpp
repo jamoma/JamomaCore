@@ -275,7 +275,7 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		else
 			argLen = 28;
 
-		jcom_core_loadextern(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
+		jamoma_extern_load(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
 	}
 	return x;
 }

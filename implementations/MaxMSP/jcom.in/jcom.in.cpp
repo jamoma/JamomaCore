@@ -173,19 +173,19 @@ void WrappedInputClass_free(TTPtr self)
 
 void in_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, args;
-	long						i, number = atom_getlong(argv);
-	TTNodePtr					node = NULL;
-	TTBoolean					newInstance;
-	TTSymbolPtr					nodeAddress, relativeAddress, parentAddress;
-	TTDataPtr					aData;
-	TTPtr						context;
-	TTString					outAddress;
-	SymbolPtr					inAmplitudeInstance, inDescription;
+	WrappedModularInstancePtr x = (WrappedModularInstancePtr)self;
+	TTValue			v, args;
+	long			i, number = atom_getlong(argv);
+	TTNodePtr		node = NULL;
+	TTBoolean		newInstance;
+	TTSymbolPtr		nodeAddress, relativeAddress, parentAddress;
+	TTDataPtr		aData;
+	TTPtr			context;
+	TTString		outAddress;
+	SymbolPtr		inAmplitudeInstance, inDescription;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/in"), x->patcherType, &x->subscriberObject);
+	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/in"), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {

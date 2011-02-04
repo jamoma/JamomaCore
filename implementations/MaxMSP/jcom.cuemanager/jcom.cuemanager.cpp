@@ -139,8 +139,8 @@ void cue_build(TTPtr self, SymbolPtr address)
 	else
 		cueLevelAddress = address->s_name;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)cueLevelAddress.data())), x->patcherType, &x->subscriberObject);
+	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)cueLevelAddress.data())), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -291,7 +291,7 @@ void cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherType->getCString(), x->patcherClass->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherContext->getCString(), x->patcherClass->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
@@ -314,20 +314,19 @@ void cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void cue_default(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr patcherClass;
-	TTSymbolPtr patcherType;
 	short		outvol;
 	long		outtype, filetype = 'TEXT';
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	Atom		a;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
-	
-	if (patcherType != kTTSymEmpty && patcherClass != kTTSymEmpty) {
+	if (x->patcherClass != kTTSymEmpty) {
 		
-		TTString xmlfile = patcherType->getCString();
-		xmlfile += ".";
-		xmlfile += patcherClass->getCString();
+		TTString xmlfile = x->patcherClass->getCString();
+		if (x->patcherContext != kTTSym_none) {
+			xmlfile += ".";
+			xmlfile +=  x->patcherContext->getCString();
+		}
+		
 		xmlfile += ".xml";
 		
 		if (locatefile_extended((char*)xmlfile.data(), &outvol, &outtype, &filetype, 1)) {
@@ -335,7 +334,7 @@ void cue_default(TTPtr self)
 			return;
 		}
 		
-		jcom_core_getfilepath(outvol, (char*)xmlfile.data(), fullpath);
+		jcom_file_get_path(outvol, (char*)xmlfile.data(), fullpath);
 		
 		atom_setsym(&a, gensym(fullpath));
 		defer_low(self, (method)cue_doread, gensym("read"), 1, &a);
@@ -366,7 +365,7 @@ void cue_filechanged(TTPtr self, char *filename, short path)
 	// get current cue
 	x->wrappedObject->sendMessage(TT("current"), v);
 	
-	jcom_core_getfilepath(path, filename, fullpath);
+	jcom_file_get_path(path, filename, fullpath);
 	
 	atom_setsym(&a, gensym(fullpath));
 	defer_low(self, (method)cue_doread, gensym("read"), 1, &a);

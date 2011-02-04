@@ -305,7 +305,7 @@ void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		return;
 	}
 	
-	jcom_core_getfilepath(path, filepath, fullpath);
+	jcom_file_get_path(path, filepath, fullpath);
 	
 	if (x->wrappedObject) {
 		v.clear();

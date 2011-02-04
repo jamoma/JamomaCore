@@ -214,8 +214,8 @@ void data_build(TTPtr self, SymbolPtr address)
 	TTSymbolPtr					nodeAddress, relativeAddress;
 	TTPtr						context;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherType, &x->subscriberObject);
+	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
@@ -269,7 +269,7 @@ void data_build_array(TTPtr self)
 		
 	x->internals->getKeys(keys);
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
+	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
 	
 	for (int i=0; i<keys.getSize(); i++) {
 		
@@ -278,7 +278,7 @@ void data_build_array(TTPtr self)
 		anObject = selectedObject;
 
 		// suscribe object
-		jamoma_subscriber_create((ObjectPtr)x, anObject, gensym((char*)keyAddress->getCString()), x->patcherType, &aSubscriber);
+		jamoma_subscriber_create((ObjectPtr)x, anObject, gensym((char*)keyAddress->getCString()), x->patcherContext, &aSubscriber);
 		
 		// if the subscription is successful
 		if (aSubscriber) {

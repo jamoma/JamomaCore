@@ -15,8 +15,8 @@
 extern TTSymbolPtr			kTTSym_Jamoma;
 extern TTApplicationPtr		JamomaApplication;
 
-#define ModelPatcher ".model" 
-#define ViewPatcher ".view" 
+#define ModelPatcher "model" 
+#define ViewPatcher "view" 
 
 #ifdef __cplusplus
 extern "C" {
@@ -189,6 +189,27 @@ extern "C" {
 	void			jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data);
 	
 	
+	// Patcher
+	///////////////////////////////////////////////
+	
+	/** Convenient method to get the patcher easily */
+	ObjectPtr		jamoma_patcher_get(ObjectPtr obj);
+	
+	/** Convenient method to get the patcher argument easily */
+	void			jamoma_patcher_get_args(t_object *patcher, long *argc, t_atom **argv);
+	
+	/** Get the hierarchy of the patcher : bpatcher, subpatcher or toplevel */
+	SymbolPtr		jamoma_patcher_get_hierarchy(ObjectPtr patcher);
+
+	/** Get the context from the upper hub in the patcher */
+	void			jamoma_patcher_get_context(ObjectPtr patcher, TTSymbolPtr *returnedContext);
+
+	/** Get the class of the patcher from the file name (removing .model and .view convention name if they are in) */
+	void			jamoma_patcher_get_class(ObjectPtr patcher,  TTSymbolPtr context, TTSymbolPtr *returnedClass);
+
+	/** Get the context and the class of an object */
+	void			jamoma_patcher_get_context_class(ObjectPtr obj,  TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass);
+	
 	// Tools
 	///////////////////////////////////////////////
 	
@@ -205,13 +226,13 @@ extern "C" {
 		or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
 	SymbolPtr		jamoma_TTName_To_MaxName(TTSymbolPtr TTName);
 	
+	/** Load an external for internal use. Returns true if successful */
+	TTBoolean		jamoma_extern_load(SymbolPtr objectname, AtomCount argc, AtomPtr argv, ObjectPtr *object);
+	
 	/** Get the Context Node relative to a jcom.external  if it is possible (else return the root)
 		This method have to be defered low while the Context is not registered in the namespace.
 		see jcom.init to get an example */
 	TTNodePtr		jamoma_context_get_node(ObjectPtr x, TTSymbolPtr contextType);
-	
-	/** Get the context type and class from a jcom.external looking at the patcher */
-	void			jamoma_patcher_type_and_class(ObjectPtr z, TTSymbolPtr *returnedContextType, TTSymbolPtr *returnedClass);
 	
 	/** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
 	long			jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format);
@@ -225,11 +246,17 @@ extern "C" {
 	/** Parse #N inside address and replace them by parent patcher arguments if there are */
 	SymbolPtr		jamoma_parse_dieze(ObjectPtr x, SymbolPtr address);
 	
+	// Files
+	///////////////////////////////////////////////
+	
 	/** Get BOOT style filepath from args or, if no args open a dialog to write a file */
 	TTSymbolPtr		jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* default_filename);
 	
 	/** Get BOOT style filepath from args or, if no args open a dialog to read a file */
 	TTSymbolPtr		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv);
+	
+	/** Function the translates a Max path+filename combo into a correct absolutepath */
+	void			jcom_file_get_path(short in_path, char *in_filename, char *out_filepath);
 	
 #ifdef __cplusplus
 }

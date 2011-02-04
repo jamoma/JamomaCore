@@ -33,8 +33,6 @@
 #include "TTModular.h"
 
 #include "jcom.core.h"
-#include "jcom.list.h"
-#include "jcom.io.h"
 #include "JamomaTypes.h"
 #include "JamomaSymbols.h"
 
@@ -57,23 +55,7 @@
 extern "C" {
 
 	void		jamoma_init(void);
-	t_max_err	jamoma_hub_register(t_symbol *name, t_object *hub);
-	void		jamoma_hub_remove(t_symbol *name);
-	t_object*	jamoma_get_hub_for_module_named(t_symbol *name);
-	void		jamoma_get_all_module_names(long *numModules, t_symbol ***moduleNames);
-	t_object*	jamoma_object_getpatcher(t_object *obj);
-	t_symbol*	jamoma_patcher_getcontext(t_object *patcher);
-	void		jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv);
-	t_symbol*	jamoma_patcher_getvarname(t_object *patcher);
-
-	void		jamoma_dsp(t_object *, t_signal **sp, short *count);
-
-	void		jamoma_class_attr_new(t_class *c, const char *attrName, t_symbol *attrType, method setter, method getter);
-	void		jamoma_class_attr_array_new(t_class *c, const char *attrName, t_symbol *attrType, long list_size, method setter, method getter);
-	void		jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *);
-
-	//void		receive_initclass();
-	//void		send_initclass();
+	
 }
 
 

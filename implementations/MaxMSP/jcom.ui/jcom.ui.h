@@ -61,7 +61,7 @@ typedef struct _ui{
 	
 	TTSymbolPtr			viewAddress;
 	TTSymbolPtr			modelAddress;
-	TTSymbolPtr			patcherType;
+	TTSymbolPtr			patcherContext;
 	TTSymbolPtr			patcherClass;
 	TTSymbolPtr			patcherName;
 	ObjectPtr			patcher;

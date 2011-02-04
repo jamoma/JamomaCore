@@ -52,6 +52,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_lookfor;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Map;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_message;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mix;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_model;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_name;
@@ -86,6 +87,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_type;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueStepsize;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_viewFreeze;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_view;
 
 
 void TTModularSymbolCacheInit()
@@ -130,6 +132,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_Map						= TT("Map");
 	kTTSym_message					= TT("message");
 	kTTSym_mix						= TT("mix");
+	kTTSym_model					= TT("model");
 	kTTSym_mute						= TT("mute");
 	
 	kTTSym_name						= TT("name");
@@ -165,5 +168,6 @@ void TTModularSymbolCacheInit()
 	kTTSym_valueDefault				= TT("valueDefault");
 	kTTSym_valueStepsize			= TT("valueStepsize");
 	kTTSym_viewFreeze				= TT("viewFreeze");
+	kTTSym_view						= TT("view");
 }
 

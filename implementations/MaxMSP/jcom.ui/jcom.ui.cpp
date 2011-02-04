@@ -373,7 +373,7 @@ t_max_err ui_address_get(t_ui *x, t_object *attr, long *argc, t_atom **argv)
 void ui_build(t_ui *x)
 {
 	TTValue			v, n, p, args;
-	SymbolPtr		aContext;
+	SymbolPtr		hierarchy;
 	ObjectPtr		textfield;
 	ObjectPtr		box;
 	t_rect			boxRect;
@@ -384,13 +384,13 @@ void ui_build(t_ui *x)
 		ui_viewer_refresh(x, TT("model/address"));
 	
 	// Examine the context to resize the view, set textfield, ...
-	x->patcher = jamoma_object_getpatcher((ObjectPtr)x);
-	aContext = jamoma_patcher_getcontext(x->patcher);
+	x->patcher = jamoma_patcher_get((ObjectPtr)x);
+	hierarchy = jamoma_patcher_get_hierarchy(x->patcher);
 	
-	if (aContext != gensym("toplevel")) {
+	if (hierarchy != _sym_topmost) {
 		box = object_attr_getobj(x->patcher, jps_box);
 		
-		if (aContext == gensym("bpatcher")) {
+		if (hierarchy == _sym_bpatcher) {
 			object_attr_get_rect((ObjectPtr)x, _sym_presentation_rect, &uiRect);
 			object_attr_get_rect(box, _sym_patching_rect, &boxRect);
 			boxRect.width = uiRect.width;
@@ -401,7 +401,7 @@ void ui_build(t_ui *x)
 			boxRect.height = uiRect.height;
 			object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
 		}
-		else if (aContext == gensym("subpatcher")) {
+		else if (hierarchy == _sym_subpatcher) {
 			object_attr_get_rect((ObjectPtr)x, _sym_presentation_rect, &uiRect);
 			object_attr_get_rect(x->patcher, _sym_defrect, &boxRect);
 			boxRect.width = uiRect.width;
@@ -805,7 +805,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		// if the control key is pressed
 		if (modifiers & eShiftKey) {
 
-			obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+			obj = object_attr_getobj(jamoma_patcher_get((ObjectPtr)x), _sym_firstobject);
 			while (obj) {
 				objclass = object_attr_getsym(obj, _sym_maxclass);
 				if (objclass == gensym("jcom.view")) {
@@ -943,7 +943,7 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 {
 	SymbolPtr	objclass;
-	ObjectPtr	obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+	ObjectPtr	obj = object_attr_getobj(jamoma_patcher_get((ObjectPtr)x), _sym_firstobject);
 	Atom		selected_color[4];
 	
 	// if the control key is pressed
@@ -986,7 +986,7 @@ void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 void ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 {	
 	SymbolPtr objclass;
-	ObjectPtr obj = object_attr_getobj(jamoma_object_getpatcher((ObjectPtr)x), _sym_firstobject);
+	ObjectPtr obj = object_attr_getobj(jamoma_patcher_get((ObjectPtr)x), _sym_firstobject);
 	
 	// Is the mouse leave outside the jcom.ui (not hover an ui object)
 	if (	pt.x <= x->box.b_presentation_rect.x || pt.x >= (x->box.b_presentation_rect.x + x->box.b_presentation_rect.width)
