@@ -94,6 +94,9 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	// change the address
 	mAddress = value;
 	
+	// add Slash before to be sure we have one
+	joinOSCAddress(S_SEPARATOR, mAddress, &mAddress);
+	
 	// change internal values
 	splitOSCAddress(mAddress, &mTempParent, &mTempName, &inst, &attr);
 	

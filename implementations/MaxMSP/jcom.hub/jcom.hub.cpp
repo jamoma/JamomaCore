@@ -33,6 +33,8 @@ void		hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_build(TTPtr self, SymbolPtr address);
 
+void		hub_init(TTPtr self);
+
 void		hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -282,8 +284,18 @@ void hub_build(TTPtr self, SymbolPtr address)
 			v.get(0, &nodeAddress);
 			atom_setsym(&a, gensym((char*)nodeAddress->getCString()));
 			object_obex_dumpout(self, gensym("address"), 1, &a);
+			
+			// init the hub
+			defer_low(x, (method)hub_init, 0, 0, 0L);
 		}
 	}
+}
+
+void hub_init(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	x->wrappedObject->sendMessage(TT("Init"));
 }
 
 // Method for Assistance Messages

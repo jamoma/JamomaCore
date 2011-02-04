@@ -361,18 +361,18 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 /**	Send Max data using a container object */
 TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddressAndAttribute, AtomCount argc, AtomPtr argv)
 {
-	TTSymbolPtr	oscAddress, attribute;
+	TTSymbolPtr	oscAddress, attrOrMess;
 	TTValue		v, data;
 	
 	if (aContainer) {
 		
 		// Get address part and attribute part
-		splitAttribute(TT(relativeAddressAndAttribute->s_name), &oscAddress, &attribute);
+		splitAttribute(TT(relativeAddressAndAttribute->s_name), &oscAddress, &attrOrMess);
 		
 		data.append(oscAddress);
 		
-		if (attribute != NO_ATTRIBUTE)
-			data.append(attribute);
+		if (attrOrMess != NO_ATTRIBUTE)
+			data.append(attrOrMess);
 		else
 			data.append(kTTSym_value);
 		
@@ -1272,7 +1272,7 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 	else
 		method = jps_return_value;
 
-	jamoma_ttvalue_to_Atom(v, &msg, &argc, &argv);
+	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv);
 	
 	// send data to an external using the return_value method
 	object_method(x, method, msg, argc, argv);
@@ -1293,7 +1293,7 @@ void jamoma_callback_return_signal(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&x);
 	
-	jamoma_ttvalue_to_Atom(data, &msg, &argc, &argv);
+	jamoma_ttvalue_to_Msg_Atom(data, &msg, &argc, &argv);
 	
 	// send signal using the return_signal method
 	object_method(x, jps_return_signal, msg, argc, argv);
@@ -1331,8 +1331,8 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data)
 // Method to deal with TTValue
 /////////////////////////////////////////
 
-/** Make a Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
-void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv)
+/** Make a Message prepended Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
+void jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv)
 {
 	AtomCount	i;
 	
@@ -1380,6 +1380,39 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, A
 	}
 }
 
+/** Make an Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
+void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
+{
+	AtomCount	i;
+	
+	*argc = v.getSize();
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * (*argc));
+	
+	if (*argc && !(v == kTTValNONE)) {
+		for (i=0; i<*argc; i++) {
+			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+				TTFloat64	value;
+				v.get(i, value);
+				atom_setfloat((*argv)+i, value);
+			}
+			else if(v.getType(i) == kTypeSymbol){
+				TTSymbolPtr	value = NULL;
+				v.get(i, &value);
+				atom_setsym((*argv)+i, gensym((char*)value->getCString()));
+			}
+			else{	// assume int
+				TTInt32	value;
+				v.get(i, value);
+				atom_setlong((*argv)+i, value);
+			}
+		}
+	}
+	else {
+		*argc = 0;
+		*argv = NULL;
+	}
+}
 
 /** Make a TTValue from Atom array */
 void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr argv)

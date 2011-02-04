@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 4.0, 44.0, 1251.0, 468.0 ],
+		"rect" : [ 4.0, 44.0, 945.0, 488.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 4.0, 44.0, 1251.0, 468.0 ],
+		"defrect" : [ 4.0, 44.0, 945.0, 488.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -19,6 +19,18 @@
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-16",
+					"maxclass" : "ezdac~",
+					"numinlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1335.0, 360.0, 45.0, 45.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 883.0, 230.0, 45.0, 45.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
@@ -267,22 +279,6 @@
 					"outlettype" : [ "", "", "bang" ],
 					"patching_rect" : [ 743.0, 630.0, 68.0, 20.0 ],
 					"text" : "savedialog"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/output~" ],
-					"id" : "obj-81",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.output~.maxpat",
-					"numinlets" : 3,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 1140.0, 390.0, 300.0, 140.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 930.0, 255.0, 300.0, 140.0 ],
-					"varname" : "out[1]"
 				}
 
 			}
@@ -753,46 +749,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"id" : "obj-42",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 1024.0, 144.0, 109.0, 18.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 930.0, 400.0, 109.0, 18.0 ],
-					"text" : "script delete out[1]"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
 					"id" : "obj-43",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 1056.0, 175.0, 69.0, 20.0 ],
+					"patching_rect" : [ 1171.0, 455.0, 69.0, 20.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-29",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 1025.0, 122.0, 95.0, 18.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 631.0, 401.0, 95.0, 18.0 ],
-					"text" : "script delete out"
 				}
 
 			}
@@ -805,10 +769,10 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1025.0, 101.0, 101.0, 18.0 ],
+					"patching_rect" : [ 1140.0, 381.0, 105.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 931.0, 83.0, 101.0, 18.0 ],
-					"text" : "script delete in[1]"
+					"presentation_rect" : [ 630.0, 255.0, 108.0, 18.0 ],
+					"text" : "script delete deg2"
 				}
 
 			}
@@ -821,10 +785,10 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1025.0, 80.0, 88.0, 18.0 ],
+					"patching_rect" : [ 1140.0, 360.0, 105.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 630.0, 83.0, 88.0, 18.0 ],
-					"text" : "script delete in"
+					"presentation_rect" : [ 630.0, 120.0, 104.0, 18.0 ],
+					"text" : "script delete deg1"
 				}
 
 			}
@@ -894,17 +858,17 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/input~" ],
+					"args" : [ "/degrade.1" ],
 					"id" : "obj-5",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.input~.maxpat",
-					"numinlets" : 1,
+					"name" : "degrade~.module.maxpat",
+					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 1140.0, 90.0, 300.0, 140.0 ],
+					"patching_rect" : [ 1140.0, 90.0, 303.0, 72.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 630.0, 105.0, 300.0, 140.0 ],
-					"varname" : "in"
+					"presentation_rect" : [ 630.0, 150.0, 300.0, 71.0 ],
+					"varname" : "deg1"
 				}
 
 			}
@@ -1084,9 +1048,9 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1251.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 945.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 1250.0, 70.0 ]
+					"presentation_rect" : [ 0.0, 0.0, 945.0, 70.0 ]
 				}
 
 			}
@@ -1192,7 +1156,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-47",
-					"items" : "<empty>",
+					"items" : [ "degrade", ",", "degrade~(view)" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1366,7 +1330,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : [ "value/default", ",", "ramp/drive", ",", "priority", ",", "value/stepsize", ",", "tag", ",", "value", ",", "description", ",", "dataspace/unit/display", ",", "dataspace", ",", "repetitions/allow", ",", "ramp/function", ",", "range/bounds", ",", "type", ",", "dataspace/unit/native", ",", "readonly", ",", "range/clipmode", ",", "dataspace/unit/active" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1388,13 +1352,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-20",
-					"items" : [ "/cpu", ",", "/cpu.1", ",", "/in/amplitude.2", ",", "/audio/amplitude", ",", "/in/amplitude.1", ",", "/audio/amplitude.5", ",", "/out/amplitude.1", ",", "/class.1", ",", "/audio/amplitude.2", ",", "/audio/amplitude.1", ",", "/in.3/amplitude.1", ",", "/in.1/amplitude.1", ",", "/class.2", ",", "/in.2/amplitude.2", ",", "/audio/amplitude.6", ",", "/out.1/amplitude.2", ",", "/class.3", ",", "/in.2/amplitude.1", ",", "/audio/amplitude.3", ",", "/soundfile/report.1", ",", "/out.1/amplitude.1", ",", "/audio/amplitude.7", ",", "/audio/amplitude.4", ",", "/soundfile/report", ",", "/out/amplitude.2", ",", "/class" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 396.0, 442.0, 139.0, 20.0 ],
-					"prefix" : "/jcom.namespace.maxhelp",
+					"prefix" : "/degrade~.1",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 300.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1410,13 +1374,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : [ "/ui/refresh.2", ",", "/reference", ",", "/documentation/generate.3", ",", "/documentation/generate", ",", "/ui/refresh.3", ",", "/dspStatus", ",", "/dspStatus.1", ",", "/audio/panic.3", ",", "/documentation/generate.1", ",", "/reference.1", ",", "/help.3", ",", "/reference.2", ",", "/soundfile/direct", ",", "/dspStatus.2", ",", "/record/active.1", ",", "/dspStatus.3", ",", "/help", ",", "/help.1", ",", "/ui/refresh", ",", "/soundfile/direct.1", ",", "/documentation/generate.2", ",", "/internals.3", ",", "/help.2", ",", "/audio/panic", ",", "/reference.3", ",", "/internals.1", ",", "/internals.2", ",", "/audio/panic.2", ",", "/audio/panic.1", ",", "/record/active", ",", "/internals", ",", "/ui/refresh.1" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 246.0, 442.0, 139.0, 20.0 ],
-					"prefix" : "/jcom.namespace.maxhelp",
+					"prefix" : "/degrade~.1",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 270.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1432,13 +1396,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : [ "/ui/color/toolbarBackground.3", ",", "/mute.2", ",", "/ui/color/contentBackground", ",", "/limiter/lookahead.1", ",", "/audio/active.1", ",", "/ui/size.3", ",", "/ui/freeze.3", ",", "/saturation/active", ",", "/limiter/preamp", ",", "/in.1/bypass", ",", "/ui/color/border", ",", "/ui/color/contentBackground.3", ",", "/in/bypass", ",", "/ch.7", ",", "/testtone/frequency", ",", "/in.3/mute", ",", "/limiter/release.1", ",", "/saturation/depth.1", ",", "/ui/color/toolbarBackground.1", ",", "/saturation/depth", ",", "/balance.1", ",", "/testtone/frequency.1", ",", "/ui/color/border.1", ",", "/ui/color/toolbarText.3", ",", "/ui/freeze.2", ",", "/soundfile/open.1", ",", "/in.1/mute", ",", "/ui/freeze", ",", "/out/mute", ",", "/audio/gain.2", ",", "/source", ",", "/mute.1", ",", "/ui/color/border.3", ",", "/limiter/mode.1", ",", "/ui/color/contentBackground.2", ",", "/audio/gain", ",", "/ui/color/contentBackground.1", ",", "/soundfile/play.1", ",", "/in/mute", ",", "/out/mix", ",", "/limiter/postamp", ",", "/audio/gain.1", ",", "/limiter/postamp.1", ",", "/balance.2", ",", "/limiter/mode", ",", "/ui/size", ",", "/in.2/mute", ",", "/out.1/mute", ",", "/limiter/active", ",", "/limiter/lookahead", ",", "/out.1/mix", ",", "/ui/size.1", ",", "/out.1/gain", ",", "/audio/active", ",", "/record/filetype.1", ",", "/ui/freeze.1", ",", "/mute.3", ",", "/limiter/threshold", ",", "/soundfile/open", ",", "/ui/color/toolbarText.2", ",", "/limiter/dcblocker/active", ",", "/ch.5", ",", "/ui/color/toolbarBackground.2", ",", "/audio/gain.3", ",", "/out/gain", ",", "/clicktrain/rate.1", ",", "/ui/color/toolbarText", ",", "/limiter/threshold.1", ",", "/ch.4", ",", "/ch.1", ",", "/source.1", ",", "/ui/color/toolbarText.1", ",", "/ui/color/border.2", ",", "/balance", ",", "/balance.3", ",", "/mute", ",", "/soundfile/loop.1", ",", "/limiter/active.1", ",", "/soundfile/loop", ",", "/limiter/preamp.1", ",", "/in.3/bypass", ",", "/audio/active.2", ",", "/in.2/bypass", ",", "/ui/size.2", ",", "/audio/active.3", ",", "/record/samptype.1", ",", "/limiter/dcblocker/active.1", ",", "/saturation/active.1", ",", "/ch.2", ",", "/ch.3", ",", "/ui/color/toolbarBackground", ",", "/soundfile/play", ",", "/record/samptype", ",", "/limiter/release", ",", "/ch.6", ",", "/clicktrain/rate", ",", "/record/filetype", ",", "/ch.8" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 87.0, 442.0, 139.0, 20.0 ],
-					"prefix" : "/jcom.namespace.maxhelp",
+					"prefix" : "/degrade~.1",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 240.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1495,33 +1459,17 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/output~" ],
-					"id" : "obj-16",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.output~.maxpat",
-					"numinlets" : 3,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 1140.0, 540.0, 300.0, 140.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 630.0, 255.0, 300.0, 140.0 ],
-					"varname" : "out"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/input~" ],
+					"args" : [ "/degrade.2" ],
 					"id" : "obj-10",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.input~.maxpat",
-					"numinlets" : 1,
+					"name" : "degrade~.module.maxpat",
+					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 1140.0, 240.0, 300.0, 140.0 ],
+					"patching_rect" : [ 1140.0, 240.0, 303.0, 72.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 930.0, 105.0, 300.0, 140.0 ],
-					"varname" : "in[1]"
+					"presentation_rect" : [ 630.0, 285.0, 300.0, 71.0 ],
+					"varname" : "deg2"
 				}
 
 			}
@@ -1534,7 +1482,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-3",
-					"items" : "/jcom.namespace.maxhelp",
+					"items" : [ "/degrade.2", ",", "/degrade~(view).1", ",", "/degrade.1", ",", "/degrade~(view)" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1570,6 +1518,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 1 ]
 				}
 
 			}
@@ -1755,15 +1721,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-43", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-29", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-83", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1905,15 +1862,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-43", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-42", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1972,6 +1920,24 @@
 					"hidden" : 0,
 					"midpoints" : [ 744.5, 507.0, 315.5, 507.0 ],
 					"source" : [ "obj-49", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 1 ]
 				}
 
 			}

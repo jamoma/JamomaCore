@@ -14,7 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
-mValueDefault(TTValue(0.0)),
+mValueDefault(kTTValNONE),
 mValueStepsize(TTValue(0.1)),
 mType(kTTSym_generic),
 mTag(kTTSym_none),
@@ -121,7 +121,8 @@ TTErr TTData::Reset()
 {
 	// if valueDefault type is right
 	if (checkType(mValueDefault))
-		setValue(mValueDefault);
+		if (!(mValueDefault == kTTValNONE))
+			setValue(mValueDefault);
 	
 	// Set data to be uninitialised
 	// to circumvent filtering of repetitions when outputing value from default preset
@@ -603,7 +604,6 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeInt32;
 			valueStepSizeAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
-			mValueDefault = TTValue(1);
 			mValueStepsize = TTValue(1);
 			mRangeBounds.set(0, TTUInt16(0));
 			mRangeBounds.set(1, TTUInt16(1));
@@ -613,7 +613,6 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			mValueDefault = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
@@ -623,7 +622,6 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeSymbol;
 			valueStepSizeAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
-			mValueDefault = TTValue(kTTSymEmpty);
 			mValueStepsize = kTTValNONE;
 			mRangeBounds = kTTValNONE;
 		}
@@ -632,7 +630,6 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeBoolean;
 			valueStepSizeAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
-			mValueDefault = TTValue(NO);
 			mValueStepsize = TTValue(YES);
 			mRangeBounds.set(0, NO);
 			mRangeBounds.set(1, YES);
@@ -642,29 +639,24 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			mValueDefault = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
 		}
-	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
 			valueAttribute->type = kTypeNone;
 			valueDefaultAttribute->type = kTypeNone;
 			valueStepSizeAttribute->type = kTypeNone;
 			mValue = kTTValNONE;
-			mValueDefault = kTTValNONE;
 			mValueStepsize = kTTValNONE;
 			mRangeBounds = kTTValNONE;
 		}
-	//#endif // JMOD_MESSAGE
 		else {
 			valueAttribute->type = kTypeFloat64;
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
 			mValue = TTValue(0.);
-			mValueDefault = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds = TTValue(0., 1.);
 			return kTTErrGeneric;

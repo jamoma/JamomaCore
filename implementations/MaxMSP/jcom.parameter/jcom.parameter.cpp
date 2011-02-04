@@ -9,9 +9,8 @@
 
 #include "TTModularClassWrapperMax.h"
 
-#define set_out 0
-#define data_out 1
-#define	dump_out 2
+#define data_out 0
+#define	dump_out 1
 
 // Definitions
 void		WrapTTDataClass(WrappedClassPtr c);
@@ -40,10 +39,6 @@ void		data_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-#endif
-
-#ifndef JMOD_RETURN
-void		data_ui_queuefn(TTPtr self);
 #endif
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -115,11 +110,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Don't create outlets during dynamic changes
 		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
 		x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
-		x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
-	
-	// Make qelem object
-	/////////////////////////////////////////////////////////////////////////////////
-	x->ui_qelem = qelem_new(x, (method)data_ui_queuefn);
+
 #endif
 
 	data_new_address(self, address, argc--, argv++);
@@ -408,9 +399,6 @@ void data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 		strcpy(dst, "input");
 	else {							// Outlets
 		switch(arg) {
-			case set_out:
-				strcpy(dst, "set: connect to ui object");
-				break;
 			case data_out:
 				strcpy(dst, "direct: values");
 				break;
@@ -518,8 +506,6 @@ void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			x->argv[i] = argv[i];
 		}
 	}
-	
-	qelem_set(x->ui_qelem);
 }
 
 void data_array_return_value(TTPtr baton, TTValue& v)
@@ -542,16 +528,10 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	else
 		if (i != x->index) return;
 	
-	jamoma_ttvalue_to_Atom(v, &msg, &argc, &argv);
+	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv);
 	data_return_value(x, msg, argc, argv);
 	
 	sysmem_freeptr(argv);
-}
-
-void data_ui_queuefn(TTPtr self)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
 }
 #endif
 

@@ -409,32 +409,13 @@ void preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTNodePtr	contextNode;
-	TTObjectPtr	o;
-	TTBoolean	initialized;
 
 	if (argc && argv) {
 		if (atom_gettype(argv) == A_LONG) {
+
+			// Then recall the preset
 			v = TTValue((int)atom_getlong(argv));
 			x->wrappedObject->sendMessage(TT("Recall"), v);
-		}
-		
-		// Check Context Node
-		if (x->subscriberObject) {
-			
-			x->subscriberObject->getAttributeValue(TT("contextNode"), v);
-			v.get(0, (TTPtr*)&contextNode);
-			
-			// If it is a none initialized Container : initialize it
-			if (o = contextNode->getObject())
-				if (o->getName() == TT("Container")) {
-					
-					o->getAttributeValue(kTTSym_initialized, v);
-					v.get(0, initialized);
-					
-					if (!initialized)
-						o->sendMessage(TT("Init"));
-				}
 		}
 	}
 }
