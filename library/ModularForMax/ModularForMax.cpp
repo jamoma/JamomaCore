@@ -1584,7 +1584,7 @@ void jamoma_patcher_get_context(ObjectPtr patcher, TTSymbolPtr *returnedContext)
 	SymbolPtr	context, _sym_jcomhub, _sym_context;
 	ObjectPtr	obj;
 		
-		// look for jcom.hubs in the patcher
+		// Look for jcom.hubs in the patcher
 		obj = object_attr_getobj(patcher, _sym_firstobject);
 		
 		// TODO : cache those t_symbol else where ...
@@ -1637,7 +1637,7 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 	// case where the object is in a subpatcher
 	else if (hierarchy == _sym_subpatcher)
 		// ignore this level
-		jamoma_patcher_get_class(patcher, context, returnedClass);
+		jamoma_patcher_get_class(jamoma_patcher_get(patcher), context, returnedClass);
 
 	// case where the user is editing the module
 	else if (hierarchy == _sym_topmost)

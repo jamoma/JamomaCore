@@ -46,8 +46,8 @@ void		hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-t_max_err	nmspc_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
-t_max_err	nmspc_set_context(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
+t_max_err	hub_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
+t_max_err	hub_set_context(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -75,8 +75,8 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)hub_autodoc,					"doc_generate",			A_CANT, 0);
 	
 	CLASS_ATTR_SYM(c->maxClass,			"context",	0,		WrappedModularInstance,	patcherContext);	// use msg member to store format
-	CLASS_ATTR_ACCESSORS(c->maxClass,	"context",			nmspc_get_context,	nmspc_set_context);
-	CLASS_ATTR_ENUM(c->maxClass,		"context",	0,		"none .model .view");
+	CLASS_ATTR_ACCESSORS(c->maxClass,	"context",			hub_get_context,	hub_set_context);
+	CLASS_ATTR_ENUM(c->maxClass,		"context",	0,		"none model view");
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -95,6 +95,7 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	jamoma_container_create((ObjectPtr)x, &x->wrappedObject);
 	
 	// handle attribute args
+	x->patcherContext = kTTSym_none;
 	attr_args_process(x, argc, argv);
 	
 	// if the hub have an address : it shouldn't get his context from the attribute
@@ -532,7 +533,7 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 }
 
 
-t_max_err nmspc_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
+t_max_err hub_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
@@ -552,7 +553,7 @@ t_max_err nmspc_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 	return MAX_ERR_NONE;
 }
 
-t_max_err nmspc_set_context(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
+t_max_err hub_set_context(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
