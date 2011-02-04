@@ -84,9 +84,9 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E895565312A2393B00A72559 /* TTTrajectory.cpp */,
-				E895565412A2393B00A72559 /* TTTrajectory.h */,
 				22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */,
+				E895565412A2393B00A72559 /* TTTrajectory.h */,
+				E895565312A2393B00A72559 /* TTTrajectory.cpp */,
 				2217FAAA0E4F284D00806778 /* Classes */,
 			);
 			name = Source;

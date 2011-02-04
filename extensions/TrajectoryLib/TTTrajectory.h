@@ -18,11 +18,13 @@ class TTTrajectory : TTAudioObject {
 	TTCLASS_SETUP(TTTrajectory)
 	
 protected:
-	TTAudioObjectPtr	mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
-//	TTFloat64			mFrequency;				///< The center or cutoff frequency of the filter
-//	TTFloat64			mQ;						///< The width of the filter
-	TTFloat64			mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
-	TTSymbolPtr			mType;					///< The name of the current trajectory type
+	TTAudioObjectPtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
+//	TTFloat64				mFrequency;				///< The center or cutoff frequency of the filter
+//	TTFloat64				mQ;						///< The width of the filter
+	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
+	TTSymbolPtr				mType;					///< The name of the current trajectory type
+	TTAudioObjectPtr		mPhasors[3];
+	TTAudioSignalArrayPtr	mPhasorOutputSignals;
 	
 public:
 	
@@ -146,7 +148,17 @@ public:
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		return mActualTrajectoryObject->process(inputs, outputs);
+		// TODO: check if there are inputs, if so then use them, otherwise do as we do below
+
+		mPhasorOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
+		
+		mPhasors[0]->process(mPhasorOutputSignals->getSignal(0));
+		mPhasors[1]->process(mPhasorOutputSignals->getSignal(1));
+		mPhasors[2]->process(mPhasorOutputSignals->getSignal(2));
+		
+		return mActualTrajectoryObject->process(mPhasorOutputSignals, outputs);
+		
+		//return mActualTrajectoryObject->process(inputs, outputs);
 	}
 	
 };
