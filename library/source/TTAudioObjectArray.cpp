@@ -39,8 +39,23 @@ TTAudioObjectArray::~TTAudioObjectArray()
 
 
 TTErr TTAudioObjectArray::setSize(const TTValueRef newSize)
-{
-	// TODO: implement
+{	
+	// TODO: lock so that audio is not processed when we are resizing!
+
+	mSize = newSize;
+	
+	// 1. free the old instances
+	for (TTAudioObjectIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
+		TTObjectRelease(&(*obj));
+	
+	// 2. resize the vector of pointers and set to NULL
+	mInstances.resize(mSize);
+	mInstances.assign(sizeof(TTPtr), 0);
+	
+	// 3. create the new instances (if the class has been defined)
+	for (TTAudioObjectIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
+		TTObjectInstantiate(mClass, &(*obj), kTTVal1);
+	
 	return kTTErrNone;
 }
 

@@ -11,8 +11,8 @@
 
 #include "TTAudioObject.h"
 
-typedef vector<TTAudioObjectPtr>	TTAudioObjectVector;
-
+typedef vector<TTAudioObjectPtr>		TTAudioObjectVector;
+typedef TTAudioObjectVector::iterator	TTAudioObjectIter;
 
 /****************************************************************************************************/
 // Class Specification
