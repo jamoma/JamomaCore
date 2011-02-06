@@ -16,11 +16,13 @@ void ui_data_create_all(t_ui* obj)
 	TTString		uiStr, parentStr, dataStr;
 	TTValue			v;
 	
-	jamoma_patcher_get_context_class((ObjectPtr)obj, &obj->patcherContext, &obj->patcherClass);
+	if (jamoma_patcher_check_context_class((ObjectPtr)obj, &obj->patcherContext, &obj->patcherClass))
+		return;
 	
 	// DEBUG
-	//object_post((ObjectPtr)obj, "patcherClass : %s", obj->patcherClass->getCString());
+	object_post((ObjectPtr)obj, "context : %s class : %s", obj->patcherContext->getCString(),  obj->patcherClass->getCString());
 	
+	/*
 	// create a /ui node with our pather as context
 	jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/ui"), obj->patcherContext, &obj->uiSubscriber);
 	
@@ -105,6 +107,8 @@ void ui_data_create_all(t_ui* obj)
 	anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 	anObject->setAttributeValue(kTTSym_description, TT("Refresh each jcom.view in the patch"));
+	 
+	 */
 }
 
 void ui_data_destroy_all(t_ui *obj)

@@ -209,11 +209,11 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	SymbolPtr		hierarchy;
 	SymbolPtr		contextName = _sym_nothing;
 	TTString		viewName;
-	TTValuePtr		v;
+	TTValue			v;
 	
 	patcher = jamoma_patcher_get(z);
 	hierarchy = jamoma_patcher_get_hierarchy(patcher);
-	jamoma_patcher_get_context(patcher, &patcherContext);
+	jamoma_patcher_get_context(&patcher, &patcherContext);
 	jamoma_patcher_get_class(patcher, patcherContext, &patcherClass);
 	
 	// case where the object is embedded in a contexted patcher
@@ -278,12 +278,8 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextT
 	// case where the user is editing the patcher
 	else if ((hierarchy == _sym_topmost) && (*nbLevel == 0)) {
 		
-		// add the < /patcherName, patcher > to the contextList
-		if (isCtxPatcher)
-			v = TT(patcherName->s_name);
-		else
-			v = TT(object_attr_getsym(patcher, _sym_name)->s_name);
-		
+		// add the < /patcherClass, patcher > to the contextList
+		v = patcherClass;
 		v.append((TTPtr)patcher);
 		aContextList->append(v);
 	}
@@ -1586,114 +1582,114 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 }
 
 /** Get the context from the upper hub in the patcher */
-void jamoma_patcher_get_context(ObjectPtr patcher, TTSymbolPtr *returnedContext)
+void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext)
 {
-	SymbolPtr	context, _sym_jcomhub, _sym_context;
+	SymbolPtr	hierarchy, context, _sym_jcomhub, _sym_context;
 	ObjectPtr	obj;
-		
-		// Look for jcom.hubs in the patcher
-		obj = object_attr_getobj(patcher, _sym_firstobject);
-		
-		// TODO : cache those t_symbol else where ...
-		_sym_jcomhub = gensym("jcom.hub");
-		_sym_context = gensym("context");
-		context = _sym_none;
-		while (obj) {
-			if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
-				
-				// ask it his context attribute
-				context = object_attr_getsym(obj, _sym_context);
-				
-				if (context != _sym_none)
-					break;
-			}
-			obj = object_attr_getobj(obj, _sym_nextobject);
+	
+	// Look for jcom.hubs in the patcher
+	obj = object_attr_getobj(*patcher, _sym_firstobject);
+	
+	// TODO : cache those t_symbol else where ...
+	_sym_jcomhub = gensym("jcom.hub");
+	_sym_context = gensym("context");
+	context = NULL;
+	while (obj) {
+		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
+			
+			// ask it his context attribute
+			context = object_attr_getsym(obj, _sym_context);
+			
+			if (context)
+				break;
 		}
-		
+		obj = object_attr_getobj(obj, _sym_nextobject);
+	}
+	
+	if (context) 
 		*returnedContext = TT(context->s_name);
-		object_post((ObjectPtr)patcher, "context = %s", (*returnedContext)->getCString());
+	
+	// if no context
+	else {
+		hierarchy = jamoma_patcher_get_hierarchy(*patcher);
+		
+		// in subpatcher look upper and remember the patcher where is the hub
+		if (hierarchy == _sym_subpatcher) {
+			*patcher = jamoma_patcher_get(*patcher);
+			jamoma_patcher_get_context(patcher, returnedContext);
+		}
+		else if (hierarchy == _sym_topmost) {
+			object_error(obj, "Sorry. For instant the registration needs a hub in the patcher");
+		}
+	}
 }
 
 /** Get the class of the patcher from the file name (removing .model and .view convention name if they exist) */
 void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedClass)
 {
-	char			*isCtxPatcher, *last_dot, *to_split;;
-	SymbolPtr		hierarchy, patcherName, filename;
-	TTString		addSlash;
-	long			len, pos, patcherNameLen;
+	char			*isCtxPatcher, *to_split;;
+	SymbolPtr		patcherName;
+	long			patcherNameLen;
+
+	// extract class from the file name
+	patcherName = object_attr_getsym(patcher, _sym_filename);
 	
-	hierarchy = jamoma_patcher_get_hierarchy(patcher);
-	patcherName = object_attr_getsym(patcher, _sym_name);
-	
-	// if the patcher name have the .context at the end
-	// Strip .context from the patch name
+	// Is there a ".context" string in the patcher name ?
 	isCtxPatcher = strstr(patcherName->s_name, context->getCString());
+	
+	// Strip ".context.maxpat" at the end
 	if (isCtxPatcher) {
-		patcherNameLen = strlen(patcherName->s_name) - strlen(context->getCString()) - 1;
+		patcherNameLen = strlen(patcherName->s_name) - strlen(context->getCString()) - 1 - strlen(".maxpat");
 		to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
 		strncpy(to_split, patcherName->s_name, patcherNameLen);
 		to_split[patcherNameLen] = NULL;
-		patcherName = gensym(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
+		*returnedClass = TT(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
 	}
 	
-	// case where the patcher is embedded in a contexted patcher
-	if ((context != kTTSym_none) && (hierarchy == _sym_bpatcher || hierarchy == _sym_subpatcher))
-		// extract class from the file name
-		filename = object_attr_getsym(patcher, _sym_filename);
-	
-	// case where the object is in a subpatcher
-	else if (hierarchy == _sym_subpatcher)
-		// ignore this level
-		jamoma_patcher_get_class(jamoma_patcher_get(patcher), context, returnedClass);
-
-	// case where the user is editing the module
-	else if (hierarchy == _sym_topmost)
-		// extract class from the file name
-		filename = object_attr_getsym(patcher, _sym_filename);
-	
-	else {
-		*returnedClass = kTTSymEmpty;
-		return;
+	// Strip ".maxpat" at the end
+	else  {
+		patcherNameLen = strlen(patcherName->s_name) - strlen(".maxpat");
+		to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
+		strncpy(to_split, patcherName->s_name, patcherNameLen);
+		to_split[patcherNameLen] = NULL;
+		*returnedClass = TT(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
 	}
-	
-	// extract class name
-	if (isCtxPatcher) {
-		to_split = (char *)malloc(sizeof(char)*(strlen(filename->s_name)+1));
-		strcpy(to_split, filename->s_name);
-		
-		// find the dot before .context
-		len = strlen(to_split);
-		last_dot = strrchr(to_split,'.');
-		pos = (long)last_dot - (long)to_split - strlen(context->getCString()) - 1;
-	}
-	else {
-		*returnedClass = kTTSymEmpty;
-		return;
-	}
-	
-	if (last_dot > 0) {
-		to_split[pos] = NULL;	// split to keep only the name part
-		*returnedClass = TT(to_split);
-	}
-	else
-		*returnedClass = kTTSymEmpty;
-	
-	object_post((ObjectPtr)patcher, "class = %s", (*returnedClass)->getCString());
 }
 
-/** Get the context and the class of an object */
-void jamoma_patcher_get_context_class(ObjectPtr obj,  TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass)
+/** Check or set the context and the class of an object from his patcher */
+TTErr jamoma_patcher_check_context_class(ObjectPtr obj, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass)
 {
 	ObjectPtr patcher = jamoma_patcher_get(obj);
 	
+	// Check the context and the class before to subscribe
 	if (patcher) {
-		jamoma_patcher_get_context(patcher, returnedContext);
+		
+		// if no context : get it from the patcher
+		if (!*returnedContext)
+			jamoma_patcher_get_context(&patcher, returnedContext);
+		
+		// if still no context : stop the subscription process
+		if (!*returnedContext) {
+			object_error(obj, "Can't find any hub with a correct context attribute in the patcher. Subscription failed");
+			return kTTErrGeneric;
+		}
+		
+		// get the class from the patcher
 		jamoma_patcher_get_class(patcher, *returnedContext, returnedClass);
+		
+		// if no class : stop the subscription process
+		if (!*returnedClass) {
+			object_error(obj, "Can't get the class from the patcher. Subscription failed");
+			return kTTErrGeneric;
+		}
 	}
+	// if no patcher : stop the subscription process
 	else {
-		*returnedContext = kTTSym_none;
-		*returnedClass = kTTSymEmpty;
+		object_error(obj, "Can't get the patcher. Subscription failed");
+		return kTTErrGeneric;
 	}
+	
+	return kTTErrNone;
 }
 
 /** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */

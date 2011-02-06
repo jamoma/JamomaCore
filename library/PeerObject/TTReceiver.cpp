@@ -82,7 +82,8 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 {	
 	TTSymbolPtr			oldAttribute, oscAddress;
 	TTValue				oldElement;
-	TTObjectPtr			oldObserver, newObserver, o;
+	TTCallbackPtr		oldObserver, newObserver;
+	TTObjectPtr			o;
 	TTValuePtr			newBaton;
 	TTValue				newElement;
 	TTNodePtr			aNode;
@@ -122,8 +123,10 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 					
 					err = anAttribute->unregisterObserverForNotifications(*oldObserver);
 					
-					if(!err)
-						TTObjectRelease(&oldObserver);
+					if(!err) {
+						delete (TTValuePtr)oldObserver->getBaton();
+						TTObjectRelease(TTObjectHandle(&oldObserver));
+					}
 				}
 				
 				// create a new attribute observer
@@ -132,7 +135,7 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 				if (!err) {
 					
 					newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-					TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
+					TTObjectInstantiate(TT("callback"), TTObjectHandle(&newObserver), kTTValNONE);
 					
 					newBaton = new TTValue(TTPtr(this));
 					aNode->getOscAddress(&oscAddress);
@@ -150,7 +153,6 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 					newElement.append((TTPtr)newObserver);
 					newNodesObserversCache->appendUnique(newElement);
 				}
-				
 			}
 		}
 		
@@ -269,7 +271,7 @@ TTErr TTReceiver::bind()
 					if (!err) {
 						
 						newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
+						TTObjectInstantiate(TT("callback"), TTObjectHandle(&newObserver), kTTValNONE);
 						
 						newBaton = new TTValue(TTPtr(this));
 						aNode->getOscAddress(&oscAddress);
@@ -294,7 +296,7 @@ TTErr TTReceiver::bind()
 
 	// observe any creation or destruction below the attr_name address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &mObserver, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 		
 	newBaton = new TTValue(TTPtr(this));
 	newBaton->append(TTPtr(kTTSymEmpty));
@@ -362,8 +364,10 @@ TTErr TTReceiver::unbind()
 		
 		err = aDirectory->removeObserverForNotifications(mAddress, *mObserver);
 		
-		if(!err)
-			TTObjectRelease(&mObserver);
+		if(!err) {
+			delete (TTValuePtr)mObserver->getBaton();
+			TTObjectRelease(TTObjectHandle(&mObserver));
+		}
 	}
 	
 	return kTTErrNone;

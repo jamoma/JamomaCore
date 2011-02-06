@@ -202,13 +202,13 @@ extern "C" {
 	SymbolPtr		jamoma_patcher_get_hierarchy(ObjectPtr patcher);
 
 	/** Get the context from the upper hub in the patcher */
-	void			jamoma_patcher_get_context(ObjectPtr patcher, TTSymbolPtr *returnedContext);
+	void			jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext);
 
 	/** Get the class of the patcher from the file name (removing .model and .view convention name if they are in) */
 	void			jamoma_patcher_get_class(ObjectPtr patcher,  TTSymbolPtr context, TTSymbolPtr *returnedClass);
 
-	/** Get the context and the class of an object */
-	void			jamoma_patcher_get_context_class(ObjectPtr obj,  TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass);
+	/** Check or set the context and the class of an object from his patcher */
+	TTErr			jamoma_patcher_check_context_class(ObjectPtr obj, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass);
 	
 	// Tools
 	///////////////////////////////////////////////

@@ -64,7 +64,7 @@ void 	view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 void	view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
 void	view_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
 
-void	view_build(TTPtr self, SymbolPtr address);
+void	view_subscribe(TTPtr self, SymbolPtr address);
 
 void	view_ui_queuefn(TTPtr self);
 
@@ -135,7 +135,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)view_build, address, 0, 0);
+	defer_low((ObjectPtr)x, (method)view_subscribe, address, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -185,7 +185,7 @@ t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void
 	return MAX_ERR_NONE;
 }
 
-void view_build(TTPtr self, SymbolPtr address)
+void view_subscribe(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
@@ -194,7 +194,12 @@ void view_build(TTPtr self, SymbolPtr address)
 	TTSymbolPtr					nodeAddress, relativeAddress, contextAddress;
 	TTObjectPtr					anObject;
 
-	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+	if (jamoma_patcher_check_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass))
+		return;
+	
+	// DEBUG
+	object_post((ObjectPtr)x, "context : %s class : %s", x->patcherContext->getCString(),  x->patcherClass->getCString());
+/*	
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
@@ -229,6 +234,7 @@ void view_build(TTPtr self, SymbolPtr address)
 		// attach the jcom.view to connected ui object
 		view_attach(self);
 	}
+ */
 }
 
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

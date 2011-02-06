@@ -88,6 +88,7 @@ TTInput::~TTInput()
 	if (mObserver) {
 		if (mOutputAddress != kTTSymEmpty)
 			getDirectoryFrom(this)->removeObserverForNotifications(mOutputAddress, *mObserver);
+		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 }

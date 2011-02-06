@@ -343,7 +343,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 {
 	TTValue			args, v;
 	TTDataPtr		aData;
-	TTObjectPtr		returnValueCallback;
+	TTCallbackPtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	TTSymbolPtr		nameToAddress;
 	TTSymbolPtr		dataAddress;
@@ -353,7 +353,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&returnValueCallback), kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(this));
 	returnValueBaton->append(messageName);
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
@@ -385,9 +385,9 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 {
 	TTValue			args, v;
 	TTDataPtr		aData;
-	TTObjectPtr		returnValueCallback;			// to set the object attribute when data changed
+	TTCallbackPtr	returnValueCallback;			// to set the object attribute when data changed
 	TTValuePtr		returnValueBaton;
-	TTObjectPtr		observeValueCallback;			// to set the data when an object attribute changed
+	TTCallbackPtr	observeValueCallback;			// to set the data when an object attribute changed
 	TTValuePtr		observeValueBaton;
 	TTAttributePtr	anAttribute = NULL;
 	TTSymbolPtr		nameToAddress;
@@ -401,7 +401,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		
 		// prepare arguments
 		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+		TTObjectInstantiate(TT("callback"), TTObjectHandle(&returnValueCallback), kTTValNONE);
 		returnValueBaton = new TTValue(TTPtr(this));
 		returnValueBaton->append(attributeName);
 		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
@@ -423,7 +423,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		if (!err) {
 			
 			observeValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), &observeValueCallback, kTTValNONE);
+			TTObjectInstantiate(TT("callback"), TTObjectHandle(&observeValueCallback), kTTValNONE);
 			observeValueBaton = new TTValue(TTPtr(this));
 			observeValueBaton->append(attributeName);
 			observeValueCallback->setAttributeValue(kTTSym_baton, TTPtr(observeValueBaton));

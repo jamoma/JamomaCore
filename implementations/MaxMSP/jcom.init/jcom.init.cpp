@@ -23,7 +23,7 @@ typedef struct _init{
 void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv);			// New Object Creation Method
 void init_free(t_init *x);
 void init_assist(t_init *x, void *b, long m, long a, char *s);		// Assistance Method
-void init_build(t_init *x, SymbolPtr address);
+void init_subscribe(t_init *x, SymbolPtr address);
 void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void init_return_value(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 //void init_bang(t_init *x);
@@ -86,7 +86,7 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)init_build, address, 0, 0);
+		defer_low((ObjectPtr)x, (method)init_subscribe, address, 0, 0);
 	}
 	
 	return (x);																	// Return the pointer
@@ -116,15 +116,21 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 	}
 }
 
-void init_build(t_init *x, SymbolPtr address)		// address : could be used to binds on a sub level jcom.hub
+void init_subscribe(t_init *x, SymbolPtr address)		// address : could be used to binds on a sub level jcom.hub
 {
-	TTSymbolPtr		patcherContext, patcherClass;
+	TTSymbolPtr		patcherContext = NULL, patcherClass;
 	TTSymbolPtr		contextAddress, levelAddress;
 	TTValue			v, args;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
-	jamoma_patcher_get_context_class((ObjectPtr)x, &patcherContext, &patcherClass);
+	if (jamoma_patcher_check_context_class((ObjectPtr)x, &patcherContext, &patcherClass))
+		return;
+	
+	// DEBUG
+	object_post((ObjectPtr)x, "context : %s class : %s", patcherContext->getCString(),  patcherClass->getCString());
+	
+	/*
 	x->contextNode = jamoma_context_get_node((ObjectPtr)x, patcherContext);
 	
 	if (x->contextNode) {
@@ -173,8 +179,9 @@ void init_build(t_init *x, SymbolPtr address)		// address : could be used to bin
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)init_build, address, 0, 0);
+		defer_low((ObjectPtr)x, (method)init_subscribe, address, 0, 0);
 	}
+	 */
 }
 
 void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)

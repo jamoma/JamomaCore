@@ -31,7 +31,7 @@ void		hub_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		hub_build(TTPtr self, SymbolPtr address);
+void		hub_subscribe(TTPtr self, SymbolPtr address);
 
 void		hub_init(TTPtr self);
 
@@ -76,7 +76,7 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	CLASS_ATTR_SYM(c->maxClass,			"context",	0,		WrappedModularInstance,	patcherContext);	// use msg member to store format
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"context",			hub_get_context,	hub_set_context);
-	CLASS_ATTR_ENUM(c->maxClass,		"context",	0,		"none model view");
+	CLASS_ATTR_ENUM(c->maxClass,		"context",	0,		"model view");
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -84,31 +84,29 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					address;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
+		
+	// create a container
+	jamoma_container_create((ObjectPtr)x, &x->wrappedObject);
 	
-	// A Modular object needs an address argument
+	// get the first argument : the address (optionnal)
 	if (attrstart && argv)
 		address = atom_getsym(argv);
 	else
 		address = _sym_nothing;
 	
-	// create a container
-	jamoma_container_create((ObjectPtr)x, &x->wrappedObject);
-	
 	// handle attribute args
-	x->patcherContext = kTTSym_none;
+	x->patcherContext = NULL;
 	attr_args_process(x, argc, argv);
 	
 	// if the hub have an address : it shouldn't get his context from the attribute
 	// but from the hub at the root of the patch. So set it at none.
-	if (address != _sym_nothing) {
-		x->patcherContext = kTTSym_none;
-		object_warn((ObjectPtr)x, "can't set the context attribute for %s hub. Only unnamed hub can set this attribute", address->s_name);
-	}
-	
+	if (address != _sym_nothing && x->patcherContext)
+		object_warn((ObjectPtr)x, "context attribute for the hub at %s is useless", address->s_name);
+		
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)hub_build, address, 0, 0);
+	defer_low((ObjectPtr)x, (method)hub_subscribe, address, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -128,7 +126,7 @@ void WrappedContainerClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void hub_build(TTPtr self, SymbolPtr address)
+void hub_subscribe(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
@@ -143,16 +141,13 @@ void hub_build(TTPtr self, SymbolPtr address)
 	AtomPtr						av;
 	ObjectPtr					patcher;
 	
-	if (x->patcherContext == kTTSym_none) {
-		jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
-		object_post((ObjectPtr)x, "context : %s", x->patcherContext->getCString());
-		
-		if (x->patcherContext == kTTSym_none) {
-			object_error((ObjectPtr)x, "can't find any context. Have you set the context attribute or named your patch with .model or .view at the end");
-			return;
-		}
-	}
-		
+	if (jamoma_patcher_check_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass))
+		return;
+	
+	// DEBUG
+	object_post((ObjectPtr)x, "context : %s class : %s", x->patcherContext->getCString(),  x->patcherClass->getCString());
+	
+	/*
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
@@ -312,6 +307,7 @@ void hub_build(TTPtr self, SymbolPtr address)
 			defer_low(x, (method)hub_init, 0, 0, 0L);
 		}
 	}
+	 */
 }
 
 void hub_init(TTPtr self)
@@ -548,7 +544,10 @@ t_max_err hub_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 		}
 	}
 	
-	atom_setsym(*av, gensym((char*)x->patcherContext->getCString()));
+	if (x->patcherContext)
+		atom_setsym(*av, gensym((char*)x->patcherContext->getCString()));
+	else
+		atom_setsym(*av, NULL);
 	
 	return MAX_ERR_NONE;
 }

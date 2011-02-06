@@ -19,8 +19,8 @@ void		WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		data_new_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		data_build(TTPtr self, SymbolPtr address);
-void		data_build_array(TTPtr self);
+void		data_subscribe(TTPtr self, SymbolPtr address);
+void		data_subscribe_array(TTPtr self);
 void		data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index);
 void		data_array_select(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		data_address(TTPtr self, SymbolPtr name);
@@ -156,7 +156,7 @@ void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr arg
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)data_build, address, 0, 0);
+		defer_low((ObjectPtr)x, (method)data_subscribe, address, 0, 0);
 	}
 	
 	// Make an array of object
@@ -201,11 +201,11 @@ void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr arg
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)data_build_array, NULL, 0, NULL);
+		defer_low((ObjectPtr)x, (method)data_subscribe_array, NULL, 0, NULL);
 	}
 }
 
-void data_build(TTPtr self, SymbolPtr address)
+void data_subscribe(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
@@ -214,7 +214,14 @@ void data_build(TTPtr self, SymbolPtr address)
 	TTSymbolPtr					nodeAddress, relativeAddress;
 	TTPtr						context;
 	
-	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+	if (jamoma_patcher_check_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass))
+		return;
+	
+	// DEBUG
+	object_post((ObjectPtr)x, "context : %s class : %s", x->patcherContext->getCString(),  x->patcherClass->getCString());
+	
+	
+	/*
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
@@ -252,9 +259,11 @@ void data_build(TTPtr self, SymbolPtr address)
 		// Crash : object_attach_byptr_register(x, context, _sym_box);
 
 	}
+	 
+	 */
 }
 
-void data_build_array(TTPtr self)
+void data_subscribe_array(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr		keyAddress, nodeAddress, relativeAddress;
@@ -269,7 +278,11 @@ void data_build_array(TTPtr self)
 		
 	x->internals->getKeys(keys);
 	
-	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
+	if (jamoma_patcher_check_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass))
+		return;
+	
+	// DEBUG
+	object_post((ObjectPtr)x, "context : %s class : %s", x->patcherContext->getCString(),  x->patcherClass->getCString());
 	
 	for (int i=0; i<keys.getSize(); i++) {
 		

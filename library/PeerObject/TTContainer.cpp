@@ -72,6 +72,13 @@ TTContainer::~TTContainer()
 	
 	if (mReturnValueCallback)
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	
+	if (mObserver) {
+		if (mAddress != kTTSymEmpty)
+			getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
+		delete (TTValuePtr)mObserver->getBaton();
+		TTObjectRelease(TTObjectHandle(&mObserver));
+	}
 }
 
 TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
@@ -280,7 +287,7 @@ TTErr TTContainer::bind()
 	
 	// 3. Observe any creation or destruction below the address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &mObserver, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
 	newBaton->append(aContext);
@@ -474,7 +481,7 @@ TTErr TTContainer::unbind()
 		err = getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
 		
 		if (!err)
-			TTObjectRelease(&mObserver);
+			TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
 	mAddress = kTTSymEmpty;

@@ -56,8 +56,10 @@ TTExplorer::~TTExplorer()
 	else
 		addressToObserve = mAddress;
 	
-	if (mObserver && addressToObserve != kTTSymEmpty) {
-		getDirectoryFrom(this)->removeObserverForNotifications(addressToObserve, *mObserver);
+	if (mObserver) {
+		if (addressToObserve != kTTSymEmpty)
+			getDirectoryFrom(this)->removeObserverForNotifications(addressToObserve, *mObserver);
+		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	

@@ -144,7 +144,7 @@ TTErr TTSender::bind()
 	
 	// 3. Observe any creation or destruction below the address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &mObserver, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
 	newBaton->append(TTPtr(kTTSymEmpty));
@@ -172,8 +172,10 @@ TTErr TTSender::unbind()
 		
 		err = getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
 	
-		if(!err)
-			TTObjectRelease(&mObserver);
+		if(!err) {
+			delete (TTValuePtr)mObserver->getBaton();
+			TTObjectRelease(TTObjectHandle(&mObserver));
+		}
 	}
 	
 	return kTTErrNone;
