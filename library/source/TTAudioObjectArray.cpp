@@ -21,12 +21,19 @@ TT_AUDIO_CONSTRUCTOR,
 	mInputChannelSignal(NULL),
 	mOutputChannelSignal(NULL)
 {
+	TTUInt16 initialMaxNumChannels = arguments;
+
 	TTObjectInstantiate(kTTSym_audiosignal, &mInputChannelSignal, 1);
 	TTObjectInstantiate(kTTSym_audiosignal, &mOutputChannelSignal, 1);
 	
 	addAttributeWithSetter(Size,	kTypeUInt16);
 	addAttributeWithSetter(Class,	kTypeSymbol);
+	addUpdate(MaxNumChannels);
 	
+	addMessageWithArgument(set);
+
+	setAttributeValue(kTTSym_maxNumChannels, initialMaxNumChannels);
+	setAttributeValue(TT("class"), TT("gain"));
 	setProcessMethod(processAudio);
 }
 
@@ -35,6 +42,12 @@ TTAudioObjectArray::~TTAudioObjectArray()
 {
 	TTObjectRelease(&mInputChannelSignal);
 	TTObjectRelease(&mOutputChannelSignal);
+}
+
+
+TTErr TTAudioObjectArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+{
+	return setAttributeValue(TT("size"), maxNumChannels);
 }
 
 
@@ -53,8 +66,10 @@ TTErr TTAudioObjectArray::setSize(const TTValueRef newSize)
 	mInstances.assign(sizeof(TTPtr), 0);
 	
 	// 3. create the new instances (if the class has been defined)
-	for (TTAudioObjectIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
-		TTObjectInstantiate(mClass, &(*obj), kTTVal1);
+	if (mClass) {
+		for (TTAudioObjectIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
+			TTObjectInstantiate(mClass, &(*obj), kTTVal1);
+	}
 	
 	return kTTErrNone;
 }
@@ -72,6 +87,53 @@ TTErr TTAudioObjectArray::setClass(const TTValueRef newClass)
 
 	if (!err)
 		mClass = theClassName;
+	return (TTErr)err;
+}
+
+
+TTErr TTAudioObjectArray::set(TTValue& arguments)
+{
+	// There may be two or more arguments
+	// if the first argument is a number, it specifies which instance in the array to address
+	// if the first argument is a symbol, then the attribute will be set for all instances
+	// the first or second arg (the first which is a symbol) is the name of the attribute
+	// the args past that are the value
+
+	TTInt8		target = -1; // -1 means all voices
+	TTSymbolPtr	attrName;
+	TTValue		attrValue;
+	int			err;
+	
+	if (ttDataTypeInfo[arguments.getType(0)]->isNumerical)
+		target = arguments;
+	
+	if (target >= 0) {
+		if (arguments.getSize() < 3)
+			return kTTErrWrongNumValues;
+		else
+			arguments.get(1, &attrName);
+	}
+	else {
+		if (arguments.getSize() < 2)
+			return kTTErrWrongNumValues;
+		else
+			arguments.get(0, &attrName);
+	}
+
+	if (!attrName)
+		return kTTErrInvalidAttribute;
+	
+	// Now that we've ensured some level of sanity in what the caller passed us, we can proceed.
+	
+	attrValue.copyFrom(arguments, 1);
+	if (target == -1) {
+		for (int i=0; i<mSize; i++)
+			err |= mInstances[i]->setAttributeValue(attrName, attrValue);
+	}
+	else
+		err = mInstances[target]->setAttributeValue(attrName, attrValue);
+	
+	arguments.clear();
 	return (TTErr)err;
 }
 
