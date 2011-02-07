@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		221CA37E121C3A23003E2DC1 /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA37D121C3A23003E2DC1 /* TTDelay.cpp */; };
+		2230A2DD12FEBDB2007C5492 /* TTAudioObjectArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2230A2DC12FEBDB2007C5492 /* TTAudioObjectArray.cpp */; };
 		22610D5111DD856F000A3DA8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22610D5311DD856F000A3DA8 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F190EC276B200A5EC32 /* CoreAudio.framework */; };
 		22610D5411DD856F000A3DA8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
@@ -27,6 +28,8 @@
 		221CA37C121C3A1B003E2DC1 /* TTDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelay.h; path = includes/TTDelay.h; sourceTree = "<group>"; };
 		221CA37D121C3A23003E2DC1 /* TTDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDelay.cpp; path = source/TTDelay.cpp; sourceTree = "<group>"; };
 		2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaDSP.xcconfig; sourceTree = "<group>"; };
+		2230A2DB12FEBDA2007C5492 /* TTAudioObjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObjectArray.h; path = includes/TTAudioObjectArray.h; sourceTree = "<group>"; };
+		2230A2DC12FEBDB2007C5492 /* TTAudioObjectArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObjectArray.cpp; path = source/TTAudioObjectArray.cpp; sourceTree = "<group>"; };
 		224FFBAA110E94CF00270ED3 /* TTDelayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelayBuffer.h; path = includes/TTDelayBuffer.h; sourceTree = "<group>"; };
 		22578F170EC2767800A5EC32 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = portaudio/include/portaudio.h; sourceTree = "<group>"; };
 		22578F190EC276B200A5EC32 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
@@ -111,6 +114,8 @@
 			children = (
 				22E385D310286BB0002000A9 /* TTAudioObject.h */,
 				22E385F410286BBE002000A9 /* TTAudioObject.cpp */,
+				2230A2DB12FEBDA2007C5492 /* TTAudioObjectArray.h */,
+				2230A2DC12FEBDB2007C5492 /* TTAudioObjectArray.cpp */,
 				22E385D410286BB0002000A9 /* TTAudioSignal.h */,
 				22E385F510286BBE002000A9 /* TTAudioSignal.cpp */,
 				22E385D510286BB0002000A9 /* TTAudioSignalArray.h */,
@@ -203,6 +208,7 @@
 				22610D5C11DD8579000A3DA8 /* TTDSP.cpp in Sources */,
 				22610D5D11DD8579000A3DA8 /* TTBuffer.cpp in Sources */,
 				221CA37E121C3A23003E2DC1 /* TTDelay.cpp in Sources */,
+				2230A2DD12FEBDB2007C5492 /* TTAudioObjectArray.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
