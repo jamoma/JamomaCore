@@ -11,6 +11,7 @@
 #include "jpatcher_api.h"
 
 #define data_out 0
+#define dump_out 1
 
 // This is used to store extra data
 typedef struct extra {
@@ -41,7 +42,7 @@ void		preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_edit(TTPtr self);
 void		preset_edclose(TTPtr self, char **text, long size);
 
-void		preset_build(TTPtr self, SymbolPtr address);
+void		preset_subscribe(TTPtr self, SymbolPtr relativeAddress);
 
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -75,14 +76,14 @@ void WrapTTPresetManagerClass(WrappedClassPtr c)
 void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					address;
+	SymbolPtr					relativeAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
-	// A Modular object needs an address argument
+	// possible relativeAddress
 	if (attrstart && argv) 
-		address = atom_getsym(argv);
+		relativeAddress = atom_getsym(argv);
 	else
-		address = _sym_nothing;
+		relativeAddress = _sym_nothing;
 	
 	// create the preset manager
 	jamoma_presetManager_create((ObjectPtr)x, &x->wrappedObject);
@@ -90,7 +91,7 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)preset_build, address, 0, 0);
+	defer_low((ObjectPtr)x, (method)preset_subscribe, relativeAddress, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -122,7 +123,7 @@ void WrappedPresetManageClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void preset_build(TTPtr self, SymbolPtr address)
+void preset_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
@@ -131,17 +132,16 @@ void preset_build(TTPtr self, SymbolPtr address)
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
-	TTPtr						context;
 	
 	// add 'preset' after the address
-	presetLevelAddress = address->s_name;
+	presetLevelAddress = relativeAddress->s_name;
 	presetLevelAddress += "/preset";
 	
-	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), x->patcherContext, &x->subscriberObject);
-	
 	// if the subscription is successful
-	if (x->subscriberObject) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), &x->subscriberObject)) {
+		
+		// get all info relative to our patcher
+		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 		
 		// get the Node (.../preset) and his parent
 		x->subscriberObject->getAttributeValue(TT("node"), n);
@@ -155,10 +155,6 @@ void preset_build(TTPtr self, SymbolPtr address)
 			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		}
 
-		// attach to the patcher to be notified of his destruction
-		context = node->getContext();
-		// Crash : object_attach_byptr_register(x, context, _sym_box);
-		
 		// expose messages of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
@@ -235,13 +231,13 @@ void preset_build(TTPtr self, SymbolPtr address)
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
-		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), context, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Read a xml preset file"));
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
-		makeInternals_data(self, absoluteAddress, TT("preset/write"), gensym("preset_write"), context, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TT("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Write a xml preset file"));
@@ -258,8 +254,16 @@ void preset_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1)			// Inlets
 		strcpy(dst, "");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "");
+	else {							// Outlets
+		switch(arg) {
+			case data_out:
+				strcpy(dst, "preset output");
+				break;
+			case dump_out:
+				strcpy(dst, "dumpout");
+				break;
+		}
+ 	}
 }
 
 void preset_return_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -348,13 +352,15 @@ void preset_default(TTPtr self)
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	Atom		a;
 
-	if (x->patcherClass != kTTSymEmpty) {
+	if (x->patcherClass) {
 		
 		TTString xmlfile = x->patcherClass->getCString();
-		if (x->patcherContext != kTTSym_none) {
+		if (x->patcherContext) {
 			xmlfile += ".";
 			xmlfile +=  x->patcherContext->getCString();
 		}
+		else
+			object_error((ObjectPtr)x, "preset_default : can't get the context of the patcher");
 		
 		xmlfile += ".xml";
 		
@@ -381,6 +387,8 @@ void preset_default(TTPtr self)
 		EXTRA->filewatcher = filewatcher_new((ObjectPtr)x, outvol, (char*)xmlfile.data());
 		filewatcher_start(EXTRA->filewatcher);
 	}
+	else
+		object_error((ObjectPtr)x, "preset_default : can't get the class of the patcher");
 }
 
 void preset_filechanged(TTPtr self, char *filename, short path)

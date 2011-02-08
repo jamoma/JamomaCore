@@ -47,7 +47,6 @@ void	WrapTTViewerClass(WrappedClassPtr c);
 void	WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void	WrappedViewerClass_free(TTPtr self);
 void	WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void	view_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
@@ -75,7 +74,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_new = &WrappedViewerClass_new;
 	spec->_free = &WrappedViewerClass_free;
 	spec->_any = &WrappedViewerClass_anything;
-	spec->_notify = &WrappedViewerClass_notify;
 	
 	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.view", NULL, spec);
 }
@@ -100,20 +98,20 @@ void WrapTTViewerClass(WrappedClassPtr c)
 void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					address;
+	SymbolPtr					relativeAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
 	// A Modular object needs an address argument : atom_getsym(argv) or _sym_nothing by default
 	if (attrstart && argv) 
-		address = atom_getsym(argv);
+		relativeAddress = atom_getsym(argv);
 	else
-		address = _sym_nothing;
+		relativeAddress = _sym_nothing;
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->connected = NULL;
 	EXTRA->label = NULL;
-	EXTRA->address = TT(address->s_name);
+	EXTRA->address = TT(relativeAddress->s_name);
 	
 	EXTRA->color0 = (AtomPtr)sysmem_newptr(sizeof(Atom) * 4);
 	atom_setfloat(EXTRA->color0, 0);
@@ -135,7 +133,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)view_subscribe, address, 0, 0);
+	defer_low((ObjectPtr)x, (method)view_subscribe, relativeAddress, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -176,65 +174,29 @@ void WrappedViewerClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-t_max_err WrappedViewerClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data)
+void view_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	// DEBUG
-	//object_post((ObjectPtr)x, "notify %s", msg->s_name);
-	
-	return MAX_ERR_NONE;
-}
-
-void view_subscribe(TTPtr self, SymbolPtr address)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, args;
-	TTNodePtr					node = NULL;
-	TTBoolean					newInstance;
-	TTSymbolPtr					nodeAddress, relativeAddress, contextAddress;
+	TTValue						v;
+	TTSymbolPtr					contextAddress;
 	TTObjectPtr					anObject;
-
-	if (jamoma_patcher_check_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass))
-		return;
-	
-	// DEBUG
-	object_post((ObjectPtr)x, "context : %s class : %s", x->patcherContext->getCString(),  x->patcherClass->getCString());
-/*	
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherContext, &x->subscriberObject);
 	
 	// if the subscription is successful
-	if (x->subscriberObject) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
+
+		// for instant we don't need info relative to our patcher
+		// jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 		
-		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
-		v.get(0, newInstance);
-		
-		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
-			v.get(0, &relativeAddress);
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.view with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
-		}
-		
-		// debug
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &nodeAddress);
-		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
-		
-		// get the context address
-		// and make a viewer on contextAddress/model/address parameter
+		// get the context address to make
+		// a viewer on the contextAddress/model/address parameter
 		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
 		v.get(0, &contextAddress);
 		makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
 		anObject->sendMessage(kTTSym_Refresh);
 		
-		// get the Node
-		x->subscriberObject->getAttributeValue(TT("node"), v);
-		v.get(0, (TTPtr*)&node);
-		
 		// attach the jcom.view to connected ui object
 		view_attach(self);
 	}
- */
 }
 
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -251,6 +213,8 @@ void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (!freeze) {
 	*/
+		
+		// TODO : copy msg into argv
 	
 		// Copy atom in order to avoid losing data
 		x->argc = argc;
@@ -258,9 +222,8 @@ void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
 		
 		if (argc) {
-			for (i=0; i<argc; i++) {
+			for (i=0; i<argc; i++)
 				x->argv[i] = argv[i];
-			}
 		}
 		
 		qelem_set(EXTRA->ui_qelem);
@@ -319,13 +282,12 @@ void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr address;
 	
-	if (argc)
-		if (atom_gettype(argv) == A_SYM) {
-			
-			// set address attribute of the wrapped Viewer object
-			joinOSCAddress(TT(atom_getsym(argv)->s_name), EXTRA->address, &address);
-			x->wrappedObject->setAttributeValue(kTTSym_address, address);
-		}
+	if (argc && argv) {
+		
+		// set address attribute of the wrapped Viewer object
+		joinOSCAddress(TT(atom_getsym(argv)->s_name), EXTRA->address, &address);
+		x->wrappedObject->setAttributeValue(kTTSym_address, address);
+	}
 }
 
 void view_attach(TTPtr self)

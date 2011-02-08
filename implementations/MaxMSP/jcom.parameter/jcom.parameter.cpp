@@ -94,14 +94,14 @@ void WrapTTDataClass(WrappedClassPtr c)
 void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					address;
+	SymbolPtr					relativeAddress;
 	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
 	// check address argument
-	address = _sym_nothing;
+	relativeAddress = _sym_nothing;
 	if (attrstart && argv)
 		if (atom_gettype(argv) == A_SYM)
-			address = atom_getsym(argv);
+			relativeAddress = atom_getsym(argv);
 	
 	// Make outlets (before attr_args_process)
 	/////////////////////////////////////////////////////////////////////////////////
@@ -113,10 +113,10 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 
 #endif
 
-	data_new_address(self, address, argc--, argv++);
+	data_new_address(self, relativeAddress, argc--, argv++);
 }
 	
-void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr argv)
+void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	long						number, i;
@@ -124,7 +124,7 @@ void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr arg
 	SymbolPtr					instanceAddress;
 	TTValue						v;
 	
-	number = jamoma_parse_bracket(address, &x->i_format, &x->s_format);
+	number = jamoma_parse_bracket(relativeAddress, &x->i_format, &x->s_format);
 	
 	// no address or [0]
 	if (number == 0)
@@ -156,7 +156,7 @@ void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr arg
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)data_subscribe, address, 0, 0);
+		defer_low((ObjectPtr)x, (method)data_subscribe, relativeAddress, 0, 0);
 	}
 	
 	// Make an array of object
@@ -205,72 +205,23 @@ void data_new_address(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr arg
 	}
 }
 
-void data_subscribe(TTPtr self, SymbolPtr address)
+void data_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, args;
-	TTNodePtr					node = NULL;
-	TTBoolean					newInstance;
-	TTSymbolPtr					nodeAddress, relativeAddress;
-	TTPtr						context;
-	
-	if (jamoma_patcher_check_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass))
-		return;
-	
-	// DEBUG
-	object_post((ObjectPtr)x, "context : %s class : %s", x->patcherContext->getCString(),  x->patcherClass->getCString());
-	
-	
-	/*
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherContext, &x->subscriberObject);
-	
-	// if the subscription is successful
-	if (x->subscriberObject) {
-		
-		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
-		v.get(0, newInstance);
-		
-		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
-			v.get(0, &relativeAddress);
-#ifdef JMOD_MESSAGE
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.message with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
-#else 
-#ifdef JMOD_RETURN
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.return with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
-#else
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.parameter with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
-#endif
-#endif
-		}
 
-		// debug
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &nodeAddress);
-		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
-		
-		// get the Node
-		x->subscriberObject->getAttributeValue(TT("node"), v);
-		v.get(0, (TTPtr*)&node);
-		
-		// attach to the patcher to be notified of his destruction
-		context = node->getContext();
-		// Crash : object_attach_byptr_register(x, context, _sym_box);
-
-	}
-	 
-	 */
+	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject);
+	
+	// for instant we don't need info relative to our patcher
+	// jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 }
 
 void data_subscribe_array(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr		keyAddress, nodeAddress, relativeAddress;
-	TTValue			keys, storedObject, v, args, element;
+	TTSymbolPtr		keyAddress;
+	TTValue			keys, storedObject, element;
 	TTSubscriberPtr	aSubscriber;
 	TTObjectPtr		anObject;
-	TTBoolean		newInstance;
 	TTHashPtr		newInternals;
 	
 	newInternals = new TTHash();
@@ -278,53 +229,21 @@ void data_subscribe_array(TTPtr self)
 		
 	x->internals->getKeys(keys);
 	
-	if (jamoma_patcher_check_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass))
-		return;
-	
-	// DEBUG
-	object_post((ObjectPtr)x, "context : %s class : %s", x->patcherContext->getCString(),  x->patcherClass->getCString());
-	
 	for (int i=0; i<keys.getSize(); i++) {
 		
 		keys.get(i, &keyAddress);
 		x->cursor = keyAddress;
 		anObject = selectedObject;
 
-		// suscribe object
-		jamoma_subscriber_create((ObjectPtr)x, anObject, gensym((char*)keyAddress->getCString()), x->patcherContext, &aSubscriber);
-		
 		// if the subscription is successful
-		if (aSubscriber) {
-			
-			// Is a new instance have been created ?
-			aSubscriber->getAttributeValue(TT("newInstanceCreated"), v);
-			v.get(0, newInstance);
-			
-			if (newInstance) {
-				aSubscriber->getAttributeValue(TT("relativeAddress"), v);
-				v.get(0, &relativeAddress);		
-#ifdef JMOD_MESSAGE
-				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.message with the same OSC identifier (%s).  Using %s instead.", keyAddress->getCString(), relativeAddress->getCString());
-#else 
-#ifdef JMOD_RETURN
-				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.return with the same OSC identifier (%s).  Using %s instead.", keyAddress->getCString(), relativeAddress->getCString());
-#else
-				object_warn((t_object*)x, "Jamoma cannot create multiple jcom.parameter with the same OSC identifier (%s).  Using %s instead.", keyAddress->getCString(), relativeAddress->getCString());
-#endif
-#endif
-			}
-			
-			// debug
-			aSubscriber->getAttributeValue(TT("nodeAddress"), v);
-			v.get(0, &nodeAddress);
-			object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
+		if (!jamoma_subscriber_create((ObjectPtr)x, anObject, gensym((char*)keyAddress->getCString()),  &aSubscriber)) {
+	
+			// prepare new internals
+			element = TTValue((TTPtr)anObject);
+			element.append(keyAddress);
+			element.append((TTPtr)aSubscriber);
+			newInternals->append(keyAddress, element);
 		}
-		
-		// prepare new internals
-		element = TTValue((TTPtr)anObject);
-		element.append(keyAddress);
-		element.append((TTPtr)aSubscriber);
-		newInternals->append(keyAddress, element);
 	}
 	
 	delete x->internals;
@@ -510,6 +429,7 @@ void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
 	// Copy atom in order to avoid losing data
+	// TODO : copy msg
 	x->argc = argc;
 	x->argv = NULL;
 	x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
@@ -542,7 +462,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	else
 		if (i != x->index) return;
 	
-	jamoma_ttvalue_to_Msg_Atom(v, &msg, &argc, &argv, shifted);
+	jamoma_ttvalue_to_typed_Atom(v, &msg, &argc, &argv, shifted);
 	data_return_value(x, msg, argc, argv);
 	
 	if (shifted)

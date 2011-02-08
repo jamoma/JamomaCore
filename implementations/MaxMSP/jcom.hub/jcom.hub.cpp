@@ -17,6 +17,7 @@ typedef struct extra {
 #define EXTRA ((t_extra*)x->extra)
 
 #define data_out 0
+#define dump_out 1
 
 // Definitions
 void		WrapTTContainerClass(WrappedClassPtr c);
@@ -26,7 +27,8 @@ void		WrappedContainerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, 
 
 void		hub_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void		hub_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		hub_share_patcher_info(TTPtr self, TTValuePtr patcherInfo);
+void		hub_share_patcher_node(TTPtr self, TTNodePtr *patcherNode);
 
 void		hub_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -34,6 +36,8 @@ void		hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_subscribe(TTPtr self, SymbolPtr address);
 
 void		hub_init(TTPtr self);
+
+void		hub_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -64,9 +68,13 @@ void WrapTTContainerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)hub_assist,					"assist",				A_CANT, 0L);
 	
+	class_addmethod(c->maxClass, (method)hub_share_patcher_info,		"share_patcher_info",	A_CANT, 0);
+	class_addmethod(c->maxClass, (method)hub_share_patcher_node,		"share_patcher_node",	A_CANT, 0);
+	
 	class_addmethod(c->maxClass, (method)hub_return_address,			"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_return_value,				"return_value",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_nmspcExplorer_callback,	"return_nmpscExploration",A_CANT, 0);
+	
 	class_addmethod(c->maxClass, (method)hub_help,						"hub_help",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_reference,					"hub_reference",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_internals,					"hub_internals",		A_CANT, 0);
@@ -82,31 +90,31 @@ void WrapTTContainerClass(WrappedClassPtr c)
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					address;
+	SymbolPtr					relativeAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 		
 	// create a container
 	jamoma_container_create((ObjectPtr)x, &x->wrappedObject);
 	
-	// get the first argument : the address (optionnal)
+	// get the first argument : the relativeAddress (optionnal)
 	if (attrstart && argv)
-		address = atom_getsym(argv);
+		relativeAddress = atom_getsym(argv);
 	else
-		address = _sym_nothing;
+		relativeAddress = _sym_nothing;
 	
 	// handle attribute args
 	x->patcherContext = NULL;
 	attr_args_process(x, argc, argv);
 	
-	// if the hub have an address : it shouldn't get his context from the attribute
-	// but from the hub at the root of the patch. So set it at none.
-	if (address != _sym_nothing && x->patcherContext)
-		object_warn((ObjectPtr)x, "context attribute for the hub at %s is useless", address->s_name);
+	// if the hub have a relativeAddress : it shouldn't get his context from the attribute
+	// but from the hub at the root of the patch.
+	if (relativeAddress != _sym_nothing && x->patcherContext)
+		object_warn((ObjectPtr)x, "context attribute for the hub at %s is useless", relativeAddress->s_name);
 		
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)hub_subscribe, address, 0, 0);
+	defer_low((ObjectPtr)x, (method)hub_subscribe, relativeAddress, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -126,14 +134,11 @@ void WrappedContainerClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void hub_subscribe(TTPtr self, SymbolPtr address)
+void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
-	TTNodePtr					node = NULL;
-	TTBoolean					newInstance;
-	TTSymbolPtr					nodeAddress, relativeAddress;
-	TTSymbolPtr					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
+	TTSymbolPtr					nodeAdrs, classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
 	TTObjectPtr					aData, anExplorer;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
@@ -141,50 +146,22 @@ void hub_subscribe(TTPtr self, SymbolPtr address)
 	AtomPtr						av;
 	ObjectPtr					patcher;
 	
-	if (jamoma_patcher_check_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass))
-		return;
-	
-	// DEBUG
-	object_post((ObjectPtr)x, "context : %s class : %s", x->patcherContext->getCString(),  x->patcherClass->getCString());
-	
-	/*
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), x->patcherContext, &x->subscriberObject);
-	
 	// if the subscription is successful
-	if (x->subscriberObject) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
 		
-		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
-		v.get(0, newInstance);
-		
-		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
-			v.get(0, &relativeAddress);
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.node with the same OSC identifier (%s).  Using %s instead.", jamoma_parse_dieze((ObjectPtr)x, address)->s_name, relativeAddress->getCString());
-		}
-		
-		// Set the address attribute of the Container
+		// get all info relative to our patcher
+		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+			
+		// Get absolute address in the namespace 
+		// and set the address attribute of the Container 
 		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
+		v.get(0, &nodeAdrs);
 		x->wrappedObject->setAttributeValue(TT("address"), v);
 		
-		// get absolute node address
-		v.get(0, &nodeAddress);
-		
-		// debug
-		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
-		
-		// get the Node
-		x->subscriberObject->getAttributeValue(TT("node"), v);
-		v.get(0, (TTPtr*)&node);
-		
-		// attach to the patcher to be notified of his destruction
-		context = node->getContext();
-		// Crash : object_attach_byptr_register(x, context, _sym_box);
-		
-		// special case for jcom.node at the root of the model
-		if ((address == gensym("/") || address == _sym_nothing)) {
+		// Special case for jcom.hub at the root of the model
+		if (x->patcherContext && (relativeAddress == gensym("/") || relativeAddress == _sym_nothing)) {
 			
-			if (x->patcherContext == TT(ModelPatcher)) {
+			if (x->patcherContext == kTTSym_model) {
 				classAdrs = TT("/model/class");
 				helpAdrs =  TT("/model/help");
 				refAdrs = TT("/model/reference");
@@ -192,7 +169,7 @@ void hub_subscribe(TTPtr self, SymbolPtr address)
 				documentationAdrs = TT("/model/documentation/generate");
 				muteAdrs = TT("/model/mute");
 			}
-			else if (x->patcherContext == TT(ViewPatcher)) {
+			else if (x->patcherContext == kTTSym_view) {
 				classAdrs = TT("/view/class");
 				helpAdrs =  TT("/view/help");
 				refAdrs = TT("/view/reference");
@@ -200,70 +177,64 @@ void hub_subscribe(TTPtr self, SymbolPtr address)
 				documentationAdrs = TT("/view/documentation/generate");
 				muteAdrs = TT("/view/mute");
 			}
-			else {
-				classAdrs = TT("/class");
-				helpAdrs =  TT("/help");
-				refAdrs = TT("/reference");
-				internalsAdrs = TT("/internals");
-				documentationAdrs = TT("/documentation/generate");
-				muteAdrs = TT("/mute");
-			}
 			
 			// Add a /class data
-			makeInternals_data(x, nodeAddress, classAdrs, gensym("hub_class"), context, kTTSym_return, &aData);
+			makeInternals_data(x, nodeAdrs, classAdrs, gensym("hub_class"), context, kTTSym_return, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("The patcher class"));
 			aData->setAttributeValue(kTTSym_value, x->patcherClass);
 			
 			// Add a /help data
-			makeInternals_data(x, nodeAddress, helpAdrs, gensym("hub_help"), context, kTTSym_message, &aData);
+			makeInternals_data(x, nodeAdrs, helpAdrs, gensym("hub_help"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Open the maxhelp patch"));
 			
 			// Add a /reference data
-			makeInternals_data(x, nodeAddress, refAdrs, gensym("hub_reference"), context, kTTSym_message, &aData);
+			makeInternals_data(x, nodeAdrs, refAdrs, gensym("hub_reference"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Open the reference page"));
 			
 			// Add a /internals data
-			makeInternals_data(x, nodeAddress, internalsAdrs, gensym("hub_internals"), context, kTTSym_message, &aData);
+			makeInternals_data(x, nodeAdrs, internalsAdrs, gensym("hub_internals"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Open the patcher"));
 			
 			// Add a /documentation/generate data
-			makeInternals_data(x, nodeAddress, documentationAdrs, gensym("doc_generate"), context, kTTSym_message, &aData);
+			makeInternals_data(x, nodeAdrs, documentationAdrs, gensym("doc_generate"), context, kTTSym_message, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_none);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Make a html page description"));
 			
 			// Add a /model/mute data
-			makeInternals_data(x, nodeAddress, muteAdrs, gensym("hub_mute"), context, kTTSym_parameter, &aData);
+			makeInternals_data(x, nodeAdrs, muteAdrs, gensym("hub_mute"), context, kTTSym_parameter, &aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
 			
-			// In jmod *and* jview patcher : Add /model/address data
-			if (x->patcherContext == TT(ModelPatcher)) // as return
-				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
-			if (x->patcherContext == TT(ViewPatcher)) // as parameter
-				makeInternals_data(x, nodeAddress,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
+			// In model *and* view patcher : Add /model/address data
+			if (x->patcherContext == kTTSym_model) // as return
+				makeInternals_data(x, nodeAdrs,  TT("/model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
+			
+			if (x->patcherContext == kTTSym_view) // as parameter
+				makeInternals_data(x, nodeAdrs,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
+			
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A jmod patcher bind on himself"));
 			aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
 			
-			// In jmod patcher : set /modeladdress with his address
-			if (x->patcherContext == TT(ModelPatcher))
-				aData->setAttributeValue(kTTSym_value, nodeAddress);
+			// In model patcher : set /modeladdress with his address
+			if (x->patcherContext == kTTSym_model)
+				aData->setAttributeValue(kTTSym_value, nodeAdrs);
 			
-			// In jview patcher :
+			// In view patcher :
 			// if exists, the second argument of the patcher is the /model/address value
 			// else observe the entire namespace to find a model of our class
-			if (x->patcherContext == TT(ViewPatcher)) {
+			if (x->patcherContext == kTTSym_view) {
 				
 				ac = 0;
 				av = NULL;
@@ -299,15 +270,14 @@ void hub_subscribe(TTPtr self, SymbolPtr address)
 			// output ContextNode address
 			Atom a;
 			x->subscriberObject->getAttributeValue(TT("contextNodeAddress"), v);
-			v.get(0, &nodeAddress);
-			atom_setsym(&a, gensym((char*)nodeAddress->getCString()));
+			v.get(0, &nodeAdrs);
+			atom_setsym(&a, gensym((char*)nodeAdrs->getCString()));
 			object_obex_dumpout(self, gensym("address"), 1, &a);
 			
 			// init the hub
 			defer_low(x, (method)hub_init, 0, 0, 0L);
 		}
 	}
-	 */
 }
 
 void hub_init(TTPtr self)
@@ -320,10 +290,47 @@ void hub_init(TTPtr self)
 // Method for Assistance Messages
 void hub_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
 	if (msg==1)			// Inlets
 		strcpy(dst, "");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "");
+	else {							// Outlets
+		switch(arg) {
+			case data_out:
+				if (x->patcherContext == kTTSym_model)
+					strcpy(dst, "model feeback");
+				else if (x->patcherContext == kTTSym_view)
+					strcpy(dst, "view feeback");
+				else 
+					strcpy(dst, "feeback");
+				break;
+			case dump_out:
+				strcpy(dst, "dumpout");
+				break;
+		}
+ 	}
+}
+
+void hub_share_patcher_info(TTPtr self, TTValuePtr patcherInfo)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	patcherInfo->clear();
+	
+	patcherInfo->append((TTPtr)x->patcherPtr);
+	patcherInfo->append(x->patcherContext);
+	patcherInfo->append(x->patcherClass);
+	patcherInfo->append(x->patcherName);
+}
+
+void hub_share_patcher_node(TTPtr self, TTNodePtr *patcherNode)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue v;
+	
+	if (x->subscriberObject) {
+		x->subscriberObject->getAttributeValue(TT("contextNode"), v);
+		v.get(0, (TTPtr*)patcherNode);
+	}
 }
 
 void hub_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -366,6 +373,7 @@ void hub_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
 	outlet_anything(x->outlets[data_out], x->msg, argc, argv);
 }
 
@@ -373,26 +381,24 @@ void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	TTString helpfile = x->patcherContext->getCString();
-	helpfile += ".";
-	helpfile += x->patcherClass->getCString();
-	
-	//post("hub_help : %s", (char*)helpfile.data());
-	
-	classname_openhelp((char*)helpfile.data());
+	if (x->patcherContext && x->patcherClass) {
+		TTString helpfile = x->patcherContext->getCString();
+		helpfile += ".";
+		helpfile += x->patcherClass->getCString();
+		classname_openhelp((char*)helpfile.data());
+	}
 }
 
 void hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	TTString refpage = x->patcherContext->getCString();
-	refpage += ".";
-	refpage += x->patcherClass->getCString();
-	
-	//post("hub_reference : %s", (char*)refpage.data());
-	
-	classname_openrefpage((char*)refpage.data());
+	if (x->patcherContext && x->patcherClass) {
+		TTString refpage = x->patcherContext->getCString();
+		refpage += ".";
+		refpage += x->patcherClass->getCString();
+		classname_openrefpage((char*)refpage.data());
+	}
 }
 
 void hub_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -466,8 +472,8 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTObjectPtr anObject;
 	TTErr		err;
 	
-	// In jview patcher only
-	if (x->patcherContext == TT(ViewPatcher)) {
+	// In view patcher only
+	if (x->patcherContext == kTTSym_view) {
 		
 		if (atom_gettype(argv) == A_SYM) {
 			EXTRA->modelAddress = TT(atom_getsym(argv)->s_name);

@@ -11,7 +11,7 @@
 
 #define address_out 0
 #define data_out 1
-
+#define dump_out 2
 
 // Definitions
 void	WrapTTReceiverClass(WrappedClassPtr c);
@@ -76,8 +76,19 @@ void receive_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1)			// Inlets
 		strcpy(dst, "");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "");
+	else {							// Outlets
+		switch(arg) {
+			case address_out:
+				strcpy(dst, "address output");
+				break;
+			case data_out:
+				strcpy(dst, "data output");
+				break;
+			case dump_out:
+				strcpy(dst, "dumpout");
+				break;
+		}
+ 	}
 }
 
 void receive_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

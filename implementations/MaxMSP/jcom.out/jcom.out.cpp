@@ -34,7 +34,7 @@ void		WrapTTOutputClass(WrappedClassPtr c);
 void		WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void		WrappedOutputClass_free(TTPtr self);
 void		out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
-void		out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 //TODO :	void out_register_preview(t_out *x, void *preview_object){ x->preview_object = preview_object; }
 
@@ -164,7 +164,7 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
 	atom_setlong(&a, number);
-	defer_low((ObjectPtr)x, (method)out_build, NULL, 1, &a);
+	defer_low((ObjectPtr)x, (method)out_subscribe, NULL, 1, &a);
 }
 
 void WrappedOutputClass_free(TTPtr self)
@@ -177,47 +177,26 @@ void WrappedOutputClass_free(TTPtr self)
 #endif
 }
 
-void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
 	long						i, number = atom_getlong(argv);
 	TTNodePtr					node = NULL;
-	TTBoolean					newInstance;
-	TTSymbolPtr					nodeAddress, relativeAddress, parentAddress;
+	TTSymbolPtr					nodeAddress, parentAddress;
 	TTDataPtr					aData;
-	TTPtr						context;
 	TTString					inAddress;
 	SymbolPtr					outAmplitudeInstance, outDescription;
 	
-	jamoma_patcher_get_context_class((ObjectPtr)x, &x->patcherContext, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/out"), x->patcherContext, &x->subscriberObject);
-	
 	// if the subscription is successful
-	if (x->subscriberObject) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/out"), &x->subscriberObject)) {
 		
-		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
-		v.get(0, newInstance);
-		
-		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
-			v.get(0, &relativeAddress);
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.in with the same OSC identifier (/out).  Using %s instead.", relativeAddress->getCString());
-		}
-		
-		// debug
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &nodeAddress);
-		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
+		// get patcher
+		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 		
 		// get the Node
 		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
-		
-		// attach to the patcher to be notified of his destruction
-		context = node->getContext();
-		// Crash : object_attach_byptr_register(x, context, _sym_box);
 		
 		// observe /parent/in address in order to link/unlink with an Input object below
 		node->getParent()->getOscAddress(&parentAddress, S_SEPARATOR);
@@ -246,7 +225,7 @@ void out_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			jamoma_edit_numeric_instance("amplitude.%d", &outAmplitudeInstance, i+1);
 			jamoma_edit_numeric_instance("instant amplitude of the signal %d", &outDescription, i+1);
 			
-			makeInternals_data(x, nodeAddress, TT(outAmplitudeInstance->s_name), NULL, context, kTTSym_return, (TTObjectPtr*)&aData);
+			makeInternals_data(x, nodeAddress, TT(outAmplitudeInstance->s_name), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_rangeBounds, v);
@@ -360,7 +339,11 @@ void out_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	long index = TTOutputPtr(x->wrappedObject)->mIndex;
 	
-	outlet_anything(x->outlets[index], msg, argc, argv);
+	// avoid blank before data
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[index], argc, argv);
+	else
+		outlet_anything(x->outlets[index], msg, argc, argv);
 }
 #endif
 

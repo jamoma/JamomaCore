@@ -20,14 +20,13 @@ mContextNode(NULL),
 mContextAddress(kTTSymEmpty),
 mNewInstanceCreated(false),
 mApplication(NULL),
-mShareContextNodeCallback(NULL),
 mGetContextListCallback(NULL),
 mExposedMessages(NULL),
 mExposedAttributes(NULL)
 {
 	TTObjectPtr anObject;
 	
-	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 5);
+	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 4);
 	
 	arguments.get(0, (TTPtr*)&anObject);
 	
@@ -38,10 +37,7 @@ mExposedAttributes(NULL)
 	arguments.get(2, (TTPtr*)&mApplication);
 	TT_ASSERT("Application passed to TTSubscriber is not NULL", mApplication);
 	
-	arguments.get(3, (TTPtr*)&mShareContextNodeCallback);
-	TT_ASSERT("Share Callback passed to TTSubscriber is not NULL", mShareContextNodeCallback);
-	
-	arguments.get(4, (TTPtr*)&mGetContextListCallback);
+	arguments.get(3, (TTPtr*)&mGetContextListCallback);
 	TT_ASSERT("ContextList Callback passed to TTSubscriber is not NULL", mGetContextListCallback);
 	
 	addAttribute(RelativeAddress, kTypeSymbol);
@@ -58,7 +54,7 @@ mExposedAttributes(NULL)
 	addAttributeProperty(contextAddress, readOnly, YES);
 	addAttributeProperty(newInstanceCreated, readOnly, YES);
 	
-	if	(getDirectoryFrom(this) && mShareContextNodeCallback && mGetContextListCallback)
+	if	(getDirectoryFrom(this) && mGetContextListCallback)
 		this->subscribe(anObject);
 	
 	mExposedMessages = new TTHash();
@@ -91,11 +87,6 @@ TTSubscriber::~TTSubscriber()
 		
 		// Set NULL object
 		this->mNode->setObject(NULL);
-	}
-	
-	if (mShareContextNodeCallback) {
-		delete (TTValuePtr)mShareContextNodeCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mShareContextNodeCallback));
 	}
 	
 	if (mGetContextListCallback) {
@@ -158,28 +149,16 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 	TTObjectPtr			hisObject;
 	TTErr				err;
 	
-	// look for any other registered subscriber in the Context
-	// to ask them the Context node using the shareCallback.
-	// (this is done to optimized the registration process)
-	this->mContextNode = NULL;
-	this->mShareContextNodeCallback->notify(aTempValue);
-	aTempValue.get(0, (TTPtr*)&(this->mContextNode));
+	// Get all Context above the subscriber and their name 
+	// using the contextListCallback
+	aTempValue.clear();
+	aContextList = new TTList();
+	aTempValue.append(aContextList);
+	this->mGetContextListCallback->notify(aTempValue);
 	
-	// if it is the first registered subscriber in the Context
-	// or the sharing has failed
-	if (!this->mContextNode) {
-		
-		// Get all Context above the subscriber and their name 
-		// using the contextListCallback
-		aTempValue.clear();
-		aContextList = new TTList();
-		aTempValue.append(aContextList);
-		this->mGetContextListCallback->notify(aTempValue);
-		
-		// register each Context of the list as 
-		// TTNode in the tree structure (if they don't exist yet)
-		this->registerContextList(aContextList);
-	}
+	// register each Context of the list as 
+	// TTNode in the tree structure (if they don't exist yet)
+	this->registerContextList(aContextList);
 	
 	// Build the node at /contextAddress/parent/node
 	if (this->mContextNode) {

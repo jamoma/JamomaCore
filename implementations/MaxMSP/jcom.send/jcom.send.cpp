@@ -81,8 +81,12 @@ void send_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1)			// Inlets
 		strcpy(dst, "");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "");
+	else {							// Outlets
+		switch(arg) {
+			strcpy(dst, "dumpout");
+			break;
+		}
+ 	}
 }
 
 void send_bang(TTPtr self)

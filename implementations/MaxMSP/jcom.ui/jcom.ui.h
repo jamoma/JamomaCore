@@ -61,10 +61,10 @@ typedef struct _ui{
 	
 	TTSymbolPtr			viewAddress;
 	TTSymbolPtr			modelAddress;
-	TTSymbolPtr			patcherContext;
-	TTSymbolPtr			patcherClass;
+	ObjectPtr			patcherPtr;				///< the patcher in which the external is (ignoring subpatcher)
+	TTSymbolPtr			patcherContext;			///< the patcher context in which the external is (model, view)
+	TTSymbolPtr			patcherClass;			///< the patcher class in which the external is
 	TTSymbolPtr			patcherName;
-	ObjectPtr			patcher;
 	
 	TTBoolean			hover;					// is the mouse hover the jcom.ui panel ?
 	TTBoolean			selection;				// is the user selecting things ?

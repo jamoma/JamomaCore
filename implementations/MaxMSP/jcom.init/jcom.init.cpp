@@ -13,7 +13,7 @@
 // Data Structure for this object
 typedef struct _init{
 	Object				obj;
-	TTNodePtr			contextNode;
+	TTNodePtr			patcherNode;
 	TTReceiverPtr		initReceiver;
 	void				*outlet;
 	void				*dumpout;
@@ -67,10 +67,10 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
 	long 		attrstart = attr_args_offset(argc, argv);						// support normal arguments
 	t_init 		*x = (t_init *)object_alloc(g_init_class);
-	SymbolPtr	address = _sym_nothing;											// could be used to binds on a sub level jcom.hub
+	SymbolPtr	relativeAddress = _sym_nothing;											// could be used to binds on a sub level jcom.hub
 
 	if (attrstart && argv)
-		atom_arg_getsym(&address, 0, attrstart, argv);
+		atom_arg_getsym(&relativeAddress, 0, attrstart, argv);
 	
 	if (x) {
 		
@@ -78,7 +78,7 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->outlet = outlet_new(x, NULL);
 		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		x->contextNode = NULL;
+		x->patcherNode = NULL;
 		x->initReceiver = NULL;
 		
 		attr_args_process(x, argc, argv);										// handle attribute args				
@@ -86,7 +86,7 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)init_subscribe, address, 0, 0);
+		defer_low((ObjectPtr)x, (method)init_subscribe, relativeAddress, 0, 0);
 	}
 	
 	return (x);																	// Return the pointer
@@ -116,33 +116,26 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 	}
 }
 
-void init_subscribe(t_init *x, SymbolPtr address)		// address : could be used to binds on a sub level jcom.hub
+void init_subscribe(t_init *x, SymbolPtr relativeAddress)		// relativeAddress : could be used to binds on a sub level jcom.hub
 {
-	TTSymbolPtr		patcherContext = NULL, patcherClass;
-	TTSymbolPtr		contextAddress, levelAddress;
 	TTValue			v, args;
+	TTSymbolPtr		contextAddress, levelAddress;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTNodePtr		levelNode;
+
+	jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &x->patcherNode);
 	
-	if (jamoma_patcher_check_context_class((ObjectPtr)x, &patcherContext, &patcherClass))
-		return;
-	
-	// DEBUG
-	object_post((ObjectPtr)x, "context : %s class : %s", patcherContext->getCString(),  patcherClass->getCString());
-	
-	/*
-	x->contextNode = jamoma_context_get_node((ObjectPtr)x, patcherContext);
-	
-	if (x->contextNode) {
+	if (x->patcherNode) {
 		
-		x->contextNode->getOscAddress(&contextAddress, S_SEPARATOR);
+		x->patcherNode->getOscAddress(&contextAddress, S_SEPARATOR);
 		
-		if (address == _sym_nothing)
+		if (relativeAddress == _sym_nothing)
 			levelAddress = contextAddress;
 		else
-			joinOSCAddress(contextAddress, TT(address->s_name), &levelAddress);
+			joinOSCAddress(contextAddress, TT(relativeAddress->s_name), &levelAddress);
 		
-		if (!JamomaDirectory->getTTNodeForOSC(levelAddress, &x->contextNode)) {
+		if (!JamomaDirectory->getTTNodeForOSC(levelAddress, &levelNode)) {
 			
 			// Make a TTReceiver object
 			args.append(JamomaApplication);
@@ -165,23 +158,18 @@ void init_subscribe(t_init *x, SymbolPtr address)		// address : could be used to
 			
 			x->initReceiver = NULL;
 			TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&x->initReceiver), args);
-			
-			// Ask a result in case the initialisation has been done
-			x->initReceiver->sendMessage(TT("Get"));
-			
 			return;
 		}
 	}
 	
 	// While the context node is not registered : try to build (to --Is this not dangerous ?)
-	if (x->contextNode != JamomaDirectory->getRoot()) {
+	if (x->patcherNode != JamomaDirectory->getRoot()) {
 		
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)init_subscribe, address, 0, 0);
+		defer_low((ObjectPtr)x, (method)init_subscribe, relativeAddress, 0, 0);
 	}
-	 */
 }
 
 void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)

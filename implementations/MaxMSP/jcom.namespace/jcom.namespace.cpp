@@ -11,7 +11,7 @@
 
 #define data_out 0
 #define none_one_out 1
-#define dumpout 2
+#define dump_out 2
 
 // Definitions
 void		WrapTTExplorerClass(WrappedClassPtr c);
@@ -27,7 +27,7 @@ void		nmspc_symbol(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		nmspc_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		nmspc_build(TTPtr self, SymbolPtr address);
+void		nmspc_subscribe(TTPtr self, SymbolPtr relativeAddress);
 
 t_max_err	nmspc_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
 t_max_err	nmspc_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
@@ -77,14 +77,14 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					address;
+	SymbolPtr					relativeAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
-	// A Modular object needs an address argument
+	// possible relativeAddress (to make jcom.namespace relative to his context ... ?)
 	if (attrstart && argv) 
-		address = atom_getsym(argv);
+		relativeAddress = atom_getsym(argv);
 	else
-		address = _sym_nothing;
+		relativeAddress = _sym_nothing;
 	
 	// create the explorer
 	jamoma_explorer_create((ObjectPtr)x, &x->wrappedObject);
@@ -92,7 +92,7 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)nmspc_build, address, 0, 0);
+	defer_low((ObjectPtr)x, (method)nmspc_subscribe, relativeAddress, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
@@ -105,23 +105,9 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	attr_args_process(x, argc, argv);
 }
 
-void nmspc_build(TTPtr self, SymbolPtr address)
+void nmspc_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	//TTValue						v;
-	//TTNodePtr					node;
-	//TTSymbolPtr					absoluteAddress;
-	
-	/* To make jcom.namespace relative to his context...
-	 
-	if (node = jamoma_context_node_get((ObjectPtr)self)) {
-	
-		// Get his absolute address
-		node->getOscAddress(&absoluteAddress);
-		v.append(absoluteAddress);
-		x->wrappedObject->setAttributeValue(kTTSym_Address, v);
-	}
-	 */
+	; // idea : make jcom.namespace relative to his context ... ?
 }
 
 void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
@@ -136,7 +122,7 @@ void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 			case none_one_out:
 				strcpy(dst, "output 'none' or 'one' flag");
 				break;
-			case dumpout:
+			case dump_out:
 				strcpy(dst, "dumpout");
 				break;
 		}
@@ -158,12 +144,9 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	x->wrappedObject->getAttributeValue(kTTSym_address, v);
 	v.get(0, &address);
 	
-	// UMENU FORMAT
+	// UMENU OR UMENU_PREFIX FORMAT
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
 
-		// clear umenu
-		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
-		
 		// prepare umenu prefix to be concatenated
 		if (x->msg == gensym("umenu_prefix")) {
 			
@@ -193,18 +176,6 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 		
 		// fill umenu
-		// output msg
-		s = msg;
-		if(lookfor == kTTSym_attributes)
-			s = jamoma_TTName_To_MaxName(TT(s->s_name));
-		
-		if (lookfor == kTTSym_instances && s == _sym_nothing)
-			s = gensym("_");
-		if (s) {
-			atom_setsym(a, s);
-			outlet_anything(x->outlets[data_out], _sym_append, 1, a);
-		}
-		
 		// output argv
 		for (long i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
@@ -242,6 +213,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void nmspc_bang(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	// UMENU OR UMENU_PREFIX FORMAT : clear umenu
+	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix"))
+		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
 
 	x->wrappedObject->sendMessage(TT("Explore"));
 }
@@ -254,6 +229,11 @@ void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	if (msg->s_name[0] == C_SEPARATOR) {
 		v.append(TT(nmspc_filter_underscore_instance(msg)->s_name));
 		x->wrappedObject->setAttributeValue(kTTSym_address, v);
+		
+		// UMENU OR UMENU_PREFIX FORMAT : clear umenu
+		if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix"))
+			outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
+		
 		x->wrappedObject->sendMessage(TT("Explore"));
 	}
 }

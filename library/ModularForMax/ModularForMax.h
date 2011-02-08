@@ -25,9 +25,9 @@ extern "C" {
 	// Method to deal with the jamoma application
 	/////////////////////////////////////////
 	
-	TTErr jamoma_application_dump_configuration(void);
+	TTErr			jamoma_application_dump_configuration(void);
 	
-	TTErr jamoma_application_write_configuration(void);
+	TTErr			jamoma_application_write_configuration(void);
 
 	// Method to deal with the jamoma directory
 	/////////////////////////////////////////
@@ -39,23 +39,12 @@ extern "C" {
 	// Method to deal with TTSubscriber
 	///////////////////////////////////////////////////////////////////////
 	
-	/**	Create a subscriber object and register an object to the tree */
-	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress,  TTSymbolPtr contextType, TTSubscriberPtr *returnedSubscriber);
+	/**	Create a subscriber object and register a TTObject into the tree */
+	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber);
 	
-	/** Share the context node between subscribed object
-		To understand how this method have to work see in TTSubscriber.h and .cpp */
-	void			jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data);
-	
-	/** Get the context list above a subscribed object
+	/** Get the <patcher name, patcher pointer> list above an external
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
-	void			jamoma_subscriber_get_context_list(TTPtr p_baton, TTValue& data);
-	
-	/** Look recursively for every jmod.contextPatcher above an object in order to know his place in the tree
-	 note : a contextPatcher is a patcher named [jmod.something otherName] 
-	 return a <formatedContextName, patcher> list 
-	 To understand how this method have to work see in TTSubscriber.h and .cpp */
-	void			jamoma_subscriber_get_context_list_method(ObjectPtr z, TTSymbolPtr contextType, TTListPtr aContextList, long *nbLevel);
-	
+	void			jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data);
 	
 	// Method to deal with TTContainer
 	///////////////////////////////////////////////////////////////////////
@@ -177,16 +166,19 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/** Return an address to a jcom. external */
-	void			jamoma_callback_return_address(TTPtr baton, TTValue& data);
+	void			jamoma_callback_return_address(TTPtr baton, TTValue& v);
 	
-	/** Return the value to a jcom. external */
-	void			jamoma_callback_return_value(TTPtr baton, TTValue& data);
+	/** Return the value to a jcom. external as _sym_nothing, argc, argv */
+	void			jamoma_callback_return_value(TTPtr baton, TTValue& v);
+	
+	/** Return the value to a jcom. external as msg, argc, argv */
+	void			jamoma_callback_return_value_typed(TTPtr baton, TTValue& v);
 	
 	/** Return any signal */
-	void			jamoma_callback_return_signal(TTPtr baton, TTValue& data);
+	void			jamoma_callback_return_signal(TTPtr baton, TTValue& v);
 	
 	/** Return audio signal */
-	void			jamoma_callback_return_signal_audio(TTPtr baton, TTValue& data);
+	void			jamoma_callback_return_signal_audio(TTPtr baton, TTValue& v);
 	
 	
 	// Patcher
@@ -206,15 +198,24 @@ extern "C" {
 
 	/** Get the class of the patcher from the file name (removing .model and .view convention name if they are in) */
 	void			jamoma_patcher_get_class(ObjectPtr patcher,  TTSymbolPtr context, TTSymbolPtr *returnedClass);
-
-	/** Check or set the context and the class of an object from his patcher */
-	TTErr			jamoma_patcher_check_context_class(ObjectPtr obj, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass);
 	
+	/** Get the name of the patcher from his arguments */
+	void			jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedName);
+	
+	/** Get all context info from the root hub in the patcher */
+	void			jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName);
+
+	/** Get patcher's node from the root hub in the patcher */
+	void			jamoma_patcher_share_node(ObjectPtr obj, TTNodePtr *patcherNode);
+	
+	/** Get all context info from an object (his patcher and the context, the class and the name of his patcher) */
+	TTErr			jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName);
+
 	// Tools
 	///////////////////////////////////////////////
 	
-	/** Make a Message prepended Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
-	void			jamoma_ttvalue_to_Msg_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv, TTBoolean& shifted);
+	/** Make a typed Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
+	void			jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv, TTBoolean& shifted);
 	
 	/** Make an Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
 	void			jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv);
@@ -228,11 +229,6 @@ extern "C" {
 	
 	/** Load an external for internal use. Returns true if successful */
 	TTBoolean		jamoma_extern_load(SymbolPtr objectname, AtomCount argc, AtomPtr argv, ObjectPtr *object);
-	
-	/** Get the Context Node relative to a jcom.external  if it is possible (else return the root)
-		This method have to be defered low while the Context is not registered in the namespace.
-		see jcom.init to get an example */
-	TTNodePtr		jamoma_context_get_node(ObjectPtr x, TTSymbolPtr contextType);
 	
 	/** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
 	long			jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format);
