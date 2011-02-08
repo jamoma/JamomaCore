@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2286FCDB12FC51B2005310B8 /* TTGainTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2286FCDA12FC51B2005310B8 /* TTGainTest.cpp */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD45E411E245C8007BBF7E /* EffectsLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45E311E245C8007BBF7E /* EffectsLib.cpp */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		2286FCDA12FC51B2005310B8 /* TTGainTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTGainTest.cpp; sourceTree = "<group>"; };
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -107,6 +109,7 @@
 				22FD45E811E245D0007BBF7E /* TTDegrade.cpp */,
 				22FD45EB11E245D0007BBF7E /* TTGain.h */,
 				22FD45EC11E245D0007BBF7E /* TTGain.cpp */,
+				2286FCDA12FC51B2005310B8 /* TTGainTest.cpp */,
 				22FD45ED11E245D0007BBF7E /* TTLimiter.h */,
 				22FD45EE11E245D0007BBF7E /* TTLimiter.cpp */,
 				22FD45EF11E245D0007BBF7E /* TTOverdrive.h */,
@@ -161,7 +164,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "EffectsLib" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
 			projectDirPath = "";
@@ -200,6 +210,7 @@
 				22FD45FC11E245D0007BBF7E /* TTLimiter.cpp in Sources */,
 				22FD45FE11E245D0007BBF7E /* TTOverdrive.cpp in Sources */,
 				22FD460011E245D0007BBF7E /* TTPulseSub.cpp in Sources */,
+				2286FCDB12FC51B2005310B8 /* TTGainTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

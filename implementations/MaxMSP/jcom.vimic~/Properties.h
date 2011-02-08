@@ -18,7 +18,7 @@ static const int REFLECTIONORDER = 3;
 static const int NUMWALLS = 6;
 // static const int FILTER_MAP[REFLECTIONORDER * NUMWALLS] = {0, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 6, 7, 6, 7, 8, 9, 8, 9};
 enum AudioProcess {NONE, VIMIC_LITE, AMP_PAN, X_FADE_LITE, X_FADE_XL, VIMIC_XL, STATIC};
-static const int MAXNUMCHANNELS = 24;
+static const int MAXNUMCHANNELS = 144;
 static const double SAMPLERATE = 44100.0; // should that be here? we have x->s_sr !
 static const double MAX_ROOM_DIM = 40.0;
 static const int NUMSOURCES = 1;

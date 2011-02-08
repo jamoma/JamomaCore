@@ -18,8 +18,8 @@ mFilePath(kTTSymEmpty),
 mSoundFile(NULL),
 mPlay(false),
 mLoop(false),
-mContinue(false),
 mSeek(0),
+mContinue(false),
 mNumChannels(0),
 mNumBufferFrames(0)
 {
