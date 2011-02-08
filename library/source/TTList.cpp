@@ -132,7 +132,7 @@ void TTList::insert(TTUInt32 index, const TTValue& newValue)
 		i++;
 	}
 	
-	theList.insert(iter, (TTValue*)&newValue);
+	theList.insert(iter, newValue);
 	unlock();
 }
 
