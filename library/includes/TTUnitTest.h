@@ -17,7 +17,7 @@
 	@param a	The first float to test
 	@param b	The second float to test
 	@return		Returns true if a == b, otherwise returns false.	*/
-TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b);
+TTBoolean TTFOUNDATION_EXPORT TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b);
 
 
 /**	Determine if two 32-bit floats are equal in value, but tolerant of floating-point precision.
@@ -25,7 +25,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b);
 	@param a	The first float to test
 	@param b	The second float to test
 	@return		Returns true if a == b, otherwise returns false.	*/
-TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b);
+TTBoolean TTFOUNDATION_EXPORT TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b);
 
 
 /**	Post a message to the console.
@@ -34,7 +34,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b);
 	@group unittest
 	@param msg	The string to post
 */
-void TTTestLog(const char *msg, ...);
+void TTFOUNDATION_EXPORT TTTestLog(const char *msg, ...);
 
 
 /**	Log the outcome of a proceedure that should result as true.
@@ -45,7 +45,7 @@ void TTTestLog(const char *msg, ...);
 	@param testAssertionCount	The address of a variable you incrementing when making a test assertion.
 	@param errorCount			The address of a variable you incrementing when test assertions fail.
 	@return						Returns true if a == b, otherwise returns false.	*/
-void TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAssertionCount, int& errorCount);
+void TTFOUNDATION_EXPORT TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAssertionCount, int& errorCount);
 
 
 /** Wrap up the test results to pass back to whoever called this test.
@@ -55,7 +55,7 @@ void TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAsse
 	@param	returnedTestInfo		The argument passed to the test function, which will be filled-in with a dictionary upon return.
 	@return		An error code if the test failed.
  */
-TTErr TTTestFinish(int testAssertionCount, int errorCount, TTValue& returnedTestInfo);
+TTErr TTFOUNDATION_EXPORT TTTestFinish(int testAssertionCount, int errorCount, TTValue& returnedTestInfo);
 
 
 #endif // __TT_UNITTEST_H__
