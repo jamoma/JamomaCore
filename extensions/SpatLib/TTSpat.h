@@ -23,8 +23,8 @@ class TTSpat : TTAudioObject {
 	TTValue				mDestinationPositions;		
 		
 	/**	choose the window function */
-	TTErr setSpatFunction(const TTValue& function);
-	
+	TTErr setSpatFunction(const TTValue& aSpatFunction);
+		
 	/**	set position size */
 	TTErr getSourcePositions(TTValue& aPosition);
 	TTErr setSourcePositions(const TTValue& aPosition);
