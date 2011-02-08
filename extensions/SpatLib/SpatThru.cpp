@@ -32,12 +32,34 @@ SpatThru::~SpatThru()
 	;
 }
 
+TTErr SpatThru::setSourceCount(const TTValue& newValue)
+{
+	TTUInt16 numInputs = newValue;
+	
+	if (numInputs != mSourceCount) {
+		mSourceCount = numInputs;
+		}
+	return kTTErrNone;
+}
+
+
+TTErr SpatThru::setDestinationCount(const TTValue& newValue)
+{
+	TTUInt16 numOutputs = newValue;
+	
+	if (numOutputs != mDestinationCount) {
+		mDestinationCount = numOutputs;
+		}
+	return kTTErrNone;
+}
+
+
 
 TTErr SpatThru::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	src = inputs->getSignal(0);
 	TTAudioSignal&	dst = outputs->getSignal(0);
-	TTUInt16		vs;
+	TTUInt16		vs = src.getVectorSizeAsInt();
 	TTSampleValue*	srcSample;
 	TTSampleValue*	dstSample;
 	
@@ -48,21 +70,21 @@ TTErr SpatThru::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	TTUInt16		dstChannelCount = dst.getNumChannelsAsInt();
 	
 	if (srcChannelCount != mSourceCount) {
-		mSourceCount(srcChannelCount);
+		setSourceCount(srcChannelCount);
 	}
 	if (dstChannelCount != mDestinationCount) {
-		TTValue v = Destination;
+		TTValue v = mDestinationCount;
 		
-		out.setMaxNumChannels(v);
-		out.setNumChannels(v);
-		mDestinationCount = mDestinationCount;
+		src.setMaxNumChannels(v);
+		//src.setNumChannelsWithInt(v);
+		src.setNumChannels(v);
+		dstChannelCount = mDestinationCount;
 	}
-	
-	
+		
 	for (channel=0; channel<numchannels; channel++) {
 		srcSample = src.mSampleVectors[channel];
 		dstSample = dst.mSampleVectors[channel];
-		vs = src.getVectorSizeAsInt();
+		//vs = src.getVectorSizeAsInt();
 		
 		while (vs--) {
 			*dstSample++ = *srcSample++;
