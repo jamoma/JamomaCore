@@ -146,6 +146,9 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// UMENU OR UMENU_PREFIX FORMAT
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
+		
+		// clear menu
+		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
 
 		// prepare umenu prefix to be concatenated
 		if (x->msg == gensym("umenu_prefix")) {
@@ -162,12 +165,12 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				
 				if(lookfor == kTTSym_children)
 					prefix += "/";
-				if(lookfor == kTTSym_instances)
+				else if(lookfor == kTTSym_instances)
 					prefix += ".";
-				if(lookfor == kTTSym_attributes)
+				else if(lookfor == kTTSym_attributes)
 					prefix += ":";
 				else
-					prefix += "";
+					prefix = "";
 				
 				atom_setsym(a, gensym((char*)prefix.data()));
 			}
