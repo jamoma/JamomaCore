@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 30.0, 206.0, 546.0, 553.0 ],
+		"rect" : [ 30.0, 206.0, 620.0, 566.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 30.0, 206.0, 546.0, 553.0 ],
+		"defrect" : [ 30.0, 206.0, 620.0, 566.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -191,9 +191,9 @@
 					"linecount" : 10,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 325.0, 145.0, 179.0, 164.0 ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 325.0, 145.0, 176.0, 164.0 ],
 					"text" : "jcom.parameter bitdepth @type integer @range/bounds 1 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"The number of bits that will be retained in each sample - use this for bit crunching effects\""
 				}
 
@@ -206,9 +206,9 @@
 					"linecount" : 7,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 85.0, 145.0, 231.0, 117.0 ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 85.0, 145.0, 226.0, 117.0 ],
 					"text" : "jcom.parameter samplerateRatio @type decimal @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\""
 				}
 
@@ -222,8 +222,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 25.0, 45.0, 482.0, 22.0 ],
-					"text" : "jcom.hub @description \"Emulate the use of lower sample-rates and bit-resolution.\""
+					"patching_rect" : [ 25.0, 45.0, 565.0, 22.0 ],
+					"text" : "jcom.hub @context model @description \"Emulate the use of lower sample-rates and bit-resolution.\""
 				}
 
 			}

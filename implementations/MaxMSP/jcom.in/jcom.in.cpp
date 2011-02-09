@@ -192,6 +192,10 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
+		// get the Node address
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
+		v.get(0, &nodeAddress);
+		
 		// observe /parent/out address in order to link/unlink with an Input object below
 		node->getParent()->getOscAddress(&parentAddress, S_SEPARATOR);
 		outAddress = parentAddress->getCString();

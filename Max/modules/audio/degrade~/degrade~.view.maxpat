@@ -42,7 +42,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 515.0, 320.0, 100.0, 12.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 125.0, 10.0, 100.0, 4.0 ]
+					"presentation_rect" : [ 133.0, 10.0, 100.0, 4.0 ]
 				}
 
 			}
@@ -55,7 +55,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 305.0, 320.0, 100.0, 12.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 125.0, 5.0, 100.0, 4.0 ]
+					"presentation_rect" : [ 133.0, 5.0, 100.0, 4.0 ]
 				}
 
 			}
@@ -77,7 +77,7 @@
 				"box" : 				{
 					"fontname" : "Helvetica Neue Light",
 					"fontsize" : 13.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-10",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -93,7 +93,7 @@
 				"box" : 				{
 					"fontname" : "Helvetica Neue Light",
 					"fontsize" : 13.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-6",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -212,8 +212,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 20.0, 195.0, 372.0, 22.0 ],
-					"text" : "jcom.hub @description \"A default view for the degrade.model~\""
+					"patching_rect" : [ 20.0, 195.0, 449.0, 22.0 ],
+					"text" : "jcom.hub @context view @description \"A default view for the degrade.model~\""
 				}
 
 			}

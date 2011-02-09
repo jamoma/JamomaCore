@@ -4,7 +4,7 @@
 		"rect" : [ 630.0, 150.0, 300.0, 71.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 268.0, 229.0, 305.0, 202.0 ],
+		"defrect" : [ 977.0, 123.0, 305.0, 202.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 13.0,
@@ -21,22 +21,7 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
-					"id" : "obj-2",
-					"linecount" : 2,
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 75.0, 119.0, 38.0 ],
-					"text" : "loadmess /model/address #1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [  ],
+					"args" : [ "#1" ],
 					"id" : "obj-13",
 					"maxclass" : "bpatcher",
 					"name" : "degrade~.view.maxpat",
@@ -56,7 +41,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 112.0, 150.0, 25.0, 25.0 ]
+					"patching_rect" : [ 157.0, 150.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -67,7 +52,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 61.0, 150.0, 25.0, 25.0 ]
+					"patching_rect" : [ 84.0, 150.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -79,7 +64,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 112.0, 90.0, 25.0, 25.0 ]
+					"patching_rect" : [ 157.0, 90.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -91,7 +76,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 61.0, 90.0, 25.0, 25.0 ]
+					"patching_rect" : [ 84.0, 90.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -127,7 +112,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 10.0, 120.0, 121.0, 22.0 ],
+					"patching_rect" : [ 10.0, 120.0, 166.0, 22.0 ],
 					"text" : "degrade~.model #1"
 				}
 
@@ -166,15 +151,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-15", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
 				}
 
 			}
