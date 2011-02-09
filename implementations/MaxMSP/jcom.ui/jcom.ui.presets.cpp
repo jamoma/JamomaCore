@@ -74,14 +74,13 @@ void ui_return_preset_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 {
 	t_ui* obj = (t_ui*)self;
 	
-	obj->preset_num = argc+1;
+	obj->preset_num = argc;
 	
 	if (obj->preset_names)
 		sysmem_freeptr(obj->preset_names);
 	obj->preset_names = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
 	
-	atom_setsym(&obj->preset_names[0], msg);
-	for (int i=1; i<argc; i++) {
+	for (int i=0; i<argc; i++) {
 		atom_setsym(&obj->preset_names[i], atom_getsym(&argv[i]));
 	}
 }
