@@ -112,27 +112,31 @@ TTErr TTAudioObjectArray::set(TTValue& arguments)
 			return kTTErrWrongNumValues;
 		else
 			arguments.get(1, &attrName);
+		
+		if (!attrName)
+			return kTTErrInvalidAttribute;
+		
+		attrValue.copyFrom(arguments, 2);
+		
+		err = mInstances[target]->setAttributeValue(attrName, attrValue);
+		
 	}
 	else {
 		if (arguments.getSize() < 2)
 			return kTTErrWrongNumValues;
 		else
 			arguments.get(0, &attrName);
-	}
-
-	if (!attrName)
-		return kTTErrInvalidAttribute;
-	
-	// Now that we've ensured some level of sanity in what the caller passed us, we can proceed.
-	
-	attrValue.copyFrom(arguments, 1);
-	if (target == -1) {
+		
+		if (!attrName)
+			return kTTErrInvalidAttribute;
+		
+		attrValue.copyFrom(arguments, 1);
+		
 		for (int i=0; i<mSize; i++)
 			err |= mInstances[i]->setAttributeValue(attrName, attrValue);
+		
 	}
-	else
-		err = mInstances[target]->setAttributeValue(attrName, attrValue);
-	
+
 	arguments.clear();
 	return (TTErr)err;
 }
