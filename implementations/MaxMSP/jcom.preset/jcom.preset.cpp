@@ -34,8 +34,12 @@ void		preset_filechanged(TTPtr self, char *filename, short path);
 
 void		preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		preset_read_again(TTPtr self);
+void		preset_doread_again(TTPtr self);
 void		preset_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		preset_write_again(TTPtr self);
+void		preset_dowrite_again(TTPtr self);
 void		preset_default(TTPtr self);
 void		preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
@@ -71,6 +75,9 @@ void WrapTTPresetManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)preset_read,					"read",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)preset_write,					"write",				A_GIMME, 0);
+	
+	class_addmethod(c->maxClass, (method)preset_read_again,				"read/again",			0);
+	class_addmethod(c->maxClass, (method)preset_write_again,			"write/again",			0);
 }
 
 void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -230,17 +237,25 @@ void preset_subscribe(TTPtr self, SymbolPtr relativeAddress)
 		v = TTValue(TTPtr(x->wrappedObject));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
-		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
 		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Read a xml preset file"));
 		
-		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
+		makeInternals_data(self, absoluteAddress, TT("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Read from the last xml preset file"));
+		
 		makeInternals_data(self, absoluteAddress, TT("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Write a xml preset file"));
+		
+		makeInternals_data(self, absoluteAddress, TT("preset/write/again"), gensym("preset_write_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Write into the last xml preset file"));
 		
 		// TODO : create internal TTTextHandler to edit in Max edition window
 	
@@ -303,6 +318,30 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
+void preset_read_again(TTPtr self)
+{
+	defer(self, (method)preset_doread_again, NULL, 0, NULL);
+}
+
+void preset_doread_again(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTXmlHandlerPtr	aXmlHandler = NULL;
+	TTValue			o;
+	TTErr			tterr;
+	
+	tterr = x->internals->lookup(TT("XmlHandler"), o);
+	
+	if (!tterr) {
+		
+		o.get(0, (TTPtr*)&aXmlHandler);
+		
+		critical_enter(0);
+		aXmlHandler->sendMessage(TT("ReadAgain"));
+		critical_exit(0);
+	}
+}
+
 void preset_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	defer(self, (method)preset_dowrite, msg, argc, argv);
@@ -342,6 +381,30 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	// start filewatcher
 	if (EXTRA->filewatcher)
 		filewatcher_start(EXTRA->filewatcher);
+}
+
+void preset_write_again(TTPtr self)
+{
+	defer(self, (method)preset_dowrite_again, NULL, 0, NULL);
+}
+
+void preset_dowrite_again(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTXmlHandlerPtr	aXmlHandler = NULL;
+	TTValue			o;
+	TTErr			tterr;
+	
+	tterr = x->internals->lookup(TT("XmlHandler"), o);
+	
+	if (!tterr) {
+		
+		o.get(0, (TTPtr*)&aXmlHandler);
+		
+		critical_enter(0);
+		aXmlHandler->sendMessage(TT("WriteAgain"));
+		critical_exit(0);
+	}
 }
 
 void preset_default(TTPtr self)
