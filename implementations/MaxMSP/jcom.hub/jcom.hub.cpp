@@ -465,40 +465,12 @@ void hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTList		returnedTTNodes;
-	TTNodePtr	firstReturnedTTNode;
-	TTValue		v;
-	TTSymbolPtr patcherClass, patcherClassAdrs;
-	TTObjectPtr anObject;
-	TTErr		err;
 	
 	// In view patcher only
 	if (x->patcherContext == kTTSym_view) {
 		
 		if (atom_gettype(argv) == A_SYM) {
 			EXTRA->modelAddress = TT(atom_getsym(argv)->s_name);
-			
-			// Test the class of the /model/address patcher
-			joinOSCAddress(EXTRA->modelAddress, TT("/model/class"), &patcherClassAdrs);
-			err = JamomaDirectory->Lookup(patcherClassAdrs, returnedTTNodes, &firstReturnedTTNode);
-			
-			if (!err) {
-				if (anObject = firstReturnedTTNode->getObject()) {
-					
-					anObject->getAttributeValue(kTTSym_value, v);
-					v.get(0, &patcherClass);
-					
-					if (patcherClass == x->patcherClass)
-						// DEBUG
-						object_post((ObjectPtr)x, "set /model/address : %s", EXTRA->modelAddress->getCString());
-					else
-						object_warn((ObjectPtr)x, "/model/address refers to a \"%s\" model instead of a \"%s\" model", patcherClass->getCString(), x->patcherClass->getCString());
-				}
-				else
-					object_warn((ObjectPtr)x, "/model/address doesn't refer to a %s patcher", ModelPatcher);
-			}
-			else
-				object_warn((ObjectPtr)x, "/model/address doesn't refer to a %s patcher", ModelPatcher);
 		}
 	}
 }
@@ -533,7 +505,6 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 		}
 	}
 }
-
 
 t_max_err hub_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 {
