@@ -180,22 +180,35 @@ void view_subscribe(TTPtr self, SymbolPtr relativeAddress)
 	TTValue						v;
 	TTSymbolPtr					contextAddress;
 	TTObjectPtr					anObject;
-	
-	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
 
-		// for instant we don't need info relative to our patcher
-		// jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	// if the jcom.view is in a model or a view patcher
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	if (x->patcherPtr && x->patcherContext && x->patcherClass && x->patcherName) {
 		
-		// get the context address to make
-		// a viewer on the contextAddress/model/address parameter
-		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, &contextAddress);
-		makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
-		anObject->sendMessage(kTTSym_Refresh);
+		object_post((ObjectPtr)x, "%s %s %s", x->patcherContext->getCString(), x->patcherClass->getCString(), x->patcherName->getCString());
 		
-		// attach the jcom.view to connected ui object
-		view_attach(self);
+		// try to subscribe
+		if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
+			
+			// get the context address to make
+			// a viewer on the contextAddress/model/address parameter
+			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+			v.get(0, &contextAddress);
+			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+			anObject->sendMessage(kTTSym_Refresh);
+			
+			// attach the jcom.view to connected ui object
+			view_attach(self);
+		}
+	}
+	
+	// else use the relative address to bind directly on a data
+	// and don't register the view into the namespace
+	else {
+		object_post((ObjectPtr)x, "bad context");
+		
+		// set address attribute of the wrapped Viewer object
+		x->wrappedObject->setAttributeValue(kTTSym_address, TT(relativeAddress->s_name));
 	}
 }
 
