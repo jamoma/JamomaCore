@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 630.0, 150.0, 300.0, 71.0 ],
+		"rect" : [ 100.0, 164.0, 301.0, 71.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 977.0, 123.0, 305.0, 202.0 ],
+		"defrect" : [ 100.0, 164.0, 301.0, 71.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 13.0,
@@ -21,14 +21,43 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "#1" ],
+					"fontname" : "Helvetica Neue Light",
+					"fontsize" : 13.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-6",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 195.0, 115.0, 161.0, 38.0 ],
+					"text" : "Make automatically the view binding on the model"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Helvetica Neue Light",
+					"fontsize" : 13.0,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 30.0, 125.0, 160.0, 22.0 ],
+					"text" : "jcom.pass /model/address"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [  ],
 					"id" : "obj-13",
 					"maxclass" : "bpatcher",
 					"name" : "degrade~.view.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"patching_rect" : [ 30.0, 170.0, 300.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
@@ -41,7 +70,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 157.0, 150.0, 25.0, 25.0 ]
+					"patching_rect" : [ 217.0, 80.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -52,7 +81,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 84.0, 150.0, 25.0, 25.0 ]
+					"patching_rect" : [ 144.0, 80.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -64,7 +93,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 157.0, 90.0, 25.0, 25.0 ]
+					"patching_rect" : [ 217.0, 20.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -76,7 +105,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 84.0, 90.0, 25.0, 25.0 ]
+					"patching_rect" : [ 144.0, 20.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -87,7 +116,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 150.0, 25.0, 25.0 ]
+					"patching_rect" : [ 70.0, 80.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -99,7 +128,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 10.0, 90.0, 25.0, 25.0 ]
+					"patching_rect" : [ 70.0, 20.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -112,7 +141,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 10.0, 120.0, 166.0, 22.0 ],
+					"patching_rect" : [ 70.0, 50.0, 166.0, 22.0 ],
 					"text" : "degrade~.model #1"
 				}
 
@@ -147,10 +176,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 79.5, 75.0, 39.5, 75.0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
