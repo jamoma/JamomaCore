@@ -134,7 +134,7 @@ void MinuitCommunicationMethods::minuitParseGetAnswer(std::string from, string a
 		cout << "MinuitCommunicationMethods::minuitParseGetAnswer can't find a request at " << from+address << endl;
 }
 
-int MinuitCommunicationMethods::minuitWaitDiscoverAnswer(std::string from, string address, std::vector<std::string>* returnednodes, std::vector<std::string>* returnedleaves, std::vector<std::string>* returnedAttributes)
+int MinuitCommunicationMethods::minuitWaitDiscoverAnswer(std::string from, std::string address, TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes)
 {
 	int state;
 	string key = from + address;

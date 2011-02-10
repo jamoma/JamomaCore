@@ -31,9 +31,9 @@ class TTMODULAR_EXPORT TTDeviceManager : public TTObject
 	TTCLASS_SETUP(TTDeviceManager)
 	
 public:
-	TTErr namespaceSet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue);
-	TTErr namespaceGet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue);
-
+	TTErr namespaceSet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value);
+	TTErr namespaceGet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value);
+	TTErr namespaceDiscover(TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
 
 	TTApplicationPtr	mApplication;			///< the application
 
@@ -65,9 +65,6 @@ private:
 	TTErr WriteAsXml(const TTValue& value); // TODO
 	TTErr ReadFromXml(const TTValue& value);
 	
-	/** Configure plugins with added parameters */
-	TTErr launchPlugins();
-	
 	// TODO : void pluginSetCommParameter(std::string pluginName, std::string parameterName, std::string parameterValue)
 	// TODO : void pluginGetCommParameter(std::string pluginName, std::string parameterName)
 	// TODO : std::vector<std::string> pluginGetLoadedByName()
@@ -83,6 +80,12 @@ private:
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerGetCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerSetCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerListenCallback(TTPtr baton, TTValue& data);
+	
+	/** Define plugins parameters */
+	friend void TTMODULAR_EXPORT definePlugins(const TTPtr target, const TTKeyVal& iter);
+
+	/** Configure plugins with added parameters */
+	friend void TTMODULAR_EXPORT launchPlugins(const TTPtr target, const TTKeyVal& iter);
 	
 	// use Receiver instead ...
 	//void jamoma_namespace_listen_method(TTPtr p_baton, TTValue& data);
@@ -127,5 +130,11 @@ TTErr TTMODULAR_EXPORT TTDeviceManagerSetCallback(TTPtr baton, TTValue& data);
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTDeviceManagerListenCallback(TTPtr baton, TTValue& data);
+
+/** Define plugins parameters */
+void TTMODULAR_EXPORT definePlugins(const TTPtr target, const TTKeyVal& iter);
+
+/** Configure plugins with added parameters */
+void TTMODULAR_EXPORT launchPlugins(const TTPtr target, const TTKeyVal& iter);
 
 #endif // __TT_DEVICE_MANAGER_H__

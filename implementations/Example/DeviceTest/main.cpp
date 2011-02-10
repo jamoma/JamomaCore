@@ -103,22 +103,27 @@ main(int argc, char **argv)
 //			o->sendMessage(TT("Set"), args);
 			
 			// get a data from the remote device
-			args.clear();
-			args.append(TT("/control/volume"));
-			args.append(kTTSym_description);
-			
-			TTValue valret;
-			args.append(&valret);
-			
-			o->sendMessage(TT("Get"), args);
-			std::cout << args.getSize() << std::endl;
+//			args.clear();
+//			args.append(TT("/control/volume"));
+//			args.append(kTTSym_description);
+//			
+//			TTValue valret;
+//			args.append(&valret);
+//			
+//			o->sendMessage(TT("Get"), args);
+//			std::cout << args.getSize() << std::endl;
 			
 //			TTFloat32 f;
 //			args.get(2, f);
-			TTString s;
-			args.toString();
-			args.get(0, s);
-			std::cout << "value :" << s << std::endl;
+//			TTString s;
+//			args.toString();
+//			args.get(0, s);
+//			std::cout << "value :" << s << std::endl;
+			
+			// discover a namespace on the remote device
+			args.clear();
+			args.append(TT("/control"));
+			o->sendMessage(TT("Discover"), args);
 		}	
 	}
 	

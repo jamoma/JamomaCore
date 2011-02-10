@@ -219,47 +219,76 @@ public:
 	 *
 	 **************************************************************************************************************************/
 	
-//	/*!
-//	 * Send a discover request to a device to get a part of the namespace at the given address
-//	 *
-// 	 * \param device : a pointer to a Device instance
-//	 * \param address : something like "/<subDeviceName>/.../<input>"
-//	 * \param returnedNodes : the vector which is going to be full with the node names at the given address
-//	 * \param returnedLeaves : the vector which is going to be full with the leaf names at the given address
-//	 * \param returnedAttributes : the vector which is going to be full with the attributes names at the given address
-//	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
-//	 */
-//	int deviceSendDiscoverRequest(Device* device, Address address, std::vector<std::string>* returnedNodes, std::vector<std::string>* returnedLeaves, std::vector<std::string>* returnedAttributes)
-//	{
-//		int state;
-//		std::string stringToSend;
-//		std::string name = device->getName();
-//		std::string ip = device->getCommParameter("ip");
-//		std::string port = device->getCommParameter("port");
-//		
-//		// edit request
-//		stringToSend = mDeviceManager->namespaceApplicationName();	// add name of application
-//		stringToSend += MINUIT_REQUEST_DISCOVER;
-//		stringToSend += " ";
-//		stringToSend += address;
-//		
-//		// send request
-//		std::cout << "Minuit : deviceSendDiscoverRequest : " << stringToSend << std::endl;
-//		m_minuitMethods->minuitSendMessage(stringToSend, ip, toInt(port));
-//		
-//		// Wait for an answer from an IP on a specific port
-//		m_minuitMethods->minuitAddDiscoverAnswer(name, address, ip, toInt(port), DEFAULT_TIMEOUT);
-//		
-//		state = ANSWER_RECEIVED;
-//		do
-//		{
-//			usleep(1000);
-//			state = m_minuitMethods->minuitWaitDiscoverAnswer(name, address, returnedNodes, returnedLeaves, returnedAttributes);
-//		}
-//		while(state == NO_ANSWER);
-//
-//		return state;
-//	}
+	/*!
+	 * Send a discover request to a device to get a part of the namespace at the given address
+	 *
+ 	 * \param device : a pointer to a Device instance
+	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param returnedNodes : the vector which is going to be full with the node names at the given address
+	 * \param returnedLeaves : the vector which is going to be full with the leaf names at the given address
+	 * \param returnedAttributes : the vector which is going to be full with the attributes names at the given address
+	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
+	 */
+	int deviceSendDiscoverRequest(TTDevicePtr device, const TTValue& address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+	{
+		int			state;
+		TTString	deviceName, appName;
+		TTString	addressAndAttributeString;
+		TTSymbolPtr addressString, attributeString;
+		TTString	stringToSend;
+		TTValue		v, vDevice, vDeviceManager, vIp, vPort;
+		TTErr		err1, err2;
+		TTString	vString, ipString;
+		TTInt32		port;
+		TTString	returnedValueString;
+		
+		// get the remote device name
+		device->getAttributeValue(TT("name"), vDevice);
+		vDevice.toString();
+		vDevice.get(0, deviceName);
+		
+		// get the local app name
+		mDeviceManager->getAttributeValue(TT("name"), vDeviceManager);
+		vDeviceManager.toString();
+		vDeviceManager.get(0, appName);
+		
+		address.get(0, &addressString);
+		
+		// edit request
+		stringToSend = appName;	// add name of application
+		stringToSend += MINUIT_REQUEST_DISCOVER;
+		stringToSend += " ";
+		stringToSend += addressString->getString();
+		
+		err1 = device->getCommParameter(TT("ip"), vIp);
+		err2 = device->getCommParameter(TT("port"), vPort);
+		
+		if (err1 || err2) {
+			return kTTErrGeneric;
+		}
+		
+		vIp.toString();
+		vIp.get(0, ipString);
+		vPort.get(0, port);
+		
+		// send request
+		std::cout << "Minuit : deviceSendDiscoverRequest : " << stringToSend << std::endl;
+		m_minuitMethods->minuitSendMessage(stringToSend, ipString, port);
+		
+		// Wait for an answer from an IP on a specific port
+		addressAndAttributeString = addressString->getString();
+		m_minuitMethods->minuitAddDiscoverAnswer(deviceName, addressAndAttributeString, ipString, port, DEFAULT_TIMEOUT);
+		
+		state = ANSWER_RECEIVED;
+		do
+		{
+			usleep(1000);// TODO : Doesn't work on Windows, use Sleep
+			state = m_minuitMethods->minuitWaitDiscoverAnswer(deviceName, addressAndAttributeString, returnedNodes, returnedLeaves, returnedAttributes);
+		}
+		while(state == NO_ANSWER);
+		
+		return state;
+	}
 	
 	/*!
 	 * Send a get request to a device to get a value at the given address
@@ -407,79 +436,116 @@ public:
 //		
 //		return 1;
 //	}
-//	
-//	
-//	/**************************************************************************************************************************
-//	 *
-//	 *	SEND ANSWER METHODS
-//	 *
-//	 **************************************************************************************************************************/
-//	
-//	/*!
-//	 * Send a disover answer to a device which ask for.
-//	 *
-//	 * \param to : the device where to send answer
-//	 * \param address : the address where comes from the description
-//	 * \param returnedNodes : the description of nodes below the address
-//	 * \param returnedLeaves : the description of leaves below the address
-//	 * \param returnedAttributes : the description of attributes at the address
-//	 */
-//	void deviceSendDiscoverAnswer(Device* to, std::string address, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes)
-//	{
-//		std::vector<std::string>::const_iterator iter;
-//		std::string stringToSend;
-//		
-//		// edit answer
-//		stringToSend = mDeviceManager->namespaceApplicationName();	// add name of application
-//		stringToSend += MINUIT_ANSWER_DISCOVER;
-//		stringToSend += " ";
-//		stringToSend += address;
-//		
-//		// add each nodes
-//		if(returnedNodes.size()){
-//			stringToSend += " ";
-//			stringToSend += MINUIT_START_NODES;
-//			stringToSend += " ";
+	
+	
+	/**************************************************************************************************************************
+	 *
+	 *	SEND ANSWER METHODS
+	 *
+	 **************************************************************************************************************************/
+	
+	/*!
+	 * Send a disover answer to a device which ask for.
+	 *
+	 * \param to : the device where to send answer
+	 * \param address : the address where comes from the description
+	 * \param returnedNodes : the description of nodes below the address
+	 * \param returnedLeaves : the description of leaves below the address
+	 * \param returnedAttributes : the description of attributes at the address
+	 */
+	void deviceSendDiscoverAnswer(TTDevicePtr to, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+	{
+		std::string stringToSend;
+		TTValue		vDeviceManager, nodes, leaves, attributes, vIp, vPort;
+		TTString	appName, sNodes, sLeaves, sAttributes, ipString;
+		TTInt32		port;
+		TTErr		err1, err2;
+		
+		//get the local app name
+		mDeviceManager->getAttributeValue(TT("name"), vDeviceManager);
+		vDeviceManager.toString();
+		vDeviceManager.get(0, appName);
+		
+		// edit answer
+		stringToSend = appName;	// add name of application
+		stringToSend += MINUIT_ANSWER_DISCOVER;
+		stringToSend += " ";
+		stringToSend += address->getString();
+		
+		// add each nodes
+		if(returnedNodes.getSize()){
+			stringToSend += " ";
+			stringToSend += MINUIT_START_NODES;
+			stringToSend += " ";
 //			for(iter = returnedNodes.begin(); iter != returnedNodes.end(); iter++)
 //			{
 //				stringToSend += *iter;
 //				stringToSend += " ";
 //			}
-//			stringToSend += MINUIT_END_NODES;
-//		}
-//		
-//		// add each leaves
-//		if(returnedLeaves.size()){
-//			stringToSend += " ";
-//			stringToSend += MINUIT_START_LEAVES;
-//			stringToSend += " ";
+			nodes = returnedNodes;
+			nodes.toString();
+			nodes.get(0, sNodes);
+			
+			stringToSend += sNodes;
+			stringToSend += " ";
+			stringToSend += MINUIT_END_NODES;
+		}
+		
+		// add each leaves
+		if(returnedLeaves.getSize()){
+			stringToSend += " ";
+			stringToSend += MINUIT_START_LEAVES;
+			stringToSend += " ";
 //			for(iter = returnedLeaves.begin(); iter != returnedLeaves.end(); iter++)
 //			{
 //				stringToSend += *iter;
 //				stringToSend += " ";
 //			}
-//			stringToSend += MINUIT_END_LEAVES;
-//		}
-//		
-//		// add each attributes
-//		if(returnedAttributes.size()){
-//			stringToSend += " ";
-//			stringToSend += MINUIT_START_ATTRIBUTES;
-//			stringToSend += " ";
+			leaves = returnedLeaves;
+			leaves.toString();
+			leaves.get(0, sLeaves);
+			
+			stringToSend += sLeaves;
+			stringToSend += " ";
+			stringToSend += MINUIT_END_LEAVES;
+		}
+		
+		// add each attributes
+		if(returnedAttributes.getSize()){
+			stringToSend += " ";
+			stringToSend += MINUIT_START_ATTRIBUTES;
+			stringToSend += " ";
 //			for(iter = returnedAttributes.begin(); iter != returnedAttributes.end(); iter++)
 //			{
 //				stringToSend += *iter;
 //				stringToSend += " ";
 //			}
-//			stringToSend += MINUIT_END_ATTRIBUTES;
-//		}
-//		
-//		// DEBUG
-//		std::cout << "Minuit : deviceSendNamespaceAnswer : " << stringToSend << std::endl;
-//		
-//		// send answer
-//		m_minuitMethods->minuitSendMessage(stringToSend, to->getCommParameter("ip"), toInt(to->getCommParameter("port")));
-//	}
+			attributes = returnedAttributes;
+			attributes.toString();
+			attributes.get(0, sAttributes);
+			
+			stringToSend += sAttributes;
+			stringToSend += " ";
+			stringToSend += MINUIT_END_ATTRIBUTES;
+		}
+		
+		err1 = to->getCommParameter(TT("ip"), vIp);
+		err2 = to->getCommParameter(TT("port"), vPort);
+		
+		if (!err1 && !err2) {
+			
+			vIp.toString();
+			vIp.get(0, ipString);
+			
+			vPort.get(0, port);
+			
+			// DEBUG
+			std::cout << "Minuit : deviceSendNamespaceAnswer : " << stringToSend << std::endl;
+			
+			// send answer
+			m_minuitMethods->minuitSendMessage(stringToSend, ipString, port);
+		}
+	}
 	
 	/*!
 	 * Send a get answer to a device which ask for.
@@ -580,16 +646,25 @@ public:
 
 void receiveDiscoverRequestCallback(void* arg, std::string from, std::string address)
 {
-//	Device* fromDevice;
-//	Address whereToDiscover = address;
-//	Minuit* minuit = (Minuit*) arg;
-//	
-//	// get device
-//	if(fromDevice = minuit->mDeviceManager->deviceGet(from)) {
-//		// Use built-in plugin method
-//		minuit->deviceReceiveDiscoverRequest(fromDevice, whereToDiscover);
-//		
-//	}
+	std::cout << "receiveDiscoverRequestCallback" << std::endl;
+	TTDevicePtr fromDevice = NULL;
+	Minuit*		minuit = (Minuit*) arg;
+	TTErr		err;
+	TTNodePtr	deviceNodeToAnswer;
+	TTObjectPtr	o;
+	
+	// get device
+	err = getDirectoryFrom(minuit->mDeviceManager)->getTTNodeForOSC(TT("/" + from), &deviceNodeToAnswer);
+	if (!err) {
+		if (o = deviceNodeToAnswer->getObject()) {
+			if (o->getName() == TT("Device")) {
+				fromDevice = (TTDevicePtr)o;
+				
+				// Use built-in plugin method
+				minuit->deviceReceiveDiscoverRequest(fromDevice, TT(address));
+			}
+		}
+	}
 }
 
 void receiveGetRequestCallback(void* arg, std::string from, std::string address, std::string attribute)
