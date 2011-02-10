@@ -15,6 +15,7 @@
 
 // This is used to store extra data
 typedef struct extra {
+	TTBoolean	attr_load_default;
 	TTPtr		filewatcher;		// a preset filewather
 	char*		text;				// text used by /getstate window
 	TTUInt32	textSize;			// how many chars are alloc'd to text
@@ -48,6 +49,9 @@ void		preset_edclose(TTPtr self, char **text, long size);
 
 void		preset_subscribe(TTPtr self, SymbolPtr relativeAddress);
 
+t_max_err	preset_get_load_default(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
+t_max_err	preset_set_load_default(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
+
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -78,6 +82,11 @@ void WrapTTPresetManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)preset_read_again,				"read/again",			0);
 	class_addmethod(c->maxClass, (method)preset_write_again,			"write/again",			0);
+	
+	CLASS_ATTR_LONG(c->maxClass,		"load_default",	0,		WrappedModularInstance,	extra);
+	CLASS_ATTR_DEFAULT(c->maxClass,		"load_default",	0,		"1")
+	CLASS_ATTR_ACCESSORS(c->maxClass,	"load_default",			preset_get_load_default,	preset_set_load_default);
+	CLASS_ATTR_STYLE(c->maxClass,		"load_default",	0,		"onoff");
 }
 
 void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -95,10 +104,15 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// create the preset manager
 	jamoma_presetManager_create((ObjectPtr)x, &x->wrappedObject);
 	
-	// The following must be deferred because we have to interrogate our box,
-	// and our box is not yet valid until we have finished instantiating the object.
-	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)preset_subscribe, relativeAddress, 0, 0);
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	EXTRA->attr_load_default = true;
+	EXTRA->filewatcher = NULL;
+	EXTRA->textSize = 0;
+	EXTRA->textEditor = NULL;
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -107,14 +121,10 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare Internals hash to store XmlHanler and TextHandler object
 	x->internals = new TTHash();
 	
-	// Prepare extra data
-	x->extra = (t_extra*)malloc(sizeof(t_extra));
-	EXTRA->filewatcher = NULL;
-	EXTRA->textSize = 0;
-	EXTRA->textEditor = NULL;
-	
-	// handle attribute args
-	attr_args_process(x, argc, argv);
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)preset_subscribe, relativeAddress, 0, 0);
 }
 
 void WrappedPresetManageClass_free(TTPtr self)
@@ -259,8 +269,9 @@ void preset_subscribe(TTPtr self, SymbolPtr relativeAddress)
 		
 		// TODO : create internal TTTextHandler to edit in Max edition window
 	
-		// load default xxx.patcherContext.xml file preset
-		defer_low(x, (method)preset_default, 0, 0, 0L);
+		// if desired, load default xxx.patcherContext.xml file preset
+		if (EXTRA->attr_load_default)
+			defer_low(x, (method)preset_default, 0, 0, 0L);
 	}
 }
 
@@ -428,7 +439,7 @@ void preset_default(TTPtr self)
 		xmlfile += ".xml";
 		
 		if (locatefile_extended((char*)xmlfile.data(), &outvol, &outtype, &filetype, 1)) {
-			object_warn((ObjectPtr)x, "preset_default : can't find %s file in the Max search path", xmlfile.data());
+			//object_warn((ObjectPtr)x, "preset_default : can't find %s file in the Max search path", xmlfile.data());
 			return;
 		}
 		
@@ -552,4 +563,37 @@ void preset_edclose(TTPtr self, char **text, long size)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	EXTRA->textEditor = NULL;
+}
+
+t_max_err preset_set_load_default(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if (ac&&av) {
+		EXTRA->attr_load_default = atom_getlong(av) == 1;
+	}
+	else
+		EXTRA->attr_load_default = true; // default true
+	
+	return MAX_ERR_NONE;
+}
+
+t_max_err preset_get_load_default(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if ((*ac)&&(*av)) {
+		//memory passed in, use it
+	} else {
+		//otherwise allocate memory
+		*ac = 1;
+		if (!(*av = (AtomPtr)getbytes(sizeof(Atom)*(*ac)))) {
+			*ac = 0;
+			return MAX_ERR_OUT_OF_MEM;
+		}
+	}
+	
+	atom_setlong(*av, EXTRA->attr_load_default == 1);
+	
+	return MAX_ERR_NONE;
 }
