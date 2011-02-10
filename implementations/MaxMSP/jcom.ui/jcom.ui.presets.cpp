@@ -50,7 +50,7 @@ void ui_preset_dowrite(t_ui *x)
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
 	
-	snprintf(filename, MAX_FILENAME_CHARS, "%s%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());	// Default File Name
+	snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());	// Default File Name
 	saveas_promptset("Save Preset...");											// Instructional Text in the dialog
 	err = saveasdialog_extended(filename, &path, &outtype, &type, 1);			// Returns 0 if successful
 	if (err)																	// User Cancelled
