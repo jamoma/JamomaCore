@@ -98,6 +98,7 @@ TTErr jamoma_directory_dump_observers(void)
 TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
 {
 	TTValue			v, args;
+	TTNodePtr		aNode;
 	TTObjectPtr		contextListCallback;
 	TTValuePtr		contextListBaton;
 	TTSymbolPtr		newRelativeAddress, absoluteAddress;
@@ -118,7 +119,10 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);
 	
-	if (*returnedSubscriber) {
+	// Chack if the subscription is ok
+	(*returnedSubscriber)->getAttributeValue(TT("node"), v);
+	v.get(0, (TTPtr*)&aNode);
+	if (aNode) {
 		
 		// Is a new instance have been created ?
 		(*returnedSubscriber)->getAttributeValue(TT("newInstanceCreated"), v);
@@ -133,11 +137,12 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 		// DEBUG
 		(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &absoluteAddress);
-		object_post(x, "address = %s", absoluteAddress->getCString());
+		object_post(x, "registers at %s", absoluteAddress->getCString());
 
 		return kTTErrNone;
 	}
 	
+	object_error(x, "Jamoma cannot register %s", relativeAddress->s_name);
 	return kTTErrGeneric;
 }
 
