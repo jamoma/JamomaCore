@@ -39,8 +39,9 @@ typedef struct extra {
 #define EXTRA ((t_extra*)x->extra)
 
 #define set_out 0
-#define select_out 1
-#define	dump_out 2
+#define data_out 1
+#define select_out 2
+#define	dump_out 3
 
 // Definitions
 void	WrapTTViewerClass(WrappedClassPtr c);
@@ -136,9 +137,10 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	defer_low((ObjectPtr)x, (method)view_subscribe, relativeAddress, 0, 0);
 	
 	// Make two outlets
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 3);
 	x->outlets[select_out] = outlet_new(x, NULL);					// anything outlet to select ui
-	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data
+	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output qlim data
 	
 	// Make qelem object
 	EXTRA->ui_qelem = qelem_new(x, (method)view_ui_queuefn);
@@ -156,6 +158,9 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		switch(arg) {
 			case set_out:
 				strcpy(dst, "set: connect to ui object");
+				break;
+			case data_out:
+				strcpy(dst, "value");
 				break;
 			case select_out:
 				strcpy(dst, "select: connect to ui object to manage selection state");
@@ -202,48 +207,53 @@ void view_subscribe(TTPtr self, SymbolPtr relativeAddress)
 	
 	// else use the relative address to bind directly on a data
 	// and don't register the view into the namespace
-	else {
-		object_post((ObjectPtr)x, "bad context");
-		
+	else
 		// set address attribute of the wrapped Viewer object
 		x->wrappedObject->setAttributeValue(kTTSym_address, TT(relativeAddress->s_name));
-	}
 }
 
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue		v;
-	//TTBoolean	freeze;
+	TTBoolean	copyMsg = false;
 	TTUInt8		i;
 	
-	/*
-	// TODO : Check viewFreeze attribute
-	x->wrappedObject->getAttributeValue(kTTSym_viewFreeze, v);
-	v.get(0, freeze);
+	// avoid blank before data
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[data_out], argc, argv);
+	else
+		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
-	if (!freeze) {
-	*/
-		
-		// TODO : copy msg into argv
+	// Copy msg and atom in order to avoid losing data
+	if (msg != _sym_nothing && msg != _sym_int && msg != _sym_float && msg != _sym_symbol && msg != _sym_list)
+		copyMsg = true;
 	
-		// Copy atom in order to avoid losing data
-		x->argc = argc;
-		x->argv = NULL;
-		x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
-		
-		if (argc) {
-			for (i=0; i<argc; i++)
-				x->argv[i] = argv[i];
+	x->msg = msg;
+	x->argc = argc;
+	if (copyMsg)
+		x->argc++;
+	
+	x->argv = NULL;
+	x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * x->argc);
+	
+	if (x->argc) {
+		if (copyMsg) {
+			atom_setsym(&x->argv[0], msg);
+			for (i=1; i<x->argc; i++)
+				x->argv[i] = argv[i-1];
 		}
-		
-		qelem_set(EXTRA->ui_qelem);
-	//}
+		else
+			for (i=0; i<x->argc; i++)
+				x->argv[i] = argv[i];
+	}
+	
+	qelem_set(EXTRA->ui_qelem);
 }
 
 void view_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
 	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
 }
 

@@ -40,7 +40,7 @@ mReturnValueCallback(NULL)
 	addAttribute(Tag, kTypeSymbol);
 	addAttribute(Selected, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
-	addAttribute(Enable, kTypeBoolean);
+	addAttributeWithSetter(Enable, kTypeBoolean);
 	
 	addAttributeWithSetter(ReturnedValue, kTypeLocalValue);
 	addAttributeProperty(returnedValue, readOnly, YES);
@@ -144,12 +144,19 @@ TTErr TTViewer::bind()
 	return kTTErrNone;
 }
 
+TTErr TTViewer::setEnable(const TTValue& value)
+{
+	mEnable = value;
+	
+	if (mReceiver)
+		mReceiver->setAttributeValue(kTTSym_enable, mEnable);
+	
+	return kTTErrNone;
+}
+
 TTErr TTViewer::setFreeze(const TTValue& value)
 {
 	mFreeze = value;
-	
-	if (mReceiver)
-		mReceiver->setAttributeValue(kTTSym_enable, !mFreeze);
 	
 	return kTTErrNone;
 }
@@ -209,9 +216,14 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aViewer);
 	
 	if (aViewer->mEnable) {
-		// protect data
-		v = data;
 		
+		if (!aViewer->mFreeze)
+			// protect data
+			v = data;
+		else
+			// use last data
+			v = aViewer->mReturnedValue;
+			
 		// TODO : add a dataspace for the Viewer
 		//aViewer->processDataspace(v);
 		

@@ -427,18 +427,6 @@ void data_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		outlet_atoms(x->outlets[data_out], argc, argv);
 	else
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
-	
-	// Copy atom in order to avoid losing data
-	// TODO : copy msg
-	x->argc = argc;
-	x->argv = NULL;
-	x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
-	
-	if (argc) {
-		for (i=0; i<argc; i++) {
-			x->argv[i] = argv[i];
-		}
-	}
 }
 
 void data_array_return_value(TTPtr baton, TTValue& v)

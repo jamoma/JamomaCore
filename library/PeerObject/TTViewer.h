@@ -57,6 +57,9 @@ private:
 	/** set the attribute */
 	TTErr setAttribute(const TTValue& value);
 	
+	/** set the enable */
+	TTErr setEnable(const TTValue& value);
+	
 	/** set the freeze */
 	TTErr setFreeze(const TTValue& value);
 	
