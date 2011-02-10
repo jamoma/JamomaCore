@@ -410,8 +410,14 @@ void ui_build(t_ui *x)
 			object_attr_setchar(x->patcherPtr, _sym_toolbarvisible, 0);	
 			object_method_parse(x->patcherPtr, _sym_window, "flags nogrow", NULL);		// get rid of the grow thingies
 			object_method_parse(x->patcherPtr, _sym_window, "flags nozoom", NULL);		// disable maximize button 
-			object_method_parse(x->patcherPtr, _sym_window, "exec", NULL); 
-			object_attr_setsym(x->patcherPtr, _sym_title, gensym((char*)x->patcherClass->getCString()));	// set the window title to the module class, jcom.ui shows osc_name already 
+			object_method_parse(x->patcherPtr, _sym_window, "exec", NULL);
+			
+			// set the window title to the module class, jcom.ui shows osc_name already 
+			if (x->patcherClass)
+				object_attr_setsym(x->patcherPtr, _sym_title, gensym((char*)x->patcherClass->getCString()));
+			else
+				object_attr_setsym(x->patcherPtr, _sym_title, gensym("No class"));
+			
 			object_attr_setchar(x->patcherPtr, _sym_enablehscroll, 0);					// turn off scroll bars
 			object_attr_setchar(x->patcherPtr, _sym_enablevscroll, 0);				
 		}

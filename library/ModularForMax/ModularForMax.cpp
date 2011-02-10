@@ -1548,7 +1548,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 			return;
 		}
 		
-		// for model : the second argument is the name
+		// for view : the second argument is the name
 		// (the first is reserved for the /model/address)
 		if (context == kTTSym_view && ac > 1) {
 			argName = atom_getsym(av+1);
