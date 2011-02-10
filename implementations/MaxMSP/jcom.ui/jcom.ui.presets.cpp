@@ -49,8 +49,26 @@ void ui_preset_dowrite(t_ui *x)
 	short 			path, err;					// pathID#, error number
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
+	TTNodePtr		patcherNode;
+	ObjectPtr		modelPatcher = NULL;
+	TTSymbolPtr		modelClass = NULL;
 	
-	snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());	// Default File Name
+	// get model patcher class for preset file name
+	JamomaDirectory->getTTNodeForOSC(x->modelAddress, &patcherNode);
+	modelPatcher = (ObjectPtr)patcherNode->getContext();
+
+	if (modelPatcher) {
+		jamoma_patcher_get_class(modelPatcher, kTTSym_model, &modelClass);
+		
+		if (modelClass)
+			snprintf(filename, MAX_FILENAME_CHARS, "%s.model.xml", modelClass->getCString());	// Default File Name
+		else
+			snprintf(filename, MAX_FILENAME_CHARS, ".model.xml");		// Default File Name
+	}
+	else
+		snprintf(filename, MAX_FILENAME_CHARS, ".model.xml");		// Default File Name
+	
+	
 	saveas_promptset("Save Preset...");											// Instructional Text in the dialog
 	err = saveasdialog_extended(filename, &path, &outtype, &type, 1);			// Returns 0 if successful
 	if (err)																	// User Cancelled

@@ -355,7 +355,7 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		x->modelExplorer->sendMessage(TT("Explore"));
 
 		// The following must be deferred because 
-		// we have to wait each model/parameter are built
+		// we have to wait each component of the model are registered
 		defer_low((ObjectPtr)x, (method)ui_build, NULL, 0, 0);
 	}
 	
@@ -373,9 +373,9 @@ t_max_err ui_address_get(t_ui *x, t_object *attr, long *argc, t_atom **argv)
 void ui_build(t_ui *x)
 {
 	TTValue			v, n, p, args;
+	TTNodePtr		patcherNode;
 	SymbolPtr		hierarchy;
-	ObjectPtr		textfield;
-	ObjectPtr		box;
+	ObjectPtr		box, textfield;
 	t_rect			boxRect;
 	t_rect			uiRect;
 	
