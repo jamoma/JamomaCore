@@ -78,6 +78,8 @@ TTErr TTSender::Send(TTValue& valueToSend)
 {
 	TTObjectPtr		anObject;
 	TTValue			aCacheElement;
+	TTAttributePtr	anAttribute;
+	TTMessagePtr	aMessage;
 	
 	if (mAddress == kTTSymEmpty)
 		return kTTErrGeneric;
@@ -104,9 +106,13 @@ TTErr TTSender::Send(TTValue& valueToSend)
 						// set the value attribute using a command
 						anObject->sendMessage(kTTSym_Command, valueToSend);
 					}
-					// set the attribute of the object
-					else if (anObject->setAttributeValue(mAttribute, valueToSend))
-						// or send a message
+					// DEFAULT CASE
+					// Look for attribute and set it
+					else if (!anObject->findAttribute(mAttribute, &anAttribute))
+						anObject->setAttributeValue(mAttribute, valueToSend);
+					
+					// Or look for message and send it
+					else if (!anObject->findMessage(mAttribute, &aMessage))
 						anObject->sendMessage(mAttribute, valueToSend);
 				}
 			}

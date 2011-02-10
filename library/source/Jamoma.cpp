@@ -54,7 +54,7 @@ void jamoma_init(void)
 			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
 		
 		// DEBUG
-		jamoma_application_dump_configuration();
+		//jamoma_application_dump_configuration();
 		
 		//TTDSPInit();
 		
