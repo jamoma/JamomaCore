@@ -150,10 +150,10 @@ void jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	TTValue		v;
-	ObjectPtr	objPtr, patcherPtr;
-	TTSymbolPtr	patcherContext;
-	TTSymbolPtr	patcherName;
-	TTSymbolPtr patcherClass;
+	ObjectPtr	objPtr, patcherPtr = NULL;
+	TTSymbolPtr	patcherContext = NULL;
+	TTSymbolPtr	patcherName = NULL;
+	TTSymbolPtr patcherClass = NULL;
 	TTListPtr	nameAndPtrList;
 	
 	// unpack baton
@@ -1523,7 +1523,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
-	SymbolPtr		hierarchy;
+	SymbolPtr		hierarchy, argName;
 	
 	// try to get context name from the patcher arguments
 	hierarchy = jamoma_patcher_get_hierarchy(patcher);
@@ -1539,14 +1539,24 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 		
 		// for model : the first argument is the name
 		if (context == kTTSym_model) {
-			*returnedName = TT(atom_getsym(av)->s_name);
+			argName = atom_getsym(av);
+			if (argName != _sym_nothing)
+				*returnedName = TT(argName->s_name);
+			else
+				*returnedName = NULL;
+			
 			return;
 		}
 		
 		// for model : the second argument is the name
 		// (the first is reserved for the /model/address)
 		if (context == kTTSym_view && ac > 1) {
-			*returnedName = TT(atom_getsym(av+1)->s_name);
+			argName = atom_getsym(av+1);
+			if (argName != _sym_nothing)
+				*returnedName = TT(argName->s_name);
+			else
+				*returnedName = NULL;
+			
 			return;
 		}
 	}

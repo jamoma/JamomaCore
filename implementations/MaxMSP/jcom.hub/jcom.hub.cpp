@@ -316,10 +316,12 @@ void hub_share_patcher_info(TTPtr self, TTValuePtr patcherInfo)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	patcherInfo->clear();
 	
-	patcherInfo->append((TTPtr)x->patcherPtr);
-	patcherInfo->append(x->patcherContext);
-	patcherInfo->append(x->patcherClass);
-	patcherInfo->append(x->patcherName);
+	if (x->patcherPtr && x->patcherContext && x->patcherClass && x->patcherName) {
+		patcherInfo->append((TTPtr)x->patcherPtr);
+		patcherInfo->append(x->patcherContext);
+		patcherInfo->append(x->patcherClass);
+		patcherInfo->append(x->patcherName);
+	}
 }
 
 void hub_share_patcher_node(TTPtr self, TTNodePtr *patcherNode)
