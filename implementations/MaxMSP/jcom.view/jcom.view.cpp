@@ -185,8 +185,6 @@ void view_subscribe(TTPtr self, SymbolPtr relativeAddress)
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 	if (x->patcherPtr && x->patcherContext && x->patcherClass && x->patcherName) {
 		
-		object_post((ObjectPtr)x, "%s %s %s", x->patcherContext->getCString(), x->patcherClass->getCString(), x->patcherName->getCString());
-		
 		// try to subscribe
 		if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
 			
