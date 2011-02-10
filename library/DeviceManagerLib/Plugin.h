@@ -145,26 +145,27 @@ public:
 	 */
 	virtual bool understandDiscoverRequest()=0;
 
-//	/**************************************************************************************************************************
-//	 *
-//	 *	SEND REQUEST METHODS
-//	 *
-//	 **************************************************************************************************************************/
-//	
-//	/*!
-//	 * Send a discover request to a device to get a part of the namespace at the given address
-//	 *
-//	 * \param device : a pointer to a Device instance
-//	 * \param address : something like "/<subDeviceName>/.../<input>"
-//	 * \param returnedNodes : the vector which is going to be full with the node names at the given address
-//	 * \param returnedLeaves : the vector which is going to be full with the leaves names at the given address
-//	 * \param returnedAttributes : the vector which is going to be full with the attributes names at the given address
-//	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
-//	 */
-//	virtual int deviceSendDiscoverRequest(Device* device, Address address,
-//										  std::vector<std::string>* returnedNodes,
-//										  std::vector<std::string>* returnedLeaves,
-//										  std::vector<std::string>* returnedAttributes)=0;
+	/**************************************************************************************************************************
+	 *
+	 *	SEND REQUEST METHODS
+	 *
+	 **************************************************************************************************************************/
+	
+	/*!
+	 * Send a discover request to a device to get a part of the namespace at the given address
+	 *
+	 * \param device : a pointer to a Device instance
+	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param returnedNodes : the vector which is going to be full with the node names at the given address
+	 * \param returnedLeaves : the vector which is going to be full with the leaves names at the given address
+	 * \param returnedAttributes : the vector which is going to be full with the attributes names at the given address
+	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
+	 */
+	virtual int deviceSendDiscoverRequest(TTDevicePtr device,
+										  const TTValue& address,
+										  TTValue& returnedNodes,
+										  TTValue& returnedLeaves,
+										  TTValue& returnedAttributes)=0;
 	
 	/*!
 	 * Send a get request to a device to get a value at the given address
@@ -176,7 +177,7 @@ public:
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
 	virtual int deviceSendGetRequest(TTDevicePtr device, 
-									 const TTValue& addressAndAttribute, 
+									 const TTValue& addressAndAttribute,
 									 TTValue& returnedValue)=0;
 	
 	/*!
@@ -200,26 +201,26 @@ public:
 //	 */
 //	virtual int deviceSendListenRequest(Device* device, Address address,
 //										std::string attribute, bool enable)=0;
-//	
-//	/**************************************************************************************************************************
-//	 *
-//	 *	SEND ANSWER METHODS
-//	 *
-//	 **************************************************************************************************************************/
-//	
-//	/*!
-//	 * Send a disover answer to a device which ask for.
-//	 *
-//	 * \param to : the device where to send answer
-//	 * \param address : the address where comes from the description
-//	 * \param returnedNodes : the description of nodes below the address
-//	 * \param returnedLeaves : the description of leaves below the address
-//	 * \param returnedAttributes : the description of attributes at the address
-//	 */
-//	virtual void deviceSendDiscoverAnswer(Device* to, Address address,
-//										  std::vector<std::string>& returnedNodes,
-//										  std::vector<std::string>& returnedLeaves,
-//										  std::vector<std::string>& returnedAttributes)=0;
+	
+	/**************************************************************************************************************************
+	 *
+	 *	SEND ANSWER METHODS
+	 *
+	 **************************************************************************************************************************/
+	
+	/*!
+	 * Send a disover answer to a device which ask for.
+	 *
+	 * \param to : the device where to send answer
+	 * \param address : the address where comes from the description
+	 * \param returnedNodes : the description of nodes below the address
+	 * \param returnedLeaves : the description of leaves below the address
+	 * \param returnedAttributes : the description of attributes at the address
+	 */
+	virtual void deviceSendDiscoverAnswer(TTDevicePtr to, TTSymbolPtr address,
+										  TTValue& returnedNodes,
+										  TTValue& returnedLeaves,
+										  TTValue& returnedAttributes)=0;
 	
 	/*!
 	 * Send a get answer to a device which ask for.
@@ -242,36 +243,35 @@ public:
 //	 */
 //	virtual void deviceSendListenAnswer(TTDevicePtr to, TTSymbolPtr address,
 //										TTSymbolPtr attribute, TTValue& returnedValue)=0;
-//	
-//	/**************************************************************************************************************************
-//	 *
-//	 *	RECEIVE REQUEST METHODS (BUILT-IN METHODS)
-//	 *
-//	 **************************************************************************************************************************/
-//	
-//	/*!
-//	 * Notify the plugin that a device ask for a namespace description
-//	 *
-//	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
-//	 *
-//	 * \param from : the device where comes from the request
-//	 * \param address : the address the device wants to discover
-//	 */
-//	void deviceReceiveDiscoverRequest(Device* from, Address address) {
-//		std::vector<std::string> returnedNodes;
-//		std::vector<std::string> returnedLeaves;
-//		std::vector<std::string> returnedAttributes;
-//		
-//		// discover the local namespace
-//		this->mDeviceManager->namespaceDiscover(address, returnedNodes,
-//											  returnedLeaves, returnedAttributes);
-//		
-//		// TODO : test error and send notification if error
-//		
-//		// send result
-//		this->deviceSendDiscoverAnswer(from, address, returnedNodes,
-//									   returnedLeaves, returnedAttributes);
-//	}
+	
+	/**************************************************************************************************************************
+	 *
+	 *	RECEIVE REQUEST METHODS (BUILT-IN METHODS)
+	 *
+	 **************************************************************************************************************************/
+	
+	/*!
+	 * Notify the plugin that a device ask for a namespace description
+	 *
+	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
+	 *
+	 * \param from : the device where comes from the request
+	 * \param address : the address the device wants to discover
+	 */
+	void deviceReceiveDiscoverRequest(TTDevicePtr from, TTSymbolPtr address) {
+		TTValue returnedNodes;
+		TTValue returnedLeaves;
+		TTValue returnedAttributes;
+		
+		// discover the local namespace
+		if (mDeviceManager != NULL)
+			mDeviceManager->namespaceDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
+		
+		// TODO : test error and send notification if error
+		
+		// send result
+		deviceSendDiscoverAnswer(from, address, returnedNodes, returnedLeaves, returnedAttributes);
+	}
 	
 	/*!
 	 * Notify the plugin that a device ask for value
@@ -282,8 +282,7 @@ public:
 	 * \param address : the address the device wants to get
 	 * \param attribute : the attribute the device wants to get
 	 */
-	void deviceReceiveGetRequest(TTDevicePtr from, TTSymbolPtr address,
-								 TTSymbolPtr attribute) {
+	void deviceReceiveGetRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute) {
 		TTValue returnedValue;
 		
 		// get the value from the local namespace
@@ -293,7 +292,7 @@ public:
 		// TODO : test error and send notification if error
 		
 		// send result
-		this->deviceSendGetAnswer(from, address, attribute, returnedValue);
+		deviceSendGetAnswer(from, address, attribute, returnedValue);
 	}
 
 	/*!
@@ -305,8 +304,7 @@ public:
 	 * \param address : the address the device wants to get
 	 * \param attribute : the attribute the device wants to get
 	 */
-	void deviceReceiveSetRequest(TTDevicePtr from, TTSymbolPtr address,
-								 TTSymbolPtr attribute, TTValue& newValue) {
+	void deviceReceiveSetRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) {
 		
 		// set the value of the local namespace
 		if (mDeviceManager != NULL)

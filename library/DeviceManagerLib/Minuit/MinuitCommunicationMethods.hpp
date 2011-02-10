@@ -54,11 +54,11 @@ public:
 	
 	void minuitParseDiscoverAnswer(std::string from, std::string address, const osc::ReceivedMessage&m);
 	void minuitAddDiscoverAnswer(std::string from, std::string address, std::string ip, unsigned int port, int timeOutInMs = DEFAULT_TIMEOUT);
-	int minuitWaitDiscoverAnswer(std::string from, std::string address, std::vector<std::string>* returnednodes, std::vector<std::string>* returnedleaves, std::vector<std::string>* returnedAttributes);
+	int minuitWaitDiscoverAnswer(std::string from, std::string address, TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes);
 	
 	void minuitParseGetAnswer(std::string from, std::string address, const osc::ReceivedMessage&m);
 	void minuitAddGetAnswer(std::string from, std::string address, int timeOutInMs = DEFAULT_TIMEOUT);
-	int minuitWaitGetAnswer(std::string from, std::string address, TTValue&  returnedValues, bool repeatAddress = true);
+	int minuitWaitGetAnswer(std::string from, std::string address, TTValue& returnedValues, bool repeatAddress = true);
 };
 
 unsigned int computeOSCMessageSize(OSCParser OSCParsed);

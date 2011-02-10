@@ -15,16 +15,19 @@
 #define thisTTClassTags		"device"
 
 TT_MODULAR_CONSTRUCTOR,
+mDeviceManager(NULL),
 mName(kTTSymEmpty),
 mAddress(kTTSymEmpty),
 mPlugin(NULL),
 mEnabled(YES)
 {
-	TT_ASSERT("Correct number of args to create TTDevice", arguments.getSize() >= 2);
-	arguments.get(0, &mName);
-	arguments.get(1, (TTPtr*)&mPlugin);
+	TT_ASSERT("Correct number of args to create TTDevice", arguments.getSize() >= 3);
+	arguments.get(0, (TTPtr*)&mDeviceManager);
+	TT_ASSERT("DeviceManager passed to TTDevice is not NULL", mDeviceManager);
+	arguments.get(1, &mName);
+	arguments.get(2, (TTPtr*)&mPlugin);
 	TT_ASSERT("Plugin passed to TTDevice is not NULL", mPlugin);
-	arguments.get(2, (TTPtr*)&mParameters);
+	arguments.get(3, (TTPtr*)&mParameters);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttribute(Address, kTypeSymbol);
@@ -68,48 +71,68 @@ TTErr TTDevice::Command(const TTValue& command)
 	return kTTErrNone;
 }
 
-TTErr TTDevice::Discover(const TTValue& value)
+TTErr TTDevice::Discover(TTValue& value)
 {
+	std::cout << "Discover" << std::endl;
+	
+	TTValue		vAddress, vNodes, vLeaves, vAttributes;
+	TTSymbolPtr sAddress, sLeaveName;
+	TTNodePtr	nodeToSet;
+	TTErr		err;
+	
+	// extract address to discover
+	vAddress = value;
+	vAddress.get(0, &sAddress);
+	
+	// send a discover request at a remote device using plugin instance
+	mPlugin->deviceSendDiscoverRequest(this, sAddress, vNodes, vLeaves, vAttributes);
+	
+	for (int i = 0; i < vLeaves.getSize(); i++) {
+		vLeaves.get(i, &sLeaveName);
+		
+		// for each leave create a TTData if don't exist yet
+	
+		// update the local directory of the remote device
+		err = getDirectoryFrom(mDeviceManager)->getTTNodeForOSC(sLeaveName, &nodeToSet);
+		if (!err) {
+			
+		} else {
+			// Create a TTData
+			/////////////////////////////////////////////////////////
+			std::cout << "create a TTData" << std::endl;
+			TTValue			args;
+			TTDataPtr		myData = NULL;
+			TTCallbackPtr	p_returnValueCallback = NULL;
+			TTValuePtr		p_returnValueBaton;
+			
+			// prepare arguments : see TTData.h to know which args are needed
+			args.clear();
+			TTObjectInstantiate(TT("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
+			p_returnValueBaton = new TTValue(NULL);
+//			p_returnValueCallback->setAttributeValue(TT("baton"), TTPtr(p_returnValueBaton));
+//			p_returnValueCallback->setAttributeValue(TT("function"), TTPtr(myData_return_value_callback));
+			args.append(p_returnValueCallback);
+			
+			// create an instance of TTData
+			TTObjectInstantiate(TT("Data"), TTObjectHandle(&myData), args);
+			
+			// set TTData attributes
+			
+			
+			
+			// Register a TTObject into the TTModularDirectory
+			/////////////////////////////////////////////////////////
+			TTNodePtr		returnedNode;
+			TTBoolean		newInstanceCreated;
+			
+			getDirectoryFrom(mDeviceManager)->TTNodeCreate(sLeaveName, myData, NULL, &returnedNode, &newInstanceCreated);
+		}
+	}
+	
+	// clear the value and return the got value
+	value.clear();
 	
 	
-//	switch(result){
-//		case REQUEST_NOT_SENT :{
-//			;//post("dvmg_discover %s %s : REQUEST_NOT_SENT", device->s_name, address->s_name);
-//			break;
-//		}
-//		case TIMEOUT_EXCEEDED :{
-//			;//post("dvmg_discover %s %s : TIMEOUT_EXCEEDED", device->s_name, address->s_name);
-//			break;
-//		}
-//		case NO_ANSWER :{
-//			;//post("dvmg_discover %s %s : NO_ANSWER", device->s_name, address->s_name);
-//			break;
-//		}
-//		case ANSWER_RECEIVED :{
-//			;//post("dvmg_discover %s %s : ANSWER_RECEIVED", device->s_name, address->s_name);
-//			
-//			;//post("		+ Nodes");
-//			for(i = 0; i < returnedNodes.size(); i++){
-//				;//post("		+ %s", returnedNodes.at(i).data());
-//			}
-//			
-//			;//post("		<> Leaves");
-//			for(i = 0; i < returnedLeaves.size(); i++){
-//				;//post("		<> %s", returnedLeaves.at(i).data());
-//			}
-//			
-//			;//post("		: Attributes");
-//			for(i = 0; i < returnedAttributes.size(); i++){
-//				;//post("		: %s", returnedAttributes.at(i).data());
-//			}
-//			
-//			break;
-//		}
-//		default :{
-//			;//post("dvmg_discover %s %s : NO_ANSWER", device->s_name, address->s_name);
-//			break;
-//		}
-//	}
 	return kTTErrNone;
 }
 
@@ -133,7 +156,7 @@ TTErr TTDevice::Get(TTValue& value)
 	mPlugin->deviceSendGetRequest(this, addressAndAttr, v);
 	
 	// update the local directory of the remote device if it was already discovered
-	err = getDirectoryFrom(this)->getTTNodeForOSC(address, &nodeToSet);
+	err = getDirectoryFrom(mDeviceManager)->getTTNodeForOSC(address, &nodeToSet);
 	if (!err) {
 		if (o = nodeToSet->getObject()) {
 			o->setAttributeValue(attr, v);

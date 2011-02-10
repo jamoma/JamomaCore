@@ -145,6 +145,39 @@ main(int argc, char **argv)
 
 	mDirectory->TTNodeCreate(TT("/control/volume"), myData, NULL, &returnedNode, &newInstanceCreated);
 	// note : our myRegistrationObserver is informed
+	
+	// Create a TTData
+	/////////////////////////////////////////////////////////
+	TTDataPtr		myData1 = NULL;
+	TTCallbackPtr	p_returnValueCallback1 = NULL;
+	TTValuePtr		p_returnValueBaton1;
+	
+	// prepare arguments : see TTData.h to know which args are needed
+	args.clear();
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&p_returnValueCallback1), kTTValNONE);
+	p_returnValueBaton1 = new TTValue(NULL);		// Here it is NULL but it could be usefull to pass 
+	// an object in order to process the returned value
+	p_returnValueCallback1->setAttributeValue(TT("baton"), TTPtr(p_returnValueBaton1));
+	p_returnValueCallback1->setAttributeValue(TT("function"), TTPtr(myData_return_value_callback));
+	args.append(p_returnValueCallback1);
+	
+	// create an instance of TTData
+	TTObjectInstantiate(TT("Data"), TTObjectHandle(&myData1), args);
+	
+	// set TTData attributes
+	myData1->setAttributeValue(kTTSym_type, kTTSym_decimal);
+	myData1->setAttributeValue(kTTSym_valueDefault, 0);
+	myData1->setAttributeValue(kTTSym_description, TT("Il etait une fois"));
+	
+	
+	// Register a TTObject into the TTModularDirectory
+	/////////////////////////////////////////////////////////
+	TTLogMessage("\n*** Register myData into the TTModularDirectory *** \n");
+	TTNodePtr		returnedNode1;
+	TTBoolean		newInstanceCreated1;
+	
+	mDirectory->TTNodeCreate(TT("/control/balance"), myData1, NULL, &returnedNode1, &newInstanceCreated1);
+	// note : our myRegistrationObserver is informed
 
 
 
@@ -205,9 +238,9 @@ main(int argc, char **argv)
 
 	// Set mValue attribute of our data using mySender
 	//////////////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Set mValue attribute of our data using mySender *** \n");
-	v = TTValue(2);
-	mySender->sendMessage(kTTSym_Send, v);
+//	TTLogMessage("\n*** Set mValue attribute of our data using mySender *** \n");
+//	v = TTValue(2);
+//	mySender->sendMessage(kTTSym_Send, v);
 	// note : the value is returned by the Data and the Receiver
 
 

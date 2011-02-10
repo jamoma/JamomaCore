@@ -42,11 +42,6 @@ mListenCallback(NULL)
 	addMessageWithArgument(WriteAsXml);
 	addMessageWithArgument(ReadFromXml);
 	
-	// pass callbacks to the DeviceManager
-//	this->mDeviceManager->namespaceDiscoverAddCallback(this, &TTDeviceManagerDiscoverCallback);
-//	this->mDeviceManager->namespaceGetAddCallback(this, &TTDeviceManagerGetCallback);
-//	this->mDeviceManager->namespaceSetAddCallback(this, &TTDeviceManagerSetCallback);
-//	this->mDeviceManager->namespaceListenAddCallback(this, &TTDeviceManagerListenCallback);
 	mfactories = new PluginFactories();
 	
 	mListernersCache	= new TTHash();
@@ -57,6 +52,28 @@ mListenCallback(NULL)
 TTDeviceManager::~TTDeviceManager()
 {
 	delete mListernersCache;
+	delete mPlugins;
+	delete mDevices;
+}
+
+void definePlugins(const TTPtr target, const TTKeyVal& iter)
+{
+	PluginPtr pluginPtr = NULL;
+	TTValue v = iter.second;
+	v.get(0, (TTPtr*)&pluginPtr);
+	if (pluginPtr != NULL) {
+		pluginPtr->commDefineParameters();
+	}
+}
+
+void launchPlugins(const TTPtr target, const TTKeyVal& iter)
+{
+	PluginPtr pluginPtr = NULL;
+	TTValue v = iter.second;
+	v.get(0, (TTPtr*)&pluginPtr);
+	if (pluginPtr != NULL) {
+		pluginPtr->commRunReceivingThread();
+	}
 }
 
 TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
@@ -82,17 +99,8 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 		}
 	}	
 	
-//	// define parameters for each plugin available
-//	TTHashMapIter itr = mPlugins->begin();
-//	while (itr != mPlugins->end()) {
-//		PluginPtr pluginPtr = NULL;
-//		TTValue v = itr->second;
-//		v.get(0, (TTPtr*)&pluginPtr);
-//		if (pluginPtr != NULL) {
-//			pluginPtr->commDefineParameters();
-//		}
-//		itr++;
-//	}
+	// define parameters for each plugin available
+	mPlugins->iterate((TTPtr)this, definePlugins);
 
 	// load a xml config file 
 	if (value.getSize() > 1) {
@@ -115,25 +123,8 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 		aXmlHandler->sendMessage(TT("Read"), v);//TODO : return an error code if fail
 	}
 
-	launchPlugins();
-	
-	return kTTErrNone;
-}
-
-TTErr TTDeviceManager::launchPlugins()
-{
-	// run a reception thread for each plugin available
-	TTHashMapIter itr = mPlugins->begin();
-	while (itr != mPlugins->end()) {		
-		PluginPtr pluginPtr = NULL;
-		TTValue v = itr->second;
-		v.get(0, (TTPtr*)&pluginPtr);
-		if (pluginPtr != NULL) {
-			pluginPtr->commRunReceivingThread();
-		}
-		
-		itr++;
-	}
+	// launch plugins
+	mPlugins->iterate((TTPtr)this, launchPlugins);
 	
 	return kTTErrNone;
 }
@@ -170,6 +161,7 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	//pluginPtr->deviceAdd(deviceName);//really need it ?
 	
 	// prepare TTDevice arguments
+	args.append(this);
 	args.append(deviceName);
 	args.append(pluginPtr);
 	
@@ -289,16 +281,16 @@ TTErr TTDeviceManager::namespaceGet(TTSymbolPtr address, TTSymbolPtr attribute, 
 {
 	std::cout << "TTDeviceManager::namespaceGet" << std::endl;
 	TTErr				err;
-	TTNodePtr			nodeToSet;
+	TTNodePtr			nodeToGet;
 	TTSymbolPtr			nodeType;
 	TTObjectPtr			o;
 	
-	err = getDirectoryFrom(this)->getTTNodeForOSC(address, &nodeToSet);
+	err = getDirectoryFrom(this)->getTTNodeForOSC(address, &nodeToGet);
 	
 	if (!err) {
 		
 		// test node type to get the access status
-		o = nodeToSet->getObject();
+		o = nodeToGet->getObject();
 		nodeType = o->getName();
 		
 		if (nodeType == TT("Data")) {
@@ -306,6 +298,46 @@ TTErr TTDeviceManager::namespaceGet(TTSymbolPtr address, TTSymbolPtr attribute, 
 			//attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
 			
 			o->getAttributeValue(attribute, newValue);
+		}
+		
+		return kTTErrNone;
+		
+	} 
+	else {
+		return kTTErrGeneric; //TODO send a notification : Jamoma!set #address /address:attribute value
+	}
+}
+
+TTErr TTDeviceManager::namespaceDiscover(TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+{
+	std::cout << "TTDeviceManager::namespaceDiscover" << std::endl;
+	TTErr				err;
+	TTList				nodeList, childList;
+	TTNodePtr			firstNode, aNode;
+	TTSymbolPtr			nodeAddress, nodeFrom;
+	TTObjectPtr			o;
+	
+	err = getDirectoryFrom(this)->Lookup(address, nodeList, &firstNode);
+	firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
+	
+	if (!err) {
+		
+		for (childList.begin(); childList.end(); childList.next()) {
+			
+			// get the returned node
+			childList.current().get(0, (TTPtr*)&aNode);
+			
+			// get the node osc absolute address
+			aNode->getOscAddress(&nodeAddress);
+			
+			// test node type
+			if (o = aNode->getObject()) {
+				if (o->getName() == TT("Data")) {
+					returnedLeaves.append(nodeAddress);
+				} else {
+					returnedNodes.append(nodeAddress);
+				}
+			}
 		}
 		
 		return kTTErrNone;

@@ -4,6 +4,8 @@
 #include "MinuitInclude.hpp"
 #include "ReceiveOSCThread.hpp"
 
+#include "TTModular.h"
+
 #include <vector>
 #include <string>
 
@@ -24,7 +26,7 @@ public:
 
 	void parseMinuitDiscoverAnswer(const osc::ReceivedMessage&m);
 
-	void waitDiscoverAnswer(std::vector<std::string> *returnedNodes, std::vector<std::string> *returnedLeaves, std::vector<std::string> *returnedAttributes);
+	void waitDiscoverAnswer(TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes);
 
 private:
 	int m_state;
@@ -36,9 +38,12 @@ private:
 	std::string m_ip;
 	unsigned int m_port;
 
-	std::vector<std::string> m_nodes;
-	std::vector<std::string> m_leaves;
-	std::vector<std::string> m_attributes;
+//	std::vector<std::string> m_nodes;
+//	std::vector<std::string> m_leaves;
+//	std::vector<std::string> m_attributes;
+	TTValue m_nodes;
+	TTValue m_leaves;
+	TTValue m_attributes;
 };
 
 #endif /*MINUITDISCOVERANSWER_HPP_*/

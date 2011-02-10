@@ -110,12 +110,14 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				}  else if (arg->IsString()) {
 					parsed << arg->AsString();
 				}
-				cout << "Parsed nodes " << parsed.str() << endl;
+				
 				currentString = parsed.str();
 				// don't store the end flag
 				find_end = currentString.compare(MINUIT_END_NODES) == 0;
-				if(!find_end)
-					m_nodes.push_back(currentString);
+				if(!find_end) {
+					cout << "Parsed nodes " << parsed.str() << endl;
+					m_nodes.append(TT(currentString));
+				}
 			}
 			while(!find_end);
 			
@@ -134,12 +136,14 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				}  else if (arg->IsString()) {
 					parsed << arg->AsString();
 				}
-				cout << "Parsed leaves " << parsed.str() << endl;
+				
 				currentString = parsed.str();
 				// don't store the end flag
 				find_end = currentString.compare(MINUIT_END_LEAVES) == 0;
-				if(!find_end)
-					m_leaves.push_back(currentString);
+				if(!find_end) {
+					cout << "Parsed leaves " << parsed.str() << endl;
+					m_leaves.append(TT(currentString));
+				}
 			}
 			while(!find_end);
 			
@@ -158,12 +162,14 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				}  else if (arg->IsString()) {
 					parsed << arg->AsString();
 				}
-				cout << "Parsed attributes " << parsed.str() << endl;
+				
 				currentString = parsed.str();
 				// don't store the end flag
 				find_end = currentString.compare(MINUIT_END_ATTRIBUTES) == 0;
-				if(!find_end)
-					m_attributes.push_back(currentString);
+				if(!find_end) {
+					cout << "Parsed attributes " << parsed.str() << endl;
+					m_attributes.append(TT(currentString));
+				}
 			}
 			while(!find_end);
 			
@@ -175,11 +181,9 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 	m_state = ANSWER_RECEIVED;
 }
 
-void MinuitDiscoverAnswer::waitDiscoverAnswer(std::vector<std::string> *returnedNodes,
-											   std::vector<std::string> *returnedLeaves,
-												std::vector<std::string> *returnedAttributes)
+void MinuitDiscoverAnswer::waitDiscoverAnswer(TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
 {
-	*returnedNodes = m_nodes;
-	*returnedLeaves = m_leaves;
-	*returnedAttributes = m_attributes;
+	returnedNodes = m_nodes;
+	returnedLeaves = m_leaves;
+	returnedAttributes = m_attributes;
 }

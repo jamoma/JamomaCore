@@ -19,6 +19,9 @@
 class Plugin;
 typedef Plugin* PluginPtr;
 
+class TTDeviceManager;
+typedef TTDeviceManager* TTDeviceManagerPtr;
+
 class TTMODULAR_EXPORT TTDevice : public TTObject
 {
 	TTCLASS_SETUP(TTDevice)
@@ -29,6 +32,7 @@ public:
 	
 private:
 	
+	TTDeviceManagerPtr	mDeviceManager;
 	TTSymbolPtr			mName;							///< ATTRIBUTE: name of the device
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE: address of the device in the directory
 	PluginPtr			mPlugin;
@@ -41,7 +45,7 @@ private:
 	TTErr	Command(const TTValue& command);
 	
 	/** to discover a remote device on the network */
-	TTErr	Discover(const TTValue& value);
+	TTErr	Discover(TTValue& value);
 	
 	/** to get a value from a remote device on the network */
 	TTErr	Get(TTValue& value);
