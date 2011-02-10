@@ -22,8 +22,11 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	TTObject(arguments), 
 	maxNumChannels(0),
 	attrMute(0), 
-	inputArray(NULL), 
-	outputArray(NULL) 
+	inputArray(NULL),
+	outputArray(NULL),
+	startProcessingTime(0.0),
+	accumulatedProcessingTime(0.0),
+	accumulatedProcessingCalls(0.0)
 {
 	// Convention: 'Public' attribute names begin with a capital letter, 'Private' attribute names begin with a lower case letter
 	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
@@ -34,6 +37,9 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	addAttributeProperty(processInPlace,	hidden,	YES);
 	
 	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
+	registerMessage(TT("test"), TTMethod(&TTObject::test));
+	registerMessage(TT("resetBenchmarking"), (TTMethod)&TTAudioObject::resetBenchmarking, kTTMessagePassNone);
+	registerMessage(TT("getProcessingBenchmark"), (TTMethod)&TTAudioObject::getProcessingBenchmark);
 	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
@@ -354,6 +360,18 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 }
 
 
+// TODO: move this function into the Foundation
+TTFloat64 TTGetTimeInMilliseconds()
+{
+	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
+#if	CLOCKS_PER_SEC == 1000000
+	return clock() / 1000.0;	
+#else
+	return (clock() * 1000.0) / CLOCKS_PER_SEC;
+#endif
+}
+
+
 TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTErr	err = kTTErrGeneric;
@@ -361,10 +379,29 @@ TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	if (valid) {
 		lock();
 		outputs->setAllSampleRates(sr);
+		startProcessingTime = TTGetTimeInMilliseconds();
 		err = (this->*currentProcessMethod)(inputs, outputs);
+		accumulatedProcessingTime += (TTGetTimeInMilliseconds() - startProcessingTime);
+		accumulatedProcessingCalls++;
 		unlock();
 	}
 	return err;
+}
+
+
+TTErr TTAudioObject::resetBenchmarking()
+{
+	accumulatedProcessingTime = 0.0;
+	startProcessingTime = 0.0;
+	accumulatedProcessingCalls = 0.0;
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioObject::getProcessingBenchmark(TTValueRef v)
+{
+	v = accumulatedProcessingTime / accumulatedProcessingCalls;
+	return kTTErrNone;
 }
 
 
