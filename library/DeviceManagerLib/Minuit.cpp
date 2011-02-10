@@ -326,7 +326,11 @@ public:
 		state = ANSWER_RECEIVED;
 		do
 		{
+#ifdef TT_PLATFORM_WIN
+			Sleep(1);
+#else
 			usleep(1000);// TODO : Doesn't work on Windows, use Sleep
+#endif
 			state = m_minuitMethods->minuitWaitGetAnswer(deviceName, addressAndAttributeString, returnedValue, false);
 		}
 		while(state == NO_ANSWER);

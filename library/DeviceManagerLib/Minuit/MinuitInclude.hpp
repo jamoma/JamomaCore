@@ -1,7 +1,12 @@
 #ifndef MINUITINCLUDE_HPP_
 #define MINUITINCLUDE_HPP_
 
-#include <sys/time.h>
+#ifdef TT_PLATFORM_WIN
+	#include <time.h>
+	#include <windows.h>
+#else
+	#include <sys/time.h>
+#endif
 
 #define MINUIT_REQUEST_DISCOVER "?namespace"
 #define MINUIT_REQUEST_GET "?get"

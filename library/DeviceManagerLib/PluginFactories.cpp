@@ -68,6 +68,7 @@ typedef PluginFactory* (*OpCreation)();
 #ifdef TT_PLATFORM_WIN
 
 void PluginFactories::loadPlugins(std::string path) {
+	std::cout << "load plugins" << std::endl;
 	std::string dllpath = path + "/*.dll";
 	int n = 0;
 
@@ -99,7 +100,7 @@ void PluginFactories::loadPlugins(std::string path) {
 			continue;
 		}
 
-		factories[pluginFactory->getPluginName()] = pluginFactory;
+		//factories[pluginFactory->getPluginName()] = pluginFactory;
 
 	} while ((FindNextFile(liste, &File)));
 	// FindClose() ferme la recherche

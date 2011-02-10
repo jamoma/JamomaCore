@@ -58,7 +58,12 @@ void MinuitCommunicationMethods::minuitSendMessage(std::string stringToSend, std
 	
 	UdpTransmitSocket transmitSocket( IpEndpointName(ip.data(), port) );
 	
+#ifdef TT_PLATFORM_WIN
+	char* buffer = (char*)malloc(bufferSize * sizeof(char));
+#else
 	char buffer[bufferSize];
+#endif
+
 	osc::OutboundPacketStream oscStream(buffer, bufferSize);
 	
 	//oscStream << osc::BeginBundleImmediate;//provoque un segmentation fault

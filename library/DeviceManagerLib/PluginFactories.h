@@ -49,7 +49,7 @@
 
 #include <map>
 #include <string>
-//#include "Plugin.h"
+
 class Plugin;
 typedef Plugin* PluginPtr;
 

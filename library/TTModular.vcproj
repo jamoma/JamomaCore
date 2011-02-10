@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib DeviceManager.lib libxml2.lib"
+				AdditionalDependencies="JamomaFoundation.lib libxml2.lib"
 				LinkIncremental="0"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\..\Foundation\library\libxml2\win32\lib&quot;"
 				GenerateManifest="false"
@@ -99,6 +99,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Install TTModular dll"
+				CommandLine="if exist &quot;../implementations/Example/Copie de TestModular/TTModular.dll&quot; rm &quot;../implementations/Example/Copie de TestModular/TTModular.dll&quot;&#x0D;&#x0A;cp Debug/TTModular.dll  &quot;../implementations/Example/Copie de TestModular&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -219,6 +221,14 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTData.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTDevice.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTDevice.h"
 				>
 			</File>
 			<File
@@ -434,7 +444,15 @@
 			Name="DeviceManagerLib"
 			>
 			<File
-				RelativePath=".\DeviceManagerLib\DeviceManager.h"
+				RelativePath=".\DeviceManagerLib\Plugin.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DeviceManagerLib\PluginFactories.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DeviceManagerLib\PluginFactories.h"
 				>
 			</File>
 		</Filter>

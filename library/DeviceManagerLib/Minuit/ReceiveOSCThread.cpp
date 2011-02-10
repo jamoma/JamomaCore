@@ -14,6 +14,8 @@ void* OSCReceiveFunction(void* threadArg)
 	ReceiveOSC->m_listeningSocket = s;
 
 	ReceiveOSC->m_listeningSocket->Run();
+
+	return 0;
 }
 
 ReceiveOSCThread::ReceiveOSCThread(MinuitCommunicationMethods *minuitMethods)
@@ -60,7 +62,11 @@ ReceiveOSCThread::asynchronousBreak()
 	if (m_listeningSocket != NULL) {
 		m_listeningSocket->AsynchronousBreak();
 
-		usleep(usecToStopTheSelect);
+#ifdef TT_PLATFORM_WIN
+			Sleep(usecToStopTheSelect/1000);
+#else
+			usleep(usecToStopTheSelect);
+#endif
 
 		delete m_listeningSocket;
 		m_listeningSocket = NULL;
@@ -76,7 +82,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 	std::string sender = "";
 	std::string operation = "";
 	int operationStart;
-	std:string address;
+	std::string address;
 	std::string whereTo = "";
 	std::string attribute = "";
 	int attributeStart;

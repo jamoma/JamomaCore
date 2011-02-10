@@ -1,5 +1,9 @@
 #include "MinuitGetAnswer.hpp"
 
+#ifdef TT_PLATFORM_WIN
+	#include "Time2.hpp"
+#endif
+
 #include <iostream>
 #include <sstream>
 
@@ -10,9 +14,14 @@ MinuitGetAnswer::MinuitGetAnswer()
 	m_state = NO_ANSWER;
 
 	struct timeval tv;
-	struct timezone tz;
 
-	gettimeofday(&tv, NULL);
+#ifdef TT_PLATFORM_WIN
+	Time2 time2;
+	time2.gettimeofday(&tv, NULL);
+#else
+	struct timezone tz;
+	gettimeofday(&tv, &tz);
+#endif
 
 	m_launchTimeInMs = (tv.tv_sec * 1000000L + tv.tv_usec)/1000;
 	m_timeOutInMs = NO_TIMEOUT;
@@ -26,11 +35,16 @@ int MinuitGetAnswer::getState()
 {
 	if ((m_state == NO_ANSWER) && (m_timeOutInMs != NO_TIMEOUT)) {
 		struct timeval tv;
+
+#ifdef TT_PLATFORM_WIN
+		Time2 time2;
+		time2.gettimeofday(&tv, NULL);
+#else
 		struct timezone tz;
+		gettimeofday(&tv, &tz);
+#endif
 
 		long long dt = 0;
-
-		gettimeofday(&tv, &tz);
 
 		dt = (tv.tv_sec * 1000000L + tv.tv_usec)/1000 - m_launchTimeInMs;
 
