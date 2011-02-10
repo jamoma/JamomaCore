@@ -144,6 +144,7 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	EXTRA->clock = NULL;
 	
 #else
 	
@@ -173,7 +174,9 @@ void WrappedOutputClass_free(TTPtr self)
 	
 #ifdef JCOM_OUT_TILDE
 	dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
-	freeobject((t_object *)EXTRA->clock);	// delete our clock
+	
+	if (EXTRA->clock)
+		freeobject((t_object *)EXTRA->clock);	// delete our clock
 #endif
 }
 

@@ -139,6 +139,7 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	EXTRA->clock = NULL;
 	
 #else
 	
@@ -166,8 +167,10 @@ void WrappedInputClass_free(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 #ifdef JCOM_IN_TILDE
-	dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
-	freeobject((t_object *)EXTRA->clock);	// delete our clock
+	dsp_free((t_pxobject *)x);					// Always call dsp_free first in this routine
+	
+	if (EXTRA->clock)
+		freeobject((t_object *)EXTRA->clock);	// delete our clock
 #endif
 }
 
