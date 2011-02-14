@@ -16,6 +16,7 @@
 #include "TTNodeDirectory.h"
 
 // Unit Tests
+#include "TTMatrix.h"
 #include "TTValueTest.h"
 
 
@@ -64,6 +65,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		
 		// register classes -- both internal and external
 		TTCallback::registerClass();
+		TTMatrix::registerClass();
 		TTValueTest::registerClass();
 
 		TTFoundationLoadExternalClasses();

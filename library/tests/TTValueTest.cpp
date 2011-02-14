@@ -142,6 +142,9 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 }	
 
 
+// TODO: Benchmarking
+
+
 TTErr TTValueTest::test(TTValue& returnedTestInfo)
 {
 	int	errorCount = 0;
