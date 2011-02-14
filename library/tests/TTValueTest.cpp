@@ -19,69 +19,138 @@ TT_OBJECT_CONSTRUCTOR
 TTValueTest::~TTValueTest()
 {;}
 
+
+void TTValueTestBasic(int& errorCount, int&testAssertionCount)
+{
+	TTTestLog("\n");
+	TTTestLog("Testing basic TTValue operation");
+
+	
+	TTValue v1(3.14);
+
+	TTTestAssertion("init with a double is correctly typed as kTypeFloat64", 
+					v1.getType(0) == kTypeFloat64, 
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("init with a double has correct element count", 
+					v1.getSize() == 1,
+					testAssertionCount,
+					errorCount);	
+	
+	TTTestAssertion("init with a double has correct value when retrieved as a double", 
+					TTTestFloatEquivalence(double(v1), 3.14), 
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("init with a double has correct value when retrieved as an TTInt32",
+					TTInt32(v1) == 3, 
+					testAssertionCount,
+					errorCount);
+	
+	TTTestLog("Appending a symbol to TTValue");	
+	v1.append(TT("foo"));
+
+	TTTestAssertion("TTValue correctly updated element count to 2", 
+					v1.getSize() == 2,
+					testAssertionCount,
+					errorCount);	
+	
+	TTTestAssertion("first item still is correctly typed as kTypeFloat64", 
+					v1.getType(0) == kTypeFloat64, 
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("first item still has correct value when retrieved as a double", 
+					TTTestFloatEquivalence(double(v1), 3.14), 
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("second item has correct type",
+					v1.getType(1) == kTypeSymbol,
+					testAssertionCount,
+					errorCount);
+	
+	// TODO: want to implement this:
+	// TTSymbolPtr s = v1[1];
+	TTSymbolPtr s = NULL;
+	v1.get(1, &s);
+	TTTestAssertion("second item has correct value, retreiving with get() method",
+					s == TT("foo"),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestLog("Clearing TTValue");	
+	v1.clear();
+	
+	TTTestAssertion("element count is zero",
+					v1.getSize() == 0,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("type of TTValue which is returned is kTypeNone",
+					v1.getType() == kTypeNone,
+					testAssertionCount,
+					errorCount);
+	
+	
+}
+
+
+void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
+{
+	TTTestLog("\n");
+	TTTestLog("Testing TTValue string conversion methods");
+	
+	// TODO: test toString()
+	// TODO: test fromString()
+	// TODO: test transformCSVStringToSymbolArray()
+	
+	TTValue v1(3.14);
+}	
+
+
+
+void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
+{
+	TTTestLog("\n");
+	TTTestLog("Testing TTValue numeric transformations");
+	
+	// TODO: test clip()
+	// TODO: test cliplow()
+	// TODO: test cliphigh()
+	// TODO: test round()
+	// TODO: test truncate()
+	// TODO: test booleanize()
+	
+	TTValue v1(3.14);
+}	
+
+
+void TTValueTestOperators(int& errorCount, int&testAssertionCount)
+{
+	TTTestLog("\n");
+	TTTestLog("Testing TTValue operators");
+	
+	// TODO: test >
+	// TODO: test ==
+	// TODO: test =
+	// TODO: test casting
+	// TODO: should + be concatenating elements to create a new value of a+b element count?
+	
+	TTValue v1(3.14);
+}	
+
+
 TTErr TTValueTest::test(TTValue& returnedTestInfo)
 {
-	// preliminary setup
-	
 	int	errorCount = 0;
 	int testAssertionCount = 0;
+		
+	TTValueTestBasic(errorCount, testAssertionCount);
+	TTValueTestStringConversion(errorCount, testAssertionCount);
+	TTValueTestNumericTransformations(errorCount, testAssertionCount);
+	TTValueTestOperators(errorCount, testAssertionCount);
 	
-	TTTestLog("Testing Parameter value conversions");
-	
-	
-	// N test assertions
-/*	
-	// Test 1: trival value conversion
-	this->setAttributeValue(TT("midiGain"), 100);
-	TTTestAssertion("midi gain of 100 == linear gain of 1.", 
-					TTTestFloatEquivalence(this->mGain, 1.0), 
-					testAssertionCount, 
-					errorCount);
-	
-	// Test 2: trival value conversion
-	this->setAttributeValue(TT("midiGain"), 99);
-	TTTestAssertion("midi gain of 99 != linear gain of 1.", 
-					TTTestFloatEquivalence(this->mGain, 1.0), 
-					testAssertionCount, 
-					errorCount);
-	
-	// Test 3: audio test
-	// set the input signals 1
-	// apply -6 dB gain
-	// check that the signals are properly scaled
-	
-	TTAudioSignalPtr input = NULL;
-	TTAudioSignalPtr output = NULL;
-	
-	// create 1 channel audio signal objects
-	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
-	
-	input->allocWithVectorSize(64);
-	output->allocWithVectorSize(64);
-	
-	for (int i=0; i<64; i++)
-		input->mSampleVectors[0][i] = 1.0;
-	
-	this->setAttributeValue(TT("gain"), -6.0);
-	this->process(input, output);
-	
-	TTSampleValuePtr samples = output->mSampleVectors[0];
-	int badSampleCount = 0;
-	
-	for (int i=0; i<64; i++) {
-		badSampleCount += TTTestFloatEquivalence(0.501187, samples[i]);
-	}
-	TTTestAssertion("accumulated audio error at gain = -6 dB", 
-					badSampleCount == 0, 
-					testAssertionCount, 
-					errorCount);
-	TTTestLog("badSampleCount is %i", badSampleCount);
-	
-	TTObjectRelease(&input);
-	TTObjectRelease(&output);
-*/	
-	
-	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

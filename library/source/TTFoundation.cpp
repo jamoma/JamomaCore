@@ -15,6 +15,9 @@
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 
+// Unit Tests
+#include "TTValueTest.h"
+
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
@@ -61,6 +64,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		
 		// register classes -- both internal and external
 		TTCallback::registerClass();
+		TTValueTest::registerClass();
 
 		TTFoundationLoadExternalClasses();
 	}
