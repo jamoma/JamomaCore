@@ -1,18 +1,18 @@
 /* 
- * TTMatrix Object
+ * TTAudioMatrix Object
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTMatrix.h"
+#include "TTAudioMatrix.h"
 #ifdef TT_PLATFORM_WIN
 #include <algorithm>
 #endif
 
-#define thisTTClass			TTMatrix
-#define thisTTClassName		"matrix"
+#define thisTTClass			TTAudioMatrix
+#define thisTTClassName		"audiomatrix"
 #define thisTTClassTags		"audio, matrix"
 
 
@@ -33,7 +33,7 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-TTMatrix::~TTMatrix()
+TTAudioMatrix::~TTAudioMatrix()
 {
 	;
 }
@@ -44,7 +44,7 @@ TTMatrix::~TTMatrix()
 //	rows == outputs
 
 
-TTErr TTMatrix::setNumInputs(const TTValue& newValue)
+TTErr TTAudioMatrix::setNumInputs(const TTValue& newValue)
 {
 	TTUInt16 numInputs = newValue;
 	
@@ -57,7 +57,7 @@ TTErr TTMatrix::setNumInputs(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::setNumOutputs(const TTValue& newValue)
+TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
 {
 	TTUInt16 numOutputs = newValue;
 	
@@ -69,7 +69,7 @@ TTErr TTMatrix::setNumOutputs(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::clear()
+TTErr TTAudioMatrix::clear()
 {
 	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
 		column->assign(mNumOutputs, 0.0);
@@ -77,7 +77,7 @@ TTErr TTMatrix::clear()
 }
 
 
-TTErr TTMatrix::setGain(const TTValue& newValue)
+TTErr TTAudioMatrix::setGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -97,7 +97,7 @@ TTErr TTMatrix::setGain(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::setLinearGain(const TTValue& newValue)
+TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -117,7 +117,7 @@ TTErr TTMatrix::setLinearGain(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::setMidiGain(const TTValue& newValue)
+TTErr TTAudioMatrix::setMidiGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -139,7 +139,7 @@ TTErr TTMatrix::setMidiGain(const TTValue& newValue)
 
 
 // Here we are mixing channels within a signal rather than between multiple signals
-TTErr TTMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	
 	TTAudioSignal&		in = inputs->getSignal(0);
