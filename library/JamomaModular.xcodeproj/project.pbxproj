@@ -358,6 +358,7 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "JamomaModular" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
@@ -470,20 +471,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = TTDATA_RAMPLIB;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/DeviceManagerLib\"",
 					"\"$(SRCROOT)/DeviceManagerLib/plugins\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Deployment/DataspaceLib.build/Objects-normal/i386\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Deployment/DataspaceLib.build/Objects-normal/x86_64\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Deployment/JamomaExtension.build/Objects-normal/i386\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Deployment/JamomaExtension.build/Objects-normal/x86_64\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Development/DataspaceLib.build/Objects-normal/i386\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Development/DataspaceLib.build/Objects-normal/x86_64\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Development/JamomaExtension.build/Objects-normal/i386\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Development/JamomaExtension.build/Objects-normal/x86_64\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/Deployment\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/Development\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/UninstalledProducts\"",
 				);
 			};
 			name = Development;
@@ -507,20 +496,8 @@
 				GCC_PREFIX_HEADER = JamomaPrefix.pch;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/DeviceManagerLib\"",
 					"\"$(SRCROOT)/DeviceManagerLib/plugins\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Deployment/DataspaceLib.build/Objects-normal/i386\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Deployment/DataspaceLib.build/Objects-normal/x86_64\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Deployment/JamomaExtension.build/Objects-normal/i386\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Deployment/JamomaExtension.build/Objects-normal/x86_64\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Development/DataspaceLib.build/Objects-normal/i386\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Development/DataspaceLib.build/Objects-normal/x86_64\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Development/JamomaExtension.build/Objects-normal/i386\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/DataspaceLib.build/Development/JamomaExtension.build/Objects-normal/x86_64\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/Deployment\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/Development\"",
-					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build/UninstalledProducts\"",
 				);
 			};
 			name = Deployment;

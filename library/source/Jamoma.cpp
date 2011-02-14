@@ -37,7 +37,7 @@ void jamoma_init(void)
 {
 	if (!initialized) {
 		ObjectPtr	max = SymbolGen("max")->s_thing;
-		SymbolPtr	meth = SymbolGen("objectfile");
+		//SymbolPtr	meth = SymbolGen("objectfile");
 		Atom		a[4];
 		TTValue		v;
 	
