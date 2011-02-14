@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby -wKU
 
-require 'TTRuby'
+require 'Jamoma'
 
 puts "start"
 

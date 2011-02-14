@@ -33,7 +33,7 @@ module Rails
     end
   end
   
-  require 'TTRuby'
+  require 'Jamoma'
 
   class Boot
     def run

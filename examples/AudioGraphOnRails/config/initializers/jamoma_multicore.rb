@@ -1,4 +1,4 @@
-require 'TTRuby'
+require 'Jamoma'
 
 #def CreateAudioGraph
     # build the audio graph here

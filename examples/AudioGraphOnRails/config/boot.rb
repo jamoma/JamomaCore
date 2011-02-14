@@ -33,7 +33,7 @@ module Rails
       "#{RAILS_ROOT}/config/preinitializer.rb"
     end
     
-    require 'TTRuby'
+    require 'Jamoma'
     def CreateAudioGraph
         # build the audio graph here
          # TODO: need to clear all of this up when we are done!

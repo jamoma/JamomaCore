@@ -13,11 +13,11 @@ end
 
 if (RUBY_PLATFORM == "universal-darwin9.0")
   # on Leopard (10.5) you might want to run these lines instead
-  puts `rm -rf /Library/Ruby/Site/1.8/universal-darwin9.0/TTRuby.bundle`
-  puts `cp library/TTRuby.bundle /Library/Ruby/Site/1.8/universal-darwin9.0/TTRuby.bundle`
+  puts `rm -rf /Library/Ruby/Site/1.8/universal-darwin9.0/Jamoma.bundle`
+  puts `cp library/Jamoma.bundle /Library/Ruby/Site/1.8/universal-darwin9.0/Jamoma.bundle`
 else
-  puts `rm -rf /Library/Ruby/Site/1.8/universal-darwin10.0/TTRuby.bundle`
-  puts `cp library/TTRuby.bundle /Library/Ruby/Site/1.8/universal-darwin10.0/TTRuby.bundle`
+  puts `rm -rf /Library/Ruby/Site/1.8/universal-darwin10.0/Jamoma.bundle`
+  puts `cp library/Jamoma.bundle /Library/Ruby/Site/1.8/universal-darwin10.0/Jamoma.bundle`
 end
 
 puts

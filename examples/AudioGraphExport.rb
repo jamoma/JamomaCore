@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby -wKU
 
-# The TTRuby extension provides access to the Jamoma Platform from within the Ruby environment
-require 'TTRuby'
+# The Jamoma extension provides access to the Jamoma Platform from within the Ruby environment
+require 'Jamoma'
 puts
 
 puts "create objects"

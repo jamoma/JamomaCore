@@ -1,4 +1,4 @@
-// TTRuby : Language Bindings to Make the Jamoma Runtime accessible via Ruby
+// Language Bindings to Make the Jamoma Runtime accessible via Ruby
 // Copyright © 2009, Timothy Place
 // License: New BSD License -- http://creativecommons.org/licenses/BSD/
 
@@ -40,7 +40,7 @@ typedef VALUE (*TTRubyMethod)(...);
 
 // Prototypes
 extern "C" {
-	void Init_TTRuby();
+	void Init_Jamoma();
 
 	VALUE TTRubyInitialize(VALUE self, VALUE className);
 	VALUE TTRubyGetMessages(VALUE self);
@@ -75,7 +75,7 @@ TTHashPtr	gTTAudioInstances = NULL;
 /*****************************************************************************************************/
 // Class Definition
 
-void Init_TTRuby()
+void Init_Jamoma()
 {
 	VALUE c;
 	

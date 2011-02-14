@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# This is for generating a Makefile to compile TTRuby
+# This is for generating a Makefile to compile Jamoma Ruby support
 
 require 'mkmf'
 
@@ -21,7 +21,7 @@ puts "audiograph: #{audiograph}"
 #dir_config("#{inc}")
 #find_header('TTFoundationAPI.h', "#{inc}")
 #find_header('TTFoundationAPI.h', "../../library/includes")
-have_func("Init_TTRuby", "TTRuby.cpp")
+have_func("Init_Jamoma", "Jamoma.cpp")
 
 $CFLAGS = $CFLAGS + " -I #{inc} -I #{dsp} -I #{audiograph} -I #{graph} -g -O1"
 $CPPFLAGS = $CPPFLAGS + " -I #{inc} -I #{dsp} -I #{audiograph} -I #{graph} -g -O1"
@@ -33,5 +33,5 @@ $LDFLAGS = $LDFLAGS + " \"/Library/Application Support/Jamoma/Libraries/JamomaGr
 
 #$ARCHFLAGS = "-arch i386"
 
-create_makefile("TTRuby")
+create_makefile("Jamoma")
 
