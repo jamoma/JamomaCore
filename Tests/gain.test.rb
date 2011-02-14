@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require 'TTRuby'
+require 'Jamoma'
 
 o = TTObject.new "gain"
 o.send "test"
