@@ -16,7 +16,7 @@
 /******************************************************************************************/
 
 /**	An object that serves as the destination of a graph/object.		*/
-class TTGRAPH_EXPORT TTGraphOutput : public TTObject
+class TTGRAPH_EXPORT TTGraphOutput : public TTDataObject
 {
 	TTCLASS_SETUP(TTGraphOutput)
 	

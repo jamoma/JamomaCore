@@ -25,7 +25,7 @@
 	It is implemented as a TTObject so that it can receive dynamically bound messages, 
 	incliding notifications from other objects.
 */
-class TTGRAPH_EXPORT TTGraphObject : public TTObject {	
+class TTGRAPH_EXPORT TTGraphObject : public TTDataObject {	
 	TTCLASS_SETUP(TTGraphObject)
 	
 protected:
@@ -69,6 +69,8 @@ public:
 	 @return					An error code.	*/
 	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 	
+	
+	// TODO: Need unit tests
 };
 
 

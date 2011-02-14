@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-class TTMidiFilter : TTObject {
+class TTMidiFilter : TTDataObject {
 	TTCLASS_SETUP(TTMidiFilter)
 
 	TTSymbolPtr	mType;

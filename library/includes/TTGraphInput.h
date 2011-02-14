@@ -16,7 +16,7 @@
 /******************************************************************************************/
 
 /**	An object that serves as the source driving an object/graph.		*/
-class TTGRAPH_EXPORT TTGraphInput : public TTObject
+class TTGRAPH_EXPORT TTGraphInput : public TTDataObject
 {
 	TTCLASS_SETUP(TTGraphInput)
 	

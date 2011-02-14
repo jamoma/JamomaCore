@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-class TTMidiFormat : TTObject {
+class TTMidiFormat : TTDataObject {
 	TTCLASS_SETUP(TTMidiFormat)
 	
 	TTErr dictionary(TTValue& input);
