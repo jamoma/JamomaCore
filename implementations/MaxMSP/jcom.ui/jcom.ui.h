@@ -17,7 +17,6 @@
 #include "ModularForMax.h"			// Jamoma Modular for Max
 #include "MaxObjectTypes.h"
 #include "ext_symobject.h"
-#include "TTElement.h"
 
 #define NO_MODEL_STRING "waiting for a /model/address"
 
