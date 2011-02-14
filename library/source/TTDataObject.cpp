@@ -16,9 +16,6 @@ TTDataObject::TTDataObject(TTValue& arguments)
 	: TTObject(arguments)
 {
 	registerMessage(TT("test"), TTMethod(&TTObject::test));
-
-	registerAttribute(kTTSym_sampleRate, kTypeUInt32, &sr, (TTSetterMethod)&TTDataObject::setSr);
-	setAttributeValue(kTTSym_sampleRate, (uint)ttEnvironment->mSampleRate);
 }
 
 
@@ -27,12 +24,3 @@ TTDataObject::~TTDataObject()
 	;
 }
 
-
-TTErr TTDataObject::setSr(const TTValue& newValue)
-{
-	sr = newValue;
-	srInv = 1.0/sr;
-	srMill = sr * 0.001;
-	sendMessage(TT("updateSr"));
-	return kTTErrNone;
-}

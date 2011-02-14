@@ -26,7 +26,7 @@
 	cannot be manipulated directly.
  */
 
-#define TT_DATA_CONSTRUCTOR \
+#define TT_OBJECT_CONSTRUCTOR \
 	TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
@@ -34,7 +34,7 @@
 	thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 
 
-#define TT_OBJECT_CONSTRUCTOR \
+#define TT_BASE_OBJECT_CONSTRUCTOR \
 	TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \

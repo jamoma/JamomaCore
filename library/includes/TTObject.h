@@ -1,5 +1,5 @@
 /* 
- * TTBlue Object Base Class
+ * The Jamoma Object Base Class
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -73,7 +73,9 @@ enum TTAttributeFlags {
 // Class Specifications
 
 /**
-	Base class for all first-class TTBlue objects.
+	Base class for all first-class Jamoma objects.
+	Internal objects may inherit directly from #TTObject, 
+	but most objects should inherit from #TTDataObject or #TTAudioObject.
 */
 class TTFOUNDATION_EXPORT TTObject : public TTBase {
 private:

@@ -12,7 +12,7 @@
 #define thisTTClassName		"callback"
 #define thisTTClassTags		"system"
 
-TT_OBJECT_CONSTRUCTOR,
+TT_BASE_OBJECT_CONSTRUCTOR,
 	mFunction(NULL),
 	mBaton(NULL),
 	mOwner(NULL)

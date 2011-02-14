@@ -1,5 +1,5 @@
 /* 
- * TTBlue Object Base Class
+ * The Jamoma Object Base Class
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
