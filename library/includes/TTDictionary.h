@@ -22,7 +22,7 @@
  
 	The linked list contains the key-value pairs of the hash a linked-list of TTKeyValues.
 */
-class TTFOUNDATION_EXPORT TTDictionary : TTElement {
+class TTFOUNDATION_EXPORT TTDictionary : TTBase {
 private:
 	TTHashPtr	mHashTable;
 	TTListPtr	mList;

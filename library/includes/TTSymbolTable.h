@@ -9,7 +9,7 @@
 #ifndef __TT_SYMBOLTABLE_H__
 #define __TT_SYMBOLTABLE_H__
 
-#include "TTElement.h"
+#include "TTBase.h"
 #include "TTSymbol.h"
 
 #if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
@@ -79,7 +79,7 @@ class TTValue;
 	commonly used strings in a table so that we can refer to them simply as a pointers for fast comparison.	
  */
 
-class TTFOUNDATION_EXPORT TTSymbolTable : public TTElement {
+class TTFOUNDATION_EXPORT TTSymbolTable : public TTBase {
 private:
 	TTSymbolTableHash*	symbolTable;	///< The symbol table, implemented internally as an STL hash_map.
 

@@ -9,7 +9,7 @@
 #ifndef __TT_QUEUE_H__
 #define __TT_QUEUE_H__
 
-#include "TTElement.h"
+#include "TTBase.h"
 #include "TTThread.h"
 #include "TTList.h"
 #include "TTObject.h"
@@ -27,7 +27,7 @@
 	The implementation uses a set of related lists; one for the object, one for the message, and
 	one for the value argument to the message. 
 */
-class TTFOUNDATION_EXPORT TTQueue : public TTElement {
+class TTFOUNDATION_EXPORT TTQueue : public TTBase {
 private:
 	TTThread*	queueThread;
 	TTList*		queueEventObjects;

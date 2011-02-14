@@ -9,7 +9,7 @@
 #ifndef __TT_OBJECT_H__
 #define __TT_OBJECT_H__
 
-#include "TTElement.h"
+#include "TTBase.h"
 #include "TTList.h"
 #include "TTHash.h"
 #include "TTSymbol.h"
@@ -75,7 +75,7 @@ enum TTAttributeFlags {
 /**
 	Base class for all first-class TTBlue objects.
 */
-class TTFOUNDATION_EXPORT TTObject : public TTElement {
+class TTFOUNDATION_EXPORT TTObject : public TTBase {
 private:
 	friend class TTEnvironment;
 

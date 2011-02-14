@@ -9,7 +9,7 @@
 #ifndef __TT_MUTEX_H__
 #define __TT_MUTEX_H__
 
-#include "TTElement.h"
+#include "TTBase.h"
 #ifdef TT_PLATFORM_MAC
 	#include <pthread.h>
 #endif
@@ -21,7 +21,7 @@
 	The TTMutex class maintains a mutual exclusion lock.
 	See http://en.wikipedia.org/wiki/Mutex for more details.
 */
-class TTFOUNDATION_EXPORT TTMutex : public TTElement {
+class TTFOUNDATION_EXPORT TTMutex : public TTBase {
 private:
 	#ifdef TT_PLATFORM_WIN
 	CRITICAL_SECTION		pMutex;

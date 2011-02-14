@@ -63,7 +63,7 @@ typedef TTCallback* TTCallbackPtr;
  
  */
 
-class TTFOUNDATION_EXPORT TTNode : public TTElement
+class TTFOUNDATION_EXPORT TTNode : public TTBase
 {
 	
 private:

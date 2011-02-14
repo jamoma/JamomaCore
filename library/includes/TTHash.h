@@ -9,7 +9,7 @@
 #ifndef __TT_HASH_H__
 #define __TT_HASH_H__
 
-#include "TTElement.h"
+#include "TTBase.h"
 #include "TTValue.h"
 #include "TTMutex.h"
 #if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
@@ -48,7 +48,7 @@ typedef void (*TTHashIteratorType)(TTPtr, const TTKeyVal&);
 	- This approach isolates coders from having to worry about an template craziness
 	- This approach offers the possibility, should the need ever arise, to change the underlying implementation away from STL.
 */
-class TTFOUNDATION_EXPORT TTHash : TTElement {
+class TTFOUNDATION_EXPORT TTHash : TTBase {
 private:
 //	#ifdef TT_PLATFORM_WIN
 //	#pragma warning(disable:4251)

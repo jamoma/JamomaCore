@@ -9,7 +9,7 @@
 #ifndef __TT_VALUE_H__
 #define __TT_VALUE_H__
 
-#include "TTElement.h"
+#include "TTBase.h"
 #include "TTLimits.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
@@ -73,7 +73,7 @@ TTFloat32 TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str );
  *	single value, or an array of homogenous values.  It maybe one of a number of types defined in the 
  *	DataType enumeration.
  */
-class TTFOUNDATION_EXPORT TTValue : TTElement {
+class TTFOUNDATION_EXPORT TTValue : TTBase {
 private:
 	union DataValue{
 		TTFloat32		float32;

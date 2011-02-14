@@ -9,7 +9,7 @@
 #ifndef __TT_LIST_H__
 #define __TT_LIST_H__
 
-#include "TTElement.h"
+#include "TTBase.h"
 #include "TTValue.h"
 #include "TTMutex.h"
 #include <list>
@@ -22,7 +22,7 @@ typedef list<TTValue>::iterator	TTListIter;
 /****************************************************************************************************/
 // Class Specification
 
-class TTFOUNDATION_EXPORT TTList : TTElement {
+class TTFOUNDATION_EXPORT TTList : TTBase {
 private:
 	TTBoolean	mThreadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
 	TTMutexPtr	mMutex;

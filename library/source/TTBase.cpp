@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTElement.h"
+#include "TTBase.h"
 #include "TTEnvironment.h"
 
 
@@ -222,13 +222,13 @@ const TTFloat32 kTTLookupQuarterSine[] = {		// 128 point quarter sine wave table
 
 /****************************************************************************************************/
 
-TTElement::TTElement()
+TTBase::TTBase()
 {
 	;
 }
 
 
-TTElement::~TTElement()
+TTBase::~TTBase()
 {
 	;
 }

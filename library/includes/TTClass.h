@@ -25,7 +25,7 @@
 	
 	//TODO: we could override the () operator to make TTClass a functor for creating instances.
 */
-class TTFOUNDATION_EXPORT TTClass : public TTElement {
+class TTFOUNDATION_EXPORT TTClass : public TTBase {
 private:
 	friend class TTEnvironment;
 	friend class TTObject;

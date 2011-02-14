@@ -277,10 +277,10 @@ public:
  	It does not define any real functionality.
 	Instead it provides a way to group and work polymorphically with any class in TTBlue,
 	including both TTValue and TTObject.													*/
-class TTFOUNDATION_EXPORT TTElement {
+class TTFOUNDATION_EXPORT TTBase {
 public:
-	TTElement();			///< Constructor.
-	virtual ~TTElement();	///< Destructor.
+	TTBase();			///< Constructor.
+	virtual ~TTBase();	///< Destructor.
 };
 
 

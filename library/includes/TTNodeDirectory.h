@@ -63,7 +63,7 @@ enum TTAddressNotificationFlag{
 	
 */
 
-class TTFOUNDATION_EXPORT TTNodeDirectory : public TTElement
+class TTFOUNDATION_EXPORT TTNodeDirectory : public TTBase
 {
 	
 private:

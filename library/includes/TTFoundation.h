@@ -11,7 +11,7 @@
 
 #define TTFOUNDATION_VERSION_STRING "0.6"
 
-#include "TTElement.h"
+#include "TTBase.h"
 #include "TTThread.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
