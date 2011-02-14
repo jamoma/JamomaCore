@@ -14,7 +14,7 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class MillisecondUnit : public TTObject, public TTDataspaceUnit {
+class MillisecondUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(MillisecondUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -22,7 +22,7 @@ public:
 };
 
 
-class SampleUnit : public TTObject, public TTDataspaceUnit {
+class SampleUnit : public TTDataObject, public TTDataspaceUnit {
 	// note that we aren't using the SI base unit for time, because the SI base unit for time is a bit wacky
 	// we are just going to use ms because that is the native unit for Max
 	private:
@@ -37,7 +37,7 @@ public:
 };
 
 
-class SecondUnit : public TTObject, public TTDataspaceUnit {
+class SecondUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(SecondUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -45,7 +45,7 @@ public:
 };
 
 
-class UpdaterateUnit : public TTObject, public TTDataspaceUnit {
+class UpdaterateUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(UpdaterateUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -53,7 +53,7 @@ public:
 };
 
 
-class BpmUnit : public TTObject, public TTDataspaceUnit {
+class BpmUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(BpmUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -62,7 +62,7 @@ public:
 
 
 // Specification of our base class
-class TimeDataspace : public TTObject, public TTDataspace {
+class TimeDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(TimeDataspace)
 };
 

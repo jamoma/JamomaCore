@@ -15,21 +15,21 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class CelsiusUnit : public TTObject, public TTDataspaceUnit {
+class CelsiusUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(CelsiusUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class FahrenheitUnit : public TTObject, public TTDataspaceUnit {
+class FahrenheitUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(FahrenheitUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class KelvinUnit : public TTObject, public TTDataspaceUnit {
+class KelvinUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(KelvinUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -38,7 +38,7 @@ public:
 
 
 // Specification of our base class
-class TemperatureDataspace : public TTObject, public TTDataspace {
+class TemperatureDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(TemperatureDataspace)
 };
 

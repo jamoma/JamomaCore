@@ -15,7 +15,7 @@
 /****************************************************************************************************/
 // Class Specification
 
-class TTDataspaceConverter : public TTObject {
+class TTDataspaceConverter : public TTDataObject {
 	TTCLASS_SETUP(TTDataspaceConverter)
 	
 	TTSymbolPtr			mDataspace;

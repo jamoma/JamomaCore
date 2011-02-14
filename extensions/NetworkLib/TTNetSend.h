@@ -14,7 +14,7 @@
 
 
 /**	TTNetSend is a simple client that echoes input out to a network. */
-class TTNetSend : public TTObject {
+class TTNetSend : public TTDataObject {
 	TTCLASS_SETUP(TTNetSend)
 
 	TTSymbolPtr				mAddress;	///< www.jamoma.org, 192.168.1.1, etc.

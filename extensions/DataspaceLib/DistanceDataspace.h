@@ -15,28 +15,28 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class CentimeterUnit : public TTObject, public TTDataspaceUnit {
+class CentimeterUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(CentimeterUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class InchUnit : public TTObject, public TTDataspaceUnit {
+class InchUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(InchUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class FootUnit : public TTObject, public TTDataspaceUnit {
+class FootUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(FootUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class MeterUnit : public TTObject, public TTDataspaceUnit {
+class MeterUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(MeterUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -45,7 +45,7 @@ public:
 
 
 // Specification of our base class
-class DistanceDataspace : public TTObject, public TTDataspace {
+class DistanceDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(DistanceDataspace)
 };
 

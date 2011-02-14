@@ -16,28 +16,28 @@
 // Class Specifications
 
 
-class SpeedUnit : public TTObject, public TTDataspaceUnit {
+class SpeedUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(SpeedUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class MidiPitchUnit : public TTObject, public TTDataspaceUnit {
+class MidiPitchUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(MidiPitchUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class FrequencyUnit : public TTObject, public TTDataspaceUnit {
+class FrequencyUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(FrequencyUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class CentUnit : public TTObject, public TTDataspaceUnit {
+class CentUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(CentUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -45,7 +45,7 @@ public:
 };
 
 // Specification of our base class
-class PitchDataspace : public TTObject, public TTDataspace {
+class PitchDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(PitchDataspace)
 };
 
