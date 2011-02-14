@@ -26,7 +26,7 @@ class TTInput;
 typedef TTInput* TTInputPtr;
 
 
-class TTMODULAR_EXPORT TTOutput : public TTObject
+class TTMODULAR_EXPORT TTOutput : public TTDataObject
 {
 	TTCLASS_SETUP(TTOutput)
 	

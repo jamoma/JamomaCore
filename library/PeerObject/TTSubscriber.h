@@ -35,7 +35,7 @@ typedef TTData* TTDataPtr;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTSubscriber : public TTObject
+class TTMODULAR_EXPORT TTSubscriber : public TTDataObject
 {
 	
 public:

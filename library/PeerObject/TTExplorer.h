@@ -20,7 +20,7 @@
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTExplorer : public TTObject
+class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 {
 	TTCLASS_SETUP(TTExplorer)
 	

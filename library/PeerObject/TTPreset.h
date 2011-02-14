@@ -42,7 +42,7 @@ typedef Item* ItemPtr;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTPreset : public TTObject
+class TTMODULAR_EXPORT TTPreset : public TTDataObject
 {
 	TTCLASS_SETUP(TTPreset)
 	

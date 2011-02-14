@@ -19,7 +19,7 @@
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTContainer : public TTObject
+class TTMODULAR_EXPORT TTContainer : public TTDataObject
 {
 	TTCLASS_SETUP(TTContainer)
 	

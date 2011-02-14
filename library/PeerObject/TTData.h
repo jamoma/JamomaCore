@@ -39,7 +39,7 @@ typedef RampUnit*	RampUnitPtr;
 class DataspaceLib;
 typedef DataspaceLib*	DataspaceLibPtr;
 
-class TTMODULAR_EXPORT TTData : public TTObject
+class TTMODULAR_EXPORT TTData : public TTDataObject
 {
 	TTCLASS_SETUP(TTData)
 	

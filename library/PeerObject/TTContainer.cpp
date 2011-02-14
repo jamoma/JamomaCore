@@ -435,7 +435,7 @@ TTErr TTContainer::unbind()
 {
 	TTValue			hk, v;
 	TTValue			cacheElement;
-	TTObjectPtr		anObject, aValueObserver, anInitObserver;
+	TTObjectPtr		anObject, aValueObserver;//, anInitObserver;
 	TTAttributePtr	anAttribute;
 	TTSymbolPtr		key;
 	TTUInt8			i;

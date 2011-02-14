@@ -19,7 +19,7 @@
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTSender : public TTObject
+class TTMODULAR_EXPORT TTSender : public TTDataObject
 {
 	TTCLASS_SETUP(TTSender)
 	

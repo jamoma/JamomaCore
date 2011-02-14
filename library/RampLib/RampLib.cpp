@@ -16,7 +16,7 @@
 
 //RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton) : 
 RampUnit::RampUnit(TTValue& arguments) :
-	TTObject(kTTValNONE),
+	TTDataObject(kTTValNONE),
 	mFunction(NULL),
 	callback(NULL),
 	baton(NULL),

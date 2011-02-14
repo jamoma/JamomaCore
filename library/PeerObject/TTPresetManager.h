@@ -22,7 +22,7 @@ typedef TTPreset* TTPresetPtr;
 class TTXmlHandler;
 typedef TTXmlHandler* TTXmlHandlerPtr;
 
-class TTMODULAR_EXPORT TTPresetManager : public TTObject
+class TTMODULAR_EXPORT TTPresetManager : public TTDataObject
 {
 	TTCLASS_SETUP(TTPresetManager)
 	

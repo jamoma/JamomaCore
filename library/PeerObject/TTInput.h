@@ -23,7 +23,7 @@ typedef TTApplication* TTApplicationPtr;
 class TTOutput;
 typedef TTOutput* TTOutputPtr;
 
-class TTMODULAR_EXPORT TTInput : public TTObject
+class TTMODULAR_EXPORT TTInput : public TTDataObject
 {
 	TTCLASS_SETUP(TTInput)
 	

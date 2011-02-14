@@ -22,7 +22,7 @@ typedef TTCue* TTCuePtr;
 class TTXmlHandler;
 typedef TTXmlHandler* TTXmlHandlerPtr;
 
-class TTMODULAR_EXPORT TTCueManager : public TTObject
+class TTMODULAR_EXPORT TTCueManager : public TTDataObject
 {
 	TTCLASS_SETUP(TTCueManager)
 	

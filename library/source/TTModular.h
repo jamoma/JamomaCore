@@ -70,7 +70,7 @@ TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {r
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
+thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 
 
 

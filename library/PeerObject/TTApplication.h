@@ -32,7 +32,7 @@
 #define	ToTTName(appNames) \
 		mApplication->sendMessage(kTTSym_ConvertToTTName, appNames); \
 
-class TTMODULAR_EXPORT TTApplication : public TTObject
+class TTMODULAR_EXPORT TTApplication : public TTDataObject
 {
 	TTCLASS_SETUP(TTApplication)
 	
