@@ -18,7 +18,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	TTAudioGraphInit();
 
 	options->append(TT("nonadapting"), value); // don't change the number of out-channels in response to changes in the number of in-channels
-	wrapAsMaxAudioGraph(TT("matrix"), "jcom.matrix≈", NULL, options);
-	wrapAsMaxAudioGraph(TT("matrix"), "matrix≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("audiomatrix"), "jcom.matrix≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("audiomatrix"), "matrix≈", NULL, options);
 	return 0;
 }
