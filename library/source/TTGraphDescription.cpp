@@ -24,7 +24,7 @@ void TTGraphDescription::exportRuby(const TTString& fullpathToFile)
 	TTStringVector	nodeNames;
 	ofstream		rubyFile(fullpathToFile.c_str());
 	
-	rubyContent += "require \"TTRuby\"\n\n";
+	rubyContent += "require \"Jamoma\"\n\n";
 	exportRubyNode(rubyContent, index, nodeNames);
 	rubyFile.write(rubyContent.c_str(), rubyContent.size());
 	rubyFile.close();
