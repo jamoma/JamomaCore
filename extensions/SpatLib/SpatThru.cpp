@@ -32,38 +32,61 @@ SpatThru::~SpatThru()
 	;
 }
 
+TTErr SpatThru::setSourceCount(const TTValue& newValue)
+{
+	TTUInt16 numInputs = newValue;
+	
+	if (numInputs != mSourceCount) {
+		mSourceCount = numInputs;
+		}
+	return kTTErrNone;
+}
+
+
+TTErr SpatThru::setDestinationCount(const TTValue& newValue)
+{
+	TTUInt16 numOutputs = newValue;
+	
+	if (numOutputs != mDestinationCount) {
+		mDestinationCount = numOutputs;
+		}
+	return kTTErrNone;
+}
+
+
 
 TTErr SpatThru::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	src = inputs->getSignal(0);
 	TTAudioSignal&	dst = outputs->getSignal(0);
-	TTUInt16		vs;
+	TTUInt16		vs; // = src.getVectorSizeAsInt();
 	TTSampleValue*	srcSample;
 	TTSampleValue*	dstSample;
 	
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(src, dst);
 	TTUInt16		channel;
 	
 	TTUInt16		srcChannelCount = src.getNumChannelsAsInt();
 	TTUInt16		dstChannelCount = dst.getNumChannelsAsInt();
 	
 	if (srcChannelCount != mSourceCount) {
-		mSourceCount(srcChannelCount);
+		setSourceCount(srcChannelCount);	// for now, adapting to the number of inputs 
 	}
+	
 	if (dstChannelCount != mDestinationCount) {
-		TTValue v = Destination;
+		TTValue v = mDestinationCount;
 		
-		out.setMaxNumChannels(v);
-		out.setNumChannels(v);
-		mDestinationCount = mDestinationCount;
+		dst.setMaxNumChannels(v);
+		dst.setNumChannelsWithInt(v);
+		//FIXME: would this be faster? dst.setNumChannelsWithInt(mDestinationCount);
+		dstChannelCount = mDestinationCount;
 	}
 	
-	
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(dst,src);
+		
 	for (channel=0; channel<numchannels; channel++) {
 		srcSample = src.mSampleVectors[channel];
 		dstSample = dst.mSampleVectors[channel];
-		vs = src.getVectorSizeAsInt();
-		
+		vs = src.getVectorSizeAsInt();// FIXME: is this necessary everytime ? 
 		while (vs--) {
 			*dstSample++ = *srcSample++;
 		}
@@ -72,8 +95,7 @@ TTErr SpatThru::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	if (dstChannelCount > srcChannelCount) {
 		for (channel; channel<dstChannelCount; channel++) {
 			dstSample = dst.mSampleVectors[channel];
-			vs = src.getVectorSizeAsInt();
-			
+			vs = dst.getVectorSizeAsInt();// FIXME: is this necessary everytime ? 
 			while (vs--) {
 				*dstSample++ = 0.0;
 			}

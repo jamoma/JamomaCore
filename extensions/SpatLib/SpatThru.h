@@ -18,8 +18,8 @@
 class SpatThru : public TTAudioObject {
 	TTCLASS_SETUP(SpatThru)
 	
-	TTUInt16 = mSourceCount;
-	TTUInt16 = mDestinationCount;
+	TTUInt16 mSourceCount;
+	TTUInt16 mDestinationCount;
 	
 	// Attributes
 	TTErr setSourceCount(const TTValue& value);

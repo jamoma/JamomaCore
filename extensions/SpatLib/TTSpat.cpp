@@ -26,9 +26,12 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addMessageWithArgument(getSpatFunctions);
 	
+	//addUpdate(MaxNumChannels);
+	
 	setAttributeValue(TT("spatFunction"), TT("spat.thru"));
 	setAttributeValue(TT("sourceCount"), 2);
-	setAttributeValue(TT("destinationCount"), 8);
+	setAttributeValue(TT("destinationCount"), 8);	
+	setProcessMethod(process);
 }
 
 
