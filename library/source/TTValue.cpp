@@ -9,6 +9,7 @@
 #include "TTValue.h"
 #include "TTSymbolTable.h"
 #include "TTObject.h"
+#include "TTMatrix.h"
 
 
 /****************************************************************************************************/
@@ -120,6 +121,13 @@ TTValue::TTValue(const TTObject& initialValue)
 	init();
 	data->object = (TTObjectPtr)&initialValue;
 	*type = kTypeObject;
+}
+
+TTValue::TTValue(const TTMatrix& initialValue)
+{
+	init();
+	data->matrix = (TTMatrixPtr)&initialValue;
+	*type = kTypeMatrix;
 }
 
 TTValue::TTValue(const TTValue& obj) : 
@@ -600,6 +608,46 @@ TTValue::operator TTObject*() const
 }
 
 
+// MATRIX
+TTValue& TTValue::operator = (TTMatrix& value)
+{
+	setSize(1);
+	*type = kTypeMatrix;
+	data->matrix = &value;
+	return *this;
+}
+
+TTValue::operator TTMatrix&() const
+{
+	TT_ASSERT(ttvalue_cast_to_object_ref, *type == kTypeObject);
+	
+	if (*type == kTypeMatrix)
+		return *data->matrix;
+	else {
+		// TODO: This is an error, not sure what to do...
+		return *data->matrix;
+	}
+}
+
+TTValue& TTValue::operator = (TTMatrix* value)
+{
+	setSize(1);
+	*type = kTypeMatrix;
+	data->matrix = value;
+	return *this;
+}
+
+TTValue::operator TTMatrix*() const
+{
+	TT_ASSERT(ttvalue_cast_to_object_ptr, *type == kTypeObject);
+	
+	if (*type == kTypeMatrix)
+		return data->matrix;
+	else
+		return NULL;
+}
+
+
 // POINTER
 TTValue& TTValue::operator = (TTPtr value)
 {
@@ -703,6 +751,12 @@ void TTValue::set(const TTUInt16 index, const TTObject& newValue)
 {
 	type[index] = kTypeObject;
 	data[index].object = (TTObject*)&newValue;
+}
+
+void TTValue::set(const TTUInt16 index, const TTMatrix& newValue)
+{
+	type[index] = kTypeMatrix;
+	data[index].matrix = (TTMatrix*)&newValue;
 }
 
 void TTValue::set(const TTUInt16 index, const TTString& newValue)
@@ -841,6 +895,18 @@ void TTValue::get(const TTUInt16 index, TTObject** value) const
 		*value = (data+index)->object;
 }
 
+void TTValue::get(const TTUInt16 index, TTMatrix &value) const
+{
+	if (type[index] == kTypeMatrix)
+		value = *(data+index)->matrix;
+}
+
+void TTValue::get(const TTUInt16 index, TTMatrix** value) const
+{
+	if (type[index] == kTypeMatrix)
+		*value = (data+index)->matrix;
+}
+
 void TTValue::get(const TTUInt16 index, TTPtr* value) const
 {
 	if (type[index] == kTypePointer)
@@ -931,6 +997,12 @@ void TTValue::append(const TTString& newValue)
 }
 
 void TTValue::append(const TTObject& newValue)
+{
+	setSize(numValues + 1);
+	set(numValues-1, newValue);
+}
+
+void TTValue::append(const TTMatrix& newValue)
 {
 	setSize(numValues + 1);
 	set(numValues-1, newValue);

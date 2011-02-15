@@ -7,6 +7,7 @@
  */
 
 #include "TTObject.h"
+#include "TTMatrix.h"
 #include "TTEnvironment.h"
 #include "TTCallback.h"
 
@@ -135,6 +136,9 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 		case kTypeObject:
 			value = *((TTObject*)attribute.address);
 			return kTTErrNone;
+		case kTypeMatrix:
+			value = *((TTMatrix*)attribute.address);
+			return kTTErrNone;
 		case kTypePointer:
 			value = *((TTPtr*)attribute.address);
 			return kTTErrNone;
@@ -194,6 +198,9 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 			return kTTErrNone;
 		case kTypeObject:
 			*((TTObject*)attribute.address) = value;
+			return kTTErrNone;
+		case kTypeMatrix:
+			*((TTMatrix*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypePointer:
 			*((TTPtr*)attribute.address) = (TTPtr)value;

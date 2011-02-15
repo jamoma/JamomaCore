@@ -29,6 +29,11 @@ TT_OBJECT_CONSTRUCTOR,
 	// TODO: setAll message
 	// TODO: getAverage message
 	
+	// TODO: getLockedPointer -- returns a pointer to the data, locks the matrix mutex
+	// TODO: releaseLockedPointer -- releases the matrix mutex
+	// TODO: the above two items mean we need a TTMutex member
+	
+	
 //	setAttributeValue(TT("dimensions"), TTValue());
 }
 
@@ -91,6 +96,9 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions)
 TTErr TTMatrix::setType(const TTValue& aType)
 {
 	TTSymbolPtr typeName = aType;
+	
+	// TODO: it's dumb to do this big switch below... 
+	// TODO: we should use the info already defined in TTDataInfo
 	
 	if (typeName == TT("uint8") || typeName == TT("int8"))
 		mTypeSizeInBytes = 1;

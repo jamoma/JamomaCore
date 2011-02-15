@@ -16,6 +16,8 @@
 
 
 class TTObject;
+class TTMatrix;
+
 
 //#define USE_TTInt32				// to -- To easily change for TTInt32 instead of int in order to make test
 
@@ -90,6 +92,7 @@ private:
 		TTSymbolPtr		sym;
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
 		TTObject*		object;
+		TTMatrix*		matrix;
 		TTPtr			ptr;
 	};
 		
@@ -125,6 +128,7 @@ public:
 	TTValue(const TTSymbolPtr initialValue);
 	TTValue(const TTString& initialValue);
 	TTValue(const TTObject& initialValue);
+	TTValue(const TTMatrix& initialValue);
 	TTValue(const TTPtr initialValue);
 	
 	TTValue(const TTFloat64 initialValue1, const TTFloat64 initialValue2);
@@ -229,7 +233,13 @@ public:
 	operator TTObject&() const;
 	TTValue& operator = (TTObject* value);
 	operator TTObject*() const;
-
+	
+	// MATRIX
+	TTValue& operator = (TTMatrix& value);
+	operator TTMatrix&() const;
+	TTValue& operator = (TTMatrix* value);
+	operator TTMatrix*() const;
+	
 	// GENERIC POINTER
 	TTValue& operator = (TTPtr value);
 	operator TTPtr() const;
@@ -252,6 +262,7 @@ public:
 	void set(const TTUInt16 index, const TTSymbol* newValue);
 	void set(const TTUInt16 index, const TTString& newValue);
 	void set(const TTUInt16 index, const TTObject& newValue);
+	void set(const TTUInt16 index, const TTMatrix& newValue);
 	void set(const TTUInt16 index, const TTPtr newValue);
 
 
@@ -276,6 +287,8 @@ public:
 	void get(const TTUInt16 index, TTString& value) const;
 	void get(const TTUInt16 index, TTObject& value) const;
 	void get(const TTUInt16 index, TTObject** value) const;
+	void get(const TTUInt16 index, TTMatrix& value) const;
+	void get(const TTUInt16 index, TTMatrix** value) const;
 	void get(const TTUInt16 index, TTPtr* value) const;
 
 	// inlined for speed (e.g. for use in the dataspace lib)
@@ -315,6 +328,7 @@ public:
 	void append(const TTSymbol* newValue);
 	void append(const TTString& newValue);
 	void append(const TTObject& newValue);
+	void append(const TTMatrix& newValue);
 	void append(const TTPtr newValue);
 	void append(const TTValue* newValue);
 	void append(const TTValue& newValue);
