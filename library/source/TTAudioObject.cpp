@@ -8,6 +8,7 @@
 
 #include "TTDSP.h"
 #include "TTAudioObject.h"
+#include "TTUnitTest.h"
 
 
 // This coeff is used in GainDataspace mapping MIDI to and from linear gain 
@@ -22,8 +23,11 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	TTObject(arguments), 
 	maxNumChannels(0),
 	attrMute(0), 
-	inputArray(NULL), 
-	outputArray(NULL) 
+	inputArray(NULL),
+	outputArray(NULL),
+	startProcessingTime(0.0),
+	accumulatedProcessingTime(0.0),
+	accumulatedProcessingCalls(0.0)
 {
 	// Convention: 'Public' attribute names begin with a capital letter, 'Private' attribute names begin with a lower case letter
 	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
@@ -34,6 +38,9 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	addAttributeProperty(processInPlace,	hidden,	YES);
 	
 	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
+	registerMessage(TT("test"), TTMethod(&TTObject::test));
+	registerMessage(TT("resetBenchmarking"), (TTMethod)&TTAudioObject::resetBenchmarking, kTTMessagePassNone);
+	registerMessage(TT("getProcessingBenchmark"), (TTMethod)&TTAudioObject::getProcessingBenchmark);
 	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
@@ -279,6 +286,38 @@ TTErr TTAudioObject::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSigna
 }
 
 
+
+
+
+// TODO: move this (inline) function into a more appropriate place
+TTFloat64 TTGetTimeInMilliseconds()
+{
+	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
+#if	CLOCKS_PER_SEC == 1000000
+	return clock() / 1000.0;	
+#else
+	return (clock() * 1000.0) / CLOCKS_PER_SEC;
+#endif
+}
+
+
+// TODO: move this (inline) function into a more appropriate place
+TTFloat64 TTGetTimeInMicroseconds()
+{
+	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
+#if	CLOCKS_PER_SEC == 1000000
+	return clock();	
+#else
+	return (clock() * 1000000.0) / CLOCKS_PER_SEC;
+#endif
+}
+
+
+
+
+
+
+
 TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTErr	err = kTTErrGeneric;
@@ -290,7 +329,10 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 		outputArray->numAudioSignals = 1;
 		outputArray->setSignal(0, &out);
 		out.setSampleRate(sr);
+		startProcessingTime = TTGetTimeInMicroseconds();
 		err = (this->*currentProcessMethod)(inputArray, outputArray);
+		accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
+		accumulatedProcessingCalls++;
 		unlock();
 	}
 	return err;
@@ -307,7 +349,10 @@ TTErr TTAudioObject::process(TTAudioSignal& out)
 		outputArray->numAudioSignals = 1;
 		outputArray->setSignal(0, &out);
 		out.setSampleRate(sr);
+		startProcessingTime = TTGetTimeInMicroseconds();
 		err = (this->*currentProcessMethod)(inputArray, outputArray);
+		accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
+		accumulatedProcessingCalls++;
 		unlock();
 	}
 	return err;
@@ -328,7 +373,10 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 		outputArray->setSignal(1, &out2);
 		out1.setSampleRate(sr);
 		out2.setSampleRate(sr);
+		startProcessingTime = TTGetTimeInMicroseconds();
 		err = (this->*currentProcessMethod)(inputArray, outputArray);
+		accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
+		accumulatedProcessingCalls++;
 		unlock();
 	}
 	return err;
@@ -347,7 +395,10 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 		outputArray->numAudioSignals = 1;
 		outputArray->setSignal(0, &out);
 		out.setSampleRate(sr);
+		startProcessingTime = TTGetTimeInMicroseconds();
 		err = (this->*currentProcessMethod)(inputArray, outputArray);
+		accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
+		accumulatedProcessingCalls++;
 		unlock();
 	}
 	return err;
@@ -361,10 +412,29 @@ TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	if (valid) {
 		lock();
 		outputs->setAllSampleRates(sr);
+		startProcessingTime = TTGetTimeInMicroseconds();
 		err = (this->*currentProcessMethod)(inputs, outputs);
+		accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
+		accumulatedProcessingCalls++;
 		unlock();
 	}
 	return err;
+}
+
+
+TTErr TTAudioObject::resetBenchmarking()
+{
+	accumulatedProcessingTime = 0.0;
+	startProcessingTime = 0.0;
+	accumulatedProcessingCalls = 0.0;
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioObject::getProcessingBenchmark(TTValueRef v)
+{
+	v = accumulatedProcessingTime / accumulatedProcessingCalls;
+	return kTTErrNone;
 }
 
 
