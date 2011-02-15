@@ -15,7 +15,7 @@
 #include "CrossFadeQueue.h"
 #include "Properties.h"
 #include "ext_critical.h" //FIXME: this amy be added globally ?
-#include "TTElement.h"
+#include "TTBase.h"
 
 #include <cassert>
 #include <deque>

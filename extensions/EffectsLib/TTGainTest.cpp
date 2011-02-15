@@ -1,6 +1,11 @@
 /* 
+<<<<<<< HEAD
  * TTBlue Gain Control Object
  * Copyright © 2008, Timothy Place
+=======
+ * Unit tests for the Jamoma DSP gain object
+ * Copyright © 2011, Timothy Place and Trond Lossius
+>>>>>>> master
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -9,6 +14,7 @@
 #include "TTGain.h"
 
 
+<<<<<<< HEAD
 void TTTestLog(const char *msg)
 {
 	TTLogMessage("	");
@@ -53,6 +59,8 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 		return false;
 }
 
+=======
+>>>>>>> master
 TTErr TTGain::test(TTValue& returnedTestInfo)
 {
 	// preliminary setup
@@ -60,7 +68,11 @@ TTErr TTGain::test(TTValue& returnedTestInfo)
 	int	errorCount = 0;
 	int testAssertionCount = 0;
 	
+<<<<<<< HEAD
 	TTLogMessage("Testing Parameter value conversions:\n");
+=======
+	TTTestLog("Testing Parameter value conversions");
+>>>>>>> master
 	
 	
 	// N test assertions
@@ -106,15 +118,23 @@ TTErr TTGain::test(TTValue& returnedTestInfo)
 	for (int i=0; i<64; i++) {
 		badSampleCount += TTTestFloatEquivalence(0.501187, samples[i]);
 	}
+<<<<<<< HEAD
 	TTLogMessage("		badSampleCount is %i\n", badSampleCount);
+=======
+>>>>>>> master
 	TTTestAssertion("accumulated audio error at gain = -6 dB", 
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);
+<<<<<<< HEAD
+=======
+	TTTestLog("badSampleCount is %i", badSampleCount);
+>>>>>>> master
 	
 	TTObjectRelease(&input);
 	TTObjectRelease(&output);
 	
+<<<<<<< HEAD
 		
 	// Wrap up the test results to pass back to whoever called this test
 
@@ -131,4 +151,9 @@ TTErr TTGain::test(TTValue& returnedTestInfo)
 		return kTTErrGeneric;
 	else
 		return kTTErrNone;
+=======
+	
+	// Wrap up the test results to pass back to whoever called this test
+	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+>>>>>>> master
 }

@@ -16,12 +16,12 @@
 	Other objects can then access this buffer to record into it, play back from it,
 	or perform other operations on it.
 	
-	Because this object does not actually process any audio or numerical data by itself,
-	it inherits from TTObject rather than TTAudioObject.
+	This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
+	Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
 	
 	@see TTAudioSignal
 */
-class TTDSP_EXPORT TTBuffer : public TTDataObject {
+class TTDSP_EXPORT TTBuffer : public TTAudioObject {
 	TTCLASS_SETUP(TTBuffer)
 
 	TTSampleValue**		mContents;			///< An array of vectors (one vector per channel) to hold the samples.

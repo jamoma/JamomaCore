@@ -14,7 +14,7 @@
 
 
 /**	Delay a signal. */
-class TTDelay : public TTAudioObject {
+class TTDSP_EXPORT TTDelay : public TTAudioObject {
 	TTCLASS_SETUP(TTDelay)
 
 	TTFloat64			mDelay;

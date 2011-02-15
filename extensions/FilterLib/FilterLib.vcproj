@@ -191,6 +191,78 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TTAllpass1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1a.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1a.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1aCascade2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1aCascade2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1b.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1b.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1c.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass1c.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass2a.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass2a.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass2b.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass2b.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass2c.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass2c.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass4a.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTAllpass4a.h"
+				>
+			</File>
+			<File
 				RelativePath=".\TTBandpassButterworth2.cpp"
 				>
 			</File>
@@ -212,6 +284,46 @@
 			</File>
 			<File
 				RelativePath=".\TTDCBlock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTFilter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTFilter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHalfband3.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHalfband3.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHalfband5.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHalfband5.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHalfband9.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHalfband9.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHalfbandLinear33.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHalfbandLinear33.h"
 				>
 			</File>
 			<File
@@ -268,6 +380,22 @@
 			</File>
 			<File
 				RelativePath=".\TTHighpassLinkwitzRiley4.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHilbert9.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHilbert9.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHilbertLinear33.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHilbertLinear33.h"
 				>
 			</File>
 			<File
@@ -340,6 +468,22 @@
 			</File>
 			<File
 				RelativePath=".\TTLowpassTwoPole.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTMirror5.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTMirror5.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTMirrorBandpass10.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTMirrorBandpass10.h"
 				>
 			</File>
 			<File
