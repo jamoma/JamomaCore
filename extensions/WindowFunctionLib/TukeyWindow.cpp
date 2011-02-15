@@ -1,15 +1,15 @@
 /* 
- * Gauss Window Function Unit for Jamoma DSP
+ * Tukey Window Function Unit for Jamoma DSP
  * Copyright © 2011 by Nathan Wolek
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "GaussWindow.h"
+#include "TukeyWindow.h"
 
-#define thisTTClass GaussWindow
-#define thisTTClassName		"gauss"
+#define thisTTClass TukeyWindow
+#define thisTTClassName		"tukey"
 #define thisTTClassTags		"audio, processor, function, window"
 
 
@@ -20,20 +20,20 @@ TT_AUDIO_CONSTRUCTOR
 }
 
 
-GaussWindow::~GaussWindow()
+TukeyWindow::~TukeyWindow()
 {
 	;
 }
 
 
-TTErr GaussWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+TTErr TukeyWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	// NOTE: function would go here, nothing just yet
 	return kTTErrNone;
 }
 
 
-TTErr GaussWindow::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TukeyWindow::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
