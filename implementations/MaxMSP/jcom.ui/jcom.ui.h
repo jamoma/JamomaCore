@@ -15,7 +15,7 @@
 #include "jgraphics.h"
 #include "Jamoma.h"
 #include "ext_symobject.h"
-#include "TTElement.h"
+#include "TTBase.h"
 
 // members
 typedef struct _ui{
