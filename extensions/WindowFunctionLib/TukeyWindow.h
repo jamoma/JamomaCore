@@ -14,10 +14,10 @@
 
 /**	This implements the Tukey window function described here:
  http://en.wikipedia.org/wiki/File:Window_function_(Tukey;_alpha_%3D_0.5).png
- This is alternate implementation of what Roads (1996 p 170, 2001 p 88) typically refers to as the Gaussian window.
+ This is alternate implementation of what Roads (1996 p 170, 2001 p 88) typically refers to as a Gaussian window.
  It is easier to ensure that x and y values will scale properly with this formula as opposed to the one given by Roads.
  
- Where x is between 0. and 1.:
+ Where 0. <= x <= 1. and 0. <= alpha <= 1:
  y	= 0.5 * (1 + cos ( pi * (((2 / alpha) * x) - 1)))				: for the attack
 	= 1																: for the sustain
 	= 0.5 * (1 + cos ( pi * (((2 / alpha) * x) - (2 / alpha) + 1)))	: for the release
