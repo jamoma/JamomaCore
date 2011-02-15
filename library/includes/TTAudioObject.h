@@ -82,7 +82,9 @@ protected:
 	TTCalculateMethod		currentCalculateMethod;		///< This function pointer always points to the current calculate routine.
 	TTAudioSignalArray*		inputArray;					///< If the process method is passed a signal, rather than an array of signals, we wrap the signal in this array.
 	TTAudioSignalArray*		outputArray;				///< If the process method is passed a signal, rather than an array of signals, we wrap the signal in this array.
-	
+	TTFloat64				startProcessingTime;		///< The time at which this object's process method was last invoked (for benchmarking)
+	TTFloat64				accumulatedProcessingTime;	///< The amount of time spent in this object's process method (for benchmarking)
+	TTFloat64				accumulatedProcessingCalls;	///< The number of times the process method has been called (for benchmarking)
 	
 	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
 	TTErr setProcess(TTProcessMethod processMethod);
@@ -92,6 +94,12 @@ protected:
 		
 	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
 	TTErr setBypass(const TTValue& value);
+	
+	/**	Reset the benchmarking accumulation used to calculate the results of getProcessingBenchmark().		*/
+	TTErr resetBenchmarking();
+	
+	/**	Return the average time spent by this object processing audio since the last reset.					*/
+	TTErr getProcessingBenchmark(TTValueRef v);
 	
 public:
 	/** Mute the audio processing routine and zero all output.												*/

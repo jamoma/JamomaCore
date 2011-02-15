@@ -6,7 +6,7 @@
 #include "Mic.h"
 #include "Properties.h"
 #include "Angle.h"
-#include "TTElement.h"
+#include "TTBase.h"
 #include <cassert>
 #include <vector>
 

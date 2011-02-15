@@ -15,7 +15,7 @@
 TTObjectPtr	TTAudioEngine::sSingletonInstance = NULL;
 
 
-TT_OBJECT_CONSTRUCTOR,
+TT_BASE_OBJECT_CONSTRUCTOR,
 	mNumInputChannels(2),
 	mNumOutputChannels(2),
 	mVectorSize(64),
