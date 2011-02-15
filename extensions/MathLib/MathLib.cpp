@@ -9,7 +9,7 @@
 
 #include "TTDSP.h"
 #include "TTOperator.h"
-#include "TTMatrix.h"
+#include "TTAudioMatrix.h"
 #include "TTMatrixMixer.h"
 
 
@@ -18,7 +18,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTDSPInit();
 
 	TTOperator::registerClass();
-	TTMatrix::registerClass();	
+	TTAudioMatrix::registerClass();	
 	TTMatrixMixer::registerClass();	
 	
 	return kTTErrNone;

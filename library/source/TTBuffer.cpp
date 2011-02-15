@@ -13,7 +13,7 @@
 #define thisTTClassTags		"audio, buffer"
 
 
-TT_DATA_CONSTRUCTOR,
+TT_AUDIO_CONSTRUCTOR,
 	mContents(NULL),
 	mNumChannels(0),
 	mLength(0),

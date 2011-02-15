@@ -12,8 +12,8 @@
 		22FD474511E248C1007BBF7E /* MathLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD474411E248C1007BBF7E /* MathLib.cpp */; };
 		22FD474C11E248C9007BBF7E /* TTOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD474611E248C9007BBF7E /* TTOperator.h */; };
 		22FD474D11E248C9007BBF7E /* TTOperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD474711E248C9007BBF7E /* TTOperator.cpp */; };
-		22FD474E11E248C9007BBF7E /* TTMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD474811E248C9007BBF7E /* TTMatrix.h */; };
-		22FD474F11E248C9007BBF7E /* TTMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD474911E248C9007BBF7E /* TTMatrix.cpp */; };
+		22FD474E11E248C9007BBF7E /* TTAudioMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD474811E248C9007BBF7E /* TTAudioMatrix.h */; };
+		22FD474F11E248C9007BBF7E /* TTAudioMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD474911E248C9007BBF7E /* TTAudioMatrix.cpp */; };
 		22FD475011E248C9007BBF7E /* TTMatrixMixer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD474A11E248C9007BBF7E /* TTMatrixMixer.h */; };
 		22FD475111E248C9007BBF7E /* TTMatrixMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD474B11E248C9007BBF7E /* TTMatrixMixer.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
@@ -27,8 +27,8 @@
 		22FD474411E248C1007BBF7E /* MathLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathLib.cpp; sourceTree = "<group>"; };
 		22FD474611E248C9007BBF7E /* TTOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOperator.h; path = includes/TTOperator.h; sourceTree = "<group>"; };
 		22FD474711E248C9007BBF7E /* TTOperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOperator.cpp; path = source/TTOperator.cpp; sourceTree = "<group>"; };
-		22FD474811E248C9007BBF7E /* TTMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMatrix.h; path = includes/TTMatrix.h; sourceTree = "<group>"; };
-		22FD474911E248C9007BBF7E /* TTMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrix.cpp; path = source/TTMatrix.cpp; sourceTree = "<group>"; };
+		22FD474811E248C9007BBF7E /* TTAudioMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioMatrix.h; path = includes/TTAudioMatrix.h; sourceTree = "<group>"; };
+		22FD474911E248C9007BBF7E /* TTAudioMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioMatrix.cpp; path = source/TTAudioMatrix.cpp; sourceTree = "<group>"; };
 		22FD474A11E248C9007BBF7E /* TTMatrixMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMatrixMixer.h; path = includes/TTMatrixMixer.h; sourceTree = "<group>"; };
 		22FD474B11E248C9007BBF7E /* TTMatrixMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrixMixer.cpp; path = source/TTMatrixMixer.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* MathLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = MathLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,8 +91,8 @@
 			children = (
 				22FD474611E248C9007BBF7E /* TTOperator.h */,
 				22FD474711E248C9007BBF7E /* TTOperator.cpp */,
-				22FD474811E248C9007BBF7E /* TTMatrix.h */,
-				22FD474911E248C9007BBF7E /* TTMatrix.cpp */,
+				22FD474811E248C9007BBF7E /* TTAudioMatrix.h */,
+				22FD474911E248C9007BBF7E /* TTAudioMatrix.cpp */,
 				22FD474A11E248C9007BBF7E /* TTMatrixMixer.h */,
 				22FD474B11E248C9007BBF7E /* TTMatrixMixer.cpp */,
 			);
@@ -107,7 +107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22FD474C11E248C9007BBF7E /* TTOperator.h in Headers */,
-				22FD474E11E248C9007BBF7E /* TTMatrix.h in Headers */,
+				22FD474E11E248C9007BBF7E /* TTAudioMatrix.h in Headers */,
 				22FD475011E248C9007BBF7E /* TTMatrixMixer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,7 +181,7 @@
 			files = (
 				22FD474511E248C1007BBF7E /* MathLib.cpp in Sources */,
 				22FD474D11E248C9007BBF7E /* TTOperator.cpp in Sources */,
-				22FD474F11E248C9007BBF7E /* TTMatrix.cpp in Sources */,
+				22FD474F11E248C9007BBF7E /* TTAudioMatrix.cpp in Sources */,
 				22FD475111E248C9007BBF7E /* TTMatrixMixer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

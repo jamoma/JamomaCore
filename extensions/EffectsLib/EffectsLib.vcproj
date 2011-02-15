@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -204,18 +204,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="TTDelay"
-			>
-			<File
-				RelativePath=".\TTDelay.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TTDelay.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="TTGain"
 			>
 			<File
@@ -224,6 +212,10 @@
 			</File>
 			<File
 				RelativePath=".\TTGain.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTGainTest.cpp"
 				>
 			</File>
 		</Filter>
