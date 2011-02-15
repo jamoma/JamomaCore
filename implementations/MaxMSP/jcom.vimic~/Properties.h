@@ -4,7 +4,7 @@
 #define _PROPERTIES_H_
 
 #include "ext.h"
-#include "TTElement.h"
+#include "TTBase.h"
 
 #define IEM_NAN(f) (f != f)
 

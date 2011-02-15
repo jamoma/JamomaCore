@@ -15,7 +15,7 @@
 
 #include "Filter.h"
 #include "Properties.h"
-#include "TTElement.h"
+#include "TTBase.h"
 
 extern bool globWarningFlag;
 extern bool globReportFlag;
