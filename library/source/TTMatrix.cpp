@@ -27,6 +27,7 @@ TT_OBJECT_CONSTRUCTOR,
 	// TODO: set message (for cell)
 	// TODO: get message (for cell)
 	// TODO: setAll message
+	// TODO: clear() -- which is really just [setall 0]
 	// TODO: getAverage message
 	
 	// TODO: getLockedPointer -- returns a pointer to the data, locks the matrix mutex
