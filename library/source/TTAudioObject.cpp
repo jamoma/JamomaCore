@@ -286,38 +286,6 @@ TTErr TTAudioObject::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSigna
 }
 
 
-
-
-
-// TODO: move this (inline) function into a more appropriate place
-TTFloat64 TTGetTimeInMilliseconds()
-{
-	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
-#if	CLOCKS_PER_SEC == 1000000
-	return clock() / 1000.0;	
-#else
-	return (clock() * 1000.0) / CLOCKS_PER_SEC;
-#endif
-}
-
-
-// TODO: move this (inline) function into a more appropriate place
-TTFloat64 TTGetTimeInMicroseconds()
-{
-	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
-#if	CLOCKS_PER_SEC == 1000000
-	return clock();	
-#else
-	return (clock() * 1000000.0) / CLOCKS_PER_SEC;
-#endif
-}
-
-
-
-
-
-
-
 TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTErr	err = kTTErrGeneric;
