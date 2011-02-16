@@ -1,13 +1,13 @@
 /*
- * TTBlue Base Class
+ * Jamoma's lowest-level base class and related infrastructure
  * Copyright © 2008, Timothy Place
  *
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html
  */
 
-#ifndef __TT_ELEMENT_H__
-#define __TT_ELEMENT_H__
+#ifndef __TT_BASE_H__
+#define __TT_BASE_H__
 
 // Platform Sniffing
 // Ideally the platform would already be set with a -D option to gcc...
@@ -282,6 +282,34 @@ class TTFOUNDATION_EXPORT TTBase {
 public:
 	TTBase();			///< Constructor.
 	virtual ~TTBase();	///< Destructor.
+	
+	
+	/**	Return the current system time in milliseconds.
+		Although it is a global kind of function, we include it as a method of TTBase
+		so that it can be defined in the header file and then inlined in other libraries.	*/
+	TTFloat64 TTGetTimeInMilliseconds()
+	{
+		// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
+#if	CLOCKS_PER_SEC == 1000000
+		return clock() / 1000.0;	
+#else
+		return (clock() * 1000.0) / CLOCKS_PER_SEC;
+#endif
+	}
+	
+	
+	/**	Return the current system time in microseconds.	*/
+	TTFloat64 TTGetTimeInMicroseconds()
+	{
+		// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
+#if	CLOCKS_PER_SEC == 1000000
+		return clock();	
+#else
+		return (clock() * 1000000.0) / CLOCKS_PER_SEC;
+#endif
+	}
+	
+	
 };
 
 
@@ -309,4 +337,6 @@ void TTFOUNDATION_EXPORT TTLogError(TTImmutableCString message, ...);
 void TTFOUNDATION_EXPORT TTLogDebug(TTImmutableCString message, ...);
 
 
-#endif // __TT_ELEMENT_H__
+
+
+#endif // __TT_BASE_H__

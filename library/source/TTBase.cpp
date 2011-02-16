@@ -1,6 +1,6 @@
 /* 
  * TTBlue Base Class
- * Copyright © 2008, Timothy Place
+ * Jamoma's lowest-level base class and related infrastructure
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -407,5 +407,4 @@ void TTLogDebug(TTImmutableCString message, ...)
 #endif
 	}
 }
-
 
