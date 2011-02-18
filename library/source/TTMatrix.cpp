@@ -101,23 +101,20 @@ TTErr TTMatrix::setType(const TTValue& aType)
 	// TODO: it's dumb to do this big switch below... 
 	// TODO: we should use the info already defined in TTDataInfo
 	
-	if (typeName == TT("uint8") || typeName == TT("int8"))
+	if (typeName == TT("uint8"))
 		mTypeSizeInBytes = 1;
-	else if (typeName == TT("uint16") || typeName == TT("int16"))
-		mTypeSizeInBytes = 2;
-	else if (typeName == TT("uint32") || typeName == TT("int32"))
+	else if (typeName == TT("int32"))
 		mTypeSizeInBytes = 4;
-	else if (typeName == TT("uint64") || typeName == TT("int64"))
-		mTypeSizeInBytes = 8;
-	else if (typeName == TT("float32") || typeName == TT("float32"))
+	else if (typeName == TT("float32"))
 		mTypeSizeInBytes = 4;
-	else if (typeName == TT("float64") || typeName == TT("float64"))
+	else if (typeName == TT("float64"))
 		mTypeSizeInBytes = 8;
 	else {
 		// don't change the matrix data if something bogus was passed-in
 		return kTTErrInvalidValue;
 	}
 	
+	mType = typeName;
 	return resize();
 }
 
