@@ -26,9 +26,8 @@ class TTFOUNDATION_EXPORT TTMatrix : TTDataObject {
 	
 	TTSymbolPtr			mType;				///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
 	TTUInt8				mTypeSizeInBytes;	///< number of bytes present in mType
-	vector<TTUInt32>	mDimensions;
+	vector<TTUInt32>	mDimensions;		///< N dimensions, each int specifying the size of that dimension
 	TTUInt8				mElementCount;		///< how many elements per value (e.g. 2 for complex numbers, 4 for colors, default = 1)
-	//TTUInt8			mDimensionCount;	///< how many dimensions are there?
 	
 		
 	
@@ -48,6 +47,10 @@ class TTFOUNDATION_EXPORT TTMatrix : TTDataObject {
 	/**	Attribute accessor	*/
 	TTErr setElementCount(const TTValue& newElementCount);
 
+	
+	TTErr clear();
+	TTErr fill(const TTValue& aValue);
+	
 
 	/**	Run unit tests.	*/	
 	virtual TTErr test(TTValue& returnedTestInfo);

@@ -291,6 +291,43 @@ public:
 	void get(const TTUInt16 index, TTMatrix** value) const;
 	void get(const TTUInt16 index, TTPtr* value) const;
 
+	
+	// inlined for speed (e.g. for use in the matrix)
+	TTFloat64 getUInt8(TTUInt16 index = 0) const
+	{
+		if (type[index] == kTypeUInt8)
+			return (data+index)->uint8;
+		else {
+			TTUInt8 value;
+			CONVERT(TTUInt8)
+			return value;
+		}
+	}
+	
+	// inlined for speed (e.g. for use in the matrix)
+	TTFloat64 getInt32(TTUInt16 index = 0) const
+	{
+		if (type[index] == kTypeInt32)
+			return (data+index)->int32;
+		else {
+			TTInt32 value;
+			CONVERT(TTInt32)
+			return value;
+		}
+	}
+	
+	// inlined for speed (e.g. for use in the matrix)
+	TTFloat64 getFloat32(TTUInt16 index = 0) const
+	{
+		if (type[index] == kTypeFloat32)
+			return (data+index)->float32;
+		else {
+			TTFloat32 value;
+			CONVERT(TTFloat32)
+			return value;
+		}
+	}
+	
 	// inlined for speed (e.g. for use in the dataspace lib)
 	TTFloat64 getFloat64(TTUInt16 index = 0) const
 	{
@@ -303,12 +340,72 @@ public:
 		}
 	}
 	
+
 	template <typename T>
 	void getIfExists(const TTUInt16 index, T arg)
 	{
 		if (index < numValues)
 			get(index, arg);
 	}
+	
+	
+	/**
+	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
+	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
+	 */
+	void getArray(TTUInt8* arrayToFill, TTUInt16 maxSize) const
+	{
+		for (int i=0; i<numValues; i++) {
+			if (i == maxSize)
+				break;
+			*(arrayToFill+i) = getUInt8(i);
+		}
+	}
+	
+	
+	/**
+	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
+	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
+	 */
+	void getArray(TTInt32* arrayToFill, TTUInt16 maxSize) const
+	{
+		for (int i=0; i<numValues; i++) {
+			if (i == maxSize)
+				break;
+			*(arrayToFill+i) = getInt32(i);
+		}
+	}
+	
+	
+	/**
+	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
+	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
+	 */
+	void getArray(TTFloat32* arrayToFill, TTUInt16 maxSize) const
+	{
+		for (int i=0; i<numValues; i++) {
+			if (i == maxSize)
+				break;
+			*(arrayToFill+i) = getFloat32(i);
+		}
+	}
+	
+	
+	/**
+	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
+	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
+	 */
+	void getArray(TTFloat64* arrayToFill, TTUInt16 maxSize) const
+	{
+		for (int i=0; i<numValues; i++) {
+			if (i == maxSize)
+				break;
+			*(arrayToFill+i) = getFloat64(i);
+		}
+	}
+	
+	
+	
 
 	void append(const TTFloat32 newValue);
 	void append(const TTFloat64 newValue);

@@ -98,6 +98,7 @@ using namespace std;
 // Note http://developer.apple.com/mac/library/documentation/Darwin/Conceptual/64bitPorting/MakingCode64-BitClean/MakingCode64-BitClean.html#//apple_ref/doc/uid/TP40001064-CH226-SW2
 
 typedef bool				TTBoolean;			// same as Boolean on the Mac
+typedef unsigned char		TTByte;
 typedef char*				TTCString;
 typedef const char*			TTImmutableCString;
 typedef std::string			TTString;

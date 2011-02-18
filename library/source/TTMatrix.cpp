@@ -24,11 +24,12 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithSetter(Type,				kTypeUInt8);
 	addAttributeWithSetter(ElementCount,		kTypeUInt8);
 	
+	addMessage(clear);
+	addMessageWithArgument(fill);
+	// TODO: getAverage message
+	
 	// TODO: set message (for cell)
 	// TODO: get message (for cell)
-	// TODO: setAll message
-	// TODO: clear() -- which is really just [setall 0]
-	// TODO: getAverage message
 	
 	// TODO: getLockedPointer -- returns a pointer to the data, locks the matrix mutex
 	// TODO: releaseLockedPointer -- releases the matrix mutex
@@ -58,6 +59,7 @@ TTErr TTMatrix::resize()
 	mDataSize = productOfDimensions * mElementCount * mTypeSizeInBytes;
 	
 	// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
+	// TODO: thread protection
 	delete[] mData;
 	mData = new char[mDataSize];
 
@@ -125,3 +127,31 @@ TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 	return resize();
 }
 
+
+TTErr TTMatrix::clear()
+{
+	memset(mData, 0, mDataSize);
+	return kTTErrNone;
+}
+
+
+TTErr TTMatrix::fill(const TTValue& aValue)
+{
+	int		stride = mTypeSizeInBytes * mElementCount;
+	TTByte	fillValue[stride];
+	
+	// TODO: here we have this ugly switch again...
+	if (mType == TT("uint8"))
+		aValue.getArray((TTUInt8*)fillValue, stride);
+	else if (mType == TT("int32"))
+		aValue.getArray((TTInt32*)fillValue, stride);
+	else if (mType == TT("float32"))
+		aValue.getArray((TTFloat32*)fillValue, stride);
+	else if (mType == TT("float64"))
+		aValue.getArray((TTFloat64*)fillValue, stride);
+	
+	for (TTUInt32 i=0; i<mDataSize; i += stride)
+		memcpy(mData+i, fillValue, stride);
+	
+	return kTTErrNone;
+}
