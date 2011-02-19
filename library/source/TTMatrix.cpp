@@ -19,8 +19,6 @@ TT_OBJECT_CONSTRUCTOR,
 	mType(TT("uint8")),
 	mElementCount(1)
 {
-	mDimensions[0] = 1; // initialize to a 1x1 matrix
-	
 	addAttributeWithGetterAndSetter(Dimensions, kTypeUInt32);
 	addAttributeWithSetter(Type,				kTypeUInt8);
 	addAttributeWithSetter(ElementCount,		kTypeUInt8);
@@ -37,7 +35,7 @@ TT_OBJECT_CONSTRUCTOR,
 	// TODO: the above two items mean we need a TTMutex member
 	
 	
-//	setAttributeValue(TT("dimensions"), TTValue());
+	setAttributeValue(TT("dimensions"), kTTVal1); // initialize to a 1x1 matrix by default (maybe we should be using the args?
 }
 
 
