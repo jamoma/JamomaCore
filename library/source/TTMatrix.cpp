@@ -25,15 +25,12 @@ TT_OBJECT_CONSTRUCTOR,
 	
 	addMessage(clear);
 	addMessageWithArgument(fill);
-	// TODO: getAverage message
-	
 	addMessageWithArgument(get);
 	addMessageWithArgument(set);
 		
 	// TODO: getLockedPointer -- returns a pointer to the data, locks the matrix mutex
 	// TODO: releaseLockedPointer -- releases the matrix mutex
 	// TODO: the above two items mean we need a TTMutex member
-	
 	
 	setAttributeValue(TT("dimensions"), kTTVal1); // initialize to a 1x1 matrix by default (maybe we should be using the args?
 }
