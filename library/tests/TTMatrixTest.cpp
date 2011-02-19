@@ -46,14 +46,13 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Setting to a 2D image matrix (8-bit int, 4 elements per value for rgba color) with a size of 160 x 120");
 		TTValue dims(160, 120);
 		matrix->setAttributeValue(TT("dimensions"), dims);
-		matrix->setAttributeValue(TT("type"), TT("float64"));
-		matrix->setAttributeValue(TT("elementCount"), 2);
+		matrix->setAttributeValue(TT("type"), TT("uint8"));
+		matrix->setAttributeValue(TT("elementCount"), 4);
 		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTUInt8) * 160 * 120 * 4, 
 						testAssertionCount,
 						errorCount);
-
 		
 		
 		TTTestLog("Setting to a 3D matrix with a size of 5 x 3 x 4 using float32 data and a single element per value");
