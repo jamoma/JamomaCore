@@ -50,6 +50,8 @@ class TTFOUNDATION_EXPORT TTMatrix : TTDataObject {
 	
 	TTErr clear();
 	TTErr fill(const TTValue& aValue);
+	TTErr get(TTValue& aValue);
+	TTErr set(const TTValue& aValue);
 	
 
 	/**	Run unit tests.	*/	

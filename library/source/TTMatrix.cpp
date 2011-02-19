@@ -16,10 +16,11 @@
 TT_OBJECT_CONSTRUCTOR,
 	mData(NULL),
 	mDataSize(0),
-//	mType(),
-//	mDimensions(),
+	mType(TT("uint8")),
 	mElementCount(1)
 {
+	mDimensions[0] = 1; // initialize to a 1x1 matrix
+	
 	addAttributeWithGetterAndSetter(Dimensions, kTypeUInt32);
 	addAttributeWithSetter(Type,				kTypeUInt8);
 	addAttributeWithSetter(ElementCount,		kTypeUInt8);
@@ -28,9 +29,9 @@ TT_OBJECT_CONSTRUCTOR,
 	addMessageWithArgument(fill);
 	// TODO: getAverage message
 	
-	// TODO: set message (for cell)
-	// TODO: get message (for cell)
-	
+	addMessageWithArgument(get);
+	addMessageWithArgument(set);
+		
 	// TODO: getLockedPointer -- returns a pointer to the data, locks the matrix mutex
 	// TODO: releaseLockedPointer -- releases the matrix mutex
 	// TODO: the above two items mean we need a TTMutex member
@@ -155,3 +156,108 @@ TTErr TTMatrix::fill(const TTValue& aValue)
 	
 	return kTTErrNone;
 }
+
+
+/*
+	To find the index in the matrix:
+ 
+	1D Matrix:	index = x
+	2D Matrix:	index = dim_0 y  +  x
+	3D Matrix:	index = dim_0 dim_1 z  +  dim_0 y  +  x
+	etc.
+ */
+
+
+// args passed-in should be the coordinates
+// args returned will be the value at those coordinates
+TTErr TTMatrix::get(TTValue& aValue)
+{
+	TTUInt16 dimensionCount = aValue.getSize();
+	
+	if (dimensionCount != mDimensions.size())
+		return kTTErrWrongNumValues;
+
+	// TODO: maybe we could pre-calculate and store the stride?
+	int stride = mTypeSizeInBytes * mElementCount;
+	int productOfLowerDimensionSizes = 1;
+	int index = 0;
+	
+	for (int d=0; d<dimensionCount; d++) {
+		int position = aValue.getInt32(d);
+		
+		index += position * productOfLowerDimensionSizes;
+		productOfLowerDimensionSizes *= mDimensions[d];
+	}
+	
+	aValue.clear();
+		
+	// TODO: here we have this ugly switch again...
+	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
+	if (mType == TT("uint8")) {
+		for (int e=0; e<mElementCount; e++)
+			aValue.append((TTUInt8*)mData[index*stride+e*mTypeSizeInBytes]);
+	}
+	else if (mType == TT("int32")) {
+		for (int e=0; e<mElementCount; e++)
+			aValue.append((TTInt32*)mData[index*stride+e*mTypeSizeInBytes]);
+	}
+	else if (mType == TT("float32")) {
+		for (int e=0; e<mElementCount; e++)
+			aValue.append((TTFloat32*)mData[index*stride+e*mTypeSizeInBytes]);
+	}
+	else if (mType == TT("float64")) {
+		for (int e=0; e<mElementCount; e++)
+			aValue.append((TTFloat64*)mData[index*stride+e*mTypeSizeInBytes]);
+	}
+	
+	return kTTErrNone;
+}
+
+
+// args passed-in should be the coordinates plus the value
+TTErr TTMatrix::set(const TTValue& aValue)
+{
+	TTValue		theValue;
+	TTValue		theDimensions = aValue;
+	TTInt16		dimensionCount = aValue.getSize() - mElementCount;
+	
+	if (dimensionCount < 0)
+		return kTTErrWrongNumValues;
+	
+	theValue.copyFrom(aValue, dimensionCount);
+	theDimensions.setSize(dimensionCount);
+	
+	// TODO: maybe we could pre-calculate and store the stride?
+	int stride = mTypeSizeInBytes * mElementCount;
+	int productOfLowerDimensionSizes = 1;
+	int index = 0;
+	
+	for (int d=0; d<dimensionCount; d++) {
+		int position = aValue.getInt32(d);
+		
+		index += position * productOfLowerDimensionSizes;
+		productOfLowerDimensionSizes *= mDimensions[d];
+	}
+
+	// TODO: here we have this ugly switch again...
+	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
+	if (mType == TT("uint8")) {
+		for (int e=0; e<mElementCount; e++)
+			aValue.get(e, *(TTUInt8*)mData[index*stride+e*mTypeSizeInBytes]);
+	}
+	else if (mType == TT("int32")) {
+		for (int e=0; e<mElementCount; e++)
+			aValue.get(e, *(TTInt32*)mData[index*stride+e*mTypeSizeInBytes]);
+	}
+	else if (mType == TT("float32")) {
+		for (int e=0; e<mElementCount; e++)
+			aValue.get(e, *(TTFloat32*)mData[index*stride+e*mTypeSizeInBytes]);
+	}
+	else if (mType == TT("float64")) {
+		for (int e=0; e<mElementCount; e++)
+			aValue.get(e, *(TTFloat64*)mData[index*stride+e*mTypeSizeInBytes]);
+	}
+		
+	return kTTErrNone;
+}
+
