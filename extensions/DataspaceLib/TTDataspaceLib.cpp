@@ -13,6 +13,7 @@
 #include "NoneDataspace.h"
 #include "PitchDataspace.h"
 #include "PositionDataspace.h"
+#include "SpeedDataspace.h"
 #include "TemperatureDataspace.h"
 #include "TimeDataspace.h"
 
@@ -61,6 +62,13 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	PolarUnit::registerClass();
 	OpenGlUnit::registerClass();
 	CylindricalUnit::registerClass();
+	
+	SpeedDataspace::registerClass();
+	FootPerSecondUnit::registerClass();
+	MeterPerSecondUnit::registerClass();
+	MilesPerHourUnit::registerClass();
+	KilometerPerHourUnit::registerClass();
+	KnotUnit::registerClass();	
 	
 	TemperatureDataspace::registerClass();
 	CelsiusUnit::registerClass();

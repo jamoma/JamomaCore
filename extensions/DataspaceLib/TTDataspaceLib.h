@@ -27,6 +27,7 @@
 	#endif
 #endif
 
+// TODO: these constants should go into TTBase.h [NP]
 
 // Constants used for trigonometric convertions:
 static const double kRadiansToDegrees = 180.0 / kTTPi; 

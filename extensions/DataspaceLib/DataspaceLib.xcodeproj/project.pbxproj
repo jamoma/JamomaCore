@@ -31,6 +31,8 @@
 		22FD481211E24A63007BBF7E /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD480011E24A63007BBF7E /* TemperatureDataspace.cpp */; };
 		22FD481311E24A63007BBF7E /* TimeDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD480111E24A63007BBF7E /* TimeDataspace.h */; };
 		22FD481411E24A63007BBF7E /* TimeDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD480211E24A63007BBF7E /* TimeDataspace.cpp */; };
+		666249C1130CADA600132439 /* SpeedDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666249BF130CADA600132439 /* SpeedDataspace.cpp */; };
+		666249C2130CADA600132439 /* SpeedDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666249C0130CADA600132439 /* SpeedDataspace.h */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		22FD480011E24A63007BBF7E /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemperatureDataspace.cpp; sourceTree = "<group>"; };
 		22FD480111E24A63007BBF7E /* TimeDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeDataspace.h; sourceTree = "<group>"; };
 		22FD480211E24A63007BBF7E /* TimeDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeDataspace.cpp; sourceTree = "<group>"; };
+		666249BF130CADA600132439 /* SpeedDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeedDataspace.cpp; sourceTree = "<group>"; };
+		666249C0130CADA600132439 /* SpeedDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedDataspace.h; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = DataspaceLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -141,6 +145,8 @@
 				22FD47FC11E24A63007BBF7E /* PitchDataspace.cpp */,
 				22FD47FD11E24A63007BBF7E /* PositionDataspace.h */,
 				22FD47FE11E24A63007BBF7E /* PositionDataspace.cpp */,
+				666249BF130CADA600132439 /* SpeedDataspace.cpp */,
+				666249C0130CADA600132439 /* SpeedDataspace.h */,
 				22FD47FF11E24A63007BBF7E /* TemperatureDataspace.h */,
 				22FD480011E24A63007BBF7E /* TemperatureDataspace.cpp */,
 				22FD480111E24A63007BBF7E /* TimeDataspace.h */,
@@ -166,6 +172,7 @@
 				22FD480F11E24A63007BBF7E /* PositionDataspace.h in Headers */,
 				22FD481111E24A63007BBF7E /* TemperatureDataspace.h in Headers */,
 				22FD481311E24A63007BBF7E /* TimeDataspace.h in Headers */,
+				666249C2130CADA600132439 /* SpeedDataspace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +256,7 @@
 				227EF71812E20D6C00B8DD63 /* TTDataspace.cpp in Sources */,
 				227EF72312E2118200B8DD63 /* TTDataspaceUnit.cpp in Sources */,
 				227EF76F12E21C5F00B8DD63 /* TTDataspaceConverter.cpp in Sources */,
+				666249C1130CADA600132439 /* SpeedDataspace.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
