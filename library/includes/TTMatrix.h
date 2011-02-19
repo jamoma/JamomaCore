@@ -18,7 +18,7 @@ typedef char* TTDataPtr;	///< Data is a pointer to some bytes.
 // Class Specification
 
 /**	An N-dimensional matrix of compound values.	*/
-class TTFOUNDATION_EXPORT TTMatrix : TTDataObject {
+class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
 	
 	TTDataPtr			mData;				///< matrix of values
