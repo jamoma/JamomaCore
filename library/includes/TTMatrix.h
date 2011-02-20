@@ -11,7 +11,7 @@
 
 #include "TTDataObject.h"
 
-typedef char* TTDataPtr;	///< Data is a pointer to some bytes.
+typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 
 
 /****************************************************************************************************/
@@ -21,7 +21,7 @@ typedef char* TTDataPtr;	///< Data is a pointer to some bytes.
 class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
 	
-	TTDataPtr			mData;				///< matrix of values
+	TTBytePtr			mData;				///< matrix of values
 	TTUInt32			mDataSize;			///< sizeof(type) * mDimension[0] * mDimension[1] ...  * mElementCount
 	
 	TTSymbolPtr			mType;				///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
@@ -29,6 +29,7 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	vector<TTUInt32>	mDimensions;		///< N dimensions, each int specifying the size of that dimension
 	TTUInt8				mElementCount;		///< how many elements per value (e.g. 2 for complex numbers, 4 for colors, default = 1)
 	
+	TTUInt8				mValueStride;		///< how many bytes from one compound value's beginning to the next one
 		
 	
 	/**	Internal method that resizes memory allocated when various attributes change.	*/

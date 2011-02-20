@@ -57,8 +57,10 @@ TTErr TTMatrix::resize()
 	// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
 	// TODO: thread protection
 	delete[] mData;
-	mData = new char[mDataSize];
+	mData = new TTByte[mDataSize];
 
+	mValueStride = mTypeSizeInBytes * mElementCount;
+	
 	if (mDataSize && mData)
 		return kTTErrNone;
 	else
@@ -133,21 +135,20 @@ TTErr TTMatrix::clear()
 
 TTErr TTMatrix::fill(const TTValue& aValue)
 {
-	int		stride = mTypeSizeInBytes * mElementCount;
-	TTByte	fillValue[stride];
+	TTByte	fillValue[mValueStride];
 	
 	// TODO: here we have this ugly switch again...
 	if (mType == TT("uint8"))
-		aValue.getArray((TTUInt8*)fillValue, stride);
+		aValue.getArray((TTUInt8*)fillValue, mElementCount);
 	else if (mType == TT("int32"))
-		aValue.getArray((TTInt32*)fillValue, stride);
+		aValue.getArray((TTInt32*)fillValue, mElementCount);
 	else if (mType == TT("float32"))
-		aValue.getArray((TTFloat32*)fillValue, stride);
+		aValue.getArray((TTFloat32*)fillValue, mElementCount);
 	else if (mType == TT("float64"))
-		aValue.getArray((TTFloat64*)fillValue, stride);
+		aValue.getArray((TTFloat64*)fillValue, mElementCount);
 	
-	for (TTUInt32 i=0; i<mDataSize; i += stride)
-		memcpy(mData+i, fillValue, stride);
+	for (TTUInt32 i=0; i<mDataSize; i += mValueStride)
+		memcpy(mData+i, fillValue, mValueStride);
 	
 	return kTTErrNone;
 }
@@ -172,8 +173,6 @@ TTErr TTMatrix::get(TTValue& aValue)
 	if (dimensionCount != mDimensions.size())
 		return kTTErrWrongNumValues;
 
-	// TODO: maybe we could pre-calculate and store the stride?
-	int stride = mTypeSizeInBytes * mElementCount;
 	int productOfLowerDimensionSizes = 1;
 	int index = 0;
 	
@@ -190,19 +189,19 @@ TTErr TTMatrix::get(TTValue& aValue)
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTUInt8*)mData[index*stride+e*mTypeSizeInBytes]);
+			aValue.append((TTUInt8*)mData[index*mValueStride+e*mTypeSizeInBytes]);
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTInt32*)mData[index*stride+e*mTypeSizeInBytes]);
+			aValue.append((TTInt32*)mData[index*mValueStride+e*mTypeSizeInBytes]);
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTFloat32*)mData[index*stride+e*mTypeSizeInBytes]);
+			aValue.append((TTFloat32*)mData[index*mValueStride+e*mTypeSizeInBytes]);
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTFloat64*)mData[index*stride+e*mTypeSizeInBytes]);
+			aValue.append((TTFloat64*)mData[index*mValueStride+e*mTypeSizeInBytes]);
 	}
 	
 	return kTTErrNone;
@@ -222,8 +221,6 @@ TTErr TTMatrix::set(const TTValue& aValue)
 	theValue.copyFrom(aValue, dimensionCount);
 	theDimensions.setSize(dimensionCount);
 	
-	// TODO: maybe we could pre-calculate and store the stride?
-	int stride = mTypeSizeInBytes * mElementCount;
 	int productOfLowerDimensionSizes = 1;
 	int index = 0;
 	
@@ -238,19 +235,19 @@ TTErr TTMatrix::set(const TTValue& aValue)
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e, *(TTUInt8*)mData[index*stride+e*mTypeSizeInBytes]);
+			aValue.get(e, *(TTUInt8*)mData[index*mValueStride+e*mTypeSizeInBytes]);
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e, *(TTInt32*)mData[index*stride+e*mTypeSizeInBytes]);
+			aValue.get(e, *(TTInt32*)mData[index*mValueStride+e*mTypeSizeInBytes]);
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e, *(TTFloat32*)mData[index*stride+e*mTypeSizeInBytes]);
+			aValue.get(e, *(TTFloat32*)mData[index*mValueStride+e*mTypeSizeInBytes]);
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e, *(TTFloat64*)mData[index*stride+e*mTypeSizeInBytes]);
+			aValue.get(e, *(TTFloat64*)mData[index*mValueStride+e*mTypeSizeInBytes]);
 	}
 		
 	return kTTErrNone;

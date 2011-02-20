@@ -40,6 +40,10 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->mDataSize == sizeof(TTFloat64) * 16 * 2, 
 						testAssertionCount,
 						errorCount);
+		TTTestAssertion("correct byte-stride between values calculated", 
+						matrix->mValueStride == sizeof(TTFloat64) * 2, 
+						testAssertionCount,
+						errorCount);
 		
 		
 		
@@ -53,6 +57,10 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->mDataSize == sizeof(TTUInt8) * 160 * 120 * 4, 
 						testAssertionCount,
 						errorCount);
+		TTTestAssertion("correct byte-stride between values calculated", 
+						matrix->mValueStride == sizeof(TTUInt8) * 4, 
+						testAssertionCount,
+						errorCount);
 		
 		
 		TTTestLog("Setting to a 3D matrix with a size of 5 x 3 x 4 using float32 data and a single element per value");
@@ -63,9 +71,33 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		matrix->setAttributeValue(TT("dimensions"), dims);
 		matrix->setAttributeValue(TT("type"), TT("float32"));
 		matrix->setAttributeValue(TT("elementCount"), 1);
-
+		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTFloat32) * 5 * 3 * 4 * 1, 
+						testAssertionCount,
+						errorCount);
+		TTTestAssertion("correct byte-stride between values calculated", 
+						matrix->mValueStride == sizeof(TTFloat32) * 1, 
+						testAssertionCount,
+						errorCount);
+		
+		
+		TTTestLog("Setting to a 4D matrix with a size of 6 x 7 x 8 x 9 using int32 data and a single element per value");
+		dims.setSize(4);
+		dims.set(0, 6);
+		dims.set(1, 7);
+		dims.set(2, 8);
+		dims.set(3, 9);
+		matrix->setAttributeValue(TT("dimensions"), dims);
+		matrix->setAttributeValue(TT("type"), TT("int32"));
+		matrix->setAttributeValue(TT("elementCount"), 1);
+		
+		TTTestAssertion("correct amount of data storage calculated", 
+						matrix->mDataSize == sizeof(TTInt32) * 6 * 7 * 8 * 9 * 1, 
+						testAssertionCount,
+						errorCount);
+		TTTestAssertion("correct byte-stride between values calculated", 
+						matrix->mValueStride == sizeof(TTInt32) * 1, 
 						testAssertionCount,
 						errorCount);
 		
