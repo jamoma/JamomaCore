@@ -31,6 +31,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 		
 		
+		
+		
 		TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
 		matrix->setAttributeValue(TT("dimensions"), 16);
 		matrix->setAttributeValue(TT("type"), TT("float64"));
@@ -69,6 +71,64 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 
+		TTValue v(0, 1);// specify the index and real, but forgot the imaginary
+		err = matrix->sendMessage(TT("set"), v);
+		TTTestAssertion("set message -- error returned when not enough data provided to completely set value", 
+						err, 
+						testAssertionCount,
+						errorCount);
+		
+		v.setSize(3);		
+		v.set(0, 15);	// index
+		v.set(1, 3.14);	// real (no imaginary)
+		v.set(2, -2);	// real (no imaginary)
+		matrix->sendMessage(TT("set"), v);
+		v.set(0, 10);	// index
+		v.set(1, 4);	// real
+		v.set(2, 1.2);	// imaginary
+		matrix->sendMessage(TT("set"), v);
+		
+		cout << "		";
+		for (uint i=0; i < matrix->mDataSize; i += matrix->mValueStride) {
+			cout << "[" << *((TTFloat64*)(matrix->mData+i));
+			TTFloat64 imag = *((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes));
+			if (imag >= 0.0)
+				cout << "+";
+			cout <<        *((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)) << "i] ";
+		}
+		cout << endl;
+		
+		// TODO: would be nice to have a method to compare two matrices!
+		int index = 0;
+		for (uint i=0; i < matrix->mDataSize; i += matrix->mValueStride) {
+			if (index == 10) {
+				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i)), 4.0))
+					count++;
+				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)), 1.2))
+					count++;
+			}
+			else if (index == 15) {
+				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i)), 3.14))
+					count++;
+				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)), -2))
+					count++;
+			}
+			else {
+				if (*((TTFloat64*)(matrix->mData+i)) != 0.0)
+					count++;
+				if (*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)) != 0.0)
+					count++;
+			}
+			//TTTestLog("count: %ld   @  %ld", count, index);
+			index++;
+		}
+		TTTestAssertion("set message correctly sets compound values in a vector (1D matrix)", 
+						count == 0, 
+						testAssertionCount,
+						errorCount);
+		
+		
+		
 		
 		
 		TTTestLog("Setting to a 2D image matrix (8-bit int, 4 elements per value for rgba color) with a size of 160 x 120");
