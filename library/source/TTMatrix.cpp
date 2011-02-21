@@ -235,19 +235,19 @@ TTErr TTMatrix::set(const TTValue& aValue)
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e, *(TTUInt8*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e, *(TTInt32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e, *(TTFloat32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e, *(TTFloat64*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
 	}
 		
 	return kTTErrNone;
