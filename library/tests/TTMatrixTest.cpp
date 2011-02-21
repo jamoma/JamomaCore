@@ -130,7 +130,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		
 		
-		
+		TTTestLog("");
 		TTTestLog("Setting to a 2D image matrix (8-bit int, 4 elements per value for rgba color) with a size of 160 x 120");
 		TTValue dims(160, 120);
 		matrix->setAttributeValue(TT("dimensions"), dims);
@@ -150,6 +150,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		
 		
+		TTTestLog("");
 		TTTestLog("Setting to a 3D matrix with a size of 5 x 3 x 4 using float32 data and a single element per value");
 		dims.setSize(3);
 		dims.set(0, 5);
@@ -169,6 +170,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 		
 		
+
+		
+		TTTestLog("");
 		TTTestLog("Setting to a 4D matrix with a size of 6 x 7 x 8 x 9 using int32 data and a single element per value");
 		dims.setSize(4);
 		dims.set(0, 6);
