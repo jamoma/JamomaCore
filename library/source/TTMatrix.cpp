@@ -213,9 +213,9 @@ TTErr TTMatrix::set(const TTValue& aValue)
 {
 	TTValue		theValue;
 	TTValue		theDimensions = aValue;
-	TTInt16		dimensionCount = aValue.getSize() - mElementCount;
+	TTUInt16	dimensionCount = aValue.getSize() - mElementCount;
 	
-	if (dimensionCount < 0)
+	if (dimensionCount != mDimensions.size())
 		return kTTErrWrongNumValues;
 	
 	theValue.copyFrom(aValue, dimensionCount);
