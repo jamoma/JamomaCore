@@ -18,9 +18,9 @@
  It is easier to ensure that x and y values will scale properly with this formula as opposed to the one given by Roads.
  
  Where 0. <= x <= 1. and 0. <= mFade <= 0.5:
- y	= 0.5 * (1 + cos ( pi * ((mFade * x) - 1)))				: for the attack
-	= 1														: for the sustain
-	= 0.5 * (1 + cos ( pi * ((mFade * x) - mFade + 1)))		: for the release
+ y	= 0.5 * (1 + cos ( pi * ((oneovermFade * x) - 1)))					: for the attack
+	= 1																	: for the sustain
+	= 0.5 * (1 + cos ( pi * ((oneovermFade * x) - oneovermFade + 1)))	: for the release
  */
 class TukeyWindow : TTAudioObject {
 	TTCLASS_SETUP(TukeyWindow)
