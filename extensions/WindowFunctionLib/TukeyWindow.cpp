@@ -16,12 +16,12 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
-	addAttribute(Fade, kTypeFloat64);
-	addAttributeProperty(Fade,	range,			TTValue(kTTEpsilon, 0.5));	// Avoid dividing by 0
-	addAttributeProperty(Fade,	rangeChecking,	TT("clip"));
+	addAttribute(Alpha, kTypeFloat64);
+	addAttributeProperty(Alpha,	range,			TTValue(kTTEpsilon, 0.5));	// Avoid dividing by 0
+	addAttributeProperty(Alpha,	rangeChecking,	TT("clip"));
 	
 	// Set Defaults:
-	setAttributeValue(TT("fade"), 0.1);
+	setAttributeValue(TT("alpha"), 0.4);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
@@ -36,15 +36,16 @@ TukeyWindow::~TukeyWindow()
 
 TTErr TukeyWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	TTFloat64 oneovermFade = 1 / mFade;
+	TTFloat64 twoOverAlpha = 2. / mAlpha;
+	TTFloat64 alphaOverTwo = mAlpha / 2.;
 	
-	if ( x < mFade ) {  // attack portion
+	if ( x < alphaOverTwo ) {  // attack portion
 		
-		y = 0.5 * (1 + cos( kTTPi * ((oneovermFade * x) - 1)));
+		y = 0.5 * (1 + cos( kTTPi * ((twoOverAlpha * x) - 1)));
 		
-	} else if ( x > ( 1 - mFade) ) { // release portion
+	} else if ( x > ( 1 - alphaOverTwo) ) { // release portion
 		
-		y = 0.5 * (1 + cos( kTTPi * ((oneovermFade * x) - oneovermFade + 1)));
+		y = 0.5 * (1 + cos( kTTPi * ((twoOverAlpha * x) - twoOverAlpha + 1)));
 		
 	} else { // sustain portion
 		

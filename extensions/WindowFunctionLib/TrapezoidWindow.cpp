@@ -1,6 +1,6 @@
 /* 
  * Trapezoid Window Function Unit for Jamoma DSP
- * Copyright © 2010 by Trond Lossius
+ * Copyright © 2010 by Trond Lossius; Revised 2011 by Nathan Wolek
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -16,12 +16,12 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
-	addAttribute(Fade, kTypeFloat64);
-	addAttributeProperty(Fade,	range,			TTValue(kTTEpsilon, 0.5));	// Avoid dividing by 0
-	addAttributeProperty(Fade,	rangeChecking,	TT("clip"));
+	addAttribute(Alpha, kTypeFloat64);
+	addAttributeProperty(Alpha,	range,			TTValue(kTTEpsilon, 0.5));	// Avoid dividing by 0
+	addAttributeProperty(Alpha,	rangeChecking,	TT("clip"));
 	
 	// Set Defaults:
-	setAttributeValue(TT("fade"), 0.1);
+	setAttributeValue(TT("alpha"), 0.4);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
@@ -36,7 +36,23 @@ TrapezoidWindow::~TrapezoidWindow()
 
 TTErr TrapezoidWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = (2.0*mFade) * (1 - fabs(2. * x-1));
+	TTFloat64 twoOverAlpha = 2. / mAlpha;
+	TTFloat64 alphaOverTwo = mAlpha / 2.;
+	
+	if ( x < alphaOverTwo ) {  // attack portion
+		
+		y = x * twoOverAlpha;
+		
+	} else if ( x > ( 1 - alphaOverTwo ) ) { // release portion
+		
+	 	y = (1 - x) * twoOverAlpha;
+		
+	} else { // sustain portion
+        
+        y = 1.;
+		
+    }
+	
 	TTLimit(y, 0.0, 1.0 );
 
 	return kTTErrNone;

@@ -119,8 +119,6 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8EDF738713142DB000739312 /* TukeyWindow.cpp */,
-				8EDF738813142DB000739312 /* TukeyWindow.h */,
 				22FD47AD11E24967007BBF7E /* BartlettWindow.h */,
 				22FD47AE11E24967007BBF7E /* BartlettWindow.cpp */,
 				22FD47AF11E24967007BBF7E /* BlackmanWindow.h */,
@@ -135,6 +133,8 @@
 				22FD47B811E24967007BBF7E /* RectangularWindow.cpp */,
 				22FD47B911E24967007BBF7E /* TrapezoidWindow.h */,
 				22FD47BA11E24967007BBF7E /* TrapezoidWindow.cpp */,
+				8EDF738813142DB000739312 /* TukeyWindow.h */,
+				8EDF738713142DB000739312 /* TukeyWindow.cpp */,
 				22FD47BB11E24967007BBF7E /* WelchWindow.h */,
 				22FD47BC11E24967007BBF7E /* WelchWindow.cpp */,
 			);
