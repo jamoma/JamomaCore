@@ -9,12 +9,13 @@
 #ifndef __TT_AVERAGE_H__
 #define __TT_AVERAGE_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A running average filter. */
-TTAUDIOCLASS(TTAverage)
-
+class TTAverage : public TTAudioObject {
+	TTCLASS_SETUP(TTAverage)	
+	
 	TTUInt16		maxInterval;	///< Maximum number of samples over which one can average
 	TTUInt16		interval;		///< The actual number of samples over which one is averaging
 	TTSymbol*		mode;			///< options: bipolar, rms, or absolute
