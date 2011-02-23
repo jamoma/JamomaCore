@@ -193,7 +193,7 @@ inline TTErr TTAllpass1::calculateValue(const TTFloat64& x, TTFloat64& y, TTDela
 	// This first version is what Fred Harris refers to as a "Re-Ordered All-Pass Filter Structure" in Multirate Signal Processing
 	//	y = (*feedforwardBuffer->mReadPointer) + (x * (-mLinearGain)) + (*feedbackBuffer->mReadPointer * mLinearGain);
 	// And here is a "Single Coefficient All-Pass Filter" where we drop from 2 adds and 2 mults down to 2 adds and 1 mult
-	y = ((x + (*feedbackBuffer->mReadPointer)) * mLinearGain) + (*feedforwardBuffer->mReadPointer);
+	y = ((x - (*feedbackBuffer->mReadPointer)) * mLinearGain) + (*feedforwardBuffer->mReadPointer);
 	
 	// The possibility of denormals is always lurking for IIR filters
     TTZeroDenormal(y);
