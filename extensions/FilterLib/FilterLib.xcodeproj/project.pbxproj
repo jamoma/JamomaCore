@@ -48,6 +48,7 @@
 		22D8C719131479D7008F80C7 /* TTMirrorBandpass10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8C6FF131479D7008F80C7 /* TTMirrorBandpass10.cpp */; };
 		22D8C71A131479D7008F80C7 /* TTOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8C700131479D7008F80C7 /* TTOnePole.cpp */; };
 		22D8C71B131479D7008F80C7 /* TTSvf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8C701131479D7008F80C7 /* TTSvf.cpp */; };
+		22D8C75D13147E96008F80C7 /* TTAllpass1-test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8C75C13147E96008F80C7 /* TTAllpass1-test.cpp */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD464F11E24714007BBF7E /* FilterLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD464E11E24714007BBF7E /* FilterLib.cpp */; };
@@ -138,6 +139,7 @@
 		22D8C6FF131479D7008F80C7 /* TTMirrorBandpass10.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMirrorBandpass10.cpp; path = source/TTMirrorBandpass10.cpp; sourceTree = "<group>"; };
 		22D8C700131479D7008F80C7 /* TTOnePole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOnePole.cpp; path = source/TTOnePole.cpp; sourceTree = "<group>"; };
 		22D8C701131479D7008F80C7 /* TTSvf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSvf.cpp; path = source/TTSvf.cpp; sourceTree = "<group>"; };
+		22D8C75C13147E96008F80C7 /* TTAllpass1-test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "TTAllpass1-test.cpp"; path = "tests/TTAllpass1-test.cpp"; sourceTree = "<group>"; };
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -208,6 +210,7 @@
 				22D8C6CC131479CA008F80C7 /* TTAllpass.cpp */,
 				22D8C69D1314777F008F80C7 /* TTAllpass1.h */,
 				22D8C6CD131479CA008F80C7 /* TTAllpass1.cpp */,
+				22D8C75C13147E96008F80C7 /* TTAllpass1-test.cpp */,
 				22D8C69E1314777F008F80C7 /* TTAllpass1a.h */,
 				22D8C6CE131479CA008F80C7 /* TTAllpass1a.cpp */,
 				22D8C69F1314777F008F80C7 /* TTAllpass1aCascade2.h */,
@@ -407,6 +410,7 @@
 				22D8C719131479D7008F80C7 /* TTMirrorBandpass10.cpp in Sources */,
 				22D8C71A131479D7008F80C7 /* TTOnePole.cpp in Sources */,
 				22D8C71B131479D7008F80C7 /* TTSvf.cpp in Sources */,
+				22D8C75D13147E96008F80C7 /* TTAllpass1-test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
