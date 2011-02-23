@@ -663,7 +663,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 				for (int i=1; i<argc; i++) {
 					int t = TYPE(argv[i]);
 
-					cout << "the type of the message arg is " << t << endl;
+					//cout << "the type of the message arg is " << t << endl;
 					switch (t) {
 						case T_FLOAT:
 							v.append(NUM2DBL(argv[i]));
@@ -692,12 +692,39 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 					}
 				}				
 
-				if (!err)
-					err = instance->obj->getUnitGenerator()->sendMessage(messageName, v);				
+				if (!err) {
+					err = instance->obj->getUnitGenerator()->sendMessage(messageName, v);
+				}
 			}
 
 			if (err)
 				cout << "TTAudioSendMessage ('" << RSTRING_PTR(messageNameStr) << "'): Error " << err << endl;
+			else {
+				// return an array -- the first item is the error code
+				// additional values may follow
+				int		size = v.getSize();
+				int		i;
+				VALUE	ret = rb_ary_new2(size + 1);
+				
+				rb_ary_store(ret, 0, err);
+				for (i=0; i<size; i++) {
+					
+					// TODO: support other types
+					
+					if (v.getType(i) == kTypeFloat64 || v.getType(0) == kTypeFloat32) {
+						
+						TTFloat64	f;
+						VALUE		fv;
+							
+						v.get(i, f);
+						fv = rb_float_new(f);
+						//cout << "return value " << i << " is " << f << endl;
+
+						rb_ary_store(ret, i+1, fv);
+					}
+				}
+				return ret;
+			}
 		}
 	}
 bye:
