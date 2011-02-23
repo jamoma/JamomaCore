@@ -18,7 +18,7 @@
 
 
 // class TTDSP_EXPORT TTDelayBuffer {
-// This class is designed to inlined, so there is nothing to export
+// This class is designed to be inlined, so there is nothing to export
 class TTDelayBuffer {
 public:
 	TTSampleVector		mBuffer;
