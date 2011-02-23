@@ -17,15 +17,15 @@
  This is alternate implementation of what Roads (1996 p 170, 2001 p 88) typically refers to as a Gaussian window.
  It is easier to ensure that x and y values will scale properly with this formula as opposed to the one given by Roads.
  
- Where 0. <= x <= 1. and 0. <= mFade <= 0.5:
- y	= 0.5 * (1 + cos ( pi * ((mFade * x) - 1)))				: for the attack
-	= 1														: for the sustain
-	= 0.5 * (1 + cos ( pi * ((mFade * x) - mFade + 1)))		: for the release
+ Where 0. <= x <= 1. and 0. <= mAlpha <= 1.:
+ y	= 0.5 * (1 + cos ( pi * ((twoOverAlpha * x) - 1)))					: for the attack
+	= 1																	: for the sustain
+	= 0.5 * (1 + cos ( pi * ((twoOverAlpha * x) - twoOverAlpha + 1)))	: for the release
  */
 class TukeyWindow : TTAudioObject {
 	TTCLASS_SETUP(TukeyWindow)
 	
-	TTFloat64	mFade;			///< Fade in/out as ratio of window length. 0 <= fade <= 0.5
+	TTFloat64	mAlpha;			///< ratio of window fades to total window duration. 0 <= alpho <= 1., 0 = no fades, 1 = no sustain
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
