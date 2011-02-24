@@ -81,9 +81,9 @@ int main(void)
 	CLASS_ATTR_DEFAULT(c,	"gain",				0,		"1.0");
 	CLASS_ATTR_ACCESSORS(c,	"gain",				NULL,	OscilSetGain);
 		
-	CLASS_ATTR_LONG(c,		"numchannels",		0,		Oscil,	attrNumChannels);
-	CLASS_ATTR_ACCESSORS(c,	"numchannels",		NULL,	OscilSetNumChannels);
-	CLASS_ATTR_DEFAULT(c,	"numchannels",		0,		"1");
+	CLASS_ATTR_LONG(c,		"numChannels",		0,		Oscil,	attrNumChannels);
+	CLASS_ATTR_ACCESSORS(c,	"numChannels",		NULL,	OscilSetNumChannels);
+	CLASS_ATTR_DEFAULT(c,	"numChannels",		0,		"1");
 	
 	class_register(_sym_box, c);
 	sOscilClass = c;
