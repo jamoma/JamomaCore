@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTFolder.h"
+#include "TTPath.h"
 #include "boost/filesystem.hpp"
 using namespace boost::filesystem;
 
