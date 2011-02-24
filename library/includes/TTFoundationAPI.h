@@ -1,7 +1,7 @@
-/* 
- * TTBlue Library
+/*
+ * Jamoma Foundation API
  * Copyright © 2008, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -14,6 +14,7 @@
 #include "TTDataObject.h"
 #include "TTDictionary.h"
 #include "TTEnvironment.h"
+#include "TTFolder.h"
 #include "TTHash.h"
 #include "TTLimits.h"
 #include "TTList.h"
@@ -32,7 +33,7 @@
 #endif
 
 
-/** A macro for setting up the class binding to the library in extension classes. 
+/** A macro for setting up the class binding to the library in extension classes.
 	@param strname A C-string that names the object as it should be listed in the environment. */
 #define TT_CLASS_SETUP(strname, tags, className)\
 	\

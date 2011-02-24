@@ -1,7 +1,7 @@
-/* 
- * TTBlue Library
+/*
+ * Jamoma Foundation
  * Copyright © 2008, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -21,7 +21,7 @@
 	If we could do virtual static methods then we would.  But we can't.
 	So enforce the static register() and instantiate() methods we will use the macros to
 	define our classes.
- 
+
 	This also enforces the protection of the constructor and destructor methods so that they
 	cannot be manipulated directly.
  */
@@ -54,7 +54,7 @@
 		virtual ~className ();													\
 
 // ON WINDOWS THERE CAN BE NO SPACE BETWEEN ~ and CLASSNAME like
-//		virtual ~ className ();	
+//		virtual ~ className ();
 
 
 

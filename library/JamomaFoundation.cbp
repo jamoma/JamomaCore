@@ -39,7 +39,6 @@
 		<Unit filename="includes/TTAttribute.h" />
 		<Unit filename="includes/TTClass.h" />
 		<Unit filename="includes/TTDataObject.h" />
-		<Unit filename="includes/TTElement.h" />
 		<Unit filename="includes/TTEnvironment.h" />
 		<Unit filename="includes/TTFoundation.h" />
 		<Unit filename="includes/TTFoundationAPI.h" />
@@ -58,7 +57,6 @@
 		<Unit filename="source/TTAttribute.cpp" />
 		<Unit filename="source/TTClass.cpp" />
 		<Unit filename="source/TTDataObject.cpp" />
-		<Unit filename="source/TTElement.cpp" />
 		<Unit filename="source/TTEnvironment.cpp" />
 		<Unit filename="source/TTFoundation.cpp" />
 		<Unit filename="source/TTHash.cpp" />

@@ -4,8 +4,8 @@ CC = g++
 ########################################
 
 INCLUDES = -I./includes
+INCLUDES += -I./boost
 INCLUDES += -I./tests
-#INCLUDES += -I./FunctionLib
 
 
 #########################################
@@ -38,6 +38,7 @@ SRC += source/TTClass.cpp
 SRC += source/TTDataObject.cpp
 SRC += source/TTDictionary.cpp
 SRC += source/TTEnvironment.cpp
+SRC += source/TTFolder.cpp
 SRC += source/TTFoundation.cpp
 SRC += source/TTHash.cpp
 SRC += source/TTList.cpp

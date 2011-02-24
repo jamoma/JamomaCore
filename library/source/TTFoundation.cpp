@@ -1,7 +1,7 @@
-/* 
- * TTBlue Library
+/*
+ * Jamoma Foundation
  * Copyright © 2008, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -14,6 +14,7 @@
 #include "TTCallback.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
+#include "TTFolder.h"
 
 // Unit Tests
 #include "TTMatrix.h"
@@ -40,19 +41,19 @@ void TTFoundationInit(const char* pathToBinaries)
 {
 	if (!TTFoundationHasInitialized) {
 		TTFoundationHasInitialized = true;
-		
+
 		if (pathToBinaries)
 			TTFoundationBinaryPath = pathToBinaries;
-		
+
 		ttSymbolTable = new TTSymbolTable;
 		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
 
 		ttEnvironment = new TTEnvironment;
-		
+
 		TTSymbolCacheInit();
 		TTValueCacheInit();
-		
+
 #ifdef TT_DEBUG
 		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);
 #else
@@ -62,7 +63,7 @@ void TTFoundationInit(const char* pathToBinaries)
 			TTLogMessage("-- Path %s\n", pathToBinaries);
 		else
 			TTLogMessage("\n");
-		
+
 		// register classes -- both internal and external
 		TTCallback::registerClass();
 		TTMatrix::registerClass();
@@ -95,7 +96,7 @@ void TTFoundationLoadExternalClasses()
 		FSRef		ref;
 		UInt8		path[4096];
 		TTString	fullpath;
-		
+
 		// Look in ~/Library/Application Support/Jamoma/Extensions
 		err = FSFindFolder(kLocalDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
 		if (!err) {
@@ -104,7 +105,7 @@ void TTFoundationLoadExternalClasses()
 			fullpath += "/Jamoma/Extensions";
 			TTFoundationLoadExternalClassesFromFolder(fullpath);
 		}
-		
+
 		// Look in /Library/Application Support/Jamoma/Extensions
 		err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
 		if (!err) {
@@ -113,13 +114,13 @@ void TTFoundationLoadExternalClasses()
 			fullpath += "/Jamoma/Extensions";
 			TTFoundationLoadExternalClassesFromFolder(fullpath);
 		}
-		
-		// Look in the folder of the host application	
+
+		// Look in the folder of the host application
 		CFBundleRef mainBundle = CFBundleGetMainBundle();
 		CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
 		CFStringRef mainBundlePath = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
 		char		mainBundleStr[4096];
-		
+
 		CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
 		strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
 		mainBundleStr[4095] = 0;
@@ -159,7 +160,7 @@ void TTFoundationLoadExternalClasses()
 		}
 	}
 #else // Some other platform, like Linux
-	
+
 #endif
 }
 
@@ -170,7 +171,7 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	FSRef							ref;
 	Boolean							isDirectory;
 	OSStatus						status = noErr;
-	ItemCount						count = 0;	
+	ItemCount						count = 0;
     FSIterator						iterator;
 	HFSUniStr255*					names = NULL;
 	CFStringRef						name;
@@ -180,7 +181,7 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	void*							handle;
 	TTExtensionInitializationMethod	initializer;
 	TTErr							err;
-	
+
 	status = FSPathMakeRef((UInt8*)cpath, &ref, &isDirectory);
 	if (status != noErr) {
 #ifdef TT_DEBUG
@@ -188,7 +189,7 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #endif
 		return;
 	}
-	
+
 	status = FSOpenIterator(&ref, kFSIterateFlat, &iterator);
 	if (!status) {
         names = (HFSUniStr255 *)malloc(sizeof(HFSUniStr255) * 4096);
@@ -197,17 +198,17 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
             // until we get a status code back from the File Manager
             do{
 				status = FSGetCatalogInfoBulk(iterator, 4096, &count, NULL, kFSCatInfoNone, NULL, NULL, NULL, names);
-				
+
                 // Process all items received
                 if (status == OSStatus(noErr) || status == OSStatus(errFSNoMoreItems)) {
                     for (UInt32 i=0; i < count; i += 1) {
   						name = CFStringCreateWithCharacters(kCFAllocatorDefault, names[i].unicode, names[i].length);
-// TODO: filter on name.  We only want to try and load .ttdylib files						
+// TODO: filter on name.  We only want to try and load .ttdylib files
 						CFStringGetCString(name, cname, 4096, kCFStringEncodingUTF8);
 						path = fullpath;
 						path += "/";
 						path += cname;
-						
+
 						handle = dlopen(path.c_str(), RTLD_LAZY);
 // TODO: assert -- or at least do a log post -- if handle is NULL
 						initializer = (TTExtensionInitializationMethod)dlsym(handle, "loadTTExtension");
@@ -218,12 +219,12 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
                 }
             }
             while (status == OSStatus(noErr));
-			
+
             // errFSNoMoreItems tells us we have successfully processed all
             // items in the directory -- not really an error
             if (status == OSStatus(errFSNoMoreItems))
                 status = noErr;
-			
+
             // Free the array memory
             free( (void *) names );
         }
