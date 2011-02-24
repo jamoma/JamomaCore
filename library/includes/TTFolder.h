@@ -1,13 +1,13 @@
 /*
- * Jamoma support for interacting with folders (directories) in the file system
+ * Jamoma support for interacting with paths (i.e. folders/directories) in the file system
  * Copyright © 2011, Timothy Place
  *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_FOLDER_H__
-#define __TT_FOLDER_H__
+#ifndef __TT_PATH_H__
+#define __TT_PATH_H__
 
 #include "TTBase.h"
 
@@ -18,20 +18,22 @@
 /**
 	Represent folders and paths
 */
-class TTFOUNDATION_EXPORT TTFolder : public TTBase {
+class TTFOUNDATION_EXPORT TTPath : public TTBase {
     TTPtr   mPathObject;
 
 public:
-	TTFolder();
-	TTFolder(TTString& aFolderPath);
-	virtual	~TTFolder();
+	TTPath();
+	TTPath(TTString& aPathName);
+	virtual	~TTPath();
 
     TTBoolean exists();
     TTBoolean isDirectory();
 
 };
 
-typedef TTFolder* TTFolderPtr;
-typedef TTFolder& TTFolderRef;
+typedef TTPath* TTPathPtr;
+typedef TTPath& TTPathRef;
+typedef vector<TTPath> TTPathVector;
 
-#endif // __TT_FOLDER_H__
+
+#endif // __TT_PATH_H__
