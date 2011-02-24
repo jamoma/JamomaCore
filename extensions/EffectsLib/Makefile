@@ -6,11 +6,12 @@ CC = g++
 SRC = EffectsLib.cpp
 SRC += TTBalance.cpp
 SRC += TTDegrade.cpp
-SRC += TTDelay.cpp
 SRC += TTGain.cpp
 SRC += TTLimiter.cpp
 SRC += TTOverdrive.cpp
 SRC += TTPulseSub.cpp
+
+SRC += TTGainTest.cpp
 
 
 ########################################
