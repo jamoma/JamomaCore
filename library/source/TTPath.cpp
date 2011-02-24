@@ -10,6 +10,8 @@
 #include "boost/filesystem.hpp"
 using namespace boost::filesystem;
 
+typedef vector<boost::filesystem::path> path_vec;
+
 #define PATHOBJ ((path*)mPathObject)
 
 TTPath::TTPath()
@@ -20,6 +22,12 @@ TTPath::TTPath()
 TTPath::TTPath(TTString& aFolderPath)
 {
     mPathObject = (TTPtr) new path(aFolderPath);
+}
+
+TTPath::TTPath(TTPtr aBoostPathObject)
+{
+    mPathObject = (TTPtr) new path;
+    *PATHOBJ = *((path*)(aBoostPathObject));
 }
 
 TTPath::~TTPath()
@@ -42,3 +50,29 @@ TTBoolean TTPath::isDirectory()
         return NO;
 }
 
+
+TTErr TTPath::getDirectoryListing(TTPathVector& returnedPaths)
+{
+    returnedPaths.clear();
+
+    try {
+        if (isDirectory()) {
+            path_vec v;
+
+            copy(directory_iterator(*PATHOBJ), directory_iterator(), back_inserter(v));
+            sort(v.begin(), v.end());
+            for (path_vec::const_iterator i = v.begin(); i != v.end(); ++i) {
+                path p = (*i);
+                returnedPaths.push_back(TTPath(TTPtr(&p)));
+            }
+
+            return kTTErrNone;
+        }
+        else
+            return kTTErrInvalidType;
+    }
+    catch (const filesystem_error& ex) {
+        TTLogError("TTPath::getDirectoryListing() failed %s", ex.what());
+        return kTTErrGeneric;
+    }
+}

@@ -14,7 +14,7 @@
 #include "TTCallback.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
-#include "TTFolder.h"
+#include "TTPath.h"
 
 // Unit Tests
 #include "TTMatrix.h"

@@ -15,6 +15,13 @@
 /****************************************************************************************************/
 // Class Specification
 
+
+class TTPath;
+typedef TTPath* TTPathPtr;
+typedef TTPath& TTPathRef;
+typedef vector<TTPath> TTPathVector;
+
+
 /**
 	Represent folders and paths
 */
@@ -24,16 +31,13 @@ class TTFOUNDATION_EXPORT TTPath : public TTBase {
 public:
 	TTPath();
 	TTPath(TTString& aPathName);
+	TTPath(TTPtr aBoostPathObject);
 	virtual	~TTPath();
 
     TTBoolean exists();
     TTBoolean isDirectory();
-
+    TTErr getDirectoryListing(TTPathVector& returnedPaths);
 };
-
-typedef TTPath* TTPathPtr;
-typedef TTPath& TTPathRef;
-typedef vector<TTPath> TTPathVector;
 
 
 #endif // __TT_PATH_H__
