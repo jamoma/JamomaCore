@@ -8,37 +8,40 @@
 
 #include "TTFolder.h"
 #include "boost/filesystem.hpp"
+using namespace boost::filesystem;
 
-
-/****************************************************************************************************/
+#define PATHOBJ ((path*)mPathObject)
 
 TTFolder::TTFolder()
 {
-    ;
+    mPathObject = (TTPtr) new path;
+}
+
+TTFolder::TTFolder(TTString& aFolderPath)
+{
+    mPathObject = (TTPtr) new path(aFolderPath);
 }
 
 TTFolder::~TTFolder()
 {
-    ;
+    delete PATHOBJ;
 }
 
-/*
-void TTMutex::lock()
+
+TTBoolean TTFolder::exists()
 {
-	#ifdef TT_PLATFORM_WIN
-		EnterCriticalSection(&pMutex);
-	#else // TT_PLATFORM_MAC or TT_PLATFORM_LINUX
-		pthread_mutex_lock(&pMutex);
-	#endif
+	return boost::filesystem::exists(*PATHOBJ);
 }
 
 
-void TTMutex::unlock()
+TTBoolean TTFolder::isDirectory()
 {
-	#ifdef TT_PLATFORM_WIN
-		LeaveCriticalSection(&pMutex);
-	#else // TT_PLATFORM_MAC or TT_PLATFORM_LINUX
-		pthread_mutex_unlock(&pMutex);
-	#endif
+    if (exists())
+        return boost::filesystem::is_directory(*PATHOBJ);
+    else
+        return NO;
 }
-*/
+
+
+
+

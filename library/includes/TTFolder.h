@@ -16,17 +16,19 @@
 // Class Specification
 
 /**
-	The TTMutex class maintains a mutual exclusion lock.
-	See http://en.wikipedia.org/wiki/Mutex for more details.
+	Represent folders and paths
 */
 class TTFOUNDATION_EXPORT TTFolder : public TTBase {
+    TTPtr   mPathObject;
 
 public:
 	TTFolder();
+	TTFolder(TTString& aFolderPath);
 	virtual	~TTFolder();
 
-//	void lock();
-//	void unlock();
+    TTBoolean exists();
+    TTBoolean isDirectory();
+
 };
 
 typedef TTFolder* TTFolderPtr;
