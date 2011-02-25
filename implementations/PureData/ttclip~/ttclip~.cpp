@@ -83,13 +83,13 @@ void ttclip_free(t_ttclip *x)
 // set attr
 void ttclip_setlowbound(t_ttclip *x, double f)
 {
-	x->clipper->setAttributeValue(TT("LowBound"), f);
+	x->clipper->setAttributeValue(TT("lowBound"), f);
 }
 
 // set attr
 void ttclip_sethighbound(t_ttclip *x, double f)
 {
-	x->clipper->setAttributeValue(TT("HighBound"), f);
+	x->clipper->setAttributeValue(TT("highBound"), f);
 }
 
 
@@ -119,7 +119,7 @@ void ttclip_dsp(t_ttclip *x, t_signal **sp)
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();
 	
-	x->clipper->setAttributeValue(kTTSym_SampleRate, sp[0]->s_sr);
+	x->clipper->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
     dsp_add(ttclip_perform, 4, x, sp[0]->s_vec, sp[1]->s_vec, sp[0]->s_n);
 }
