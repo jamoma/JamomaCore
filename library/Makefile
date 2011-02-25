@@ -10,13 +10,10 @@ INCLUDES += -I./tests
 
 #########################################
 
-#LIB_INCLUDES = -L../ThirdParty/TTBlue/library/build
-#LIB_INCLUDES += -L/maxmspsdk/c74support/max-includes
-#LIB_INCLUDES += -L/maxmspsdk/c74support/msp-includes
+LIB_INCLUDES = -L./boost/lib-linux-i386
 
-#LIBS = -lTTBlue
-#LIBS += -lMaxAPI
-#LIBS += -lMaxAudio
+LIBS = -lboost_filesystem
+LIBS += -lboost_system
 
 
 #########################################
