@@ -19,15 +19,17 @@ INCLUDES += -I../
 #LIB_INCLUDES = -L../../../library/build
 #LIB_INCLUDES += -L../../../../Foundation/library/build
 
-#LIBS = -lJamomaFoundation
-#LIBS += -lJamomaDSP
+LIBS = -lJamomaFoundation
+LIBS += -lJamomaDSP
 
-#LIB_INCLUDES = -L/usr/local/lib/jamoma/frameworks
+LIB_INCLUDES = -L/usr/lib
+#/usr/local/lib is not present in the LD path by default on Ubuntu 10
+
 #LIBS = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"
 #LIBS += "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"
 
-LIBS = -l/usr/local/lib/jamoma/frameworks/libJamomaFoundation.so
-LIBS += -l/usr/local/lib/jamoma/frameworks/libJamomaDSP.so
+#LIBS = -l/usr/local/lib/jamoma/frameworks/libJamomaFoundation.so
+#LIBS += -l/usr/local/lib/jamoma/frameworks/libJamomaDSP.so
 
 
 #########################################
