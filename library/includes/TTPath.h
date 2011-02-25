@@ -17,9 +17,11 @@
 
 
 class TTPath;
-typedef TTPath* TTPathPtr;
-typedef TTPath& TTPathRef;
-typedef vector<TTPath> TTPathVector;
+
+typedef TTPath*                 TTPathPtr;
+typedef TTPath&                 TTPathRef;
+typedef vector<TTPath>          TTPathVector;
+typedef TTPathVector::iterator  TTPathIter;
 
 
 /**
@@ -30,13 +32,15 @@ class TTFOUNDATION_EXPORT TTPath : public TTBase {
 
 public:
 	TTPath();
-	TTPath(TTString& aPathName);
+	TTPath(const TTString& aPathName);
 	TTPath(TTPtr aBoostPathObject);
 	virtual	~TTPath();
 
     TTBoolean exists();
     TTBoolean isDirectory();
     TTErr getDirectoryListing(TTPathVector& returnedPaths);
+
+    void getString(TTString& pathString);
 };
 
 

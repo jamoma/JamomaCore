@@ -19,7 +19,7 @@ TTPath::TTPath()
     mPathObject = (TTPtr) new path;
 }
 
-TTPath::TTPath(TTString& aFolderPath)
+TTPath::TTPath(const TTString& aFolderPath)
 {
     mPathObject = (TTPtr) new path(aFolderPath);
 }
@@ -76,3 +76,10 @@ TTErr TTPath::getDirectoryListing(TTPathVector& returnedPaths)
         return kTTErrGeneric;
     }
 }
+
+
+void TTPath::getString(TTString& pathString)
+{
+    pathString = (*PATHOBJ).string();
+}
+

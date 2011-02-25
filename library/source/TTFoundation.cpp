@@ -160,7 +160,7 @@ void TTFoundationLoadExternalClasses()
 		}
 	}
 #else // Some other platform, like Linux
-
+    TTFoundationLoadExternalClassesFromFolder("/usr/local/lib/jamoma/extensions");
 #endif
 }
 
@@ -256,8 +256,23 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 				break;
 		}
 	}
-#else
-	;
+#else // LINUX
+    TTPath          path(fullpath);
+    TTPathVector    paths;
+    TTPathIter      i;
+    TTErr           err;
+
+    err = path.getDirectoryListing(paths);
+    if (!err) {
+        for (i = paths.begin(); i != paths.end(); ++i) {
+            TTPath      aPath = *i;
+            TTString    aPathString;
+
+            aPath.getString(aPathString);
+            cout << aPathString << endl;
+        }
+    }
+
 #endif
 }
 
