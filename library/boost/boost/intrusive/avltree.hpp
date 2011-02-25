@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007-2008
+// (C) Copyright Ion Gaztanaga 2007-2009
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -113,7 +113,7 @@ class avltree_impl
       <pointer, node>::type                                          node_ptr;
    typedef typename boost::pointer_to_other
       <node_ptr, const node>::type                                   const_node_ptr;
-   typedef avltree_algorithms<node_traits>                            node_algorithms;
+   typedef avltree_algorithms<node_traits>                           node_algorithms;
 
    static const bool constant_time_size = Config::constant_time_size;
    static const bool stateful_value_traits = detail::store_cont_ptr_on_it<avltree_impl>::value;
@@ -167,7 +167,7 @@ class avltree_impl
 
    static node_ptr uncast(const_node_ptr ptr)
    {
-      return node_ptr(const_cast<node*>(detail::get_pointer(ptr)));
+      return node_ptr(const_cast<node*>(detail::boost_intrusive_get_pointer(ptr)));
    }
 
    size_traits &priv_size_traits()
@@ -465,9 +465,10 @@ class avltree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
-      return iterator(node_algorithms::insert_equal_upper_bound
+      iterator ret(node_algorithms::insert_equal_upper_bound
          (node_ptr(&priv_header()), to_insert, key_node_comp), this);
+      this->priv_size_traits().increment();
+      return ret;
    }
 
    //! <b>Requires</b>: value must be an lvalue, and "hint" must be
@@ -491,9 +492,10 @@ class avltree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
-      return iterator(node_algorithms::insert_equal
+      iterator ret(node_algorithms::insert_equal
          (node_ptr(&priv_header()), hint.pointed_node(), to_insert, key_node_comp), this);
+      this->priv_size_traits().increment();
+      return ret;
    }
 
    //! <b>Requires</b>: Dereferencing iterator must yield an lvalue 
@@ -698,10 +700,81 @@ class avltree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
       node_algorithms::insert_unique_commit
                (node_ptr(&priv_header()), to_insert, commit_data);
+      this->priv_size_traits().increment();
       return iterator(to_insert, this);
+   }
+
+   //! <b>Requires</b>: value must be an lvalue, "pos" must be
+   //!   a valid iterator (or end) and must be the succesor of value
+   //!   once inserted according to the predicate
+   //!
+   //! <b>Effects</b>: Inserts x into the tree before "pos".
+   //! 
+   //! <b>Complexity</b>: Constant time.
+   //! 
+   //! <b>Throws</b>: Nothing.
+   //! 
+   //! <b>Note</b>: This function does not check preconditions so if "pos" is not
+   //! the successor of "value" tree ordering invariant will be broken.
+   //! This is a low-level function to be used only for performance reasons
+   //! by advanced users.
+   iterator insert_before(const_iterator pos, reference value)
+   {
+      node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
+      if(safemode_or_autounlink)
+         BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
+      iterator ret(node_algorithms::insert_before
+         (node_ptr(&priv_header()), pos.pointed_node(), to_insert), this);
+      this->priv_size_traits().increment();
+      return ret;
+   }
+
+   //! <b>Requires</b>: value must be an lvalue, and it must be no less
+   //!   than the greatest inserted key
+   //!
+   //! <b>Effects</b>: Inserts x into the tree in the last position.
+   //! 
+   //! <b>Complexity</b>: Constant time.
+   //! 
+   //! <b>Throws</b>: Nothing.
+   //! 
+   //! <b>Note</b>: This function does not check preconditions so if value is
+   //!   less than the greatest inserted key tree ordering invariant will be broken.
+   //!   This function is slightly more efficient than using "insert_before".
+   //!   This is a low-level function to be used only for performance reasons
+   //!   by advanced users.
+   void push_back(reference value)
+   {
+      node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
+      if(safemode_or_autounlink)
+         BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
+      node_algorithms::push_back(node_ptr(&priv_header()), to_insert);
+      this->priv_size_traits().increment();
+   }
+
+   //! <b>Requires</b>: value must be an lvalue, and it must be no greater
+   //!   than the minimum inserted key
+   //!
+   //! <b>Effects</b>: Inserts x into the tree in the first position.
+   //! 
+   //! <b>Complexity</b>: Constant time.
+   //! 
+   //! <b>Throws</b>: Nothing.
+   //! 
+   //! <b>Note</b>: This function does not check preconditions so if value is
+   //!   greater than the minimum inserted key tree ordering invariant will be broken.
+   //!   This function is slightly more efficient than using "insert_before".
+   //!   This is a low-level function to be used only for performance reasons
+   //!   by advanced users.
+   void push_front(reference value)
+   {
+      node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
+      if(safemode_or_autounlink)
+         BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
+      node_algorithms::push_front(node_ptr(&priv_header()), to_insert);
+      this->priv_size_traits().increment();
    }
 
    //! <b>Effects</b>: Erases the element pointed to by pos. 
@@ -1328,7 +1401,7 @@ class avltree_impl
    static avltree_impl &priv_container_from_end_iterator(const const_iterator &end_iterator)
    {
       header_plus_size *r = detail::parent_from_member<header_plus_size, node>
-         ( detail::get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
+         ( detail::boost_intrusive_get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
       node_plus_pred_t *n = detail::parent_from_member
          <node_plus_pred_t, header_plus_size>(r, &node_plus_pred_t::header_plus_size_);
       data_t *d = detail::parent_from_member<data_t, node_plus_pred_t>(n, &data_t::node_plus_pred_);

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2008. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -15,11 +15,11 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
 
 namespace boost {
-namespace interprocess_container {
+namespace container {
 
 /// @cond
 enum allocation_type_v
@@ -46,9 +46,9 @@ static const allocation_type try_shrink_in_place= (allocation_type)try_shrink_in
 static const allocation_type nothrow_allocation = (allocation_type)nothrow_allocation_v;
 static const allocation_type zero_memory        = (allocation_type)zero_memory_v;
 
-}  //namespace interprocess_container {
+}  //namespace container {
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //BOOST_CONTAINERS_ALLOCATION_TYPE_HPP

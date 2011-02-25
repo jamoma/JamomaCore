@@ -12,6 +12,7 @@
 #include <boost/fusion/container/deque/detail/keyed_element.hpp>
 #include <boost/mpl/minus.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/type_traits/is_const.hpp> 
 
 namespace boost { namespace fusion {
 
@@ -99,6 +100,10 @@ namespace boost { namespace fusion {
         {};
 
         Seq& seq_;
+
+    private:
+        // silence MSVC warning C4512: assignment operator could not be generated
+        deque_iterator& operator= (deque_iterator const&);
     };
 
 }}

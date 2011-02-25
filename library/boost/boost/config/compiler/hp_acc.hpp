@@ -103,16 +103,28 @@
 #define BOOST_NO_DELETED_FUNCTIONS
 #define BOOST_NO_EXPLICIT_CONVERSION_OPERATORS
 #define BOOST_NO_EXTERN_TEMPLATE
+#define BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
 #define BOOST_NO_INITIALIZER_LISTS
 #define BOOST_NO_LAMBDAS
 #define BOOST_NO_NULLPTR
 #define BOOST_NO_RAW_LITERALS
 #define BOOST_NO_RVALUE_REFERENCES
 #define BOOST_NO_SCOPED_ENUMS
+#define BOOST_NO_SFINAE_EXPR
 #define BOOST_NO_STATIC_ASSERT
 #define BOOST_NO_TEMPLATE_ALIASES
 #define BOOST_NO_UNICODE_LITERALS
 #define BOOST_NO_VARIADIC_TEMPLATES
+
+/* 
+  See https://forums13.itrc.hp.com/service/forums/questionanswer.do?threadId=1443331 and
+      https://forums13.itrc.hp.com/service/forums/questionanswer.do?threadId=1443436
+*/
+
+#if (__HP_aCC < 62500) || !defined(HP_CXX0x_SOURCE)
+  #define BOOST_NO_VARIADIC_MACROS
+#endif
+
 #endif
 
 //

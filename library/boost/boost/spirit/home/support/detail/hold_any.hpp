@@ -1,17 +1,22 @@
-//  Copyright (c) 2008-2009 Hartmut Kaiser
-//  Copyright (c) Christopher Diggins 2005
-//  Copyright (c) Pablo Aguilar 2005
-//  Copyright (c) Kevlin Henney 2001
-//
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying
-//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
-//  The class boost::spirit::hold_any is built based on the any class
-//  published here: http://www.codeproject.com/cpp/dynamic_typing.asp. It adds
-//  support for std streaming operator<<() and operator>>().
+/*=============================================================================
+    Copyright (c) 2007-2011 Hartmut Kaiser
+    Copyright (c) Christopher Diggins 2005
+    Copyright (c) Pablo Aguilar 2005
+    Copyright (c) Kevlin Henney 2001
 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+    The class boost::spirit::hold_any is built based on the any class
+    published here: http://www.codeproject.com/cpp/dynamic_typing.asp. It adds
+    support for std streaming operator<<() and operator>>().
+==============================================================================*/
 #if !defined(BOOST_SPIRIT_HOLD_ANY_MAY_02_2007_0857AM)
 #define BOOST_SPIRIT_HOLD_ANY_MAY_02_2007_0857AM
+
+#if defined(_MSC_VER)
+#pragma once
+#endif
 
 #include <boost/config.hpp>
 #include <boost/type_traits/remove_reference.hpp>
@@ -20,6 +25,7 @@
 #include <boost/static_assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/assert.hpp>
+#include <boost/detail/sp_typeinfo.hpp>
 
 #include <stdexcept>
 #include <typeinfo>
@@ -27,11 +33,11 @@
 #include <iosfwd>
 
 ///////////////////////////////////////////////////////////////////////////////
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)  
-# pragma warning(push)  
-# pragma warning(disable: 4100)   // 'x': unreferenced formal parameter  
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)
+# pragma warning(push)
+# pragma warning(disable: 4100)   // 'x': unreferenced formal parameter
 # pragma warning(disable: 4127)   // conditional expression is constant
-#endif 
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit
@@ -39,7 +45,7 @@ namespace boost { namespace spirit
     struct bad_any_cast
       : std::bad_cast
     {
-        bad_any_cast(std::type_info const& src, std::type_info const& dest)
+        bad_any_cast(boost::detail::sp_typeinfo const& src, boost::detail::sp_typeinfo const& dest)
           : from(src.name()), to(dest.name())
         {}
 
@@ -54,7 +60,7 @@ namespace boost { namespace spirit
         // function pointer table
         struct fxn_ptr_table
         {
-            std::type_info const& (*get_type)();
+            boost::detail::sp_typeinfo const& (*get_type)();
             void (*static_delete)(void**);
             void (*destruct)(void**);
             void (*clone)(void* const*, void**);
@@ -73,9 +79,9 @@ namespace boost { namespace spirit
             template<typename T>
             struct type
             {
-                static std::type_info const& get_type()
+                static boost::detail::sp_typeinfo const& get_type()
                 {
-                    return typeid(T);
+                    return BOOST_SP_TYPEID(T);
                 }
                 static void static_delete(void** x)
                 {
@@ -115,9 +121,9 @@ namespace boost { namespace spirit
             template<typename T>
             struct type
             {
-                static std::type_info const& get_type()
+                static boost::detail::sp_typeinfo const& get_type()
                 {
-                    return typeid(T);
+                    return BOOST_SP_TYPEID(T);
                 }
                 static void static_delete(void** x)
                 {
@@ -187,7 +193,9 @@ namespace boost { namespace spirit
             // value of the required type to the hold_any instance you want to
             // stream to. This assignment has to be executed before the actual
             // call to the operator>>().
-            BOOST_ASSERT(false);
+            BOOST_ASSERT(false && 
+                "Tried to insert from a std istream into an empty "
+                "hold_any instance");
             return i;
         }
 
@@ -204,7 +212,7 @@ namespace boost { namespace spirit
     public:
         // constructors
         template <typename T>
-        hold_any(T const& x)
+        explicit hold_any(T const& x)
           : table(spirit::detail::get_table<T>::get()), object(0)
         {
             if (spirit::detail::get_table<T>::is_small::value)
@@ -253,7 +261,7 @@ namespace boost { namespace spirit
         hold_any& assign(T const& x)
         {
             // are we copying between the same type?
-            spirit::detail::fxn_ptr_table* x_table = 
+            spirit::detail::fxn_ptr_table* x_table =
                 spirit::detail::get_table<T>::get();
             if (table == x_table) {
             // if so, we can avoid deallocating and re-use memory
@@ -271,7 +279,7 @@ namespace boost { namespace spirit
                 if (spirit::detail::get_table<T>::is_small::value) {
                     // create copy on-top of object pointer itself
                     table->destruct(&object); // first destruct the old content
-                    new (&object) T(x); 
+                    new (&object) T(x);
                 }
                 else {
                     reset();                  // first delete the old content
@@ -297,7 +305,7 @@ namespace boost { namespace spirit
             return *this;
         }
 
-        std::type_info const& type() const
+        boost::detail::sp_typeinfo const& type() const
         {
             return table->get_type();
         }
@@ -305,8 +313,8 @@ namespace boost { namespace spirit
         template <typename T>
         T const& cast() const
         {
-            if (type() != typeid(T))
-              throw bad_any_cast(type(), typeid(T));
+            if (type() != BOOST_SP_TYPEID(T))
+              throw bad_any_cast(type(), BOOST_SP_TYPEID(T));
 
             return spirit::detail::get_table<T>::is_small::value ?
                 *reinterpret_cast<T const*>(&object) :
@@ -365,7 +373,7 @@ namespace boost { namespace spirit
     template <typename T>
     inline T* any_cast (hold_any* operand)
     {
-        if (operand && operand->type() == typeid(T)) {
+        if (operand && operand->type() == BOOST_SP_TYPEID(T)) {
             return spirit::detail::get_table<T>::is_small::value ?
                 reinterpret_cast<T*>(&operand->object) :
                 reinterpret_cast<T*>(operand->object);
@@ -396,7 +404,7 @@ namespace boost { namespace spirit
 
         nonref* result = any_cast<nonref>(&operand);
         if(!result)
-            boost::throw_exception(bad_any_cast(operand.type(), typeid(T)));
+            boost::throw_exception(bad_any_cast(operand.type(), BOOST_SP_TYPEID(T)));
         return *result;
     }
 
@@ -418,8 +426,8 @@ namespace boost { namespace spirit
 }}    // namespace boost::spirit
 
 ///////////////////////////////////////////////////////////////////////////////
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)  
-# pragma warning(pop)  
-#endif 
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)
+# pragma warning(pop)
+#endif
 
 #endif

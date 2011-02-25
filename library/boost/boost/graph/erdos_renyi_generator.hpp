@@ -10,7 +10,7 @@
 #ifndef BOOST_GRAPH_ERDOS_RENYI_GENERATOR_HPP
 #define BOOST_GRAPH_ERDOS_RENYI_GENERATOR_HPP
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <iterator>
 #include <utility>
 #include <boost/shared_ptr.hpp>
@@ -125,7 +125,7 @@ namespace boost {
       : gen(), rand_vertex(1. - prob), n(n), allow_self_loops(loops), src(0)
       , tgt_index(vertices_size_type(-1)), prob(prob)
     {
-      this->gen.reset(new uniform_01<RandomGenerator>(gen));
+      this->gen.reset(new uniform_01<RandomGenerator*>(&gen));
 
       if (prob == 0.0) {src = (std::numeric_limits<vertices_size_type>::max)(); return;}
       next();
@@ -155,8 +155,8 @@ namespace boost {
       // bernoulli_distribution would need to be run until it returns true.
       // Thus, this distribution can be used to step through the edges
       // which are actually present.
-      assert (src != (std::numeric_limits<vertices_size_type>::max)() &&
-              src != n);
+      BOOST_ASSERT (src != (std::numeric_limits<vertices_size_type>::max)() &&
+                    src != n);
       while (src != n) {
         vertices_size_type increment = rand_vertex(*gen);
         size_t tgt_index_limit =
@@ -181,7 +181,7 @@ namespace boost {
       if (src == n) src = (std::numeric_limits<vertices_size_type>::max)();
     }
 
-    shared_ptr<uniform_01<RandomGenerator> > gen;
+    shared_ptr<uniform_01<RandomGenerator*> > gen;
     geometric_distribution<vertices_size_type> rand_vertex;
     vertices_size_type n;
     bool allow_self_loops;

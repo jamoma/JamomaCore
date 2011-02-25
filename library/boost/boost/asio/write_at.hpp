@@ -2,7 +2,7 @@
 // write_at.hpp
 // ~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2008 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -15,16 +15,13 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
-#include <boost/asio/detail/push_options.hpp>
-
-#include <boost/asio/detail/push_options.hpp>
+#include <boost/asio/detail/config.hpp>
 #include <cstddef>
-#include <boost/config.hpp>
 #include <boost/cstdint.hpp>
-#include <boost/asio/detail/pop_options.hpp>
-
-#include <boost/asio/basic_streambuf.hpp>
+#include <boost/asio/basic_streambuf_fwd.hpp>
 #include <boost/asio/error.hpp>
+
+#include <boost/asio/detail/push_options.hpp>
 
 namespace boost {
 namespace asio {
@@ -182,6 +179,8 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
     boost::uint64_t offset, const ConstBufferSequence& buffers,
     CompletionCondition completion_condition, boost::system::error_code& ec);
 
+#if !defined(BOOST_NO_IOSTREAM)
+
 /// Write all of the supplied data at the specified offset before returning.
 /**
  * This function is used to write a certain number of bytes of data to a random
@@ -302,6 +301,8 @@ template <typename SyncRandomAccessWriteDevice, typename Allocator,
 std::size_t write_at(SyncRandomAccessWriteDevice& d, boost::uint64_t offset,
     basic_streambuf<Allocator>& b, CompletionCondition completion_condition,
     boost::system::error_code& ec);
+
+#endif // !defined(BOOST_NO_IOSTREAM)
 
 /*@}*/
 /**
@@ -440,6 +441,8 @@ void async_write_at(AsyncRandomAccessWriteDevice& d,
     boost::uint64_t offset, const ConstBufferSequence& buffers,
     CompletionCondition completion_condition, WriteHandler handler);
 
+#if !defined(BOOST_NO_IOSTREAM)
+
 /// Start an asynchronous operation to write all of the supplied data at the
 /// specified offset.
 /**
@@ -545,13 +548,15 @@ void async_write_at(AsyncRandomAccessWriteDevice& d, boost::uint64_t offset,
     basic_streambuf<Allocator>& b, CompletionCondition completion_condition,
     WriteHandler handler);
 
+#endif // !defined(BOOST_NO_IOSTREAM)
+
 /*@}*/
 
 } // namespace asio
 } // namespace boost
 
-#include <boost/asio/impl/write_at.ipp>
-
 #include <boost/asio/detail/pop_options.hpp>
+
+#include <boost/asio/impl/write_at.hpp>
 
 #endif // BOOST_ASIO_WRITE_AT_HPP

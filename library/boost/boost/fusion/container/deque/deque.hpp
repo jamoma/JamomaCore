@@ -27,6 +27,7 @@
 #include <boost/fusion/container/deque/detail/at_impl.hpp>
 #include <boost/fusion/container/deque/detail/begin_impl.hpp>
 #include <boost/fusion/container/deque/detail/end_impl.hpp>
+#include <boost/fusion/container/deque/detail/is_sequence_impl.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/mpl/bool.hpp>
 
@@ -45,6 +46,7 @@ namespace boost { namespace fusion {
         sequence_base<deque<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, T)> >
     {
         typedef deque_tag fusion_tag;
+        typedef bidirectional_traversal_tag category;
         typedef typename detail::deque_keyed_values<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, T)>::type base;
         typedef typename detail::deque_initial_size<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, T)>::type size;
         typedef mpl::int_<size::value> next_up;
@@ -67,7 +69,7 @@ namespace boost { namespace fusion {
             {}
 
         template<typename Sequence>
-            deque(Sequence const& seq, typename disable_if<is_convertible<Sequence, T0> >::type* dummy = 0)
+            deque(Sequence const& seq, typename disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0)
             : base(base::from_iterator(fusion::begin(seq)))
             {}
 

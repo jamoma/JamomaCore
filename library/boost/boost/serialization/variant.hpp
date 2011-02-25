@@ -41,12 +41,15 @@
 
 #include <boost/serialization/split_free.hpp>
 #include <boost/serialization/serialization.hpp>
+#include <boost/serialization/nvp.hpp>
 
 namespace boost {
 namespace serialization {
 
 template<class Archive>
-struct variant_save_visitor : boost::static_visitor<> {
+struct variant_save_visitor : 
+    boost::static_visitor<> 
+{
     variant_save_visitor(Archive& ar) :
         m_ar(ar)
     {}

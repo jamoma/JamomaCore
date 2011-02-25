@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2008
+// (C) Copyright Ion Gaztanaga  2007-2009
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -22,7 +22,7 @@
 #include <boost/intrusive/detail/utilities.hpp>
 #include <boost/intrusive/detail/slist_node.hpp> //remove-me
 #include <cstddef>
-
+#include <boost/pointer_cast.hpp>
 namespace boost {
 namespace intrusive {
 namespace detail {
@@ -36,6 +36,7 @@ struct prime_list_holder
 
 template<int Dummy>
 const std::size_t prime_list_holder<Dummy>::prime_list[] = {
+   3ul, 7ul, 11ul, 17ul, 29ul, 
    53ul, 97ul, 193ul, 389ul, 769ul,
    1543ul, 3079ul, 6151ul, 12289ul, 24593ul,
    49157ul, 98317ul, 196613ul, 393241ul, 786433ul,
@@ -100,8 +101,12 @@ template<class Container, bool IsConst>
 class hashtable_iterator
    :  public std::iterator
          < std::forward_iterator_tag
+         , typename Container::value_type
+         , typename std::iterator_traits<typename Container::value_type*>::difference_type
          , typename detail::add_const_if_c
-            <typename Container::value_type, IsConst>::type
+                     <typename Container::value_type, IsConst>::type *
+         , typename detail::add_const_if_c
+                     <typename Container::value_type, IsConst>::type &
          >
 {
    typedef typename Container::real_value_traits                  real_value_traits;
@@ -113,11 +118,19 @@ class hashtable_iterator
    typedef typename Container::size_type                          size_type;
 
    static typename Container::node_ptr downcast_bucket(typename bucket_type::node_ptr p)
-   {  return typename Container::node_ptr(&static_cast<typename Container::node&>(*p));   }
+   {
+//      This still fails in gcc < 4.4 so forget about it
+//      using ::boost::static_pointer_cast;
+//      return static_pointer_cast<typename Container::node>(p);
+      return typename Container::node_ptr(&static_cast<typename Container::node&>(*p));
+   }
 
    public:
+   typedef typename Container::value_type    value_type;
+   typedef  typename detail::add_const_if_c
+                     <typename Container::value_type, IsConst>::type *pointer;
    typedef typename detail::add_const_if_c
-      <typename Container::value_type, IsConst>::type          value_type;
+                     <typename Container::value_type, IsConst>::type &reference;
 
    hashtable_iterator ()
    {}
@@ -132,6 +145,9 @@ class hashtable_iterator
 
    const siterator &slist_it() const
    { return slist_it_; }
+
+   hashtable_iterator<Container, false> unconst() const
+   {  return hashtable_iterator<Container, false>(this->slist_it(), this->get_container());   }
 
    public:
    hashtable_iterator& operator++() 
@@ -150,14 +166,14 @@ class hashtable_iterator
    friend bool operator!= (const hashtable_iterator& i, const hashtable_iterator& i2)
    { return !(i == i2); }
 
-   value_type& operator*() const
+   reference operator*() const
    { return *this->operator ->(); }
 
-   value_type* operator->() const
-   { return detail::get_pointer(this->get_real_value_traits()->to_value_ptr(downcast_bucket(slist_it_.pointed_node()))); }
+   pointer operator->() const
+   { return detail::boost_intrusive_get_pointer(this->get_real_value_traits()->to_value_ptr(downcast_bucket(slist_it_.pointed_node()))); }
 
    const Container *get_container() const
-   {  return detail::get_pointer(cont_);  }
+   {  return detail::boost_intrusive_get_pointer(cont_);  }
 
    const real_value_traits *get_real_value_traits() const
    {  return &this->get_container()->get_real_value_traits();  }
@@ -165,8 +181,8 @@ class hashtable_iterator
    private:
    void increment()
    {
-      const Container *cont =  detail::get_pointer(cont_);
-      bucket_type* buckets = detail::get_pointer(cont->bucket_pointer());
+      const Container *cont =  detail::boost_intrusive_get_pointer(cont_);
+      bucket_type* buckets = detail::boost_intrusive_get_pointer(cont->bucket_pointer());
       size_type   buckets_len    = cont->bucket_count();
 
       ++slist_it_;

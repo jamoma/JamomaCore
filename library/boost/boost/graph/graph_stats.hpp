@@ -12,6 +12,7 @@
 #include <map>
 #include <list>
 #include <boost/graph/iteration_macros.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace graph {
 
@@ -77,7 +78,7 @@ std::map<unsigned long, unsigned long> dup_edge_dist( Graph& g ) {
   BGL_FORALL_VERTICES_T( v, g, Graph ) {
     std::list<vertex_type> front_neighbors;
     a_iterator_type a_iter, a_end;
-    for( tie( a_iter, a_end ) = adjacent_vertices( v, g );
+    for( boost::tie( a_iter, a_end ) = adjacent_vertices( v, g );
          a_iter != a_end; ++a_iter ) {
       front_neighbors.push_back( *a_iter );
     }
@@ -124,7 +125,7 @@ std::map<unsigned long, double> weight_degree_dist( Graph& g ) {
 
   for( std::map<unsigned long, double>::iterator iter = dist.begin();
        iter != dist.end(); ++iter ) {
-    assert( n[iter->first] != 0 );
+    BOOST_ASSERT( n[iter->first] != 0 );
     dist[iter->first] /= n[iter->first];
   }
 

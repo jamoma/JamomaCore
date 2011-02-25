@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2008.
+// (C) Copyright Ion Gaztanaga 2005-2009.
 // (C) Copyright Gennaro Prota 2003 - 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
@@ -18,13 +18,13 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
-#include <boost/interprocess/containers/container/detail/type_traits.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_TYPE_TRAITS_HPP
 #include <iterator>
 
 namespace boost {
-namespace interprocess_container { 
+namespace container { 
 
 template <class PseudoReference>
 struct operator_arrow_proxy
@@ -47,11 +47,11 @@ struct operator_arrow_proxy<T&>
       :  m_value(px)
    {}
 
-   T* operator->() const { return &m_value; }
+   T* operator->() const { return const_cast<T*>(&m_value); }
    // This function is needed for MWCW and BCC, which won't call operator->
    // again automatically per 13.3.1.2 para 8
 //   operator T*() const { return &m_value; }
-   mutable T &m_value;
+   T &m_value;
 };
 
 template <class Iterator, class UnaryFunction>
@@ -168,9 +168,9 @@ make_transform_iterator(Iterator it, UnaryFunc fun)
    return transform_iterator<Iterator, UnaryFunc>(it, fun);
 }
 
-}  //namespace interprocess_container { 
+}  //namespace container { 
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //#ifndef BOOST_CONTAINERS_DETAIL_TRANSFORM_ITERATORS_HPP

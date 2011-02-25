@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2008. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -20,7 +20,7 @@
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/detail/managed_memory_impl.hpp>
 #include <boost/interprocess/detail/move.hpp>
-#include <cassert>
+#include <boost/assert.hpp>
 
 //!\file
 //!Describes a named user memory allocation user class. 
@@ -43,12 +43,10 @@ class basic_managed_external_buffer
    /// @cond
    typedef detail::basic_managed_memory_impl 
       <CharType, AllocationAlgorithm, IndexType>    base_t;
-   basic_managed_external_buffer(basic_managed_external_buffer&);
-   basic_managed_external_buffer & operator=(basic_managed_external_buffer&);
+   BOOST_INTERPROCESS_MOVABLE_BUT_NOT_COPYABLE(basic_managed_external_buffer)
    /// @endcond
    
    public:
-   BOOST_INTERPROCESS_ENABLE_MOVE_EMULATION(basic_managed_external_buffer)
 
    //!Default constructor. Does nothing.
    //!Useful in combination with move semantics
@@ -60,9 +58,9 @@ class basic_managed_external_buffer
       (create_only_t, void *addr, std::size_t size)
    {
       //Check if alignment is correct
-      assert((0 == (((std::size_t)addr) & (AllocationAlgorithm::Alignment - std::size_t(1u)))));
+      BOOST_ASSERT((0 == (((std::size_t)addr) & (AllocationAlgorithm::Alignment - std::size_t(1u)))));
       if(!base_t::create_impl(addr, size)){
-         throw interprocess_exception();
+         throw interprocess_exception("Could not initialize buffer in basic_managed_external_buffer constructor");
       }
    }
 
@@ -71,9 +69,9 @@ class basic_managed_external_buffer
       (open_only_t, void *addr, std::size_t size)
    {
       //Check if alignment is correct
-      assert((0 == (((std::size_t)addr) & (AllocationAlgorithm::Alignment - std::size_t(1u)))));
+      BOOST_ASSERT((0 == (((std::size_t)addr) & (AllocationAlgorithm::Alignment - std::size_t(1u)))));
       if(!base_t::open_impl(addr, size)){
-         throw interprocess_exception();
+         throw interprocess_exception("Could not initialize buffer in basic_managed_external_buffer constructor");
       }
    }
 

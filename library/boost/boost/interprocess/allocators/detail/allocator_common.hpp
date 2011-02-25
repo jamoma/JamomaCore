@@ -21,9 +21,11 @@
 #include <utility>   //std::pair
 #include <boost/utility/addressof.hpp> //boost::addressof
 #include <boost/assert.hpp>   //BOOST_ASSERT
+#include <boost/assert.hpp>
 #include <boost/interprocess/exceptions.hpp> //bad_alloc
 #include <boost/interprocess/sync/scoped_lock.hpp> //scoped_lock
 #include <boost/interprocess/containers/allocation_type.hpp> //boost::interprocess::allocation_type
+#include <boost/interprocess/containers/container/detail/multiallocation_chain.hpp>
 #include <boost/interprocess/mem_algo/detail/mem_algo_common.hpp>
 #include <boost/interprocess/detail/segment_manager_helper.hpp>
 #include <algorithm> //std::swap
@@ -275,9 +277,28 @@ class cache_impl
    //!Frees n cached nodes at once. Never throws
    void priv_deallocate_n_nodes(std::size_t n)
    {
+      //This only occurs if this allocator deallocate memory allocated
+      //with other equal allocator. Since the cache is full, and more 
+      //deallocations are probably coming, we'll make some room in cache
+      //in a single, efficient multi node deallocation.
+      std::size_t count(n);
+      typename multiallocation_chain::iterator it(m_cached_nodes.before_begin());
+      while(count--){
+         ++it;
+      }
+      multiallocation_chain chain;
+      chain.splice_after(chain.before_begin(), m_cached_nodes, m_cached_nodes.before_begin(), it, n);
       //Deallocate all new linked list at once
-      mp_node_pool->deallocate_nodes(m_cached_nodes, n);
+      mp_node_pool->deallocate_nodes(boost::interprocess::move(chain));
    }
+
+   public:
+   void swap(cache_impl &other)
+   {
+      detail::do_swap(mp_node_pool, other.mp_node_pool); 
+      m_cached_nodes.swap(other.m_cached_nodes); 
+      detail::do_swap(m_max_cached_nodes, other.m_max_cached_nodes); 
+   } 
 };
 
 template<class Derived, class T, class SegmentManager>
@@ -302,7 +323,7 @@ class array_allocation_impl
                      <const value_type>::type            const_reference;
    typedef std::size_t                                   size_type;
    typedef std::ptrdiff_t                                difference_type;
-   typedef detail::transform_multiallocation_chain
+   typedef boost::container::containers_detail::transform_multiallocation_chain
       <typename SegmentManager::multiallocation_chain, T>multiallocation_chain;
 
 
@@ -413,7 +434,7 @@ class node_pool_allocation_impl
                      <const value_type>::type            const_reference;
    typedef std::size_t                                   size_type;
    typedef std::ptrdiff_t                                difference_type;
-   typedef detail::transform_multiallocation_chain
+   typedef boost::container::containers_detail::transform_multiallocation_chain
       <typename SegmentManager::multiallocation_chain, T>multiallocation_chain;
 
 
@@ -644,11 +665,7 @@ class cached_allocator_impl
    //!Swaps allocators. Does not throw. If each allocator is placed in a
    //!different shared memory segments, the result is undefined.
    friend void swap(cached_allocator_impl &alloc1, cached_allocator_impl &alloc2)
-   {
-      detail::do_swap(alloc1.mp_node_pool,       alloc2.mp_node_pool);
-      alloc1.m_cached_nodes.swap(alloc2.m_cached_nodes);
-      detail::do_swap(alloc1.m_max_cached_nodes, alloc2.m_max_cached_nodes);
-   }
+   {  alloc1.m_cache.swap(alloc2.m_cache);   }
 
    void deallocate_cache()
    {  m_cache.deallocate_all_cached_nodes(); }
@@ -690,7 +707,7 @@ class shared_pool_impl
    typedef typename private_node_allocator_t::
       segment_manager                           segment_manager;
    typedef typename private_node_allocator_t::
-      multiallocation_chain              multiallocation_chain;
+      multiallocation_chain                     multiallocation_chain;
 
  private:
    typedef typename segment_manager::mutex_family::mutex_type mutex_type;
@@ -796,7 +813,7 @@ class shared_pool_impl
       //-----------------------
       boost::interprocess::scoped_lock<mutex_type> guard(m_header);
       //-----------------------
-      assert(m_header.m_usecount > 0);
+      BOOST_ASSERT(m_header.m_usecount > 0);
       return --m_header.m_usecount;
    }
 
@@ -820,7 +837,7 @@ class shared_pool_impl
 
    private:
    //!This struct includes needed data and derives from
-   //!interprocess_mutex to allow EBO when using null_mutex
+   //!the mutex type to allow EBO when using null_mutex
    struct header_t : mutex_type
    {
       std::size_t m_usecount;    //Number of attached allocators

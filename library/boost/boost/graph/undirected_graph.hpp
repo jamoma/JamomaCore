@@ -33,17 +33,22 @@ struct undirected_graph_tag { };
  */
 template <
     typename VertexProp = no_property,
-    typename EdgeProp= no_property,
+    typename EdgeProp = no_property,
     typename GraphProp = no_property>
 class undirected_graph
 {
 public:
-    typedef typename graph_detail::vertex_prop<VertexProp>::type vertex_property_type;
+    typedef typename graph_detail::graph_prop<GraphProp>::property graph_property_type;
+    typedef typename graph_detail::graph_prop<GraphProp>::bundle graph_bundled;
+
+    typedef typename graph_detail::vertex_prop<VertexProp>::property vertex_property_type;
     typedef typename graph_detail::vertex_prop<VertexProp>::bundle vertex_bundled;
-    typedef typename graph_detail::edge_prop<EdgeProp>::type edge_property_type;
+
+    typedef typename graph_detail::edge_prop<EdgeProp>::property edge_property_type;
     typedef typename graph_detail::edge_prop<EdgeProp>::bundle edge_bundled;
 
 private:
+    // Embed indices into the vertex type.
     typedef property<vertex_index_t, unsigned, vertex_property_type> vertex_property;
     typedef property<edge_index_t, unsigned, edge_property_type> edge_property;
 public:
@@ -62,9 +67,6 @@ private:
     typedef typename graph_type::directed_selector directed_selector;
 
 public:
-    typedef undirected_graph_tag graph_tag;
-    typedef typename graph_type::graph_property_type graph_property_type;
-
     // more commonly used graph types
     typedef typename graph_type::stored_vertex stored_vertex;
     typedef typename graph_type::vertices_size_type vertices_size_type;
@@ -81,6 +83,7 @@ public:
     typedef typename graph_type::adjacency_iterator adjacency_iterator;
 
     // miscellaneous types
+    typedef undirected_graph_tag graph_tag;
     typedef typename graph_type::directed_category directed_category;
     typedef typename graph_type::edge_parallel_category edge_parallel_category;
     typedef typename graph_type::traversal_category traversal_category;
@@ -94,7 +97,7 @@ public:
     { }
 
     inline undirected_graph(undirected_graph const& x)
-        : m_graph(x), m_num_vertices(x.m_num_vertices), m_num_edges(x.m_num_edges)
+        : m_graph(x.m_graph), m_num_vertices(x.m_num_vertices), m_num_edges(x.m_num_edges)
         , m_max_vertex_index(x.m_max_vertex_index), m_max_edge_index(x.m_max_edge_index)
     { }
 
@@ -199,7 +202,7 @@ public:
         // find all edges, (u, v)
         std::vector<edge_descriptor> edges;
         out_edge_iterator i, i_end;
-        for(tie(i, i_end) = boost::out_edges(u, m_graph); i != i_end; ++i) {
+        for(boost::tie(i, i_end) = boost::out_edges(u, m_graph); i != i_end; ++i) {
             if(boost::target(*i, m_graph) == v) {
                 edges.push_back(*i);
             }
@@ -226,7 +229,7 @@ public:
 
     void renumber_vertex_indices() {
         vertex_iterator i, i_end;
-        tie(i, i_end) = vertices(m_graph);
+        boost::tie(i, i_end) = vertices(m_graph);
         m_max_vertex_index = renumber_vertex_indices(i, i_end, 0);
     }
 
@@ -245,7 +248,7 @@ public:
 
     void renumber_edge_indices() {
         edge_iterator i, end;
-        tie(i, end) = edges(m_graph);
+        boost::tie(i, end) = edges(m_graph);
         m_max_edge_index = renumber_edge_indices(i, end, 0);
     }
 
@@ -276,6 +279,12 @@ public:
 
     edge_bundled const& operator[](edge_descriptor e) const
     { return m_graph[e]; }
+
+    graph_bundled& operator[](graph_bundle_t)
+    { return get_property(*this); }
+
+    graph_bundled const& operator[](graph_bundle_t) const
+    { return get_property(*this); }
 #endif
 
     // Graph concepts

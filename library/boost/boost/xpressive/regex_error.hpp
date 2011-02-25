@@ -17,7 +17,9 @@
 #include <string>
 #include <stdexcept>
 #include <boost/throw_exception.hpp>
+#include <boost/current_function.hpp>
 #include <boost/exception/exception.hpp>
+#include <boost/exception/info.hpp>
 #include <boost/xpressive/regex_constants.hpp>
 
 //{{AFX_DOC_COMMENT
@@ -77,19 +79,34 @@ private:
 
 namespace detail
 {
-    // To work around a GCC warning
-    inline bool false_() { return false; }
+    inline bool ensure_(
+        bool cond
+      , regex_constants::error_type code
+      , char const *msg
+      , char const *fun
+      , char const *file
+      , unsigned long line
+    )
+    {
+        if(!cond)
+        {
+            #ifndef BOOST_EXCEPTION_DISABLE
+            boost::throw_exception(
+                boost::xpressive::regex_error(code, msg)
+                    << boost::throw_function(fun)
+                    << boost::throw_file(file)
+                    << boost::throw_line((int)line)
+            );
+            #else
+            boost::throw_exception(boost::xpressive::regex_error(code, msg));
+            #endif
+        }
+        return true;
+    }
 }
 
 #define BOOST_XPR_ENSURE_(pred, code, msg)                                                          \
-    (                                                                                               \
-        (pred)                                                                                      \
-      ? true                                                                                        \
-      : (                                                                                           \
-            BOOST_THROW_EXCEPTION(boost::xpressive::regex_error(code, msg))                         \
-          , boost::xpressive::detail::false_()                                                      \
-        )                                                                                           \
-    )                                                                                               \
+    boost::xpressive::detail::ensure_(pred, code, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__)  \
     /**/
 
 }} // namespace boost::xpressive

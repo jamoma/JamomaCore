@@ -44,7 +44,7 @@
 #endif 
 
 // See also kai.hpp which checks a Kai-specific symbol for EH
-# if !defined(__KCC) && !defined(__EXCEPTIONS)
+# if !defined(__KCC) && !defined(__EXCEPTIONS) && !defined(BOOST_NO_EXCEPTIONS)
 #     define BOOST_NO_EXCEPTIONS
 # endif
 
@@ -59,9 +59,15 @@
 //
 //   See above for BOOST_NO_LONG_LONG
 //
-#if (__EDG_VERSION__ <= 310) || !defined(BOOST_STRICT_CONFIG)
+#if (__EDG_VERSION__ < 310)
+#  define BOOST_NO_EXTERN_TEMPLATE
+#endif
+#if (__EDG_VERSION__ <= 310)
 // No support for initializer lists
 #  define BOOST_NO_INITIALIZER_LISTS
+#endif
+#if (__EDG_VERSION__ < 400)
+#  define BOOST_NO_VARIADIC_MACROS
 #endif
 
 #define BOOST_NO_AUTO_DECLARATIONS
@@ -74,12 +80,13 @@
 #define BOOST_NO_DEFAULTED_FUNCTIONS
 #define BOOST_NO_DELETED_FUNCTIONS
 #define BOOST_NO_EXPLICIT_CONVERSION_OPERATORS
-#define BOOST_NO_EXTERN_TEMPLATE
+#define BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
 #define BOOST_NO_LAMBDAS
 #define BOOST_NO_NULLPTR
 #define BOOST_NO_RAW_LITERALS
 #define BOOST_NO_RVALUE_REFERENCES
 #define BOOST_NO_SCOPED_ENUMS
+#define BOOST_NO_SFINAE_EXPR
 #define BOOST_NO_STATIC_ASSERT
 #define BOOST_NO_TEMPLATE_ALIASES
 #define BOOST_NO_UNICODE_LITERALS
@@ -90,6 +97,3 @@
 // However, some libraries have insufficient "long long" support
 // #define BOOST_HAS_LONG_LONG
 #endif
-
-
-

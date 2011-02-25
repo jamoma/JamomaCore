@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2008. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -23,6 +23,7 @@
 #include <boost/interprocess/detail/file_wrapper.hpp>
 #include <boost/interprocess/detail/move.hpp>
 #include <boost/interprocess/file_mapping.hpp>
+#include <boost/interprocess/permissions.hpp>
 
 namespace boost {
 namespace interprocess {
@@ -47,8 +48,6 @@ class basic_managed_mapped_file
       <CharType, AllocationAlgorithm, IndexType,
       detail::managed_open_or_create_impl<detail::file_wrapper>::ManagedOpenOrCreateUserOffset>   base_t;
    typedef detail::file_wrapper device_type;
-   basic_managed_mapped_file(basic_managed_mapped_file&);
-   basic_managed_mapped_file & operator=(basic_managed_mapped_file&);
 
    private:
 
@@ -60,10 +59,10 @@ class basic_managed_mapped_file
 
    private:
    typedef typename base_t::char_ptr_holder_t   char_ptr_holder_t;
+   BOOST_INTERPROCESS_MOVABLE_BUT_NOT_COPYABLE(basic_managed_mapped_file)
    /// @endcond
 
    public: //functions
-   BOOST_INTERPROCESS_ENABLE_MOVE_EMULATION(basic_managed_mapped_file)
 
    //!Creates mapped file and creates and places the segment manager. 
    //!This can throw.
@@ -73,9 +72,9 @@ class basic_managed_mapped_file
    //!Creates mapped file and creates and places the segment manager. 
    //!This can throw.
    basic_managed_mapped_file(create_only_t create_only, const char *name,
-                             std::size_t size, const void *addr = 0)
+                             std::size_t size, const void *addr = 0, const permissions &perm = permissions())
       : m_mfile(create_only, name, size, read_write, addr, 
-                create_open_func_t(get_this_pointer(), detail::DoCreate))
+                create_open_func_t(get_this_pointer(), detail::DoCreate), perm)
    {}
 
    //!Creates mapped file and creates and places the segment manager if
@@ -84,17 +83,17 @@ class basic_managed_mapped_file
    //!This can throw.
    basic_managed_mapped_file (open_or_create_t open_or_create,
                               const char *name, std::size_t size, 
-                              const void *addr = 0)
-      : m_mfile(open_or_create, name, size, read_write, addr, 
+                              const void *addr = 0, const permissions &perm = permissions())
+      : m_mfile(open_or_create, name, size, read_write, addr,
                 create_open_func_t(get_this_pointer(), 
-                detail::DoOpenOrCreate))
+                detail::DoOpenOrCreate), perm)
    {}
 
    //!Connects to a created mapped file and its segment manager.
    //!This can throw.
    basic_managed_mapped_file (open_only_t open_only, const char* name, 
                               const void *addr = 0)
-      : m_mfile(open_only, name, read_write, addr, 
+      : m_mfile(open_only, name, read_write, addr,
                 create_open_func_t(get_this_pointer(), 
                 detail::DoOpen))
    {}

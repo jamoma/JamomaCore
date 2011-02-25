@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2008. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -16,12 +16,14 @@
 #ifndef BOOST_CONTAINERS_DETAIL_VERSION_TYPE_HPP
 #define BOOST_CONTAINERS_DETAIL_VERSION_TYPE_HPP
 
-#include <boost/interprocess/containers/container/detail/mpl.hpp>
-#include <boost/interprocess/containers/container/detail/type_traits.hpp>
+#include "config_begin.hpp"
+
+#include INCLUDE_BOOST_CONTAINER_DETAIL_MPL_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_TYPE_TRAITS_HPP
 
 
 namespace boost{
-namespace interprocess_container {
+namespace container {
 namespace containers_detail {
 
 //using namespace boost;
@@ -83,7 +85,7 @@ struct version
 };
 
 }  //namespace containers_detail {
-}  //namespace interprocess_container {
+}  //namespace container {
 }  //namespace boost{
 
 #endif   //#define BOOST_CONTAINERS_DETAIL_VERSION_TYPE_HPP

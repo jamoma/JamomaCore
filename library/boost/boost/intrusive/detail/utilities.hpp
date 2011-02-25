@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2008
+// (C) Copyright Ion Gaztanaga  2006-2009
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -20,6 +20,7 @@
 #include <boost/intrusive/link_mode.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
 #include <boost/intrusive/detail/assert.hpp>
+#include <boost/intrusive/detail/is_stateful_value_traits.hpp>
 #include <boost/cstdint.hpp>
 #include <cstddef>
 #include <climits>
@@ -45,8 +46,7 @@ struct internal_base_hook_bool
    template<bool Add>
    struct two_or_three {one _[2 + Add];};
    template <class U> static one test(...);
-   template <class U> static two_or_three<U::boost_intrusive_tags::is_base_hook>
-      test (detail::bool_<U::boost_intrusive_tags::is_base_hook>* = 0);
+   template <class U> static two_or_three<U::boost_intrusive_tags::is_base_hook> test (int);
    static const std::size_t value = sizeof(test<T>(0));
 };
 
@@ -62,8 +62,7 @@ struct internal_any_hook_bool
    template<bool Add>
    struct two_or_three {one _[2 + Add];};
    template <class U> static one test(...);
-   template <class U> static two_or_three<U::is_any_hook>
-      test (detail::bool_<U::is_any_hook>* = 0);
+   template <class U> static two_or_three<U::is_any_hook> test (int);
    static const std::size_t value = sizeof(test<T>(0));
 };
 
@@ -80,8 +79,7 @@ struct external_value_traits_bool
    template<bool Add>
    struct two_or_three {one _[2 + Add];};
    template <class U> static one test(...);
-   template <class U> static two_or_three<U::external_value_traits>
-      test (detail::bool_<U::external_value_traits>* = 0);
+   template <class U> static two_or_three<U::external_value_traits> test (int);
    static const std::size_t value = sizeof(test<T>(0));
 };
 
@@ -91,8 +89,7 @@ struct external_bucket_traits_bool
    template<bool Add>
    struct two_or_three {one _[2 + Add];};
    template <class U> static one test(...);
-   template <class U> static two_or_three<U::external_bucket_traits>
-      test (detail::bool_<U::external_bucket_traits>* = 0);
+   template <class U> static two_or_three<U::external_bucket_traits> test (int);
    static const std::size_t value = sizeof(test<T>(0));
 };
 
@@ -125,10 +122,10 @@ struct smart_ptr_type<T*>
    {  return ptr;}
 };
 
-//!Overload for smart pointers to avoid ADL problems with get_pointer
+//!Overload for smart pointers to avoid ADL problems with boost_intrusive_get_pointer
 template<class Ptr>
 inline typename smart_ptr_type<Ptr>::pointer
-get_pointer(const Ptr &ptr)
+boost_intrusive_get_pointer(const Ptr &ptr)
 {  return smart_ptr_type<Ptr>::get(ptr);   }
 
 //This functor compares a stored value
@@ -322,7 +319,7 @@ struct constptr
    {}
 
    const void *get_ptr() const
-   {  return detail::get_pointer(const_void_ptr_);  }
+   {  return detail::boost_intrusive_get_pointer(const_void_ptr_);  }
 
    ConstVoidPtr const_void_ptr_;
 };
@@ -337,16 +334,6 @@ struct select_constptr
       >::type type;
 };
 
-template <class Container>
-struct store_cont_ptr_on_it
-{
-   typedef typename Container::value_traits value_traits;
-   static const bool value = 
-      !detail::is_empty_class<value_traits>::value
-   || detail::external_value_traits_is_true<value_traits>::value
-   ;
-};
-
 template<class T, bool Add>
 struct add_const_if_c
 {
@@ -355,58 +342,6 @@ struct add_const_if_c
       , typename detail::add_const<T>::type
       , T
       >::type type;
-};
-
-template<class Container, bool IsConst>
-struct node_to_value
-   :  public detail::select_constptr
-      < typename boost::pointer_to_other
-            <typename Container::pointer, void>::type
-      , detail::store_cont_ptr_on_it<Container>::value
-      >::type
-{
-   static const bool store_container_ptr = 
-      detail::store_cont_ptr_on_it<Container>::value;
-
-   typedef typename Container::real_value_traits         real_value_traits;
-   typedef typename real_value_traits::value_type        value_type;
-   typedef typename detail::select_constptr
-      < typename boost::pointer_to_other
-         <typename Container::pointer, void>::type
-      , store_container_ptr >::type                      Base;
-   typedef typename real_value_traits::node_traits::node node;
-   typedef typename detail::add_const_if_c
-         <value_type, IsConst>::type                  vtype;
-   typedef typename detail::add_const_if_c
-         <node, IsConst>::type                        ntype;
-   typedef typename boost::pointer_to_other
-      <typename Container::pointer, ntype>::type      npointer;
-
-   node_to_value(const Container *cont)
-      :  Base(cont)
-   {}
-
-   typedef vtype &                                 result_type;
-   typedef ntype &                                 first_argument_type;
-
-   const Container *get_container() const
-   {
-      if(store_container_ptr)
-         return static_cast<const Container*>(Base::get_ptr());
-      else
-         return 0;
-   }
-
-   const real_value_traits *get_real_value_traits() const
-   {
-      if(store_container_ptr)
-         return &this->get_container()->get_real_value_traits();
-      else
-         return 0;
-   }
-
-   result_type operator()(first_argument_type arg) const
-   {  return *(this->get_real_value_traits()->to_value_ptr(npointer(&arg))); }
 };
 
 template <link_mode_type LinkMode>
@@ -475,27 +410,62 @@ struct member_hook_traits
    static const link_mode_type link_mode = Hook::boost_intrusive_tags::link_mode;
 
    static node_ptr to_node_ptr(reference value)
-   {
-      return reinterpret_cast<node*>(&(value.*P));
-   }
+   {  return static_cast<node*>(&(value.*P));   }
 
    static const_node_ptr to_node_ptr(const_reference value)
-   {
-      return static_cast<const node*>(&(value.*P));
-   }
+   {  return static_cast<const node*>(&(value.*P));   }
 
    static pointer to_value_ptr(node_ptr n)
    {
       return detail::parent_from_member<T, Hook>
-         (static_cast<Hook*>(detail::get_pointer(n)), P);
+         (static_cast<Hook*>(detail::boost_intrusive_get_pointer(n)), P);
    }
 
    static const_pointer to_value_ptr(const_node_ptr n)
    {
       return detail::parent_from_member<T, Hook>
-         (static_cast<const Hook*>(detail::get_pointer(n)), P);
+         (static_cast<const Hook*>(detail::boost_intrusive_get_pointer(n)), P);
    }
 };
+
+template<class Functor>
+struct function_hook_traits
+{
+   public:
+   typedef typename Functor::hook_type                               hook_type;
+   typedef typename Functor::hook_ptr                                hook_ptr;
+   typedef typename Functor::const_hook_ptr                          const_hook_ptr;
+   typedef typename hook_type::boost_intrusive_tags::node_traits     node_traits;
+   typedef typename node_traits::node                                node;
+   typedef typename Functor::value_type                              value_type;
+   typedef typename node_traits::node_ptr                            node_ptr;
+   typedef typename node_traits::const_node_ptr                      const_node_ptr;
+   typedef typename boost::pointer_to_other<node_ptr, value_type>::type       pointer;
+   typedef typename boost::pointer_to_other<node_ptr, const value_type>::type const_pointer;
+   typedef typename std::iterator_traits<pointer>::reference         reference;
+   typedef typename std::iterator_traits<const_pointer>::reference   const_reference;
+   static const link_mode_type link_mode = hook_type::boost_intrusive_tags::link_mode;
+
+   static node_ptr to_node_ptr(reference value)
+   {  return static_cast<node*>(&*Functor::to_hook_ptr(value));  }
+
+   static const_node_ptr to_node_ptr(const_reference value)
+   {  return static_cast<const node*>(&*Functor::to_hook_ptr(value));  }
+
+   static pointer to_value_ptr(node_ptr n)
+   {  return Functor::to_value_ptr(to_hook_ptr(n));  }
+
+   static const_pointer to_value_ptr(const_node_ptr n)
+   {  return Functor::to_value_ptr(to_hook_ptr(n));  }
+
+   private:
+   static hook_ptr to_hook_ptr(node_ptr n)
+   {  return hook_ptr(&*static_cast<hook_type*>(&*n));  }
+
+   static const_hook_ptr to_hook_ptr(const_node_ptr n)
+   {  return const_hook_ptr(&*static_cast<const hook_type*>(&*n));  }
+};
+
 
 //This function uses binary search to discover the
 //highest set bit of the integer
@@ -519,14 +489,19 @@ inline std::size_t floor_log2 (std::size_t x)
 
 inline float fast_log2 (float val)
 {
-   boost::uint32_t * exp_ptr =
-      static_cast<boost::uint32_t *>(static_cast<void*>(&val));
-   boost::uint32_t x = *exp_ptr;
+   union caster_t
+   {
+      boost::uint32_t x;
+      float val;
+   } caster;
+
+   caster.val = val;
+   boost::uint32_t x = caster.x;
    const int log_2 = (int)(((x >> 23) & 255) - 128);
    x &= ~(255 << 23);
    x += 127 << 23;
-   *exp_ptr = x;
-
+   caster.x = x;
+   val = caster.val;
    val = ((-1.0f/3) * val + 2) * val - 2.0f/3;
 
    return (val + log_2);
@@ -623,6 +598,137 @@ class exception_array_disposer
          }
       }
    }
+};
+
+template<class ValueTraits, bool ExternalValueTraits>
+struct store_cont_ptr_on_it_impl
+{
+   static const bool value = is_stateful_value_traits<ValueTraits>::value;
+};
+
+template<class ValueTraits>
+struct  store_cont_ptr_on_it_impl<ValueTraits, true>
+{
+   static const bool value = true;
+};
+
+template <class Container>
+struct store_cont_ptr_on_it
+{
+   typedef typename Container::value_traits value_traits;
+   static const bool value = store_cont_ptr_on_it_impl
+      <value_traits, external_value_traits_is_true<value_traits>::value>::value;
+};
+
+template<class Container, bool IsConst>
+struct node_to_value
+   :  public detail::select_constptr
+      < typename boost::pointer_to_other
+            <typename Container::pointer, void>::type
+      , detail::store_cont_ptr_on_it<Container>::value
+      >::type
+{
+   static const bool store_container_ptr = 
+      detail::store_cont_ptr_on_it<Container>::value;
+
+   typedef typename Container::real_value_traits         real_value_traits;
+   typedef typename real_value_traits::value_type        value_type;
+   typedef typename detail::select_constptr
+      < typename boost::pointer_to_other
+         <typename Container::pointer, void>::type
+      , store_container_ptr >::type                      Base;
+   typedef typename real_value_traits::node_traits::node node;
+   typedef typename detail::add_const_if_c
+         <value_type, IsConst>::type                  vtype;
+   typedef typename detail::add_const_if_c
+         <node, IsConst>::type                        ntype;
+   typedef typename boost::pointer_to_other
+      <typename Container::pointer, ntype>::type      npointer;
+
+   node_to_value(const Container *cont)
+      :  Base(cont)
+   {}
+
+   typedef vtype &                                 result_type;
+   typedef ntype &                                 first_argument_type;
+
+   const Container *get_container() const
+   {
+      if(store_container_ptr)
+         return static_cast<const Container*>(Base::get_ptr());
+      else
+         return 0;
+   }
+
+   const real_value_traits *get_real_value_traits() const
+   {
+      if(store_container_ptr)
+         return &this->get_container()->get_real_value_traits();
+      else
+         return 0;
+   }
+
+   result_type operator()(first_argument_type arg) const
+   {  return *(this->get_real_value_traits()->to_value_ptr(npointer(&arg))); }
+};
+
+//This is not standard, but should work with all compilers
+union max_align
+{
+   char        char_;
+   short       short_;
+   int         int_;
+   long        long_;
+   #ifdef BOOST_HAS_LONG_LONG
+   long long   long_long_;
+   #endif
+   float       float_;
+   double      double_;
+   long double long_double_;
+   void *      void_ptr_;
+};
+
+template<class T, std::size_t N>
+class array_initializer
+{
+   public:
+   template<class CommonInitializer>
+   array_initializer(const CommonInitializer &init)
+   {
+      char *init_buf = (char*)rawbuf;
+      std::size_t i = 0;
+      try{
+         for(; i != N; ++i){
+            new(init_buf)T(init);
+            init_buf += sizeof(T);
+         }
+      }
+      catch(...){
+         while(i--){
+            init_buf -= sizeof(T);
+            ((T*)init_buf)->~T();
+         }
+         throw;
+      }
+   }
+
+   operator T* ()
+   {  return (T*)(rawbuf);  }
+
+   operator const T*() const
+   {  return (const T*)(rawbuf);  }
+
+   ~array_initializer()
+   {
+      char *init_buf = (char*)rawbuf + N*sizeof(T);
+      for(std::size_t i = 0; i != N; ++i){
+         init_buf -= sizeof(T);
+         ((T*)init_buf)->~T();
+      }
+   }
+
+   private:
+   detail::max_align rawbuf[(N*sizeof(T)-1)/sizeof(detail::max_align)+1];
 };
 
 } //namespace detail

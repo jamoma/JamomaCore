@@ -499,6 +499,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         void constraints () {
             function_requires< VectorConcept<vector_type> >();
+            function_requires< DefaultConstructible<vector_type> >();
             function_requires< Mutable_VectorExpressionConcept<vector_type> >();
             size_type n (0);
             value_type t = value_type ();
@@ -579,6 +580,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         void constraints () {
             function_requires< MatrixConcept<matrix_type> >();
+            function_requires< DefaultConstructible<matrix_type> >();
             function_requires< Mutable_MatrixExpressionConcept<matrix_type> >();
             size_type n (0);
             value_type t = value_type ();
@@ -631,6 +633,11 @@ namespace boost { namespace numeric { namespace ublas {
             m.erase_element (i, j);
         }
     };
+
+    /** introduce anonymous namespace to make following functions
+     * local to the current compilation unit.
+     */
+    namespace {
 
     template<class T>
     T
@@ -898,6 +905,9 @@ namespace boost { namespace numeric { namespace ublas {
 #define INTERNAL_EXPRESSION
 #endif
 
+        // TODO enable this for development
+        // #define VIEW_CONCEPTS
+
         // Element value type for tests
         typedef float T;
 
@@ -969,7 +979,7 @@ namespace boost { namespace numeric { namespace ublas {
         }
 #endif
 
-#if defined (VECTOR_VIEW)
+#ifdef VIEW_CONCEPTS
         // read only vectors
         {
            typedef vector_view<T> container_model;
@@ -1402,12 +1412,12 @@ namespace boost { namespace numeric { namespace ublas {
             function_requires< IndexedRandomAccess1DIteratorConcept<expression_model::const_reverse_iterator> >();
         }
 
-        function_requires< ScalarExpressionConcept<vector_scalar_unary<vector<T>, vector_sum<T> > > >();
-        function_requires< ScalarExpressionConcept<vector_scalar_unary<vector<T>, vector_norm_1<T> > > >();
-        function_requires< ScalarExpressionConcept<vector_scalar_unary<vector<T>, vector_norm_2<T> > > >();
-        function_requires< ScalarExpressionConcept<vector_scalar_unary<vector<T>, vector_norm_inf<T> > > >();
+        function_requires< ScalarExpressionConcept<vector_scalar_unary<vector<T>, vector_sum<vector<T> > > > >();
+        function_requires< ScalarExpressionConcept<vector_scalar_unary<vector<T>, vector_norm_1<vector<T> > > > >();
+        function_requires< ScalarExpressionConcept<vector_scalar_unary<vector<T>, vector_norm_2<vector<T> > > > >();
+        function_requires< ScalarExpressionConcept<vector_scalar_unary<vector<T>, vector_norm_inf<vector<T> > > > >();
 
-        function_requires< ScalarExpressionConcept<vector_scalar_binary<vector<T>, vector<T>, vector_inner_prod<T, T, T> > > >();
+        function_requires< ScalarExpressionConcept<vector_scalar_binary<vector<T>, vector<T>, vector_inner_prod<vector<T>, vector<T>, T> > > >();
 #endif
 
         // Matrix Expressions
@@ -1479,29 +1489,29 @@ namespace boost { namespace numeric { namespace ublas {
         }
 
         {
-            typedef matrix_vector_binary1<matrix<T>, vector<T>, matrix_vector_prod1<T, T, T> > expression_model;
+            typedef matrix_vector_binary1<matrix<T>, vector<T>, matrix_vector_prod1<matrix<T>, vector<T>, T> > expression_model;
             function_requires< VectorExpressionConcept<expression_model> >();
             function_requires< IndexedRandomAccess1DIteratorConcept<expression_model::const_iterator> >();
             function_requires< IndexedRandomAccess1DIteratorConcept<expression_model::const_reverse_iterator> >();
         }
 
         {
-            typedef matrix_vector_binary2<vector<T>, matrix<T>, matrix_vector_prod2<T, T, T> > expression_model;
+            typedef matrix_vector_binary2<vector<T>, matrix<T>, matrix_vector_prod2<matrix<T>, vector<T>, T > > expression_model;
             function_requires< VectorExpressionConcept<expression_model> >();
             function_requires< IndexedRandomAccess1DIteratorConcept<expression_model::const_iterator> >();
             function_requires< IndexedRandomAccess1DIteratorConcept<expression_model::const_reverse_iterator> >();
         }
 
         {
-            typedef matrix_matrix_binary<matrix<T>, matrix<T>, matrix_matrix_prod<T, T, T> > expression_model;
+            typedef matrix_matrix_binary<matrix<T>, matrix<T>, matrix_matrix_prod<matrix<T>, matrix<T>, T > > expression_model;
             function_requires< MatrixExpressionConcept<expression_model> >();
             function_requires< IndexedRandomAccess2DIteratorConcept<expression_model::const_iterator1, expression_model::const_iterator2> >();
             function_requires< IndexedRandomAccess2DIteratorConcept<expression_model::const_reverse_iterator1, expression_model::const_reverse_iterator2> >();
         }
 
-        function_requires< ScalarExpressionConcept<matrix_scalar_unary<matrix<T>, matrix_norm_1<T> > > >();
-        function_requires< ScalarExpressionConcept<matrix_scalar_unary<matrix<T>, matrix_norm_frobenius<T> > > >();
-        function_requires< ScalarExpressionConcept<matrix_scalar_unary<matrix<T>, matrix_norm_inf<T> > > >();
+        function_requires< ScalarExpressionConcept<matrix_scalar_unary<matrix<T>, matrix_norm_1<vector<T> > > > >();
+        function_requires< ScalarExpressionConcept<matrix_scalar_unary<matrix<T>, matrix_norm_frobenius<vector<T> > > > >();
+        function_requires< ScalarExpressionConcept<matrix_scalar_unary<matrix<T>, matrix_norm_inf<vector<T> > > > >();
 #endif
 
 #ifdef EXTERNAL
@@ -1522,6 +1532,8 @@ namespace boost { namespace numeric { namespace ublas {
         function_requires< LinearOperatorConcept<std::complex<float>, vector<std::complex<float> >, matrix<std::complex<float> > > >();
 #endif
     }
+
+    } // end of anonymous namespace
 
 }}}
 

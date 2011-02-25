@@ -2,7 +2,7 @@
 // basic_streambuf.hpp
 // ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2008 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -15,21 +15,22 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
-#include <boost/asio/detail/push_options.hpp>
+#include <boost/asio/detail/config.hpp>
 
-#include <boost/asio/detail/push_options.hpp>
+#if !defined(BOOST_NO_IOSTREAM)
+
 #include <algorithm>
 #include <cstring>
-#include <limits>
-#include <memory>
 #include <stdexcept>
 #include <streambuf>
 #include <vector>
+#include <boost/limits.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/asio/detail/pop_options.hpp>
-
+#include <boost/asio/basic_streambuf_fwd.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
+
+#include <boost/asio/detail/push_options.hpp>
 
 namespace boost {
 namespace asio {
@@ -90,7 +91,7 @@ namespace asio {
  * boost::asio::streambuf b;
  *
  * // reserve 512 bytes in output sequence
- * boost::asio::streambuf::const_buffers_type bufs = b.prepare(512);
+ * boost::asio::streambuf::mutable_buffers_type bufs = b.prepare(512);
  *
  * size_t n = sock.receive(bufs);
  *
@@ -102,7 +103,11 @@ namespace asio {
  * is >> s;
  * @endcode
  */
+#if defined(GENERATING_DOCUMENTATION)
 template <typename Allocator = std::allocator<char> >
+#else
+template <typename Allocator>
+#endif
 class basic_streambuf
   : public std::streambuf,
     private noncopyable
@@ -332,11 +337,32 @@ protected:
 private:
   std::size_t max_size_;
   std::vector<char_type, Allocator> buffer_;
+
+  // Helper function to get the preferred size for reading data.
+  friend std::size_t read_size_helper(
+      basic_streambuf& sb, std::size_t max_size)
+  {
+    return std::min<std::size_t>(
+        std::max<std::size_t>(512, sb.buffer_.capacity() - sb.size()),
+        std::min<std::size_t>(max_size, sb.max_size() - sb.size()));
+  }
 };
+
+// Helper function to get the preferred size for reading data. Used for any
+// user-provided specialisations of basic_streambuf.
+template <typename Allocator>
+inline std::size_t read_size_helper(
+    basic_streambuf<Allocator>& sb, std::size_t max_size)
+{
+  return std::min<std::size_t>(512,
+      std::min<std::size_t>(max_size, sb.max_size() - sb.size()));
+}
 
 } // namespace asio
 } // namespace boost
 
 #include <boost/asio/detail/pop_options.hpp>
+
+#endif // !defined(BOOST_NO_IOSTREAM)
 
 #endif // BOOST_ASIO_BASIC_STREAMBUF_HPP

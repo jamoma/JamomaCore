@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2008. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -28,6 +28,10 @@ struct open_only_t {};
 //!Tag to indicate that the resource must
 //!be only opened for reading
 struct open_read_only_t {};
+
+//!Tag to indicate that the resource must
+//!be only opened privately for reading
+struct open_read_private_t {};
 
 //!Tag to indicate that the resource must
 //!be only opened for reading

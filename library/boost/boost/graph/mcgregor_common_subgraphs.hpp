@@ -89,7 +89,7 @@ namespace boost {
   
     template <typename ItemFirst,
               typename ItemSecond>
-    bool operator()(const ItemFirst& item1, const ItemSecond& item2) {
+    bool operator()(const ItemFirst&, const ItemSecond&) {
       return (true);
     }
   };
@@ -113,7 +113,7 @@ namespace boost {
     (const GraphFirst& graph1,
      const GraphSecond& graph2,
      CorrespondenceMapFirstToSecond correspondence_map_1_to_2,
-     CorrespondenceMapSecondToFirst correspondence_map_2_to_1,
+     CorrespondenceMapSecondToFirst /*correspondence_map_2_to_1*/,
      typename graph_traits<GraphFirst>::vertices_size_type subgraph_size,
      typename graph_traits<GraphFirst>::vertex_descriptor new_vertex1,
      typename graph_traits<GraphSecond>::vertex_descriptor new_vertex2,
@@ -288,8 +288,8 @@ namespace boost {
       typename graph_traits<GraphSecond>::vertex_iterator
         vertex2_begin, vertex2_end, vertex2_iter;
   
-      tie(vertex1_iter, vertex1_end) = vertices(graph1);
-      tie(vertex2_begin, vertex2_end) = vertices(graph2);
+      boost::tie(vertex1_iter, vertex1_end) = vertices(graph1);
+      boost::tie(vertex2_begin, vertex2_end) = vertices(graph2);
       vertex2_iter = vertex2_begin;
   
       // Iterate until all vertices have been visited

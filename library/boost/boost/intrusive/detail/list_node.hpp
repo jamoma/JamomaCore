@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2008
+// (C) Copyright Ion Gaztanaga  2006-2009
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -63,8 +63,10 @@ template<class Container, bool IsConst>
 class list_iterator
    :  public std::iterator
          < std::bidirectional_iterator_tag
-         , typename detail::add_const_if_c
-            <typename Container::value_type, IsConst>::type
+         , typename Container::value_type
+         , typename Container::difference_type
+         , typename detail::if_c<IsConst,typename Container::const_pointer,typename Container::pointer>::type
+         , typename detail::if_c<IsConst,typename Container::const_reference,typename Container::reference>::type
          >
 {
    protected:
@@ -78,11 +80,9 @@ class list_iterator
       detail::store_cont_ptr_on_it<Container>::value;
 
    public:
-   typedef typename detail::add_const_if_c
-      <typename Container::value_type, IsConst>
-      ::type                                       value_type;
-   typedef value_type & reference;
-   typedef value_type * pointer;
+   typedef typename Container::value_type    value_type;
+   typedef typename detail::if_c<IsConst,typename Container::const_pointer,typename Container::pointer>::type pointer;
+   typedef typename detail::if_c<IsConst,typename Container::const_reference,typename Container::reference>::type reference;
 
    list_iterator()
       : members_ (node_ptr(0), 0)
@@ -129,17 +129,17 @@ class list_iterator
       return result;
    }
 
-   bool operator== (const list_iterator& i) const
-   {  return members_.nodeptr_ == i.pointed_node();   }
+   friend bool operator== (const list_iterator& l, const list_iterator& r)
+   {  return l.pointed_node() == r.pointed_node();   }
 
-   bool operator!= (const list_iterator& i) const
-   {  return !operator== (i); }
+   friend bool operator!= (const list_iterator& l, const list_iterator& r)
+   {  return !(l == r); }
 
-   value_type& operator*() const
+   reference operator*() const
    {  return *operator->();   }
 
    pointer operator->() const
-   { return detail::get_pointer(this->get_real_value_traits()->to_value_ptr(members_.nodeptr_)); }
+   { return detail::boost_intrusive_get_pointer(this->get_real_value_traits()->to_value_ptr(members_.nodeptr_)); }
 
    const Container *get_container() const
    {

@@ -72,8 +72,10 @@ template<class Container, bool IsConst>
 class tree_iterator
    :  public std::iterator
          < std::bidirectional_iterator_tag
-         , typename detail::add_const_if_c
-            <typename Container::value_type, IsConst>::type
+         , typename Container::value_type
+         , typename Container::difference_type
+         , typename detail::if_c<IsConst,typename Container::const_pointer,typename Container::pointer>::type
+         , typename detail::if_c<IsConst,typename Container::const_reference,typename Container::reference>::type
          >
 {
    protected:
@@ -88,15 +90,13 @@ class tree_iterator
       detail::store_cont_ptr_on_it<Container>::value;
 
    public:
-   public:
-   typedef typename detail::add_const_if_c
-      <typename Container::value_type, IsConst>
-      ::type                                       value_type;
-   typedef value_type & reference;
-   typedef value_type * pointer;
+   typedef typename Container::value_type    value_type;
+   typedef typename detail::if_c<IsConst,typename Container::const_pointer,typename Container::pointer>::type pointer;
+   typedef typename detail::if_c<IsConst,typename Container::const_reference,typename Container::reference>::type reference;
+
 
    tree_iterator()
-      : members_ (0, 0)
+      : members_ (node_ptr(0), (const void *)0)
    {}
 
    explicit tree_iterator(node_ptr nodeptr, const Container *cont_ptr)
@@ -140,33 +140,23 @@ class tree_iterator
       return result;
    }
 
-   bool operator== (const tree_iterator& i) const
-   { return members_.nodeptr_ == i.pointed_node(); }
+   friend bool operator== (const tree_iterator& l, const tree_iterator& r)
+   { return l.pointed_node() == r.pointed_node(); }
 
-   bool operator!= (const tree_iterator& i) const
-   { return !operator== (i); }
+   friend bool operator!= (const tree_iterator& l, const tree_iterator& r)
+   {  return !(l == r);   }
 
-   value_type& operator*() const
+   reference operator*() const
    {  return *operator->();   }
 
    pointer operator->() const
-   { return detail::get_pointer(this->get_real_value_traits()->to_value_ptr(members_.nodeptr_)); }
+   { return detail::boost_intrusive_get_pointer(this->get_real_value_traits()->to_value_ptr(members_.nodeptr_)); }
 
    const Container *get_container() const
-   {
-      if(store_container_ptr)
-         return static_cast<const Container*>(members_.get_ptr());
-      else
-         return 0;
-   }
+   {  return static_cast<const Container*>(members_.get_ptr());   }
 
    const real_value_traits *get_real_value_traits() const
-   {
-      if(store_container_ptr)
-         return &this->get_container()->get_real_value_traits();
-      else
-         return 0;
-   }
+   {  return &this->get_container()->get_real_value_traits();  }
 
    tree_iterator end_iterator_from_it() const
    {

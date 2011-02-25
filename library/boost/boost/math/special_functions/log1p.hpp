@@ -74,7 +74,6 @@ T log1p_imp(T const & x, const Policy& pol, const mpl::int_<0>&)
 { // The function returns the natural logarithm of 1 + x.
    typedef typename tools::promote_args<T>::type result_type;
    BOOST_MATH_STD_USING
-   using std::abs;
 
    static const char* function = "boost::math::log1p<%1%>(%1%)";
 
@@ -95,10 +94,10 @@ T log1p_imp(T const & x, const Policy& pol, const mpl::int_<0>&)
    detail::log1p_series<result_type> s(x);
    boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
 #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582)) && !BOOST_WORKAROUND(__EDG_VERSION__, <= 245)
-   result_type result = tools::sum_series(s, policies::digits<result_type, Policy>(), max_iter);
+   result_type result = tools::sum_series(s, policies::get_epsilon<result_type, Policy>(), max_iter);
 #else
    result_type zero = 0;
-   result_type result = tools::sum_series(s, policies::digits<result_type, Policy>(), max_iter, zero);
+   result_type result = tools::sum_series(s, policies::get_epsilon<result_type, Policy>(), max_iter, zero);
 #endif
    policies::check_series_iterations(function, max_iter, pol);
    return result;
@@ -391,6 +390,11 @@ inline float log1p(float x, const Policy& pol)
 {
    return static_cast<float>(boost::math::log1p(static_cast<double>(x), pol));
 }
+#ifndef _WIN32_WCE
+//
+// For some reason this fails to compile under WinCE...
+// Needs more investigation.
+//
 template <class Policy>
 inline long double log1p(long double x, const Policy& pol)
 {
@@ -406,6 +410,7 @@ inline long double log1p(long double x, const Policy& pol)
    else
       return ::logl(u)*(x/(u-1.0));
 }
+#endif
 #endif
 
 template <class T>
@@ -443,9 +448,9 @@ inline typename tools::promote_args<T>::type
    boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
    T zero = 0;
-   T result = boost::math::tools::sum_series(s, policies::digits<T, Policy>(), max_iter, zero);
+   T result = boost::math::tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter, zero);
 #else
-   T result = boost::math::tools::sum_series(s, policies::digits<T, Policy>(), max_iter);
+   T result = boost::math::tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter);
 #endif
    policies::check_series_iterations(function, max_iter, pol);
    return result;

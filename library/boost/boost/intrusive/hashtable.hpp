@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2008
+// (C) Copyright Ion Gaztanaga  2006-2009
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -23,6 +23,7 @@
 #include <boost/intrusive/detail/assert.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/functional/hash.hpp>
+#include <boost/pointer_cast.hpp>
 //General intrusive utilities
 #include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/detail/pointer_to_other.hpp>
@@ -157,26 +158,22 @@ struct get_slist_impl_from_supposed_value_traits
 template<class SupposedValueTraits>
 struct unordered_bucket_impl
 {
-   /// @cond
    typedef typename 
       get_slist_impl_from_supposed_value_traits
          <SupposedValueTraits>::type            slist_impl;
    typedef detail::bucket_impl<slist_impl>      implementation_defined;
-   /// @endcond
    typedef implementation_defined               type;
 };
 
 template<class SupposedValueTraits>
 struct unordered_bucket_ptr_impl
 {
-   /// @cond
    typedef typename detail::get_node_traits
       <SupposedValueTraits>::type::node_ptr     node_ptr;
    typedef typename unordered_bucket_impl
       <SupposedValueTraits>::type               bucket_type;
    typedef typename boost::pointer_to_other
       <node_ptr, bucket_type>::type             implementation_defined;
-   /// @endcond
    typedef implementation_defined               type;
 };
 
@@ -186,8 +183,7 @@ struct store_hash_bool
    template<bool Add>
    struct two_or_three {one _[2 + Add];};
    template <class U> static one test(...);
-   template <class U> static two_or_three<U::store_hash>
-      test (detail::bool_<U::store_hash>* = 0);
+   template <class U> static two_or_three<U::store_hash> test (int);
    static const std::size_t value = sizeof(test<T>(0));
 };
 
@@ -203,8 +199,7 @@ struct optimize_multikey_bool
    template<bool Add>
    struct two_or_three {one _[2 + Add];};
    template <class U> static one test(...);
-   template <class U> static two_or_three<U::optimize_multikey>
-      test (detail::bool_<U::optimize_multikey>* = 0);
+   template <class U> static two_or_three<U::optimize_multikey> test (int);
    static const std::size_t value = sizeof(test<T>(0));
 };
 
@@ -331,7 +326,12 @@ struct group_functions
    typedef circular_slist_algorithms<group_traits>                group_algorithms;
 
    static node_ptr dcast_bucket_ptr(slist_node_ptr p)
-   {  return node_ptr(&static_cast<node&>(*p));   }
+   {
+//      This still fails in gcc < 4.4 so forget about it
+//      using ::boost::static_pointer_cast;
+//      return static_pointer_cast<node>(p);
+      return node_ptr(&static_cast<node&>(*p));
+   }
 
    static slist_node_ptr priv_get_bucket_before_begin
       (slist_node_ptr bucket_beg, slist_node_ptr bucket_end, node_ptr p)
@@ -498,7 +498,6 @@ struct unordered_bucket_ptr
 template<class ValueTraitsOrHookOption>
 struct unordered_default_bucket_traits
 {
-   /// @cond
    typedef typename ValueTraitsOrHookOption::
       template pack<none>::value_traits         supposed_value_traits;
    typedef typename detail::
@@ -506,7 +505,6 @@ struct unordered_default_bucket_traits
          <supposed_value_traits>::type          slist_impl;
    typedef detail::bucket_traits_impl
       <slist_impl>                              implementation_defined;
-   /// @endcond
    typedef implementation_defined               type;
 };
 
@@ -603,7 +601,7 @@ class hashtable_impl
 
    typedef typename real_value_traits::pointer                       pointer;
    typedef typename real_value_traits::const_pointer                 const_pointer;
-   typedef typename std::iterator_traits<pointer>::value_type        value_type;
+   typedef typename real_value_traits::value_type                                                value_type;
    typedef typename std::iterator_traits<pointer>::reference         reference;
    typedef typename std::iterator_traits<const_pointer>::reference   const_reference;
    typedef typename std::iterator_traits<pointer>::difference_type   difference_type;
@@ -626,7 +624,7 @@ class hashtable_impl
       <node_ptr, const node>::type                                   const_node_ptr;
    typedef typename slist_impl::node_algorithms                      node_algorithms;
 
-   static const bool stateful_value_traits = detail::store_cont_ptr_on_it<hashtable_impl>::value;
+   static const bool stateful_value_traits = detail::is_stateful_value_traits<real_value_traits>::value;
    static const bool store_hash = detail::store_hash_is_true<node_traits>::value;
 
    static const bool unique_keys          = 0 != (Config::bool_flags  & detail::hash_bool_flags::unique_keys_pos);
@@ -888,7 +886,7 @@ class hashtable_impl
       }
       else{
          size_type buckets_len = this->priv_buckets_len();
-         const bucket_type *b = detail::get_pointer(this->priv_buckets());
+         const bucket_type *b = detail::boost_intrusive_get_pointer(this->priv_buckets());
          for (size_type n = 0; n < buckets_len; ++n, ++b){
             if(!b->empty()){
                return false;
@@ -911,7 +909,7 @@ class hashtable_impl
       else{
          size_type len = 0;
          size_type buckets_len = this->priv_buckets_len();
-         const bucket_type *b = detail::get_pointer(this->priv_buckets());
+         const bucket_type *b = detail::boost_intrusive_get_pointer(this->priv_buckets());
          for (size_type n = 0; n < buckets_len; ++n, ++b){
             len += b->size();
          }
@@ -1297,18 +1295,16 @@ class hashtable_impl
    //! <b>Note</b>: Invalidates the iterators 
    //!    to the erased elements.
    template<class Disposer>
-   void erase_and_dispose(const_iterator i, Disposer disposer)
+   void erase_and_dispose(const_iterator i, Disposer disposer
+                              /// @cond
+                              , typename detail::enable_if_c<!detail::is_convertible<Disposer, const_iterator>::value >::type * = 0
+                              /// @endcond
+                              )
    {
       priv_erase(i, disposer, optimize_multikey_t());
       this->priv_size_traits().decrement();
       priv_erasure_update_cache();
    }
-
-   #if !defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED)
-   template<class Disposer>
-   iterator erase_and_dispose(iterator i, Disposer disposer)
-   {  return this->erase_and_dispose(const_iterator(i), disposer);   }
-   #endif
 
    //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
    //!
@@ -1325,29 +1321,29 @@ class hashtable_impl
    template<class Disposer>
    void erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer)
    {
-      if(b == e)  return;
+      if(b != e){
+         //Get the bucket number and local iterator for both iterators
+         siterator first_local_it(b.slist_it());
+         size_type first_bucket_num = this->priv_get_bucket_num(first_local_it);
 
-      //Get the bucket number and local iterator for both iterators
-      siterator first_local_it(b.slist_it());
-      size_type first_bucket_num = this->priv_get_bucket_num(first_local_it);
+         siterator before_first_local_it
+            = priv_get_previous(priv_buckets()[first_bucket_num], first_local_it);
+         size_type last_bucket_num;
+         siterator last_local_it;
 
-      siterator before_first_local_it
-         = priv_get_previous(priv_buckets()[first_bucket_num], first_local_it);
-      size_type last_bucket_num;
-      siterator last_local_it;
-
-      //For the end iterator, we will assign the end iterator
-      //of the last bucket
-      if(e == this->end()){
-         last_bucket_num   = this->bucket_count() - 1;
-         last_local_it     = priv_buckets()[last_bucket_num].end();
+         //For the end iterator, we will assign the end iterator
+         //of the last bucket
+         if(e == this->end()){
+            last_bucket_num   = this->bucket_count() - 1;
+            last_local_it     = priv_buckets()[last_bucket_num].end();
+         }
+         else{
+            last_local_it     = e.slist_it();
+            last_bucket_num = this->priv_get_bucket_num(last_local_it);
+         }
+         priv_erase_range(before_first_local_it, first_bucket_num, last_local_it, last_bucket_num, disposer);
+         priv_erasure_update_cache(first_bucket_num, last_bucket_num);
       }
-      else{
-         last_local_it     = e.slist_it();
-         last_bucket_num = this->priv_get_bucket_num(last_local_it);
-      }
-      priv_erase_range(before_first_local_it, first_bucket_num, last_local_it, last_bucket_num, disposer);
-      priv_erasure_update_cache(first_bucket_num, last_bucket_num);
    }
 
    //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
@@ -2139,8 +2135,8 @@ class hashtable_impl
    }
 
    //! <b>Effects</b>: Returns the nearest new bucket count optimized for
-   //!   the container that is bigger than n. This suggestion can be used
-   //!   to create bucket arrays with a size that will usually improve
+   //!   the container that is bigger or equal than n. This suggestion can be
+   //!   used to create bucket arrays with a size that will usually improve
    //!   container's performance. If such value does not exist, the 
    //!   higher possible value is returned.
    //! 
@@ -2153,15 +2149,15 @@ class hashtable_impl
       const std::size_t *primes_end = primes + detail::prime_list_holder<0>::prime_list_size;
       size_type const* bound = std::lower_bound(primes, primes_end, n);
       if(bound == primes_end)
-            bound--;
+         --bound;
       return size_type(*bound);
    }
 
    //! <b>Effects</b>: Returns the nearest new bucket count optimized for
-   //!   the container that is smaller than n. This suggestion can be used
-   //!   to create bucket arrays with a size that will usually improve
+   //!   the container that is smaller or equal than n. This suggestion can be
+   //!   used to create bucket arrays with a size that will usually improve
    //!   container's performance. If such value does not exist, the 
-   //!   lower possible value is returned.
+   //!   lowest possible value is returned.
    //! 
    //! <b>Complexity</b>: Amortized constant time.
    //! 
@@ -2171,8 +2167,8 @@ class hashtable_impl
       const std::size_t *primes     = &detail::prime_list_holder<0>::prime_list[0];
       const std::size_t *primes_end = primes + detail::prime_list_holder<0>::prime_list_size;
       size_type const* bound = std::upper_bound(primes, primes_end, n);
-      if(bound != primes_end)
-            bound--;
+      if(bound != primes)
+         --bound;
       return size_type(*bound);
    }
 
@@ -2240,7 +2236,7 @@ class hashtable_impl
    {  return this->priv_real_bucket_traits().bucket_count();  }
 
    static node_ptr uncast(const_node_ptr ptr)
-   {  return node_ptr(const_cast<node*>(detail::get_pointer(ptr)));  }
+   {  return node_ptr(const_cast<node*>(detail::boost_intrusive_get_pointer(ptr)));  }
 
    node &priv_value_to_node(value_type &v)
    {  return *this->get_real_value_traits().to_node_ptr(v);  }
@@ -2326,7 +2322,12 @@ class hashtable_impl
    }
 
    static node_ptr dcast_bucket_ptr(typename slist_impl::node_ptr p)
-   {  return node_ptr(&static_cast<node&>(*p));   }
+   {
+//      This still fails in gcc < 4.4 so forget about it
+//      using ::boost::static_pointer_cast;
+//      return static_pointer_cast<node>(p);
+      return node_ptr(&static_cast<node&>(*p));
+   }
 
    std::size_t priv_stored_or_compute_hash(const value_type &v, detail::true_) const
    {  return node_traits::get_hash(this->get_real_value_traits().to_node_ptr(v));  }
@@ -2893,7 +2894,6 @@ struct make_hashtable_opt
    //Real value traits must be calculated from options
    typedef typename detail::get_value_traits
       <T, typename packed_options::value_traits>::type   value_traits;
-   /// @cond
    static const bool external_value_traits =
       detail::external_value_traits_is_true<value_traits>::value;
    typedef typename detail::eval_if_c
@@ -2902,7 +2902,6 @@ struct make_hashtable_opt
       , detail::identity<value_traits>
       >::type                                            real_value_traits;
    typedef typename packed_options::bucket_traits        specified_bucket_traits;   
-   /// @endcond
 
    //Real bucket traits must be calculated from options and calculated value_traits
    typedef typename detail::get_slist_impl

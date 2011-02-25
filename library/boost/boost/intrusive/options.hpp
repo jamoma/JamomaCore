@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2008
+// (C) Copyright Ion Gaztanaga  2007-2009
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -338,6 +338,24 @@ struct member_hook
    struct pack : Base
    {
       typedef member_value_traits value_traits;
+   };
+/// @endcond
+};
+
+
+//!This option setter specifies the function object that will
+//!be used to convert between values to be inserted in a container
+//!and the hook to be used for that purpose.
+template< typename Functor>
+struct function_hook
+{
+/// @cond
+   typedef detail::function_hook_traits
+      <Functor> function_value_traits;
+   template<class Base>
+   struct pack : Base
+   {
+      typedef function_value_traits value_traits;
    };
 /// @endcond
 };

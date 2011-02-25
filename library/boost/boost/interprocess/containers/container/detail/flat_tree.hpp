@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2008. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -32,66 +32,87 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+
+#include INCLUDE_BOOST_CONTAINER_CONTAINER_FWD_HPP
 
 #include <algorithm>
 #include <functional>
 #include <utility>
 
 #include <boost/type_traits/has_trivial_destructor.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include INCLUDE_BOOST_CONTAINER_MOVE_HPP
 
-#include <boost/interprocess/containers/container/detail/utilities.hpp>
-#include <boost/interprocess/containers/container/detail/pair.hpp>
-#include <boost/interprocess/containers/container/vector.hpp>
-#include <boost/interprocess/containers/container/detail/value_init.hpp>
-#include <boost/interprocess/containers/container/detail/destroyers.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_UTILITIES_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_PAIR_HPP
+#include INCLUDE_BOOST_CONTAINER_VECTOR_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_VALUE_INIT_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_DESTROYERS_HPP
 
 namespace boost {
 
-namespace interprocess_container {
+namespace container {
 
 namespace containers_detail {
+
+template<class Compare, class Value, class KeyOfValue>
+class flat_tree_value_compare
+   : private Compare
+{
+   typedef Value              first_argument_type;
+   typedef Value              second_argument_type;
+   typedef bool               return_type;
+   public:     
+   flat_tree_value_compare(const Compare &pred) 
+      : Compare(pred)
+   {}
+
+   bool operator()(const Value& lhs, const Value& rhs) const
+   { 
+      KeyOfValue key_extract;
+      return Compare::operator()(key_extract(lhs), key_extract(rhs)); 
+   }
+
+   const Compare &get_comp() const
+      {  return *this;  }
+   
+   Compare &get_comp()
+      {  return *this;  }
+};
+
+template<class Pointer>
+struct get_flat_tree_iterators
+{
+   typedef typename containers_detail::
+      vector_iterator<Pointer>                        iterator;
+   typedef typename containers_detail::
+      vector_const_iterator<Pointer>                  const_iterator;
+   typedef std::reverse_iterator<iterator>            reverse_iterator;
+   typedef std::reverse_iterator<const_iterator>      const_reverse_iterator;
+};
 
 template <class Key, class Value, class KeyOfValue, 
           class Compare, class Alloc>
 class flat_tree
 {
-   typedef boost::interprocess_container::vector<Value, Alloc>  vector_t;
-   typedef Alloc                                      allocator_t;
+   typedef boost::container::vector<Value, Alloc>  vector_t;
+   typedef Alloc                                   allocator_t;
 
    public:
-   class value_compare
-      : private Compare
-   {
-      typedef Value              first_argument_type;
-      typedef Value              second_argument_type;
-      typedef bool               return_type;
-    public:     
-      value_compare(const Compare &pred) 
-         : Compare(pred)
-      {}
-
-      bool operator()(const Value& lhs, const Value& rhs) const
-      { 
-         KeyOfValue key_extract;
-         return Compare::operator()(key_extract(lhs), key_extract(rhs)); 
-      }
-
-      const Compare &get_comp() const
-         {  return *this;  }
-      
-      Compare &get_comp()
-         {  return *this;  }
-   };
+   typedef flat_tree_value_compare<Compare, Value, KeyOfValue> value_compare;
 
  private:
    struct Data 
       //Inherit from value_compare to do EBO
       : public value_compare
    {
-     public:
+      private:
+      BOOST_MOVE_MACRO_COPYABLE_AND_MOVABLE(Data)
+      public:
+      Data(const Data &d)
+         : value_compare(d), m_vect(d.m_vect)
+      {}
       Data(const Compare &comp,
            const vector_t &vect) 
          : value_compare(comp), m_vect(vect){}
@@ -103,14 +124,28 @@ class flat_tree
       Data(const Compare &comp,
            const allocator_t &alloc) 
          : value_compare(comp), m_vect(alloc){}
-     public:
+
+      Data& operator=(BOOST_MOVE_MACRO_COPY_ASSIGN_REF(Data) d)
+      {
+         this->value_compare::operator=(d);
+         m_vect = d.m_vect;
+         return *this;
+      }
+
+      Data& operator=(BOOST_MOVE_MACRO_RV_REF(Data) d)
+      {
+         this->value_compare::operator=(BOOST_CONTAINER_MOVE_NAMESPACE::move(static_cast<value_compare &>(d)));
+         m_vect = BOOST_CONTAINER_MOVE_NAMESPACE::move(d.m_vect);
+         return *this;
+      }
+
       vector_t m_vect;
    };
 
    Data m_data;
+   BOOST_MOVE_MACRO_COPYABLE_AND_MOVABLE(flat_tree)
 
    public:
-   BOOST_INTERPROCESS_ENABLE_MOVE_EMULATION(flat_tree)
 
    typedef typename vector_t::value_type              value_type;
    typedef typename vector_t::pointer                 pointer;
@@ -139,18 +174,25 @@ class flat_tree
       :  m_data(x.m_data, x.m_data.m_vect)
    { }
 
-   flat_tree(BOOST_INTERPROCESS_RV_REF(flat_tree) x)
-      :  m_data(boost::interprocess::move(x.m_data))
+   flat_tree(BOOST_MOVE_MACRO_RV_REF(flat_tree) x)
+      :  m_data(BOOST_CONTAINER_MOVE_NAMESPACE::move(x.m_data))
    { }
+
+   template <class InputIterator>
+   flat_tree( ordered_range_t, InputIterator first, InputIterator last
+            , const Compare& comp     = Compare()
+            , const allocator_type& a = allocator_type())
+      : m_data(comp, a)
+   { this->m_data.m_vect.insert(this->m_data.m_vect.end(), first, last); }
 
    ~flat_tree()
    { }
 
-   flat_tree&  operator=(const flat_tree& x)
+   flat_tree&  operator=(BOOST_MOVE_MACRO_COPY_ASSIGN_REF(flat_tree) x)
    {  m_data = x.m_data;   return *this;  }
 
-   flat_tree&  operator=(BOOST_INTERPROCESS_RV_REF(flat_tree) mx)
-   {  m_data = boost::interprocess::move(mx.m_data); return *this;  }
+   flat_tree&  operator=(BOOST_MOVE_MACRO_RV_REF(flat_tree) mx)
+   {  m_data = BOOST_CONTAINER_MOVE_NAMESPACE::move(mx.m_data); return *this;  }
 
    public:    
    // accessors:
@@ -233,12 +275,12 @@ class flat_tree
       return ret;
    }
 
-   std::pair<iterator,bool> insert_unique(BOOST_INTERPROCESS_RV_REF(value_type) val)
+   std::pair<iterator,bool> insert_unique(BOOST_MOVE_MACRO_RV_REF(value_type) val)
    {
       insert_commit_data data;
       std::pair<iterator,bool> ret = priv_insert_unique_prepare(val, data);
       if(ret.second){
-         ret.first = priv_insert_commit(data, boost::interprocess::move(val));
+         ret.first = priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
       }
       return ret;
    }
@@ -251,10 +293,10 @@ class flat_tree
       return i;
    }
 
-   iterator insert_equal(BOOST_INTERPROCESS_RV_REF(value_type) mval)
+   iterator insert_equal(BOOST_MOVE_MACRO_RV_REF(value_type) mval)
    {
       iterator i = this->upper_bound(KeyOfValue()(mval));
-      i = this->m_data.m_vect.insert(i, boost::interprocess::move(mval));
+      i = this->m_data.m_vect.insert(i, BOOST_CONTAINER_MOVE_NAMESPACE::move(mval));
       return i;
    }
 
@@ -268,12 +310,12 @@ class flat_tree
       return ret.first;
    }
 
-   iterator insert_unique(const_iterator pos, BOOST_INTERPROCESS_RV_REF(value_type) mval)
+   iterator insert_unique(const_iterator pos, BOOST_MOVE_MACRO_RV_REF(value_type) mval)
    {
       insert_commit_data data;
       std::pair<iterator,bool> ret = priv_insert_unique_prepare(pos, mval, data);
       if(ret.second){
-         ret.first = priv_insert_commit(data, boost::interprocess::move(mval));
+         ret.first = priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(mval));
       }
       return ret.first;
    }
@@ -285,11 +327,11 @@ class flat_tree
       return priv_insert_commit(data, val);
    }
 
-   iterator insert_equal(const_iterator pos, BOOST_INTERPROCESS_RV_REF(value_type) mval)
+   iterator insert_equal(const_iterator pos, BOOST_MOVE_MACRO_RV_REF(value_type) mval)
    {
       insert_commit_data data;
       priv_insert_equal_prepare(pos, mval, data);
-      return priv_insert_commit(data, boost::interprocess::move(mval));
+      return priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(mval));
    }
 
    template <class InIt>
@@ -312,12 +354,12 @@ class flat_tree
    template <class... Args>
    iterator emplace_unique(Args&&... args)
    {
-      value_type val(boost::interprocess::forward<Args>(args)...);
+      value_type && val = value_type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
       insert_commit_data data;
       std::pair<iterator,bool> ret =
          priv_insert_unique_prepare(val, data);
       if(ret.second){
-         ret.first = priv_insert_commit(data, boost::interprocess::move<value_type>(val));
+         ret.first = priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
       }
       return ret.first;
    }
@@ -325,11 +367,11 @@ class flat_tree
    template <class... Args>
    iterator emplace_hint_unique(const_iterator hint, Args&&... args)
    {
-      value_type val(boost::interprocess::forward<Args>(args)...);
+      value_type && val = value_type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
       insert_commit_data data;
       std::pair<iterator,bool> ret = priv_insert_unique_prepare(hint, val, data);
       if(ret.second){
-         ret.first = priv_insert_commit(data, boost::interprocess::move<value_type>(val));
+         ret.first = priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
       }
       return ret.first;
    }
@@ -337,19 +379,19 @@ class flat_tree
    template <class... Args>
    iterator emplace_equal(Args&&... args)
    {
-      value_type val(boost::interprocess::forward<Args>(args)...);
+      value_type &&val = value_type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
       iterator i = this->upper_bound(KeyOfValue()(val));
-      i = this->m_data.m_vect.insert(i, boost::interprocess::move<value_type>(val));
+      i = this->m_data.m_vect.insert(i, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
       return i;
    }
 
    template <class... Args>
    iterator emplace_hint_equal(const_iterator hint, Args&&... args)
    {
-      value_type val(boost::interprocess::forward<Args>(args)...);
+      value_type &&val = value_type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
       insert_commit_data data;
       priv_insert_equal_prepare(hint, val, data);
-      return priv_insert_commit(data, boost::interprocess::move<value_type>(val));
+      return priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
    }
 
    #else //#ifdef BOOST_CONTAINERS_PERFECT_FORWARDING
@@ -362,7 +404,7 @@ class flat_tree
       std::pair<iterator,bool> ret =
          priv_insert_unique_prepare(val, data);
       if(ret.second){
-         ret.first = priv_insert_commit(data, boost::interprocess::move<value_type>(val));
+         ret.first = priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
       }
       return ret.first;
    }
@@ -374,7 +416,7 @@ class flat_tree
       insert_commit_data data;
       std::pair<iterator,bool> ret = priv_insert_unique_prepare(hint, val, data);
       if(ret.second){
-         ret.first = priv_insert_commit(data, boost::interprocess::move<value_type>(val));
+         ret.first = priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
       }
       return ret.first;
    }
@@ -384,7 +426,7 @@ class flat_tree
       containers_detail::value_init<value_type> vval;
       value_type &val = vval.m_t;
       iterator i = this->upper_bound(KeyOfValue()(val));
-      i = this->m_data.m_vect.insert(i, boost::interprocess::move<value_type>(val));
+      i = this->m_data.m_vect.insert(i, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
       return i;
    }
 
@@ -394,7 +436,7 @@ class flat_tree
       value_type &val = vval.m_t;
       insert_commit_data data;
       priv_insert_equal_prepare(hint, val, data);
-      return priv_insert_commit(data, boost::interprocess::move<value_type>(val));
+      return priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));
    }
 
    #define BOOST_PP_LOCAL_MACRO(n)                                                        \
@@ -405,7 +447,7 @@ class flat_tree
       insert_commit_data data;                                                            \
       std::pair<iterator,bool> ret = priv_insert_unique_prepare(val, data);               \
       if(ret.second){                                                                     \
-         ret.first = priv_insert_commit(data, boost::interprocess::move<value_type>(val));        \
+         ret.first = priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val)); \
       }                                                                                   \
       return ret.first;                                                                   \
    }                                                                                      \
@@ -418,7 +460,7 @@ class flat_tree
       insert_commit_data data;                                                            \
       std::pair<iterator,bool> ret = priv_insert_unique_prepare(hint, val, data);         \
       if(ret.second){                                                                     \
-         ret.first = priv_insert_commit(data, boost::interprocess::move<value_type>(val));        \
+         ret.first = priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));        \
       }                                                                                   \
       return ret.first;                                                                   \
    }                                                                                      \
@@ -428,7 +470,7 @@ class flat_tree
    {                                                                                      \
       value_type val(BOOST_PP_ENUM(n, BOOST_CONTAINERS_PP_PARAM_FORWARD, _));           \
       iterator i = this->upper_bound(KeyOfValue()(val));                                  \
-      i = this->m_data.m_vect.insert(i, boost::interprocess::move<value_type>(val));              \
+      i = this->m_data.m_vect.insert(i, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));       \
       return i;                                                                           \
    }                                                                                      \
                                                                                           \
@@ -439,7 +481,7 @@ class flat_tree
       value_type val(BOOST_PP_ENUM(n, BOOST_CONTAINERS_PP_PARAM_FORWARD, _));           \
       insert_commit_data data;                                                            \
       priv_insert_equal_prepare(hint, val, data);                                         \
-      return priv_insert_commit(data, boost::interprocess::move<value_type>(val));                \
+      return priv_insert_commit(data, BOOST_CONTAINER_MOVE_NAMESPACE::move(val));                \
    }                                                                                      \
    //!
    #define BOOST_PP_LOCAL_LIMITS (1, BOOST_CONTAINERS_MAX_CONSTRUCTOR_PARAMETERS)
@@ -635,11 +677,11 @@ class flat_tree
 
    template<class Convertible>
    iterator priv_insert_commit
-      (insert_commit_data &commit_data, BOOST_INTERPROCESS_FWD_REF(Convertible) convertible)
+      (insert_commit_data &commit_data, BOOST_MOVE_MACRO_FWD_REF(Convertible) convertible)
    {
       return this->m_data.m_vect.insert
          ( commit_data.position
-         , boost::interprocess::forward<Convertible>(convertible));
+         , BOOST_CONTAINER_MOVE_NAMESPACE::forward<Convertible>(convertible));
    }
 
    template <class RanIt>
@@ -815,23 +857,19 @@ swap(flat_tree<Key,Value,KeyOfValue,Compare,Alloc>& x,
 
 }  //namespace containers_detail {
 
-}  //namespace interprocess_container {
-
-namespace interprocess {
-
+}  //namespace container {
+/*
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class K, class V, class KOV, 
 class C, class A>
-struct has_trivial_destructor_after_move<boost::interprocess_container::containers_detail::flat_tree<K, V, KOV, C, A> >
+struct has_trivial_destructor_after_move<boost::container::containers_detail::flat_tree<K, V, KOV, C, A> >
 {
    static const bool value = has_trivial_destructor<A>::value && has_trivial_destructor<C>::value;
 };
-
-}  //namespace interprocess {
-
+*/
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif // BOOST_CONTAINERS_FLAT_TREE_HPP

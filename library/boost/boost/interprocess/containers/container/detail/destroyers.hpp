@@ -17,13 +17,13 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
-#include <boost/interprocess/containers/container/detail/version_type.hpp>
-#include <boost/interprocess/containers/container/detail/utilities.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_VERSION_TYPE_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_UTILITIES_HPP
 
 namespace boost {
-namespace interprocess_container { 
+namespace container { 
 namespace containers_detail {
 
 //!A deleter for scoped_ptr that deallocates the memory
@@ -117,7 +117,7 @@ class allocator_destroyer
 {
    typedef typename A::value_type value_type;
    typedef containers_detail::integral_constant<unsigned,
-      boost::interprocess_container::containers_detail::
+      boost::container::containers_detail::
          version<A>::value>                           alloc_version;
    typedef containers_detail::integral_constant<unsigned, 1>     allocator_v1;
    typedef containers_detail::integral_constant<unsigned, 2>     allocator_v2;
@@ -146,9 +146,9 @@ class allocator_destroyer
 
 
 }  //namespace containers_detail { 
-}  //namespace interprocess_container { 
+}  //namespace container { 
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //#ifndef BOOST_CONTAINERS_DESTROYERS_HPP

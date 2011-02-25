@@ -54,13 +54,22 @@
 #  define BOOST_HAS_THREADS
 #endif
 
-
 #if !defined(_GLIBCPP_USE_LONG_LONG) \
     && !defined(_GLIBCXX_USE_LONG_LONG)\
     && defined(BOOST_HAS_LONG_LONG)
 // May have been set by compiler/*.hpp, but "long long" without library
 // support is useless.
 #  undef BOOST_HAS_LONG_LONG
+#endif
+
+// Apple doesn't seem to reliably defined a *unix* macro
+#if !defined(CYGWIN) && (  defined(__unix__)  \
+                        || defined(__unix)    \
+                        || defined(unix)      \
+                        || defined(__APPLE__) \
+                        || defined(__APPLE)   \
+                        || defined(APPLE))
+#  include <unistd.h>
 #endif
 
 #if defined(__GLIBCXX__) || (defined(__GLIBCPP__) && __GLIBCPP__>=20020514) // GCC >= 3.1.0
@@ -115,6 +124,12 @@
 #  define BOOST_NO_0X_HDR_THREAD
 #endif
 
+//  C++0x features in GCC 4.5.0 and later
+//
+#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
+#  define BOOST_NO_NUMERIC_LIMITS_LOWEST
+#endif
+
 //  C++0x headers not yet implemented
 //
 #  define BOOST_NO_0X_HDR_CODECVT
@@ -123,5 +138,6 @@
 #  define BOOST_NO_0X_HDR_FUTURE
 #  define BOOST_NO_0X_HDR_ITERATOR_CONCEPTS
 #  define BOOST_NO_0X_HDR_MEMORY_CONCEPTS
+#  define BOOST_NO_0X_HDR_TYPEINDEX
 
 //  --- end ---

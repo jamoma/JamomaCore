@@ -5,7 +5,7 @@
     
     http://www.boost.org/
 
-    Copyright (c) 2001-2009 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -78,12 +78,12 @@ struct file_position {
 
 public:
     typedef StringT string_type;
-    
+
     file_position()
     :   file(), line(1), column(1)
     {}
-    explicit file_position(string_type const& file_, int line_ = 1, 
-            int column_ = 1)
+    explicit file_position(string_type const& file_, std::size_t line_ = 1, 
+            std::size_t column_ = 1)
     :   file(file_), line(line_), column(column_)
     {
         BOOST_ASSERT(!debug::is_escaped_lit(file));
@@ -91,17 +91,17 @@ public:
 
 // accessors
     string_type const &get_file() const { return file; }
-    unsigned int get_line() const { return line; }
-    unsigned int get_column() const { return column; }
-    
+    std::size_t get_line() const { return line; }
+    std::size_t get_column() const { return column; }
+
     void set_file(string_type const &file_) 
     { 
         file = file_; 
         BOOST_ASSERT(!debug::is_escaped_lit(file));
     }
-    void set_line(unsigned int line_) { line = line_; }
-    void set_column(unsigned int column_) { column = column_; }
-    
+    void set_line(std::size_t line_) { line = line_; }
+    void set_column(std::size_t column_) { column = column_; }
+
 private:
 #if BOOST_WAVE_SERIALIZATION != 0
     friend class boost::serialization::access;
@@ -116,8 +116,8 @@ private:
 #endif
 
     string_type file;
-    unsigned int line;
-    unsigned int column;
+    std::size_t line;
+    std::size_t column;
 };
 
 template <typename StringT>
@@ -154,11 +154,11 @@ struct position_iterator
 :   boost::spirit::classic::position_iterator<IteratorT, PositionT>
 {
     typedef boost::spirit::classic::position_iterator<IteratorT, PositionT> base_type;
-    
+
     position_iterator()
     {
     }
-    
+
     position_iterator(IteratorT const &begin, IteratorT const &end,
             PositionT const &pos)
     :   base_type(begin, end, pos)

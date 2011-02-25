@@ -5,7 +5,7 @@
     
     http://www.boost.org/
 
-    Copyright (c) 2001-2009 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -80,6 +80,18 @@
 //
 #if !defined(BOOST_WAVE_SUPPORT_INCLUDE_NEXT)
 #define BOOST_WAVE_SUPPORT_INCLUDE_NEXT 1
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+//  Decide, whether to support C++0x
+//
+//  To implement C++0x keywords and preprocessor semantics define the following 
+//  to something not equal to zero.
+//
+#if !defined(BOOST_WAVE_SUPPORT_CPP0X)
+#define BOOST_WAVE_SUPPORT_CPP0X 1
+#undef BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS
+#define BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS 1
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -193,8 +205,8 @@
 #if BOOST_WORKAROUND(BOOST_MSVC, <= 1300) || \
     BOOST_WORKAROUND(__MWERKS__, < 0x3200) || \
     (defined(__DECCXX) && defined(__alpha)) || \
-    defined(BOOST_WAVE_STRINGTYPE_USE_STDSTRING)
-    
+    defined(BOOST_WAVE_STRINGTYPE_USE_STDSTRING) 
+
 #define BOOST_WAVE_STRINGTYPE std::string
 
 #if !defined(BOOST_WAVE_STRINGTYPE_USE_STDSTRING)
@@ -403,15 +415,14 @@ namespace boost { namespace wave
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Set up dll import/export options
-#if defined(BOOST_HAS_DECLSPEC) && \
-    (defined(BOOST_WAVE_DYN_LINK) || defined(BOOST_ALL_DYN_LINK)) && \
+#if (defined(BOOST_WAVE_DYN_LINK) || defined(BOOST_ALL_DYN_LINK)) && \
     !defined(BOOST_WAVE_STATIC_LINK)
     
 #if defined(BOOST_WAVE_SOURCE)
-#define BOOST_WAVE_DECL __declspec(dllexport)
+#define BOOST_WAVE_DECL BOOST_SYMBOL_EXPORT 
 #define BOOST_WAVE_BUILD_DLL
 #else
-#define BOOST_WAVE_DECL __declspec(dllimport)
+#define BOOST_WAVE_DECL BOOST_SYMBOL_IMPORT 
 #endif
 
 #endif // building a shared library

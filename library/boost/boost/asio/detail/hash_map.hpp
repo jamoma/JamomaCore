@@ -1,8 +1,8 @@
 //
-// hash_map.hpp
-// ~~~~~~~~~~~~
+// detail/hash_map.hpp
+// ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2008 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -15,35 +15,39 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
-#include <boost/asio/detail/push_options.hpp>
-
-#include <boost/asio/detail/push_options.hpp>
+#include <boost/asio/detail/config.hpp>
 #include <cassert>
 #include <list>
 #include <utility>
-#include <vector>
-#include <boost/functional/hash.hpp>
-#include <boost/asio/detail/pop_options.hpp>
-
 #include <boost/asio/detail/noncopyable.hpp>
-#include <boost/asio/detail/socket_types.hpp>
+
+#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+# include <boost/asio/detail/socket_types.hpp>
+#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+
+#include <boost/asio/detail/push_options.hpp>
 
 namespace boost {
 namespace asio {
 namespace detail {
 
-template <typename T>
-inline std::size_t calculate_hash_value(const T& t)
+inline std::size_t calculate_hash_value(int i)
 {
-  return boost::hash_value(t);
+  return static_cast<std::size_t>(i);
 }
 
-#if defined(_WIN64)
+inline std::size_t calculate_hash_value(void* p)
+{
+  return reinterpret_cast<std::size_t>(p)
+    + (reinterpret_cast<std::size_t>(p) >> 3);
+}
+
+#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 inline std::size_t calculate_hash_value(SOCKET s)
 {
   return static_cast<std::size_t>(s);
 }
-#endif // defined(_WIN64)
+#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 
 // Note: assumes K and V are POD types.
 template <typename K, typename V>
@@ -62,9 +66,16 @@ public:
 
   // Constructor.
   hash_map()
-    : size_(0)
+    : size_(0),
+      buckets_(0),
+      num_buckets_(0)
   {
-    rehash(hash_size(0));
+  }
+
+  // Destructor.
+  ~hash_map()
+  {
+    delete[] buckets_;
   }
 
   // Get an iterator for the beginning of the map.
@@ -100,17 +111,20 @@ public:
   // Find an entry in the map.
   iterator find(const K& k)
   {
-    size_t bucket = calculate_hash_value(k) % buckets_.size();
-    iterator it = buckets_[bucket].first;
-    if (it == values_.end())
-      return values_.end();
-    iterator end = buckets_[bucket].last;
-    ++end;
-    while (it != end)
+    if (num_buckets_)
     {
-      if (it->first == k)
-        return it;
-      ++it;
+      size_t bucket = calculate_hash_value(k) % num_buckets_;
+      iterator it = buckets_[bucket].first;
+      if (it == values_.end())
+        return values_.end();
+      iterator end = buckets_[bucket].last;
+      ++end;
+      while (it != end)
+      {
+        if (it->first == k)
+          return it;
+        ++it;
+      }
     }
     return values_.end();
   }
@@ -118,17 +132,20 @@ public:
   // Find an entry in the map.
   const_iterator find(const K& k) const
   {
-    size_t bucket = calculate_hash_value(k) % buckets_.size();
-    const_iterator it = buckets_[bucket].first;
-    if (it == values_.end())
-      return it;
-    const_iterator end = buckets_[bucket].last;
-    ++end;
-    while (it != end)
+    if (num_buckets_)
     {
-      if (it->first == k)
+      size_t bucket = calculate_hash_value(k) % num_buckets_;
+      const_iterator it = buckets_[bucket].first;
+      if (it == values_.end())
         return it;
-      ++it;
+      const_iterator end = buckets_[bucket].last;
+      ++end;
+      while (it != end)
+      {
+        if (it->first == k)
+          return it;
+        ++it;
+      }
     }
     return values_.end();
   }
@@ -136,9 +153,9 @@ public:
   // Insert a new entry into the map.
   std::pair<iterator, bool> insert(const value_type& v)
   {
-    if (size_ + 1 >= buckets_.size())
+    if (size_ + 1 >= num_buckets_)
       rehash(hash_size(size_ + 1));
-    size_t bucket = calculate_hash_value(v.first) % buckets_.size();
+    size_t bucket = calculate_hash_value(v.first) % num_buckets_;
     iterator it = buckets_[bucket].first;
     if (it == values_.end())
     {
@@ -165,7 +182,7 @@ public:
   {
     assert(it != values_.end());
 
-    size_t bucket = calculate_hash_value(it->first) % buckets_.size();
+    size_t bucket = calculate_hash_value(it->first) % num_buckets_;
     bool is_first = (it == buckets_[bucket].first);
     bool is_last = (it == buckets_[bucket].last);
     if (is_first && is_last)
@@ -179,6 +196,14 @@ public:
     --size_;
   }
 
+  // Erase a key from the map.
+  void erase(const K& k)
+  {
+    iterator it = find(k);
+    if (it != values_.end())
+      erase(it);
+  }
+
   // Remove all entries from the map.
   void clear()
   {
@@ -187,8 +212,9 @@ public:
     size_ = 0;
 
     // Initialise all buckets to empty.
-    for (size_t i = 0; i < buckets_.size(); ++i)
-      buckets_[i].first = buckets_[i].last = values_.end();
+    iterator end = values_.end();
+    for (size_t i = 0; i < num_buckets_; ++i)
+      buckets_[i].first = buckets_[i].last = end;
   }
 
 private:
@@ -215,21 +241,24 @@ private:
   // Re-initialise the hash from the values already contained in the list.
   void rehash(std::size_t num_buckets)
   {
-    if (num_buckets == buckets_.size())
+    if (num_buckets == num_buckets_)
       return;
+    num_buckets_ = num_buckets;
 
     iterator end = values_.end();
 
     // Update number of buckets and initialise all buckets to empty.
-    buckets_.resize(num_buckets);
-    for (std::size_t i = 0; i < buckets_.size(); ++i)
+    bucket_type* tmp = new bucket_type[num_buckets_];
+    delete[] buckets_;
+    buckets_ = tmp;
+    for (std::size_t i = 0; i < num_buckets_; ++i)
       buckets_[i].first = buckets_[i].last = end;
 
     // Put all values back into the hash.
     iterator iter = values_.begin();
     while (iter != end)
     {
-      std::size_t bucket = calculate_hash_value(iter->first) % buckets_.size();
+      std::size_t bucket = calculate_hash_value(iter->first) % num_buckets_;
       if (buckets_[bucket].last == end)
       {
         buckets_[bucket].first = buckets_[bucket].last = iter++;
@@ -282,14 +311,15 @@ private:
   // The type for a bucket in the hash table.
   struct bucket_type
   {
-    bucket_type() {}
-    bucket_type(const bucket_type&) { /* noop */ }
     iterator first;
     iterator last;
   };
 
   // The buckets in the hash.
-  std::vector<bucket_type> buckets_;
+  bucket_type* buckets_;
+
+  // The number of buckets in the hash.
+  std::size_t num_buckets_;
 };
 
 } // namespace detail

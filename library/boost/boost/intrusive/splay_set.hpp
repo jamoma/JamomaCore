@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2008
+// (C) Copyright Ion Gaztanaga  2007-2009
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -73,6 +73,8 @@ class splay_set_impl
    typedef typename implementation_defined::node_ptr                 node_ptr;
    typedef typename implementation_defined::const_node_ptr           const_node_ptr;
    typedef typename implementation_defined::node_algorithms          node_algorithms;
+
+   static const bool constant_time_size = Config::constant_time_size;
 
    /// @cond
    private:
@@ -624,7 +626,7 @@ class splay_set_impl
                   /// @cond
                   , typename detail::enable_if_c<!detail::is_convertible<KeyValueCompare, const_iterator>::value >::type * = 0
                   /// @endcond
-)
+                  )
    {  return tree_.erase_and_dispose(key, comp, disposer);  }
 
    //! <b>Effects</b>: Erases all the elements of the container.
@@ -1285,6 +1287,8 @@ class splay_multiset_impl
    typedef typename implementation_defined::node_ptr                 node_ptr;
    typedef typename implementation_defined::const_node_ptr           const_node_ptr;
    typedef typename implementation_defined::node_algorithms          node_algorithms;
+
+   static const bool constant_time_size = Config::constant_time_size;
 
    /// @cond
    private:

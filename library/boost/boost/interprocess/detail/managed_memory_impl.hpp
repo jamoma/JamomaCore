@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2008. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -35,7 +35,7 @@
 #include <utility>
 #include <fstream>
 #include <new>
-#include <cassert>
+#include <boost/assert.hpp>
 
 //!\file
 //!Describes a named shared memory allocation user class. 
@@ -263,7 +263,7 @@ class basic_managed_memory_impl
    bool belongs_to_segment (const void *ptr) const
    {  
       return ptr >= this->get_address() && 
-             ptr <  (reinterpret_cast<const char*>(ptr) + this->get_size());
+             ptr <  (reinterpret_cast<const char*>(this->get_address()) + this->get_size());
    }
 
    //!Transforms previously obtained offset into an absolute address in the 
@@ -519,7 +519,16 @@ class basic_managed_memory_impl
    //!function call. If the functor throws, this function throws.
    template <class Func>
    void atomic_func(Func &f)
-   {   mp_header->atomic_func(f); }
+   {   mp_header->atomic_func(f);  }
+
+   //!Tries to call a functor guaranteeing that no new construction, search or
+   //!destruction will be executed by any process while executing the object
+   //!function call. If the atomic function can't be immediatelly executed
+   //!because the internal mutex is already locked, returns false.
+   //!If the functor throws, this function throws.
+   template <class Func>
+   bool try_atomic_func(Func &f)
+   {   return mp_header->try_atomic_func(f); }
 
    //!Destroys a named memory object or array.
    //!
@@ -673,7 +682,7 @@ class basic_managed_memory_impl
    template<class T>
    typename allocator<T>::type
       get_allocator()
-   {   return mp_header->get_allocator<T>(); }
+   {   return mp_header->template get_allocator<T>(); }
 
    //!This is the default deleter to delete types T
    //!from this managed segment.
@@ -688,7 +697,7 @@ class basic_managed_memory_impl
    template<class T>
    typename deleter<T>::type
       get_deleter()
-   {   return mp_header->get_deleter<T>(); }
+   {   return mp_header->template get_deleter<T>(); }
 
    /// @cond
    //!Tries to find a previous named allocation address. Returns a memory
