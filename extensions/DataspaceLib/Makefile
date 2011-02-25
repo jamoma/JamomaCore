@@ -47,19 +47,14 @@ LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS)
 #########################################
 
 Debug:
-	# TODO: on Linux we can't do a mkdir if the dir already exists, so we need to check for it
-	#mkdir build
-	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).ttso $(LDFLAGS) 
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).ttso $(LDFLAGS)
 
 Release:
-	# TODO: on Linux we can't do a mkdir if the dir already exists, so we need to check for it
-	#mkdir build
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).ttso $(LDFLAGS) $(OPTIMIZATION_FLAGS)
 
 all:
-	# TODO: on Linux we can't do a mkdir if the dir already exists, so we need to check for it
-	#mkdir build
-	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).ttso $(LDFLAGS) 
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).ttso $(LDFLAGS)
 
 clean:
 	rm -f *.o
+
