@@ -394,17 +394,21 @@ TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetOutputSignalReference()
 TTObjectPtr TTAudioEngine::create()
 {
 	PaError	paErr;
-	
+	TTErr   err = kTTErrGeneric;
+
 	if (!sSingletonInstance) {
 		paErr = Pa_Initialize();
 		if (paErr == paNoError)
-			TTObjectInstantiate(TT(thisTTClassName), &sSingletonInstance, kTTValNONE);
+			err = TTObjectInstantiate(TT(thisTTClassName), &sSingletonInstance, kTTValNONE);
 		else {
 			TTLogError("PortAudio error: %s", Pa_GetErrorText(paErr));
 			TT_ASSERT("PortAudio initialized", false);
 		}
 	}
-	return TTObjectReference(sSingletonInstance);
+	if (!err)
+        return TTObjectReference(sSingletonInstance);
+    else
+        return NULL;
 }
 
 
