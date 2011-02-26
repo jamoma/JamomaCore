@@ -12,63 +12,10 @@
 #include "TTBase.h"
 #include "TTSymbol.h"
 
-#if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
-#include <ext/hash_map>
-using namespace __gnu_cxx;
-#elif TT_PLATFORM_LINUX
-#include <map>
-#else
-#include <hash_map>
-using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
-#endif
-
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
 #define TT ttSymbolTable->lookup
 
-
-/** A simple helper class used by TTSymbolTable for comparing hash_map keys.  */
-#if defined( TT_PLATFORM_WIN )
-class TTStringCompare : public stdext::hash_compare<const TTCString> {
-public:
-	bool operator()(const TTCString s1, const TTCString s2) const
-	{
-		return !strcmp(s1, s2);
-	}
-
-	std::size_t operator()(const TTCString s)
-	{
-		return stdext::hash_value(s);
-	}
-};
-#elif defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
-class TTStringCompare {
-public:
-	bool operator()(const char* s1, const char* s2) const
-	{
-		return !strcmp(s1, s2);
-	}
-};
-#endif
-
-/** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef pair<const char*, TTSymbolPtr>										TTSymbolTablePair;
-
-/** A hash_map type used by TTSymbolTable. */
-#ifdef TT_PLATFORM_WIN
-typedef hash_map<TTString, TTSymbolPtr>										TTSymbolTableHash;
-#elif TT_PLATFORM_LINUX
-typedef map<const char*, TTSymbolPtr>										TTSymbolTableHash;
-#else
-typedef hash_map<const char*, TTSymbolPtr, hash<char*>, TTStringCompare>	TTSymbolTableHash;
-#endif
-
-/** An iterator for the STL hash_map used by TTSymbolTable. */
-typedef TTSymbolTableHash::const_iterator									TTSymbolTableIter;
-
-
-// Forward declarations
-class TTValue;
 
 
 /****************************************************************************************************/
@@ -81,8 +28,9 @@ class TTValue;
 
 class TTFOUNDATION_EXPORT TTSymbolTable : public TTBase {
 private:
-	TTSymbolTableHash*	symbolTable;	///< The symbol table, implemented internally as an STL hash_map.
-
+	//TTSymbolTableHash*	symbolTable;	///< The symbol table, implemented internally as an STL hash_map.
+	TTPtr	mSymbolTable;
+	
 public:
 	TTSymbolTable();
 	virtual	~TTSymbolTable();
