@@ -284,11 +284,8 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 
             // TODO: assert -- or at least do a log post -- if handle is NULL
             initializer = (TTExtensionInitializationMethod)dlsym(handle, "loadTTExtension");
-            cout << "INITIALIZER: " << initializer << endl;
             if (initializer) {
                 err = initializer();
-                cout << "ERR: " << err << endl;
-
             }
         }
     }

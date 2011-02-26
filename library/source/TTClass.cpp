@@ -28,12 +28,8 @@ TTErr TTClass::createInstance(TTObject** anObject, TTValue& anArgument)
 {
 	TTErr err = kTTErrNone;
 
-    cout << "anObject: " << anObject << "  AND *anObject: " << *anObject << "INCOMING" << endl;
-	try {
-	    cout << "instantiationMethod: " << instantiationMethod << "  AND name: " << name << endl;
+ 	try {
 		*anObject = instantiationMethod(name, anArgument);
-
-		cout << "result: " << *anObject << endl;
 	}
 	catch (...) {
 		err = kTTErrAllocFailed;

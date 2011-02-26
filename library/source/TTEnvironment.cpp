@@ -64,8 +64,6 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 	TTSymbolPtr	tag;
 	TTValue		result;
 
-cout << "!!! REGISTERING CLASS !!! --- " << className->getCString() << endl;
-
 	err = classes->lookup(className, result);
 
 	// If a class is already registered with this name, then we do not want to register another class with the same name!
@@ -194,13 +192,9 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 	TTObjectPtr	newObject = NULL;
 	TTObjectPtr	oldObject = NULL;
 
-cout << "CREATING INSTANCE OF: "<< className->getCString() << endl;
-
 	err = classes->lookup(className, v);
 	if (!err) {
 		theClass = TTClassPtr(TTPtr(v));
-
-		cout << "THE CLASS: " << theClass << endl;
 
 		if (theClass)
 			err = theClass->createInstance(&newObject, anArgument);
