@@ -1,7 +1,7 @@
-/* 
+/*
  * TTBlue Audio Engine
  * Copyright © 2008, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -33,29 +33,29 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 {
 	if (sSingletonInstance)
 		throw TTException("cannot instantiate multiple copies of a singleton class");
-	
+
 	mCallbackObservers = new TTList;
 	mCallbackObservers->setThreadProtection(NO);	// ... because we make calls into this at every audio vector calculation ...
 
 	TTObjectInstantiate(kTTSym_audiosignal, &mInputBuffer, 1);
 	TTObjectInstantiate(kTTSym_audiosignal, &mOutputBuffer, 1);
-	
+
 	// numChannels should be readonly -- how do we do that?
 	addAttribute(NumInputChannels,	kTypeUInt16);
 	addAttribute(NumOutputChannels,	kTypeUInt16);
-	
+
 	addAttributeWithSetter(VectorSize,		kTypeUInt16);
 	addAttributeWithSetter(SampleRate,		kTypeUInt32);
 	addAttributeWithSetter(InputDevice,		kTypeSymbol);
 	addAttributeWithSetter(OutputDevice,	kTypeSymbol);
-	
+
 	addMessage(start);
 	addMessage(stop);
 	addMessageWithArgument(getCpuLoad);
 
 	addMessageWithArgument(getAvailableInputDeviceNames);
 	addMessageWithArgument(getAvailableOutputDeviceNames);
-	
+
 	addMessageWithArgument(addCallbackObserver);
 	addMessageProperty(addCallbackObserver, hidden, YES);
 	addMessageWithArgument(removeCallbackObserver);
@@ -74,7 +74,7 @@ TTAudioEngine::~TTAudioEngine()
 	if (mStream) {
 		if (mIsRunning)
 			stop();
-				
+
 		err = Pa_CloseStream(mStream);
 		if (err != paNoError)
 			TTLogError("PortAudio error freeing engine: %s", Pa_GetErrorText(err));
@@ -89,10 +89,10 @@ TTErr TTAudioEngine::initStream()
 {
 	PaError		err;
 	TTBoolean	shouldRun = mIsRunning;
-		
+
 	if (mIsRunning)
 		stop();
-		
+
 	if (mStream) {
 		Pa_CloseStream(mStream);
 		mStream = NULL;
@@ -117,13 +117,13 @@ TTErr TTAudioEngine::initStream()
 		inputParameters.hostApiSpecificStreamInfo = NULL;
 		inputParameters.sampleFormat = paFloat32;
 		inputParameters.suggestedLatency = Pa_GetDeviceInfo(mInputDeviceIndex)->defaultLowInputLatency;
-		
+
 		outputParameters.channelCount = mNumOutputChannels;
 		outputParameters.device = mOutputDeviceIndex;
 		outputParameters.hostApiSpecificStreamInfo = NULL;
 		outputParameters.sampleFormat = paFloat32;
 		outputParameters.suggestedLatency = Pa_GetDeviceInfo(mOutputDeviceIndex)->defaultLowOutputLatency;
-		
+
 		err = Pa_OpenStream(
 							&mStream,
 							&inputParameters,
@@ -135,11 +135,11 @@ TTErr TTAudioEngine::initStream()
 							this);
 
 	}
-	
+
 	if (err != paNoError )
 		TTLogError("PortAudio error creating TTAudioEngine: %s", Pa_GetErrorText(err));
-	
-	
+
+
 	// Now that the stream is initialized, we need to setup our own buffers for reading and writing.
 	mInputBuffer->setMaxNumChannels(mNumInputChannels);
 	mInputBuffer->setNumChannels(mNumInputChannels);
@@ -150,10 +150,10 @@ TTErr TTAudioEngine::initStream()
 	mOutputBuffer->setNumChannels(mNumOutputChannels);
 	mOutputBuffer->setVectorSizeWithInt(mVectorSize);
 	mOutputBuffer->alloc();
-	
+
 	if (shouldRun)
 		start();
-	
+
 	return (TTErr)err;
 }
 
@@ -161,15 +161,15 @@ TTErr TTAudioEngine::initStream()
 TTErr TTAudioEngine::start()
 {
 	PaError err = paNoError;
-	
+
 	if (!mIsRunning) {
 		if (!mStream)
 			initStream();
-		
+
 		err = Pa_StartStream(mStream);
-		if (err != paNoError) 
+		if (err != paNoError)
 			TTLogError("PortAudio error starting engine: %s", Pa_GetErrorText(err));
-		
+
 		mIsRunning = true;
 	}
 	return (TTErr)err;
@@ -179,10 +179,10 @@ TTErr TTAudioEngine::start()
 TTErr TTAudioEngine::stop()
 {
 	PaError err = paNoError;
-	
+
 	if (mStream) {
 		err = Pa_StopStream(mStream);
-		if (err != paNoError) 
+		if (err != paNoError)
 			TTLogError("PortAudio error stopping engine: %s", Pa_GetErrorText(err));
 	}
 	mIsRunning = false;
@@ -193,7 +193,7 @@ TTErr TTAudioEngine::stop()
 TTErr TTAudioEngine::getCpuLoad(TTValue& returnedValue)
 {
 	TTFloat64 cpuLoad = Pa_GetStreamCpuLoad(mStream);
-	
+
 	returnedValue = cpuLoad;
 	return kTTErrNone;
 }
@@ -203,15 +203,15 @@ TTErr TTAudioEngine::getAvailableInputDeviceNames(TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
-	
+
 	returnedDeviceNames.clear();
-	
+
     numDevices = Pa_GetDeviceCount();
     if (numDevices < 0) {
         printf("ERROR: Pa_CountDevices returned 0x%x\n", numDevices);
         return kTTErrGeneric;
     }
-	
+
     for (int i=0; i<numDevices; i++) {
         deviceInfo = Pa_GetDeviceInfo(i);
 		if (deviceInfo->maxInputChannels)
@@ -225,15 +225,15 @@ TTErr TTAudioEngine::getAvailableOutputDeviceNames(TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
-	
+
 	returnedDeviceNames.clear();
-	
+
     numDevices = Pa_GetDeviceCount();
     if (numDevices < 0) {
         printf("ERROR: Pa_CountDevices returned 0x%x\n", numDevices);
         return kTTErrGeneric;
     }
-	
+
     for (int i=0; i<numDevices; i++) {
         deviceInfo = Pa_GetDeviceInfo(i);
 		if (deviceInfo->maxOutputChannels)
@@ -248,7 +248,7 @@ TTErr TTAudioEngine::setInputDevice(TTValue& newDeviceName)
 	TTSymbolPtr			newDevice = newDeviceName;
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
-	
+
 	if (newDevice != mInputDevice) {
 		numDevices = Pa_GetDeviceCount();
 		for (int i=0; i<numDevices; i++) {
@@ -341,10 +341,10 @@ TTErr TTAudioEngine::removeCallbackObserver(const TTValue& objectCurrentlyReceiv
 }
 
 
-TTInt32 TTAudioEngine::callback(const TTFloat32*		input, 
-						TTFloat32*						output, 
-						TTUInt32						frameCount, 
-						const PaStreamCallbackTimeInfo*	timeInfo, 
+TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
+						TTFloat32*						output,
+						TTUInt32						frameCount,
+						const PaStreamCallbackTimeInfo*	timeInfo,
 						PaStreamCallbackFlags			statusFlags)
 {
 	mInputBuffer->clear();
@@ -352,16 +352,16 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples
-	for (unsigned int i=0; i<frameCount; i++) {		
+	for (unsigned int i=0; i<frameCount; i++) {
 		for (TTUInt16 channel=0; channel<mNumInputChannels; channel++)
 			mInputBuffer->mSampleVectors[channel][i] = *input++;
     }
-	
+
 	// notify any observers that we are about to process a vector
 	// for example, an audio graph will do all of its processing in response to this
 	// also, the scheduler will be serviced as a result of this
 	mCallbackObservers->iterateObjectsSendingMessage(kTTSym_audioEngineWillProcess);
-	
+
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples
 	for (unsigned int i=0; i<frameCount; i++) {
