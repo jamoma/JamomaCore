@@ -99,7 +99,7 @@ TTErr TTAudioObjectArray::set(TTValue& arguments)
 	// the first or second arg (the first which is a symbol) is the name of the attribute
 	// the args past that are the value
 
-	TTInt8		target = -1; // -1 means all voices
+	TTInt32		target = -1; // -1 means all voices
 	TTSymbolPtr	attrName;
 	TTValue		attrValue;
 	int			err = kTTErrNone;
@@ -108,6 +108,7 @@ TTErr TTAudioObjectArray::set(TTValue& arguments)
 		target = arguments;
 
 	if (target >= 0) {
+		if (target < mSize){
 		if (arguments.getSize() < 3)
 			return kTTErrWrongNumValues;
 		else
@@ -119,8 +120,9 @@ TTErr TTAudioObjectArray::set(TTValue& arguments)
 		attrValue.copyFrom(arguments, 2);
 
 		err = mInstances[target]->setAttributeValue(attrName, attrValue);
+		}
 
-	}
+	} 
 	else {
 		if (arguments.getSize() < 2)
 			return kTTErrWrongNumValues;
