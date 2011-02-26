@@ -13,6 +13,10 @@
 
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 
+#define X mDimensions[0]
+#define Y mDimensions[1]
+#define Z mDimensions[2]
+
 
 /****************************************************************************************************/
 // Class Specification

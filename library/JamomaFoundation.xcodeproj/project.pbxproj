@@ -360,7 +360,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -381,6 +381,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JamomaFoundation;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost";
 			};
 			name = Development;
 		};
@@ -388,7 +389,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -405,6 +406,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JamomaFoundation;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost";
 			};
 			name = Deployment;
 		};
