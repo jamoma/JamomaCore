@@ -12,8 +12,10 @@
 
 
 #if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
-#include <ext/hash_map>
-using namespace __gnu_cxx;
+//#include <ext/hash_map>
+//using namespace __gnu_cxx;
+#include "boost/unordered_map.hpp"
+using namespace boost;
 #elif TT_PLATFORM_LINUX
 #include <map>
 #else
@@ -59,15 +61,11 @@ typedef hash_map<TTString, TTSymbolPtr>										TTSymbolTableHash;
 #elif TT_PLATFORM_LINUX
 typedef map<const char*, TTSymbolPtr>										TTSymbolTableHash;
 #else
-typedef hash_map<const char*, TTSymbolPtr, hash<char*>, TTStringCompare>	TTSymbolTableHash;
+typedef unordered_map<const char*, TTSymbolPtr, hash<const char*>, TTStringCompare>	TTSymbolTableHash;
 #endif
 
 /** An iterator for the STL hash_map used by TTSymbolTable. */
 typedef TTSymbolTableHash::const_iterator									TTSymbolTableIter;
-
-
-// Forward declarations
-class TTValue;
 
 
 
