@@ -31,11 +31,18 @@ class TTFOUNDATION_EXPORT TTPath : public TTBase {
     TTPtr   mPathObject;
 
 public:
+    // constructors
 	TTPath();
 	TTPath(const TTString& aPathName);
 	TTPath(TTPtr aBoostPathObject);
+
+    // destructor
 	virtual	~TTPath();
 
+    // copy constructor
+    TTPath(const TTPath& that);
+
+    // methods
     TTBoolean exists();
     TTBoolean isDirectory();
     TTErr getDirectoryListing(TTPathVector& returnedPaths);

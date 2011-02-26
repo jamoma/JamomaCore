@@ -36,6 +36,15 @@ TTPath::~TTPath()
 }
 
 
+// copy constructor
+TTPath::TTPath(const TTPath& that)
+{
+    this->mPathObject = (TTPtr) new path;
+    *PATHOBJ = *((path*)that.mPathObject);
+}
+
+
+
 TTBoolean TTPath::exists()
 {
 	return boost::filesystem::exists(*PATHOBJ);
@@ -62,8 +71,10 @@ TTErr TTPath::getDirectoryListing(TTPathVector& returnedPaths)
             copy(directory_iterator(*PATHOBJ), directory_iterator(), back_inserter(v));
             sort(v.begin(), v.end());
             for (path_vec::const_iterator i = v.begin(); i != v.end(); ++i) {
-                path p = (*i);
-                returnedPaths.push_back(TTPath(TTPtr(&p)));
+                path    p = (*i);
+                TTPath  pobj(&p);
+
+                returnedPaths.push_back(pobj);
             }
 
             return kTTErrNone;
