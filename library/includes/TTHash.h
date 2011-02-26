@@ -1,5 +1,5 @@
 /* 
- * TTBlue Hash Table Class
+ * Jamoma Hash Table Class
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -12,25 +12,10 @@
 #include "TTBase.h"
 #include "TTValue.h"
 #include "TTMutex.h"
-#if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
-#include <ext/hash_map>
-using namespace __gnu_cxx;
-#elif TT_PLATFORM_LINUX
-#include <map>
-#else // TT_PLATFORM_WIN
-#include <hash_map>
-using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
-#endif
+
 
 /**	A type that contains a key and a value. */
 typedef pair<TTPtrSizedInt,TTValue>			TTKeyVal;
-#ifdef TT_PLATFORM_LINUX
-typedef map<TTPtrSizedInt,TTValue> TTHashMap;
-#else
-typedef hash_map<TTPtrSizedInt,TTValue>		TTHashMap;
-#endif
-typedef TTHashMap::const_iterator			TTHashMapIter;
-
 typedef	TTKeyVal*							TTKeyValPtr;
 typedef void (*TTHashIteratorType)(TTPtr, const TTKeyVal&);
 
@@ -53,8 +38,8 @@ private:
 //	#ifdef TT_PLATFORM_WIN
 //	#pragma warning(disable:4251)
 //	#endif
-	TTHashMap	hashMap;
-	
+//	TTHashMap	hashMap;
+	TTPtr		mHashMap;
 	TTBoolean	mThreadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
 	TTMutexPtr	mMutex;
 	
@@ -64,6 +49,8 @@ private:
 public:
 	TTHash();
 	virtual ~TTHash();
+	
+	TTHash(TTHash& that);
 
 	/** Insert an item into the hash table. */
 	TTErr append(const TTSymbolPtr key, const TTValue& value);
