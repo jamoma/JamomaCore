@@ -12,6 +12,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
+				<Option host_application="pd" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
@@ -38,34 +39,21 @@
 		</Compiler>
 		<Unit filename="includes/TTAudioEngine.h" />
 		<Unit filename="includes/TTAudioObject.h" />
+		<Unit filename="includes/TTAudioObjectArray.h" />
 		<Unit filename="includes/TTAudioSignal.h" />
 		<Unit filename="includes/TTAudioSignalArray.h" />
+		<Unit filename="includes/TTBuffer.h" />
 		<Unit filename="includes/TTDSP.h" />
-		<Unit filename="includes/units/TTAdsr.h" />
-		<Unit filename="includes/units/TTBuffer.h" />
-		<Unit filename="includes/units/TTCrossfade.h" />
-		<Unit filename="includes/units/TTMatrixMixer.h" />
-		<Unit filename="includes/units/TTNoise.h" />
-		<Unit filename="includes/units/TTOperator.h" />
-		<Unit filename="includes/units/TTPhasor.h" />
-		<Unit filename="includes/units/TTRamp.h" />
-		<Unit filename="includes/units/TTWavetable.h" />
-		<Unit filename="includes/units/TTZerocross.h" />
+		<Unit filename="includes/TTDelay.h" />
+		<Unit filename="includes/TTDelayBuffer.h" />
 		<Unit filename="source/TTAudioEngine.cpp" />
 		<Unit filename="source/TTAudioObject.cpp" />
+		<Unit filename="source/TTAudioObjectArray.cpp" />
 		<Unit filename="source/TTAudioSignal.cpp" />
 		<Unit filename="source/TTAudioSignalArray.cpp" />
+		<Unit filename="source/TTBuffer.cpp" />
 		<Unit filename="source/TTDSP.cpp" />
-		<Unit filename="source/units/TTAdsr.cpp" />
-		<Unit filename="source/units/TTBuffer.cpp" />
-		<Unit filename="source/units/TTCrossfade.cpp" />
-		<Unit filename="source/units/TTMatrixMixer.cpp" />
-		<Unit filename="source/units/TTNoise.cpp" />
-		<Unit filename="source/units/TTOperator.cpp" />
-		<Unit filename="source/units/TTPhasor.cpp" />
-		<Unit filename="source/units/TTRamp.cpp" />
-		<Unit filename="source/units/TTWavetable.cpp" />
-		<Unit filename="source/units/TTZerocross.cpp" />
+		<Unit filename="source/TTDelay.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
