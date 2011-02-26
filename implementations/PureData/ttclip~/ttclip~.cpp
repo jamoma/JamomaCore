@@ -59,10 +59,15 @@ void *ttclip_new(t_symbol *s, long ac, t_atom *at)
 {
 	t_ttclip*	x = (t_ttclip*)pd_new(ttclip_class);
 	TTUInt16	numChannels = 1;	// Just mono now...
+	TTErr		err;
 
 	if(x){
 		outlet_new(&x->obj, gensym("signal"));	// Create new signal outlet
-		TTObjectInstantiate(TT("clipper"), &x->clipper, numChannels);		
+		x->clipper = NULL;
+		err = TTObjectInstantiate(TT("clipper"), &x->clipper, numChannels);
+		if (err)
+			post("ERROR FROM TTCLIP_NEW: %ld", err);		
+		
 		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, numChannels);		
 		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, numChannels);		
 	}

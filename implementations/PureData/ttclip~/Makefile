@@ -36,6 +36,7 @@ LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
 
 all:
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).pd_linux $(LDFLAGS) 
+	cp build/*.pd_linux ../../../../../Builds/PureData
 
 clean:
 	rm -f *.o
