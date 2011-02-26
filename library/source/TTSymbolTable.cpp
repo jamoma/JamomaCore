@@ -39,33 +39,35 @@ public:
 		return stdext::hash_value(s);
 	}
 };
-#elif defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
-class TTStringCompare {
-public:
-	bool operator()(const char* s1, const char* s2) const
-	{
-		return !strcmp(s1, s2);
-	}
-};
+//#elif defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
+//class TTStringCompare {
+//public:
+//	bool operator()(const char* s1, const char* s2) const
+//	{
+//		return !strcmp(s1, s2);
+//	}
+//};
 #endif
 
 
 
 /** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef pair<const char*, TTSymbolPtr>										TTSymbolTablePair;
+typedef pair<const char*, TTSymbolPtr>				TTSymbolTablePair;
 
 
 /** A hash_map type used by TTSymbolTable. */
 #ifdef TT_PLATFORM_WIN
-typedef hash_map<TTString, TTSymbolPtr>										TTSymbolTableHash;
+typedef hash_map<TTString, TTSymbolPtr>				TTSymbolTableHash;
 #elif TT_PLATFORM_LINUX
-typedef map<const char*, TTSymbolPtr>										TTSymbolTableHash;
+typedef map<const char*, TTSymbolPtr>				TTSymbolTableHash;
 #else
-typedef unordered_map<const char*, TTSymbolPtr, hash<const char*>, TTStringCompare>	TTSymbolTableHash;
+//typedef unordered_map<const char*, TTSymbolPtr, hash<const char*>, TTStringCompare>	TTSymbolTableHash;
+//typedef unordered_map<const char*, TTSymbolPtr>		TTSymbolTableHash;
+typedef unordered_map<std::string, TTSymbolPtr>		TTSymbolTableHash;
 #endif
 
 /** An iterator for the STL hash_map used by TTSymbolTable. */
-typedef TTSymbolTableHash::const_iterator									TTSymbolTableIter;
+typedef TTSymbolTableHash::const_iterator			TTSymbolTableIter;
 
 
 
@@ -101,6 +103,7 @@ TTSymbolTable::~TTSymbolTable()
 
 TTSymbol* TTSymbolTable::lookup(const char* aString)
 {
+#ifdef TT_PLATFORM_WIN
 	TTSymbolTableIter	iter;
 
 	sMutex->lock();
@@ -119,21 +122,55 @@ TTSymbol* TTSymbolTable::lookup(const char* aString)
 		sMutex->unlock();
 		return iter->second;
 	}
+#else
+	const TTString s(aString);
+	return lookup(s);
+#endif	
 }
 
 
 TTSymbol* TTSymbolTable::lookup(const TTString& aString)
 {
+#ifdef TT_PLATFORM_WIN
 	return lookup(aString.c_str());
+#else
+	TTSymbolTableIter	iter;
+	
+	sMutex->lock();
+	
+	iter = mSYMBOLTABLE->find(aString);
+	if (iter == mSYMBOLTABLE->end()) {
+		// The symbol wasn't found in the table, so we need to create and add it.
+		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
+		TTSymbolPtr	newSymbol = new TTSymbol(aString, mSYMBOLTABLE->size());
+		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->getCString(), newSymbol)); 
+		sMutex->unlock();
+		return newSymbol; 
+	}
+	else {
+		// The symbol was found, so we return it.
+		sMutex->unlock();
+		return iter->second;
+	}
+#endif
 }
 
 
 TTSymbol* TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
 {
+#ifdef TT_PLATFORM_WIN
 	char	cString[16];
 	
 	snprintf(cString, 16, "%d", aNumberToBeConvertedToAString);
 	return lookup(cString);
+#else
+	char	cString[16];
+	
+	snprintf(cString, 16, "%d", aNumberToBeConvertedToAString);
+
+	TTString s(cString);
+	return lookup(s);
+#endif
 }
 
 
