@@ -6,6 +6,9 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifdef TT_PLATFORM_LINUX
+// TODO: need to link to Boost libs for other platforms
+
 #include "TTPath.h"
 #include "boost/filesystem.hpp"
 using namespace boost::filesystem;
@@ -13,6 +16,7 @@ using namespace boost::filesystem;
 typedef vector<boost::filesystem::path> path_vec;
 
 #define PATHOBJ ((path*)mPathObject)
+
 
 TTPath::TTPath()
 {
@@ -94,3 +98,4 @@ void TTPath::getString(TTString& pathString)
     pathString = (*PATHOBJ).string();
 }
 
+#endif // LINUX VERSION

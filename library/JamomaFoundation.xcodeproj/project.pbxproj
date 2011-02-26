@@ -35,6 +35,7 @@
 		22610B5F11DD7298000A3DA8 /* TTDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A083C311389A7A00D6D843 /* TTDictionary.cpp */; };
 		22610CCD11DD72A9000A3DA8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22610CCE11DD72A9000A3DA8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
+		22D8CB1F1319BCEE008F80C7 /* TTPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8CB1E1319BCEE008F80C7 /* TTPath.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,8 @@
 		22A083C111389A6800D6D843 /* TTDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDictionary.h; path = includes/TTDictionary.h; sourceTree = "<group>"; };
 		22A083C311389A7A00D6D843 /* TTDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionary.cpp; path = source/TTDictionary.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22D8CB1D1319BCDC008F80C7 /* TTPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPath.h; path = includes/TTPath.h; sourceTree = "<group>"; };
+		22D8CB1E1319BCEE008F80C7 /* TTPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPath.cpp; path = source/TTPath.cpp; sourceTree = "<group>"; };
 		22E385D010286B97002000A9 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = includes/TTFoundationAPI.h; sourceTree = "<group>"; };
 		22E385D110286BB0002000A9 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAttribute.h; path = includes/TTAttribute.h; sourceTree = "<group>"; };
 		22E385D610286BB0002000A9 /* TTFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundation.h; path = includes/TTFoundation.h; sourceTree = "<group>"; };
@@ -158,6 +161,8 @@
 				22039B851087816A008DFA4A /* TTLimits.h */,
 				22E385DE10286BB0002000A9 /* TTMutex.h */,
 				22E385FF10286BBE002000A9 /* TTMutex.cpp */,
+				22D8CB1D1319BCDC008F80C7 /* TTPath.h */,
+				22D8CB1E1319BCEE008F80C7 /* TTPath.cpp */,
 				22E385E010286BB0002000A9 /* TTQueue.h */,
 				22E3860110286BBE002000A9 /* TTQueue.cpp */,
 				22E385E410286BB0002000A9 /* TTThread.h */,
@@ -330,6 +335,7 @@
 				22393DCB13098344003140AB /* TTValueTest.cpp in Sources */,
 				22393F081309BB20003140AB /* TTMatrix.cpp in Sources */,
 				22393F101309BDDE003140AB /* TTMatrixTest.cpp in Sources */,
+				22D8CB1F1319BCEE008F80C7 /* TTPath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
