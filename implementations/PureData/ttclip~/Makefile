@@ -16,15 +16,21 @@ INCLUDES += -I../
 
 #########################################
 
-LIB_INCLUDES = -L../../../library/build
-LIB_INCLUDES += -L../../../../Foundation/library/build
+#LIB_INCLUDES = -L../../../library/build
+#LIB_INCLUDES += -L../../../../Foundation/library/build
 
 LIBS = -lJamomaFoundation
 LIBS += -lJamomaDSP
 
-#LIB_INCLUDES = 
+LIB_INCLUDES = -L/usr/lib
+#/usr/local/lib is not present in the LD path by default on Ubuntu 10
+
 #LIBS = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"
 #LIBS += "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"
+
+#LIBS = -l/usr/local/lib/jamoma/frameworks/libJamomaFoundation.so
+#LIBS += -l/usr/local/lib/jamoma/frameworks/libJamomaDSP.so
+
 
 #########################################
 
@@ -39,9 +45,8 @@ LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS)
 #########################################
 
 all:
-	# TODO: on Linux we can't do a mkdir if the dir already exists, so we need to check for it
-	#mkdir build
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).pd_linux $(LDFLAGS) 
 
 clean:
 	rm -f *.o
+
