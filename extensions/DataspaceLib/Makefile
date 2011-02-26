@@ -28,10 +28,8 @@ INCLUDES += -I../../library/includes
 #########################################
 
 LIB_INCLUDES = -L../../library/build
-#LIB_INCLUDES += -L../../../Foundation/library/build
 
 LIBS = -lJamomaFoundation
-#LIBS += -lJamomaDSP
 
 
 #########################################
@@ -41,7 +39,7 @@ DEFINES = -DTT_PLATFORM_LINUX
 OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared
 
 CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES) -g
-LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
+LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g -std=c++0x
 
 
 #########################################

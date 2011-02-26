@@ -1,7 +1,7 @@
-/* 
+/*
  * TTBlue Global Object
  * Copyright © 2008, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -21,7 +21,7 @@ TTEnvironment*	ttEnvironment = NULL;
 
 TTEnvironment::TTEnvironment()
 	: TTObject(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0)
-{	
+{
 	classes = new TTHash();
 	tags = new TTHash();
 
@@ -64,27 +64,29 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 	TTSymbolPtr	tag;
 	TTValue		result;
 
+cout << "!!! REGISTERING CLASS !!! --- " << className->getCString() << endl;
+
 	err = classes->lookup(className, result);
-	
+
 	// If a class is already registered with this name, then we do not want to register another class with the same name!
 	if (err == kTTErrValueNotFound) {
-		
+
 		// 1. Turn the string into an array of symbols
 		v.transformCSVStringToSymbolArray();
-		
+
 		// 2. Create the class and associate it with its name
 		theClass = new TTClass(className, v, anInstantiationMethod);
-		
+
 		// 3. For each symbol in the TTValue array...
 		size = v.getSize();
 		for (TTUInt16 i=0; i<size; i++) {
 			v.get(i, &tag);
-			
+
 			// 4. Look to see if this tag exists yet
 			err = tags->lookup(tag, tagObjects);
 			if (!err) {
 				classNamesForTag = (TTList*)(TTPtr(tagObjects));
-				
+
 				// TODO: The following code demonstrates so extreme lameness that we need to evaluate.
 				//	First, we should probably just do this section of code with TTValue instead of TTList (but we needed code to test TTList)
 				//	Second, TTList is taking references but keeping things internally as pointers, which leads to lots of confusion
@@ -92,7 +94,7 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 				//	etc.
 
 				// TODO: We need to factor out a function to add a tag for a named class (or a given class ptr)
-				
+
 				classNamesForTag->append(className);
 				//classNamesForTag->append(TTValue(className));
 			}
@@ -103,8 +105,8 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 				//classNamesForTag->append(*new TTValue(className));
 				classNamesForTag->append(className);
 			}
-		}	
-		
+		}
+
 		// 4. Register it
 		err = registerClass(theClass);
 	}
@@ -125,42 +127,42 @@ TTErr TTEnvironment::getAllClassNames(TTValue& returnedClassNames)
 
 
 TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags)
-{	
+{
 	TTUInt16	size = searchTags.getSize();
 	TTSymbolPtr	tag;
 	TTValue		tagObjects;
 	TTErr		err = kTTErrGeneric;
 	TTList*		classNamesForTag;
-	
+
 	classNames.clear();
-	
+
 	searchTags.get(0, &tag);
 	err = tags->lookup(tag, tagObjects);
 	if (err)
 		return err;
-	
+
 	classNamesForTag = (TTList*)(TTPtr(tagObjects));
-	
+
 	for (TTUInt16 i=0; i<classNamesForTag->getSize(); i++) {
-		TTValue		classNameValue; 
+		TTValue		classNameValue;
 		TTSymbolPtr className;
 		TTValue		tags;
 		TTValue		aClassValue;
 		TTClassPtr	aClass;
 		TTUInt16	success = 1;
-		
-		classNamesForTag->getIndex(i, classNameValue); 
+
+		classNamesForTag->getIndex(i, classNameValue);
 		classNameValue.get(0, &className);
-		
+
 		classes->lookup(className, aClassValue);
 		aClass = TTClassPtr(TTPtr(aClassValue));
 		tags = aClass->tags;
-		
+
 		for (TTUInt16 j=0; j<tags.getSize(); j++){
 			TTSymbolPtr someTag;
-			
+
 			tags.get(j, &someTag);
-			
+
 			for (TTUInt16 k=1; k<size; k++){
 				searchTags.get(k, &tag);
 				if (tag == someTag) {
@@ -168,11 +170,11 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 					break;
 				}
 			}
-				
+
 			if (success == size)
 				break;
 		}
-		if (success == size) 			
+		if (success == size)
 			classNames.append(className);
 	}
 	return kTTErrNone;
@@ -192,15 +194,20 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 	TTObjectPtr	newObject = NULL;
 	TTObjectPtr	oldObject = NULL;
 
+cout << "CREATING INSTANCE OF: "<< className->getCString() << endl;
+
 	err = classes->lookup(className, v);
 	if (!err) {
 		theClass = TTClassPtr(TTPtr(v));
+
+		cout << "THE CLASS: " << theClass << endl;
+
 		if (theClass)
 			err = theClass->createInstance(&newObject, anArgument);
 		else
 			err = kTTErrGeneric;
 	}
-	
+
 	if (!err && newObject) {
 		if (*anObject)
 			oldObject = *anObject;
@@ -211,7 +218,7 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 		(*anObject)->classPtr = theClass;
 		(*anObject)->valid = true;
 	}
-		
+
 	//TODO: Add instance tracking.  For each instance of a class, we push the instance onto a linked list of instances for that class
 	// When the object is freed using deleteInstance(), then we pop it.
 	// What would this achieve?
@@ -233,13 +240,13 @@ TTObjectPtr TTEnvironment::referenceInstance(TTObjectPtr anObject)
 TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 {
 	TTValue v = **anObject;
-	
+
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
-	
+
 	(*anObject)->valid = false;
 	(*anObject)->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
-	
-	// If the object is locked (e.g. in the middle of processing a vector in another thread) 
+
+	// If the object is locked (e.g. in the middle of processing a vector in another thread)
 	//	then we spin until the lock is released
 	//	TODO: we should also be able to time-out in the event that we have a dead lock.
 	while ((*anObject)->getlock())

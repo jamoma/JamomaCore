@@ -23,6 +23,8 @@
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
+#elif TT_PLATFORM_LINUX
+#include <dlfcn.h>
 #elif TT_PLATFORM_WIN
 #include <ShlObj.h>
 #endif
@@ -267,9 +269,27 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
         for (i = paths.begin(); i != paths.end(); ++i) {
             TTPath      aPath = *i;
             TTString    aPathString;
+            void*							handle = NULL;
+            TTExtensionInitializationMethod	initializer = NULL;
 
             aPath.getString(aPathString);
-            cout << aPathString << endl;
+            cout << "EXTENSION: " << aPathString << endl;
+
+// TODO: filter to only files with .ttso suffix
+
+            handle = dlopen(aPathString.c_str(), RTLD_LAZY);
+            cout << "HANDLE: " << handle << endl;
+            if (!handle)
+                continue;
+
+            // TODO: assert -- or at least do a log post -- if handle is NULL
+            initializer = (TTExtensionInitializationMethod)dlsym(handle, "loadTTExtension");
+            cout << "INITIALIZER: " << initializer << endl;
+            if (initializer) {
+                err = initializer();
+                cout << "ERR: " << err << endl;
+
+            }
         }
     }
 

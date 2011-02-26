@@ -1,7 +1,7 @@
-/* 
+/*
  * TTBlue Hash Table Class
  * Copyright © 2008, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -18,7 +18,7 @@ TTHash::TTHash()
 			:mThreadProtection(NO)
 {
 	mMutex = new TTMutex(false);
-	
+
 	if (!sHashMutex)
 		sHashMutex = new TTMutex(false);
 }
@@ -45,6 +45,9 @@ TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 	TTHashMapIter iter = hashMap.find(TTPtrSizedInt(key));
 
 	if (iter == hashMap.end()) {
+
+	    cout << "TTHash::lookup() FAILED!" << endl;
+
 		unlock();
 		return kTTErrValueNotFound;
 	}
@@ -78,7 +81,7 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 {
 	lock();
 	hashKeys.clear();
-	for (TTHashMapIter iter = hashMap.begin(); iter != hashMap.end(); iter++)	
+	for (TTHashMapIter iter = hashMap.begin(); iter != hashMap.end(); iter++)
 		hashKeys.append(TTSymbolPtr(iter->first));
 	unlock();
 	return kTTErrNone;
@@ -88,10 +91,10 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 TTErr TTHash::iterate(const TTPtr target, const TTHashIteratorType callback)
 {
 	lock();
-	for (TTHashMapIter iter = hashMap.begin(); iter != hashMap.end(); iter++)	
+	for (TTHashMapIter iter = hashMap.begin(); iter != hashMap.end(); iter++)
 		callback(target, *iter);
 	unlock();
-	return kTTErrNone;	
+	return kTTErrNone;
 }
 
 
