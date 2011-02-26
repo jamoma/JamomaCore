@@ -1,4 +1,4 @@
-/* 
+/*
  * Jamoma Hash Table Class
  * Copyright © 2008, Timothy Place
  *
@@ -21,8 +21,8 @@
 #endif
 
 typedef TTHashMap::const_iterator	TTHashMapIter;
-#define HASHMAP ((TTHashMap*)(mHashMap))
-
+#define HASHMAP  ((TTHashMap*)(mHashMap))
+#define mHASHMAP (*HASHMAP)
 
 /****************************************************************************************************/
 
@@ -30,7 +30,7 @@ TTHash::TTHash()
 			:mThreadProtection(NO)
 {
 	mHashMap = new TTHashMap;
-	mMutex = new TTMutex(false);	
+	mMutex = new TTMutex(false);
 }
 
 
@@ -45,7 +45,7 @@ TTHash::TTHash(TTHash& that)
 {
 	mHashMap = new TTHashMap;
 	mMutex = new TTMutex(false);
-	
+
 	*HASHMAP = *((TTHashMap*)that.mHashMap);
 }
 
