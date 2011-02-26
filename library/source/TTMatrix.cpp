@@ -1,7 +1,7 @@
-/* 
+/*
  * Jamoma N-Dimensional Matrix Data Class
  * Copyright © 2011, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -22,16 +22,16 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithGetterAndSetter(Dimensions, kTypeUInt32);
 	addAttributeWithSetter(Type,				kTypeUInt8);
 	addAttributeWithSetter(ElementCount,		kTypeUInt8);
-	
+
 	addMessage(clear);
 	addMessageWithArgument(fill);
 	addMessageWithArgument(get);
 	addMessageWithArgument(set);
-		
+
 	// TODO: getLockedPointer -- returns a pointer to the data, locks the matrix mutex
 	// TODO: releaseLockedPointer -- releases the matrix mutex
 	// TODO: the above two items mean we need a TTMutex member
-	
+
 	setAttributeValue(TT("dimensions"), kTTVal1); // initialize to a 1x1 matrix by default (maybe we should be using the args?
 }
 
@@ -44,8 +44,8 @@ TTMatrix::~TTMatrix()
 
 TTErr TTMatrix::resize()
 {
-	TTUInt32 productOfDimensions;
-	
+	TTUInt32 productOfDimensions = 1;
+
 	for (uint i=0; i<mDimensions.size(); i++) {
 		if (i == 0)
 			productOfDimensions = mDimensions[i];
@@ -53,14 +53,14 @@ TTErr TTMatrix::resize()
 			productOfDimensions *= mDimensions[i];
 	}
 	mDataSize = productOfDimensions * mElementCount * mTypeSizeInBytes;
-	
+
 	// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
 	// TODO: thread protection
 	delete[] mData;
 	mData = new TTByte[mDataSize];
 
 	mValueStride = mTypeSizeInBytes * mElementCount;
-	
+
 	if (mDataSize && mData)
 		return kTTErrNone;
 	else
@@ -71,11 +71,11 @@ TTErr TTMatrix::resize()
 TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 {
 	TTUInt8	size = someNewDimensions.getSize();
-	
+
 	mDimensions.resize(size);
 	for (int i=0; i<size; i++) {
 		TTUInt8 aNewDimension = 0;
-		
+
 		someNewDimensions.get(i, aNewDimension);
 		mDimensions[i] = aNewDimension;
 	}
@@ -86,7 +86,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 TTErr TTMatrix::getDimensions(TTValue& returnedDimensions)
 {
 	TTUInt8	size = mDimensions.size();
-	
+
 	returnedDimensions.setSize(size);
 	for (uint i=0; i<size; i++)
 		returnedDimensions.set(i, mDimensions[i]);
@@ -97,10 +97,10 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions)
 TTErr TTMatrix::setType(const TTValue& aType)
 {
 	TTSymbolPtr typeName = aType;
-	
-	// TODO: it's dumb to do this big switch below... 
+
+	// TODO: it's dumb to do this big switch below...
 	// TODO: we should use the info already defined in TTDataInfo
-	
+
 	if (typeName == TT("uint8"))
 		mTypeSizeInBytes = 1;
 	else if (typeName == TT("int32"))
@@ -113,7 +113,7 @@ TTErr TTMatrix::setType(const TTValue& aType)
 		// don't change the matrix data if something bogus was passed-in
 		return kTTErrInvalidValue;
 	}
-	
+
 	mType = typeName;
 	return resize();
 }
@@ -136,7 +136,7 @@ TTErr TTMatrix::clear()
 TTErr TTMatrix::fill(const TTValue& aValue)
 {
 	TTByte	fillValue[mValueStride];
-	
+
 	// TODO: here we have this ugly switch again...
 	if (mType == TT("uint8"))
 		aValue.getArray((TTUInt8*)fillValue, mElementCount);
@@ -146,17 +146,17 @@ TTErr TTMatrix::fill(const TTValue& aValue)
 		aValue.getArray((TTFloat32*)fillValue, mElementCount);
 	else if (mType == TT("float64"))
 		aValue.getArray((TTFloat64*)fillValue, mElementCount);
-	
+
 	for (TTUInt32 i=0; i<mDataSize; i += mValueStride)
 		memcpy(mData+i, fillValue, mValueStride);
-	
+
 	return kTTErrNone;
 }
 
 
 /*
 	To find the index in the matrix:
- 
+
 	1D Matrix:	index = x
 	2D Matrix:	index = dim_0 y  +  x
 	3D Matrix:	index = dim_0 dim_1 z  +  dim_0 y  +  x
@@ -169,22 +169,22 @@ TTErr TTMatrix::fill(const TTValue& aValue)
 TTErr TTMatrix::get(TTValue& aValue)
 {
 	TTUInt16 dimensionCount = aValue.getSize();
-	
+
 	if (dimensionCount != mDimensions.size())
 		return kTTErrWrongNumValues;
 
 	int productOfLowerDimensionSizes = 1;
 	int index = 0;
-	
+
 	for (int d=0; d<dimensionCount; d++) {
 		int position = aValue.getInt32(d);
-		
+
 		index += position * productOfLowerDimensionSizes;
 		productOfLowerDimensionSizes *= mDimensions[d];
 	}
-	
+
 	aValue.clear();
-		
+
 	// TODO: here we have this ugly switch again...
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
 	if (mType == TT("uint8")) {
@@ -203,7 +203,7 @@ TTErr TTMatrix::get(TTValue& aValue)
 		for (int e=0; e<mElementCount; e++)
 			aValue.append((TTFloat64*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
 	}
-	
+
 	return kTTErrNone;
 }
 
@@ -214,19 +214,19 @@ TTErr TTMatrix::set(const TTValue& aValue)
 	TTValue		theValue;
 	TTValue		theDimensions = aValue;
 	TTUInt16	dimensionCount = aValue.getSize() - mElementCount;
-	
+
 	if (dimensionCount != mDimensions.size())
 		return kTTErrWrongNumValues;
-	
+
 	theValue.copyFrom(aValue, dimensionCount);
 	theDimensions.setSize(dimensionCount);
-	
+
 	int productOfLowerDimensionSizes = 1;
 	int index = 0;
-	
+
 	for (int d=0; d<dimensionCount; d++) {
 		int position = aValue.getInt32(d);
-		
+
 		index += position * productOfLowerDimensionSizes;
 		productOfLowerDimensionSizes *= mDimensions[d];
 	}
@@ -249,7 +249,7 @@ TTErr TTMatrix::set(const TTValue& aValue)
 		for (int e=0; e<mElementCount; e++)
 			aValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
 	}
-		
+
 	return kTTErrNone;
 }
 

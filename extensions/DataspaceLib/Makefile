@@ -3,7 +3,10 @@ CC = g++
 
 #########################################
 
-SRC = DataspaceLib.cpp
+SRC = TTDataspaceLib.cpp
+SRC += TTDataspaceUnit.cpp
+SRC += TTDataspaceConverter.cpp
+
 SRC += AngleDataspace.cpp
 SRC += ColorDataspace.cpp
 SRC += DistanceDataspace.cpp
@@ -11,6 +14,7 @@ SRC += GainDataspace.cpp
 SRC += NoneDataspace.cpp
 SRC += PitchDataspace.cpp
 SRC += PositionDataspace.cpp
+SRC += SpeedDataspace.cpp
 SRC += TemperatureDataspace.cpp
 SRC += TimeDataspace.cpp
 
