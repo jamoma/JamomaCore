@@ -18,7 +18,7 @@
 
 
 // class TTDSP_EXPORT TTDelayBuffer {
-// This class is designed to inlined, so there is nothing to export
+// This class is designed to be inlined, so there is nothing to export
 class TTDelayBuffer {
 public:
 	TTSampleVector		mBuffer;
@@ -76,7 +76,7 @@ public:
 	TTSampleValuePtr wrapPointer(TTSampleValuePtr ptr)
 	{
 		if (ptr > tail())
-			ptr = head() + (ptr - tail());
+			ptr = head() + (ptr - tail()) - 1;
 		else if (ptr < head())
 			ptr = tail() + (ptr - head()) + 1;
 		return ptr;
@@ -86,7 +86,7 @@ public:
 	TTSampleValuePtr wrapPointerForward(TTSampleValuePtr ptr)
 	{
 		if (ptr > tail())
-			ptr = head() + (ptr - tail());
+			ptr = head() + (ptr - tail()) - 1;
 		return ptr;
 	}
 	

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22D5D07312FA30A000BEFE35 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D5D07112FA30A000BEFE35 /* Function.cpp */; };
+		22D5D07412FA30A000BEFE35 /* Function.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D5D07212FA30A000BEFE35 /* Function.h */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD46D011E247C5007BBF7E /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* FunctionLib.cpp */; };
@@ -29,6 +31,8 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22D5D07112FA30A000BEFE35 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
+		22D5D07212FA30A000BEFE35 /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -97,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				22FD46CF11E247C5007BBF7E /* FunctionLib.cpp */,
+				22D5D07212FA30A000BEFE35 /* Function.h */,
+				22D5D07112FA30A000BEFE35 /* Function.cpp */,
 				2217FAAA0E4F284D00806778 /* Classes */,
 			);
 			name = Source;
@@ -137,6 +143,7 @@
 				22FD46E711E247D1007BBF7E /* LowpassFunction.h in Headers */,
 				22FD46E911E247D1007BBF7E /* PowerFunction.h in Headers */,
 				22FD46EB11E247D1007BBF7E /* TanhFunction.h in Headers */,
+				22D5D07412FA30A000BEFE35 /* Function.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +222,7 @@
 				22FD46E811E247D1007BBF7E /* LowpassFunction.cpp in Sources */,
 				22FD46EA11E247D1007BBF7E /* PowerFunction.cpp in Sources */,
 				22FD46EC11E247D1007BBF7E /* TanhFunction.cpp in Sources */,
+				22D5D07312FA30A000BEFE35 /* Function.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

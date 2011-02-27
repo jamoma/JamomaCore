@@ -41,7 +41,7 @@ public:
 	
 	void setAllSampleRates(TTUInt32 newSampleRate)
 	{
-		for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
+		for (TTUInt16 i=0; i<numAudioSignals; i++)
 			audioSignals[i]->setSampleRate(newSampleRate);
 	}
 	

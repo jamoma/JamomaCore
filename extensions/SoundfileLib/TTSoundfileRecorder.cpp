@@ -15,6 +15,7 @@
 
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
+mFormat(kTTSymEmpty),
 mSoundFile(NULL),
 mRecord(false),
 mNumChannels(0),

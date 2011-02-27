@@ -12,7 +12,7 @@
 
 #include "Angle.h"
 #include "ext.h"
-#include "TTElement.h"
+#include "TTBase.h"
 
 const double Angle::PI_X_180 = kTTPi / 180.0; 
 extern bool globWarningFlag;
