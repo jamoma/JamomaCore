@@ -1,6 +1,6 @@
 /* 
  * Trapezoid Window Function Unit for Jamoma DSP
- * Copyright © 2010 by Trond Lossius
+ * Copyright © 2010 by Trond Lossius; Revised 2011 by Nathan Wolek
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -12,13 +12,17 @@
 #include "TTDSP.h"
 
 
-/**	The Trapezoid window has linear fade in and out.
-	y = TTClip( (0.5/f) * (1 - |2x-1|), 0., 1 )
+/**	This implements a Trapezoid window using the following algorthim:
+ 
+ Where 0. <= x <= 1. and 0. <= mAlpha <= 1.:
+ y	= x * twoOverAlpha				: for the attack
+	= 1								: for the sustain
+	= (1 - x) * twoOverAlpha		: for the release
  */
 class TrapezoidWindow : TTAudioObject {
 	TTCLASS_SETUP(TrapezoidWindow)
 
-	TTFloat64	mFade;			///< Fade in/out as ratio of window length. 0 <= fade <= 0.5
+	TTFloat64	mAlpha;			///< ratio of window fades to total window duration. 0 <= alpho <= 1., 0 = no fades, 1 = no sustain
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

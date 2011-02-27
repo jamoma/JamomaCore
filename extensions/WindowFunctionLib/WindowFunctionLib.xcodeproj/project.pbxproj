@@ -28,6 +28,8 @@
 		22FD47CA11E24967007BBF7E /* TrapezoidWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47BA11E24967007BBF7E /* TrapezoidWindow.cpp */; };
 		22FD47CB11E24967007BBF7E /* WelchWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD47BB11E24967007BBF7E /* WelchWindow.h */; };
 		22FD47CC11E24967007BBF7E /* WelchWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47BC11E24967007BBF7E /* WelchWindow.cpp */; };
+		8EDF738913142DB000739312 /* TukeyWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF738713142DB000739312 /* TukeyWindow.cpp */; };
+		8EDF738A13142DB000739312 /* TukeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EDF738813142DB000739312 /* TukeyWindow.h */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,8 @@
 		22FD47BA11E24967007BBF7E /* TrapezoidWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrapezoidWindow.cpp; sourceTree = "<group>"; };
 		22FD47BB11E24967007BBF7E /* WelchWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelchWindow.h; sourceTree = "<group>"; };
 		22FD47BC11E24967007BBF7E /* WelchWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WelchWindow.cpp; sourceTree = "<group>"; };
+		8EDF738713142DB000739312 /* TukeyWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TukeyWindow.cpp; sourceTree = "<group>"; };
+		8EDF738813142DB000739312 /* TukeyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TukeyWindow.h; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = WindowFunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -129,6 +133,8 @@
 				22FD47B811E24967007BBF7E /* RectangularWindow.cpp */,
 				22FD47B911E24967007BBF7E /* TrapezoidWindow.h */,
 				22FD47BA11E24967007BBF7E /* TrapezoidWindow.cpp */,
+				8EDF738813142DB000739312 /* TukeyWindow.h */,
+				8EDF738713142DB000739312 /* TukeyWindow.cpp */,
 				22FD47BB11E24967007BBF7E /* WelchWindow.h */,
 				22FD47BC11E24967007BBF7E /* WelchWindow.cpp */,
 			);
@@ -151,6 +157,7 @@
 				22FD47C711E24967007BBF7E /* RectangularWindow.h in Headers */,
 				22FD47C911E24967007BBF7E /* TrapezoidWindow.h in Headers */,
 				22FD47CB11E24967007BBF7E /* WelchWindow.h in Headers */,
+				8EDF738A13142DB000739312 /* TukeyWindow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +189,6 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "WindowFunctionLib" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -231,6 +237,7 @@
 				22FD47C811E24967007BBF7E /* RectangularWindow.cpp in Sources */,
 				22FD47CA11E24967007BBF7E /* TrapezoidWindow.cpp in Sources */,
 				22FD47CC11E24967007BBF7E /* WelchWindow.cpp in Sources */,
+				8EDF738913142DB000739312 /* TukeyWindow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
