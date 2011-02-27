@@ -68,9 +68,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libboost_system-vc90-mt-sgd-1_46.lib libboost_filesystem-vc90-mt-sgd-1_46.lib"
 				ShowProgress="0"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="$(ProjectDir)boost\lib-windows"
 				GenerateManifest="false"
+				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -152,8 +154,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libboost_system-vc90-mt-s-1_46.lib libboost_filesystem-vc90-mt-s-1_46.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="$(ProjectDir)boost\lib-windows"
 				GenerateManifest="false"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
