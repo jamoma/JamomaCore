@@ -169,70 +169,7 @@ void TTFoundationLoadExternalClasses()
 
 void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 {
-#ifdef TT_PLATFORM_MAC
-	FSRef							ref;
-	Boolean							isDirectory;
-	OSStatus						status = noErr;
-	ItemCount						count = 0;
-    FSIterator						iterator;
-	HFSUniStr255*					names = NULL;
-	CFStringRef						name;
-	char							cname[4096];
-	TTString						path;
-	TTCString						cpath = (char*)fullpath.c_str();
-	void*							handle;
-	TTExtensionInitializationMethod	initializer;
-	TTErr							err;
-
-	status = FSPathMakeRef((UInt8*)cpath, &ref, &isDirectory);
-	if (status != noErr) {
-#ifdef TT_DEBUG
-		TTLogMessage("TTFoundation - no extensions location found @ %s\n", cpath);
-#endif
-		return;
-	}
-
-	status = FSOpenIterator(&ref, kFSIterateFlat, &iterator);
-	if (!status) {
-        names = (HFSUniStr255 *)malloc(sizeof(HFSUniStr255) * 4096);
-        if (names) {
-            // Request information about files in the given directory,
-            // until we get a status code back from the File Manager
-            do{
-				status = FSGetCatalogInfoBulk(iterator, 4096, &count, NULL, kFSCatInfoNone, NULL, NULL, NULL, names);
-
-                // Process all items received
-                if (status == OSStatus(noErr) || status == OSStatus(errFSNoMoreItems)) {
-                    for (UInt32 i=0; i < count; i += 1) {
-  						name = CFStringCreateWithCharacters(kCFAllocatorDefault, names[i].unicode, names[i].length);
-// TODO: filter on name.  We only want to try and load .ttdylib files
-						CFStringGetCString(name, cname, 4096, kCFStringEncodingUTF8);
-						path = fullpath;
-						path += "/";
-						path += cname;
-
-						handle = dlopen(path.c_str(), RTLD_LAZY);
-// TODO: assert -- or at least do a log post -- if handle is NULL
-						initializer = (TTExtensionInitializationMethod)dlsym(handle, "loadTTExtension");
-						if (initializer)
-							err = initializer();
-						CFRelease(name);
-                    }
-                }
-            }
-            while (status == OSStatus(noErr));
-
-            // errFSNoMoreItems tells us we have successfully processed all
-            // items in the directory -- not really an error
-            if (status == OSStatus(errFSNoMoreItems))
-                status = noErr;
-
-            // Free the array memory
-            free( (void *) names );
-        }
-		FSCloseIterator(iterator);
-    }
-#elif TT_PLATFORM_WIN
+#ifdef TT_PLATFORM_WIN
 	HANDLE							fdHandle;
 	WIN32_FIND_DATA					findFileData;
 	TTString						path;
@@ -258,7 +195,7 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 				break;
 		}
 	}
-#else // LINUX
+#else // MAC or LINUX
     TTPath          path(fullpath);
     TTPathVector    paths;
     TTPathIter      i;
@@ -275,7 +212,7 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
             aPath.getString(aPathString);
             cout << "EXTENSION: " << aPathString << endl;
 
-// TODO: filter to only files with .ttso suffix
+// TODO: filter to only files with .ttso suffix (linux) or ..ttdylib (mac)
 
             handle = dlopen(aPathString.c_str(), RTLD_LAZY);
             cout << "HANDLE: " << handle << endl;
