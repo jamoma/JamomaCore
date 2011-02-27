@@ -27,8 +27,8 @@ extern "C" {
 
 void*	ttclip_new(t_symbol *s, long ac, t_atom *at);
 void	ttclip_free(t_ttclip *x);
-void	ttclip_setlowbound(t_ttclip *x, double f);
-void	ttclip_sethighbound(t_ttclip *x, double f);
+void	ttclip_setlowbound(t_ttclip *x, float f);
+void	ttclip_sethighbound(t_ttclip *x, float f);
 t_int*	ttclip_perform(t_int *w);
 void	ttclip_dsp(t_ttclip *x, t_signal **sp);
 
@@ -86,13 +86,13 @@ void ttclip_free(t_ttclip *x)
 // Methods
 
 // set attr
-void ttclip_setlowbound(t_ttclip *x, double f)
+void ttclip_setlowbound(t_ttclip *x, float f)
 {
 	x->clipper->setAttributeValue(TT("lowBound"), f);
 }
 
 // set attr
-void ttclip_sethighbound(t_ttclip *x, double f)
+void ttclip_sethighbound(t_ttclip *x, float f)
 {
 	x->clipper->setAttributeValue(TT("highBound"), f);
 }
