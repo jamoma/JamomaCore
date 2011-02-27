@@ -39,7 +39,7 @@ DEFINES = -DTT_PLATFORM_LINUX
 OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared
 
 CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES) -g
-LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g -std=c++0x
+LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
 
 
 #########################################
