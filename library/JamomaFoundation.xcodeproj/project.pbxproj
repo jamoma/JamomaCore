@@ -36,6 +36,8 @@
 		22610CCD11DD72A9000A3DA8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22610CCE11DD72A9000A3DA8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
 		22D8CB1F1319BCEE008F80C7 /* TTPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8CB1E1319BCEE008F80C7 /* TTPath.cpp */; };
+		22D8CB301319E93F008F80C7 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D8CB2E1319E93F008F80C7 /* libboost_filesystem.a */; };
+		22D8CB311319E93F008F80C7 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D8CB2F1319E93F008F80C7 /* libboost_system.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22D8CB1D1319BCDC008F80C7 /* TTPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPath.h; path = includes/TTPath.h; sourceTree = "<group>"; };
 		22D8CB1E1319BCEE008F80C7 /* TTPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPath.cpp; path = source/TTPath.cpp; sourceTree = "<group>"; };
+		22D8CB2E1319E93F008F80C7 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = "boost/lib-mac/libboost_filesystem.a"; sourceTree = "<group>"; };
+		22D8CB2F1319E93F008F80C7 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = "boost/lib-mac/libboost_system.a"; sourceTree = "<group>"; };
 		22E385D010286B97002000A9 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = includes/TTFoundationAPI.h; sourceTree = "<group>"; };
 		22E385D110286BB0002000A9 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAttribute.h; path = includes/TTAttribute.h; sourceTree = "<group>"; };
 		22E385D610286BB0002000A9 /* TTFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundation.h; path = includes/TTFoundation.h; sourceTree = "<group>"; };
@@ -107,6 +111,8 @@
 			files = (
 				22610CCD11DD72A9000A3DA8 /* Carbon.framework in Frameworks */,
 				22610CCE11DD72A9000A3DA8 /* CoreServices.framework in Frameworks */,
+				22D8CB301319E93F008F80C7 /* libboost_filesystem.a in Frameworks */,
+				22D8CB311319E93F008F80C7 /* libboost_system.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +147,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22D8CB2E1319E93F008F80C7 /* libboost_filesystem.a */,
+				22D8CB2F1319E93F008F80C7 /* libboost_system.a */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				22578F1C0EC276B200A5EC32 /* CoreServices.framework */,
 			);
@@ -379,6 +387,10 @@
 					TT_DEBUG,
 					TTFOUNDATION_EXPORTS,
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/boost/lib-mac\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -404,6 +416,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TTBluePrefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = TTFOUNDATION_EXPORTS;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/boost/lib-mac\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
