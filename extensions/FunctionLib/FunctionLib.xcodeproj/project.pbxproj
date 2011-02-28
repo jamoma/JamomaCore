@@ -7,50 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22D5D07312FA30A000BEFE35 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D5D07112FA30A000BEFE35 /* Function.cpp */; };
-		22D5D07412FA30A000BEFE35 /* Function.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D5D07212FA30A000BEFE35 /* Function.h */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD46D011E247C5007BBF7E /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* FunctionLib.cpp */; };
-		22FD46DF11E247D1007BBF7E /* CosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD46D111E247D1007BBF7E /* CosineFunction.h */; };
-		22FD46E011E247D1007BBF7E /* CosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46D211E247D1007BBF7E /* CosineFunction.cpp */; };
-		22FD46E111E247D1007BBF7E /* ExpFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD46D311E247D1007BBF7E /* ExpFunction.h */; };
-		22FD46E211E247D1007BBF7E /* ExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46D411E247D1007BBF7E /* ExpFunction.cpp */; };
-		22FD46E311E247D1007BBF7E /* LinearFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD46D511E247D1007BBF7E /* LinearFunction.h */; };
-		22FD46E411E247D1007BBF7E /* LinearFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46D611E247D1007BBF7E /* LinearFunction.cpp */; };
-		22FD46E511E247D1007BBF7E /* LogFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD46D711E247D1007BBF7E /* LogFunction.h */; };
-		22FD46E611E247D1007BBF7E /* LogFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46D811E247D1007BBF7E /* LogFunction.cpp */; };
-		22FD46E711E247D1007BBF7E /* LowpassFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD46D911E247D1007BBF7E /* LowpassFunction.h */; };
-		22FD46E811E247D1007BBF7E /* LowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46DA11E247D1007BBF7E /* LowpassFunction.cpp */; };
-		22FD46E911E247D1007BBF7E /* PowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD46DB11E247D1007BBF7E /* PowerFunction.h */; };
-		22FD46EA11E247D1007BBF7E /* PowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46DC11E247D1007BBF7E /* PowerFunction.cpp */; };
-		22FD46EB11E247D1007BBF7E /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD46DD11E247D1007BBF7E /* TanhFunction.h */; };
-		22FD46EC11E247D1007BBF7E /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46DE11E247D1007BBF7E /* TanhFunction.cpp */; };
+		666CF817131B41BF0003D7E2 /* CosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF80F131B41BF0003D7E2 /* CosineFunction.h */; };
+		666CF818131B41BF0003D7E2 /* ExpFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF810131B41BF0003D7E2 /* ExpFunction.h */; };
+		666CF819131B41BF0003D7E2 /* Function.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF811131B41BF0003D7E2 /* Function.h */; };
+		666CF81A131B41BF0003D7E2 /* LinearFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF812131B41BF0003D7E2 /* LinearFunction.h */; };
+		666CF81B131B41BF0003D7E2 /* LogFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF813131B41BF0003D7E2 /* LogFunction.h */; };
+		666CF81C131B41BF0003D7E2 /* LowpassFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF814131B41BF0003D7E2 /* LowpassFunction.h */; };
+		666CF81D131B41BF0003D7E2 /* PowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF815131B41BF0003D7E2 /* PowerFunction.h */; };
+		666CF81E131B41BF0003D7E2 /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF816131B41BF0003D7E2 /* TanhFunction.h */; };
+		666CF827131B41C50003D7E2 /* CosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF81F131B41C50003D7E2 /* CosineFunction.cpp */; };
+		666CF828131B41C50003D7E2 /* ExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF820131B41C50003D7E2 /* ExpFunction.cpp */; };
+		666CF829131B41C50003D7E2 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF821131B41C50003D7E2 /* Function.cpp */; };
+		666CF82A131B41C50003D7E2 /* LinearFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF822131B41C50003D7E2 /* LinearFunction.cpp */; };
+		666CF82B131B41C50003D7E2 /* LogFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF823131B41C50003D7E2 /* LogFunction.cpp */; };
+		666CF82C131B41C50003D7E2 /* LowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF824131B41C50003D7E2 /* LowpassFunction.cpp */; };
+		666CF82D131B41C50003D7E2 /* PowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF825131B41C50003D7E2 /* PowerFunction.cpp */; };
+		666CF82E131B41C50003D7E2 /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF826131B41C50003D7E2 /* TanhFunction.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		22D5D07112FA30A000BEFE35 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
-		22D5D07212FA30A000BEFE35 /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD46CF11E247C5007BBF7E /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
-		22FD46D111E247D1007BBF7E /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosineFunction.h; sourceTree = "<group>"; };
-		22FD46D211E247D1007BBF7E /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CosineFunction.cpp; sourceTree = "<group>"; };
-		22FD46D311E247D1007BBF7E /* ExpFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpFunction.h; sourceTree = "<group>"; };
-		22FD46D411E247D1007BBF7E /* ExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpFunction.cpp; sourceTree = "<group>"; };
-		22FD46D511E247D1007BBF7E /* LinearFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearFunction.h; sourceTree = "<group>"; };
-		22FD46D611E247D1007BBF7E /* LinearFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LinearFunction.cpp; sourceTree = "<group>"; };
-		22FD46D711E247D1007BBF7E /* LogFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogFunction.h; sourceTree = "<group>"; };
-		22FD46D811E247D1007BBF7E /* LogFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogFunction.cpp; sourceTree = "<group>"; };
-		22FD46D911E247D1007BBF7E /* LowpassFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LowpassFunction.h; sourceTree = "<group>"; };
-		22FD46DA11E247D1007BBF7E /* LowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LowpassFunction.cpp; sourceTree = "<group>"; };
-		22FD46DB11E247D1007BBF7E /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerFunction.h; sourceTree = "<group>"; };
-		22FD46DC11E247D1007BBF7E /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerFunction.cpp; sourceTree = "<group>"; };
-		22FD46DD11E247D1007BBF7E /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
-		22FD46DE11E247D1007BBF7E /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhFunction.cpp; sourceTree = "<group>"; };
+		666CF80F131B41BF0003D7E2 /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CosineFunction.h; path = includes/CosineFunction.h; sourceTree = "<group>"; };
+		666CF810131B41BF0003D7E2 /* ExpFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpFunction.h; path = includes/ExpFunction.h; sourceTree = "<group>"; };
+		666CF811131B41BF0003D7E2 /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Function.h; path = includes/Function.h; sourceTree = "<group>"; };
+		666CF812131B41BF0003D7E2 /* LinearFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinearFunction.h; path = includes/LinearFunction.h; sourceTree = "<group>"; };
+		666CF813131B41BF0003D7E2 /* LogFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogFunction.h; path = includes/LogFunction.h; sourceTree = "<group>"; };
+		666CF814131B41BF0003D7E2 /* LowpassFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LowpassFunction.h; path = includes/LowpassFunction.h; sourceTree = "<group>"; };
+		666CF815131B41BF0003D7E2 /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PowerFunction.h; path = includes/PowerFunction.h; sourceTree = "<group>"; };
+		666CF816131B41BF0003D7E2 /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TanhFunction.h; path = includes/TanhFunction.h; sourceTree = "<group>"; };
+		666CF81F131B41C50003D7E2 /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CosineFunction.cpp; path = source/CosineFunction.cpp; sourceTree = "<group>"; };
+		666CF820131B41C50003D7E2 /* ExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExpFunction.cpp; path = source/ExpFunction.cpp; sourceTree = "<group>"; };
+		666CF821131B41C50003D7E2 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Function.cpp; path = source/Function.cpp; sourceTree = "<group>"; };
+		666CF822131B41C50003D7E2 /* LinearFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LinearFunction.cpp; path = source/LinearFunction.cpp; sourceTree = "<group>"; };
+		666CF823131B41C50003D7E2 /* LogFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LogFunction.cpp; path = source/LogFunction.cpp; sourceTree = "<group>"; };
+		666CF824131B41C50003D7E2 /* LowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LowpassFunction.cpp; path = source/LowpassFunction.cpp; sourceTree = "<group>"; };
+		666CF825131B41C50003D7E2 /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PowerFunction.cpp; path = source/PowerFunction.cpp; sourceTree = "<group>"; };
+		666CF826131B41C50003D7E2 /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TanhFunction.cpp; path = source/TanhFunction.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* FunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -101,8 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				22FD46CF11E247C5007BBF7E /* FunctionLib.cpp */,
-				22D5D07212FA30A000BEFE35 /* Function.h */,
-				22D5D07112FA30A000BEFE35 /* Function.cpp */,
+				666CF821131B41C50003D7E2 /* Function.cpp */,
+				666CF811131B41BF0003D7E2 /* Function.h */,
 				2217FAAA0E4F284D00806778 /* Classes */,
 			);
 			name = Source;
@@ -111,20 +111,20 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				22FD46D111E247D1007BBF7E /* CosineFunction.h */,
-				22FD46D211E247D1007BBF7E /* CosineFunction.cpp */,
-				22FD46D311E247D1007BBF7E /* ExpFunction.h */,
-				22FD46D411E247D1007BBF7E /* ExpFunction.cpp */,
-				22FD46D511E247D1007BBF7E /* LinearFunction.h */,
-				22FD46D611E247D1007BBF7E /* LinearFunction.cpp */,
-				22FD46D711E247D1007BBF7E /* LogFunction.h */,
-				22FD46D811E247D1007BBF7E /* LogFunction.cpp */,
-				22FD46D911E247D1007BBF7E /* LowpassFunction.h */,
-				22FD46DA11E247D1007BBF7E /* LowpassFunction.cpp */,
-				22FD46DB11E247D1007BBF7E /* PowerFunction.h */,
-				22FD46DC11E247D1007BBF7E /* PowerFunction.cpp */,
-				22FD46DD11E247D1007BBF7E /* TanhFunction.h */,
-				22FD46DE11E247D1007BBF7E /* TanhFunction.cpp */,
+				666CF81F131B41C50003D7E2 /* CosineFunction.cpp */,
+				666CF80F131B41BF0003D7E2 /* CosineFunction.h */,
+				666CF820131B41C50003D7E2 /* ExpFunction.cpp */,
+				666CF810131B41BF0003D7E2 /* ExpFunction.h */,
+				666CF822131B41C50003D7E2 /* LinearFunction.cpp */,
+				666CF812131B41BF0003D7E2 /* LinearFunction.h */,
+				666CF823131B41C50003D7E2 /* LogFunction.cpp */,
+				666CF813131B41BF0003D7E2 /* LogFunction.h */,
+				666CF824131B41C50003D7E2 /* LowpassFunction.cpp */,
+				666CF814131B41BF0003D7E2 /* LowpassFunction.h */,
+				666CF825131B41C50003D7E2 /* PowerFunction.cpp */,
+				666CF815131B41BF0003D7E2 /* PowerFunction.h */,
+				666CF826131B41C50003D7E2 /* TanhFunction.cpp */,
+				666CF816131B41BF0003D7E2 /* TanhFunction.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -136,14 +136,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22FD46DF11E247D1007BBF7E /* CosineFunction.h in Headers */,
-				22FD46E111E247D1007BBF7E /* ExpFunction.h in Headers */,
-				22FD46E311E247D1007BBF7E /* LinearFunction.h in Headers */,
-				22FD46E511E247D1007BBF7E /* LogFunction.h in Headers */,
-				22FD46E711E247D1007BBF7E /* LowpassFunction.h in Headers */,
-				22FD46E911E247D1007BBF7E /* PowerFunction.h in Headers */,
-				22FD46EB11E247D1007BBF7E /* TanhFunction.h in Headers */,
-				22D5D07412FA30A000BEFE35 /* Function.h in Headers */,
+				666CF817131B41BF0003D7E2 /* CosineFunction.h in Headers */,
+				666CF818131B41BF0003D7E2 /* ExpFunction.h in Headers */,
+				666CF819131B41BF0003D7E2 /* Function.h in Headers */,
+				666CF81A131B41BF0003D7E2 /* LinearFunction.h in Headers */,
+				666CF81B131B41BF0003D7E2 /* LogFunction.h in Headers */,
+				666CF81C131B41BF0003D7E2 /* LowpassFunction.h in Headers */,
+				666CF81D131B41BF0003D7E2 /* PowerFunction.h in Headers */,
+				666CF81E131B41BF0003D7E2 /* TanhFunction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +175,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "FunctionLib" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
 			projectDirPath = "";
@@ -208,14 +215,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				22FD46D011E247C5007BBF7E /* FunctionLib.cpp in Sources */,
-				22FD46E011E247D1007BBF7E /* CosineFunction.cpp in Sources */,
-				22FD46E211E247D1007BBF7E /* ExpFunction.cpp in Sources */,
-				22FD46E411E247D1007BBF7E /* LinearFunction.cpp in Sources */,
-				22FD46E611E247D1007BBF7E /* LogFunction.cpp in Sources */,
-				22FD46E811E247D1007BBF7E /* LowpassFunction.cpp in Sources */,
-				22FD46EA11E247D1007BBF7E /* PowerFunction.cpp in Sources */,
-				22FD46EC11E247D1007BBF7E /* TanhFunction.cpp in Sources */,
-				22D5D07312FA30A000BEFE35 /* Function.cpp in Sources */,
+				666CF827131B41C50003D7E2 /* CosineFunction.cpp in Sources */,
+				666CF828131B41C50003D7E2 /* ExpFunction.cpp in Sources */,
+				666CF829131B41C50003D7E2 /* Function.cpp in Sources */,
+				666CF82A131B41C50003D7E2 /* LinearFunction.cpp in Sources */,
+				666CF82B131B41C50003D7E2 /* LogFunction.cpp in Sources */,
+				666CF82C131B41C50003D7E2 /* LowpassFunction.cpp in Sources */,
+				666CF82D131B41C50003D7E2 /* PowerFunction.cpp in Sources */,
+				666CF82E131B41C50003D7E2 /* TanhFunction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
