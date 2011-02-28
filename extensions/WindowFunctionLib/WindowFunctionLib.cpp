@@ -11,9 +11,11 @@
 
 #include "BartlettWindow.h"
 #include "BlackmanWindow.h"
+#include "BlackmanHarrisWindow.h"
 #include "HammingWindow.h"
 #include "HanningWindow.h"
 #include "KaiserWindow.h"
+#include "NuttallWindow.h"
 #include "RectangularWindow.h"
 #include "TrapezoidWindow.h"
 #include "WelchWindow.h"
@@ -27,9 +29,11 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 
 	BartlettWindow::registerClass();
 	BlackmanWindow::registerClass();
+	BlackmanHarrisWindow::registerClass();
 	HammingWindow::registerClass();
 	HanningWindow::registerClass();
 	KaiserWindow::registerClass();
+	NuttallWindow::registerClass();
 	RectangularWindow::registerClass();
 	TrapezoidWindow::registerClass();
 	WelchWindow::registerClass();
