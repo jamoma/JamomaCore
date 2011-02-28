@@ -98,6 +98,8 @@ int TTSoundfileRecorder::translateFormatFromName(TTSymbolPtr name)
 		format |= SF_FORMAT_AIFF;
 	else if (strstr(cname, "WAV"))
 		format |= SF_FORMAT_WAV;
+	else if (strstr(cname, "Matlab"))
+		format |= SF_FORMAT_MAT5;		
 	else
 		format |= SF_FORMAT_CAF;
 	
