@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)tests\&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)tests\&quot;;&quot;$(ProjectDir)boost\&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;TT_DEBUG;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -68,9 +68,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libboost_system-vc90-mt-sgd-1_46.lib libboost_filesystem-vc90-mt-sgd-1_46.lib"
 				ShowProgress="0"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="$(ProjectDir)boost\lib-windows"
 				GenerateManifest="false"
+				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -130,7 +132,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)tests\&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)tests\&quot;;&quot;$(ProjectDir)boost\&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -152,8 +154,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libboost_system-vc90-mt-s-1_46.lib libboost_filesystem-vc90-mt-s-1_46.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="$(ProjectDir)boost\lib-windows"
 				GenerateManifest="false"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
@@ -264,6 +267,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTPath.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTQueue.h"
 				>
 			</File>
@@ -369,6 +376,10 @@
 			</File>
 			<File
 				RelativePath=".\source\TTObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTPath.cpp"
 				>
 			</File>
 			<File
