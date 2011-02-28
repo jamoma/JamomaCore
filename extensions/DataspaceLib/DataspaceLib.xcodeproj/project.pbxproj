@@ -7,22 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22763F6E131B75480025AEB1 /* TTDataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47EE11E24A57007BBF7E /* TTDataspaceLib.cpp */; };
+		22763F6F131B75480025AEB1 /* AngleDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF889131B438D0003D7E2 /* AngleDataspace.cpp */; };
+		22763F70131B75480025AEB1 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88A131B438D0003D7E2 /* ColorDataspace.cpp */; };
+		22763F71131B75480025AEB1 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88B131B438D0003D7E2 /* DistanceDataspace.cpp */; };
+		22763F72131B75480025AEB1 /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88C131B438D0003D7E2 /* GainDataspace.cpp */; };
+		22763F73131B75480025AEB1 /* NoneDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88D131B438D0003D7E2 /* NoneDataspace.cpp */; };
+		22763F74131B75480025AEB1 /* PitchDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88E131B438D0003D7E2 /* PitchDataspace.cpp */; };
+		22763F75131B75480025AEB1 /* PositionDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88F131B438D0003D7E2 /* PositionDataspace.cpp */; };
+		22763F76131B75480025AEB1 /* SpeedDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF890131B438D0003D7E2 /* SpeedDataspace.cpp */; };
+		22763F77131B75480025AEB1 /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF891131B438D0003D7E2 /* TemperatureDataspace.cpp */; };
+		22763F78131B75480025AEB1 /* TimeDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF892131B438D0003D7E2 /* TimeDataspace.cpp */; };
+		22763F79131B75480025AEB1 /* TTDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF893131B438D0003D7E2 /* TTDataspace.cpp */; };
+		22763F7A131B75480025AEB1 /* TTDataspaceConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF894131B438D0003D7E2 /* TTDataspaceConverter.cpp */; };
+		22763F7B131B75480025AEB1 /* TTDataspaceUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF895131B438D0003D7E2 /* TTDataspaceUnit.cpp */; };
+		22763F88131B75810025AEB1 /* libJamomaFoundationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22763F87131B75810025AEB1 /* libJamomaFoundationIOS.a */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
-		22FD47EF11E24A57007BBF7E /* TTDataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD47ED11E24A57007BBF7E /* TTDataspaceLib.h */; };
 		22FD47F011E24A57007BBF7E /* TTDataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47EE11E24A57007BBF7E /* TTDataspaceLib.cpp */; };
-		666CF87C131B43850003D7E2 /* AngleDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF86F131B43850003D7E2 /* AngleDataspace.h */; };
-		666CF87D131B43850003D7E2 /* ColorDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF870131B43850003D7E2 /* ColorDataspace.h */; };
-		666CF87E131B43850003D7E2 /* DistanceDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF871131B43850003D7E2 /* DistanceDataspace.h */; };
-		666CF87F131B43850003D7E2 /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF872131B43850003D7E2 /* GainDataspace.h */; };
-		666CF880131B43850003D7E2 /* NoneDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF873131B43850003D7E2 /* NoneDataspace.h */; };
-		666CF881131B43850003D7E2 /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF874131B43850003D7E2 /* PitchDataspace.h */; };
-		666CF882131B43850003D7E2 /* PositionDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF875131B43850003D7E2 /* PositionDataspace.h */; };
-		666CF883131B43850003D7E2 /* SpeedDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF876131B43850003D7E2 /* SpeedDataspace.h */; };
-		666CF884131B43850003D7E2 /* TemperatureDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF877131B43850003D7E2 /* TemperatureDataspace.h */; };
-		666CF885131B43850003D7E2 /* TimeDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF878131B43850003D7E2 /* TimeDataspace.h */; };
-		666CF886131B43850003D7E2 /* TTDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF879131B43850003D7E2 /* TTDataspace.h */; };
-		666CF887131B43850003D7E2 /* TTDataspaceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF87A131B43850003D7E2 /* TTDataspaceConverter.h */; };
-		666CF888131B43850003D7E2 /* TTDataspaceUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF87B131B43850003D7E2 /* TTDataspaceUnit.h */; };
 		666CF896131B438D0003D7E2 /* AngleDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF889131B438D0003D7E2 /* AngleDataspace.cpp */; };
 		666CF897131B438D0003D7E2 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88A131B438D0003D7E2 /* ColorDataspace.cpp */; };
 		666CF898131B438D0003D7E2 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88B131B438D0003D7E2 /* DistanceDataspace.cpp */; };
@@ -41,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22763F69131B74900025AEB1 /* libJamomaDataspaceLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJamomaDataspaceLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		22763F87131B75810025AEB1 /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaFoundationIOS.a; path = ../../library/build/UninstalledProducts/libJamomaFoundationIOS.a; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FD47EC11E24A37007BBF7E /* JamomaFoundationExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaFoundationExtensions.xcconfig; path = ../JamomaFoundationExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD47ED11E24A57007BBF7E /* TTDataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspaceLib.h; sourceTree = "<group>"; };
@@ -71,10 +74,18 @@
 		666CF893131B438D0003D7E2 /* TTDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspace.cpp; path = source/TTDataspace.cpp; sourceTree = "<group>"; };
 		666CF894131B438D0003D7E2 /* TTDataspaceConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceConverter.cpp; path = source/TTDataspaceConverter.cpp; sourceTree = "<group>"; };
 		666CF895131B438D0003D7E2 /* TTDataspaceUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceUnit.cpp; path = source/TTDataspaceUnit.cpp; sourceTree = "<group>"; };
-		D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = DataspaceLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC09D05546B4700DB518D /* DataspaceLib */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.dylib"; path = DataspaceLib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		22763F67131B74900025AEB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22763F88131B75810025AEB1 /* libJamomaFoundationIOS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC09B05546B4700DB518D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -90,7 +101,8 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */,
+				D2AAC09D05546B4700DB518D /* DataspaceLib */,
+				22763F69131B74900025AEB1 /* libJamomaDataspaceLib.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,6 +123,7 @@
 			children = (
 				22FA623211E21BE60097F43B /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
+				22763F87131B75810025AEB1 /* libJamomaFoundationIOS.a */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -160,38 +173,29 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D2AAC09905546B4700DB518D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22FD47EF11E24A57007BBF7E /* TTDataspaceLib.h in Headers */,
-				666CF87C131B43850003D7E2 /* AngleDataspace.h in Headers */,
-				666CF87D131B43850003D7E2 /* ColorDataspace.h in Headers */,
-				666CF87E131B43850003D7E2 /* DistanceDataspace.h in Headers */,
-				666CF87F131B43850003D7E2 /* GainDataspace.h in Headers */,
-				666CF880131B43850003D7E2 /* NoneDataspace.h in Headers */,
-				666CF881131B43850003D7E2 /* PitchDataspace.h in Headers */,
-				666CF882131B43850003D7E2 /* PositionDataspace.h in Headers */,
-				666CF883131B43850003D7E2 /* SpeedDataspace.h in Headers */,
-				666CF884131B43850003D7E2 /* TemperatureDataspace.h in Headers */,
-				666CF885131B43850003D7E2 /* TimeDataspace.h in Headers */,
-				666CF886131B43850003D7E2 /* TTDataspace.h in Headers */,
-				666CF887131B43850003D7E2 /* TTDataspaceConverter.h in Headers */,
-				666CF888131B43850003D7E2 /* TTDataspaceUnit.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
+		22763F68131B74900025AEB1 /* iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22763F86131B75680025AEB1 /* Build configuration list for PBXNativeTarget "iOS" */;
+			buildPhases = (
+				22763F66131B74900025AEB1 /* Sources */,
+				22763F67131B74900025AEB1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOS;
+			productName = iOS;
+			productReference = 22763F69131B74900025AEB1 /* libJamomaDataspaceLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
 			buildPhases = (
-				D2AAC09905546B4700DB518D /* Headers */,
-				D2AAC09B05546B4700DB518D /* Frameworks */,
 				D2AAC09A05546B4700DB518D /* Sources */,
+				D2AAC09B05546B4700DB518D /* Frameworks */,
 				2217F9FF0E4E194400806778 /* ShellScript */,
 			);
 			buildRules = (
@@ -200,7 +204,7 @@
 			);
 			name = JamomaExtension;
 			productName = TTFunctionLib;
-			productReference = D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */;
+			productReference = D2AAC09D05546B4700DB518D /* DataspaceLib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -224,6 +228,7 @@
 			projectRoot = "";
 			targets = (
 				D2AAC09C05546B4700DB518D /* JamomaExtension */,
+				22763F68131B74900025AEB1 /* iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -245,6 +250,27 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		22763F66131B74900025AEB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22763F6E131B75480025AEB1 /* TTDataspaceLib.cpp in Sources */,
+				22763F6F131B75480025AEB1 /* AngleDataspace.cpp in Sources */,
+				22763F70131B75480025AEB1 /* ColorDataspace.cpp in Sources */,
+				22763F71131B75480025AEB1 /* DistanceDataspace.cpp in Sources */,
+				22763F72131B75480025AEB1 /* GainDataspace.cpp in Sources */,
+				22763F73131B75480025AEB1 /* NoneDataspace.cpp in Sources */,
+				22763F74131B75480025AEB1 /* PitchDataspace.cpp in Sources */,
+				22763F75131B75480025AEB1 /* PositionDataspace.cpp in Sources */,
+				22763F76131B75480025AEB1 /* SpeedDataspace.cpp in Sources */,
+				22763F77131B75480025AEB1 /* TemperatureDataspace.cpp in Sources */,
+				22763F78131B75480025AEB1 /* TimeDataspace.cpp in Sources */,
+				22763F79131B75480025AEB1 /* TTDataspace.cpp in Sources */,
+				22763F7A131B75480025AEB1 /* TTDataspaceConverter.cpp in Sources */,
+				22763F7B131B75480025AEB1 /* TTDataspaceUnit.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC09A05546B4700DB518D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -334,6 +360,49 @@
 			};
 			name = Deployment;
 		};
+		22763F6A131B74910025AEB1 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FD47EC11E24A37007BBF7E /* JamomaFoundationExtensions.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_EXTENSION = a;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_IOS;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = JamomaDataspaceLib;
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = a;
+			};
+			name = Development;
+		};
+		22763F6B131B74910025AEB1 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FD47EC11E24A37007BBF7E /* JamomaFoundationExtensions.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_EXTENSION = a;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_IOS;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = JamomaDataspaceLib;
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = a;
+			};
+			name = Deployment;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -351,6 +420,15 @@
 			buildConfigurations = (
 				1DEB916508733D950010E9CD /* Development */,
 				1DEB916608733D950010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		22763F86131B75680025AEB1 /* Build configuration list for PBXNativeTarget "iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22763F6A131B74910025AEB1 /* Development */,
+				22763F6B131B74910025AEB1 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
