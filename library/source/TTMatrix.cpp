@@ -135,7 +135,14 @@ TTErr TTMatrix::clear()
 
 TTErr TTMatrix::fill(const TTValue& aValue)
 {
+// Windows compiler chokes the on the syntax below...
+// TODO: I guess we should make all of the code the same, working with the lowest common denominator (Windows)
+// Of course, it sucks that we have to alloc this on the heap instead of the stack... :-/
+#ifdef TT_PLATFORM_WIN
+	TTBytePtr	fillValue = new TTByte[mValueStride];
+#else
 	TTByte	fillValue[mValueStride];
+#endif
 
 	// TODO: here we have this ugly switch again...
 	if (mType == TT("uint8"))
@@ -150,6 +157,7 @@ TTErr TTMatrix::fill(const TTValue& aValue)
 	for (TTUInt32 i=0; i<mDataSize; i += mValueStride)
 		memcpy(mData+i, fillValue, mValueStride);
 
+	delete[] fillValue;
 	return kTTErrNone;
 }
 
