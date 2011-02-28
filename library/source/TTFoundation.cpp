@@ -195,7 +195,7 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 				break;
 		}
 	}
-#else // MAC or LINUX
+#elif defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX)
     TTPath          path(fullpath);
     TTPathVector    paths;
     TTPathIter      i;
@@ -226,7 +226,7 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
             }
         }
     }
-
 #endif
+// No dynamic loading on iOS
 }
 

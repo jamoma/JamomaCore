@@ -35,6 +35,33 @@
 		22610B5F11DD7298000A3DA8 /* TTDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A083C311389A7A00D6D843 /* TTDictionary.cpp */; };
 		22610CCD11DD72A9000A3DA8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22610CCE11DD72A9000A3DA8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
+		22763F27131B71520025AEB1 /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F210286BBE002000A9 /* TTAttribute.cpp */; };
+		22763F28131B71520025AEB1 /* TTFoundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F710286BBE002000A9 /* TTFoundation.cpp */; };
+		22763F29131B71520025AEB1 /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F810286BBE002000A9 /* TTClass.cpp */; };
+		22763F2A131B71520025AEB1 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F910286BBE002000A9 /* TTDataObject.cpp */; };
+		22763F2B131B71520025AEB1 /* TTBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FA10286BBE002000A9 /* TTBase.cpp */; };
+		22763F2C131B71520025AEB1 /* TTEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FB10286BBE002000A9 /* TTEnvironment.cpp */; };
+		22763F2D131B71520025AEB1 /* TTHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FC10286BBE002000A9 /* TTHash.cpp */; };
+		22763F2E131B71520025AEB1 /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FD10286BBE002000A9 /* TTList.cpp */; };
+		22763F2F131B71520025AEB1 /* TTMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FE10286BBE002000A9 /* TTMessage.cpp */; };
+		22763F30131B71520025AEB1 /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FF10286BBE002000A9 /* TTMutex.cpp */; };
+		22763F31131B71520025AEB1 /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860010286BBE002000A9 /* TTObject.cpp */; };
+		22763F32131B71520025AEB1 /* TTQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860110286BBE002000A9 /* TTQueue.cpp */; };
+		22763F33131B71520025AEB1 /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860210286BBE002000A9 /* TTSymbol.cpp */; };
+		22763F34131B71520025AEB1 /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860310286BBE002000A9 /* TTSymbolCache.cpp */; };
+		22763F35131B71520025AEB1 /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860410286BBE002000A9 /* TTSymbolTable.cpp */; };
+		22763F36131B71520025AEB1 /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860510286BBE002000A9 /* TTThread.cpp */; };
+		22763F37131B71520025AEB1 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860610286BBE002000A9 /* TTValue.cpp */; };
+		22763F38131B71520025AEB1 /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860710286BBE002000A9 /* TTValueCache.cpp */; };
+		22763F39131B71520025AEB1 /* TTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68EC9108C9BEF0094260C /* TTNode.cpp */; };
+		22763F3A131B71520025AEB1 /* TTNodeDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68ECA108C9BEF0094260C /* TTNodeDirectory.cpp */; };
+		22763F3B131B71520025AEB1 /* TTCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A05DA1110149CE00695770 /* TTCallback.cpp */; };
+		22763F3C131B71520025AEB1 /* TTDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A083C311389A7A00D6D843 /* TTDictionary.cpp */; };
+		22763F3D131B71520025AEB1 /* TTUnitTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2230A28712FE91FD007C5492 /* TTUnitTest.cpp */; };
+		22763F3E131B71520025AEB1 /* TTValueTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22393DC913098344003140AB /* TTValueTest.cpp */; };
+		22763F3F131B71520025AEB1 /* TTMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22393F071309BB20003140AB /* TTMatrix.cpp */; };
+		22763F40131B71520025AEB1 /* TTMatrixTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22393F0F1309BDDE003140AB /* TTMatrixTest.cpp */; };
+		22763F41131B71520025AEB1 /* TTPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8CB1E1319BCEE008F80C7 /* TTPath.cpp */; };
 		22D8CB1F1319BCEE008F80C7 /* TTPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8CB1E1319BCEE008F80C7 /* TTPath.cpp */; };
 		22D8CB301319E93F008F80C7 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D8CB2E1319E93F008F80C7 /* libboost_filesystem.a */; };
 		22D8CB311319E93F008F80C7 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D8CB2F1319E93F008F80C7 /* libboost_system.a */; };
@@ -42,7 +69,7 @@
 
 /* Begin PBXFileReference section */
 		22039B851087816A008DFA4A /* TTLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLimits.h; path = includes/TTLimits.h; sourceTree = "<group>"; };
-		221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaFoundation.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		221826F811DD71CA00EC7AB7 /* JamomaFoundation */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.dylib"; path = JamomaFoundation; sourceTree = BUILT_PRODUCTS_DIR; };
 		2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaFoundation.xcconfig; sourceTree = "<group>"; };
 		2230A28712FE91FD007C5492 /* TTUnitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTUnitTest.cpp; path = source/TTUnitTest.cpp; sourceTree = "<group>"; };
 		2230A28912FE9217007C5492 /* TTUnitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTUnitTest.h; path = includes/TTUnitTest.h; sourceTree = "<group>"; };
@@ -52,6 +79,7 @@
 		22393F071309BB20003140AB /* TTMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrix.cpp; path = source/TTMatrix.cpp; sourceTree = "<group>"; };
 		22393F0F1309BDDE003140AB /* TTMatrixTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrixTest.cpp; path = tests/TTMatrixTest.cpp; sourceTree = "<group>"; };
 		22578F1C0EC276B200A5EC32 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		22763F1D131B705F0025AEB1 /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJamomaFoundationIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A05D9F110149C300695770 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCallback.h; path = includes/TTCallback.h; sourceTree = "<group>"; };
 		22A05DA1110149CE00695770 /* TTCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCallback.cpp; path = source/TTCallback.cpp; sourceTree = "<group>"; };
 		22A083C111389A6800D6D843 /* TTDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDictionary.h; path = includes/TTDictionary.h; sourceTree = "<group>"; };
@@ -116,13 +144,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22763F1B131B705F0025AEB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */,
+				221826F811DD71CA00EC7AB7 /* JamomaFoundation */,
+				22763F1D131B705F0025AEB1 /* libJamomaFoundationIOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -268,8 +304,24 @@
 			);
 			name = JamomaFoundation;
 			productName = "JamomaFoundation-dylib";
-			productReference = 221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */;
+			productReference = 221826F811DD71CA00EC7AB7 /* JamomaFoundation */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		22763F1C131B705F0025AEB1 /* iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22763F20131B70A80025AEB1 /* Build configuration list for PBXNativeTarget "iOS" */;
+			buildPhases = (
+				22763F1A131B705F0025AEB1 /* Sources */,
+				22763F1B131B705F0025AEB1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOS;
+			productName = iOS;
+			productReference = 22763F1D131B705F0025AEB1 /* libJamomaFoundationIOS.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -292,6 +344,7 @@
 			projectRoot = "";
 			targets = (
 				221826F711DD71CA00EC7AB7 /* JamomaFoundation */,
+				22763F1C131B705F0025AEB1 /* iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -344,6 +397,40 @@
 				22393F081309BB20003140AB /* TTMatrix.cpp in Sources */,
 				22393F101309BDDE003140AB /* TTMatrixTest.cpp in Sources */,
 				22D8CB1F1319BCEE008F80C7 /* TTPath.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22763F1A131B705F0025AEB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22763F27131B71520025AEB1 /* TTAttribute.cpp in Sources */,
+				22763F28131B71520025AEB1 /* TTFoundation.cpp in Sources */,
+				22763F29131B71520025AEB1 /* TTClass.cpp in Sources */,
+				22763F2A131B71520025AEB1 /* TTDataObject.cpp in Sources */,
+				22763F2B131B71520025AEB1 /* TTBase.cpp in Sources */,
+				22763F2C131B71520025AEB1 /* TTEnvironment.cpp in Sources */,
+				22763F2D131B71520025AEB1 /* TTHash.cpp in Sources */,
+				22763F2E131B71520025AEB1 /* TTList.cpp in Sources */,
+				22763F2F131B71520025AEB1 /* TTMessage.cpp in Sources */,
+				22763F30131B71520025AEB1 /* TTMutex.cpp in Sources */,
+				22763F31131B71520025AEB1 /* TTObject.cpp in Sources */,
+				22763F32131B71520025AEB1 /* TTQueue.cpp in Sources */,
+				22763F33131B71520025AEB1 /* TTSymbol.cpp in Sources */,
+				22763F34131B71520025AEB1 /* TTSymbolCache.cpp in Sources */,
+				22763F35131B71520025AEB1 /* TTSymbolTable.cpp in Sources */,
+				22763F36131B71520025AEB1 /* TTThread.cpp in Sources */,
+				22763F37131B71520025AEB1 /* TTValue.cpp in Sources */,
+				22763F38131B71520025AEB1 /* TTValueCache.cpp in Sources */,
+				22763F39131B71520025AEB1 /* TTNode.cpp in Sources */,
+				22763F3A131B71520025AEB1 /* TTNodeDirectory.cpp in Sources */,
+				22763F3B131B71520025AEB1 /* TTCallback.cpp in Sources */,
+				22763F3C131B71520025AEB1 /* TTDictionary.cpp in Sources */,
+				22763F3D131B71520025AEB1 /* TTUnitTest.cpp in Sources */,
+				22763F3E131B71520025AEB1 /* TTValueTest.cpp in Sources */,
+				22763F3F131B71520025AEB1 /* TTMatrix.cpp in Sources */,
+				22763F40131B71520025AEB1 /* TTMatrixTest.cpp in Sources */,
+				22763F41131B71520025AEB1 /* TTPath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +519,39 @@
 			};
 			name = Deployment;
 		};
+		22763F1E131B70600025AEB1 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_IOS;
+				PREBINDING = NO;
+				PRODUCT_NAME = JamomaFoundationIOS;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost";
+				WRAPPER_EXTENSION = a;
+			};
+			name = Development;
+		};
+		22763F1F131B70600025AEB1 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_IOS;
+				PREBINDING = NO;
+				PRODUCT_NAME = JamomaFoundationIOS;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost";
+				WRAPPER_EXTENSION = a;
+			};
+			name = Deployment;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -449,6 +569,15 @@
 			buildConfigurations = (
 				221826F911DD71CA00EC7AB7 /* Development */,
 				221826FA11DD71CA00EC7AB7 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		22763F20131B70A80025AEB1 /* Build configuration list for PBXNativeTarget "iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22763F1E131B70600025AEB1 /* Development */,
+				22763F1F131B70600025AEB1 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
