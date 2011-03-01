@@ -50,11 +50,11 @@ void MinuitCommunicationMethods::minuitReceiveNetworkListenRequest(std::string f
 	m_listenRequestCallBack(m_listenRequestCallBackArgument, from, address, attribute, enable);
 }
 
-void MinuitCommunicationMethods::minuitSendMessage(std::string stringToSend, std::string ip, unsigned int port)
+void MinuitCommunicationMethods::minuitSendMessage(std::string stringToSend, TTValue& valueToSend, std::string ip, unsigned int port)
 {
 	OSCParser OSCParsed(stringToSend);
 	
-	unsigned int bufferSize = computeOSCMessageSize(OSCParsed);
+	unsigned int bufferSize = computeOSCMessageSize(OSCParsed, valueToSend);
 	
 	UdpTransmitSocket transmitSocket( IpEndpointName(ip.data(), port) );
 	
@@ -77,6 +77,25 @@ void MinuitCommunicationMethods::minuitSendMessage(std::string stringToSend, std
 			oscStream << toFloat(currentString);
 		} else {
 			oscStream << currentString.data();
+		}
+	}
+
+	TTSymbolPtr symValue;
+	TTInt32		intValue;
+	TTFloat64	floatValue;
+
+	for (unsigned int i = 0; i < valueToSend.getSize(); ++i) {
+		if (valueToSend.getType(i) == kTypeSymbol) {
+			valueToSend.get(i, &symValue);
+			oscStream << symValue->getCString();
+		}
+		else if (valueToSend.getType(i) == kTypeInt32) {
+			valueToSend.get(i, intValue);
+			oscStream << intValue;
+		}
+		else if (valueToSend.getType(i) == kTypeFloat64) {
+			valueToSend.get(i, floatValue);
+			oscStream << floatValue;
 		}
 	}
 	
@@ -192,7 +211,7 @@ int MinuitCommunicationMethods::minuitWaitGetAnswer(std::string from, string add
 }
 
 
-unsigned int computeOSCMessageSize(OSCParser OSCParsed) 
+unsigned int computeOSCMessageSize(OSCParser OSCParsed, TTValue& valueToSend) 
 {
 	unsigned int result = 0;
 	
@@ -205,7 +224,7 @@ unsigned int computeOSCMessageSize(OSCParser OSCParsed)
 	
 	result += ((addressSize/4) + 1) * 4; //Address Size
 	
-	unsigned int argumentsSize = OSCParsed.getNbArg();
+	unsigned int argumentsSize = OSCParsed.getNbArg() + valueToSend.getSize();
 	argumentsSize += 1; // , for indicating this is an argument string information
 	
 	result += ((argumentsSize/4) + 1) * 4; //ArgumentTag Size
@@ -220,6 +239,20 @@ unsigned int computeOSCMessageSize(OSCParser OSCParsed)
 			unsigned int stringSize = currentString.size();
 			stringSize += 1; // /0 for end of string
 			result += ((stringSize/4) + 1) * 4; //String Size
+		}
+	}
+
+	for (unsigned int i = 0; i < valueToSend.getSize(); ++i) {
+		if (valueToSend.getType(i) == kTypeSymbol) {
+			TTSymbolPtr symValue;
+			valueToSend.get(i, &symValue);
+			result += strlen(symValue->getCString());
+		}
+		else if (valueToSend.getType(i) == kTypeInt32 || valueToSend.getType(i) == kTypeFloat32) {
+			result += 4; //Float32/Int32 size
+		}
+		else if (valueToSend.getType(i) == kTypeInt64 || valueToSend.getType(i) == kTypeFloat64) {
+			result += 8; //Float64/Int64 size
 		}
 	}
 	

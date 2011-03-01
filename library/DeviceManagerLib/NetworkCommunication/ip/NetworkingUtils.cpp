@@ -36,7 +36,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 static LONG initCount_ = 0;
 static bool winsockInitialized_ = false;
 

@@ -75,6 +75,9 @@ public:
 	~Minuit() 
 	{
 		delete m_minuitMethods;
+
+		mParameters->clear();
+		delete mParameters;
 	}
 	
 	/************************************************
@@ -87,9 +90,42 @@ public:
 	 * Define the device parameters needs by each device to communicate
 	 *
 	 */
-	void commDefineParameters(TTHashPtr parameters)
+	void commDefineParameters(TTValue& parameters)
 	{
-		mParameters = parameters;
+		std::cout << "parameters size = " << parameters.getSize() << std::endl;
+		
+		TTSymbolPtr commParamName, commParam_SymValue;
+		TTInt32		commParam_IntValue = 0;
+		TTFloat64	commParam_FloatValue;
+		TTValue		commParamValue, pluginPtrValue, args;
+		TTString	commParamValueStr;
+		TTUInt8		i;
+
+		for (i = 0; i < (parameters.getSize()-1); i = i+2) {
+
+			if (parameters.getType(i) == kTypeSymbol) {
+				parameters.get(i, &commParamName);
+				if ((i+1) < parameters.getSize() ) {
+
+					commParamValue.clear();
+					if (parameters.getType(i+1) == kTypeSymbol) {
+						parameters.get(i+1, &commParam_SymValue);
+						commParamValue.append(commParam_SymValue);
+					}
+					else if (parameters.getType(i+1) == kTypeInt32) {
+						parameters.get(i+1, commParam_IntValue);
+						commParamValue.append((int)commParam_IntValue);
+					}
+					else if (parameters.getType(i+1) == kTypeFloat64) {
+						parameters.get(i+1, commParam_FloatValue);
+						commParamValue.append(commParam_FloatValue);
+					}
+
+					mParameters->append(commParamName, commParamValue);
+
+				}
+			}
+		}
 	}
 
 //	/*!
@@ -142,13 +178,31 @@ public:
 	 */
 	void commRunReceivingThread()
 	{
-		TTValue v;
-		TTInt32	port;
-		TTErr	err;
+		TTValue		v;
+		TTInt32		port;
+		TTErr		err;
 		
 		m_minuitMethods = new MinuitCommunicationMethods();
 
+		//for (i = 0; i < (mParams.getSize()-1); i = i+2) {
+
+		//	mParams.get(i, &commParamName);
+
+		//	if ((i+1) < mParams.getSize() && commParamName->getString() == TT("port")) {
+
+		//		mParams.get(i+1, port);
+		//		found = true;
+		//	}
+		//}
+
+		//if (found) {
+		//	m_minuitMethods->minuitRunOSCListening(port);
+		//} else {
+		//	m_minuitMethods->minuitRunOSCListening(MINUIT_RECEPTION_PORT);
+		//}
+
 		if (mParameters != NULL) {
+	
 			err = mParameters->lookup(TT("port"), v);
 			if (!err) {
 				v.get(0, port);
@@ -229,12 +283,12 @@ public:
 	 * \param returnedAttributes : the vector which is going to be full with the attributes names at the given address
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	int deviceSendDiscoverRequest(TTDevicePtr device, const TTValue& address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+	int deviceSendDiscoverRequest(TTDevicePtr device, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
 	{
 		int			state;
-		TTString	deviceName, appName;
+		TTString    deviceName, appName;
 		TTString	addressAndAttributeString;
-		TTSymbolPtr addressString, attributeString;
+		TTCString	addressString;
 		TTString	stringToSend;
 		TTValue		v, vDevice, vDeviceManager, vIp, vPort;
 		TTErr		err1, err2;
@@ -252,13 +306,15 @@ public:
 		vDeviceManager.toString();
 		vDeviceManager.get(0, appName);
 		
-		address.get(0, &addressString);
+		// get the node address to discover (convert it from const char* to char*)
+		const char* cc = address->getCString();
+		addressString = _strdup(cc);
 		
 		// edit request
 		stringToSend = appName;	// add name of application
 		stringToSend += MINUIT_REQUEST_DISCOVER;
 		stringToSend += " ";
-		stringToSend += addressString->getString();
+		stringToSend += addressString;
 		
 		err1 = device->getCommParameter(TT("ip"), vIp);
 		err2 = device->getCommParameter(TT("port"), vPort);
@@ -272,20 +328,27 @@ public:
 		vPort.get(0, port);
 		
 		// send request
+		v.clear();
 		std::cout << "Minuit : deviceSendDiscoverRequest : " << stringToSend << std::endl;
-		m_minuitMethods->minuitSendMessage(stringToSend, ipString, port);
+		m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
 		
 		// Wait for an answer from an IP on a specific port
-		addressAndAttributeString = addressString->getString();
+		addressAndAttributeString = addressString;
 		m_minuitMethods->minuitAddDiscoverAnswer(deviceName, addressAndAttributeString, ipString, port, DEFAULT_TIMEOUT);
 		
 		state = ANSWER_RECEIVED;
 		do
 		{
-			usleep(1000);// TODO : Doesn't work on Windows, use Sleep
+#ifdef TT_PLATFORM_WIN
+			Sleep(1);
+#else
+			usleep(1000);
+#endif
 			state = m_minuitMethods->minuitWaitDiscoverAnswer(deviceName, addressAndAttributeString, returnedNodes, returnedLeaves, returnedAttributes);
 		}
 		while(state == NO_ANSWER);
+
+		delete addressString;
 		
 		return state;
 	}
@@ -299,12 +362,13 @@ public:
 	 * \param returnedValue : the Value which is going to be full
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	int deviceSendGetRequest(TTDevicePtr device, const TTValue& addressAndAttribute, TTValue& returnedValue)
+	int deviceSendGetRequest(TTDevicePtr device, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
 	{	
+		std::cout << "Minuit : deviceSendGetRequest call" << std::endl;
 		int			state;
-		TTString	deviceName, appName;
+		TTString	appName, deviceName;
 		TTString	addressAndAttributeString;
-		TTSymbolPtr addressString, attributeString;
+		TTCString	addressCString, attributeCString;
 		TTString	stringToSend;
 		TTValue		v, vDevice, vDeviceManager, vIp, vPort;
 		TTErr		err1, err2;
@@ -317,26 +381,29 @@ public:
 		vDevice.toString();
 		vDevice.get(0, deviceName);
 		
-		//get the local app name
+		// get the local app name
 		mDeviceManager->getAttributeValue(TT("name"), vDeviceManager);
 		vDeviceManager.toString();
 		vDeviceManager.get(0, appName);
 		
-		addressAndAttribute.get(0, &addressString);
-		addressAndAttribute.get(1, &attributeString);
+		const char* cc1 = address->getCString();
+		addressCString = _strdup(cc1);
+		const char* cc2 = attribute->getCString();
+		attributeCString = _strdup(cc2);
 		
 		// edit request
 		stringToSend = appName;	// add name of application
 		stringToSend += MINUIT_REQUEST_GET;
 		stringToSend += " ";
-		stringToSend += addressString->getString();
+		stringToSend += addressCString;
 		stringToSend += ":";
-		stringToSend += attributeString->getString();
+		stringToSend += attributeCString;
 		
 		err1 = device->getCommParameter(TT("ip"), vIp);
 		err2 = device->getCommParameter(TT("port"), vPort);
 		
 		if (err1 || err2) {
+			std::cout << "aie" << std::endl;
 			return kTTErrGeneric;
 		}
 		
@@ -345,11 +412,15 @@ public:
 		vPort.get(0, port);
 		
 		// send request
+		v.clear();
 		std::cout << "Minuit : deviceSendGetRequest : " << stringToSend << std::endl;
-		m_minuitMethods->minuitSendMessage(stringToSend, ipString, port);
+		m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
 		
 		// Wait for an answer from an IP on a specific port
-		addressAndAttributeString = addressString->getString() + ":" + attributeString->getString();
+		addressAndAttributeString = addressCString;
+		addressAndAttributeString += ":";
+		addressAndAttributeString += attributeCString;
+
 		m_minuitMethods->minuitAddGetAnswer(deviceName, addressAndAttributeString, DEFAULT_TIMEOUT);
 		
 		state = ANSWER_RECEIVED;
@@ -364,6 +435,9 @@ public:
 		}
 		while(state == NO_ANSWER);
 		
+		delete addressCString;
+		delete attributeCString;
+
 		return state;
 	}
 	
@@ -383,10 +457,13 @@ public:
 		TTInt32		port;
 
 		v = value;
-		v.toString();
-		v.get(0, vString);
+		//v.toString();
+		//v.get(0, vString);
 		
-		stringToSend = address->getString() + " " + vString;
+		const char* cc = address->getCString();
+		char* s = _strdup(cc);
+		stringToSend = s;
+		//stringToSend += " " + vString;
 		
 		err1 = device->getCommParameter(TT("ip"), vIp);
 		err2 = device->getCommParameter(TT("port"), vPort);
@@ -399,47 +476,70 @@ public:
 			vPort.get(0, port);
 			
 			std::cout << "Minuit : deviceSendSetRequest : " << stringToSend << std::endl;
-			m_minuitMethods->minuitSendMessage(stringToSend, ipString, port);
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
 			
+			delete s;
+
 			return 1;
 		}
 		
 		return -1;
 	}
 	
-//	/*!
-//	 * Send a listen request to a specific device
-//	 *
-//	 * \param device : a pointer to a Device instance
-//	 * \param address : something like "/<subDeviceName>/.../<input>"
-//	 * \param attribute : the attribute to listen
-//	 * \param enable : enable/disable the listening
-//	 */
-//	int deviceSendListenRequest(Device* device, Address address, std::string attribute, bool enable)
-//	{
-//		std::string addressAndAttribute;
-//		std::string stringToSend;
-//		
-//		// edit request
-//		stringToSend = mDeviceManager->namespaceApplicationName();	// add name of application
-//		stringToSend += MINUIT_REQUEST_LISTEN;
-//		stringToSend += " ";
-//		stringToSend += address;
-//		stringToSend += ":";
-//		stringToSend += attribute;
-//		
-//		stringToSend += "";
-//		if(enable)
-//			stringToSend += MINUIT_REQUEST_LISTEN_ENABLE;
-//		else
-//			stringToSend += MINUIT_REQUEST_LISTEN_DISABLE;
-//		
-//		// send request
-//		std::cout << "Minuit : deviceSendListenRequest : " << stringToSend << std::endl;
-//		m_minuitMethods->minuitSendMessage(stringToSend, device->getCommParameter("ip"), toInt(device->getCommParameter("port")));
-//		
-//		return 1;
-//	}
+	/*!
+	 * Send a listen request to a specific device
+	 *
+	 * \param device : a pointer to a Device instance
+	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param attribute : the attribute to listen
+	 * \param enable : enable/disable the listening
+	 */
+	int deviceSendListenRequest(TTDevicePtr device, TTSymbolPtr address, TTSymbolPtr attribute, bool enable)
+	{
+		TTString	stringToSend, appName;
+		TTValue		v, vDevice, vDeviceManager, vIp, vPort;
+		TTErr		err1, err2;
+		TTString	vString, ipString;
+		TTInt32		port;
+
+		// get the local app name
+		mDeviceManager->getAttributeValue(TT("name"), vDeviceManager);
+		vDeviceManager.toString();
+		vDeviceManager.get(0, appName);
+		
+		// edit request
+		stringToSend = appName;	// add name of application
+		stringToSend += MINUIT_REQUEST_LISTEN;
+		stringToSend += " ";
+		stringToSend += address->getCString();
+		stringToSend += ":";
+		stringToSend += attribute->getCString();
+		
+		stringToSend += "";
+		if(enable)
+			stringToSend += MINUIT_REQUEST_LISTEN_ENABLE;
+		else
+			stringToSend += MINUIT_REQUEST_LISTEN_DISABLE;
+
+		// get the device ip and port parameters
+		err1 = device->getCommParameter(TT("ip"), vIp);
+		err2 = device->getCommParameter(TT("port"), vPort);
+		
+		if (err1 || err2) {
+			return kTTErrGeneric;
+		}
+		
+		vIp.toString();
+		vIp.get(0, ipString);
+		vPort.get(0, port);
+		
+		// send request
+		v.clear();
+		std::cout << "Minuit : deviceSendListenRequest : " << stringToSend << std::endl;
+		m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
+		
+		return 1;
+	}
 	
 	
 	/**************************************************************************************************************************
@@ -460,39 +560,48 @@ public:
 	void deviceSendDiscoverAnswer(TTDevicePtr to, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
 	{
 		std::string stringToSend;
-		TTValue		vDeviceManager, nodes, leaves, attributes, vIp, vPort;
+		TTValue		vDeviceManager, nodes, leaves, attributes, vIp, vPort, v;
 		TTString	appName, sNodes, sLeaves, sAttributes, ipString;
 		TTInt32		port;
 		TTErr		err1, err2;
 		
-		//get the local app name
+		// get the local app name
 		mDeviceManager->getAttributeValue(TT("name"), vDeviceManager);
 		vDeviceManager.toString();
 		vDeviceManager.get(0, appName);
+
+		// get the node address to discover (convert it from const char* to char*)
+		const char* cc = address->getCString();
+		char *addressString = _strdup(cc);
 		
 		// edit answer
 		stringToSend = appName;	// add name of application
 		stringToSend += MINUIT_ANSWER_DISCOVER;
 		stringToSend += " ";
-		stringToSend += address->getString();
+		stringToSend += addressString;
 		
 		// add each nodes
 		if(returnedNodes.getSize()){
 			stringToSend += " ";
 			stringToSend += MINUIT_START_NODES;
 			stringToSend += " ";
-//			for(iter = returnedNodes.begin(); iter != returnedNodes.end(); iter++)
-//			{
-//				stringToSend += *iter;
-//				stringToSend += " ";
-//			}
-			nodes = returnedNodes;
-			nodes.toString();
-			nodes.get(0, sNodes);
-			
-			stringToSend += sNodes;
-			stringToSend += " ";
+
+			for(int i = 0; i < returnedNodes.getSize(); i++) {
+				char* s;
+				returnedNodes.get(i, (TTPtr*)&s);
+
+				stringToSend += s;
+				stringToSend += " ";
+			}
 			stringToSend += MINUIT_END_NODES;
+
+			//nodes = returnedNodes;
+			//nodes.toString();
+			//nodes.get(0, sNodes);
+			
+			//stringToSend += sNodes;
+			//stringToSend += " ";
+			//stringToSend += MINUIT_END_NODES;
 		}
 		
 		// add each leaves
@@ -500,17 +609,22 @@ public:
 			stringToSend += " ";
 			stringToSend += MINUIT_START_LEAVES;
 			stringToSend += " ";
-//			for(iter = returnedLeaves.begin(); iter != returnedLeaves.end(); iter++)
-//			{
-//				stringToSend += *iter;
-//				stringToSend += " ";
-//			}
-			leaves = returnedLeaves;
-			leaves.toString();
-			leaves.get(0, sLeaves);
-			
-			stringToSend += sLeaves;
-			stringToSend += " ";
+
+			//leaves = returnedLeaves;
+			//leaves.toString();
+			//leaves.get(0, sLeaves);//provoque un bug ss windows si sLeaves > 15 caractères (STL/DLL bug)
+			//
+			//stringToSend += sLeaves;
+			//stringToSend += " ";
+			//stringToSend += MINUIT_END_LEAVES;
+
+			for(int i = 0; i < returnedLeaves.getSize(); i++) {
+				char* s;
+				returnedLeaves.get(i, (TTPtr*)&s);
+
+				stringToSend += s;
+				stringToSend += " ";
+			}
 			stringToSend += MINUIT_END_LEAVES;
 		}
 		
@@ -519,18 +633,23 @@ public:
 			stringToSend += " ";
 			stringToSend += MINUIT_START_ATTRIBUTES;
 			stringToSend += " ";
-//			for(iter = returnedAttributes.begin(); iter != returnedAttributes.end(); iter++)
-//			{
-//				stringToSend += *iter;
-//				stringToSend += " ";
-//			}
-			attributes = returnedAttributes;
-			attributes.toString();
-			attributes.get(0, sAttributes);
-			
-			stringToSend += sAttributes;
-			stringToSend += " ";
+
+			for(int i = 0; i < returnedAttributes.getSize(); i++) {
+				char* s;
+				returnedAttributes.get(i, (TTPtr*)&s);
+
+				stringToSend += s;
+				stringToSend += " ";
+			}
 			stringToSend += MINUIT_END_ATTRIBUTES;
+
+			//attributes = returnedAttributes;
+			//attributes.toString();
+			//attributes.get(0, sAttributes);
+			//
+			//stringToSend += sAttributes;
+			//stringToSend += " ";
+			//stringToSend += MINUIT_END_ATTRIBUTES;
 		}
 		
 		err1 = to->getCommParameter(TT("ip"), vIp);
@@ -545,10 +664,13 @@ public:
 			
 			// DEBUG
 			std::cout << "Minuit : deviceSendNamespaceAnswer : " << stringToSend << std::endl;
-			
+
 			// send answer
-			m_minuitMethods->minuitSendMessage(stringToSend, ipString, port);
+			v.clear();
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
 		}
+
+		delete addressString;
 	}
 	
 	/*!
@@ -567,23 +689,30 @@ public:
 		std::string stringToSend;
 		TTInt32		port;
 		
-		//get the local app name
+		// get the local app name
 		mDeviceManager->getAttributeValue(TT("name"), vDeviceManager);
 		vDeviceManager.toString();
 		vDeviceManager.get(0, appName);
+
+		// get the node address and attribute to get (convert it from const char* to char*)
+		const char* cc1 = address->getCString();
+		char* addressCString = _strdup(cc1);
+		const char* cc2 = attribute->getCString();
+		char* attributeCString = _strdup(cc2);
 		
+		// get the returned value as a string
 		v = returnedValue;
-		v.toString();
-		v.get(0, vString);
+		//v.toString();
+		//v.get(0, vString);
 		
 		stringToSend = appName;	// add name of application
 		stringToSend += MINUIT_ANSWER_GET;
 		stringToSend += " ";		
-		stringToSend += address->getString();
+		stringToSend += addressCString;
 		stringToSend += ":";
-		stringToSend += attribute->getString();
-		stringToSend += " ";
-		stringToSend += vString;
+		stringToSend += attributeCString;
+		//stringToSend += " ";
+		//stringToSend += vString;
 		
 		err1 = to->getCommParameter(TT("ip"), vIp);
 		err2 = to->getCommParameter(TT("port"), vPort);
@@ -596,40 +725,59 @@ public:
 			vPort.get(0, port);
 			
 			std::cout << "Minuit : deviceSendGetAnswer : " << stringToSend << std::endl;
-			m_minuitMethods->minuitSendMessage(stringToSend, ipString, port);
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
 		}
+
+		delete addressCString;
+		delete attributeCString;
 	}
 	
-//	/*!
-//	 * Send a listen answer to a device which ask for.
-//	 *
-//	 * \param to : the device where to send answer
-//	 * \param address : the address where comes from the value
-//	 * \param attribute : the attribute where comes from the value
-//	 * \param returnedValue : the value of the attribute at the address
-//	 */
-//	void deviceSendListenAnswer(Device* to, Address address, std::string attribute, Value& returnedValue)
-//	{
-//		std::string stringToSend;
-//		
-//		// edit answer
-//		stringToSend = mDeviceManager->namespaceApplicationName();	// add name of application
-//		stringToSend += MINUIT_ANSWER_LISTEN;
-//		stringToSend += " ";
-//		stringToSend += address;
-//		stringToSend += ":";
-//		stringToSend += attribute;
-//		
-//		// add value
-//		stringToSend += " ";
-//		stringToSend += returnedValue;
-//		
-//		// DEBUG
-//		std::cout << "Minuit : deviceSendListenAnswer : " << stringToSend << std::endl;
-//		
-//		//send answer
-//		m_minuitMethods->minuitSendMessage(stringToSend, to->getCommParameter("ip"), toInt(to->getCommParameter("port")));
-//	}
+	/*!
+	 * Send a listen answer to a device which ask for.
+	 *
+	 * \param to : the device where to send answer
+	 * \param address : the address where comes from the value
+	 * \param attribute : the attribute where comes from the value
+	 * \param returnedValue : the value of the attribute at the address
+	 */
+	void deviceSendListenAnswer(TTDevicePtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
+	{
+		TTString	stringToSend, appName;
+		TTValue		v, vDevice, vDeviceManager, vIp, vPort;
+		TTErr		err1, err2;
+		TTString	vString, ipString;
+		TTInt32		port;
+
+		// get the local app name
+		mDeviceManager->getAttributeValue(TT("name"), vDeviceManager);
+		vDeviceManager.toString();
+		vDeviceManager.get(0, appName);
+		
+		// edit request
+		stringToSend = appName;	// add name of application
+		stringToSend += MINUIT_ANSWER_LISTEN;
+		stringToSend += " ";
+		stringToSend += address->getCString();
+		stringToSend += ":";
+		stringToSend += attribute->getCString();
+		
+		// add value
+		//stringToSend += " ";
+		//stringToSend += returnedValue;
+		
+		// get the device ip and port parameters
+		err1 = to->getCommParameter(TT("ip"), vIp);
+		err2 = to->getCommParameter(TT("port"), vPort);
+		
+		vIp.toString();
+		vIp.get(0, ipString);
+		vPort.get(0, port);
+		
+		// send request
+		v = returnedValue;
+		std::cout << "Minuit : deviceSendListenAnswer : " << stringToSend << std::endl;
+		m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
+	}
 	
 	
 	
@@ -654,20 +802,20 @@ void receiveDiscoverRequestCallback(void* arg, std::string from, std::string add
 	TTDevicePtr fromDevice = NULL;
 	Minuit*		minuit = (Minuit*) arg;
 	TTErr		err;
-	TTNodePtr	deviceNodeToAnswer;
-	TTObjectPtr	o;
+	TTValue		v, devicePtrValue;
+	TTHashPtr	devices = new TTHash();
 	
 	// get device
-	err = getDirectoryFrom(minuit->mDeviceManager)->getTTNodeForOSC(TT("/" + from), &deviceNodeToAnswer);
+	minuit->getDeviceManager()->getAttributeValue(TT("devices"), v);
+	v.get(0, (TTPtr*)&devices);
+
+	//devices->setThreadProtection(false);
+	err = devices->lookup(TT("/" + from), devicePtrValue);
 	if (!err) {
-		if (o = deviceNodeToAnswer->getObject()) {
-			if (o->getName() == TT("Device")) {
-				fromDevice = (TTDevicePtr)o;
+		devicePtrValue.get(0, (TTPtr*)&fromDevice);
 				
-				// Use built-in plugin method
-				minuit->deviceReceiveDiscoverRequest(fromDevice, TT(address));
-			}
-		}
+		// use built-in plugin method
+		minuit->deviceReceiveDiscoverRequest(fromDevice, TT(address));
 	}
 }
 
@@ -677,20 +825,20 @@ void receiveGetRequestCallback(void* arg, std::string from, std::string address,
 	TTDevicePtr fromDevice = NULL;
 	Minuit*		minuit = (Minuit*) arg;
 	TTErr		err;
-	TTNodePtr	deviceNodeToAnswer;
-	TTObjectPtr	o;
+	TTValue		v, devicePtrValue, lst;
+	TTHashPtr	devices = new TTHash();
+	TTString	s;
 	
 	// get device
-	err = getDirectoryFrom(minuit->mDeviceManager)->getTTNodeForOSC(TT("/" + from), &deviceNodeToAnswer);
+	minuit->getDeviceManager()->getAttributeValue(TT("devices"), v);
+	v.get(0, (TTPtr*)&devices);
+
+	err = devices->lookup(TT("/" + from), devicePtrValue);
 	if (!err) {
-		if (o = deviceNodeToAnswer->getObject()) {
-			if (o->getName() == TT("Device")) {
-				fromDevice = (TTDevicePtr)o;
-				
-				// Use built-in plugin method
-				minuit->deviceReceiveGetRequest(fromDevice, TT(address), TT(attribute));
-			}
-		}
+		devicePtrValue.get(0, (TTPtr*)&fromDevice);
+		
+		// use built-in plugin method
+		minuit->deviceReceiveGetRequest(fromDevice, TT(address), TT(attribute));
 	}
 }
 
@@ -698,35 +846,42 @@ void receiveSetRequestCallBack(void* arg, std::string from, std::string address,
 {
 	TTDevicePtr	fromDevice = NULL;												// this is optionnal (used to notify in case of error)
 	Minuit*		minuit = (Minuit*) arg;
-	TTValue     v;
+	TTValue     v, devicePtrValue;
 	TTErr		err;
-	TTNodePtr	deviceNodeToAnswer;
-	TTObjectPtr	o;
+	TTHashPtr	devices = new TTHash();
 	
 	// get device
-	err = getDirectoryFrom(minuit->mDeviceManager)->getTTNodeForOSC(TT("/" + from), &deviceNodeToAnswer);
+	minuit->getDeviceManager()->getAttributeValue(TT("devices"), v);
+	v.get(0, (TTPtr*)&devices);
+
+	err = devices->lookup(TT("/" + from), devicePtrValue);
 	if (!err) {
-		if (o = deviceNodeToAnswer->getObject()) {
-			if (o->getName() == TT("Device")) {
-				fromDevice = (TTDevicePtr)o;
-			}
-		}
+		devicePtrValue.get(0, (TTPtr*)&fromDevice);
 	}
 
-	// Use built-in plugin method (fromDevice could be NULL)
+	// use built-in plugin method (fromDevice could be NULL)
 	minuit->deviceReceiveSetRequest(fromDevice, TT(address), TT(attribute), value);
 }
 
-void receiveListenRequestCallBack(void* arg, std::string from, std::string address, std::string attribute, bool enable)
+void receiveListenRequestCallBack(void* arg, std::string from, std::string whereToListen, std::string attribute, bool enable)
 {
-//	Device* fromDevice;
-//	Address whereToListen = address;
-//	Minuit* minuit = (Minuit*) arg;
-//	
-//	// get device
-//	if(fromDevice = minuit->mDeviceManager->deviceGet(from))
-//		// Use built-in plugin method
-//		minuit->deviceReceiveListenRequest(fromDevice, whereToListen, attribute, enable);
+	TTDevicePtr	fromDevice = NULL;
+	Minuit*		minuit = (Minuit*) arg;
+	TTValue     v, devicePtrValue;
+	TTErr		err;
+	TTHashPtr	devices = new TTHash();
+	
+	// get device
+	minuit->getDeviceManager()->getAttributeValue(TT("devices"), v);
+	v.get(0, (TTPtr*)&devices);
+
+	err = devices->lookup(TT("/" + from), devicePtrValue);
+	if (!err) {
+		devicePtrValue.get(0, (TTPtr*)&fromDevice);
+
+		// Use built-in plugin method
+		minuit->deviceReceiveListenRequest(fromDevice, TT(whereToListen), TT(attribute), enable);
+	}
 }
 
 
@@ -737,12 +892,13 @@ void receiveListenRequestCallBack(void* arg, std::string from, std::string addre
  * 
  */
 class MinuitFactory : public PluginFactory {
-	std::string getPluginName()		{return "Minuit";}
-	std::string getPluginVersion()	{return "0.2";}
-	std::string getPluginAuthor()	{return "Raphael Marczak/Laurent Garnier/Theo Delahogue";}
-	PluginPtr getInstance(TTDeviceManagerPtr deviceManager){
+	const char* getPluginName()		{return "Minuit";}
+	const char* getPluginVersion()	{return "0.2";}
+	const char* getPluginAuthor()	{return "Raphael Marczak/Laurent Garnier/Theo Delahogue";}
+	PluginPtr getInstance(TTDeviceManagerPtr deviceManager) {
 		Minuit *minuit = new Minuit(); 
 		minuit->setDeviceManager(deviceManager);
+
 		return minuit;
 	}
 };
@@ -752,5 +908,3 @@ extern "C" {
 		return new MinuitFactory();
 	}
 }
-
-

@@ -68,18 +68,16 @@ typedef PluginFactory* (*OpCreation)();
 #ifdef TT_PLATFORM_WIN
 
 void PluginFactories::loadPlugins(std::string path) {
-	std::cout << "load plugins" << std::endl;
+	std::cout << "load plugins at : " << path << std::endl;
 	std::string dllpath = path + "/*.dll";
-	int n = 0;
 
 	WIN32_FIND_DATA File;
 	HANDLE liste;
 
 	liste = FindFirstFile(dllpath.c_str(), &File);
 	do {
-		n++;
 		std::string tmp = path + "/" + (std::string)File.cFileName;
-
+		
 		HINSTANCE lib = LoadLibrary(tmp.c_str());//charge le plugin
 
 		if (!lib) {
@@ -90,8 +88,7 @@ void PluginFactories::loadPlugins(std::string path) {
 		OpCreation createFactory = (OpCreation) GetProcAddress(lib, "createFactory");//lie la dylib au symbole
 
 		if (!createFactory) {
-			std::cerr << "GetProcAddress failed: " << GetLastError();
-			std::cout << "Erreur de chargement des plugins" << std::endl;
+			std::cerr << "GetProcAddress failed: " << GetLastError() << std::endl;
 			continue;
 		}
 
@@ -100,10 +97,10 @@ void PluginFactories::loadPlugins(std::string path) {
 			continue;
 		}
 
-		//factories[pluginFactory->getPluginName()] = pluginFactory;
+		factories[pluginFactory->getPluginName()] = pluginFactory;
 
 	} while ((FindNextFile(liste, &File)));
-	// FindClose() ferme la recherche
+
 	FindClose(liste);
 }
 
@@ -133,8 +130,7 @@ void PluginFactories::loadPlugins(std::string path)
 		OpCreation createFactory = (OpCreation) dlsym(handler,"createFactory");//lie la dylib au symbole
 
 		if (!createFactory) {
-			std::cerr << "dlsym failed: " << dlerror();
-			std::cout << "Erreur de chargement des plugins" << std::endl;
+			std::cerr << "dlsym failed: " << dlerror() << std::endl;
 			continue;
 		}
 

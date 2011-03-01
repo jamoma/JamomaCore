@@ -50,17 +50,17 @@ public:
 	void minuitReceiveNetworkSetRequest(std::string from, std::string address, std::string attribute, TTValue& value);
 	void minuitReceiveNetworkListenRequest(std::string from, std::string address, std::string attribute, bool);
 
-	void minuitSendMessage(std::string stringToSend, std::string ip, unsigned int port);
+	void minuitSendMessage(std::string stringToSend, TTValue& valueToSend, std::string ip, unsigned int port);
 	
 	void minuitParseDiscoverAnswer(std::string from, std::string address, const osc::ReceivedMessage&m);
 	void minuitAddDiscoverAnswer(std::string from, std::string address, std::string ip, unsigned int port, int timeOutInMs = DEFAULT_TIMEOUT);
-	int minuitWaitDiscoverAnswer(std::string from, std::string address, TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes);
+	int minuitWaitDiscoverAnswer(std::string from, std::string address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
 	
 	void minuitParseGetAnswer(std::string from, std::string address, const osc::ReceivedMessage&m);
 	void minuitAddGetAnswer(std::string from, std::string address, int timeOutInMs = DEFAULT_TIMEOUT);
 	int minuitWaitGetAnswer(std::string from, std::string address, TTValue& returnedValues, bool repeatAddress = true);
 };
 
-unsigned int computeOSCMessageSize(OSCParser OSCParsed);
+unsigned int computeOSCMessageSize(OSCParser OSCParsed, TTValue& v);
 
 #endif /*MINUITCOMMUNICATIONMETHODS_HPP_*/

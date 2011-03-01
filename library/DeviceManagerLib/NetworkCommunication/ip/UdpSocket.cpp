@@ -40,6 +40,9 @@
 #include <stdexcept>
 #include <assert.h>
 #include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "NetworkingUtils.h"
 #include "PacketListener.h"
@@ -96,9 +99,12 @@ public:
 		, isConnected_( false )
 		, socket_( INVALID_SOCKET )
 	{
-		if( (socket_ = socket( AF_INET, SOCK_DGRAM, 0 )) == INVALID_SOCKET ){
-            throw std::runtime_error("unable to create udp socket\n");
-        }
+		//if( (socket_ = socket( AF_INET, SOCK_DGRAM, 0 )) == INVALID_SOCKET ){
+  //          throw std::runtime_error("unable to create udp socket\n");
+  //      }
+		while (socket_ == INVALID_SOCKET ){
+			socket_ = socket( AF_INET, SOCK_DGRAM, 0 );
+		}
 
 		memset( &sendToAddr_, 0, sizeof(sendToAddr_) );
         sendToAddr_.sin_family = AF_INET;
@@ -157,9 +163,13 @@ public:
 	{
 		SockaddrFromIpEndpointName( connectedAddr_, remoteEndpoint );
        
-        if (connect(socket_, (struct sockaddr *)&connectedAddr_, sizeof(connectedAddr_)) < 0) {
-            throw std::runtime_error("unable to connect udp socket\n");
-        }
+        //if (connect(socket_, (struct sockaddr *)&connectedAddr_, sizeof(connectedAddr_)) < 0) {
+        //    throw std::runtime_error("unable to connect udp socket\n");
+        //}
+		int result = -1;
+		while (result < 0) {
+			result =  connect(socket_, (struct sockaddr *)&connectedAddr_, sizeof(connectedAddr_));
+		}
 
 		isConnected_ = true;
 	}

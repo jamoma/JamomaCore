@@ -18,7 +18,7 @@ typedef TTDevice* TTDevicePtr;
 
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
-	#ifdef TTMODULAR_EXPORTS
+	#ifdef PLUGIN_EXPORTS
 		#define PLUGIN_EXPORT __declspec(dllexport)
 	#else
 	#ifdef TTSTATIC
@@ -29,7 +29,7 @@ typedef TTDevice* TTDevicePtr;
 #endif // _DLL_EXPORT
 
 #else // TT_PLATFORM_MAC
-	#ifdef TTMODULAR_EXPORTS
+	#ifdef PLUGIN_EXPORTS
 		#define PLUGIN_EXPORT __attribute__((visibility("default")))
 	#else
 		#define PLUGIN_EXPORT
@@ -49,8 +49,8 @@ class PLUGIN_EXPORT Plugin
 {
 	
 public:
-	
-	TTDeviceManager*	mDeviceManager;
+
+	TTDeviceManagerPtr	mDeviceManager;
 	TTHashPtr			mParameters;
 	
 	//	void (*m_waitedMessageAction)(void*, std::string);
@@ -61,6 +61,10 @@ public:
 	 a set of methods used to handle Plugin.
 	 ************************************************/
 	
+	Plugin() {
+		mParameters = new TTHash();
+	}
+
 	virtual ~Plugin() {};
 	
 	/*!
@@ -93,7 +97,7 @@ public:
 	 * Has to be called to instantiate the m_parameter map
 	 *
 	 */
-	virtual void commDefineParameters(TTHashPtr parameters = NULL)=0;
+	virtual void commDefineParameters(TTValue& parameters)=0;
 	
 //	/*!
 //	 * Set a plugin parameter (if does not exist add it)
@@ -162,7 +166,7 @@ public:
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
 	virtual int deviceSendDiscoverRequest(TTDevicePtr device,
-										  const TTValue& address,
+										  TTSymbolPtr address,
 										  TTValue& returnedNodes,
 										  TTValue& returnedLeaves,
 										  TTValue& returnedAttributes)=0;
@@ -176,8 +180,8 @@ public:
 	 * \param returnedValue : the Value which is going to be full
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	virtual int deviceSendGetRequest(TTDevicePtr device, 
-									 const TTValue& addressAndAttribute,
+	virtual int deviceSendGetRequest(TTDevicePtr device,
+									 TTSymbolPtr address, TTSymbolPtr attribute,
 									 TTValue& returnedValue)=0;
 	
 	/*!
@@ -191,16 +195,17 @@ public:
 									 TTSymbolPtr address,
 									 TTValue& value)=0;
 	
-//	/*!
-//	 * Send a listen request to a specific device
-//	 *
-//	 * \param device : a pointer to a Device instance
-//	 * \param address : something like "/<subDeviceName>/.../<input>"
-//	 * \param attribute : the attribute to listen
-//	 * \param enable : enable/disable the listening
-//	 */
-//	virtual int deviceSendListenRequest(Device* device, Address address,
-//										std::string attribute, bool enable)=0;
+	/*!
+	 * Send a listen request to a specific device
+	 *
+	 * \param device : a pointer to a Device instance
+	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param attribute : the attribute to listen
+	 * \param enable : enable/disable the listening
+	 */
+	virtual int deviceSendListenRequest(TTDevicePtr device,
+										TTSymbolPtr address, TTSymbolPtr attribute, 
+										bool enable)=0;
 	
 	/**************************************************************************************************************************
 	 *
@@ -230,19 +235,21 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	virtual void deviceSendGetAnswer(TTDevicePtr to, TTSymbolPtr address,
-									 TTSymbolPtr attribute, TTValue& returnedValue)=0;
+	virtual void deviceSendGetAnswer(TTDevicePtr to, 
+									 TTSymbolPtr address, TTSymbolPtr attribute, 
+									 TTValue& returnedValue)=0;
 	
-//	/*!
-//	 * Send a listen answer to a device which ask for.
-//	 *
-//	 * \param to : the device where to send answer
-//	 * \param address : the address where comes from the value
-//	 * \param attribute : the attribute where comes from the value
-//	 * \param returnedValue : the value of the attribute at the address
-//	 */
-//	virtual void deviceSendListenAnswer(TTDevicePtr to, TTSymbolPtr address,
-//										TTSymbolPtr attribute, TTValue& returnedValue)=0;
+	/*!
+	 * Send a listen answer to a device which ask for.
+	 *
+	 * \param to : the device where to send answer
+	 * \param address : the address where comes from the value
+	 * \param attribute : the attribute where comes from the value
+	 * \param returnedValue : the value of the attribute at the address
+	 */
+	virtual void deviceSendListenAnswer(TTDevicePtr to, 
+										TTSymbolPtr address, TTSymbolPtr attribute, 
+										TTValue& returnedValue)=0;
 	
 	/**************************************************************************************************************************
 	 *
@@ -262,13 +269,13 @@ public:
 		TTValue returnedNodes;
 		TTValue returnedLeaves;
 		TTValue returnedAttributes;
-		
+
 		// discover the local namespace
 		if (mDeviceManager != NULL)
 			mDeviceManager->namespaceDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
-		
+
 		// TODO : test error and send notification if error
-		
+
 		// send result
 		deviceSendDiscoverAnswer(from, address, returnedNodes, returnedLeaves, returnedAttributes);
 	}
@@ -313,35 +320,36 @@ public:
 		// TODO : test error and send notification if error
 	}
 	
-//	/*!
-//	 * Notify the plugin that a device wants to listen (or not) the namespace
-//	 *
-//	 * !!! This a built-in plugin method which create/remove automatically the listener (or send a notification if error)
-//	 *
-//	 * \param from : the device where comes from the request
-//	 * \param address : the address the device wants to listen
-//	 * \param attribute : the attribute the device wants to listen
-//	 * \param enable : enable/disable the listening
-//	 */
-//	void deviceReceiveListenRequest(Device* from, Address address,
-//									std::string attribute, bool enable) {
-//		// Enable/disable the listening of the attribute at the address
-//		this->mDeviceManager->namespaceListen(from, address, attribute, enable);
-//		
-//		// TODO : test error and send notification if error
-//	}
-//	
-//	/**************************************************************************************************************************
-//	 *
-//	 *	RECEIVE ANSWER METHODS : No methods because each plugin deals with answers when it send a request (maybe we could add an answer manager)
-//	 *
-//	 **************************************************************************************************************************/
-//	
+	/*!
+	 * Notify the plugin that a device wants to listen (or not) the namespace
+	 *
+	 * !!! This a built-in plugin method which create/remove automatically the listener (or send a notification if error)
+	 *
+	 * \param from : the device where comes from the request
+	 * \param address : the address the device wants to listen
+	 * \param attribute : the attribute the device wants to listen
+	 * \param enable : enable/disable the listening
+	 */
+	void deviceReceiveListenRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) {
+
+		// Enable/disable the listening of the attribute at the address
+		if (mDeviceManager != NULL)
+			mDeviceManager->namespaceListen(from, address, attribute, enable);
+		
+		// TODO : test error and send notification if error
+	}
+	
+	/**************************************************************************************************************************
+	 *
+	 *	RECEIVE ANSWER METHODS : No methods because each plugin deals with answers when it send a request (maybe we could add an answer manager)
+	 *
+	 **************************************************************************************************************************/
+	
 };
 
 typedef Plugin*			PluginPtr;
 
-#endif // __TT_PLUGIN_H__
+#endif // __PLUGIN_H__
 
 
 #ifndef __PLUGIN_FACTORY_H__
@@ -357,9 +365,9 @@ typedef Plugin*			PluginPtr;
 
 class PLUGIN_EXPORT PluginFactory {
 public:
-	virtual std::string getPluginName()=0;
-	virtual std::string getPluginVersion()=0;
-	virtual std::string getPluginAuthor()=0;
+	virtual const char* getPluginName()=0;
+	virtual const char* getPluginVersion()=0;
+	virtual const char* getPluginAuthor()=0;
 	virtual PluginPtr	getInstance(TTDeviceManager* deviceManager)=0;
 };
 
@@ -368,5 +376,5 @@ typedef PluginFactory*	PluginFactoryPtr;
 #endif //__PLUGIN_FACTORY_H__
 
 extern "C" {
-	PluginFactoryPtr createFactory();
+	PLUGIN_EXPORT PluginFactoryPtr createFactory();
 }

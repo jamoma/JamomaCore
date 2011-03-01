@@ -148,7 +148,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			} else if (arg->IsString()) {
 				//cout << "string" << endl;
 				//arguments << arg->AsString();
-				arguments.append(arg->AsString());
+				arguments.append((TTPtr)arg->AsString());
 			}
 			
 			arg++;
@@ -262,7 +262,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 				} else if (arg->IsString()) {
 					//cout << "string" << endl;
 					//arguments << arg->AsString();
-					arguments.append(arg->AsString());
+					arguments.append((TTPtr)arg->AsString());
 				}
 				
 				arg++;
