@@ -36,7 +36,7 @@ ExpodecWindow::~ExpodecWindow()
 
 TTErr ExpodecWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	TTFloat64 lambda = Math.log(0.001);  // window will begin/end at -60 dB, could eventually be controlled attribute
+	TTFloat64 lambda = log(0.001);  // window will begin/end at -60 dB, could eventually be controlled attribute
 	
 	if ( x <= mPeak ) {  // attack portion
 		
