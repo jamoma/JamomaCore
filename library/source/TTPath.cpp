@@ -94,3 +94,19 @@ void TTPath::getString(TTString& pathString)
 {
     pathString = (*PATHOBJ).string();
 }
+
+
+void TTPath::getStem(TTString& pathStemString)
+{
+	pathStemString = (*PATHOBJ).stem().string();
+}
+
+
+void TTPath::getExtension(TTString& pathExtensionString)
+{
+    pathExtensionString = (*PATHOBJ).extension().string();
+}
+
+
+
+

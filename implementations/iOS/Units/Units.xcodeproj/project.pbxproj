@@ -11,8 +11,8 @@
 		1D60589B0D05DD56006BFB54 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		224C0370131F0CB100DAD7F6 /* libJamomaDataspaceIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 224C036F131F0CB100DAD7F6 /* libJamomaDataspaceIOS.a */; };
 		22F15DDA131EF3620026C358 /* libJamomaFoundationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F15DD9131EF3620026C358 /* libJamomaFoundationIOS.a */; };
-		22F15DDE131EF37D0026C358 /* libJamomaDataspaceLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F15DDD131EF37D0026C358 /* libJamomaDataspaceLib.a */; };
 		280E754D0DD40C5E005A515E /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754A0DD40C5E005A515E /* FlipsideView.xib */; };
 		280E754E0DD40C5E005A515E /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754B0DD40C5E005A515E /* MainView.xib */; };
 		280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754C0DD40C5E005A515E /* MainWindow.xib */; };
@@ -27,8 +27,8 @@
 		1D3623250D0F684500981E51 /* UnitsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Units.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Units.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		224C036F131F0CB100DAD7F6 /* libJamomaDataspaceIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaDataspaceIOS.a; path = ../../../extensions/DataspaceLib/build/UninstalledProducts/libJamomaDataspaceIOS.a; sourceTree = SOURCE_ROOT; };
 		22F15DD9131EF3620026C358 /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaFoundationIOS.a; path = ../../../library/build/UninstalledProducts/libJamomaFoundationIOS.a; sourceTree = SOURCE_ROOT; };
-		22F15DDD131EF37D0026C358 /* libJamomaDataspaceLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaDataspaceLib.a; path = ../../../extensions/DataspaceLib/build/UninstalledProducts/libJamomaDataspaceLib.a; sourceTree = SOURCE_ROOT; };
 		22F15E06131EF86C0026C358 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAttribute.h; sourceTree = "<group>"; };
 		22F15E07131EF86C0026C358 /* TTBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBase.h; sourceTree = "<group>"; };
 		22F15E08131EF86C0026C358 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCallback.h; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				22F15DDA131EF3620026C358 /* libJamomaFoundationIOS.a in Frameworks */,
-				22F15DDE131EF37D0026C358 /* libJamomaDataspaceLib.a in Frameworks */,
+				224C0370131F0CB100DAD7F6 /* libJamomaDataspaceIOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				22F15DD9131EF3620026C358 /* libJamomaFoundationIOS.a */,
-				22F15DDD131EF37D0026C358 /* libJamomaDataspaceLib.a */,
+				224C036F131F0CB100DAD7F6 /* libJamomaDataspaceIOS.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,

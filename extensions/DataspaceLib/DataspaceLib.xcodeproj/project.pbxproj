@@ -42,7 +42,7 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		22763F69131B74900025AEB1 /* libJamomaDataspaceLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJamomaDataspaceLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		22763F69131B74900025AEB1 /* libJamomaDataspaceIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJamomaDataspaceIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		22763F87131B75810025AEB1 /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaFoundationIOS.a; path = ../../library/build/UninstalledProducts/libJamomaFoundationIOS.a; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FD47EC11E24A37007BBF7E /* JamomaFoundationExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaFoundationExtensions.xcconfig; path = ../JamomaFoundationExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -102,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				D2AAC09D05546B4700DB518D /* DataspaceLib */,
-				22763F69131B74900025AEB1 /* libJamomaDataspaceLib.a */,
+				22763F69131B74900025AEB1 /* libJamomaDataspaceIOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,7 +187,7 @@
 			);
 			name = iOS;
 			productName = iOS;
-			productReference = 22763F69131B74900025AEB1 /* libJamomaDataspaceLib.a */;
+			productReference = 22763F69131B74900025AEB1 /* libJamomaDataspaceIOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
@@ -375,7 +375,7 @@
 					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = JamomaDataspaceLib;
+				PRODUCT_NAME = JamomaDataspaceIOS;
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = a;
 			};
@@ -397,7 +397,7 @@
 					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = JamomaDataspaceLib;
+				PRODUCT_NAME = JamomaDataspaceIOS;
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = a;
 			};

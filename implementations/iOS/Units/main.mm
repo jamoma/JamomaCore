@@ -10,8 +10,8 @@
 
 #include "TTFoundationAPI.h"
 
-// this for loading the dataspacelib -- will be a problem if we need more than one extension
-extern "C" TTErr loadTTExtension(void);
+// this for loading the dataspacelib
+extern "C" TTErr TTLoadJamomaExtension_DataspaceLib(void);
 
 
 // NOTE: I had to change the extension of this file from .m (as in the template) 
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	TTValue		v;
 	
 	// this loads the DataspaceLib, which calls the Foundation init function.
-	err = loadTTExtension();
+	err = TTLoadJamomaExtension_DataspaceLib();
 	if (err)
 		return err;
 	

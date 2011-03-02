@@ -47,7 +47,15 @@ public:
     TTBoolean isDirectory();
     TTErr getDirectoryListing(TTPathVector& returnedPaths);
 
+	/**	Returns the complete path as a string. */
     void getString(TTString& pathString);
+	
+	/**	Returns just the filename, without the extension, as a string. */
+	void getStem(TTString& pathStemString);
+	
+	/**	Returns just the filename's extension as a string. */
+	void getExtension(TTString& pathExtensionString);
+	
 };
 
 

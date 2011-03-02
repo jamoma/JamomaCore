@@ -169,13 +169,15 @@ void TTFoundationLoadExternalClasses()
 
 void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 {
+	TTExtensionInitializationMethod	initializer;
+	TTString						initializerFunctionName;
+	TTErr							err;
+		
 #ifdef TT_PLATFORM_WIN
 	HANDLE							fdHandle;
 	WIN32_FIND_DATA					findFileData;
 	TTString						path;
 	HANDLE							hLib = NULL;
-	TTExtensionInitializationMethod	initializer;
-	TTErr							err;
 
 	path = fullpath;
 	path += "*.ttdll";
@@ -196,31 +198,41 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		}
 	}
 #elif defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX)
-    TTPath          path(fullpath);
-    TTPathVector    paths;
-    TTPathIter      i;
-    TTErr           err;
+ 	TTPath			path(fullpath);
+	TTString		extensionFilename;
+	TTString		extensionFileExtension;
+    TTPathVector	paths;
+    TTPathIter		i;
 
-    err = path.getDirectoryListing(paths);
+	err = path.getDirectoryListing(paths);
     if (!err) {
         for (i = paths.begin(); i != paths.end(); ++i) {
-            TTPath      aPath = *i;
-            TTString    aPathString;
+            TTPath							aPath = *i;
+            TTString						aPathString;
             void*							handle = NULL;
-            TTExtensionInitializationMethod	initializer = NULL;
-
+ 
             aPath.getString(aPathString);
             cout << "EXTENSION: " << aPathString << endl;
 
-// TODO: filter to only files with .ttso suffix (linux) or ..ttdylib (mac)
-
+			// make sure the files have the correct extension before trying to load them
+			aPath.getExtension(extensionFileExtension);
+#ifdef TT_PLATFORM_LINUX
+			if (extensionFileExtension != ".ttso")
+#elif defined(TT_PLATFORM_MAC)
+			if (extensionFileExtension != ".ttdylib")
+#endif
+				continue;
+			
             handle = dlopen(aPathString.c_str(), RTLD_LAZY);
             cout << "HANDLE: " << handle << endl;
             if (!handle)
                 continue;
 
             // TODO: assert -- or at least do a log post -- if handle is NULL
-            initializer = (TTExtensionInitializationMethod)dlsym(handle, "loadTTExtension");
+			aPath.getStem(extensionFilename);
+			initializerFunctionName = "TTLoadJamomaExtension_";
+			initializerFunctionName += extensionFilename;
+            initializer = (TTExtensionInitializationMethod)dlsym(handle, initializerFunctionName.c_str());
             if (initializer) {
                 err = initializer();
             }
