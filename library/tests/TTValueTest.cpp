@@ -19,7 +19,6 @@ TT_OBJECT_CONSTRUCTOR
 TTValueTest::~TTValueTest()
 {;}
 
-
 void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 {
 	TTTestLog("\n");
@@ -108,7 +107,6 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	
 	TTValue v1(3.14);
 }	
-
 
 
 void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
@@ -461,6 +459,57 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("positive TTUInt64 clipped (out of upper bound)",
 					TTUInt64(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	// And a final test on an array
+	TTValue v2;
+	v2.setSize(6);
+	v2.set(0, 2.5);
+	v2.set(1, 2);
+	v2.set(2, 3.14);
+	v2.set(3, 4);
+	v2.set(4, 6.28);
+	v2.set(5, 6);
+	
+	v2.clip(3.0, 5.0);
+	
+	TTFloat64 *aFloat;
+	TTInt32 *anInt;
+
+	v2.get(0, *aFloat);
+	TTTestAssertion("array double clipped (out of lower bound)",
+					TTTestFloatEquivalence(*aFloat, 3.0),
+					testAssertionCount,
+					errorCount);
+	
+	v2.get(1, *anInt);
+	TTTestAssertion("array integer clipped (out of lower bound)",
+					*anInt == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v2.get(2, *aFloat);
+	TTTestAssertion("array double clipped (out of lower bound)",
+					TTTestFloatEquivalence(*aFloat, 3.14),
+					testAssertionCount,
+					errorCount);
+	
+	v2.get(3, *anInt);
+	TTTestAssertion("array integer not clipped (within range)",
+					*anInt == 4,
+					testAssertionCount,
+					errorCount);
+
+	v2.get(4, *aFloat);
+	TTTestAssertion("array double clipped (out of upper bound)",
+					TTTestFloatEquivalence(*aFloat, 5.0),
+					testAssertionCount,
+					errorCount);
+	
+	v2.get(5, *anInt);
+	TTTestAssertion("array integer clipped (out of upper bound)",
+					*anInt == 5,
 					testAssertionCount,
 					errorCount);
 	
