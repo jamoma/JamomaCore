@@ -219,6 +219,31 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	
 	
+	// TTUInt8
+	
+	v1.clip(6, 12);
+	TTTestAssertion("positive TTUInt8 clipped (out of lower bound)",
+					TTUInt8(v1) == 6,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt8(3);
+	v1.clip(0, 4);
+	TTTestAssertion("positive TTUInt8 not clipped (within range)",
+					TTUInt8(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt8(3);
+	v1.clip(0, 2);
+	// TTFloat64 myFloat = v1.get;
+	TTTestAssertion("positive TTUInt8 clipped (out of upper bound)",
+					TTUInt8(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
 	// TTInt16
 	
 	v1.clip(6, 12);
@@ -266,6 +291,31 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
+	
+	
+	// TTUInt16
+	
+	v1.clip(6, 12);
+	TTTestAssertion("positive TTUInt16 clipped (out of lower bound)",
+					TTUInt16(v1) == 6,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt16(3);
+	v1.clip(0, 4);
+	TTTestAssertion("positive TTUInt16 not clipped (within range)",
+					TTUInt16(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt16(3);
+	v1.clip(0, 2);
+	// TTFloat64 myFloat = v1.get;
+	TTTestAssertion("positive TTUInt16 clipped (out of upper bound)",
+					TTUInt16(v1) == 2,
+					testAssertionCount,
+					errorCount);
+
 	
 	
 	// TTInt32
@@ -317,6 +367,31 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 
 	
 	
+	// TTUInt32
+	
+	v1.clip(6, 12);
+	TTTestAssertion("positive TTUInt32 clipped (out of lower bound)",
+					TTUInt32(v1) == 6,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt32(3);
+	v1.clip(0, 4);
+	TTTestAssertion("positive TTUInt32 not clipped (within range)",
+					TTUInt32(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt32(3);
+	v1.clip(0, 2);
+	// TTFloat64 myFloat = v1.get;
+	TTTestAssertion("positive TTUInt32 clipped (out of upper bound)",
+					TTUInt32(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
 	// TTInt64
 	
 	v1.clip(6, 12);
@@ -364,13 +439,67 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	// TODO: test cliplow()
-	// TODO: test cliphigh()
-	// TODO: test round()
-	// TODO: test truncate()
-	// TODO: test booleanize()
 	
-	//TTValue v1(3.14);
+	
+	// TTUInt64
+	
+	v1.clip(6, 12);
+	TTTestAssertion("positive TTUInt64 clipped (out of lower bound)",
+					TTUInt64(v1) == 6,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt64(3);
+	v1.clip(0, 4);
+	TTTestAssertion("positive TTUInt64 not clipped (within range)",
+					TTUInt64(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt64(3);
+	v1.clip(0, 2);
+	// TTFloat64 myFloat = v1.get;
+	TTTestAssertion("positive TTUInt64 clipped (out of upper bound)",
+					TTUInt64(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	
+	// TODO: test cliplow()
+	/****************************************************************************************************/
+	// TTTestLog("\n");
+	// TTTestLog("Testing cliplow()");
+	/****************************************************************************************************/
+	
+	
+	
+	// TODO: test cliphigh()
+	/****************************************************************************************************/
+	// TTTestLog("\n");
+	// TTTestLog("Testing cliphigh()");
+	/****************************************************************************************************/
+	
+	
+	// TODO: test round()
+	/****************************************************************************************************/
+	// TTTestLog("\n");
+	// TTTestLog("Testing round()");
+	/****************************************************************************************************/
+	
+	
+	// TODO: test truncate()
+	/****************************************************************************************************/
+	// TTTestLog("\n");
+	// TTTestLog("Testing truncate()");
+	/****************************************************************************************************/
+	
+	
+	// TODO: test booleanize()
+	/****************************************************************************************************/
+	// TTTestLog("\n");
+	// TTTestLog("Testing booleanize()");
+	/****************************************************************************************************/
+	
 }	
 
 
