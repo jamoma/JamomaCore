@@ -490,7 +490,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	v2.get(2, *aFloat);
-	TTTestAssertion("array double clipped (out of lower bound)",
+	TTTestAssertion("array double not clipped (within range)",
 					TTTestFloatEquivalence(*aFloat, 3.14),
 					testAssertionCount,
 					errorCount);
