@@ -27,7 +27,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 579.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 693.0, 70.0 ]
 				}
 
 			}
@@ -55,8 +55,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 420.0, 132.0, 93.0, 17.0 ],
-					"text" : "numchannels $1"
+					"patching_rect" : [ 420.0, 132.0, 95.0, 17.0 ],
+					"text" : "numChannels $1"
 				}
 
 			}

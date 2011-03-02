@@ -79,22 +79,26 @@ TTAudioGraphObject::~TTAudioGraphObject()
 
 TTErr TTAudioGraphObject::setNumAudioInlets(const TTValue& newNumInlets)
 {
-	TTErr err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, newNumInlets);
-	mAudioInlets.resize(newNumInlets);
-	mInputSignals->setMaxNumAudioSignals(newNumInlets);
-	mInputSignals->numAudioSignals = newNumInlets;			// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
-	mNumAudioInlets = newNumInlets;
+	TTErr		err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, newNumInlets);
+	TTUInt16	inletCount = newNumInlets;
+
+	mAudioInlets.resize(inletCount);
+	mInputSignals->setMaxNumAudioSignals(inletCount);
+	mInputSignals->numAudioSignals = inletCount;			// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
+	mNumAudioInlets = inletCount;
 	return err;
 }
 
 
 TTErr TTAudioGraphObject::setNumAudioOutlets(const TTValue& newNumOutlets)
 {
-	TTErr err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, newNumOutlets);
-	mAudioOutlets.resize(newNumOutlets);
-	mOutputSignals->setMaxNumAudioSignals(newNumOutlets);
-	mOutputSignals->numAudioSignals = newNumOutlets;
-	mNumAudioOutlets = newNumOutlets;
+	TTErr		err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, newNumOutlets);
+	TTUInt16	outletCount = newNumOutlets;
+
+	mAudioOutlets.resize(outletCount);
+	mOutputSignals->setMaxNumAudioSignals(outletCount);
+	mOutputSignals->numAudioSignals = outletCount;
+	mNumAudioOutlets = outletCount;
 	return err;
 }
 
