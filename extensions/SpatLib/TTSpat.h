@@ -22,24 +22,28 @@ class TTSpat : TTAudioObject {
 	TTValue				mSourcePositions;		
 	TTValue				mDestinationPositions;		
 		
-	/**	choose the window function */
+	/**	choose the spatialisation function */
 	TTErr setSpatFunction(const TTValue& aSpatFunction);
 		
-	/**	set position size */
+	/**	get source positions */
 	TTErr getSourcePositions(TTValue& aPosition);
+	
+	/**	set source positions */
 	TTErr setSourcePositions(const TTValue& aPosition);
 	
-	/**	set position size */
+	/**	get destination positions */
 	TTErr getDestinationPositions(TTValue& aPosition);
+	
+	/**	set destination positions */
 	TTErr setDestinationPositions(const TTValue& aPosition);
 	
-	/**	set process method */
+	/**	set number of sources */
 	TTErr setSourceCount(const TTValue& mode);
 	
-	/**	set process method */
+	/**	set number of destinations */
 	TTErr setDestinationCount(const TTValue& mode);
 		
-	/**	return a list of all the available window shapes	*/
+	/**	return a list of all the available spatialisation methods	*/
 	TTErr getSpatFunctions(TTValue& listOfSpatFunctionsToReturn);
 	
 	/**	A standard audio processing method as used by Jamoma DSP objects.*/

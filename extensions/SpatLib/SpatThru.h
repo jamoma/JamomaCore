@@ -12,9 +12,7 @@
 #include "SpatLib.h"
 
 
-/**	This implements a window function which basically does nothing: 
-	y = 1.0
- */
+/**	This implements a spatialisation method that just let sources through */
 class SpatThru : public TTAudioObject {
 	TTCLASS_SETUP(SpatThru)
 	
