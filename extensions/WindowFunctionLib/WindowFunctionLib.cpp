@@ -11,27 +11,35 @@
 
 #include "BartlettWindow.h"
 #include "BlackmanWindow.h"
+#include "BlackmanHarrisWindow.h"
+#include "ExpodecWindow.h"
 #include "HammingWindow.h"
 #include "HanningWindow.h"
 #include "KaiserWindow.h"
+#include "NuttallWindow.h"
 #include "RectangularWindow.h"
 #include "TrapezoidWindow.h"
+#include "TukeyWindow.h"
 #include "WelchWindow.h"
 
 #include "WindowFunction.h"
 
 
-extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
+extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_WindowFunctionLib(void)
 {
 	TTDSPInit();
 
 	BartlettWindow::registerClass();
 	BlackmanWindow::registerClass();
+	BlackmanHarrisWindow::registerClass();
+	ExpodecWindow::registerClass();
 	HammingWindow::registerClass();
 	HanningWindow::registerClass();
 	KaiserWindow::registerClass();
+	NuttallWindow::registerClass();
 	RectangularWindow::registerClass();
 	TrapezoidWindow::registerClass();
+	TukeyWindow::registerClass();
 	WelchWindow::registerClass();
 
 	WindowFunction::registerClass();

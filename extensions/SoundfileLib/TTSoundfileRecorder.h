@@ -21,19 +21,22 @@ class TTSoundfileRecorder : public TTAudioObject {
 	TTSymbolPtr			mFormat;			///< format of the file, e.g. "WAV", "AIFF", "FLAC", "FLAC-16bit", etc.
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open
 	SF_INFO				mSoundFileInfo;		///< libsndfile metadata for the file we open
-	TTBoolean			mRecord;			///< is actively recording the file?
+	TTBoolean			mRecord, mTimedRecord; ///< is actively recording the file?
 	TTUInt16			mNumChannels;		///< read-only: number of channels in the open file
-//	TTFloat64			mLength;			///< length of the file in seconds, read-only
-
+	TTFloat64			mLength;			///< length of the file in ms
+	TTInt32				mLengthInSamples;	///< length of the file in samples
 	TTUInt16			mNumBufferFrames;	///< number of frames in the buffer to be read from the file at a time
 	TTSampleVector		mBuffer;			///< buffer of mNumBufferFrames * mNumChannels;
 	
 	/**	Setter */
 	TTErr setRecord(const TTValue& value);
-	
+	//TTErr setLength(const TTValue& value);
+
 	// internal use: map human symbols to libsndfile's bitmask
 	int translateFormatFromName(TTSymbolPtr name);
 	
+	TTErr updateSampleRate(const TTValue& oldSampleRate);
+
 	// internal use: opens the file for recording
 	TTErr openFile();
 	
