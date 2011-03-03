@@ -7,44 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2286FCDB12FC51B2005310B8 /* TTGainTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2286FCDA12FC51B2005310B8 /* TTGainTest.cpp */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD45E411E245C8007BBF7E /* EffectsLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45E311E245C8007BBF7E /* EffectsLib.cpp */; };
-		22FD45F311E245D0007BBF7E /* TTBalance.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45E511E245D0007BBF7E /* TTBalance.h */; };
-		22FD45F411E245D0007BBF7E /* TTBalance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45E611E245D0007BBF7E /* TTBalance.cpp */; };
-		22FD45F511E245D0007BBF7E /* TTDegrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45E711E245D0007BBF7E /* TTDegrade.h */; };
-		22FD45F611E245D0007BBF7E /* TTDegrade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45E811E245D0007BBF7E /* TTDegrade.cpp */; };
-		22FD45F911E245D0007BBF7E /* TTGain.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45EB11E245D0007BBF7E /* TTGain.h */; };
-		22FD45FA11E245D0007BBF7E /* TTGain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45EC11E245D0007BBF7E /* TTGain.cpp */; };
-		22FD45FB11E245D0007BBF7E /* TTLimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45ED11E245D0007BBF7E /* TTLimiter.h */; };
-		22FD45FC11E245D0007BBF7E /* TTLimiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45EE11E245D0007BBF7E /* TTLimiter.cpp */; };
-		22FD45FD11E245D0007BBF7E /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45EF11E245D0007BBF7E /* TTOverdrive.h */; };
-		22FD45FE11E245D0007BBF7E /* TTOverdrive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45F011E245D0007BBF7E /* TTOverdrive.cpp */; };
-		22FD45FF11E245D0007BBF7E /* TTPulseSub.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45F111E245D0007BBF7E /* TTPulseSub.h */; };
-		22FD460011E245D0007BBF7E /* TTPulseSub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45F211E245D0007BBF7E /* TTPulseSub.cpp */; };
+		666CF848131B42620003D7E2 /* TTBalance.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF842131B42620003D7E2 /* TTBalance.h */; };
+		666CF849131B42620003D7E2 /* TTDegrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF843131B42620003D7E2 /* TTDegrade.h */; };
+		666CF84A131B42620003D7E2 /* TTGain.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF844131B42620003D7E2 /* TTGain.h */; };
+		666CF84B131B42620003D7E2 /* TTLimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF845131B42620003D7E2 /* TTLimiter.h */; };
+		666CF84C131B42620003D7E2 /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF846131B42620003D7E2 /* TTOverdrive.h */; };
+		666CF84D131B42620003D7E2 /* TTPulseSub.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF847131B42620003D7E2 /* TTPulseSub.h */; };
+		666CF855131B426A0003D7E2 /* TTBalance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF84E131B426A0003D7E2 /* TTBalance.cpp */; };
+		666CF856131B426A0003D7E2 /* TTDegrade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF84F131B426A0003D7E2 /* TTDegrade.cpp */; };
+		666CF857131B426A0003D7E2 /* TTGain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF850131B426A0003D7E2 /* TTGain.cpp */; };
+		666CF858131B426A0003D7E2 /* TTGainTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF851131B426A0003D7E2 /* TTGainTest.cpp */; };
+		666CF859131B426A0003D7E2 /* TTLimiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF852131B426A0003D7E2 /* TTLimiter.cpp */; };
+		666CF85A131B426A0003D7E2 /* TTOverdrive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF853131B426A0003D7E2 /* TTOverdrive.cpp */; };
+		666CF85B131B426A0003D7E2 /* TTPulseSub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF854131B426A0003D7E2 /* TTPulseSub.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		2286FCDA12FC51B2005310B8 /* TTGainTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTGainTest.cpp; sourceTree = "<group>"; };
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD45E311E245C8007BBF7E /* EffectsLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectsLib.cpp; sourceTree = "<group>"; };
-		22FD45E511E245D0007BBF7E /* TTBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBalance.h; sourceTree = "<group>"; };
-		22FD45E611E245D0007BBF7E /* TTBalance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBalance.cpp; sourceTree = "<group>"; };
-		22FD45E711E245D0007BBF7E /* TTDegrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDegrade.h; sourceTree = "<group>"; };
-		22FD45E811E245D0007BBF7E /* TTDegrade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDegrade.cpp; sourceTree = "<group>"; };
-		22FD45EB11E245D0007BBF7E /* TTGain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGain.h; sourceTree = "<group>"; };
-		22FD45EC11E245D0007BBF7E /* TTGain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTGain.cpp; sourceTree = "<group>"; };
-		22FD45ED11E245D0007BBF7E /* TTLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLimiter.h; sourceTree = "<group>"; };
-		22FD45EE11E245D0007BBF7E /* TTLimiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTLimiter.cpp; sourceTree = "<group>"; };
-		22FD45EF11E245D0007BBF7E /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOverdrive.h; sourceTree = "<group>"; };
-		22FD45F011E245D0007BBF7E /* TTOverdrive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOverdrive.cpp; sourceTree = "<group>"; };
-		22FD45F111E245D0007BBF7E /* TTPulseSub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPulseSub.h; sourceTree = "<group>"; };
-		22FD45F211E245D0007BBF7E /* TTPulseSub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPulseSub.cpp; sourceTree = "<group>"; };
+		666CF842131B42620003D7E2 /* TTBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBalance.h; path = includes/TTBalance.h; sourceTree = "<group>"; };
+		666CF843131B42620003D7E2 /* TTDegrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDegrade.h; path = includes/TTDegrade.h; sourceTree = "<group>"; };
+		666CF844131B42620003D7E2 /* TTGain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGain.h; path = includes/TTGain.h; sourceTree = "<group>"; };
+		666CF845131B42620003D7E2 /* TTLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLimiter.h; path = includes/TTLimiter.h; sourceTree = "<group>"; };
+		666CF846131B42620003D7E2 /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = includes/TTOverdrive.h; sourceTree = "<group>"; };
+		666CF847131B42620003D7E2 /* TTPulseSub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPulseSub.h; path = includes/TTPulseSub.h; sourceTree = "<group>"; };
+		666CF84E131B426A0003D7E2 /* TTBalance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBalance.cpp; path = sources/TTBalance.cpp; sourceTree = "<group>"; };
+		666CF84F131B426A0003D7E2 /* TTDegrade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDegrade.cpp; path = sources/TTDegrade.cpp; sourceTree = "<group>"; };
+		666CF850131B426A0003D7E2 /* TTGain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGain.cpp; path = sources/TTGain.cpp; sourceTree = "<group>"; };
+		666CF851131B426A0003D7E2 /* TTGainTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGainTest.cpp; path = sources/TTGainTest.cpp; sourceTree = "<group>"; };
+		666CF852131B426A0003D7E2 /* TTLimiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLimiter.cpp; path = sources/TTLimiter.cpp; sourceTree = "<group>"; };
+		666CF853131B426A0003D7E2 /* TTOverdrive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOverdrive.cpp; path = sources/TTOverdrive.cpp; sourceTree = "<group>"; };
+		666CF854131B426A0003D7E2 /* TTPulseSub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPulseSub.cpp; path = sources/TTPulseSub.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* EffectsLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = EffectsLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -103,19 +103,19 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				22FD45E511E245D0007BBF7E /* TTBalance.h */,
-				22FD45E611E245D0007BBF7E /* TTBalance.cpp */,
-				22FD45E711E245D0007BBF7E /* TTDegrade.h */,
-				22FD45E811E245D0007BBF7E /* TTDegrade.cpp */,
-				22FD45EB11E245D0007BBF7E /* TTGain.h */,
-				22FD45EC11E245D0007BBF7E /* TTGain.cpp */,
-				2286FCDA12FC51B2005310B8 /* TTGainTest.cpp */,
-				22FD45ED11E245D0007BBF7E /* TTLimiter.h */,
-				22FD45EE11E245D0007BBF7E /* TTLimiter.cpp */,
-				22FD45EF11E245D0007BBF7E /* TTOverdrive.h */,
-				22FD45F011E245D0007BBF7E /* TTOverdrive.cpp */,
-				22FD45F111E245D0007BBF7E /* TTPulseSub.h */,
-				22FD45F211E245D0007BBF7E /* TTPulseSub.cpp */,
+				666CF84E131B426A0003D7E2 /* TTBalance.cpp */,
+				666CF842131B42620003D7E2 /* TTBalance.h */,
+				666CF84F131B426A0003D7E2 /* TTDegrade.cpp */,
+				666CF843131B42620003D7E2 /* TTDegrade.h */,
+				666CF850131B426A0003D7E2 /* TTGain.cpp */,
+				666CF844131B42620003D7E2 /* TTGain.h */,
+				666CF851131B426A0003D7E2 /* TTGainTest.cpp */,
+				666CF852131B426A0003D7E2 /* TTLimiter.cpp */,
+				666CF845131B42620003D7E2 /* TTLimiter.h */,
+				666CF853131B426A0003D7E2 /* TTOverdrive.cpp */,
+				666CF846131B42620003D7E2 /* TTOverdrive.h */,
+				666CF854131B426A0003D7E2 /* TTPulseSub.cpp */,
+				666CF847131B42620003D7E2 /* TTPulseSub.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -127,12 +127,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22FD45F311E245D0007BBF7E /* TTBalance.h in Headers */,
-				22FD45F511E245D0007BBF7E /* TTDegrade.h in Headers */,
-				22FD45F911E245D0007BBF7E /* TTGain.h in Headers */,
-				22FD45FB11E245D0007BBF7E /* TTLimiter.h in Headers */,
-				22FD45FD11E245D0007BBF7E /* TTOverdrive.h in Headers */,
-				22FD45FF11E245D0007BBF7E /* TTPulseSub.h in Headers */,
+				666CF848131B42620003D7E2 /* TTBalance.h in Headers */,
+				666CF849131B42620003D7E2 /* TTDegrade.h in Headers */,
+				666CF84A131B42620003D7E2 /* TTGain.h in Headers */,
+				666CF84B131B42620003D7E2 /* TTLimiter.h in Headers */,
+				666CF84C131B42620003D7E2 /* TTOverdrive.h in Headers */,
+				666CF84D131B42620003D7E2 /* TTPulseSub.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,13 +204,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				22FD45E411E245C8007BBF7E /* EffectsLib.cpp in Sources */,
-				22FD45F411E245D0007BBF7E /* TTBalance.cpp in Sources */,
-				22FD45F611E245D0007BBF7E /* TTDegrade.cpp in Sources */,
-				22FD45FA11E245D0007BBF7E /* TTGain.cpp in Sources */,
-				22FD45FC11E245D0007BBF7E /* TTLimiter.cpp in Sources */,
-				22FD45FE11E245D0007BBF7E /* TTOverdrive.cpp in Sources */,
-				22FD460011E245D0007BBF7E /* TTPulseSub.cpp in Sources */,
-				2286FCDB12FC51B2005310B8 /* TTGainTest.cpp in Sources */,
+				666CF855131B426A0003D7E2 /* TTBalance.cpp in Sources */,
+				666CF856131B426A0003D7E2 /* TTDegrade.cpp in Sources */,
+				666CF857131B426A0003D7E2 /* TTGain.cpp in Sources */,
+				666CF858131B426A0003D7E2 /* TTGainTest.cpp in Sources */,
+				666CF859131B426A0003D7E2 /* TTLimiter.cpp in Sources */,
+				666CF85A131B426A0003D7E2 /* TTOverdrive.cpp in Sources */,
+				666CF85B131B426A0003D7E2 /* TTPulseSub.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

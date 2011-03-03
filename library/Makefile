@@ -35,23 +35,21 @@ OPTIMIZATION_FLAGS = -O3
 DEFINES = -DTT_PLATFORM_LINUX
 OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared
 
-CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES)
-LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS)
+CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES) -g
+LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
 
 
 #########################################
 
 Debug:
-	#mkdir build
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) 
 
 Release:
-	#mkdir build
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) $(OPTIMIZATION_FLAGS)
 
 all:
-	#mkdir build
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) 
 
 clean:
 	rm -f *.o
+
