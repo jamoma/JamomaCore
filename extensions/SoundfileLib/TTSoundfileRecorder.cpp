@@ -15,15 +15,20 @@
 
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
+mFormat(kTTSymEmpty),
 mSoundFile(NULL),
 mRecord(false),
 mNumChannels(0),
-mNumBufferFrames(0)
+mNumBufferFrames(0),
+mLength(0),
+mLengthInSamples(0),
+mTimedRecord(false)
 {
 	addAttribute(			FilePath,		kTypeSymbol);
 	addAttribute(			Format,			kTypeSymbol);
 	addAttributeWithSetter(	Record,			kTypeBoolean);
 	addAttribute(			NumChannels,	kTypeUInt16);
+	addAttribute(			Length,			kTypeFloat64);
 	addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
 
 	setProcessMethod(processAudio);
@@ -36,7 +41,11 @@ TTSoundfileRecorder::~TTSoundfileRecorder()
 	if (mSoundFile)
 		sf_close(mSoundFile);
 }
-
+/*TTErr TTSoundfileRecorder::setLength(const TTValue& newValue)
+{
+	mLength = newValue;
+	return kTTErrNone;
+}*/
 
 TTErr TTSoundfileRecorder::setRecord(const TTValue& newValue)
 {
@@ -46,6 +55,11 @@ TTErr TTSoundfileRecorder::setRecord(const TTValue& newValue)
 	if (mRecord != newRecordState) {
 		mRecord = newRecordState;
 		if (mRecord) {			// start recording
+			mLengthInSamples = mLength * sr * 0.001; // reset the Sample counter 
+			if (mLengthInSamples > 0)
+				mTimedRecord = true;
+			else 
+				mTimedRecord = false;
 			mNumChannels = 0;	// set to zero so that the process method will set the num channels and trigger an open
 		}
 		else {					// stop recording -- close the file
@@ -97,6 +111,8 @@ int TTSoundfileRecorder::translateFormatFromName(TTSymbolPtr name)
 		format |= SF_FORMAT_AIFF;
 	else if (strstr(cname, "WAV"))
 		format |= SF_FORMAT_WAV;
+	else if (strstr(cname, "Matlab"))
+		format |= SF_FORMAT_MAT5;		
 	else
 		format |= SF_FORMAT_CAF;
 	
@@ -152,5 +168,10 @@ TTErr TTSoundfileRecorder::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSig
 	}
 
 	numSamplesWritten = sf_write_double(mSoundFile, &mBuffer[0], numFrames*channelCount);
+	if (mTimedRecord){
+		mLengthInSamples = mLengthInSamples - numFrames; // decreasing the samplecounter by a vs if we want to record with a duration
+		if (mLengthInSamples <= 0) //TODO: we might want to chop of the samples that were recorded too long
+			return setRecord(0);
+	}	
 	return kTTErrNone;
 }

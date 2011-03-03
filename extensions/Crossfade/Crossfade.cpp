@@ -57,7 +57,7 @@ class TTCrossfade : TTAudioObject {
 };
 
 
-TT_AUDIO_CONSTRUCTOR_EXPORT
+TT_AUDIO_CONSTRUCTOR_EXPORT(Crossfade)
 {
 	addAttribute(			Position,	kTypeFloat64);
 	addAttributeProperty(	Position,	range,			TTValue(0.0, 1.0));

@@ -49,10 +49,10 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 
 
 
-#define TT_AUDIO_CONSTRUCTOR_EXPORT \
+#define TT_AUDIO_CONSTRUCTOR_EXPORT(theBinaryFileName) \
 	\
-	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
-	TTErr loadTTExtension(void)\
+	extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_ ## theBinaryFileName (void);\
+	TTErr TTLoadJamomaExtension_ ## theBinaryFileName (void)\
 	{\
 		TTDSPInit();\
 		thisTTClass :: registerClass(); \
@@ -73,8 +73,8 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 		return new className (arguments);\
 	}\
 	\
-	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
-	TTErr loadTTExtension(void)\
+	extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_ ## className (void);\
+	TTErr TTLoadJamomaExtension_ ## className (void)\
 	{\
 		TTFoundationInit();\
 		TTClassRegister(TT(strname), tags, & instantiate ## className);\

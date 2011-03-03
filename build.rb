@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -wKU
+#!/usr/bin/ruby -wKU
 
 glibdir = "."
 Dir.chdir glibdir
