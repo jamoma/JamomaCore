@@ -169,40 +169,15 @@ void TTFoundationLoadExternalClasses()
 
 void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 {
-	TTExtensionInitializationMethod	initializer;
+#if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX) || defined(TT_PLATFORM_WIN)
+ 	TTExtensionInitializationMethod	initializer;
 	TTString						initializerFunctionName;
 	TTErr							err;
-		
-#ifdef TT_PLATFORM_WIN
-	HANDLE							fdHandle;
-	WIN32_FIND_DATA					findFileData;
-	TTString						path;
-	HANDLE							hLib = NULL;
-
-	path = fullpath;
-	path += "*.ttdll";
-	fdHandle = FindFirstFile(path.c_str(), &findFileData);
-	if (fdHandle && (fdHandle != INVALID_HANDLE_VALUE)) {
-		while (fdHandle) {
-			path = fullpath;
-			path += findFileData.cFileName;
-
-			hLib = LoadLibrary(path.c_str());
-			if (hLib) {
-				initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)hLib, "loadTTExtension");
-				if (initializer)
-					err = initializer();
-			}
-			if (!FindNextFile(fdHandle, &findFileData))
-				break;
-		}
-	}
-#elif defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX)
- 	TTPath			path(fullpath);
-	TTString		extensionFilename;
-	TTString		extensionFileExtension;
-    TTPathVector	paths;
-    TTPathIter		i;
+	TTPath							path(fullpath);
+	TTString						extensionFilename;
+	TTString						extensionFileExtension;
+    TTPathVector					paths;
+    TTPathIter						i;
 
 	err = path.getDirectoryListing(paths);
     if (!err) {
@@ -220,10 +195,16 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 			if (extensionFileExtension != ".ttso")
 #elif defined(TT_PLATFORM_MAC)
 			if (extensionFileExtension != ".ttdylib")
+#elif defined(TT_PLATFORM_WIN)
+			if (extensionFileExtension != ".ttdll")
 #endif
 				continue;
-			
+
+#ifdef TT PLATFORM_WIN
+			handle = LoadLibrary(aPathString.c_str());
+#else
             handle = dlopen(aPathString.c_str(), RTLD_LAZY);
+#endif
             cout << "HANDLE: " << handle << endl;
             if (!handle)
                 continue;
@@ -232,10 +213,13 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 			aPath.getStem(extensionFilename);
 			initializerFunctionName = "TTLoadJamomaExtension_";
 			initializerFunctionName += extensionFilename;
+#ifdef TT_PLATFORM_WIN
+			initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
+#else
             initializer = (TTExtensionInitializationMethod)dlsym(handle, initializerFunctionName.c_str());
-            if (initializer) {
+#endif
+            if (initializer)
                 err = initializer();
-            }
         }
     }
 #endif
