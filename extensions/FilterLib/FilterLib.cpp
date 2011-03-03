@@ -54,7 +54,7 @@
 #include "TTSvf.h"
 
 
-extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
+extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FilterLib(void)
 {
 	TTDSPInit();
 	
