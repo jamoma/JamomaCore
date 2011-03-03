@@ -200,7 +200,7 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #endif
 				continue;
 
-#ifdef TT PLATFORM_WIN
+#ifdef TT_PLATFORM_WIN
 			handle = LoadLibrary(aPathString.c_str());
 #else
             handle = dlopen(aPathString.c_str(), RTLD_LAZY);

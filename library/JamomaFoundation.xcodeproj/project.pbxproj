@@ -69,7 +69,7 @@
 
 /* Begin PBXFileReference section */
 		22039B851087816A008DFA4A /* TTLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLimits.h; path = includes/TTLimits.h; sourceTree = "<group>"; };
-		221826F811DD71CA00EC7AB7 /* JamomaFoundation */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.dylib"; path = JamomaFoundation; sourceTree = BUILT_PRODUCTS_DIR; };
+		221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaFoundation.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaFoundation.xcconfig; sourceTree = "<group>"; };
 		2230A28712FE91FD007C5492 /* TTUnitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTUnitTest.cpp; path = source/TTUnitTest.cpp; sourceTree = "<group>"; };
 		2230A28912FE9217007C5492 /* TTUnitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTUnitTest.h; path = includes/TTUnitTest.h; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				221826F811DD71CA00EC7AB7 /* JamomaFoundation */,
+				221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */,
 				22763F1D131B705F0025AEB1 /* libJamomaFoundationIOS.a */,
 			);
 			name = Products;
@@ -304,7 +304,7 @@
 			);
 			name = JamomaFoundation;
 			productName = "JamomaFoundation-dylib";
-			productReference = 221826F811DD71CA00EC7AB7 /* JamomaFoundation */;
+			productReference = 221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		22763F1C131B705F0025AEB1 /* iOS */ = {
