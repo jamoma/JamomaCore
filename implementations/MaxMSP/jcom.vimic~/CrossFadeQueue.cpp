@@ -108,7 +108,11 @@ void CrossFadeQueue::fadeFunction(Properties::fadeMode fadeType)
 
             case Properties::SQRT:
                 post("x-fade fade-function: square root");
-                break;				
+                break;
+				
+			case Properties::LOG:
+                post("x-fade fade-function: logarithm");
+                break;	
         }
     }
 }
@@ -138,26 +142,39 @@ void CrossFadeQueue::computeFadeTbl()
     switch(fadeType_)
     {
         case Properties::COS: //cosine 
-			
-				for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++) //kTTHalfPi was M_PI_2
-				fadeTbl_[tableIdx] = (double) cos(i);  // read forward to fade out, backward to fade in			
+				//for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++) //kTTHalfPi was M_PI_2
+				//fadeTbl_[tableIdx] = (double) cos(i);  // read forward to fade out, backward to fade in		
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTPi / (fadeLength_ - 1)), tableIdx++) //kTTHalfPi was M_PI_2
+				fadeTbl_[tableIdx] = (double) 0.5*(1.0 + cos(i));  // read forward to fade out, backward to fade in	
             break;		
 
         case Properties::COS_SQUARED: //cosine squared
-			
-			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++)	//kTTHalfPi was M_PI_2		
-                fadeTbl_[tableIdx] = (double) pow(cos(i),2.0);	// read forward to fade out, backward to fade in
-            break;
+			//for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++)	//kTTHalfPi was M_PI_2		
+            //    fadeTbl_[tableIdx] = (double) pow(cos(i),2.0);	// read forward to fade out, backward to fade in
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTPi / (fadeLength_ - 1)), tableIdx++)	//kTTHalfPi was M_PI_2		
+                fadeTbl_[tableIdx] = (double) (pow(0.5* (1.0 + cos(i)),2.0));	// read forward to fade out, backward to fade in
+			break;
 
         case Properties::LINEAR: //linear
-            for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ - 1)), tableIdx++)
+            for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ -1)), tableIdx++)
                 fadeTbl_[tableIdx] = (double) i;	// read forward to fade out, backward to fade in
             break;
 
         case Properties::TANH: //tanh-function		 
-            for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ - 1)), tableIdx++)
+            for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ -1)), tableIdx++)
                 fadeTbl_[tableIdx] = (double) alpha*(tanh(a*(i-b)) - beta);// read forward to fade out, backward to fade in
-
+			break;
+		case Properties::LOG: //log-function
+		{ 
+		    for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_)), tableIdx++)
+			{
+				fadeTbl_[tableIdx] = (double) 20*log10((i)*pow(10.0,((1-i)*0.05)));// read forward to fade out, backward to fade in
+			}double temp = -1.0 * fadeTbl_[fadeLength_ -1]; 
+			for (tableIdx = 0; tableIdx < fadeLength_; tableIdx++){
+			fadeTbl_[tableIdx] = (fadeTbl_[tableIdx]+temp)/(temp);
+			}
+		}
+			break;
             /*if (fadeLength_ >= experiment)
               {   
 
@@ -168,11 +185,11 @@ void CrossFadeQueue::computeFadeTbl()
               } */
             //for (i = 0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (9.0 / (fadeLength_)), tableIdx++)
             //    fadeTbl_[tableIdx] = log10(i);	// read forward to fade out, backward to fade in
-            break;
+            //break;
 
         case Properties::SQRT: //square root
             for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ - 1)), tableIdx++)
-                fadeTbl_[tableIdx] = sqrtf(i);	// read forward to fade out, backward to fade in
+                fadeTbl_[tableIdx] = sqrt(i);	// read forward to fade out, backward to fade in
             break;	
 
     }
