@@ -75,9 +75,6 @@ public:
 	~Minuit() 
 	{
 		delete m_minuitMethods;
-
-		mParameters->clear();
-		delete mParameters;
 	}
 	
 	/************************************************
@@ -92,8 +89,6 @@ public:
 	 */
 	void commDefineParameters(TTValue& parameters)
 	{
-		std::cout << "parameters size = " << parameters.getSize() << std::endl;
-		
 		TTSymbolPtr commParamName, commParam_SymValue;
 		TTInt32		commParam_IntValue = 0;
 		TTFloat64	commParam_FloatValue;
@@ -448,7 +443,7 @@ public:
 	 * \param address : something like "/<subDeviceName>/.../<input>"
 	 * \param value : anything to send
 	 */
-	int deviceSendSetRequest(TTDevicePtr device, TTSymbolPtr address, TTValue& value)
+	int deviceSendSetRequest(TTDevicePtr device, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value)
 	{
 		TTValue		v, vIp, vPort;
 		TTErr		err1, err2;
@@ -457,13 +452,10 @@ public:
 		TTInt32		port;
 
 		v = value;
-		//v.toString();
-		//v.get(0, vString);
-		
-		const char* cc = address->getCString();
-		char* s = _strdup(cc);
-		stringToSend = s;
-		//stringToSend += " " + vString;
+
+		stringToSend = address->getCString();
+		stringToSend += ":";
+		stringToSend += attribute->getCString();
 		
 		err1 = device->getCommParameter(TT("ip"), vIp);
 		err2 = device->getCommParameter(TT("port"), vPort);
@@ -477,8 +469,6 @@ public:
 			
 			std::cout << "Minuit : deviceSendSetRequest : " << stringToSend << std::endl;
 			m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
-			
-			delete s;
 
 			return 1;
 		}
@@ -496,6 +486,7 @@ public:
 	 */
 	int deviceSendListenRequest(TTDevicePtr device, TTSymbolPtr address, TTSymbolPtr attribute, bool enable)
 	{
+		std::cout << "deviceSendListenRequest" << std::endl;
 		TTString	stringToSend, appName;
 		TTValue		v, vDevice, vDeviceManager, vIp, vPort;
 		TTErr		err1, err2;
@@ -515,7 +506,7 @@ public:
 		stringToSend += ":";
 		stringToSend += attribute->getCString();
 		
-		stringToSend += "";
+		stringToSend += " ";
 		if(enable)
 			stringToSend += MINUIT_REQUEST_LISTEN_ENABLE;
 		else
@@ -865,6 +856,7 @@ void receiveSetRequestCallBack(void* arg, std::string from, std::string address,
 
 void receiveListenRequestCallBack(void* arg, std::string from, std::string whereToListen, std::string attribute, bool enable)
 {
+	std::cout << "Minuit::receiveListenRequestCallBack" << std::endl;
 	TTDevicePtr	fromDevice = NULL;
 	Minuit*		minuit = (Minuit*) arg;
 	TTValue     v, devicePtrValue;

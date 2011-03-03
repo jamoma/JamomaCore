@@ -60,7 +60,6 @@ void MinuitGetAnswer::setTimeOut(int timeout) {
 
 void MinuitGetAnswer::parseMinuitGetAnswer(const osc::ReceivedMessage&m)
 {
-	std::cout << "parseMinuitGetAnswer" << std::endl;
 	osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();
 	std::ostringstream ossWithAddress;
 	std::ostringstream ossWithoutAddress;
@@ -121,10 +120,8 @@ void MinuitGetAnswer::parseMinuitGetAnswer(const osc::ReceivedMessage&m)
 TTValue MinuitGetAnswer::waitGetAnswer(bool withAddress)
 {
 	if (withAddress) {
-		std::cout << "withAddress" << std::endl;
 		return m_getTTValueWithAddress;
 	} else {
-		std::cout << "m_getStringWithoutAddress" << std::endl;
 		return m_getTTValueWithoutAddress;
 	}
 }

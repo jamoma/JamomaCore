@@ -28,7 +28,7 @@ class TTMODULAR_EXPORT TTDevice : public TTObject
 	
 public:
 	
-	TTErr getCommParameter(TTSymbolPtr name, TTValue &value); 
+	TTErr getCommParameter(TTSymbolPtr name, TTValue &value);
 	
 private:
 	
@@ -40,6 +40,7 @@ private:
 	TTHashPtr			mParameters;					///< ATTRIBUTE: a hash table containing <TTSymbolPtr paramName, TTValue paramValue>
 	TTBoolean			mEnabled;						///< ATTRIBUTE: is this device enabled ?
 	TTSymbolPtr			mAddressToSpeakWith;
+	TTSymbolPtr			mAttributeToSpeakWith;	
 	
 	/** Control the device using a command	 */
 	TTErr	Command(const TTValue& command);

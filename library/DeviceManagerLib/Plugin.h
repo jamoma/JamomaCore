@@ -42,7 +42,7 @@ typedef TTDevice* TTDevicePtr;
 #include <map>
 
 /**	Plugin and PluginFactory are abstract classes, interfaces to develop plugins.
-	Every communication plugins developped in the futur will have to be implemented according to this model.
+	Every communication plugins developped in the future will have to be implemented according to this model.
  */
 
 class PLUGIN_EXPORT Plugin
@@ -65,7 +65,10 @@ public:
 		mParameters = new TTHash();
 	}
 
-	virtual ~Plugin() {};
+	virtual ~Plugin() {	
+		mParameters->clear();
+		delete mParameters;
+	};
 	
 	/*!
 	 * A plugin need to know the DeviceManager to access it methods
@@ -192,7 +195,7 @@ public:
 	 * \param value : anything to send
 	 */
 	virtual int deviceSendSetRequest(TTDevicePtr device, 
-									 TTSymbolPtr address,
+									 TTSymbolPtr address, TTSymbolPtr attribute,
 									 TTValue& value)=0;
 	
 	/*!
@@ -265,7 +268,8 @@ public:
 	 * \param from : the device where comes from the request
 	 * \param address : the address the device wants to discover
 	 */
-	void deviceReceiveDiscoverRequest(TTDevicePtr from, TTSymbolPtr address) {
+	void deviceReceiveDiscoverRequest(TTDevicePtr from, TTSymbolPtr address) 
+	{
 		TTValue returnedNodes;
 		TTValue returnedLeaves;
 		TTValue returnedAttributes;
@@ -289,7 +293,8 @@ public:
 	 * \param address : the address the device wants to get
 	 * \param attribute : the attribute the device wants to get
 	 */
-	void deviceReceiveGetRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute) {
+	void deviceReceiveGetRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute)
+	{
 		TTValue returnedValue;
 		
 		// get the value from the local namespace
@@ -311,8 +316,8 @@ public:
 	 * \param address : the address the device wants to get
 	 * \param attribute : the attribute the device wants to get
 	 */
-	void deviceReceiveSetRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) {
-		
+	void deviceReceiveSetRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) 
+	{
 		// set the value of the local namespace
 		if (mDeviceManager != NULL)
 			mDeviceManager->namespaceSet(address, attribute, newValue);
@@ -330,8 +335,9 @@ public:
 	 * \param attribute : the attribute the device wants to listen
 	 * \param enable : enable/disable the listening
 	 */
-	void deviceReceiveListenRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) {
-
+	void deviceReceiveListenRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) 
+	{
+		std::cout << "Plugin::deviceReceiveListenRequest" << std::endl;
 		// Enable/disable the listening of the attribute at the address
 		if (mDeviceManager != NULL)
 			mDeviceManager->namespaceListen(from, address, attribute, enable);

@@ -64,7 +64,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="Winmm.lib ws2_32.lib Advapi32.lib User32.lib pthreadVC2.lib"
-				AdditionalDependencies="TTModular.lib"
+				AdditionalDependencies="JamomaFoundation.lib TTModular.lib"
 				OutputFile="$(OutDir)\Minuit.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)pthread\lib&quot;;&quot;$(ProjectDir)..\Debug&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\build&quot;"

@@ -148,7 +148,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			} else if (arg->IsString()) {
 				//cout << "string" << endl;
 				//arguments << arg->AsString();
-				arguments.append((TTPtr)arg->AsString());
+				arguments.append(TT(arg->AsString()));
 			}
 			
 			arg++;
@@ -215,7 +215,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 					val = arg->AsString();
 				}
 				// DEBUG
-				cout << "Arguments : " << val << endl;
+				//cout << "Arguments : " << val << endl;
 
 				if(val.compare(MINUIT_REQUEST_LISTEN_ENABLE) == 0)
 					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, attribute, true);
@@ -284,7 +284,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			}
 			
 			else if(operation.compare(MINUIT_ANSWER_LISTEN) == 0){
-				// TODO : what ?
+				//m_minuitMethods->minuitParseListenAnswer(sender, whereTo, m);
 				return;
 			}
 			

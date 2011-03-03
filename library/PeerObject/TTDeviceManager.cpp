@@ -33,6 +33,7 @@ mListenCallback(NULL)
 	arguments.get(1, &mName);
 	
 	addAttribute(Name, kTypeSymbol);
+	addAttribute(Devices, kTypePointer);
 	
 	addMessageWithArgument(LoadPlugins);
 	addMessageWithArgument(AddDevice);
@@ -62,7 +63,8 @@ void definePlugins(const TTPtr target, const TTKeyVal& iter)
 	TTValue v = iter.second;
 	v.get(0, (TTPtr*)&pluginPtr);
 	if (pluginPtr != NULL) {
-		pluginPtr->commDefineParameters();
+		TTValue v;
+		//pluginPtr->commDefineParameters();
 	}
 }
 
@@ -80,12 +82,14 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 {
 	TTXmlHandlerPtr	aXmlHandler	= NULL;
 	TTValue			v, args;
+	//TTCString		pluginsPath;
 	TTSymbolPtr		pluginsPath;
 	
+	//value.get(0, (TTPtr*)&pluginsPath);
 	value.get(0, &pluginsPath);
 
-	mfactories->loadPlugins(pluginsPath->getString());
-	
+	mfactories->loadPlugins(pluginsPath->getCString());
+
 	// create an instance of each plugin available
 	IteratorPluginNames it = mfactories->getPluginNames();
 	
@@ -94,13 +98,12 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 		std::cout << pname << std::endl;
 		PluginPtr p = mfactories->createPlugin(pname, this);
 		if (p != 0) {
-			std::cout << "p!=0" << std::endl;
 			mPlugins->append(TT(pname), p);
 		}
 	}	
 	
 	// define parameters for each plugin available
-	mPlugins->iterate((TTPtr)this, definePlugins);
+	//mPlugins->iterate((TTPtr)this, definePlugins);
 
 	// load a xml config file 
 	if (value.getSize() > 1) {
@@ -133,8 +136,7 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 {
 	TTSymbolPtr	pluginToUse;
 	TTSymbolPtr deviceName, deviceAddress;
-	TTSymbolPtr commParamName;
-	TTSymbolPtr commParam_SymValue;
+	TTSymbolPtr commParamName, commParam_SymValue;
 	TTInt32		commParam_IntValue = 0;
 	TTFloat64	commParam_FloatValue;
 	TTValue		commParamValue, pluginPtrValue, args;
@@ -202,9 +204,9 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	// instanciate TTDevice object with arguments
 	TTObjectInstantiate(TT("Device"), TTObjectHandle(&device), args);
 	
-	// register the TTDevice object in the namespace directory
+	// register the TTDevice object in the namespace directory at /"deviceName"
 	deviceAddress = TT("/" + deviceName->getString());
-	std::cout << deviceAddress->getString() << std::endl;
+	
 	getDirectoryFrom(this)->TTNodeCreate(deviceAddress, (TTObjectPtr)device, NULL, &returnedNode, &newInstanceCreated);
 	
 	mDevices->append(deviceAddress, device);
@@ -288,13 +290,11 @@ TTErr TTDeviceManager::namespaceGet(TTSymbolPtr address, TTSymbolPtr attribute, 
 	err = getDirectoryFrom(this)->getTTNodeForOSC(address, &nodeToGet);
 	
 	if (!err) {
-		
 		// test node type to get the access status
 		o = nodeToGet->getObject();
 		nodeType = o->getName();
 		
 		if (nodeType == TT("Data")) {
-			
 			//attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
 			
 			o->getAttributeValue(attribute, newValue);
@@ -314,7 +314,7 @@ TTErr TTDeviceManager::namespaceDiscover(TTSymbolPtr address, TTValue& returnedN
 	TTErr				err;
 	TTList				nodeList, childList;
 	TTNodePtr			firstNode, aNode;
-	TTSymbolPtr			nodeAddress, nodeFrom;
+	TTSymbolPtr			nodeAddress;
 	TTObjectPtr			o;
 	
 	err = getDirectoryFrom(this)->Lookup(address, nodeList, &firstNode);
@@ -333,9 +333,9 @@ TTErr TTDeviceManager::namespaceDiscover(TTSymbolPtr address, TTValue& returnedN
 			// test node type
 			if (o = aNode->getObject()) {
 				if (o->getName() == TT("Data")) {
-					returnedLeaves.append(nodeAddress);
+					returnedLeaves.append((TTPtr*)(nodeAddress->getCString()));
 				} else {
-					returnedNodes.append(nodeAddress);
+					returnedNodes.append((TTPtr*)(nodeAddress->getCString()));
 				}
 			}
 		}
@@ -346,6 +346,28 @@ TTErr TTDeviceManager::namespaceDiscover(TTSymbolPtr address, TTValue& returnedN
 	else {
 		return kTTErrGeneric; //TODO send a notification : Jamoma!set #address /address:attribute value
 	}
+}
+
+TTErr TTDeviceManager::namespaceListen(TTDevicePtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enable)
+{
+	std::cout << "namespaceListen" << std::endl;
+	TTValue v;
+	TTSymbolPtr deviceName, deviceAddress;
+	TTString tmp;
+
+	whereToSend->getAttributeValue(TT("name"), v);
+	v.get(0, &deviceName);
+
+	tmp = "/";
+	tmp += deviceName->getCString();
+	deviceAddress = TT(tmp);
+
+	if (enable)
+		enableListening(deviceAddress, whereToListen, attributeToListen);
+	else
+		disableListening(deviceAddress, whereToListen, attributeToListen);
+
+	return kTTErrNone;
 }
 
 TTErr TTDeviceManager::WriteAsXml(const TTValue& value)
@@ -366,37 +388,37 @@ TTErr TTDeviceManager::ReadFromXml(const TTValue& value)
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
-	// Switch on the name of the XML node
+	// switch on the name of the XML node
 	
-	// Starts reading
+	// starts reading
 	if (aXmlHandler->mXmlNodeName == TT("start")) {
 
 		return kTTErrNone;
 	}
 	
-	// Ends reading
+	// ends reading
 	if (aXmlHandler->mXmlNodeName == TT("end")) {
 		
 		return kTTErrNone;
 	}
 	
-	// Comment node
+	// comment node
 	if (aXmlHandler->mXmlNodeName == TT("#comment"))
 		return kTTErrNone;
 	
-	// Device node
+	// device node
 	if (aXmlHandler->mXmlNodeName == TT("device")) {
 		
-		// Get the device name 
+		// get the device name 
 		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
 		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 		if (v.getType() == kTypeSymbol) {
 			v.get(0, &deviceName);
 		}
 		
-		std::cout << "deviceName " << deviceName->getString() << std::endl;
+		//std::cout << "deviceName " << deviceName->getString() << std::endl;
 		
-		// Get the plugin name
+		// get the plugin name
 		v.clear();
 		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("plugin"));
 		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
@@ -404,31 +426,32 @@ TTErr TTDeviceManager::ReadFromXml(const TTValue& value)
 			v.get(0, &pluginName);
 		}
 		
-		std::cout << "pluginName " << pluginName->getString() << std::endl;
+		//std::cout << "pluginName " << pluginName->getString() << std::endl;
 		
-		// Get the plugin instance
+		// get the plugin instance
 		v.clear();
 		mPlugins->lookup(pluginName, v);
 		v.get(0, (TTPtr*)&plugin);
 		
-		// Local Device process (define plugin parameters)
+		// local Device process (define plugin parameters)
 		if (deviceName == mName) {
-			TTHashPtr params = new TTHash();
+			TTValue params;
 			
-			// Browse other attributes in xml
+			// browse other attributes in xml
 			while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
 				
-				// Get attribute name
+				// get attribute name
 				aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
 				if (v.getType() == kTypeSymbol) {
 					v.get(0, &attributeName);
 					v.clear();
 					
-					// Get attribute value
+					// get attribute value
 					aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 					
-					// Fill the hash table
-					params->append(attributeName, v);
+					// fill the parameter TTValue array <attrName1, attrValue1, attrName2, attrValue2....>
+					params.append(attributeName);
+					params.append(v);
 				}
 			}
 			
@@ -436,30 +459,30 @@ TTErr TTDeviceManager::ReadFromXml(const TTValue& value)
 			plugin->commDefineParameters(params);
 			
 		} 
-		// Remote Device process (add the device)
+		// remote Device process (add the device)
 		else {
 			args.append(deviceName);
 			args.append(pluginName);
 			
-			// Browse other attributes in xml
+			// browse other attributes in xml
 			while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
 				
-				// Get attribute name
+				// get attribute name
 				aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
 				if (v.getType() == kTypeSymbol) {
 					v.get(0, &attributeName);
 					v.clear();
 					
-					// Get attribute value
+					// get attribute value
 					aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 					
-					// Add device arguments
+					// add device arguments
 					args.append(attributeName);
 					args.append(&v);
 				}
 			}
 			
-			// Add the Device
+			// add the Device
 			AddDevice(args); 
 		}
 	}
@@ -526,12 +549,10 @@ TTErr TTDeviceManagerDirectoryCallback(TTPtr baton, TTValue& data)
 
 TTErr TTDeviceManagerAttributeCallback(TTPtr baton, TTValue& data)
 {
+	std::cout << "TTDeviceManagerAttributeCallback" << std::endl;
 	TTValuePtr			b;
 	TTDeviceManagerPtr	aDeviceManager;
-	TTSymbolPtr			whereToSend;
-	TTSymbolPtr			whereToListen;
-	TTSymbolPtr			attributeToListen;
-	TTString			returnedValue;
+	TTSymbolPtr			whereToSend, whereToListen, attributeToListen;
 	TTNodePtr			deviceNodeToAnswer;
 	TTErr				err;
 	TTObjectPtr			o;
@@ -550,10 +571,18 @@ TTErr TTDeviceManagerAttributeCallback(TTPtr baton, TTValue& data)
 		if (o = deviceNodeToAnswer->getObject()) {
 			if (o->getName() == TT("Device")) {
 				
-				// prepare prepare ListenAnswer message arguments
-				args.append(whereToListen);
-				args.append(attributeToListen);
-				args.append(&data);
+				// prepare ListenAnswer message arguments
+				//args.append(whereToListen);
+				//args.append(attributeToListen);
+				o->setAttributeValue(TT("addressToSpeakWith"), whereToListen);
+				o->setAttributeValue(TT("attributeToSpeakWith"), attributeToListen);
+
+				//TTSymbolPtr	s;
+				//data.get.get(0, &s);
+				//std::cout << data.getSize() << std::endl;
+				//std::cout << s->getCString() << std::endl;
+
+				args.append(data);
 				
 				o->sendMessage(TT("ListenAnswer"), args);
 				
@@ -742,7 +771,7 @@ TTErr TTDeviceManagerSetCallback(TTPtr baton, TTValue& data)
 	// unpack data
 	data.get(0, &whereToSet);
 	data.get(1, &attrName);
-	data.get(2, (TTPtr*)&attributeValue);// don't work well
+	data.get(2, (TTPtr*)&attributeValue);
 	
 	if (aTTDeviceManager) {
 		
@@ -750,7 +779,6 @@ TTErr TTDeviceManagerSetCallback(TTPtr baton, TTValue& data)
 		err = getDirectoryFrom(aTTDeviceManager)->getTTNodeForOSC(whereToSet, &nodeToSet);
 		
 		if(!err){
-			std::cout << "ok" << std::endl;
 			// test node type to get the access status
 			o = nodeToSet->getObject();
 			nodeType = o->getName();
@@ -783,7 +811,7 @@ TTErr TTDeviceManagerListenCallback(TTPtr baton, TTValue& data)
 	TTValuePtr			b;
 	TTDeviceManagerPtr	aTTDeviceManager;
 	TTSymbolPtr			whereToSend, whereToListen, attributeToListen;
-	TTBoolean		enableListening;
+	TTBoolean			enableListening;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -807,6 +835,7 @@ TTErr TTDeviceManagerListenCallback(TTPtr baton, TTValue& data)
 
 TTErr TTDeviceManager::enableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen)
 {
+	std::cout << "enableListening" << std::endl;
 	TTErr			err;
 	TTNodePtr		nodeToListen;
 	TTAttributePtr	anAttribute = NULL;
@@ -818,10 +847,10 @@ TTErr TTDeviceManager::enableListening(TTSymbolPtr whereToSend, TTSymbolPtr wher
 	// Get the Node at the given address
 	err = getDirectoryFrom(this)->getTTNodeForOSC(whereToListen, &nodeToListen);
 	
-	if(!err){
+	if (!err) {
 		
 		// enable life cycle observing
-		if(attributeToListen == kTTSym_life)
+		if (attributeToListen == kTTSym_life)
 		{
 			// create an observer of the root in order to notify the device manager
 			// for creation and destruction of node
@@ -839,15 +868,14 @@ TTErr TTDeviceManager::enableListening(TTSymbolPtr whereToSend, TTSymbolPtr wher
 			getDirectoryFrom(this)->addObserverForNotifications(S_SEPARATOR, *newListener);
 		}
 		// enable attribute listening
-		else{
+		else {
 			
 			// if the attribute exist
 			o = nodeToListen->getObject();
 			err = o->findAttribute(attributeToListen, &anAttribute);
 			
 			
-			if(!err){
-				
+			if (!err) {
 				newListener = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 				TTObjectInstantiate(TT("callback"), &newListener, kTTValNONE);
 				
@@ -863,9 +891,15 @@ TTErr TTDeviceManager::enableListening(TTSymbolPtr whereToSend, TTSymbolPtr wher
 			}
 		}
 		
-		if(!err){
+		if (!err) {
+			std::cout << "ok" << std::endl;
 			// memorize the link in order to remove it with the unlink operation
-			keyLink = whereToSend->getString() + "<>" + whereToListen->getString() + ":" + attributeToListen->getString();
+			keyLink = whereToSend->getCString();
+			keyLink += "<>";
+			keyLink += whereToListen->getCString();
+			keyLink += ":";
+			keyLink += attributeToListen->getCString();
+			std::cout << keyLink << std::endl;
 			this->mListernersCache->append(TT(keyLink), (TTPtr)newListener);
 		}
 		

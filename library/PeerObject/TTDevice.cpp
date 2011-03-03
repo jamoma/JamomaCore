@@ -28,10 +28,13 @@ mEnabled(YES)
 	arguments.get(2, (TTPtr*)&mPlugin);
 	TT_ASSERT("Plugin passed to TTDevice is not NULL", mPlugin);
 	arguments.get(3, (TTPtr*)&mParameters);
+
+	mAddress = TT("/" + mName->getString());
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttribute(Address, kTypeSymbol);
 	addAttribute(AddressToSpeakWith, kTypeSymbol);
+	addAttribute(AttributeToSpeakWith, kTypeSymbol);
 	
 	addMessageWithArgument(Command);
 	addMessageWithArgument(Discover);
@@ -40,6 +43,8 @@ mEnabled(YES)
 	addMessageWithArgument(ListenRequest);
 	addMessageWithArgument(ListenAnswer);
 	addMessageWithArgument(Snapshot);
+
+	mAttributeToSpeakWith = kTTSym_value;
 
 }
 
@@ -79,27 +84,26 @@ TTErr TTDevice::Discover(TTValue& value)
 	TTSymbolPtr sAddress, sLeaveName;
 	TTNodePtr	nodeToSet;
 	TTErr		err;
-	
+
 	// extract address to discover
 	vAddress = value;
 	vAddress.get(0, &sAddress);
-	
-	// send a discover request at a remote device using plugin instance
+	value.clear();
+
+	// send a discover request on a remote device using plugin instance
 	mPlugin->deviceSendDiscoverRequest(this, sAddress, vNodes, vLeaves, vAttributes);
 	
 	for (int i = 0; i < vLeaves.getSize(); i++) {
 		vLeaves.get(i, &sLeaveName);
 		
-		// for each leave create a TTData if don't exist yet
+		// for each leave create a TTData if doesn't exist yet
 	
 		// update the local directory of the remote device
 		err = getDirectoryFrom(mDeviceManager)->getTTNodeForOSC(sLeaveName, &nodeToSet);
-		if (!err) {
-			
-		} else {
+		if (err) {
 			// Create a TTData
 			/////////////////////////////////////////////////////////
-			std::cout << "create a TTData" << std::endl;
+			std::cout << "create a remote namespace TTData copy at : " << sLeaveName->getCString() << std::endl;
 			TTValue			args;
 			TTDataPtr		myData = NULL;
 			TTCallbackPtr	p_returnValueCallback = NULL;
@@ -115,23 +119,22 @@ TTErr TTDevice::Discover(TTValue& value)
 			
 			// create an instance of TTData
 			TTObjectInstantiate(TT("Data"), TTObjectHandle(&myData), args);
-			
-			// set TTData attributes
-			
-			
-			
+
 			// Register a TTObject into the TTModularDirectory
 			/////////////////////////////////////////////////////////
 			TTNodePtr		returnedNode;
 			TTBoolean		newInstanceCreated;
 			
 			getDirectoryFrom(mDeviceManager)->TTNodeCreate(sLeaveName, myData, NULL, &returnedNode, &newInstanceCreated);
+
+			// get TTData attributes
+
+
+
+			// clear the value and return the created copy TTData addresses
+			value.append(sLeaveName);
 		}
 	}
-	
-	// clear the value and return the got value
-	value.clear();
-	
 	
 	return kTTErrNone;
 }
@@ -144,16 +147,13 @@ TTErr TTDevice::Get(TTValue& value)
 	TTNodePtr	nodeToSet;
 	TTObjectPtr	o;
 	TTErr		err;
-	
+
 	// extract address and attribute to get
 	value.get(0, &address);
 	value.get(1, &attr);
 	
-	addressAndAttr.append(address);
-	addressAndAttr.append(attr);
-	
-	// send a get request at a remote device using plugin instance
-	mPlugin->deviceSendGetRequest(this, addressAndAttr, v);
+	// send a get request to a remote device using plugin instance
+	mPlugin->deviceSendGetRequest(this, address, attr, v);
 	
 	// update the local directory of the remote device if it was already discovered
 	err = getDirectoryFrom(mDeviceManager)->getTTNodeForOSC(address, &nodeToSet);
@@ -173,30 +173,56 @@ TTErr TTDevice::Get(TTValue& value)
 TTErr TTDevice::Set(const TTValue& value)
 {
 	std::cout << "Set" << std::endl;
-	TTValue		valueToSend;
-	TTString	s;
+	TTValue	valueToSend;
 	
 	valueToSend = value;
 	
-//	v.toString();
-//	v.get(0, s);
-//	std::cout << s << std::endl;
+	//TTString s;
+	//valueToSend.toString();
+	//valueToSend.get(0, s);
+	//std::cout << s << std::endl;
 	
-	// send a set request at a remote device using plugin instance
-	mPlugin->deviceSendSetRequest(this, mAddressToSpeakWith, valueToSend);
+	// send a set request to a remote device using plugin instance
+	mPlugin->deviceSendSetRequest(this, mAddressToSpeakWith, mAttributeToSpeakWith, valueToSend);
 	
 	return kTTErrNone;
 }
 
 TTErr TTDevice::ListenRequest(const TTValue& value)
 {
-	//TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable)
+	std::cout << "ListenRequest" << std::endl;
+	TTSymbolPtr address, attribute;
+	TTBoolean	enable;
+
+	value.get(0, &address);
+	value.get(1, &attribute);
+	value.get(2, enable);
+
+	// send a listen request to a remote device using plugin instance
+	mPlugin->deviceSendListenRequest(this, address, attribute, enable);
+	
 	return kTTErrNone;
 }
 
 TTErr TTDevice::ListenAnswer(const TTValue& value)
 {
-	//TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value)
+	std::cout << "ListenAnswer" << std::endl;
+	TTValue valueToSend = value;
+
+	//value.get(0, &address);
+	//value.get(1, &attribute);
+	//value.get(2, (TTPtr*)&valueToSend);
+
+	//valueToSend.get(0, &s);
+	//std::cout << valueToSend.getSize() << std::endl;
+	//std::cout << s->getCString() << std::endl;
+
+	// send a listen answer to a remote device using plugin instance
+	//mPlugin->deviceSendListenAnswer(this, address, attribute, valueToSend);
+
+	// for now a listen answer equals a set request on the copy of the local namespace on the remote device 
+	mPlugin->deviceSendSetRequest(this, mAddressToSpeakWith, mAttributeToSpeakWith, valueToSend);
+
 	return kTTErrNone;
 }
 

@@ -59,7 +59,7 @@ void MinuitCommunicationMethods::minuitSendMessage(std::string stringToSend, TTV
 	UdpTransmitSocket transmitSocket( IpEndpointName(ip.data(), port) );
 	
 #ifdef TT_PLATFORM_WIN
-	char* buffer = (char*)malloc(bufferSize * sizeof(char));
+	char* buffer = (char*)malloc(bufferSize);
 #else
 	char buffer[bufferSize];
 #endif
@@ -79,29 +79,42 @@ void MinuitCommunicationMethods::minuitSendMessage(std::string stringToSend, TTV
 			oscStream << currentString.data();
 		}
 	}
+	
+	//TTValue v = valueToSend;
+	//TTString s;
+	//v.toString();
+	//v.get(0, s);
+	//std::cout << s << std::endl;
 
 	TTSymbolPtr symValue;
 	TTInt32		intValue;
 	TTFloat64	floatValue;
+	TTDataType	valueType;
 
 	for (unsigned int i = 0; i < valueToSend.getSize(); ++i) {
-		if (valueToSend.getType(i) == kTypeSymbol) {
+		valueType = valueToSend.getType(i);
+
+		if (valueType == kTypeSymbol) {
 			valueToSend.get(i, &symValue);
+			//std::cout << "symValue : " << symValue->getCString() << std::endl;
 			oscStream << symValue->getCString();
 		}
-		else if (valueToSend.getType(i) == kTypeInt32) {
+		else if (valueType == kTypeInt32) {
 			valueToSend.get(i, intValue);
+			//std::cout << "intValue : " << intValue << std::endl;
 			oscStream << intValue;
 		}
-		else if (valueToSend.getType(i) == kTypeFloat64) {
+		else if (valueType == kTypeFloat64) {
+			
 			valueToSend.get(i, floatValue);
-			oscStream << floatValue;
+			//std::cout << "float : " << floatValue << std::endl;
+			oscStream << (float)floatValue;
 		}
 	}
 	
 	oscStream << osc::EndMessage;
 	// << osc::EndBundle;//provoque un segmentation fault
-	
+
 	transmitSocket.Send( oscStream.Data(), oscStream.Size());
 
 	oscStream.Clear();

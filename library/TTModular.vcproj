@@ -67,17 +67,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="JamomaFoundation.lib libxml2.lib"
-				LinkIncremental="0"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\..\Foundation\library\libxml2\win32\lib&quot;"
-				GenerateManifest="false"
-				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames=""
-				ModuleDefinitionFile=""
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				MapFileName="TTModular.map"
-				SubSystem="2"
-				TargetMachine="1"
+				AdditionalLibraryDirectories="&quot;C:\Users\Laurent Garnier\Travail\Galamus\Jamoma\Modules\Foundation\library\build&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\Jamoma\Modules\Foundation\library\libxml2\win32\lib&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\Jamoma\Modules\Foundation\library\libiconv\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -100,7 +90,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Install TTModular dll"
-				CommandLine="if exist &quot;../implementations/Example/Copie de TestModular/TTModular.dll&quot; rm &quot;../implementations/Example/Copie de TestModular/TTModular.dll&quot;&#x0D;&#x0A;cp Debug/TTModular.dll  &quot;../implementations/Example/Copie de TestModular&quot;"
+				CommandLine="if exist &quot;../implementations/Example/TestModular/TTModular.dll&quot; rm &quot;../implementations/Example/TestModular/TTModular.dll&quot;&#x0D;&#x0A;if exist &quot;../implementations/Example/DeviceTest/TTModular.dll&quot; rm &quot;../implementations/Example/DeviceTest/TTModular.dll&quot;&#x0D;&#x0A;if exist &quot;../../../../Galalib/trunk/GalalibTest/TTModular.dll&quot; rm &quot;../../../../Galalib/trunk/GalalibTest/TTModular.dll&quot;&#x0D;&#x0A;cp Debug/TTModular.dll  &quot;../implementations/Example/TestModular&quot;&#x0D;&#x0A;cp Debug/TTModular.dll  &quot;../implementations/Example/DeviceTest&quot;&#x0D;&#x0A;cp Debug/TTModular.dll  &quot;../../../../Galalib/trunk/GalalibTest&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

@@ -10,7 +10,6 @@
 #define __TT_DEVICE_MANAGER_H__
 
 #include "TTModular.h"
-//#include "PluginFactories.h"
 
 class PluginFactories;
 
@@ -20,6 +19,8 @@ class TTReceiver;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
+class TTDevice;
+typedef TTDevice* TTDevicePtr;
 
 /**	TTDeviceManager ... TODO : an explanation
  
@@ -34,6 +35,7 @@ public:
 	TTErr namespaceSet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value);
 	TTErr namespaceGet(TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value);
 	TTErr namespaceDiscover(TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
+	TTErr namespaceListen(TTDevicePtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enableListening);
 
 	TTApplicationPtr	mApplication;			///< the application
 
@@ -45,8 +47,8 @@ private:
 	
 	TTHashPtr			mListernersCache;
 	TTHashPtr			mPlugins;				///< hash table containing <TTSymbol pluginName, TTPluginPtr pluginPointer>
-	TTHashPtr			mDevices;				///< hash table containing <TTSymbol deviceName, TTPluginPtr devicePointer>
-	
+	TTHashPtr			mDevices;				///< hash table containing <TTSymbol deviceName, TTDevicePtr devicePointer>
+
 	TTCallbackPtr		mDiscoverCallback;		///< a callback used when a device wants to dicover the local namespace
 	TTCallbackPtr		mGetCallback;			///< a callback used when a device wants to get a value from the namespace
 	TTCallbackPtr		mSetCallback;			///< a callback used when a device wants to set a value of the namespace
@@ -68,11 +70,13 @@ private:
 	// TODO : void pluginSetCommParameter(std::string pluginName, std::string parameterName, std::string parameterValue)
 	// TODO : void pluginGetCommParameter(std::string pluginName, std::string parameterName)
 	// TODO : std::vector<std::string> pluginGetLoadedByName()
-	// TODO : bool pluginIsLoaded(std::string pluginName)	
+	// TODO : bool pluginIsLoaded(std::string pluginName)
 	// TODO : void deviceRemove(std::string deviceName)
 	
 	TTErr enableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen);
 	TTErr disableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen);
+
+	
 	
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerAttributeCallback(TTPtr baton, TTValue& data);
