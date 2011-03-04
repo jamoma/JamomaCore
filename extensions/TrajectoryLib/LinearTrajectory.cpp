@@ -27,6 +27,11 @@ LinearTrajectory::~LinearTrajectory()
 	;
 }
 
+/*TTErr LinearTrajectory::setDimension(const TTValue& newValue)
+{
+	mDimension = newValue;
+	return kTTErrNone;
+}*/
 
 //TTErr LinearTrajectory::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 //{
@@ -37,21 +42,28 @@ LinearTrajectory::~LinearTrajectory()
 
 TTErr LinearTrajectory::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	if (inputs->getSignal(0).getNumChannelsAsInt() == 2)
+	//if (inputs->getSignal(0).getNumChannelsAsInt() == 2)
+	//if (mDimension == 2)
 		return processAudioFunction2D(inputs, outputs);
-	else if (inputs->getSignal(0).getNumChannelsAsInt() > 2) 
-		return processAudioFunction3D(inputs, outputs);
+//else if (mDimension == 3) 
+//	return processAudioFunction3D(inputs, outputs);
+
+//TODO: how do I initialize the output signal to have 2 (2D) or 3 (3D) Sample Vectors ?
+		//return processAudioFunction2D(inputs, outputs);
+	//else if (inputs->getSignal(0).getNumChannelsAsInt() > 2) 
+	//	return processAudioFunction3D(inputs, outputs);
 }
 
 TTErr LinearTrajectory::processAudioFunction2D(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {	
 	
-	TTAudioSignal&		in = inputs->getSignal(0);
+	TTAudioSignal&		in0 = inputs->getSignal(0);
+	TTAudioSignal&		in1 = inputs->getSignal(1);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSizeAsInt();
+	TTUInt16			 vs = in0.getVectorSizeAsInt();
 	
-	TTSampleValuePtr	inSampleX			= in.mSampleVectors[0];
-	TTSampleValuePtr	inSampleY			= in.mSampleVectors[1];
+	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
+	TTSampleValuePtr	inSampleY			= in1.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
 
@@ -64,13 +76,15 @@ TTErr LinearTrajectory::processAudioFunction2D(TTAudioSignalArrayPtr inputs, TTA
 
 TTErr LinearTrajectory::processAudioFunction3D(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&		in = inputs->getSignal(0);
+	TTAudioSignal&		in0 = inputs->getSignal(0);
+	TTAudioSignal&		in1 = inputs->getSignal(1);
+	TTAudioSignal&		in2 = inputs->getSignal(2);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSizeAsInt();
+	TTUInt16			vs = in0.getVectorSizeAsInt();
 	
-	TTSampleValuePtr	inSampleX			= in.mSampleVectors[0];
-	TTSampleValuePtr	inSampleY			= in.mSampleVectors[1];
-	TTSampleValuePtr	inSampleZ			= in.mSampleVectors[2];
+	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
+	TTSampleValuePtr	inSampleY			= in1.mSampleVectors[0];
+	TTSampleValuePtr	inSampleZ			= in2.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
 	TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];

@@ -18,13 +18,17 @@ TT_AUDIO_CONSTRUCTOR,
 	mActualTrajectoryObject(NULL),
 	mType(NULL),
 	mPhasorOutputSignals(NULL)
-{    
+//	mDimension(2)
+{   
+	mPhasors[0] = NULL;
+	mPhasors[1] = NULL;
+	mPhasors[2] = NULL;
 	for (int i=0; i<3; i++)
 		TTObjectInstantiate(TT("phasor"), &mPhasors[i], kTTVal1);	
 	
-	extendAttribute(TT("frequency"), mPhasors[0], TT("xFrequency"));
-	extendAttribute(TT("frequency"), mPhasors[1], TT("xFrequency"));
-	extendAttribute(TT("frequency"), mPhasors[2], TT("xFrequency"));
+	extendAttribute(TT("xFrequency"), mPhasors[0], TT("frequency"));
+	extendAttribute(TT("yFrequency"), mPhasors[1], TT("frequency"));
+	extendAttribute(TT("zFrequency"), mPhasors[2], TT("frequency"));
 	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mPhasorOutputSignals, 3);
 	
@@ -38,6 +42,7 @@ TT_AUDIO_CONSTRUCTOR,
 		mPhasorOutputSignals->setSignal(i, (TTAudioSignal*)anAudioSignal);
 	}
 	//addAttributeWithSetter(Dimensions,		kTypeFloat64); // look at TTOverdrive
+	//addAttributeWithSetter(Dimension,		kTypeUInt8);
 	addAttributeWithSetter(A,				kTypeFloat64);
 	addAttributeWithSetter(B,				kTypeFloat64);
 	addAttributeWithSetter(C,				kTypeFloat64);
@@ -45,12 +50,19 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(DeltaY,			kTypeFloat64);
 	addAttributeWithSetter(DeltaZ,			kTypeFloat64);
 	
-	addAttributeWithSetter(Type, kTypeSymbol);
-	
+	addAttributeWithSetter(Type, kTypeSymbol);	
 	addMessageWithArgument(getTypes);
 //	addMessage(clear);
 //	setAttributeValue(kTTSym_maxNumChannels, arguments);
+//	setAttributeValue(TT("dimension"),	2);
 	setAttributeValue(TT("type"), TT("line"));
+	setAttributeValue(TT("a"),		0.0);
+	setAttributeValue(TT("b"),		0.0);
+	setAttributeValue(TT("c"),		0.0);
+	setAttributeValue(TT("deltaX"),		0.0);
+	setAttributeValue(TT("deltaY"),		0.0);
+	setAttributeValue(TT("deltaZ"),		0.0);
+
 	setProcessMethod(processAudio);
 }
 

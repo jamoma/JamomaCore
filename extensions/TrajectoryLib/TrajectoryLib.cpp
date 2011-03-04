@@ -9,15 +9,10 @@
 
 #include "TTDSP.h"
 #include "TTTrajectory.h"
-//#include "CosineFunction.h"
-//#include "ExpFunction.h"
 #include "LinearTrajectory.h"
-#include "LissajousTrajectory.h"
-#include "RoseTrajectory.h"
-//#include "LogFunction.h"
-//#include "LowpassFunction.h"
-//#include "PowerFunction.h"
-//#include "TanhFunction.h"
+//#include "LissajousTrajectory.h"
+//#include "RoseTrajectory.h"
+
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_TrajectoryLib(void)
@@ -25,15 +20,10 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_TrajectoryLib(void)
 	TTDSPInit();
 	TTTrajectory::registerClass();
 
-//	CosineFunction::registerClass();
-//	ExpFunction::registerClass();	
 	LinearTrajectory::registerClass();
-	LissajousTrajectory::registerClass();
-	RoseTrajectory::registerClass();
-//	LogFunction::registerClass();
-//	LowpassFunction::registerClass();
-//	PowerFunction::registerClass();
-//	TanhFunction::registerClass();
+//	LissajousTrajectory::registerClass();
+//	RoseTrajectory::registerClass();
+
 	
 	return kTTErrNone;
 }

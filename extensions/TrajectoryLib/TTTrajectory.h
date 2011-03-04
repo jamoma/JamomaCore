@@ -22,6 +22,7 @@ protected:
 //	TTFloat64				mFrequency;				///< The center or cutoff frequency of the filter
 //	TTFloat64				mQ;						///< The width of the filter
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
+//	TTUInt8					mDimension;
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
 	TTAudioObjectPtr		mPhasors[3];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
@@ -73,6 +74,11 @@ public:
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 	
+/*	TTErr setDimension(const TTValue& newValue)
+	{	
+		mDimension = newValue;
+		return mActualTrajectoryObject->setAttributeValue(TT("dimension"), mDimension);
+	}*/
 	
 	TTErr setA(const TTValue& newValue)
 	{	
