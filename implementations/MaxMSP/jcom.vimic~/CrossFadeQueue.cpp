@@ -108,7 +108,15 @@ void CrossFadeQueue::fadeFunction(Properties::fadeMode fadeType)
 
             case Properties::SQRT:
                 post("x-fade fade-function: square root");
-                break;				
+                break;
+				
+			case Properties::LOG:
+                post("x-fade fade-function: logarithm");
+                break;	
+				
+			case Properties::SIGMOID:
+                post("x-fade fade-function: Sigmoid");
+                break;		
         }
     }
 }
@@ -138,26 +146,57 @@ void CrossFadeQueue::computeFadeTbl()
     switch(fadeType_)
     {
         case Properties::COS: //cosine 
-			
-				for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++) //kTTHalfPi was M_PI_2
-				fadeTbl_[tableIdx] = (double) cos(i);  // read forward to fade out, backward to fade in			
+				//for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++) //kTTHalfPi was M_PI_2
+				//fadeTbl_[tableIdx] = (double) cos(i);  // read forward to fade out, backward to fade in		
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTPi / (fadeLength_ - 1)), tableIdx++) //kTTHalfPi was M_PI_2
+				{//post("last i %f",i);
+				fadeTbl_[tableIdx] = (double) 0.5*(1.0 + cos(i));  // read forward to fade out, backward to fade in	
+				}
             break;		
 
         case Properties::COS_SQUARED: //cosine squared
-			
-			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++)	//kTTHalfPi was M_PI_2		
-                fadeTbl_[tableIdx] = (double) pow(cos(i),2.0);	// read forward to fade out, backward to fade in
-            break;
+			//for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++)	//kTTHalfPi was M_PI_2		
+            //    fadeTbl_[tableIdx] = (double) pow(cos(i),2.0);	// read forward to fade out, backward to fade in
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (1.0 / (fadeLength_ -1)), tableIdx++)	//kTTHalfPi was M_PI_2		
+			{//post("last i %f",i);
+				fadeTbl_[tableIdx] = (double) (1.0 + cos(i*i*kTTPi))*0.5;	// read forward to fade out, backward to fade in
+			}
+			break;
 
         case Properties::LINEAR: //linear
-            for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ - 1)), tableIdx++)
-                fadeTbl_[tableIdx] = (double) i;	// read forward to fade out, backward to fade in
+            for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ -1)), tableIdx++)
+                {//post("last i %f",i);
+				fadeTbl_[tableIdx] = (double) i;	// read forward to fade out, backward to fade in
+				}
             break;
 
         case Properties::TANH: //tanh-function		 
-            for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ - 1)), tableIdx++)
-                fadeTbl_[tableIdx] = (double) alpha*(tanh(a*(i-b)) - beta);// read forward to fade out, backward to fade in
-
+            for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ -1)), tableIdx++)
+                {//post("last i %f",i);
+				fadeTbl_[tableIdx] = (double) alpha*(tanh(a*(i-b)) - beta);// read forward to fade out, backward to fade in
+				}
+			break;
+		
+		case Properties::LOG: //log-function
+		{ 
+		    for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ )), tableIdx++)
+			{ //post("last i %f",i);
+				fadeTbl_[tableIdx] = (double) 20*log10((i)*pow(10.0,((1-i)*0.05)));// read forward to fade out, backward to fade in
+			}
+			double temp = -1.0 * fadeTbl_[fadeLength_ -1]; 
+			for (tableIdx = 0; tableIdx < fadeLength_; tableIdx++)
+				fadeTbl_[tableIdx] = (fadeTbl_[tableIdx]+temp)/(temp);
+			}
+			break;
+					
+		case Properties::SIGMOID: //sigmoid function 1/(1+exp(t))
+			//double temp = -8;
+			//double tempk = temp * -2.0;
+			for (i = -8.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (16.0 / (fadeLength_- 1)), tableIdx++)
+                {//post("last i %f",i);
+					fadeTbl_[tableIdx] = (double) 1.0 / (1.0 + exp(i));// read forward to fade out, backward to fade in
+				}
+			break;		
             /*if (fadeLength_ >= experiment)
               {   
 
@@ -168,15 +207,18 @@ void CrossFadeQueue::computeFadeTbl()
               } */
             //for (i = 0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (9.0 / (fadeLength_)), tableIdx++)
             //    fadeTbl_[tableIdx] = log10(i);	// read forward to fade out, backward to fade in
-            break;
+            //break;
 
         case Properties::SQRT: //square root
             for (i = 1.0, tableIdx = 0; tableIdx < fadeLength_; i -= (double) (1.0 / (fadeLength_ - 1)), tableIdx++)
-                fadeTbl_[tableIdx] = sqrtf(i);	// read forward to fade out, backward to fade in
+                {//post("last i %f",i);
+					fadeTbl_[tableIdx] = sqrt(i);	// read forward to fade out, backward to fade in
+				}
             break;	
 
     }
     critical_exit(0); 
+	if (fadeType_ != Properties::SIGMOID)
     fadeTbl_[fadeLength_ - 1] = 0.0;	 // last value == 0.0
 
     if (globReportFlag)
