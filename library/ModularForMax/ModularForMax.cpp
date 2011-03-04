@@ -1442,8 +1442,9 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 /** Get the context from the upper hub in the patcher */
 void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext)
 {
-	SymbolPtr	hierarchy, context, _sym_jcomhub, _sym_context;
+	SymbolPtr	hierarchy, context, _sym_jcomhub, _sym_context, patcherName;
 	ObjectPtr	obj;
+	char		*isCtxPatcher;
 	
 	// Look for jcom.hubs in the patcher
 	obj = object_attr_getobj(*patcher, _sym_firstobject);
@@ -1469,9 +1470,24 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 	
 	// if no context
 	else {
-		hierarchy = jamoma_patcher_get_hierarchy(*patcher);
+		
+		// try to get it from the patcher name
+		patcherName = object_attr_getsym(*patcher, _sym_filename);
+		if (patcherName != _sym_nothing) {
+			// Is there a ".model" string in the patcher name ?
+			if (strstr(patcherName->s_name, ".model")) {
+				*returnedContext = TT(ModelPatcher);
+				return;
+			}
+			// Is there a ".view" string in the patcher name ?
+			else if (strstr(patcherName->s_name, ".view")) {
+				*returnedContext = TT(ViewPatcher);
+				return;
+			}
+		}
 		
 		// in subpatcher look upper and remember the patcher where is the hub
+		hierarchy = jamoma_patcher_get_hierarchy(*patcher);
 		if (hierarchy == _sym_subpatcher || hierarchy == _sym_bpatcher) {
 			*patcher = jamoma_patcher_get(*patcher);
 			jamoma_patcher_get_context(patcher, returnedContext);
