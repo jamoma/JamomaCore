@@ -987,7 +987,7 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;
 	TTValuePtr	av;
-	TTPtr		c, t_c, p_c;
+	TTPtr		c, t_c, p_c = NULL;
 	
 	// our context
 	av = (TTValuePtr)args;
@@ -1000,8 +1000,6 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 	if (n->getParent())
 		if (n->getParent()->getName() != S_SEPARATOR)
 			p_c = n->getParent()->getContext();
-		else
-			p_c = NULL;
 	
 	// Keep only nodes from our context if they aren't under the root (p_c is NULL)
 	// if contexts are different, check also if the parent context is the same as our context

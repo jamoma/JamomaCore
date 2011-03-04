@@ -1444,7 +1444,6 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 {
 	SymbolPtr	hierarchy, context, _sym_jcomhub, _sym_context, patcherName;
 	ObjectPtr	obj;
-	char		*isCtxPatcher;
 	
 	// Look for jcom.hubs in the patcher
 	obj = object_attr_getobj(*patcher, _sym_firstobject);
