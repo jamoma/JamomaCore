@@ -158,13 +158,10 @@ void init_subscribe(t_init *x, SymbolPtr relativeAddress)		// relativeAddress : 
 			
 			x->initReceiver = NULL;
 			TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&x->initReceiver), args);
-			return;
 		}
 	}
-	
 	// While the context node is not registered : try to build (to --Is this not dangerous ?)
-	if (x->patcherNode != JamomaDirectory->getRoot()) {
-		
+	else {
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
