@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ -184.0, -1002.0, 856.0, 822.0 ],
+		"rect" : [ 0.0, 44.0, 856.0, 822.0 ],
 		"bglocked" : 0,
-		"defrect" : [ -184.0, -1002.0, 856.0, 822.0 ],
+		"defrect" : [ 0.0, 44.0, 856.0, 822.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,12 +22,26 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-49",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 620.0, 66.0, 73.0, 19.0 ],
+					"text" : "jcom.array≈"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-18",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 619.0, 561.0, 61.0, 19.0 ],
+					"patching_rect" : [ 619.0, 586.0, 61.0, 19.0 ],
 					"text" : "jcom.sig≈"
 				}
 
@@ -632,7 +646,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 618.0, 607.0, 138.0, 19.0 ],
+					"patching_rect" : [ 618.0, 632.0, 138.0, 19.0 ],
 					"text" : "jcom.soundfile.recorder≈"
 				}
 
@@ -646,7 +660,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "audio.connect", "audio.connect", "" ],
-					"patching_rect" : [ 619.0, 584.0, 126.0, 19.0 ],
+					"patching_rect" : [ 619.0, 609.0, 126.0, 19.0 ],
 					"text" : "jcom.soundfile.player≈"
 				}
 
@@ -660,7 +674,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 539.0, 93.0, 19.0 ],
+					"patching_rect" : [ 620.0, 564.0, 93.0, 19.0 ],
 					"text" : "jcom.resample≈"
 				}
 
@@ -674,7 +688,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 438.0, 94.0, 19.0 ],
+					"patching_rect" : [ 620.0, 463.0, 94.0, 19.0 ],
 					"text" : "jcom.overdrive≈"
 				}
 
@@ -688,7 +702,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "audio.connect", "audio.connect", "" ],
-					"patching_rect" : [ 619.0, 240.0, 79.0, 19.0 ],
+					"patching_rect" : [ 619.0, 265.0, 79.0, 19.0 ],
 					"text" : "jcom.hilbert≈"
 				}
 
@@ -702,7 +716,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 705.0, 85.0, 19.0 ],
+					"patching_rect" : [ 620.0, 730.0, 85.0, 19.0 ],
 					"text" : "jcom.window≈"
 				}
 
@@ -716,7 +730,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 680.0, 98.0, 19.0 ],
+					"patching_rect" : [ 620.0, 705.0, 98.0, 19.0 ],
 					"text" : "jcom.wavetable≈"
 				}
 
@@ -730,7 +744,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 620.0, 655.0, 83.0, 19.0 ],
+					"patching_rect" : [ 620.0, 680.0, 83.0, 19.0 ],
 					"text" : "jcom.unpack≈"
 				}
 
@@ -744,7 +758,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 630.0, 68.0, 19.0 ],
+					"patching_rect" : [ 620.0, 655.0, 68.0, 19.0 ],
 					"text" : "jcom.split≈"
 				}
 
@@ -758,7 +772,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 515.0, 91.0, 19.0 ],
+					"patching_rect" : [ 620.0, 540.0, 91.0, 19.0 ],
 					"text" : "jcom.pulsesub≈"
 				}
 
@@ -772,7 +786,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 490.0, 81.0, 19.0 ],
+					"patching_rect" : [ 620.0, 515.0, 81.0, 19.0 ],
 					"text" : "jcom.phasor≈"
 				}
 
@@ -786,7 +800,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 465.0, 70.0, 19.0 ],
+					"patching_rect" : [ 620.0, 490.0, 70.0, 19.0 ],
 					"text" : "jcom.pack≈"
 				}
 
@@ -800,7 +814,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 415.0, 59.0, 19.0 ],
+					"patching_rect" : [ 620.0, 440.0, 59.0, 19.0 ],
 					"text" : "jcom.op≈"
 				}
 
@@ -814,7 +828,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 390.0, 73.0, 19.0 ],
+					"patching_rect" : [ 620.0, 415.0, 73.0, 19.0 ],
 					"text" : "jcom.noise≈"
 				}
 
@@ -828,7 +842,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 365.0, 79.0, 19.0 ],
+					"patching_rect" : [ 620.0, 390.0, 79.0, 19.0 ],
 					"text" : "jcom.matrix≈"
 				}
 
@@ -842,7 +856,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 340.0, 108.0, 19.0 ],
+					"patching_rect" : [ 620.0, 365.0, 108.0, 19.0 ],
 					"text" : "jcom.matrixmixer≈"
 				}
 
@@ -856,7 +870,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 315.0, 79.0, 19.0 ],
+					"patching_rect" : [ 620.0, 340.0, 79.0, 19.0 ],
 					"text" : "jcom.limiter≈"
 				}
 
@@ -870,7 +884,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 290.0, 65.0, 19.0 ],
+					"patching_rect" : [ 620.0, 315.0, 65.0, 19.0 ],
 					"text" : "jcom.join≈"
 				}
 
@@ -884,7 +898,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 620.0, 265.0, 65.0, 19.0 ],
+					"patching_rect" : [ 620.0, 290.0, 65.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -898,7 +912,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 215.0, 68.0, 19.0 ],
+					"patching_rect" : [ 620.0, 240.0, 68.0, 19.0 ],
 					"text" : "jcom.gain≈"
 				}
 
@@ -912,7 +926,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 190.0, 70.0, 19.0 ],
+					"patching_rect" : [ 620.0, 215.0, 70.0, 19.0 ],
 					"text" : "jcom.filter≈"
 				}
 
@@ -926,7 +940,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 165.0, 58.0, 19.0 ],
+					"patching_rect" : [ 620.0, 190.0, 58.0, 19.0 ],
 					"text" : "jcom.fft≈"
 				}
 
@@ -940,7 +954,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 140.0, 74.0, 19.0 ],
+					"patching_rect" : [ 620.0, 165.0, 74.0, 19.0 ],
 					"text" : "jcom.delay≈"
 				}
 
@@ -954,7 +968,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 115.0, 88.0, 19.0 ],
+					"patching_rect" : [ 620.0, 140.0, 88.0, 19.0 ],
 					"text" : "jcom.degrade≈"
 				}
 
@@ -968,7 +982,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 90.0, 95.0, 19.0 ],
+					"patching_rect" : [ 620.0, 115.0, 95.0, 19.0 ],
 					"text" : "jcom.dcblocker≈"
 				}
 
@@ -982,7 +996,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 620.0, 65.0, 64.0, 19.0 ],
+					"patching_rect" : [ 620.0, 90.0, 64.0, 19.0 ],
 					"text" : "jcom.dac≈"
 				}
 
