@@ -328,7 +328,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		v.get(0, &service);
 		
 		// observe the Value attribute of parameter and return
-		if (service == kTTSym_parameter || service == kTTSym_return) {
+		if (true/*service == kTTSym_parameter || service == kTTSym_return*/) {		//to -- considering a lot of user cases we also observe message value
 			
 			// create a Value Attribute observer on it
 			anObject->findAttribute(kTTSym_value, &anAttribute);
