@@ -183,26 +183,46 @@ void view_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
-	TTSymbolPtr					contextAddress;
+	TTSymbolPtr					contextAddress = kTTSymEmpty;
 	TTObjectPtr					anObject;
+	TTNodePtr					patcherNode;
 
 	// if the jcom.view is in a model or a view patcher
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 	if (x->patcherPtr && x->patcherContext && x->patcherClass && x->patcherName) {
 		
-		// try to subscribe
-		if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
+		if (x->patcherContext == kTTSym_view) {
+			// try to subscribe
+			if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
+				// get the context address to make
+				// a viewer on the contextAddress/model/address parameter
+				x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+				v.get(0, &contextAddress);
+			}
+		}
+		else {
+			jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &patcherNode);
+			if (patcherNode)
+				patcherNode->getOscAddress(&contextAddress, S_SEPARATOR);
 			
-			// get the context address to make
-			// a viewer on the contextAddress/model/address parameter
-			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-			v.get(0, &contextAddress);
+			// While the context node is not registered : try to build (to --Is this not dangerous ?)
+			else {
+				// The following must be deferred because we have to interrogate our box,
+				// and our box is not yet valid until we have finished instantiating the object.
+				// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+				defer_low((ObjectPtr)x, (method)view_subscribe, relativeAddress, 0, 0);
+				return;
+			}
+		}
+		
+		// bind on the /model/address parameter (in view patch) or return (in model patch)
+		if (contextAddress != kTTSymEmpty) {
 			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
 			anObject->sendMessage(kTTSym_Refresh);
-			
-			// attach the jcom.view to connected ui object
-			view_attach(self);
 		}
+			
+		// attach the jcom.view to connected ui object
+		view_attach(self);
 	}
 	
 	// else use the relative address to bind directly on a data
