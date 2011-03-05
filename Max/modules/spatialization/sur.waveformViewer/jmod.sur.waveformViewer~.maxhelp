@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 233.0, 110.0, 504.0, 720.0 ],
+		"rect" : [ 231.0, 44.0, 581.0, 725.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 233.0, 110.0, 504.0, 720.0 ],
+		"defrect" : [ 231.0, 44.0, 581.0, 725.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -73,14 +73,14 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.sur.waveformViewer~", "@description", "View waveform of real-time multichannel signal as jitter matrix" ],
+					"args" : [ "@description", "View waveform of real-time multichannel signal as jitter matrix" ],
 					"bgmode" : 1,
 					"id" : "obj-10",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 504.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 581.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
