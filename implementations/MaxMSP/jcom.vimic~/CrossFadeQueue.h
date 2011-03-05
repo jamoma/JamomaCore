@@ -58,7 +58,7 @@ class CrossFadeQueue {
         //! Set fade time in samples.
         void fadeLength(long newLength);
 
-        //! Set fade type (LINEAR, COS, COS_SQUARED, TANH, SQRT, LOG) 
+        //! Set fade type (LINEAR, COS, COS_SQUARED, TANH, SQRT, LOG, SIGMOID) 
         void fadeFunction(Properties::fadeMode fadeType);
 
         //! Out value of crossfade.
