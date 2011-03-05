@@ -57,6 +57,10 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 		setCalculateMethod(calculateSqrt);
 		setProcessMethod(processSqrt);
 	}
+	else if (mOperator == TT("abs")) {
+		setCalculateMethod(calculateFabs);
+		setProcessMethod(processFabs);
+	}
 	else
 		return kTTErrInvalidValue;
 	
@@ -87,6 +91,10 @@ TTErr TTOperator::setOperand(const TTValue& newValue)
 	return kTTErrNone;
 }
 
+#if 0
+#pragma mark -
+#pragma mark operands
+#endif
 
 TTErr TTOperator::calculateAdd(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
@@ -123,6 +131,12 @@ TTErr TTOperator::calculateModulo(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 TTErr TTOperator::calculateSqrt(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {	
 	y = sqrt(x);	
+	return kTTErrNone;
+}
+
+TTErr TTOperator::calculateFabs(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{	
+	y = fabs(x);	
 	return kTTErrNone;
 }
 
@@ -398,3 +412,8 @@ TTErr TTOperator::processSqrt(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 }
 
 
+TTErr TTOperator::processFabs(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TT_WRAP_CALCULATE_METHOD(calculateFabs);
+	
+}
