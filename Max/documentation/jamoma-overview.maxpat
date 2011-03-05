@@ -148,13 +148,13 @@
 ,
 					"patching_rect" : [ 30.0, 550.0, 40.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p SAB"
@@ -284,13 +284,13 @@
 ,
 					"patching_rect" : [ 30.0, 140.0, 61.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p tutorials"
@@ -328,6 +328,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-13",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -344,6 +345,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-12",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -359,6 +361,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-10",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -374,6 +377,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-8",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -406,6 +410,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-3",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -421,6 +426,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-2",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -469,6 +475,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-61",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -484,6 +491,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-60",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -499,6 +507,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-57",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -514,6 +523,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-54",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -529,6 +539,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-45",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -544,6 +555,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-43",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -559,6 +571,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-41",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -574,6 +587,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-36",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -590,6 +604,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-34",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -605,6 +620,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-31",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -621,6 +637,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-30",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -636,6 +653,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-28",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -652,6 +670,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-27",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -667,6 +686,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-25",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -682,6 +702,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-24",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -697,6 +718,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-22",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -713,6 +735,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-18",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -729,6 +752,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-17",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -744,6 +768,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-16",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -759,6 +784,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-15",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -774,6 +800,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-9",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -789,6 +816,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-7",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -804,6 +832,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-6",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -819,6 +848,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-5",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -835,6 +865,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-53",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -895,6 +926,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-71",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -910,6 +942,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-72",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -954,13 +987,13 @@
 ,
 					"patching_rect" : [ 30.0, 495.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p UserLib"
@@ -1203,6 +1236,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-7",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -1236,6 +1270,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-13",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1251,6 +1286,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-14",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1313,13 +1349,13 @@
 ,
 					"patching_rect" : [ 30.0, 380.0, 75.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p javascripts"
@@ -1373,6 +1409,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-201",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1388,6 +1425,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-245",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1403,6 +1441,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-246",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1418,6 +1457,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-247",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1433,6 +1473,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-234",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1448,6 +1489,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-235",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1463,6 +1505,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-236",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1478,6 +1521,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-237",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1493,6 +1537,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-238",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1508,6 +1553,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-239",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1523,6 +1569,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-240",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1538,6 +1585,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-241",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1553,6 +1601,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-242",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1568,6 +1617,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-220",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1583,6 +1633,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-221",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1598,6 +1649,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-222",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1613,6 +1665,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-223",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1628,6 +1681,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-224",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1643,6 +1697,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-225",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1658,6 +1713,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-226",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1673,6 +1729,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-227",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1688,6 +1745,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-228",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1703,6 +1761,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-229",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1718,6 +1777,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-230",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1733,6 +1793,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-231",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1748,6 +1809,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-232",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1763,6 +1825,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-233",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1841,14 +1904,15 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-215",
+									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 1205.0, 465.0, 102.0, 17.0 ],
+									"patching_rect" : [ 1205.0, 465.0, 102.0, 29.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1102.0, 455.0, 150.0, 17.0 ],
-									"text" : "jcom.matrixview≈"
+									"text" : "jcom.matrixmixer≈"
 								}
 
 							}
@@ -2240,6 +2304,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-158",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -2272,6 +2337,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-157",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2303,6 +2369,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-155",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2334,6 +2401,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-154",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2381,6 +2449,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-93",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2396,6 +2465,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-34",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2457,6 +2527,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-190",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2472,6 +2543,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-175",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2487,6 +2559,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-176",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2502,6 +2575,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-178",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2517,6 +2591,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-179",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2532,6 +2607,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-180",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2547,6 +2623,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-181",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2562,6 +2639,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-182",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2577,6 +2655,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-183",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2592,6 +2671,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-184",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2607,6 +2687,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-185",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2622,6 +2703,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-186",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2637,6 +2719,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-187",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2652,6 +2735,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-188",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2667,6 +2751,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-189",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2682,6 +2767,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-173",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2697,6 +2783,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-172",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2712,6 +2799,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-169",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2727,6 +2815,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-170",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2742,6 +2831,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-171",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2869,6 +2959,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-141",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3046,6 +3137,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"hidden" : 1,
 									"id" : "obj-152",
 									"maxclass" : "comment",
@@ -3094,6 +3186,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-161",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3219,6 +3312,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-130",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3234,6 +3328,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-129",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3249,6 +3344,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-128",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3264,6 +3360,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-127",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3279,6 +3376,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"hidden" : 1,
 									"id" : "obj-126",
 									"maxclass" : "comment",
@@ -3295,6 +3393,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-125",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3310,6 +3409,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-124",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3325,6 +3425,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-123",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3340,6 +3441,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-122",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3355,6 +3457,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-121",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3370,6 +3473,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-120",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3385,6 +3489,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-119",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3400,6 +3505,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-118",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3415,6 +3521,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-117",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3430,6 +3537,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-116",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3445,6 +3553,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-113",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3552,6 +3661,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-98",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3776,6 +3886,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-91",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3791,6 +3902,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-90",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3806,6 +3918,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-89",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3821,6 +3934,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-88",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3836,6 +3950,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-75",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3851,6 +3966,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-74",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3930,6 +4046,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-41",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -4123,6 +4240,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-78",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -4315,6 +4433,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-53",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4470,6 +4589,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-8",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4565,6 +4685,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-16",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4660,6 +4781,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-22",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4675,6 +4797,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-23",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4786,6 +4909,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-35",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4895,6 +5019,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-45",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4940,6 +5065,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-49",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4955,6 +5081,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-50",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -5162,6 +5289,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-71",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -5179,6 +5307,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-72",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -6521,13 +6650,13 @@
 ,
 					"patching_rect" : [ 30.0, 440.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p components"
@@ -6774,6 +6903,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-7",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -6968,6 +7098,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"hidden" : 1,
 									"id" : "obj-55",
 									"maxclass" : "comment",
@@ -7092,6 +7223,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-4",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -7201,6 +7333,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-16",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -7424,6 +7557,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-38",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -7439,6 +7573,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-39",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8043,13 +8178,13 @@
 ,
 					"patching_rect" : [ 30.0, 320.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p externals"
@@ -8151,6 +8286,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-1",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8166,6 +8302,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-2",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8181,6 +8318,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-4",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8380,6 +8518,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-19",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8395,6 +8534,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-20",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8551,13 +8691,13 @@
 ,
 					"patching_rect" : [ 30.0, 260.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p examples"
@@ -8755,6 +8895,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-15",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8770,6 +8911,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-5",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8850,6 +8992,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-134",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -9073,6 +9216,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-120",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -9104,6 +9248,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-117",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -9500,6 +9645,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-23",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -9627,6 +9773,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-31",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -9658,6 +9805,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-33",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -9865,6 +10013,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-47",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -9910,6 +10059,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-50",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -9925,6 +10075,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-51",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10004,6 +10155,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-56",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10019,6 +10171,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-57",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10192,6 +10345,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-68",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10207,6 +10361,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-70",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10286,6 +10441,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-75",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10301,6 +10457,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-76",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10332,6 +10489,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-78",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10379,6 +10537,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-81",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10394,6 +10553,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-82",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10409,6 +10569,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-83",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10424,6 +10585,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-84",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10439,6 +10601,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-85",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10454,6 +10617,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-86",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -11805,13 +11969,13 @@
 ,
 					"patching_rect" : [ 30.0, 200.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p modules"
