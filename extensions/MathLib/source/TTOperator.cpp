@@ -67,6 +67,10 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 		setCalculateMethod(calculateFabs);
 		setProcessMethod(processFabs);
 	}
+	SWITCH_OPERATOR_METHODS(acos, Acos)
+	SWITCH_OPERATOR_METHODS(asin, Asin)
+	SWITCH_OPERATOR_METHODS(atan, Atan)
+	//SWITCH_OPERATOR_METHODS(atan2, Atan2)
 	SWITCH_OPERATOR_METHODS(ceil, Ceil)
 	SWITCH_OPERATOR_METHODS(cos, Cos)
 	SWITCH_OPERATOR_METHODS(cosh, Cosh)

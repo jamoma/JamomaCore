@@ -63,6 +63,10 @@ class TTOperator : TTAudioObject {
 		TT_WRAP_CALCULATE_METHOD(calculateFabs);\
 	}\
 	
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(acos, Acos)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(asin, Asin)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(atan, Atan)
+	//WRAP_C_FUNCTION_AS_TTOp_METHODS(atan2, Atan2)	// TODO: this one requires 2 args
 	WRAP_C_FUNCTION_AS_TTOp_METHODS(ceil, Ceil)
 	WRAP_C_FUNCTION_AS_TTOp_METHODS(cos, Cos)
 	WRAP_C_FUNCTION_AS_TTOp_METHODS(cosh, Cosh)
