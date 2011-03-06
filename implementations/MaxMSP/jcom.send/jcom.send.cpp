@@ -68,12 +68,7 @@ void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 
 void WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {	
-	t_atom a;
-	
-	if (!argc) {
-		atom_setsym(&a, msg);
-		send_list(self, _sym_symbol, 1, &a);
-	}
+	send_list(self, msg, argc, argv);
 }
 
 // Method for Assistance Messages
