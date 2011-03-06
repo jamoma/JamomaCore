@@ -53,6 +53,7 @@
 #include "TTMapper.h"
 #include "TTMapperManager.h"
 #include "TTViewer.h"
+#include "TTOpmlHandler.h"
 #include "TTOutput.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"

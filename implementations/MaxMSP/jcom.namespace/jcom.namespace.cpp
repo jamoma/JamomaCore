@@ -89,11 +89,6 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// create the explorer
 	jamoma_explorer_create((ObjectPtr)x, &x->wrappedObject);
 	
-	// The following must be deferred because we have to interrogate our box,
-	// and our box is not yet valid until we have finished instantiating the object.
-	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)nmspc_subscribe, relativeAddress, 0, 0);
-	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
 	x->outlets[none_one_out] = outlet_new(x, NULL);
@@ -101,13 +96,31 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	x->msg = _sym_none;
 	
+	// Prepare Internals hash to store XmlHanler object
+	x->internals = new TTHash();
+	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
+	
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)nmspc_subscribe, relativeAddress, 0, 0);
 }
 
 void nmspc_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
-	; // idea : make jcom.namespace relative to his context ... ?
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue			v, args;
+	TTOpmlHandlerPtr aOpmlHandler;
+	
+	// create internal TTXmlHandler and internal messages for Read and Write
+	aOpmlHandler = NULL;
+	TTObjectInstantiate(TT("OpmlHandler"), TTObjectHandle(&aOpmlHandler), args);
+	v = TTValue(TTPtr(aOpmlHandler));
+	x->internals->append(TT("OpmlHandler"), v);
+	v = TTValue(TTPtr(x->wrappedObject));
+	aOpmlHandler->setAttributeValue(kTTSym_object, v);
 }
 
 void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
@@ -158,9 +171,9 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// prepare umenu prefix 
 			// (except in case the explorer look for Instances)
-			if(address == S_SEPARATOR)
+			if (address == S_SEPARATOR)
 				atom_setsym(a, gensym((char*)address->getCString()));
-			else{
+			else {
 				TTString prefix = address->getCString();
 				
 				if(lookfor == kTTSym_children)
@@ -220,7 +233,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		for (long i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
-			if(lookfor == kTTSym_attributes)
+			if (lookfor == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
 			if (lookfor == kTTSym_instances && s == _sym_nothing)
@@ -236,7 +249,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 	
 	// NO FORMAT
-	outlet_atoms(x->outlets[data_out], argc, argv);
+	if (argc)
+		outlet_atoms(x->outlets[data_out], argc, argv);
+	else if (msg != _sym_nothing)
+		outlet_anything(x->outlets[data_out], msg, argc, argv);
 }
 
 void nmspc_bang(TTPtr self)
@@ -275,71 +291,31 @@ void nmspc_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
-	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
-	short 			path, err;						// pathID#, error number
-	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
-	long			filetype = 'TEXT', outtype;		// the file type that is actually true
-	TTValue			args, v;
-	SymbolPtr		userpath;
-	TTSymbolPtr		nodeAddress;
-	TTXmlHandlerPtr	aXmlHandler = NULL;
-	//TTTextHandlerPtr	aTextHandler;
+	char 			filename[MAX_FILENAME_CHARS];
+	TTSymbolPtr		fullpath;
+	TTValue			o, v;
+	TTOpmlHandlerPtr aOpmlHandler;
 	TTErr			tterr;
 	
-	if (argc && argv)
-		if (atom_gettype(argv) == A_SYM)
-			userpath = atom_getsym(argv);
-		else
-			object_error((t_object*)x, "%s : needs a symbol", msg->s_name);
-	
-	// select file format
-	if (msg == gensym("write/xml"))
-		filetype = 'TEXT';
-	else if (msg == gensym("write/text"))
-		filetype = 'TEXT';
-	else
-		object_error((t_object*)x, "%s : no file format specified", msg->s_name);
-	
-	// Create a file using Max API
-	path = 0;
-	strcpy(filepath, userpath->s_name);									// Copy symbol argument to a local string
-	err = path_createsysfile(filepath, path, filetype, &file_handle);
-	
-	// Get absolute filepath using Max API
-	if (locatefile_extended(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, (TTPtr*)&nodeAddress);
-		object_error((t_object*)x, "%s : file not created", gensym((char*)nodeAddress->getCString()));
-		return;
-	}
-	
-	jcom_file_get_path(path, filepath, fullpath);
-	
 	if (x->wrappedObject) {
-		v.clear();
-		v.append((TTPtr)x->wrappedObject);
-		v.append(TT(fullpath));
 		
-		// select method to use
-		if (msg == gensym("write/xml")) {
-			tterr = TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+		// Default XML File Name
+		snprintf(filename, MAX_FILENAME_CHARS, "namespace.opml");
+		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
+		v.append(fullpath);
+		
+		tterr = x->internals->lookup(TT("OpmlHandler"), o);
+		
+		if (!tterr) {
+			o.get(0, (TTPtr*)&aOpmlHandler);
 			
-			if (!tterr) {
-				
-				critical_enter(0);
-				aXmlHandler->sendMessage(TT("Write"), v);
-				critical_exit(0);
-				
-				TTObjectRelease(TTObjectHandle(&aXmlHandler));
-			}
+			critical_enter(0);
+			aOpmlHandler->sendMessage(TT("Write"), v);
+			critical_exit(0);
 		}
-		else if (msg == gensym("write/text")) 
-			;// TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler));
-		// aTextHandler->senMessage(TT("Write"), v);
-		// TTObjectRelease(aTextHandler);
 	}
 }
+
 
 /*
 void nmspc_add_max_namespace(t_nmspc *x)
@@ -389,262 +365,6 @@ long nmspc_myobject_iterator(t_nmspc *x, t_object *b)
 	}
 
     return 0;
-}
- */
-
-
-/*
-{
-
-	// write the tree as an opml file
-	critical_enter(0);
-	nmspc_write_string(x, "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "<opml version=\"2.0\">");
-	nmspc_write_string(x, LB);
-
-	// write head info
-	nmspc_opml_header(x);
-
-	// write the body (the tree)
-
-	nmspc_write_string(x, "	<body>");
-	nmspc_write_string(x, LB);
-
-	nmspc_dump_as_opml(x, jamoma_directory->getRoot(), 0);	// dump the tree from the root
-
-	nmspc_write_string(x, "		</body>");
-	nmspc_write_string(x, LB);
-
-	// close the opml file
-	nmspc_write_string(x, "	</opml>");
-
-	// write the buffer
-	nmspc_write_buffer(x);
-}
-
-void nmspc_opml_header(t_nmspc *x)
-{
-	nmspc_write_string(x, "	<head>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<title>workspace.userlandsamples.doSomeUpstreaming</title>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<dateCreated>Mon, 11 Feb 2002 22:48:02 GMT</dateCreated>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<dateModified>Sun, 30 Oct 2005 03:30:17 GMT</dateModified>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<ownerName>Dave Winer</ownerName>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<ownerEmail>dwiner@yahoo.com</ownerEmail>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<expansionState>1, 2, 4</expansionState>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<vertScrollState>1</vertScrollState>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<windowTop>74</windowTop>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<windowLeft>41</windowLeft>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<windowBottom>314</windowBottom>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		<windowRight>475</windowRight>");
-	nmspc_write_string(x, LB);
-	nmspc_write_string(x, "		</head>");
-	nmspc_write_string(x, LB);
-}
-
-void nmspc_dump_as_opml(t_nmspc *x, TTNodePtr parent, ushort level)
-{
-	unsigned int i;
-	char		temp[512];
-	TTSymbolPtr attr;
-	TTValue		attributeNameList;
-	TTSymbolPtr attributeName;
-	TTList		lk_chd;
-	TTNodePtr	p_node;
-
-	// get info about the node
-	t_symbol *type = jamoma_node_type(parent);
-	
-	if((type == gensym("hub")) || 
-	   (type == jps_subscribe_parameter) || 
-	   (type == jps_subscribe_message) || 
-	   (type == jps_subscribe_return) || 
-	   (type == gensym("container")))
-	{
-		t_symbol *name = jamoma_node_name(parent);
-		t_symbol *instance = jamoma_node_instance(parent);
-		
-		parent->getAttributeNames(attributeNameList);
-		jamoma_node_children(parent, lk_chd);
-		
-		// make (2 + level) tabs
-		nmspc_write_string(x, TAB);
-		nmspc_write_string(x, TAB);
-		for(i=0; i<level; i++)
-			nmspc_write_string(x, TAB);
-		
-		// write an outline for the node
-		nmspc_write_string(x, "<outline text=\"");
-		if(name != gensym("")){
-			if(instance != gensym(""))
-				snprintf(temp, sizeof(temp), "%s.%s", name->s_name, instance->s_name);
-			else
-				snprintf(temp, sizeof(temp), "%s", name->s_name);
-			
-			nmspc_write_string(x,temp);
-		}
-		nmspc_write_string(x, "\">");
-		nmspc_write_string(x, LB);
-		
-		// if there are properties
-		if(attributeNameList.getSize()){
-			// write an outline for each attribute
-			attr = NULL;
-			for(i = 0; i < attributeNameList.getSize(); i++)
-			{
-				attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
-				nmspc_write_string(x, "<outline text=\"");
-				nmspc_write_string(x, (char*)attributeName->getCString());
-				nmspc_write_string(x,"\"/>");
-				nmspc_write_string(x, LB);
-			}
-			
-		}
-		
-		// if there are children : do the same for each child
-		if(!lk_chd.isEmpty()){
-			for(lk_chd.begin(); lk_chd.end(); lk_chd.next()){
-				
-				lk_chd.current().get(0,(TTPtr*)&p_node);
-				nmspc_dump_as_opml(x, p_node, level+1);
-			}
-		}
-		
-		// close the outline of this node
-		nmspc_write_string(x, "</outline>");
-		nmspc_write_string(x, LB);
-	}
-}
- */
-
-/*
-// append an atom to a string
-void nmspc_write_atom(t_nmspc *x, t_atom *src)
-{
-	char temp[512];
-	t_symbol* sym;
-
-	switch(src->a_type) 
-	{
-		case A_SYM:
-			sym = atom_getsym(src);
-			snprintf(temp, sizeof(temp), "%s ", sym->s_name);
-			break;
-		case A_FLOAT:
-			snprintf(temp, sizeof(temp), "%f ", atom_getfloat(src));
-			break;
-		case A_LONG:
-			snprintf(temp, sizeof(temp), "%ld ", atom_getlong(src));
-			break;
-	}
-
-	x->eobuf += strlen(temp);
-
-	// before buffer becomes full ...
-	if(x->eobuf >= TEXT_BUFFER_SIZE){
-		// ... write the buffer into the text file
-		nmspc_write_buffer(x);
-	}
-
-	// append the temp to the text buffer
-	if(*(x->buf))
-		strcat(*(x->buf),temp);
-}
-
-void nmspc_write_sym(t_nmspc *x, t_symbol *src)
-{
-	nmspc_write_string(x, src->s_name);
-}
-
-void nmspc_write_string(t_nmspc *x, char *src)
-{
-	char temp[256];
-
-	snprintf(temp, sizeof(temp), "%s ", src);
-
-	x->eobuf += strlen(temp);
-
-	// before buffer becomes full ...
-	if(x->eobuf >= TEXT_BUFFER_SIZE){
-		// ... write the buffer into the text file
-		nmspc_write_buffer(x);
-	}
-
-	// append the temp to the text buffer
-	if(*(x->buf))
-		strcat(*(x->buf),temp);
-}
-
-void nmspc_write_long(t_nmspc *x, long src)
-{
-	char temp[32];
-
-	snprintf(temp, sizeof(temp), "%ld ", src);
-
-	x->eobuf += strlen(temp);
-
-	// before buffer becomes full ...
-	if(x->eobuf >= TEXT_BUFFER_SIZE){
-		// ... write the buffer into the text file
-		nmspc_write_buffer(x);
-	}
-
-	// append the temp to the text buffer
-	if(*(x->buf))
-		strcat(*(x->buf),temp);
-}
-
-void nmspc_write_float(t_nmspc *x, float src)
-{
-	char temp[32];
-
-	snprintf(temp, sizeof(temp), "%f ", src);
-
-	x->eobuf += strlen(temp);
-
-	// before buffer becomes full ...
-	if(x->eobuf >= TEXT_BUFFER_SIZE){
-		// ... write the buffer into the text file
-		nmspc_write_buffer(x);
-	}
-
-	// append the temp to the text buffer
-	if(*(x->buf))
-		strcat(*(x->buf),temp);
-}
-
-// write the buffer into a text file
-void nmspc_write_buffer(t_nmspc *x)
-{
-	short	err = 0;
-	long	len = 0;
-	
-	len = strlen(*(x->buf));
-
-	// write into a text file
-	err = sysfile_write(x->fh, &len, *(x->buf));
-
-	if(err){
-		error("nmspc_write_buffer : sysfile_write error (%d)", err);
-		return;
-	}
-	x->eof += len;
-
-	// clear the buffer
-	x->eobuf = 0;
-	sysmem_freehandle(x->buf);
-	x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
 }
  */
 

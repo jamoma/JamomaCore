@@ -31,6 +31,7 @@
 		D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */; };
 		D2ADBFFB127DFBC900979D42 /* TTInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF8127DFBC900979D42 /* TTInput.cpp */; };
 		D2AE71F012FC41BD004B5887 /* JamomaSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AE71EF12FC41BD004B5887 /* JamomaSymbols.cpp */; };
+		D2C1B3671324384E00EACCA7 /* TTOpmlHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C1B3651324384E00EACCA7 /* TTOpmlHandler.cpp */; };
 		D2CA88101213F4740090DE41 /* ModularForMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA880E1213F4740090DE41 /* ModularForMax.cpp */; };
 		D2CA88281213F47D0090DE41 /* TTContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88121213F47D0090DE41 /* TTContainer.cpp */; };
 		D2CA882A1213F47D0090DE41 /* TTExplorer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88161213F47D0090DE41 /* TTExplorer.cpp */; };
@@ -95,6 +96,8 @@
 		D2ADBFF9127DFBC900979D42 /* TTInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTInput.h; sourceTree = "<group>"; };
 		D2AE71EE12FC419A004B5887 /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = source/JamomaSymbols.h; sourceTree = "<group>"; };
 		D2AE71EF12FC41BD004B5887 /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaSymbols.cpp; path = source/JamomaSymbols.cpp; sourceTree = "<group>"; };
+		D2C1B3651324384E00EACCA7 /* TTOpmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOpmlHandler.cpp; sourceTree = "<group>"; };
+		D2C1B3661324384E00EACCA7 /* TTOpmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpmlHandler.h; sourceTree = "<group>"; };
 		D2CA880E1213F4740090DE41 /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
 		D2CA880F1213F4740090DE41 /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModularForMax.h; sourceTree = "<group>"; };
 		D2CA88121213F47D0090DE41 /* TTContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTContainer.cpp; sourceTree = "<group>"; };
@@ -313,6 +316,8 @@
 				D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */,
 				D2CA88271213F47D0090DE41 /* TTXmlHandler.h */,
 				D2CA88261213F47D0090DE41 /* TTXmlHandler.cpp */,
+				D2C1B3661324384E00EACCA7 /* TTOpmlHandler.h */,
+				D2C1B3651324384E00EACCA7 /* TTOpmlHandler.cpp */,
 			);
 			path = PeerObject;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				D2E27E9A12D53B2000C3EF05 /* TTCue.cpp in Sources */,
 				D2E27EA612D54B7000C3EF05 /* TTCueManager.cpp in Sources */,
 				D2AE71F012FC41BD004B5887 /* JamomaSymbols.cpp in Sources */,
+				D2C1B3671324384E00EACCA7 /* TTOpmlHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

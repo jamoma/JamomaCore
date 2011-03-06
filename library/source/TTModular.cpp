@@ -45,6 +45,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 		TTInput::registerClass();
 		TTMapper::registerClass();
 		TTMapperManager::registerClass();
+		TTOpmlHandler::registerClass();
 		TTOutput::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
