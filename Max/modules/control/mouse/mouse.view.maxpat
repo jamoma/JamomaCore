@@ -128,8 +128,8 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 35.0 ],
-					"text" : "waiting for a /model/address",
+					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
+					"text" : "/mouse",
 					"varname" : "/mouse"
 				}
 
