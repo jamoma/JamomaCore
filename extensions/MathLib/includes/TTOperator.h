@@ -50,7 +50,23 @@ class TTOperator : TTAudioObject {
 	TTErr processSqrt				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	TTErr processFabs				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
+	
+#define WRAP_C_FUNCTION_AS_TTOp_METHODS(cName, methodName) \
+	TTErr calculate ## methodName (const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)\
+	{\
+		y = cName (x);\
+		return kTTErrNone;\
+	}\
+	\
+	TTErr process ## methodName (TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)\
+	{\
+		TT_WRAP_CALCULATE_METHOD(calculateFabs);\
+	}\
+	
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(cos, Cos)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(sin, Sin)
+	
+	
 public:
 	
 	/** setter for the operator attribute. */

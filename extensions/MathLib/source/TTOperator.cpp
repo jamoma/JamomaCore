@@ -32,6 +32,12 @@ TTOperator::~TTOperator()
 
 TTErr TTOperator::setOperator(const TTValue& newValue)
 {
+#define SWITCH_OPERATOR_METHODS(opName, opFunctionName) \
+	else if (mOperator == TT( #opName )) {\
+		setCalculateMethod(calculate ## opFunctionName);\
+		setProcessMethod(process ## opFunctionName);\
+	}
+	
 	mOperator = newValue;
 	if (mOperator == TT("+")) {
 		setCalculateMethod(calculateAdd);
@@ -61,6 +67,8 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 		setCalculateMethod(calculateFabs);
 		setProcessMethod(processFabs);
 	}
+	SWITCH_OPERATOR_METHODS(cos, Cos)
+	SWITCH_OPERATOR_METHODS(sin, Sin)
 	else
 		return kTTErrInvalidValue;
 	
