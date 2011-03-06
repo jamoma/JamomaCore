@@ -64,7 +64,11 @@ class TTOperator : TTAudioObject {
 	}\
 	
 	WRAP_C_FUNCTION_AS_TTOp_METHODS(cos, Cos)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(cosh, Cosh)
 	WRAP_C_FUNCTION_AS_TTOp_METHODS(sin, Sin)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(sinh, Sinh)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(tan, Tan)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(tanh, Tanh)
 	
 	
 public:

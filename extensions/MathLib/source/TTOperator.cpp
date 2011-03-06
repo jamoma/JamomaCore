@@ -68,7 +68,11 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 		setProcessMethod(processFabs);
 	}
 	SWITCH_OPERATOR_METHODS(cos, Cos)
+	SWITCH_OPERATOR_METHODS(cosh, Cosh)
 	SWITCH_OPERATOR_METHODS(sin, Sin)
+	SWITCH_OPERATOR_METHODS(sinh, Sinh)
+	SWITCH_OPERATOR_METHODS(tan, Tan)
+	SWITCH_OPERATOR_METHODS(tanh, Tanh)
 	else
 		return kTTErrInvalidValue;
 	
