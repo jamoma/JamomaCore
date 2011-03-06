@@ -374,7 +374,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		

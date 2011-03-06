@@ -722,7 +722,7 @@ void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 				p = 0;
 			
 			if (p == priority) {
-				anItemKeysSorted->append(new TTValue(key));
+				anItemKeysSorted->append(TTValue(key));
 				nbItemSorted++;
 			}
 			
@@ -751,7 +751,7 @@ void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 			p = 0;
 		
 		if (p == 0) {
-			anItemKeysSorted->append(new TTValue(key));
+			anItemKeysSorted->append(TTValue(key));
 			nbItemSorted++;
 		}
 	}
