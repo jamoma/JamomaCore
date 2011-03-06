@@ -69,7 +69,7 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 	
 	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	msg);	// use msg member to store format
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	nmspc_get_format,	nmspc_set_format);
-	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"none umenu umenu_prefix jit.cellblock");
+	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"none umenu umenu_prefix jit.cellblock coll");
 
 	
 }
@@ -135,7 +135,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue		v;
 	TTSymbolPtr	lookfor, address;
 	SymbolPtr	s;
-	Atom		a[1];
+	Atom		a[1], c[2];
 	
 	// Ask Explorer object
 	x->wrappedObject->getAttributeValue(TT("lookfor"), v);
@@ -206,6 +206,32 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	// JIT CELLBLOCK FORMAT
 	if (x->msg == gensym("jit.cellblock")) {
 		object_error((ObjectPtr)x, "sorry the jit.cellblock format is not available");
+		return;
+	}
+	
+	// COLL FORMAT
+	if (x->msg == gensym("coll")) {
+		
+		// clear coll
+		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
+		
+		// fill coll
+		// output argv
+		for (long i=0; i<argc; i++) {
+			s = atom_getsym(argv+i);
+			
+			if(lookfor == kTTSym_attributes)
+				s = jamoma_TTName_To_MaxName(TT(s->s_name));
+			
+			if (lookfor == kTTSym_instances && s == _sym_nothing)
+				s = gensym("_");
+			if (s) {
+				atom_setlong(c, i+1);
+				atom_setsym(c+1, s);
+				outlet_anything(x->outlets[data_out], _sym_store, 2, c);
+			}
+		}
+		
 		return;
 	}
 	
