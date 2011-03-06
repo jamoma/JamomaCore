@@ -210,7 +210,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 	
 	// NO FORMAT
-	outlet_anything(x->outlets[data_out], msg, argc, argv);
+	outlet_atoms(x->outlets[data_out], argc, argv);
 }
 
 void nmspc_bang(TTPtr self)
