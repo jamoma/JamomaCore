@@ -296,6 +296,7 @@ TTErr TTExplorer::WriteAsOpml(const TTValue& value)
 	// get the mAddress node
 	getDirectoryFrom(this)->getTTNodeForOSC(mAddress, &aNode);
 	if (aNode) writeNode(anOpmlHandler, aNode);
+	else writeNode(anOpmlHandler, getDirectoryFrom(this)->getRoot());
 
 	return kTTErrNone;
 }
@@ -304,9 +305,10 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 {
 	TTSymbolPtr nameInstance, attributeName;
 	TTObjectPtr anObject;
-	TTValue		attributeNameList;
+	TTValue		attributeNameList, v;
 	TTList		nodeList;
 	TTNodePtr	aChild;
+	TTString	aString;
 	
 	// Start opml node
 	xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
@@ -324,12 +326,23 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 		{
 			attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
 			
-			// TODO : write attribute as xml attribute and filter which attribute to write depending the object type
-			
-			// as an element
-			xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
-			xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST attributeName->getCString());
-			xmlTextWriterEndElement(anOpmlHandler->mWriter);
+			// Filter object type : Data, Viewer and Container
+			if (anObject->getName() == TT("Data") || anObject->getName() == TT("View") || anObject->getName() == TT("Container")) {
+				
+				// Filter atribute names
+				if (attributeName != kTTSym_value && attributeName != kTTSym_address && attributeName != TT("content")) {
+					
+					anObject->getAttributeValue(attributeName, v);
+					
+					// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
+					ToAppName(v);
+					
+					v.toString();
+					v.get(0, aString);
+					
+					xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST attributeName->getCString(), BAD_CAST aString.data());
+				}
+			}
 		}
 		
 		// write messages ?
