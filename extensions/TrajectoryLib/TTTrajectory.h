@@ -20,10 +20,10 @@ class TTTrajectory : TTAudioObject {
 protected:
 	TTAudioObjectPtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
-	TTUInt8					mDimension;
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
 	TTAudioObjectPtr		mPhasors[3];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
+//	TTFloat64				mDimension;
 	
 public:
 	
@@ -32,7 +32,7 @@ public:
 		TTSymbolPtr newType = newValue;
 		TTErr		err = kTTErrNone;
 		
-		// if the type didn't change, then don't change the filter
+		// if the type didn't change, then don't change the trajectory
 		if (newType == mType)
 			return kTTErrNone;
 		
@@ -74,8 +74,8 @@ public:
 	{	
 		mDimension = newValue;
 		return mActualTrajectoryObject->setAttributeValue(TT("dimension"), mDimension);
-	}*/
-	
+	}
+*/	
 	TTErr setA(const TTValue& newValue)
 	{	
 		mA = newValue;
@@ -117,13 +117,7 @@ public:
 		return mActualTrajectoryObject->setAttributeValue(TT("deltaZ"), mDeltaZ);
 	}
 	
-		
-/*	TTErr clear()
-	{
-		return mActualTrajectoryObject->sendMessage(TT("clear"));
-	}
-	
-	
+/*	
 	TTErr mode(const TTValue& newMode)
 	{
 		if (mActualFilterObject)
