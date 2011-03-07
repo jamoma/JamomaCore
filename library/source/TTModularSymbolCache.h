@@ -25,9 +25,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToTTName;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspace;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitActive;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitDisplay;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitNative;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnit;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_description;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;

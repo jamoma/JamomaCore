@@ -19,17 +19,11 @@
  
 TODO LIST : 
  
- -> type							DONE (make some test)
- -> RangeBounds						How to declare this attribute in order to see 2 values ?
- -> setDataspace					DONE (make some test)
- -> Data, Message, Return :	add an attribute to deal with three cases					(see in several place...)
+ -> setDataspace					have one unit only
  -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTData::clipValue method)
  -> handleProperty :				used TTObject message mecanism...							(see in TTData::Command method)
- -> rampDataNames :			relative to handleProperty									(see in TTData::setRampFunction)
- -> inc :							DONE
- -> dec :							DONE
+ -> rampDataNames :					relative to handleProperty									(see in TTData::setRampFunction)
  -> dump :							TODO
- 
  */				
 
 #ifdef TTDATA_RAMPLIB
@@ -69,9 +63,8 @@ private:
 #endif
 	
 	TTSymbolPtr		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none')
-	TTSymbolPtr		mDataspaceUnitNative;		///< ATTRIBUTE: The native (model/algorithm) unit within the dataspace.
-	TTSymbolPtr		mDataspaceUnitActive;		///< ATTRIBUTE: The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
-	TTSymbolPtr		mDataspaceUnitDisplay;		///< ATTRIBUTE: The display unit within the dataspace -- sent to/from the inlet/outlet of this instance
+	TTSymbolPtr		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
+	TTObjectPtr		mDataspaceConverter;		///< Performs conversions from input unit to the data unit
 	
 	TTSymbolPtr		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode
@@ -87,12 +80,6 @@ private:
 	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
 	TTHashPtr		mRampDataNames;				///< Cache of data names, mapped from lowercase (Max) to uppercase (TT)
 #endif
-	
-	TTObjectPtr		dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
-	TTObjectPtr		dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
-	TTObjectPtr		dataspace_active2display;	///< Performs conversion from the active input format to the format used by the data display
-	TTObjectPtr		dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
-	TTSymbolPtr		mUnitOverride;				///< An internal unit conversion that is used temporarily when the data's value is set with a non-active unit.
 
 	/** Reset value to default value */
 	TTErr	Reset();
@@ -163,17 +150,11 @@ private:
 	TTErr	setRampFunction(const TTValue& value);
 #endif
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mDataspace attribute. */
 	TTErr	setDataspace(const TTValue& value);
 	
-	/**	Setter for m attribute. */
-	TTErr	setDataspaceUnitNative(const TTValue& value);
-	
-	/**	Setter for m attribute. */
-	TTErr	setDataspaceUnitActive(const TTValue& value);
-	
-	/**	Setter for m attribute. */
-	TTErr	setDataspaceUnitDisplay(const TTValue& value);
+	/**	Setter for mDataspaceUnit attribute. */
+	TTErr	setDataspaceUnit(const TTValue& value);
 	
 	/**  needed to be handled by a TTTextHandler */
 	TTErr WriteAsText(const TTValue& value);

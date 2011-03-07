@@ -26,9 +26,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToTTName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspace;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitActive;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitDisplay;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitNative;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnit;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_description;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
@@ -106,9 +104,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_created					= TT("created");
 	
 	kTTSym_dataspace				= TT("dataspace");
-	kTTSym_dataspaceUnitActive		= TT("dataspaceUnitActive");
-	kTTSym_dataspaceUnitDisplay		= TT("dataspaceUnitDisplay");
-	kTTSym_dataspaceUnitNative		= TT("dataspaceUnitNative");
+	kTTSym_dataspaceUnit			= TT("dataspaceUnit");
 	kTTSym_decimal					= TT("decimal");
 	kTTSym_description				= TT("description");
 	kTTSym_destroyed				= TT("destroyed");

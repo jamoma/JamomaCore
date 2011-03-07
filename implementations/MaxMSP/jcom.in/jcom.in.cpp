@@ -231,7 +231,7 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			aData->setAttributeValue(kTTSym_rangeBounds, v);
 			aData->setAttributeValue(kTTSym_description, TT(inDescription->s_name));
 			aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
-			aData->setAttributeValue(kTTSym_dataspaceUnitActive, TT("linear"));
+			aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
 		}
 		
 		// launch the clock to update amplitude regulary

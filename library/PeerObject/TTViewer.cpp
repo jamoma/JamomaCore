@@ -14,12 +14,16 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
-mAttribute(kTTSym_value), // TODO : set kTTSymEmpty because a Viewer can bind on any object (not only data)
 mDescription(kTTSymEmpty),
 mType(kTTSymEmpty),
 mTag(kTTSymEmpty),
 mSelected(YES),
 mFreeze(NO),
+mDataspace(kTTSym_none),
+mDataspaceUnit(kTTSym_none),
+mDataspaceConverter(NULL),
+mDataspaceObserver(NULL),
+mDataspaceUnitObserver(NULL),
 mEnable(YES),
 mReturnedValue(kTTValNONE),
 mApplication(NULL),
@@ -34,12 +38,16 @@ mReturnValueCallback(NULL)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttributeWithSetter(Attribute, kTypeSymbol);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	addAttribute(Tag, kTypeSymbol);
 	addAttribute(Selected, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
+	
+	addAttribute(Dataspace, kTypeSymbol);
+	addAttributeProperty(dataspace, readOnly, YES);
+	addAttributeWithSetter(DataspaceUnit, kTypeSymbol);
+	
 	addAttributeWithSetter(Enable, kTypeBoolean);
 	
 	addAttributeWithSetter(ReturnedValue, kTypeLocalValue);
@@ -50,6 +58,8 @@ mReturnValueCallback(NULL)
 	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);
+	
+	TTObjectInstantiate(TT("dataspace"),  &mDataspaceConverter, kTTValNONE);
 }
 
 TTViewer::~TTViewer() // TODO : delete things...
@@ -58,6 +68,15 @@ TTViewer::~TTViewer() // TODO : delete things...
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 	}
+	
+	if (mDataspaceConverter)
+		TTObjectRelease(TTObjectHandle(&mDataspaceConverter));
+	
+	if (mDataspaceObserver)
+		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
+	
+	if (mDataspaceUnitObserver)
+		TTObjectRelease(TTObjectHandle(&mDataspaceUnitObserver));
 	
 	if (mSender)
 		TTObjectRelease(TTObjectHandle(&mSender));
@@ -72,26 +91,6 @@ TTErr TTViewer::setAddress(const TTValue& value)
 	
 	// if it binds on an attribute : refresh
 	if (!bind())
-		if (mAttribute != kTTSymEmpty)
-			Refresh();
-	
-	return kTTErrNone;
-}
-
-TTErr TTViewer::setAttribute(const TTValue& value)
-{
-	mAttribute = value;
-	
-	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
-	TTValue v = TTValue(mAttribute);
-	ToTTName(v);
-	v.get(0, &mAttribute);
-	
-	if (mSender && mReceiver) {
-		mSender->setAttributeValue(TT("attribute"), mAttribute);
-		mReceiver->setAttributeValue(TT("attribute"), mAttribute);
-	}
-	else if (!bind())
 		Refresh();
 	
 	return kTTErrNone;
@@ -111,7 +110,7 @@ TTErr TTViewer::bind()
 	else
 		return kTTErrGeneric;
 	
-	args.append(mAttribute);
+	args.append(kTTSym_value);
 
 	// Replace a TTSender object
 	if (mSender)
@@ -140,6 +139,69 @@ TTErr TTViewer::bind()
 
 	mReceiver = NULL;						// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
+	
+	observeDataspace();
+	observeDataspaceUnit();
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewer::observeDataspace()
+{
+	TTValue			args;
+	TTObjectPtr		returnDataspaceCallback;
+	TTValuePtr		returnDataspaceBaton;
+	
+	if (mDataspaceObserver)
+		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
+	
+	// Make a TTReceiver object
+	args.append(mApplication);
+	args.append(mAddress);
+	args.append(kTTSym_dataspace);
+	args.append(NULL);
+	
+	returnDataspaceCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &returnDataspaceCallback, kTTValNONE);
+	returnDataspaceBaton = new TTValue(TTPtr(this));
+	returnDataspaceCallback->setAttributeValue(kTTSym_baton, TTPtr(returnDataspaceBaton));
+	returnDataspaceCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerDataspaceCallback));
+	args.append(returnDataspaceCallback);
+	
+	mDataspaceObserver = NULL;
+	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mDataspaceObserver), args);
+	
+	mDataspaceObserver->sendMessage(kTTSym_Get);
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewer::observeDataspaceUnit()
+{
+	TTValue			args;
+	TTObjectPtr		returnDataspaceUnitCallback;
+	TTValuePtr		returnDataspaceUnitBaton;
+	
+	if (mDataspaceUnitObserver)
+		TTObjectRelease(TTObjectHandle(&mDataspaceUnitObserver));
+	
+	// Make a TTReceiver object
+	args.append(mApplication);
+	args.append(mAddress);
+	args.append(kTTSym_dataspaceUnit);
+	args.append(NULL);
+	
+	returnDataspaceUnitCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &returnDataspaceUnitCallback, kTTValNONE);
+	returnDataspaceUnitBaton = new TTValue(TTPtr(this));
+	returnDataspaceUnitCallback->setAttributeValue(kTTSym_baton, TTPtr(returnDataspaceUnitBaton));
+	returnDataspaceUnitCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerDataspaceUnitCallback));
+	args.append(returnDataspaceUnitCallback);
+	
+	mDataspaceUnitObserver = NULL;
+	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mDataspaceUnitObserver), args);
+	
+	mDataspaceUnitObserver->sendMessage(kTTSym_Get);
 	
 	return kTTErrNone;
 }
@@ -186,13 +248,36 @@ TTErr TTViewer::Refresh()
 
 TTErr TTViewer::Send(TTValue& valueToSend)
 {
-	// TODO : add a dataspace for the Viewer
-	//aViewer->processDataspace(v);
-	
-	if (mSender)
+	if (mSender) {
+		
+		// append view unit
+		if (mDataspaceUnit != kTTSym_none)
+			valueToSend.append(mDataspaceUnit);
+		
 		return mSender->sendMessage(kTTSym_Send, valueToSend);
+	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTViewer::setDataspaceUnit(const TTValue& value)
+{
+	TTValue n = value;				// use new value to protect the attribute
+	mDataspaceUnit = value;
+	
+	if (mDataspaceConverter)
+		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
+	
+	// TODO : notifyObservers(kTTSym_dataspaceUnit, n);
+	return kTTErrNone;
+}
+
+TTErr TTViewer::convertUnit(TTValue& value)
+{
+	if (mDataspaceConverter)
+		return mDataspaceConverter->sendMessage(TT("convert"), value);
+	
+	return kTTErrNone;
 }
 
 #if 0
@@ -224,8 +309,7 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 			// use last data
 			v = aViewer->mReturnedValue;
 			
-		// TODO : add a dataspace for the Viewer
-		//aViewer->processDataspace(v);
+		aViewer->convertUnit(v);
 		
 		// return value
 		if (aViewer->mReturnValueCallback) {
@@ -233,6 +317,49 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 			aViewer->setReturnedValue(v);
 		}
 	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewerDataspaceCallback(TTPtr baton, TTValue& data)
+{
+	TTViewerPtr aViewer;
+	TTValuePtr	b;
+	TTValue		v;
+	TTErr		err;
+	
+	// unpack baton (a TTViewer)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aViewer);
+	
+	aViewer->mDataspace = data;
+	
+	if (aViewer->mDataspaceConverter) {
+		aViewer->mDataspaceConverter->setAttributeValue(TT("dataspace"), aViewer->mDataspace);
+		
+		err = aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
+		if (err) {
+			aViewer->mDataspaceConverter->getAttributeValue(TT("outputUnit"), v);
+			v.get(0, &aViewer->mDataspaceUnit);
+			aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data)
+{
+	TTViewerPtr aViewer;
+	TTValuePtr	b;
+	TTValue		v;
+	
+	// unpack baton (a TTViewer)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aViewer);
+	
+	if (aViewer->mDataspaceConverter)
+		aViewer->mDataspaceConverter->setAttributeValue(TT("inputUnit"), data);
 	
 	return kTTErrNone;
 }
