@@ -19,28 +19,14 @@ class TTTrajectory : TTAudioObject {
 	
 protected:
 	TTAudioObjectPtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
-//	TTFloat64				mFrequency;				///< The center or cutoff frequency of the filter
-//	TTFloat64				mQ;						///< The width of the filter
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
-//	TTUInt8					mDimension;
+	TTUInt8					mDimension;
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
 	TTAudioObjectPtr		mPhasors[3];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
 	
 public:
 	
-/*	TTErr setFrequency(const TTValue& newValue)
-	{	
-		mFrequency = newValue;
-		return mActualFilterObject->setAttributeValue(TT("frequency"), mFrequency);
-	}
-	
-	TTErr setQ(const TTValue& newValue)
-	{	
-		mQ = newValue;
-		return mActualFilterObject->setAttributeValue(TT("q"), mQ);
-	}
-*/	
 	TTErr setType(const TTValue& newValue)
 	{	
 		TTSymbolPtr newType = newValue;
@@ -72,6 +58,16 @@ public:
 		v.set(0, TT("trajectory"));
 		v.set(1, TT("audio")); 
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
+	}
+	
+	TTErr reset()
+	{
+		TTValue v;
+		v.set(0,0.0);
+		mPhasors[0]->setAttributeValue(TT("phase"),v);
+		mPhasors[1]->setAttributeValue(TT("phase"),v);
+		mPhasors[2]->setAttributeValue(TT("phase"),v);
+		return kTTErrNone;
 	}
 	
 /*	TTErr setDimension(const TTValue& newValue)

@@ -16,7 +16,7 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-{
+{   //addAttributeWithSetter(Dimension,	kTypeUInt8);
 	setProcessMethod(processAudio);
 //	setCalculateMethod(calculateValue);
 }
@@ -45,21 +45,24 @@ TTErr LinearTrajectory::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	//if (inputs->getSignal(0).getNumChannelsAsInt() == 2)
 	//if (mDimension == 2)
 		return processAudioFunction2D(inputs, outputs);
-//else if (mDimension == 3) 
+//else //(mDimension == 3) 
 //	return processAudioFunction3D(inputs, outputs);
 
-//TODO: how do I initialize the output signal to have 2 (2D) or 3 (3D) Sample Vectors ?
-		//return processAudioFunction2D(inputs, outputs);
-	//else if (inputs->getSignal(0).getNumChannelsAsInt() > 2) 
-	//	return processAudioFunction3D(inputs, outputs);
 }
 
 TTErr LinearTrajectory::processAudioFunction2D(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {	
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
 	
+	if (numOutputChannels != 2) {
+		TTValue v = 2;		
+		out.setMaxNumChannels(v);
+		out.setNumChannels(v);		
+	}
+		
 	TTAudioSignal&		in0 = inputs->getSignal(0);
 	TTAudioSignal&		in1 = inputs->getSignal(1);
-	TTAudioSignal&		out = outputs->getSignal(0);
 	TTUInt16			 vs = in0.getVectorSizeAsInt();
 	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
@@ -68,18 +71,27 @@ TTErr LinearTrajectory::processAudioFunction2D(TTAudioSignalArrayPtr inputs, TTA
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
 
 	for (int i=0; i<vs; i++) {	
-		outSampleX[i] = inSampleX[i];
-		outSampleY[i] = inSampleY[i];
+		outSampleX[i] = (2.0*inSampleX[i])-1.0;
+		outSampleY[i] = (2.0*inSampleY[i])-1.0;
 	}
 	return kTTErrNone;
 }
 
 TTErr LinearTrajectory::processAudioFunction3D(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	
+	if (numOutputChannels != 3) {
+		TTValue v = 3;		
+		out.setMaxNumChannels(v);
+		out.setNumChannels(v);		
+	}
+	
 	TTAudioSignal&		in0 = inputs->getSignal(0);
 	TTAudioSignal&		in1 = inputs->getSignal(1);
 	TTAudioSignal&		in2 = inputs->getSignal(2);
-	TTAudioSignal&		out = outputs->getSignal(0);
+	
 	TTUInt16			vs = in0.getVectorSizeAsInt();
 	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
@@ -90,9 +102,9 @@ TTErr LinearTrajectory::processAudioFunction3D(TTAudioSignalArrayPtr inputs, TTA
 	TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];
 
 	for (int i=0; i<vs; i++) {	
-		outSampleX[i] = inSampleX[i];
-		outSampleY[i] = inSampleY[i];			
-		outSampleZ[i] = inSampleZ[i];	
+		outSampleX[i] = (2.0*inSampleX[i])-1.0;
+		outSampleY[i] = (2.0*inSampleY[i])-1.0;			
+		outSampleZ[i] = (2.0*inSampleZ[i])-1.0;
 	}
 	return kTTErrNone;
 }

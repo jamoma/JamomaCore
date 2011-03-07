@@ -18,7 +18,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mActualTrajectoryObject(NULL),
 	mType(NULL),
 	mPhasorOutputSignals(NULL)
-//	mDimension(2)
+	//mDimension(2)
 {   
 	mPhasors[0] = NULL;
 	mPhasors[1] = NULL;
@@ -52,7 +52,7 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addAttributeWithSetter(Type, kTypeSymbol);	
 	addMessageWithArgument(getTypes);
-//	addMessage(clear);
+	addMessage(reset);
 //	setAttributeValue(kTTSym_maxNumChannels, arguments);
 //	setAttributeValue(TT("dimension"),	2);
 	setAttributeValue(TT("type"), TT("line"));
