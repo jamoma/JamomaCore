@@ -18,7 +18,7 @@
 TT_AUDIO_CONSTRUCTOR
 {   addAttribute(A,				kTypeFloat64);
 	
-	setAttributeValue(TT("a"),				0.0);
+	setAttributeValue(TT("a"),	0.0);
 
 	
 	setProcessMethod(processAudio);
@@ -30,13 +30,6 @@ Rose2D::~Rose2D()
 {
 	;
 }
-
-/*TTErr Rose2D::setA(const TTValue& newValue)
-{
-	mA = newValue;
-	return kTTErrNone;
-}*/
-
 
 //TTErr Rose2D::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 //{
