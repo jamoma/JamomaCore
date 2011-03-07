@@ -20,6 +20,8 @@
  */
 class WindowFunction : TTAudioObject {
 	TTCLASS_SETUP(WindowFunction)
+	
+	friend class KaiserWindow;				// need this for the unit testing
 
 	TTSymbolPtr			mFunction;			///< Name of the window function to use
 	TTAudioObjectPtr	mFunctionObject;	///< The actual window function object for mFunction
@@ -47,6 +49,9 @@ class WindowFunction : TTAudioObject {
 	
 	/**	return a list of all the available window shapes	*/
 	TTErr getFunctions(TTValue& listOfWindowTypesToReturn);
+
+	/**	set an attribute of the internal window object (e.g. the 'beta' parameter to the Kaiser function)	*/
+	TTErr setParameter(const TTValue& aParameterValueForTheFunction);
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

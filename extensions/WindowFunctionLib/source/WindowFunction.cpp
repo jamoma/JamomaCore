@@ -24,6 +24,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Padding,		kTypeUInt32);
 	
 	addMessageWithArgument(getFunctions);
+	addMessageWithArgument(setParameter);
 	
 	setAttributeValue(TT("function"), TT("rectangular"));
 	setAttributeValue(TT("mode"), TT("lookup"));
@@ -45,6 +46,21 @@ TTErr WindowFunction::setFunction(const TTValue& function)
 	if (!err)
 		err = fill();
 	return err;
+}
+
+
+TTErr WindowFunction::setParameter(const TTValue& aParameterValueForTheFunction)
+{
+	if (aParameterValueForTheFunction.getSize() < 2)
+		return kTTErrWrongNumValues;
+	else {
+		TTSymbolPtr parameterName = aParameterValueForTheFunction;
+		TTValue		v;
+		
+		v.copyFrom(aParameterValueForTheFunction, 1);
+		return mFunctionObject->setAttributeValue(parameterName, v);
+	}
+
 }
 
 
