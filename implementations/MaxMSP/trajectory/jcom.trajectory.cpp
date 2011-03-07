@@ -11,9 +11,14 @@
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
+	
+	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
+	MaxAudioGraphWrappedClassPtr			c = NULL;
+		
 	TTAudioGraphInit();
-	wrapAsMaxAudioGraph(TT("trajectory"), "jcom.trajectory≈", NULL);
-	wrapAsMaxAudioGraph(TT("trajectory"), "trajectory≈", NULL);
+	options->append(TT("generator"), kTTBoolYes);
+	wrapAsMaxAudioGraph(TT("trajectory"), "jcom.trajectory≈", &c, options);
+	wrapAsMaxAudioGraph(TT("trajectory"), "trajectory≈", &c, options);
 	return 0;
 }
 
