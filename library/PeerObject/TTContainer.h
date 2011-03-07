@@ -19,7 +19,7 @@
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTContainer : public TTObject
+class TTMODULAR_EXPORT TTContainer : public TTDataObject
 {
 	TTCLASS_SETUP(TTContainer)
 	
@@ -36,7 +36,7 @@ private:
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
 	TTHashPtr			mObjectsObserversCache;			///< a hast table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
-	TTObjectPtr			mObserver;						///< a life cycle observer
+	TTCallbackPtr		mObserver;						///< a life cycle observer
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop 
 	
 	/** */

@@ -23,7 +23,8 @@ mReturnValueCallback(NULL),
 mLookforObjectCriteria(NULL),
 mTempNode(NULL),
 mTempName(kTTSymEmpty),
-mResult(NULL)
+mResult(NULL),
+mLastResult(kTTValNONE)
 {
 	arguments.get(0, (TTPtr*)&mApplication);
 	TT_ASSERT("Application passed to TTPreset is not NULL", mApplication);
@@ -33,13 +34,16 @@ mResult(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Lookfor, kTypeSymbol);
-	addAttribute(Equal, kTypeLocalValue);
-	addAttribute(Different, kTypeLocalValue);
+	// TODO : addAttribute(Equal, kTypeLocalValue);
+	// TODO : addAttribute(Different, kTypeLocalValue);
 	
 	addMessage(Explore);
 	
-	addMessageWithArgument(CriteriaAdd);
+	addMessageWithArgument(CriteriaInclude);
 	addMessage(CriteriaClear);
+	
+	addMessageWithArgument(WriteAsOpml);
+	addMessageProperty(WriteAsOpml, hidden, YES);
 	
 	mLookforObjectCriteria = new TTHash();
 	mResult = new TTHash();
@@ -55,13 +59,17 @@ TTExplorer::~TTExplorer()
 	else
 		addressToObserve = mAddress;
 	
-	if (mObserver && addressToObserve != kTTSymEmpty) {
-		getDirectoryFrom(this)->removeObserverForNotifications(addressToObserve, *mObserver);
+	if (mObserver) {
+		if (addressToObserve != kTTSymEmpty)
+			getDirectoryFrom(this)->removeObserverForNotifications(addressToObserve, *mObserver);
+		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
-	if (mReturnValueCallback)
+	if (mReturnValueCallback) {
+		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	}
 	
 	CriteriaClear();
 	delete mLookforObjectCriteria;
@@ -90,6 +98,9 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	
 	// change the address
 	mAddress = value;
+	
+	// add Slash before to be sure we have one
+	joinOSCAddress(S_SEPARATOR, mAddress, &mAddress);
 	
 	// change internal values
 	splitOSCAddress(mAddress, &mTempParent, &mTempName, &inst, &attr);
@@ -131,6 +142,7 @@ TTErr TTExplorer::Explore()
 	TTErr		err;
 	
 	mResult->clear();
+	mLastResult = kTTValNONE;
 	mTempNode = NULL;
 	
 	// bind the right node
@@ -168,7 +180,7 @@ TTErr TTExplorer::Explore()
 			// if mLookforObjectCriteria table is empty and mLookfor != kTTSymEmpty
 			// use mLookfor as an entry for mLookforObjectCriteria table
 			if (mLookforObjectCriteria->isEmpty() && mLookfor != kTTSymEmpty)
-				CriteriaAdd(mLookfor);
+				CriteriaInclude(mLookfor);
 			
 			getDirectoryFrom(this)->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
 			
@@ -197,7 +209,10 @@ TTErr TTExplorer::Explore()
 		v.clear();
 		if (mReturnValueCallback) {
 			mResult->getKeys(v);
-			mReturnValueCallback->notify(v);
+			if (!(v == mLastResult)) {
+				mReturnValueCallback->notify(v);
+				mLastResult = v;
+			}
 		}
 		
 	}
@@ -205,7 +220,7 @@ TTErr TTExplorer::Explore()
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::CriteriaAdd(const TTValue& value)
+TTErr TTExplorer::CriteriaInclude(const TTValue& value)
 {
 	TTUInt16	s;
 	TTSymbolPtr	objectType, attributeName;
@@ -271,155 +286,64 @@ TTErr TTExplorer::CriteriaClear()
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::WriteAsXml(const TTValue& value)
+TTErr TTExplorer::WriteAsOpml(const TTValue& value)
 {
-	TTXmlHandlerPtr		aXmlHandler;
-	/*
-	ItemPtr				anItem;
-	TTValue				hk, hsk, v, a;
-	TTSymbolPtr			key, skey;
-	TTString			aString;
-	TTUInt8				i, j;
-	 */
+	TTOpmlHandlerPtr	anOpmlHandler;
+	TTNodePtr			aNode;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
-	/*
-	// Write name attribute
-	xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST mName->getCString());
-	
-	// Write comment attribute
-	xmlTextWriterWriteFormatComment(aXmlHandler->mWriter, "%s", BAD_CAST mComment->getCString());
-	
-	// Write Items
-	mItemList->getKeys(hk);
-	for (i=0; i<mItemList->getSize(); i++) {
-		
-		hk.get(i,(TTSymbolPtr*)&key);
-		mItemList->lookup(key, v);
-		v.get(0, (TTPtr*)&anItem);
-		
-		// Start an Item by the type of his object
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST anItem->object->getName()->getCString());
-		
-		// Write address attribute
-		xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST key->getCString());
-		
-		// Write the state
-		anItem->state->getKeys(hsk);
-		for (j=0; j<anItem->state->getSize(); j++) {
-			hsk.get(j,(TTSymbolPtr*)&skey);
-			anItem->state->lookup(skey, a);
-			
-			// Don't write kTTValNONE
-			if (a == kTTValNONE)
-				continue;
-			
-			a.toString();
-			a.get(0, aString);
-			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST skey->getCString(), BAD_CAST aString.data());
-		}
-		
-		// to -- we don't need to write type and priority attribute anymore
-		// because the fromSting() method automatically parse the type 
-		// while reading and each item are sorted by order of priority (TODO)
-		
-		// maybe we could add extra data like : ramp time, unit, ... ?
-		
-		// Close Item
-		xmlTextWriterEndElement(aXmlHandler->mWriter);
-	}
-	 */
-	
+	value.get(0, (TTPtr*)&anOpmlHandler);
+
+	// get the mAddress node
+	getDirectoryFrom(this)->getTTNodeForOSC(mAddress, &aNode);
+	if (aNode) writeNode(anOpmlHandler, aNode);
+
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::ReadFromXml(const TTValue& value)
+void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 {
-	TTXmlHandlerPtr		aXmlHandler = NULL;
-	/*
-	TTSymbolPtr			absAddress, attributeName;
-	ItemPtr				anItem;
-	TTNodePtr			aNode;
-	TTValue				v, attributeToStore;
-	TTUInt8				i;
-	 */
+	TTSymbolPtr nameInstance, attributeName;
+	TTObjectPtr anObject;
+	TTValue		attributeNameList;
+	TTList		nodeList;
+	TTNodePtr	aChild;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
-	if (!aXmlHandler)
-		return kTTErrGeneric;
-	/*
-	// Switch on the name of the XML node
+	// Start opml node
+	xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
 	
-	// Starts reading
-	if (aXmlHandler->mXmlNodeName == TT("start")) {
-		Clear();
-		return kTTErrNone;
-	}
+	// Write address attribute
+	mergeOSCAddress(&nameInstance, kTTSymEmpty, aNode->getName(), aNode->getInstance(), kTTSymEmpty);
+	xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance->getCString());
 	
-	// Ends reading
-	if (aXmlHandler->mXmlNodeName == TT("end")) {
-		// do nothing
-		return kTTErrNone;
-	}
-	
-	// Comment node
-	if (aXmlHandler->mXmlNodeName == TT("#comment"))
-		return kTTErrNone;
-	
-	// Text node (are only \n because of indentation)
-	if (aXmlHandler->mXmlNodeName == TT("#text")) 
-		return kTTErrNone;
-
-	// Any other nodes : 
-	// the first time a new type is parsed : add an entry in the toStore table and fill attributes then create items
-	// else only create items
-
-	// Get address attribute
-	if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "address") == 1) {
+	if (anObject = aNode->getObject()) {
+		
+		// write attributes
+		anObject->getAttributeNames(attributeNameList);
+		
+		for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
+		{
+			attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
 			
-		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-		if (v.getType() == kTypeSymbol) {
-			v.get(0, &mCurrentItem);
+			// TODO : write attribute as xml attribute and filter which attribute to write depending the object type
 			
-			// Fill the toStore table
-			// If the entry doesn't exist or is empty
-			mToStore->lookup(aXmlHandler->mXmlNodeName, attributeToStore);
-			if (attributeToStore.getSize() == 0) {
-				while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
-					
-					// Get attribute name
-					aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
-					if (v.getType() == kTypeSymbol) {
-						v.get(0, &attributeName);
-						attributeToStore.append(attributeName);
-					}
-				}
-				mToStore->append(aXmlHandler->mXmlNodeName, attributeToStore);
-			}
-				
-			// if the item doesn't exist create it 
-			if (mItemList->lookup(mCurrentItem, v)) {
-				
-				makeAbsoluteAddress(mCurrentItem, &absAddress);
-				mDirectory->getTTNodeForOSC(absAddress, &aNode);
-				anItem = new Item(aNode);
-				mItemList->append(mCurrentItem, TTValue((TTPtr)anItem));
-				
-				// fill the item
-				for (i=0; i<attributeToStore.getSize(); i++) {
-					attributeToStore.get(i, &attributeName);
-					
-					if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST attributeName->getCString()) == 1) {
-						
-						aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-						anItem->state->append(attributeName, v);
-					}
-				}
-			}
+			// as an element
+			xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
+			xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST attributeName->getCString());
+			xmlTextWriterEndElement(anOpmlHandler->mWriter);
 		}
+		
+		// write messages ?
 	}
-	*/
-	return kTTErrNone;
+	
+	aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+	for (nodeList.begin(); nodeList.end(); nodeList.next())
+	{
+		nodeList.current().get(0, (TTPtr*)&aChild);
+		writeNode(anOpmlHandler, aChild);
+	}
+	
+	// Close opml node
+	xmlTextWriterEndElement(anOpmlHandler->mWriter);
 }
 
 #if 0
@@ -519,7 +443,10 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	// Return the value result back
 	if (anExplorer->mReturnValueCallback) {
 		anExplorer->mResult->getKeys(v);
-		anExplorer->mReturnValueCallback->notify(v);
+		if (!(v == anExplorer->mLastResult)) {
+			anExplorer->mReturnValueCallback->notify(v);
+			anExplorer->mLastResult = v;
+		}
 	}
 	
 	return kTTErrNone;

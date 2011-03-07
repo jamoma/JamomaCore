@@ -11,9 +11,11 @@
 #include "jpatcher_api.h"
 
 #define data_out 0
+#define dump_out 1
 
 // This is used to store extra data
 typedef struct extra {
+	TTBoolean	attr_load_default;
 	TTPtr		filewatcher;		// a preset filewather
 	char*		text;				// text used by /getstate window
 	TTUInt32	textSize;			// how many chars are alloc'd to text
@@ -33,15 +35,22 @@ void		preset_filechanged(TTPtr self, char *filename, short path);
 
 void		preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		preset_read_again(TTPtr self);
+void		preset_doread_again(TTPtr self);
 void		preset_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		preset_write_again(TTPtr self);
+void		preset_dowrite_again(TTPtr self);
 void		preset_default(TTPtr self);
 void		preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		preset_edit(TTPtr self);
 void		preset_edclose(TTPtr self, char **text, long size);
 
-void		preset_build(TTPtr self, SymbolPtr address);
+void		preset_subscribe(TTPtr self, SymbolPtr relativeAddress);
+
+t_max_err	preset_get_load_default(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
+t_max_err	preset_set_load_default(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -70,27 +79,40 @@ void WrapTTPresetManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)preset_read,					"read",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)preset_write,					"write",				A_GIMME, 0);
+	
+	class_addmethod(c->maxClass, (method)preset_read_again,				"read/again",			0);
+	class_addmethod(c->maxClass, (method)preset_write_again,			"write/again",			0);
+	
+	CLASS_ATTR_LONG(c->maxClass,		"load_default",	0,		WrappedModularInstance,	extra);
+	CLASS_ATTR_DEFAULT(c->maxClass,		"load_default",	0,		"1")
+	CLASS_ATTR_ACCESSORS(c->maxClass,	"load_default",			preset_get_load_default,	preset_set_load_default);
+	CLASS_ATTR_STYLE(c->maxClass,		"load_default",	0,		"onoff");
 }
 
 void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					address;
+	SymbolPtr					relativeAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
-	// A Modular object needs an address argument
+	// possible relativeAddress
 	if (attrstart && argv) 
-		address = atom_getsym(argv);
+		relativeAddress = atom_getsym(argv);
 	else
-		address = _sym_nothing;
+		relativeAddress = _sym_nothing;
 	
 	// create the preset manager
 	jamoma_presetManager_create((ObjectPtr)x, &x->wrappedObject);
 	
-	// The following must be deferred because we have to interrogate our box,
-	// and our box is not yet valid until we have finished instantiating the object.
-	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)preset_build, address, 0, 0);
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	EXTRA->attr_load_default = true;
+	EXTRA->filewatcher = NULL;
+	EXTRA->textSize = 0;
+	EXTRA->textEditor = NULL;
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -99,14 +121,10 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare Internals hash to store XmlHanler and TextHandler object
 	x->internals = new TTHash();
 	
-	// Prepare extra data
-	x->extra = (t_extra*)malloc(sizeof(t_extra));
-	EXTRA->filewatcher = NULL;
-	EXTRA->textSize = 0;
-	EXTRA->textEditor = NULL;
-	
-	// handle attribute args
-	attr_args_process(x, argc, argv);
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)preset_subscribe, relativeAddress, 0, 0);
 }
 
 void WrappedPresetManageClass_free(TTPtr self)
@@ -122,7 +140,7 @@ void WrappedPresetManageClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void preset_build(TTPtr self, SymbolPtr address)
+void preset_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
@@ -131,17 +149,16 @@ void preset_build(TTPtr self, SymbolPtr address)
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
-	TTPtr						context;
 	
 	// add 'preset' after the address
-	presetLevelAddress = address->s_name;
+	presetLevelAddress = relativeAddress->s_name;
 	presetLevelAddress += "/preset";
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), x->patcherType, &x->subscriberObject);
-	
 	// if the subscription is successful
-	if (x->subscriberObject) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), &x->subscriberObject)) {
+		
+		// get all info relative to our patcher
+		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 		
 		// get the Node (.../preset) and his parent
 		x->subscriberObject->getAttributeValue(TT("node"), n);
@@ -155,53 +172,71 @@ void preset_build(TTPtr self, SymbolPtr address)
 			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		}
 
-		// attach to the patcher to be notified of his destruction
-		context = node->getContext();
-		// Crash : object_attach_byptr_register(x, context, _sym_box);
-		
 		// expose messages of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store a preset giving his index and his name"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreCurrent"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store into the current preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreNext"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store into the next preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StorePrevious"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store into the previous preset"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall a preset using his name or his index"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallCurrent"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(v, TT("Recall the current preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallNext"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the next preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallPrevious"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the previous preset"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Remove a preset using his name or his index"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveCurrent"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the current preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveNext"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the next preset"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemovePrevious"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall the previous preset"));
 		
 		// expose attributes of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_names, kTTSym_return, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("The preset name list"));
 		
 		// create internal TTXmlHandler and internal messages for Read and Write
@@ -212,20 +247,31 @@ void preset_build(TTPtr self, SymbolPtr address)
 		v = TTValue(TTPtr(x->wrappedObject));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
-		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
-		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), context, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Read a xml preset file"));
 		
-		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
-		makeInternals_data(self, absoluteAddress, TT("preset/write"), gensym("preset_write"), context, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TT("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Read from the last xml preset file"));
+		
+		makeInternals_data(self, absoluteAddress, TT("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Write a xml preset file"));
+		
+		makeInternals_data(self, absoluteAddress, TT("preset/write/again"), gensym("preset_write_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Write into the last xml preset file"));
 		
 		// TODO : create internal TTTextHandler to edit in Max edition window
 	
-		// load default jmod.model.xml file preset
-		defer_low(x, (method)preset_default, 0, 0, 0L);
+		// if desired, load default xxx.patcherContext.xml file preset
+		if (EXTRA->attr_load_default)
+			defer_low(x, (method)preset_default, 0, 0, 0L);
 	}
 }
 
@@ -234,8 +280,16 @@ void preset_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1)			// Inlets
 		strcpy(dst, "");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "");
+	else {							// Outlets
+		switch(arg) {
+			case data_out:
+				strcpy(dst, "preset output");
+				break;
+			case dump_out:
+				strcpy(dst, "dumpout");
+				break;
+		}
+ 	}
 }
 
 void preset_return_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -275,6 +329,30 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
+void preset_read_again(TTPtr self)
+{
+	defer(self, (method)preset_doread_again, NULL, 0, NULL);
+}
+
+void preset_doread_again(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTXmlHandlerPtr	aXmlHandler = NULL;
+	TTValue			o;
+	TTErr			tterr;
+	
+	tterr = x->internals->lookup(TT("XmlHandler"), o);
+	
+	if (!tterr) {
+		
+		o.get(0, (TTPtr*)&aXmlHandler);
+		
+		critical_enter(0);
+		aXmlHandler->sendMessage(TT("ReadAgain"));
+		critical_exit(0);
+	}
+}
+
 void preset_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	defer(self, (method)preset_dowrite, msg, argc, argv);
@@ -296,7 +374,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherType->getCString(), x->patcherClass->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
@@ -316,31 +394,56 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		filewatcher_start(EXTRA->filewatcher);
 }
 
+void preset_write_again(TTPtr self)
+{
+	defer(self, (method)preset_dowrite_again, NULL, 0, NULL);
+}
+
+void preset_dowrite_again(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTXmlHandlerPtr	aXmlHandler = NULL;
+	TTValue			o;
+	TTErr			tterr;
+	
+	tterr = x->internals->lookup(TT("XmlHandler"), o);
+	
+	if (!tterr) {
+		
+		o.get(0, (TTPtr*)&aXmlHandler);
+		
+		critical_enter(0);
+		aXmlHandler->sendMessage(TT("WriteAgain"));
+		critical_exit(0);
+	}
+}
+
 void preset_default(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr patcherClass;
-	TTSymbolPtr patcherType;
 	short		outvol;
 	long		outtype, filetype = 'TEXT';
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	Atom		a;
 
-	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
-	
-	if (patcherType != kTTSymEmpty && patcherClass != kTTSymEmpty) {
+	if (x->patcherClass) {
 		
-		TTString xmlfile = patcherType->getCString();
-		xmlfile += ".";
-		xmlfile += patcherClass->getCString();
+		TTString xmlfile = x->patcherClass->getCString();
+		if (x->patcherContext) {
+			xmlfile += ".";
+			xmlfile +=  x->patcherContext->getCString();
+		}
+		else
+			object_error((ObjectPtr)x, "preset_default : can't get the context of the patcher");
+		
 		xmlfile += ".xml";
 		
 		if (locatefile_extended((char*)xmlfile.data(), &outvol, &outtype, &filetype, 1)) {
-			object_warn((ObjectPtr)x, "preset_default : can't find %s file in the Max search path", xmlfile.data());
+			//object_warn((ObjectPtr)x, "preset_default : can't find %s file in the Max search path", xmlfile.data());
 			return;
 		}
 		
-		jcom_core_getfilepath(outvol, (char*)xmlfile.data(), fullpath);
+		jcom_file_get_path(outvol, (char*)xmlfile.data(), fullpath);
 		
 		atom_setsym(&a, gensym(fullpath));
 		defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
@@ -358,6 +461,8 @@ void preset_default(TTPtr self)
 		EXTRA->filewatcher = filewatcher_new((ObjectPtr)x, outvol, (char*)xmlfile.data());
 		filewatcher_start(EXTRA->filewatcher);
 	}
+	else
+		object_error((ObjectPtr)x, "preset_default : can't get the class of the patcher");
 }
 
 void preset_filechanged(TTPtr self, char *filename, short path)
@@ -371,7 +476,7 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	// get current preset
 	x->wrappedObject->sendMessage(TT("current"), v);
 	
-	jcom_core_getfilepath(path, filename, fullpath);
+	jcom_file_get_path(path, filename, fullpath);
 	
 	atom_setsym(&a, gensym(fullpath));
 	defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
@@ -386,32 +491,13 @@ void preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTNodePtr	contextNode;
-	TTObjectPtr	o;
-	TTBoolean	initialized;
 
 	if (argc && argv) {
 		if (atom_gettype(argv) == A_LONG) {
+
+			// Then recall the preset
 			v = TTValue((int)atom_getlong(argv));
 			x->wrappedObject->sendMessage(TT("Recall"), v);
-		}
-		
-		// Check Context Node
-		if (x->subscriberObject) {
-			
-			x->subscriberObject->getAttributeValue(TT("contextNode"), v);
-			v.get(0, (TTPtr*)&contextNode);
-			
-			// If it is a none initialized Container : initialize it
-			if (o = contextNode->getObject())
-				if (o->getName() == TT("Container")) {
-					
-					o->getAttributeValue(kTTSym_initialized, v);
-					v.get(0, initialized);
-					
-					if (!initialized)
-						o->sendMessage(TT("Init"));
-				}
 		}
 	}
 }
@@ -477,4 +563,37 @@ void preset_edclose(TTPtr self, char **text, long size)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	EXTRA->textEditor = NULL;
+}
+
+t_max_err preset_set_load_default(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if (ac&&av) {
+		EXTRA->attr_load_default = atom_getlong(av) == 1;
+	}
+	else
+		EXTRA->attr_load_default = true; // default true
+	
+	return MAX_ERR_NONE;
+}
+
+t_max_err preset_get_load_default(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if ((*ac)&&(*av)) {
+		//memory passed in, use it
+	} else {
+		//otherwise allocate memory
+		*ac = 1;
+		if (!(*av = (AtomPtr)getbytes(sizeof(Atom)*(*ac)))) {
+			*ac = 0;
+			return MAX_ERR_OUT_OF_MEM;
+		}
+	}
+	
+	atom_setlong(*av, EXTRA->attr_load_default == 1);
+	
+	return MAX_ERR_NONE;
 }

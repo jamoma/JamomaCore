@@ -21,6 +21,7 @@ mMute(NO),
 mBypass(NO),
 mSignalIn(NULL),
 mSignalOut(NULL),
+mSignalZero(NULL),
 mInfo(kTTValNONE),
 mIndex(0),
 mOutputObject(NULL),
@@ -28,7 +29,7 @@ mApplication(NULL),
 mReturnSignalCallback(NULL),
 mObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 4);
+	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 5);
 	
 	arguments.get(0, (TTPtr*)&mApplication);
 	TT_ASSERT("Application passed to TTInput is not NULL", mApplication);
@@ -38,9 +39,10 @@ mObserver(NULL)
 	arguments.get(3, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
 	
-	if (arguments.getSize() > 4) {
+	if (arguments.getSize() > 5) {
 		arguments.get(4, (TTPtr*)&mSignalIn);
 		arguments.get(5, (TTPtr*)&mSignalOut);
+		arguments.get(6, (TTPtr*)&mSignalZero);
 	}
 	
 	addAttribute(Number, kTypeUInt16);
@@ -69,8 +71,10 @@ mObserver(NULL)
 
 TTInput::~TTInput()
 {
-	if (mReturnSignalCallback)
+	if (mReturnSignalCallback) {
+		delete (TTValuePtr)mReturnSignalCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnSignalCallback));
+	}
 	
 	if (mSignalIn)
 		TTObjectRelease(TTObjectHandle(&mSignalIn));
@@ -78,9 +82,13 @@ TTInput::~TTInput()
 	if (mSignalOut)
 		TTObjectRelease(TTObjectHandle(&mSignalOut));
 	
+	if (mSignalZero)
+		TTObjectRelease(&mSignalZero);
+	
 	if (mObserver) {
 		if (mOutputAddress != kTTSymEmpty)
 			getDirectoryFrom(this)->removeObserverForNotifications(mOutputAddress, *mObserver);
+		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 }

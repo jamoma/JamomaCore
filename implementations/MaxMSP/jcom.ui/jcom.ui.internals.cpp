@@ -12,92 +12,76 @@
 void ui_data_create_all(t_ui* obj)
 {
 	TTObjectPtr		anObject;
-	TTNodePtr		uiNode, parentNode;
 	TTString		uiStr, parentStr, dataStr;
 	TTValue			v;
 	
-	jamoma_patcher_type_and_class((ObjectPtr)obj, &obj->patcherType, &obj->patcherClass);
-	
-	// DEBUG
-	//object_post((ObjectPtr)obj, "patcherClass : %s", obj->patcherClass->getCString());
-	
 	// create a /ui node with our pather as context
-	jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/ui"), obj->patcherType, &obj->uiSubscriber);
-	
-	// get the /ui node
-	obj->uiSubscriber->getAttributeValue(TT("node"), v);
-	v.get(0, (TTPtr*)&uiNode);
-	
-	// make the name of our jview. patcher
-	parentNode = uiNode->getParent();
-	if (parentNode) {
-		parentStr = "/";
-		parentStr += parentNode->getName()->getCString();
-		if (parentNode->getInstance() != NO_INSTANCE) {
-			parentStr += ".";
-			parentStr += parentNode->getInstance()->getCString();
-		}
-		obj->patcherName = TT(parentStr.data());
+	if (!jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/ui"), &obj->uiSubscriber)) {
+		
+		// get info relative to our patcher
+		jamoma_patcher_get_info((ObjectPtr)obj, &obj->patcherPtr, &obj->patcherContext, &obj->patcherClass, &obj->patcherName);
+		
+		// get the view address
+		obj->uiSubscriber->getAttributeValue(TT("contextAddress"), v);
+		v.get(0, &obj->viewAddress);
+		
+		// make a viewer on contextAddress/model/address data
+		ui_viewer_create(obj, &anObject, gensym("return_model_address"), TT("model/address"), obj->viewAddress, NO);
+		
+		// Then create all internal datas concerning the jcom.ui
+		// ui/color/contentBackground
+		ui_data_create(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_parameter, TT("color/contentBackground"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TT("The background color of the module in the format RGBA where values range [0.0, 1.0]."));
+		
+		// ui/color/toolbarBackground
+		ui_data_create(obj, &anObject, gensym("return_color_toolbarBackground"), kTTSym_parameter, TT("color/toolbarBackground"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TT("The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]."));
+		
+		// ui/color/toolbarText
+		ui_data_create(obj, &anObject, gensym("return_color_toolbarText"), kTTSym_parameter, TT("color/toolbarText"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TT("The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]."));
+		
+		// ui/color/border
+		ui_data_create(obj, &anObject, gensym("return_color_border"), kTTSym_parameter, TT("color/border"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TT("The border color of the module in the format RGBA where values range [0.0, 1.0]."));
+		
+		// ui/size
+		ui_data_create(obj, &anObject, gensym("return_ui_size"), kTTSym_parameter, TT("size"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TT("The size of the view's UI."));
+		
+		v = TTValue(obj->box.b_patching_rect.width);
+		v.append(obj->box.b_patching_rect.height);
+		anObject->setAttributeValue(kTTSym_value, v);
+		
+		// ui/freeze
+		ui_data_create(obj, &anObject, gensym("return_ui_freeze"), kTTSym_parameter, TT("freeze"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TT("Freeze each jcom.view in the patch"));
+		
+		// ui/refresh
+		ui_data_create(obj, &anObject, gensym("return_ui_refresh"), kTTSym_message, TT("refresh"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TT("Refresh each jcom.view in the patch"));
 	}
-	else
-		obj->patcherName = S_SEPARATOR;
-	
-	// DEBUG
-	//object_post((ObjectPtr)obj, "patcherName : %s", obj->patcherName->getCString());
-	
-	// get the view address
-	obj->uiSubscriber->getAttributeValue(TT("contextAddress"), v);
-	v.get(0, &obj->viewAddress);
-
-	// make a viewer on contextAddress/model/address data
-	ui_viewer_create(obj, &anObject, gensym("return_model_address"), TT("model/address"), obj->viewAddress, NO);
-
-	// Then create all internal datas concerning the jcom.ui
-	// ui/color/contentBackground
-	ui_data_create(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_parameter, TT("color/contentBackground"));
-	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
-	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("The background color of the module in the format RGBA where values range [0.0, 1.0]."));
-	
-	// ui/color/toolbarBackground
-	ui_data_create(obj, &anObject, gensym("return_color_toolbarBackground"), kTTSym_parameter, TT("color/toolbarBackground"));
-	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
-	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]."));
-	
-	// ui/color/toolbarText
-	ui_data_create(obj, &anObject, gensym("return_color_toolbarText"), kTTSym_parameter, TT("color/toolbarText"));
-	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
-	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]."));
-	
-	// ui/color/border
-	ui_data_create(obj, &anObject, gensym("return_color_border"), kTTSym_parameter, TT("color/border"));
-	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
-	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("The border color of the module in the format RGBA where values range [0.0, 1.0]."));
-	
-	// ui/size
-	ui_data_create(obj, &anObject, gensym("return_ui_size"), kTTSym_parameter, TT("size"));
-	anObject->setAttributeValue(kTTSym_type, kTTSym_array);
-	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("The size of the jview's UI."));
-	
-	v = TTValue(obj->box.b_patching_rect.width);
-	v.append(obj->box.b_patching_rect.height);
-	anObject->setAttributeValue(kTTSym_value, v);
-	
-	// ui/freeze
-	ui_data_create(obj, &anObject, gensym("return_ui_freeze"), kTTSym_parameter, TT("freeze"));
-	anObject->setAttributeValue(kTTSym_type, kTTSym_boolean);
-	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("Freeze each jcom.view in the patch"));
-	
-	// ui/refresh
-	ui_data_create(obj, &anObject, gensym("return_ui_refresh"), kTTSym_message, TT("refresh"));
-	anObject->setAttributeValue(kTTSym_type, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-	anObject->setAttributeValue(kTTSym_description, TT("Refresh each jcom.view in the patch"));
 }
 
 void ui_data_destroy_all(t_ui *obj)
@@ -127,8 +111,9 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	TTValue			args, v;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTSubscriberPtr	aSubscriber;
-	TTSymbolPtr		dataAddress;
+	TTSymbolPtr		uiAddress, dataAddress;
+	TTNodePtr		aNode;
+	TTBoolean		nodeCreated;
 	
 	// Prepare arguments to create a TTData object
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -145,32 +130,32 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
 	
 	// Register data
-	joinOSCAddress(TT("/ui"), name, &dataAddress);
-	jamoma_subscriber_create((ObjectPtr)obj, *returnedData, gensym((char*)dataAddress->getCString()), obj->patcherType, &aSubscriber);
+	obj->uiSubscriber->getAttributeValue(TT("nodeAddress"), v);
+	v.get(0, &uiAddress);
+	joinOSCAddress(uiAddress, name, &dataAddress);
+	JamomaDirectory->TTNodeCreate(dataAddress, *returnedData, obj->patcherPtr, &aNode, &nodeCreated);
 	
 	// Store data
 	args = TTValue(TTPtr(*returnedData));
-	args.append(TTPtr(aSubscriber));
+	args.append(dataAddress);
 	obj->hash_datas->append(name, args);
 	
 	// DEBUG
-	aSubscriber->getAttributeValue(TT("nodeAddress"), v);
-	v.get(0, &dataAddress);
 	object_post((ObjectPtr)obj, "Make internal /ui/%s object at : %s", name->getCString(), dataAddress->getCString());
 }								   
 
 void ui_data_destroy(t_ui *obj, TTSymbolPtr name)
 {
 	TTValue			storedObject;
-	TTObjectPtr		aData, aSubscriber;
+	TTObjectPtr		aData;
+	TTSymbolPtr		dataAddress;
 
 	if (obj->hash_datas)
 		if (!obj->hash_datas->lookup(name, storedObject)) {
 			
 			// Unregister data
-			storedObject.get(1, (TTPtr*)&aSubscriber);
-			if (aSubscriber)
-				TTObjectRelease(&aSubscriber);
+			storedObject.get(1, &dataAddress);
+			JamomaDirectory->TTNodeRemove(dataAddress);
 			
 			// Delete data
 			storedObject.get(0, (TTPtr*)&aData);
@@ -193,13 +178,49 @@ void ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v)
 	anObject->setAttributeValue(kTTSym_value, v);
 }
 
+void ui_data_interface(t_ui *x, TTSymbolPtr name)
+{
+	char			filename[MAX_FILENAME_CHARS];
+	short			path;
+	long			type;
+	long			filetype = 'JSON';
+	t_dictionary*	d;
+	ObjectPtr		p;
+	TTSymbolPtr		address;
+	Atom			a;
+	
+	strncpy_zero(filename, "jcom.reference_interface.maxpat", MAX_FILENAME_CHARS);
+	locatefile_extended(filename, &path, &type, &filetype, 1);
+	dictionary_read(filename, path, &d);
+	
+	atom_setobj(&a, d);
+	p = (t_object*)object_new_typed(_sym_nobox, _sym_jpatcher, 1, &a);
+	object_attr_setlong(p, _sym_locked, 1);										// start out locked
+	object_attr_setchar(p, _sym_enablehscroll, 0);								// turn off scroll bars
+	object_attr_setchar(p, _sym_enablevscroll, 0);
+	object_attr_setchar(p, _sym_openinpresentation, 1);	
+	object_attr_setchar(p, _sym_toolbarvisible, 0);	
+	object_attr_setsym(p, _sym_title, gensym("reference_interface"));		
+	object_method_parse(p, _sym_window, "constrain 5 320 200 500", NULL);
+	object_attach_byptr_register(x, p, _sym_nobox);
+	
+	object_method(p, _sym_vis);													// "vis" happens immediately, "front" is defer_lowed
+	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
+	
+	joinOSCAddress(x->modelAddress, name, &address);
+	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)address->getCString()));		// the patch needs a [jcom.interfaceArguments.js]
+	
+	object_method(p, _sym_loadbang);
+}
+
 void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTSymbolPtr address, TTBoolean subscribe)
 {
-	TTValue			args;
+	TTValue			v, args;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTSymbolPtr		adrs;
-	TTSubscriberPtr aSubscriber = NULL;
+	TTSymbolPtr		uiAddress, viewerAddress, adrs;
+	TTNodePtr		aNode;
+	TTBoolean		nodeCreated;
 	
 	// prepare arguments
 	args.append(JamomaApplication);
@@ -215,32 +236,40 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	*returnedViewer = NULL;
 	TTObjectInstantiate(TT("Viewer"), TTObjectHandle(returnedViewer), args);
 	
-	// Set address attributes
+	if (subscribe) {
+		// Register viewer
+		obj->uiSubscriber->getAttributeValue(TT("nodeAddress"), v);
+		v.get(0, &uiAddress);
+		joinOSCAddress(uiAddress, name, &viewerAddress);
+		JamomaDirectory->TTNodeCreate(viewerAddress, *returnedViewer, obj->patcherPtr, &aNode, &nodeCreated);
+	}
+	else
+		viewerAddress = kTTSymEmpty;
+	
+	// Set address to bind
 	joinOSCAddress(address, name, &adrs);
 	(*returnedViewer)->setAttributeValue(TT("address"), adrs);
 	
-	// Suscribe the viewer into the namespace
-	if (subscribe)
-		jamoma_subscriber_create((ObjectPtr)obj, *returnedViewer, gensym((char*)name->getCString()), obj->patcherType, &aSubscriber);
 	
-	// Store the Viewer
+	// Store viewer
 	args = TTValue(TTPtr(*returnedViewer));
-	args.append(TTPtr(aSubscriber));
+	args.append(viewerAddress);
 	obj->hash_viewers->append(name, args);
 }
 
 void ui_viewer_destroy(t_ui *obj, TTSymbolPtr name)
 {
 	TTValue			storedObject;
-	TTObjectPtr		aViewer, aSubscriber;
+	TTObjectPtr		aViewer;
+	TTSymbolPtr		viewerAddress;
 
 	if (obj->hash_viewers)
 		if (!obj->hash_viewers->lookup(name, storedObject)) {
 			
-			// unsuscribe
-			storedObject.get(1, (TTPtr*)&aSubscriber);
-			if (aSubscriber)
-					TTObjectRelease(&aSubscriber);
+			// Unregister data
+			storedObject.get(1, &viewerAddress);
+			if (viewerAddress != kTTSymEmpty)
+				JamomaDirectory->TTNodeRemove(viewerAddress);
 			
 			// delete
 			storedObject.get(0, (TTPtr*)&aViewer);
@@ -290,6 +319,22 @@ void ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v)
 			storedObject.get(0, (TTPtr*)&anObject);
 			if (anObject)
 				anObject->sendMessage(kTTSym_Send, v);
+		}
+	}
+}
+
+void ui_viewer_select(t_ui *obj, TTSymbolPtr name, TTBoolean s)
+{
+	TTValue			storedObject;
+	TTObjectPtr		anObject;
+	TTErr			err;
+	if (obj->hash_viewers) {
+		err = obj->hash_viewers->lookup(name, storedObject);
+		
+		if (!err) {
+			storedObject.get(0, (TTPtr*)&anObject);
+			if (anObject)
+				anObject->setAttributeValue(kTTSym_selected, s);
 		}
 	}
 }
@@ -350,41 +395,6 @@ void ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr me
 	
 	*returnedExplorer = NULL;
 	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);
-}
-
-void ui_viewExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	t_ui* obj = (t_ui*)self;
-	TTBoolean	panel = false;			// is there a panel for the view ?
-	TTBoolean	change = false;
-	SymbolPtr	paramName;
-	TTObjectPtr anObject;
-	
-	// view namespace observation
-	// look the namelist to know which data exist
-	for (long i=0; i<argc; i++) {
-		
-		paramName = atom_getsym(argv+i);
-		
-		if (paramName == gensym("/view/panel"))
-			panel = true;
-	}
-	
-	// panel
-	if (panel != obj->has_panel) {
-		obj->has_panel = panel;
-		if (panel) 
-			ui_viewer_create(obj, &anObject, NULL, TT("view/panel"), obj->viewAddress, NO);
-		else {
-			ui_viewer_destroy(obj, TT("view/panel"));
-			obj->hash_viewers->remove(TT("view/panel"));
-		}
-		
-		change = true;
-	}
-	
-	if (change)
-		jbox_redraw(&obj->box);
 }
 
 void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -597,12 +607,6 @@ void ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, A
 	// model's message namespace observation
 	if (obj->modelAddress != kTTSymEmpty) {
 		
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(obj->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Parameters"));
-		linklist_append(obj->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
-		
 		// fill item list
 		for (long i=0; i<argc; i++) {
 			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
@@ -618,12 +622,6 @@ void ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, At
 	
 	// model's message namespace observation
 	if (obj->modelAddress != kTTSymEmpty) {
-		
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(obj->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Messages"));
-		linklist_append(obj->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
 		
 		// fill item list
 		for (long i=0; i<argc; i++) {
@@ -641,18 +639,70 @@ void ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 	// model's message namespace observation
 	if (obj->modelAddress != kTTSymEmpty) {
 		
-		item = (t_symobject *)symobject_new(gensym("-"));
-		linklist_append(obj->refmenu_items, item);
-		item = (t_symobject *)symobject_new(gensym("Returns"));
-		linklist_append(obj->refmenu_items, item);
-		item->flags = 1;	// mark to disable this item (we use it as a label)
-		
 		// fill item list
 		for (long i=0; i<argc; i++) {
 			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
 			linklist_append(obj->refmenu_items, item);
 		}
 	}
+}
+ 
+void ui_view_panel_attach(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_ui* obj = (t_ui*)self;
+	ObjectPtr	box;
+	t_outlet*	myoutlet = NULL;
+	t_dll*		connecteds = NULL;
+	ObjectPtr	o;
+	SymbolPtr	name;
+	TTObjectPtr aData;
+	TTValue		v;
+	
+	// search through all connected objects for a patcher object
+	object_obex_lookup(obj, _sym_pound_B, &box);
+	myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 1);
+	if (myoutlet)
+		connecteds = (t_dll*)myoutlet->o_dll;
+	
+	while (connecteds) {
+		o = (t_object*)connecteds->d_x1;
+		name = object_classname(o);
+		if (name == _sym_inlet) {
+			o = ((t_inlet *)connecteds->d_x1)->i_owner;
+			name = object_classname(o);
+			if (name == _sym_jpatcher) {
+				
+				obj->patcher_panel = o;
+				obj->has_panel = true;
+				
+				// view/panel
+				ui_data_create(obj, &aData, gensym("return_view_panel"), kTTSym_message, TT("panel"));
+				
+				// Set attribute of the data
+				aData->setAttributeValue(kTTSym_type, kTTSym_none);
+				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+				aData->setAttributeValue(kTTSym_description, TT("Open a control panel if one is present."));
+				aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+				
+				jbox_redraw(&obj->box);
+				return;
+			}
+		}
+		o = NULL;
+		name = NULL;
+		connecteds = connecteds->d_next;
+	}
+}
+
+void ui_view_panel_return(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	Atom		a;
+	
+	// open view panel and set title
+	atom_setsym(&a, gensym((char*)obj->viewAddress->getCString()));
+	object_attr_setvalueof(obj->patcher_panel, _sym_title, 1, &a);
+	object_method(obj->patcher_panel, _sym_vis);
 }
 
 void ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -722,7 +772,6 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		obj->modelOutput = (TTOutputPtr)aNode->getObject();
 	}
 	
-	
 	if (obj->modelOutput->valid) {
 		
 		err = obj->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
@@ -772,8 +821,8 @@ void ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 {
 	t_ui* obj = (t_ui*)self;
 	
-	// TODO : refresh all jcom.view of the jview. patch
-	// 1. Get the TTContainer object of the jview patch
+	// TODO : refresh all jcom.view of the view patch
+	// 1. Get the TTContainer object of the view patch
 	// 2. use his send message : /*.*:refresh
 	
 	// refresh all widgets
@@ -800,7 +849,6 @@ void ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 	// mute
 	if (obj->has_mute) 
 		ui_viewer_refresh(obj, TT("mute"));
-	
 }
 
 void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -810,8 +858,8 @@ void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	if (argc == 1)
 		object_attr_setvalueof(obj, gensym("ui_is_frozen"), argc, argv);
 	
-	// TODO : Freeze all jcom.view of the jview. patch
-	// 1. Get the TTContainer object of the jview patch
+	// TODO : Freeze all jcom.view of the view patch
+	// 1. Get the TTContainer object of the view patch
 	// 2. use his send message : /*.*:freeze 0/1
 	
 	// freeze all widgets
@@ -879,10 +927,9 @@ void ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 
 void ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	t_ui* obj = (t_ui*)self;
+	t_ui* obj = (t_ui*)self; 
 	
-	if (argc)
-		object_attr_setvalueof(obj, gensym("address"), argc, argv);
+	object_attr_setvalueof(obj, gensym("address"), argc, argv);
 }
 
 void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -896,6 +943,9 @@ void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// only output first signal
 		if (index == 0)
-			outlet_anything(obj->outlet, msg, argc, argv);
+			if (msg == _sym_nothing)
+				outlet_atoms(obj->outlets[preview_out], argc, argv);
+			else
+				outlet_anything(obj->outlets[preview_out], msg, argc, argv);
 	}
 }

@@ -14,7 +14,7 @@
  	 	 	 	 /input~/balance 0.000000 
  	 	 	 	 /input~/ch.1 1 
  	 	 	 	 /input~/ch.2 2 
- 	 	 	 	 /input~/clicktrain/rate 1.000002 
+ 	 	 	 	 /input~/clicktrain/rate 1.000003 
  	 	 	 	 /input~/soundfile/loop 1 
  	 	 	 	 /input~/soundfile/play 0 
  	 	 	 	 /input~/source none 
@@ -65,6 +65,14 @@
  	 	 	 	 /output~/view/freeze 0 
  	 	 	 	 /output~/view/size 300 140 
  # 
+ # Module /onDeck 
+ 	 	 	 	 /onDeck/view/color/border 0 
+ 	 	 	 	 /onDeck/view/color/contentBackground 0 
+ 	 	 	 	 /onDeck/view/color/toolbarBackground 0 
+ 	 	 	 	 /onDeck/view/color/toolbarText 0 
+ 	 	 	 	 /onDeck/view/freeze 0 
+ 	 	 	 	 /onDeck/view/size 300 70 
+ # 
  ######################## 
  
  
@@ -76,7 +84,7 @@
  	 	 	 	 /output~/audio/active 1 
  	 	 	 	 /degrade~/audio/mute 0 
  	 	 	 	 /degrade~/audio/gain 127.000000 ramp global 
- 	 	 	 	 /input~/audio/gain 98.136368 ramp global 
+ 	 	 	 	 /input~/audio/gain 98.136368 ramp 10000 
  	 	 	 	 /input~/source 1KHz 
  
  

@@ -28,7 +28,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 475.0, 176.0, 567.0, 31.0 ],
+					"patching_rect" : [ 476.0, 202.0, 587.0, 31.0 ],
 					"text" : "jcom.message.array 32 source active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
 				}
 
@@ -43,7 +43,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 475.0, 131.0, 606.0, 43.0 ],
+					"patching_rect" : [ 476.0, 157.0, 593.0, 43.0 ],
 					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
 				}
 
@@ -307,7 +307,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "multicore.connect" ],
+					"outlettype" : [ "audio.connect" ],
 					"patching_rect" : [ 57.0, 220.0, 140.0, 19.0 ],
 					"text" : "jalg.sur.rolloff~"
 				}

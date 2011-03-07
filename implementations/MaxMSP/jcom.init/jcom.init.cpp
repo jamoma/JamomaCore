@@ -13,7 +13,7 @@
 // Data Structure for this object
 typedef struct _init{
 	Object				obj;
-	TTNodePtr			contextNode;
+	TTNodePtr			patcherNode;
 	TTReceiverPtr		initReceiver;
 	void				*outlet;
 	void				*dumpout;
@@ -23,10 +23,10 @@ typedef struct _init{
 void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv);			// New Object Creation Method
 void init_free(t_init *x);
 void init_assist(t_init *x, void *b, long m, long a, char *s);		// Assistance Method
-void init_build(t_init *x, SymbolPtr address);
+void init_subscribe(t_init *x, SymbolPtr address);
 void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void init_return_value(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void init_bang(t_init *x);
+//void init_bang(t_init *x);
 
 // Globals
 t_class			*g_init_class;			// Required. Global pointing to this class
@@ -46,7 +46,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	c = class_new("jcom.init",(method)init_new, (method)init_free, sizeof(t_init), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)init_bang,				"bang",				0L);
+	//class_addmethod(c, (method)init_bang,				"bang",				0L);
 	class_addmethod(c, (method)init_return_address,		"return_address",	A_CANT, 0);
 	class_addmethod(c, (method)init_return_value,		"return_value",		A_CANT, 0);
     class_addmethod(c, (method)init_assist,				"assist",			A_CANT, 0L);
@@ -67,10 +67,10 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
 	long 		attrstart = attr_args_offset(argc, argv);						// support normal arguments
 	t_init 		*x = (t_init *)object_alloc(g_init_class);
-	SymbolPtr	address = _sym_nothing;											// could be used to binds on a sub level jcom.hub
+	SymbolPtr	relativeAddress = _sym_nothing;											// could be used to binds on a sub level jcom.hub
 
 	if (attrstart && argv)
-		atom_arg_getsym(&address, 0, attrstart, argv);
+		atom_arg_getsym(&relativeAddress, 0, attrstart, argv);
 	
 	if (x) {
 		
@@ -78,7 +78,7 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->outlet = outlet_new(x, NULL);
 		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		x->contextNode = NULL;
+		x->patcherNode = NULL;
 		x->initReceiver = NULL;
 		
 		attr_args_process(x, argc, argv);										// handle attribute args				
@@ -86,7 +86,7 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)init_build, address, 0, 0);
+		defer_low((ObjectPtr)x, (method)init_subscribe, relativeAddress, 0, 0);
 	}
 	
 	return (x);																	// Return the pointer
@@ -106,37 +106,36 @@ void init_free(t_init *x)
 // Method for Assistance Messages
 void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 {
-	if (msg==1) 	// Inlets
-		strcpy(dst, "bang is passed through to the outlet");
+	if (msg==1)			// Inlets
+		strcpy(dst, "");
 	else if (msg==2) { // Outlets
 		if (arg == 0) 
-			strcpy(dst, "bang on initialization");
+			strcpy(dst, "0 when initialization starts, 1 when initilization is done");
 		else 
 			strcpy(dst, "dumpout");
 	}
 }
 
-void init_build(t_init *x, SymbolPtr address)		// address : could be used to binds on a sub level jcom.hub
+void init_subscribe(t_init *x, SymbolPtr relativeAddress)		// relativeAddress : could be used to binds on a sub level jcom.hub
 {
-	TTSymbolPtr		patcherType, patcherClass;
-	TTSymbolPtr		contextAddress, levelAddress;
 	TTValue			v, args;
+	TTSymbolPtr		contextAddress, levelAddress;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTNodePtr		levelNode;
+
+	jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &x->patcherNode);
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &patcherType, &patcherClass);
-	x->contextNode = jamoma_context_get_node((ObjectPtr)x, patcherType);
-	
-	if (x->contextNode) {
+	if (x->patcherNode) {
 		
-		x->contextNode->getOscAddress(&contextAddress, S_SEPARATOR);
+		x->patcherNode->getOscAddress(&contextAddress, S_SEPARATOR);
 		
-		if (address == _sym_nothing)
+		if (relativeAddress == _sym_nothing)
 			levelAddress = contextAddress;
 		else
-			joinOSCAddress(contextAddress, TT(address->s_name), &levelAddress);
+			joinOSCAddress(contextAddress, TT(relativeAddress->s_name), &levelAddress);
 		
-		if (!JamomaDirectory->getTTNodeForOSC(levelAddress, &x->contextNode)) {
+		if (!JamomaDirectory->getTTNodeForOSC(levelAddress, &levelNode)) {
 			
 			// Make a TTReceiver object
 			args.append(JamomaApplication);
@@ -159,19 +158,14 @@ void init_build(t_init *x, SymbolPtr address)		// address : could be used to bin
 			
 			x->initReceiver = NULL;
 			TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&x->initReceiver), args);
-			
-			// Ask a result in case the initialisation has been done
-			x->initReceiver->sendMessage(TT("Get"));
 		}
-		
 	}
 	// While the context node is not registered : try to build (to --Is this not dangerous ?)
-	else if (x->contextNode != JamomaDirectory->getRoot()) {
-		
+	else {
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)init_build, address, 0, 0);
+		defer_low((ObjectPtr)x, (method)init_subscribe, relativeAddress, 0, 0);
 	}
 }
 
@@ -183,12 +177,11 @@ void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // GO !
 void init_return_value(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	if (atom_gettype(argv) == A_LONG) {
-		if (atom_getlong(argv))
-			outlet_bang(x->outlet);
-	}
+	if (atom_gettype(argv) == A_LONG)
+		outlet_int(x->outlet, atom_getlong(argv));
 }
 
+/*
 // BANG !
 void init_bang(t_init *x)
 {
@@ -196,3 +189,4 @@ void init_bang(t_init *x)
 		if (x->contextNode->getObject())
 			x->contextNode->getObject()->sendMessage(TT("Init"));
 }
+ */

@@ -19,8 +19,10 @@
 
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
+class TTOpmlHandler;
+typedef TTOpmlHandler* TTOpmlHandlerPtr;
 
-class TTMODULAR_EXPORT TTExplorer : public TTObject
+class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 {
 	TTCLASS_SETUP(TTExplorer)
 	
@@ -43,12 +45,13 @@ private:
 	TTSymbolPtr			mTempParent;					///< remember the parent address (Instances case)
 	TTSymbolPtr			mTempObserve;					///< remember the observed address (Instances case)
 	TTHashPtr			mResult;						///< hash table containing all elements found by the explorer
+	TTValue				mLastResult;					///< keep the last result to filter unchanged list
 		
 	/** */
 	TTErr Explore();
 	
 	/** */
-	TTErr CriteriaAdd(const TTValue& value);
+	TTErr CriteriaInclude(const TTValue& value);
 	
 	/** */
 	TTErr CriteriaClear();
@@ -69,8 +72,8 @@ private:
 	TTErr getObjectsByType(TTValue& value);
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsXml(const TTValue& value);
-	TTErr ReadFromXml(const TTValue& value);
+	TTErr WriteAsOpml(const TTValue& value);
+	void writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode);
 	
 	/* TODO :
 	 TTErr WriteAsText(const TTValue& value);			// pass an text buffer ?

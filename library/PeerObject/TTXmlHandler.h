@@ -45,7 +45,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTXmlHandler : public TTObject
+class TTMODULAR_EXPORT TTXmlHandler : public TTDataObject
 {
 	TTCLASS_SETUP(TTXmlHandler)
 	

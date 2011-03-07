@@ -29,6 +29,9 @@ mIsReading(false)
 	
 	addMessageWithArgument(Write);
 	addMessageWithArgument(Read);
+	
+	addMessage(WriteAgain);
+	addMessage(ReadAgain);
 }
 
 TTTextHandler::~TTTextHandler()

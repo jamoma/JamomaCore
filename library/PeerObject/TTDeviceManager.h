@@ -27,7 +27,7 @@ typedef TTDevice* TTDevicePtr;
  
  */
 
-class TTMODULAR_EXPORT TTDeviceManager : public TTObject
+class TTMODULAR_EXPORT TTDeviceManager : public TTDataObject
 {
 	TTCLASS_SETUP(TTDeviceManager)
 	

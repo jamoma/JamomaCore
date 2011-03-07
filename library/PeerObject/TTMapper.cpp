@@ -54,7 +54,7 @@ mValid(NO)
 	addAttributeWithSetter(OutputMin, kTypeFloat64);
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
 	
-	addAttribute(Enable, kTypeBoolean);
+	addAttributeWithSetter(Enable, kTypeBoolean);
 	
 	addAttributeWithGetter(FunctionLibrary, kTypeLocalValue);
 	addAttributeProperty(functionLibrary, readOnly, YES);
@@ -93,9 +93,12 @@ TTMapper::~TTMapper() // TODO : delete things...
 		mFunction = kTTSymEmpty;
 		mFunctionParameters.clear();
 	}
-#endif	
-	if (mReturnValueCallback)
+#endif
+	
+	if (mReturnValueCallback) {
+		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	}
 	
 	if (mSender)
 		TTObjectRelease(TTObjectHandle(&mSender));
@@ -118,14 +121,17 @@ TTMapper::~TTMapper() // TODO : delete things...
 
 TTErr TTMapper::Map(TTValue& value)
 {
-	processMapping(value);
-	
-	// return value
-	if (mSender)
-		mSender->sendMessage(kTTSym_Send, value);
-	
-	if (mReturnValueCallback)
-		mReturnValueCallback->notify(value);
+	if (mEnable) {
+		
+		processMapping(value);
+		
+		// return value
+		if (mSender)
+			mSender->sendMessage(kTTSym_Send, value);
+		
+		if (mReturnValueCallback)
+			mReturnValueCallback->notify(value);
+	}
 	
 	return kTTErrNone;
 }
@@ -388,23 +394,28 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	FunctionLib::createUnit(mFunction, (TTObject **)&mFunctionUnit);
 	
 	// Extend function unit attributes as attributes of this mapper
-	// and set mPArameters attribute
+	// and set mFunctionParameters attribute
 	if (mFunctionUnit) {
 
 		mFunctionUnit->getAttributeNames(names);
 		n = names.getSize();
-		for (int i=0; i<n; i++) {
-			
-			names.get(i, &aName);
-			
-			 // don't publish these datas
-			if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
-				continue;
-			
-			// extend attribute with the same name
-			this->extendAttribute(aName, mFunctionUnit, aName);
-			mFunctionParameters.append(aName);
+		
+		if (n) {
+			for (int i=0; i<n; i++) {
+				
+				names.get(i, &aName);
+				
+				// don't publish these datas
+				if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
+					continue;
+				
+				// extend attribute with the same name
+				this->extendAttribute(aName, mFunctionUnit, aName);
+				mFunctionParameters.append(aName);
+			}
 		}
+		else
+			mFunctionParameters.append(kTTSym_none);
 		
 		mValid = true;
 		notifyObservers(kTTSym_function, value);
@@ -471,6 +482,14 @@ TTErr TTMapper::setOutputMax(const TTValue& value)
 	return scaleOutput();
 }
 
+TTErr TTMapper::setEnable(const TTValue& value)
+{
+	mEnable = value;
+	
+	notifyObservers(kTTSym_enable, value);
+	return kTTErrNone;
+}
+
 // Recalculate values to use for scaling of input values
 TTErr TTMapper::scaleInput()
 {
@@ -498,7 +517,6 @@ TTErr TTMapper::processMapping(TTValue& value)
 	TTFloat64	f;
 	TTInt32		i, size;
 	
-	if (mEnable) {
 	size = value.getSize();
 	
 	// clip Input value
@@ -509,6 +527,7 @@ TTErr TTMapper::processMapping(TTValue& value)
 		value.get(i, f);
 		in.append(mA * f + mB);
 	}
+
 #ifdef TTDSP
 	// process function
 	if (mFunctionUnit)
@@ -527,7 +546,6 @@ TTErr TTMapper::processMapping(TTValue& value)
 	
 	// clip output value
 	value.clip(mOutputMin, mOutputMax);
-	}
 	
 	return kTTErrNone;
 }
@@ -688,18 +706,21 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aMapper);
 	
-	 // protect data
-	v = data;
-	
-	// process the mapping
-	aMapper->processMapping(v);
-	
-	// return value
-	if (aMapper->mSender)
-		aMapper->mSender->sendMessage(kTTSym_Send, v);
-	
-	if (aMapper->mReturnValueCallback)
-		aMapper->mReturnValueCallback->notify(v);
+	if (aMapper->mEnable) {
+		
+		// protect data
+		v = data;
+		
+		// process the mapping
+		aMapper->processMapping(v);
+		
+		// return value
+		if (aMapper->mSender)
+			aMapper->mSender->sendMessage(kTTSym_Send, v);
+		
+		if (aMapper->mReturnValueCallback)
+			aMapper->mReturnValueCallback->notify(v);
+	}
 	
 	return kTTErrNone;
 }

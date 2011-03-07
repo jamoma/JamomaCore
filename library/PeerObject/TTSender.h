@@ -19,7 +19,7 @@
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTSender : public TTObject
+class TTMODULAR_EXPORT TTSender : public TTDataObject
 {
 	TTCLASS_SETUP(TTSender)
 	
@@ -30,7 +30,7 @@ private:
 	TTApplicationPtr	mApplication;				///< the application
 	TTBoolean			mIsSending;					///< a flag to lock the object in case of infinite loop
 	TTListPtr			mObjectCache;				///< a cache containing all binded objects for quick access
-	TTObjectPtr			mObserver;					///< a life cycle observer
+	TTCallbackPtr		mObserver;					///< a life cycle observer
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);

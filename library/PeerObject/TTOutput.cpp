@@ -105,8 +105,10 @@ mSignalPreviewAttr(NULL)
 
 TTOutput::~TTOutput()
 {
-	if (mReturnSignalCallback)
+	if (mReturnSignalCallback) {
+		delete (TTValuePtr)mReturnSignalCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnSignalCallback));
+	}
 	
 	if (mSignalIn)
 		TTObjectRelease(&mSignalIn);
@@ -135,6 +137,7 @@ TTOutput::~TTOutput()
 	if (mObserver) {
 		if (mInputAddress != kTTSymEmpty)
 			getDirectoryFrom(this)->removeObserverForNotifications(mInputAddress, *mObserver);
+		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
@@ -200,6 +203,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTSymbolPtr		newAddress;
 	TTNodePtr		aNode;
 	TTObjectPtr		o;
+	TTValue			n = value;		// use new value to protect the attribute
 	
 	newAddress = value;
 	

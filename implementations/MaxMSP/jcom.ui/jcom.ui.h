@@ -17,16 +17,39 @@
 #include "ModularForMax.h"			// Jamoma Modular for Max
 #include "MaxObjectTypes.h"
 #include "ext_symobject.h"
-#include "TTElement.h"
+
+#define NO_MODEL_STRING "waiting for a /model/address"
+
+#define preview_out 0
+#define panel_out 1
+
+// those stuffes are needed for handling patchers without using the pcontrol object
+#include "jpatcher_api.h"
+typedef struct dll {
+	t_object d_ob;
+	struct dll *d_next;
+	struct dll *d_prev;
+	void *d_x1;
+} t_dll;
+
+typedef struct outlet {
+	struct tinyobject o_ob;
+	struct dll *o_dll;
+} t_outlet;
+
+typedef struct inlet {
+	struct tinyobject i_ob;
+	void *i_who;
+	struct object *i_owner;
+} t_inlet;
 
 // members
 typedef struct _ui{
 	t_jbox				box;
-	TTPtr				outlet;					///< outlet -- used for sending preview to jit.pwindow
+	TTHandle			outlets;
 	TTHashPtr			hash_datas;				///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
 	TTObjectPtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
-	TTObjectPtr			viewExplorer;			///< internal TTExplorer object to observe the view namespace
 	TTObjectPtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
 	TTObjectPtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
 	TTObjectPtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
@@ -37,12 +60,13 @@ typedef struct _ui{
 	
 	TTSymbolPtr			viewAddress;
 	TTSymbolPtr			modelAddress;
-	TTSymbolPtr			patcherType;
-	TTSymbolPtr			patcherClass;
+	ObjectPtr			patcherPtr;				///< the patcher in which the external is (ignoring subpatcher)
+	TTSymbolPtr			patcherContext;			///< the patcher context in which the external is (model, view)
+	TTSymbolPtr			patcherClass;			///< the patcher class in which the external is
 	TTSymbolPtr			patcherName;
-	ObjectPtr			patcher;
 	
 	TTBoolean			hover;					// is the mouse hover the jcom.ui panel ?
+	TTBoolean			selection;				// is the user selecting things ?
 	TTBoolean			selectAll;				// to select/unselect all jcom.view
 	t_jrgba				memo_bordercolor;		// to keep the choosen border color during selection
 
@@ -50,8 +74,9 @@ typedef struct _ui{
 	t_jrgba				bordercolor;
 	t_jrgba				headercolor;
 	t_jrgba				textcolor;
+	t_jrgba				selectcolor;
 	
-	long				ui_freeze;				// freeze all viewers of the jview (TODO)
+	long				ui_freeze;				// freeze all viewers of the view (TODO)
 	
 	t_jpopupmenu		*menu;					// model menu
 	void				*menu_qelem;			// ...
@@ -73,6 +98,7 @@ typedef struct _ui{
 	
 	long				has_panel;				// is the binded model have a panel ?
 	t_rect				rect_panel;
+	ObjectPtr			patcher_panel;
 
 	long				has_meters;				// is the binded model have meters ? (set number of meters, not just a toggle)
 	long				is_metersdefeated;
@@ -80,27 +106,33 @@ typedef struct _ui{
 
 	long				has_mute;				// is the binded model have a mute ?
 	long				is_muted;
+	long				sel_mute;				// selection state of mute
 	t_rect				rect_mute;
 
 	long				has_bypass;				// is the binded model have a bypass ?
 	long				is_bypassed;
+	long				sel_bypass;				// selection state of bypass
 	t_rect				rect_bypass;
 
 	long				has_freeze;				// is the binded model have a freeze ?
 	long				is_frozen;
+	long				sel_freeze;				// selection state of freeze
 	t_rect				rect_freeze;
 
 	long				has_preview;			// is the binded model have a preview ?
 	long				is_previewing;
+	long				sel_preview;			// selection state of preview
 	t_rect				rect_preview;
 
 	long				has_gain;				// is the binded model have a gain ?
 	float				gain;
+	long				sel_gain;				// selection state of gain
 	t_rect				rect_gain;
 	bool				gainDragging;
 	
 	long				has_mix;				// is the binded model have a mix ?
 	float				mix;
+	long				sel_mix;				// selection state of mix
 	t_rect				rect_mix;
 	bool				mixDragging;
 	
@@ -142,20 +174,24 @@ void		ui_data_create_all(t_ui* obj);
 void		ui_data_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_data_destroy_all(t_ui* obj);
 void		ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v);
+void		ui_data_interface(t_ui *x, TTSymbolPtr name);
 
 void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTSymbolPtr address, TTBoolean subscribe);
 void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_viewer_destroy_all(t_ui *obj);
 void		ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v);
+void		ui_viewer_select(t_ui *obj, TTSymbolPtr name, TTBoolean s);
 void		ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f);
 void		ui_viewer_refresh(t_ui *obj, TTSymbolPtr name);
 
 void		ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr method);
-void		ui_viewExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv); 
-void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv); 
+void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+void		ui_view_panel_attach(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void		ui_view_panel_return(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_color_toolbarBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

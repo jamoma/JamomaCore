@@ -36,7 +36,7 @@ void ui_preset_doread(t_ui *x)
 	if (open_dialog(filename, &path, &outtype, &filetype, 1))		// Returns 0 if successful
 		return;														// User Cancelled
 
-	jcom_core_getfilepath(path, filename, fullpath);
+	jcom_file_get_path(path, filename, fullpath);
 	
 	ui_viewer_send(x, TT("preset/read"), TT(fullpath));
 }
@@ -49,8 +49,26 @@ void ui_preset_dowrite(t_ui *x)
 	short 			path, err;					// pathID#, error number
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
+	TTNodePtr		patcherNode;
+	ObjectPtr		modelPatcher = NULL;
+	TTSymbolPtr		modelClass = NULL;
 	
-	snprintf(filename, MAX_FILENAME_CHARS, "jmod.%s.xml", x->patcherClass->getCString());		// Default File Name
+	// get model patcher class for preset file name
+	JamomaDirectory->getTTNodeForOSC(x->modelAddress, &patcherNode);
+	modelPatcher = (ObjectPtr)patcherNode->getContext();
+
+	if (modelPatcher) {
+		jamoma_patcher_get_class(modelPatcher, kTTSym_model, &modelClass);
+		
+		if (modelClass)
+			snprintf(filename, MAX_FILENAME_CHARS, "%s.model.xml", modelClass->getCString());	// Default File Name
+		else
+			snprintf(filename, MAX_FILENAME_CHARS, ".model.xml");		// Default File Name
+	}
+	else
+		snprintf(filename, MAX_FILENAME_CHARS, ".model.xml");		// Default File Name
+	
+	
 	saveas_promptset("Save Preset...");											// Instructional Text in the dialog
 	err = saveasdialog_extended(filename, &path, &outtype, &type, 1);			// Returns 0 if successful
 	if (err)																	// User Cancelled
@@ -64,7 +82,7 @@ void ui_preset_dowrite(t_ui *x)
 	}
 	
 	// ... AND WE SAVE THE fullpath IN THE HUB ATTRIBUTE user_path.
-	if (path) jcom_core_getfilepath(path, filename, fullpath);
+	if (path) jcom_file_get_path(path, filename, fullpath);
 	else strcpy(fullpath, filename);
 	
 	ui_viewer_send(x, TT("preset/write"), TT(fullpath));
@@ -113,7 +131,7 @@ void ui_preset_interface(t_ui *x)
 	object_method(p, _sym_vis);													// "vis" happens immediately, "front" is defer_lowed
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 	
-	OBJ_ATTR_SYM(p, "jmod/modelname", 0, gensym((char*)x->modelAddress->getCString()));						// to use in jmod.receive etc.
+	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)x->modelAddress->getCString()));	// the patch needs a [jcom.interfaceArguments.js]
 	
 	object_method(p, _sym_loadbang);
 }

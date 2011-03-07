@@ -47,6 +47,8 @@
 
 #include "TTApplication.h"
 #include "TTContainer.h"
+#include "TTCue.h"
+#include "TTCueManager.h"
 #include "TTData.h"
 #include "TTDevice.h"
 #include "TTDeviceManager.h"
@@ -55,6 +57,7 @@
 #include "TTMapper.h"
 #include "TTMapperManager.h"
 #include "TTViewer.h"
+#include "TTOpmlHandler.h"
 #include "TTOutput.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
@@ -72,7 +75,7 @@ TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {r
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
+thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 
 
 

@@ -35,7 +35,7 @@ typedef TTData* TTDataPtr;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTSubscriber : public TTObject
+class TTMODULAR_EXPORT TTSubscriber : public TTDataObject
 {
 	
 public:
@@ -55,9 +55,6 @@ private:
 	TTBoolean			mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
 	
 	TTApplicationPtr	mApplication;				///< the application
-	
-	TTCallbackPtr		mShareContextNodeCallback;	///< A callback to ask the Context node to other subscribers created before this one
-													///< Here we expect the callback fill the given value with a pointer to a ContextNode or NULL.
 	
 	TTCallbackPtr		mGetContextListCallback;	///< A callback to get the Context list of all Contexts above.
 													///< Here we expect the callback fill the given value with a TTListPtr or NULL.

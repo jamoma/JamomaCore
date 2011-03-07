@@ -19,7 +19,7 @@
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTReceiver : public TTObject
+class TTMODULAR_EXPORT TTReceiver : public TTDataObject
 {
 	TTCLASS_SETUP(TTReceiver)
 	
@@ -32,7 +32,7 @@ private:
 	TTApplicationPtr	mApplication;				///< the application
 	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this receiver
-	TTObjectPtr			mObserver;					///< a life cycle observer
+	TTCallbackPtr		mObserver;					///< a life cycle observer
 	TTListPtr			mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
 
 	

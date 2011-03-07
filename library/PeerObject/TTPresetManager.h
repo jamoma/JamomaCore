@@ -22,7 +22,7 @@ typedef TTPreset* TTPresetPtr;
 class TTXmlHandler;
 typedef TTXmlHandler* TTXmlHandlerPtr;
 
-class TTMODULAR_EXPORT TTPresetManager : public TTObject
+class TTMODULAR_EXPORT TTPresetManager : public TTDataObject
 {
 	TTCLASS_SETUP(TTPresetManager)
 	
@@ -30,7 +30,9 @@ private:
 	
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE : the address of the preset manager in the directory
 	TTValue				mNames;							///< ATTRIBUTE : all preset names
-	TTValue				mCurrent;						///< ATTRIBUTE : <index, name> of the current preset
+	TTValue				mCurrent;						///< ATTRIBUTE : <index, name, comment> of the current preset
+	TTValue				mPrevious;						///< ATTRIBUTE : <index, name, comment> of the previous preset
+	TTValue				mNext;							///< ATTRIBUTE : <index, name, comment> of the next preset
 
 	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)
 	TTListPtr			mPresetList;					///< a list containing <TTPresetPtr> sorted by Number attribute
@@ -88,6 +90,12 @@ private:
 	
 	/** */
 	TTErr getCurrent(TTValue& value);
+	
+	/** */
+	TTErr getPrevious(TTValue& value);
+	
+	/** */
+	TTErr getNext(TTValue& value);
 		
 	/** */
 	TTErr setAddress(const TTValue& value);

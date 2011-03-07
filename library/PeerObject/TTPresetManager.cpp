@@ -1,5 +1,5 @@
 /* 
- * A TTHarvester Object
+ * A TTPresetManager Object
  * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -16,6 +16,8 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
 mNames(kTTValNONE),
 mCurrent(kTTValNONE),
+mPrevious(kTTValNONE),
+mNext(kTTValNONE),
 mPresetArguments(kTTValNONE),
 mPresetList(NULL),
 mCurrentIndex(0)
@@ -23,6 +25,7 @@ mCurrentIndex(0)
 	TTValue v;
 	
 	mPresetArguments = arguments;
+	mPresetArguments.append((TTPtr)this);	// append the preset manager object as argument
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -31,6 +34,12 @@ mCurrentIndex(0)
 	
 	addAttributeWithGetter(Current, kTypeLocalValue);
 	addAttributeProperty(current, readOnly, YES);
+	
+	addAttributeWithGetter(Previous, kTypeLocalValue);
+	addAttributeProperty(previous, readOnly, YES);
+	
+	addAttributeWithGetter(Next, kTypeLocalValue);
+	addAttributeProperty(next, readOnly, YES);
 	
 	addMessage(New);
 	
@@ -73,20 +82,34 @@ TTPresetManager::~TTPresetManager()
 	mPresetList = NULL;
 	
 	mPresetArguments.get(1, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(2, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(3, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 	
 	mPresetArguments.get(4, (TTPtr*)&oldCallback);
-	if (oldCallback)
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
+	
+	mPresetArguments.get(5, (TTPtr*)&oldCallback);
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
+		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
 }
 
 TTErr TTPresetManager::getNames(TTValue& value)
@@ -113,7 +136,44 @@ TTErr TTPresetManager::getCurrent(TTValue& value)
 	if (aPreset) {
 		value.append(mCurrentIndex);
 		value.append(aPreset->mName);
+		value.append(aPreset->mComment);
 	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTPresetManager::getPrevious(TTValue& value)
+{	
+	TTPresetPtr previousPreset;
+	
+	mCurrentIndex--;
+	previousPreset = getPresetCurrent();
+	
+	if (previousPreset) {
+		value.append(mCurrentIndex);
+		value.append(previousPreset->mName);
+		value.append(previousPreset->mComment);
+	}
+	
+	mCurrentIndex++;
+	
+	return kTTErrNone;
+}
+
+TTErr TTPresetManager::getNext(TTValue& value)
+{	
+	TTPresetPtr nextPreset;
+	
+	mCurrentIndex++;
+	nextPreset = getPresetCurrent();
+	
+	if (nextPreset) {
+		value.append(mCurrentIndex);
+		value.append(nextPreset->mName);
+		value.append(nextPreset->mComment);
+	}
+	
+	mCurrentIndex--;
 	
 	return kTTErrNone;
 }
@@ -176,11 +236,11 @@ TTErr TTPresetManager::Store(const TTValue& value)
 	newPreset->setAttributeValue(kTTSym_address, mAddress);
 	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
-	newPreset->sendMessage(TT("Fill"));
+	newPreset->sendMessage(kTTSym_Fill);
 	
 	// Insert at index
 	mCurrentIndex = index;
-	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
+	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the preset list
 	notifyNamesObservers();
@@ -197,7 +257,7 @@ TTErr TTPresetManager::StoreCurrent()
 		return kTTErrGeneric;
 	
 	currentPreset->sendMessage(TT("Clear"));
-	currentPreset->sendMessage(TT("Fill"));
+	currentPreset->sendMessage(kTTSym_Fill);
 	
 	// notify observers of the preset list
 	notifyNamesObservers();
@@ -226,11 +286,11 @@ TTErr TTPresetManager::StoreNext(const TTValue& value)
 	newPreset->setAttributeValue(kTTSym_address, mAddress);
 	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
-	newPreset->sendMessage(TT("Fill"));
+	newPreset->sendMessage(kTTSym_Fill);
 	
 	// Insert AFTER current
 	mCurrentIndex++;
-	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
+	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the preset list
 	notifyNamesObservers();
@@ -259,13 +319,13 @@ TTErr TTPresetManager::StorePrevious(const TTValue& value)
 	newPreset->setAttributeValue(kTTSym_address, mAddress);
 	newPreset->setAttributeValue(kTTSym_name, presetName);
 	
-	newPreset->sendMessage(TT("Fill"));
+	newPreset->sendMessage(kTTSym_Fill);
 	
 	// Insert BEFORE current
 	mCurrentIndex--;
 	if (mCurrentIndex < 1) 
 		mCurrentIndex = 1;
-	mPresetList->insert(mCurrentIndex-1, new TTValue((TTPtr)newPreset));		// -1 because user starts at 1 and TTList starts at 0
+	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
 	
 	// notify observers of the preset list
 	notifyNamesObservers();
@@ -541,7 +601,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& value)
 		newPreset->setAttributeValue(kTTSym_address, mAddress);
 		newPreset->setAttributeValue(kTTSym_name, presetName);
 		
-		mPresetList->append(new TTValue((TTPtr)newPreset));
+		mPresetList->append((TTPtr)newPreset);
 		
 		mCurrentIndex++;
 		

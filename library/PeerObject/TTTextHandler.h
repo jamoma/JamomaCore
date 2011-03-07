@@ -43,7 +43,7 @@ using namespace std;
  
  */
 
-class TTMODULAR_EXPORT TTTextHandler : public TTObject
+class TTMODULAR_EXPORT TTTextHandler : public TTDataObject
 {
 	TTCLASS_SETUP(TTTextHandler)
 	

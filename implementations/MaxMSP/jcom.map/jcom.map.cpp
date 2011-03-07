@@ -10,7 +10,7 @@
 #include "TTModularClassWrapperMax.h"
 
 #define data_out 0
-
+#define dump_out 1
 
 // Definitions
 void	WrapTTMapperClass(WrappedClassPtr c);
@@ -24,7 +24,7 @@ void	map_int(TTPtr self, long value);
 void	map_float(TTPtr self, double value);
 void	map_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	map_build(TTPtr self, SymbolPtr address);
+void	map_subscribe(TTPtr self, SymbolPtr relativeAddress);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -51,13 +51,21 @@ void WrapTTMapperClass(WrappedClassPtr c)
 void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	SymbolPtr					relativeAddress;
+ 	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
+	
+	// possible relativeAddress
+	if (attrstart && argv) 
+		relativeAddress = atom_getsym(argv);
+	else
+		relativeAddress = _sym_nothing;
 	
 	jamoma_mapper_create((ObjectPtr)x, &x->wrappedObject);
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)map_build, gensym("/"), 0, 0);
+	defer_low((ObjectPtr)x, (method)map_subscribe, relativeAddress, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -69,45 +77,85 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 
 // Method for Assistance Messages
 void map_assist(TTPtr self, void *b, long msg, long arg, char *dst)
-{
-	if (msg==1)				// Inlets
+{	
+	if (msg==1)			// Inlets
 		strcpy(dst, "");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "");
+	else {							// Outlets
+		switch(arg) {
+			case data_out:
+				strcpy(dst, "mapping output");
+				break;
+			case dump_out:
+				strcpy(dst, "dumpout");
+				break;
+		}
+ 	}
 }
 
-void map_build(TTPtr self, SymbolPtr address)
+void map_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, n, p, args;
-	TTString					mapperLevelAddress;
-	TTNodePtr					node = NULL;
-	TTPtr						context;
+	TTValue						v, n, args;
+	SymbolPtr					mapperLevelAddress;
+	TTDataPtr					aData;
 	
-	// add '/mapper' node
-	mapperLevelAddress = "/mapper";
+	/*	TODO : fix exposeAttribute as parameter because for now 
+		it crash due to a locked mutex during the notification
+		of observers when the attribute is updated from a Max message.
 	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym((char*)mapperLevelAddress.data()), x->patcherType, &x->subscriberObject);
+	// add 'cue' after the address
+	if (relativeAddress == _sym_nothing)
+		mapperLevelAddress = gensym("/mapper");
+	else
+		mapperLevelAddress = relativeAddress;
 	
 	// if the subscription is successful
-	if (x->subscriberObject) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, mapperLevelAddress), &x->subscriberObject)) {
 		
-		// get the Node
-		x->subscriberObject->getAttributeValue(TT("node"), n);
-		n.get(0, (TTPtr*)&node);
+		// expose attributes of TTMapper as TTData in the tree structure
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("input"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("The input address to map"));
 		
-		// attach to the patcher to be notified of his destruction
-		context = node->getContext();
-		// Crash : object_attach_byptr_register(x, context, _sym_box);
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("output"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("The output address to map"));
 		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("inputMin"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("The low bound input value"));
+		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("inputMax"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("The high bound input value"));
+		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("outputMin"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("The low bound output value"));
+		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("outputMax"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("The high bound output value"));
+		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("enable"), kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Turn on and off the mapping"));
 	}
+	 
+	 */
 }
 
 void map_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[data_out], msg, argc, argv);
+	outlet_atoms(x->outlets[data_out], argc, argv);
 }
 
 void map_bang(TTPtr self)

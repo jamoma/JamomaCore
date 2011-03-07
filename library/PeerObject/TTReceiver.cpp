@@ -60,11 +60,15 @@ TTReceiver::~TTReceiver()
 {
 	unbind();
 	
-	if (mReturnAddressCallback)
+	if (mReturnAddressCallback) {
+		delete (TTValuePtr)mReturnAddressCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnAddressCallback));
+	}
 	
-	if (mReturnValueCallback)
+	if (mReturnValueCallback) {
+		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	}
 }
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
@@ -78,8 +82,10 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 {	
 	TTSymbolPtr			oldAttribute, oscAddress;
 	TTValue				oldElement;
-	TTObjectPtr			oldObserver, newObserver, o;
-	TTValuePtr			newBaton, newElement;
+	TTCallbackPtr		oldObserver, newObserver;
+	TTObjectPtr			o;
+	TTValuePtr			newBaton;
+	TTValue				newElement;
 	TTNodePtr			aNode;
 	TTAttributePtr		anAttribute;
 	TTListPtr			newNodesObserversCache;
@@ -117,8 +123,10 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 					
 					err = anAttribute->unregisterObserverForNotifications(*oldObserver);
 					
-					if(!err)
-						TTObjectRelease(&oldObserver);
+					if(!err) {
+						delete (TTValuePtr)oldObserver->getBaton();
+						TTObjectRelease(TTObjectHandle(&oldObserver));
+					}
 				}
 				
 				// create a new attribute observer
@@ -127,7 +135,7 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 				if (!err) {
 					
 					newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-					TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
+					TTObjectInstantiate(TT("callback"), TTObjectHandle(&newObserver), kTTValNONE);
 					
 					newBaton = new TTValue(TTPtr(this));
 					aNode->getOscAddress(&oscAddress);
@@ -141,11 +149,10 @@ TTErr TTReceiver::setAttribute(const TTValue& newValue)
 					anAttribute->registerObserverForNotifications(*newObserver);
 					
 					// memorize the node and his attribute observer
-					newElement = new TTValue((TTPtr)aNode);
-					newElement->append((TTPtr)newObserver);
+					newElement = (TTPtr)aNode;
+					newElement.append((TTPtr)newObserver);
 					newNodesObserversCache->appendUnique(newElement);
 				}
-				
 			}
 		}
 		
@@ -234,8 +241,8 @@ TTErr TTReceiver::bind()
 	TTObjectPtr		newObserver, o;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
-	TTValue			v, data;
-	TTValuePtr		newBaton, newElement;
+	TTValue			v, data, newElement;
+	TTValuePtr		newBaton;
 	TTErr			err;
 	
 	mNodesObserversCache = new TTList();
@@ -264,7 +271,7 @@ TTErr TTReceiver::bind()
 					if (!err) {
 						
 						newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
+						TTObjectInstantiate(TT("callback"), TTObjectHandle(&newObserver), kTTValNONE);
 						
 						newBaton = new TTValue(TTPtr(this));
 						aNode->getOscAddress(&oscAddress);
@@ -278,8 +285,8 @@ TTErr TTReceiver::bind()
 						anAttribute->registerObserverForNotifications(*newObserver);
 						
 						// memorize the node and his attribute observer
-						newElement = new TTValue((TTPtr)aNode);
-						newElement->append((TTPtr)newObserver);
+						newElement = (TTPtr)aNode;
+						newElement.append((TTPtr)newObserver);
 						mNodesObserversCache->appendUnique(newElement);
 					}
 				}
@@ -289,7 +296,7 @@ TTErr TTReceiver::bind()
 
 	// observe any creation or destruction below the attr_name address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &mObserver, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 		
 	newBaton = new TTValue(TTPtr(this));
 	newBaton->append(TTPtr(kTTSymEmpty));
@@ -357,8 +364,10 @@ TTErr TTReceiver::unbind()
 		
 		err = aDirectory->removeObserverForNotifications(mAddress, *mObserver);
 		
-		if(!err)
-			TTObjectRelease(&mObserver);
+		if(!err) {
+			delete (TTValuePtr)mObserver->getBaton();
+			TTObjectRelease(TTObjectHandle(&mObserver));
+		}
 	}
 	
 	return kTTErrNone;
@@ -376,7 +385,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	TTUInt8			flag;
 	TTBoolean		found;
 	TTCallbackPtr	anObserver;
-	TTValuePtr		newBaton, newCouple;
+	TTValuePtr		newBaton;
+	TTValue			newCouple;
 	TTErr			err;
 	
 	// unpack baton
@@ -448,8 +458,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							anAttribute->registerObserverForNotifications(*newObserver);
 							
 							// memorize the node and his attribute observer
-							newCouple = new TTValue((TTPtr)aNode);
-							newCouple->append((TTPtr)newObserver);
+							newCouple = (TTPtr)aNode;
+							newCouple.append((TTPtr)newObserver);
 							aReceiver->mNodesObserversCache->appendUnique(newCouple);
 						}
 					}

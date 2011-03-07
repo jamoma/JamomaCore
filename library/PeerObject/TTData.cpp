@@ -14,9 +14,10 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
-mValueDefault(TTValue(0.0)),
+mValueDefault(kTTValNONE),
 mValueStepsize(TTValue(0.1)),
 mType(kTTSym_generic),
+mTag(kTTSym_none),
 mPriority(0),
 mDescription(kTTSymEmpty),
 mRepetitionsAllow(YES),
@@ -31,9 +32,8 @@ mRampDrive(kTTSym_none),
 mRampFunction(kTTSymEmpty),
 #endif
 mDataspace(kTTSym_none),
-mDataspaceUnitNative(kTTSym_none),
-mDataspaceUnitActive(kTTSym_none),
-mDataspaceUnitDisplay(kTTSym_none),
+mDataspaceUnit(kTTSym_none),
+mDataspaceConverter(NULL),
 mService(kTTSymEmpty),
 mReturnValueCallback(NULL)
 {
@@ -50,7 +50,8 @@ mReturnValueCallback(NULL)
 	addAttributeWithGetterAndSetter(ValueStepsize, kTypeNone);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
-	addAttribute(Priority, kTypeUInt8);
+	addAttributeWithSetter(Tag, kTypeSymbol);
+	addAttribute(Priority, kTypeInt32);
 	addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	addAttributeWithSetter(Readonly, kTypeBoolean);
@@ -73,9 +74,7 @@ mReturnValueCallback(NULL)
 #endif
 	
 	addAttributeWithSetter(Dataspace, kTypeSymbol);
-	addAttributeWithSetter(DataspaceUnitNative, kTypeSymbol);
-	addAttributeWithSetter(DataspaceUnitActive, kTypeSymbol);
-	addAttributeWithSetter(DataspaceUnitDisplay, kTypeSymbol);
+	addAttributeWithSetter(DataspaceUnit, kTypeSymbol);
 	
 	addAttribute(Service, kTypeSymbol);
 	addAttributeProperty(service, hidden, YES);
@@ -96,10 +95,6 @@ mReturnValueCallback(NULL)
 	mRamper = NULL;
 	mRampDataNames = new TTHash();
 #endif
-	dataspace_active2native	= NULL;
-	dataspace_override2active = NULL;
-	dataspace_active2display = NULL;
-	dataspace_display2active = NULL;
 }
 
 TTData::~TTData()
@@ -109,15 +104,21 @@ TTData::~TTData()
 		TTObjectRelease(TTObjectHandle(&mRamper));
 #endif
 	
-	if (mReturnValueCallback)
+	if (mDataspaceConverter)
+		TTObjectRelease(TTObjectHandle(&mDataspaceConverter));
+	
+	if (mReturnValueCallback) {
+		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	}
 }
 
 TTErr TTData::Reset()
 {
 	// if valueDefault type is right
 	if (checkType(mValueDefault))
-		setValue(mValueDefault);
+		if (!(mValueDefault == kTTValNONE))
+			setValue(mValueDefault);
 	
 	// Set data to be uninitialised
 	// to circumvent filtering of repetitions when outputing value from default preset
@@ -268,7 +269,7 @@ TTErr TTData::Command(const TTValue& command)
 #endif
 	int			commandSize;
 	TTSymbolPtr	first, unit, ramp;
-	TTValue		aValue, convertedValue;
+	TTValue		aValue;
 	bool		hasRamp = false;
 	bool		hasUnit = false;
 	
@@ -307,7 +308,7 @@ TTErr TTData::Command(const TTValue& command)
 		case 2 :
 		{
 			// Is the second element is a unit symbol ?
-			if (mDataspaceUnitActive != kTTSym_none)
+			if (mDataspaceUnit != kTTSym_none)
 				if (command.getType(0) != kTypeSymbol && command.getType(1) == kTypeSymbol) {
 					hasUnit = true;
 					command.get(1, &unit);
@@ -361,42 +362,37 @@ TTErr TTData::Command(const TTValue& command)
 		}
 			
 	}
+
 	
-	
-	// 3. Set DataspaceUnitActive attribute
-	// Note : The current implementation does not override 
-	// the active unit temporarily or anything fancy.
-	// It just sets the active unit and then runs with it...
-	////////////////////////////////////////////////////////////////
-	if (hasUnit)
-		setDataspaceUnitActive(unit);
-	
-	
-	// 4. Convert the value
-	// Note : For this initial implementation we are converting the values prior to ramping, as it is easier.
-	// Ultimately though, we actually want to convert the units after the ramping, 
-	// for example to perform a sweep that is linear vs logarithmic
-	///////////////////////////////////////////////////////////////////
+	// 3. Strip ramp or unit informations if needed
 	if (hasRamp && hasUnit) {
 		aValue = command;
 		aValue.setSize(commandSize - 3);
-		convertUnit(aValue, convertedValue);
 	}
 	else if (hasRamp) {
 		aValue = command;
 		aValue.setSize(commandSize - 2);
-		convertUnit(aValue, convertedValue);
 	}
 	else if (hasUnit) {
 		aValue = command;
 		aValue.setSize(commandSize - 1);
-		convertUnit(aValue, convertedValue);
-	}
-	else if (command == kTTValNONE) {
-		convertedValue = command;
 	}
 	else
-		convertUnit(command, convertedValue);
+		aValue = command;
+	
+	
+	// 4. Set Dataspace input unit and convert the value
+	// Note : The current implementation does not override the active unit temporarily or anything fancy.
+	// It just sets the input unit and then runs with it...
+	// For this initial implementation we are converting the values prior to ramping, as it is easier.
+	// Ultimately though, we actually want to convert the units after the ramping, 
+	// for example to perform a sweep that is linear vs logarithmic
+	////////////////////////////////////////////////////////////////
+	if (hasUnit)
+		if (mDataspaceConverter) {
+			mDataspaceConverter->setAttributeValue(TT("inputUnit"), unit);
+			convertUnit(aValue);
+		}
 	
 	
 	// 5. Ramp the convertedValue
@@ -407,7 +403,7 @@ TTErr TTData::Command(const TTValue& command)
 		command.get(commandSize - 1, time);
 
 		if (time <= 0) {
-			setValue(convertedValue);
+			setValue(aValue);
 			return kTTErrNone;
 		}	
 		
@@ -415,18 +411,18 @@ TTErr TTData::Command(const TTValue& command)
 			
 			// float to integer case
 			if (mType == kTTSym_integer)
-				convertedValue.truncate();
+				aValue.truncate();
 			
 			// integer/float to boolean case
 			if (mType == kTTSym_boolean)
-				convertedValue.booleanize();
+				aValue.booleanize();
 			
-			if (mValue == convertedValue)
+			if (mValue == aValue)
 				return kTTErrNone;	// nothing to do
 		}
 		
 		if (mRamper) {
-			TTUInt16	i, s = convertedValue.getSize();
+			TTUInt16	i, s = aValue.getSize();
 			TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
 			TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
 			
@@ -435,7 +431,7 @@ TTErr TTData::Command(const TTValue& command)
 			
 			for (i=0; i<s; i++) {
 				startArray[i] = mValue.getFloat64(i);
-				targetArray[i] = convertedValue.getFloat64(i);
+				targetArray[i] = aValue.getFloat64(i);
 			}
 			
 			mRamper->set(s, startArray);		
@@ -452,17 +448,17 @@ TTErr TTData::Command(const TTValue& command)
 			
 			// float to integer case
 			if (mType == kTTSym_integer)
-				convertedValue.truncate();
+				aValue.truncate();
 			
 			// integer/float to boolean case
 			if (mType == kTTSym_boolean)
-				convertedValue.booleanize();
+				aValue.booleanize();
 			
-			if (mValue == convertedValue)
+			if (mValue == aValue)
 				return kTTErrNone;	// nothing to do
 		}
 		
-		setValue(convertedValue);
+		setValue(aValue);
 		
 #ifdef TTDATA_RAMPLIB
 	}
@@ -531,7 +527,7 @@ TTErr TTData::setValue(const TTValue& value)
 			this->mReturnValueCallback->notify(r);
 		
 		// notify each observers
-		if (!(mService == kTTSym_message))
+		//if (!(mService == kTTSym_message))					to -- considering a lot of user cases we also forward message value to observers
 			notifyObservers(kTTSym_value, n);
 		
 		// we have had our value set at least once
@@ -602,7 +598,6 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeInt32;
 			valueStepSizeAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
-			mValueDefault = TTValue(1);
 			mValueStepsize = TTValue(1);
 			mRangeBounds.set(0, TTUInt16(0));
 			mRangeBounds.set(1, TTUInt16(1));
@@ -612,7 +607,6 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			mValueDefault = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
@@ -622,7 +616,6 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeSymbol;
 			valueStepSizeAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
-			mValueDefault = TTValue(kTTSymEmpty);
 			mValueStepsize = kTTValNONE;
 			mRangeBounds = kTTValNONE;
 		}
@@ -631,7 +624,6 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeBoolean;
 			valueStepSizeAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
-			mValueDefault = TTValue(NO);
 			mValueStepsize = TTValue(YES);
 			mRangeBounds.set(0, NO);
 			mRangeBounds.set(1, YES);
@@ -641,29 +633,24 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			mValueDefault = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
 		}
-	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
 			valueAttribute->type = kTypeNone;
 			valueDefaultAttribute->type = kTypeNone;
 			valueStepSizeAttribute->type = kTypeNone;
 			mValue = kTTValNONE;
-			mValueDefault = kTTValNONE;
 			mValueStepsize = kTTValNONE;
 			mRangeBounds = kTTValNONE;
 		}
-	//#endif // JMOD_MESSAGE
 		else {
 			valueAttribute->type = kTypeFloat64;
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
 			mValue = TTValue(0.);
-			mValueDefault = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds = TTValue(0., 1.);
 			return kTTErrGeneric;
@@ -675,6 +662,14 @@ TTErr TTData::setType(const TTValue& value)
 		
 		notifyObservers(kTTSym_type, n);
 	}
+	return kTTErrNone;
+}
+
+TTErr TTData::setTag(const TTValue& value)
+{
+	TTValue n = value;				// use new value to protect the attribute
+	mTag = value;
+	notifyObservers(kTTSym_tag, n);
 	return kTTErrNone;
 }
 
@@ -770,8 +765,8 @@ TTErr TTData::setRampFunction(const TTValue& value)
 				if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
 					nameString[0] += 32;							// convert first letter to lower-case for Max
 					
-					TTValuePtr v = new TTValue(aName);
-					mRampDataNames->append(TT(nameString.c_str()), *v);
+					TTValue v = aName;
+					mRampDataNames->append(TT(nameString.c_str()), v);
 				}
 			}
 	}
@@ -784,94 +779,37 @@ TTErr TTData::setRampFunction(const TTValue& value)
 TTErr TTData::setDataspace(const TTValue& value)
 {
 	TTErr	err;
+	TTValue v;
 	TTValue n = value;				// use new value to protect the attribute
-
 	mDataspace = value;
 	
-	getDataspace(mDataspace, &dataspace_active2native);
-	getDataspace(mDataspace, &dataspace_active2display);
-	getDataspace(mDataspace, &dataspace_display2active);
-	getDataspace(mDataspace, &dataspace_override2active);
+	TTObjectInstantiate(TT("dataspace"),  &mDataspaceConverter, kTTValNONE);
+	mDataspaceConverter->setAttributeValue(TT("dataspace"), mDataspace);
 	
 	// If there is already a unit defined, then we try to use that
 	// Otherwise we use the default (neutral) unit.
 	err = kTTErrGeneric;
-	if (mDataspaceUnitActive) {
-		err = dataspace_active2native->setInputUnit(mDataspaceUnitActive);
-		err = dataspace_active2display->setInputUnit(mDataspaceUnitActive);
-		err = dataspace_display2active->setOutputUnit(mDataspaceUnitActive);
-		
-		// override always defaults to the active unit
-		err = dataspace_override2active->setInputUnit(mDataspaceUnitActive);
-		err = dataspace_override2active->setOutputUnit(mDataspaceUnitActive);
-	}
-	if (err) {
-		mDataspaceUnitActive = dataspace_active2native->neutralUnit;
-		err = dataspace_active2native->setInputUnit(mDataspaceUnitActive);
-		err = dataspace_active2display->setInputUnit(mDataspaceUnitActive);
-		err = dataspace_display2active->setOutputUnit(mDataspaceUnitActive);
-		err = dataspace_override2active->setOutputUnit(mDataspaceUnitActive);
-	}
-	
-	err = kTTErrGeneric;
-	if (mDataspaceUnitNative) 
-		err = dataspace_active2native->setOutputUnit(mDataspaceUnitNative);
-	if (err)
-		mDataspaceUnitNative = dataspace_active2native->neutralUnit;
-	
-	err = kTTErrGeneric;
-	if (mDataspaceUnitDisplay) {
-		err = dataspace_active2display->setOutputUnit(mDataspaceUnitDisplay);
-		err = dataspace_display2active->setInputUnit(mDataspaceUnitDisplay);
-	}
-	if (err)
-		mDataspaceUnitNative = dataspace_active2native->neutralUnit;
+	if (mDataspaceUnit)
+		err = mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
 
+	if (err) {
+		mDataspaceConverter->getAttributeValue(TT("outputUnit"), v);
+		v.get(0, &mDataspaceUnit);
+		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
+	}
+	
 	notifyObservers(kTTSym_dataspace, n);
 	return kTTErrNone;
 }
 
-TTErr TTData::setDataspaceUnitNative(const TTValue& value)
+TTErr TTData::setDataspaceUnit(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mDataspaceUnitNative = value;
-	if (dataspace_active2native)
-		dataspace_active2native->setOutputUnit(mDataspaceUnitNative);
+	mDataspaceUnit = value;
+	if (mDataspaceConverter)
+		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
 	
-	notifyObservers(kTTSym_dataspaceUnitNative, n);
-	return kTTErrNone;
-}
-
-TTErr TTData::setDataspaceUnitActive(const TTValue& value)
-{	
-	TTValue n = value;				// use new value to protect the attribute
-	mDataspaceUnitActive = value;
-	
-	if (dataspace_active2native)
-		dataspace_active2native->setInputUnit(mDataspaceUnitActive);
-	
-	if (dataspace_active2display)
-		dataspace_active2display->setInputUnit(mDataspaceUnitActive);
-	
-	if (dataspace_display2active)
-		dataspace_display2active->setOutputUnit(mDataspaceUnitActive);
-	
-	notifyObservers(kTTSym_dataspaceUnitActive, n);
-	return kTTErrNone;
-}
-
-TTErr TTData::setDataspaceUnitDisplay(const TTValue& value)
-{
-	TTValue n = value;				// use new value to protect the attribute
-	mDataspaceUnitDisplay = value;
-	
-	if (dataspace_active2display)
-		dataspace_active2display->setOutputUnit(mDataspaceUnitDisplay);
-	
-	if (dataspace_display2active)
-		dataspace_display2active->setInputUnit(mDataspaceUnitDisplay);
-	
-	notifyObservers(kTTSym_dataspaceUnitDisplay, n);
+	notifyObservers(kTTSym_dataspaceUnit, n);
 	return kTTErrNone;
 }
 
@@ -959,13 +897,11 @@ TTErr TTData::rampSetup()
 }
 #endif
 
-TTErr TTData::convertUnit(const TTValue& inValue, TTValue& outValue)
+TTErr TTData::convertUnit(TTValue& value)
 {
-	if (mDataspace && dataspace_active2native && (mDataspaceUnitActive != mDataspaceUnitNative))
-		dataspace_active2native->convert(inValue, outValue);
-	else
-		outValue = inValue;
-	
+	if (mDataspaceConverter)
+		return mDataspaceConverter->sendMessage(TT("convert"), value);
+
 	return kTTErrNone;
 }
 
@@ -1020,7 +956,7 @@ TTErr TTData::WriteAsText(const TTValue& value)
 	*file << "\t\t\t<td class =\"instructionDataspace\">" << this->mDataspace->getCString() << "</td>";
 	
 	// dataspace/unit/native
-	*file << "\t\t\t<td class =\"instructionDataspaceUnitNative\">" << this->mDataspaceUnitNative->getCString() << "</td>";
+	*file << "\t\t\t<td class =\"instructionDataspaceUnit\">" << this->mDataspaceUnit->getCString() << "</td>";
 	
 	// repetitions/allow
 	toString = this->mRepetitionsAllow;

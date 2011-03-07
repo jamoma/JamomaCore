@@ -34,7 +34,7 @@ thisTTClass :: thisTTClass (TTValue& arguments) : RampUnit(arguments)
 
 
 // Specification of our base class
-class TTMODULAR_EXPORT RampUnit : public TTObject {
+class TTMODULAR_EXPORT RampUnit : public TTDataObject {
 	private:
 		TTSymbolPtr			mFunction;			///< The name of the functionUnit
 

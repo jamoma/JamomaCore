@@ -12,6 +12,7 @@
 #include "TTSymbol.h"
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_address;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_addresses;
 extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_attributes;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
@@ -24,9 +25,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToTTName;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspace;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitActive;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitDisplay;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnitNative;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnit;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_description;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
@@ -34,10 +33,12 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_enable;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Fill;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Get;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_global;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_instances;
@@ -49,6 +50,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_lookfor;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Map;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_message;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mix;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_model;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_name;
@@ -77,11 +79,13 @@ extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_selected;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_tag;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_type;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueStepsize;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_viewFreeze;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_view;
 
 void TTModularSymbolCacheInit();
 

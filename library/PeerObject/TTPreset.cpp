@@ -13,8 +13,11 @@
 #define thisTTClassTags		"preset"
 
 // Item CONSTRUCTOR / DESTRUCTOR
-Item::Item(TTNodePtr aNode)
+Item::Item(TTObjectPtr aManager, TTNodePtr aNode)
 {
+	// Set manager
+	manager = aManager;
+	
 	// Set node
 	node = aNode;
 
@@ -42,7 +45,7 @@ TTErr Item::clear()
 	return state->clear();
 }
 
-TTErr Item::set(TTSymbolPtr attributeName)
+TTErr Item::update(TTSymbolPtr attributeName)
 {
 	TTObjectPtr o;
 	TTValue v;
@@ -56,12 +59,17 @@ TTErr Item::set(TTSymbolPtr attributeName)
 	if (v == kTTValNONE)
 		return kTTErrGeneric;
 	
-	return state->append(kTTSym_value, v);
+	return state->append(attributeName, v);
+}
+
+TTErr Item::set(TTSymbolPtr attributeName, const TTValue& value)
+{
+	return state->append(attributeName, value);
 }
 
 TTErr Item::get(TTSymbolPtr attributeName, TTValue& value)
 {
-	return state->lookup(kTTSym_priority, value);
+	return state->lookup(attributeName, value);
 }
 
 TTErr Item::send(TTSymbolPtr attributeName)
@@ -85,9 +93,10 @@ TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mAddress(kTTSymEmpty),
 mComment(kTTSymEmpty),
-mExtra(kTTValNONE),
 mApplication(NULL),
+mManager(NULL),
 mTestObjectCallback(NULL),
+mReadItemCallback(NULL),
 mUpdateItemCallback(NULL),
 mSortItemCallback(NULL),
 mSendItemCallback(NULL),
@@ -101,19 +110,24 @@ mCurrentItem(kTTSymEmpty)
 	arguments.get(1, (TTPtr*)&mTestObjectCallback);
 	TT_ASSERT("TestObjectCallback passed to TTPreset is not NULL", mTestObjectCallback);
 	
-	arguments.get(2, (TTPtr*)&mUpdateItemCallback);
+	arguments.get(2, (TTPtr*)&mReadItemCallback);
+	TT_ASSERT("ReadItemCallback passed to TTPreset is not NULL", mReadItemCallback);
+	
+	arguments.get(3, (TTPtr*)&mUpdateItemCallback);
 	TT_ASSERT("UpdateItemCallback passed to TTPreset is not NULL", mUpdateItemCallback);
 	
-	arguments.get(3, (TTPtr*)&mSortItemCallback);
+	arguments.get(4, (TTPtr*)&mSortItemCallback);
 	TT_ASSERT("SortItemCallback passed to TTPreset is not NULL", mSortItemCallback);
 	
-	arguments.get(4, (TTPtr*)&mSendItemCallback);
+	arguments.get(5, (TTPtr*)&mSendItemCallback);
 	TT_ASSERT("SendItemCallback passed to TTPreset is not NULL", mSendItemCallback);
+	
+	arguments.get(6, (TTPtr*)&mManager);
+	TT_ASSERT("Manager passed to TTPreset is not NULL", mManager);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
-	addAttribute(Extra, kTypeNone);
 	addAttribute(ItemTable, kTypePointer);
 	addAttributeProperty(itemTable, readOnly, YES);
 	
@@ -170,10 +184,10 @@ TTErr TTPreset::Fill()
 		
 		allObjectNodes.current().get(0, (TTPtr*)&aNode);
 		aNode->getOscAddress(&aRelativeAddress, mAddress);
-		aNewItem = new Item(aNode);
+		aNewItem = new Item(mManager, aNode);
 		
 		mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
-		mItemKeysSorted->appendUnique(new TTValue(aRelativeAddress));
+		mItemKeysSorted->appendUnique(aRelativeAddress);
 	}
 	
 	// 3. Update item's state
@@ -216,7 +230,6 @@ TTErr TTPreset::Clear()
 
 TTErr TTPreset::Update()
 {
-	ItemPtr			anItem;
 	TTValue			hk, v;
 	TTSymbolPtr		key;
 	TTUInt8			i;
@@ -250,7 +263,6 @@ TTErr TTPreset::Sort()
 
 TTErr TTPreset::Send()
 {
-	ItemPtr			anItem;
 	TTValue			v;
 	TTSymbolPtr		key;
 	
@@ -385,9 +397,9 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 				
 				// if the address exist
 				if (!err) {
-					anItem = new Item(aNode);
+					anItem = new Item(mManager, aNode);
 					mItemTable->append(mCurrentItem, TTValue((TTPtr)anItem));
-					mItemKeysSorted->append(new TTValue(mCurrentItem));
+					mItemKeysSorted->append(mCurrentItem);
 					
 					// fill the item
 					while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
@@ -409,6 +421,10 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 							}
 						}
 					}
+					
+					// call the read item callback to allow specific application process
+					mItemTable->lookup(mCurrentItem, v);
+					mReadItemCallback->notify(v);
 				}
 				
 				// if the address doesn't exist

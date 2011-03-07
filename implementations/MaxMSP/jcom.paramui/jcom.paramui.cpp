@@ -31,14 +31,18 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	short		i;
 
 	jamoma_init();
-common_symbols_init();
-	getDataspaceList(dataspaceNames);
+	common_symbols_init();
+
+	TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));	
 	dataspaces[0] = 0;
-	for (i=0; i<dataspaceNames.getSize(); i++) {
-		dataspaceNames.get(i, &aName);
-		strcat(dataspaces, aName->getCString());
+	for (int i=0; i < dataspaceNames.getSize(); i++) {
+		TTSymbolPtr	name;
+		
+		dataspaceNames.get(i, &name);
+		strcat(dataspaces, name->getCString());
 		strcat(dataspaces, " ");
 	}
+
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
 	for (i=0; i<functionNames.getSize(); i++) {
@@ -271,7 +275,7 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		else
 			argLen = 28;
 
-		jcom_core_loadextern(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
+		jamoma_extern_load(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
 	}
 	return x;
 }

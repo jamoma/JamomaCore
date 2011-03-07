@@ -34,7 +34,7 @@ void		WrapTTInputClass(WrappedClassPtr c);
 void		WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void		WrappedInputClass_free(TTPtr self);
 void		in_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
-void		in_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 #ifdef JCOM_IN_TILDE
 t_int*		in_perform(t_int *w);
@@ -139,6 +139,7 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	EXTRA->clock = NULL;
 	
 #else
 	
@@ -158,7 +159,7 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
 	atom_setlong(&a, number);
-	defer_low((ObjectPtr)x, (method)in_build, NULL, 1, &a);
+	defer_low((ObjectPtr)x, (method)in_subscribe, NULL, 1, &a);
 }
 
 void WrappedInputClass_free(TTPtr self)
@@ -166,52 +167,37 @@ void WrappedInputClass_free(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 #ifdef JCOM_IN_TILDE
-	dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
-	freeobject((t_object *)EXTRA->clock);	// delete our clock
+	dsp_free((t_pxobject *)x);					// Always call dsp_free first in this routine
+	
+	if (EXTRA->clock)
+		freeobject((t_object *)EXTRA->clock);	// delete our clock
 #endif
 }
 
-void in_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, args;
-	long						i, number = atom_getlong(argv);
-	TTNodePtr					node = NULL;
-	TTBoolean					newInstance;
-	TTSymbolPtr					nodeAddress, relativeAddress, parentAddress;
-	TTDataPtr					aData;
-	TTPtr						context;
-	TTString					outAddress;
-	SymbolPtr					inAmplitudeInstance, inDescription;
-	
-	jamoma_patcher_type_and_class((ObjectPtr)x, &x->patcherType, &x->patcherClass);
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/in"), x->patcherType, &x->subscriberObject);
+	WrappedModularInstancePtr x = (WrappedModularInstancePtr)self;
+	TTValue			v, args;
+	long			i, number = atom_getlong(argv);
+	TTNodePtr		node = NULL;
+	TTSymbolPtr		nodeAddress, parentAddress;
+	TTDataPtr		aData;
+	TTString		outAddress;
+	SymbolPtr		inAmplitudeInstance, inDescription;
 	
 	// if the subscription is successful
-	if (x->subscriberObject) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/in"), &x->subscriberObject)) {
 		
-		// Is a new instance have been created ?
-		x->subscriberObject->getAttributeValue(TT("newInstanceCreated"), v);
-		v.get(0, newInstance);
-		
-		if (newInstance) {
-			x->subscriberObject->getAttributeValue(TT("relativeAddress"), v);
-			v.get(0, &relativeAddress);
-			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.in with the same OSC identifier (/in).  Using %s instead.", relativeAddress->getCString());
-		}
-		
-		// debug
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &nodeAddress);
-		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
+		// get patcher
+		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 		
 		// get the Node
 		x->subscriberObject->getAttributeValue(TT("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
-		// attach to the patcher to be notified of his destruction
-		context = node->getContext();
-		// Crash : object_attach_byptr_register(x, context, _sym_box);
+		// get the Node address
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
+		v.get(0, &nodeAddress);
 		
 		// observe /parent/out address in order to link/unlink with an Input object below
 		node->getParent()->getOscAddress(&parentAddress, S_SEPARATOR);
@@ -239,12 +225,13 @@ void in_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			jamoma_edit_numeric_instance("amplitude.%d", &inAmplitudeInstance, i+1);
 			jamoma_edit_numeric_instance("instant amplitude of the signal %d", &inDescription, i+1);
 			
-			makeInternals_data(x, nodeAddress, TT(inAmplitudeInstance->s_name), NULL, context, kTTSym_return, (TTObjectPtr*)&aData);
+			makeInternals_data(x, nodeAddress, TT(inAmplitudeInstance->s_name), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 			aData->setAttributeValue(kTTSym_rangeBounds, v);
 			aData->setAttributeValue(kTTSym_description, TT(inDescription->s_name));
 			aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
-			aData->setAttributeValue(kTTSym_dataspaceUnitActive, TT("linear"));
+			aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
 		}
 		
 		// launch the clock to update amplitude regulary
@@ -256,10 +243,12 @@ void in_build(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// expose bypass and mute attributes of TTInput as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_bypass, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute bypasses the model's processing algtorithm, letting incoming signal pass through unaffected"));
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's inputs."));
 	}
 }
@@ -328,7 +317,12 @@ void in_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	long index = TTInputPtr(x->wrappedObject)->mIndex;
-	outlet_anything(x->outlets[index], msg, argc, argv);
+	
+	// avoid blank before data
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[index], argc, argv);
+	else
+		outlet_anything(x->outlets[index], msg, argc, argv);
 }
 #endif
 
@@ -339,7 +333,6 @@ t_int *in_perform(t_int *w)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)(w[1]);
 	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
-	TTOutputPtr					anOutput = anInput->mOutputObject;
 	TTUInt8						numChannels = 0;
 	TTUInt16					vectorSize = 0;
 	short						i, j;
@@ -358,18 +351,12 @@ t_int *in_perform(t_int *w)
 		TTAudioSignalPtr(anInput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
 	}
 	
-	// if output exists
-	if (anOutput)
-		// if signal is bypassed : send a zero signal to the algorithm
-		if (anInput->mBypass) TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalZero), *TTAudioSignalPtr(anInput->mSignalOut));
-		// else copy in to out
-		else TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
-	
-	// otherwise copy in to out
+	// if signal is bypassed or muted : send a zero signal to the algorithm
+	if (anInput->mBypass || anInput->mMute) TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalZero), *TTAudioSignalPtr(anInput->mSignalOut));
+	// else copy in to out
 	else TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
 	
 	// TODO : need to mix in input here from jcom.send~ objects
-	
 
 	// Send the input on to the outlets for the algorithm
 	for (i=0; i < numChannels; i++) {

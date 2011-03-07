@@ -23,7 +23,7 @@ typedef TTApplication* TTApplicationPtr;
 class TTOutput;
 typedef TTOutput* TTOutputPtr;
 
-class TTMODULAR_EXPORT TTInput : public TTObject
+class TTMODULAR_EXPORT TTInput : public TTDataObject
 {
 	TTCLASS_SETUP(TTInput)
 	
@@ -38,6 +38,8 @@ public:	// use public for quick acces during signal processing
 	
 	TTObjectPtr			mSignalIn;					///< any data structure to receive complex signal 
 	TTObjectPtr			mSignalOut;					///< any data structure to send complex signal
+	
+	TTObjectPtr			mSignalZero;				///< a zero signal
 	
 	TTValue				mInfo;						///< any info needed to process the signal
 													///< example : 

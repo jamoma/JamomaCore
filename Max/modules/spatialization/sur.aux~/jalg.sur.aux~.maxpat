@@ -10,7 +10,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 25.0, 25.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
@@ -28,7 +28,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 289.0, 77.0, 137.0, 43.0 ],
+					"patching_rect" : [ 290.0, 80.0, 137.0, 43.0 ],
 					"text" : "jcom.dataspace @dataspace gain @input midi @output linear"
 				}
 
@@ -42,7 +42,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 346.0, 245.0, 150.0, 19.0 ],
+					"patching_rect" : [ 345.0, 240.0, 150.0, 19.0 ],
 					"text" : "todo: mastermute ?"
 				}
 
@@ -332,15 +332,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 232.0, 135.0, 38.0, 19.0 ],
+					"patching_rect" : [ 230.0, 135.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p aux"
@@ -632,15 +632,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 172.0, 135.0, 38.0, 19.0 ],
+					"patching_rect" : [ 170.0, 135.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p aux"
@@ -932,15 +932,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 111.0, 135.0, 38.0, 19.0 ],
+					"patching_rect" : [ 110.0, 135.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p aux"
@@ -956,7 +956,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 6,
 					"outlettype" : [ "", "", "", "", "", "" ],
-					"patching_rect" : [ 111.0, 55.0, 318.0, 19.0 ],
+					"patching_rect" : [ 110.0, 55.0, 318.0, 19.0 ],
 					"text" : "jcom.oscroute /aux.1 /aux.2 /aux.3 /audio/gain /audio/mute"
 				}
 
@@ -969,9 +969,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 232.0, 177.0, 72.0, 19.0 ],
-					"text" : "jcom.gain≈ \b"
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 232.0, 177.0, 68.0, 19.0 ],
+					"text" : "jcom.gain≈"
 				}
 
 			}
@@ -983,9 +983,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 172.0, 177.0, 72.0, 19.0 ],
-					"text" : "jcom.gain≈ \b"
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 170.0, 195.0, 68.0, 19.0 ],
+					"text" : "jcom.gain≈"
 				}
 
 			}
@@ -1007,7 +1007,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 172.0, 289.0, 25.0, 25.0 ]
+					"patching_rect" : [ 170.0, 290.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -1029,7 +1029,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 111.0, 289.0, 25.0, 25.0 ]
+					"patching_rect" : [ 110.0, 290.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -1041,9 +1041,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 111.0, 177.0, 72.0, 19.0 ],
-					"text" : "jcom.gain≈ \b"
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 110.0, 230.0, 68.0, 19.0 ],
+					"text" : "jcom.gain≈"
 				}
 
 			}
@@ -1067,7 +1067,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 111.0, 27.0, 25.0, 25.0 ]
+					"patching_rect" : [ 110.0, 25.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -1130,7 +1130,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 298.5, 127.0, 139.5, 127.0 ],
+					"midpoints" : [ 299.5, 127.0, 138.5, 127.0 ],
 					"source" : [ "obj-12", 0 ]
 				}
 
@@ -1139,7 +1139,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-14", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 298.5, 127.0, 200.5, 127.0 ],
+					"midpoints" : [ 299.5, 127.0, 198.5, 127.0 ],
 					"source" : [ "obj-12", 0 ]
 				}
 
@@ -1148,7 +1148,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-15", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 298.5, 127.0, 260.5, 127.0 ],
+					"midpoints" : [ 299.5, 127.0, 258.5, 127.0 ],
 					"source" : [ "obj-12", 0 ]
 				}
 
@@ -1175,7 +1175,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 467.5, 157.5, 120.5, 157.5 ],
+					"midpoints" : [ 467.5, 157.5, 119.5, 157.5 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -1184,7 +1184,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 467.5, 162.5, 181.5, 162.5 ],
+					"midpoints" : [ 467.5, 162.5, 179.5, 162.5 ],
 					"source" : [ "obj-2", 0 ]
 				}
 

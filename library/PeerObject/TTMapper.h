@@ -10,6 +10,7 @@
 #define __TT_MAPPER_H__
 
 #include "TTModular.h"
+#include "FunctionLib.h"
 
 /**	TTMapper ... TODO : an explanation
  
@@ -25,7 +26,7 @@ typedef TTSender* TTSenderPtr;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTMapper : public TTObject
+class TTMODULAR_EXPORT TTMapper : public TTDataObject
 {
 	TTCLASS_SETUP(TTMapper)
 	
@@ -100,6 +101,9 @@ private:
 	
 	/** */
 	TTErr setOutputMax(const TTValue& value);
+	
+	/** */
+	TTErr setEnable(const TTValue& value);
 	
 	/** set the function unit and set datas name extending attributes of the unit */
 	TTErr setFunction(const TTValue& value);

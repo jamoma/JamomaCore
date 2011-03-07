@@ -37,6 +37,8 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 		// register classes -- both internal and external
 		TTApplication::registerClass();
 		TTContainer::registerClass();
+		TTCue::registerClass();
+		TTCueManager::registerClass();
 		TTData::registerClass();
 		TTDevice::registerClass();
 		TTDeviceManager::registerClass();
@@ -44,6 +46,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 		TTInput::registerClass();
 		TTMapper::registerClass();
 		TTMapperManager::registerClass();
+		TTOpmlHandler::registerClass();
 		TTOutput::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();

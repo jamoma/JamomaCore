@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 169.0, 86.0, 1111.0, 476.0 ],
+		"rect" : [ 169.0, 86.0, 1104.0, 525.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 169.0, 86.0, 1111.0, 476.0 ],
+		"defrect" : [ 169.0, 86.0, 1104.0, 525.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,28 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-7",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 530.0, 447.0, 594.0, 31.0 ],
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-45",
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 345.0, 595.0, 31.0 ],
+					"patching_rect" : [ 426.0, 337.0, 595.0, 31.0 ],
 					"text" : "jcom.message.array 32 source active @type boolean @description \"Mute ( /active 0) or unmute (/active 1) the nth source.\" @value/default 1"
 				}
 
@@ -43,7 +58,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 310.0, 583.0, 31.0 ],
+					"patching_rect" : [ 426.0, 302.0, 583.0, 31.0 ],
 					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\" @ramp/drive scheduler @ramp/function linear"
 				}
 
@@ -58,7 +73,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 275.0, 589.0, 31.0 ],
+					"patching_rect" : [ 426.0, 267.0, 599.0, 31.0 ],
 					"text" : "jcom.message.array 32 source blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
 				}
 
@@ -72,7 +87,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 430.0, 390.0, 150.0, 19.0 ],
+					"patching_rect" : [ 316.0, 374.0, 150.0, 19.0 ],
 					"text" : "Speakers:"
 				}
 
@@ -86,7 +101,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 430.0, 215.0, 150.0, 19.0 ],
+					"patching_rect" : [ 341.0, 144.0, 150.0, 19.0 ],
 					"text" : "Source:"
 				}
 
@@ -100,7 +115,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 366.0, 172.0, 34.0, 19.0 ],
+					"patching_rect" : [ 352.0, 100.0, 34.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 255.0, 45.0, 40.0, 19.0 ],
 					"triangle" : 0
@@ -132,23 +147,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 430.0, 25.0, 150.0, 19.0 ],
+					"patching_rect" : [ 347.0, 28.0, 150.0, 19.0 ],
 					"text" : "Global settings:"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-22",
-					"linecount" : 2,
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 415.0, 599.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -162,7 +162,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 240.0, 603.0, 31.0 ],
+					"patching_rect" : [ 426.0, 232.0, 588.0, 31.0 ],
 					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
@@ -193,7 +193,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 160.0, 588.0, 43.0 ],
+					"patching_rect" : [ 416.0, 88.0, 588.0, 43.0 ],
 					"text" : "jcom.parameter interpolationTime @repetitions/allow 0 @type integer @range/bounds 10 2000 @range/clipmode low @description \"Sets the interpolation time in [ms] for the maitrix~ object. default value is 10 ms\" @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @dataspace/unit/display ms",
 					"varname" : "destination/dimensions[1]"
 				}
@@ -241,7 +241,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 366.0, 60.0, 34.0, 19.0 ],
+					"patching_rect" : [ 354.0, 177.0, 34.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 115.0, 25.0, 33.0, 19.0 ],
 					"triangle" : 0
@@ -260,7 +260,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 366.0, 94.0, 34.0, 19.0 ],
+					"patching_rect" : [ 332.0, 400.0, 34.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 115.0, 45.0, 33.0, 19.0 ],
 					"triangle" : 0
@@ -276,7 +276,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 366.0, 132.0, 34.0, 19.0 ],
+					"patching_rect" : [ 352.0, 60.0, 34.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 255.0, 25.0, 39.0, 19.0 ],
 					"triangle" : 0
@@ -307,7 +307,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 90.0, 580.0, 31.0 ],
+					"patching_rect" : [ 385.0, 394.0, 580.0, 31.0 ],
 					"text" : "jcom.parameter numSpeakers @repetitions/allow 0 @type integer @range/bounds 2 32 @range/clipmode both @description \"Number of speakers that signals are distributed to.\" @priority 3",
 					"varname" : "destination/voices"
 				}
@@ -351,7 +351,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 125.0, 509.0, 31.0 ],
+					"patching_rect" : [ 416.0, 53.0, 509.0, 31.0 ],
 					"text" : "jcom.parameter dimensions @repetitions/allow 0 @type integer @range/bounds 2 3 @range/clipmode both @description \"Dimension of the loudspeaker setup (2D or 3D).\" @priority 2",
 					"varname" : "destination/dimensions"
 				}
@@ -376,7 +376,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 130.0, 300.0, 114.0, 19.0 ],
 					"text" : "jalg.sur.vbap~"
 				}
@@ -445,7 +445,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 55.0, 574.0, 31.0 ],
+					"patching_rect" : [ 418.0, 172.0, 574.0, 31.0 ],
 					"text" : "jcom.parameter numSources @repetitions/allow 0 @type integer @range/bounds 1 32 @range/clipmode both @description \"Number of incomming mono sources to pan.\" @priority 1",
 					"varname" : "source/voices"
 				}

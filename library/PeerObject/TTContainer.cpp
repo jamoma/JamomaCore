@@ -65,11 +65,20 @@ TTContainer::~TTContainer()
 {
 	unbind();
 	
-	if (mReturnAddressCallback)
+	if (mReturnAddressCallback) {
+		delete (TTValuePtr)mReturnAddressCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnAddressCallback));
+	}
 	
 	if (mReturnValueCallback)
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	
+	if (mObserver) {
+		if (mAddress != kTTSymEmpty)
+			getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
+		delete (TTValuePtr)mObserver->getBaton();
+		TTObjectRelease(TTObjectHandle(&mObserver));
+	}
 }
 
 TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
@@ -77,7 +86,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		aRelativeAddress, attribute, service, viewerAttribute;
+	TTSymbolPtr		aRelativeAddress, attrOrMess, service, viewerAttribute;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTErr			err = kTTErrNone;
@@ -94,7 +103,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 			
 			// get relativeAddress, attribute and valueToSend
 			AddressAttributeAndValue.get(0, &aRelativeAddress);
-			AddressAttributeAndValue.get(1, &attribute);
+			AddressAttributeAndValue.get(1, &attrOrMess);
 			AddressAttributeAndValue.get(2, (TTPtr*)&valueToSend);
 			
 			// get the Data object
@@ -105,8 +114,15 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 				
 				cacheElement.get(0, (TTPtr*)&anObject);
 				
+				/* ANY CASE : is it a message of the object
+				if (!anObject->findMessage(attrOrMess, &aMessage)) {
+					anObject->sendMessage(attrOrMess, *valueToSend);
+					return kTTErrNone;
+				}
+				 */
+				
 				// DATA CASE for value attribute
-				if (anObject->getName() == TT("Data") && attribute == kTTSym_value) {
+				if (anObject->getName() == TT("Data") && attrOrMess == kTTSym_value) {
 					
 					// what kind of service the data is used for ?
 					anObject->getAttributeValue(TT("service"), v);
@@ -142,7 +158,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 					v.get(0, &viewerAttribute);
 					
 					// if attribute is the same than the actual one
-					if (viewerAttribute == attribute) {
+					if (viewerAttribute == attrOrMess) {
 						// send the value
 						anObject->sendMessage(kTTSym_Send, *valueToSend);
 					
@@ -154,12 +170,12 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 				
 				// DEFAULT CASE
 				// Look for attribute and set it
-				if (!anObject->findAttribute(attribute, &anAttribute))
-					anObject->setAttributeValue(attribute, *valueToSend);
+				if (!anObject->findAttribute(attrOrMess, &anAttribute))
+					anObject->setAttributeValue(attrOrMess, *valueToSend);
 				
 				// Or look for message and send it
-				else if (!anObject->findMessage(attribute, &aMessage))
-					anObject->sendMessage(attribute, *valueToSend);
+				else if (!anObject->findMessage(attrOrMess, &aMessage))
+					anObject->sendMessage(attrOrMess, *valueToSend);
 				
 			}
 		}
@@ -176,7 +192,7 @@ TTErr TTContainer::Init()
 	TTValue			cacheElement;
 	TTObjectPtr		anObject;
 	TTAttributePtr	anAttribute;
-	TTSymbolPtr		key;
+	TTSymbolPtr		key, service;
 	TTUInt8			i;
 	
 	// Restart initialisation
@@ -186,11 +202,30 @@ TTErr TTContainer::Init()
 	findAttribute(kTTSym_initialized, &anAttribute);
 	anAttribute->sendNotification(kTTSym_notify, mInitialized);
 	
-	// Send Init message to all Containers below
+	// Send Init message to all Object in the cache
+	// TODO : send it according their priority order
 	if (mObjectsObserversCache) {
 		
 		mObjectsObserversCache->getKeys(hk);
 		
+		// Send Reset message to all Data service parameter
+		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
+			
+			hk.get(i,(TTSymbolPtr*)&key);
+			mObjectsObserversCache->lookup(key, cacheElement);
+			cacheElement.get(0, (TTPtr*)&anObject);
+			
+			if (anObject)
+				if (anObject->getName() == TT("Data")) {
+					anObject->getAttributeValue(TT("service"), v);
+					v.get(0, &service);
+					if (service == kTTSym_parameter)
+						anObject->sendMessage(TT("Reset"));
+				}
+		}
+		
+		// Send Init message to all Container below
+		// using priority order
 		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
 			
 			hk.get(i,(TTSymbolPtr*)&key);
@@ -252,7 +287,7 @@ TTErr TTContainer::bind()
 	
 	// 3. Observe any creation or destruction below the address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &mObserver, kTTValNONE);
+	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
 	newBaton->append(aContext);
@@ -293,7 +328,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		v.get(0, &service);
 		
 		// observe the Value attribute of parameter and return
-		if (service == kTTSym_parameter || service == kTTSym_return) {
+		if (true/*service == kTTSym_parameter || service == kTTSym_return*/) {		//to -- considering a lot of user cases we also observe message value
 			
 			// create a Value Attribute observer on it
 			anObject->findAttribute(kTTSym_value, &anAttribute);
@@ -400,7 +435,7 @@ TTErr TTContainer::unbind()
 {
 	TTValue			hk, v;
 	TTValue			cacheElement;
-	TTObjectPtr		anObject, aValueObserver, anInitObserver;
+	TTObjectPtr		anObject, aValueObserver;//, anInitObserver;
 	TTAttributePtr	anAttribute;
 	TTSymbolPtr		key;
 	TTUInt8			i;
@@ -446,7 +481,7 @@ TTErr TTContainer::unbind()
 		err = getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
 		
 		if (!err)
-			TTObjectRelease(&mObserver);
+			TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
 	mAddress = kTTSymEmpty;
@@ -952,7 +987,7 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;
 	TTValuePtr	av;
-	TTPtr		c, t_c, p_c;
+	TTPtr		c, t_c, p_c = NULL;
 	
 	// our context
 	av = (TTValuePtr)args;
@@ -965,8 +1000,6 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 	if (n->getParent())
 		if (n->getParent()->getName() != S_SEPARATOR)
 			p_c = n->getParent()->getContext();
-		else
-			p_c = NULL;
 	
 	// Keep only nodes from our context if they aren't under the root (p_c is NULL)
 	// if contexts are different, check also if the parent context is the same as our context

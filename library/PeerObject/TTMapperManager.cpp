@@ -172,7 +172,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& value)
 			}
 
 			// Add Mapper in the list
-			mMapperList->append(new TTValue((TTPtr)newMapper));
+			mMapperList->append((TTPtr)newMapper);
 		}
 	}
 

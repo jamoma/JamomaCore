@@ -139,7 +139,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 5,
 					"numoutlets" : 1,
-					"outlettype" : [ "multicore.connect" ],
+					"outlettype" : [ "audio.connect" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -762,7 +762,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 9,
 									"numoutlets" : 2,
-									"outlettype" : [ "multicore.connect", "" ],
+									"outlettype" : [ "audio.connect", "" ],
 									"patching_rect" : [ 269.0, 482.0, 191.0, 19.0 ],
 									"text" : "jcom.pack≈ 9"
 								}

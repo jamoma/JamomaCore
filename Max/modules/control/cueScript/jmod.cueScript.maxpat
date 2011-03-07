@@ -21,18 +21,15 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"border" : 0.0,
-					"id" : "obj-68",
-					"ignoreclick" : 1,
-					"maxclass" : "dropfile",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 701.0, 100.0, 165.0, 20.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 2.0, 12.0, 295.0, 55.0 ],
-					"rounded" : 0.0,
-					"types" : [  ]
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-7",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 60.0, 80.0, 187.0, 17.0 ],
+					"text" : "preset/store 1 default, preset/write"
 				}
 
 			}
@@ -194,13 +191,13 @@
 ,
 					"patching_rect" : [ 506.0, 424.0, 67.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p set-stuff"
@@ -233,7 +230,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 355.0, 270.0, 36.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 148.166489, 22.48205, 72.374352, 20.0 ],
+					"presentation_rect" : [ 123.166489, 22.48205, 72.374352, 20.0 ],
 					"rounded" : 8.0,
 					"text" : "View",
 					"texton" : "View"
@@ -252,7 +249,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 355.0, 186.0, 100.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 52.0, 44.0, 93.215401, 20.0 ],
+					"presentation_rect" : [ 7.0, 44.0, 93.215401, 20.0 ],
 					"rounded" : 8.0,
 					"text" : "Save Cue Script",
 					"texton" : "Save Cue Script"
@@ -297,7 +294,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-3",
-					"items" : [  ],
+					"items" : "<empty>",
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
@@ -305,7 +302,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 355.0, 363.0, 146.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 147.446152, 44.0, 148.589752, 19.0 ],
+					"presentation_rect" : [ 122.446152, 44.0, 173.589752, 19.0 ],
 					"types" : [  ],
 					"varname" : "CueMenu"
 				}
@@ -466,13 +463,13 @@
 ,
 					"patching_rect" : [ 355.0, 335.0, 70.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p cue_menu"
@@ -491,22 +488,6 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 210.0, 598.0, 43.0 ],
 					"text" : "jcom.message saveScript @repetitions/allow 1 @description \"Save cue script to a file. An argument determines the path and name of the file.  No argument will bring up a file dialog (like saveas) or save the script to the existing file that is in use.\""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-8",
-					"linecount" : 2,
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 355.0, 568.0, 318.0, 31.0 ],
-					"text" : "jcom.parameter listen @type boolean @repetitions/allow 0 @description \"Listen to remote change of parameters.\"",
-					"varname" : "listen"
 				}
 
 			}
@@ -548,7 +529,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 58.0, 94.0, 137.0, 17.0 ],
+					"patching_rect" : [ 90.0, 100.0, 137.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -565,20 +546,6 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 126.0, 602.0, 43.0 ],
 					"text" : "jcom.message loadScript @repetitions/allow 1 @description \"Load cue script from file. <br>NOTE: jcom.cue_list will be watching the file and automatically update if the content of the file is changed. This way you can use an external editor to work on the cue script while Jamoma is running.\""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-24",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 200.0, 95.0, 37.0, 17.0 ],
-					"text" : "/init"
 				}
 
 			}
@@ -655,27 +622,6 @@
 					"border" : 1,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-10",
-					"maxclass" : "textbutton",
-					"mode" : 1,
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 355.0, 546.0, 100.0, 20.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 22.48205, 47.215401, 42.0 ],
-					"rounded" : 8.0,
-					"text" : "Listen (Off)",
-					"texton" : "Listen (On)",
-					"truncate" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"border" : 1,
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "textbutton",
 					"numinlets" : 1,
@@ -683,7 +629,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 355.0, 103.0, 100.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 51.9641, 22.0, 94.215401, 20.0 ],
+					"presentation_rect" : [ 6.9641, 22.0, 94.215401, 20.0 ],
 					"rounded" : 8.0,
 					"text" : "Load Cue Script",
 					"texton" : "Load Cue Script"
@@ -703,6 +649,23 @@
 				}
 
 			}
+, 			{
+				"box" : 				{
+					"border" : 0.0,
+					"id" : "obj-68",
+					"ignoreclick" : 1,
+					"maxclass" : "dropfile",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 701.0, 100.0, 165.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 2.0, 12.0, 295.0, 55.0 ],
+					"rounded" : 0.0,
+					"types" : [  ]
+				}
+
+			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
@@ -710,15 +673,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
 				}
 
 			}
@@ -771,7 +725,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 67.5, 122.0, 24.5, 122.0 ],
+					"midpoints" : [ 99.5, 122.0, 24.5, 122.0 ],
 					"source" : [ "obj-20", 0 ]
 				}
 
@@ -782,15 +736,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-21", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 209.5, 122.5, 24.5, 122.5 ],
-					"source" : [ "obj-24", 0 ]
 				}
 
 			}
@@ -850,10 +795,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
+					"destination" : [ "obj-27", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 364.5, 600.0, 342.0, 600.0, 342.0, 543.0, 364.5, 543.0 ],
-					"source" : [ "obj-8", 0 ]
+					"midpoints" : [ 69.5, 119.0, 24.5, 119.0 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}

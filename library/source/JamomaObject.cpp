@@ -12,7 +12,7 @@
 
 // statics and globals
 static t_class		*s_jamoma_class;
-static t_object		*s_jamoma_object;
+//static t_object		*s_jamoma_object;
 
 
 /************************************************************************************/

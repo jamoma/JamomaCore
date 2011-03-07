@@ -22,16 +22,18 @@
 class Item
 	{
 	public :
+		TTObjectPtr manager;
 		TTNodePtr	node;
 		TTHashPtr	state;
 		
-		Item(TTNodePtr aNode);
+		Item(TTObjectPtr aManager, TTNodePtr aNode);
 		~Item();
 		
 		TTSymbolPtr getType();
 		
 		TTErr clear();
-		TTErr set(TTSymbolPtr attributeName);
+		TTErr update(TTSymbolPtr attributeName);
+		TTErr set(TTSymbolPtr attributeName, const TTValue& value);
 		TTErr get(TTSymbolPtr attributeName, TTValue& value);
 		TTErr send(TTSymbolPtr attributeName);
 	};
@@ -40,27 +42,28 @@ typedef Item* ItemPtr;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTMODULAR_EXPORT TTPreset : public TTObject
+class TTMODULAR_EXPORT TTPreset : public TTDataObject
 {
 	TTCLASS_SETUP(TTPreset)
 	
 public:		// use public to allow PresetManager to have a direct access
 	
 	TTSymbolPtr			mName;							///< ATTRIBUTE: the name of the preset
-	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the parent address of each stored data
-	TTSymbolPtr			mComment;						///< TODO
-	TTValue				mExtra;							///< TODO
+	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the parent address from where to search object to store
+	TTSymbolPtr			mComment;						///< ATTRIBUTE: a comment for the preset
 	
 private:	
 	
 	TTApplicationPtr	mApplication;					///< the application
+	TTObjectPtr			mManager;						///< the object which is currently managing this preset
 	TTCallbackPtr		mTestObjectCallback;			///< a callback used to test object to store in item or not
+	TTCallbackPtr		mReadItemCallback;				///< a callback used when item's state is read from a file
 	TTCallbackPtr		mUpdateItemCallback;			///< a callback used to update the item's state
 	TTCallbackPtr		mSortItemCallback;				///< a callback used to sort the item list
 	TTCallbackPtr		mSendItemCallback;				///< a callback used to send the item's state
 	TTHashPtr			mItemTable;						///< a hash table containing <relativeAddress, ItemPtr>
 	TTListPtr			mItemKeysSorted;				///< a linked list containing keys of sorted item
-	TTSymbolPtr			mCurrentItem;					///< a key to retrieve the current Item in the ItemList
+	TTSymbolPtr			mCurrentItem;					///< a key to retrieve the current Item in the ItemTable
 	
 	
 	/** */

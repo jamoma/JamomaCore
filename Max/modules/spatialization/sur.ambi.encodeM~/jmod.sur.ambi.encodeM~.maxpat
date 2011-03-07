@@ -6954,7 +6954,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "int", "multicore.connect" ],
+					"outlettype" : [ "int", "audio.connect" ],
 					"patching_rect" : [ 297.0, 388.0, 133.0, 19.0 ],
 					"text" : "jalg.sur.ambi.encodeM~"
 				}

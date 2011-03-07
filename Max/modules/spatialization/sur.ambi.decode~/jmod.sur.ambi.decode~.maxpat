@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 209.0, 79.0, 838.0, 449.0 ],
+		"rect" : [ 39.0, 44.0, 1255.0, 706.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 209.0, 79.0, 838.0, 449.0 ],
+		"defrect" : [ 39.0, 44.0, 1255.0, 706.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -282,8 +282,8 @@
 						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p set_multislider"
@@ -651,8 +651,8 @@
 										"default_fontsize" : 12.0,
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p setCellblock"
@@ -959,8 +959,8 @@
 						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p panel"
@@ -1096,7 +1096,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 136.0, 560.0, 31.0 ],
+					"patching_rect" : [ 600.0, 166.0, 560.0, 31.0 ],
 					"text" : "jcom.message.array 32 speaker gain @type decimal @value/default 1 @value 1 @description \"gain value of loudspeaker channel\""
 				}
 
@@ -1186,7 +1186,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 102.0, 573.0, 31.0 ],
+					"patching_rect" : [ 601.0, 132.0, 573.0, 31.0 ],
 					"text" : "jcom.message.array 32 speaker active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth speaker.\""
 				}
 
@@ -1201,7 +1201,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 52.0, 598.0, 43.0 ],
+					"patching_rect" : [ 601.0, 82.0, 598.0, 43.0 ],
 					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
@@ -1216,7 +1216,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 17.0, 604.0, 31.0 ],
+					"patching_rect" : [ 602.0, 218.0, 604.0, 31.0 ],
 					"text" : "jcom.message report @repetitions/allow 1 @type generic @description \"reports the state of the ambiencode external in the max window\""
 				}
 
@@ -1262,7 +1262,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 566.0, 218.0, 22.0, 19.0 ],
+					"patching_rect" : [ 566.0, 11.0, 22.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 58.0, 22.0, 27.0, 19.0 ],
 					"triangle" : 0
@@ -1372,7 +1372,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 129.0, 318.0, 195.0, 19.0 ],
 					"text" : "jalg.sur.ambi.decode~"
 				}
@@ -1473,7 +1473,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 212.0, 600.0, 43.0 ],
+					"patching_rect" : [ 601.0, 5.0, 600.0, 43.0 ],
 					"text" : "jcom.parameter numSpeakers @type integer @repetitions/allow 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
 					"varname" : "voices"
 				}

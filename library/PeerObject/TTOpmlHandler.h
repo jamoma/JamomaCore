@@ -1,0 +1,94 @@
+/* 
+ * TTObject to handle opml file reading and writing
+ * to be able to store / recall state of an object 
+ * into/from opml files.
+ *
+ * Copyright © 2010, Théo de la Hogue
+ * 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
+ */
+
+#ifndef __TT_OPML_HANDLER_H__
+#define __TT_OPML_HANDLER_H__
+
+#include "TTModular.h"
+#include <stdio.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
+
+#define TTMODULAR_OPML_ENCODING "ISO-8859-1"
+
+/** Write / Read mecanism
+ 
+	writeAs<Format> / readFrom<Format> methods are not directly called using the classic message system.
+	We should prefer use one of the exported TT<Format>Reader / TT<Format>Writer method which have :
+		- an Object attribute : the TTObject you want it reads / writes a file
+	or
+		- the data structure to pass in order to read / write depending on the selected <Format>
+ 
+	This allow us to use the same method to start reading / writing and even to ask to other objects to
+	read / write recursively on the same data stucture.
+ 
+ 
+	Exemple :
+ 
+	If you want to read in Opml format you set the Object attribute as myTopObject then you call the Read message with 
+	aValueContainingFullPathToaFile. Then this method (as a friend of your TTTopObject class) will automatically create 
+	an OpmlReader data structure and call ReadFromOpml(aValueContainingAnOpmlReader) on your myTopObject.
+ 
+	Because your TTTopObject class used TTLowerObject to describe himself (and have to extract their opml description 
+	from the opml file to set them up) the ReadFromOpml method sets recursively the Object Attribute with aLowerObject 
+	and then calls the Read message with an empty value : this would calls the ReadFromOpml(aValueContainingAnOpmlReader)
+	on your TTLowerObject.
+ 
+ */
+
+class TTMODULAR_EXPORT TTOpmlHandler : public TTDataObject
+{
+	TTCLASS_SETUP(TTOpmlHandler)
+	
+public:	// use public for recursive access
+	
+	TTObjectPtr			mObject;						///< the last handled object
+	TTSymbolPtr			mFilePath;						///< the path to the last writen/read file
+
+	TTSymbolPtr			mHeaderNodeName;				///< the name of the header node in the opml file
+	TTSymbolPtr			mVersion;						///< the version number
+
+	xmlTextWriterPtr	mWriter;
+	xmlTextReaderPtr	mReader;
+	
+	TTSymbolPtr			mXmlNodeName;					///< the Node being read by the Reader
+	
+
+	/** TTOpmlWriter could takes absolute file path or nothing.
+		In the path case, TTOpmlWriter starts opml file writting and then calls the WriteAsOpml 
+		method of mObject attribute
+		In the second case, it directly calls the WriteAsOpml method */
+	TTErr Write(const TTValue& args);
+	TTErr WriteAgain();
+	
+	
+	/** TTOpmlReader could takes absolute file path or nothing.
+		In the path case, TTOpmlReader starts opml file reading and then calls the ReadFromOpml 
+		method of mObject attribute
+		In the second case, it directly calls the ReadFromOpml method */
+	TTErr Read(const TTValue& args);
+	TTErr ReadAgain();
+	
+	/** TTOpmlReader make a TTValue from an opmlChar* using the fromString method (see in TTValue.h) */
+	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote=false);
+	
+private :
+	
+	TTBoolean				mIsWriting;				///< a flag to know if it is writing a file
+	TTBoolean				mIsReading;				///< a flag to know if it is reading a file
+	
+};
+
+typedef TTOpmlHandler* TTOpmlHandlerPtr;
+
+
+#endif // __TT_OPML_HANDLER_H__
