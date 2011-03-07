@@ -22,7 +22,7 @@ typedef Plugin* PluginPtr;
 class TTDeviceManager;
 typedef TTDeviceManager* TTDeviceManagerPtr;
 
-class TTMODULAR_EXPORT TTDevice : public TTObject
+class TTMODULAR_EXPORT TTDevice : public TTDataObject
 {
 	TTCLASS_SETUP(TTDevice)
 	

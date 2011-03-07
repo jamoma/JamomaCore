@@ -206,6 +206,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PeerObject\TTCue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTCue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTCueManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTCueManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PeerObject\TTData.cpp"
 				>
 			</File>
@@ -259,6 +275,14 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTMapperManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTOpmlHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTOpmlHandler.h"
 				>
 			</File>
 			<File
@@ -331,90 +355,6 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTXmlHandler.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="DataspaceLib"
-			>
-			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.h"
 				>
 			</File>
 		</Filter>

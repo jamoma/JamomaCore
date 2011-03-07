@@ -220,15 +220,15 @@ main(int argc, char **argv)
 
 	//// Create a TTSender to set mValue attribute of /audio/filter/frequency
 	////////////////////////////////////////////////////////////////////
-	//TTSenderPtr	mySender = NULL;
+	TTSenderPtr	mySender = NULL;
 
-	//// prepare arguments : see TTSender.h to know which args are needed
-	//args.clear();
-	//args.append(mApplication);
-	//args.append(TT("/TestModularApp/control/volume"));
-	//args.append(kTTSym_value);
-	//	
-	//TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mySender), args);
+	// prepare arguments : see TTSender.h to know which args are needed
+	args.clear();
+	args.append(mApplication);
+	args.append(TT("/TestModularApp/control/volume"));
+	args.append(kTTSym_value);
+		
+	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mySender), args);
 
 
 
@@ -237,16 +237,16 @@ main(int argc, char **argv)
 	TTLogMessage("\n*** Set mValue attribute of our data directly *** \n");
 	//TTValue	v = TTValue(1.456);
 	myData->setAttributeValue(kTTSym_value, TT("mamamia"));
-	//myData->setAttributeValue(kTTSym_description, TT("mamamia"));
+	myData->setAttributeValue(kTTSym_description, TT("mamamia"));
 	// note : the value is returned by the Data and the Receiver
 
 
 
 	//// Set mValue attribute of our data using mySender
 	////////////////////////////////////////////////////////////////////
-	//TTLogMessage("\n*** Set mValue attribute of our data using mySender *** \n");
-	//TTValue v = TT("mamamia");
-	//mySender->sendMessage(kTTSym_Send, v);
+	TTLogMessage("\n*** Set mValue attribute of our data using mySender *** \n");
+	TTValue v = TT("mamamia");
+	mySender->sendMessage(kTTSym_Send, v);
 	//// note : the value is returned by the Data and the Receiver
 
 
