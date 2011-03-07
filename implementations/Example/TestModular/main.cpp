@@ -3,8 +3,8 @@
 using namespace std;
 
 #define APP_NAME		TT("TestModularApp")
-#define	PLUGINS_PATH	TT("../../../../../library/DeviceManagerLib/Plugins")
-#define CONFIG_PATH		TT("/Users/laurent/Travail/Galamus/Jamoma/Modules/Modular/implementations/Example/Config.xml")
+#define	PLUGINS_PATH	"C:\\Users\\Laurent Garnier\\Travail\\Galamus\\Jamoma\\Modules\\Modular\\library\\DeviceManagerLib\\Plugins"
+#define CONFIG_PATH		TT("C:\\Users\\Laurent Garnier\\Travail\\Galamus\\Jamoma\\Modules\\Modular\\implementations\\Example\\Config.xml")
 
 void myData_return_value_callback(TTPtr baton, TTValue& v);
 
@@ -22,7 +22,7 @@ main(int argc, char **argv)
 {
 	TTValue				args;
 	TTApplicationPtr	mApplication = NULL;
-	TTNodeDirectoryPtr	mDirectory	 = NULL;		
+	TTNodeDirectoryPtr	mDirectory	 = NULL;	
 
 	TTLogMessage("\n*** Starting my TTModular application *** \n");
 
@@ -105,8 +105,10 @@ main(int argc, char **argv)
 	
 	TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(&mDeMan), args);
 	
+	TTCString path = PLUGINS_PATH;
+	
 	args.clear();
-	args.append(PLUGINS_PATH);
+	args.append(TT(PLUGINS_PATH));
 	args.append(CONFIG_PATH);
 	mDeMan->sendMessage(TT("LoadPlugins"), args);
 	
@@ -132,8 +134,11 @@ main(int argc, char **argv)
 	TTObjectInstantiate(TT("Data"), TTObjectHandle(&myData), args);
 
 	// set TTData attributes
-	myData->setAttributeValue(kTTSym_type, kTTSym_decimal);
-	myData->setAttributeValue(kTTSym_valueDefault, 0);
+	//myData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+	//myData->setAttributeValue(kTTSym_valueDefault, 0);
+	//myData->setAttributeValue(kTTSym_description, TT("Il etait une fois"));
+	myData->setAttributeValue(kTTSym_type, kTTSym_string);
+	myData->setAttributeValue(kTTSym_valueDefault, TT("toto"));
 	myData->setAttributeValue(kTTSym_description, TT("Il etait une fois"));
 
 
@@ -143,7 +148,7 @@ main(int argc, char **argv)
 	TTNodePtr		returnedNode;
 	TTBoolean		newInstanceCreated;
 
-	mDirectory->TTNodeCreate(TT("/control/volume"), myData, NULL, &returnedNode, &newInstanceCreated);
+	mDirectory->TTNodeCreate(TT("/TestModularApp/control/volume"), myData, NULL, &returnedNode, &newInstanceCreated);
 	// note : our myRegistrationObserver is informed
 	
 	// Create a TTData
@@ -176,7 +181,7 @@ main(int argc, char **argv)
 	TTNodePtr		returnedNode1;
 	TTBoolean		newInstanceCreated1;
 	
-	mDirectory->TTNodeCreate(TT("/control/balance"), myData1, NULL, &returnedNode1, &newInstanceCreated1);
+	mDirectory->TTNodeCreate(TT("/TestModularApp/control/balance"), myData1, NULL, &returnedNode1, &newInstanceCreated1);
 	// note : our myRegistrationObserver is informed
 
 
@@ -191,7 +196,7 @@ main(int argc, char **argv)
 	// prepare arguments : see TTReceiver.h to know which args are needed
 	args.clear();
 	args.append(mApplication);
-	args.append(TT("/control/volume"));
+	args.append(TT("/TestModularApp/control/volume"));
 	args.append(kTTSym_value);
 		
 	TTObjectInstantiate(TT("callback"), TTObjectHandle(&r_returnAddressCallback), kTTValNONE);
@@ -211,74 +216,76 @@ main(int argc, char **argv)
 		
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&myReceiver), args);
 	
+	system("Pause");
 
+	//// Create a TTSender to set mValue attribute of /audio/filter/frequency
+	////////////////////////////////////////////////////////////////////
+	//TTSenderPtr	mySender = NULL;
 
-	// Create a TTSender to set mValue attribute of /audio/filter/frequency
-	//////////////////////////////////////////////////////////////////
-	TTSenderPtr	mySender = NULL;
-
-	// prepare arguments : see TTSender.h to know which args are needed
-	args.clear();
-	args.append(mApplication);
-	args.append(TT("/control/volume"));
-	args.append(kTTSym_value);
-		
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mySender), args);
+	//// prepare arguments : see TTSender.h to know which args are needed
+	//args.clear();
+	//args.append(mApplication);
+	//args.append(TT("/TestModularApp/control/volume"));
+	//args.append(kTTSym_value);
+	//	
+	//TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mySender), args);
 
 
 
 	// Set mValue attribute of our data directly
 	//////////////////////////////////////////////////////////////////
 	TTLogMessage("\n*** Set mValue attribute of our data directly *** \n");
-	TTValue	v = TTValue(1);
-	myData->setAttributeValue(kTTSym_value, v);
+	//TTValue	v = TTValue(1.456);
+	myData->setAttributeValue(kTTSym_value, TT("mamamia"));
+	//myData->setAttributeValue(kTTSym_description, TT("mamamia"));
 	// note : the value is returned by the Data and the Receiver
 
 
 
-	// Set mValue attribute of our data using mySender
-	//////////////////////////////////////////////////////////////////
-//	TTLogMessage("\n*** Set mValue attribute of our data using mySender *** \n");
-//	v = TTValue(2);
-//	mySender->sendMessage(kTTSym_Send, v);
-	// note : the value is returned by the Data and the Receiver
+	//// Set mValue attribute of our data using mySender
+	////////////////////////////////////////////////////////////////////
+	//TTLogMessage("\n*** Set mValue attribute of our data using mySender *** \n");
+	//TTValue v = TT("mamamia");
+	//mySender->sendMessage(kTTSym_Send, v);
+	//// note : the value is returned by the Data and the Receiver
 
 
 
-	// Get our data using TTModularDirectory
-	//////////////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Get some attribute of our data using TTModularDirectory *** \n");
-	// get the node which represent our data
-	TTList			aNodeList;
-	TTNodePtr		aNode;
-	mDirectory->Lookup(TT("/control/volume"), aNodeList, &aNode);
+	//// Get our data using TTModularDirectory
+	////////////////////////////////////////////////////////////////////
+	//TTLogMessage("\n*** Get some attribute of our data using TTModularDirectory *** \n");
+	//// get the node which represent our data
+	//TTList			aNodeList;
+	//TTNodePtr		aNode;
+	//TTErr err = mDirectory->Lookup(TT("/TestModularApp/control/volume"), aNodeList, &aNode);
 
-	// get the object store in the node
-	TTObjectPtr	anObject;
-	anObject = aNode->getObject();
+	//// get the object store in the node
+	//TTObjectPtr	anObject;
+	//anObject = aNode->getObject();
 
-	if (anObject == myData)
-		TTLogMessage("anObject is myData \n");
+	//if (anObject == myData)
+	//	TTLogMessage("anObject is myData \n");
 
-	// get the mValue attribute value of the object
-	v.clear();
-	anObject->getAttributeValue(kTTSym_value, v);
+	//// get the mValue attribute value of the object
+	//v.clear();
+	//anObject->getAttributeValue(kTTSym_value, v);
 
-	// print the value
-	TTString s;
-	v.toString();
-	v.get(0, s);
-	TTLogMessage("anObject mValue is %s \n", s.data());
+	//// print the value
+	//TTString s;
+	//v.toString();
+	//v.get(0, s);
+	//TTLogMessage("anObject mValue is %s \n", s.data());
 
-	// get the mdescription attribute value of the object
-	v.clear();
-	s.clear();
-	anObject->getAttributeValue(kTTSym_description, v);
+	//// get the mdescription attribute value of the object
+	//v.clear();
+	//s.clear();
+	//anObject->getAttributeValue(kTTSym_description, v);
 
-	// print the value
-	v.toString();
-	v.get(0, s);
-	TTLogMessage("anObject mDescription is %s \n", s.data());
+	//// print the value
+	////v.toString();
+	//TTSymbolPtr sy;
+	//v.get(0, &sy);
+	//TTLogMessage("anObject mDescription is %s \n", sy->getCString());
 
 	//// get the mRangeBounds attribute value of the object
 	//v.clear();
@@ -332,9 +339,10 @@ main(int argc, char **argv)
 
 	//TTObjectRelease(TTObjectHandle(&mySender));
 
-	while (true) {
-		;
-	}
+	//while (true) {
+	//	;
+	//}
+	system("Pause");
 	TTLogMessage("\n*** Ending my TTModular application *** \n");
 
 	return EXIT_SUCCESS;

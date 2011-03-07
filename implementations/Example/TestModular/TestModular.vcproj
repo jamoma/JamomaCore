@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="0"
 			ManagedExtensions="0"
 			>
 			<Tool
@@ -45,7 +45,7 @@
 				AdditionalIncludeDirectories="../../../../Foundation/library/includes;../../../../DSP/library/includes;../../../library/source;../../../library/DataspaceLib;../../../library/FunctionLib;../../../library/RampLib;../../../library/PeerObject;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;;../../../library/DeviceManagerLib;../../../../Foundation\library\libxml2\win32\include;../../../../Foundation\library\libiconv\include"
 				PreprocessorDefinitions="TT_PLATFORM_WIN;WIN32;_DEBUG;_WINDOWS;WIN_VERSION;_CRT_SECURE_NO_WARNINGS"
 				ExceptionHandling="1"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -61,9 +61,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				UseUnicodeResponseFiles="true"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib DeviceManager.lib $(NOINHERIT)"
+				AdditionalOptions="Shell32.lib"
+				AdditionalDependencies="JamomaFoundation.lib TTModular.lib $(NOINHERIT)"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;;../../../library/DeviceManagerLib"
+				AdditionalLibraryDirectories="&quot;../../../library/$(ConfigurationName)&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\Jamoma\Modules\Foundation\library\build&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"

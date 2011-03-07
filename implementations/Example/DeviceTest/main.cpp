@@ -3,8 +3,8 @@
 using namespace std;
 
 #define APP_NAME		TT("DeviceTest")
-#define	PLUGINS_PATH	TT("../../../../../library/DeviceManagerLib/Plugins")
-#define CONFIG_PATH		TT("/Users/laurent/Travail/Galamus/Jamoma/Modules/Modular/implementations/Example/Config.xml")
+#define	PLUGINS_PATH	"C:\\Users\\Laurent Garnier\\Travail\\Galamus\\Jamoma\\Modules\\Modular\\library\\DeviceManagerLib\\Plugins"
+#define CONFIG_PATH		TT("C:\\Users\\Laurent Garnier\\Travail\\Galamus\\Jamoma\\Modules\\Modular\\implementations\\Example\\Config.xml")
 
 
 void myData_return_value_callback(TTPtr baton, TTValue& v);
@@ -36,9 +36,6 @@ main(int argc, char **argv)
 
 	TTApplicationPtr	TestModular = NULL;
 	TestModular		= (TTApplicationPtr)TTModularGetApplication(TT("TestModularApp"));
-	if (TestModular == NULL) {
-		std::cout << "ko" << std::endl;
-	}
 	
 	
 	// Create a TTDeviceManager
@@ -52,7 +49,7 @@ main(int argc, char **argv)
 	TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(&mDeMan), args);
 	
 	args.clear();
-	args.append(PLUGINS_PATH);
+	args.append(TT(PLUGINS_PATH));
 	args.append(CONFIG_PATH);
 	mDeMan->sendMessage(TT("LoadPlugins"), args);
 	
@@ -95,39 +92,46 @@ main(int argc, char **argv)
 	if (o) {
 		if (o->getName() == TT("Device")) {
 			
-//			// set a data on the remote device
-//			o->setAttributeValue(TT("addressToSpeakWith"), TT("/control/volume"));
-//			args.clear();
-//			args.append(2);
-//			
-//			o->sendMessage(TT("Set"), args);
-			
-			// get a data from the remote device
-//			args.clear();
-//			args.append(TT("/control/volume"));
-//			args.append(kTTSym_description);
-//			
-//			TTValue valret;
-//			args.append(&valret);
-//			
-//			o->sendMessage(TT("Get"), args);
-//			std::cout << args.getSize() << std::endl;
-			
-//			TTFloat32 f;
-//			args.get(2, f);
-//			TTString s;
-//			args.toString();
-//			args.get(0, s);
-//			std::cout << "value :" << s << std::endl;
-			
-			// discover a namespace on the remote device
+			// set a data on the remote device
+			o->setAttributeValue(TT("addressToSpeakWith"), TT("/TestModularApp/control/volume"));
 			args.clear();
-			args.append(TT("/control"));
-			o->sendMessage(TT("Discover"), args);
+			args.append(TT("kjhgf"));
+			
+			o->sendMessage(TT("Set"), args);
+			//
+			//// get a data from the remote device
+			//args.clear();
+			//args.append(TT("/TestModularApp/control/volume"));
+			//args.append(kTTSym_description);
+			//
+			//o->sendMessage(TT("Get"), args);
+			//std::cout << args.getSize() << std::endl;
+
+			//TTSymbolPtr s;
+			//args.get(0, &s);
+			//std::cout << "value :" << s->getCString() << std::endl;
+			//
+			//// discover a namespace on the remote device
+			//TTSymbolPtr sLeaveName;
+			//args.clear();
+			//args.append(TT("/TestModularApp/control"));
+			//o->sendMessage(TT("Discover"), args);
+			//for (int i = 0; i < args.getSize(); i++) {
+			//	args.get(i, &sLeaveName);
+			//	std::cout << sLeaveName->getCString() << std::endl;
+			//}
+
+
+			//// listen a parameter on a remote device
+			//args.clear();
+			//args.append(TT("/TestModularApp/control/volume"));
+			//args.append(kTTSym_value);
+			//args.append(true);
+			//o->sendMessage(TT("ListenRequest"), args);
 		}	
 	}
 	
-
+	system("Pause");
 	TTLogMessage("\n*** Ending my TTModular application *** \n");
 
 	return EXIT_SUCCESS;
