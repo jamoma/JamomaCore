@@ -353,11 +353,11 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 		x->modelExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
 		x->modelExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 		x->modelExplorer->sendMessage(TT("Explore"));
-
-		// The following must be deferred because 
-		// we have to wait each component of the model are registered
-		defer_low((ObjectPtr)x, (method)ui_build, NULL, 0, 0);
 	}
+	
+	// The following must be deferred because 
+	// we have to wait each component of the model are registered
+	defer_low((ObjectPtr)x, (method)ui_build, NULL, 0, 0);
 	
 	return 0;
 }
@@ -373,59 +373,56 @@ t_max_err ui_address_get(t_ui *x, t_object *attr, long *argc, t_atom **argv)
 void ui_build(t_ui *x)
 {
 	TTValue			v, n, p, args;
-	TTNodePtr		patcherNode;
 	SymbolPtr		hierarchy;
 	ObjectPtr		box, textfield;
 	t_rect			boxRect;
 	t_rect			uiRect;
 	
-	// if there no address try to get /model/address value
-	if (x->modelAddress == kTTSymEmpty)
-		ui_viewer_refresh(x, TT("model/address"));
-	
 	// Examine the context to resize the view, set textfield, ...
 	x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 	hierarchy = jamoma_patcher_get_hierarchy(x->patcherPtr);
 	
-	if (hierarchy != _sym_topmost) {
-		box = object_attr_getobj(x->patcherPtr, jps_box);
+	box = object_attr_getobj(x->patcherPtr, jps_box);
+	object_attr_get_rect((ObjectPtr)x, _sym_presentation_rect, &uiRect);
+	
+	if (hierarchy == _sym_bpatcher) {
+		object_attr_get_rect(box, _sym_patching_rect, &boxRect);
+		boxRect.width = uiRect.width;
+		boxRect.height = uiRect.height;
+		object_attr_set_rect(box, _sym_patching_rect, &boxRect);
+		object_attr_get_rect(box, _sym_presentation_rect, &boxRect);
+		boxRect.width = uiRect.width;
+		boxRect.height = uiRect.height;
+		object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
+	}
+	else if (hierarchy == _sym_subpatcher) {
+		object_attr_get_rect(x->patcherPtr, _sym_defrect, &boxRect);
+		boxRect.width = uiRect.width;
+		boxRect.height = uiRect.height;				
+		object_attr_set_rect(x->patcherPtr, _sym_defrect, &boxRect);				
+		object_attr_setchar(x->patcherPtr, _sym_toolbarvisible, 0);	
+		object_method_parse(x->patcherPtr, _sym_window, "flags nogrow", NULL);		// get rid of the grow thingies
+		object_method_parse(x->patcherPtr, _sym_window, "flags nozoom", NULL);		// disable maximize button 
+		object_method_parse(x->patcherPtr, _sym_window, "exec", NULL);
 		
-		if (hierarchy == _sym_bpatcher) {
-			object_attr_get_rect((ObjectPtr)x, _sym_presentation_rect, &uiRect);
-			object_attr_get_rect(box, _sym_patching_rect, &boxRect);
-			boxRect.width = uiRect.width;
-			boxRect.height = uiRect.height;
-			object_attr_set_rect(box, _sym_patching_rect, &boxRect);
-			object_attr_get_rect(box, _sym_presentation_rect, &boxRect);
-			boxRect.width = uiRect.width;
-			boxRect.height = uiRect.height;
-			object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
-		}
-		else if (hierarchy == _sym_subpatcher) {
-			object_attr_get_rect((ObjectPtr)x, _sym_presentation_rect, &uiRect);
-			object_attr_get_rect(x->patcherPtr, _sym_defrect, &boxRect);
-			boxRect.width = uiRect.width;
-			boxRect.height = uiRect.height;				
-			object_attr_set_rect(x->patcherPtr, _sym_defrect, &boxRect);				
-			object_attr_setchar(x->patcherPtr, _sym_toolbarvisible, 0);	
-			object_method_parse(x->patcherPtr, _sym_window, "flags nogrow", NULL);		// get rid of the grow thingies
-			object_method_parse(x->patcherPtr, _sym_window, "flags nozoom", NULL);		// disable maximize button 
-			object_method_parse(x->patcherPtr, _sym_window, "exec", NULL);
-			
-			// set the window title to the module class, jcom.ui shows osc_name already 
-			if (x->patcherClass)
-				object_attr_setsym(x->patcherPtr, _sym_title, gensym((char*)x->patcherClass->getCString()));
-			else
-				object_attr_setsym(x->patcherPtr, _sym_title, gensym("No class"));
-			
-			object_attr_setchar(x->patcherPtr, _sym_enablehscroll, 0);					// turn off scroll bars
-			object_attr_setchar(x->patcherPtr, _sym_enablevscroll, 0);				
-		}
+		// set the window title to the module class, jcom.ui shows osc_name already 
+		if (x->patcherClass)
+			object_attr_setsym(x->patcherPtr, _sym_title, gensym((char*)x->patcherClass->getCString()));
+		else
+			object_attr_setsym(x->patcherPtr, _sym_title, gensym("No class"));
+		
+		object_attr_setchar(x->patcherPtr, _sym_enablehscroll, 0);					// turn off scroll bars
+		object_attr_setchar(x->patcherPtr, _sym_enablevscroll, 0);				
 	}
 	
 	// Set the textfield to display the address
 	textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
+		
+		// if there no address try to get /model/address value
+		if (x->modelAddress == kTTSymEmpty)
+			ui_viewer_refresh(x, TT("model/address"));
+		
 		if (x->modelAddress != kTTSymEmpty)
 			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
 		else
