@@ -179,6 +179,25 @@ public:
 	}
 	
 	
+	TTErr fill(TTFloat64 aFillValue)
+	{
+		if (!mSampleVectors)
+			return kTTErrGeneric;
+		
+		//	Ideally, we could do this:
+		//		memset(mSampleVectors, 0, sizeof(TTSampleValue) * mVectorSize * mNumChannels);
+		//	But, at the moment, we implement a vector of vectors rather than a block of memory that we index as a single chunk.
+		//	So we have to iterate like this:
+		
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (int n=0; n<mVectorSize; n++)
+				mSampleVectors[channel][n] = aFillValue;
+		}
+		
+		return kTTErrNone;
+	}
+	
+	
 	/**	Copy the audio from one signal into another.	*/
 //	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest);
 	
