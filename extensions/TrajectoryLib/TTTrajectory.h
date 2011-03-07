@@ -23,7 +23,6 @@ protected:
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
 	TTAudioObjectPtr		mPhasors[3];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
-//	TTFloat64				mDimension;
 	
 public:
 	
@@ -70,12 +69,6 @@ public:
 		return kTTErrNone;
 	}
 	
-/*	TTErr setDimension(const TTValue& newValue)
-	{	
-		mDimension = newValue;
-		return mActualTrajectoryObject->setAttributeValue(TT("dimension"), mDimension);
-	}
-*/	
 	TTErr setA(const TTValue& newValue)
 	{	
 		mA = newValue;

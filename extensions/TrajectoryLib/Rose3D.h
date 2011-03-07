@@ -7,8 +7,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __RoseTRAJECTORY_H__
-#define __RoseTRAJECTORY_H__
+#ifndef __ROSE_3D_H__
+#define __ROSE_3D_H__
 
 #include "TTDSP.h"
 
@@ -16,18 +16,15 @@
 /**	This implements a function which basically does nothing: 
 	y = f(x)
  */
-class RoseTrajectory : TTAudioObject {
-	TTCLASS_SETUP(RoseTrajectory)
+class Rose3D : TTAudioObject {
+	TTCLASS_SETUP(Rose3D)
 
 	TTFloat64			mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
-	/** y = f(x) for a single value */
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	TTErr processAudioFunction2D(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	TTErr processAudioFunction3D(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	
+		
 	TTErr setA(const TTValue& value);
 	TTErr setB(const TTValue& value);
 	TTErr setC(const TTValue& value);
@@ -37,4 +34,4 @@ class RoseTrajectory : TTAudioObject {
 };
 
 
-#endif // __RoseTRAJECTORY_H__
+#endif // __Rose3D_H__

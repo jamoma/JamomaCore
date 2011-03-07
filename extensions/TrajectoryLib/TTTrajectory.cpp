@@ -56,7 +56,7 @@ TT_AUDIO_CONSTRUCTOR,
 //	setAttributeValue(kTTSym_maxNumChannels, arguments);
 //	setAttributeValue(TT("dimension"),	2.0);
 	
-	setAttributeValue(TT("type"), TT("line"));
+	setAttributeValue(TT("type"), TT("linear.2D"));
 	setAttributeValue(TT("a"),		0.0);
 	setAttributeValue(TT("b"),		0.0);
 	setAttributeValue(TT("c"),		0.0);
