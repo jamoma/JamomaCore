@@ -19,17 +19,12 @@
 class Rose2D : TTAudioObject {
 	TTCLASS_SETUP(Rose2D)
 
-	TTFloat64			mA, mB, mDeltaX;
+	TTFloat64	mA;
 
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-		
-	TTErr setA(const TTValue& value);
-	TTErr setB(const TTValue& value);
-	TTErr setDeltaX(const TTValue& value);
-
 };
 
 
