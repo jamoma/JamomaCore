@@ -51,7 +51,7 @@ class WindowFunction : TTAudioObject {
 	TTErr getFunctions(TTValue& listOfWindowTypesToReturn);
 
 	/**	set an attribute of the internal window object (e.g. the 'beta' parameter to the Kaiser function)	*/
-	TTErr setParameter(const TTValue& aParameterValueForTheFunction);
+	TTErr setParameter(TTValue& aParameterValueForTheFunction);
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
