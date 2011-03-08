@@ -61,6 +61,8 @@ TTErr WindowFunction::setParameter(TTValue& aParameterValueForTheFunction)
 		
 		v.copyFrom(aParameterValueForTheFunction, 1);
 		err = mFunctionObject->setAttributeValue(parameterName, v);
+		if (!err)
+			fill();
 	}
 	aParameterValueForTheFunction.clear();
 	return err;
