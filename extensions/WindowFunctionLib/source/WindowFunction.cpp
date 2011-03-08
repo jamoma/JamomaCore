@@ -72,7 +72,7 @@ TTErr WindowFunction::fill()
 		
 		TTLimitMin<TTInt32>(numPoints, 0);
 		for (TTInt32 i=0; i<numPoints; i++)
-			mFunctionObject->calculate(i/TTFloat64(numPoints), mLookupTable[i+mPadding]);
+			mFunctionObject->calculate(i/TTFloat64(numPoints-1), mLookupTable[i+mPadding]);
 	}
 	else
 		mLookupTable.assign(mNumPoints, 0.0);
