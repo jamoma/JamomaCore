@@ -134,7 +134,7 @@
 <% svg = MySVG.new(600, 150) %>
 
 <% f = TTObject.new("kaiser") %>
-<% f.set "Beta", 2.0 %>
+<% f.set "beta", 2.0 %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -151,7 +151,7 @@
 <% svg = MySVG.new(600, 150) %>
 
 <% f = TTObject.new("kaiser") %>
-<% f.set "Beta", 6.0 %>
+<% f.set "beta", 6.0 %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -180,6 +180,39 @@
 
 
 
+<h3>Tukey (default value for alpha)</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTObject.new("tukey") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-tukey.svg") %>
+<%= image_tag("temp-tukey.svg") %>
+
+
+<h3>Tukey (alpha = 0.1)</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTObject.new("tukey") %>
+<% f.set "alpha", 0.1 %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-tukey2.svg") %>
+<%= image_tag("temp-tukey2.svg") %>
+
+
 <h3>Welch</h3>
 
 <% svg = MySVG.new(600, 150) %>
@@ -194,6 +227,8 @@
 
 <% svg.write("temp-welch.svg") %>
 <%= image_tag("temp-welch.svg") %>
+
+
 
 
 
