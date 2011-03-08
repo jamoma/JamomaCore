@@ -10,6 +10,14 @@
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD46D011E247C5007BBF7E /* TrajectoryLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */; };
+		663A95831325BED80059009C /* Lissajous2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A957F1325BED80059009C /* Lissajous2D.cpp */; };
+		663A95841325BED80059009C /* Lissajous2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95801325BED80059009C /* Lissajous2D.h */; };
+		663A95851325BED80059009C /* Lissajous3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A95811325BED80059009C /* Lissajous3D.cpp */; };
+		663A95861325BED80059009C /* Lissajous3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95821325BED80059009C /* Lissajous3D.h */; };
+		663A95B71325CDFD0059009C /* Scarabaeus2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A95B51325CDFD0059009C /* Scarabaeus2D.cpp */; };
+		663A95B81325CDFD0059009C /* Scarabaeus2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95B61325CDFD0059009C /* Scarabaeus2D.h */; };
+		663A95E51325D21C0059009C /* Butterfly2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A95E31325D21C0059009C /* Butterfly2D.cpp */; };
+		663A95E61325D21C0059009C /* Butterfly2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95E41325D21C0059009C /* Butterfly2D.h */; };
 		66DCAD341325799E009F1A9A /* Linear2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DCAD301325799E009F1A9A /* Linear2D.cpp */; };
 		66DCAD351325799E009F1A9A /* Linear2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DCAD311325799E009F1A9A /* Linear2D.h */; };
 		66DCAD361325799E009F1A9A /* Linear3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DCAD321325799E009F1A9A /* Linear3D.cpp */; };
@@ -21,8 +29,6 @@
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 		E895565512A2393B00A72559 /* TTTrajectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E895565312A2393B00A72559 /* TTTrajectory.cpp */; };
 		E895565612A2393B00A72559 /* TTTrajectory.h in Headers */ = {isa = PBXBuildFile; fileRef = E895565412A2393B00A72559 /* TTTrajectory.h */; };
-		E895567012A23E5400A72559 /* LissajousTrajectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E895566E12A23E5400A72559 /* LissajousTrajectory.cpp */; };
-		E895567112A23E5400A72559 /* LissajousTrajectory.h in Headers */ = {isa = PBXBuildFile; fileRef = E895566F12A23E5400A72559 /* LissajousTrajectory.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +37,14 @@
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrajectoryLib.cpp; sourceTree = "<group>"; };
+		663A957F1325BED80059009C /* Lissajous2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous2D.cpp; sourceTree = "<group>"; };
+		663A95801325BED80059009C /* Lissajous2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous2D.h; sourceTree = "<group>"; };
+		663A95811325BED80059009C /* Lissajous3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous3D.cpp; sourceTree = "<group>"; };
+		663A95821325BED80059009C /* Lissajous3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous3D.h; sourceTree = "<group>"; };
+		663A95B51325CDFD0059009C /* Scarabaeus2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scarabaeus2D.cpp; sourceTree = "<group>"; };
+		663A95B61325CDFD0059009C /* Scarabaeus2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scarabaeus2D.h; sourceTree = "<group>"; };
+		663A95E31325D21C0059009C /* Butterfly2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Butterfly2D.cpp; sourceTree = "<group>"; };
+		663A95E41325D21C0059009C /* Butterfly2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Butterfly2D.h; sourceTree = "<group>"; };
 		66DCAD301325799E009F1A9A /* Linear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear2D.cpp; sourceTree = "<group>"; };
 		66DCAD311325799E009F1A9A /* Linear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear2D.h; sourceTree = "<group>"; };
 		66DCAD321325799E009F1A9A /* Linear3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear3D.cpp; sourceTree = "<group>"; };
@@ -42,8 +56,6 @@
 		D2AAC09D05546B4700DB518D /* TrajectoryLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TrajectoryLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		E895565312A2393B00A72559 /* TTTrajectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTrajectory.cpp; sourceTree = "<group>"; };
 		E895565412A2393B00A72559 /* TTTrajectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTrajectory.h; sourceTree = "<group>"; };
-		E895566E12A23E5400A72559 /* LissajousTrajectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LissajousTrajectory.cpp; sourceTree = "<group>"; };
-		E895566F12A23E5400A72559 /* LissajousTrajectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LissajousTrajectory.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +117,6 @@
 			children = (
 				66DCAD5713257AC1009F1A9A /* 2D */,
 				66DCAD5813257AC8009F1A9A /* 3D */,
-				E895566E12A23E5400A72559 /* LissajousTrajectory.cpp */,
-				E895566F12A23E5400A72559 /* LissajousTrajectory.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -114,10 +124,16 @@
 		66DCAD5713257AC1009F1A9A /* 2D */ = {
 			isa = PBXGroup;
 			children = (
+				663A95E31325D21C0059009C /* Butterfly2D.cpp */,
+				663A95E41325D21C0059009C /* Butterfly2D.h */,
 				66DCAD6213257DA0009F1A9A /* Rose2D.cpp */,
 				66DCAD6313257DA0009F1A9A /* Rose2D.h */,
 				66DCAD301325799E009F1A9A /* Linear2D.cpp */,
 				66DCAD311325799E009F1A9A /* Linear2D.h */,
+				663A957F1325BED80059009C /* Lissajous2D.cpp */,
+				663A95801325BED80059009C /* Lissajous2D.h */,
+				663A95B51325CDFD0059009C /* Scarabaeus2D.cpp */,
+				663A95B61325CDFD0059009C /* Scarabaeus2D.h */,
 			);
 			name = 2D;
 			sourceTree = "<group>";
@@ -129,6 +145,8 @@
 				66DCAD6513257DA0009F1A9A /* Rose3D.h */,
 				66DCAD321325799E009F1A9A /* Linear3D.cpp */,
 				66DCAD331325799E009F1A9A /* Linear3D.h */,
+				663A95811325BED80059009C /* Lissajous3D.cpp */,
+				663A95821325BED80059009C /* Lissajous3D.h */,
 			);
 			name = 3D;
 			sourceTree = "<group>";
@@ -141,11 +159,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E895565612A2393B00A72559 /* TTTrajectory.h in Headers */,
-				E895567112A23E5400A72559 /* LissajousTrajectory.h in Headers */,
 				66DCAD351325799E009F1A9A /* Linear2D.h in Headers */,
 				66DCAD371325799E009F1A9A /* Linear3D.h in Headers */,
 				66DCAD6713257DA0009F1A9A /* Rose2D.h in Headers */,
 				66DCAD6913257DA0009F1A9A /* Rose3D.h in Headers */,
+				663A95841325BED80059009C /* Lissajous2D.h in Headers */,
+				663A95861325BED80059009C /* Lissajous3D.h in Headers */,
+				663A95B81325CDFD0059009C /* Scarabaeus2D.h in Headers */,
+				663A95E61325D21C0059009C /* Butterfly2D.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,11 +239,14 @@
 			files = (
 				22FD46D011E247C5007BBF7E /* TrajectoryLib.cpp in Sources */,
 				E895565512A2393B00A72559 /* TTTrajectory.cpp in Sources */,
-				E895567012A23E5400A72559 /* LissajousTrajectory.cpp in Sources */,
 				66DCAD341325799E009F1A9A /* Linear2D.cpp in Sources */,
 				66DCAD361325799E009F1A9A /* Linear3D.cpp in Sources */,
 				66DCAD6613257DA0009F1A9A /* Rose2D.cpp in Sources */,
 				66DCAD6813257DA0009F1A9A /* Rose3D.cpp in Sources */,
+				663A95831325BED80059009C /* Lissajous2D.cpp in Sources */,
+				663A95851325BED80059009C /* Lissajous3D.cpp in Sources */,
+				663A95B71325CDFD0059009C /* Scarabaeus2D.cpp in Sources */,
+				663A95E51325D21C0059009C /* Butterfly2D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

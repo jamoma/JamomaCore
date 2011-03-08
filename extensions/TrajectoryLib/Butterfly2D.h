@@ -1,5 +1,6 @@
 /* 
- * RoseFunction Unit for TTBlue
+ * Butterfly2D Unit for TTBlue
+ * http://mathworld.wolfram.com/ButterflyCurve.html
  * Originally written for the Jamoma TrajectoryLib
  * Copyright © 2010 by Nils Peters
  * 
@@ -7,28 +8,22 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __ROSE_3D_H__
-#define __ROSE_3D_H__
+#ifndef __BUTTERFLY_2D_H__
+#define __BUTTERFLY_2D_H__
 
 #include "TTDSP.h"
 
 
-class Rose3D : TTAudioObject {
-	TTCLASS_SETUP(Rose3D)
+class Butterfly2D : TTAudioObject {
+	TTCLASS_SETUP(Butterfly2D)
 
-	TTFloat64			mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
+	//TTFloat64	mA, mB;
+
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-		
-	TTErr setA(const TTValue& value);
-	TTErr setB(const TTValue& value);
-	TTErr setC(const TTValue& value);
-	TTErr setDeltaX(const TTValue& value);
-	TTErr setDeltaY(const TTValue& value);
-	TTErr setDeltaZ(const TTValue& value);
 };
 
 
-#endif // __Rose3D_H__
+#endif // __BUTTERFLY_2D_H__

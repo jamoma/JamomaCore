@@ -13,9 +13,6 @@
 #include "TTDSP.h"
 
 
-/**	This implements a function which basically does nothing: 
-	y = f(x)
- */
 class Rose2D : TTAudioObject {
 	TTCLASS_SETUP(Rose2D)
 

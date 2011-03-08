@@ -7,17 +7,14 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __LISSAJOUSTRAJECTORY_H__
-#define __LISSAJOUSTRAJECTORY_H__
+#ifndef __LISSAJOUS_3D_H__
+#define __LISSAJOUS_3D_H__
 
 #include "TTDSP.h"
 
 
-/**	This implements a function which basically does nothing: 
-	y = f(x)
- */
-class LissajousTrajectory : TTAudioObject {
-	TTCLASS_SETUP(LissajousTrajectory)
+class Lissajous3D : TTAudioObject {
+	TTCLASS_SETUP(Lissajous3D)
 
 	TTFloat64			mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
 	/** y = f(x) for a single value */
@@ -25,8 +22,6 @@ class LissajousTrajectory : TTAudioObject {
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	TTErr processAudioFunction2D(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	TTErr processAudioFunction3D(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	TTErr setA(const TTValue& value);
 	TTErr setB(const TTValue& value);
@@ -37,4 +32,4 @@ class LissajousTrajectory : TTAudioObject {
 };
 
 
-#endif // __LISSAJOUSTRAJECTORY_H__
+#endif // __LISSAJOUS_3D_H__
