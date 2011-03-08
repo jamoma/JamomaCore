@@ -54,12 +54,11 @@ TTErr HammingWindow::test(TTValue& returnedTestInfo)
 	input->allocWithVectorSize(N);
 	output->allocWithVectorSize(N);
 	
-	// create a signal to be transformed
+	// create a signal to be transformed, and then process it
 	input->fill(1.0);
-	
-	// setup the filter
 	windowObject->process(input, output);
 	
+	// now test the output
 	for (int n=0; n<N; n++) {
 		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], sHammingWindowCoefficients128[n]);
 		badSampleCount += result;
