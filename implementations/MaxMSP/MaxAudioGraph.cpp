@@ -268,8 +268,6 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 	}
 
 	if (argc && argv) {
-		TTValue	v;
-		
 		v.setSize(argc);
 		for (AtomCount i=0; i<argc; i++) {
 			if (atom_gettype(argv+i) == A_LONG)
