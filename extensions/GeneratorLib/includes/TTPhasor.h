@@ -42,6 +42,9 @@ class TTPhasor : TTAudioObject {
 	
 	/**	Getter for the gain attribute.		*/
 	TTErr getGain(TTValue& value);
+	
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
 };
 
 
