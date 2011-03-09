@@ -32,6 +32,12 @@ TTOperator::~TTOperator()
 
 TTErr TTOperator::setOperator(const TTValue& newValue)
 {
+#define SWITCH_OPERATOR_METHODS(opName, opFunctionName) \
+	else if (mOperator == TT( #opName )) {\
+		setCalculateMethod(calculate ## opFunctionName);\
+		setProcessMethod(process ## opFunctionName);\
+	}
+	
 	mOperator = newValue;
 	if (mOperator == TT("+")) {
 		setCalculateMethod(calculateAdd);
@@ -57,6 +63,25 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 		setCalculateMethod(calculateSqrt);
 		setProcessMethod(processSqrt);
 	}
+	else if (mOperator == TT("abs")) {
+		setCalculateMethod(calculateFabs);
+		setProcessMethod(processFabs);
+	}
+	SWITCH_OPERATOR_METHODS(acos, Acos)
+	SWITCH_OPERATOR_METHODS(asin, Asin)
+	SWITCH_OPERATOR_METHODS(atan, Atan)
+	//SWITCH_OPERATOR_METHODS(atan2, Atan2)
+	SWITCH_OPERATOR_METHODS(ceil, Ceil)
+	SWITCH_OPERATOR_METHODS(cos, Cos)
+	SWITCH_OPERATOR_METHODS(cosh, Cosh)
+	SWITCH_OPERATOR_METHODS(exp, Exp)
+	SWITCH_OPERATOR_METHODS(floor, Floor)
+	SWITCH_OPERATOR_METHODS(log, Log)
+	SWITCH_OPERATOR_METHODS(log10, Log10)
+	SWITCH_OPERATOR_METHODS(sin, Sin)
+	SWITCH_OPERATOR_METHODS(sinh, Sinh)
+	SWITCH_OPERATOR_METHODS(tan, Tan)
+	SWITCH_OPERATOR_METHODS(tanh, Tanh)
 	else
 		return kTTErrInvalidValue;
 	
@@ -87,6 +112,10 @@ TTErr TTOperator::setOperand(const TTValue& newValue)
 	return kTTErrNone;
 }
 
+#if 0
+#pragma mark -
+#pragma mark operands
+#endif
 
 TTErr TTOperator::calculateAdd(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
@@ -123,6 +152,12 @@ TTErr TTOperator::calculateModulo(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 TTErr TTOperator::calculateSqrt(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {	
 	y = sqrt(x);	
+	return kTTErrNone;
+}
+
+TTErr TTOperator::calculateFabs(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{	
+	y = fabs(x);	
 	return kTTErrNone;
 }
 
@@ -398,3 +433,8 @@ TTErr TTOperator::processSqrt(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 }
 
 
+TTErr TTOperator::processFabs(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TT_WRAP_CALCULATE_METHOD(calculateFabs);
+	
+}

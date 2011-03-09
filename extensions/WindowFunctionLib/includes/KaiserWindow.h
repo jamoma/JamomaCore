@@ -32,6 +32,9 @@ class KaiserWindow : TTAudioObject {
 	
 	/**	A standard audio processing method as used by Jamoma DSP objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
 };
 
 

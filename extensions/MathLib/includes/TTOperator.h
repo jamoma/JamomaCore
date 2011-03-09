@@ -28,6 +28,7 @@ class TTOperator : TTAudioObject {
 	TTErr calculateDivide(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	TTErr calculateModulo(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	TTErr calculateSqrt(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateFabs(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	
 	/**	A standard audio processing method as used by TTBlue objects. */
@@ -47,7 +48,38 @@ class TTOperator : TTAudioObject {
 	TTErr processModuloSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	TTErr processSqrt				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
+	
+	TTErr processFabs				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+#define WRAP_C_FUNCTION_AS_TTOp_METHODS(cName, methodName) \
+	TTErr calculate ## methodName (const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)\
+	{\
+		y = cName (x);\
+		return kTTErrNone;\
+	}\
+	\
+	TTErr process ## methodName (TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)\
+	{\
+		TT_WRAP_CALCULATE_METHOD(calculateFabs);\
+	}\
+	
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(acos, Acos)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(asin, Asin)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(atan, Atan)
+	//WRAP_C_FUNCTION_AS_TTOp_METHODS(atan2, Atan2)	// TODO: this one requires 2 args
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(ceil, Ceil)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(cos, Cos)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(cosh, Cosh)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(exp, Exp)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(floor, Floor)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(log, Log)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(log10, Log10)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(sin, Sin)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(sinh, Sinh)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(tan, Tan)
+	WRAP_C_FUNCTION_AS_TTOp_METHODS(tanh, Tanh)
+	
+	
 public:
 	
 	/** setter for the operator attribute. */
