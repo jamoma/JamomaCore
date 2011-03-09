@@ -15,7 +15,7 @@ static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
 
 TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 {
-	if (fabs(a-b) < fabs(a*kTTTestFloat32Epsilon))
+	if (fabs(a-b) <= fabs(a*kTTTestFloat32Epsilon))
 		return true;
 	else
 		return false;
@@ -24,7 +24,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 
 TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 {
-	if (fabs(a-b) < fabs(a*kTTTestFloat64Epsilon))
+	if (fabs(a-b) <= fabs(a*kTTTestFloat64Epsilon))
 		return true;
 	else
 		return false;
