@@ -53,7 +53,8 @@ TTErr TTPhasor::setFrequency(const TTValue& newValue)
 		rampMilliseconds = 0;
 	}
 	else {
-		rampSamples = TTUInt32((1.0 / fabs(mFrequency)) * sr);
+		rampSamples = TTUInt32(sr / fabs(mFrequency));
+		// FIXME: we never use rampMilliseconds, so why computing this?
 		rampMilliseconds = 1000.0 * (rampSamples / TTFloat64(sr));
 	}
 	setStep();
@@ -65,8 +66,6 @@ void TTPhasor::setStep()
 	step = 1.0 / TTFloat64(rampSamples - 1.0);	// 1.0 is the destination 
 	if (mFrequency < 0){
 		step = -step;
-		TTValue	v(mPhase);
-		setPhase(v);
 	}
 	TTZeroDenormal(step); 
 }
