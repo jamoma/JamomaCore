@@ -19,6 +19,8 @@ mType(TT("control")),
 mInitialized(NO),
 mContent(kTTValNONE),
 mAddress(kTTSymEmpty),
+mActivityIn(kTTValNONE),
+mActivityOut(kTTValNONE),
 mApplication(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
@@ -46,6 +48,12 @@ mObserver(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeProperty(address, hidden, YES);
+	
+	addAttributeWithSetter(ActivityIn, kTypeSymbol);
+	addAttributeProperty(activityIn, readOnly, YES);
+	
+	addAttributeWithSetter(ActivityOut, kTypeSymbol);
+	addAttributeProperty(activityOut, readOnly, YES);
 	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);
@@ -86,7 +94,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		aRelativeAddress, attrOrMess, service, viewerAttribute;
+	TTSymbolPtr		aRelativeAddress, attrOrMess, service;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTErr			err = kTTErrNone;
@@ -106,20 +114,20 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 			AddressAttributeAndValue.get(1, &attrOrMess);
 			AddressAttributeAndValue.get(2, (TTPtr*)&valueToSend);
 			
-			// get the Data object
+			// Notify activityIn observers (about value changes only)
+			if (attrOrMess == kTTSym_value) {
+				v = TTValue(aRelativeAddress);
+				v.append(*valueToSend);
+				setActivityIn(v);
+			}
+			
+			// get the object
 			err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
 			
 			// if the relativeAddress is in the cache
 			if (!err) {
 				
 				cacheElement.get(0, (TTPtr*)&anObject);
-				
-				/* ANY CASE : is it a message of the object
-				if (!anObject->findMessage(attrOrMess, &aMessage)) {
-					anObject->sendMessage(attrOrMess, *valueToSend);
-					return kTTErrNone;
-				}
-				 */
 				
 				// DATA CASE for value attribute
 				if (anObject->getName() == TT("Data") && attrOrMess == kTTSym_value) {
@@ -151,21 +159,14 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 				}
 				
 				// VIEWER CASE for a same attribute
-				if (anObject->getName() == TT("Viewer")) {
+				if (anObject->getName() == TT("Viewer") && attrOrMess == kTTSym_value) {
 					
-					// what attribute is it binding ?
-					anObject->getAttributeValue(TT("attribute"), v);
-					v.get(0, &viewerAttribute);
+					// send the value
+					anObject->sendMessage(kTTSym_Send, *valueToSend);
 					
-					// if attribute is the same than the actual one
-					if (viewerAttribute == attrOrMess) {
-						// send the value
-						anObject->sendMessage(kTTSym_Send, *valueToSend);
-					
-						// unlock
-						mIsSending = false;	
-						return kTTErrNone;
-					}
+					// unlock
+					mIsSending = false;	
+					return kTTErrNone;
 				}
 				
 				// DEFAULT CASE
@@ -176,7 +177,6 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 				// Or look for message and send it
 				else if (!anObject->findMessage(attrOrMess, &aMessage))
 					anObject->sendMessage(attrOrMess, *valueToSend);
-				
 			}
 		}
 	}
@@ -255,6 +255,34 @@ TTErr TTContainer::setAddress(const TTValue& value)
 	return bind();
 }
 
+TTErr TTContainer::setActivityIn(const TTValue& value)
+{	
+	TTAttributePtr	anAttribute;
+	TTErr			err = kTTErrNone;
+	
+	mActivityIn = value;
+	
+	err = this->findAttribute(kTTSym_activityIn, &anAttribute);
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mActivityIn);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::setActivityOut(const TTValue& value)
+{	
+	TTAttributePtr	anAttribute;
+	TTErr			err = kTTErrNone;
+	
+	mActivityOut = value;
+	
+	err = this->findAttribute(kTTSym_activityOut, &anAttribute);
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mActivityOut);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return kTTErrNone;
+}
+
 TTErr TTContainer::getContent(TTValue& value)
 {
 	return mObjectsObserversCache->getKeys(value);
@@ -328,7 +356,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		v.get(0, &service);
 		
 		// observe the Value attribute of parameter and return
-		if (true/*service == kTTSym_parameter || service == kTTSym_return*/) {		//to -- considering a lot of user cases we also observe message value
+		if (service == kTTSym_parameter || service == kTTSym_return) {
 			
 			// create a Value Attribute observer on it
 			anObject->findAttribute(kTTSym_value, &anAttribute);
@@ -962,7 +990,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 	TTValuePtr		b;
 	TTContainerPtr	aContainer;
 	TTSymbolPtr		relativeAddress;
-	TTValue			address;
+	TTValue			address, v;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -976,6 +1004,11 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 		
 		// return the value
 		aContainer->mReturnValueCallback->notify(data);
+		
+		// Notify activityOut observers (about value changes only)
+		v = TTValue(relativeAddress);
+		v.append(data);
+		aContainer->setActivityOut(v);
 	}
 	else
 		return kTTErrGeneric;

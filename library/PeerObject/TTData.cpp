@@ -527,7 +527,7 @@ TTErr TTData::setValue(const TTValue& value)
 			this->mReturnValueCallback->notify(r);
 		
 		// notify each observers
-		//if (!(mService == kTTSym_message))					to -- considering a lot of user cases we also forward message value to observers
+		if (!(mService == kTTSym_message))
 			notifyObservers(kTTSym_value, n);
 		
 		// we have had our value set at least once

@@ -77,9 +77,10 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 TTErr TTSender::Send(TTValue& valueToSend)
 {
 	TTObjectPtr		anObject;
-	TTValue			aCacheElement;
+	TTValue			aCacheElement, newValueToSend, v;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
+	TTSymbolPtr		relativeAddressAndAttribute, anAddress, attrOrMess;
 	
 	if (mAddress == kTTSymEmpty)
 		return kTTErrGeneric;
@@ -105,6 +106,31 @@ TTErr TTSender::Send(TTValue& valueToSend)
 					if (anObject->getName() == TT("Data") && mAttribute == kTTSym_value) {
 						// set the value attribute using a command
 						anObject->sendMessage(kTTSym_Command, valueToSend);
+					}
+					// CONTAINER CASE for value attribute
+					else if (anObject->getName() == TT("Container") && mAttribute == kTTSym_value) {
+						
+						// consider the valueToSend is (address:attribute + value)
+						// make a newValueToSend like (address + kTTSym_value + value)
+						if (valueToSend.getType() == kTypeSymbol) {
+							
+							valueToSend.get(0, &relativeAddressAndAttribute);
+						
+							// Get address part and attribute part
+							splitAttribute(relativeAddressAndAttribute, &anAddress, &attrOrMess);
+						
+							newValueToSend = TTValue(anAddress);
+							if (attrOrMess != NO_ATTRIBUTE)
+								newValueToSend.append(attrOrMess);
+							else
+								newValueToSend.append(kTTSym_value);
+							
+							// coppy data part
+							v.copyFrom(valueToSend, 1);
+							newValueToSend.append((TTPtr)&v);
+						
+							anObject->sendMessage(kTTSym_Send, newValueToSend);
+						}
 					}
 					// DEFAULT CASE
 					// Look for attribute and set it
@@ -211,9 +237,12 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			anObject = aNode->getObject();
-			aCacheElement = (TTPtr)anObject;
-			aSender->mObjectCache->appendUnique(aCacheElement);
+			if (compareOSCAddress(anAddress, aSender->mAddress) == kAddressEqual) {
+				if (anObject = aNode->getObject()) {
+					aCacheElement = (TTPtr)anObject;
+					aSender->mObjectCache->appendUnique(aCacheElement);
+				}
+			}
 			break;
 		}
 			

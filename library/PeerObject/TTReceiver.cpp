@@ -419,7 +419,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			{
 				// is the observer already exist ?
 				found = false;
-				if(aReceiver->mNodesObserversCache){
+				if (aReceiver->mNodesObserversCache){
 					
 					// for each node of the selection
 					for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()) {
@@ -433,7 +433,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					}
 				}
 				
-				if(!found)
+				if (!found)
 				{
 					// prepare the callback mecanism to
 					// be notified about changing value attribute

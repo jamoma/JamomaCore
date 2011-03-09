@@ -41,7 +41,7 @@ void WrapTTSenderClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)send_int,		"int",		A_LONG, 0L);
 	class_addmethod(c->maxClass, (method)send_float,	"float",	A_FLOAT, 0L);
 	class_addmethod(c->maxClass, (method)send_list,		"list",		A_GIMME, 0L);
-	class_addmethod(c->maxClass, (method)send_set,	"set",		A_SYM, 0L);
+	class_addmethod(c->maxClass, (method)send_set,		"set",		A_SYM, 0L);
 	
 	class_addmethod(c->maxClass, (method)WrappedSenderClass_anything,	"symbol",	A_SYM, 0L);
 }
