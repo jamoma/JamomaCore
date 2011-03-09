@@ -38,7 +38,7 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 	this->process(output);
 	// created with Octave: linspace(0,1,64) 
 	TTFloat64 expectedSignalTest1[64] = {
-		0.0000000000000000e+00,
+		0.0,
 		1.5873015873015872e-02,
 		3.1746031746031744e-02,
 		4.7619047619047616e-02,
@@ -101,7 +101,7 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 		9.5238095238095233e-01,
 		9.6825396825396826e-01,
 		9.8412698412698407e-01,
-		1.0000000000000000e+00,
+		1.0,
 	};
 	
 	for (int i=0; i<64; i++) {
@@ -127,7 +127,7 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 	this->process(output);
 	// created with Octave: linspace(1,0,64) 
 	TTFloat64 expectedSignalTest2[64] = {
-		1.0000000000000000e+00,
+		1.0,
 		9.8412698412698418e-01,
 		9.6825396825396826e-01,
 		9.5238095238095233e-01,
@@ -190,7 +190,7 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 		4.7619047619047672e-02,
 		3.1746031746031744e-02,
 		1.5873015873015928e-02,
-		0.0000000000000000e+00,
+		0.0,
 	};
 	
 	for (int i=0; i<64; i++) {
