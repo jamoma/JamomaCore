@@ -14,7 +14,7 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, mPhase(0.0), step(0.0), linearGain(1.0)
+, mPhase(0.0), step(0.0), linearGain(1.0), mFrequency(1.0), mOffset(0.0)
 {
 	addAttributeWithSetter(			Frequency,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(Gain,		kTypeFloat64);
