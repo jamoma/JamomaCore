@@ -114,18 +114,20 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 			AddressAttributeAndValue.get(1, &attrOrMess);
 			AddressAttributeAndValue.get(2, (TTPtr*)&valueToSend);
 			
-			// Notify activityIn observers (about value changes only)
-			if (attrOrMess == kTTSym_value) {
-				v = TTValue(aRelativeAddress);
-				v.append(*valueToSend);
-				setActivityIn(v);
-			}
-			
 			// get the object
 			err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
 			
 			// if the relativeAddress is in the cache
 			if (!err) {
+				
+				// Notify activityIn observers (about value changes only)
+				// before it changes
+				if (attrOrMess == kTTSym_value) {
+					v = TTValue(aRelativeAddress);
+					if ((*valueToSend).getSize())
+						v.append(*valueToSend);
+					setActivityIn(v);
+				}
 				
 				cacheElement.get(0, (TTPtr*)&anObject);
 				
@@ -142,7 +144,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 					// set the value attribute using a command
 					anObject->sendMessage(kTTSym_Command, *valueToSend);
 					
-					// passing messages through the container
+					/* passing messages through the container
 					if (service == kTTSym_message)
 						if (mReturnAddressCallback && mReturnValueCallback) {
 							// return the address
@@ -152,6 +154,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 							// return the value
 							mReturnValueCallback->notify(*valueToSend);
 						}
+					 */
 					
 					// unlock
 					mIsSending = false;	
@@ -1006,6 +1009,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 		aContainer->mReturnValueCallback->notify(data);
 		
 		// Notify activityOut observers (about value changes only)
+		// after it changed
 		v = TTValue(relativeAddress);
 		v.append(data);
 		aContainer->setActivityOut(v);
