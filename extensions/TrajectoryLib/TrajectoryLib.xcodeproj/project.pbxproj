@@ -24,6 +24,10 @@
 		66B6D22C13276593009A66CB /* Hypocycloid2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D22A13276593009A66CB /* Hypocycloid2D.h */; };
 		66B6D239132769E0009A66CB /* Epitrochoid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D237132769E0009A66CB /* Epitrochoid2D.cpp */; };
 		66B6D23A132769E0009A66CB /* Epitrochoid2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D238132769E0009A66CB /* Epitrochoid2D.h */; };
+		66B6D24913276DC1009A66CB /* Limacon2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D24713276DC1009A66CB /* Limacon2D.cpp */; };
+		66B6D24A13276DC1009A66CB /* Limacon2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D24813276DC1009A66CB /* Limacon2D.h */; };
+		66B6D26D1327708A009A66CB /* Bean2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D26B1327708A009A66CB /* Bean2D.cpp */; };
+		66B6D26E1327708A009A66CB /* Bean2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D26C1327708A009A66CB /* Bean2D.h */; };
 		66DCAD341325799E009F1A9A /* Linear2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DCAD301325799E009F1A9A /* Linear2D.cpp */; };
 		66DCAD351325799E009F1A9A /* Linear2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DCAD311325799E009F1A9A /* Linear2D.h */; };
 		66DCAD361325799E009F1A9A /* Linear3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DCAD321325799E009F1A9A /* Linear3D.cpp */; };
@@ -57,6 +61,10 @@
 		66B6D22A13276593009A66CB /* Hypocycloid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hypocycloid2D.h; sourceTree = "<group>"; };
 		66B6D237132769E0009A66CB /* Epitrochoid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Epitrochoid2D.cpp; sourceTree = "<group>"; };
 		66B6D238132769E0009A66CB /* Epitrochoid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Epitrochoid2D.h; sourceTree = "<group>"; };
+		66B6D24713276DC1009A66CB /* Limacon2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Limacon2D.cpp; sourceTree = "<group>"; };
+		66B6D24813276DC1009A66CB /* Limacon2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Limacon2D.h; sourceTree = "<group>"; };
+		66B6D26B1327708A009A66CB /* Bean2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bean2D.cpp; sourceTree = "<group>"; };
+		66B6D26C1327708A009A66CB /* Bean2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bean2D.h; sourceTree = "<group>"; };
 		66DCAD301325799E009F1A9A /* Linear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear2D.cpp; sourceTree = "<group>"; };
 		66DCAD311325799E009F1A9A /* Linear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear2D.h; sourceTree = "<group>"; };
 		66DCAD321325799E009F1A9A /* Linear3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear3D.cpp; sourceTree = "<group>"; };
@@ -136,6 +144,8 @@
 		66DCAD5713257AC1009F1A9A /* 2D */ = {
 			isa = PBXGroup;
 			children = (
+				66B6D26B1327708A009A66CB /* Bean2D.cpp */,
+				66B6D26C1327708A009A66CB /* Bean2D.h */,
 				663A95E31325D21C0059009C /* Butterfly2D.cpp */,
 				663A95E41325D21C0059009C /* Butterfly2D.h */,
 				66B6D21D13276408009A66CB /* Circular2D.cpp */,
@@ -146,6 +156,8 @@
 				66B6D22A13276593009A66CB /* Hypocycloid2D.h */,
 				66DCAD6213257DA0009F1A9A /* Rose2D.cpp */,
 				66DCAD6313257DA0009F1A9A /* Rose2D.h */,
+				66B6D24713276DC1009A66CB /* Limacon2D.cpp */,
+				66B6D24813276DC1009A66CB /* Limacon2D.h */,
 				66DCAD301325799E009F1A9A /* Linear2D.cpp */,
 				66DCAD311325799E009F1A9A /* Linear2D.h */,
 				663A957F1325BED80059009C /* Lissajous2D.cpp */,
@@ -188,6 +200,8 @@
 				66B6D22013276408009A66CB /* Circular2D.h in Headers */,
 				66B6D22C13276593009A66CB /* Hypocycloid2D.h in Headers */,
 				66B6D23A132769E0009A66CB /* Epitrochoid2D.h in Headers */,
+				66B6D24A13276DC1009A66CB /* Limacon2D.h in Headers */,
+				66B6D26E1327708A009A66CB /* Bean2D.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +285,8 @@
 				66B6D21F13276408009A66CB /* Circular2D.cpp in Sources */,
 				66B6D22B13276593009A66CB /* Hypocycloid2D.cpp in Sources */,
 				66B6D239132769E0009A66CB /* Epitrochoid2D.cpp in Sources */,
+				66B6D24913276DC1009A66CB /* Limacon2D.cpp in Sources */,
+				66B6D26D1327708A009A66CB /* Bean2D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
