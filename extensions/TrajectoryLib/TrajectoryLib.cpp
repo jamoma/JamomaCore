@@ -11,6 +11,9 @@
 #include "TTTrajectory.h"
 
 #include "Butterfly2D.h"
+#include "Circular2D.h"
+#include "Epitrochoid2D.h"
+#include "Hypocycloid2D.h"
 #include "Linear2D.h"
 #include "Linear3D.h"
 #include "Lissajous2D.h"
@@ -25,6 +28,9 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_TrajectoryLib(void)
 	TTTrajectory::registerClass();
 	
 	Butterfly2D::registerClass();
+	Circular2D::registerClass();
+	Epitrochoid2D::registerClass();
+	Hypocycloid2D::registerClass();
 	Linear2D::registerClass();
 	Linear3D::registerClass();
 	Lissajous2D::registerClass();
