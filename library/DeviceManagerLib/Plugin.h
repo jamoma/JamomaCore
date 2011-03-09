@@ -68,7 +68,7 @@ public:
 	virtual ~Plugin() {	
 		mParameters->clear();
 		delete mParameters;
-	};
+	}
 	
 	/*!
 	 * A plugin need to know the DeviceManager to access it methods
@@ -80,14 +80,6 @@ public:
 	TTDeviceManager* getDeviceManager() {
 		return mDeviceManager;
 	}
-	
-//	/*!
-//	 * Add a reception message callback in the parent class
-//	 */
-//	void addWaitedMessageAction(void(*pt2Func)(void *, std::string), void *arg) {
-//		m_waitedMessageAction = pt2Func;
-//		m_callBackMessageArgument = arg;
-//	}
 
 	/************************************************
 	 COMMUNICATION METHODS :
@@ -96,34 +88,16 @@ public:
 	 ************************************************/
 	
 	/*!
-	 * Define the plugins parameters with an optional map<name, value> 
-	 * Has to be called to instantiate the m_parameter map
-	 *
+	 * Define the plugins parameters with a TTValue array <name1, value1, name2, value2, ...> 
+	 * Has to be called to instantiate the m_parameter hash table
 	 */
-	virtual void commDefineParameters(TTValue& parameters)=0;
+	virtual TTErr commDefineParameters(TTValue& parameters)=0;
 	
-//	/*!
-//	 * Set a plugin parameter (if does not exist add it)
-//	 *
-//	 * \param parameterName  : the name of the parameter you want to set the value
-//	 * \param parameterValue : the value like a string
-//	 */
-//	virtual void commSetParameter(std::string parameterName, std::string parameterValue)=0;
-//	
-//	/*!
-//	 * Get a device parameter
-//	 * All parameters names and values are defined by the plugin itself
-//	 *
-//	 * \param parameterName : the name of the parameter you want the value
-//	 * \return the string value for this parameter name or "ERROR" if the name corresponds to any parameter
-//	 */
-//	virtual std::string commGetParameter(std::string parameterName)=0;
-//	
 	/*!
 	 * Run the message reception thread 
 	 *
 	 */
-	virtual void commRunReceivingThread()=0;
+	virtual TTErr commRunReceivingThread()=0;
 
 	/************************************************
 	 DEVICES METHODS :
@@ -131,12 +105,6 @@ public:
 	 note : each method of this set is prepend by 'device'
 	 ************************************************/
 
-	/*!
-	 * Scan the network automatically to detect devices.
-	 * This method full the netDevices map. It is not yet implemented : it needs a daemon like a udp broadcast (osc) or a scan (copperlan)
-	 */
-	//	virtual void deviceSetCurrent(std::map<std::string, TTDevicePtr> *netDevices)=0;
-	//	
 	//	/*!
 	//	 * Add one device in the netDevices map
 	//	 *
@@ -150,7 +118,7 @@ public:
 	 *
 	 * \return true if the plugin need or false if not
 	 */
-	virtual bool understandDiscoverRequest()=0;
+	virtual TTBoolean understandDiscoverRequest()=0;
 
 	/**************************************************************************************************************************
 	 *
@@ -163,12 +131,12 @@ public:
 	 *
 	 * \param device : a pointer to a Device instance
 	 * \param address : something like "/<subDeviceName>/.../<input>"
-	 * \param returnedNodes : the vector which is going to be full with the node names at the given address
-	 * \param returnedLeaves : the vector which is going to be full with the leaves names at the given address
-	 * \param returnedAttributes : the vector which is going to be full with the attributes names at the given address
+	 * \param returnedNodes : the TTValue array which is going to be full with the node names at the given address
+	 * \param returnedLeaves : the TTValue array which is going to be full with the leaves names at the given address
+	 * \param returnedAttributes : the TTValue array which is going to be full with the attributes names at the given address
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	virtual int deviceSendDiscoverRequest(TTDevicePtr device,
+	virtual TTErr deviceSendDiscoverRequest(TTDevicePtr device,
 										  TTSymbolPtr address,
 										  TTValue& returnedNodes,
 										  TTValue& returnedLeaves,
@@ -180,10 +148,10 @@ public:
 	 * \param device : a pointer to a Device instance
 	 * \param address : something like "/<subDeviceName>/.../<input>"
 	 * \param attribute : the asked attribute
-	 * \param returnedValue : the Value which is going to be full
+	 * \param returnedValue : the TTValue which is going to be full
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	virtual int deviceSendGetRequest(TTDevicePtr device,
+	virtual TTErr deviceSendGetRequest(TTDevicePtr device,
 									 TTSymbolPtr address, TTSymbolPtr attribute,
 									 TTValue& returnedValue)=0;
 	
@@ -194,7 +162,7 @@ public:
 	 * \param address : something like "/<subDeviceName>/.../<input>"
 	 * \param value : anything to send
 	 */
-	virtual int deviceSendSetRequest(TTDevicePtr device, 
+	virtual TTErr deviceSendSetRequest(TTDevicePtr device, 
 									 TTSymbolPtr address, TTSymbolPtr attribute,
 									 TTValue& value)=0;
 	
@@ -206,7 +174,7 @@ public:
 	 * \param attribute : the attribute to listen
 	 * \param enable : enable/disable the listening
 	 */
-	virtual int deviceSendListenRequest(TTDevicePtr device,
+	virtual TTErr deviceSendListenRequest(TTDevicePtr device,
 										TTSymbolPtr address, TTSymbolPtr attribute, 
 										bool enable)=0;
 	
@@ -225,7 +193,7 @@ public:
 	 * \param returnedLeaves : the description of leaves below the address
 	 * \param returnedAttributes : the description of attributes at the address
 	 */
-	virtual void deviceSendDiscoverAnswer(TTDevicePtr to, TTSymbolPtr address,
+	virtual TTErr deviceSendDiscoverAnswer(TTDevicePtr to, TTSymbolPtr address,
 										  TTValue& returnedNodes,
 										  TTValue& returnedLeaves,
 										  TTValue& returnedAttributes)=0;
@@ -238,7 +206,7 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	virtual void deviceSendGetAnswer(TTDevicePtr to, 
+	virtual TTErr deviceSendGetAnswer(TTDevicePtr to, 
 									 TTSymbolPtr address, TTSymbolPtr attribute, 
 									 TTValue& returnedValue)=0;
 	
@@ -250,7 +218,7 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	virtual void deviceSendListenAnswer(TTDevicePtr to, 
+	virtual TTErr deviceSendListenAnswer(TTDevicePtr to, 
 										TTSymbolPtr address, TTSymbolPtr attribute, 
 										TTValue& returnedValue)=0;
 	
@@ -337,7 +305,6 @@ public:
 	 */
 	void deviceReceiveListenRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) 
 	{
-		std::cout << "Plugin::deviceReceiveListenRequest" << std::endl;
 		// Enable/disable the listening of the attribute at the address
 		if (mDeviceManager != NULL)
 			mDeviceManager->namespaceListen(from, address, attribute, enable);
