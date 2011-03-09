@@ -19,6 +19,7 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(			Frequency,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(Gain,		kTypeFloat64);
 	addAttributeWithSetter(			Phase,		kTypeFloat64);
+	addAttribute(					Offset,		kTypeFloat64);
 	// TODO: More Attributes left to add...
 	//	linearGain
 	//	period in ms
@@ -110,7 +111,7 @@ TTErr TTPhasor::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 		vs = out.getVectorSizeAsInt();
 
 		while (vs--) {
-			*outSample++ = phaseInternal * linearGain;	
+			*outSample++ = (phaseInternal * linearGain) + mOffset;	
 			phaseInternal += step;
 			if (phaseInternal >= 1.0)
 				phaseInternal -= 1.0;
