@@ -14,6 +14,7 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	int					badSampleCount = 0;
+	int					badSampleCountTotal = 0;
 	TTAudioSignalPtr	output = NULL;
 	
 	/*0.  We assume that have an object
@@ -118,6 +119,10 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
 	
+	badSampleCountTotal += badSampleCount;
+	//reinitializing for next test
+	badSampleCount = 0;
+	
 	// Second test: now with a negative Frequency: ramp should go from 1 to 0
 	
 	// setup the generator
@@ -207,6 +212,10 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
 	
+	badSampleCountTotal += badSampleCount;
+	//reinitializing for next test
+	badSampleCount = 0;
+	
 	// Third test: two Ramps within a block (we want to check if the jump from 0 to 1 is correct)
 	
 	// setup the generator
@@ -294,8 +303,13 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);
+
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
+	
+	badSampleCountTotal += badSampleCount;
+	//reinitializing for next test
+	badSampleCount = 0;
 	
 	// Forth test: two Ramps within a block (we want to check if the jump from 1 to 0 is correct)
 	
@@ -386,6 +400,15 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
+	
+	badSampleCountTotal += badSampleCount;
+	//reinitializing for next test
+	badSampleCount = 0;
+	
+	
+	// Total number of bad samples:
+	if (badSampleCountTotal)
+		TTTestLog("badSampleCountTotal is %i", badSampleCountTotal);
 	
 	TTObjectRelease(&output);
 	

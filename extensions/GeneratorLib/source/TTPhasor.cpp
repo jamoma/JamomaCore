@@ -111,12 +111,13 @@ TTErr TTPhasor::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 		vs = out.getVectorSizeAsInt();
 
 		while (vs--) {
+			if (phaseInternal > 1.0)
+				phaseInternal = 0.0;
+			else if (phaseInternal < 0.0)
+				phaseInternal = 1.0;
+			
 			*outSample++ = (phaseInternal * linearGain) + mOffset;	
 			phaseInternal += step;
-			if (phaseInternal >= 1.0)
-				phaseInternal -= 1.0;
-			else if (phaseInternal < 0.0)
-				phaseInternal += 1.0;
 		}
 	}
 	return kTTErrNone;
