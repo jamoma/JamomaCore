@@ -26,6 +26,7 @@ Dir.chdir "#{glibdir}"
 if  win32?
 else
 	`cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
+	`cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max5/Cycling '74/init/JamomaConfiguration.xml"`
 	`cp -r "./library/DeviceManagerLib/plugins/OSC.dylib" "/Applications/Max5/support/OSC.dylib"`
 	`cp -r "./library/DeviceManagerLib/plugins/Minuit.dylib" "/Applications/Max5/support/Minuit.dylib"`
 	`cp -r "./library/DeviceManagerLib/plugins/CopperLANPlugin.dylib" "/Applications/Max5/support/CopperLANPlugin.dylib"`
