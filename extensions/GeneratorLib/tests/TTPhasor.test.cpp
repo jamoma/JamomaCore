@@ -14,6 +14,7 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	int					badSampleCount = 0;
+	int					badSampleCountTotal = 0;
 	TTAudioSignalPtr	output = NULL;
 	
 	/*0.  We assume that have an object
@@ -111,12 +112,16 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedSignalTest1[i]);
 	}
 
-	TTTestAssertion("PProduces correct ramp from 0 to 1 when a positive Frequency is defined", 
+	TTTestAssertion("Test 1: Produces correct ramp from 0 to 1 when a positive Frequency is defined", 
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
+	
+	badSampleCountTotal += badSampleCount;
+	//reinitializing for next test
+	badSampleCount = 0;
 	
 	// Second test: now with a negative Frequency: ramp should go from 1 to 0
 	
@@ -200,13 +205,210 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedSignalTest2[i]);
 	}
 	
-	TTTestAssertion("Produces correct ramp from 1 to 0 when a negative Frequency is defined", 
+	TTTestAssertion("Test 2: Produces correct ramp from 1 to 0 when a negative Frequency is defined", 
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
 	
+	badSampleCountTotal += badSampleCount;
+	//reinitializing for next test
+	badSampleCount = 0;
+	
+	// Third test: two Ramps within a block (we want to check if the jump from 0 to 1 is correct)
+	
+	// setup the generator
+	this->setAttributeValue(TT("frequency"), (sr)/-32.0);
+	this->setAttributeValue(TT("gain"), 0);
+	this->setAttributeValue(TT("phase"), 0);
+	this->process(output);
+	// created with Octave: expectedSignalTest3 = [linspace(1,0,32)';linspace(1,0,32)']
+	TTFloat64 expectedSignalTest3[64] = {
+		1.0,
+		9.6774193548387100e-01,
+		9.3548387096774199e-01,
+		9.0322580645161288e-01,
+		8.7096774193548387e-01,
+		8.3870967741935487e-01,
+		8.0645161290322576e-01,
+		7.7419354838709675e-01,
+		7.4193548387096775e-01,
+		7.0967741935483875e-01,
+		6.7741935483870974e-01,
+		6.4516129032258063e-01,
+		6.1290322580645162e-01,
+		5.8064516129032251e-01,
+		5.4838709677419351e-01,
+		5.1612903225806450e-01,
+		4.8387096774193550e-01,
+		4.5161290322580649e-01,
+		4.1935483870967738e-01,
+		3.8709677419354838e-01,
+		3.5483870967741937e-01,
+		3.2258064516129037e-01,
+		2.9032258064516125e-01,
+		2.5806451612903225e-01,
+		2.2580645161290325e-01,
+		1.9354838709677424e-01,
+		1.6129032258064513e-01,
+		1.2903225806451613e-01,
+		9.6774193548387122e-02,
+		6.4516129032258118e-02,
+		3.2258064516129004e-02,
+		0.0,
+		1.0,
+		9.6774193548387100e-01,
+		9.3548387096774199e-01,
+		9.0322580645161288e-01,
+		8.7096774193548387e-01,
+		8.3870967741935487e-01,
+		8.0645161290322576e-01,
+		7.7419354838709675e-01,
+		7.4193548387096775e-01,
+		7.0967741935483875e-01,
+		6.7741935483870974e-01,
+		6.4516129032258063e-01,
+		6.1290322580645162e-01,
+		5.8064516129032251e-01,
+		5.4838709677419351e-01,
+		5.1612903225806450e-01,
+		4.8387096774193550e-01,
+		4.5161290322580649e-01,
+		4.1935483870967738e-01,
+		3.8709677419354838e-01,
+		3.5483870967741937e-01,
+		3.2258064516129037e-01,
+		2.9032258064516125e-01,
+		2.5806451612903225e-01,
+		2.2580645161290325e-01,
+		1.9354838709677424e-01,
+		1.6129032258064513e-01,
+		1.2903225806451613e-01,
+		9.6774193548387122e-02,
+		6.4516129032258118e-02,
+		3.2258064516129004e-02,
+		0.0,
+		
+	};
+	
+	for (int i=0; i<64; i++) {
+		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedSignalTest3[i]);
+		badSampleCount += result;
+		if (result)
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedSignalTest3[i]);
+	}
+	
+	TTTestAssertion("Test 3: Produces correct signal when phase is wrapped from 0 to 1", 
+					badSampleCount == 0, 
+					testAssertionCount, 
+					errorCount);
+
+	if (badSampleCount)
+		TTTestLog("badSampleCount is %i", badSampleCount);
+	
+	badSampleCountTotal += badSampleCount;
+	//reinitializing for next test
+	badSampleCount = 0;
+	
+	// Forth test: two Ramps within a block (we want to check if the jump from 1 to 0 is correct)
+	
+	// setup the generator
+	this->setAttributeValue(TT("frequency"), (sr)/32.0);
+	this->setAttributeValue(TT("gain"), 0);
+	this->setAttributeValue(TT("phase"), 0);
+	this->process(output);
+	// created with Octave: expectedSignalTest4 = [linspace(,1,32)';linspace(0,1,32)']
+	TTFloat64 expectedSignalTest4[64] = {
+		0.0000000000000000e+00,
+		3.2258064516129031e-02,
+		6.4516129032258063e-02,
+		9.6774193548387094e-02,
+		1.2903225806451613e-01,
+		1.6129032258064516e-01,
+		1.9354838709677419e-01,
+		2.2580645161290322e-01,
+		2.5806451612903225e-01,
+		2.9032258064516131e-01,
+		3.2258064516129031e-01,
+		3.5483870967741937e-01,
+		3.8709677419354838e-01,
+		4.1935483870967744e-01,
+		4.5161290322580644e-01,
+		4.8387096774193550e-01,
+		5.1612903225806450e-01,
+		5.4838709677419351e-01,
+		5.8064516129032262e-01,
+		6.1290322580645162e-01,
+		6.4516129032258063e-01,
+		6.7741935483870963e-01,
+		7.0967741935483875e-01,
+		7.4193548387096775e-01,
+		7.7419354838709675e-01,
+		8.0645161290322576e-01,
+		8.3870967741935487e-01,
+		8.7096774193548387e-01,
+		9.0322580645161288e-01,
+		9.3548387096774188e-01,
+		9.6774193548387100e-01,
+		1.0000000000000000e+00,
+		0.0000000000000000e+00,
+		3.2258064516129031e-02,
+		6.4516129032258063e-02,
+		9.6774193548387094e-02,
+		1.2903225806451613e-01,
+		1.6129032258064516e-01,
+		1.9354838709677419e-01,
+		2.2580645161290322e-01,
+		2.5806451612903225e-01,
+		2.9032258064516131e-01,
+		3.2258064516129031e-01,
+		3.5483870967741937e-01,
+		3.8709677419354838e-01,
+		4.1935483870967744e-01,
+		4.5161290322580644e-01,
+		4.8387096774193550e-01,
+		5.1612903225806450e-01,
+		5.4838709677419351e-01,
+		5.8064516129032262e-01,
+		6.1290322580645162e-01,
+		6.4516129032258063e-01,
+		6.7741935483870963e-01,
+		7.0967741935483875e-01,
+		7.4193548387096775e-01,
+		7.7419354838709675e-01,
+		8.0645161290322576e-01,
+		8.3870967741935487e-01,
+		8.7096774193548387e-01,
+		9.0322580645161288e-01,
+		9.3548387096774188e-01,
+		9.6774193548387100e-01,
+		1.0000000000000000e+00,
+		
+	};
+	
+	for (int i=0; i<64; i++) {
+		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedSignalTest4[i]);
+		badSampleCount += result;
+		if (result)
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedSignalTest4[i]);
+	}
+	
+	TTTestAssertion("Test 4: Produces correct signal when phase is wrapped from 1 to 0", 
+					badSampleCount == 0, 
+					testAssertionCount, 
+					errorCount);
+	if (badSampleCount)
+		TTTestLog("badSampleCount is %i", badSampleCount);
+	
+	badSampleCountTotal += badSampleCount;
+	//reinitializing for next test
+	badSampleCount = 0;
+	
+	
+	// Total number of bad samples:
+	if (badSampleCountTotal)
+		TTTestLog("badSampleCountTotal is %i", badSampleCountTotal);
 	
 	TTObjectRelease(&output);
 	
