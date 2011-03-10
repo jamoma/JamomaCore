@@ -309,6 +309,38 @@ void TTValue::copy(const TTValue& obj)
 	stringsPresent = obj.stringsPresent;
 }
 
+/****************************************************************************************************/
+// prepend
+/****************************************************************************************************/
+
+void TTValue::prepend(const TTValue& valueToAppend)
+{
+	TTUInt16 numToAppend = valueToAppend.getSize();
+	TTUInt16 newNumValues = numToAppend + this->numValues;
+	
+	TTDataType*	t = new TTDataType[newNumValues];
+	DataValue*	d = new DataValue[newNumValues];
+	
+	memset(t, 0, newNumValues * sizeof(TTDataType));
+	
+	// copy obj type and data
+	memcpy(t, valueToAppend.type, sizeof(TTDataType) * numToAppend);
+	memcpy(d, valueToAppend.data, sizeof(TTValue::DataValue) * numToAppend);
+	
+	// copy our type and data
+	memcpy(t+numToAppend, type, sizeof(TTDataType) * this->numValues);
+	memcpy(d+numToAppend, data, sizeof(TTValue::DataValue) * this->numValues);
+	
+	delete [] type;
+	delete [] data;
+	type = t;
+	data = d;
+	
+	this->numValues = newNumValues;
+	reserved = valueToAppend.reserved;	// to -- forget our reserved pointer ?
+	stringsPresent = valueToAppend.stringsPresent || this->stringsPresent;
+}
+
 
 
 /****************************************************************************************************/

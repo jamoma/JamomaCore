@@ -159,8 +159,6 @@ private:
 	
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
-	
-
 
 public:
 	/** Return the number of values of this instance. */
@@ -171,6 +169,9 @@ public:
 	
 	/** Copy a value starting at index */
 	void copyFrom(const TTValue& newValue, TTUInt16 index);
+	
+	/** Perform a copy of a value before and copy ourself after */
+	void prepend(const TTValue& valueToAppend);
 	
 	TTValue& operator = (const TTValue &newValue);
 
