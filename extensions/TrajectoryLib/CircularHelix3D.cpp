@@ -62,7 +62,7 @@ TTErr CircularHelix3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 		phi = inSampleX[i] * kTTPi; // 0 .. 2Pi
 		outSampleX[i] = sin(phi);
 		outSampleY[i] = cos(phi);
-		outSampleZ[i] = inSampleY[i];
+		outSampleZ[i] = inSampleY[i]-1.0; //scaling 0 ..2 to -1.. 1
 
 	}
 return kTTErrNone;
