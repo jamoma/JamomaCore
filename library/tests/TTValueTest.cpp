@@ -72,6 +72,15 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
+	// TODO: want to implement this:
+	// TTSymbolPtr s = v1[1];
+	TTSymbolPtr s = NULL;
+	v1.get(1, &s);
+	TTTestAssertion("second item has correct value, retreiving with get() method",
+					s == TT("foo"),
+					testAssertionCount,
+					errorCount);
+	
 	TTTestLog("Prepending a TTValue with one symbol to TTValue");	
 	v1.prepend(TTValue(kTTSym_value));
 	
@@ -85,9 +94,9 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	v1.get(0, &aSymbol);
+	v1.get(0, &s);
 	TTTestAssertion("first item should be \"value\" symbol", 
-					aSymbol == kTTSym_value,
+					s == kTTSym_value,
 					testAssertionCount,
 					errorCount);
 	
@@ -100,17 +109,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					v1.getType(2) == kTypeSymbol,
 					testAssertionCount,
 					errorCount);
-	
-	
-	// TODO: want to implement this:
-	// TTSymbolPtr s = v1[1];
-	TTSymbolPtr s = NULL;
-	v1.get(1, &s);
-	TTTestAssertion("second item has correct value, retreiving with get() method",
-					s == TT("foo"),
-					testAssertionCount,
-					errorCount);
-	
+
 	TTTestLog("Clearing TTValue");	
 	v1.clear();
 	
