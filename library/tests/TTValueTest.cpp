@@ -21,6 +21,8 @@ TTValueTest::~TTValueTest()
 
 void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 {
+	TTSymbolPtr aSymbol;
+	
 	TTTestLog("\n");
 	TTTestLog("Testing basic TTValue operation");
 
@@ -69,6 +71,36 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					v1.getType(1) == kTypeSymbol,
 					testAssertionCount,
 					errorCount);
+	
+	TTTestLog("Prepending a TTValue with one symbol to TTValue");	
+	v1.prepend(TTValue(kTTSym_value));
+	
+	TTTestAssertion("TTValue correctly updated element count to 3", 
+					v1.getSize() == 3,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("first item should be typed as kTypeSymbol", 
+					v1.getType(0) == kTypeSymbol, 
+					testAssertionCount,
+					errorCount);
+	
+	v1.get(0, &aSymbol);
+	TTTestAssertion("first item should be \"value\" symbol", 
+					aSymbol == kTTSym_value,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("second item still is correctly typed as kTypeFloat64", 
+					v1.getType(1) == kTypeFloat64, 
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("third item has correct type",
+					v1.getType(2) == kTypeSymbol,
+					testAssertionCount,
+					errorCount);
+	
 	
 	// TODO: want to implement this:
 	// TTSymbolPtr s = v1[1];
