@@ -264,12 +264,14 @@ TTErr TTData::Dec(const TTValue& value)
 
 TTErr TTData::Command(const TTValue& command)
 {
+	TTMessagePtr aMessage;
+	TTErr		err = kTTErrNone;
 #ifdef TTDATA_RAMPLIB
 	double		time;
 #endif
 	int			commandSize;
 	TTSymbolPtr	first, unit, ramp;
-	TTValue		aValue;
+	TTValue		aValue, c;
 	bool		hasRamp = false;
 	bool		hasUnit = false;
 	
@@ -285,7 +287,14 @@ TTErr TTData::Command(const TTValue& command)
 		}
 	}
 	
-	// 2. Parse the command to handle unit and ramp
+	// 2. Notify Command observer for value changes only
+	///////////////////////////////////////////////////
+	c = command;											// protect the command value
+	err = this->findMessage(kTTSym_Command, &aMessage);
+	if (!err)
+		aMessage->sendNotification(kTTSym_notify, c);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	// 3. Parse the command to handle unit and ramp
 	///////////////////////////////////////////////////
 	commandSize = command.getSize();
 	switch(commandSize) {
@@ -364,7 +373,7 @@ TTErr TTData::Command(const TTValue& command)
 	}
 
 	
-	// 3. Strip ramp or unit informations if needed
+	// 4. Strip ramp or unit informations if needed
 	if (hasRamp && hasUnit) {
 		aValue = command;
 		aValue.setSize(commandSize - 3);
@@ -381,7 +390,7 @@ TTErr TTData::Command(const TTValue& command)
 		aValue = command;
 	
 	
-	// 4. Set Dataspace input unit and convert the value
+	// 5. Set Dataspace input unit and convert the value
 	// Note : The current implementation does not override the active unit temporarily or anything fancy.
 	// It just sets the input unit and then runs with it...
 	// For this initial implementation we are converting the values prior to ramping, as it is easier.
@@ -395,7 +404,7 @@ TTErr TTData::Command(const TTValue& command)
 		}
 	
 	
-	// 5. Ramp the convertedValue
+	// 6. Ramp the convertedValue
 	/////////////////////////////////
 #ifdef TTDATA_RAMPLIB
 	if (hasRamp) {
