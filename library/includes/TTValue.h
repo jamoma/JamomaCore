@@ -170,7 +170,10 @@ public:
 	/** Copy a value starting at index */
 	void copyFrom(const TTValue& newValue, TTUInt16 index);
 	
-	/** Perform a copy of a value before and copy ourself after */
+	/** Perform a copy of a value before and copy ourself after.
+		For example, given a TTValue a <1, 2, 3> and another TTValue b <ga, bu, zo, meu>
+		b.prepend(a) will be <1, 2, 3, ga, bu, zo, meu>
+	 */
 	void prepend(const TTValue& valueToAppend);
 	
 	TTValue& operator = (const TTValue &newValue);
