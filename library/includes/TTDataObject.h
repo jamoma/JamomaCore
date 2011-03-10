@@ -35,5 +35,6 @@ public:
 	
 };
 
+#include "TTMatrix.h"
 
 #endif // __TT_DATA_OBJECT_H__

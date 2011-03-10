@@ -118,7 +118,12 @@ public:
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
 	
-	/** Extend the attribute of an existing TTObject to this TTObject (using another attribute name) */
+	/** Extend the attribute of an existing TTObject to this TTObject (using another attribute name) 
+		@param	name			The name of the attribute as you wish for it to be in your object (e.g. myFrequency).
+		@param	extendedObject	A pointer to the object to which the attribute will be bound.
+		@param	extendedName	The name of the attribute as defined by the object that you are extending (e.g. frequency).
+		@return					An error code.
+	 */
 	TTErr extendAttribute(const TTSymbolPtr name, const TTObjectPtr extendedObject, const TTSymbolPtr extendedName);
 
 	TTErr removeAttribute(const TTSymbolPtr name);

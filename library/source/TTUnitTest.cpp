@@ -15,7 +15,7 @@ static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
 
 TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 {
-	if (fabs(a-b) < fabs(a*kTTTestFloat32Epsilon))
+	if (fabs(a-b) <= fabs(a*kTTTestFloat32Epsilon))
 		return true;
 	else
 		return false;
@@ -24,10 +24,26 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 
 TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 {
-	if (fabs(a-b) < fabs(a*kTTTestFloat64Epsilon))
+	if (a != TTAntiDenormal(a))
+		TTTestLog("WARNING: TESTING FLOAT EQUIVALENCE ON A DENORMAL!");
+
+	// TODO: Denormal checking on b
+	// TODO: checking for NaN
+	// TODO: checking for INF
+	
+	// TODO: research re-writing these functions according to http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
+	
+#ifdef THE_WAY_WE_DID_IT_IN_BERGEN
+	if (fabs(a-b) <= fabs(TTAntiDenormal(a*kTTTestFloat64Epsilon)))
 		return true;
 	else
 		return false;
+#else
+	if (fabs(a-b) < kTTTestFloat64Epsilon)
+		return true;
+	else
+		return false;
+#endif
 }
 
 

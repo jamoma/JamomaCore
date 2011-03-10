@@ -52,5 +52,4 @@
 		return kTTErrNone;\
 	}
 
-
 #endif // __TT_FOUNDATION_API_H__
