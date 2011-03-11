@@ -94,7 +94,7 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		aRelativeAddress, attrOrMess, service;
+	TTSymbolPtr		aRelativeAddress, attrOrMess, service, topAddress, belowAddress, aSymbol;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTErr			err = kTTErrNone;
@@ -151,17 +151,6 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 					return kTTErrNone;
 				}
 				
-				// CONTAINER CASE for a same attribute
-				if (anObject->getName() == TT("Container") && attrOrMess == kTTSym_value) {
-					
-					// send the value
-					anObject->sendMessage(kTTSym_Send, *valueToSend);
-					
-					// unlock
-					mIsSending = false;	
-					return kTTErrNone;
-				}
-				
 				// DEFAULT CASE
 				// Look for attribute and set it
 				if (!anObject->findAttribute(attrOrMess, &anAttribute))
@@ -170,6 +159,36 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 				// Or look for message and send it
 				else if (!anObject->findMessage(attrOrMess, &aMessage))
 					anObject->sendMessage(attrOrMess, *valueToSend);
+			}
+			// maybe the relative address is for Container below ourself
+			// so we need to split it and retry
+			else {
+				splitAtOSCAddress(aRelativeAddress, 1, &topAddress, &belowAddress);
+				splitOSCAddress(topAddress, &topAddress, &aSymbol, &aSymbol, &aSymbol); // to remove the slash at the end
+				
+				// retry to get an object
+				err = mObjectsObserversCache->lookup(topAddress, cacheElement);
+				
+				// if the topAddress is in the cache
+				if (!err) {
+					
+					cacheElement.get(0, (TTPtr*)&anObject);
+					
+					// CONTAINER CASE for a value attribute use Send message
+					if (anObject->getName() == TT("Container") && attrOrMess == kTTSym_value) {
+						
+						// replace relativeAddress by belowAddress
+						joinOSCAddress(S_SEPARATOR, belowAddress, &belowAddress);	// add a slash before
+						AddressAttributeAndValue.set(0, belowAddress);
+						
+						// send the value
+						anObject->sendMessage(kTTSym_Send, AddressAttributeAndValue);
+						
+						// unlock
+						mIsSending = false;	
+						return kTTErrNone;
+					}
+				}
 			}
 		}
 	}
