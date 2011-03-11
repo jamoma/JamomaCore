@@ -394,7 +394,7 @@ TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetOutputSignalReference()
 TTObjectPtr TTAudioEngine::create()
 {
 	PaError	paErr;
-	TTErr   err = kTTErrGeneric;
+	TTErr   err = kTTErrNone;
 
 	if (!sSingletonInstance) {
 		paErr = Pa_Initialize();
