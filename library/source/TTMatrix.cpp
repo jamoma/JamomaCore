@@ -98,7 +98,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 }
 
 
-TTErr TTMatrix::getDimensions(TTValue& returnedDimensions)
+TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 {
 	TTUInt8	size = mDimensions.size();
 
@@ -182,7 +182,7 @@ TTErr TTMatrix::fill(const TTValue& aValue)
 
 // args passed-in should be the coordinates
 // args returned will be the value at those coordinates
-TTErr TTMatrix::get(TTValue& aValue)
+TTErr TTMatrix::get(TTValue& aValue) const
 {
 	TTUInt16 dimensionCount = aValue.getSize();
 

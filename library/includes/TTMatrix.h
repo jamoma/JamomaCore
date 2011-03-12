@@ -44,7 +44,7 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTErr setDimensions(const TTValue& someNewDimensions);
 	
 	/**	Attribute accessor	*/
-	TTErr getDimensions(TTValue& returnedDimensions);
+	TTErr getDimensions(TTValue& returnedDimensions) const;
 	
 	/**	Attribute accessor	*/
 	TTErr setType(const TTValue& aType);
@@ -59,7 +59,7 @@ public:
 	
 	TTErr clear();
 	TTErr fill(const TTValue& aValue);
-	TTErr get(TTValue& aValue);
+	TTErr get(TTValue& aValue) const;
 	TTErr set(const TTValue& aValue);
 	
 	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
