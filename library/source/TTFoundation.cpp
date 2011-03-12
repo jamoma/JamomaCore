@@ -19,7 +19,7 @@
 // Unit Tests
 #include "TTMatrix.h"
 #include "TTMatrixArray.h"
-#include "TTValueTest.h"
+#include "TTValue.test.h"
 
 
 #ifdef TT_PLATFORM_MAC

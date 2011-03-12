@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTValueTest.h"
+#include "TTValue.test.h"
 
 #define thisTTClass			TTValueTest
 #define thisTTClassName		"value.test"
