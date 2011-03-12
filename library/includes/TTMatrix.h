@@ -27,7 +27,8 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
 	
 	TTBytePtr			mData;				///< matrix of values
-	TTUInt32			mDataSize;			///< sizeof(type) * mDimension[0] * mDimension[1] ...  * mElementCount
+	TTUInt32			mDataCount;			///< mDimension[0] * mDimension[1] ...  * mElementCount
+	TTUInt32			mDataSize;			///< sizeof(type) * mDataCount
 	
 	TTSymbolPtr			mType;				///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
 	TTUInt8				mTypeSizeInBytes;	///< number of bytes present in mType
@@ -61,6 +62,16 @@ public:
 	TTErr fill(const TTValue& aValue);
 	TTErr get(TTValue& aValue) const;
 	TTErr set(const TTValue& aValue);
+	
+	TTSymbolPtr	getTypeAsSymbol()
+	{
+		return mType;
+	}
+	
+	TTUInt32 getDataCount()
+	{
+		return mDataCount;
+	}
 	
 	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
 	 to match the another matrix which is passed-in as an argument.	*/

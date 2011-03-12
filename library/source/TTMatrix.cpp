@@ -16,6 +16,7 @@
 
 TT_OBJECT_CONSTRUCTOR,
 	mData(NULL),
+	mDataCount(NULL),
 	mDataSize(0),
 	mType(TT("uint8")),
 	mElementCount(1)
@@ -53,7 +54,8 @@ TTErr TTMatrix::resize()
 		else
 			productOfDimensions *= mDimensions[i];
 	}
-	mDataSize = productOfDimensions * mElementCount * mTypeSizeInBytes;
+	mDataCount = productOfDimensions * mElementCount;
+	mDataSize = mDataCount * mTypeSizeInBytes;
 
 	// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
 	// TODO: thread protection
