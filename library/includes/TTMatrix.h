@@ -40,10 +40,6 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	/**	Internal method that resizes memory allocated when various attributes change.	*/
 	TTErr resize();
 	
-	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
-		to match the another matrix which is passed-in as an argument.	*/
-	TTErr adaptTo(TTMatrix& anotherMatrix);
-
 	/**	Attribute accessor	*/
 	TTErr setDimensions(const TTValue& someNewDimensions);
 	
@@ -56,15 +52,20 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	/**	Attribute accessor	*/
 	TTErr setElementCount(const TTValue& newElementCount);
 
+	/**	Run unit tests.	*/	
+	virtual TTErr test(TTValue& returnedTestInfo);
+	
+public:
 	
 	TTErr clear();
 	TTErr fill(const TTValue& aValue);
 	TTErr get(TTValue& aValue);
 	TTErr set(const TTValue& aValue);
 	
-
-	/**	Run unit tests.	*/	
-	virtual TTErr test(TTValue& returnedTestInfo);
+	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
+	 to match the another matrix which is passed-in as an argument.	*/
+	TTErr adaptTo(TTMatrix& anotherMatrix);
+	
 };
 
 
