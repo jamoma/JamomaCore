@@ -20,9 +20,7 @@ TTValueTest::~TTValueTest()
 {;}
 
 void TTValueTestBasic(int& errorCount, int&testAssertionCount)
-{
-	TTSymbolPtr aSymbol;
-	
+{	
 	TTTestLog("\n");
 	TTTestLog("Testing basic TTValue operation");
 
