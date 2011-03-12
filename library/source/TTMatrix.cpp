@@ -68,6 +68,20 @@ TTErr TTMatrix::resize()
 }
 
 
+TTErr TTMatrix::adaptTo(TTMatrix& anotherMatrix)
+{
+	TTValue v;
+	
+	anotherMatrix.getDimensions(v);
+	setDimensions(v);
+	
+	setType(anotherMatrix.mType);
+	setElementCount(anotherMatrix.mElementCount);
+	
+	return kTTErrNone;
+}
+
+
 TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 {
 	TTUInt8	size = someNewDimensions.getSize();

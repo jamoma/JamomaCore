@@ -39,6 +39,9 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	/**	Internal method that resizes memory allocated when various attributes change.	*/
 	TTErr resize();
 	
+	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
+		to match the another matrix which is passed-in as an argument.	*/
+	TTErr adaptTo(TTMatrix& anotherMatrix);
 
 	/**	Attribute accessor	*/
 	TTErr setDimensions(const TTValue& someNewDimensions);
@@ -65,6 +68,7 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 
 
 typedef TTMatrix* TTMatrixPtr;
+typedef TTMatrix& TTMatrixRef;
 
 
 #endif // __TT_MATRIX_H__
