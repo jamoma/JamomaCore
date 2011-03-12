@@ -66,6 +66,22 @@ public:
 	 to match the another matrix which is passed-in as an argument.	*/
 	TTErr adaptTo(const TTMatrix& anotherMatrix);
 	
+	/** Return a pointer to the matrix data, and lock the matrix so that others cannot access the data.
+		If matrix is already locked, this function waits until it becomes free. */
+	TTBytePtr getLockedPointer()
+	{
+		// TODO: actually lock the data and add spin-lock with atomic access
+		return mData;
+	}
+	
+	/**	Release a locked pointer obtained using getLockedPointer().	*/
+	void releaseLockedPointer()
+	{
+		// TODO: see above.
+		// NOTE: we could also cache the pointer in getLockedPointer() and match it to this.
+		// But maybe that makes not sense.
+	}
+
 };
 
 
