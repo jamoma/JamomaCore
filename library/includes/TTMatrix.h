@@ -76,6 +76,10 @@ public:
 	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
 	 to match the another matrix which is passed-in as an argument.	*/
 	TTErr adaptTo(const TTMatrix& anotherMatrix);
+	TTErr adaptTo(const TTMatrix* anotherMatrix)
+	{
+		return adaptTo(*anotherMatrix);
+	}
 	
 	/** Return a pointer to the matrix data, and lock the matrix so that others cannot access the data.
 		If matrix is already locked, this function waits until it becomes free. */
