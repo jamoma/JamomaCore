@@ -290,7 +290,6 @@ public:
 
 #include "TTAttribute.h"
 #include "TTMessage.h"
-#include "TTUnitTest.h"
 
 
 #define TT_OBJECT_CONSTRUCTOR_EXPORT \

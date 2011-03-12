@@ -7,6 +7,7 @@
  */
 
 #include "TTMatrix.h"
+#include "TTUnitTest.h"
 
 
 TTErr TTMatrix::test(TTValue& returnedTestInfo)

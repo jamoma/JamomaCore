@@ -7,6 +7,7 @@
  */
 
 #include "TTMatrix.h"
+#include "TTEnvironment.h"
 
 #define thisTTClass			TTMatrix
 #define thisTTClassName		"matrix"

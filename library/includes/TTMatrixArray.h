@@ -10,6 +10,7 @@
 #define __TT_MATRIXARRAY_H__
 
 #include "TTMatrix.h"
+#include "TTEnvironment.h"
 
 typedef vector<TTMatrixPtr>			TTMatrixVector;
 typedef TTMatrixVector::iterator	TTMatrixIter;

@@ -10,7 +10,7 @@
 #define __TT_VALUETEST_H__
 
 #include "TTDataObject.h"
-
+#include "TTUnitTest.h"
 
 /**	Provide unit tests for #TTValue */
 class TTValueTest : public TTDataObject {

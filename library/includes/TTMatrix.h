@@ -9,6 +9,7 @@
 #ifndef __TT_MATRIX_H__
 #define __TT_MATRIX_H__
 
+#include "TTFoundation.h"
 #include "TTDataObject.h"
 
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.

@@ -18,12 +18,15 @@
 #include "TTHash.h"
 #include "TTLimits.h"
 #include "TTList.h"
+#include "TTMatrix.h"
+#include "TTMatrixArray.h"
 #include "TTMutex.h"
 #include "TTObject.h"
 #include "TTQueue.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"
+#include "TTUnitTest.h"
 #include "TTValue.h"
 
 #ifdef TT_PLATFORM_WIN
