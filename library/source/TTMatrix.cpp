@@ -69,7 +69,7 @@ TTErr TTMatrix::resize()
 }
 
 
-TTErr TTMatrix::adaptTo(TTMatrix& anotherMatrix)
+TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 {
 	TTValue v;
 	

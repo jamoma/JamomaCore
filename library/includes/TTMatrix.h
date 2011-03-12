@@ -64,7 +64,7 @@ public:
 	
 	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
 	 to match the another matrix which is passed-in as an argument.	*/
-	TTErr adaptTo(TTMatrix& anotherMatrix);
+	TTErr adaptTo(const TTMatrix& anotherMatrix);
 	
 };
 
