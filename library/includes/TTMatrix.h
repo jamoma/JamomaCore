@@ -86,6 +86,8 @@ public:
 	TTBytePtr getLockedPointer()
 	{
 		// TODO: actually lock the data and add spin-lock with atomic access
+		// NOTE: when locked, we cannot resize, change type, etc. either...
+		
 		return mData;
 	}
 	
@@ -102,6 +104,19 @@ public:
 
 typedef TTMatrix* TTMatrixPtr;
 typedef TTMatrix& TTMatrixRef;
+
+
+#define TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(template_name, input_matrix, output_matrix) \
+	if (input_matrix->getTypeAsSymbol() == TT("uint8")) \
+		err = template_name<TTUInt8>(input_matrix, output_matrix); \
+	else if (input_matrix->getTypeAsSymbol() == TT("int32")) \
+		err = template_name<TTInt32>(input_matrix, output_matrix); \
+	else if (input_matrix->getTypeAsSymbol() == TT("float32")) \
+		err = template_name<TTFloat32>(input_matrix, output_matrix); \
+	else if (input_matrix->getTypeAsSymbol() == TT("float64")) \
+		err = template_name<TTFloat64>(input_matrix, output_matrix); \
+	else \
+		err = kTTErrInvalidType;
 
 
 #endif // __TT_MATRIX_H__
