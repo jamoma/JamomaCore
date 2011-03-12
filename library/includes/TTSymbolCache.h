@@ -72,6 +72,17 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_gain;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_operator;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_phasor;
 
+// matrix related
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_matrix;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_dimensions;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_type;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_elementCount;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_uint8;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_int32;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_float32;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_float64;
+
+
 void TTSymbolCacheInit();
 
 #endif // __TT_SYMBOL_CACHE_H__

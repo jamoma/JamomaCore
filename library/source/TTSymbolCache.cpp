@@ -70,6 +70,16 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_gain;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_operator;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_phasor;
 
+// matrix related
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_matrix;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_dimensions;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_type;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_elementCount;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_uint8;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_int32;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_float32;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_float64;
+
 
 void TTSymbolCacheInit()
 {
@@ -131,4 +141,14 @@ void TTSymbolCacheInit()
 	kTTSym_gain						= TT("gain");
 	kTTSym_operator					= TT("operator");
 	kTTSym_phasor					= TT("phasor");
+	
+	kTTSym_matrix					= TT("matrix");
+	kTTSym_dimensions				= TT("dimensions");
+	kTTSym_type						= TT("type");
+	kTTSym_elementCount				= TT("elementCount");
+	kTTSym_uint8					= TT("uint8");
+	kTTSym_int32					= TT("int32");
+	kTTSym_float32					= TT("float32");
+	kTTSym_float64					= TT("float64");
+	
 }
