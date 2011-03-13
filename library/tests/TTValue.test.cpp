@@ -538,42 +538,42 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v2.clip(3.0, 5.0);
 	
-	TTFloat64 *aFloat;
-	TTInt32 *anInt;
+	TTFloat64 aFloat;
+	TTInt32 anInt;
 
-	v2.get(0, *aFloat);
+	v2.get(0, aFloat);
 	TTTestAssertion("array double clipped (out of lower bound)",
-					TTTestFloatEquivalence(*aFloat, 3.0),
+					TTTestFloatEquivalence(aFloat, 3.0),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(1, *anInt);
+	v2.get(1, anInt);
 	TTTestAssertion("array integer clipped (out of lower bound)",
-					*anInt == 3,
+					anInt == 3,
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(2, *aFloat);
+	v2.get(2, aFloat);
 	TTTestAssertion("array double not clipped (within range)",
-					TTTestFloatEquivalence(*aFloat, 3.14),
+					TTTestFloatEquivalence(aFloat, 3.14),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(3, *anInt);
+	v2.get(3, anInt);
 	TTTestAssertion("array integer not clipped (within range)",
-					*anInt == 4,
+					anInt == 4,
 					testAssertionCount,
 					errorCount);
 
-	v2.get(4, *aFloat);
+	v2.get(4, aFloat);
 	TTTestAssertion("array double clipped (out of upper bound)",
-					TTTestFloatEquivalence(*aFloat, 5.0),
+					TTTestFloatEquivalence(aFloat, 5.0),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(5, *anInt);
+	v2.get(5, anInt);
 	TTTestAssertion("array integer clipped (out of upper bound)",
-					*anInt == 5,
+					anInt == 5,
 					testAssertionCount,
 					errorCount);
 	
@@ -827,27 +827,27 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v2.cliplow(3.0);
 	
-	v2.get(0, *aFloat);
+	v2.get(0, aFloat);
 	TTTestAssertion("array double clipped at lower limit (out of lower bound)",
-					TTTestFloatEquivalence(*aFloat, 3.0),
+					TTTestFloatEquivalence(aFloat, 3.0),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(1, *anInt);
+	v2.get(1, anInt);
 	TTTestAssertion("array integer clipped at lower limit (out of lower bound)",
-					*anInt == 3,
+					anInt == 3,
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(2, *aFloat);
+	v2.get(2, aFloat);
 	TTTestAssertion("array double not clipped at lower limit (within range)",
-					TTTestFloatEquivalence(*aFloat, 3.14),
+					TTTestFloatEquivalence(aFloat, 3.14),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(3, *anInt);
+	v2.get(3, anInt);
 	TTTestAssertion("array integer not clipped at lower limit (within range)",
-					*anInt == 4,
+					anInt == 4,
 					testAssertionCount,
 					errorCount);
 	
