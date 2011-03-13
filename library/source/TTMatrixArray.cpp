@@ -9,11 +9,11 @@
 #include "TTMatrixArray.h"
 
 #define thisTTClass			TTMatrixArray
-#define thisTTClassName		"matrix.array"
+#define thisTTClassName		"matrixarray"
 #define thisTTClassTags		"matrix, array"
 
 
-TT_OBJECT_CONSTRUCTOR
+TT_BASE_OBJECT_CONSTRUCTOR
 {
 	;
 }
