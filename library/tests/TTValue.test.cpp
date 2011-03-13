@@ -583,33 +583,64 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	TTTestLog("Testing cliplow()");
 	/****************************************************************************************************/
 	
+	// TTFloat32
+	
+	v1 = TTFloat32(3.14);
+	v1.cliplow(6.0);
+	TTTestAssertion("positive TTFloat32 clipped at lower limit (out of lower bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(6.0)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(3.14);
+	v1.cliplow(0.0);
+	TTTestAssertion("positive TTFloat32 not clipped at lower limit (within range)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(3.14)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.cliplow(-2.0);
+	TTTestAssertion("negative TTFloat32 clipped at lower limit (out of lower bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.cliplow(-4.0);
+	TTTestAssertion("negative TTFloat32 not clipped at lower limit (within range)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-3.14)),
+					testAssertionCount,
+					errorCount);
+	
+	
 	
 	// TTFloat64
 	
 	v1 = TTFloat64(3.14);
 	v1.cliplow(6.0);
-	TTTestAssertion("positive double clipped at lower limit (out of lower bound)",
+	TTTestAssertion("positive TTFloat64 clipped at lower limit (out of lower bound)",
 					TTTestFloatEquivalence(double(v1), 6.0),
 					testAssertionCount,
 					errorCount);
 	
 	v1 = 3.14;
 	v1.cliplow(0.0);
-	TTTestAssertion("positive double not clipped at lower limit (within range)",
+	TTTestAssertion("positive TTFloat64 not clipped at lower limit (within range)",
 					TTTestFloatEquivalence(double(v1), 3.14),
 					testAssertionCount,
 					errorCount);
 	
 	v1 = -3.14;
 	v1.cliplow(-2.0);
-	TTTestAssertion("negative double clipped at lower limit (out of lower bound)",
+	TTTestAssertion("negative TTFloat64 clipped at lower limit (out of lower bound)",
 					TTTestFloatEquivalence(double(v1), -2.0),
 					testAssertionCount,
 					errorCount);
 	
 	v1 = -3.14;
 	v1.cliplow(-4.0);
-	TTTestAssertion("negative double not clipped at lower limit (within range)",
+	TTTestAssertion("negative TTFloat64 not clipped at lower limit (within range)",
 					TTTestFloatEquivalence(double(v1), -3.14),
 					testAssertionCount,
 					errorCount);
