@@ -36,6 +36,9 @@ protected:
 	TTBoolean					mBypass;						///< Are we bypassing the matrix calculation?
 	TTMatrixArray*				mInputArray;					///< If the calculate method is passed a matrix, rather than an array of matrices, we wrap it in this array.
 	TTMatrixArray*				mOutputArray;					///< If the calculate method is passed a matrix, rather than an array of matrices, we wrap it in this array.
+	TTFloat64					mStartProcessingTime;			///< The time at which this object's process method was last invoked (for benchmarking)
+	TTFloat64					mAccumulatedProcessingTime;		///< The amount of time spent in this object's process method (for benchmarking)
+	TTFloat64					mAccumulatedProcessingCalls;	///< The number of times the process method has been called (for benchmarking)
 	TTPtrSizedInt				mReserved1;						///< Reserved -- May be used for something in the future without changing the size of the struct.
 	TTPtrSizedInt				mReserved2;						///< Reserved -- May be used for something in the future without changing the size of the struct.
 
@@ -55,6 +58,10 @@ protected:
 	// Built-in matrix calculation methods.
 	TTErr bypassMatrixCalculate(const TTMatrixArray* inputs, TTMatrixArray* outputs);
 	TTErr defaultMatrixCalculateMethod(const TTMatrixArray* inputs, TTMatrixArray* outputs);
+
+	// Messages for accessing performance benchmarking data
+	TTErr resetBenchmarking();
+	TTErr getProcessingBenchmark(TTValueRef v);
 	
 public:
 	TTErr calculate(const TTMatrixArray* inputs, TTMatrixArray* outputs);

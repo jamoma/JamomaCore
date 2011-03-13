@@ -18,10 +18,10 @@ TTDataObject::TTDataObject(TTValue& arguments)
 {
 	registerAttribute(TT("bypass"),	kTypeBoolean,	&mBypass,	(TTSetterMethod)&TTDataObject::setBypass);
 
-//	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
-	registerMessage(TT("test"), TTMethod(&TTObject::test));
-//	registerMessage(TT("resetBenchmarking"), (TTMethod)&TTAudioObject::resetBenchmarking, kTTMessagePassNone);
-//	registerMessage(TT("getProcessingBenchmark"), (TTMethod)&TTAudioObject::getProcessingBenchmark);
+//	registerMessage(TT("calculate"),				(TTMethod)&TTAudioObject::calculateMessage);
+	registerMessage(TT("test"),						TTMethod(&TTObject::test));
+	registerMessage(TT("resetBenchmarking"),		(TTMethod)&TTDataObject::resetBenchmarking, kTTMessagePassNone);
+	registerMessage(TT("getProcessingBenchmark"),	(TTMethod)&TTDataObject::getProcessingBenchmark);
 
 	TTObjectInstantiate(kTTSym_matrixarray, (TTObjectPtr*)&mInputArray, 2);
 	TTObjectInstantiate(kTTSym_matrixarray, (TTObjectPtr*)&mOutputArray, 2);
@@ -95,7 +95,10 @@ TTErr TTDataObject::calculate(const TTMatrixArray* inputs, TTMatrixArray* output
 	
 	if (valid) {
 		lock();
+		mStartProcessingTime = TTGetTimeInMicroseconds();
 		err = (this->*mCurrentMatrixCalculateMethod)(inputs, outputs);
+		mAccumulatedProcessingTime += (TTGetTimeInMicroseconds() - mStartProcessingTime);
+		mAccumulatedProcessingCalls++;
 		unlock();
 	}
 	return err;
@@ -112,12 +115,28 @@ TTErr TTDataObject::calculate(const TTMatrix& x, TTMatrix& y)
 		mInputArray->setMatrix(0, (TTMatrix&)x);
 		mOutputArray->setMatrixCount(1);
 		mOutputArray->setMatrix(0, y);
-//		startProcessingTime = TTGetTimeInMicroseconds();
+		mStartProcessingTime = TTGetTimeInMicroseconds();
 		err = (this->*mCurrentMatrixCalculateMethod)(mInputArray, mOutputArray);
-//		accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
-//		accumulatedProcessingCalls++;
+		mAccumulatedProcessingTime += (TTGetTimeInMicroseconds() - mStartProcessingTime);
+		mAccumulatedProcessingCalls++;
 		unlock();
 	}
 	return err;
+}
+
+
+TTErr TTDataObject::resetBenchmarking()
+{
+	mAccumulatedProcessingTime = 0.0;
+	mStartProcessingTime = 0.0;
+	mAccumulatedProcessingCalls = 0.0;
+	return kTTErrNone;
+}
+
+
+TTErr TTDataObject::getProcessingBenchmark(TTValueRef v)
+{
+	v = mAccumulatedProcessingTime / mAccumulatedProcessingCalls;
+	return kTTErrNone;
 }
 
