@@ -150,47 +150,94 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	/****************************************************************************************************/
 	
 	
+	// TTFloat32
+	
+	TTValue v1;
+	
+	v1 = TTFloat32(3.14);
+	v1.clip(6.0, 12.0);
+	TTTestAssertion("positive TTFloat32 clipped (out of lower bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(6.0)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(3.14);
+	v1.clip(0.0, 4.0);
+	TTTestAssertion("positive TTFloat32 not clipped (within range)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(3.14)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(3.14);
+	v1.clip(0.0, 2.0);
+	TTTestAssertion("positive TTFloat32 clipped (out of upper bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.clip(-2.0, 0.0);
+	TTTestAssertion("negative TTFloat32 clipped (out of lower bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.clip(-4.0, 0.0);
+	TTTestAssertion("negative TTFloat32 not clipped (within range)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-3.14)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.clip(-8.0, -4.0);
+	TTTestAssertion("negative TTFloat32 clipped (out of upper bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-4.0)),
+					testAssertionCount,
+					errorCount);
+	
+	
+	
 	// TTFloat64
 	
-	TTValue v1(3.14);
-	
+	v1 = TTFloat64(3.14);
 	v1.clip(6.0, 12.0);
-	TTTestAssertion("positive double clipped (out of lower bound)",
+	TTTestAssertion("positive TTFloat64 clipped (out of lower bound)",
 					TTTestFloatEquivalence(double(v1), 6.0),
 					testAssertionCount,
 					errorCount);
 
-	v1 = 3.14;
+	v1 = TTFloat64(3.14);
 	v1.clip(0.0, 4.0);
-	TTTestAssertion("positive double not clipped (within range)",
+	TTTestAssertion("positive TTFloat64 not clipped (within range)",
 					TTTestFloatEquivalence(double(v1), 3.14),
 					testAssertionCount,
 					errorCount);
 	
-	v1 = 3.14;
+	v1 = TTFloat64(3.14);
 	v1.clip(0.0, 2.0);
-	TTTestAssertion("positive double clipped (out of upper bound)",
+	TTTestAssertion("positive TTFloat64 clipped (out of upper bound)",
 					TTTestFloatEquivalence(double(v1), 2.0),
 					testAssertionCount,
 					errorCount);
 	
-	v1 = -3.14;
+	v1 = TTFloat64(-3.14);
 	v1.clip(-2.0, 0.0);
-	TTTestAssertion("negative double clipped (out of lower bound)",
+	TTTestAssertion("negative TTFloat64 clipped (out of lower bound)",
 					TTTestFloatEquivalence(double(v1), -2.0),
 					testAssertionCount,
 					errorCount);
 	
-	v1 = -3.14;
+	v1 = TTFloat64(-3.14);
 	v1.clip(-4.0, 0.0);
-	TTTestAssertion("negative double not clipped (within range)",
+	TTTestAssertion("negative TTFloat64 not clipped (within range)",
 					TTTestFloatEquivalence(double(v1), -3.14),
 					testAssertionCount,
 					errorCount);
 	
-	v1 = -3.14;
+	v1 = TTFloat64(-3.14);
 	v1.clip(-8.0, -4.0);
-	TTTestAssertion("negative double clipped (out of upper bound)",
+	TTTestAssertion("negative TTFloat64 clipped (out of upper bound)",
 					TTTestFloatEquivalence(double(v1), -4.0),
 					testAssertionCount,
 					errorCount);
