@@ -396,6 +396,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTUInt32
 	
+	v1 = TTUInt32(3);
 	v1.clip(6, 12);
 	TTTestAssertion("positive TTUInt32 clipped (out of lower bound)",
 					TTUInt32(v1) == 6,
@@ -421,6 +422,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTInt64
 	
+	v1 = TTInt64(3);
 	v1.clip(6, 12);
 	TTTestAssertion("positive TTInt64 clipped (out of lower bound)",
 					TTInt64(v1) == 6,
