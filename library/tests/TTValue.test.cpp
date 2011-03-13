@@ -261,7 +261,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTUInt8(3);
 	v1.clip(0, 2);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("positive TTUInt8 clipped (out of upper bound)",
 					TTUInt8(v1) == 2,
 					testAssertionCount,
@@ -287,7 +286,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt16(3);
 	v1.clip(0, 2);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("positive TTInt16 clipped (out of upper bound)",
 					TTInt16(v1) == 2,
 					testAssertionCount,
@@ -295,7 +293,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt16(-3);
 	v1.clip(-2, 0);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt16 clipped (out of lower bound)",
 					TTInt16(v1) == -2,
 					testAssertionCount,
@@ -303,7 +300,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt16(-3);
 	v1.clip(-4, 0);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt16 not clipped (within range)",
 					TTInt16(v1) == -3,
 					testAssertionCount,
@@ -311,7 +307,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt16(-3);
 	v1.clip(-8, -4);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt16 clipped (out of upper bound)",
 					TTInt16(v1) == -4,
 					testAssertionCount,
@@ -337,7 +332,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTUInt16(3);
 	v1.clip(0, 2);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("positive TTUInt16 clipped (out of upper bound)",
 					TTUInt16(v1) == 2,
 					testAssertionCount,
@@ -363,7 +357,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt32(3);
 	v1.clip(0, 2);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("positive TTInt32 clipped (out of upper bound)",
 					TTInt32(v1) == 2,
 					testAssertionCount,
@@ -371,7 +364,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt32(-3);
 	v1.clip(-2, 0);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt32 clipped (out of lower bound)",
 					TTInt32(v1) == -2,
 					testAssertionCount,
@@ -379,7 +371,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt32(-3);
 	v1.clip(-4, 0);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt32 not clipped (within range)",
 					TTInt32(v1) == -3,
 					testAssertionCount,
@@ -387,7 +378,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt32(-3);
 	v1.clip(-8, -4);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt32 clipped (out of upper bound)",
 					TTInt32(v1) == -4,
 					testAssertionCount,
@@ -413,7 +403,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTUInt32(3);
 	v1.clip(0, 2);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("positive TTUInt32 clipped (out of upper bound)",
 					TTUInt32(v1) == 2,
 					testAssertionCount,
@@ -439,7 +428,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt64(3);
 	v1.clip(0, 2);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("positive TTInt64 clipped (out of upper bound)",
 					TTInt64(v1) == 2,
 					testAssertionCount,
@@ -447,7 +435,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt64(-3);
 	v1.clip(-2, 0);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt64 clipped (out of lower bound)",
 					TTInt64(v1) == -2,
 					testAssertionCount,
@@ -455,7 +442,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt64(-3);
 	v1.clip(-4, 0);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt64 not clipped (within range)",
 					TTInt64(v1) == -3,
 					testAssertionCount,
@@ -463,7 +449,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTInt64(-3);
 	v1.clip(-8, -4);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt64 clipped (out of upper bound)",
 					TTInt64(v1) == -4,
 					testAssertionCount,
@@ -489,7 +474,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	v1 = TTUInt64(3);
 	v1.clip(0, 2);
-	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("positive TTUInt64 clipped (out of upper bound)",
 					TTUInt64(v1) == 2,
 					testAssertionCount,
