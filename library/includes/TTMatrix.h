@@ -73,6 +73,15 @@ public:
 		return mDataCount;
 	}
 	
+	
+	/**	Copy the data from one matrix into another.	*/
+	static TTErr copy(const TTMatrix& source, TTMatrix& dest);
+	static TTErr copy(const TTMatrix* source, TTMatrix* dest)
+	{
+		return TTMatrix::copy(*source, *dest);
+	}
+
+	
 	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
 	 to match the another matrix which is passed-in as an argument.	*/
 	TTErr adaptTo(const TTMatrix& anotherMatrix);

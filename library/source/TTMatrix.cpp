@@ -71,6 +71,14 @@ TTErr TTMatrix::resize()
 }
 
 
+TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
+{
+	dest.adaptTo(source);
+	memcpy(dest.mData, source.mData, source.mDataSize);
+	return kTTErrNone;
+}
+
+
 TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 {
 	TTValue v;
