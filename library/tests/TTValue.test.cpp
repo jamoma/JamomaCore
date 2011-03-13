@@ -587,7 +587,6 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	// TTFloat64
 	
 	v1 = TTFloat64(3.14);
-	
 	v1.cliplow(6.0);
 	TTTestAssertion("positive double clipped at lower limit (out of lower bound)",
 					TTTestFloatEquivalence(double(v1), 6.0),
@@ -619,6 +618,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTInt8
 	
+	v1 = TTInt8(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTInt8 clipped at lower limit (out of lower bound)",
 					TTInt8(v1) == 6,
@@ -651,7 +651,8 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	
 	// TTUInt8
-	
+
+	v1 = TTUInt8(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTUInt8 clipped at lower limit (out of lower bound)",
 					TTUInt8(v1) == 6,
@@ -668,7 +669,8 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	
 	// TTInt16
-	
+
+	v1 = TTInt16(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTInt16 clipped at lower limit (out of lower bound)",
 					TTInt16(v1) == 6,
@@ -702,6 +704,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTUInt16
 	
+	v1 = TTUInt16(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTUInt16 clipped at lower limit (out of lower bound)",
 					TTUInt16(v1) == 6,
@@ -719,6 +722,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTInt32
 	
+	v1 = TTInt32(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTInt32 clipped at lower limit (out of lower bound)",
 					TTInt32(v1) == 6,
