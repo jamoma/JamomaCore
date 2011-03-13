@@ -66,6 +66,10 @@ protected:
 public:
 	TTErr calculate(const TTMatrixArray* inputs, TTMatrixArray* outputs);
 	TTErr calculate(const TTMatrix& x, TTMatrix& y);
+	TTErr calculate(const TTMatrix* x, TTMatrix* y)
+	{
+		return calculate(*x, *y);
+	}
 
 };
 
