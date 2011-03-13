@@ -199,6 +199,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTInt8
 	
+	v1 = TTInt8(3);
 	v1.clip(6, 12);
 	TTTestAssertion("positive TTInt8 clipped (out of lower bound)",
 					TTInt8(v1) == 6,
