@@ -7,8 +7,6 @@
  */
 
 #include "TTMatrixGain.h"
-//#include <math.h>
-
 
 #define thisTTClass			TTMatrixGain
 #define thisTTClassName		"matrix.gain"
