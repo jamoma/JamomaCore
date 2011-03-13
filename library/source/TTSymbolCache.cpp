@@ -72,6 +72,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_phasor;
 
 // matrix related
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_matrix;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_matrixarray;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_dimensions;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_type;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_elementCount;
@@ -143,6 +144,7 @@ void TTSymbolCacheInit()
 	kTTSym_phasor					= TT("phasor");
 	
 	kTTSym_matrix					= TT("matrix");
+	kTTSym_matrixarray				= TT("matrixarray");
 	kTTSym_dimensions				= TT("dimensions");
 	kTTSym_type						= TT("type");
 	kTTSym_elementCount				= TT("elementCount");

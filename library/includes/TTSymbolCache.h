@@ -74,6 +74,7 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_phasor;
 
 // matrix related
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_matrix;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_matrixarray;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_dimensions;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_type;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_elementCount;
