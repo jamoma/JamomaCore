@@ -13,8 +13,18 @@
 
 /****************************************************************************************************/
 
-TTDataObject::TTDataObject(TTValue& arguments)
-	: TTObject(arguments)
+TTDataObject::TTDataObject(TTValue& arguments) : 
+	TTObject(arguments),
+	mMatrixCalculateMethod(NULL),
+	mCurrentMatrixCalculateMethod(NULL),
+	mBypass(NO),
+	mInputArray(NULL),				
+	mOutputArray(NULL),			
+	mStartProcessingTime(0.0),		
+	mAccumulatedProcessingTime(0.0),
+	mAccumulatedProcessingCalls(0.0),
+	mReserved1(0),					
+	mReserved2(0)
 {
 	registerAttribute(TT("bypass"),	kTypeBoolean,	&mBypass,	(TTSetterMethod)&TTDataObject::setBypass);
 
