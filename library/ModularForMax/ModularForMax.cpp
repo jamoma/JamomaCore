@@ -1473,13 +1473,13 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 		// try to get it from the patcher name
 		patcherName = object_attr_getsym(*patcher, _sym_filename);
 		if (patcherName != _sym_nothing) {
-			// Is there a ".model" string in the patcher name ?
-			if (strstr(patcherName->s_name, ".model")) {
+			// Is there a ".model.maxpat" string in the patcher name ?
+			if (strstr(patcherName->s_name, ".model.maxpat")) {
 				*returnedContext = TT(ModelPatcher);
 				return;
 			}
-			// Is there a ".view" string in the patcher name ?
-			else if (strstr(patcherName->s_name, ".view")) {
+			// Is there a ".view.maxpat" string in the patcher name ?
+			else if (strstr(patcherName->s_name, ".view.maxpat")) {
 				*returnedContext = TT(ViewPatcher);
 				return;
 			}
@@ -1499,7 +1499,8 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 /** Get the class of the patcher from the file name (removing .model and .view convention name if they exist) */
 void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedClass)
 {
-	char			*isCtxPatcher, *to_split;;
+	char			*isCtxPatcher, *to_split;
+	TTString		contextMaxpat;
 	SymbolPtr		patcherName;
 	long			patcherNameLen;
 
@@ -1508,12 +1509,14 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 	
 	if (patcherName != _sym_nothing) {
 		
-		// Is there a ".context" string in the patcher name ?
-		isCtxPatcher = strstr(patcherName->s_name, context->getCString());
+		// Is there a ".context.maxpat" string in the patcher name ?
+		contextMaxpat = context->getCString();
+		contextMaxpat += ".maxpat";
+		isCtxPatcher = strstr(patcherName->s_name, contextMaxpat.data());
 				
 		// Strip ".context.maxpat" at the end
 		if (isCtxPatcher) {
-			patcherNameLen = strlen(patcherName->s_name) - strlen(context->getCString()) - 1 - strlen(".maxpat");
+			patcherNameLen = strlen(patcherName->s_name) - strlen(contextMaxpat.data()) - 1;
 			to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
 			strncpy(to_split, patcherName->s_name, patcherNameLen);
 			to_split[patcherNameLen] = NULL;
