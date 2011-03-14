@@ -15,10 +15,30 @@ static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
 
 TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 {
-	if (fabs(a-b) <= fabs(a*kTTTestFloat32Epsilon))
+	// Following method is based on 
+	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
+	
+	// TODO: Make maxUlps a constant or argument to the method?
+	// Make sure maxUlps is non-negative and small enough that the
+	// default NAN won't compare as equal to anything.
+	TTInt64 maxUlps = 5;
+	// assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
+	
+	TTInt32 aInt = *(TTInt32*)&a;
+	
+	// Make aInt lexicographically ordered as a twos-complement int
+	if (aInt < 0)
+		aInt = 0x80000000 - aInt;
+	// Make bInt lexicographically ordered as a twos-complement int
+	TTInt32 bInt = *(TTInt32*)&b;
+	
+	if (bInt < 0)
+		bInt = 0x80000000 - bInt;
+	TTInt32 intDiff = abs(aInt - bInt);
+	if (intDiff <= maxUlps)
 		return true;
-	else
-		return false;
+	return false;
+	
 }
 
 
@@ -31,19 +51,29 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 	// TODO: checking for NaN
 	// TODO: checking for INF
 	
-	// TODO: research re-writing these functions according to http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
+	// Following method is based on 
+	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
+
+	// Make sure maxUlps is non-negative and small enough that the
+	// default NAN won't compare as equal to anything.
+	// TODO: Make maxUlps a constant or argument to the method?
+	TTInt64 maxUlps = 5;
+	// assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
 	
-#ifdef THE_WAY_WE_DID_IT_IN_BERGEN
-	if (fabs(a-b) <= fabs(TTAntiDenormal(a*kTTTestFloat64Epsilon)))
+	TTInt64 aInt = *(TTInt64*)&a;
+	
+	// Make aInt lexicographically ordered as a twos-complement int
+	if (aInt < 0)
+		aInt = 0x80000000 - aInt;
+	// Make bInt lexicographically ordered as a twos-complement int
+	TTInt64 bInt = *(TTInt64*)&b;
+	
+	if (bInt < 0)
+		bInt = 0x80000000 - bInt;
+	TTInt64 intDiff = abs(aInt - bInt);
+	if (intDiff <= maxUlps)
 		return true;
-	else
-		return false;
-#else
-	if (fabs(a-b) < kTTTestFloat64Epsilon)
-		return true;
-	else
-		return false;
-#endif
+	return false;
 }
 
 

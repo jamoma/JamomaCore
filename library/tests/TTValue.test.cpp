@@ -583,34 +583,64 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	TTTestLog("Testing cliplow()");
 	/****************************************************************************************************/
 	
+	// TTFloat32
+	
+	v1 = TTFloat32(3.14);
+	v1.cliplow(6.0);
+	TTTestAssertion("positive TTFloat32 clipped at lower limit (out of lower bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(6.0)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(3.14);
+	v1.cliplow(0.0);
+	TTTestAssertion("positive TTFloat32 not clipped at lower limit (within range)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(3.14)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.cliplow(-2.0);
+	TTTestAssertion("negative TTFloat32 clipped at lower limit (out of lower bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.cliplow(-4.0);
+	TTTestAssertion("negative TTFloat32 not clipped at lower limit (within range)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-3.14)),
+					testAssertionCount,
+					errorCount);
+	
+	
 	
 	// TTFloat64
 	
 	v1 = TTFloat64(3.14);
-	
 	v1.cliplow(6.0);
-	TTTestAssertion("positive double clipped at lower limit (out of lower bound)",
+	TTTestAssertion("positive TTFloat64 clipped at lower limit (out of lower bound)",
 					TTTestFloatEquivalence(double(v1), 6.0),
 					testAssertionCount,
 					errorCount);
 	
 	v1 = 3.14;
 	v1.cliplow(0.0);
-	TTTestAssertion("positive double not clipped at lower limit (within range)",
+	TTTestAssertion("positive TTFloat64 not clipped at lower limit (within range)",
 					TTTestFloatEquivalence(double(v1), 3.14),
 					testAssertionCount,
 					errorCount);
 	
 	v1 = -3.14;
 	v1.cliplow(-2.0);
-	TTTestAssertion("negative double clipped at lower limit (out of lower bound)",
+	TTTestAssertion("negative TTFloat64 clipped at lower limit (out of lower bound)",
 					TTTestFloatEquivalence(double(v1), -2.0),
 					testAssertionCount,
 					errorCount);
 	
 	v1 = -3.14;
 	v1.cliplow(-4.0);
-	TTTestAssertion("negative double not clipped at lower limit (within range)",
+	TTTestAssertion("negative TTFloat64 not clipped at lower limit (within range)",
 					TTTestFloatEquivalence(double(v1), -3.14),
 					testAssertionCount,
 					errorCount);
@@ -619,6 +649,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTInt8
 	
+	v1 = TTInt8(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTInt8 clipped at lower limit (out of lower bound)",
 					TTInt8(v1) == 6,
@@ -651,7 +682,8 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	
 	// TTUInt8
-	
+
+	v1 = TTUInt8(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTUInt8 clipped at lower limit (out of lower bound)",
 					TTUInt8(v1) == 6,
@@ -668,7 +700,8 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	
 	// TTInt16
-	
+
+	v1 = TTInt16(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTInt16 clipped at lower limit (out of lower bound)",
 					TTInt16(v1) == 6,
@@ -702,6 +735,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTUInt16
 	
+	v1 = TTUInt16(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTUInt16 clipped at lower limit (out of lower bound)",
 					TTUInt16(v1) == 6,
@@ -719,6 +753,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// TTInt32
 	
+	v1 = TTInt32(3);
 	v1.cliplow(6);
 	TTTestAssertion("positive TTInt32 clipped at lower limit (out of lower bound)",
 					TTInt32(v1) == 6,
@@ -853,12 +888,307 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	
 	
-	// TODO: test cliphigh()
+
 	/****************************************************************************************************/
-	// TTTestLog("\n");
-	// TTTestLog("Testing cliphigh()");
+	TTTestLog("\n");
+	TTTestLog("Testing cliphigh()");
 	/****************************************************************************************************/
 	
+	
+	// TTFloat32
+	
+	v1 = TTFloat32(3.14);
+	v1.cliphigh(4.0);
+	TTTestAssertion("positive TTFloat32 not clipped at higher limit (within range)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(3.14)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(3.14);
+	v1.cliphigh(2.0);
+	TTTestAssertion("positive TTFloat32 clipped at higher limit (out of upper bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.cliphigh(0.0);
+	TTTestAssertion("negative TTFloat32 not clipped at higher limit (within range)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-3.14)),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat32(-3.14);
+	v1.cliphigh(-4.0);
+	TTTestAssertion("negative TTFloat32 clipped at higher limit (out of upper bound)",
+					TTTestFloatEquivalence(TTFloat32(v1), TTFloat32(-4.0)),
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTFloat64
+	
+	v1 = TTFloat64(3.14);
+	v1.cliphigh(4.0);
+	TTTestAssertion("positive TTFloat64 not clipped at higher limit (within range)",
+					TTTestFloatEquivalence(double(v1), 3.14),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat64(3.14);
+	v1.cliphigh(2.0);
+	TTTestAssertion("positive TTFloat64 clipped at higher limit (out of upper bound)",
+					TTTestFloatEquivalence(double(v1), 2.0),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat64(-3.14);
+	v1.cliphigh(0.0);
+	TTTestAssertion("negative TTFloat64 not clipped at higher limit (within range)",
+					TTTestFloatEquivalence(double(v1), -3.14),
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTFloat64(-3.14);
+	v1.cliphigh(-4.0);
+	TTTestAssertion("negative TTFloat64 clipped at higher limit (out of upper bound)",
+					TTTestFloatEquivalence(double(v1), -4.0),
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTInt8
+	
+	v1 = TTInt8(3);
+	v1.cliphigh(4);
+	TTTestAssertion("positive TTInt8 not clipped at higher limit (within range)",
+					TTInt8(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt8(3);
+	v1.cliphigh(2);
+	TTTestAssertion("positive TTInt8 clipped at higher limit (out of upper bound)",
+					TTInt8(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt8(-3);
+	v1.cliphigh(0);
+	TTTestAssertion("negative TTInt8 not clipped at higher limit (within range)",
+					TTInt8(v1) == -3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt8(-3);
+	v1.cliphigh(-4);
+	TTTestAssertion("negative TTInt8 clipped at higher limit (out of upper bound)",
+					TTInt8(v1) == -4,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTUInt8
+	
+	v1 = TTUInt8(3);
+	v1.cliphigh(4);
+	TTTestAssertion("positive TTUInt8 not clipped at higher limit (within range)",
+					TTUInt8(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt8(3);
+	v1.cliphigh(2);
+	TTTestAssertion("positive TTUInt8 clipped at higher limit (out of upper bound)",
+					TTUInt8(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTInt16
+	
+	v1 = TTInt16(3);
+	v1.cliphigh(4);
+	TTTestAssertion("positive TTInt16 not clipped at higher limit (within range)",
+					TTInt16(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt16(3);
+	v1.cliphigh(2);
+	TTTestAssertion("positive TTInt16 clipped at higher limit (out of upper bound)",
+					TTInt16(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt16(-3);
+	v1.cliphigh(0);
+	TTTestAssertion("negative TTInt16 not clipped at higher limit (within range)",
+					TTInt16(v1) == -3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt16(-3);
+	v1.cliphigh(-4);
+	TTTestAssertion("negative TTInt16 clipped at higher limit (out of upper bound)",
+					TTInt16(v1) == -4,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTUInt16
+	
+	v1 = TTUInt16(3);
+	v1.cliphigh(4);
+	TTTestAssertion("positive TTUInt16 not clipped at higher limit (within range)",
+					TTUInt16(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt16(3);
+	v1.cliphigh(2);
+	TTTestAssertion("positive TTUInt16 clipped at higher limit (out of upper bound)",
+					TTUInt16(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTInt32
+	
+	v1 = TTInt32(3);
+	v1.cliphigh(4);
+	TTTestAssertion("positive TTInt32 not clipped at higher limit (within range)",
+					TTInt32(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt32(3);
+	v1.cliphigh(2);
+	TTTestAssertion("positive TTInt32 clipped at higher limit (out of upper bound)",
+					TTInt32(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt32(-3);
+	v1.cliphigh(0);
+	TTTestAssertion("negative TTInt32 not clipped at higher limit (within range)",
+					TTInt32(v1) == -3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt32(-3);
+	v1.cliphigh(-4);
+	TTTestAssertion("negative TTInt32 clipped at higher limit (out of upper bound)",
+					TTInt32(v1) == -4,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTUInt32
+	
+	v1 = TTUInt32(3);
+	v1.cliphigh(4);
+	TTTestAssertion("positive TTUInt32 not clipped at higher limit (within range)",
+					TTUInt32(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt32(3);
+	v1.cliphigh(2);
+	TTTestAssertion("positive TTUInt32 clipped at higher limit (out of upper bound)",
+					TTUInt32(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTInt64
+	
+	v1 = TTInt64(3);
+	v1.cliphigh(4);
+	TTTestAssertion("positive TTInt64 not clipped at higher limit (within range)",
+					TTInt64(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt64(3);
+	v1.cliphigh(2);
+	TTTestAssertion("positive TTInt64 clipped at higher limit (out of upper bound)",
+					TTInt64(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt64(-3);
+	v1.cliphigh(0);
+	TTTestAssertion("negative TTInt64 not clipped at higher limit (within range)",
+					TTInt64(v1) == -3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTInt64(-3);
+	v1.cliphigh(-4);
+	TTTestAssertion("negative TTInt64 clipped at higher limit (out of upper bound)",
+					TTInt64(v1) == -4,
+					testAssertionCount,
+					errorCount);
+	
+	
+	
+	// TTUInt64
+	
+	v1 = TTUInt64(3);
+	v1.cliphigh(4);
+	TTTestAssertion("positive TTUInt64 not clipped at higher limit (within range)",
+					TTUInt64(v1) == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v1 = TTUInt64(3);
+	v1.cliphigh(2);
+	TTTestAssertion("positive TTUInt64 clipped at higher limit (out of upper bound)",
+					TTUInt64(v1) == 2,
+					testAssertionCount,
+					errorCount);
+	
+	// And a final test on an array
+	v2.setSize(4);
+	v2.set(0, 3.14);
+	v2.set(1, 4);
+	v2.set(2, 6.28);
+	v2.set(3, 6);
+	
+	v2.cliphigh(5.0);
+	
+	v2.get(0, aFloat);
+	TTTestAssertion("array double not clipped at higher limit (within range)",
+					TTTestFloatEquivalence(aFloat, 3.14),
+					testAssertionCount,
+					errorCount);
+	
+	v2.get(1, anInt);
+	TTTestAssertion("array integer not clipped at higher limit (within range)",
+					anInt == 4,
+					testAssertionCount,
+					errorCount);
+	
+	v2.get(2, aFloat);
+	TTTestAssertion("array double clipped at higher limit (out of upper bound)",
+					TTTestFloatEquivalence(aFloat, 5.0),
+					testAssertionCount,
+					errorCount);
+	
+	v2.get(3, anInt);
+	TTTestAssertion("array integer clipped at higher limit (out of upper bound)",
+					anInt == 5,
+					testAssertionCount,
+					errorCount);
 	
 	// TODO: test round()
 	/****************************************************************************************************/
