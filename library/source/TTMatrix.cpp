@@ -105,7 +105,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 
 	mDimensions.resize(size);
 	for (int i=0; i<size; i++) {
-		TTUInt8 aNewDimension = 0;
+		TTInt32 aNewDimension = 0;
 
 		someNewDimensions.get(i, aNewDimension);
 		mDimensions[i] = aNewDimension;
