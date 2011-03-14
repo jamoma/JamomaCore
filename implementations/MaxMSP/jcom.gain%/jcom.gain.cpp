@@ -38,7 +38,7 @@ static ClassPtr sGainClass = NULL;
 
 t_jit_err GainClassInit(void) 
 {
-	long			attrflags = JIT_ATTR_GET_DEFER_LOW | JIT_ATTR_SET_USURP_LOW;
+	long			attrflags = 0;// = JIT_ATTR_GET_DEFER_LOW | JIT_ATTR_SET_USURP_LOW;
 	t_jit_object	*attr;
 	t_jit_object	*mop;
 	
@@ -54,12 +54,12 @@ t_jit_err GainClassInit(void)
 	// add attribute(s)
 	attr = (t_jit_object*)jit_object_new(_jit_sym_jit_attr_offset, 
 										 "gain", 
-										 _jit_sym_float64, 
+										 _jit_sym_float32, 
 										 attrflags, 
 										 (method)GainGetGain, (method)GainSetGain, 
 										 NULL);
 	jit_class_addattr(sGainClass, attr);
-
+	
 	// finalize class
 	jit_class_register(sGainClass);
 	return JIT_ERR_NONE;
@@ -146,6 +146,7 @@ t_jit_err GainGetGain(GainObjectPtr self, Ptr attr, AtomCount* ac, AtomPtr* av)
 
 t_jit_err GainSetGain(GainObjectPtr self, Ptr attr, AtomCount ac, AtomPtr av)
 {
-	return self->gainObject->setAttributeValue(kTTSym_gain, atom_getfloat(av));
+	self->gainObject->setAttributeValue(kTTSym_gain, atom_getfloat(av));
+	return JIT_ERR_NONE;
 }
 
