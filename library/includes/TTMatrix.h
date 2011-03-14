@@ -75,7 +75,27 @@ public:
 	}
 	
 	
-	/**	You must proceed to set the various attributes, dimensions, etc. to match the data format of the matrix you are referencing.	*/
+	/**	You must proceed to set the various attributes, dimensions, etc. to match the data format of the matrix you are referencing.
+
+		One caveat regards data alignment.  Jitter, for example, aligns rows on 16-byte boundaries.
+		In this case, a 10x4 matrix of 32-bit ints, all with a value of "4" will look like this:
+	 
+		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
+		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
+		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
+		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
+	 
+		Thus, the rows are really of a dimension length 12 instead of 10 and the total size of the matrix scales as well.
+		
+		For the time being, we do not handle this case.  
+		Jitter users must dimension their matrices so that the row size in bytes is a multiple of 16.
+		This is not actually hard to do for most purposes.  For example:
+	 
+		float64, element count of 1, width is a multiple of 2 (an even number)
+		float32 or int32, element count of 1, width is a multiple of 4
+		uint8, element count of 1, width is a multiple of 16 (which includes 80, 160, 320, 640, ...), but 
+			element count of 4 (i.e. color pixels) width should be a multiple of values.
+	 */
 	void referenceExternalData(TTPtr aDataPointer)
 	{
 		
