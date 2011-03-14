@@ -26,16 +26,17 @@ typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
 	
-	TTBytePtr			mData;				///< matrix of values
-	TTUInt32			mDataCount;			///< mDimension[0] * mDimension[1] ...  * mElementCount
-	TTUInt32			mDataSize;			///< sizeof(type) * mDataCount
+	TTBytePtr			mData;					///< matrix of values
+	TTUInt32			mDataCount;				///< mDimension[0] * mDimension[1] ...  * mElementCount
+	TTUInt32			mDataSize;				///< sizeof(type) * mDataCount
+	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own
 	
-	TTSymbolPtr			mType;				///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
-	TTUInt8				mTypeSizeInBytes;	///< number of bytes present in mType
-	vector<TTUInt32>	mDimensions;		///< N dimensions, each int specifying the size of that dimension
-	TTUInt8				mElementCount;		///< how many elements per value (e.g. 2 for complex numbers, 4 for colors, default = 1)
+	TTSymbolPtr			mType;					///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
+	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
+	vector<TTUInt32>	mDimensions;			///< N dimensions, each int specifying the size of that dimension
+	TTUInt8				mElementCount;			///< how many elements per value (e.g. 2 for complex numbers, 4 for colors, default = 1)
 	
-	TTUInt8				mValueStride;		///< how many bytes from one compound value's beginning to the next one
+	TTUInt8				mValueStride;			///< how many bytes from one compound value's beginning to the next one
 		
 	
 	/**	Internal method that resizes memory allocated when various attributes change.	*/
@@ -71,6 +72,18 @@ public:
 	TTUInt32 getDataCount()
 	{
 		return mDataCount;
+	}
+	
+	
+	/**	You must proceed to set the various attributes, dimensions, etc. to match the data format of the matrix you are referencing.	*/
+	void referenceExternalData(TTPtr aDataPointer)
+	{
+		
+		// TODO: see TTAudioSignal for more robust handling of freeing mData here, etc.
+		// TODO: see the destructor, because there is also the issue of refcounting the data references?
+		// for now we will just leak the memory until the design is complete
+		mDataIsLocallyOwned = NO;
+		mData = (TTBytePtr)aDataPointer;
 	}
 	
 	
@@ -116,13 +129,13 @@ typedef TTMatrix& TTMatrixRef;
 
 
 #define TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(template_name, input_matrix, output_matrix) \
-	if (input_matrix->getTypeAsSymbol() == TT("uint8")) \
+	if (input_matrix->getTypeAsSymbol() == kTTSym_uint8) \
 		err = template_name<TTUInt8>(input_matrix, output_matrix); \
-	else if (input_matrix->getTypeAsSymbol() == TT("int32")) \
+	else if (input_matrix->getTypeAsSymbol() == kTTSym_int32) \
 		err = template_name<TTInt32>(input_matrix, output_matrix); \
-	else if (input_matrix->getTypeAsSymbol() == TT("float32")) \
+	else if (input_matrix->getTypeAsSymbol() == kTTSym_float32) \
 		err = template_name<TTFloat32>(input_matrix, output_matrix); \
-	else if (input_matrix->getTypeAsSymbol() == TT("float64")) \
+	else if (input_matrix->getTypeAsSymbol() == kTTSym_float64) \
 		err = template_name<TTFloat64>(input_matrix, output_matrix); \
 	else \
 		err = kTTErrInvalidType;

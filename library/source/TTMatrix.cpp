@@ -18,6 +18,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mData(NULL),
 	mDataCount(NULL),
 	mDataSize(0),
+	mDataIsLocallyOwned(YES),
 	mType(TT("uint8")),
 	mElementCount(1)
 {
@@ -40,7 +41,8 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTMatrix::~TTMatrix()
 {
-	delete[] mData; // TODO: only do this if the refcount for the data is down to zero!
+	if (mDataIsLocallyOwned)
+		delete[] mData; // TODO: only do this if the refcount for the data is down to zero!
 }
 
 
@@ -56,13 +58,14 @@ TTErr TTMatrix::resize()
 	}
 	mDataCount = productOfDimensions * mElementCount;
 	mDataSize = mDataCount * mTypeSizeInBytes;
-
-	// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
-	// TODO: thread protection
-	delete[] mData;
-	mData = new TTByte[mDataSize];
-
 	mValueStride = mTypeSizeInBytes * mElementCount;
+
+	if (mDataIsLocallyOwned) {
+		// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
+		// TODO: thread protection
+		delete[] mData;
+		mData = new TTByte[mDataSize];
+	}
 
 	if (mDataSize && mData)
 		return kTTErrNone;
@@ -82,6 +85,9 @@ TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
 TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 {
 	TTValue v;
+	
+	// TODO: what should we do if anotherMatrix is not locally owned?
+	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
 	
 	anotherMatrix.getDimensions(v);
 	setDimensions(v);
