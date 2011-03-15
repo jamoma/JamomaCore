@@ -14,6 +14,7 @@
 #include "Butterfly2D.h"
 #include "Circular2D.h"
 #include "Epitrochoid2D.h"
+#include "Gear2D.h"
 #include "Hypocycloid2D.h"
 #include "Limacon2D.h"
 #include "Linear2D.h"
@@ -37,6 +38,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_TrajectoryLib(void)
 	Butterfly2D::registerClass();
 	Circular2D::registerClass();
 	Epitrochoid2D::registerClass();
+	Gear2D::registerClass();
 	Hypocycloid2D::registerClass();
 	Limacon2D::registerClass();
 	Linear2D::registerClass();
