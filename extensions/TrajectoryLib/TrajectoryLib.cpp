@@ -19,6 +19,7 @@
 #include "Limacon2D.h"
 #include "Linear2D.h"
 #include "Lissajous2D.h"
+#include "LogSpiral2D.h"
 #include "Rose2D.h"
 #include "Scarabaeus2D.h"
 
@@ -43,6 +44,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_TrajectoryLib(void)
 	Limacon2D::registerClass();
 	Linear2D::registerClass();
 	Lissajous2D::registerClass();
+	LogSpiral2D::registerClass();
 	Rose2D::registerClass();
 	Scarabaeus2D::registerClass();
 

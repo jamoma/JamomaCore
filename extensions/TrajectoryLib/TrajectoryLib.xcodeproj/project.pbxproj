@@ -10,6 +10,8 @@
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD46D011E247C5007BBF7E /* TrajectoryLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */; };
+		662A5B40132F7EEC00CE46BC /* LogSpiral2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662A5B3E132F7EEC00CE46BC /* LogSpiral2D.cpp */; };
+		662A5B41132F7EEC00CE46BC /* LogSpiral2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 662A5B3F132F7EEC00CE46BC /* LogSpiral2D.h */; };
 		663A95831325BED80059009C /* Lissajous2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A957F1325BED80059009C /* Lissajous2D.cpp */; };
 		663A95841325BED80059009C /* Lissajous2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95801325BED80059009C /* Lissajous2D.h */; };
 		663A95851325BED80059009C /* Lissajous3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A95811325BED80059009C /* Lissajous3D.cpp */; };
@@ -55,6 +57,8 @@
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrajectoryLib.cpp; sourceTree = "<group>"; };
+		662A5B3E132F7EEC00CE46BC /* LogSpiral2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogSpiral2D.cpp; sourceTree = "<group>"; };
+		662A5B3F132F7EEC00CE46BC /* LogSpiral2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogSpiral2D.h; sourceTree = "<group>"; };
 		663A957F1325BED80059009C /* Lissajous2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous2D.cpp; sourceTree = "<group>"; };
 		663A95801325BED80059009C /* Lissajous2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous2D.h; sourceTree = "<group>"; };
 		663A95811325BED80059009C /* Lissajous3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous3D.cpp; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 				66B6D24813276DC1009A66CB /* Limacon2D.h */,
 				66DCAD301325799E009F1A9A /* Linear2D.cpp */,
 				66DCAD311325799E009F1A9A /* Linear2D.h */,
+				662A5B3E132F7EEC00CE46BC /* LogSpiral2D.cpp */,
+				662A5B3F132F7EEC00CE46BC /* LogSpiral2D.h */,
 				663A957F1325BED80059009C /* Lissajous2D.cpp */,
 				663A95801325BED80059009C /* Lissajous2D.h */,
 				663A95B51325CDFD0059009C /* Scarabaeus2D.cpp */,
@@ -230,6 +236,7 @@
 				66460174132856EE0006792C /* Viviani3D.h in Headers */,
 				6646019313285C5F0006792C /* Spiral3D.h in Headers */,
 				666A22E7132E6FAC009F5CE1 /* Gear2D.h in Headers */,
+				662A5B41132F7EEC00CE46BC /* LogSpiral2D.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +326,7 @@
 				66460173132856EE0006792C /* Viviani3D.cpp in Sources */,
 				6646019213285C5F0006792C /* Spiral3D.cpp in Sources */,
 				666A22E6132E6FAC009F5CE1 /* Gear2D.cpp in Sources */,
+				662A5B40132F7EEC00CE46BC /* LogSpiral2D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
