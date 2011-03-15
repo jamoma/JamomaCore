@@ -59,6 +59,30 @@ public:
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 	
+	TTErr getCurrentAttributes(TTValue& listOfCurrentAttributesToReturn)
+	{
+		long		n;
+		TTValue		names;
+		TTSymbol*	aName;
+		TTString	nameString;
+		
+		listOfCurrentAttributesToReturn.clear();
+		mActualTrajectoryObject->getAttributeNames(names);
+		n = names.getSize();
+		for (int i=0; i<n; i++) {
+			names.get(i, &aName);
+			nameString = aName->getString();
+			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
+				continue;	
+			listOfCurrentAttributesToReturn.append(aName);
+		}
+		if (listOfCurrentAttributesToReturn.getSize()==0)
+			listOfCurrentAttributesToReturn.append(TT("NULL")); // in case there is no attribute, send a NULL value out
+												   
+		return kTTErrNone;
+	}
+	
+	
 	TTErr reset()
 	{
 		TTValue v;
@@ -128,12 +152,15 @@ public:
 			return kTTErrNone;
 	}
 	
-	
+*/		
 	TTErr updateSampleRate(const TTValue& oldSampleRate)
 	{
-		return mActualFilterObject->setAttributeValue(kTTSym_sampleRate, sr);
+		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+		mPhasors[1]->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+		mPhasors[2]->setAttributeValue(kTTSym_sampleRate, (uint)sr); 
+		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
 	}
-*/	
+
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{

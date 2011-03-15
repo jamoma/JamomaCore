@@ -47,9 +47,10 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(DeltaX,			kTypeFloat64);
 	addAttributeWithSetter(DeltaY,			kTypeFloat64);
 	addAttributeWithSetter(DeltaZ,			kTypeFloat64);
-	
+	addMessageWithArgument(getCurrentAttributes);
 	addAttributeWithSetter(Type, kTypeSymbol);	
 	addMessageWithArgument(getTypes);
+	addUpdate(SampleRate);
 	addMessage(reset);
 	
 	setAttributeValue(TT("type"), TT("linear.2D"));
