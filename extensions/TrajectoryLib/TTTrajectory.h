@@ -21,6 +21,7 @@ protected:
 	TTAudioObjectPtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
+	TTUInt8					mMode;
 	TTAudioObjectPtr		mPhasors[3];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
 	
@@ -59,7 +60,7 @@ public:
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 	
-	TTErr getCurrentAttributes(TTValue& listOfCurrentAttributesToReturn)
+	TTErr getCurrentAttributeNames(TTValue& listOfCurrentAttributesToReturn)
 	{
 		long		n;
 		TTValue		names;
@@ -135,15 +136,6 @@ public:
 	}
 	
 /*	
-	TTErr mode(const TTValue& newMode)
-	{
-		if (mActualFilterObject)
-			return mActualFilterObject->setAttributeValue(TT("mode"), const_cast<TTValue&>(newMode));
-		else
-			return kTTErrNone;
-	}
-	
-	
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	{
 		if (mActualFilterObject)
@@ -161,8 +153,26 @@ public:
 		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
 	}
 
+	TTErr setMode(const TTValue& newValue)
+	{	
+		mMode = newValue;
+		return setProcessPointers();
+	}
 	
-	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+	TTErr setProcessPointers()
+	{
+		TTErr	err = kTTErrNone;
+		
+		if (mMode == 0) {
+			err = setProcess((TTProcessMethod)&TTTrajectory::processAudioPhasorInternal);
+		}
+		else {
+			err = setProcess((TTProcessMethod)&TTTrajectory::processAudioRampInternal);
+		}
+		return err;
+	}
+	
+	TTErr processAudioPhasorInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
 		// TODO: check if there are inputs, if so then use them, otherwise do as we do below
 
@@ -176,7 +186,12 @@ public:
 		
 		//return mActualTrajectoryObject->process(inputs, outputs);
 	}
-	
+
+	TTErr processAudioRampInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+	{
+		; // TODO: do something here
+	}
+
 };
 
 

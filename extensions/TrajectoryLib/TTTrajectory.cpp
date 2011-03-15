@@ -47,20 +47,24 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(DeltaX,			kTypeFloat64);
 	addAttributeWithSetter(DeltaY,			kTypeFloat64);
 	addAttributeWithSetter(DeltaZ,			kTypeFloat64);
-	addMessageWithArgument(getCurrentAttributes);
-	addAttributeWithSetter(Type, kTypeSymbol);	
+	addAttributeWithSetter(Type,			kTypeSymbol);	
+	addAttributeWithSetter(Mode,						kTypeUInt8);	
+	
+	setAttributeValue(TT("mode"),			0);
+	setAttributeValue(TT("type"),			TT("linear.2D"));
+	setAttributeValue(TT("a"),				2.0);
+	setAttributeValue(TT("b"),				0.0);
+	setAttributeValue(TT("c"),				0.0);
+	setAttributeValue(TT("deltaX"),			kTTHalfPi);
+	setAttributeValue(TT("deltaY"),			0.0);
+	setAttributeValue(TT("deltaZ"),			0.0);
+	
 	addMessageWithArgument(getTypes);
+	addMessageWithArgument(getCurrentAttributeNames);
 	addUpdate(SampleRate);
 	addMessage(reset);
 	
-	setAttributeValue(TT("type"), TT("linear.2D"));
-	setAttributeValue(TT("a"),		2.0);
-	setAttributeValue(TT("b"),		0.0);
-	setAttributeValue(TT("c"),		0.0);
-	setAttributeValue(TT("deltaX"),		kTTHalfPi);
-	setAttributeValue(TT("deltaY"),		0.0);
-	setAttributeValue(TT("deltaZ"),		0.0);
-	setProcessMethod(processAudio);
+	//setProcessMethod(processAudio);
 }
 
 
