@@ -56,6 +56,9 @@ class TTRamp : TTAudioObject {
 	/**	Stop the current ramp.			*/
 	TTErr Stop();
 	
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
+	
 };
 
 

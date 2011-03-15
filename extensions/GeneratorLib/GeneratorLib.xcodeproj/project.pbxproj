@@ -21,6 +21,7 @@
 		22FD472111E2488A007BBF7E /* TTRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD471711E2488A007BBF7E /* TTRamp.cpp */; };
 		22FD472211E2488A007BBF7E /* TTWavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD471811E2488A007BBF7E /* TTWavetable.h */; };
 		22FD472311E2488A007BBF7E /* TTWavetable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD471911E2488A007BBF7E /* TTWavetable.cpp */; };
+		664601FB13289EBB0006792C /* TTRamp.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664601FA13289EBB0006792C /* TTRamp.test.cpp */; };
 		669C5F73132811C0003F8984 /* TTPhasor.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 669C5F72132811C0003F8984 /* TTPhasor.test.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		22FD471711E2488A007BBF7E /* TTRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRamp.cpp; path = source/TTRamp.cpp; sourceTree = "<group>"; };
 		22FD471811E2488A007BBF7E /* TTWavetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTWavetable.h; path = includes/TTWavetable.h; sourceTree = "<group>"; };
 		22FD471911E2488A007BBF7E /* TTWavetable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTWavetable.cpp; path = source/TTWavetable.cpp; sourceTree = "<group>"; };
+		664601FA13289EBB0006792C /* TTRamp.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRamp.test.cpp; path = tests/TTRamp.test.cpp; sourceTree = "<group>"; };
 		669C5F72132811C0003F8984 /* TTPhasor.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPhasor.test.cpp; path = tests/TTPhasor.test.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* GeneratorLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = GeneratorLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				669C5F72132811C0003F8984 /* TTPhasor.test.cpp */,
 				22FD471611E2488A007BBF7E /* TTRamp.h */,
 				22FD471711E2488A007BBF7E /* TTRamp.cpp */,
+				664601FA13289EBB0006792C /* TTRamp.test.cpp */,
 				22FD471811E2488A007BBF7E /* TTWavetable.h */,
 				22FD471911E2488A007BBF7E /* TTWavetable.cpp */,
 			);
@@ -207,6 +210,7 @@
 				22FD472111E2488A007BBF7E /* TTRamp.cpp in Sources */,
 				22FD472311E2488A007BBF7E /* TTWavetable.cpp in Sources */,
 				669C5F73132811C0003F8984 /* TTPhasor.test.cpp in Sources */,
+				664601FB13289EBB0006792C /* TTRamp.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
