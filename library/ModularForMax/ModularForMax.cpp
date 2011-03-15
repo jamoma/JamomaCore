@@ -1914,14 +1914,16 @@ TTSymbolPtr jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* d
 		saveas_promptset("Save Preset...");												// Instructional Text in the dialog
 		err = saveasdialog_extended(default_filename, &path, &outtype, &filetype, 1);	// Returns 0 if successful
 		if (!err) { // User Cancelled
+			char posixpath[MAX_PATH_CHARS];
 			
 			// Create a file using Max API
 			path_createsysfile(default_filename, path, filetype, &file_handle);
 			
 			// Use BOOT style path
-			jcom_file_get_path(path, default_filename, fullpath);
+			path_topathname(path, default_filename, fullpath);
+			path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 			
-			result = TT(fullpath);
+			result = TT(posixpath);
 		}
 	}
 	
@@ -1956,31 +1958,13 @@ TTSymbolPtr jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv)
 	// ... or open a dialog
 	if (result == kTTSymEmpty)
 		if (!open_dialog(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-			jcom_file_get_path(path, filepath, fullpath);
-			result = TT(fullpath);
+			char posixpath[MAX_PATH_CHARS];
+			
+			path_topathname(path, filepath, fullpath);
+			path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
+			result = TT(posixpath);
 		}
 	
 	return result;
 }
 
-
-/** Function the translates a Max path+filename combo into a correct absolutepath */
-// TODO: remove this function once we've completed the transition to Max5, as path_topathname() is fixed for Max5
-void jcom_file_get_path(short in_path, char *in_filename, char *out_filepath)
-{
-	char path[4096];
-	
-	path_topathname(in_path, in_filename, path);
-	
-#ifdef MAC_VERSION
-	char *temppath;
-	temppath = strchr(path, ':');
-	*temppath = '\0';
-	temppath += 1;
-	
-	// at this point temppath points to the path after the volume, and out_filepath points to the volume
-	sprintf(out_filepath, "/Volumes/%s%s", path, temppath);
-#else // WIN_VERSION
-	strcpy(out_filepath, path);
-#endif
-}
