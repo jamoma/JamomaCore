@@ -28,19 +28,24 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 	TTFloat32 zero2 = 0.;
 	
 	// Create various special numbers
+	
     TTFloat32 negativeZero;
-    // Initialize negativeZero with its integer representation
+    
+	// Initialize negativeZero with its integer representation
     *(TTInt32*)&negativeZero = 0x80000000;
-    // Create a NAN
+    
+	// Create a NAN
     TTFloat32 nan1 = sqrt(-1.0f);
-    // Create a NAN a different way - should give the same NAN on
-    // Intel chips.
+    
+	// Create a NAN a different way - should give the same NAN on Intel chips.
     TTFloat32 nan2 = zero1 / zero2;
+	
     // Create an infinity
     TTFloat32 inf = 1 / zero1;
-    // Create a NAN a third way - should give the same NAN on
-    // Intel chips.
+    
+	// Create a NAN a third way - should give the same NAN on Intel chips.
     TTFloat32 nan3 = inf - inf;
+
     // Copy one of the NANs and modify its representation.
     // This will still give a NAN, just a different one.
     TTFloat32 nan4 = nan3;
@@ -100,9 +105,83 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTFloat32: Positive and negative numbers don't compare as equal",
-					!TTTestFloatEquivalence(TTFloat32(-2.0), TTFloat32(2.0)),
+					-TTTestFloatEquivalence(TTFloat32(-2.0), TTFloat32(2.0)),
 					testAssertionCount,
 					errorCount);
+		
+	// The next set of tests check things where the correct answer isn't
+    // as obvious or important. Some of these tests check for cases that
+    // are rare or can easily be avoided.
+	
+	TTTestAssertion("TTFloat32: inf == inf.",
+					TTTestFloatEquivalence(inf, inf),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: -inf == -inf.",
+					TTTestFloatEquivalence(-inf, -inf),
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("TTFloat32: inf != -inf.",
+					!TTTestFloatEquivalence(inf, -inf),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: FLT_MAX and infinity (representationally adjacent) compare as equal.",
+					TTTestFloatEquivalence(FLT_MAX, inf),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: A NAN compares as equal to itself (nan1).",
+					TTTestFloatEquivalence(nan1, nan1),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: A NAN compares as equal to itself (nan2).",
+					TTTestFloatEquivalence(nan2, nan2),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: A NAN compares as equal to itself (nan3).",
+					TTTestFloatEquivalence(nan3, nan3),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: A NAN compares as equal to itself (nan4).",
+					TTTestFloatEquivalence(nan4, nan4),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: A NAN (nan1) compares as equal to a different NAN (nan2).",
+					TTTestFloatEquivalence(nan1, nan2),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: A NAN (nan1) compares as equal to a different NAN (nan3).",
+					TTTestFloatEquivalence(nan1, nan3),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: A NAN (nan1) compares as equal to a different NAN (nan4).",
+					TTTestFloatEquivalence(nan1, nan4),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: A NAN don't equal inf.",
+					!TTTestFloatEquivalence(nan1, inf),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: Tiny numbers of opposite signs compare as equal.",
+					TTTestFloatEquivalence(smallestDenormal, -smallestDenormal),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: The results are the same with parameters reversed.",
+					TTTestFloatEquivalence(-smallestDenormal, smallestDenormal),
+					testAssertionCount,
+					errorCount);
+	
 }
 
 void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
