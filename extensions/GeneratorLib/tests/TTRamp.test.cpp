@@ -24,10 +24,12 @@ TTErr TTRamp::test(TTValue& returnedTestInfo)
 	// setup the generator
 	this->setAttributeValue(TT("destinationValue"), 1.0);
 	this->setAttributeValue(TT("currentValue"), 0.0);
+	this->setAttributeValue(TT("mode"), TT("sample"));
 	this->setAttributeValue(TT("rampTime"), 64000.0/sr);
-	this->setAttributeValue(TT("mode"), TT("vector"));
 	this->process(output);
-	// created with Octave: linspace(0,1,64) 
+	
+
+	// created with Octave: sig = linspace(0,1,64) 
 	TTFloat64 expectedSignalTest1[64] = {
 		0.0,
 		1.5873015873015872e-02,
@@ -116,9 +118,11 @@ TTErr TTRamp::test(TTValue& returnedTestInfo)
 	// Second test: now the ramp goes from 1 to 0
 	
 	// setup the generator
-	this->setAttributeValue(TT("rampTime"), 64000.0/sr);
-	this->setAttributeValue(TT("destinationValue"), 0.0);
+	
 	this->setAttributeValue(TT("currentValue"), 1.0);
+	this->setAttributeValue(TT("destinationValue"), 0.0);
+	this->setAttributeValue(TT("mode"), TT("sample"));
+	this->setAttributeValue(TT("rampTime"), 64000.0/sr); 
 	this->process(output);
 	// created with Octave: linspace(1,0,64) 
 	TTFloat64 expectedSignalTest2[64] = {
