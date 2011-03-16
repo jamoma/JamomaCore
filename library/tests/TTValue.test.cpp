@@ -22,7 +22,7 @@ TTValueTest::~TTValueTest()
 void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 {
 	TTTestLog("\n");
-	TTTestLog("Testing TTTestFloatEquivalence method used to compare floats");
+	TTTestLog("Testing TTTestFloatEquivalence method used to compare TTFloat32");
 	
 	TTFloat32 zero1 = 0.;
 	TTFloat32 zero2 = 0.;
