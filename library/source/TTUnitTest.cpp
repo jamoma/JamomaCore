@@ -18,11 +18,11 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 	// Following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 	
-	// TODO: Make maxUlps a constant or argument to the method?
-	// Make sure maxUlps is non-negative and small enough that the
+	// TODO: Make maxUnitsInTheLastPlace a constant or argument to the method?
+	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
 	// default NAN won't compare as equal to anything.
-	TTInt64 maxUlps = 5;
-	// assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
+	TTInt64 maxUnitsInTheLastPlace = 5;
+	// assert(maxUnitsInTheLastPlace > 0 && maxUnitsInTheLastPlace < 4 * 1024 * 1024);
 	
 	TTInt32 aInt = *(TTInt32*)&a;
 	
@@ -35,7 +35,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 	if (bInt < 0)
 		bInt = 0x80000000 - bInt;
 	TTInt32 intDiff = abs(aInt - bInt);
-	if (intDiff <= maxUlps)
+	if (intDiff <= maxUnitsInTheLastPlace)
 		return true;
 	return false;
 	
@@ -54,11 +54,11 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 	// Following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 
-	// Make sure maxUlps is non-negative and small enough that the
+	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
 	// default NAN won't compare as equal to anything.
-	// TODO: Make maxUlps a constant or argument to the method?
-	TTInt64 maxUlps = 5;
-	// assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
+	// TODO: Make maxUnitsInTheLastPlace a constant or argument to the method?
+	TTInt64 maxUnitsInTheLastPlace = 5;
+	// assert(maxUnitsInTheLastPlace > 0 && maxUnitsInTheLastPlace < 4 * 1024 * 1024);
 	
 	TTInt64 aInt = *(TTInt64*)&a;
 	
@@ -71,7 +71,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 	if (bInt < 0)
 		bInt = 0x80000000 - bInt;
 	TTInt64 intDiff = abs(aInt - bInt);
-	if (intDiff <= maxUlps)
+	if (intDiff <= maxUnitsInTheLastPlace)
 		return true;
 	return false;
 }
