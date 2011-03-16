@@ -21,9 +21,11 @@ protected:
 	TTAudioObjectPtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
-	TTUInt8					mMode;
+	TTSymbolPtr				mMode;
 	TTAudioObjectPtr		mPhasors[3];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
+	TTAudioObjectPtr		mRamps[3];
+	TTAudioSignalArrayPtr	mRampOutputSignals;
 	
 public:
 	
@@ -88,9 +90,10 @@ public:
 	{
 		TTValue v;
 		v.set(0,0.0);
-		mPhasors[0]->setAttributeValue(TT("phase"),v);
-		mPhasors[1]->setAttributeValue(TT("phase"),v);
-		mPhasors[2]->setAttributeValue(TT("phase"),v);
+		for (int i=0; i<3; i++) {
+		mPhasors[i]->setAttributeValue(TT("phase"),v);		
+		mRamps[i]->setAttributeValue(TT("currentValue"),v);
+		}		
 		return kTTErrNone;
 	}
 	
@@ -135,21 +138,12 @@ public:
 		return mActualTrajectoryObject->setAttributeValue(TT("deltaZ"), mDeltaZ);
 	}
 	
-/*	
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
-	{
-		if (mActualFilterObject)
-			return mActualFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-		else
-			return kTTErrNone;
-	}
-	
-*/		
 	TTErr updateSampleRate(const TTValue& oldSampleRate)
 	{
-		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, (uint)sr);
-		mPhasors[1]->setAttributeValue(kTTSym_sampleRate, (uint)sr);
-		mPhasors[2]->setAttributeValue(kTTSym_sampleRate, (uint)sr); 
+		for (int i=0; i<3; i++) {
+		mPhasors[i]->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+		mRamps[i]->setAttributeValue(kTTSym_sampleRate, (uint)sr); 
+		}
 		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
 	}
 
@@ -163,10 +157,10 @@ public:
 	{
 		TTErr	err = kTTErrNone;
 		
-		if (mMode == 0) {
+		if (mMode == TT("phasor")) {
 			err = setProcess((TTProcessMethod)&TTTrajectory::processAudioPhasorInternal);
 		}
-		else {
+		else { //TT("ramp")
 			err = setProcess((TTProcessMethod)&TTTrajectory::processAudioRampInternal);
 		}
 		return err;
@@ -174,8 +168,6 @@ public:
 	
 	TTErr processAudioPhasorInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		// TODO: check if there are inputs, if so then use them, otherwise do as we do below
-
 		mPhasorOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
 		
 		mPhasors[0]->process(mPhasorOutputSignals->getSignal(0));
@@ -183,15 +175,18 @@ public:
 		mPhasors[2]->process(mPhasorOutputSignals->getSignal(2));
 		
 		return mActualTrajectoryObject->process(mPhasorOutputSignals, outputs);
-		
-		//return mActualTrajectoryObject->process(inputs, outputs);
 	}
 
 	TTErr processAudioRampInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		; // TODO: do something here
+		mRampOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
+		
+		mRamps[0]->process(mRampOutputSignals->getSignal(0));
+		mRamps[1]->process(mRampOutputSignals->getSignal(1));
+		mRamps[2]->process(mRampOutputSignals->getSignal(2));
+		
+		return mActualTrajectoryObject->process(mRampOutputSignals, outputs);
 	}
-
 };
 
 
