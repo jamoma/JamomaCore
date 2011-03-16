@@ -1,6 +1,6 @@
 /* 
- * Spherical Spiral Unit for TTBlue
- * http://mathworld.wolfram.com/SphericalSpiral.html
+ * Slinky Space Curve Unit for TTBlue
+ * http://mathworld.wolfram.com/Slinky.html
  *
  * Originally written for the Jamoma TrajectoryLib
  * Copyright © 2010 by Nils Peters
@@ -9,35 +9,37 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "Spiral3D.h"
+#include "Slinky3D.h"
 
 
-#define thisTTClass			Spiral3D
-#define thisTTClassName		"spiral.3D"
+#define thisTTClass			Slinky3D
+#define thisTTClassName		"slinky.3D"
 #define thisTTClassTags		"audio, trajectory, 3D"
 
 
 TT_AUDIO_CONSTRUCTOR
 {   
 	addAttribute(A,	kTypeFloat64);
+	addAttribute(B,	kTypeFloat64);
+	addAttribute(C,	kTypeFloat64);
 	setProcessMethod(processAudio);
 //	setCalculateMethod(calculateValue);
 }
 
 
-Spiral3D::~Spiral3D()
+Slinky3D::~Slinky3D()
 {
 	;
 }
 
-//TTErr Spiral3D::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+//TTErr Slinky3D::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 //{
 //	y = x;
 //	return kTTErrNone;
 //}
 
 
-TTErr Spiral3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr Slinky3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
@@ -58,15 +60,15 @@ TTErr Spiral3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
     TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];
     
-	TTFloat64 phi, c;
+	TTFloat64 phi, temp;
 	
 	for (int i=0; i<vs; i++) {	
 						
 		phi = inSampleX[i] * kTTTwoPi - kTTTwoPi; // -2Pi .. 2Pi
-		c = sqrt(1 + mA*mA*phi*phi);
-		outSampleX[i] = cos(phi)/c;
-		outSampleY[i] = sin(phi)/c;
-		outSampleZ[i] = -mA * phi/c;
+		temp = mB + mA*cos(phi);
+		outSampleX[i] = temp*cos(phi);
+		outSampleY[i] = temp*sin(phi);
+		outSampleZ[i] = mC*(inSampleX[i]-1.0) + mA*sin(phi);
 
 	}
 return kTTErrNone;

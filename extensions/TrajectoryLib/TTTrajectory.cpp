@@ -48,7 +48,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(DeltaY,			kTypeFloat64);
 	addAttributeWithSetter(DeltaZ,			kTypeFloat64);
 	addAttributeWithSetter(Type,			kTypeSymbol);	
-	addAttributeWithSetter(Mode,						kTypeUInt8);	
+	addAttributeWithSetter(Mode,			kTypeUInt8);	// FIXME: this should be a charactestring
 	
 	setAttributeValue(TT("mode"),			0);
 	setAttributeValue(TT("type"),			TT("linear.2D"));

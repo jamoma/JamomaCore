@@ -1,6 +1,6 @@
 /* 
- * Lissajous Knot Function Unit for TTBlue
- * http://en.wikipedia.org/wiki/Lissajous_knot
+ * Slinky Space Curve Unit for TTBlue
+ * http://mathworld.wolfram.com/Slinky.html
  *
  * Originally written for the Jamoma TrajectoryLib
  * Copyright © 2010 by Nils Peters
@@ -9,17 +9,17 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __LISSAJOUS_3D_H__
-#define __LISSAJOUS_3D_H__
+#ifndef __SLINKY_3D_H__
+#define __SLINKY_3D_H__
 
 #include "TTDSP.h"
 
 
-class Lissajous3D : TTAudioObject {
-	TTCLASS_SETUP(Lissajous3D)
+class Slinky3D : TTAudioObject {
+	TTCLASS_SETUP(Slinky3D)
 
-	TTFloat64			mA, mB, mC, mDeltaX, mDeltaY;
-	/** y = f(x) for a single value */
+	TTFloat64	mA, mB, mC;
+	
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
@@ -27,4 +27,4 @@ class Lissajous3D : TTAudioObject {
 };
 
 
-#endif // __LISSAJOUS_3D_H__
+#endif // __SLINKY_3D_H__

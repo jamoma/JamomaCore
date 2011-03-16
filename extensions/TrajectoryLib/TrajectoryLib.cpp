@@ -25,10 +25,12 @@
 
 #include "CircularHelix3D.h"
 #include "Linear3D.h"
+#include "Lissajous3D.h"
+#include "Slinky3D.h"
 #include "Spiral3D.h"
+#include "Torus3D.h"
 #include "Viviani3D.h"
 //#include "Rose3D.h"
-//#include "Lissajous3D.h"
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_TrajectoryLib(void)
 {
@@ -50,11 +52,12 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_TrajectoryLib(void)
 
 	CircularHelix3D::registerClass();
 	Linear3D::registerClass();
+	Lissajous3D::registerClass();
+	Slinky3D::registerClass();
 	Spiral3D::registerClass();
+	Torus3D::registerClass();
 	Viviani3D::registerClass();
-	//Rose3D::registerClass();
-	//Lissajous3D::registerClass();
-	
+	//Rose3D::registerClass();	
 	
 	return kTTErrNone;
 }

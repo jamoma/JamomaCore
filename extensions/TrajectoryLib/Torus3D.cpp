@@ -1,6 +1,6 @@
 /* 
- * Lissajous Knot Function Unit for TTBlue
- * http://en.wikipedia.org/wiki/Lissajous_knot
+ * Torus Knot Function Unit for TTBlue
+ * http://en.wikipedia.org/wiki/Torus_knot
  *
  * Originally written for the Jamoma TrajectoryLib
  * Copyright © 2010 by Nils Peters
@@ -9,44 +9,40 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "Lissajous3D.h"
+#include "Torus3D.h"
 
-#define thisTTClass			Lissajous3D
-#define thisTTClassName		"lissajous.knot.3D"
+#define thisTTClass			Torus3D
+#define thisTTClassName		"torus.knot.3D"
 #define thisTTClassTags		"audio, trajectory, knot, 3D"
 
 
 TT_AUDIO_CONSTRUCTOR
 {   addAttribute(A,				kTypeFloat64);
 	addAttribute(B,				kTypeFloat64);
-	addAttribute(C,				kTypeFloat64);
-	addAttribute(DeltaX,		kTypeFloat64);
-	addAttribute(DeltaY,		kTypeFloat64);
-	
+		
 	setAttributeValue(TT("a"),				3.0);
-	setAttributeValue(TT("b"),				2.0);
-	setAttributeValue(TT("c"),				7.0);
-	setAttributeValue(TT("deltaX"),			0.7);
-	setAttributeValue(TT("deltaY"),			0.2);
+	setAttributeValue(TT("b"),				7.0);
+	
+
 	
 	setProcessMethod(processAudio);
 //	setCalculateMethod(calculateValue);
 }
 
 
-Lissajous3D::~Lissajous3D()
+Torus3D::~Torus3D()
 {
 	;
 }
 
-//TTErr Lissajous3D::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+//TTErr Torus3D::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 //{
 //	y = x;
 //	return kTTErrNone;
 //}
 
 
-TTErr Lissajous3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr Torus3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	
 	TTAudioSignal&		out = outputs->getSignal(0);
@@ -66,13 +62,14 @@ TTErr Lissajous3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
 	TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];
-	TTFloat64 phi;
+	TTFloat64 phi, r;
 	
 	for (int i=0; i<vs; i++) {	
-		phi = inSampleX[i] * kTTPi;
-		outSampleX[i] = cos((inSampleX[i]* mA *kTTTwoPi) + mDeltaX);
-		outSampleY[i] = cos((inSampleX[i]* mB *kTTTwoPi) + mDeltaY);
-		outSampleZ[i] = cos((inSampleX[i]* mC *kTTTwoPi));
+		phi = inSampleX[i] * kTTPi; // 0 .. 2Pi
+		r = cos(mB * phi) + 2.0;
+		outSampleX[i] = r * cos(mA * phi);
+		outSampleY[i] = r * sin(mA * phi);
+		outSampleZ[i] = sin(mB * phi);
 		}
 return kTTErrNone;
 }

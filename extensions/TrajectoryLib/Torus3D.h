@@ -1,6 +1,6 @@
 /* 
- * Lissajous Knot Function Unit for TTBlue
- * http://en.wikipedia.org/wiki/Lissajous_knot
+ * Torus Knot Function Unit for TTBlue
+ * http://en.wikipedia.org/wiki/Torus_knot
  *
  * Originally written for the Jamoma TrajectoryLib
  * Copyright © 2010 by Nils Peters
@@ -9,16 +9,16 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __LISSAJOUS_3D_H__
-#define __LISSAJOUS_3D_H__
+#ifndef __TORUS_3D_H__
+#define __TORUS_3D_H__
 
 #include "TTDSP.h"
 
 
-class Lissajous3D : TTAudioObject {
-	TTCLASS_SETUP(Lissajous3D)
+class Torus3D : TTAudioObject {
+	TTCLASS_SETUP(Torus3D)
 
-	TTFloat64			mA, mB, mC, mDeltaX, mDeltaY;
+	TTFloat64			mA, mB;
 	/** y = f(x) for a single value */
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
@@ -27,4 +27,4 @@ class Lissajous3D : TTAudioObject {
 };
 
 
-#endif // __LISSAJOUS_3D_H__
+#endif // __TORUS_3D_H__
