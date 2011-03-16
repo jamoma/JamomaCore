@@ -72,6 +72,8 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 	
 	TTInt64 aInt = *(TTInt64*)&a;
 	
+	// TODO: Are the 0x8000000 values correct for TTFloat64?
+	
 	// Make aInt lexicographically ordered as a twos-complement int
 	if (aInt < 0)
 		aInt = 0x80000000 - aInt;
