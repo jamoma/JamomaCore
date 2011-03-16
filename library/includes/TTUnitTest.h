@@ -11,7 +11,7 @@
 
 #include "TTFoundationAPI.h"
 
-#define MAX_UNITS_IN_THE_LAST_PLACE 5
+#define MAX_UNITS_IN_THE_LAST_PLACE 10
 
 
 /**	Determine if two 32-bit floats are equal in value, but tolerant of floating-point precision.
