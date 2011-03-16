@@ -12,7 +12,7 @@
 
 #define thisTTClass			Lissajous2D
 #define thisTTClassName		"lissajous.2D"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassTags		"audio, trajectory, 2D"
 
 
 TT_AUDIO_CONSTRUCTOR

@@ -13,7 +13,7 @@
 
 #define thisTTClass			Butterfly2D
 #define thisTTClassName		"butterfly.2D"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassTags		"audio, trajectory, 2D"
 
 
 TT_AUDIO_CONSTRUCTOR

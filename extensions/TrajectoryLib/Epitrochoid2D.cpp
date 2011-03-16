@@ -12,8 +12,8 @@
 
 
 #define thisTTClass			Epitrochoid2D
-#define thisTTClassName		"Epitrochoid.2D"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassName		"epitrochoid.2D"
+#define thisTTClassTags		"audio, trajectory, 2D"
 
 
 TT_AUDIO_CONSTRUCTOR

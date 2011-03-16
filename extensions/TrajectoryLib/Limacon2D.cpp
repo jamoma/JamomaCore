@@ -13,7 +13,7 @@
 
 #define thisTTClass			Limacon2D
 #define thisTTClassName		"limacon.2D"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassTags		"audio, trajectory, 2D"
 
 
 TT_AUDIO_CONSTRUCTOR

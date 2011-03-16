@@ -13,7 +13,7 @@
 
 #define thisTTClass			Bean2D
 #define thisTTClassName		"bean.2D"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassTags		"audio, trajectory, 2D"
 
 
 TT_AUDIO_CONSTRUCTOR

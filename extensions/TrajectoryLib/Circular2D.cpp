@@ -12,7 +12,7 @@
 
 #define thisTTClass			Circular2D
 #define thisTTClassName		"circular.2D"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassTags		"audio, trajectory, 2D"
 
 
 TT_AUDIO_CONSTRUCTOR
