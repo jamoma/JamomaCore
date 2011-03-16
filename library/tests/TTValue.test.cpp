@@ -19,6 +19,112 @@ TT_OBJECT_CONSTRUCTOR
 TTValueTest::~TTValueTest()
 {;}
 
+void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
+{
+	TTTestLog("\n");
+	TTTestLog("Testing TTTestFloatEquivalence method used to compare floats");
+	
+	TTFloat32 zero1 = 0.;
+	TTFloat32 zero2 = 0.;
+	
+	// Create various special numbers
+    TTFloat32 negativeZero;
+    // Initialize negativeZero with its integer representation
+    *(TTInt32*)&negativeZero = 0x80000000;
+    // Create a NAN
+    TTFloat32 nan1 = sqrt(-1.0f);
+    // Create a NAN a different way - should give the same NAN on
+    // Intel chips.
+    TTFloat32 nan2 = zero1 / zero2;
+    // Create an infinity
+    TTFloat32 inf = 1 / zero1;
+    // Create a NAN a third way - should give the same NAN on
+    // Intel chips.
+    TTFloat32 nan3 = inf - inf;
+    // Copy one of the NANs and modify its representation.
+    // This will still give a NAN, just a different one.
+    TTFloat32 nan4 = nan3;
+    (*(TTInt32*)&nan4) += 1;
+	
+    // Create a denormal by starting with zero and incrementing
+    // the integer representation.
+    TTFloat32 smallestDenormal = 0;
+    (*(TTInt32*)&smallestDenormal) += 1;
+	
+	// The first set of tests check things that any self-respecting
+    // comparison function should agree upon.
+	
+	TTTestAssertion("TTFloat32: zero and negativeZero compare as equal.",
+					TTTestFloatEquivalence(zero1, negativeZero),
+					testAssertionCount,
+					errorCount);
+		
+	TTTestAssertion("TTFloat32: Nearby numbers compare as equal.",
+					TTTestFloatEquivalence(TTFloat32(2.0), TTFloat32(1.9999999f)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: Slightly more distant numbers compare as equal.",
+					TTTestFloatEquivalence(TTFloat32(2.0), TTFloat32(1.9999995f)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: The results are the same with parameters reversed.",
+					TTTestFloatEquivalence(TTFloat32(1.9999995f), TTFloat32(2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: Even more distant numbers don't compare as equal",
+					!TTTestFloatEquivalence(TTFloat32(1.8), TTFloat32(2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: Nearby negative numbers compare as equal.",
+					TTTestFloatEquivalence(TTFloat32(-2.0), TTFloat32(-1.9999999f)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: Slightly more distant negative numbers compare as equal.",
+					TTTestFloatEquivalence(TTFloat32(-2.0), TTFloat32(-1.9999995f)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: The results are the same with parameters reversed.",
+					TTTestFloatEquivalence(TTFloat32(-1.9999995f), TTFloat32(-2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: Even more distant negative numbers don't compare as equal",
+					!TTTestFloatEquivalence(TTFloat32(-1.8), TTFloat32(-2.0)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: Positive and negative numbers don't compare as equal",
+					!TTTestFloatEquivalence(TTFloat32(-2.0), TTFloat32(2.0)),
+					testAssertionCount,
+					errorCount);
+}
+
+void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
+{
+	
+	
+}
+
+/**	Test the method used to compare floats for equity.
+ @group unittest
+ @param a	Errors counter
+ @param b	Assertions counter */
+void TTValueTestFloatAssertion(int& errorCount, int&testAssertionCount)
+{
+	// Testing for TTFloat32
+	TTValueTestFloatAssertion32(errorCount, testAssertionCount);
+	
+	// Testing for TTFloat64
+	TTValueTestFloatAssertion64(errorCount, testAssertionCount);	
+}
+
+
 void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 {	
 	TTTestLog("\n");
@@ -1235,7 +1341,8 @@ TTErr TTValueTest::test(TTValue& returnedTestInfo)
 {
 	int	errorCount = 0;
 	int testAssertionCount = 0;
-		
+	
+	TTValueTestFloatAssertion(errorCount, testAssertionCount);
 	TTValueTestBasic(errorCount, testAssertionCount);
 	TTValueTestStringConversion(errorCount, testAssertionCount);
 	TTValueTestNumericTransformations(errorCount, testAssertionCount);
