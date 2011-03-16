@@ -12,7 +12,7 @@
 
 #define thisTTClass			Rose2D
 #define thisTTClassName		"rose.2D"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassTags		"audio, trajectory, 2D"
 
 
 TT_AUDIO_CONSTRUCTOR
