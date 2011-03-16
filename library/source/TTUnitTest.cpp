@@ -18,15 +18,19 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 	// Following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 	
+	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
+	TTInt32 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;
+	
 	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
 	// default NAN won't compare as equal to anything.
-	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
-	TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;	
 	if (maxUnitsInTheLastPlace <= 0) {
-		TTLogMessage("When comparing floats for equivalence, maxUnitsInTheLastPlace must be a positive number");
+		TTLogMessage("TTTestFloatEquivalence: maxUnitsInTheLastPlace must be a positive number");
 		return false;
 	}
-	// assert(maxUnitsInTheLastPlace < 4 * 1024 * 1024);
+	if (maxUnitsInTheLastPlace > (4 * 1024 * 1024)) {
+		TTLogMessage("TTTestFloatEquivalence: maxUnitsInTheLastPlace to large to distinguish normal values from NAN");
+		return false;
+	}
 	
 	TTInt32 aInt = *(TTInt32*)&a;
 	
@@ -48,25 +52,23 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 
 TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 {
-	if (a != TTAntiDenormal(a))
-		TTTestLog("WARNING: TESTING FLOAT EQUIVALENCE ON A DENORMAL!");
-
-	// TODO: Denormal checking on b
-	// TODO: checking for NaN
-	// TODO: checking for INF
-	
 	// Following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 
-	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
-	// default NAN won't compare as equal to anything.
 	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
 	TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;
+
+	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
+	// default NAN won't compare as equal to anything.
 	if (maxUnitsInTheLastPlace <= 0) {
-		TTLogMessage("When comparing floats for equivalence, maxUnitsInTheLastPlace must be a positive number");
+		TTLogMessage("TTTestFloatEquivalence: maxUnitsInTheLastPlace must be a positive number");
 		return false;
 	}
-	// assert(maxUnitsInTheLastPlace < 4 * 1024 * 1024);
+	// TODO: The following test might be to restrictive for TTFloat64
+	if (maxUnitsInTheLastPlace > (4 * 1024 * 1024)) {
+		TTLogMessage("TTTestFloatEquivalence: maxUnitsInTheLastPlace to large to distinguish normal values from NAN");
+		return false;
+	}
 	
 	TTInt64 aInt = *(TTInt64*)&a;
 	
