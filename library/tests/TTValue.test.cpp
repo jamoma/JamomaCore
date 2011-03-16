@@ -1589,10 +1589,10 @@ TTErr TTValueTest::test(TTValue& returnedTestInfo)
 	int testAssertionCount = 0;
 	
 	TTValueTestFloatAssertion(errorCount, testAssertionCount);
-	//TTValueTestBasic(errorCount, testAssertionCount);
-	//TTValueTestStringConversion(errorCount, testAssertionCount);
-	//TTValueTestNumericTransformations(errorCount, testAssertionCount);
-	//TTValueTestOperators(errorCount, testAssertionCount);
+	TTValueTestBasic(errorCount, testAssertionCount);
+	TTValueTestStringConversion(errorCount, testAssertionCount);
+	TTValueTestNumericTransformations(errorCount, testAssertionCount);
+	TTValueTestOperators(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
