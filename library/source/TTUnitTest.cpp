@@ -21,7 +21,12 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
 	// default NAN won't compare as equal to anything.
 	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
-	TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;	// assert(maxUnitsInTheLastPlace > 0 && maxUnitsInTheLastPlace < 4 * 1024 * 1024);
+	TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;	
+	if (maxUnitsInTheLastPlace <= 0) {
+		TTLogMessage("When comparing floats for equivalence, maxUnitsInTheLastPlace must be a positive number");
+		return false;
+	}
+	// assert(maxUnitsInTheLastPlace < 4 * 1024 * 1024);
 	
 	TTInt32 aInt = *(TTInt32*)&a;
 	
@@ -57,7 +62,11 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 	// default NAN won't compare as equal to anything.
 	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
 	TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;
-	// assert(maxUnitsInTheLastPlace > 0 && maxUnitsInTheLastPlace < 4 * 1024 * 1024);
+	if (maxUnitsInTheLastPlace <= 0) {
+		TTLogMessage("When comparing floats for equivalence, maxUnitsInTheLastPlace must be a positive number");
+		return false;
+	}
+	// assert(maxUnitsInTheLastPlace < 4 * 1024 * 1024);
 	
 	TTInt64 aInt = *(TTInt64*)&a;
 	
