@@ -18,11 +18,10 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 	// Following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 	
-	// TODO: Make maxUnitsInTheLastPlace a constant or argument to the method?
 	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
 	// default NAN won't compare as equal to anything.
-	TTInt64 maxUnitsInTheLastPlace = 5;
-	// assert(maxUnitsInTheLastPlace > 0 && maxUnitsInTheLastPlace < 4 * 1024 * 1024);
+	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
+	TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;	// assert(maxUnitsInTheLastPlace > 0 && maxUnitsInTheLastPlace < 4 * 1024 * 1024);
 	
 	TTInt32 aInt = *(TTInt32*)&a;
 	
@@ -56,8 +55,8 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 
 	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
 	// default NAN won't compare as equal to anything.
-	// TODO: Make maxUnitsInTheLastPlace a constant or argument to the method?
-	TTInt64 maxUnitsInTheLastPlace = 5;
+	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
+	TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;
 	// assert(maxUnitsInTheLastPlace > 0 && maxUnitsInTheLastPlace < 4 * 1024 * 1024);
 	
 	TTInt64 aInt = *(TTInt64*)&a;
