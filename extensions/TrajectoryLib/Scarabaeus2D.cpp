@@ -13,7 +13,7 @@
 
 #define thisTTClass			Scarabaeus2D
 #define thisTTClassName		"scarabaeus.2D"
-#define thisTTClassTags		"audio, trajectory"
+#define thisTTClassTags		"audio, trajectory, 2D"
 
 
 TT_AUDIO_CONSTRUCTOR
