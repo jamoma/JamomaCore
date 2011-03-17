@@ -125,7 +125,7 @@ public:
 						}	
 						break;
 					case 3:
-						if (ttDataTypeInfo[arguments.getType(0)]->isNumerical)
+						if (ttDataTypeInfo[arguments.getType(2)]->isNumerical)
 							{// start stop time
 							arguments.get(0, x); x = x * 2.0;  // scaling						
 							mRamps[0]->setAttributeValue(TT("currentValue"), x);
@@ -135,7 +135,7 @@ public:
 							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
 						}
 						else {// stop time type
-							arguments.get(3, &attrType);
+							arguments.get(2, &attrType);
 							setType(attrType);
 							arguments.get(0, x); x = x * 2.0;  // scaling
 							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
