@@ -31,18 +31,6 @@ TT_AUDIO_CONSTRUCTOR,
 	extendAttribute(TT("yFrequency"), mPhasors[1], TT("frequency"));
 	extendAttribute(TT("zFrequency"), mPhasors[2], TT("frequency"));
 	
-	extendAttribute(TT("xCurrentValue"), mRamps[0], TT("currentValue"));
-	extendAttribute(TT("yCurrentValue"), mRamps[1], TT("currentValue"));
-	extendAttribute(TT("zCurrentValue"), mRamps[2], TT("currentValue"));
-	
-	extendAttribute(TT("xDestinationValue"), mRamps[0], TT("destinationValue"));
-	extendAttribute(TT("yDestinationValue"), mRamps[1], TT("destinationValue"));
-	extendAttribute(TT("zDestinationValue"), mRamps[2], TT("destinationValue"));
-
-	extendAttribute(TT("xRampTime"), mRamps[0], TT("rampTime"));
-	extendAttribute(TT("yRampTime"), mRamps[1], TT("rampTime"));
-	extendAttribute(TT("zRampTime"), mRamps[2], TT("rampTime"));
-	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mPhasorOutputSignals, 3);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mRampOutputSignals, 3);	
 	
@@ -80,6 +68,7 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addMessageWithArgument(getTypes);
 	addMessageWithArgument(getCurrentAttributeNames);
+	addMessageWithArgument(ramp);
 	addUpdate(SampleRate);
 	addMessage(reset);
 	

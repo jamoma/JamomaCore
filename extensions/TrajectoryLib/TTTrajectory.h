@@ -85,6 +85,69 @@ public:
 		return kTTErrNone;
 	}
 	
+	TTErr ramp(TTValue& arguments)
+	{
+		/*
+		 ramp <startValue|double> <stopValue|double> <time|double> <type|string>
+		 ramp <stopValue|double> <time|double> <type|string>
+		 ramp <startValue|double> <stopValue|double> <time|double> 
+		 ramp <stopValue|double> <time|double> 
+		*/
+		long		n;
+		TTSymbolPtr	attrType;
+		TTFloat64   x;
+		TTErr		err = kTTErrNone;
+		
+		if (mMode == TT("ramp")){
+			if (ttDataTypeInfo[arguments.getType(0)]->isNumerical and ttDataTypeInfo[arguments.getType(1)]->isNumerical) {
+				n = arguments.getSize();
+				switch(n)
+				{
+					case 4:
+						if (ttDataTypeInfo[arguments.getType(2)]->isNumerical and ttDataTypeInfo[arguments.getType(3)]->isNumerical == false){
+							arguments.get(3, &attrType);
+							setType(attrType);
+							arguments.get(0, x); x = x * 2.0;  // scaling						
+							mRamps[0]->setAttributeValue(TT("currentValue"), x);
+							arguments.get(1, x); x = x * 2.0;  // scaling
+							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
+							arguments.get(2, x); 
+							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
+						}	
+						break;
+					case 3:
+						if (ttDataTypeInfo[arguments.getType(0)]->isNumerical)
+							{// start stop time
+							arguments.get(0, x); x = x * 2.0;  // scaling						
+							mRamps[0]->setAttributeValue(TT("currentValue"), x);
+							arguments.get(1, x); x = x * 2.0;  // scaling
+							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
+							arguments.get(2, x); 
+							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
+						}
+						else {// stop time type
+							arguments.get(3, &attrType);
+							setType(attrType);
+							arguments.get(0, x); x = x * 2.0;  // scaling
+							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
+							arguments.get(1, x); 
+							mRamps[0]->setAttributeValue(TT("rampTime"), x);
+						}
+					break;
+				case 2: // stop time
+						arguments.get(0, x); x = x * 2.0;  // scaling
+						mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
+						arguments.get(1, x); 
+						mRamps[0]->setAttributeValue(TT("rampTime"), x);
+					break;
+				default:
+					err = kTTErrWrongNumValues;
+				}
+			}
+		}
+		return err;
+	}
+	
 	
 	TTErr reset()
 	{
