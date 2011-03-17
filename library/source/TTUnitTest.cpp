@@ -13,13 +13,10 @@ static const TTFloat32 kTTTestFloat32Epsilon = 0.00001;
 static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
 
 
-TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
+TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b, TTBoolean expectedResult, TTInt32 maxUnitsInTheLastPlace)
 {
 	// Following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
-	
-	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
-	TTInt32 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;
 	
 	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
 	// default NAN won't compare as equal to anything.
@@ -43,20 +40,32 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
 	if (bInt < 0)
 		bInt = 0x80000000 - bInt;
 	TTInt32 intDiff = abs(aInt - bInt);
-	if (intDiff <= maxUnitsInTheLastPlace)
-		return true;
-	return false;
 	
+	// Decide on result
+	TTBoolean result;
+	if (intDiff <= maxUnitsInTheLastPlace)
+		result = true;
+	else
+		result = false;
+	
+	// Was this the expected result?
+	if (result == expectedResult)
+		return true;
+	else {
+		TTLogMessage("TTTestFloatEquivalence: Unexpected result\n");
+		TTLogMessage("a = %.8e\n", a);
+		TTLogMessage("b = %.8e\n", b);
+		TTLogMessage("result = %s\n", (result)?"true":"false");
+		TTLogMessage("intDiff = %ld\n", intDiff);
+		return false;
+	}
 }
 
 
-TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
+TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b, TTBoolean expectedResult, TTInt64 maxUnitsInTheLastPlace)
 {
 	// Following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
-
-	// TODO: Make maxUnitsInTheLastPlace an optional argument to the method, defaulting to MAX_UNITS_IN_THE_LAST_PLACE
-	TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE;
 
 	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
 	// default NAN won't compare as equal to anything.
@@ -83,9 +92,25 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
 	if (bInt < 0)
 		bInt = 0x80000000 - bInt;
 	TTInt64 intDiff = abs(aInt - bInt);
+
+	// Decide on result
+	TTBoolean result;	
 	if (intDiff <= maxUnitsInTheLastPlace)
+		result = true;
+	else
+		result = false;
+	
+	// Was this the expected result?
+	if (result == expectedResult)
 		return true;
-	return false;
+	else {
+		TTLogMessage("TTTestFloatEquivalence: Unexpected result\n");
+		TTLogMessage("a = %.15e\n", a);
+		TTLogMessage("b = %.15e\n", b);
+		TTLogMessage("result = %s\n", (result)?"true":"false");
+		TTLogMessage("intDiff = %ld\n", intDiff);
+		return false;
+	}
 }
 
 
