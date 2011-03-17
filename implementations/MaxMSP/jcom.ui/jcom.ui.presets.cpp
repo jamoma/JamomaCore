@@ -30,15 +30,17 @@ void ui_preset_doread(t_ui *x)
 {
 	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
+	char			posixpath[MAX_PATH_CHARS];
 	short 			path;					// pathID#
     long			filetype = 'TEXT', outtype;  // the file type that is actually true    
 	
 	if (open_dialog(filename, &path, &outtype, &filetype, 1))		// Returns 0 if successful
 		return;														// User Cancelled
 
-	jcom_file_get_path(path, filename, fullpath);
+	path_topathname(path, filename, fullpath);
+	path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 	
-	ui_viewer_send(x, TT("preset/read"), TT(fullpath));
+	ui_viewer_send(x, TT("preset/read"), TT(posixpath));
 }
 
 void ui_preset_dowrite(t_ui *x)
@@ -46,6 +48,7 @@ void ui_preset_dowrite(t_ui *x)
 	long 			type = 'TEXT';				// four-char code for Mac file type
 	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];	// for storing the absolute path of the file
+	char			posixpath[MAX_PATH_CHARS];
 	short 			path, err;					// pathID#, error number
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
@@ -82,10 +85,10 @@ void ui_preset_dowrite(t_ui *x)
 	}
 	
 	// ... AND WE SAVE THE fullpath IN THE HUB ATTRIBUTE user_path.
-	if (path) jcom_file_get_path(path, filename, fullpath);
-	else strcpy(fullpath, filename);
+	path_topathname(path, filename, fullpath);
+	path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 	
-	ui_viewer_send(x, TT("preset/write"), TT(fullpath));
+	ui_viewer_send(x, TT("preset/write"), TT(posixpath));
 }
 
 void ui_return_preset_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
