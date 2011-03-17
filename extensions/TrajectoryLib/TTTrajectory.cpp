@@ -27,7 +27,7 @@ TT_AUDIO_CONSTRUCTOR,
 		TTObjectInstantiate(TT("phasor"), &mPhasors[0], kTTVal1);	
 		TTObjectInstantiate(TT("ramp")	, &mRamps[0],	kTTVal1);	
 //	}
-	extendAttribute(TT("xFrequency"), mPhasors[0], TT("frequency"));
+	extendAttribute(TT("frequency"), mPhasors[0], TT("frequency"));
 	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mPhasorOutputSignals, 1);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mRampOutputSignals, 1);	
@@ -38,14 +38,14 @@ TT_AUDIO_CONSTRUCTOR,
 	mRampOutputSignals->setMaxNumAudioSignals(1);
 	mRampOutputSignals->numAudioSignals = 1;
 	
-	for (int i=0; i<1; i++) {
+	//for (int i=0; i<1; i++) {
 		TTObjectPtr anAudioSignal = NULL;		
 		TTObjectInstantiate(kTTSym_audiosignal, &anAudioSignal, 1);
-		mPhasorOutputSignals->setSignal(i, (TTAudioSignal*)anAudioSignal);
-		mRampOutputSignals->setSignal(i, (TTAudioSignal*)anAudioSignal);
-		mPhasors[i]->setAttributeValue(TT("gain"),linearToDb(2)); // factor 2 in [dB] 
-		mRamps[i]->setAttributeValue(TT("mode"), TT("sample"));
-	}
+		mPhasorOutputSignals->setSignal(0, (TTAudioSignal*)anAudioSignal);
+		mRampOutputSignals->setSignal(0, (TTAudioSignal*)anAudioSignal);
+		mPhasors[0]->setAttributeValue(TT("gain"),linearToDb(2)); // factor 2 in [dB] 
+		mRamps[0]->setAttributeValue(TT("mode"), TT("sample"));
+	//}
 	addAttributeWithSetter(A,				kTypeFloat64);
 	addAttributeWithSetter(B,				kTypeFloat64);
 	addAttributeWithSetter(C,				kTypeFloat64);
