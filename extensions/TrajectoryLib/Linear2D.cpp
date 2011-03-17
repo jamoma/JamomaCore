@@ -16,7 +16,7 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-{   
+{   addAttribute(A,				kTypeFloat64);
 	setProcessMethod(processAudio);
 //	setCalculateMethod(calculateValue);
 }
@@ -39,17 +39,17 @@ TTErr Linear2D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	}
 		
 	TTAudioSignal&		in0 = inputs->getSignal(0);
-	TTAudioSignal&		in1 = inputs->getSignal(1);
+	//TTAudioSignal&		in1 = inputs->getSignal(1);
 	TTUInt16			 vs = in0.getVectorSizeAsInt();
 	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
-	TTSampleValuePtr	inSampleY			= in1.mSampleVectors[0];
+	//TTSampleValuePtr	inSampleY			= in1.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
 
 	for (int i=0; i<vs; i++) {	
 		outSampleX[i] = inSampleX[i]-1.0; //Phasor runs from 0 .. 2
-		outSampleY[i] = inSampleY[i]-1.0;
+		outSampleY[i] = mA * outSampleX[i];
 	}
 	return kTTErrNone;
 }
