@@ -13,7 +13,7 @@
 
 
 #define thisTTClass			LogSpiral2D
-#define thisTTClassName		"logSpiral.2D"
+#define thisTTClassName		"log.spiral.2D"
 #define thisTTClassTags		"audio, trajectory, sprial, logarithmic, 2D"
 
 

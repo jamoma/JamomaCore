@@ -17,14 +17,7 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-{   //addAttribute(A,				kTypeFloat64);
-	//addAttribute(B,				kTypeFloat64);
-
-	
-	//setAttributeValue(TT("a"),	0.6);
-	//setAttributeValue(TT("b"),	0.4);
-
-	
+{   	
 	setProcessMethod(processAudio);
 //	setCalculateMethod(calculateValue);
 }
