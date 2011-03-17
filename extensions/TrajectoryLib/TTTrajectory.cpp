@@ -21,26 +21,24 @@ TT_AUDIO_CONSTRUCTOR,
 	mRampOutputSignals(NULL)
 
 {   
-	mPhasors[0] = NULL;	mPhasors[1] = NULL;	mPhasors[2] = NULL;
-	mRamps[0] = NULL;	mRamps[1] = NULL;	mRamps[2] = NULL;
-	for (int i=0; i<3; i++){
-		TTObjectInstantiate(TT("phasor"), &mPhasors[i], kTTVal1);	
-		TTObjectInstantiate(TT("ramp")	, &mRamps[i],	kTTVal1);	
-	}
+	mPhasors[0] = NULL;	//mPhasors[1] = NULL;	mPhasors[2] = NULL;
+	mRamps[0] = NULL;	//mRamps[1] = NULL;	mRamps[2] = NULL;
+//	for (int i=0; i<3; i++){
+		TTObjectInstantiate(TT("phasor"), &mPhasors[0], kTTVal1);	
+		TTObjectInstantiate(TT("ramp")	, &mRamps[0],	kTTVal1);	
+//	}
 	extendAttribute(TT("xFrequency"), mPhasors[0], TT("frequency"));
-	extendAttribute(TT("yFrequency"), mPhasors[1], TT("frequency"));
-	extendAttribute(TT("zFrequency"), mPhasors[2], TT("frequency"));
 	
-	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mPhasorOutputSignals, 3);
-	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mRampOutputSignals, 3);	
+	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mPhasorOutputSignals, 1);
+	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mRampOutputSignals, 1);	
 	
 	// we should look and see if we need to call this next one, since we just specified 3 above
-	mPhasorOutputSignals->setMaxNumAudioSignals(3);
-	mPhasorOutputSignals->numAudioSignals = 3;
-	mRampOutputSignals->setMaxNumAudioSignals(3);
-	mRampOutputSignals->numAudioSignals = 3;
+	mPhasorOutputSignals->setMaxNumAudioSignals(1);
+	mPhasorOutputSignals->numAudioSignals = 1;
+	mRampOutputSignals->setMaxNumAudioSignals(1);
+	mRampOutputSignals->numAudioSignals = 1;
 	
-	for (int i=0; i<3; i++) {
+	for (int i=0; i<1; i++) {
 		TTObjectPtr anAudioSignal = NULL;		
 		TTObjectInstantiate(kTTSym_audiosignal, &anAudioSignal, 1);
 		mPhasorOutputSignals->setSignal(i, (TTAudioSignal*)anAudioSignal);
@@ -80,10 +78,10 @@ TT_AUDIO_CONSTRUCTOR,
 // Destructor
 TTTrajectory::~TTTrajectory()
 {
-	for (int i=0; i<3; i++){
-		TTObjectRelease(&mPhasors[i]);
-		TTObjectRelease(&mRamps[i]);
-	}
+
+	TTObjectRelease(&mPhasors[0]);
+	TTObjectRelease(&mRamps[0]);
+	
 	TTObjectRelease((TTObjectPtr*)&mPhasorOutputSignals);
 	TTObjectRelease((TTObjectPtr*)&mRampOutputSignals);
 

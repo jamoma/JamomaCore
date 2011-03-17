@@ -22,9 +22,9 @@ protected:
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
 	TTSymbolPtr				mMode;
-	TTAudioObjectPtr		mPhasors[3];
+	TTAudioObjectPtr		mPhasors[1];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
-	TTAudioObjectPtr		mRamps[3];
+	TTAudioObjectPtr		mRamps[1];
 	TTAudioSignalArrayPtr	mRampOutputSignals;
 	
 public:
@@ -162,10 +162,10 @@ public:
 	{
 		TTValue v;
 		v.set(0,0.0);
-		for (int i=0; i<3; i++) {
-		mPhasors[i]->setAttributeValue(TT("phase"),v);		
-		mRamps[i]->setAttributeValue(TT("currentValue"),v);
-		}		
+		//for (int i=0; i<1; i++) {
+		mPhasors[0]->setAttributeValue(TT("phase"),v);		
+		mRamps[0]->setAttributeValue(TT("currentValue"),v);
+		//}		
 		return kTTErrNone;
 	}
 	
@@ -212,10 +212,10 @@ public:
 	
 	TTErr updateSampleRate(const TTValue& oldSampleRate)
 	{
-		for (int i=0; i<3; i++) {
-		mPhasors[i]->setAttributeValue(kTTSym_sampleRate, (uint)sr);
-		mRamps[i]->setAttributeValue(kTTSym_sampleRate, (uint)sr); 
-		}
+		//for (int i=0; i<3; i++) {
+		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+		mRamps[0]->setAttributeValue(kTTSym_sampleRate, (uint)sr); 
+		//}
 		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
 	}
 
@@ -243,8 +243,8 @@ public:
 		mPhasorOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
 		
 		mPhasors[0]->process(mPhasorOutputSignals->getSignal(0));
-		mPhasors[1]->process(mPhasorOutputSignals->getSignal(1));
-		mPhasors[2]->process(mPhasorOutputSignals->getSignal(2));
+		//mPhasors[1]->process(mPhasorOutputSignals->getSignal(1));
+		//mPhasors[2]->process(mPhasorOutputSignals->getSignal(2));
 		
 		return mActualTrajectoryObject->process(mPhasorOutputSignals, outputs);
 	}
@@ -254,8 +254,8 @@ public:
 		mRampOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
 		
 		mRamps[0]->process(mRampOutputSignals->getSignal(0));
-		mRamps[1]->process(mRampOutputSignals->getSignal(1));
-		mRamps[2]->process(mRampOutputSignals->getSignal(2));
+		//mRamps[1]->process(mRampOutputSignals->getSignal(1));
+		//mRamps[2]->process(mRampOutputSignals->getSignal(2));
 		
 		return mActualTrajectoryObject->process(mRampOutputSignals, outputs);
 	}
