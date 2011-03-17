@@ -2181,7 +2181,10 @@ t_int*	vimic_perform(t_int *w)// is that good to initialize all the variable in 
             {
                 while (n--)
                 {
-                    double f = *in++;
+                    //Write to delay line
+                    double f = *in++;		// get input
+                    *(bp) = f; 
+                    *(bp + Properties::DELAYSIZE) = f; 
 
                     for (int k = 0; k < numChannels; ++k)
                     {   
@@ -2190,29 +2193,36 @@ t_int*	vimic_perform(t_int *w)// is that good to initialize all the variable in 
                         {   
                             reflOrderIndex = numOfRefl * k;
                             *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex);
-                            *out[k] += (*(currentSensitivity + reflOrderIndex) * f);
+                            *out[k] = (*(currentSensitivity + reflOrderIndex) * f);
                         }
                         out[k]++;
                     }
+				bp++;
                 } // end of while
                 for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)     //NP: not sure if we need this for X-fade methods...
                 {  //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated  
                     x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
                 }
+				
             }
             else
             {
                 while (n--)
                 {
-                    double f = *in++;
+                    //Write to delay line
+                    double f = *in++;		// get input
+                    *(bp) = f; 
+                    *(bp + Properties::DELAYSIZE) = f; 
+					
                     for (int k = 0; k < numChannels; ++k)
                     {
                         if (micGainNonZero[k])// && reflGains[0] != 0.0)
                             *out[k] = (*(currentSensitivity + numOfRefl * k) * f);
                         else 
                             *out[k] = 0.0;
-                        out[k]++;
+						out[k]++;
                     }
+				bp++;
                 } // end of while
             } 
             if (x->grainCounter < renderInterval)
