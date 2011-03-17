@@ -13,8 +13,8 @@
 
 
 #define thisTTClass			Spiral3D
-#define thisTTClassName		"spiral.3D"
-#define thisTTClassTags		"audio, trajectory, 3D"
+#define thisTTClassName		"spherical.spiral.3D"
+#define thisTTClassTags		"audio, trajectory, 3D, Spiral"
 
 
 TT_AUDIO_CONSTRUCTOR
