@@ -11,12 +11,14 @@
 
 
 #define thisTTClass			CircularHelix3D
-#define thisTTClassName		"circularHelix.3D"
-#define thisTTClassTags		"audio, trajectory, 3D"
+#define thisTTClassName		"circular.helix.3D"
+#define thisTTClassTags		"audio, trajectory, 3D, helix"
 
 
 TT_AUDIO_CONSTRUCTOR
-{   	
+{   addAttribute(A,				kTypeFloat64);	
+	setAttributeValue(TT("a"),				1.0);
+
 	setProcessMethod(processAudio);
 //	setCalculateMethod(calculateValue);
 }
@@ -46,11 +48,9 @@ TTErr CircularHelix3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 	}
 	
 	TTAudioSignal&		in0 = inputs->getSignal(0);
-	TTAudioSignal&		in1 = inputs->getSignal(1);
 	TTUInt16			 vs = in0.getVectorSizeAsInt();
 	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
-	TTSampleValuePtr	inSampleY			= in1.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
     TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];
@@ -62,7 +62,7 @@ TTErr CircularHelix3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 		phi = inSampleX[i] * kTTPi; // 0 .. 2Pi
 		outSampleX[i] = sin(phi);
 		outSampleY[i] = cos(phi);
-		outSampleZ[i] = inSampleY[i]-1.0; //scaling 0 ..2 to -1.. 1
+		outSampleZ[i] = mA * (inSampleX[i]-1.0); //scaling 0 ..2 to -1.. 1
 
 	}
 return kTTErrNone;

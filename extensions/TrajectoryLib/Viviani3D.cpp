@@ -48,11 +48,9 @@ TTErr Viviani3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	}
 	
 	TTAudioSignal&		in0 = inputs->getSignal(0);
-	//TTAudioSignal&		in1 = inputs->getSignal(1);
 	TTUInt16			 vs = in0.getVectorSizeAsInt();
 	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
-	//TTSampleValuePtr	inSampleY			= in1.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
     TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];

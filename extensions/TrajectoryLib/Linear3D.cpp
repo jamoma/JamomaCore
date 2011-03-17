@@ -40,14 +40,11 @@ TTErr Linear3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	}
 	
 	TTAudioSignal&		in0 = inputs->getSignal(0);
-	//TTAudioSignal&		in1 = inputs->getSignal(1);
-	//TTAudioSignal&		in2 = inputs->getSignal(2);
+
 	
 	TTUInt16			vs = in0.getVectorSizeAsInt();
 	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
-	//TTSampleValuePtr	inSampleY			= in1.mSampleVectors[0];
-	//TTSampleValuePtr	inSampleZ			= in2.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
 	TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];
