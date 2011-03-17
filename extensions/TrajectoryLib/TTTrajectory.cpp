@@ -68,6 +68,7 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addMessageWithArgument(getTypes);
 	addMessageWithArgument(getCurrentAttributeNames);
+	addMessageWithArgument(getCurrentType);
 	addMessageWithArgument(ramp);
 	addUpdate(SampleRate);
 	addMessage(reset);

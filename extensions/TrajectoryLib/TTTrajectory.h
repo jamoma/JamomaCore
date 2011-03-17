@@ -62,6 +62,15 @@ public:
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 	
+	TTErr getCurrentType(TTValue& CurrentTypeToReturn)
+
+	{
+		CurrentTypeToReturn = mType;
+		return kTTErrNone;
+	}
+	
+	
+	
 	TTErr getCurrentAttributeNames(TTValue& listOfCurrentAttributesToReturn)
 	{
 		long		n;
