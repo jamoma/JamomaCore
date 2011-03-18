@@ -117,7 +117,7 @@ public:
 							arguments.get(3, &attrType);
 							setType(attrType);
 							arguments.get(0, x); x = x * 2.0;  // scaling						
-							mRamps[0]->setAttributeValue(TT("currentValue"), x);
+							mRamps[0]->setAttributeValue(TT("startValue"), x);
 							arguments.get(1, x); x = x * 2.0;  // scaling
 							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
 							arguments.get(2, x); 
@@ -128,7 +128,7 @@ public:
 						if (ttDataTypeInfo[arguments.getType(2)]->isNumerical)
 							{// start stop time
 							arguments.get(0, x); x = x * 2.0;  // scaling						
-							mRamps[0]->setAttributeValue(TT("currentValue"), x);
+							mRamps[0]->setAttributeValue(TT("startValue"), x);
 							arguments.get(1, x); x = x * 2.0;  // scaling
 							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
 							arguments.get(2, x); 
@@ -164,7 +164,7 @@ public:
 		v.set(0,0.0);
 		//for (int i=0; i<1; i++) {
 		mPhasors[0]->setAttributeValue(TT("phase"),v);		
-		mRamps[0]->setAttributeValue(TT("currentValue"),v);
+		mRamps[0]->setAttributeValue(TT("startValue"),v);
 		//}		
 		return kTTErrNone;
 	}
