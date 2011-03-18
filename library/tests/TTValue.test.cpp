@@ -80,7 +80,7 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTFloat32: Even more distant numbers don't compare as equal",
-					!TTTestFloatEquivalence(TTFloat32(1.8), TTFloat32(2.0)),
+					TTTestFloatEquivalence(TTFloat32(1.8), TTFloat32(2.0), false),
 					testAssertionCount,
 					errorCount);
 	
@@ -100,12 +100,12 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTFloat32: Even more distant negative numbers don't compare as equal",
-					!TTTestFloatEquivalence(TTFloat32(-1.8), TTFloat32(-2.0)),
+					TTTestFloatEquivalence(TTFloat32(-1.8), TTFloat32(-2.0), false),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat32: Positive and negative numbers don't compare as equal",
-					-TTTestFloatEquivalence(TTFloat32(-2.0), TTFloat32(2.0)),
+					TTTestFloatEquivalence(TTFloat32(-2.0), TTFloat32(2.0), false),
 					testAssertionCount,
 					errorCount);
 		
@@ -123,7 +123,7 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	TTTestAssertion("TTFloat32: inf != -inf.",
-					!TTTestFloatEquivalence(inf, -inf),
+					TTTestFloatEquivalence(inf, -inf, false),
 					testAssertionCount,
 					errorCount);
 	
@@ -168,7 +168,7 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTFloat32: A NAN don't equal inf.",
-					!TTTestFloatEquivalence(nan1, inf),
+					TTTestFloatEquivalence(nan1, inf, false),
 					testAssertionCount,
 					errorCount);
 	
@@ -247,12 +247,12 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: Even more distant numbers don't compare as equal",
-					!TTTestFloatEquivalence(TTFloat64(2.00000000000001), TTFloat64(2.0)),
+					TTTestFloatEquivalence(TTFloat64(2.00000000000001), TTFloat64(2.0), false),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: In particular: This would be accepted if TTFloat32, but not as TTFloat64.",
-					!TTTestFloatEquivalence(TTFloat64(2.0), TTFloat64(1.9999999)),
+					TTTestFloatEquivalence(TTFloat64(2.0), TTFloat64(1.9999999), false),
 					testAssertionCount,
 					errorCount);
 	
@@ -272,12 +272,12 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: Even more distant negative numbers don't compare as equal",
-					!TTTestFloatEquivalence(TTFloat64(2.00000000000001), TTFloat64(-2.0)),
+					TTTestFloatEquivalence(TTFloat64(2.00000000000001), TTFloat64(-2.0), false),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: Positive and negative numbers don't compare as equal",
-					!TTTestFloatEquivalence(TTFloat64(-2.0), TTFloat64(2.0)),
+					TTTestFloatEquivalence(TTFloat64(-2.0), TTFloat64(2.0), false),
 					testAssertionCount,
 					errorCount);
 	
@@ -295,7 +295,7 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	TTTestAssertion("TTFloat64: inf != -inf.",
-					!TTTestFloatEquivalence(inf, -inf),
+					TTTestFloatEquivalence(inf, -inf, false),
 					testAssertionCount,
 					errorCount);
 	
@@ -340,7 +340,7 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: A NAN don't equal inf.",
-					!TTTestFloatEquivalence(nan1, inf),
+					TTTestFloatEquivalence(nan1, inf, false),
 					testAssertionCount,
 					errorCount);
 	
