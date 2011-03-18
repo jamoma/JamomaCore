@@ -67,11 +67,11 @@ private:
 	TTErr WriteAsXml(const TTValue& value); // TODO
 	TTErr ReadFromXml(const TTValue& value);
 	
-	// TODO : void pluginSetCommParameter(std::string pluginName, std::string parameterName, std::string parameterValue)
-	// TODO : void pluginGetCommParameter(std::string pluginName, std::string parameterName)
-	// TODO : std::vector<std::string> pluginGetLoadedByName()
-	// TODO : bool pluginIsLoaded(std::string pluginName)
-	// TODO : void deviceRemove(std::string deviceName)
+	// TODO : void pluginSetCommParameter(TTString pluginName, TTString parameterName, TTString parameterValue)
+	// TODO : void pluginGetCommParameter(TTString pluginName, TTString parameterName)
+	// TODO : std::vector<TTString> pluginGetLoadedByName()
+	// TODO : bool pluginIsLoaded(TTString pluginName)
+	// TODO : void deviceRemove(TTString deviceName)
 	
 	TTErr enableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen);
 	TTErr disableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen);
@@ -80,7 +80,7 @@ private:
 	
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTDeviceManagerDiscoverCallback(void* arg, std::string whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes);
+	friend TTErr TTMODULAR_EXPORT TTDeviceManagerDiscoverCallback(void* arg, TTString whereToDiscover, std::vector<TTString>& returnedNodes, std::vector<TTString>& returnedLeaves, std::vector<TTString>& returnedAttributes);
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerGetCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerSetCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTDeviceManagerListenCallback(TTPtr baton, TTValue& data);
@@ -115,7 +115,7 @@ TTErr TTMODULAR_EXPORT TTDeviceManagerAttributeCallback(TTPtr baton, TTValue& da
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTDeviceManagerDiscoverCallback(void* arg, std::string whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes);
+TTErr TTMODULAR_EXPORT TTDeviceManagerDiscoverCallback(void* arg, TTString whereToDiscover, std::vector<TTString>& returnedNodes, std::vector<TTString>& returnedLeaves, std::vector<TTString>& returnedAttributes);
 
 /**	
  @param	baton						..

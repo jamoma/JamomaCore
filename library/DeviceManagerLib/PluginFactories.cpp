@@ -67,16 +67,16 @@ typedef PluginFactory* (*OpCreation)();
 
 #ifdef TT_PLATFORM_WIN
 
-void PluginFactories::loadPlugins(std::string path) {
+void PluginFactories::loadPlugins(TTString path) {
 	std::cout << "load plugins at : " << path << std::endl;
-	std::string dllpath = path + "/*.dll";
+	TTString dllpath = path + "/*.dll";
 
 	WIN32_FIND_DATA File;
 	HANDLE liste;
 
 	liste = FindFirstFile(dllpath.c_str(), &File);
 	do {
-		std::string tmp = path + "/" + (std::string)File.cFileName;
+		TTString tmp = path + "/" + (TTString)File.cFileName;
 		
 		HINSTANCE lib = LoadLibrary(tmp.c_str());//charge le plugin
 
@@ -106,7 +106,7 @@ void PluginFactories::loadPlugins(std::string path) {
 
 #else
 
-void PluginFactories::loadPlugins(std::string path)
+void PluginFactories::loadPlugins(TTString path)
 {
 	struct dirent **namelist;//la structure qui recoit les noms des fichiers plugins dans le champ d_name
 	int n = scandir(path.c_str(), &namelist, 0, alphasort);//scan le rep source des plugins
@@ -114,9 +114,9 @@ void PluginFactories::loadPlugins(std::string path)
 //	if(n-3 == 0) {std::cout << "No plugin available" << std::endl;}
 
 	while (n-- > 0) {
-		std::string tmp = path + "/" + namelist[n]->d_name;
+		TTString tmp = path + "/" + namelist[n]->d_name;
 
-		if (tmp.rfind(".dylib") == std::string::npos && tmp.rfind(".so") == std::string::npos) {//test sur le nom du fichier qui n'est pas pris en compte si != .dylib ou .so
+		if (tmp.rfind(".dylib") == TTString::npos && tmp.rfind(".so") == TTString::npos) {//test sur le nom du fichier qui n'est pas pris en compte si != .dylib ou .so
 			continue;
 		}
 
@@ -149,9 +149,9 @@ IteratorPluginNames PluginFactories::getPluginNames() {
 	return IteratorPluginNames(factories.begin(), factories.end());
 }
 
-PluginPtr PluginFactories::createPlugin(std::string name,
+PluginPtr PluginFactories::createPlugin(TTString name,
 	TTDeviceManagerPtr deviceManager) {
-		std::map<std::string, PluginFactoryPtr >::iterator it = factories.find(name);
+		std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
 		if (it == factories.end()) {
 			return NULL;
 		}
@@ -168,8 +168,8 @@ it(it), itEnd(itEnd) {
 	}
 }
 
-std::string IteratorPluginNames::next() {
-	std::string tmp = current;
+TTString IteratorPluginNames::next() {
+	TTString tmp = current;
 	if (++it != itEnd)
 		current = it->first;
 	return tmp;

@@ -94,7 +94,7 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 	IteratorPluginNames it = mfactories->getPluginNames();
 	
 	while (it.hasNext()) {
-		std::string pname = it.next();
+		TTString pname = it.next();
 		std::cout << pname << std::endl;
 		PluginPtr p = mfactories->createPlugin(pname, this);
 		if (p != 0) {
@@ -216,14 +216,14 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 
 TTErr TTDeviceManager::Scan()
 {
-//	std::string deviceName;
+//	TTString deviceName;
 //	bool understandDiscover;
 //	
 //	// scan the network
 //	mDeviceManager->deviceSetCurrent();
 //	
 //	// get all Devices
-//	std::map<std::string, Device*>* mapDevices = mDeviceManager->deviceGetCurrent();
+//	std::map<TTString, Device*>* mapDevices = mDeviceManager->deviceGetCurrent();
 //	
 //	map<string, Device*>::iterator it = mapDevices->begin();
 //	
@@ -594,7 +594,7 @@ TTErr TTDeviceManagerAttributeCallback(TTPtr baton, TTValue& data)
 	return kTTErrGeneric;
 }
 
-TTErr TTDeviceManagerDiscoverCallback(TTPtr arg, std::string whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes)
+TTErr TTDeviceManagerDiscoverCallback(TTPtr arg, TTString whereToDiscover, std::vector<TTString>& returnedNodes, std::vector<TTString>& returnedLeaves, std::vector<TTString>& returnedAttributes)
 {
 	TTErr err;
 	TTNodePtr nodeToDiscover, aChild;

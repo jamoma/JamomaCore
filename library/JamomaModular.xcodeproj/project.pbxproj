@@ -28,6 +28,7 @@
 		D221DF65133216FF007F8882 /* TTDeviceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D221DF64133216FF007F8882 /* TTDeviceManager.cpp */; };
 		D221DF681332170E007F8882 /* TTDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D221DF661332170E007F8882 /* TTDevice.cpp */; };
 		D221DFDE13321732007F8882 /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D221DFC213321732007F8882 /* PluginFactories.cpp */; };
+		D221E1531332CF60007F8882 /* TTApplicationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D221E1511332CF60007F8882 /* TTApplicationManager.cpp */; };
 		D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D242BB5A12841CE40036A509 /* TTMapperManager.cpp */; };
 		D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AADF74127980AA00629B73 /* TTApplication.cpp */; };
 		D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AB7E74123FC21E00DAD340 /* TTData.cpp */; };
@@ -94,6 +95,8 @@
 		D221DFC113321732007F8882 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
 		D221DFC213321732007F8882 /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginFactories.cpp; sourceTree = "<group>"; };
 		D221DFC313321732007F8882 /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginFactories.h; sourceTree = "<group>"; };
+		D221E1511332CF60007F8882 /* TTApplicationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
+		D221E1521332CF60007F8882 /* TTApplicationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplicationManager.h; sourceTree = "<group>"; };
 		D242BB5A12841CE40036A509 /* TTMapperManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
 		D242BB5B12841CE40036A509 /* TTMapperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapperManager.h; sourceTree = "<group>"; };
 		D2AADF74127980AA00629B73 /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
@@ -303,6 +306,8 @@
 			children = (
 				D2AADF75127980AA00629B73 /* TTApplication.h */,
 				D2AADF74127980AA00629B73 /* TTApplication.cpp */,
+				D221E1521332CF60007F8882 /* TTApplicationManager.h */,
+				D221E1511332CF60007F8882 /* TTApplicationManager.cpp */,
 				D221DF63133216FF007F8882 /* TTDeviceManager.h */,
 				D221DF64133216FF007F8882 /* TTDeviceManager.cpp */,
 				D221DF671332170E007F8882 /* TTDevice.h */,
@@ -444,6 +449,7 @@
 				D221DF65133216FF007F8882 /* TTDeviceManager.cpp in Sources */,
 				D221DF681332170E007F8882 /* TTDevice.cpp in Sources */,
 				D221DFDE13321732007F8882 /* PluginFactories.cpp in Sources */,
+				D221E1531332CF60007F8882 /* TTApplicationManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,10 +18,6 @@
  
  */
 
-// Macro to have a direct acces to the Directory 
-// This maro have to be used on a TTObject with a mApplication member.
-#define	getDirectoryFrom(aTTObject) TTApplicationGetDirectory((TTObjectPtr)aTTObject->mApplication)
-
 // Macro to convert a TTValue with tt names inside into a value with application names inside.
 // This maro have tobe used inside a TTObject with a mApplication member.
 #define	ToAppName(ttNames) \
@@ -41,6 +37,11 @@ private:
 	TTSymbolPtr					mName;				// ATTRIBUTE : the name of the application
 	TTSymbolPtr					mVersion;			// ATTRIBUTE : the version of the application
 	TTNodeDirectoryPtr			mDirectory;			// ATTRIBUTE : the namespace directory of the application
+	
+	TTSymbolPtr					mCommPlugin;		// ATTRIBUTE : kTTSymEmpty for local application
+	TTHashPtr					mCommParameters;	// ATTRIBUTE : NULL for local application
+	
+	TTApplicationManager		mManager;
 	
 	TTHashPtr					mAppToTT;			// Hash table to convert Application names into TT names
 	TTValue						mAllAppNames;		// All Application names
@@ -68,11 +69,5 @@ private:
 };
 
 typedef TTApplication* TTApplicationPtr;
-
-/**	To have a direct acces on the directory
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTNodeDirectoryPtr	TTMODULAR_EXPORT TTApplicationGetDirectory(TTObjectPtr anApplication);
 
 #endif // __TT_APPLICATION_H__

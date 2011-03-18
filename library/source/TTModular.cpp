@@ -12,7 +12,7 @@
 // Statics and Globals
 static bool TTModularHasInitialized = false;
 
-TTHashPtr	TTModularApplications = NULL;
+TTApplicationManagerPtr	TTModularApplications = NULL;
 
 void		TTModularRegisterInternalClasses();
 
@@ -64,7 +64,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 		//TTModularValueCacheInit();
 		
 		// Create a hash table to store each Modular application
-		TTModularApplications = new TTHash();
+		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), v);
 		
 #ifdef TT_DEBUG
 		TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
@@ -76,7 +76,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 	
 	// if this application doesn't exist yet
 	if (TTModularApplications)
-		if (TTModularApplications->lookup(applicationName, v)) {
+		if (TTModularApplications->sendMessage(TT("GetApplication"), applicationName)) {
 			
 			// Create the application giving a name and the version
 			v = TTValue(applicationName);
@@ -84,8 +84,11 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 			anApplication = NULL;
 			TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), v);
 			
-			// Store it in the TTModularApplications hash table
-			TTModularApplications->append(applicationName, TTPtr(anApplication));
+			// Add it to TTModularApplications as the local application
+			v.clear();
+			v.append(kTTSym_local);
+			v.append((TTPtr)anApplication);
+			TTModularApplications->sendMessage(TT("AddApplication"), v)
 			
 			// Read xml configuration file
 			TTValue			v;

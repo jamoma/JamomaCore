@@ -7,11 +7,11 @@
  */
 
 
-class TTDeviceManager;
-typedef TTDeviceManager* TTDeviceManagerPtr;
+class TTApplicationManager;
+typedef TTApplicationManager* TTApplicationManagerPtr;
 
-class TTDevice;
-typedef TTDevice* TTDevicePtr;
+class TTApplication;
+typedef TTApplication* TTApplicationePtr;
 
 #ifndef __PLUGIN_H__
 #define __PLUGIN_H__
@@ -50,10 +50,10 @@ class PLUGIN_EXPORT Plugin
 	
 public:
 
-	TTDeviceManagerPtr	mDeviceManager;
-	TTHashPtr			mParameters;
+	TTApplicationManagerPtr		mApplicationManager;
+	TTHashPtr					mParameters;
 	
-	//	void (*m_waitedMessageAction)(void*, std::string);
+	//	void (*m_waitedMessageAction)(void*, TTString);
 	//	void *m_callBackMessageArgument;
 	
 	/************************************************
@@ -71,14 +71,14 @@ public:
 	}
 	
 	/*!
-	 * A plugin need to know the DeviceManager to access it methods
+	 * A plugin need to know the ApplicationManager to access it methods
 	 */
-	void setDeviceManager(TTDeviceManager* deviceManager) {
-		mDeviceManager = deviceManager;
+	void setApplicationManager(TTApplicationManagerPtr ApplicationManager) {
+		mApplicationManager = ApplicationManager;
 	}
 	
-	TTDeviceManager* getDeviceManager() {
-		return mDeviceManager;
+	TTApplicationManagerPtr getApplicationManager() {
+		return mApplicationManager;
 	}
 
 	/************************************************
@@ -88,10 +88,10 @@ public:
 	 ************************************************/
 	
 	/*!
-	 * Define the plugins parameters with a TTValue array <name1, value1, name2, value2, ...> 
+	 * Define the plugins parameters with a TTHash 
 	 * Has to be called to instantiate the m_parameter hash table
 	 */
-	virtual TTErr commDefineParameters(TTValue& parameters)=0;
+	virtual TTErr commDefineParameters(TTHashPtr parameters)=0;
 	
 	/*!
 	 * Run the message reception thread 
@@ -100,18 +100,18 @@ public:
 	virtual TTErr commRunReceivingThread()=0;
 
 	/************************************************
-	 DEVICES METHODS :
-	 a set of methods used to manage devices
-	 note : each method of this set is prepend by 'device'
+	 APPLICATIONS METHODS :
+	 a set of methods used to manage applications
+	 note : each method of this set is prepend by 'application'
 	 ************************************************/
 
-	//	/*!
-	//	 * Add one device in the netDevices map
-	//	 *
-	//	 */
-	//	virtual void deviceAdd(TTSymbolPtr deviceName, std::map<std::string,
-	//						   std::string> *commParameters,
-	//						   std::map<std::string, TTDevicePtr> *netDevices)=0;
+	/*!
+	* Add an distant application communication
+	*
+	*/
+	virtual void applicationAdd(TTSymbolPtr applicationName, 
+								TTHashPtr commParameters
+							   /*std::map<TTString, TTApplicationPtr> *netApplications*/)=0;
 
 	/*!
 	 * Let to know if the specific plugin need namespace request to get a namespace
@@ -127,56 +127,56 @@ public:
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Send a discover request to a device to get a part of the namespace at the given address
+	 * Send a discover request to a application to get a part of the namespace at the given address
 	 *
-	 * \param device : a pointer to a Device instance
-	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param application : a pointer to a Application instance
+	 * \param address : something like "/<subApplicationName>/.../<input>"
 	 * \param returnedNodes : the TTValue array which is going to be full with the node names at the given address
 	 * \param returnedLeaves : the TTValue array which is going to be full with the leaves names at the given address
 	 * \param returnedAttributes : the TTValue array which is going to be full with the attributes names at the given address
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	virtual TTErr deviceSendDiscoverRequest(TTDevicePtr device,
-										  TTSymbolPtr address,
-										  TTValue& returnedNodes,
-										  TTValue& returnedLeaves,
-										  TTValue& returnedAttributes)=0;
+	virtual TTErr applicationSendDiscoverRequest(TTApplicationPtr application,
+												 TTSymbolPtr address,
+												 TTValue& returnedNodes,
+												 TTValue& returnedLeaves,
+												 TTValue& returnedAttributes)=0;
 	
 	/*!
-	 * Send a get request to a device to get a value at the given address
+	 * Send a get request to a application to get a value at the given address
 	 *
-	 * \param device : a pointer to a Device instance
-	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param application : a pointer to a Application instance
+	 * \param address : something like "/<subApplicationName>/.../<input>"
 	 * \param attribute : the asked attribute
 	 * \param returnedValue : the TTValue which is going to be full
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	virtual TTErr deviceSendGetRequest(TTDevicePtr device,
-									 TTSymbolPtr address, TTSymbolPtr attribute,
-									 TTValue& returnedValue)=0;
+	virtual TTErr applicationSendGetRequest(TTApplicationPtr application,
+											TTSymbolPtr address, TTSymbolPtr attribute,
+											TTValue& returnedValue)=0;
 	
 	/*!
-	 * Send a set request to set a value of a specific device
+	 * Send a set request to set a value of a specific application
 	 *
-	 * \param device : a pointer to a TTDevice instance
-	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param application : a pointer to a TTApplication instance
+	 * \param address : something like "/<subApplicationName>/.../<input>"
 	 * \param value : anything to send
 	 */
-	virtual TTErr deviceSendSetRequest(TTDevicePtr device, 
-									 TTSymbolPtr address, TTSymbolPtr attribute,
-									 TTValue& value)=0;
+	virtual TTErr applicationSendSetRequest(TTApplicationPtr application, 
+											TTSymbolPtr address, TTSymbolPtr attribute,
+											TTValue& value)=0;
 	
 	/*!
-	 * Send a listen request to a specific device
+	 * Send a listen request to a specific application
 	 *
-	 * \param device : a pointer to a Device instance
-	 * \param address : something like "/<subDeviceName>/.../<input>"
+	 * \param application : a pointer to a Application instance
+	 * \param address : something like "/<subApplicationName>/.../<input>"
 	 * \param attribute : the attribute to listen
 	 * \param enable : enable/disable the listening
 	 */
-	virtual TTErr deviceSendListenRequest(TTDevicePtr device,
-										TTSymbolPtr address, TTSymbolPtr attribute, 
-										bool enable)=0;
+	virtual TTErr applicationSendListenRequest(TTApplicationPtr application,
+											   TTSymbolPtr address, TTSymbolPtr attribute, 
+											   bool enable)=0;
 	
 	/**************************************************************************************************************************
 	 *
@@ -185,42 +185,42 @@ public:
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Send a disover answer to a device which ask for.
+	 * Send a disover answer to a application which ask for.
 	 *
-	 * \param to : the device where to send answer
+	 * \param to : the application where to send answer
 	 * \param address : the address where comes from the description
 	 * \param returnedNodes : the description of nodes below the address
 	 * \param returnedLeaves : the description of leaves below the address
 	 * \param returnedAttributes : the description of attributes at the address
 	 */
-	virtual TTErr deviceSendDiscoverAnswer(TTDevicePtr to, TTSymbolPtr address,
-										  TTValue& returnedNodes,
-										  TTValue& returnedLeaves,
-										  TTValue& returnedAttributes)=0;
+	virtual TTErr applicationSendDiscoverAnswer(TTApplicationPtr to, TTSymbolPtr address,
+												TTValue& returnedNodes,
+												TTValue& returnedLeaves,
+												TTValue& returnedAttributes)=0;
 	
 	/*!
-	 * Send a get answer to a device which ask for.
+	 * Send a get answer to a application which ask for.
 	 *
-	 * \param to : the device where to send answer
+	 * \param to : the application where to send answer
 	 * \param address : the address where comes from the value
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	virtual TTErr deviceSendGetAnswer(TTDevicePtr to, 
-									 TTSymbolPtr address, TTSymbolPtr attribute, 
-									 TTValue& returnedValue)=0;
+	virtual TTErr applicationSendGetAnswer(TTApplicationPtr to, 
+										   TTSymbolPtr address, TTSymbolPtr attribute, 
+										   TTValue& returnedValue)=0;
 	
 	/*!
-	 * Send a listen answer to a device which ask for.
+	 * Send a listen answer to a application which ask for.
 	 *
-	 * \param to : the device where to send answer
+	 * \param to : the application where to send answer
 	 * \param address : the address where comes from the value
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	virtual TTErr deviceSendListenAnswer(TTDevicePtr to, 
-										TTSymbolPtr address, TTSymbolPtr attribute, 
-										TTValue& returnedValue)=0;
+	virtual TTErr applicationSendListenAnswer(TTApplicationPtr to, 
+											  TTSymbolPtr address, TTSymbolPtr attribute, 
+											  TTValue& returnedValue)=0;
 	
 	/**************************************************************************************************************************
 	 *
@@ -229,85 +229,85 @@ public:
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Notify the plugin that a device ask for a namespace description
+	 * Notify the plugin that a application ask for a namespace description
 	 *
 	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from : the device where comes from the request
-	 * \param address : the address the device wants to discover
+	 * \param from : the application where comes from the request
+	 * \param address : the address the application wants to discover
 	 */
-	void deviceReceiveDiscoverRequest(TTDevicePtr from, TTSymbolPtr address) 
+	void applicationReceiveDiscoverRequest(TTApplicationPtr from, TTSymbolPtr address) 
 	{
 		TTValue returnedNodes;
 		TTValue returnedLeaves;
 		TTValue returnedAttributes;
 
 		// discover the local namespace
-		if (mDeviceManager != NULL)
-			mDeviceManager->namespaceDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
+		if (mApplicationManager != NULL)
+			mApplicationManager->namespaceDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
 
 		// TODO : test error and send notification if error
 
 		// send result
-		deviceSendDiscoverAnswer(from, address, returnedNodes, returnedLeaves, returnedAttributes);
+		applicationSendDiscoverAnswer(from, address, returnedNodes, returnedLeaves, returnedAttributes);
 	}
 	
 	/*!
-	 * Notify the plugin that a device ask for value
+	 * Notify the plugin that a application ask for value
 	 *
 	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from : the device where comes from the request
-	 * \param address : the address the device wants to get
-	 * \param attribute : the attribute the device wants to get
+	 * \param from : the application where comes from the request
+	 * \param address : the address the application wants to get
+	 * \param attribute : the attribute the application wants to get
 	 */
-	void deviceReceiveGetRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute)
+	void applicationReceiveGetRequest(TTApplicationPtr from, TTSymbolPtr address, TTSymbolPtr attribute)
 	{
 		TTValue returnedValue;
 		
 		// get the value from the local namespace
-		if (mDeviceManager != NULL)
-			mDeviceManager->namespaceGet(address, attribute, returnedValue);
+		if (mApplicationManager != NULL)
+			mApplicationManager->namespaceGet(address, attribute, returnedValue);
 		
 		// TODO : test error and send notification if error
 		
 		// send result
-		deviceSendGetAnswer(from, address, attribute, returnedValue);
+		applicationSendGetAnswer(from, address, attribute, returnedValue);
 	}
 
 	/*!
-	 * Notify the plugin that a device wants to set value
+	 * Notify the plugin that a application wants to set value
 	 *
 	 * !!! This a built-in plugin method which set automatically the value (or send a notification if error)
 	 *
-	 * \param from : the device where comes from the request
-	 * \param address : the address the device wants to get
-	 * \param attribute : the attribute the device wants to get
+	 * \param from : the application where comes from the request
+	 * \param address : the address the application wants to get
+	 * \param attribute : the attribute the application wants to get
 	 */
-	void deviceReceiveSetRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) 
+	void applicationReceiveSetRequest(TTApplicationPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) 
 	{
 		// set the value of the local namespace
-		if (mDeviceManager != NULL)
-			mDeviceManager->namespaceSet(address, attribute, newValue);
+		if (mApplicationManager != NULL)
+			mApplicationManager->namespaceSet(address, attribute, newValue);
 		
 		// TODO : test error and send notification if error
 	}
 	
 	/*!
-	 * Notify the plugin that a device wants to listen (or not) the namespace
+	 * Notify the plugin that a application wants to listen (or not) the namespace
 	 *
 	 * !!! This a built-in plugin method which create/remove automatically the listener (or send a notification if error)
 	 *
-	 * \param from : the device where comes from the request
-	 * \param address : the address the device wants to listen
-	 * \param attribute : the attribute the device wants to listen
+	 * \param from : the application where comes from the request
+	 * \param address : the address the application wants to listen
+	 * \param attribute : the attribute the application wants to listen
 	 * \param enable : enable/disable the listening
 	 */
-	void deviceReceiveListenRequest(TTDevicePtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) 
+	void applicationReceiveListenRequest(TTApplicationPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) 
 	{
 		// Enable/disable the listening of the attribute at the address
-		if (mDeviceManager != NULL)
-			mDeviceManager->namespaceListen(from, address, attribute, enable);
+		if (mApplicationManager != NULL)
+			mApplicationManager->namespaceListen(from, address, attribute, enable);
 		
 		// TODO : test error and send notification if error
 	}
@@ -341,7 +341,7 @@ public:
 	virtual const char* getPluginName()=0;
 	virtual const char* getPluginVersion()=0;
 	virtual const char* getPluginAuthor()=0;
-	virtual PluginPtr	getInstance(TTDeviceManager* deviceManager)=0;
+	virtual PluginPtr	getInstance(TTApplicationManager* applicationManager)=0;
 };
 
 typedef PluginFactory*	PluginFactoryPtr;

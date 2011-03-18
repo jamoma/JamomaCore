@@ -230,7 +230,7 @@ TTErr TTDevice::Snapshot(const TTValue& value)
 {
 	//TTSymbolPtr address)
 //	unsigned int i;
-//	vector<std::string> snapshot = this->mDeviceManager->deviceSnapshot(device->getCString(), address->getCString());
+//	vector<TTString> snapshot = this->mDeviceManager->deviceSnapshot(device->getCString(), address->getCString());
 //	
 //	;//post("Snapshot on the device %s at %s", device->s_name, address->s_name);
 //	for(i = 0; i < snapshot.size(); i++)

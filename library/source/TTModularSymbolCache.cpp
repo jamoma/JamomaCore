@@ -46,6 +46,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_instances;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_life;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_local;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_lookfor;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Map;
@@ -125,6 +126,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_integer					= TT("integer");
 	
 	kTTSym_life						= TT("life");
+	kTTSym_local					= TT("local");
 	kTTSym_lookfor					= TT("lookfor");
 	
 	kTTSym_Map						= TT("Map");

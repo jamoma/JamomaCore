@@ -18,13 +18,16 @@ TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mDirectory(NULL),
+mCommPlugin(kTTSymEmpty),
+mCommParameters(NULL),
 mAppToTT(NULL),
 mTTToApp(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTApplication", arguments.getSize() == 2);
+	arguments.get(0, (TTPtr*)&mManager);
+	TT_ASSERT("ApplicationManager passed to TTApplication is not NULL", mManager);
 	
-	arguments.get(0, &mName);
-	arguments.get(1, &mVersion);
+	arguments.get(1, &mName);
+	arguments.get(2, &mVersion);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeProperty(name, readOnly, YES);
@@ -35,6 +38,14 @@ mTTToApp(NULL)
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(directory, readOnly, YES);
 	
+	if(arguments.getSize() == 5) {
+		arguments.get(3, (TTPtr*)&mCommPlugin);
+		arguments.get(4, (TTPtr*)&mCommParameters);
+		
+		addAttribute(CommPlugin, kTypeSymbol);
+		addAttribute(CommParameters, kTypePointer);
+	}
+
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
 	addAttributeProperty(AllAppNames, readOnly, YES);
 	
@@ -61,6 +72,8 @@ mTTToApp(NULL)
 TTApplication::~TTApplication()
 {
 	delete mDirectory;
+	delete mCommParameters;
+	
 	delete mTTToApp;
 	delete mAppToTT;
 }
@@ -143,21 +156,6 @@ TTErr TTApplication::ConvertToTTName(TTValue& value)
 		}
 	
 	return kTTErrNone;
-}
-
-TTNodeDirectoryPtr TTApplicationGetDirectory(TTObjectPtr anApplication)
-{
-	TTValue v;
-	TTNodeDirectoryPtr d;
-	
-	if (anApplication) {
-		
-		d = TTApplicationPtr(anApplication)->mDirectory;
-		
-		if (d) return d;
-	}
-	
-	return NULL;
 }
 
 TTErr TTApplication::WriteAsXml(const TTValue& value)

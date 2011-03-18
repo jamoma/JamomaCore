@@ -68,14 +68,14 @@ typedef PluginFactory* PluginFactoryPtr;
  
 class IteratorPluginNames {
 public:
-	typedef std::map<std::string, PluginFactory *>::const_iterator ItMap;
+	typedef std::map<TTString, PluginFactory *>::const_iterator ItMap;
 	IteratorPluginNames(ItMap it, ItMap itEnd);
-	std::string next();
+	TTString next();
 	bool hasNext();
 	
 private:
 	ItMap it, itEnd;
-	std::string current;
+	TTString current;
 };
 
 #endif //__ITERATOR_PLUGIN_NAMES_H_
@@ -102,7 +102,7 @@ public:
 	 *
 	 * \param path : the Plugin directory path.
 	 */
-	void loadPlugins(std::string path);
+	void loadPlugins(TTString path);
 	
 	/*!
 	 * Create an instance of a Plugin using his name
@@ -110,7 +110,7 @@ public:
 	 * \param name : the name of the Plugin (given by his developper).
 	 * \return an instance of the Plugin
 	 */
-	PluginPtr createPlugin(std::string name, TTDeviceManagerPtr deviceManager);
+	PluginPtr createPlugin(TTString name, TTDeviceManagerPtr deviceManager);
 	
 	/*!
 	 * Return an access iterator on the PluginFactories
@@ -120,7 +120,7 @@ public:
 	
 private:
 	// plugin table: 
-	std::map<std::string, PluginFactoryPtr> factories;
+	std::map<TTString, PluginFactoryPtr> factories;
 };
 
 #endif //__PLUGIN_FACTORIES_H_
