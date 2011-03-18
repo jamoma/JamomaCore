@@ -228,7 +228,7 @@
 					"id" : "obj-9",
 					"maxclass" : "flonum",
 					"maximum" : 1.0,
-					"minimum" : 0.0,
+					"minimum" : -1.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
@@ -291,8 +291,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 560.0, 644.0, 596.0, 43.0 ],
-					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description Feedback. @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
+					"patching_rect" : [ 560.0, 644.0, 589.0, 43.0 ],
+					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode both @description Feedback. @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
 					"varname" : "feedback"
 				}
 
@@ -633,13 +633,13 @@
 ,
 					"patching_rect" : [ 497.818176, 323.272736, 111.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
+						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"default_fontsize" : 10.0,
-						"fontsize" : 10.0
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p DecodeFilterGraph"
@@ -916,13 +916,13 @@
 ,
 					"patching_rect" : [ 473.545441, 443.545441, 136.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
+						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"default_fontsize" : 10.0,
-						"fontsize" : 10.0
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p PrepareForFiltergraph~"
