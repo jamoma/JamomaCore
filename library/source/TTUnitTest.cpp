@@ -13,9 +13,9 @@ static const TTFloat32 kTTTestFloat32Epsilon = 0.00001;
 static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
 
 
-TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b, TTBoolean expectedResult, TTInt32 maxUnitsInTheLastPlace)
+TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean expectedResult, TTInt32 maxUnitsInTheLastPlace)
 {
-	// Following method is based on 
+	// The following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 	
 	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
@@ -29,13 +29,13 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b, TTBoolean expectedRes
 		return false;
 	}
 	
-	TTInt32 aInt = *(TTInt32*)&a;
+	TTInt32 aInt = *(TTInt32*)&aFloat;
 	
 	// Make aInt lexicographically ordered as a twos-complement int
 	if (aInt < 0)
 		aInt = 0x80000000 - aInt;
 	// Make bInt lexicographically ordered as a twos-complement int
-	TTInt32 bInt = *(TTInt32*)&b;
+	TTInt32 bInt = *(TTInt32*)&bFloat;
 	
 	if (bInt < 0)
 		bInt = 0x80000000 - bInt;
@@ -52,19 +52,24 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b, TTBoolean expectedRes
 	if (result == expectedResult)
 		return true;
 	else {
-		TTLogMessage("TTTestFloatEquivalence: Unexpected result\n");
-		TTLogMessage("a = %.8e\n", a);
-		TTLogMessage("b = %.8e\n", b);
-		TTLogMessage("result = %s\n", (result)?"true":"false");
-		TTLogMessage("intDiff = %ld\n", intDiff);
+		TTLogMessage("\n");
+		TTLogMessage("		TTTestFloatEquivalence: Unexpected result\n");
+		TTLogMessage("\n");
+		TTLogMessage("		aFloat  = %.8e\n", aFloat);
+		TTLogMessage("		bFloat  = %.8e\n", bFloat);
+		TTLogMessage("		aInt    = %ld\n", aInt);
+		TTLogMessage("		bInt    = %ld\n", bInt);
+		TTLogMessage("		result  = %s\n", (result)?"true":"false");
+		TTLogMessage("		intDiff = %ld\n", intDiff);
+		TTLogMessage("\n");
 		return false;
 	}
 }
 
 
-TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b, TTBoolean expectedResult, TTInt64 maxUnitsInTheLastPlace)
+TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean expectedResult, TTInt64 maxUnitsInTheLastPlace)
 {
-	// Following method is based on 
+	// The following method is based on 
 	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 
 	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
@@ -79,7 +84,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b, TTBoolean expectedRes
 		return false;
 	}
 	
-	TTInt64 aInt = *(TTInt64*)&a;
+	TTInt64 aInt = *(TTInt64*)&aFloat;
 	
 	// TODO: Are the 0x8000000 values correct for TTFloat64?
 	
@@ -87,7 +92,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b, TTBoolean expectedRes
 	if (aInt < 0)
 		aInt = 0x80000000 - aInt;
 	// Make bInt lexicographically ordered as a twos-complement int
-	TTInt64 bInt = *(TTInt64*)&b;
+	TTInt64 bInt = *(TTInt64*)&bFloat;
 	
 	if (bInt < 0)
 		bInt = 0x80000000 - bInt;
@@ -104,11 +109,16 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b, TTBoolean expectedRes
 	if (result == expectedResult)
 		return true;
 	else {
-		TTLogMessage("TTTestFloatEquivalence: Unexpected result\n");
-		TTLogMessage("a = %.15e\n", a);
-		TTLogMessage("b = %.15e\n", b);
-		TTLogMessage("result = %s\n", (result)?"true":"false");
-		TTLogMessage("intDiff = %ld\n", intDiff);
+		TTLogMessage("\n");
+		TTLogMessage("		TTTestFloatEquivalence: Unexpected result\n");
+		TTLogMessage("\n");
+		TTLogMessage("		aFloat  = %.8e\n", aFloat);
+		TTLogMessage("		bFloat  = %.8e\n", bFloat);
+		TTLogMessage("		aInt    = %ld\n", aInt);
+		TTLogMessage("		bInt    = %ld\n", bInt);
+		TTLogMessage("		result  = %s\n", (result)?"true":"false");
+		TTLogMessage("		intDiff = %ld\n", intDiff);
+		TTLogMessage("\n");
 		return false;
 	}
 }
@@ -143,7 +153,9 @@ void TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAsse
 		errorCount++;
 	}	
 	TTLogMessage(aTestName);
-	TTLogMessage("\n");	
+	TTLogMessage("\n");
+	if (!aTestResult)
+		TTLogMessage("\n");
 }
 
 
