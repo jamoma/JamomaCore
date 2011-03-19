@@ -11,7 +11,15 @@
 
 #include "TTFoundationAPI.h"
 
-#define MAX_UNITS_IN_THE_LAST_PLACE 10
+
+/**	Determine if two 32-bit floats are equal in value, but tolerant of floating-point precision.
+	@group unittest
+	@param aFloat			The first float to test
+	@param bFloat			The second float to test
+	@expectedResult			The expected result when comparing the two floats a and b. Defaults to TRUE
+	@maxUnitsInTheLastPlace Error tolerance when comparing the numbers. Defaults to 10
+	@return					Returns true if a == b, otherwise returns false.	*/
+TTBoolean TTFOUNDATION_EXPORT TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean expectedResult = true, TTFloat32 epsilon = 0.000001);
 
 
 /**	Determine if two 32-bit floats are equal in value, but tolerant of floating-point precision.
@@ -21,17 +29,7 @@
 	@expectedResult			The expected result when comparing the two floats a and b. Defaults to TRUE
 	@maxUnitsInTheLastPlace Error tolerance when comparing the numbers. Defaults to 10
 	@return					Returns true if a == b, otherwise returns false.	*/
-TTBoolean TTFOUNDATION_EXPORT TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean expectedResult = true, TTInt32 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE);
-
-
-/**	Determine if two 32-bit floats are equal in value, but tolerant of floating-point precision.
-	@group unittest
-	@param aFloat			The first float to test
-	@param bFloat			The second float to test
-	@expectedResult			The expected result when comparing the two floats a and b. Defaults to TRUE
-	@maxUnitsInTheLastPlace Error tolerance when comparing the numbers. Defaults to 10
-	@return					Returns true if a == b, otherwise returns false.	*/
-TTBoolean TTFOUNDATION_EXPORT TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean expectedResult = true, TTInt64 maxUnitsInTheLastPlace = MAX_UNITS_IN_THE_LAST_PLACE);
+TTBoolean TTFOUNDATION_EXPORT TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean expectedResult = true, TTFloat64 epsilon = 0.0000000000001);
 
 
 /**	Post a message to the console.

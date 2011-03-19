@@ -56,16 +56,29 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
     TTFloat32 smallestDenormal = 0;
     (*(TTInt32*)&smallestDenormal) += 1;
 	
+	
 	// The first set of tests check things that any self-respecting
     // comparison function should agree upon.
+	
+
+	// The following test is expected to fail, hence the !
+	TTTestAssertion("TTFloat32: Test fails if epsilon is negative.",
+					!TTTestFloatEquivalence(TTFloat32(3.14), TTFloat32(3.14), false, TTFloat32(-0.1)),
+					testAssertionCount,
+					errorCount);
 	
 	TTTestAssertion("TTFloat32: zero and negativeZero compare as equal.",
 					TTTestFloatEquivalence(zero1, negativeZero),
 					testAssertionCount,
 					errorCount);
-		
+	
 	TTTestAssertion("TTFloat32: Nearby numbers compare as equal.",
 					TTTestFloatEquivalence(TTFloat32(2.0), TTFloat32(1.9999999f)),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: Same test fails with smaller epsilon.",
+					TTTestFloatEquivalence(TTFloat32(2.0), TTFloat32(1.9999999f), false, TTFloat32(0.0000000001)),
 					testAssertionCount,
 					errorCount);
 	
@@ -81,6 +94,11 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 	
 	TTTestAssertion("TTFloat32: Even more distant numbers don't compare as equal",
 					TTTestFloatEquivalence(TTFloat32(1.8), TTFloat32(2.0), false),
+					testAssertionCount,
+					errorCount);
+
+	TTTestAssertion("TTFloat32: But it pass if epsilon is upped",
+					TTTestFloatEquivalence(TTFloat32(1.8), TTFloat32(2.0), true, TTFloat32(0.5)),
 					testAssertionCount,
 					errorCount);
 	
@@ -127,51 +145,64 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: FLT_MAX and infinity (representationally adjacent) compare as equal.",
-					TTTestFloatEquivalence(FLT_MAX, inf),
+	TTTestAssertion("TTFloat32: FLT_MAX != inf",
+					TTTestFloatEquivalence(FLT_MAX, inf, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: A NAN compares as equal to itself (nan1).",
-					TTTestFloatEquivalence(nan1, nan1),
+	TTTestAssertion("TTFloat32: 3.14 != inf",
+					TTTestFloatEquivalence(TTFloat32(3.14), inf, false),
+					testAssertionCount,
+					errorCount);
+
+	
+	// The IEEE standard says that any comparison operation involving a NAN must return false.
+	TTTestAssertion("TTFloat32: nan1==3.14 => false (according to IEEE standard)",
+					TTTestFloatEquivalence(nan1, TTFloat32(3.14), false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: A NAN compares as equal to itself (nan2).",
-					TTTestFloatEquivalence(nan2, nan2),
+	TTTestAssertion("TTFloat32: nan1==nan1 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan1, nan1, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: A NAN compares as equal to itself (nan3).",
-					TTTestFloatEquivalence(nan3, nan3),
+	TTTestAssertion("TTFloat32: nan2==nan2 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan2, nan2, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: A NAN compares as equal to itself (nan4).",
-					TTTestFloatEquivalence(nan4, nan4),
+	TTTestAssertion("TTFloat32: nan3==nan3 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan3, nan3, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: A NAN (nan1) compares as equal to a different NAN (nan2).",
-					TTTestFloatEquivalence(nan1, nan2),
+	TTTestAssertion("TTFloat32: nan4==nan4 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan4, nan4, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: A NAN (nan1) compares as equal to a different NAN (nan3).",
-					TTTestFloatEquivalence(nan1, nan3),
+	TTTestAssertion("TTFloat32: nan1==nan2 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan1, nan2, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: A NAN (nan1) compares as equal to a different NAN (nan4).",
-					TTTestFloatEquivalence(nan1, nan4),
+	TTTestAssertion("TTFloat32: nan1==nan3 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan1, nan3, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat32: A NAN don't equal inf.",
+	TTTestAssertion("TTFloat32: nan1==nan4 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan1, nan4, false),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32: nan1==inf => false (according to IEEE standard).",
 					TTTestFloatEquivalence(nan1, inf, false),
 					testAssertionCount,
 					errorCount);
-	
+
+	// Tests for denormals
 	TTTestAssertion("TTFloat32: Tiny numbers of opposite signs compare as equal.",
 					TTTestFloatEquivalence(smallestDenormal, -smallestDenormal),
 					testAssertionCount,
@@ -193,7 +224,7 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 	
 	// Create various special numbers
 	
-	TTFloat64 negativeZero;
+	// TTFloat64 negativeZero;
 	
 	// Initialize negativeZero with its integer representation
 	// *(TTInt64*)&negativeZero = TTInt64(0x8000000000000000);
@@ -217,12 +248,17 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 	
 	// Create a denormal by starting with zero and incrementing
 	// the integer representation.
-	// TTFloat64 smallestDenormal = TTInt64(0);
-	// (*(TTInt64*)&smallestDenormal) += 1;
+	TTFloat64 smallestDenormal = TTInt64(0);
+	(*(TTInt64*)&smallestDenormal) += 1;
 	
 	// The first set of tests check things that any self-respecting
 	// comparison function should agree upon.
 
+	// The following test is expected to fail, hence the !
+	TTTestAssertion("TTFloat64: Test fails if epsilon is negative.",
+					!TTTestFloatEquivalence(TTFloat64(3.14), TTFloat64(3.14), false, TTFloat64(-0.0001)),
+					testAssertionCount,
+					errorCount);
 	
 	/* TL: It doesn't seem possible to create negatie zeros for doubles, so test is commented out.
 	TTTestAssertion("TTFloat64: zero and negativeZero compare as equal.",
@@ -232,47 +268,53 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 	*/
 	
 	TTTestAssertion("TTFloat64: Nearby numbers compare as equal.",
-					TTTestFloatEquivalence(TTFloat64(2.0), TTFloat64(2.000000000000001)),
+					TTTestFloatEquivalence(TTFloat64(2.0), TTFloat64(1.99999999999999)),
 					testAssertionCount,
 					errorCount);
 	
+	TTTestAssertion("TTFloat64: Same test fails with smaller epsilon.",
+					TTTestFloatEquivalence(TTFloat64(2.0), TTFloat64(1.99999999999999), false, TTFloat64(0.0000000000000000001)),
+					testAssertionCount,
+					errorCount);
+	
+	
 	TTTestAssertion("TTFloat64: Slightly more distant numbers compare as equal.",
-					TTTestFloatEquivalence(TTFloat64(2.0), TTFloat64(2.000000000000003)),
+					TTTestFloatEquivalence(TTFloat64(2.0), TTFloat64(1.9999999999999)),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: The results are the same with parameters reversed.",
-					TTTestFloatEquivalence(TTFloat64(2.000000000000003), TTFloat64(2.0)),
+					TTTestFloatEquivalence(TTFloat64(1.9999999999999), TTFloat64(2.0)),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: Even more distant numbers don't compare as equal",
-					TTTestFloatEquivalence(TTFloat64(2.00000000000001), TTFloat64(2.0), false),
+					TTTestFloatEquivalence(TTFloat64(1.8), TTFloat64(2.0), false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: In particular: This would be accepted if TTFloat32, but not as TTFloat64.",
-					TTTestFloatEquivalence(TTFloat64(2.0), TTFloat64(1.9999999), false),
+	TTTestAssertion("TTFloat32: But it pass if epsilon is upped",
+					TTTestFloatEquivalence(TTFloat64(1.8), TTFloat64(2.0), true, TTFloat64(0.5)),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: Nearby negative numbers compare as equal.",
-					TTTestFloatEquivalence(TTFloat64(-2.0), TTFloat64(-2.000000000000001)),
+					TTTestFloatEquivalence(TTFloat64(-2.0), TTFloat64(-1.99999999999999)),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: Slightly more distant negative numbers compare as equal.",
-					TTTestFloatEquivalence(TTFloat64(-2.0), TTFloat64(-2.000000000000003)),
+					TTTestFloatEquivalence(TTFloat64(-2.0), TTFloat64(-1.9999999999999)),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: The results are the same with parameters reversed.",
-					TTTestFloatEquivalence(TTFloat64(-2.000000000000001), TTFloat64(-2.0)),
+					TTTestFloatEquivalence(TTFloat64(-1.9999999999999), TTFloat64(-2.0)),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTFloat64: Even more distant negative numbers don't compare as equal",
-					TTTestFloatEquivalence(TTFloat64(2.00000000000001), TTFloat64(-2.0), false),
+					TTTestFloatEquivalence(TTFloat64(-1.8), TTFloat64(-2.0), false),
 					testAssertionCount,
 					errorCount);
 	
@@ -282,8 +324,8 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// The next set of tests check things where the correct answer isn't
-	// as obvious or important. Some of these tests check for cases that
-	// are rare or can easily be avoided.
+    // as obvious or important. Some of these tests check for cases that
+    // are rare or can easily be avoided.
 	
 	TTTestAssertion("TTFloat64: inf == inf.",
 					TTTestFloatEquivalence(inf, inf),
@@ -299,51 +341,65 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: DBL_MAX and infinity (representationally adjacent) compare as equal.",
-					TTTestFloatEquivalence(DBL_MAX, inf),
+	TTTestAssertion("TTFloat64: FLT_MAX != inf",
+					TTTestFloatEquivalence(DBL_MAX, inf, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: A NAN compares as equal to itself (nan1).",
-					TTTestFloatEquivalence(nan1, nan1),
+	TTTestAssertion("TTFloat64: 3.14 != inf",
+					TTTestFloatEquivalence(TTFloat64(3.14), inf, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: A NAN compares as equal to itself (nan2).",
-					TTTestFloatEquivalence(nan2, nan2),
+	
+	// The IEEE standard says that any comparison operation involving a NAN must return false.
+	TTTestAssertion("TTFloat64: nan1==3.14 => false (according to IEEE standard)",
+					TTTestFloatEquivalence(nan1, TTFloat64(3.14), false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: A NAN compares as equal to itself (nan3).",
-					TTTestFloatEquivalence(nan3, nan3),
+	TTTestAssertion("TTFloat64: nan1==nan1 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan1, nan1, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: A NAN compares as equal to itself (nan4).",
-					TTTestFloatEquivalence(nan4, nan4),
+	TTTestAssertion("TTFloat64: nan2==nan2 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan2, nan2, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: A NAN (nan1) compares as equal to a different NAN (nan2).",
-					TTTestFloatEquivalence(nan1, nan2),
+	TTTestAssertion("TTFloat64: nan3==nan3 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan3, nan3, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: A NAN (nan1) compares as equal to a different NAN (nan3).",
-					TTTestFloatEquivalence(nan1, nan3),
+	TTTestAssertion("TTFloat64: nan4==nan4 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan4, nan4, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: A NAN (nan1) compares as equal to a different NAN (nan4).",
-					TTTestFloatEquivalence(nan1, nan4),
+	TTTestAssertion("TTFloat64: nan1==nan2 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan1, nan2, false),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTFloat64: A NAN don't equal inf.",
+	TTTestAssertion("TTFloat64: nan1==nan3 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan1, nan3, false),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat64: nan1==nan4 => false (according to IEEE standard).",
+					TTTestFloatEquivalence(nan1, nan4, false),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat64: nan1==inf => false (according to IEEE standard).",
 					TTTestFloatEquivalence(nan1, inf, false),
 					testAssertionCount,
 					errorCount);
 	
+	// Tests for denormals
+
 	/* Don't manage to create denorm values, so these tests are commented out.
 	TTTestAssertion("TTFloat64: Tiny numbers of opposite signs compare as equal.",
 					TTTestFloatEquivalence(smallestDenormal, -smallestDenormal),

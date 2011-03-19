@@ -13,41 +13,31 @@ static const TTFloat32 kTTTestFloat32Epsilon = 0.00001;
 static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
 
 
-TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean expectedResult, TTInt32 maxUnitsInTheLastPlace)
+TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean expectedResult, TTFloat32 epsilon)
 {
-	// The following method is based on 
-	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
-	
-	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
-	// default NAN won't compare as equal to anything.
-	if (maxUnitsInTheLastPlace <= 0) {
-		TTLogMessage("TTTestFloatEquivalence: maxUnitsInTheLastPlace must be a positive number");
-		return false;
-	}
-	if (maxUnitsInTheLastPlace > (4 * 1024 * 1024)) {
-		TTLogMessage("TTTestFloatEquivalence: maxUnitsInTheLastPlace to large to distinguish normal values from NAN");
+	if (epsilon <= 0.) {
+		TTLogMessage("		TTTestFloatEquivalence: epsilon must be a positive number\n");
 		return false;
 	}
 	
-	TTInt32 aInt = *(TTInt32*)&aFloat;
-	
-	// Make aInt lexicographically ordered as a twos-complement int
-	if (aInt < 0)
-		aInt = 0x80000000 - aInt;
-	// Make bInt lexicographically ordered as a twos-complement int
-	TTInt32 bInt = *(TTInt32*)&bFloat;
-	
-	if (bInt < 0)
-		bInt = 0x80000000 - bInt;
-	TTInt32 intDiff = abs(aInt - bInt);
-	
-	// Decide on result
 	TTBoolean result;
-	if (intDiff <= maxUnitsInTheLastPlace)
-		result = true;
-	else
-		result = false;
-	
+
+	if (isinf(aFloat)||isinf(bFloat)) {
+		if (aFloat==bFloat)
+			result = true;
+		else
+			result = false;
+	}
+	else {
+		TTFloat32 aAbs = fabs(aFloat);
+		TTFloat32 bAbs = fabs(bFloat);
+		TTFloat32 absoluteOrRelative = (1.0f > aAbs ? 1.0f : aAbs);
+		absoluteOrRelative = (absoluteOrRelative > bAbs ? absoluteOrRelative : bAbs);
+		if (fabs(aFloat - bFloat) <= epsilon * absoluteOrRelative)
+			result = true;
+		else
+			result = false;
+	}
 	// Was this the expected result?
 	if (result == expectedResult)
 		return true;
@@ -57,54 +47,38 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean e
 		TTLogMessage("\n");
 		TTLogMessage("		aFloat  = %.8e\n", aFloat);
 		TTLogMessage("		bFloat  = %.8e\n", bFloat);
-		TTLogMessage("		aInt    = %ld\n", aInt);
-		TTLogMessage("		bInt    = %ld\n", bInt);
 		TTLogMessage("		result  = %s\n", (result)?"true":"false");
-		TTLogMessage("		intDiff = %ld\n", intDiff);
 		TTLogMessage("\n");
 		return false;
 	}
 }
 
 
-TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean expectedResult, TTInt64 maxUnitsInTheLastPlace)
+TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean expectedResult, TTFloat64 epsilon)
 {
-	// The following method is based on 
-	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
-
-	// Make sure maxUnitsInTheLastPlace is non-negative and small enough that the
-	// default NAN won't compare as equal to anything.
-	if (maxUnitsInTheLastPlace <= 0) {
-		TTLogMessage("TTTestFloatEquivalence: maxUnitsInTheLastPlace must be a positive number");
-		return false;
-	}
-	// TODO: The following test might be to restrictive for TTFloat64
-	if (maxUnitsInTheLastPlace > (4 * 1024 * 1024)) {
-		TTLogMessage("TTTestFloatEquivalence: maxUnitsInTheLastPlace to large to distinguish normal values from NAN");
+	if (epsilon <= 0.) {
+		TTLogMessage("		TTTestFloatEquivalence: epsilon must be a positive number\n");
 		return false;
 	}
 	
-	TTInt64 aInt = *(TTInt64*)&aFloat;
+	TTBoolean result;
 	
-	// TODO: Are the 0x8000000 values correct for TTFloat64?
-	
-	// Make aInt lexicographically ordered as a twos-complement int
-	if (aInt < 0)
-		aInt = 0x80000000 - aInt;
-	// Make bInt lexicographically ordered as a twos-complement int
-	TTInt64 bInt = *(TTInt64*)&bFloat;
-	
-	if (bInt < 0)
-		bInt = 0x80000000 - bInt;
-	TTInt64 intDiff = abs(aInt - bInt);
-
-	// Decide on result
-	TTBoolean result;	
-	if (intDiff <= maxUnitsInTheLastPlace)
-		result = true;
-	else
-		result = false;
-	
+	if (isinf(aFloat)||isinf(bFloat)) {
+		if (aFloat==bFloat)
+			result = true;
+		else
+			result = false;
+	}
+	else {
+		TTFloat64 aAbs = fabs(aFloat);
+		TTFloat64 bAbs = fabs(bFloat);
+		TTFloat64 absoluteOrRelative = (1.0f > aAbs ? 1.0f : aAbs);
+		absoluteOrRelative = (absoluteOrRelative > bAbs ? absoluteOrRelative : bAbs);
+		if (fabs(aFloat - bFloat) <= epsilon * absoluteOrRelative)
+			result = true;
+		else
+			result = false;
+	}
 	// Was this the expected result?
 	if (result == expectedResult)
 		return true;
@@ -112,12 +86,9 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean e
 		TTLogMessage("\n");
 		TTLogMessage("		TTTestFloatEquivalence: Unexpected result\n");
 		TTLogMessage("\n");
-		TTLogMessage("		aFloat  = %.8e\n", aFloat);
-		TTLogMessage("		bFloat  = %.8e\n", bFloat);
-		TTLogMessage("		aInt    = %ld\n", aInt);
-		TTLogMessage("		bInt    = %ld\n", bInt);
+		TTLogMessage("		aFloat  = %.15e\n", aFloat);
+		TTLogMessage("		bFloat  = %.15e\n", bFloat);
 		TTLogMessage("		result  = %s\n", (result)?"true":"false");
-		TTLogMessage("		intDiff = %ld\n", intDiff);
 		TTLogMessage("\n");
 		return false;
 	}
