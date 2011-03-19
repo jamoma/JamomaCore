@@ -16,7 +16,9 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-{   	
+{   
+	addAttribute(A,	kTypeFloat64);	
+	setAttributeValue(TT("a"),	0.0);
 	setProcessMethod(processAudio);
 //	setCalculateMethod(calculateValue);
 }
@@ -57,7 +59,7 @@ TTErr Circular2D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 						
 		phi = inSampleX[i] * kTTPi; // 0 .. 2Pi
 		outSampleX[i] = sin(phi);
-		outSampleY[i] = cos(phi);
+		outSampleY[i] = mA*cos(phi);
 
 	}
 return kTTErrNone;
