@@ -10,6 +10,8 @@
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD46D011E247C5007BBF7E /* TrajectoryLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */; };
+		6603FE571333C62800A05DDA /* Bspline2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6603FE551333C62800A05DDA /* Bspline2D.cpp */; };
+		6603FE581333C62800A05DDA /* Bspline2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 6603FE561333C62800A05DDA /* Bspline2D.h */; };
 		662A5B40132F7EEC00CE46BC /* LogSpiral2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662A5B3E132F7EEC00CE46BC /* LogSpiral2D.cpp */; };
 		662A5B41132F7EEC00CE46BC /* LogSpiral2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 662A5B3F132F7EEC00CE46BC /* LogSpiral2D.h */; };
 		662A5C1D132FB0FE00CE46BC /* Slinky3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662A5C1B132FB0FE00CE46BC /* Slinky3D.cpp */; };
@@ -61,6 +63,8 @@
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrajectoryLib.cpp; sourceTree = "<group>"; };
+		6603FE551333C62800A05DDA /* Bspline2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bspline2D.cpp; sourceTree = "<group>"; };
+		6603FE561333C62800A05DDA /* Bspline2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bspline2D.h; sourceTree = "<group>"; };
 		662A5B3E132F7EEC00CE46BC /* LogSpiral2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogSpiral2D.cpp; sourceTree = "<group>"; };
 		662A5B3F132F7EEC00CE46BC /* LogSpiral2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogSpiral2D.h; sourceTree = "<group>"; };
 		662A5C1B132FB0FE00CE46BC /* Slinky3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slinky3D.cpp; sourceTree = "<group>"; };
@@ -174,6 +178,8 @@
 			children = (
 				66B6D26B1327708A009A66CB /* Bean2D.cpp */,
 				66B6D26C1327708A009A66CB /* Bean2D.h */,
+				6603FE551333C62800A05DDA /* Bspline2D.cpp */,
+				6603FE561333C62800A05DDA /* Bspline2D.h */,
 				663A95E31325D21C0059009C /* Butterfly2D.cpp */,
 				663A95E41325D21C0059009C /* Butterfly2D.h */,
 				66B6D21D13276408009A66CB /* Circular2D.cpp */,
@@ -251,6 +257,7 @@
 				662A5B41132F7EEC00CE46BC /* LogSpiral2D.h in Headers */,
 				662A5C1E132FB0FE00CE46BC /* Slinky3D.h in Headers */,
 				662A5C8A1330BB4400CE46BC /* Torus3D.h in Headers */,
+				6603FE581333C62800A05DDA /* Bspline2D.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +350,7 @@
 				662A5B40132F7EEC00CE46BC /* LogSpiral2D.cpp in Sources */,
 				662A5C1D132FB0FE00CE46BC /* Slinky3D.cpp in Sources */,
 				662A5C891330BB4400CE46BC /* Torus3D.cpp in Sources */,
+				6603FE571333C62800A05DDA /* Bspline2D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
