@@ -20,9 +20,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	options->append(TT("generator"), kTTBoolYes);
 	options->append(TT("userCanSetNumChannels"), kTTBoolYes);
 	wrapAsMaxAudioGraph(TT("adsr"), "jcom.adsr≈", &c, options);
-	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "exponential hybrid");
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "exponential hybrid linear");
 
 	wrapAsMaxAudioGraph(TT("adsr"), "adsr≈", &c, options);
-	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "exponential hybrid");
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "exponential hybrid linear");
 	return 0;
 }
