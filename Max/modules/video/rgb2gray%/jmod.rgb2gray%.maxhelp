@@ -86,7 +86,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 144.0, 201.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "/plur%"
+					"varname" : "/rgb2gray%"
 				}
 
 			}
