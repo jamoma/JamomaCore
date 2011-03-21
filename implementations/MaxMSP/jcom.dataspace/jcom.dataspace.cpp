@@ -154,10 +154,17 @@ void dataspace_list(t_dataspace *self, t_symbol *msg, long argc, t_atom *argv)
 	
 	//TODO: add dataspace support for lists of single dimensional data conversion
 	self->dataspace->sendMessage(TT("convert"), v);
+	
+	// Assigning memory for returned list
+	AtomPtr rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
+	
 	for (int i=0; i<argc; i++)
-		atom_setfloat(argv+i, v.getFloat64(i));
+		atom_setfloat(rv+i, v.getFloat64(i));
 		
-	outlet_anything(self->outlet_native, _sym_list, argc, argv);
+	outlet_anything(self->outlet_native, _sym_list, argc, rv);
+
+	// Freeing up memory again
+	delete[] rv;
 }
 
 
