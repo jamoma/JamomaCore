@@ -30,9 +30,9 @@
 					"outlettype" : [ "", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -261,13 +261,13 @@
 ,
 					"patching_rect" : [ 335.0, 155.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p oscParsing"
@@ -671,13 +671,13 @@
 ,
 					"patching_rect" : [ 335.0, 190.0, 127.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p collect_as_matrix"
@@ -765,9 +765,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 50.0, 281.0, 519.0, 494.0 ],
+						"rect" : [ 50.0, 281.0, 527.0, 497.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 50.0, 281.0, 519.0, 494.0 ],
+						"defrect" : [ 50.0, 281.0, 527.0, 497.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
@@ -1115,13 +1115,13 @@
 ,
 									"patching_rect" : [ 35.0, 330.0, 124.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"fontname" : "Verdana",
 										"default_fontname" : "Verdana",
-										"globalpatchername" : "",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p sliceItUpAndForward"
@@ -1139,7 +1139,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 35.0, 130.0, 540.0, 31.0 ],
-									"text" : "jcom.parameter numberOfColors @type integer @range/bounds 1 12 @range/clipmode both @priority 1 @description \"Number of active colors.\""
+									"text" : "jcom.parameter numberOfColors @type integer @range/bounds 1 12 @range/clipmode both @priority 1 @repetitions/allow 1 @description \"Number of active colors.\""
 								}
 
 							}
@@ -1381,13 +1381,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-20",
-									"linecount" : 3,
+									"linecount" : 2,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 35.0, 270.0, 222.0, 43.0 ],
-									"text" : "jcom.message colors/in @type array @description \"Shortcut for setting colors: List of 1 to 12 HSL triplets.\"",
+									"patching_rect" : [ 35.0, 270.0, 365.0, 31.0 ],
+									"text" : "jcom.message colors/in @type array @repetitions/allow 1 @description \"Shortcut for setting colors: List of 1 to 12 HSL triplets.\"",
 									"varname" : "colors"
 								}
 
@@ -1692,13 +1692,13 @@
 ,
 									"patching_rect" : [ 210.0, 200.0, 73.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"fontname" : "Verdana",
 										"default_fontname" : "Verdana",
-										"globalpatchername" : "",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p show&hide"
@@ -1792,7 +1792,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-46", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 146.0, 323.5, 44.5, 323.5 ],
+									"midpoints" : [ 217.5, 323.5, 44.5, 323.5 ],
 									"source" : [ "obj-20", 1 ]
 								}
 
@@ -1847,13 +1847,13 @@
 ,
 					"patching_rect" : [ 485.0, 200.0, 103.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p \"color inspector\""
@@ -2408,13 +2408,13 @@
 ,
 									"patching_rect" : [ 38.0, 61.0, 92.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"fontname" : "Verdana",
 										"default_fontname" : "Verdana",
-										"globalpatchername" : "",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p display_colors"
@@ -2472,13 +2472,13 @@
 ,
 					"patching_rect" : [ 640.0, 250.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p display"
