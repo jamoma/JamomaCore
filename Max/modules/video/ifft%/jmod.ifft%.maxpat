@@ -337,13 +337,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-6",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 50.0, 225.0, 219.0, 43.0 ],
-					"text" : "jcom.hub @description \"Perform Fast Fourier transform on incoming 1 plane image.\""
+					"patching_rect" : [ 50.0, 225.0, 203.0, 31.0 ],
+					"text" : "jcom.hub @description \"Inverse FFT processing of incoming matrix.\""
 				}
 
 			}
@@ -684,10 +684,10 @@
 ,
 									"patching_rect" : [ 320.0, 175.0, 121.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontname" : "Verdana",
-										"globalpatchername" : "",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0
@@ -915,10 +915,10 @@
 ,
 					"patching_rect" : [ 285.0, 205.0, 41.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0
