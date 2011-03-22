@@ -8733,28 +8733,6 @@
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontface" : 1,
-									"fontname" : "Verdana",
-									"fontsize" : 12.0,
-									"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
-									"hidden" : 1,
-									"id" : "obj-142",
-									"linecount" : 5,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 0.0, 0.0, 395.0, 79.0 ],
-									"presentation" : 1,
-									"presentation_linecount" : 5,
-									"presentation_rect" : [ 0.0, 0.0, 395.0, 79.0 ],
-									"text" : "Please do not edit this patch in presentation mode.\n\nUse Edit Mode while editing. \nAfterwards remove and add to presentation mode again to get the same layout in presentation mode. Thanks!",
-									"textcolor" : [ 1.0, 0.0, 0.0, 1.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-158",
@@ -9165,7 +9143,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 50.0, 40.0, 142.0, 19.0 ],
+									"patching_rect" : [ 420.0, 44.0, 69.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
@@ -9176,7 +9154,7 @@
 										"default_fontface" : 0
 									}
 ,
-									"text" : "p"
+									"text" : "p hoverHint"
 								}
 
 							}
@@ -9198,22 +9176,6 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 19.0,
-									"frgb" : [ 0.4, 0.4, 0.4, 1.0 ],
-									"id" : "obj-161",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 260.0, 10.0, 690.0, 28.0 ],
-									"presentation" : 1,
-									"presentation_rect" : [ 260.0, 10.0, 690.0, 28.0 ],
-									"textcolor" : [ 0.4, 0.4, 0.4, 1.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-120",
@@ -9221,7 +9183,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 60.0, 16.0, 64.5, 19.0 ],
+									"patching_rect" : [ 420.0, 20.0, 64.5, 19.0 ],
 									"text" : "hover"
 								}
 
@@ -11557,6 +11519,22 @@
 							}
 , 							{
 								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 19.0,
+									"frgb" : [ 0.4, 0.4, 0.4, 1.0 ],
+									"id" : "obj-161",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 260.0, 10.0, 690.0, 28.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 260.0, 10.0, 690.0, 28.0 ],
+									"textcolor" : [ 0.4, 0.4, 0.4, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"bgcolor" : [ 0.0, 0.0, 0.0, 0.101961 ],
 									"border" : 5,
 									"bordercolor" : [ 0.0, 0.0, 0.0, 0.0 ],
@@ -11573,7 +11551,31 @@
 							}
 , 							{
 								"box" : 								{
+									"background" : 1,
+									"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
+									"fontface" : 1,
+									"fontname" : "Verdana",
+									"fontsize" : 12.0,
+									"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+									"hidden" : 1,
+									"id" : "obj-142",
+									"linecount" : 5,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 0.0, 0.0, 395.0, 79.0 ],
+									"presentation" : 1,
+									"presentation_linecount" : 5,
+									"presentation_rect" : [ 0.0, 0.0, 395.0, 79.0 ],
+									"text" : "Please do not edit this patch in presentation mode.\n\nUse Edit Mode while editing. \nAfterwards remove and add to presentation mode again to get the same layout in presentation mode. Thanks!",
+									"textcolor" : [ 1.0, 0.0, 0.0, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"args" : [ "@name", "jamoma modules", "@description", "Overview of Jamoma's modules" ],
+									"background" : 1,
 									"bgmode" : 1,
 									"id" : "obj-136",
 									"maxclass" : "bpatcher",
