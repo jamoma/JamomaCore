@@ -62,12 +62,12 @@ void MinuitDiscoverAnswer::setTimeOut(int timeout) {
 	m_timeOutInMs = timeout;
 }
 
-std::string MinuitDiscoverAnswer::getIp()
+TTString MinuitDiscoverAnswer::getIp()
 {
 	return m_ip;
 }
 
-void MinuitDiscoverAnswer::setIp(std::string ip)
+void MinuitDiscoverAnswer::setIp(TTString ip)
 {
 	m_ip = ip;
 }
@@ -93,7 +93,7 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 	// parse something like : nodes={ some nodes } leaves={ some leaves } attributes={ somes attributes }
 	while(arg != m.ArgumentsEnd()){
 		
-		std::string currentString = arg->AsString();
+		TTString currentString = arg->AsString();
 		
 		// parse nodes
 		if(currentString.compare(MINUIT_START_NODES) == 0){

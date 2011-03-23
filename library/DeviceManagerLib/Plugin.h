@@ -39,7 +39,7 @@ typedef TTApplication* TTApplicationePtr;
 
 #include "TTModular.h"
 
-#include <map>
+//#include <map>
 
 /**	Plugin and PluginFactory are abstract classes, interfaces to develop plugins.
 	Every communication plugins developped in the future will have to be implemented according to this model.
@@ -244,7 +244,7 @@ public:
 
 		// discover the local namespace
 		if (mApplicationManager != NULL)
-			mApplicationManager->namespaceDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
+			TTApplicationManagerLocalApplicationDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
 
 		// TODO : test error and send notification if error
 
@@ -267,7 +267,7 @@ public:
 		
 		// get the value from the local namespace
 		if (mApplicationManager != NULL)
-			mApplicationManager->namespaceGet(address, attribute, returnedValue);
+			TTApplicationManagerLocalApplicationGet(address, attribute, returnedValue);
 		
 		// TODO : test error and send notification if error
 		
@@ -288,7 +288,7 @@ public:
 	{
 		// set the value of the local namespace
 		if (mApplicationManager != NULL)
-			mApplicationManager->namespaceSet(address, attribute, newValue);
+			TTApplicationManagerLocalApplicationSet(address, attribute, newValue);
 		
 		// TODO : test error and send notification if error
 	}
@@ -307,7 +307,7 @@ public:
 	{
 		// Enable/disable the listening of the attribute at the address
 		if (mApplicationManager != NULL)
-			mApplicationManager->namespaceListen(from, address, attribute, enable);
+			TTApplicationManagerLocalApplicationListen(from, address, attribute, enable);
 		
 		// TODO : test error and send notification if error
 	}

@@ -36,12 +36,13 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 		
 		// register classes -- both internal and external
 		TTApplication::registerClass();
+		TTApplicationManager::registerClass();
 		TTContainer::registerClass();
 		TTCue::registerClass();
 		TTCueManager::registerClass();
 		TTData::registerClass();
-		TTDevice::registerClass();
-		TTDeviceManager::registerClass();
+		TTApplication::registerClass();
+		TTApplicationManager::registerClass();
 		TTExplorer::registerClass();
 		TTInput::registerClass();
 		TTMapper::registerClass();
@@ -76,7 +77,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 	
 	// if this application doesn't exist yet
 	if (TTModularApplications)
-		if (TTModularApplications->sendMessage(TT("GetApplication"), applicationName)) {
+		if (!TTApplicationManagerGetApplication(applicationName)) {
 			
 			// Create the application giving a name and the version
 			v = TTValue(applicationName);
@@ -88,7 +89,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 			v.clear();
 			v.append(kTTSym_local);
 			v.append((TTPtr)anApplication);
-			TTModularApplications->sendMessage(TT("AddApplication"), v)
+			TTModularApplications->sendMessage(TT("ApplicationAdd"), v);
 			
 			// Read xml configuration file
 			TTValue			v;
@@ -125,12 +126,18 @@ void TTModularRegisterInternalClasses()
 
 /****************************************************************************************************/
 
-TTObjectPtr TTModularGetApplication(TTSymbolPtr applicationName)
+TTApplicationPtr TTModularGetLocalApplication()
+{
+	return TTModularGetApplication(kTTSym_local);
+}
+
+TTApplicationPtr TTModularGetApplication(TTSymbolPtr applicationName)
 {
 	TTValue v;
 	TTApplicationPtr anApplication;
 	
-	if (!TTModularApplications->lookup(applicationName, v)) {
+	v.append(applicationName);
+	if (!TTModularApplications->sendMessage(TT("ApplicationGet"), v)) {
 		v.get(0, (TTPtr*)&anApplication);
 		return anApplication;
 	}

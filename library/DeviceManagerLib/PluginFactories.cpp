@@ -48,7 +48,6 @@ knowledge of the CeCILL-C license and that you accept its terms.
 */
 
 #include "PluginFactories.h"
-#include "Plugin.h"
 
 #include <iostream>
 
@@ -150,12 +149,12 @@ IteratorPluginNames PluginFactories::getPluginNames() {
 }
 
 PluginPtr PluginFactories::createPlugin(TTString name,
-	TTDeviceManagerPtr deviceManager) {
+	TTApplicationManagerPtr applicationManager) {
 		std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
 		if (it == factories.end()) {
 			return NULL;
 		}
-		return factories[name]->getInstance(deviceManager);
+		return factories[name]->getInstance(applicationManager);
 }
 
 /****************************************/

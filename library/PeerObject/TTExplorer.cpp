@@ -17,7 +17,6 @@ mAddress(kTTSymEmpty),
 mLookfor(kTTSymEmpty),
 mEqual(kTTValNONE),
 mDifferent(kTTValNONE),
-mApplication(NULL),
 mObserver(NULL),
 mReturnValueCallback(NULL),
 mLookforObjectCriteria(NULL),
@@ -26,11 +25,8 @@ mTempName(kTTSymEmpty),
 mResult(NULL),
 mLastResult(kTTValNONE)
 {
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTPreset is not NULL", mApplication);
-	
-	if(arguments.getSize() == 2)
-		arguments.get(1, (TTPtr*)&mReturnValueCallback);
+	if(arguments.getSize() == 1)
+		arguments.get(0, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Lookfor, kTypeSymbol);
@@ -61,7 +57,7 @@ TTExplorer::~TTExplorer()
 	
 	if (mObserver) {
 		if (addressToObserve != kTTSymEmpty)
-			getDirectoryFrom(this)->removeObserverForNotifications(addressToObserve, *mObserver);
+			getDirectoryFrom(addressToObserve)->removeObserverForNotifications(addressToObserve, *mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
@@ -92,7 +88,7 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	
 	// delete the old observer
 	if (mObserver && mTempObserve != kTTSymEmpty) {
-		getDirectoryFrom(this)->removeObserverForNotifications(mTempObserve, *mObserver);
+		getDirectoryFrom(mTempObserve)->removeObserverForNotifications(mTempObserve, *mObserver);
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
@@ -126,7 +122,7 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 		
 		mObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
 		
-		getDirectoryFrom(this)->addObserverForNotifications(mTempObserve, *mObserver);
+		getDirectoryFrom(mTempObserve)->addObserverForNotifications(mTempObserve, *mObserver);
 	}
 	
 	return kTTErrNone;
@@ -147,9 +143,9 @@ TTErr TTExplorer::Explore()
 	
 	// bind the right node
 	if (mLookfor == kTTSym_instances)
-		err = getDirectoryFrom(this)->Lookup(mTempParent, aNodeList, &mTempNode);
+		err = getDirectoryFrom(mTempParent)->Lookup(mTempParent, aNodeList, &mTempNode);
 	else
-		err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &mTempNode);
+		err = getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
 		
@@ -182,7 +178,7 @@ TTErr TTExplorer::Explore()
 			if (mLookforObjectCriteria->isEmpty() && mLookfor != kTTSymEmpty)
 				CriteriaInclude(mLookfor);
 			
-			getDirectoryFrom(this)->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
+			getDirectoryFrom(mAddress)->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
 			
 			// Memorized the result in a hash table
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
@@ -294,7 +290,7 @@ TTErr TTExplorer::WriteAsOpml(const TTValue& value)
 	value.get(0, (TTPtr*)&anOpmlHandler);
 
 	// get the mAddress node
-	getDirectoryFrom(this)->getTTNodeForOSC(mAddress, &aNode);
+	getDirectoryFrom(mAddress)->getTTNodeForOSC(mAddress, &aNode);
 	if (aNode) writeNode(anOpmlHandler, aNode);
 
 	return kTTErrNone;

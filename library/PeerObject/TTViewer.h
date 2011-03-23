@@ -22,8 +22,8 @@ typedef TTReceiver* TTReceiverPtr;
 class TTSender;
 typedef TTSender* TTSenderPtr;
 
-class TTApplication;
-typedef TTApplication* TTApplicationPtr;
+class TTApplicationManager;
+typedef TTApplicationManager* TTApplicationManagerPtr;
 
 class TTMODULAR_EXPORT TTViewer : public TTDataObject
 {
@@ -31,27 +31,27 @@ class TTMODULAR_EXPORT TTViewer : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr			mAddress;					///< ATTRIBUTE : data address to bind
-	TTSymbolPtr			mDescription;				///< ATTRIBUTE : text to describe the role of this data
-	TTSymbolPtr			mType;						///< ATTRIBUTE : type of the gui
-	TTSymbolPtr			mTag;						///< ATTRIBUTE: a tag for this viewer
-	TTBoolean			mSelected;					///< ATTRIBUTE : selection state of the gui
-	TTBoolean			mFreeze;					///< ATTRIBUTE : freeze data returning
+	TTSymbolPtr					mAddress;					///< ATTRIBUTE : data address to bind
+	TTSymbolPtr					mDescription;				///< ATTRIBUTE : text to describe the role of this data
+	TTSymbolPtr					mType;						///< ATTRIBUTE : type of the gui
+	TTSymbolPtr					mTag;						///< ATTRIBUTE: a tag for this viewer
+	TTBoolean					mSelected;					///< ATTRIBUTE : selection state of the gui
+	TTBoolean					mFreeze;					///< ATTRIBUTE : freeze data returning
 	
-	TTSymbolPtr			mDataspace;					///< ATTRIBUTE: The dataspace that this view uses (default is 'none')
-	TTSymbolPtr			mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
-	TTObjectPtr			mDataspaceConverter;		///< Performs conversions from data unit to the view unit
-	TTReceiverPtr		mDataspaceObserver;			///< the receiver which observe the data's dataspace attribute
-	TTReceiverPtr		mDataspaceUnitObserver;		///< the receiver which observe the data's unit attribute
+	TTSymbolPtr					mDataspace;					///< ATTRIBUTE: The dataspace that this view uses (default is 'none')
+	TTSymbolPtr					mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
+	TTObjectPtr					mDataspaceConverter;		///< Performs conversions from data unit to the view unit
+	TTReceiverPtr				mDataspaceObserver;			///< the receiver which observe the data's dataspace attribute
+	TTReceiverPtr				mDataspaceUnitObserver;		///< the receiver which observe the data's unit attribute
 	
-	TTBoolean			mEnable;					///< ATTRIBUTE: if false, received data won't be output
-	TTValue				mReturnedValue;				///< ATTRIBUTE : a local value to allow observation of this viewer
+	TTBoolean					mEnable;					///< ATTRIBUTE: if false, received data won't be output
+	TTValue						mReturnedValue;				///< ATTRIBUTE : a local value to allow observation of this viewer
 	
-	TTApplicationPtr	mApplication;				///< the application
-	TTReceiverPtr		mReceiver;					///< the receiver which binds on our data
-	TTSenderPtr			mSender;					///< the sender which binds on our data
+	TTApplicationManagerPtr		mApplicationManager;		///< the application manager
+	TTReceiverPtr				mReceiver;					///< the receiver which binds on our data
+	TTSenderPtr					mSender;					///< the sender which binds on our data
 	
-	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this viewer
+	TTCallbackPtr				mReturnValueCallback;		///< a way to return back value to the owner of this viewer
 	
 	/** */
 	TTErr Refresh();

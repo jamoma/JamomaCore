@@ -19,12 +19,8 @@
  
  */
 
-class TTApplication;
-typedef TTApplication* TTApplicationPtr;
-
 class TTInput;
 typedef TTInput* TTInputPtr;
-
 
 class TTMODULAR_EXPORT TTOutput : public TTDataObject
 {
@@ -32,46 +28,45 @@ class TTMODULAR_EXPORT TTOutput : public TTDataObject
 	
 public:	// use public for quick acces during signal processing
 	
-	TTUInt16			mNumber;					///< ATTRIBUTE : number of Output signals
-	TTSymbolPtr			mType;						///< ATTRIBUTE : the type of signal output (like audio, video, ...)
-	TTSymbolPtr			mInputAddress;				///< ATTRIBUTE : address of the input to bind
+	TTUInt16					mNumber;					///< ATTRIBUTE : number of Output signals
+	TTSymbolPtr					mType;						///< ATTRIBUTE : the type of signal output (like audio, video, ...)
+	TTSymbolPtr					mInputAddress;				///< ATTRIBUTE : address of the input to bind
 	
-	TTBoolean			mMute;						///< ATTRIBUTE : to mute signal output
-	TTFloat32			mMix;						///< ATTRIBUTE : to mix signal output and  a signal coming from TTInput object
-	TTFloat32			mGain;						///< ATTRIBUTE : apply again on signal output
-	TTBoolean			mFreeze;					///< ATTRIBUTE : to freeze signal output (ex : for video signal)
-	TTBoolean			mPreview;					///< ATTRIBUTE : to send signal to a preview channel
+	TTBoolean					mMute;						///< ATTRIBUTE : to mute signal output
+	TTFloat32					mMix;						///< ATTRIBUTE : to mix signal output and  a signal coming from TTInput object
+	TTFloat32					mGain;						///< ATTRIBUTE : apply again on signal output
+	TTBoolean					mFreeze;					///< ATTRIBUTE : to freeze signal output (ex : for video signal)
+	TTBoolean					mPreview;					///< ATTRIBUTE : to send signal to a preview channel
 	
-	TTObjectPtr			mSignalIn;					///< any data structure to receive complex signal
-	TTObjectPtr			mSignalOut;					///< any data structure to send complex signal
+	TTObjectPtr					mSignalIn;					///< any data structure to receive complex signal
+	TTObjectPtr					mSignalOut;					///< any data structure to send complex signal
 	
-	TTObjectPtr			mSignalTemp;				///< a temporary signal
-	TTObjectPtr			mSignalZero;				///< a zero signal
+	TTObjectPtr					mSignalTemp;				///< a temporary signal
+	TTObjectPtr					mSignalZero;				///< a zero signal
 	
-	TTObjectPtr			mMixUnit;					///< the unit used to mix the signal
-	TTObjectPtr			mGainUnit;					///< the unit used to apply the gain value on the signal
+	TTObjectPtr					mMixUnit;					///< the unit used to mix the signal
+	TTObjectPtr					mGainUnit;					///< the unit used to apply the gain value on the signal
 	
-	TTObjectPtr			mRampMixUnit;				///< the unit used to ramp the mix value
-	TTObjectPtr			mRampGainUnit;				///< the unit used to ramp the gain value
+	TTObjectPtr					mRampMixUnit;				///< the unit used to ramp the mix value
+	TTObjectPtr					mRampGainUnit;				///< the unit used to ramp the gain value
 	
-	TTValue				mInfo;						///< any info needed to process the signal
+	TTValue						mInfo;						///< any info needed to process the signal
 													///< example : 
 													///<	- for audio signal : <numChannels, vectorSize>
 													///<	- for video signal : <planeCount, pixelEncoding, dimX, dimY>
 	
-	TTUInt16			mIndex;						///< index of current output signal [0 :: mNumber]
+	TTUInt16					mIndex;						///< index of current output signal [0 :: mNumber]
 	
-	TTInputPtr			mInputObject;				///< TTInput object to get a signal passing through
+	TTInputPtr					mInputObject;				///< TTInput object to get a signal passing through
 	
 private:
 	
-	TTApplicationPtr	mApplication;
-	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this output
-	TTValuePtr			mLast;						///< keep a copy of the last sent signal for each index
-	TTCallbackPtr		mObserver;					///< to observe mInputAddress creation/destruction
+	TTCallbackPtr				mReturnSignalCallback;		///< a way to return back signal to the owner of this output
+	TTValuePtr					mLast;						///< keep a copy of the last sent signal for each index
+	TTCallbackPtr				mObserver;					///< to observe mInputAddress creation/destruction
 	
-	TTValue				mSignalPreview;				///< ATTRIBUTE : a hidden attribute to allow signal preview
-	TTAttributePtr		mSignalPreviewAttr;			///< a direct acces to the signal preview attribute to notify observers
+	TTValue						mSignalPreview;				///< ATTRIBUTE : a hidden attribute to allow signal preview
+	TTAttributePtr				mSignalPreviewAttr;			///< a direct acces to the signal preview attribute to notify observers
 	
 	
 	/** Send signal. The mIndex have to be choosen before */

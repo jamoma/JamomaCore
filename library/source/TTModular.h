@@ -46,12 +46,13 @@
 #include "TTModularSymbolCache.h"
 
 #include "TTApplication.h"
+#include "TTApplicationManager.h"
 #include "TTContainer.h"
 #include "TTCue.h"
 #include "TTCueManager.h"
 #include "TTData.h"
-#include "TTDevice.h"
-#include "TTDeviceManager.h"
+#include "TTApplication.h"
+#include "TTApplicationManager.h"
 #include "TTExplorer.h"
 #include "TTInput.h"
 #include "TTMapper.h"
@@ -93,9 +94,15 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 
 
 // Global
-extern				TTMODULAR_EXPORT TTHashPtr	TTModularApplications;
+class TTApplicationManager;
+typedef TTApplicationManager* TTApplicationManagerPtr;
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
 
-TTObjectPtr			TTMODULAR_EXPORT TTModularGetApplication(TTSymbolPtr applicationName);
+extern				TTMODULAR_EXPORT TTApplicationManagerPtr TTModularApplications;
+
+TTApplicationPtr	TTMODULAR_EXPORT TTModularGetLocalApplication();
+TTApplicationPtr	TTMODULAR_EXPORT TTModularGetApplication(TTSymbolPtr applicationName);
 
 // Prototypes
 // init the modular lib, and the foundation if needed

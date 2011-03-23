@@ -37,4 +37,16 @@
   <entry App="store/next" TT="StoreNext"/>
   <entry App="store/previous" TT="StorePrevious"/>
  </conversionTable>
+ <pluginParameters>
+  <application name="local">
+    <plugin="Minuit" ip="127.0.0.1" port="7002" />
+    <plugin="OSC" ip="127.0.0.1" port="7001" />
+  </application>
+  <application name="distantApplicationName">
+    <plugin="Minuit" ip="127.0.0.1" port="9998" />
+  </application>
+  <application name="otherDistantApplicationName">
+    <plugin="OSC" ip="127.0.0.1" port="9998" />
+  </application>
+ </pluginParameters >
 </jamoma>

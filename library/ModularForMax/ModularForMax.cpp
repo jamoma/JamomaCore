@@ -196,9 +196,6 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// prepare arguments
-	
-	args.append(JamomaApplication);
-	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
 	returnAddressBaton = new TTValue(TTPtr(x));
@@ -302,7 +299,6 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 	splitAttribute(TT(addressAndAttribute->s_name), &oscAddress, &attribute);
 	
 	// Make a TTReceiver object
-	args.append(JamomaApplication);
 	args.append(oscAddress);
 	
 	if (attribute != NO_ATTRIBUTE)
@@ -348,7 +344,6 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 	splitAttribute(TT(addressAndAttribute->s_name), &oscAddress, &attribute);
 	
 	// Make a TTReceiver object
-	args.append(JamomaApplication);
 	args.append(oscAddress);
 	
 	if (attribute != NO_ATTRIBUTE)
@@ -357,7 +352,7 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 		args.append(kTTSym_value);
 	
 	// Replace none TTnames
-	JamomaApplication->sendMessage(kTTSym_ConvertToTTName, args);
+	ToTTName(args);
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
@@ -392,8 +387,6 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 	TTValue			attr;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
-	
 	testObjectCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &testObjectCallback, kTTValNONE);
 	testObjectBaton = new TTValue(TTPtr(x));
@@ -444,8 +437,6 @@ TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager)
 	TTValue			attr;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
-	
 	testObjectCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &testObjectCallback, kTTValNONE);
 	testObjectBaton = new TTValue(TTPtr(x));
@@ -826,7 +817,6 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number)
 	TTValuePtr		signalOutBaton;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
 	args.append(TTUInt16(number));
 	args.append(TT("anything"));
 	
@@ -854,7 +844,6 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long nu
 	TTAudioSignalPtr	audioZero = NULL;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
 	args.append(TTUInt16(number));
 	args.append(TT("audio"));
 	
@@ -906,7 +895,6 @@ TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number
 	TTValuePtr		signalOutBaton;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
 	args.append(TTUInt16(number));
 	args.append(TT("anything"));
 	
@@ -1007,8 +995,6 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
-	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
@@ -1060,8 +1046,6 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
-	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
@@ -1075,7 +1059,7 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	return kTTErrNone;
 }
 
-// Method to deal with TTDeviceManager
+// Method to deal with TTApplicationManager
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a deviceManager object */
@@ -1083,7 +1067,7 @@ TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *retu
 {
 	TTValue			args;
 	
-	// Make a TTDeviceManager object
+	// Make a TTApplicationManager object
 	args.append(JamomaApplication);
 	args.append(TT(name->s_name));
 	

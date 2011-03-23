@@ -25,24 +25,21 @@ mSignalZero(NULL),
 mInfo(kTTValNONE),
 mIndex(0),
 mOutputObject(NULL),
-mApplication(NULL),
 mReturnSignalCallback(NULL),
 mObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 5);
+	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 4);
 	
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTInput is not NULL", mApplication);
-	arguments.get(1, mNumber);
+	arguments.get(0, mNumber);
 	TT_ASSERT("Number passed to TTInput is not 0", mNumber);
-	arguments.get(2, &mType);
-	arguments.get(3, (TTPtr*)&mReturnSignalCallback);
+	arguments.get(1, &mType);
+	arguments.get(2, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
 	
-	if (arguments.getSize() > 5) {
-		arguments.get(4, (TTPtr*)&mSignalIn);
-		arguments.get(5, (TTPtr*)&mSignalOut);
-		arguments.get(6, (TTPtr*)&mSignalZero);
+	if (arguments.getSize() > 4) {
+		arguments.get(3, (TTPtr*)&mSignalIn);
+		arguments.get(4, (TTPtr*)&mSignalOut);
+		arguments.get(5, (TTPtr*)&mSignalZero);
 	}
 	
 	addAttribute(Number, kTypeUInt16);
@@ -87,7 +84,7 @@ TTInput::~TTInput()
 	
 	if (mObserver) {
 		if (mOutputAddress != kTTSymEmpty)
-			getDirectoryFrom(this)->removeObserverForNotifications(mOutputAddress, *mObserver);
+			getDirectoryFrom(mOutputAddress)->removeObserverForNotifications(mOutputAddress, *mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
@@ -128,7 +125,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	
 	newAddress = value;
 	
-	if (!getDirectoryFrom(this)->getTTNodeForOSC(newAddress, &aNode)) {
+	if (!getDirectoryFrom(newAddress)->getTTNodeForOSC(newAddress, &aNode)) {
 		if (o = aNode->getObject())
 			if (o->getName() == TT("Output"))
 				Link((TTPtr)o);
@@ -147,8 +144,8 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	
 	if (mObserver) {
 		if (mOutputAddress != kTTSymEmpty)
-			getDirectoryFrom(this)->removeObserverForNotifications(mOutputAddress, *mObserver);
-		getDirectoryFrom(this)->addObserverForNotifications(newAddress, *mObserver);
+			getDirectoryFrom(mOutputAddress)->removeObserverForNotifications(mOutputAddress, *mObserver);
+		getDirectoryFrom(newAddress)->addObserverForNotifications(newAddress, *mObserver);
 	}
 	
 	mOutputAddress = newAddress;

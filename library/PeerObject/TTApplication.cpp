@@ -15,16 +15,17 @@
 #define thisTTClassTags		"application"
 
 TT_MODULAR_CONSTRUCTOR,
+mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
-mDirectory(NULL),
 mCommPlugin(kTTSymEmpty),
 mCommParameters(NULL),
+mApplicationManager(NULL),
 mAppToTT(NULL),
 mTTToApp(NULL)
 {
-	arguments.get(0, (TTPtr*)&mManager);
-	TT_ASSERT("ApplicationManager passed to TTApplication is not NULL", mManager);
+	arguments.get(0, (TTPtr*)&mApplicationManager);
+	TT_ASSERT("ApplicationManager passed to TTApplication is not NULL", mApplicationManager);
 	
 	arguments.get(1, &mName);
 	arguments.get(2, &mVersion);
@@ -223,7 +224,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 	if (aXmlHandler->mXmlNodeName == TT("#comment"))
 		return kTTErrNone;
 	
-	// Preset node
+	// Entry node
 	if (aXmlHandler->mXmlNodeName == TT("entry")) {
 	
 		

@@ -93,7 +93,6 @@ TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mAddress(kTTSymEmpty),
 mComment(kTTSymEmpty),
-mApplication(NULL),
 mManager(NULL),
 mTestObjectCallback(NULL),
 mReadItemCallback(NULL),
@@ -104,25 +103,22 @@ mItemTable(NULL),
 mItemKeysSorted(NULL),
 mCurrentItem(kTTSymEmpty)
 {
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTPreset is not NULL", mApplication);
-	
-	arguments.get(1, (TTPtr*)&mTestObjectCallback);
+	arguments.get(0, (TTPtr*)&mTestObjectCallback);
 	TT_ASSERT("TestObjectCallback passed to TTPreset is not NULL", mTestObjectCallback);
 	
-	arguments.get(2, (TTPtr*)&mReadItemCallback);
+	arguments.get(1, (TTPtr*)&mReadItemCallback);
 	TT_ASSERT("ReadItemCallback passed to TTPreset is not NULL", mReadItemCallback);
 	
-	arguments.get(3, (TTPtr*)&mUpdateItemCallback);
+	arguments.get(2, (TTPtr*)&mUpdateItemCallback);
 	TT_ASSERT("UpdateItemCallback passed to TTPreset is not NULL", mUpdateItemCallback);
 	
-	arguments.get(4, (TTPtr*)&mSortItemCallback);
+	arguments.get(3, (TTPtr*)&mSortItemCallback);
 	TT_ASSERT("SortItemCallback passed to TTPreset is not NULL", mSortItemCallback);
 	
-	arguments.get(5, (TTPtr*)&mSendItemCallback);
+	arguments.get(4, (TTPtr*)&mSendItemCallback);
 	TT_ASSERT("SendItemCallback passed to TTPreset is not NULL", mSendItemCallback);
 	
-	arguments.get(6, (TTPtr*)&mManager);
+	arguments.get(5, (TTPtr*)&mManager);
 	TT_ASSERT("Manager passed to TTPreset is not NULL", mManager);
 	
 	addAttribute(Name, kTypeSymbol);
@@ -176,8 +172,8 @@ TTErr TTPreset::Fill()
 	Clear();
 		
 	// 1. Look for all Objects under the address into the directory
-	getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
-	getDirectoryFrom(this)->LookFor(&aNodeList, testNodeUsingCallback, (TTPtr)mTestObjectCallback, allObjectNodes, &aNode);
+	getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &aNode);
+	getDirectoryFrom(mAddress)->LookFor(&aNodeList, testNodeUsingCallback, (TTPtr)mTestObjectCallback, allObjectNodes, &aNode);
 	
 	// 2. Make an Item for each found object and store it at relativeAddress key.
 	for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
@@ -393,7 +389,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 					absAddress = mCurrentItem;
 				}
 
-				err = getDirectoryFrom(this)->getTTNodeForOSC(absAddress, &aNode);
+				err = getDirectoryFrom(absAddress)->getTTNodeForOSC(absAddress, &aNode);
 				
 				// if the address exist
 				if (!err) {

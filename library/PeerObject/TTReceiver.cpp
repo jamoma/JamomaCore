@@ -17,24 +17,22 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
 mAttribute(kTTSym_value),		 // TODO : set kTTSymEmpty because a Receiver can bind on any object (not only data)
 mEnable(YES),
-mApplication(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObserver(NULL),
 mNodesObserversCache(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 5);
+	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 4);
+
+	TT_ASSERT("ApplicationManager passed to TTReceiver is not NULL", mApplicationManager);
+	arguments.get(0, &mAddress);
+	arguments.get(1, &mAttribute);
 	
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTReceiver is not NULL", mApplication);
-	arguments.get(1, &mAddress);
-	arguments.get(2, &mAttribute);
+	if (arguments.getSize() >= 3)
+		arguments.get(2, (TTPtr*)&mReturnAddressCallback);
 	
 	if (arguments.getSize() >= 4)
-		arguments.get(3, (TTPtr*)&mReturnAddressCallback);
-	
-	if (arguments.getSize() >= 5)
-		arguments.get(4, (TTPtr*)&mReturnValueCallback);
+		arguments.get(3, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Attribute, kTypeSymbol);
@@ -46,13 +44,11 @@ mNodesObserversCache(NULL)
 	mNodesObserversCache = new TTList();
 	
 	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
-	if (mApplication) {
-		TTValue v = TTValue(mAttribute);
-		ToTTName(v);
-		v.get(0, &mAttribute);
-	}
+	TTValue v = TTValue(mAttribute);
+	ToTTName(v);
+	v.get(0, &mAttribute);
 	
-	if	(getDirectoryFrom(this) && mAddress != kTTSymEmpty)
+	if	(getDirectoryFrom(mAddress) && mAddress != kTTSymEmpty)
 		bind();
 }
 
@@ -251,7 +247,7 @@ TTErr TTReceiver::bind()
 	if ((mAttribute != kTTSym_created) && (mAttribute != kTTSym_destroyed))
 	{
 		// Look for node(s) into the directory
-		err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
+		err = getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &aNode);
 		
 		// Start attribute observation on each existing node of the selection
 		if (!err) {
@@ -306,7 +302,7 @@ TTErr TTReceiver::bind()
 		
 	mObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));							// this is usefull only to debug
 		
-	getDirectoryFrom(this)->addObserverForNotifications(mAddress, *mObserver);
+	getDirectoryFrom(mAddress)->addObserverForNotifications(mAddress, *mObserver);
 
 	return kTTErrNone;
 }
@@ -359,7 +355,7 @@ TTErr TTReceiver::unbind()
 	}
 	
 	// stop life cycle observation
-	aDirectory = getDirectoryFrom(this);
+	aDirectory = getDirectoryFrom(mAddress);
 	if (mObserver && aDirectory) {
 		
 		err = aDirectory->removeObserverForNotifications(mAddress, *mObserver);
@@ -543,7 +539,7 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 			
 			// Replace none AppNames (because the mAttribute can be customized in order to have a specific application's namespace)
 			appValue = TTValue(aReceiver->mAttribute);
-			aReceiver->ToAppName(appValue);
+			ToAppName(appValue);
 			appValue.get(0, &attributeName);
 			
 			fullAddress += attributeName->getCString();

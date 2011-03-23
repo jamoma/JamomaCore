@@ -16,9 +16,6 @@
  
  */
 
-class TTApplication;
-typedef TTApplication* TTApplicationPtr;
-
 class TTMODULAR_EXPORT TTContainer : public TTDataObject
 {
 	TTCLASS_SETUP(TTContainer)
@@ -32,7 +29,6 @@ private:
 	TTValue				mContent;						///< ATTRIBUTE: all contained relative address
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the address of the container in the directory
 	
-	TTApplicationPtr	mApplication;					///< the application
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
 	TTHashPtr			mObjectsObserversCache;			///< a hast table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access

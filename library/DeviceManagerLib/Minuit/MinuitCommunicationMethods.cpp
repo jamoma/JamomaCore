@@ -30,27 +30,27 @@ void MinuitCommunicationMethods::minuitRunOSCListening(unsigned int port)
 	}
 }
 
-void MinuitCommunicationMethods::minuitReceiveNetworkDiscoverRequest(std::string from, std::string address)
+void MinuitCommunicationMethods::minuitReceiveNetworkDiscoverRequest(TTString from, TTString address)
 {
 	m_discoverRequestCallBack(m_discoverRequestCallBackArgument, from, address);
 }
 
-void MinuitCommunicationMethods::minuitReceiveNetworkGetRequest(std::string from, std::string address, std::string attribute)
+void MinuitCommunicationMethods::minuitReceiveNetworkGetRequest(TTString from, TTString address, TTString attribute)
 {
 	m_getRequestCallBack(m_getRequestCallBackArgument, from, address, attribute);	
 }
 
-void MinuitCommunicationMethods::minuitReceiveNetworkSetRequest(std::string from, std::string address, std::string attribute, TTValue& value)
+void MinuitCommunicationMethods::minuitReceiveNetworkSetRequest(TTString from, TTString address, TTString attribute, TTValue& value)
 {
 	m_setRequestCallBack(m_setRequestCallBackArgument, from, address, attribute, value);
 }
 
-void MinuitCommunicationMethods::minuitReceiveNetworkListenRequest(std::string from, std::string address, std::string attribute, bool enable)
+void MinuitCommunicationMethods::minuitReceiveNetworkListenRequest(TTString from, TTString address, TTString attribute, bool enable)
 {
 	m_listenRequestCallBack(m_listenRequestCallBackArgument, from, address, attribute, enable);
 }
 
-void MinuitCommunicationMethods::minuitSendMessage(std::string stringToSend, TTValue& valueToSend, std::string ip, unsigned int port)
+void MinuitCommunicationMethods::minuitSendMessage(TTString stringToSend, TTValue& valueToSend, TTString ip, unsigned int port)
 {
 	OSCParser OSCParsed(stringToSend);
 	
@@ -120,7 +120,7 @@ void MinuitCommunicationMethods::minuitSendMessage(std::string stringToSend, TTV
 	oscStream.Clear();
 }
 
-void MinuitCommunicationMethods::minuitAddDiscoverAnswer(std::string from, std::string address, std::string ip, unsigned int port, int timeOutInMs)
+void MinuitCommunicationMethods::minuitAddDiscoverAnswer(TTString from, TTString address, TTString ip, unsigned int port, int timeOutInMs)
 {
 	string key = from + address;
 	m_discoverAnswer[key] = new MinuitDiscoverAnswer();
@@ -129,7 +129,7 @@ void MinuitCommunicationMethods::minuitAddDiscoverAnswer(std::string from, std::
 	m_discoverAnswer[key]->setPort(port);
 }
 
-void MinuitCommunicationMethods::minuitAddGetAnswer(std::string from, std::string address, int timeOutInMs)
+void MinuitCommunicationMethods::minuitAddGetAnswer(TTString from, TTString address, int timeOutInMs)
 {	
 	string key = from + address;
 	m_getAnswer[key] = new MinuitGetAnswer();
@@ -154,7 +154,7 @@ void MinuitCommunicationMethods::minuitParseDiscoverAnswer(string from, string a
 }
 
 
-void MinuitCommunicationMethods::minuitParseGetAnswer(std::string from, string address, const osc::ReceivedMessage&m)
+void MinuitCommunicationMethods::minuitParseGetAnswer(TTString from, string address, const osc::ReceivedMessage&m)
 {
 	string key = from + address;
 	map<string, MinuitGetAnswer*>::iterator it  = m_getAnswer.find(key);
@@ -171,7 +171,7 @@ void MinuitCommunicationMethods::minuitParseGetAnswer(std::string from, string a
 		cout << "MinuitCommunicationMethods::minuitParseGetAnswer can't find a request at " << from+address << endl;
 }
 
-int MinuitCommunicationMethods::minuitWaitDiscoverAnswer(std::string from, std::string address, TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes)
+int MinuitCommunicationMethods::minuitWaitDiscoverAnswer(TTString from, TTString address, TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes)
 {
 	int state;
 	string key = from + address;
@@ -198,7 +198,7 @@ int MinuitCommunicationMethods::minuitWaitDiscoverAnswer(std::string from, std::
 }
 
 
-int MinuitCommunicationMethods::minuitWaitGetAnswer(std::string from, string address, TTValue& returnedValues, bool repeatAddress)
+int MinuitCommunicationMethods::minuitWaitGetAnswer(TTString from, string address, TTValue& returnedValues, bool repeatAddress)
 {
 	int state;
 	string key = from + address;

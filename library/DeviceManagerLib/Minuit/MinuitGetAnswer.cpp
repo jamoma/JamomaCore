@@ -92,7 +92,7 @@ void MinuitGetAnswer::parseMinuitGetAnswer(const osc::ReceivedMessage&m)
 
 			floatCorrection << arg->AsFloat();
 
-			std::string floatWithPoint = floatCorrection.str();
+			TTString floatWithPoint = floatCorrection.str();
 
 			if(floatWithPoint.find(".") == floatWithPoint.npos) {
 				floatWithPoint = floatWithPoint + ".";

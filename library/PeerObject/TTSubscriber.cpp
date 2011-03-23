@@ -19,7 +19,6 @@ mNodeAddress(kTTSymEmpty),
 mContextNode(NULL),
 mContextAddress(kTTSymEmpty),
 mNewInstanceCreated(false),
-mApplication(NULL),
 mGetContextListCallback(NULL),
 mExposedMessages(NULL),
 mExposedAttributes(NULL)
@@ -27,7 +26,7 @@ mExposedAttributes(NULL)
 	TTObjectPtr anObject;
 	TTErr		err;
 	
-	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 4);
+	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 3);
 	
 	arguments.get(0, (TTPtr*)&anObject);
 	
@@ -35,10 +34,7 @@ mExposedAttributes(NULL)
 	if (mRelativeAddress == kTTSymEmpty)
 		mRelativeAddress = S_SEPARATOR;
 	
-	arguments.get(2, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTSubscriber is not NULL", mApplication);
-	
-	arguments.get(3, (TTPtr*)&mGetContextListCallback);
+	arguments.get(2, (TTPtr*)&mGetContextListCallback);
 	TT_ASSERT("ContextList Callback passed to TTSubscriber is not NULL", mGetContextListCallback);
 	
 	addAttribute(RelativeAddress, kTypeSymbol);
@@ -58,7 +54,8 @@ mExposedAttributes(NULL)
 	mExposedMessages = new TTHash();
 	mExposedAttributes = new TTHash();
 	
-	if	(getDirectoryFrom(this) && mGetContextListCallback) {
+	// if local directory exist and the contextListCallback is not NULL
+	if	(getDirectoryFrom(S_SEPARATOR) && mGetContextListCallback) {
 		err = this->subscribe(anObject);
 		TT_ASSERT("Subscription done", !err);
 	}
@@ -66,7 +63,7 @@ mExposedAttributes(NULL)
 
 TTSubscriber::~TTSubscriber()
 {	
-	TTNodeDirectoryPtr aDirectory = getDirectoryFrom(this);
+	TTNodeDirectoryPtr aDirectory = getDirectoryFrom(S_SEPARATOR);		// only subscribe into local directory
 	TTList				childrenList;
 	TTValue				aTempValue;
 	TTValue				keys;
@@ -145,7 +142,7 @@ TTSubscriber::~TTSubscriber()
 
 TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 {
-	TTNodeDirectoryPtr aDirectory = getDirectoryFrom(this);
+	TTNodeDirectoryPtr aDirectory = getDirectoryFrom(S_SEPARATOR);		// only subscribe into local directory
 	TTSymbolPtr			contextAddress, absoluteAddress;
 	TTValue				aTempValue, args;
 	TTPtr				ourContext, hisContext;
@@ -239,7 +236,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 
 TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 {
-	TTNodeDirectoryPtr	aDirectory = getDirectoryFrom(this);
+	TTNodeDirectoryPtr	aDirectory = getDirectoryFrom(S_SEPARATOR);		// only subscribe into local directory
 	TTValue				args;
 	TTSymbolPtr			formatedContextName, contextAddress, lowerContextAddress;
 	TTSymbolPtr			context_parent, context_name, context_instance, context_attribute;
@@ -355,11 +352,11 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 	aData = NULL;
 	TTObjectInstantiate(TT("Data"), TTObjectHandle(&aData), args);
 	
-	// register TTData into the tree
+	// register TTData into the local tree
 	nameToAddress = convertTTNameInAddress(messageName);
 	joinOSCAddress(mNodeAddress, nameToAddress, &dataAddress);
 	aContext = mNode->getContext();
-	getDirectoryFrom(this)->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+	getDirectoryFrom(S_SEPARATOR)->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
 	
 	// store TTData and given object
 	v = TTValue((TTPtr)aData);
@@ -402,11 +399,11 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		aData = NULL;
 		TTObjectInstantiate(TT("Data"), TTObjectHandle(&aData), args);
 		
-		// register TTData into the tree
+		// register TTData into the local tree
 		nameToAddress = convertTTNameInAddress(attributeName);
 		joinOSCAddress(mNodeAddress, nameToAddress, &dataAddress);
 		aContext = mNode->getContext();
-		getDirectoryFrom(this)->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+		getDirectoryFrom(S_SEPARATOR)->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
 		
 		// observe the attribute of the object
 		err = anObject->findAttribute(attributeName, &anAttribute);

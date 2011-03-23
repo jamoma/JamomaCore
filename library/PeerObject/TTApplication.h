@@ -18,30 +18,37 @@
  
  */
 
-// Macro to convert a TTValue with tt names inside into a value with application names inside.
-// This maro have tobe used inside a TTObject with a mApplication member.
-#define	ToAppName(ttNames) \
-		mApplication->sendMessage(kTTSym_ConvertToAppName, ttNames); \
+class TTApplicationManager;
+typedef TTApplicationManager* TTApplicationManagerPtr;
 
-// Macro to convert a TTValue with application names inside into a value with tt names inside.
-// This maro have tobe used inside a TTObject with a mApplication member.
+
+// Macro to have a direct acces to a directory
+#define	getDirectoryFrom(anAddress) TTApplicationManagerGetApplication(anAddress)->mDirectory
+
+// Macro to convert a TTValue with tt names inside into a value with local application names inside.
+#define	ToAppName(ttNames) \
+		TTApplicationManagerGetApplication(kTTSym_local)->sendMessage(kTTSym_ConvertToAppName, ttNames); \
+
+// Macro to convert a TTValue with local application names inside into a value with tt names inside.
 #define	ToTTName(appNames) \
-		mApplication->sendMessage(kTTSym_ConvertToTTName, appNames); \
+		TTApplicationManagerGetApplication(kTTSym_local)->sendMessage(kTTSym_ConvertToTTName, appNames); \
 
 class TTMODULAR_EXPORT TTApplication : public TTDataObject
 {
 	TTCLASS_SETUP(TTApplication)
 	
+public:
+	TTNodeDirectoryPtr			mDirectory;			// ATTRIBUTE : the namespace directory of the application
+	
 private:
 
 	TTSymbolPtr					mName;				// ATTRIBUTE : the name of the application
 	TTSymbolPtr					mVersion;			// ATTRIBUTE : the version of the application
-	TTNodeDirectoryPtr			mDirectory;			// ATTRIBUTE : the namespace directory of the application
 	
 	TTSymbolPtr					mCommPlugin;		// ATTRIBUTE : kTTSymEmpty for local application
 	TTHashPtr					mCommParameters;	// ATTRIBUTE : NULL for local application
 	
-	TTApplicationManager		mManager;
+	TTApplicationManagerPtr		mApplicationManager;
 	
 	TTHashPtr					mAppToTT;			// Hash table to convert Application names into TT names
 	TTValue						mAllAppNames;		// All Application names
@@ -63,9 +70,7 @@ private:
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr WriteAsXml(const TTValue& value);
 	TTErr ReadFromXml(const TTValue& value);
-	
-	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTObjectPtr anApplication);
-	
+
 };
 
 typedef TTApplication* TTApplicationPtr;

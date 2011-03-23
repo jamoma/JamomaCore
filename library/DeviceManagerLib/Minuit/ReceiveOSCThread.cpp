@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void* OSCReceiveFunction(void* threadArg)
+TTPtr OSCReceiveFunction(TTPtr threadArg)
 {
 	ReceiveOSCThread* ReceiveOSC = (ReceiveOSCThread*) threadArg;
 
@@ -78,13 +78,13 @@ ReceiveOSCThread::asynchronousBreak()
 void
 ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointName& remoteEndPoint)
 {
-	std::string currentString(m.AddressPattern());
-	std::string sender = "";
-	std::string operation = "";
+	TTString currentString(m.AddressPattern());
+	TTString sender = "";
+	TTString operation = "";
 	int operationStart;
-	std::string address;
-	std::string whereTo = "";
-	std::string attribute = "";
+	TTString address;
+	TTString whereTo = "";
+	TTString attribute = "";
 	int attributeStart;
 	//std::ostringstream arguments;
 	TTValue arguments;
@@ -209,7 +209,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 				
 				arg++;																// get 1 string argument
 				
-				std::string val;
+				TTString val;
 				if (arg->IsString()) {
 //					arguments << arg->AsString();
 					val = arg->AsString();

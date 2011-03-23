@@ -47,8 +47,9 @@
  *
  */
 
+#include "Plugin.h"
 #include <map>
-#include <string>
+//#include <string>
 
 class Plugin;
 typedef Plugin* PluginPtr;
@@ -91,8 +92,8 @@ private:
  * 
  */
 
-class TTDeviceManager;
-typedef TTDeviceManager* TTDeviceManagerPtr;
+class TTApplicationManager;
+typedef TTApplicationManager* TTApplicationManagerPtr;
  
 class PluginFactories {
 public:
@@ -110,7 +111,7 @@ public:
 	 * \param name : the name of the Plugin (given by his developper).
 	 * \return an instance of the Plugin
 	 */
-	PluginPtr createPlugin(TTString name, TTDeviceManagerPtr deviceManager);
+	PluginPtr createPlugin(TTString name, TTApplicationManagerPtr applicationManager);
 	
 	/*!
 	 * Return an access iterator on the PluginFactories

@@ -24,7 +24,6 @@ mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
 mFunctionParameters(kTTValNONE),
 mFunctionSamples(kTTValNONE),
-mApplication(NULL),
 mReceiver(NULL),
 mSender(NULL),
 mInputObserver(NULL),
@@ -40,11 +39,8 @@ mFunctionUnit(NULL),
 mValid(NO)
 #endif
 {	
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTMapper is not NULL", mApplication);
-	
-	if(arguments.getSize() == 2)
-		arguments.get(1, (TTPtr*)&mReturnValueCallback);
+	if(arguments.getSize() == 1)
+		arguments.get(0, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Input, kTypeSymbol);
 	addAttributeWithSetter(Output, kTypeSymbol);
@@ -170,7 +166,6 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mObserveInputRange = true;
 	
 	// Make a TTReceiver object
-	args.append(mApplication);
 	args.append(mInput);
 	args.append(kTTSym_value);
 	args.append(NULL);
@@ -188,7 +183,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper created before we observe the input address
-	err = getDirectoryFrom(this)->getTTNodeForOSC(mInput, &aNode);
+	err = getDirectoryFrom(mInput)->getTTNodeForOSC(mInput, &aNode);
 	
 	if (!err) {
 
@@ -220,7 +215,6 @@ TTErr TTMapper::observeInput()
 		TTObjectRelease(TTObjectHandle(&mInputObserver));
 	
 	// Make a TTReceiver object
-	args.append(mApplication);
 	args.append(mInput);
 	args.append(kTTSym_created);
 	
@@ -249,7 +243,6 @@ TTErr TTMapper::observeInputRange()
 		TTObjectRelease(TTObjectHandle(&mInputRangeObserver));
 	
 	// Make a TTReceiver object
-	args.append(mApplication);
 	args.append(mInput);
 	args.append(kTTSym_rangeBounds);
 	args.append(NULL);
@@ -278,7 +271,6 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	mObserveOutputRange = true;
 		
 	// Make a TTSender object
-	args.append(mApplication);
 	args.append(mOutput);
 	args.append(kTTSym_value);
 	
@@ -288,7 +280,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper created before we observe the output address
-	err = getDirectoryFrom(this)->getTTNodeForOSC(mOutput, &aNode);
+	err = getDirectoryFrom(mOutput)->getTTNodeForOSC(mOutput, &aNode);
 	
 	if (!err) {
 
@@ -320,7 +312,6 @@ TTErr TTMapper::observeOutput()
 		TTObjectRelease(TTObjectHandle(&mOutputObserver));
 	
 	// Make a TTReceiver object
-	args.append(mApplication);
 	args.append(mOutput);
 	args.append(kTTSym_created);
 	
@@ -349,7 +340,6 @@ TTErr TTMapper::observeOutputRange()
 		TTObjectRelease(TTObjectHandle(&mOutputRangeObserver));
 	
 	// Make a TTReceiver object
-	args.append(mApplication);
 	args.append(mOutput);
 	args.append(kTTSym_rangeBounds);
 	args.append(NULL);
@@ -586,7 +576,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
-	TTErr err = getDirectoryFrom(aMapper)->getTTNodeForOSC(address, &aNode);
+	TTErr err = getDirectoryFrom(address)->getTTNodeForOSC(address, &aNode);
 	
 	if (!err) {
 		
@@ -630,7 +620,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
-	TTErr err = getDirectoryFrom(aMapper)->getTTNodeForOSC(address, &aNode);
+	TTErr err = getDirectoryFrom(address)->getTTNodeForOSC(address, &aNode);
 	
 	if (!err) {
 		

@@ -26,8 +26,8 @@
 class MinuitCommunicationMethods{
 private:
 	ReceiveOSCThread* m_receiveOSCThread;
-	std::map<std::string, MinuitDiscoverAnswer*> m_discoverAnswer;
-	std::map<std::string, MinuitGetAnswer*> m_getAnswer;
+	std::map<TTString, MinuitDiscoverAnswer*> m_discoverAnswer;
+	std::map<TTString, MinuitGetAnswer*> m_getAnswer;
 	
 public:
 	MinuitCommunicationMethods();
@@ -35,30 +35,30 @@ public:
 	/** */
 	void minuitRunOSCListening(unsigned int port);
 
-	void(*m_discoverRequestCallBack)(void*, std::string, std::string);
-	void(*m_getRequestCallBack)(void*, std::string, std::string, std::string);
-	void(*m_setRequestCallBack)(void*, std::string, std::string, std::string, TTValue&);
-	void(*m_listenRequestCallBack)(void*, std::string, std::string, std::string, bool);
+	void(*m_discoverRequestCallBack)(TTPtr, TTString, TTString);
+	void(*m_getRequestCallBack)(TTPtr, TTString, TTString, TTString);
+	void(*m_setRequestCallBack)(TTPtr, TTString, TTString, TTString, TTValue&);
+	void(*m_listenRequestCallBack)(TTPtr, TTString, TTString, TTString, bool);
 	
-	void* m_discoverRequestCallBackArgument;
-	void* m_getRequestCallBackArgument;
-	void* m_setRequestCallBackArgument;
-	void* m_listenRequestCallBackArgument;
+	TTPtr m_discoverRequestCallBackArgument;
+	TTPtr m_getRequestCallBackArgument;
+	TTPtr m_setRequestCallBackArgument;
+	TTPtr m_listenRequestCallBackArgument;
 	
-	void minuitReceiveNetworkDiscoverRequest(std::string from, std::string address);
-	void minuitReceiveNetworkGetRequest(std::string from, std::string address, std::string attribute);
-	void minuitReceiveNetworkSetRequest(std::string from, std::string address, std::string attribute, TTValue& value);
-	void minuitReceiveNetworkListenRequest(std::string from, std::string address, std::string attribute, bool);
+	void minuitReceiveNetworkDiscoverRequest(TTString from, TTString address);
+	void minuitReceiveNetworkGetRequest(TTString from, TTString address, TTString attribute);
+	void minuitReceiveNetworkSetRequest(TTString from, TTString address, TTString attribute, TTValue& value);
+	void minuitReceiveNetworkListenRequest(TTString from, TTString address, TTString attribute, bool);
 
-	void minuitSendMessage(std::string stringToSend, TTValue& valueToSend, std::string ip, unsigned int port);
+	void minuitSendMessage(TTString stringToSend, TTValue& valueToSend, TTString ip, unsigned int port);
 	
-	void minuitParseDiscoverAnswer(std::string from, std::string address, const osc::ReceivedMessage&m);
-	void minuitAddDiscoverAnswer(std::string from, std::string address, std::string ip, unsigned int port, int timeOutInMs = DEFAULT_TIMEOUT);
-	int minuitWaitDiscoverAnswer(std::string from, std::string address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
+	void minuitParseDiscoverAnswer(TTString from, TTString address, const osc::ReceivedMessage&m);
+	void minuitAddDiscoverAnswer(TTString from, TTString address, TTString ip, unsigned int port, int timeOutInMs = DEFAULT_TIMEOUT);
+	int minuitWaitDiscoverAnswer(TTString from, TTString address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
 	
-	void minuitParseGetAnswer(std::string from, std::string address, const osc::ReceivedMessage&m);
-	void minuitAddGetAnswer(std::string from, std::string address, int timeOutInMs = DEFAULT_TIMEOUT);
-	int minuitWaitGetAnswer(std::string from, std::string address, TTValue& returnedValues, bool repeatAddress = true);
+	void minuitParseGetAnswer(TTString from, TTString address, const osc::ReceivedMessage&m);
+	void minuitAddGetAnswer(TTString from, TTString address, int timeOutInMs = DEFAULT_TIMEOUT);
+	int minuitWaitGetAnswer(TTString from, TTString address, TTValue& returnedValues, bool repeatAddress = true);
 };
 
 unsigned int computeOSCMessageSize(OSCParser OSCParsed, TTValue& v);

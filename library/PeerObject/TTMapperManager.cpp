@@ -15,13 +15,9 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
-mApplication(NULL),
 mMapperList(NULL)
 {
 	TTValue v;
-
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTMapperManager is not NULL", mApplication);
 
 	addAttributeWithSetter(Address, kTypeSymbol);
 
@@ -151,7 +147,6 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& value)
 
 			// Create a new mapper
 			newMapper = NULL;
-			args.append(mApplication);
 			TTObjectInstantiate(TT("Mapper"), TTObjectHandle(&newMapper), args);
 
 			// Browse attributes in xml

@@ -41,7 +41,7 @@
 #include "ModularForMax.h"
 
 #define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
-#define JamomaDirectory TTApplicationGetDirectory(TTObjectPtr(JamomaApplication))
+#define JamomaDirectory TTApplicationManagerGetApplication(kTTSym_local)->mDirectory
 
 #define JAMOMA "Jamoma"
 #define JAMOMA_UNIT_HEIGHT 35.0

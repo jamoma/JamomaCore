@@ -33,35 +33,32 @@ mRampGainUnit(NULL),
 mInfo(kTTValNONE),
 mIndex(0),
 mInputObject(NULL),
-mApplication(NULL),
 mReturnSignalCallback(NULL),
 mLast(NULL),
 mObserver(NULL),
 mSignalPreview(kTTValNONE),
 mSignalPreviewAttr(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 4);
+	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 3);
 	
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTInput is not NULL", mApplication);
-	arguments.get(1, mNumber);
+	arguments.get(0, mNumber);
 	TT_ASSERT("Number passed to TTInput is not 0", mNumber);
-	arguments.get(2, &mType);
-	arguments.get(3, (TTPtr*)&mReturnSignalCallback);
+	arguments.get(1, &mType);
+	arguments.get(2, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
 	
-	if (arguments.getSize() > 4) {
-		arguments.get(4, (TTPtr*)&mSignalIn);
-		arguments.get(5, (TTPtr*)&mSignalOut);
-		arguments.get(6, (TTPtr*)&mSignalTemp);
-		arguments.get(7, (TTPtr*)&mSignalZero);
+	if (arguments.getSize() > 3) {
+		arguments.get(3, (TTPtr*)&mSignalIn);
+		arguments.get(4, (TTPtr*)&mSignalOut);
+		arguments.get(5, (TTPtr*)&mSignalTemp);
+		arguments.get(6, (TTPtr*)&mSignalZero);
 	}
 	
-	if (arguments.getSize() > 8) {
-		arguments.get(8, (TTPtr*)&mMixUnit);
-		arguments.get(9, (TTPtr*)&mGainUnit);
-		arguments.get(10, (TTPtr*)&mRampMixUnit);
-		arguments.get(11, (TTPtr*)&mRampGainUnit);
+	if (arguments.getSize() > 7) {
+		arguments.get(7, (TTPtr*)&mMixUnit);
+		arguments.get(8, (TTPtr*)&mGainUnit);
+		arguments.get(9, (TTPtr*)&mRampMixUnit);
+		arguments.get(10, (TTPtr*)&mRampGainUnit);
 	}
 	
 	addAttribute(Number, kTypeUInt16);
@@ -136,7 +133,7 @@ TTOutput::~TTOutput()
 	
 	if (mObserver) {
 		if (mInputAddress != kTTSymEmpty)
-			getDirectoryFrom(this)->removeObserverForNotifications(mInputAddress, *mObserver);
+			getDirectoryFrom(mInputAddress)->removeObserverForNotifications(mInputAddress, *mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
@@ -207,7 +204,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	
 	newAddress = value;
 	
-	if (!getDirectoryFrom(this)->getTTNodeForOSC(newAddress, &aNode)) {
+	if (!getDirectoryFrom(newAddress)->getTTNodeForOSC(newAddress, &aNode)) {
 		if (o = aNode->getObject())
 			if (o->getName() == TT("Input"))
 				Link((TTPtr)o);
@@ -227,8 +224,8 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	
 	if (mObserver) {
 		if (mInputAddress != kTTSymEmpty)
-			getDirectoryFrom(this)->removeObserverForNotifications(mInputAddress, *mObserver);
-		getDirectoryFrom(this)->addObserverForNotifications(newAddress, *mObserver);
+			getDirectoryFrom(mInputAddress)->removeObserverForNotifications(mInputAddress, *mObserver);
+		getDirectoryFrom(newAddress)->addObserverForNotifications(newAddress, *mObserver);
 	}
 	
 	mInputAddress = newAddress;

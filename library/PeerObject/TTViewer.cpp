@@ -26,13 +26,13 @@ mDataspaceObserver(NULL),
 mDataspaceUnitObserver(NULL),
 mEnable(YES),
 mReturnedValue(kTTValNONE),
-mApplication(NULL),
+mApplicationManager(NULL),
 mReceiver(NULL),
 mSender(NULL),
 mReturnValueCallback(NULL)
 {	
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTViewer is not NULL", mApplication);
+	arguments.get(0, (TTPtr*)&mApplicationManager);
+	TT_ASSERT("ApplicationManager passed to TTViewer is not NULL", mApplicationManager);
 	
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
@@ -103,7 +103,7 @@ TTErr TTViewer::bind()
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// Prepare arguments
-	args.append(mApplication);
+	args.append(mApplicationManager);
 	
 	if (mAddress != kTTSymEmpty)
 		args.append(mAddress);
@@ -156,7 +156,7 @@ TTErr TTViewer::observeDataspace()
 		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
 	
 	// Make a TTReceiver object
-	args.append(mApplication);
+	args.append(mApplicationManager);
 	args.append(mAddress);
 	args.append(kTTSym_dataspace);
 	args.append(NULL);
@@ -186,7 +186,7 @@ TTErr TTViewer::observeDataspaceUnit()
 		TTObjectRelease(TTObjectHandle(&mDataspaceUnitObserver));
 	
 	// Make a TTReceiver object
-	args.append(mApplication);
+	args.append(mApplicationManager);
 	args.append(mAddress);
 	args.append(kTTSym_dataspaceUnit);
 	args.append(NULL);

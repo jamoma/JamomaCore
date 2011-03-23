@@ -32,7 +32,6 @@ public:
 
 private:
 	
-	TTApplicationPtr	mApplication;					///< the application
 	TTListPtr			mMapperList;					///< a list containing <TTMapperPtr>
 	
 public:

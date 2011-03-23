@@ -32,9 +32,6 @@
 class TTData;
 typedef TTData* TTDataPtr;
 
-class TTApplication;
-typedef TTApplication* TTApplicationPtr;
-
 class TTMODULAR_EXPORT TTSubscriber : public TTDataObject
 {
 	
@@ -44,26 +41,24 @@ public:
 
 private:
 	
-	TTSymbolPtr			mRelativeAddress;			///< the address of this subscriber relative to the Context node
+	TTSymbolPtr					mRelativeAddress;			///< the address of this subscriber relative to the Context node
 	
-	TTNodePtr			mNode;						///< cache the TTNode relative to this subscriber
-	TTSymbolPtr			mNodeAddress;				///< cache the address of this subscriber in the tree structure
+	TTNodePtr					mNode;						///< cache the TTNode relative to this subscriber
+	TTSymbolPtr					mNodeAddress;				///< cache the address of this subscriber in the tree structure
 	
-	TTNodePtr			mContextNode;				///< cache the TTNode relative to the Context
-	TTSymbolPtr			mContextAddress;			///< cache the address of the Context node in the tree structure
+	TTNodePtr					mContextNode;				///< cache the TTNode relative to the Context
+	TTSymbolPtr					mContextAddress;			///< cache the address of the Context node in the tree structure
 	
-	TTBoolean			mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
+	TTBoolean					mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
 	
-	TTApplicationPtr	mApplication;				///< the application
-	
-	TTCallbackPtr		mGetContextListCallback;	///< A callback to get the Context list of all Contexts above.
+	TTCallbackPtr				mGetContextListCallback;	///< A callback to get the Context list of all Contexts above.
 													///< Here we expect the callback fill the given value with a TTListPtr or NULL.
 													///< Important Note : 
 													///<	- the top level context have to be the first element of the list.
 													///<	- each element have to be TTValue with < context name, context pointer >
 	
-	TTHashPtr			mExposedMessages;
-	TTHashPtr			mExposedAttributes;
+	TTHashPtr					mExposedMessages;
+	TTHashPtr					mExposedAttributes;
 	
 	/** Make all needed registrations to set up a TTNode in the tree strucuture for a given TTObject */
 	TTErr subscribe(TTObjectPtr anObject);

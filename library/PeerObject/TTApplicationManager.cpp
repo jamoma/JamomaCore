@@ -17,7 +17,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mApplications(NULL),
 mPluginFactories(NULL),
-mPlugins(NULL),
+mPlugins(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTApplicationManager", arguments.getSize() == 0);
 	
@@ -26,7 +26,7 @@ mPlugins(NULL),
 	addMessageWithArgument(PluginLoadAll);
 	addMessageWithArgument(PluginSetParameters);
 	addMessageWithArgument(PluginLaunch);
-	addMessageWithArgument(PluginScanallApplication);
+	addMessageWithArgument(PluginScanAllApplication);
 	
 	addMessageWithArgument(ApplicationAdd);
 	addMessageWithArgument(ApplicationRemove);
@@ -51,30 +51,26 @@ TTErr TTApplicationManager::PluginLoadAll(const TTValue& value)
 {
 	TTXmlHandlerPtr	aXmlHandler	= NULL;
 	TTValue			v, args;
-	//TTCString		pluginsPath;
 	TTSymbolPtr		pluginsPath;
 	
-	//value.get(0, (TTPtr*)&pluginsPath);
 	value.get(0, &pluginsPath);
 
-	mfactories->loadPlugins(pluginsPath->getCString());
+	mPluginFactories->loadPlugins(pluginsPath->getCString());
 
 	// create an instance of each plugin available
-	IteratorPluginNames it = mfactories->getPluginNames();
+	IteratorPluginNames it = mPluginFactories->getPluginNames();
 	
 	while (it.hasNext()) {
 		TTString pname = it.next();
-		std::cout << pname << std::endl;
-		PluginPtr p = mfactories->createPlugin(pname, this);
+		TTLogMessage("%s plugin loaded", pname.data());
+		PluginPtr p = mPluginFactories->createPlugin(pname, this);
 		if (p != 0) {
 			mPlugins->append(TT(pname), p);
 		}
 	}	
 	
-	// define parameters for each plugin available
-	//mPlugins->iterate((TTPtr)this, definePlugins);
-
-	// load a xml config file 
+	// load a xml config file
+	// to -- we should read the JamomaConfiguration.xml file
 	if (value.getSize() > 1) {
 		TTSymbolPtr xmlConfigPath;
 		value.get(1, &xmlConfigPath);
@@ -86,23 +82,21 @@ TTErr TTApplicationManager::PluginLoadAll(const TTValue& value)
 		// set XmlHandler being used by ApplicationManager
 		v = TTValue(TTPtr(this));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
-		aXmlHandler->setAttributeValue(TT("headerNodeName"),	TT("applicationManager"));
-//		aXmlHandler->setAttributeValue(TT("version"),			TT(XML_MAPPING_VERSION));
-//		aXmlHandler->setAttributeValue(TT("xmlSchemaLocation"), TT(XML_MAPPING_SCHEMA_LOCATION));
 		
 		v.clear();
 		v.append(xmlConfigPath);
-		aXmlHandler->sendMessage(TT("Read"), v);//TODO : return an error code if fail
+		aXmlHandler->sendMessage(TT("Read"), v);	//TODO : return an error code if fail
 	}
 
 	// launch plugins
-	mPlugins->iterate((TTPtr)this, launchPlugins);
+	mPlugins->iterate((TTPtr)this, TTApplicationManagerLaunchPlugins);
 	
 	return kTTErrNone;
 }
 
 TTErr TTApplicationManager::PluginSetParameters(const TTValue& value)
 {
+	TTValue	v;
 	TTSymbolPtr pluginName;
 	TTHashPtr pluginParameters;
 	PluginPtr aPlugin;
@@ -114,10 +108,13 @@ TTErr TTApplicationManager::PluginSetParameters(const TTValue& value)
 		v.get(0, (TTPtr*)&aPlugin);
 		// aPlugin->commDefineParameters(pluginParameters); // to -- here we should just pass the pluginParameters TTHash...
 	}
+	
+	return kTTErrNone;
 }
 
-TTerr TTApplicationManager::PluginLaunch(const TTValue& value)
+TTErr TTApplicationManager::PluginLaunch(const TTValue& value)
 {
+	TTValue v;
 	TTSymbolPtr pluginName;
 	PluginPtr aPlugin;
 	
@@ -127,9 +124,11 @@ TTerr TTApplicationManager::PluginLaunch(const TTValue& value)
 		v.get(0, (TTPtr*)&aPlugin);
 		aPlugin->commRunReceivingThread();
 	}
+	
+	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::AddApplication(const TTValue& value)
+TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 {
 	TTValue v;
 	TTSymbolPtr applicationName, pluginName;
@@ -157,10 +156,11 @@ TTErr TTApplicationManager::AddApplication(const TTValue& value)
 	// else : add distant application to the plugin
 	else
 		;
+	
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::RemoveApplication(const TTValue& value)
+TTErr TTApplicationManager::ApplicationRemove(const TTValue& value)
 {
 	TTValue v;
 	TTSymbolPtr applicationName;
@@ -172,18 +172,18 @@ TTErr TTApplicationManager::RemoveApplication(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::GetApplication(TTValue& value)
+TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 {
 	TTSymbolPtr applicationName;
 	
 	if (value.getSize())
-		if (value.getType() = kTypeSymbol)
+		if (value.getType() == kTypeSymbol)
 			value.get(0, &applicationName);
 	
 	return mApplications->lookup(applicationName, value);
 }
 
-TTErr TTApplicationManager::Scan()
+TTErr TTApplicationManager::PluginScanAllApplication()
 {
 	TTValue			v, keys;
 	TTSymbolPtr		pluginName;
@@ -283,7 +283,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 					aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 					
 					// fill the commParameters table
-					pluginParameters.append(attributeName, v);
+					pluginParameters->append(attributeName, v);
 				}
 			}
 			
@@ -317,7 +317,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 			}
 			
 			// add the Application
-			AddApplication(args); 
+			ApplicationAdd(args); 
 		}
 	}
 	
@@ -329,31 +329,30 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-TTNodeDirectoryPtr TTApplicationManagerGetDirectory(TTObjectPtr anApplicationManager, TTSymbolPtr anAddress)
+TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr anAddress)
 {
 	TTValue v;
 	TTSymbolPtr applicationName;
 	TTApplicationPtr anApplication;
 	TTErr err;
 	
-	if (anApplicationManager) {
-		
+	if (TTModularApplications) {
+		// the address could be simply the name of the application name or a complete address
 		// TODO : parse the application name from address
 		
-		err = TTApplicationManagerPtr(anApplicationManager)->mApplications->lookup(applicationName, v);
+		err = TTModularApplications->mApplications->lookup(applicationName, v);
 		
 		if (err)
-			TTApplicationManagerPtr(anApplicationManager)->mApplications->lookup(kTTSym_local, v);
+			TTModularApplications->mApplications->lookup(kTTSym_local, v);
 		
 		v.get(0, (TTPtr*)&anApplication);
-		return anApplication->mDirectory
+		return anApplication;
 	}
 	
 	return NULL;
 }
 
-
-TTErr TTApplicationManagerDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
 	TTApplicationManagerPtr	aApplicationManager;
@@ -390,7 +389,7 @@ TTErr TTApplicationManagerDirectoryCallback(TTPtr baton, TTValue& data)
 	else
 		;//post("Notify %s about %s destruction", whereToSend.data(), whereToListen.data());
 	
-	err = getDirectoryFrom(aApplicationManager)->getTTNodeForOSC(whereToSend, &applicationNodeToAnswer);
+	err = getDirectoryFrom(whereToSend)->getTTNodeForOSC(whereToSend, &applicationNodeToAnswer);
 	if (!err) {
 		if (o = applicationNodeToAnswer->getObject()) {
 			if (o->getName() == TT("Application")) {
@@ -405,9 +404,10 @@ TTErr TTApplicationManagerDirectoryCallback(TTPtr baton, TTValue& data)
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManagerAttributeCallback(TTPtr baton, TTValue& data)
+TTErr TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue& data)
 {
-	std::cout << "TTApplicationManagerAttributeCallback" << std::endl;
+	TTLogMessage("TTApplicationManagerAttributeCallback");
+	
 	TTValuePtr			b;
 	TTApplicationManagerPtr	aApplicationManager;
 	TTSymbolPtr			whereToSend, whereToListen, attributeToListen;
@@ -424,7 +424,7 @@ TTErr TTApplicationManagerAttributeCallback(TTPtr baton, TTValue& data)
 	b->get(3, &attributeToListen);
 	
 	// send a listen answer
-	err = getDirectoryFrom(aApplicationManager)->getTTNodeForOSC(whereToSend, &applicationNodeToAnswer);
+	err = getDirectoryFrom(whereToSend)->getTTNodeForOSC(whereToSend, &applicationNodeToAnswer);
 	if (!err) {
 		if (o = applicationNodeToAnswer->getObject()) {
 			if (o->getName() == TT("Application")) {
@@ -452,240 +452,169 @@ TTErr TTApplicationManagerAttributeCallback(TTPtr baton, TTValue& data)
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManagerDiscoverCallback(TTPtr arg, TTString whereToDiscover, std::vector<TTString>& returnedNodes, std::vector<TTString>& returnedLeaves, std::vector<TTString>& returnedAttributes)
+TTErr TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
 {
-	TTErr err;
-	TTNodePtr nodeToDiscover, aChild;
-	TTList allChildren;
-	TTString instanceName, sAttribute;
-	TTSymbolPtr attributeName, type;
-	TTValue attributeNameList, v;
-	TTObjectPtr o;
-	int i;
+	TTLogMessage("TTApplicationManagerLocalApplicationDiscover");
 	
-	TTApplicationManagerPtr aTTApplicationManager = (TTApplicationManagerPtr) arg;
-	
-	if(aTTApplicationManager){
-		
-		// Get the Node at the given address
-		err = getDirectoryFrom(aTTApplicationManager)->getTTNodeForOSC(whereToDiscover.c_str(), &nodeToDiscover);
-		
-		if(!err){
-			
-			// Edit the vector with all name+instance of each children
-			nodeToDiscover->getChildren(S_WILDCARD, S_WILDCARD, allChildren);
-			for(allChildren.begin(); allChildren.end(); allChildren.next())
-			{
-				allChildren.current().get(0,(TTPtr*)&aChild);
-				
-				instanceName = aChild->getName()->getString();
-				
-				if(aChild->getInstance() != NO_INSTANCE){
-					instanceName += ".";
-					instanceName += aChild->getInstance()->getString();
-				}
-				
-				// if the object is a Data : push his name in the leaves list
-				if (o = aChild->getObject()) {
-					type = o->getName();
-					if(type == TT("Data")) {
-						returnedLeaves.push_back(instanceName.c_str());
-						continue;
-					}
-				}
-				
-				// else in the nodes list
-				returnedNodes.push_back(instanceName.c_str());
-			}
-			
-			// Edit the vector with all attributes name
-			// if there is an object push all
-			// this attributes in the attribute list
-			if (o = nodeToDiscover->getObject()) {
-				
-				type = o->getName();
-				
-				// Add the access attribute which is not a jamoma attribute
-				// only for the data
-				//				if(type == TT("Data"))
-				//					returnedAttributes.push_back(NAMESPACE_ATTR_ACCESS);
-				
-				// Add all other attributes
-				o->getAttributeNames(attributeNameList);
-				for(i = 0; i < attributeNameList.getSize(); i++)
-				{
-					attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
-					sAttribute = attributeName->getCString();
-					
-					if(strcmp(sAttribute.c_str(), ""))
-						returnedAttributes.push_back(sAttribute);
-				}
-			}
-		}
-		else{
-			; //TODO send a notification : Jamoma!namespace #address /address
-		}
-	}	
-	return kTTErrNone;
-}
-
-TTErr TTApplicationManagerGetCallback(TTPtr baton, TTValue& data)
-{
-	TTValuePtr			b;
-	TTApplicationManagerPtr	aTTApplicationManager;
-	TTSymbolPtr			whereToGet, attrName, nodeType;
-	TTErr				err; 
-	TTNodePtr			nodeToGet;
-	TTList				allChildren;
-	TTValue				v;
-	TTObjectPtr			o;
-	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aTTApplicationManager);
-	b->get(1, &whereToGet);
-	b->get(2, &attrName);
-	
-	if(aTTApplicationManager){
-		
-		// Get the Node at the given address
-		err = getDirectoryFrom(aTTApplicationManager)->getTTNodeForOSC(whereToGet, &nodeToGet);
-		
-		if(!err){
-			
-			// test node type to get the access status
-			o = nodeToGet->getObject();
-			nodeType = o->getName();
-			
-			// Convert attribute into Jamoma style
-			//attributeName = aTTApplicationManager->convertAttributeToJamoma(attribute);
-			//attributeName = TT(attribute);
-			
-			// filter Access attribute
-			if(attrName == kTTSym_service){
-				
-				// TODO : add a Jamoma attribute for this
-				data = TT("getsetter");
-				
-			}
-			//			// filter RangBounds attribute
-			//			else if(attrName == kTTSym_rangeBounds){
-			//				
-			//				err = o->getAttributeValue(kTTSym_rangeBounds, v);
-			//				
-			//				v.toString();
-			//				v.get(0, returnedValue);
-			//			}
-			//			else{
-			//				
-			//				// get the value of the attribute
-			//				v.clear();
-			//				err = o->getAttributeValue(attributeName, v);
-			//				
-			//				// and convert it in string
-			//				if(!err){
-			//					
-			//					v.toString();
-			//					v.get(0, returnedValue);
-			//				}
-			//			}
-			else {
-				// get the value of the attribute
-				v.clear();
-				err = o->getAttributeValue(attrName, v);
-				
-				// and convert it in string
-				if(!err){
-					data = v;
-				}
-				
-			}
-		}
-	}
-	else{
-		; //TODO send a notification : Jamoma!get #address /address:attribute
-	}
-	
-	return kTTErrNone;
-}	
-
-TTErr TTApplicationManagerSetCallback(TTPtr baton, TTValue& data)
-{
-	std::cout << "TTApplicationManagerSetCallback" << std::endl;
-	
-	TTValuePtr			b;
-	TTApplicationManagerPtr	aTTApplicationManager;
-	TTSymbolPtr			whereToSet, attrName, nodeType;
+	TTList				nodeList, childList;
+	TTNodePtr			firstNode, aNode;
+	TTSymbolPtr			nodeAddress, objectType;
+	TTObjectPtr			anObject;
 	TTErr				err;
-	TTNodePtr			nodeToSet;
-	TTList				allChildren;
-	TTValue				attributeValue, v;
-	TTObjectPtr			o;
 	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aTTApplicationManager);
+	err = getDirectoryFrom(whereToDiscover)->Lookup(whereToDiscover, nodeList, &firstNode);
+	firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
 	
-	// unpack data
-	data.get(0, &whereToSet);
-	data.get(1, &attrName);
-	data.get(2, (TTPtr*)&attributeValue);
-	
-	if (aTTApplicationManager) {
+	if (!err) {
 		
-		// Get the Node at the given address
-		err = TTApplicationManagerGetDirectory(aTTApplicationManager, whereToSet)->getTTNodeForOSC(whereToSet, &nodeToSet);
-		
-		if(!err){
-			// test node type to get the access status
-			o = nodeToSet->getObject();
-			nodeType = o->getName();
+		for (childList.begin(); childList.end(); childList.next()) {
 			
-			if(nodeType == TT("Data")){
+			// get the returned node
+			childList.current().get(0, (TTPtr*)&aNode);
+			
+			// get the node osc absolute address
+			// to -- if we change the way to exchange TTNodeDirectory description 
+			// we should avoid to return the absolute address
+			aNode->getOscAddress(&nodeAddress);
+			
+			// to -- is the leaves field is still good ? 
+			// maybe something like an object type field would be more generic ? not sure...
+			// but we have to think on a specific way to explore a TTNodeDirectory in order 
+			// to don't loose the specificity of his structure but without sending too much request
+			if (anObject = aNode->getObject()) {
 				
-				//attrName = aTTApplicationManager->convertAttributeToJamoma(attribute);
-				//attrName = TT(attribute);
-				if (attrName == kTTSym_value)
-					o->sendMessage(kTTSym_Command, attributeValue);
+				objectType = anObject->getName();
+				
+				if (objectType == TT("Data"))
+					returnedLeaves.append(nodeAddress);
 				else
-					o->setAttributeValue(attrName, attributeValue);
-				
+					returnedNodes.append(nodeAddress);
 			}
 		}
-		else {
-			; //TODO send a notification : Jamoma!set #address /address:attribute value
-		}
-		
-		return kTTErrNone;
-	}	
+	} 
+	else
+		return kTTErrGeneric; // TODO : return an error notification
 	
-	return kTTErrGeneric;
+	return kTTErrNone;
 }
 
-TTErr TTApplicationManagerListenCallback(TTPtr baton, TTValue& data)
+TTErr TTApplicationManagerLocalApplicationListen(TTApplicationPtr appWhereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enableListening)
 {
-	TTValuePtr			b;
-	TTApplicationManagerPtr	aTTApplicationManager;
-	TTSymbolPtr			whereToSend, whereToListen, attributeToListen;
-	TTBoolean			enableListening;
+	TTLogMessage("TTApplicationManagerLocalApplicationListen");
 	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aTTApplicationManager);
-	b->get(1, &whereToSend);
-	b->get(2, &whereToListen);
-	b->get(3, &attributeToListen);
-	b->get(4, enableListening);
+	TTApplicationPtr	appWhereToListen;
+	TTNodePtr			nodeToListen;
+	TTObjectPtr			anObject;
+	TTErr				err;
 	
-	if (aTTApplicationManager) {	
-		if (enableListening)
-			aTTApplicationManager->enableListening(whereToSend, whereToListen, attributeToListen);
-		else
-			aTTApplicationManager->disableListening(whereToSend, whereToListen, attributeToListen);
+	appWhereToListen = TTApplicationManagerGetApplication(whereToListen);
+	err = appWhereToListen->mDirectory->getTTNodeForOSC(whereToListen, &nodeToListen);
+	
+	if (!err) 
+	{
 		
-		return kTTErrNone;
-	}
+		anObject = nodeToListen->getObject();
+		
+		// add observer
+		if (enableListening) {
+			
+			// start directory observation
+			if (attributeToListen == TT("life")) { // TODO : find a better name
+				
+				; // TODO : prepare a callback based on TTApplicationManagerLocalApplicationDirectoryCallback
+				; // TODO : add it to the appWhereToListen application directory using addObserverForNotifications
+				; // TODO : cache the observer in a hashtable (into the appWhereToListen application, not into the applicationManager)
+			}
+			// start attribute observation
+			else {
+				
+				; // TODO : prepare a callback based on TTApplicationManagerLocalApplicationAttributeCallback
+				; // TODO : add it to the object using registerObserverForNotifications
+				; // TODO : cache the observer in a hashtable (into the appWhereToListen application, not into the applicationManager)
+			}
+		}
+		// remove observer
+		else {
+			
+			// stop directory observation
+			if (attributeToListen == kTTSymEmpty) {
+				
+				; // TODO : get the old observer from the observers cache of the appWhereToListen application
+				; // TODO : remove it from the appWhereToListen application directory using removeObserverForNotifications
+			}
+			// stop attribute observation
+			else {
+				; // TODO : get the old observer from the observers cache of the appWhereToListen application
+				; // TODO : prepare a callback using TTApplicationManagerLocalApplicationAttributeCallback
+			}
+		}
+	}	
+	else
+		return kTTErrGeneric; // TODO : return an error notification
 	
-	return kTTErrGeneric;
+	return kTTErrNone;
 }
 
+TTErr TTApplicationManagerLocalApplicationSet(TTSymbolPtr whereToSet, TTSymbolPtr attributeToSet, TTValue& value)
+{
+	TTLogMessage("TTApplicationManagerLocalApplicationSet");
+	
+	TTNodePtr			nodeToSet;
+	TTSymbolPtr			objectType;
+	TTObjectPtr			anObject;
+	TTErr				err;
+	
+	err = getDirectoryFrom(whereToSet)->getTTNodeForOSC(whereToSet, &nodeToSet);
+	
+	if (!err) {
+		
+		anObject = nodeToSet->getObject();
+		objectType = anObject->getName();
+		
+		// TTData case : for value attribute use Command message
+		if (objectType == TT("Data")) {
+			
+			if (attributeToSet == kTTSym_value)
+				anObject->sendMessage(kTTSym_Command, value);
+			else
+				anObject->setAttributeValue(attributeToSet, value);
+		}
+		else 
+			anObject->setAttributeValue(attributeToSet, value);
+	}
+	else
+		return kTTErrGeneric; // TODO : return an error notification
+	
+	return kTTErrNone;
+}
+
+TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationGet(TTSymbolPtr whereToGet, TTSymbolPtr attributeToGet, TTValue& returnedValue)
+{
+	TTLogMessage("TTApplicationManagerLocalApplicationGet");
+	
+	TTNodePtr			nodeToGet;
+	TTObjectPtr			anObject;
+	TTErr				err;
+	
+	err = getDirectoryFrom(whereToGet)->getTTNodeForOSC(whereToGet, &nodeToGet);
+	
+	if (!err) {
+		
+		if (anObject = nodeToGet->getObject())
+			anObject->getAttributeValue(attributeToGet, returnedValue);
+	}
+	else
+		return kTTErrGeneric; // TODO : return an error notification
+	
+	return kTTErrNone;
+}
+
+void TTApplicationManagerLaunchPlugins(const TTPtr target, const TTKeyVal& iter)
+{
+	PluginPtr pluginPtr = NULL;
+	TTValue v = iter.second;
+	v.get(0, (TTPtr*)&pluginPtr);
+	if (pluginPtr != NULL) {
+		pluginPtr->commRunReceivingThread();
+	}
+}

@@ -19,18 +19,14 @@ mType(TT("control")),
 mInitialized(NO),
 mContent(kTTValNONE),
 mAddress(kTTSymEmpty),
-mApplication(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObjectsObserversCache(NULL),
 mObserver(NULL)
 {
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTContainer is not NULL", mApplication);
-	
-	if(arguments.getSize() == 3) {
-		arguments.get(1, (TTPtr*)&mReturnAddressCallback);
-		arguments.get(2, (TTPtr*)&mReturnValueCallback);
+	if(arguments.getSize() == 2) {
+		arguments.get(0, (TTPtr*)&mReturnAddressCallback);
+		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	}
 	
 	addAttribute(Priority, kTypeUInt8);
@@ -75,7 +71,7 @@ TTContainer::~TTContainer()
 	
 	if (mObserver) {
 		if (mAddress != kTTSymEmpty)
-			getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
+			getDirectoryFrom(mAddress)->removeObserverForNotifications(mAddress, *mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
@@ -272,11 +268,11 @@ TTErr TTContainer::bind()
 	mObjectsObserversCache  = new TTHash();
 	
 	// 1. Look for all nodes under the address into the directory with the same Context
-	err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
+	err = getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &aNode);
 	aContext = aNode->getContext();
 	
 	v.append(aContext);
-	err = getDirectoryFrom(this)->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
+	err = getDirectoryFrom(mAddress)->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Data and Observer
 	for (allObjectsNodes.begin(); allObjectsNodes.end(); allObjectsNodes.next()) {
@@ -297,7 +293,7 @@ TTErr TTContainer::bind()
 	
 	mObserver->setAttributeValue(TT("owner"), TT("TTContainer"));		// this is usefull only to debug
 	
-	getDirectoryFrom(this)->addObserverForNotifications(mAddress, *mObserver);
+	getDirectoryFrom(mAddress)->addObserverForNotifications(mAddress, *mObserver);
 	
 	return kTTErrNone;
 }
@@ -476,9 +472,9 @@ TTErr TTContainer::unbind()
 	}
 	
 	// stop life cycle observation
-	if (mObserver && getDirectoryFrom(this)) {
+	if (mObserver && getDirectoryFrom(mAddress)) {
 		
-		err = getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
+		err = getDirectoryFrom(mAddress)->removeObserverForNotifications(mAddress, *mObserver);
 		
 		if (!err)
 			TTObjectRelease(TTObjectHandle(&mObserver));

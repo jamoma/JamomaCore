@@ -17,9 +17,6 @@
  
  */
 
-class TTApplication;
-typedef TTApplication* TTApplicationPtr;
-
 class TTOutput;
 typedef TTOutput* TTOutputPtr;
 
@@ -51,8 +48,7 @@ public:	// use public for quick acces during signal processing
 	TTOutputPtr			mOutputObject;				///< TTOutput object to pass signal through
 	
 private:
-	
-	TTApplicationPtr	mApplication;
+
 	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this input
 	TTCallbackPtr		mObserver;					///< to observe mOutputAddress creation/destruction
 	

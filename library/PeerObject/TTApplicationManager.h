@@ -21,10 +21,6 @@ typedef TTApplication* TTApplicationPtr;
  
  */
 
-// Macro to have a direct acces to the Directory 
-// This maro have to be used on a TTObject with a mApplication member.
-#define	getDirectoryFrom(aTTObject, anAddress) TTApplicationManagerGetDirectory((TTObjectPtr)aTTObject->mApplicationManager, anAddress)
-
 class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
 {
 	TTCLASS_SETUP(TTApplicationManager)
@@ -38,11 +34,15 @@ private:
 	
 	PluginFactories*	mPluginFactories;		///< the plugin factories
 	TTHashPtr			mPlugins;				///< hash table containing <TTSymbolPtr pluginName, TTPluginPtr aPlugin>
+	
+	/** get all plugins name */
+	// TODO : TTErr getPluginNames(TTValue& value);
+	// TODO : TTErr getPluginIsLoaded(TTValue& value); // with value containing the name of the plugin
 
 	/** Load all Plugins at a given location (second instance contained in TTValue could optionnaly be xml config path) */
 	TTErr PluginLoadAll(const TTValue& value);
 	
-	/** Set Parameters of a Plugin <TTSymbolPtr pluginName, TTHashPtr parameters> */
+	/** Set Parameters of a Plugin <TTSymbolPtr pluginName, TTHashPtr pluginParameters> */
 	TTErr PluginSetParameters(const TTValue& value);
 	// TODO : void pluginSetCommParameter(TTString pluginName, TTString parameterName, TTString parameterValue)
 	// TODO : void pluginGetCommParameter(TTString pluginName, TTString parameterName)
@@ -61,69 +61,78 @@ private:
 	TTErr ApplicationRemove(const TTValue& value);
 	
 	/** Get an application giving <TTSymbolPtr applicationName> */
-	TTErr ApplicationGet(const TTValue& value);
+	TTErr ApplicationGet(TTValue& value);
 	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr WriteAsXml(const TTValue& value); // TODO
 	TTErr ReadFromXml(const TTValue& value);
 	
-	TTErr enableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen);
-	TTErr disableListening(TTSymbolPtr whereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen);
-	// TODO : std::vector<TTString> pluginGetLoadedByName()
-	// TODO : bool pluginIsLoaded(TTString pluginName)
-	
-	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationManagerGetDirectory(TTObjectPtr anApplication, TTSymbolPtr anAddress);
+	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddress);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerDiscoverCallback(void* arg, TTString whereToDiscover, std::vector<TTString>& returnedNodes, std::vector<TTString>& returnedLeaves, std::vector<TTString>& returnedAttributes);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerGetCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerSetCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerListenCallback(TTPtr baton, TTValue& data);
+	
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationListen(TTApplicationPtr appWhereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enableListening);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationSet(TTSymbolPtr whereToSet, TTSymbolPtr attributeToSet, const TTValue& value);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationGet(TTSymbolPtr whereToGet, TTSymbolPtr attributeToGet, TTValue& returnedValue);
 };
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-/**	To have a direct acces on the directory of an application
+/**	To have get an application with an application name (or either from an address)
+ note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
- @return							a TTNodeDirectoryPtr */
-TTNodeDirectoryPtr	TTMODULAR_EXPORT TTApplicationManagerGetDirectory(TTObjectPtr anApplication, TTSymbolPtr anAddress);
+ @return							a TTApplicationPtr */
+TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddress);
 
-/**	Called when the local application namespace send a notification
+/**	Called when the local application directory send a notification
+ note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data);
 
-/**	Called when the local application object attribute send a notification
+/**	Called when a local application object attribute send a notification
+ note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue& data);
 
-/**	Called when a plugin receive a discover request to explore the local application namespace
+/**	Called when the distant application wants to discover the local application directory
+ note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerDiscoverCallback(void* arg, TTString whereToDiscover, std::vector<TTString>& returnedNodes, std::vector<TTString>& returnedLeaves, std::vector<TTString>& returnedAttributes);
+TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
 
-/**	Called when a plugin receive a get request to get an local application object attribute value
+/**	Called when the distant application wants to listen the local application directory
+ note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerGetCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationListen(TTApplicationPtr appWhereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enableListening);
 
-/**	Called when a plugin receive a set request to set an local application object attribute value
+/**	Called when the distant application wants to set an object attribute of the local application
+ note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerSetCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationSet(TTSymbolPtr whereToSet, TTSymbolPtr attributeToSet, const TTValue& value);
 
-/**	Called when a plugin receive a listen request to listen the local application namespace
+/**	Called when the distant application wants to get an object attribute of the local application
+ note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerListenCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationGet(TTSymbolPtr whereToGet, TTSymbolPtr attributeToGet, TTValue& returnedValue);
+
+/**	To iterate on the mPlugins HashTable
+ @param	baton						..
+ @param	data						..
+ @return							void */
+void TTMODULAR_EXPORT TTApplicationManagerLaunchPlugins(const TTPtr target, const TTKeyVal& iter);
 
 #endif // __TT_APPLICATION_MANAGER_H__

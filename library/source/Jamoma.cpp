@@ -46,7 +46,7 @@ void jamoma_init(void)
 		
 		TTModularInit(JAMOMA, JamomaConfigurationFilePath);
 		kTTSym_Jamoma = TT(JAMOMA);
-		JamomaApplication = (TTApplicationPtr)TTModularGetApplication(kTTSym_Jamoma);
+		JamomaApplication = TTModularGetLocalApplication();
 		
 		// Is the conversion table empty ?
 		JamomaApplication->getAttributeValue(TT("allAppNames"), v);

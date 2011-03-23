@@ -15,16 +15,13 @@
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
 mAttribute(kTTSym_value),	 // TODO : set kTTSymEmpty because a Sender can bind on any object (not only data)
-mApplication(NULL),
 mObjectCache(NULL),
 mObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 3);
+	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 2);
 		
-	arguments.get(0, (TTPtr*)&mApplication);
-	TT_ASSERT("Application passed to TTSender is not NULL", mApplication);
-	arguments.get(1, &mAddress);
-	arguments.get(2, &mAttribute);
+	arguments.get(0, &mAddress);
+	arguments.get(1, &mAttribute);
 
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Attribute, kTypeSymbol);
@@ -35,13 +32,11 @@ mObserver(NULL)
 	mIsSending = false;
 	
 	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
-	if (mApplication) {
-		TTValue v = TTValue(mAttribute);
-		ToTTName(v);
-		v.get(0, &mAttribute);
-	}
+	TTValue v = TTValue(mAttribute);
+	ToTTName(v);
+	v.get(0, &mAttribute);
 	
-	if (getDirectoryFrom(this))
+	if (getDirectoryFrom(mAddress))
 		bind();
 }
 
@@ -135,7 +130,7 @@ TTErr TTSender::bind()
 	TTErr		err;
 	
 	// 1. Look for the node(s) into the directory
-	err = getDirectoryFrom(this)->Lookup(mAddress, aNodeList, &aNode);
+	err = getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &aNode);
 	
 	// 2. make a cache containing each object
 	mObjectCache  = new TTList();
@@ -159,7 +154,7 @@ TTErr TTSender::bind()
 	
 	mObserver->setAttributeValue(TT("owner"), TT("TTSender"));		// this is usefull only to debug
 	
-	getDirectoryFrom(this)->addObserverForNotifications(mAddress, *mObserver);
+	getDirectoryFrom(mAddress)->addObserverForNotifications(mAddress, *mObserver);
 	
 	return kTTErrNone;
 }
@@ -173,9 +168,9 @@ TTErr TTSender::unbind()
 		mObjectCache = NULL;
 	
 	// stop life cycle observation
-	if(mObserver && getDirectoryFrom(this)) {
+	if(mObserver && getDirectoryFrom(mAddress)) {
 		
-		err = getDirectoryFrom(this)->removeObserverForNotifications(mAddress, *mObserver);
+		err = getDirectoryFrom(mAddress)->removeObserverForNotifications(mAddress, *mObserver);
 	
 		if(!err) {
 			delete (TTValuePtr)mObserver->getBaton();

@@ -16,21 +16,17 @@
  
  */
 
-class TTApplication;
-typedef TTApplication* TTApplicationPtr;
-
 class TTMODULAR_EXPORT TTSender : public TTDataObject
 {
 	TTCLASS_SETUP(TTSender)
 	
 private:
 	
-	TTSymbolPtr			mAddress;					///< ATTRIBUTE: the address to bind
-	TTSymbolPtr			mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
-	TTApplicationPtr	mApplication;				///< the application
-	TTBoolean			mIsSending;					///< a flag to lock the object in case of infinite loop
-	TTListPtr			mObjectCache;				///< a cache containing all binded objects for quick access
-	TTCallbackPtr		mObserver;					///< a life cycle observer
+	TTSymbolPtr					mAddress;					///< ATTRIBUTE: the address to bind
+	TTSymbolPtr					mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
+	TTBoolean					mIsSending;					///< a flag to lock the object in case of infinite loop
+	TTListPtr					mObjectCache;				///< a cache containing all binded objects for quick access
+	TTCallbackPtr				mObserver;					///< a life cycle observer
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
