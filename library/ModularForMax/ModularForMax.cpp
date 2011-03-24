@@ -1457,13 +1457,13 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 		// try to get it from the patcher name
 		patcherName = object_attr_getsym(*patcher, _sym_filename);
 		if (patcherName != _sym_nothing) {
-			// Is there a ".model" string in the patcher name ?
-			if (strstr(patcherName->s_name, ".model")) {
+			// Is there a ".model.maxpat" string in the patcher name ?
+			if (strstr(patcherName->s_name, ".model.maxpat")) {
 				*returnedContext = TT(ModelPatcher);
 				return;
 			}
-			// Is there a ".view" string in the patcher name ?
-			else if (strstr(patcherName->s_name, ".view")) {
+			// Is there a ".view.maxpat" string in the patcher name ?
+			else if (strstr(patcherName->s_name, ".view.maxpat")) {
 				*returnedContext = TT(ViewPatcher);
 				return;
 			}
@@ -1483,7 +1483,8 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 /** Get the class of the patcher from the file name (removing .model and .view convention name if they exist) */
 void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedClass)
 {
-	char			*isCtxPatcher, *to_split;;
+	char			*isCtxPatcher, *to_split;
+	TTString		contextMaxpat;
 	SymbolPtr		patcherName;
 	long			patcherNameLen;
 
@@ -1492,12 +1493,14 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 	
 	if (patcherName != _sym_nothing) {
 		
-		// Is there a ".context" string in the patcher name ?
-		isCtxPatcher = strstr(patcherName->s_name, context->getCString());
+		// Is there a ".context.maxpat" string in the patcher name ?
+		contextMaxpat = context->getCString();
+		contextMaxpat += ".maxpat";
+		isCtxPatcher = strstr(patcherName->s_name, contextMaxpat.data());
 				
 		// Strip ".context.maxpat" at the end
 		if (isCtxPatcher) {
-			patcherNameLen = strlen(patcherName->s_name) - strlen(context->getCString()) - 1 - strlen(".maxpat");
+			patcherNameLen = strlen(patcherName->s_name) - strlen(contextMaxpat.data()) - 1;
 			to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
 			strncpy(to_split, patcherName->s_name, patcherNameLen);
 			to_split[patcherNameLen] = NULL;
@@ -1898,14 +1901,16 @@ TTSymbolPtr jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* d
 		saveas_promptset("Save Preset...");												// Instructional Text in the dialog
 		err = saveasdialog_extended(default_filename, &path, &outtype, &filetype, 1);	// Returns 0 if successful
 		if (!err) { // User Cancelled
+			char posixpath[MAX_PATH_CHARS];
 			
 			// Create a file using Max API
 			path_createsysfile(default_filename, path, filetype, &file_handle);
 			
 			// Use BOOT style path
-			jcom_file_get_path(path, default_filename, fullpath);
+			path_topathname(path, default_filename, fullpath);
+			path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 			
-			result = TT(fullpath);
+			result = TT(posixpath);
 		}
 	}
 	
@@ -1940,31 +1945,13 @@ TTSymbolPtr jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv)
 	// ... or open a dialog
 	if (result == kTTSymEmpty)
 		if (!open_dialog(filepath, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
-			jcom_file_get_path(path, filepath, fullpath);
-			result = TT(fullpath);
+			char posixpath[MAX_PATH_CHARS];
+			
+			path_topathname(path, filepath, fullpath);
+			path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
+			result = TT(posixpath);
 		}
 	
 	return result;
 }
 
-
-/** Function the translates a Max path+filename combo into a correct absolutepath */
-// TODO: remove this function once we've completed the transition to Max5, as path_topathname() is fixed for Max5
-void jcom_file_get_path(short in_path, char *in_filename, char *out_filepath)
-{
-	char path[4096];
-	
-	path_topathname(in_path, in_filename, path);
-	
-#ifdef MAC_VERSION
-	char *temppath;
-	temppath = strchr(path, ':');
-	*temppath = '\0';
-	temppath += 1;
-	
-	// at this point temppath points to the path after the volume, and out_filepath points to the volume
-	sprintf(out_filepath, "/Volumes/%s%s", path, temppath);
-#else // WIN_VERSION
-	strcpy(out_filepath, path);
-#endif
-}

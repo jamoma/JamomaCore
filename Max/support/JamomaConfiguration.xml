@@ -16,6 +16,8 @@
   <entry App="dataspace/unit/native" TT="dataspaceUnitNative"/>
   <entry App="jcom.parameter" TT="Data service parameter"/>
   <entry App="jcom.return" TT="Data service return"/>
+  <entry App="activity/in" TT="activityIn"/>
+  <entry App="activity/out" TT="activityOut"/>
 
   <entry App="dec" TT="Dec"/>
   <entry App="inc" TT="Inc"/>

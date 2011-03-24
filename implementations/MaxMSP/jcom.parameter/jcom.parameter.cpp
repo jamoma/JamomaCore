@@ -103,6 +103,11 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		if (atom_gettype(argv) == A_SYM)
 			relativeAddress = atom_getsym(argv);
 	
+	if (relativeAddress == _sym_nothing) {
+		object_error((ObjectPtr)x, "needs a name as first argument");
+		return;
+	}
+	
 	// Make outlets (before attr_args_process)
 	/////////////////////////////////////////////////////////////////////////////////
 #ifndef JMOD_RETURN

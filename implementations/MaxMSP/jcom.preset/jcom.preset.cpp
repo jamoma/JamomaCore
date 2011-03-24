@@ -424,6 +424,7 @@ void preset_default(TTPtr self)
 	short		outvol;
 	long		outtype, filetype = 'TEXT';
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
+	char		posixpath[MAX_PATH_CHARS];
 	Atom		a;
 
 	if (x->patcherClass) {
@@ -443,9 +444,10 @@ void preset_default(TTPtr self)
 			return;
 		}
 		
-		jcom_file_get_path(outvol, (char*)xmlfile.data(), fullpath);
+		path_topathname(outvol, (char*)xmlfile.data(), fullpath);
+		path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 		
-		atom_setsym(&a, gensym(fullpath));
+		atom_setsym(&a, gensym(posixpath));
 		defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 		
 		// recall first preset
@@ -469,6 +471,7 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
+	char			posixpath[MAX_PATH_CHARS];
 	TTValue		v;
 	long		i;
 	Atom		a;
@@ -476,9 +479,10 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	// get current preset
 	x->wrappedObject->sendMessage(TT("current"), v);
 	
-	jcom_file_get_path(path, filename, fullpath);
+	path_topathname(path, filename, fullpath);
+	path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 	
-	atom_setsym(&a, gensym(fullpath));
+	atom_setsym(&a, gensym(posixpath));
 	defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 	
 	// try to recall last current preset

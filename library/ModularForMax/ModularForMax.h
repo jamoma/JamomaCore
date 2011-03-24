@@ -250,10 +250,7 @@ extern "C" {
 	
 	/** Get BOOT style filepath from args or, if no args open a dialog to read a file */
 	TTSymbolPtr		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv);
-	
-	/** Function the translates a Max path+filename combo into a correct absolutepath */
-	void			jcom_file_get_path(short in_path, char *in_filename, char *out_filepath);
-	
+		
 #ifdef __cplusplus
 }
 #endif

@@ -85,6 +85,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.239216, 0.643137, 0.709804, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
@@ -113,6 +114,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.239216, 0.643137, 0.709804, 1.0 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-20",
@@ -509,13 +511,13 @@
 ,
 					"patching_rect" : [ 220.0, 260.0, 116.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p normalize"
@@ -798,13 +800,13 @@
 ,
 					"patching_rect" : [ 121.0, 436.0, 119.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p normalize"

@@ -28,6 +28,9 @@ private:
 	TTBoolean			mInitialized;					///< ATTRIBUTE: is it initialized ?
 	TTValue				mContent;						///< ATTRIBUTE: all contained relative address
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the address of the container in the directory
+	TTValue				mActivityIn;					///< ATTRIBUTE : a local value to allow observation of incoming data
+	TTValue				mActivityOut;					///< ATTRIBUTE : a local value to allow observation of outputing data
+	
 	
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
@@ -46,6 +49,12 @@ private:
 	
 	/** */
 	TTErr setAddress(const TTValue& value);
+	
+	/** */
+	TTErr setActivityIn(const TTValue& value);
+	
+	/** */
+	TTErr setActivityOut(const TTValue& value);
 	
 	/** */
 	TTErr getContent(TTValue& value);
@@ -69,6 +78,7 @@ private:
 	
 	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTContainerCommandMessageCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTContainer* TTContainerPtr;
@@ -90,6 +100,12 @@ TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& d
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTContainerInitializedAttributeCallback(TTPtr baton, TTValue& data);
+
+/**	
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTContainerCommandMessageCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
