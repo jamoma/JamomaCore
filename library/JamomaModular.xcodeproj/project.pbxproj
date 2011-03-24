@@ -25,9 +25,8 @@
 		224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F7E79907B2D74100F64583 /* CoreData.framework */; };
 		224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		D209281F12EC5D1800BD289A /* DataspaceLib.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */; };
-		D221DFDE13321732007F8882 /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D221DFC213321732007F8882 /* PluginFactories.cpp */; };
-		D221E1531332CF60007F8882 /* TTApplicationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D221E1511332CF60007F8882 /* TTApplicationManager.cpp */; };
 		D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D242BB5A12841CE40036A509 /* TTMapperManager.cpp */; };
+		D266098F133B92020068ACC2 /* TTApplicationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D266098D133B92020068ACC2 /* TTApplicationManager.cpp */; };
 		D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AADF74127980AA00629B73 /* TTApplication.cpp */; };
 		D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AB7E74123FC21E00DAD340 /* TTData.cpp */; };
 		D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */; };
@@ -86,13 +85,10 @@
 		22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Jamoma.h; path = source/Jamoma.h; sourceTree = "<group>"; };
 		22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.prefix.pch; path = source/jcom.prefix.pch; sourceTree = "<group>"; };
 		D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = DataspaceLib.ttdylib; path = ../../Foundation/extensions/DataspaceLib/build/UninstalledProducts/DataspaceLib.ttdylib; sourceTree = SOURCE_ROOT; };
-		D221DFC113321732007F8882 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
-		D221DFC213321732007F8882 /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginFactories.cpp; sourceTree = "<group>"; };
-		D221DFC313321732007F8882 /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginFactories.h; sourceTree = "<group>"; };
-		D221E1511332CF60007F8882 /* TTApplicationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
-		D221E1521332CF60007F8882 /* TTApplicationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplicationManager.h; sourceTree = "<group>"; };
 		D242BB5A12841CE40036A509 /* TTMapperManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
 		D242BB5B12841CE40036A509 /* TTMapperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapperManager.h; sourceTree = "<group>"; };
+		D266098D133B92020068ACC2 /* TTApplicationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
+		D266098E133B92020068ACC2 /* TTApplicationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplicationManager.h; sourceTree = "<group>"; };
 		D2AADF74127980AA00629B73 /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
 		D2AADF75127980AA00629B73 /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
 		D2AB7E74123FC21E00DAD340 /* TTData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTData.cpp; sourceTree = "<group>"; };
@@ -180,7 +176,6 @@
 				D2CA880D1213F4740090DE41 /* ModularForMax */,
 				D2CA88111213F47D0090DE41 /* PeerObject */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
-				D221DF8213321732007F8882 /* DeviceManagerLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -276,16 +271,6 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		D221DF8213321732007F8882 /* DeviceManagerLib */ = {
-			isa = PBXGroup;
-			children = (
-				D221DFC113321732007F8882 /* Plugin.h */,
-				D221DFC313321732007F8882 /* PluginFactories.h */,
-				D221DFC213321732007F8882 /* PluginFactories.cpp */,
-			);
-			path = DeviceManagerLib;
-			sourceTree = "<group>";
-		};
 		D2CA880D1213F4740090DE41 /* ModularForMax */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,8 +285,8 @@
 			children = (
 				D2AADF75127980AA00629B73 /* TTApplication.h */,
 				D2AADF74127980AA00629B73 /* TTApplication.cpp */,
-				D221E1521332CF60007F8882 /* TTApplicationManager.h */,
-				D221E1511332CF60007F8882 /* TTApplicationManager.cpp */,
+				D266098E133B92020068ACC2 /* TTApplicationManager.h */,
+				D266098D133B92020068ACC2 /* TTApplicationManager.cpp */,
 				D2CA88131213F47D0090DE41 /* TTContainer.h */,
 				D2CA88121213F47D0090DE41 /* TTContainer.cpp */,
 				D2AB7E75123FC21E00DAD340 /* TTData.h */,
@@ -436,8 +421,7 @@
 				D2E27EA612D54B7000C3EF05 /* TTCueManager.cpp in Sources */,
 				D2AE71F012FC41BD004B5887 /* JamomaSymbols.cpp in Sources */,
 				D2C1B3671324384E00EACCA7 /* TTOpmlHandler.cpp in Sources */,
-				D221DFDE13321732007F8882 /* PluginFactories.cpp in Sources */,
-				D221E1531332CF60007F8882 /* TTApplicationManager.cpp in Sources */,
+				D266098F133B92020068ACC2 /* TTApplicationManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

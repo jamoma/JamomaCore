@@ -52,10 +52,10 @@ knowledge of the CeCILL-C license and that you accept its terms.
 #include <iostream>
 
 #ifdef _WIN32
-#include <windows.h>
+	#include <windows.h>
 #else
-#include <dirent.h>
-#include <dlfcn.h>
+	#include <dirent.h>
+	#include <dlfcn.h>
 #endif
 
 typedef PluginFactory* (*OpCreation)();

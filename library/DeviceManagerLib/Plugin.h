@@ -6,13 +6,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-
-class TTApplicationManager;
-typedef TTApplicationManager* TTApplicationManagerPtr;
-
-class TTApplication;
-typedef TTApplication* TTApplicationePtr;
-
 #ifndef __PLUGIN_H__
 #define __PLUGIN_H__
 
@@ -38,6 +31,11 @@ typedef TTApplication* TTApplicationePtr;
 
 #include "TTModular.h"
 
+class TTApplicationManager;
+typedef TTApplicationManager* TTApplicationManagerPtr;
+
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
 
 /**	Plugin and PluginFactory are abstract classes, interfaces to develop plugins.
 	Every communication plugins developped in the future will have to be implemented according to this model.
