@@ -203,3 +203,19 @@ void vimic_normalizeSensi(double *sensi, double invMax)
 {
     *sensi = (*sensi) * invMax;
 }
+
+void vimic_minimizeDelay(double *delay, double minValue)
+{
+    *delay = (*delay) - minValue;
+}
+
+double vimic_findMinDelayValue(double *delay, long size) 
+{
+	double minDelayValue = delay[0];
+	
+	for (int i = 1; i < size; i++){
+		if (delay[i] < minDelayValue)
+			minDelayValue = delay[i];
+	}
+	return minDelayValue;
+}
