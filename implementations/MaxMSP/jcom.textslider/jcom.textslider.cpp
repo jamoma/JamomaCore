@@ -44,6 +44,7 @@ typedef struct _textslider{
 	t_jrgba		attrFgColor;		///< Forground color
 	t_jrgba		attrBorderColor;	///< Border color
 	t_jrgba		attrTextColor;		///< Text color
+	t_jrgba		attrKnobColor;		///< Knob color
 	
 	float		attrValue;			///< The slider value
 	float		attrValueUnclipped;	///< The slider value, unclipped
@@ -169,6 +170,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.0 0.0 0.0 1.0");
 	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
 	CLASS_ATTR_LABEL(c,						"textcolor",	0,	"Text Color");
+	
+	CLASS_ATTR_RGBA(c,						"knobcolor",	0,	t_textslider,	attrKnobColor);
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"knobcolor",	0,	"0.7 0.7 0.7 1.0");
+	CLASS_ATTR_STYLE(c,						"knobcolor",	0,	"rgba");
+	CLASS_ATTR_LABEL(c,						"knobcolor",	0,	"Knob Color");
 	
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");
 
@@ -663,7 +669,6 @@ void textslider_paint(t_textslider *x, t_object *view)
 		TTLimit(value, 0.0, 1.0);   
 	}
 	double			position;
-	t_jrgba			c;
 
 	// TODO: Rounded corners
 	
@@ -677,18 +682,22 @@ void textslider_paint(t_textslider *x, t_object *view)
 	jgraphics_set_source_jrgba(g,&x->attrBgColor);
 	jgraphics_rectangle(g, 0., 0., rect.width, rect.height);
 	jgraphics_fill(g);
+	
 	// Draw frame
 	jgraphics_rectangle(g, 0., 0., rect.width, rect.height);
 	jgraphics_set_source_jrgba(g, &x->attrBorderColor); 
 	jgraphics_set_line_width(g, 1.0);
 	jgraphics_stroke(g);
 	
-	
 	if (value > 0.)
 	{
 		// Draw active part of slider
-		c = x->attrFgColor;
-		jgraphics_set_source_jrgba(g, &c);
-		jgraphics_rectangle_fill_fast(g, 1.0 ,1.0, position, rect.height-2.0);	
+		jgraphics_set_source_jrgba(g, &x->attrFgColor);
+		jgraphics_rectangle_fill_fast(g, 1.0 ,1.0, position, rect.height-2.0);
+		
+		// Draw slider knob
+		jgraphics_set_source_jrgba(g, &x->attrKnobColor);
+		jgraphics_line_draw_fast(g, position, 1.0, position, rect.height-2.0, 1.0);
 	}
+	
 }
