@@ -51,8 +51,6 @@
 #include "TTCue.h"
 #include "TTCueManager.h"
 #include "TTData.h"
-#include "TTApplication.h"
-#include "TTApplicationManager.h"
 #include "TTExplorer.h"
 #include "TTInput.h"
 #include "TTMapper.h"

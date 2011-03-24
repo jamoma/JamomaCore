@@ -32,7 +32,7 @@ public:
 
 private:
 	
-	//PluginFactories*	mPluginFactories;		///< the plugin factories
+	PluginFactories*	mPluginFactories;		///< the plugin factories
 	TTHashPtr			mPlugins;				///< hash table containing <TTSymbolPtr pluginName, TTPluginPtr aPlugin>
 	
 	/** get all plugins name */

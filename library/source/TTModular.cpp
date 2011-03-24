@@ -37,8 +37,6 @@ void TTModularInit()
 		TTCue::registerClass();
 		TTCueManager::registerClass();
 		TTData::registerClass();
-		TTApplication::registerClass();
-		TTApplicationManager::registerClass();
 		TTExplorer::registerClass();
 		TTInput::registerClass();
 		TTMapper::registerClass();

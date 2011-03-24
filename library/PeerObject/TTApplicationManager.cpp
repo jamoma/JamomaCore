@@ -7,8 +7,8 @@
  */
 
 #include "TTApplicationManager.h"
-//#include "PluginFactories.h"
-//#include "Plugin.h"
+#include "PluginFactories.h"
+#include "Plugin.h"
 
 #define thisTTClass			TTApplicationManager
 #define thisTTClassName		"ApplicationManager"
@@ -37,7 +37,7 @@ mPlugins(NULL)
 	addMessageWithArgument(ReadFromXml);
 	
 	mApplications		= new TTHash();
-	//mPluginFactories	= new PluginFactories();
+	mPluginFactories	= new PluginFactories();
 	mPlugins			= new TTHash();
 }
 
@@ -52,7 +52,7 @@ TTErr TTApplicationManager::PluginLoadAll(const TTValue& value)
 	TTXmlHandlerPtr	aXmlHandler	= NULL;
 	TTValue			v, args;
 	TTSymbolPtr		pluginsPath;
-	/*
+	
 	value.get(0, &pluginsPath);
 
 	mPluginFactories->loadPlugins(pluginsPath->getCString());
@@ -90,13 +90,13 @@ TTErr TTApplicationManager::PluginLoadAll(const TTValue& value)
 
 	// launch plugins
 	mPlugins->iterate((TTPtr)this, TTApplicationManagerLaunchPlugins);
-	*/
+	
 	return kTTErrNone;
 }
 
 TTErr TTApplicationManager::PluginSetParameters(const TTValue& value)
 {
-	/*
+	
 	TTValue	v;
 	TTSymbolPtr pluginName;
 	TTHashPtr pluginParameters;
@@ -109,14 +109,13 @@ TTErr TTApplicationManager::PluginSetParameters(const TTValue& value)
 		v.get(0, (TTPtr*)&aPlugin);
 		// aPlugin->commDefineParameters(pluginParameters); // to -- here we should just pass the pluginParameters TTHash...
 	}
-	 */
 	
 	return kTTErrNone;
 }
 
 TTErr TTApplicationManager::PluginLaunch(const TTValue& value)
 {
-	/*
+
 	TTValue v;
 	TTSymbolPtr pluginName;
 	PluginPtr aPlugin;
@@ -127,13 +126,13 @@ TTErr TTApplicationManager::PluginLaunch(const TTValue& value)
 		v.get(0, (TTPtr*)&aPlugin);
 		aPlugin->commRunReceivingThread();
 	}
-	*/
+	
 	return kTTErrNone;
 }
 
 TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 {
-	/*
+	
 	TTValue v;
 	TTSymbolPtr applicationName, pluginName;
 	TTObjectPtr anApplication;
@@ -161,7 +160,7 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 	// else : add distant application to the plugin
 	else
 		;
-	*/
+	
 	return kTTErrNone;
 }
 
@@ -190,7 +189,6 @@ TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 
 TTErr TTApplicationManager::PluginScanAllApplication()
 {
-	/*
 	TTValue			v, keys;
 	TTSymbolPtr		pluginName;
 	PluginPtr		aPlugin;
@@ -206,7 +204,7 @@ TTErr TTApplicationManager::PluginScanAllApplication()
 			// TODO : scan the network to look for distant applications
 			// and then add them to the ApplicationManager
 	}
-	*/
+
 	return kTTErrNone;
 }
 
@@ -218,7 +216,7 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& value)
 
 TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 {
-	/*
+
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		applicationName, pluginName, attributeName;
 	TTValue			v, args;
@@ -327,7 +325,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 			ApplicationAdd(args); 
 		}
 	}
-	*/
+
 	return kTTErrNone;
 }
 
@@ -618,12 +616,10 @@ TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationGet(TTSymbolPtr where
 
 void TTApplicationManagerLaunchPlugins(const TTPtr target, const TTKeyVal& iter)
 {
-	/*
 	PluginPtr pluginPtr = NULL;
 	TTValue v = iter.second;
 	v.get(0, (TTPtr*)&pluginPtr);
 	if (pluginPtr != NULL) {
 		pluginPtr->commRunReceivingThread();
 	}
-	 */
 }
