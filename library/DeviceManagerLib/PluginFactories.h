@@ -49,7 +49,6 @@
 
 #include "Plugin.h"
 #include <map>
-//#include <string>
 
 class Plugin;
 typedef Plugin* PluginPtr;

@@ -80,8 +80,8 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 	
 	if (TTModularApplications)
 		
-		// if this application doesn't exist yet
-		if (!TTApplicationManagerGetApplication()) {
+		// if the local application doesn't exist yet
+		if (!TTModularGetLocalApplication()) {
 			
 			// Create the application giving a name and the version
 			v = TTValue(applicationName);

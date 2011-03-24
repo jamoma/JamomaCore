@@ -36,10 +36,8 @@ typedef TTApplication* TTApplicationePtr;
 	#endif
 #endif
 
-
 #include "TTModular.h"
 
-//#include <map>
 
 /**	Plugin and PluginFactory are abstract classes, interfaces to develop plugins.
 	Every communication plugins developped in the future will have to be implemented according to this model.

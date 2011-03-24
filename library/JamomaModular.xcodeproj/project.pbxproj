@@ -280,8 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				D221DFC113321732007F8882 /* Plugin.h */,
-				D221DFC213321732007F8882 /* PluginFactories.cpp */,
 				D221DFC313321732007F8882 /* PluginFactories.h */,
+				D221DFC213321732007F8882 /* PluginFactories.cpp */,
 			);
 			path = DeviceManagerLib;
 			sourceTree = "<group>";
