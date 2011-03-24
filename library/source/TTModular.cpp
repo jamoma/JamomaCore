@@ -19,16 +19,12 @@ void		TTModularRegisterInternalClasses();
 
 /****************************************************************************************************/
 
-void TTModularInit(TTString applicationStr, TTString configFilePath)
+void TTModularInit()
 {
 	TTValue				v;
-	TTSymbolPtr			applicationName;
-	TTApplicationPtr	anApplication;
 	
 	// Initialized Foundation framework
 	TTFoundationInit();
-	
-	applicationName = TT(applicationStr.data());
 	
 	if (!TTModularHasInitialized) {
 		
@@ -64,7 +60,7 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
 		
-		// Create a hash table to store each Modular application
+		// Create the Modular application manager with no application inside
 		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), v);
 		
 #ifdef TT_DEBUG
@@ -74,10 +70,18 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 #endif
 
 	}
+}
+
+void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath)
+{
+	TTValue				v;
+	TTSymbolPtr			applicationName = TT(applicationStr.data());
+	TTApplicationPtr	anApplication;
 	
-	// if this application doesn't exist yet
 	if (TTModularApplications)
-		if (!TTApplicationManagerGetApplication(applicationName)) {
+		
+		// if this application doesn't exist yet
+		if (!TTApplicationManagerGetApplication()) {
 			
 			// Create the application giving a name and the version
 			v = TTValue(applicationName);
@@ -85,22 +89,19 @@ void TTModularInit(TTString applicationStr, TTString configFilePath)
 			anApplication = NULL;
 			TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), v);
 			
-			// Add it to TTModularApplications as the local application
-			v.clear();
-			v.append(kTTSym_local);
+			// Add it to the application manager as the local application
+			v = TTValue(kTTSym_local);
 			v.append((TTPtr)anApplication);
 			TTModularApplications->sendMessage(TT("ApplicationAdd"), v);
 			
 			// Read xml configuration file
-			TTValue			v;
 			TTXmlHandlerPtr anXmlHandler = NULL;
-			
 			TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&anXmlHandler), v);
 			
 			v = TTValue(TTPtr(anApplication));
 			anXmlHandler->setAttributeValue(kTTSym_object, v);
 			
-			v = TTValue(TT(configFilePath));
+			v = TTValue(TT(xmlConfigFilePath));
 			anXmlHandler->sendMessage(TT("Read"), v);
 		}
 		else

@@ -94,6 +94,8 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 
 
 // Global
+
+/** The main class of TTModular is the application manager */
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 class TTApplication;
@@ -101,11 +103,18 @@ typedef TTApplication* TTApplicationPtr;
 
 extern				TTMODULAR_EXPORT TTApplicationManagerPtr TTModularApplications;
 
-TTApplicationPtr	TTMODULAR_EXPORT TTModularGetLocalApplication();
-TTApplicationPtr	TTMODULAR_EXPORT TTModularGetApplication(TTSymbolPtr applicationName);
 
 // Prototypes
-// init the modular lib, and the foundation if needed
-void				TTMODULAR_EXPORT TTModularInit(TTString applicationStr, TTString configFilePath);
+
+/** Init the Modular library, and the Foundation if needed
+	It creates the application manager with no application inside */
+void				TTMODULAR_EXPORT TTModularInit();
+
+/** Create the local application and use a configuration file */
+void				TTMODULAR_EXPORT TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);
+
+/* Retreive local application or any application by name */
+TTApplicationPtr	TTMODULAR_EXPORT TTModularGetLocalApplication();
+TTApplicationPtr	TTMODULAR_EXPORT TTModularGetApplication(TTSymbolPtr applicationName);
 
 #endif // __TT_MODULAR_H__

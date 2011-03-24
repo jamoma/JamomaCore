@@ -44,17 +44,22 @@ void jamoma_init(void)
 		if (maxversion() >= 0x0500)
 			max5 = true;
 		
-		TTModularInit(JAMOMA, JamomaConfigurationFilePath);
-		kTTSym_Jamoma = TT(JAMOMA);
-		JamomaApplication = TTModularGetLocalApplication();
+		// Init the Modular library
+		TTModularInit();
 		
-		// Is the conversion table empty ?
+		// Create a local application named Jamoma and get it
+		TTModularCreateLocalApplication(JAMOMA, JamomaConfigurationFilePath);
+		JamomaApplication = TTModularGetLocalApplication();
+		kTTSym_Jamoma = TT(JAMOMA);
+		
+		// Check if the configuration file have been loaded correctly
 		JamomaApplication->getAttributeValue(TT("allAppNames"), v);
 		if (!v.getSize())
 			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
 		
 		// DEBUG
 		//jamoma_application_dump_configuration();
+		
 		
 		//TTDSPInit();
 		
