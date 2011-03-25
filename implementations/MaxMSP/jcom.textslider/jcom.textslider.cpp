@@ -697,7 +697,7 @@ void textslider_paint(t_textslider *x, t_object *view)
 		
 		// Draw slider knob
 		jgraphics_set_source_jrgba(g, &x->attrKnobColor);
-		jgraphics_line_draw_fast(g, position, 1.0, position, rect.height-2.0, 1.0);
+		jgraphics_line_draw_fast(g, position, 1.0, position, rect.height-1.0, 1.0);
 	}
 	
 }
