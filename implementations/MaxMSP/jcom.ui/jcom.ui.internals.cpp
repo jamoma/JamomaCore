@@ -318,7 +318,7 @@ t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasbypass = atom_getlong(argv);
 	
 	if (obj->attr_hasbypass) {
-		anObject = new uiInternalObject("jcom.parameter", "bypass", obj->box.b_patcher, "boolean", "none", "When active, this attribute bypasses the module's processing algtorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "bypass", obj->box.b_patcher, "boolean", "none", "When active, this attribute bypasses the module's processing algorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_bypass, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
