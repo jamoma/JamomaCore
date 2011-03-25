@@ -348,7 +348,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 300.0, 115.0, 446.0, 31.0 ],
-					"text" : "jcom.parameter mode @type string @description \"choose the calculation mode for the crossfade: fast uses a lookup table while precisision performs trig calculations\"",
+					"text" : "jcom.parameter mode @type string @description \"choose the calculation mode for the crossfade: fast uses a lookup table while precession performs trig calculations\"",
 					"varname" : "mode[1]"
 				}
 
