@@ -27,33 +27,39 @@ typedef TTApplicationManager* TTApplicationManagerPtr;
 
 // Macro to convert a TTValue with tt names inside into a value with local application names inside.
 #define	ToAppName(ttNames) \
-		TTApplicationManagerGetApplication(kTTSym_local)->sendMessage(kTTSym_ConvertToAppName, ttNames); \
+		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToAppName, ttNames); \
 
 // Macro to convert a TTValue with local application names inside into a value with tt names inside.
 #define	ToTTName(appNames) \
-		TTApplicationManagerGetApplication(kTTSym_local)->sendMessage(kTTSym_ConvertToTTName, appNames); \
+		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToTTName, appNames); \
 
 class TTMODULAR_EXPORT TTApplication : public TTDataObject
 {
 	TTCLASS_SETUP(TTApplication)
 	
 public:
-	TTNodeDirectoryPtr			mDirectory;			// ATTRIBUTE : the namespace directory of the application
+	
+	TTNodeDirectoryPtr			mDirectory;			///< ATTRIBUTE : the namespace directory of the application
 	
 private:
 
-	TTSymbolPtr					mName;				// ATTRIBUTE : the name of the application
-	TTSymbolPtr					mVersion;			// ATTRIBUTE : the version of the application
+	TTSymbolPtr					mName;				///< ATTRIBUTE : the name of the application
+	TTSymbolPtr					mVersion;			///< ATTRIBUTE : the version of the application
 	
-	TTSymbolPtr					mCommPlugin;		// ATTRIBUTE : kTTSymEmpty for local application
-	TTHashPtr					mCommParameters;	// ATTRIBUTE : NULL for local application
+	TTHashPtr					mPluginParameters;	///< ATTRIBUTE : hash table containing hash table of parameters 
+													///< for each plugin used for communication with this application
+													///< <TTSymbolPtr pluginName, <TTSymbolPtr parameterName, TTValue value>>
 	
-	TTApplicationManagerPtr		mApplicationManager;
+	TTValue						mPluginNames;		///< ATTRIBUTE : names of all plugins used by the application
 	
-	TTHashPtr					mAppToTT;			// Hash table to convert Application names into TT names
-	TTValue						mAllAppNames;		// All Application names
-	TTHashPtr					mTTToApp;			// Hash table to convert TT names into Application names
-	TTValue						mAllTTNames;		// All TT names
+	TTHashPtr					mAppToTT;			///< Hash table to convert Application names into TT names
+	TTValue						mAllAppNames;		///< All Application names
+	TTHashPtr					mTTToApp;			///< Hash table to convert TT names into Application names
+	TTValue						mAllTTNames;		///< All TT names
+	
+	
+	/** Set the plugin parameters hash table */
+	TTErr setPluginParameters(const TTValue& value);
 	
 	/** Get all AppNames */
 	TTErr getAllAppNames(TTValue& value);
@@ -67,7 +73,8 @@ private:
 	/** Convert AppName into TTName */
 	TTErr ConvertToTTName(TTValue& value);
 	
-	/**  needed to be handled by a TTXmlHandler */
+	/** needed to be handled by a TTXmlHandler 
+		read/write plugin parameters */
 	TTErr WriteAsXml(const TTValue& value);
 	TTErr ReadFromXml(const TTValue& value);
 

@@ -43,16 +43,19 @@ void WrapTTApplicationManagerClass(WrappedClassPtr c)
 void WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	t_symbol					*name;
+	SymbolPtr					pluginConfigFilPath;
+	TTValue						v;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
 	if (attrstart && argv) 
-		name = atom_getsym(argv);
-	else
-		name = gensym(JAMOMA);
+		pluginConfigFilPath = atom_getsym(argv);
 	
 	// our wrapped object is the application manager
 	x->wrappedObject = (TTObjectPtr)TTModularApplications;
+	
+	// set up plugin parameters using the given file path
+	// TODO : v.append(...);
+	x->wrappedObject->setAttributeValue(TT("configuration"), v);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);

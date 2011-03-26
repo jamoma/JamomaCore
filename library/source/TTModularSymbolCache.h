@@ -47,7 +47,6 @@ extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_instances;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_life;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_local;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_lookfor;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Map;

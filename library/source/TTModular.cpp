@@ -13,13 +13,12 @@
 static bool TTModularHasInitialized = false;
 
 TTApplicationManagerPtr	TTModularApplications = NULL;
-
-void		TTModularRegisterInternalClasses();
+TTSymbolPtr				kTTSym_localApplicationName = kTTSymEmpty;
 
 
 /****************************************************************************************************/
 
-void TTModularInit()
+void TTModularInit(TTString pluginFolderPath)
 {
 	TTValue				v;
 	
@@ -52,13 +51,12 @@ void TTModularInit()
 		TTViewer::registerClass();
 		TTXmlHandler::registerClass();
 		
-		TTModularRegisterInternalClasses();
-				
 		// TODO: someday implement these so that we have project-scoped caches and don't stuff everything into the foundation?
 		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
 		
 		// Create the Modular application manager with no application inside
+		v.append(TT(pluginFolderPath.data()));
 		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), v);
 		
 #ifdef TT_DEBUG
@@ -73,24 +71,26 @@ void TTModularInit()
 void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath)
 {
 	TTValue				v;
-	TTSymbolPtr			applicationName = TT(applicationStr.data());
 	TTApplicationPtr	anApplication;
 	
 	if (TTModularApplications)
 		
+		kTTSym_localApplicationName = TT(applicationStr.data());
+		
 		// if the local application doesn't exist yet
-		if (!TTModularGetLocalApplication()) {
+		if (!getLocalApplication) {
 			
 			// Create the application giving a name and the version
-			v = TTValue(applicationName);
+			v = TTValue((TTPtr)TTModularApplications);
+			v.append(kTTSym_localApplicationName);
 			v.append(TT(TTMODULAR_VERSION_STRING));
 			anApplication = NULL;
 			TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), v);
 			
 			// Add it to the application manager as the local application
-			v = TTValue(kTTSym_local);
+			v = TTValue(kTTSym_localApplicationName);
 			v.append((TTPtr)anApplication);
-			TTModularApplications->sendMessage(TT("ApplicationAdd"), v);
+			TTModularApplications->sendMessage(TT("Add"), v);
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
@@ -103,7 +103,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			anXmlHandler->sendMessage(TT("Read"), v);
 		}
 		else
-			TTLogMessage("Modular -- \"%s\" application already exists", applicationName->getCString()); 
+			TTLogMessage("Modular -- \"%s\" application already exists", kTTSym_localApplicationName->getCString()); 
 }
 
 #ifdef TT_PLATFORM_LINUX
@@ -114,32 +114,3 @@ int main(void)
 }
 #endif
 
-
-/****************************************************************************************************/
-
-// Core
-
-void TTModularRegisterInternalClasses()
-{
-}
-
-/****************************************************************************************************/
-
-TTApplicationPtr TTModularGetLocalApplication()
-{
-	return TTModularGetApplication(kTTSym_local);
-}
-
-TTApplicationPtr TTModularGetApplication(TTSymbolPtr applicationName)
-{
-	TTValue v;
-	TTApplicationPtr anApplication;
-	
-	v.append(applicationName);
-	if (!TTModularApplications->sendMessage(TT("ApplicationGet"), v)) {
-		v.get(0, (TTPtr*)&anApplication);
-		return anApplication;
-	}
-	
-	return NULL;
-}

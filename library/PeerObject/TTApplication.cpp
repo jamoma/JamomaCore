@@ -18,17 +18,12 @@ TT_MODULAR_CONSTRUCTOR,
 mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
-mCommPlugin(kTTSymEmpty),
-mCommParameters(NULL),
-mApplicationManager(NULL),
+mPluginParameters(NULL),
 mAppToTT(NULL),
 mTTToApp(NULL)
 {
-	arguments.get(0, (TTPtr*)&mApplicationManager);
-	TT_ASSERT("ApplicationManager passed to TTApplication is not NULL", mApplicationManager);
-	
-	arguments.get(1, &mName);
-	arguments.get(2, &mVersion);
+	arguments.get(0, &mName);
+	arguments.get(1, &mVersion);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeProperty(name, readOnly, YES);
@@ -39,16 +34,13 @@ mTTToApp(NULL)
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(directory, readOnly, YES);
 	
-	if(arguments.getSize() == 5) {
-		arguments.get(3, (TTPtr*)&mCommPlugin);
-		arguments.get(4, (TTPtr*)&mCommParameters);
-		
-		addAttribute(CommPlugin, kTypeSymbol);
-		addAttribute(CommParameters, kTypePointer);
-	}
+	addAttributeWithSetter(PluginParameters, kTypePointer);
+	
+	addAttribute(PluginNames, kTypeLocalValue);
+	addAttributeProperty(pluginNames, readOnly, YES);
 
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
-	addAttributeProperty(AllAppNames, readOnly, YES);
+	addAttributeProperty(allAppNames, readOnly, YES);
 	
 	addAttributeWithGetter(AllTTNames, kTypeLocalValue);
 	addAttributeProperty(allTTNames, readOnly, YES);
@@ -72,11 +64,54 @@ mTTToApp(NULL)
 
 TTApplication::~TTApplication()
 {
+	TTHashPtr		oldParameters;
+	TTValue			hk, v;
+	TTSymbolPtr		key;
+	TTUInt8			i;
+	
+	// delete PluginParameters
+	mPluginParameters->getKeys(hk);
+	for (i=0; i<mPluginParameters->getSize(); i++) {
+		hk.get(i,(TTSymbolPtr*)&key);
+		mPluginParameters->lookup(key, v);
+		v.get(0, (TTPtr*)&oldParameters);
+		
+		delete oldParameters;
+	}
+	delete mPluginParameters;
 	delete mDirectory;
-	delete mCommParameters;
 	
 	delete mTTToApp;
 	delete mAppToTT;
+}
+
+TTErr TTApplication::setPluginParameters(const TTValue& value)
+{
+	TTValue			hk, v;
+	TTSymbolPtr		pluginName;
+	TTUInt8			i;
+	
+	value.get(0, (TTPtr*)mPluginParameters);
+	
+	// for all plugins used by the application
+	mPluginParameters->getKeys(hk);
+	for (i=0; i<mPluginParameters->getSize(); i++) {
+		hk.get(i,(TTSymbolPtr*)&pluginName);
+		
+		// Set local application plugin parameters
+		if (mName == kTTSym_localApplicationName) {
+			
+			// define plugin parameters
+			getPlugin(pluginName)->commDefineParameters(mPluginParameters);
+			
+		} 
+		// register distant applications
+		else {
+			;
+			// TODO getPlugin(pluginName)->??? ;
+		}
+		
+	}
 }
 
 TTErr TTApplication::getAllAppNames(TTValue& value)
@@ -202,6 +237,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTString		anAppKey, aTTKey;
+	TTSymbolPtr		pluginName, attributeName;
 	TTValue			appValue, ttValue, v;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
@@ -246,6 +282,39 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 		
 		mAppToTT->append(TT(anAppKey), ttValue);		// here we register the entire value to handle 1 to many conversion
 		mTTToApp->append(TT(aTTKey), appValue);			// here we register the entire value to handle 1 to many conversion
+	}
+	
+	// Plugin node
+	if (aXmlHandler->mXmlNodeName == TT("plugin")) {
+		
+		// get the plugin name
+		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		if (v.getType() == kTypeSymbol) {
+			v.get(0, &pluginName);
+		}
+		
+		TTHashPtr parameters = new TTHash();
+		
+		// get all plugin attributes and their value
+		while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+			
+			// get attribute name
+			aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+			if (v.getType() == kTypeSymbol) {
+				v.get(0, &attributeName);
+				
+				// get attribute value
+				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+				
+				// fill the hash table
+				parameters->append(attributeName, v);
+			}
+		}
+		
+		// register the hash table using the plugin name
+		v = TTValue((TTPtr)parameters);
+		mPluginParameters->append(pluginName, v);
 	}
 	
 	return kTTErrNone;

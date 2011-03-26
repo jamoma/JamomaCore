@@ -279,8 +279,8 @@
 			isa = PBXGroup;
 			children = (
 				D2661C50133BAD280068ACC2 /* Plugin.h */,
-				D2661C51133BAD280068ACC2 /* PluginFactories.cpp */,
 				D2661C52133BAD280068ACC2 /* PluginFactories.h */,
+				D2661C51133BAD280068ACC2 /* PluginFactories.cpp */,
 			);
 			path = TTApplicationManagerPlugin;
 			sourceTree = "<group>";

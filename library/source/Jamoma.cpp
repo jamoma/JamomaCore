@@ -45,22 +45,24 @@ void jamoma_init(void)
 			max5 = true;
 		
 		// Init the Modular library
-		TTModularInit();
+		TTModularInit(JamomaPluginFolderPath);
 		
 		// Create a local application named Jamoma and get it
 		TTModularCreateLocalApplication(JAMOMA, JamomaConfigurationFilePath);
-		JamomaApplication = TTModularGetLocalApplication();
+		JamomaApplication = getLocalApplication;
 		kTTSym_Jamoma = TT(JAMOMA);
 		
 		// Check if the configuration file have been loaded correctly
 		JamomaApplication->getAttributeValue(TT("allAppNames"), v);
 		if (!v.getSize())
 			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
+
+		// note : we don't load the plugin parameters here : see jcom.modular external
 		
 		// DEBUG
 		//jamoma_application_dump_configuration();
 		
-		
+
 		//TTDSPInit();
 		
 		AsyncRamp::registerClass();

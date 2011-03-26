@@ -16,10 +16,22 @@ class PluginFactories;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
+class Plugin;
+typedef Plugin* PluginPtr;
+
 /**	TTApplicationManager ... TODO : an explanation
  
  
  */
+
+// Macro to retreive any application by name
+#define getApplication(applicationName) TTApplicationManagerGetApplication(applicationName)
+
+// Macro to retreive local application
+#define getLocalApplication TTApplicationManagerGetApplication(kTTSym_localApplicationName)
+
+// Macro to retreive a plugin by name
+#define getPlugin(pluginName) TTApplicationManagerGetPlugin(pluginName)
 
 class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
 {
@@ -29,18 +41,30 @@ public:
 
 	TTHashPtr			mApplications;			///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
 												///< one of them can be registered with kTTSym_local instead of his name
-
-private:
-	
-	PluginFactories*	mPluginFactories;		///< the plugin factories
 	TTHashPtr			mPlugins;				///< hash table containing <TTSymbolPtr pluginName, TTPluginPtr aPlugin>
 	
-	/** get all plugins name */
-	// TODO : TTErr getPluginNames(TTValue& value);
+private:
+	
+	TTValue				mApplicationNames;		///< ATTRIBUTE : all registered application names
+	TTValue				mPluginNames;			///< ATTRIBUTE : all loaded plugin names	
+	
+	PluginFactories*	mPluginFactories;		///< the plugin factories
+	
+	TTObjectPtr			mCurrentApplication;	///< used for ReadFromXml mechanism
+	
+	
+	/** Get all application names */
+	TTErr getApplicationNames(TTValue& value);
+	
+	/** Get all plugin names */
+	TTErr getPluginNames(TTValue& value);
 	// TODO : TTErr getPluginIsLoaded(TTValue& value); // with value containing the name of the plugin
-
-	/** Load all Plugins at a given location (second instance contained in TTValue could optionnaly be xml config path) */
-	TTErr PluginLoadAll(const TTValue& value);
+	
+	/** Add an application giving <TTSymbolPtr applicationName, applicationPointer> */
+	TTErr Add(const TTValue& value);
+	
+	/** Remove an application */
+	TTErr Remove(const TTValue& value);
 	
 	/** Set Parameters of a Plugin <TTSymbolPtr pluginName, TTHashPtr pluginParameters> */
 	TTErr PluginSetParameters(const TTValue& value);
@@ -54,20 +78,13 @@ private:
 	/** Scan all plugin's network in oder to add distant application automatically */
 	TTErr PluginScanAllApplication();
 	
-	/** Add an application giving <TTSymbolPtr applicationName, applicationPointer> */
-	TTErr ApplicationAdd(const TTValue& value);
-	
-	/** Remove an application */
-	TTErr ApplicationRemove(const TTValue& value);
-	
-	/** Get an application giving <TTSymbolPtr applicationName> */
-	TTErr ApplicationGet(TTValue& value);
-	
-	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsXml(const TTValue& value); // TODO
+	/**  needed to be handled by a TTXmlHandler 
+		 read/write local and distant applications setup */
+	TTErr WriteAsXml(const TTValue& value);
 	TTErr ReadFromXml(const TTValue& value);
 	
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddress);
+	friend PluginPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAttributeCallback(TTPtr baton, TTValue& data);
@@ -80,12 +97,19 @@ private:
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-/**	To have get an application with an application name (or either from an address)
+/**	To get an application with an application name (or either from an address)
  note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
  @return							a TTApplicationPtr */
 TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddress);
+
+/**	To get a plugin with a plugin name
+ note : it uses the extern TTModularApplications variable
+ @param	baton						..
+ @param	data						..
+ @return							a TTApplicationPtr */
+PluginPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
 
 /**	Called when the local application directory send a notification
  note : it uses the extern TTModularApplications variable
@@ -133,6 +157,12 @@ TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationGet(TTSymbolPtr where
  @param	baton						..
  @param	data						..
  @return							void */
-void TTMODULAR_EXPORT TTApplicationManagerLaunchPlugins(const TTPtr target, const TTKeyVal& iter);
+void TTMODULAR_EXPORT TTApplicationManagerStartPlugins(const TTPtr target, const TTKeyVal& iter);
+
+/**	To iterate on the mPlugins HashTable
+ @param	baton						..
+ @param	data						..
+ @return							void */
+void TTMODULAR_EXPORT TTApplicationManagerStopPlugins(const TTPtr target, const TTKeyVal& iter);
 
 #endif // __TT_APPLICATION_MANAGER_H__
