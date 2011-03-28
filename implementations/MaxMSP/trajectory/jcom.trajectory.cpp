@@ -18,7 +18,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	TTAudioGraphInit();
 	options->append(TT("generator"), kTTBoolYes);
 	wrapAsMaxAudioGraph(TT("trajectory"), "jcom.trajectory≈", &c, options);
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "phasor ramp");
 	wrapAsMaxAudioGraph(TT("trajectory"), "trajectory≈", &c, options);
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "phasor ramp");
 	return 0;
 }
 
