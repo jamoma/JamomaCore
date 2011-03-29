@@ -14,9 +14,19 @@
 
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 
-#define X mDimensions[0]
-#define Y mDimensions[1]
-#define Z mDimensions[2]
+
+/**	Two types for the numbers used to indicate rows and columns.
+	This is so that we can have multiple overrides of functions that take the numbers in either order.
+
+	For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order.
+	However, video processing objects will likely access elements in TTColumnID, TTRowID order.
+ 
+	While C internally is indexed beginning at zero, the interface we create to the matrix data is a one-based.
+	We do this to be consistent with mathematical and engineering conventions and as used by applications
+	such as Octave and Matlab.
+ */
+typedef TTInt32 TTRowID;
+typedef TTInt32 TTColumnID;
 
 
 /****************************************************************************************************/
@@ -27,17 +37,16 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
 	
 	TTBytePtr			mData;					///< matrix of values
-	TTUInt32			mDataCount;				///< mDimension[0] * mDimension[1] ...  * mElementCount
-	TTUInt32			mDataSize;				///< sizeof(type) * mDataCount
-	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own
-	
+	vector<TTUInt32>	mDimensions;			///< N dimensions, each int specifying the size of that dimension
+	TTUInt8				mElementCount;			///< how many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1)
+	TTUInt32			mComponentCount;		///< mDimension[0] * mDimension[1] ...
+	TTUInt8				mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
+	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
 	TTSymbolPtr			mType;					///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
 	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
-	vector<TTUInt32>	mDimensions;			///< N dimensions, each int specifying the size of that dimension
-	TTUInt8				mElementCount;			///< how many elements per value (e.g. 2 for complex numbers, 4 for colors, default = 1)
+	TTUInt32			mDataSize;				///< mTypeSizeInBytes * mDataCount
+	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own
 	
-	TTUInt8				mValueStride;			///< how many bytes from one compound value's beginning to the next one
-		
 	
 	/**	Internal method that resizes memory allocated when various attributes change.	*/
 	TTErr resize();
@@ -61,8 +70,40 @@ public:
 	
 	TTErr clear();
 	TTErr fill(const TTValue& aValue);
+
+	
+	/**	Get the value of a component located at any location in an N-dimensional matrix.
+		All dimension indices begin counting at one.	*/
 	TTErr get(TTValue& aValue) const;
+
+	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
+		The first location in the matrix is (1,1).
+		In order to provide some degree of efficiency, the data passed-in is not bounds checked --
+		you must ensure that you are passing memory that is at least mComponentStride bytes large.
+	 
+		In fact, you should pass a compound type if you want more than one of the primitive types.
+		For example, pass a pointer to a TTComplex if you want two doubles.
+	 */
+	template<typename T>
+	TTErr get2d(TTRowID i, TTColumnID j, T* data);
+
+	
+	/**	Set the value of a component located at any location in an N-dimensional matrix.
+	 All dimension indices begin counting at one.		*/
 	TTErr set(const TTValue& aValue);
+
+	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.	
+		The first location in the matrix is (1,1).
+		In order to provide some degree of efficiency, the data passed-in is not bounds checked --
+		you must ensure that you are passing memory that is at least mComponentStride bytes large.
+	 
+	 
+		In fact, you should pass a compound type if you want more than one of the primitive types.
+		For example, pass a pointer to a TTComplex if you want two doubles.
+	 */
+	template<typename T>
+	TTErr set2d(TTRowID i, TTColumnID j, T* data);
+	
 	
 	TTSymbolPtr	getTypeAsSymbol()
 	{
@@ -78,7 +119,8 @@ public:
 	/**	You must proceed to set the various attributes, dimensions, etc. to match the data format of the matrix you are referencing.
 
 		One caveat regards data alignment.  Jitter, for example, aligns rows on 16-byte boundaries.
-		In this case, a 10x4 matrix of 32-bit ints, all with a value of "4" will look like this:
+		In this case, a 4x10 matrix (using the m-by-n convention rather than Jitter's width-by-height convention) of 32-bit ints, 
+		all with a value of "4" will look like this:
 	 
 		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
 		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0

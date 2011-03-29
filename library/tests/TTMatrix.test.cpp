@@ -44,13 +44,13 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("correct byte-stride between values calculated", 
-						matrix->mValueStride == sizeof(TTFloat64) * 2, 
+						matrix->mComponentStride == sizeof(TTFloat64) * 2, 
 						testAssertionCount,
 						errorCount);
 
 		// Test the clear message
 		// first fill with arbitrary values
-		for (uint i=0; i < matrix->mDataSize; i += matrix->mValueStride) {
+		for (uint i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			*((TTFloat64*)(matrix->mData+i)) = i*0.1;							// real
 			*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)) = i*0.2;	// imaginary
 		}
@@ -90,7 +90,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		matrix->sendMessage(TT("set"), v);
 		
 		cout << "		";
-		for (uint i=0; i < matrix->mDataSize; i += matrix->mValueStride) {
+		for (uint i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			cout << "[" << *((TTFloat64*)(matrix->mData+i));
 			TTFloat64 imag = *((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes));
 			if (imag >= 0.0)
@@ -100,8 +100,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		cout << endl;
 		
 		// TODO: would be nice to have a method to compare two matrices!
-		int index = 0;
-		for (uint i=0; i < matrix->mDataSize; i += matrix->mValueStride) {
+		int index = 1;
+		for (uint i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			if (index == 10) {
 				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i)), 4.0))
 					count++;
@@ -143,7 +143,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("correct byte-stride between values calculated", 
-						matrix->mValueStride == sizeof(TTUInt8) * 4, 
+						matrix->mComponentStride == sizeof(TTUInt8) * 4, 
 						testAssertionCount,
 						errorCount);
 
@@ -166,7 +166,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("correct byte-stride between values calculated", 
-						matrix->mValueStride == sizeof(TTFloat32) * 1, 
+						matrix->mComponentStride == sizeof(TTFloat32) * 1, 
 						testAssertionCount,
 						errorCount);
 		
@@ -189,7 +189,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("correct byte-stride between values calculated", 
-						matrix->mValueStride == sizeof(TTInt32) * 1, 
+						matrix->mComponentStride == sizeof(TTInt32) * 1, 
 						testAssertionCount,
 						errorCount);
 		

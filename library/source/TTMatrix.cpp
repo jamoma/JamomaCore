@@ -16,11 +16,14 @@
 
 TT_OBJECT_CONSTRUCTOR,
 	mData(NULL),
-	mDataCount(NULL),
-	mDataSize(0),
-	mDataIsLocallyOwned(YES),
+	mElementCount(1),
+	mComponentCount(1),
+	mComponentStride(1),
+	mDataCount(0),
 	mType(TT("uint8")),
-	mElementCount(1)
+	mTypeSizeInBytes(1),
+	mDataSize(0),
+	mDataIsLocallyOwned(YES)
 {
 	addAttributeWithGetterAndSetter(Dimensions, kTypeUInt32);
 	addAttributeWithSetter(Type,				kTypeUInt8);
@@ -58,7 +61,7 @@ TTErr TTMatrix::resize()
 	}
 	mDataCount = productOfDimensions * mElementCount;
 	mDataSize = mDataCount * mTypeSizeInBytes;
-	mValueStride = mTypeSizeInBytes * mElementCount;
+	mComponentStride = mTypeSizeInBytes * mElementCount;
 
 	if (mDataIsLocallyOwned) {
 		// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
@@ -166,7 +169,7 @@ TTErr TTMatrix::clear()
 
 TTErr TTMatrix::fill(const TTValue& aValue)
 {
-	TTBytePtr fillValue = new TTByte[mValueStride];
+	TTBytePtr fillValue = new TTByte[mComponentStride];
 
 	// TODO: here we have this ugly switch again...
 	if (mType == TT("uint8"))
@@ -178,8 +181,8 @@ TTErr TTMatrix::fill(const TTValue& aValue)
 	else if (mType == TT("float64"))
 		aValue.getArray((TTFloat64*)fillValue, mElementCount);
 
-	for (TTUInt32 i=0; i<mDataSize; i += mValueStride)
-		memcpy(mData+i, fillValue, mValueStride);
+	for (TTUInt32 i=0; i<mDataSize; i += mComponentStride)
+		memcpy(mData+i, fillValue, mComponentStride);
 
 	delete[] fillValue;
 	return kTTErrNone;
@@ -221,20 +224,49 @@ TTErr TTMatrix::get(TTValue& aValue) const
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTUInt8*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.append((TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTInt32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.append((TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTFloat32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.append((TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTFloat64*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.append((TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
+
+	return kTTErrNone;
+}
+
+
+template<typename T>
+TTErr TTMatrix::get2d(TTRowID i, TTColumnID j, T* data)
+{
+	//TTUInt32 m = mDimensions[0];
+	TTUInt32 n = mDimensions[1];
+	
+	i -= 1;	// convert to zero-based indices for data access
+	j -= 1;	// convert to zero-based indices for data access
+	
+	*data = *(T*)(mData + (i*n+j) * mComponentStride);	
+	return kTTErrNone;
+}
+
+
+template<typename T>
+TTErr TTMatrix::set2d(TTRowID i, TTColumnID j, T* data)
+{
+	//TTUInt32 m = mDimensions[0];
+	TTUInt32 n = mDimensions[1];
+
+	i -= 1;	// convert to zero-based indices for data access
+	j -= 1;	// convert to zero-based indices for data access
+	
+	*(T*)(mData + (i*n+j) * mComponentStride) = *data;	
 
 	return kTTErrNone;
 }
@@ -257,29 +289,27 @@ TTErr TTMatrix::set(const TTValue& aValue)
 	int index = 0;
 
 	for (int d=0; d<dimensionCount; d++) {
-		int position = aValue.getInt32(d);
+		int position = aValue.getInt32(d) - 1; // subtract 1 to get back to zero-based indices for mem access in C
 
 		index += position * productOfLowerDimensionSizes;
 		productOfLowerDimensionSizes *= mDimensions[d];
 	}
-
-	// TODO: here we have this ugly switch again...
-	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
+	
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 
 	return kTTErrNone;
