@@ -68,6 +68,9 @@ class TTDSP_EXPORT TTDelay : public TTAudioObject {
 	TTErr calculateCubicInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
 	TTErr processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
+	
 	// Process with a delay time set by a signal
 //	TTErr processAudioNoInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
 //	TTErr processAudioLinearInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
@@ -75,6 +78,8 @@ class TTDSP_EXPORT TTDelay : public TTAudioObject {
 	
 public:
 	TTErr calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	
+	
 	
 };
 

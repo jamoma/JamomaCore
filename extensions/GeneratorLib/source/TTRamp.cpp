@@ -16,10 +16,10 @@
 TT_AUDIO_CONSTRUCTOR
 , attrMode(TT("vector")), attrCurrentValue(0), attrDestinationValue(0), step(0), direction(0)
 {
-	registerAttribute(TT("RampTime"),			kTypeFloat64,	&attrRampTime,	(TTSetterMethod)&TTRamp::setRampTime);
-	registerAttribute(TT("CurrentValue"),		kTypeFloat64,	&attrCurrentValue);
-	registerAttribute(TT("DestinationValue"),	kTypeFloat64,	&attrDestinationValue);
-	registerAttribute(TT("Mode"),				kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTRamp::setMode);
+	registerAttribute(TT("rampTime"),			kTypeFloat64,	&attrRampTime,	(TTSetterMethod)&TTRamp::setRampTime);
+	registerAttribute(TT("startValue"),			kTypeFloat64,	&attrCurrentValue);
+	registerAttribute(TT("destinationValue"),	kTypeFloat64,	&attrDestinationValue);
+	registerAttribute(TT("mode"),				kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTRamp::setMode);
 	
 	addMessage(Stop);
 	addMessage(RampTimeInSamples);
@@ -98,7 +98,7 @@ void TTRamp::setupProcess()
 
 void TTRamp::setStep()
 {
-	step = (attrDestinationValue - attrCurrentValue) / double(rampSamples);
+	step = (attrDestinationValue - attrCurrentValue) / double(rampSamples - 1);
 	direction = (step < 0);
 }
 

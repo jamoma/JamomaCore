@@ -52,6 +52,7 @@ typedef struct _vimic {
     double	*delay;
     double	*c_vec;
     bool	normalizeSensiFlag;
+	bool	minimumDelayFlag;
     bool	minSensiFlag;
     double	minSensi;
     double	*sensitivity;
@@ -93,6 +94,7 @@ void	vimic_report(t_vimic *x, long n);
 void	vimic_sourceYaw(t_vimic *x, long n);
 void	vimic_sourceDirectivityFlag(t_vimic *x, long n);
 void	vimic_normalizeSensiFlag(t_vimic *x, long n);
+void	vimic_minimumDelayFlag(t_vimic *x, long n);
 void	vimic_minSensiFlag(t_vimic *x, long n);
 void	vimic_airfilter(t_vimic *x, long n);
 void	vimic_xFadeLength(t_vimic *x, long n);

@@ -38,6 +38,7 @@
 		66D6722E131C25DE00148F5F /* NuttallWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D6722D131C25DE00148F5F /* NuttallWindow.h */; };
 		8EC60799131D4A60006CFA86 /* ExpodecWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EC60798131D4A60006CFA86 /* ExpodecWindow.h */; };
 		8EC607BB131D57F6006CFA86 /* ExpodecWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EC607BA131D57F6006CFA86 /* ExpodecWindow.cpp */; };
+		8EDCFF0D1339280900EBF252 /* TukeyWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCFF0C1339280900EBF252 /* TukeyWindow.test.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		66D6722D131C25DE00148F5F /* NuttallWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NuttallWindow.h; path = includes/NuttallWindow.h; sourceTree = "<group>"; };
 		8EC60798131D4A60006CFA86 /* ExpodecWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpodecWindow.h; path = includes/ExpodecWindow.h; sourceTree = "<group>"; };
 		8EC607BA131D57F6006CFA86 /* ExpodecWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExpodecWindow.cpp; path = source/ExpodecWindow.cpp; sourceTree = "<group>"; };
+		8EDCFF0C1339280900EBF252 /* TukeyWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TukeyWindow.test.cpp; path = tests/TukeyWindow.test.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = WindowFunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -159,6 +161,7 @@
 				666CF7F6131B41640003D7E2 /* TrapezoidWindow.cpp */,
 				666CF7E3131B415E0003D7E2 /* TukeyWindow.h */,
 				666CF7F7131B41640003D7E2 /* TukeyWindow.cpp */,
+				8EDCFF0C1339280900EBF252 /* TukeyWindow.test.cpp */,
 				666CF7E4131B415E0003D7E2 /* WelchWindow.h */,
 				666CF7F8131B41640003D7E2 /* WelchWindow.cpp */,
 			);
@@ -271,6 +274,7 @@
 				8EC607BB131D57F6006CFA86 /* ExpodecWindow.cpp in Sources */,
 				6641EB9D132CA23000CBB37B /* HammingWindow.test.cpp in Sources */,
 				6641EB9E132CA23000CBB37B /* KaiserWindow.test.cpp in Sources */,
+				8EDCFF0D1339280900EBF252 /* TukeyWindow.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
