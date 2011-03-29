@@ -13,67 +13,85 @@ static const TTFloat32 kTTTestFloat32Epsilon = 0.00001;
 static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
 
 
-TTBoolean TTTestFloatEquivalence(TTFloat32 a, TTFloat32 b)
+TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean expectedResult, TTFloat32 epsilon)
 {
-	// Following method is based on 
-	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
+	if (epsilon <= 0.) {
+		TTLogMessage("		TTTestFloatEquivalence: epsilon must be a positive number\n");
+		return false;
+	}
 	
-	// TODO: Make maxUlps a constant or argument to the method?
-	// Make sure maxUlps is non-negative and small enough that the
-	// default NAN won't compare as equal to anything.
-	TTInt64 maxUlps = 5;
-	// assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
-	
-	TTInt32 aInt = *(TTInt32*)&a;
-	
-	// Make aInt lexicographically ordered as a twos-complement int
-	if (aInt < 0)
-		aInt = 0x80000000 - aInt;
-	// Make bInt lexicographically ordered as a twos-complement int
-	TTInt32 bInt = *(TTInt32*)&b;
-	
-	if (bInt < 0)
-		bInt = 0x80000000 - bInt;
-	TTInt32 intDiff = abs(aInt - bInt);
-	if (intDiff <= maxUlps)
+	TTBoolean result;
+
+	if (isinf(aFloat)||isinf(bFloat)) {
+		if (aFloat==bFloat)
+			result = true;
+		else
+			result = false;
+	}
+	else {
+		TTFloat32 aAbs = fabs(aFloat);
+		TTFloat32 bAbs = fabs(bFloat);
+		TTFloat32 absoluteOrRelative = (1.0f > aAbs ? 1.0f : aAbs);
+		absoluteOrRelative = (absoluteOrRelative > bAbs ? absoluteOrRelative : bAbs);
+		if (fabs(aFloat - bFloat) <= epsilon * absoluteOrRelative)
+			result = true;
+		else
+			result = false;
+	}
+	// Was this the expected result?
+	if (result == expectedResult)
 		return true;
-	return false;
-	
+	else {
+		TTLogMessage("\n");
+		TTLogMessage("		TTTestFloatEquivalence: Unexpected result\n");
+		TTLogMessage("\n");
+		TTLogMessage("		aFloat  = %.8e\n", aFloat);
+		TTLogMessage("		bFloat  = %.8e\n", bFloat);
+		TTLogMessage("		result  = %s\n", (result)?"true":"false");
+		TTLogMessage("\n");
+		return false;
+	}
 }
 
 
-TTBoolean TTTestFloatEquivalence(TTFloat64 a, TTFloat64 b)
+TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean expectedResult, TTFloat64 epsilon)
 {
-	if (a != TTAntiDenormal(a))
-		TTTestLog("WARNING: TESTING FLOAT EQUIVALENCE ON A DENORMAL!");
-
-	// TODO: Denormal checking on b
-	// TODO: checking for NaN
-	// TODO: checking for INF
+	if (epsilon <= 0.) {
+		TTLogMessage("		TTTestFloatEquivalence: epsilon must be a positive number\n");
+		return false;
+	}
 	
-	// Following method is based on 
-	// http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
-
-	// Make sure maxUlps is non-negative and small enough that the
-	// default NAN won't compare as equal to anything.
-	// TODO: Make maxUlps a constant or argument to the method?
-	TTInt64 maxUlps = 5;
-	// assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
+	TTBoolean result;
 	
-	TTInt64 aInt = *(TTInt64*)&a;
-	
-	// Make aInt lexicographically ordered as a twos-complement int
-	if (aInt < 0)
-		aInt = 0x80000000 - aInt;
-	// Make bInt lexicographically ordered as a twos-complement int
-	TTInt64 bInt = *(TTInt64*)&b;
-	
-	if (bInt < 0)
-		bInt = 0x80000000 - bInt;
-	TTInt64 intDiff = abs(aInt - bInt);
-	if (intDiff <= maxUlps)
+	if (isinf(aFloat)||isinf(bFloat)) {
+		if (aFloat==bFloat)
+			result = true;
+		else
+			result = false;
+	}
+	else {
+		TTFloat64 aAbs = fabs(aFloat);
+		TTFloat64 bAbs = fabs(bFloat);
+		TTFloat64 absoluteOrRelative = (1.0f > aAbs ? 1.0f : aAbs);
+		absoluteOrRelative = (absoluteOrRelative > bAbs ? absoluteOrRelative : bAbs);
+		if (fabs(aFloat - bFloat) <= epsilon * absoluteOrRelative)
+			result = true;
+		else
+			result = false;
+	}
+	// Was this the expected result?
+	if (result == expectedResult)
 		return true;
-	return false;
+	else {
+		TTLogMessage("\n");
+		TTLogMessage("		TTTestFloatEquivalence: Unexpected result\n");
+		TTLogMessage("\n");
+		TTLogMessage("		aFloat  = %.15e\n", aFloat);
+		TTLogMessage("		bFloat  = %.15e\n", bFloat);
+		TTLogMessage("		result  = %s\n", (result)?"true":"false");
+		TTLogMessage("\n");
+		return false;
+	}
 }
 
 
@@ -106,7 +124,9 @@ void TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAsse
 		errorCount++;
 	}	
 	TTLogMessage(aTestName);
-	TTLogMessage("\n");	
+	TTLogMessage("\n");
+	if (!aTestResult)
+		TTLogMessage("\n");
 }
 
 
