@@ -10,12 +10,15 @@
 #include "TTEnvironment.h"
 
 
-const TTFloat64 kTTPi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
-const TTFloat64 kTTTwoPi = kTTPi * 2.0;
-const TTFloat64 kTTAntiDenormalValue = 1e-18;
-const TTFloat64	kTTSqrt2 = sqrt(2.0); 
-const TTFloat64 kTTHalfPi  = kTTPi / 2.0;
-const TTFloat64 kTTEpsilon = 1E-21;
+const TTFloat64 kTTPi					= 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
+const TTFloat64 kTTTwoPi				= kTTPi * 2.0;
+const TTFloat64	kTTSqrt2				= sqrt(2.0); 
+const TTFloat64	kTTHalfSqrt2			= kTTSqrt2 / 2.0;
+const TTFloat64	kTTTwoSqrt2				= 2.0 * kTTSqrt2;
+const TTFloat64 kTTHalfPi				= kTTPi / 2.0;
+const TTFloat64	kTTQuarterPi			= kTTPi / 4.0;
+const TTFloat64 kTTAntiDenormalValue	= 1e-18;
+const TTFloat64 kTTEpsilon				= 1e-21;
 
 const TTFloat32 kTTLookupEqualPower[] = {			// 512 point equal-power table
 	1.0F,				0.999995275372036F,	0.999981101532787F,	0.999957478616186F,	0.999924406845452F,	0.999881886533088F,	0.999829918080880F,	
