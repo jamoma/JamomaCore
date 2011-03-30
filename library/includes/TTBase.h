@@ -29,7 +29,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <complex>
 #include <sstream>
 #include <iterator>
 #include <stdexcept>
@@ -135,8 +135,9 @@ typedef unsigned short		TTUInt16;
 #define uint unsigned int
 #endif
 
-typedef float				TTFloat32;
-typedef double				TTFloat64;
+typedef float					TTFloat32;
+typedef double					TTFloat64;
+typedef std::complex<double>	TTComplex;
 
 /** A value representing a single audio sample.  TTSampleValue should be used any place a sample value is what the value represents.  This will enable us to change the type in the future if needed.  For example, to use 64-bit floats. */
 typedef TTFloat64			TTSampleValue;
