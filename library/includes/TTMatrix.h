@@ -85,7 +85,7 @@ public:
 		For example, pass a pointer to a TTComplex if you want two doubles.
 	 */
 	template<typename T>
-	TTErr get2d(TTRowID i, TTColumnID j, T* data)
+	TTErr get2d(TTRowID i, TTColumnID j, T& data)
 	{
 		//TTUInt32 m = mDimensions[0];
 		TTUInt32 n = mDimensions[1];
@@ -93,7 +93,7 @@ public:
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
 		
-		*data = *(T*)(mData + (i*n+j) * mComponentStride);	
+		data = *(T*)(mData + (i*n+j) * mComponentStride);	
 		return kTTErrNone;
 	}
 
@@ -112,7 +112,7 @@ public:
 		For example, pass a pointer to a TTComplex if you want two doubles.
 	 */
 	template<typename T>
-	TTErr set2d(TTRowID i, TTColumnID j, T* data)
+	TTErr set2d(TTRowID i, TTColumnID j, T& data)
 	{
 		//TTUInt32 m = mDimensions[0];
 		TTUInt32 n = mDimensions[1];
@@ -120,7 +120,7 @@ public:
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
 		
-		*(T*)(mData + (i*n+j) * mComponentStride) = *data;	
+		*(T*)(mData + (i*n+j) * mComponentStride) = data;
 		
 		return kTTErrNone;
 	}
