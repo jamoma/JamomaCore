@@ -243,35 +243,6 @@ TTErr TTMatrix::get(TTValue& aValue) const
 }
 
 
-template<typename T>
-TTErr TTMatrix::get2d(TTRowID i, TTColumnID j, T* data)
-{
-	//TTUInt32 m = mDimensions[0];
-	TTUInt32 n = mDimensions[1];
-	
-	i -= 1;	// convert to zero-based indices for data access
-	j -= 1;	// convert to zero-based indices for data access
-	
-	*data = *(T*)(mData + (i*n+j) * mComponentStride);	
-	return kTTErrNone;
-}
-
-
-template<typename T>
-TTErr TTMatrix::set2d(TTRowID i, TTColumnID j, T* data)
-{
-	//TTUInt32 m = mDimensions[0];
-	TTUInt32 n = mDimensions[1];
-
-	i -= 1;	// convert to zero-based indices for data access
-	j -= 1;	// convert to zero-based indices for data access
-	
-	*(T*)(mData + (i*n+j) * mComponentStride) = *data;	
-
-	return kTTErrNone;
-}
-
-
 // args passed-in should be the coordinates plus the value
 TTErr TTMatrix::set(const TTValue& aValue)
 {

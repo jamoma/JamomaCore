@@ -89,6 +89,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		v.set(2, 1.2);	// imaginary
 		matrix->sendMessage(TT("set"), v);
 		
+		TTComplex z(14, 0.92);
+		matrix->set2d(1, 9, &z);
+		
 		cout << "		";
 		for (uint i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			cout << "[" << *((TTFloat64*)(matrix->mData+i));
@@ -102,16 +105,24 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		// TODO: would be nice to have a method to compare two matrices!
 		int index = 1;
 		for (uint i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
-			if (index == 10) {
+			if (index == 9) {
+				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i)), 14.0))
+					count++;
+				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)), 0.92))
+					count++;
+			}
+			else if (index == 10) {
 				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i)), 4.0))
 					count++;
 				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)), 1.2))
 					count++;
 			}
 			else if (index == 15) {
-				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i)), 3.14))
+				matrix->get2d(1, 15, &z);
+				
+				if (!TTTestFloatEquivalence(real(z), 3.14))
 					count++;
-				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)), -2))
+				if (!TTTestFloatEquivalence(imag(z), -2))
 					count++;
 			}
 			else {
