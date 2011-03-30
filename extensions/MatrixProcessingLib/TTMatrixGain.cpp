@@ -28,30 +28,30 @@ TTMatrixGain::~TTMatrixGain()
 
 
 template<typename T>
-TTErr TTMatrixGain::doCalculateGain(TTMatrixPtr x, TTMatrixPtr y)
+TTErr TTMatrixGain::doCalculateGain(const TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
 {
-	T*			xData = (T*)x->getLockedPointer();
-	T*			yData = (T*)y->getLockedPointer();
-	TTUInt32	valueCount = x->getDataCount();
+	T*			inData = (T*)inMatrix->getLockedPointer();
+	T*			outData = (T*)outMatrix->getLockedPointer();
+	TTUInt32	valueCount = inMatrix->getDataCount();
 		
 	for (TTUInt32 i=0; i<valueCount; i++)
-		*yData++ = *xData++ * mGain;
+		*outData++ = *inData++ * mGain;
 	
-	y->releaseLockedPointer();
-	x->releaseLockedPointer();
+	outMatrix->releaseLockedPointer();
+	inMatrix->releaseLockedPointer();
 	return kTTErrNone;
 }
 
 
 TTErr TTMatrixGain::matrixCalculateGain(TTMatrixArray& inputMatrices, TTMatrixArray& outputMatrices)
 {
-	TTMatrixPtr x	= inputMatrices.getMatrix(0);
-	TTMatrixPtr y	= outputMatrices.getMatrix(0);
+	TTMatrixPtr inMatrix	= inputMatrices.getMatrix(0);
+	TTMatrixPtr outMatrix	= outputMatrices.getMatrix(0);
 	TTErr		err;
 	
-	y->adaptTo(x);	// set dimensions, element count, datatype, etc.
+	outMatrix->adaptTo(inMatrix);	// set dimensions, element count, datatype, etc.
 	
-	TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(doCalculateGain, x, y);
+	TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(doCalculateGain, inMatrix, outMatrix);
 	
 	return err;
 }

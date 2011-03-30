@@ -34,7 +34,7 @@ class TTMatrixGain : public TTDataObject {
 	TTErr matrixCalculateGain(TTMatrixArray& inputMatrices, TTMatrixArray& outputMatrices);
 	
 	template<typename T>
-	TTErr doCalculateGain(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
+	TTErr doCalculateGain(const TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
 
 	/**	Unit Tests	*/
 	virtual TTErr test(TTValue& returnedTestInfo);	
