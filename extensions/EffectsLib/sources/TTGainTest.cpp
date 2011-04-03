@@ -31,7 +31,7 @@ TTErr TTGain::test(TTValue& returnedTestInfo)
 	// Test 2: trival value conversion
 	this->setAttributeValue(TT("midiGain"), 99);
 	TTTestAssertion("midi gain of 99 != linear gain of 1.", 
-					TTTestFloatEquivalence(this->mGain, 1.0), 
+					TTTestFloatEquivalence(this->mGain, 1.0, false), 
 					testAssertionCount, 
 					errorCount);
 	
@@ -57,16 +57,16 @@ TTErr TTGain::test(TTValue& returnedTestInfo)
 	this->process(input, output);
 	
 	TTSampleValuePtr samples = output->mSampleVectors[0];
-	int badSampleCount = 0;
+	int validSampleCount = 0;
 	
 	for (int i=0; i<64; i++) {
-		badSampleCount += TTTestFloatEquivalence(0.501187, samples[i]);
+		validSampleCount += TTTestFloatEquivalence(0.5011872336272722, samples[i]);
 	}
 	TTTestAssertion("accumulated audio error at gain = -6 dB", 
-					badSampleCount == 0, 
+					validSampleCount == 64, 
 					testAssertionCount, 
 					errorCount);
-	TTTestLog("badSampleCount is %i", badSampleCount);
+	TTTestLog("Numbe of bad samples: %i", 64-validSampleCount);
 	
 	TTObjectRelease(&input);
 	TTObjectRelease(&output);
