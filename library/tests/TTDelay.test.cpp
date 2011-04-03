@@ -102,8 +102,8 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	};
 	
 	for (int i=0; i<64; i++) {
-		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
-		badSampleCount += result;
+		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
+		badSampleCount += !result;
 		if (result)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse[i]);
 	}
