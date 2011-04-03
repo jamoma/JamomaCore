@@ -7,7 +7,7 @@
  */
 
 #include "WindowFunction.h"
-#include "HammingWindow.h"
+#include "TukeyWindow.h"
 
 
 /*
@@ -89,7 +89,7 @@ TTErr TukeyWindow::test(TTValue& returnedTestInfo)
 	}
 	
 	TTTestAssertion("Produces correct window coefficients", 
-					badSampleCount == 0;
+					badSampleCount == 0,
 					testAssertionCount, 
 					errorCount);
 	if (badSampleCount)
