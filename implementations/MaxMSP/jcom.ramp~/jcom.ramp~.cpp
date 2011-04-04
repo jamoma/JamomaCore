@@ -158,7 +158,7 @@ void ramp_int(t_ramp *x, long newCurrentValue)
 
 void ramp_float(t_ramp *x, double newCurrentValue)
 {
-	x->ramp->setAttributeValue(TT("currentValue"), newCurrentValue);
+	x->ramp->setAttributeValue(TT("startValue"), newCurrentValue);
 }
 
 void ramp_list(t_ramp *x, double endValue, double time)

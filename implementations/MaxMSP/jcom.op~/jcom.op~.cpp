@@ -148,10 +148,11 @@ t_int *op_perform(t_int *w)
 {
    	t_op	*x = (t_op *)(w[1]);
 	short		i, j;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
 	
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, (t_float *)(w[j+1]));
+		x->audioIn->setVector(i, vs, (t_float *)w[j+1]);
 	}
 
 	if(!x->obj.z_disabled)
@@ -159,7 +160,7 @@ t_int *op_perform(t_int *w)
 
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, (t_float *)(w[j+2]));
+		x->audioOut->getVector(i, vs, (t_float *)w[j+2]);
 	}
 
 	return w + ((x->numChannels*2)+2);

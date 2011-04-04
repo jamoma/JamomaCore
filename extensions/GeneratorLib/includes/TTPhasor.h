@@ -16,8 +16,9 @@
 class TTPhasor : TTAudioObject {
 	TTCLASS_SETUP(TTPhasor)
 
-	TTFloat64 			mFrequency;			///< ramp time in milliseconds
-	TTSampleValue		mPhase;				///< current location in the ramp
+	TTFloat64 			mFrequency;				///< ramp time in milliseconds
+	TTSampleValue		mPhase, phaseInternal;	///< current location in the ramp
+	TTFloat64			mOffset;				///< offset value (adding DC) 
 	
 	TTFloat64			rampMilliseconds;		///< ramp time in milliseconds
 	TTUInt32			rampSamples;			///< ramp time in samples
@@ -36,12 +37,17 @@ class TTPhasor : TTAudioObject {
 	
 	/**	Setter for the frequency attribute in Hertz.   */
 	TTErr setFrequency(const TTValue& newValue);
+	/**	Setter for the frequency attribute in Hertz.   */
+	TTErr setPhase(const TTValue& newValue);
 	
 	/**	Setter the gain attribute in dB.   */
 	TTErr setGain(const TTValue& newValue);
 	
 	/**	Getter for the gain attribute.		*/
 	TTErr getGain(TTValue& value);
+	
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
 };
 
 

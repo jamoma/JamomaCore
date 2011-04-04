@@ -14,11 +14,12 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, mPhase(0.0), step(0.0), linearGain(1.0)
+, mPhase(0.0), step(0.0), linearGain(1.0), mFrequency(1.0), mOffset(0.0)
 {
 	addAttributeWithSetter(			Frequency,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(Gain,		kTypeFloat64);
-	addAttribute(					Phase,		kTypeFloat64);
+	addAttributeWithSetter(			Phase,		kTypeFloat64);
+	addAttribute(					Offset,		kTypeFloat64);
 	// TODO: More Attributes left to add...
 	//	linearGain
 	//	period in ms
@@ -53,7 +54,8 @@ TTErr TTPhasor::setFrequency(const TTValue& newValue)
 		rampMilliseconds = 0;
 	}
 	else {
-		rampSamples = TTUInt32((1.0 / mFrequency) * sr);
+		rampSamples = TTUInt32(sr / fabs(mFrequency));
+		// FIXME: we never use rampMilliseconds, so why computing this?
 		rampMilliseconds = 1000.0 * (rampSamples / TTFloat64(sr));
 	}
 	setStep();
@@ -62,8 +64,22 @@ TTErr TTPhasor::setFrequency(const TTValue& newValue)
 
 void TTPhasor::setStep()
 {
-	step = 1.0 / TTFloat64(rampSamples);	// 1.0 is the destination        
+	step = 1.0 / TTFloat64(rampSamples - 1.0);	// 1.0 is the destination 
+	if (mFrequency < 0){
+		step = -step;
+	}
 	TTZeroDenormal(step); 
+}
+
+
+TTErr TTPhasor::setPhase(const TTValue& newValue)
+{
+	mPhase = newValue;
+	phaseInternal = mPhase;
+	if (mFrequency < 0)
+		phaseInternal += 1.0;
+	
+	return kTTErrNone;
 }
 
 
@@ -95,12 +111,13 @@ TTErr TTPhasor::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 		vs = out.getVectorSizeAsInt();
 
 		while (vs--) {
-			mPhase += step;
-			if (mPhase >= 1.0)
-				mPhase -= 1.0;
-			else if (mPhase < 0.0)
-				mPhase += 1.0;
-			*outSample++ = mPhase * linearGain;	
+			if (phaseInternal > 1.0)
+				phaseInternal = 0.0;
+			else if (phaseInternal < 0.0)
+				phaseInternal = 1.0;
+			
+			*outSample++ = (phaseInternal * linearGain) + mOffset;	
+			phaseInternal += step;
 		}
 	}
 	return kTTErrNone;

@@ -14,7 +14,7 @@
 
 /**	This implements a window function as described @
 	http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/windows/
-	hanning(x) = 0.54 + 0.46*cos(2*PI*(x-0.5))
+	hamming(x) = 0.54 + 0.46*cos(2*PI*(x-0.5))
  */
 class HammingWindow : TTAudioObject {
 	TTCLASS_SETUP(HammingWindow)
@@ -25,6 +25,8 @@ class HammingWindow : TTAudioObject {
 	/**	A standard audio processing method as used by Jamoma DSP objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
 };
 
 

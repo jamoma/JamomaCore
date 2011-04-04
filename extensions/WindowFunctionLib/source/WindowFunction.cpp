@@ -24,6 +24,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Padding,		kTypeUInt32);
 	
 	addMessageWithArgument(getFunctions);
+	addMessageWithArgument(setParameter);
 	
 	setAttributeValue(TT("function"), TT("rectangular"));
 	setAttributeValue(TT("mode"), TT("lookup"));
@@ -48,6 +49,26 @@ TTErr WindowFunction::setFunction(const TTValue& function)
 }
 
 
+TTErr WindowFunction::setParameter(TTValue& aParameterValueForTheFunction)
+{
+	TTErr err;
+	
+	if (aParameterValueForTheFunction.getSize() < 2)
+		err = kTTErrWrongNumValues;
+	else {
+		TTSymbolPtr parameterName = aParameterValueForTheFunction;
+		TTValue		v;
+		
+		v.copyFrom(aParameterValueForTheFunction, 1);
+		err = mFunctionObject->setAttributeValue(parameterName, v);
+		if (!err)
+			fill();
+	}
+	aParameterValueForTheFunction.clear();
+	return err;
+}
+
+
 TTErr WindowFunction::fill()
 {
 	mLookupTable.assign(mNumPoints, 0.0);
@@ -56,7 +77,7 @@ TTErr WindowFunction::fill()
 		
 		TTLimitMin<TTInt32>(numPoints, 0);
 		for (TTInt32 i=0; i<numPoints; i++)
-			mFunctionObject->calculate(i/TTFloat64(numPoints), mLookupTable[i+mPadding]);
+			mFunctionObject->calculate(i/TTFloat64(numPoints-1), mLookupTable[i+mPadding]);
 	}
 	else
 		mLookupTable.assign(mNumPoints, 0.0);

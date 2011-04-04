@@ -10,6 +10,8 @@
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD47AA11E2495B007BBF7E /* WindowFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47A711E2495B007BBF7E /* WindowFunctionLib.cpp */; };
+		6641EB9D132CA23000CBB37B /* HammingWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6641EB9B132CA23000CBB37B /* HammingWindow.test.cpp */; };
+		6641EB9E132CA23000CBB37B /* KaiserWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6641EB9C132CA23000CBB37B /* KaiserWindow.test.cpp */; };
 		666CF7E6131B415E0003D7E2 /* BartlettWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7DC131B415E0003D7E2 /* BartlettWindow.h */; };
 		666CF7E7131B415E0003D7E2 /* BlackmanWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7DD131B415E0003D7E2 /* BlackmanWindow.h */; };
 		666CF7E8131B415E0003D7E2 /* HammingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7DE131B415E0003D7E2 /* HammingWindow.h */; };
@@ -36,6 +38,7 @@
 		66D6722E131C25DE00148F5F /* NuttallWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D6722D131C25DE00148F5F /* NuttallWindow.h */; };
 		8EC60799131D4A60006CFA86 /* ExpodecWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EC60798131D4A60006CFA86 /* ExpodecWindow.h */; };
 		8EC607BB131D57F6006CFA86 /* ExpodecWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EC607BA131D57F6006CFA86 /* ExpodecWindow.cpp */; };
+		8EDCFF0D1339280900EBF252 /* TukeyWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCFF0C1339280900EBF252 /* TukeyWindow.test.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +48,8 @@
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD47A711E2495B007BBF7E /* WindowFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindowFunctionLib.cpp; sourceTree = "<group>"; };
+		6641EB9B132CA23000CBB37B /* HammingWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HammingWindow.test.cpp; path = tests/HammingWindow.test.cpp; sourceTree = "<group>"; };
+		6641EB9C132CA23000CBB37B /* KaiserWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KaiserWindow.test.cpp; path = tests/KaiserWindow.test.cpp; sourceTree = "<group>"; };
 		666CF7DC131B415E0003D7E2 /* BartlettWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BartlettWindow.h; path = includes/BartlettWindow.h; sourceTree = "<group>"; };
 		666CF7DD131B415E0003D7E2 /* BlackmanWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlackmanWindow.h; path = includes/BlackmanWindow.h; sourceTree = "<group>"; };
 		666CF7DE131B415E0003D7E2 /* HammingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HammingWindow.h; path = includes/HammingWindow.h; sourceTree = "<group>"; };
@@ -71,6 +76,7 @@
 		66D6722D131C25DE00148F5F /* NuttallWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NuttallWindow.h; path = includes/NuttallWindow.h; sourceTree = "<group>"; };
 		8EC60798131D4A60006CFA86 /* ExpodecWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpodecWindow.h; path = includes/ExpodecWindow.h; sourceTree = "<group>"; };
 		8EC607BA131D57F6006CFA86 /* ExpodecWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExpodecWindow.cpp; path = source/ExpodecWindow.cpp; sourceTree = "<group>"; };
+		8EDCFF0C1339280900EBF252 /* TukeyWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TukeyWindow.test.cpp; path = tests/TukeyWindow.test.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = WindowFunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -131,30 +137,33 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				66D67216131C225B00148F5F /* BlackmanHarrisWindow.cpp */,
 				66D67218131C226200148F5F /* BlackmanHarrisWindow.h */,
-				666CF7F0131B41640003D7E2 /* BartlettWindow.cpp */,
+				66D67216131C225B00148F5F /* BlackmanHarrisWindow.cpp */,
 				666CF7DC131B415E0003D7E2 /* BartlettWindow.h */,
-				666CF7F1131B41640003D7E2 /* BlackmanWindow.cpp */,
+				666CF7F0131B41640003D7E2 /* BartlettWindow.cpp */,
 				666CF7DD131B415E0003D7E2 /* BlackmanWindow.h */,
-				8EC607BA131D57F6006CFA86 /* ExpodecWindow.cpp */,
+				666CF7F1131B41640003D7E2 /* BlackmanWindow.cpp */,
 				8EC60798131D4A60006CFA86 /* ExpodecWindow.h */,
-				666CF7F2131B41640003D7E2 /* HammingWindow.cpp */,
+				8EC607BA131D57F6006CFA86 /* ExpodecWindow.cpp */,
 				666CF7DE131B415E0003D7E2 /* HammingWindow.h */,
-				666CF7F3131B41640003D7E2 /* HanningWindow.cpp */,
+				666CF7F2131B41640003D7E2 /* HammingWindow.cpp */,
+				6641EB9B132CA23000CBB37B /* HammingWindow.test.cpp */,
 				666CF7DF131B415E0003D7E2 /* HanningWindow.h */,
-				666CF7F4131B41640003D7E2 /* KaiserWindow.cpp */,
+				666CF7F3131B41640003D7E2 /* HanningWindow.cpp */,
 				666CF7E0131B415E0003D7E2 /* KaiserWindow.h */,
-				66D6722B131C25D600148F5F /* NuttallWindow.cpp */,
+				666CF7F4131B41640003D7E2 /* KaiserWindow.cpp */,
+				6641EB9C132CA23000CBB37B /* KaiserWindow.test.cpp */,
 				66D6722D131C25DE00148F5F /* NuttallWindow.h */,
-				666CF7F5131B41640003D7E2 /* RectangularWindow.cpp */,
+				66D6722B131C25D600148F5F /* NuttallWindow.cpp */,
 				666CF7E1131B415E0003D7E2 /* RectangularWindow.h */,
-				666CF7F6131B41640003D7E2 /* TrapezoidWindow.cpp */,
+				666CF7F5131B41640003D7E2 /* RectangularWindow.cpp */,
 				666CF7E2131B415E0003D7E2 /* TrapezoidWindow.h */,
-				666CF7F7131B41640003D7E2 /* TukeyWindow.cpp */,
+				666CF7F6131B41640003D7E2 /* TrapezoidWindow.cpp */,
 				666CF7E3131B415E0003D7E2 /* TukeyWindow.h */,
-				666CF7F8131B41640003D7E2 /* WelchWindow.cpp */,
+				666CF7F7131B41640003D7E2 /* TukeyWindow.cpp */,
+				8EDCFF0C1339280900EBF252 /* TukeyWindow.test.cpp */,
 				666CF7E4131B415E0003D7E2 /* WelchWindow.h */,
+				666CF7F8131B41640003D7E2 /* WelchWindow.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -263,6 +272,9 @@
 				66D67217131C225B00148F5F /* BlackmanHarrisWindow.cpp in Sources */,
 				66D6722C131C25D600148F5F /* NuttallWindow.cpp in Sources */,
 				8EC607BB131D57F6006CFA86 /* ExpodecWindow.cpp in Sources */,
+				6641EB9D132CA23000CBB37B /* HammingWindow.test.cpp in Sources */,
+				6641EB9E132CA23000CBB37B /* KaiserWindow.test.cpp in Sources */,
+				8EDCFF0D1339280900EBF252 /* TukeyWindow.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

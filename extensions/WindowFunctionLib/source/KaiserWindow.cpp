@@ -58,21 +58,15 @@ TTErr KaiserWindow::setBeta(const TTValue& newValue)
 }
 
 
-// hanning(x) = 0.5 + 0.5*cos(2*PI*(x-0.5))
 TTErr KaiserWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-//	double wn;
-//	double two_n_over_m_minus_one;
-		
-//	for (i = 0; i < size; i++) {
-//		two_n_over_m_minus_one = ((2.0 * i) / (double)size) - 1;
-//		wn = buffer_besselfn_I0(beta * sqrt(1.0 - (two_n_over_m_minus_one * two_n_over_m_minus_one))) / mBesselIOofBeta;
-//		x->b_samples[i] *= wn;
-//	}
-	
-	y = BesselFunctionI0(mBeta * sqrt(1.0 - ((2.0*x) * (2.0*x))))   /   mBesselIOofBeta;
-	
-//	y = 0.54 + 0.46*cos(kTTTwoPi*(x-0.5));
+	TTFloat64	two_x = 2.0 * (x - 0.5); // x is shifted left by half a cycle so we get a mirror of the window around zero
+	TTFloat64	temp = 1.0 - (two_x * two_x);
+	TTFloat64	temp2 = sqrt(temp);
+	TTFloat64	temp3 = mBeta * temp2;
+	TTFloat64	temp4 = BesselFunctionI0(temp3);
+
+	y = temp4 / mBesselIOofBeta;	
 	return kTTErrNone;
 }
 
