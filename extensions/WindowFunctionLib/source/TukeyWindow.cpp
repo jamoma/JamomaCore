@@ -21,7 +21,7 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeProperty(Alpha,	rangeChecking,	TT("clip"));
 	
 	// Set Defaults:
-	setAttributeValue(TT("alpha"), 0.4);
+	setAttributeValue(TT("alpha"), 0.5);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);

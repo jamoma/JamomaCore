@@ -34,7 +34,7 @@ class TukeyWindow : TTAudioObject {
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	TTErr test(TTValue& returnedTestInfo);
-	
+
 };
 
 
