@@ -198,16 +198,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
-					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
-					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../Framework/build/Development\"",
-					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
-					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
@@ -215,10 +206,6 @@
 					"\"$(SRCROOT)/../../../../Graph/library/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-				);
 				PRODUCT_NAME = "$(PROJECT_NAME)≈";
 			};
 			name = Development;
@@ -230,25 +217,12 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
-					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
-					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../Framework/build/Development\"",
-					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
-					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../Graph/library/build/UninstalledProducts\"",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 				PRODUCT_NAME = "$(PROJECT_NAME)≈";
 			};

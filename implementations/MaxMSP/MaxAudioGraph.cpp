@@ -120,8 +120,9 @@ TTErr MaxAudioGraphReset(ObjectPtr x, long vectorSize)
 }
 
 
-TTErr MaxAudioGraphSetup(WrappedInstancePtr self)
+TTErr MaxAudioGraphSetup(ObjectPtr x)
 {
+	WrappedInstancePtr self = (WrappedInstancePtr)x;
 	Atom		a[2];
 	TTUInt16	i=0;
 	
