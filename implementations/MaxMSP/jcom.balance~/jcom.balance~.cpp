@@ -166,13 +166,14 @@ t_int *balance_perform(t_int *w)
 {
    	t_balance	*x = (t_balance *)(w[1]);
 	short		i, j, k;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
 
 	// We sort audioIn so that all channels of signalA comes first, then all channels of signalB
 	for(i=0; i < x->numChannels; i++){
 		j = (i*3) + 1;
 		k = i + x->numChannels;
-		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
-		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, k, x->vs, w[j+2]);
+		x->audioIn->setVector(i, vs, (t_float *)w[j+1]);
+		x->audioIn->setVector(k, vs, (t_float *)w[j+2]);
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
@@ -180,7 +181,7 @@ t_int *balance_perform(t_int *w)
 
 	for(i=0; i < x->numChannels; i++){
 		j = (i*3) + 1;
-		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+3]);
+		x->audioOut->getVector(i, vs, (t_float *)w[j+3]);
 	}
 
 	return w + ((x->numChannels*3)+2);				// +2 = +1 for the x pointer and +1 to point to the next object

@@ -1,15 +1,15 @@
 /* 
- * Unit tests for the TTDelay Object for Jamoma DSP
- * Copyright © 2011, Nils Peters, Tim Place
+ * Unit tests for the TTBuffer Object for Jamoma DSP
+ * Copyright © 2011, Tim Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTDelay.h"
+#include "TTBuffer.h"
 
 
-TTErr TTDelay::test(TTValue& returnedTestInfo)
+TTErr TTBuffer::test(TTValue& returnedTestInfo)
 {
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
@@ -17,6 +17,11 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	
+	// TODO: test filling with sine wave
+	// TODO: test scaling (applying gain)
+	// TODO: test normalizing (with optional arg, and also without an optional arg)
+	
+	/*
 	// create 1 channel audio signal objects
 	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
 	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
@@ -102,8 +107,8 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	};
 	
 	for (int i=0; i<64; i++) {
-		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
-		badSampleCount += !result;
+		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
+		badSampleCount += result;
 		if (result)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse[i]);
 	}
@@ -114,7 +119,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
-	
+	*/
 	
 	
 	

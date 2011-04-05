@@ -12,7 +12,11 @@
 #include "TTDSP.h"
 
 
-/**	TTRamp is an audio processor that provides a soft saturation or overdrive effect to "warm" a sound up. */ 
+/**	TTRamp generates a linear traversal from 0.0 to 1.0 over the course of a specified time period.
+	The first sample of the ramp is 0.0 and the last sample of the ramp is 1.0.
+	This behaviour makes this ramp suitable for generating a window functions or similar where 
+	all values of the function are to be present over the time encapsulated by the ramping signal.
+ */ 
 class TTRamp : TTAudioObject {
 	TTCLASS_SETUP(TTRamp)
 
