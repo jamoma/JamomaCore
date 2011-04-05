@@ -10,7 +10,7 @@
 
 #define thisTTClass GaussWindow
 #define thisTTClassName		"gauss"
-#define thisTTClassTags		"audio, porcessor, function, window"
+#define thisTTClassTags		"audio, processor, function, window"
 
 
 TT_AUDIO_CONSTRUCTOR
@@ -21,7 +21,7 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeProperty(Sigma,	rangeChecking,	TT("clip"));
 	
 	// Set Defaults:
-	setAttributeValue(TT("sigma"), 0.);
+	setAttributeValue(TT("sigma"), 0.4);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
