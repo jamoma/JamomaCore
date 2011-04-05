@@ -11,7 +11,7 @@
 
 
 // Data Structure for this object
-typedef struct Info {
+struct Info {
     t_object				obj;
 	TTAudioGraphObjectPtr	audioSourceObject;
 	long					audioSourceOutlet;
