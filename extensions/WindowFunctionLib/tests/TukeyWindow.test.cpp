@@ -67,7 +67,7 @@ TTErr TukeyWindow::test(TTValue& returnedTestInfo)
 	
 	// set the value for alpha
 	windowObject->setAttributeValue(TT("alpha"), testAlpha);
-	//TTTestLog("alpha was set to %.10f for test", testAlpha);
+	TTTestLog("alpha was set to %.10f for test", testAlpha);
 	
 	// create 1 channel audio signal objects
 	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
