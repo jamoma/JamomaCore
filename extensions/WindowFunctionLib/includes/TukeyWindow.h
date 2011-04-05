@@ -33,6 +33,8 @@ class TukeyWindow : TTAudioObject {
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
+	
+	TTErr test(TTValue& returnedTestInfo);
 };
 
 
