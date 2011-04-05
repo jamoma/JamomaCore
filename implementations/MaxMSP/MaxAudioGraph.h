@@ -116,6 +116,8 @@ TTErr MaxAudioGraphObject(ObjectPtr self, TTAudioGraphObjectPtr* returnedAudioGr
 TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber);
 TTErr MaxAudioGraphReset(ObjectPtr x, long vectorSize);
 
+TTErr MaxAudioGraphSetup(ObjectPtr self);
+
 
 #endif // __TT_MAX_AUDIOGRAPH_H__
 

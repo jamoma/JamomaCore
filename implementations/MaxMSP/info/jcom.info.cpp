@@ -13,11 +13,12 @@
 // Data Structure for this object
 struct Info {
     t_object				obj;
-	TTAudioGraphObjectPtr	audioSourceObject;
-	long					audioSourceOutlet;
+	TTAudioGraphObjectPtr	audioGraphObject;	// we wrap a simple 'thru' audiograph object
+	TTPtr					outletSmartSignal;	// outlet for passing the input to the output, and so we can be pulled
 	TTPtr					outletSampleRate;
 	TTPtr					outletVectorSize;
 	TTPtr					outletNumChannels;
+	long					audioSourceOutlet;	// number of the outlet connected to our inlet
 	long					maxNumChannels;		// the number of inlets or outlets, which is an argument at instantiation
 	long					numChannels;		// the actual number of channels to use, set by the dsp method
 	long					vectorSize;			// cached by the DSP method
@@ -32,7 +33,6 @@ void	InfoFree(InfoPtr self);
 void	InfoAssist(InfoPtr self, void* b, long msg, long arg, char* dst);
 void	InfoBang(InfoPtr self);
 void	InfoQfn(InfoPtr self);
-TTErr	InfoReset(InfoPtr self, long vectorSize);
 TTErr	InfoConnect(InfoPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 
 
@@ -53,8 +53,9 @@ int main(void)
 	c = class_new("jcom.info≈", (method)InfoNew, (method)InfoFree, sizeof(Info), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)InfoBang,			"bang",					0);
-	class_addmethod(c, (method)InfoReset,			"audio.reset",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphReset,	"graph.reset",		A_CANT, 0);
 	class_addmethod(c, (method)InfoConnect,			"audio.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxAudioGraphSetup,	"audio.setup",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
 	class_addmethod(c, (method)InfoAssist,			"assist",				A_CANT, 0); 
@@ -72,6 +73,8 @@ int main(void)
 InfoPtr InfoNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
     InfoPtr	self;
+	TTValue	v;
+	TTErr	err;
    
     self = InfoPtr(object_alloc(sInfoClass));
     if (self) {
@@ -79,8 +82,19 @@ InfoPtr InfoNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		self->outletNumChannels = outlet_new((t_pxobject*)self, 0);
 		self->outletVectorSize = outlet_new((t_pxobject*)self, 0);
 		self->outletSampleRate = outlet_new((t_pxobject*)self, 0);
-
+		self->outletSmartSignal = outlet_new((t_pxobject*)self, "audio.connect");
+		
 		self->qelem = qelem_new(self, (method)InfoQfn);
+		
+		v.setSize(2);
+		v.set(0, TT("thru"));
+		v.set(1, TTUInt32(1));	// we set it up with 1 inlet, and later modify to 2 inlets if the connection is made
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);		
+		if (!self->audioGraphObject->getUnitGenerator()) {
+			object_error(SELF, "cannot load Jamoma DSP object");
+			return NULL;
+		}
+
 		attr_args_process(self, argc, argv);
 	}
 	return self;
@@ -89,6 +103,7 @@ InfoPtr InfoNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 void InfoFree(InfoPtr self)
 {
+	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 	qelem_free(self->qelem);
 }
 
@@ -103,12 +118,14 @@ void InfoAssist(InfoPtr self, void* b, long msg, long arg, char* dst)
 		strcpy(dst, "multichannel audio connection and control messages");		
 	else if (msg==2) {	// Outlets
 		if (arg == 0)
-			strcpy(dst, "sample rate of the input signal");
+			strcpy(dst, "multichannel audio connection, passing the input thru to the output");
 		else if (arg == 1)
-			strcpy(dst, "vector size of the input signal");
+			strcpy(dst, "sample rate of the input signal");
 		else if (arg == 2)
-			strcpy(dst, "number of channels in the input signal");
+			strcpy(dst, "vector size of the input signal");
 		else if (arg == 3)
+			strcpy(dst, "number of channels in the input signal");
+		else if (arg == 4)
 			strcpy(dst, "dumpout");
 	}
 }
@@ -122,29 +139,18 @@ void InfoBang(InfoPtr self)
 
 void InfoQfn(InfoPtr self)
 {
-	if (self->audioSourceObject) {
-		outlet_int(self->outletNumChannels, self->audioSourceObject->getOutputNumChannels(self->audioSourceOutlet));
-		outlet_int(self->outletVectorSize, self->audioSourceObject->getOutputVectorSize(self->audioSourceOutlet));
-		outlet_int(self->outletSampleRate, self->audioSourceObject->getOutputSampleRate(self->audioSourceOutlet));
-	}
-	else {
-		object_post(SELF, "No valid audio signals connected.");
-	}
-}
-
-
-TTErr InfoReset(InfoPtr self, long vectorSize)
-{
-	self->audioSourceObject = NULL;
-	return kTTErrNone;
+	outlet_int(self->outletNumChannels, self->audioGraphObject->getOutputNumChannels(self->audioSourceOutlet));
+	outlet_int(self->outletVectorSize, self->audioGraphObject->getOutputVectorSize(self->audioSourceOutlet));
+	outlet_int(self->outletSampleRate, self->audioGraphObject->getOutputSampleRate(self->audioSourceOutlet));
 }
 
 
 TTErr InfoConnect(InfoPtr self, TTAudioGraphObjectPtr newAudioSourceObject, long sourceOutletNumber)
 {
-	self->audioSourceObject = newAudioSourceObject;
+	TTErr err = MaxAudioGraphConnect(ObjectPtr(self), newAudioSourceObject, sourceOutletNumber);
+	
 	self->audioSourceOutlet = sourceOutletNumber;
 	InfoBang(self);
-	return kTTErrNone;
+	return err;
 }
 
