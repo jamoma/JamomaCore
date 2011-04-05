@@ -316,6 +316,11 @@ public:
 };
 
 
+/**	Produces a random-valued 64-bit floating-point number in the range [0.0, 1.0]	*/
+TTFOUNDATION_EXPORT TTFloat64 TTRandom64();
+
+
+
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];			///< Square Root lookup table
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
