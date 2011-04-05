@@ -16,12 +16,12 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
-	addAttribute(Peak, kTypeFloat64);
-	addAttributeProperty(Peak,	range,			TTValue(kTTEpsilon, 0.5));	// Avoid dividing by 0
-	addAttributeProperty(Peak,	rangeChecking,	TT("clip"));
+	addAttribute(Ratio, kTypeFloat64);
+	addAttributeProperty(Ratio,	range,			TTValue(kTTEpsilon, 0.5));	// Avoid dividing by 0
+	addAttributeProperty(Ratio,	rangeChecking,	TT("clip"));
 	
 	// Set Defaults:
-	setAttributeValue(TT("peak"), 0.);
+	setAttributeValue(TT("ratio"), 0.);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
@@ -38,14 +38,14 @@ TTErr ExpodecWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSized
 {
 	TTFloat64 lambda = log(0.001);  // window will begin/end at -60 dB, could eventually be controlled attribute
 	
-	if ( x <= mPeak ) {  // attack portion
+	if ( x <= mRatio ) {  // attack portion
 		
-		y = exp( ( 1 - ( x / mPeak ) ) * lambda );
+		y = exp( ( 1 - ( x / mRatio ) ) * lambda );
 		
 		
 	} else { // decay portion
 		
-		y = exp( ((x - mPeak) / (1 - mPeak)) * lambda );
+		y = exp( ((x - mRatio) / (1 - mRatio)) * lambda );
 		
 	}
 	

@@ -25,7 +25,7 @@
 class ExpodecWindow : TTAudioObject {
 	TTCLASS_SETUP(ExpodecWindow)
 	
-	TTFloat64	mPeak;			///< ratio expresses where to place the loudest sample 0 <= peak <= 1., 0 = no attack, 1 = no release
+	TTFloat64	mRatio;			///< ratio expresses where to place the loudest sample 0 <= ratio <= 1., 0 = no attack, 1 = no release
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
