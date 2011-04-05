@@ -495,7 +495,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JamomaFoundation;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost $(SRCROOT)/Mersenne-1.1";
 			};
 			name = Development;
 		};
@@ -525,7 +525,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JamomaFoundation;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost $(SRCROOT)/Mersenne-1.1";
 			};
 			name = Deployment;
 		};
@@ -540,7 +540,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = JamomaFoundationIOS;
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost $(SRCROOT)/Mersenne-1.1";
 				WRAPPER_EXTENSION = a;
 			};
 			name = Development;
@@ -557,7 +557,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = JamomaFoundationIOS;
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/boost $(SRCROOT)/Mersenne-1.1";
 				WRAPPER_EXTENSION = a;
 			};
 			name = Deployment;

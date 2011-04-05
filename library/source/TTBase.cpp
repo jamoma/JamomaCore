@@ -411,3 +411,11 @@ void TTLogDebug(TTImmutableCString message, ...)
 	}
 }
 
+
+#include "MersenneTwister.h"
+
+TTFloat64 TTRandom64()
+{
+	MTRand twister;
+	return twister.rand();
+}
