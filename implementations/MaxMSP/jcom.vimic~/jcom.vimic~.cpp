@@ -59,6 +59,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	class_addmethod(c,(method)vimic_renderintervall, "renderintervall", A_LONG, 0);
 	class_addmethod(c,(method)vimic_sourceDirectivityFlag, "sourceDirectivityFlag", A_LONG, 0);
 	class_addmethod(c,(method)vimic_normalizeSensiFlag, "normalizeSensiFlag", A_LONG, 0);
+	class_addmethod(c,(method)vimic_minimumDelayFlag, "minimumDelayFlag", A_LONG, 0);
 	class_addmethod(c,(method)vimic_minSensiFlag, "minSensiFlag", A_LONG, 0);
 	class_addmethod(c,(method)vimic_xFadeLength, "xFadeLength", A_LONG, 0);
 	class_addmethod(c,(method)vimic_xFadeFunction, "xFadeFunction", A_LONG, 0);
@@ -98,7 +99,8 @@ void *vimic_new(t_symbol *s, int argc, t_atom *argv)
     globReportFlag = false; 
     x->normalizeSensiFlag = false;
     x->minSensiFlag = false;
-    x->minSensi = 0.0;
+	x->minimumDelayFlag = false;
+    x->minSensi = 0.0;		
     x->distModel = 1;	
     //TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, Properties::MAXNUMCHANNELS);
 
@@ -690,6 +692,24 @@ void vimic_normalizeSensiFlag(t_vimic *x, long n)
     }
 }
 
+void vimic_minimumDelayFlag(t_vimic *x, long n)
+{	
+    switch (n) 
+    {
+        case 0:
+            x->minimumDelayFlag = false;
+            x->room->sources[0].flag(true);
+            if (x->directBang == 1) vimic_bang(x);
+            if (globReportFlag)	post("Minimizing time-of-fights delays: off");
+            break;
+        case 1:
+            x->minimumDelayFlag = true;
+            x->room->sources[0].flag(true);
+            if (x->directBang == 1) vimic_bang(x);
+            if (globReportFlag) post("Minimizing time-of-fights delays: on");
+            break;
+    }
+}
 
 void vimic_minSensiFlag(t_vimic *x, long n)
 {
@@ -1203,7 +1223,14 @@ void vimic_bang(t_vimic *x)
                 vimic_normalizeSensi(x->sensitivity + i, invSqrtSumSensi);
             critical_exit(0);
         }
-        critical_enter(0);
+		        
+		if (x->minimumDelayFlag){
+			double minDelay = vimic_findMinDelayValue(x->delay, x->bufSz);
+			for (int i = 0; i < x->bufSz; i++)
+				vimic_minimizeDelay(x->delay + i, minDelay);
+		}
+		
+		critical_enter(0);		
         for (m = 0; m < x->bufSz; m++){
 			x->delGrain[m] = ((double) x->delay[m] - x->currentDelay[m]) * x->grainsize;  // copy old values into buffer	 
             TTZeroDenormal(x->delGrain[m]); // FIXME: necessary?
