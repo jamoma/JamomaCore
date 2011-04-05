@@ -135,13 +135,13 @@ t_int *zerox_perform(t_int *w)
     t_float *in = (t_float *)(w[2]); 	// Input
     t_float *out1 = (t_float *)(w[3]);	// Output
     t_float *out2 = (t_float *)(w[4]);	// Output
-	int vs = (int)(w[5]);			// Vector Size
+	TTUInt16	vs = x->signalIn->getVectorSizeAsInt();
 
 	if(!x->obj.z_disabled){								// if we are not muted...
-		TTAUDIOSIGNAL_SETVECTOR32(x->signalIn, 0, vs, in);
+		x->signalIn->setVector(0, vs, (t_float *)in);
 		x->zeroxUnit->process(x->signalIn, x->signalOut);
-		TTAUDIOSIGNAL_GETVECTOR32(x->signalOut, 0, vs, out1);
-		TTAUDIOSIGNAL_GETVECTOR32(x->signalOut, 1, vs, out2);
+		x->signalOut->getVector(0, vs, (t_float *)out1);
+		x->signalOut->getVector(1, vs, (t_float *)out2);
 	}
 	return w+6;	
 }

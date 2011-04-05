@@ -308,10 +308,11 @@ t_int *filter_perform(t_int *w)
 {
    	t_filter	*x = (t_filter *)(w[1]);
 	short		i, j;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
 	
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
+		x->audioIn->setVector(i, vs, (t_float *)w[j+1]);
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
@@ -319,7 +320,7 @@ t_int *filter_perform(t_int *w)
 
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+2]);
+		x->audioOut->setVector(i, vs, (t_float *)w[j+2]);
 	}
 
 	return w + ((x->numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
@@ -332,10 +333,11 @@ t_int *filter_perform_freq(t_int *w)
    	t_filter*	x = (t_filter *)(w[1]);
 	short		i, j;
 	t_float*	freq;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
 	
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
+		x->audioIn->setVector(i, vs, (t_float *)w[j+1]);
 	}
 	j = (i*2) + 2;
 	freq = (t_float*)w[j];
@@ -348,7 +350,7 @@ t_int *filter_perform_freq(t_int *w)
 
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+2]);
+		x->audioOut->getVector(i, vs, (t_float *)w[j+2]);
 	}
 
 	return w + ((x->numChannels*2)+3);				// +2 = +1 for the x pointer and +1 to point to the next object
@@ -361,10 +363,11 @@ t_int *filter_perform_q(t_int *w)
    	t_filter*	x = (t_filter *)(w[1]);
 	short		i, j;
 	t_float*	q;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
 	
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
+		x->audioIn->setVector(i, vs, (t_float *)w[j+1]);
 	}
 	q = (t_float*)w[(i*2) + 2];
 
@@ -376,7 +379,7 @@ t_int *filter_perform_q(t_int *w)
 
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+2]);
+		x->audioOut->getVector(i, vs, (t_float *)w[j+2]);
 	}
 
 	return w + ((x->numChannels*2)+3);				// +2 = +1 for the x pointer and +1 to point to the next object
@@ -390,10 +393,11 @@ t_int *filter_perform_freq_q(t_int *w)
 	short		i, j;
 	t_float*	freq;
 	t_float*	q;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
 	
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
+		x->audioIn->setVector(i, vs, (t_float *)w[j+1]);
 	}
 	freq = (t_float*)w[(i*2) + 2];
 	q = (t_float*)w[(i*2) + 3];
@@ -408,7 +412,7 @@ t_int *filter_perform_freq_q(t_int *w)
 
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+2]);
+		x->audioOut->getVector(i, vs, (t_float *)w[j+2]);
 	}
 
 	return w + ((x->numChannels*2)+4);				// +2 = +1 for the x pointer and +1 to point to the next object

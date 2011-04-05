@@ -14,6 +14,7 @@
 #include "TTLimiter.h"
 #include "TTOverdrive.h"
 #include "TTPulseSub.h"
+#include "TTThru.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_EffectsLib(void)
@@ -26,6 +27,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_EffectsLib(void)
 	TTLimiter::registerClass();	
 	TTOverdrive::registerClass();	
 	TTPulseSub::registerClass();	
+	TTThru::registerClass();	
 	
 	return kTTErrNone;
 }

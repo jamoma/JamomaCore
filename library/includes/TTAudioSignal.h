@@ -299,36 +299,5 @@ public:
 typedef TTAudioSignal* TTAudioSignalPtr;
 
 
-/**	A convenience macro for sending the 'setVector32' message to an audio signal.  
-	This macro should NOT be used in performance-sensitive code.
-	@param	signal_obj	A pointer to a TTAudioSignal object.
-	@param	a			The zero-based channel number of the vector.
-	@param	b			The vector size of the channel.
-	@param	c			A pointer to the beginning of the vector.
-	@return A TTErr code.									*/
-#define TTAUDIOSIGNAL_SETVECTOR32(signal_obj, a, b, c) \
-		TTValue _temp_tt_value_setvector ## a;\
-		_temp_tt_value_setvector ## a.setSize(3);\
-		_temp_tt_value_setvector ## a.set(0, (TTUInt16)a);\
-		_temp_tt_value_setvector ## a.set(1, (TTUInt16)b);\
-		_temp_tt_value_setvector ## a.set(2, TTPtr(c));\
-		signal_obj->sendMessage(kTTSym_setVector32, _temp_tt_value_setvector ## a);
-
-/**	A convenience macro for sending the 'getVector32' message to an audio signal.
-	This macro should NOT be used in performance-sensitive code.
-	@param	signal_obj	A pointer to a TTAudioSignal object.
-	@param	a			The zero-based channel number of the vector.
-	@param	b			The vector size of the channel.
-	@param	c			A pointer to the beginning of the vector.
-	@return A TTErr code.									*/
-#define TTAUDIOSIGNAL_GETVECTOR32(signal_obj, a, b, c) \
-		TTValue _temp_tt_value_getvector ## a;\
-		_temp_tt_value_getvector ## a.setSize(3);\
-		_temp_tt_value_getvector ## a.set(0, (TTUInt16)a);\
-		_temp_tt_value_getvector ## a.set(1, (TTUInt16)b);\
-		_temp_tt_value_getvector ## a.set(2, TTPtr(c));\
-		signal_obj->sendMessage(kTTSym_getVector32, _temp_tt_value_getvector ## a);
-
-
 #endif // __TT_AUDIO_SIGNAL_H__
 
