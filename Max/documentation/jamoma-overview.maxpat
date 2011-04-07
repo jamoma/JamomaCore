@@ -8744,7 +8744,7 @@
 									"presentation" : 1,
 									"presentation_rect" : [ 590.0, 410.0, 150.0, 17.0 ],
 									"text" : "jmod.posterize%",
-									"varname" : "jmod.plur%[1]"
+									"varname" : "jmod.posterize%"
 								}
 
 							}
