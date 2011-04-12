@@ -17,7 +17,7 @@ TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
 	addAttribute(Ratio, kTypeFloat64);
-	addAttributeProperty(Ratio,	range,			TTValue(kTTEpsilon, 0.5));	// Avoid dividing by 0
+	addAttributeProperty(Ratio,	range,			TTValue(kTTEpsilon, 1.0));	// Avoid dividing by 0
 	addAttributeProperty(Ratio,	rangeChecking,	TT("clip"));
 	
 	// Set Defaults:

@@ -15,12 +15,12 @@
 /**	This implements an exponential decay window that applies principles described here:
  http://en.wikipedia.org/wiki/Exponential_decay
  This window is intended for microsound applications as described by Roads (2001 p 88-90).
- Peak variable allows this single class to produce BOTH expodec and rexpodec windows with options between.
+ Ratio variable allows this single class to produce BOTH expodec and rexpodec windows with options between.
  Lambda variable is set so that the quietest point in the decay will be -60 dB.
  
- Where 0. <= x <= 1. and 0. <= mPeak <= 1.:
- y	= e^ ( ( 1 - ( x / mPeak ) ) * lambda )				: for the attack (approaching peak)
-	= e^ ( ((x - mPeak) / (1 - mPeak)) * lambda )		: for the release (leaving peak)
+ Where 0. <= x <= 1. and 0. <= mRatio <= 1.:
+ y	= e^ ( ( 1 - ( x / mRatio ) ) * lambda )				: for the attack (approaching peak)
+	= e^ ( ((x - mRatio) / (1 - mRatio)) * lambda )		: for the release (leaving peak)
  */
 class ExpodecWindow : TTAudioObject {
 	TTCLASS_SETUP(ExpodecWindow)
