@@ -20,9 +20,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 //	options->append(TT("generator"), value);
 	options->append(TT("generator"), kTTBoolYes);
 	options->append(TT("userCanSetNumChannels"), kTTBoolYes);
-	wrapAsMaxAudioGraph(TT("noise"), "jcom.noise≈", &c, options);
-	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "white pink brown blue");
-	wrapAsMaxAudioGraph(TT("noise"), "noise≈", &c, options);
-	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "white pink brown blue");
+	wrapAsMaxAudioGraph(TT("ramp"), "jcom.ramp≈", &c, options);
+	wrapAsMaxAudioGraph(TT("ramp"), "ramp≈", &c, options);
+
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "vector sample");
 	return 0;
 }

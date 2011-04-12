@@ -7,28 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		224D1B4F113DD9E400C447B6 /* maxGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 224D1B4D113DD9E400C447B6 /* maxGraph.cpp */; };
-		224D1B50113DD9E400C447B6 /* maxGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 224D1B4E113DD9E400C447B6 /* maxGraph.h */; };
+		224D1BCB113DDAAA00C447B6 /* maxGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 224D1BC9113DDAAA00C447B6 /* maxGraph.cpp */; };
+		224D1BCC113DDAAA00C447B6 /* maxGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 224D1BCA113DDAAA00C447B6 /* maxGraph.h */; };
 		226C435A109A169900E2BFB0 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C4359109A169900E2BFB0 /* commonsyms.cpp */; };
 		226C435C109A16A200E2BFB0 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435B109A16A200E2BFB0 /* MaxAPI.framework */; };
 		226C435F109A16AB00E2BFB0 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */; };
-		226C43C4109A179A00E2BFB0 /* jcom.info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C43C3109A179A00E2BFB0 /* jcom.info.cpp */; };
+		226C43EE109A17BB00E2BFB0 /* jcom.ramp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C43ED109A17BB00E2BFB0 /* jcom.ramp.cpp */; };
 		22C9F5EE10325FE40062F7B8 /* maxAudioGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */; };
 		22C9F5EF10325FE40062F7B8 /* maxAudioGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */; };
-		A7FA00D911FED6DE00FB034A /* tt-max-audiograph.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A7FA00D811FED6DE00FB034A /* tt-max-audiograph.xcconfig */; };
+		A7FA014A11FED79C00FB034A /* tt-max-audiograph.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A7FA014911FED79C00FB034A /* tt-max-audiograph.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		224D1B4D113DD9E400C447B6 /* maxGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxGraph.cpp; path = ../../../supports/max/maxGraph.cpp; sourceTree = SOURCE_ROOT; };
-		224D1B4E113DD9E400C447B6 /* maxGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxGraph.h; path = ../../../supports/max/maxGraph.h; sourceTree = SOURCE_ROOT; };
+		224D1BC9113DDAAA00C447B6 /* maxGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxGraph.cpp; path = ../../../supports/max/maxGraph.cpp; sourceTree = SOURCE_ROOT; };
+		224D1BCA113DDAAA00C447B6 /* maxGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxGraph.h; path = ../../../supports/max/maxGraph.h; sourceTree = SOURCE_ROOT; };
 		226C4359109A169900E2BFB0 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
 		226C435B109A16A200E2BFB0 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
-		226C43C3109A179A00E2BFB0 /* jcom.info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.info.cpp; sourceTree = "<group>"; };
+		226C43ED109A17BB00E2BFB0 /* jcom.ramp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.ramp.cpp; sourceTree = "<group>"; };
 		22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxAudioGraph.h; path = ../maxAudioGraph.h; sourceTree = SOURCE_ROOT; };
 		22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxAudioGraph.cpp; path = ../maxAudioGraph.cpp; sourceTree = SOURCE_ROOT; };
-		2FBBEAE508F335360078DB84 /* jcom.info≈.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.info≈.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7FA00D811FED6DE00FB034A /* tt-max-audiograph.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-audiograph.xcconfig"; path = "../tt-max-audiograph.xcconfig"; sourceTree = SOURCE_ROOT; };
+		2FBBEAE508F335360078DB84 /* jcom.ramp≈.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.ramp≈.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7FA014911FED79C00FB034A /* tt-max-audiograph.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-audiograph.xcconfig"; path = "../tt-max-audiograph.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 		089C166AFE841209C02AAC07 /* iterator */ = {
 			isa = PBXGroup;
 			children = (
-				A7FA00D811FED6DE00FB034A /* tt-max-audiograph.xcconfig */,
+				A7FA014911FED79C00FB034A /* tt-max-audiograph.xcconfig */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -67,12 +67,12 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				226C43C3109A179A00E2BFB0 /* jcom.info.cpp */,
+				226C43ED109A17BB00E2BFB0 /* jcom.ramp.cpp */,
 				226C4359109A169900E2BFB0 /* commonsyms.cpp */,
 				22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */,
 				22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */,
-				224D1B4D113DD9E400C447B6 /* maxGraph.cpp */,
-				224D1B4E113DD9E400C447B6 /* maxGraph.h */,
+				224D1BC9113DDAAA00C447B6 /* maxGraph.cpp */,
+				224D1BCA113DDAAA00C447B6 /* maxGraph.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -80,7 +80,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FBBEAE508F335360078DB84 /* jcom.info≈.mxo */,
+				2FBBEAE508F335360078DB84 /* jcom.ramp≈.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,7 +93,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F5EE10325FE40062F7B8 /* maxAudioGraph.h in Headers */,
-				224D1B50113DD9E400C447B6 /* maxGraph.h in Headers */,
+				224D1BCC113DDAAA00C447B6 /* maxGraph.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +116,7 @@
 			);
 			name = "max-external";
 			productName = iterator;
-			productReference = 2FBBEAE508F335360078DB84 /* jcom.info≈.mxo */;
+			productReference = 2FBBEAE508F335360078DB84 /* jcom.ramp≈.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -124,7 +124,7 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.info" */;
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.ramp" */;
 			compatibilityVersion = "Xcode 3.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -148,7 +148,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7FA00D911FED6DE00FB034A /* tt-max-audiograph.xcconfig in Resources */,
+				A7FA014A11FED79C00FB034A /* tt-max-audiograph.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,8 +171,8 @@
 			files = (
 				22C9F5EF10325FE40062F7B8 /* maxAudioGraph.cpp in Sources */,
 				226C435A109A169900E2BFB0 /* commonsyms.cpp in Sources */,
-				226C43C4109A179A00E2BFB0 /* jcom.info.cpp in Sources */,
-				224D1B4F113DD9E400C447B6 /* maxGraph.cpp in Sources */,
+				226C43EE109A17BB00E2BFB0 /* jcom.ramp.cpp in Sources */,
+				224D1BCB113DDAAA00C447B6 /* maxGraph.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,12 +193,21 @@
 		};
 		2FBBEAE108F335360078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7FA00D811FED6DE00FB034A /* tt-max-audiograph.xcconfig */;
+			baseConfigurationReference = A7FA014911FED79C00FB034A /* tt-max-audiograph.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
+					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
+					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Framework/build/Development\"",
+					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
@@ -206,23 +215,40 @@
 					"\"$(SRCROOT)/../../../../Graph/library/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
 				PRODUCT_NAME = "$(PROJECT_NAME)≈";
 			};
 			name = Development;
 		};
 		2FBBEAE208F335360078DB84 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7FA00D811FED6DE00FB034A /* tt-max-audiograph.xcconfig */;
+			baseConfigurationReference = A7FA014911FED79C00FB034A /* tt-max-audiograph.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
+					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
+					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Framework/build/Development\"",
+					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../Graph/library/build/UninstalledProducts\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 				PRODUCT_NAME = "$(PROJECT_NAME)≈";
 			};
@@ -231,7 +257,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.info" */ = {
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.ramp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2FBBEAD008F335010078DB84 /* Development */,

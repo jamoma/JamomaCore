@@ -13,7 +13,7 @@
 #include "TTAudioGraphSig.h"
 
 
-extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
+extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_AudioGraphUtilityLib(void)
 {
 	TTDSPInit();
 
