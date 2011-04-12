@@ -32,7 +32,7 @@ class GaussWindow : TTAudioObject {
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
-	virtual TTErr test(TTValue& returnedTestInfo);
+	TTErr test(TTValue& returnedTestInfo);
 	
 };
 

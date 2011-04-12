@@ -13,6 +13,7 @@
 #include "BlackmanWindow.h"
 #include "BlackmanHarrisWindow.h"
 #include "ExpodecWindow.h"
+#include "GaussWindow.h"
 #include "HammingWindow.h"
 #include "HanningWindow.h"
 #include "KaiserWindow.h"
@@ -33,6 +34,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_WindowFunctionLib(voi
 	BlackmanWindow::registerClass();
 	BlackmanHarrisWindow::registerClass();
 	ExpodecWindow::registerClass();
+	GaussWindow::registerClass();
 	HammingWindow::registerClass();
 	HanningWindow::registerClass();
 	KaiserWindow::registerClass();
