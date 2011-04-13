@@ -50,14 +50,14 @@
 #include "Plugin.h"
 #include <map>
 
+#ifndef __ITERATOR_PLUGIN_NAMES_H_
+#define __ITERATOR_PLUGIN_NAMES_H_
+
 class Plugin;
 typedef Plugin* PluginPtr;
 
 class PluginFactory;
 typedef PluginFactory* PluginFactoryPtr;
-
-#ifndef __ITERATOR_PLUGIN_NAMES_H_
-#define __ITERATOR_PLUGIN_NAMES_H_
 
 /*!
  * \class IteratorPluginNames

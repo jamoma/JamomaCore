@@ -9,6 +9,7 @@
  */
 
 #include "TTApplication.h"
+#include "Plugin.h"
 
 #define thisTTClass			TTApplication
 #define thisTTClassName		"Application"
@@ -60,6 +61,8 @@ mTTToApp(NULL)
 	
 	mAppToTT = new TTHash();
 	mTTToApp = new TTHash();
+	
+	mPluginParameters = new TTHash();
 }
 
 TTApplication::~TTApplication()
