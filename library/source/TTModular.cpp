@@ -81,8 +81,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 		if (!getLocalApplication) {
 			
 			// Create the application giving a name and the version
-			v = TTValue((TTPtr)TTModularApplications);
-			v.append(kTTSym_localApplicationName);
+			v = TTValue(kTTSym_localApplicationName);
 			v.append(TT(TTMODULAR_VERSION_STRING));
 			anApplication = NULL;
 			TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), v);

@@ -40,14 +40,13 @@ class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
 public:
 
 	TTHashPtr			mApplications;			///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
-												///< one of them can be registered with kTTSym_local instead of his name
 	TTHashPtr			mPlugins;				///< hash table containing <TTSymbolPtr pluginName, TTPluginPtr aPlugin>
 	
 private:
 	
 	TTValue				mApplicationNames;		///< ATTRIBUTE : all registered application names
-	TTValue				mPluginNames;			///< ATTRIBUTE : all loaded plugin names	
-	
+	TTValue				mPluginNames;			///< ATTRIBUTE : all loaded plugin names
+
 	PluginFactories*	mPluginFactories;		///< the plugin factories
 	
 	TTObjectPtr			mCurrentApplication;	///< used for ReadFromXml mechanism
@@ -58,7 +57,6 @@ private:
 	
 	/** Get all plugin names */
 	TTErr getPluginNames(TTValue& value);
-	// TODO : TTErr getPluginIsLoaded(TTValue& value); // with value containing the name of the plugin
 	
 	/** Add an application giving <TTSymbolPtr applicationName, applicationPointer> */
 	TTErr Add(const TTValue& value);
@@ -66,17 +64,11 @@ private:
 	/** Remove an application */
 	TTErr Remove(const TTValue& value);
 	
-	/** Set Parameters of a Plugin <TTSymbolPtr pluginName, TTHashPtr pluginParameters> */
-	TTErr PluginSetParameters(const TTValue& value);
-	// TODO : void pluginSetCommParameter(TTString pluginName, TTString parameterName, TTString parameterValue)
-	// TODO : void pluginGetCommParameter(TTString pluginName, TTString parameterName)
-	// to -- we should use the attribute mecanism. Is a Plugin can't be a TTObject ?
-	
-	/** Lauch the reception thread mecanism of a Plugin <TTSymbolPtr pluginName> */
+	/** Scan all plugin's network in order to add distant application automatically */
+	TTErr Scan();
+
+	/** Launch the reception thread mecanism of a Plugin <TTSymbolPtr pluginName> */
 	TTErr PluginLaunch(const TTValue& value);
-	
-	/** Scan all plugin's network in oder to add distant application automatically */
-	TTErr PluginScanAllApplication();
 	
 	/**  needed to be handled by a TTXmlHandler 
 		 read/write local and distant applications setup */
@@ -86,8 +78,8 @@ private:
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddress);
 	friend PluginPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
 	
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue& data);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationListen(TTApplicationPtr appWhereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enableListening);
@@ -108,7 +100,7 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr
  note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
- @return							a TTApplicationPtr */
+ @return							a PluginPtr */
 PluginPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
 
 /**	Called when the local application directory send a notification

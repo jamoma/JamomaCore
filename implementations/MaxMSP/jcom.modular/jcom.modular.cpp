@@ -24,6 +24,11 @@ void	appmg_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	appmg_read_again(TTPtr self);
 void	appmg_doread_again(TTPtr self);
 
+void	appmg_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	appmg_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	appmg_write_again(TTPtr self);
+void	appmg_dowrite_again(TTPtr self);
+
 void	appmg_return_address(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 void	appmg_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
@@ -45,10 +50,10 @@ void WrapTTApplicationManagerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)appmg_return_value,		"return_value",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)appmg_read,				"read",					A_GIMME, 0);
-	//class_addmethod(c->maxClass, (method)appmg_write,				"write",				A_GIMME, 0);
+	class_addmethod(c->maxClass, (method)appmg_write,				"write",				A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)appmg_read_again,			"read/again",			0);
-	//class_addmethod(c->maxClass, (method)appmg_write_again,			"write/again",			0);
+	class_addmethod(c->maxClass, (method)appmg_write_again,			"write/again",			0);
 }
 
 void WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -147,6 +152,63 @@ void appmg_doread_again(TTPtr self)
 		
 		critical_enter(0);
 		aXmlHandler->sendMessage(TT("ReadAgain"));
+		critical_exit(0);
+	}
+}
+
+void appmg_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	defer(self, (method)appmg_dowrite, msg, argc, argv);
+}
+
+void appmg_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	char 			filename[MAX_FILENAME_CHARS];
+	TTSymbolPtr		fullpath;
+	TTValue			o, v;
+	TTXmlHandlerPtr	aXmlHandler;
+	TTErr			tterr;
+	
+	if (x->wrappedObject) {
+		
+		// TODO : find a default XML File Name using the name of the patch
+		snprintf(filename, MAX_FILENAME_CHARS, "ApplicationConfig.xml");
+		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
+		v.append(fullpath);
+		
+		tterr = x->internals->lookup(TT("XmlHandler"), o);
+		
+		if (!tterr) {
+			o.get(0, (TTPtr*)&aXmlHandler);
+			
+			critical_enter(0);
+			aXmlHandler->sendMessage(TT("Write"), v);
+			critical_exit(0);
+		}
+	}
+}
+
+void appmg_write_again(TTPtr self)
+{
+	defer(self, (method)appmg_dowrite_again, NULL, 0, NULL);
+}
+
+void appmg_dowrite_again(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTXmlHandlerPtr	aXmlHandler = NULL;
+	TTValue			o;
+	TTErr			tterr;
+	
+	tterr = x->internals->lookup(TT("XmlHandler"), o);
+	
+	if (!tterr) {
+		
+		o.get(0, (TTPtr*)&aXmlHandler);
+		
+		critical_enter(0);
+		aXmlHandler->sendMessage(TT("WriteAgain"));
 		critical_exit(0);
 	}
 }

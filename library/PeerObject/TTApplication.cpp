@@ -101,20 +101,18 @@ TTErr TTApplication::setPluginParameters(const TTValue& value)
 	for (i=0; i<mPluginParameters->getSize(); i++) {
 		hk.get(i,(TTSymbolPtr*)&pluginName);
 		
-		// Set local application plugin parameters
-		if (mName == kTTSym_localApplicationName) {
-			
-			// define plugin parameters
+		// if local application : reset plugin reception parameters
+		if (mName == kTTSym_localApplicationName)
 			getPlugin(pluginName)->commDefineParameters(mPluginParameters);
 			
-		} 
-		// register distant applications
+		// else : reset distant application from the plugin
 		else {
-			;
-			// TODO getPlugin(pluginName)->??? ;
+			; // TODO : aPlugin->applicationRemove(applicationName);
+			//aPlugin->applicationAdd(applicationName, parameters);
 		}
-		
 	}
+	
+	return kTTErrNone;
 }
 
 TTErr TTApplication::getAllAppNames(TTValue& value)
@@ -200,38 +198,72 @@ TTErr TTApplication::ConvertToTTName(TTValue& value)
 TTErr TTApplication::WriteAsXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler;
-	TTSymbolPtr			k;
+	TTSymbolPtr			pluginName, parameterName;
 	TTString			aString;
-    TTValue				v, keys;
-	TTUInt16			i;
+	TTHashPtr			parameters;
+    TTValue				keys, p_keys, v;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	
-	// Write ApplicationNames table
-    xmlTextWriterWriteComment(aXmlHandler->mWriter, BAD_CAST "Conversion table");
-	xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "conversionTable");
-
-	mAppToTT->getKeys(keys);
-	for (i = 0; i < keys.getSize(); i++) {
+	// For each plugin
+	mPluginParameters->getKeys(keys);
+	for (TTUInt16 i=0; i<keys.getSize(); i++) {
 		
-		keys.get(i, &k);
-		mAppToTT->lookup(k, v);
+		keys.get(i, &pluginName);
+		mPluginParameters->lookup(pluginName, v);
+		v.get(0, (TTPtr*)&parameters);
 		
-		// Don't write kTTValNONE
-		if (v == kTTValNONE)
-			continue;
+		// Start "plugin" xml node
+		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "plugin");
+		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST pluginName->getCString());
 		
-		v.toString();
-		v.get(0, aString);
+		// For each parameter
+		parameters->getKeys(p_keys);
+		for (TTUInt16 j=0; j<p_keys.getSize(); j++) {
+			p_keys.get(j, &parameterName);
+			parameters->lookup(parameterName, v);
+			v.toString();
+			v.get(0, aString);
+			xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST parameterName->getCString(), "%s", BAD_CAST aString.data());
+		}
 		
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "entry");
-		xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "App", BAD_CAST k->getCString());
-		xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "TT", BAD_CAST aString.data());
+		// End "plugin" xml node
 		xmlTextWriterEndElement(aXmlHandler->mWriter);
 	}
 	
-	// End ApplicationNames writing
-	xmlTextWriterEndElement(aXmlHandler->mWriter);
+	
+	/* to -- do we need to write the Application name table ?
+	 TTSymbolPtr			k;
+	 TTString			aString;
+	 TTValue				v, keys;
+	 TTUInt16			i;
+	 
+	 // Write ApplicationNames table
+	 xmlTextWriterWriteComment(aXmlHandler->mWriter, BAD_CAST "Conversion table");
+	 xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "conversionTable");
+	 
+	 mAppToTT->getKeys(keys);
+	 for (i = 0; i < keys.getSize(); i++) {
+	 
+	 keys.get(i, &k);
+	 mAppToTT->lookup(k, v);
+	 
+	 // Don't write kTTValNONE
+	 if (v == kTTValNONE)
+	 continue;
+	 
+	 v.toString();
+	 v.get(0, aString);
+	 
+	 xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "entry");
+	 xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "App", BAD_CAST k->getCString());
+	 xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "TT", BAD_CAST aString.data());
+	 xmlTextWriterEndElement(aXmlHandler->mWriter);
+	 }
+	 
+	 // End ApplicationNames writing
+	 xmlTextWriterEndElement(aXmlHandler->mWriter);
+	 */
 	
 	return kTTErrNone;
 }
@@ -266,7 +298,6 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 	// Entry node
 	if (aXmlHandler->mXmlNodeName == TT("entry")) {
 	
-		
 		// get App Symbol
 		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "App") == 1) {
 			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), appValue);
