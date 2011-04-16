@@ -1,79 +1,48 @@
 /*
- * Jamoma Plugin Library
- * Copyright © 2007
+ * A Plugin interface
+ * Copyright © 2011, Laurent Garnier
  *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TTPLUGIN_H__
-#define __TTPLUGIN_H__
+#ifndef __PLUGIN_H__
+#define __PLUGIN_H__
 
-#include "TTPluginLib.h"
+#include "TTFoundationAPI.h"
 
-class TTApplicationManager;
-typedef TTApplicationManager* TTApplicationManagerPtr;
+#ifdef TT_PLATFORM_WIN
+	#include "windows.h"
+	#ifdef PLUGIN_EXPORTS
+		#define PLUGIN_EXPORT __declspec(dllexport)
+	#else
+	#ifdef TTSTATIC
+		#define PLUGIN_EXPORT
+	#else
+		#define PLUGIN_EXPORT __declspec(dllimport)
+	#endif
+#endif // _DLL_EXPORT
 
-class TTApplication;
-typedef TTApplication* TTApplicationPtr;
+#else // TT_PLATFORM_MAC
+	#ifdef PLUGIN_EXPORTS
+		#define PLUGIN_EXPORT __attribute__((visibility("default")))
+	#else
+		#define PLUGIN_EXPORT
+	#endif
+#endif
 
-// Macros used to declare default accessors and messages
-#define TTPLUGIN_SETUP														\
-	public:																	\
-		TTErr setParameters(const TTValue& value);							\
-		TTErr Run();														\
-		TTErr applicationSendDiscoverAnswer(TTApplicationPtr to, TTSymbolPtr address,	\
-											TTValue& returnedNodes,						\
-											TTValue& returnedLeaves,					\
-											TTValue& returnedAttributes);				\
-		TTErr applicationSendGetAnswer(TTApplicationPtr to, TTSymbolPtr address,		\
-										TTSymbolPtr attribute,							\
-										TTValue& returnedValue);						\
-		TTErr applicationSendListenAnswer(TTApplicationPtr to, TTSymbolPtr address,		\
-											TTSymbolPtr attribute,						\
-											TTValue& returnedValue);					\
-
-
-// Macros used to register default attribute and message of a plugin object
-#define TTPLUGIN_INTERFACE													\
-			addAttribute(Name, kTypeSymbol);								\
-			addAttribute(Version, kTypeSymbol);								\
-			addAttribute(Exploration, kTypeBoolean);						\
-																			\
-			addAttributeWithSetter(Parameters, kTypePointer);				\
-			addAttributeWithGetter(ParameterNames, kTypeLocalValue);		\
-			addAttributeProperty(parameterNames, readOnly, YES);			\
-																			\
-			addAttributeWithGetterAndSetter(ApplicationManager, kTypePointer);\
-																			\
-			addMessage(Run);												\
-			
 /****************************************************************************************************/
 // Class Specification
 
-class TTPlugin {
+class PLUGIN_EXPORT Plugin {
+	
+private:
+	TTObjectPtr	ttPluginObject;
 	
 public:
-	TTSymbolPtr					mName;					///< ATTRIBUTE : the name of the plugin
-	TTSymbolPtr					mVersion;				///< ATTRIBUTE : the version of the plugin
-	TTBoolean					mExploration;			///< ATTRIBUTE : is the Plugin provide namespace exploration features ?
 	
-	TTHashPtr					mParameters;			///< ATTRIBUTE : hash table containing reception thread parameter names and values
-														///< <TTSymbolPtr parameterName, TTValue value>
-	
-	TTValue						mParameterNames;		///< ATTRIBUTE : all parameter names
-	
-	TTObjectPtr					mApplicationManager;	///< The application manager
-	
-	TTPlugin();
-	virtual ~TTPlugin();
-	
-	/** Get all parameter names */
-	TTErr getParameterNames(TTValue& value);
-	
-	/** A plugin need to know the ApplicationManager to access it methods */
-	TTErr setApplicationManager(const TTValue& value);
-	TTErr getApplicationManager(TTValue& value);
+	Plugin();
+	virtual ~Plugin();
 	
 	/** Set reception thread mechanism parameters <TTHashPtr parameters> */
 	virtual TTErr setParameters(const TTValue& value)=0;
@@ -96,7 +65,7 @@ public:
 	 * \param returnedLeaves : the description of leaves below the address
 	 * \param returnedAttributes : the description of attributes at the address
 	 */
-	virtual TTErr applicationSendDiscoverAnswer(TTApplicationPtr to, TTSymbolPtr address,
+	virtual TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address,
 												TTValue& returnedNodes,
 												TTValue& returnedLeaves,
 												TTValue& returnedAttributes)=0;
@@ -109,7 +78,7 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	virtual TTErr applicationSendGetAnswer(TTApplicationPtr to, TTSymbolPtr address,
+	virtual TTErr applicationSendGetAnswer(TTObjectPtr to, TTSymbolPtr address,
 										   TTSymbolPtr attribute, 
 										   TTValue& returnedValue)=0;
 	
@@ -121,7 +90,7 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	virtual TTErr applicationSendListenAnswer(TTApplicationPtr to, TTSymbolPtr address,
+	virtual TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address,
 											  TTSymbolPtr attribute, 
 											  TTValue& returnedValue)=0;
 	
@@ -139,15 +108,15 @@ public:
 	 * \param from : the application where comes from the request
 	 * \param address : the address the application wants to discover
 	 */
-	void applicationReceiveDiscoverRequest(TTApplicationPtr from, TTSymbolPtr address) 
+	void applicationReceiveDiscoverRequest(TTObjectPtr from, TTSymbolPtr address) 
 	{
 		TTValue returnedNodes;
 		TTValue returnedLeaves;
 		TTValue returnedAttributes;
 		
 		// discover the local namespace
-//		if (mApplicationManager != NULL)
-//			TTApplicationManagerLocalApplicationDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
+		//		if (mApplicationManager != NULL)
+		//			TTApplicationManagerLocalApplicationDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
 		
 		// TODO : test error and send notification if error
 		
@@ -164,13 +133,13 @@ public:
 	 * \param address : the address the application wants to get
 	 * \param attribute : the attribute the application wants to get
 	 */
-	void applicationReceiveGetRequest(TTApplicationPtr from, TTSymbolPtr address, TTSymbolPtr attribute)
+	void applicationReceiveGetRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute)
 	{
 		TTValue returnedValue;
 		
 		// get the value from the local namespace
-//		if (mApplicationManager != NULL)
-//			TTApplicationManagerLocalApplicationGet(address, attribute, returnedValue);
+		//		if (mApplicationManager != NULL)
+		//			TTApplicationManagerLocalApplicationGet(address, attribute, returnedValue);
 		
 		// TODO : test error and send notification if error
 		
@@ -187,11 +156,11 @@ public:
 	 * \param address : the address the application wants to get
 	 * \param attribute : the attribute the application wants to get
 	 */
-	void applicationReceiveSetRequest(TTApplicationPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) 
+	void applicationReceiveSetRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) 
 	{
 		// set the value of the local namespace
-//		if (mApplicationManager != NULL)
-//			TTApplicationManagerLocalApplicationSet(address, attribute, newValue);
+		//		if (mApplicationManager != NULL)
+		//			TTApplicationManagerLocalApplicationSet(address, attribute, newValue);
 		
 		// TODO : test error and send notification if error
 	}
@@ -206,11 +175,11 @@ public:
 	 * \param attribute : the attribute the application wants to listen
 	 * \param enable : enable/disable the listening
 	 */
-	void applicationReceiveListenRequest(TTApplicationPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) 
+	void applicationReceiveListenRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) 
 	{
 		// Enable/disable the listening of the attribute at the address
-//		if (mApplicationManager != NULL)
-//			TTApplicationManagerLocalApplicationListen(from, address, attribute, enable);
+		//		if (mApplicationManager != NULL)
+		//			TTApplicationManagerLocalApplicationListen(from, address, attribute, enable);
 		
 		// TODO : test error and send notification if error
 	}
@@ -220,10 +189,38 @@ public:
 	 *	RECEIVE ANSWER METHODS : No methods because each plugin deals with answers when it send a request (maybe we could add an answer manager)
 	 *
 	 **************************************************************************************************************************/
-
+	
 };
 
-typedef TTPlugin* TTPluginPtr;
+typedef Plugin* PluginPtr;
 
+#endif // __PLUGIN_H__
 
-#endif // __TTPLUGIN_H__
+#ifndef __PLUGIN_FACTORY_H__
+#define __PLUGIN_FACTORY_H__
+
+/*!
+ * \Class PluginFactory
+ *
+ * PluginFactory just contains informations concerning a plugin
+ * It's separated from the Plugin class to make the disctinction between the informations of the plugin and the communication methods
+ * 
+ */
+
+class PLUGIN_EXPORT PluginFactory {
+public:
+	virtual const char* getName()=0;
+	virtual const char* getVersion()=0;
+	virtual const char* getAuthor()=0;
+	virtual const bool getExploration()=0;
+	
+	virtual PluginPtr	getInstance()=0;
+};
+
+typedef PluginFactory*	PluginFactoryPtr;
+
+#endif //__PLUGIN_FACTORY_H__
+
+extern "C" {
+	PLUGIN_EXPORT PluginFactoryPtr createFactory();
+}

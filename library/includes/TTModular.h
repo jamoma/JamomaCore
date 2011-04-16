@@ -15,20 +15,20 @@
 #ifdef TT_PLATFORM_WIN
 #include "windows.h"
 	#ifdef TTMODULAR_EXPORTS
-	#define TTMODULAR_EXPORT __declspec(dllexport)
+		#define TTMODULAR_EXPORT __declspec(dllexport)
 	#else
 	#ifdef TTSTATIC
-	#define TTMODULAR_EXPORT
+		#define TTMODULAR_EXPORT
 	#else
-	#define TTMODULAR_EXPORT __declspec(dllimport)
+		#define TTMODULAR_EXPORT __declspec(dllimport)
 	#endif
 	#endif // _DLL_EXPORT
 
 #else // TT_PLATFORM_MAC
 	#ifdef TTMODULAR_EXPORTS
-	#define TTMODULAR_EXPORT __attribute__((visibility("default")))
+		#define TTMODULAR_EXPORT __attribute__((visibility("default")))
 	#else
-	#define TTMODULAR_EXPORT
+		#define TTMODULAR_EXPORT
 	#endif
 #endif
 
@@ -45,6 +45,9 @@
 
 #include "TTModularSymbolCache.h"
 
+#include "Plugin.h"
+#include "PluginFactories.h"
+
 #include "TTApplication.h"
 #include "TTApplicationManager.h"
 #include "TTContainer.h"
@@ -58,6 +61,7 @@
 #include "TTViewer.h"
 #include "TTOpmlHandler.h"
 #include "TTOutput.h"
+#include "TTPluginHandler.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
 #include "TTReceiver.h"
@@ -92,22 +96,25 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 
 // Global
 
-/** The main class of TTModular is the application manager */
+/** The main objects of TTModular */
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
+class PluginFactories;
+typedef PluginFactories* PluginFactoriesPtr;
 
-extern TTMODULAR_EXPORT TTApplicationManagerPtr TTModularApplications;
-extern TTMODULAR_EXPORT TTSymbolPtr				kTTSym_localApplicationName;
+extern	TTMODULAR_EXPORT	TTApplicationManagerPtr TTModularApplications;
+extern	TTMODULAR_EXPORT	TTSymbolPtr				kTTSym_localApplicationName;
+extern	TTMODULAR_EXPORT	PluginFactoriesPtr		TTPluginFactories;
 
 // Prototypes
 
 /** Init the Modular library, and the Foundation if needed
 	It creates the application manager with no application inside */
-void				TTMODULAR_EXPORT TTModularInit(TTString pluginFolderPath);
+void	TTMODULAR_EXPORT	TTModularInit(TTString pluginFolderPath);
 
 /** Create the local application and use a configuration file */
-void				TTMODULAR_EXPORT TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);
+void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);
 
 #endif // __TT_MODULAR_H__

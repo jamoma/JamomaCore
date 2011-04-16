@@ -40,7 +40,7 @@
 
 /*
  *  PluginFactories.h
- *  DeviceManager
+ *  PluginLib
  *
  *  Created by Laurent Garnier on 03/06/09.
  *  Copyright 2009 __BlueYeti/LaBRI__. All rights reserved.
@@ -91,10 +91,7 @@ private:
  * 
  */
 
-class TTApplicationManager;
-typedef TTApplicationManager* TTApplicationManagerPtr;
- 
-class PluginFactories {
+class PLUGIN_EXPORT PluginFactories {
 public:
 
 	/*!
@@ -102,15 +99,39 @@ public:
 	 *
 	 * \param path : the Plugin directory path.
 	 */
-	void loadPlugins(TTString path);
+	void loadPlugins(TTString pluginFolderPath);
 	
 	/*!
 	 * Create an instance of a Plugin using his name
 	 *
 	 * \param name : the name of the Plugin (given by his developper).
-	 * \return an instance of the Plugin
+	 * \return an instance of a Plugin
 	 */
-	PluginPtr createPlugin(TTString name, TTApplicationManagerPtr applicationManager);
+	PluginPtr createPlugin(TTString name);
+	
+	/*!
+	 * Get the version of a Plugin using his name
+	 *
+	 * \param name : the name of the Plugin (given by his developper).
+	 * \return the version of the plugin
+	 */
+	TTCString getPluginVersion(TTString name);
+	
+	/*!
+	 * Get the author of a Plugin using his name
+	 *
+	 * \param name : the name of the Plugin (given by his developper).
+	 * \return the autho of the plugin
+	 */
+	TTCString getPluginAuthor(TTString name);
+	
+	/*!
+	 * Get the author of a Plugin using his name
+	 *
+	 * \param name : the name of the Plugin (given by his developper).
+	 * \return the autho of the plugin
+	 */
+	TTBoolean getPluginExploration(TTString name);
 	
 	/*!
 	 * Return an access iterator on the PluginFactories
@@ -122,6 +143,8 @@ private:
 	// plugin table: 
 	std::map<TTString, PluginFactoryPtr> factories;
 };
+
+typedef PluginFactories* PluginFactoriesPtr;
 
 #endif //__PLUGIN_FACTORIES_H_
 

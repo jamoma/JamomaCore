@@ -45,7 +45,7 @@
  * 
  */
 
-#include "Plugin.h"
+#include "PluginHandler.h"
 
 #include "Minuit/MinuitInclude.hpp"
 #include "Minuit/MinuitCommunicationMethods.hpp"
@@ -59,7 +59,7 @@ void receiveGetRequestCallback(TTPtr arg, TTString from, TTString address, TTStr
 void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, TTValue& value);
 void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, bool enable);
 
-class Minuit : public Plugin {
+class Minuit : public PluginHandler {
 	
 private:
 	
@@ -816,10 +816,8 @@ class MinuitFactory : public PluginFactory {
 	const char* getPluginVersion()	{return "0.2";}
 	const char* getPluginAuthor()	{return "Raphael Marczak/Laurent Garnier/Theo Delahogue";}
 	
-	PluginPtr getInstance(TTApplicationManagerPtr applicationManager) {
-		Minuit *minuit = new Minuit(); 
-		minuit->setApplicationManager(applicationManager);
-
+	PluginPtr getInstance() {
+		Minuit *minuit = new Minuit();
 		return minuit;
 	}
 };

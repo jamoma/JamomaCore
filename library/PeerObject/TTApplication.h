@@ -12,6 +12,7 @@
 #define __TT_APPLICATION_H__
 
 #include "TTModular.h"
+#include "TTPluginHandler.h"
 
 /** TTApplication ... TODO : an explanation
  
@@ -20,6 +21,9 @@
 
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
+
+class TTPluginHandler;
+typedef TTPluginHandler* TTPluginHandlerPtr;
 
 
 // Macro to have a direct acces to a directory

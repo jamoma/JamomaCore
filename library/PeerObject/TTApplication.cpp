@@ -9,7 +9,6 @@
  */
 
 #include "TTApplication.h"
-#include "Plugin.h"
 
 #define thisTTClass			TTApplication
 #define thisTTClassName		"Application"
@@ -92,6 +91,7 @@ TTErr TTApplication::setPluginParameters(const TTValue& value)
 {
 	TTValue			hk, v;
 	TTSymbolPtr		pluginName;
+	TTHashPtr		parameters;
 	TTUInt8			i;
 	
 	value.get(0, (TTPtr*)mPluginParameters);
@@ -100,10 +100,14 @@ TTErr TTApplication::setPluginParameters(const TTValue& value)
 	mPluginParameters->getKeys(hk);
 	for (i=0; i<mPluginParameters->getSize(); i++) {
 		hk.get(i,(TTSymbolPtr*)&pluginName);
+		mPluginParameters->lookup(pluginName, v);
+		v.get(0, (TTPtr*)&parameters);
 		
 		// if local application : reset plugin reception parameters
-		if (mName == kTTSym_localApplicationName)
-			getPlugin(pluginName)->commDefineParameters(mPluginParameters);
+		if (mName == kTTSym_localApplicationName) {
+			v = TTValue((TTPtr)parameters);
+			getPlugin(pluginName)->setAttributeValue(TT("parameters"), v);
+		}
 			
 		// else : reset distant application from the plugin
 		else {

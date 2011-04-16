@@ -7,8 +7,7 @@
  */
 
 #include "TTApplicationManager.h"
-#include "PluginFactories.h"
-#include "Plugin.h"
+#include "TTPluginHandler.h"
 
 #define thisTTClass			TTApplicationManager
 #define thisTTClassName		"ApplicationManager"
@@ -19,15 +18,13 @@ mApplications(NULL),
 mPlugins(NULL),	
 mApplicationNames(kTTValNONE),
 mPluginNames(kTTValNONE),
-mPluginFactories(NULL),
 mCurrentApplication(NULL)
-{
-	TTSymbolPtr	pluginFolderPath = NULL;
+{	
+	TTValue pluginNames;
 	
 	TT_ASSERT("Correct number of args to create TTApplicationManager", arguments.getSize() == 1);
 	
-	if (arguments.getSize() == 1)
-		arguments.get(0, &pluginFolderPath);
+	arguments.get(0, (TTPtr*)&mPlugins);
 	
 	addAttributeWithGetter(ApplicationNames, kTypeLocalValue);
 	addAttributeProperty(applicationNames, readOnly, YES);
@@ -47,27 +44,6 @@ mCurrentApplication(NULL)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mApplications		= new TTHash();
-	mPluginFactories	= new PluginFactories();
-	mPlugins			= new TTHash();
-	
-	// load plugins and create an instance of each plugin available
-	if (pluginFolderPath) {
-		mPluginFactories->loadPlugins(pluginFolderPath->getCString());
-		
-		IteratorPluginNames it = mPluginFactories->getPluginNames();
-		
-		while (it.hasNext()) {
-			TTString pname = it.next();
-			
-			// DEBUG
-			TTLogDebug("%s plugin loaded", pname.data());
-			
-			PluginPtr p = mPluginFactories->createPlugin(pname, this);
-			if (p != 0) {
-				mPlugins->append(TT(pname), p);
-			}
-		}
-	}
 }
 
 TTApplicationManager::~TTApplicationManager()
@@ -92,7 +68,7 @@ TTErr TTApplicationManager::Add(const TTValue& value)
 	TTSymbolPtr			applicationName, pluginName;
 	TTHashPtr			pluginParameters, parameters;
 	TTApplicationPtr	anApplication;
-	PluginPtr			aPlugin;
+	TTPluginHandlerPtr	aPlugin;
 	TTErr				err;
 	
 	value.get(0, &applicationName);
@@ -120,12 +96,14 @@ TTErr TTApplicationManager::Add(const TTValue& value)
 			v.get(0, (TTPtr*)&parameters);
 			
 			// if local application : set plugin reception parameters
-			if (applicationName == kTTSym_localApplicationName)
-				aPlugin->commDefineParameters(parameters);
+			if (applicationName == kTTSym_localApplicationName) {
+				v = TTValue((TTPtr)parameters);
+				aPlugin->setAttributeValue(TT("parameters"), v);
+			}
 			
 			// else : add distant application to the plugin
 			else
-				aPlugin->applicationAdd(applicationName, parameters);
+				;// TODO : aPlugin->applicationAdd(applicationName, parameters);
 		}
 	}
 	
@@ -138,7 +116,7 @@ TTErr TTApplicationManager::Remove(const TTValue& value)
 	TTSymbolPtr			applicationName, pluginName;
 	TTHashPtr			pluginParameters;
 	TTApplicationPtr	anApplication;
-	PluginPtr			aPlugin;
+	TTPluginHandlerPtr			aPlugin;
 	TTErr				err;
 	
 	value.get(0, &applicationName);
@@ -183,7 +161,7 @@ TTErr TTApplicationManager::Scan()
 {
 	TTValue			v, keys;
 	TTSymbolPtr		pluginName;
-	PluginPtr		aPlugin;
+	TTPluginHandlerPtr		aPlugin;
 	
 	// for each plugin
 	mPlugins->getKeys(keys);
@@ -200,17 +178,17 @@ TTErr TTApplicationManager::Scan()
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::PluginLaunch(const TTValue& value)
+TTErr TTApplicationManager::PluginRun(const TTValue& value)
 {
 	TTValue v;
 	TTSymbolPtr pluginName;
-	PluginPtr aPlugin;
+	TTPluginHandlerPtr aPlugin;
 	
 	value.get(0, &pluginName);
 	
 	if (!mPlugins->lookup(pluginName, v)) {
 		v.get(0, (TTPtr*)&aPlugin);
-		aPlugin->commRunReceivingThread();
+		aPlugin->sendMessage(TT("Run"));
 	}
 	
 	return kTTErrNone;
@@ -384,10 +362,10 @@ TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr anAddress)
 	return NULL;
 }
 
-PluginPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
+TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 {
 	TTValue v;
-	PluginPtr aPlugin;
+	TTPluginHandlerPtr aPlugin;
 	TTErr err;
 	
 	if (TTModularApplications) {
@@ -403,7 +381,7 @@ PluginPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 TTErr TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
-	PluginPtr			aPlugin;
+	TTPluginHandlerPtr			aPlugin;
 	TTApplicationPtr	anApplication;
 	TTSymbolPtr			oscAddress;
 	TTNodePtr			aNode;
@@ -432,7 +410,7 @@ TTErr TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue
 	TTLogDebug("TTApplicationManagerAttributeCallback");
 	
 	TTValuePtr			b;
-	PluginPtr			aPlugin;
+	TTPluginHandlerPtr			aPlugin;
 	TTApplicationPtr	anApplication;
 	TTSymbolPtr			oscAddress, attribute;
 	TTErr				err;
@@ -608,17 +586,17 @@ TTErr TTApplicationManagerLocalApplicationGet(TTSymbolPtr whereToGet, TTSymbolPt
 
 void TTApplicationManagerStartPlugins(const TTPtr target, const TTKeyVal& iter)
 {
-	PluginPtr pluginPtr = NULL;
+	TTPluginHandlerPtr pluginPtr = NULL;
 	TTValue v = iter.second;
 	v.get(0, (TTPtr*)&pluginPtr);
 	if (pluginPtr != NULL) {
-		pluginPtr->commRunReceivingThread();
+		pluginPtr->sendMessage(TT("Run"));
 	}
 }
 
 void TTApplicationManagerStopPlugins(const TTPtr target, const TTKeyVal& iter)
 {
-	PluginPtr pluginPtr = NULL;
+	TTPluginHandlerPtr pluginPtr = NULL;
 	TTValue v = iter.second;
 	v.get(0, (TTPtr*)&pluginPtr);
 	if (pluginPtr != NULL) {

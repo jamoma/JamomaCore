@@ -30,8 +30,6 @@ TODO LIST :
 class RampUnit;
 typedef RampUnit*	RampUnitPtr;
 #endif
-class DataspaceLib;
-typedef DataspaceLib*	DataspaceLibPtr;
 
 class TTMODULAR_EXPORT TTData : public TTDataObject
 {

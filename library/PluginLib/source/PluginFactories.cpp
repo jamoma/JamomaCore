@@ -40,7 +40,7 @@ knowledge of the CeCILL-C license and that you accept its terms.
 
 /*
 *  PluginFactories.cpp
-*  DeviceManager
+*  PluginLib
 *
 *  Created by Laurent Garnier on 03/06/09.
 *  Copyright 2009 __BlueYeti/LaBRI__. All rights reserved.
@@ -48,6 +48,7 @@ knowledge of the CeCILL-C license and that you accept its terms.
 */
 
 #include "PluginFactories.h"
+#include "Plugin.h"
 
 #include <iostream>
 
@@ -66,95 +67,120 @@ typedef PluginFactory* (*OpCreation)();
 
 #ifdef TT_PLATFORM_WIN
 
-void PluginFactories::loadPlugins(TTString path) {
-	std::cout << "load plugins at : " << path << std::endl;
-	TTString dllpath = path + "/*.dll";
-
+void PluginFactories::loadPlugins(TTString pluginFolderPath) {
+	std::cout << "load plugins at : " << pluginFolderPath << std::endl;
+	TTString dllpath = pluginFolderPath + "/*.dll";
+	
 	WIN32_FIND_DATA File;
 	HANDLE liste;
-
+	
 	liste = FindFirstFile(dllpath.c_str(), &File);
 	do {
-		TTString tmp = path + "/" + (TTString)File.cFileName;
+		TTString tmp = pluginFolderPath + "/" + (TTString)File.cFileName;
 		
 		HINSTANCE lib = LoadLibrary(tmp.c_str());//charge le plugin
-
+		
 		if (!lib) {
 			std::cerr << "LoadLibrary failed: " << GetLastError() << std::endl;
 			continue;
 		}
-
+		
 		OpCreation createFactory = (OpCreation) GetProcAddress(lib, "createFactory");//lie la dylib au symbole
-
+		
 		if (!createFactory) {
 			std::cerr << "GetProcAddress failed: " << GetLastError() << std::endl;
 			continue;
 		}
-
+		
 		PluginFactory *pluginFactory = (*createFactory)();
 		if (!pluginFactory) {
 			continue;
 		}
-
+		
 		factories[pluginFactory->getPluginName()] = pluginFactory;
-
+		
 	} while ((FindNextFile(liste, &File)));
-
-	FindClose(liste);
+	
+	FindClose(liste);	
 }
 
 #else
 
-void PluginFactories::loadPlugins(TTString path)
+void PluginFactories::loadPlugins(TTString pluginFolderPath)
 {
 	struct dirent **namelist;//la structure qui recoit les noms des fichiers plugins dans le champ d_name
-	int n = scandir(path.c_str(), &namelist, 0, alphasort);//scan le rep source des plugins
-
-//	if(n-3 == 0) {std::cout << "No plugin available" << std::endl;}
-
+	int n = scandir(pluginFolderPath.c_str(), &namelist, 0, alphasort);//scan le rep source des plugins
+	
+	//	if(n-3 == 0) {std::cout << "No plugin available" << std::endl;}
+	
 	while (n-- > 0) {
-		TTString tmp = path + "/" + namelist[n]->d_name;
-
+		TTString tmp = pluginFolderPath + "/" + namelist[n]->d_name;
+		
 		if (tmp.rfind(".dylib") == TTString::npos && tmp.rfind(".so") == TTString::npos) {//test sur le nom du fichier qui n'est pas pris en compte si != .dylib ou .so
 			continue;
 		}
-
+		
 		void *handler = dlopen(tmp.c_str(), RTLD_LAZY);//charge la dylib (le plugin)
-
+		
 		if (!handler) {
 			std::cerr << "dlopen failed: " << dlerror() << std::endl;
 			continue;
 		}
-
+		
 		OpCreation createFactory = (OpCreation) dlsym(handler,"createFactory");//lie la dylib au symbole
-
+		
 		if (!createFactory) {
 			std::cerr << "dlsym failed: " << dlerror() << std::endl;
 			continue;
 		}
-
+		
 		PluginFactory *pluginFactory = (*createFactory)();
 		if (!pluginFactory) {
 			continue;
 		}
-
-		factories[pluginFactory->getPluginName()] = pluginFactory;
+		
+		factories[pluginFactory->getName()] = pluginFactory;
 	}
 }
 #endif
 
+TTCString PluginFactories::getPluginVersion(TTString name)
+{
+	std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
+	if (it == factories.end()) {
+		return NULL;
+	}
+	return (TTCString)factories[name]->getVersion();
+}
+
+TTCString PluginFactories::getPluginAuthor(TTString name)
+{
+	std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
+	if (it == factories.end()) {
+		return NULL;
+	}
+	return (TTCString)factories[name]->getAuthor();
+}
+
+TTBoolean PluginFactories::getPluginExploration(TTString name)
+{
+	std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
+	if (it == factories.end()) {
+		return NULL;
+	}
+	return (TTBoolean)factories[name]->getExploration();
+}
 
 IteratorPluginNames PluginFactories::getPluginNames() {
 	return IteratorPluginNames(factories.begin(), factories.end());
 }
 
-PluginPtr PluginFactories::createPlugin(TTString name,
-	TTApplicationManagerPtr applicationManager) {
+PluginPtr PluginFactories::createPlugin(TTString name) {
 		std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
 		if (it == factories.end()) {
 			return NULL;
 		}
-		return factories[name]->getInstance(applicationManager);
+		return factories[name]->getInstance();
 }
 
 /****************************************/
