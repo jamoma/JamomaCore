@@ -49,8 +49,8 @@ public:
 	TTSymbolPtr					mAuthor;				///< ATTRIBUTE : the author of the plugin
 	TTBoolean					mExploration;			///< ATTRIBUTE : is the Plugin provide namespace exploration features ?
 	
-	Plugin();
-	virtual ~Plugin();
+	Plugin() {}
+	virtual ~Plugin() {}
 	
 	/** Set reception thread mechanism parameters <TTHashPtr parameters> */
 	// TODO : check if parameter names are correct before so set

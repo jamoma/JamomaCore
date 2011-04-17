@@ -40,7 +40,7 @@
 #include "RampLib.h"
 #include "ModularForMax.h"
 
-#define JamomaPluginFolderPath "/Users/TO/Documents/Jamoma/Modules/Modular/library/PeerObject/TTApplicationManagerPlugin/Plugins/"
+#define JamomaPluginFolderPath "/Applications/Max5/Cycling \'74/support/"
 #define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
 #define JamomaDirectory TTApplicationManagerGetApplication(kTTSym_localApplicationName)->mDirectory
 
