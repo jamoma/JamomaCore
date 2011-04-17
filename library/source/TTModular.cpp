@@ -141,7 +141,7 @@ void LoadPlugins(TTString pluginFolderPath, TTHashPtr *returnedPlugins)
 			args.append(TT(TTPluginFactories->getPluginAuthor(pluginName)));
 			args.append(TT(TTPluginFactories->getPluginExploration(pluginName)));
 			
-			TTObjectInstantiate(TT("Plugin"), TTObjectHandle(&aPluginObject), args);
+			TTObjectInstantiate(TT("PluginHandler"), TTObjectHandle(&aPluginObject), args);
 			
 			// add it to returned plugins table
 			args = TTValue((TTPtr)aPluginObject);

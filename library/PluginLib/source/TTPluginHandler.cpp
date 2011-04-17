@@ -43,6 +43,7 @@ mParameterNames(kTTValNONE)
 
 TTPluginHandler::~TTPluginHandler()
 {
+	delete mPlugin;
 	delete mParameters;
 }
 
