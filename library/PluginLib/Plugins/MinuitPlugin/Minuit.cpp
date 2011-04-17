@@ -80,8 +80,17 @@ public:
 	/************************************************
 	 COMMUNICATION METHODS :
 	 a set of methods used to init the communication.
-	 note : each method of this set is prepend by 'comm'
 	 ************************************************/
+	
+	/*!
+	 * Scan the net work to find remote Minuit applications and add them to the application manager
+	 * 
+	 */
+	TTErr Scan()
+	{
+		// TODO
+		return kTTErrGeneric;
+	}
 
 	/*!
 	 * Run the message reception thread 
@@ -122,6 +131,16 @@ public:
 		return kTTErrNone;
 	}
 	
+	/*!
+	 * Stop the message reception thread 
+	 *
+	 */
+	TTErr Stop()
+	{
+		// TODO
+		return kTTErrGeneric;
+	}
+
 	/**************************************************************************************************************************
 	 *
 	 *	SEND REQUEST METHODS
@@ -541,7 +560,7 @@ private:
 		TTValue vIp, vPort;
 		TTErr err1, err2;
 		
-		if (parameters = PluginGetApplicationParameters(mName, anApplication)) {
+		if (parameters = getApplicationParameters(anApplication)) {
 			err1 = parameters->lookup(TT("ip"), vIp);
 			err2 = parameters->lookup(TT("port"), vPort);
 			
@@ -672,13 +691,15 @@ void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString whereToList
  * 
  */
 class MinuitFactory : public PluginFactory {
-
+	
+	const char* getName() {return "Minuit";};
+	
 	PluginPtr getInstance(TTObjectPtr applicationManager) {
 		
 		Minuit *minuit = new Minuit();
 		TTHashPtr defaultParameters = new TTHash();
 		
-		minuit->mName = TT("Minuit");
+		minuit->mName = TT(getName());
 		minuit->mVersion = TT("0.2");
 		minuit->mAuthor = TT("Raphael Marczak/Laurent Garnier/Theo Delahogue");
 		minuit->mExploration = YES;

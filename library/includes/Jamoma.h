@@ -41,7 +41,9 @@
 #include "ModularForMax.h"
 
 #define JamomaPluginFolderPath "/Applications/Max5/Cycling \'74/support/"
-#define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
+//#define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
+// for quick debugging
+#define JamomaConfigurationFilePath "/Users/TO/Documents/Jamoma/Modules/Modular/library/PluginLib/Plugins/build"
 #define JamomaDirectory TTApplicationManagerGetApplication(kTTSym_localApplicationName)->mDirectory
 
 #define JAMOMA "Jamoma"

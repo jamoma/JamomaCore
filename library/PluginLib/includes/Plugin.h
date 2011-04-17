@@ -95,7 +95,24 @@ public:
 		return kTTErrNone;
 	};
 	
-	/** Add an application to the application manager */
+	/**	Get parameters of an application */
+	TTHashPtr getApplicationParameters(TTObjectPtr anApplication)
+	{
+		TTValue	v;
+		TTHashPtr	allPluginParameters, parameters;
+		
+		anApplication->getAttributeValue(TT("pluginParameters"), v);
+		v.get(0, (TTPtr*)&allPluginParameters);
+		
+		if (!allPluginParameters->lookup(mName, v)) {
+			v.get(0, (TTPtr*)&parameters);
+			return parameters;
+		}
+		
+		return NULL;
+	};
+	
+	/** Add an application to the device manager */
 	TTErr applicationAdd(const TTValue& value)
 	{
 		TTValue args, v;
@@ -113,8 +130,15 @@ public:
 		return mApplicationManager->sendMessage(TT("Add"), v);
 	}
 	
+	/** Scan to find remote applications and add them to the application manager */
+	virtual TTErr Scan()=0;
+	
 	/** Run reception thread mechanism */
 	virtual TTErr Run()=0;
+	
+	/** Stop the reception thread mechanism of the plugin */
+	virtual TTErr Stop()=0;
+
 	
 	/**************************************************************************************************************************
 	 *
@@ -127,13 +151,13 @@ public:
 	 *
 	 * \param to : the application where to send answer
 	 * \param address : the address where comes from the description
-	 * \param returnedNodes : the description of nodes below the address
-	 * \param returnedLeaves : the description of leaves below the address
-	 * \param returnedAttributes : the description of attributes at the address
+	 * \param returnedChildrenNames : all names of nodes below the address
+	 * \param returnedLeaves : all types of nodes below the address(default is none which means no type)
+	 * \param returnedAttributes : all attributes the node at the address
 	 */
 	virtual TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address,
-												TTValue& returnedNodes,
-												TTValue& returnedLeaves,
+												TTValue& returnedChildrenNames,
+												TTValue& returnedChildrenTypes,
 												TTValue& returnedAttributes)=0;
 	
 	/*!
@@ -153,7 +177,7 @@ public:
 	 *
 	 * \param to : the application where to send answer
 	 * \param address : the address where comes from the value
-	 * \param attribute : the attribute where comes from the value
+	 * \param attribute : the attribute where comes from the value  (the "life" attribute is to listen namespace creation and destruction) 
 	 * \param returnedValue : the value of the attribute at the address
 	 */
 	virtual TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address,
@@ -176,18 +200,28 @@ public:
 	 */
 	void applicationReceiveDiscoverRequest(TTObjectPtr from, TTSymbolPtr address) 
 	{
-		TTValue returnedNodes;
-		TTValue returnedLeaves;
+		TTValue v;
+		TTErr	err;
+		TTValue returnedChildrenNames;
+		TTValue returnedChildrenTypes;
 		TTValue returnedAttributes;
 		
 		// discover the local namespace
-		//		if (mApplicationManager != NULL)
-		//			TTApplicationManagerLocalApplicationDiscover(address, returnedNodes, returnedLeaves, returnedAttributes);
-		
-		// TODO : test error and send notification if error
-		
-		// send result
-		applicationSendDiscoverAnswer(from, address, returnedNodes, returnedLeaves, returnedAttributes);
+		if (mApplicationManager != NULL) {
+			
+			// TODO : find a clear way to send address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes
+			v.append(address);
+			v.append((TTPtr)&returnedChildrenNames);
+			v.append((TTPtr)&returnedChildrenTypes);
+			v.append((TTPtr)&returnedAttributes);
+			err = mApplicationManager->sendMessage(TT("Discover"), v);
+			
+			// TODO : test error and send notification if error
+			
+			// send result
+			if (!err)
+				applicationSendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes);
+		}
 	}
 	
 	/*!
@@ -201,16 +235,24 @@ public:
 	 */
 	void applicationReceiveGetRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute)
 	{
+		TTValue v;
+		TTErr	err;
 		TTValue returnedValue;
 		
-		// get the value from the local namespace
-		//		if (mApplicationManager != NULL)
-		//			TTApplicationManagerLocalApplicationGet(address, attribute, returnedValue);
-		
-		// TODO : test error and send notification if error
-		
-		// send result
-		applicationSendGetAnswer(from, address, attribute, returnedValue);
+		// discover the local namespace
+		if (mApplicationManager != NULL) {
+			
+			// TODO : find a clear way to send returnedValue
+			v.append(address);
+			v.append((TTPtr)&returnedValue);
+			err = mApplicationManager->sendMessage(TT("Get"), v);
+			
+			// TODO : test error and send notification if error
+			
+			// send result
+			if (!err)
+				applicationSendGetAnswer(from, address, attribute, returnedValue);
+		}		
 	}
 	
 	/*!
@@ -224,11 +266,20 @@ public:
 	 */
 	void applicationReceiveSetRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) 
 	{
-		// set the value of the local namespace
-		//		if (mApplicationManager != NULL)
-		//			TTApplicationManagerLocalApplicationSet(address, attribute, newValue);
+		TTValue v;
+		TTErr	err;
 		
-		// TODO : test error and send notification if error
+		// discover the local namespace
+		if (mApplicationManager != NULL) {
+			
+			// TODO : find a clear way to send address, attribute and newValue
+			v.append(address);
+			v.append(attribute);
+			v.append((TTPtr)&newValue);
+			err = mApplicationManager->sendMessage(TT("Set"), v);
+			
+			// TODO : test error and send notification if error
+		}
 	}
 	
 	/*!
@@ -243,11 +294,21 @@ public:
 	 */
 	void applicationReceiveListenRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) 
 	{
-		// Enable/disable the listening of the attribute at the address
-		//		if (mApplicationManager != NULL)
-		//			TTApplicationManagerLocalApplicationListen(from, address, attribute, enable);
+		TTValue v;
+		TTErr	err;
 		
-		// TODO : test error and send notification if error
+		// discover the local namespace
+		if (mApplicationManager != NULL) {
+			
+			// TODO : find a clear way to send from, address, attribute and enable
+			v.append((TTPtr)from);
+			v.append(address);
+			v.append(attribute);
+			v.append(enable);
+			err = mApplicationManager->sendMessage(TT("Listen"), v);
+			
+			// TODO : test error and send notification if error
+		}
 	}
 	
 	/**************************************************************************************************************************
@@ -259,25 +320,6 @@ public:
 };
 
 typedef Plugin* PluginPtr;
-
-/**	To get parameters of an application
- @param	anApplication					..
- @return							a TTHashPtr */
-TTHashPtr PluginGetApplicationParameters(TTSymbolPtr pluginName, TTObjectPtr anApplication)
-{
-	TTValue		v;
-	TTHashPtr	allPluginParameters, parameters;
-	
-	anApplication->getAttributeValue(TT("pluginParameters"), v);
-	v.get(0, (TTPtr*)&allPluginParameters);
-	
-	if (!allPluginParameters->lookup(pluginName, v)) {
-		v.get(0, (TTPtr*)&parameters);
-		return parameters;
-	}
-	
-	return NULL;
-}
 
 #endif // __PLUGIN_H__
 
@@ -293,7 +335,8 @@ TTHashPtr PluginGetApplicationParameters(TTSymbolPtr pluginName, TTObjectPtr anA
  */
 
 class PLUGIN_EXPORT PluginFactory {
-public:
+public:	
+	virtual const char* getName()=0;
 	virtual PluginPtr	getInstance(TTObjectPtr applicationManager)=0;
 };
 

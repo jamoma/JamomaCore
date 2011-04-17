@@ -38,8 +38,26 @@ mCurrentApplication(NULL)
 	addAttributeProperty(pluginNames, readOnly, YES);
 	
 	addMessageWithArgument(Add);
+	addAttributeProperty(Add, hidden, YES);
+	
 	addMessageWithArgument(Remove);
-	addMessage(Scan);
+	addAttributeProperty(Remove, hidden, YES);
+	
+	addMessageWithArgument(Discover);
+	addAttributeProperty(Discover, hidden, YES);
+	
+	addMessageWithArgument(Get);
+	addAttributeProperty(Get, hidden, YES);
+	
+	addMessageWithArgument(Set);
+	addAttributeProperty(Set, hidden, YES);
+	
+	addMessageWithArgument(Listen);
+	addAttributeProperty(Listen, hidden, YES);
+	
+	addMessageWithArgument(PluginScan);
+	addMessageWithArgument(PluginRun);
+	addMessageWithArgument(PluginStop);
 	
 	// needed to be handled by a TTXmlHandler
 	addMessageWithArgument(WriteAsXml);
@@ -49,38 +67,60 @@ mCurrentApplication(NULL)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mApplications = new TTHash();
-	mPluginFactories = new PluginFactories();
-	mPlugins = new TTHash();
 	
-	mPluginFactories->loadPlugins(pluginFolderPath.data());
-	
-	IteratorPluginNames it = mPluginFactories->getPluginNames();
-	
-	while (it.hasNext()) {
-		TTString pluginName = it.next();
-		TTPluginHandlerPtr aPluginObject = NULL;
-		TTValue args;
-		PluginPtr plugin = mPluginFactories->createPlugin(pluginName, (TTObjectPtr)this);
+	// Load plugins from the pluginFolderPath
+	if (pluginFolderPath.size()) {
 		
-		if (plugin != 0) {
+		mPluginFactories = new PluginFactories();
+		mPlugins = new TTHash();
+		
+		mPluginFactories->loadPlugins(pluginFolderPath.data());
+		
+		IteratorPluginNames it = mPluginFactories->getPluginNames();
+		
+		while (it.hasNext()) {
+			TTString pluginName = it.next();
+			TTPluginHandlerPtr aPluginObject = NULL;
+			TTValue args;
+			PluginPtr plugin = mPluginFactories->createPlugin(pluginName, (TTObjectPtr)this);
 			
-			// DEBUG
-			TTLogDebug("%s plugin loaded", pluginName.data());
-			
-			// create an instance of TTPluginHandler object
-			args = TTValue((TTPtr)plugin);
-			TTObjectInstantiate(TT("PluginHandler"), TTObjectHandle(&aPluginObject), args);
-			
-			// add it to Modular plugins table
-			args = TTValue((TTPtr)aPluginObject);
-			mPlugins->append(TT(pluginName), args);
+			if (plugin != 0) {
+				
+				// DEBUG
+				TTLogDebug("%s plugin loaded", pluginName.data());
+				
+				// create an instance of TTPluginHandler object
+				args = TTValue((TTPtr)plugin);
+				TTObjectInstantiate(TT("PluginHandler"), TTObjectHandle(&aPluginObject), args);
+				
+				// add it to Modular plugins table
+				args = TTValue((TTPtr)aPluginObject);
+				mPlugins->append(TT(pluginName), args);
+			}
 		}
 	}
 }
 
 TTApplicationManager::~TTApplicationManager()
 {
+	TTValue				v, allPluginNames;
+	TTSymbolPtr			pluginName;
+	TTPluginHandlerPtr	aPlugin;
+	TTErr				err;
+	
 	delete mApplications;
+	
+	// destroy each plugin
+	for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
+		
+		allPluginNames.get(i, &pluginName);
+		err = mPlugins->lookup(pluginName, v);
+		
+		if (!err) {
+			v.get(0, (TTPtr*)&aPlugin);
+			TTObjectRelease(TTObjectHandle(&aPlugin));
+		}
+	}
 }
 
 TTErr TTApplicationManager::getApplicationNames(TTValue& value)
@@ -114,55 +154,9 @@ TTErr TTApplicationManager::Add(const TTValue& value)
 	// add application to the manager
 	mApplications->append(applicationName, (TTPtr)anApplication);
 	
-	// get all plugin names of the application 
-	anApplication->getAttributeValue(TT("pluginParameters"), v);
-	v.get(0, (TTPtr*)&pluginParameters);
-	pluginParameters->getKeys(allPluginNames);
-	
-	// then for each plugin handled by the application
-	for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
-
-		allPluginNames.get(i, &pluginName);
-		err = mPlugins->lookup(pluginName, v);
-		
-		if (!err) {
-			v.get(0, (TTPtr*)&aPlugin);
-			
-			// get parameters
-			pluginParameters->lookup(pluginName, v);
-			v.get(0, (TTPtr*)&parameters);
-			
-			// if local application : set plugin reception parameters
-			if (applicationName == kTTSym_localApplicationName) {
-				v = TTValue((TTPtr)parameters);
-				aPlugin->setAttributeValue(TT("parameters"), v);
-			}
-			
-			// else : add distant application to the plugin
-			else
-				;// TODO : aPlugin->applicationAdd(applicationName, parameters);
-		}
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTApplicationManager::Remove(const TTValue& value)
-{	
-	TTValue				v, allPluginNames;
-	TTSymbolPtr			applicationName, pluginName;
-	TTHashPtr			pluginParameters;
-	TTApplicationPtr	anApplication;
-	TTPluginHandlerPtr			aPlugin;
-	TTErr				err;
-	
-	value.get(0, &applicationName);
-	
-	// add application to the manager
-	err = mApplications->lookup(applicationName, v);
-	
-	if (!err) {
-		v.get(0, (TTPtr*)&anApplication);
+	// if local application : set plugin reception parameters
+	// else : do nothing for distant application
+	if (applicationName == kTTSym_localApplicationName) {
 		
 		// get all plugin names of the application 
 		anApplication->getAttributeValue(TT("pluginParameters"), v);
@@ -178,55 +172,321 @@ TTErr TTApplicationManager::Remove(const TTValue& value)
 			if (!err) {
 				v.get(0, (TTPtr*)&aPlugin);
 				
-				// if local application : forgive plugin reception parameters
-				if (applicationName == kTTSym_localApplicationName)
-					; // TODO
+				// get parameters
+				pluginParameters->lookup(pluginName, v);
+				v.get(0, (TTPtr*)&parameters);
 				
-				// else : remove distant application from the plugin
-				else
-					; // TODO : aPlugin->applicationRemove(applicationName);
+				v = TTValue((TTPtr)parameters);
+				aPlugin->setAttributeValue(TT("parameters"), v);
 			}
 		}
-		
-		return mApplications->remove(applicationName);
 	}
 	
-	return kTTErrGeneric;
+	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::Scan()
-{
-	TTValue			v, keys;
-	TTSymbolPtr		pluginName;
-	TTPluginHandlerPtr		aPlugin;
-	
-	// for each plugin
-	mPlugins->getKeys(keys);
-	for (TTUInt16 i=0; i<keys.getSize(); i++) {
-			
-			keys.get(i, &pluginName);
-			mPlugins->lookup(pluginName, v);
-			v.get(0, (TTPtr*)&aPlugin);
-			
-			// TODO : scan the network to look for distant applications
-			// and then add them to the ApplicationManager
-	}
+TTErr TTApplicationManager::Remove(const TTValue& value)
+{	
+	TTSymbolPtr			applicationName;
 
+	value.get(0, &applicationName);
+
+	return mApplications->remove(applicationName);
+}
+
+TTErr TTApplicationManager::PluginScan(const TTValue& value)
+{
+	TTValue v, allPluginNames;
+	TTSymbolPtr pluginName;
+	TTPluginHandlerPtr aPlugin;
+	TTErr				err;
+	
+	// if no name do it for all plugin
+	if (!value.getSize()) {
+		
+		value.get(0, &pluginName);
+		
+		if (!mPlugins->lookup(pluginName, v)) {
+			v.get(0, (TTPtr*)&aPlugin);
+			aPlugin->sendMessage(TT("Scan"));
+		}
+	}
+	else {
+		// Scan each plugin
+		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
+			
+			allPluginNames.get(i, &pluginName);
+			err = mPlugins->lookup(pluginName, v);
+			
+			if (!err) {
+				v.get(0, (TTPtr*)&aPlugin);
+				aPlugin->sendMessage(TT("Scan"));
+			}
+		}
+	}
+	
 	return kTTErrNone;
 }
 
 TTErr TTApplicationManager::PluginRun(const TTValue& value)
 {
-	TTValue v;
+	TTValue v, allPluginNames;
 	TTSymbolPtr pluginName;
 	TTPluginHandlerPtr aPlugin;
+	TTErr				err;
 	
-	value.get(0, &pluginName);
-	
-	if (!mPlugins->lookup(pluginName, v)) {
-		v.get(0, (TTPtr*)&aPlugin);
-		aPlugin->sendMessage(TT("Run"));
+	// if no name do it for all plugin
+	if (!value.getSize()) {
+		
+		value.get(0, &pluginName);
+		
+		if (!mPlugins->lookup(pluginName, v)) {
+			v.get(0, (TTPtr*)&aPlugin);
+			aPlugin->sendMessage(TT("Run"));
+		}
 	}
+	else {
+		// Run each plugin
+		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
+			
+			allPluginNames.get(i, &pluginName);
+			err = mPlugins->lookup(pluginName, v);
+			
+			if (!err) {
+				v.get(0, (TTPtr*)&aPlugin);
+				aPlugin->sendMessage(TT("Run"));
+			}
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplicationManager::PluginStop(const TTValue& value)
+{
+	TTValue v, allPluginNames;
+	TTSymbolPtr pluginName;
+	TTPluginHandlerPtr aPlugin;
+	TTErr				err;
+	
+	// if no name do it for all plugin
+	if (!value.getSize()) {
+		
+		value.get(0, &pluginName);
+		
+		if (!mPlugins->lookup(pluginName, v)) {
+			v.get(0, (TTPtr*)&aPlugin);
+			aPlugin->sendMessage(TT("Stop"));
+		}
+	}
+	else {
+		// Stop each plugin
+		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
+			
+			allPluginNames.get(i, &pluginName);
+			err = mPlugins->lookup(pluginName, v);
+			
+			if (!err) {
+				v.get(0, (TTPtr*)&aPlugin);
+				aPlugin->sendMessage(TT("Stop"));
+			}
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplicationManager::Discover(TTValue& value)
+{
+	TTSymbolPtr whereToDiscover;
+	TTValuePtr returnedChildrenNames;
+	TTValuePtr returnedChildrenTypes;
+	TTValuePtr returnedAttributes;
+	
+	value.get(0, &whereToDiscover);
+	value.get(1, (TTPtr*)&returnedChildrenNames);
+	value.get(2, (TTPtr*)&returnedChildrenTypes);
+	value.get(3, (TTPtr*)&returnedAttributes);
+	
+	TTLogDebug("TTApplicationManager::Discover");
+	
+	TTList				nodeList, childList;
+	TTNodePtr			firstNode, aNode;
+	TTSymbolPtr			nodeAddress, objectType;
+	TTObjectPtr			anObject;
+	TTErr				err;
+	
+	err = getDirectoryFrom(whereToDiscover)->Lookup(whereToDiscover, nodeList, &firstNode);
+	firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
+	
+	// returned attributes
+	if (anObject = firstNode->getObject())
+		anObject->getAttributeNames(*returnedAttributes);
+	
+	// fill returned chaildren names and types value
+	if (!err) {
+		
+		for (childList.begin(); childList.end(); childList.next()) {
+			
+			// get the returned node
+			childList.current().get(0, (TTPtr*)&aNode);
+			
+			// get the relative address
+			aNode->getOscAddress(&nodeAddress, whereToDiscover);
+			returnedChildrenNames->append(nodeAddress);
+			
+			// add the type of each refered object
+			if (anObject = aNode->getObject()) {
+				objectType = anObject->getName();
+				
+				if (objectType != kTTSymEmpty)
+					returnedChildrenTypes->append(objectType);
+				else
+					returnedChildrenTypes->append(kTTSym_none);
+			}
+			else
+				returnedChildrenTypes->append(kTTSym_none);
+		}
+	} 
+	else
+		return kTTErrGeneric; // TODO : return an error notification
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplicationManager::Get(TTValue& value)
+{
+	TTSymbolPtr whereToGet;
+	TTSymbolPtr attributeToGet;
+	TTValuePtr returnedValue;
+	
+	value.get(0, &whereToGet);
+	value.get(1, &attributeToGet);
+	value.get(2, (TTPtr*)&returnedValue);
+	
+	TTLogDebug("TTApplicationManager::Get");
+	
+	TTNodePtr			nodeToGet;
+	TTObjectPtr			anObject;
+	TTErr				err;
+	
+	err = getDirectoryFrom(whereToGet)->getTTNodeForOSC(whereToGet, &nodeToGet);
+	
+	if (!err) {
+		
+		if (anObject = nodeToGet->getObject())
+			anObject->getAttributeValue(attributeToGet, *returnedValue);
+	}
+	else
+		return kTTErrGeneric; // TODO : return an error notification
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplicationManager::Set(TTValue& value)
+{
+	TTSymbolPtr whereToSet;
+	TTSymbolPtr attributeToSet;
+	TTValuePtr newValue;
+	
+	value.get(0, &whereToSet);
+	value.get(1, &attributeToSet);
+	value.get(2, (TTPtr*)&newValue);
+	
+	TTLogDebug("TTApplicationManager::Set");
+	
+	TTNodePtr			nodeToSet;
+	TTSymbolPtr			objectType;
+	TTObjectPtr			anObject;
+	TTErr				err;
+	
+	err = getDirectoryFrom(whereToSet)->getTTNodeForOSC(whereToSet, &nodeToSet);
+	
+	if (!err) {
+		
+		anObject = nodeToSet->getObject();
+		objectType = anObject->getName();
+		
+		// TTData case : for value attribute use Command message
+		if (objectType == TT("Data")) {
+			
+			if (attributeToSet == kTTSym_value)
+				anObject->sendMessage(kTTSym_Command, *newValue);
+			else
+				anObject->setAttributeValue(attributeToSet, *newValue);
+		}
+		else 
+			anObject->setAttributeValue(attributeToSet, *newValue);
+	}
+	else
+		return kTTErrGeneric; // TODO : return an error notification
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplicationManager::Listen(TTValue& value)
+{
+	TTApplicationPtr appToNotify;
+	TTSymbolPtr whereToListen;
+	TTSymbolPtr attributeToListen;
+	TTBoolean enableListening;
+	
+	value.get(0, (TTPtr*)&appToNotify);
+	value.get(1, &whereToListen);
+	value.get(2, &attributeToListen);
+	value.get(3, enableListening);
+	
+	TTLogDebug("TTApplicationManager::Listen");
+	
+	TTApplicationPtr	appWhereToListen;
+	TTNodePtr			nodeToListen;
+	TTObjectPtr			anObject;
+	TTErr				err;
+	
+	appWhereToListen = TTApplicationManagerGetApplication(whereToListen);
+	err = appWhereToListen->mDirectory->getTTNodeForOSC(whereToListen, &nodeToListen);
+	
+	if (!err) 
+	{
+		
+		anObject = nodeToListen->getObject();
+		
+		// add observer
+		if (enableListening) {
+			
+			// start directory observation
+			if (attributeToListen == TT("life")) { // TODO : find a better name
+				
+				; // TODO : prepare a callback based on TTApplicationManagerLocalApplicationDirectoryCallback
+				; // TODO : add it to the appWhereToListen application directory using addObserverForNotifications
+				; // TODO : cache the observer in a hashtable (into the appWhereToListen application, not into the applicationManager)
+			}
+			// start attribute observation
+			else {
+				
+				; // TODO : prepare a callback based on TTApplicationManagerLocalApplicationAttributeCallback
+				; // TODO : add it to the object using registerObserverForNotifications
+				; // TODO : cache the observer in a hashtable (into the appWhereToListen application, not into the applicationManager)
+			}
+		}
+		// remove observer
+		else {
+			
+			// stop directory observation
+			if (attributeToListen == kTTSymEmpty) {
+				
+				; // TODO : get the old observer from the observers cache of the appWhereToListen application
+				; // TODO : remove it from the appWhereToListen application directory using removeObserverForNotifications
+			}
+			// stop attribute observation
+			else {
+				; // TODO : get the old observer from the observers cache of the appWhereToListen application
+				; // TODO : prepare a callback using TTApplicationManagerLocalApplicationAttributeCallback
+			}
+		}
+	}	
+	else
+		return kTTErrGeneric; // TODO : return an error notification
 	
 	return kTTErrNone;
 }
@@ -288,7 +548,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 		mCurrentApplication = NULL;
 		
 		// stop plugin reception threads
-		mPlugins->iterate((TTPtr)this, TTApplicationManagerStopPlugins);
+		PluginStop(v);
 
 		return kTTErrNone;
 	}
@@ -297,7 +557,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 	if (aXmlHandler->mXmlNodeName == TT("end")) {
 		
 		// start plugin reception threads
-		mPlugins->iterate((TTPtr)this, TTApplicationManagerStartPlugins);
+		PluginRun(v);
 		
 		return kTTErrNone;
 	}
@@ -418,7 +678,7 @@ TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 TTErr TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
-	TTPluginHandlerPtr			aPlugin;
+	TTPluginHandlerPtr	aPlugin;
 	TTApplicationPtr	anApplication;
 	TTSymbolPtr			oscAddress;
 	TTNodePtr			aNode;
@@ -462,181 +722,4 @@ TTErr TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue
 	// TODO : aPlugin->sendAttributeNotification(anApplication, oscAddress, attribute, data);
 	
 	return kTTErrGeneric;
-}
-
-TTErr TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
-{
-	TTLogDebug("TTApplicationManagerLocalApplicationDiscover");
-	
-	TTList				nodeList, childList;
-	TTNodePtr			firstNode, aNode;
-	TTSymbolPtr			nodeAddress, objectType;
-	TTObjectPtr			anObject;
-	TTErr				err;
-	
-	err = getDirectoryFrom(whereToDiscover)->Lookup(whereToDiscover, nodeList, &firstNode);
-	firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
-	
-	if (!err) {
-		
-		for (childList.begin(); childList.end(); childList.next()) {
-			
-			// get the returned node
-			childList.current().get(0, (TTPtr*)&aNode);
-			
-			// get the node osc absolute address
-			// to -- if we change the way to exchange TTNodeDirectory description 
-			// we should avoid to return the absolute address
-			aNode->getOscAddress(&nodeAddress);
-			
-			// to -- is the leaves field is still good ? 
-			// maybe something like an object type field would be more generic ? not sure...
-			// but we have to think on a specific way to explore a TTNodeDirectory in order 
-			// to don't loose the specificity of his structure but without sending too much request
-			if (anObject = aNode->getObject()) {
-				
-				objectType = anObject->getName();
-				
-				if (objectType == TT("Data"))
-					returnedLeaves.append(nodeAddress);
-				else
-					returnedNodes.append(nodeAddress);
-			}
-		}
-	} 
-	else
-		return kTTErrGeneric; // TODO : return an error notification
-	
-	return kTTErrNone;
-}
-
-TTErr TTApplicationManagerLocalApplicationListen(TTApplicationPtr appWhereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enableListening)
-{
-	TTLogDebug("TTApplicationManagerLocalApplicationListen");
-	
-	TTApplicationPtr	appWhereToListen;
-	TTNodePtr			nodeToListen;
-	TTObjectPtr			anObject;
-	TTErr				err;
-	
-	appWhereToListen = TTApplicationManagerGetApplication(whereToListen);
-	err = appWhereToListen->mDirectory->getTTNodeForOSC(whereToListen, &nodeToListen);
-	
-	if (!err) 
-	{
-		
-		anObject = nodeToListen->getObject();
-		
-		// add observer
-		if (enableListening) {
-			
-			// start directory observation
-			if (attributeToListen == TT("life")) { // TODO : find a better name
-				
-				; // TODO : prepare a callback based on TTApplicationManagerLocalApplicationDirectoryCallback
-				; // TODO : add it to the appWhereToListen application directory using addObserverForNotifications
-				; // TODO : cache the observer in a hashtable (into the appWhereToListen application, not into the applicationManager)
-			}
-			// start attribute observation
-			else {
-				
-				; // TODO : prepare a callback based on TTApplicationManagerLocalApplicationAttributeCallback
-				; // TODO : add it to the object using registerObserverForNotifications
-				; // TODO : cache the observer in a hashtable (into the appWhereToListen application, not into the applicationManager)
-			}
-		}
-		// remove observer
-		else {
-			
-			// stop directory observation
-			if (attributeToListen == kTTSymEmpty) {
-				
-				; // TODO : get the old observer from the observers cache of the appWhereToListen application
-				; // TODO : remove it from the appWhereToListen application directory using removeObserverForNotifications
-			}
-			// stop attribute observation
-			else {
-				; // TODO : get the old observer from the observers cache of the appWhereToListen application
-				; // TODO : prepare a callback using TTApplicationManagerLocalApplicationAttributeCallback
-			}
-		}
-	}	
-	else
-		return kTTErrGeneric; // TODO : return an error notification
-	
-	return kTTErrNone;
-}
-
-TTErr TTApplicationManagerLocalApplicationSet(TTSymbolPtr whereToSet, TTSymbolPtr attributeToSet, TTValue& value)
-{
-	TTLogDebug("TTApplicationManagerLocalApplicationSet");
-	
-	TTNodePtr			nodeToSet;
-	TTSymbolPtr			objectType;
-	TTObjectPtr			anObject;
-	TTErr				err;
-	
-	err = getDirectoryFrom(whereToSet)->getTTNodeForOSC(whereToSet, &nodeToSet);
-	
-	if (!err) {
-		
-		anObject = nodeToSet->getObject();
-		objectType = anObject->getName();
-		
-		// TTData case : for value attribute use Command message
-		if (objectType == TT("Data")) {
-			
-			if (attributeToSet == kTTSym_value)
-				anObject->sendMessage(kTTSym_Command, value);
-			else
-				anObject->setAttributeValue(attributeToSet, value);
-		}
-		else 
-			anObject->setAttributeValue(attributeToSet, value);
-	}
-	else
-		return kTTErrGeneric; // TODO : return an error notification
-	
-	return kTTErrNone;
-}
-
-TTErr TTApplicationManagerLocalApplicationGet(TTSymbolPtr whereToGet, TTSymbolPtr attributeToGet, TTValue& returnedValue)
-{
-	TTLogDebug("TTApplicationManagerLocalApplicationGet");
-	
-	TTNodePtr			nodeToGet;
-	TTObjectPtr			anObject;
-	TTErr				err;
-	
-	err = getDirectoryFrom(whereToGet)->getTTNodeForOSC(whereToGet, &nodeToGet);
-	
-	if (!err) {
-		
-		if (anObject = nodeToGet->getObject())
-			anObject->getAttributeValue(attributeToGet, returnedValue);
-	}
-	else
-		return kTTErrGeneric; // TODO : return an error notification
-	
-	return kTTErrNone;
-}
-
-void TTApplicationManagerStartPlugins(const TTPtr target, const TTKeyVal& iter)
-{
-	TTPluginHandlerPtr pluginPtr = NULL;
-	TTValue v = iter.second;
-	v.get(0, (TTPtr*)&pluginPtr);
-	if (pluginPtr != NULL) {
-		pluginPtr->sendMessage(TT("Run"));
-	}
-}
-
-void TTApplicationManagerStopPlugins(const TTPtr target, const TTKeyVal& iter)
-{
-	TTPluginHandlerPtr pluginPtr = NULL;
-	TTValue v = iter.second;
-	v.get(0, (TTPtr*)&pluginPtr);
-	if (pluginPtr != NULL) {
-		;// TODO : add a way to stop the reception thread
-	}
 }

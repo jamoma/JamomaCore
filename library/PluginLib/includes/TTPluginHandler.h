@@ -35,11 +35,26 @@ private:
 	
 	/** Get all parameter names */
 	TTErr getParameterNames(TTValue& value);
+
+	/** Scan to find remote applications and add them to the application manager */
+	TTErr Scan();
 	
 	/** Run the reception thread mechanism of the plugin */
 	TTErr Run();
+	
+	/** Stop the reception thread mechanism of the plugin */
+	TTErr Stop();
 };
 
 typedef TTPluginHandler* TTPluginHandlerPtr;
+
+
+/**	Called when the distant application wants to discover the local application directory
+ note : it uses the extern TTModularApplications variable
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
+
 
 #endif // __TT_PLUGIN_HANDLER_H__

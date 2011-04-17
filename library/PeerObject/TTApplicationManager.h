@@ -68,11 +68,31 @@ private:
 	/** Remove an application */
 	TTErr Remove(const TTValue& value);
 	
-	/** Scan all plugin's network in order to add distant application automatically */
-	TTErr Scan();
+	/** Discover the namespace of an application under an address
+		arguments are <TTSymbolPtr whereToDiscover, TTValuePtr returnedChildrenNames, TTValuePtr returnedChildrenTypes, TTValuePtrreturnedAttributes> */
+	TTErr Discover(TTValue& value);
+	
+	/** Get a value from an attribute of an object at an address in an application
+		arguments are <TTSymbolPtr whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
+	TTErr Get(TTValue& value);
+	
+	/** Set a value from an attribute of an object at an address in an application
+		arguments are <TTSymbolPtr whereToDiscover, TTsymbolPtr attributeToSet, TTValuePtr newValue> */
+	TTErr Set(TTValue& value);
+	
+	/** Listen for value changes from an attribute of an object at an address in an application
+		or for creation/destruction under an address.
+		arguments are <TTObjectPtr appToNotify, TTSymbolPtr whereToListen, TTSymbolPtr attribute, TTBoolean enable> */
+	TTErr Listen(TTValue& value);
+	
+	/** Scan a plugin network in order to add distant application automatically <TTSymbolPtr pluginName> */
+	TTErr PluginScan(const TTValue& value);
 
 	/** Run the reception thread mecanism of a Plugin <TTSymbolPtr pluginName> */
 	TTErr PluginRun(const TTValue& value);
+	
+	/** Stop the reception thread mecanism of a Plugin <TTSymbolPtr pluginName> */
+	TTErr PluginStop(const TTValue& value);
 	
 	/**  needed to be handled by a TTXmlHandler 
 		 read/write local and distant applications setup */
@@ -84,11 +104,6 @@ private:
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue& data);
-	
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationListen(TTApplicationPtr appWhereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enableListening);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationSet(TTSymbolPtr whereToSet, TTSymbolPtr attributeToSet, const TTValue& value);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationGet(TTSymbolPtr whereToGet, TTSymbolPtr attributeToGet, TTValue& returnedValue);
 };
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
@@ -120,45 +135,5 @@ TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDirectoryCallback(TTP
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue& data);
-
-/**	Called when the distant application wants to discover the local application directory
- note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
-
-/**	Called when the distant application wants to listen the local application directory
- note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationListen(TTApplicationPtr appWhereToSend, TTSymbolPtr whereToListen, TTSymbolPtr attributeToListen, TTBoolean enableListening);
-
-/**	Called when the distant application wants to set an object attribute of the local application
- note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationSet(TTSymbolPtr whereToSet, TTSymbolPtr attributeToSet, const TTValue& value);
-
-/**	Called when the distant application wants to get an object attribute of the local application
- note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationGet(TTSymbolPtr whereToGet, TTSymbolPtr attributeToGet, TTValue& returnedValue);
-
-/**	To iterate on the mPlugins HashTable
- @param	baton						..
- @param	data						..
- @return							void */
-void TTMODULAR_EXPORT TTApplicationManagerStartPlugins(const TTPtr target, const TTKeyVal& iter);
-
-/**	To iterate on the mPlugins HashTable
- @param	baton						..
- @param	data						..
- @return							void */
-void TTMODULAR_EXPORT TTApplicationManagerStopPlugins(const TTPtr target, const TTKeyVal& iter);
 
 #endif // __TT_APPLICATION_MANAGER_H__
