@@ -105,33 +105,10 @@ public:
 	 * Create an instance of a Plugin using his name
 	 *
 	 * \param name : the name of the Plugin (given by his developper).
+	 * \param applicationManager : the application manager object of the Modular framework
 	 * \return an instance of a Plugin
 	 */
-	PluginPtr createPlugin(TTString name);
-	
-	/*!
-	 * Get the version of a Plugin using his name
-	 *
-	 * \param name : the name of the Plugin (given by his developper).
-	 * \return the version of the plugin
-	 */
-	TTCString getPluginVersion(TTString name);
-	
-	/*!
-	 * Get the author of a Plugin using his name
-	 *
-	 * \param name : the name of the Plugin (given by his developper).
-	 * \return the autho of the plugin
-	 */
-	TTCString getPluginAuthor(TTString name);
-	
-	/*!
-	 * Get the author of a Plugin using his name
-	 *
-	 * \param name : the name of the Plugin (given by his developper).
-	 * \return the autho of the plugin
-	 */
-	TTBoolean getPluginExploration(TTString name);
+	PluginPtr createPlugin(TTString name, TTObjectPtr applicationManager);
 	
 	/*!
 	 * Return an access iterator on the PluginFactories

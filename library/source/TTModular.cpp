@@ -16,15 +16,11 @@ static bool TTModularHasInitialized = false;
 TTApplicationManagerPtr	TTModularApplications = NULL;
 TTSymbolPtr				kTTSym_localApplicationName = kTTSymEmpty;
 
-PluginFactoriesPtr		TTPluginFactories = NULL;
-void					LoadPlugins(TTString pluginFolderPath, TTHashPtr *returnedPlugins);
-
 /****************************************************************************************************/
 
 void TTModularInit(TTString pluginFolderPath)
 {
-	TTValue				v;
-	TTHashPtr			returnedPlugins;
+	TTValue	v;
 	
 	// Initialized Foundation framework
 	TTFoundationInit();
@@ -60,12 +56,8 @@ void TTModularInit(TTString pluginFolderPath)
 		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
 		
-		// Load plugins
-		returnedPlugins = new TTHash();
-		LoadPlugins(pluginFolderPath, &returnedPlugins);
-		
 		// Create the Modular application manager with no application inside
-		v.append((TTPtr)returnedPlugins);
+		v.append(pluginFolderPath);
 		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), v);
 		
 #ifdef TT_DEBUG
@@ -113,43 +105,6 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", kTTSym_localApplicationName->getCString()); 
 }
-
-void LoadPlugins(TTString pluginFolderPath, TTHashPtr *returnedPlugins)
-{
-	// Create PlugnFactories
-	TTPluginFactories = new PluginFactories();
-	
-	TTPluginFactories->loadPlugins(pluginFolderPath.data());
-	
-	IteratorPluginNames it = TTPluginFactories->getPluginNames();
-	
-	while (it.hasNext()) {
-		TTString pluginName = it.next();
-		TTPluginHandlerPtr aPluginObject = NULL;
-		TTValue args;
-		PluginPtr plugin = TTPluginFactories->createPlugin(pluginName);
-		
-		if (plugin != 0) {
-			
-			// DEBUG
-			TTLogDebug("%s plugin loaded", pluginName.data());
-			
-			// create an instance of TTPluginHandler object
-			args = TTValue((TTPtr)plugin);
-			args.append(TT(pluginName));
-			args.append(TT(TTPluginFactories->getPluginVersion(pluginName)));
-			args.append(TT(TTPluginFactories->getPluginAuthor(pluginName)));
-			args.append(TT(TTPluginFactories->getPluginExploration(pluginName)));
-			
-			TTObjectInstantiate(TT("PluginHandler"), TTObjectHandle(&aPluginObject), args);
-			
-			// add it to returned plugins table
-			args = TTValue((TTPtr)aPluginObject);
-			(*returnedPlugins)->append(TT(pluginName), args);
-		}
-	}
-}
-
 
 #ifdef TT_PLATFORM_LINUX
 int main(void)

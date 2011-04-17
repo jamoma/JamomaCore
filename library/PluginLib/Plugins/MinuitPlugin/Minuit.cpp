@@ -45,10 +45,10 @@
  * 
  */
 
-#include "PluginHandler.h"
+#include "Plugin.h"
 
-#include "Minuit/MinuitInclude.hpp"
-#include "Minuit/MinuitCommunicationMethods.hpp"
+#include "MinuitInclude.hpp"
+#include "MinuitCommunicationMethods.hpp"
 
 #include <sstream>
 
@@ -59,7 +59,7 @@ void receiveGetRequestCallback(TTPtr arg, TTString from, TTString address, TTStr
 void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, TTValue& value);
 void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, bool enable);
 
-class Minuit : public PluginHandler {
+class Minuit : public Plugin {
 	
 private:
 	
@@ -82,54 +82,13 @@ public:
 	 a set of methods used to init the communication.
 	 note : each method of this set is prepend by 'comm'
 	 ************************************************/
-	
-	/*!
-	 * Define the application parameters needs by each application to communicate
-	 *
-	 */
-	TTErr commDefineParameters(TTValue& parameters)
-	{
-		TTSymbolPtr commParamName, commParam_SymValue;
-		TTInt32		commParam_IntValue = 0;
-		TTFloat64	commParam_FloatValue;
-		TTValue		commParamValue;
-		TTUInt8		i;
-
-		for (i = 0; i < (parameters.getSize()-1); i = i+2) {
-
-			if (parameters.getType(i) == kTypeSymbol) {
-				parameters.get(i, &commParamName);
-				if ((i+1) < parameters.getSize() ) {
-
-					commParamValue.clear();
-					if (parameters.getType(i+1) == kTypeSymbol) {
-						parameters.get(i+1, &commParam_SymValue);
-						commParamValue.append(commParam_SymValue);
-					}
-					else if (parameters.getType(i+1) == kTypeInt32) {
-						parameters.get(i+1, commParam_IntValue);
-						commParamValue.append((int)commParam_IntValue);
-					}
-					else if (parameters.getType(i+1) == kTypeFloat64) {
-						parameters.get(i+1, commParam_FloatValue);
-						commParamValue.append(commParam_FloatValue);
-					}
-
-					mParameters->append(commParamName, commParamValue);
-
-				}
-			}
-		}
-		
-		return kTTErrNone;
-	}
 
 	/*!
 	 * Run the message reception thread 
 	 * Prepare the receive callback method to be passed to the ApplicationManager to intercept the message
 	 *
 	 */
-	TTErr commRunReceivingThread()
+	TTErr Run()
 	{
 		TTValue		v;
 		TTInt32		port;
@@ -163,37 +122,6 @@ public:
 		return kTTErrNone;
 	}
 	
-	
-	/************************************************
-	 DEVICES METHODS :
-	 a set of methods used to manage applications
-	 note : each method of this set is prepended by 'application'
-	 ************************************************/
-
-//	/*!
-//	 * Add one application in the netApplications map
-//	 *
-//	 */
-//	TTErr applicationAdd(TTString applicationName, std::map<TTString, TTString> *commParameters, std::map<TTString, Application*> *netApplications)
-//	{
-//		Application *application = new Application(applicationName, "Minuit", commParameters);
-//		netApplications->insert(std::pair<TTString, Application*>(applicationName, application));
-//		
-//	}
-	
-	/*!
-	 * Let to know if the specific plugin need namespace request to get a namespace
-	 *
-	 * \return true if the plugin need or false if not
-	 */
-	TTBoolean understandDiscoverRequest()
-	{
-		return true;
-	}
-	
-	
-	
-	
 	/**************************************************************************************************************************
 	 *
 	 *	SEND REQUEST METHODS
@@ -210,72 +138,56 @@ public:
 	 * \param returnedAttributes : the vector which is going to be full with the attributes names at the given address
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	TTErr applicationSendDiscoverRequest(TTApplicationPtr application, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+	TTErr applicationSendDiscoverRequest(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
 	{
-		int			state;
-		TTString    applicationName, appName;
-		TTString	addressAndAttributeString;
-		TTString	stringToSend;
-		TTValue		v, vApplication, vApplicationManager, vIp, vPort;
-		TTErr		err1, err2;
-		TTString	vString, ipString;
-		TTInt32		port;
-		TTString	returnedValueString;
+		TTValue		v;
+		TTString	ip, remoteAppName, localAppName, stringToSend, returnedValueString, addressAndAttributeString;
+		TTUInt32	port;
+		TTInt32		state;
 		
 		// get the remote application name
-		application->getAttributeValue(TT("name"), vApplication);
-		vApplication.toString();
-		vApplication.get(0, applicationName);
+		to->getAttributeValue(TT("name"), v);
+		v.toString();
+		v.get(0, remoteAppName);
 		
-		// get the local app name
-		mApplicationManager->getAttributeValue(TT("name"), vApplicationManager);
-		vApplicationManager.toString();
-		vApplicationManager.get(0, appName);
+		// get the local application name
+		getApplicationLocalName(v);
+		v.toString();
+		v.get(0, localAppName);
 		
 		// edit request
-		stringToSend = appName;	// add name of application
+		stringToSend = localAppName;	// add name of application
 		stringToSend += MINUIT_REQUEST_DISCOVER;
 		stringToSend += " ";
 		stringToSend += address->getCString();
 		
-		err1 = application->getCommParameter(TT("ip"), vIp);
-		err2 = application->getCommParameter(TT("port"), vPort);
-		
-		if (err1 || err2) {
-			return kTTErrGeneric;
-		}
-		
-		vIp.toString();
-		vIp.get(0, ipString);
-		vPort.get(0, port);
-		
-		// send request
-		v.clear();
-		
+		if (!getIpAndPort(to, &ip, &port)) {
+			
 #ifdef TT_PLUGIN_DEBUG
-		std::cout << "Minuit : applicationSendDiscoverRequest : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendDiscoverRequest : " << stringToSend << std::endl;
 #endif
-		m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
-		
-		// Wait for an answer from an IP on a specific port
-		m_minuitMethods->minuitAddDiscoverAnswer(applicationName, address->getCString(), ipString, port, DEFAULT_TIMEOUT);
-		
-		state = ANSWER_RECEIVED;
-		do
-		{
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			
+			// Wait for an answer from an IP on a specific port
+			m_minuitMethods->minuitAddDiscoverAnswer(remoteAppName, address->getCString(), ip, port, DEFAULT_TIMEOUT);
+			
+			state = ANSWER_RECEIVED;
+			do
+			{
 #ifdef TT_PLATFORM_WIN
-			Sleep(1);
+				Sleep(1);
 #else
-			usleep(1000);
+				usleep(1000);
 #endif
-			state = m_minuitMethods->minuitWaitDiscoverAnswer(applicationName, address->getCString(), returnedNodes, returnedLeaves, returnedAttributes);
-		}
-		while(state == NO_ANSWER);
-		
-		if (state == ANSWER_RECEIVED) {
-			return kTTErrNone;
-		} else {
-			return kTTErrGeneric;
+				state = m_minuitMethods->minuitWaitDiscoverAnswer(remoteAppName, address->getCString(), returnedNodes, returnedLeaves, returnedAttributes);
+			}
+			while(state == NO_ANSWER);
+			
+			if (state == ANSWER_RECEIVED) {
+				return kTTErrNone;
+			} else {
+				return kTTErrGeneric;
+			}
 		}
 	}
 	
@@ -288,78 +200,61 @@ public:
 	 * \param returnedValue : the Value which is going to be full
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	TTErr applicationSendGetRequest(TTApplicationPtr application, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
+	TTErr applicationSendGetRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
 	{	
-		int			state;
-		TTString	appName, applicationName;
-		TTString	addressAndAttributeString;
-		TTString	stringToSend;
-		TTValue		v, vApplication, vApplicationManager, vIp, vPort;
-		TTErr		err1, err2;
-		TTString	vString, ipString;
-		TTInt32		port;
-		TTString	returnedValueString;
+		TTValue		v;
+		TTString	ip, remoteAppName, localAppName, stringToSend, returnedValueString, addressAndAttributeString;
+		TTUInt32	port;
+		TTInt32			state;
 		
 		// get the remote application name
-		application->getAttributeValue(TT("name"), vApplication);
-		vApplication.toString();
-		vApplication.get(0, applicationName);
+		to->getAttributeValue(TT("name"), v);
+		v.toString();
+		v.get(0, remoteAppName);
 		
-		// get the local app name
-		mApplicationManager->getAttributeValue(TT("name"), vApplicationManager);
-		vApplicationManager.toString();
-		vApplicationManager.get(0, appName);
+		// get the local application name
+		getApplicationLocalName(v);
+		v.toString();
+		v.get(0, localAppName);
 		
 		// edit request
-		stringToSend = appName;	// add name of application
+		stringToSend = localAppName;	// add name of application
 		stringToSend += MINUIT_REQUEST_GET;
 		stringToSend += " ";
 		stringToSend += address->getCString();
 		stringToSend += ":";
 		stringToSend += attribute->getCString();
 		
-		err1 = application->getCommParameter(TT("ip"), vIp);
-		err2 = application->getCommParameter(TT("port"), vPort);
-		
-		if (err1 || err2) {
-			return kTTErrGeneric;
-		}
-		
-		vIp.toString();
-		vIp.get(0, ipString);
-		vPort.get(0, port);
-		
-		// send request
-		v.clear();
-		
+		if (!getIpAndPort(to, &ip, &port)) {
+			
 #ifdef TT_PLUGIN_DEBUG
-		std::cout << "Minuit : applicationSendGetRequest : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendGetRequest : " << stringToSend << std::endl;
 #endif
-		m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
-		
-		// Wait for an answer from an IP on a specific port
-		addressAndAttributeString = address->getCString();
-		addressAndAttributeString += ":";
-		addressAndAttributeString += attribute->getCString();
-
-		m_minuitMethods->minuitAddGetAnswer(applicationName, addressAndAttributeString, DEFAULT_TIMEOUT);
-		
-		state = ANSWER_RECEIVED;
-		do
-		{
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			
+			// Wait for an answer from an IP on a specific port
+			addressAndAttributeString = address->getCString();
+			addressAndAttributeString += ":";
+			addressAndAttributeString += attribute->getCString();
+			
+			m_minuitMethods->minuitAddGetAnswer(remoteAppName, addressAndAttributeString, DEFAULT_TIMEOUT);
+			
+			state = ANSWER_RECEIVED;
+			do
+			{
 #ifdef TT_PLATFORM_WIN
-			Sleep(1);
+				Sleep(1);
 #else
-			usleep(1000);
+				usleep(1000);
 #endif
-			state = m_minuitMethods->minuitWaitGetAnswer(applicationName, addressAndAttributeString, returnedValue, false);
-		}
-		while(state == NO_ANSWER);
-
-		if (state == ANSWER_RECEIVED) {
-			return kTTErrNone;
-		} else {
-			return kTTErrGeneric;
+				state = m_minuitMethods->minuitWaitGetAnswer(remoteAppName, addressAndAttributeString, returnedValue, false);
+			}
+			while(state == NO_ANSWER);
+			
+			if (state == ANSWER_RECEIVED)
+				return kTTErrNone;
+			else
+				return kTTErrGeneric;
 		}
 	}
 	
@@ -370,13 +265,11 @@ public:
 	 * \param address : something like "/<subApplicationName>/.../<input>"
 	 * \param value : anything to send
 	 */
-	TTErr applicationSendSetRequest(TTApplicationPtr application, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value)
+	TTErr applicationSendSetRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value)
 	{
-		TTValue		v, vIp, vPort;
-		TTErr		err1, err2;
-		TTString	vString, ipString;
-		TTString stringToSend;
-		TTInt32		port;
+		TTValue		v;
+		TTString	ip, stringToSend;
+		TTUInt32	port;
 
 		v = value;
 
@@ -384,20 +277,12 @@ public:
 		stringToSend += ":";
 		stringToSend += attribute->getCString();
 		
-		err1 = application->getCommParameter(TT("ip"), vIp);
-		err2 = application->getCommParameter(TT("port"), vPort);
-		
-		if (!err1 && !err2) {
-			
-			vIp.toString();
-			vIp.get(0, ipString);
-			
-			vPort.get(0, port);
+		if (!getIpAndPort(to, &ip, &port)) {
 
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendSetRequest : " << stringToSend << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 
 			return kTTErrNone;
 		}
@@ -413,18 +298,16 @@ public:
 	 * \param attribute : the attribute to listen
 	 * \param enable : enable/disable the listening
 	 */
-	TTErr applicationSendListenRequest(TTApplicationPtr application, TTSymbolPtr address, TTSymbolPtr attribute, bool enable)
+	TTErr applicationSendListenRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, bool enable)
 	{
-		TTString	stringToSend, appName;
-		TTValue		v, vApplication, vApplicationManager, vIp, vPort;
-		TTErr		err1, err2;
-		TTString	vString, ipString;
-		TTInt32		port;
+		TTValue		v;
+		TTString	ip, appName, stringToSend;
+		TTUInt32	port;
 
 		// get the local app name
-		mApplicationManager->getAttributeValue(TT("name"), vApplicationManager);
-		vApplicationManager.toString();
-		vApplicationManager.get(0, appName);
+		getApplicationLocalName(v);
+		v.toString();
+		v.get(0, appName);
 		
 		// edit request
 		stringToSend = appName;	// add name of application
@@ -440,27 +323,15 @@ public:
 		else
 			stringToSend += MINUIT_REQUEST_LISTEN_DISABLE;
 
-		// get the application ip and port parameters
-		err1 = application->getCommParameter(TT("ip"), vIp);
-		err2 = application->getCommParameter(TT("port"), vPort);
-		
-		if (err1 || err2) {
-			return kTTErrGeneric;
-		}
-		
-		vIp.toString();
-		vIp.get(0, ipString);
-		vPort.get(0, port);
-		
-		// send request
-		v.clear();
-		
+		if (!getIpAndPort(to, &ip, &port)) {
+			
 #ifdef TT_PLUGIN_DEBUG
-		std::cout << "Minuit : applicationSendListenRequest : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendListenRequest : " << stringToSend << std::endl;
 #endif
-		m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
-		
-		return kTTErrNone;
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			
+			return kTTErrNone;
+		}
 	}
 	
 	
@@ -479,18 +350,16 @@ public:
 	 * \param returnedLeaves : the description of leaves below the address
 	 * \param returnedAttributes : the description of attributes at the address
 	 */
-	TTErr applicationSendDiscoverAnswer(TTApplicationPtr to, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
 	{
-		TTString	stringToSend;
-		TTValue		vApplicationManager, nodes, leaves, attributes, vIp, vPort, v;
-		TTString	appName, sNodes, sLeaves, sAttributes, ipString;
-		TTInt32		port;
-		TTErr		err1, err2;
+		TTValue		v, nodes, leaves, attributes;
+		TTString	ip, stringToSend, appName, sNodes, sLeaves, sAttributes;
+		TTUInt32	port;
 		
 		// get the local app name
-		mApplicationManager->getAttributeValue(TT("name"), vApplicationManager);
-		vApplicationManager.toString();
-		vApplicationManager.get(0, appName);
+		getApplicationLocalName(v);
+		v.toString();
+		v.get(0, appName);
 		
 		// edit answer
 		stringToSend = appName;	// add name of application
@@ -558,15 +427,7 @@ public:
 			//attributes.get(0, sAttributes);
 		}
 		
-		err1 = to->getCommParameter(TT("ip"), vIp);
-		err2 = to->getCommParameter(TT("port"), vPort);
-		
-		if (!err1 && !err2) {
-			
-			vIp.toString();
-			vIp.get(0, ipString);
-			
-			vPort.get(0, port);
+		if (!getIpAndPort(to, &ip, &port)) {
 			
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendNamespaceAnswer : " << stringToSend << std::endl;
@@ -574,7 +435,7 @@ public:
 
 			// send answer
 			v.clear();
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -590,18 +451,16 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	TTErr applicationSendGetAnswer(TTApplicationPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
+	TTErr applicationSendGetAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
 	{
-		TTValue		v, vIp, vPort, vApplicationManager;
-		TTErr		err1, err2;
-		TTString	vString, ipString, appName;
-		TTString stringToSend;
-		TTInt32		port;
+		TTValue		v;
+		TTString	ip, stringToSend, appName;
+		TTUInt32	port;
 		
 		// get the local app name
-		mApplicationManager->getAttributeValue(TT("name"), vApplicationManager);
-		vApplicationManager.toString();
-		vApplicationManager.get(0, appName);
+		getApplicationLocalName(v);
+		v.toString();
+		v.get(0, appName);
 		
 		// get the returned value
 		v = returnedValue;
@@ -613,20 +472,12 @@ public:
 		stringToSend += ":";
 		stringToSend += attribute->getCString();
 		
-		err1 = to->getCommParameter(TT("ip"), vIp);
-		err2 = to->getCommParameter(TT("port"), vPort);
-		
-		if (!err1 && !err2) {
-			
-			vIp.toString();
-			vIp.get(0, ipString);
-			
-			vPort.get(0, port);
+		if (!getIpAndPort(to, &ip, &port)) {
 			
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendGetAnswer : " << stringToSend << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -642,18 +493,16 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	TTErr applicationSendListenAnswer(TTApplicationPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
+	TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
 	{
-		TTString	stringToSend, appName;
-		TTValue		v, vApplication, vApplicationManager, vIp, vPort;
-		TTErr		err1, err2;
-		TTString	vString, ipString;
-		TTInt32		port;
+		TTValue		v;
+		TTString	ip, stringToSend, appName;
+		TTUInt32	port;
 
 		// get the local app name
-		mApplicationManager->getAttributeValue(TT("name"), vApplicationManager);
-		vApplicationManager.toString();
-		vApplicationManager.get(0, appName);
+		getApplicationLocalName(v);
+		v.toString();
+		v.get(0, appName);
 		
 		// edit request
 		stringToSend = appName;	// add name of application
@@ -663,15 +512,7 @@ public:
 		stringToSend += ":";
 		stringToSend += attribute->getCString();
 		
-		// get the application ip and port parameters
-		err1 = to->getCommParameter(TT("ip"), vIp);
-		err2 = to->getCommParameter(TT("port"), vPort);
-		
-		if (!err1 && !err2) {
-			
-			vIp.toString();
-			vIp.get(0, ipString);
-			vPort.get(0, port);
+		if (!getIpAndPort(to, &ip, &port)) {
 			
 			// send request
 			v = returnedValue;
@@ -679,7 +520,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendListenAnswer : " << stringToSend << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ipString, port);
+			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -687,15 +528,35 @@ public:
 		return kTTErrGeneric;
 	}
 	
-	
-	
-	
 	/**************************************************************************************************************************
 	 *
 	 *	RECEIVE ANSWER METHODS : No methods because each plugin deals with answers when it send a request (maybe we could add an answer manager)
 	 *
 	 **************************************************************************************************************************/
 	
+private:
+	TTErr getIpAndPort(TTObjectPtr anApplication, TTString *ip, TTUInt32 *port)
+	{
+		TTHashPtr parameters;
+		TTValue vIp, vPort;
+		TTErr err1, err2;
+		
+		if (parameters = PluginGetApplicationParameters(mName, anApplication)) {
+			err1 = parameters->lookup(TT("ip"), vIp);
+			err2 = parameters->lookup(TT("port"), vPort);
+			
+			if (err1 || err2)
+				return kTTErrGeneric;
+			
+			vIp.toString();
+			vIp.get(0, *ip);
+			vPort.get(0, *port);
+			
+			return kTTErrNone;
+		}
+		
+		return kTTErrGeneric;
+	}
 };
 
 /*!
@@ -710,19 +571,19 @@ void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTString address)
 	std::cout << "receiveDiscoverRequestCallback" << std::endl;
 #endif
 	
-	TTApplicationPtr fromApplication = NULL;
+	TTObjectPtr fromApplication = NULL;
 	Minuit*		minuit = (Minuit*) arg;
 	TTErr		err;
-	TTValue		v, applicationPtrValue;
-	TTHashPtr	applications = new TTHash();
+	TTValue		v;
+	TTHashPtr	applications;
 	
-	// get application
-	minuit->getApplicationManager()->getAttributeValue(TT("applications"), v);
+	// get all applications
+	minuit->getApplications(v);
 	v.get(0, (TTPtr*)&applications);
 
-	err = applications->lookup(TT("/" + from), applicationPtrValue);
+	err = applications->lookup(TT("/" + from), v);
 	if (!err) {
-		applicationPtrValue.get(0, (TTPtr*)&fromApplication);
+		v.get(0, (TTPtr*)&fromApplication);
 				
 		// use built-in plugin method
 		minuit->applicationReceiveDiscoverRequest(fromApplication, TT(address));
@@ -735,19 +596,19 @@ void receiveGetRequestCallback(TTPtr arg, TTString from, TTString address, TTStr
 	std::cout << "receiveGetRequestCallback" << std::endl;
 #endif
 	
-	TTApplicationPtr fromApplication = NULL;
+	TTObjectPtr fromApplication = NULL;
 	Minuit*		minuit = (Minuit*) arg;
 	TTErr		err;
-	TTValue		v, applicationPtrValue;
-	TTHashPtr	applications = new TTHash();
+	TTValue		v;
+	TTHashPtr	applications;
 	
 	// get application
-	minuit->getApplicationManager()->getAttributeValue(TT("applications"), v);
+	minuit->getApplications(v);
 	v.get(0, (TTPtr*)&applications);
 
-	err = applications->lookup(TT("/" + from), applicationPtrValue);
+	err = applications->lookup(TT("/" + from), v);
 	if (!err) {
-		applicationPtrValue.get(0, (TTPtr*)&fromApplication);
+		v.get(0, (TTPtr*)&fromApplication);
 		
 		// use built-in plugin method
 		minuit->applicationReceiveGetRequest(fromApplication, TT(address), TT(attribute));
@@ -760,23 +621,23 @@ void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTStr
 	std::cout << "receiveSetRequestCallback" << std::endl;
 #endif
 	
-	TTApplicationPtr	fromApplication = NULL;												// this is optionnal (used to notify in case of error)
+	TTObjectPtr	fromApplication = NULL;												// this is optionnal (used to notify in case of error)
 	Minuit*		minuit = (Minuit*) arg;
-	TTValue     v, applicationPtrValue;
+	TTValue     v;
 	TTErr		err;
 	TTHashPtr	applications = new TTHash();
 	
 	// get application
-	minuit->getApplicationManager()->getAttributeValue(TT("applications"), v);
+	minuit->getApplications(v);
 	v.get(0, (TTPtr*)&applications);
 
-	err = applications->lookup(TT("/" + from), applicationPtrValue);
+	err = applications->lookup(TT("/" + from), v);
 	if (!err) {
-		applicationPtrValue.get(0, (TTPtr*)&fromApplication);
-	}
+		v.get(0, (TTPtr*)&fromApplication);
 
-	// use built-in plugin method (fromApplication could be NULL)
-	minuit->applicationReceiveSetRequest(fromApplication, TT(address), TT(attribute), value);
+		// use built-in plugin method (fromApplication could be NULL)
+		minuit->applicationReceiveSetRequest(fromApplication, TT(address), TT(attribute), value);
+	}
 }
 
 void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString whereToListen, TTString attribute, bool enable)
@@ -785,25 +646,24 @@ void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString whereToList
 	std::cout << "Minuit::receiveListenRequestCallBack" << std::endl;
 #endif
 	
-	TTApplicationPtr	fromApplication = NULL;
+	TTObjectPtr	fromApplication = NULL;
 	Minuit*		minuit = (Minuit*) arg;
-	TTValue     v, applicationPtrValue;
+	TTValue     v;
 	TTErr		err;
-	TTHashPtr	applications = new TTHash();
+	TTHashPtr	applications;
 	
 	// get application
-	minuit->getApplicationManager()->getAttributeValue(TT("applications"), v);
+	minuit->getApplications(v);
 	v.get(0, (TTPtr*)&applications);
 
-	err = applications->lookup(TT("/" + from), applicationPtrValue);
+	err = applications->lookup(TT("/" + from), v);
 	if (!err) {
-		applicationPtrValue.get(0, (TTPtr*)&fromApplication);
+		v.get(0, (TTPtr*)&fromApplication);
 
 		// Use built-in plugin method
 		minuit->applicationReceiveListenRequest(fromApplication, TT(whereToListen), TT(attribute), enable);
 	}
 }
-
 
 /*!
  * \class MinuitFactory
@@ -812,12 +672,24 @@ void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString whereToList
  * 
  */
 class MinuitFactory : public PluginFactory {
-	const char* getPluginName()		{return "Minuit";}
-	const char* getPluginVersion()	{return "0.2";}
-	const char* getPluginAuthor()	{return "Raphael Marczak/Laurent Garnier/Theo Delahogue";}
-	
-	PluginPtr getInstance() {
+
+	PluginPtr getInstance(TTObjectPtr applicationManager) {
+		
 		Minuit *minuit = new Minuit();
+		TTHashPtr defaultParameters = new TTHash();
+		
+		minuit->mName = TT("Minuit");
+		minuit->mVersion = TT("0.2");
+		minuit->mAuthor = TT("Raphael Marczak/Laurent Garnier/Theo Delahogue");
+		minuit->mExploration = YES;
+		
+		minuit->setApplicationManager(TTValue((TTPtr)applicationManager));
+		
+		defaultParameters->append(TT("ip"), TT("127.0.0.1"));
+		defaultParameters->append(TT("port"), (TTUInt32)MINUIT_RECEPTION_PORT);
+		
+		minuit->setParameters(TTValue((TTPtr)defaultParameters));
+		
 		return minuit;
 	}
 };

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../../NetworkCommunication/osc/OscTypes.h"
+#include "OscTypes.h"
 
 class OSCParser
 {

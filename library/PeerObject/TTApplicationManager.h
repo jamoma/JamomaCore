@@ -17,6 +17,9 @@ typedef TTApplication* TTApplicationPtr;
 class TTPluginHandler;
 typedef TTPluginHandler* TTPluginHandlerPtr;
 
+class PluginFactories;
+typedef PluginFactories* PluginFactoriesPtr;
+
 /**	TTApplicationManager ... TODO : an explanation
  
  
@@ -47,9 +50,14 @@ private:
 	
 	TTObjectPtr			mCurrentApplication;	///< used for ReadFromXml mechanism
 	
+	PluginFactoriesPtr	mPluginFactories;
+	
 	
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
+	
+	/** Get local application name */
+	TTErr getApplicationLocalName(TTValue& value);
 	
 	/** Get all plugin names */
 	TTErr getPluginNames(TTValue& value);

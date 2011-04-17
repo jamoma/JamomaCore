@@ -11,7 +11,7 @@ OSCParser::OSCParser()
 	
 }
 
-OSCParser::OSCParser(TTString OSCMessageToParse)
+OSCParser::OSCParser(std::string OSCMessageToParse)
 {
 	using namespace std;
 
@@ -68,7 +68,7 @@ OSCParser::~OSCParser()
 {
 }
 
-TTString OSCParser::getAddress() 
+std::string OSCParser::getAddress() 
 {
 	return m_address;
 }
@@ -78,7 +78,7 @@ unsigned int OSCParser::getNbArg()
 	return m_arg.size();
 }
 
-TTString OSCParser::getArg(unsigned int i)
+std::string OSCParser::getArg(unsigned int i)
 {
 	if (i > m_arg.size()) {
 		throw std::out_of_range("ask for an argument in OSCParser which do not exist");

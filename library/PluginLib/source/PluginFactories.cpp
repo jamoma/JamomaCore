@@ -144,43 +144,16 @@ void PluginFactories::loadPlugins(TTString pluginFolderPath)
 }
 #endif
 
-TTCString PluginFactories::getPluginVersion(TTString name)
-{
-	std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
-	if (it == factories.end()) {
-		return NULL;
-	}
-	return (TTCString)factories[name]->getVersion();
-}
-
-TTCString PluginFactories::getPluginAuthor(TTString name)
-{
-	std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
-	if (it == factories.end()) {
-		return NULL;
-	}
-	return (TTCString)factories[name]->getAuthor();
-}
-
-TTBoolean PluginFactories::getPluginExploration(TTString name)
-{
-	std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
-	if (it == factories.end()) {
-		return NULL;
-	}
-	return (TTBoolean)factories[name]->getExploration();
-}
-
 IteratorPluginNames PluginFactories::getPluginNames() {
 	return IteratorPluginNames(factories.begin(), factories.end());
 }
 
-PluginPtr PluginFactories::createPlugin(TTString name) {
+PluginPtr PluginFactories::createPlugin(TTString name, TTObjectPtr applicationManager) {
 		std::map<TTString, PluginFactoryPtr >::iterator it = factories.find(name);
 		if (it == factories.end()) {
 			return NULL;
 		}
-		return factories[name]->getInstance();
+		return factories[name]->getInstance(applicationManager);
 }
 
 /****************************************/

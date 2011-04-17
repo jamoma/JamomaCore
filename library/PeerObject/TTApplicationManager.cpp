@@ -8,6 +8,7 @@
 
 #include "TTApplicationManager.h"
 #include "TTPluginHandler.h"
+#include "PluginFactories.h"
 
 #define thisTTClass			TTApplicationManager
 #define thisTTClassName		"ApplicationManager"
@@ -15,19 +16,23 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mApplications(NULL),
-mPlugins(NULL),	
 mApplicationNames(kTTValNONE),
 mPluginNames(kTTValNONE),
 mCurrentApplication(NULL)
 {	
-	TTValue pluginNames;
+	TTString pluginFolderPath;
 	
 	TT_ASSERT("Correct number of args to create TTApplicationManager", arguments.getSize() == 1);
+	arguments.get(0, pluginFolderPath);
 	
-	arguments.get(0, (TTPtr*)&mPlugins);
+	addAttribute(Applications, kTypePointer);
+	addAttributeProperty(applications, readOnly, YES);
 	
 	addAttributeWithGetter(ApplicationNames, kTypeLocalValue);
 	addAttributeProperty(applicationNames, readOnly, YES);
+	
+	registerAttribute(TT("applicationLocalName"), kTypeSymbol, kTTSym_localApplicationName, (TTGetterMethod)& TTApplicationManager::getApplicationLocalName);
+	addAttributeProperty(applicationLocalName, readOnly, YES);
 	
 	addAttributeWithGetter(PluginNames, kTypeLocalValue);
 	addAttributeProperty(pluginNames, readOnly, YES);
@@ -43,18 +48,50 @@ mCurrentApplication(NULL)
 	addMessageWithArgument(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
-	mApplications		= new TTHash();
+	mApplications = new TTHash();
+	mPluginFactories = new PluginFactories();
+	mPlugins = new TTHash();
+	
+	mPluginFactories->loadPlugins(pluginFolderPath.data());
+	
+	IteratorPluginNames it = mPluginFactories->getPluginNames();
+	
+	while (it.hasNext()) {
+		TTString pluginName = it.next();
+		TTPluginHandlerPtr aPluginObject = NULL;
+		TTValue args;
+		PluginPtr plugin = mPluginFactories->createPlugin(pluginName, (TTObjectPtr)this);
+		
+		if (plugin != 0) {
+			
+			// DEBUG
+			TTLogDebug("%s plugin loaded", pluginName.data());
+			
+			// create an instance of TTPluginHandler object
+			args = TTValue((TTPtr)plugin);
+			TTObjectInstantiate(TT("PluginHandler"), TTObjectHandle(&aPluginObject), args);
+			
+			// add it to Modular plugins table
+			args = TTValue((TTPtr)aPluginObject);
+			mPlugins->append(TT(pluginName), args);
+		}
+	}
 }
 
 TTApplicationManager::~TTApplicationManager()
 {
 	delete mApplications;
-	delete mPlugins;
 }
 
 TTErr TTApplicationManager::getApplicationNames(TTValue& value)
 {
 	return mApplications->getKeys(value);
+}
+
+TTErr TTApplicationManager::getApplicationLocalName(TTValue& value)
+{
+	value = kTTSym_localApplicationName;
+	return kTTErrNone;
 }
 
 TTErr TTApplicationManager::getPluginNames(TTValue& value)

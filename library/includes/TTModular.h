@@ -101,12 +101,9 @@ class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
-class PluginFactories;
-typedef PluginFactories* PluginFactoriesPtr;
 
 extern	TTMODULAR_EXPORT	TTApplicationManagerPtr TTModularApplications;
 extern	TTMODULAR_EXPORT	TTSymbolPtr				kTTSym_localApplicationName;
-extern	TTMODULAR_EXPORT	PluginFactoriesPtr		TTPluginFactories;
 
 // Prototypes
 

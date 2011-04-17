@@ -26,23 +26,15 @@ class TTMODULAR_EXPORT TTPluginHandler : public TTDataObject
 	
 private:
 	PluginPtr					mPlugin;				///< a pointer to an instance of a loaded plugin
-
-public:
-	TTSymbolPtr					mName;					///< ATTRIBUTE : the name of the plugin to use
-	TTSymbolPtr					mVersion;				///< ATTRIBUTE : the version of the plugin
-	TTSymbolPtr					mAuthor;				///< ATTRIBUTE : the author of the plugin
-	TTBoolean					mExploration;			///< ATTRIBUTE : is the Plugin provide namespace exploration features ?
 	
-	TTHashPtr					mParameters;			///< ATTRIBUTE : hash table containing reception thread parameter names and values
-														///< <TTSymbolPtr parameterName, TTValue value>
-	
-	TTValue						mParameterNames;		///< ATTRIBUTE : all parameter names
-	
-	/** Get all parameter names */
-	TTErr getParameterNames(TTValue& value);
+	/** Get parameters */
+	TTErr getParameters(TTValue& value);
 	
 	/** Set parameters */
 	TTErr setParameters(const TTValue& value);
+	
+	/** Get all parameter names */
+	TTErr getParameterNames(TTValue& value);
 	
 	/** Run the reception thread mechanism of the plugin */
 	TTErr Run();

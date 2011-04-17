@@ -10,14 +10,14 @@
 #ifndef MINUITCOMMUNICATIONMETHODS_HPP_
 #define MINUITCOMMUNICATIONMETHODS_HPP_
 
+#include "TTFoundationAPI.h"
+
 #include "MinuitDiscoverAnswer.hpp"
 #include "MinuitGetAnswer.hpp"
 #include "ReceiveOSCThread.hpp"
 #include "OSCParser.hpp"
 #include "OSCFunctions.hpp"
 #include "MinuitInclude.hpp"
-
-#include "TTModular.h"
 
 #include <string>
 #include <map>

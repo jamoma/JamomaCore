@@ -9,9 +9,7 @@ mPlugin(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
-mExploration(NO),
-mParameters(NULL),
-mParameterNames(kTTValNONE)
+mExploration(NO)
 {
 	arguments.get(0, (TTPtr*)&mPlugin);
 	arguments.get(1, &mName);
@@ -19,46 +17,48 @@ mParameterNames(kTTValNONE)
 	arguments.get(3, &mAuthor);
 	arguments.get(4, mExploration);
 	
-	addAttribute(Name, kTypeSymbol);
-	addAttributeProperty(name, readOnly, YES);
-	
-	addAttribute(Version, kTypeSymbol);
-	addAttributeProperty(version, readOnly, YES);
-	
-	addAttribute(Author, kTypeSymbol);
-	addAttributeProperty(author, readOnly, YES);
-	
-	addAttribute(Exploration, kTypeBoolean);
-	addAttributeProperty(exploration, readOnly, YES);
-	
-	addAttributeWithGetter(ParameterNames, kTypeLocalValue);
+	registerAttribute(TT("parameters"), kTypePointer, NULL, (TTGetterMethod)& TTPluginHandler::getParameters, (TTSetterMethod)& TTPluginHandler::setParameters);
+	registerAttribute(TT("parameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& TTPluginHandler::getParameterNames);
 	addAttributeProperty(parameterNames, readOnly, YES);
 	
-	addAttributeWithSetter(Parameters, kTypePointer);
+	registerAttribute(TT("name"), kTypeSymbol, mPlugin->mName);
+	addAttributeProperty(name, readOnly, YES);
+	
+	registerAttribute(TT("version"), kTypeSymbol, mPlugin->mVersion);
+	addAttributeProperty(version, readOnly, YES);
+	
+	registerAttribute(TT("author"), kTypeSymbol, mPlugin->mAuthor);
+	addAttributeProperty(author, readOnly, YES);
+	
+	registerAttribute(TT("exploration"), kTypeBoolean, mPlugin->mExploration);
+	addAttributeProperty(exploration, readOnly, YES);
 	
 	addMessage(Run);
-
-	mParameters = new TTHash();
 }
 
 TTPluginHandler::~TTPluginHandler()
 {
 	delete mPlugin;
-	delete mParameters;
 }
 
-TTErr TTPluginHandler::getParameterNames(TTValue& value)
+TTErr TTPluginHandler::getParameters(TTValue& value)
 {
-	return mParameters->getKeys(value);
+	return mPlugin->getParameters(value);
 }
 
 TTErr TTPluginHandler::setParameters(const TTValue& value)
 {
-	value.get(0, (TTPtr*)mParameters);
+	return mPlugin->setParameters(value);
+}
+
+TTErr TTPluginHandler::getParameterNames(TTValue& value)
+{
+	TTValue v;
+	TTHashPtr parameters;
 	
-	mPlugin->setParameters(value);
-	
-	return kTTErrNone;
+	mPlugin->getParameters(v);
+	v.get(0, (TTPtr*)&parameters);
+	return parameters->getKeys(value);
 }
 
 TTErr TTPluginHandler::Run()

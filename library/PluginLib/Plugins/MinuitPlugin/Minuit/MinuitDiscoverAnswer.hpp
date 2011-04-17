@@ -1,10 +1,10 @@
 #ifndef MINUITDISCOVERANSWER_HPP_
 #define MINUITDISCOVERANSWER_HPP_
 
+#include "TTFoundationAPI.h"
+
 #include "MinuitInclude.hpp"
 #include "ReceiveOSCThread.hpp"
-
-#include "TTModular.h"
 
 #include <vector>
 #include <string>

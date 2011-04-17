@@ -1,7 +1,7 @@
 #include "OSCFunctions.hpp"
 #include <sstream>
 
-bool isFloat( const TTString & str )
+bool isFloat( const std::string & str )
 {
     std::istringstream iss( str );
 
@@ -10,7 +10,7 @@ bool isFloat( const TTString & str )
     return ( iss >> tmp ) && ( iss.eof() );
 }
 
-bool isInt( const TTString & str )
+bool isInt( const std::string & str )
 {
     std::istringstream iss( str );
 
@@ -19,7 +19,7 @@ bool isInt( const TTString & str )
     return ( iss >> tmp ) && ( iss.eof() );
 }
 
-int toInt( const TTString & str )
+int toInt( const std::string & str )
 {
 	 std::istringstream iss(str);
 
@@ -30,7 +30,7 @@ int toInt( const TTString & str )
 	 return result;
 }
 
-float toFloat( const TTString & str )
+float toFloat( const std::string & str )
 {
 	std::istringstream iss(str);
 

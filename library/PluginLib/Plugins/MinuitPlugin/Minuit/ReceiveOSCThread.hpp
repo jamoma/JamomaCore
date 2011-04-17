@@ -5,9 +5,9 @@
 
 #include <pthread.h>
 
-#include "../../NetworkCommunication/osc/OscPacketListener.h"
-#include "../../NetworkCommunication/ip/UdpSocket.h"
-#include "../../NetworkCommunication/osc/OscOutboundPacketStream.h"
+#include "OscPacketListener.h"
+#include "UdpSocket.h"
+#include "OscOutboundPacketStream.h"
 
 class MinuitCommunicationMethods;
 

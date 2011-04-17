@@ -37,15 +37,81 @@
 class PLUGIN_EXPORT Plugin {
 	
 private:
-	TTObjectPtr	ttPluginObject;
+	TTObjectPtr					mApplicationManager;	///< the application manager of the Modular framework.
+														///< plugin programmers do not have to deal with this member.
 	
+protected:
+	TTHashPtr					mParameters;			///< hash table containing reception thread parameter names and values
+														///< <TTSymbolPtr parameterName, TTValue value>
 public:
+	TTSymbolPtr					mName;					///< ATTRIBUTE : the name of the plugin to use
+	TTSymbolPtr					mVersion;				///< ATTRIBUTE : the version of the plugin
+	TTSymbolPtr					mAuthor;				///< ATTRIBUTE : the author of the plugin
+	TTBoolean					mExploration;			///< ATTRIBUTE : is the Plugin provide namespace exploration features ?
 	
 	Plugin();
 	virtual ~Plugin();
 	
 	/** Set reception thread mechanism parameters <TTHashPtr parameters> */
-	virtual TTErr setParameters(const TTValue& value)=0;
+	// TODO : check if parameter names are correct before so set
+	TTErr setParameters(const TTValue& value)
+	{
+		value.get(0, (TTPtr*)&mParameters);
+		return kTTErrNone;
+	};
+	
+	/** Get reception thread mechanism parameter */
+	TTErr getParameters(TTValue& value)
+	{
+		value = TTValue((TTPtr)mParameters);
+		return kTTErrNone;
+	};
+	
+	/** Set application manager */
+	TTErr setApplicationManager(const TTValue& value)
+	{
+		value.get(0, (TTPtr*)&mApplicationManager);
+		return kTTErrNone;
+	};
+	
+	/** Get all applications */
+	TTErr getApplications(TTValue& value)
+	{
+		mApplicationManager->getAttributeValue(TT("applications"), value);
+		return kTTErrNone;
+	};
+	
+	/** Get all application names */
+	TTErr getApplicationNames(TTValue& value)
+	{
+		mApplicationManager->getAttributeValue(TT("applicationNames"), value);
+		return kTTErrNone;
+	};
+	
+	/** Get the name of the local application */
+	TTErr getApplicationLocalName(TTValue& value)
+	{
+		mApplicationManager->getAttributeValue(TT("applicationLocalName"), value);
+		return kTTErrNone;
+	};
+	
+	/** Add an application to the application manager */
+	TTErr applicationAdd(const TTValue& value)
+	{
+		TTValue args, v;
+		TTSymbolPtr	name;
+		TTObjectPtr anApplication = NULL;
+		
+		value.get(0, &name);
+		
+		args.append(name);
+		args.append(TT("unknown version"));
+		TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), value);
+		
+		v.append(name);
+		v.append((TTPtr)anApplication);
+		return mApplicationManager->sendMessage(TT("Add"), v);
+	}
 	
 	/** Run reception thread mechanism */
 	virtual TTErr Run()=0;
@@ -194,6 +260,25 @@ public:
 
 typedef Plugin* PluginPtr;
 
+/**	To get parameters of an application
+ @param	anApplication					..
+ @return							a TTHashPtr */
+TTHashPtr PluginGetApplicationParameters(TTSymbolPtr pluginName, TTObjectPtr anApplication)
+{
+	TTValue		v;
+	TTHashPtr	allPluginParameters, parameters;
+	
+	anApplication->getAttributeValue(TT("pluginParameters"), v);
+	v.get(0, (TTPtr*)&allPluginParameters);
+	
+	if (!allPluginParameters->lookup(pluginName, v)) {
+		v.get(0, (TTPtr*)&parameters);
+		return parameters;
+	}
+	
+	return NULL;
+}
+
 #endif // __PLUGIN_H__
 
 #ifndef __PLUGIN_FACTORY_H__
@@ -209,12 +294,7 @@ typedef Plugin* PluginPtr;
 
 class PLUGIN_EXPORT PluginFactory {
 public:
-	virtual const char* getName()=0;
-	virtual const char* getVersion()=0;
-	virtual const char* getAuthor()=0;
-	virtual const bool getExploration()=0;
-	
-	virtual PluginPtr	getInstance()=0;
+	virtual PluginPtr	getInstance(TTObjectPtr applicationManager)=0;
 };
 
 typedef PluginFactory*	PluginFactoryPtr;
