@@ -52,12 +52,6 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTErr resize();
 	
 	/**	Attribute accessor	*/
-	TTErr setDimensions(const TTValue& someNewDimensions);
-	
-	/**	Attribute accessor	*/
-	TTErr getDimensions(TTValue& returnedDimensions) const;
-	
-	/**	Attribute accessor	*/
 	TTErr setType(const TTValue& aType);
 
 	/**	Attribute accessor	*/
@@ -68,6 +62,13 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	
 public:
 	
+	/**	Attribute accessor	*/
+	TTErr setDimensions(const TTValue& someNewDimensions);
+	
+	/**	Attribute accessor	*/
+	TTErr getDimensions(TTValue& returnedDimensions) const;
+	
+
 	TTErr clear();
 	TTErr fill(const TTValue& aValue);
 
@@ -94,6 +95,21 @@ public:
 		j -= 1;	// convert to zero-based indices for data access
 		
 		data = *(T*)(mData + (i*n+j) * mComponentStride);	
+		return kTTErrNone;
+	}
+	
+	
+	template<typename T>
+	TTErr get2d(TTRowID i, TTColumnID j, TTUInt32 element, T& data)
+	{
+		//TTUInt32 m = mDimensions[0];
+		TTUInt32 n = mDimensions[1];
+		
+		i -= 1;			// convert to zero-based indices for data access
+		j -= 1;			// convert to zero-based indices for data access
+		element -=1;	// convert to zero-based indices for data access
+		
+		data = *(T*)((mData + (i*n+j) * mComponentStride) + element);	
 		return kTTErrNone;
 	}
 
@@ -125,7 +141,23 @@ public:
 		return kTTErrNone;
 	}
 	
-
+	
+	template<typename T>
+	TTErr set2d(TTRowID i, TTColumnID j, TTUInt32 element, T data)
+	{
+		//TTUInt32 m = mDimensions[0];
+		TTUInt32 n = mDimensions[1];
+		
+		i -= 1;			// convert to zero-based indices for data access
+		j -= 1;			// convert to zero-based indices for data access
+		element -=1;	// convert to zero-based indices for data access
+		
+		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;
+		
+		return kTTErrNone;
+	}
+	
+	
 	TTSymbolPtr	getTypeAsSymbol()
 	{
 		return mType;
@@ -134,6 +166,16 @@ public:
 	TTUInt32 getDataCount()
 	{
 		return mDataCount;
+	}
+	
+	TTUInt32 getComponentStride()
+	{
+		return mComponentStride;
+	}
+	
+	TTUInt32 getElementCount()
+	{
+		return mElementCount;
 	}
 	
 	
