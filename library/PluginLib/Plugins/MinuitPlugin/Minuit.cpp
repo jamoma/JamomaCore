@@ -185,6 +185,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendDiscoverRequest : " << stringToSend << std::endl;
 #endif
+			v.clear();
 			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 			
 			// Wait for an answer from an IP on a specific port
@@ -249,6 +250,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendGetRequest : " << stringToSend << std::endl;
 #endif
+			v.clear();
 			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 			
 			// Wait for an answer from an IP on a specific port
@@ -347,6 +349,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendListenRequest : " << stringToSend << std::endl;
 #endif
+			v.clear();
 			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 			
 			return kTTErrNone;
@@ -369,10 +372,10 @@ public:
 	 * \param returnedLeaves : the description of leaves below the address
 	 * \param returnedAttributes : the description of attributes at the address
 	 */
-	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes)
 	{
 		TTValue		v, nodes, leaves, attributes;
-		TTString	ip, stringToSend, appName, sNodes, sLeaves, sAttributes;
+		TTString	ip, stringToSend, appName, s;
 		TTUInt32	port;
 		
 		// get the local app name
@@ -387,42 +390,30 @@ public:
 		stringToSend += address->getCString();
 		
 		// add each nodes
-		if(returnedNodes.getSize()){
+		if(returnedChildrenNames.getSize()){
 			stringToSend += " ";
 			stringToSend += MINUIT_START_NODES;
 			stringToSend += " ";
-
-			for(int i = 0; i < returnedNodes.getSize(); i++) {
-				char* s;
-				returnedNodes.get(i, (TTPtr*)&s);
-
-				stringToSend += s;
-				stringToSend += " ";
-			}
+			
+			returnedChildrenNames.toString();
+			returnedChildrenNames.get(0, s);
+			stringToSend += s;
+			
+			stringToSend += " ";
 			stringToSend += MINUIT_END_NODES;
-
-			//nodes = returnedNodes;
-			//nodes.toString();
-			//nodes.get(0, sNodes);
 		}
 		
 		// add each leaves
-		if(returnedLeaves.getSize()){
+		if(returnedChildrenTypes.getSize()){
 			stringToSend += " ";
 			stringToSend += MINUIT_START_LEAVES;
 			stringToSend += " ";
 
-			//leaves = returnedLeaves;
-			//leaves.toString();
-			//leaves.get(0, sLeaves);//provoque un bug ss windows si sLeaves > 15 caractËres (STL/DLL bug)
-
-			for(int i = 0; i < returnedLeaves.getSize(); i++) {
-				char* s;
-				returnedLeaves.get(i, (TTPtr*)&s);
-
-				stringToSend += s;
-				stringToSend += " ";
-			}
+			returnedChildrenTypes.toString();
+			returnedChildrenTypes.get(0, s);
+			stringToSend += s;
+			
+			stringToSend += " ";
 			stringToSend += MINUIT_END_LEAVES;
 		}
 		
@@ -432,24 +423,18 @@ public:
 			stringToSend += MINUIT_START_ATTRIBUTES;
 			stringToSend += " ";
 
-			for(int i = 0; i < returnedAttributes.getSize(); i++) {
-				char* s;
-				returnedAttributes.get(i, (TTPtr*)&s);
-
-				stringToSend += s;
-				stringToSend += " ";
-			}
+			returnedAttributes.toString();
+			returnedAttributes.get(0, s);
+			stringToSend += s;
+			
+			stringToSend += " ";
 			stringToSend += MINUIT_END_ATTRIBUTES;
-
-			//attributes = returnedAttributes;
-			//attributes.toString();
-			//attributes.get(0, sAttributes);
 		}
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
 #ifdef TT_PLUGIN_DEBUG
-			std::cout << "Minuit : applicationSendNamespaceAnswer : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendDiscoverAnswer : " << stringToSend << std::endl;
 #endif
 
 			// send answer
@@ -496,6 +481,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendGetAnswer : " << stringToSend << std::endl;
 #endif
+			v.clear();
 			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 			
 			return kTTErrNone;
@@ -539,6 +525,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendListenAnswer : " << stringToSend << std::endl;
 #endif
+			v.clear();
 			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
 			
 			return kTTErrNone;
@@ -600,7 +587,7 @@ void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTString address)
 	minuit->getApplications(v);
 	v.get(0, (TTPtr*)&applications);
 
-	err = applications->lookup(TT("/" + from), v);
+	err = applications->lookup(TT(from), v);
 	if (!err) {
 		v.get(0, (TTPtr*)&fromApplication);
 				
@@ -625,7 +612,7 @@ void receiveGetRequestCallback(TTPtr arg, TTString from, TTString address, TTStr
 	minuit->getApplications(v);
 	v.get(0, (TTPtr*)&applications);
 
-	err = applications->lookup(TT("/" + from), v);
+	err = applications->lookup(TT(from), v);
 	if (!err) {
 		v.get(0, (TTPtr*)&fromApplication);
 		
@@ -650,7 +637,7 @@ void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTStr
 	minuit->getApplications(v);
 	v.get(0, (TTPtr*)&applications);
 
-	err = applications->lookup(TT("/" + from), v);
+	err = applications->lookup(TT(from), v);
 	if (!err) {
 		v.get(0, (TTPtr*)&fromApplication);
 
@@ -675,7 +662,7 @@ void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString whereToList
 	minuit->getApplications(v);
 	v.get(0, (TTPtr*)&applications);
 
-	err = applications->lookup(TT("/" + from), v);
+	err = applications->lookup(TT(from), v);
 	if (!err) {
 		v.get(0, (TTPtr*)&fromApplication);
 

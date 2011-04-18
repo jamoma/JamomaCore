@@ -27,6 +27,7 @@ mCurrentApplication(NULL)
 	
 	addAttribute(Applications, kTypePointer);
 	addAttributeProperty(applications, readOnly, YES);
+	addAttributeProperty(applications, hidden, YES);
 	
 	addAttributeWithGetter(ApplicationNames, kTypeLocalValue);
 	addAttributeProperty(applicationNames, readOnly, YES);
@@ -67,12 +68,12 @@ mCurrentApplication(NULL)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mApplications = new TTHash();
+	mPlugins = new TTHash();
 	
 	// Load plugins from the pluginFolderPath
 	if (pluginFolderPath.size()) {
 		
 		mPluginFactories = new PluginFactories();
-		mPlugins = new TTHash();
 		
 		mPluginFactories->loadPlugins(pluginFolderPath.data());
 		
@@ -111,6 +112,7 @@ TTApplicationManager::~TTApplicationManager()
 	delete mApplications;
 	
 	// destroy each plugin
+	mPlugins->getKeys(allPluginNames);
 	for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
 		
 		allPluginNames.get(i, &pluginName);
@@ -202,7 +204,7 @@ TTErr TTApplicationManager::PluginScan(const TTValue& value)
 	TTErr				err;
 	
 	// if no name do it for all plugin
-	if (!value.getSize()) {
+	if (value.getSize()) {
 		
 		value.get(0, &pluginName);
 		
@@ -213,6 +215,7 @@ TTErr TTApplicationManager::PluginScan(const TTValue& value)
 	}
 	else {
 		// Scan each plugin
+		mPlugins->getKeys(allPluginNames);
 		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
 			
 			allPluginNames.get(i, &pluginName);
@@ -236,7 +239,7 @@ TTErr TTApplicationManager::PluginRun(const TTValue& value)
 	TTErr				err;
 	
 	// if no name do it for all plugin
-	if (!value.getSize()) {
+	if (value.getSize()) {
 		
 		value.get(0, &pluginName);
 		
@@ -247,6 +250,7 @@ TTErr TTApplicationManager::PluginRun(const TTValue& value)
 	}
 	else {
 		// Run each plugin
+		mPlugins->getKeys(allPluginNames);
 		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
 			
 			allPluginNames.get(i, &pluginName);
@@ -270,7 +274,7 @@ TTErr TTApplicationManager::PluginStop(const TTValue& value)
 	TTErr				err;
 	
 	// if no name do it for all plugin
-	if (!value.getSize()) {
+	if (value.getSize()) {
 		
 		value.get(0, &pluginName);
 		
@@ -281,6 +285,7 @@ TTErr TTApplicationManager::PluginStop(const TTValue& value)
 	}
 	else {
 		// Stop each plugin
+		mPlugins->getKeys(allPluginNames);
 		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
 			
 			allPluginNames.get(i, &pluginName);
