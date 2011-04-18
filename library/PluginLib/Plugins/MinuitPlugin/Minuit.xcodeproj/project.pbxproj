@@ -12,14 +12,10 @@
 		4DB6C33212E89C9A001546E4 /* MinuitDiscoverAnswer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32B12E89C9A001546E4 /* MinuitDiscoverAnswer.hpp */; };
 		4DB6C33312E89C9A001546E4 /* MinuitGetAnswer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32C12E89C9A001546E4 /* MinuitGetAnswer.hpp */; };
 		4DB6C33412E89C9A001546E4 /* MinuitInclude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32D12E89C9A001546E4 /* MinuitInclude.hpp */; };
-		4DB6C33512E89C9A001546E4 /* OSCFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32E12E89C9A001546E4 /* OSCFunctions.hpp */; };
-		4DB6C33612E89C9A001546E4 /* OSCParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C32F12E89C9A001546E4 /* OSCParser.hpp */; };
 		4DB6C33712E89C9A001546E4 /* ReceiveOSCThread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4DB6C33012E89C9A001546E4 /* ReceiveOSCThread.hpp */; };
 		4DB6C33E12E89CAB001546E4 /* MinuitCommunicationMethods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33812E89CAB001546E4 /* MinuitCommunicationMethods.cpp */; };
 		4DB6C33F12E89CAB001546E4 /* MinuitDiscoverAnswer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33912E89CAB001546E4 /* MinuitDiscoverAnswer.cpp */; };
 		4DB6C34012E89CAB001546E4 /* MinuitGetAnswer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33A12E89CAB001546E4 /* MinuitGetAnswer.cpp */; };
-		4DB6C34112E89CAB001546E4 /* OSCFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33B12E89CAB001546E4 /* OSCFunctions.cpp */; };
-		4DB6C34212E89CAB001546E4 /* OSCParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33C12E89CAB001546E4 /* OSCParser.cpp */; };
 		4DB6C34312E89CAB001546E4 /* ReceiveOSCThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DB6C33D12E89CAB001546E4 /* ReceiveOSCThread.cpp */; };
 		D29C8A8F135B040500458AFC /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29C8A7A135B040500458AFC /* IpEndpointName.cpp */; };
 		D29C8A90135B040500458AFC /* IpEndpointName.h in Headers */ = {isa = PBXBuildFile; fileRef = D29C8A7B135B040500458AFC /* IpEndpointName.h */; };
@@ -52,14 +48,10 @@
 		4DB6C32B12E89C9A001546E4 /* MinuitDiscoverAnswer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitDiscoverAnswer.hpp; path = Minuit/MinuitDiscoverAnswer.hpp; sourceTree = "<group>"; };
 		4DB6C32C12E89C9A001546E4 /* MinuitGetAnswer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitGetAnswer.hpp; path = Minuit/MinuitGetAnswer.hpp; sourceTree = "<group>"; };
 		4DB6C32D12E89C9A001546E4 /* MinuitInclude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitInclude.hpp; path = Minuit/MinuitInclude.hpp; sourceTree = "<group>"; };
-		4DB6C32E12E89C9A001546E4 /* OSCFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OSCFunctions.hpp; path = Minuit/OSCFunctions.hpp; sourceTree = "<group>"; };
-		4DB6C32F12E89C9A001546E4 /* OSCParser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OSCParser.hpp; path = Minuit/OSCParser.hpp; sourceTree = "<group>"; };
 		4DB6C33012E89C9A001546E4 /* ReceiveOSCThread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ReceiveOSCThread.hpp; path = Minuit/ReceiveOSCThread.hpp; sourceTree = "<group>"; };
 		4DB6C33812E89CAB001546E4 /* MinuitCommunicationMethods.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MinuitCommunicationMethods.cpp; path = Minuit/MinuitCommunicationMethods.cpp; sourceTree = "<group>"; };
 		4DB6C33912E89CAB001546E4 /* MinuitDiscoverAnswer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MinuitDiscoverAnswer.cpp; path = Minuit/MinuitDiscoverAnswer.cpp; sourceTree = "<group>"; };
 		4DB6C33A12E89CAB001546E4 /* MinuitGetAnswer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MinuitGetAnswer.cpp; path = Minuit/MinuitGetAnswer.cpp; sourceTree = "<group>"; };
-		4DB6C33B12E89CAB001546E4 /* OSCFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OSCFunctions.cpp; path = Minuit/OSCFunctions.cpp; sourceTree = "<group>"; };
-		4DB6C33C12E89CAB001546E4 /* OSCParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OSCParser.cpp; path = Minuit/OSCParser.cpp; sourceTree = "<group>"; };
 		4DB6C33D12E89CAB001546E4 /* ReceiveOSCThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReceiveOSCThread.cpp; path = Minuit/ReceiveOSCThread.cpp; sourceTree = "<group>"; };
 		D29C8A7A135B040500458AFC /* IpEndpointName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
 		D29C8A7B135B040500458AFC /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
@@ -134,8 +126,6 @@
 				4DB6C33812E89CAB001546E4 /* MinuitCommunicationMethods.cpp */,
 				4DB6C33912E89CAB001546E4 /* MinuitDiscoverAnswer.cpp */,
 				4DB6C33A12E89CAB001546E4 /* MinuitGetAnswer.cpp */,
-				4DB6C33B12E89CAB001546E4 /* OSCFunctions.cpp */,
-				4DB6C33C12E89CAB001546E4 /* OSCParser.cpp */,
 				4DB6C33D12E89CAB001546E4 /* ReceiveOSCThread.cpp */,
 			);
 			name = Sources;
@@ -149,8 +139,6 @@
 				4DB6C32A12E89C9A001546E4 /* MinuitCommunicationMethods.hpp */,
 				4DB6C32B12E89C9A001546E4 /* MinuitDiscoverAnswer.hpp */,
 				4DB6C32C12E89C9A001546E4 /* MinuitGetAnswer.hpp */,
-				4DB6C32E12E89C9A001546E4 /* OSCFunctions.hpp */,
-				4DB6C32F12E89C9A001546E4 /* OSCParser.hpp */,
 				4DB6C33012E89C9A001546E4 /* ReceiveOSCThread.hpp */,
 			);
 			name = Headers;
@@ -211,8 +199,6 @@
 				4DB6C33212E89C9A001546E4 /* MinuitDiscoverAnswer.hpp in Headers */,
 				4DB6C33312E89C9A001546E4 /* MinuitGetAnswer.hpp in Headers */,
 				4DB6C33412E89C9A001546E4 /* MinuitInclude.hpp in Headers */,
-				4DB6C33512E89C9A001546E4 /* OSCFunctions.hpp in Headers */,
-				4DB6C33612E89C9A001546E4 /* OSCParser.hpp in Headers */,
 				4DB6C33712E89C9A001546E4 /* ReceiveOSCThread.hpp in Headers */,
 				D29C8A90135B040500458AFC /* IpEndpointName.h in Headers */,
 				D29C8A92135B040500458AFC /* NetworkingUtils.h in Headers */,
@@ -281,8 +267,6 @@
 				4DB6C33E12E89CAB001546E4 /* MinuitCommunicationMethods.cpp in Sources */,
 				4DB6C33F12E89CAB001546E4 /* MinuitDiscoverAnswer.cpp in Sources */,
 				4DB6C34012E89CAB001546E4 /* MinuitGetAnswer.cpp in Sources */,
-				4DB6C34112E89CAB001546E4 /* OSCFunctions.cpp in Sources */,
-				4DB6C34212E89CAB001546E4 /* OSCParser.cpp in Sources */,
 				4DB6C34312E89CAB001546E4 /* ReceiveOSCThread.cpp in Sources */,
 				D29C8A8F135B040500458AFC /* IpEndpointName.cpp in Sources */,
 				D29C8A91135B040500458AFC /* NetworkingUtils.cpp in Sources */,

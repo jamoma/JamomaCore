@@ -50,7 +50,7 @@ public:
 	void minuitReceiveNetworkSetRequest(TTString from, TTString address, TTString attribute, TTValue& value);
 	void minuitReceiveNetworkListenRequest(TTString from, TTString address, TTString attribute, bool);
 
-	void minuitSendMessage(TTString stringToSend, TTValue& valueToSend, TTString ip, unsigned int port);
+	void minuitSendMessage(TTString header, TTValue& arguments, TTString ip, unsigned int port);
 	
 	void minuitParseDiscoverAnswer(TTString from, TTString address, const osc::ReceivedMessage&m);
 	void minuitAddDiscoverAnswer(TTString from, TTString address, TTString ip, unsigned int port, int timeOutInMs = DEFAULT_TIMEOUT);
@@ -61,6 +61,6 @@ public:
 	int minuitWaitGetAnswer(TTString from, TTString address, TTValue& returnedValues, bool repeatAddress = true);
 };
 
-unsigned int computeOSCMessageSize(OSCParser OSCParsed, TTValue& v);
+unsigned int computeOSCMessageSize(TTString header, TTValue& arguments) ;
 
 #endif /*MINUITCOMMUNICATIONMETHODS_HPP_*/

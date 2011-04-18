@@ -50,73 +50,49 @@ void MinuitCommunicationMethods::minuitReceiveNetworkListenRequest(TTString from
 	m_listenRequestCallBack(m_listenRequestCallBackArgument, from, address, attribute, enable);
 }
 
-void MinuitCommunicationMethods::minuitSendMessage(TTString stringToSend, TTValue& valueToSend, TTString ip, unsigned int port)
+void MinuitCommunicationMethods::minuitSendMessage(TTString header, TTValue& arguments, TTString ip, unsigned int port)
 {
-	OSCParser OSCParsed(stringToSend);
-	
-	unsigned int bufferSize = computeOSCMessageSize(OSCParsed, valueToSend);
-	
 	UdpTransmitSocket transmitSocket( IpEndpointName(ip.data(), port) );
+	unsigned int bufferSize = computeOSCMessageSize(header, arguments);
+	
+	if (!bufferSize)
+		return;
 	
 #ifdef TT_PLATFORM_WIN
 	char* buffer = (char*)malloc(bufferSize);
 #else
 	char buffer[bufferSize];
 #endif
-
+	
 	osc::OutboundPacketStream oscStream(buffer, bufferSize);
-	
-	//oscStream << osc::BeginBundleImmediate;//provoque un segmentation fault
-	oscStream << osc::BeginMessage(OSCParsed.getAddress().data());
-	
-	for (unsigned int i = 0; i < OSCParsed.getNbArg(); ++i) {
-		string currentString = OSCParsed.getArg(i);
-		if (OSCParsed.getType(i) == osc::INT32_TYPE_TAG) {
-			oscStream << toInt(currentString);
-		} else if (OSCParsed.getType(i) == osc::FLOAT_TYPE_TAG) {
-			oscStream << toFloat(currentString);
-		} else {
-			oscStream << currentString.data();
-		}
-	}
-	
-	//TTValue v = valueToSend;
-	//TTString s;
-	//v.toString();
-	//v.get(0, s);
-	//std::cout << s << std::endl;
+
+	oscStream << osc::BeginMessage(header.data());
 
 	TTSymbolPtr symValue;
 	TTInt32		intValue;
 	TTFloat64	floatValue;
 	TTDataType	valueType;
 
-	for (unsigned int i = 0; i < valueToSend.getSize(); ++i) {
-		valueType = valueToSend.getType(i);
+	for (unsigned int i = 0; i < arguments.getSize(); ++i) {
+		valueType = arguments.getType(i);
 
 		if (valueType == kTypeSymbol) {
-			valueToSend.get(i, &symValue);
-			//std::cout << "symValue : " << symValue->getCString() << std::endl;
+			arguments.get(i, &symValue);
 			oscStream << symValue->getCString();
 		}
-		else if (valueType == kTypeInt32) {
-			valueToSend.get(i, intValue);
-			//std::cout << "intValue : " << intValue << std::endl;
+		else if (valueType == kTypeInt32 || valueType == kTypeInt64) {
+			arguments.get(i, intValue);
 			oscStream << intValue;
 		}
-		else if (valueType == kTypeFloat64) {
-			
-			valueToSend.get(i, floatValue);
-			//std::cout << "float : " << floatValue << std::endl;
+		else if (valueType == kTypeFloat32 || valueType == kTypeFloat64) {
+			arguments.get(i, floatValue);
 			oscStream << (float)floatValue;
 		}
 	}
 	
 	oscStream << osc::EndMessage;
-	// << osc::EndBundle;//provoque un segmentation fault
-
+	
 	transmitSocket.Send( oscStream.Data(), oscStream.Size());
-
 	oscStream.Clear();
 }
 
@@ -224,7 +200,7 @@ int MinuitCommunicationMethods::minuitWaitGetAnswer(TTString from, string addres
 }
 
 
-unsigned int computeOSCMessageSize(OSCParser OSCParsed, TTValue& valueToSend) 
+unsigned int computeOSCMessageSize(TTString header, TTValue& arguments) 
 {
 	unsigned int result = 0;
 	
@@ -232,43 +208,33 @@ unsigned int computeOSCMessageSize(OSCParser OSCParsed, TTValue& valueToSend)
 	result += 8; //timetag
 	result += 4; //datasize
 	
-	unsigned int addressSize = OSCParsed.getAddress().size();
-	addressSize += 1; // /0 for end of string
+	unsigned int headerSize = header.size();
+	headerSize += 1; // /0 for end of string
 	
-	result += ((addressSize/4) + 1) * 4; //Address Size
+	result += ((headerSize/4) + 1) * 4;
 	
-	unsigned int argumentsSize = OSCParsed.getNbArg() + valueToSend.getSize();
-	argumentsSize += 1; // , for indicating this is an argument string information
+	unsigned int argumentSize = arguments.getSize();
+	argumentSize += 1; // , for indicating this is an argument string information
 	
-	result += ((argumentsSize/4) + 1) * 4; //ArgumentTag Size
-	
-	for (unsigned int i = 0; i < OSCParsed.getNbArg(); ++i) {
-		string currentString = OSCParsed.getArg(i);
-		if (OSCParsed.getType(i) == osc::INT32_TYPE_TAG) {
-			result += 4; //Int size
-		} else if (OSCParsed.getType(i) == osc::FLOAT_TYPE_TAG) {
-			result += 4; //Float size
-		} else {
-			unsigned int stringSize = currentString.size();
+	result += ((argumentSize/4) + 1) * 4; // ArgumentTag Size
+
+	for (unsigned int i = 0; i < arguments.getSize(); ++i) {
+		if (arguments.getType(i) == kTypeSymbol) {
+			TTSymbolPtr symValue;
+			arguments.get(i, &symValue);
+			unsigned int stringSize = strlen(symValue->getCString());
 			stringSize += 1; // /0 for end of string
 			result += ((stringSize/4) + 1) * 4; //String Size
 		}
-	}
-
-	for (unsigned int i = 0; i < valueToSend.getSize(); ++i) {
-		if (valueToSend.getType(i) == kTypeSymbol) {
-			TTSymbolPtr symValue;
-			valueToSend.get(i, &symValue);
-			result += strlen(symValue->getCString());
-		}
-		else if (valueToSend.getType(i) == kTypeInt32 || valueToSend.getType(i) == kTypeFloat32) {
+		else if (arguments.getType(i) == kTypeInt32 || arguments.getType(i) == kTypeFloat32) {
 			result += 4; //Float32/Int32 size
 		}
-		else if (valueToSend.getType(i) == kTypeInt64 || valueToSend.getType(i) == kTypeFloat64) {
+		else if (arguments.getType(i) == kTypeInt64 || arguments.getType(i) == kTypeFloat64) {
 			result += 8; //Float64/Int64 size
 		}
+		else
+			return 0; // error
 	}
 	
-	//	std::cout << "OSC size calcul result : " << result << std::endl;
 	return result;
 }

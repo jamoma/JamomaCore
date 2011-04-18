@@ -26,7 +26,7 @@ public:
 
 	void parseMinuitDiscoverAnswer(const osc::ReceivedMessage&m);
 
-	void waitDiscoverAnswer(TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes);
+	void waitDiscoverAnswer(TTValue& returnedNodes, TTValue& returnedTypes, TTValue& returnedAttributes);
 
 private:
 	int m_state;

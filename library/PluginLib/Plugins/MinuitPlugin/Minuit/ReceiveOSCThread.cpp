@@ -86,7 +86,6 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 	TTString whereTo = "";
 	TTString attribute = "";
 	int attributeStart;
-	//std::ostringstream arguments;
 	TTValue arguments;
 	
 	/*
@@ -130,36 +129,21 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 		
 		osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();			// get arguments
 		
-		while(arg != m.ArgumentsEnd()){
-			
-			if (arg->IsChar()) {
-				//cout << "char" << endl;
-				//arguments << arg->AsChar();
+		while (arg != m.ArgumentsEnd()) {
+			if (arg->IsChar()) 
 				arguments.append(arg->AsChar());
-			} else if (arg->IsInt32()) {
-				//cout << "int" << endl;
-				//arguments << arg->AsInt32();
+			else if (arg->IsInt32()) {;
 				TTInt32 i = arg->AsInt32();
 				arguments.append((TTInt64)i);
-			} else if (arg->IsFloat()) {
-				//cout << "float" << endl;
-				//arguments << arg->AsFloat();
+			} else if (arg->IsFloat())
 				arguments.append(arg->AsFloat());
-			} else if (arg->IsString()) {
-				//cout << "string" << endl;
-				//arguments << arg->AsString();
+			else if (arg->IsString())
 				arguments.append(TT(arg->AsString()));
-			}
-			
 			arg++;
-			
-//			if(arg != m.ArgumentsEnd())
-//				arguments << " ";
 		}
 		
 		// DEBUG
 		cout << "Receive set request (OSC style) at " << whereTo << endl;
-//		cout << "Arguments : " << arguments.str() << endl;
 		
 		m_minuitMethods->minuitReceiveNetworkSetRequest(sender, whereTo, attribute, arguments);
 		return;
@@ -168,18 +152,18 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 		
 		// Is it a request ?
 		operationStart = currentString.find('?');
-		if(operationStart != currentString.npos)
+		if (operationStart != currentString.npos)
 		{
 			sender = currentString.substr(0, operationStart);					// get sender
 			operation = currentString.substr(operationStart);					// get request
 			
 			osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();		// parse /whereTo:attribute
-			if(arg->IsString()){
+			if (arg->IsString()) {
 				
 				address = arg->AsString();
 				
 				attributeStart = address.find(':');
-				if(attributeStart != address.npos)
+				if (attributeStart != address.npos)
 				{
 					whereTo = address.substr(0, attributeStart);				// get whereTo
 					attribute = address.substr(attributeStart+1);				// get attribute
@@ -195,31 +179,27 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			cout << "Receive " << operation << " request from "<< sender << " at " << whereTo << " for " << attribute << endl;
 			
 			// switch on request
-			if(operation.compare(MINUIT_REQUEST_DISCOVER) == 0){
+			if (operation.compare(MINUIT_REQUEST_DISCOVER) == 0) {
 				m_minuitMethods->minuitReceiveNetworkDiscoverRequest(sender, whereTo);
 				return;
 			}
 			
-			else if(operation.compare(MINUIT_REQUEST_GET) == 0){
+			else if (operation.compare(MINUIT_REQUEST_GET) == 0) {
 				m_minuitMethods->minuitReceiveNetworkGetRequest(sender, whereTo, attribute);
 				return;
 			}
 			
-			else if(operation.compare(MINUIT_REQUEST_LISTEN) == 0){
+			else if (operation.compare(MINUIT_REQUEST_LISTEN) == 0) {
 				
 				arg++;																// get 1 string argument
 				
 				TTString val;
-				if (arg->IsString()) {
-//					arguments << arg->AsString();
+				if (arg->IsString())
 					val = arg->AsString();
-				}
-				// DEBUG
-				//cout << "Arguments : " << val << endl;
 
-				if(val.compare(MINUIT_REQUEST_LISTEN_ENABLE) == 0)
+				if (val.compare(MINUIT_REQUEST_LISTEN_ENABLE) == 0)
 					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, attribute, true);
-				else if(val.compare(MINUIT_REQUEST_LISTEN_DISABLE) == 0)
+				else if (val.compare(MINUIT_REQUEST_LISTEN_DISABLE) == 0)
 					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, attribute, false);
 				
 				return;
@@ -228,10 +208,9 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			return;
 		}// end if starts by '?'
 		
-		
-		// Is it a return ?
+		// Is it an answer :
 		operationStart = currentString.find(':');
-		if(operationStart != currentString.npos)
+		if (operationStart != currentString.npos)
 		{
 			sender = currentString.substr(0, operationStart);					// get sender
 			operation = currentString.substr(operationStart);					// get answer
@@ -244,46 +223,31 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			cout << "Receive " << operation << " answer from "<< sender << " at " << whereTo << endl;
 			
 			arg++;																// get arguments
-			while(arg != m.ArgumentsEnd()){
-				
-				if (arg->IsChar()) {
-					//cout << "char" << endl;
-					//arguments << arg->AsChar();
+			while (arg != m.ArgumentsEnd()) {
+				if (arg->IsChar()) 
 					arguments.append(arg->AsChar());
-				} else if (arg->IsInt32()) {
-					//cout << "int" << endl;
-					//arguments << arg->AsInt32();
+				else if (arg->IsInt32()) {;
 					TTInt32 i = arg->AsInt32();
 					arguments.append((TTInt64)i);
-				} else if (arg->IsFloat()) {
-					//cout << "float" << endl;
-					//arguments << arg->AsFloat();
+				} else if (arg->IsFloat())
 					arguments.append(arg->AsFloat());
-				} else if (arg->IsString()) {
-					//cout << "string" << endl;
-					//arguments << arg->AsString();
-					arguments.append((TTPtr)arg->AsString());
-				}
-				
+				else if (arg->IsString())
+					arguments.append(TT(arg->AsString()));
 				arg++;
-				
 			}
-			
-			// DEBUG
-//			cout << "Arguments : " << arguments.str() << endl;
-			
+				
 			// switch on answer
-			if(operation.compare(MINUIT_ANSWER_DISCOVER) == 0){
+			if (operation.compare(MINUIT_ANSWER_DISCOVER) == 0) {
 				m_minuitMethods->minuitParseDiscoverAnswer(sender, whereTo, m);
 				return;
 			}
 			
-			else if(operation.compare(MINUIT_ANSWER_GET) == 0){
+			else if (operation.compare(MINUIT_ANSWER_GET) == 0) {
 				m_minuitMethods->minuitParseGetAnswer(sender, whereTo, m);
 				return;
 			}
 			
-			else if(operation.compare(MINUIT_ANSWER_LISTEN) == 0){
+			else if (operation.compare(MINUIT_ANSWER_LISTEN) == 0) {
 				//m_minuitMethods->minuitParseListenAnswer(sender, whereTo, m);
 				return;
 			}

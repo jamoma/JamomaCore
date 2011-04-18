@@ -122,7 +122,7 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 			while(!find_end);
 			
 		}
-		else if(currentString.compare(MINUIT_START_LEAVES) == 0){
+		else if(currentString.compare(MINUIT_START_TYPES) == 0){
 			
 			do{
 				arg++;
@@ -139,7 +139,7 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				
 				currentString = parsed.str();
 				// don't store the end flag
-				find_end = currentString.compare(MINUIT_END_LEAVES) == 0;
+				find_end = currentString.compare(MINUIT_END_TYPES) == 0;
 				if(!find_end) {
 					cout << "Parsed leaves " << parsed.str() << endl;
 					m_leaves.append(TT(currentString));

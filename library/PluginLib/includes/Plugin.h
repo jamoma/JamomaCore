@@ -239,11 +239,12 @@ public:
 		TTErr	err;
 		TTValue returnedValue;
 		
-		// discover the local namespace
+		// discover the namespace
 		if (mApplicationManager != NULL) {
 			
 			// TODO : find a clear way to send returnedValue
 			v.append(address);
+			v.append(attribute);
 			v.append((TTPtr)&returnedValue);
 			err = mApplicationManager->sendMessage(TT("Get"), v);
 			
@@ -269,7 +270,7 @@ public:
 		TTValue v;
 		TTErr	err;
 		
-		// discover the local namespace
+		// set the an object in the namespace
 		if (mApplicationManager != NULL) {
 			
 			// TODO : find a clear way to send address, attribute and newValue
@@ -297,7 +298,7 @@ public:
 		TTValue v;
 		TTErr	err;
 		
-		// discover the local namespace
+		// listen an object or the namespace
 		if (mApplicationManager != NULL) {
 			
 			// TODO : find a clear way to send from, address, attribute and enable

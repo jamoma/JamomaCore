@@ -21,8 +21,8 @@
 
 #define MINUIT_START_NODES "nodes={"
 #define MINUIT_END_NODES "}"
-#define MINUIT_START_LEAVES "leaves={"
-#define MINUIT_END_LEAVES "}"
+#define MINUIT_START_TYPES "types={"
+#define MINUIT_END_TYPES "}"
 #define MINUIT_START_ATTRIBUTES "attributes={"
 #define MINUIT_END_ATTRIBUTES "}"
 

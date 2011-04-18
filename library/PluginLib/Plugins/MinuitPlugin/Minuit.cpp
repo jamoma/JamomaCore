@@ -159,8 +159,8 @@ public:
 	 */
 	TTErr applicationSendDiscoverRequest(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
 	{
-		TTValue		v;
-		TTString	ip, remoteAppName, localAppName, stringToSend, returnedValueString, addressAndAttributeString;
+		TTValue		v, arguments;
+		TTString	ip, localAppName, remoteAppName, header;
 		TTUInt32	port;
 		TTInt32		state;
 		
@@ -174,19 +174,19 @@ public:
 		v.toString();
 		v.get(0, localAppName);
 		
-		// edit request
-		stringToSend = localAppName;	// add name of application
-		stringToSend += MINUIT_REQUEST_DISCOVER;
-		stringToSend += " ";
-		stringToSend += address->getCString();
+		// edit header "localAppName?namespace"
+		header = localAppName;
+		header += MINUIT_REQUEST_DISCOVER;
+		
+		// edit arguments with the address
+		arguments = TTValue(address);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
 #ifdef TT_PLUGIN_DEBUG
-			std::cout << "Minuit : applicationSendDiscoverRequest : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendDiscoverRequest " << std::endl;
 #endif
-			v.clear();
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			// Wait for an answer from an IP on a specific port
 			m_minuitMethods->minuitAddDiscoverAnswer(remoteAppName, address->getCString(), ip, port, DEFAULT_TIMEOUT);
@@ -222,10 +222,10 @@ public:
 	 */
 	TTErr applicationSendGetRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
 	{	
-		TTValue		v;
-		TTString	ip, remoteAppName, localAppName, stringToSend, returnedValueString, addressAndAttributeString;
+		TTValue		v, arguments;
+		TTString	ip, localAppName, remoteAppName, header, aString;
 		TTUInt32	port;
-		TTInt32			state;
+		TTInt32		state;
 		
 		// get the remote application name
 		to->getAttributeValue(TT("name"), v);
@@ -237,28 +237,30 @@ public:
 		v.toString();
 		v.get(0, localAppName);
 		
-		// edit request
-		stringToSend = localAppName;	// add name of application
-		stringToSend += MINUIT_REQUEST_GET;
-		stringToSend += " ";
-		stringToSend += address->getCString();
-		stringToSend += ":";
-		stringToSend += attribute->getCString();
+		// edit header "localAppName?get"
+		header = localAppName;
+		header += MINUIT_REQUEST_GET;
+		
+		// edit arguments <address:attribute>"
+		aString = address->getCString();
+		aString += ":";
+		aString += attribute->getCString();
+		v.append(TT(aString));
+		arguments.prepend(v);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
 #ifdef TT_PLUGIN_DEBUG
-			std::cout << "Minuit : applicationSendGetRequest : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendGetRequest " << std::endl;
 #endif
-			v.clear();
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			// Wait for an answer from an IP on a specific port
-			addressAndAttributeString = address->getCString();
-			addressAndAttributeString += ":";
-			addressAndAttributeString += attribute->getCString();
+			aString = address->getCString();
+			aString += ":";
+			aString += attribute->getCString();
 			
-			m_minuitMethods->minuitAddGetAnswer(remoteAppName, addressAndAttributeString, DEFAULT_TIMEOUT);
+			m_minuitMethods->minuitAddGetAnswer(remoteAppName, aString, DEFAULT_TIMEOUT);
 			
 			state = ANSWER_RECEIVED;
 			do
@@ -268,7 +270,7 @@ public:
 #else
 				usleep(1000);
 #endif
-				state = m_minuitMethods->minuitWaitGetAnswer(remoteAppName, addressAndAttributeString, returnedValue, false);
+				state = m_minuitMethods->minuitWaitGetAnswer(remoteAppName, aString, returnedValue, false);
 			}
 			while(state == NO_ANSWER);
 			
@@ -288,22 +290,22 @@ public:
 	 */
 	TTErr applicationSendSetRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value)
 	{
-		TTValue		v;
-		TTString	ip, stringToSend;
+		TTValue		arguments;
+		TTString	ip, header;
 		TTUInt32	port;
 
-		v = value;
-
-		stringToSend = address->getCString();
-		stringToSend += ":";
-		stringToSend += attribute->getCString();
+		header = address->getCString();
+		header += ":";
+		header += attribute->getCString();
+		
+		arguments = value;
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 
 #ifdef TT_PLUGIN_DEBUG
-			std::cout << "Minuit : applicationSendSetRequest : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendSetRequest " << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 
 			return kTTErrNone;
 		}
@@ -321,8 +323,8 @@ public:
 	 */
 	TTErr applicationSendListenRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, bool enable)
 	{
-		TTValue		v;
-		TTString	ip, appName, stringToSend;
+		TTValue		v, arguments;
+		TTString	ip, appName, header, aString;
 		TTUInt32	port;
 
 		// get the local app name
@@ -330,27 +332,28 @@ public:
 		v.toString();
 		v.get(0, appName);
 		
-		// edit request
-		stringToSend = appName;	// add name of application
-		stringToSend += MINUIT_REQUEST_LISTEN;
-		stringToSend += " ";
-		stringToSend += address->getCString();
-		stringToSend += ":";
-		stringToSend += attribute->getCString();
+		// edit header "appName?listen"
+		header = appName;	// add name of application
+		header += MINUIT_REQUEST_LISTEN;
 		
-		stringToSend += " ";
-		if(enable)
-			stringToSend += MINUIT_REQUEST_LISTEN_ENABLE;
+		// edit arguments <address:attribute, enable>
+		aString = address->getCString();
+		aString += ":";
+		aString += attribute->getCString();
+		arguments.append(TT(aString));
+		
+		if (enable)
+			arguments.append(TT(MINUIT_REQUEST_LISTEN_ENABLE));
 		else
-			stringToSend += MINUIT_REQUEST_LISTEN_DISABLE;
+			arguments.append(TT(MINUIT_REQUEST_LISTEN_DISABLE));
 
 		if (!getIpAndPort(to, &ip, &port)) {
 			
 #ifdef TT_PLUGIN_DEBUG
-			std::cout << "Minuit : applicationSendListenRequest : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendListenRequest " << std::endl;
 #endif
-			v.clear();
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+
+			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -374,8 +377,8 @@ public:
 	 */
 	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes)
 	{
-		TTValue		v, nodes, leaves, attributes;
-		TTString	ip, stringToSend, appName, s;
+		TTValue		v, arguments;
+		TTString	ip, appName, header, aString;
 		TTUInt32	port;
 		
 		// get the local app name
@@ -383,63 +386,59 @@ public:
 		v.toString();
 		v.get(0, appName);
 		
-		// edit answer
-		stringToSend = appName;	// add name of application
-		stringToSend += MINUIT_ANSWER_DISCOVER;
-		stringToSend += " ";
-		stringToSend += address->getCString();
+		// edit header "appName:get"
+		header = appName;
+		header += MINUIT_ANSWER_DISCOVER;
 		
-		// add each nodes
-		if(returnedChildrenNames.getSize()){
-			stringToSend += " ";
-			stringToSend += MINUIT_START_NODES;
-			stringToSend += " ";
-			
-			returnedChildrenNames.toString();
-			returnedChildrenNames.get(0, s);
-			stringToSend += s;
-			
-			stringToSend += " ";
-			stringToSend += MINUIT_END_NODES;
+		// edit arguments merging all returned fields
+		// note : here we need to begin by the end
+		// and then prepend fields one by one
+		if (returnedAttributes.getSize()) {
+			arguments = returnedAttributes;
+			arguments.prepend(TT(MINUIT_START_ATTRIBUTES));
+			arguments.append(TT(MINUIT_END_ATTRIBUTES));
 		}
 		
-		// add each leaves
-		if(returnedChildrenTypes.getSize()){
-			stringToSend += " ";
-			stringToSend += MINUIT_START_LEAVES;
-			stringToSend += " ";
-
-			returnedChildrenTypes.toString();
-			returnedChildrenTypes.get(0, s);
-			stringToSend += s;
-			
-			stringToSend += " ";
-			stringToSend += MINUIT_END_LEAVES;
+		if (returnedChildrenTypes.getSize()) {
+			// if no attribute field
+			if (arguments.getSize()) {
+				arguments.prepend(TT(MINUIT_END_TYPES));
+				arguments.prepend(returnedChildrenTypes);
+				arguments.prepend(TT(MINUIT_START_TYPES));
+			}
+			else {
+				arguments = returnedChildrenTypes;
+				arguments.prepend(TT(MINUIT_START_TYPES));
+				arguments.append(TT(MINUIT_END_TYPES));
+			}
 		}
 		
-		// add each attributes
-		if(returnedAttributes.getSize()){
-			stringToSend += " ";
-			stringToSend += MINUIT_START_ATTRIBUTES;
-			stringToSend += " ";
-
-			returnedAttributes.toString();
-			returnedAttributes.get(0, s);
-			stringToSend += s;
-			
-			stringToSend += " ";
-			stringToSend += MINUIT_END_ATTRIBUTES;
+		if (returnedChildrenNames.getSize()) {
+			// if no types and attribute fields
+			if (arguments.getSize()) {
+				arguments.prepend(TT(MINUIT_END_NODES));
+				arguments.prepend(returnedChildrenNames);
+				arguments.prepend(TT(MINUIT_START_NODES));
+			}
+			else {
+				arguments = returnedChildrenNames;
+				arguments.prepend(TT(MINUIT_START_NODES));
+				arguments.append(TT(MINUIT_END_NODES));
+			}
 		}
+		
+		if (arguments.getSize())
+			arguments.prepend(address);
+		else
+			arguments = TTValue(address);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
 #ifdef TT_PLUGIN_DEBUG
-			std::cout << "Minuit : applicationSendDiscoverAnswer : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendDiscoverAnswer " << std::endl;
 #endif
 
-			// send answer
-			v.clear();
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -457,8 +456,8 @@ public:
 	 */
 	TTErr applicationSendGetAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
 	{
-		TTValue		v;
-		TTString	ip, stringToSend, appName;
+		TTValue		v, arguments;
+		TTString	ip, appName, header, aString;
 		TTUInt32	port;
 		
 		// get the local app name
@@ -466,23 +465,26 @@ public:
 		v.toString();
 		v.get(0, appName);
 		
-		// get the returned value
-		v = returnedValue;
+		// edit header "appName:get"
+		header = appName;
+		header += MINUIT_ANSWER_GET;
 		
-		stringToSend = appName;	// add name of application
-		stringToSend += MINUIT_ANSWER_GET;
-		stringToSend += " ";		
-		stringToSend += address->getCString();
-		stringToSend += ":";
-		stringToSend += attribute->getCString();
+		// edit arguments copying the returned value 
+		// and prepending the "address:attribute"
+		arguments = returnedValue;
+		
+		aString = address->getCString();
+		aString += ":";
+		aString += attribute->getCString();
+		v = TTValue(TT(aString));
+		arguments.prepend(v);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
 #ifdef TT_PLUGIN_DEBUG
-			std::cout << "Minuit : applicationSendGetAnswer : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendGetAnswer" << std::endl;
 #endif
-			v.clear();
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -500,22 +502,28 @@ public:
 	 */
 	TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
 	{
-		TTValue		v;
-		TTString	ip, stringToSend, appName;
+		TTValue		v, arguments;
+		TTString	ip, appName, header, aString;
 		TTUInt32	port;
-
+		
 		// get the local app name
 		getApplicationLocalName(v);
 		v.toString();
 		v.get(0, appName);
 		
-		// edit request
-		stringToSend = appName;	// add name of application
-		stringToSend += MINUIT_ANSWER_LISTEN;
-		stringToSend += " ";
-		stringToSend += address->getCString();
-		stringToSend += ":";
-		stringToSend += attribute->getCString();
+		// edit header "appName:get"
+		header = appName;
+		header += MINUIT_ANSWER_GET;
+		
+		// edit arguments copying the returned value 
+		// and prepending the "address:attribute"
+		arguments = returnedValue;
+		
+		aString = address->getCString();
+		aString += ":";
+		aString += attribute->getCString();
+		v.append(TT(aString));
+		arguments.prepend(v);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
@@ -523,10 +531,10 @@ public:
 			v = returnedValue;
 			
 #ifdef TT_PLUGIN_DEBUG
-			std::cout << "Minuit : applicationSendListenAnswer : " << stringToSend << std::endl;
+			std::cout << "Minuit : applicationSendListenAnswer " << std::endl;
 #endif
 			v.clear();
-			m_minuitMethods->minuitSendMessage(stringToSend, v, ip, port);
+			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -627,7 +635,7 @@ void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTStr
 	std::cout << "receiveSetRequestCallback" << std::endl;
 #endif
 	
-	TTObjectPtr	fromApplication = NULL;												// this is optionnal (used to notify in case of error)
+	TTObjectPtr	fromApplication;												
 	Minuit*		minuit = (Minuit*) arg;
 	TTValue     v;
 	TTErr		err;
@@ -638,12 +646,13 @@ void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTStr
 	v.get(0, (TTPtr*)&applications);
 
 	err = applications->lookup(TT(from), v);
-	if (!err) {
+	if (err)
+		fromApplication = NULL;	// this is optionnal (used to notify in case of error)
+	else
 		v.get(0, (TTPtr*)&fromApplication);
 
-		// use built-in plugin method (fromApplication could be NULL)
-		minuit->applicationReceiveSetRequest(fromApplication, TT(address), TT(attribute), value);
-	}
+	// use built-in plugin method (fromApplication could be NULL)
+	minuit->applicationReceiveSetRequest(fromApplication, TT(address), TT(attribute), value);
 }
 
 void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString whereToListen, TTString attribute, bool enable)
