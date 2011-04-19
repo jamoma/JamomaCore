@@ -73,5 +73,6 @@ public:
 
 };
 
+typedef TTDataObject* TTDataObjectPtr;
 
 #endif // __TT_DATA_OBJECT_H__
