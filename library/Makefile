@@ -4,6 +4,7 @@ CC = g++
 ########################################
 
 INCLUDES = -I./includes
+INCLUDES += -I./Mersenne-1.1
 INCLUDES += -I./boost
 INCLUDES += -I./tests
 
@@ -39,6 +40,7 @@ SRC += source/TTFoundation.cpp
 SRC += source/TTHash.cpp
 SRC += source/TTList.cpp
 SRC += source/TTMatrix.cpp
+SRC += source/TTMatrixMath.cpp
 SRC += source/TTMessage.cpp
 SRC += source/TTMutex.cpp
 SRC += source/TTNode.cpp
@@ -54,8 +56,8 @@ SRC += source/TTUnitTest.cpp
 SRC += source/TTValue.cpp
 SRC += source/TTValueCache.cpp
 
-SRC += tests/TTMatrixTest.cpp
-SRC += tests/TTValueTest.cpp
+SRC += tests/TTMatrix.test.cpp
+SRC += tests/TTValue.test.cpp
 
 
 #########################################

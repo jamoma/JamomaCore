@@ -4,24 +4,25 @@ CC = g++
 #########################################
 
 SRC = TTDataspaceLib.cpp
-SRC += TTDataspaceUnit.cpp
-SRC += TTDataspaceConverter.cpp
+SRC += source/TTDataspaceUnit.cpp
+SRC += source/TTDataspaceConverter.cpp
 
-SRC += AngleDataspace.cpp
-SRC += ColorDataspace.cpp
-SRC += DistanceDataspace.cpp
-SRC += GainDataspace.cpp
-SRC += NoneDataspace.cpp
-SRC += PitchDataspace.cpp
-SRC += PositionDataspace.cpp
-SRC += SpeedDataspace.cpp
-SRC += TemperatureDataspace.cpp
-SRC += TimeDataspace.cpp
+SRC += source/AngleDataspace.cpp
+SRC += source/ColorDataspace.cpp
+SRC += source/DistanceDataspace.cpp
+SRC += source/GainDataspace.cpp
+SRC += source/NoneDataspace.cpp
+SRC += source/PitchDataspace.cpp
+SRC += source/PositionDataspace.cpp
+SRC += source/SpeedDataspace.cpp
+SRC += source/TemperatureDataspace.cpp
+SRC += source/TimeDataspace.cpp
 
 
 ########################################
 
 INCLUDES = -I.
+INCLUDES += -I./includes
 INCLUDES += -I../../library/includes
 
 
