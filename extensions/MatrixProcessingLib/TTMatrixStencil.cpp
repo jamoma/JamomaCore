@@ -15,9 +15,22 @@
 #define thisTTClassTags		"matrix"
 
 
-TT_OBJECT_CONSTRUCTOR
+TT_OBJECT_CONSTRUCTOR,
+	mMode(TT("average")),
+	mEdges(TT("none")),
+	mStencilType(TT("5-point"))
 {
+	mStepSize.resize(2);
+	mStepSize[0] = 1;
+	mStepSize[1] = 1;
+	
+	addAttributeWithGetterAndSetter(StepSize, kTypeInt32);
+	addAttribute(Edges, kTypeSymbol);
+	
+	// initially limiting to _average_ of the _5-point_ stencil with _no_ special treatment at the edges
+	// and a _step size_ of 1	
 	setMatrixCalculateMethod(matrixCalculateAverage);
+	setAttributeValue(TT("edges"), kTTSym_clip);
 }
 
 
@@ -27,17 +40,106 @@ TTMatrixStencil::~TTMatrixStencil()
 }
 
 
-template<typename T>
-TTErr TTMatrixStencil::doCalculateAverage(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
+TTErr TTMatrixStencil::getStepSize(TTValue& returnedStepSize)
 {
-	T* inData = (T*)inMatrix->getLockedPointer();
-	T* outData = (T*)outMatrix->getLockedPointer();
+	returnedStepSize.setSize(mStepSize.size());
+	for (TTUInt32 k=0; k<mStepSize.size(); k++)
+		returnedStepSize.set(k, mStepSize[k]);
+	return kTTErrNone;
+}
+
+
+TTErr TTMatrixStencil::setStepSize(const TTValue& newStepSize)
+{
+	TTUInt32 count = newStepSize.getSize();
+	TTUInt32 k;
+	TTUInt32 step = 0;
 	
-	// temporary: just pass in the input to the output
+	if (count > mStepSize.size())
+		mStepSize.resize(count);
+
+	// assign all values passed-in
+	for (k=0; k<count; k++) {
+		newStepSize.get(k, step);
+		mStepSize[k] = step;
+	}
 	
-	for (int i=0;i<1;i++)
-		*outData++ = *inData++;
+	// if there are fewer values passed-in than there are slots, 
+	// fill in the remaining slots with the last value passed-in.
+	// for example, this means that you can set both the x and y displacement 
+	// to the same value if a single value is received
+	for (k=count; k<mStepSize.size(); k++)
+		mStepSize[k] = step;
 	
+	return kTTErrNone;
+}
+
+
+
+
+
+template<typename T>
+TTErr TTMatrixStencil::doCalculateAverage2D_zeroedEdges(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
+{
+	TTValue		dimensions;
+	TTUInt32	m;
+	TTUInt32	n;
+	
+	inMatrix->getLockedPointer();
+	outMatrix->getLockedPointer();
+	inMatrix->getDimensions(dimensions);
+	dimensions.get(0, m);
+	dimensions.get(1, n);
+	
+	for (TTUInt8 k=1; k <= inMatrix->getElementCount(); k++) {	
+		for (TTUInt32 i=1; i<=m; i++) {
+			for (TTUInt32 j=1; j<=n; j++) {
+				TTUInt32	ii;
+				TTUInt32	jj;
+				TTFloat64	accum = 0.0;
+				T			value;
+				
+				// working clockwise from 12:00...
+				// first point
+				ii = i-mStepSize[1];
+				jj = j;
+				if (ii>0 && ii<=m  && jj>0 && jj<=n)
+					inMatrix->get2d(ii, jj, k, value);
+				else
+					value = 0;
+				accum += value;
+				
+				// second point
+				ii = i;
+				jj = j+mStepSize[0];
+				if (ii>0 && ii<=m  && jj>0 && jj<=n)
+					inMatrix->get2d(ii, jj, k, value);
+				else
+					value = 0;
+				accum += value;
+				
+				// third point
+				ii = i+mStepSize[1];
+				jj = j;
+				if (ii>0 && ii<=m  && jj>0 && jj<=n)
+					inMatrix->get2d(ii, jj, k, value);
+				else
+					value = 0;
+				accum += value;
+				
+				// fourth point
+				ii = i;
+				jj = j-mStepSize[0];
+				if (ii>0 && ii<=m  && jj>0 && jj<=n)
+					inMatrix->get2d(ii, jj, k, value);
+				else
+					value = 0;
+				accum += value;
+				
+				outMatrix->set2d(i, j, k, T(accum / 4.0));
+			}
+		}
+	}
 	inMatrix->releaseLockedPointer();
 	outMatrix->releaseLockedPointer();
 	return kTTErrNone;
@@ -45,21 +147,67 @@ TTErr TTMatrixStencil::doCalculateAverage(TTMatrixPtr inMatrix, TTMatrixPtr outM
 
 
 template<typename T>
-TTErr TTMatrixStencil::doCalculateFirstDerivative(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
+TTErr TTMatrixStencil::doCalculateAverage2D_clippedEdges(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
 {
-	T* inData = (T*)inMatrix->getLockedPointer();
-	T* outData = (T*)outMatrix->getLockedPointer();
+	TTValue		dimensions;
+	TTUInt32	m;
+	TTUInt32	n;
 	
-	// temporary: just pass in the input to the output
+	inMatrix->getLockedPointer();
+	outMatrix->getLockedPointer();
+	inMatrix->getDimensions(dimensions);
+	dimensions.get(0, m);
+	dimensions.get(1, n);
 	
-	for (int i=0;i<1;i++)
-		*outData++ = *inData++;
-	
+	for (TTUInt8 k=1; k <= inMatrix->getElementCount(); k++) {	
+		for (TTUInt32 i=1; i<=m; i++) {
+			for (TTUInt32 j=1; j<=n; j++) {
+				TTUInt32	ii;
+				TTUInt32	jj;
+				TTFloat64	accum = 0.0;
+				T			value;
+				
+				// working clockwise from 12:00...
+				// first point
+				ii = i-mStepSize[1];
+				jj = j;
+				TTLimit<TTUInt32>(ii, 1, m);
+				TTLimit<TTUInt32>(jj, 1, n);				
+				inMatrix->get2d(ii, jj, k, value);
+				accum += value;
+				
+				// second point
+				ii = i;
+				jj = j+mStepSize[0];
+				TTLimit<TTUInt32>(ii, 1, m);
+				TTLimit<TTUInt32>(jj, 1, n);				
+				inMatrix->get2d(ii, jj, k, value);
+				accum += value;
+				
+				// third point
+				ii = i+mStepSize[1];
+				jj = j;
+				TTLimit<TTUInt32>(ii, 1, m);
+				TTLimit<TTUInt32>(jj, 1, n);				
+				inMatrix->get2d(ii, jj, k, value);
+				accum += value;
+				
+				// fourth point
+				ii = i;
+				jj = j-mStepSize[0];
+				TTLimit<TTUInt32>(ii, 1, m);
+				TTLimit<TTUInt32>(jj, 1, n);				
+				inMatrix->get2d(ii, jj, k, value);
+				accum += value;
+				
+				outMatrix->set2d(i, j, k, T(accum / 4.0));
+			}
+		}
+	}
 	inMatrix->releaseLockedPointer();
 	outMatrix->releaseLockedPointer();
 	return kTTErrNone;
 }
-
 
 
 /*
@@ -107,25 +255,26 @@ TTErr TTMatrixStencil::matrixCalculateAverage(TTMatrixArray& inputMatrices, TTMa
 {
 	TTMatrixPtr inMatrix	= inputMatrices.getMatrix(0);
 	TTMatrixPtr outMatrix	= outputMatrices.getMatrix(0);
+	TTValue		dimensions;
 	TTErr		err;
 	
+	inMatrix->getDimensions(dimensions);
+	if (dimensions.getSize() != 2) {
+		logError("This class currently only supports 2D matrices");
+		return kTTErrInvalidType;
+	}
+	
+	if (dimensions.getSize() > mStepSize.size())
+		setStepSize(mStepSize[0]); // TODO: make it so that TTValue can automatically be created/assigned from a vector, then pass the whole vector
+	
 	outMatrix->adaptTo(inMatrix);	// set dimensions, element count, datatype, etc.
-
-	/*
-	if (type == TT("uint8"))
-		err = doCalculateAverage<TTUInt8>(inMatrix, outMatrix);
-	else if (type == TT("int32"))
-		err = doCalculateAverage<TTInt32>(inMatrix, outMatrix);
-	else if (type == TT("float32"))
-		err = doCalculateAverage<TTFloat32>(inMatrix, outMatrix);
-	else if (type == TT("float64"))
-		err = doCalculateAverage<TTFloat64>(inMatrix, outMatrix);
-	else
-		err = kTTErrInvalidType;
-	*/
 	
-	TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(doCalculateAverage, inMatrix, outMatrix);
-	
+	if (mEdges == kTTSym_clip) {
+		TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(doCalculateAverage2D_clippedEdges, inMatrix, outMatrix);
+	}
+	else {
+		TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(doCalculateAverage2D_zeroedEdges, inMatrix, outMatrix);
+	}
 	return err;
 }
 
@@ -164,6 +313,23 @@ TTErr TTMatrixStencil::matrixCalculateAverage(TTMatrixArray& inputMatrices, TTMa
 	Is there any sensible reason to try and scale this up beyond 2 dimensions?
  
  */
+
+
+template<typename T>
+TTErr TTMatrixStencil::doCalculateFirstDerivative(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
+{
+	T* inData = (T*)inMatrix->getLockedPointer();
+	T* outData = (T*)outMatrix->getLockedPointer();
+	
+	// temporary: just pass in the input to the output
+	
+	for (int i=0;i<1;i++)
+		*outData++ = *inData++;
+	
+	inMatrix->releaseLockedPointer();
+	outMatrix->releaseLockedPointer();
+	return kTTErrNone;
+}
 
 
 TTErr TTMatrixStencil::matrixCalculateFirstDerivative(TTMatrixArray& inputMatrices, TTMatrixArray& outputMatrices)

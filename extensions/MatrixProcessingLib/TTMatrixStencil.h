@@ -20,16 +20,21 @@
 	In the initial implementation, we have limited ourselves to 5-point stencil as described @ http://en.wikipedia.org/wiki/Five-point_stencil 
 	and we limit the operations to be performed to simple averaging and the first derivitave.
 	
-	With the averaging case, the result is thus similar to the operation of the jit.avg4 object in Jitter.
+	With the averaging case, and the middle point omitted, the result is thus similar to the operation of the jit.avg4 object in Jitter.
  */
 class TTMatrixStencil : public TTDataObject {
 	TTCLASS_SETUP(TTMatrixStencil)
 	
 	TTSymbolPtr			mMode;			// what kind of calculation to perform on the stencil: average, firstDerivative
-	TTSymbolPtr			mEdges;			// what to do at the edges: none, fold, or wrap
+	TTSymbolPtr			mEdges;			// what to do at the edges: none, clip, fold, or wrap
 	TTSymbolPtr			mStencilType;	// currently only 5-point stencil...
 	vector<TTUInt32>	mStepSize;		// step size for each dimension
 	
+
+	// Attribute Accessors
+	TTErr getStepSize(TTValue& returnedStepSize);
+	TTErr setStepSize(const TTValue& newStepSize);
+
 	
 	// Matrix calculation methods pass arrays of inputs and outputs.
 	
@@ -41,7 +46,10 @@ class TTMatrixStencil : public TTDataObject {
 
 	
 	template<typename T>
-	TTErr doCalculateAverage(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
+	TTErr doCalculateAverage2D_zeroedEdges(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
+
+	template<typename T>
+	TTErr doCalculateAverage2D_clippedEdges(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
 
 	template<typename T>
 	TTErr doCalculateFirstDerivative(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
