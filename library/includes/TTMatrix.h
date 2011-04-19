@@ -178,6 +178,12 @@ public:
 		return mElementCount;
 	}
 	
+	TTErr setDimensionsWithVector(const vector<TTUInt32>& newDimensions)
+	{
+		mDimensions = newDimensions;
+		return resize();
+	}
+	
 	
 	/**	You must proceed to set the various attributes, dimensions, etc. to match the data format of the matrix you are referencing.
 
@@ -245,12 +251,34 @@ public:
 		// NOTE: we could also cache the pointer in getLockedPointer() and match it to this.
 		// But maybe that makes not sense.
 	}
+	
+	
+#pragma mark -
+		
+	/**	A function (method) type for implementing iterators used by the iterate() method	*/
+	typedef void (*TTMatrixIterator)(TTPtr c, const TTPtr a, const TTPtr b);
+	
+	/**	Step through every component in the matrix A and B to produce matrix C using the specified iterator method.	*/
+	static TTErr iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);
 
+	/**	Add two matrices to produce a third matrix.
+		The resulting matrix is instantiated by this method.
+		You, the caller, are responsible for freeing it.	*/
+	TTMatrix* operator + (const TTMatrix& B) const;
+
+	/**	Subtract matrix B from matrix A to produce matrix C.
+		The resulting matrix is instantiated by this method.
+		You, the caller, are responsible for freeing it.	*/
+	TTMatrix* operator - (const TTMatrix& B) const;
+	
 };
 
 
 typedef TTMatrix* TTMatrixPtr;
 typedef TTMatrix& TTMatrixRef;
+
+//TTMatrixPtr operator + (const TTMatrix& A, const TTMatrix& B);
+
 
 
 #define TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(template_name, input_matrix, output_matrix) \

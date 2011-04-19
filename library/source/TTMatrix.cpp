@@ -287,3 +287,22 @@ TTErr TTMatrix::set(const TTValue& aValue)
 }
 
 
+TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
+{
+	if (A->mType == B->mType  &&  A->mElementCount == B->mElementCount && A->mDimensions == B->mDimensions) {
+		int stride = A->mTypeSizeInBytes;
+		int size = A->mDataSize;
+		
+		C->setAttributeValue(kTTSym_type, A->mType);
+		C->setAttributeValue(kTTSym_elementCount, A->mElementCount);	
+		C->setDimensionsWithVector(A->mDimensions);
+		
+		for (int k=0; k<size; k+=stride)
+			(*iterator)(C->mData+k, A->mData+k, B->mData+k);
+		
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
+}
+

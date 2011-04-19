@@ -216,5 +216,105 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 	
 	
 	
+	
+	
+	
+	
+	{
+		TTTestLog("\n");
+		TTTestLog("Testing TTMatrix Math...");
+		
+		TTMatrixPtr	A = NULL;
+		TTMatrixPtr	B = NULL;
+		TTMatrixPtr	C = NULL;
+		TTErr		err;
+		TTValue		dims;
+		
+		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&A, kTTValNONE);
+		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&B, kTTValNONE);
+		
+		dims.setSize(2);
+		dims.set(0, 3);	// 3 rows
+		dims.set(1, 4);	// 4 columns
+		A->setAttributeValue(TT("dimensions"), dims);
+		A->setAttributeValue(TT("type"), TT("int32"));
+		A->setAttributeValue(TT("elementCount"), 1);
+		
+		B->setAttributeValue(TT("dimensions"), dims);
+		B->setAttributeValue(TT("type"), TT("int32"));
+		B->setAttributeValue(TT("elementCount"), 1);
+
+		A->set2d(1, 1, 101);	A->set2d(1, 2, 102);	A->set2d(1, 3, 103);	A->set2d(1, 4, 104);
+		A->set2d(2, 1, 201);	A->set2d(2, 2, 202);	A->set2d(2, 3, 203);	A->set2d(2, 4, 204);
+		A->set2d(3, 1, 301);	A->set2d(3, 2, 302);	A->set2d(3, 3, 303);	A->set2d(3, 4, 304);
+		
+		B->set2d(1, 1, 11);		B->set2d(1, 2, 12);		B->set2d(1, 3, 13);		B->set2d(1, 4, 14);
+		B->set2d(2, 1, 21);		B->set2d(2, 2, 22);		B->set2d(2, 3, 23);		B->set2d(2, 4, 24);
+		B->set2d(3, 1, 31);		B->set2d(3, 2, 32);		B->set2d(3, 3, 33);		B->set2d(3, 4, 34);
+	
+		
+		C = (*A)+(*B);
+		
+		TTInt32	componentValue;
+		int		wrongComponentCount = 0;
+		
+		C->get2d(1, 1, componentValue);		if (componentValue != 112) wrongComponentCount++;
+		C->get2d(1, 2, componentValue);		if (componentValue != 114) wrongComponentCount++;
+		C->get2d(1, 3, componentValue);		if (componentValue != 116) wrongComponentCount++;
+		C->get2d(1, 4, componentValue);		if (componentValue != 118) wrongComponentCount++;
+				 
+		C->get2d(2, 1, componentValue);		if (componentValue != 222) wrongComponentCount++;
+		C->get2d(2, 2, componentValue);		if (componentValue != 224) wrongComponentCount++;
+		C->get2d(2, 3, componentValue);		if (componentValue != 226) wrongComponentCount++;
+		C->get2d(2, 4, componentValue);		if (componentValue != 228) wrongComponentCount++;
+
+		C->get2d(3, 1, componentValue);		if (componentValue != 332) wrongComponentCount++;
+		C->get2d(3, 2, componentValue);		if (componentValue != 334) wrongComponentCount++;
+		C->get2d(3, 3, componentValue);		if (componentValue != 336) wrongComponentCount++;
+		C->get2d(3, 4, componentValue);		if (componentValue != 338) wrongComponentCount++;
+
+		TTTestAssertion("correct result for matrix addition on 3x4 matrix of simple ints", 
+						wrongComponentCount == 0, 
+						testAssertionCount,
+						errorCount);
+		
+		TTObjectRelease((TTObjectPtr*)&C);
+		
+		
+		C = (*A)-(*B);
+
+		C->get2d(1, 1, componentValue);		if (componentValue != 90) wrongComponentCount++;
+		C->get2d(1, 2, componentValue);		if (componentValue != 90) wrongComponentCount++;
+		C->get2d(1, 3, componentValue);		if (componentValue != 90) wrongComponentCount++;
+		C->get2d(1, 4, componentValue);		if (componentValue != 90) wrongComponentCount++;
+		
+		C->get2d(2, 1, componentValue);		if (componentValue != 180) wrongComponentCount++;
+		C->get2d(2, 2, componentValue);		if (componentValue != 180) wrongComponentCount++;
+		C->get2d(2, 3, componentValue);		if (componentValue != 180) wrongComponentCount++;
+		C->get2d(2, 4, componentValue);		if (componentValue != 180) wrongComponentCount++;
+		
+		C->get2d(3, 1, componentValue);		if (componentValue != 270) wrongComponentCount++;
+		C->get2d(3, 2, componentValue);		if (componentValue != 270) wrongComponentCount++;
+		C->get2d(3, 3, componentValue);		if (componentValue != 270) wrongComponentCount++;
+		C->get2d(3, 4, componentValue);		if (componentValue != 270) wrongComponentCount++;
+		
+		TTTestAssertion("correct result for matrix subtraction on 3x4 matrix of simple ints", 
+						wrongComponentCount == 0, 
+						testAssertionCount,
+						errorCount);
+		
+		TTObjectRelease((TTObjectPtr*)&C);
+		
+		
+		
+		TTObjectRelease((TTObjectPtr*)&A);
+		TTObjectRelease((TTObjectPtr*)&B);
+	}	
+	
+
+
+	
+	
+	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
