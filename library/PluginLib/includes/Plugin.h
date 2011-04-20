@@ -158,7 +158,8 @@ public:
 	virtual TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address,
 												TTValue& returnedChildrenNames,
 												TTValue& returnedChildrenTypes,
-												TTValue& returnedAttributes)=0;
+												TTValue& returnedAttributes,
+												TTErr err=kTTErrNone)=0;
 	
 	/*!
 	 * Send a get answer to a application which ask for.
@@ -170,7 +171,8 @@ public:
 	 */
 	virtual TTErr applicationSendGetAnswer(TTObjectPtr to, TTSymbolPtr address,
 										   TTSymbolPtr attribute, 
-										   TTValue& returnedValue)=0;
+										   TTValue& returnedValue,
+										   TTErr err=kTTErrNone)=0;
 	
 	/*!
 	 * Send a listen answer to a application which ask for.
@@ -182,7 +184,8 @@ public:
 	 */
 	virtual TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address,
 											  TTSymbolPtr attribute, 
-											  TTValue& returnedValue)=0;
+											  TTValue& returnedValue,
+											  TTErr err=kTTErrNone)=0;
 	
 	/**************************************************************************************************************************
 	 *
@@ -209,18 +212,14 @@ public:
 		// discover the local namespace
 		if (mApplicationManager != NULL) {
 			
-			// TODO : find a clear way to send address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes
 			v.append(address);
 			v.append((TTPtr)&returnedChildrenNames);
 			v.append((TTPtr)&returnedChildrenTypes);
 			v.append((TTPtr)&returnedAttributes);
 			err = mApplicationManager->sendMessage(TT("Discover"), v);
 			
-			// TODO : test error and send notification if error
-			
 			// send result
-			if (!err)
-				applicationSendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes);
+			applicationSendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes, err);
 		}
 	}
 	
@@ -242,17 +241,12 @@ public:
 		// discover the namespace
 		if (mApplicationManager != NULL) {
 			
-			// TODO : find a clear way to send returnedValue
 			v.append(address);
 			v.append(attribute);
 			v.append((TTPtr)&returnedValue);
 			err = mApplicationManager->sendMessage(TT("Get"), v);
 			
-			// TODO : test error and send notification if error
-			
-			// send result
-			if (!err)
-				applicationSendGetAnswer(from, address, attribute, returnedValue);
+			applicationSendGetAnswer(from, address, attribute, returnedValue, err);
 		}		
 	}
 	
@@ -273,7 +267,6 @@ public:
 		// set the an object in the namespace
 		if (mApplicationManager != NULL) {
 			
-			// TODO : find a clear way to send address, attribute and newValue
 			v.append(address);
 			v.append(attribute);
 			v.append((TTPtr)&newValue);
@@ -301,14 +294,16 @@ public:
 		// listen an object or the namespace
 		if (mApplicationManager != NULL) {
 			
-			// TODO : find a clear way to send from, address, attribute and enable
+			v.append(mName);	// the name of the plugin is needed for feed back notifications
 			v.append((TTPtr)from);
 			v.append(address);
 			v.append(attribute);
 			v.append(enable);
+			
 			err = mApplicationManager->sendMessage(TT("Listen"), v);
 			
-			// TODO : test error and send notification if error
+			if (err)
+				applicationSendListenAnswer(from, address, attribute, kTTValNONE, err);
 		}
 	}
 	

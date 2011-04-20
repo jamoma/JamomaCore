@@ -71,6 +71,7 @@ void MinuitCommunicationMethods::minuitSendMessage(TTString header, TTValue& arg
 	TTSymbolPtr symValue;
 	TTInt32		intValue;
 	TTFloat64	floatValue;
+	TTBoolean	booleanValue;
 	TTDataType	valueType;
 
 	for (unsigned int i = 0; i < arguments.getSize(); ++i) {
@@ -80,7 +81,15 @@ void MinuitCommunicationMethods::minuitSendMessage(TTString header, TTValue& arg
 			arguments.get(i, &symValue);
 			oscStream << symValue->getCString();
 		}
-		else if (valueType == kTypeInt32 || valueType == kTypeInt64) {
+		else if (valueType == kTypeBoolean) {
+			arguments.get(i, booleanValue);
+			oscStream << booleanValue;
+		}
+		else if (valueType == kTypeUInt8 || valueType == kTypeUInt16 || valueType == kTypeUInt32 || valueType == kTypeUInt64) {
+			arguments.get(i, intValue);
+			oscStream << intValue;
+		}
+		else if (valueType == kTypeInt8 || valueType == kTypeInt16 || valueType == kTypeInt32 || valueType == kTypeInt64) {
 			arguments.get(i, intValue);
 			oscStream << intValue;
 		}
@@ -88,6 +97,8 @@ void MinuitCommunicationMethods::minuitSendMessage(TTString header, TTValue& arg
 			arguments.get(i, floatValue);
 			oscStream << (float)floatValue;
 		}
+		else
+			return; // error
 	}
 	
 	oscStream << osc::EndMessage;
@@ -226,10 +237,19 @@ unsigned int computeOSCMessageSize(TTString header, TTValue& arguments)
 			stringSize += 1; // /0 for end of string
 			result += ((stringSize/4) + 1) * 4; //String Size
 		}
-		else if (arguments.getType(i) == kTypeInt32 || arguments.getType(i) == kTypeFloat32) {
+		else if (arguments.getType(i) == kTypeBoolean) {
+			result += 1; // Boolean size
+		}
+		else if (arguments.getType(i) == kTypeUInt8 || arguments.getType(i) == kTypeInt8) {
+			result += 2; // Int8 size
+		}
+		else if (arguments.getType(i) == kTypeUInt16 || arguments.getType(i) == kTypeInt16) {
+			result += 4; // Int16 size
+		}
+		else if (arguments.getType(i) == kTypeUInt32 || arguments.getType(i) == kTypeInt32 || arguments.getType(i) == kTypeFloat32) {
 			result += 4; //Float32/Int32 size
 		}
-		else if (arguments.getType(i) == kTypeInt64 || arguments.getType(i) == kTypeFloat64) {
+		else if (arguments.getType(i) == kTypeUInt64 || arguments.getType(i) == kTypeInt64 || arguments.getType(i) == kTypeFloat64) {
 			result += 8; //Float64/Int64 size
 		}
 		else

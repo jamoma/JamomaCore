@@ -299,7 +299,7 @@ TTErr TTExplorer::WriteAsOpml(const TTValue& value)
 
 void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 {
-	TTSymbolPtr nameInstance, attributeName;
+	TTSymbolPtr nameInstance, objectName, attributeName;
 	TTObjectPtr anObject;
 	TTValue		attributeNameList, v;
 	TTList		nodeList;
@@ -315,6 +315,13 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	
 	if (anObject = aNode->getObject()) {
 		
+		// Write object name attribute
+		objectName = anObject->getName();
+		if (objectName != kTTSymEmpty)
+			xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName->getCString());
+		else
+			xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none->getCString());
+		
 		// write attributes
 		anObject->getAttributeNames(attributeNameList);
 		
@@ -326,7 +333,11 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 			if (anObject->getName() == TT("Data") || anObject->getName() == TT("View") || anObject->getName() == TT("Container")) {
 				
 				// Filter atribute names
-				if (attributeName != kTTSym_value && attributeName != kTTSym_address && attributeName != TT("content")) {
+				if (attributeName != kTTSym_value && 
+					attributeName != kTTSym_address && 
+					attributeName != TT("content") &&
+					attributeName != kTTSym_activityIn &&
+					attributeName != kTTSym_activityOut) {
 					
 					anObject->getAttributeValue(attributeName, v);
 					

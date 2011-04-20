@@ -322,15 +322,16 @@ TTErr TTApplicationManager::Discover(TTValue& value)
 	TTErr				err;
 	
 	err = getDirectoryFrom(whereToDiscover)->Lookup(whereToDiscover, nodeList, &firstNode);
-	firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
 	
-	// returned attributes
-	if (anObject = firstNode->getObject())
-		anObject->getAttributeNames(*returnedAttributes);
-	
-	// fill returned chaildren names and types value
 	if (!err) {
 		
+		firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
+		
+		// fill returned attributes
+		if (anObject = firstNode->getObject())
+			anObject->getAttributeNames(*returnedAttributes);
+		
+		// fill returned children names and types value
 		for (childList.begin(); childList.end(); childList.next()) {
 			
 			// get the returned node
@@ -352,11 +353,11 @@ TTErr TTApplicationManager::Discover(TTValue& value)
 			else
 				returnedChildrenTypes->append(kTTSym_none);
 		}
+		
+		return kTTErrNone;
 	} 
-	else
-		return kTTErrGeneric; // TODO : return an error notification
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTApplicationManager::Get(TTValue& value)
@@ -377,15 +378,11 @@ TTErr TTApplicationManager::Get(TTValue& value)
 	
 	err = getDirectoryFrom(whereToGet)->getTTNodeForOSC(whereToGet, &nodeToGet);
 	
-	if (!err) {
-		
+	if (!err)
 		if (anObject = nodeToGet->getObject())
-			anObject->getAttributeValue(attributeToGet, *returnedValue);
-	}
-	else
-		return kTTErrGeneric; // TODO : return an error notification
-	
-	return kTTErrNone;
+			return anObject->getAttributeValue(attributeToGet, *returnedValue);
+
+	return kTTErrGeneric;
 }
 
 TTErr TTApplicationManager::Set(TTValue& value)
@@ -418,82 +415,79 @@ TTErr TTApplicationManager::Set(TTValue& value)
 			if (attributeToSet == kTTSym_value)
 				anObject->sendMessage(kTTSym_Command, *newValue);
 			else
-				anObject->setAttributeValue(attributeToSet, *newValue);
+				return anObject->setAttributeValue(attributeToSet, *newValue);
 		}
 		else 
-			anObject->setAttributeValue(attributeToSet, *newValue);
+			return anObject->setAttributeValue(attributeToSet, *newValue);
 	}
-	else
-		return kTTErrGeneric; // TODO : return an error notification
 	
-	return kTTErrNone;
+	return kTTErrGeneric; // TODO : return an error notification
 }
 
 TTErr TTApplicationManager::Listen(TTValue& value)
 {
 	TTApplicationPtr appToNotify;
 	TTSymbolPtr whereToListen;
-	TTSymbolPtr attributeToListen;
+	TTSymbolPtr attributeToListen, pluginName;
 	TTBoolean enableListening;
 	
-	value.get(0, (TTPtr*)&appToNotify);
-	value.get(1, &whereToListen);
-	value.get(2, &attributeToListen);
-	value.get(3, enableListening);
+	value.get(0, &pluginName);
+	value.get(1, (TTPtr*)&appToNotify);
+	value.get(2, &whereToListen);
+	value.get(3, &attributeToListen);
+	value.get(4, enableListening);
 	
 	TTLogDebug("TTApplicationManager::Listen");
 	
 	TTApplicationPtr	appWhereToListen;
-	TTNodePtr			nodeToListen;
-	TTObjectPtr			anObject;
+	TTPluginHandlerPtr	aPlugin;
+	TTValue				v, args;
 	TTErr				err;
 	
 	appWhereToListen = TTApplicationManagerGetApplication(whereToListen);
-	err = appWhereToListen->mDirectory->getTTNodeForOSC(whereToListen, &nodeToListen);
+	err = mPlugins->lookup(pluginName, v);
 	
-	if (!err) 
+	if (!err && appWhereToListen) 
 	{
-		
-		anObject = nodeToListen->getObject();
+		v.get(0, (TTPtr*)&aPlugin);
 		
 		// add observer
 		if (enableListening) {
 			
-			// start directory observation
+			// start directory listening
 			if (attributeToListen == TT("life")) { // TODO : find a better name
-				
-				; // TODO : prepare a callback based on TTApplicationManagerLocalApplicationDirectoryCallback
-				; // TODO : add it to the appWhereToListen application directory using addObserverForNotifications
-				; // TODO : cache the observer in a hashtable (into the appWhereToListen application, not into the applicationManager)
+				args.append((TTPtr)aPlugin);
+				args.append((TTPtr)appToNotify);
+				args.append(whereToListen);
+				return appWhereToListen->sendMessage(TT("AddDirectoryListener"), args);
 			}
-			// start attribute observation
+			// start attribute listening
 			else {
-				
-				; // TODO : prepare a callback based on TTApplicationManagerLocalApplicationAttributeCallback
-				; // TODO : add it to the object using registerObserverForNotifications
-				; // TODO : cache the observer in a hashtable (into the appWhereToListen application, not into the applicationManager)
+				args.append((TTPtr)aPlugin);
+				args.append((TTPtr)appToNotify);
+				args.append(whereToListen);
+				args.append(attributeToListen);
+				return appWhereToListen->sendMessage(TT("AddAttributeListener"), args);
 			}
 		}
-		// remove observer
+		// remove listener
 		else {
 			
-			// stop directory observation
-			if (attributeToListen == kTTSymEmpty) {
-				
-				; // TODO : get the old observer from the observers cache of the appWhereToListen application
-				; // TODO : remove it from the appWhereToListen application directory using removeObserverForNotifications
+			// stop directory listening
+			if (attributeToListen == TT("life")) { // TODO : find a better name
+				args.append(whereToListen);
+				return appWhereToListen->sendMessage(TT("RemoveDirectoryListener"), args);
 			}
-			// stop attribute observation
+			// stop attribute listening
 			else {
-				; // TODO : get the old observer from the observers cache of the appWhereToListen application
-				; // TODO : prepare a callback using TTApplicationManagerLocalApplicationAttributeCallback
+				args.append(whereToListen);
+				args.append(attributeToListen);
+				return appWhereToListen->sendMessage(TT("RemoveAttributeListener"), args);
 			}
 		}
 	}	
-	else
-		return kTTErrGeneric; // TODO : return an error notification
-	
-	return kTTErrNone;
+
+	return kTTErrGeneric;
 }
 
 TTErr TTApplicationManager::WriteAsXml(const TTValue& value)
@@ -678,53 +672,4 @@ TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 	}
 	
 	return NULL;
-}
-
-TTErr TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data)
-{
-	TTValuePtr			b;
-	TTPluginHandlerPtr	aPlugin;
-	TTApplicationPtr	anApplication;
-	TTSymbolPtr			oscAddress;
-	TTNodePtr			aNode;
-	TTUInt8				flag;
-	TTCallbackPtr		anObserver;
-	TTErr				err;
-	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aPlugin);
-	b->get(1, (TTPtr*)&anApplication);
-	
-	// unpack data (oscAddress, aNode, flag, anObserver)
-	data.get(0, &oscAddress);
-	data.get(1, (TTPtr*)&aNode);
-	data.get(2, flag);
-	data.get(3, (TTPtr*)&anObserver);
-	
-	// TODO : aPlugin->sendDirectoryNotification(anApplication, oscAddress, flag);
-	
-	return kTTErrGeneric;
-}
-
-TTErr TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue& data)
-{
-	TTLogDebug("TTApplicationManagerAttributeCallback");
-	
-	TTValuePtr			b;
-	TTPluginHandlerPtr			aPlugin;
-	TTApplicationPtr	anApplication;
-	TTSymbolPtr			oscAddress, attribute;
-	TTErr				err;
-	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aPlugin);
-	b->get(1, (TTPtr*)&anApplication);
-	b->get(2, &oscAddress);
-	b->get(3, &attribute);
-	
-	// TODO : aPlugin->sendAttributeNotification(anApplication, oscAddress, attribute, data);
-	
-	return kTTErrGeneric;
 }

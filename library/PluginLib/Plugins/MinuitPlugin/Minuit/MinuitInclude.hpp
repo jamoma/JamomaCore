@@ -16,6 +16,10 @@
 #define MINUIT_ANSWER_GET ":get"
 #define MINUIT_ANSWER_LISTEN ":listen"
 
+#define MINUIT_ERROR_DISCOVER "!namespace"
+#define MINUIT_ERROR_GET "!get"
+#define MINUIT_ERROR_LISTEN "!listen"
+
 #define MINUIT_REQUEST_LISTEN_ENABLE "enable"
 #define MINUIT_REQUEST_LISTEN_DISABLE "disable"
 

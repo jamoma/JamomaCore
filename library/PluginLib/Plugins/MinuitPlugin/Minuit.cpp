@@ -375,7 +375,7 @@ public:
 	 * \param returnedLeaves : the description of leaves below the address
 	 * \param returnedAttributes : the description of attributes at the address
 	 */
-	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes)
+	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes, TTErr err=kTTErrNone)
 	{
 		TTValue		v, arguments;
 		TTString	ip, appName, header, aString;
@@ -387,8 +387,14 @@ public:
 		v.get(0, appName);
 		
 		// edit header "appName:get"
-		header = appName;
-		header += MINUIT_ANSWER_DISCOVER;
+		if (!err) {
+			header = appName;
+			header += MINUIT_ANSWER_DISCOVER;
+		}
+		else {
+			header = appName;
+			header += MINUIT_ERROR_DISCOVER;
+		}
 		
 		// edit arguments merging all returned fields
 		// note : here we need to begin by the end
@@ -454,7 +460,7 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	TTErr applicationSendGetAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
+	TTErr applicationSendGetAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue, TTErr err=kTTErrNone)
 	{
 		TTValue		v, arguments;
 		TTString	ip, appName, header, aString;
@@ -466,8 +472,14 @@ public:
 		v.get(0, appName);
 		
 		// edit header "appName:get"
-		header = appName;
-		header += MINUIT_ANSWER_GET;
+		if (!err) {
+			header = appName;
+			header += MINUIT_ANSWER_GET;
+		}
+		else {
+			header = appName;
+			header += MINUIT_ERROR_GET;
+		}
 		
 		// edit arguments copying the returned value 
 		// and prepending the "address:attribute"
@@ -500,7 +512,7 @@ public:
 	 * \param attribute : the attribute where comes from the value
 	 * \param returnedValue : the value of the attribute at the address
 	 */
-	TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
+	TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue, TTErr err=kTTErrNone)
 	{
 		TTValue		v, arguments;
 		TTString	ip, appName, header, aString;
@@ -512,8 +524,14 @@ public:
 		v.get(0, appName);
 		
 		// edit header "appName:get"
-		header = appName;
-		header += MINUIT_ANSWER_GET;
+		if (!err) {
+			header = appName;
+			header += MINUIT_ANSWER_LISTEN;
+		}
+		else {
+			header = appName;
+			header += MINUIT_ERROR_LISTEN;
+		}
 		
 		// edit arguments copying the returned value 
 		// and prepending the "address:attribute"
@@ -522,18 +540,15 @@ public:
 		aString = address->getCString();
 		aString += ":";
 		aString += attribute->getCString();
-		v.append(TT(aString));
+		v = TTValue(TT(aString));
 		arguments.prepend(v);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
 			// send request
-			v = returnedValue;
-			
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendListenAnswer " << std::endl;
 #endif
-			v.clear();
 			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			return kTTErrNone;

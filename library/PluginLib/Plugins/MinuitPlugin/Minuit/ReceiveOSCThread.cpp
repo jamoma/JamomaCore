@@ -201,6 +201,8 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, attribute, true);
 				else if (val.compare(MINUIT_REQUEST_LISTEN_DISABLE) == 0)
 					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, attribute, false);
+				else
+					; // TODO send bad request error notification
 				
 				return;
 			}

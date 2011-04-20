@@ -44,17 +44,28 @@ private:
 	
 	/** Stop the reception thread mechanism of the plugin */
 	TTErr Stop();
+	
+	/** Notify the plugin */
+	TTErr Notify(const TTValue& value);
+	
+	friend TTErr TTMODULAR_EXPORT TTPluginHandlerDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTPluginHandlerAttributeCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTPluginHandler* TTPluginHandlerPtr;
 
-
-/**	Called when the distant application wants to discover the local application directory
- note : it uses the extern TTModularApplications variable
+/**	Called when an application directory send a 
+	notification to registered application observers
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDiscover(TTSymbolPtr whereToDiscover, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
+TTErr TTMODULAR_EXPORT TTPluginHandlerDirectoryCallback(TTPtr baton, TTValue& data);
 
+/**	Called when an application object attribute send a 
+	notification to registered application observers
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTPluginHandlerAttributeCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_PLUGIN_HANDLER_H__

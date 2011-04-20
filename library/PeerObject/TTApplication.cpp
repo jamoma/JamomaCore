@@ -19,6 +19,8 @@ mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mPluginParameters(NULL),
+mDirectoryListenersCache(NULL),
+mAttributeListenersCache(NULL),
 mAppToTT(NULL),
 mTTToApp(NULL)
 {
@@ -45,6 +47,12 @@ mTTToApp(NULL)
 	addAttributeWithGetter(AllTTNames, kTypeLocalValue);
 	addAttributeProperty(allTTNames, readOnly, YES);
 	
+	addMessageWithArgument(AddDirectoryListener);
+	addMessageWithArgument(AddAttributeListener);
+	
+	addMessageWithArgument(RemoveDirectoryListener);
+	addMessageWithArgument(RemoveAttributeListener);
+	
 	addMessageWithArgument(ConvertToAppName);
 	addMessageWithArgument(ConvertToTTName);
 	
@@ -62,6 +70,9 @@ mTTToApp(NULL)
 	mTTToApp = new TTHash();
 	
 	mPluginParameters = new TTHash();
+	
+	mDirectoryListenersCache = new TTHash();
+	mAttributeListenersCache = new TTHash();
 }
 
 TTApplication::~TTApplication()
@@ -81,6 +92,9 @@ TTApplication::~TTApplication()
 		delete oldParameters;
 	}
 	delete mPluginParameters;
+	
+	// TODO : delete observers
+	
 	delete mDirectory;
 	
 	delete mTTToApp;
@@ -107,12 +121,6 @@ TTErr TTApplication::setPluginParameters(const TTValue& value)
 		if (mName == kTTSym_localApplicationName) {
 			v = TTValue((TTPtr)parameters);
 			getPlugin(pluginName)->setAttributeValue(TT("parameters"), v);
-		}
-			
-		// else : reset distant application from the plugin
-		else {
-			; // TODO : aPlugin->applicationRemove(applicationName);
-			//aPlugin->applicationAdd(applicationName, parameters);
 		}
 	}
 	
@@ -197,6 +205,144 @@ TTErr TTApplication::ConvertToTTName(TTValue& value)
 		}
 	
 	return kTTErrNone;
+}
+
+TTErr TTApplication::AddDirectoryListener(const TTValue& value)
+{
+	TTPluginHandlerPtr	aPlugin;
+	TTApplicationPtr	appToNotify;
+	TTSymbolPtr			whereToListen;
+	TTObjectPtr			returnValueCallback;
+	TTValuePtr			returnValueBaton;
+	TTValue				cacheElement;
+	TTErr				err;
+	
+	value.get(0, (TTPtr*)&aPlugin);
+	value.get(1, (TTPtr*)&appToNotify);
+	value.get(2, &whereToListen);
+	
+	// prepare a callback based on TTApplicationAttributeCallback
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	
+	returnValueBaton = new TTValue();
+	*returnValueBaton = value;
+	
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerDirectoryCallback));
+	
+	err = mDirectory->addObserverForNotifications(whereToListen, *returnValueCallback);
+	
+	if (!err) {
+		
+		// cache the observer in the attributeListenersCache
+		cacheElement.append((TTPtr)returnValueCallback);
+		mAttributeListenersCache->append(whereToListen, cacheElement); // TODO : have many observers for the same address ? (add plugin info ?)
+		
+		return kTTErrNone;
+	}
+	else
+		; // TODO : observe the directory in order to add the listener later
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTApplication::RemoveDirectoryListener(const TTValue& value)
+{
+	return kTTErrNone;
+}
+
+TTErr TTApplication::AddAttributeListener(const TTValue& value)
+{
+	TTPluginHandlerPtr	aPlugin;
+	TTApplicationPtr	appToNotify;
+	TTSymbolPtr			whereToListen, attributeToListen, key;
+	TTNodePtr			nodeToListen;
+	TTObjectPtr			anObject, returnValueCallback;
+	TTAttributePtr		anAttribute;
+	TTValuePtr			returnValueBaton;
+	TTValue				cacheElement;
+	TTErr				err;
+	
+	value.get(0, (TTPtr*)&aPlugin);
+	value.get(1, (TTPtr*)&appToNotify);
+	value.get(2, &whereToListen);
+	value.get(3, &attributeToListen);
+	
+	err = mDirectory->getTTNodeForOSC(whereToListen, &nodeToListen);
+	
+	if (!err) {
+		if (anObject = nodeToListen->getObject()) {
+			
+			// create an Attribute observer 
+			anAttribute = NULL;
+			err = anObject->findAttribute(attributeToListen, &anAttribute);
+			
+			if (!err) {
+				// prepare a callback based on TTApplicationAttributeCallback
+				returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+				TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+				
+				returnValueBaton = new TTValue();
+				*returnValueBaton = value;
+				
+				returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+				returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerAttributeCallback));
+				
+				anAttribute->registerObserverForNotifications(*returnValueCallback);
+				
+				// cache the observer in the attributeListenersCache
+				cacheElement.append((TTPtr)returnValueCallback);
+				mergeAttribute(&key, whereToListen, attributeToListen);
+				mAttributeListenersCache->append(key, cacheElement); // TODO : have many observers for the same address:attribute ? (add plugin info ?)
+				
+				return kTTErrNone;
+			}
+		}
+	}
+	else
+		; // TODO : observe the directory in order to add the listener later
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
+{
+	TTSymbolPtr			whereToListen, attributeToListen, key;
+	TTNodePtr			nodeToListen;
+	TTObjectPtr			anObject, returnValueCallback;
+	TTAttributePtr		anAttribute;
+	TTValue				cacheElement;
+	TTErr				err;
+	
+	value.get(0, &whereToListen);
+	value.get(1, &attributeToListen);
+	
+	err = mDirectory->getTTNodeForOSC(whereToListen, &nodeToListen);
+	
+	if (!err) {
+		if (anObject = nodeToListen->getObject()) {
+			
+			// delete Attribute observer 
+			anAttribute = NULL;
+			err = anObject->findAttribute(attributeToListen, &anAttribute);
+			
+			if (!err) {
+				// cache the observer in the attributeListenersCache
+				mergeAttribute(&key, whereToListen, attributeToListen);
+				err = mAttributeListenersCache->lookup(key, cacheElement);
+				
+				if (!err) {
+					cacheElement.get(0, (TTPtr*)&returnValueCallback);
+					anAttribute->unregisterObserverForNotifications(*returnValueCallback);
+					TTObjectRelease(TTObjectHandle(&returnValueCallback));
+					return kTTErrNone;
+				}
+			}
+		}
+	}
+
+	return kTTErrGeneric;
 }
 
 TTErr TTApplication::WriteAsXml(const TTValue& value)

@@ -15,8 +15,6 @@
 #include "MinuitDiscoverAnswer.hpp"
 #include "MinuitGetAnswer.hpp"
 #include "ReceiveOSCThread.hpp"
-#include "OSCParser.hpp"
-#include "OSCFunctions.hpp"
 #include "MinuitInclude.hpp"
 
 #include <string>

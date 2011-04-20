@@ -101,9 +101,6 @@ private:
 	
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddress);
 	friend TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
-	
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
@@ -121,19 +118,5 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr
  @param	data						..
  @return							a PluginPtr */
 TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
-
-/**	Called when the local application directory send a notification
- note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationDirectoryCallback(TTPtr baton, TTValue& data);
-
-/**	Called when a local application object attribute send a notification
- note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerLocalApplicationAttributeCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_APPLICATION_MANAGER_H__

@@ -69,6 +69,8 @@ void WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv
 		localApplicationName = atom_getsym(argv);
 	
 	// our wrapped object is the application manager
+	//x->wrappedObject = NULL;
+	//TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&x->wrappedObject), args);
 	x->wrappedObject = (TTObjectPtr)TTModularApplications;
 	
 	// TODO : change the local application name
@@ -91,6 +93,7 @@ void WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv
 	
 	attr_args_process(x, argc, argv);
 }
+
 
 // Method for Assistance Messages
 void appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst)

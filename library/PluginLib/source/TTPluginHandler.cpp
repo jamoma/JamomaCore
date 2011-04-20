@@ -71,3 +71,55 @@ TTErr TTPluginHandler::Stop()
 	mPlugin->Stop();
 	return kTTErrNone;
 }
+
+#if 0
+#pragma mark -
+#pragma mark Some Methods
+#endif
+
+TTErr TTPluginHandlerDirectoryCallback(TTPtr baton, TTValue& data)
+{
+	TTValuePtr			b;
+	TTPluginHandlerPtr	aPlugin;
+	TTApplicationPtr	anApplication;
+	TTSymbolPtr			oscAddress;
+	TTNodePtr			aNode;
+	TTUInt8				flag;
+	TTCallbackPtr		anObserver;
+	TTValue				v;
+	
+	TTLogDebug("TTPluginHandlerDirectoryCallback");
+	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aPlugin);
+	b->get(1, (TTPtr*)&anApplication);
+	
+	// unpack data (oscAddress, aNode, flag, anObserver)
+	data.get(0, &oscAddress);
+	data.get(1, (TTPtr*)&aNode);
+	data.get(2, flag);
+	data.get(3, (TTPtr*)&anObserver);
+	
+	v.append(flag);
+	return aPlugin->mPlugin->applicationSendListenAnswer((TTObjectPtr)anApplication, oscAddress, TT("life"), v);
+}
+
+TTErr TTPluginHandlerAttributeCallback(TTPtr baton, TTValue& data)
+{
+	TTValuePtr			b;
+	TTPluginHandlerPtr	aPlugin;
+	TTApplicationPtr	anApplication;
+	TTSymbolPtr			oscAddress, attribute;
+	
+	TTLogDebug("TTPluginHandlerAttributeCallback");
+	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aPlugin);
+	b->get(1, (TTPtr*)&anApplication);
+	b->get(2, &oscAddress);
+	b->get(3, &attribute);
+	
+	return aPlugin->mPlugin->applicationSendListenAnswer(anApplication, oscAddress, attribute, data);
+}
