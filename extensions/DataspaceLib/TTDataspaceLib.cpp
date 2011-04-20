@@ -11,6 +11,7 @@
 #include "DistanceDataspace.h"
 #include "GainDataspace.h"
 #include "NoneDataspace.h"
+#include "OrientationDataspace.h"
 #include "PitchDataspace.h"
 #include "PositionDataspace.h"
 #include "SpeedDataspace.h"
@@ -48,6 +49,11 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_DataspaceLib(void)
 	
 	NoneDataspace::registerClass();
 	NoneUnit::registerClass();
+	
+	OrientationDataspace::registerClass();
+	QuaternionUnit::registerClass();
+	EulerUnit::registerClass();
+	AxisUnit::registerClass();
 	
 	PitchDataspace::registerClass();
 	MidiPitchUnit::registerClass();

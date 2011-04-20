@@ -24,6 +24,7 @@
 		22763F88131B75810025AEB1 /* libJamomaFoundationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22763F87131B75810025AEB1 /* libJamomaFoundationIOS.a */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD47F011E24A57007BBF7E /* TTDataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47EE11E24A57007BBF7E /* TTDataspaceLib.cpp */; };
+		66316CE3135DEA1B00452517 /* OrientationDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66316CE2135DEA1B00452517 /* OrientationDataspace.cpp */; };
 		666CF896131B438D0003D7E2 /* AngleDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF889131B438D0003D7E2 /* AngleDataspace.cpp */; };
 		666CF897131B438D0003D7E2 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88A131B438D0003D7E2 /* ColorDataspace.cpp */; };
 		666CF898131B438D0003D7E2 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF88B131B438D0003D7E2 /* DistanceDataspace.cpp */; };
@@ -48,6 +49,8 @@
 		22FD47EC11E24A37007BBF7E /* JamomaFoundationExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaFoundationExtensions.xcconfig; path = ../JamomaFoundationExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD47ED11E24A57007BBF7E /* TTDataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspaceLib.h; sourceTree = "<group>"; };
 		22FD47EE11E24A57007BBF7E /* TTDataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspaceLib.cpp; sourceTree = "<group>"; };
+		66316CE2135DEA1B00452517 /* OrientationDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OrientationDataspace.cpp; path = source/OrientationDataspace.cpp; sourceTree = "<group>"; };
+		66316CE4135DEA2200452517 /* OrientationDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrientationDataspace.h; path = includes/OrientationDataspace.h; sourceTree = "<group>"; };
 		666CF86F131B43850003D7E2 /* AngleDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AngleDataspace.h; path = includes/AngleDataspace.h; sourceTree = "<group>"; };
 		666CF870131B43850003D7E2 /* ColorDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorDataspace.h; path = includes/ColorDataspace.h; sourceTree = "<group>"; };
 		666CF871131B43850003D7E2 /* DistanceDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DistanceDataspace.h; path = includes/DistanceDataspace.h; sourceTree = "<group>"; };
@@ -74,7 +77,7 @@
 		666CF893131B438D0003D7E2 /* TTDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspace.cpp; path = source/TTDataspace.cpp; sourceTree = "<group>"; };
 		666CF894131B438D0003D7E2 /* TTDataspaceConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceConverter.cpp; path = source/TTDataspaceConverter.cpp; sourceTree = "<group>"; };
 		666CF895131B438D0003D7E2 /* TTDataspaceUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceUnit.cpp; path = source/TTDataspaceUnit.cpp; sourceTree = "<group>"; };
-		D2AAC09D05546B4700DB518D /* DataspaceLib */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.dylib"; path = DataspaceLib; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = DataspaceLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +104,7 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* DataspaceLib */,
+				D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */,
 				22763F69131B74900025AEB1 /* libJamomaDataspaceIOS.a */,
 			);
 			name = Products;
@@ -161,6 +164,8 @@
 				666CF874131B43850003D7E2 /* PitchDataspace.h */,
 				666CF88F131B438D0003D7E2 /* PositionDataspace.cpp */,
 				666CF875131B43850003D7E2 /* PositionDataspace.h */,
+				66316CE2135DEA1B00452517 /* OrientationDataspace.cpp */,
+				66316CE4135DEA2200452517 /* OrientationDataspace.h */,
 				666CF890131B438D0003D7E2 /* SpeedDataspace.cpp */,
 				666CF876131B43850003D7E2 /* SpeedDataspace.h */,
 				666CF891131B438D0003D7E2 /* TemperatureDataspace.cpp */,
@@ -204,7 +209,7 @@
 			);
 			name = JamomaExtension;
 			productName = TTFunctionLib;
-			productReference = D2AAC09D05546B4700DB518D /* DataspaceLib */;
+			productReference = D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -289,6 +294,7 @@
 				666CF8A0131B438D0003D7E2 /* TTDataspace.cpp in Sources */,
 				666CF8A1131B438D0003D7E2 /* TTDataspaceConverter.cpp in Sources */,
 				666CF8A2131B438D0003D7E2 /* TTDataspaceUnit.cpp in Sources */,
+				66316CE3135DEA1B00452517 /* OrientationDataspace.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
