@@ -1,5 +1,5 @@
 /* 
- * Jamoma DataspaceLib: DistanceDataspace
+ * Jamoma DataspaceLib: PositionDataspace
  * Copyright � 2007, Nils Peters
  * 
  * License: This code is licensed under the terms of the "New BSD License"
