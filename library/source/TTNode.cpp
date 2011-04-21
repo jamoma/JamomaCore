@@ -73,21 +73,23 @@ TTNode::~TTNode()
 	}
 
 	// it is not a child of his parent anymore
-	err = this->parent->children->lookup(this->name, p_c);
-
-	if (err != kTTErrValueNotFound) {
-		p_c.get(0,(TTPtr*)&p_ht_i);
-		p_ht_i->remove(this->instance);
-
-		// If it was the last instance
-		// remove the hashtab
-		if (p_ht_i->getSize() == 0) {
-			p_ht_i->~TTHash();
-			this->parent->children->remove(this->name);
+	if (this->parent) {
+		err = this->parent->children->lookup(this->name, p_c);
+		
+		if (err != kTTErrValueNotFound) {
+			p_c.get(0,(TTPtr*)&p_ht_i);
+			p_ht_i->remove(this->instance);
+			
+			// If it was the last instance
+			// remove the hashtab
+			if (p_ht_i->getSize() == 0) {
+				p_ht_i->~TTHash();
+				this->parent->children->remove(this->name);
+			}
 		}
+		
+		this->parent = NULL;
 	}
-
-	this->parent = NULL;
 
 	this->children->clear();
 	this->children->~TTHash();
