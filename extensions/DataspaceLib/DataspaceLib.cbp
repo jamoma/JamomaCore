@@ -38,7 +38,35 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="DataspaceLib.cpp" />
+		<Unit filename="AngleDataspace.cpp" />
+		<Unit filename="AngleDataspace.h" />
+		<Unit filename="ColorDataspace.cpp" />
+		<Unit filename="ColorDataspace.h" />
+		<Unit filename="DistanceDataspace.cpp" />
+		<Unit filename="DistanceDataspace.h" />
+		<Unit filename="GainDataspace.cpp" />
+		<Unit filename="GainDataspace.h" />
+		<Unit filename="Makefile" />
+		<Unit filename="NoneDataspace.cpp" />
+		<Unit filename="NoneDataspace.h" />
+		<Unit filename="PitchDataspace.cpp" />
+		<Unit filename="PitchDataspace.h" />
+		<Unit filename="PositionDataspace.cpp" />
+		<Unit filename="PositionDataspace.h" />
+		<Unit filename="SpeedDataspace.cpp" />
+		<Unit filename="SpeedDataspace.h" />
+		<Unit filename="TTDataspace.cpp" />
+		<Unit filename="TTDataspace.h" />
+		<Unit filename="TTDataspaceConverter.cpp" />
+		<Unit filename="TTDataspaceConverter.h" />
+		<Unit filename="TTDataspaceLib.cpp" />
+		<Unit filename="TTDataspaceLib.h" />
+		<Unit filename="TTDataspaceUnit.cpp" />
+		<Unit filename="TTDataspaceUnit.h" />
+		<Unit filename="TemperatureDataspace.cpp" />
+		<Unit filename="TemperatureDataspace.h" />
+		<Unit filename="TimeDataspace.cpp" />
+		<Unit filename="TimeDataspace.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

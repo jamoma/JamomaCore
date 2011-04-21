@@ -29,7 +29,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <complex>
 #include <sstream>
 #include <iterator>
 #include <stdexcept>
@@ -135,8 +135,9 @@ typedef unsigned short		TTUInt16;
 #define uint unsigned int
 #endif
 
-typedef float				TTFloat32;
-typedef double				TTFloat64;
+typedef float					TTFloat32;
+typedef double					TTFloat64;
+typedef std::complex<double>	TTComplex;
 
 /** A value representing a single audio sample.  TTSampleValue should be used any place a sample value is what the value represents.  This will enable us to change the type in the future if needed.  For example, to use 64-bit floats. */
 typedef TTFloat64			TTSampleValue;
@@ -327,9 +328,12 @@ TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 25
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;						///< pre-calculated value of pi/2
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTQuarterPi;					///< pre-calculated value of pi/2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfSqrt2;
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoSqrt2;
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTEpsilon;						///< a very very small value
 
 /** Platform and host independent method for posting messages. */

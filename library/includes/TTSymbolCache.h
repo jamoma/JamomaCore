@@ -30,6 +30,8 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_both;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clear;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clip;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_wrap;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_fold;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_function;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;

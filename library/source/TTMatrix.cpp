@@ -16,10 +16,14 @@
 
 TT_OBJECT_CONSTRUCTOR,
 	mData(NULL),
-	mDataCount(NULL),
-	mDataSize(0),
+	mElementCount(1),
+	mComponentCount(1),
+	mComponentStride(1),
+	mDataCount(0),
 	mType(TT("uint8")),
-	mElementCount(1)
+	mTypeSizeInBytes(1),
+	mDataSize(0),
+	mDataIsLocallyOwned(YES)
 {
 	addAttributeWithGetterAndSetter(Dimensions, kTypeUInt32);
 	addAttributeWithSetter(Type,				kTypeUInt8);
@@ -40,7 +44,8 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTMatrix::~TTMatrix()
 {
-	delete[] mData; // TODO: only do this if the refcount for the data is down to zero!
+	if (mDataIsLocallyOwned)
+		delete[] mData; // TODO: only do this if the refcount for the data is down to zero!
 }
 
 
@@ -56,13 +61,14 @@ TTErr TTMatrix::resize()
 	}
 	mDataCount = productOfDimensions * mElementCount;
 	mDataSize = mDataCount * mTypeSizeInBytes;
+	mComponentStride = mTypeSizeInBytes * mElementCount;
 
-	// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
-	// TODO: thread protection
-	delete[] mData;
-	mData = new TTByte[mDataSize];
-
-	mValueStride = mTypeSizeInBytes * mElementCount;
+	if (mDataIsLocallyOwned) {
+		// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
+		// TODO: thread protection
+		delete[] mData;
+		mData = new TTByte[mDataSize];
+	}
 
 	if (mDataSize && mData)
 		return kTTErrNone;
@@ -83,6 +89,9 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 {
 	TTValue v;
 	
+	// TODO: what should we do if anotherMatrix is not locally owned?
+	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
+	
 	anotherMatrix.getDimensions(v);
 	setDimensions(v);
 	
@@ -99,7 +108,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 
 	mDimensions.resize(size);
 	for (int i=0; i<size; i++) {
-		TTUInt8 aNewDimension = 0;
+		TTInt32 aNewDimension = 0;
 
 		someNewDimensions.get(i, aNewDimension);
 		mDimensions[i] = aNewDimension;
@@ -160,7 +169,7 @@ TTErr TTMatrix::clear()
 
 TTErr TTMatrix::fill(const TTValue& aValue)
 {
-	TTBytePtr fillValue = new TTByte[mValueStride];
+	TTBytePtr fillValue = new TTByte[mComponentStride];
 
 	// TODO: here we have this ugly switch again...
 	if (mType == TT("uint8"))
@@ -172,8 +181,8 @@ TTErr TTMatrix::fill(const TTValue& aValue)
 	else if (mType == TT("float64"))
 		aValue.getArray((TTFloat64*)fillValue, mElementCount);
 
-	for (TTUInt32 i=0; i<mDataSize; i += mValueStride)
-		memcpy(mData+i, fillValue, mValueStride);
+	for (TTUInt32 i=0; i<mDataSize; i += mComponentStride)
+		memcpy(mData+i, fillValue, mComponentStride);
 
 	delete[] fillValue;
 	return kTTErrNone;
@@ -215,19 +224,19 @@ TTErr TTMatrix::get(TTValue& aValue) const
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTUInt8*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.append((TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTInt32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.append((TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTFloat32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.append((TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTFloat64*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.append((TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 
 	return kTTErrNone;
@@ -251,32 +260,49 @@ TTErr TTMatrix::set(const TTValue& aValue)
 	int index = 0;
 
 	for (int d=0; d<dimensionCount; d++) {
-		int position = aValue.getInt32(d);
+		int position = aValue.getInt32(d) - 1; // subtract 1 to get back to zero-based indices for mem access in C
 
 		index += position * productOfLowerDimensionSizes;
 		productOfLowerDimensionSizes *= mDimensions[d];
 	}
-
-	// TODO: here we have this ugly switch again...
-	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
+	
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mValueStride+e*mTypeSizeInBytes)));
+			aValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 
 	return kTTErrNone;
 }
 
+
+TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
+{
+	if (A->mType == B->mType  &&  A->mElementCount == B->mElementCount && A->mDimensions == B->mDimensions) {
+		int stride = A->mTypeSizeInBytes;
+		int size = A->mDataSize;
+		
+		C->setAttributeValue(kTTSym_type, A->mType);
+		C->setAttributeValue(kTTSym_elementCount, A->mElementCount);	
+		C->setDimensionsWithVector(A->mDimensions);
+		
+		for (int k=0; k<size; k+=stride)
+			(*iterator)(C->mData+k, A->mData+k, B->mData+k);
+		
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
+}
 

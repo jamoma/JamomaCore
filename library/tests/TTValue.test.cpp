@@ -12,6 +12,12 @@
 #define thisTTClassName		"value.test"
 #define thisTTClassTags		"test, foundation"
 
+#ifdef TT_PLATFORM_LINUX
+#include <limits>
+#define FLT_MAX std::numeric_limits<float>::max()
+#define DBL_MAX std::numeric_limits<double>::max()
+#endif
+
 
 TT_OBJECT_CONSTRUCTOR
 {;}
