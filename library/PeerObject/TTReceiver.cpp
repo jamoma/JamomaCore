@@ -23,8 +23,6 @@ mObserver(NULL),
 mNodesObserversCache(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 4);
-
-	TT_ASSERT("ApplicationManager passed to TTReceiver is not NULL", mApplicationManager);
 	arguments.get(0, &mAddress);
 	arguments.get(1, &mAttribute);
 	

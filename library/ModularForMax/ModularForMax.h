@@ -155,13 +155,6 @@ extern "C" {
 	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer);
 
 	
-	// Method to deal with TTApplicationManager
-	///////////////////////////////////////////////////////////////////////
-	
-	/**	Create a deviceManager object */
-	TTErr			jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *returnedDeviceManager);
-	
-	
 	// Method to return data
 	///////////////////////////////////////////////////////////////////////
 	

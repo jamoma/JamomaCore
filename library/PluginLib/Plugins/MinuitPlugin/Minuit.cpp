@@ -706,7 +706,7 @@ class MinuitFactory : public PluginFactory {
 	const char* getName() {return "Minuit";};
 	
 	PluginPtr getInstance(TTObjectPtr applicationManager) {
-		
+		TTValue v;
 		Minuit *minuit = new Minuit();
 		TTHashPtr defaultParameters = new TTHash();
 		
@@ -720,7 +720,8 @@ class MinuitFactory : public PluginFactory {
 		defaultParameters->append(TT("ip"), TT("127.0.0.1"));
 		defaultParameters->append(TT("port"), (TTUInt32)MINUIT_RECEPTION_PORT);
 		
-		minuit->setParameters(TTValue((TTPtr)defaultParameters));
+		v = TTValue((TTPtr)defaultParameters);
+		minuit->setParameters(v);
 		
 		return minuit;
 	}

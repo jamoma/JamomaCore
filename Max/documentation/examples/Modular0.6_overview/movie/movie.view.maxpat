@@ -594,15 +594,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 200.0, 146.0, 90.0, 20.0 ],
+					"patching_rect" : [ 202.0, 146.0, 90.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"fontname" : "Arial",
-						"default_fontname" : "Arial",
+						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0,
+						"default_fontname" : "Arial",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p print_content"
@@ -691,13 +691,13 @@
 ,
 					"patching_rect" : [ 746.0, 650.0, 67.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"fontname" : "Arial",
-						"default_fontname" : "Arial",
+						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0,
+						"default_fontname" : "Arial",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p myPanel"

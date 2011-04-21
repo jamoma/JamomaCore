@@ -47,7 +47,6 @@ private:
 	TTBoolean					mEnable;					///< ATTRIBUTE: if false, received data won't be output
 	TTValue						mReturnedValue;				///< ATTRIBUTE : a local value to allow observation of this viewer
 	
-	TTApplicationManagerPtr		mApplicationManager;		///< the application manager
 	TTReceiverPtr				mReceiver;					///< the receiver which binds on our data
 	TTSenderPtr					mSender;					///< the sender which binds on our data
 	

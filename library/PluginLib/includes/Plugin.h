@@ -112,24 +112,6 @@ public:
 		return NULL;
 	};
 	
-	/** Add an application to the device manager */
-	TTErr applicationAdd(const TTValue& value)
-	{
-		TTValue args, v;
-		TTSymbolPtr	name;
-		TTObjectPtr anApplication = NULL;
-		
-		value.get(0, &name);
-		
-		args.append(name);
-		args.append(TT("unknown version"));
-		TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), value);
-		
-		v.append(name);
-		v.append((TTPtr)anApplication);
-		return mApplicationManager->sendMessage(TT("Add"), v);
-	}
-	
 	/** Scan to find remote applications and add them to the application manager */
 	virtual TTErr Scan()=0;
 	
@@ -216,7 +198,7 @@ public:
 			v.append((TTPtr)&returnedChildrenNames);
 			v.append((TTPtr)&returnedChildrenTypes);
 			v.append((TTPtr)&returnedAttributes);
-			err = mApplicationManager->sendMessage(TT("Discover"), v);
+			err = mApplicationManager->sendMessage(TT("ApplicationDiscover"), v);
 			
 			// send result
 			applicationSendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes, err);
@@ -244,7 +226,7 @@ public:
 			v.append(address);
 			v.append(attribute);
 			v.append((TTPtr)&returnedValue);
-			err = mApplicationManager->sendMessage(TT("Get"), v);
+			err = mApplicationManager->sendMessage(TT("ApplicationGet"), v);
 			
 			applicationSendGetAnswer(from, address, attribute, returnedValue, err);
 		}		
@@ -270,7 +252,7 @@ public:
 			v.append(address);
 			v.append(attribute);
 			v.append((TTPtr)&newValue);
-			err = mApplicationManager->sendMessage(TT("Set"), v);
+			err = mApplicationManager->sendMessage(TT("ApplicationSet"), v);
 			
 			// TODO : test error and send notification if error
 		}
@@ -300,7 +282,7 @@ public:
 			v.append(attribute);
 			v.append(enable);
 			
-			err = mApplicationManager->sendMessage(TT("Listen"), v);
+			err = mApplicationManager->sendMessage(TT("ApplicationListen"), v);
 			
 			if (err)
 				applicationSendListenAnswer(from, address, attribute, kTTValNONE, err);

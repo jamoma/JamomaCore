@@ -253,7 +253,6 @@ TTErr jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr ser
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
@@ -1019,8 +1018,6 @@ TTErr jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
-	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
@@ -1054,24 +1051,6 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	
 	*returnedExplorer = NULL;
 	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);
-	
-	return kTTErrNone;
-}
-
-// Method to deal with TTApplicationManager
-///////////////////////////////////////////////////////////////////////
-
-/**	Create a deviceManager object */
-TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *returnedDeviceManager)
-{
-	TTValue			args;
-	
-	// Make a TTApplicationManager object
-	args.append(JamomaApplication);
-	args.append(TT(name->s_name));
-	
-	*returnedDeviceManager = NULL;
-	TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(returnedDeviceManager), args);
 	
 	return kTTErrNone;
 }

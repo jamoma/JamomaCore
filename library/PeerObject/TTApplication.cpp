@@ -38,8 +38,10 @@ mTTToApp(NULL)
 	
 	addAttributeWithSetter(PluginParameters, kTypePointer);
 	
-	addAttribute(PluginNames, kTypeLocalValue);
+	addAttributeWithGetter(PluginNames, kTypeLocalValue);
 	addAttributeProperty(pluginNames, readOnly, YES);
+	
+	addMessageWithArgument(Configure);
 
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
 	addAttributeProperty(allAppNames, readOnly, YES);
@@ -101,6 +103,11 @@ TTApplication::~TTApplication()
 	delete mAppToTT;
 }
 
+TTErr TTApplication::getPluginNames(TTValue& value)
+{
+	return mPluginParameters->getKeys(value);
+}
+
 TTErr TTApplication::setPluginParameters(const TTValue& value)
 {
 	TTValue			hk, v;
@@ -145,6 +152,59 @@ TTErr TTApplication::getAllTTNames(TTValue& value)
 		mTTToApp->getKeys(value);
 	
 	return kTTErrNone;
+}
+
+TTErr TTApplication::Configure(const TTValue& value)
+{
+	TTPluginHandlerPtr	aPlugin;
+	TTSymbolPtr			pluginName, parameterName;
+	TTHashPtr			parameters;
+	TTValue				v;
+	TTErr				err;
+	
+	if (value.getSize() > 2) {
+		value.get(0, &pluginName);
+		value.get(1, &parameterName);
+		
+		err = mPluginParameters->lookup(pluginName, v);
+		
+		if (!err) {
+			v.get(0, (TTPtr*)&parameters);
+			
+			err = parameters->lookup(parameterName, v);
+			
+			if (!err) {
+				
+				parameters->remove(parameterName);
+				
+				v.clear();
+				v.copyFrom(value, 2);
+				
+				return parameters->append(parameterName, v);
+			}
+		}
+		// prepare an empty parameters table for this plugin
+		// and then retry configuration
+		else {
+			if (aPlugin = getPlugin(pluginName)) {
+				
+				aPlugin->getAttributeValue(TT("parameterNames"), v);
+				
+				parameters = new TTHash();
+				for (TTInt32 i=0; i<v.getSize(); i++) {
+					v.get(i, &parameterName);
+					parameters->append(parameterName, kTTValNONE);
+				}
+				
+				v = TTValue((TTPtr)parameters);
+				mPluginParameters->append(pluginName, v);
+				
+				Configure(value);
+			}
+		}
+	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTApplication::ConvertToAppName(TTValue& value)
@@ -235,9 +295,9 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& value)
 	
 	if (!err) {
 		
-		// cache the observer in the attributeListenersCache
+		// cache the observer in the directoryListenersCache
 		cacheElement.append((TTPtr)returnValueCallback);
-		mAttributeListenersCache->append(whereToListen, cacheElement); // TODO : have many observers for the same address ? (add plugin info ?)
+		mDirectoryListenersCache->append(whereToListen, cacheElement); // TODO : have many observers for the same address ? (add plugin info ?)
 		
 		return kTTErrNone;
 	}
@@ -249,7 +309,24 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& value)
 
 TTErr TTApplication::RemoveDirectoryListener(const TTValue& value)
 {
-	return kTTErrNone;
+	TTSymbolPtr			whereToListen;
+	TTObjectPtr			returnValueCallback;
+	TTValue				cacheElement;
+	TTErr				err;
+	
+	value.get(0, &whereToListen);
+	
+	// get the observer in the directoryListenersCache
+	err = mDirectoryListenersCache->lookup(whereToListen, cacheElement);
+	
+	if (!err) {
+		cacheElement.get(0, (TTPtr*)&returnValueCallback);
+		mDirectory->removeObserverForNotifications(whereToListen, *returnValueCallback);
+		TTObjectRelease(TTObjectHandle(&returnValueCallback));
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTApplication::AddAttributeListener(const TTValue& value)
@@ -291,7 +368,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 				
 				anAttribute->registerObserverForNotifications(*returnValueCallback);
 				
-				// cache the observer in the attributeListenersCache
+				// cache the listener in the attributeListenersCache
 				cacheElement.append((TTPtr)returnValueCallback);
 				mergeAttribute(&key, whereToListen, attributeToListen);
 				mAttributeListenersCache->append(key, cacheElement); // TODO : have many observers for the same address:attribute ? (add plugin info ?)
@@ -328,7 +405,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 			err = anObject->findAttribute(attributeToListen, &anAttribute);
 			
 			if (!err) {
-				// cache the observer in the attributeListenersCache
+				// get the listener in the attributeListenersCache
 				mergeAttribute(&key, whereToListen, attributeToListen);
 				err = mAttributeListenersCache->lookup(key, cacheElement);
 				

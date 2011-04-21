@@ -38,23 +38,22 @@ mCurrentApplication(NULL)
 	addAttributeWithGetter(PluginNames, kTypeLocalValue);
 	addAttributeProperty(pluginNames, readOnly, YES);
 	
-	addMessageWithArgument(Add);
-	addAttributeProperty(Add, hidden, YES);
+	addMessageWithArgument(Configure);
 	
-	addMessageWithArgument(Remove);
-	addAttributeProperty(Remove, hidden, YES);
+	addMessageWithArgument(ApplicationAdd);
+	addMessageWithArgument(ApplicationRemove);
 	
-	addMessageWithArgument(Discover);
-	addAttributeProperty(Discover, hidden, YES);
+	addMessageWithArgument(ApplicationDiscover);
+	addMessageProperty(ApplicationDiscover, hidden, YES);
 	
-	addMessageWithArgument(Get);
-	addAttributeProperty(Get, hidden, YES);
+	addMessageWithArgument(ApplicationGet);
+	addMessageProperty(ApplicationGet, hidden, YES);
 	
-	addMessageWithArgument(Set);
-	addAttributeProperty(Set, hidden, YES);
+	addMessageWithArgument(ApplicationSet);
+	addMessageProperty(ApplicationSet, hidden, YES);
 	
-	addMessageWithArgument(Listen);
-	addAttributeProperty(Listen, hidden, YES);
+	addMessageWithArgument(ApplicationListen);
+	addMessageProperty(ApplicationListen, hidden, YES);
 	
 	addMessageWithArgument(PluginScan);
 	addMessageWithArgument(PluginRun);
@@ -141,9 +140,33 @@ TTErr TTApplicationManager::getPluginNames(TTValue& value)
 	return mPlugins->getKeys(value);
 }
 
-TTErr TTApplicationManager::Add(const TTValue& value)
+TTErr TTApplicationManager::Configure(const TTValue& value)
 {
-	TTValue				v, allPluginNames;
+	TTSymbolPtr			applicationName;
+	TTApplicationPtr	anApplication;
+	TTValue				v;
+	TTErr				err;
+	
+	if (value.getSize() > 3) {
+		value.get(0, &applicationName);
+		
+		err = mApplications->lookup(applicationName, v);
+		
+		if (!err) {
+			v.get(0, (TTPtr*)&anApplication);
+			
+			v.clear();
+			v.copyFrom(value, 1);
+			return anApplication->sendMessage(TT("Configure"), v);
+		}
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
+{
+	TTValue				v, args, allPluginNames;
 	TTSymbolPtr			applicationName, pluginName;
 	TTHashPtr			pluginParameters, parameters;
 	TTApplicationPtr	anApplication;
@@ -151,7 +174,16 @@ TTErr TTApplicationManager::Add(const TTValue& value)
 	TTErr				err;
 	
 	value.get(0, &applicationName);
-	value.get(1, (TTPtr*) &anApplication);
+	
+	// if no given application, instantiate it
+	if (value.getSize() == 2)
+		value.get(1, (TTPtr*) &anApplication);
+	else {
+		anApplication = NULL;
+		args.append(applicationName);
+		args.append(TT("unknown version"));
+		TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), args);
+	}
 	
 	// add application to the manager
 	mApplications->append(applicationName, (TTPtr)anApplication);
@@ -187,13 +219,24 @@ TTErr TTApplicationManager::Add(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::Remove(const TTValue& value)
+TTErr TTApplicationManager::ApplicationRemove(const TTValue& value)
 {	
+	TTValue				v;
 	TTSymbolPtr			applicationName;
+	TTApplicationPtr	anApplication;
+	TTErr				err;
 
 	value.get(0, &applicationName);
-
-	return mApplications->remove(applicationName);
+	
+	err = mApplications->lookup(applicationName, v);
+	
+	if (!err) {
+		v.get(0, (TTPtr*)&anApplication);
+		mApplications->remove(applicationName);
+		return TTObjectRelease(TTObjectHandle(&anApplication));
+	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTApplicationManager::PluginScan(const TTValue& value)
@@ -301,7 +344,7 @@ TTErr TTApplicationManager::PluginStop(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::Discover(TTValue& value)
+TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 {
 	TTSymbolPtr whereToDiscover;
 	TTValuePtr returnedChildrenNames;
@@ -360,7 +403,7 @@ TTErr TTApplicationManager::Discover(TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManager::Get(TTValue& value)
+TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 {
 	TTSymbolPtr whereToGet;
 	TTSymbolPtr attributeToGet;
@@ -385,7 +428,7 @@ TTErr TTApplicationManager::Get(TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManager::Set(TTValue& value)
+TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 {
 	TTSymbolPtr whereToSet;
 	TTSymbolPtr attributeToSet;
@@ -424,7 +467,7 @@ TTErr TTApplicationManager::Set(TTValue& value)
 	return kTTErrGeneric; // TODO : return an error notification
 }
 
-TTErr TTApplicationManager::Listen(TTValue& value)
+TTErr TTApplicationManager::ApplicationListen(TTValue& value)
 {
 	TTApplicationPtr appToNotify;
 	TTSymbolPtr whereToListen;
@@ -533,7 +576,8 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 	TTXmlHandlerPtr		aXmlHandler = NULL;	
 	TTSymbolPtr			applicationName, currentApplicationName, version;
 	TTApplicationPtr	anApplication;
-	TTValue				v, args;
+	TTValue				v, args, allAppNames;
+	TTErr				err;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
@@ -548,7 +592,21 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 		
 		// stop plugin reception threads
 		PluginStop(v);
-
+		
+		// remove all applications except the local one
+		mApplications->getKeys(allAppNames);
+		for (TTUInt16 i=0; i<allAppNames.getSize(); i++) {
+			
+			allAppNames.get(i, &applicationName);
+			err = mApplications->lookup(applicationName, v);
+			
+			if (!err && applicationName != kTTSym_localApplicationName) {
+				v.get(0, (TTPtr*)&anApplication);
+				TTObjectRelease(TTObjectHandle(&anApplication));
+				mApplications->remove(applicationName);
+			}
+		}
+		
 		return kTTErrNone;
 	}
 	
@@ -586,7 +644,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 				if (mApplications->lookup(applicationName, v)) {
 					v = TTValue(applicationName);
 					v.append((TTPtr)mCurrentApplication);
-					Add(v);
+					ApplicationAdd(v);
 				}
 				
 				mCurrentApplication = NULL;
@@ -632,21 +690,27 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr anAddress)
+TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr anAddressOrApplicationName)
 {
-	TTValue v;
-	TTSymbolPtr applicationName;
-	TTApplicationPtr anApplication;
-	TTErr err;
+	TTValue				v;
+	TTSymbolPtr			applicationName;
+	TTApplicationPtr	anApplication;
+	TTErr				err;
 	
 	if (TTModularApplications) {
-		// the address could be simply the name of the application name or a complete address
-		// TODO : parse the application name from address
 		
-		err = TTModularApplications->mApplications->lookup(applicationName, v);
-		
-		if (err)
+		// /address case
+		if (anAddressOrApplicationName->getCString()[0] == C_SEPARATOR || anAddressOrApplicationName == kTTSymEmpty) {
 			err = TTModularApplications->mApplications->lookup(kTTSym_localApplicationName, v);
+		}
+		// application@address case
+		else {
+			// TODO : parse the application name
+			// for instant :
+			applicationName = anAddressOrApplicationName;
+		
+			err = TTModularApplications->mApplications->lookup(applicationName, v);
+		}
 		
 		if (err)
 			return NULL;

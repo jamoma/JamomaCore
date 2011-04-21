@@ -64,6 +64,8 @@ private:
 	TTHashPtr					mTTToApp;			///< Hash table to convert TT names into Application names
 	TTValue						mAllTTNames;		///< All TT names
 	
+	/** Get all plugin names use by the application */
+	TTErr getPluginNames(TTValue& value);
 	
 	/** Set the plugin parameters hash table */
 	TTErr setPluginParameters(const TTValue& value);
@@ -73,6 +75,10 @@ private:
 	
 	/** Get all AppNames */
 	TTErr getAllTTNames(TTValue& value);
+	
+	/** Set the value of a plugin parameter
+	 <TTSymbolPtr pluginName, TTSymbolPtr parameterName, ...any value... > */
+	TTErr Configure(const TTValue& value);
 	
 	/** Convert TTName into AppName */
 	TTErr ConvertToAppName(TTValue& value);

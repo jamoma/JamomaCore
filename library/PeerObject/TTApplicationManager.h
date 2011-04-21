@@ -62,28 +62,32 @@ private:
 	/** Get all plugin names */
 	TTErr getPluginNames(TTValue& value);
 	
+	/** Set the value of an application plugin parameter
+		<TTSymbolPtr applicationName, TTSymbolPtr pluginName, TTSymbolPtr parameterName, ...any value... > */
+	TTErr Configure(const TTValue& value);
+	
 	/** Add an application giving <TTSymbolPtr applicationName, applicationPointer> */
-	TTErr Add(const TTValue& value);
+	TTErr ApplicationAdd(const TTValue& value);
 	
 	/** Remove an application */
-	TTErr Remove(const TTValue& value);
+	TTErr ApplicationRemove(const TTValue& value);
 	
 	/** Discover the namespace of an application under an address
 		arguments are <TTSymbolPtr whereToDiscover, TTValuePtr returnedChildrenNames, TTValuePtr returnedChildrenTypes, TTValuePtrreturnedAttributes> */
-	TTErr Discover(TTValue& value);
+	TTErr ApplicationDiscover(TTValue& value);
 	
 	/** Get a value from an attribute of an object at an address in an application
 		arguments are <TTSymbolPtr whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
-	TTErr Get(TTValue& value);
+	TTErr ApplicationGet(TTValue& value);
 	
 	/** Set a value from an attribute of an object at an address in an application
 		arguments are <TTSymbolPtr whereToDiscover, TTsymbolPtr attributeToSet, TTValuePtr newValue> */
-	TTErr Set(TTValue& value);
+	TTErr ApplicationSet(TTValue& value);
 	
 	/** Listen for value changes from an attribute of an object at an address in an application
 		or for creation/destruction under an address.
 		arguments are <TTObjectPtr appToNotify, TTSymbolPtr whereToListen, TTSymbolPtr attribute, TTBoolean enable> */
-	TTErr Listen(TTValue& value);
+	TTErr ApplicationListen(TTValue& value);
 	
 	/** Scan a plugin network in order to add distant application automatically <TTSymbolPtr pluginName> */
 	TTErr PluginScan(const TTValue& value);
@@ -110,7 +114,7 @@ typedef TTApplicationManager* TTApplicationManagerPtr;
  @param	baton						..
  @param	data						..
  @return							a TTApplicationPtr */
-TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddress);
+TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddressOrApplicationName);
 
 /**	To get a plugin with a plugin name
  note : it uses the extern TTModularApplications variable

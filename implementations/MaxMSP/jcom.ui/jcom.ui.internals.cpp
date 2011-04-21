@@ -223,8 +223,6 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	TTBoolean		nodeCreated;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
-	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(obj));
@@ -383,8 +381,6 @@ void ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr me
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
-	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
