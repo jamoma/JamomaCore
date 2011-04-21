@@ -754,28 +754,45 @@ TTErr splitAttribute(TTSymbolPtr oscAddress, TTSymbolPtr* returnedAddress, TTSym
 TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr attribute)
 {
 	TTString address;
-
+	
 	if (parent != NO_PARENT)
 		address = parent->getCString();
-
+	
 	if(name != NO_NAME){
 		if((name != S_SEPARATOR) && (parent != S_SEPARATOR))
 			address += S_SEPARATOR->getCString();
 		address += name->getCString();
 	}
-
+	
 	if (instance != NO_INSTANCE) {
 		address += S_INSTANCE->getCString();
 		address += instance->getCString();
 	}
-
+	
 	if(attribute != NO_ATTRIBUTE){
 		address += S_PROPERTY->getCString();
 		address += attribute->getCString();
 	}
-
+	
 	*returnedOscAddress = TT(address);
+	
+	return kTTErrNone;
+}
 
+TTErr mergeAttribute(TTSymbolPtr *returnedAddressAttribute, TTSymbolPtr address, TTSymbolPtr attribute)
+{
+	TTString addressAttribute;
+	
+	if (address != NO_PARENT)
+		addressAttribute = address->getCString();
+	
+	if(attribute != NO_ATTRIBUTE){
+		addressAttribute += S_PROPERTY->getCString();
+		addressAttribute += attribute->getCString();
+	}
+	
+	*returnedAddressAttribute = TT(addressAttribute);
+	
 	return kTTErrNone;
 }
 

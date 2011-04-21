@@ -203,7 +203,7 @@ TTErr TTFOUNDATION_EXPORT splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* r
 TTErr TTFOUNDATION_EXPORT splitAttribute(TTSymbolPtr oscAddress, TTSymbolPtr* returnedAddress, TTSymbolPtr* returnedAttribute);
 
 /**	An OSC merging tool
-	@param	oscAddress				A pointer to osc address symbol is returned in this parameter
+	@param	returnedOscAddress		A pointer to osc address symbol is returned in this parameter
 	@param	parent					A parent address symbol
 	@param	name					A name symbol
 	@param	instance				An instance symbol
@@ -212,16 +212,23 @@ TTErr TTFOUNDATION_EXPORT splitAttribute(TTSymbolPtr oscAddress, TTSymbolPtr* re
 TTErr TTFOUNDATION_EXPORT mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr attribute);
 
 /**	An OSC merging tool
-	@param	firstPart					A first part address
-	@param	secondPart					A second part address
-	@param	returnedAddress				The result
-	@return								An error code. */
+	@param	returnedAddressAttribute A pointer to osc address symbol is returned in this parameter
+	@param	address					An address symbol
+	@param	attribute				An attribute symbol
+	@return							An error code. */
+TTErr TTFOUNDATION_EXPORT mergeAttribute(TTSymbolPtr *returnedAddressAttribute, TTSymbolPtr address, TTSymbolPtr attribute);
+
+/**	An OSC merging tool
+	@param	firstPart				A first part address
+	@param	secondPart				A second part address
+	@param	returnedAddress			The result
+	@return							An error code. */
 TTErr TTFOUNDATION_EXPORT joinOSCAddress(TTSymbolPtr firstPart, TTSymbolPtr secondPart, TTSymbolPtr *returnedAddress);
 
 /**	An OSC comparison tool
-	@param	oscAddress1					An OSC address to compare
-	@param	oscAddress1					An OSC address to compare
-	@return								An comparison flag */
+	@param	oscAddress1				An OSC address to compare
+	@param	oscAddress1				An OSC address to compare
+	@return							An comparison flag */
 TTAddressComparisonFlag TTFOUNDATION_EXPORT compareOSCAddress(TTSymbolPtr oscAddress1, TTSymbolPtr oscAddress2);
 
 /**	An OSC parsing tool : count how many C_SEPARATOR there is in the address
