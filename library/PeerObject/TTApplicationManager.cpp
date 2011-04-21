@@ -186,37 +186,7 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 	}
 	
 	// add application to the manager
-	mApplications->append(applicationName, (TTPtr)anApplication);
-	
-	// if local application : set plugin reception parameters
-	// else : do nothing for distant application
-	if (applicationName == kTTSym_localApplicationName) {
-		
-		// get all plugin names of the application 
-		anApplication->getAttributeValue(TT("pluginParameters"), v);
-		v.get(0, (TTPtr*)&pluginParameters);
-		pluginParameters->getKeys(allPluginNames);
-		
-		// then for each plugin handled by the application
-		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
-			
-			allPluginNames.get(i, &pluginName);
-			err = mPlugins->lookup(pluginName, v);
-			
-			if (!err) {
-				v.get(0, (TTPtr*)&aPlugin);
-				
-				// get parameters
-				pluginParameters->lookup(pluginName, v);
-				v.get(0, (TTPtr*)&parameters);
-				
-				v = TTValue((TTPtr)parameters);
-				aPlugin->setAttributeValue(TT("parameters"), v);
-			}
-		}
-	}
-	
-	return kTTErrNone;
+	return mApplications->append(applicationName, (TTPtr)anApplication);
 }
 
 TTErr TTApplicationManager::ApplicationRemove(const TTValue& value)

@@ -180,7 +180,18 @@ TTErr TTApplication::Configure(const TTValue& value)
 				v.clear();
 				v.copyFrom(value, 2);
 				
-				return parameters->append(parameterName, v);
+				err = parameters->append(parameterName, v);
+				
+				// if local application : set plugin reception parameters
+				// else : do nothing for distant application
+				if (!err && mName == kTTSym_localApplicationName) {
+					if (aPlugin = getPlugin(pluginName)) {
+						v = TTValue((TTPtr)parameters);
+						aPlugin->setAttributeValue(TT("parameters"), v);
+					}
+				}
+			
+				return err;
 			}
 		}
 		// prepare an empty parameters table for this plugin
@@ -499,7 +510,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTString		anAppKey, aTTKey;
-	TTSymbolPtr		pluginName, attributeName;
+	TTSymbolPtr		pluginName, parameterName;
 	TTValue			appValue, ttValue, v;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
@@ -555,27 +566,23 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 			v.get(0, &pluginName);
 		}
 		
-		TTHashPtr parameters = new TTHash();
-		
 		// get all plugin attributes and their value
 		while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
 			
-			// get attribute name
+			// get parameter name
 			aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
 			if (v.getType() == kTypeSymbol) {
-				v.get(0, &attributeName);
+				v.get(0, &parameterName);
 				
-				// get attribute value
+				// get parameter value
 				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 				
-				// fill the hash table
-				parameters->append(attributeName, v);
+				// configure a parameter of a plugin for the application
+				v.prepend(parameterName);
+				v.prepend(pluginName);
+				Configure(v);
 			}
 		}
-		
-		// register the hash table using the plugin name
-		v = TTValue((TTPtr)parameters);
-		mPluginParameters->append(pluginName, v);
 	}
 	
 	return kTTErrNone;
