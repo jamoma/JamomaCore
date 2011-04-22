@@ -227,6 +227,7 @@
 				224B076211DEA0E000B6EF48 /* Sources */,
 				224B076311DEA0E000B6EF48 /* Frameworks */,
 				4DF70AED12CB9C8C00AEABFC /* Headers */,
+				D24020B813618E6500C3567B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -258,6 +259,22 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D24020B813618E6500C3567B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/mkdir -p -m 775 \"/Library/Application Support/Jamoma/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/Jamoma/Extensions\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		224B076211DEA0E000B6EF48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -284,24 +301,30 @@
 		1DEB91B208733DA50010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = TT_PLUGIN_DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INSTALL_PATH = "$(SRCROOT)/Plugins";
-				LD_DYLIB_INSTALL_NAME = "$(SRCROOT)/Plugins/Minuit.dylib";
+				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"";
+				LD_DYLIB_INSTALL_NAME = "";
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = Minuit;
-				SDKROOT = "";
+				SDKROOT = macosx10.5;
 			};
 			name = Development;
 		};
 		1DEB91B308733DA50010E9CD /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"";
+				LD_DYLIB_INSTALL_NAME = "";
 				PREBINDING = NO;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.5;
 			};
 			name = Deployment;
 		};
@@ -309,7 +332,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D29C8BC2135B08CD00458AFC /* Minuit.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = (
+					x86_64,
+					i386,
+				);
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
@@ -319,48 +345,57 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/../prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\"";
-				INSTALL_PATH = "/Library/Application Support/Jamoma/Extensions";
-				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/Jamoma/Extensions/Minuit.dylib";
+				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"";
+				LD_DYLIB_INSTALL_NAME = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions/Minuit.dylib\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
 					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
 				);
-				SKIP_INSTALL = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+				SKIP_INSTALL = YES;
 			};
 			name = Development;
 		};
 		224B076711DEA0E000B6EF48 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D29C8BC2135B08CD00458AFC /* Minuit.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = (
+					x86_64,
+					i386,
+				);
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_POSTPROCESSING = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
-					"\"$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = JamomaPrefix.pch;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/../prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\"";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"";
+				LD_DYLIB_INSTALL_NAME = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions/Minuit.dylib\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/DeviceManagerLib\"",
-					"\"$(SRCROOT)/DeviceManagerLib/plugins\"",
 					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
-					"\"$(SRCROOT)/../../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
 				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = Minuit;
-				SDKROOT = "";
+				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk";
+				SKIP_INSTALL = YES;
 			};
 			name = Deployment;
 		};

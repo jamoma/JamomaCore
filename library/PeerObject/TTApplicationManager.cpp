@@ -167,11 +167,10 @@ TTErr TTApplicationManager::Configure(const TTValue& value)
 TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 {
 	TTValue				v, args, allPluginNames;
-	TTSymbolPtr			applicationName, pluginName;
-	TTHashPtr			pluginParameters, parameters;
+	TTSymbolPtr			applicationName;
+
 	TTApplicationPtr	anApplication;
-	TTPluginHandlerPtr	aPlugin;
-	TTErr				err;
+
 	
 	value.get(0, &applicationName);
 	
@@ -701,8 +700,11 @@ TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 	if (TTModularApplications) {
 		
 		err = TTModularApplications->mPlugins->lookup(pluginName, v);
-		v.get(0, (TTPtr*)&aPlugin);
-		return aPlugin;
+		
+		if (!err) {
+			v.get(0, (TTPtr*)&aPlugin);
+			return aPlugin;
+		}
 	}
 	
 	return NULL;
