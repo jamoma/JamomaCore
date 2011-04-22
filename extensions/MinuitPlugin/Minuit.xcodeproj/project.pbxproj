@@ -37,8 +37,8 @@
 		D29C8AA0135B040500458AFC /* OscReceivedElements.h in Headers */ = {isa = PBXBuildFile; fileRef = D29C8A8C135B040500458AFC /* OscReceivedElements.h */; };
 		D29C8AA1135B040500458AFC /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29C8A8D135B040500458AFC /* OscTypes.cpp */; };
 		D29C8AA2135B040500458AFC /* OscTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D29C8A8E135B040500458AFC /* OscTypes.h */; };
-		D29C8AA4135B044900458AFC /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D29C8AA3135B044900458AFC /* Plugin.h */; };
-		D29C8B94135B06A400458AFC /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D29C8B93135B06A400458AFC /* JamomaFoundation.dylib */; };
+		D2F6BC1E1360FD45001F558B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F6BC1D1360FD45001F558B /* JamomaFoundation.dylib */; };
+		D2F6BC211360FD65001F558B /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F6BC201360FD65001F558B /* Plugin.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,9 +73,9 @@
 		D29C8A8C135B040500458AFC /* OscReceivedElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscReceivedElements.h; sourceTree = "<group>"; };
 		D29C8A8D135B040500458AFC /* OscTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscTypes.cpp; sourceTree = "<group>"; };
 		D29C8A8E135B040500458AFC /* OscTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscTypes.h; sourceTree = "<group>"; };
-		D29C8AA3135B044900458AFC /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = ../../includes/Plugin.h; sourceTree = SOURCE_ROOT; };
-		D29C8B93135B06A400458AFC /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		D29C8BC2135B08CD00458AFC /* Minuit.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Minuit.xcconfig; sourceTree = "<group>"; };
+		D2F6BC1D1360FD45001F558B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
+		D2F6BC201360FD65001F558B /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = ../../library/PluginLib/includes/Plugin.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D29C8B94135B06A400458AFC /* JamomaFoundation.dylib in Frameworks */,
+				D2F6BC1E1360FD45001F558B /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +114,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D29C8B93135B06A400458AFC /* JamomaFoundation.dylib */,
+				D2F6BC1D1360FD45001F558B /* JamomaFoundation.dylib */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -134,7 +134,7 @@
 		22FD2DCF0CEE5B770039C226 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				D29C8AA3135B044900458AFC /* Plugin.h */,
+				D2F6BC201360FD65001F558B /* Plugin.h */,
 				4DB6C32D12E89C9A001546E4 /* MinuitInclude.hpp */,
 				4DB6C32A12E89C9A001546E4 /* MinuitCommunicationMethods.hpp */,
 				4DB6C32B12E89C9A001546E4 /* MinuitDiscoverAnswer.hpp */,
@@ -213,7 +213,7 @@
 				D29C8A9E135B040500458AFC /* OscPrintReceivedElements.h in Headers */,
 				D29C8AA0135B040500458AFC /* OscReceivedElements.h in Headers */,
 				D29C8AA2135B040500458AFC /* OscTypes.h in Headers */,
-				D29C8AA4135B044900458AFC /* Plugin.h in Headers */,
+				D2F6BC211360FD65001F558B /* Plugin.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,13 +321,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../../Foundation/library/includes\"";
-				INSTALL_PATH = "$(SRCROOT)/../build/";
-				LD_DYLIB_INSTALL_NAME = "$(SRCROOT)/../build/Minuit.dylib";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\"";
+				INSTALL_PATH = "/Library/Application Support/Jamoma/Extensions";
+				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/Jamoma/Extensions/Minuit.dylib";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
-					"\"$(SRCROOT)/../../../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
 				);
 				SKIP_INSTALL = NO;
 			};
@@ -356,6 +357,7 @@
 					"\"$(SRCROOT)/DeviceManagerLib/plugins\"",
 					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
 					"\"$(SRCROOT)/../../../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
 				);
 				PRODUCT_NAME = Minuit;
 				SDKROOT = "";

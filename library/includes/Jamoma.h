@@ -40,14 +40,12 @@
 #include "RampLib.h"
 #include "ModularForMax.h"
 
+// TODO : build path like in Foundation...
 #ifdef TT_WIN
-	#define JamomaPluginFolderPath "C:/Program Files/Max5/Cycling \'74/support"
+	#define JamomaPluginFolderPath "C:\Program Files\Common Files\TTBlue\Extensions"
 #else
-	#define JamomaPluginFolderPath "/Applications/Max5/support"
+	#define JamomaPluginFolderPath "/Library/Application Support/Jamoma/Extensions"
 #endif
-
-// for quick debugging
-//#define JamomaPluginFolderPath "/Users/TO/Documents/Jamoma/Modules/Modular/library/PluginLib/Plugins/build"
 
 #define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
 #define JamomaDirectory TTApplicationManagerGetApplication(kTTSym_localApplicationName)->mDirectory
