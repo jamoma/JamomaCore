@@ -486,7 +486,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = JamomaPrefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = TTDATA_RAMPLIB;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TTDATA_RAMPLIB,
+					TTDSP,
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Development;
@@ -508,6 +511,10 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = JamomaPrefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TTDATA_RAMPLIB,
+					TTDSP,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/DeviceManagerLib\"",
