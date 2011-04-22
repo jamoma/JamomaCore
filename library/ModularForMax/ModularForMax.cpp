@@ -1397,8 +1397,14 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 	else if (objclass == _sym_newobj)
 		return _sym_subpatcher;
 	
-	else
+	else {
+		
+		if(object_attr_getobj(patcher, _sym_parentpatcher)) // a real topmost patcher shouldn't have parent
+		   return gensym("poly"); // poly case
+		
 		return _sym_topmost;
+		
+	}
 }
 
 /** Get the context from the upper hub in the patcher */
