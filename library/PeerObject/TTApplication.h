@@ -27,7 +27,7 @@ typedef TTPluginHandler* TTPluginHandlerPtr;
 
 
 // Macro to have a direct acces to a directory
-#define	getDirectoryFrom(anAddress) TTApplicationManagerGetApplication(anAddress)->mDirectory
+#define	getDirectoryFrom(anAddress) TTApplicationGetDirectory(anAddress)
 
 // Macro to convert a TTValue with tt names inside into a value with local application names inside.
 #define	ToAppName(ttNames) \
@@ -40,12 +40,9 @@ typedef TTPluginHandler* TTPluginHandlerPtr;
 class TTMODULAR_EXPORT TTApplication : public TTDataObject
 {
 	TTCLASS_SETUP(TTApplication)
-	
-public:
-	
-	TTNodeDirectoryPtr			mDirectory;			///< ATTRIBUTE : the namespace directory of the application
-	
+
 private:
+	TTNodeDirectoryPtr			mDirectory;			///< ATTRIBUTE : the namespace directory of the application
 
 	TTSymbolPtr					mName;				///< ATTRIBUTE : the name of the application
 	TTSymbolPtr					mVersion;			///< ATTRIBUTE : the version of the application
@@ -102,10 +99,19 @@ private:
 		read/write plugin parameters */
 	TTErr WriteAsXml(const TTValue& value);
 	TTErr ReadFromXml(const TTValue& value);
+	
+	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTSymbolPtr appNameAndAddress);
 
 };
 
 typedef TTApplication* TTApplicationPtr;
+
+/**	To get an application's directory with an address like 'application@address' or /address
+ note : it uses the extern TTModularApplications variable
+ @param						..
+ @param						..
+ @return					a TTNodeDirectoryPtr */
+TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTSymbolPtr appNameAndAddress);
 
 #endif // __TT_APPLICATION_H__
 

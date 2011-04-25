@@ -659,33 +659,20 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr anAddressOrApplicationName)
+TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr applicationName)
 {
 	TTValue				v;
-	TTSymbolPtr			applicationName;
 	TTApplicationPtr	anApplication;
 	TTErr				err;
 	
 	if (TTModularApplications) {
 		
-		// /address case
-		if (anAddressOrApplicationName->getCString()[0] == C_SEPARATOR || anAddressOrApplicationName == kTTSymEmpty) {
-			err = TTModularApplications->mApplications->lookup(kTTSym_localApplicationName, v);
+		err = TTModularApplications->mApplications->lookup(applicationName, v);
+		
+		if (!err) {
+			v.get(0, (TTPtr*)&anApplication);
+			return anApplication;
 		}
-		// application@address case
-		else {
-			// TODO : parse the application name
-			// for instant :
-			applicationName = anAddressOrApplicationName;
-		
-			err = TTModularApplications->mApplications->lookup(applicationName, v);
-		}
-		
-		if (err)
-			return NULL;
-		
-		v.get(0, (TTPtr*)&anApplication);
-		return anApplication;
 	}
 	
 	return NULL;
@@ -693,9 +680,9 @@ TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr anAddressOrAppli
 
 TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 {
-	TTValue v;
-	TTPluginHandlerPtr aPlugin;
-	TTErr err;
+	TTValue				v;
+	TTPluginHandlerPtr	aPlugin;
+	TTErr				err;
 	
 	if (TTModularApplications) {
 		
@@ -708,4 +695,30 @@ TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 	}
 	
 	return NULL;
+}
+
+TTErr TTApplicationManagerSplitAppNameFromAddress(TTSymbolPtr address, TTSymbolPtr* returnedAppName, TTSymbolPtr* returnedAddress)
+{
+	TTErr err = kTTErrNone;
+	long nb, pos;
+	TTString part1, part2;
+	
+	part1 = "";
+	part2 = address->getCString();
+	
+	nb = std::count(part2.begin(), part2.end(), '@');
+		
+	if(nb)
+	{
+		pos = part2.find_first_of('@');
+		part1 += part2.substr(0, pos+1);
+		part2 = part2.substr(pos+1, part2.size());
+	}
+	else
+		err = kTTErrGeneric;
+
+	*returnedAppName = TT(part1);
+	*returnedAddress = TT(part2);
+	
+	return err;
 }

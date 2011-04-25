@@ -38,12 +38,12 @@ class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
 {
 	TTCLASS_SETUP(TTApplicationManager)
 	
-public:
+private:
 
 	TTHashPtr			mApplications;			///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
 	TTHashPtr			mPlugins;				///< hash table containing <TTSymbolPtr pluginName, TTPluginHandlerPtr aPlugin>
 	
-private:
+
 	
 	TTValue				mApplicationNames;		///< ATTRIBUTE : all registered application names
 	TTValue				mPluginNames;			///< ATTRIBUTE : all loaded plugin names
@@ -103,7 +103,7 @@ private:
 	TTErr WriteAsXml(const TTValue& value);
 	TTErr ReadFromXml(const TTValue& value);
 	
-	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddress);
+	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
 	friend TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
 };
 
@@ -114,7 +114,7 @@ typedef TTApplicationManager* TTApplicationManagerPtr;
  @param	baton						..
  @param	data						..
  @return							a TTApplicationPtr */
-TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr anAddressOrApplicationName);
+TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
 
 /**	To get a plugin with a plugin name
  note : it uses the extern TTModularApplications variable
@@ -122,5 +122,12 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr
  @param	data						..
  @return							a PluginPtr */
 TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
+
+/**	To split 'appName@address' in two symbol
+ @param	baton						..
+ @param	data						..
+ @return							a TTErr */
+TTErr TTApplicationManagerSplitAppNameFromAddress(TTSymbolPtr address, TTSymbolPtr* returnedAppName, TTSymbolPtr* returnedAddress);
+
 
 #endif // __TT_APPLICATION_MANAGER_H__

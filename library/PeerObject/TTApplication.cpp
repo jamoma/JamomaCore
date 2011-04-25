@@ -587,3 +587,29 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 	
 	return kTTErrNone;
 }
+
+#if 0
+#pragma mark -
+#pragma mark Some Methods
+#endif
+
+TTNodeDirectoryPtr TTApplicationGetDirectory(TTSymbolPtr appNameAndAddress)
+{
+	TTSymbolPtr			applicationName, addressParsed;
+	TTApplicationPtr	anApplication;
+	TTErr				err;
+	
+	if (TTModularApplications) {
+		
+		err = TTApplicationManagerSplitAppNameFromAddress(appNameAndAddress, &applicationName, &addressParsed);
+		
+		if (!err)
+			anApplication = TTApplicationManagerGetApplication(applicationName);
+		else
+			anApplication = TTApplicationManagerGetApplication(kTTSym_localApplicationName);
+	
+		return anApplication->mDirectory;
+	}
+	
+	return NULL;
+}

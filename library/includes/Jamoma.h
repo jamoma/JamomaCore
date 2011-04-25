@@ -48,7 +48,7 @@
 #endif
 
 #define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
-#define JamomaDirectory TTApplicationManagerGetApplication(kTTSym_localApplicationName)->mDirectory
+#define JamomaDirectory TTApplicationGetDirectory(kTTSym_localApplicationName)
 
 #define JAMOMA "Jamoma"
 #define JAMOMA_UNIT_HEIGHT 35.0
