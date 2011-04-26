@@ -68,6 +68,8 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	// change the beta parameter and try applying the window
+	v.setSize(2);
+	v.set(0, TT("beta"));
 	v.set(1, 3.0 * kTTPi);
 	windowObject->sendMessage(TT("setParameter"), v);
 	
@@ -75,8 +77,6 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 					TTTestFloatEquivalence(((KaiserWindow*)((WindowFunction*)windowObject)->mFunctionObject)->mBesselIOofBeta, 1633.090522058824),
 					testAssertionCount,
 					errorCount);  // added 4/26 by Wolek
-	
-	/* Comment 4/26 by Wolek until Bessel error resolved
 	
 	// create 1 channel audio signal objects
 	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
@@ -102,8 +102,6 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
-	
-	*/
 	
 	
 	TTObjectRelease(&input);

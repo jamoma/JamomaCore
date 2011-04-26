@@ -54,6 +54,9 @@ TTErr KaiserWindow::setBeta(const TTValue& newValue)
 {
 	mBeta = newValue;
 	mBesselIOofBeta = BesselFunctionI0(mBeta);
+	// the following 2 lines can be used for testing
+	TTLogMessage("beta: %f\n", mBeta); 
+	TTLogMessage("besselOfBeta: %f\n", mBesselIOofBeta); 
 	return kTTErrNone;
 }
 
