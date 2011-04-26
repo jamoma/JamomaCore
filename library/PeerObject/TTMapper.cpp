@@ -162,6 +162,9 @@ TTErr TTMapper::setInput(const TTValue& value)
 	TTValuePtr		returnValueBaton;
 	TTErr			err;
 	
+	if (mReceiver)
+		TTObjectRelease(TTObjectHandle(&mReceiver));
+	
 	mInput = value;
 	mObserveInputRange = true;
 	
@@ -182,7 +185,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
-	// and if the mapper created before we observe the input address
+	// and if the mapper was created before we observe the input address
 	err = getDirectoryFrom(mInput)->getTTNodeForOSC(mInput, &aNode);
 	
 	if (!err) {
@@ -266,6 +269,9 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject;
 	TTErr			err;
+	
+	if (mSender)
+		TTObjectRelease(TTObjectHandle(&mSender));
 	
 	mOutput = value;
 	mObserveOutputRange = true;
