@@ -67,6 +67,17 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 					testAssertionCount,
 					errorCount);
 	
+	// change the alpha parameter and test Bessel function again
+	v.setSize(2);
+	v.set(0, TT("alpha"));
+	v.set(1, 2.0);
+	windowObject->sendMessage(TT("setParameter"), v);
+	
+	TTTestAssertion("Internal intermediate value 2 (zeroth-order bessel fn of the first kind, taken of alpha = 2) is correct.",
+					TTTestFloatEquivalence(((KaiserWindow*)((WindowFunction*)windowObject)->mFunctionObject)->mBesselIOofBeta, 87.10851065339077),
+					testAssertionCount,
+					errorCount);  // added 4/26 by Wolek
+	
 	// change the beta parameter and try applying the window
 	v.setSize(2);
 	v.set(0, TT("beta"));

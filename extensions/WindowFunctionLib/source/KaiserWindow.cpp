@@ -17,6 +17,7 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	addAttributeWithSetter(Beta, kTypeFloat64);
+	addAttributeWithSetter(Alpha, kTypeFloat64);
 	
 	setAttributeValue(TT("beta"), 6.0);
 
@@ -50,16 +51,29 @@ TTFloat64 KaiserWindow::BesselFunctionI0(TTFloat64 x)
 }
 
 
-TTErr KaiserWindow::setBeta(const TTValue& newValue)
+TTErr KaiserWindow::setAlpha(const TTValue& newValue)
 {
-	mBeta = newValue;
+	mAlpha = newValue;
+	mBeta = mAlpha * kTTPi;
 	mBesselIOofBeta = BesselFunctionI0(mBeta);
-	// the following 2 lines can be used for testing; comment out when not in use
+	// the following 3 lines can be used for testing; comment out when not in use
+	//TTLogMessage("alpha: %f\n", mAlpha); 
 	//TTLogMessage("beta: %f\n", mBeta); 
 	//TTLogMessage("besselOfBeta: %f\n", mBesselIOofBeta); 
 	return kTTErrNone;
 }
 
+TTErr KaiserWindow::setBeta(const TTValue& newValue)
+{
+	mBeta = newValue;
+	mAlpha = mBeta / kTTPi;
+	mBesselIOofBeta = BesselFunctionI0(mBeta);
+	// the following 3 lines can be used for testing; comment out when not in use
+	//TTLogMessage("alpha: %f\n", mAlpha); 
+	//TTLogMessage("beta: %f\n", mBeta); 
+	//TTLogMessage("besselOfBeta: %f\n", mBesselIOofBeta); 
+	return kTTErrNone;
+}
 
 TTErr KaiserWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
