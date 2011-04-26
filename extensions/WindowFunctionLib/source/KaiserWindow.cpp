@@ -53,8 +53,7 @@ TTFloat64 KaiserWindow::BesselFunctionI0(TTFloat64 x)
 TTErr KaiserWindow::setBeta(const TTValue& newValue)
 {
 	mBeta = newValue;
-	TTFloat64	beta_pi = mBeta * kTTPi;   // added 4/26 by Wolek
-	mBesselIOofBeta = BesselFunctionI0(beta_pi); // modified 4/26 by Wolek
+	mBesselIOofBeta = BesselFunctionI0(mBeta);
 	return kTTErrNone;
 }
 
@@ -66,10 +65,10 @@ TTErr KaiserWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedI
 	//TTFloat64	temp = 1.0 - (two_x * two_x);
 	TTFloat64	temp = 1.0 - (two_x_minusone * two_x_minusone); // modified 4/26 by Wolek
 	TTFloat64	temp2 = sqrt(temp);
-	TTFloat64	temp3 = mBeta * kTTPi * temp2; // modified 4/26 by Wolek
+	TTFloat64	temp3 = mBeta * temp2; // modified 4/26 by Wolek
 	TTFloat64	temp4 = BesselFunctionI0(temp3);
 
-	y = temp4 / mBesselIOofBeta;	
+	y = temp4 / mBesselIOofBeta;
 	return kTTErrNone;
 }
 
