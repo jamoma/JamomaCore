@@ -54,21 +54,21 @@ TTErr KaiserWindow::setBeta(const TTValue& newValue)
 {
 	mBeta = newValue;
 	mBesselIOofBeta = BesselFunctionI0(mBeta);
-	// the following 2 lines can be used for testing
-	TTLogMessage("beta: %f\n", mBeta); 
-	TTLogMessage("besselOfBeta: %f\n", mBesselIOofBeta); 
+	// the following 2 lines can be used for testing; comment out when not in use
+	//TTLogMessage("beta: %f\n", mBeta); 
+	//TTLogMessage("besselOfBeta: %f\n", mBesselIOofBeta); 
 	return kTTErrNone;
 }
 
 
 TTErr KaiserWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	TTFloat64	two_x = 2.0 * x; // x is shifted left by half a cycle so we get a mirror of the window around zero
-	TTFloat64	two_x_minusone = two_x - 1; // added 4/26 by Wolek
-	//TTFloat64	temp = 1.0 - (two_x * two_x);
-	TTFloat64	temp = 1.0 - (two_x_minusone * two_x_minusone); // modified 4/26 by Wolek
+	// rewritten on 26 April 2011 by Nathan Wolek
+	
+	TTFloat64	two_x_minusone = 2.0 * x - 1;
+	TTFloat64	temp = 1.0 - (two_x_minusone * two_x_minusone);
 	TTFloat64	temp2 = sqrt(temp);
-	TTFloat64	temp3 = mBeta * temp2; // modified 4/26 by Wolek
+	TTFloat64	temp3 = mBeta * temp2;
 	TTFloat64	temp4 = BesselFunctionI0(temp3);
 
 	y = temp4 / mBesselIOofBeta;
