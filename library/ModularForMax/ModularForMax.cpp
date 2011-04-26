@@ -925,7 +925,6 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long 
 	TTObjectPtr			rampGainUnit = NULL;
 	
 	// prepare arguments
-	args.append(JamomaApplication);
 	args.append(TTUInt16(number));
 	args.append(TT("audio"));
 	

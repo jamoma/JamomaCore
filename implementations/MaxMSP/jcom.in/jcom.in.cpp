@@ -342,54 +342,57 @@ t_int *in_perform(t_int *w)
 	float						peakamp, peakvalue = 0;	// values for calculating metering
 	
 	// get numChannels and vectorSize
-	anInput->mInfo.get(info_numChannels, numChannels);
-	anInput->mInfo.get(info_vectorSize, vectorSize);
-	
-	// Store the input from the inlets
-	for (i=0; i < numChannels; i++) {
-		j = (i*2) + 1;
-		TTAudioSignalPtr(anInput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
-	}
-	
-	// if signal is bypassed or muted : send a zero signal to the algorithm
-	if (anInput->mBypass || anInput->mMute) TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalZero), *TTAudioSignalPtr(anInput->mSignalOut));
-	// else copy in to out
-	else TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
-	
-	// TODO : need to mix in input here from jcom.send~ objects
-
-	// Send the input on to the outlets for the algorithm
-	for (i=0; i < numChannels; i++) {
-		j = (i*2) + 1;
-		TTAudioSignalPtr(anInput->mSignalOut)->getVector(i, vectorSize, (TTFloat32*)w[j+2]);
+	if (anInput) {
 		
-		// metering
-		if (!anInput->mMute) {
-			envelope = (t_float *)(w[j+2]);
-			peakvalue = 0.0;
+		anInput->mInfo.get(info_numChannels, numChannels);
+		anInput->mInfo.get(info_vectorSize, vectorSize);
+		
+		// Store the input from the inlets
+		for (i=0; i < numChannels; i++) {
+			j = (i*2) + 1;
+			TTAudioSignalPtr(anInput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
+		}
+		
+		// if signal is bypassed or muted : send a zero signal to the algorithm
+		if (anInput->mBypass || anInput->mMute) TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalZero), *TTAudioSignalPtr(anInput->mSignalOut));
+		// else copy in to out
+		else TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
+		
+		// TODO : need to mix in input here from jcom.send~ objects
+		
+		// Send the input on to the outlets for the algorithm
+		for (i=0; i < numChannels; i++) {
+			j = (i*2) + 1;
+			TTAudioSignalPtr(anInput->mSignalOut)->getVector(i, vectorSize, (TTFloat32*)w[j+2]);
 			
-			n = vectorSize;
-			while (n--) {
-				if ((*envelope) < 0 )						// get the current sample's absolute value
-					currentvalue = -(*envelope);
-				else
-					currentvalue = *envelope;
+			// metering
+			if (!anInput->mMute) {
+				envelope = (t_float *)(w[j+2]);
+				peakvalue = 0.0;
 				
-				if (currentvalue > peakvalue) 				// if it's a new peak amplitude...
-					peakvalue = currentvalue;
-				envelope++; 								// increment pointer in the vector
+				n = vectorSize;
+				while (n--) {
+					if ((*envelope) < 0 )						// get the current sample's absolute value
+						currentvalue = -(*envelope);
+					else
+						currentvalue = *envelope;
+					
+					if (currentvalue > peakvalue) 				// if it's a new peak amplitude...
+						peakvalue = currentvalue;
+					envelope++; 								// increment pointer in the vector
+				}
+				
+				// set meter[i]
+				anInput->mInfo.set(info_startMeter+i, peakvalue);
+				
+				// set peak[i]
+				anInput->mInfo.get(info_startMeter+numChannels+i, peakamp);
+				if (peakvalue > peakamp)
+					anInput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
 			}
-			
-			// set meter[i]
-			anInput->mInfo.set(info_startMeter+i, peakvalue);
-			
-			// set peak[i]
-			anInput->mInfo.get(info_startMeter+numChannels+i, peakamp);
-			if (peakvalue > peakamp)
-				anInput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
 		}
 	}
-
+	
 	return w + ((numChannels*2)+2);
 }
 

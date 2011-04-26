@@ -371,75 +371,78 @@ t_int *out_perform(t_int *w)
 	float						peakamp, peakvalue = 0;	// values for calculating metering
 	
 	// get numChannels and vectorSize
-	anOutput->mInfo.get(info_numChannels, numChannels);
-	anOutput->mInfo.get(info_vectorSize, vectorSize);
-	
-	// Store the input from the inlets
-	for (i=0; i < numChannels; i++) {
-		j = (i*2) + 1;
-		TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
-	}
-	
-	// if the output signal is muted
-	if (anOutput->mMute)
-		TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalZero), *TTAudioSignalPtr(anOutput->mSignalOut));
-	
-	// if input signal exists
-	else if (anInput) {
+	if (anOutput) {
 		
-		// if input signal is bypassed
-		if (anInput->mBypass)
-			// copy input (in Temp)
-			TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
+		anOutput->mInfo.get(info_numChannels, numChannels);
+		anOutput->mInfo.get(info_vectorSize, vectorSize);
 		
-		// otherwise mix input and output signals
-		else {
-			
-			// perform bypass/mix control (in Temp)
-			anInput->mInfo.get(info_numChannels, inNumCh);
-			if (inNumCh == numChannels)
-				TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));	
-			else
-				TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
+		// Store the input from the inlets
+		for (i=0; i < numChannels; i++) {
+			j = (i*2) + 1;
+			TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
 		}
 		
-		// then perform gain control (from Temp)
-		TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
-	
-	// otherwise just perform gain control
-	} else
-		TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
+		// if the output signal is muted
+		if (anOutput->mMute)
+			TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalZero), *TTAudioSignalPtr(anOutput->mSignalOut));
 		
-	
-	// Send signal on to the outlets 
-	for (i=0; i<numChannels; i++) {
-		j = (i*2) + 1;
-		TTAudioSignalPtr(anOutput->mSignalOut)->getVector(i, vectorSize, (TTFloat32*)w[j+2]);
-		
-		// metering
-		if (!anOutput->mMute) {
-			envelope = (t_float *)(w[j+2]);
-			peakvalue = 0.0;
+		// if input signal exists
+		else if (anInput) {
 			
-			n = vectorSize;
-			while (n--) {
-				if ((*envelope) < 0 )						// get the current sample's absolute value
-					currentvalue = -(*envelope);
-				else
-					currentvalue = *envelope;
+			// if input signal is bypassed
+			if (anInput->mBypass)
+				// copy input (in Temp)
+				TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
+			
+			// otherwise mix input and output signals
+			else {
 				
-				if (currentvalue > peakvalue) 				// if it's a new peak amplitude...
-					peakvalue = currentvalue;
-				envelope++; 								// increment pointer in the vector
+				// perform bypass/mix control (in Temp)
+				anInput->mInfo.get(info_numChannels, inNumCh);
+				if (inNumCh == numChannels)
+					TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));	
+				else
+					TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
 			}
 			
-			// set meter[i]
-			anOutput->mInfo.set(info_startMeter+i, peakvalue);
+			// then perform gain control (from Temp)
+			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
 			
-			// set peak[i]
-			anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
-			if (peakvalue > peakamp)
-				anOutput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
+			// otherwise just perform gain control
+		} else
+			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
+		
+		
+		// Send signal on to the outlets 
+		for (i=0; i<numChannels; i++) {
+			j = (i*2) + 1;
+			TTAudioSignalPtr(anOutput->mSignalOut)->getVector(i, vectorSize, (TTFloat32*)w[j+2]);
+			
+			// metering
+			if (!anOutput->mMute) {
+				envelope = (t_float *)(w[j+2]);
+				peakvalue = 0.0;
+				
+				n = vectorSize;
+				while (n--) {
+					if ((*envelope) < 0 )						// get the current sample's absolute value
+						currentvalue = -(*envelope);
+					else
+						currentvalue = *envelope;
+					
+					if (currentvalue > peakvalue) 				// if it's a new peak amplitude...
+						peakvalue = currentvalue;
+					envelope++; 								// increment pointer in the vector
+				}
+				
+				// set meter[i]
+				anOutput->mInfo.set(info_startMeter+i, peakvalue);
+				
+				// set peak[i]
+				anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
+				if (peakvalue > peakamp)
+					anOutput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
+			}
 		}
 	}
 	
