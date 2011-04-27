@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 30.0, 206.0, 620.0, 566.0 ],
+		"rect" : [ 494.0, 146.0, 620.0, 566.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 30.0, 206.0, 620.0, 566.0 ],
+		"defrect" : [ 494.0, 146.0, 620.0, 566.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -20,28 +20,28 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 40.0, 70.0, 78.0, 22.0 ],
+					"patching_rect" : [ 40.0, 70.0, 82.0, 20.0 ],
 					"text" : "jcom.preset"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 70.0, 460.0, 93.0, 22.0 ],
+					"patching_rect" : [ 114.0, 457.0, 99.0, 20.0 ],
 					"text" : "jcom.out~ 2"
 				}
 
@@ -76,7 +76,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 105.0, 490.0, 25.0, 25.0 ]
+					"patching_rect" : [ 154.0, 487.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -88,7 +88,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 100.0, 330.0, 25.0, 25.0 ]
+					"patching_rect" : [ 173.0, 327.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -99,7 +99,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 70.0, 490.0, 25.0, 25.0 ]
+					"patching_rect" : [ 114.0, 487.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -111,118 +111,92 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 70.0, 330.0, 25.0, 25.0 ]
+					"patching_rect" : [ 114.0, 327.0, 25.0, 25.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-10",
 					"maxclass" : "newobj",
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 145.0, 435.0, 66.0, 22.0 ],
+					"patching_rect" : [ 194.0, 427.0, 69.0, 20.0 ],
 					"text" : "degrade~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 70.0, 365.0, 71.0, 22.0 ],
+					"patching_rect" : [ 114.0, 362.0, 78.0, 20.0 ],
 					"text" : "jcom.in~ 2"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-8",
 					"maxclass" : "newobj",
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 70.0, 435.0, 66.0, 22.0 ],
+					"patching_rect" : [ 114.0, 427.0, 69.0, 20.0 ],
 					"text" : "degrade~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
-					"id" : "obj-7",
-					"maxclass" : "number",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 405.0, 315.0, 50.0, 22.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
-					"id" : "obj-5",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 190.0, 270.0, 50.0, 22.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-3",
-					"linecount" : 10,
+					"linecount" : 8,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 325.0, 145.0, 176.0, 164.0 ],
+					"patching_rect" : [ 244.0, 213.0, 201.0, 113.0 ],
 					"text" : "jcom.parameter bitdepth @type integer @range/bounds 1 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"The number of bits that will be retained in each sample - use this for bit crunching effects\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-2",
-					"linecount" : 7,
+					"linecount" : 6,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 85.0, 145.0, 226.0, 117.0 ],
+					"patching_rect" : [ 219.0, 88.0, 233.0, 87.0 ],
 					"text" : "jcom.parameter samplerateRatio @type decimal @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Helvetica Neue Light",
-					"fontsize" : 13.0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 25.0, 45.0, 565.0, 22.0 ],
+					"patching_rect" : [ 25.0, 45.0, 569.0, 20.0 ],
 					"text" : "jcom.hub @context model @description \"Emulate the use of lower sample-rates and bit-resolution.\""
 				}
 
@@ -259,7 +233,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-9", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 109.5, 359.5, 131.5, 359.5 ],
+					"midpoints" : [ 182.5, 356.5, 182.5, 356.5 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -275,19 +249,37 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
+					"destination" : [ "obj-10", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 1 ]
+					"midpoints" : [ 228.5, 303.0, 228.5, 303.0 ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
+					"destination" : [ "obj-8", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 1 ]
+					"midpoints" : [ 228.5, 400.0, 148.5, 400.0 ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 2 ],
+					"hidden" : 0,
+					"midpoints" : [ 253.5, 378.5, 253.5, 378.5 ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 2 ],
+					"hidden" : 0,
+					"midpoints" : [ 253.5, 415.5, 173.5, 415.5 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
@@ -311,42 +303,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-10", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -358,7 +314,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 105.5, 398.0, 154.5, 398.0 ],
+					"midpoints" : [ 153.0, 395.0, 203.5, 395.0 ],
 					"source" : [ "obj-9", 1 ]
 				}
 
