@@ -321,13 +321,36 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr address;
+	TTSymbolPtr address, service;
+	TTList		returnedNodes;
+	TTNodePtr	firstNode;
+	TTObjectPtr anObject;
+	TTValue		v;
+	TTErr		err;
 	
 	if (argc && argv) {
 		
 		// set address attribute of the wrapped Viewer object
 		joinOSCAddress(TT(atom_getsym(argv)->s_name), EXTRA->address, &address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, address);
+		
+		// for Data object, if service is parameter or return : refresh !
+		// note : this would only work if the address already exists
+		err = getDirectoryFrom(address)->Lookup(address, returnedNodes, &firstNode);
+		
+		if (!err) {
+			if (anObject = firstNode->getObject()) {
+				if (anObject->getName() == TT("Data")) {
+					anObject->getAttributeValue(kTTSym_service, v);
+					v.get(0, &service);
+					
+					if (service == kTTSym_parameter || service == kTTSym_return)
+						x->wrappedObject->sendMessage(kTTSym_Refresh);
+				}
+				else
+					x->wrappedObject->sendMessage(kTTSym_Refresh);
+			}
+		}
 	}
 }
 

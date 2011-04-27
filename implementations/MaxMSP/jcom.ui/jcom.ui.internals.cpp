@@ -248,6 +248,8 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	joinOSCAddress(address, name, &adrs);
 	(*returnedViewer)->setAttributeValue(TT("address"), adrs);
 	
+	// refresh viewer
+	(*returnedViewer)->sendMessage(kTTSym_Refresh);
 	
 	// Store viewer
 	args = TTValue(TTPtr(*returnedViewer));

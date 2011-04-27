@@ -85,9 +85,7 @@ TTErr TTViewer::setAddress(const TTValue& value)
 {
 	mAddress = value;
 	
-	// if it binds on an attribute : refresh
-	if (!bind())
-		Refresh();
+	bind();
 	
 	return kTTErrNone;
 }
