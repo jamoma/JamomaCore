@@ -100,6 +100,10 @@ private:
 	TTErr WriteAsXml(const TTValue& value);
 	TTErr ReadFromXml(const TTValue& value);
 	
+	/** needed to be handled by a TTOpmlHandler 
+		read a directory description */
+	TTErr ReadFromOpml(const TTValue& value);
+	
 	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTSymbolPtr appNameAndAddress);
 
 };

@@ -65,6 +65,9 @@ mTTToApp(NULL)
 	addMessageWithArgument(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
+	addMessageWithArgument(ReadFromOpml);
+	addMessageProperty(ReadFromOpml, hidden, YES);
+	
 	mDirectory = new TTNodeDirectory(mName);
 	TT_ASSERT("NodeDirectory created successfully", mDirectory != NULL);
 	
@@ -581,6 +584,74 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 				v.prepend(parameterName);
 				v.prepend(pluginName);
 				Configure(v);
+			}
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplication::ReadFromOpml(const TTValue& value)
+{
+	TTXmlHandlerPtr	aXmlHandler = NULL;	
+	TTSymbolPtr		relativeAddress, objectName, attributeName;
+	TTObjectPtr		anObject;
+	TTValue			v;
+	
+	value.get(0, (TTPtr*)&aXmlHandler);
+	if (!aXmlHandler)
+		return kTTErrGeneric;
+	
+	// Switch on the name of the XML node
+	
+	// Starts reading
+	if (aXmlHandler->mXmlNodeName == TT("start")) {
+		// TODO : clear directory
+		return kTTErrNone;
+	}
+	
+	// Ends reading
+	if (aXmlHandler->mXmlNodeName == TT("end"))
+		return kTTErrNone;
+	
+	// Comment Node
+	if (aXmlHandler->mXmlNodeName == TT("#comment"))
+		return kTTErrNone;
+	
+	// Outline node
+	if (aXmlHandler->mXmlNodeName == TT("outline")) {
+		
+		// get the relative address
+		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("text"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		if (v.getType() == kTypeSymbol) {
+			v.get(0, &relativeAddress);
+		}
+		
+		// get the object name
+		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("object"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		if (v.getType() == kTypeSymbol) {
+			v.get(0, &objectName);
+		}
+		
+		// TODO : instantiate Mirror object for distant application
+		
+		// TODO : register object into the directory
+		
+		// get all object attributes and their value
+		while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+			
+			// get attribute name
+			aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+			if (v.getType() == kTypeSymbol) {
+				v.get(0, &attributeName);
+				
+				// get attribute value
+				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+				
+				// set attribute
+				anObject->setAttributeValue(attributeName, v);
 			}
 		}
 	}
