@@ -17,6 +17,8 @@
 		226E9EBA12F9B41800761A91 /* TTSpat.h in Headers */ = {isa = PBXBuildFile; fileRef = 226E9EB812F9B41800761A91 /* TTSpat.h */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
+		A79EBB4D1369D67700A70E48 /* SpatThru.Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79EBB4C1369D67700A70E48 /* SpatThru.Test.cpp */; };
+		A79EBB571369D79900A70E48 /* SpatMatrix.Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79EBB551369D79900A70E48 /* SpatMatrix.Test.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
+		A79EBB4C1369D67700A70E48 /* SpatThru.Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatThru.Test.cpp; sourceTree = "<group>"; };
+		A79EBB551369D79900A70E48 /* SpatMatrix.Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatMatrix.Test.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* SpatLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = SpatLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,8 +100,10 @@
 			children = (
 				226E9E6A12F9ABB400761A91 /* SpatThru.h */,
 				226E9E6912F9ABB400761A91 /* SpatThru.cpp */,
+				A79EBB4C1369D67700A70E48 /* SpatThru.Test.cpp */,
 				226E9EA012F9B1AE00761A91 /* SpatMatrix.h */,
 				226E9E9F12F9B1AE00761A91 /* SpatMatrix.cpp */,
+				A79EBB551369D79900A70E48 /* SpatMatrix.Test.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -187,6 +193,8 @@
 				226E9E6B12F9ABB400761A91 /* SpatThru.cpp in Sources */,
 				226E9EA112F9B1AE00761A91 /* SpatMatrix.cpp in Sources */,
 				226E9EB912F9B41800761A91 /* TTSpat.cpp in Sources */,
+				A79EBB4D1369D67700A70E48 /* SpatThru.Test.cpp in Sources */,
+				A79EBB571369D79900A70E48 /* SpatMatrix.Test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
