@@ -200,7 +200,7 @@ TTErr TTPreset::Clear()
 	ItemPtr			oldItem;
 	TTValue			hk, v;
 	TTSymbolPtr		key;
-	TTUInt8			i;
+	TTUInt32		i;
 	
 	mItemTable->getKeys(hk);
 	for (i=0; i<mItemTable->getSize(); i++) {
@@ -228,7 +228,7 @@ TTErr TTPreset::Update()
 {
 	TTValue			hk, v;
 	TTSymbolPtr		key;
-	TTUInt8			i;
+	TTUInt32		i;
 	
 	// for each item
 	mItemTable->getKeys(hk);
@@ -279,7 +279,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 	TTValue				hsk, v, a, c;
 	TTSymbolPtr			key, skey;
 	TTString			aString;
-	TTUInt8				j;
+	TTUInt32			j;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	

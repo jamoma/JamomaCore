@@ -675,7 +675,7 @@ void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 	ItemPtr			anItem;
 	TTValue			hk, v;
 	TTSymbolPtr		key;
-	TTUInt8			i, nbItemToSort, nbItemSorted;
+	TTUInt32		i, nbItemToSort, nbItemSorted;
 	TTInt8			p, priority;
 	
 	// unpack baton a (t_object*)
