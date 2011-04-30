@@ -1,0 +1,17 @@
+<%= form_for(@grapher) do |f| %>
+  <% if @grapher.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grapher.errors.count, "error") %> prohibited this grapher from being saved:</h2>
+
+      <ul>
+      <% @grapher.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
