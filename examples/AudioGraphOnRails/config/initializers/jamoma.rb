@@ -15,4 +15,3 @@ require 'Jamoma'
        $tt_dac.connect_audio $tt_gain
   # end
 #end
-
