@@ -19,6 +19,10 @@ TTErr SpatThru::test(TTValue& returnedTestInfo)
 	 TTAudioSignalPtr	input = NULL;
 	 TTAudioSignalPtr	output = NULL;
 	 
+	 setAttributeValue(TT("spatFunction"), TT("spat.thru"));
+	 setAttributeValue(TT("sourceCount"), 4);
+	 setAttributeValue(TT("destinationCount"), 4);
+	 
 	 // create four channel audio signals
 	 TTObjectInstantiate(kTTSym_audiosignal, &input, 4);
 	 TTObjectInstantiate(kTTSym_audiosignal, &output, 4);
@@ -39,7 +43,7 @@ TTErr SpatThru::test(TTValue& returnedTestInfo)
 	 this->process(input, output);
 	 
 	 // check returned samples at all channels
-	 int					validSampleCount = 0;
+	 int validSampleCount = 0;
 	 
 	 for (int channel=0; channel<4; channel++) {
 		 TTSampleValuePtr	inSamples = input->mSampleVectors[channel];
