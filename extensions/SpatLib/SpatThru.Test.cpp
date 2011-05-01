@@ -19,7 +19,6 @@ TTErr SpatThru::test(TTValue& returnedTestInfo)
 	 TTAudioSignalPtr	input = NULL;
 	 TTAudioSignalPtr	output = NULL;
 	 
-	 setAttributeValue(TT("spatFunction"), TT("spat.thru"));
 	 setAttributeValue(TT("sourceCount"), 4);
 	 setAttributeValue(TT("destinationCount"), 4);
 	 
