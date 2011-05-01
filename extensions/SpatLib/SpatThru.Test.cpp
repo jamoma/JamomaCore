@@ -16,40 +16,48 @@ TTErr SpatThru::test(TTValue& returnedTestInfo)
  {
 	 int				errorCount = 0;
 	 int				testAssertionCount = 0;
-	 int				badSampleCount = 0;
+	 TTAudioSignalPtr	input = NULL;
+	 TTAudioSignalPtr	output = NULL;
 	 
-	 TTAudioSignalArrayPtr	input;
-	 TTAudioSignalArrayPtr	output;
-	 int					N = 32;
+	 // create four channel audio signals
+	 TTObjectInstantiate(kTTSym_audiosignal, &input, 4);
+	 TTObjectInstantiate(kTTSym_audiosignal, &output, 4);
 	 
-	 input->setMaxNumAudioSignals(4);
-	 input->allocAllWithVectorSize(N);
+	 input->allocWithVectorSize(64);
+	 output->allocWithVectorSize(64);
 	 
-	 // create single audio signal buffer
-	 TTAudioSignalPtr		buffer = NULL;
-	 TTObjectInstantiate(kTTSym_audiosignal, &buffer, 1);
-	 buffer->allocWithVectorSize(N);
+	 // Fill signals on all four channels with noise
 	 
-	 // filling the channels with prime number values
-	 // as this will quickly reveal if something is wrong
-	 buffer->fill(2.0);
-	 input->setSignal(0, buffer);
-
-	 buffer->fill(-3.0);
-	 input->setSignal(1, buffer);
-	 
-	 buffer->fill(5.0);
-	 input->setSignal(2, buffer);
-	 
-	 buffer->fill(7.0);
-	 input->setSignal(3, buffer);
+	 for (int i=0; i<64; i++) {
+		 input->mSampleVectors[0][i] = TTRandom64();
+		 input->mSampleVectors[1][i] = TTRandom64();
+		 input->mSampleVectors[2][i] = TTRandom64();
+		 input->mSampleVectors[3][i] = TTRandom64();
+	 }
 	 
 	 // process
-	 //this->processAudio(input, output);
+	 this->process(input, output);
 	 
+	 // check returned samples at all channels
+	 int					validSampleCount = 0;
 	 
+	 for (int channel=0; channel<4; channel++) {
+		 TTSampleValuePtr	inSamples = input->mSampleVectors[channel];
+		 TTSampleValuePtr	outSamples = output->mSampleVectors[channel];
+		 
+		 for (int i=0; i<64; i++) {
+			 validSampleCount += TTTestFloatEquivalence(inSamples[i], outSamples[i]);
+		 }
+	 }
 	 
+	 TTTestAssertion("input samples accurately copied to output samples", 
+					 validSampleCount == 256, // 64 * 4 channels 
+					 testAssertionCount, 
+					 errorCount);
+	 TTTestLog("Number of bad samples: %i", 256-validSampleCount);
 	 
+	 TTObjectRelease(&input);
+	 TTObjectRelease(&output);
 
 	 // Wrap up the test results to pass back to whoever called this test
 	 return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
