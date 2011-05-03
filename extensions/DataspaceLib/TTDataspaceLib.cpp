@@ -56,9 +56,11 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_DataspaceLib(void)
 	AxisUnit::registerClass();
 	
 	PitchDataspace::registerClass();
-	MidiPitchUnit::registerClass();
+	BarkUnit::registerClass();
 	CentUnit::registerClass();
 	FrequencyUnit::registerClass();
+	MelUnit::registerClass();
+	MidiPitchUnit::registerClass();
 	SpeedUnit::registerClass();
 	
 	PositionDataspace::registerClass();

@@ -44,6 +44,20 @@ public:
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
+class BarkUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(BarkUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+class MelUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(MelUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
 // Specification of our base class
 class PitchDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(PitchDataspace)
