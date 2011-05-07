@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2213BE5E13760D7300CA2B5C /* TTMatrixStencil.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2213BE5D13760D7300CA2B5C /* TTMatrixStencil.test.cpp */; };
+		2213BE6013760D7B00CA2B5C /* TTMatrixGain.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2213BE5F13760D7B00CA2B5C /* TTMatrixGain.test.cpp */; };
 		2215D46A132BFFFE007CB484 /* TTMatrixGain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2215D468132BFFFE007CB484 /* TTMatrixGain.cpp */; };
 		2215D46B132BFFFE007CB484 /* TTMatrixGain.h in Headers */ = {isa = PBXBuildFile; fileRef = 2215D469132BFFFE007CB484 /* TTMatrixGain.h */; };
-		2215D482132C0B37007CB484 /* TTMatrixGain.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2215D481132C0B37007CB484 /* TTMatrixGain.test.cpp */; };
-		2215D484132C0B3D007CB484 /* TTMatrixStencil.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2215D483132C0B3D007CB484 /* TTMatrixStencil.test.cpp */; };
 		22D8C48C13134EBE008F80C7 /* TTMatrixStencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8C48A13134EBE008F80C7 /* TTMatrixStencil.cpp */; };
 		22D8C48D13134EBE008F80C7 /* TTMatrixStencil.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D8C48B13134EBE008F80C7 /* TTMatrixStencil.h */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
@@ -21,10 +21,10 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		2213BE5D13760D7300CA2B5C /* TTMatrixStencil.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrixStencil.test.cpp; path = tests/TTMatrixStencil.test.cpp; sourceTree = "<group>"; };
+		2213BE5F13760D7B00CA2B5C /* TTMatrixGain.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrixGain.test.cpp; path = tests/TTMatrixGain.test.cpp; sourceTree = "<group>"; };
 		2215D468132BFFFE007CB484 /* TTMatrixGain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMatrixGain.cpp; sourceTree = "<group>"; };
 		2215D469132BFFFE007CB484 /* TTMatrixGain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMatrixGain.h; sourceTree = "<group>"; };
-		2215D481132C0B37007CB484 /* TTMatrixGain.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMatrixGain.test.cpp; sourceTree = "<group>"; };
-		2215D483132C0B3D007CB484 /* TTMatrixStencil.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMatrixStencil.test.cpp; sourceTree = "<group>"; };
 		22D8C48A13134EBE008F80C7 /* TTMatrixStencil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMatrixStencil.cpp; sourceTree = "<group>"; };
 		22D8C48B13134EBE008F80C7 /* TTMatrixStencil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMatrixStencil.h; sourceTree = "<group>"; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
@@ -90,10 +90,10 @@
 			children = (
 				2215D469132BFFFE007CB484 /* TTMatrixGain.h */,
 				2215D468132BFFFE007CB484 /* TTMatrixGain.cpp */,
-				2215D481132C0B37007CB484 /* TTMatrixGain.test.cpp */,
+				2213BE5F13760D7B00CA2B5C /* TTMatrixGain.test.cpp */,
 				22D8C48B13134EBE008F80C7 /* TTMatrixStencil.h */,
 				22D8C48A13134EBE008F80C7 /* TTMatrixStencil.cpp */,
-				2215D483132C0B3D007CB484 /* TTMatrixStencil.test.cpp */,
+				2213BE5D13760D7300CA2B5C /* TTMatrixStencil.test.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -181,8 +181,8 @@
 				22FD47F011E24A57007BBF7E /* TTMatrixProcessingLib.cpp in Sources */,
 				22D8C48C13134EBE008F80C7 /* TTMatrixStencil.cpp in Sources */,
 				2215D46A132BFFFE007CB484 /* TTMatrixGain.cpp in Sources */,
-				2215D482132C0B37007CB484 /* TTMatrixGain.test.cpp in Sources */,
-				2215D484132C0B3D007CB484 /* TTMatrixStencil.test.cpp in Sources */,
+				2213BE5E13760D7300CA2B5C /* TTMatrixStencil.test.cpp in Sources */,
+				2213BE6013760D7B00CA2B5C /* TTMatrixGain.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
