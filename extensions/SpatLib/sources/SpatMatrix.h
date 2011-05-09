@@ -18,7 +18,7 @@
 class SpatMatrix : TTAudioObject {
 	TTCLASS_SETUP(SpatMatrix)
 	
-	TTAudioObjectPtr	mMatrixObject;
+	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
