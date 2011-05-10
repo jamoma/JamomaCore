@@ -8998,7 +8998,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 239.0, 163.0, 133.0, 19.0 ],
-													"text" : "getDescriptionFromHtml"
+													"text" : "jcom.getDescriptionFromHtml"
 												}
 
 											}
