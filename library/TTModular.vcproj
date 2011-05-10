@@ -43,8 +43,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\source&quot;;&quot;$(ProjectDir)\PeerObject&quot;;&quot;$(ProjectDir)\DataspaceLib&quot;;&quot;$(ProjectDir)\RampLib&quot;;&quot;$(ProjectDir)\FunctionLib&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\libxml2/win32/include&quot;;&quot;$(ProjectDir)..\..\Foundation\library\libiconv\include&quot;;$(NOINHERIT)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTMODULAR_EXPORTS;TT_PLATFORM_WIN;TT_DEBUG;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\source&quot;;&quot;$(ProjectDir)\PeerObject&quot;;&quot;$(ProjectDir)\RampLib&quot;;&quot;$(ProjectDir)\FunctionLib&quot;;&quot;$(ProjectDir)\PluginLib\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\libxml2/win32/include&quot;;&quot;$(ProjectDir)..\..\Foundation\library\libiconv\include&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTMODULAR_EXPORTS;PLUGIN_EXPORTS;TT_PLATFORM_WIN;TT_DEBUG;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="JamomaFoundation.lib libxml2.lib"
-				AdditionalLibraryDirectories="&quot;C:\Users\Laurent Garnier\Travail\Galamus\Jamoma\Modules\Foundation\library\build&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\Jamoma\Modules\Foundation\library\libxml2\win32\lib&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\Jamoma\Modules\Foundation\library\libiconv\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\Foundation\library\build&quot;;&quot;$(ProjectDir)..\..\Foundation\library\libxml2\win32\lib&quot;;&quot;$(ProjectDir)..\..\Foundation\library\libiconv\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -198,6 +198,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PeerObject\TTApplicationManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTApplicationManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PeerObject\TTContainer.cpp"
 				>
 			</File>
@@ -227,22 +235,6 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTData.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PeerObject\TTDevice.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PeerObject\TTDevice.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PeerObject\TTDeviceManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PeerObject\TTDeviceManager.h"
 				>
 			</File>
 			<File
@@ -291,6 +283,14 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTOutput.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PluginLib\source\TTPluginHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PluginLib\includes\TTPluginHandler.h"
 				>
 			</File>
 			<File
@@ -371,18 +371,18 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="DeviceManagerLib"
+			Name="PluginLib"
 			>
 			<File
-				RelativePath=".\DeviceManagerLib\Plugin.h"
+				RelativePath=".\PluginLib\includes\Plugin.h"
 				>
 			</File>
 			<File
-				RelativePath=".\DeviceManagerLib\PluginFactories.cpp"
+				RelativePath=".\PluginLib\source\PluginFactories.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DeviceManagerLib\PluginFactories.h"
+				RelativePath=".\PluginLib\includes\PluginFactories.h"
 				>
 			</File>
 		</Filter>

@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)\pthread\include&quot;;&quot;$(ProjectDir)\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)\..\..\..\Foundation\library\libxml2\win32\include&quot;;&quot;$(ProjectDir)\..\..\..\Foundation\library\libiconv\include&quot;;&quot;$(ProjectDir)\..\PeerObject&quot;;&quot;$(ProjectDir)\..\DataspaceLib&quot;;&quot;$(ProjectDir)\..\FunctionLib&quot;;&quot;$(ProjectDir)\..\source&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)Minuit&quot;;&quot;$(ProjectDir)..\pthread\include&quot;;&quot;$(ProjectDir)..\NetworkCommunication\ip&quot;;&quot;$(ProjectDir)..\NetworkCommunication\osc&quot;;&quot;$(ProjectDir)\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)\..\..\..\Foundation\library\libxml2\win32\include&quot;;&quot;$(ProjectDir)\..\..\..\Foundation\library\libiconv\include&quot;;&quot;$(ProjectDir)\..\..\library\PeerObject&quot;;&quot;$(ProjectDir)\..\..\library\DataspaceLib&quot;;&quot;$(ProjectDir)\..\..\library\FunctionLib&quot;;&quot;$(ProjectDir)\..\..\library\PluginLib\includes&quot;;&quot;$(ProjectDir)\..\..\library\source&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN32_DLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;PLUGIN_EXPORTS"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -67,7 +67,7 @@
 				AdditionalDependencies="JamomaFoundation.lib TTModular.lib"
 				OutputFile="$(OutDir)\Minuit.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)pthread\lib&quot;;&quot;$(ProjectDir)..\Debug&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\build&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\pthread\lib&quot;;&quot;$(ProjectDir)..\..\library\Debug&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\build&quot;"
 				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=""
@@ -94,8 +94,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Install Minuit.dll"
-				CommandLine="if exist Plugins/Minuit.dll rm Plugins/Minuit.dll&#x0D;&#x0A;cp Debug/Minuit.dll Plugins/&#x0D;&#x0A;"
+				Description=""
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -198,14 +198,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Minuit\OSCFunctions.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Minuit\OSCParser.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Minuit\ReceiveOSCThread.cpp"
 				>
 			</File>
@@ -232,15 +224,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Minuit\OSCFunctions.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Minuit\OSCParser.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Plugin.h"
+				RelativePath="..\..\library\PluginLib\includes\Plugin.h"
 				>
 			</File>
 			<File
@@ -256,35 +240,35 @@
 			Name="ip"
 			>
 			<File
-				RelativePath=".\NetworkCommunication\ip\IpEndpointName.cpp"
+				RelativePath="..\NetworkCommunication\ip\IpEndpointName.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\ip\IpEndpointName.h"
+				RelativePath="..\NetworkCommunication\ip\IpEndpointName.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\ip\NetworkingUtils.cpp"
+				RelativePath="..\NetworkCommunication\ip\NetworkingUtils.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\ip\NetworkingUtils.h"
+				RelativePath="..\NetworkCommunication\ip\NetworkingUtils.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\ip\PacketListener.h"
+				RelativePath="..\NetworkCommunication\ip\PacketListener.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\ip\TimerListener.h"
+				RelativePath="..\NetworkCommunication\ip\TimerListener.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\ip\UdpSocket.cpp"
+				RelativePath="..\NetworkCommunication\ip\UdpSocket.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\ip\UdpSocket.h"
+				RelativePath="..\NetworkCommunication\ip\UdpSocket.h"
 				>
 			</File>
 		</Filter>
@@ -292,51 +276,51 @@
 			Name="osc"
 			>
 			<File
-				RelativePath=".\NetworkCommunication\osc\MessageMappingOscPacketListener.h"
+				RelativePath="..\NetworkCommunication\osc\MessageMappingOscPacketListener.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscException.h"
+				RelativePath="..\NetworkCommunication\osc\OscException.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscHostEndianness.h"
+				RelativePath="..\NetworkCommunication\osc\OscHostEndianness.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscOutboundPacketStream.cpp"
+				RelativePath="..\NetworkCommunication\osc\OscOutboundPacketStream.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscOutboundPacketStream.h"
+				RelativePath="..\NetworkCommunication\osc\OscOutboundPacketStream.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscPacketListener.h"
+				RelativePath="..\NetworkCommunication\osc\OscPacketListener.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscPrintReceivedElements.cpp"
+				RelativePath="..\NetworkCommunication\osc\OscPrintReceivedElements.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscPrintReceivedElements.h"
+				RelativePath="..\NetworkCommunication\osc\OscPrintReceivedElements.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscReceivedElements.cpp"
+				RelativePath="..\NetworkCommunication\osc\OscReceivedElements.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscReceivedElements.h"
+				RelativePath="..\NetworkCommunication\osc\OscReceivedElements.h"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscTypes.cpp"
+				RelativePath="..\NetworkCommunication\osc\OscTypes.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkCommunication\osc\OscTypes.h"
+				RelativePath="..\NetworkCommunication\osc\OscTypes.h"
 				>
 			</File>
 		</Filter>
