@@ -38,6 +38,9 @@ class TTDSP_EXPORT TTBuffer : public TTAudioObject {
 	/** Notification from the parent class of a sample-rate change. */
 	TTErr updateSampleRate(const TTValue& oldSampleRate);
 	
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
+
 public:
 	/**	Attribute accessor: set the number of channels for this buffer.
 		@return Returns a TTErr error code.	*/
