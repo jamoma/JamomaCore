@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="JamomaModular"
 	ProjectGUID="{61C80A36-5F63-4CD0-8F2A-AC759D323726}"
 	RootNamespace="JamomaFramework"
@@ -249,88 +249,12 @@
 				RelativePath=".\source\jcom.sendreceive.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="DataspaceLib"
-			>
 			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.cpp"
+				RelativePath=".\source\TTModularVersion.h"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.h"
+				RelativePath=".\source\TTModularVersion.template.h"
 				>
 			</File>
 		</Filter>

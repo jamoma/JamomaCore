@@ -54,10 +54,6 @@ EXPORTS
 	;	jamoma_getFunction
 	;	jamoma_getFunctionList
 
-	; DataspaceLib
-		jamoma_getDataspace
-		jamoma_getDataspaceList
-
 	; JamomaSymbols
 		jps_1U
 		jps_1U_half
