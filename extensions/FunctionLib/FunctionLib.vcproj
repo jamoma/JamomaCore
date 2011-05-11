@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)tests&quot;;&quot;$(ProjectDir)includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)tests&quot;;&quot;$(ProjectDir)includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -183,59 +183,67 @@
 			Name="Function Units"
 			>
 			<File
-				RelativePath=".\CosineFunction.cpp"
+				RelativePath=".\source\CosineFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\CosineFunction.h"
+				RelativePath=".\includes\CosineFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\ExpFunction.cpp"
+				RelativePath=".\source\ExpFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ExpFunction.h"
+				RelativePath=".\includes\ExpFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LinearFunction.cpp"
+				RelativePath=".\source\Function.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LinearFunction.h"
+				RelativePath=".\includes\Function.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LogFunction.cpp"
+				RelativePath=".\source\LinearFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LogFunction.h"
+				RelativePath=".\includes\LinearFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LowpassFunction.cpp"
+				RelativePath=".\source\LogFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LowpassFunction.h"
+				RelativePath=".\includes\LogFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PowerFunction.cpp"
+				RelativePath=".\source\LowpassFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\PowerFunction.h"
+				RelativePath=".\includes\LowpassFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TanhFunction.cpp"
+				RelativePath=".\source\PowerFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TanhFunction.h"
+				RelativePath=".\includes\PowerFunction.h"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TanhFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TanhFunction.h"
 				>
 			</File>
 		</Filter>

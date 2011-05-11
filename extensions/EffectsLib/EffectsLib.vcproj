@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)tests&quot;;&quot;$(ProjectDir)includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST;TT_EFFECTS_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)tests&quot;;&quot;$(ProjectDir)includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST;TT_EFFECTS_LIB"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -183,11 +183,11 @@
 			Name="TTBalance"
 			>
 			<File
-				RelativePath=".\TTBalance.cpp"
+				RelativePath=".\sources\TTBalance.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTBalance.h"
+				RelativePath=".\includes\TTBalance.h"
 				>
 			</File>
 		</Filter>
@@ -195,11 +195,11 @@
 			Name="TTDegrade"
 			>
 			<File
-				RelativePath=".\TTDegrade.cpp"
+				RelativePath=".\sources\TTDegrade.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTDegrade.h"
+				RelativePath=".\includes\TTDegrade.h"
 				>
 			</File>
 		</Filter>
@@ -207,15 +207,15 @@
 			Name="TTGain"
 			>
 			<File
-				RelativePath=".\TTGain.cpp"
+				RelativePath=".\sources\TTGain.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTGain.h"
+				RelativePath=".\includes\TTGain.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTGainTest.cpp"
+				RelativePath=".\tests\TTGain.test.cpp"
 				>
 			</File>
 		</Filter>
@@ -223,11 +223,11 @@
 			Name="TTLimiter"
 			>
 			<File
-				RelativePath=".\TTLimiter.cpp"
+				RelativePath=".\sources\TTLimiter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLimiter.h"
+				RelativePath=".\includes\TTLimiter.h"
 				>
 			</File>
 		</Filter>
@@ -235,11 +235,11 @@
 			Name="TTOverdrive"
 			>
 			<File
-				RelativePath=".\TTOverdrive.cpp"
+				RelativePath=".\sources\TTOverdrive.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTOverdrive.h"
+				RelativePath=".\includes\TTOverdrive.h"
 				>
 			</File>
 		</Filter>
@@ -247,11 +247,27 @@
 			Name="TTPulseSub"
 			>
 			<File
-				RelativePath=".\TTPulseSub.cpp"
+				RelativePath=".\sources\TTPulseSub.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTPulseSub.h"
+				RelativePath=".\includes\TTPulseSub.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="TTThru"
+			>
+			<File
+				RelativePath=".\sources\TTThru.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTThru.h"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\TTThru.test.cpp"
 				>
 			</File>
 		</Filter>

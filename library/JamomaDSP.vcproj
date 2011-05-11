@@ -264,7 +264,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\tests\TTBuffer.test.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TTDelay.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\TTDelay.test.cpp"
 				>
 			</File>
 			<File
