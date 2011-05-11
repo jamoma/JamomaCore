@@ -132,7 +132,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)tests\&quot;;&quot;$(ProjectDir)boost\&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)tests\&quot;;&quot;$(ProjectDir)boost\&quot;;&quot;$(ProjectDir)Mersenne-1.1\&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -199,6 +199,10 @@
 			Name="includes"
 			>
 			<File
+				RelativePath=".\Mersenne-1.1\MersenneTwister.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTAttribute.h"
 				>
 			</File>
@@ -239,11 +243,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTLimits.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTList.h"
 				>
 			</File>
 			<File
 				RelativePath=".\includes\TTMatrix.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTMatrixArray.h"
 				>
 			</File>
 			<File
@@ -299,11 +311,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTValueCache.h"
+				RelativePath=".\tests\TTValue.test.h"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\TTValueTest.h"
+				RelativePath=".\includes\TTValueCache.h"
 				>
 			</File>
 		</Filter>
@@ -355,7 +367,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\tests\TTMatrixTest.cpp"
+				RelativePath=".\tests\TTMatrix.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTMatrixArray.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTMatrixMath.cpp"
 				>
 			</File>
 			<File
@@ -411,11 +431,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTValueCache.cpp"
+				RelativePath=".\tests\TTValue.test.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\TTValueTest.cpp"
+				RelativePath=".\source\TTValueCache.cpp"
 				>
 			</File>
 		</Filter>

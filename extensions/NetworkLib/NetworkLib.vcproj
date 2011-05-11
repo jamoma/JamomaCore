@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="SoundfileLib"
+	Name="NetworkLib"
 	ProjectGUID="{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -64,7 +64,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaDSP.lib JamomaFoundation.lib libsndfile-1.lib"
+				AdditionalDependencies="JamomaFoundation.lib ws2_32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)libsndfile&quot;"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -141,7 +141,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaDSP.lib JamomaFoundation.lib libsndfile-1.lib"
+				AdditionalDependencies="JamomaFoundation.lib ws2_32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)libsndfile&quot;"
@@ -179,24 +179,28 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Classes"
-			>
-			<File
-				RelativePath=".\TTSoundfilePlayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TTSoundfilePlayer.h"
-				>
-			</File>
-		</Filter>
 		<File
-			RelativePath=".\libsndfile-win\include\sndfile.h"
+			RelativePath=".\TTNetReceive.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\SoundfileLib.cpp"
+			RelativePath=".\TTNetReceive.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TTNetSend.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TTNetSend.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TTNetSocket.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TTNetSocket.h"
 			>
 		</File>
 	</Files>

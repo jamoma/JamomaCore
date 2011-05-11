@@ -18,6 +18,9 @@
 #define DBL_MAX std::numeric_limits<double>::max()
 #endif
 
+#ifdef TT_PLATFORM_WIN
+#include <limits>
+#endif
 
 TT_OBJECT_CONSTRUCTOR
 {;}
