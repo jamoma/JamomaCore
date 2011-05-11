@@ -27,7 +27,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				Description="Performing Custom Build Step: copy   $(OutDir)\$(TargetFileName)  to  &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
+				CommandLine="copy &quot;$(OutDir)\$(TargetFileName)&quot; &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -107,7 +108,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				Description="Performing Custom Build Step: copy   $(OutDir)\$(TargetFileName)  to  &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
+				CommandLine="copy &quot;$(OutDir)\$(TargetFileName)&quot; &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
