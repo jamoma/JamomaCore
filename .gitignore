@@ -20,7 +20,7 @@ Release
 *.tm_build_errors
 *.xcworkspace
 xcuserdata
-
+implementations/MaxMSP/builds/
 
 
 
