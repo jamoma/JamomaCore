@@ -27,3 +27,4 @@ Debug
 
 #Windows implementation build files
 implementations/MaxMSP/builds/
+extensions/builds/

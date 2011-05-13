@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="Debug"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -28,7 +28,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Performing Custom Build Step : copy $(TargetFileName) to Jamoma\Builds\MaxMSP"
-				CommandLine="cmd /C &quot;$(ProjectDir)..\..\..\..\..\Tools\windows\copy_and_add_double-tilde.mxe.bat $(ProjectDir)$(ConfigurationName)\$(InputName) $(ProjectDir)..\..\..\..\..\Builds\MaxMSP\"
+				CommandLine="cmd /C &quot;$(ProjectDir)..\..\..\..\..\Tools\windows\copy_and_add_double-tilde.mxe.bat $(ProjectDir)$(ConfigurationName)\$(InputName) $(ProjectDir)..\..\..\..\..\Builds\MaxMSP\&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -99,8 +99,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\builds"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -109,7 +109,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Performing Custom Build Step : copy $(TargetFileName) to Jamoma\Builds\MaxMSP&quot;"
-				CommandLine="cmd /C &quot;$(ProjectDir)..\..\..\..\..\Tools\windows\copy_and_add_double-tilde.mxe.bat $(ProjectDir)$(ConfigurationName)\$(InputName) $(ProjectDir)..\..\..\..\..\Builds\MaxMSP\"
+				CommandLine="cmd /C &quot;$(ProjectDir)..\..\..\..\..\Tools\windows\copy_and_add_double-tilde.mxe.bat $(ProjectDir)$(ConfigurationName)\$(InputName) $(ProjectDir)..\..\..\..\..\Builds\MaxMSP\&#x0D;&#x0A;"
 				Outputs="$(ProjectDir)..\..\..\..\..\Builds\MaxMSP\$(TargetFileName)"
 			/>
 			<Tool
