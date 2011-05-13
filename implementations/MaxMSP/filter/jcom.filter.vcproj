@@ -28,7 +28,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Performing Custom Build Step : copy $(TargetFileName) to Jamoma\Builds\MaxMSP"
-				CommandLine="cmd /C &quot;$(ProjectDir)..\..\..\..\..\Tools\windows\copy_and_add_double-tilde.mxe.bat $(ProjectDir)$(ConfigurationName)\$(InputName) $(ProjectDir)..\..\..\..\..\Builds\MaxMSP\&#x0D;&#x0A;"
+				CommandLine="$(ProjectDir)..\..\..\..\..\Tools\windows\copy_and_add_double-tilde.mxe.bat $(ProjectDir)$(ConfigurationName)\$(InputName) $(ProjectDir)..\..\..\..\..\Builds\MaxMSP\"
 				Outputs="output"
 			/>
 			<Tool
@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib JamomaGraph.lib JamomaAudioGraph.lib"
-				OutputFile="$(ConfigurationName)\$(InputName)≈.mxe"
+				OutputFile="$(OutDir)\$(InputName)≈.mxe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\Graph\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
@@ -108,9 +108,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Performing Custom Build Step : copy $(TargetFileName) to Jamoma\Builds\MaxMSP&quot;"
-				CommandLine="cmd /C &quot;$(ProjectDir)..\..\..\..\..\Tools\windows\copy_and_add_double-tilde.mxe.bat $(ProjectDir)$(ConfigurationName)\$(InputName) $(ProjectDir)..\..\..\..\..\Builds\MaxMSP\&#x0D;&#x0A;"
-				Outputs="$(ProjectDir)..\..\..\..\..\Builds\MaxMSP\$(TargetFileName)"
+				Description="Performing Custom Build Step : copy $(TargetFileName) to Jamoma\Builds\MaxMSP"
+				CommandLine="$(ProjectDir)..\..\..\..\..\Tools\windows\copy_and_add_double-tilde.mxe.bat $(ProjectDir)$(ConfigurationName)\$(InputName) $(ProjectDir)..\..\..\..\..\Builds\MaxMSP\"
+				Outputs="output"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
