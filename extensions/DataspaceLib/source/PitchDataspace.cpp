@@ -16,6 +16,18 @@
 #define thisTTClassName		"unit.midi.pitch"
 #define thisTTClassTags		"dataspace.unit, pitch"
 
+#ifdef TT_PLATFORM_WIN
+template <typename T> T asinh(T value)
+{
+	T returned;
+	if(value>0)
+		returned = log(value + sqrt(value * value + 1));
+	else
+		returned = -log(-value + sqrt(value * value + 1));
+	return(returned);
+}
+#endif
+
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
 {;}

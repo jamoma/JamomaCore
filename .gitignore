@@ -23,3 +23,7 @@ project.xcworkspace
 *.bundle
 *.log
 *.tm_build_errors
+
+#Windows implementation build files
+implementations/MaxMSP/builds/
+extensions/builds/
