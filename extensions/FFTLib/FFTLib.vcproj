@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="SoundfileLib"
-	ProjectGUID="{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
+	Name="FFTLib"
+	ProjectGUID="{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\builds"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;copy $(ProjectDir)\libsndfile\libsndfile-1.dll &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(ProjectDir)\libsndfile\libsndfile-1.dll &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -42,8 +42,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)tests&quot;;&quot;$(ProjectDir)includes&quot;;&quot;$(ProjectDir)mayer&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST;TT_EFFECTS_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -64,10 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaDSP.lib JamomaFoundation.lib libsndfile-1.lib"
+				AdditionalDependencies="JamomaDSP.lib JamomaFoundation.lib"
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)libsndfile&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -98,8 +98,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;copy $(ProjectDir)\libsndfile\libsndfile-1.dll &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(ProjectDir)\libsndfile\libsndfile-1.dll &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -122,8 +122,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)tests&quot;;&quot;$(ProjectDir)includes&quot;;&quot;$(ProjectDir)mayer&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST;TT_EFFECTS_LIB"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
@@ -141,10 +141,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaDSP.lib JamomaFoundation.lib libsndfile-1.lib"
+				AdditionalDependencies="JamomaDSP.lib JamomaFoundation.lib"
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)libsndfile&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -179,32 +179,28 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Classes"
-			>
-			<File
-				RelativePath=".\TTSoundfilePlayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TTSoundfilePlayer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TTSoundfileRecorder.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TTSoundfileRecorder.h"
-				>
-			</File>
-		</Filter>
 		<File
-			RelativePath=".\libsndfile-win\include\sndfile.h"
+			RelativePath=".\FFTLib.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\SoundfileLib.cpp"
+			RelativePath=".\fft\fftsg.c"
+			>
+		</File>
+		<File
+			RelativePath=".\mayer\mayer_fft.c"
+			>
+		</File>
+		<File
+			RelativePath=".\mayer\mayer_fft.h"
+			>
+		</File>
+		<File
+			RelativePath=".\source\TTFFT.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\includes\TTFFT.h"
 			>
 		</File>
 	</Files>
