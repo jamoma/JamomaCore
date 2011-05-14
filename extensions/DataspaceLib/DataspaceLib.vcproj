@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="NetworkLib"
+	Name="DataspaceLib"
 	ProjectGUID="{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\builds"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)includes&quot;;&quot;$(ProjectDir)tests&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -98,8 +98,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)includes&quot;;&quot;$(ProjectDir)tests&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -179,28 +179,132 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="source"
+			>
+			<File
+				RelativePath=".\source\AngleDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\ColorDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\DistanceDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\GainDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\NoneDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\OrientationDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\PitchDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\PositionDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\SpeedDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TemperatureDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TimeDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTDataspaceConverter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTDataspaceUnit.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="includes"
+			>
+			<File
+				RelativePath=".\includes\AngleDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\ColorDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\DistanceDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\GainDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\NoneDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\OrientationDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\PitchDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\PositionDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\SpeedDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TemperatureDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TimeDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTDataspaceConverter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTDataspaceUnit.h"
+				>
+			</File>
+		</Filter>
 		<File
-			RelativePath=".\TTNetReceive.cpp"
+			RelativePath=".\TTDataspaceLib.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\TTNetReceive.h"
-			>
-		</File>
-		<File
-			RelativePath=".\TTNetSend.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\TTNetSend.h"
-			>
-		</File>
-		<File
-			RelativePath=".\TTNetSocket.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\TTNetSocket.h"
+			RelativePath=".\TTDataspaceLib.h"
 			>
 		</File>
 	</Files>

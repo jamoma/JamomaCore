@@ -6,11 +6,15 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#include <limits>
 #include "TTUnitTest.h"
 
 
 static const TTFloat32 kTTTestFloat32Epsilon = 0.00001;
 static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
+static const TTFloat32 kTTTestFloat32Infinity = std::numeric_limits<float>::infinity();
+static const TTFloat64 kTTTestFloat64Infinity = std::numeric_limits<double>::infinity();
+
 
 
 TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean expectedResult, TTFloat32 epsilon)
@@ -22,7 +26,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean e
 	
 	TTBoolean result;
 
-	if (isinf(aFloat)||isinf(bFloat)) {
+	if ((aFloat == kTTTestFloat32Infinity)||(bFloat == kTTTestFloat32Infinity)) {
 		if (aFloat==bFloat)
 			result = true;
 		else
@@ -63,7 +67,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean e
 	
 	TTBoolean result;
 	
-	if (isinf(aFloat)||isinf(bFloat)) {
+	if ((aFloat == kTTTestFloat64Infinity)||(bFloat == kTTTestFloat64Infinity)) {
 		if (aFloat==bFloat)
 			result = true;
 		else
