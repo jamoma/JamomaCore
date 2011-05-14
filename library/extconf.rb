@@ -26,10 +26,10 @@ have_func("Init_Jamoma", "Jamoma.cpp")
 $CFLAGS = $CFLAGS + " -I #{inc} -I #{dsp} -I #{audiograph} -I #{graph} -g -O1"
 $CPPFLAGS = $CPPFLAGS + " -I #{inc} -I #{dsp} -I #{audiograph} -I #{graph} -g -O1"
 #$LDFLAGS = $LDFLAGS + " -framework JamomaFoundation -framework JamomaDSP -framework JamomaAudioGraph -framework JamomaGraph"
-$LDFLAGS = $LDFLAGS + " \"/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib\""
-$LDFLAGS = $LDFLAGS + " \"/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib\""
-$LDFLAGS = $LDFLAGS + " \"/Library/Application Support/Jamoma/Libraries/JamomaAudioGraph.dylib\""
-$LDFLAGS = $LDFLAGS + " \"/Library/Application Support/Jamoma/Libraries/JamomaGraph.dylib\""
+$LDFLAGS = $LDFLAGS + " \"/usr/local/lib/JamomaFoundation.dylib\""
+$LDFLAGS = $LDFLAGS + " \"/usr/local/lib/JamomaDSP.dylib\""
+$LDFLAGS = $LDFLAGS + " \"/usr/local/lib/JamomaAudioGraph.dylib\""
+$LDFLAGS = $LDFLAGS + " \"/usr/local/lib/JamomaGraph.dylib\""
 
 #$ARCHFLAGS = "-arch i386"
 
