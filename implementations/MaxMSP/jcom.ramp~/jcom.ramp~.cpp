@@ -176,7 +176,9 @@ t_int *ramp_perform(t_int *w)
 	if(!(x->obj.z_disabled))
 		x->ramp->process(*x->audioOut);
 
-	TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, 0, x->vs, w[2]);
+	//TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, 0, x->vs, w[2]);
+	x->audioOut->getVector(0, x->vs, (t_float *)(w[2]));
+
     return w+3;
 }
 
