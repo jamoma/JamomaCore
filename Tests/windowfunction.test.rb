@@ -11,7 +11,6 @@ o.send "test"
 err, cpu = o.send "getProcessingBenchmark", 1
 cpu_total += cpu
 
-
 puts "  TESTING KAISER WINDOW"
 o = TTObject.new "kaiser"
 o.send "test"
@@ -20,6 +19,12 @@ cpu_total += cpu
 
 puts "  TESTING TUKEY WINDOW"
 o = TTObject.new "tukey"
+o.send "test"
+err, cpu = o.send "getProcessingBenchmark", 1
+cpu_total += cpu
+
+puts "  TESTING GAUSS WINDOW"
+o = TTObject.new "gauss"
 o.send "test"
 err, cpu = o.send "getProcessingBenchmark", 1
 cpu_total += cpu

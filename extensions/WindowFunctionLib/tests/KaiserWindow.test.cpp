@@ -62,14 +62,32 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 	v.set(1, 6.0);
 	windowObject->sendMessage(TT("setParameter"), v);
 	
-	TTTestAssertion("Internal intermediate value (zeroth-order bessel fn of the first kind, taken of beta) is correct.",
+	TTTestAssertion("Internal intermediate value 1 (zeroth-order bessel fn of the first kind, taken of beta = 6.0) is correct.",
 					TTTestFloatEquivalence(((KaiserWindow*)((WindowFunction*)windowObject)->mFunctionObject)->mBesselIOofBeta, 67.2344069764780),
 					testAssertionCount,
 					errorCount);
 	
+	// change the alpha parameter and test Bessel function again
+	v.setSize(2);
+	v.set(0, TT("alpha"));
+	v.set(1, 2.0);
+	windowObject->sendMessage(TT("setParameter"), v);
+	
+	TTTestAssertion("Internal intermediate value 2 (zeroth-order bessel fn of the first kind, taken of alpha = 2) is correct.",
+					TTTestFloatEquivalence(((KaiserWindow*)((WindowFunction*)windowObject)->mFunctionObject)->mBesselIOofBeta, 87.10851065339077),
+					testAssertionCount,
+					errorCount);  // added 4/26 by Wolek
+	
 	// change the beta parameter and try applying the window
+	v.setSize(2);
+	v.set(0, TT("beta"));
 	v.set(1, 3.0 * kTTPi);
 	windowObject->sendMessage(TT("setParameter"), v);
+	
+	TTTestAssertion("Internal intermediate value 2 (zeroth-order bessel fn of the first kind, taken of beta = 3 * pi) is correct.",
+					TTTestFloatEquivalence(((KaiserWindow*)((WindowFunction*)windowObject)->mFunctionObject)->mBesselIOofBeta, 1633.090522058824),
+					testAssertionCount,
+					errorCount);  // added 4/26 by Wolek
 	
 	// create 1 channel audio signal objects
 	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
@@ -95,8 +113,6 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
-	
-	
 	
 	
 	TTObjectRelease(&input);
