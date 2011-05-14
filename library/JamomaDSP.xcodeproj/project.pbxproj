@@ -195,7 +195,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/mkdir -p \"/Library/Application Support/Jamoma/Libraries\"\n/bin/rm -f \"/Library/Application Support/Jamoma/Libraries\"/$PRODUCT_NAME.$WRAPPER_EXTENSION\n/bin/cp $TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION \"/Library/Application Support/Jamoma/Libraries\"/$PRODUCT_NAME.$WRAPPER_EXTENSION\n";
+			shellScript = "/bin/rm -f \"/usr/local/jamoma/lib\"/$PRODUCT_NAME.$WRAPPER_EXTENSION\n/bin/cp $TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION \"/usr/local/jamoma/lib\"/$PRODUCT_NAME.$WRAPPER_EXTENSION\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
