@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)tests&quot;;&quot;$(ProjectDir)includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)tests&quot;;&quot;$(ProjectDir)includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -183,325 +183,341 @@
 			Name="Filters"
 			>
 			<File
-				RelativePath=".\TTAllpass.cpp"
+				RelativePath=".\source\TTAllpass.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass.h"
+				RelativePath=".\includes\TTAllpass.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1.cpp"
+				RelativePath=".\source\TTAllpass1.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1.h"
+				RelativePath=".\includes\TTAllpass1.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1a.cpp"
+				RelativePath=".\source\TTAllpass1a.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1a.h"
+				RelativePath=".\includes\TTAllpass1a.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1aCascade2.cpp"
+				RelativePath=".\source\TTAllpass1aCascade2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1aCascade2.h"
+				RelativePath=".\includes\TTAllpass1aCascade2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1b.cpp"
+				RelativePath=".\source\TTAllpass1b.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1b.h"
+				RelativePath=".\includes\TTAllpass1b.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1c.cpp"
+				RelativePath=".\source\TTAllpass1c.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass1c.h"
+				RelativePath=".\includes\TTAllpass1c.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass2a.cpp"
+				RelativePath=".\source\TTAllpass2a.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass2a.h"
+				RelativePath=".\includes\TTAllpass2a.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass2b.cpp"
+				RelativePath=".\source\TTAllpass2b.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass2b.h"
+				RelativePath=".\includes\TTAllpass2b.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass2c.cpp"
+				RelativePath=".\source\TTAllpass2c.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass2c.h"
+				RelativePath=".\includes\TTAllpass2c.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass4a.cpp"
+				RelativePath=".\source\TTAllpass4a.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTAllpass4a.h"
+				RelativePath=".\includes\TTAllpass4a.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTBandpassButterworth2.cpp"
+				RelativePath=".\source\TTAverage.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTBandpassButterworth2.h"
+				RelativePath=".\includes\TTAverage.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTBandrejectButterworth2.cpp"
+				RelativePath=".\source\TTBandpassButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTBandrejectButterworth2.h"
+				RelativePath=".\includes\TTBandpassButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTDCBlock.cpp"
+				RelativePath=".\source\TTBandrejectButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTDCBlock.h"
+				RelativePath=".\includes\TTBandrejectButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTFilter.cpp"
+				RelativePath=".\source\TTDCBlock.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTFilter.h"
+				RelativePath=".\includes\TTDCBlock.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHalfband3.cpp"
+				RelativePath=".\source\TTFilter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHalfband3.h"
+				RelativePath=".\includes\TTFilter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHalfband5.cpp"
+				RelativePath=".\source\TTHalfband3.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHalfband5.h"
+				RelativePath=".\includes\TTHalfband3.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHalfband9.cpp"
+				RelativePath=".\source\TTHalfband5.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHalfband9.h"
+				RelativePath=".\includes\TTHalfband5.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHalfbandLinear33.cpp"
+				RelativePath=".\source\TTHalfband9.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHalfbandLinear33.h"
+				RelativePath=".\includes\TTHalfband9.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighMidLowShelf.cpp"
+				RelativePath=".\source\TTHalfbandLinear33.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighMidLowShelf.h"
+				RelativePath=".\includes\TTHalfbandLinear33.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassButterworth1.cpp"
+				RelativePath=".\source\TTHighMidLowShelf.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassButterworth1.h"
+				RelativePath=".\includes\TTHighMidLowShelf.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassButterworth2.cpp"
+				RelativePath=".\source\TTHighpassButterworth1.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassButterworth2.h"
+				RelativePath=".\includes\TTHighpassButterworth1.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassButterworth3.cpp"
+				RelativePath=".\source\TTHighpassButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassButterworth3.h"
+				RelativePath=".\includes\TTHighpassButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassButterworth4.cpp"
+				RelativePath=".\source\TTHighpassButterworth3.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassButterworth4.h"
+				RelativePath=".\includes\TTHighpassButterworth3.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassLinkwitzRiley2.cpp"
+				RelativePath=".\source\TTHighpassButterworth4.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassLinkwitzRiley2.h"
+				RelativePath=".\includes\TTHighpassButterworth4.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassLinkwitzRiley4.cpp"
+				RelativePath=".\source\TTHighpassLinkwitzRiley2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHighpassLinkwitzRiley4.h"
+				RelativePath=".\includes\TTHighpassLinkwitzRiley2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHilbert9.cpp"
+				RelativePath=".\source\TTHighpassLinkwitzRiley4.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHilbert9.h"
+				RelativePath=".\includes\TTHighpassLinkwitzRiley4.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHilbertLinear33.cpp"
+				RelativePath=".\source\TTHilbert9.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTHilbertLinear33.h"
+				RelativePath=".\includes\TTHilbert9.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassButterworth1.cpp"
+				RelativePath=".\source\TTHilbertLinear33.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassButterworth1.h"
+				RelativePath=".\includes\TTHilbertLinear33.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassButterworth2.cpp"
+				RelativePath=".\source\TTLowpassButterworth1.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassButterworth2.h"
+				RelativePath=".\includes\TTLowpassButterworth1.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassButterworth3.cpp"
+				RelativePath=".\source\TTLowpassButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassButterworth3.h"
+				RelativePath=".\includes\TTLowpassButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassButterworth4.cpp"
+				RelativePath=".\source\TTLowpassButterworth3.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassButterworth4.h"
+				RelativePath=".\includes\TTLowpassButterworth3.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassFourPole.cpp"
+				RelativePath=".\source\TTLowpassButterworth4.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassFourPole.h"
+				RelativePath=".\includes\TTLowpassButterworth4.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassLinkwitzRiley2.cpp"
+				RelativePath=".\source\TTLowpassFourPole.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassLinkwitzRiley2.h"
+				RelativePath=".\includes\TTLowpassFourPole.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassLinkwitzRiley4.cpp"
+				RelativePath=".\source\TTLowpassLinkwitzRiley2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassLinkwitzRiley4.h"
+				RelativePath=".\includes\TTLowpassLinkwitzRiley2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassOnePole.cpp"
+				RelativePath=".\source\TTLowpassLinkwitzRiley4.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassOnePole.h"
+				RelativePath=".\includes\TTLowpassLinkwitzRiley4.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassTwoPole.cpp"
+				RelativePath=".\source\TTLowpassOnePole.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTLowpassTwoPole.h"
+				RelativePath=".\includes\TTLowpassOnePole.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTMirror5.cpp"
+				RelativePath=".\source\TTLowpassTwoPole.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTMirror5.h"
+				RelativePath=".\includes\TTLowpassTwoPole.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTMirrorBandpass10.cpp"
+				RelativePath=".\source\TTMirror5.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTMirrorBandpass10.h"
+				RelativePath=".\includes\TTMirror5.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTOnePole.cpp"
+				RelativePath=".\source\TTMirrorBandpass10.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTOnePole.h"
+				RelativePath=".\includes\TTMirrorBandpass10.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TTSvf.cpp"
+				RelativePath=".\source\TTOnePole.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TTSvf.h"
+				RelativePath=".\includes\TTOnePole.h"
 				>
 			</File>
+			<File
+				RelativePath=".\source\TTSvf.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTSvf.h"
+				>
+			</File>
+			<Filter
+				Name="tests"
+				>
+				<File
+					RelativePath=".\tests\TTAllpass1.test.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\FilterLib.cpp"
