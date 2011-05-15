@@ -6,7 +6,8 @@
 	ProjectGUID="{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="0"
+	AssemblyReferenceSearchPaths="&quot;.\portmidi\pm_win_static_lib&quot;"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -27,7 +28,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)portmidi\pm_win_dynamic_lib\portmidi.dll&quot;  &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)portmidi\pm_win_dynamic_lib\portmidi.dll&quot;  &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;REM this should be uncommented if linking with dynamic portmidi:  copy &quot;$(ProjectDir)portmidi\pm_win_dynamic_lib\portmidi.dll&quot;  &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;REM this should be uncommented if linking with dynamic portmidi:  copy &quot;$(ProjectDir)portmidi\pm_win_dynamic_lib\portmidi.dll&quot;  &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -64,10 +65,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaGraph.lib  JamomaDSP.lib portmidi.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaGraph.lib JamomaDSP.lib libportmidi_s_jamoma.lib Winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portmidi\pm_win_dynamic_lib&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)portmidi\pm_win_static_lib\$(ConfigurationName)_&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -107,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)portmidi\pm_win_dynamic_lib\portmidi.dll&quot;  &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)portmidi\pm_win_dynamic_lib\portmidi.dll&quot;  &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;REM this should be uncommented if linking with dynamic portmidi:  copy &quot;$(ProjectDir)portmidi\pm_win_dynamic_lib\portmidi.dll&quot;  &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;REM this should be uncommented if linking with dynamic portmidi:  copy &quot;$(ProjectDir)portmidi\pm_win_dynamic_lib\portmidi.dll&quot;  &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -141,10 +142,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaGraph.lib  JamomaDSP.lib portmidi.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaGraph.lib JamomaDSP.lib libportmidi_s_jamoma.lib Winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portmidi\pm_win_dynamic_lib&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)portmidi\pm_win_static_lib\$(ConfigurationName)_&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
