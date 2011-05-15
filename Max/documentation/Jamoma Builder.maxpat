@@ -579,7 +579,7 @@
 													"depth" : 2,
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frozen_box_attributes" : [ "depth", "types" ],
+													"frozen_box_attributes" : [ "types", "depth" ],
 													"id" : "obj-38",
 													"items" : "<empty>",
 													"maxclass" : "umenu",
@@ -1191,13 +1191,13 @@
 ,
 									"patching_rect" : [ 16.0, 309.0, 114.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p copy_XML_presets"
@@ -2101,13 +2101,13 @@
 ,
 									"patching_rect" : [ 16.0, 223.0, 242.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 12.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0
 									}
 ,
 									"text" : "p copy_Frameworks"
@@ -2748,13 +2748,13 @@
 ,
 									"patching_rect" : [ 16.0, 197.0, 148.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 12.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0
 									}
 ,
 									"text" : "p create_Jamoma/*_Folder"
@@ -2987,13 +2987,13 @@
 ,
 									"patching_rect" : [ 15.0, 170.0, 165.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 12.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0
 									}
 ,
 									"text" : "p copy_jcom.loader"
@@ -3213,13 +3213,13 @@
 ,
 									"patching_rect" : [ 15.0, 144.0, 149.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 12.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0
 									}
 ,
 									"text" : "p create_extensions_Folder"
@@ -3429,13 +3429,13 @@
 ,
 					"patching_rect" : [ 105.0, 195.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p win"
@@ -3481,9 +3481,9 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
-										"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
 										"bglocked" : 0,
-										"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
+										"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -3502,27 +3502,13 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-20",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 286.0, 61.0, 19.0 ],
-													"text" : "tosymbol"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
 													"id" : "obj-21",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 262.0, 151.0, 19.0 ],
-													"text" : "sprintf %s/jcom.loader.mxo"
+													"patching_rect" : [ 50.0, 262.0, 191.0, 19.0 ],
+													"text" : "sprintf symout %s/jcom.loader.mxo"
 												}
 
 											}
@@ -3535,7 +3521,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 373.0, 56.0, 19.0 ],
+													"patching_rect" : [ 50.0, 347.0, 56.0, 19.0 ],
 													"text" : "deferlow"
 												}
 
@@ -3550,7 +3536,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 310.0, 186.0, 31.0 ],
+													"patching_rect" : [ 50.0, 284.0, 186.0, 31.0 ],
 													"text" : "prepend copy C74:/extensions/jcom.loader.mxo"
 												}
 
@@ -3564,7 +3550,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 349.0, 65.0, 19.0 ],
+													"patching_rect" : [ 50.0, 323.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
 
@@ -3580,7 +3566,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 50.0, 217.0, 231.0, 41.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled2.app/Contents/support/extensions\""
+													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/in-out.app/Contents/support/extensions\""
 												}
 
 											}
@@ -3616,20 +3602,6 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-14",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 124.0, 61.0, 19.0 ],
-													"text" : "tosymbol"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
 													"id" : "obj-13",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
@@ -3649,8 +3621,8 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 100.0, 213.0, 19.0 ],
-													"text" : "sprintf %s/Contents/support/extensions"
+													"patching_rect" : [ 50.0, 100.0, 253.0, 19.0 ],
+													"text" : "sprintf symout %s/Contents/support/extensions"
 												}
 
 											}
@@ -3680,9 +3652,18 @@
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
-													"destination" : [ "obj-14", 0 ],
+													"destination" : [ "obj-16", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
+													"source" : [ "obj-12", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-19", 1 ],
+													"hidden" : 0,
+													"midpoints" : [ 59.5, 128.0, 271.5, 128.0 ],
 													"source" : [ "obj-12", 0 ]
 												}
 
@@ -3693,24 +3674,6 @@
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-13", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-16", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-14", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-19", 1 ],
-													"hidden" : 0,
-													"midpoints" : [ 59.5, 145.0, 271.5, 145.0 ],
-													"source" : [ "obj-14", 0 ]
 												}
 
 											}
@@ -3744,15 +3707,6 @@
 , 											{
 												"patchline" : 												{
 													"destination" : [ "obj-59", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-20", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-20", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-21", 0 ]
@@ -3800,13 +3754,13 @@
 ,
 									"patching_rect" : [ 50.0, 125.0, 80.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 12.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0
 									}
 ,
 									"text" : "p jcom.loader"
@@ -3859,27 +3813,13 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-46",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 21.0, 318.0, 61.0, 19.0 ],
-													"text" : "tosymbol"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
 													"id" : "obj-45",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 21.0, 295.0, 281.0, 19.0 ],
-													"text" : "sprintf %s/Contents/support/jcom.preset_interface.js"
+													"patching_rect" : [ 21.0, 295.0, 322.0, 19.0 ],
+													"text" : "sprintf symout %s/Contents/support/jcom.preset_interface.js"
 												}
 
 											}
@@ -3920,8 +3860,8 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 21.0, 273.0, 381.0, 17.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled2.app\""
+													"patching_rect" : [ 21.0, 273.0, 388.0, 17.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/in-out.app\""
 												}
 
 											}
@@ -3957,27 +3897,13 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-35",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 451.0, 239.0, 61.0, 19.0 ],
-													"text" : "tosymbol"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
 													"id" : "obj-36",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 451.0, 218.0, 279.0, 19.0 ],
-													"text" : "sprintf %s/library/javascript/jcom.preset_interface.js"
+													"patching_rect" : [ 451.0, 218.0, 319.0, 19.0 ],
+													"text" : "sprintf symout %s/library/javascript/jcom.preset_interface.js"
 												}
 
 											}
@@ -3990,7 +3916,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 381.0, 165.0, 97.0, 19.0 ],
+													"patching_rect" : [ 53.0, 164.0, 97.0, 19.0 ],
 													"text" : "prepend set copy"
 												}
 
@@ -3999,27 +3925,14 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-11",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 381.0, 144.0, 61.0, 19.0 ],
-													"text" : "tosymbol"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
 													"id" : "obj-5",
+													"linecount" : 2,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 381.0, 123.0, 407.0, 19.0 ],
-													"text" : "sprintf %s/library/components/preset_interface/jcom.preset_interface.maxpat"
+													"patching_rect" : [ 381.0, 128.0, 385.0, 31.0 ],
+													"text" : "sprintf symout %s/library/components/preset_interface/jcom.preset_interface.maxpat"
 												}
 
 											}
@@ -4047,21 +3960,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 21.0, 100.0, 359.0, 17.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled2.app\""
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
-													"id" : "obj-24",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 21.0, 151.0, 61.0, 19.0 ],
-													"text" : "tosymbol"
+													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/in-out.app\""
 												}
 
 											}
@@ -4074,8 +3973,8 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 21.0, 127.0, 310.0, 19.0 ],
-													"text" : "sprintf %s/Contents/support/jcom.preset_interface.maxpat"
+													"patching_rect" : [ 21.0, 127.0, 351.0, 19.0 ],
+													"text" : "sprintf symout %s/Contents/support/jcom.preset_interface.maxpat"
 												}
 
 											}
@@ -4159,18 +4058,9 @@
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
-													"destination" : [ "obj-12", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-11", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"destination" : [ "obj-27", 0 ],
 													"hidden" : 0,
-													"midpoints" : [ 390.5, 189.0, 30.5, 189.0 ],
+													"midpoints" : [ 62.5, 189.0, 30.5, 189.0 ],
 													"source" : [ "obj-12", 0 ]
 												}
 
@@ -4225,15 +4115,6 @@
 													"destination" : [ "obj-27", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-24", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-24", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
 													"source" : [ "obj-25", 0 ]
 												}
 
@@ -4277,15 +4158,6 @@
 , 											{
 												"patchline" : 												{
 													"destination" : [ "obj-34", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-35", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-35", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-36", 0 ]
@@ -4348,7 +4220,7 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-46", 0 ],
+													"destination" : [ "obj-37", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-45", 0 ]
@@ -4357,18 +4229,9 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-37", 0 ],
+													"destination" : [ "obj-12", 0 ],
 													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-46", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-11", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
+													"midpoints" : [ 390.5, 162.5, 62.5, 162.5 ],
 													"source" : [ "obj-5", 0 ]
 												}
 
@@ -4378,13 +4241,13 @@
 ,
 									"patching_rect" : [ 50.0, 202.0, 342.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p preset_interface"
@@ -4423,12 +4286,82 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
+													"id" : "obj-17",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 50.0, 251.0, 401.0, 17.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/in-out.app\""
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-6",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 49.0, 296.0, 61.0, 19.0 ],
+													"text" : "tosymbol"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-9",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 49.0, 272.0, 174.0, 19.0 ],
+													"text" : "sprintf %s/Contents/Jamoma/lib"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-12",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 49.0, 320.0, 192.0, 19.0 ],
+													"text" : "prepend copy /usr/local/jamoma/lib"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-13",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 49.0, 344.0, 65.0, 19.0 ],
+													"text" : "jcom.folder"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
 													"id" : "obj-7",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 217.0, 56.0, 19.0 ],
+													"patching_rect" : [ 50.0, 219.0, 56.0, 19.0 ],
 													"text" : "deferlow"
 												}
 
@@ -4442,7 +4375,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 146.0, 61.0, 19.0 ],
+													"patching_rect" : [ 50.0, 150.0, 61.0, 19.0 ],
 													"text" : "tosymbol"
 												}
 
@@ -4456,8 +4389,8 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 122.0, 158.0, 19.0 ],
-													"text" : "sprintf %s/Contents/Jamoma"
+													"patching_rect" : [ 50.0, 126.0, 217.0, 19.0 ],
+													"text" : "sprintf %s/Contents/Jamoma/Extensions"
 												}
 
 											}
@@ -4470,8 +4403,8 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 170.0, 280.0, 19.0 ],
-													"text" : "prepend copy \"/Library/Application Support/Jamoma\""
+													"patching_rect" : [ 50.0, 174.0, 339.0, 19.0 ],
+													"text" : "prepend copy \"/Library/Application Support/Jamoma/Extensions\""
 												}
 
 											}
@@ -4484,7 +4417,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 194.0, 65.0, 19.0 ],
+													"patching_rect" : [ 50.0, 196.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
 
@@ -4499,7 +4432,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 50.0, 100.0, 344.0, 17.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled2.app\""
+													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/in-out.app\""
 												}
 
 											}
@@ -4534,7 +4467,7 @@
 													"maxclass" : "outlet",
 													"numinlets" : 1,
 													"numoutlets" : 0,
-													"patching_rect" : [ 50.0, 296.0, 25.0, 25.0 ]
+													"patching_rect" : [ 49.0, 370.0, 25.0, 25.0 ]
 												}
 
 											}
@@ -4554,6 +4487,33 @@
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-11", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-13", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-12", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-10", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-13", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-17", 0 ]
 												}
 
 											}
@@ -4595,7 +4555,16 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-10", 0 ],
+													"destination" : [ "obj-12", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-6", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-17", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-7", 0 ]
@@ -4611,18 +4580,36 @@
 												}
 
 											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-17", 1 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-8", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-6", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-9", 0 ]
+												}
+
+											}
  ]
 									}
 ,
 									"patching_rect" : [ 50.0, 157.0, 250.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p frameworks&Extensions"
@@ -4735,7 +4722,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
-													"patching_rect" : [ 663.0, 437.0, 260.0, 19.0 ],
+													"patching_rect" : [ 663.0, 437.0, 261.0, 19.0 ],
 													"text" : "jcom.route @searchstring jmod. @partialmatch 1"
 												}
 
@@ -4765,7 +4752,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 51.0, 158.0, 298.0, 41.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/PhD/gitreps/Jamoma/Modules/Modular/Max/\""
+													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/\""
 												}
 
 											}
@@ -4780,20 +4767,6 @@
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 509.0, 284.0, 35.0, 17.0 ],
 													"text" : "clear"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
-													"id" : "obj-21",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 870.0, 108.0, 56.0, 19.0 ],
-													"text" : "tosymbol"
 												}
 
 											}
@@ -4862,8 +4835,8 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 870.0, 85.0, 157.0, 19.0 ],
-													"text" : "sprintf %s/Contents/Presets/"
+													"patching_rect" : [ 870.0, 85.0, 245.0, 19.0 ],
+													"text" : "sprintf symout %s/Contents/Jamoma/Presets/"
 												}
 
 											}
@@ -4985,15 +4958,15 @@
 													"depth" : 2,
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frozen_box_attributes" : [ "depth", "types" ],
+													"frozen_box_attributes" : [ "types", "depth" ],
 													"id" : "obj-38",
-													"items" : [ "audio/10harmonics~/jmod.10harmonics~.html", ",", "audio/10harmonics~/jmod.10harmonics~.xml", ",", "audio/_template~/jmod._template~.html", ",", "audio/_template~/jmod._template~.xml", ",", "audio/audiounit~/jmod.audiounit~.html", ",", "audio/audiounit~/jmod.audiounit~.xml", ",", "audio/crossfade~/jmod.crossfade~.html", ",", "audio/crossfade~/jmod.crossfade~.xml", ",", "audio/degrade~/jmod.degrade~.html", ",", "audio/degrade~/jmod.degrade~.xml", ",", "audio/delay~/jmod.delay~.html", ",", "audio/delay~/jmod.delay~.xml", ",", "audio/echo~/jmod.echo~.html", ",", "audio/echo~/jmod.echo~.xml", ",", "audio/equalizer~/jmod.equalizer~.html", ",", "audio/equalizer~/jmod.equalizer~.xml", ",", "audio/filter~/jmod.filter~.html", ",", "audio/filter~/jmod.filter~.xml", ",", "audio/fluidsynth~/jmod.fluidsynth~.html", ",", "audio/fluidsynth~/jmod.fluidsynth~.xml", ",", "audio/input~/jmod.input~.html", ",", "audio/input~/jmod.input~.xml", ",", "audio/limiter~/jmod.limiter~.html", ",", "audio/limiter~/jmod.limiter~.xml", ",", "audio/multidelay~/jmod.multidelay~.html", ",", "audio/multidelay~/jmod.multidelay~.xml", ",", "audio/noisegate~/jmod.noisegate~.html", ",", "audio/noisegate~/jmod.noisegate~.xml", ",", "audio/noise~/jmod.noise~.html", ",", "audio/noise~/jmod.noise~.xml", ",", "audio/output~/jmod.output~.html", ",", "audio/output~/jmod.output~.xml", ",", "audio/rissetGlissando/jmod.rissetGlissando~.html", ",", "audio/rissetGlissando/jmod.rissetGlissando~.xml", ",", "audio/samplePlayer2~/jmod.samplePlayer2~.html", ",", "audio/samplePlayer2~/jmod.samplePlayer2~.xml", ",", "audio/samplePlayer~/jmod.samplePlayer~.html", ",", "audio/samplePlayer~/jmod.samplePlayer~.xml", ",", "audio/saturation~/jmod.saturation~.html", ",", "audio/saturation~/jmod.saturation~.xml", ",", "audio/scope~/jmod.scope~.html", ",", "audio/scope~/jmod.scope~.xml", ",", "audio/sine~/jmod.sine~.html", ",", "audio/sine~/jmod.sine~.xml", ",", "audio/spectralShift~/jmod.spectralShift~.html", ",", "audio/spectralShift~/jmod.spectralShift~.xml", ",", "audio/spectrogram~/jmod.spectrogram~.xml", ",", "audio/tremolo~/jmod.tremolo~.html", ",", "audio/tremolo~/jmod.tremolo~.xml", ",", "audio/vst~/jmod.vst~.html", ",", "audio/vst~/jmod.vst~.xml", ",", "control/_template/jmod._template.html", ",", "control/_template/jmod._template.xml", ",", "control/bcf2000/jmod.bcf2000.html", ",", "control/bcf2000/jmod.bcf2000.xml", ",", "control/colorpicker/jmod.colorpicker.html", ",", "control/colorpicker/jmod.colorpicker.xml", ",", "control/continuum/jmod.continuum.html", ",", "control/continuum/jmod.continuum.xml", ",", "control/cueManager/cuelist_help.txt", ",", "control/cueManager/jmod.cueManager.html", ",", "control/cueManager/jmod.cueManager.xml", ",", "control/cueScript/jmod.cueScript.html", ",", "control/cueScript/jmod.cueScript.xml", ",", "control/cueScript/jmod.demo_cuescript.txt", ",", "control/cueTrigger/jmod.cueTrigger.html", ",", "control/cueTrigger/jmod.cueTrigger.xml", ",", "control/fileBrowser/jmod.fileBrowser.html", ",", "control/fileBrowser/jmod.fileBrowser.xml", ",", "control/fileNameGenerator/jmod.fileNameGenerator.html", ",", "control/fileNameGenerator/jmod.fileNameGenerator.xml", ",", "control/globalTransport/jmod.globalTransport.html", ",", "control/globalTransport/jmod.globalTransport.xml", ",", "control/hi/jmod.hi.html", ",", "control/hi/jmod.hi.xml", ",", "control/layout/jmod.layout.html", ",", "control/layout/jmod.layout.locate_patcher.js", ",", "control/layout/jmod.layout.xml", ",", "control/layout/jmod.layouthelp.xml", ",", "control/layout/modules.txt", ",", "control/mapper/jcom.mappings.js", ",", "control/mapper/jmod.mapper.html", ",", "control/mapper/jmod.mapper.xml", ",", "control/mapperContinuous/jmod.mapperContinuous.html", ",", "control/mapperContinuous/jmod.mapperContinuous.xml", ",", "control/mapperDiscrete/jmod.mapperDiscrete.html", ",", "control/mapperDiscrete/jmod.mapperDiscrete.xml", ",", "control/mapperDiscrete/mappperDiscreteHelp1.xml", ",", "control/mapperDiscrete/mappperDiscreteHelp2.xml", ",", "control/messages/jmod.messages.html", ",", "control/messages/jmod.messages.xml", ",", "control/midiin/jmod.midiin.html", ",", "control/midiin/jmod.midiin.xml", ",", "control/mouse/jmod.mouse.html", ",", "control/mouse/jmod.mouse.xml", ",", "control/mouse.gdif/jmod.mouse.gdif.html", ",", "control/mouse.gdif/jmod.mouse.gdif.xml", ",", "control/multicast/jmod.multicast.html", ",", "control/multicast/jmod.multicast.xml", ",", "control/oscnet/jmod.oscnet.html", ",", "control/oscnet/jmod.oscnet.xml", ",", "control/palette/jmod.palette.html", ",", "control/palette/jmod.palette.xml", ",", "control/polhemus/jmod.polhemus.html", ",", "control/polhemus/jmod.polhemus.xml", ",", "control/qmetro/jmod.qmetro.html", ",", "control/qmetro/jmod.qmetro.xml", ",", "control/spacenavigator/jmod.spacenavigator.html", ",", "control/spacenavigator/jmod.spacenavigator.xml", ",", "control/uc-33/jmod.uc-33.html", ",", "control/uc-33/jmod.uc-33.xml", ",", "control/wacom/jmod.wacom.html", ",", "control/wacom/jmod.wacom.xml", ",", "data/condition/jmod.condition.html", ",", "data/condition/jmod.condition.xml", ",", "data/textwriter/jalg.textwriter.mxt", ",", "data/textwriter/jmod.textwriter.html", ",", "data/textwriter/jmod.textwriter.xml", ",", "openGL/gl.alphamixer%/jmod.gl.alphamixer%.html", ",", "openGL/gl.alphamixer%/jmod.gl.alphamixer%.xml", ",", "openGL/gl.chromakey%/jmod.gl.chromakey%.html", ",", "openGL/gl.chromakey%/jmod.gl.chromakey%.xml", ",", "openGL/gl.chromakey%/jmod.gl.td.chromakey-demo.txt", ",", "openGL/gl.edgeblend%/jmod.gl.edgeblend%.html", ",", "openGL/gl.edgeblend%/jmod.gl.edgeblend%.xml", ",", "openGL/gl.td.background%/jmod.gl.background%.html", ",", "openGL/gl.td.background%/jmod.gl.background%.xml", ",", "openGL/gl.td.rota%/jmod.gl.td.rota%.html", ",", "openGL/gl.td.rota%/jmod.gl.td.rota%.xml", ",", "openGL/gl.text2d%/GNU-LGPL.txt", ",", "openGL/gl.text2d%/jmod.gl.text2d%-demo.txt", ",", "openGL/gl.text2d%/jmod.gl.text2d%.html", ",", "openGL/gl.text2d%/jmod.gl.text2d%.xml", ",", "openGL/gl.videoplane%/jmod.gl.videoplane%.html", ",", "openGL/gl.videoplane%/jmod.gl.videoplane%.xml", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.html", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.xml", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.html", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.xml", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.html", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.xml", ",", "spatialization/sur.ambipanning~/jmod.sur.ambipanning~.html", ",", "spatialization/sur.ambipanning~/jmod.sur.ambipanning~.xml", ",", "spatialization/sur.ambisonics~/jmod.sur.ambisonics~.html", ",", "spatialization/sur.ambisonics~/jmod.sur.ambisonics~.xml", ",", "spatialization/sur.audiounit~/jmod.sur.audiounit~.html", ",", "spatialization/sur.audiounit~/jmod.sur.audiounit~.xml", ",", "spatialization/sur.aux~/jmod.sur.aux~.html", ",", "spatialization/sur.aux~/jmod.sur.aux~.xml", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.html", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.xml", ",", "spatialization/sur.doppler~/jcom.sur.doppler.js", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.html", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.xml", ",", "spatialization/sur.input~/jmod.sur.input~.html", ",", "spatialization/sur.input~/jmod.sur.input~.xml", ",", "spatialization/sur.meters~/jmod.sur.meters~.html", ",", "spatialization/sur.meters~/jmod.sur.meters~.xml", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.html", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.xml", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.html", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.xml", ",", "spatialization/sur.output~/jmod.sur.output~.html", ",", "spatialization/sur.output~/jmod.sur.output~.xml", ",", "spatialization/sur.position/jmod.sur.position.html", ",", "spatialization/sur.position/jmod.sur.position.xml", ",", "spatialization/sur.race~/jmod.sur.race~.html", ",", "spatialization/sur.race~/jmod.sur.race~.xml", ",", "spatialization/sur.rolloff~/jcom.sur.rolloff.js", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.html", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.xml", ",", "spatialization/sur.setup/jmod.sur.setup.html", ",", "spatialization/sur.setup/jmod.sur.setup.xml", ",", "spatialization/sur.speaker.delay~/jcom.sur.speaker.delays.js", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.html", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.xml", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.html", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.xml", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.html", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.xml", ",", "spatialization/sur.zoomH2ambi~/jmod.sur.zoomH2ambi~.html", ",", "spatialization/sur.zoomH2ambi~/jmod.sur.zoomH2ambi~.xml", ",", "video/alphablend%/jmod.alphablend%.html", ",", "video/alphablend%/jmod.alphablend%.xml", ",", "video/avg4%/jmod.avg4%.html", ",", "video/avg4%/jmod.avg4%.xml", ",", "video/background%/jmod.background%.html", ",", "video/background%/jmod.background%.xml", ",", "video/blur%/jmod.blur%.html", ",", "video/blur%/jmod.blur%.xml", ",", "video/box%/jmod.box%.html", ",", "video/box%/jmod.box%.xml", ",", "video/brcosa%/jmod.brcosa%.html", ",", "video/brcosa%/jmod.brcosa%.xml", ",", "video/chromakey%/jmod.chromakey%.html", ",", "video/chromakey%/jmod.chromakey%.xml", ",", "video/edge%/jmod.edge%.html", ",", "video/edge%/jmod.edge%.xml", ",", "video/emboss%/jmod.emboss%.html", ",", "video/emboss%/jmod.emboss%.xml", ",", "video/fluoride%/jmod.fluoride%.html", ",", "video/fluoride%/jmod.fluoride%.xml", ",", "video/foregroundMask%/jmod.foregroundMask%.html", ",", "video/foregroundMask%/jmod.foregroundMask%.xml", ",", "video/input%/jmod.input%.html", ",", "video/input%/jmod.input%.xml", ",", "video/keyscreen%/jmod.keyscreen%.html", ",", "video/keyscreen%/jmod.keyscreen%.xml", ",", "video/mblur%/jmod.mblur%.html", ",", "video/mblur%/jmod.mblur%.xml", ",", "video/motion%/jmod.motion%.html", ",", "video/motion%/jmod.motion%.xml", ",", "video/motion2%/jmod.motion2%.html", ",", "video/motion2%/jmod.motion2%.xml", ",", "video/motiongram%/jmod.motiongram%.html", ",", "video/motiongram%/jmod.motiongram%.xml", ",", "video/moviePlayer%/jmod.moviePlayer%.html", ",", "video/moviePlayer%/jmod.moviePlayer%.xml", ",", "video/op%/jmod.op%.html", ",", "video/op%/jmod.op%.xml", ",", "video/orsize%/jmod.orsize%.html", ",", "video/orsize%/jmod.orsize%.xml", ",", "video/output%/jmod.output%.html", ",", "video/output%/jmod.output%.xml", ",", "video/plur%/jmod.plur%.html", ",", "video/plur%/jmod.plur%.xml", ",", "video/record%/jmod.record%.html", ",", "video/record%/jmod.record%.xml", ",", "video/similarity%/jmod.similarity%.html", ",", "video/similarity%/jmod.similarity%.xml", ",", "video/slitscan%/jmod.slitscan%.xml", ",", "video/television%/jmod.television%.html", ",", "video/television%/jmod.television%.xml", ",", "video/wake%/jmod.wake%.html", ",", "video/wake%/jmod.wake%.xml", ",", "video/xfade%/jmod.xfade%.html", ",", "video/xfade%/jmod.xfade%.xml", ",", "video/yfade%/jmod.yfade%.html", ",", "video/yfade%/jmod.yfade%.xml" ],
+													"items" : [ "audio/10harmonics~/jmod.10harmonics~.html", ",", "audio/10harmonics~/jmod.10harmonics~.xml", ",", "audio/_template~/jmod._template~.html", ",", "audio/_template~/jmod._template~.xml", ",", "audio/audiounit~/jmod.audiounit~.html", ",", "audio/audiounit~/jmod.audiounit~.xml", ",", "audio/crossfade~/jmod.crossfade~.html", ",", "audio/crossfade~/jmod.crossfade~.xml", ",", "audio/degrade~/degrade~.model.html", ",", "audio/degrade~/degrade~.model.xml", ",", "audio/delay~/jmod.delay~.html", ",", "audio/delay~/jmod.delay~.xml", ",", "audio/echo~/jmod.echo~.html", ",", "audio/echo~/jmod.echo~.xml", ",", "audio/equalizer~/jmod.equalizer~.html", ",", "audio/equalizer~/jmod.equalizer~.xml", ",", "audio/filter~/jmod.filter~.html", ",", "audio/filter~/jmod.filter~.xml", ",", "audio/fluidsynth~/jmod.fluidsynth~.html", ",", "audio/fluidsynth~/jmod.fluidsynth~.xml", ",", "audio/input~/jmod.input~.html", ",", "audio/input~/jmod.input~.xml", ",", "audio/limiter~/jmod.limiter~.html", ",", "audio/limiter~/jmod.limiter~.xml", ",", "audio/multidelay~/jmod.multidelay~.html", ",", "audio/multidelay~/jmod.multidelay~.xml", ",", "audio/noisegate~/jmod.noisegate~.html", ",", "audio/noisegate~/jmod.noisegate~.xml", ",", "audio/noise~/jmod.noise~.html", ",", "audio/noise~/jmod.noise~.xml", ",", "audio/output~/jmod.output~.html", ",", "audio/output~/jmod.output~.xml", ",", "audio/rissetGlissando/jmod.rissetGlissando~.html", ",", "audio/rissetGlissando/jmod.rissetGlissando~.xml", ",", "audio/samplePlayer2~/jmod.samplePlayer2~.html", ",", "audio/samplePlayer2~/jmod.samplePlayer2~.xml", ",", "audio/samplePlayer~/jmod.samplePlayer~.html", ",", "audio/samplePlayer~/jmod.samplePlayer~.xml", ",", "audio/saturation~/jmod.saturation~.html", ",", "audio/saturation~/jmod.saturation~.xml", ",", "audio/scope~/jmod.scope~.html", ",", "audio/scope~/jmod.scope~.xml", ",", "audio/sine~/jmod.sine~.html", ",", "audio/sine~/jmod.sine~.xml", ",", "audio/sonifyer~/jmod.sonifyer~.html", ",", "audio/sonifyer~/jmod.sonifyer~.xml", ",", "audio/spectralShift~/jmod.spectralShift~.html", ",", "audio/spectralShift~/jmod.spectralShift~.xml", ",", "audio/spectrogram~/jmod.spectrogram~.html", ",", "audio/spectrogram~/jmod.spectrogram~.xml", ",", "audio/tremolo~/jmod.tremolo~.html", ",", "audio/tremolo~/jmod.tremolo~.xml", ",", "audio/vst~/jmod.vst~.html", ",", "audio/vst~/jmod.vst~.xml", ",", "control/_template/jmod._template.html", ",", "control/_template/jmod._template.xml", ",", "control/bcf2000/jmod.bcf2000.html", ",", "control/bcf2000/jmod.bcf2000.xml", ",", "control/colorpicker/jmod.colorpicker.html", ",", "control/colorpicker/jmod.colorpicker.xml", ",", "control/continuum/jmod.continuum.html", ",", "control/continuum/jmod.continuum.xml", ",", "control/cueComment/jmod.cueComment.html", ",", "control/cueComment/jmod.cueComment.xml", ",", "control/cueManager/cuelist_help.txt", ",", "control/cueManager/jmod.cueManager.html", ",", "control/cueManager/jmod.cueManager.xml", ",", "control/cueScript/jmod.cueScript.html", ",", "control/cueScript/jmod.cueScript.xml", ",", "control/cueScript/jmod.demo_cuescript.txt", ",", "control/cueTrigger/jmod.cueTrigger.html", ",", "control/cueTrigger/jmod.cueTrigger.xml", ",", "control/fileBrowser/jmod.fileBrowser.html", ",", "control/fileBrowser/jmod.fileBrowser.xml", ",", "control/fileNameGenerator/jmod.fileNameGenerator.html", ",", "control/fileNameGenerator/jmod.fileNameGenerator.xml", ",", "control/globalTransport/jmod.globalTransport.html", ",", "control/globalTransport/jmod.globalTransport.xml", ",", "control/hi/jmod.hi.html", ",", "control/hi/jmod.hi.xml", ",", "control/layout/jmod.layout.html", ",", "control/layout/jmod.layout.locate_patcher.js", ",", "control/layout/jmod.layout.xml", ",", "control/layout/jmod.layouthelp.xml", ",", "control/layout/modules.txt", ",", "control/mapper/jcom.mappings.js", ",", "control/mapper/jmod.mapper.html", ",", "control/mapper/jmod.mapper.xml", ",", "control/mapperContinuous/jmod.mapperContinuous.html", ",", "control/mapperContinuous/jmod.mapperContinuous.xml", ",", "control/mapperDiscrete/jmod.mapperDiscrete.html", ",", "control/mapperDiscrete/jmod.mapperDiscrete.xml", ",", "control/mapperDiscrete/mappperDiscreteHelp1.xml", ",", "control/mapperDiscrete/mappperDiscreteHelp2.xml", ",", "control/mapperMulti/mapperMulti.model.xml", ",", "control/messages/jmod.messages.html", ",", "control/messages/jmod.messages.xml", ",", "control/midiin/jmod.midiin.html", ",", "control/midiin/jmod.midiin.xml", ",", "control/mouse/jmod.mouse.html", ",", "control/mouse/mouse.model.xml", ",", "control/mouse.gdif/jmod.mouse.gdif.html", ",", "control/mouse.gdif/jmod.mouse.gdif.xml", ",", "control/multicast/jmod.multicast.html", ",", "control/multicast/jmod.multicast.xml", ",", "control/oscnet/jmod.oscnet.html", ",", "control/oscnet/jmod.oscnet.xml", ",", "control/palette/jmod.palette.html", ",", "control/palette/jmod.palette.xml", ",", "control/polhemus/jmod.polhemus.html", ",", "control/polhemus/jmod.polhemus.xml", ",", "control/qmetro/jmod.qmetro.html", ",", "control/qmetro/jmod.qmetro.xml", ",", "control/qualisys/jmod.qualisys.html", ",", "control/qualisys/jmod.qualisys.xml", ",", "control/spacenavigator/jmod.spacenavigator.html", ",", "control/spacenavigator/jmod.spacenavigator.xml", ",", "control/uc-33/jmod.uc-33.html", ",", "control/uc-33/jmod.uc-33.xml", ",", "control/wacom/jmod.wacom.html", ",", "control/wacom/jmod.wacom.xml", ",", "data/condition/jmod.condition.html", ",", "data/condition/jmod.condition.xml", ",", "data/textwriter/jalg.textwriter.mxt", ",", "data/textwriter/jmod.textwriter.html", ",", "data/textwriter/jmod.textwriter.xml", ",", "openGL/gl.alphamixer%/jmod.gl.alphamixer%.html", ",", "openGL/gl.alphamixer%/jmod.gl.alphamixer%.xml", ",", "openGL/gl.chromakey%/jmod.gl.chromakey%.html", ",", "openGL/gl.chromakey%/jmod.gl.chromakey%.xml", ",", "openGL/gl.chromakey%/jmod.gl.td.chromakey-demo.txt", ",", "openGL/gl.edgeblend%/jmod.gl.edgeblend%.html", ",", "openGL/gl.edgeblend%/jmod.gl.edgeblend%.xml", ",", "openGL/gl.td.background%/jmod.gl.background%.html", ",", "openGL/gl.td.background%/jmod.gl.background%.xml", ",", "openGL/gl.td.rota%/jmod.gl.td.rota%.html", ",", "openGL/gl.td.rota%/jmod.gl.td.rota%.xml", ",", "openGL/gl.text2d%/GNU-LGPL.txt", ",", "openGL/gl.text2d%/jmod.gl.text2d%-demo.txt", ",", "openGL/gl.text2d%/jmod.gl.text2d%.html", ",", "openGL/gl.text2d%/jmod.gl.text2d%.xml", ",", "openGL/gl.videoplane%/jmod.gl.videoplane%.html", ",", "openGL/gl.videoplane%/jmod.gl.videoplane%.xml", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.html", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.xml", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.html", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.xml", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.html", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.xml", ",", "spatialization/sur.ambipanning~/jmod.sur.ambipanning~.html", ",", "spatialization/sur.ambipanning~/jmod.sur.ambipanning~.xml", ",", "spatialization/sur.ambisonics~/jmod.sur.ambisonics~.html", ",", "spatialization/sur.ambisonics~/jmod.sur.ambisonics~.xml", ",", "spatialization/sur.audiounit~/jmod.sur.audiounit~.html", ",", "spatialization/sur.audiounit~/jmod.sur.audiounit~.xml", ",", "spatialization/sur.aux~/jmod.sur.aux~.html", ",", "spatialization/sur.aux~/jmod.sur.aux~.xml", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.html", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.xml", ",", "spatialization/sur.doppler~/jcom.sur.doppler.js", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.html", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.xml", ",", "spatialization/sur.info~/jmod.sur.info~.xml", ",", "spatialization/sur.input~/jmod.sur.input~.html", ",", "spatialization/sur.input~/jmod.sur.input~.xml", ",", "spatialization/sur.meters~/jmod.sur.meters~.html", ",", "spatialization/sur.meters~/jmod.sur.meters~.xml", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.html", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.xml", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.html", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.xml", ",", "spatialization/sur.output~/jmod.sur.output~.html", ",", "spatialization/sur.output~/jmod.sur.output~.xml", ",", "spatialization/sur.position/jmod.sur.position.html", ",", "spatialization/sur.position/jmod.sur.position.xml", ",", "spatialization/sur.race~/jmod.sur.race~.html", ",", "spatialization/sur.race~/jmod.sur.race~.xml", ",", "spatialization/sur.rolloff~/jcom.sur.rolloff.js", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.html", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.xml", ",", "spatialization/sur.setup/jmod.sur.setup.html", ",", "spatialization/sur.setup/jmod.sur.setup.xml", ",", "spatialization/sur.speaker.delay~/jcom.sur.speaker.delays.js", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.html", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.xml", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.html", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.xml", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.html", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.xml", ",", "spatialization/sur.zoomH2ambi~/jmod.sur.zoomH2ambi~.html", ",", "spatialization/sur.zoomH2ambi~/jmod.sur.zoomH2ambi~.xml", ",", "video/alphablend%/jmod.alphablend%.html", ",", "video/alphablend%/jmod.alphablend%.xml", ",", "video/avg4%/jmod.avg4%.html", ",", "video/avg4%/jmod.avg4%.xml", ",", "video/background%/jmod.background%.html", ",", "video/background%/jmod.background%.xml", ",", "video/blur%/jmod.blur%.html", ",", "video/blur%/jmod.blur%.xml", ",", "video/box%/jmod.box%.html", ",", "video/box%/jmod.box%.xml", ",", "video/brcosa%/jmod.brcosa%.html", ",", "video/brcosa%/jmod.brcosa%.xml", ",", "video/chromakey%/jmod.chromakey%.html", ",", "video/chromakey%/jmod.chromakey%.xml", ",", "video/edge%/jmod.edge%.html", ",", "video/edge%/jmod.edge%.xml", ",", "video/emboss%/jmod.emboss%.html", ",", "video/emboss%/jmod.emboss%.xml", ",", "video/fluoride%/jmod.fluoride%.html", ",", "video/fluoride%/jmod.fluoride%.xml", ",", "video/foregroundMask%/jmod.foregroundMask%.html", ",", "video/foregroundMask%/jmod.foregroundMask%.xml", ",", "video/input%/jmod.input%.html", ",", "video/input%/jmod.input%.xml", ",", "video/keyscreen%/jmod.keyscreen%.html", ",", "video/keyscreen%/jmod.keyscreen%.xml", ",", "video/mblur%/jmod.mblur%.html", ",", "video/mblur%/jmod.mblur%.xml", ",", "video/motion%/jmod.motion%.html", ",", "video/motion%/jmod.motion%.xml", ",", "video/motion2%/jmod.motion2%.html", ",", "video/motion2%/jmod.motion2%.xml", ",", "video/motiongram%/jmod.motiongram%.html", ",", "video/motiongram%/jmod.motiongram%.xml", ",", "video/moviePlayer%/jmod.moviePlayer%.html", ",", "video/moviePlayer%/jmod.moviePlayer%.xml", ",", "video/op%/jmod.op%.html", ",", "video/op%/jmod.op%.xml", ",", "video/orsize%/jmod.orsize%.html", ",", "video/orsize%/jmod.orsize%.xml", ",", "video/output%/jmod.output%.html", ",", "video/output%/jmod.output%.xml", ",", "video/plur%/jmod.plur%.html", ",", "video/plur%/jmod.plur%.xml", ",", "video/record%/jmod.record%.html", ",", "video/record%/jmod.record%.xml", ",", "video/similarity%/jmod.similarity%.html", ",", "video/similarity%/jmod.similarity%.xml", ",", "video/slitscan%/jmod.slitscan%.html", ",", "video/slitscan%/jmod.slitscan%.xml", ",", "video/television%/jmod.television%.html", ",", "video/television%/jmod.television%.xml", ",", "video/wake%/jmod.wake%.html", ",", "video/wake%/jmod.wake%.xml", ",", "video/xfade%/jmod.xfade%.html", ",", "video/xfade%/jmod.xfade%.xml", ",", "video/yfade%/jmod.yfade%.html", ",", "video/yfade%/jmod.yfade%.xml" ],
 													"maxclass" : "umenu",
 													"numinlets" : 1,
 													"numoutlets" : 3,
 													"outlettype" : [ "int", "", "" ],
 													"patching_rect" : [ 495.0, 313.0, 139.0, 19.0 ],
-													"prefix" : "Macintosh HD:/Users/nilspeters/Documents/PhD/gitreps/Jamoma/Modules/Modular/Max/modules/",
+													"prefix" : "Macintosh HD:/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/",
 													"presentation" : 1,
 													"presentation_rect" : [ 172.0, 102.0, 179.0, 19.0 ],
 													"showdotfiles" : 1,
@@ -5105,12 +5078,13 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-51",
+													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 206.0, 221.0, 219.0, 19.0 ],
-													"text" : "sprintf %s/Contents/Presets/jamoma.xsd"
+													"patching_rect" : [ 206.0, 221.0, 128.0, 43.0 ],
+													"text" : "sprintf symout %s/Contents/Jamoma/Presets/jamoma.xsd"
 												}
 
 											}
@@ -5132,26 +5106,12 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-46",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 205.0, 242.0, 61.0, 19.0 ],
-													"text" : "tosymbol"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
 													"id" : "obj-29",
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 51.0, 266.0, 41.0, 19.0 ],
+													"patching_rect" : [ 51.0, 266.0, 173.0, 19.0 ],
 													"text" : "zl join"
 												}
 
@@ -5275,15 +5235,6 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-21", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"destination" : [ "obj-36", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -5302,7 +5253,7 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-21", 0 ],
+													"destination" : [ "obj-4", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-3", 0 ]
@@ -5473,15 +5424,6 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-29", 1 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-46", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"destination" : [ "obj-45", 0 ],
 													"hidden" : 0,
 													"midpoints" : [ 552.5, 379.0, 583.5, 379.0 ],
@@ -5509,7 +5451,7 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-46", 0 ],
+													"destination" : [ "obj-29", 1 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-51", 0 ]
@@ -5600,15 +5542,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 426.0, 101.0, 114.0, 19.0 ],
+									"patching_rect" : [ 495.800018, 171.399994, 114.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p copy_XML_presets"
@@ -5622,19 +5564,20 @@
 									"id" : "obj-64",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
-										"rect" : [ 25.0, 69.0, 491.0, 262.0 ],
+										"rect" : [ 543.0, 161.0, 640.0, 480.0 ],
 										"bglocked" : 0,
-										"defrect" : [ 25.0, 69.0, 491.0, 262.0 ],
+										"defrect" : [ 543.0, 161.0, 640.0, 480.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
-										"gridsize" : [ 5.0, 5.0 ],
+										"gridsize" : [ 25.0, 25.0 ],
 										"gridsnaponopen" : 0,
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
@@ -5646,237 +5589,39 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-7",
-													"maxclass" : "newobj",
+													"id" : "obj-10",
+													"linecount" : 3,
+													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patcher" : 													{
-														"fileversion" : 1,
-														"rect" : [ 640.0, 106.0, 640.0, 480.0 ],
-														"bglocked" : 0,
-														"defrect" : [ 640.0, 106.0, 640.0, 480.0 ],
-														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
-														"openinpresentation" : 0,
-														"default_fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
-														"gridonopen" : 0,
-														"gridsize" : [ 25.0, 25.0 ],
-														"gridsnaponopen" : 0,
-														"toolbarvisible" : 1,
-														"boxanimatetime" : 200,
-														"imprint" : 0,
-														"enablehscroll" : 1,
-														"enablevscroll" : 1,
-														"devicewidth" : 0.0,
-														"boxes" : [ 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-60",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 144.0, 61.0, 19.0 ],
-																	"text" : "tosymbol"
-																}
+													"patching_rect" : [ 49.0, 383.0, 193.0, 41.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/in-out.app\""
+												}
 
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-61",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 120.0, 158.0, 19.0 ],
-																	"text" : "sprintf %s/Contents/Jamoma"
-																}
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-3",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 49.0, 343.0, 56.0, 19.0 ],
+													"text" : "deferlow"
+												}
 
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-6",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 48.0, 168.0, 92.0, 19.0 ],
-																	"text" : "prepend make"
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-9",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 48.0, 192.0, 65.0, 19.0 ],
-																	"text" : "jcom.folder"
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-7",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 217.0, 56.0, 19.0 ],
-																	"text" : "deferlow"
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-11",
-																	"maxclass" : "message",
-																	"numinlets" : 2,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 100.0, 344.0, 17.0 ],
-																	"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled2.app\""
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"comment" : "",
-																	"id" : "obj-5",
-																	"maxclass" : "inlet",
-																	"numinlets" : 0,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"comment" : "",
-																	"id" : "obj-8",
-																	"maxclass" : "inlet",
-																	"numinlets" : 0,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 375.0, 40.0, 25.0, 25.0 ]
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"comment" : "",
-																	"id" : "obj-10",
-																	"maxclass" : "outlet",
-																	"numinlets" : 1,
-																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 296.0, 25.0, 25.0 ]
-																}
-
-															}
- ],
-														"lines" : [ 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-61", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-11", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-11", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-5", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-9", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-6", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-6", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-60", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-60", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-61", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-10", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-7", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-11", 1 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-8", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-7", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-9", 0 ]
-																}
-
-															}
- ]
-													}
-,
-													"patching_rect" : [ 209.0, 152.0, 150.0, 19.0 ],
-													"saved_object_attributes" : 													{
-														"fontface" : 0,
-														"fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"globalpatchername" : ""
-													}
-,
-													"text" : "p Jamoma"
+											}
+, 											{
+												"box" : 												{
+													"comment" : "",
+													"id" : "obj-1",
+													"maxclass" : "outlet",
+													"numinlets" : 1,
+													"numoutlets" : 0,
+													"patching_rect" : [ 51.0, 446.0, 25.0, 25.0 ]
 												}
 
 											}
@@ -5886,266 +5631,141 @@
 													"fontsize" : 10.0,
 													"id" : "obj-4",
 													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 50.0, 259.0, 240.0, 19.0 ],
+													"text" : "sprintf symout %s/Contents/Jamoma/Presets"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-8",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 50.0, 282.0, 92.0, 19.0 ],
+													"text" : "prepend make"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-11",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 50.0, 306.0, 65.0, 19.0 ],
+													"text" : "jcom.folder"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-2",
+													"linecount" : 3,
+													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patcher" : 													{
-														"fileversion" : 1,
-														"rect" : [ 640.0, 106.0, 640.0, 480.0 ],
-														"bglocked" : 0,
-														"defrect" : [ 640.0, 106.0, 640.0, 480.0 ],
-														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
-														"openinpresentation" : 0,
-														"default_fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
-														"gridonopen" : 0,
-														"gridsize" : [ 25.0, 25.0 ],
-														"gridsnaponopen" : 0,
-														"toolbarvisible" : 1,
-														"boxanimatetime" : 200,
-														"imprint" : 0,
-														"enablehscroll" : 1,
-														"enablevscroll" : 1,
-														"devicewidth" : 0.0,
-														"boxes" : [ 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-60",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 144.0, 61.0, 19.0 ],
-																	"text" : "tosymbol"
-																}
+													"patching_rect" : [ 50.0, 202.0, 193.0, 41.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/in-out.app\""
+												}
 
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-61",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 120.0, 153.0, 19.0 ],
-																	"text" : "sprintf %s/Contents/Presets"
-																}
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-61",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 50.0, 93.0, 199.0, 19.0 ],
+													"text" : "sprintf symout %s/Contents/Jamoma"
+												}
 
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-6",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 48.0, 168.0, 92.0, 19.0 ],
-																	"text" : "prepend make"
-																}
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-6",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 50.0, 116.0, 92.0, 19.0 ],
+													"text" : "prepend make"
+												}
 
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-9",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 48.0, 192.0, 65.0, 19.0 ],
-																	"text" : "jcom.folder"
-																}
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-9",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 50.0, 140.0, 65.0, 19.0 ],
+													"text" : "jcom.folder"
+												}
 
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-7",
-																	"maxclass" : "newobj",
-																	"numinlets" : 1,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 217.0, 56.0, 19.0 ],
-																	"text" : "deferlow"
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-11",
-																	"maxclass" : "message",
-																	"numinlets" : 2,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 95.0, 344.0, 17.0 ],
-																	"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled2.app\""
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"comment" : "",
-																	"id" : "obj-5",
-																	"maxclass" : "inlet",
-																	"numinlets" : 0,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"comment" : "",
-																	"id" : "obj-8",
-																	"maxclass" : "inlet",
-																	"numinlets" : 0,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 375.0, 40.0, 25.0, 25.0 ]
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"comment" : "",
-																	"id" : "obj-10",
-																	"maxclass" : "outlet",
-																	"numinlets" : 1,
-																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 296.0, 25.0, 25.0 ]
-																}
-
-															}
- ],
-														"lines" : [ 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-61", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-11", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-11", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-5", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-9", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-6", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-6", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-60", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-60", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-61", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-10", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-7", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-11", 1 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-8", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
-																	"destination" : [ "obj-7", 0 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-9", 0 ]
-																}
-
-															}
- ]
-													}
-,
-													"patching_rect" : [ 209.0, 101.0, 65.0, 19.0 ],
-													"saved_object_attributes" : 													{
-														"fontface" : 0,
-														"fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"globalpatchername" : ""
-													}
-,
-													"text" : "p Preset"
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-7",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 50.0, 165.0, 56.0, 19.0 ],
+													"text" : "deferlow"
 												}
 
 											}
 , 											{
 												"box" : 												{
 													"comment" : "",
-													"id" : "obj-62",
+													"id" : "obj-5",
 													"maxclass" : "inlet",
 													"numinlets" : 0,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 209.0, 21.0, 25.0, 25.0 ]
+													"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
 												}
 
 											}
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
-													"destination" : [ "obj-7", 0 ],
+													"destination" : [ "obj-1", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-4", 0 ]
+													"source" : [ "obj-10", 0 ]
 												}
 
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-4", 1 ],
+													"destination" : [ "obj-3", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-62", 0 ]
+													"source" : [ "obj-11", 0 ]
 												}
 
 											}
@@ -6154,34 +5774,115 @@
 													"destination" : [ "obj-4", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-62", 0 ]
+													"source" : [ "obj-2", 0 ]
 												}
 
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-7", 1 ],
+													"destination" : [ "obj-10", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-62", 0 ]
+													"source" : [ "obj-3", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-8", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-4", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-10", 1 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-5", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-2", 1 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-5", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-61", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-5", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-6", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-6", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-61", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-2", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-7", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-11", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-8", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-7", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-9", 0 ]
 												}
 
 											}
  ]
 									}
 ,
-									"patching_rect" : [ 564.0, 101.0, 87.0, 19.0 ],
+									"patching_rect" : [ 495.800018, 102.099998, 125.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
-									"text" : "p create_folder"
+									"text" : "p crate-Jamoma-folder"
 								}
 
 							}
@@ -6304,6 +6005,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-66", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-64", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-43", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -6351,16 +6061,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-64", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 59.5, 86.5, 573.5, 86.5 ],
-									"source" : [ "obj-9", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-66", 0 ],
-									"hidden" : 0,
-									"midpoints" : [ 59.5, 91.5, 435.5, 91.5 ],
+									"midpoints" : [ 59.5, 86.5, 505.300018, 86.5 ],
 									"source" : [ "obj-9", 0 ]
 								}
 
@@ -6370,13 +6071,13 @@
 ,
 					"patching_rect" : [ 185.0, 195.0, 44.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p mac"
