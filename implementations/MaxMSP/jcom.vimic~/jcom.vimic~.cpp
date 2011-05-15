@@ -2422,7 +2422,7 @@ void vimic_dsp(t_vimic *x, t_signal **sp, short *count)
 
     short num_args = x->numOfChannels + 3;
 
-    if (num_args < 4 || num_args > 31) 
+    if (num_args < 4 || num_args > 147) 
         post( "jcom.vimic~ : Combination of Reflection Order and Channels not supported" );
 
     t_int **vec = (t_int **) getbytes(sizeof(t_int *) * num_args);	// vector of pointers
