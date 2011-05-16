@@ -40,15 +40,23 @@ public:
 		
 		mType = newType;
 		err = TTObjectInstantiate(mType, &mActualTrajectoryObject, 2);			
-		//if (!err) {
-			// Now that we have our new filter, update it with the current state of the wrapper:
+		if (!err) {
+			// Now that we have our new trajectory type, update it with the current state of the wrapper:
+			mActualTrajectoryObject->setAttributeValue(TT("a"), mA);
+			mActualTrajectoryObject->setAttributeValue(TT("b"), mB);
+			mActualTrajectoryObject->setAttributeValue(TT("c"), mC);
+			mActualTrajectoryObject->setAttributeValue(TT("deltaX"), mDeltaX);
+			mActualTrajectoryObject->setAttributeValue(TT("deltaY"), mDeltaY);
+			mActualTrajectoryObject->setAttributeValue(TT("deltaZ"), mDeltaZ);
+			
+			//mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, sr);
 			//mActualFilterObject->setAttributeValue(TT("frequency"), mFrequency);
 			//err = mActualFilterObject->setAttributeValue(TT("q"), mQ);
 			//if (err == kTTErrInvalidAttribute)
 			//	err = mActualFilterObject->setAttributeValue(TT("resonance"), mQ);
 			//mActualFilterObject->setAttributeValue(TT("bypass"), this->attrBypass);
 			//mActualFilterObject->setAttributeValue(kTTSym_sampleRate, sr);
-		//}
+		}
 		return err;
 	}
 	
