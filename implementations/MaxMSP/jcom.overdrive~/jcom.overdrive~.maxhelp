@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 65.0, 47.0, 747.0, 584.0 ],
+		"rect" : [ 324.0, 108.0, 747.0, 584.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 65.0, 47.0, 747.0, 584.0 ],
+		"defrect" : [ 324.0, 108.0, 747.0, 584.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jcom.overdrive~", "@description", "Saturate audio signal" ],
@@ -156,7 +157,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 310.0, 210.0, 86.0, 19.0 ],
+					"patching_rect" : [ 310.0, 210.0, 83.0, 19.0 ],
 					"text" : "prepend mode"
 				}
 
@@ -203,7 +204,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
-						"visible" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"id" : "obj-28",
@@ -362,8 +363,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 196.0, 287.0, 85.0, 17.0 ],
-									"text" : "overdrive $1"
+									"patching_rect" : [ 196.0, 287.0, 52.0, 17.0 ],
+									"text" : "drive $1"
 								}
 
 							}
@@ -749,13 +750,13 @@
 ,
 					"patching_rect" : [ 60.0, 545.0, 225.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
-						"fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p \"overdrive~ vs. jcom.saturation~\""
@@ -812,8 +813,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 515.0, 210.0, 126.0, 17.0 ],
-					"text" : "bypass_dcblocker $1"
+					"patching_rect" : [ 515.0, 210.0, 75.0, 17.0 ],
+					"text" : "dcBlocker $1"
 				}
 
 			}
@@ -840,8 +841,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 160.0, 245.0, 86.0, 17.0 ],
-					"text" : "overdrive $1"
+					"patching_rect" : [ 160.0, 245.0, 52.0, 17.0 ],
+					"text" : "drive $1"
 				}
 
 			}
