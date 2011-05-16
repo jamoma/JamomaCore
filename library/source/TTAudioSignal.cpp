@@ -194,6 +194,16 @@ TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 returnedVe
 	return kTTErrNone;
 }
 
+TTErr TTAudioSignal::getVectorCopy(const TTUInt16 channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector)
+{
+	TTUInt16 i;
+	
+	for (i=0; i<theVectorSize; i++)
+		returnedVector[i] = mSampleVectors[channel][i];
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioSignal::getVector64(TTValue& v)
 {
 	TTUInt16		channel;
