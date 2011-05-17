@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			>
@@ -70,7 +70,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib JamomaGraph.lib"
 				ShowProgress="0"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\Debug&quot;;&quot;$(ProjectDir)..\..\Foundation\library\Debug&quot;;&quot;$(ProjectDir)..\..\DSP\library\Debug&quot;;&quot;$(ProjectDir)..\..\Graph\library\Debug&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Graph\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
@@ -105,8 +105,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -155,7 +155,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib JamomaGraph.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\Release&quot;;&quot;$(ProjectDir)..\..\Foundation\library\Release&quot;;&quot;$(ProjectDir)..\..\DSP\library\Release&quot;;&quot;$(ProjectDir)..\..\Graph\library\Release&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Graph\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
