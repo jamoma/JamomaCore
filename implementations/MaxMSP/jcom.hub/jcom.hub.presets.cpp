@@ -1169,8 +1169,8 @@ void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
 	len = err = 0;
 	
 	// write name and type
-	snprintf(tempstring, sizeof(tempstring), "    <item name='%s' type='%s' priority='%ld'>",
-		item->param_name->s_name, item->type->s_name, item->priority);
+	snprintf(tempstring, sizeof(tempstring), "    <item name='%s' type='%s' priority='%ld' mixweight='%g'>", //AG: added missing mixweight for the array parameter type
+		item->param_name->s_name, item->type->s_name, item->priority, item->mixweight);
 	len = strlen(tempstring);
 	sysfile_write(*fh, &len, tempstring);
 	*eof += len;
