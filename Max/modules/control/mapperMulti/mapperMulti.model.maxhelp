@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 89.0, 82.0, 894.0, 329.0 ],
+		"rect" : [ 89.0, 82.0, 877.0, 384.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 89.0, 82.0, 894.0, 329.0 ],
+		"defrect" : [ 89.0, 82.0, 877.0, 384.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,7 +27,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 323.0, 269.0, 121.0, 19.0 ],
+					"patching_rect" : [ 396.0, 296.0, 121.0, 19.0 ],
 					"text" : "mouse.model /mouse"
 				}
 
@@ -42,7 +42,7 @@
 					"name" : "mouse.view.maxpat",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 324.0, 195.0, 150.0, 70.0 ],
+					"patching_rect" : [ 377.0, 217.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 150.0, 70.0 ]
 				}
 
@@ -58,9 +58,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
+						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
+						"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -285,13 +285,13 @@
 ,
 									"patching_rect" : [ 82.0, 154.0, 42.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
-										"default_fontface" : 0,
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
+										"fontname" : "Arial",
+										"default_fontsize" : 10.0,
 										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontsize" : 10.0
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p slash"
@@ -398,15 +398,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 16.0, 168.0, 150.0, 18.0 ],
+					"patching_rect" : [ 60.0, 194.0, 150.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontsize" : 10.0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p model/address"
@@ -422,7 +422,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 16.0, 193.0, 300.0, 105.0 ],
+					"patching_rect" : [ 60.0, 219.0, 300.0, 105.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ]
 				}
 
@@ -436,7 +436,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 894.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 877.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 15.0, 945.0, 70.0 ]
 				}
@@ -451,7 +451,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 680.0, 243.0, 100.0, 18.0 ],
+					"patching_rect" : [ 709.0, 269.0, 100.0, 18.0 ],
 					"text" : "track.model"
 				}
 
@@ -465,7 +465,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 680.0, 198.0, 100.0, 18.0 ],
+					"patching_rect" : [ 709.0, 224.0, 100.0, 18.0 ],
 					"text" : "movie.model"
 				}
 
@@ -479,7 +479,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 680.0, 220.0, 100.0, 18.0 ],
+					"patching_rect" : [ 709.0, 246.0, 100.0, 18.0 ],
 					"text" : "movie.model"
 				}
 
@@ -493,7 +493,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 505.0, 223.0, 144.0, 18.0 ],
+					"patching_rect" : [ 549.0, 249.0, 144.0, 18.0 ],
 					"text" : "mapperMulti.model /Multi.2 15"
 				}
 
@@ -507,8 +507,22 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 505.0, 198.0, 144.0, 18.0 ],
+					"patching_rect" : [ 549.0, 224.0, 144.0, 18.0 ],
 					"text" : "mapperMulti.model /Multi.1 15"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 554.0, 300.0, 100.0, 18.0 ],
+					"text" : "wacom.model"
 				}
 
 			}
@@ -521,7 +535,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 16.0, 90.0, 750.0, 70.0 ],
+					"patching_rect" : [ 60.0, 116.0, 750.0, 70.0 ],
 					"presentation_rect" : [ 45.0, 45.0, 750.0, 70.0 ]
 				}
 
