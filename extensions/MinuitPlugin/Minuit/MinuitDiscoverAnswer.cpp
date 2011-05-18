@@ -115,7 +115,9 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				// don't store the end flag
 				find_end = currentString.compare(MINUIT_END_NODES) == 0;
 				if(!find_end) {
+#ifdef TT_PLUGIN_DEBUG
 					cout << "Parsed nodes " << parsed.str() << endl;
+#endif
 					m_nodes.append(TT(currentString));
 				}
 			}
@@ -141,7 +143,9 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				// don't store the end flag
 				find_end = currentString.compare(MINUIT_END_TYPES) == 0;
 				if(!find_end) {
+#ifdef TT_PLUGIN_DEBUG
 					cout << "Parsed leaves " << parsed.str() << endl;
+#endif
 					m_leaves.append(TT(currentString));
 				}
 			}
@@ -167,7 +171,9 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				// don't store the end flag
 				find_end = currentString.compare(MINUIT_END_ATTRIBUTES) == 0;
 				if(!find_end) {
+#ifdef TT_PLUGIN_DEBUG
 					cout << "Parsed attributes " << parsed.str() << endl;
+#endif
 					m_attributes.append(TT(currentString));
 				}
 			}

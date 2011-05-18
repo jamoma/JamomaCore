@@ -142,9 +142,10 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			arg++;
 		}
 		
-		// DEBUG
+#ifdef TT_PLUGIN_DEBUG
 		cout << "Receive set request (OSC style) at " << whereTo << endl;
-		
+#endif
+				
 		m_minuitMethods->minuitReceiveNetworkSetRequest(sender, whereTo, attribute, arguments);
 		return;
 	} 
@@ -175,8 +176,9 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 				}
 			}
 			
-			// DEBUG
+#ifdef TT_PLUGIN_DEBUG
 			cout << "Receive " << operation << " request from "<< sender << " at " << whereTo << " for " << attribute << endl;
+#endif
 			
 			// switch on request
 			if (operation.compare(MINUIT_REQUEST_DISCOVER) == 0) {
@@ -221,8 +223,9 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			if(arg->IsString())
 				whereTo = arg->AsString();
 			
-			// DEBUG
+#ifdef TT_PLUGIN_DEBUG
 			cout << "Receive " << operation << " answer from "<< sender << " at " << whereTo << endl;
+#endif
 			
 			arg++;																// get arguments
 			while (arg != m.ArgumentsEnd()) {
