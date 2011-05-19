@@ -35,7 +35,7 @@ static ClassPtr sIterClass;
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int TTGRAPH_EXTERNAL_EXPORT main(void)
 {
 	ClassPtr c;
 	
