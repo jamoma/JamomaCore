@@ -25,12 +25,12 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
+				Description="Delete old DLL&apos;s from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\$(TargetFileName)&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\$(TargetFileName)&quot;&#x0D;&#x0A;if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(ProjectName).dll .\build&#x0D;&#x0A;copy $(OutDir)\$(ProjectName).lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="none"
 			/>
 			<Tool
@@ -101,8 +101,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy JamomaDSP.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaDSP.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
+				Description="Copy JamomaDSP.dll and PortAudio.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\$(TargetFileName)&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\$(TargetFileName)&quot;&#x0D;&#x0A;if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)portaudio\$(ConfigurationName)\PortAudio.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -113,12 +113,12 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
+				Description="Delete old DLL&apos;s from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\$(TargetFileName)&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\$(TargetFileName)&quot;&#x0D;&#x0A;if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(ProjectName).dll .\build&#x0D;&#x0A;copy $(OutDir)\$(ProjectName).lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="AAA"
 			/>
 			<Tool
@@ -189,7 +189,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copy JamomaDSP.dll and PortAudio.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaDSP.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;&#x0D;&#x0A;if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)portaudio\Release\PortAudio.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;&#x0D;&#x0A;"
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\$(TargetFileName)&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\$(TargetFileName)&quot;&#x0D;&#x0A;if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)portaudio\$(ConfigurationName)\PortAudio.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>
