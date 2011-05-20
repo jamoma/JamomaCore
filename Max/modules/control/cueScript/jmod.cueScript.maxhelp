@@ -22,12 +22,40 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 415.0, 519.0, 57.0, 17.0 ],
+					"text" : "/editWith"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-6",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 474.0, 518.0, 243.0, 19.0 ],
+					"text" : "TextEdit (mac) and Notepad (Win) by default"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 414.0, 465.0, 106.0, 17.0 ],
+					"patching_rect" : [ 414.0, 495.0, 106.0, 17.0 ],
 					"text" : "/editWith textmate"
 				}
 
@@ -144,7 +172,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 35.0, 245.0, 341.0, 17.0 ],
-					"text" : "/loadScript jmod.demo_cuescript.txt"
+					"text" : "/editWith"
 				}
 
 			}
@@ -158,7 +186,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 415.0, 487.0, 290.0, 31.0 ],
+					"patching_rect" : [ 415.0, 397.0, 290.0, 31.0 ],
 					"text" : "You can poll current state of all parameters, and copy, paste and edit into the cue script."
 				}
 
@@ -173,7 +201,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 415.0, 400.0, 290.0, 67.0 ],
+					"patching_rect" : [ 415.0, 430.0, 290.0, 67.0 ],
 					"text" : "The cue script can be edited in an external program (e.g. TextWrangler on Mac or Notepad on Win). jmod.cuelist is autowatching for changes to the cue script.\nYou can start the exernal editor (e.g., Textmate) with "
 				}
 
@@ -596,9 +624,18 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-24", 0 ],
-					"hidden" : 1,
-					"midpoints" : [ 423.5, 483.0, 383.0, 483.0, 383.0, 135.0, 44.0, 135.0, 44.0, 141.0, 44.5, 141.0 ],
+					"hidden" : 0,
+					"midpoints" : [ 423.5, 513.0, 383.0, 513.0, 383.0, 135.0, 44.0, 135.0, 44.0, 141.0, 44.5, 141.0 ],
 					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 424.5, 545.0, 383.5, 545.0, 383.5, 135.0, 44.5, 135.0 ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
