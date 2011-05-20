@@ -56,9 +56,10 @@ void TTFoundationInit(const char* pathToBinaries)
 
 		TTSymbolCacheInit();
 		TTValueCacheInit();
-
+		
 #ifdef TT_DEBUG
 		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);
+		ttEnvironment->mDebugBasic = true;
 #else
 		TTLogMessage("JamomaFoundation -- Version %s", TTFOUNDATION_VERSION_STRING);
 #endif
