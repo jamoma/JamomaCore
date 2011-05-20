@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="NetworkLib"
+	Name="MatrixProcessingLib"
 	ProjectGUID="{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\builds"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)tests&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -98,8 +98,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)tests&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -180,27 +180,35 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\TTNetReceive.cpp"
+			RelativePath=".\TTMatrixGain.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\TTNetReceive.h"
+			RelativePath=".\TTMatrixGain.h"
 			>
 		</File>
 		<File
-			RelativePath=".\TTNetSend.cpp"
+			RelativePath=".\tests\TTMatrixGain.test.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\TTNetSend.h"
+			RelativePath=".\TTMatrixProcessingLib.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\TTNetSocket.cpp"
+			RelativePath=".\TTMatrixProcessingLib.h"
 			>
 		</File>
 		<File
-			RelativePath=".\TTNetSocket.h"
+			RelativePath=".\TTMatrixStencil.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TTMatrixStencil.h"
+			>
+		</File>
+		<File
+			RelativePath=".\tests\TTMatrixStencil.test.cpp"
 			>
 		</File>
 	</Files>
