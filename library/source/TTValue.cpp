@@ -636,7 +636,7 @@ TTValue& TTValue::operator = (TTString& value)
 
 TTValue::operator TTString&() const
 {
-	TT_ASSERT(ttvalue_cast_to_string_ref, *type == kTypeString);
+	TT_ASSERT(ttvalue_cast_to_string_ref, (*type == kTypeString));
 
 	if (*type == kTypeString)
 		return *data->stringPtr;
@@ -657,7 +657,7 @@ TTValue& TTValue::operator = (TTObject& value)
 
 TTValue::operator TTObject&() const
 {
-	TT_ASSERT(ttvalue_cast_to_object_ref, *type == kTypeObject);
+	TT_ASSERT(ttvalue_cast_to_object_ref, (*type == kTypeObject));
 
 	if (*type == kTypeObject)
 		return *data->object;
@@ -677,7 +677,7 @@ TTValue& TTValue::operator = (TTObject* value)
 
 TTValue::operator TTObject*() const
 {
-	TT_ASSERT(ttvalue_cast_to_object_ptr, *type == kTypeObject);
+	TT_ASSERT(ttvalue_cast_to_object_ptr, (*type == kTypeObject));
 	
 	if (*type == kTypeObject)
 		return data->object;
@@ -697,7 +697,7 @@ TTValue& TTValue::operator = (TTMatrix& value)
 
 TTValue::operator TTMatrix&() const
 {
-	TT_ASSERT(ttvalue_cast_to_object_ref, *type == kTypeObject);
+	TT_ASSERT(ttvalue_cast_to_object_ref, (*type == kTypeObject));
 	
 	if (*type == kTypeMatrix)
 		return *data->matrix;
@@ -717,7 +717,7 @@ TTValue& TTValue::operator = (TTMatrix* value)
 
 TTValue::operator TTMatrix*() const
 {
-	TT_ASSERT(ttvalue_cast_to_object_ptr, *type == kTypeObject);
+	TT_ASSERT(ttvalue_cast_to_object_ptr, (*type == kTypeObject));
 	
 	if (*type == kTypeMatrix)
 		return data->matrix;
