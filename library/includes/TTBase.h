@@ -46,6 +46,8 @@ using namespace std;
 	#include <algorithm>
 	#include <time.h>
 
+	#pragma warning(disable:4244) // to avoid possible data lost warning with MSVC
+
 	#ifndef _CRT_SECURE_NO_WARNINGS
 		#define _CRT_SECURE_NO_WARNINGS
 	#endif
