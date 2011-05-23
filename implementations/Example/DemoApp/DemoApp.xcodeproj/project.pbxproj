@@ -11,7 +11,7 @@
 		D2AC853B1379BA5000AB94BB /* DemoApp.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D2AC853A1379BA5000AB94BB /* DemoApp.xcconfig */; };
 		D2AC85461379BA5C00AB94BB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AC85451379BA5C00AB94BB /* main.cpp */; };
 		D2AC86271379C15100AB94BB /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AC86261379C15100AB94BB /* JamomaFoundation.dylib */; };
-		D2E125021381A3E70041C5B4 /* TTModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2E125011381A3E70041C5B4 /* TTModular.dylib */; };
+		D2EFA6E0138A78A300A83431 /* TTModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EFA6DF138A78A300A83431 /* TTModular.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,7 +22,7 @@
 		D2AC853A1379BA5000AB94BB /* DemoApp.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DemoApp.xcconfig; sourceTree = "<group>"; };
 		D2AC85451379BA5C00AB94BB /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D2AC86261379C15100AB94BB /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
-		D2E125011381A3E70041C5B4 /* TTModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = TTModular.dylib; path = "/Library/Application Support/Jamoma/Libraries/TTModular.dylib"; sourceTree = "<absolute>"; };
+		D2EFA6DF138A78A300A83431 /* TTModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = TTModular.dylib; path = ../../../library/build/UninstalledProducts/TTModular.dylib; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,7 +32,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				D2AC86271379C15100AB94BB /* JamomaFoundation.dylib in Frameworks */,
-				D2E125021381A3E70041C5B4 /* TTModular.dylib in Frameworks */,
+				D2EFA6E0138A78A300A83431 /* TTModular.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,7 +50,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D2E125011381A3E70041C5B4 /* TTModular.dylib */,
+				D2EFA6DF138A78A300A83431 /* TTModular.dylib */,
 				D2AC86261379C15100AB94BB /* JamomaFoundation.dylib */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
