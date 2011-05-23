@@ -97,7 +97,7 @@ void PluginFactories::loadPlugins(TTString pluginFolderPath) {
 			continue;
 		}
 		
-		factories[pluginFactory->getPluginName()] = pluginFactory;
+		factories[pluginFactory->getName()] = pluginFactory;
 		
 	} while ((FindNextFile(liste, &File)));
 	

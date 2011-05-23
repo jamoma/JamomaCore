@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)source&quot;;&quot;$(ProjectDir)Internals&quot;;&quot;$(ProjectDir)Ramplib&quot;;&quot;$(ProjectDir)Dataspacelib&quot;;&quot;$(ProjectDir)Functionlib&quot;;&quot;$(ProjectDir)ModularForMax&quot;;&quot;$(ProjectDir)PeerObject&quot;;&quot;$(ProjectDir)DeviceManagerLib&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes\units&quot;;&quot;$(ProjectDir)..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)source&quot;;&quot;$(ProjectDir)Internals&quot;;&quot;$(ProjectDir)Ramplib&quot;;&quot;$(ProjectDir)Functionlib&quot;;&quot;$(ProjectDir)ModularForMax&quot;;&quot;$(ProjectDir)PeerObject&quot;;&quot;$(ProjectDir)PluginLib\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes\units&quot;;&quot;$(ProjectDir)..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;TTMODULAR_EXPORTS;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -65,9 +65,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib DeviceManager.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
@@ -251,86 +251,26 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="DataspaceLib"
+			Name="PluginLib"
 			>
 			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.cpp"
+				RelativePath=".\PluginLib\includes\Plugin.h"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.h"
+				RelativePath=".\PluginLib\source\PluginFactories.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.cpp"
+				RelativePath=".\PluginLib\includes\PluginFactories.h"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.h"
+				RelativePath=".\PluginLib\source\TTPluginHandler.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.h"
+				RelativePath=".\PluginLib\includes\TTPluginHandler.h"
 				>
 			</File>
 		</Filter>
@@ -438,6 +378,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PeerObject\TTApplicationManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTApplicationManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PeerObject\TTContainer.cpp"
 				>
 			</File>
@@ -446,19 +394,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PeerObject\TTCue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTCue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTCueManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTCueManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PeerObject\TTData.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTData.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PeerObject\TTDeviceManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PeerObject\TTDeviceManager.h"
 				>
 			</File>
 			<File
@@ -491,6 +447,14 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTMapperManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTOpmlHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTOpmlHandler.h"
 				>
 			</File>
 			<File
@@ -571,14 +535,6 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTXmlHandler.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="DeviceManagerLib"
-			>
-			<File
-				RelativePath=".\DeviceManagerLib\DeviceManager.h"
 				>
 			</File>
 		</Filter>
