@@ -11,12 +11,13 @@
 
 
 // Data Structure for this object
-typedef struct Adc {
+struct Adc {
     Object					obj;
 	TTAudioGraphObjectPtr	audioGraphObject;
 	TTPtr					audioGraphOutlet;
 	SymbolPtr				attrMode;
 };
+
 typedef Adc* AdcPtr;
 
 
@@ -52,8 +53,12 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	TTAudioGraphInit();	
 	common_symbols_init();
 
+//#ifdef TT_PLATFORM_WIN
+	//c = class_new("jcom.adc=", (method)AdcNew, (method)AdcFree, sizeof(Adc), (method)0L, A_GIMME, 0);
+//#else
 	c = class_new("jcom.adc≈", (method)AdcNew, (method)AdcFree, sizeof(Adc), (method)0L, A_GIMME, 0);
-	
+//#endif
+
 	class_addmethod(c, (method)AdcReset,			"audio.reset",	A_CANT, 0);
 	class_addmethod(c, (method)AdcSetup,			"audio.setup",	A_CANT,	0);
 	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",	A_CANT, 0);
