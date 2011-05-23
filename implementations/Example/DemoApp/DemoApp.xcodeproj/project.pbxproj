@@ -50,8 +50,8 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D2EFA6DF138A78A300A83431 /* TTModular.dylib */,
 				D2AC86261379C15100AB94BB /* JamomaFoundation.dylib */,
+				D2EFA6DF138A78A300A83431 /* TTModular.dylib */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 			);

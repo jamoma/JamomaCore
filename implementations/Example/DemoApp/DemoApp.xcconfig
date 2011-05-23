@@ -8,5 +8,5 @@
 	DSP = $(SRCROOT)/../../../../DSP
 	MODULAR = $(SRCROOT)/../../..
 	
-	HEADER_SEARCH_PATHS = $(FOUNDATION)/library/includes $(MODULAR)/library/includes $(MODULAR)/library/PeerObject $(MODULAR)/library/PluginLib/includes $(MODULAR)/library/DataspaceLib $(MODULAR)/library/FunctionLib
+	HEADER_SEARCH_PATHS = $(FOUNDATION)/library/includes $(MODULAR)/library/includes $(MODULAR)/library/PeerObject $(MODULAR)/library/PluginLib/includes $(MODULAR)/library/FunctionLib
 	OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib "$(MODULAR)/library/build/UninstalledProducts"/TTModular.dylib
