@@ -11,20 +11,20 @@
 
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
-PRODUCT_VERSION = 0.5.2b1
-SVNREV = c4853
+PRODUCT_VERSION = 0.6.0a6
+SVNREV = 72384
 
 
 // Paths
 DSTROOT = /
-INSTALL_PATH = /Library/Application Support/Jamoma/Libraries
+INSTALL_PATH = /usr/local/jamoma/lib
 SKIP_INSTALL = YES
 
 
 // Special Files
 INFOPLIST_FILE = $(SRCROOT)/Info.plist
 
-HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../Foundation/library/includes" "$(SRCROOT)/../../DSP/library/includes" "$(SRCROOT)/../../Multicore/library/includes"
+HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../Foundation/library/includes" "$(SRCROOT)/../../DSP/library/includes" "$(SRCROOT)/../../Multicore/library/includes" /usr/include/libxml2
 LIBRARY_SEARCH_PATHS = $(inherited) 
 FRAMEWORK_SEARCH_PATHS = $(inherited)
 
@@ -46,4 +46,4 @@ DEPLOYMENT_LOCATION = YES
 
 FOUNDATION = "$(SRCROOT)/../../Foundation"
 DSPLIB = "$(SRCROOT)/../../DSP"
-OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib
+OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib "$(DSPLIB)/library/build/UninstalledProducts"/JamomaDSP.dylib
