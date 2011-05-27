@@ -138,7 +138,6 @@ void init_subscribe(t_init *x, SymbolPtr relativeAddress)		// relativeAddress : 
 		if (!JamomaDirectory->getTTNodeForOSC(levelAddress, &levelNode)) {
 			
 			// Make a TTReceiver object
-			args.append(JamomaApplication);
 			args.append(levelAddress);
 			args.append(kTTSym_initialized);
 			
