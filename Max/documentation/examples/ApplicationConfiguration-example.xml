@@ -5,10 +5,7 @@
   <plugin name="Minuit" ip="127.0.0.1" port="8002"/>
   <plugin name="OSC" ip="127.0.0.1" port="8003"/>
  </application>
- <application name="distantApplicationName" version="V1.0">
-  <plugin name="Minuit" ip="127.0.0.1" port="7002"/>
- </application>
- <application name="otherDistantApplicationName" version="V1.0">
-  <plugin name="OSC" ip="127.0.0.1" port="7003"/>
+ <application name="PureData" version="V1.0">
+  <plugin name="Minuit" ip="127.0.0.1" port="7003"/>
  </application>
 </jamoma>

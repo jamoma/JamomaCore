@@ -2,8 +2,8 @@
 <jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
  <!--Conversion table-->
  <application name="DemoApp" version="V0.6">
-  <plugin name="Minuit" ip="127.0.0.1" port="8002"/>
-  <plugin name="OSC" ip="127.0.0.1" port="8003"/>
+  <plugin name="Minuit" ip="127.0.0.1" port="9002"/>
+  <plugin name="OSC" ip="127.0.0.1" port="9003"/>
  </application>
  <application name="PureData" version="V1.0">
   <plugin name="Minuit" ip="127.0.0.1" port="7003"/>

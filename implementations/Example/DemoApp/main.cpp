@@ -23,6 +23,8 @@ void	myData_return_value_callback(TTPtr baton, TTValue& v);
 int 
 main(int argc, char **argv) 
 {
+	TTValue	v;
+	
 	// Initialize Jamoma environment
 	/////////////////////////////////////////////////////////
 	TTLogMessage("\n*** Starting my DemoApp application *** \n");
@@ -32,7 +34,7 @@ main(int argc, char **argv)
 
 	// Create a TTData object an use it
 	/////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Instantiate myData as a TTData object *** \n");
+	TTLogMessage("\n*** Instantiate myData as a TTData object ***\n");
 	
 	TTDataPtr myData = NULL;
 	
@@ -46,7 +48,7 @@ main(int argc, char **argv)
 	
 	// Register a TTObject into the DemoApp directory
 	/////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Register myData into the DemoApp directory *** \n");
+	TTLogMessage("\n*** Register myData into the DemoApp directory ***\n");
 	TTNodePtr		returnedNode;
 	TTBoolean		newInstanceCreated;
 
@@ -56,7 +58,7 @@ main(int argc, char **argv)
 	// 
 	// Use a TTData object
 	/////////////////////////////////////////////////////////
-	TTValue	v;
+
 	
 	// set the value
 	do {
@@ -83,6 +85,10 @@ main(int argc, char **argv)
 
 	return EXIT_SUCCESS;
 }
+
+
+
+
 
 void init()
 {
