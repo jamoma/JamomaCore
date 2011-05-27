@@ -268,14 +268,24 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 			if (formatedContextName == kTTSymEmpty || !aContext)
 				return kTTErrGeneric;
 			
-			// Is there a specific instance inside the context name (eg. myContext.A) ?
-			// if not we look for contextName.* else for myContext.A
+			// 1. Look for contextName.* in order to find a child with the same contaxt
 			splitOSCAddress(formatedContextName, &context_parent, &context_name, &context_instance, &context_attribute);
+			err = contextNode->getChildren(context_name, S_WILDCARD, contextNodeList);
 			
-			if (context_instance == NO_INSTANCE)
+			/*	Former step 1.
+				This introduced a bug when a user used /anAddress.I several times.
+				However this is faster than the new implementation because now we
+				always look for all children to find the context-like child...
+			 
+			 // Is there a specific instance inside the context name (eg. myContext.A) ?
+			 // if not we look for contextName.* else for myContext.A
+			 splitOSCAddress(formatedContextName, &context_parent, &context_name, &context_instance, &context_attribute);
+			 
+			 if (context_instance == NO_INSTANCE)
 				err = contextNode->getChildren(context_name, S_WILDCARD, contextNodeList);
-			else 
+			 else 
 				err = contextNode->getChildren(context_name, context_instance, contextNodeList);
+			 */
 			
 			// 3. For each node of the contextNodeList, check the context
 			// if one matches, keep it else we have to create the node
