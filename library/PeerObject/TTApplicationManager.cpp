@@ -456,7 +456,7 @@ TTErr TTApplicationManager::ApplicationListen(TTValue& value)
 	TTValue				v, args;
 	TTErr				err;
 	
-	appWhereToListen = TTApplicationManagerGetApplication(whereToListen);
+	appWhereToListen = getApplicationFrom(whereToListen);
 	err = mPlugins->lookup(pluginName, v);
 	
 	if (!err && appWhereToListen) 
@@ -673,6 +673,27 @@ TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr applicationName)
 			v.get(0, (TTPtr*)&anApplication);
 			return anApplication;
 		}
+	}
+	
+	return NULL;
+}
+
+TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTSymbolPtr appNameAndAddress)
+{
+	TTSymbolPtr			applicationName, addressParsed;
+	TTApplicationPtr	anApplication;
+	TTErr				err;
+	
+	if (TTModularApplications) {
+		
+		err = TTApplicationManagerSplitAppNameFromAddress(appNameAndAddress, &applicationName, &addressParsed);
+		
+		if (!err)
+			anApplication = TTApplicationManagerGetApplication(applicationName);
+		else
+			anApplication = TTApplicationManagerGetApplication(kTTSym_localApplicationName);
+		
+		return anApplication;
 	}
 	
 	return NULL;

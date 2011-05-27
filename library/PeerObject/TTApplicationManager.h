@@ -28,6 +28,9 @@ typedef PluginFactories* PluginFactoriesPtr;
 // Macro to retreive any application by name
 #define getApplication(applicationName) TTApplicationManagerGetApplication(applicationName)
 
+// Macro to retreive any application from an address
+#define getApplicationFrom(anAddress) TTApplicationManagerGetApplicationFrom(anAddress)
+
 // Macro to retreive local application
 #define getLocalApplication TTApplicationManagerGetApplication(kTTSym_localApplicationName)
 
@@ -109,12 +112,19 @@ private:
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-/**	To get an application with an application name (or either from an address)
+/**	To get an application with an application name
  note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
  @return							a TTApplicationPtr */
 TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
+
+/**	To get an application from an address
+ note : it uses the extern TTModularApplications variable
+ @param	baton						..
+ @param	data						..
+ @return							a TTApplicationPtr */
+TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTSymbolPtr appNameAndAddress);
 
 /**	To get a plugin with a plugin name
  note : it uses the extern TTModularApplications variable
