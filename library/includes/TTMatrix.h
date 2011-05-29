@@ -86,7 +86,7 @@ public:
 		For example, pass a pointer to a TTComplex if you want two doubles.
 	 */
 	template<typename T>
-	TTErr get2d(TTRowID i, TTColumnID j, T& data)
+	TTErr get2d(TTRowID i, TTColumnID j, T& data) const
 	{
 		//TTUInt32 m = mDimensions[0];
 		TTUInt32 n = mDimensions[1];
