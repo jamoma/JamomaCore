@@ -27,10 +27,13 @@ void		nmspc_symbol(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		nmspc_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		nmspc_subscribe(TTPtr self, SymbolPtr relativeAddress);
+void		nmspc_subscribe(TTPtr self);
 
 t_max_err	nmspc_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
 t_max_err	nmspc_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
+
+t_max_err	nmspc_get_relative(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
+t_max_err	nmspc_set_relative(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 
 /*
 void		nmspc_add_max_namespace(TTPtr self);
@@ -64,6 +67,8 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)nmspc_symbol,				"anything",					A_GIMME, 0);
 
 	class_addmethod(c->maxClass, (method)nmspc_write,				"write",					A_GIMME, 0);
+	
+	class_addmethod(c->maxClass, (method)nmspc_bang,				"explore",					0); // overwrite explore message to use the bang method
 
 	//class_addmethod(c->maxClass, (method)nmspc_add_max_namespace,	"add_max_namespace",		0);
 	
@@ -71,20 +76,17 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	nmspc_get_format,	nmspc_set_format);
 	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"none umenu umenu_prefix jit.cellblock coll");
 
-	
+	CLASS_ATTR_LONG(c->maxClass,		"relative",	0,		WrappedModularInstance,	index);	// use index member to store relative
+	CLASS_ATTR_ACCESSORS(c->maxClass,	"relative",	nmspc_get_relative,	nmspc_set_relative);
+	CLASS_ATTR_STYLE(c->maxClass,		"relative",	0,		"onoff");
 }
 
 void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					relativeAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
-	
-	// possible relativeAddress (to make jcom.namespace relative to his context ... ?)
-	if (attrstart && argv) 
-		relativeAddress = atom_getsym(argv);
-	else
-		relativeAddress = _sym_nothing;
+	TTOpmlHandlerPtr			aOpmlHandler;
+	TTValue						v, args;
 	
 	// create the explorer
 	jamoma_explorer_create((ObjectPtr)x, &x->wrappedObject);
@@ -99,28 +101,39 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare Internals hash to store XmlHanler object
 	x->internals = new TTHash();
 	
-	// handle attribute args
-	attr_args_process(x, argc, argv);
-	
-	// The following must be deferred because we have to interrogate our box,
-	// and our box is not yet valid until we have finished instantiating the object.
-	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)nmspc_subscribe, relativeAddress, 0, 0);
-}
-
-void nmspc_subscribe(TTPtr self, SymbolPtr relativeAddress)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue			v, args;
-	TTOpmlHandlerPtr aOpmlHandler;
-	
-	// create internal TTXmlHandler and internal messages for Read and Write
+	// create internal TTOpmlHandler
 	aOpmlHandler = NULL;
 	TTObjectInstantiate(TT("OpmlHandler"), TTObjectHandle(&aOpmlHandler), args);
 	v = TTValue(TTPtr(aOpmlHandler));
 	x->internals->append(TT("OpmlHandler"), v);
 	v = TTValue(TTPtr(x->wrappedObject));
 	aOpmlHandler->setAttributeValue(kTTSym_object, v);
+	
+	// handle attribute args
+	attr_args_process(x, argc, argv);
+}
+
+void nmspc_subscribe(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue	v;
+
+	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), kTTSymEmpty,  &x->patcherContext)) {
+		
+		v.append(x->patcherContext);
+		x->wrappedObject->setAttributeValue(kTTSym_address, v);
+		
+		// DEBUG
+		object_post((ObjectPtr)x, "explores from = %s", x->patcherContext->getCString());
+
+	}
+	// While the context node is not registered : try to build (to --Is this not dangerous ?)
+	else {
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low((ObjectPtr)x, (method)nmspc_subscribe, NULL, 0, 0);
+	}
 }
 
 void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
@@ -269,18 +282,34 @@ void nmspc_bang(TTPtr self)
 void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue v;
+	TTValue		v;
+	TTSymbolPtr absoluteAddress;
 	
+	// a leading slash means the address is absolute
 	if (msg->s_name[0] == C_SEPARATOR) {
 		v.append(TT(nmspc_filter_underscore_instance(msg)->s_name));
-		x->wrappedObject->setAttributeValue(kTTSym_address, v);
-		
-		// UMENU OR UMENU_PREFIX FORMAT : clear umenu
-		if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix"))
-			outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
-		
-		x->wrappedObject->sendMessage(TT("Explore"));
+
 	}
+	else {
+		
+		// if the relative attribute is on
+		if (x->index) {
+			joinOSCAddress(x->patcherContext, TT(nmspc_filter_underscore_instance(msg)->s_name), &absoluteAddress);
+			v.append(absoluteAddress);
+		}
+		else {
+			object_error((ObjectPtr)x, "set relative attribute on before to send relative address");
+			return;
+		}
+	}
+	
+	x->wrappedObject->setAttributeValue(kTTSym_address, v);
+	
+	// UMENU OR UMENU_PREFIX FORMAT : clear umenu
+	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix"))
+		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
+	
+	x->wrappedObject->sendMessage(TT("Explore"));
 }
 
 void nmspc_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -430,6 +459,48 @@ t_max_err nmspc_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av)
 	} else {
 		// no args, set to none
 		x->msg = _sym_none;
+	}
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err nmspc_get_relative(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if ((*ac)&&(*av)) {
+		//memory passed in, use it
+	} else {
+		//otherwise allocate memory
+		*ac = 1;
+		if (!(*av = (AtomPtr)getbytes(sizeof(Atom)*(*ac)))) {
+			*ac = 0;
+			return MAX_ERR_OUT_OF_MEM;
+		}
+	}
+	
+	atom_setlong(*av, x->index);
+	
+	return MAX_ERR_NONE;
+}
+
+t_max_err nmspc_set_relative(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if (ac&&av) {
+		x->index = atom_getlong(av);
+		
+		if (x->index) {
+			// The following must be deferred because we have to interrogate our box,
+			// and our box is not yet valid until we have finished instantiating the object.
+			// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+			defer_low((ObjectPtr)x, (method)nmspc_subscribe, NULL, 0, 0);
+		}
+		
+	} else {
+		// no args
+		x->index = 0;
 	}
 	return MAX_ERR_NONE;
 }
