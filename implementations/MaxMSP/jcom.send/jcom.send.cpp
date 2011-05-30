@@ -16,6 +16,8 @@ void	WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 
 void	send_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
+void	send_subscribe(TTPtr self, SymbolPtr relativeAddress);
+
 void	send_bang(TTPtr self);
 void	send_int(TTPtr self, long value);
 void	send_float(TTPtr self, double value);
@@ -52,13 +54,21 @@ void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	SymbolPtr					address;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
-	// A Modular object needs an address argument : atom_getsym(argv) or _sym_nothing by default
+	// read first argument
 	if (attrstart && argv) 
 		address = atom_getsym(argv);
 	else
 		address = _sym_nothing;
 	
-	jamoma_sender_create((ObjectPtr)x, jamoma_parse_dieze((ObjectPtr)x, address), &x->wrappedObject);
+	// a leading slash means the address is absolute
+	if (address->s_name[0] == C_SEPARATOR)
+		jamoma_sender_create((ObjectPtr)x, jamoma_parse_dieze((ObjectPtr)x, address), &x->wrappedObject);
+	else
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low((ObjectPtr)x, (method)send_subscribe, jamoma_parse_dieze((ObjectPtr)x, address), 0, 0);
+		
 	
 	// No outlets
 	
@@ -82,6 +92,27 @@ void send_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 			break;
 		}
  	}
+}
+
+void send_subscribe(TTPtr self, SymbolPtr relativeAddress)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTSymbolPtr absoluteAddress;
+
+	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), TT(relativeAddress->s_name),  &absoluteAddress)) {
+		
+		jamoma_sender_create((ObjectPtr)x, gensym((char*)absoluteAddress->getCString()), &x->wrappedObject);
+		
+		// DEBUG
+		object_post((ObjectPtr)x, "sends to = %s", absoluteAddress->getCString());
+	}
+	// While the context node is not registered : try to build (to --Is this not dangerous ?)
+	else {
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low((ObjectPtr)x, (method)send_subscribe, relativeAddress, 0, 0);
+	}
 }
 
 void send_bang(TTPtr self)
