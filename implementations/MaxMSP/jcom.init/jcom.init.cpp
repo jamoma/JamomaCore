@@ -119,21 +119,12 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 void init_subscribe(t_init *x, SymbolPtr relativeAddress)		// relativeAddress : could be used to binds on a sub level jcom.hub
 {
 	TTValue			v, args;
-	TTSymbolPtr		contextAddress, levelAddress;
+	TTSymbolPtr		levelAddress;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	TTNodePtr		levelNode;
-
-	jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &x->patcherNode);
 	
-	if (x->patcherNode) {
-		
-		x->patcherNode->getOscAddress(&contextAddress, S_SEPARATOR);
-		
-		if (relativeAddress == _sym_nothing)
-			levelAddress = contextAddress;
-		else
-			joinOSCAddress(contextAddress, TT(relativeAddress->s_name), &levelAddress);
+	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), TT(relativeAddress->s_name),  &levelAddress)) {
 		
 		if (!JamomaDirectory->getTTNodeForOSC(levelAddress, &levelNode)) {
 			
