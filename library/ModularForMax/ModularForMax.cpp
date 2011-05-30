@@ -1549,6 +1549,25 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 	*returnedName = NULL;
 }
 
+
+/** Build absolute address from a patcher giving a relative address */
+TTErr jamoma_patcher_make_absolute_address(ObjectPtr patcher, TTSymbolPtr relativeAddress, TTSymbolPtr *returnedAbsoluteAddress)
+{
+	TTNodePtr	patcherNode = NULL;
+	TTSymbolPtr patcherAddress;
+	
+	jamoma_patcher_share_node(patcher, &patcherNode);
+	
+	if (patcherNode) {
+		patcherNode->getOscAddress(&patcherAddress, S_SEPARATOR);
+		joinOSCAddress(patcherAddress, relativeAddress, returnedAbsoluteAddress);
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
 /** Get all context info from the root hub in the patcher */
 void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName)
 {
@@ -1680,6 +1699,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 
 	return kTTErrNone;
 }
+
 
 /** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
 long jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format)

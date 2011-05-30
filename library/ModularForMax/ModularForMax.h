@@ -195,6 +195,9 @@ extern "C" {
 	/** Get the name of the patcher from his arguments */
 	void			jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedName);
 	
+	/** Build absolute address from a patcher giving a relative address */
+	TTErr			jamoma_patcher_make_absolute_address(ObjectPtr patcher, TTSymbolPtr relativeAddress, TTSymbolPtr *returnedAbsoluteAddress);
+	
 	/** Get all context info from the root hub in the patcher */
 	void			jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName);
 
