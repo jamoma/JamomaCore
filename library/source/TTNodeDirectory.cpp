@@ -801,7 +801,7 @@ TTErr joinOSCAddress(TTSymbolPtr firstPart, TTSymbolPtr secondPart, TTSymbolPtr 
 	TTString tmp = "";
 
 	if (firstPart != S_SEPARATOR) {
-		if (firstPart->getCString()[0] != C_SEPARATOR) {
+		if (firstPart->getCString()[0] != C_SEPARATOR && firstPart != kTTSymEmpty) {
 			tmp += C_SEPARATOR;
 			tmp += firstPart->getCString();
 		}
@@ -809,7 +809,7 @@ TTErr joinOSCAddress(TTSymbolPtr firstPart, TTSymbolPtr secondPart, TTSymbolPtr 
 			tmp += firstPart->getCString();
 	}
 
-	if (secondPart->getCString()[0] != C_SEPARATOR) {
+	if (secondPart->getCString()[0] != C_SEPARATOR && secondPart != kTTSymEmpty) {
 		tmp += C_SEPARATOR;
 		tmp += secondPart->getCString();
 	}
