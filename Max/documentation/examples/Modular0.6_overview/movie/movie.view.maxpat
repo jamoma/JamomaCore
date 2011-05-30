@@ -1,7 +1,7 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 15.0, 58.0, 922.0, 702.0 ],
+		"rect" : [ 479.0, 474.0, 300.0, 105.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 15.0, 58.0, 922.0, 702.0 ],
@@ -128,8 +128,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 468.0, 448.0, 91.0, 20.0 ],
-					"text" : "jcom.view /rate"
+					"patching_rect" : [ 468.0, 448.0, 87.0, 20.0 ],
+					"text" : "jcom.view rate"
 				}
 
 			}
@@ -330,8 +330,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 468.0, 199.0, 163.0, 20.0 ],
-					"text" : "jcom.view /play @selected 0"
+					"patching_rect" : [ 468.0, 199.0, 159.0, 20.0 ],
+					"text" : "jcom.view play @selected 0"
 				}
 
 			}
@@ -345,8 +345,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 735.0, 287.0, 156.0, 20.0 ],
-					"text" : "jcom.view /fps @selected 0"
+					"patching_rect" : [ 735.0, 287.0, 153.0, 20.0 ],
+					"text" : "jcom.view fps @selected 0"
 				}
 
 			}
@@ -362,6 +362,7 @@
 					"patching_rect" : [ 468.0, 375.0, 228.0, 18.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 6.0, 42.0, 205.0, 18.0 ],
+					"text" : "oh.mov",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
@@ -596,12 +597,12 @@
 ,
 					"patching_rect" : [ 202.0, 146.0, 90.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 12.0
 					}
 ,
@@ -691,12 +692,12 @@
 ,
 					"patching_rect" : [ 746.0, 650.0, 67.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 12.0
 					}
 ,
@@ -758,7 +759,7 @@
 					"patching_rect" : [ 465.0, 553.0, 300.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ],
-					"text" : "waiting for a /model/address"
+					"text" : "/player.A"
 				}
 
 			}

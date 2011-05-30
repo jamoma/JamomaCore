@@ -214,10 +214,11 @@ void data_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 
-	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject);
-	
-	// for instant we don't need info relative to our patcher
-	// jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	// no leading slash means the address is relative
+	if (relativeAddress->s_name[0] != C_SEPARATOR)
+		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject);
+	else
+		object_error((ObjectPtr)x, "can't register at %s because this address starts by a /", relativeAddress->s_name);
 }
 
 void data_subscribe_array(TTPtr self)

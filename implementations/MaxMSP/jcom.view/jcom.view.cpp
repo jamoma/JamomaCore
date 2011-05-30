@@ -99,20 +99,20 @@ void WrapTTViewerClass(WrappedClassPtr c)
 void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					relativeAddress;
+	SymbolPtr					address;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
-	// A Modular object needs an address argument : atom_getsym(argv) or _sym_nothing by default
+	// read first argument
 	if (attrstart && argv) 
-		relativeAddress = atom_getsym(argv);
+		address = atom_getsym(argv);
 	else
-		relativeAddress = _sym_nothing;
+		address = _sym_nothing;
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->connected = NULL;
 	EXTRA->label = NULL;
-	EXTRA->address = TT(relativeAddress->s_name);
+	EXTRA->address = TT(address->s_name);
 	
 	EXTRA->color0 = (AtomPtr)sysmem_newptr(sizeof(Atom) * 4);
 	atom_setfloat(EXTRA->color0, 0);
@@ -134,7 +134,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)view_subscribe, relativeAddress, 0, 0);
+	defer_low((ObjectPtr)x, (method)view_subscribe, address, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 3);
@@ -179,57 +179,63 @@ void WrappedViewerClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void view_subscribe(TTPtr self, SymbolPtr relativeAddress)
+void view_subscribe(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	TTSymbolPtr					contextAddress = kTTSymEmpty;
 	TTObjectPtr					anObject;
 	TTNodePtr					patcherNode;
-
-	// if the jcom.view is in a model or a view patcher
-	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
-	if (x->patcherPtr && x->patcherContext && x->patcherClass && x->patcherName) {
+	
+	// no leading slash means the address is relative
+	if (address->s_name[0] != C_SEPARATOR) {
 		
-		if (x->patcherContext == kTTSym_view) {
-			// try to subscribe
-			if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
-				// get the context address to make
-				// a viewer on the contextAddress/model/address parameter
-				x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-				v.get(0, &contextAddress);
-			}
-		}
-		else {
-			jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &patcherNode);
-			if (patcherNode)
-				patcherNode->getOscAddress(&contextAddress, S_SEPARATOR);
+		// if the jcom.view is in a model or a view patcher
+		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+		if (x->patcherPtr && x->patcherContext && x->patcherClass && x->patcherName) {
 			
-			// While the context node is not registered : try to build (to --Is this not dangerous ?)
+			if (x->patcherContext == kTTSym_view) {
+				// try to subscribe
+				if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), &x->subscriberObject)) {
+					// get the context address to make
+					// a viewer on the contextAddress/model/address parameter
+					x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+					v.get(0, &contextAddress);
+				}
+			}
 			else {
-				// The following must be deferred because we have to interrogate our box,
-				// and our box is not yet valid until we have finished instantiating the object.
-				// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-				defer_low((ObjectPtr)x, (method)view_subscribe, relativeAddress, 0, 0);
-				return;
+				jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &patcherNode);
+				if (patcherNode)
+					patcherNode->getOscAddress(&contextAddress, S_SEPARATOR);
+				
+				// While the context node is not registered : try to build (to --Is this not dangerous ?)
+				else {
+					// The following must be deferred because we have to interrogate our box,
+					// and our box is not yet valid until we have finished instantiating the object.
+					// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+					defer_low((ObjectPtr)x, (method)view_subscribe, address, 0, 0);
+					return;
+				}
 			}
+			
+			// bind on the /model/address parameter (in view patch) or return (in model patch)
+			if (contextAddress != kTTSymEmpty) {
+				makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+				anObject->sendMessage(kTTSym_Refresh);
+			}
+			
+			// attach the jcom.view to connected ui object
+			view_attach(self);
 		}
 		
-		// bind on the /model/address parameter (in view patch) or return (in model patch)
-		if (contextAddress != kTTSymEmpty) {
-			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
-			anObject->sendMessage(kTTSym_Refresh);
-		}
-			
-		// attach the jcom.view to connected ui object
-		view_attach(self);
+		return;
 	}
 	
-	// else use the relative address to bind directly on a data
+	// Else use the address to bind directly on a data
 	// and don't register the view into the namespace
-	else
-		// set address attribute of the wrapped Viewer object
-		x->wrappedObject->setAttributeValue(kTTSym_address, TT(relativeAddress->s_name));
+	
+	// set address attribute of the wrapped Viewer object
+	x->wrappedObject->setAttributeValue(kTTSym_address, TT(address->s_name));
 }
 
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
