@@ -24,10 +24,12 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Delete old libsndfile-1.dl from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\libsndfile-1.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\libsndfile-1.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;copy $(ProjectDir)\libsndfile\libsndfile-1.dll &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(ProjectDir)\libsndfile\libsndfile-1.dll &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -94,6 +96,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Copy libsndfile-1.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)libsndfile\libsndfile-1.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\libsndfile-1.dll&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -104,10 +108,12 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Delete old libsndfile-1.dl from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\libsndfile-1.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\libsndfile-1.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;copy $(ProjectDir)\libsndfile\libsndfile-1.dll &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(ProjectDir)\libsndfile\libsndfile-1.dll &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -173,6 +179,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Copy libsndfile-1.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)libsndfile\libsndfile-1.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\libsndfile-1.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>
