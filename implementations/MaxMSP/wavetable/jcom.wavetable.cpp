@@ -46,7 +46,7 @@ static ClassPtr sOscilClass;
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ClassPtr c;
 

@@ -9,7 +9,7 @@
 
 #include "maxAudioGraph.h"
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	TTAudioGraphInit();
 	wrapAsMaxAudioGraph(TT("overdrive"), "jcom.overdrive≈", NULL);
