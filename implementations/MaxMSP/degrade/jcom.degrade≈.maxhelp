@@ -170,7 +170,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 50.0, 150.0, 488.0, 19.0 ],
-					"text" : "jcom.wavetable≈ @frequency 220. @waveform triangle @interpolation linear @numchannels 2"
+					"text" : "jcom.wavetable≈ @frequency 220. @waveform triangle @interpolation linear @numChannels 2"
 				}
 
 			}
