@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 59.0, 100.0, 1048.0, 769.0 ],
+		"rect" : [ 61.0, 100.0, 1046.0, 769.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 59.0, 100.0, 1048.0, 769.0 ],
+		"defrect" : [ 61.0, 100.0, 1046.0, 769.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,7 +27,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 354.0, 477.0, 195.0, 20.0 ],
+					"patching_rect" : [ 354.0, 477.0, 195.0, 19.0 ],
 					"text" : "set 2 type lowpass.butterworth.2"
 				}
 
@@ -41,7 +41,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 169.0, 199.0, 465.0, 22.0 ],
+					"patching_rect" : [ 169.0, 199.0, 465.0, 21.0 ],
 					"text" : "without setting @class,  jcom.array≈ will process a gain stage by default"
 				}
 
@@ -124,7 +124,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 284.0, 139.0, 50.0, 22.0 ]
+					"patching_rect" : [ 284.0, 139.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -137,7 +137,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 273.0, 89.0, 50.0, 22.0 ]
+					"patching_rect" : [ 273.0, 89.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -150,7 +150,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 339.0, 139.0, 255.0, 22.0 ],
+					"patching_rect" : [ 339.0, 139.0, 255.0, 21.0 ],
 					"text" : "set the gain of the 3rd instance in the array"
 				}
 
@@ -164,7 +164,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 284.0, 163.0, 85.0, 20.0 ],
+					"patching_rect" : [ 284.0, 163.0, 85.0, 19.0 ],
 					"text" : "set 2 gain $1"
 				}
 
@@ -178,7 +178,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 328.0, 89.0, 232.0, 22.0 ],
+					"patching_rect" : [ 328.0, 89.0, 234.0, 21.0 ],
 					"text" : "set the gain of all instances in the array"
 				}
 
@@ -192,7 +192,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 273.0, 114.0, 74.0, 20.0 ],
+					"patching_rect" : [ 273.0, 114.0, 74.0, 19.0 ],
 					"text" : "set gain $1"
 				}
 
@@ -206,7 +206,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 132.0, 247.0, 50.0, 19.0 ]
+					"patching_rect" : [ 101.0, 252.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -217,9 +217,9 @@
 					"id" : "obj-47",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 101.0, 226.0, 65.0, 19.0 ],
+					"numoutlets" : 5,
+					"outlettype" : [ "audio.connect", "", "", "", "" ],
+					"patching_rect" : [ 66.0, 226.0, 65.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -233,7 +233,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 66.0, 562.0, 146.0, 22.0 ],
+					"patching_rect" : [ 66.0, 562.0, 151.0, 21.0 ],
 					"text" : "jcom.array≈ @class filter"
 				}
 
@@ -247,7 +247,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 221.0, 562.0, 294.0, 22.0 ],
+					"patching_rect" : [ 221.0, 562.0, 294.0, 21.0 ],
 					"text" : "use jcom.array≈ with any JamomaDSP class"
 				}
 
@@ -262,7 +262,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 289.0, 457.0, 39.0, 20.0 ],
+					"patching_rect" : [ 289.0, 457.0, 39.0, 19.0 ],
 					"text" : "5000"
 				}
 
@@ -276,7 +276,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 292.0, 480.0, 50.0, 22.0 ]
+					"patching_rect" : [ 292.0, 480.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -289,7 +289,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 292.0, 511.0, 115.0, 20.0 ],
+					"patching_rect" : [ 292.0, 511.0, 115.0, 19.0 ],
 					"text" : "set 1 frequency $1"
 				}
 
@@ -304,7 +304,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 184.0, 455.0, 32.5, 20.0 ],
+					"patching_rect" : [ 184.0, 455.0, 32.5, 19.0 ],
 					"text" : "500"
 				}
 
@@ -318,7 +318,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 179.0, 480.0, 50.0, 22.0 ]
+					"patching_rect" : [ 179.0, 480.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -331,7 +331,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 179.0, 511.0, 104.0, 20.0 ],
+					"patching_rect" : [ 179.0, 511.0, 105.0, 19.0 ],
 					"text" : "set frequency $1"
 				}
 
@@ -345,7 +345,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 65.0, 90.0, 181.0, 22.0 ],
+					"patching_rect" : [ 65.0, 90.0, 186.0, 21.0 ],
 					"text" : "jcom.noise≈ @numChannels 4"
 				}
 
@@ -359,7 +359,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 416.0, 510.0, 188.0, 20.0 ],
+					"patching_rect" : [ 416.0, 510.0, 189.0, 19.0 ],
 					"text" : "set type highpass.butterworth.2"
 				}
 
@@ -406,7 +406,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 65.0, 201.0, 77.0, 22.0 ],
+					"patching_rect" : [ 65.0, 201.0, 77.0, 21.0 ],
 					"text" : "jcom.array≈"
 				}
 
@@ -482,24 +482,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-26", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-46", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-26", 0 ]
 				}
 
 			}
@@ -631,10 +613,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-47", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-46", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-47", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-51", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-47", 2 ]
+					"source" : [ "obj-47", 3 ]
 				}
 
 			}

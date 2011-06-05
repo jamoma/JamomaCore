@@ -26,7 +26,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "int" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
@@ -187,13 +187,13 @@
 ,
 					"patching_rect" : [ 148.0, 98.0, 93.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p DSPtest on-off"
@@ -206,7 +206,7 @@
 					"maxclass" : "scope~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 238.0, 283.0, 130.0, 130.0 ]
+					"patching_rect" : [ 238.0, 303.0, 130.0, 130.0 ]
 				}
 
 			}
@@ -219,7 +219,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 398.0, 253.0, 50.0, 19.0 ]
+					"patching_rect" : [ 299.0, 240.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -232,7 +232,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 343.0, 253.0, 50.0, 19.0 ]
+					"patching_rect" : [ 244.0, 240.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -245,7 +245,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 288.0, 253.0, 50.0, 19.0 ]
+					"patching_rect" : [ 189.0, 240.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -256,7 +256,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 288.0, 203.0, 20.0, 20.0 ]
+					"patching_rect" : [ 123.0, 187.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -267,9 +267,9 @@
 					"id" : "obj-15",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 288.0, 228.0, 183.0, 19.0 ],
+					"numoutlets" : 5,
+					"outlettype" : [ "audio.connect", "", "", "", "" ],
+					"patching_rect" : [ 148.0, 215.0, 183.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -308,7 +308,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 148.0, 283.0, 56.0, 19.0 ],
+					"patching_rect" : [ 148.0, 303.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -322,7 +322,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 148.0, 248.0, 91.0, 19.0 ],
+					"patching_rect" : [ 148.0, 268.0, 91.0, 19.0 ],
 					"text" : "jcom.unpack≈ 1"
 				}
 
@@ -336,7 +336,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 148.0, 188.0, 68.0, 19.0 ],
+					"patching_rect" : [ 148.0, 187.0, 68.0, 19.0 ],
 					"text" : "jcom.adsr≈"
 				}
 
@@ -348,7 +348,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 153.0, 333.0, 45.0, 45.0 ]
+					"patching_rect" : [ 153.0, 353.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -378,15 +378,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -399,7 +390,7 @@
 					"destination" : [ "obj-21", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-15", 0 ]
+					"source" : [ "obj-15", 1 ]
 				}
 
 			}
@@ -408,7 +399,7 @@
 					"destination" : [ "obj-23", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-15", 1 ]
+					"source" : [ "obj-15", 2 ]
 				}
 
 			}
@@ -417,7 +408,16 @@
 					"destination" : [ "obj-26", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-15", 2 ]
+					"source" : [ "obj-15", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 0 ]
 				}
 
 			}
