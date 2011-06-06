@@ -20,20 +20,6 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-35",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 258.0, 162.0, 72.0, 20.0 ],
-					"text" : "loadmess 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"comment" : "",
 					"id" : "obj-33",
 					"maxclass" : "inlet",
@@ -526,8 +512,8 @@
 					"patching_rect" : [ 220.0, 260.0, 116.0, 21.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
@@ -815,8 +801,8 @@
 					"patching_rect" : [ 121.0, 436.0, 119.0, 21.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
@@ -1264,15 +1250,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-33", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-35", 0 ]
 				}
 
 			}
