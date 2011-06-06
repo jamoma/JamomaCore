@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 516.0, 116.0, 572.0, 566.0 ],
+		"rect" : [ 198.0, 118.0, 570.0, 580.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 516.0, 116.0, 572.0, 566.0 ],
+		"defrect" : [ 198.0, 118.0, 570.0, 580.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -23,40 +23,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-23",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 454.0, 226.0, 102.0, 19.0 ],
-					"text" : "<- or all instances"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-22",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 421.0, 228.0, 32.5, 17.0 ],
-					"text" : "*"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-18",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 36.0, 306.0, 318.0, 19.0 ],
-					"text" : "(the outlets have the same  behaviour than jcom.parameter)"
+					"text" : "(the outlets have the same  behaviour than jcom.message)"
 				}
 
 			}
@@ -69,22 +41,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 281.0, 218.0, 19.0 ],
+					"patching_rect" : [ 252.0, 281.0, 218.0, 19.0 ],
 					"text" : "<- and retrieve values from this instance"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-14",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 196.0, 227.0, 172.0, 19.0 ],
-					"text" : "address a particular instance ->"
 				}
 
 			}
@@ -110,33 +68,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 204.0, 281.0, 50.0, 19.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-15",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 40.0, 227.0, 50.0, 19.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-11",
-					"maxclass" : "number",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 368.0, 227.0, 50.0, 19.0 ]
+					"patching_rect" : [ 201.0, 281.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -147,24 +79,24 @@
 					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
+					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 40.0, 254.0, 347.0, 19.0 ],
-					"text" : "jcom.parameter.array object.[6] @type decimal @description Hello"
+					"patching_rect" : [ 40.0, 254.0, 341.0, 19.0 ],
+					"text" : "jcom.message.array object.[6] @type decimal @description Hello"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.parameter.array", "@description", "Define an array of parameter instances" ],
+					"args" : [ "@name", "jcom.messageArray", "@description", "Define an array of message instances" ],
 					"bgmode" : 1,
 					"id" : "obj-19",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 675.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 570.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -178,8 +110,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 370.0, 520.0, 113.0, 17.0 ],
-					"text" : "jcom.message.array"
+					"patching_rect" : [ 400.0, 520.0, 119.0, 17.0 ],
+					"text" : "jcom.parameter.array"
 				}
 
 			}
@@ -193,7 +125,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 430.0, 465.0, 76.0, 19.0 ],
+					"patching_rect" : [ 460.0, 465.0, 76.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
@@ -208,7 +140,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 430.0, 490.0, 51.0, 19.0 ],
+					"patching_rect" : [ 460.0, 490.0, 51.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -222,7 +154,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 365.0, 500.0, 52.0, 19.0 ],
+					"patching_rect" : [ 395.0, 500.0, 52.0, 19.0 ],
 					"text" : "See also"
 				}
 
@@ -237,7 +169,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 38.0, 439.0, 211.0, 17.0 ],
-					"text" : "/model/address /jcom.parameter.1"
+					"text" : "/ui/size 300. 70."
 				}
 
 			}
@@ -264,7 +196,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 40.0, 166.0, 345.0, 19.0 ],
-					"text" : "- an array of six parameters named /objetc.N"
+					"text" : "- an array of six messages named /objetc.N"
 				}
 
 			}
@@ -278,7 +210,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 40.0, 151.0, 345.0, 19.0 ],
-					"text" : "- an array of four parameters named /source.N/position"
+					"text" : "- an array of four messages named /source.N/position"
 				}
 
 			}
@@ -293,7 +225,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 40.0, 90.0, 425.0, 31.0 ],
-					"text" : "This component is a utility for creating an array of parameter instances in one go. Currently the number of instances can not be changed on the fly."
+					"text" : "This component is a utility for creating an array of message instances in one go. Currently the number of instances can not be changed on the fly."
 				}
 
 			}
@@ -374,7 +306,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 38.0, 469.0, 300.0, 70.0 ],
-					"text" : "/jcom.parameter.array"
+					"text" : "/jcom.messageArray"
 				}
 
 			}
@@ -385,11 +317,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
+					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 39.0, 192.0, 390.0, 19.0 ],
-					"text" : "jcom.parameter.array source.[4]/position @type integer @description Hello"
+					"patching_rect" : [ 39.0, 192.0, 384.0, 19.0 ],
+					"text" : "jcom.message.array source.[4]/position @type integer @description Hello"
 				}
 
 			}
@@ -409,33 +341,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-15", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 430.5, 249.0, 377.5, 249.0 ],
-					"source" : [ "obj-22", 0 ]
 				}
 
 			}
