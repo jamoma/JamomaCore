@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 198.0, 118.0, 675.0, 572.0 ],
+		"rect" : [ 516.0, 116.0, 572.0, 566.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 198.0, 118.0, 675.0, 572.0 ],
+		"defrect" : [ 516.0, 116.0, 572.0, 566.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -164,7 +164,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 810.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 675.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -178,7 +178,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 512.0, 525.0, 113.0, 17.0 ],
+					"patching_rect" : [ 370.0, 520.0, 113.0, 17.0 ],
 					"text" : "jcom.message.array"
 				}
 
@@ -193,7 +193,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 572.0, 470.0, 76.0, 19.0 ],
+					"patching_rect" : [ 430.0, 465.0, 76.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
@@ -208,7 +208,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 572.0, 495.0, 51.0, 19.0 ],
+					"patching_rect" : [ 430.0, 490.0, 51.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -222,7 +222,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 507.0, 505.0, 52.0, 19.0 ],
+					"patching_rect" : [ 365.0, 500.0, 52.0, 19.0 ],
 					"text" : "See also"
 				}
 
