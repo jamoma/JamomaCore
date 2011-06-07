@@ -12,14 +12,18 @@
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
 #include "TTCallback.h"
-#include "TTNode.h"
-#include "TTNodeDirectory.h"
+
+#include "TTNodeAddress.h"
+#include "TTNodeAddressTable.h"
+#include "TTNodeAddressCache.h"
+
 #include "TTPath.h"
 
 // Unit Tests
 #include "TTMatrix.h"
 #include "TTMatrixArray.h"
 #include "TTValue.test.h"
+#include "TTNodeLib.test.h"
 
 
 #ifdef TT_PLATFORM_MAC
@@ -51,11 +55,14 @@ void TTFoundationInit(const char* pathToBinaries)
 		ttSymbolTable = new TTSymbolTable;
 		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
+		
+		ttNodeAddressTable = new TTNodeAddressTable;
 
 		ttEnvironment = new TTEnvironment;
 
 		TTSymbolCacheInit();
 		TTValueCacheInit();
+		TTNodeAddressCacheInit();
 		
 #ifdef TT_DEBUG
 		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);
@@ -73,6 +80,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTMatrix::registerClass();
 		TTMatrixArray::registerClass();
 		TTValueTest::registerClass();
+		TTNodeLibTest::registerClass();
 
 		TTFoundationLoadExternalClasses();
 	}

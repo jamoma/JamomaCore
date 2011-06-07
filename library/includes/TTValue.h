@@ -13,6 +13,8 @@
 #include "TTLimits.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
+#include "TTNodeAddress.h"
+#include "TTNodeAddressTable.h"
 
 
 class TTObject;
@@ -294,6 +296,7 @@ public:
 	void get(const TTUInt16 index, TTMatrix& value) const;
 	void get(const TTUInt16 index, TTMatrix** value) const;
 	void get(const TTUInt16 index, TTPtr* value) const;
+	void get(const TTUInt16 index, TTNodeAddressPtr* value) const;
 
 	
 	// inlined for speed (e.g. for use in the matrix)

@@ -12,6 +12,8 @@
 
 /****************************************************************************************************/
 
+TTSymbol::TTSymbol() {;}
+
 TTSymbol::TTSymbol(const TTString& newString, TTInt32 newId)
 {
 	init(newString, newId);

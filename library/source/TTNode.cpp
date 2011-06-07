@@ -7,7 +7,6 @@
  */
 
 #include "TTNode.h"
-#include "TTNodeDirectory.h"
 
 TTNode::TTNode(TTSymbolPtr aName, TTSymbolPtr anInstance, TTObjectPtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
 parent(NULL)
@@ -27,7 +26,8 @@ TTNode::~TTNode()
 	TTErr err;
 	unsigned int i, j, nb_c, nb_i;
 	TTValue hk, hk_i;
-	TTSymbolPtr OSCaddress, key, key_i;
+	TTNodeAddressPtr anAddress;
+	TTSymbolPtr key, key_i;
 	TTValue c, c_i, p_c, data;
 	TTHashPtr ht_i, p_ht_i;
 	TTNodePtr n_c;
@@ -63,8 +63,8 @@ TTNode::~TTNode()
 
 						if (err != kTTErrValueNotFound) {
 							c_i.get(0,(TTPtr*)&n_c);
-							n_c->getOscAddress(&OSCaddress);
-							this->directory->TTNodeRemove(OSCaddress);		// remove children properly using the TTNodeDirectory
+							n_c->getAddress(&anAddress);
+							this->directory->TTNodeRemove(anAddress);		// remove children properly using the TTNodeDirectory
 						}
 					}
 				}
@@ -103,15 +103,16 @@ TTNode::~TTNode()
 TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
-	unsigned int i;
+	TTUInt32 i;
 	TTValue hk, p_c, c;
 	TTString temp, t;
-	TTSymbolPtr old_OSCaddress, new_OSCaddress, old_key;
+	TTNodeAddressPtr oldAddress, newAaddress;
+	TTSymbolPtr old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
 
 	// get his actual address
-	this->getOscAddress(&old_OSCaddress);
+	this->getAddress(&oldAddress);
 
 	// remove the his actual name in the parent TTNode
 	err = this->parent->children->lookup(this->name, p_c);
@@ -141,9 +142,9 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 	}
 
 	// get the new address
-	this->getOscAddress(&new_OSCaddress);
+	this->getAddress(&newAaddress);
 
-	// for all the address witch starts by old_OSCaddress :
+	// for all the address witch starts by oldAddress :
 	// replace the beginning by the new_OSCaddress
 	this->directory->getDirectory()->getKeys(hk);
 
@@ -153,16 +154,16 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 		hk.get(i,(TTSymbolPtr*)&old_key);
 
 		// if the key starts by the OSCaddress
-		if (strstr(old_key->getCString(), old_OSCaddress->getCString()) == old_key->getCString()) {
+		if (strstr(old_key->getCString(), oldAddress->getCString()) == old_key->getCString()) {
 
 			// get the TTNode
 			err = this->directory->getDirectory()->lookup(old_key, c);
 			if (err != kTTErrValueNotFound) {
 				c.get(0,(TTPtr*)&n_c);
 
-				// create a new key : /new_OSCaddress/end_of_the_old_key
-				temp = new_OSCaddress->getCString();
-				t = (char *)(old_key->getCString() + strlen(old_OSCaddress->getCString()));
+				// create a new key : /newAddress/end_of_the_old_key
+				temp = newAaddress->getCString();
+				t = (char *)(old_key->getCString() + strlen(oldAddress->getCString()));
 
 				if ((TT(t) == S_SEPARATOR) || t[0] == 0) {
 					temp += t;
@@ -183,15 +184,16 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
-	unsigned int i;
+	TTUInt32 i;
 	TTValue hk, p_c, c;
 	TTString temp, t;
-	TTSymbolPtr old_OSCaddress, new_OSCaddress, old_key;
+	TTNodeAddressPtr oldAddress, newAddress;
+	TTSymbolPtr old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
 
 	// get his actual address
-	this->getOscAddress(&old_OSCaddress);
+	this->getAddress(&oldAddress);
 
 	// remove his instance in the parent TTNode
 	err = this->parent->children->lookup(this->name, p_c);
@@ -214,10 +216,10 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 	}
 
 	// get the new address
-	this->getOscAddress(&new_OSCaddress);
+	this->getAddress(&newAddress);
 
-	// for all the address witch starts by old_OSCaddress :
-	// replace the beginning by the new_OSCaddress
+	// for all the address witch starts by oldAddress :
+	// replace the beginning by the newAddress
 	this->directory->getDirectory()->getKeys(hk);
 
 	// for each key
@@ -225,17 +227,17 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 
 		hk.get(i,(TTSymbolPtr*)&old_key);
 
-		// if the key starts by the OSCaddress
-		if (strstr(old_key->getCString(), old_OSCaddress->getCString()) == old_key->getCString()) {
+		// if the key starts by the address
+		if (strstr(old_key->getCString(), oldAddress->getCString()) == old_key->getCString()) {
 
 			// get the TTNode
 			err = this->directory->getDirectory()->lookup(old_key, c);
 			if (err != kTTErrValueNotFound) {
 				c.get(0,(TTPtr*)&n_c);
 
-				// create a new key : /new_OSCaddress/end_of_the_old_key
-				temp = new_OSCaddress->getCString();
-				t = (char *)(old_key->getCString() + strlen(old_OSCaddress->getCString()));
+				// create a new key : /newAddress/end_of_the_old_key
+				temp = newAddress->getCString();
+				t = (char *)(old_key->getCString() + strlen(oldAddress->getCString()));
 
 				if ((TT(t) == S_SEPARATOR) || t[0] == 0) {
 					temp += t;
@@ -253,22 +255,22 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 	return kTTErrNone;
 }
 
-TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created)
+TTErr TTNode::setParent(TTNodeAddressPtr parentAddress, TTBoolean *newParentCreated)
 {
 	TTValue	found;
 	TTErr	err;
 
 	// look into the hashtab to check if the address exist in the directory
-	err = this->directory->getDirectory()->lookup(oscAddress_parent, found);
+	err = this->directory->getDirectory()->lookup(parentAddress, found);
 
 	// if the address doesn't exist
 	if (err == kTTErrValueNotFound) {
 
 		// we create a container TTNode
-		this->directory->TTNodeCreate(oscAddress_parent, NULL, NULL, &this->parent, parent_created);
+		this->directory->TTNodeCreate(parentAddress, NULL, NULL, &this->parent, newParentCreated);
 
 		// Is it a good test ?
-		if (*parent_created && (this->parent->instance != NO_INSTANCE))
+		if (*newParentCreated && (this->parent->instance != NO_INSTANCE))
 			return kTTErrGeneric;
 	}
 	else
@@ -531,13 +533,13 @@ TTPtr TTNode::getContext()
 	return this->context;
 }
 
-TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr from)
+TTErr TTNode::getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr from)
 {
 	unsigned int	i, nb_ancestor, len = 0;
-	TTSymbolPtr		returnedPart1, returnedPart2;
+	TTNodeAddressPtr returnedPart1, returnedPart2;
 	TTNodePtr		ptr;
 	TTNodePtr		*ancestor;
-	TTString		OscAddress;
+	TTString		anAddressString;
 
 	// First, count the number of ancestor
 	// and the length of the entire address (with slash and dot)
@@ -569,7 +571,7 @@ TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr from)
 
 	// this is the root
 	else {
-		*returnedOscAddress = S_SEPARATOR;
+		*returnedAddress = kTTAdrsRoot;
 		return kTTErrNone;
 	}
 
@@ -584,42 +586,46 @@ TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr from)
 
 	// Finaly, copy the name of each ancestor
 	// copy the root before
-	OscAddress = ancestor[0]->name->getCString();
+	anAddressString = ancestor[0]->name->getCString();
 	for (i=1; i<nb_ancestor; i++) {
 
 		if (ancestor[i]->name != NO_NAME)
-			OscAddress += ancestor[i]->name->getCString();
+			anAddressString += ancestor[i]->name->getCString();
 
 		if (ancestor[i]->instance != NO_INSTANCE) {
-			OscAddress += S_INSTANCE->getCString();
-			OscAddress += ancestor[i]->instance->getCString();
+			anAddressString += S_INSTANCE->getCString();
+			anAddressString += ancestor[i]->instance->getCString();
 		}
 
-		OscAddress += S_SEPARATOR->getCString();
+		anAddressString += S_SEPARATOR->getCString();
 	}
 
 	if (this->name != NO_NAME)
-		OscAddress += this->name->getCString();
+		anAddressString += this->name->getCString();
 
 	if (this->instance != NO_INSTANCE) {
-		OscAddress += S_INSTANCE->getCString();
-		OscAddress += this->instance->getCString();
+		anAddressString += S_INSTANCE->getCString();
+		anAddressString += this->instance->getCString();
 	}
 
 	if (len) {
+		
+		*returnedAddress = TTADRS(anAddressString);
 
 		// make it relative from
-		if (from != S_SEPARATOR) {
-			splitAtOSCAddress(TT(OscAddress), countSeparator(from), &returnedPart1, &returnedPart2);
-			OscAddress = C_SEPARATOR;
-			OscAddress += returnedPart2->getCString();
+		if (from != kTTAdrsEmpty) {
+			if (from == kTTAdrsRoot)
+				(*returnedAddress)->splitAt(0, &returnedPart1, &returnedPart2);
+			else
+				(*returnedAddress)->splitAt(from->countSeparator(), &returnedPart1, &returnedPart2);
+			
+			*returnedAddress = returnedPart2;
 		}
 
-		*returnedOscAddress = TT(OscAddress);
 		return kTTErrNone;
 	}
 
-	*returnedOscAddress = NULL;
+	*returnedAddress = NULL;
 	return kTTErrGeneric;
 }
 

@@ -15,6 +15,9 @@
 
 #include "TTFoundationAPI.h"
 #include "TTCallback.h"
+#include "TTNodeAddress.h"
+#include "TTNodeAddressTable.h"
+#include "TTNodeDirectory.h"
 
 class TTNode;
 class TTNodeDirectory;
@@ -23,25 +26,6 @@ class TTCallback;
 typedef TTNode*	TTNodePtr;
 typedef TTNodeDirectory* TTNodeDirectoryPtr;
 typedef TTCallback* TTCallbackPtr;
-
-#define NO_NAME			kTTSymEmpty
-#define NO_INSTANCE		kTTSymEmpty
-#define NO_TYPE			kTTSymEmpty
-#define NO_PARENT		kTTSymEmpty
-#define NO_ATTRIBUTE	kTTSymEmpty
-
-// OSC2 style address
-#define C_SEPARATOR		'/'
-#define C_INSTANCE		'.'
-#define C_PROPERTY		':'
-#define C_WILDCARD		'*'
-
-#define S_SEPARATOR		kTTSymSlash
-#define S_INSTANCE		kTTSymDot
-#define S_PROPERTY		kTTSymColon
-#define S_WILDCARD		kTTSymStar
-
-
 
 /****************************************************************************************************/
 // Class Specifications
@@ -110,7 +94,7 @@ public:
 		@param	parent_created		This parameter will be set to true upon return if a new TTNode was created, or false if one was not created - 
 									e.g. because a TTNode already existed with this address and instance name.			
 		@return						An error code. */
-	TTErr			setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created);
+	TTErr			setParent(TTNodeAddressPtr parentAddress, TTBoolean *newParentCreated);
 
 	/** Add a TTNode as a child of the TTNode
 		@param child			a TTNodePtr to add as children of the TTNode.
@@ -147,11 +131,11 @@ public:
 	/** Get a pointer to the context of this node */
 	TTPtr			getContext();
 
-	/** Get the OSC address of the TTNode 
+	/** Get the address of the TTNode
 	 It is computed dynamicaly by asking to all the ancestor of the TTNode	
-	 @param	returnedOscAddress		A TTSymbolPtr with the OSC address is returned in this parameter.
-	 @param	from					An address from where to start the returned address in order to have a relative address */
-	TTErr			getOscAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr from = S_SEPARATOR);
+	 @param	returnedAddress		A TTNodeAddressPtr with the address is returned in this parameter.
+	 @param	from				An address from where to start the returned address in order to have a relative address */
+	TTErr			getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr from = kTTAdrsEmpty);
 
 	/** Generate a new instance of a given child
 		@param childName		the name of a child.

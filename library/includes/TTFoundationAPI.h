@@ -26,6 +26,13 @@
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"
+
+#include "TTNodeAddress.h"
+#include "TTNodeAddressTable.h"
+#include "TTNodeAddressCache.h"
+#include "TTNode.h"
+#include "TTNodeDirectory.h"
+
 #include "TTUnitTest.h"
 #include "TTValue.h"
 

@@ -999,6 +999,11 @@ void TTValue::get(const TTUInt16 index, TTPtr* value) const
 		*value = (data+index)->ptr;
 }
 
+void TTValue::get(const TTUInt16 index, TTNodeAddressPtr* value) const
+{
+	if (type[index] == kTypeSymbol)
+		*value = TTADRS((data+index)->sym->getCString());
+}
 
 
 /****************************************************************************************************/

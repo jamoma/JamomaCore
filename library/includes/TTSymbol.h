@@ -27,7 +27,7 @@
 	then consider passing a #TTString instead.
 */
 class TTFOUNDATION_EXPORT TTSymbol : public TTBase {
-private:
+protected:
 
 // Microsoft's compiler complains because TTString (std::string) does not have a DLL-Interface
 // In this case, we never pass TTSymbols or reference them directly -- we always use TTSymbolPtrs,
@@ -48,6 +48,10 @@ __pragma(warning(pop))
 	void init(const TTString& newString, TTInt32 newId);
 
 public:
+	
+	/** To authorize inheritance */
+	TTSymbol();
+	
 	/** The constructor is intended only for use by the TTSymbolTable object when creating new symbols
 		in the table.  Perhaps this could be made private and then the class made a friend... */
 	TTSymbol(const TTString& newString, TTInt32 newId);
