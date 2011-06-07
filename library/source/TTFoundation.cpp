@@ -39,7 +39,7 @@ static bool		TTFoundationHasInitialized = false;
 static TTString	TTFoundationBinaryPath = "";
 
 void		TTFoundationLoadExternalClasses();
-void		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
+TTErr		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
 TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbol* className, TTValue& arguments);
 
 
@@ -109,6 +109,20 @@ void TTFoundationLoadExternalClasses()
 		FSRef		ref;
 		UInt8		path[4096];
 		TTString	fullpath;
+		
+		// Look in the folder of the host application
+		CFBundleRef mainBundle = CFBundleGetMainBundle();
+		CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
+		CFStringRef mainBundlePath = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
+		char		mainBundleStr[4096];
+		
+		CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
+		strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
+		mainBundleStr[4095] = 0;
+		err = TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
+		if (!err)
+			return; // if we loaded classes out of a standalone app, then we don't want to be corrupted by global extensions Redmine #348
+					// it could be that you want to create a standalone with a plug-in architecture -- for now that problem is ignored.
 
 		// Look in ~/Library/Application Support/Jamoma/Extensions
 		err = FSFindFolder(kLocalDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
@@ -128,16 +142,6 @@ void TTFoundationLoadExternalClasses()
 			TTFoundationLoadExternalClassesFromFolder(fullpath);
 		}
 
-		// Look in the folder of the host application
-		CFBundleRef mainBundle = CFBundleGetMainBundle();
-		CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
-		CFStringRef mainBundlePath = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
-		char		mainBundleStr[4096];
-
-		CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
-		strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
-		mainBundleStr[4095] = 0;
-		TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
 	}
 #elif TT_PLATFORM_WIN
 	TTString	fullpath;
@@ -178,7 +182,8 @@ void TTFoundationLoadExternalClasses()
 }
 
 
-void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
+
+TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 {
 #if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX) || defined(TT_PLATFORM_WIN)
  	TTExtensionInitializationMethod	initializer;
@@ -233,7 +238,10 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
                 err = initializer();
         }
     }
+	else
+		return err;
 #endif
 // No dynamic loading on iOS
+	return kTTErrNone;
 }
 
