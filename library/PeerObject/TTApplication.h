@@ -30,12 +30,21 @@ typedef TTPluginHandler* TTPluginHandlerPtr;
 #define	getDirectoryFrom(anAddress) TTApplicationGetDirectory(anAddress)
 
 // Macro to convert a TTValue with tt names inside into a value with local application names inside.
-#define	ToAppName(ttNames) \
+#define	ToAppNames(ttNames) \
 		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToAppName, ttNames); \
 
 // Macro to convert a TTValue with local application names inside into a value with tt names inside.
-#define	ToTTName(appNames) \
+#define	ToTTNames(appNames) \
 		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToTTName, appNames); \
+
+// Macro to convert a local application TTSymbol into a tt name
+#define	ToAppName(ttName) \
+		TTApplicationConvertTTNameToAppName(ttName) \
+
+// Macro to convert a tt name TTSymbol into a local application name
+#define	ToTTName(appName) \
+		TTApplicationConvertAppNameToTTName(appName) \
+		
 
 class TTMODULAR_EXPORT TTApplication : public TTDataObject
 {
@@ -104,18 +113,29 @@ private:
 		read a directory description */
 	TTErr ReadFromOpml(const TTValue& value);
 	
-	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTSymbolPtr appNameAndAddress);
+	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTNodeAddressPtr anAddress);
+	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName);
+	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName);
 
 };
 
 typedef TTApplication* TTApplicationPtr;
 
-/**	To get an application's directory with an address like 'application@address' or /address
+/**	To get an application's directory with an address
  note : it uses the extern TTModularApplications variable
  @param						..
- @param						..
  @return					a TTNodeDirectoryPtr */
-TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTSymbolPtr appNameAndAddress);
+TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTNodeAddressPtr anAddress);
+
+/**	To convert an application name into standard TT name
+ @param						a TTsymbol
+ @return					a TTsymbol */
+TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName);
+
+/**	To convert standard TT name into an application name
+ @param						a TTsymbol
+ @return					a TTsymbol */
+TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName);
 
 #endif // __TT_APPLICATION_H__
 

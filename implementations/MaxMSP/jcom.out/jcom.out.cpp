@@ -186,13 +186,13 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue						v, args;
 	long						i, number = atom_getlong(argv);
 	TTNodePtr					node = NULL;
-	TTSymbolPtr					nodeAddress, parentAddress;
+	TTNodeAddressPtr			nodeAddress, parentAddress;
 	TTDataPtr					aData;
 	TTString					inAddress;
 	SymbolPtr					outAmplitudeInstance, outDescription;
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("/out"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, gensym("out"), &x->subscriberObject)) {
 		
 		// get patcher
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
@@ -203,17 +203,17 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// get the Node address
 		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &nodeAddress);
+		v.get(0, (TTSymbolPtr*)&nodeAddress);
 		
 		// observe /parent/in address in order to link/unlink with an Input object below
-		node->getParent()->getOscAddress(&parentAddress, S_SEPARATOR);
+		node->getParent()->getAddress(&parentAddress, kTTAdrsRoot);
 		inAddress = parentAddress->getCString();
 		inAddress += "/in";
 		if (node->getInstance() != NO_INSTANCE) {
 			inAddress += ".";
 			inAddress += node->getInstance()->getCString();
 		}
-		x->wrappedObject->setAttributeValue(TT("inputAddress"), TT(inAddress.data()));
+		x->wrappedObject->setAttributeValue(TT("inputAddress"), TTADRS(inAddress.data()));
 		
 #ifdef JCOM_OUT_TILDE
 		// set audio type

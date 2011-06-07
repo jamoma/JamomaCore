@@ -5,24 +5,24 @@
   <!---->
   <preset address="/" name="init">
    <!---->
-   <Data address="/file/path" value="oh.mov" priority="1"/>
-   <Data address="/file/path.1" value="bball.mov" priority="1"/>
-   <Data address="/play.1" value="1" priority="2"/>
-   <Data address="/play" value="1" priority="2"/>
-   <Data address="/rate" value="0.100000" ramp="global" priority="0"/>
-   <Data address="/rate.1" value="-1.000000" ramp="global" priority="0"/>
+   <Data address="file/path" value="oh.mov" priority="1"/>
+   <Data address="file/path.1" value="bball.mov" priority="1"/>
+   <Data address="play.1" value="1" priority="2"/>
+   <Data address="play" value="1" priority="2"/>
+   <Data address="rate" value="0.100000" ramp="global" priority="0"/>
+   <Data address="rate.1" value="-1.000000" ramp="global" priority="0"/>
   </preset>
  </cue>
  <cue number="2" name="start" ramp="3000">
   <!---->
   <preset address="/" name="start">
    <!---->
-   <Data address="/file/path" value="oh.mov" priority="1"/>
-   <Data address="/file/path.1" value="bball.mov" priority="1"/>
-   <Data address="/play.1" value="1" priority="2"/>
-   <Data address="/play" value="1" priority="2"/>
-   <Data address="/rate" value="2.000000" ramp="global" priority="0"/>
-   <Data address="/rate.1" value="1.000000" ramp="global" priority="0"/>
+   <Data address="file/path" value="oh.mov" priority="1"/>
+   <Data address="file/path.1" value="bball.mov" priority="1"/>
+   <Data address="play.1" value="1" priority="2"/>
+   <Data address="play" value="1" priority="2"/>
+   <Data address="rate" value="2.000000" ramp="global" priority="0"/>
+   <Data address="rate.1" value="1.000000" ramp="global" priority="0"/>
   </preset>
  </cue>
 </jamoma>

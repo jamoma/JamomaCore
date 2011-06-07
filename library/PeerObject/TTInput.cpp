@@ -16,7 +16,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mNumber(0),
 mType(kTTSymEmpty),
-mOutputAddress(kTTSymEmpty),
+mOutputAddress(kTTAdrsEmpty),
 mMute(NO),
 mBypass(NO),
 mSignalIn(NULL),
@@ -118,14 +118,14 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 {
 	TTValue			args;
 	TTValuePtr		newBaton;
-	TTSymbolPtr		newAddress;
+	TTNodeAddressPtr newAddress;
 	TTNodePtr		aNode;
 	TTList			aNodeList;
 	TTObjectPtr		o;
 	
-	newAddress = value;
+	value.get(0, &newAddress);
 	
-	if (!getDirectoryFrom(newAddress)->getTTNodeForOSC(newAddress, &aNode)) {
+	if (!getDirectoryFrom(newAddress)->getTTNode(newAddress, &aNode)) {
 		if (o = aNode->getObject())
 			if (o->getName() == TT("Output"))
 				Link((TTPtr)o);
@@ -143,8 +143,9 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	}
 	
 	if (mObserver) {
-		if (mOutputAddress != kTTSymEmpty)
+		if (mOutputAddress != kTTAdrsEmpty)
 			getDirectoryFrom(mOutputAddress)->removeObserverForNotifications(mOutputAddress, *mObserver);
+		
 		getDirectoryFrom(newAddress)->addObserverForNotifications(newAddress, *mObserver);
 	}
 	

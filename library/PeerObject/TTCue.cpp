@@ -45,7 +45,7 @@ mCurrentPreset(kTTSymEmpty)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mPresetTable = new TTHash();	
-	mAddresses = TTValue(kTTSymEmpty);
+	mAddresses = kTTValNONE;
 }
 
 TTCue::~TTCue()
@@ -68,7 +68,7 @@ TTErr TTCue::Fill()
 {	
 	TTPresetPtr		newPreset;
 	TTValue			v;
-	TTSymbolPtr		address;
+	TTNodeAddressPtr address;
 	TTUInt8			i;
 	
 	for (i=0; i<mAddresses.getSize(); i++) {
@@ -93,12 +93,12 @@ TTErr TTCue::Clear()
 {	
 	TTPresetPtr		oldPreset;
 	TTValue			v;
-	TTSymbolPtr		key;
+	TTNodeAddressPtr key;
 	TTUInt8			i;
 	TTErr			err;
 	
 	for (i=0; i<mAddresses.getSize(); i++) {
-		mAddresses.get(i,(TTSymbolPtr*)&key);
+		mAddresses.get(i, &key);
 		err = mPresetTable->lookup(key, v);
 		
 		if (!err) {
@@ -114,7 +114,7 @@ TTErr TTCue::Clear()
 	mPresetTable = NULL;
 	mPresetTable = new TTHash();
 	
-	mAddresses = TTValue(kTTSymEmpty);
+	mAddresses = kTTValNONE;
 	mCurrentPreset = kTTSymEmpty;
 	
 	return kTTErrNone;	
@@ -124,12 +124,12 @@ TTErr TTCue::Update()
 {
 	TTPresetPtr		aPreset;
 	TTValue			v;
-	TTSymbolPtr		key;
+	TTNodeAddressPtr key;
 	TTUInt8			i;
 	TTErr			err;
 	
 	for (i=0; i<mAddresses.getSize(); i++) {
-		mAddresses.get(i,(TTSymbolPtr*)&key);
+		mAddresses.get(i, &key);
 		err = mPresetTable->lookup(key, v);
 		
 		if (!err) {
@@ -147,12 +147,12 @@ TTErr TTCue::Send()
 {
 	TTPresetPtr		aPreset;
 	TTValue			v;
-	TTSymbolPtr		key;
+	TTNodeAddressPtr key;
 	TTUInt8			i;
 	TTErr			err;
 	
 	for (i=0; i<mAddresses.getSize(); i++) {
-		mAddresses.get(i,(TTSymbolPtr*)&key);
+		mAddresses.get(i, &key);
 		err = mPresetTable->lookup(key, v);
 		
 		if (!err) {
@@ -171,7 +171,7 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 	TTXmlHandlerPtr		aXmlHandler;
 	TTPresetPtr			aPreset;
 	TTValue				v;
-	TTSymbolPtr			key;
+	TTNodeAddressPtr	key;
 	TTString			aString;
 	TTUInt8				i;
 	TTErr				err;
@@ -190,7 +190,7 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 	// Write Presets
 	for (i=0; i<mAddresses.getSize();  i++) {
 		
-		mAddresses.get(i, (TTSymbolPtr*)&key);
+		mAddresses.get(i, &key);
 		err = mPresetTable->lookup(key, v);
 		
 		if (!err) {
@@ -216,7 +216,7 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 TTErr TTCue::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTSymbolPtr			presetAddress;
+	TTNodeAddressPtr	presetAddress;
 	TTPresetPtr			newPreset;
 	TTValue				v;
 	

@@ -30,7 +30,13 @@ main(int argc, char **argv)
 	TTLogMessage("\n*** Starting my DemoApp application *** \n");
 	
 	init();
-
+	
+	// RUN TEST
+	TTObjectPtr testNodeLib = NULL;
+	TTValue	args;
+	TTObjectInstantiate(TT("nodelib.test"), &testNodeLib, args);
+	
+	testNodeLib->sendMessage(TT("test"), args);
 
 	// Create a TTData object an use it
 	/////////////////////////////////////////////////////////
@@ -52,7 +58,7 @@ main(int argc, char **argv)
 	TTNodePtr		returnedNode;
 	TTBoolean		newInstanceCreated;
 
-	getDirectoryFrom(S_SEPARATOR)->TTNodeCreate(TT("/mydata"), myData, NULL, &returnedNode, &newInstanceCreated);
+	getDirectoryFrom(kTTAdrsRoot)->TTNodeCreate(TTADRS("/mydata"), myData, NULL, &returnedNode, &newInstanceCreated);
 
 	
 	// 

@@ -26,7 +26,7 @@ typedef struct outlet {
 // This is used to store extra data
 typedef struct extra {
 	TTPtr		ui_qelem;		///< to output "qlim'd" data for ui object
-	TTSymbolPtr address;		// the first arg address
+	TTNodeAddressPtr address;	// the first arg address
 	ObjectPtr	connected;		// our ui object
 	long		x;				// our ui object x presentation
 	long		y;				// our ui object y presentation
@@ -112,7 +112,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->connected = NULL;
 	EXTRA->label = NULL;
-	EXTRA->address = TT(address->s_name);
+	EXTRA->address = TTADRS(address->s_name);
 	
 	EXTRA->color0 = (AtomPtr)sysmem_newptr(sizeof(Atom) * 4);
 	atom_setfloat(EXTRA->color0, 0);
@@ -183,12 +183,12 @@ void view_subscribe(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
-	TTSymbolPtr					contextAddress = kTTSymEmpty;
+	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
 	TTObjectPtr					anObject;
 	TTNodePtr					patcherNode;
 	
-	// no leading slash means the address is relative
-	if (address->s_name[0] != C_SEPARATOR) {
+	// for relative address
+	if (TTADRS(address->s_name)->getType() == kAddressRelative) {
 		
 		// if the jcom.view is in a model or a view patcher
 		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
@@ -200,13 +200,13 @@ void view_subscribe(TTPtr self, SymbolPtr address)
 					// get the context address to make
 					// a viewer on the contextAddress/model/address parameter
 					x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-					v.get(0, &contextAddress);
+					v.get(0, (TTSymbolPtr*)&contextAddress);
 				}
 			}
 			else {
 				jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &patcherNode);
 				if (patcherNode)
-					patcherNode->getOscAddress(&contextAddress, S_SEPARATOR);
+					patcherNode->getAddress(&contextAddress, kTTAdrsRoot);
 				
 				// While the context node is not registered : try to build (to --Is this not dangerous ?)
 				else {
@@ -327,7 +327,8 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr address, service;
+	TTNodeAddressPtr address;
+	TTSymbolPtr service;
 	TTList		returnedNodes;
 	TTNodePtr	firstNode;
 	TTObjectPtr anObject;
@@ -337,7 +338,7 @@ void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	if (argc && argv) {
 		
 		// set address attribute of the wrapped Viewer object
-		joinOSCAddress(TT(atom_getsym(argv)->s_name), EXTRA->address, &address);
+		address = TTADRS(atom_getsym(argv)->s_name)->appendAddress(EXTRA->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, address);
 		
 		// for Data object, if service is parameter or return : refresh !

@@ -17,7 +17,11 @@
 		D23744D91213FBF100E319CA /* ModularForMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D23744D81213FBF100E319CA /* ModularForMax.h */; };
 		D23744DD1213FBFB00E319CA /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D23744DB1213FBFB00E319CA /* TTClassWrapperMax.h */; };
 		D23744DE1213FBFB00E319CA /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23744DC1213FBFB00E319CA /* TTClassWrapperMax.cpp */; };
+<<<<<<< HEAD:implementations/MaxMSP/jcom.parameterArray/jcom.parameterArray.xcodeproj/project.pbxproj
+		D2CAED34139EC36700D431C6 /* jcom.parameterArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CAED33139EC36700D431C6 /* jcom.parameterArray.cpp */; };
+=======
 		D2BB5F3F139387B700DF9946 /* jcom.parameterArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2BB5F3E139387B700DF9946 /* jcom.parameterArray.cpp */; };
+>>>>>>> 30c6f2b651a2c339a62ddea1dd9f76a296c99ade:implementations/MaxMSP/jcom.parameterArray/jcom.parameterArray.xcodeproj/project.pbxproj
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +36,11 @@
 		D23744D81213FBF100E319CA /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModularForMax.h; path = ../../../library/ModularForMax/ModularForMax.h; sourceTree = SOURCE_ROOT; };
 		D23744DB1213FBFB00E319CA /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../../../supports/max/TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 		D23744DC1213FBFB00E319CA /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../../../supports/max/TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
+<<<<<<< HEAD:implementations/MaxMSP/jcom.parameterArray/jcom.parameterArray.xcodeproj/project.pbxproj
+		D2CAED33139EC36700D431C6 /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
+=======
 		D2BB5F3E139387B700DF9946 /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
+>>>>>>> 30c6f2b651a2c339a62ddea1dd9f76a296c99ade:implementations/MaxMSP/jcom.parameterArray/jcom.parameterArray.xcodeproj/project.pbxproj
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +81,11 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD:implementations/MaxMSP/jcom.parameterArray/jcom.parameterArray.xcodeproj/project.pbxproj
+				D2CAED33139EC36700D431C6 /* jcom.parameterArray.cpp */,
+=======
 				D2BB5F3E139387B700DF9946 /* jcom.parameterArray.cpp */,
+>>>>>>> 30c6f2b651a2c339a62ddea1dd9f76a296c99ade:implementations/MaxMSP/jcom.parameterArray/jcom.parameterArray.xcodeproj/project.pbxproj
 				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
 				D23744DB1213FBFB00E319CA /* TTClassWrapperMax.h */,
 				D23744DC1213FBFB00E319CA /* TTClassWrapperMax.cpp */,
@@ -180,7 +192,11 @@
 				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
 				D23744D11213FBA600E319CA /* TTModularClassWrapperMax.cpp in Sources */,
 				D23744DE1213FBFB00E319CA /* TTClassWrapperMax.cpp in Sources */,
+<<<<<<< HEAD:implementations/MaxMSP/jcom.parameterArray/jcom.parameterArray.xcodeproj/project.pbxproj
+				D2CAED34139EC36700D431C6 /* jcom.parameterArray.cpp in Sources */,
+=======
 				D2BB5F3F139387B700DF9946 /* jcom.parameterArray.cpp in Sources */,
+>>>>>>> 30c6f2b651a2c339a62ddea1dd9f76a296c99ade:implementations/MaxMSP/jcom.parameterArray/jcom.parameterArray.xcodeproj/project.pbxproj
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

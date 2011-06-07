@@ -15,8 +15,8 @@ void ui_data_create_all(t_ui* obj)
 	TTString		uiStr, parentStr, dataStr;
 	TTValue			v;
 	
-	// create a /ui node with our pather as context
-	if (!jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("/ui"), &obj->uiSubscriber)) {
+	// create a ui node with our patcher as context
+	if (!jamoma_subscriber_create((ObjectPtr)obj, NULL, gensym("ui"), &obj->uiSubscriber)) {
 		
 		// get info relative to our patcher
 		jamoma_patcher_get_info((ObjectPtr)obj, &obj->patcherPtr, &obj->patcherContext, &obj->patcherClass, &obj->patcherName);
@@ -105,13 +105,13 @@ void ui_data_destroy_all(t_ui *obj)
 		delete obj->hash_datas;
 	}
 }
-								   
+
 void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbolPtr service, TTSymbolPtr name)
 {
 	TTValue			args, v;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTSymbolPtr		uiAddress, dataAddress;
+	TTNodeAddressPtr uiAddress, dataAddress;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
 	
@@ -132,7 +132,7 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	// Register data
 	obj->uiSubscriber->getAttributeValue(TT("nodeAddress"), v);
 	v.get(0, &uiAddress);
-	joinOSCAddress(uiAddress, name, &dataAddress);
+	dataAddress = uiAddress->appendAddress(TTADRS(name->getCString()));
 	JamomaDirectory->TTNodeCreate(dataAddress, *returnedData, obj->patcherPtr, &aNode, &nodeCreated);
 	
 	// Store data
@@ -141,15 +141,15 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	obj->hash_datas->append(name, args);
 	
 	// DEBUG
-	object_post((ObjectPtr)obj, "Make internal /ui/%s object at : %s", name->getCString(), dataAddress->getCString());
+	object_post((ObjectPtr)obj, "Make internal ui/%s object at : %s", name->getCString(), dataAddress->getCString());
 }								   
 
 void ui_data_destroy(t_ui *obj, TTSymbolPtr name)
 {
 	TTValue			storedObject;
 	TTObjectPtr		aData;
-	TTSymbolPtr		dataAddress;
-
+	TTNodeAddressPtr dataAddress;
+	
 	if (obj->hash_datas)
 		if (!obj->hash_datas->lookup(name, storedObject)) {
 			
@@ -186,7 +186,7 @@ void ui_data_interface(t_ui *x, TTSymbolPtr name)
 	long			filetype = 'JSON';
 	t_dictionary*	d;
 	ObjectPtr		p;
-	TTSymbolPtr		address;
+	TTNodeAddressPtr address;
 	Atom			a;
 	
 	strncpy_zero(filename, "jcom.reference_interface.maxpat", MAX_FILENAME_CHARS);
@@ -207,18 +207,19 @@ void ui_data_interface(t_ui *x, TTSymbolPtr name)
 	object_method(p, _sym_vis);													// "vis" happens immediately, "front" is defer_lowed
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 	
-	joinOSCAddress(x->modelAddress, name, &address);
+	address = x->modelAddress->appendAddress(TTADRS(name->getCString()));
+	
 	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)address->getCString()));		// the patch needs a [jcom.interfaceArguments.js]
 	
 	object_method(p, _sym_loadbang);
 }
 
-void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTSymbolPtr address, TTBoolean subscribe)
+void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTNodeAddressPtr address, TTBoolean subscribe)
 {
 	TTValue			v, args;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTSymbolPtr		uiAddress, viewerAddress, adrs;
+	TTNodeAddressPtr uiAddress, viewerAddress, adrs;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
 	
@@ -238,14 +239,16 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 		// Register viewer
 		obj->uiSubscriber->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &uiAddress);
-		joinOSCAddress(uiAddress, name, &viewerAddress);
+		
+		viewerAddress = uiAddress->appendAddress(TTADRS(name->getCString()));
+		
 		JamomaDirectory->TTNodeCreate(viewerAddress, *returnedViewer, obj->patcherPtr, &aNode, &nodeCreated);
 	}
 	else
-		viewerAddress = kTTSymEmpty;
+		viewerAddress = kTTAdrsEmpty;
 	
 	// Set address to bind
-	joinOSCAddress(address, name, &adrs);
+	adrs = address->appendAddress(TTADRS(name->getCString()));
 	(*returnedViewer)->setAttributeValue(TT("address"), adrs);
 	
 	// refresh viewer
@@ -261,14 +264,14 @@ void ui_viewer_destroy(t_ui *obj, TTSymbolPtr name)
 {
 	TTValue			storedObject;
 	TTObjectPtr		aViewer;
-	TTSymbolPtr		viewerAddress;
-
+	TTNodeAddressPtr viewerAddress;
+	
 	if (obj->hash_viewers)
 		if (!obj->hash_viewers->lookup(name, storedObject)) {
 			
 			// Unregister data
 			storedObject.get(1, &viewerAddress);
-			if (viewerAddress != kTTSymEmpty)
+			if (viewerAddress != kTTAdrsEmpty)
 				JamomaDirectory->TTNodeRemove(viewerAddress);
 			
 			// delete
@@ -298,7 +301,7 @@ void ui_viewer_destroy_all(t_ui *obj)
 				
 				hk.get(i,(TTSymbolPtr*)&key);
 				
-				// don't destroy /model/address viewer
+				// don't destroy model/address viewer
 				if (key != TT("model/address"))
 					ui_viewer_destroy(obj, key);
 			}
@@ -414,34 +417,34 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	SymbolPtr	paramName;
 	
 	// model namespace observation
-	if (obj->modelAddress != kTTSymEmpty) {
+	if (obj->modelAddress != kTTAdrsEmpty) {
 		
 		// look the namelist to know which data exist
 		for (long i=0; i<argc; i++) {
 			
 			paramName = atom_getsym(argv+i);
 			
-			if (paramName == gensym("/out/gain"))
+			if (paramName == gensym("out/gain"))
 				gain = true;
-			else if (paramName == gensym("/out/mix"))
+			else if (paramName == gensym("out/mix"))
 				mix = true;
-			else if (paramName == gensym("/in/bypass"))
+			else if (paramName == gensym("in/bypass"))
 				bypass = true;
-			else if (paramName == gensym("/out/freeze"))
+			else if (paramName == gensym("out/freeze"))
 				freeze = true;
-			else if (paramName == gensym("/out/preview"))
+			else if (paramName == gensym("out/preview"))
 				preview = true;
-			else if (paramName == gensym("/out/mute"))
+			else if (paramName == gensym("out/mute"))
 				mute = true;
-			else if (paramName == gensym("/model/internals"))		// TODO : create sender (a viewer is useless)
+			else if (paramName == gensym("model/internals"))		// TODO : create sender (a viewer is useless)
 				internals = true;
-			else if (paramName == gensym("/audio/meters/freeze"))
+			else if (paramName == gensym("audio/meters/freeze"))
 				meters = true;
-			else if (paramName == gensym("/preset/store"))			// the internal TTExplorer looks for Datas (not for node like /preset)
+			else if (paramName == gensym("preset/store"))			// the internal TTExplorer looks for Datas (not for node like /preset)
 				preset = true;
-			else if (paramName == gensym("/model/help"))			// TODO : create sender (a viewer is useless)
+			else if (paramName == gensym("model/help"))			// TODO : create sender (a viewer is useless)
 				help = true;
-			else if (paramName == gensym("/model/reference"))		// TODO : create sender (a viewer is useless)
+			else if (paramName == gensym("model/reference"))		// TODO : create sender (a viewer is useless)
 				ref = true;
 		}
 		
@@ -596,14 +599,14 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		
 	}
 }
-	
+
 void ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
 	t_symobject	*item = NULL;
 	
 	// model's message namespace observation
-	if (obj->modelAddress != kTTSymEmpty) {
+	if (obj->modelAddress != kTTAdrsEmpty) {
 		
 		// fill item list
 		for (long i=0; i<argc; i++) {
@@ -619,7 +622,7 @@ void ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, At
 	t_symobject	*item = NULL;
 	
 	// model's message namespace observation
-	if (obj->modelAddress != kTTSymEmpty) {
+	if (obj->modelAddress != kTTAdrsEmpty) {
 		
 		// fill item list
 		for (long i=0; i<argc; i++) {
@@ -635,7 +638,7 @@ void ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 	t_symobject	*item = NULL;
 	
 	// model's message namespace observation
-	if (obj->modelAddress != kTTSymEmpty) {
+	if (obj->modelAddress != kTTAdrsEmpty) {
 		
 		// fill item list
 		for (long i=0; i<argc; i++) {
@@ -644,7 +647,7 @@ void ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 		}
 	}
 }
- 
+
 void ui_view_panel_attach(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_ui* obj = (t_ui*)self;
@@ -754,7 +757,7 @@ void ui_return_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui*			obj = (t_ui*)self;
-	TTSymbolPtr		outAdrs;
+	TTNodeAddressPtr outAdrs;
 	TTValue			v;
 	TTNodePtr		aNode;
 	TTValuePtr		newBaton;
@@ -765,8 +768,9 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// get the TTOutput object
 	if (!obj->modelOutput) {
-		joinOSCAddress(obj->modelAddress, TT("out"), &outAdrs);
-		JamomaDirectory->getTTNodeForOSC(outAdrs, &aNode);
+		outAdrs = obj->modelAddress->appendAddress(TTADRS("out"));
+		
+		JamomaDirectory->getTTNode(outAdrs, &aNode);
 		obj->modelOutput = (TTOutputPtr)aNode->getObject();
 	}
 	
@@ -804,7 +808,7 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			}
 		}
 	}
-
+	
 	jbox_redraw(&obj->box);
 }
 
@@ -872,7 +876,7 @@ void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	// bypass
 	if (obj->has_bypass)
 		ui_viewer_freeze(obj, TT("bypass"), obj->ui_freeze);
-		
+	
 	// freeze
 	if (obj->has_freeze)
 		ui_viewer_freeze(obj, TT("freeze"), obj->ui_freeze);
@@ -880,7 +884,7 @@ void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	// preview
 	if (obj->has_preview)
 		ui_viewer_freeze(obj, TT("preview"), obj->ui_freeze);
-
+	
 	// mute
 	if (obj->has_mute) 
 		ui_viewer_freeze(obj, TT("mute"), obj->ui_freeze);

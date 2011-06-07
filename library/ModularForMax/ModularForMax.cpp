@@ -101,12 +101,12 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	TTNodePtr		aNode;
 	TTObjectPtr		contextListCallback;
 	TTValuePtr		contextListBaton;
-	TTSymbolPtr		newRelativeAddress, absoluteAddress;
+	TTNodeAddressPtr newRelativeAddress, absoluteAddress;
 	TTBoolean		newInstance;
 		
 	// prepare arguments
 	args.append(TTPtr(aTTObject));
-	args.append(TT(relativeAddress->s_name));
+	args.append(TTADRS(relativeAddress->s_name));
 	
 	contextListCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &contextListCallback, kTTValNONE);
@@ -218,20 +218,24 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 /**	Send Max data using a container object */
 TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddressAndAttribute, AtomCount argc, AtomPtr argv)
 {
-	TTSymbolPtr	oscAddress, attrOrMess;
-	TTValue		v, data;
+	TTNodeAddressPtr anAddress;
+	TTValue			v, data;
 	
 	if (aContainer) {
 		
-		// Get address part and attribute part
-		splitAttribute(TT(relativeAddressAndAttribute->s_name), &oscAddress, &attrOrMess);
+		anAddress = TTADRS(relativeAddressAndAttribute->s_name);
 		
-		data.append(oscAddress);
+		if (anAddress->getType() != kAddressRelative) {
+			error("%s is an absolute address", relativeAddressAndAttribute->s_name);
+			return kTTErrGeneric;
+		}
 		
-		if (attrOrMess != NO_ATTRIBUTE)
-			data.append(attrOrMess);
+		if (anAddress->getAttribute() == NO_ATTRIBUTE)
+			anAddress = anAddress->appendAttribute(kTTSym_value);
 		else
-			data.append(kTTSym_value);
+			anAddress = anAddress->appendAttribute(ToTTName(anAddress->getAttribute()));
+
+		data.append(anAddress);
 		
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
@@ -290,19 +294,17 @@ TTErr jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPt
 /**	Create a sender object */
 TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedSender)
 {
-	TTSymbolPtr	oscAddress, attribute;
-	TTValue		args;
+	TTNodeAddressPtr anAddress;
+	TTValue			args;
 	
-	// Get address part and attribute part
-	splitAttribute(TT(addressAndAttribute->s_name), &oscAddress, &attribute);
+	anAddress = TTADRS(addressAndAttribute->s_name);
 	
-	// Make a TTReceiver object
-	args.append(oscAddress);
-	
-	if (attribute != NO_ATTRIBUTE)
-		args.append(attribute);
+	if (anAddress->getAttribute() == NO_ATTRIBUTE)
+		anAddress = anAddress->appendAttribute(kTTSym_value);
 	else
-		args.append(kTTSym_value);
+		anAddress = anAddress->appendAttribute(ToTTName(anAddress->getAttribute()));
+	
+	args.append(anAddress);
 	
 	// Replace none TTnames
 	JamomaApplication->sendMessage(kTTSym_ConvertToTTName, args);
@@ -333,24 +335,19 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 /**	Create a receiver object */
 TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver)
 {
-	TTSymbolPtr		oscAddress, attribute;
+	TTNodeAddressPtr anAddress;
 	TTValue			args;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
-
-	// Get address part and attribute part
-	splitAttribute(TT(addressAndAttribute->s_name), &oscAddress, &attribute);
 	
-	// Make a TTReceiver object
-	args.append(oscAddress);
+	anAddress = TTADRS(addressAndAttribute->s_name);
 	
-	if (attribute != NO_ATTRIBUTE)
-		args.append(attribute);
+	if (anAddress->getAttribute() == NO_ATTRIBUTE)
+		anAddress = anAddress->appendAttribute(kTTSym_value);
 	else
-		args.append(kTTSym_value);
+		anAddress = anAddress->appendAttribute(ToTTName(anAddress->getAttribute()));
 	
-	// Replace none TTnames
-	ToTTName(args);
+	args.append(anAddress);
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
@@ -485,7 +482,8 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 	TTNodePtr	aNode;
 	TTValue		v;
 	TTBoolean	selected;
-	TTSymbolPtr s, absoluteAddress;
+	TTSymbolPtr s;
+	TTNodeAddressPtr absoluteAddress;
 	
 	// unpack baton (a t_object*)
 	b = (TTValuePtr)p_baton;
@@ -518,7 +516,7 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 				// get object binded by the viewer
 				o->getAttributeValue(kTTSym_address, v);
 				v.get(0, &absoluteAddress);
-				JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+				getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 				
 				if (o = aNode->getObject()) {
 					if (o->getName() == TT("Data")) {
@@ -543,7 +541,7 @@ void jamoma_callback_read_item(TTPtr p_baton, TTValue& data)
 	ItemPtr		anItem;
 	TTValue		v;
 	TTNodePtr	aNode;
-	TTSymbolPtr absoluteAddress;
+	TTNodeAddressPtr absoluteAddress;
 	TTObjectPtr o;
 	
 	// unpack baton (a t_object*)
@@ -562,7 +560,7 @@ void jamoma_callback_read_item(TTPtr p_baton, TTValue& data)
 		// get address binded by the viewer
 		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
 		v.get(0, &absoluteAddress);
-		JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+		getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 		
 		// if the address binds on a Data object
 		if (o = aNode->getObject()) {
@@ -587,7 +585,8 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 	TTValue		v, r;
 	TTNodePtr	aNode;
 	TTBoolean	selected;
-	TTSymbolPtr type, absoluteAddress;
+	TTSymbolPtr type;
+	TTNodeAddressPtr absoluteAddress;
 	TTObjectPtr o;
 	
 	// unpack baton (a t_object*)
@@ -634,7 +633,7 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 			// get address binded by the viewer
 			anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
 			v.get(0, &absoluteAddress);
-			JamomaDirectory->getTTNodeForOSC(absoluteAddress, &aNode);
+			getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 			
 			// if the address binds on a Data object
 			if (o = aNode->getObject()) {
@@ -700,7 +699,7 @@ void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 		for (i=0; i<anItemTable->getSize(); i++) {
 			
 			// sort item with priority to i
-			hk.get(i,(TTSymbolPtr*)&key);
+			hk.get(i, &key);
 			
 			// get priority
 			anItemTable->lookup(key, v);
@@ -729,7 +728,7 @@ void jamoma_callback_sort_item(TTPtr p_baton, TTValue& data)
 	
 	// sort item with priority to 0
 	for (i=0; i<anItemTable->getSize(); i++) {
-		hk.get(i,(TTSymbolPtr*)&key);
+		hk.get(i, &key);
 		
 		// get priority
 		anItemTable->lookup(key, v);
@@ -1551,16 +1550,16 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 
 
 /** Build absolute address from a patcher giving a relative address */
-TTErr jamoma_patcher_make_absolute_address(ObjectPtr patcher, TTSymbolPtr relativeAddress, TTSymbolPtr *returnedAbsoluteAddress)
+TTErr jamoma_patcher_make_absolute_address(ObjectPtr patcher, TTNodeAddressPtr relativeAddress, TTNodeAddressPtr *returnedAbsoluteAddress)
 {
 	TTNodePtr	patcherNode = NULL;
-	TTSymbolPtr patcherAddress;
+	TTNodeAddressPtr patcherAddress;
 	
 	jamoma_patcher_share_node(patcher, &patcherNode);
 	
 	if (patcherNode) {
-		patcherNode->getOscAddress(&patcherAddress, S_SEPARATOR);
-		joinOSCAddress(patcherAddress, relativeAddress, returnedAbsoluteAddress);
+		patcherNode->getAddress(&patcherAddress);
+		*returnedAbsoluteAddress = patcherAddress->appendAddress(relativeAddress);
 		
 		return kTTErrNone;
 	}

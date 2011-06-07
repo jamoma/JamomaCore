@@ -31,7 +31,7 @@ class TTMODULAR_EXPORT TTViewer : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr					mAddress;					///< ATTRIBUTE : data address to bind
+	TTNodeAddressPtr			mAddress;					///< ATTRIBUTE : data address to bind
 	TTSymbolPtr					mDescription;				///< ATTRIBUTE : text to describe the role of this data
 	TTSymbolPtr					mType;						///< ATTRIBUTE : type of the gui
 	TTSymbolPtr					mTag;						///< ATTRIBUTE: a tag for this viewer

@@ -13,28 +13,20 @@
 #define thisTTClassTags		"node, sender"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
-mAttribute(kTTSym_value),	 // TODO : set kTTSymEmpty because a Sender can bind on any object (not only data)
+mAddress(kTTAdrsEmpty),
 mObjectCache(NULL),
 mObserver(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 2);
 		
 	arguments.get(0, &mAddress);
-	arguments.get(1, &mAttribute);
 
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttributeWithSetter(Attribute, kTypeSymbol);
 	
 	addMessageWithArgument(Send);
 	addMessageProperty(Send, hidden, YES);
 	
 	mIsSending = false;
-	
-	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
-	TTValue v = TTValue(mAttribute);
-	ToTTName(v);
-	v.get(0, &mAttribute);
 	
 	if (getDirectoryFrom(mAddress))
 		bind();
@@ -48,20 +40,8 @@ TTSender::~TTSender()
 TTErr TTSender::setAddress(const TTValue& newValue)
 {
 	unbind();
-	mAddress = newValue;
+	newValue.get(0, &mAddress);
 	return bind();
-}
-
-TTErr TTSender::setAttribute(const TTValue& newValue)
-{	
-	mAttribute = newValue;
-	
-	// Replace none TTnames (because the mAttribute can be customized in order to have a specific application's namespace)
-	TTValue v = TTValue(mAttribute);
-	ToTTName(v);
-	v.get(0, &mAttribute);
-	
-	return kTTErrNone;
 }
 
 #if 0
@@ -72,12 +52,12 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 TTErr TTSender::Send(TTValue& valueToSend)
 {
 	TTObjectPtr		anObject;
-	TTValue			aCacheElement, newValueToSend, v;
+	TTValue			aCacheElement, v, c;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
-	TTSymbolPtr		relativeAddressAndAttribute, anAddress, attrOrMess;
+	TTNodeAddressPtr relativeAddress;
 	
-	if (mAddress == kTTSymEmpty)
+	if (mAddress == kTTAdrsEmpty)
 		return kTTErrGeneric;
 
 	if (!mIsSending) {
@@ -97,43 +77,30 @@ TTErr TTSender::Send(TTValue& valueToSend)
 				
 				if (anObject) {
 					// DATA CASE for value attribute
-					if (anObject->getName() == TT("Data") && mAttribute == kTTSym_value) {
+					if (anObject->getName() == TT("Data") && mAddress->getAttribute() == kTTSym_value) {
 						// set the value attribute using a command
 						anObject->sendMessage(kTTSym_Command, valueToSend);
 					}
 					// CONTAINER CASE for value attribute
-					else if (anObject->getName() == TT("Container") && mAttribute == kTTSym_value) {
+					else if (anObject->getName() == TT("Container") && mAddress->getAttribute() == kTTSym_value) {
 						
-						// consider the valueToSend is (address:attribute + value)
-						// make a newValueToSend like (address + kTTSym_value + value)
-						if (valueToSend.getType() == kTypeSymbol) {
-							
-							valueToSend.get(0, &relativeAddressAndAttribute);
+						valueToSend.get(0, &relativeAddress);
+						c.copyFrom(valueToSend, 1);
 						
-							// Get address part and attribute part
-							splitAttribute(relativeAddressAndAttribute, &anAddress, &attrOrMess);
+						v = TTValue(relativeAddress);
+						v.append((TTPtr*)&c);
 						
-							newValueToSend = TTValue(anAddress);
-							if (attrOrMess != NO_ATTRIBUTE)
-								newValueToSend.append(attrOrMess);
-							else
-								newValueToSend.append(kTTSym_value);
-							
-							// coppy data part
-							v.copyFrom(valueToSend, 1);
-							newValueToSend.append((TTPtr)&v);
-						
-							anObject->sendMessage(kTTSym_Send, newValueToSend);
-						}
+						// send the value
+						anObject->sendMessage(kTTSym_Send, v);
 					}
 					// DEFAULT CASE
 					// Look for attribute and set it
-					else if (!anObject->findAttribute(mAttribute, &anAttribute))
-						anObject->setAttributeValue(mAttribute, valueToSend);
+					else if (!anObject->findAttribute(mAddress->getAttribute(), &anAttribute))
+						anObject->setAttributeValue(mAddress->getAttribute(), valueToSend);
 					
 					// Or look for message and send it
-					else if (!anObject->findMessage(mAttribute, &aMessage))
-						anObject->sendMessage(mAttribute, valueToSend);
+					else if (!anObject->findMessage(mAddress->getAttribute(), &aMessage))
+						anObject->sendMessage(mAddress->getAttribute(), valueToSend);
 				}
 			}
 		}
@@ -214,7 +181,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject, aCacheObject;
-	TTSymbolPtr		anAddress;
+	TTNodeAddressPtr anAddress;
 	TTValue			v;
 	TTUInt8			flag;
 
@@ -231,7 +198,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			if (compareOSCAddress(anAddress, aSender->mAddress) == kAddressEqual) {
+			if (anAddress->compare(aSender->mAddress) == kAddressEqual) {
 				if (anObject = aNode->getObject()) {
 					aCacheElement = (TTPtr)anObject;
 					aSender->mObjectCache->appendUnique(aCacheElement);

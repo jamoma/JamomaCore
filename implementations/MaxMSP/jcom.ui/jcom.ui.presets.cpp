@@ -57,7 +57,7 @@ void ui_preset_dowrite(t_ui *x)
 	TTSymbolPtr		modelClass = NULL;
 	
 	// get model patcher class for preset file name
-	JamomaDirectory->getTTNodeForOSC(x->modelAddress, &patcherNode);
+	JamomaDirectory->getTTNode(x->modelAddress, &patcherNode);
 	modelPatcher = (ObjectPtr)patcherNode->getContext();
 
 	if (modelPatcher) {

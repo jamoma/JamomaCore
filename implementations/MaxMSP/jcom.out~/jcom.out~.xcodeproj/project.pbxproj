@@ -245,6 +245,10 @@
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../AudioGraph/library/build/UninstalledProducts\"",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					JCOM_OUT_TILDE,
+					AUDIO_EXTERNAL,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",

@@ -13,7 +13,7 @@
 #define thisTTClassTags		"viewer"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
+mAddress(kTTAdrsEmpty),
 mDescription(kTTSymEmpty),
 mType(kTTSymEmpty),
 mTag(kTTSymEmpty),
@@ -83,7 +83,7 @@ TTViewer::~TTViewer() // TODO : delete things...
 
 TTErr TTViewer::setAddress(const TTValue& value)
 {
-	mAddress = value;
+	value.get(0, &mAddress);
 	
 	bind();
 	
@@ -97,12 +97,10 @@ TTErr TTViewer::bind()
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// Prepare arguments
-	if (mAddress != kTTSymEmpty)
-		args.append(mAddress);
+	if (mAddress != kTTAdrsEmpty)
+		args.append(mAddress->appendAttribute(kTTSym_value));
 	else
 		return kTTErrGeneric;
-	
-	args.append(kTTSym_value);
 
 	// Replace a TTSender object
 	if (mSender)
@@ -148,8 +146,7 @@ TTErr TTViewer::observeDataspace()
 		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
 	
 	// Make a TTReceiver object
-	args.append(mAddress);
-	args.append(kTTSym_dataspace);
+	args.append(mAddress->appendAttribute(kTTSym_dataspace));
 	args.append(NULL);
 	
 	returnDataspaceCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -177,8 +174,7 @@ TTErr TTViewer::observeDataspaceUnit()
 		TTObjectRelease(TTObjectHandle(&mDataspaceUnitObserver));
 	
 	// Make a TTReceiver object
-	args.append(mAddress);
-	args.append(kTTSym_dataspaceUnit);
+	args.append(mAddress->appendAttribute(kTTSym_dataspaceUnit));
 	args.append(NULL);
 	
 	returnDataspaceUnitCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?

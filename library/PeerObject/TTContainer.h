@@ -27,7 +27,7 @@ private:
 	TTSymbolPtr			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
 	TTBoolean			mInitialized;					///< ATTRIBUTE: is it initialized ?
 	TTValue				mContent;						///< ATTRIBUTE: all contained relative address
-	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the address of the container in the directory
+	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE: the address of the container in the directory
 	TTValue				mActivityIn;					///< ATTRIBUTE : a local value to allow observation of incoming data
 	TTValue				mActivityOut;					///< ATTRIBUTE : a local value to allow observation of outputing data
 	
@@ -39,7 +39,7 @@ private:
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop 
 	
 	/** */
-	TTErr Send(TTValue& AddressAttributeAndValue);
+	TTErr Send(TTValue& AddressAndValue);
 	
 	/** */
 	TTErr Init();
