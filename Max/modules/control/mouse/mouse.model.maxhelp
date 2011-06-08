@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 434.0, 44.0, 482.0, 746.0 ],
+		"rect" : [ 288.0, 81.0, 482.0, 746.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 434.0, 44.0, 482.0, 746.0 ],
+		"defrect" : [ 288.0, 81.0, 482.0, 746.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -84,8 +84,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 37.0, 194.0, 203.0, 19.0 ],
-					"text" : "jcom.oscroute /button /delta /position"
+					"patching_rect" : [ 37.0, 194.0, 204.0, 19.0 ],
+					"text" : "jcom.oscroute button delta position"
 				}
 
 			}
@@ -150,6 +150,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -179,6 +180,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -367,6 +369,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-24",
 					"linecount" : 4,
 					"maxclass" : "comment",
@@ -381,6 +384,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -459,7 +463,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 107.833336, 348.0, 30.5, 348.0 ],
+					"midpoints" : [ 108.166664, 348.0, 30.5, 348.0 ],
 					"source" : [ "obj-21", 1 ]
 				}
 

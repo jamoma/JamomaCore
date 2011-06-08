@@ -17,7 +17,7 @@
 		D23744D91213FBF100E319CA /* ModularForMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D23744D81213FBF100E319CA /* ModularForMax.h */; };
 		D23744DD1213FBFB00E319CA /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D23744DB1213FBFB00E319CA /* TTClassWrapperMax.h */; };
 		D23744DE1213FBFB00E319CA /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23744DC1213FBFB00E319CA /* TTClassWrapperMax.cpp */; };
-		D2BB5F3F139387B700DF9946 /* jcom.parameterArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2BB5F3E139387B700DF9946 /* jcom.parameterArray.cpp */; };
+		D23A5A71139EF4B8002E522B /* jcom.parameterArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23A5A70139EF4B8002E522B /* jcom.parameterArray.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +32,7 @@
 		D23744D81213FBF100E319CA /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModularForMax.h; path = ../../../library/ModularForMax/ModularForMax.h; sourceTree = SOURCE_ROOT; };
 		D23744DB1213FBFB00E319CA /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../../../supports/max/TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 		D23744DC1213FBFB00E319CA /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../../../supports/max/TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
-		D2BB5F3E139387B700DF9946 /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
+		D23A5A70139EF4B8002E522B /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +73,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D2BB5F3E139387B700DF9946 /* jcom.parameterArray.cpp */,
+				D23A5A70139EF4B8002E522B /* jcom.parameterArray.cpp */,
 				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
 				D23744DB1213FBFB00E319CA /* TTClassWrapperMax.h */,
 				D23744DC1213FBFB00E319CA /* TTClassWrapperMax.cpp */,
@@ -134,7 +134,6 @@
 			isa = PBXProject;
 			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.parameterArray" */;
 			compatibilityVersion = "Xcode 3.0";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -180,7 +179,7 @@
 				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
 				D23744D11213FBA600E319CA /* TTModularClassWrapperMax.cpp in Sources */,
 				D23744DE1213FBFB00E319CA /* TTClassWrapperMax.cpp in Sources */,
-				D2BB5F3F139387B700DF9946 /* jcom.parameterArray.cpp in Sources */,
+				D23A5A71139EF4B8002E522B /* jcom.parameterArray.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

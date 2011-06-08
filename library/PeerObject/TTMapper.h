@@ -29,8 +29,8 @@ class TTMODULAR_EXPORT TTMapper : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr					mInput;						///< ATTRIBUTE : address of the data for the incoming value
-	TTSymbolPtr					mOutput;					///< ATTRIBUTE : address of the data for the value to control
+	TTNodeAddressPtr			mInput;						///< ATTRIBUTE : address of the data for the incoming value
+	TTNodeAddressPtr			mOutput;					///< ATTRIBUTE : address of the data for the value to control
 	
 	TTFloat64					mInputMin;					///< ATTRIBUTE : 
 	TTFloat64					mInputMax;					///< ATTRIBUTE : 

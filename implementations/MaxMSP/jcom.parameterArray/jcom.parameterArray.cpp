@@ -53,16 +53,16 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 #endif
 	
 #ifdef JMOD_MESSAGE
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.message.array", NULL, spec);
+	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.messageArray", NULL, spec);
 #endif
 	
 #ifdef JMOD_RETURN
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.return.array", NULL, spec);
+	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.returnArray", NULL, spec);
 #endif
 	
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.parameter.array", NULL, spec);
+	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.parameterArray", NULL, spec);
 #endif
 #endif
 }
@@ -131,50 +131,55 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 	SymbolPtr					instanceAddress;
 	TTValue						v;
 	
-	number = jamoma_parse_bracket(relativeAddress, &x->i_format, &x->s_format);
-	
-	if (number) {
+	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
 		
-		x->useInternals = true;
-		x->internals = new TTHash();
-		x->internals->setThreadProtection(YES);
-		x->cursor = kTTSymEmpty;
-		for (i = 1; i <= number; i++) {
+		number = jamoma_parse_bracket(relativeAddress, &x->i_format, &x->s_format);
+		
+		if (number) {
 			
-			jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
-			
-			// create a data
+			x->useInternals = true;
+			x->internals = new TTHash();
+			x->internals->setThreadProtection(YES);
+			x->cursor = kTTSymEmpty;
+			for (i = 1; i <= number; i++) {
+				
+				jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
+				
+				// create a data
 #ifdef JMOD_MESSAGE
-			data_array_create((ObjectPtr)x, &anObject, kTTSym_message, i);
+				data_array_create((ObjectPtr)x, &anObject, kTTSym_message, i);
 #endif
-			
+				
 #if JMOD_RETURN
-			data_array_create((ObjectPtr)x, &anObject, kTTSym_return, i);
+				data_array_create((ObjectPtr)x, &anObject, kTTSym_return, i);
 #endif
-			
+				
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-			data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
+				data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
 #endif
 #endif
+				
+				// append the data to the internals table
+				v = TTValue(TTPtr(anObject));
+				v.append(TT(instanceAddress->s_name));
+				x->internals->append(TT(instanceAddress->s_name), v);
+				
+				// handle attribute args to set attribute of each internals data
+				x->cursor = TT(instanceAddress->s_name);
+				
+				if (argc && argv)
+					attr_args_process(x, argc, argv);
+			}
 			
-			// append the data to the internals table
-			v = TTValue(TTPtr(anObject));
-			v.append(TT(instanceAddress->s_name));
-			x->internals->append(TT(instanceAddress->s_name), v);
-			
-			// handle attribute args to set attribute of each internals data
-			x->cursor = TT(instanceAddress->s_name);
-			
-			if (argc && argv)
-				attr_args_process(x, argc, argv);
+			// The following must be deferred because we have to interrogate our box,
+			// and our box is not yet valid until we have finished instantiating the object.
+			// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+			defer_low((ObjectPtr)x, (method)data_subscribe_array, NULL, 0, NULL);
 		}
-		
-		// The following must be deferred because we have to interrogate our box,
-		// and our box is not yet valid until we have finished instantiating the object.
-		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)data_subscribe_array, NULL, 0, NULL);
 	}
+	else
+		object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
 }
 
 void data_subscribe_array(TTPtr self)
@@ -264,7 +269,7 @@ void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 				
 				if (atom_getsym(argv) == gensym("*")) {
 					x->index = -1;
-					jamoma_edit_numeric_instance(x->s_format, &instanceAddress, 1);
+					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, 1);
 					x->cursor = TT(instanceAddress->s_name);
 				}
 				else
@@ -274,7 +279,7 @@ void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 		else {
 			if (msg == gensym("*")) {
 				x->index = -1;
-				jamoma_edit_numeric_instance(x->s_format, &instanceAddress, 1);
+				jamoma_edit_numeric_instance(x->i_format, &instanceAddress, 1);
 				x->cursor = TT(instanceAddress->s_name);
 			}
 			else

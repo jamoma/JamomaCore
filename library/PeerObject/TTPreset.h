@@ -46,7 +46,7 @@ class TTMODULAR_EXPORT TTPreset : public TTDataObject
 public:		// use public to allow PresetManager to have a direct access
 	
 	TTSymbolPtr					mName;							///< ATTRIBUTE: the name of the preset
-	TTSymbolPtr					mAddress;						///< ATTRIBUTE: the parent address from where to search object to store
+	TTNodeAddressPtr			mAddress;						///< ATTRIBUTE: the parent address from where to search object to store
 	TTSymbolPtr					mComment;						///< ATTRIBUTE: a comment for the preset
 	
 private:	

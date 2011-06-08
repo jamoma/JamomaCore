@@ -13,7 +13,7 @@
 #define thisTTClassTags		"explorer"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
+mAddress(kTTAdrsEmpty),
 mLookfor(kTTSymEmpty),
 mEqual(kTTValNONE),
 mDifferent(kTTValNONE),
@@ -47,7 +47,7 @@ mLastResult(kTTValNONE)
 
 TTExplorer::~TTExplorer()
 {
-	TTSymbolPtr addressToObserve;
+	TTNodeAddressPtr addressToObserve;
 	
 	// bind the right node
 	if (mLookfor == kTTSym_instances)
@@ -56,7 +56,7 @@ TTExplorer::~TTExplorer()
 		addressToObserve = mAddress;
 	
 	if (mObserver) {
-		if (addressToObserve != kTTSymEmpty)
+		if (addressToObserve != kTTAdrsEmpty)
 			getDirectoryFrom(addressToObserve)->removeObserverForNotifications(addressToObserve, *mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
@@ -76,6 +76,11 @@ TTErr TTExplorer::setLookfor(const TTValue& value)
 {
 	mLookfor = value;
 	
+	// if mLookforObjectCriteria table is empty and mLookfor != kTTSymEmpty
+	// use mLookfor as an entry for mLookforObjectCriteria table
+	if (mLookforObjectCriteria->isEmpty() && mLookfor != kTTSymEmpty)
+		CriteriaInclude(mLookfor);
+	
 	setAddress(mAddress);
 	
 	return kTTErrNone;
@@ -83,7 +88,6 @@ TTErr TTExplorer::setLookfor(const TTValue& value)
 
 TTErr TTExplorer::setAddress(const TTValue& value)
 {	
-	TTSymbolPtr inst, attr;
 	TTValuePtr	newBaton;
 	
 	// delete the old observer
@@ -93,44 +97,48 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	}
 	
 	// change the address
-	mAddress = value;
+	value.get(0, &mAddress);
 	
-	// add Slash before to be sure we have one
-	joinOSCAddress(S_SEPARATOR, mAddress, &mAddress);
-	
-	// change internal values
-	splitOSCAddress(mAddress, &mTempParent, &mTempName, &inst, &attr);
-	
-	// bind the new node
-	if (mLookfor == kTTSym_instances)
-		mTempObserve = mTempParent;
-	else
-		mTempObserve = mAddress;
-	
-	// change the observer
-	if (mTempObserve != kTTSymEmpty){
+	// it works only for absolute address
+	if (mAddress->getType() == kAddressAbsolute) {
 		
-		// observe any creation or destruction below the address
-		mObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
+		// change internal values
+		mTempParent = mAddress->getParent();
+		mTempName = mAddress->getName();
 		
-		newBaton = new TTValue(TTPtr(this));
-		newBaton->append(TTPtr(kTTSymEmpty));
+		// bind the new node
+		if (mLookfor == kTTSym_instances)
+			mTempObserve = mTempParent;
+		else
+			mTempObserve = mAddress;
 		
-		mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-		mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
+		// change the observer
+		if (mTempObserve != kTTSymEmpty){
+			
+			// observe any creation or destruction below the address
+			mObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
+			
+			newBaton = new TTValue(TTPtr(this));
+			newBaton->append(TTPtr(kTTSymEmpty));
+			
+			mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+			mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
+			
+			mObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
+			
+			getDirectoryFrom(mTempObserve)->addObserverForNotifications(mTempObserve, *mObserver);
+		}
 		
-		mObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
-		
-		getDirectoryFrom(mTempObserve)->addObserverForNotifications(mTempObserve, *mObserver);
+		return kTTErrNone;
 	}
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTExplorer::Explore()
 {
-	TTSymbolPtr name;
+	TTNodeAddressPtr name;
 	TTList		aNodeList, nameList, allObjectNodes;
 	TTNodePtr	aNode;
 	TTObjectPtr	o;
@@ -164,7 +172,7 @@ TTErr TTExplorer::Explore()
 				o->getAttributeNames(v);
 				// Memorized the result in a hash table
 				for (TTUInt32 i=0; i<v.getSize(); i++) {
-					v.get(i, &name);
+					v.get(i, (TTSymbolPtr*)&name);
 					mResult->append(name, kTTValNONE);
 				}
 			}
@@ -173,18 +181,13 @@ TTErr TTExplorer::Explore()
 		// get relative address of objects looking at mLookforObjectCriteria
 		else {
 			
-			// if mLookforObjectCriteria table is empty and mLookfor != kTTSymEmpty
-			// use mLookfor as an entry for mLookforObjectCriteria table
-			if (mLookforObjectCriteria->isEmpty() && mLookfor != kTTSymEmpty)
-				CriteriaInclude(mLookfor);
-			
 			getDirectoryFrom(mAddress)->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
 			
 			// Memorized the result in a hash table
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 				
 				allObjectNodes.current().get(0, (TTPtr*)&aNode);
-				aNode->getOscAddress(&name, mAddress);
+				aNode->getAddress(&name, mAddress);
 				
 				mResult->append(name, kTTValNONE);
 			}
@@ -225,7 +228,7 @@ TTErr TTExplorer::CriteriaInclude(const TTValue& value)
 	
 	// Replace none TTnames (because object and attribute names can be customized in order to have a specific application's namespace)
 	converted = value;
-	ToTTName(converted);
+	ToTTNames(converted);
 	
 	s = converted.getSize();
 	if (s > 0)
@@ -290,7 +293,7 @@ TTErr TTExplorer::WriteAsOpml(const TTValue& value)
 	value.get(0, (TTPtr*)&anOpmlHandler);
 
 	// get the mAddress node
-	getDirectoryFrom(mAddress)->getTTNodeForOSC(mAddress, &aNode);
+	getDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
 	if (aNode) writeNode(anOpmlHandler, aNode);
 	else writeNode(anOpmlHandler, getDirectoryFrom(mAddress)->getRoot());
 
@@ -299,7 +302,8 @@ TTErr TTExplorer::WriteAsOpml(const TTValue& value)
 
 void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 {
-	TTSymbolPtr nameInstance, objectName, attributeName;
+	TTNodeAddressPtr nameInstance;
+	TTSymbolPtr objectName, attributeName;
 	TTObjectPtr anObject;
 	TTValue		attributeNameList, v;
 	TTList		nodeList;
@@ -310,7 +314,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
 	
 	// Write address attribute
-	mergeOSCAddress(&nameInstance, kTTSymEmpty, aNode->getName(), aNode->getInstance(), kTTSymEmpty);
+	nameInstance = new TTNodeAddress(NO_DEVICE, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
 	xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance->getCString());
 	
 	if (anObject = aNode->getObject()) {
@@ -327,12 +331,12 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 		
 		for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
 		{
-			attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
+			attributeNameList.get(i, &attributeName);
 			
 			// Filter object type : Data, Viewer and Container
 			if (anObject->getName() == TT("Data") || anObject->getName() == TT("View") || anObject->getName() == TT("Container")) {
 				
-				// Filter atribute names
+				// Filter attribute names
 				if (attributeName != kTTSym_value && 
 					attributeName != kTTSym_address && 
 					attributeName != TT("content") &&
@@ -342,7 +346,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 					anObject->getAttributeValue(attributeName, v);
 					
 					// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
-					ToAppName(v);
+					ToAppNames(v);
 					
 					v.toString();
 					v.get(0, aString);
@@ -376,7 +380,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTValue			v = kTTValNONE;
 	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
-	TTSymbolPtr		oscAddress, relativeAddress, key;
+	TTNodeAddressPtr anAddress, relativeAddress;
+	TTSymbolPtr		key;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTCallbackPtr	anObserver;
@@ -386,8 +391,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&anExplorer);
 	
-	// Unpack data (oscAddress, aNode, flag, anObserver)
-	data.get(0, &oscAddress);
+	// Unpack data (anAddress, aNode, flag, anObserver)
+	data.get(0, &anAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	data.get(3, (TTPtr*)&anObserver);
@@ -421,12 +426,12 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	else {
 			
 		if (testNodeUsingCriteria(aNode, (TTPtr)anExplorer->mLookforObjectCriteria)) { 
-				aNode->getOscAddress(&relativeAddress, anExplorer->mAddress);
+				aNode->getAddress(&relativeAddress, anExplorer->mAddress);
 				v.append(relativeAddress);
 		}
 		// sometimes the object can be destroyed before his address
 		else if (flag == kAddressDestroyed) {
-			aNode->getOscAddress(&relativeAddress, anExplorer->mAddress);
+			aNode->getAddress(&relativeAddress, anExplorer->mAddress);
 			v.append(relativeAddress);
 		}
 	}

@@ -28,7 +28,7 @@ public:	// use public for quick acces during signal processing
 	
 	TTUInt16			mNumber;					///< ATTRIBUTE : number of Input signals
 	TTSymbolPtr			mType;						///< ATTRIBUTE : the type of the input signal (like audio, video, ...)
-	TTSymbolPtr			mOutputAddress;				///< ATTRIBUTE : address of the output to bind
+	TTNodeAddressPtr	mOutputAddress;				///< ATTRIBUTE : address of the output to bind
 	
 	TTBoolean			mMute;						///< ATTRIBUTE : to mute signal
 	TTBoolean			mBypass;					///< ATTRIBUTE : to pass signal directly to a TTOutput object

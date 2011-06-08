@@ -421,8 +421,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 581.0, 182.0, 186.0, 32.0 ],
-					"text" : "/myParameter 1000, /myIndex 2, /myLabel ernest, /any bla bla bla"
+					"patching_rect" : [ 581.0, 182.0, 180.0, 32.0 ],
+					"text" : "myParameter 1000, myIndex 2, myLabel ernest, any bla bla bla"
 				}
 
 			}
@@ -481,7 +481,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-28",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -564,8 +564,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 502.0, 108.0, 189.0, 32.0 ],
-					"text" : "/myParameter 0.02, /myIndex 45, /myLabel nono, /any 65 toto 4.5"
+					"patching_rect" : [ 502.0, 108.0, 214.0, 32.0 ],
+					"text" : "myParameter 0.02, myIndex 45, myLabel nono, any 65 toto 4.5"
 				}
 
 			}
@@ -590,8 +590,8 @@
 					"id" : "obj-7",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 502.0, 261.0, 314.0, 20.0 ],
 					"text" : "jcom.parameter myParameter @type decimal @priority 1",
 					"varname" : "_param"
@@ -786,8 +786,8 @@
 					"id" : "obj-141",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 502.0, 311.0, 282.0, 20.0 ],
 					"text" : "jcom.parameter myIndex @type integer @priority 2"
 				}
@@ -814,8 +814,8 @@
 					"id" : "obj-106",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 502.0, 360.0, 213.0, 20.0 ],
 					"text" : "jcom.parameter myLabel @type string"
 				}
@@ -832,8 +832,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 546.0, 145.0, 189.0, 32.0 ],
-					"text" : "/myParameter 0.03, /myIndex 56, /myLabel foo, /any 33 gege 7.9"
+					"patching_rect" : [ 546.0, 145.0, 183.0, 32.0 ],
+					"text" : "myParameter 0.03, myIndex 56, myLabel foo, any 33 gege 7.9"
 				}
 
 			}
@@ -858,8 +858,8 @@
 					"id" : "obj-88",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 502.0, 409.0, 197.0, 20.0 ],
 					"text" : "jcom.parameter any @type generic"
 				}
@@ -874,8 +874,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 502.0, 220.0, 59.0, 20.0 ],
-					"text" : "jcom.hub"
+					"patching_rect" : [ 502.0, 224.0, 149.0, 20.0 ],
+					"text" : "jcom.hub @context model"
 				}
 
 			}
@@ -911,8 +911,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-131", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-106", 1 ]
+					"midpoints" : [ 511.5, 381.5, 608.5, 381.5 ],
+					"source" : [ "obj-106", 0 ]
 				}
 
 			}
@@ -929,8 +929,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-142", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-141", 1 ]
+					"midpoints" : [ 511.5, 332.5, 643.5, 332.5 ],
+					"source" : [ "obj-141", 0 ]
 				}
 
 			}
@@ -1367,8 +1367,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-7", 1 ]
+					"midpoints" : [ 511.5, 282.5, 659.5, 282.5 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
@@ -1385,8 +1385,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-91", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-88", 1 ]
+					"midpoints" : [ 511.5, 430.5, 600.5, 430.5 ],
+					"source" : [ "obj-88", 0 ]
 				}
 
 			}

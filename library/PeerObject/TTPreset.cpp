@@ -91,7 +91,7 @@ TTErr Item::send(TTSymbolPtr attributeName)
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
-mAddress(kTTSymEmpty),
+mAddress(kTTAdrsEmpty),
 mComment(kTTSymEmpty),
 mManager(NULL),
 mTestObjectCallback(NULL),
@@ -157,7 +157,7 @@ TTPreset::~TTPreset()
 TTErr TTPreset::setAddress(const TTValue& value)
 {	
 	Clear();
-	mAddress = value;
+	value.get(0, &mAddress);
 	return kTTErrNone;
 }
 
@@ -165,7 +165,7 @@ TTErr TTPreset::Fill()
 {
 	TTNodePtr		aNode;
 	TTList			aNodeList, allObjectNodes;
-	TTSymbolPtr		aRelativeAddress;
+	TTNodeAddressPtr aRelativeAddress;
 	ItemPtr			aNewItem = NULL;
 	TTValue			hk, attributeToStore;
 	
@@ -179,7 +179,7 @@ TTErr TTPreset::Fill()
 	for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 		
 		allObjectNodes.current().get(0, (TTPtr*)&aNode);
-		aNode->getOscAddress(&aRelativeAddress, mAddress);
+		aNode->getAddress(&aRelativeAddress, mAddress);
 		aNewItem = new Item(mManager, aNode);
 		
 		mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
@@ -204,7 +204,7 @@ TTErr TTPreset::Clear()
 	
 	mItemTable->getKeys(hk);
 	for (i=0; i<mItemTable->getSize(); i++) {
-		hk.get(i,(TTSymbolPtr*)&key);
+		hk.get(i, &key);
 		mItemTable->lookup(key, v);
 		v.get(0, (TTPtr*)&oldItem);
 		
@@ -234,7 +234,7 @@ TTErr TTPreset::Update()
 	mItemTable->getKeys(hk);
 	for (i=0; i<mItemTable->getSize(); i++) {
 		
-		hk.get(i,(TTSymbolPtr*)&key);
+		hk.get(i, &key);
 		mItemTable->lookup(key, v);
 		
 		mUpdateItemCallback->notify(v);
@@ -264,7 +264,7 @@ TTErr TTPreset::Send()
 	
 	for (mItemKeysSorted->begin(); mItemKeysSorted->end(); mItemKeysSorted->next()) {
 		
-		mItemKeysSorted->current().get(0, (TTSymbolPtr*)&key);
+		mItemKeysSorted->current().get(0, &key);
 		mItemTable->lookup(key, v);
 		
 		mSendItemCallback->notify(v);
@@ -292,7 +292,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 	// Write Items
 	for (mItemKeysSorted->begin(); mItemKeysSorted->end(); mItemKeysSorted->next()) {
 		
-		mItemKeysSorted->current().get(0, (TTSymbolPtr*)&key);
+		mItemKeysSorted->current().get(0, &key);
 		mItemTable->lookup(key, v);
 		v.get(0, (TTPtr*)&anItem);
 		
@@ -307,7 +307,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 		// Write the state
 		anItem->state->getKeys(hsk);
 		for (j=0; j<anItem->state->getSize(); j++) {
-			hsk.get(j,(TTSymbolPtr*)&skey);
+			hsk.get(j, &skey);
 			anItem->state->lookup(skey, a);
 			
 			// Don't write kTTValNONE
@@ -338,7 +338,8 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 TTErr TTPreset::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTSymbolPtr			absAddress, ttAttributeName;
+	TTNodeAddressPtr	absAddress;
+	TTSymbolPtr			ttAttributeName;
 	ItemPtr				anItem;
 	TTNodePtr			aNode;
 	TTValue				v;
@@ -383,13 +384,9 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 			// if the item doesn't exist create it 
 			if (mItemTable->lookup(mCurrentItem, v)) {
 				
-				if (mAddress != kTTSymEmpty) {
-					joinOSCAddress(mAddress, mCurrentItem, &absAddress);
-				} else {
-					absAddress = mCurrentItem;
-				}
+				absAddress = mAddress->appendAddress(TTADRS(mCurrentItem->getString()));
 
-				err = getDirectoryFrom(absAddress)->getTTNodeForOSC(absAddress, &aNode);
+				err = getDirectoryFrom(absAddress)->getTTNode(absAddress, &aNode);
 				
 				// if the address exist
 				if (!err) {

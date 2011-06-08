@@ -29,6 +29,7 @@ bool						max5 = false;
 
 TTSymbolPtr					kTTSym_Jamoma = NULL;
 TTApplicationPtr			JamomaApplication = NULL;
+TTNodeDirectoryPtr			JamomaDirectory = NULL;
 
 /************************************************************************************/
 // Init the framework
@@ -50,6 +51,7 @@ void jamoma_init(void)
 		// Create a local application named Jamoma and get it
 		TTModularCreateLocalApplication(JAMOMA, JamomaConfigurationFilePath);
 		JamomaApplication = getLocalApplication;
+		JamomaDirectory = TTApplicationGetDirectory(kTTAdrsRoot);
 		kTTSym_Jamoma = TT(JAMOMA);
 		
 		// Check if the configuration file have been loaded correctly

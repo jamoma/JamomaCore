@@ -28,7 +28,7 @@ class TTMODULAR_EXPORT TTPresetManager : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr			mAddress;						///< ATTRIBUTE : the address of the preset manager in the directory
+	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the address of the preset manager in the directory
 	TTValue				mNames;							///< ATTRIBUTE : all preset names
 	TTValue				mCurrent;						///< ATTRIBUTE : <index, name, comment> of the current preset
 	TTValue				mPrevious;						///< ATTRIBUTE : <index, name, comment> of the previous preset

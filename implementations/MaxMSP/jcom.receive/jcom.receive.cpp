@@ -62,8 +62,11 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	// a leading slash means the address is absolute
-	if (address->s_name[0] == C_SEPARATOR)
+	// for empty address
+	if (address == _sym_nothing)
+		jamoma_receiver_create((ObjectPtr)x, address, &x->wrappedObject);
+	// for absolute address
+	else if (TTADRS(address->s_name)->getType() == kAddressAbsolute)
 		jamoma_receiver_create((ObjectPtr)x, jamoma_parse_dieze((ObjectPtr)x, address), &x->wrappedObject);
 	else
 		// The following must be deferred because we have to interrogate our box,
@@ -103,9 +106,9 @@ void receive_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 void receive_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr absoluteAddress;
+	TTNodeAddressPtr absoluteAddress;
 	
-	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), TT(relativeAddress->s_name),  &absoluteAddress)) {
+	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), TTADRS(relativeAddress->s_name),  &absoluteAddress)) {
 		
 		jamoma_receiver_create((ObjectPtr)x, gensym((char*)absoluteAddress->getCString()), &x->wrappedObject);
 		
@@ -150,11 +153,11 @@ void receive_bang(TTPtr self)
 void receive_set(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr ad, at;
+	TTNodeAddressPtr anAddress = TTADRS(address->s_name);
+	TTValue v;
 	
-	if (address->s_name[0] == C_SEPARATOR)
-		if (!splitAttribute(TT(address->s_name), &ad, &at)) {
-			x->wrappedObject->setAttributeValue(kTTSym_address, ad);
-			x->wrappedObject->setAttributeValue(TT("attribute"), at);
-		}
+	if (anAddress->getType() == kAddressAbsolute) {
+		v = TTValue(anAddress);
+		x->wrappedObject->setAttributeValue(kTTSym_address, v);
+	}
 }

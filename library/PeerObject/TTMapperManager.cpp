@@ -14,7 +14,7 @@
 
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
+mAddress(kTTAdrsEmpty),
 mMapperList(NULL)
 {
 	TTValue v;
@@ -177,6 +177,6 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& value)
 TTErr TTMapperManager::setAddress(const TTValue& value)
 {	
 	New();
-	mAddress = value;
+	value.get(0, &mAddress);
 	return kTTErrNone;
 }

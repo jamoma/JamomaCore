@@ -145,14 +145,18 @@ void preset_subscribe(TTPtr self, SymbolPtr relativeAddress)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
 	TTString					presetLevelAddress;
-	TTSymbolPtr					absoluteAddress;
+	TTNodeAddressPtr			absoluteAddress;
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
 	
 	// add 'preset' after the address
-	presetLevelAddress = relativeAddress->s_name;
-	presetLevelAddress += "/preset";
+	if (relativeAddress != _sym_nothing) {
+		presetLevelAddress = relativeAddress->s_name;
+		presetLevelAddress += "/preset";
+	}
+	else
+		presetLevelAddress = "preset";
 	
 	// if the subscription is successful
 	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), &x->subscriberObject)) {
@@ -167,8 +171,8 @@ void preset_subscribe(TTPtr self, SymbolPtr relativeAddress)
 		// set the Address attribute of the PresetManager if it is empty
 		x->wrappedObject->getAttributeValue(kTTSym_address, v);
 		v.get(0, &absoluteAddress);
-		if (absoluteAddress == kTTSymEmpty) {
-			node->getParent()->getOscAddress(&absoluteAddress);
+		if (absoluteAddress == kTTAdrsEmpty) {
+			node->getParent()->getAddress(&absoluteAddress);
 			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		}
 

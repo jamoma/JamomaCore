@@ -41,13 +41,13 @@ public:
 
 private:
 	
-	TTSymbolPtr					mRelativeAddress;			///< the address of this subscriber relative to the Context node
+	TTNodeAddressPtr			mRelativeAddress;			///< the address of this subscriber relative to the Context node
 	
 	TTNodePtr					mNode;						///< cache the TTNode relative to this subscriber
-	TTSymbolPtr					mNodeAddress;				///< cache the address of this subscriber in the tree structure
+	TTNodeAddressPtr			mNodeAddress;				///< cache the address of this subscriber in the tree structure
 	
 	TTNodePtr					mContextNode;				///< cache the TTNode relative to the Context
-	TTSymbolPtr					mContextAddress;			///< cache the address of the Context node in the tree structure
+	TTNodeAddressPtr			mContextAddress;			///< cache the address of the Context node in the tree structure
 	
 	TTBoolean					mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
 	

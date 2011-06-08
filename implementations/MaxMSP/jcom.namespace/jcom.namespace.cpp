@@ -118,13 +118,13 @@ void nmspc_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue	v;
 
-	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), kTTSymEmpty,  &x->patcherContext)) {
+	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), kTTAdrsEmpty,  &x->patcherAddress)) {
 		
-		v.append(x->patcherContext);
+		v.append(x->patcherAddress);
 		x->wrappedObject->setAttributeValue(kTTSym_address, v);
 		
 		// DEBUG
-		object_post((ObjectPtr)x, "explores from = %s", x->patcherContext->getCString());
+		object_post((ObjectPtr)x, "explores from = %s", x->patcherAddress->getCString());
 
 	}
 	// While the context node is not registered : try to build (to --Is this not dangerous ?)
@@ -159,7 +159,8 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTSymbolPtr	lookfor, address;
+	TTSymbolPtr	lookfor;
+	TTNodeAddressPtr address;
 	SymbolPtr	s;
 	Atom		a[1], c[2];
 	
@@ -184,7 +185,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// prepare umenu prefix 
 			// (except in case the explorer look for Instances)
-			if (address == S_SEPARATOR)
+			if (address == kTTAdrsRoot)
 				atom_setsym(a, gensym((char*)address->getCString()));
 			else {
 				TTString prefix = address->getCString();
@@ -196,7 +197,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				else if(lookfor == kTTSym_attributes)
 					prefix += ":";
 				else
-					prefix = "";
+					prefix += "/";
 				
 				atom_setsym(a, gensym((char*)prefix.data()));
 			}
@@ -283,18 +284,17 @@ void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTSymbolPtr absoluteAddress;
+	TTNodeAddressPtr absoluteAddress;
 	
-	// a leading slash means the address is absolute
-	if (msg->s_name[0] == C_SEPARATOR) {
-		v.append(TT(nmspc_filter_underscore_instance(msg)->s_name));
-
+	// for absolute address
+	if (TTADRS(msg->s_name)->getType() == kAddressAbsolute) {
+		v.append(TTADRS(nmspc_filter_underscore_instance(msg)->s_name));
 	}
 	else {
 		
 		// if the relative attribute is on
 		if (x->index) {
-			joinOSCAddress(x->patcherContext, TT(nmspc_filter_underscore_instance(msg)->s_name), &absoluteAddress);
+			absoluteAddress = x->patcherAddress->appendAddress(TTADRS(nmspc_filter_underscore_instance(msg)->s_name));
 			v.append(absoluteAddress);
 		}
 		else {

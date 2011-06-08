@@ -138,7 +138,8 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
-	TTSymbolPtr					nodeAdrs, classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
+	TTNodeAddressPtr			nodeAdrs;
+	TTSymbolPtr					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
 	TTObjectPtr					aData, anExplorer;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
@@ -146,8 +147,8 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 	AtomPtr						av;
 	ObjectPtr					patcher;
 	
-	// no leading slash means the address is relative
-	if (relativeAddress->s_name[0] != C_SEPARATOR) {
+	// the address have to be relative
+	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
 		
 		// if the subscription is successful
 		if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
@@ -165,20 +166,20 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 			if (x->patcherContext && (relativeAddress == gensym("/") || relativeAddress == _sym_nothing)) {
 				
 				if (x->patcherContext == kTTSym_model) {
-					classAdrs = TT("/model/class");
-					helpAdrs =  TT("/model/help");
-					refAdrs = TT("/model/reference");
-					internalsAdrs = TT("/model/internals");
-					documentationAdrs = TT("/model/documentation/generate");
-					muteAdrs = TT("/model/mute");
+					classAdrs = TT("model/class");
+					helpAdrs =  TT("model/help");
+					refAdrs = TT("model/reference");
+					internalsAdrs = TT("model/internals");
+					documentationAdrs = TT("model/documentation/generate");
+					muteAdrs = TT("model/mute");
 				}
 				else if (x->patcherContext == kTTSym_view) {
-					classAdrs = TT("/view/class");
-					helpAdrs =  TT("/view/help");
-					refAdrs = TT("/view/reference");
-					internalsAdrs = TT("/view/internals");
-					documentationAdrs = TT("/view/documentation/generate");
-					muteAdrs = TT("/view/mute");
+					classAdrs = TT("view/class");
+					helpAdrs =  TT("view/help");
+					refAdrs = TT("view/reference");
+					internalsAdrs = TT("view/internals");
+					documentationAdrs = TT("view/documentation/generate");
+					muteAdrs = TT("view/mute");
 				}
 				
 				// Add a /class data
@@ -220,10 +221,10 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 				
 				// In model *and* view patcher : Add /model/address data
 				if (x->patcherContext == kTTSym_model) // as return
-					makeInternals_data(x, nodeAdrs,  TT("/model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
+					makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
 				
 				if (x->patcherContext == kTTSym_view) // as parameter
-					makeInternals_data(x, nodeAdrs,  TT("/model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
+					makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("hub_address"), context, kTTSym_parameter, &aData);
 				
 				aData->setAttributeValue(kTTSym_type, kTTSym_string);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
@@ -273,7 +274,7 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 				// output ContextNode address
 				Atom a;
 				x->subscriberObject->getAttributeValue(TT("contextNodeAddress"), v);
-				v.get(0, &nodeAdrs);
+				v.get(0, (TTSymbolPtr*)&nodeAdrs);
 				atom_setsym(&a, gensym((char*)nodeAdrs->getCString()));
 				object_obex_dumpout(self, gensym("address"), 1, &a);
 				
@@ -344,32 +345,17 @@ void hub_share_patcher_node(TTPtr self, TTNodePtr *patcherNode)
 void hub_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTString					addSlash;
 	
-	// if the address part doesn't begin by a slash : add it.
-	if (msg->s_name[0] != C_SEPARATOR) {
-		addSlash = "/";
-		addSlash += msg->s_name;
-		jamoma_container_send((TTContainerPtr)x->wrappedObject, gensym((char*)addSlash.data()), argc, argv);
-	}
-	
+	// the msg have to contains a relative address
 	jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
 }
 
 void WrappedContainerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTString					addSlash;
-	TTErr						err;
 	
-	// if the address part doesn't begin by a slash : add it.
-	if (msg->s_name[0] != C_SEPARATOR) {
-		addSlash = "/";
-		addSlash += msg->s_name;
-		err = jamoma_container_send((TTContainerPtr)x->wrappedObject, gensym((char*)addSlash.data()), argc, argv);
-	}
-	else
-		err = jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
+	// the msg have to contains a relative address
+	jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
 }
 
 void hub_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -390,9 +376,9 @@ void hub_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (x->patcherContext && x->patcherClass) {
-		TTString helpfile = x->patcherContext->getCString();
+		TTString helpfile = x->patcherClass->getCString();
 		helpfile += ".";
-		helpfile += x->patcherClass->getCString();
+		helpfile += x->patcherContext->getCString();
 		classname_openhelp((char*)helpfile.data());
 	}
 }
@@ -402,9 +388,9 @@ void hub_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (x->patcherContext && x->patcherClass) {
-		TTString refpage = x->patcherContext->getCString();
+		TTString refpage = x->patcherClass->getCString();
 		refpage += ".";
-		refpage += x->patcherClass->getCString();
+		refpage += x->patcherContext->getCString();
 		classname_openrefpage((char*)refpage.data());
 	}
 }
@@ -486,7 +472,7 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr parent, name, instance, attribute;
+	TTNodeAddressPtr paramNameAddress;
 	SymbolPtr	paramName;
 	TTValue		v;
 	TTObjectPtr	aData;
@@ -501,8 +487,8 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 			
 			// try to bind on the patherName
 			// if a name is equal to the patcherClass and parent is /
-			splitOSCAddress(TT(paramName->s_name), &parent, &name, &instance, &attribute);
-			if (name == x->patcherClass && parent == S_SEPARATOR) {
+			paramNameAddress = TTADRS(paramName->s_name);
+			if (paramNameAddress->getName() == x->patcherClass && paramNameAddress->getParent() == kTTAdrsRoot) {
 				
 				if (!x->internals->lookup(TT("/model/address"), v)) {
 					

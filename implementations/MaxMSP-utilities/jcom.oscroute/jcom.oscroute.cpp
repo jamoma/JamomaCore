@@ -231,12 +231,15 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 	// Otherwise match the stored string(s) and output...
 	strcpy(input, msg->s_name);
 
+	/*	to -- the introduction of relative address feature
+		in modular0.6 make this test useless
+	 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
-	
 	if (input[0] != '/') {
 		outlet_anything(x->outlet_overflow, msg, argc , argv);
 		return;
 	}
+	 */
 	
 	char *wc, *c;
 	bool overFlow = true;

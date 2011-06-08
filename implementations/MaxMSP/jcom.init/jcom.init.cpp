@@ -119,44 +119,50 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 void init_subscribe(t_init *x, SymbolPtr relativeAddress)		// relativeAddress : could be used to binds on a sub level jcom.hub
 {
 	TTValue			v, args;
-	TTSymbolPtr		levelAddress;
+	TTNodeAddressPtr levelAddress;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	TTNodePtr		levelNode;
 	
-	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), TT(relativeAddress->s_name),  &levelAddress)) {
+	// for relative address
+	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
 		
-		if (!JamomaDirectory->getTTNodeForOSC(levelAddress, &levelNode)) {
+		if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), TTADRS(relativeAddress->s_name),  &levelAddress)) {
 			
-			// Make a TTReceiver object
-			args.append(levelAddress);
-			args.append(kTTSym_initialized);
-			
-			returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
-			returnAddressBaton = new TTValue(TTPtr(x));
-			returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
-			returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
-			args.append(returnAddressCallback);
-			
-			returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
-			returnValueBaton = new TTValue(TTPtr(x));
-			returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-			returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
-			args.append(returnValueCallback);
-			
-			x->initReceiver = NULL;
-			TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&x->initReceiver), args);
+			if (!JamomaDirectory->getTTNode(levelAddress, &levelNode)) {
+				
+				// Make a TTReceiver object
+				levelAddress = levelAddress->appendAttribute(kTTSym_initialized);
+				args.append(levelAddress);
+				
+				returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+				TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+				returnAddressBaton = new TTValue(TTPtr(x));
+				returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
+				returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
+				args.append(returnAddressCallback);
+				
+				returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+				TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+				returnValueBaton = new TTValue(TTPtr(x));
+				returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+				returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+				args.append(returnValueCallback);
+				
+				x->initReceiver = NULL;
+				TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&x->initReceiver), args);
+			}
+		}
+		// While the context node is not registered : try to build (to --Is this not dangerous ?)
+		else {
+			// The following must be deferred because we have to interrogate our box,
+			// and our box is not yet valid until we have finished instantiating the object.
+			// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+			defer_low((ObjectPtr)x, (method)init_subscribe, relativeAddress, 0, 0);
 		}
 	}
-	// While the context node is not registered : try to build (to --Is this not dangerous ?)
-	else {
-		// The following must be deferred because we have to interrogate our box,
-		// and our box is not yet valid until we have finished instantiating the object.
-		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)init_subscribe, relativeAddress, 0, 0);
-	}
+	else
+		object_error((ObjectPtr)x, "can't bind because %s is not a relative address", relativeAddress->s_name);
 }
 
 void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)

@@ -65,7 +65,7 @@ mCurrentIndex(0)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mCueList = new TTList();
-	mAddresses = TTValue(kTTSymEmpty);
+	mAddresses = kTTValNONE;
 }
 
 TTCueManager::~TTCueManager()
@@ -200,7 +200,7 @@ TTErr TTCueManager::New()
 	mCueList = NULL;
 	mCueList = new TTList();
 	mCurrentIndex = 0;
-	mAddresses = TTValue(kTTSymEmpty);
+	mAddresses = kTTValNONE;
 	
 	// notify observers of the cue list
 	notifyNamesObservers();
@@ -648,7 +648,6 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 		newCue = NULL;
 		TTObjectInstantiate(TT("Cue"), TTObjectHandle(&newCue), mPresetArguments);
 		
-		newCue->setAttributeValue(kTTSym_addresses, mAddresses);
 		newCue->setAttributeValue(kTTSym_name, cueName);
 		newCue->setAttributeValue(kTTSym_ramp, (uint)cueRamp);
 		

@@ -117,14 +117,14 @@ void cue_subscribe(TTPtr self, SymbolPtr relativeAddress)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
 	SymbolPtr					cueLevelAddress;
-	TTSymbolPtr					absoluteAddress;
+	TTNodeAddressPtr			absoluteAddress;
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
 	
-	// add 'cue' after the address
+	// register the object under a cuelist address
 	if (relativeAddress == _sym_nothing)
-		cueLevelAddress = gensym("/cuelist");
+		cueLevelAddress = gensym("cuelist");
 	else
 		cueLevelAddress = relativeAddress;
 	
@@ -137,7 +137,7 @@ void cue_subscribe(TTPtr self, SymbolPtr relativeAddress)
 		// get the Node address
 		x->subscriberObject->getAttributeValue(TT("node"), n);
 		n.get(0, (TTPtr*)&node);
-		node->getOscAddress(&absoluteAddress);
+		node->getAddress(&absoluteAddress);
 		
 		// expose messages of TTCue as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
@@ -301,7 +301,11 @@ void cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherContext->getCString(), x->patcherClass->getCString());
+		if (x->patcherContext && x->patcherClass)
+			snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherContext->getCString(), x->patcherClass->getCString());
+		else
+			snprintf(filename, MAX_FILENAME_CHARS, "cuelist.xml");
+		
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		

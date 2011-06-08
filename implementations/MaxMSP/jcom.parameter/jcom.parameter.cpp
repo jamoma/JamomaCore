@@ -148,11 +148,11 @@ void data_subscribe(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 
-	// no leading slash means the address is relative
-	if (relativeAddress->s_name[0] != C_SEPARATOR)
+	// for relative address
+	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative)
 		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject);
 	else
-		object_error((ObjectPtr)x, "can't register at %s because this address starts by a /", relativeAddress->s_name);
+		object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
 }
 
 void data_address(TTPtr self, SymbolPtr address)

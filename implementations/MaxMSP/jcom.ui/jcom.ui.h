@@ -58,8 +58,8 @@ typedef struct _ui{
 	TTCallbackPtr		previewSignal;			///< internal TTCallback to get back preview signal
 	TTOutputPtr			modelOutput;			///< a pointer to TTOutput object of the binded model
 	
-	TTSymbolPtr			viewAddress;
-	TTSymbolPtr			modelAddress;
+	TTNodeAddressPtr	viewAddress;
+	TTNodeAddressPtr	modelAddress;
 	ObjectPtr			patcherPtr;				///< the patcher in which the external is (ignoring subpatcher)
 	TTSymbolPtr			patcherContext;			///< the patcher context in which the external is (model, view)
 	TTSymbolPtr			patcherClass;			///< the patcher class in which the external is
@@ -176,7 +176,7 @@ void		ui_data_destroy_all(t_ui* obj);
 void		ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v);
 void		ui_data_interface(t_ui *x, TTSymbolPtr name);
 
-void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTSymbolPtr address, TTBoolean subscribe);
+void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTNodeAddressPtr address, TTBoolean subscribe);
 void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_viewer_destroy_all(t_ui *obj);
 void		ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v);

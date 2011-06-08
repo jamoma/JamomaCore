@@ -315,7 +315,7 @@ TTErr TTApplicationManager::PluginStop(const TTValue& value)
 
 TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 {
-	TTSymbolPtr whereToDiscover;
+	TTNodeAddressPtr whereToDiscover;
 	TTValuePtr returnedChildrenNames;
 	TTValuePtr returnedChildrenTypes;
 	TTValuePtr returnedAttributes;
@@ -329,7 +329,8 @@ TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 	
 	TTList				nodeList, childList;
 	TTNodePtr			firstNode, aNode;
-	TTSymbolPtr			nodeAddress, objectType;
+	TTNodeAddressPtr	nodeAddress;
+	TTSymbolPtr			objectType;
 	TTObjectPtr			anObject;
 	TTErr				err;
 	
@@ -350,7 +351,7 @@ TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 			childList.current().get(0, (TTPtr*)&aNode);
 			
 			// get the relative address
-			aNode->getOscAddress(&nodeAddress, whereToDiscover);
+			aNode->getAddress(&nodeAddress, whereToDiscover);
 			returnedChildrenNames->append(nodeAddress);
 			
 			// add the type of each refered object
@@ -374,7 +375,7 @@ TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 
 TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 {
-	TTSymbolPtr whereToGet;
+	TTNodeAddressPtr whereToGet;
 	TTSymbolPtr attributeToGet;
 	TTValuePtr returnedValue;
 	
@@ -388,7 +389,7 @@ TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 	TTObjectPtr			anObject;
 	TTErr				err;
 	
-	err = getDirectoryFrom(whereToGet)->getTTNodeForOSC(whereToGet, &nodeToGet);
+	err = getDirectoryFrom(whereToGet)->getTTNode(whereToGet, &nodeToGet);
 	
 	if (!err)
 		if (anObject = nodeToGet->getObject())
@@ -399,7 +400,7 @@ TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 
 TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 {
-	TTSymbolPtr whereToSet;
+	TTNodeAddressPtr whereToSet;
 	TTSymbolPtr attributeToSet;
 	TTValuePtr newValue;
 	
@@ -414,7 +415,7 @@ TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 	TTObjectPtr			anObject;
 	TTErr				err;
 	
-	err = getDirectoryFrom(whereToSet)->getTTNodeForOSC(whereToSet, &nodeToSet);
+	err = getDirectoryFrom(whereToSet)->getTTNode(whereToSet, &nodeToSet);
 	
 	if (!err) {
 		
@@ -721,25 +722,25 @@ TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 TTErr TTApplicationManagerSplitAppNameFromAddress(TTSymbolPtr address, TTSymbolPtr* returnedAppName, TTSymbolPtr* returnedAddress)
 {
 	TTErr err = kTTErrNone;
-	long nb, pos;
+	long pos;
 	TTString part1, part2;
 	
-	part1 = "";
-	part2 = address->getCString();
-	
-	nb = std::count(part2.begin(), part2.end(), '@');
+	if (address != kTTSymEmpty) {
+		part1 = "";
+		part2 = address->getCString();
 		
-	if(nb)
-	{
-		pos = part2.find_first_of('@');
-		part1 += part2.substr(0, pos+1);
-		part2 = part2.substr(pos+1, part2.size());
+		if (pos = part2.find_first_of(":/")) {
+			part1 += part2.substr(0, pos+2);
+			part2 = part2.substr(pos+2, part2.size());
+		}
+		else
+			err = kTTErrGeneric;
+		
+		*returnedAppName = TT(part1);
+		*returnedAddress = TT(part2);
 	}
 	else
 		err = kTTErrGeneric;
-
-	*returnedAppName = TT(part1);
-	*returnedAddress = TT(part2);
 	
 	return err;
 }

@@ -18,7 +18,7 @@ mDescription(kTTSymEmpty),
 mType(TT("control")),
 mInitialized(NO),
 mContent(kTTValNONE),
-mAddress(kTTSymEmpty),
+mAddress(kTTAdrsEmpty),
 mActivityIn(kTTValNONE),
 mActivityOut(kTTValNONE),
 mReturnAddressCallback(NULL),
@@ -85,12 +85,13 @@ TTContainer::~TTContainer()
 	}
 }
 
-TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
+TTErr TTContainer::Send(TTValue& AddressAndValue)
 {
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		aRelativeAddress, attrOrMess, service, topAddress, belowAddress, aSymbol;
+	TTNodeAddressPtr aRelativeAddress, topAddress, belowAddress;
+	TTSymbolPtr		attrOrMess, service;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTErr			err = kTTErrNone;
@@ -102,16 +103,18 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 		
 		if (mObjectsObserversCache) {
 			
-			// Replace none TTnames (because the Attribute can be customized in order to have a specific application's namespace)
-			ToTTName(AddressAttributeAndValue);
+			// get relativeAddress and valueToSend
+			AddressAndValue.get(0, &aRelativeAddress);
+			AddressAndValue.get(1, (TTPtr*)&valueToSend);
 			
-			// get relativeAddress, attribute and valueToSend
-			AddressAttributeAndValue.get(0, &aRelativeAddress);
-			AddressAttributeAndValue.get(1, &attrOrMess);
-			AddressAttributeAndValue.get(2, (TTPtr*)&valueToSend);
+			// get attribute or message (default is value)
+			if (aRelativeAddress->getAttribute() != NO_ATTRIBUTE)
+				attrOrMess = aRelativeAddress->getAttribute();
+			else
+				attrOrMess = kTTSym_value;
 			
 			// get the object
-			err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
+			err = mObjectsObserversCache->lookup(aRelativeAddress->removeAttribute(), cacheElement);
 			
 			// if the relativeAddress is in the cache
 			if (!err) {
@@ -157,10 +160,10 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 					anObject->sendMessage(attrOrMess, *valueToSend);
 			}
 			// maybe the relative address is for Container below ourself
-			// so we need to split it and retry
 			else {
-				splitAtOSCAddress(aRelativeAddress, 1, &topAddress, &belowAddress);
-				splitOSCAddress(topAddress, &topAddress, &aSymbol, &aSymbol, &aSymbol); // to remove the slash at the end
+				
+				// split relative address and retry
+				aRelativeAddress->splitAt(0, &topAddress, &belowAddress);
 				
 				// retry to get an object
 				err = mObjectsObserversCache->lookup(topAddress, cacheElement);
@@ -170,15 +173,14 @@ TTErr TTContainer::Send(TTValue& AddressAttributeAndValue)
 					
 					cacheElement.get(0, (TTPtr*)&anObject);
 					
-					// CONTAINER CASE for a value attribute use Send message
-					if (anObject->getName() == TT("Container") && attrOrMess == kTTSym_value) {
+					// CONTAINER CASE : use Send message
+					if (anObject->getName() == TT("Container")) {
 						
 						// replace relativeAddress by belowAddress
-						joinOSCAddress(S_SEPARATOR, belowAddress, &belowAddress);	// add a slash before
-						AddressAttributeAndValue.set(0, belowAddress);
+						AddressAndValue.set(0, belowAddress);
 						
 						// send the value
-						anObject->sendMessage(kTTSym_Send, AddressAttributeAndValue);
+						anObject->sendMessage(kTTSym_Send, AddressAndValue);
 						
 						// unlock
 						mIsSending = false;	
@@ -219,7 +221,7 @@ TTErr TTContainer::Init()
 		// Send Reset message to all Data service parameter
 		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
 			
-			hk.get(i,(TTSymbolPtr*)&key);
+			hk.get(i, &key);
 			mObjectsObserversCache->lookup(key, cacheElement);
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
@@ -236,7 +238,7 @@ TTErr TTContainer::Init()
 		// using priority order
 		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
 			
-			hk.get(i,(TTSymbolPtr*)&key);
+			hk.get(i, &key);
 			mObjectsObserversCache->lookup(key, cacheElement);
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
@@ -259,7 +261,8 @@ TTErr TTContainer::Init()
 TTErr TTContainer::setAddress(const TTValue& value)
 {	
 	unbind();
-	mAddress = value;
+	value.get(0, &mAddress);
+	
 	return bind();
 }
 
@@ -341,14 +344,15 @@ TTErr TTContainer::bind()
 TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 {
 	TTValue			cacheElement, v;
-	TTSymbolPtr		aRelativeAddress, service;
+	TTNodeAddressPtr aRelativeAddress;
+	TTSymbolPtr		service;
 	TTObjectPtr		anObject, valueObserver, commandObserver, returnedValueObserver, activityInObserver, activityOutObserver;
 	TTAttributePtr	anAttribute = NULL;
 	TTMessagePtr	aMessage;
 	TTValuePtr		valueBaton, commandBaton, returnedValueBaton, activityInBaton, activityOutBaton;
 	
 	// process the relative address
-	aNode->getOscAddress(&aRelativeAddress, mAddress);
+	aNode->getAddress(&aRelativeAddress, mAddress);
 	
 	// Filter NULL object
 	anObject = aNode->getObject();
@@ -496,7 +500,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 
 TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 {
-	TTSymbolPtr		aRelativeAddress;
+	TTNodeAddressPtr aRelativeAddress;
 	TTValue			cacheElement;
 	TTObjectPtr		anObject, anObserver;
 	TTAttributePtr	anAttribute;
@@ -504,7 +508,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	TTErr			err;
 	
 	// process the relative address
-	aNode->getOscAddress(&aRelativeAddress, mAddress);
+	aNode->getAddress(&aRelativeAddress, mAddress);
 	
 	// delete attribute observers
 	err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
@@ -623,7 +627,7 @@ TTErr TTContainer::unbind()
 		
 		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
 			
-			hk.get(i,(TTSymbolPtr*)&key);
+			hk.get(i, &key);
 			mObjectsObserversCache->lookup(key, cacheElement);
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
@@ -672,7 +676,7 @@ TTErr TTContainer::unbind()
 			TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
-	mAddress = kTTSymEmpty;
+	mAddress = kTTAdrsEmpty;
 	
 	return kTTErrNone;
 }
@@ -1103,7 +1107,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTPtr			hisContext;
 	TTCallbackPtr	anObserver;
 	TTNodePtr		aNode;
-	TTSymbolPtr		anAddress;
+	TTNodeAddressPtr anAddress;
 	TTUInt8			flag;
 	
 	// unpack baton (a TTContainerPtr, his Context)
@@ -1111,7 +1115,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aContainer);
 	b->get(1, (TTPtr*)&hisContext);
 	
-	// Unpack data (oscAddress, aNode, flag, anObserver)
+	// Unpack data (anAddress, aNode, flag, anObserver)
 	data.get(0, &anAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
@@ -1148,10 +1152,12 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
-	TTValue			a;
+	TTValue			cacheElement, v;
+	TTObjectPtr		anObject;
 	TTContainerPtr	aContainer;
-	TTSymbolPtr		relativeAddress;
+	TTNodeAddressPtr relativeAddress, relativeDataAddress;
 	TTValue			address;
+	TTErr			err;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -1159,17 +1165,40 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 	b->get(1, &relativeAddress);
 	
 	if (aContainer->mReturnAddressCallback && aContainer->mReturnValueCallback) {
-		// return the address
-		address.append(relativeAddress);
-		aContainer->mReturnAddressCallback->notify(address);
 		
-		// return the value
-		aContainer->mReturnValueCallback->notify(data);
+		// Check what type of object is notifyng the container
+		err = aContainer->mObjectsObserversCache->lookup(relativeAddress, cacheElement);
 		
-		// Notify activityOut observers (about value changes only)
-		a = data;	// protect the data
-		a.prepend(TTValue(relativeAddress));
-		aContainer->setActivityOut(a);
+		if (!err) {
+			
+			cacheElement.get(0, (TTPtr*)&anObject);
+			
+			// none CONTAINER CASE
+			if (anObject->getName() != TT("Container")) {
+				
+				v = data; // protect the data
+			}
+			// CONTAINER CASE : activity out observation
+			// the data is <relativeDataAddress, value, ...>
+			else {
+				
+				data.get(0, &relativeDataAddress);
+				relativeAddress = relativeAddress->appendAddress(relativeDataAddress);
+				
+				v.copyFrom(data, 1); // protect the data
+			}
+			
+			// return the address
+			address.append(relativeAddress);
+			aContainer->mReturnAddressCallback->notify(address);
+			
+			// return the value
+			aContainer->mReturnValueCallback->notify(v);
+			
+			// Notify activityOut observers (about value changes only)
+			v.prepend(TTValue(relativeAddress));
+			aContainer->setActivityOut(v);
+		}
 	}
 	else
 		return kTTErrGeneric;
@@ -1181,7 +1210,7 @@ TTErr TTContainerCommandMessageCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTContainerPtr	aContainer;
-	TTSymbolPtr		relativeAddress;
+	TTNodeAddressPtr relativeAddress;
 	TTValue			address;
 	
 	// unpack baton

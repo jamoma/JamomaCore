@@ -13,8 +13,8 @@
 #define thisTTClassTags		"mapper"
 
 TT_MODULAR_CONSTRUCTOR,
-mInput(kTTSymEmpty),
-mOutput(kTTSymEmpty),
+mInput(kTTAdrsEmpty),
+mOutput(kTTAdrsEmpty),
 mInputMin(0.),
 mInputMax(1.),
 mOutputMin(0.),
@@ -165,12 +165,12 @@ TTErr TTMapper::setInput(const TTValue& value)
 	if (mReceiver)
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 	
-	mInput = value;
+	value.get(0, &mInput);
+	
 	mObserveInputRange = true;
 	
 	// Make a TTReceiver object
-	args.append(mInput);
-	args.append(kTTSym_value);
+	args.append(mInput->appendAttribute(kTTSym_value));
 	args.append(NULL);
 	
 	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -186,7 +186,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper was created before we observe the input address
-	err = getDirectoryFrom(mInput)->getTTNodeForOSC(mInput, &aNode);
+	err = getDirectoryFrom(mInput)->getTTNode(mInput, &aNode);
 	
 	if (!err) {
 
@@ -218,8 +218,7 @@ TTErr TTMapper::observeInput()
 		TTObjectRelease(TTObjectHandle(&mInputObserver));
 	
 	// Make a TTReceiver object
-	args.append(mInput);
-	args.append(kTTSym_created);
+	args.append(mInput->appendAttribute(kTTSym_created));
 	
 	returnInputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnInputCreationCallback, kTTValNONE);
@@ -246,8 +245,7 @@ TTErr TTMapper::observeInputRange()
 		TTObjectRelease(TTObjectHandle(&mInputRangeObserver));
 	
 	// Make a TTReceiver object
-	args.append(mInput);
-	args.append(kTTSym_rangeBounds);
+	args.append(mInput->appendAttribute(kTTSym_rangeBounds));
 	args.append(NULL);
 	
 	returnInputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -273,12 +271,12 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	if (mSender)
 		TTObjectRelease(TTObjectHandle(&mSender));
 	
-	mOutput = value;
+	value.get(0, &mOutput);
+	
 	mObserveOutputRange = true;
 		
 	// Make a TTSender object
-	args.append(mOutput);
-	args.append(kTTSym_value);
+	args.append(mOutput->appendAttribute(kTTSym_value));
 	
 	mSender = NULL;
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), args);
@@ -286,7 +284,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper created before we observe the output address
-	err = getDirectoryFrom(mOutput)->getTTNodeForOSC(mOutput, &aNode);
+	err = getDirectoryFrom(mOutput)->getTTNode(mOutput, &aNode);
 	
 	if (!err) {
 
@@ -318,8 +316,7 @@ TTErr TTMapper::observeOutput()
 		TTObjectRelease(TTObjectHandle(&mOutputObserver));
 	
 	// Make a TTReceiver object
-	args.append(mOutput);
-	args.append(kTTSym_created);
+	args.append(mOutput->appendAttribute(kTTSym_created));
 	
 	returnOutputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnOutputCreationCallback, kTTValNONE);
@@ -346,8 +343,7 @@ TTErr TTMapper::observeOutputRange()
 		TTObjectRelease(TTObjectHandle(&mOutputRangeObserver));
 	
 	// Make a TTReceiver object
-	args.append(mOutput);
-	args.append(kTTSym_rangeBounds);
+	args.append(mOutput->appendAttribute(kTTSym_rangeBounds));
 	args.append(NULL);
 	
 	returnOutputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -569,7 +565,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
 	TTValue		v;
-	TTSymbolPtr address;
+	TTNodeAddressPtr address;
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
 	
@@ -582,7 +578,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
-	TTErr err = getDirectoryFrom(address)->getTTNodeForOSC(address, &aNode);
+	TTErr err = getDirectoryFrom(address)->getTTNode(address, &aNode);
 	
 	if (!err) {
 		
@@ -613,7 +609,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
 	TTValue		v;
-	TTSymbolPtr address;
+	TTNodeAddressPtr address;
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
 	
@@ -626,7 +622,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
-	TTErr err = getDirectoryFrom(address)->getTTNodeForOSC(address, &aNode);
+	TTErr err = getDirectoryFrom(address)->getTTNode(address, &aNode);
 	
 	if (!err) {
 		

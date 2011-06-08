@@ -13,7 +13,7 @@
 #define thisTTClassTags		"preset, manager"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
+mAddress(kTTAdrsEmpty),
 mNames(kTTValNONE),
 mCurrent(kTTValNONE),
 mPrevious(kTTValNONE),
@@ -181,7 +181,9 @@ TTErr TTPresetManager::getNext(TTValue& value)
 TTErr TTPresetManager::setAddress(const TTValue& value)
 {	
 	New();
-	mAddress = value;
+	
+	value.get(0, &mAddress);
+	
 	return kTTErrNone;
 }
 

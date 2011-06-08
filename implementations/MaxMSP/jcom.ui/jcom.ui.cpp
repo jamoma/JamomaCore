@@ -201,8 +201,8 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->refmenu_items = (t_linklist *)linklist_new();
 		x->refmenu_qelem = qelem_new(x, (method)ui_refmenu_qfn);
 		
-		x->viewAddress = kTTSymEmpty;
-		x->modelAddress = kTTSymEmpty;
+		x->viewAddress = kTTAdrsEmpty;
+		x->modelAddress = kTTAdrsEmpty;
 		
 		x->hover = false;
 		x->selectAll = false;
@@ -310,15 +310,14 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 
 t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 {
-	TTSymbolPtr		adrs = TT(atom_getsym(argv)->s_name);
+	TTNodeAddressPtr adrs = TTADRS(atom_getsym(argv)->s_name);
 	TTValue			v;
 	TTAttributePtr	anAttribute;
 	TTErr			err;
 
-	if ((x->modelAddress == kTTSymEmpty && adrs != kTTSymEmpty) || adrs != x->modelAddress) {
+	if ((x->modelAddress == kTTAdrsEmpty && adrs != kTTAdrsEmpty) || adrs != x->modelAddress) {
 		
-		// don't care if it misses a slash before..
-		joinOSCAddress(S_SEPARATOR, adrs, &x->modelAddress);
+		x->modelAddress = adrs;
 		
 		// Clear all viewers
 		ui_viewer_destroy_all(x);
@@ -419,15 +418,16 @@ void ui_build(t_ui *x)
 	textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
 		
-		// if there no address try to get /model/address value
-		if (x->modelAddress == kTTSymEmpty)
+		// if there is no address try to get model/address value
+		if (x->modelAddress == kTTAdrsEmpty)
 			ui_viewer_refresh(x, TT("model/address"));
-		
-		if (x->modelAddress != kTTSymEmpty)
-			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
-		else
+			
+		// if there is still no address
+		if (x->modelAddress == kTTAdrsEmpty)
 			object_method(textfield, gensym("settext"), NO_MODEL_STRING);
-	
+		else
+			object_method(textfield, gensym("settext"), x->modelAddress->getCString());
+			
 	// Redraw
 	jbox_redraw(&x->box);
 }

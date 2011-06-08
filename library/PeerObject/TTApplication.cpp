@@ -90,7 +90,7 @@ TTApplication::~TTApplication()
 	// delete PluginParameters
 	mPluginParameters->getKeys(hk);
 	for (i=0; i<mPluginParameters->getSize(); i++) {
-		hk.get(i,(TTSymbolPtr*)&key);
+		hk.get(i, &key);
 		mPluginParameters->lookup(key, v);
 		v.get(0, (TTPtr*)&oldParameters);
 		
@@ -123,7 +123,7 @@ TTErr TTApplication::setPluginParameters(const TTValue& value)
 	// for all plugins used by the application
 	mPluginParameters->getKeys(hk);
 	for (i=0; i<mPluginParameters->getSize(); i++) {
-		hk.get(i,(TTSymbolPtr*)&pluginName);
+		hk.get(i, &pluginName);
 		mPluginParameters->lookup(pluginName, v);
 		v.get(0, (TTPtr*)&parameters);
 		
@@ -285,7 +285,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& value)
 {
 	TTPluginHandlerPtr	aPlugin;
 	TTApplicationPtr	appToNotify;
-	TTSymbolPtr			whereToListen;
+	TTNodeAddressPtr	whereToListen;
 	TTObjectPtr			returnValueCallback;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
@@ -323,7 +323,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& value)
 
 TTErr TTApplication::RemoveDirectoryListener(const TTValue& value)
 {
-	TTSymbolPtr			whereToListen;
+	TTNodeAddressPtr	whereToListen;
 	TTObjectPtr			returnValueCallback;
 	TTValue				cacheElement;
 	TTErr				err;
@@ -347,7 +347,8 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 {
 	TTPluginHandlerPtr	aPlugin;
 	TTApplicationPtr	appToNotify;
-	TTSymbolPtr			whereToListen, attributeToListen, key;
+	TTNodeAddressPtr	whereToListen, key;
+	TTSymbolPtr			attributeToListen;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
@@ -360,7 +361,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 	value.get(2, &whereToListen);
 	value.get(3, &attributeToListen);
 	
-	err = mDirectory->getTTNodeForOSC(whereToListen, &nodeToListen);
+	err = mDirectory->getTTNode(whereToListen, &nodeToListen);
 	
 	if (!err) {
 		if (anObject = nodeToListen->getObject()) {
@@ -384,7 +385,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 				
 				// cache the listener in the attributeListenersCache
 				cacheElement.append((TTPtr)returnValueCallback);
-				mergeAttribute(&key, whereToListen, attributeToListen);
+				key = whereToListen->appendAttribute(attributeToListen);
 				mAttributeListenersCache->append(key, cacheElement); // TODO : have many observers for the same address:attribute ? (add plugin info ?)
 				
 				return kTTErrNone;
@@ -399,7 +400,8 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 
 TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 {
-	TTSymbolPtr			whereToListen, attributeToListen, key;
+	TTNodeAddressPtr	whereToListen;
+	TTSymbolPtr			attributeToListen, key;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
@@ -409,7 +411,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 	value.get(0, &whereToListen);
 	value.get(1, &attributeToListen);
 	
-	err = mDirectory->getTTNodeForOSC(whereToListen, &nodeToListen);
+	err = mDirectory->getTTNode(whereToListen, &nodeToListen);
 	
 	if (!err) {
 		if (anObject = nodeToListen->getObject()) {
@@ -420,7 +422,8 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 			
 			if (!err) {
 				// get the listener in the attributeListenersCache
-				mergeAttribute(&key, whereToListen, attributeToListen);
+				key = whereToListen->appendAttribute(attributeToListen);
+				
 				err = mAttributeListenersCache->lookup(key, cacheElement);
 				
 				if (!err) {
@@ -664,23 +667,59 @@ TTErr TTApplication::ReadFromOpml(const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-TTNodeDirectoryPtr TTApplicationGetDirectory(TTSymbolPtr appNameAndAddress)
+TTNodeDirectoryPtr TTApplicationGetDirectory(TTNodeAddressPtr anAddress)
 {
-	TTSymbolPtr			applicationName, addressParsed;
+	TTSymbolPtr			applicationName;
 	TTApplicationPtr	anApplication;
-	TTErr				err;
 	
-	if (TTModularApplications) {
+	if (TTModularApplications && anAddress != kTTAdrsEmpty) {
 		
-		err = TTApplicationManagerSplitAppNameFromAddress(appNameAndAddress, &applicationName, &addressParsed);
+		applicationName = anAddress->getDevice();
 		
-		if (!err)
+		if (applicationName != NO_DEVICE)
 			anApplication = TTApplicationManagerGetApplication(applicationName);
 		else
 			anApplication = TTApplicationManagerGetApplication(kTTSym_localApplicationName);
-	
-		return anApplication->mDirectory;
+		
+		if (anApplication)
+			return anApplication->mDirectory;
 	}
 	
 	return NULL;
+}
+
+TTSymbolPtr TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName)
+{
+	TTErr		err;
+	TTValue		c;
+	TTSymbolPtr converted = anAppName;
+	
+	if (TTModularApplications) {
+		
+		err = TTApplicationManagerGetApplication(kTTSym_localApplicationName)->mAppToTT->lookup(anAppName, c);
+		
+		if (!err)
+			c.get(0, &converted);
+		
+	}
+	
+	return converted;
+}
+
+TTSymbolPtr TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName)
+{
+	TTErr		err;
+	TTValue		c;
+	TTSymbolPtr converted = kTTSymEmpty;
+	
+	if (TTModularApplications) {
+		
+		err = TTApplicationManagerGetApplication(kTTSym_localApplicationName)->mTTToApp->lookup(aTTName, c);
+		
+		if (!err)
+			c.get(0, &converted);
+		
+	}
+	
+	return converted;
 }

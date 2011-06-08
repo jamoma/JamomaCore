@@ -22,8 +22,7 @@ class TTMODULAR_EXPORT TTReceiver : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr					mAddress;					///< ATTRIBUTE: the address to bind
-	TTSymbolPtr					mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
+	TTNodeAddressPtr			mAddress;					///< ATTRIBUTE: the address to bind
 	TTBoolean					mEnable;					///< ATTRIBUTE: if false, received data won't be output without unregister the attribute observer (default true).
 	
 	TTCallbackPtr				mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
@@ -34,9 +33,6 @@ private:
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
-	
-	/**	Setter for mAttribute attribute. */
-	TTErr setAttribute(const TTValue& value);
 	
 	/**	Setter for mMute attribute. */
 	TTErr setEnable(const TTValue& value);

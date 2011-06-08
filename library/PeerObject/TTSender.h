@@ -22,17 +22,13 @@ class TTMODULAR_EXPORT TTSender : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr					mAddress;					///< ATTRIBUTE: the address to bind
-	TTSymbolPtr					mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
+	TTNodeAddressPtr			mAddress;					///< ATTRIBUTE: the address to bind
 	TTBoolean					mIsSending;					///< a flag to lock the object in case of infinite loop
 	TTListPtr					mObjectCache;				///< a cache containing all binded objects for quick access
 	TTCallbackPtr				mObserver;					///< a life cycle observer
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
-	
-	/**	Setter for mAttribute attribute. */
-	TTErr setAttribute(const TTValue& value);
 	
 	/** */
 	TTErr Send(TTValue& valueToSend);				// to -- lower case in order to hide the message during the Class wrapping process

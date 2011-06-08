@@ -26,7 +26,7 @@ class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr			mAddress;						///< ATTRIBUTE : 
+	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : 
 	TTSymbolPtr			mLookfor;						///< ATTRIBUTE : what the explorer is looking for from the address (Children, Instance, Attribute else use ObjectCriteria table)
 	TTValue				mEqual;							///< ATTRIBUTE : each found elements have to be equal to one element of this attribute (use KTTValNone to don't use this)
 	TTValue				mDifferent;						///< ATTRIBUTE : each found elements have to be different from all elements of this attribute (use KTTValNone to don't use this)
@@ -39,8 +39,8 @@ private:
 	
 	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done (Children and Instances cases)
 	TTSymbolPtr			mTempName;						///< remember the name on which the exploration have been done (Instances case)
-	TTSymbolPtr			mTempParent;					///< remember the parent address (Instances case)
-	TTSymbolPtr			mTempObserve;					///< remember the observed address (Instances case)
+	TTNodeAddressPtr	mTempParent;					///< remember the parent address (Instances case)
+	TTNodeAddressPtr	mTempObserve;					///< remember the observed address (Instances case)
 	TTHashPtr			mResult;						///< hash table containing all elements found by the explorer
 	TTValue				mLastResult;					///< keep the last result to filter unchanged list
 		
