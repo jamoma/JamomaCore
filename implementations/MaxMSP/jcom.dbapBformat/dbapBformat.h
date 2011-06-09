@@ -9,15 +9,13 @@
 
 #include "hull2D.h"
 
-// This seems to be the current restrictions of matrix~
-const long MAX_NUM_SOURCES = 250;
-const long MAX_NUM_DESTINATIONS = 500;
-
-const long MAX_NUM_WEIGHTED_SOURCES = 64;
-const long MAX_NUM_WEIGHTED_DESTINATIONS = 32;
+// This is currently restricted if memory for struct is to be assigned using malloc
+const long MAX_NUM_SOURCES = 32;
+const long MAX_NUM_DESTINATIONS = 32;
 
 const long MAX_SIZE_VIEW_X = 80;
 const long MAX_SIZE_VIEW_Y = 60;
+
 
 t_symbol		*psRollOff,
 				*psDimensions,
@@ -29,6 +27,7 @@ t_symbol		*psRollOff,
 				*psSourceMute,
 				*psSourceBlur;
 
+
 /** Data structure for storing a 1,2 or 3 dimensional space data */
 typedef struct _xyz{
 	float		x;												///< x position
@@ -36,11 +35,22 @@ typedef struct _xyz{
 	float		z;												///< z position
 } t_xyz;														///< Cartesian coordinate of a point
 
+
+/** Data structure for storing ambisonics decoding coeficcients */
+typedef struct _decodeCoefficients{
+	float		w;												///< Zero  order W coefficient
+	float		x;												///< First order X coefficient
+	float		y;												///< First order Y coefficient
+	float		z;												///< First order Z coefficient
+} t_decodeCoefficients;
+
+
 /** Data structure for 1 dimensional convex hull */
 typedef struct _hullInOneDimension{
 	float		min;											///< minimum x value
 	float		max;											///< maximum x value
 } t_hullInOneDimension;											///< Convex hull in 1 dimension
+
 
 /** Data structure for 2 dimensional convex hull */
 typedef struct _hullInTwoDimensions{
@@ -48,7 +58,8 @@ typedef struct _hullInTwoDimensions{
 	long		destinationIndex[MAX_NUM_DESTINATIONS];			///< index of dst in destinationPosition[]
 	float		dst2next[MAX_NUM_DESTINATIONS];					///< squared length of each border of the hull
 } t_hullInTwoDimensions;										///< Convex hull in 1 dimension
-	
+
+
 typedef struct _dbapBformat{									///< Data structure for this object
 	// Max stuff
 	t_object	ob;												///< Must always be the first field; used by Max
@@ -59,11 +70,19 @@ typedef struct _dbapBformat{									///< Data structure for this object
 	t_xyz		sourcePosition[MAX_NUM_SOURCES];				///< Positions of the virtual source
 	float		blur[MAX_NUM_SOURCES];							///< Spatial bluriness ratio in percents for each source
 	float		sourceGain[MAX_NUM_SOURCES];					///< Linear gain for each source, not yet used
-	float		sourceWeight[MAX_NUM_WEIGHTED_SOURCES][MAX_NUM_WEIGHTED_DESTINATIONS];///< Weight for each source for each destination 
 	float		sourceNotMuted[MAX_NUM_SOURCES];				///< Mute and unmute sources
-		
+
+	// TODO: Why do we use MAX_NUM_WEIGHTED_SOURCES and having it differ from MAX_NUM_SOURCES?
+	float		sourceWeight
+					[MAX_NUM_SOURCES]
+					[MAX_NUM_DESTINATIONS];						///< Weight for each source for each destination 
+	t_decodeCoefficients 
+				decodeCoefficients
+					[MAX_NUM_SOURCES]
+					[MAX_NUM_DESTINATIONS];						///< Ambisonics decoding coefficients for each source for each destination
+	
 	// Destinations
-	long		attrNumberOfDestinations;						///< number of active destinations
+	long		attrNumberOfDestinations;						///< Number of active destinations
 	t_xyz		destinationPosition[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
 	t_xyz		meanDestinationPosition;						///< Mean position of the field of destination points
 	
@@ -91,6 +110,7 @@ typedef struct _dbapBformat{									///< Data structure for this object
 	bool		attrViewMatrixUpdate;							///< IO the view updating
 	t_atom		lastView[2];									///< memorize the last view [dst src]
 	} t_dbapBformat;
+
 
 // Prototypes for methods: need a method for each incoming message
 

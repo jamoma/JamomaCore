@@ -39,10 +39,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)dbapBformatBlur,				"blur",				A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformatBlurAll,			"blurall",			A_FLOAT,	0);
-	class_addmethod(c, (method)dbapBformatSource,			"source_position",	A_GIMME,	0);
-	class_addmethod(c, (method)dbapBformatDestination,		"destination_position",	A_GIMME,	0);
-	class_addmethod(c, (method)dbapBformatSourceGain,		"source_gain",		A_GIMME,	0);
-	class_addmethod(c, (method)dbapBformatSourceWeight,		"source_weight",		A_GIMME,	0);
+	class_addmethod(c, (method)dbapBformatSource,			"src_position",		A_GIMME,	0);
+	class_addmethod(c, (method)dbapBformatDestination,		"dst_position",		A_GIMME,	0);
+	class_addmethod(c, (method)dbapBformatSourceGain,		"src_gain",			A_GIMME,	0);
+	class_addmethod(c, (method)dbapBformatSourceWeight,		"src_weight",		A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformatMasterGain,		"master_gain",		A_FLOAT,	0);
 	class_addmethod(c, (method)dbapBformatSourceMute,		"src_mute",			A_GIMME,	0);
 
@@ -104,14 +104,16 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 		x->outlet[0] = outlet_new(x, 0);				// Left outlet: Feed to matrix~
 		
 		// Initializing and setting defaults for attributes.
-		x->masterGain = 1.;						// default value
-		x->attrNumberOfSources = 1;					// default value
+		x->masterGain = 1.;								// default value
+		x->attrNumberOfSources = 1;						// default value
 		x->attrNumberOfDestinations = 1;				// default value
-		x->attrDimensions = 2;						// two-dimensional by default
-		x->attrRollOff = 6;						// 6 dB rolloff by default
+		x->attrDimensions = 2;							// two-dimensional by default
+		x->attrRollOff = 6;								// 6 dB rolloff by default
+		x->attrOrderWeightOmni = 1;						// TODO: This is preliminary, and need to be substituted for real values
+		x->attrOrderWeightFirst = 1;					// TODO: This is preliminary, and need to be substituted for real values
 
 		x->attrViewMatrixUpdate = false;
-		atom_setsym(&x->lastView[0],gensym("all"));
+		atom_setsym(&x->lastView[0], gensym("all"));
 		atom_setlong(&x->lastView[1],1);
 
 		x->attrViewMatrixSize[0] = 80;					// x size of the view matrix
@@ -120,6 +122,7 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 		x->attrViewMatrixStart.x = 0.;					// default value
 		x->attrViewMatrixStart.y = 0.;					// default value
 		x->attrViewMatrixStart.z = 0.;					// default value
+		// TODO: This could rather be deduced from the actual positions of destinations
 		x->attrViewMatrixEnd.x = 22.;					// according to the dbapBformat maxhelp space
 		x->attrViewMatrixEnd.y = 15.;					// according to the dbapBformat maxhelp space
 		x->attrViewMatrixEnd.z = 0.;					// according to the dbapBformat maxhelp space
@@ -145,9 +148,14 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 			x->destinationPosition[i].z = 0.;
 		}
 
-		for (i=0;i<MAX_NUM_WEIGHTED_SOURCES;i++) {
-			for (j=0;j<MAX_NUM_WEIGHTED_DESTINATIONS;j++) {
+		for (i=0;i<MAX_NUM_SOURCES;i++) {
+			for (j=0;j<MAX_NUM_DESTINATIONS;j++) {
 				x->sourceWeight[i][j] = 1.;
+				// TODO: The following initialisation is preliminary
+				x->decodeCoefficients[i][j].w = 0.;
+				x->decodeCoefficients[i][j].x = 0.;
+				x->decodeCoefficients[i][j].y = 0.;
+				x->decodeCoefficients[i][j].z = 0.;
 			}
 		}
 
@@ -158,11 +166,11 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 
 		x->hullInTwoDimensions.num_dst = 0;
 		
-		attr_args_process(x, argc, argv);			// handle attribute args
-		dbapBformatCalculateA(x);						// calculate expo0nent coefficiant used for rolloff
-		dbapBformatCalculateVariance(x);					// this implisitly also calculate all matrix values
+		attr_args_process(x, argc, argv);			// Handle attribute args
+		dbapBformatCalculateA(x);					// Calculate expo0nent coefficiant used for rolloff
+		dbapBformatCalculateVariance(x);			// This implisitly also calculate all matrix values
 	}
-	return (x);										// return the pointer
+	return (x);										// Return the pointer
 }
 
 
@@ -400,131 +408,6 @@ void dbapBformatHull(t_dbapBformat *x, long f)
 	}
 	if (refresh) dbapBformatCalculateHull(x,1);	//It's the same hull for all sources
 											//TODO : a hull for each source
-}
-
-/** Display a hitmap view of the dbapBformat for a destination and a source weight config or all (on the info outlet ?) */
-void dbapBformatView(t_dbapBformat *x, void *msg, long argc, t_atom *argv)
-{
-	long dst, src,i ,j;
-	t_symbol *all;
-
-	if ((argc==2) && argv) {
-		if ((atom_gettype(argv) == A_LONG) && (atom_gettype(argv+1) == A_LONG)) {
-			dst = atom_getlong(argv)-1;							// we start counting from 1 for destinations
-			src = atom_getlong(argv+1)-1;						// we start counting from 1 for sources
-			if ((src<0) || (src>=MAX_NUM_SOURCES) || (dst<0) || (dst>=MAX_NUM_DESTINATIONS)) {
-				error("Invalid argument(s) for view");
-				return;
-			}
-			dbapBformatCalculateView(x,dst,src);
-		}
-		else {
-			if ((atom_gettype(argv) == A_SYM) && (atom_gettype(argv+1) == A_LONG)) {
-				all = atom_getsym(argv);
-				src = atom_getlong(argv+1)-1;					// we start counting from 1 for sources
-				if ((src<0) || (src>=MAX_NUM_SOURCES) || (all != gensym("all"))) {
-					error("Invalid argument(s) for view");
-					return;
-				}
-				
-				// Calculation for each non-zero weighted dst
-				for (i=0; i<x->attrNumberOfDestinations; i++) {
-					if (x->sourceWeight[src][i] > 0)
-						dbapBformatCalculateView(x,i,src);
-				}
-			}
-		}
-		dbapBformatOutputView(x);
-
-		// then we reset the matrix
-		for (i=0; i<MAX_SIZE_VIEW_X; i++) {
-			for (j=0; j<MAX_SIZE_VIEW_Y; j++) {
-				x->viewMatrix[i][j] = 0;
-			}
-		}
-		
-		// and we store the view for a later update process
-		x->lastView[0] = argv[0];
-		x->lastView[1] = argv[1];
-	}
-	else
-		error("Invalid argument(s) for view");
-}
-
-/** Turn on/off the auto wiev updating */
-void dbapBformatViewUpdate(t_dbapBformat *x, long io)
-{
-	x->attrViewMatrixUpdate = io > 0;
-}
-
-/** Set the size of hitmap view window */
-void dbapBformatViewMatrixSize(t_dbapBformat *x, long sizeX, long sizeY) {
-	
-	if ((sizeX > 0)&&(sizeY > 0)&&(sizeX <= MAX_SIZE_VIEW_X)&&(sizeY <= MAX_SIZE_VIEW_Y)) {
-		x->attrViewMatrixSize[0] = sizeX;
-		x->attrViewMatrixSize[1] = sizeY;
-		dbapBformatUpdateView(x);
-	}
-	else					
-		error("Invalid argument(s) for viewMatrixSize");
-}
-
-/** Set the start point of the hitmap view window */
-void dbapBformatViewStart(t_dbapBformat *x, void *msg, long argc, t_atom *argv) {
-
-	if ((argc == x->attrDimensions) && argv) {
-		if (atom_gettype(argv) == A_FLOAT)
-			x->attrViewMatrixStart.x = atom_getfloat(argv);
-		else {
-			dbapBformatUpdateView(x);
-			return;
-		}
-			
-		if (atom_gettype(argv+1) == A_FLOAT)
-			x->attrViewMatrixStart.y = atom_getfloat(argv+1);
-		else {
-			dbapBformatUpdateView(x);
-			return;
-		}
-			
-		if (atom_gettype(argv+2) == A_FLOAT)
-			x->attrViewMatrixStart.z = atom_getfloat(argv+2);
-		else {
-			dbapBformatUpdateView(x);
-			return;
-		}
-	}
-	else
-		error("Invalid argument(s) for view_start");
-}
-
-/** Set the end point of the hitmap view window */
-void dbapBformatViewEnd(t_dbapBformat *x, void *msg, long argc, t_atom *argv) {
-
-	if ((argc == x->attrDimensions) && argv) {
-		if (atom_gettype(argv) == A_FLOAT)
-			x->attrViewMatrixEnd.x = atom_getfloat(argv);
-		else {
-			dbapBformatUpdateView(x);
-			return;
-		}
-			
-		if (atom_gettype(argv+1) == A_FLOAT)
-			x->attrViewMatrixEnd.y = atom_getfloat(argv+1);
-		else {
-			dbapBformatUpdateView(x);
-			return;
-		}
-			
-		if (atom_gettype(argv+2) == A_FLOAT)
-			x->attrViewMatrixEnd.z = atom_getfloat(argv+2);
-		else {
-			dbapBformatUpdateView(x);
-			return;
-		}
-	}
-	else
-		error("Invalid argument(s) for view_end");
 }
 
 void dbapBformatInfo(t_dbapBformat *x)
@@ -802,7 +685,8 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 	float k2inv;						// Inverse square of the scaling constant k
 	float dx, dy;						// Distance vector
 	float r2;							// Bluriness ratio 
-	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
+	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a, adjusted to prevent division by zero
+	
 	float sdia[MAX_NUM_DESTINATIONS];	// Squared Distance to ith speaker (without bluriness ratio)
 	long iC,iN;							// index of the the dest C and N dest in destinationPosition[]
 	float sSC,sSN,sCN;					// squared Distance of the Source to C and N and [CN]
@@ -811,16 +695,45 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 	float v, out;						// is the source out of the hull ? (-1 inside, 1 outside)
 	long id_min;						// id of the closest dest
 	long i,j;
+	
+	// Required for ambisonic decoding
+	float distance;						// Non-adjusted distance from source to destination
+	float cosAzimuth;					// cos(azimuth)
+	float sinAzimuth;					// sin(azimuth)
+	float cosElevation;					// cos(elevation)
+	float sinElevation;					// sin(elevation)
+	
 	t_atom a[3];						// Output array of atoms
 
 	r2 = x->blur[n] * x->variance;
 	r2 = r2*r2;
 	k2inv = 0;
 	for (i=0; i<x->attrNumberOfDestinations; i++) {
-		dx = x->sourcePosition[n].x - x->destinationPosition[i].x;
-		dy = x->sourcePosition[n].y - x->destinationPosition[i].y;
+
+		dx = x->destinationPosition[i].x - x->sourcePosition[n].x;
+		dy = x->destinationPosition[i].y - x->sourcePosition[n].y;
+
+		// Calculations required for ambisonics decoding
+		distance = sqrt(dx*dx + dy*dy);
+
+		cosAzimuth = dx/distance;		// TODO: We are at risk of dividing by zero
+		sinAzimuth = dy/distance;		// TODO: We are at risk of dividing by zero
+		cosElevation = 1.0;				// We assume z=0 for the 2D case
+		sinElevation = 0.0;				// We assume z=0 for the 2D case
+		
+		x->decodeCoefficients[n][i].w = x->attrOrderWeightOmni;
+		x->decodeCoefficients[n][i].x = x->attrOrderWeightFirst * cosAzimuth * cosElevation;
+		x->decodeCoefficients[n][i].y = x->attrOrderWeightFirst * sinAzimuth * cosElevation;
+		x->decodeCoefficients[n][i].z = x->attrOrderWeightFirst * sinElevation;
+		
+		
+		// Calculations required for DBAP
+		
+		// Distance adjusted to prevent division by zero
 		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
-		if (x->hullActive) sdia[i] = dx*dx + dy*dy;
+		
+		if (x->hullActive)
+			sdia[i] = dx*dx + dy*dy;
 		
 		k2inv = k2inv + (x->sourceWeight[n][i]*x->sourceWeight[n][i])/(dia[i]*dia[i]);
 	}
@@ -870,8 +783,8 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 			}
 		}
 
-		atom_setlong(&a[0],n+1);							// src (index starts at one for users
-		atom_setfloat(&a[1],out*min_dist);					// dist to hull
+		atom_setlong(&a[0],n+1);							// src (index starts at one for users)
+		atom_setfloat(&a[1],out*min_dist);					// distance to hull
 		atom_setlong(&a[2],id_min+1);						// id of the closest dst in the hull 
 		outlet_anything(x->outlet[1], _sym_list, 3, a);
 	}
@@ -985,6 +898,10 @@ void dbapBformatCalculateVariance(t_dbapBformat *x)
 }
 
 
+#pragma mark -
+#pragma mark convex hull
+
+
 void dbapBformatCalculateHull(t_dbapBformat *x, long n)
 {
 	// Update all matrix values
@@ -995,8 +912,6 @@ void dbapBformatCalculateHull(t_dbapBformat *x, long n)
 	else
 		dbapBformatCalculateHull3D(x, n);
 }
-
-
 
 void dbapBformatCalculateHullInOneDimensionD(t_dbapBformat *x, long n)
 {
@@ -1015,6 +930,7 @@ void dbapBformatCalculateHullInOneDimensionD(t_dbapBformat *x, long n)
 	x->hullInOneDimension.min = min;
 	x->hullInOneDimension.max = max;
 }
+
 
 // TODO : a way to select dst
 // TODO : put the algorithm in hullInTwoDimensions.cpp (keep it here while isn't tested to use post())
@@ -1138,6 +1054,7 @@ void dbapBformatCalculateHullInTwoDimensionsD(t_dbapBformat *x, long n)
 	//}
 }
 
+
 // Print point[] (debugging)
 void dbapBformatHullInTwoDimensions_postpoint(t_dbapBformat *x, t_H2D h2)
 {
@@ -1149,10 +1066,145 @@ void dbapBformatHullInTwoDimensions_postpoint(t_dbapBformat *x, t_H2D h2)
 			h2.point[i].vnum, h2.point[i].v[X], h2.point[i].v[Y]);
 }
 
+
 void dbapBformatCalculateHull3D(t_dbapBformat *x, long n)
 {
 	// TODO: develop algorithm calculating convex hull in 3 dimensions
 }
+
+
+#pragma mark -
+#pragma mark view
+
+/** Display a hitmap view of the dbapBformat for a destination and a source weight config or all (on the info outlet ?) */
+void dbapBformatView(t_dbapBformat *x, void *msg, long argc, t_atom *argv)
+{
+	long dst, src,i ,j;
+	t_symbol *all;
+	
+	if ((argc==2) && argv) {
+		if ((atom_gettype(argv) == A_LONG) && (atom_gettype(argv+1) == A_LONG)) {
+			dst = atom_getlong(argv)-1;							// we start counting from 1 for destinations
+			src = atom_getlong(argv+1)-1;						// we start counting from 1 for sources
+			if ((src<0) || (src>=MAX_NUM_SOURCES) || (dst<0) || (dst>=MAX_NUM_DESTINATIONS)) {
+				error("Invalid argument(s) for view");
+				return;
+			}
+			dbapBformatCalculateView(x,dst,src);
+		}
+		else {
+			if ((atom_gettype(argv) == A_SYM) && (atom_gettype(argv+1) == A_LONG)) {
+				all = atom_getsym(argv);
+				src = atom_getlong(argv+1)-1;					// we start counting from 1 for sources
+				if ((src<0) || (src>=MAX_NUM_SOURCES) || (all != gensym("all"))) {
+					error("Invalid argument(s) for view");
+					return;
+				}
+				
+				// Calculation for each non-zero weighted dst
+				for (i=0; i<x->attrNumberOfDestinations; i++) {
+					if (x->sourceWeight[src][i] > 0)
+						dbapBformatCalculateView(x,i,src);
+				}
+			}
+		}
+		dbapBformatOutputView(x);
+		
+		// then we reset the matrix
+		for (i=0; i<MAX_SIZE_VIEW_X; i++) {
+			for (j=0; j<MAX_SIZE_VIEW_Y; j++) {
+				x->viewMatrix[i][j] = 0;
+			}
+		}
+		
+		// and we store the view for a later update process
+		x->lastView[0] = argv[0];
+		x->lastView[1] = argv[1];
+	}
+	else
+		error("Invalid argument(s) for view");
+}
+
+
+/** Turn on/off the auto wiev updating */
+void dbapBformatViewUpdate(t_dbapBformat *x, long io)
+{
+	x->attrViewMatrixUpdate = io > 0;
+}
+
+
+/** Set the size of hitmap view window */
+void dbapBformatViewMatrixSize(t_dbapBformat *x, long sizeX, long sizeY) {
+	
+	if ((sizeX > 0)&&(sizeY > 0)&&(sizeX <= MAX_SIZE_VIEW_X)&&(sizeY <= MAX_SIZE_VIEW_Y)) {
+		x->attrViewMatrixSize[0] = sizeX;
+		x->attrViewMatrixSize[1] = sizeY;
+		dbapBformatUpdateView(x);
+	}
+	else					
+		error("Invalid argument(s) for viewMatrixSize");
+}
+
+
+/** Set the start point of the hitmap view window */
+void dbapBformatViewStart(t_dbapBformat *x, void *msg, long argc, t_atom *argv) {
+	
+	if ((argc == x->attrDimensions) && argv) {
+		if (atom_gettype(argv) == A_FLOAT)
+			x->attrViewMatrixStart.x = atom_getfloat(argv);
+		else {
+			dbapBformatUpdateView(x);
+			return;
+		}
+		
+		if (atom_gettype(argv+1) == A_FLOAT)
+			x->attrViewMatrixStart.y = atom_getfloat(argv+1);
+		else {
+			dbapBformatUpdateView(x);
+			return;
+		}
+		
+		if (atom_gettype(argv+2) == A_FLOAT)
+			x->attrViewMatrixStart.z = atom_getfloat(argv+2);
+		else {
+			dbapBformatUpdateView(x);
+			return;
+		}
+	}
+	else
+		error("Invalid argument(s) for view_start");
+}
+
+
+/** Set the end point of the hitmap view window */
+void dbapBformatViewEnd(t_dbapBformat *x, void *msg, long argc, t_atom *argv) {
+	
+	if ((argc == x->attrDimensions) && argv) {
+		if (atom_gettype(argv) == A_FLOAT)
+			x->attrViewMatrixEnd.x = atom_getfloat(argv);
+		else {
+			dbapBformatUpdateView(x);
+			return;
+		}
+		
+		if (atom_gettype(argv+1) == A_FLOAT)
+			x->attrViewMatrixEnd.y = atom_getfloat(argv+1);
+		else {
+			dbapBformatUpdateView(x);
+			return;
+		}
+		
+		if (atom_gettype(argv+2) == A_FLOAT)
+			x->attrViewMatrixEnd.z = atom_getfloat(argv+2);
+		else {
+			dbapBformatUpdateView(x);
+			return;
+		}
+	}
+	else
+		error("Invalid argument(s) for view_end");
+}
+
 
 void dbapBformatCalculateView(t_dbapBformat *x, long dst, long src)
 {
@@ -1165,16 +1217,19 @@ void dbapBformatCalculateView(t_dbapBformat *x, long dst, long src)
 		dbapBformatCalculateView3D(x, dst, src);
 }
 
+
 /** If the attrViewMatrixUpdate is true : calculate the last view */
 void dbapBformatUpdateView(t_dbapBformat *x) {
 	if (x->attrViewMatrixUpdate)
 		defer_low(x,(method) dbapBformatView, gensym("view"), 2, x->lastView);
 }
 
+
 void dbapBformatCalculateView1D(t_dbapBformat *x, long dst, long src)
 {
 	post("TODO: 1D render view");
 }
+
 
 void dbapBformatCalculateView2D(t_dbapBformat *x, long dst, long src)
 {
@@ -1225,10 +1280,12 @@ void dbapBformatCalculateView2D(t_dbapBformat *x, long dst, long src)
 	}
 }
 
+
 void dbapBformatCalculateView3D(t_dbapBformat *x, long dst, long src)
 {
 	post("TODO: 3D render view");
 }
+
 
 void dbapBformatOutputView(t_dbapBformat *x)
 {
@@ -1249,4 +1306,5 @@ void dbapBformatOutputView(t_dbapBformat *x)
 	atom_setsym(&e[0],gensym("bang"));
 	//object_obex_dumpout(x, gensym("view"), 1, e);	// on info outlet (?)
 	outlet_anything(x->outlet[2], gensym("view"), 1, e);
+	
 }
