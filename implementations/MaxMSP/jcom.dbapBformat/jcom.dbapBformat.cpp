@@ -1079,7 +1079,7 @@ void dbapBformatCalculateHull3D(t_dbapBformat *x, long n)
 /** Display a hitmap view of the dbapBformat for a destination and a source weight config or all (on the info outlet ?) */
 void dbapBformatView(t_dbapBformat *x, void *msg, long argc, t_atom *argv)
 {
-	long dst, src,i ,j;
+	long dst, src, i ,j;
 	t_symbol *all;
 	
 	if ((argc==2) && argv) {
