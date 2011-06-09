@@ -681,13 +681,16 @@ void dbapBformatCalculate1D(t_dbapBformat *x, long n)
 
 void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 {
-	float k;							// Scaling coefficient
-	float k2inv;						// Inverse square of the scaling constant k
+	float scalingCoefficient;			// Scaling coefficient
+	float scalingCoefficientSquareInverse;	// Inverse square of the scaling coefficient
 	float dx, dy;						// Distance vector
-	float r2;							// Bluriness ratio 
-	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a, adjusted to prevent division by zero
+	float blurSquared;					// Bluriness ratio squared
+	float distanceAdjusted
+		[MAX_NUM_DESTINATIONS];			// Distance to ith speaker to the power of x->a, adjusted to prevent division by zero
+	float distanceAdjustedSquare
+		[MAX_NUM_DESTINATIONS];			// Squared Distance to ith speaker (without bluriness ratio)
 	
-	float sdia[MAX_NUM_DESTINATIONS];	// Squared Distance to ith speaker (without bluriness ratio)
+	// Required for convex hull
 	long iC,iN;							// index of the the dest C and N dest in destinationPosition[]
 	float sSC,sSN,sCN;					// squared Distance of the Source to C and N and [CN]
 	t_xyz P;							// Projection point of Source on [CN], pointer to coord of S, C and N
@@ -705,9 +708,9 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 	
 	t_atom a[3];						// Output array of atoms
 
-	r2 = x->blur[n] * x->variance;
-	r2 = r2*r2;
-	k2inv = 0;
+	blurSquared = x->blur[n] * x->variance;
+	blurSquared = blurSquared*blurSquared;
+	scalingCoefficientSquareInverse = 0;
 	for (i=0; i<x->attrNumberOfDestinations; i++) {
 
 		dx = x->destinationPosition[i].x - x->sourcePosition[n].x;
@@ -726,16 +729,15 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 		x->decodeCoefficients[n][i].y = x->attrOrderWeightFirst * sinAzimuth * cosElevation;
 		x->decodeCoefficients[n][i].z = x->attrOrderWeightFirst * sinElevation;
 		
-		
 		// Calculations required for DBAP
 		
 		// Distance adjusted to prevent division by zero
-		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
+		distanceAdjusted[i] = pow(double(dx*dx + dy*dy + blurSquared), double(0.5*x->a));
 		
 		if (x->hullActive)
-			sdia[i] = dx*dx + dy*dy;
+			distanceAdjustedSquare[i] = dx*dx + dy*dy;
 		
-		k2inv = k2inv + (x->sourceWeight[n][i]*x->sourceWeight[n][i])/(dia[i]*dia[i]);
+		scalingCoefficientSquareInverse = scalingCoefficientSquareInverse + (x->sourceWeight[n][i]*x->sourceWeight[n][i])/(distanceAdjusted[i]*distanceAdjusted[i]);
 	}
 
 	if (x->hullActive) {
@@ -747,8 +749,8 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 			iC = x->hullInTwoDimensions.destinationIndex[j];
 			iN = x->hullInTwoDimensions.destinationIndex[(j+1)%x->hullInTwoDimensions.num_dst];
 			// squared distance of the source S to the dest C and N
-			sSC = sdia[iC];
-			sSN = sdia[iN];
+			sSC = distanceAdjustedSquare[iC];
+			sSN = distanceAdjustedSquare[iN];
 			// squared distance of the border
 			sCN = x->hullInTwoDimensions.dst2next[j];
 			kCN = (sSC + sCN - sSN)/sCN;
@@ -789,13 +791,13 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 		outlet_anything(x->outlet[1], _sym_list, 3, a);
 	}
 
-	k = sqrt(1./k2inv);
-	k = k*x->masterGain*x->sourceGain[n]*x->sourceNotMuted[n];
+	scalingCoefficient = sqrt(1./scalingCoefficientSquareInverse);
+	scalingCoefficient = scalingCoefficient * x->masterGain * x->sourceGain[n] * x->sourceNotMuted[n];
 
 	atom_setlong(&a[0], n);
 	for (i=0; i<x->attrNumberOfDestinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], x->sourceWeight[n][i]*k/dia[i]);
+		atom_setfloat(&a[2], x->sourceWeight[n][i] * scalingCoefficient / distanceAdjusted[i]);
 		outlet_anything(x->outlet[0], _sym_list, 3, a);
 	}
 }
