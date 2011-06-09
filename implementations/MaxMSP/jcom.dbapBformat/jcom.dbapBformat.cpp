@@ -72,11 +72,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_FLOAT(c,		"rolloff",			0,		t_dbapBformat,	attrRollOff);
 	CLASS_ATTR_ACCESSORS(c,	"rolloff",			NULL,	dbapBformatAttrSetRollOff);
 	
-	//CLASS_ATTR_FLOAT(c,		"omni",				0,		t_dbapBformat,	attr_order_omni);
-	//CLASS_ATTR_ACCESSORS(c,	"omni",				NULL,	dbabBbformatAttrSetOmniOrder);
+	CLASS_ATTR_FLOAT(c,		"omni",				0,		t_dbapBformat,	attrOrderWeightOmni);
+	CLASS_ATTR_ACCESSORS(c,	"omni",				NULL,	dbabBformatAttrSetOmniOrder);
 	
-	//CLASS_ATTR_FLOAT(c,		"first",			0,		t_dbapBformat,	attr_order_first);
-	//CLASS_ATTR_ACCESSORS(c,	"first",			NULL,	dbapBformatAttrSetFirstOrder);
+	CLASS_ATTR_FLOAT(c,		"first",			0,		t_dbapBformat,	attrOrderWeightFirst);
+	CLASS_ATTR_ACCESSORS(c,	"first",			NULL,	dbapBformatAttrSetFirstOrder);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -679,6 +679,51 @@ t_max_err dbapBformatAttrSetRollOff(t_dbapBformat *x, void *attr, long argc, t_a
 	return MAX_ERR_NONE;
 }
 
+
+// ATTRIBUTE: Ambisonics zero order (omni) weight
+t_max_err dbabBformatAttrSetOmniOrder(t_dbapBformat *x, void *attr, long argc, t_atom *argv)
+{
+	float f;
+	long i;
+	
+	if (argc && argv) {	
+		f = atom_getfloat(argv);
+		if ((f<0.0) || (f>1.0)) {
+			error("Invalid argument for omni. Must be in the range from 0 to 1");
+			return MAX_ERR_NONE;;
+		}	
+		x->attrOrderWeightOmni = f;
+		dbapBformatCalculateA(x);
+		dbapBformatUpdateView(x);
+		// Update all matrix values
+		for (i=0; i<x->attrNumberOfSources; i++)
+			dbapBformatCalculate(x, i);
+	}
+	return MAX_ERR_NONE;
+}
+
+
+// ATTRIBUTE: Ambisonics first order weight
+t_max_err dbapBformatAttrSetFirstOrder(t_dbapBformat *x, void *attr, long argc, t_atom *argv)
+{
+	float f;
+	long i;
+	
+	if (argc && argv) {	
+		f = atom_getfloat(argv);
+		if ((f<0.0) || (f>1.0)) {
+			error("Invalid argument for first. Must be in the range from 0 to 1");
+			return MAX_ERR_NONE;;
+		}	
+		x->attrOrderWeightFirst = f;
+		dbapBformatCalculateA(x);
+		dbapBformatUpdateView(x);
+		// Update all matrix values
+		for (i=0; i<x->attrNumberOfSources; i++)
+			dbapBformatCalculate(x, i);
+	}
+	return MAX_ERR_NONE;
+}
 
 
 /************************************************************************************/

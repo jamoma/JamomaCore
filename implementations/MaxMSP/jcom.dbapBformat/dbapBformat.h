@@ -49,35 +49,48 @@ typedef struct _hullInTwoDimensions{
 	float		dst2next[MAX_NUM_DESTINATIONS];					///< squared length of each border of the hull
 } t_hullInTwoDimensions;										///< Convex hull in 1 dimension
 	
-typedef struct _dbapBformat{									///< Data structure for this object 
+typedef struct _dbapBformat{									///< Data structure for this object
+	// Max stuff
 	t_object	ob;												///< Must always be the first field; used by Max
+	void		*outlet[2];										////< Pointer to outlets. Need one for each outlet
+
+	// Sources
+	long		attrNumberOfSources;							///< number of active sources
 	t_xyz		sourcePosition[MAX_NUM_SOURCES];				///< Positions of the virtual source
 	float		blur[MAX_NUM_SOURCES];							///< Spatial bluriness ratio in percents for each source
 	float		sourceGain[MAX_NUM_SOURCES];					///< Linear gain for each source, not yet used
 	float		sourceWeight[MAX_NUM_WEIGHTED_SOURCES][MAX_NUM_WEIGHTED_DESTINATIONS];///< Weight for each source for each destination 
 	float		sourceNotMuted[MAX_NUM_SOURCES];				///< Mute and unmute sources
-	float		masterGain;										///< Mater gain for all of the algorithm
+		
+	// Destinations
+	long		attrNumberOfDestinations;						///< number of active destinations
 	t_xyz		destinationPosition[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
 	t_xyz		meanDestinationPosition;						///< Mean position of the field of destination points
+	
+	// Globals
+	float		masterGain;										///< Mater gain for all of the algorithm
+	float		variance;										///< Bias-corrected variance of distance from destination points to mean destination point	
+	long		attrDimensions;									///< Number of dimensions of the speaker and source system	
+	float		attrRollOff;									///< Set rolloff with distance in dB
+	float		a;												///< Constant: Exponent controlling amplitude dependance on distance. Depends on attrRollOff
+	
+	// Convex hull
 	bool		hullActive;										///< On/off calculation of distances to hull
-	t_hullInOneDimension		hullInOneDimension;				///< Convex hull in 1 dimension
-	t_hullInTwoDimensions		hullInTwoDimensions;			///< Convex hull in 2 dimensions
-	float		variance;										///< Bias-corrected variance of distance from destination points to mean destination point
-	long		attrDimensions;									///< Number of dimensions of the speaker and source system
-	float		attrRollOff;									///< Set rolloff with distance in dB.
-	long		attrNumberOfSources;							///< number of active sources
-	long		attrNumberOfDestinations;						///< number of active destinations
-
+	t_hullInOneDimension	hullInOneDimension;					///< Convex hull in 1 dimension
+	t_hullInTwoDimensions	hullInTwoDimensions;				///< Convex hull in 2 dimensions
+	
+	// Ambisonics decoding
+	float		attrOrderWeightOmni;							///< Weight for the zero order (omni) component of the B-format signal
+	float		attrOrderWeightFirst;							///< Weight for the first order component of the B-format signal
+	
+	// Viewing DBAP properties as a Jitter matrix
 	unsigned char viewMatrix[MAX_SIZE_VIEW_X][MAX_SIZE_VIEW_Y]; ///< handle to the hitmap view matrix
 	long		attrViewMatrixSize[2];							///< size of the hitmap view window (pixel,pixel)
 	t_xyz		attrViewMatrixStart;							///< coordinate of the start point of the view
 	t_xyz		attrViewMatrixEnd;								///< coordinate of the end point of the view
 	bool		attrViewMatrixUpdate;							///< IO the view updating
 	t_atom		lastView[2];									///< memorize the last view [dst src]
-	
-	float		a;												///< Constant: Exponent controlling amplitude dependance on distance. Depends on attrRollOff
-	void		*outlet[2];										////< Pointer to outlets. Need one for each outlet
-} t_dbapBformat;
+	} t_dbapBformat;
 
 // Prototypes for methods: need a method for each incoming message
 
@@ -146,6 +159,12 @@ t_max_err dbapBformatAttrSetBlur(t_dbapBformat *x, void *attr, long argc, t_atom
 
 /** Set rolloff in dB */
 t_max_err dbapBformatAttrSetRollOff(t_dbapBformat *x, void *attr, long argc, t_atom *argv);
+
+/** Set zero order (omni) weight for B-format decoding */
+t_max_err dbabBformatAttrSetOmniOrder(t_dbapBformat *x, void *attr, long argc, t_atom *argv);
+
+/** Set first order weight for B-format decoding */
+t_max_err dbapBformatAttrSetFirstOrder(t_dbapBformat *x, void *attr, long argc, t_atom *argv);
 
 /** Calculation of exponent coefficient based on rolloff */
 void dbapBformatCalculateA(t_dbapBformat *x);
