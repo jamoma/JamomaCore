@@ -689,6 +689,7 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 		[MAX_NUM_DESTINATIONS];			// Distance to ith speaker to the power of x->a, adjusted to prevent division by zero
 	float distanceAdjustedSquare
 		[MAX_NUM_DESTINATIONS];			// Squared Distance to ith speaker (without bluriness ratio)
+	float sourceSpeakerWeight;			// Calculated weight for current pair of source and speaker
 	
 	// Required for convex hull
 	long iC,iN;							// index of the the dest C and N dest in destinationPosition[]
@@ -794,10 +795,28 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 	scalingCoefficient = sqrt(1./scalingCoefficientSquareInverse);
 	scalingCoefficient = scalingCoefficient * x->masterGain * x->sourceGain[n] * x->sourceNotMuted[n];
 
-	atom_setlong(&a[0], n);
 	for (i=0; i<x->attrNumberOfDestinations; i++) {
+		sourceSpeakerWeight = x->sourceWeight[n][i] * scalingCoefficient / distanceAdjusted[i];
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], x->sourceWeight[n][i] * scalingCoefficient / distanceAdjusted[i]);
+
+		// W signal
+		atom_setlong(&a[0], n*4);
+		atom_setfloat(&a[2], sourceSpeakerWeight * x->decodeCoefficients[n][i].w);
+		outlet_anything(x->outlet[0], _sym_list, 3, a);
+		
+		// X signal
+		atom_setlong(&a[0], n*4+1);
+		atom_setfloat(&a[2], sourceSpeakerWeight * x->decodeCoefficients[n][i].x);
+		outlet_anything(x->outlet[0], _sym_list, 3, a);
+		
+		// Y signal
+		atom_setlong(&a[0], n*4+2);
+		atom_setfloat(&a[2], sourceSpeakerWeight * x->decodeCoefficients[n][i].y);
+		outlet_anything(x->outlet[0], _sym_list, 3, a);
+		
+		// Z signal
+		atom_setlong(&a[0], n*4+3);
+		atom_setfloat(&a[2], sourceSpeakerWeight * x->decodeCoefficients[n][i].z);
 		outlet_anything(x->outlet[0], _sym_list, 3, a);
 	}
 }
