@@ -39,9 +39,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)dbapBformat_blur,				"blur",			A_GIMME,	0);
-	class_addmethod(c, (method)dbapBformat_blurall,			"blurall",		A_FLOAT,	0);
+	class_addmethod(c, (method)dbapBformat_blurall,				"blurall",		A_FLOAT,	0);
 	class_addmethod(c, (method)dbapBformat_source,				"src_position",	A_GIMME,	0);
-	class_addmethod(c, (method)dbapBformat_destination,		"dst_position",	A_GIMME,	0);
+	class_addmethod(c, (method)dbapBformat_destination,			"dst_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformat_sourcegain,			"src_gain",		A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformat_sourceweight,		"src_weight",	A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformat_mastergain,			"master_gain",	A_FLOAT,	0);
@@ -50,7 +50,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)dbapBformat_hull,				"hull",			A_LONG,		0);
 
 	class_addmethod(c, (method)dbapBformat_view,				"view",			A_GIMME,	0);
-	class_addmethod(c, (method)dbapBformat_view_update,		"view_update",	A_LONG,		0);
+	class_addmethod(c, (method)dbapBformat_view_update,			"view_update",	A_LONG,		0);
 	class_addmethod(c, (method)dbapBformat_view_size,			"view_size",	A_LONG, A_LONG,	0);
 	class_addmethod(c, (method)dbapBformat_view_start,			"view_start",	A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformat_view_end,			"view_end",		A_GIMME,	0);
