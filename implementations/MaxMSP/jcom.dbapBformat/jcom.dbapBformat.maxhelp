@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 238.0, 60.0, 1131.0, 763.0 ],
+		"rect" : [ 208.0, 55.0, 1131.0, 763.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 238.0, 60.0, 1131.0, 763.0 ],
+		"defrect" : [ 208.0, 55.0, 1131.0, 763.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -1119,7 +1119,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.dbap", "@description", "Distance based amplitude panning" ],
+					"args" : [ "@name", "jcom.dbapBformat", "@description", "DBAP using B-format signals as input" ],
 					"bgmode" : 1,
 					"id" : "obj-61",
 					"maxclass" : "bpatcher",
@@ -4935,7 +4935,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 543.0, 321.0, 129.0, 17.0 ],
-					"text" : "src_position 1 11.6 6.3"
+					"text" : "src_position 1 12.7 8.8"
 				}
 
 			}
