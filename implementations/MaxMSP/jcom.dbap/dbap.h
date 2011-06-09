@@ -77,7 +77,7 @@ typedef struct _dbap{									///< Data structure for this object
 	t_atom		last_view[2];							///< memorize the last view [dst src]
 	
 	float		a;										///< Constant: Exponent controlling amplitude dependance on distance. Depends on attr_rolloff
-	void		*outlet[2];								////< Pointer to outlets. Need one for each outlet
+	void		*outlet[3];								////< Pointer to outlets. Need one for each outlet
 } t_dbap;
 
 // Prototypes for methods: need a method for each incoming message
