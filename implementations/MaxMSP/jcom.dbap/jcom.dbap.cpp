@@ -22,14 +22,14 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	jamoma_init();
 	common_symbols_init();
-	ps_rolloff = gensym("rolloff");
-	ps_src_position = gensym("src_position");
-	ps_src_gain = gensym("src_gain");
-	ps_src_mute = gensym("src_mute");
-	ps_src_blur = gensym("blur");
-	ps_dst_position = gensym("dst_position");
-	ps_dimensions = gensym("dimensions");
-	ps_num_sources = gensym("num_sources");
+	ps_rolloff			= gensym("rolloff");
+	ps_src_position		= gensym("src_position");
+	ps_src_gain			= gensym("src_gain");
+	ps_src_mute			= gensym("src_mute");
+	ps_src_blur			= gensym("blur");
+	ps_dst_position		= gensym("dst_position");
+	ps_dimensions		= gensym("dimensions");
+	ps_num_sources		= gensym("num_sources");
 	ps_num_destinations = gensym("num_destinations");
 
 
