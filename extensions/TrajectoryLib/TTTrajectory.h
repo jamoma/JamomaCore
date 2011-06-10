@@ -22,6 +22,7 @@ protected:
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
 	TTSymbolPtr				mMode;
+	TTList					mAnchorPoints;
 	TTAudioObjectPtr		mPhasors[1];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
 	TTAudioObjectPtr		mRamps[1];
@@ -48,6 +49,8 @@ public:
 			mActualTrajectoryObject->setAttributeValue(TT("deltaX"), mDeltaX);
 			mActualTrajectoryObject->setAttributeValue(TT("deltaY"), mDeltaY);
 			mActualTrajectoryObject->setAttributeValue(TT("deltaZ"), mDeltaZ);
+			
+			//TODO: I currently update ALL Attributes, regardless whether the types support it or not
 			
 			//mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, sr);
 			//mActualFilterObject->setAttributeValue(TT("frequency"), mFrequency);
@@ -176,6 +179,13 @@ public:
 		//}		
 		return kTTErrNone;
 	}
+	
+	TTErr setAnchorPoints(const TTValue& newValue)
+	{	
+		mAnchorPoints = newValue;
+		return mActualTrajectoryObject->setAttributeValue(TT("anchorPoints"), mAnchorPoints);
+	}
+	
 	
 	TTErr setA(const TTValue& newValue)
 	{	

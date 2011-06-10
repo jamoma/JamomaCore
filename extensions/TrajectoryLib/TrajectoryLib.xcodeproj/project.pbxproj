@@ -32,6 +32,8 @@
 		6646019313285C5F0006792C /* Spiral3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 6646019113285C5F0006792C /* Spiral3D.h */; };
 		666A22E6132E6FAC009F5CE1 /* Gear2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666A22E4132E6FAC009F5CE1 /* Gear2D.cpp */; };
 		666A22E7132E6FAC009F5CE1 /* Gear2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 666A22E5132E6FAC009F5CE1 /* Gear2D.h */; };
+		6694D8D41380C60300B9D69E /* Catmullrom3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6694D8D21380C60300B9D69E /* Catmullrom3D.cpp */; };
+		6694D8D51380C60300B9D69E /* Catmullrom3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 6694D8D31380C60300B9D69E /* Catmullrom3D.h */; };
 		66B6D21F13276408009A66CB /* Circular2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D21D13276408009A66CB /* Circular2D.cpp */; };
 		66B6D22013276408009A66CB /* Circular2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D21E13276408009A66CB /* Circular2D.h */; };
 		66B6D22B13276593009A66CB /* Hypocycloid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D22913276593009A66CB /* Hypocycloid2D.cpp */; };
@@ -85,6 +87,8 @@
 		6646019113285C5F0006792C /* Spiral3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spiral3D.h; sourceTree = "<group>"; };
 		666A22E4132E6FAC009F5CE1 /* Gear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gear2D.cpp; sourceTree = "<group>"; };
 		666A22E5132E6FAC009F5CE1 /* Gear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gear2D.h; sourceTree = "<group>"; };
+		6694D8D21380C60300B9D69E /* Catmullrom3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Catmullrom3D.cpp; sourceTree = "<group>"; };
+		6694D8D31380C60300B9D69E /* Catmullrom3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Catmullrom3D.h; sourceTree = "<group>"; };
 		66B6D21D13276408009A66CB /* Circular2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circular2D.cpp; sourceTree = "<group>"; };
 		66B6D21E13276408009A66CB /* Circular2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circular2D.h; sourceTree = "<group>"; };
 		66B6D22913276593009A66CB /* Hypocycloid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hypocycloid2D.cpp; sourceTree = "<group>"; };
@@ -209,6 +213,8 @@
 		66DCAD5813257AC8009F1A9A /* 3D */ = {
 			isa = PBXGroup;
 			children = (
+				6694D8D21380C60300B9D69E /* Catmullrom3D.cpp */,
+				6694D8D31380C60300B9D69E /* Catmullrom3D.h */,
 				66B6D2731327FBEC009A66CB /* CircularHelix3D.cpp */,
 				66B6D2741327FBEC009A66CB /* CircularHelix3D.h */,
 				66DCAD321325799E009F1A9A /* Linear3D.cpp */,
@@ -258,6 +264,7 @@
 				662A5C1E132FB0FE00CE46BC /* Slinky3D.h in Headers */,
 				662A5C8A1330BB4400CE46BC /* Torus3D.h in Headers */,
 				6603FE581333C62800A05DDA /* Bspline2D.h in Headers */,
+				6694D8D51380C60300B9D69E /* Catmullrom3D.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +358,7 @@
 				662A5C1D132FB0FE00CE46BC /* Slinky3D.cpp in Sources */,
 				662A5C891330BB4400CE46BC /* Torus3D.cpp in Sources */,
 				6603FE571333C62800A05DDA /* Bspline2D.cpp in Sources */,
+				6694D8D41380C60300B9D69E /* Catmullrom3D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
