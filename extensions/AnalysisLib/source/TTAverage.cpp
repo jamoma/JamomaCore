@@ -1,6 +1,6 @@
 /*
  * TTAverage - measuring of aveaged and RMS signal energy 
- * Copyright © 2011, Nils Peters
+ * Copyright © 2011, Tim Place, Nils Peters
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
