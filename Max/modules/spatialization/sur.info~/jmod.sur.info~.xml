@@ -10,6 +10,6 @@
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarText' type='array' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 105 </item>
+    <item name='view/size' type='array' priority='0'>150 105 </item>
   </preset>
 </jamoma>

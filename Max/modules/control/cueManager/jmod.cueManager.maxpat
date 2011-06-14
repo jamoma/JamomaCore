@@ -16411,7 +16411,6 @@
 				"box" : 				{
 					"background" : 1,
 					"bgcolor" : [ 0.2, 0.0, 0.1, 1.0 ],
-					"bordercolor" : [ 0.62, 0.0, 0.36, 1.0 ],
 					"has_panel" : 1,
 					"headercolor" : [ 0.82, 0.82, 0.82, 1.0 ],
 					"id" : "obj-22",

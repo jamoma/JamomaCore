@@ -37,7 +37,7 @@
     <item name='render/enable' type='boolean' priority='0'>1</item>
     <item name='render/layer' type='integer' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 105 </item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
     <item name='weight' type='decimal' priority='0'>0.995000</item>
   </preset>
 </jamoma>
