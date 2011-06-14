@@ -138,12 +138,11 @@ TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, T
 {	
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTAudioSignal&		in  = inputs->getSignal(0);
-	TTSampleValuePtr	outSample;
+	TTSampleValuePtr	outSample, inSample;
 	TTUInt16			channelCount = in.getNumChannelsAsInt();
 	TTUInt16			numFrames = in.getVectorSizeAsInt();
-	TTBoolean			bufferNeedsResize = NO;
 	TTUInt16			n, channel;
-	TTSampleValuePtr	inSample;
+	TTBoolean			bufferNeedsResize = NO;
 	sf_count_t			numSamplesWritten;
 
 	if (!mNumChannels) {		// this is the first frame to record, we need to set up the file
@@ -182,12 +181,10 @@ TTErr TTSoundfileRecorder::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAu
 {	
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTAudioSignal&		in  = inputs->getSignal(0);
-	TTSampleValuePtr	outSample;
+	TTSampleValuePtr	outSample, inSample;
 	TTUInt16			channelCount = in.getNumChannelsAsInt();
 	TTUInt16			numFrames = in.getVectorSizeAsInt();
-
 	TTUInt16			n, channel;
-	TTSampleValuePtr	inSample;
 
 	
 	// not recording, just bypassing audio and return
