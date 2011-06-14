@@ -715,8 +715,12 @@ void dbapBformatCalculate2D(t_dbapBformat *x, long n)
 	scalingCoefficientSquareInverse = 0;
 	for (i=0; i<x->attrNumberOfDestinations; i++) {
 
-		dx = x->destinationPosition[i].x - x->sourcePosition[n].x;
-		dy = x->destinationPosition[i].y - x->sourcePosition[n].y;
+		//dx = x->destinationPosition[i].x - x->sourcePosition[n].x;
+		//dy = x->destinationPosition[i].y - x->sourcePosition[n].y;
+		// Clculations of dx and dy might seem strange, but are due to the rotation
+		// of spherical vs. Cartesian coordinate systems in SpatDIF
+		dx = x->destinationPosition[i].y - x->sourcePosition[n].y;
+		dy = x->sourcePosition[n].x		 - x->destinationPosition[i].x;
 
 		// Calculations required for ambisonics decoding
 		distance = sqrt(dx*dx + dy*dy);
