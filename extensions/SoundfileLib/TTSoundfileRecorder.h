@@ -41,7 +41,9 @@ class TTSoundfileRecorder : public TTAudioObject {
 	TTErr openFile();
 	
 	// Block-based Audio Processing Methods
-	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudioRecording(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudioBypass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 };
 
 

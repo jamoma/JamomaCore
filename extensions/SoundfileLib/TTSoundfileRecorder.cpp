@@ -30,8 +30,6 @@ mTimedRecord(false)
 	addAttribute(			NumChannels,	kTypeUInt16);
 	addAttribute(			Length,			kTypeFloat64);
 	addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
-
-	setProcessMethod(processAudio);
 }
 
 
@@ -41,17 +39,17 @@ TTSoundfileRecorder::~TTSoundfileRecorder()
 	if (mSoundFile)
 		sf_close(mSoundFile);
 }
-/*TTErr TTSoundfileRecorder::setLength(const TTValue& newValue)
-{
-	mLength = newValue;
-	return kTTErrNone;
-}*/
 
 TTErr TTSoundfileRecorder::setRecord(const TTValue& newValue)
 {
 	TTBoolean	newRecordState = newValue;
-	TTErr		err = kTTErrNone;
+	TTErr		err = kTTErrNone;	
 	
+	if (newRecordState == 1)
+		setProcessMethod(processAudioRecording);
+	else 
+		setProcessMethod(processAudioBypass);
+		
 	if (mRecord != newRecordState) {
 		mRecord = newRecordState;
 		if (mRecord) {			// start recording
@@ -136,7 +134,7 @@ TTErr TTSoundfileRecorder::openFile()
 }
 
 
-TTErr TTSoundfileRecorder::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {	
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTAudioSignal&		in  = inputs->getSignal(0);
@@ -148,16 +146,6 @@ TTErr TTSoundfileRecorder::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSig
 	TTSampleValuePtr	inSample;
 	sf_count_t			numSamplesWritten;
 
-	if (!mRecord){				// not recording, just bypassing audio and return
-		for (channel=0; channel<channelCount; channel++) {
-			inSample = in.mSampleVectors[channel];
-			outSample = out.mSampleVectors[channel]; // sending audio out
-			for (n=0; n<numFrames; n++)
-				outSample[n] = inSample[n];  // sending audio out
-		}		
-		return kTTErrNone;
-	}
-	
 	if (!mNumChannels) {		// this is the first frame to record, we need to set up the file
 		mNumChannels = channelCount;
 		bufferNeedsResize = YES;
@@ -189,3 +177,25 @@ TTErr TTSoundfileRecorder::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSig
 	}	
 	return kTTErrNone;
 }
+
+TTErr TTSoundfileRecorder::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{	
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTAudioSignal&		in  = inputs->getSignal(0);
+	TTSampleValuePtr	outSample;
+	TTUInt16			channelCount = in.getNumChannelsAsInt();
+	TTUInt16			numFrames = in.getVectorSizeAsInt();
+
+	TTUInt16			n, channel;
+	TTSampleValuePtr	inSample;
+
+	
+	// not recording, just bypassing audio and return
+	 for (channel=0; channel<channelCount; channel++) {
+		 inSample = in.mSampleVectors[channel];
+		 outSample = out.mSampleVectors[channel]; // sending audio out
+		 for (n=0; n<numFrames; n++)
+			 outSample[n] = inSample[n];  // sending audio out
+	}
+	return kTTErrNone;
+} 
