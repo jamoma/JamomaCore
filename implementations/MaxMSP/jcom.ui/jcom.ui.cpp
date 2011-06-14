@@ -310,7 +310,17 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 
 t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 {
-	TTNodeAddressPtr adrs = TTADRS(atom_getsym(argv)->s_name);
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)ui_subscribe, atom_getsym(argv), 0, 0);
+	
+	return 0;
+}
+
+void ui_subscribe(t_ui *x, SymbolPtr address)
+{
+	TTNodeAddressPtr adrs = TTADRS(address->s_name);
 	TTValue			v;
 	TTAttributePtr	anAttribute;
 	TTErr			err;
@@ -357,8 +367,6 @@ t_max_err ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv)
 	// The following must be deferred because 
 	// we have to wait each component of the model are registered
 	defer_low((ObjectPtr)x, (method)ui_build, NULL, 0, 0);
-	
-	return 0;
 }
 
 t_max_err ui_address_get(t_ui *x, t_object *attr, long *argc, t_atom **argv)
