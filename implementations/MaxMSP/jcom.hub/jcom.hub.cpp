@@ -11,8 +11,8 @@
 
 // This is used to store extra data
 typedef struct extra {
-	ObjectPtr	modelInternal;		// store an internal model patcher
-	TTSymbolPtr modelAddress;		// store the /model/address parameter
+	ObjectPtr			modelInternal;		// store an internal model patcher
+	TTNodeAddressPtr	modelAddress;		// store the /model/address parameter
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
@@ -125,7 +125,7 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
-	EXTRA->modelAddress = kTTSymEmpty;
+	EXTRA->modelAddress = kTTAdrsEmpty;
 }
 
 void WrappedContainerClass_free(TTPtr self)
@@ -245,20 +245,28 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 					patcher = jamoma_patcher_get((ObjectPtr)x);
 					
 					// If x is in a bpatcher, the patcher is NULL
+					// and all the arguments are interesting
 					if (!patcher){
 						patcher = object_attr_getobj(x, _sym_parentpatcher);
+						jamoma_patcher_get_args(patcher, &ac, &av);
+					}
+					// else x is in a patcher
+					// and the first argument is the patcher name
+					else {
+						jamoma_patcher_get_args(patcher, &ac, &av);
+						ac--;
+						av++;
 					}
 					
-					jamoma_patcher_get_args(patcher, &ac, &av);
 					if (ac) {
-						EXTRA->modelAddress = TT(atom_getsym(av)->s_name);
+						EXTRA->modelAddress = TTADRS(atom_getsym(av)->s_name);
 						aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
 					}
 					
-					if (EXTRA->modelAddress != kTTSymEmpty) {
+					if (EXTRA->modelAddress != kTTAdrsEmpty) {
 						makeInternals_explorer((ObjectPtr)x, TT("nmspcExplorer"), gensym("return_nmpscExploration"), &anExplorer);
 						anExplorer->setAttributeValue(kTTSym_lookfor, TT("Container"));
-						anExplorer->setAttributeValue(kTTSym_address, S_SEPARATOR);
+						anExplorer->setAttributeValue(kTTSym_address, kTTAdrsRoot);
 						anExplorer->sendMessage(TT("Explore"), kTTValNONE);
 					}
 				}
@@ -464,7 +472,7 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->patcherContext == kTTSym_view) {
 		
 		if (atom_gettype(argv) == A_SYM) {
-			EXTRA->modelAddress = TT(atom_getsym(argv)->s_name);
+			EXTRA->modelAddress = TTADRS(atom_getsym(argv)->s_name);
 		}
 	}
 }
@@ -478,7 +486,7 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 	TTObjectPtr	aData;
 	
 	// if there is no address
-	if (EXTRA->modelAddress == kTTSymEmpty) {
+	if (EXTRA->modelAddress == kTTAdrsEmpty) {
 		
 		// look the namelist to know which data exist
 		for (long i=0; i<argc; i++) {
