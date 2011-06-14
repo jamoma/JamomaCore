@@ -815,7 +815,7 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number)
 	
 	// prepare arguments
 	args.append(TTUInt16(number));
-	args.append(TT("anything"));
+	args.append(TT("control"));
 	
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
@@ -893,7 +893,7 @@ TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number
 	
 	// prepare arguments
 	args.append(TTUInt16(number));
-	args.append(TT("anything"));
+	args.append(TT("control"));
 	
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));

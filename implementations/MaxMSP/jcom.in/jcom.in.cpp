@@ -197,25 +197,17 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// get the Node address
 		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, (TTSymbolPtr*)&nodeAddress);
+		v.get(0, &nodeAddress);
 		
 		// observe /parent/out address in order to link/unlink with an Input object below
-		node->getParent()->getAddress(&parentAddress, kTTAdrsRoot);
+		node->getParent()->getAddress(&parentAddress);
+		parentAddress = parentAddress->appendAddress(TTADRS("out"));
 		outAddress = parentAddress->getCString();
-		outAddress += "/out";
 		if (node->getInstance() != NO_INSTANCE) {
 			outAddress += ".";
 			outAddress += node->getInstance()->getCString();
 		}
 		x->wrappedObject->setAttributeValue(TT("outputAddress"), TTADRS(outAddress.data()));
-		
-#ifdef JCOM_IN_TILDE
-		// set audio type
-		x->wrappedObject->setAttributeValue(kTTSym_type, TT("audio"));
-#else
-		// set control type
-		x->wrappedObject->setAttributeValue(kTTSym_type, TT("control"));
-#endif
 		
 #ifdef JCOM_IN_TILDE
 		// make internal data to return in/amplitude
