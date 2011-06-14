@@ -110,9 +110,13 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 		x->attrDimensions = 2;							// two-dimensional by default
 		x->attrRollOff = 6;								// 6 dB rolloff by default
 		// In-phase decoding:
-		x->attrOrderWeightOmni = 1;
-		x->attrOrderWeightFirst = 0.3333333333333333;
+		//x->attrOrderWeightOmni = 1;
+		//x->attrOrderWeightOmni = 0.4715;				// TODO: ???? Denne fant jeg bare reint eksperimentelt
+		//x->attrOrderWeightFirst = 0.3333333333333333;
 
+		x->attrOrderWeightOmni = sqrt(2.);
+		x->attrOrderWeightFirst = sqrt(3.)*sqrt(3.)/3.;
+		
 		x->attrViewMatrixUpdate = false;
 		atom_setsym(&x->lastView[0], gensym("all"));
 		atom_setlong(&x->lastView[1],1);
