@@ -109,8 +109,9 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 		x->attrNumberOfDestinations = 1;				// default value
 		x->attrDimensions = 2;							// two-dimensional by default
 		x->attrRollOff = 6;								// 6 dB rolloff by default
-		x->attrOrderWeightOmni = 1;						// TODO: This is preliminary, and need to be substituted for real values
-		x->attrOrderWeightFirst = 1;					// TODO: This is preliminary, and need to be substituted for real values
+		// In-phase decoding:
+		x->attrOrderWeightOmni = 1;
+		x->attrOrderWeightFirst = 0.3333333333333333;
 
 		x->attrViewMatrixUpdate = false;
 		atom_setsym(&x->lastView[0], gensym("all"));
