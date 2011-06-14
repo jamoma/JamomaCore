@@ -137,17 +137,26 @@ TTErr TTSoundfileRecorder::openFile()
 
 
 TTErr TTSoundfileRecorder::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
-{
-	TTAudioSignal&		in = inputs->getSignal(0);
+{	
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTAudioSignal&		in  = inputs->getSignal(0);
+	TTSampleValuePtr	outSample;
 	TTUInt16			channelCount = in.getNumChannelsAsInt();
 	TTUInt16			numFrames = in.getVectorSizeAsInt();
 	TTBoolean			bufferNeedsResize = NO;
-	TTUInt16			n;
+	TTUInt16			n, channel;
 	TTSampleValuePtr	inSample;
 	sf_count_t			numSamplesWritten;
 
-	if (!mRecord)				// not recording
+	if (!mRecord){				// not recording, just bypassing audio and return
+		for (channel=0; channel<channelCount; channel++) {
+			inSample = in.mSampleVectors[channel];
+			outSample = out.mSampleVectors[channel]; // sending audio out
+			for (n=0; n<numFrames; n++)
+				outSample[n] = inSample[n];  // sending audio out
+		}		
 		return kTTErrNone;
+	}
 	
 	if (!mNumChannels) {		// this is the first frame to record, we need to set up the file
 		mNumChannels = channelCount;
@@ -161,13 +170,18 @@ TTErr TTSoundfileRecorder::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSig
 	if (bufferNeedsResize)
 		mBuffer.resize(mNumBufferFrames * mNumChannels);
 	
-	for (TTUInt16 channel=0; channel<channelCount; channel++) {
+	for (channel=0; channel<channelCount; channel++) {
 		inSample = in.mSampleVectors[channel];
-		for (n=0; n<numFrames; n++)
-			mBuffer[n * channelCount + channel] = inSample[n];
+		outSample = out.mSampleVectors[channel]; // sending audio out
+		for (n=0; n<numFrames; n++){
+			mBuffer[n * channelCount + channel] = inSample[n]; //sending audio to recording buffer
+			outSample[n] = inSample[n];  // sending audio out
+		}
 	}
 
 	numSamplesWritten = sf_write_double(mSoundFile, &mBuffer[0], numFrames*channelCount);
+	
+	
 	if (mTimedRecord){
 		mLengthInSamples = mLengthInSamples - numFrames; // decreasing the samplecounter by a vs if we want to record with a duration
 		if (mLengthInSamples <= 0) //TODO: we might want to chop of the samples that were recorded too long
