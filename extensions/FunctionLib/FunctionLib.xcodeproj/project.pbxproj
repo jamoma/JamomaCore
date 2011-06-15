@@ -26,6 +26,8 @@
 		666CF82C131B41C50003D7E2 /* LowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF824131B41C50003D7E2 /* LowpassFunction.cpp */; };
 		666CF82D131B41C50003D7E2 /* PowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF825131B41C50003D7E2 /* PowerFunction.cpp */; };
 		666CF82E131B41C50003D7E2 /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF826131B41C50003D7E2 /* TanhFunction.cpp */; };
+		A769B90C13A8F07500441F80 /* SmoothPolynomialFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A769B90B13A8F07500441F80 /* SmoothPolynomialFunction.h */; };
+		A769B90E13A8F08400441F80 /* SmoothPolynomialFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A769B90D13A8F08400441F80 /* SmoothPolynomialFunction.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		666CF824131B41C50003D7E2 /* LowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LowpassFunction.cpp; path = source/LowpassFunction.cpp; sourceTree = "<group>"; };
 		666CF825131B41C50003D7E2 /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PowerFunction.cpp; path = source/PowerFunction.cpp; sourceTree = "<group>"; };
 		666CF826131B41C50003D7E2 /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TanhFunction.cpp; path = source/TanhFunction.cpp; sourceTree = "<group>"; };
+		A769B90B13A8F07500441F80 /* SmoothPolynomialFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SmoothPolynomialFunction.h; path = includes/SmoothPolynomialFunction.h; sourceTree = "<group>"; };
+		A769B90D13A8F08400441F80 /* SmoothPolynomialFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SmoothPolynomialFunction.cpp; path = source/SmoothPolynomialFunction.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* FunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -123,6 +127,8 @@
 				666CF814131B41BF0003D7E2 /* LowpassFunction.h */,
 				666CF825131B41C50003D7E2 /* PowerFunction.cpp */,
 				666CF815131B41BF0003D7E2 /* PowerFunction.h */,
+				A769B90B13A8F07500441F80 /* SmoothPolynomialFunction.h */,
+				A769B90D13A8F08400441F80 /* SmoothPolynomialFunction.cpp */,
 				666CF826131B41C50003D7E2 /* TanhFunction.cpp */,
 				666CF816131B41BF0003D7E2 /* TanhFunction.h */,
 			);
@@ -144,6 +150,7 @@
 				666CF81C131B41BF0003D7E2 /* LowpassFunction.h in Headers */,
 				666CF81D131B41BF0003D7E2 /* PowerFunction.h in Headers */,
 				666CF81E131B41BF0003D7E2 /* TanhFunction.h in Headers */,
+				A769B90C13A8F07500441F80 /* SmoothPolynomialFunction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +230,7 @@
 				666CF82C131B41C50003D7E2 /* LowpassFunction.cpp in Sources */,
 				666CF82D131B41C50003D7E2 /* PowerFunction.cpp in Sources */,
 				666CF82E131B41C50003D7E2 /* TanhFunction.cpp in Sources */,
+				A769B90E13A8F08400441F80 /* SmoothPolynomialFunction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
