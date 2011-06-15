@@ -89,9 +89,7 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 	
 	if (x) {
     	object_obex_store(x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
-		x->outlet[2] = outlet_new(x, 0);				// Third outlet: Visualization data
-		x->outlet[1] = outlet_new(x, 0);				// Middle outlet: Distance from convex hull
-		x->outlet[0] = outlet_new(x, 0);				// Left outlet: Feed to matrix~
+		x->outlet = outlet_new(x, 0);				// Left outlet: Feed to matrix~
 		
 		// Initializing and setting defaults for attributes.
 		x->masterGain = 1.;								// default value
@@ -383,12 +381,6 @@ void dbapBformatAssist(t_dbapBformat *x, void *b, long msg, long arg, char *dst)
 				strcpy(dst, "(list) messages for matrix~");
 				break;
 			case 1: 
-				strcpy(dst, "(list) distance from convex hull");
-				break;
-			case 2: 
-				strcpy(dst, "(list) visualization data");
-				break;
-			case 3: 
 				strcpy(dst, "dumpout");
 				break;
 		}
@@ -577,22 +569,22 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 		// W signal
 		atom_setlong(&a[0], n*4);
 		atom_setfloat(&a[2], sourceSpeakerWeight * x->decodeCoefficients[n][i].w);
-		outlet_anything(x->outlet[0], _sym_list, 3, a);
+		outlet_anything(x->outlet, _sym_list, 3, a);
 		
 		// X signal
 		atom_setlong(&a[0], n*4+1);
 		atom_setfloat(&a[2], sourceSpeakerWeight * x->decodeCoefficients[n][i].x);
-		outlet_anything(x->outlet[0], _sym_list, 3, a);
+		outlet_anything(x->outlet, _sym_list, 3, a);
 		
 		// Y signal
 		atom_setlong(&a[0], n*4+2);
 		atom_setfloat(&a[2], sourceSpeakerWeight * x->decodeCoefficients[n][i].y);
-		outlet_anything(x->outlet[0], _sym_list, 3, a);
+		outlet_anything(x->outlet, _sym_list, 3, a);
 		
 		// Z signal
 		atom_setlong(&a[0], n*4+3);
 		atom_setfloat(&a[2], sourceSpeakerWeight * x->decodeCoefficients[n][i].z);
-		outlet_anything(x->outlet[0], _sym_list, 3, a);
+		outlet_anything(x->outlet, _sym_list, 3, a);
 	}
 }
 

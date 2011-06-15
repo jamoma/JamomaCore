@@ -46,7 +46,7 @@ typedef struct _decodeCoefficients{
 typedef struct _dbapBformat{									///< Data structure for this object
 	// Max stuff
 	t_object	ob;												///< Must always be the first field; used by Max
-	void		*outlet[3];										////< Pointer to outlets. Need one for each outlet
+	void		*outlet;										////< Pointer to outlets. Need one for each outlet
 
 	// Sources
 	long		attrNumberOfSources;							///< number of active sources
