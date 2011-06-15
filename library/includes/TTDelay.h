@@ -64,6 +64,9 @@ class TTDSP_EXPORT TTDelay : public TTAudioObject {
 
 	TTErr calculateLinearInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
 	TTErr processAudioLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	TTErr calculateCosineInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
+	TTErr processAudioCosineInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	TTErr calculateCubicInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
 	TTErr processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -77,9 +80,10 @@ class TTDSP_EXPORT TTDelay : public TTAudioObject {
 //	TTErr processAudioCubicInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
 	
 public:
-	TTErr calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
-	
-	
+	TTErr calculateNoInterpolation(const TTFloat64& x,		TTFloat64& y,	TTPtrSizedInt channel);
+	TTErr calculateLinearInterpolation(const TTFloat64& x,	TTFloat64& y,	TTPtrSizedInt channel);
+	TTErr calculateCosineInterpolation(const TTFloat64& x,	TTFloat64& y,	TTPtrSizedInt channel);
+	TTErr calculateCubicInterpolation(const TTFloat64& x,	TTFloat64& y,	TTPtrSizedInt channel);	
 	
 };
 
