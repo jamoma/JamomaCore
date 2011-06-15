@@ -514,7 +514,7 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 {
 	float scalingCoefficient;			// Scaling coefficient
 	float scalingCoefficientSquareInverse;	// Inverse square of the scaling coefficient
-	float dx, dy;						// Distance vector
+	float dx, dy, dz;					// Distance vector
 	float blurSquared;					// Bluriness ratio squared
 	float distanceAdjusted
 		[MAX_NUM_DESTINATIONS];			// Distance to ith speaker to the power of x->a, adjusted to prevent division by zero
@@ -524,7 +524,8 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 	long i;
 	
 	// Required for ambisonic decoding
-	float distance;						// Non-adjusted distance from source to destination
+	float horisontalDistance;			// Distance from source to destination in the horizontal plane
+	float distance;						// Distance from source to destination in 3D
 	float cosAzimuth;					// cos(azimuth)
 	float sinAzimuth;					// sin(azimuth)
 	float cosElevation;					// cos(elevation)
@@ -541,14 +542,17 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 		// of spherical vs. Cartesian coordinate systems in SpatDIF
 		dx = x->destinationPosition[i].y - x->sourcePosition[n].y;
 		dy = x->sourcePosition[n].x		 - x->destinationPosition[i].x;
+		dz = x->destinationPosition[i].z - x->sourcePosition[n].z;
 
 		// Calculations required for ambisonics decoding
-		distance = sqrt(dx*dx + dy*dy);
+		horisontalDistance = sqrt(dx*dx + dy*dy);
+		distance = sqrt(dx*dx + dy*dy + dz*dz);
 
-		cosAzimuth = dx/distance;		// TODO: We are at risk of dividing by zero
-		sinAzimuth = dy/distance;		// TODO: We are at risk of dividing by zero
-		cosElevation = 1.0;				// We assume z=0 for the 2D case
-		sinElevation = 0.0;				// We assume z=0 for the 2D case
+		// TODO: We risk dividing by zero here:
+		cosAzimuth = dx/horisontalDistance;
+		sinAzimuth = dy/horisontalDistance;
+		cosElevation = horisontalDistance/distance;
+		sinElevation = dz/distance;
 		
 		x->decodeCoefficients[n][i].w = omniCoefficient * x->attrOrderWeightOmni;
 		x->decodeCoefficients[n][i].x = firstCoefficient * x->attrOrderWeightFirst * cosAzimuth * cosElevation;
@@ -558,7 +562,7 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 		// Calculations required for DBAP
 		
 		// Distance adjusted to prevent division by zero
-		distanceAdjusted[i] = pow(double(dx*dx + dy*dy + blurSquared), double(0.5*x->a));
+		distanceAdjusted[i] = pow(double(dx*dx + dy*dy + dz*dz + blurSquared), double(0.5*x->a));
 		
 		scalingCoefficientSquareInverse = scalingCoefficientSquareInverse + (x->sourceWeight[n][i]*x->sourceWeight[n][i])/(distanceAdjusted[i]*distanceAdjusted[i]);
 	}
