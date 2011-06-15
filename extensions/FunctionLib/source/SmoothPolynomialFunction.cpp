@@ -35,7 +35,9 @@ SmoothPolynomialFunction::~SmoothPolynomialFunction()
 
 TTErr SmoothPolynomialFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = 6*pow(x, 5.) - 15*pow(x, 4.) + 10*pow(x, 3.0);
+	//y = 6*pow(x, 5.) - 15*pow(x, 4.) + 10*pow(x, 3.0);
+	// Or slightly more optimised:
+	y = x*x*x*(x*(6*x-15)+10);
 	
 	return kTTErrNone;
 }
