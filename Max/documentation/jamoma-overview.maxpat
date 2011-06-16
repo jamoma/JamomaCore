@@ -182,13 +182,13 @@
 ,
 					"patching_rect" : [ 260.0, 410.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p JAB"
@@ -286,13 +286,13 @@
 ,
 					"patching_rect" : [ 20.0, 410.0, 61.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p tutorials"
@@ -989,13 +989,13 @@
 ,
 					"patching_rect" : [ 200.0, 410.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p UserLib"
@@ -6340,13 +6340,13 @@
 ,
 					"patching_rect" : [ 170.0, 430.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p components"
@@ -6853,13 +6853,13 @@
 ,
 					"patching_rect" : [ 110.0, 410.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p examples"
@@ -6894,6 +6894,23 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-150",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 10.0, 290.0, 150.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 10.0, 290.0, 150.0, 17.0 ],
+									"text" : "jmod.polhemus",
+									"varname" : "jmod.polhemus"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -7324,13 +7341,13 @@
 ,
 									"patching_rect" : [ 420.0, 44.0, 69.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontname" : "Arial",
+										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"fontname" : "Arial"
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p hoverHint"
@@ -7729,9 +7746,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 330.0, 150.0, 17.0 ],
+									"patching_rect" : [ 10.0, 350.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 330.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 350.0, 150.0, 17.0 ],
 									"text" : "jmod.spacenavigator",
 									"varname" : "jmod.spacenavigator"
 								}
@@ -8109,9 +8126,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 290.0, 150.0, 17.0 ],
+									"patching_rect" : [ 10.0, 310.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 290.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 310.0, 150.0, 17.0 ],
 									"text" : "jmod.uc-33",
 									"varname" : "jmod.uc-33"
 								}
@@ -8617,9 +8634,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 310.0, 150.0, 17.0 ],
+									"patching_rect" : [ 10.0, 330.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 310.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 330.0, 150.0, 17.0 ],
 									"text" : "jmod.wacom",
 									"varname" : "jmod.wacom"
 								}
@@ -10212,6 +10229,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-158", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-150", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-161", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -10890,13 +10916,13 @@
 ,
 					"patching_rect" : [ 40.0, 440.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p modules"
