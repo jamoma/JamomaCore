@@ -25,6 +25,8 @@ class SmoothPolynomialFunction : TTAudioObject {
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
 };
 
 
