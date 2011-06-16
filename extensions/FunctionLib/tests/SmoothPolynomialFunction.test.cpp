@@ -318,7 +318,7 @@ TTFloat64 expectedSignal1[128] = {
 			TTTestLog("BAD SAMPLE @ n=%i ( value=%.10f	expected=%.10f )", n, output->mSampleVectors[0][n], expectedSignal1[n]);
 	}
 	
-	TTTestAssertion("Produces correct window coefficients", 
+	TTTestAssertion("Produces correct function values", 
 					badSampleCount == 0,
 					testAssertionCount, 
 					errorCount);
