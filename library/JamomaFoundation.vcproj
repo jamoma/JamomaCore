@@ -391,7 +391,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\TTNodeAddress.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTNodeAddressCache.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTNodeAddressTable.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TTNodeDirectory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\TTNodeLib.test.cpp"
 				>
 			</File>
 			<File
