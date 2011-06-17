@@ -10,7 +10,7 @@
 #include "TTUnitTest.h"
 
 
-static const TTFloat32 kTTTestFloat32Epsilon = 0.00001;
+static const TTFloat32 kTTTestFloat32Epsilon = 0.00001f;
 static const TTFloat64 kTTTestFloat64Epsilon = 0.000000001;
 static const TTFloat32 kTTTestFloat32Infinity = std::numeric_limits<float>::infinity();
 static const TTFloat64 kTTTestFloat64Infinity = std::numeric_limits<double>::infinity();
