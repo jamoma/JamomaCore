@@ -76,7 +76,7 @@ TTNodeAddressTable::~TTNodeAddressTable()
 
 TTNodeAddress* TTNodeAddressTable::lookup(const char* aString)
 {
-#ifdef TT_PLATFORM_WIN
+#ifdef TT_PLATFORM_WIN_DOESNT_WORK_SO_COMMENTED_OUT_BY_TIM
 	TTNodeAddressTableIter	iter;
 
 	aMutex->lock();
@@ -104,7 +104,7 @@ TTNodeAddress* TTNodeAddressTable::lookup(const char* aString)
 
 TTNodeAddress* TTNodeAddressTable::lookup(const TTString& aString)
 {
-#ifdef TT_PLATFORM_WIN
+#ifdef TT_PLATFORM_WIN_DOESNT_WORK_SO_COMMENTED_OUT_BY_TIM
 	return lookup(aString.c_str());
 #else
 	TTNodeAddressTableIter	iter;
