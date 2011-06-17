@@ -252,9 +252,10 @@ public:
 		// But maybe that makes not sense.
 	}
 	
-	
+#if 0
 #pragma mark -
-		
+#endif
+
 	/**	A function (method) type for implementing iterators used by the iterate() method	*/
 	typedef void (*TTMatrixIterator)(TTPtr c, const TTPtr a, const TTPtr b);
 	
