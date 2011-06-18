@@ -239,6 +239,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\SmoothPolynomialFunction.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TanhFunction.cpp"
 				>
 			</File>
