@@ -23,8 +23,10 @@ class TTAudioGraphPick : public TTAudioObject {
 		mNumPickChannels = args.getSize();
 		
 		mPickChannels.resize(mNumPickChannels);
-		for (TTUInt16 i=0; i<mNumPickChannels; i++) 
-			args.get(i, mPickChannels[i]);
+		for (TTUInt16 i=0; i<mNumPickChannels; i++) {
+			args.get(i, mPickChannels[i]); //substracting offset (channel 1 is JAG-channel 0)
+			mPickChannels[i] = mPickChannels[i] - 1;
+		}
 		return kTTErrNone;
 	}
 	
@@ -32,7 +34,7 @@ class TTAudioGraphPick : public TTAudioObject {
 	{
 		args.setSize(mNumPickChannels);
 		for (TTUInt16 i=0; i<mNumPickChannels; i++)
-			args.set(i, mPickChannels[i]);
+			args.set(i, mPickChannels[i]+1); //re-adding offset 
 		return kTTErrNone;
 	}
 	
@@ -56,7 +58,7 @@ class TTAudioGraphPick : public TTAudioObject {
 			n = vs;
 			currentPick = mPickChannels[i];
 			if (currentPick <= inputChannelCount) {
-				inSample = in.mSampleVectors[mPickChannels[i]-1];					
+				inSample = in.mSampleVectors[mPickChannels[i]];					
 				while (n--)
 					*outSample++ = *inSample++;
 			}
