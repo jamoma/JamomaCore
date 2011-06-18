@@ -17,12 +17,16 @@ class TTAudioGraphPick : public TTAudioObject {
 	
 	vector<TTUInt16>	mPickChannels;	///< The specific channels we want to pick
 	TTUInt16			mNumPickChannels; ///< The number of channels we pick
+	TTBoolean			outputNeedsResize;
 	
 	TTErr setPicks(const TTValueRef args)
 	{
-		mNumPickChannels = args.getSize();
-		
-		mPickChannels.resize(mNumPickChannels);
+		if (args.getSize() != mNumPickChannels){
+			mNumPickChannels = args.getSize();
+			mPickChannels.resize(mNumPickChannels);
+			outputNeedsResize = TRUE;
+		}
+				
 		for (TTUInt16 i=0; i<mNumPickChannels; i++) {
 			args.get(i, mPickChannels[i]); //substracting offset (channel 1 is JAG-channel 0)
 			mPickChannels[i] = mPickChannels[i] - 1;
@@ -47,11 +51,11 @@ class TTAudioGraphPick : public TTAudioObject {
 		TTUInt16		vs = out.getVectorSizeAsInt();
 		TTUInt16		currentPick, n;
 		
-		// TODO: we don't really want to alloc this memory every time!
-		
+		if (outputNeedsResize){
 		out.setMaxNumChannels(mNumPickChannels);
 		out.setNumChannels(mNumPickChannels);
-		
+		outputNeedsResize = FALSE;
+		}
 		
 		for (TTUInt16 i=0; i < mNumPickChannels; i++) {
 			outSample = out.mSampleVectors[i];

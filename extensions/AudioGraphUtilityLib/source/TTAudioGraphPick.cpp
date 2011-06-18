@@ -14,7 +14,8 @@
 
 
 TT_AUDIO_CONSTRUCTOR,
-mPickChannels(1)
+mPickChannels(1),
+outputNeedsResize(TRUE)
 {
 	addAttributeWithGetterAndSetter(Picks, kTypeUInt16);	
 	setAttributeValue(TT("maxNumChannels"), arguments);		
