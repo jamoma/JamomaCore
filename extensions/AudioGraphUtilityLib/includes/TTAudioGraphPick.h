@@ -1,6 +1,6 @@
 /* 
  * TTAudioGraphSplit Object
- * Copyright © 2008, Timothy Place
+ * Copyright © 2011, Nils Peters
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -15,8 +15,8 @@
 class TTAudioGraphPick : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioGraphPick)
 	
-	vector<TTUInt16>	mPickChannels;	///< The number of channels in each of N groups of signals
-	TTUInt16			mNumPickChannels;
+	vector<TTUInt16>	mPickChannels;	///< The specific channels we want to pick
+	TTUInt16			mNumPickChannels; ///< The number of channels we pick
 	
 	TTErr setPicks(const TTValueRef args)
 	{
