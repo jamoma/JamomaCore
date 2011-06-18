@@ -31,11 +31,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	psNumberOfSources		= gensym("num_sources");
 	psNumberOfDestinations	= gensym("num_destinations");
 
-	omniCoefficient			= sqrt(2.);
-	//firstCoefficient		= sqrt(3.)*sqrt(3.);
-	firstCoefficient		= 3.0;
-	post("omniCoefficient = %f", omniCoefficient);
-	post("firstCoefficient = %f", firstCoefficient);
+	sqrt2					= sqrt(2.);
 	
 	// Define our class
 	c = class_new("jcom.dbapBformat",(method)dbapBformatNew, (method)0L, sizeof(t_dbapBformat), 
@@ -65,12 +61,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_FLOAT(c,		"rolloff",			0,		t_dbapBformat,	attrRollOff);
 	CLASS_ATTR_ACCESSORS(c,	"rolloff",			NULL,	dbapBformatAttrSetRollOff);
 	
-	CLASS_ATTR_FLOAT(c,		"omni",				0,		t_dbapBformat,	attrOrderWeightOmni);
-	CLASS_ATTR_ACCESSORS(c,	"omni",				NULL,	dbabBformatAttrSetOmniOrder);
-	
-	CLASS_ATTR_FLOAT(c,		"first",			0,		t_dbapBformat,	attrOrderWeightFirst);
-	CLASS_ATTR_ACCESSORS(c,	"first",			NULL,	dbapBformatAttrSetFirstOrder);
-	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	this_class = c;	
@@ -99,9 +89,6 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 		x->attrNumberOfSources = 1;						// default value
 		x->attrNumberOfDestinations = 1;				// default value
 		x->attrRollOff = 6;								// 6 dB rolloff by default
-		// In-phase decoding:
-		x->attrOrderWeightOmni = 1;
-		x->attrOrderWeightFirst = 0.3333333333333333;
 		
 		for (i=0; i<MAX_NUM_SOURCES; i++) {
 			x->sourcePosition[i].x = 0.;
@@ -455,50 +442,6 @@ t_max_err dbapBformatAttrSetRollOff(t_dbapBformat *x, void *attr, long argc, t_a
 }
 
 
-// ATTRIBUTE: Ambisonics zero order (omni) weight
-t_max_err dbabBformatAttrSetOmniOrder(t_dbapBformat *x, void *attr, long argc, t_atom *argv)
-{
-	float f;
-	long i;
-	
-	if (argc && argv) {	
-		f = atom_getfloat(argv);
-		if ((f<0.0) || (f>1.0)) {
-			error("Invalid argument for omni. Must be in the range from 0 to 1");
-			return MAX_ERR_NONE;;
-		}	
-		x->attrOrderWeightOmni = f;
-		dbapBformatCalculateA(x);
-		// Update all matrix values
-		for (i=0; i<x->attrNumberOfSources; i++)
-			dbapBformatCalculate(x, i);
-	}
-	return MAX_ERR_NONE;
-}
-
-
-// ATTRIBUTE: Ambisonics first order weight
-t_max_err dbapBformatAttrSetFirstOrder(t_dbapBformat *x, void *attr, long argc, t_atom *argv)
-{
-	float f;
-	long i;
-	
-	if (argc && argv) {	
-		f = atom_getfloat(argv);
-		if ((f<0.0) || (f>1.0)) {
-			error("Invalid argument for first. Must be in the range from 0 to 1");
-			return MAX_ERR_NONE;;
-		}	
-		x->attrOrderWeightFirst = f;
-		dbapBformatCalculateA(x);
-		// Update all matrix values
-		for (i=0; i<x->attrNumberOfSources; i++)
-			dbapBformatCalculate(x, i);
-	}
-	return MAX_ERR_NONE;
-}
-
-
 /************************************************************************************/
 // Methods bound to calculations
 #pragma mark -
@@ -549,15 +492,10 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 		cosElevation = horisontalDistance/distance;
 		sinElevation = dz/distance;
 
-		x->decodeCoefficients[n][i].w = sqrt(2.0);
+		x->decodeCoefficients[n][i].w = sqrt2;
 		x->decodeCoefficients[n][i].x = cosAzimuth * cosElevation;
 		x->decodeCoefficients[n][i].y = sinAzimuth * cosElevation;
 		x->decodeCoefficients[n][i].z = sinElevation;
-		
-		//x->decodeCoefficients[n][i].w = omniCoefficient * x->attrOrderWeightOmni;
-		//x->decodeCoefficients[n][i].x = firstCoefficient * x->attrOrderWeightFirst * cosAzimuth * cosElevation;
-		//x->decodeCoefficients[n][i].y = firstCoefficient * x->attrOrderWeightFirst * sinAzimuth * cosElevation;
-		//x->decodeCoefficients[n][i].z = firstCoefficient * x->attrOrderWeightFirst * sinElevation;
 		
 		// Calculations required for DBAP
 		
