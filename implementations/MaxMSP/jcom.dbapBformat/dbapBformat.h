@@ -23,8 +23,7 @@ t_symbol		*psRollOff,
 				*psSourceBlur;
 
 
-float omniCoefficient;											///< Scaling coefficient for zero order (omni) B-format component
-float firstCoefficient;											///< Scaling coefficient for first order B-format components
+float sqrt2;													///< Equals sqrt(2), optimalisation convinience
 
 /** Data structure for storing a 1,2 or 3 dimensional space data */
 typedef struct _xyz{
@@ -74,10 +73,6 @@ typedef struct _dbapBformat{									///< Data structure for this object
 	float		variance;										///< Bias-corrected variance of distance from destination points to mean destination point	
 	float		attrRollOff;									///< Set rolloff with distance in dB
 	float		a;												///< Constant: Exponent controlling amplitude dependance on distance. Depends on attrRollOff
-	
-	// Ambisonics decoding
-	float		attrOrderWeightOmni;							///< Weight for the zero order (omni) component of the B-format signal
-	float		attrOrderWeightFirst;							///< Weight for the first order component of the B-format signal
 	} t_dbapBformat;
 
 
@@ -127,12 +122,6 @@ t_max_err dbapBformatAttrSetBlur(t_dbapBformat *x, void *attr, long argc, t_atom
 
 /** Set rolloff in dB */
 t_max_err dbapBformatAttrSetRollOff(t_dbapBformat *x, void *attr, long argc, t_atom *argv);
-
-/** Set zero order (omni) weight for B-format decoding */
-t_max_err dbabBformatAttrSetOmniOrder(t_dbapBformat *x, void *attr, long argc, t_atom *argv);
-
-/** Set first order weight for B-format decoding */
-t_max_err dbapBformatAttrSetFirstOrder(t_dbapBformat *x, void *attr, long argc, t_atom *argv);
 
 /** Calculation of exponent coefficient based on rolloff */
 void dbapBformatCalculateA(t_dbapBformat *x);
