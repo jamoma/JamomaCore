@@ -395,7 +395,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sp[0]->s_sr);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
