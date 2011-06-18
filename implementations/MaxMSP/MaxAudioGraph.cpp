@@ -381,7 +381,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 	o->getMessageNames(v);
 	for (TTUInt16 i=0; i<v.getSize(); i++) {
 		v.get(i, &name);
-		nameSize = name->getString().length();
+		nameSize = strlen(name->getCString());
 		nameCString = new char[nameSize+1];
 		strncpy_zero(nameCString, name->getCString(), nameSize+1);
 
@@ -400,7 +400,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 		TTValue			isGenerator = kTTBoolNo;
 		
 		v.get(i, &name);
-		nameSize = name->getString().length();
+		nameSize = strlen(name->getCString());
 		nameCString = new char[nameSize+1];
 		strncpy_zero(nameCString, name->getCString(), nameSize+1);
 		nameMaxSymbol = gensym(nameCString);

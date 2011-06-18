@@ -10,7 +10,7 @@
 #include "maxAudioGraph.h"
 
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
 	TTValue								value(0);

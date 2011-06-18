@@ -19,7 +19,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttribute(Value, kTypeFloat64);
 	addMessageWithArgument(dictionary);
 	
-	setAttributeValue(TT("maxNumChannels"), arguments);		
+	//setAttributeValue(TT("maxNumChannels"), arguments);		
 	setProcessMethod(processAudio);
 }
 

@@ -22,13 +22,25 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-32",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 237.0, 80.0, 50.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-31",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 454.0, 402.0, 61.0, 19.0 ],
-					"presentation_rect" : [ 398.0, 403.0, 0.0, 0.0 ],
 					"text" : "Wet signal"
 				}
 
@@ -165,7 +177,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 604.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 750.0, 70.0 ]
 				}
 
 			}
@@ -438,6 +450,20 @@
 				}
 
 			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-16",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 237.0, 104.0, 72.0, 17.0 ],
+					"text" : "delayMax $1"
+				}
+
+			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
@@ -481,6 +507,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 453.5, 260.0, 431.0, 260.0, 431.0, 395.0, 453.5, 395.0 ],
 					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 246.5, 134.0, 320.5, 134.0 ],
+					"source" : [ "obj-16", 0 ]
 				}
 
 			}
@@ -625,6 +660,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-30", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-32", 0 ]
 				}
 
 			}
