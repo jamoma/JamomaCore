@@ -184,6 +184,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\source\TTAverage.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\tests\TTAverage.test.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\source\TTZerocross.cpp"
 			>
 		</File>
