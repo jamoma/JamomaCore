@@ -30,8 +30,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	psDestinationPosition	= gensym("destination_position");
 	psNumberOfSources		= gensym("num_sources");
 	psNumberOfDestinations	= gensym("num_destinations");
-
-	sqrt2					= sqrt(2.);
 	
 	// Define our class
 	c = class_new("jcom.dbapBformat",(method)dbapBformatNew, (method)0L, sizeof(t_dbapBformat), 
@@ -40,6 +38,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)dbapBformatBlur,				"blur",				A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformatBlurAll,			"blurall",			A_FLOAT,	0);
+	class_addmethod(c, (method)dbapBformatPolarity,			"polarity",			A_GIMME,	0);
+	class_addmethod(c, (method)dbapBformatPolarityAll,		"polarityall",		A_FLOAT,	0);
 	class_addmethod(c, (method)dbapBformatSource,			"src_position",		A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformatDestination,		"dst_position",		A_GIMME,	0);
 	class_addmethod(c, (method)dbapBformatSourceGain,		"src_gain",			A_GIMME,	0);
@@ -91,12 +91,13 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 		x->attrRollOff = 6;								// 6 dB rolloff by default
 		
 		for (i=0; i<MAX_NUM_SOURCES; i++) {
-			x->sourcePosition[i].x = 0.;
-			x->sourcePosition[i].y = 0.;
-			x->sourcePosition[i].z = 0.;
-			x->blur[i]	   = 0.000001;
-			x->sourceGain[i] = 1.0;
-			x->sourceNotMuted[i] = 1.0;
+			x->sourcePosition[i].x	= 0.;
+			x->sourcePosition[i].y	= 0.;
+			x->sourcePosition[i].z	= 0.;
+			x->blur[i]				= 0.000001;
+			x->sourceGain[i]		= 1.0;
+			x->sourceNotMuted[i]	= 1.0;
+			x->polarity[i]			= 1.0;
 		}
 		
 		for (i=0; i<MAX_NUM_DESTINATIONS; i++) {
@@ -164,6 +165,47 @@ void dbapBformatBlurAll(t_dbapBformat *x, double f)
 		f = 0.000001;		
 	for (i=0; i<x->attrNumberOfSources; i++) {
 		x->blur[i] = f;
+		dbapBformatCalculate(x, i);
+	}
+}
+
+// set polarity for nth source
+void dbapBformatPolarity(t_dbapBformat *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	long n;
+	float f;
+	
+	if ((argc>=2) && argv) {	
+		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
+			error("Invalid argument(s) for blur");
+			return;
+		}
+		argv++;
+		f = atom_getfloat(argv);
+		if (f<0.0) 
+			f = 0.0;
+		if (f>1.0)
+			f = 1.0;
+		x->polarity[n] = f;
+		dbapBformatCalculate(x, n);
+	}
+	else
+		error("Invalid argument(s) for blur");
+}
+
+
+// Set polarity for all sources
+void dbapBformatPolarityAll(t_dbapBformat *x, double f)
+{
+	long i;
+	
+	if (f<0.0) 
+		f = 0.0;
+	if (f>1.0)
+		f = 1.0;		
+	for (i=0; i<x->attrNumberOfSources; i++) {
+		x->polarity[i] = f;
 		dbapBformatCalculate(x, i);
 	}
 }
@@ -468,12 +510,21 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 	float sinAzimuth;					// sin(azimuth)
 	float cosElevation;					// cos(elevation)
 	float sinElevation;					// sin(elevation)
+	float k0, k1;						// Polarity coefficients
 	
 	t_atom a[3];						// Output array of atoms
 
 	blurSquared = x->blur[n] * x->variance;
 	blurSquared = blurSquared*blurSquared;
+
+	// Control polarity while keeping intensity constant:
+	// If polarity = 1: k0=sqrt(2), k1=1 => This is standard in-phase FuMa decoding coefficients
+	// If polarity = 0: k0=sqrt(3), k1=0 => Removes all directivity and decodes omni signal only
+	k1 = x->polarity[n];
+	k0 = sqrt(3.0-k1);
+	
 	scalingCoefficientSquareInverse = 0;
+	
 	for (i=0; i<x->attrNumberOfDestinations; i++) {
 
 		// Calculations of dx and dy might seem strange, but are due to the rotation
@@ -492,10 +543,10 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 		cosElevation = horisontalDistance/distance;
 		sinElevation = dz/distance;
 
-		x->decodeCoefficients[n][i].w = sqrt2;
-		x->decodeCoefficients[n][i].x = cosAzimuth * cosElevation;
-		x->decodeCoefficients[n][i].y = sinAzimuth * cosElevation;
-		x->decodeCoefficients[n][i].z = sinElevation;
+		x->decodeCoefficients[n][i].w = k0;
+		x->decodeCoefficients[n][i].x = k1 * cosAzimuth * cosElevation;
+		x->decodeCoefficients[n][i].y = k1 * sinAzimuth * cosElevation;
+		x->decodeCoefficients[n][i].z = k1 * sinElevation;
 		
 		// Calculations required for DBAP
 		

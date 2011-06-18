@@ -23,8 +23,6 @@ t_symbol		*psRollOff,
 				*psSourceBlur;
 
 
-float sqrt2;													///< Equals sqrt(2), optimalisation convinience
-
 /** Data structure for storing a 1,2 or 3 dimensional space data */
 typedef struct _xyz{
 	float		x;												///< x position
@@ -51,6 +49,7 @@ typedef struct _dbapBformat{									///< Data structure for this object
 	long		attrNumberOfSources;							///< number of active sources
 	t_xyz		sourcePosition[MAX_NUM_SOURCES];				///< Positions of the virtual source
 	float		blur[MAX_NUM_SOURCES];							///< Spatial bluriness ratio in percents for each source
+	float		polarity[MAX_NUM_SOURCES];						///< Polarity for each source, from 0 (omni) to 1 (in-phase) decoding
 	float		sourceGain[MAX_NUM_SOURCES];					///< Linear gain for each source, not yet used
 	float		sourceNotMuted[MAX_NUM_SOURCES];				///< Mute and unmute sources
 
@@ -86,6 +85,12 @@ void dbapBformatBlur(t_dbapBformat *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Set spatial blur for all sources. */
 void dbapBformatBlurAll(t_dbapBformat *x, double f);
+
+/** Set polarity of the nth virtual source */
+void dbapBformatPolarity(t_dbapBformat *x, t_symbol *msg, long argc, t_atom *argv);
+
+/** Set polarity for all sources */
+void dbapBformatPolarityAll(t_dbapBformat *x, double f);
 
 /** Set the position of the nth virtual source. */
 void dbapBformatSource(t_dbapBformat *x, void *msg, long argc, t_atom *argv);
