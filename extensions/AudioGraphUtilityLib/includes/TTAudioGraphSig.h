@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-/**	The split≈ object takes a single input signal and splits it out	into N output signals */
+/**	The sig≈ object takes a single input message and converts it into a JAG signal */
 class TTAudioGraphSig : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioGraphSig)
 
@@ -24,13 +24,15 @@ class TTAudioGraphSig : public TTAudioObject {
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		TTAudioSignal&	out			= outputs->getSignal(0);
-		TTUInt16		numChannels = out.getNumChannelsAsInt();
-		TTUInt16		n			= out.getVectorSizeAsInt();
+		TTAudioSignal&		out			= outputs->getSignal(0);
+		TTSampleValuePtr	outSample;
+		TTUInt16			numChannels = out.getNumChannelsAsInt();
+		TTUInt16			vs			= out.getVectorSizeAsInt();
+		TTUInt16			n;
 		
 		for (TTUInt16 channel=0; channel < numChannels; channel++) {
-			TTSampleValuePtr outSample = out.mSampleVectors[channel];
-			
+			outSample = out.mSampleVectors[channel];
+			n = vs;
 			while (n--)
 				*outSample++ = mValue;
 		}
