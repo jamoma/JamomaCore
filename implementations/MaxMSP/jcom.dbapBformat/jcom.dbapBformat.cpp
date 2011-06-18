@@ -32,7 +32,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	psNumberOfDestinations	= gensym("num_destinations");
 
 	omniCoefficient			= sqrt(2.);
-	firstCoefficient		= sqrt(3.)*sqrt(3.);
+	//firstCoefficient		= sqrt(3.)*sqrt(3.);
+	firstCoefficient		= 3.0;
+	post("omniCoefficient = %f", omniCoefficient);
+	post("firstCoefficient = %f", firstCoefficient);
 	
 	// Define our class
 	c = class_new("jcom.dbapBformat",(method)dbapBformatNew, (method)0L, sizeof(t_dbapBformat), 
@@ -545,11 +548,16 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 		sinAzimuth = dy/horisontalDistance;
 		cosElevation = horisontalDistance/distance;
 		sinElevation = dz/distance;
+
+		x->decodeCoefficients[n][i].w = sqrt(2.0);
+		x->decodeCoefficients[n][i].x = cosAzimuth * cosElevation;
+		x->decodeCoefficients[n][i].y = sinAzimuth * cosElevation;
+		x->decodeCoefficients[n][i].z = sinElevation;
 		
-		x->decodeCoefficients[n][i].w = omniCoefficient * x->attrOrderWeightOmni;
-		x->decodeCoefficients[n][i].x = firstCoefficient * x->attrOrderWeightFirst * cosAzimuth * cosElevation;
-		x->decodeCoefficients[n][i].y = firstCoefficient * x->attrOrderWeightFirst * sinAzimuth * cosElevation;
-		x->decodeCoefficients[n][i].z = firstCoefficient * x->attrOrderWeightFirst * sinElevation;
+		//x->decodeCoefficients[n][i].w = omniCoefficient * x->attrOrderWeightOmni;
+		//x->decodeCoefficients[n][i].x = firstCoefficient * x->attrOrderWeightFirst * cosAzimuth * cosElevation;
+		//x->decodeCoefficients[n][i].y = firstCoefficient * x->attrOrderWeightFirst * sinAzimuth * cosElevation;
+		//x->decodeCoefficients[n][i].z = firstCoefficient * x->attrOrderWeightFirst * sinElevation;
 		
 		// Calculations required for DBAP
 		
