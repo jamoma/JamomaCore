@@ -61,6 +61,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_FLOAT(c,		"rolloff",			0,		t_dbapBformat,	attrRollOff);
 	CLASS_ATTR_ACCESSORS(c,	"rolloff",			NULL,	dbapBformatAttrSetRollOff);
 	
+	CLASS_ATTR_FLOAT(c,		"vicinity",			0,		t_dbapBformat,	attrVicinity);
+	CLASS_ATTR_ACCESSORS(c,	"vicinity",			NULL,	dbapBformatAttrSetVicinity);
+	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	this_class = c;	
@@ -89,6 +92,7 @@ void *dbapBformatNew(t_symbol *msg, long argc, t_atom *argv)
 		x->attrNumberOfSources = 1;						// default value
 		x->attrNumberOfDestinations = 1;				// default value
 		x->attrRollOff = 6;								// 6 dB rolloff by default
+		x->attrVicinity = 0.15;							// Radius of 0.15 by default
 		
 		for (i=0; i<MAX_NUM_SOURCES; i++) {
 			x->sourcePosition[i].x	= 0.;
@@ -483,6 +487,26 @@ t_max_err dbapBformatAttrSetRollOff(t_dbapBformat *x, void *attr, long argc, t_a
 	return MAX_ERR_NONE;
 }
 
+// ATTRIBUTE: vicinity
+t_max_err dbapBformatAttrSetVicinity(t_dbapBformat *x, void *attr, long argc, t_atom *argv)
+{
+	float f;
+	long i;
+	
+	if (argc && argv) {	
+		f = atom_getfloat(argv);
+		if (f<=0.0) {
+			error("Invalid argument for vicinity. Must be > 0");
+			return MAX_ERR_NONE;;
+		}	
+		x->attrVicinity = f;
+		// Update all matrix values
+		for (i=0; i<x->attrNumberOfSources; i++)
+			dbapBformatCalculate(x, i);
+	}
+	return MAX_ERR_NONE;
+}
+
 
 /************************************************************************************/
 // Methods bound to calculations
@@ -511,17 +535,14 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 	float cosElevation;					// cos(elevation)
 	float sinElevation;					// sin(elevation)
 	float k0, k1;						// Polarity coefficients
+	float d;							// Distance relative to attrVicinity
 	
 	t_atom a[3];						// Output array of atoms
 
 	blurSquared = x->blur[n] * x->variance;
 	blurSquared = blurSquared*blurSquared;
 
-	// Control polarity while keeping intensity constant:
-	// If polarity = 1: k0=sqrt(2), k1=1 => This is standard in-phase FuMa decoding coefficients
-	// If polarity = 0: k0=sqrt(3), k1=0 => Removes all directivity and decodes omni signal only
-	k1 = x->polarity[n];
-	k0 = sqrt(3.0-k1);
+
 	
 	scalingCoefficientSquareInverse = 0;
 	
@@ -533,22 +554,54 @@ void dbapBformatCalculate(t_dbapBformat *x, long n)
 		dy = x->sourcePosition[n].x		 - x->destinationPosition[i].x;
 		dz = x->destinationPosition[i].z - x->sourcePosition[n].z;
 
-		// Calculations required for ambisonics decoding
+		// Absolute and horisontal distance
 		horisontalDistance = sqrt(dx*dx + dy*dy);
 		distance = sqrt(dx*dx + dy*dy + dz*dz);
-
-		// TODO: We risk dividing by zero here:
-		cosAzimuth = dx/horisontalDistance;
-		sinAzimuth = dy/horisontalDistance;
-		cosElevation = horisontalDistance/distance;
-		sinElevation = dz/distance;
-
-		x->decodeCoefficients[n][i].w = k0;
-		x->decodeCoefficients[n][i].x = k1 * cosAzimuth * cosElevation;
-		x->decodeCoefficients[n][i].y = k1 * sinAzimuth * cosElevation;
-		x->decodeCoefficients[n][i].z = k1 * sinElevation;
 		
-		// Calculations required for DBAP
+		// Calculate ambisonics decoding coefficients
+		if (distance<=0.0) {
+			// If source is positioned at exact same location as speaker, we use only omni signal
+			x->decodeCoefficients[n][i].w = sqrt(3.);
+			x->decodeCoefficients[n][i].x = 0.0;
+			x->decodeCoefficients[n][i].y = 0.0;
+			x->decodeCoefficients[n][i].z = 0.0;
+		}
+		else {
+			k1 = x->polarity[n];
+			
+			// And now we converge to omni if the source is in the vicinity of the speaker
+			if (distance<x->attrVicinity) {
+				d = distance/x->attrVicinity;
+				d = (d*d*d*(d*(6*d-15)+10));	// This is a function that change smoothly from 1 to 0 as source approach the speaker
+				k1 = k1 * (d*d*d*(d*(6*d-15)+10));
+
+			}
+			
+			// Control polarity while keeping intensity constant:
+			// If polarity = 1: k0=sqrt(2), k1=1 : This is standard in-phase FuMa decoding coefficients
+			// If polarity = 0: k0=sqrt(3), k1=0 : Removes all directivity and decodes omni signal only
+			k0 = sqrt(3.0-k1);
+			
+			// Get cos and sin of azimuth and elevation
+			if (horisontalDistance>0.0) {
+				cosAzimuth = dx/horisontalDistance;
+				sinAzimuth = dy/horisontalDistance;
+			}
+			else {
+				// Avoid dividing by zero (the following two values will be cancelled out anyway)
+				cosAzimuth = 1.0;
+				sinAzimuth = 0.0;
+			}
+			cosElevation = horisontalDistance/distance;
+			sinElevation = dz/distance;
+
+			x->decodeCoefficients[n][i].w = k0;
+			x->decodeCoefficients[n][i].x = k1 * cosAzimuth * cosElevation;
+			x->decodeCoefficients[n][i].y = k1 * sinAzimuth * cosElevation;
+			x->decodeCoefficients[n][i].z = k1 * sinElevation;
+		}
+		
+		// Now move on to calculations required for DBAP
 		
 		// Distance adjusted to prevent division by zero
 		distanceAdjusted[i] = pow(double(dx*dx + dy*dy + dz*dz + blurSquared), double(0.5*x->a));

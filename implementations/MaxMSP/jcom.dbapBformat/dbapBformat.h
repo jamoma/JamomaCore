@@ -53,7 +53,6 @@ typedef struct _dbapBformat{									///< Data structure for this object
 	float		sourceGain[MAX_NUM_SOURCES];					///< Linear gain for each source, not yet used
 	float		sourceNotMuted[MAX_NUM_SOURCES];				///< Mute and unmute sources
 
-	// TODO: Why do we use MAX_NUM_WEIGHTED_SOURCES and having it differ from MAX_NUM_SOURCES?
 	float		sourceWeight
 					[MAX_NUM_SOURCES]
 					[MAX_NUM_DESTINATIONS];						///< Weight for each source for each destination 
@@ -71,6 +70,7 @@ typedef struct _dbapBformat{									///< Data structure for this object
 	float		masterGain;										///< Mater gain for all of the algorithm
 	float		variance;										///< Bias-corrected variance of distance from destination points to mean destination point	
 	float		attrRollOff;									///< Set rolloff with distance in dB
+	float		attrVicinity;									///< Set radius of field of vicinity around speaker where decoding gets increasingly omni
 	float		a;												///< Constant: Exponent controlling amplitude dependance on distance. Depends on attrRollOff
 	} t_dbapBformat;
 
@@ -91,6 +91,9 @@ void dbapBformatPolarity(t_dbapBformat *x, t_symbol *msg, long argc, t_atom *arg
 
 /** Set polarity for all sources */
 void dbapBformatPolarityAll(t_dbapBformat *x, double f);
+
+/** Set radius of vicinity field around speaker where decoding will converge towards omni */
+t_max_err dbapBformatAttrSetVicinity(t_dbapBformat *x, void *attr, long argc, t_atom *argv);
 
 /** Set the position of the nth virtual source. */
 void dbapBformatSource(t_dbapBformat *x, void *msg, long argc, t_atom *argv);
