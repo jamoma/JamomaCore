@@ -145,17 +145,20 @@ TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, T
 	TTBoolean			bufferNeedsResize = NO;
 	sf_count_t			numSamplesWritten;
 
-	if (!mNumChannels) {		// this is the first frame to record, we need to set up the file
+	if (mNumChannels != channelCount) {		// input channel number has changed, we need to set up the buffer
 		mNumChannels = channelCount;
-		bufferNeedsResize = YES;
-		openFile();
+		bufferNeedsResize = YES;		
 	}
-	if (mNumBufferFrames != numFrames) {
+	
+	if (mNumBufferFrames != numFrames) {   //vector size has changed, we need to set up the buffer
 		mNumBufferFrames = numFrames;
 		bufferNeedsResize = YES;
 	}
 	if (bufferNeedsResize)
 		mBuffer.resize(mNumBufferFrames * mNumChannels);
+	
+	if (!mSoundFile) //if we don't have already a file open, do it now. 
+		openFile();
 	
 	for (channel=0; channel<channelCount; channel++) {
 		inSample = in.mSampleVectors[channel];
