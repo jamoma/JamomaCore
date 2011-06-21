@@ -1,5 +1,11 @@
 /* 
  * SmoothPolynomialFunction Unit for TTBlue
+ *
+ * - This function ramps from 0 to 1
+ * - The 1st and 2nd derivate equals 0 at x=0 and x=1, giving a smooth start and end to the ramp
+ * - The start and end of the ramp should be more smooth than for cosine, as the 2nd order derivative of cosine do not equal 0
+ * - The function is symmetrical around the point x=0.5, y=0.5
+ *
  * Originally written for the Jamoma FunctionLib
  * Copyright © 2011 by Trond Lossius
  * 

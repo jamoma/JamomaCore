@@ -23,7 +23,6 @@ TTErr SmoothPolynomialFunction::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	int					badSampleCount = 0;
-	TTAudioObjectPtr	functionObject = NULL;
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	int					N = 128;
@@ -294,8 +293,7 @@ TTFloat64 expectedSignal1[128] = {
 		};	
 	
 	// setup Function 
-	TTObjectInstantiate(TT("function"), &functionObject, kTTVal1);
-	functionObject->setAttributeValue(TT("function"), TT("smoothPolynomial"));
+	this->setAttributeValue(TT("function"), TT("smoothPolynomial"));
 
 	
 	// create 1 channel audio signal objects
@@ -309,7 +307,7 @@ TTFloat64 expectedSignal1[128] = {
 	for (int i=0; i<N; i++)
 		input->mSampleVectors[0][i] = inputSignal1[i]; 
 	
-	functionObject->process(input, output);
+	this->process(input, output);
 	
 	// now test the output
 	for (int n=0; n<N; n++)
@@ -320,7 +318,7 @@ TTFloat64 expectedSignal1[128] = {
 			TTTestLog("BAD SAMPLE @ n=%i ( value=%.10f	expected=%.10f )", n, output->mSampleVectors[0][n], expectedSignal1[n]);
 	}
 	
-	TTTestAssertion("Produces correct window coefficients", 
+	TTTestAssertion("Produces correct function values", 
 					badSampleCount == 0,
 					testAssertionCount, 
 					errorCount);
@@ -330,8 +328,6 @@ TTFloat64 expectedSignal1[128] = {
 	
 	TTObjectRelease(&input);
 	TTObjectRelease(&output);
-	TTObjectRelease(&functionObject);
-	
 	
 	// wrap up test results and pass back to whoever called test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
