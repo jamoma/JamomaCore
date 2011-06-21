@@ -36,3 +36,8 @@ bin
 
 #TextMate
 *.tm_build_errors
+
+# CMake Stuff
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
