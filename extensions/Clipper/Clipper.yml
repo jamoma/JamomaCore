@@ -1,0 +1,11 @@
+
+sources:
+  - Clipper.cpp
+  
+includes:
+  - "${PROJECT_BINARY_DIR}/../../library/includes"
+  - "${PROJECT_BINARY_DIR}/../../../Foundation/library/includes"
+
+libraries:
+  - JamomaFoundation
+  - JamomaDSP
