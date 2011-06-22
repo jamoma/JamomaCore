@@ -7,5 +7,5 @@ includes:
   - "${PROJECT_BINARY_DIR}/../../../Foundation/library/includes"
 
 libraries:
-  - JamomaFoundation
-  - JamomaDSP
+  - FOUNDATION
+  - DSP
