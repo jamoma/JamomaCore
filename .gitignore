@@ -25,6 +25,7 @@ vstsdk-2.4
 logs
 obj
 bin
+--*
 
 *.so
 *.depend
@@ -41,3 +42,5 @@ bin
 CMakeFiles
 CMakeCache.txt
 cmake_install.cmake
+CMakeLists.txt
+CMakeScripts
