@@ -92,7 +92,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     OutPtr		self;
 	TTValue		sr(sys_getsr());
  	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	short		i;
+	//short		i;
 	TTValue		v;
 	TTErr		err;
    
@@ -115,8 +115,8 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout	
 		self->s_out = listout((t_pxobject *)self); // the list outlet
 	    dsp_setup((t_pxobject*)self, 1);
-		for(i=0; i < self->maxNumChannels; i++)
-			outlet_new((t_pxobject*)self, "signal");
+		/*for(i=0; i < self->maxNumChannels; i++)
+			outlet_new((t_pxobject*)self, "signal");*/
 		
 		self->qelem = qelem_new(self, (method)OutQFn);
 		self->obj.z_misc = Z_NO_INPLACE | Z_PUT_LAST;
@@ -214,14 +214,14 @@ void OutQFn(OutPtr self)
 void OutAssist(OutPtr self, void* b, long msg, long arg, char* dst)
 {
 	if (msg==1)			// Inlets
-		strcpy(dst, "multichannel audio connection and control messages");		
+		strcpy(dst, "multichannel audio connection");		
 	else if (msg==2){	// Outlets
-		if (arg == self->maxNumChannels+1)
+		if (arg == 1)
 			strcpy(dst, "dumpout");
-		else if (arg == self->maxNumChannels)
+		else if (arg == 0)
 			strcpy(dst, "unsig list");
-		else 
-			snprintf(dst, 256, "(signal) single-channel output Nr. %ld", arg + 1); 
+		//else 
+		//	snprintf(dst, 256, "(signal) single-channel output Nr. %ld", arg + 1); 
 	}
 }
 
@@ -283,12 +283,11 @@ void OutAttachToPatchlinesForPatcher(OutPtr self, ObjectPtr patcher)
 }
 
 
-// Perform (signal) Method
+// Perform (signal) Method for generating list outlet
 t_int* OutPerform(t_int* w)
 {
    	OutPtr		self = (OutPtr)(w[1]);
 	TTUInt16	numChannels;
-	
 	
 	if (!self->obj.z_disabled) {
 		if (self->hasConnections) {
@@ -297,14 +296,12 @@ t_int* OutPerform(t_int* w)
 			self->audioGraphObject->process(self->audioSignal);
 			self->audioGraphObject->unlockProcessing();
 			
-			numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannelsAsInt());	
+			numChannels = TTClip<TTUInt16>(self->maxNumChannels, 0, self->audioSignal->getNumChannelsAsInt());	
 			
 			t_atom		argv[numChannels]; //allocating list 
-			
-			for(TTUInt16 channel=0; channel<numChannels; channel++) //TODO: what happens if the incomming multicable has 100 channels and we only want to unpack the first two, are we looping 100 times ?
-			{
-			self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);   
-			atom_setfloat(argv+channel,((TTFloat32*)(w[channel+2]))[0]); //adding first sample of each channel to max list
+
+			for(TTUInt16 channel=0; channel<numChannels; channel++) {
+			    atom_setfloat(argv+channel, self->audioSignal->getSample(channel, 0));
 			}
 			
 			outlet_list(self->s_out, NULL, numChannels, argv); //list output
@@ -312,7 +309,7 @@ t_int* OutPerform(t_int* w)
 	}
 	
 	self->hasReset = false;
-	return w + (self->numChannels+2);
+	return (w + 2);
 	
 }
 
@@ -320,7 +317,8 @@ t_int* OutPerform(t_int* w)
 // DSP Method
 void OutDsp(OutPtr self, t_signal** sp, short* count)
 {
-	TTUInt16	i, k=0;
+	//TTUInt16	i; 
+	TTUInt16	k=0;
 	void		**audioVectors = NULL;
 	MaxErr		err;
 	long		result = 0;
@@ -384,17 +382,19 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	OutAttachToPatchlinesForPatcher(self, self->patcher);
 
 	// Setup the perform method
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (self->maxNumChannels + 1));
+	//audioVectors = (void**)sysmem_newptr(sizeof(void*) * (self->maxNumChannels + 1));
+	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (1));
+
 	audioVectors[k] = self;
 	k++;
 	
-	self->numChannels = 0;
-	for (i=1; i <= self->maxNumChannels; i++) {
+	//self->numChannels = 0;
+	/*for (i=1; i <= self->maxNumChannels; i++) {
 		self->numChannels++;				
 		audioVectors[k] = sp[i]->s_vec;
 		k++;
-	}
-	
+	}*/
+	self->numChannels = self->maxNumChannels; //[np]
 	self->audioGraphObject->getUnitGenerator()->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, audioVectors);
