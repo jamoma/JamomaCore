@@ -22,14 +22,18 @@ mNumChannels(0),
 mNumBufferFrames(0),
 mLength(0),
 mLengthInSamples(0),
-mTimedRecord(false)
+mTimedRecord(false),
+mCycles(0)
 {
 	addAttribute(			FilePath,		kTypeSymbol);
 	addAttribute(			Format,			kTypeSymbol);
 	addAttributeWithSetter(	Record,			kTypeBoolean);
 	addAttribute(			NumChannels,	kTypeUInt16);
-	addAttribute(			Length,			kTypeFloat64);
-	addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
+		addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
+	addAttributeWithSetter(	Length,			kTypeFloat64);
+		addAttributeProperty(Length,			range,			TTValue(0, 60000));
+		addAttributeProperty(Length,			rangeChecking,	TT("clip"));
+	
 }
 
 
@@ -54,11 +58,12 @@ TTErr TTSoundfileRecorder::setRecord(const TTValue& newValue)
 		mRecord = newRecordState;
 		if (mRecord) {			// start recording
 			mLengthInSamples = mLength * sr * 0.001; // reset the Sample counter 
+			mCycles = 0;
 			if (mLengthInSamples > 0)
 				mTimedRecord = true;
 			else 
 				mTimedRecord = false;
-			mNumChannels = 0;	// set to zero so that the process method will set the num channels and trigger an open
+			//mNumChannels = 0;	// set to zero so that the process method will set the num channels and trigger an open
 		}
 		else {					// stop recording -- close the file
 			if (mSoundFile)
@@ -67,6 +72,15 @@ TTErr TTSoundfileRecorder::setRecord(const TTValue& newValue)
 		}
 	}
 	return err;
+}
+
+TTErr TTSoundfileRecorder::setLength(const TTValue& newValue)
+{	TTFloat64	newLength = newValue;
+	if (newLength != mLength){
+		mLength = newLength;
+		mNumBufferFrames = 0; //hack to force a resize of mBuffer in the process method 
+	}
+	return kTTErrNone;
 }
 
 
@@ -140,43 +154,53 @@ TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, T
 	TTAudioSignal&		in  = inputs->getSignal(0);
 	TTSampleValuePtr	outSample, inSample;
 	TTUInt16			channelCount = in.getNumChannelsAsInt();
-	TTUInt16			numFrames = in.getVectorSizeAsInt();
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTUInt16			n, channel;
 	TTBoolean			bufferNeedsResize = NO;
-	sf_count_t			numSamplesWritten;
-
+	//sf_count_t			numSamplesWritten;
+	TTUInt64			progress = mCycles*vs*channelCount;
+	
+	
 	if (mNumChannels != channelCount) {		// input channel number has changed, we need to set up the buffer
 		mNumChannels = channelCount;
 		bufferNeedsResize = YES;		
 	}
 	
-	if (mNumBufferFrames != numFrames) {   //vector size has changed, we need to set up the buffer
-		mNumBufferFrames = numFrames;
+	if (mNumBufferFrames != vs) {   //vector size has changed, we need to set up the buffer
+		mNumBufferFrames = vs;
 		bufferNeedsResize = YES;
 	}
-	if (bufferNeedsResize)
-		mBuffer.resize(mNumBufferFrames * mNumChannels);
-	
+	if (bufferNeedsResize){
+		TTUInt64 buffersize = mNumChannels * mNumBufferFrames;
+		buffersize = max(buffersize, (TTUInt64)(buffersize * ceil((double)mLengthInSamples/(double)mNumBufferFrames))); //if mLengthInSamples==0, we don't have a timedRecording and we only buffer one frame
+		mBuffer.resize(buffersize);
+		
+	}
 	if (!mSoundFile) //if we don't have already a file open, do it now. 
 		openFile();
+	
 	
 	for (channel=0; channel<channelCount; channel++) {
 		inSample = in.mSampleVectors[channel];
 		outSample = out.mSampleVectors[channel]; // sending audio out
-		for (n=0; n<numFrames; n++){
-			mBuffer[n * channelCount + channel] = inSample[n]; //sending audio to recording buffer
+		for (n=0; n<vs; n++){
+			mBuffer[progress+(n * channelCount + channel)] = inSample[n]; //sending audio to recording buffer
 			outSample[n] = inSample[n];  // sending audio out
 		}
 	}
-
-	numSamplesWritten = sf_write_double(mSoundFile, &mBuffer[0], numFrames*channelCount);
-	
+    
 	
 	if (mTimedRecord){
-		mLengthInSamples = mLengthInSamples - numFrames; // decreasing the samplecounter by a vs if we want to record with a duration
-		if (mLengthInSamples <= 0) //TODO: we might want to chop of the samples that were recorded too long
+		mCycles++;
+		mLengthInSamples -= vs; // decreasing the samplecounter by a vs if we want to record with a duration
+		if (mLengthInSamples <= 0){ //TODO: we might want to chop of the samples that were recorded too long
+			sf_write_double(mSoundFile, &mBuffer[0], mBuffer.size());
 			return setRecord(0);
-	}	
+		}
+	}
+	else 
+		sf_write_double(mSoundFile, &mBuffer[0], vs*channelCount);
+	
 	return kTTErrNone;
 }
 
@@ -186,7 +210,7 @@ TTErr TTSoundfileRecorder::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAu
 	TTAudioSignal&		in  = inputs->getSignal(0);
 	TTSampleValuePtr	outSample, inSample;
 	TTUInt16			channelCount = in.getNumChannelsAsInt();
-	TTUInt16			numFrames = in.getVectorSizeAsInt();
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTUInt16			n, channel;
 
 	
@@ -194,7 +218,7 @@ TTErr TTSoundfileRecorder::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAu
 	 for (channel=0; channel<channelCount; channel++) {
 		 inSample = in.mSampleVectors[channel];
 		 outSample = out.mSampleVectors[channel]; // sending audio out
-		 for (n=0; n<numFrames; n++)
+		 for (n=0; n<vs; n++)
 			 outSample[n] = inSample[n];  // sending audio out
 	}
 	return kTTErrNone;
