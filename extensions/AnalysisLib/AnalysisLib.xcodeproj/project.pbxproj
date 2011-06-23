@@ -12,6 +12,9 @@
 		22BA7EAF1046F32A009771BC /* TTZerocross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7EAE1046F32A009771BC /* TTZerocross.cpp */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
+		661EB51B13A2B9650020E3B6 /* TTAverage.h in Headers */ = {isa = PBXBuildFile; fileRef = 661EB51A13A2B9650020E3B6 /* TTAverage.h */; };
+		661EB51D13A2B9710020E3B6 /* TTAverage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 661EB51C13A2B9710020E3B6 /* TTAverage.cpp */; };
+		6635E19413A6798300DBCE37 /* TTAverage.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6635E19313A6798300DBCE37 /* TTAverage.test.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,9 @@
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
+		661EB51A13A2B9650020E3B6 /* TTAverage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAverage.h; path = includes/TTAverage.h; sourceTree = "<group>"; };
+		661EB51C13A2B9710020E3B6 /* TTAverage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAverage.cpp; path = source/TTAverage.cpp; sourceTree = "<group>"; };
+		6635E19313A6798300DBCE37 /* TTAverage.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAverage.test.cpp; path = tests/TTAverage.test.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* AnalysisLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AnalysisLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -83,6 +89,9 @@
 			children = (
 				22BA7EAC1046F322009771BC /* TTZerocross.h */,
 				22BA7EAE1046F32A009771BC /* TTZerocross.cpp */,
+				661EB51A13A2B9650020E3B6 /* TTAverage.h */,
+				661EB51C13A2B9710020E3B6 /* TTAverage.cpp */,
+				6635E19313A6798300DBCE37 /* TTAverage.test.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -95,6 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22BA7EAD1046F322009771BC /* TTZerocross.h in Headers */,
+				661EB51B13A2B9650020E3B6 /* TTAverage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +177,8 @@
 			files = (
 				22BA7EAB1046F318009771BC /* AnalysisLib.cpp in Sources */,
 				22BA7EAF1046F32A009771BC /* TTZerocross.cpp in Sources */,
+				661EB51D13A2B9710020E3B6 /* TTAverage.cpp in Sources */,
+				6635E19413A6798300DBCE37 /* TTAverage.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,8 +20,10 @@ TT_AUDIO_CONSTRUCTOR,
 	mNumInputs(0),
 	mNumOutputs(0)
 {
-	addAttribute(NumInputs, kTypeUInt16);	// TODO: set readonly property for this attribute
-	addAttribute(NumOutputs, kTypeUInt16);	// TODO: set readonly property for this attribute
+	addAttribute(NumInputs, kTypeUInt16);	
+	addAttributeProperty(NumInputs,	readOnly, kTTBoolYes);
+	addAttribute(NumOutputs, kTypeUInt16);	
+	addAttributeProperty(NumOutputs, readOnly, kTTBoolYes);
 	
 	addMessageWithArgument(setGain);
 	addMessageWithArgument(setLinearGain);

@@ -25,6 +25,7 @@ vstsdk-2.4
 logs
 obj
 bin
+--*
 
 *.so
 *.depend
@@ -36,3 +37,10 @@ bin
 
 #TextMate
 *.tm_build_errors
+
+# CMake Stuff
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+CMakeLists.txt
+CMakeScripts

@@ -22,8 +22,6 @@ TT_AUDIO_CONSTRUCTOR,
 	mDelayMax(0),
 	mDelayMaxInSamples(0)
 {
-	TTUInt16	initialMaxNumChannels = arguments;
-
 	// declare attributes
 	addAttributeWithSetter(Delay,				kTypeFloat64);
 	addAttributeWithSetter(DelayInSamples,		kTypeInt64);
@@ -39,7 +37,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addUpdate(MaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	setAttributeValue(kTTSym_maxNumChannels,	arguments);
 	setAttributeValue(TT("delayMaxInSamples"), 256);
 	setAttributeValue(TT("delayInSamples"), 100);
 	setAttributeValue(TT("interpolation"), TT("cubic"));
@@ -149,16 +147,19 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 	mInterpolation = newValue;
 
 	if (mInterpolation == TT("none")) {
-		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
+		setProcessMethod(processAudioNoInterpolation);
 	}
 	else if (mInterpolation == TT("linear")) {
-		setProcess((TTProcessMethod)&TTDelay::processAudioLinearInterpolation);
+		setProcessMethod(processAudioLinearInterpolation);
+	}
+	else if (mInterpolation == TT("cosine")) {
+		setProcessMethod(processAudioCosineInterpolation);
 	}
 	else if (mInterpolation == TT("cubic")) {
-		setProcess((TTProcessMethod)&TTDelay::processAudioCubicInterpolation);
+		setProcessMethod(processAudioCubicInterpolation);
 	}
 	else {
-		setProcess((TTProcessMethod)&TTDelay::processAudioLinearInterpolation);
+		setProcessMethod(processAudioLinearInterpolation);
 		return kTTErrInvalidValue;
 	}
 	return kTTErrNone;
@@ -194,7 +195,8 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 		} \
 	}\
 	return kTTErrNone;
-
+//////////////////////////////////////////////////////////////////////////////////////////
+// No Interpolation
 
 inline TTErr TTDelay::calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {
@@ -222,6 +224,9 @@ TTErr TTDelay::processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudio
 	TTDELAY_WRAP_CALCULATE_METHOD(calculateNoInterpolation);
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+// Linear Interpolation
+
 
 inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {
@@ -245,11 +250,61 @@ inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64
 	return kTTErrNone;
 }
 
+TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	TTDelayBufferPtr buffer = &mBuffers[channel];
+	return calculateLinearInterpolation(x, y, buffer);
+}
 
 TTErr TTDelay::processAudioLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTDELAY_WRAP_CALCULATE_METHOD(calculateLinearInterpolation);
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// Cosine Interpolation
+
+
+TTErr TTDelay::calculateCosineInterpolation(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	TTDelayBufferPtr buffer = &mBuffers[channel];
+	return calculateCosineInterpolation(x, y, buffer);
+}
+
+inline TTErr TTDelay::calculateCosineInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
+{   //http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
+	
+	TTFloat64 ft = (1 - cos(mFractionalDelay*kTTPi)) * 0.5;
+	
+	*buffer->mWritePointer = x;		// write the input into our buffer
+	
+	// move the record head
+	buffer->mWritePointer++;
+	if (buffer->mWritePointer > buffer->tail())
+		buffer->mWritePointer = buffer->head();
+	
+	// move the play head
+	buffer->mReadPointer++;
+	if (buffer->mReadPointer > buffer->tail())
+		buffer->mReadPointer = buffer->head();
+	
+	// store the value of the next sample in the buffer for interpolation
+	TTSampleValuePtr next = buffer->mReadPointer + 1;	
+	next = buffer->wrapPointer(next);
+	
+	y = ((*next) * (1.0 - ft)) + ((*buffer->mReadPointer) * ft);
+	return kTTErrNone;
+}
+
+
+TTErr TTDelay::processAudioCosineInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTDELAY_WRAP_CALCULATE_METHOD(calculateCosineInterpolation);
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// f-point Interpolation
 
 
 // Four-point interpolation as described @ http://crca.ucsd.edu/~msp/techniques/latest/book-html/node114.html
@@ -284,6 +339,11 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 	return kTTErrNone;
 }
 
+TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	TTDelayBufferPtr buffer = &mBuffers[channel];
+	return calculateCubicInterpolation(x, y, buffer);
+}
 
 TTErr TTDelay::processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {

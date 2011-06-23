@@ -22,15 +22,15 @@ class TTSoundfileRecorder : public TTAudioObject {
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open
 	SF_INFO				mSoundFileInfo;		///< libsndfile metadata for the file we open
 	TTBoolean			mRecord, mTimedRecord; ///< is actively recording the file?
-	TTUInt16			mNumChannels;		///< read-only: number of channels in the open file
+	TTUInt16			mNumChannels, mCycles;		///< read-only: number of channels in the open file
 	TTFloat64			mLength;			///< length of the file in ms
 	TTInt32				mLengthInSamples;	///< length of the file in samples
 	TTUInt16			mNumBufferFrames;	///< number of frames in the buffer to be read from the file at a time
 	TTSampleVector		mBuffer;			///< buffer of mNumBufferFrames * mNumChannels;
-	
+	sf_count_t			numSamplesWritten;
 	/**	Setter */
 	TTErr setRecord(const TTValue& value);
-	//TTErr setLength(const TTValue& value);
+	TTErr setLength(const TTValue& value);
 
 	// internal use: map human symbols to libsndfile's bitmask
 	int translateFormatFromName(TTSymbolPtr name);
@@ -41,7 +41,9 @@ class TTSoundfileRecorder : public TTAudioObject {
 	TTErr openFile();
 	
 	// Block-based Audio Processing Methods
-	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudioRecording(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudioBypass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 };
 
 
