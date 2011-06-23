@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 539.0, 130.0, 693.0, 485.0 ],
+		"rect" : [ 180.0, 101.0, 836.0, 480.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 539.0, 130.0, 693.0, 485.0 ],
+		"defrect" : [ 180.0, 101.0, 836.0, 480.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,22 @@
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-5",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 539.0, 144.0, 210.0, 31.0 ],
+					"text" : "Note: the entire recording length is buffered, so use wisely",
+					"textcolor" : [ 1.0, 0.0, 0.0, 1.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -39,11 +55,10 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
-					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 539.0, 131.0, 88.0, 43.0 ],
+					"patching_rect" : [ 539.0, 129.0, 217.0, 19.0 ],
 					"text" : "predefine the recording length in [ms]"
 				}
 
@@ -527,13 +542,13 @@
 ,
 									"patching_rect" : [ 387.0, 75.0, 46.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p lfsaw"
@@ -791,13 +806,13 @@
 ,
 									"patching_rect" : [ 106.0, 83.0, 46.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p lfsaw"
@@ -1345,13 +1360,13 @@
 ,
 									"patching_rect" : [ 350.0, 218.0, 104.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p combn"
@@ -1888,13 +1903,13 @@
 ,
 									"patching_rect" : [ 89.0, 220.0, 104.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p combn"
@@ -2087,13 +2102,13 @@
 ,
 									"patching_rect" : [ 350.0, 154.0, 56.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p midicps"
@@ -2286,13 +2301,13 @@
 ,
 									"patching_rect" : [ 89.0, 155.0, 56.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p midicps"
@@ -2462,13 +2477,13 @@
 ,
 									"patching_rect" : [ 350.0, 184.0, 49.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p sinosc"
@@ -2638,13 +2653,13 @@
 ,
 									"patching_rect" : [ 89.0, 184.0, 49.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p sinosc"
@@ -2902,13 +2917,13 @@
 ,
 									"patching_rect" : [ 350.0, 124.0, 46.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p lfsaw"
@@ -3166,13 +3181,13 @@
 ,
 									"patching_rect" : [ 89.0, 126.0, 46.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p lfsaw"
@@ -3275,13 +3290,13 @@
 ,
 					"patching_rect" : [ 204.0, 99.0, 60.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p bubbles"
@@ -3567,13 +3582,13 @@
 ,
 									"patching_rect" : [ 387.0, 75.0, 46.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p lfsaw"
@@ -3831,13 +3846,13 @@
 ,
 									"patching_rect" : [ 106.0, 83.0, 46.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p lfsaw"
@@ -4385,13 +4400,13 @@
 ,
 									"patching_rect" : [ 350.0, 218.0, 104.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p combn"
@@ -4928,13 +4943,13 @@
 ,
 									"patching_rect" : [ 89.0, 220.0, 104.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p combn"
@@ -5127,13 +5142,13 @@
 ,
 									"patching_rect" : [ 350.0, 154.0, 56.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p midicps"
@@ -5326,13 +5341,13 @@
 ,
 									"patching_rect" : [ 89.0, 155.0, 56.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p midicps"
@@ -5502,13 +5517,13 @@
 ,
 									"patching_rect" : [ 350.0, 184.0, 49.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p sinosc"
@@ -5678,13 +5693,13 @@
 ,
 									"patching_rect" : [ 89.0, 184.0, 49.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p sinosc"
@@ -5942,13 +5957,13 @@
 ,
 									"patching_rect" : [ 350.0, 124.0, 46.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p lfsaw"
@@ -6206,13 +6221,13 @@
 ,
 									"patching_rect" : [ 89.0, 126.0, 46.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p lfsaw"
@@ -6315,13 +6330,13 @@
 ,
 					"patching_rect" : [ 139.0, 99.0, 60.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p bubbles"
