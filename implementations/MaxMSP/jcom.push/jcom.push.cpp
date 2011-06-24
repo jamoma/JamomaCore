@@ -84,24 +84,27 @@
 #include "Jamoma.h"
 
 #define nonzero(x)				((x > 0) ? x : 1.)
-#define MAXDIMENSIONS			3
+#define MAXDIMENSIONS			10
 
 typedef struct _push{								///< Data structure for this object 
 	t_object	ob;									///< Must always be the first field; used by Max
-	int			attrDimensions;						///< The number of dimensions used
 	float		previousPosition[MAXDIMENSIONS];	///< The previous position
 	float		previousVelocity[MAXDIMENSIONS];	///< The previous velocity
 	float		attrFriction;						///< Friction coefficient
+	int			attrDimensions;						///< The number of dimensions used
 	float		force[MAXDIMENSIONS];				///< Force applied on the object
 	void		*outlet;							///< Pointer to outlet. Need one for each outlet
 } t_push;
 
 // Prototypes for methods: need a method for each incoming message
-void *push_new(void);
+void *push_new(t_symbol *msg, long argc, t_atom *argv);
 void push_bang(t_push *x);
 void push_force(t_push *x, t_symbol *s, long argc, t_atom *argv);
 void push_clear(t_push *x);
 void push_assist(t_push *x, void *b, long msg, long arg, char *dst);
+t_max_err push_attr_setdimensions(t_push *x, void *attr, long argc, t_atom *argv);
+t_max_err push_attr_setfriction(t_push *x, void *attr, long argc, t_atom *argv);
+
 
 // Globals
 t_class		*this_class;				// Required. Global pointing to this class 
@@ -119,7 +122,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.push",(method)push_new, (method)0L, sizeof(t_push), (method)0L, 0L, 0);			
+	c = class_new("jcom.push",(method)push_new, (method)0L, sizeof(t_push), (method)0L, A_GIMME, 0);			
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)push_bang,				"bang",		A_CANT,		0);
@@ -127,6 +130,13 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)push_clear,				"clear",	0);
 	class_addmethod(c, (method)push_assist, 			"assist",	A_CANT,		0); 
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
+
+	CLASS_ATTR_FLOAT(c,		"friction",			0,		t_push,	attrFriction);
+	CLASS_ATTR_ACCESSORS(c,	"friction",			NULL,	push_attr_setfriction);
+	
+	// Add attributes to our class:	
+	CLASS_ATTR_LONG(c,		"dimensions",		0,		t_push,	attrDimensions);
+	CLASS_ATTR_ACCESSORS(c,	"dimensions",		NULL,	push_attr_setdimensions);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -139,7 +149,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 /************************************************************************************/
 // Object Life
 
-void *push_new(void)
+void *push_new(t_symbol *msg, long argc, t_atom *argv)
 {
 	t_push *x;	
 	x = (t_push *)object_alloc(this_class);	// create the new instance and return a pointer to it
@@ -147,11 +157,54 @@ void *push_new(void)
 		// create inlets and outlets		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 		x->outlet = floatout(x);			// velocity
+		x->attrDimensions = 3;
 		x->attrFriction = 0.1;
 		push_clear(x);						// initilaize instance
+		attr_args_process(x, argc, argv);	// handle attribute args
+
 	}
 	return (x);
 }
+
+
+/************************************************************************************/
+// Methods bound to attributes
+#pragma mark -
+#pragma mark attribute accessors
+
+
+// ATTRIBUTE: dimensions
+t_max_err push_attr_setdimensions(t_push *x, void *attr, long argc, t_atom *argv)
+{
+	long n;
+	
+	if (argc && argv) {
+		n = atom_getlong(argv);
+		if (n<1) n = 1;
+		if (n>MAXDIMENSIONS) n = MAXDIMENSIONS;
+		x->attrDimensions = n;
+	}
+	push_clear(x);
+	return MAX_ERR_NONE;
+}
+
+
+// ATTRIBUTE: dimensions (1-3)
+t_max_err push_attr_setfriction(t_push *x, void *attr, long argc, t_atom *argv)
+{
+	float f;
+	
+	if (argc && argv) {
+		f = atom_getfloat(argv);
+		if (f<=0.0 || f>=1.0) {
+			error("Invalid argument for friction. Must be in the range (0, 1)");
+			return MAX_ERR_NONE;;
+		}
+		x->attrFriction = f;
+	}
+	return MAX_ERR_NONE;
+}
+
 
 
 #pragma mark -
@@ -167,14 +220,14 @@ void push_bang(t_push *x)
 	float position[MAXDIMENSIONS];
 	t_atom a[MAXDIMENSIONS];
 	
-	for (i=0; i<MAXDIMENSIONS; i++) {
+	for (i=0; i<x->attrDimensions; i++) {
 		position[i] = x->previousPosition[i] + (1.0-x->attrFriction)*x->previousVelocity[i] + x->force[i];
 		x->previousVelocity[i] = position[i] - x->previousPosition[i];
 		x->previousPosition[i] = position[i];
 		atom_setfloat(&a[i], position[i]);
 		x->force[i] = 0; 		// Force is reset to zero when it has been applied
 	}
-	outlet_anything(x->outlet, _sym_list, MAXDIMENSIONS, a);
+	outlet_anything(x->outlet, _sym_list, x->attrDimensions, a);
 }
 
 
@@ -183,14 +236,14 @@ void push_force(t_push *x, t_symbol *s, long argc, t_atom *argv)
 {
 	int i;
 	
-	if (argc==MAXDIMENSIONS) {
-		for (i=0; i<MAXDIMENSIONS; i++) {
+	if (argc==x->attrDimensions) {
+		for (i=0; i<x->attrDimensions; i++) {
 			x->force[i] = atom_getfloat(argv);
 			argv++;
 		}
 	}
 	else {
-		post("jcom.push: Wrong number of elements for list");
+		post("jcom.push: force vector has wrong dimension");
 		return;
 	}
 }
@@ -201,7 +254,7 @@ void push_clear(t_push *x)
 {
 	int i;
 	
-	for (i=0; i< MAXDIMENSIONS; i++) {
+	for (i=0; i< x->attrDimensions; i++) {
 		x->previousPosition[i] = 0.0;
 		x->previousVelocity[i] = 0.0;
 		x->force[i] = 0.0;
