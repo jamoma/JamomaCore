@@ -21,7 +21,7 @@ struct Out {
 	TTUInt16					maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
 	TTUInt16					numChannels;	// the actual number of channels to use, set by the dsp method
 	TTUInt16					vectorSize;		// cached by the DSP method
-	TTFloat32					gain;			// gain multiplier
+	//TTFloat32					gain;			// gain multiplier
 	TTBoolean					hasReset;		// flag indicating that reset has been called already, so we don't need to reset again
 	TTBoolean					hasConnections;	// flag indicating that we have connections so we can mute MSP output
 	ObjectPtr					patcher;		// the patcher -- cached for iterating to make connections
