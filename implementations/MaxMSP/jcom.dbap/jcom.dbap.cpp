@@ -662,7 +662,7 @@ t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 		f = atom_getfloat(argv);
 		if (f<=0.0) {
 			error("Invalid argument for rolloff. Must be > 0");
-			return MAX_ERR_NONE;;
+			return MAX_ERR_NONE;
 		}	
 		x->attr_rolloff = f;
 		dbap_calculate_a(x);
