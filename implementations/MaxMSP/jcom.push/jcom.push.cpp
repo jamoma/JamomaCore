@@ -1,10 +1,10 @@
 /* 
- * jcom.delta (previously names tl.delta)
- * External for Jamoma: calculate 1st order difference
- * By Trond Lossius, Copyright © 2001-06
- * 20031227 initial port to OSX compiled by jasch <jasch@kat.ch>
- * 20060813 ported to Jamoma
+ * jcom.push (previously names tl.push)
+ * By Trond Lossius, Copyright 2011
  * 
+ * Simple physical modelling: Push an object about within a confined space
+ * Can be used for e.g. trajectories
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -14,15 +14,15 @@
 	<---MAXREF
 	
 		/maxref/object/name
-			jcom.delta
+			jcom.push
 
 		/maxref/object/digest
 			Calculate difference between incomming numbers
 
 		/maxref/object/description
-			<o>jcom.delta</o> calculates the difference between the last incomming value x[n]
+			<o>jcom.push</o> calculates the difference between the last incomming value x[n]
 			and the previous value received:<br/>
-			delta = x[n]-x[n-1] 
+			push = x[n]-x[n-1] 
 
 
 
@@ -59,7 +59,7 @@
 
 		
 		/maxref/example/image	
-			jcom.delta.gif
+			jcom.push.gif
 			
 		/maxref/example/caption
 			Calculate difference between the last two numbers received.
@@ -67,7 +67,7 @@
 
 		
 		/maxref/seealso/object/name
-			jcom.delta2
+			jcom.push2
 		
 		/maxref/seealso/object/description
 			Calculate the 2nd order difference of incomming numbers.
@@ -84,27 +84,24 @@
 #include "Jamoma.h"
 
 #define nonzero(x)				((x > 0) ? x : 1.)
+#define MAXDIMENSIONS			3
 
-typedef struct _delta{			///< Data structure for this object 
-	t_object	ob;				///< Must always be the first field; used by Max
-	float		x0;				///< Most recerntly received value
-	float		x1;				///< Previous value
-	float		x2;				///< 2nd last value received
-	float		delta;			///< 1st order differential
-	float		delta2;			///< 2nd order differential
-	long		lasttime;		///< Time code for previous value received
-	char		clearflag;		///< Flag indicating that history has been cleared
-	void		*outlets[3];		///< Pointer to outlet. Need one for each outlet 
-} t_delta;
+typedef struct _push{								///< Data structure for this object 
+	t_object	ob;									///< Must always be the first field; used by Max
+	int			attrDimensions;						///< The number of dimensions used
+	float		previousPosition[MAXDIMENSIONS];	///< The previous position
+	float		previousVelocity[MAXDIMENSIONS];	///< The previous velocity
+	float		attrFriction;						///< Friction coefficient
+	float		force[MAXDIMENSIONS];				///< Force applied on the object
+	void		*outlet;							///< Pointer to outlet. Need one for each outlet
+} t_push;
 
 // Prototypes for methods: need a method for each incoming message
-void *delta_new(void);
-void delta_bang(t_delta *x);
-void delta_int(t_delta *x, long n);
-void delta_float(t_delta *x, double f);
-void delta_clear(t_delta *x);
-void delta_set(t_delta *x, Symbol *s, long ac, Atom *setval);
-void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst);
+void *push_new(void);
+void push_bang(t_push *x);
+void push_force(t_push *x, t_symbol *s, long argc, t_atom *argv);
+void push_clear(t_push *x);
+void push_assist(t_push *x, void *b, long msg, long arg, char *dst);
 
 // Globals
 t_class		*this_class;				// Required. Global pointing to this class 
@@ -122,15 +119,13 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.delta",(method)delta_new, (method)0L, sizeof(t_delta), (method)0L, 0L, 0);			
+	c = class_new("jcom.push",(method)push_new, (method)0L, sizeof(t_push), (method)0L, 0L, 0);			
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)delta_bang,				"bang",		A_CANT,		0);
-	class_addmethod(c, (method)delta_int,				"int",		A_LONG,		0);
- 	class_addmethod(c, (method)delta_float, 			"float",	A_FLOAT,	0);		
-	class_addmethod(c, (method)delta_assist, 			"assist",	A_CANT,		0); 
-    class_addmethod(c, (method)delta_set,				"set",		A_GIMME,	0);  
-    class_addmethod(c, (method)delta_clear,				"clear",	0);
+	class_addmethod(c, (method)push_bang,				"bang",		A_CANT,		0);
+	class_addmethod(c, (method)push_force,				"force",	A_GIMME,	0);
+	class_addmethod(c, (method)push_clear,				"clear",	0);
+	class_addmethod(c, (method)push_assist, 			"assist",	A_CANT,		0); 
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 	
 	// Finalize our class
@@ -144,18 +139,16 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 /************************************************************************************/
 // Object Life
 
-void *delta_new(void)
+void *push_new(void)
 {
-	t_delta *x;	
-	x = (t_delta *)object_alloc(this_class);	// create the new instance and return a pointer to it
+	t_push *x;	
+	x = (t_push *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	if (x) {
 		// create inlets and outlets		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
-		x->outlets[2] = floatout(x);			// velocity
-		x->outlets[1] = floatout(x);			// 2nd order difference
-		x->outlets[0] = floatout(x);			// 1st order difference
-
-		delta_clear(x);							// initilaize instance
+		x->outlet = floatout(x);			// velocity
+		x->attrFriction = 0.1;
+		push_clear(x);						// initilaize instance
 	}
 	return (x);
 }
@@ -168,91 +161,64 @@ void *delta_new(void)
 
 
 // BANG input
-void delta_bang(t_delta *x)
+void push_bang(t_push *x)
 {
-	long thistime;
-	float velocity;
-
-	thistime = gettime();	
-	velocity = (1000 * (x->delta) ) / (nonzero(thistime - x->lasttime));
-	x->lasttime = thistime;
-
-	outlet_float(x->outlets[2], velocity);		
-	outlet_float(x->outlets[1], x->delta2);
-	outlet_float(x->outlets[0], x->delta);
-}
-
-
-// INT input
-void delta_int(t_delta *x, long n)
-{
-	double f;
+	int i;
+	float position[MAXDIMENSIONS];
+	t_atom a[MAXDIMENSIONS];
 	
-	f = (double)n;
-	delta_float(x,f);
-}
-
-
-// FLOAT input
-void delta_float(t_delta *x, double f)
-{
-	if (x->clearflag) {
-		x->x1 = f;
-		x->x0 = f;
-		x->clearflag = 0;
+	for (i=0; i<MAXDIMENSIONS; i++) {
+		position[i] = x->previousPosition[i] + (1.0-x->attrFriction)*x->previousVelocity[i] + x->force[i];
+		x->previousVelocity[i] = position[i] - x->previousPosition[i];
+		x->previousPosition[i] = position[i];
+		atom_setfloat(&a[i], position[i]);
+		x->force[i] = 0; 		// Force is reset to zero when it has been applied
 	}
-	x->x2 = x->x1;	
-	x->x1 = x->x0;			
-	x->x0 = f;
-	
-	x->delta = x->x0 - x->x1;
-	x->delta2 = x->x0 - 2*x->x1 + x->x2;
-	
-	delta_bang(x);
+	outlet_anything(x->outlet, _sym_list, MAXDIMENSIONS, a);
 }
 
 
-// SET input
-void delta_set(t_delta *x, t_symbol *s, long argc, t_atom *argv)
+// FORCE input
+void push_force(t_push *x, t_symbol *s, long argc, t_atom *argv)
 {
-	float f;
-
-	if (argc) 
-		f = atom_getfloat(argv);
-	if (x->clearflag) {
-		x->x1 = f;
-		x->x0 = f;
-		x->clearflag = 0;
-	}
-	x->x2 = x->x1;	
-	x->x1 = x->x0;			
-	x->x0 = f;
-	x->lasttime = gettime();
+	int i;
 	
-	x->delta = x->x0 - x->x1;
-	x->delta2 = x->x0 - 2*x->x1 + x->x2;
+	if (argc==MAXDIMENSIONS) {
+		for (i=0; i<MAXDIMENSIONS; i++) {
+			x->force[i] = atom_getfloat(argv);
+			argv++;
+		}
+	}
+	else {
+		post("jcom.push: Wrong number of elements for list");
+		return;
+	}
 }
 
 
 // CLEAR input
-void delta_clear(t_delta *x)
+void push_clear(t_push *x)
 {
-	x->clearflag = 1;
-	x->delta = 0;
-	x->delta2 = 0;
-	x->lasttime = gettime();
+	int i;
+	
+	for (i=0; i< MAXDIMENSIONS; i++) {
+		x->previousPosition[i] = 0.0;
+		x->previousVelocity[i] = 0.0;
+		x->force[i] = 0.0;
+	}
+	push_bang(x);
 }
 
 
 // Method for Assistance Messages
-void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst)	// Display assistance messages
+void push_assist(t_push *x, void *b, long msg, long arg, char *dst)	// Display assistance messages
 {
 	if (msg==1)
 	{ 
 		switch(arg)
 		{
 			case 0:
-				strcpy(dst, "(int/float) function value");
+				strcpy(dst, "(list) force applied to object");
 				break;	
 		}
 	}
@@ -261,15 +227,9 @@ void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst)	// Display
 		switch(arg)
 		{
 			case 0:
-				strcpy(dst, "(float) 1st order difference");
+				strcpy(dst, "(list) resulting position of object");
 				break;
 			case 1:
-				strcpy(dst, "(float) 2nd order difference");
-				break;
-			case 2:
-				strcpy(dst, "(float) velocity");
-				break;
-			case 3:
 				strcpy(dst, "dumpout");
 				break;
 		}
