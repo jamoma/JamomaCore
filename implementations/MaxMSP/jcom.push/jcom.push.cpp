@@ -92,6 +92,7 @@ typedef struct _push{								///< Data structure for this object
 	float		previousVelocity[MAXDIMENSIONS];	///< The previous velocity
 	float		attrFriction;						///< Friction coefficient
 	int			attrDimensions;						///< The number of dimensions used
+	float		attrSize[MAXDIMENSIONS];			///< Room size, defined individually for each dimension
 	float		force[MAXDIMENSIONS];				///< Force applied on the object
 	void		*outlet;							///< Pointer to outlet. Need one for each outlet
 } t_push;
@@ -104,6 +105,8 @@ void push_clear(t_push *x);
 void push_assist(t_push *x, void *b, long msg, long arg, char *dst);
 t_max_err push_attr_setdimensions(t_push *x, void *attr, long argc, t_atom *argv);
 t_max_err push_attr_setfriction(t_push *x, void *attr, long argc, t_atom *argv);
+t_max_err push_attr_setsize(t_push *x, void *attr, long argc, t_atom *argv);
+t_max_err push_attr_getsize(t_push *x, void *attr, long *argc, t_atom **argv);
 
 
 // Globals
@@ -138,6 +141,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_LONG(c,		"dimensions",		0,		t_push,	attrDimensions);
 	CLASS_ATTR_ACCESSORS(c,	"dimensions",		NULL,	push_attr_setdimensions);
 	
+	CLASS_ATTR_ATOM(c,		"size",				0,		t_push, attrSize);
+	CLASS_ATTR_ACCESSORS(c,	"size",		push_attr_getsize,	push_attr_setsize);
+	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	this_class = c;
@@ -151,7 +157,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 void *push_new(t_symbol *msg, long argc, t_atom *argv)
 {
-	t_push *x;	
+	t_push *x;
+	int i;
+	
 	x = (t_push *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	if (x) {
 		// create inlets and outlets		
@@ -159,6 +167,8 @@ void *push_new(t_symbol *msg, long argc, t_atom *argv)
 		x->outlet = floatout(x);			// velocity
 		x->attrDimensions = 3;
 		x->attrFriction = 0.1;
+		for (i=0; i<MAXDIMENSIONS; i++)
+			x->attrSize[i] = 40.0;			// This is the same default as for ViMiC
 		push_clear(x);						// initilaize instance
 		attr_args_process(x, argc, argv);	// handle attribute args
 
@@ -198,13 +208,46 @@ t_max_err push_attr_setfriction(t_push *x, void *attr, long argc, t_atom *argv)
 		f = atom_getfloat(argv);
 		if (f<=0.0 || f>=1.0) {
 			error("Invalid argument for friction. Must be in the range (0, 1)");
-			return MAX_ERR_NONE;;
+			return MAX_ERR_NONE;
 		}
 		x->attrFriction = f;
 	}
 	return MAX_ERR_NONE;
 }
 
+
+t_max_err push_attr_setsize(t_push *x, void *attr, long argc, t_atom *argv)
+{
+	int i;
+	float f;
+	
+	if ((argc==x->attrDimensions) && argv) {
+		for (i=0; i<x->attrDimensions; i++) {
+			f = atom_getfloat(argv);
+			if (f>0.0) {
+				x->attrSize[i] = f;
+				argv++;
+			}
+			else 
+				post("jcom.push: Ignored faulty value for size");
+		}
+	}
+	return MAX_ERR_NONE;
+}
+
+t_max_err push_attr_getsize(t_push *x, void *attr, long *argc, t_atom **argv)
+{
+	int i;
+	
+	*argc = x->attrDimensions; 
+	*argv = (t_atom*)sysmem_newptr((sizeof(t_atom))*x->attrDimensions);
+	for (i=0; i<x->attrDimensions; i++) {
+		atom_setfloat(*argv+i, x->attrSize[i]);
+	}
+		
+	return MAX_ERR_NONE;
+	// TODO: We need to free the memory assigned for argv
+}
 
 
 #pragma mark -
