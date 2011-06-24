@@ -299,7 +299,7 @@ t_int* OutPerform(t_int* w)
 			numChannels = TTClip<TTUInt16>(self->maxNumChannels, 0, self->audioSignal->getNumChannelsAsInt());	
 			
 			t_atom		argv[numChannels]; //allocating list 
-
+			//TODO: to improve speed, this list should be part of 'self' and only resized when numChannels is changed. 
 			for(TTUInt16 channel=0; channel<numChannels; channel++) {
 			    atom_setfloat(argv+channel, self->audioSignal->getSample(channel, 0));
 			}
