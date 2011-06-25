@@ -82,9 +82,13 @@
 */
 
 #include "Jamoma.h"
+#include "TTAudioObject.h"	// use the ttblue clipping functions
+
 
 #define nonzero(x)				((x > 0) ? x : 1.)
 #define MAXDIMENSIONS			10
+
+t_symbol*		ps_clip;
 
 typedef struct _push{								///< Data structure for this object 
 	t_object	ob;									///< Must always be the first field; used by Max
@@ -93,6 +97,7 @@ typedef struct _push{								///< Data structure for this object
 	float		attrFriction;						///< Friction coefficient
 	int			attrDimensions;						///< The number of dimensions used
 	float		attrSize[MAXDIMENSIONS];			///< Room size, defined individually for each dimension
+	t_symbol*   attrBoundaryMode;					///< Boundary mode
 	float		force[MAXDIMENSIONS];				///< Force applied on the object
 	void		*outlet;							///< Pointer to outlet. Need one for each outlet
 } t_push;
@@ -123,6 +128,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	jamoma_init();
 	common_symbols_init();
+	ps_clip = gensym("clip");
 
 	// Define our class
 	c = class_new("jcom.push",(method)push_new, (method)0L, sizeof(t_push), (method)0L, A_GIMME, 0);			
@@ -143,6 +149,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	CLASS_ATTR_ATOM(c,		"size",				0,		t_push, attrSize);
 	CLASS_ATTR_ACCESSORS(c,	"size",		push_attr_getsize,	push_attr_setsize);
+
+	// ATTRIBUTE: boundary mode - options are none, clip, wrap, fold, repel
+	jamoma_class_attr_new(c, 		"boundary",	 	_sym_symbol, (method)jcom_core_attr_setclipmode, (method)jcom_core_attr_getclipmode);
+	CLASS_ATTR_ENUM(c,				"boundary",		0,	(char*)"none clip bounce fold repel");
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -260,16 +270,32 @@ t_max_err push_attr_getsize(t_push *x, void *attr, long *argc, t_atom **argv)
 void push_bang(t_push *x)
 {
 	int i;
-	float position[MAXDIMENSIONS];
+	float position, rangeLow, rangeHigh;
 	t_atom a[MAXDIMENSIONS];
 	
 	for (i=0; i<x->attrDimensions; i++) {
-		position[i] = x->previousPosition[i] + (1.0-x->attrFriction)*x->previousVelocity[i] + x->force[i];
-		x->previousVelocity[i] = position[i] - x->previousPosition[i];
-		x->previousPosition[i] = position[i];
-		atom_setfloat(&a[i], position[i]);
+		position = x->previousPosition[i] + (1.0-x->attrFriction)*x->previousVelocity[i] + x->force[i];
+
+		x->previousVelocity[i] = position - x->previousPosition[i];
+		
+		rangeHigh = 0.5*x->attrSize[i];
+		rangeHigh = - rangeHigh;
+		if (x->attrBoundaryMode == ps_clip)
+			TTLimit(position, rangeLow, rangeHigh);
+		else if (x->attrBoundaryMode == jps_wrap)
+			position = TTInfWrap(position, rangeLow, rangeHigh);
+		else if (x->attrBoundaryMode == jps_fold)
+			position = TTFold(position, rangeLow, rangeHigh);		
+		
+		x->previousPosition[i] = position;
+		
+
+		
+		atom_setfloat(&a[i], position);
 		x->force[i] = 0; 		// Force is reset to zero when it has been applied
 	}
+
+	
 	outlet_anything(x->outlet, _sym_list, x->attrDimensions, a);
 }
 
