@@ -17,6 +17,7 @@
 
 #define nonzero(x)				((x > 0) ? x : 1.)
 #define MAXDIMENSIONS			10
+#define	CLOSETOBORDER			0.9
 
 t_symbol*		ps_clip;
 t_symbol*		ps_bounce;
@@ -205,7 +206,7 @@ t_max_err push_attr_setBoundaryMode(t_push *x, void *attr, long argc, t_atom *ar
 	
 	if (argc && argv) {
 		s = atom_getsym(argv);
-		if ((s==jps_none) || (s==ps_clip) || (s==jps_wrap) || (s==ps_bounce))
+		if ((s==jps_none) || (s==ps_clip) || (s==jps_wrap) || (s==ps_bounce) || (s==ps_repel))
 			x->attrBoundaryMode = s;
 	}
 	return MAX_ERR_NONE;
@@ -222,43 +223,50 @@ t_max_err push_attr_setBoundaryMode(t_push *x, void *attr, long argc, t_atom *ar
 void push_bang(t_push *x)
 {
 	int i;
-	float position, rangeLow, rangeHigh;
-	float y, min, max;
+	float position, velocity, vicinity, repel;
+	float rangeLow, rangeHigh;
 	t_atom a[MAXDIMENSIONS];
-	
+
 	for (i=0; i<x->attrDimensions; i++) {
-		position = x->previousPosition[i] + (1.0-x->attrFriction)*x->previousVelocity[i] + x->force[i];
-		x->previousVelocity[i] = position - x->previousPosition[i];
-		
+		// Determine range
 		rangeHigh = 0.5*x->attrSize[i];
 		rangeLow = -rangeHigh;
-		if (x->attrBoundaryMode == ps_clip)
+		
+		// repel mode: Push away from border
+		if (x->attrBoundaryMode == ps_repel) {
+			// Are we in the vicinity of a border?
+			vicinity = fabs(x->previousPosition[i])/rangeHigh;
+			vicinity = (vicinity-CLOSETOBORDER)/(1.0-CLOSETOBORDER);
+			TTLimit(vicinity, (float)0.0, (float)1.0);
+			repel = vicinity*x->previousPosition[i]/rangeHigh;
+		}
+		else
+			repel = 0.0;
+		
+		// Numerical integration
+		position = x->previousPosition[i] + (1.0-x->attrFriction)*x->previousVelocity[i] + x->force[i] - repel;
+		velocity = position - x->previousPosition[i];
+		
+		// Boundary conditions
+		if ((x->attrBoundaryMode==ps_clip) || (x->attrBoundaryMode==ps_repel)) {
 			TTLimit(position, rangeLow, rangeHigh);
+			velocity = position - x->previousPosition[i];
+		}
 		else if (x->attrBoundaryMode == jps_wrap)
 			position = TTInfWrap(position, rangeLow, rangeHigh);
 		else if (x->attrBoundaryMode == ps_bounce) {
 			// Do we need to fold? The following test works because of symetry while avoiding fabs()
 			if ((position*position) >= (rangeHigh*rangeHigh)) {
 				position = TTFold(position, rangeLow, rangeHigh);
-				// Inverse direction of velocity
-				x->previousVelocity[i] = -x->previousVelocity[i];
+				// Invert direction of velocity
+				velocity = -velocity;
 			}
 		}
-		else if (x->attrBoundaryMode = ps_repel) {
-			min  = rangeLow  * 0.995;
-			max = rangeHigh * 0.9995;
-			y = x->previousPosition[i];
-			TTLimit(y, min, max);
-			// Apply an additional anti-magnetic force
-			position = position + 1.0 * (y/((y-rangeLow)*(y-rangeHigh)));
-			// Clip to make absolutely sure that we are not trespassing
-			TTLimit(position,rangeLow,rangeHigh);
-			// As position has been altered, velocity needs to be updated
-			x->previousVelocity[i] = position - x->previousPosition[i];
-		}
+		
 		x->previousPosition[i] = position;
-		atom_setfloat(&a[i], position);
+		x->previousVelocity[i] = velocity;
 		x->force[i] = 0; 		// Force is reset to zero when it has been applied
+		atom_setfloat(&a[i], position);
 	}
 
 	

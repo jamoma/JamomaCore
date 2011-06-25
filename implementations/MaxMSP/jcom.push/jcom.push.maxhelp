@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 146.0, 63.0, 870.0, 727.0 ],
+		"rect" : [ 146.0, 63.0, 809.0, 736.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 146.0, 63.0, 870.0, 727.0 ],
+		"defrect" : [ 146.0, 63.0, 809.0, 736.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,7 +27,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 50.0, 435.0, 53.0, 19.0 ],
-					"presentation_rect" : [ 51.0, 442.0, 0.0, 0.0 ],
 					"text" : "s toPush"
 				}
 
@@ -42,7 +41,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 50.0, 410.0, 87.0, 17.0 ],
-					"presentation_rect" : [ 51.0, 441.0, 0.0, 0.0 ],
 					"text" : "position 40 -20"
 				}
 
@@ -56,7 +54,7 @@
 					"framecolor" : [ 0.494118, 0.556863, 0.607843, 0.0 ],
 					"id" : "obj-33",
 					"ignoreclick" : 1,
-					"items" : [ "No", "boundary", "imposed", ",", "Clip", "at", "boundaries", ",", "Jump", "to", "opposite", "side", ",", "Bounce", "at", "boundary", ",", "Boundary", "acts", "as", "a", "repellant" ],
+					"items" : [ "No", "boundary", "imposed", ",", "Clip", "at", "boundaries", ",", "Bounce", "at", "boundary", ",", "Reenter", "from", "opposite", "side", ",", "Boundary", "acts", "as", "a", "repellant" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -385,7 +383,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 430.0, 145.0, 285.0, 17.0 ],
-					"text" : "40. -20."
+					"text" : "0. 0."
 				}
 
 			}
@@ -413,8 +411,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 430.0, 625.0, 285.0, 17.0 ],
-					"text" : "force 1.185 0.925"
+					"patching_rect" : [ 430.0, 625.0, 285.0, 17.0 ]
 				}
 
 			}
@@ -545,13 +542,13 @@
 ,
 					"patching_rect" : [ 370.0, 145.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p scaling"
@@ -815,13 +812,13 @@
 ,
 					"patching_rect" : [ 370.0, 595.0, 141.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p mayTheForceBeWithYou"
@@ -943,7 +940,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 870.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 809.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
