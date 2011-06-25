@@ -12,7 +12,7 @@
 
 
 #include "Jamoma.h"
-#include "TTAudioObject.h"	// use the ttblue clipping functions
+#include "TTAudioObject.h"	// use the Jamoma DSP clipping functions
 
 
 #define nonzero(x)				((x > 0) ? x : 1.)
