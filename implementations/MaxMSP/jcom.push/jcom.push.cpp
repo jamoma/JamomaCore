@@ -37,6 +37,7 @@ typedef struct _push{								///< Data structure for this object
 void *push_new(t_symbol *msg, long argc, t_atom *argv);
 void push_bang(t_push *x);
 void push_force(t_push *x, t_symbol *s, long argc, t_atom *argv);
+void push_position(t_push *x, t_symbol *s, long argc, t_atom *argv);
 void push_clear(t_push *x);
 void push_assist(t_push *x, void *b, long msg, long arg, char *dst);
 t_max_err push_attr_setdimensions(t_push *x, void *attr, long argc, t_atom *argv);
@@ -69,6 +70,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)push_bang,				"bang",		A_CANT,		0);
 	class_addmethod(c, (method)push_force,				"force",	A_GIMME,	0);
+	class_addmethod(c, (method)push_position,			"position",	A_GIMME,	0);
 	class_addmethod(c, (method)push_clear,				"clear",	0);
 	class_addmethod(c, (method)push_assist, 			"assist",	A_CANT,		0); 
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
@@ -239,11 +241,7 @@ void push_bang(t_push *x)
 				x->previousVelocity[i] = -x->previousVelocity[i];
 			}
 		}
-		
 		x->previousPosition[i] = position;
-		
-
-		
 		atom_setfloat(&a[i], position);
 		x->force[i] = 0; 		// Force is reset to zero when it has been applied
 	}
@@ -280,6 +278,28 @@ void push_clear(t_push *x)
 		x->previousPosition[i] = 0.0;
 		x->previousVelocity[i] = 0.0;
 		x->force[i] = 0.0;
+	}
+	push_bang(x);
+}
+
+
+// POSITION input
+void push_position(t_push *x, t_symbol *s, long argc, t_atom *argv)
+{
+	int i;
+	float f, min, max;
+	
+	if ((argc==x->attrDimensions) && argv) {
+		for (i=0; i<x->attrDimensions; i++) {
+			max = 0.5*x->attrSize[i];
+			min = -max;
+			f = atom_getfloat(argv);
+			TTLimit(f, min, max);
+			x->previousPosition[i] = f;
+			x->previousVelocity[i] = 0.0;
+			x->force[i] = 0.0;
+			argv++;
+		}
 	}
 	push_bang(x);
 }
