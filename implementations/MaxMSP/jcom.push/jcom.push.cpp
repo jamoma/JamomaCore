@@ -221,17 +221,22 @@ void push_bang(t_push *x)
 	
 	for (i=0; i<x->attrDimensions; i++) {
 		position = x->previousPosition[i] + (1.0-x->attrFriction)*x->previousVelocity[i] + x->force[i];
-
 		x->previousVelocity[i] = position - x->previousPosition[i];
 		
 		rangeHigh = 0.5*x->attrSize[i];
-		rangeHigh = - rangeHigh;
+		rangeLow = -rangeHigh;
 		if (x->attrBoundaryMode == ps_clip)
 			TTLimit(position, rangeLow, rangeHigh);
 		else if (x->attrBoundaryMode == jps_wrap)
 			position = TTInfWrap(position, rangeLow, rangeHigh);
-		else if (x->attrBoundaryMode == jps_fold)
-			position = TTFold(position, rangeLow, rangeHigh);		
+		else if (x->attrBoundaryMode == jps_fold) {
+			// Do we need to fold? The following test works because of symetry while avoiding fabs()
+			if ((position*position) >= (rangeHigh*rangeHigh)) {
+				position = TTFold(position, rangeLow, rangeHigh);
+				// Inverse direction of velocity
+				x->previousVelocity[i] = -x->previousVelocity[i];
+			}
+		}
 		
 		x->previousPosition[i] = position;
 		
