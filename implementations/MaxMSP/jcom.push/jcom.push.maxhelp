@@ -20,6 +20,28 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"arrow" : 0,
+					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"framecolor" : [ 0.494118, 0.556863, 0.607843, 0.0 ],
+					"id" : "obj-33",
+					"ignoreclick" : 1,
+					"items" : [ "No", "boundary", "imposed", ",", "Clip", "at", "boundaries", ",", "Jump", "to", "opposite", "side", ",", "Bounce", "at", "boundary", ",", "Boundary", "acts", "as", "a", "repellant" ],
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 155.0, 640.0, 188.0, 19.0 ],
+					"prototypename" : "M4L.display",
+					"textcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
+					"textcolor2" : [ 0.301961, 0.337255, 0.403922, 1.0 ],
+					"types" : [  ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-32",
@@ -27,8 +49,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 175.0, 630.0, 74.0, 17.0 ],
-					"presentation_rect" : [ 173.0, 629.0, 0.0, 0.0 ],
+					"patching_rect" : [ 160.0, 665.0, 74.0, 17.0 ],
 					"text" : "getboundary"
 				}
 
@@ -41,8 +62,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 50.0, 680.0, 53.0, 19.0 ],
-					"presentation_rect" : [ 222.0, 667.0, 0.0, 0.0 ],
+					"patching_rect" : [ 50.0, 690.0, 53.0, 19.0 ],
 					"text" : "s toPush"
 				}
 
@@ -56,7 +76,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 50.0, 655.0, 103.0, 19.0 ],
+					"patching_rect" : [ 50.0, 665.0, 103.0, 19.0 ],
 					"text" : "prepend boundary"
 				}
 
@@ -66,12 +86,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
-					"items" : [ "none", ",", "clip", ",", "fold", ",", "wrap", ",", "repel", ",", "nonsense" ],
+					"items" : [ "none", ",", "clip", ",", "fold", ",", "wrap", ",", "repel" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 50.0, 630.0, 100.0, 19.0 ],
+					"patching_rect" : [ 50.0, 640.0, 100.0, 19.0 ],
 					"types" : [  ]
 				}
 
@@ -196,7 +216,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 250.0, 415.0, 34.0, 19.0 ],
+					"patching_rect" : [ 315.0, 415.0, 34.0, 19.0 ],
 					"text" : "print"
 				}
 
@@ -336,7 +356,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 430.0, 145.0, 285.0, 17.0 ],
-					"text" : "90.2 29.958767"
+					"text" : "65.741051 12.92231"
 				}
 
 			}
@@ -365,7 +385,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 430.0, 625.0, 285.0, 17.0 ],
-					"text" : "force 0.165 0.75"
+					"text" : "force -1.515 -0.19"
 				}
 
 			}
@@ -496,13 +516,13 @@
 ,
 					"patching_rect" : [ 370.0, 145.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p scaling"
@@ -766,13 +786,13 @@
 ,
 					"patching_rect" : [ 370.0, 595.0, 141.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p mayTheForceBeWithYou"
@@ -894,7 +914,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 849.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 870.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -925,7 +945,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "" ],
 					"patching_rect" : [ 50.0, 385.0, 295.0, 19.0 ],
-					"text" : "jcom.push @dimensions 2 @friction 0.11 @size 200 200"
+					"text" : "jcom.push @dimensions 2 @friction 0.11 @size 400 400"
 				}
 
 			}
@@ -988,8 +1008,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-30", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 100.0, 651.5, 59.5, 651.5 ],
+					"midpoints" : [ 100.0, 661.5, 59.5, 661.5 ],
 					"source" : [ "obj-2", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-33", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
@@ -997,7 +1026,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 139.5, 595.5, 59.5, 595.5 ],
 					"source" : [ "obj-20", 0 ]
 				}
 
@@ -1042,7 +1071,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-28", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 184.5, 681.0, 59.5, 681.0 ],
+					"midpoints" : [ 169.5, 687.0, 59.5, 687.0 ],
 					"source" : [ "obj-32", 0 ]
 				}
 
