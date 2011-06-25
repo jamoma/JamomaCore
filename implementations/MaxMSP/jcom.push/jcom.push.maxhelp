@@ -86,7 +86,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
-					"items" : [ "none", ",", "clip", ",", "fold", ",", "wrap", ",", "repel" ],
+					"items" : [ "none", ",", "clip", ",", "bounce", ",", "wrap", ",", "repel" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -356,7 +356,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 430.0, 145.0, 285.0, 17.0 ],
-					"text" : "65.741051 12.92231"
+					"text" : "-84.276924 102.793526"
 				}
 
 			}
@@ -385,7 +385,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 430.0, 625.0, 285.0, 17.0 ],
-					"text" : "force -1.515 -0.19"
+					"text" : "force -3.58 0.095"
 				}
 
 			}

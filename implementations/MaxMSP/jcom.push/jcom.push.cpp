@@ -19,6 +19,7 @@
 #define MAXDIMENSIONS			10
 
 t_symbol*		ps_clip;
+t_symbol*		ps_bounce;
 
 typedef struct _push{								///< Data structure for this object 
 	t_object	ob;									///< Must always be the first field; used by Max
@@ -59,7 +60,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	jamoma_init();
 	common_symbols_init();
-	ps_clip = gensym("clip");
+	ps_clip		= gensym("clip");
+	ps_bounce	= gensym("bounce");
 
 	// Define our class
 	c = class_new("jcom.push",(method)push_new, (method)0L, sizeof(t_push), (method)0L, A_GIMME, 0);			
@@ -199,7 +201,7 @@ t_max_err push_attr_setBoundaryMode(t_push *x, void *attr, long argc, t_atom *ar
 	
 	if (argc && argv) {
 		s = atom_getsym(argv);
-		if ((s==jps_none) || (s==ps_clip) || (s==jps_wrap) || (s==jps_fold))
+		if ((s==jps_none) || (s==ps_clip) || (s==jps_wrap) || (s==ps_bounce))
 			x->attrBoundaryMode = s;
 	}
 	return MAX_ERR_NONE;
@@ -229,7 +231,7 @@ void push_bang(t_push *x)
 			TTLimit(position, rangeLow, rangeHigh);
 		else if (x->attrBoundaryMode == jps_wrap)
 			position = TTInfWrap(position, rangeLow, rangeHigh);
-		else if (x->attrBoundaryMode == jps_fold) {
+		else if (x->attrBoundaryMode == ps_bounce) {
 			// Do we need to fold? The following test works because of symetry while avoiding fabs()
 			if ((position*position) >= (rangeHigh*rangeHigh)) {
 				position = TTFold(position, rangeLow, rangeHigh);
