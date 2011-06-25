@@ -20,6 +20,7 @@
 
 t_symbol*		ps_clip;
 t_symbol*		ps_bounce;
+t_symbol*		ps_repel;
 
 typedef struct _push{								///< Data structure for this object 
 	t_object	ob;									///< Must always be the first field; used by Max
@@ -63,6 +64,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	common_symbols_init();
 	ps_clip		= gensym("clip");
 	ps_bounce	= gensym("bounce");
+	ps_repel	= gensym("repel");
 
 	// Define our class
 	c = class_new("jcom.push",(method)push_new, (method)0L, sizeof(t_push), (method)0L, A_GIMME, 0);			
@@ -221,6 +223,7 @@ void push_bang(t_push *x)
 {
 	int i;
 	float position, rangeLow, rangeHigh;
+	float y, min, max;
 	t_atom a[MAXDIMENSIONS];
 	
 	for (i=0; i<x->attrDimensions; i++) {
@@ -240,6 +243,18 @@ void push_bang(t_push *x)
 				// Inverse direction of velocity
 				x->previousVelocity[i] = -x->previousVelocity[i];
 			}
+		}
+		else if (x->attrBoundaryMode = ps_repel) {
+			min  = rangeLow  * 0.995;
+			max = rangeHigh * 0.9995;
+			y = x->previousPosition[i];
+			TTLimit(y, min, max);
+			// Apply an additional anti-magnetic force
+			position = position + 1.0 * (y/((y-rangeLow)*(y-rangeHigh)));
+			// Clip to make absolutely sure that we are not trespassing
+			TTLimit(position,rangeLow,rangeHigh);
+			// As position has been altered, velocity needs to be updated
+			x->previousVelocity[i] = position - x->previousPosition[i];
 		}
 		x->previousPosition[i] = position;
 		atom_setfloat(&a[i], position);
