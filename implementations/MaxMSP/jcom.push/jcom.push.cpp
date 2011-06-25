@@ -42,6 +42,7 @@ t_max_err push_attr_setdimensions(t_push *x, void *attr, long argc, t_atom *argv
 t_max_err push_attr_setfriction(t_push *x, void *attr, long argc, t_atom *argv);
 t_max_err push_attr_setsize(t_push *x, void *attr, long argc, t_atom *argv);
 t_max_err push_attr_getsize(t_push *x, void *attr, long *argc, t_atom **argv);
+t_max_err push_attr_setBoundaryMode(t_push *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
@@ -81,8 +82,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ACCESSORS(c,	"size",		push_attr_getsize,	push_attr_setsize);
 
 	// ATTRIBUTE: boundary mode - options are none, clip, wrap, fold, repel
-	jamoma_class_attr_new(c, 		"boundary",	 	_sym_symbol, (method)jcom_core_attr_setclipmode, (method)jcom_core_attr_getclipmode);
-	CLASS_ATTR_ENUM(c,				"boundary",		0,	(char*)"none clip bounce fold repel");
+	CLASS_ATTR_SYM( c, 		"boundary",			0,		t_push, attrBoundaryMode);
+	CLASS_ATTR_ACCESSORS(c, "boundary",			NULL,	push_attr_setBoundaryMode);
+	CLASS_ATTR_ENUM(c,		"boundary",		0,	(char*)"none clip bounce fold repel");
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -109,6 +111,7 @@ void *push_new(t_symbol *msg, long argc, t_atom *argv)
 		x->attrFriction = 0.1;
 		for (i=0; i<MAXDIMENSIONS; i++)
 			x->attrSize[i] = 40.0;			// This is the same default as for ViMiC
+		x->attrBoundaryMode = jps_none;
 		push_clear(x);						// initilaize instance
 		attr_args_process(x, argc, argv);	// handle attribute args
 
@@ -187,6 +190,19 @@ t_max_err push_attr_getsize(t_push *x, void *attr, long *argc, t_atom **argv)
 		
 	return MAX_ERR_NONE;
 	// TODO: We need to free the memory assigned for argv
+}
+
+
+t_max_err push_attr_setBoundaryMode(t_push *x, void *attr, long argc, t_atom *argv)
+{
+	t_symbol* s;
+	
+	if (argc && argv) {
+		s = atom_getsym(argv);
+		if ((s==jps_none) || (s==ps_clip) || (s==jps_wrap) || (s==jps_fold))
+			x->attrBoundaryMode = s;
+	}
+	return MAX_ERR_NONE;
 }
 
 
