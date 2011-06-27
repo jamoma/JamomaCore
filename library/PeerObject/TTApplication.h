@@ -13,6 +13,7 @@
 
 #include "TTModular.h"
 #include "TTPluginHandler.h"
+#include "TTMirror.h"
 
 /** TTApplication ... TODO : an explanation
  
@@ -25,9 +26,14 @@ typedef TTApplicationManager* TTApplicationManagerPtr;
 class TTPluginHandler;
 typedef TTPluginHandler* TTPluginHandlerPtr;
 
+class TTMirror;
+typedef TTMirror* TTMirrorPtr;
 
 // Macro to have a direct acces to a directory
 #define	getDirectoryFrom(anAddress) TTApplicationGetDirectory(anAddress)
+
+// Macro to have a direct acces to the local application directory
+#define	getLocalDirectory TTApplicationGetDirectory(kTTAdrsRoot)
 
 // Macro to convert a TTValue with tt names inside into a value with local application names inside.
 #define	ToAppNames(ttNames) \
@@ -55,6 +61,7 @@ private:
 
 	TTSymbolPtr					mName;				///< ATTRIBUTE : the name of the application
 	TTSymbolPtr					mVersion;			///< ATTRIBUTE : the version of the application
+	TTSymbolPtr					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>)
 	
 	TTHashPtr					mPluginParameters;	///< ATTRIBUTE : hash table containing hash table of parameters 
 													///< for each plugin used for communication with this application
@@ -69,6 +76,8 @@ private:
 	TTValue						mAllAppNames;		///< All Application names
 	TTHashPtr					mTTToApp;			///< Hash table to convert TT names into Application names
 	TTValue						mAllTTNames;		///< All TT names
+	
+	TTNodeAddressPtr			mTempAddress;		///< a temporary address to parse opml file
 	
 	/** Get all plugin names use by the application */
 	TTErr getPluginNames(TTValue& value);
@@ -116,7 +125,6 @@ private:
 	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTNodeAddressPtr anAddress);
 	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName);
 	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName);
-
 };
 
 typedef TTApplication* TTApplicationPtr;

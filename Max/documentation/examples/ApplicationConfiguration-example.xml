@@ -6,6 +6,7 @@
  </application>
  <application name="PureData" version="V1.0">
   <plugin name="Minuit" ip="127.0.0.1" port="7003"/>
+  <namespace file="/Users/TO/Documents/Jamoma/Tools/debugging/jcom.modular/PdNamespace.opml"/>
  </application>
  <application name="Jamoma" version="0.1">
   <plugin name="Minuit" ip="127.0.0.1" port="8002"/>

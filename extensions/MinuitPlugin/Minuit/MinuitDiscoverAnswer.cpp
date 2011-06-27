@@ -116,9 +116,9 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				find_end = currentString.compare(MINUIT_END_NODES) == 0;
 				if(!find_end) {
 #ifdef TT_PLUGIN_DEBUG
-					cout << "Parsed nodes " << parsed.str() << endl;
+					cout << "Parsed names " << parsed.str() << endl;
 #endif
-					m_nodes.append(TT(currentString));
+					m_names.append(TT(currentString));
 				}
 			}
 			while(!find_end);
@@ -144,9 +144,9 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 				find_end = currentString.compare(MINUIT_END_TYPES) == 0;
 				if(!find_end) {
 #ifdef TT_PLUGIN_DEBUG
-					cout << "Parsed leaves " << parsed.str() << endl;
+					cout << "Parsed types " << parsed.str() << endl;
 #endif
-					m_leaves.append(TT(currentString));
+					m_types.append(TT(currentString));
 				}
 			}
 			while(!find_end);
@@ -187,9 +187,9 @@ void MinuitDiscoverAnswer::parseMinuitDiscoverAnswer(const osc::ReceivedMessage&
 	m_state = ANSWER_RECEIVED;
 }
 
-void MinuitDiscoverAnswer::waitDiscoverAnswer(TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+void MinuitDiscoverAnswer::waitDiscoverAnswer(TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes)
 {
-	returnedNodes = m_nodes;
-	returnedLeaves = m_leaves;
+	returnedChildrenNames = m_names;
+	returnedChildrenTypes = m_types;
 	returnedAttributes = m_attributes;
 }

@@ -26,7 +26,7 @@ public:
 
 	void parseMinuitDiscoverAnswer(const osc::ReceivedMessage&m);
 
-	void waitDiscoverAnswer(TTValue& returnedNodes, TTValue& returnedTypes, TTValue& returnedAttributes);
+	void waitDiscoverAnswer(TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes);
 
 private:
 	int m_state;
@@ -38,11 +38,8 @@ private:
 	std::string m_ip;
 	unsigned int m_port;
 
-//	std::vector<std::string> m_nodes;
-//	std::vector<std::string> m_leaves;
-//	std::vector<std::string> m_attributes;
-	TTValue m_nodes;
-	TTValue m_leaves;
+	TTValue m_names;
+	TTValue m_types;
 	TTValue m_attributes;
 };
 

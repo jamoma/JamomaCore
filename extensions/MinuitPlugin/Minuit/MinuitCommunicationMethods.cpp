@@ -30,24 +30,33 @@ void MinuitCommunicationMethods::minuitRunOSCListening(unsigned int port)
 	}
 }
 
-void MinuitCommunicationMethods::minuitReceiveNetworkDiscoverRequest(TTString from, TTString address)
+void MinuitCommunicationMethods::minuitReceiveNetworkDiscoverRequest(TTString from, TTNodeAddressPtr address)
 {
 	m_discoverRequestCallBack(m_discoverRequestCallBackArgument, from, address);
 }
 
-void MinuitCommunicationMethods::minuitReceiveNetworkGetRequest(TTString from, TTString address, TTString attribute)
+void MinuitCommunicationMethods::minuitReceiveNetworkGetRequest(TTString from, TTNodeAddressPtr address)
 {
-	m_getRequestCallBack(m_getRequestCallBackArgument, from, address, attribute);	
+	if (address->getAttribute() == NO_ATTRIBUTE)
+		address = address->appendAttribute(kTTSym_value);
+	
+	m_getRequestCallBack(m_getRequestCallBackArgument, from, address);	
 }
 
-void MinuitCommunicationMethods::minuitReceiveNetworkSetRequest(TTString from, TTString address, TTString attribute, TTValue& value)
+void MinuitCommunicationMethods::minuitReceiveNetworkSetRequest(TTString from, TTNodeAddressPtr address, TTValue& value)
 {
-	m_setRequestCallBack(m_setRequestCallBackArgument, from, address, attribute, value);
+	if (address->getAttribute() == NO_ATTRIBUTE)
+		address = address->appendAttribute(kTTSym_value);
+	
+	m_setRequestCallBack(m_setRequestCallBackArgument, from, address, value);
 }
 
-void MinuitCommunicationMethods::minuitReceiveNetworkListenRequest(TTString from, TTString address, TTString attribute, bool enable)
+void MinuitCommunicationMethods::minuitReceiveNetworkListenRequest(TTString from, TTNodeAddressPtr address, bool enable)
 {
-	m_listenRequestCallBack(m_listenRequestCallBackArgument, from, address, attribute, enable);
+	if (address->getAttribute() == NO_ATTRIBUTE)
+		address = address->appendAttribute(kTTSym_value);
+	
+	m_listenRequestCallBack(m_listenRequestCallBackArgument, from, address, enable);
 }
 
 void MinuitCommunicationMethods::minuitSendMessage(TTString header, TTValue& arguments, TTString ip, unsigned int port)
@@ -107,25 +116,25 @@ void MinuitCommunicationMethods::minuitSendMessage(TTString header, TTValue& arg
 	oscStream.Clear();
 }
 
-void MinuitCommunicationMethods::minuitAddDiscoverAnswer(TTString from, TTString address, TTString ip, unsigned int port, int timeOutInMs)
+void MinuitCommunicationMethods::minuitAddDiscoverAnswer(TTString from, TTNodeAddressPtr address, TTString ip, unsigned int port, int timeOutInMs)
 {
-	string key = from + address;
+	string key = from + address->getCString();
 	m_discoverAnswer[key] = new MinuitDiscoverAnswer();
 	m_discoverAnswer[key]->setTimeOut(timeOutInMs);
 	m_discoverAnswer[key]->setIp(ip);
 	m_discoverAnswer[key]->setPort(port);
 }
 
-void MinuitCommunicationMethods::minuitAddGetAnswer(TTString from, TTString address, int timeOutInMs)
+void MinuitCommunicationMethods::minuitAddGetAnswer(TTString from, TTNodeAddressPtr address, int timeOutInMs)
 {	
-	string key = from + address;
+	string key = from + address->getCString();
 	m_getAnswer[key] = new MinuitGetAnswer();
 	m_getAnswer[key]->setTimeOut(DEFAULT_TIMEOUT);
 }
 
-void MinuitCommunicationMethods::minuitParseDiscoverAnswer(string from, string address, const osc::ReceivedMessage&m)
+void MinuitCommunicationMethods::minuitParseDiscoverAnswer(string from, TTNodeAddressPtr address, const osc::ReceivedMessage&m)
 {
-	string key = from + address;
+	string key = from + address->getCString();
 	map<string, MinuitDiscoverAnswer*>::iterator it  = m_discoverAnswer.find(key);
 	
 	if(it != m_discoverAnswer.end())
@@ -141,9 +150,9 @@ void MinuitCommunicationMethods::minuitParseDiscoverAnswer(string from, string a
 }
 
 
-void MinuitCommunicationMethods::minuitParseGetAnswer(TTString from, string address, const osc::ReceivedMessage&m)
+void MinuitCommunicationMethods::minuitParseGetAnswer(TTString from, TTNodeAddressPtr address, const osc::ReceivedMessage&m)
 {
-	string key = from + address;
+	string key = from + address->getCString();
 	map<string, MinuitGetAnswer*>::iterator it  = m_getAnswer.find(key);
 	
 	if (it != m_getAnswer.end())
@@ -155,13 +164,13 @@ void MinuitCommunicationMethods::minuitParseGetAnswer(TTString from, string addr
 		}
 	}
 	else
-		cout << "MinuitCommunicationMethods::minuitParseGetAnswer can't find a request at " << from+address << endl;
+		cout << "MinuitCommunicationMethods::minuitParseGetAnswer can't find a request at " << key << endl;
 }
 
-int MinuitCommunicationMethods::minuitWaitDiscoverAnswer(TTString from, TTString address, TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes)
+int MinuitCommunicationMethods::minuitWaitDiscoverAnswer(TTString from, TTNodeAddressPtr address, TTValue& returnednodes, TTValue& returnedleaves, TTValue& returnedAttributes)
 {
 	int state;
-	string key = from + address;
+	string key = from + address->getCString();
 	
 	// Looking for a MinuitDiscoverAnswer object at the given address
 	map<string, MinuitDiscoverAnswer*>::iterator it  = m_discoverAnswer.find(key);
@@ -185,10 +194,10 @@ int MinuitCommunicationMethods::minuitWaitDiscoverAnswer(TTString from, TTString
 }
 
 
-int MinuitCommunicationMethods::minuitWaitGetAnswer(TTString from, string address, TTValue& returnedValues, bool repeatAddress)
+int MinuitCommunicationMethods::minuitWaitGetAnswer(TTString from, TTNodeAddressPtr address, TTValue& returnedValues, bool repeatAddress)
 {
 	int state;
-	string key = from + address;
+	string key = from + address->getCString();
 	
 	// Looking for a MinuitGetAnswer object at the given address
 	map<string, MinuitGetAnswer*>::iterator it  = m_getAnswer.find(key);

@@ -58,7 +58,7 @@
 #include "TTInput.h"
 #include "TTMapper.h"
 #include "TTMapperManager.h"
-#include "TTViewer.h"
+#include "TTMirror.h"
 #include "TTOpmlHandler.h"
 #include "TTOutput.h"
 #include "TTPluginHandler.h"

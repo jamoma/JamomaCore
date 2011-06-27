@@ -133,7 +133,7 @@ TTOutput::~TTOutput()
 	
 	if (mObserver) {
 		if (mInputAddress != kTTSymEmpty)
-			getDirectoryFrom(mInputAddress)->removeObserverForNotifications(mInputAddress, *mObserver);
+			getLocalDirectory->removeObserverForNotifications(mInputAddress, *mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
@@ -204,7 +204,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	
 	value.get(0, &newAddress);
 	
-	if (!getDirectoryFrom(newAddress)->getTTNode(newAddress, &aNode)) {
+	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		if (o = aNode->getObject())
 			if (o->getName() == TT("Input"))
 				Link((TTPtr)o);
@@ -224,9 +224,9 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	
 	if (mObserver) {
 		if (mInputAddress != kTTAdrsEmpty)
-			getDirectoryFrom(mInputAddress)->removeObserverForNotifications(mInputAddress, *mObserver);
+			getLocalDirectory->removeObserverForNotifications(mInputAddress, *mObserver);
 		
-		getDirectoryFrom(newAddress)->addObserverForNotifications(newAddress, *mObserver);
+		getLocalDirectory->addObserverForNotifications(newAddress, *mObserver);
 	}
 	
 	mInputAddress = newAddress;

@@ -18,11 +18,13 @@ TT_MODULAR_CONSTRUCTOR,
 mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
+mNamespaceFile(kTTSymEmpty),
 mPluginParameters(NULL),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
-mTTToApp(NULL)
+mTTToApp(NULL),
+mTempAddress(kTTAdrsEmpty)
 {
 	arguments.get(0, &mName);
 	arguments.get(1, &mVersion);
@@ -32,6 +34,9 @@ mTTToApp(NULL)
 	
 	addAttribute(Version, kTypeSymbol);
 	addAttributeProperty(version, readOnly, YES);
+	
+	addAttribute(NamespaceFile, kTypeSymbol);
+	addAttributeProperty(namespaceFile, readOnly, YES);
 	
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(directory, readOnly, YES);
@@ -210,8 +215,12 @@ TTErr TTApplication::Configure(const TTValue& value)
 					parameters->append(parameterName, kTTValNONE);
 				}
 				
+				// append a new entry
 				v = TTValue((TTPtr)parameters);
 				mPluginParameters->append(pluginName, v);
+				
+				// update plugin names member
+				mPluginParameters->getKeys(mPluginNames);
 				
 				Configure(value);
 			}
@@ -283,16 +292,12 @@ TTErr TTApplication::ConvertToTTName(TTValue& value)
 
 TTErr TTApplication::AddDirectoryListener(const TTValue& value)
 {
-	TTPluginHandlerPtr	aPlugin;
-	TTApplicationPtr	appToNotify;
 	TTNodeAddressPtr	whereToListen;
 	TTObjectPtr			returnValueCallback;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
 	TTErr				err;
 	
-	value.get(0, (TTPtr*)&aPlugin);
-	value.get(1, (TTPtr*)&appToNotify);
 	value.get(2, &whereToListen);
 	
 	// prepare a callback based on TTApplicationAttributeCallback
@@ -345,10 +350,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& value)
 
 TTErr TTApplication::AddAttributeListener(const TTValue& value)
 {
-	TTPluginHandlerPtr	aPlugin;
-	TTApplicationPtr	appToNotify;
-	TTNodeAddressPtr	whereToListen, key;
-	TTSymbolPtr			attributeToListen;
+	TTNodeAddressPtr	whereToListen;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
@@ -356,10 +358,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 	TTValue				cacheElement;
 	TTErr				err;
 	
-	value.get(0, (TTPtr*)&aPlugin);
-	value.get(1, (TTPtr*)&appToNotify);
 	value.get(2, &whereToListen);
-	value.get(3, &attributeToListen);
 	
 	err = mDirectory->getTTNode(whereToListen, &nodeToListen);
 	
@@ -368,7 +367,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 			
 			// create an Attribute observer 
 			anAttribute = NULL;
-			err = anObject->findAttribute(attributeToListen, &anAttribute);
+			err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
 			
 			if (!err) {
 				// prepare a callback based on TTApplicationAttributeCallback
@@ -385,8 +384,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 				
 				// cache the listener in the attributeListenersCache
 				cacheElement.append((TTPtr)returnValueCallback);
-				key = whereToListen->appendAttribute(attributeToListen);
-				mAttributeListenersCache->append(key, cacheElement); // TODO : have many observers for the same address:attribute ? (add plugin info ?)
+				mAttributeListenersCache->append(whereToListen, cacheElement); // TODO : have many observers for the same address:attribute ? (add plugin info ?)
 				
 				return kTTErrNone;
 			}
@@ -401,7 +399,6 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 {
 	TTNodeAddressPtr	whereToListen;
-	TTSymbolPtr			attributeToListen, key;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
@@ -409,7 +406,6 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 	TTErr				err;
 	
 	value.get(0, &whereToListen);
-	value.get(1, &attributeToListen);
 	
 	err = mDirectory->getTTNode(whereToListen, &nodeToListen);
 	
@@ -418,13 +414,11 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 			
 			// delete Attribute observer 
 			anAttribute = NULL;
-			err = anObject->findAttribute(attributeToListen, &anAttribute);
+			err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
 			
 			if (!err) {
-				// get the listener in the attributeListenersCache
-				key = whereToListen->appendAttribute(attributeToListen);
 				
-				err = mAttributeListenersCache->lookup(key, cacheElement);
+				err = mAttributeListenersCache->lookup(whereToListen, cacheElement);
 				
 				if (!err) {
 					cacheElement.get(0, (TTPtr*)&returnValueCallback);
@@ -528,6 +522,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 	// Starts reading
 	if (aXmlHandler->mXmlNodeName == TT("start")) {
 		mAppToTT = new TTHash();
+		mNamespaceFile = kTTSymEmpty;
 		return kTTErrNone;
 	}
 	
@@ -591,72 +586,169 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 		}
 	}
 	
+	// Namespace node
+	if (aXmlHandler->mXmlNodeName == TT("namespace")) {
+		
+		// get the file path
+		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("file"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		if (v.getType() == kTypeSymbol)
+			v.get(0, &mNamespaceFile);
+	}
+	
+	// load namespace file if one is given and there is a plugin
+	if (mNamespaceFile != kTTSymEmpty && mPluginNames.getSize()) {
+		
+		TTOpmlHandlerPtr	aOpmlHandler = NULL;
+		TTValue				args, o;
+		TTObjectInstantiate(TT("OpmlHandler"), TTObjectHandle(&aOpmlHandler), args);
+		o = TTValue(TTPtr(this));
+		aOpmlHandler->setAttributeValue(kTTSym_object, o);
+		aOpmlHandler->sendMessage(TT("Read"), v);
+		TTObjectRelease(TTObjectHandle(&aOpmlHandler));
+	}
+	
 	return kTTErrNone;
 }
 
 TTErr TTApplication::ReadFromOpml(const TTValue& value)
 {
-	TTXmlHandlerPtr	aXmlHandler = NULL;	
-	TTSymbolPtr		relativeAddress, objectName, attributeName;
-	TTObjectPtr		anObject;
-	TTValue			v;
+	TTOpmlHandlerPtr	aOpmlHandler = NULL;	
+	TTSymbolPtr			nodeName, objectName, attributeName, pluginName;
+	TTNodeAddressPtr	absoluteAddress;
+	TTMirrorPtr			aMirror;
+	TTNodePtr			aNode;
+	TTBoolean			empty, newInstanceCreated;
+	TTObjectPtr			getAttributeCallback, setAttributeCallback, sendMessageCallback;
+	TTValuePtr			getAttributeBaton, setAttributeBaton, sendMessageBaton;
+	TTPluginHandlerPtr	aPlugin;
+	TTValue				v, args;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
-	if (!aXmlHandler)
+	value.get(0, (TTPtr*)&aOpmlHandler);
+	if (!aOpmlHandler)
 		return kTTErrGeneric;
 	
 	// Switch on the name of the XML node
 	
 	// Starts reading
-	if (aXmlHandler->mXmlNodeName == TT("start")) {
-		// TODO : clear directory
+	if (aOpmlHandler->mXmlNodeName == TT("start")) {
+		
+		delete mDirectory;
+		mDirectory = new TTNodeDirectory(mName);
+		
+		mTempAddress = kTTAdrsEmpty;
+		
 		return kTTErrNone;
 	}
 	
 	// Ends reading
-	if (aXmlHandler->mXmlNodeName == TT("end"))
+	if (aOpmlHandler->mXmlNodeName == TT("end"))
 		return kTTErrNone;
 	
-	// Comment Node
-	if (aXmlHandler->mXmlNodeName == TT("#comment"))
+	// Text Node
+	if (aOpmlHandler->mXmlNodeName == TT("#text"))
 		return kTTErrNone;
 	
 	// Outline node
-	if (aXmlHandler->mXmlNodeName == TT("outline")) {
+	if (aOpmlHandler->mXmlNodeName == TT("outline")) {
+		
+		empty = xmlTextReaderIsEmptyElement(aOpmlHandler->mReader);
 		
 		// get the relative address
-		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("text"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("text"));
+		aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v);
 		if (v.getType() == kTypeSymbol) {
-			v.get(0, &relativeAddress);
+			v.get(0, &nodeName);
 		}
 		
-		// get the object name
-		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("object"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-		if (v.getType() == kTypeSymbol) {
-			v.get(0, &objectName);
-		}
-		
-		// TODO : instantiate Mirror object for distant application
-		
-		// TODO : register object into the directory
-		
-		// get all object attributes and their value
-		while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+		// Is it the beginning of a new node or the end of one ?
+		if (mTempAddress->getName() != nodeName) {
 			
-			// get attribute name
-			aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
-			if (v.getType() == kTypeSymbol) {
-				v.get(0, &attributeName);
+			absoluteAddress = mTempAddress->appendAddress(TTADRS(nodeName->getCString()));
+			
+			// get the object name
+			if (xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("object")) == 1) {
+				aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v);
 				
-				// get attribute value
-				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-				
-				// set attribute
-				anObject->setAttributeValue(attributeName, v);
+				if (v.getType() == kTypeSymbol) {
+					v.get(0, &objectName);
+					
+					// a distant application should have one plugin
+					mPluginNames.get(0, &pluginName);
+					
+					if (aPlugin = getPlugin(pluginName)) {
+						
+						// instantiate Mirror object for distant application
+						aMirror = NULL;
+						args = TTValue(objectName);
+						
+						getAttributeCallback = NULL;
+						TTObjectInstantiate(TT("callback"), &getAttributeCallback, kTTValNONE);
+						getAttributeBaton = new TTValue(TTPtr(aPlugin));
+						getAttributeBaton->append(TTPtr(this));
+						getAttributeBaton->append(absoluteAddress);
+						getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
+						getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerGetAttributeCallback));
+						args.append(getAttributeCallback);
+						
+						setAttributeCallback = NULL;
+						TTObjectInstantiate(TT("callback"), &setAttributeCallback, kTTValNONE);
+						setAttributeBaton = new TTValue(TTPtr(aPlugin));
+						setAttributeBaton->append(TTPtr(this));
+						setAttributeBaton->append(absoluteAddress);
+						setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
+						setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerSetAttributeCallback));
+						args.append(setAttributeCallback);
+						
+						sendMessageCallback = NULL;
+						TTObjectInstantiate(TT("callback"), &sendMessageCallback, kTTValNONE);
+						sendMessageBaton = new TTValue(TTPtr(aPlugin));
+						sendMessageBaton->append(TTPtr(this));
+						sendMessageBaton->append(absoluteAddress);
+						sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
+						sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerSendMessageCallback));
+						args.append(sendMessageCallback);
+						
+						TTObjectInstantiate(TT("Mirror"), TTObjectHandle(&aMirror), args);
+						
+						// register object into the directory
+						this->mDirectory->TTNodeCreate(absoluteAddress, (TTObjectPtr)aMirror, NULL,  &aNode, &newInstanceCreated);
+						
+						// ?? to -- is it usefull to set attribute value ?
+						// yes : in modul8 case for example...
+						// so it depends of the plugin features : isGetRequestAllowed ?
+						
+						/*
+						// get all object attributes and their value
+						while (xmlTextReaderMoveToNextAttribute(aOpmlHandler->mReader) == 1) {
+							
+							// get attribute name
+							aOpmlHandler->fromXmlChar(xmlTextReaderName(aOpmlHandler->mReader), v);
+							if (v.getType() == kTypeSymbol) {
+								v.get(0, &attributeName);
+								
+								// get attribute value
+								aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v);
+								
+
+								// aMirror->setAttributeValue(attributeName, v);
+							}
+						}
+						 */
+					}
+				}
 			}
+			
+			// if there are other nodes below :
+			// keep absolute address for next nodes
+			if (!empty)
+				mTempAddress = absoluteAddress;
 		}
+		// when a node ends : 
+		// keep the parent address for next nodes
+		else
+			mTempAddress = mTempAddress->getParent();
+			
 	}
 	
 	return kTTErrNone;
@@ -674,9 +766,9 @@ TTNodeDirectoryPtr TTApplicationGetDirectory(TTNodeAddressPtr anAddress)
 	
 	if (TTModularApplications && anAddress != kTTAdrsEmpty) {
 		
-		applicationName = anAddress->getDevice();
+		applicationName = anAddress->getDirectory();
 		
-		if (applicationName != NO_DEVICE)
+		if (applicationName != NO_DIRECTORY)
 			anApplication = TTApplicationManagerGetApplication(applicationName);
 		else
 			anApplication = TTApplicationManagerGetApplication(kTTSym_localApplicationName);

@@ -77,7 +77,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(DataspaceUnit, kTypeSymbol);
 	
 	addAttribute(Service, kTypeSymbol);
-	addAttributeProperty(service, hidden, YES);
+	addAttributeProperty(service, readOnly, YES);
 	
 	addMessage(Reset);
 	addMessageWithArgument(Inc);

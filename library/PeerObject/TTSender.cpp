@@ -14,6 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
+mDirectory(NULL),
 mObjectCache(NULL),
 mObserver(NULL)
 {
@@ -28,8 +29,10 @@ mObserver(NULL)
 	
 	mIsSending = false;
 	
-	if (getDirectoryFrom(mAddress))
+	if (mDirectory = getDirectoryFrom(mAddress))
 		bind();
+	else
+		; // TODO : wait for directory
 }
 
 TTSender::~TTSender()
@@ -41,7 +44,11 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 {
 	unbind();
 	newValue.get(0, &mAddress);
-	return bind();
+	
+	if (mDirectory = getDirectoryFrom(mAddress))
+		return bind();
+	else
+		return kTTErrGeneric; ; // TODO : wait for directory
 }
 
 #if 0
@@ -57,7 +64,7 @@ TTErr TTSender::Send(TTValue& valueToSend)
 	TTMessagePtr	aMessage;
 	TTNodeAddressPtr relativeAddress;
 	
-	if (mAddress == kTTAdrsEmpty)
+	if (!mDirectory || mAddress == kTTAdrsEmpty)
 		return kTTErrGeneric;
 
 	if (!mIsSending) {
@@ -123,7 +130,7 @@ TTErr TTSender::bind()
 	TTErr		err;
 	
 	// 1. Look for the node(s) into the directory
-	err = getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &aNode);
+	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
 	
 	// 2. make a cache containing each object
 	mObjectCache  = new TTList();
@@ -147,7 +154,7 @@ TTErr TTSender::bind()
 	
 	mObserver->setAttributeValue(TT("owner"), TT("TTSender"));		// this is usefull only to debug
 	
-	getDirectoryFrom(mAddress)->addObserverForNotifications(mAddress, *mObserver);
+	mDirectory->addObserverForNotifications(mAddress, *mObserver);
 	
 	return kTTErrNone;
 }
@@ -161,9 +168,9 @@ TTErr TTSender::unbind()
 		mObjectCache = NULL;
 	
 	// stop life cycle observation
-	if(mObserver && getDirectoryFrom(mAddress)) {
+	if(mObserver && mDirectory) {
 		
-		err = getDirectoryFrom(mAddress)->removeObserverForNotifications(mAddress, *mObserver);
+		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
 	
 		if(!err) {
 			delete (TTValuePtr)mObserver->getBaton();

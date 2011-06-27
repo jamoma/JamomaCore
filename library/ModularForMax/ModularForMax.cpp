@@ -516,15 +516,18 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 				// get object binded by the viewer
 				o->getAttributeValue(kTTSym_address, v);
 				v.get(0, &absoluteAddress);
-				getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 				
-				if (o = aNode->getObject()) {
-					if (o->getName() == TT("Data")) {
-						o->getAttributeValue(kTTSym_service, v);
-						v.get(0, &s);
-						if (s == kTTSym_parameter)
-							data = kTTVal1;
-					}	
+				if (getDirectoryFrom(absoluteAddress)) {
+					getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
+					
+					if (o = aNode->getObject()) {
+						if (o->getName() == TT("Data")) {
+							o->getAttributeValue(kTTSym_service, v);
+							v.get(0, &s);
+							if (s == kTTSym_parameter)
+								data = kTTVal1;
+						}	
+					}
 				}
 			}
 			
@@ -551,27 +554,33 @@ void jamoma_callback_read_item(TTPtr p_baton, TTValue& data)
 	// unpack data (an item)
 	data.get(0, (TTPtr*)&anItem);
 	
-	// DATA case : do nothing
-	
-	// VIEWER case : they are replaced by Data
-	// so after reading they should disappear from the preset
-	if (anItem->getType() == TT("Viewer")) {
+	if (o = anItem->getObject()) {
 		
-		// get address binded by the viewer
-		anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
-		v.get(0, &absoluteAddress);
-		getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
+		// DATA case : do nothing
 		
-		// if the address binds on a Data object
-		if (o = aNode->getObject()) {
-			if (o->getName() == TT("Data")) {
+		// VIEWER case : they are replaced by Data
+		// so after reading they should disappear from the preset
+		if (o->getName() == TT("Viewer")) {
+			
+			// get address binded by the viewer
+			o->getAttributeValue(kTTSym_address, v);
+			v.get(0, &absoluteAddress);
+			
+			if (getDirectoryFrom(absoluteAddress)) {
+				getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 				
-				// replace the Viewer node by the Data node
-				anItem->node = aNode;
+				// if the address binds on a Data object
+				if (o = aNode->getObject()) {
+					if (o->getName() == TT("Data")) {
+						
+						// replace the Viewer node by the Data node
+						anItem->address = absoluteAddress;
+					}
+				}
 			}
+			
+			return;
 		}
-		
-		return;
 	}
 }
 
@@ -579,15 +588,15 @@ void jamoma_callback_read_item(TTPtr p_baton, TTValue& data)
 /**  */
 void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 {
-	TTValuePtr	b;
-	ObjectPtr	x;
-	ItemPtr		anItem;
-	TTValue		v, r;
-	TTNodePtr	aNode;
-	TTBoolean	selected;
-	TTSymbolPtr type;
-	TTNodeAddressPtr absoluteAddress;
-	TTObjectPtr o;
+	TTValuePtr			b;
+	ObjectPtr			x;
+	ItemPtr				anItem;
+	TTValue				v, r;
+	TTNodePtr			aNode;
+	TTBoolean			selected;
+	TTSymbolPtr			type;
+	TTNodeAddressPtr	absoluteAddress;
+	TTObjectPtr			o;
 	
 	// unpack baton (a t_object*)
 	b = (TTValuePtr)p_baton;
@@ -599,68 +608,74 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 	// clear the item in any case
 	anItem->clear();
 	
-	// DATA case
-	if (anItem->getType() == TT("Data")) {
-		
-		anItem->update(kTTSym_value);
-		anItem->update(kTTSym_priority);
-		
-		// If the manager have a ramp attribute
-		if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
+	if (o = anItem->getObject()) {
+	
+		// DATA case
+		if (o->getName() == TT("Data")) {
 			
-			// for integer and decimal data
-			anItem->node->getObject()->getAttributeValue(kTTSym_type, v);
-			v.get(0, &type);
+			anItem->update(kTTSym_value);
+			anItem->update(kTTSym_priority);
 			
-			// set ramp time as global
-			if (type == kTTSym_integer || type == kTTSym_decimal)
-				anItem->set(kTTSym_ramp, kTTSym_global);
+			// If the manager have a ramp attribute
+			if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
+				
+				// for integer and decimal data
+				o->getAttributeValue(kTTSym_type, v);
+				v.get(0, &type);
+				
+				// set ramp time as global
+				if (type == kTTSym_integer || type == kTTSym_decimal)
+					anItem->set(kTTSym_ramp, kTTSym_global);
+			}
+			
+			return;
 		}
 		
-		return;
-	}
-	
-	// VIEWER case : they are replaced by Data
-	// so after a first update they should disappear from the preset
-	if (anItem->getType() == TT("Viewer")) {
-		
-		// Is the viewer selected ?
-		anItem->node->getObject()->getAttributeValue(kTTSym_selected, v);
-		v.get(0, selected);
-		
-		if (selected) {
+		// VIEWER case : they are replaced by Data
+		// so after a first update they should disappear from the preset
+		if (o->getName() == TT("Viewer")) {
 			
-			// get address binded by the viewer
-			anItem->node->getObject()->getAttributeValue(kTTSym_address, v);
-			v.get(0, &absoluteAddress);
-			getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
+			// Is the viewer selected ?
+			o->getAttributeValue(kTTSym_selected, v);
+			v.get(0, selected);
 			
-			// if the address binds on a Data object
-			if (o = aNode->getObject()) {
-				if (o->getName() == TT("Data")) {
+			if (selected) {
+				
+				// get address binded by the viewer
+				o->getAttributeValue(kTTSym_address, v);
+				v.get(0, &absoluteAddress);
+				
+				if (getDirectoryFrom(absoluteAddress)) {
+					getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 					
-					// replace the Viewer node by the Data node
-					anItem->node = aNode;
-					
-					anItem->update(kTTSym_value);
-					anItem->update(kTTSym_priority);
-					
-					// If the manager have a ramp attribute
-					if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
-						
-						// for integer and decimal data
-						anItem->node->getObject()->getAttributeValue(kTTSym_type, v);
-						v.get(0, &type);
-						
-						// set ramp time as global
-						if (type == kTTSym_integer || type == kTTSym_decimal)
-							anItem->set(kTTSym_ramp, kTTSym_global);
+					// if the address binds on a Data object
+					if (o = aNode->getObject()) {
+						if (o->getName() == TT("Data")) {
+							
+							// replace the Viewer address by the Data address
+							anItem->address = absoluteAddress;
+							
+							anItem->update(kTTSym_value);
+							anItem->update(kTTSym_priority);
+							
+							// If the manager have a ramp attribute
+							if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
+								
+								// for integer and decimal data
+								o->getAttributeValue(kTTSym_type, v);
+								v.get(0, &type);
+								
+								// set ramp time as global
+								if (type == kTTSym_integer || type == kTTSym_decimal)
+									anItem->set(kTTSym_ramp, kTTSym_global);
+							}
+						}
 					}
 				}
 			}
+			
+			return;
 		}
-		
-		return;
 	}
 }
 
@@ -757,6 +772,7 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 	TTSymbolPtr rampSymbol;
 	ItemPtr		anItem;
 	TTValue		v, r;
+	TTObjectPtr	o;
 	
 	// unpack baton a t_object*)
 	b = (TTValuePtr)p_baton;
@@ -765,41 +781,43 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 	// unpack data (an item)
 	data.get(0, (TTPtr*)&anItem);
 	
-	// DATA case
-	if (anItem->getType() == TT("Data")) {
+	if (o = anItem->getObject()) {
 		
-		// if the item have a ramp state
-		if (!anItem->get(kTTSym_ramp, r)) {
+		// DATA case
+		if (o->getName() == TT("Data")) {
 			
-			// prepare a command
-			anItem->get(kTTSym_value, v);
-			v.append(kTTSym_ramp);
-			
-			// Is ramp specific to the item ?
-			if (r.getType() == kTypeUInt32)
-				r.get(0, ramp);
-			
-			// or global ?
-			else if (r.getType() == kTypeSymbol) {
-				r.get(0, &rampSymbol);
-				if (rampSymbol == kTTSym_global)
-					if (!anItem->manager->getAttributeValue(kTTSym_ramp, r))
-						r.get(0, ramp);
+			// if the item have a ramp state
+			if (!anItem->get(kTTSym_ramp, r)) {
+				
+				// prepare a command
+				anItem->get(kTTSym_value, v);
+				v.append(kTTSym_ramp);
+				
+				// Is ramp specific to the item ?
+				if (r.getType() == kTypeUInt32)
+					r.get(0, ramp);
+				
+				// or global ?
+				else if (r.getType() == kTypeSymbol) {
+					r.get(0, &rampSymbol);
+					if (rampSymbol == kTTSym_global)
+						if (!anItem->manager->getAttributeValue(kTTSym_ramp, r))
+							r.get(0, ramp);
+				}
+				
+				// or no
+				else
+					anItem->send(kTTSym_value);
+				
+				v.append(ramp);
+				o->sendMessage(kTTSym_Command, v);
 			}
-			
-			// or no
 			else
 				anItem->send(kTTSym_value);
-			
-			v.append(ramp);
-			anItem->node->getObject()->sendMessage(kTTSym_Command, v);
 		}
-		else
-			anItem->send(kTTSym_value);
+		
+		// VIEWER case : they should have been replaced by DATA
 	}
-	
-	// VIEWER case : they should have been replaced by DATA
-
 }
 
 
@@ -1306,7 +1324,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
  or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
 SymbolPtr jamoma_TTName_To_MaxName(TTSymbolPtr TTName)
 {
-	TTSymbolPtr MaxName = convertTTNameInAddress(TTName);
+	TTSymbolPtr MaxName = convertTTNameInTTNodeAddress(TTName);
 	if (MaxName)
 		return gensym((char*)MaxName->getCString());
 	else

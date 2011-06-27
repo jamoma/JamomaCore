@@ -25,6 +25,7 @@ private:
 	TTNodeAddressPtr			mAddress;					///< ATTRIBUTE: the address to bind
 	TTBoolean					mEnable;					///< ATTRIBUTE: if false, received data won't be output without unregister the attribute observer (default true).
 	
+	TTNodeDirectoryPtr			mDirectory;					///< a receiver depends on a directory
 	TTCallbackPtr				mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
 	TTCallbackPtr				mReturnValueCallback;		///< a way to return received value to the owner of this receiver
 	TTCallbackPtr				mObserver;					///< a life cycle observer

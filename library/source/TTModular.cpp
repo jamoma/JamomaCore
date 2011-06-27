@@ -40,6 +40,7 @@ void TTModularInit(TTString pluginFolderPath)
 		TTInput::registerClass();
 		TTMapper::registerClass();
 		TTMapperManager::registerClass();
+		TTMirror::registerClass();
 		TTOpmlHandler::registerClass();
 		TTOutput::registerClass();
 		TTPluginHandler::registerClass();

@@ -16,6 +16,7 @@ TT_MODULAR_CONSTRUCTOR,
 
 mAddress(kTTAdrsEmpty),
 mEnable(YES),
+mDirectory(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObserver(NULL),
@@ -38,8 +39,10 @@ mNodesObserversCache(NULL)
 	
 	mNodesObserversCache = new TTList();
 	
-	if (getDirectoryFrom(mAddress))
+	if (mDirectory = getDirectoryFrom(mAddress))
 		bind();
+	else
+		; // TODO : wait for directory
 }
 
 TTReceiver::~TTReceiver()
@@ -61,7 +64,11 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
 	unbind();
 	newValue.get(0, &mAddress);
-	return bind();
+	
+	if (mDirectory = getDirectoryFrom(mAddress))
+		return bind();
+	else
+		return kTTErrGeneric; ; // TODO : wait for directory
 }
 
 TTErr TTReceiver::setEnable(const TTValue& newValue)
@@ -135,13 +142,16 @@ TTErr TTReceiver::bind()
 	TTValuePtr		newBaton;
 	TTErr			err;
 	
+	if (!mDirectory)
+		return kTTErrGeneric;
+		
 	mNodesObserversCache = new TTList();
 	
 	// for any Attribute observation except created, destroyed
 	if ((mAddress->getAttribute() != kTTSym_created) && (mAddress->getAttribute() != kTTSym_destroyed))
 	{
 		// Look for node(s) into the directory
-		err = getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &aNode);
+		err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
 		
 		// Start attribute observation on each existing node of the selection
 		if (!err) {
@@ -196,7 +206,7 @@ TTErr TTReceiver::bind()
 		
 	mObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));							// this is usefull only to debug
 		
-	getDirectoryFrom(mAddress)->addObserverForNotifications(mAddress, *mObserver);
+	mDirectory->addObserverForNotifications(mAddress, *mObserver);
 
 	return kTTErrNone;
 }
@@ -207,7 +217,6 @@ TTErr TTReceiver::unbind()
 	TTNodePtr			aNode;
 	TTObjectPtr			oldObserver, o;
 	TTAttributePtr		anAttribute;
-	TTNodeDirectoryPtr	aDirectory;
 	TTErr				err = kTTErrNone;
 	
 	// stop attribute obeservation
@@ -249,10 +258,9 @@ TTErr TTReceiver::unbind()
 	}
 	
 	// stop life cycle observation
-	aDirectory = getDirectoryFrom(mAddress);
-	if (mObserver && aDirectory) {
+	if (mObserver && mDirectory) {
 		
-		err = aDirectory->removeObserverForNotifications(mAddress, *mObserver);
+		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
 		
 		if(!err) {
 			delete (TTValuePtr)mObserver->getBaton();

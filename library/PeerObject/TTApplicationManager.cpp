@@ -168,9 +168,7 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 {
 	TTValue				v, args, allPluginNames;
 	TTSymbolPtr			applicationName;
-
 	TTApplicationPtr	anApplication;
-
 	
 	value.get(0, &applicationName);
 	
@@ -185,7 +183,13 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 	}
 	
 	// add application to the manager
-	return mApplications->append(applicationName, (TTPtr)anApplication);
+	mApplications->append(applicationName, (TTPtr)anApplication);
+	
+	// TODO : notify distant application creation observers
+	if (applicationName != kTTSym_localApplicationName)
+		;
+	
+	return kTTErrNone;
 }
 
 TTErr TTApplicationManager::ApplicationRemove(const TTValue& value)
@@ -201,6 +205,11 @@ TTErr TTApplicationManager::ApplicationRemove(const TTValue& value)
 	
 	if (!err) {
 		v.get(0, (TTPtr*)&anApplication);
+		
+		// TODO : notify distant application destruction observers
+		if (applicationName != kTTSym_localApplicationName)
+			;
+		
 		mApplications->remove(applicationName);
 		return TTObjectRelease(TTObjectHandle(&anApplication));
 	}
@@ -315,10 +324,11 @@ TTErr TTApplicationManager::PluginStop(const TTValue& value)
 
 TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 {
-	TTNodeAddressPtr whereToDiscover;
-	TTValuePtr returnedChildrenNames;
-	TTValuePtr returnedChildrenTypes;
-	TTValuePtr returnedAttributes;
+	TTNodeDirectoryPtr	directory;
+	TTNodeAddressPtr	whereToDiscover;
+	TTValuePtr			returnedChildrenNames;
+	TTValuePtr			returnedChildrenTypes;
+	TTValuePtr			returnedAttributes;
 	
 	value.get(0, &whereToDiscover);
 	value.get(1, (TTPtr*)&returnedChildrenNames);
@@ -334,7 +344,11 @@ TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 	TTObjectPtr			anObject;
 	TTErr				err;
 	
-	err = getDirectoryFrom(whereToDiscover)->Lookup(whereToDiscover, nodeList, &firstNode);
+	directory = getDirectoryFrom(whereToDiscover);
+	if (!directory)
+		return kTTErrGeneric;
+	
+	err = directory->Lookup(whereToDiscover, nodeList, &firstNode);
 	
 	if (!err) {
 		
@@ -375,13 +389,12 @@ TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 
 TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 {
-	TTNodeAddressPtr whereToGet;
-	TTSymbolPtr attributeToGet;
-	TTValuePtr returnedValue;
+	TTNodeDirectoryPtr	directory;
+	TTNodeAddressPtr	whereToGet;
+	TTValuePtr			returnedValue;
 	
 	value.get(0, &whereToGet);
-	value.get(1, &attributeToGet);
-	value.get(2, (TTPtr*)&returnedValue);
+	value.get(1, (TTPtr*)&returnedValue);
 	
 	TTLogDebug("TTApplicationManager::Get");
 	
@@ -389,24 +402,27 @@ TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 	TTObjectPtr			anObject;
 	TTErr				err;
 	
-	err = getDirectoryFrom(whereToGet)->getTTNode(whereToGet, &nodeToGet);
+	directory = getDirectoryFrom(whereToGet);
+	if (!directory)
+		return kTTErrGeneric;
+	
+	err = directory->getTTNode(whereToGet, &nodeToGet);
 	
 	if (!err)
 		if (anObject = nodeToGet->getObject())
-			return anObject->getAttributeValue(attributeToGet, *returnedValue);
+			return anObject->getAttributeValue(whereToGet->getAttribute(), *returnedValue);
 
 	return kTTErrGeneric;
 }
 
 TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 {
-	TTNodeAddressPtr whereToSet;
-	TTSymbolPtr attributeToSet;
-	TTValuePtr newValue;
+	TTNodeDirectoryPtr	directory;
+	TTNodeAddressPtr	whereToSet;
+	TTValuePtr			newValue;
 	
 	value.get(0, &whereToSet);
-	value.get(1, &attributeToSet);
-	value.get(2, (TTPtr*)&newValue);
+	value.get(1, (TTPtr*)&newValue);
 	
 	TTLogDebug("TTApplicationManager::Set");
 	
@@ -415,7 +431,11 @@ TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 	TTObjectPtr			anObject;
 	TTErr				err;
 	
-	err = getDirectoryFrom(whereToSet)->getTTNode(whereToSet, &nodeToSet);
+	directory = getDirectoryFrom(whereToSet);
+	if (!directory)
+		return kTTErrGeneric;
+	
+	err = directory->getTTNode(whereToSet, &nodeToSet);
 	
 	if (!err) {
 		
@@ -425,13 +445,13 @@ TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 		// TTData case : for value attribute use Command message
 		if (objectType == TT("Data")) {
 			
-			if (attributeToSet == kTTSym_value)
+			if (whereToSet->getAttribute() == kTTSym_value)
 				anObject->sendMessage(kTTSym_Command, *newValue);
 			else
-				return anObject->setAttributeValue(attributeToSet, *newValue);
+				return anObject->setAttributeValue(whereToSet->getAttribute(), *newValue);
 		}
 		else 
-			return anObject->setAttributeValue(attributeToSet, *newValue);
+			return anObject->setAttributeValue(whereToSet->getAttribute(), *newValue);
 	}
 	
 	return kTTErrGeneric; // TODO : return an error notification
@@ -439,16 +459,15 @@ TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 
 TTErr TTApplicationManager::ApplicationListen(TTValue& value)
 {
-	TTApplicationPtr appToNotify;
-	TTSymbolPtr whereToListen;
-	TTSymbolPtr attributeToListen, pluginName;
-	TTBoolean enableListening;
+	TTApplicationPtr	appToNotify;
+	TTNodeAddressPtr	whereToListen;
+	TTSymbolPtr			pluginName;
+	TTBoolean			enableListening;
 	
 	value.get(0, &pluginName);
 	value.get(1, (TTPtr*)&appToNotify);
 	value.get(2, &whereToListen);
-	value.get(3, &attributeToListen);
-	value.get(4, enableListening);
+	value.get(3, enableListening);
 	
 	TTLogDebug("TTApplicationManager::Listen");
 	
@@ -467,36 +486,30 @@ TTErr TTApplicationManager::ApplicationListen(TTValue& value)
 		// add observer
 		if (enableListening) {
 			
+			args.append((TTPtr)aPlugin);
+			args.append((TTPtr)appToNotify);
+			args.append(whereToListen);
+			
 			// start directory listening
-			if (attributeToListen == TT("life")) { // TODO : find a better name
-				args.append((TTPtr)aPlugin);
-				args.append((TTPtr)appToNotify);
-				args.append(whereToListen);
+			if (whereToListen->getAttribute() == TT("life")) // TODO : find a better name
 				return appWhereToListen->sendMessage(TT("AddDirectoryListener"), args);
-			}
+	
 			// start attribute listening
-			else {
-				args.append((TTPtr)aPlugin);
-				args.append((TTPtr)appToNotify);
-				args.append(whereToListen);
-				args.append(attributeToListen);
+			else 
 				return appWhereToListen->sendMessage(TT("AddAttributeListener"), args);
-			}
 		}
 		// remove listener
 		else {
 			
+			args.append(whereToListen);
+			
 			// stop directory listening
-			if (attributeToListen == TT("life")) { // TODO : find a better name
-				args.append(whereToListen);
+			if (whereToListen->getAttribute() == TT("life")) // TODO : find a better name
 				return appWhereToListen->sendMessage(TT("RemoveDirectoryListener"), args);
-			}
+
 			// stop attribute listening
-			else {
-				args.append(whereToListen);
-				args.append(attributeToListen);
+			else
 				return appWhereToListen->sendMessage(TT("RemoveAttributeListener"), args);
-			}
 		}
 	}	
 
@@ -679,17 +692,16 @@ TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr applicationName)
 	return NULL;
 }
 
-TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTSymbolPtr appNameAndAddress)
+TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTNodeAddressPtr anAddress)
 {
-	TTSymbolPtr			applicationName, addressParsed;
+	TTSymbolPtr			applicationName;
 	TTApplicationPtr	anApplication;
-	TTErr				err;
 	
 	if (TTModularApplications) {
 		
-		err = TTApplicationManagerSplitAppNameFromAddress(appNameAndAddress, &applicationName, &addressParsed);
+		applicationName = anAddress->getDirectory();
 		
-		if (!err)
+		if (applicationName != NO_DIRECTORY)
 			anApplication = TTApplicationManagerGetApplication(applicationName);
 		else
 			anApplication = TTApplicationManagerGetApplication(kTTSym_localApplicationName);
@@ -717,30 +729,4 @@ TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 	}
 	
 	return NULL;
-}
-
-TTErr TTApplicationManagerSplitAppNameFromAddress(TTSymbolPtr address, TTSymbolPtr* returnedAppName, TTSymbolPtr* returnedAddress)
-{
-	TTErr err = kTTErrNone;
-	long pos;
-	TTString part1, part2;
-	
-	if (address != kTTSymEmpty) {
-		part1 = "";
-		part2 = address->getCString();
-		
-		if (pos = part2.find_first_of(":/")) {
-			part1 += part2.substr(0, pos+2);
-			part2 = part2.substr(pos+2, part2.size());
-		}
-		else
-			err = kTTErrGeneric;
-		
-		*returnedAppName = TT(part1);
-		*returnedAddress = TT(part2);
-	}
-	else
-		err = kTTErrGeneric;
-	
-	return err;
 }

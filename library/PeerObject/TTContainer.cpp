@@ -79,7 +79,7 @@ TTContainer::~TTContainer()
 	
 	if (mObserver) {
 		if (mAddress != kTTSymEmpty)
-			getDirectoryFrom(mAddress)->removeObserverForNotifications(mAddress, *mObserver);
+			getLocalDirectory->removeObserverForNotifications(mAddress, *mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
@@ -311,11 +311,11 @@ TTErr TTContainer::bind()
 	mObjectsObserversCache  = new TTHash();
 	
 	// 1. Look for all nodes under the address into the directory with the same Context
-	err = getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &aNode);
+	err = getLocalDirectory->Lookup(mAddress, aNodeList, &aNode);
 	aContext = aNode->getContext();
 	
 	v.append(aContext);
-	err = getDirectoryFrom(mAddress)->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
+	err = getLocalDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Data and Observer
 	for (allObjectsNodes.begin(); allObjectsNodes.end(); allObjectsNodes.next()) {
@@ -336,7 +336,7 @@ TTErr TTContainer::bind()
 	
 	mObserver->setAttributeValue(TT("owner"), TT("TTContainer"));		// this is usefull only to debug
 	
-	getDirectoryFrom(mAddress)->addObserverForNotifications(mAddress, *mObserver);
+	getLocalDirectory->addObserverForNotifications(mAddress, *mObserver);
 	
 	return kTTErrNone;
 }
@@ -668,9 +668,9 @@ TTErr TTContainer::unbind()
 	}
 	
 	// stop life cycle observation
-	if (mObserver && getDirectoryFrom(mAddress)) {
+	if (mObserver && getLocalDirectory) {
 		
-		err = getDirectoryFrom(mAddress)->removeObserverForNotifications(mAddress, *mObserver);
+		err = getLocalDirectory->removeObserverForNotifications(mAddress, *mObserver);
 		
 		if (!err)
 			TTObjectRelease(TTObjectHandle(&mObserver));
