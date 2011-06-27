@@ -23,9 +23,9 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing Node Address Table access");
 	
-	TTNodeAddressPtr testAddress1 = TTADRS("device1:/gran/parent1/name1.instance1:attribute1");
+	TTNodeAddressPtr testAddress1 = TTADRS("directory1:/gran/parent1/name1.instance1:attribute1");
 	
-	TTSymbolPtr device1 = testAddress1->getDevice();
+	TTSymbolPtr directory1 = testAddress1->getDirectory();
 	TTNodeAddressPtr parent1 = testAddress1->getParent();
 	TTSymbolPtr name1 = testAddress1->getName();
 	TTSymbolPtr instance1 = testAddress1->getInstance();
@@ -34,7 +34,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 	
 	TTNodeAddressPtr testAddress2 = TTADRS("/gran/parent2/name2.instance2");
 	
-	TTSymbolPtr device2 = testAddress2->getDevice();
+	TTSymbolPtr directory2 = testAddress2->getDirectory();
 	TTNodeAddressPtr parent2 = testAddress2->getParent();
 	TTSymbolPtr name2 = testAddress2->getName();
 	TTSymbolPtr instance2 = testAddress2->getInstance();
@@ -43,7 +43,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 	
 	TTNodeAddressPtr testAddress3 = TTADRS("parent3/name3.instance3");
 	
-	TTSymbolPtr device3 = testAddress3->getDevice();
+	TTSymbolPtr directory3 = testAddress3->getDirectory();
 	TTNodeAddressPtr parent3 = testAddress3->getParent();
 	TTSymbolPtr name3 = testAddress3->getName();
 	TTSymbolPtr instance3 = testAddress3->getInstance();
@@ -52,7 +52,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 	
 	TTNodeAddressPtr testAddress4 = TTADRS("/");
 	
-	TTSymbolPtr device4 = testAddress4->getDevice();
+	TTSymbolPtr directory4 = testAddress4->getDirectory();
 	TTNodeAddressPtr parent4 = testAddress4->getParent();
 	TTSymbolPtr name4 = testAddress4->getName();
 	TTSymbolPtr instance4 = testAddress4->getInstance();
@@ -62,7 +62,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 	
 	// The first set of tests checks parsing of addresses
 	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress1 is bad",
-					device1 == TT("device1") &&
+					directory1 == TT("directory1") &&
 					parent1 == TTADRS("/gran/parent1") &&
 					name1 == TT("name1") &&
 					instance1 == TT("instance1") &&
@@ -72,7 +72,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress2 is bad",
-					device2 == NO_DEVICE &&
+					directory2 == NO_DIRECTORY &&
 					parent2 == TTADRS("/gran/parent2") &&
 					name2 == TT("name2") &&
 					instance2 == TT("instance2") &&
@@ -82,7 +82,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress3 is bad",
-					device3 == NO_DEVICE &&
+					directory3 == NO_DIRECTORY &&
 					parent3 == TTADRS("parent3") &&
 					name3 == TT("name3") &&
 					instance3 == TT("instance3") &&
@@ -92,7 +92,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 					errorCount);
 
 	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress4 is bad",
-					device4 == NO_DEVICE &&
+					directory4 == NO_DIRECTORY &&
 					parent4 == NO_PARENT &&
 					name4 == S_SEPARATOR &&
 					instance4 == NO_INSTANCE &&

@@ -18,7 +18,7 @@
 class TTNodeAddress;
 typedef TTNodeAddress*	TTNodeAddressPtr;
 
-#define NO_DEVICE		kTTSymEmpty
+#define NO_DIRECTORY	kTTSymEmpty
 #define NO_PARENT		kTTAdrsEmpty
 #define NO_NAME			kTTSymEmpty
 #define NO_INSTANCE		kTTSymEmpty
@@ -65,7 +65,7 @@ enum TTNodeAddressType {
  
  An address could be
  
- device:/parent/name.instance:attribute
+ directory:/parent/name.instance:attribute
  
  */
 
@@ -73,14 +73,14 @@ class TTFOUNDATION_EXPORT TTNodeAddress : public TTSymbol
 {
 private:
 	
-	TTSymbolPtr					device;					///< the device part if exists
+	TTSymbolPtr					directory;				///< the directory part (optional)
 	
-	TTNodeAddressPtr			parent;					///< the parent address pointer
+	TTNodeAddressPtr			parent;					///< the parent address pointer (optional)
 	
 	TTSymbolPtr					name;					///< the name part
-	TTSymbolPtr					instance;				///< the instance part
+	TTSymbolPtr					instance;				///< the instance part (optional)
 	
-	TTSymbolPtr					attribute;				///< the attribute part if exists
+	TTSymbolPtr					attribute;				///< the attribute part (optional)
 	
 	TTNodeAddressType			type;					///< is the address relative or absolute
 	
@@ -91,13 +91,12 @@ public:
 	/** Constructor */
 	TTNodeAddress();
 	TTNodeAddress(const TTString& newAddressString, TTInt32 newId);
-	TTNodeAddress(const TTSymbolPtr newDevice, const TTNodeAddressPtr newParent, const TTSymbolPtr newName, const TTSymbolPtr newInstance, const TTSymbolPtr newAttribute);
 
 	/** Destructor */
 	virtual ~TTNodeAddress();
 	
-	/** Get the device part */
-	TTSymbolPtr					getDevice();
+	/** Get the directory part */
+	TTSymbolPtr					getDirectory();
 	
 	/** Get a pointer to the parent address */
 	TTNodeAddressPtr			getParent();
@@ -113,6 +112,10 @@ public:
 	
 	/** Get the type */
 	TTNodeAddressType			getType();
+	
+	/** Normalize an address for lookup and other directory operations
+		This would return an address without directory and attribute	*/
+	TTNodeAddressPtr			normalize();
 	
 	/** Return a new TTNodeAddress without attribute part */
 	TTNodeAddressPtr			removeAttribute();
@@ -136,26 +139,36 @@ public:
 	TTErr						splitAt(TTUInt32 whereToSplit, TTNodeAddressPtr* returnedPart1, TTNodeAddressPtr* returnedPart2);
 	
 	/**	A parsing tool : count how many C_SEPARATOR there is in the address
-	 @param	oscAddress					An address
 	 @return							The number of C_SEPARATOR */
 	TTUInt32					countSeparator();
 	
 	
 private:
-	/** Parse the address to get device, parent, name, instance and attribute part 
+	/** Parse the address to get directory, parent, name, instance and attribute part 
 	 @return							An error code if the parsing failed */
 	TTErr						parse();
 	
-	/** Edit address from device, parent, name, instance and attribute part 
+	/** Edit address from directory, parent, name, instance and attribute part 
 	 @return							A new TTNodeAddressPtr */
-	TTNodeAddressPtr			edit(const TTSymbolPtr newDevice, const TTNodeAddressPtr newParent, const TTSymbolPtr newName, const TTSymbolPtr newInstance, const TTSymbolPtr newAttribute);
-	
+	TTNodeAddressPtr			edit(const TTSymbolPtr newDirectory, const TTNodeAddressPtr newParent, const TTSymbolPtr newName, const TTSymbolPtr newInstance, const TTSymbolPtr newAttribute);
+
+
+	friend TTNodeAddressPtr TTFOUNDATION_EXPORT	makeTTNodeAddress(const TTSymbolPtr newDirectory, const TTNodeAddressPtr newParent, const TTSymbolPtr newName, const TTSymbolPtr newInstance, const TTSymbolPtr newAttribute);
 };
 
 /**	Make a "public/name" symbol from "PublicName" symbol
- @param	oscAddress					"PublicName" symbol
- @return							"public/name" symbol */
-TTNodeAddressPtr TTFOUNDATION_EXPORT	convertTTNameInAddress(TTSymbolPtr ttName);
+ @param	ttName							"PublicName" symbol
+ @return								"public/name" symbol */
+TTNodeAddressPtr TTFOUNDATION_EXPORT	convertTTNameInTTNodeAddress(TTSymbolPtr ttName);
+
+/**	Make an address from directory, parent, name, instance and attribute part
+@param	newDirectory						directory symbol
+@param	newParent						parent address
+@param	newName							name symbol
+@param	newInstance						instance symbol
+@param	newAttribute					attribute symbol
+@return									directory:/parent/name.instance:attribute address */
+TTNodeAddressPtr TTFOUNDATION_EXPORT	makeTTNodeAddress(const TTSymbolPtr newDirectory, const TTNodeAddressPtr newParent, const TTSymbolPtr newName, const TTSymbolPtr newInstance, const TTSymbolPtr newAttribute);
 
 
 #endif // __TT_NODE_ADDRESS_H__

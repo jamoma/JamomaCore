@@ -90,10 +90,10 @@ public:
 
 	/** Set the parent of the TTNode 
 		This method ensure that the path to the TTNode exist
-		@param	oscAddress_parent	The OSC address to check
-		@param	parent_created		This parameter will be set to true upon return if a new TTNode was created, or false if one was not created - 
-									e.g. because a TTNode already existed with this address and instance name.			
-		@return						An error code. */
+		@param	parentAddress			The address to check
+		@param	newParentCreated		This parameter will be set to true upon return if a new TTNode was created, or false if one was not created - 
+										e.g. because a TTNode already existed with this address and instance name.			
+		@return							An error code. */
 	TTErr			setParent(TTNodeAddressPtr parentAddress, TTBoolean *newParentCreated);
 
 	/** Add a TTNode as a child of the TTNode

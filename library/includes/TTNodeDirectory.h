@@ -60,7 +60,7 @@ private:
 
 	TTSymbolPtr		name;					///< the name of the tree
 	TTNodePtr		root;					///< the root of the tree
-	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
+	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all address of the tree
 	TTHashPtr		observers;				///< a pointer to a hashtab which register all life cycle observers below that node
 											///< (address/relative/to/this/node, TTList of all observers below that address)
 	TTMutexPtr		mutex;					///< a Mutex to protect the mObservers hash table.
@@ -86,7 +86,7 @@ public:
 	/** Get the directory of the TTNodeDirectory */
 	TTHashPtr		getDirectory();
 
-	/**	Given a string with an OSC address, return a pointer to a TTNode.
+	/**	Given a string with an address, return a pointer to a TTNode.
 	 @param	anAddress				The address string for which to find the TTNode.
 	 @param	returnedTTNode			The .
 	 @return						An error code. */
@@ -96,7 +96,7 @@ public:
 	
 	/**	Find TTNodes by address
 	 @param	anAddress				The address you wish to find, possibly including wildcards and instance names/numbers.
-	 @param	returnedTTNodes			If non-null, a pointer will be set to the linked-list of TTNodes at the given OSC address pattern.
+	 @param	returnedTTNodes			If non-null, a pointer will be set to the linked-list of TTNodes at the given address pattern.
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.  
 									The value of the pointer will be set upon return.
 	 @return						An error code. */
@@ -107,7 +107,7 @@ public:
 	 @param testFunction			the test function have to take a TTNode as first argument, and a pointer to something as second argument (a structure for example) 
 									it have to return a boolean (true means that the node is ok).
 	 @param argument				argument for the testFunction
-	 @param	returnedTTNodes			If non-null, a pointer will be set to the linked-list of TTNodes at the given OSC address pattern.
+	 @param	returnedTTNodes			If non-null, a pointer will be set to the linked-list of TTNodes at the given address pattern.
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
 	 @return						An error code. */

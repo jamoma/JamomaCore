@@ -67,8 +67,9 @@ TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returned
 	TTValue found;
 
 	if (directory) {
+		
 		// look into the hashtab to check if the address exist in the tree
-		err = directory->lookup(anAddress, found);
+		err = directory->lookup(anAddress->normalize(), found);
 
 		// if this address doesn't exist
 		if (err == kTTErrValueNotFound) {
@@ -251,7 +252,7 @@ TTErr TTNodeDirectory::Lookup(TTNodeAddressPtr anAddress, TTList& returnedTTNode
 	else {
 
 		// look into the hashtab (don't care about the attribute part)
-		err = getTTNode(anAddress->removeAttribute(), &n_r);
+		err = getTTNode(anAddress, &n_r);
 
 		// if the node exists
 		if (err == kTTErrNone) {
@@ -379,8 +380,8 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTNodeAddressPtr anAddress, c
 	// enable observers protection
 	mutex->lock();
 	
-	// don't look at attribute
-	adrs = anAddress->removeAttribute();
+	// don't look at attribute and directory
+	adrs = anAddress->normalize();
 
 	// is the key already exists ?
 	err = this->observers->lookup(adrs, lk);
@@ -414,8 +415,8 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTNodeAddressPtr anAddress
 	// enable observers protection
 	mutex->lock();
 	
-	// don't look at attribute
-	adrs = anAddress->removeAttribute();
+	// don't look at attribute and directory
+	adrs = anAddress->normalize();
 
 	// is the key exists ?
 	err = this->observers->lookup(adrs, lk);
@@ -461,15 +462,15 @@ TTErr TTNodeDirectory::notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNo
 
 		this->observers->getKeys(hk);
 		
-		// don't look at attribute
-		adrs = anAddress->removeAttribute();
+		// don't look at attribute and address
+		adrs = anAddress->normalize();
 
 		// for each key of mObserver tab
 		for (i=0; i<hk.getSize(); i++) {
 
 			hk.get(i, &key);
 
-			// compare the key with the oscAddress
+			// compare the key with the address
 			comp = adrs->compare(key);
 
 			if ((comp == kAddressEqual) || (comp == kAddressLower)){

@@ -145,7 +145,7 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 	this->getAddress(&newAaddress);
 
 	// for all the address witch starts by oldAddress :
-	// replace the beginning by the new_OSCaddress
+	// replace the beginning by the newAaddress
 	this->directory->getDirectory()->getKeys(hk);
 
 	// for each key
@@ -153,7 +153,7 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 
 		hk.get(i,(TTSymbolPtr*)&old_key);
 
-		// if the key starts by the OSCaddress
+		// if the key starts by the oldAddress
 		if (strstr(old_key->getCString(), oldAddress->getCString()) == old_key->getCString()) {
 
 			// get the TTNode

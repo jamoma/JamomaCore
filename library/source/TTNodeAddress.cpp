@@ -9,18 +9,9 @@
 #include "TTFoundationAPI.h"
 
 TTNodeAddress::TTNodeAddress(const TTString& newAddressString, TTInt32 newId)
-	: device(NO_DEVICE), parent(NO_PARENT), name(NO_NAME), instance(NO_INSTANCE), attribute(NO_ATTRIBUTE), parsed(NO)
+	: directory(NO_DIRECTORY), parent(NO_PARENT), name(NO_NAME), instance(NO_INSTANCE), attribute(NO_ATTRIBUTE), parsed(NO)
 {
 	this->init(newAddressString, newId);
-}
-
-TTNodeAddress::TTNodeAddress(const TTSymbolPtr newDevice, 
-							 const TTNodeAddressPtr newParent, 
-							 const TTSymbolPtr newName, 
-							 const TTSymbolPtr newInstance, 
-							 const TTSymbolPtr newAttribute)
-{
-	edit(newDevice, newParent, newName, newInstance, newAttribute);
 }
 
 TTNodeAddress::~TTNodeAddress()
@@ -28,10 +19,10 @@ TTNodeAddress::~TTNodeAddress()
 	;
 }
 
-TTSymbolPtr TTNodeAddress::getDevice()
+TTSymbolPtr TTNodeAddress::getDirectory()
 {
 	if (!parsed) parse();
-	return device;
+	return directory;
 }
 
 TTNodeAddressPtr TTNodeAddress::getParent()
@@ -64,23 +55,39 @@ TTNodeAddressType TTNodeAddress::getType()
 	return type;
 }
 
+TTNodeAddressPtr TTNodeAddress::normalize()
+{
+	if (!parsed) parse();
+	
+	if (directory != NO_DIRECTORY || attribute != NO_ATTRIBUTE)
+		return edit(NO_DIRECTORY, this->parent, this->name, this->instance, NO_ATTRIBUTE);
+	else
+		return this;
+}
+
 TTNodeAddressPtr TTNodeAddress::removeAttribute()
 {
 	if (!parsed) parse();
 	
-	return edit(this->device, this->parent, this->name, this->instance, NO_ATTRIBUTE);
+	if (attribute != NO_ATTRIBUTE)
+		return edit(this->directory, this->parent, this->name, this->instance, NO_ATTRIBUTE);
+	else
+		return this;
 }
 
 TTNodeAddressPtr TTNodeAddress::appendAttribute(TTSymbolPtr anAttribute)
 {
 	if (!parsed) parse();
 	
-	return edit(this->device, this->parent, this->name, this->instance, anAttribute);
+	return edit(this->directory, this->parent, this->name, this->instance, anAttribute);
 }
 
 TTNodeAddressPtr TTNodeAddress::appendAddress(const TTNodeAddressPtr toAppend)
 {
 	TTString tmp = "";
+	
+	if (toAppend == kTTAdrsEmpty || toAppend == kTTAdrsRoot)
+		return this;
 	
 	tmp += this->getCString();
 
@@ -106,12 +113,12 @@ TTErr TTNodeAddress::parse()
 	TTString address = this->getCString();
 	long len, pos, first_slash, first_colon;
 	char *last_colon, *last_slash, *last_dot;
-	char *c_device, *c_attribute, *c_parent, *c_instance;
+	char *c_directory, *c_attribute, *c_parent, *c_instance;
 	char *to_split;
 	
 	// Empty case :
 	if (this == kTTAdrsEmpty) {
-		this->device = NO_DEVICE;
+		this->directory = NO_DIRECTORY;
 		this->parent = NO_PARENT;
 		this->name = NO_NAME;
 		this->instance = NO_INSTANCE;
@@ -123,7 +130,7 @@ TTErr TTNodeAddress::parse()
 	
 	// Root case :
 	if (this == kTTAdrsRoot) {
-		this->device = NO_DEVICE;
+		this->directory = NO_DIRECTORY;
 		this->parent = NO_PARENT;
 		this->name = S_SEPARATOR;
 		this->instance = NO_INSTANCE;
@@ -135,17 +142,17 @@ TTErr TTNodeAddress::parse()
 	
 	// TODO : replace all ".0" by ""
 	
-	// Parse device (:/)
+	// Parse directory (:/)
 	to_split = (char *)malloc(sizeof(char)*(strlen(address.data())+1));
 	strcpy(to_split, address.data());
 	first_colon = address.find_first_of(C_ATTRIBUTE);
 	first_slash = address.find_first_of(C_SEPARATOR);
 	if (first_colon > 0 && first_colon == first_slash-1) {
-		c_device = (char *)malloc(sizeof(char)*first_colon);
-		strncpy(c_device, to_split, first_colon);
-		c_device[first_colon] = NULL;
+		c_directory = (char *)malloc(sizeof(char)*first_colon);
+		strncpy(c_directory, to_split, first_colon);
+		c_directory[first_colon] = NULL;
 		
-		this->device = TT(c_device);
+		this->directory = TT(c_directory);
 		
 		strcpy(to_split, to_split+first_colon+1);
 	}
@@ -208,13 +215,13 @@ TTErr TTNodeAddress::parse()
 	if (parent != NO_PARENT)
 		this->type = parent->getType();
 	else
-		this->type = (TTNodeAddressType)(device != NO_DEVICE || name == S_SEPARATOR);
+		this->type = (TTNodeAddressType)(directory != NO_DIRECTORY || name == S_SEPARATOR);
 	
 	this->parsed = YES;
 	return kTTErrNone;
 }
 
-TTNodeAddressPtr TTNodeAddress::edit(const TTSymbolPtr newDevice, 
+TTNodeAddressPtr TTNodeAddress::edit(const TTSymbolPtr newDirectory, 
 						  const TTNodeAddressPtr newParent, 
 						  const TTSymbolPtr newName, 
 						  const TTSymbolPtr newInstance, 
@@ -222,20 +229,20 @@ TTNodeAddressPtr TTNodeAddress::edit(const TTSymbolPtr newDevice,
 {
 	TTString address;
 	
-	if (newDevice != NO_DEVICE) {
-		address = newDevice->getCString();
-		address += S_DEVICE->getCString();
+	if (newDirectory != NO_DIRECTORY) {
+		address = newDirectory->getCString();
+		address += ":"; // don't put :/ here because the parent or the name should have one.
 	}
 	
 	if (newParent != NO_PARENT)
-		if (newDevice == NO_DEVICE)
+		if (newDirectory == NO_DIRECTORY)
 			address = newParent->getCString();
 		else
 			address += newParent->getCString();
 	
 	if(newName != NO_NAME){
 		if((newName != S_SEPARATOR) && (newParent != kTTAdrsRoot))
-			if (newDevice != NO_DEVICE || newParent != NO_PARENT)
+			if (newDirectory != NO_DIRECTORY || newParent != NO_PARENT)
 				address += S_SEPARATOR->getCString();
 		address += newName->getCString();
 	}
@@ -262,8 +269,8 @@ TTNodeAddressComparisonFlag TTNodeAddress::compare(const TTNodeAddressPtr toComp
 	TTNodeAddressPtr top2, rest2;
 	bool cParent, cName, cInstance;
 	
-	adrs1 = this->removeAttribute();
-	adrs2 = toCompare->removeAttribute();
+	adrs1 = this->normalize();
+	adrs2 = toCompare->normalize();
 	
 	if (adrs1 == adrs2)
 		return kAddressEqual;
@@ -369,7 +376,7 @@ TTUInt32 TTNodeAddress::countSeparator()
  *
  ************************************************************************************/
 
-TTNodeAddressPtr convertTTNameInAddress(TTSymbolPtr ttName)
+TTNodeAddressPtr convertTTNameInTTNodeAddress(TTSymbolPtr ttName)
 {
 	TTUInt32	ttNameSize = 0;
 	TTCString	ttNameCString;
@@ -430,3 +437,13 @@ TTNodeAddressPtr convertTTNameInAddress(TTSymbolPtr ttName)
 	
 	return addrNameSymbol;
 }
+
+TTNodeAddressPtr makeTTNodeAddress(const TTSymbolPtr newDirectory, 
+								   const TTNodeAddressPtr newParent, 
+								   const TTSymbolPtr newName, 
+								   const TTSymbolPtr newInstance, 
+								   const TTSymbolPtr newAttribute)
+{
+	return kTTAdrsEmpty->edit(newDirectory, newParent, newName, newInstance, newAttribute);
+}
+
