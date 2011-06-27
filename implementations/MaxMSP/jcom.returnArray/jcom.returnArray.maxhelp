@@ -22,6 +22,19 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 254.0, 438.0, 34.0, 19.0 ],
+					"text" : "print"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-23",
 					"maxclass" : "comment",
@@ -111,7 +124,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 40.0, 254.0, 328.0, 19.0 ],
-					"text" : "jcom.return.array object.[6] @type decimal @description Hello"
+					"text" : "jcom.returnArray object.[6] @type decimal @description Hello"
 				}
 
 			}
@@ -197,7 +210,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 38.0, 439.0, 211.0, 17.0 ],
-					"text" : "/ui/size 300. 70."
+					"text" : "object.5 0.42"
 				}
 
 			}
@@ -349,7 +362,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 39.0, 192.0, 370.0, 19.0 ],
-					"text" : "jcom.return.array source.[4]/position @type integer @description Hello"
+					"text" : "jcom.returnArray source.[4]/position @type integer @description Hello"
 				}
 
 			}
@@ -378,6 +391,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 411.5, 249.0, 358.5, 249.0 ],
 					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 47.5, 434.0, 263.5, 434.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
