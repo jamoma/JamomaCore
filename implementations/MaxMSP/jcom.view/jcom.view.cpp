@@ -206,7 +206,7 @@ void view_subscribe(TTPtr self, SymbolPtr address)
 			else {
 				jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &patcherNode);
 				if (patcherNode)
-					patcherNode->getAddress(&contextAddress, kTTAdrsRoot);
+					patcherNode->getAddress(&contextAddress);
 				
 				// While the context node is not registered : try to build (to --Is this not dangerous ?)
 				else {

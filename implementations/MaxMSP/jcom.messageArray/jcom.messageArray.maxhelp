@@ -22,13 +22,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-25",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 440.0, 416.0, 181.0, 19.0 ],
-					"presentation_rect" : [ 440.0, 416.0, 0.0, 0.0 ],
 					"text" : "or jcom.send (with wildcard here)"
 				}
 
@@ -42,8 +41,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 387.0, 416.0, 50.0, 19.0 ],
-					"presentation_rect" : [ 386.0, 415.0, 0.0, 0.0 ]
+					"patching_rect" : [ 386.0, 416.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -56,8 +54,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 387.0, 437.0, 214.0, 19.0 ],
-					"text" : "jcom.send /jcom.messageArray/object.*"
+					"patching_rect" : [ 386.0, 437.0, 107.0, 19.0 ],
+					"text" : "jcom.send object.*"
 				}
 
 			}
@@ -65,7 +63,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-23",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -84,7 +82,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 387.0, 369.0, 50.0, 19.0 ]
+					"patching_rect" : [ 386.0, 369.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -97,8 +95,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 386.0, 391.0, 214.0, 19.0 ],
-					"text" : "jcom.view /jcom.messageArray/object.4"
+					"patching_rect" : [ 386.0, 391.0, 106.0, 19.0 ],
+					"text" : "jcom.view object.4"
 				}
 
 			}
@@ -124,8 +122,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 385.0, 340.0, 214.0, 19.0 ],
-					"text" : "jcom.view /jcom.messageArray/object.2"
+					"patching_rect" : [ 386.0, 340.0, 106.0, 19.0 ],
+					"text" : "jcom.view object.2"
 				}
 
 			}
@@ -133,7 +131,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-18",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -147,7 +145,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-17",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -260,7 +258,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-72",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -301,7 +299,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-13",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -315,7 +313,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-12",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -329,7 +327,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -344,7 +342,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -363,8 +361,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 188.0, 368.0, 72.0, 17.0 ],
-					"text" : "/object.2 $1"
+					"patching_rect" : [ 188.0, 368.0, 68.0, 17.0 ],
+					"text" : "object.2 $1"
 				}
 
 			}
@@ -390,8 +388,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 38.0, 368.0, 118.0, 17.0 ],
-					"text" : "/source.4/position $1"
+					"patching_rect" : [ 38.0, 368.0, 114.0, 17.0 ],
+					"text" : "source.4/position $1"
 				}
 
 			}
