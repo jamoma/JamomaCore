@@ -33,30 +33,30 @@ public:
 	/** */
 	void minuitRunOSCListening(unsigned int port);
 
-	void(*m_discoverRequestCallBack)(TTPtr, TTString, TTString);
-	void(*m_getRequestCallBack)(TTPtr, TTString, TTString, TTString);
-	void(*m_setRequestCallBack)(TTPtr, TTString, TTString, TTString, TTValue&);
-	void(*m_listenRequestCallBack)(TTPtr, TTString, TTString, TTString, bool);
+	void(*m_discoverRequestCallBack)(TTPtr, TTString, TTNodeAddressPtr);
+	void(*m_getRequestCallBack)(TTPtr, TTString, TTNodeAddressPtr);
+	void(*m_setRequestCallBack)(TTPtr, TTString, TTNodeAddressPtr, TTValue&);
+	void(*m_listenRequestCallBack)(TTPtr, TTString, TTNodeAddressPtr, bool);
 	
 	TTPtr m_discoverRequestCallBackArgument;
 	TTPtr m_getRequestCallBackArgument;
 	TTPtr m_setRequestCallBackArgument;
 	TTPtr m_listenRequestCallBackArgument;
 	
-	void minuitReceiveNetworkDiscoverRequest(TTString from, TTString address);
-	void minuitReceiveNetworkGetRequest(TTString from, TTString address, TTString attribute);
-	void minuitReceiveNetworkSetRequest(TTString from, TTString address, TTString attribute, TTValue& value);
-	void minuitReceiveNetworkListenRequest(TTString from, TTString address, TTString attribute, bool);
+	void minuitReceiveNetworkDiscoverRequest(TTString from, TTNodeAddressPtr address);
+	void minuitReceiveNetworkGetRequest(TTString from, TTNodeAddressPtr address);
+	void minuitReceiveNetworkSetRequest(TTString from, TTNodeAddressPtr address, TTValue& value);
+	void minuitReceiveNetworkListenRequest(TTString from, TTNodeAddressPtr address, bool);
 
 	void minuitSendMessage(TTString header, TTValue& arguments, TTString ip, unsigned int port);
 	
-	void minuitParseDiscoverAnswer(TTString from, TTString address, const osc::ReceivedMessage&m);
-	void minuitAddDiscoverAnswer(TTString from, TTString address, TTString ip, unsigned int port, int timeOutInMs = DEFAULT_TIMEOUT);
-	int minuitWaitDiscoverAnswer(TTString from, TTString address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
+	void minuitParseDiscoverAnswer(TTString from, TTNodeAddressPtr address, const osc::ReceivedMessage&m);
+	void minuitAddDiscoverAnswer(TTString from, TTNodeAddressPtr address, TTString ip, unsigned int port, int timeOutInMs = DEFAULT_TIMEOUT);
+	int minuitWaitDiscoverAnswer(TTString from, TTNodeAddressPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes);
 	
-	void minuitParseGetAnswer(TTString from, TTString address, const osc::ReceivedMessage&m);
-	void minuitAddGetAnswer(TTString from, TTString address, int timeOutInMs = DEFAULT_TIMEOUT);
-	int minuitWaitGetAnswer(TTString from, TTString address, TTValue& returnedValues, bool repeatAddress = true);
+	void minuitParseGetAnswer(TTString from, TTNodeAddressPtr address, const osc::ReceivedMessage&m);
+	void minuitAddGetAnswer(TTString from, TTNodeAddressPtr address, int timeOutInMs = DEFAULT_TIMEOUT);
+	int minuitWaitGetAnswer(TTString from, TTNodeAddressPtr address, TTValue& returnedValues, bool repeatAddress = true);
 };
 
 unsigned int computeOSCMessageSize(TTString header, TTValue& arguments) ;

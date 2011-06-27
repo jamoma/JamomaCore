@@ -120,7 +120,64 @@ public:
 	
 	/** Stop the reception thread mechanism of the plugin */
 	virtual TTErr Stop()=0;
+	
+	/**************************************************************************************************************************
+	 *
+	 *	SEND REQUEST METHODS
+	 *
+	 **************************************************************************************************************************/
+	
+	/*!
+	 * Send a discover request to a application to get a part of the namespace at the given address
+	 *
+ 	 * \param to					: the application where to discover
+	 * \param address				: the address to discover
+	 * \param returnedChildrenNames : all names of nodes below the address
+	 * \param returnedChildrenTypes : all types of nodes below the address (default is none which means no type)
+	 * \param returnedAttributes	: all attributes the node at the address
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+									else it returns kTTErrGeneric if no answer or timeout
+	 */
+	virtual TTErr applicationSendDiscoverRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+												 TTValue& returnedChildrenNames,
+												 TTValue& returnedChildrenTypes,
+												 TTValue& returnedAttributes)=0;
 
+	/*!
+	 * Send a get request to a application to get a value at the given address
+	 *
+ 	 * \param to					: the application where to get
+	 * \param address				: the address to get
+	 * \param returnedValue			: the value which is going to be filled
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+									else it returns kTTErrGeneric if no answer or timeout
+	 */
+	virtual TTErr applicationSendGetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+											TTValue& returnedValue)=0;
+	
+	/*!
+	 * Send a set request to set a value of a specific application
+	 *
+	 * \param to					: the application where to set
+	 * \param address				: the address to set
+	 * \param value					: anything to send
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 */
+	virtual TTErr applicationSendSetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+											TTValue& value)=0;
+	
+	/*!
+	 * Send a listen request to a specific application
+	 *
+	 * \param to					: the application where to listen
+	 * \param address				: the address to listen
+	 * \param attribute				: the attribute to listen
+	 * \param enable				: enable/disable the listening
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 */
+	virtual TTErr applicationSendListenRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+											   TTBoolean enable)=0;
+	
 	
 	/**************************************************************************************************************************
 	 *
@@ -131,13 +188,13 @@ public:
 	/*!
 	 * Send a disover answer to a application which ask for.
 	 *
-	 * \param to : the application where to send answer
-	 * \param address : the address where comes from the description
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the description
 	 * \param returnedChildrenNames : all names of nodes below the address
-	 * \param returnedLeaves : all types of nodes below the address(default is none which means no type)
-	 * \param returnedAttributes : all attributes the node at the address
+	 * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
+	 * \param returnedAttributes	: all attributes the node at the address
 	 */
-	virtual TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address,
+	virtual TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTNodeAddressPtr address,
 												TTValue& returnedChildrenNames,
 												TTValue& returnedChildrenTypes,
 												TTValue& returnedAttributes,
@@ -146,26 +203,22 @@ public:
 	/*!
 	 * Send a get answer to a application which ask for.
 	 *
-	 * \param to : the application where to send answer
-	 * \param address : the address where comes from the value
-	 * \param attribute : the attribute where comes from the value
-	 * \param returnedValue : the value of the attribute at the address
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the value
+	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	virtual TTErr applicationSendGetAnswer(TTObjectPtr to, TTSymbolPtr address,
-										   TTSymbolPtr attribute, 
+	virtual TTErr applicationSendGetAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
 										   TTValue& returnedValue,
 										   TTErr err=kTTErrNone)=0;
 	
 	/*!
 	 * Send a listen answer to a application which ask for.
 	 *
-	 * \param to : the application where to send answer
-	 * \param address : the address where comes from the value
-	 * \param attribute : the attribute where comes from the value  (the "life" attribute is to listen namespace creation and destruction) 
-	 * \param returnedValue : the value of the attribute at the address
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the value
+	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	virtual TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address,
-											  TTSymbolPtr attribute, 
+	virtual TTErr applicationSendListenAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
 											  TTValue& returnedValue,
 											  TTErr err=kTTErrNone)=0;
 	
@@ -180,10 +233,10 @@ public:
 	 *
 	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from : the application where comes from the request
-	 * \param address : the address the application wants to discover
+	 * \param from					: the application where comes from the request
+	 * \param address				: the address the application wants to discover
 	 */
-	void applicationReceiveDiscoverRequest(TTObjectPtr from, TTSymbolPtr address) 
+	void applicationReceiveDiscoverRequest(TTObjectPtr from, TTNodeAddressPtr address) 
 	{
 		TTValue v;
 		TTErr	err;
@@ -210,11 +263,10 @@ public:
 	 *
 	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from : the application where comes from the request
-	 * \param address : the address the application wants to get
-	 * \param attribute : the attribute the application wants to get
+	 * \param from					: the application where comes from the request
+	 * \param address				: the address the application wants to get
 	 */
-	void applicationReceiveGetRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute)
+	void applicationReceiveGetRequest(TTObjectPtr from, TTNodeAddressPtr address)
 	{
 		TTValue v;
 		TTErr	err;
@@ -224,11 +276,10 @@ public:
 		if (mApplicationManager != NULL) {
 			
 			v.append(address);
-			v.append(attribute);
 			v.append((TTPtr)&returnedValue);
 			err = mApplicationManager->sendMessage(TT("ApplicationGet"), v);
 			
-			applicationSendGetAnswer(from, address, attribute, returnedValue, err);
+			applicationSendGetAnswer(from, address, returnedValue, err);
 		}		
 	}
 	
@@ -237,11 +288,10 @@ public:
 	 *
 	 * !!! This a built-in plugin method which set automatically the value (or send a notification if error)
 	 *
-	 * \param from : the application where comes from the request
-	 * \param address : the address the application wants to get
-	 * \param attribute : the attribute the application wants to get
+	 * \param from					: the application where comes from the request
+	 * \param address				: the address the application wants to get
 	 */
-	void applicationReceiveSetRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& newValue) 
+	void applicationReceiveSetRequest(TTObjectPtr from, TTNodeAddressPtr address, TTValue& newValue) 
 	{
 		TTValue v;
 		TTErr	err;
@@ -250,7 +300,6 @@ public:
 		if (mApplicationManager != NULL) {
 			
 			v.append(address);
-			v.append(attribute);
 			v.append((TTPtr)&newValue);
 			err = mApplicationManager->sendMessage(TT("ApplicationSet"), v);
 			
@@ -263,12 +312,11 @@ public:
 	 *
 	 * !!! This a built-in plugin method which create/remove automatically the listener (or send a notification if error)
 	 *
-	 * \param from : the application where comes from the request
-	 * \param address : the address the application wants to listen
-	 * \param attribute : the attribute the application wants to listen
-	 * \param enable : enable/disable the listening
+	 * \param from					: the application where comes from the request
+	 * \param address				: the address the application wants to listen
+	 * \param enable				: enable/disable the listening
 	 */
-	void applicationReceiveListenRequest(TTObjectPtr from, TTSymbolPtr address, TTSymbolPtr attribute, TTBoolean enable) 
+	void applicationReceiveListenRequest(TTObjectPtr from, TTNodeAddressPtr address, TTBoolean enable) 
 	{
 		TTValue v;
 		TTErr	err;
@@ -279,13 +327,12 @@ public:
 			v.append(mName);	// the name of the plugin is needed for feed back notifications
 			v.append((TTPtr)from);
 			v.append(address);
-			v.append(attribute);
 			v.append(enable);
 			
 			err = mApplicationManager->sendMessage(TT("ApplicationListen"), v);
 			
 			if (err)
-				applicationSendListenAnswer(from, address, attribute, kTTValNONE, err);
+				applicationSendListenAnswer(from, address, kTTValNONE, err);
 		}
 	}
 	

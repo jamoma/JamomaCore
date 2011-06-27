@@ -22,14 +22,15 @@
 class Item
 	{
 	public :
-		TTObjectPtr manager;
-		TTNodePtr	node;
-		TTHashPtr	state;
+		TTObjectPtr			manager;
+		TTNodeAddressPtr	address;
+		TTSymbolPtr			type;
+		TTHashPtr			state;
 		
-		Item(TTObjectPtr aManager, TTNodePtr aNode);
+		Item(TTObjectPtr aManager, TTNodeAddressPtr anAddress);
 		~Item();
 		
-		TTSymbolPtr getType();
+		TTObjectPtr	getObject();
 		
 		TTErr clear();
 		TTErr update(TTSymbolPtr attributeName);
@@ -49,7 +50,9 @@ public:		// use public to allow PresetManager to have a direct access
 	TTNodeAddressPtr			mAddress;						///< ATTRIBUTE: the parent address from where to search object to store
 	TTSymbolPtr					mComment;						///< ATTRIBUTE: a comment for the preset
 	
-private:	
+private:
+	
+	TTNodeDirectoryPtr			mDirectory;						///< a preset depends on a directory
 	
 	TTObjectPtr					mManager;						///< the object which is currently managing this preset
 	TTCallbackPtr				mTestObjectCallback;			///< a callback used to test object to store in item or not

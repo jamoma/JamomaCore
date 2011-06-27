@@ -17,6 +17,7 @@ mAddress(kTTAdrsEmpty),
 mLookfor(kTTSymEmpty),
 mEqual(kTTValNONE),
 mDifferent(kTTValNONE),
+mDirectory(NULL),
 mObserver(NULL),
 mReturnValueCallback(NULL),
 mLookforObjectCriteria(NULL),
@@ -56,8 +57,8 @@ TTExplorer::~TTExplorer()
 		addressToObserve = mAddress;
 	
 	if (mObserver) {
-		if (addressToObserve != kTTAdrsEmpty)
-			getDirectoryFrom(addressToObserve)->removeObserverForNotifications(addressToObserve, *mObserver);
+		if (mDirectory && addressToObserve != kTTAdrsEmpty)
+			mDirectory->removeObserverForNotifications(addressToObserve, *mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
@@ -91,49 +92,52 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	TTValuePtr	newBaton;
 	
 	// delete the old observer
-	if (mObserver && mTempObserve != kTTSymEmpty) {
-		getDirectoryFrom(mTempObserve)->removeObserverForNotifications(mTempObserve, *mObserver);
+	if (mDirectory && mObserver && mTempObserve != kTTSymEmpty) {
+		mDirectory->removeObserverForNotifications(mTempObserve, *mObserver);
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
 	
 	// change the address
 	value.get(0, &mAddress);
 	
-	// it works only for absolute address
-	if (mAddress->getType() == kAddressAbsolute) {
+	if (mDirectory = getDirectoryFrom(mAddress)) {
 		
-		// change internal values
-		mTempParent = mAddress->getParent();
-		mTempName = mAddress->getName();
-		
-		// bind the new node
-		if (mLookfor == kTTSym_instances)
-			mTempObserve = mTempParent;
-		else
-			mTempObserve = mAddress;
-		
-		// change the observer
-		if (mTempObserve != kTTSymEmpty){
+		// it works only for absolute address
+		if (mAddress->getType() == kAddressAbsolute) {
 			
-			// observe any creation or destruction below the address
-			mObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
+			// change internal values
+			mTempParent = mAddress->getParent();
+			mTempName = mAddress->getName();
 			
-			newBaton = new TTValue(TTPtr(this));
-			newBaton->append(TTPtr(kTTSymEmpty));
+			// bind the new node
+			if (mLookfor == kTTSym_instances)
+				mTempObserve = mTempParent;
+			else
+				mTempObserve = mAddress;
 			
-			mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-			mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
+			// change the observer
+			if (mTempObserve != kTTSymEmpty){
+				
+				// observe any creation or destruction below the address
+				mObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+				TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
+				
+				newBaton = new TTValue(TTPtr(this));
+				newBaton->append(TTPtr(kTTSymEmpty));
+				
+				mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+				mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
+				
+				mObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
+				
+				mDirectory->addObserverForNotifications(mTempObserve, *mObserver);
+			}
 			
-			mObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
-			
-			getDirectoryFrom(mTempObserve)->addObserverForNotifications(mTempObserve, *mObserver);
+			return kTTErrNone;
 		}
-		
-		return kTTErrNone;
 	}
 	
-	return kTTErrGeneric;
+	return kTTErrGeneric;  // TODO : wait for directory before to set address again
 }
 
 TTErr TTExplorer::Explore()
@@ -149,11 +153,14 @@ TTErr TTExplorer::Explore()
 	mLastResult = kTTValNONE;
 	mTempNode = NULL;
 	
+	if (!mDirectory)
+		return kTTErrGeneric;
+	
 	// bind the right node
 	if (mLookfor == kTTSym_instances)
-		err = getDirectoryFrom(mTempParent)->Lookup(mTempParent, aNodeList, &mTempNode);
+		err = mDirectory->Lookup(mTempParent, aNodeList, &mTempNode);
 	else
-		err = getDirectoryFrom(mAddress)->Lookup(mAddress, aNodeList, &mTempNode);
+		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
 		
@@ -181,7 +188,7 @@ TTErr TTExplorer::Explore()
 		// get relative address of objects looking at mLookforObjectCriteria
 		else {
 			
-			getDirectoryFrom(mAddress)->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
+			mDirectory->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
 			
 			// Memorized the result in a hash table
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
@@ -291,11 +298,15 @@ TTErr TTExplorer::WriteAsOpml(const TTValue& value)
 	TTNodePtr			aNode;
 	
 	value.get(0, (TTPtr*)&anOpmlHandler);
-
-	// get the mAddress node
-	getDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
-	if (aNode) writeNode(anOpmlHandler, aNode);
-	else writeNode(anOpmlHandler, getDirectoryFrom(mAddress)->getRoot());
+	
+	if (mDirectory && mAddress != kTTAdrsEmpty) {
+		
+		// get the mAddress node
+		mDirectory->getTTNode(mAddress, &aNode);
+		if (aNode) writeNode(anOpmlHandler, aNode);
+		else writeNode(anOpmlHandler, mDirectory->getRoot());
+		
+	}
 
 	return kTTErrNone;
 }
@@ -314,7 +325,8 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
 	
 	// Write address attribute
-	nameInstance = new TTNodeAddress(NO_DEVICE, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
+	
+	nameInstance = makeTTNodeAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
 	xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance->getCString());
 	
 	if (anObject = aNode->getObject()) {
@@ -340,6 +352,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 				if (attributeName != kTTSym_value && 
 					attributeName != kTTSym_address && 
 					attributeName != TT("content") &&
+					attributeName != kTTSym_bypass &&
 					attributeName != kTTSym_activityIn &&
 					attributeName != kTTSym_activityOut) {
 					
@@ -360,6 +373,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	}
 	
 	aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+
 	for (nodeList.begin(); nodeList.end(); nodeList.next())
 	{
 		nodeList.current().get(0, (TTPtr*)&aChild);

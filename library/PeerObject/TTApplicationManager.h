@@ -124,7 +124,7 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr
  @param	baton						..
  @param	data						..
  @return							a TTApplicationPtr */
-TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTSymbolPtr appNameAndAddress);
+TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTNodeAddressPtr anAddress);
 
 /**	To get a plugin with a plugin name
  note : it uses the extern TTModularApplications variable
@@ -132,12 +132,5 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTSymbo
  @param	data						..
  @return							a PluginPtr */
 TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
-
-/**	To split 'appName@address' in two symbol
- @param	baton						..
- @param	data						..
- @return							a TTErr */
-TTErr TTApplicationManagerSplitAppNameFromAddress(TTSymbolPtr address, TTSymbolPtr* returnedAppName, TTSymbolPtr* returnedAddress);
-
 
 #endif // __TT_APPLICATION_MANAGER_H__

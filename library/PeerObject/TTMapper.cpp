@@ -186,24 +186,26 @@ TTErr TTMapper::setInput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper was created before we observe the input address
-	err = getDirectoryFrom(mInput)->getTTNode(mInput, &aNode);
-	
-	if (!err) {
-
-		if (anObject = aNode->getObject())
-			if (anObject->getName() == TT("Data")) {
-				
-				anObject->getAttributeValue(kTTSym_rangeBounds, v);
-				
-				mInputMin = v.getFloat64(0);
-				mInputMax = v.getFloat64(1);
-				scaleInput();
-				
-				observeInputRange();
-			}
+	if (getDirectoryFrom(mInput)) {
+		err = getDirectoryFrom(mInput)->getTTNode(mInput, &aNode);
+		
+		if (!err) {
+			
+			if (anObject = aNode->getObject())
+				if (anObject->getName() == TT("Data")) {
+					
+					anObject->getAttributeValue(kTTSym_rangeBounds, v);
+					
+					mInputMin = v.getFloat64(0);
+					mInputMax = v.getFloat64(1);
+					scaleInput();
+					
+					observeInputRange();
+				}
+		}
+		else
+			observeInput();
 	}
-	else
-		observeInput();
 	
 	return kTTErrNone;
 }
@@ -284,24 +286,26 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper created before we observe the output address
-	err = getDirectoryFrom(mOutput)->getTTNode(mOutput, &aNode);
-	
-	if (!err) {
-
-		if (anObject = aNode->getObject())
-			if (anObject->getName() == TT("Data")) {
-				
-				anObject->getAttributeValue(kTTSym_rangeBounds, v);
-				
-				mOutputMin = v.getFloat64(0);
-				mOutputMax = v.getFloat64(1);
-				scaleOutput();
-				
-				observeOutputRange();
-			}
+	if (getDirectoryFrom(mOutput)) {
+		err = getDirectoryFrom(mOutput)->getTTNode(mOutput, &aNode);
+		
+		if (!err) {
+			
+			if (anObject = aNode->getObject())
+				if (anObject->getName() == TT("Data")) {
+					
+					anObject->getAttributeValue(kTTSym_rangeBounds, v);
+					
+					mOutputMin = v.getFloat64(0);
+					mOutputMax = v.getFloat64(1);
+					scaleOutput();
+					
+					observeOutputRange();
+				}
+		}
+		else
+			observeOutput();
 	}
-	else
-		observeOutput();
 	
 	return kTTErrNone;
 }

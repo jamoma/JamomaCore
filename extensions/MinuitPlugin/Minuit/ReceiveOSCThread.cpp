@@ -81,18 +81,15 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 	TTString currentString(m.AddressPattern());
 	TTString sender = "";
 	TTString operation = "";
-	int operationStart;
-	TTString address;
-	TTString whereTo = "";
-	TTString attribute = "";
-	int attributeStart;
+	TTInt32 operationStart;
+	TTNodeAddressPtr whereTo = kTTAdrsEmpty;
 	TTValue arguments;
 	
 	/*
 	 if start with '/'
 	
 	 else if start with '?'
-		parse sender?operation /whereTo:attribute
+		parse sender?operation /whereTo
 	
 		if ?namespace
 	
@@ -101,7 +98,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 		if ?listen
 	
 	 else if start with ':'
-		parse sender:operation /whereTo:attribute
+		parse sender:operation /whereTo
 		get arguments
 	 
 		if :namespace
@@ -115,17 +112,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 	// if start with '/'
 	if (currentString[0] == '/')
 	{
-		attributeStart = currentString.find(':');								// parse /whereTo:attribute
-		if(attributeStart != currentString.npos)
-		{
-			whereTo = currentString.substr(0, attributeStart);					// get whereTo
-			attribute = currentString.substr(attributeStart+1);					// get attribute
-		}
-		else
-		{
-			whereTo = currentString;											// get where to
-			attribute = "value";												// default attribute is 'value'
-		}
+		whereTo = TTADRS(currentString);
 		
 		osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();			// get arguments
 		
@@ -143,10 +130,10 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 		}
 		
 #ifdef TT_PLUGIN_DEBUG
-		cout << "Receive set request (OSC style) at " << whereTo << endl;
+		cout << "Receive set request (OSC style) at " << whereTo->getCString() << endl;
 #endif
 				
-		m_minuitMethods->minuitReceiveNetworkSetRequest(sender, whereTo, attribute, arguments);
+		m_minuitMethods->minuitReceiveNetworkSetRequest(sender, whereTo, arguments);
 		return;
 	} 
 	else {
@@ -158,26 +145,12 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			sender = currentString.substr(0, operationStart);					// get sender
 			operation = currentString.substr(operationStart);					// get request
 			
-			osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();		// parse /whereTo:attribute
-			if (arg->IsString()) {
-				
-				address = arg->AsString();
-				
-				attributeStart = address.find(':');
-				if (attributeStart != address.npos)
-				{
-					whereTo = address.substr(0, attributeStart);				// get whereTo
-					attribute = address.substr(attributeStart+1);				// get attribute
-				}
-				else
-				{
-					whereTo = address;											// get where to
-					attribute = "value";										// default attribute is 'value'
-				}
-			}
+			osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();		// parse /whereTo
+			if (arg->IsString())
+				whereTo = TTADRS(arg->AsString());
 			
 #ifdef TT_PLUGIN_DEBUG
-			cout << "Receive " << operation << " request from "<< sender << " at " << whereTo << " for " << attribute << endl;
+			cout << "Receive " << operation << " request from "<< sender << " at " << whereTo->getCString() << endl;
 #endif
 			
 			// switch on request
@@ -187,7 +160,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			}
 			
 			else if (operation.compare(MINUIT_REQUEST_GET) == 0) {
-				m_minuitMethods->minuitReceiveNetworkGetRequest(sender, whereTo, attribute);
+				m_minuitMethods->minuitReceiveNetworkGetRequest(sender, whereTo);
 				return;
 			}
 			
@@ -200,9 +173,9 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 					val = arg->AsString();
 
 				if (val.compare(MINUIT_REQUEST_LISTEN_ENABLE) == 0)
-					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, attribute, true);
+					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, true);
 				else if (val.compare(MINUIT_REQUEST_LISTEN_DISABLE) == 0)
-					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, attribute, false);
+					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, false);
 				else
 					; // TODO send bad request error notification
 				
@@ -219,12 +192,13 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			sender = currentString.substr(0, operationStart);					// get sender
 			operation = currentString.substr(operationStart);					// get answer
 			
-			osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();		// get where to
+			osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();		// get whereTo
 			if(arg->IsString())
-				whereTo = arg->AsString();
+				
+				whereTo = TTADRS(arg->AsString());
 			
 #ifdef TT_PLUGIN_DEBUG
-			cout << "Receive " << operation << " answer from "<< sender << " at " << whereTo << endl;
+			cout << "Receive " << operation << " answer from "<< sender << " at " << whereTo->getCString() << endl;
 #endif
 			
 			arg++;																// get arguments

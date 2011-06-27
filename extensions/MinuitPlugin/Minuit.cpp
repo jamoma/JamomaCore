@@ -54,10 +54,10 @@
 
 static const unsigned int MINUIT_RECEPTION_PORT = 7002;
 
-void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTString address);
-void receiveGetRequestCallback(TTPtr arg, TTString from, TTString address, TTString attribute);
-void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, TTValue& value);
-void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, bool enable);
+void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address);
+void receiveGetRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address);
+void receiveSetRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, TTValue& value);
+void receiveListenRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, bool enable);
 
 class Minuit : public Plugin {
 	
@@ -65,10 +65,10 @@ private:
 	
 	MinuitCommunicationMethods* m_minuitMethods;		//this class contains the osc communication methods
 	
-	friend void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTString address);
-	friend void receiveGetRequestCallback(TTPtr arg, TTString from, TTString address, TTString attribute);
-	friend void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, TTValue& value);
-	friend void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, bool enable);
+	friend void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address);
+	friend void receiveGetRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address);
+	friend void receiveSetRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, TTValue& value);
+	friend void receiveListenRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, bool enable);
 	
 public:
 	
@@ -150,14 +150,18 @@ public:
 	/*!
 	 * Send a discover request to a application to get a part of the namespace at the given address
 	 *
- 	 * \param application : a pointer to a Application instance
-	 * \param address : something like "/<subApplicationName>/.../<input>"
-	 * \param returnedNodes : the vector which is going to be full with the node names at the given address
-	 * \param returnedLeaves : the vector which is going to be full with the leaf names at the given address
-	 * \param returnedAttributes : the vector which is going to be full with the attributes names at the given address
-	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
+ 	 * \param to					: the application where to discover
+	 * \param address				: the address to discover
+	 * \param returnedChildrenNames : all names of nodes below the address
+	 * \param returnedChildrenTypes : all types of nodes below the address (default is none which means no type)
+	 * \param returnedAttributes	: all attributes the node at the address
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+									else it returns kTTErrGeneric if no answer or timeout
 	 */
-	TTErr applicationSendDiscoverRequest(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedNodes, TTValue& returnedLeaves, TTValue& returnedAttributes)
+	TTErr applicationSendDiscoverRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+										 TTValue& returnedChildrenNames,
+										 TTValue& returnedChildrenTypes,
+										 TTValue& returnedAttributes)
 	{
 		TTValue		v, arguments;
 		TTString	ip, localAppName, remoteAppName, header;
@@ -189,7 +193,7 @@ public:
 			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			// Wait for an answer from an IP on a specific port
-			m_minuitMethods->minuitAddDiscoverAnswer(remoteAppName, address->getCString(), ip, port, DEFAULT_TIMEOUT);
+			m_minuitMethods->minuitAddDiscoverAnswer(remoteAppName, address, ip, port, DEFAULT_TIMEOUT);
 			
 			state = ANSWER_RECEIVED;
 			do
@@ -199,7 +203,7 @@ public:
 #else
 				usleep(1000);
 #endif
-				state = m_minuitMethods->minuitWaitDiscoverAnswer(remoteAppName, address->getCString(), returnedNodes, returnedLeaves, returnedAttributes);
+				state = m_minuitMethods->minuitWaitDiscoverAnswer(remoteAppName, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes);
 			}
 			while(state == NO_ANSWER);
 			
@@ -209,21 +213,24 @@ public:
 				return kTTErrGeneric;
 			}
 		}
+		
+		return kTTErrGeneric;
 	}
 	
 	/*!
 	 * Send a get request to a application to get a value at the given address
 	 *
- 	 * \param application : a pointer to a TTApplication instance
-	 * \param address : something like "/<subApplicationName>/.../<input>"
-	 * \param attribute : the asked attribute
-	 * \param returnedValue : the Value which is going to be full
-	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
+ 	 * \param to					: the application where to get
+	 * \param address				: the address to get
+	 * \param returnedValue			: the value which is going to be filled
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+									else it returns kTTErrGeneric if no answer or timeout
 	 */
-	TTErr applicationSendGetRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue)
+	TTErr applicationSendGetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+									TTValue& returnedValue)
 	{	
 		TTValue		v, arguments;
-		TTString	ip, localAppName, remoteAppName, header, aString;
+		TTString	ip, localAppName, remoteAppName, header;
 		TTUInt32	port;
 		TTInt32		state;
 		
@@ -241,12 +248,8 @@ public:
 		header = localAppName;
 		header += MINUIT_REQUEST_GET;
 		
-		// edit arguments <address:attribute>"
-		aString = address->getCString();
-		aString += ":";
-		aString += attribute->getCString();
-		v.append(TT(aString));
-		arguments.prepend(v);
+		// edit arguments <address>
+		arguments.prepend(address);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
@@ -256,11 +259,7 @@ public:
 			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
 			// Wait for an answer from an IP on a specific port
-			aString = address->getCString();
-			aString += ":";
-			aString += attribute->getCString();
-			
-			m_minuitMethods->minuitAddGetAnswer(remoteAppName, aString, DEFAULT_TIMEOUT);
+			m_minuitMethods->minuitAddGetAnswer(remoteAppName, address, DEFAULT_TIMEOUT);
 			
 			state = ANSWER_RECEIVED;
 			do
@@ -270,7 +269,7 @@ public:
 #else
 				usleep(1000);
 #endif
-				state = m_minuitMethods->minuitWaitGetAnswer(remoteAppName, aString, returnedValue, false);
+				state = m_minuitMethods->minuitWaitGetAnswer(remoteAppName, address, returnedValue, false);
 			}
 			while(state == NO_ANSWER);
 			
@@ -279,24 +278,24 @@ public:
 			else
 				return kTTErrGeneric;
 		}
+		
+		return kTTErrGeneric;
 	}
 	
 	/*!
 	 * Send a set request to set a value of a specific application
 	 *
-	 * \param application : a pointer to a Application instance
-	 * \param address : something like "/<subApplicationName>/.../<input>"
-	 * \param value : anything to send
+	 * \param to					: the application where to set
+	 * \param address				: the address to set
+	 * \param value					: anything to send
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	TTErr applicationSendSetRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& value)
+	TTErr applicationSendSetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+									TTValue& value)
 	{
 		TTValue		arguments;
-		TTString	ip, header;
+		TTString	ip;
 		TTUInt32	port;
-
-		header = address->getCString();
-		header += ":";
-		header += attribute->getCString();
 		
 		arguments = value;
 		
@@ -305,7 +304,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendSetRequest " << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
+			m_minuitMethods->minuitSendMessage(address->getCString(), arguments, ip, port);
 
 			return kTTErrNone;
 		}
@@ -316,12 +315,13 @@ public:
 	/*!
 	 * Send a listen request to a specific application
 	 *
-	 * \param application : a pointer to a Application instance
-	 * \param address : something like "/<subApplicationName>/.../<input>"
-	 * \param attribute : the attribute to listen
-	 * \param enable : enable/disable the listening
+	 * \param to					: the application where to listen
+	 * \param address				: the address to listen
+	 * \param enable				: enable/disable the listening
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	TTErr applicationSendListenRequest(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, bool enable)
+	TTErr applicationSendListenRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+									   TTBoolean enable)
 	{
 		TTValue		v, arguments;
 		TTString	ip, appName, header, aString;
@@ -336,11 +336,8 @@ public:
 		header = appName;	// add name of application
 		header += MINUIT_REQUEST_LISTEN;
 		
-		// edit arguments <address:attribute, enable>
-		aString = address->getCString();
-		aString += ":";
-		aString += attribute->getCString();
-		arguments.append(TT(aString));
+		// edit arguments <address, enable>
+		arguments.append(address);
 		
 		if (enable)
 			arguments.append(TT(MINUIT_REQUEST_LISTEN_ENABLE));
@@ -357,6 +354,8 @@ public:
 			
 			return kTTErrNone;
 		}
+		
+		return kTTErrGeneric;
 	}
 	
 	
@@ -369,13 +368,17 @@ public:
 	/*!
 	 * Send a disover answer to a application which ask for.
 	 *
-	 * \param to : the application where to send answer
-	 * \param address : the address where comes from the description
-	 * \param returnedNodes : the description of nodes below the address
-	 * \param returnedLeaves : the description of leaves below the address
-	 * \param returnedAttributes : the description of attributes at the address
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the description
+	 * \param returnedChildrenNames : all names of nodes below the address
+	 * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
+	 * \param returnedAttributes	: all attributes the node at the address
 	 */
-	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTSymbolPtr address, TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes, TTErr err=kTTErrNone)
+	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
+										TTValue& returnedChildrenNames, 
+										TTValue& returnedChildrenTypes, 
+										TTValue& returnedAttributes, 
+										TTErr err=kTTErrNone)
 	{
 		TTValue		v, arguments;
 		TTString	ip, appName, header, aString;
@@ -455,12 +458,13 @@ public:
 	/*!
 	 * Send a get answer to a application which ask for.
 	 *
-	 * \param to : the application where to send answer
-	 * \param address : the address where comes from the value
-	 * \param attribute : the attribute where comes from the value
-	 * \param returnedValue : the value of the attribute at the address
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the value
+	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	TTErr applicationSendGetAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue, TTErr err=kTTErrNone)
+	TTErr applicationSendGetAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
+								   TTValue& returnedValue, 
+								   TTErr err=kTTErrNone)
 	{
 		TTValue		v, arguments;
 		TTString	ip, appName, header, aString;
@@ -482,14 +486,9 @@ public:
 		}
 		
 		// edit arguments copying the returned value 
-		// and prepending the "address:attribute"
+		// and prepending the address
 		arguments = returnedValue;
-		
-		aString = address->getCString();
-		aString += ":";
-		aString += attribute->getCString();
-		v = TTValue(TT(aString));
-		arguments.prepend(v);
+		arguments.prepend(address);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
@@ -507,12 +506,13 @@ public:
 	/*!
 	 * Send a listen answer to a application which ask for.
 	 *
-	 * \param to : the application where to send answer
-	 * \param address : the address where comes from the value
-	 * \param attribute : the attribute where comes from the value
-	 * \param returnedValue : the value of the attribute at the address
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the value
+	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	TTErr applicationSendListenAnswer(TTObjectPtr to, TTSymbolPtr address, TTSymbolPtr attribute, TTValue& returnedValue, TTErr err=kTTErrNone)
+	TTErr applicationSendListenAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
+									  TTValue& returnedValue, 
+									  TTErr err=kTTErrNone)
 	{
 		TTValue		v, arguments;
 		TTString	ip, appName, header, aString;
@@ -534,14 +534,9 @@ public:
 		}
 		
 		// edit arguments copying the returned value 
-		// and prepending the "address:attribute"
+		// and prepending the address
 		arguments = returnedValue;
-		
-		aString = address->getCString();
-		aString += ":";
-		aString += attribute->getCString();
-		v = TTValue(TT(aString));
-		arguments.prepend(v);
+		arguments.prepend(address);
 		
 		if (!getIpAndPort(to, &ip, &port)) {
 			
@@ -594,7 +589,7 @@ private:
  *
  */
 
-void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTString address)
+void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address)
 {
 #ifdef TT_PLUGIN_DEBUG	
 	std::cout << "receiveDiscoverRequestCallback" << std::endl;
@@ -615,11 +610,11 @@ void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTString address)
 		v.get(0, (TTPtr*)&fromApplication);
 				
 		// use built-in plugin method
-		minuit->applicationReceiveDiscoverRequest(fromApplication, TT(address));
+		minuit->applicationReceiveDiscoverRequest(fromApplication, address);
 	}
 }
 
-void receiveGetRequestCallback(TTPtr arg, TTString from, TTString address, TTString attribute)
+void receiveGetRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address)
 {
 #ifdef TT_PLUGIN_DEBUG
 	std::cout << "receiveGetRequestCallback" << std::endl;
@@ -640,11 +635,11 @@ void receiveGetRequestCallback(TTPtr arg, TTString from, TTString address, TTStr
 		v.get(0, (TTPtr*)&fromApplication);
 		
 		// use built-in plugin method
-		minuit->applicationReceiveGetRequest(fromApplication, TT(address), TT(attribute));
+		minuit->applicationReceiveGetRequest(fromApplication, address);
 	}
 }
 
-void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTString attribute, TTValue& value)
+void receiveSetRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, TTValue& value)
 {
 #ifdef TT_PLUGIN_DEBUG
 	std::cout << "receiveSetRequestCallback" << std::endl;
@@ -667,10 +662,10 @@ void receiveSetRequestCallBack(TTPtr arg, TTString from, TTString address, TTStr
 		v.get(0, (TTPtr*)&fromApplication);
 
 	// use built-in plugin method (fromApplication could be NULL)
-	minuit->applicationReceiveSetRequest(fromApplication, TT(address), TT(attribute), value);
+	minuit->applicationReceiveSetRequest(fromApplication, address, value);
 }
 
-void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString whereToListen, TTString attribute, bool enable)
+void receiveListenRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr whereToListen, bool enable)
 {
 #ifdef TT_PLUGIN_DEBUG
 	std::cout << "Minuit::receiveListenRequestCallBack" << std::endl;
@@ -691,7 +686,7 @@ void receiveListenRequestCallBack(TTPtr arg, TTString from, TTString whereToList
 		v.get(0, (TTPtr*)&fromApplication);
 
 		// Use built-in plugin method
-		minuit->applicationReceiveListenRequest(fromApplication, TT(whereToListen), TT(attribute), enable);
+		minuit->applicationReceiveListenRequest(fromApplication, whereToListen, enable);
 	}
 }
 
