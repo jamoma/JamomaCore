@@ -76,7 +76,7 @@ TTNodeAddressTable::~TTNodeAddressTable()
 
 TTNodeAddress* TTNodeAddressTable::lookup(const char* aString)
 {
-#ifdef TT_PLATFORM_WIN_DOESNT_WORK_SO_COMMENTED_OUT_BY_TIM
+#ifdef TT_PLATFORM_WIN
 	TTNodeAddressTableIter	iter;
 
 	aMutex->lock();
@@ -85,7 +85,7 @@ TTNodeAddress* TTNodeAddressTable::lookup(const char* aString)
 	if (iter == mNODEADDRESSTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding node address: %s  With Address: %x", aString, aString);
-		TTNodeAddressPtr	newNodeAddress = new TTNodeAddress(aString, mSYMBOLTABLE->size());
+		TTNodeAddressPtr	newNodeAddress = new TTNodeAddress(aString, mNODEADDRESSTABLE->size());
 		mNODEADDRESSTABLE->insert(TTNodeAddressTablePair(newNodeAddress->getCString(), newNodeAddress));
 		aMutex->unlock();
 		return newNodeAddress;
@@ -104,7 +104,7 @@ TTNodeAddress* TTNodeAddressTable::lookup(const char* aString)
 
 TTNodeAddress* TTNodeAddressTable::lookup(const TTString& aString)
 {
-#ifdef TT_PLATFORM_WIN_DOESNT_WORK_SO_COMMENTED_OUT_BY_TIM
+#ifdef TT_PLATFORM_WIN
 	return lookup(aString.c_str());
 #else
 	TTNodeAddressTableIter	iter;
