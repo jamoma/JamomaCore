@@ -20,6 +20,91 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 277.0, 107.0, 100.0, 18.0 ],
+					"text" : "mouse.model"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-12",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 114.0, 198.0, 147.0, 19.0 ],
+					"text" : "print /mouse_Initialized0.6"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-11",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 114.0, 172.0, 146.0, 18.0 ],
+					"text" : "jcom.receive /mouse:initialized"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-7",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 31.0, 158.0, 368.0, 29.0 ],
+					"text" : " this component is here for backwards compatibility  with 0.5 : since 0.6, this can be replaced by "
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 3,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 277.0, 260.0, 100.0, 18.0 ],
+					"text" : "degrade~.model"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 30.0, 258.0, 178.0, 19.0 ],
+					"text" : "jcom.initialized /degrade~ 2000"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-18",
@@ -66,6 +151,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-72",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -79,6 +165,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-5",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -91,57 +178,14 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/setup" ],
-					"id" : "obj-7",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.sur.setup.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 245.0, 250.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 251.0, 253.0, 150.0, 70.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 295.0, 135.0, 19.0 ],
-					"text" : "print /setup_Initialized"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-10",
-					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 260.0, 151.0, 19.0 ],
-					"text" : "jcom.initialized /setup 2000"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/mouse" ],
-					"id" : "obj-1",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.mouse.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 245.0, 115.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 30.0, 30.0, 150.0, 70.0 ]
+					"patching_rect" : [ 30.0, 295.0, 138.0, 19.0 ],
+					"text" : "print /degrade_Initialized"
 				}
 
 			}
@@ -153,7 +197,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 155.0, 135.0, 19.0 ],
+					"patching_rect" : [ 28.0, 129.0, 135.0, 19.0 ],
 					"text" : "print /mouse_Initialized"
 				}
 
@@ -182,7 +226,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 120.0, 129.0, 19.0 ],
+					"patching_rect" : [ 28.0, 94.0, 129.0, 19.0 ],
 					"text" : "jcom.initialized /mouse"
 				}
 
@@ -194,6 +238,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
