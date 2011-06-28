@@ -250,6 +250,12 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 
 					jamoma_patcher_get_args(patcher, &ac, &av);
 					
+					// in subpatcher the name of the patcher is part of the argument
+					if (jamoma_patcher_get_hierarchy(patcher) == _sym_subpatcher) {
+						ac--;
+						av++;
+					}
+					
 					if (ac > 0) {
 						EXTRA->modelAddress = TTADRS(atom_getsym(av)->s_name);
 						aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
