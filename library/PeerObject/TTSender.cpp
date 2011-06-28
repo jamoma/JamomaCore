@@ -18,9 +18,11 @@ mDirectory(NULL),
 mObjectCache(NULL),
 mObserver(NULL)
 {
+	TTNodeAddressPtr anAddress;
+	
 	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 2);
 		
-	arguments.get(0, &mAddress);
+	arguments.get(0, &anAddress);
 
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -29,10 +31,7 @@ mObserver(NULL)
 	
 	mIsSending = false;
 	
-	if (mDirectory = getDirectoryFrom(mAddress))
-		bind();
-	else
-		; // TODO : wait for directory
+	setAddress(anAddress);
 }
 
 TTSender::~TTSender()
@@ -45,8 +44,14 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 	unbind();
 	newValue.get(0, &mAddress);
 	
-	if (mDirectory = getDirectoryFrom(mAddress))
+	if (mDirectory = getDirectoryFrom(mAddress)) {
+		
+		// default attribute to bind is value
+		if (mAddress->getAttribute() == NO_ATTRIBUTE)
+			mAddress = mAddress->appendAttribute(kTTSym_value);
+		
 		return bind();
+	}
 	else
 		return kTTErrGeneric; ; // TODO : wait for directory
 }
