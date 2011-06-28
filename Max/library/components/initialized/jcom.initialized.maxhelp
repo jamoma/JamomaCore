@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 339.0, 44.0, 438.0, 403.0 ],
+		"rect" : [ 339.0, 44.0, 439.0, 588.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 339.0, 44.0, 438.0, 403.0 ],
+		"defrect" : [ 339.0, 44.0, 439.0, 588.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,126 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-21",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 204.0, 338.0, 187.0, 18.0 ],
+					"presentation_rect" : [ 204.0, 338.0, 0.0, 0.0 ],
+					"text" : "for all modules under a node (here root)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-20",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 206.0, 270.0, 135.0, 18.0 ],
+					"presentation_rect" : [ 206.0, 270.0, 0.0, 0.0 ],
+					"text" : "for all instances of a module"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-17",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 35.0, 363.0, 147.0, 19.0 ],
+					"text" : "print /all_Initialized"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-19",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 35.0, 337.0, 153.0, 18.0 ],
+					"text" : "jcom.receive /*.*:initialized"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-16",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 276.0, 128.0, 114.0, 18.0 ],
+					"text" : "mouse.model /mouse.1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-14",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 34.0, 294.0, 147.0, 19.0 ],
+					"text" : "print /mice_Initialized"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 34.0, 268.0, 153.0, 18.0 ],
+					"text" : "jcom.receive /mouse.*:initialized"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-13",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 34.0, 243.0, 368.0, 18.0 ],
+					"presentation_rect" : [ 34.0, 243.0, 0.0, 0.0 ],
+					"text" : "as always, wildcards can be used"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 277.0, 107.0, 100.0, 18.0 ],
-					"text" : "mouse.model"
+					"patching_rect" : [ 277.0, 106.0, 106.0, 18.0 ],
+					"text" : "mouse.model /mouse"
 				}
 
 			}
@@ -40,7 +153,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 114.0, 198.0, 147.0, 19.0 ],
+					"patching_rect" : [ 32.0, 219.0, 147.0, 19.0 ],
 					"text" : "print /mouse_Initialized0.6"
 				}
 
@@ -54,7 +167,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 114.0, 172.0, 146.0, 18.0 ],
+					"patching_rect" : [ 32.0, 193.0, 146.0, 18.0 ],
 					"text" : "jcom.receive /mouse:initialized"
 				}
 
@@ -83,7 +196,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 277.0, 260.0, 100.0, 18.0 ],
+					"patching_rect" : [ 284.0, 424.0, 100.0, 18.0 ],
 					"text" : "degrade~.model"
 				}
 
@@ -98,7 +211,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 258.0, 178.0, 19.0 ],
+					"patching_rect" : [ 37.0, 422.0, 178.0, 19.0 ],
 					"text" : "jcom.initialized /degrade~ 2000"
 				}
 
@@ -112,7 +225,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 341.0, 355.0, 53.0, 17.0 ],
+					"patching_rect" : [ 348.0, 519.0, 53.0, 17.0 ],
 					"text" : "jcom.init"
 				}
 
@@ -127,7 +240,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 250.0, 335.0, 76.0, 19.0 ],
+					"patching_rect" : [ 257.0, 499.0, 76.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
@@ -142,7 +255,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 250.0, 360.0, 51.0, 19.0 ],
+					"patching_rect" : [ 257.0, 524.0, 51.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -156,7 +269,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 336.0, 335.0, 52.0, 19.0 ],
+					"patching_rect" : [ 343.0, 499.0, 52.0, 19.0 ],
 					"text" : "See also"
 				}
 
@@ -171,7 +284,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 317.0, 199.0, 29.0 ],
+					"patching_rect" : [ 37.0, 481.0, 199.0, 29.0 ],
 					"text" : "2nd optional argument can be used to defer the output by a given time value [ms]"
 				}
 
@@ -184,7 +297,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 295.0, 138.0, 19.0 ],
+					"patching_rect" : [ 37.0, 459.0, 138.0, 19.0 ],
 					"text" : "print /degrade_Initialized"
 				}
 
@@ -252,10 +365,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
 				}
 
 			}
