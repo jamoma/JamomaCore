@@ -299,9 +299,7 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 	
 	anAddress = TTADRS(addressAndAttribute->s_name);
 	
-	if (anAddress->getAttribute() == NO_ATTRIBUTE)
-		anAddress = anAddress->appendAttribute(kTTSym_value);
-	else
+	if (anAddress->getAttribute() != NO_ATTRIBUTE)
 		anAddress = anAddress->appendAttribute(ToTTName(anAddress->getAttribute()));
 	
 	args.append(anAddress);
@@ -342,9 +340,7 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 	
 	anAddress = TTADRS(addressAndAttribute->s_name);
 	
-	if (anAddress->getAttribute() == NO_ATTRIBUTE)
-		anAddress = anAddress->appendAttribute(kTTSym_value);
-	else
+	if (anAddress->getAttribute() != NO_ATTRIBUTE)
 		anAddress = anAddress->appendAttribute(ToTTName(anAddress->getAttribute()));
 	
 	args.append(anAddress);

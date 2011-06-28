@@ -22,8 +22,10 @@ mReturnValueCallback(NULL),
 mObserver(NULL),
 mNodesObserversCache(NULL)
 {
+	TTNodeAddressPtr anAddress;
+	
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 3);
-	arguments.get(0, &mAddress);
+	arguments.get(0, &anAddress);
 	
 	if (arguments.getSize() >= 2)
 		arguments.get(1, (TTPtr*)&mReturnAddressCallback);
@@ -39,10 +41,7 @@ mNodesObserversCache(NULL)
 	
 	mNodesObserversCache = new TTList();
 	
-	if (mDirectory = getDirectoryFrom(mAddress))
-		bind();
-	else
-		; // TODO : wait for directory
+	setAddress(anAddress);
 }
 
 TTReceiver::~TTReceiver()
@@ -65,8 +64,14 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 	unbind();
 	newValue.get(0, &mAddress);
 	
-	if (mDirectory = getDirectoryFrom(mAddress))
+	if (mDirectory = getDirectoryFrom(mAddress)) {
+		
+		// default attribute to bind is value
+		if (mAddress->getAttribute() == NO_ATTRIBUTE)
+			mAddress = mAddress->appendAttribute(kTTSym_value);
+		
 		return bind();
+	}
 	else
 		return kTTErrGeneric; ; // TODO : wait for directory
 }
