@@ -25,7 +25,6 @@ mNodesObserversCache(NULL)
 	TTNodeAddressPtr anAddress;
 	
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 3);
-	arguments.get(0, &anAddress);
 	
 	if (arguments.getSize() >= 2)
 		arguments.get(1, (TTPtr*)&mReturnAddressCallback);
@@ -41,7 +40,10 @@ mNodesObserversCache(NULL)
 	
 	mNodesObserversCache = new TTList();
 	
-	setAddress(anAddress);
+	if (arguments.getSize() >= 1) {
+		arguments.get(0, &anAddress);
+		setAddress(anAddress);
+	}
 }
 
 TTReceiver::~TTReceiver()
@@ -224,52 +226,55 @@ TTErr TTReceiver::unbind()
 	TTAttributePtr		anAttribute;
 	TTErr				err = kTTErrNone;
 	
-	// stop attribute obeservation
-	// for each node of the selection
-	if (mNodesObserversCache) {
-		for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()){
-			
-			// get a cache element
-			oldElement = mNodesObserversCache->current();
-			
-			// get the node
-			oldElement.get(0, (TTPtr*)&aNode);
-			
-			// get the observer
-			oldElement.get(1, (TTPtr*)&oldObserver);
-			
-			// stop attribute observation of the node
-			// if the attribute exist
-			if (o = aNode->getObject()) {
+	if (mAddress != kTTSymEmpty) {
+		
+		// stop attribute obeservation
+		// for each node of the selection
+		if (mNodesObserversCache) {
+			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()){
 				
-				anAttribute = NULL;
-				err = o->findAttribute(mAddress->getAttribute(), &anAttribute);
+				// get a cache element
+				oldElement = mNodesObserversCache->current();
 				
-				if(!err){
+				// get the node
+				oldElement.get(0, (TTPtr*)&aNode);
+				
+				// get the observer
+				oldElement.get(1, (TTPtr*)&oldObserver);
+				
+				// stop attribute observation of the node
+				// if the attribute exist
+				if (o = aNode->getObject()) {
 					
-					err = anAttribute->unregisterObserverForNotifications(*oldObserver);
+					anAttribute = NULL;
+					err = o->findAttribute(mAddress->getAttribute(), &anAttribute);
 					
-					if(!err)
-						TTObjectRelease(&oldObserver);
+					if(!err){
+						
+						err = anAttribute->unregisterObserverForNotifications(*oldObserver);
+						
+						if(!err)
+							TTObjectRelease(&oldObserver);
+					}
 				}
+				
+				// forget this element
+				mNodesObserversCache->remove(oldElement);
 			}
 			
-			// forget this element
-			mNodesObserversCache->remove(oldElement);
+			delete mNodesObserversCache;
+			mNodesObserversCache = NULL;
 		}
-	
-		delete mNodesObserversCache;
-		mNodesObserversCache = NULL;
-	}
-	
-	// stop life cycle observation
-	if (mObserver && mDirectory) {
 		
-		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
-		
-		if(!err) {
-			delete (TTValuePtr)mObserver->getBaton();
-			TTObjectRelease(TTObjectHandle(&mObserver));
+		// stop life cycle observation
+		if (mObserver && mDirectory) {
+			
+			err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
+			
+			if(!err) {
+				delete (TTValuePtr)mObserver->getBaton();
+				TTObjectRelease(TTObjectHandle(&mObserver));
+			}
 		}
 	}
 	

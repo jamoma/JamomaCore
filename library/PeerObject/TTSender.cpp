@@ -20,10 +20,8 @@ mObserver(NULL)
 {
 	TTNodeAddressPtr anAddress;
 	
-	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 2);
+	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 1);
 		
-	arguments.get(0, &anAddress);
-
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
 	addMessageWithArgument(Send);
@@ -31,7 +29,10 @@ mObserver(NULL)
 	
 	mIsSending = false;
 	
-	setAddress(anAddress);
+	if (arguments.getSize() == 1) {
+		arguments.get(0, &anAddress);
+		setAddress(anAddress);
+	}
 }
 
 TTSender::~TTSender()
@@ -168,18 +169,21 @@ TTErr TTSender::unbind()
 {
 	TTErr		err = kTTErrNone;	
 	
-	if (mObjectCache)
-		delete mObjectCache;
-		mObjectCache = NULL;
-	
-	// stop life cycle observation
-	if(mObserver && mDirectory) {
+	if (mAddress != kTTSymEmpty) {
 		
-		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
-	
-		if(!err) {
-			delete (TTValuePtr)mObserver->getBaton();
-			TTObjectRelease(TTObjectHandle(&mObserver));
+		if (mObjectCache)
+			delete mObjectCache;
+		mObjectCache = NULL;
+		
+		// stop life cycle observation
+		if(mObserver && mDirectory) {
+			
+			err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
+			
+			if(!err) {
+				delete (TTValuePtr)mObserver->getBaton();
+				TTObjectRelease(TTObjectHandle(&mObserver));
+			}
 		}
 	}
 	
