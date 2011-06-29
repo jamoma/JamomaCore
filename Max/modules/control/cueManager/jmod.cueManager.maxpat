@@ -8334,7 +8334,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 103.0, 192.0, 216.0, 19.0 ],
-																	"text" : "jcom.receive \"why are you touching him\""
+																	"text" : "jcom.receivee \"why are you touching him\""
 																}
 
 															}
@@ -8350,7 +8350,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 112.0, 93.0, 127.0, 31.0 ],
-																	"text" : "jcom.send jcom.remote.module.to"
+																	"text" : "jcom.send "
 																}
 
 															}
@@ -8391,7 +8391,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 366.0, 151.0, 213.0, 43.0 ],
-																	"text" : "This stops jcom.receive from listening if we are not currently requesting the names of all modules."
+																	"text" : "This stops jcom.receivee from listening if we are not currently requesting the names of all modules."
 																}
 
 															}
@@ -8785,7 +8785,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 100.0, 65.0, 188.0, 19.0 ],
-													"text" : "jcom.receive notifications"
+													"text" : "jcom.receivee notifications"
 												}
 
 											}
@@ -10632,7 +10632,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 38.0, 237.0, 173.0, 19.0 ],
-																	"text" : "jcom.receive \"once upon a time\""
+																	"text" : "jcom.receivee \"once upon a time\""
 																}
 
 															}
@@ -10647,7 +10647,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 72.0, 165.0, 182.0, 19.0 ],
-																	"text" : "jcom.send jcom.remote.module.to"
+																	"text" : "jcom.send "
 																}
 
 															}
@@ -11286,7 +11286,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 79.0, 390.0, 180.0, 19.0 ],
-													"text" : "jcom.receive \"what does it mean\""
+													"text" : "jcom.receivee \"what does it mean\""
 												}
 
 											}
@@ -13315,7 +13315,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 25.0, 154.0, 216.0, 19.0 ],
-																	"text" : "jcom.receive \"mais ou est donc or ni car\""
+																	"text" : "jcom.receivee \"mais ou est donc or ni car\""
 																}
 
 															}
@@ -13330,7 +13330,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 59.0, 82.0, 182.0, 19.0 ],
-																	"text" : "jcom.send jcom.remote.module.to"
+																	"text" : "jcom.send "
 																}
 
 															}
@@ -14267,7 +14267,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 108.0, 192.0, 173.0, 19.0 ],
-																	"text" : "jcom.receive \"rosa rosam rosae\""
+																	"text" : "jcom.receivee \"rosa rosam rosae\""
 																}
 
 															}
@@ -14296,7 +14296,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 122.0, 91.0, 182.0, 19.0 ],
-																	"text" : "jcom.send jcom.remote.module.to"
+																	"text" : "jcom.send"
 																}
 
 															}
@@ -14749,7 +14749,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 23.0, 214.0, 235.0, 19.0 ],
-																	"text" : "jcom.receive \"you're the sunshine of my life\""
+																	"text" : "jcom.receivee \"you're the sunshine of my life\""
 																}
 
 															}
@@ -14765,7 +14765,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 38.0, 107.0, 127.0, 31.0 ],
-																	"text" : "jcom.send jcom.remote.module.to"
+																	"text" : "jcom.send"
 																}
 
 															}
@@ -15591,7 +15591,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 587.0, 476.0, 227.0, 21.0 ],
-									"text" : "jcom.cuemanager"
+									"text" : "jcom.cuemanagerrrr"
 								}
 
 							}
@@ -20205,7 +20205,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 720.0, 237.0, 188.0, 19.0 ],
-													"text" : "jcom.receive dumb"
+													"text" : "jcom.receivee dumb"
 												}
 
 											}
@@ -20219,7 +20219,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 754.0, 208.0, 182.0, 19.0 ],
-													"text" : "jcom.send jcom.remote.module.to"
+													"text" : "jcom.send "
 												}
 
 											}
@@ -21030,7 +21030,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 398.0, 330.0, 188.0, 19.0 ],
-													"text" : "jcom.receive notifications"
+													"text" : "jcom.receivee notifications"
 												}
 
 											}
