@@ -1423,7 +1423,8 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext)
 {
 	SymbolPtr	hierarchy, context, _sym_jcomhub, _sym_context, patcherName;
-	ObjectPtr	obj;
+	TTBoolean	hubThere;
+	ObjectPtr	obj, upperPatcher;
 	
 	// Look for jcom.hubs in the patcher
 	obj = object_attr_getobj(*patcher, _sym_firstobject);
@@ -1432,8 +1433,12 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 	_sym_jcomhub = gensym("jcom.hub");
 	_sym_context = gensym("context");
 	context = NULL;
+	hubThere = NO;
 	while (obj) {
 		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
+			
+			// if there is a hub : remind it exist
+			hubThere = YES;
 			
 			// ask it his context attribute
 			context = object_attr_getsym(obj, _sym_context);
@@ -1465,14 +1470,26 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 			}
 		}
 		
-		// in subpatcher look upper and remember the patcher where is the hub
+		// in subpatcher look upper
 		hierarchy = jamoma_patcher_get_hierarchy(*patcher);
 		if (hierarchy == _sym_subpatcher || hierarchy == _sym_bpatcher) {
-			*patcher = jamoma_patcher_get(*patcher);
-			jamoma_patcher_get_context(patcher, returnedContext);
+			
+			// get the patcher where is the patcher to look for the context one step upper
+			upperPatcher = jamoma_patcher_get(*patcher);
+			
+			jamoma_patcher_get_context(&upperPatcher, returnedContext);
+			
+			// if the context is still NULL and there is a hub at this level
+			// the default case would be to set it as a ModelPatcher by default
+			if (!(*returnedContext) && hubThere)
+				*returnedContext = TT(ModelPatcher);
+			// keep the upperPatcher because it is where the context is defined
+			else
+				*patcher = upperPatcher;
 		}
+		// default case : a patcher has no type
 		else if (hierarchy == _sym_topmost)
-			*returnedContext = NULL;
+			*returnedContext = NULL;	
 	}
 }
 
