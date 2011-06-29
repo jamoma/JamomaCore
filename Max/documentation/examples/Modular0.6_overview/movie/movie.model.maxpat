@@ -29,8 +29,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 230.0, 148.0, 267.0, 48.0 ],
-					"text" : "look at the @context : it comes from the patcher name. But it is also possible to set it manually (add \"@context model\" as argument of the hub)",
+					"patching_rect" : [ 226.0, 150.0, 306.0, 48.0 ],
+					"text" : "look at the @context : it comes from the patcher name. But it is also possible to set it manually ( \"@context model\" as argument of the hub - set to model by defaul)",
 					"textcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ]
 				}
 
@@ -123,7 +123,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-29",
 					"linecount" : 4,
 					"maxclass" : "comment",
@@ -153,7 +153,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-6",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -608,7 +608,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-38",
 					"linecount" : 5,
 					"maxclass" : "comment",
@@ -623,7 +623,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-22",
 					"linecount" : 6,
 					"maxclass" : "comment",
@@ -638,7 +638,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-25",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -653,7 +653,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-20",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -830,12 +830,12 @@
 ,
 					"patching_rect" : [ 211.0, 199.0, 90.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 12.0
 					}
 ,

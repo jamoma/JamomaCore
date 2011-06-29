@@ -20,22 +20,6 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"frgb" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"id" : "obj-37",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 103.0, 37.0, 100.0, 34.0 ],
-					"text" : "@context model is needed",
-					"textcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"comment" : "",
 					"id" : "obj-12",
 					"maxclass" : "outlet",
@@ -113,13 +97,12 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-1",
-					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 5.0, 37.0, 99.0, 34.0 ],
-					"text" : "jcom.hub @context model"
+					"patching_rect" : [ 5.0, 37.0, 99.0, 20.0 ],
+					"text" : "jcom.hub"
 				}
 
 			}
