@@ -770,7 +770,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 25.0, 176.0, 90.0, 31.0 ],
-					"text" : "sprintf title %s preset_interface"
+					"text" : "sprintf title %s preset panel"
 				}
 
 			}
@@ -2569,8 +2569,8 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 549.0, 639.0, 167.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 184.0, 1.0, 167.0, 19.0 ],
-					"text" : "interpolate between 2 presets :"
+					"presentation_rect" : [ 175.0, 1.0, 167.0, 19.0 ],
+					"text" : "interpolate between 2 presets"
 				}
 
 			}
@@ -2585,7 +2585,8 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 549.0, 683.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 304.0, 18.0, 42.0, 19.0 ]
+					"presentation_rect" : [ 304.0, 18.0, 42.0, 19.0 ],
+					"triangle" : 0
 				}
 
 			}
