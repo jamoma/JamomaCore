@@ -324,7 +324,7 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 			source = atom_getlong(argv)-1;						// we start counting from 1 for sources
 		
 			if ((source < 0)||(source >= x->attr_num_sources)) {
-				object_error((t_object*)x, "src_weight : the source n°%d doesn't exist", source);
+				object_error((t_object*)x, "src_weight : the source n°%d doesn't exist", source+1);
 				return;
 			}
 		}
