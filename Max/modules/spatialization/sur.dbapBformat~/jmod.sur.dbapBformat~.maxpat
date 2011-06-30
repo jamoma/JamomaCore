@@ -22,6 +22,34 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-21",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 530.0, 230.0, 427.0, 19.0 ],
+					"text" : "As each source is a 4-channel signal, we can have a maximum of 32:4=8 sources."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-4",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 225.0, 315.0, 237.0, 19.0 ],
+					"text" : "(n x 4 channels of Ambisonics WXYZ signals)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -42,8 +70,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 393.0, 589.0, 31.0 ],
-					"text" : "jcom.parameter.array 32 source weight @type array @range/bounds 0. 1. @description \"Set spatial weight of the nth source.\""
+					"patching_rect" : [ 470.0, 393.0, 601.0, 31.0 ],
+					"text" : "jcom.parameter.array 8 source weight @type array @range/bounds 0. 1. @description \"Set spatial weight of the nth source.\""
 				}
 
 			}
@@ -57,8 +85,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 360.0, 585.0, 31.0 ],
-					"text" : "jcom.message.array 32 source active @type boolean @repetitions/allow 1 @description \"Mute or unmute the nth source.\""
+					"patching_rect" : [ 470.0, 360.0, 578.0, 31.0 ],
+					"text" : "jcom.message.array 8 source active @type boolean @repetitions/allow 1 @description \"Mute or unmute the nth source.\""
 				}
 
 			}
@@ -72,8 +100,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 325.0, 583.0, 31.0 ],
-					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
+					"patching_rect" : [ 470.0, 325.0, 577.0, 31.0 ],
+					"text" : "jcom.message.array 8 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
 				}
 
 			}
@@ -87,8 +115,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 290.0, 599.0, 31.0 ],
-					"text" : "jcom.message.array 32 source blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
+					"patching_rect" : [ 470.0, 290.0, 592.0, 31.0 ],
+					"text" : "jcom.message.array 8 source blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
 				}
 
 			}
@@ -115,7 +143,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 470.0, 230.0, 150.0, 19.0 ],
+					"patching_rect" : [ 470.0, 230.0, 54.0, 19.0 ],
 					"text" : "Source:"
 				}
 
@@ -130,7 +158,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 460.0, 594.0, 31.0 ],
+					"patching_rect" : [ 470.0, 460.0, 593.0, 31.0 ],
 					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
@@ -145,8 +173,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 255.0, 588.0, 31.0 ],
-					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"patching_rect" : [ 470.0, 255.0, 580.0, 31.0 ],
+					"text" : "jcom.message.array 8 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -169,9 +197,9 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
+						"type" : "none",
 						"name" : "info",
-						"description" : "Get info on current positions of sources and speakers",
-						"type" : "none"
+						"description" : "Get info on current positions of sources and speakers"
 					}
 ,
 					"id" : "obj-28",
@@ -220,40 +248,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-12",
-					"maxclass" : "number",
-					"maximum" : 3,
-					"minimum" : 1,
-					"mouseup" : 1,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 468.0, 42.0, 40.0, 19.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 245.0, 25.0, 40.0, 19.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-13",
-					"linecount" : 2,
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 528.0, 42.0, 606.0, 31.0 ],
-					"text" : "jcom.parameter dimensions @type integer @range/bounds 1 3 @range/clipmode both @description \"Dimensions of the space spanned by loudspeakers.\"",
-					"varname" : "voices[2]"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"maxclass" : "number",
 					"maximum" : 32,
@@ -278,7 +272,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 528.0, 119.0, 568.0, 31.0 ],
+					"patching_rect" : [ 528.0, 119.0, 605.0, 31.0 ],
 					"text" : "jcom.parameter numSpeakers @type integer @range/bounds 1 32 @range/clipmode both @description \"The number of speakers to diffuse to.\" @priority 3",
 					"varname" : "voices[1]"
 				}
@@ -325,7 +319,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 160.0, 210.0, 54.0, 19.0 ],
+					"patching_rect" : [ 120.0, 210.0, 54.0, 19.0 ],
 					"text" : "jcom.in"
 				}
 
@@ -379,22 +373,6 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-23",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 170.0, 25.0, 73.0, 19.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 170.0, 25.0, 73.0, 19.0 ],
-					"text" : "Dimensions:"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-24",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -438,7 +416,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 355.0, 207.0, 19.0 ],
+					"patching_rect" : [ 225.0, 295.0, 207.0, 19.0 ],
 					"text" : "----multicable signal input----"
 				}
 
@@ -452,8 +430,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "audio.connect" ],
-					"patching_rect" : [ 160.0, 390.0, 84.0, 19.0 ],
-					"text" : "jalg.sur.dbap~"
+					"patching_rect" : [ 120.0, 390.0, 124.0, 19.0 ],
+					"text" : "jalg.sur.dbapBformat~"
 				}
 
 			}
@@ -467,8 +445,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 5.0, 150.0, 379.0, 31.0 ],
-					"text" : "jcom.hub @description \"Distance-based amplitude panning. <br>NOTE: The positions of the speakers are not maintained by this module.\"",
+					"patching_rect" : [ 5.0, 150.0, 279.0, 31.0 ],
+					"text" : "jcom.hub @description \"Distance-based amplitude panning of incomming B-format signals.\"",
 					"varname" : "jcom.hub"
 				}
 
@@ -522,8 +500,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 528.0, 188.0, 557.0, 31.0 ],
-					"text" : "jcom.parameter numSources @type integer @range/bounds 1 32 @range/clipmode both @description \"The number of sources to process.\" @priority 2",
+					"patching_rect" : [ 528.0, 188.0, 605.0, 31.0 ],
+					"text" : "jcom.parameter numSources @type integer @range/bounds 1 8 @range/clipmode both @description \"The number of sources to process.\" @priority 2",
 					"varname" : "voices"
 				}
 
@@ -569,24 +547,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-12", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
 				}
 
 			}
