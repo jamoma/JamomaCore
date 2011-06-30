@@ -1,7 +1,7 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 265.0, 319.0, 873.0, 468.0 ],
+		"rect" : [ 54.0, 244.0, 300.0, 70.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 265.0, 319.0, 873.0, 468.0 ],
@@ -26,8 +26,8 @@
 					"id" : "obj-12",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 515.0, 285.0, 161.0, 22.0 ],
 					"text" : "jcom.view out/amplitude.2"
 				}
@@ -66,8 +66,8 @@
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 305.0, 285.0, 161.0, 22.0 ],
 					"text" : "jcom.view out/amplitude.1"
 				}
@@ -112,8 +112,8 @@
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 508.0, 78.0, 119.0, 22.0 ],
 					"text" : "jcom.view bitdepth"
 				}
@@ -126,8 +126,8 @@
 					"id" : "obj-8",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 555.0, 153.0, 164.0, 22.0 ],
 					"text" : "jcom.view samplerateRatio"
 				}
@@ -165,9 +165,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 0.93, 0.93, 0.93, 1.0 ],
-					"bordercolor" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"headercolor" : [ 0.82, 0.82, 0.82, 1.0 ],
 					"id" : "obj-2",
 					"maxclass" : "jcom.ui",
 					"numinlets" : 1,
@@ -175,8 +172,7 @@
 					"outlettype" : [ "", "" ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"text" : "waiting for a /model/address",
-					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
+					"text" : "/degrade~"
 				}
 
 			}
