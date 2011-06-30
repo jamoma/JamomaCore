@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 431.0, 614.0 ],
+		"rect" : [ 0.0, 44.0, 406.0, 500.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 431.0, 614.0 ],
+		"defrect" : [ 0.0, 44.0, 406.0, 500.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,6 +20,20 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 65.0, 427.0, 100.0, 19.0 ],
+					"text" : "track.model"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [  ],
 					"id" : "obj-7",
 					"maxclass" : "bpatcher",
@@ -29,34 +43,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 56.0, 143.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 70.0, 228.0, 300.0, 70.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-19",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 71.0, 474.0, 100.0, 19.0 ],
-					"text" : "print"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-18",
-					"linecount" : 2,
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 65.0, 422.0, 100.0, 31.0 ],
-					"text" : "jcom.oscroute in out"
 				}
 
 			}
@@ -145,16 +131,7 @@
 
 			}
  ],
-		"lines" : [ 			{
-				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
- ]
+		"lines" : [  ]
 	}
 
 }
