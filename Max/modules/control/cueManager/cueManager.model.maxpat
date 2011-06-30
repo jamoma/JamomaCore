@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 439.0, 530.0, 527.0, 251.0 ],
+		"rect" : [ 680.0, 613.0, 527.0, 251.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 439.0, 530.0, 527.0, 251.0 ],
+		"defrect" : [ 680.0, 613.0, 527.0, 251.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 9.0,
@@ -22,12 +22,39 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 219.0, 175.0, 32.0, 17.0 ],
+					"text" : "zl len"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 212.0, 198.0, 100.0, 17.0 ],
+					"text" : "print CUENAMES"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 266.0, 210.0, 100.0, 17.0 ],
-					"text" : "print"
+					"patching_rect" : [ 278.0, 218.0, 100.0, 17.0 ],
+					"text" : "print CUEM"
 				}
 
 			}
@@ -320,11 +347,11 @@
 									"saved_object_attributes" : 									{
 										"globalpatchername" : "",
 										"default_fontface" : 0,
-										"fontname" : "Arial",
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 9.0,
-										"fontface" : 0,
-										"fontsize" : 9.0
+										"fontname" : "Arial"
 									}
 ,
 									"text" : "p others"
@@ -608,11 +635,11 @@
 									"saved_object_attributes" : 									{
 										"globalpatchername" : "",
 										"default_fontface" : 0,
-										"fontname" : "Arial",
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 9.0,
-										"fontface" : 0,
-										"fontsize" : 9.0
+										"fontname" : "Arial"
 									}
 ,
 									"text" : "p remove"
@@ -854,11 +881,11 @@
 									"saved_object_attributes" : 									{
 										"globalpatchername" : "",
 										"default_fontface" : 0,
-										"fontname" : "Arial",
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 9.0,
-										"fontface" : 0,
-										"fontsize" : 9.0
+										"fontname" : "Arial"
 									}
 ,
 									"text" : "p recall"
@@ -1160,11 +1187,11 @@
 					"saved_object_attributes" : 					{
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"fontname" : "Arial",
+						"fontface" : 0,
+						"fontsize" : 9.0,
 						"default_fontname" : "Arial",
 						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p cueMessages"
@@ -1591,11 +1618,11 @@
 					"saved_object_attributes" : 					{
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"fontname" : "Arial",
+						"fontface" : 0,
+						"fontsize" : 9.0,
 						"default_fontname" : "Arial",
 						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p fileMessages"
@@ -1655,9 +1682,9 @@
 					"outlettype" : [ "", "", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 360.0, 564.0, 321.0, 258.0 ],
+						"rect" : [ 352.0, 615.0, 321.0, 258.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 360.0, 564.0, 321.0, 258.0 ],
+						"defrect" : [ 352.0, 615.0, 321.0, 258.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1672,6 +1699,7 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
@@ -1744,8 +1772,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 29.0, 74.0, 144.0, 20.0 ],
-									"text" : "route names current"
+									"patching_rect" : [ 29.0, 74.0, 165.0, 20.0 ],
+									"text" : "jcom.oscroute names current"
 								}
 
 							}
@@ -1843,11 +1871,11 @@
 					"saved_object_attributes" : 					{
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"fontname" : "Arial",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p parse_dump_out"
@@ -1880,7 +1908,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 36.0, 171.0, 176.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"a cue list module\""
+					"text" : "jcom.hub @type control @description \"a cue list module\""
 				}
 
 			}
@@ -1933,10 +1961,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-35", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-46", 0 ]
 				}
 
 			}
@@ -1982,6 +2028,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-47", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-58", 0 ]
 				}
 
 			}

@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ -4.0, 44.0, 431.0, 614.0 ],
+		"rect" : [ 0.0, 44.0, 431.0, 614.0 ],
 		"bglocked" : 0,
-		"defrect" : [ -4.0, 44.0, 431.0, 614.0 ],
+		"defrect" : [ 0.0, 44.0, 431.0, 614.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,6 +20,20 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [  ],
+					"id" : "obj-7",
+					"maxclass" : "bpatcher",
+					"name" : "cueManager.view.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 56.0, 143.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 70.0, 228.0, 300.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-19",
@@ -27,7 +41,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 71.0, 474.0, 100.0, 19.0 ],
-					"presentation_rect" : [ 79.0, 565.0, 0.0, 0.0 ],
 					"text" : "print"
 				}
 
@@ -44,20 +57,6 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 65.0, 422.0, 100.0, 31.0 ],
 					"text" : "jcom.oscroute in out"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [  ],
-					"id" : "obj-7",
-					"maxclass" : "bpatcher",
-					"name" : "cueManager.view.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 131.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 55.0, 213.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -139,7 +138,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 578.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 431.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
