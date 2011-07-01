@@ -1489,7 +1489,8 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 {
 	char			*isCtxPatcher, *to_split;
 	TTString		contextMaxpat;
-	SymbolPtr		patcherName;
+	SymbolPtr		patcherName, hierarchy;
+	ObjectPtr		upperPatcher;
 	long			patcherNameLen;
 
 	// extract class from the file name
@@ -1520,8 +1521,21 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 			*returnedClass = TT(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
 		}
 	}
-	else 
-		*returnedClass = NULL;
+	else {
+		
+		// in subpatcher look upper
+		hierarchy = jamoma_patcher_get_hierarchy(patcher);
+		if (hierarchy == _sym_subpatcher || hierarchy == _sym_bpatcher) {
+			
+			// get the patcher where is the patcher to look for the class one step upper
+			upperPatcher = jamoma_patcher_get(patcher);
+			
+			jamoma_patcher_get_class(upperPatcher, context, returnedClass);
+		}
+		// default case : a patcher has no class
+		else if (hierarchy == _sym_topmost)
+			*returnedClass = NULL;
+	}
 }
 
 /** Get the name of the patcher from his arguments */
@@ -1602,7 +1616,7 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 	_sym_jcomhub = gensym("jcom.hub");
 	_sym_share = gensym("share_patcher_info");
 	while (obj) {
-		objclass = object_attr_getsym(obj, _sym_maxclass);
+		objclass = object_classname(obj);
 		if (objclass == _sym_jcomhub) {
 		
 			// ask it patcher info
@@ -1633,7 +1647,7 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 	_sym_jcomhub = gensym("jcom.hub");
 	_sym_share = gensym("share_patcher_node");
 	while (obj) {
-		objclass = object_attr_getsym(obj, _sym_maxclass);
+		objclass = object_classname(obj);
 		if (objclass == _sym_jcomhub) {
 			
 			// ask it patcher info
@@ -1650,19 +1664,26 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 /** Get all context info from an object (his patcher and the context, the class and the name of his patcher) */
 TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName)
 {
-	TTString viewName;
-	ObjectPtr sharedPatcher = NULL;
+	TTBoolean	isHub;
+	TTString	viewName;
+	ObjectPtr	hubPatcher;
+	ObjectPtr	sharedPatcher = NULL;
 	TTSymbolPtr sharedContext = NULL;
 	TTSymbolPtr sharedClass = NULL;
 	TTSymbolPtr sharedName = NULL;
 	
+	
 	*returnedPatcher = jamoma_patcher_get(obj);
+	
+	isHub = object_classname(obj) == gensym("jcom.hub");
+	hubPatcher = *returnedPatcher;
 
 	// Get the context, the class and the name of the patcher
 	if (*returnedPatcher) {
 		
 		// try to get them from the root hub to go faster (except for hub of course)
-		if (object_attr_getsym(obj, _sym_maxclass) != gensym("jcom.hub")) {
+		if (!isHub) {
+			
 			jamoma_patcher_share_info(*returnedPatcher, &sharedPatcher, &sharedContext, &sharedClass, &sharedName);
 			
 			if (sharedPatcher && sharedContext && sharedClass && sharedName) {
@@ -1694,21 +1715,29 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 			return kTTErrGeneric;
 		}
 		
-		// get the name from the argument of the patcher
-		jamoma_patcher_get_name(*returnedPatcher, *returnedContext, returnedName);
-
-		// if no name
-		if (!*returnedName) {
+		// for none root hub object, use the patcher where it is to get the name
+		if (isHub && hubPatcher != (*returnedPatcher)) {
+			jamoma_patcher_get_name(hubPatcher, *returnedContext, returnedName);
+		
+		}
+		else {
 			
-			// for model : used "class"
-			if (*returnedContext == kTTSym_model)
-				*returnedName = *returnedClass;
+			// get the name from the argument of the patcher
+			jamoma_patcher_get_name(*returnedPatcher, *returnedContext, returnedName);
 			
-			// for view : used "class(view)"
-			else if (*returnedContext == kTTSym_view) {
-				viewName = (*returnedClass)->getCString();
-				viewName += "(view)";
-				*returnedName = TT(viewName.data());
+			// if no name
+			if (!*returnedName) {
+				
+				// for model : used "class"
+				if (*returnedContext == kTTSym_model)
+					*returnedName = *returnedClass;
+				
+				// for view : used "class(view)"
+				else if (*returnedContext == kTTSym_view) {
+					viewName = (*returnedClass)->getCString();
+					viewName += "(view)";
+					*returnedName = TT(viewName.data());
+				}
 			}
 		}
 	}

@@ -33,7 +33,7 @@ void		hub_share_patcher_node(TTPtr self, TTNodePtr *patcherNode);
 void		hub_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		hub_subscribe(TTPtr self, SymbolPtr address);
+void		hub_subscribe(TTPtr self);
 
 void		hub_init(TTPtr self);
 
@@ -90,31 +90,19 @@ void WrapTTContainerClass(WrappedClassPtr c)
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					relativeAddress;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 		
 	// create a container
 	jamoma_container_create((ObjectPtr)x, &x->wrappedObject);
 	
-	// get the first argument : the relativeAddress (optionnal)
-	if (attrstart && argv)
-		relativeAddress = atom_getsym(argv);
-	else
-		relativeAddress = _sym_nothing;
-	
 	// handle attribute args
 	x->patcherContext = NULL;
 	attr_args_process(x, argc, argv);
-	
-	// if the hub have a relativeAddress : it shouldn't get his context from the attribute
-	// but from the hub at the root of the patch.
-	if (relativeAddress != _sym_nothing && x->patcherContext)
-		object_warn((ObjectPtr)x, "context attribute for the hub at %s is useless", relativeAddress->s_name);
 		
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)hub_subscribe, relativeAddress, 0, 0);
+	defer_low((ObjectPtr)x, (method)hub_subscribe, NULL, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -134,7 +122,7 @@ void WrappedContainerClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
+void hub_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
@@ -145,25 +133,27 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 	TTPtr						context;
 	AtomCount					ac;
 	AtomPtr						av;
-	ObjectPtr					patcher;
+	ObjectPtr					hubPatcher = jamoma_patcher_get((ObjectPtr)x);;
 	
-	// the address have to be relative
-	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
+	// if the subscription is successful
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, _sym_nothing, &x->subscriberObject)) {
 		
-		// if the subscription is successful
-		if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject)) {
-			
-			// get all info relative to our patcher
-			jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
-			
-			// Get absolute address in the namespace 
-			// and set the address attribute of the Container 
-			x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-			v.get(0, &nodeAdrs);
-			x->wrappedObject->setAttributeValue(TT("address"), v);
+		// get all info relative to our patcher
+		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+		
+		// Get absolute address in the namespace 
+		// and set the address attribute of the Container 
+		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
+		v.get(0, &nodeAdrs);
+		x->wrappedObject->setAttributeValue(TT("address"), v);
+		
+		// if it is a root hub
+		// note : in case of a subpatcher into a topmost patcher
+		// all model datas will be created. is this a problem ?
+		if (hubPatcher == x->patcherPtr) {
 			
 			// Special case for jcom.hub at the root of the model
-			if (x->patcherContext && (relativeAddress == gensym("/") || relativeAddress == _sym_nothing)) {
+			if (x->patcherContext) {
 				
 				if (x->patcherContext == kTTSym_model) {
 					classAdrs = TT("model/class");
@@ -242,16 +232,15 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 					
 					ac = 0;
 					av = NULL;
-					patcher = jamoma_patcher_get((ObjectPtr)x);
 					
 					// If x is in a bpatcher, the patcher is NULL
-					if (!patcher)
-						patcher = object_attr_getobj(x, _sym_parentpatcher);
-
-					jamoma_patcher_get_args(patcher, &ac, &av);
+					if (!hubPatcher)
+						hubPatcher = object_attr_getobj(x, _sym_parentpatcher);
+					
+					jamoma_patcher_get_args(hubPatcher, &ac, &av);
 					
 					// in subpatcher the name of the patcher is part of the argument
-					if (jamoma_patcher_get_hierarchy(patcher) == _sym_subpatcher) {
+					if (jamoma_patcher_get_hierarchy(hubPatcher) == _sym_subpatcher) {
 						ac--;
 						av++;
 					}
@@ -289,8 +278,6 @@ void hub_subscribe(TTPtr self, SymbolPtr relativeAddress)
 			}
 		}
 	}
-	else
-		object_error((ObjectPtr)x, "can't register at %s because this address starts by a /", relativeAddress->s_name);
 }
 
 void hub_init(TTPtr self)
