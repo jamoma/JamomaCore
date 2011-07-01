@@ -22,6 +22,34 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-30",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 345.0, 373.0, 45.0, 17.0 ],
+					"text" : "deferlow"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-7",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 345.0, 392.0, 58.0, 17.0 ],
+					"text" : "prepend set"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
 					"fontsize" : 14.789321,
 					"id" : "obj-103",
 					"maxclass" : "newobj",
@@ -140,12 +168,12 @@
 ,
 					"patching_rect" : [ 674.0, 453.0, 21.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -294,12 +322,12 @@
 ,
 					"patching_rect" : [ 692.0, 307.0, 33.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -448,12 +476,12 @@
 ,
 					"patching_rect" : [ 710.0, 157.0, 33.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -602,12 +630,12 @@
 ,
 					"patching_rect" : [ 403.0, 546.0, 33.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -756,12 +784,12 @@
 ,
 					"patching_rect" : [ 380.0, 326.0, 33.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -910,12 +938,12 @@
 ,
 					"patching_rect" : [ 377.0, 157.0, 33.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -1064,12 +1092,12 @@
 ,
 					"patching_rect" : [ 57.0, 157.0, 33.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -1218,12 +1246,12 @@
 ,
 					"patching_rect" : [ 55.0, 306.0, 33.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -1352,12 +1380,12 @@
 ,
 					"patching_rect" : [ 59.0, 476.0, 21.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -1486,12 +1514,12 @@
 ,
 					"patching_rect" : [ 64.0, 633.0, 21.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -1502,15 +1530,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-108",
 					"maxclass" : "number",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 724.0, 362.0, 40.0, 18.0 ],
+					"patching_rect" : [ 724.0, 362.0, 40.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 171.0, 278.0, 40.0, 18.0 ]
+					"presentation_rect" : [ 171.0, 278.0, 40.0, 17.0 ]
 				}
 
 			}
@@ -1748,12 +1776,12 @@
 ,
 					"patching_rect" : [ 899.0, 183.0, 84.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 9.0,
+						"fontsize" : 9.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0,
-						"fontface" : 0,
-						"fontsize" : 9.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -1764,16 +1792,16 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-102",
-					"items" : [ ",", "both", ",", "high", ",", "low", ",", "none", ",", "wrap", ",", "fold", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch" ],
+					"items" : [ ",", "both", ",", "high", ",", "low", ",", "none", ",", "wrap", ",", "fold", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch", ",", "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 747.0, 212.0, 100.0, 19.0 ],
+					"patching_rect" : [ 747.0, 212.0, 100.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 100.0, 189.0, 114.0, 19.0 ],
+					"presentation_rect" : [ 100.0, 189.0, 114.0, 17.0 ],
 					"types" : [  ]
 				}
 
@@ -1865,16 +1893,16 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-69",
 					"items" : [ ",", "none", ",", "scheduler", ",", "queue", ",", "async" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 93.0, 357.0, 100.0, 19.0 ],
+					"patching_rect" : [ 93.0, 357.0, 100.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 104.0, 159.0, 111.0, 19.0 ],
+					"presentation_rect" : [ 104.0, 159.0, 111.0, 17.0 ],
 					"types" : [  ]
 				}
 
@@ -1882,16 +1910,16 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-68",
 					"items" : [ ",", "both", ",", "high", ",", "low", ",", "none", ",", "wrap", ",", "fold" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 413.0, 211.0, 100.0, 19.0 ],
+					"patching_rect" : [ 413.0, 211.0, 100.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 98.0, 99.0, 117.0, 19.0 ],
+					"presentation_rect" : [ 98.0, 99.0, 117.0, 17.0 ],
 					"types" : [  ]
 				}
 
@@ -1899,7 +1927,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-96",
 					"ignoreclick" : 1,
 					"items" : "none",
@@ -1907,9 +1935,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 108.0, 690.0, 100.0, 19.0 ],
+					"patching_rect" : [ 108.0, 690.0, 100.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 100.0, 219.0, 114.0, 19.0 ],
+					"presentation_rect" : [ 100.0, 219.0, 114.0, 17.0 ],
 					"types" : [  ]
 				}
 
@@ -1917,7 +1945,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-91",
 					"ignoreclick" : 1,
 					"items" : [ ",", "angle", ",", "color", ",", "distance", ",", "gain", ",", "none", ",", "orientation", ",", "pitch", ",", "position", ",", "speed", ",", "temperature", ",", "time" ],
@@ -1925,9 +1953,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 92.0, 531.0, 100.0, 19.0 ],
+					"patching_rect" : [ 92.0, 531.0, 100.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 103.0, 249.0, 111.0, 19.0 ],
+					"presentation_rect" : [ 103.0, 249.0, 111.0, 17.0 ],
 					"types" : [  ]
 				}
 
@@ -2399,12 +2427,12 @@
 ,
 					"patching_rect" : [ 93.0, 557.0, 126.0, 23.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 12.0,
+						"fontsize" : 12.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -2443,16 +2471,16 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-53",
 					"items" : [ "decimal", ",", "integer", ",", "boolean", ",", "array", ",", "string", ",", "generic", ",", "none" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 93.0, 213.0, 100.0, 19.0 ],
+					"patching_rect" : [ 93.0, 213.0, 100.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 96.0, 38.0, 119.0, 19.0 ],
+					"presentation_rect" : [ 96.0, 38.0, 119.0, 17.0 ],
 					"types" : [  ]
 				}
 
@@ -2600,16 +2628,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-26",
-					"ignoreclick" : 1,
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 494.0, 415.0, 34.0, 18.0 ],
+					"patching_rect" : [ 494.0, 415.0, 32.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 160.0, 69.0, 49.0, 18.0 ],
+					"presentation_rect" : [ 160.0, 69.0, 47.0, 17.0 ],
 					"triangle" : 0
 				}
 
@@ -2617,16 +2644,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"id" : "obj-25",
-					"ignoreclick" : 1,
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 417.0, 416.0, 34.0, 18.0 ],
+					"patching_rect" : [ 417.0, 416.0, 32.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 102.0, 69.0, 49.0, 18.0 ],
+					"presentation_rect" : [ 102.0, 69.0, 47.0, 17.0 ],
 					"triangle" : 0
 				}
 
@@ -2634,7 +2660,6 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-22",
-					"ignoreclick" : 1,
 					"maxclass" : "toggle",
 					"numinlets" : 1,
 					"numoutlets" : 1,
@@ -4173,12 +4198,12 @@
 ,
 					"patching_rect" : [ 6.0, 62.0, 54.0, 23.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"default_fontsize" : 10.0,
+						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"globalpatchername" : ""
 					}
 ,
@@ -4497,15 +4522,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 11.0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 160.0, 78.0, 107.0, 19.0 ],
+					"patching_rect" : [ 160.0, 78.0, 102.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 5.0, 182.0, 19.0 ],
+					"presentation_rect" : [ 3.0, 5.0, 174.0, 18.0 ],
 					"text" : "#0"
 				}
 
@@ -4527,15 +4552,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-100",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 215.0, 693.0, 92.0, 19.0 ],
+					"patching_rect" : [ 215.0, 693.0, 86.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.0, 249.0, 58.0, 19.0 ],
+					"presentation_rect" : [ 4.0, 249.0, 54.0, 17.0 ],
 					"text" : "Unit"
 				}
 
@@ -4543,15 +4568,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-90",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 203.0, 531.0, 83.0, 19.0 ],
+					"patching_rect" : [ 203.0, 531.0, 77.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 219.0, 61.0, 19.0 ],
+					"presentation_rect" : [ 3.0, 219.0, 56.0, 17.0 ],
 					"text" : "Dataspace"
 				}
 
@@ -4559,15 +4584,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-83",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 781.0, 364.0, 66.0, 19.0 ],
+					"patching_rect" : [ 781.0, 364.0, 62.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.0, 278.0, 44.0, 19.0 ],
+					"presentation_rect" : [ 4.0, 278.0, 41.0, 17.0 ],
 					"text" : "Priority"
 				}
 
@@ -4575,15 +4600,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-70",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 477.0, 604.0, 92.0, 19.0 ],
+					"patching_rect" : [ 477.0, 604.0, 84.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 129.0, 92.0, 19.0 ],
+					"presentation_rect" : [ 3.0, 129.0, 84.0, 17.0 ],
 					"text" : "Allow repetitions"
 				}
 
@@ -4591,15 +4616,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-61",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 865.0, 214.0, 83.0, 19.0 ],
+					"patching_rect" : [ 865.0, 214.0, 76.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 189.0, 81.0, 19.0 ],
+					"presentation_rect" : [ 3.0, 189.0, 74.0, 17.0 ],
 					"text" : "Ramp function"
 				}
 
@@ -4607,15 +4632,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-50",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 201.0, 359.0, 76.0, 19.0 ],
+					"patching_rect" : [ 201.0, 359.0, 70.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 159.0, 66.0, 19.0 ],
+					"presentation_rect" : [ 3.0, 159.0, 60.0, 17.0 ],
 					"text" : "Ramp drive"
 				}
 
@@ -4623,15 +4648,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-41",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 539.0, 415.0, 63.0, 19.0 ],
+					"patching_rect" : [ 539.0, 415.0, 59.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 68.0, 40.0, 19.0 ],
+					"presentation_rect" : [ 3.0, 68.0, 37.0, 17.0 ],
 					"text" : "Range"
 				}
 
@@ -4639,15 +4664,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-33",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 518.0, 211.0, 69.0, 19.0 ],
+					"patching_rect" : [ 518.0, 211.0, 64.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 99.0, 55.0, 19.0 ],
+					"presentation_rect" : [ 3.0, 99.0, 51.0, 17.0 ],
 					"text" : "Clipmode"
 				}
 
@@ -4655,15 +4680,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 201.0, 212.0, 56.0, 19.0 ],
+					"patching_rect" : [ 201.0, 212.0, 51.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 2.0, 36.0, 32.0, 19.0 ],
+					"presentation_rect" : [ 2.0, 36.0, 29.0, 17.0 ],
 					"text" : "Type"
 				}
 
@@ -4671,17 +4696,17 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 9.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-10",
 					"linecount" : 5,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 708.0, 509.0, 162.0, 67.0 ],
+					"patching_rect" : [ 708.0, 509.0, 153.0, 61.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 5,
-					"presentation_rect" : [ 4.0, 305.0, 198.0, 67.0 ],
+					"presentation_rect" : [ 4.0, 305.0, 187.0, 61.0 ],
 					"text" : "a\na\na\na\na"
 				}
 
@@ -5021,6 +5046,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-68", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -5115,6 +5149,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 0 ]
 				}
 
 			}
@@ -5313,6 +5356,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 143.0, 381.5, 78.5, 381.5 ],
 					"source" : [ "obj-69", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-73", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
