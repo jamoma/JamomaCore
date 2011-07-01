@@ -1474,8 +1474,9 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 			// the default case would be to set it as a ModelPatcher by default
 			if (!(*returnedContext) && hubThere)
 				*returnedContext = TT(ModelPatcher);
-			// keep the upperPatcher because it is where the context is defined
-			else
+			// keep the upperPatcher if no hub around
+			// because it is where the context is defined
+			else if (!hubThere)
 				*patcher = upperPatcher;
 		}
 		// default case : a patcher has no type
@@ -1681,7 +1682,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 	// Get the context, the class and the name of the patcher
 	if (*returnedPatcher) {
 		
-		// try to get them from the root hub to go faster (except for hub of course)
+		// try to get them from a hub around to go faster (except for hub of course)
 		if (!isHub) {
 			
 			jamoma_patcher_share_info(*returnedPatcher, &sharedPatcher, &sharedContext, &sharedClass, &sharedName);
@@ -1696,6 +1697,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		}
 		
 		// get the context looking for a hub in the patcher
+		// it will also return a patcher above where a hub has been found
 		jamoma_patcher_get_context(returnedPatcher, returnedContext);
 		
 		// if still no context : stop the subscription process
@@ -1715,33 +1717,29 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 			return kTTErrGeneric;
 		}
 		
-		// for none root hub object, use the patcher where it is to get the name
-		if (isHub && hubPatcher != (*returnedPatcher)) {
+		// for hub object, use the patcher where it is to get the name
+		if (isHub)
 			jamoma_patcher_get_name(hubPatcher, *returnedContext, returnedName);
-		
-		}
-		else {
-			
-			// get the name from the argument of the patcher
+		// else get the name from the argument of the patcher
+		else
 			jamoma_patcher_get_name(*returnedPatcher, *returnedContext, returnedName);
+		
+		// if no name
+		if (!*returnedName) {
 			
-			// if no name
-			if (!*returnedName) {
-				
-				// for model : used "class"
-				if (*returnedContext == kTTSym_model)
-					*returnedName = *returnedClass;
-				
-				// for view : used "class(view)"
-				else if (*returnedContext == kTTSym_view) {
-					viewName = (*returnedClass)->getCString();
-					viewName += "(view)";
-					*returnedName = TT(viewName.data());
-				}
+			// for model : used "class"
+			if (*returnedContext == kTTSym_model)
+				*returnedName = *returnedClass;
+			
+			// for view : used "class(view)"
+			else if (*returnedContext == kTTSym_view) {
+				viewName = (*returnedClass)->getCString();
+				viewName += "(view)";
+				*returnedName = TT(viewName.data());
 			}
 		}
 	}
-	// if no patcher : stop the subscription process
+		// if no patcher : stop the subscription process
 	else {
 		object_error(obj, "Can't get the patcher. Subscription failed");
 		return kTTErrGeneric;
