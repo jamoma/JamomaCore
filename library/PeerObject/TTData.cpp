@@ -275,26 +275,14 @@ TTErr TTData::Command(const TTValue& command)
 	bool		hasRamp = false;
 	bool		hasUnit = false;
 	
-	// 1. Parse the command to handle Attributes
-	//////////////////////////////////////////////////
-	if (command.getType(0) == kTypeSymbol) {
-		command.get(0, &first);
-		char*	c = (char*)strrchr(first->getCString(), ':');
-		if (c) {
-			// TODO
-			//if (param_handleProperty(x, msg, argc, argv))
-			// return kTTErrGeneric;
-		}
-	}
-	
-	// 2. Notify Command observer for value changes only
+	// 1. Notify Command observer for value changes only
 	///////////////////////////////////////////////////
 	c = command;											// protect the command value
 	err = this->findMessage(kTTSym_Command, &aMessage);
 	if (!err)
 		aMessage->sendNotification(kTTSym_notify, c);	// we use kTTSym_notify because we know that observers are TTCallback
 	
-	// 3. Parse the command to handle unit and ramp
+	// 2. Parse the command to handle unit and ramp
 	///////////////////////////////////////////////////
 	commandSize = command.getSize();
 	switch(commandSize) {
@@ -373,7 +361,7 @@ TTErr TTData::Command(const TTValue& command)
 	}
 
 	
-	// 4. Strip ramp or unit informations if needed
+	// 3. Strip ramp or unit informations if needed
 	if (hasRamp && hasUnit) {
 		aValue = command;
 		aValue.setSize(commandSize - 3);
@@ -390,7 +378,7 @@ TTErr TTData::Command(const TTValue& command)
 		aValue = command;
 	
 	
-	// 5. Set Dataspace input unit and convert the value
+	// 4. Set Dataspace input unit and convert the value
 	// Note : The current implementation does not override the active unit temporarily or anything fancy.
 	// It just sets the input unit and then runs with it...
 	// For this initial implementation we are converting the values prior to ramping, as it is easier.
@@ -404,7 +392,7 @@ TTErr TTData::Command(const TTValue& command)
 		}
 	
 	
-	// 6. Ramp the convertedValue
+	// 5. Ramp the convertedValue
 	/////////////////////////////////
 #ifdef TTDATA_RAMPLIB
 	if (hasRamp) {
@@ -466,6 +454,12 @@ TTErr TTData::Command(const TTValue& command)
 			if (mValue == aValue)
 				return kTTErrNone;	// nothing to do
 		}
+
+#ifdef TTDATA_RAMPLIB
+		// stop ramping before to set a value
+		if (mRamper)
+			mRamper->stop();
+#endif
 		
 		setValue(aValue);
 		
@@ -987,8 +981,8 @@ TTErr TTData::WriteAsText(const TTValue& value)
 void TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
 	TTDataPtr	aData = (TTDataPtr)o;
-	TTValue			rampedValue;
-	TTUInt16		i;
+	TTValue		rampedValue;
+	TTUInt16	i;
 	
 	rampedValue.setSize(n);
 	for (i=0; i<n; i++)
