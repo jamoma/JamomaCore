@@ -42,6 +42,8 @@ TTSender::~TTSender()
 
 TTErr TTSender::setAddress(const TTValue& newValue)
 {
+	TTSymbolPtr appAttributeName;
+	
 	unbind();
 	newValue.get(0, &mAddress);
 	
@@ -67,6 +69,7 @@ TTErr TTSender::Send(TTValue& valueToSend)
 	TTObjectPtr		anObject;
 	TTValue			aCacheElement, v, c;
 	TTAttributePtr	anAttribute;
+	TTSymbolPtr		ttAttributeName;
 	TTMessagePtr	aMessage;
 	TTNodeAddressPtr relativeAddress;
 	
@@ -80,6 +83,8 @@ TTErr TTSender::Send(TTValue& valueToSend)
 		
 		if (!mObjectCache->isEmpty()) {
 			
+			ttAttributeName = ToTTName(mAddress->getAttribute());
+			
 			// send data to each node of the selection
 			for (mObjectCache->begin(); mObjectCache->end(); mObjectCache->next()) {
 				
@@ -90,12 +95,12 @@ TTErr TTSender::Send(TTValue& valueToSend)
 				
 				if (anObject) {
 					// DATA CASE for value attribute
-					if (anObject->getName() == TT("Data") && mAddress->getAttribute() == kTTSym_value) {
+					if (anObject->getName() == TT("Data") && ttAttributeName == kTTSym_value) {
 						// set the value attribute using a command
 						anObject->sendMessage(kTTSym_Command, valueToSend);
 					}
 					// CONTAINER CASE for value attribute
-					else if (anObject->getName() == TT("Container") && mAddress->getAttribute() == kTTSym_value) {
+					else if (anObject->getName() == TT("Container") && ttAttributeName == kTTSym_value) {
 						
 						valueToSend.get(0, &relativeAddress);
 						c.copyFrom(valueToSend, 1);
@@ -108,12 +113,12 @@ TTErr TTSender::Send(TTValue& valueToSend)
 					}
 					// DEFAULT CASE
 					// Look for attribute and set it
-					else if (!anObject->findAttribute(mAddress->getAttribute(), &anAttribute))
-						anObject->setAttributeValue(mAddress->getAttribute(), valueToSend);
+					else if (!anObject->findAttribute(ttAttributeName, &anAttribute))
+						anObject->setAttributeValue(ttAttributeName, valueToSend);
 					
 					// Or look for message and send it
-					else if (!anObject->findMessage(mAddress->getAttribute(), &aMessage))
-						anObject->sendMessage(mAddress->getAttribute(), valueToSend);
+					else if (!anObject->findMessage(ttAttributeName, &aMessage))
+						anObject->sendMessage(ttAttributeName, valueToSend);
 				}
 			}
 		}

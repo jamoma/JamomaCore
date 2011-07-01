@@ -299,13 +299,7 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 	
 	anAddress = TTADRS(addressAndAttribute->s_name);
 	
-	if (anAddress->getAttribute() != NO_ATTRIBUTE)
-		anAddress = anAddress->appendAttribute(ToTTName(anAddress->getAttribute()));
-	
 	args.append(anAddress);
-	
-	// Replace none TTnames
-	JamomaApplication->sendMessage(kTTSym_ConvertToTTName, args);
 	
 	*returnedSender = NULL;
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
@@ -339,9 +333,6 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	anAddress = TTADRS(addressAndAttribute->s_name);
-	
-	if (anAddress->getAttribute() != NO_ATTRIBUTE)
-		anAddress = anAddress->appendAttribute(ToTTName(anAddress->getAttribute()));
 	
 	args.append(anAddress);
 	
