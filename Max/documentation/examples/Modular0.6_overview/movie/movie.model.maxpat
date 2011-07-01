@@ -72,7 +72,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1005.0, 124.0, 74.0, 20.0 ],
+					"patching_rect" : [ 1005.0, 142.0, 74.0, 20.0 ],
 					"text" : "prepend set"
 				}
 
@@ -176,7 +176,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1058.0, 149.0, 32.0, 20.0 ],
+					"patching_rect" : [ 1058.0, 167.0, 32.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 75.0, 30.0, 33.0, 20.0 ],
 					"text" : "rate",
@@ -209,7 +209,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 1005.0, 149.0, 50.0, 20.0 ],
+					"patching_rect" : [ 1005.0, 167.0, 50.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 107.0, 28.0, 50.0, 20.0 ]
 				}
@@ -221,13 +221,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-27",
-					"linecount" : 5,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 1005.0, 180.0, 225.0, 75.0 ],
-					"text" : "jcom.parameter rate @type decimal @range/bounds -2. 2. @value/default 1. @description \"movie playback rate\" @ramp/drive scheduler @repetitions/allow 0"
+					"patching_rect" : [ 1005.0, 198.0, 225.0, 62.0 ],
+					"text" : "jcom.parameter rate @type decimal @range/bounds -2. 2. @value/default 1. @description \"movie playback rate\" @ramp/drive scheduler"
 				}
 
 			}
@@ -830,13 +830,13 @@
 ,
 					"patching_rect" : [ 211.0, 199.0, 90.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p print_content"
@@ -1116,7 +1116,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-23", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 1014.5, 262.0, 996.5, 262.0, 996.5, 117.0, 1014.5, 117.0 ],
+					"midpoints" : [ 1014.5, 264.0, 996.5, 264.0, 996.5, 135.0, 1014.5, 135.0 ],
 					"source" : [ "obj-27", 0 ]
 				}
 
