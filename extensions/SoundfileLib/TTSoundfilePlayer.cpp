@@ -16,6 +16,10 @@
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
 mSoundFile(NULL),
+mTitle(NULL),
+mArtist(NULL),
+mAnnotation(NULL),
+mDate(NULL),
 mPlay(false),
 mLoop(false),
 mSeek(0),
@@ -23,17 +27,29 @@ mContinue(false),
 mNumChannels(0),
 mNumBufferFrames(0)
 {
-	addAttributeWithSetter(	FilePath,		kTypeSymbol);
-	addAttributeWithSetter(	Play,			kTypeBoolean);
-	addAttributeWithSetter(	Seek,			kTypeFloat64);
-	addAttribute(			Loop,			kTypeBoolean);
-	addAttribute(			NumChannels,	kTypeUInt16);
-	addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
+	addAttributeWithSetter(		FilePath,		kTypeSymbol);
+	addAttributeWithSetter(		Play,			kTypeBoolean);
+	addAttributeWithSetter(		Seek,			kTypeFloat64);
+	addAttribute(				Loop,			kTypeBoolean);
+	addAttribute(				NumChannels,	kTypeUInt16);
+		addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
+	addAttribute(				Title,	kTypeSymbol);
+		addAttributeProperty(	Title,	readOnly, kTTBoolYes);
+	addAttribute(				Artist,	kTypeSymbol);
+		addAttributeProperty(	Artist,	readOnly, kTTBoolYes);
+	addAttribute(				Annotation,	kTypeSymbol);
+		addAttributeProperty(	Annotation,	readOnly, kTTBoolYes);
+	addAttribute(				Date,	kTypeSymbol);
+		addAttributeProperty(	Date,	readOnly, kTTBoolYes);
 	
 	addMessage(pause);
 	addMessage(resume);
 	setProcessMethod(processAudio);
 	//setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
+	setAttributeValue(TT("title"),	TT(""));
+	setAttributeValue(TT("artist"),	TT(""));
+	setAttributeValue(TT("annotation"),	TT(""));
+	setAttributeValue(TT("date"),	TT(""));
 }
 
 
@@ -50,6 +66,7 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 {
 	TTSymbolPtr potentialFilePath = newValue;
 	SNDFILE*	soundfile;
+	const char*	textInfo; 
 #ifdef TT_PLATFORM_WIN
 	// There is a bug in libsndfile on Windows where upon return from this function a runtime check fails
 	// because the stack is corrupted around soundfileInfo when sf_open() is called.
@@ -65,15 +82,33 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 	
 	if (soundfile) {
 		SNDFILE* oldSoundFile = mSoundFile;
-
+		
 		mSoundFile = soundfile;
 		if (oldSoundFile)
 			sf_close(oldSoundFile);
 		memcpy(&mSoundFileInfo, soundfileInfo, sizeof(SF_INFO));
+
 		mFilePath = potentialFilePath;
 		mPlay = 0;
 		mContinue = 1; //eliminating previous pause state
+		
+		// Now we gather some infos about the sound file 
+		textInfo = sf_get_string(soundfile, SF_STR_TITLE);
+		if (textInfo) mTitle = TT(textInfo);
+		else mTitle = TT("");
+		textInfo = sf_get_string(soundfile, SF_STR_ARTIST);
+		if (textInfo) mArtist = TT(textInfo);
+		else mArtist =  TT("");
+		textInfo = sf_get_string(soundfile, SF_STR_COMMENT);
+		if (textInfo) mAnnotation = TT(textInfo);
+		else mAnnotation =  TT("");
+		textInfo = sf_get_string(soundfile, SF_STR_DATE);
+		if (textInfo) mDate = TT(textInfo);
+		else mDate =  TT("");
+		
+		
 		// TODO: fill in things like the NumChannels attr here
+		
 		return kTTErrNone;
 	}
 	else
@@ -97,7 +132,7 @@ TTErr TTSoundfilePlayer::setSeek(const TTValue& newValue)
 {   
 	if (mSoundFile) {
 		mSeek = newValue;
-		mSeek = mSeek * sr/1000.0;
+		mSeek = mSeek * sr * 0.001;
 		mContinue = 1; //eliminating previous pause state
 		sf_seek(mSoundFile, mSeek, SEEK_SET);
 		mPlay = 1;
@@ -160,15 +195,17 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	//else {
 	
 				
-		mBuffer.assign(mBuffer.size(), 0.0);
+		//mBuffer.assign(mBuffer.size(), 0.0);
 		
 		if (mPlay && mContinue) {
-			numSamplesRead = sf_read_double(mSoundFile, &mBuffer[0], numFrames*mNumChannels);
-			if (numSamplesRead < numFrames*mNumChannels) {
+			numSamplesRead = sf_readf_double(mSoundFile, &mBuffer[0], numFrames);
+			if (numSamplesRead < numFrames) {
 				sf_seek(mSoundFile, mSeek, SEEK_SET);
 				mPlay = mLoop;					
 			}
 		}
+		else 
+			mBuffer.assign(mBuffer.size(), 0.0);
 
 		for (channel=0; channel<mNumChannels; channel++) {
 			outSample = out.mSampleVectors[channel];
@@ -178,8 +215,10 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	
 		for (n=0; n<numFrames; n++)	
 			outPlayhead.mSampleVectors[0][n] = n; // FIXME: this is a dummy value, replace with a proper playhead position
+			//FIXME: see http://redmine.jamoma.org/issues/578
+		    //FIXME: see http://redmine.jamoma.org/issues/547
 	}	
-	else {         //no soundfile selected, we send out a zero signal on one channel 
+	else { //no soundfile selected, we send out a zero signal on one channel 
 		out.setMaxNumChannels(1);
 		out.setNumChannelsWithInt(1);
 		for (n=0; n<numFrames; n++)

@@ -26,7 +26,7 @@ class TTSoundfilePlayer : public TTAudioObject {
 	TTBoolean			mContinue;			///< Pause/Resume flag
 	TTUInt16			mNumChannels;		///< read-only: number of channels in the open file
 //	TTFloat64			mLength;			///< length of the file in seconds, read-only
-
+	TTSymbolPtr			mTitle, mArtist, mAnnotation, mDate;
 	TTUInt16			mNumBufferFrames;	///< number of frames in the buffer to be read from the file at a time
 	TTSampleVector		mBuffer;			///< buffer of mNumBufferFrames * mNumChannels;
 	
