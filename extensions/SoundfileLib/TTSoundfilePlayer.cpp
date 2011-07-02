@@ -15,14 +15,15 @@
 
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
+mTitle(kTTSymEmpty),
+mAnnotation(kTTSymEmpty),
+mArtist(kTTSymEmpty),
+mDate(kTTSymEmpty),
 mSoundFile(NULL),
-mTitle(NULL),
-mArtist(NULL),
-mAnnotation(NULL),
-mDate(NULL),
 mPlay(false),
 mLoop(false),
 mSeek(0),
+mDuration(0.0),
 mContinue(false),
 mNumChannels(0),
 mNumBufferFrames(0)
@@ -31,25 +32,23 @@ mNumBufferFrames(0)
 	addAttributeWithSetter(		Play,			kTypeBoolean);
 	addAttributeWithSetter(		Seek,			kTypeFloat64);
 	addAttribute(				Loop,			kTypeBoolean);
+	addAttribute(				Duration,		kTypeFloat64);
+		addAttributeProperty(	Duration,		readOnly, kTTBoolYes);
 	addAttribute(				NumChannels,	kTypeUInt16);
 		addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
-	addAttribute(				Title,	kTypeSymbol);
-		addAttributeProperty(	Title,	readOnly, kTTBoolYes);
-	addAttribute(				Artist,	kTypeSymbol);
-		addAttributeProperty(	Artist,	readOnly, kTTBoolYes);
-	addAttribute(				Annotation,	kTypeSymbol);
-		addAttributeProperty(	Annotation,	readOnly, kTTBoolYes);
-	addAttribute(				Date,	kTypeSymbol);
-		addAttributeProperty(	Date,	readOnly, kTTBoolYes);
+	addAttribute(				Title,			kTypeSymbol);
+		addAttributeProperty(	Title,			readOnly, kTTBoolYes);
+	addAttribute(				Artist,			kTypeSymbol);
+		addAttributeProperty(	Artist,			readOnly, kTTBoolYes);
+	addAttribute(				Annotation,		kTypeSymbol);
+		addAttributeProperty(	Annotation,		readOnly, kTTBoolYes);
+	addAttribute(				Date,			kTypeSymbol);
+		addAttributeProperty(	Date,			readOnly, kTTBoolYes);
 	
 	addMessage(pause);
 	addMessage(resume);
 	setProcessMethod(processAudio);
 	//setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
-	setAttributeValue(TT("title"),	TT(""));
-	setAttributeValue(TT("artist"),	TT(""));
-	setAttributeValue(TT("annotation"),	TT(""));
-	setAttributeValue(TT("date"),	TT(""));
 }
 
 
@@ -95,17 +94,17 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 		// Now we gather some infos about the sound file 
 		textInfo = sf_get_string(soundfile, SF_STR_TITLE);
 		if (textInfo) mTitle = TT(textInfo);
-		else mTitle = TT("");
+		else mTitle = kTTSymEmpty;
 		textInfo = sf_get_string(soundfile, SF_STR_ARTIST);
 		if (textInfo) mArtist = TT(textInfo);
-		else mArtist =  TT("");
+		else mArtist =  kTTSymEmpty;
 		textInfo = sf_get_string(soundfile, SF_STR_COMMENT);
 		if (textInfo) mAnnotation = TT(textInfo);
-		else mAnnotation =  TT("");
+		else mAnnotation =  kTTSymEmpty;
 		textInfo = sf_get_string(soundfile, SF_STR_DATE);
 		if (textInfo) mDate = TT(textInfo);
-		else mDate =  TT("");
-		
+		else mDate =  kTTSymEmpty;
+		mDuration = mSoundFileInfo.frames / mSoundFileInfo.samplerate; 
 		
 		// TODO: fill in things like the NumChannels attr here
 		
