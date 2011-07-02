@@ -28,12 +28,39 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-40",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 776.0, 326.0, 29.0, 19.0 ],
+					"text" : "sec"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-36",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 727.0, 326.0, 50.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-34",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 535.0, 441.0, 167.0, 17.0 ]
+					"patching_rect" : [ 536.0, 400.0, 170.0, 17.0 ]
 				}
 
 			}
@@ -46,7 +73,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 540.0, 400.0, 124.0, 17.0 ]
+					"patching_rect" : [ 537.0, 376.0, 130.0, 17.0 ],
+					"text" : "\"John Chowning\""
 				}
 
 			}
@@ -59,7 +87,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 538.0, 365.0, 87.0, 17.0 ]
+					"patching_rect" : [ 537.0, 351.0, 90.0, 17.0 ],
+					"text" : "Turenas"
 				}
 
 			}
@@ -68,13 +97,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-35",
-					"linecount" : 4,
+					"linecount" : 5,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 711.0, 328.0, 101.0, 53.0 ],
-					"text" : "gettitle 1, getartist 1, getannotation 1, getdate 1"
+					"patching_rect" : [ 711.0, 355.0, 98.0, 65.0 ],
+					"text" : "gettitle 1, getartist 1, getannotation 1, getdate 1, getduration 1"
 				}
 
 			}
@@ -85,10 +114,10 @@
 					"id" : "obj-31",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 5,
-					"outlettype" : [ "", "", "", "", "" ],
-					"patching_rect" : [ 568.0, 303.0, 172.0, 19.0 ],
-					"text" : "route title artist annotation date"
+					"numoutlets" : 6,
+					"outlettype" : [ "", "", "", "", "", "" ],
+					"patching_rect" : [ 568.0, 303.0, 218.0, 19.0 ],
+					"text" : "route date title artist annotation duration"
 				}
 
 			}
@@ -265,13 +294,13 @@
 ,
 					"patching_rect" : [ 138.0, 125.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
+						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p formating"
@@ -515,7 +544,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "audio.connect", "", "", "", "" ],
-					"patching_rect" : [ 90.0, 297.0, 202.0, 19.0 ],
+					"patching_rect" : [ 90.0, 297.0, 184.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -561,7 +590,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@description", "Play back sound files, support for aiff, wav, flac, and many other file formats" ],
+					"args" : [ "@name", "jcom.soundfile.player≈", "@description", "Play back sound files." ],
 					"bgmode" : 1,
 					"id" : "obj-44",
 					"maxclass" : "bpatcher",
@@ -816,6 +845,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-36", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-31", 4 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-37", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -845,7 +883,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 720.5, 388.0, 820.0, 388.0, 820.0, 260.0, 99.5, 260.0 ],
+					"midpoints" : [ 720.5, 425.0, 820.0, 425.0, 820.0, 260.0, 99.5, 260.0 ],
 					"source" : [ "obj-35", 0 ]
 				}
 
