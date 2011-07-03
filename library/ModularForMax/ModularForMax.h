@@ -187,7 +187,7 @@ extern "C" {
 	/** Get the hierarchy of the patcher : bpatcher, subpatcher or toplevel */
 	SymbolPtr		jamoma_patcher_get_hierarchy(ObjectPtr patcher);
 
-	/** Get the context from the upper hub in the patcher */
+	/** Get the context from the upper hub in the patcher or from patcher's name */
 	void			jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext);
 
 	/** Get the class of the patcher from the file name (removing .model and .view convention name if they are in) */

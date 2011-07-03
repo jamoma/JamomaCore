@@ -131,16 +131,17 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 	SymbolPtr					instanceAddress;
 	TTValue						v;
 	
+	x->useInternals = YES;
+	x->internals = new TTHash();
+	x->internals->setThreadProtection(YES);
+	x->cursor = kTTSymEmpty;
+	
 	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
 		
 		number = jamoma_parse_bracket(relativeAddress, &x->i_format, &x->s_format);
 		
 		if (number) {
 			
-			x->useInternals = true;
-			x->internals = new TTHash();
-			x->internals->setThreadProtection(YES);
-			x->cursor = kTTSymEmpty;
 			for (i = 1; i <= number; i++) {
 				
 				jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);

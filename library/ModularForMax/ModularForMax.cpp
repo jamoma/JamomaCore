@@ -1410,12 +1410,14 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 	}
 }
 
-/** Get the context from the upper hub in the patcher */
+/** Get the context from the upper hub in the patcher or from patcher's name */
 void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext)
 {
 	SymbolPtr	hierarchy, context, _sym_jcomhub, _sym_context, patcherName;
 	TTBoolean	hubThere;
 	ObjectPtr	obj, upperPatcher;
+	
+	context = NULL;
 	
 	// Look for jcom.hubs in the patcher
 	obj = object_attr_getobj(*patcher, _sym_firstobject);
@@ -1423,7 +1425,7 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 	// TODO : cache those t_symbol else where ...
 	_sym_jcomhub = gensym("jcom.hub");
 	_sym_context = gensym("context");
-	context = NULL;
+	
 	hubThere = NO;
 	while (obj) {
 		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
@@ -1672,7 +1674,6 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 	TTSymbolPtr sharedContext = NULL;
 	TTSymbolPtr sharedClass = NULL;
 	TTSymbolPtr sharedName = NULL;
-	
 	
 	*returnedPatcher = jamoma_patcher_get(obj);
 	
