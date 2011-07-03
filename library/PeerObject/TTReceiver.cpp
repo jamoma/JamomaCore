@@ -121,6 +121,7 @@ TTErr TTReceiver::Get()
 					anAddress = anAddress->appendAttribute(mAddress->getAttribute());
 					
 					// return the address
+					v.clear();
 					v.append(anAddress);
 					
 					if (mReturnAddressCallback)
