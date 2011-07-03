@@ -253,7 +253,7 @@ void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	unsigned long				i;
 	TTValue						v;
 	
-	if (x->useInternals)
+	if (x->internals) {
 		
 		if (argc && argv) {
 			if (atom_gettype(argv) == A_LONG) {
@@ -286,6 +286,9 @@ void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 			else
 				object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
 		}
+	}
+	else
+		object_error((ObjectPtr)x, "array/select : the array is empty");
 }
 
 void data_address(TTPtr self, SymbolPtr address)
@@ -322,7 +325,13 @@ void data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 #ifndef JMOD_MESSAGE
 void data_bang(TTPtr self)
 {
-	data_list(self, _sym_bang, 0, NULL);
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	if (x->internals) {
+		data_list(self, _sym_bang, 0, NULL);
+	}
+	else
+		object_error((ObjectPtr)x, "bang : the array is empty");
 }
 
 void data_int(TTPtr self, long value)
@@ -335,37 +344,52 @@ void data_int(TTPtr self, long value)
 		data_array_select(self, _sym_nothing, 1, &a);
 	}
 	else {
-		atom_setlong(&a, value);
-		data_list(self, _sym_int, 1, &a);
+		if (x->internals) {
+			atom_setlong(&a, value);
+			data_list(self, _sym_int, 1, &a);
+		}
+		else
+			object_error((ObjectPtr)x, "int : the array is empty");
 	}
 }
 
 void data_float(TTPtr self, double value)
 {
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	t_atom a;
 	
-	atom_setfloat(&a, value);
-	data_list(self, _sym_float, 1, &a);
+	if (x->internals) {
+		atom_setfloat(&a, value);
+		data_list(self, _sym_float, 1, &a);
+	}
+	else
+		object_error((ObjectPtr)x, "float : the array is empty");
 }
 
 void data_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 
-	// send to each data
-	if (x->index == -1) {
-		TTValue keys;
-		if (!x->internals->isEmpty()) {
-			x->internals->getKeys(keys);
-			for (int i=0; i<keys.getSize(); i++) {
-				keys.get(i, &x->cursor);
-				jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+	if (x->internals) {
+		
+		// send to each data
+		if (x->index == -1) {
+			TTValue keys;
+			if (!x->internals->isEmpty()) {
+				x->internals->getKeys(keys);
+				for (int i=0; i<keys.getSize(); i++) {
+					keys.get(i, &x->cursor);
+					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+				}
 			}
+			x->cursor = kTTSymEmpty;
 		}
-		x->cursor = kTTSymEmpty;
+		else
+			jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+		
 	}
 	else
-		jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
+		object_error((ObjectPtr)x, "list : the array is empty");
 }
 
 void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
