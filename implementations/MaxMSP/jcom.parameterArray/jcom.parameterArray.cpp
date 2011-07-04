@@ -120,105 +120,84 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 
 #endif
 
-	data_new_address(self, relativeAddress, argc--, argv++);
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)data_new_address, relativeAddress, argc--, argv++);
 }
 	
 void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	long						number, i;
-	TTObjectPtr					anObject;
 	SymbolPtr					instanceAddress;
+	TTObjectPtr					anObject;
+	TTSubscriberPtr				aSubscriber;
 	TTValue						v;
 	
-	x->useInternals = YES;
-	x->internals = new TTHash();
-	x->internals->setThreadProtection(YES);
-	x->cursor = kTTSymEmpty;
-	
-	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
+	if (!x->iterateInternals) {
 		
-		number = jamoma_parse_bracket(relativeAddress, &x->i_format, &x->s_format);
+		x->useInternals = YES;
+		x->internals = new TTHash();
+		x->internals->setThreadProtection(YES);
+		x->cursor = kTTSymEmpty;
 		
-		if (number) {
+		if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
 			
-			for (i = 1; i <= number; i++) {
+			number = jamoma_parse_bracket(relativeAddress, &x->i_format, &x->s_format);
+			
+			if (number) {
 				
-				jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
+				// Starts iteration on internals
+				x->iterateInternals = YES;
 				
-				// create a data
+				for (i = 1; i <= number; i++) {
+					
+					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
+					
+					// create a data
 #ifdef JMOD_MESSAGE
-				data_array_create((ObjectPtr)x, &anObject, kTTSym_message, i);
+					data_array_create((ObjectPtr)x, &anObject, kTTSym_message, i);
 #endif
-				
+					
 #if JMOD_RETURN
-				data_array_create((ObjectPtr)x, &anObject, kTTSym_return, i);
+					data_array_create((ObjectPtr)x, &anObject, kTTSym_return, i);
 #endif
-				
+					
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-				data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
+					data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
 #endif
 #endif
+					aSubscriber == NULL;
+					if (!jamoma_subscriber_create((ObjectPtr)x, anObject, instanceAddress,  &aSubscriber)) {
+						
+						if (aSubscriber) {
+							// append the data to the internals table
+							v = TTValue(TTPtr(anObject));
+							v.append(TT(instanceAddress->s_name));
+							v.append(TTPtr(aSubscriber));
+							x->internals->append(TT(instanceAddress->s_name), v);
+						}
+					}
+				}
 				
-				// append the data to the internals table
-				v = TTValue(TTPtr(anObject));
-				v.append(TT(instanceAddress->s_name));
-				x->internals->append(TT(instanceAddress->s_name), v);
+				// Ends iteration on internals
+				x->iterateInternals = NO;
 				
-				// handle attribute args to set attribute of each internals data
-				x->cursor = TT(instanceAddress->s_name);
-				
+				// handle args
 				if (argc && argv)
 					attr_args_process(x, argc, argv);
+				
+				// select all datas
+				data_array_select(self, gensym("*"), 0, NULL);
 			}
-			
-			// The following must be deferred because we have to interrogate our box,
-			// and our box is not yet valid until we have finished instantiating the object.
-			// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-			defer_low((ObjectPtr)x, (method)data_subscribe_array, NULL, 0, NULL);
 		}
+		else
+			object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
 	}
-	else
-		object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
-}
-
-void data_subscribe_array(TTPtr self)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr		keyAddress;
-	TTValue			keys, storedObject, element;
-	TTSubscriberPtr	aSubscriber;
-	TTObjectPtr		anObject;
-	TTHashPtr		newInternals;
-	
-	newInternals = new TTHash();
-	newInternals->setThreadProtection(YES);
-		
-	x->internals->getKeys(keys);
-	
-	for (int i=0; i<keys.getSize(); i++) {
-		
-		keys.get(i, &keyAddress);
-		x->cursor = keyAddress;
-		anObject = selectedObject;
-
-		// if the subscription is successful
-		if (!jamoma_subscriber_create((ObjectPtr)x, anObject, gensym((char*)keyAddress->getCString()),  &aSubscriber)) {
-	
-			// prepare new internals
-			element = TTValue((TTPtr)anObject);
-			element.append(keyAddress);
-			element.append((TTPtr)aSubscriber);
-			newInternals->append(keyAddress, element);
-		}
-	}
-	
-	delete x->internals;
-	x->internals = newInternals;
-	
-	// default : listen all datas
-	x->index = -1;
+	else 
+		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", relativeAddress->s_name);
 }
 
 void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index)
@@ -295,11 +274,16 @@ void data_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	// unregister wrapped object (or internals)
-	wrappedModularClass_unregister(x);
-	
-	// rebuild wrapped object (or internals)
-	defer_low(self,(method)data_new_address, address, 0, NULL); // TODO : give all @attribute too
+	if (!x->iterateInternals) {
+		
+		// unregister internals
+		wrappedModularClass_unregister(x);
+		
+		// rebuild internals
+		defer_low(self,(method)data_new_address, address, 0, NULL); // TODO : give all @attribute too
+	}
+	else 
+		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", address->s_name);
 }
 
 // Method for Assistance Messages
