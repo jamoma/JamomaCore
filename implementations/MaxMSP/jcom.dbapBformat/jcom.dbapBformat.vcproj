@@ -188,10 +188,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\hull2D.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\jcom.dbapBformat.cpp"
 			>
 		</File>
