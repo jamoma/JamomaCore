@@ -17,11 +17,11 @@ mValue(TTValue(0.0)),
 mValueDefault(kTTValNONE),
 mValueStepsize(TTValue(0.1)),
 mType(kTTSym_generic),
-mTag(kTTSym_none),
+mTag(kTTValNONE),
 mPriority(0),
 mDescription(kTTSymEmpty),
 mRepetitionsAllow(YES),
-mReadonly(NO),
+mEnable(YES),
 mInitialized(NO),
 mRangeBounds(0.0, 1.0),
 mRangeClipmode(kTTSym_none),
@@ -50,11 +50,14 @@ mReturnValueCallback(NULL)
 	addAttributeWithGetterAndSetter(ValueStepsize, kTypeNone);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
-	addAttributeWithSetter(Tag, kTypeSymbol);
+	addAttributeWithSetter(Tag, kTypeLocalValue);
 	addAttribute(Priority, kTypeInt32);
 	addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
-	addAttributeWithSetter(Readonly, kTypeBoolean);
+	
+	if (mService == kTTSym_return) {
+		addAttributeWithSetter(Enable, kTypeBoolean);
+	}
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(initialized, readOnly, YES);
@@ -480,7 +483,7 @@ TTErr TTData::setValue(const TTValue& value)
 {
 	TTValue r, n;
 	
-	if (!mIsSending) {
+	if (!mIsSending && mEnable) {
 		
 		// lock
 		mIsSending = YES;
@@ -684,11 +687,11 @@ TTErr TTData::setRepetitionsAllow(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTData::setReadonly(const TTValue& value)
+TTErr TTData::setEnable(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mReadonly = value;
-	notifyObservers(kTTSym_readonly, n);
+	mEnable = value;
+	notifyObservers(kTTSym_enable, n);
 	return kTTErrNone;
 }
 

@@ -16,6 +16,7 @@ TT_MODULAR_CONSTRUCTOR,
 mPriority(0), 
 mDescription(kTTSymEmpty),
 mType(TT("control")),
+mTag(kTTValNONE),
 mInitialized(NO),
 mContent(kTTValNONE),
 mAddress(kTTAdrsEmpty),
@@ -34,6 +35,7 @@ mObserver(NULL)
 	addAttribute(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
+	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
 	addAttributeWithGetter(Content, kTypeLocalValue);
 	addAttributeProperty(content, readOnly, YES);
@@ -227,7 +229,7 @@ TTErr TTContainer::Init()
 			
 			if (anObject)
 				if (anObject->getName() == TT("Data")) {
-					anObject->getAttributeValue(TT("service"), v);
+					anObject->getAttributeValue(kTTSym_service, v);
 					v.get(0, &service);
 					if (service == kTTSym_parameter)
 						anObject->sendMessage(TT("Reset"));
@@ -290,6 +292,20 @@ TTErr TTContainer::setActivityOut(const TTValue& value)
 	err = this->findAttribute(kTTSym_activityOut, &anAttribute);
 	if (!err)
 		anAttribute->sendNotification(kTTSym_notify, mActivityOut);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::setTag(const TTValue& value)
+{
+	TTAttributePtr	anAttribute;
+	TTErr			err = kTTErrNone;
+	
+	mTag = value;
+	
+	err = this->findAttribute(kTTSym_tag, &anAttribute);
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mTag);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }

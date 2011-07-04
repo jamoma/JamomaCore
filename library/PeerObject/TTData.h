@@ -42,11 +42,11 @@ private:
 	TTValue			mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
 	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this data's value
-	TTSymbolPtr		mTag;						///< ATTRIBUTE: a tag for this data
+	TTValue			mTag;						///< ATTRIBUTE: tag list for this data
 	TTInt32			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
 	TTSymbolPtr		mDescription;				///< ATTRIBUTE: text to describe the role of this data
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
-	TTBoolean		mReadonly;					///< ATTRIBUTE: 
+	TTBoolean		mEnable;					///< ATTRIBUTE: this used for return only to stop sending values
 	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
@@ -128,8 +128,8 @@ private:
 	/**	Setter for mRepetitionsAllow attribute. */
 	TTErr	setRepetitionsAllow(const TTValue& value);
 	
-	/**	Setter for mReadonly attribute. */
-	TTErr	setReadonly(const TTValue& value);
+	/**	Setter for mEnable attribute. */
+	TTErr	setEnable(const TTValue& value);
 	
 	/**	Setter for mRangeBounds attribute. */
 	TTErr	setRangeBounds(const TTValue& value);

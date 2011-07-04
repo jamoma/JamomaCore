@@ -283,8 +283,14 @@ void hub_subscribe(TTPtr self)
 void hub_init(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTBoolean	initialized;
+	TTValue		v;
 	
-	x->wrappedObject->sendMessage(TT("Init"));
+	// Check if the hub has not been initialized by a upper hub
+	x->wrappedObject->getAttributeValue(kTTSym_initialized, v);
+	v.get(0, initialized);
+	if (!initialized)
+		x->wrappedObject->sendMessage(TT("Init"));
 }
 
 // Method for Assistance Messages
