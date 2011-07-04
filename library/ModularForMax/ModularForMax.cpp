@@ -1564,7 +1564,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 		if (context == kTTSym_model) {
 			argName = atom_getsym(av);
 			if (argName != _sym_nothing)
-				*returnedName = TT(argName->s_name);
+				*returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
 			else
 				*returnedName = NULL;
 			
@@ -1576,7 +1576,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 		if (context == kTTSym_view && ac > 1) {
 			argName = atom_getsym(av+1);
 			if (argName != _sym_nothing)
-				*returnedName = TT(argName->s_name);
+				*returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
 			else
 				*returnedName = NULL;
 			
@@ -1611,7 +1611,7 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 {
 	TTValue		patcherInfo;
 	ObjectPtr	obj;
-	SymbolPtr	objclass = NULL, _sym_jcomhub, _sym_share;
+	SymbolPtr	_sym_jcomhub, _sym_share;
 	
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
@@ -1619,8 +1619,7 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 	_sym_jcomhub = gensym("jcom.hub");
 	_sym_share = gensym("share_patcher_info");
 	while (obj) {
-		objclass = object_classname(obj);
-		if (objclass == _sym_jcomhub) {
+		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
 		
 			// ask it patcher info
 			object_method(object_attr_getobj(obj, _sym_object), _sym_share, &patcherInfo);
@@ -1642,7 +1641,7 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 {
 	ObjectPtr	obj;
-	SymbolPtr	objclass = NULL, _sym_jcomhub, _sym_share;
+	SymbolPtr	_sym_jcomhub, _sym_share;
 	
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
@@ -1650,8 +1649,7 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 	_sym_jcomhub = gensym("jcom.hub");
 	_sym_share = gensym("share_patcher_node");
 	while (obj) {
-		objclass = object_classname(obj);
-		if (objclass == _sym_jcomhub) {
+		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
 			
 			// ask it patcher info
 			*patcherNode = NULL;

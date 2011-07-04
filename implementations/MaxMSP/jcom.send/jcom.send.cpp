@@ -64,14 +64,17 @@ void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	if (address == _sym_nothing)
 		jamoma_sender_create((ObjectPtr)x, address, &x->wrappedObject);
 	// for absolute address
-	else if (TTADRS(address->s_name)->getType() == kAddressAbsolute)
-		jamoma_sender_create((ObjectPtr)x, jamoma_parse_dieze((ObjectPtr)x, address), &x->wrappedObject);
-	else
-		// The following must be deferred because we have to interrogate our box,
-		// and our box is not yet valid until we have finished instantiating the object.
-		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)send_subscribe, jamoma_parse_dieze((ObjectPtr)x, address), 0, 0);
+	else {
+		SymbolPtr parsed = jamoma_parse_dieze((ObjectPtr)x, address);
 		
+		if (TTADRS(address->s_name)->getType() == kAddressAbsolute)
+			jamoma_sender_create((ObjectPtr)x, parsed, &x->wrappedObject);
+		else
+			// The following must be deferred because we have to interrogate our box,
+			// and our box is not yet valid until we have finished instantiating the object.
+			// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+			defer_low((ObjectPtr)x, (method)send_subscribe, parsed, 0, 0);
+	}
 	
 	// No outlets
 	
@@ -107,7 +110,7 @@ void send_subscribe(TTPtr self, SymbolPtr relativeAddress)
 		jamoma_sender_create((ObjectPtr)x, gensym((char*)absoluteAddress->getCString()), &x->wrappedObject);
 		
 		// DEBUG
-		object_post((ObjectPtr)x, "sends to = %s", absoluteAddress->getCString());
+		//object_post((ObjectPtr)x, "sends to = %s", absoluteAddress->getCString());
 	}
 	// While the context node is not registered : try to build (to --Is this not dangerous ?)
 	else {
@@ -149,11 +152,16 @@ void send_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void send_set(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr anAddress = TTADRS(address->s_name);
+	SymbolPtr parsed = jamoma_parse_dieze((ObjectPtr)x, address);
+	TTNodeAddressPtr anAddress = TTADRS(parsed->s_name);
 	TTValue v;
+	
+	x->msg = address;						// we store the address into the msg member
 	
 	if (anAddress->getType() == kAddressAbsolute) {
 		v = TTValue(anAddress);
 		x->wrappedObject->setAttributeValue(kTTSym_address, v);
 	}
+	else
+		send_subscribe(self, parsed);
 }
