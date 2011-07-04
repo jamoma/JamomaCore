@@ -123,7 +123,7 @@ TTErr TTCueManager::getNames(TTValue& value)
 	TTCuePtr aCue;
 	
 	if (mCueList->isEmpty())
-		value = kTTSymEmpty;
+		value = kTTSym_none;
 	else
 		for (mCueList->begin(); mCueList->end(); mCueList->next()) {
 			mCueList->current().get(0, (TTPtr*)&aCue);

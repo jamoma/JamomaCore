@@ -28,8 +28,6 @@ void		WrappedCueManageClass_free(TTPtr self);
 
 void		cue_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void		cue_return_names(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
-
 void		cue_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -56,8 +54,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTCueManagerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)cue_assist,				"assist",				A_CANT, 0L);
-	
-	class_addmethod(c->maxClass, (method)cue_return_names,			"return_names",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)cue_read,					"cue_read",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)cue_write,					"cue_write",			A_CANT, 0);
@@ -245,12 +241,6 @@ void cue_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 				break;
 		}
  	}
-}
-
-void cue_return_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[data_out], gensym("names"), argc, argv);
 }
 
 void cue_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
