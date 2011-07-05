@@ -18,15 +18,15 @@ class TTSoundfilePlayer : public TTAudioObject {
 	TTCLASS_SETUP(TTSoundfilePlayer)
 
 	TTSymbolPtr			mFilePath;			///< full POSIX path to the file, including file name
+	TTSymbolPtr			mTitle, mAnnotation, mArtist, mDate;
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open
 	SF_INFO				mSoundFileInfo;		///< libsndfile metadata for the file we open
 	TTBoolean			mPlay;				///< is actively playing back the file?
 	TTBoolean			mLoop;				///< Loop flag
 	TTFloat64			mSeek;			    ///< Cue time start
+	TTFloat64			mDuration;			///< Length of the loaded soundfile - readonly
 	TTBoolean			mContinue;			///< Pause/Resume flag
 	TTUInt16			mNumChannels;		///< read-only: number of channels in the open file
-//	TTFloat64			mLength;			///< length of the file in seconds, read-only
-
 	TTUInt16			mNumBufferFrames;	///< number of frames in the buffer to be read from the file at a time
 	TTSampleVector		mBuffer;			///< buffer of mNumBufferFrames * mNumChannels;
 	
