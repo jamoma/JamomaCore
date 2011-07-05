@@ -11,7 +11,7 @@
 #include "dbap.h"
 
 // Globals
-t_class		*this_class;				// Required. Global pointing to this class 
+t_class		*this_class;								// Required. Global pointing to this class 
 
 /************************************************************************************/
 // Main() Function
@@ -22,14 +22,14 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	jamoma_init();
 	common_symbols_init();
-	ps_rolloff = gensym("rolloff");
-	ps_src_position = gensym("src_position");
-	ps_src_gain = gensym("src_gain");
-	ps_src_mute = gensym("src_mute");
-	ps_src_blur = gensym("blur");
-	ps_dst_position = gensym("dst_position");
-	ps_dimensions = gensym("dimensions");
-	ps_num_sources = gensym("num_sources");
+	ps_rolloff			= gensym("rolloff");
+	ps_src_position		= gensym("src_position");
+	ps_src_gain			= gensym("src_gain");
+	ps_src_mute			= gensym("src_mute");
+	ps_src_blur			= gensym("blur");
+	ps_dst_position		= gensym("dst_position");
+	ps_dimensions		= gensym("dimensions");
+	ps_num_sources		= gensym("num_sources");
 	ps_num_destinations = gensym("num_destinations");
 
 
@@ -90,7 +90,7 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 	t_dbap *x;
 	long i,j;
 	
-	x = (t_dbap *)object_alloc(this_class);	// create the new instance and return a pointer to it
+	x = (t_dbap *)object_alloc(this_class);				// create the new instance and return a pointer to it
 	
 	if (x) {
     	object_obex_store(x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
@@ -99,25 +99,25 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		x->outlet[0] = outlet_new(x, 0);				// Left outlet: Feed to matrix~
 		
 		// Initializing and setting defaults for attributes.
-		x->master_gain = 1.;						// default value
-		x->attr_num_sources = 1;					// default value
-		x->attr_num_destinations = 1;				// default value
-		x->attr_dimensions = 2;						// two-dimensional by default
-		x->attr_rolloff = 6;						// 6 dB rolloff by default
+		x->master_gain = 1.;							// default value
+		x->attr_num_sources = 1;						// default value
+		x->attr_num_destinations = 1;					// default value
+		x->attr_dimensions = 2;							// two-dimensional by default
+		x->attr_rolloff = 6;							// 6 dB rolloff by default
 
 		x->attr_view_update = false;
 		atom_setsym(&x->last_view[0],gensym("all"));
 		atom_setlong(&x->last_view[1],1);
 
-		x->attr_view_size[0] = 80;					// x size of the view matrix
-		x->attr_view_size[1] = 60;					// y size of the view matrix
+		x->attr_view_size[0] = 80;						// x size of the view matrix
+		x->attr_view_size[1] = 60;						// y size of the view matrix
 
-		x->attr_view_start.x = 0.;					// default value
-		x->attr_view_start.y = 0.;					// default value
-		x->attr_view_start.z = 0.;					// default value
-		x->attr_view_end.x = 22.;					// according to the dbap maxhelp space
-		x->attr_view_end.y = 15.;					// according to the dbap maxhelp space
-		x->attr_view_end.z = 0.;					// according to the dbap maxhelp space
+		x->attr_view_start.x = 0.;						// default value
+		x->attr_view_start.y = 0.;						// default value
+		x->attr_view_start.z = 0.;						// default value
+		x->attr_view_end.x = 22.;						// according to the dbap maxhelp space
+		x->attr_view_end.y = 15.;						// according to the dbap maxhelp space
+		x->attr_view_end.z = 0.;						// according to the dbap maxhelp space
 
 		for (i=0; i<MAX_SIZE_VIEW_X; i++) {
 			for (j=0; j<MAX_SIZE_VIEW_Y; j++) {
@@ -153,11 +153,11 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 
 		x->hull2.num_dst = 0;
 		
-		attr_args_process(x, argc, argv);			// handle attribute args
-		dbap_calculate_a(x);						// calculate expo0nent coefficiant used for rolloff
-		dbap_calculate_variance(x);					// this implisitly also calculate all matrix values
+		attr_args_process(x, argc, argv);				// handle attribute args
+		dbap_calculate_a(x);							// calculate expo0nent coefficiant used for rolloff
+		dbap_calculate_variance(x);						// this implisitly also calculate all matrix values
 	}
-	return (x);										// return the pointer
+	return (x);											// return the pointer
 }
 
 
@@ -176,7 +176,7 @@ void dbap_blur(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 	float f;
 	
 	if ((argc>=2) && argv) {	
-		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		n = atom_getlong(argv)-1;						// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
 			error("Invalid argument(s) for blur");
 			return;
@@ -213,7 +213,7 @@ void dbap_source(t_dbap *x, void *msg, long argc, t_atom *argv)
 	long n;
 	
 	if (argc >= (x->attr_dimensions + 1)) {
-		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		n = atom_getlong(argv)-1;						// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_DESTINATIONS) ) {
 			error("Invalid arguments for source.");
 			return;
@@ -246,7 +246,7 @@ void dbap_destination(t_dbap *x, void *msg, long argc, t_atom *argv)
 	long n;
 	
 	if (argc >= (x->attr_dimensions + 1)) {
-		n = atom_getlong(argv)-1;							// we start counting from 1 for destinations
+		n = atom_getlong(argv)-1;						// we start counting from 1 for destinations
 		if ( (n<0) || (n>=MAX_NUM_DESTINATIONS) ) {
 			error("Invalid arguments for destination.");
 			return;
@@ -282,7 +282,7 @@ void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv)
 	float f;
 	
 	if ((argc>=2) && argv) {	
-		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		n = atom_getlong(argv)-1;						// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
 			error("Invalid argument(s) for source_gain");
 			return;
@@ -320,11 +320,11 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	if (argc && argv) {			
 		
-		if (atom_gettype(argv) == A_LONG) {						// the first argument is the source number
-			source = atom_getlong(argv)-1;						// we start counting from 1 for sources
+		if (atom_gettype(argv) == A_LONG) {				// the first argument is the source number
+			source = atom_getlong(argv)-1;				// we start counting from 1 for sources
 		
 			if ((source < 0)||(source >= x->attr_num_sources)) {
-				object_error((t_object*)x, "src_weight : the source n°%d doesn't exist", source);
+				object_error((t_object*)x, "src_weight : the source n°%d doesn't exist", source+1);
 				return;
 			}
 		}
@@ -333,7 +333,7 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 			return;
 		}
 		
-		for (i=0; i<x->attr_num_destinations; i++) {				// the rest is the list of weights for each destination
+		for (i=0; i<x->attr_num_destinations; i++) {	// the rest is the list of weights for each destination
 			
 			if (i+1 < argc) {
 				if (atom_gettype(&argv[i+1]) == A_LONG)
@@ -343,7 +343,7 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 					weight = atom_getfloat(&argv[i+1]);
 			}
 			else
-				weight = 0.0;									// if the list is smaller than the src_weight array, fill src_weight with 0.0
+				weight = 0.0;							// if the list is smaller than the src_weight array, fill src_weight with 0.0
 			
 			if (weight < 0.0) 
 				weight = 0.0;
@@ -364,7 +364,7 @@ void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 	long n;
 	
 	if ((argc>=2) && argv) {	
-		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		n = atom_getlong(argv)-1;						// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
 			error("Invalid argument(s) for source_gain");
 			return;
@@ -393,8 +393,8 @@ void dbap_hull(t_dbap *x, long f)
 			if (x->hull2.num_dst == 0) refresh = true;
 			}
 	}
-	if (refresh) dbap_calculate_hull(x,1);	//It's the same hull for all sources
-											//TODO : a hull for each source
+	if (refresh) dbap_calculate_hull(x,1);				//It's the same hull for all sources
+														//TODO : a hull for each source
 }
 
 /** Display a hitmap view of the dbap for a destination and a source weight config or all (on the info outlet ?) */
@@ -405,8 +405,8 @@ void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv)
 
 	if ((argc==2) && argv) {
 		if ((atom_gettype(argv) == A_LONG) && (atom_gettype(argv+1) == A_LONG)) {
-			dst = atom_getlong(argv)-1;							// we start counting from 1 for destinations
-			src = atom_getlong(argv+1)-1;						// we start counting from 1 for sources
+			dst = atom_getlong(argv)-1;					// we start counting from 1 for destinations
+			src = atom_getlong(argv+1)-1;				// we start counting from 1 for sources
 			if ((src<0) || (src>=MAX_NUM_SOURCES) || (dst<0) || (dst>=MAX_NUM_DESTINATIONS)) {
 				error("Invalid argument(s) for view");
 				return;
@@ -416,7 +416,7 @@ void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv)
 		else {
 			if ((atom_gettype(argv) == A_SYM) && (atom_gettype(argv+1) == A_LONG)) {
 				all = atom_getsym(argv);
-				src = atom_getlong(argv+1)-1;					// we start counting from 1 for sources
+				src = atom_getlong(argv+1)-1;			// we start counting from 1 for sources
 				if ((src<0) || (src>=MAX_NUM_SOURCES) || (all != gensym("all"))) {
 					error("Invalid argument(s) for view");
 					return;
@@ -696,14 +696,14 @@ void dbap_calculate(t_dbap *x, long n)
 
 void dbap_calculate1D(t_dbap *x, long n)
 {
-	double xPos;						// x-position of the source
-	double dist;						// Distance from source to convex hull
-	double k;							// Scaling coefficient
-	double k2inv;						// Inverse square of the scaling constant k
-	double dx;							// Distance vector
-	double r2;							// Bluriness ratio 
-	double dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
-	t_atom a[3];						// Output array of atoms
+	double xPos;										// x-position of the source
+	double dist;										// Distance from source to convex hull
+	double k;											// Scaling coefficient
+	double k2inv;										// Inverse square of the scaling constant k
+	double dx;											// Distance vector
+	double r2;											// Bluriness ratio 
+	double dia[MAX_NUM_DESTINATIONS];					// Distance to ith speaker to the power of x->a.
+	t_atom a[3];										// Output array of atoms
 	long i;
 
 	xPos = x->src_position[n].x;
@@ -748,20 +748,20 @@ void dbap_calculate1D(t_dbap *x, long n)
 
 void dbap_calculate2D(t_dbap *x, long n)
 {
-	float k;							// Scaling coefficient
-	float k2inv;						// Inverse square of the scaling constant k
-	float dx, dy;						// Distance vector
-	float r2;							// Bluriness ratio 
-	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
-	float sdia[MAX_NUM_DESTINATIONS];	// Squared Distance to ith speaker (without bluriness ratio)
-	long iC,iN;							// index of the the dest C and N dest in dst_position[]
-	float sSC,sSN,sCN;					// squared Distance of the Source to C and N and [CN]
-	t_xyz P;							// Projection point of Source on [CN], pointer to coord of S, C and N
+	float k;											// Scaling coefficient
+	float k2inv;										// Inverse square of the scaling constant k
+	float dx, dy;										// Distance vector
+	float r2;											// Bluriness ratio 
+	float dia[MAX_NUM_DESTINATIONS];					// Distance to ith speaker to the power of x->a.
+	float sdia[MAX_NUM_DESTINATIONS];					// Squared Distance to ith speaker (without bluriness ratio)
+	long iC,iN;											// index of the the dest C and N dest in dst_position[]
+	float sSC,sSN,sCN;									// squared Distance of the Source to C and N and [CN]
+	t_xyz P;											// Projection point of Source on [CN], pointer to coord of S, C and N
 	float kCN, dist, min_dist;
-	float v, out;						// is the source out of the hull ? (-1 inside, 1 outside)
-	long id_min;						// id of the closest dest
+	float v, out;										// is the source out of the hull ? (-1 inside, 1 outside)
+	long id_min;										// id of the closest dest
 	long i,j;
-	t_atom a[3];						// Output array of atoms
+	t_atom a[3];										// Output array of atoms
 
 	r2 = x->blur[n] * x->variance;
 	r2 = r2*r2;
@@ -820,9 +820,9 @@ void dbap_calculate2D(t_dbap *x, long n)
 			}
 		}
 
-		atom_setlong(&a[0],n+1);							// src (index starts at one for users
-		atom_setfloat(&a[1],out*min_dist);					// dist to hull
-		atom_setlong(&a[2],id_min+1);						// id of the closest dst in the hull 
+		atom_setlong(&a[0],n+1);						// src (index starts at one for users
+		atom_setfloat(&a[1],out*min_dist);				// dist to hull
+		atom_setlong(&a[2],id_min+1);					// id of the closest dst in the hull 
 		outlet_anything(x->outlet[1], _sym_list, 3, a);
 	}
 
@@ -839,12 +839,12 @@ void dbap_calculate2D(t_dbap *x, long n)
 
 void dbap_calculate3D(t_dbap *x, long n)
 {
-	double k;							// Scaling coefficient
-	double k2inv;						// Inverse square of the scaling constant k
-	double dx, dy, dz;					// Distance vector
-	double r2;							// Bluriness ratio 
-	double dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
-	t_atom a[3];						// Output array of atoms
+	double k;											// Scaling coefficient
+	double k2inv;										// Inverse square of the scaling constant k
+	double dx, dy, dz;									// Distance vector
+	double r2;											// Bluriness ratio 
+	double dia[MAX_NUM_DESTINATIONS];					// Distance to ith speaker to the power of x->a.
+	t_atom a[3];										// Output array of atoms
 	
 	
 	long i;
@@ -1012,10 +1012,10 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 	//dbap_hull2_postpoint(x, h2);
 
 	qsort(
-      &h2.point[1],					// pointer to 1st elem
-      x->attr_num_destinations-1,	// number of elems
-      sizeof(t_structPoint),		// size of each elem
-      Compare						// -1,0,+1 compare function
+      &h2.point[1],											// pointer to 1st elem
+      x->attr_num_destinations-1,							// number of elems
+      sizeof(t_structPoint),								// size of each elem
+      Compare												// -1,0,+1 compare function
 	);
 
 	// count nb_delete ('cause we can't do that in Compare)
@@ -1032,14 +1032,14 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 		i = 0;
 		j = 0;
 		while (i < x->attr_num_destinations) {
-			if (!h2.point[i].del) {		// if not marked for deletion
+			if (!h2.point[i].del) {							// if not marked for deletion
 				if (i != j) {
-					Copy(h2.point,i,j);	// Copy point[i] to point[j]
-					Delete(h2.point,i);	// Delete point[i]
+					Copy(h2.point,i,j);						// Copy point[i] to point[j]
+					Delete(h2.point,i);						// Delete point[i]
 				}
 				j++;
 			}
-			else Delete(h2.point,i);	// else Delete point[i]
+			else Delete(h2.point,i);						// else Delete point[i]
 			i++;
 		}
 		h2.nb_point = j;
@@ -1048,7 +1048,7 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 	// Debug
 	//post("h2D : %d points sorted by angle",h2.nb_point);
 	
-	h2.stack = Graham(h2);	// return NULL if it fails
+	h2.stack = Graham(h2);									// return NULL if it fails
 	
 	// Debug
 	//post("h2D : Hull");
@@ -1128,11 +1128,11 @@ void dbap_calculate_view1D(t_dbap *x, long dst, long src)
 
 void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 {
-	float k;							// Scaling coefficient
-	float k2inv;						// Inverse square of the scaling constant k
-	float dx, dy;						// Distance vector
-	float r2;							// Bluriness ratio 
-	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
+	float k;														// Scaling coefficient
+	float k2inv;													// Inverse square of the scaling constant k
+	float dx, dy;													// Distance vector
+	float r2;														// Bluriness ratio 
+	float dia[MAX_NUM_DESTINATIONS];								// Distance to ith speaker to the power of x->a.
 	float div_x, div_y;	
 	float pix;
 	long i,j,m_j,d;
