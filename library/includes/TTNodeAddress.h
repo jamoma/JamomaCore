@@ -34,7 +34,7 @@ typedef TTNodeAddress*	TTNodeAddressPtr;
 #define S_ATTRIBUTE		kTTSymColon
 #define S_WILDCARD		kTTSymStar
 
-#define S_DEVICE		TT(":/")
+#define S_DIRECTORY		TT(":/")
 
 
 // Comparison flags between address returned by address1->compare(address2)

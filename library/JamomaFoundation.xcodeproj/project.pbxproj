@@ -67,6 +67,7 @@
 		22D8CB1F1319BCEE008F80C7 /* TTPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D8CB1E1319BCEE008F80C7 /* TTPath.cpp */; };
 		22D8CB301319E93F008F80C7 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D8CB2E1319E93F008F80C7 /* libboost_filesystem.a */; };
 		22D8CB311319E93F008F80C7 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D8CB2F1319E93F008F80C7 /* libboost_system.a */; };
+		D2C6B74513C282F6006D5076 /* libboost_regex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2C6B74413C282F6006D5076 /* libboost_regex.a */; };
 		D2EB3CD01397391D0073D54A /* TTNodeAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2EB3CCF1397391D0073D54A /* TTNodeAddress.cpp */; };
 		D2EB3E961397AB270073D54A /* TTNodeLib.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2EB3E951397AB270073D54A /* TTNodeLib.test.cpp */; };
 		D2EB3E981397AB430073D54A /* TTValue.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2EB3E971397AB430073D54A /* TTValue.test.cpp */; };
@@ -135,6 +136,7 @@
 		22E3860510286BBE002000A9 /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = source/TTThread.cpp; sourceTree = "<group>"; };
 		22E3860610286BBE002000A9 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = source/TTValue.cpp; sourceTree = "<group>"; };
 		22E3860710286BBE002000A9 /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = source/TTValueCache.cpp; sourceTree = "<group>"; };
+		D2C6B74413C282F6006D5076 /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = "boost/lib-mac/libboost_regex.a"; sourceTree = "<group>"; };
 		D2EB3CC3139739030073D54A /* TTNodeAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeAddress.h; path = includes/TTNodeAddress.h; sourceTree = "<group>"; };
 		D2EB3CCF1397391D0073D54A /* TTNodeAddress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeAddress.cpp; path = source/TTNodeAddress.cpp; sourceTree = "<group>"; };
 		D2EB3E941397AB270073D54A /* TTNodeLib.test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeLib.test.h; path = tests/TTNodeLib.test.h; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				22610CCE11DD72A9000A3DA8 /* CoreServices.framework in Frameworks */,
 				22D8CB301319E93F008F80C7 /* libboost_filesystem.a in Frameworks */,
 				22D8CB311319E93F008F80C7 /* libboost_system.a in Frameworks */,
+				D2C6B74513C282F6006D5076 /* libboost_regex.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +206,7 @@
 			children = (
 				22D8CB2E1319E93F008F80C7 /* libboost_filesystem.a */,
 				22D8CB2F1319E93F008F80C7 /* libboost_system.a */,
+				D2C6B74413C282F6006D5076 /* libboost_regex.a */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				22578F1C0EC276B200A5EC32 /* CoreServices.framework */,
 			);

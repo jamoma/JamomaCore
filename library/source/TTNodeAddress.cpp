@@ -8,6 +8,9 @@
 
 #include "TTFoundationAPI.h"
 
+#include <boost/regex.hpp>
+using namespace boost;
+
 TTNodeAddress::TTNodeAddress(const TTString& newAddressString, TTInt32 newId)
 	: directory(NO_DIRECTORY), parent(NO_PARENT), name(NO_NAME), instance(NO_INSTANCE), attribute(NO_ATTRIBUTE), parsed(NO)
 {
@@ -109,12 +112,8 @@ TTNodeAddressPtr TTNodeAddress::appendAddress(const TTNodeAddressPtr toAppend)
 }
 
 TTErr TTNodeAddress::parse()
-{
-	TTString address = this->getCString();
-	long len, pos, first_slash, first_colon;
-	char *last_colon, *last_slash, *last_dot;
-	char *c_directory, *c_attribute, *c_parent, *c_instance;
-	char *to_split;
+{	
+	// "directory:/parent/address/name.instance:attribute" parsing
 	
 	// Empty case :
 	if (this == kTTAdrsEmpty) {
@@ -140,82 +139,95 @@ TTErr TTNodeAddress::parse()
 		return kTTErrNone;
 	}
 	
-	// TODO : replace all ".0" by ""
+	// All other case needs a regex parsing
+	string s_toParse = this->getCString();
+	string s_directory;
+	string s_parent;
+	string s_name;
+	string s_instance;
+	string s_attribute;
 	
-	// Parse directory (:/)
-	to_split = (char *)malloc(sizeof(char)*(strlen(address.data())+1));
-	strcpy(to_split, address.data());
-	first_colon = address.find_first_of(C_ATTRIBUTE);
-	first_slash = address.find_first_of(C_SEPARATOR);
-	if (first_colon > 0 && first_colon == first_slash-1) {
-		c_directory = (char *)malloc(sizeof(char)*first_colon);
-		strncpy(c_directory, to_split, first_colon);
-		c_directory[first_colon] = NULL;
-		
-		this->directory = TT(c_directory);
-		
-		strcpy(to_split, to_split+first_colon+1);
-	}
+	boost::regex ex_directory("([\\w]+)\\:/");					// TODO : depends on S_DIRECTORY
+	boost::regex ex_attribute(":+");							// TODO : depends on C_ATTRIBUTE
+	boost::regex ex_parent("(.*)/+(\\S+)");						// TODO : depends on C_SEPARATOR
+	boost::regex ex_instance("[.]");							// TODO : depends on C_INSTANCE
+	boost::match_results <std::string::const_iterator> what;
+	string::const_iterator start, end;
 	
-	// find the last ':' in the address
-	// if exists, split the address in an address part (to split) and an attribute part
-	len = strlen(to_split);
-	last_colon = strrchr(to_split, C_ATTRIBUTE);
-	pos = (long)last_colon - (long)to_split;
+	//cout << "*** s_toParse    " << s_toParse << "    ***" << endl;
+	start = s_toParse.begin();
+	end = s_toParse.end();
 	
-	if (last_colon) {
-		c_attribute = (char *)malloc(sizeof(char)*(len - (pos+1)));
-		strcpy(c_attribute,to_split + pos+1);
-		this->attribute = TT(c_attribute);
-		to_split[pos] = NULL;
-	}
+	// parse directory
+	if (boost::regex_search(start, end, what, ex_directory))
+	{
+		s_directory = string(what[1].first, what[1].second);
+		s_toParse = string(what[1].second+1, end);			// +1 to remove ":"
 
-	
-	// find the last '/' in the address part
-	len = strlen(to_split);
-	last_slash = strrchr(to_split, C_SEPARATOR);
-	pos = (long)last_slash - (long)to_split;
-	
-	if (last_slash) {
-		if (pos) { // In the root case pos == 0
-			c_parent = (char *)malloc(sizeof(char)*(pos+1));
-			strncpy(c_parent,to_split,pos);
-			c_parent[pos] = NULL;
-			this->parent = TTADRS(c_parent);
-			to_split = last_slash+1;
-		}
-		else {
-			// Is it the root or a child of the root ?
-			if (strlen(to_split) > 1) {
-				this->parent = kTTAdrsRoot;
-				to_split = last_slash+1;
-			}
-		}
-	}
-	
-	// find the last '.' in the name.instance part
-	// if exists, split the name.instance part
-	len = strlen(to_split);
-	last_dot = strrchr(to_split, C_INSTANCE);
-	pos = (long)last_dot - (long)to_split;
-	
-	if (last_dot > 0) {
-		c_instance = (char *)malloc(sizeof(char)*(len - (pos+1)));
-		strcpy(c_instance,to_split + pos+1);
-		this->instance = TT(c_instance);
+		start = s_toParse.begin();
+		end = s_toParse.end();
 		
-		to_split[pos] = NULL;	// split to keep only the name part
+		//cout << "directory :  " << s_directory << endl;
+		//cout << "s_toParse :  " << s_toParse << endl;
 	}
+	this->directory = TT(s_directory);
 	
-	// TODO : ??? (detect unusual characters in a name)
-	if (strlen(to_split) > 0)
-		this->name = TT(to_split);
+	// parse attribute
+	if (boost::regex_search(start, end, what, ex_attribute))
+	{
+		s_attribute = string(what[1].second, end);
+		s_toParse = string(start, what[1].first-1);			// -1 to remove ":"
+		
+		start = s_toParse.begin();
+		end = s_toParse.end();
+		
+		//cout << "attribute :  " << s_attribute << endl;
+		//cout << "s_toParse :  " << s_toParse << endl;
+	}
+	this->attribute = TT(s_attribute);
 	
-	// the type of the address is absolute if
-	if (parent != NO_PARENT)
-		this->type = parent->getType();
+	// parse parent
+	if (boost::regex_search(start, end, what, ex_parent))
+	{
+		// if the split is due to a slash at the beginning : parent = /
+		if (what[1].first == what[1].second)
+			s_parent = C_SEPARATOR;
+		else
+			s_parent = string(what[1].first, what[1].second);
+		
+		s_toParse = string(what[1].second+1, end);			// +1 to remove "/"
+		
+		start = s_toParse.begin();
+		end = s_toParse.end();
+		
+		//cout << "parent    :  " << s_parent << endl;
+		//cout << "s_toParse :  " << s_toParse << endl;
+	}
+	this->parent = TTADRS(s_parent);
+	
+	// parse instance
+	if (boost::regex_search(start, end, what, ex_instance))
+	{
+		s_instance = string(what[1].second, end);
+		s_toParse = string(start, what[1].first-1);			// -1 to remove "."
+		
+		start = s_toParse.begin();
+		end = s_toParse.end();
+		
+		//cout << "instance  :  " << s_instance << endl;
+	}
+	this->instance = TT(s_instance);
+	
+	// consider the rest is the name
+	this->name = TT(s_toParse);
+	
+	//cout << "name      :  " << s_toParse << endl;
+	
+	// the type of the address
+	if (this->parent != NO_PARENT)
+		this->type = this->parent->getType();
 	else
-		this->type = (TTNodeAddressType)(directory != NO_DIRECTORY || name == S_SEPARATOR);
+		this->type = (TTNodeAddressType)(this->directory != NO_DIRECTORY || this->name == S_SEPARATOR);
 	
 	this->parsed = YES;
 	return kTTErrNone;
