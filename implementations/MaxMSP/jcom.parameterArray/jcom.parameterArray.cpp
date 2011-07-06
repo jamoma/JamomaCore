@@ -144,6 +144,11 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 		
 		if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
 			
+			// to -- is this parsing do not introduce memory disturbance ?
+			//return always 1 to debug
+			//number = 1;
+			//x->i_format = "source/position.%d";
+			
 			number = jamoma_parse_bracket(relativeAddress, &x->i_format, &x->s_format);
 			
 			if (number) {
@@ -169,7 +174,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 					data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
 #endif
 #endif
-					aSubscriber == NULL;
+					aSubscriber = NULL;
 					if (!jamoma_subscriber_create((ObjectPtr)x, anObject, instanceAddress,  &aSubscriber)) {
 						
 						if (aSubscriber) {

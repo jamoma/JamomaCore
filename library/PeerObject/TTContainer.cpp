@@ -517,8 +517,9 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 {
 	TTNodeAddressPtr aRelativeAddress;
-	TTValue			cacheElement;
+	TTValue			v, cacheElement;
 	TTObjectPtr		anObject, anObserver;
+	TTSymbolPtr		service;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTErr			err;
@@ -540,32 +541,40 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 			// it is a Data
 			if (anObject->getName() == TT("Data")) {
 				
-				// delete Value observer
-				anObserver = NULL;
-				cacheElement.get(1, (TTPtr*)&anObserver);
-				anAttribute = NULL;
-				err = anObject->findAttribute(kTTSym_value, &anAttribute);
+				// What kind of service the data is used for ?
+				anObject->getAttributeValue(kTTSym_service, v);
+				v.get(0, &service);
 				
-				if(!err){
+				// delete Value observer for parameter and return
+				if (service == kTTSym_parameter || service == kTTSym_return) {
+					anObserver = NULL;
+					cacheElement.get(1, (TTPtr*)&anObserver);
+					anAttribute = NULL;
+					err = anObject->findAttribute(kTTSym_value, &anAttribute);
 					
-					err = anAttribute->unregisterObserverForNotifications(*anObserver);
-					
-					if(!err)
-						TTObjectRelease(&anObserver);
+					if(!err){
+						
+						err = anAttribute->unregisterObserverForNotifications(*anObserver);
+						
+						if(!err)
+							TTObjectRelease(&anObserver);
+					}
 				}
 				
-				// delete Command observer
-				anObserver = NULL;
-				cacheElement.get(2, (TTPtr*)&anObserver);
-				aMessage = NULL;
-				err = anObject->findMessage(kTTSym_Command, &aMessage);
-				
-				if(!err){
+				// delete Command observer for parameter and message
+				if (service == kTTSym_parameter || service == kTTSym_message) {
+					anObserver = NULL;
+					cacheElement.get(2, (TTPtr*)&anObserver);
+					aMessage = NULL;
+					err = anObject->findMessage(kTTSym_Command, &aMessage);
 					
-					err = aMessage->unregisterObserverForNotifications(*anObserver);
-					
-					if(!err)
-						TTObjectRelease(&anObserver);
+					if(!err){
+						
+						err = aMessage->unregisterObserverForNotifications(*anObserver);
+						
+						if(!err)
+							TTObjectRelease(&anObserver);
+					}
 				}
 			}
 			

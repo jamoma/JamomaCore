@@ -19,6 +19,7 @@
 		D266098F133B92020068ACC2 /* TTApplicationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D266098D133B92020068ACC2 /* TTApplicationManager.cpp */; };
 		D29B5A3B13593FB6003B6690 /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29B5A2613593FB6003B6690 /* PluginFactories.cpp */; };
 		D29B5A3C13593FB6003B6690 /* TTPluginHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29B5A2813593FB6003B6690 /* TTPluginHandler.cpp */; };
+		D29D9C0813C4A1590011BD65 /* TTMirror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29D9C0713C4A1590011BD65 /* TTMirror.cpp */; };
 		D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AADF74127980AA00629B73 /* TTApplication.cpp */; };
 		D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AB7E74123FC21E00DAD340 /* TTData.cpp */; };
 		D2ADBFFA127DFBC900979D42 /* TTOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */; };
@@ -61,6 +62,8 @@
 		D29B59F313593FB6003B6690 /* TTPluginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPluginHandler.h; path = includes/TTPluginHandler.h; sourceTree = "<group>"; };
 		D29B5A2613593FB6003B6690 /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PluginFactories.cpp; path = source/PluginFactories.cpp; sourceTree = "<group>"; };
 		D29B5A2813593FB6003B6690 /* TTPluginHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPluginHandler.cpp; path = source/TTPluginHandler.cpp; sourceTree = "<group>"; };
+		D29D9C0613C4A1590011BD65 /* TTMirror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMirror.h; sourceTree = "<group>"; };
+		D29D9C0713C4A1590011BD65 /* TTMirror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror.cpp; sourceTree = "<group>"; };
 		D2AADF74127980AA00629B73 /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
 		D2AADF75127980AA00629B73 /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
 		D2AB7E74123FC21E00DAD340 /* TTData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTData.cpp; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 				D2CA88181213F47D0090DE41 /* TTMapper.cpp */,
 				D242BB5B12841CE40036A509 /* TTMapperManager.h */,
 				D242BB5A12841CE40036A509 /* TTMapperManager.cpp */,
+				D29D9C0613C4A1590011BD65 /* TTMirror.h */,
+				D29D9C0713C4A1590011BD65 /* TTMirror.cpp */,
 				D2ADBFF7127DFBC900979D42 /* TTOutput.h */,
 				D2ADBFF6127DFBC900979D42 /* TTOutput.cpp */,
 				D2CA881D1213F47D0090DE41 /* TTPreset.h */,
@@ -344,6 +349,7 @@
 				D266098F133B92020068ACC2 /* TTApplicationManager.cpp in Sources */,
 				D29B5A3B13593FB6003B6690 /* PluginFactories.cpp in Sources */,
 				D29B5A3C13593FB6003B6690 /* TTPluginHandler.cpp in Sources */,
+				D29D9C0813C4A1590011BD65 /* TTMirror.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,7 +393,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = JamomaPrefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Foundation/library/boost/lib-mac\"",
+				);
 			};
 			name = Development;
 		};
@@ -417,6 +426,7 @@
 					"\"$(SRCROOT)/../extensions/PluginLib/build/PluginLib.build/Development/JamomaExtension.build/Objects-normal/i386\"",
 					"\"$(SRCROOT)/../extensions/PluginLib/build/PluginLib.build/Development/JamomaExtension.build/Objects-normal/x86_64\"",
 					"\"$(SRCROOT)/../extensions/PluginLib/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Foundation/library/boost/lib-mac\"",
 				);
 			};
 			name = Deployment;
