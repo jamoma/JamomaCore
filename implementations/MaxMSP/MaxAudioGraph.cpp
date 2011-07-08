@@ -292,6 +292,7 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 			AtomCount	ac = v.getSize();
 
 			if (ac) {
+				// TODO: This smells like a memory leak....
 				AtomPtr		av = (AtomPtr)malloc(sizeof(Atom) * ac);
 				
 				for (AtomCount i=0; i<ac; i++) {
