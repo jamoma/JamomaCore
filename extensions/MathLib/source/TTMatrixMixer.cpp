@@ -90,6 +90,8 @@ TTErr TTMatrixMixer::setGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
+	checkMatrixSize(x,y);	
+	
 	mGainMatrix[x][y] = dbToLinear(gainValue);
 	return kTTErrNone;
 }
@@ -104,11 +106,12 @@ TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue)
 	if (newValue.getSize() != 3)
 		return kTTErrWrongNumValues;
 	
-	// FIXME: check bounds and increase matrix size if needed!!!
 	
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
+	checkMatrixSize(x,y);
+	
 	mGainMatrix[x][y] = gainValue;
 	return kTTErrNone;
 }
@@ -126,18 +129,29 @@ TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
+	checkMatrixSize(x,y);	
+	
 	mGainMatrix[x][y] = midiToLinearGain(gainValue);
 	return kTTErrNone;
 }
 
+TTErr TTMatrixMixer::checkMatrixSize(TTUInt16 x, TTUInt16 y)
+//this function will resize mGainMatrix if necessary
+{	
+	if (x > (mNumInputs-1)){
+		if (y > (mNumOutputs-1)) mNumOutputs = y+1;
+		setNumInputs(x+1); 
+	}
+		else if (y > (mNumOutputs-1)) setNumOutputs(y+1);
+		
+	return kTTErrNone;
+}
 
 void TTMatrixMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 gain)
 {
-	TTUInt16			vs;
-	TTSampleValuePtr	inSample;
-	TTSampleValuePtr	outSample;
+	TTUInt16			vs, channel;
+	TTSampleValuePtr	inSample, outSample;
 	TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16			channel;
 	
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -158,18 +172,22 @@ void TTMatrixMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 
 	We may need to speed up this operation by iterating through the signals using direct access of the structs.
 */
 TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
-{
-	setNumInputs(inputs->numAudioSignals);
-	setNumOutputs(outputs->numAudioSignals);
+{ //TODO: if mGainMatrix is sparse (i.e. it has a lot of zeros), we can do better than this algorithm which iterates through the entire matrix
 	
-	for (TTUInt16 y=0; y < mNumOutputs; y++) {
+	TTUInt16 minChannelIn = min(mNumInputs,inputs->numAudioSignals);
+	TTFloat64 gain;
+	
+	for (TTUInt16 y=0; y < outputs->numAudioSignals; y++) {
 		TTAudioSignal&	out = outputs->getSignal(y);
-		
-		out.clear();
-		for (TTUInt16 x=0; x < mNumInputs; x++) {
-			TTAudioSignal&	in = inputs->getSignal(x);
-			
-			processOne(in, out, mGainMatrix[x][y]);
+		out.clear(); //FIXME: do we have to do a clear() all the time ??
+		if (y < (mNumOutputs)){
+			for (TTUInt16 x=0; x < minChannelIn; x++) {
+				gain = mGainMatrix[x][y];
+				if (gain){ //if the gain value is zero, just pass processOne 
+					TTAudioSignal&	in = inputs->getSignal(x);
+					processOne(in, out, gain);
+				}
+			}
 		}
 	}
 	return kTTErrNone;
