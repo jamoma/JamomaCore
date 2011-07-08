@@ -89,6 +89,8 @@ TTErr TTAudioMatrix::setGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
+	newValue.clear();
+
 	if ((x < mNumInputs) && (y < mNumOutputs)) {  
 		mGainMatrix[x][y] = dbToLinear(gainValue);
 		return kTTErrNone;}
@@ -108,10 +110,13 @@ TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue)
 	
 	newValue.get(0, x);
 	newValue.get(1, y);
-	newValue.get(2, gainValue);
+	newValue.get(2, gainValue);	
+	newValue.clear();
+	
 	if ((x < mNumInputs) && (y < mNumOutputs)) { 
 		mGainMatrix[x][y] = gainValue;
-		return kTTErrNone;}
+		return kTTErrNone;
+	}
 	else 
 		return kTTErrInvalidValue;
 }
@@ -129,6 +134,8 @@ TTErr TTAudioMatrix::setMidiGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
+	newValue.clear();
+
 	if ((x < mNumInputs) && (y < mNumOutputs)) {
 		mGainMatrix[x][y] = midiToLinearGain(gainValue);
 		return kTTErrNone;}
