@@ -1,6 +1,6 @@
 /* 
  *	MaxAudioGraph
- *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
+ *	A thin wrapper of the Audio Graph audio system for use in the Cycling '74 Max/MSP environment.
  *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
  *	Copyright © 2008 by Timothy Place
  * 
@@ -136,6 +136,7 @@ TTErr MaxAudioGraphSetup(ObjectPtr x)
 }
 
 
+/* A graph link has been established */
 TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
 	WrappedInstancePtr	self = WrappedInstancePtr(x);
@@ -145,6 +146,7 @@ TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject,
 }
 
 
+/* A graph link has been dropped */
 TTErr MaxAudioGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
 {
 	WrappedInstancePtr		self = WrappedInstancePtr(x);
@@ -167,6 +169,7 @@ TTErr MaxAudioGraphObject(ObjectPtr x, TTAudioGraphObjectPtr* returnedAudioGraph
 }
 
 
+/* The attribute getter */
 t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
@@ -206,6 +209,7 @@ t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr a
 }
 
 
+/* The attribute setter */
 t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
@@ -237,6 +241,7 @@ t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr a
 }
 
 
+/* Get number of channels of the audio graph signal */
 t_max_err MaxAudioGraphWrappedClass_attrGetNumChannels(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	*argc = 1;
@@ -248,6 +253,7 @@ t_max_err MaxAudioGraphWrappedClass_attrGetNumChannels(WrappedInstancePtr self, 
 }
 
 
+/* Set number of channels of the audio graph signal */
 t_max_err MaxAudioGraphWrappedClass_attrSetNumChannels(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc)
@@ -256,6 +262,7 @@ t_max_err MaxAudioGraphWrappedClass_attrSetNumChannels(WrappedInstancePtr self, 
 }
 
 
+/* Method for "anything" messages */
 void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {	
 	TTValue		v;
