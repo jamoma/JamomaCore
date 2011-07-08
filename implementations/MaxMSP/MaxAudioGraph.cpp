@@ -262,14 +262,17 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 	TTSymbolPtr	ttName = NULL;
 	MaxErr		err;
 	
+	// Check to see that the message can be understood
 	err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, s, (ObjectPtr*)&ttName);
 	if (err) {
 		object_post(SELF, "no method found for %s", s->s_name);
 		return;
 	}
-
+	
 	if (argc && argv) {
 		v.setSize(argc);
+		
+		// Typechecking - we only want ints, floats and symbols
 		for (AtomCount i=0; i<argc; i++) {
 			if (atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
@@ -280,6 +283,8 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 			else
 				object_error(SELF, "bad type for message arg");
 		}
+		
+		// Now that we know that the message is OK we send it on to the wrapped class
 		self->audioGraphObject->getUnitGenerator()->sendMessage(ttName, v);
 		
 		// process the returned value for the dumpout outlet
