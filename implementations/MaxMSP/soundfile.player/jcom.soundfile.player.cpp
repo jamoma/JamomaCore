@@ -23,13 +23,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	
 	wrapAsMaxAudioGraph(TT("soundfile.player"), "jcom.soundfile.player≈", &c, options);
 	CLASS_ATTR_STYLE(c->maxClass,		"filePath", 0,	"file");
-	CLASS_ATTR_STYLE(c->maxClass,		"play",		0,	"onoff");
-	CLASS_ATTR_STYLE(c->maxClass,		"loop",		0,	"onoff");	
 	
 	wrapAsMaxAudioGraph(TT("soundfile.player"), "soundfile.player≈", &c, options);
 	CLASS_ATTR_STYLE(c->maxClass,		"filePath", 0,	"file");
-	CLASS_ATTR_STYLE(c->maxClass,		"play",		0,	"onoff");
-	CLASS_ATTR_STYLE(c->maxClass,		"loop",		0,	"onoff");	
 	
 	return 0;
 }
