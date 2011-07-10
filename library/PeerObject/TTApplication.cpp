@@ -619,8 +619,8 @@ TTErr TTApplication::ReadFromOpml(const TTValue& value)
 	TTMirrorPtr			aMirror;
 	TTNodePtr			aNode;
 	TTBoolean			empty, newInstanceCreated;
-	TTObjectPtr			getAttributeCallback, setAttributeCallback, sendMessageCallback;
-	TTValuePtr			getAttributeBaton, setAttributeBaton, sendMessageBaton;
+	TTObjectPtr			getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
+	TTValuePtr			getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
 	TTPluginHandlerPtr	aPlugin;
 	TTValue				v, args;
 	
@@ -708,6 +708,15 @@ TTErr TTApplication::ReadFromOpml(const TTValue& value)
 						sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
 						sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerSendMessageCallback));
 						args.append(sendMessageCallback);
+						
+						listenAttributeCallback = NULL;
+						TTObjectInstantiate(TT("callback"), &listenAttributeCallback, kTTValNONE);
+						listenAttributeBaton = new TTValue(TTPtr(aPlugin));
+						listenAttributeBaton->append(TTPtr(this));
+						listenAttributeBaton->append(absoluteAddress);
+						listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
+						listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerListenAttributeCallback));
+						args.append(listenAttributeCallback);
 						
 						TTObjectInstantiate(TT("Mirror"), TTObjectHandle(&aMirror), args);
 						

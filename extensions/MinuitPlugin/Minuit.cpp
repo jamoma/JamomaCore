@@ -46,11 +46,9 @@
  */
 
 #include "Plugin.h"
-
 #include "MinuitInclude.hpp"
-#include "MinuitCommunicationMethods.hpp"
+#include "MinuitMethods.hpp"
 
-#include <sstream>
 
 static const unsigned int MINUIT_RECEPTION_PORT = 7002;
 
@@ -58,23 +56,25 @@ void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr a
 void receiveGetRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address);
 void receiveSetRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, TTValue& value);
 void receiveListenRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, bool enable);
+void receiveListenAnswerCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, TTValue& value);
 
 class Minuit : public Plugin {
 	
 private:
 	
-	MinuitCommunicationMethods* m_minuitMethods;		//this class contains the osc communication methods
+	MinuitMethodsPtr mMethods;		//this class contains the osc communication methods
 	
 	friend void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address);
 	friend void receiveGetRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr address);
 	friend void receiveSetRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, TTValue& value);
 	friend void receiveListenRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, bool enable);
+	friend void receiveListenAnswerCallBack(TTPtr arg, TTString from, TTNodeAddressPtr address, TTValue& value);
 	
 public:
 	
 	~Minuit() 
 	{
-		delete m_minuitMethods;
+		delete mMethods;
 	}
 	
 	/************************************************
@@ -103,30 +103,37 @@ public:
 		TTInt32		port;
 		TTErr		err;
 		
-		m_minuitMethods = new MinuitCommunicationMethods();
-
-		if (mParameters != NULL) {
-	
-			err = mParameters->lookup(TT("port"), v);
-			if (!err) {
-				v.get(0, port);
-				m_minuitMethods->minuitRunOSCListening(port);
-			} else {
-				m_minuitMethods->minuitRunOSCListening(MINUIT_RECEPTION_PORT);
+		if (!mRunning) {
+			
+			mMethods = new MinuitMethods();
+			
+			mMethods->mSetRequestBaton = this;
+			mMethods->mSetRequestCallBack = &receiveSetRequestCallBack;
+			
+			mMethods->mDiscoverRequestBaton = this;
+			mMethods->mDiscoverRequestCallBack = &receiveDiscoverRequestCallback;
+			
+			mMethods->mGetRequestBaton = this;
+			mMethods->mGetRequestCallBack = &receiveGetRequestCallback;
+			
+			mMethods->mListenRequestBaton = this;
+			mMethods->mListenRequestCallBack = &receiveListenRequestCallBack;
+			
+			mMethods->mListenAnswerBaton = this;
+			mMethods->mListenAnswerCallBack = &receiveListenAnswerCallBack;
+			
+			
+			if (mParameters != NULL) {
+				
+				err = mParameters->lookup(TT("port"), v);
+				if (!err) {
+					v.get(0, port);
+					mMethods->Run(port);
+				} else {
+					mMethods->Run(MINUIT_RECEPTION_PORT);
+				}
 			}
 		}
-		
-		m_minuitMethods->m_setRequestCallBackArgument = this;
-		m_minuitMethods->m_setRequestCallBack = &receiveSetRequestCallBack;
-		
-		m_minuitMethods->m_discoverRequestCallBackArgument = this;
-		m_minuitMethods->m_discoverRequestCallBack = &receiveDiscoverRequestCallback;
-		
-		m_minuitMethods->m_getRequestCallBackArgument = this;
-		m_minuitMethods->m_getRequestCallBack = &receiveGetRequestCallback;
-		
-		m_minuitMethods->m_listenRequestCallBackArgument = this;
-		m_minuitMethods->m_listenRequestCallBack = &receiveListenRequestCallBack;
 		
 		return kTTErrNone;
 	}
@@ -137,8 +144,11 @@ public:
 	 */
 	TTErr Stop()
 	{
-		// TODO
-		return kTTErrGeneric;
+		if (mRunning) {
+			delete mMethods;
+		}
+		
+		return kTTErrNone;
 	}
 
 	/**************************************************************************************************************************
@@ -148,7 +158,7 @@ public:
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Send a discover request to a application to get a part of the namespace at the given address
+	 * Send a discover request to an application to get a part of the namespace at the given address
 	 *
  	 * \param to					: the application where to discover
 	 * \param address				: the address to discover
@@ -158,7 +168,7 @@ public:
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 									else it returns kTTErrGeneric if no answer or timeout
 	 */
-	TTErr applicationSendDiscoverRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+	TTErr SendDiscoverRequest(TTObjectPtr to, TTNodeAddressPtr address, 
 										 TTValue& returnedChildrenNames,
 										 TTValue& returnedChildrenTypes,
 										 TTValue& returnedAttributes)
@@ -190,10 +200,10 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendDiscoverRequest " << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
+			mMethods->SendMessage(header, arguments, ip, port);
 			
 			// Wait for an answer from an IP on a specific port
-			m_minuitMethods->minuitAddDiscoverAnswer(remoteAppName, address, ip, port, DEFAULT_TIMEOUT);
+			mMethods->AddDiscoverAnswer(remoteAppName, address);
 			
 			state = ANSWER_RECEIVED;
 			do
@@ -203,11 +213,115 @@ public:
 #else
 				usleep(1000);
 #endif
-				state = m_minuitMethods->minuitWaitDiscoverAnswer(remoteAppName, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes);
+				state = mMethods->CheckDiscoverAnswer(remoteAppName, address, v);
 			}
 			while(state == NO_ANSWER);
 			
 			if (state == ANSWER_RECEIVED) {
+				
+				// TODO parse the answer into returnedChildrenNames, returnedChildrenTypes, returnedAttributes
+				/* TODO parse the answer
+				 bool find_end;
+				 osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();
+				 
+				 // don't parse sender?operation /whereTo
+				 arg++;
+				 
+				 // parse something like : nodes={ some nodes } leaves={ some leaves } attributes={ somes attributes }
+				 while(arg != m.ArgumentsEnd()){
+				 
+				 TTString currentString = arg->AsString();
+				 
+				 // parse nodes
+				 if(currentString.compare(MINUIT_START_NODES) == 0){
+				 
+				 do{
+				 arg++;
+				 std::ostringstream parsed;
+				 if (arg->IsChar()) {
+				 parsed << arg->AsChar();
+				 } else if (arg->IsInt32()) {
+				 parsed << arg->AsInt32();
+				 } else if (arg->IsFloat()) {
+				 parsed << arg->AsFloat();
+				 }  else if (arg->IsString()) {
+				 parsed << arg->AsString();
+				 }
+				 
+				 currentString = parsed.str();
+				 // don't store the end flag
+				 find_end = currentString.compare(MINUIT_END_NODES) == 0;
+				 if(!find_end) {
+				 #ifdef TT_PLUGIN_DEBUG
+				 cout << "Parsed names " << parsed.str() << endl;
+				 #endif
+				 m_names.append(TT(currentString));
+				 }
+				 }
+				 while(!find_end);
+				 
+				 }
+				 else if(currentString.compare(MINUIT_START_TYPES) == 0){
+				 
+				 do{
+				 arg++;
+				 std::ostringstream parsed;
+				 if (arg->IsChar()) {
+				 parsed << arg->AsChar();
+				 } else if (arg->IsInt32()) {
+				 parsed << arg->AsInt32();
+				 } else if (arg->IsFloat()) {
+				 parsed << arg->AsFloat();
+				 }  else if (arg->IsString()) {
+				 parsed << arg->AsString();
+				 }
+				 
+				 currentString = parsed.str();
+				 // don't store the end flag
+				 find_end = currentString.compare(MINUIT_END_TYPES) == 0;
+				 if(!find_end) {
+				 #ifdef TT_PLUGIN_DEBUG
+				 cout << "Parsed types " << parsed.str() << endl;
+				 #endif
+				 m_types.append(TT(currentString));
+				 }
+				 }
+				 while(!find_end);
+				 
+				 }
+				 else if(currentString.compare(MINUIT_START_ATTRIBUTES) == 0){
+				 
+				 do{
+				 arg++;
+				 std::ostringstream parsed;
+				 if (arg->IsChar()) {
+				 parsed << arg->AsChar();
+				 } else if (arg->IsInt32()) {
+				 parsed << arg->AsInt32();
+				 } else if (arg->IsFloat()) {
+				 parsed << arg->AsFloat();
+				 }  else if (arg->IsString()) {
+				 parsed << arg->AsString();
+				 }
+				 
+				 currentString = parsed.str();
+				 // don't store the end flag
+				 find_end = currentString.compare(MINUIT_END_ATTRIBUTES) == 0;
+				 if(!find_end) {
+				 #ifdef TT_PLUGIN_DEBUG
+				 cout << "Parsed attributes " << parsed.str() << endl;
+				 #endif
+				 m_attributes.append(TT(currentString));
+				 }
+				 }
+				 while(!find_end);
+				 
+				 }
+				 else
+				 arg++;
+				 }
+				 */
+				
 				return kTTErrNone;
 			} else {
 				return kTTErrGeneric;
@@ -218,7 +332,7 @@ public:
 	}
 	
 	/*!
-	 * Send a get request to a application to get a value at the given address
+	 * Send a get request to an application to get a value at the given address
 	 *
  	 * \param to					: the application where to get
 	 * \param address				: the address to get
@@ -226,7 +340,7 @@ public:
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 									else it returns kTTErrGeneric if no answer or timeout
 	 */
-	TTErr applicationSendGetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+	TTErr SendGetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
 									TTValue& returnedValue)
 	{	
 		TTValue		v, arguments;
@@ -256,10 +370,11 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendGetRequest " << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
 			
-			// Wait for an answer from an IP on a specific port
-			m_minuitMethods->minuitAddGetAnswer(remoteAppName, address, DEFAULT_TIMEOUT);
+			mMethods->SendMessage(header, arguments, ip, port);
+			
+			// Wait for an answer
+			mMethods->AddGetAnswer(remoteAppName, address);
 			
 			state = ANSWER_RECEIVED;
 			do
@@ -269,7 +384,7 @@ public:
 #else
 				usleep(1000);
 #endif
-				state = m_minuitMethods->minuitWaitGetAnswer(remoteAppName, address, returnedValue, false);
+				state = mMethods->CheckGetAnswer(remoteAppName, address, returnedValue);
 			}
 			while(state == NO_ANSWER);
 			
@@ -290,7 +405,7 @@ public:
 	 * \param value					: anything to send
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	TTErr applicationSendSetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+	TTErr SendSetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
 									TTValue& value)
 	{
 		TTValue		arguments;
@@ -304,7 +419,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendSetRequest " << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(address->getCString(), arguments, ip, port);
+			mMethods->SendMessage(address->getCString(), arguments, ip, port);
 
 			return kTTErrNone;
 		}
@@ -320,20 +435,25 @@ public:
 	 * \param enable				: enable/disable the listening
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	TTErr applicationSendListenRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+	TTErr SendListenRequest(TTObjectPtr to, TTNodeAddressPtr address, 
 									   TTBoolean enable)
 	{
 		TTValue		v, arguments;
-		TTString	ip, appName, header, aString;
+		TTString	ip, localAppName, remoteAppName, header, aString;
 		TTUInt32	port;
+		
+		// get the remote application name
+		to->getAttributeValue(TT("name"), v);
+		v.toString();
+		v.get(0, remoteAppName);
 
 		// get the local app name
 		getApplicationLocalName(v);
 		v.toString();
-		v.get(0, appName);
+		v.get(0, localAppName);
 		
 		// edit header "appName?listen"
-		header = appName;	// add name of application
+		header = localAppName;	// add name of application
 		header += MINUIT_REQUEST_LISTEN;
 		
 		// edit arguments <address, enable>
@@ -350,7 +470,10 @@ public:
 			std::cout << "Minuit : applicationSendListenRequest " << std::endl;
 #endif
 
-			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
+			mMethods->SendMessage(header, arguments, ip, port);
+			
+			// Wait for an answer
+			mMethods->AddListenAnswer(remoteAppName, address);
 			
 			return kTTErrNone;
 		}
@@ -366,7 +489,7 @@ public:
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Send a disover answer to a application which ask for.
+	 * Send a disover answer to an application which ask for.
 	 *
 	 * \param to					: the application where to send answer
 	 * \param address				: the address where comes from the description
@@ -374,7 +497,7 @@ public:
 	 * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
 	 * \param returnedAttributes	: all attributes the node at the address
 	 */
-	TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
+	TTErr SendDiscoverAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
 										TTValue& returnedChildrenNames, 
 										TTValue& returnedChildrenTypes, 
 										TTValue& returnedAttributes, 
@@ -447,7 +570,7 @@ public:
 			std::cout << "Minuit : applicationSendDiscoverAnswer " << std::endl;
 #endif
 
-			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
+			mMethods->SendMessage(header, arguments, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -456,13 +579,13 @@ public:
 	}
 	
 	/*!
-	 * Send a get answer to a application which ask for.
+	 * Send a get answer to an application which ask for.
 	 *
 	 * \param to					: the application where to send answer
 	 * \param address				: the address where comes from the value
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	TTErr applicationSendGetAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
+	TTErr SendGetAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
 								   TTValue& returnedValue, 
 								   TTErr err=kTTErrNone)
 	{
@@ -495,7 +618,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendGetAnswer" << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
+			mMethods->SendMessage(header, arguments, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -504,13 +627,13 @@ public:
 	}
 	
 	/*!
-	 * Send a listen answer to a application which ask for.
+	 * Send a listen answer to an application which ask for.
 	 *
 	 * \param to					: the application where to send answer
 	 * \param address				: the address where comes from the value
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	TTErr applicationSendListenAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
+	TTErr SendListenAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
 									  TTValue& returnedValue, 
 									  TTErr err=kTTErrNone)
 	{
@@ -544,7 +667,7 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendListenAnswer " << std::endl;
 #endif
-			m_minuitMethods->minuitSendMessage(header, arguments, ip, port);
+			mMethods->SendMessage(header, arguments, ip, port);
 			
 			return kTTErrNone;
 		}
@@ -610,7 +733,7 @@ void receiveDiscoverRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr a
 		v.get(0, (TTPtr*)&fromApplication);
 				
 		// use built-in plugin method
-		minuit->applicationReceiveDiscoverRequest(fromApplication, address);
+		minuit->ReceiveDiscoverRequest(fromApplication, address);
 	}
 }
 
@@ -635,7 +758,7 @@ void receiveGetRequestCallback(TTPtr arg, TTString from, TTNodeAddressPtr addres
 		v.get(0, (TTPtr*)&fromApplication);
 		
 		// use built-in plugin method
-		minuit->applicationReceiveGetRequest(fromApplication, address);
+		minuit->ReceiveGetRequest(fromApplication, address);
 	}
 }
 
@@ -662,7 +785,7 @@ void receiveSetRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr addres
 		v.get(0, (TTPtr*)&fromApplication);
 
 	// use built-in plugin method (fromApplication could be NULL)
-	minuit->applicationReceiveSetRequest(fromApplication, address, value);
+	minuit->ReceiveSetRequest(fromApplication, address, value);
 }
 
 void receiveListenRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr whereToListen, bool enable)
@@ -686,7 +809,32 @@ void receiveListenRequestCallBack(TTPtr arg, TTString from, TTNodeAddressPtr whe
 		v.get(0, (TTPtr*)&fromApplication);
 
 		// Use built-in plugin method
-		minuit->applicationReceiveListenRequest(fromApplication, whereToListen, enable);
+		minuit->ReceiveListenRequest(fromApplication, whereToListen, enable);
+	}
+}
+
+void receiveListenAnswerCallBack(TTPtr arg, TTString from, TTNodeAddressPtr whereToListen, TTValue& value)
+{
+#ifdef TT_PLUGIN_DEBUG
+	std::cout << "Minuit::receiveListenAnswerCallBack" << std::endl;
+#endif
+	
+	TTObjectPtr	fromApplication = NULL;
+	Minuit*		minuit = (Minuit*) arg;
+	TTValue     v;
+	TTErr		err;
+	TTHashPtr	applications;
+	
+	// get application
+	minuit->getApplications(v);
+	v.get(0, (TTPtr*)&applications);
+	
+	err = applications->lookup(TT(from), v);
+	if (!err) {
+		v.get(0, (TTPtr*)&fromApplication);
+		
+		// Use built-in plugin method
+		minuit->ReceiveListenAnswer(fromApplication, whereToListen, value);
 	}
 }
 
@@ -701,6 +849,7 @@ class MinuitFactory : public PluginFactory {
 	const char* getName() {return "Minuit";};
 	
 	PluginPtr getInstance(TTObjectPtr applicationManager) {
+		
 		TTValue v;
 		Minuit *minuit = new Minuit();
 		TTHashPtr defaultParameters = new TTHash();

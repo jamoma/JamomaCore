@@ -18,7 +18,9 @@ TT_MODULAR_CONSTRUCTOR,
 mApplications(NULL),
 mApplicationNames(kTTValNONE),
 mPluginNames(kTTValNONE),
-mCurrentApplication(NULL)
+mCurrentApplication(NULL),
+mApplicationObservers(NULL),
+mApplicationObserversMutex(NULL)
 {	
 	TTString pluginFolderPath;
 	
@@ -68,6 +70,12 @@ mCurrentApplication(NULL)
 	
 	mApplications = new TTHash();
 	mPlugins = new TTHash();
+	
+	// create a ApplicationObservers table and protect it from multithreading access
+	// why ? because observers could disappear when they know an application is destroyed
+	mApplicationObservers = new TTHash();
+	mApplicationObservers->setThreadProtection(true);
+	mApplicationObserversMutex = new TTMutex(true);
 	
 	// Load plugins from the pluginFolderPath
 	if (pluginFolderPath.size()) {
@@ -189,6 +197,9 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 	if (applicationName != kTTSym_localApplicationName)
 		;
 	
+	// notify applications observer that an application has been added
+	notifyApplicationObservers(applicationName, anApplication, kApplicationAdded);
+	
 	return kTTErrNone;
 }
 
@@ -206,9 +217,8 @@ TTErr TTApplicationManager::ApplicationRemove(const TTValue& value)
 	if (!err) {
 		v.get(0, (TTPtr*)&anApplication);
 		
-		// TODO : notify distant application destruction observers
-		if (applicationName != kTTSym_localApplicationName)
-			;
+		// notify applications observer that an application will be removed
+		notifyApplicationObservers(applicationName, anApplication, kApplicationAdded);
 		
 		mApplications->remove(applicationName);
 		return TTObjectRelease(TTObjectHandle(&anApplication));
@@ -254,9 +264,10 @@ TTErr TTApplicationManager::PluginScan(const TTValue& value)
 
 TTErr TTApplicationManager::PluginRun(const TTValue& value)
 {
-	TTValue v, allPluginNames;
-	TTSymbolPtr pluginName;
-	TTPluginHandlerPtr aPlugin;
+	TTValue				v, allPluginNames, allApplicationNames;
+	TTSymbolPtr			pluginName, applicationName, appPluginName;
+	TTPluginHandlerPtr	aPlugin;
+	TTApplicationPtr	anApplication;
 	TTErr				err;
 	
 	// if no name do it for all plugin
@@ -270,16 +281,35 @@ TTErr TTApplicationManager::PluginRun(const TTValue& value)
 		}
 	}
 	else {
+		
 		// Run each plugin
 		mPlugins->getKeys(allPluginNames);
 		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
 			
 			allPluginNames.get(i, &pluginName);
-			err = mPlugins->lookup(pluginName, v);
+			this->PluginRun(pluginName);
+		}
+		
+		return kTTErrNone;
+	}
+	
+	// notify application obervers for application that use this plugin
+	mApplications->getKeys(allApplicationNames);
+	for (TTUInt16 j=0; j<allApplicationNames.getSize(); j++) {
+		
+		allApplicationNames.get(j, &applicationName);
+		
+		if (applicationName != kTTSym_localApplicationName) {
+			err = mApplications->lookup(applicationName, v);
 			
 			if (!err) {
-				v.get(0, (TTPtr*)&aPlugin);
-				aPlugin->sendMessage(TT("Run"));
+				v.get(0, (TTPtr*)&anApplication);
+				
+				anApplication->getAttributeValue(TT("pluginNames"), v); 
+				v.get(0, &appPluginName);
+				
+				if (appPluginName == pluginName)
+					notifyApplicationObservers(applicationName, anApplication, kApplicationPluginStarted);
 			}
 		}
 	}
@@ -289,9 +319,10 @@ TTErr TTApplicationManager::PluginRun(const TTValue& value)
 
 TTErr TTApplicationManager::PluginStop(const TTValue& value)
 {
-	TTValue v, allPluginNames;
-	TTSymbolPtr pluginName;
-	TTPluginHandlerPtr aPlugin;
+	TTValue				v, allPluginNames, allApplicationNames;
+	TTSymbolPtr			pluginName, applicationName, appPluginName;
+	TTPluginHandlerPtr	aPlugin;
+	TTApplicationPtr	anApplication;
 	TTErr				err;
 	
 	// if no name do it for all plugin
@@ -305,20 +336,39 @@ TTErr TTApplicationManager::PluginStop(const TTValue& value)
 		}
 	}
 	else {
+		
 		// Stop each plugin
 		mPlugins->getKeys(allPluginNames);
 		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
 			
 			allPluginNames.get(i, &pluginName);
-			err = mPlugins->lookup(pluginName, v);
+			this->PluginStop(pluginName);
+		}
+		
+		return kTTErrNone;
+	}
+	
+	// notify application obervers for application that use this plugin
+	mApplications->getKeys(allApplicationNames);
+	for (TTUInt16 j=0; j<allApplicationNames.getSize(); j++) {
+		
+		allApplicationNames.get(j, &applicationName);
+		
+		if (applicationName != kTTSym_localApplicationName) {
+			err = mApplications->lookup(applicationName, v);
 			
 			if (!err) {
-				v.get(0, (TTPtr*)&aPlugin);
-				aPlugin->sendMessage(TT("Stop"));
+				v.get(0, (TTPtr*)&anApplication);
+				
+				anApplication->getAttributeValue(TT("pluginNames"), v); 
+				v.get(0, &appPluginName);
+				
+				if (appPluginName == pluginName)
+					notifyApplicationObservers(applicationName, anApplication, kApplicationPluginStopped);
 			}
 		}
 	}
-	
+
 	return kTTErrNone;
 }
 
@@ -668,6 +718,65 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 	return aXmlHandler->sendMessage(TT("Read"));
 }
 
+TTErr TTApplicationManager::notifyApplicationObservers(TTSymbolPtr anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag)
+{
+	unsigned int i;
+	TTValue hk, lk, o, f, data;
+	TTSymbolPtr key;
+	TTListPtr lk_o;
+	TTCallbackPtr anObserver;
+	bool foundObsv = false;
+	
+	// if there are observers
+	if (!mApplicationObservers->isEmpty()) {
+		
+		// enable observers protection
+		mApplicationObserversMutex->lock();
+		
+		this->mApplicationObservers->getKeys(hk);
+		
+		// for each key of mObserver tab
+		for (i=0; i<hk.getSize(); i++) {
+			
+			hk.get(i, &key);
+			
+			// compare the key with the applicationName
+			if (key == anApplicationName){
+				
+				// get the Observers list
+				mApplicationObservers->lookup(key, lk);
+				lk.get(0,(TTPtr*)&lk_o);
+				
+				if (!lk_o->isEmpty()) {
+					for (lk_o->begin(); lk_o->end(); lk_o->next())
+					{
+						anObserver = NULL;
+						lk_o->current().get(0, TTObjectHandle(&anObserver));
+						TT_ASSERT("TTApplication observer list member is not NULL", anObserver);
+						data.append(anApplicationName);
+						data.append((TTPtr*)anApplication);
+						data.append((TTInt8)flag);
+						data.append((TTPtr*)anObserver);
+						anObserver->notify(data);
+					}
+					
+					foundObsv = true;
+				}
+			}
+		}
+		
+		// disable observers protection
+		mApplicationObserversMutex->unlock();
+		
+		if (foundObsv)
+			return kTTErrNone;
+		else
+			return kTTErrGeneric;
+	}
+	else
+		return kTTErrGeneric;
+}
+
 #if 0
 #pragma mark -
 #pragma mark Some Methods
@@ -729,4 +838,82 @@ TTPluginHandlerPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
 	}
 	
 	return NULL;
+}
+
+TTErr TTApplicationManagerAddApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver)
+{
+	TTErr		err;
+	TTValue		lk;
+	TTValue		o = anObserver;
+	TTListPtr	lk_o;
+	
+	if (TTModularApplications) {
+		
+		// enable observers protection
+		TTModularApplications->mApplicationObserversMutex->lock();
+		
+		// is the key already exists ?
+		err = TTModularApplications->mApplicationObservers->lookup(anApplicationName, lk);
+		
+		// create a new observers list for this address
+		if(err == kTTErrValueNotFound){
+			lk_o = new TTList();
+			lk_o->appendUnique(o);
+			
+			TTModularApplications->mApplicationObservers->append(anApplicationName, TTValue(lk_o));
+		}
+		// add it to the existing list
+		else{
+			lk.get(0,(TTPtr*)&lk_o);
+			lk_o->appendUnique(o);
+		}
+		
+		// disable observers protection
+		TTModularApplications->mApplicationObserversMutex->unlock();
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver)
+{
+	TTErr			err;
+	TTValue			lk, o, v;
+	TTListPtr		lk_o;
+	
+	if (TTModularApplications) {
+		
+		// enable observers protection
+		TTModularApplications->mApplicationObserversMutex->lock();
+		
+		// is the key exists ?
+		err = TTModularApplications->mApplicationObservers->lookup(anApplicationName, lk);
+		
+		if(err != kTTErrValueNotFound){
+			// get the observers list
+			lk.get(0,(TTPtr*)&lk_o);
+			
+			// is observer exists ?
+			o = TTValue(anObserver);
+			err = lk_o->findEquals(o, v);
+			if(!err)
+				lk_o->remove(v);
+			
+			// was it the last observer ?
+			if(lk_o->getSize() == 0) {
+				// remove the key
+				TTModularApplications->mApplicationObservers->remove(anApplicationName);
+			}
+		}
+		
+		// disable observers protection
+		TTModularApplications->mApplicationObserversMutex->unlock();
+		
+		return err;
+		
+	}
+	
+	return kTTErrGeneric;
 }

@@ -8,7 +8,6 @@
 
 #include "ModularForMax.h"
 
-
 /***********************************************************************************
 *
 *		C EXTERN METHODS
@@ -1747,97 +1746,71 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 	return kTTErrNone;
 }
 
-
-/** returned the N inside "pp/xx[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
-long jamoma_parse_bracket(t_symbol *s, char **si_format, char **ss_format)
+/** returned the N inside "pp/xx.[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
+TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_format)
 {
-	int len, flen, pos, i_num = 1;
-	char *start_bracket = NULL;
-	char *end_bracket = NULL;
-	char *to_parse = NULL;
+	long		number = 0;
+	TTString	s_toParse = s->s_name;
+	TTString	s_number;
+	TTString	s_before;
+	TTString	s_after;
+	TTRegex		ex_braket("(\\[\\d\\])"); // TODO : parse 2 or more numbers like 10, 100, 1000, ...
+	TTRegexStringPosition begin, end;
 	
-	if (s != _sym_nothing) {
+	begin = s_toParse.begin();
+	end = s_toParse.end();
+	
+	// parse braket
+	if (!ex_braket.parse(begin, end))
+	{
+		s_before = string(begin, ex_braket.begin());
+		s_number = string(ex_braket.begin()+1, ex_braket.end()-1);
+		s_after = string(ex_braket.end(), end);
 		
-		to_parse = (char *)malloc(sizeof(char)*(strlen(s->s_name)+1));
+		sscanf(s_number.data(), "%ld", &number);
 		
-		strcpy(to_parse,s->s_name);
+		(*si_format) = s_before;
+		(*si_format) += "%d";
+		(*si_format) += s_after;
 		
-		// find '[' and ']' in the instance
-		start_bracket = strrchr(to_parse,'[');
-		end_bracket = strrchr(to_parse,']');
-		
-		// if both exist, keep only what there is beetween
-		if (start_bracket && end_bracket) {
-			
-			sscanf(start_bracket+1, "%d", &i_num);
-			
-			if (i_num) {
-				
-				// prepare memory
-				pos = (int)start_bracket - (int)to_parse;
-				len = (int)end_bracket - (int)start_bracket;		// the lenght of the "[N]" part
-				flen = strlen(to_parse) - len + 2;					// +3 for \%d
-				*si_format = (char *)malloc(sizeof(char)*(flen+1));
-				*ss_format = (char *)malloc(sizeof(char)*(flen+1));	// only a * instead of \%d
-				
-				// edit a format string for interger
-				strncpy(*si_format, to_parse, pos);
-				(*si_format)[pos] = '\%';
-				(*si_format)[pos+1] = 'd';
-				(*si_format)[pos+2] = '\0';
-				strncat(*si_format, end_bracket+1, strlen(end_bracket));
-				(*si_format)[flen+1] = '\0';
-				
-				// edit a format string for symbol
-				strncpy(*ss_format, to_parse, pos);
-				(*ss_format)[pos] = '\%';
-				(*ss_format)[pos+1] = 's';
-				(*ss_format)[pos+2] = '\0';
-				strncat(*ss_format, end_bracket+1, strlen(end_bracket));
-				(*ss_format)[flen+1] = '\0';
-				
-				free(to_parse);
-			}
-			
-			return i_num;
-		}
-		
-		return -1;
+		(*ss_format) = s_before;
+		(*ss_format) += "%s";
+		(*ss_format) += s_after;
+	}
+	else {
+		(*si_format) = "";
+		(*ss_format) = "";
 	}
 	
-	*si_format = NULL;
-	*ss_format = NULL;
-	return NULL;	
+	return number;
 }
 
 /** edit a new instance of the given format address using interger */
-void jamoma_edit_numeric_instance(char* format, t_symbol **returnedName, long i)
+void jamoma_edit_numeric_instance(TTString *format, SymbolPtr *returnedName, long i)
 {
 	char *s_num;
 	long len;
 	
 	if (i > 0) {
-		len = strlen(format) + (long)trunc(log10(i)); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
+		len = strlen(format->data()) + (long)trunc(log10(i)); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
 		s_num = (char *)malloc(sizeof(char)*len);
-		snprintf(s_num, len, format, i);
+		snprintf(s_num, len, format->data(), i);
 		*returnedName = gensym(s_num);
 		free(s_num);
 	}
 }
 
 /** edit a new instance of the given format address using string */
-void jamoma_edit_string_instance(char* format, t_symbol **returnedName,  char* s)
+void jamoma_edit_string_instance(TTString *format, SymbolPtr *returnedName, TTString *s)
 {
 	char *s_str;
 	long len;
 	
-	if (s) {
-		len = strlen(format) + strlen(s);
-		s_str = (char *)malloc(sizeof(char)*len);
-		snprintf(s_str, len, format, s);
-		*returnedName = gensym(s_str);
-		free(s_str);
-	}
+	len = strlen(format->data()) + strlen(s->data());
+	s_str = (char *)malloc(sizeof(char)*len);
+	snprintf(s_str, len, format->data(), s->data());
+	*returnedName = gensym(s_str);
+	free(s_str);
 }
 
 /** Parse #N inside address and replace them by parent patcher arguments if there are */

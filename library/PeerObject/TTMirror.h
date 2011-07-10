@@ -42,10 +42,14 @@ private:
 	TTCallbackPtr				mGetAttributeCallback;			///< a way to get the attribute value
 	TTCallbackPtr				mSetAttributeCallback;			///< a way to set the attribute value
 	TTCallbackPtr				mSendMessageCallback;			///< a way to send a message
+	TTCallbackPtr				mListenAttributeCallback;		///< a way to listen the attribute value
 	
-	TTErr						getMirrorAttribute(const TTAttribute& attribute, TTValue& value);
-	TTErr						setMirrorAttribute(const TTAttribute& attribute, const TTValue& value);
+	TTErr						getMirrorAttribute(const TTAttribute& anAttribute, TTValue& value);
+	TTErr						setMirrorAttribute(const TTAttribute& anAttribute, const TTValue& value);
 	TTErr						sendMirrorMessage(const TTSymbol* messageName, TTValue& value);
+	
+public:
+	TTErr						enableListening(const TTAttribute& anAttribute, TTBoolean enable);
 	
 };
 

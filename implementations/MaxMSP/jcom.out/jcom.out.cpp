@@ -188,7 +188,7 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTNodePtr					node = NULL;
 	TTNodeAddressPtr			nodeAddress, parentAddress;
 	TTDataPtr					aData;
-	TTString					inAddress;
+	TTString					inAddress, formatName, formatDescription;;
 	SymbolPtr					outAmplitudeInstance, outDescription;
 	
 	// if the subscription is successful
@@ -219,10 +219,13 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// make internal data to return out/amplitude
 		v = TTValue(0., 1.);
+		formatName = "amplitude.%d";
+		formatDescription = "instant amplitude of the signal %d";
+		
 		for (i = 0; i < number; i++) {
 			
-			jamoma_edit_numeric_instance("amplitude.%d", &outAmplitudeInstance, i+1);
-			jamoma_edit_numeric_instance("instant amplitude of the signal %d", &outDescription, i+1);
+			jamoma_edit_numeric_instance(&formatName, &outAmplitudeInstance, i+1);
+			jamoma_edit_numeric_instance(&formatDescription, &outDescription, i+1);
 			
 			makeInternals_data(x, nodeAddress, TT(outAmplitudeInstance->s_name), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_decimal);

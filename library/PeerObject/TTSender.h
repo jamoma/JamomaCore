@@ -26,7 +26,8 @@ private:
 	TTNodeDirectoryPtr			mDirectory;					///< a sender depends on a directory
 	TTBoolean					mIsSending;					///< a flag to lock the object in case of infinite loop
 	TTListPtr					mObjectCache;				///< a cache containing all binded objects for quick access
-	TTCallbackPtr				mObserver;					///< a life cycle observer
+	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
+	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
@@ -35,12 +36,19 @@ private:
 	TTErr Send(TTValue& valueToSend);				// to -- lower case in order to hide the message during the Class wrapping process
 	
 	/** */
-	TTErr bind();
+	TTErr bindAddress();
 	
 	/** */
-	TTErr unbind();
+	TTErr unbindAddress();
+	
+	/** */
+	TTErr bindApplication();
+	
+	/** */
+	TTErr unbindApplication();
 	
 	friend TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data);
 	
 };
 
@@ -51,5 +59,11 @@ typedef TTSender* TTSenderPtr;
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(TTPtr baton, TTValue& data);
+
+/**	
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_SENDER_H__

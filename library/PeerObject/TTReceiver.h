@@ -28,7 +28,8 @@ private:
 	TTNodeDirectoryPtr			mDirectory;					///< a receiver depends on a directory
 	TTCallbackPtr				mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
 	TTCallbackPtr				mReturnValueCallback;		///< a way to return received value to the owner of this receiver
-	TTCallbackPtr				mObserver;					///< a life cycle observer
+	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
+	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
 	TTListPtr					mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
 
 	
@@ -42,13 +43,20 @@ private:
 	TTErr Get();
 	
 	/** */
-	TTErr bind();
+	TTErr bindAddress();
 	
 	/**  */
-	TTErr unbind();
+	TTErr unbindAddress();
+	
+	/** */
+	TTErr bindApplication();
+	
+	/** */
+	TTErr unbindApplication();
 	
 	friend TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data);
 	
 };
 
@@ -65,5 +73,11 @@ TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
+
+/**	
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_RECEIVER_H__

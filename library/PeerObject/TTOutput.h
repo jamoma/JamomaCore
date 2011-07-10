@@ -51,9 +51,9 @@ public:	// use public for quick acces during signal processing
 	TTObjectPtr					mRampGainUnit;				///< the unit used to ramp the gain value
 	
 	TTValue						mInfo;						///< any info needed to process the signal
-													///< example : 
-													///<	- for audio signal : <numChannels, vectorSize>
-													///<	- for video signal : <planeCount, pixelEncoding, dimX, dimY>
+															///< example : 
+															///<	- for audio signal : <numChannels, vectorSize>
+															///<	- for video signal : <planeCount, pixelEncoding, dimX, dimY>
 	
 	TTUInt16					mIndex;						///< index of current output signal [0 :: mNumber]
 	
@@ -63,7 +63,7 @@ private:
 	
 	TTCallbackPtr				mReturnSignalCallback;		///< a way to return back signal to the owner of this output
 	TTValuePtr					mLast;						///< keep a copy of the last sent signal for each index
-	TTCallbackPtr				mObserver;					///< to observe mInputAddress creation/destruction
+	TTCallbackPtr				mAddressObserver;			///< to observe mInputAddress creation/destruction
 	
 	TTValue						mSignalPreview;				///< ATTRIBUTE : a hidden attribute to allow signal preview
 	TTAttributePtr				mSignalPreviewAttr;			///< a direct acces to the signal preview attribute to notify observers

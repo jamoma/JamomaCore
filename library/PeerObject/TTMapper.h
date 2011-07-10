@@ -53,11 +53,11 @@ private:
 	TTReceiverPtr				mInputRangeObserver;		///< the receiver which observe the input rangeBounds attribute
 	TTReceiverPtr				mOutputRangeObserver;		///< the receiver which observe the output rangeBounds attribute
 	TTBoolean					mObserveInputRange;			///< do observe Input rangeBounds attribute ?
-													///< Set to true if there are a setting Input address
-													///< Set to false if there are a setting of Input Min/Max value
+															///< Set to true if there are a setting Input address
+															///< Set to false if there are a setting of Input Min/Max value
 	TTBoolean					mObserveOutputRange;		///< do observe Output rangeBounds attribute ?
-													///< Set to true if there are a setting Output address
-													///< Set to false if there are a setting of Output Min/Max value
+															///< Set to true if there are a setting Output address
+															///< Set to false if there are a setting of Output Min/Max value
 	
 	TTCallbackPtr				mReturnValueCallback;		///< a way to return back value to the owner of this mapper
 	

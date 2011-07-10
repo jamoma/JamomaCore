@@ -273,7 +273,7 @@ TTErr TTData::Command(const TTValue& command)
 	double		time;
 #endif
 	int			commandSize;
-	TTSymbolPtr	first, unit, ramp;
+	TTSymbolPtr	unit, ramp;
 	TTValue		aValue, c;
 	bool		hasRamp = false;
 	bool		hasUnit = false;

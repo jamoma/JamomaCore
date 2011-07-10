@@ -54,6 +54,7 @@ private:
 	friend TTErr TTMODULAR_EXPORT TTPluginHandlerGetAttributeCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTPluginHandlerSetAttributeCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTPluginHandlerSendMessageCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTPluginHandlerListenAttributeCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTPluginHandler* TTPluginHandlerPtr;
@@ -89,6 +90,12 @@ TTErr TTMODULAR_EXPORT TTPluginHandlerSetAttributeCallback(TTPtr baton, TTValue&
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTPluginHandlerSendMessageCallback(TTPtr baton, TTValue& data);
+
+/**	
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTPluginHandlerListenAttributeCallback(TTPtr baton, TTValue& data);
 
 
 #endif // __TT_PLUGIN_HANDLER_H__

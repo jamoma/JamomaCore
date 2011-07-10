@@ -102,7 +102,7 @@ TTErr TTPluginHandlerDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(3, (TTPtr*)&anObserver);
 	
 	v.append(flag);
-	return aPlugin->mPlugin->applicationSendListenAnswer((TTObjectPtr)anApplication, anAddress->appendAttribute(TT("life")), v);
+	return aPlugin->mPlugin->SendListenAnswer((TTObjectPtr)anApplication, anAddress->appendAttribute(TT("life")), v);
 }
 
 TTErr TTPluginHandlerAttributeCallback(TTPtr baton, TTValue& data)
@@ -120,7 +120,7 @@ TTErr TTPluginHandlerAttributeCallback(TTPtr baton, TTValue& data)
 	b->get(1, (TTPtr*)&anApplication);
 	b->get(2, &anAddress);
 	
-	return aPlugin->mPlugin->applicationSendListenAnswer(anApplication, anAddress, data);
+	return aPlugin->mPlugin->SendListenAnswer(anApplication, anAddress, data);
 }
 
 TTErr TTPluginHandlerGetAttributeCallback(TTPtr baton, TTValue& data)
@@ -142,7 +142,7 @@ TTErr TTPluginHandlerGetAttributeCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&value);
 	
 	// send a get request
-	return aPlugin->mPlugin->applicationSendGetRequest(anApplication, anAddress->appendAttribute(attribute), *value);
+	return aPlugin->mPlugin->SendGetRequest(anApplication, anAddress->appendAttribute(attribute), *value);
 }
 
 TTErr TTPluginHandlerSetAttributeCallback(TTPtr baton, TTValue& data)
@@ -164,7 +164,7 @@ TTErr TTPluginHandlerSetAttributeCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&value);
 	
 	// send a set request
-	return aPlugin->mPlugin->applicationSendSetRequest(anApplication, anAddress->appendAttribute(attribute), *value);
+	return aPlugin->mPlugin->SendSetRequest(anApplication, anAddress->appendAttribute(attribute), *value);
 }
 
 TTErr TTPluginHandlerSendMessageCallback(TTPtr baton, TTValue& data)
@@ -186,5 +186,28 @@ TTErr TTPluginHandlerSendMessageCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&value);
 	
 	// send a set request
-	return aPlugin->mPlugin->applicationSendSetRequest(anApplication, anAddress->appendAttribute(message), *value);
+	return aPlugin->mPlugin->SendSetRequest(anApplication, anAddress->appendAttribute(message), *value);
+}
+
+TTErr TTPluginHandlerListenAttributeCallback(TTPtr baton, TTValue& data)
+{
+	TTValuePtr			b;
+	TTPluginHandlerPtr	aPlugin;
+	TTObjectPtr			anApplication;
+	TTNodeAddressPtr	anAddress;
+	TTSymbolPtr			attribute;
+	TTBoolean			enable;
+	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aPlugin);
+	b->get(1, (TTPtr*)&anApplication);
+	b->get(2, &anAddress);
+	
+	// unpack data
+	data.get(0, &attribute);
+	data.get(1, enable);
+	
+	// send a listen request
+	return aPlugin->mPlugin->SendListenRequest(anApplication, anAddress->appendAttribute(attribute), enable);
 }

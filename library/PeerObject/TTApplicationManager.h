@@ -37,21 +37,30 @@ typedef PluginFactories* PluginFactoriesPtr;
 // Macro to retreive a plugin by name
 #define getPlugin(pluginName) TTApplicationManagerGetPlugin(pluginName)
 
+// Notification flags to notify observers of application manager
+enum TTApplicationNotificationFlag {
+	kApplicationRemoved = 0,				///< this flag means that an application have been removed from the application manager
+	kApplicationAdded = 1,					///< this flag means that an application have been added to the application manager
+	kApplicationPluginStarted = 2,			///< this flag means that application's plugin have been started
+	kApplicationPluginStopped = 3			///< this flag means that application's plugin will be stopped
+};
+
 class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
 {
 	TTCLASS_SETUP(TTApplicationManager)
 	
 private:
 
-	TTHashPtr			mApplications;			///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
-	TTHashPtr			mPlugins;				///< hash table containing <TTSymbolPtr pluginName, TTPluginHandlerPtr aPlugin>
+	TTHashPtr			mApplications;						///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
+	TTHashPtr			mPlugins;							///< hash table containing <TTSymbolPtr pluginName, TTPluginHandlerPtr aPlugin>
 	
-
+	TTValue				mApplicationNames;					///< ATTRIBUTE : all registered application names
+	TTValue				mPluginNames;						///< ATTRIBUTE : all loaded plugin names
 	
-	TTValue				mApplicationNames;		///< ATTRIBUTE : all registered application names
-	TTValue				mPluginNames;			///< ATTRIBUTE : all loaded plugin names
+	TTObjectPtr			mCurrentApplication;				///< used for ReadFromXml mechanism
 	
-	TTObjectPtr			mCurrentApplication;	///< used for ReadFromXml mechanism
+	TTHashPtr			mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
+	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
 	
 	PluginFactoriesPtr	mPluginFactories;
 	
@@ -106,8 +115,14 @@ private:
 	TTErr WriteAsXml(const TTValue& value);
 	TTErr ReadFromXml(const TTValue& value);
 	
+	/** */
+	TTErr notifyApplicationObservers(TTSymbolPtr anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag);
+	
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
 	friend TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
+	
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
 };
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
@@ -132,5 +147,19 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTNodeA
  @param	data						..
  @return							a PluginPtr */
 TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
+
+/** Add a TTCallback as observer of application creation/destruction
+ note : it uses the extern TTModularApplications variable
+ @param anApplicationName		an application to observe
+ @param observer				a TTCallbackPtr to add
+ @return						an error code */
+TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
+
+/** Remove a TTCallback as observer of application creation/destruction
+ note : it uses the extern TTModularApplications variable
+ @param anApplicationName		an application
+ @param observer				a TTCallbackPtr to remove
+ @return						a kTTErrGeneric if there isn't observer */
+TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
 
 #endif // __TT_APPLICATION_MANAGER_H__

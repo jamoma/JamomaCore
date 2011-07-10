@@ -1,66 +1,57 @@
 #include "ReceiveOSCThread.hpp"
-#include "MinuitCommunicationMethods.hpp"
 
-#include <iostream>
-#include <sstream>
-
-using namespace std;
 
 TTPtr OSCReceiveFunction(TTPtr threadArg)
 {
 	ReceiveOSCThread* ReceiveOSC = (ReceiveOSCThread*) threadArg;
 
 	UdpListeningReceiveSocket* s = new UdpListeningReceiveSocket(IpEndpointName(IpEndpointName::ANY_ADDRESS, ReceiveOSC->getPort()), ReceiveOSC);
-	ReceiveOSC->m_listeningSocket = s;
+	ReceiveOSC->mListeningSocket = s;
 
-	ReceiveOSC->m_listeningSocket->Run();
+	ReceiveOSC->mListeningSocket->Run();
 
 	return 0;
 }
 
-ReceiveOSCThread::ReceiveOSCThread(MinuitCommunicationMethods *minuitMethods)
+ReceiveOSCThread::ReceiveOSCThread(const MinuitMethodsPtr minuitMethods)
 {
-	m_port = DEFAULT_RECEIVE_OSC_THREAD_PORT;
-	m_minuitMethods = minuitMethods;
-	m_isRunning = false;
-	m_listeningSocket = NULL;
+	mPort = DEFAULT_RECEIVE_OSC_THREAD_PORT;
+	mMethods = minuitMethods;
+	mRunning = false;
+	mListeningSocket = NULL;
 }
 
 ReceiveOSCThread::~ReceiveOSCThread()
 {
+	;
 }
 
-void
-ReceiveOSCThread::setPort(unsigned int port)
+void ReceiveOSCThread::setPort(unsigned int port)
 {
-	m_port = port;
+	mPort = port;
 }
 
-unsigned int
-ReceiveOSCThread::getPort()
+unsigned int ReceiveOSCThread::getPort()
 {
-	return m_port;
+	return mPort;
 }
 
-void
-ReceiveOSCThread::run()
+void ReceiveOSCThread::run()
 {
-	m_isRunning = true;
-	pthread_create(&m_receiveThread, NULL, OSCReceiveFunction, this);
+	mRunning = true;
+	pthread_create(&mReceiveThread, NULL, OSCReceiveFunction, this);
 }
 
-bool
-ReceiveOSCThread::isRunning()
+TTBoolean ReceiveOSCThread::isRunning()
 {
-	return m_isRunning;
+	return mRunning;
 }
 
-void
-ReceiveOSCThread::asynchronousBreak()
+void ReceiveOSCThread::asynchronousBreak()
 {
 	unsigned int usecToStopTheSelect = 20000;
-	if (m_listeningSocket != NULL) {
-		m_listeningSocket->AsynchronousBreak();
+	if (mListeningSocket != NULL) {
+		mListeningSocket->AsynchronousBreak();
 
 #ifdef TT_PLATFORM_WIN
 			Sleep(usecToStopTheSelect/1000);
@@ -68,15 +59,14 @@ ReceiveOSCThread::asynchronousBreak()
 			usleep(usecToStopTheSelect);
 #endif
 
-		delete m_listeningSocket;
-		m_listeningSocket = NULL;
+		delete mListeningSocket;
+		mListeningSocket = NULL;
 	}
 
-	m_isRunning = false;
+	mRunning = false;
 }
 
-void
-ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointName& remoteEndPoint)
+void ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointName& remoteEndPoint)
 {
 	TTString currentString(m.AddressPattern());
 	TTString sender = "";
@@ -133,7 +123,7 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 		cout << "Receive set request (OSC style) at " << whereTo->getCString() << endl;
 #endif
 				
-		m_minuitMethods->minuitReceiveNetworkSetRequest(sender, whereTo, arguments);
+		mMethods->ReceiveSetRequest(sender, whereTo, arguments);
 		return;
 	} 
 	else {
@@ -155,12 +145,12 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			
 			// switch on request
 			if (operation.compare(MINUIT_REQUEST_DISCOVER) == 0) {
-				m_minuitMethods->minuitReceiveNetworkDiscoverRequest(sender, whereTo);
+				mMethods->ReceiveDiscoverRequest(sender, whereTo);
 				return;
 			}
 			
 			else if (operation.compare(MINUIT_REQUEST_GET) == 0) {
-				m_minuitMethods->minuitReceiveNetworkGetRequest(sender, whereTo);
+				mMethods->ReceiveGetRequest(sender, whereTo);
 				return;
 			}
 			
@@ -173,9 +163,9 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 					val = arg->AsString();
 
 				if (val.compare(MINUIT_REQUEST_LISTEN_ENABLE) == 0)
-					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, true);
+					mMethods->ReceiveListenRequest(sender, whereTo, true);
 				else if (val.compare(MINUIT_REQUEST_LISTEN_DISABLE) == 0)
-					m_minuitMethods->minuitReceiveNetworkListenRequest(sender, whereTo, false);
+					mMethods->ReceiveListenRequest(sender, whereTo, false);
 				else
 					; // TODO send bad request error notification
 				
@@ -217,17 +207,17 @@ ReceiveOSCThread::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 				
 			// switch on answer
 			if (operation.compare(MINUIT_ANSWER_DISCOVER) == 0) {
-				m_minuitMethods->minuitParseDiscoverAnswer(sender, whereTo, m);
+				mMethods->ReceiveDiscoverAnswer(sender, whereTo, arguments);
 				return;
 			}
 			
 			else if (operation.compare(MINUIT_ANSWER_GET) == 0) {
-				m_minuitMethods->minuitParseGetAnswer(sender, whereTo, m);
+				mMethods->ReceiveGetAnswer(sender, whereTo, arguments);
 				return;
 			}
 			
 			else if (operation.compare(MINUIT_ANSWER_LISTEN) == 0) {
-				//m_minuitMethods->minuitParseListenAnswer(sender, whereTo, m);
+				mMethods->ReceiveListenAnswer(sender, whereTo, arguments);
 				return;
 			}
 			

@@ -327,7 +327,6 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 	TTValue				hsk, v, a, c;
 	TTSymbolPtr			key, skey;
 	TTString			aString;
-	TTObjectPtr			o;
 	TTUInt32			j;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
@@ -394,9 +393,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 	TTNodeAddressPtr	absoluteAddress;
 	TTSymbolPtr			ttAttributeName;
 	ItemPtr				anItem;
-	TTNodePtr			aNode;
 	TTValue				v;
-	TTErr				err;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)

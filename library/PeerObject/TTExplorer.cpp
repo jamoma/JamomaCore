@@ -18,7 +18,7 @@ mLookfor(kTTSymEmpty),
 mEqual(kTTValNONE),
 mDifferent(kTTValNONE),
 mDirectory(NULL),
-mObserver(NULL),
+mAddressObserver(NULL),
 mReturnValueCallback(NULL),
 mLookforObjectCriteria(NULL),
 mTempNode(NULL),
@@ -56,11 +56,11 @@ TTExplorer::~TTExplorer()
 	else
 		addressToObserve = mAddress;
 	
-	if (mObserver) {
+	if (mAddressObserver) {
 		if (mDirectory && addressToObserve != kTTAdrsEmpty)
-			mDirectory->removeObserverForNotifications(addressToObserve, *mObserver);
-		delete (TTValuePtr)mObserver->getBaton();
-		TTObjectRelease(TTObjectHandle(&mObserver));
+			mDirectory->removeObserverForNotifications(addressToObserve, *mAddressObserver);
+		delete (TTValuePtr)mAddressObserver->getBaton();
+		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 	}
 	
 	if (mReturnValueCallback) {
@@ -92,9 +92,9 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	TTValuePtr	newBaton;
 	
 	// delete the old observer
-	if (mDirectory && mObserver && mTempObserve != kTTSymEmpty) {
-		mDirectory->removeObserverForNotifications(mTempObserve, *mObserver);
-		TTObjectRelease(TTObjectHandle(&mObserver));
+	if (mDirectory && mAddressObserver && mTempObserve != kTTSymEmpty) {
+		mDirectory->removeObserverForNotifications(mTempObserve, *mAddressObserver);
+		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 	}
 	
 	// change the address
@@ -119,18 +119,18 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 			if (mTempObserve != kTTSymEmpty){
 				
 				// observe any creation or destruction below the address
-				mObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-				TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
+				mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+				TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 				
 				newBaton = new TTValue(TTPtr(this));
 				newBaton->append(TTPtr(kTTSymEmpty));
 				
-				mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-				mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
+				mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+				mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 				
-				mObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
+				mAddressObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
 				
-				mDirectory->addObserverForNotifications(mTempObserve, *mObserver);
+				mDirectory->addObserverForNotifications(mTempObserve, *mAddressObserver);
 			}
 			
 			return kTTErrNone;

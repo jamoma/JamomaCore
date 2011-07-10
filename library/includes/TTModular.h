@@ -45,6 +45,8 @@
 
 #include "TTModularSymbolCache.h"
 
+#include "TTRegex.h"
+
 #include "Plugin.h"
 #include "PluginFactories.h"
 

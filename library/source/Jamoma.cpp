@@ -58,10 +58,6 @@ void jamoma_init(void)
 		JamomaApplication->getAttributeValue(TT("allAppNames"), v);
 		if (!v.getSize())
 			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
-
-		// launch reception thread mechnism fo each plugin (or not ?)
-		v.clear();
-		TTModularApplications->sendMessage(TT("PluginRun"), v);
 		
 		// DEBUG
 		//jamoma_application_dump_configuration();

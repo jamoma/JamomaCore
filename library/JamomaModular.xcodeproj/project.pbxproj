@@ -50,6 +50,7 @@
 		D2CA88361213F4A80090DE41 /* TTModularSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */; };
 		D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */; };
 		D2CDAD6E123A338B00801029 /* TTViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CDAD6C123A338B00801029 /* TTViewer.cpp */; };
+		D2D076BD13C72B2400501757 /* libboost_regex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D076BC13C72B2400501757 /* libboost_regex.a */; };
 		D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */; };
 		D2E27E9A12D53B2000C3EF05 /* TTCue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E27E9812D53B2000C3EF05 /* TTCue.cpp */; };
 		D2E27EA612D54B7000C3EF05 /* TTCueManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E27EA512D54B7000C3EF05 /* TTCueManager.cpp */; };
@@ -131,6 +132,7 @@
 		D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D2CDAD6C123A338B00801029 /* TTViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
 		D2CDAD6D123A338B00801029 /* TTViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewer.h; sourceTree = "<group>"; };
+		D2D076BC13C72B2400501757 /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = "../../Foundation/library/boost/lib-mac/libboost_regex.a"; sourceTree = SOURCE_ROOT; };
 		D2D5B823135753C20033DB0B /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModular.h; path = includes/TTModular.h; sourceTree = "<group>"; };
 		D2D5B824135753C20033DB0B /* TTModularSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularSymbolCache.h; path = includes/TTModularSymbolCache.h; sourceTree = "<group>"; };
 		D2D5B826135753C20033DB0B /* JamomaTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaTypes.h; path = includes/JamomaTypes.h; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */,
 				D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */,
 				D209281F12EC5D1800BD289A /* DataspaceLib.ttdylib in Frameworks */,
+				D2D076BD13C72B2400501757 /* libboost_regex.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +207,7 @@
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
 				D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */,
+				D2D076BC13C72B2400501757 /* libboost_regex.a */,
 				D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */,
 			);
 			name = "External Frameworks and Libraries";
@@ -496,7 +500,10 @@
 					TTDATA_RAMPLIB,
 					TTDSP,
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Foundation/library/boost/lib-mac\"",
+				);
 			};
 			name = Development;
 		};
@@ -529,6 +536,7 @@
 					"\"$(SRCROOT)/../extensions/PluginLib/build/PluginLib.build/Development/JamomaExtension.build/Objects-normal/i386\"",
 					"\"$(SRCROOT)/../extensions/PluginLib/build/PluginLib.build/Development/JamomaExtension.build/Objects-normal/x86_64\"",
 					"\"$(SRCROOT)/../extensions/PluginLib/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Foundation/library/boost/lib-mac\"",
 				);
 			};
 			name = Deployment;

@@ -49,7 +49,10 @@ public:
 	TTSymbolPtr					mAuthor;				///< ATTRIBUTE : the author of the plugin
 	TTBoolean					mExploration;			///< ATTRIBUTE : is the Plugin provide namespace exploration features ?
 	
-	Plugin() {}
+	TTBoolean					mRunning;				///< ATTRIBUTE : is the Plugin reception thread enable ?
+	
+	
+	Plugin() { mRunning = false; }
 	virtual ~Plugin() {}
 	
 	/** Set reception thread mechanism parameters <TTHashPtr parameters> */
@@ -128,7 +131,7 @@ public:
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Send a discover request to a application to get a part of the namespace at the given address
+	 * Send a discover request to an application to get a part of the namespace at the given address
 	 *
  	 * \param to					: the application where to discover
 	 * \param address				: the address to discover
@@ -138,13 +141,13 @@ public:
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 									else it returns kTTErrGeneric if no answer or timeout
 	 */
-	virtual TTErr applicationSendDiscoverRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendDiscoverRequest(TTObjectPtr to, TTNodeAddressPtr address, 
 												 TTValue& returnedChildrenNames,
 												 TTValue& returnedChildrenTypes,
 												 TTValue& returnedAttributes)=0;
 
 	/*!
-	 * Send a get request to a application to get a value at the given address
+	 * Send a get request to an application to get a value at the given address
 	 *
  	 * \param to					: the application where to get
 	 * \param address				: the address to get
@@ -152,7 +155,7 @@ public:
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 									else it returns kTTErrGeneric if no answer or timeout
 	 */
-	virtual TTErr applicationSendGetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendGetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
 											TTValue& returnedValue)=0;
 	
 	/*!
@@ -163,7 +166,7 @@ public:
 	 * \param value					: anything to send
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	virtual TTErr applicationSendSetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendSetRequest(TTObjectPtr to, TTNodeAddressPtr address, 
 											TTValue& value)=0;
 	
 	/*!
@@ -175,7 +178,7 @@ public:
 	 * \param enable				: enable/disable the listening
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	virtual TTErr applicationSendListenRequest(TTObjectPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendListenRequest(TTObjectPtr to, TTNodeAddressPtr address, 
 											   TTBoolean enable)=0;
 	
 	
@@ -194,7 +197,7 @@ public:
 	 * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
 	 * \param returnedAttributes	: all attributes the node at the address
 	 */
-	virtual TTErr applicationSendDiscoverAnswer(TTObjectPtr to, TTNodeAddressPtr address,
+	virtual TTErr SendDiscoverAnswer(TTObjectPtr to, TTNodeAddressPtr address,
 												TTValue& returnedChildrenNames,
 												TTValue& returnedChildrenTypes,
 												TTValue& returnedAttributes,
@@ -207,7 +210,7 @@ public:
 	 * \param address				: the address where comes from the value
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	virtual TTErr applicationSendGetAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendGetAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
 										   TTValue& returnedValue,
 										   TTErr err=kTTErrNone)=0;
 	
@@ -218,7 +221,7 @@ public:
 	 * \param address				: the address where comes from the value
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	virtual TTErr applicationSendListenAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendListenAnswer(TTObjectPtr to, TTNodeAddressPtr address, 
 											  TTValue& returnedValue,
 											  TTErr err=kTTErrNone)=0;
 	
@@ -229,14 +232,14 @@ public:
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Notify the plugin that a application ask for a namespace description
+	 * Notify the plugin that an application ask for a namespace description
 	 *
 	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
 	 *
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to discover
 	 */
-	void applicationReceiveDiscoverRequest(TTObjectPtr from, TTNodeAddressPtr address) 
+	void ReceiveDiscoverRequest(TTObjectPtr from, TTNodeAddressPtr address) 
 	{
 		TTValue v;
 		TTErr	err;
@@ -254,19 +257,19 @@ public:
 			err = mApplicationManager->sendMessage(TT("ApplicationDiscover"), v);
 			
 			// send result
-			applicationSendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes, err);
+			SendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes, err);
 		}
 	}
 	
 	/*!
-	 * Notify the plugin that a application ask for value
+	 * Notify the plugin that an application ask for value
 	 *
 	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
 	 *
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to get
 	 */
-	void applicationReceiveGetRequest(TTObjectPtr from, TTNodeAddressPtr address)
+	void ReceiveGetRequest(TTObjectPtr from, TTNodeAddressPtr address)
 	{
 		TTValue v;
 		TTErr	err;
@@ -279,19 +282,19 @@ public:
 			v.append((TTPtr)&returnedValue);
 			err = mApplicationManager->sendMessage(TT("ApplicationGet"), v);
 			
-			applicationSendGetAnswer(from, address, returnedValue, err);
+			SendGetAnswer(from, address, returnedValue, err);
 		}		
 	}
 	
 	/*!
-	 * Notify the plugin that a application wants to set value
+	 * Notify the plugin that an application wants to set value
 	 *
 	 * !!! This a built-in plugin method which set automatically the value (or send a notification if error)
 	 *
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to get
 	 */
-	void applicationReceiveSetRequest(TTObjectPtr from, TTNodeAddressPtr address, TTValue& newValue) 
+	void ReceiveSetRequest(TTObjectPtr from, TTNodeAddressPtr address, TTValue& newValue) 
 	{
 		TTValue v;
 		TTErr	err;
@@ -308,7 +311,7 @@ public:
 	}
 	
 	/*!
-	 * Notify the plugin that a application wants to listen (or not) the namespace
+	 * Notify the plugin that an application wants to listen (or not) the namespace
 	 *
 	 * !!! This a built-in plugin method which create/remove automatically the listener (or send a notification if error)
 	 *
@@ -316,7 +319,7 @@ public:
 	 * \param address				: the address the application wants to listen
 	 * \param enable				: enable/disable the listening
 	 */
-	void applicationReceiveListenRequest(TTObjectPtr from, TTNodeAddressPtr address, TTBoolean enable) 
+	void ReceiveListenRequest(TTObjectPtr from, TTNodeAddressPtr address, TTBoolean enable) 
 	{
 		TTValue v;
 		TTErr	err;
@@ -332,15 +335,45 @@ public:
 			err = mApplicationManager->sendMessage(TT("ApplicationListen"), v);
 			
 			if (err)
-				applicationSendListenAnswer(from, address, kTTValNONE, err);
+				SendListenAnswer(from, address, kTTValNONE, err);
 		}
 	}
 	
 	/**************************************************************************************************************************
 	 *
-	 *	RECEIVE ANSWER METHODS : No methods because each plugin deals with answers when it send a request (maybe we could add an answer manager)
+	 *	RECEIVE ANSWER METHODS : each plugin deals with answers when it send a request except for listening mechanism
+	 *							note : maybe we could add a listen answer manager because each plugin have to remember 
+	 *							which listen requests has been done (?)
 	 *
 	 **************************************************************************************************************************/
+	
+	/*!
+	 * Notify the plugin that an application answers to a listen request
+	 *
+	 * !!! This a built-in plugin method which create/remove automatically the listener (or send a notification if error)
+	 *
+	 * \param from					: the application where comes from the request
+	 * \param address				: the address the application wants to listen
+	 * \param enable				: enable/disable the listening
+	 */
+	void ReceiveListenAnswer(TTObjectPtr from, TTNodeAddressPtr address, TTValue& newValue) 
+	{
+		TTValue v;
+		TTErr	err;
+		
+		if (mApplicationManager != NULL) {
+			
+			v.append((TTPtr)from);
+			v.append(address);
+			v.append((TTPtr)&newValue);
+			
+			// TODO
+			err = mApplicationManager->sendMessage(TT("ApplicationListenAnswer"), v);
+			
+			if (err)
+				SendListenAnswer(from, address, kTTValNONE, err);
+		}
+	}
 	
 };
 

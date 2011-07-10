@@ -42,6 +42,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_wrap = &WrapTTApplicationManagerClass;
 	spec->_new = &WrappedApplicationManagerClass_new;
 	spec->_any = NULL;
+	spec->_free = NULL;
 	
 	return wrapTTModularClassAsMaxClass(TT("ApplicationManager"), "jcom.modular", NULL, spec);
 }

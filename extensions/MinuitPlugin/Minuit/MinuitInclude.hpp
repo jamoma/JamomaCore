@@ -8,6 +8,16 @@
 	#include <sys/time.h>
 #endif
 
+#include "TTFoundationAPI.h"
+
+#include <sstream>
+#include <iostream>
+#include <string>
+#include <map>
+#include <vector>
+
+using namespace std;
+
 #define MINUIT_REQUEST_DISCOVER "?namespace"
 #define MINUIT_REQUEST_GET "?get"
 #define MINUIT_REQUEST_LISTEN "?listen"

@@ -18,12 +18,13 @@ mGetAttributeCallback(NULL),
 mSetAttributeCallback(NULL),
 mSendMessageCallback(NULL)
 {	
-	TTValue			attributeNames, messageNames;
-	TTSymbolPtr		name;
-	TTAttributePtr	anAttribute;
-	TTMessagePtr	aMessage;
+	TTValue				attributeNames, messageNames;
+	TTSymbolPtr			name;
+	TTAttributePtr		anAttribute;
+	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
+	TTMessagePtr		aMessage;
 	
-	TT_ASSERT("Correct number of args to create TTMirror", arguments.getSize() == 4);
+	TT_ASSERT("Correct number of args to create TTMirror", arguments.getSize() == 5);
 
 	if (arguments.getSize() >= 1)
 		arguments.get(0, &mType);
@@ -37,6 +38,9 @@ mSendMessageCallback(NULL)
 	if (arguments.getSize() >= 4)
 		arguments.get(3, (TTPtr*)&mSendMessageCallback);
 	
+	if (arguments.getSize() >= 5)
+		arguments.get(4, (TTPtr*)&mListenAttributeCallback);
+	
 
 	// instantiate a temp object to copy visible attributes and messages
 	TTObjectPtr anObject = NULL;
@@ -49,7 +53,10 @@ mSendMessageCallback(NULL)
 		anObject->getAttribute(name, &anAttribute);
 		
 		addMirrorAttribute(name, anAttribute->type);
-		addAttributeProperty(service, readOnly, anAttribute->readOnly);
+		setAttributeGetterFlags(name, attributeFlags);
+		setAttributeSetterFlags(name, attributeFlags);
+		
+		addAttributeProperty(name, readOnly, anAttribute->readOnly);
 		// TODO : add all other property
 	}
 	
@@ -60,6 +67,7 @@ mSendMessageCallback(NULL)
 		anObject->getMessage(name, &aMessage);
 		
 		addMirrorMessage(name, aMessage->flags);
+		
 		// TODO : add all other property
 	}
 	
@@ -71,13 +79,13 @@ TTMirror::~TTMirror() // TODO : delete things...
 	;
 }
 
-TTErr TTMirror::getMirrorAttribute(const TTAttribute& attribute, TTValue& value)
+TTErr TTMirror::getMirrorAttribute(const TTAttribute& anAttribute, TTValue& value)
 {
 	TTValue data;
 	
 	if (mGetAttributeCallback) {
 		
-		data.append(attribute.name);
+		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
 		return mGetAttributeCallback->notify(data);
@@ -86,19 +94,24 @@ TTErr TTMirror::getMirrorAttribute(const TTAttribute& attribute, TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTMirror::setMirrorAttribute(const TTAttribute& attribute, const TTValue& value)
+TTErr TTMirror::setMirrorAttribute(const TTAttribute& anAttribute, const TTValue& value)
 {
 	TTValue data;
+	TTErr	err = kTTErrNone;
 	
 	if (mSetAttributeCallback) {
 		
-		data.append(attribute.name);
+		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
-		return mSetAttributeCallback->notify(data);
+		err = mSetAttributeCallback->notify(data);
 	}
 	
-	return kTTErrGeneric;
+	if (!err)
+		// notify attribute observers
+		TTAttribute(anAttribute).sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return err;
 }
 
 TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, TTValue& value)
@@ -111,6 +124,21 @@ TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, TTValue& value)
 		data.append((TTPtr)&value);
 		
 		return mSetAttributeCallback->notify(data);
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTMirror::enableListening(const TTAttribute& anAttribute, TTBoolean enable)
+{	
+	TTValue data;
+	
+	if (mListenAttributeCallback) {
+		
+		data.append(anAttribute.name);
+		data.append(enable);
+		
+		return mListenAttributeCallback->notify(data);
 	}
 	
 	return kTTErrGeneric;

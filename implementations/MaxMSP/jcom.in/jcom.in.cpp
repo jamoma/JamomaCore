@@ -182,7 +182,7 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTNodePtr		node = NULL;
 	TTNodeAddressPtr nodeAddress, parentAddress;
 	TTDataPtr		aData;
-	TTString		outAddress;
+	TTString		outAddress, formatName, formatDescription;
 	SymbolPtr		inAmplitudeInstance, inDescription;
 	
 	// if the subscription is successful
@@ -212,10 +212,13 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 #ifdef JCOM_IN_TILDE
 		// make internal data to return in/amplitude
 		v = TTValue(0., 1.);
+		formatName = "amplitude.%d";
+		formatDescription = "instant amplitude of the signal %d";
+		
 		for (i = 0; i < number; i++) {
 			
-			jamoma_edit_numeric_instance("amplitude.%d", &inAmplitudeInstance, i+1);
-			jamoma_edit_numeric_instance("instant amplitude of the signal %d", &inDescription, i+1);
+			jamoma_edit_numeric_instance(&formatName, &inAmplitudeInstance, i+1);
+			jamoma_edit_numeric_instance(&formatDescription, &inDescription, i+1);
 			
 			makeInternals_data(x, nodeAddress, TT(inAmplitudeInstance->s_name), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
 			aData->setAttributeValue(kTTSym_type, kTTSym_decimal);

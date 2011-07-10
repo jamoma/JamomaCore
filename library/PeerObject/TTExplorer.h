@@ -33,7 +33,7 @@ private:
 	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
-	TTCallbackPtr		mObserver;						///< a life cycle observer
+	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
 	TTHashPtr			mLookforObjectCriteria;			///< hash table of hash table containing <ObjectType, <AttributeName, Value>>
 														///<	- if the Attribute hash table is empty this means any object of the given type matches the test.

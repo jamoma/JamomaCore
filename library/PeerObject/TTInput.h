@@ -50,7 +50,7 @@ public:	// use public for quick acces during signal processing
 private:
 
 	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this input
-	TTCallbackPtr		mObserver;					///< to observe mOutputAddress creation/destruction
+	TTCallbackPtr		mAddressObserver;			///< to observe mOutputAddress creation/destruction
 	
 	/** Send signal. The mIndex have to be choosen before */
 	TTErr Send(TTValue& value);

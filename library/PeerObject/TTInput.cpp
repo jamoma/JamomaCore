@@ -26,7 +26,7 @@ mInfo(kTTValNONE),
 mIndex(0),
 mOutputObject(NULL),
 mReturnSignalCallback(NULL),
-mObserver(NULL)
+mAddressObserver(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 4);
 	
@@ -82,11 +82,11 @@ TTInput::~TTInput()
 	if (mSignalZero)
 		TTObjectRelease(&mSignalZero);
 	
-	if (mObserver) {
+	if (mAddressObserver) {
 		if (mOutputAddress != kTTSymEmpty)
-			getLocalDirectory->removeObserverForNotifications(mOutputAddress, *mObserver);
-		delete (TTValuePtr)mObserver->getBaton();
-		TTObjectRelease(TTObjectHandle(&mObserver));
+			getLocalDirectory->removeObserverForNotifications(mOutputAddress, *mAddressObserver);
+		delete (TTValuePtr)mAddressObserver->getBaton();
+		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 	}
 }
 
@@ -131,22 +131,22 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 				Link((TTPtr)o);
 	}
 	
-	if (!mObserver) {
+	if (!mAddressObserver) {
 		// prepare arguments
-		mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
+		mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
-		mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-		mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
-		mObserver->setAttributeValue(TT("owner"), TT("TTInput"));		// this is usefull only to debug
+		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
+		mAddressObserver->setAttributeValue(TT("owner"), TT("TTInput"));		// this is usefull only to debug
 	}
 	
-	if (mObserver) {
+	if (mAddressObserver) {
 		if (mOutputAddress != kTTAdrsEmpty)
-			getLocalDirectory->removeObserverForNotifications(mOutputAddress, *mObserver);
+			getLocalDirectory->removeObserverForNotifications(mOutputAddress, *mAddressObserver);
 		
-		getLocalDirectory->addObserverForNotifications(newAddress, *mObserver);
+		getLocalDirectory->addObserverForNotifications(newAddress, *mAddressObserver);
 	}
 	
 	mOutputAddress = newAddress;
