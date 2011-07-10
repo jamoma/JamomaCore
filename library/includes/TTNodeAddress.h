@@ -17,6 +17,8 @@
 
 class TTNodeAddress;
 typedef TTNodeAddress*	TTNodeAddressPtr;
+class TTRegex;
+typedef TTRegex*	TTRegexPtr;
 
 #define NO_DIRECTORY	kTTSymEmpty
 #define NO_PARENT		kTTAdrsEmpty
@@ -57,6 +59,11 @@ enum TTNodeAddressType {
 	kAddressRelative = 0,				///< this flag means that an address have no leading slash
 	kAddressAbsolute = 1,				///< this flag means that an address have a leading slash
 };
+
+extern TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory;	///< The global regex to parse directory part
+extern TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute;	///< The global regex to parse attribute part
+extern TTFOUNDATION_EXPORT TTRegex* ttRegexForParent;		///< The global regex to parse parent part
+extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance;		///< The global regex to parse instance part
 
 /****************************************************************************************************/
 // Class Specifications

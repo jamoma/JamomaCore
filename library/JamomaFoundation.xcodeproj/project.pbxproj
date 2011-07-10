@@ -68,6 +68,7 @@
 		22D8CB301319E93F008F80C7 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D8CB2E1319E93F008F80C7 /* libboost_filesystem.a */; };
 		22D8CB311319E93F008F80C7 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D8CB2F1319E93F008F80C7 /* libboost_system.a */; };
 		D2C6B74513C282F6006D5076 /* libboost_regex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2C6B74413C282F6006D5076 /* libboost_regex.a */; };
+		D2D076D713C72E5400501757 /* TTRegex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2D076D613C72E5400501757 /* TTRegex.cpp */; };
 		D2EB3CD01397391D0073D54A /* TTNodeAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2EB3CCF1397391D0073D54A /* TTNodeAddress.cpp */; };
 		D2EB3E961397AB270073D54A /* TTNodeLib.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2EB3E951397AB270073D54A /* TTNodeLib.test.cpp */; };
 		D2EB3E981397AB430073D54A /* TTValue.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2EB3E971397AB430073D54A /* TTValue.test.cpp */; };
@@ -137,6 +138,8 @@
 		22E3860610286BBE002000A9 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = source/TTValue.cpp; sourceTree = "<group>"; };
 		22E3860710286BBE002000A9 /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = source/TTValueCache.cpp; sourceTree = "<group>"; };
 		D2C6B74413C282F6006D5076 /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = "boost/lib-mac/libboost_regex.a"; sourceTree = "<group>"; };
+		D2D076D513C72E3E00501757 /* TTRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTRegex.h; path = includes/TTRegex.h; sourceTree = "<group>"; };
+		D2D076D613C72E5400501757 /* TTRegex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRegex.cpp; path = source/TTRegex.cpp; sourceTree = "<group>"; };
 		D2EB3CC3139739030073D54A /* TTNodeAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeAddress.h; path = includes/TTNodeAddress.h; sourceTree = "<group>"; };
 		D2EB3CCF1397391D0073D54A /* TTNodeAddress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeAddress.cpp; path = source/TTNodeAddress.cpp; sourceTree = "<group>"; };
 		D2EB3E941397AB270073D54A /* TTNodeLib.test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeLib.test.h; path = tests/TTNodeLib.test.h; sourceTree = "<group>"; };
@@ -306,6 +309,8 @@
 		D2F68EBD108C9B2C0094260C /* NodeDirectory */ = {
 			isa = PBXGroup;
 			children = (
+				D2D076D513C72E3E00501757 /* TTRegex.h */,
+				D2D076D613C72E5400501757 /* TTRegex.cpp */,
 				D2F68EC5108C9BE10094260C /* TTNode.h */,
 				D2F68EC9108C9BEF0094260C /* TTNode.cpp */,
 				D2EB3CC3139739030073D54A /* TTNodeAddress.h */,
@@ -435,6 +440,7 @@
 				D2EB3E981397AB430073D54A /* TTValue.test.cpp in Sources */,
 				D2EB41081398E7E00073D54A /* TTNodeAddressTable.cpp in Sources */,
 				D2EB410A1398E8060073D54A /* TTNodeAddressCache.cpp in Sources */,
+				D2D076D713C72E5400501757 /* TTRegex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

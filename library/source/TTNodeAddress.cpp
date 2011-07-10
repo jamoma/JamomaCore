@@ -11,6 +11,11 @@
 #include <boost/regex.hpp>
 using namespace boost;
 
+TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory = NULL;
+TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute = NULL;
+TTFOUNDATION_EXPORT TTRegex* ttRegexForParent = NULL;	
+TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance = NULL;
+
 TTNodeAddress::TTNodeAddress(const TTString& newAddressString, TTInt32 newId)
 	: directory(NO_DIRECTORY), parent(NO_PARENT), name(NO_NAME), instance(NO_INSTANCE), attribute(NO_ATTRIBUTE), parsed(NO)
 {
@@ -140,31 +145,25 @@ TTErr TTNodeAddress::parse()
 	}
 	
 	// All other case needs a regex parsing
-	string s_toParse = this->getCString();
-	string s_directory;
-	string s_parent;
-	string s_name;
-	string s_instance;
-	string s_attribute;
-	
-	boost::regex ex_directory("([\\w]+)\\:/");					// TODO : depends on S_DIRECTORY
-	boost::regex ex_attribute(":+");							// TODO : depends on C_ATTRIBUTE
-	boost::regex ex_parent("(.*)/+(\\S+)");						// TODO : depends on C_SEPARATOR
-	boost::regex ex_instance("[.]");							// TODO : depends on C_INSTANCE
-	boost::match_results <std::string::const_iterator> what;
-	string::const_iterator start, end;
+	TTString s_toParse = this->getCString();
+	TTString s_directory;
+	TTString s_parent;
+	TTString s_name;
+	TTString s_instance;
+	TTString s_attribute;
+	TTRegexStringPosition begin, end;
 	
 	//cout << "*** s_toParse    " << s_toParse << "    ***" << endl;
-	start = s_toParse.begin();
+	begin = s_toParse.begin();
 	end = s_toParse.end();
 	
 	// parse directory
-	if (boost::regex_search(start, end, what, ex_directory))
+	if (!ttRegexForDirectory->parse(begin, end))
 	{
-		s_directory = string(what[1].first, what[1].second);
-		s_toParse = string(what[1].second+1, end);			// +1 to remove ":"
-
-		start = s_toParse.begin();
+		s_directory = string(ttRegexForDirectory->begin(), ttRegexForDirectory->end());
+		s_toParse = string(ttRegexForDirectory->end()+1, end);			// +1 to remove ":"
+		
+		begin = s_toParse.begin();
 		end = s_toParse.end();
 		
 		//cout << "directory :  " << s_directory << endl;
@@ -173,12 +172,12 @@ TTErr TTNodeAddress::parse()
 	this->directory = TT(s_directory);
 	
 	// parse attribute
-	if (boost::regex_search(start, end, what, ex_attribute))
+	if (!ttRegexForAttribute->parse(begin, end))
 	{
-		s_attribute = string(what[1].second, end);
-		s_toParse = string(start, what[1].first-1);			// -1 to remove ":"
+		s_attribute = string(ttRegexForAttribute->begin(), end);
+		s_toParse = string(begin, ttRegexForAttribute->end()-1);			// -1 to remove ":"
 		
-		start = s_toParse.begin();
+		begin = s_toParse.begin();
 		end = s_toParse.end();
 		
 		//cout << "attribute :  " << s_attribute << endl;
@@ -187,17 +186,17 @@ TTErr TTNodeAddress::parse()
 	this->attribute = TT(s_attribute);
 	
 	// parse parent
-	if (boost::regex_search(start, end, what, ex_parent))
+	if (!ttRegexForParent->parse(begin, end))
 	{
 		// if the split is due to a slash at the beginning : parent = /
-		if (what[1].first == what[1].second)
+		if (ttRegexForParent->begin() == ttRegexForParent->end())
 			s_parent = C_SEPARATOR;
 		else
-			s_parent = string(what[1].first, what[1].second);
+			s_parent = string(ttRegexForParent->begin(), ttRegexForParent->end());
 		
-		s_toParse = string(what[1].second+1, end);			// +1 to remove "/"
+		s_toParse = string(ttRegexForParent->end()+1, end);			// +1 to remove "/"
 		
-		start = s_toParse.begin();
+		begin = s_toParse.begin();
 		end = s_toParse.end();
 		
 		//cout << "parent    :  " << s_parent << endl;
@@ -206,12 +205,12 @@ TTErr TTNodeAddress::parse()
 	this->parent = TTADRS(s_parent);
 	
 	// parse instance
-	if (boost::regex_search(start, end, what, ex_instance))
+	if (!ttRegexForInstance->parse(begin, end))
 	{
-		s_instance = string(what[1].second, end);
-		s_toParse = string(start, what[1].first-1);			// -1 to remove "."
+		s_instance = string(ttRegexForInstance->end(), end);
+		s_toParse = string(begin, ttRegexForInstance->begin()-1);			// -1 to remove "."
 		
-		start = s_toParse.begin();
+		begin = s_toParse.begin();
 		end = s_toParse.end();
 		
 		//cout << "instance  :  " << s_instance << endl;

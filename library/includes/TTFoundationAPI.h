@@ -27,6 +27,8 @@
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"
 
+#include "TTRegex.h"
+
 #include "TTNodeAddress.h"
 #include "TTNodeAddressTable.h"
 #include "TTNodeAddressCache.h"
