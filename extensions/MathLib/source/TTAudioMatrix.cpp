@@ -77,7 +77,7 @@ TTErr TTAudioMatrix::clear()
 }
 
 
-TTErr TTAudioMatrix::setGain(const TTValue& newValue)
+TTErr TTAudioMatrix::setGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -99,7 +99,7 @@ TTErr TTAudioMatrix::setGain(const TTValue& newValue)
 }
 
 
-TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue)
+TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -122,7 +122,7 @@ TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue)
 }
 
 
-TTErr TTAudioMatrix::setMidiGain(const TTValue& newValue)
+TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
