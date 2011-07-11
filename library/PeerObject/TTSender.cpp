@@ -38,14 +38,15 @@ mApplicationObserver(NULL)
 
 TTSender::~TTSender()
 {
-	unbindApplication();
 	unbindAddress();
+	unbindApplication();
 }
 
 TTErr TTSender::setAddress(const TTValue& newValue)
 {
-	unbindApplication();
 	unbindAddress();
+	unbindApplication();
+	
 	newValue.get(0, &mAddress);
 	
 	// default attribute to bind is value
@@ -227,6 +228,8 @@ TTErr TTSender::unbindApplication()
 		delete (TTValuePtr)mApplicationObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
 	}
+	
+	mDirectory = NULL;
 	
 	return kTTErrNone;
 }

@@ -49,8 +49,8 @@ mNodesObserversCache(NULL)
 
 TTReceiver::~TTReceiver()
 {
-	unbindApplication();
 	unbindAddress();
+	unbindApplication();
 	
 	if (mReturnAddressCallback) {
 		delete (TTValuePtr)mReturnAddressCallback->getBaton();
@@ -65,8 +65,9 @@ TTReceiver::~TTReceiver()
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
-	unbindApplication();
 	unbindAddress();
+	unbindApplication();
+	
 	newValue.get(0, &mAddress);
 	
 	// default attribute to bind is value
