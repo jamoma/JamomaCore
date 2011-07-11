@@ -22,10 +22,9 @@ mNumChannels(0),
 mNumBufferFrames(0),
 mLength(0),
 mLengthInSamples(0),
-mTimedRecord(false),
 mCycles(0)
 {
-	addAttribute(			FilePath,		kTypeSymbol);
+	addAttributeWithSetter(	FilePath,		kTypeSymbol);
 	addAttribute(			Format,			kTypeSymbol);
 	addAttributeWithSetter(	Record,			kTypeBoolean);
 	addAttribute(			NumChannels,	kTypeUInt16);
@@ -49,8 +48,12 @@ TTErr TTSoundfileRecorder::setRecord(const TTValue& newValue)
 	TTBoolean	newRecordState = newValue;
 	TTErr		err = kTTErrNone;	
 	
-	if (newRecordState == 1)
-		setProcessMethod(processAudioRecording);
+	if (newRecordState == 1){
+		if (mLength <= 0)
+			setProcessMethod(processAudioRecording);
+		else 
+			setProcessMethod(processTimedAudioRecording);
+		}
 	else 
 		setProcessMethod(processAudioBypass);
 		
@@ -59,16 +62,13 @@ TTErr TTSoundfileRecorder::setRecord(const TTValue& newValue)
 		if (mRecord) {			// start recording
 			mLengthInSamples = mLength * sr * 0.001; // reset the Sample counter 
 			mCycles = 0;
-			if (mLengthInSamples > 0)
-				mTimedRecord = true;
-			else 
-				mTimedRecord = false;
 			//mNumChannels = 0;	// set to zero so that the process method will set the num channels and trigger an open
-		}
+		} 
 		else {					// stop recording -- close the file
-			if (mSoundFile)
+			if (mSoundFile){ 
 				sf_close(mSoundFile);
 			mSoundFile = NULL;
+			}
 		}
 	}
 	return err;
@@ -132,6 +132,16 @@ int TTSoundfileRecorder::translateFormatFromName(TTSymbolPtr name)
 }
 
 
+TTErr TTSoundfileRecorder::setFilePath(const TTValue& newValue)
+{
+	mFilePath = newValue;
+	/*if ((mNumChannels) && (mFormat))
+		return openFile();
+	else */
+		return kTTErrNone;
+}
+
+
 TTErr TTSoundfileRecorder::openFile()
 {
 	memset(&mSoundFileInfo, 0, sizeof(mSoundFileInfo));	
@@ -142,6 +152,7 @@ TTErr TTSoundfileRecorder::openFile()
 	mSoundFile = sf_open(mFilePath->getCString(), SFM_WRITE, &mSoundFileInfo);
 	
 	if (!mSoundFile) {
+		TTLogMessage("Can't create soundfile.\n");
 		return kTTErrGeneric;
 	}
 	return kTTErrNone;
@@ -149,6 +160,61 @@ TTErr TTSoundfileRecorder::openFile()
 
 
 TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{	
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTAudioSignal&		in  = inputs->getSignal(0);
+	TTSampleValuePtr	outSample, inSample;
+	TTUInt16			channelCount = in.getNumChannelsAsInt();
+	TTUInt16			vs = in.getVectorSizeAsInt();
+	TTUInt16			n, channel;
+	TTBoolean			bufferNeedsResize = NO;
+	//sf_count_t			numSamplesWritten;
+	//TTUInt64			progress = mCycles*vs*channelCount;
+	
+	if (mNumChannels != channelCount) {		// input channel number has changed, we need to set up the buffer
+		mNumChannels = channelCount;
+		bufferNeedsResize = YES;		
+	}
+	
+	if (mNumBufferFrames != vs) {   //vector size has changed, we need to set up the buffer
+		mNumBufferFrames = vs;
+		bufferNeedsResize = YES;
+	}
+	if (bufferNeedsResize){
+		TTUInt64 buffersize = mNumChannels * mNumBufferFrames;
+		mBuffer.resize(buffersize);
+	}
+
+	if (!mSoundFile) //if we don't have already a file open, do it now. 
+		openFile();
+	
+	
+	for (channel=0; channel<channelCount; channel++) {
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel]; // sending audio out
+		for (n=0; n<vs; n++){
+			//mBuffer[progress+(n * channelCount + channel)] = inSample[n]; //sending audio to recording buffer
+			mBuffer[(n * channelCount + channel)] = inSample[n]; //sending audio to recording buffer
+			outSample[n] = inSample[n];  // sending audio out
+		}
+	}
+    //mCycles++;
+	//if (mCycles == 100){
+	
+	if (sf_writef_double(mSoundFile, &mBuffer[0], vs) != vs) {
+		char errorStr[256];
+        sf_error_str(mSoundFile, errorStr, 256);
+		TTLogError("Error while writing file: %s \n",errorStr);
+	}
+	
+	//	mCycles = 0;
+	//}
+	
+	return kTTErrNone;
+}
+
+
+TTErr TTSoundfileRecorder::processTimedAudioRecording(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {	
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTAudioSignal&		in  = inputs->getSignal(0);
@@ -171,14 +237,12 @@ TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, T
 		bufferNeedsResize = YES;
 	}
 	if (bufferNeedsResize){
-		TTUInt64 buffersize = mNumChannels * mNumBufferFrames;
-		buffersize = max(buffersize, (TTUInt64)(buffersize * ceil((double)mLengthInSamples/(double)mNumBufferFrames))); //if mLengthInSamples==0, we don't have a timedRecording and we only buffer one frame
-		mBuffer.resize(buffersize);
-		
+		TTUInt64 buffersize = mNumChannels * mNumBufferFrames * ceil((double)mLengthInSamples/(double)mNumBufferFrames); 
+		mBuffer.resize(buffersize);		
 	}
-	if (!mSoundFile) //if we don't have already a file open, do it now. 
-		openFile();
 	
+	if (!mSoundFile) //if we don't have already a file open, do it now. 
+		openFile();	
 	
 	for (channel=0; channel<channelCount; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -187,22 +251,21 @@ TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, T
 			mBuffer[progress+(n * channelCount + channel)] = inSample[n]; //sending audio to recording buffer
 			outSample[n] = inSample[n];  // sending audio out
 		}
-	}
-    
+	}    
 	
-	if (mTimedRecord){
-		mCycles++;
-		mLengthInSamples -= vs; // decreasing the samplecounter by a vs if we want to record with a duration
-		if (mLengthInSamples <= 0){ //TODO: we might want to chop of the samples that were recorded too long
-			sf_write_double(mSoundFile, &mBuffer[0], mBuffer.size());
-			return setRecord(0);
+	mCycles++;
+	mLengthInSamples -= vs; // decreasing the samplecounter by a vs
+	if (mLengthInSamples <= 0){ //TODO: we might want to chop of the samples that were recorded too long
+		if (sf_writef_double(mSoundFile, &mBuffer[0], mCycles*vs) != mCycles*vs) {
+			char errorStr[256];
+			sf_error_str(mSoundFile, errorStr, 256);
+			TTLogError("Error while writing file: %s \n",errorStr);
 		}
-	}
-	else 
-		sf_write_double(mSoundFile, &mBuffer[0], vs*channelCount);
-	
-	return kTTErrNone;
+		return setRecord(0);
+	} 
+	else return kTTErrNone;
 }
+
 
 TTErr TTSoundfileRecorder::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {	
@@ -223,3 +286,10 @@ TTErr TTSoundfileRecorder::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAu
 	}
 	return kTTErrNone;
 } 
+
+
+
+
+
+
+
