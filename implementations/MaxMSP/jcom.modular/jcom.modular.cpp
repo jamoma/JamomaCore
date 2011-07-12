@@ -67,7 +67,7 @@ void WrapTTApplicationManagerClass(WrappedClassPtr c)
 void WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					localApplicationName;
+	SymbolPtr					localApplicationName = NULL;
 	TTXmlHandlerPtr				aXmlHandler;
 	TTValue						v, args;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
@@ -79,7 +79,9 @@ void WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv
 	// our wrapped object is the application manager
 	x->wrappedObject = (TTObjectPtr)TTModularApplications;
 	
-	// TODO : change the local application name
+	// change the local application name
+	if (localApplicationName)
+		x->wrappedObject->setAttributeValue(TT("applicationLocalName"), TT(localApplicationName->s_name));
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);

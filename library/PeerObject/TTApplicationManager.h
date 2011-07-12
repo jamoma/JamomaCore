@@ -71,6 +71,9 @@ private:
 	/** Get local application name */
 	TTErr getApplicationLocalName(TTValue& value);
 	
+	/** Set local application name */
+	TTErr setApplicationLocalName(TTValue& value);
+	
 	/** Get all plugin names */
 	TTErr getPluginNames(TTValue& value);
 	

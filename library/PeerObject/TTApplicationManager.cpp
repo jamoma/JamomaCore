@@ -34,8 +34,7 @@ mApplicationObserversMutex(NULL)
 	addAttributeWithGetter(ApplicationNames, kTypeLocalValue);
 	addAttributeProperty(applicationNames, readOnly, YES);
 	
-	registerAttribute(TT("applicationLocalName"), kTypeSymbol, kTTSym_localApplicationName, (TTGetterMethod)& TTApplicationManager::getApplicationLocalName);
-	addAttributeProperty(applicationLocalName, readOnly, YES);
+	registerAttribute(TT("applicationLocalName"), kTypeSymbol, kTTSym_localApplicationName, (TTGetterMethod)& TTApplicationManager::getApplicationLocalName, (TTSetterMethod)& TTApplicationManager::setApplicationLocalName);
 	
 	addAttributeWithGetter(PluginNames, kTypeLocalValue);
 	addAttributeProperty(pluginNames, readOnly, YES);
@@ -143,6 +142,31 @@ TTErr TTApplicationManager::getApplicationNames(TTValue& value)
 TTErr TTApplicationManager::getApplicationLocalName(TTValue& value)
 {
 	value = kTTSym_localApplicationName;
+	return kTTErrNone;
+}
+
+TTErr TTApplicationManager::setApplicationLocalName(TTValue& value)
+{
+	TTValue				v;
+	TTApplicationPtr	localApplication = NULL;
+	TTErr				err;
+	
+	// get the local application
+	err = mApplications->lookup(kTTSym_localApplicationName, v);
+	
+	// if the local application exists
+	// remove it
+	if (!err)
+		mApplications->remove(kTTSym_localApplicationName);
+	
+	// in any case change localApplicacationName
+	kTTSym_localApplicationName = value;
+	
+	// if the local application exists
+	// register it to using the new name
+	if (!err)
+		mApplications->append(kTTSym_localApplicationName, v);
+	
 	return kTTErrNone;
 }
 
