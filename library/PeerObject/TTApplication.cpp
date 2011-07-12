@@ -60,6 +60,9 @@ mTempAddress(kTTAdrsEmpty)
 	addMessageWithArgument(RemoveDirectoryListener);
 	addMessageWithArgument(RemoveAttributeListener);
 	
+	addMessageWithArgument(UpdateDirectory);
+	addMessageWithArgument(UpdateAttribute);
+	
 	addMessageWithArgument(ConvertToAppName);
 	addMessageWithArgument(ConvertToTTName);
 	
@@ -351,6 +354,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& value)
 TTErr TTApplication::AddAttributeListener(const TTValue& value)
 {
 	TTNodeAddressPtr	whereToListen;
+	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
@@ -360,33 +364,40 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 	
 	value.get(2, &whereToListen);
 	
-	err = mDirectory->getTTNode(whereToListen, &nodeToListen);
+	err = mDirectory->Lookup(whereToListen, aNodeList, &nodeToListen);
 	
 	if (!err) {
-		if (anObject = nodeToListen->getObject()) {
+		
+		for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
+		{
+			// get a node from the selection
+			aNodeList.current().get(0,(TTPtr*)&nodeToListen);
 			
-			// create an Attribute observer 
-			anAttribute = NULL;
-			err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
-			
-			if (!err) {
-				// prepare a callback based on TTApplicationAttributeCallback
-				returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-				TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+			if (anObject = nodeToListen->getObject()) {
 				
-				returnValueBaton = new TTValue();
-				*returnValueBaton = value;
+				// create an Attribute observer 
+				anAttribute = NULL;
+				err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
 				
-				returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-				returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerAttributeCallback));
-				
-				anAttribute->registerObserverForNotifications(*returnValueCallback);
-				
-				// cache the listener in the attributeListenersCache
-				cacheElement.append((TTPtr)returnValueCallback);
-				mAttributeListenersCache->append(whereToListen, cacheElement); // TODO : have many observers for the same address:attribute ? (add plugin info ?)
-				
-				return kTTErrNone;
+				if (!err) {
+					// prepare a callback based on TTApplicationAttributeCallback
+					returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+					TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+					
+					returnValueBaton = new TTValue();
+					*returnValueBaton = value;
+					
+					returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+					returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerAttributeCallback));
+					
+					anAttribute->registerObserverForNotifications(*returnValueCallback);
+					
+					// cache the listener in the attributeListenersCache
+					cacheElement.append((TTPtr)returnValueCallback);
+					mAttributeListenersCache->append(whereToListen, cacheElement); // TODO : have many observers for the same address:attribute ? (add plugin info ?)
+					
+					return kTTErrNone;
+				}
 			}
 		}
 	}
@@ -399,6 +410,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 {
 	TTNodeAddressPtr	whereToListen;
+	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
@@ -407,29 +419,80 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 	
 	value.get(0, &whereToListen);
 	
-	err = mDirectory->getTTNode(whereToListen, &nodeToListen);
+	err = mDirectory->Lookup(whereToListen, aNodeList, &nodeToListen);
 	
 	if (!err) {
-		if (anObject = nodeToListen->getObject()) {
+		
+		for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
+		{
+			// get a node from the selection
+			aNodeList.current().get(0,(TTPtr*)&nodeToListen);
 			
-			// delete Attribute observer 
-			anAttribute = NULL;
-			err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
-			
-			if (!err) {
+			if (anObject = nodeToListen->getObject()) {
 				
-				err = mAttributeListenersCache->lookup(whereToListen, cacheElement);
+				// delete Attribute observer 
+				anAttribute = NULL;
+				err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
 				
 				if (!err) {
-					cacheElement.get(0, (TTPtr*)&returnValueCallback);
-					anAttribute->unregisterObserverForNotifications(*returnValueCallback);
-					TTObjectRelease(TTObjectHandle(&returnValueCallback));
-					return kTTErrNone;
+					
+					err = mAttributeListenersCache->lookup(whereToListen, cacheElement);
+					
+					if (!err) {
+						cacheElement.get(0, (TTPtr*)&returnValueCallback);
+						anAttribute->unregisterObserverForNotifications(*returnValueCallback);
+						TTObjectRelease(TTObjectHandle(&returnValueCallback));
+						return kTTErrNone;
+					}
 				}
 			}
 		}
 	}
 
+	return kTTErrGeneric;
+}
+
+TTErr TTApplication::UpdateDirectory(const TTValue& value)
+{
+	TTNodeAddressPtr	whereComesFrom;
+	TTValuePtr			newValue;
+	TTBoolean			enable;
+	
+	value.get(0, &whereComesFrom);
+	value.get(1, (TTPtr*)&newValue);
+	
+	newValue->get(0, enable);
+	
+	if (enable) {
+		// TODO : create Mirror object and register it
+		;//mDirectory->TTNodeCreate(whereComesFrom, ...
+		
+	}
+	else {
+		;// TODO : unregister the address and destroy the Mirror object
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTApplication::UpdateAttribute(const TTValue& value)
+{
+	TTNodePtr			nodeToUpdate;
+	TTNodeAddressPtr	whereComesFrom;
+	TTValuePtr			newValue;
+	TTMirrorPtr			aMirror;
+	TTErr				err;
+	
+	value.get(0, &whereComesFrom);
+	value.get(1, (TTPtr*)&newValue);
+	
+	err = mDirectory->getTTNode(whereComesFrom, &nodeToUpdate);
+	
+	if (!err)
+		if (aMirror = (TTMirrorPtr)nodeToUpdate->getObject())
+			if (aMirror->getName() == TT("Mirror"))
+				return aMirror->updateAttributeValue(whereComesFrom->getAttribute(), *newValue);
+	
 	return kTTErrGeneric;
 }
 

@@ -101,6 +101,12 @@ private:
 		arguments are <TTObjectPtr appToNotify, TTSymbolPtr whereToListen, TTSymbolPtr attribute, TTBoolean enable> */
 	TTErr ApplicationListen(TTValue& value);
 	
+	/** Update value changes of an attribute of an object at an address in an application
+		or for creation/destruction under an address.
+		note : this is usually the answer of distant namespace or Mirror attribute listening
+		arguments are <TTObjectPtr appAnswering, TTSymbolPtr whereComesFrom, TTSymbolPtr attribute, TTValuePtr newValue> */
+	TTErr ApplicationListenAnswer(TTValue& value);
+	
 	/** Scan a plugin network in order to add distant application automatically <TTSymbolPtr pluginName> */
 	TTErr PluginScan(const TTValue& value);
 

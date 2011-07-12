@@ -28,7 +28,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 921.0, 192.0, 187.0, 18.0 ],
-					"text" : "fps 33.387829"
+					"text" : "fps 33.339088"
 				}
 
 			}
@@ -504,7 +504,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 479.0, 585.0, 153.0, 18.0 ],
-					"text" : "model/address /player.A"
+					"text" : "fps 33.3414"
 				}
 
 			}
@@ -589,7 +589,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 625.0, 143.0, 96.0, 18.0 ],
-					"text" : "fps 33.387829"
+					"text" : "fps 33.339088"
 				}
 
 			}
@@ -1151,7 +1151,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-47",
-					"items" : [ "fps", ",", "preset/names", ",", "model/class", ",", "model/address" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1172,7 +1172,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : [ "preset/read", ",", "model/internals", ",", "model/reference", ",", "preset/remove/next", ",", "preset/store/previous", ",", "preset/remove/current", ",", "preset/recall/previous", ",", "preset/write", ",", "model/documentation/generate", ",", "preset/store/current", ",", "preset/recall", ",", "file/load", ",", "preset/recall/current", ",", "model/help", ",", "preset/store", ",", "preset/remove", ",", "preset/read/again", ",", "preset/remove/previous", ",", "preset/store/next", ",", "preset/write/again", ",", "preset/recall/next" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1193,7 +1193,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-14",
-					"items" : [ "rate", ",", "model/mute", ",", "out/freeze", ",", "out/preview", ",", "play", ",", "out/mute", ",", "file/path" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1226,7 +1226,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 340.0, 143.0, 96.0, 18.0 ],
-					"text" : "fps 33.387829"
+					"text" : "fps 33.3414"
 				}
 
 			}

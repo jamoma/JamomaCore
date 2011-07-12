@@ -19,6 +19,8 @@
  
  
  */
+class TTApplication;
+typedef TTApplication* TTApplicationPtr;
 
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
@@ -113,6 +115,12 @@ private:
 	/** Remove Attribute observer */
 	TTErr RemoveAttributeListener(const TTValue& value);
 	
+	/** Update Directory (usually for distant application) */
+	TTErr UpdateDirectory(const TTValue& value);
+	
+	/** Update Attribute value (usually for Mirror objects) */
+	TTErr UpdateAttribute(const TTValue& value);
+	
 	/** needed to be handled by a TTXmlHandler 
 		read/write plugin parameters */
 	TTErr WriteAsXml(const TTValue& value);
@@ -127,7 +135,7 @@ private:
 	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName);
 };
 
-typedef TTApplication* TTApplicationPtr;
+
 
 /**	To get an application's directory with an address
  note : it uses the extern TTModularApplications variable

@@ -293,6 +293,7 @@ public:
 	 *
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to get
+	 * \param newValue				: the incoming value
 	 */
 	void ReceiveSetRequest(TTObjectPtr from, TTNodeAddressPtr address, TTValue& newValue) 
 	{
@@ -350,13 +351,13 @@ public:
 	/*!
 	 * Notify the plugin that an application answers to a listen request
 	 *
-	 * !!! This a built-in plugin method which create/remove automatically the listener (or send a notification if error)
+	 * !!! This a built-in plugin method notify automatically the listener (or send a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to listen
-	 * \param enable				: enable/disable the listening
+	 * \param from					: the application where comes from the answer
+	 * \param address				: the address where comes from the answer
+	 * \param newValue				: the answered value
 	 */
-	void ReceiveListenAnswer(TTObjectPtr from, TTNodeAddressPtr address, TTValue& newValue) 
+	void ReceiveListenAnswer(TTObjectPtr from, TTNodeAddressPtr address, TTValue& newValue)
 	{
 		TTValue v;
 		TTErr	err;

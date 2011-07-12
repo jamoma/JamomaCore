@@ -16,7 +16,8 @@ TT_MODULAR_CONSTRUCTOR,
 mType(kTTSymEmpty),
 mGetAttributeCallback(NULL),
 mSetAttributeCallback(NULL),
-mSendMessageCallback(NULL)
+mSendMessageCallback(NULL),
+mListenAttributeCallback(NULL)
 {	
 	TTValue				attributeNames, messageNames;
 	TTSymbolPtr			name;
@@ -49,6 +50,7 @@ mSendMessageCallback(NULL)
 	anObject->getAttributeNames(attributeNames);
 	for (TTUInt32 i=0; i<attributeNames.getSize(); i++) {
 		
+		anAttribute = NULL;
 		attributeNames.get(i, (TTSymbolPtr*)&name);
 		anObject->getAttribute(name, &anAttribute);
 		
@@ -56,8 +58,8 @@ mSendMessageCallback(NULL)
 		setAttributeGetterFlags(name, attributeFlags);
 		setAttributeSetterFlags(name, attributeFlags);
 		
-		addAttributeProperty(name, readOnly, anAttribute->readOnly);
-		// TODO : add all other property
+		// TODO : addMirrorAttributeProperty
+		//addMirrorAttributeProperty(name, readOnly, anAttribute->readOnly);
 	}
 	
 	anObject->getMessageNames(messageNames);
@@ -68,7 +70,7 @@ mSendMessageCallback(NULL)
 		
 		addMirrorMessage(name, aMessage->flags);
 		
-		// TODO : add all other property
+		// TODO : addMirrorMessageProperty
 	}
 	
 	TTObjectRelease(&anObject);
@@ -106,11 +108,7 @@ TTErr TTMirror::setMirrorAttribute(const TTAttribute& anAttribute, const TTValue
 		
 		err = mSetAttributeCallback->notify(data);
 	}
-	
-	if (!err)
-		// notify attribute observers
-		TTAttribute(anAttribute).sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
-	
+	 
 	return err;
 }
 
@@ -127,6 +125,19 @@ TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, TTValue& value)
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTMirror::updateAttributeValue(const TTSymbolPtr attributeName, TTValue& value)
+{
+	TTAttributePtr	anAttribute = NULL;
+	TTErr			err;
+	
+	err = this->findAttribute(attributeName, &anAttribute);
+	
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return kTTErrNone;
 }
 
 TTErr TTMirror::enableListening(const TTAttribute& anAttribute, TTBoolean enable)

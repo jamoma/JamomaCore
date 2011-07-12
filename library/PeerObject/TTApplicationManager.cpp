@@ -57,6 +57,9 @@ mApplicationObserversMutex(NULL)
 	addMessageWithArgument(ApplicationListen);
 	addMessageProperty(ApplicationListen, hidden, YES);
 	
+	addMessageWithArgument(ApplicationListenAnswer);
+	addMessageProperty(ApplicationListenAnswer, hidden, YES);
+	
 	addMessageWithArgument(PluginScan);
 	addMessageWithArgument(PluginRun);
 	addMessageWithArgument(PluginStop);
@@ -456,6 +459,7 @@ TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 	if (!directory)
 		return kTTErrGeneric;
 	
+	// can't allow to use wilcards here because one value is returned
 	err = directory->getTTNode(whereToGet, &nodeToGet);
 	
 	if (!err)
@@ -476,6 +480,7 @@ TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 	
 	TTLogDebug("TTApplicationManager::Set");
 	
+	TTList				aNodeList;
 	TTNodePtr			nodeToSet;
 	TTSymbolPtr			objectType;
 	TTObjectPtr			anObject;
@@ -485,23 +490,30 @@ TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 	if (!directory)
 		return kTTErrGeneric;
 	
-	err = directory->getTTNode(whereToSet, &nodeToSet);
+	// allow to use wilcards
+	err = directory->Lookup(whereToSet, aNodeList, &nodeToSet);
 	
 	if (!err) {
 		
-		anObject = nodeToSet->getObject();
-		objectType = anObject->getName();
-		
-		// TTData case : for value attribute use Command message
-		if (objectType == TT("Data")) {
+		for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
+		{
+			// get a node from the selection
+			aNodeList.current().get(0,(TTPtr*)&nodeToSet);
 			
-			if (whereToSet->getAttribute() == kTTSym_value)
-				anObject->sendMessage(kTTSym_Command, *newValue);
-			else
+			anObject = nodeToSet->getObject();
+			objectType = anObject->getName();
+			
+			// TTData case : for value attribute use Command message
+			if (objectType == TT("Data")) {
+				
+				if (whereToSet->getAttribute() == kTTSym_value)
+					anObject->sendMessage(kTTSym_Command, *newValue);
+				else
+					return anObject->setAttributeValue(whereToSet->getAttribute(), *newValue);
+			}
+			else 
 				return anObject->setAttributeValue(whereToSet->getAttribute(), *newValue);
 		}
-		else 
-			return anObject->setAttributeValue(whereToSet->getAttribute(), *newValue);
 	}
 	
 	return kTTErrGeneric; // TODO : return an error notification
@@ -564,6 +576,33 @@ TTErr TTApplicationManager::ApplicationListen(TTValue& value)
 	}	
 
 	return kTTErrGeneric;
+}
+
+TTErr TTApplicationManager::ApplicationListenAnswer(TTValue& value)
+{
+	TTApplicationPtr	appAnswering;
+	TTNodeAddressPtr	whereComesFrom;
+	TTValuePtr			newValue;
+	TTValue				args;
+	
+	value.get(0, (TTPtr*)&appAnswering);
+	value.get(1, &whereComesFrom);
+	value.get(2, (TTPtr*)&newValue);
+	
+	TTLogDebug("TTApplicationManager::ListenAnswer");
+	
+	args.append(whereComesFrom);
+	args.append((TTPtr)newValue);
+	
+	// notify directory updates
+	if (whereComesFrom->getAttribute() == TT("life")) // TODO : find a better name
+		return appAnswering->sendMessage(TT("UpdateDirectory"), args);
+	
+	// notify attribute updates
+	else 
+		return appAnswering->sendMessage(TT("UpdateAttribute"), args);
+	
+	return kTTErrGeneric;	
 }
 
 TTErr TTApplicationManager::WriteAsXml(const TTValue& value)
