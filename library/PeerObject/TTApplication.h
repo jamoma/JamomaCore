@@ -81,6 +81,9 @@ private:
 	
 	TTNodeAddressPtr			mTempAddress;		///< a temporary address to parse opml file
 	
+	/** Set name of the application (and his directory) */
+	TTErr setName(TTValue& value);
+	
 	/** Get all plugin names use by the application */
 	TTErr getPluginNames(TTValue& value);
 	

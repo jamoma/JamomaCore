@@ -325,7 +325,6 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
 	
 	// Write address attribute
-	
 	nameInstance = makeTTNodeAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
 	xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance->getCString());
 	

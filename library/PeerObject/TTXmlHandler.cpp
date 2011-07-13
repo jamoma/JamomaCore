@@ -224,7 +224,7 @@ TTErr TTXmlHandler::ReadAgain()
 	return Read(args);
 }
 
-TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote)
+TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTString cString;
 	

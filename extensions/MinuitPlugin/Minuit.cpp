@@ -419,8 +419,11 @@ public:
 #ifdef TT_PLUGIN_DEBUG
 			std::cout << "Minuit : applicationSendSetRequest " << std::endl;
 #endif
-			mMethods->SendMessage(address->getCString(), arguments, ip, port);
-
+			if (address->getAttribute() == kTTSym_value)
+				mMethods->SendMessage(address->removeAttribute()->getCString(), arguments, ip, port);
+			else
+				mMethods->SendMessage(address->getCString(), arguments, ip, port);
+				
 			return kTTErrNone;
 		}
 		

@@ -29,8 +29,7 @@ mTempAddress(kTTAdrsEmpty)
 	arguments.get(0, &mName);
 	arguments.get(1, &mVersion);
 	
-	addAttribute(Name, kTypeSymbol);
-	addAttributeProperty(name, readOnly, YES);
+	addAttributeWithSetter(Name, kTypeSymbol);
 	
 	addAttribute(Version, kTypeSymbol);
 	addAttributeProperty(version, readOnly, YES);
@@ -112,6 +111,12 @@ TTApplication::~TTApplication()
 	
 	delete mTTToApp;
 	delete mAppToTT;
+}
+
+TTErr TTApplication::setName(TTValue& value)
+{
+	mName = value;
+	return mDirectory->setName(mName);
 }
 
 TTErr TTApplication::getPluginNames(TTValue& value)
@@ -649,14 +654,20 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 		}
 	}
 	
-	// Namespace node
+	// Namespace node 
 	if (aXmlHandler->mXmlNodeName == TT("namespace")) {
 		
-		// get the file path
-		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("file"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-		if (v.getType() == kTypeSymbol)
-			v.get(0, &mNamespaceFile);
+		// note : don't load namespace for local application in order 
+		// to use the same configuration file for local and distant application
+		// (the local application namespace could be loaded using mNamespaceFile attribute)
+		if (mName != kTTSym_localApplicationName) {
+			
+			// get the file path
+			xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("file"));
+			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+			if (v.getType() == kTypeSymbol)
+				v.get(0, &mNamespaceFile);
+		}
 	}
 	
 	// load namespace file if one is given and there is a plugin
@@ -677,7 +688,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 TTErr TTApplication::ReadFromOpml(const TTValue& value)
 {
 	TTOpmlHandlerPtr	aOpmlHandler = NULL;	
-	TTSymbolPtr			nodeName, objectName, attributeName, pluginName;
+	TTSymbolPtr			nodeNameInstance, objectName, attributeName, pluginName;
 	TTNodeAddressPtr	absoluteAddress;
 	TTMirrorPtr			aMirror;
 	TTNodePtr			aNode;
@@ -719,15 +730,15 @@ TTErr TTApplication::ReadFromOpml(const TTValue& value)
 		
 		// get the relative address
 		xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("text"));
-		aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v);
+		aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v, YES);
 		if (v.getType() == kTypeSymbol) {
-			v.get(0, &nodeName);
+			v.get(0, &nodeNameInstance);
 		}
 		
 		// Is it the beginning of a new node or the end of one ?
-		if (mTempAddress->getName() != nodeName) {
+		if (mTempAddress->getNameInstance() != nodeNameInstance) {
 			
-			absoluteAddress = mTempAddress->appendAddress(TTADRS(nodeName->getCString()));
+			absoluteAddress = mTempAddress->appendAddress(TTADRS(nodeNameInstance->getCString()));
 			
 			// get the object name
 			if (xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("object")) == 1) {

@@ -155,9 +155,12 @@ TTErr TTApplicationManager::setApplicationLocalName(TTValue& value)
 	err = mApplications->lookup(kTTSym_localApplicationName, v);
 	
 	// if the local application exists
-	// remove it
-	if (!err)
+	// rename it and remove it
+	if (!err) {
+		v.get(0, (TTPtr*)&localApplication);
+		localApplication->setAttributeValue(kTTSym_name, value);
 		mApplications->remove(kTTSym_localApplicationName);
+	}
 	
 	// in any case change localApplicacationName
 	kTTSym_localApplicationName = value;

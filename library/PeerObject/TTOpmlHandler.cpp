@@ -249,7 +249,7 @@ TTErr TTOpmlHandler::ReadAgain()
 	return Read(args);
 }
 
-TTErr TTOpmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote)
+TTErr TTOpmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTString cString;
 	
@@ -265,7 +265,7 @@ TTErr TTOpmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQu
 		
 		v.clear();
 		v = cString;
-		v.fromString();
+		v.fromString(numberAsSymbol);
 		xmlFree((void*)xCh);
 		return kTTErrNone;
 	}
