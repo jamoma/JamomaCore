@@ -945,7 +945,7 @@ public:
 		append(*str);	// CHANGED: If we pass a pointer then this is appended at a generic TTPtr [TAP]
 	}
 	
-	void fromString()
+	void fromString(TTBoolean numberAsSymbol = NO)
 	{
 		if (*type == kTypeString) {
 			
@@ -964,13 +964,13 @@ public:
 				
 				for (unsigned int i = 0; i < strList.size(); ++i) {
 					TTString currentString = strList.at(i);
-					if (isTTInt32(currentString)) {
+					if (isTTInt32(currentString) && !numberAsSymbol) {
 						
 						data[n].int32 = toTTInt32(currentString);
 						type[n] = kTypeInt32;
 						n++;
 						
-					} else if (isTTFloat32(currentString)) {
+					} else if (isTTFloat32(currentString) && !numberAsSymbol) {
 						
 						data[n].float32 = toTTFloat32(currentString);
 						type[n] = kTypeFloat32;
