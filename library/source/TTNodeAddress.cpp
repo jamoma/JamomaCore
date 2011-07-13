@@ -63,6 +63,18 @@ TTNodeAddressType TTNodeAddress::getType()
 	return type;
 }
 
+TTSymbolPtr	TTNodeAddress::getNameInstance()
+{
+	TTString nameInstance = this->getName()->getCString();
+	
+	if (this->getInstance() != NO_INSTANCE) {
+		nameInstance += C_INSTANCE;
+		nameInstance +=  this->getInstance()->getCString();
+	}
+	
+	return TT(nameInstance);
+}
+
 TTNodeAddressPtr TTNodeAddress::normalize()
 {
 	if (!parsed) parse();

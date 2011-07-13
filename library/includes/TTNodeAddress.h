@@ -120,6 +120,9 @@ public:
 	/** Get the type */
 	TTNodeAddressType			getType();
 	
+	/** Get the name.instance part */
+	TTSymbolPtr					getNameInstance();
+	
 	/** Normalize an address for lookup and other directory operations
 		This would return an address without directory and attribute	*/
 	TTNodeAddressPtr			normalize();
