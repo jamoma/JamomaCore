@@ -20,8 +20,8 @@ void	WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv
 
 void	appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void	appmg_application_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void	appmg_plugin_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	appmg_application_plugins(TTPtr self, SymbolPtr msg);
+void	appmg_plugin_parameters(TTPtr self, SymbolPtr msg);
 void	appmg_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	appmg_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -53,8 +53,8 @@ void WrapTTApplicationManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)appmg_return_value,				"return_value",					A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)appmg_application_configuration,	"application/configuration",	A_GIMME, 0);
-	class_addmethod(c->maxClass, (method)appmg_plugin_configuration,		"plugin/configuration",			A_GIMME, 0);
+	class_addmethod(c->maxClass, (method)appmg_application_plugins,			"application/plugins",			A_SYM, 0);
+	class_addmethod(c->maxClass, (method)appmg_plugin_parameters,			"plugin/parameters",			A_SYM, 0);
 	class_addmethod(c->maxClass, (method)appmg_configuration,				"configuration",				A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)appmg_read,						"read",							A_GIMME, 0);
@@ -122,7 +122,7 @@ void appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
-void appmg_application_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void appmg_application_plugins(TTPtr self, SymbolPtr msg)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr			applicationName;
@@ -131,27 +131,21 @@ void appmg_application_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, 
 	AtomCount			ac = 0;
 	AtomPtr				av = NULL;
 	
-	if (argc && argv) {
+	applicationName = TT(msg->s_name);
+	anApplication = TTApplicationManagerGetApplication(applicationName);
+	
+	if (anApplication) {
+		anApplication->getAttributeValue(TT("pluginNames"), v);
 		
-		if (atom_gettype(argv) == A_SYM) {
-			
-			applicationName = TT(atom_getsym(argv)->s_name);
-			anApplication = TTApplicationManagerGetApplication(applicationName);
-			
-			if (anApplication) {
-				anApplication->getAttributeValue(TT("pluginNames"), v);
-				
-				v.prepend(applicationName);
-				jamoma_ttvalue_to_Atom(v, &ac, &av);
-				outlet_anything(x->outlets[config_out], msg, ac, av);
-			}
-			else
-				object_post((ObjectPtr)x, "%s is not an application", applicationName->getCString());
-		}
+		v.prepend(applicationName);
+		jamoma_ttvalue_to_Atom(v, &ac, &av);
+		outlet_anything(x->outlets[config_out], msg, ac, av);
 	}
+	else
+		object_post((ObjectPtr)x, "%s is not an application", applicationName->getCString());
 }
 
-void appmg_plugin_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void appmg_plugin_parameters(TTPtr self, SymbolPtr msg)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr			pluginName;
@@ -160,24 +154,18 @@ void appmg_plugin_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 	AtomCount			ac = 0;
 	AtomPtr				av = NULL;
 	
-	if (argc && argv) {
+	pluginName = TT(msg->s_name);
+	aPlugin = TTApplicationManagerGetPlugin(pluginName);
+	
+	if (aPlugin) {
+		aPlugin->getAttributeValue(TT("parameterNames"), v);
 		
-		if (atom_gettype(argv) == A_SYM) {
-			
-			pluginName = TT(atom_getsym(argv)->s_name);
-			aPlugin = TTApplicationManagerGetPlugin(pluginName);
-			
-			if (aPlugin) {
-				aPlugin->getAttributeValue(TT("parameterNames"), v);
-				
-				v.prepend(pluginName);
-				jamoma_ttvalue_to_Atom(v, &ac, &av);
-				outlet_anything(x->outlets[config_out], msg, ac, av);
-			}
-			else
-				object_post((ObjectPtr)x, "%s is not a plugin", pluginName->getCString());
-		}
+		v.prepend(pluginName);
+		jamoma_ttvalue_to_Atom(v, &ac, &av);
+		outlet_anything(x->outlets[config_out], msg, ac, av);
 	}
+	else
+		object_post((ObjectPtr)x, "%s is not a plugin", pluginName->getCString());
 }
 
 void appmg_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
