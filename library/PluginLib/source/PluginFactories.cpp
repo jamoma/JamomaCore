@@ -106,41 +106,63 @@ void PluginFactories::loadPlugins(TTString pluginFolderPath) {
 
 #else
 
-void PluginFactories::loadPlugins(TTString pluginFolderPath)
+void PluginFactories::loadPlugins(const TTString& pluginFolderPath)
 {
-	struct dirent **namelist;//la structure qui recoit les noms des fichiers plugins dans le champ d_name
-	int n = scandir(pluginFolderPath.c_str(), &namelist, 0, alphasort);//scan le rep source des plugins
+#if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX) || defined(TT_PLATFORM_WIN)
+	TTString						initializerFunctionName;
+	TTErr							err;
+	TTPath							path(pluginFolderPath);
+	TTString						extensionFilename;
+	TTString						extensionFileExtension;
+    TTPathVector					paths;
+    TTPathIter						i;
 	
-	//	if(n-3 == 0) {std::cout << "No plugin available" << std::endl;}
-	
-	while (n-- > 0) {
-		TTString tmp = pluginFolderPath + "/" + namelist[n]->d_name;
-		
-		if (tmp.rfind(".dylib") == TTString::npos && tmp.rfind(".so") == TTString::npos) {//test sur le nom du fichier qui n'est pas pris en compte si != .dylib ou .so
-			continue;
+	err = path.getDirectoryListing(paths);
+    if (!err) {
+        for (i = paths.begin(); i != paths.end(); ++i) {
+            TTPath							aPath = *i;
+            TTString						aPathString;
+            void*							handle = NULL;
+			
+            aPath.getString(aPathString);
+            cout << "PLUGINS: " << aPathString << endl;
+			
+			// make sure the files have the correct extension before trying to load them
+			aPath.getExtension(extensionFileExtension);
+#ifdef TT_PLATFORM_LINUX
+			if (extensionFileExtension != ".so")
+#elif defined(TT_PLATFORM_MAC)
+				if (extensionFileExtension != ".dylib")
+#elif defined(TT_PLATFORM_WIN)
+					if (extensionFileExtension != ".dll")
+#endif
+						continue;
+			
+#ifdef TT_PLATFORM_WIN
+			handle = LoadLibrary(aPathString.c_str());
+#else
+            handle = dlopen(aPathString.c_str(), RTLD_LAZY);
+#endif
+            cout << "HANDLE: " << handle << endl;
+            if (!handle)
+                continue;
+			
+			OpCreation createFactory = (OpCreation) dlsym(handle,"createFactory");//lie la dylib au symbole
+			
+			if (!createFactory) {
+				std::cerr << "dlsym failed: " << dlerror() << std::endl;
+				continue;
+			}
+			
+			PluginFactory *pluginFactory = (*createFactory)();
+			if (!pluginFactory) {
+				continue;
+			}
+			
+			factories[pluginFactory->getName()] = pluginFactory;
 		}
-		
-		void *handler = dlopen(tmp.c_str(), RTLD_LAZY);//charge la dylib (le plugin)
-		
-		if (!handler) {
-			std::cerr << "dlopen failed: " << dlerror() << std::endl;
-			continue;
-		}
-		
-		OpCreation createFactory = (OpCreation) dlsym(handler,"createFactory");//lie la dylib au symbole
-		
-		if (!createFactory) {
-			std::cerr << "dlsym failed: " << dlerror() << std::endl;
-			continue;
-		}
-		
-		PluginFactory *pluginFactory = (*createFactory)();
-		if (!pluginFactory) {
-			continue;
-		}
-		
-		factories[pluginFactory->getName()] = pluginFactory;
 	}
+#endif
 }
 #endif
 

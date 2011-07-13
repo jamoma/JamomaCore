@@ -99,7 +99,7 @@ public:
 	 *
 	 * \param path : the Plugin directory path.
 	 */
-	void loadPlugins(TTString pluginFolderPath);
+	void loadPlugins(const TTString& pluginFolderPath);
 	
 	/*!
 	 * Create an instance of a Plugin using his name
