@@ -85,7 +85,7 @@ TTErr TTSoundfileRecorder::setLength(const TTValue& newValue)
 
 
 // "FLAC-24bit" -> SF_FORMAT_FLAC | SF_FORMAT_PCM_24
-
+// something to consider when you want to write large amount of data as fast as possible: http://www.mega-nerd.com/libsndfile/FAQ.html#Q006
 int TTSoundfileRecorder::translateFormatFromName(TTSymbolPtr name)
 {
 	int		format = 0;
