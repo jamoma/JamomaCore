@@ -44,7 +44,7 @@
 #ifdef TT_WIN
 	#define JamomaPluginFolderPath "C:\Program Files\Common Files\TTBlue\Extensions"
 #else
-	#define JamomaPluginFolderPath "/usr/local/jamoma/ext"
+	#define JamomaPluginFolderPath "/Library/Application Support/Jamoma/Extensions"
 #endif
 
 #define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"

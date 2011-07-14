@@ -264,7 +264,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/mkdir -p -m 775 \"/usr/local/jamoma/ext\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/usr/local/jamoma/ext\"\n";
+			shellScript = "/bin/mkdir -p -m 775 \"/Library/Application Support/Jamoma/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/Jamoma/Extensions\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
