@@ -651,8 +651,14 @@ TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
 						keys.get(i, &k);
 						attributeCriteria->lookup(k, valueCriteria);
 
-						if (!o->getAttributeValue(k, v))
+						if (!o->getAttributeValue(k, v)) {
+							
+							// TODO : look into each element of the value
+							// to check among many tags for example
+							
 							test &= (v == valueCriteria) || (valueCriteria == kTTValNONE);
+							
+						}
 						else
 							test = NO;
 
