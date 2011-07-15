@@ -20,6 +20,20 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-10",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 244.0, 92.0, 558.0, 18.0 ],
+					"text" : "the first menu allows to choose which mapperMuli model is managed, the number box, which mapper of this model is edited"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-20",
@@ -285,13 +299,13 @@
 ,
 									"patching_rect" : [ 82.0, 154.0, 42.0, 18.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"fontname" : "Arial",
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"globalpatchername" : ""
+										"default_fontsize" : 10.0,
+										"fontname" : "Arial"
 									}
 ,
 									"text" : "p slash"
@@ -398,15 +412,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 60.0, 194.0, 150.0, 18.0 ],
+					"patching_rect" : [ 60.0, 194.0, 84.0, 18.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Arial",
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"globalpatchername" : ""
+						"default_fontsize" : 10.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p model/address"
