@@ -130,11 +130,11 @@ void PluginFactories::loadPlugins(const TTString& pluginFolderPath)
 			// make sure the files have the correct extension before trying to load them
 			aPath.getExtension(extensionFileExtension);
 #ifdef TT_PLATFORM_LINUX
-			if (extensionFileExtension != ".so")
+			if (extensionFileExtension != ".ttso")
 #elif defined(TT_PLATFORM_MAC)
-				if (extensionFileExtension != ".dylib")
+				if (extensionFileExtension != ".ttdylib")
 #elif defined(TT_PLATFORM_WIN)
-					if (extensionFileExtension != ".dll")
+					if (extensionFileExtension != ".ttdll")
 #endif
 						continue;
 			
