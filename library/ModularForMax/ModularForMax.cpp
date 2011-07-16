@@ -1362,13 +1362,16 @@ ObjectPtr jamoma_patcher_get(ObjectPtr obj)
 
 // Don't pass memory in for this function!  It will allocate what it needs
 // -- then the caller is responsible for freeing
-void jamoma_patcher_get_args(ObjectPtr patcher, AtomCount *argc, AtomPtr *argv)
+long jamoma_patcher_get_args(ObjectPtr patcher, AtomCount *argc, AtomPtr *argv)
 {
 	SymbolPtr	hierarchy = jamoma_patcher_get_hierarchy(patcher);
 	ObjectPtr	box = object_attr_getobj(patcher, _sym_box);
 	ObjectPtr	textfield = NULL;
-	char			*text = NULL;
+	ObjectPtr	assoc = NULL;
+	char		*text = NULL;
 	unsigned long	textlen = 0;
+	method		m = NULL;
+	long		index = -1;
 	
 	if (hierarchy == _sym_bpatcher)
 		object_attr_getvalueof(box, SymbolGen("args"), argc, argv);
@@ -1378,10 +1381,27 @@ void jamoma_patcher_get_args(ObjectPtr patcher, AtomCount *argc, AtomPtr *argv)
 		object_method(textfield, SymbolGen("gettextptr"), &text, &textlen);
 		atom_setparse(argc, argv, text);
 	}
+	else if (hierarchy == gensym("poly")){
+	
+		object_method(patcher, gensym("getassoc"), &assoc);
+		if (assoc) {
+
+			object_attr_getvalueof(assoc, SymbolGen("args"), argc, argv);
+			
+			// for poly, return the index to edit an instance
+			// according to the voice number of the poly~ 
+			// (see in jamoma_patcher_get_name)
+			if(m = zgetfn(assoc, gensym("getindex")))
+				return index = (long)(*m)(assoc, patcher);
+			
+		}  
+	}
 	else {
 		*argc = 0;
 		*argv = NULL;
 	}
+	
+	return 0;
 }
 
 /** Get the hierarchy of the patcher : bpatcher, subpatcher or top level one*/
@@ -1447,6 +1467,9 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 	// if no context
 	else {
 		
+		/*	to -- don't get the context from the filename anymore
+			because it make to ways to set it wjth the hub @context attribute
+		 
 		// try to get it from the patcher name
 		patcherName = object_attr_getsym(*patcher, _sym_filename);
 		if (patcherName != _sym_nothing) {
@@ -1461,10 +1484,11 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 				return;
 			}
 		}
+		 */
 		
 		// in subpatcher look upper
 		hierarchy = jamoma_patcher_get_hierarchy(*patcher);
-		if (hierarchy == _sym_subpatcher || hierarchy == _sym_bpatcher) {
+		if (hierarchy == _sym_subpatcher || hierarchy == _sym_bpatcher || hierarchy == SymbolGen("poly")) {
 			
 			// get the patcher where is the patcher to look for the context one step upper
 			upperPatcher = jamoma_patcher_get(*patcher);
@@ -1546,10 +1570,14 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
 	SymbolPtr		hierarchy, argName;
+	TTString		voiceFormat;
+	long			index;
+	
+	*returnedName = NULL;
 	
 	// try to get context name from the patcher arguments
 	hierarchy = jamoma_patcher_get_hierarchy(patcher);
-	jamoma_patcher_get_args(patcher, &ac, &av);
+	index = jamoma_patcher_get_args(patcher, &ac, &av);
 	
 	// ignore the first argument for subpatcher
 	if (hierarchy == _sym_subpatcher) {
@@ -1560,30 +1588,28 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 	if (ac && av) {
 		
 		// for model : the first argument is the name
-		if (context == kTTSym_model) {
+		if (context == kTTSym_model)
 			argName = atom_getsym(av);
-			if (argName != _sym_nothing)
-				*returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
-			else
-				*returnedName = NULL;
-			
-			return;
-		}
 		
 		// for view : the second argument is the name
 		// (the first is reserved for the /model/address)
-		if (context == kTTSym_view && ac > 1) {
+		else if (context == kTTSym_view && ac > 1)
 			argName = atom_getsym(av+1);
-			if (argName != _sym_nothing)
-				*returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
-			else
-				*returnedName = NULL;
+		
+		if (argName != _sym_nothing) {
 			
-			return;
+			// in poly case, the index is used to edit an instance
+			// according to the voice number of the poly~ 
+			// (see in jamoma_patcher_get_args)
+			if (index) {
+				voiceFormat = argName->s_name;
+				voiceFormat += ".%d";
+				jamoma_edit_numeric_instance(&voiceFormat, &argName, index);
+			}
+			
+			*returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
 		}
 	}
-	
-	*returnedName = NULL;
 }
 
 
@@ -1754,7 +1780,7 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 	TTString	s_number;
 	TTString	s_before;
 	TTString	s_after;
-	TTRegex		ex_braket("(\\[\\d\\])"); // TODO : parse 2 or more numbers like 10, 100, 1000, ...
+	TTRegex		ex_braket("(\\[\\d{1,3}\\])"); // parse until 999
 	TTRegexStringPosition begin, end;
 	
 	begin = s_toParse.begin();
