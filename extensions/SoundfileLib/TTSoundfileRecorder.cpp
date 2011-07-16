@@ -185,9 +185,11 @@ TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, T
 		mBuffer.resize(buffersize);
 	}
 
-	if (!mSoundFile) //if we don't have already a file open, do it now. 
-		openFile();
-	
+	if (!mSoundFile) { //if we don't have already a file open, do it now. 
+		TTErr err = openFile();
+		if (err != kTTErrNone) // file didn't open, let's stop recording
+			return setRecord(0);
+	}
 	
 	for (channel=0; channel<channelCount; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -241,8 +243,11 @@ TTErr TTSoundfileRecorder::processTimedAudioRecording(TTAudioSignalArrayPtr inpu
 		mBuffer.resize(buffersize);		
 	}
 	
-	if (!mSoundFile) //if we don't have already a file open, do it now. 
-		openFile();	
+	if (!mSoundFile) {//if we don't have already a file open, do it now. 
+		TTErr err = openFile();
+		if (err != kTTErrNone) // file didn't open, let's stop recording 
+			return setRecord(0);
+	}	
 	
 	for (channel=0; channel<channelCount; channel++) {
 		inSample = in.mSampleVectors[channel];
