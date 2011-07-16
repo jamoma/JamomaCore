@@ -34,7 +34,7 @@ MACOSX_DEPLOYMENT_TARGET = 10.5
 
 
 // Static Configuration
-WRAPPER_EXTENSION = dylib
-EXECUTABLE_EXTENSION = dylib
+WRAPPER_EXTENSION = ttdylib
+EXECUTABLE_EXTENSION = ttdylib
 WARNING_CFLAGS = -Wmost -Wno-four-char-constants -Wno-unknown-pragmas
 DEPLOYMENT_LOCATION = YES

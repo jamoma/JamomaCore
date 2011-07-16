@@ -181,8 +181,9 @@ extern "C" {
 	/** Convenient method to get the patcher easily */
 	ObjectPtr		jamoma_patcher_get(ObjectPtr obj);
 	
-	/** Convenient method to get the patcher argument easily */
-	void			jamoma_patcher_get_args(t_object *patcher, long *argc, t_atom **argv);
+	/** Convenient method to get the patcher argument easily.
+		In poly case it also return the voice index (0 else) */
+	long			jamoma_patcher_get_args(t_object *patcher, long *argc, t_atom **argv);
 	
 	/** Get the hierarchy of the patcher : bpatcher, subpatcher or toplevel */
 	SymbolPtr		jamoma_patcher_get_hierarchy(ObjectPtr patcher);

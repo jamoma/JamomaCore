@@ -1,7 +1,7 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 479.0, 474.0, 300.0, 105.0 ],
+		"rect" : [ 15.0, 58.0, 922.0, 702.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 15.0, 58.0, 922.0, 702.0 ],
@@ -25,12 +25,12 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-22",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 221.0, 93.0, 267.0, 48.0 ],
-					"text" : "look at the @context : it comes from the patcher name. But it is also possible to set it manually (add \"@context view\" as argument of the hub)",
+					"patching_rect" : [ 266.0, 99.0, 246.0, 34.0 ],
+					"text" : "add \"@context view\" as argument of the hub to make this patcher as a view patcher",
 					"textcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ]
 				}
 
@@ -595,15 +595,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 202.0, 146.0, 90.0, 20.0 ],
+					"patching_rect" : [ 247.0, 141.0, 90.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p print_content"
@@ -622,7 +622,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 46.0, 52.0, 50.0, 18.0 ],
+					"patching_rect" : [ 46.0, 56.0, 50.0, 18.0 ],
 					"text" : "content",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
@@ -692,13 +692,13 @@
 ,
 					"patching_rect" : [ 746.0, 650.0, 67.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p myPanel"
@@ -741,8 +741,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 17.0, 99.0, 204.0, 34.0 ],
-					"text" : "jcom.hub @type video @description \"an interface for a movie model\"",
+					"patching_rect" : [ 17.0, 99.0, 249.0, 34.0 ],
+					"text" : "jcom.hub @context view video @description \"an interface for a movie model\"",
 					"varname" : "_jcom_node"
 				}
 
@@ -759,7 +759,7 @@
 					"patching_rect" : [ 465.0, 553.0, 300.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ],
-					"text" : "/player.A"
+					"text" : "waiting for a /model/address"
 				}
 
 			}

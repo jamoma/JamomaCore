@@ -40,7 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		224B076511DEA0E000B6EF48 /* Minuit.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Minuit.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		224B076511DEA0E000B6EF48 /* Minuit.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Minuit.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D175C6E12E72D1300BDF8D0 /* Minuit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Minuit.cpp; sourceTree = "<group>"; };
 		4DB6C32A12E89C9A001546E4 /* MinuitMethods.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitMethods.hpp; path = Minuit/MinuitMethods.hpp; sourceTree = "<group>"; };
 		4DB6C32D12E89C9A001546E4 /* MinuitInclude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MinuitInclude.hpp; path = Minuit/MinuitInclude.hpp; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				224B076511DEA0E000B6EF48 /* Minuit.dylib */,
+				224B076511DEA0E000B6EF48 /* Minuit.ttdylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,7 +228,7 @@
 			);
 			name = Minuit;
 			productName = JamomaModular;
-			productReference = 224B076511DEA0E000B6EF48 /* Minuit.dylib */;
+			productReference = 224B076511DEA0E000B6EF48 /* Minuit.ttdylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -238,7 +238,6 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Minuit" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
