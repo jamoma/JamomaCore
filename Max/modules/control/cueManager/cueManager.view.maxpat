@@ -9255,7 +9255,6 @@
 					"fontname" : "Verdana",
 					"fontsize" : 12.0,
 					"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
-					"hidden" : 1,
 					"hint" : "write the name of the cue",
 					"id" : "obj-2",
 					"keymode" : 1,
