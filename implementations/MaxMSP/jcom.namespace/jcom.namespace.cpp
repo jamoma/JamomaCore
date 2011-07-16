@@ -185,7 +185,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// prepare umenu prefix 
 			// (except in case the explorer look for Instances)
-			if (address == kTTAdrsRoot)
+			if (address->getName() == S_SEPARATOR)
 				atom_setsym(a, gensym((char*)address->getCString()));
 			else {
 				TTString prefix = address->getCString();
