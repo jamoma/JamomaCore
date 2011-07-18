@@ -182,7 +182,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 219.0, 88.0, 294.0, 73.0 ],
+					"patching_rect" : [ 219.0, 99.0, 294.0, 73.0 ],
 					"text" : "jcom.parameter samplerateRatio @type decimal @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\" @priority 1"
 				}
 
