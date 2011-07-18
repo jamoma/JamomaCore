@@ -1,7 +1,7 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 28.0, 0.0, 664.0, 71.0 ],
+		"rect" : [ 176.0, 461.0, 880.0, 310.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 176.0, 461.0, 880.0, 310.0 ],
@@ -203,15 +203,13 @@
 					}
 ,
 					"patching_rect" : [ 162.0, 129.0, 46.0, 18.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 135.0, 130.0, 111.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -414,12 +412,12 @@
 ,
 					"patching_rect" : [ 629.666687, 80.0, 160.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -966,12 +964,12 @@
 ,
 					"patching_rect" : [ 435.0, 194.0, 179.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -1180,12 +1178,12 @@
 ,
 									"patching_rect" : [ 151.0, 145.0, 38.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"globalpatchername" : "",
-										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 11.0,
+										"default_fontface" : 0,
+										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
 										"default_fontsize" : 11.0
 									}
 ,
@@ -1575,12 +1573,12 @@
 ,
 					"patching_rect" : [ 394.0, 140.0, 321.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -1725,7 +1723,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-15",
-					"items" : [ "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch" ],
+					"items" : [ "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "smoothPolynomial", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "blackmanHarris", ",", "expodec", ",", "gauss", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "nuttall", ",", "rectangular", ",", "trapezoid", ",", "tukey", ",", "welch" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
