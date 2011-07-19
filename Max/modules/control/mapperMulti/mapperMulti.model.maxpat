@@ -22,33 +22,6 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
-					"id" : "obj-24",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 264.0, 127.0, 54.0, 18.0 ],
-					"text" : "print Multi"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 10.0,
-					"id" : "obj-23",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 263.0, 101.0, 100.0, 18.0 ],
-					"text" : "jcom.init"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 10.0,
 					"id" : "obj-33",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -425,12 +398,12 @@
 ,
 									"patching_rect" : [ 302.0, 170.0, 47.0, 18.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Arial",
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial",
 										"default_fontsize" : 10.0
 									}
 ,
@@ -790,12 +763,12 @@
 ,
 									"patching_rect" : [ 140.0, 263.0, 47.0, 18.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Arial",
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial",
 										"default_fontsize" : 10.0
 									}
 ,
@@ -1259,12 +1232,12 @@
 ,
 					"patching_rect" : [ 120.0, 103.0, 70.0, 18.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -1299,7 +1272,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 120.0, 37.0, 516.0, 34.0 ],
-					"text" : "jcom.parameter InstanceNumber @type integer @description \"the number of grouped fixtures\" @range/bounds 0 100 @range/clipmode low @priority 1 @repetitions/allow 0 @readonly 1"
+					"text" : "jcom.parameter InstanceNumber @type integer @description \"the number of mappers\" @range/bounds 0 100 @range/clipmode low @priority 1 @repetitions/allow 0"
 				}
 
 			}
@@ -1374,15 +1347,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-24", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-23", 0 ]
 				}
 
 			}
