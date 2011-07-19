@@ -1735,11 +1735,9 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		// get the class from the patcher filename
 		jamoma_patcher_get_class(*returnedPatcher, *returnedContext, returnedClass);
 		
-		// if no class : stop the subscription process
-		if (!*returnedClass) {
-			object_error(obj, "Can't get the class from the patcher. Subscription failed");
-			return kTTErrGeneric;
-		}
+		// if no class : set it as "Untitled" to follow the process
+		if (!*returnedClass)
+			*returnedClass = TT("Untitled");
 		
 		// for hub object, use the patcher where it is to get the name
 		if (isHub)
