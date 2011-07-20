@@ -10,6 +10,8 @@
 #include "TTFoundationAPI.h"
 #include "TTNetReceive.h"
 #include "TTNetSend.h"
+#include "TTOscReceive.h"
+#include "TTOscSend.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
@@ -19,6 +21,8 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
 	TTNetReceive::registerClass();
 	TTNetSend::registerClass();
 	
+	TTOscReceive::registerClass();
+	TTOscSend::registerClass();
+	
 	return kTTErrNone;
 }
-
