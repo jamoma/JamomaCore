@@ -57,7 +57,7 @@ public:
 	
 private:
 	// internal helper method
-	TTUInt32	computeMessageSize(TTSymbolPtr message, const TTValue& message);
+	TTUInt32	computeMessageSize(TTSymbolPtr message, const TTValue& arguments);
 	
 protected:
 	

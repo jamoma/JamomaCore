@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="NetworkLib"
 	ProjectGUID="{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
 	RootNamespace="tt.overdrive~"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)NetworkCommunication\ip&quot;;&quot;$(ProjectDir)NetworkCommunication\osc&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)NetworkCommunication\ip&quot;;&quot;$(ProjectDir)NetworkCommunication\osc&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -179,6 +179,98 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="NetworkCommunication"
+			>
+			<Filter
+				Name="ip"
+				>
+				<File
+					RelativePath=".\NetworkCommunication\ip\IpEndpointName.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\ip\IpEndpointName.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\ip\NetworkingUtils.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\ip\NetworkingUtils.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\ip\PacketListener.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\ip\TimerListener.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\ip\UdpSocket.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\ip\UdpSocket.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="osc"
+				>
+				<File
+					RelativePath=".\NetworkCommunication\osc\MessageMappingOscPacketListener.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscException.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscHostEndianness.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscOutboundPacketStream.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscOutboundPacketStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscPacketListener.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscPrintReceivedElements.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscPrintReceivedElements.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscReceivedElements.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscReceivedElements.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscTypes.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkCommunication\osc\OscTypes.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
 		<File
 			RelativePath=".\TTNetReceive.cpp"
 			>
@@ -201,6 +293,30 @@
 		</File>
 		<File
 			RelativePath=".\TTNetSocket.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TTOscReceive.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TTOscReceive.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TTOscSend.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TTOscSend.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TTOscSocket.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TTOscSocket.h"
 			>
 		</File>
 	</Files>
