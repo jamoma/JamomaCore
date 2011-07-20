@@ -4,7 +4,7 @@
  <preset number="1" name="default">
   <!---->
   <Data address="/file/path" value="oh.mov" priority="1"/>
-  <Data address="/play" value="1" priority="2"/>
+  <Data address="/play" value="0" priority="2"/>
   <Data address="/out/preview" value="1" priority="0"/>
   <Data address="/model/mute" value="0" priority="0"/>
   <Data address="/out/freeze" value="0" priority="0"/>

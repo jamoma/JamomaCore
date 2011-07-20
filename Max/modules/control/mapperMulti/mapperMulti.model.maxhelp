@@ -20,6 +20,34 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "/Multi" ],
+					"id" : "obj-2",
+					"maxclass" : "bpatcher",
+					"name" : "mapperMulti.view.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 60.0, 119.0, 750.0, 70.0 ],
+					"presentation_rect" : [ 75.0, 75.0, 750.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-10",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 244.0, 92.0, 558.0, 18.0 ],
+					"text" : "the first menu allows to choose which mapperMuli model is managed, the number box, which mapper of this model is edited"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-20",
@@ -58,9 +86,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 25.0, 69.0, 403.0, 315.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"defrect" : [ 25.0, 69.0, 403.0, 315.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -85,7 +113,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 82.0, 179.0, 118.0, 18.0 ],
-									"text" : "prepend /model/address"
+									"text" : "prepend model/address"
 								}
 
 							}
@@ -285,13 +313,13 @@
 ,
 									"patching_rect" : [ 82.0, 154.0, 42.0, 18.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Arial",
 										"globalpatchername" : "",
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 10.0,
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Arial",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p slash"
@@ -307,22 +335,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 80.0, 123.0, 100.0, 18.0 ],
-									"text" : "route /out/address"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 10.0,
-									"id" : "obj-12",
-									"maxclass" : "newobj",
-									"numinlets" : 2,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 100.0, 49.0, 18.0 ],
-									"text" : "zl slice 1"
+									"patching_rect" : [ 80.0, 123.0, 152.0, 18.0 ],
+									"text" : "route mapper(view)/out/address"
 								}
 
 							}
@@ -352,15 +366,6 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-13", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-12", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-14", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -388,7 +393,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-12", 0 ],
+									"destination" : [ "obj-13", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-16", 0 ]
@@ -398,15 +403,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 60.0, 194.0, 150.0, 18.0 ],
+					"patching_rect" : [ 60.0, 194.0, 84.0, 18.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p model/address"
@@ -523,20 +528,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 554.0, 300.0, 100.0, 18.0 ],
 					"text" : "wacom.model"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/Multi" ],
-					"id" : "obj-2",
-					"maxclass" : "bpatcher",
-					"name" : "mapperMulti.view.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 60.0, 116.0, 750.0, 70.0 ],
-					"presentation_rect" : [ 45.0, 45.0, 750.0, 70.0 ]
 				}
 
 			}

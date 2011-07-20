@@ -399,12 +399,12 @@
 									"patching_rect" : [ 302.0, 170.0, 47.0, 18.0 ],
 									"saved_object_attributes" : 									{
 										"fontname" : "Arial",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"default_fontname" : "Arial",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p create"
@@ -764,12 +764,12 @@
 									"patching_rect" : [ 140.0, 263.0, 47.0, 18.0 ],
 									"saved_object_attributes" : 									{
 										"fontname" : "Arial",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"default_fontname" : "Arial",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p create"
@@ -1233,12 +1233,12 @@
 					"patching_rect" : [ 120.0, 103.0, 70.0, 18.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Arial",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p script"
@@ -1272,7 +1272,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 120.0, 37.0, 516.0, 34.0 ],
-					"text" : "jcom.parameter InstanceNumber @type integer @description \"the number of grouped fixtures\" @range/bounds 0 100 @range/clipmode low @priority 1 @repetitions/allow 0 @readonly 1"
+					"text" : "jcom.parameter InstanceNumber @type integer @description \"the number of mappers\" @range/bounds 0 100 @range/clipmode low @priority 1 @repetitions/allow 0"
 				}
 
 			}
