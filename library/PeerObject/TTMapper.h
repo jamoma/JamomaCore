@@ -129,25 +129,25 @@ typedef TTMapper* TTMapperPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperInputCreationCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperOutputCreationCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMapperInputRangeCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperInputRangeCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperOutputRangeCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..

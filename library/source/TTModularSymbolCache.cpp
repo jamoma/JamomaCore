@@ -83,7 +83,6 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_tag;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_type;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueStepsize;
@@ -164,7 +163,6 @@ void TTModularSymbolCacheInit()
 	kTTSym_string					= TT("string");
 
 	kTTSym_tag						= TT("tag");
-	kTTSym_type						= TT("type");
 	
 	kTTSym_value					= TT("value");
 	kTTSym_valueDefault				= TT("valueDefault");

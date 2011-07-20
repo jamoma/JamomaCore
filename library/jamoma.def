@@ -6,84 +6,83 @@ EXPORTS
 
 	; Core
 		jamoma_init
-	
 		jcom_core_atom_compare
 		jcom_core_atom_copy
-		jcom_core_attr_getclipmode
-		jcom_core_attr_getdescription
-		jcom_core_attr_getname
-		jcom_core_attr_getrange
-		jcom_core_attr_getrepetitions
-		jcom_core_attr_setrange
 		jcom_core_file_writeline
 		jcom_core_getfilepath
 		jcom_core_loadextern
 		jcom_core_string_compare
-		jcom_core_subscriber_attribute_common_setname
-		jcom_core_subscriber_classinit_common
-		jcom_core_subscriber_classinit_extended
-		jcom_core_subscriber_common_free
-		jcom_core_subscriber_hubrelease
-		jcom_core_subscriber_new_common
-		jcom_core_subscriber_new_extended
-		jcom_core_subscriber_setcustomsubscribe_method
-		jcom_core_subscriber_subscribe
-		jcom_core_unsubscribe
-	
 
 	; Misc
-		;jamoma_anti_denormal
-		jamoma_class_attr_array_new
-		jamoma_class_attr_get
-		jamoma_class_attr_new
-	
-		jamoma_get_all_module_names
-		jamoma_get_hub_for_module_named
-		jamoma_hub_register
-		jamoma_hub_remove
-	
 		jamoma_object_free
-		jamoma_object_getpatcher
 		jamoma_object_initclass
 		jamoma_object_new
-		jamoma_patcher_getargs
-		jamoma_patcher_getcontext
-		jamoma_patcher_getvarname
-
-	; FunctionLib
-	;	jamoma_getFunction
-	;	jamoma_getFunctionList
-
-	; DataspaceLib
-		jamoma_getDataspace
-		jamoma_getDataspaceList
 		
-	; NodeLib
-		jamoma_directory_init
-		jamoma_directory_free
-		jamoma_directory_dump
-		jamoma_directory_register
-		jamoma_directory_unregister
-		jamoma_directory_get_node
-		jamoma_directory_get_node_by_type
-		jamoma_node_OSC_address
-		jamoma_node_name
-		jamoma_node_set_name
-		jamoma_node_instance
-		jamoma_node_set_instance
-		jamoma_node_type
-		jamoma_node_children
-		jamoma_node_max_object
-		jamoma_node_properties
-		jamoma_node_add_property
-		jamoma_node_get_property
-		jamoma_node_get_property_method
-		jamoma_node_set_property
-		jamoma_node_set_property_method
-		jamoma_node_add_observer
-		jamoma_node_remove_observer
-		jamoma_node_callback
-		jamoma_node_notify_observers
+	; ModularForMax
+		jamoma_application_dump_configuration
+		jamoma_application_write_configuration
+
+		jamoma_directory_dump_observers
+
+		jamoma_subscriber_create
+		jamoma_subscriber_get_patcher_list
+		jamoma_container_create
+		jamoma_container_send
+		jamoma_data_create
+		jamoma_data_command
+		jamoma_sender_create
+		jamoma_sender_send
+		jamoma_receiver_create
+		jamoma_presetManager_create
+		jamoma_cueManager_create
+
+		jamoma_callback_test_object
+		jamoma_callback_read_item
+		jamoma_callback_update_item
+		jamoma_callback_sort_item
+		jamoma_callback_send_item
+
+		jamoma_input_create
+		jamoma_input_create_audio
+		jamoma_input_send
+
+		jamoma_output_create
+		jamoma_output_create_audio
+		jamoma_output_send
+
+		jamoma_mapper_create
+		jamoma_viewer_create
+		jamoma_explorer_create
+
+		jamoma_callback_return_address
+		jamoma_callback_return_value
+		jamoma_callback_return_value_typed
+		jamoma_callback_return_signal
+		jamoma_callback_return_signal_audio
+
+		jamoma_patcher_get
+		jamoma_patcher_get_args
+		jamoma_patcher_get_hierarchy
+		jamoma_patcher_get_context
+		jamoma_patcher_get_class
+		jamoma_patcher_get_name
+		jamoma_patcher_make_absolute_address
+		jamoma_patcher_share_info
+		jamoma_patcher_share_node
+		jamoma_patcher_get_info
+
+		jamoma_ttvalue_to_typed_Atom
+		jamoma_ttvalue_to_Atom
+		jamoma_ttvalue_from_Atom
+
+		jamoma_TTName_To_MaxName
+		jamoma_extern_load
+		jamoma_parse_bracket
+		jamoma_edit_numeric_instance
+		jamoma_edit_string_instance
+		jamoma_parse_dieze
+		jamoma_file_write
+		jamoma_file_read
 
 	; JamomaSymbols
 		jps_1U

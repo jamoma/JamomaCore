@@ -1813,10 +1813,10 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 void jamoma_edit_numeric_instance(TTString *format, SymbolPtr *returnedName, long i)
 {
 	char *s_num;
-	long len;
+	TTInt32 len;
 	
 	if (i > 0) {
-		len = strlen(format->data()) + (long)trunc(log10(i)); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
+		len = strlen(format->data()) + (TTInt32)log10((TTFloat32)i); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
 		s_num = (char *)malloc(sizeof(char)*len);
 		snprintf(s_num, len, format->data(), i);
 		*returnedName = gensym(s_num);

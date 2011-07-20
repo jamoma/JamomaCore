@@ -677,7 +677,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& value)
 	// Outline node
 	if (aOpmlHandler->mXmlNodeName == TT("outline")) {
 		
-		empty = xmlTextReaderIsEmptyElement(aOpmlHandler->mReader);
+		empty = (TTBoolean)xmlTextReaderIsEmptyElement(aOpmlHandler->mReader);
 		
 		// get the relative address
 		xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("text"));

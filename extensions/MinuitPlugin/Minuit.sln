@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MinuitDll", "MinuitDll.vcproj", "{92B5176B-5A1A-4161-AC74-AAB4BA335E2F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Minuit", "Minuit.vcproj", "{92B5176B-5A1A-4161-AC74-AAB4BA335E2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
