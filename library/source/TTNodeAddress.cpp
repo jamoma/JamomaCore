@@ -128,6 +128,8 @@ TTNodeAddressPtr TTNodeAddress::appendAddress(const TTNodeAddressPtr toAppend)
 	return TTADRS(tmp.data());
 }
 
+#ifndef TTNODEADDRESS_OLD_WAY_TO_PARSE
+
 TTErr TTNodeAddress::parse()
 {	
 	// "directory:/parent/address/name.instance:attribute" parsing
@@ -243,6 +245,122 @@ TTErr TTNodeAddress::parse()
 	this->parsed = YES;
 	return kTTErrNone;
 }
+
+#else
+
+TTErr TTNodeAddress::parse()
+{
+	TTString address = this->getCString();
+	long len, pos, first_slash, first_colon;
+	char *last_colon, *last_slash, *last_dot;
+	char *c_directory, *c_attribute, *c_parent, *c_instance;
+	char *to_split;
+	
+	// Empty case :
+	if (this == kTTAdrsEmpty) {
+		this->directory = NO_DIRECTORY;
+		this->parent = NO_PARENT;
+		this->name = NO_NAME;
+		this->instance = NO_INSTANCE;
+		this->attribute = NO_ATTRIBUTE;
+		this->type = kAddressRelative;
+		this->parsed = YES;
+		return kTTErrNone;
+	}
+	
+	// Root case :
+	if (this == kTTAdrsRoot) {
+		this->directory = NO_DIRECTORY;
+		this->parent = NO_PARENT;
+		this->name = S_SEPARATOR;
+		this->instance = NO_INSTANCE;
+		this->attribute = NO_ATTRIBUTE;
+		this->type = kAddressAbsolute;
+		this->parsed = YES;
+		return kTTErrNone;
+	}
+	
+	// TODO : replace all ".0" by ""
+	
+	// Parse directory (:/)
+	to_split = (char *)malloc(sizeof(char)*(strlen(address.data())+1));
+	strcpy(to_split, address.data());
+	first_colon = address.find_first_of(C_ATTRIBUTE);
+	first_slash = address.find_first_of(C_SEPARATOR);
+	if (first_colon > 0 && first_colon == first_slash-1) {
+		c_directory = (char *)malloc(sizeof(char)*first_colon);
+		strncpy(c_directory, to_split, first_colon);
+		c_directory[first_colon] = NULL;
+		
+		this->directory = TT(c_directory);
+		
+		strcpy(to_split, to_split+first_colon+1);
+	}
+	
+	// find the last ':' in the address
+	// if exists, split the address in an address part (to split) and an attribute part
+	len = strlen(to_split);
+	last_colon = strrchr(to_split, C_ATTRIBUTE);
+	pos = (long)last_colon - (long)to_split;
+	
+	if (last_colon) {
+		c_attribute = (char *)malloc(sizeof(char)*(len - (pos+1)));
+		strcpy(c_attribute,to_split + pos+1);
+		this->attribute = TT(c_attribute);
+		to_split[pos] = NULL;
+	}
+	
+	
+	// find the last '/' in the address part
+	len = strlen(to_split);
+	last_slash = strrchr(to_split, C_SEPARATOR);
+	pos = (long)last_slash - (long)to_split;
+	
+	if (last_slash) {
+		if (pos) { // In the root case pos == 0
+			c_parent = (char *)malloc(sizeof(char)*(pos+1));
+			strncpy(c_parent,to_split,pos);
+			c_parent[pos] = NULL;
+			this->parent = TTADRS(c_parent);
+			to_split = last_slash+1;
+		}
+		else {
+			// Is it the root or a child of the root ?
+			if (strlen(to_split) > 1) {
+				this->parent = kTTAdrsRoot;
+				to_split = last_slash+1;
+			}
+		}
+	}
+	
+	// find the last '.' in the name.instance part
+	// if exists, split the name.instance part
+	len = strlen(to_split);
+	last_dot = strrchr(to_split, C_INSTANCE);
+	pos = (long)last_dot - (long)to_split;
+	
+	if (last_dot > 0) {
+		c_instance = (char *)malloc(sizeof(char)*(len - (pos+1)));
+		strcpy(c_instance,to_split + pos+1);
+		this->instance = TT(c_instance);
+		
+		to_split[pos] = NULL; // split to keep only the name part
+	}
+	
+	// TODO : ??? (detect unusual characters in a name)
+	if (strlen(to_split) > 0)
+		this->name = TT(to_split);
+	
+	// the type of the address is absolute if
+	if (parent != NO_PARENT)
+		this->type = parent->getType();
+	else
+		this->type = (TTNodeAddressType)(directory != NO_DIRECTORY || name == S_SEPARATOR);
+	
+	this->parsed = YES;
+	return kTTErrNone;
+}
+#endif
 
 TTNodeAddressPtr TTNodeAddress::edit(const TTSymbolPtr newDirectory, 
 						  const TTNodeAddressPtr newParent, 
