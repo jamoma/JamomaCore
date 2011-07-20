@@ -1,0 +1,344 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		221CC61F1239E3EB00420055 /* MaxAudioGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CC61D1239E3EB00420055 /* MaxAudioGraph.cpp */; };
+		221CC6231239E45200420055 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 221CC6221239E45200420055 /* JamomaFoundation.dylib */; };
+		221CC6251239E45E00420055 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 221CC6241239E45E00420055 /* JamomaDSP.dylib */; };
+		221CC6271239E46B00420055 /* JamomaGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 221CC6261239E46B00420055 /* JamomaGraph.dylib */; };
+		221CC6291239E47900420055 /* JamomaAudioGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 221CC6281239E47900420055 /* JamomaAudioGraph.dylib */; };
+		22335DBC123A9AEE00182E8D /* Plugtastic.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22335DBB123A9AEE00182E8D /* Plugtastic.dylib */; };
+		226C435A109A169900E2BFB0 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C4359109A169900E2BFB0 /* commonsyms.cpp */; };
+		226C435C109A16A200E2BFB0 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435B109A16A200E2BFB0 /* MaxAPI.framework */; };
+		226C435F109A16AB00E2BFB0 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */; };
+		2273162E124705470099B485 /* PlugtasticProgressWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2273162C124705470099B485 /* PlugtasticProgressWindow.mm */; };
+		2286A6F6112880D800BF5DF9 /* plug.out.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2286A6F5112880D800BF5DF9 /* plug.out.cpp */; };
+		22BF4A4C123E8000005A24F2 /* plug.out.export.mm in Sources */ = {isa = PBXBuildFile; fileRef = 22BF4A4B123E8000005A24F2 /* plug.out.export.mm */; };
+		22BF4B14123E85A4005A24F2 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22BF4B13123E85A4005A24F2 /* Carbon.framework */; };
+		22BF4B19123E85BF005A24F2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22BF4B18123E85BF005A24F2 /* Cocoa.framework */; };
+		22CDA027113F4087001D7910 /* maxGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CDA025113F4087001D7910 /* maxGraph.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		221CC61D1239E3EB00420055 /* MaxAudioGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaxAudioGraph.cpp; path = ../../../../AudioGraph/implementations/MaxMSP/MaxAudioGraph.cpp; sourceTree = SOURCE_ROOT; };
+		221CC61E1239E3EB00420055 /* MaxAudioGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxAudioGraph.h; path = ../../../../AudioGraph/implementations/MaxMSP/MaxAudioGraph.h; sourceTree = SOURCE_ROOT; };
+		221CC6221239E45200420055 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
+		221CC6241239E45E00420055 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		221CC6261239E46B00420055 /* JamomaGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraph.dylib; path = ../../../../Graph/library/build/UninstalledProducts/JamomaGraph.dylib; sourceTree = SOURCE_ROOT; };
+		221CC6281239E47900420055 /* JamomaAudioGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaAudioGraph.dylib; path = ../../../../AudioGraph/library/build/UninstalledProducts/JamomaAudioGraph.dylib; sourceTree = SOURCE_ROOT; };
+		2221B3BA12B4029B00D5253D /* plugtastic.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = plugtastic.xcconfig; path = ../plugtastic.xcconfig; sourceTree = SOURCE_ROOT; };
+		22335DBB123A9AEE00182E8D /* Plugtastic.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Plugtastic.dylib; path = ../../../library/build/UninstalledProducts/Plugtastic.dylib; sourceTree = SOURCE_ROOT; };
+		22335EFD123C1B9400182E8D /* Plugtastic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugtastic.h; sourceTree = "<group>"; };
+		22335EFE123C1B9400182E8D /* PlugtasticAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlugtasticAPI.h; sourceTree = "<group>"; };
+		22335EFF123C1B9400182E8D /* PlugtasticInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlugtasticInput.h; sourceTree = "<group>"; };
+		22335F00123C1B9400182E8D /* PlugtasticOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlugtasticOutput.h; sourceTree = "<group>"; };
+		22335F07123C1B9400182E8D /* Plugtastic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugtastic.h; path = ../../../library/includes/Plugtastic.h; sourceTree = SOURCE_ROOT; };
+		22335F08123C1B9400182E8D /* PlugtasticAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlugtasticAPI.h; path = ../../../library/includes/PlugtasticAPI.h; sourceTree = SOURCE_ROOT; };
+		22335F09123C1B9400182E8D /* PlugtasticInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlugtasticInput.h; path = ../../../library/includes/PlugtasticInput.h; sourceTree = SOURCE_ROOT; };
+		22335F0A123C1B9400182E8D /* PlugtasticOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlugtasticOutput.h; path = ../../../library/includes/PlugtasticOutput.h; sourceTree = SOURCE_ROOT; };
+		226C4359109A169900E2BFB0 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
+		226C435B109A16A200E2BFB0 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
+		226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
+		2273162B124705470099B485 /* PlugtasticProgressWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlugtasticProgressWindow.h; sourceTree = "<group>"; };
+		2273162C124705470099B485 /* PlugtasticProgressWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlugtasticProgressWindow.mm; sourceTree = "<group>"; };
+		2286A6F5112880D800BF5DF9 /* plug.out.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plug.out.cpp; sourceTree = "<group>"; };
+		22BF4A4B123E8000005A24F2 /* plug.out.export.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = plug.out.export.mm; sourceTree = "<group>"; };
+		22BF4B13123E85A4005A24F2 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		22BF4B18123E85BF005A24F2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		22BF4C8D123E9854005A24F2 /* plug.out.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plug.out.h; sourceTree = "<group>"; };
+		22BF4F0012414881005A24F2 /* PlugtasticParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlugtasticParameter.h; sourceTree = "<group>"; };
+		22CDA025113F4087001D7910 /* maxGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxGraph.cpp; path = ../../../supports/max/maxGraph.cpp; sourceTree = SOURCE_ROOT; };
+		22CDA026113F4087001D7910 /* maxGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxGraph.h; path = ../../../supports/max/maxGraph.h; sourceTree = SOURCE_ROOT; };
+		2FBBEAE508F335360078DB84 /* plug.out≈.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "plug.out≈.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2FBBEADC08F335360078DB84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				226C435C109A16A200E2BFB0 /* MaxAPI.framework in Frameworks */,
+				226C435F109A16AB00E2BFB0 /* MaxAudioAPI.framework in Frameworks */,
+				221CC6231239E45200420055 /* JamomaFoundation.dylib in Frameworks */,
+				221CC6251239E45E00420055 /* JamomaDSP.dylib in Frameworks */,
+				221CC6271239E46B00420055 /* JamomaGraph.dylib in Frameworks */,
+				221CC6291239E47900420055 /* JamomaAudioGraph.dylib in Frameworks */,
+				22335DBC123A9AEE00182E8D /* Plugtastic.dylib in Frameworks */,
+				22BF4B14123E85A4005A24F2 /* Carbon.framework in Frameworks */,
+				22BF4B19123E85BF005A24F2 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iterator */ = {
+			isa = PBXGroup;
+			children = (
+				2221B3BA12B4029B00D5253D /* plugtastic.xcconfig */,
+				08FB77ADFE841716C02AAC07 /* Source */,
+				22335EFC123C1B9400182E8D /* includes */,
+				22335F07123C1B9400182E8D /* Plugtastic.h */,
+				22335F08123C1B9400182E8D /* PlugtasticAPI.h */,
+				22335F09123C1B9400182E8D /* PlugtasticInput.h */,
+				22335F0A123C1B9400182E8D /* PlugtasticOutput.h */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+			);
+			name = iterator;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				22335DBB123A9AEE00182E8D /* Plugtastic.dylib */,
+				221CC6221239E45200420055 /* JamomaFoundation.dylib */,
+				221CC6241239E45E00420055 /* JamomaDSP.dylib */,
+				221CC6261239E46B00420055 /* JamomaGraph.dylib */,
+				221CC6281239E47900420055 /* JamomaAudioGraph.dylib */,
+				226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */,
+				226C435B109A16A200E2BFB0 /* MaxAPI.framework */,
+				22BF4B13123E85A4005A24F2 /* Carbon.framework */,
+				22BF4B18123E85BF005A24F2 /* Cocoa.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ADFE841716C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				22BF4C8D123E9854005A24F2 /* plug.out.h */,
+				2286A6F5112880D800BF5DF9 /* plug.out.cpp */,
+				22BF4A4B123E8000005A24F2 /* plug.out.export.mm */,
+				2273162B124705470099B485 /* PlugtasticProgressWindow.h */,
+				2273162C124705470099B485 /* PlugtasticProgressWindow.mm */,
+				226C4359109A169900E2BFB0 /* commonsyms.cpp */,
+				22CDA026113F4087001D7910 /* maxGraph.h */,
+				22CDA025113F4087001D7910 /* maxGraph.cpp */,
+				221CC61E1239E3EB00420055 /* MaxAudioGraph.h */,
+				221CC61D1239E3EB00420055 /* MaxAudioGraph.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FBBEAE508F335360078DB84 /* plug.out≈.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22335EFC123C1B9400182E8D /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				22335EFD123C1B9400182E8D /* Plugtastic.h */,
+				22335EFE123C1B9400182E8D /* PlugtasticAPI.h */,
+				22335EFF123C1B9400182E8D /* PlugtasticInput.h */,
+				22335F00123C1B9400182E8D /* PlugtasticOutput.h */,
+				22BF4F0012414881005A24F2 /* PlugtasticParameter.h */,
+			);
+			name = includes;
+			path = ../../../library/includes;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2FBBEAD708F335360078DB84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2FBBEAD608F335360078DB84 /* max-external */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */;
+			buildPhases = (
+				2FBBEAD708F335360078DB84 /* Headers */,
+				2FBBEAD808F335360078DB84 /* Resources */,
+				2FBBEADA08F335360078DB84 /* Sources */,
+				2FBBEADC08F335360078DB84 /* Frameworks */,
+				2FBBEADF08F335360078DB84 /* Rez */,
+				22BF4B36123E8673005A24F2 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "max-external";
+			productName = iterator;
+			productReference = 2FBBEAE508F335360078DB84 /* plug.out≈.mxo */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "plug.out" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FBBEAD608F335360078DB84 /* max-external */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FBBEAD808F335360078DB84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		2FBBEADF08F335360078DB84 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		22BF4B36123E8673005A24F2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"try to remove old resources\"\nrm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUEffect\nrm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUInstrument\n\necho \"try to make dir\"\necho `mkdir -pv \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n\necho \"try to copy\"\necho `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUEffect \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\necho `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUInstrument \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n\necho \"script complete\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FBBEADA08F335360078DB84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				226C435A109A169900E2BFB0 /* commonsyms.cpp in Sources */,
+				2286A6F6112880D800BF5DF9 /* plug.out.cpp in Sources */,
+				22CDA027113F4087001D7910 /* maxGraph.cpp in Sources */,
+				221CC61F1239E3EB00420055 /* MaxAudioGraph.cpp in Sources */,
+				22BF4A4C123E8000005A24F2 /* plug.out.export.mm in Sources */,
+				2273162E124705470099B485 /* PlugtasticProgressWindow.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2FBBEAD008F335010078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		2FBBEAD108F335010078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		2FBBEAE108F335360078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2221B3BA12B4029B00D5253D /* plugtastic.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
+				);
+				PRODUCT_NAME = "$(PROJECT_NAME)≈";
+			};
+			name = Development;
+		};
+		2FBBEAE208F335360078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2221B3BA12B4029B00D5253D /* plugtastic.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
+					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
+					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
+					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Framework/build/Development\"",
+					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../Graph/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../AudioGraph/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
+				);
+				PRODUCT_NAME = "$(PROJECT_NAME)≈";
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "plug.out" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAD008F335010078DB84 /* Development */,
+				2FBBEAD108F335010078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAE108F335360078DB84 /* Development */,
+				2FBBEAE208F335360078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

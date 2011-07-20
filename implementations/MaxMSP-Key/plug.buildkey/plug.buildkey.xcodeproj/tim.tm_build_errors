@@ -1,0 +1,1 @@
+/code/Plugtastic/Plugtastic/implementations/MaxMSP/plug.loader/plug.loader.cpp|36|error: cannot convert ‘t_atom (*)[4]’ to ‘t_atom*’ for argument ‘4’ to ‘t_max_err object_method_typed(void*, t_symbol*, long int, t_atom*, t_atom*)’
