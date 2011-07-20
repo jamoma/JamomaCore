@@ -1,0 +1,3 @@
+[submodule "supports"]
+	path = supports
+	url = git://github.com/jamoma/JamomaSupport.git

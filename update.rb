@@ -1,19 +1,8 @@
 #!/usr/bin/env ruby -wKU
 
-puts "MAIN"
-puts `git pull`
+puts `git submodule foreach git checkout master`
+puts `git submodule foreach git pull origin master`
 
-puts "SUBMODULES"
-puts `git submodule update --init`
-puts `git all m`
-puts `git all pull`
-
-puts "SUB-SUB"
-puts `git all submodule update --init`
-puts `git all all m`
-puts `git all all pull`
-
-puts "SUB-SUB-SUB"
-puts `git all all submodule update --init`
-puts `git all all all m`
-puts `git all all all pull`
+puts `cd supports; git submodule update --init`
+puts `cd supports; git submodule foreach git checkout master`
+puts `cd supports; git submodule foreach git pull origin master`
