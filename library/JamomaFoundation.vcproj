@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="JamomaFoundation"
 	ProjectGUID="{557C672F-6946-416C-B199-C7AB650A93C0}"
 	RootNamespace="TTBlue"
@@ -287,6 +287,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTRegex.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTSymbol.h"
 				>
 			</File>
@@ -420,6 +424,10 @@
 			</File>
 			<File
 				RelativePath=".\source\TTQueue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTRegex.cpp"
 				>
 			</File>
 			<File
