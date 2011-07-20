@@ -8,8 +8,12 @@
  */
 
 #include "TTFoundationAPI.h"
+
+#ifndef TT_PLATFORM_WIN
 #include "TTNetReceive.h"
 #include "TTNetSend.h"
+#endif
+
 #include "TTOscReceive.h"
 #include "TTOscSend.h"
 
@@ -17,9 +21,11 @@
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
 {
 	TTFoundationInit();
-	
+
+#ifndef TT_PLATFORM_WIN
 	TTNetReceive::registerClass();
 	TTNetSend::registerClass();
+#endif
 	
 	TTOscReceive::registerClass();
 	TTOscSend::registerClass();

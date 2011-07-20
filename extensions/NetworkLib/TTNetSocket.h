@@ -12,10 +12,16 @@
 #include "TTFoundationAPI.h"
 #include "TTThread.h"
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <netdb.h>
+
+#ifndef TT_PLATFORM_WIN
+	#include <sys/socket.h>
+	#include <netinet/in.h>
+	#include <netinet/tcp.h>
+	#include <netdb.h>
+#endif
+
+
+
 
 
 /** Our thread worker for receiving packets with this socket. */
@@ -32,7 +38,13 @@ class TTNetSocket {
 	
 	static const int	kConnectionBacklogSize = 20;	// how many pending connections queue will hold
 	int					mSocketDescriptor;
+
+#ifndef TT_PLATFORM_WIN
 	addrinfo*			mSocketAddressInfo;				// You'll load this struct up a bit, and then call getaddrinfo(). It'll return a pointer to a new linked list of these structures filled out with all the goodies you need.
+#else
+	void*				mSocketAddressInfo;
+#endif
+
 	TTThreadPtr			mSocketListenerThread;			/// for receiving data
 	TTList				mConnections;
 	TTObjectPtr			mOwner;							///< The object that instantiated this socket and will receive notifications.
@@ -50,11 +62,15 @@ public:
 
 	~TTNetSocket()
 	{
+	#ifndef TT_PLATFORM_WIN
 		delete mSocketListenerThread;
 		if (mSocketAddressInfo)
 			freeaddrinfo(mSocketAddressInfo);
 		if (mSocketDescriptor)
 			close(mSocketDescriptor);
+	#else
+		;
+	#endif
 	}
 	
 
@@ -72,12 +88,17 @@ private:
 	 */
 	void Bind()
 	{
+	#ifndef TT_PLATFORM_WIN
 		int err;
 		
 		err = bind(mSocketDescriptor, mSocketAddressInfo->ai_addr, mSocketAddressInfo->ai_addrlen);
 		if (err == -1) {
 			TTLogError("TTSocket call to bind() failed! \n");
 		}
+
+	#else
+		;
+	#endif
 	}
 	
 	
@@ -91,12 +112,16 @@ private:
 	// for sending, same thoughts and caveats apply here as to Bind()
 	void Connect()
 	{
+	#ifndef TT_PLATFORM_WIN
 		int err;
 		
 		err = connect(mSocketDescriptor, mSocketAddressInfo->ai_addr, mSocketAddressInfo->ai_addrlen);
 		if (err == -1) {
 			TTLogError("TTSocket call to connect() failed! \n");
 		}
+	#else
+		;
+	#endif
 	}
 	
 public:
@@ -109,6 +134,7 @@ public:
 	 */
 	TTErr Send(const TTString& message)
 	{
+	#ifndef TT_PLATFORM_WIN
 		int result;
 		
 		result = send(mSocketDescriptor, message.c_str(),  message.size(), 0);
@@ -120,6 +146,10 @@ public:
 			// only transmitted 'result' number of bytes, need to try again with the rest of the bytes...
 		}
 		return (TTErr)result;
+
+	#else
+		return kTTErrGeneric;
+	#endif
 	}
 	
 };

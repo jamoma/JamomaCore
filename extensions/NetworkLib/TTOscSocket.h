@@ -10,6 +10,7 @@
 #define __TT_OSC_SOCKET_H__
 
 #include "TTFoundationAPI.h"
+
 #include "OscPacketListener.h"
 #include "UdpSocket.h"
 #include "OscOutboundPacketStream.h"
@@ -18,7 +19,6 @@
  @param anArgument		a TTOscSocket pointer
  @return				NULL					*/
 TTPtr TTOscSocketListener(TTPtr anArgument);
-
 
 /**	TTOscSocket is ...
  */

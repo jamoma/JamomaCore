@@ -64,10 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib ws2_32.lib"
+				AdditionalDependencies="JamomaFoundation.lib ws2_32.lib winmm.lib "
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)libsndfile&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)NetworkCommunication\ip&quot;;&quot;$(ProjectDir)NetworkCommunication\osc&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -141,10 +141,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib ws2_32.lib"
+				AdditionalDependencies="JamomaFoundation.lib ws2_32.lib winmm.lib "
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)libsndfile&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)NetworkCommunication\ip&quot;;&quot;$(ProjectDir)NetworkCommunication\osc&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -271,6 +271,10 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\NetworkLib.cpp"
+			>
+		</File>
 		<File
 			RelativePath=".\TTNetReceive.cpp"
 			>
