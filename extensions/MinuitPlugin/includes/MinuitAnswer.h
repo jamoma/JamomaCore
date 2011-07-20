@@ -1,7 +1,7 @@
 #ifndef MINUITANSWER_HPP_
 #define MINUITANSWER_HPP_
 
-#include "MinuitInclude.hpp"
+#include "MinuitInclude.h"
 
 class MinuitAnswer
 {

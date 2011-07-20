@@ -14,11 +14,8 @@
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class TTPluginHandler;
-typedef TTPluginHandler* TTPluginHandlerPtr;
-
-class PluginFactories;
-typedef PluginFactories* PluginFactoriesPtr;
+class Plugin;
+typedef Plugin* PluginPtr;
 
 /**	TTApplicationManager ... TODO : an explanation
  
@@ -52,7 +49,7 @@ class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
 private:
 
 	TTHashPtr			mApplications;						///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
-	TTHashPtr			mPlugins;							///< hash table containing <TTSymbolPtr pluginName, TTPluginHandlerPtr aPlugin>
+	TTHashPtr			mPlugins;							///< hash table containing <TTSymbolPtr pluginName, PluginPtr aPlugin>
 	
 	TTValue				mApplicationNames;					///< ATTRIBUTE : all registered application names
 	TTValue				mPluginNames;						///< ATTRIBUTE : all loaded plugin names
@@ -62,24 +59,17 @@ private:
 	TTHashPtr			mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
 	
-	PluginFactoriesPtr	mPluginFactories;
-	
-	
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
 	
 	/** Get local application name */
-	TTErr getApplicationLocalName(TTValue& value);
+	TTErr getLocalApplicationName(TTValue& value);
 	
 	/** Set local application name */
-	TTErr setApplicationLocalName(TTValue& value);
+	TTErr setLocalApplicationName(TTValue& value);
 	
 	/** Get all plugin names */
 	TTErr getPluginNames(TTValue& value);
-	
-	/** Set the value of an application plugin parameter
-		<TTSymbolPtr applicationName, TTSymbolPtr pluginName, TTSymbolPtr parameterName, ...any value... > */
-	TTErr Configure(const TTValue& value);
 	
 	/** Add an application giving <TTSymbolPtr applicationName, applicationPointer> */
 	TTErr ApplicationAdd(const TTValue& value);
@@ -128,7 +118,7 @@ private:
 	TTErr notifyApplicationObservers(TTSymbolPtr anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag);
 	
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
-	friend TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
+	friend TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
@@ -155,7 +145,7 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTNodeA
  @param	baton						..
  @param	data						..
  @return							a PluginPtr */
-TTPluginHandlerPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
+TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
 
 /** Add a TTCallback as observer of application creation/destruction
  note : it uses the extern TTModularApplications variable

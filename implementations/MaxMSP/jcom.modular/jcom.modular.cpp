@@ -81,7 +81,7 @@ void WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv
 	
 	// change the local application name
 	if (localApplicationName)
-		x->wrappedObject->setAttributeValue(TT("applicationLocalName"), TT(localApplicationName->s_name));
+		x->wrappedObject->setAttributeValue(TT("localApplicationName"), TT(localApplicationName->s_name));
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
@@ -149,7 +149,7 @@ void appmg_plugin_parameters(TTPtr self, SymbolPtr msg)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr			pluginName;
-	TTPluginHandlerPtr	aPlugin;
+	TTObjectPtr			aPlugin;
 	TTValue				v;
 	AtomCount			ac = 0;
 	AtomPtr				av = NULL;
@@ -290,7 +290,7 @@ void appmg_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// TODO : find a default XML File Name using the name of the patch
-		snprintf(filename, MAX_FILENAME_CHARS, "ApplicationConfig.xml");
+		snprintf(filename, MAX_FILENAME_CHARS, "ModularConfig.xml");
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		

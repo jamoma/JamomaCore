@@ -19,7 +19,7 @@ mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mNamespaceFile(kTTSymEmpty),
-mPluginParameters(NULL),
+mPluginNames(kTTValNONE),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
@@ -40,12 +40,8 @@ mTempAddress(kTTAdrsEmpty)
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(directory, readOnly, YES);
 	
-	addAttributeWithSetter(PluginParameters, kTypePointer);
-	
 	addAttributeWithGetter(PluginNames, kTypeLocalValue);
 	addAttributeProperty(pluginNames, readOnly, YES);
-	
-	addMessageWithArgument(Configure);
 
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
 	addAttributeProperty(allAppNames, readOnly, YES);
@@ -81,29 +77,13 @@ mTempAddress(kTTAdrsEmpty)
 	mAppToTT = new TTHash();
 	mTTToApp = new TTHash();
 	
-	mPluginParameters = new TTHash();
-	
 	mDirectoryListenersCache = new TTHash();
 	mAttributeListenersCache = new TTHash();
 }
 
 TTApplication::~TTApplication()
 {
-	TTHashPtr		oldParameters;
 	TTValue			hk, v;
-	TTSymbolPtr		key;
-	TTUInt8			i;
-	
-	// delete PluginParameters
-	mPluginParameters->getKeys(hk);
-	for (i=0; i<mPluginParameters->getSize(); i++) {
-		hk.get(i, &key);
-		mPluginParameters->lookup(key, v);
-		v.get(0, (TTPtr*)&oldParameters);
-		
-		delete oldParameters;
-	}
-	delete mPluginParameters;
 	
 	// TODO : delete observers
 	
@@ -115,38 +95,24 @@ TTApplication::~TTApplication()
 
 TTErr TTApplication::setName(TTValue& value)
 {
-	mName = value;
+	TTSymbolPtr pluginName;
+	
+	// For each plugin, registers using the new name
+	if (mName == kTTSym_localApplicationName)
+		for (TTUInt32 i=0; i<mPluginNames.getSize(); i++) {
+			mPluginNames.get(i, &pluginName);
+			getPlugin(pluginName)->sendMessage(TT("unregisterLocalApplication"), value);
+			getPlugin(pluginName)->sendMessage(TT("registerLocalApplication"), value);
+		}
+										   
+	mName = value;							
+	
 	return mDirectory->setName(mName);
 }
 
 TTErr TTApplication::getPluginNames(TTValue& value)
 {
-	return mPluginParameters->getKeys(value);
-}
-
-TTErr TTApplication::setPluginParameters(const TTValue& value)
-{
-	TTValue			hk, v;
-	TTSymbolPtr		pluginName;
-	TTHashPtr		parameters;
-	TTUInt8			i;
-	
-	value.get(0, (TTPtr*)mPluginParameters);
-	
-	// for all plugins used by the application
-	mPluginParameters->getKeys(hk);
-	for (i=0; i<mPluginParameters->getSize(); i++) {
-		hk.get(i, &pluginName);
-		mPluginParameters->lookup(pluginName, v);
-		v.get(0, (TTPtr*)&parameters);
-		
-		// if local application : reset plugin reception parameters
-		if (mName == kTTSym_localApplicationName) {
-			v = TTValue((TTPtr)parameters);
-			getPlugin(pluginName)->setAttributeValue(TT("parameters"), v);
-		}
-	}
-	
+	value = mPluginNames;
 	return kTTErrNone;
 }
 
@@ -168,74 +134,6 @@ TTErr TTApplication::getAllTTNames(TTValue& value)
 		mTTToApp->getKeys(value);
 	
 	return kTTErrNone;
-}
-
-TTErr TTApplication::Configure(const TTValue& value)
-{
-	TTPluginHandlerPtr	aPlugin;
-	TTSymbolPtr			pluginName, parameterName;
-	TTHashPtr			parameters;
-	TTValue				v;
-	TTErr				err;
-	
-	if (value.getSize() > 2) {
-		value.get(0, &pluginName);
-		value.get(1, &parameterName);
-		
-		err = mPluginParameters->lookup(pluginName, v);
-		
-		if (!err) {
-			v.get(0, (TTPtr*)&parameters);
-			
-			err = parameters->lookup(parameterName, v);
-			
-			if (!err) {
-				
-				parameters->remove(parameterName);
-				
-				v.clear();
-				v.copyFrom(value, 2);
-				
-				err = parameters->append(parameterName, v);
-				
-				// if local application : set plugin reception parameters
-				// else : do nothing for distant application
-				if (!err && mName == kTTSym_localApplicationName) {
-					if (aPlugin = getPlugin(pluginName)) {
-						v = TTValue((TTPtr)parameters);
-						aPlugin->setAttributeValue(TT("parameters"), v);
-					}
-				}
-			
-				return err;
-			}
-		}
-		// prepare an empty parameters table for this plugin
-		// and then retry configuration
-		else {
-			if (aPlugin = getPlugin(pluginName)) {
-				
-				aPlugin->getAttributeValue(TT("parameterNames"), v);
-				
-				parameters = new TTHash();
-				for (TTInt32 i=0; i<v.getSize(); i++) {
-					v.get(i, &parameterName);
-					parameters->append(parameterName, kTTValNONE);
-				}
-				
-				// append a new entry
-				v = TTValue((TTPtr)parameters);
-				mPluginParameters->append(pluginName, v);
-				
-				// update plugin names member
-				mPluginParameters->getKeys(mPluginNames);
-				
-				Configure(value);
-			}
-		}
-	}
-	
-	return kTTErrGeneric;
 }
 
 TTErr TTApplication::ConvertToAppName(TTValue& value)
@@ -300,57 +198,65 @@ TTErr TTApplication::ConvertToTTName(TTValue& value)
 
 TTErr TTApplication::AddDirectoryListener(const TTValue& value)
 {
+	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
 	TTObjectPtr			returnValueCallback;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
 	TTErr				err;
 	
+	value.get(1, &appToNotify);
 	value.get(2, &whereToListen);
 	
-	// prepare a callback based on TTApplicationAttributeCallback
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	key = TT(appToNotify->getString() + "<>" + whereToListen->getString());
 	
-	returnValueBaton = new TTValue();
-	*returnValueBaton = value;
-	
-	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerDirectoryCallback));
-	
-	err = mDirectory->addObserverForNotifications(whereToListen, *returnValueCallback);
-	
-	if (!err) {
+	// if this listener doesn't exist yet
+	if (mAttributeListenersCache->lookup(key, cacheElement)) {
 		
-		// cache the observer in the directoryListenersCache
-		cacheElement.append((TTPtr)returnValueCallback);
-		mDirectoryListenersCache->append(whereToListen, cacheElement); // TODO : have many observers for the same address ? (add plugin info ?)
+		// prepare a callback based on PluginDirectoryCallback
+		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 		
-		return kTTErrNone;
+		returnValueBaton = new TTValue();
+		*returnValueBaton = value;
+		
+		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginDirectoryCallback));
+		
+		err = mDirectory->addObserverForNotifications(whereToListen, *returnValueCallback);
+		
+		if (!err) {
+			
+			// cache the observer in the directoryListenersCache
+			cacheElement.append((TTPtr)returnValueCallback);
+			return mDirectoryListenersCache->append(key, cacheElement);
+		}
+		else
+			; // TODO : observe the directory in order to add the listener later
 	}
-	else
-		; // TODO : observe the directory in order to add the listener later
-	
+		
 	return kTTErrGeneric;
 }
 
 TTErr TTApplication::RemoveDirectoryListener(const TTValue& value)
 {
+	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
 	TTObjectPtr			returnValueCallback;
 	TTValue				cacheElement;
-	TTErr				err;
 	
-	value.get(0, &whereToListen);
+	value.get(0, &appToNotify);
+	value.get(1, &whereToListen);
 	
-	// get the observer in the directoryListenersCache
-	err = mDirectoryListenersCache->lookup(whereToListen, cacheElement);
+	key = TT(appToNotify->getString() + "<>" + whereToListen->getString());
 	
-	if (!err) {
+	// if this listener exists
+	if (!mDirectoryListenersCache->lookup(key, cacheElement)) {
+	
 		cacheElement.get(0, (TTPtr*)&returnValueCallback);
 		mDirectory->removeObserverForNotifications(whereToListen, *returnValueCallback);
 		TTObjectRelease(TTObjectHandle(&returnValueCallback));
-		return kTTErrNone;
+		return mDirectoryListenersCache->remove(key);
 	}
 	
 	return kTTErrGeneric;
@@ -358,6 +264,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& value)
 
 TTErr TTApplication::AddAttributeListener(const TTValue& value)
 {
+	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
@@ -367,90 +274,104 @@ TTErr TTApplication::AddAttributeListener(const TTValue& value)
 	TTValue				cacheElement;
 	TTErr				err;
 	
+	value.get(1, &appToNotify);
 	value.get(2, &whereToListen);
 	
-	err = mDirectory->Lookup(whereToListen, aNodeList, &nodeToListen);
+	key = TT(appToNotify->getString() + "<>" + whereToListen->getString());
 	
-	if (!err) {
+	// if this listener doesn't exist yet
+	if (mAttributeListenersCache->lookup(key, cacheElement)) {
 		
-		for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
-		{
-			// get a node from the selection
-			aNodeList.current().get(0,(TTPtr*)&nodeToListen);
+		err = mDirectory->Lookup(whereToListen, aNodeList, &nodeToListen);
+		
+		if (!err) {
 			
-			if (anObject = nodeToListen->getObject()) {
+			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
+			{
+				// get a node from the selection
+				aNodeList.current().get(0,(TTPtr*)&nodeToListen);
 				
-				// create an Attribute observer 
-				anAttribute = NULL;
-				err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
-				
-				if (!err) {
-					// prepare a callback based on TTApplicationAttributeCallback
-					returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-					TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+				if (anObject = nodeToListen->getObject()) {
 					
-					returnValueBaton = new TTValue();
-					*returnValueBaton = value;
+					// create an Attribute observer 
+					anAttribute = NULL;
+					err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
 					
-					returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-					returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerAttributeCallback));
-					
-					anAttribute->registerObserverForNotifications(*returnValueCallback);
-					
-					// cache the listener in the attributeListenersCache
-					cacheElement.append((TTPtr)returnValueCallback);
-					mAttributeListenersCache->append(whereToListen, cacheElement); // TODO : have many observers for the same address:attribute ? (add plugin info ?)
-					
-					return kTTErrNone;
+					if (!err) {
+						// prepare a callback based on PluginAttributeCallback
+						returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+						TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+						
+						returnValueBaton = new TTValue();
+						*returnValueBaton = value;
+						
+						returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+						returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginAttributeCallback));
+						
+						anAttribute->registerObserverForNotifications(*returnValueCallback);
+						
+						// cache the listener in the attributeListenersCache
+						cacheElement.append((TTPtr)returnValueCallback);
+					}
 				}
 			}
+			
+			return mAttributeListenersCache->append(key, cacheElement);
 		}
+		else
+			; // TODO : observe the directory in order to add the listener later
 	}
-	else
-		; // TODO : observe the directory in order to add the listener later
 	
 	return kTTErrGeneric;
 }
 
 TTErr TTApplication::RemoveAttributeListener(const TTValue& value)
 {
+	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
 	TTValue				cacheElement;
+	TTUInt32			i;
 	TTErr				err;
 	
-	value.get(0, &whereToListen);
+	value.get(0, &appToNotify);
+	value.get(1, &whereToListen);
 	
-	err = mDirectory->Lookup(whereToListen, aNodeList, &nodeToListen);
+	key = TT(appToNotify->getString() + "<>" + whereToListen->getString());
 	
-	if (!err) {
+	// if this listener exists
+	if (!mAttributeListenersCache->lookup(key, cacheElement)) {
 		
-		for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
-		{
-			// get a node from the selection
-			aNodeList.current().get(0,(TTPtr*)&nodeToListen);
+		err = mDirectory->Lookup(whereToListen, aNodeList, &nodeToListen);
+		
+		if (!err) {
 			
-			if (anObject = nodeToListen->getObject()) {
+			i = 0;
+			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
+			{
+				// get a node from the selection
+				aNodeList.current().get(0,(TTPtr*)&nodeToListen);
 				
-				// delete Attribute observer 
-				anAttribute = NULL;
-				err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
-				
-				if (!err) {
+				if (anObject = nodeToListen->getObject()) {
 					
-					err = mAttributeListenersCache->lookup(whereToListen, cacheElement);
+					// delete Attribute observer 
+					anAttribute = NULL;
+					err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
 					
 					if (!err) {
-						cacheElement.get(0, (TTPtr*)&returnValueCallback);
+						
+						cacheElement.get(i, (TTPtr*)&returnValueCallback);
 						anAttribute->unregisterObserverForNotifications(*returnValueCallback);
 						TTObjectRelease(TTObjectHandle(&returnValueCallback));
-						return kTTErrNone;
+						i++;
 					}
 				}
 			}
+			
+			return mAttributeListenersCache->remove(key);
 		}
 	}
 
@@ -512,11 +433,15 @@ TTErr TTApplication::WriteAsXml(const TTValue& value)
 	value.get(0, (TTPtr*)&aXmlHandler);
 	
 	// For each plugin
-	mPluginParameters->getKeys(keys);
-	for (TTUInt16 i=0; i<keys.getSize(); i++) {
+	for (TTUInt16 i=0; i<mPluginNames.getSize(); i++) {
 		
-		keys.get(i, &pluginName);
-		mPluginParameters->lookup(pluginName, v);
+		mPluginNames.get(i, &pluginName);
+		
+		if (mName == kTTSym_localApplicationName)
+			getPlugin(pluginName)->getAttributeValue(TT("localApplicationParameters"), v);
+		else
+			getPlugin(pluginName)->getAttributeValue(TT("distantApplicationParameters"), v);
+		
 		v.get(0, (TTPtr*)&parameters);
 		
 		// Start "plugin" xml node
@@ -578,8 +503,9 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTString		anAppKey, aTTKey;
+	TTHashPtr		parameters;
 	TTSymbolPtr		pluginName, parameterName;
-	TTValue			appValue, ttValue, v;
+	TTValue			appValue, ttValue, v, nameValue, parameterValue;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
@@ -591,6 +517,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 	if (aXmlHandler->mXmlNodeName == TT("start")) {
 		mAppToTT = new TTHash();
 		mNamespaceFile = kTTSymEmpty;
+		mPluginNames = kTTValNONE;
 		return kTTErrNone;
 	}
 	
@@ -635,7 +562,23 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 			v.get(0, &pluginName);
 		}
 		
+		// Check if the plugin have been loaded
+		if (!getPlugin(pluginName))
+			return kTTErrGeneric;
+		
+		// register the application to the plugin
+		nameValue = TTValue(mName);
+		if (mName == kTTSym_localApplicationName) {
+			getPlugin(pluginName)->sendMessage(TT("registerLocalApplication"), nameValue);
+			mPluginNames.append(pluginName);
+		}
+		else {
+			getPlugin(pluginName)->sendMessage(TT("registerDistantApplication"), nameValue);
+			mPluginNames = TTValue(pluginName);
+		}
+		
 		// get all plugin attributes and their value
+		parameters = new TTHash();
 		while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
 			
 			// get parameter name
@@ -644,13 +587,21 @@ TTErr TTApplication::ReadFromXml(const TTValue& value)
 				v.get(0, &parameterName);
 				
 				// get parameter value
-				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), parameterValue);
 				
-				// configure a parameter of a plugin for the application
-				v.prepend(parameterName);
-				v.prepend(pluginName);
-				Configure(v);
+				parameters->append(parameterName, parameterValue);
 			}
+		}
+		
+		// configure the plugin parameters for this application
+		if (mName == kTTSym_localApplicationName) {
+			v = TTValue((TTPtr)parameters);
+			getPlugin(pluginName)->setAttributeValue(TT("localApplicationParameters"), v);
+		}
+		else {
+			v = TTValue(mName);
+			v.append((TTPtr)parameters);
+			getPlugin(pluginName)->setAttributeValue(TT("distantApplicationParameters"), v);
 		}
 	}
 	
@@ -695,7 +646,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& value)
 	TTBoolean			empty, newInstanceCreated;
 	TTObjectPtr			getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
 	TTValuePtr			getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
-	TTPluginHandlerPtr	aPlugin;
+	PluginPtr			aPlugin;
 	TTValue				v, args;
 	
 	value.get(0, (TTPtr*)&aOpmlHandler);
@@ -750,7 +701,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& value)
 					// a distant application should have one plugin
 					mPluginNames.get(0, &pluginName);
 					
-					if (aPlugin = getPlugin(pluginName)) {
+					if (aPlugin = (PluginPtr)getPlugin(pluginName)) {
 						
 						// instantiate Mirror object for distant application
 						aMirror = NULL;
@@ -759,37 +710,37 @@ TTErr TTApplication::ReadFromOpml(const TTValue& value)
 						getAttributeCallback = NULL;
 						TTObjectInstantiate(TT("callback"), &getAttributeCallback, kTTValNONE);
 						getAttributeBaton = new TTValue(TTPtr(aPlugin));
-						getAttributeBaton->append(TTPtr(this));
+						getAttributeBaton->append(mName);
 						getAttributeBaton->append(absoluteAddress);
 						getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
-						getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerGetAttributeCallback));
+						getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginGetAttributeCallback));
 						args.append(getAttributeCallback);
 						
 						setAttributeCallback = NULL;
 						TTObjectInstantiate(TT("callback"), &setAttributeCallback, kTTValNONE);
 						setAttributeBaton = new TTValue(TTPtr(aPlugin));
-						setAttributeBaton->append(TTPtr(this));
+						setAttributeBaton->append(mName);
 						setAttributeBaton->append(absoluteAddress);
 						setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
-						setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerSetAttributeCallback));
+						setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginSetAttributeCallback));
 						args.append(setAttributeCallback);
 						
 						sendMessageCallback = NULL;
 						TTObjectInstantiate(TT("callback"), &sendMessageCallback, kTTValNONE);
 						sendMessageBaton = new TTValue(TTPtr(aPlugin));
-						sendMessageBaton->append(TTPtr(this));
+						sendMessageBaton->append(mName);
 						sendMessageBaton->append(absoluteAddress);
 						sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
-						sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerSendMessageCallback));
+						sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginSendMessageCallback));
 						args.append(sendMessageCallback);
 						
 						listenAttributeCallback = NULL;
 						TTObjectInstantiate(TT("callback"), &listenAttributeCallback, kTTValNONE);
 						listenAttributeBaton = new TTValue(TTPtr(aPlugin));
-						listenAttributeBaton->append(TTPtr(this));
+						listenAttributeBaton->append(mName);
 						listenAttributeBaton->append(absoluteAddress);
 						listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
-						listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTPluginHandlerListenAttributeCallback));
+						listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginListenAttributeCallback));
 						args.append(listenAttributeCallback);
 						
 						TTObjectInstantiate(TT("Mirror"), TTObjectHandle(&aMirror), args);

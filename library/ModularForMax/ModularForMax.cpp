@@ -1735,7 +1735,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		// get the class from the patcher filename
 		jamoma_patcher_get_class(*returnedPatcher, *returnedContext, returnedClass);
 		
-		// if no class : set it as "Untitled" to follow the process
+		// if no class : set it as "Untitled" to continue the process
 		if (!*returnedClass)
 			*returnedClass = TT("Untitled");
 		

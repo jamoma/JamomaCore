@@ -1,4 +1,4 @@
-#include "MinuitAnswer.hpp"
+#include "MinuitAnswer.h"
 
 #ifdef TT_PLATFORM_WIN
 	#include "Time2.hpp"

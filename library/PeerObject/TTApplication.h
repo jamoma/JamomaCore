@@ -12,7 +12,7 @@
 #define __TT_APPLICATION_H__
 
 #include "TTModular.h"
-#include "TTPluginHandler.h"
+#include "Plugin.h"
 #include "TTMirror.h"
 
 /** TTApplication ... TODO : an explanation
@@ -25,8 +25,8 @@ typedef TTApplication* TTApplicationPtr;
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-class TTPluginHandler;
-typedef TTPluginHandler* TTPluginHandlerPtr;
+class Plugin;
+typedef Plugin* PluginPtr;
 
 class TTMirror;
 typedef TTMirror* TTMirrorPtr;
@@ -65,10 +65,6 @@ private:
 	TTSymbolPtr					mVersion;			///< ATTRIBUTE : the version of the application
 	TTSymbolPtr					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>)
 	
-	TTHashPtr					mPluginParameters;	///< ATTRIBUTE : hash table containing hash table of parameters 
-													///< for each plugin used for communication with this application
-													///< <TTSymbolPtr pluginName, <TTSymbolPtr parameterName, TTValue value>>
-	
 	TTValue						mPluginNames;		///< ATTRIBUTE : names of all plugins used by the application
 	
 	TTHashPtr					mDirectoryListenersCache;	///< a hash table containing all <address, Listener> for quick access
@@ -87,18 +83,11 @@ private:
 	/** Get all plugin names use by the application */
 	TTErr getPluginNames(TTValue& value);
 	
-	/** Set the plugin parameters hash table */
-	TTErr setPluginParameters(const TTValue& value);
-	
 	/** Get all AppNames */
 	TTErr getAllAppNames(TTValue& value);
 	
 	/** Get all AppNames */
 	TTErr getAllTTNames(TTValue& value);
-	
-	/** Set the value of a plugin parameter
-	 <TTSymbolPtr pluginName, TTSymbolPtr parameterName, ...any value... > */
-	TTErr Configure(const TTValue& value);
 	
 	/** Convert TTName into AppName */
 	TTErr ConvertToAppName(TTValue& value);

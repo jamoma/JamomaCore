@@ -8,7 +8,6 @@
 
 
 #include "TTModular.h"
-#include "PluginFactories.h"
 
 // Statics and Globals
 static bool TTModularHasInitialized = false;
@@ -43,7 +42,6 @@ void TTModularInit(TTString pluginFolderPath)
 		TTMirror::registerClass();
 		TTOpmlHandler::registerClass();
 		TTOutput::registerClass();
-		TTPluginHandler::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
 		TTReceiver::registerClass();

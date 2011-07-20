@@ -48,7 +48,6 @@
 #include "TTRegex.h"
 
 #include "Plugin.h"
-#include "PluginFactories.h"
 
 #include "TTApplication.h"
 #include "TTApplicationManager.h"
@@ -63,7 +62,6 @@
 #include "TTMirror.h"
 #include "TTOpmlHandler.h"
 #include "TTOutput.h"
-#include "TTPluginHandler.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
 #include "TTReceiver.h"
