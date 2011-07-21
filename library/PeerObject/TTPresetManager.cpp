@@ -81,6 +81,12 @@ TTPresetManager::~TTPresetManager()
 	delete mPresetList;
 	mPresetList = NULL;
 	
+	mPresetArguments.get(0, (TTPtr*)&oldCallback);
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
+		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
+	
 	mPresetArguments.get(1, (TTPtr*)&oldCallback);
 	if (oldCallback) {
 		delete (TTValuePtr)oldCallback->getBaton();
@@ -100,12 +106,6 @@ TTPresetManager::~TTPresetManager()
 	}
 	
 	mPresetArguments.get(4, (TTPtr*)&oldCallback);
-	if (oldCallback) {
-		delete (TTValuePtr)oldCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&oldCallback));
-	}
-	
-	mPresetArguments.get(5, (TTPtr*)&oldCallback);
 	if (oldCallback) {
 		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));

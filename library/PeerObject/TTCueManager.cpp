@@ -81,6 +81,12 @@ TTCueManager::~TTCueManager()
 	delete mCueList;
 	mCueList = NULL;
 	
+	mPresetArguments.get(0, (TTPtr*)&oldCallback);
+	if (oldCallback) {
+		delete (TTValuePtr)oldCallback->getBaton();
+		TTObjectRelease(TTObjectHandle(&oldCallback));
+	}
+	
 	mPresetArguments.get(1, (TTPtr*)&oldCallback);
 	if (oldCallback) {
 		delete (TTValuePtr)oldCallback->getBaton();
@@ -100,12 +106,6 @@ TTCueManager::~TTCueManager()
 	}
 	
 	mPresetArguments.get(4, (TTPtr*)&oldCallback);
-	if (oldCallback) {
-		delete (TTValuePtr)oldCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&oldCallback));
-	}
-	
-	mPresetArguments.get(5, (TTPtr*)&oldCallback);
 	if (oldCallback) {
 		delete (TTValuePtr)oldCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&oldCallback));

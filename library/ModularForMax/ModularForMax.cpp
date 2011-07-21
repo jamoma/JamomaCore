@@ -1513,7 +1513,7 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 /** Get the class of the patcher from the file name (removing .model and .view convention name if they exist) */
 void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedClass)
 {
-	char			*isCtxPatcher, *to_split;
+	char			*isCtxPatcher, *last_dot, *to_split;
 	TTString		contextMaxpat;
 	SymbolPtr		patcherName, hierarchy;
 	ObjectPtr		upperPatcher;
@@ -1538,9 +1538,10 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 			*returnedClass = TT(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
 		}
 		
-		// Strip ".maxpat" at the end
+		// Else strip from the last "."
 		else  {
-			patcherNameLen = strlen(patcherName->s_name) - strlen(".maxpat");
+			last_dot = strrchr(patcherName->s_name, '.');
+			patcherNameLen = (int)last_dot - (int)patcherName->s_name;
 			to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
 			strncpy(to_split, patcherName->s_name, patcherNameLen);
 			to_split[patcherNameLen] = NULL;
