@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 157.0, 80.0, 569.0, 465.0 ],
+		"rect" : [ 11.0, 54.0, 569.0, 465.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 157.0, 80.0, 569.0, 465.0 ],
+		"defrect" : [ 11.0, 54.0, 569.0, 465.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,15 +22,92 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 487.0, 154.0, 68.0, 31.0 ],
+					"text" : "print SUB_LEVEL"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 452.0, 176.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 438.0, 176.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "bang", "bang", "" ],
+					"patching_rect" : [ 438.0, 154.0, 46.0, 19.0 ],
+					"text" : "sel 0 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-25",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 438.0, 127.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 438.0, 101.0, 105.0, 19.0 ],
+					"text" : "jcom.init sub_level"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.478431, 0.709804, 0.317647, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 735.0, 499.0, 374.0, 176.0 ],
+						"rect" : [ 582.0, 312.0, 374.0, 207.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 735.0, 499.0, 374.0, 176.0 ],
+						"defrect" : [ 582.0, 312.0, 374.0, 207.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -134,8 +211,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 160.0, 105.0, 110.0, 19.0 ],
-									"text" : "jcom.parameter foo",
+									"patching_rect" : [ 160.0, 105.0, 111.0, 19.0 ],
+									"text" : "jcom.parameter bar",
 									"varname" : "foo"
 								}
 
@@ -161,8 +238,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 6.0, 5.0, 138.0, 19.0 ],
-									"text" : "jcom.init other_sub_level"
+									"patching_rect" : [ 6.0, 5.0, 54.0, 19.0 ],
+									"text" : "jcom.init"
 								}
 
 							}
@@ -184,14 +261,14 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-9",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 160.0, 2.0, 188.0, 31.0 ],
-									"text" : "A jcom.hub can be used to bind on sub level of a model's namespace"
+									"patching_rect" : [ 160.0, 2.0, 194.0, 31.0 ],
+									"text" : "A jcom.hub can be used to create a sub level of a model's namespace"
 								}
 
 							}
@@ -262,15 +339,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 41.0, 412.0, 105.0, 19.0 ],
+					"patching_rect" : [ 20.0, 395.0, 133.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p other_sub_level",
@@ -280,6 +357,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.478431, 0.709804, 0.317647, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-14",
@@ -288,9 +366,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 736.0, 273.0, 374.0, 176.0 ],
+						"rect" : [ 582.0, 54.0, 374.0, 208.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 736.0, 273.0, 374.0, 176.0 ],
+						"defrect" : [ 582.0, 54.0, 374.0, 208.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -394,8 +472,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 161.0, 104.0, 110.0, 19.0 ],
-									"text" : "jcom.parameter foo",
+									"patching_rect" : [ 161.0, 104.0, 117.0, 19.0 ],
+									"text" : "jcom.parameter kuru",
 									"varname" : "foo"
 								}
 
@@ -421,8 +499,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 7.0, 6.0, 105.0, 19.0 ],
-									"text" : "jcom.init sub_level"
+									"patching_rect" : [ 7.0, 6.0, 54.0, 19.0 ],
+									"text" : "jcom.init"
 								}
 
 							}
@@ -444,14 +522,14 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-9",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 161.0, 6.0, 188.0, 31.0 ],
-									"text" : "A jcom.hub can be used to bind on sub level of a model's namespace"
+									"patching_rect" : [ 161.0, 6.0, 194.0, 31.0 ],
+									"text" : "A jcom.hub can be used to create a sub level of a model's namespace"
 								}
 
 							}
@@ -522,15 +600,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 41.0, 389.0, 72.0, 19.0 ],
+					"patching_rect" : [ 20.0, 372.0, 133.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p sub_level",
@@ -546,7 +624,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 400.0, 166.0, 66.0, 19.0 ],
+					"patching_rect" : [ 355.0, 154.0, 66.0, 19.0 ],
 					"text" : "print ROOT"
 				}
 
@@ -558,7 +636,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 317.0, 267.0, 20.0, 20.0 ]
+					"patching_rect" : [ 156.0, 263.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -569,7 +647,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 365.0, 188.0, 20.0, 20.0 ]
+					"patching_rect" : [ 320.0, 176.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -580,7 +658,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 351.0, 188.0, 20.0, 20.0 ]
+					"patching_rect" : [ 306.0, 176.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -593,7 +671,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 351.0, 166.0, 46.0, 19.0 ],
+					"patching_rect" : [ 306.0, 154.0, 46.0, 19.0 ],
 					"text" : "sel 0 1"
 				}
 
@@ -688,7 +766,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-72",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -740,7 +818,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 317.0, 244.0, 123.0, 19.0 ],
+					"patching_rect" : [ 156.0, 240.0, 123.0, 19.0 ],
 					"text" : "jcom.parameter foo",
 					"varname" : "foo"
 				}
@@ -763,6 +841,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-4",
@@ -771,9 +850,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 736.0, 81.0, 315.0, 142.0 ],
+						"rect" : [ 581.0, 569.0, 375.0, 142.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 736.0, 81.0, 315.0, 142.0 ],
+						"defrect" : [ 581.0, 569.0, 375.0, 142.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -793,34 +872,14 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"id" : "obj-2",
-									"maxclass" : "newobj",
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-3",
+									"linecount" : 3,
+									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 121.0, 76.0, 96.0, 19.0 ],
-									"text" : "print LIKE_ROOT"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-1",
-									"maxclass" : "button",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 86.0, 98.0, 20.0, 20.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-9",
-									"maxclass" : "button",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 72.0, 98.0, 20.0, 20.0 ]
+									"patching_rect" : [ 115.0, 5.0, 156.0, 43.0 ],
+									"text" : "This jcom.init doesn't works because there is no hub in the subpatcher"
 								}
 
 							}
@@ -828,24 +887,12 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"id" : "obj-7",
+									"id" : "obj-2",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "bang", "bang", "" ],
-									"patching_rect" : [ 72.0, 76.0, 46.0, 19.0 ],
-									"text" : "sel 0 1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-10",
-									"maxclass" : "toggle",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "int" ],
-									"patching_rect" : [ 72.0, 43.0, 20.0, 20.0 ]
+									"numoutlets" : 0,
+									"patching_rect" : [ 6.0, 29.0, 107.0, 19.0 ],
+									"text" : "print NEED_A_HUB"
 								}
 
 							}
@@ -859,7 +906,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 72.0, 18.0, 62.0, 19.0 ],
+									"patching_rect" : [ 6.0, 7.0, 62.0, 19.0 ],
 									"text" : "jcom.init"
 								}
 
@@ -869,62 +916,26 @@
 								"patchline" : 								{
 									"destination" : [ "obj-2", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 81.5, 69.0, 130.5, 69.0 ],
-									"source" : [ "obj-10", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-7", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-10", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-10", 0 ],
-									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-12", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-1", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-7", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-9", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-7", 0 ]
 								}
 
 							}
  ]
 					}
 ,
-					"patching_rect" : [ 138.0, 244.0, 133.0, 19.0 ],
+					"patching_rect" : [ 20.0, 418.0, 134.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
-					"text" : "p subpatch_of_module"
+					"text" : "p subpatch"
 				}
 
 			}
@@ -935,7 +946,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 351.0, 139.0, 20.0, 20.0 ]
+					"patching_rect" : [ 306.0, 127.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -943,13 +954,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-12",
-					"linecount" : 4,
+					"linecount" : 5,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 124.0, 313.0, 55.0 ],
+					"patching_rect" : [ 9.0, 124.0, 273.0, 67.0 ],
 					"text" : "jcom.init connects to jcom.hub in order to link to all other instances of jcom.init within the same model. It also makes jcom.preset reset all parameters to the default preset (so the needs a jcom.preset and a preset file to load)."
 				}
 
@@ -964,7 +975,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 351.0, 113.0, 62.0, 19.0 ],
+					"patching_rect" : [ 306.0, 101.0, 62.0, 19.0 ],
 					"text" : "jcom.init"
 				}
 
@@ -973,13 +984,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-20",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 79.0, 261.0, 43.0 ],
+					"patching_rect" : [ 9.0, 79.0, 264.0, 43.0 ],
 					"text" : "jcom.init is a kind of loadbang local to the model. This way it is possible to initialize one module without resetting all preexisting modules."
 				}
 
@@ -988,14 +999,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-21",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 24.0, 325.0, 251.0, 43.0 ],
-					"text" : "Example illustrating that jcom.init works locally sub level of a model's namespace. Noticed that upper jcom.init are banging lowerones"
+					"patching_rect" : [ 20.0, 325.0, 321.0, 43.0 ],
+					"text" : "Example illustrating that jcom.init works locally for sub levels of a model's namespace but it needs a hub around. Noticed that upper jcom.init are banging lowerones"
 				}
 
 			}
@@ -1013,7 +1024,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 360.5, 162.0, 409.5, 162.0 ],
+					"midpoints" : [ 315.5, 150.0, 364.5, 150.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -1024,6 +1035,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 0 ]
 				}
 
 			}
@@ -1060,6 +1089,33 @@
 					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-23", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 447.5, 150.0, 496.5, 150.0 ],
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}

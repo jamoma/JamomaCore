@@ -1624,9 +1624,8 @@ TTErr jamoma_patcher_make_absolute_address(ObjectPtr patcher, TTNodeAddressPtr r
 	if (patcherNode) {
 		patcherNode->getAddress(&patcherAddress);
 		*returnedAbsoluteAddress = patcherAddress->appendAddress(relativeAddress);
-		
 		return kTTErrNone;
-	}
+	}	
 	
 	return kTTErrGeneric;
 }
