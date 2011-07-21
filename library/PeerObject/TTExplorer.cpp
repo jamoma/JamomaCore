@@ -19,6 +19,7 @@ mEqual(kTTValNONE),
 mDifferent(kTTValNONE),
 mDirectory(NULL),
 mAddressObserver(NULL),
+mApplicationObserver(NULL),
 mReturnValueCallback(NULL),
 mLookforObjectCriteria(NULL),
 mTempNode(NULL),
@@ -48,20 +49,8 @@ mLastResult(kTTValNONE)
 
 TTExplorer::~TTExplorer()
 {
-	TTNodeAddressPtr addressToObserve;
-	
-	// bind the right node
-	if (mLookfor == kTTSym_instances)
-		addressToObserve = mTempParent;
-	else
-		addressToObserve = mAddress;
-	
-	if (mAddressObserver) {
-		if (mDirectory && addressToObserve != kTTAdrsEmpty)
-			mDirectory->removeObserverForNotifications(addressToObserve, *mAddressObserver);
-		delete (TTValuePtr)mAddressObserver->getBaton();
-		TTObjectRelease(TTObjectHandle(&mAddressObserver));
-	}
+	unbindAddress();	
+	unbindApplication();
 	
 	if (mReturnValueCallback) {
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
@@ -89,55 +78,109 @@ TTErr TTExplorer::setLookfor(const TTValue& value)
 
 TTErr TTExplorer::setAddress(const TTValue& value)
 {	
-	TTValuePtr	newBaton;
-	
-	// delete the old observer
-	if (mDirectory && mAddressObserver && mTempObserve != kTTSymEmpty) {
-		mDirectory->removeObserverForNotifications(mTempObserve, *mAddressObserver);
-		TTObjectRelease(TTObjectHandle(&mAddressObserver));
-	}
+	unbindAddress();
+	unbindApplication();
 	
 	// change the address
 	value.get(0, &mAddress);
 	
-	if (mDirectory = getDirectoryFrom(mAddress)) {
+	if (mDirectory = getDirectoryFrom(mAddress))
+		return bindAddress();
+	else
+		return bindApplication();
+}
+
+TTErr TTExplorer::bindAddress() 
+{
+	TTValuePtr	newBaton;
+	
+	// it works only for absolute address
+	if (mAddress->getType() == kAddressAbsolute) {
 		
-		// it works only for absolute address
-		if (mAddress->getType() == kAddressAbsolute) {
+		// change internal values
+		mTempParent = mAddress->getParent();
+		mTempName = mAddress->getName();
+		
+		// bind the new node
+		if (mLookfor == kTTSym_instances)
+			mTempObserve = mTempParent;
+		else
+			mTempObserve = mAddress;
+		
+		// change the observer
+		if (mTempObserve != kTTSymEmpty){
 			
-			// change internal values
-			mTempParent = mAddress->getParent();
-			mTempName = mAddress->getName();
+			// observe any creation or destruction below the address
+			mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 			
-			// bind the new node
-			if (mLookfor == kTTSym_instances)
-				mTempObserve = mTempParent;
-			else
-				mTempObserve = mAddress;
+			newBaton = new TTValue(TTPtr(this));
+			newBaton->append(TTPtr(kTTSymEmpty));
 			
-			// change the observer
-			if (mTempObserve != kTTSymEmpty){
-				
-				// observe any creation or destruction below the address
-				mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-				TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
-				
-				newBaton = new TTValue(TTPtr(this));
-				newBaton->append(TTPtr(kTTSymEmpty));
-				
-				mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-				mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
-				
-				mAddressObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
-				
-				mDirectory->addObserverForNotifications(mTempObserve, *mAddressObserver);
-			}
+			mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+			mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
-			return kTTErrNone;
+			mAddressObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
+			
+			mDirectory->addObserverForNotifications(mTempObserve, *mAddressObserver);
 		}
+		
+		return kTTErrNone;
 	}
 	
-	return kTTErrGeneric;  // TODO : wait for directory before to set address again
+	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::unbindAddress() 
+{
+	// delete the old observer
+	if (mDirectory && mAddressObserver && mTempObserve != kTTSymEmpty) {
+		mDirectory->removeObserverForNotifications(mTempObserve, *mAddressObserver);
+		TTObjectRelease(TTObjectHandle(&mAddressObserver));
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::bindApplication() 
+{
+	TTValuePtr	newBaton;
+	
+	if (!mApplicationObserver) {
+		
+		mApplicationObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
+		
+		newBaton = new TTValue(TTPtr(this));
+		
+		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
+		
+		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));		// this is usefull only to debug
+		
+		return TTApplicationManagerAddApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::unbindApplication() 
+{
+	TTErr err = kTTErrNone;
+	
+	if (mApplicationObserver) {
+		
+		err = TTApplicationManagerRemoveApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
+		
+		delete (TTValuePtr)mApplicationObserver->getBaton();
+		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
+	}
+	
+	mDirectory = NULL;
+	
+	return kTTErrNone;
 }
 
 TTErr TTExplorer::Explore()
@@ -485,6 +528,57 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			anExplorer->mReturnValueCallback->notify(v);
 			anExplorer->mLastResult = v;
 		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
+{
+	TTValuePtr		b;
+	TTExplorerPtr	anExplorer;
+	TTSymbolPtr		anApplicationName;
+	TTApplicationPtr anApplication;
+	TTValue			v;
+	TTUInt8			flag;
+	
+	// unpack baton (a TTExplorerPtr)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&anExplorer);
+	
+	// Unpack data (applicationName, application, flag, observer)
+	data.get(0, &anApplicationName);
+	data.get(1, (TTPtr*)&anApplication);
+	data.get(2, flag);
+	
+	switch (flag) {
+			
+		case kApplicationAdded :
+		{
+			anExplorer->mDirectory = getDirectoryFrom(anExplorer->mAddress);
+			anExplorer->bindAddress();
+			break;
+		}
+			
+		case kApplicationPluginStarted :
+		{
+			anExplorer->Explore();
+			break;
+		}
+			
+		case kApplicationPluginStopped :
+		{
+			break;
+		}
+			
+		case kApplicationRemoved :
+		{
+			anExplorer->unbindAddress();
+			break;
+		}
+			
+		default:
+			break;
 	}
 	
 	return kTTErrNone;

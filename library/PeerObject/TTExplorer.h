@@ -34,6 +34,7 @@ private:
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
 	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
+	TTCallbackPtr		mApplicationObserver;			///< an application life cycle observer
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
 	TTHashPtr			mLookforObjectCriteria;			///< hash table of hash table containing <ObjectType, <AttributeName, Value>>
 														///<	- if the Attribute hash table is empty this means any object of the given type matches the test.
@@ -65,10 +66,19 @@ private:
 	TTErr setAddress(const TTValue& value);
 	
 	/** */
-	TTErr setUpdate(const TTValue& value);
+	TTErr getObjectsByType(TTValue& value);
 	
 	/** */
-	TTErr getObjectsByType(TTValue& value);
+	TTErr bindAddress();
+	
+	/**  */
+	TTErr unbindAddress();
+	
+	/** */
+	TTErr bindApplication();
+	
+	/** */
+	TTErr unbindApplication();
 	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr WriteAsOpml(const TTValue& value);
@@ -80,6 +90,7 @@ private:
 	 */
 	
 	friend TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTExplorer* TTExplorerPtr;
@@ -89,5 +100,11 @@ typedef TTExplorer* TTExplorerPtr;
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(TTPtr baton, TTValue& data);
+
+/**	
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_EXPLORER_H__
