@@ -58,6 +58,15 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 	TTSymbolPtr instance4 = testAddress4->getInstance();
 	TTSymbolPtr attribute4 = testAddress4->getAttribute();
 	TTNodeAddressType type4 = testAddress4->getType();
+	
+	TTNodeAddressPtr testAddress5 = TTADRS(":attribute5");
+	
+	TTSymbolPtr directory5 = testAddress5->getDirectory();
+	TTNodeAddressPtr parent5 = testAddress5->getParent();
+	TTSymbolPtr name5 = testAddress5->getName();
+	TTSymbolPtr instance5 = testAddress5->getInstance();
+	TTSymbolPtr attribute5 = testAddress5->getAttribute();
+	TTNodeAddressType type5 = testAddress5->getType();
 
 	
 	// The first set of tests checks parsing of addresses
@@ -98,6 +107,16 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 					instance4 == NO_INSTANCE &&
 					attribute4 == NO_ATTRIBUTE &&
 					type4 == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress5 is bad",
+					directory5 == NO_DIRECTORY &&
+					parent5 == NO_PARENT &&
+					name5 == NO_NAME &&
+					instance5 == NO_INSTANCE &&
+					attribute5 == TT("attribute5") &&
+					type5 == kAddressRelative,
 					testAssertionCount,
 					errorCount);
 }
