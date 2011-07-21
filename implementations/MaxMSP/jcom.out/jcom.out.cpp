@@ -256,6 +256,8 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);							// Assume 100%, so that processed signal is passed through
+		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
+		aData->setAttributeValue(kTTSym_rampFunction, TT("linear"));
 		aData->setAttributeValue(kTTSym_description, TT("Controls the wet/dry mix of the model's processing routine in percent."));
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_gain, kTTSym_parameter, &aData);
@@ -265,6 +267,8 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
+		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
+		aData->setAttributeValue(kTTSym_rampFunction, TT("linear"));
 		aData->setAttributeValue(kTTSym_description, TT("Set gain of model's outputs (as MIDI value by default)."));
 #endif
 		
