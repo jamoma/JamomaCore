@@ -1597,6 +1597,10 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 		else if (context == kTTSym_view && ac > 1)
 			argName = atom_getsym(av+1);
 		
+		// if the argname begin by a @ ignore it
+		if (argName->s_name[0] == '@')
+			argName = _sym_nothing;
+		
 		if (argName != _sym_nothing) {
 			
 			// in poly case, the index is used to edit an instance
