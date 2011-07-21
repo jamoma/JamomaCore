@@ -66,10 +66,10 @@ TTErr TTExplorer::setLookfor(const TTValue& value)
 {
 	mLookfor = value;
 	
-	// if mLookforObjectCriteria table is empty and mLookfor != kTTSymEmpty
-	// use mLookfor as an entry for mLookforObjectCriteria table
-	if (mLookforObjectCriteria->isEmpty() && mLookfor != kTTSymEmpty)
-		CriteriaInclude(mLookfor);
+	// the criteria have to be cleared
+	// TODO : we need to change the lookfor/criteria mechanism...
+	CriteriaClear();
+	CriteriaInclude(mLookfor);
 	
 	setAddress(mAddress);
 	
