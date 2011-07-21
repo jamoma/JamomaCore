@@ -171,7 +171,7 @@ TTErr TTReceiver::Get()
 							mReturnValueCallback->notify(data);
 					}
 					else
-						;// TODO : error "%s doesn't exist"
+						return kTTErrGeneric;
 				}
 			}
 			

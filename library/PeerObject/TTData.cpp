@@ -475,8 +475,14 @@ TTErr TTData::Command(const TTValue& command)
 
 TTErr TTData::getValue(TTValue& value)
 {
-	value = mValue;
-	return kTTErrNone;
+	// can't get the value before the data has been initialized
+	if (mInitialized) {
+		
+		value = mValue;
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
 }
 
 TTErr TTData::setValue(const TTValue& value)
