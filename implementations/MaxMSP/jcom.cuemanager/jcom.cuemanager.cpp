@@ -30,8 +30,14 @@ void		cue_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
 void		cue_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		cue_read_again(TTPtr self);
+void		cue_doread_again(TTPtr self);
+
 void		cue_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		cue_write_again(TTPtr self);
+void		cue_dowrite_again(TTPtr self);
+
 void		cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		cue_edit(TTPtr self);
@@ -63,6 +69,9 @@ void WrapTTCueManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)cue_read,					"read",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)cue_write,					"write",				A_GIMME, 0);
+	
+	class_addmethod(c->maxClass, (method)cue_read_again,			"read/again",			0);
+	class_addmethod(c->maxClass, (method)cue_write_again,			"write/again",			0);
 }
 
 void WrappedCueManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -274,6 +283,33 @@ void cue_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
+void cue_read_again(TTPtr self)
+{
+	defer(self, (method)cue_doread_again, NULL, 0, NULL);
+}
+
+void cue_doread_again(TTPtr self)
+{	
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue			o, v;
+	TTXmlHandlerPtr	aXmlHandler = NULL;
+	TTErr			tterr;
+	
+	if (x->wrappedObject) {
+		
+		tterr = x->internals->lookup(TT("XmlHandler"), o);
+		
+		if (!tterr) {
+			
+			o.get(0, (TTPtr*)&aXmlHandler);
+			
+			critical_enter(0);
+			aXmlHandler->sendMessage(TT("ReadAgain"), v);
+			critical_exit(0);
+		}
+	}
+}
+
 void cue_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	defer(self, (method)cue_dowrite, msg, argc, argv);
@@ -310,6 +346,34 @@ void cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 	}
 }
+
+void cue_write_again(TTPtr self)
+{
+	defer(self, (method)cue_dowrite_again, NULL, 0, NULL);
+}
+
+void cue_dowrite_again(TTPtr self)
+{	
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue			o, v;
+	TTXmlHandlerPtr	aXmlHandler = NULL;
+	TTErr			tterr;
+	
+	if (x->wrappedObject) {
+		
+		tterr = x->internals->lookup(TT("XmlHandler"), o);
+		
+		if (!tterr) {
+			
+			o.get(0, (TTPtr*)&aXmlHandler);
+			
+			critical_enter(0);
+			aXmlHandler->sendMessage(TT("WriteAgain"), v);
+			critical_exit(0);
+		}
+	}
+}
+
 
 void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
