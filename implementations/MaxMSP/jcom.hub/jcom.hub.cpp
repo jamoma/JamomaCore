@@ -221,29 +221,35 @@ void hub_subscribe(TTPtr self)
 				aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A jmod patcher bind on himself"));
 				aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
 				
+				// Get patcher arguments
+				ac = 0;
+				av = NULL;
+				
+				// If x is in a bpatcher, the patcher is NULL
+				if (!hubPatcher)
+					hubPatcher = object_attr_getobj(x, _sym_parentpatcher);
+				
+				jamoma_patcher_get_args(hubPatcher, &ac, &av);
+				
+				// in subpatcher the name of the patcher is part of the argument
+				if (jamoma_patcher_get_hierarchy(hubPatcher) == _sym_subpatcher) {
+					ac--;
+					av++;
+				}
+				
 				// In model patcher : set /modeladdress with his address
-				if (x->patcherContext == kTTSym_model)
+				if (x->patcherContext == kTTSym_model) {
 					aData->setAttributeValue(kTTSym_value, nodeAdrs);
+					
+					// use hubPatcher args to setup the hub attributes (like @priority)
+					if (ac && av)
+						attr_args_process(x, ac, av);
+				}
 				
 				// In view patcher :
 				// if exists, the second argument of the patcher is the /model/address value
 				// else observe the entire namespace to find a model of our class
 				if (x->patcherContext == kTTSym_view) {
-					
-					ac = 0;
-					av = NULL;
-					
-					// If x is in a bpatcher, the patcher is NULL
-					if (!hubPatcher)
-						hubPatcher = object_attr_getobj(x, _sym_parentpatcher);
-					
-					jamoma_patcher_get_args(hubPatcher, &ac, &av);
-					
-					// in subpatcher the name of the patcher is part of the argument
-					if (jamoma_patcher_get_hierarchy(hubPatcher) == _sym_subpatcher) {
-						ac--;
-						av++;
-					}
 					
 					if (ac > 0) {
 						EXTRA->modelAddress = TTADRS(atom_getsym(av)->s_name);
