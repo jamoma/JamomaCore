@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 4.0, 44.0, 945.0, 471.0 ],
+		"rect" : [ 15.0, 110.0, 952.0, 483.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 4.0, 44.0, 945.0, 471.0 ],
+		"defrect" : [ 15.0, 110.0, 952.0, 483.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -229,13 +229,13 @@
 ,
 					"patching_rect" : [ 835.0, 354.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"default_fontname" : "Arial",
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -481,13 +481,13 @@
 ,
 					"patching_rect" : [ 87.0, 271.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"default_fontname" : "Arial",
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -596,7 +596,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-48",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -718,7 +718,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-21",
 					"linecount" : 5,
 					"maxclass" : "comment",
@@ -736,7 +736,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-4",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -770,7 +770,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-76",
 					"linecount" : 4,
 					"maxclass" : "comment",
@@ -788,7 +788,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-75",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -806,7 +806,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-74",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -824,7 +824,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-73",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -841,7 +841,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-69",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -858,7 +858,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-68",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -874,7 +874,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-67",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -890,7 +890,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-66",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -906,7 +906,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-65",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -922,7 +922,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-64",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -953,7 +953,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-59",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1028,13 +1028,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-13",
-					"items" : "_",
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 835.0, 484.0, 35.0, 20.0 ],
-					"prefix" : "/degrade.1/out/gain.",
+					"prefix" : "/degrade.1/preset/read/again.",
 					"presentation" : 1,
 					"presentation_rect" : [ 478.0, 240.0, 35.0, 20.0 ],
 					"types" : [  ]
@@ -1055,7 +1055,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 760.0, 330.0, 168.0, 20.0 ],
-					"prefix" : "/degrade.1/out/",
+					"prefix" : "/degrade.1/preset/read/",
 					"presentation" : 1,
 					"presentation_rect" : [ 345.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
@@ -1112,7 +1112,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-41",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1120,7 +1120,7 @@
 					"patching_rect" : [ 438.0, 690.0, 152.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 195.0, 405.0, 419.0, 20.0 ],
-					"text" : "41.00"
+					"text" : "3"
 				}
 
 			}
@@ -1128,7 +1128,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-40",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1136,7 +1136,7 @@
 					"patching_rect" : [ 149.0, 690.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/degrade.1/out/gain:value"
+					"text" : "/wacom:priority"
 				}
 
 			}
@@ -1221,13 +1221,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : [ "tag", ",", "value", ",", "dataspace/unit", ",", "repetitions/allow", ",", "ramp/function", ",", "range/bounds", ",", "dataspace", ",", "service", ",", "description", ",", "value/stepsize", ",", "ramp/drive", ",", "priority", ",", "value/default", ",", "type", ",", "bypass", ",", "range/clipmode" ],
+					"items" : [ "tag", ",", "priority", ",", "type", ",", "content", ",", "bypass", ",", "description", ",", "activity/out", ",", "activity/in" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/degrade.1/out/gain:",
+					"prefix" : "/wacom:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1242,13 +1242,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-20",
-					"items" : [ "model/class", ",", "out/amplitude.2", ",", "in/amplitude.2", ",", "preset/names", ",", "out/amplitude.1", ",", "in/amplitude.1", ",", "model/address" ],
+					"items" : [ "x", ",", "model/address", ",", "z", ",", "tilt/y", ",", "model/class", ",", "tilt/x", ",", "y", ",", "buttons", ",", "eraser" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 396.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade.1/",
+					"prefix" : "/wacom/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 300.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1263,13 +1263,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : [ "model/internals", ",", "preset/store/previous", ",", "preset/read", ",", "model/help", ",", "preset/write/again", ",", "preset/write", ",", "preset/store/current", ",", "preset/recall", ",", "preset/recall/current", ",", "preset/remove/next", ",", "preset/remove", ",", "preset/remove/current", ",", "preset/recall/previous", ",", "model/reference", ",", "preset/read/again", ",", "preset/store/next", ",", "model/documentation/generate", ",", "preset/recall/next", ",", "preset/store", ",", "preset/remove/previous" ],
+					"items" : [ "model/documentation/generate", ",", "model/help", ",", "model/reference", ",", "model/internals" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 246.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade.1/",
+					"prefix" : "/wacom/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 270.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1284,13 +1284,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : [ "bitdepth", ",", "samplerateRatio", ",", "out/mute", ",", "model/mute", ",", "out/mix", ",", "out/gain", ",", "in/mute", ",", "in/bypass" ],
+					"items" : "model/mute",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 87.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade.1/",
+					"prefix" : "/wacom/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 240.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1369,13 +1369,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-3",
-					"items" : [ "degrade.2", ",", "degrade~(view)", ",", "degrade~(view)/ui", ",", "degrade~(view).1/ui", ",", "degrade~(view).1", ",", "degrade.1" ],
+					"items" : [ "degrade~(view)", ",", "p2.brabo", ",", "Sel.rido/Selador.1", ",", "p2.T8", ",", "p.fresntest", ",", "Sel.bas/Selador.1", ",", "wacom", ",", "p2.svob", ",", "cyclo.1", ",", "Sel.face/Selador.2", ",", "Sel.rido/Selador.2", ",", "Sel.arr/Selador.1", ",", "Sel.rido", ",", "Sel.face", ",", "p", ",", "Sel.arr/Selador.2", ",", "degrade.2", ",", "Sel.inter/Selador.3", ",", "p2.fresn", ",", "degrade.1", ",", "Sel.inter/Selador.2", ",", "p2", ",", "Sel.bas", ",", "p.fresnFen", ",", "p2.fluo", ",", "Sel.inter", ",", "Sel/Sel/Selador.*", ",", "p4.mask", ",", "Sel.bas/Selador.2", ",", "Sel", ",", "p2.latV", ",", "cyclo", ",", "Sel.face/Selador.1", ",", "Sel.inter/Selador.1", ",", "p2.raz", ",", "degrade~(view).1", ",", "p4.1", ",", "Sel.arr/Selador.3", ",", "Sel.arr" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 12.0, 248.0, 168.0, 20.0 ],
-					"prefix" : "Mac:/",
+					"prefix" : "Servo:/",
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
@@ -2004,6 +2004,15 @@
 					"destination" : [ "obj-52", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 96.5, 294.5, 405.5, 294.5 ],
+					"source" : [ "obj-83", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-53", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 96.5, 291.0, 72.0, 291.0, 72.0, 463.0, 315.5, 463.0 ],
 					"source" : [ "obj-83", 0 ]
 				}
 
