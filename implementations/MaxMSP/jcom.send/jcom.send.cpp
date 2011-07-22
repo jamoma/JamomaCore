@@ -16,7 +16,9 @@ void	WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 
 void	send_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void	send_subscribe(TTPtr self, SymbolPtr relativeAddress);
+void	send_subscribe(TTPtr self);
+
+void	send_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	send_bang(TTPtr self);
 void	send_int(TTPtr self, long value);
@@ -38,14 +40,16 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 void WrapTTSenderClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)send_assist,	"assist",	A_CANT, 0L);
-	class_addmethod(c->maxClass, (method)send_bang,		"bang",		0L);
-	class_addmethod(c->maxClass, (method)send_int,		"int",		A_LONG, 0L);
-	class_addmethod(c->maxClass, (method)send_float,	"float",	A_FLOAT, 0L);
-	class_addmethod(c->maxClass, (method)send_list,		"list",		A_GIMME, 0L);
-	class_addmethod(c->maxClass, (method)send_set,		"set",		A_SYM, 0L);
+	class_addmethod(c->maxClass, (method)send_assist,					"assist",					A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)send_return_model_address,		"return_model_address",		A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)WrappedSenderClass_anything,	"symbol",	A_SYM, 0L);
+	class_addmethod(c->maxClass, (method)send_bang,						"bang",						0L);
+	class_addmethod(c->maxClass, (method)send_int,						"int",						A_LONG, 0L);
+	class_addmethod(c->maxClass, (method)send_float,					"float",					A_FLOAT, 0L);
+	class_addmethod(c->maxClass, (method)send_list,						"list",						A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)send_set,						"set",						A_SYM, 0L);
+	
+	class_addmethod(c->maxClass, (method)WrappedSenderClass_anything,	"symbol",					A_SYM, 0L);
 }
 
 void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -60,26 +64,21 @@ void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	// for empty address
-	if (address == _sym_nothing)
-		jamoma_sender_create((ObjectPtr)x, address, &x->wrappedObject);
-	// for absolute address
-	else {
-		SymbolPtr parsed = jamoma_parse_dieze((ObjectPtr)x, address);
-		
-		if (TTADRS(address->s_name)->getType() == kAddressAbsolute)
-			jamoma_sender_create((ObjectPtr)x, parsed, &x->wrappedObject);
-		else
-			// The following must be deferred because we have to interrogate our box,
-			// and our box is not yet valid until we have finished instantiating the object.
-			// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-			defer_low((ObjectPtr)x, (method)send_subscribe, parsed, 0, 0);
-	}
+	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
+	jamoma_sender_create((ObjectPtr)x, &x->wrappedObject);
 	
 	// No outlets
 	
+	// Prepare memory to store internal objects
+	x->internals = new TTHash();
+	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
+	
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)send_subscribe, NULL, 0, 0);
 }
 
 void WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -100,24 +99,71 @@ void send_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
-void send_subscribe(TTPtr self, SymbolPtr relativeAddress)
+void send_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr absoluteAddress;
-
-	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), TTADRS(relativeAddress->s_name),  &absoluteAddress)) {
-		
-		jamoma_sender_create((ObjectPtr)x, gensym((char*)absoluteAddress->getCString()), &x->wrappedObject);
-		
-		// DEBUG
-		//object_post((ObjectPtr)x, "sends to = %s", absoluteAddress->getCString());
+	TTValue						v;
+	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
+	TTNodeAddressPtr			absoluteAddress;
+	TTObjectPtr					anObject;
+	
+	// for absolute address
+	if (x->address->getType() == kAddressAbsolute) {
+		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
+		return;
 	}
-	// While the context node is not registered : try to build (to --Is this not dangerous ?)
+	
+	// for relative address
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	
+	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, x->address, &x->subscriberObject)) {
+		// get the context address to make
+		// a receiver on the contextAddress/model/address parameter
+		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+		v.get(0, (TTSymbolPtr*)&contextAddress);
+	}
+	
+	// bind on the /model/address parameter (view patch)  or set address directly
+	if (contextAddress != kTTAdrsEmpty) {
+		
+		if (x->patcherContext == kTTSym_view) {
+			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+			anObject->sendMessage(kTTSym_Refresh);
+		}
+		else {
+			absoluteAddress = contextAddress->appendAddress(x->address);
+			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+		}
+	}
+	
+	// while the context node is not registered : try to binds again :(
+	// (to -- this is not a good way todo. For binding we should make a subscription 
+	// to a notification mechanism and each time an TTObjet subscribes to the namespace
+	// using jamoma_subscriber_create we notify all the externals which have used 
+	// jamoma_subscriber_create with NULL object to bind)
 	else {
+		
+		// release the subscriber
+		TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+		x->subscriberObject = NULL;
+		
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)send_subscribe, relativeAddress, 0, 0);
+		defer_low((ObjectPtr)x, (method)send_subscribe, NULL, 0, 0);
+	}
+}
+
+void send_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTNodeAddressPtr			absoluteAddress;
+	
+	if (argc && argv) {
+		
+		// set address attribute of the wrapped Receiver object
+		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
+		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 	}
 }
 
@@ -152,16 +198,7 @@ void send_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void send_set(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr parsed = jamoma_parse_dieze((ObjectPtr)x, address);
-	TTNodeAddressPtr anAddress = TTADRS(parsed->s_name);
-	TTValue v;
+	x->address =  TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
 	
-	x->msg = address;						// we store the address into the msg member
-	
-	if (anAddress->getType() == kAddressAbsolute) {
-		v = TTValue(anAddress);
-		x->wrappedObject->setAttributeValue(kTTSym_address, v);
-	}
-	else
-		send_subscribe(self, parsed);
+	send_subscribe(self);
 }

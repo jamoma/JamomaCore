@@ -23,15 +23,13 @@ mAddressObserver(NULL),
 mApplicationObserver(NULL),
 mNodesObserversCache(NULL)
 {
-	TTNodeAddressPtr anAddress;
+	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 2);
 	
-	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 3);
+	if (arguments.getSize() >= 1)
+		arguments.get(0, (TTPtr*)&mReturnAddressCallback);
 	
 	if (arguments.getSize() >= 2)
-		arguments.get(1, (TTPtr*)&mReturnAddressCallback);
-	
-	if (arguments.getSize() >= 3)
-		arguments.get(2, (TTPtr*)&mReturnValueCallback);
+		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Enable, kTypeBoolean);
@@ -40,11 +38,6 @@ mNodesObserversCache(NULL)
 	addMessageProperty(Get, hidden, YES);
 	
 	mNodesObserversCache = new TTList();
-	
-	if (arguments.getSize() >= 1) {
-		arguments.get(0, &anAddress);
-		setAddress(anAddress);
-	}
 }
 
 TTReceiver::~TTReceiver()

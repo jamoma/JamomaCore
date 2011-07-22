@@ -19,9 +19,7 @@ mObjectCache(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL)
 {
-	TTNodeAddressPtr anAddress;
-	
-	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 1);
+	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 0);
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -29,11 +27,6 @@ mApplicationObserver(NULL)
 	addMessageProperty(Send, hidden, YES);
 	
 	mIsSending = false;
-	
-	if (arguments.getSize() == 1) {
-		arguments.get(0, &anAddress);
-		setAddress(anAddress);
-	}
 }
 
 TTSender::~TTSender()

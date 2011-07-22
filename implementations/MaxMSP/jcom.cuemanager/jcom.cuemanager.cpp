@@ -43,7 +43,7 @@ void		cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_edit(TTPtr self);
 void		cue_edclose(TTPtr self, char **text, long size);
 
-void		cue_subscribe(TTPtr self, SymbolPtr relativeAddress);
+void		cue_subscribe(TTPtr self);
 
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -86,13 +86,15 @@ void WrappedCueManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		relativeAddress = _sym_nothing;
 	
+	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name);
+	
 	// create the cue manager
 	jamoma_cueManager_create((ObjectPtr)x, &x->wrappedObject);
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)cue_subscribe, relativeAddress, 0, 0);
+	defer_low((ObjectPtr)x, (method)cue_subscribe, NULL, 0, 0);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -117,24 +119,21 @@ void WrappedCueManageClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void cue_subscribe(TTPtr self, SymbolPtr relativeAddress)
+void cue_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
-	SymbolPtr					cueLevelAddress;
 	TTNodeAddressPtr			absoluteAddress;
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
 	
 	// register the object under a cuelist address
-	if (relativeAddress == _sym_nothing)
-		cueLevelAddress = gensym("cuelist");
-	else
-		cueLevelAddress = relativeAddress;
+	if (x->address == kTTAdrsEmpty)
+		x->address = TTADRS("cuelist");
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, cueLevelAddress), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {
 		
 		// get patcher
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);

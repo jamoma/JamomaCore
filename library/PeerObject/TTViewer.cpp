@@ -97,9 +97,7 @@ TTErr TTViewer::bind()
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// Prepare arguments
-	if (mAddress != kTTAdrsEmpty)
-		args.append(mAddress->appendAttribute(kTTSym_value));
-	else
+	if (mAddress == kTTAdrsEmpty)
 		return kTTErrGeneric;
 
 	// Replace a TTSender object
@@ -107,7 +105,9 @@ TTErr TTViewer::bind()
 		TTObjectRelease(TTObjectHandle(&mSender));
 	
 	mSender = NULL;							// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), args);
+	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), kTTValNONE);
+	
+	mSender->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_value));
 	
 	// Replace a TTReceiver object
 	if (mReceiver)
@@ -130,6 +130,8 @@ TTErr TTViewer::bind()
 	mReceiver = NULL;						// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
 	
+	mReceiver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_value));
+	
 	observeDataspace();
 	observeDataspaceUnit();
 	
@@ -146,7 +148,6 @@ TTErr TTViewer::observeDataspace()
 		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
 	
 	// Make a TTReceiver object
-	args.append(mAddress->appendAttribute(kTTSym_dataspace));
 	args.append(NULL);
 	
 	returnDataspaceCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -158,6 +159,8 @@ TTErr TTViewer::observeDataspace()
 	
 	mDataspaceObserver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mDataspaceObserver), args);
+	
+	mDataspaceObserver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_dataspace));
 	
 	mDataspaceObserver->sendMessage(kTTSym_Get);
 	
@@ -174,7 +177,6 @@ TTErr TTViewer::observeDataspaceUnit()
 		TTObjectRelease(TTObjectHandle(&mDataspaceUnitObserver));
 	
 	// Make a TTReceiver object
-	args.append(mAddress->appendAttribute(kTTSym_dataspaceUnit));
 	args.append(NULL);
 	
 	returnDataspaceUnitCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -186,6 +188,8 @@ TTErr TTViewer::observeDataspaceUnit()
 	
 	mDataspaceUnitObserver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mDataspaceUnitObserver), args);
+	
+	mDataspaceUnitObserver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_dataspaceUnit));
 	
 	mDataspaceUnitObserver->sendMessage(kTTSym_Get);
 	

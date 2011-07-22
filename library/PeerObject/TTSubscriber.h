@@ -43,6 +43,8 @@ private:
 	
 	TTNodeAddressPtr			mRelativeAddress;			///< the address of this subscriber relative to the Context node
 	
+	TTObjectPtr					mObject;					///< the object to subscribe
+	
 	TTNodePtr					mNode;						///< cache the TTNode relative to this subscriber
 	TTNodeAddressPtr			mNodeAddress;				///< cache the address of this subscriber in the tree structure
 	
@@ -52,16 +54,18 @@ private:
 	TTBoolean					mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
 	
 	TTCallbackPtr				mGetContextListCallback;	///< A callback to get the Context list of all Contexts above.
-													///< Here we expect the callback fill the given value with a TTListPtr or NULL.
-													///< Important Note : 
-													///<	- the top level context have to be the first element of the list.
-													///<	- each element have to be TTValue with < context name, context pointer >
+															///< Here we expect the callback fill the given value with a TTListPtr or NULL.
+															///< Important Note : 
+															///<	- the top level context have to be the first element of the list.
+															///<	- each element have to be TTValue with < context name, context pointer >
 	
 	TTHashPtr					mExposedMessages;
 	TTHashPtr					mExposedAttributes;
 	
-	/** Make all needed registrations to set up a TTNode in the tree strucuture for a given TTObject */
-	TTErr subscribe(TTObjectPtr anObject);
+	/** Make all needed registrations to set up a TTNode in the tree strucuture for the given mObject 
+		Note : if anObject is NULL the process will only retrieve all context info. This is usefull 
+		to know the namespace without subscribing to it	*/
+	TTErr subscribe();
 	
 	/** Register each given Context of the list as TTNode if they don't exist yet */
 	TTErr registerContextList(TTListPtr aContextList);

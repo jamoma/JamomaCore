@@ -26,7 +26,6 @@ typedef struct outlet {
 // This is used to store extra data
 typedef struct extra {
 	TTPtr		ui_qelem;		///< to output "qlim'd" data for ui object
-	TTNodeAddressPtr address;	// the first arg address
 	ObjectPtr	connected;		// our ui object
 	long		x;				// our ui object x presentation
 	long		y;				// our ui object y presentation
@@ -64,7 +63,7 @@ void 	view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 void	view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
 void	view_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
 
-void	view_subscribe(TTPtr self, SymbolPtr address);
+void	view_subscribe(TTPtr self);
 
 void	view_ui_queuefn(TTPtr self);
 
@@ -108,11 +107,12 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
+	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
+	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->connected = NULL;
 	EXTRA->label = NULL;
-	EXTRA->address = TTADRS(address->s_name);
 	
 	EXTRA->color0 = (AtomPtr)sysmem_newptr(sizeof(Atom) * 4);
 	atom_setfloat(EXTRA->color0, 0);
@@ -131,11 +131,6 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare memory to store internal objects
 	x->internals = new TTHash();
 	
-	// The following must be deferred because we have to interrogate our box,
-	// and our box is not yet valid until we have finished instantiating the object.
-	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)view_subscribe, address, 0, 0);
-	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 3);
 	x->outlets[select_out] = outlet_new(x, NULL);					// anything outlet to select ui
@@ -147,6 +142,11 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
+	
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)view_subscribe, NULL, 0, 0);
 }
 
 // Method for Assistance Messages
@@ -179,69 +179,83 @@ void WrappedViewerClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void view_subscribe(TTPtr self, SymbolPtr address)
+void view_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
+	TTNodeAddressPtr			absoluteAddress;
 	TTObjectPtr					anObject;
-	TTNodePtr					patcherNode;
 	
-	// for relative address
-	if (TTADRS(address->s_name)->getType() == kAddressRelative) {
+	// for absolute address
+	if (x->address->getType() == kAddressAbsolute) {
 		
-		// if the jcom.view is in a model or a view patcher
-		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
-		
-		// view patcher case
-		if (x->patcherContext == kTTSym_view) {
-			// try to subscribe
-			if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, address), &x->subscriberObject)) {
-				// get the context address to make
-				// a viewer on the contextAddress/model/address parameter
-				x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-				v.get(0, (TTSymbolPtr*)&contextAddress);
-			}
-		}
-		// model patcher case
-		else if (x->patcherContext == kTTSym_model) {
-			jamoma_patcher_share_node(jamoma_patcher_get((ObjectPtr)x), &patcherNode);
-			if (patcherNode)
-				patcherNode->getAddress(&contextAddress);
-			
-			// While the context node is not registered : try to build (to --Is this not dangerous ?)
-			else {
-				// The following must be deferred because we have to interrogate our box,
-				// and our box is not yet valid until we have finished instantiating the object.
-				// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-				defer_low((ObjectPtr)x, (method)view_subscribe, address, 0, 0);
-				return;
-			}
-		}
-		// top level patcher
-		else {
-			// set address attribute of the wrapped Viewer object
-			x->wrappedObject->setAttributeValue(kTTSym_address, kTTAdrsRoot->appendAddress(TTADRS(address->s_name)));
-			return;
-		}
-		
-		// bind on the /model/address parameter (in view patch) or return (in model patch)
-		if (contextAddress != kTTSymEmpty) {
-			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
-			anObject->sendMessage(kTTSym_Refresh);
-		}
+		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		
 		// attach the jcom.view to connected ui object
 		view_attach(self);
-		
 		return;
 	}
 	
-	// Else use the address to bind directly on a data
-	// and don't register the view into the namespace
+	// for relative address
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 	
-	// set address attribute of the wrapped Viewer object
-	x->wrappedObject->setAttributeValue(kTTSym_address, TT(address->s_name));
+	// View patcher case : try to subscribe the wrapped object
+	if (x->patcherContext == kTTSym_view) {
+		
+		if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {
+			// get the context address to make
+			// a viewer on the contextAddress/model/address parameter
+			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+			v.get(0, (TTSymbolPtr*)&contextAddress);
+		}
+	}
+	// Model patcher case : try to binds on the parameter|message|return of the model
+	else if (x->patcherContext == kTTSym_model) {
+		
+		if (!jamoma_subscriber_create((ObjectPtr)x, NULL, x->address, &x->subscriberObject)) {
+			// get the context address to make
+			// a viewer on the contextAddress/model/address parameter
+			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+			v.get(0, (TTSymbolPtr*)&contextAddress);
+		}
+	}
+	else
+		contextAddress = kTTAdrsRoot;
+	
+	// bind on the /model/address parameter (in view patch)  or set address directly
+	if (contextAddress != kTTAdrsEmpty) {
+		
+		if (x->patcherContext == kTTSym_view) {
+			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+			anObject->sendMessage(kTTSym_Refresh);
+		}
+		else {
+			absoluteAddress = contextAddress->appendAddress(x->address);
+			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+		}
+	}
+	
+	// In Model case : while the context node is not registered : try to binds again :(
+	// (to -- this is not a good way todo. For binding we should make a subscription 
+	// to a notification mechanism and each time an TTObjet subscribes to the namespace
+	// using jamoma_subscriber_create we notify all the externals which have used 
+	// jamoma_subscriber_create with NULL object to bind)
+	else if (x->patcherContext == kTTSym_model) {
+		
+		// release the subscriber
+		TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+		x->subscriberObject = NULL;
+		
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low((ObjectPtr)x, (method)view_subscribe, NULL, 0, 0);
+		return;
+	}
+	
+	// attach the jcom.view to connected ui object
+	view_attach(self);
 }
 
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -344,7 +358,7 @@ void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	if (argc && argv) {
 		
 		// set address attribute of the wrapped Viewer object
-		address = TTADRS(atom_getsym(argv)->s_name)->appendAddress(EXTRA->address);
+		address = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, address);
 		
 		// for Data object, if service is parameter or return : refresh !
@@ -431,7 +445,7 @@ void view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 				object_attr_getvalueof(EXTRA->connected, _sym_presentation_rect , &ac, &av);
 				if (ac && av && EXTRA->label) {
 					object_method_long(EXTRA->label, _sym_fontsize, 10, &a);
-					object_method_sym(EXTRA->label, _sym_set, gensym((char*)EXTRA->address->getCString()), &a);
+					object_method_sym(EXTRA->label, _sym_set, gensym((char*)x->address->getCString()), &a);
 					object_method_typed(EXTRA->label, _sym_presentation_rect, ac, av, &a);
 				}
 			}

@@ -96,7 +96,7 @@
 			}
 , 			{
 				"box" : 				{
-					"color" : [ 0.478431, 0.709804, 0.317647, 1.0 ],
+					"color" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-13",
@@ -357,7 +357,7 @@
 			}
 , 			{
 				"box" : 				{
-					"color" : [ 0.478431, 0.709804, 0.317647, 1.0 ],
+					"color" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-14",
@@ -841,7 +841,7 @@
 			}
 , 			{
 				"box" : 				{
-					"color" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+					"color" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-4",
@@ -872,14 +872,34 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"id" : "obj-3",
-									"linecount" : 3,
-									"maxclass" : "comment",
+									"id" : "obj-4",
+									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 115.0, 5.0, 156.0, 43.0 ],
-									"text" : "This jcom.init doesn't works because there is no hub in the subpatcher"
+									"patching_rect" : [ 55.0, 60.0, 96.0, 19.0 ],
+									"text" : "print LIKE_ROOT"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-10",
+									"maxclass" : "button",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 20.0, 82.0, 20.0, 20.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-2",
+									"maxclass" : "button",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 6.0, 82.0, 20.0, 20.0 ]
 								}
 
 							}
@@ -887,12 +907,24 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"id" : "obj-2",
+									"id" : "obj-3",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 6.0, 29.0, 107.0, 19.0 ],
-									"text" : "print NEED_A_HUB"
+									"numoutlets" : 3,
+									"outlettype" : [ "bang", "bang", "" ],
+									"patching_rect" : [ 6.0, 60.0, 46.0, 19.0 ],
+									"text" : "sel 0 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-5",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"patching_rect" : [ 6.0, 30.0, 20.0, 20.0 ]
 								}
 
 							}
@@ -914,10 +946,46 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-2", 0 ],
+									"destination" : [ "obj-5", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-12", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-10", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-4", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 15.5, 54.5, 64.5, 54.5 ],
+									"source" : [ "obj-5", 0 ]
 								}
 
 							}
@@ -960,7 +1028,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 124.0, 273.0, 67.0 ],
+					"patching_rect" : [ 9.0, 124.0, 274.0, 67.0 ],
 					"text" : "jcom.init connects to jcom.hub in order to link to all other instances of jcom.init within the same model. It also makes jcom.preset reset all parameters to the default preset (so the needs a jcom.preset and a preset file to load)."
 				}
 

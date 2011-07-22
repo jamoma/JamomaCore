@@ -150,7 +150,7 @@ void data_subscribe(TTPtr self, SymbolPtr relativeAddress)
 
 	// for relative address
 	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative)
-		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, relativeAddress), &x->subscriberObject);
+		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name), &x->subscriberObject);
 	else
 		object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
 }

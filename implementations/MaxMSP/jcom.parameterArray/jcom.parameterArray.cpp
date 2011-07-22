@@ -226,7 +226,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 #endif
 #endif
 					aSubscriber = NULL;
-					if (!jamoma_subscriber_create((ObjectPtr)x, anObject, instanceAddress,  &aSubscriber)) {
+					if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTADRS(instanceAddress->s_name),  &aSubscriber)) {
 						
 						if (aSubscriber) {
 							// append the data to the internals table

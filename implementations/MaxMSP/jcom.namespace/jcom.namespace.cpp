@@ -29,6 +29,8 @@ void		nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		nmspc_subscribe(TTPtr self);
 
+void		nmspc_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 t_max_err	nmspc_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
 t_max_err	nmspc_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 
@@ -61,6 +63,8 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)nmspc_assist,				"assist",					A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)nmspc_return_value,		"return_value",				A_CANT, 0);
+	
+	class_addmethod(c->maxClass, (method)nmspc_return_model_address,"return_model_address",		A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)nmspc_bang,				"bang",						0);
 	
@@ -113,29 +117,6 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	attr_args_process(x, argc, argv);
 }
 
-void nmspc_subscribe(TTPtr self)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue	v;
-
-	if (!jamoma_patcher_make_absolute_address(jamoma_patcher_get((ObjectPtr)x), kTTAdrsEmpty,  &x->patcherAddress)) {
-		
-		v.append(x->patcherAddress);
-		x->wrappedObject->setAttributeValue(kTTSym_address, v);
-		
-		// DEBUG
-		object_post((ObjectPtr)x, "explores from = %s", x->patcherAddress->getCString());
-
-	}
-	// While the context node is not registered : try to build (to --Is this not dangerous ?)
-	else {
-		// The following must be deferred because we have to interrogate our box,
-		// and our box is not yet valid until we have finished instantiating the object.
-		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)nmspc_subscribe, NULL, 0, 0);
-	}
-}
-
 void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1) 						// Inlet
@@ -153,6 +134,65 @@ void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 				break;
 		}
  	}
+}
+
+void nmspc_subscribe(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue						v;
+	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
+	TTNodeAddressPtr			absoluteAddress;
+	TTObjectPtr					anObject;
+	
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	
+	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, kTTAdrsEmpty, &x->subscriberObject)) {
+		// get the context address to make
+		// a receiver on the contextAddress/model/address parameter
+		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+		v.get(0, (TTSymbolPtr*)&contextAddress);
+	}
+	
+	// bind on the /model/address parameter (view patch) or return (model patch)
+	if (contextAddress != kTTAdrsEmpty) {
+		
+		absoluteAddress = contextAddress->appendAddress(x->address);
+		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
+		
+		makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+		anObject->sendMessage(kTTSym_Refresh);
+	}
+	
+	// while the context node is not registered : try to binds again :(
+	// (to -- this is not a good way todo. For binding we should make a subscription 
+	// to a notification mechanism and each time an TTObjet subscribes to the namespace
+	// using jamoma_subscriber_create we notify all the externals which have used 
+	// jamoma_subscriber_create with NULL object to bind)
+	else {
+		
+		// release the subscriber
+		TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+		x->subscriberObject = NULL;
+		
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low((ObjectPtr)x, (method)nmspc_subscribe, NULL, 0, 0);
+	}
+}
+
+void nmspc_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTNodeAddressPtr			absoluteAddress;
+	
+	if (argc && argv) {
+		
+		// set address attribute of the wrapped Receiver object
+		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
+		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+		x->wrappedObject->sendMessage(TT("Explore"));
+	}
 }
 
 void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

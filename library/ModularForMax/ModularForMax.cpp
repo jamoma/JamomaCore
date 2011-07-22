@@ -94,7 +94,7 @@ TTErr jamoma_directory_dump_observers(void)
 // Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
+TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTNodeAddressPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
 {
 	TTValue			v, args;
 	TTNodePtr		aNode;
@@ -105,7 +105,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 		
 	// prepare arguments
 	args.append(TTPtr(aTTObject));
-	args.append(TTADRS(relativeAddress->s_name));
+	args.append(relativeAddress);
 	
 	contextListCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &contextListCallback, kTTValNONE);
@@ -117,30 +117,44 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);
 	
-	// Chack if the subscription is ok
+	// Check if the subscription is ok (or the binding in case of NULL object)
 	(*returnedSubscriber)->getAttributeValue(TT("node"), v);
 	v.get(0, (TTPtr*)&aNode);
 	if (aNode) {
 		
-		// Is a new instance have been created ?
-		(*returnedSubscriber)->getAttributeValue(TT("newInstanceCreated"), v);
-		v.get(0, newInstance);
-		
-		if (newInstance) {
-			(*returnedSubscriber)->getAttributeValue(TT("relativeAddress"), v);
-			v.get(0, &newRelativeAddress);
-			object_warn(x, "Jamoma cannot register multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress->s_name, newRelativeAddress->getCString());
+		if (aTTObject) {
+			// Is a new instance have been created ?
+			(*returnedSubscriber)->getAttributeValue(TT("newInstanceCreated"), v);
+			v.get(0, newInstance);
+			
+			if (newInstance) {
+				(*returnedSubscriber)->getAttributeValue(TT("relativeAddress"), v);
+				v.get(0, &newRelativeAddress);
+				object_warn(x, "Jamoma cannot registers multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress->getCString(), newRelativeAddress->getCString());
+			}
+			
+			// DEBUG
+			(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
+			v.get(0, &absoluteAddress);
+			object_post(x, "registers at %s", absoluteAddress->getCString());
 		}
-		
-		// DEBUG
-		(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &absoluteAddress);
-		object_post(x, "registers at %s", absoluteAddress->getCString());
+		else {
+			
+			// DEBUG
+			(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
+			v.get(0, &absoluteAddress);
+			object_post(x, "binds on %s", absoluteAddress->getCString());
+		}
 
 		return kTTErrNone;
 	}
 	
-	object_error(x, "Jamoma cannot register %s", relativeAddress->s_name);
+	if (aTTObject)
+		object_error(x, "Jamoma cannot registers %s", relativeAddress->getCString());
+	else
+		// don't display this message because the objects can try many times before to binds
+		; //object_error(x, "Jamoma cannot binds %s", relativeAddress->s_name);
+	
 	return kTTErrGeneric;
 }
 
@@ -291,17 +305,10 @@ TTErr jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPt
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a sender object */
-TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedSender)
+TTErr jamoma_sender_create(ObjectPtr x, TTObjectPtr *returnedSender)
 {
-	TTNodeAddressPtr anAddress;
-	TTValue			args;
-	
-	anAddress = TTADRS(addressAndAttribute->s_name);
-	
-	args.append(anAddress);
-	
 	*returnedSender = NULL;
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
+	TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), kTTValNONE);
 	return kTTErrNone;
 }
 
@@ -324,16 +331,11 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a receiver object */
-TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver)
+TTErr jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver)
 {
-	TTNodeAddressPtr anAddress;
 	TTValue			args;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
-	
-	anAddress = TTADRS(addressAndAttribute->s_name);
-	
-	args.append(anAddress);
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
@@ -1570,7 +1572,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
-	SymbolPtr		hierarchy, argName;
+	SymbolPtr		hierarchy, argName = _sym_nothing;
 	TTString		voiceFormat;
 	long			index;
 	
@@ -1589,7 +1591,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 	if (ac && av) {
 		
 		// for model : the first argument is the name
-		if (context == kTTSym_model)
+		if (context == kTTSym_model || hierarchy == _sym_subpatcher)
 			argName = atom_getsym(av);
 		
 		// for view : the second argument is the name
@@ -1615,24 +1617,6 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 			*returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
 		}
 	}
-}
-
-
-/** Build absolute address from a patcher giving a relative address */
-TTErr jamoma_patcher_make_absolute_address(ObjectPtr patcher, TTNodeAddressPtr relativeAddress, TTNodeAddressPtr *returnedAbsoluteAddress)
-{
-	TTNodePtr	patcherNode = NULL;
-	TTNodeAddressPtr patcherAddress;
-	
-	jamoma_patcher_share_node(patcher, &patcherNode);
-	
-	if (patcherNode) {
-		patcherNode->getAddress(&patcherAddress);
-		*returnedAbsoluteAddress = patcherAddress->appendAddress(relativeAddress);
-		return kTTErrNone;
-	}	
-	
-	return kTTErrGeneric;
 }
 
 /** Get all context info from the root hub in the patcher */
@@ -1672,6 +1656,8 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 	ObjectPtr	obj;
 	SymbolPtr	_sym_jcomhub, _sym_share;
 	
+	*patcherNode = NULL;
+	
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
 	// TODO : cache those t_symbol else where ...
@@ -1681,7 +1667,6 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
 			
 			// ask it patcher info
-			*patcherNode = NULL;
 			object_method(object_attr_getobj(obj, _sym_object), _sym_share, patcherNode);
 			
 			if (*patcherNode)

@@ -40,8 +40,9 @@ extern "C" {
 	// Method to deal with TTSubscriber
 	///////////////////////////////////////////////////////////////////////
 	
-	/**	Create a subscriber object and register a TTObject into the tree */
-	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber);
+	/**	Create a subscriber object and register a TTObject into the tree 
+		or, if aTTObject is NULL, retrieve all context info to bind on an object */
+	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTNodeAddressPtr relativeAddress, TTSubscriberPtr *returnedSubscriber);
 	
 	/** Get the <patcher name, patcher pointer> list above an external
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
@@ -71,7 +72,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a sender object */
-	TTErr			jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedSender);
+	TTErr			jamoma_sender_create(ObjectPtr x, TTObjectPtr *returnedSender);
 	
 	/**	Send Max data using a sender object */
 	TTErr			jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -81,7 +82,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a receiver object */
-	TTErr			jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver);
+	TTErr			jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver);
 	
 	
 	// Method to deal with TTPresetManager and TTCueManager
@@ -196,9 +197,6 @@ extern "C" {
 	
 	/** Get the name of the patcher from his arguments */
 	void			jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedName);
-	
-	/** Build absolute address from a patcher giving a relative address */
-	TTErr			jamoma_patcher_make_absolute_address(ObjectPtr patcher, TTNodeAddressPtr relativeAddress, TTNodeAddressPtr *returnedAbsoluteAddress);
 	
 	/** Get all context info from the root hub in the patcher */
 	void			jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName);

@@ -14,6 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mRelativeAddress(kTTAdrsEmpty),
+mObject(NULL),
 mNode(NULL),
 mNodeAddress(kTTAdrsEmpty),
 mContextNode(NULL),
@@ -23,12 +24,11 @@ mGetContextListCallback(NULL),
 mExposedMessages(NULL),
 mExposedAttributes(NULL)
 {
-	TTObjectPtr anObject;
 	TTErr		err;
 	
 	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 3);
 	
-	arguments.get(0, (TTPtr*)&anObject);
+	arguments.get(0, (TTPtr*)&mObject);
 	
 	arguments.get(1, &mRelativeAddress);
 	
@@ -56,14 +56,14 @@ mExposedAttributes(NULL)
 	// the address is relative and 
 	// the contextListCallback is not NULL
 	if	(getLocalDirectory && mRelativeAddress->getType() == kAddressRelative && mGetContextListCallback) {
-		err = this->subscribe(anObject);
+		err = this->subscribe();
 		TT_ASSERT("Subscription done", !err);
 	}
 }
 
 TTSubscriber::~TTSubscriber()
 {	
-	TTNodeDirectoryPtr aDirectory = getLocalDirectory;		// only subscribe into local directory
+	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTList				childrenList;
 	TTValue				aTempValue;
 	TTValue				keys;
@@ -74,7 +74,7 @@ TTSubscriber::~TTSubscriber()
 	TTUInt8				i;
 	TTErr				err;
 	
-	if (mNode) {
+	if (mObject && mNode) {
 		
 		// If node have no more child : destroy the node (except for root)
 		mNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
@@ -141,7 +141,7 @@ TTSubscriber::~TTSubscriber()
 	}
 }
 
-TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
+TTErr TTSubscriber::subscribe( )
 {
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribe into local directory
 	TTNodeAddressPtr	contextAddress, absoluteAddress;
@@ -180,10 +180,13 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 		
 		// if the node doesn't exist, create it
 		if (err)
-			aDirectory->TTNodeCreate(absoluteAddress, ourObject, ourContext,  &aNode, &this->mNewInstanceCreated);
+			if (mObject)
+				aDirectory->TTNodeCreate(absoluteAddress, mObject, ourContext,  &aNode, &this->mNewInstanceCreated);
+			else
+				return kTTErrGeneric;
 		
 		// else the node already exists
-		else {
+		else if (mObject) {
 			
 			// Get his refered object
 			hisObject = aNode->getObject();
@@ -192,7 +195,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 			if (!hisObject) {
 				
 				// set our object instead
-				aNode->setObject(ourObject);
+				aNode->setObject(mObject);
 				
 				// get his context
 				hisContext = aNode->getContext();
@@ -217,7 +220,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 				// if it is the ContextNode, do nothing (our object can't be refered)
 				// else create another instance to refer our object
 				if (aNode != this->mContextNode)
-					aDirectory->TTNodeCreate(absoluteAddress, ourObject, ourContext,  &aNode, &this->mNewInstanceCreated);
+					aDirectory->TTNodeCreate(absoluteAddress, mObject, ourContext,  &aNode, &this->mNewInstanceCreated);
 			}
 		}
 
@@ -234,7 +237,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 
 TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 {
-	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribe into local directory
+	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue				args;
 	TTSymbolPtr			formatedContextSymbol;
 	TTNodeAddressPtr	relativeContextAddress, contextAddress, lowerContextAddress;

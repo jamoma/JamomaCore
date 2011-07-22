@@ -170,7 +170,6 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mObserveInputRange = true;
 	
 	// Make a TTReceiver object
-	args.append(mInput->appendAttribute(kTTSym_value));
 	args.append(NULL);
 	
 	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -182,6 +181,8 @@ TTErr TTMapper::setInput(const TTValue& value)
 	
 	mReceiver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
+	
+	mReceiver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_value));
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
@@ -220,8 +221,6 @@ TTErr TTMapper::observeInput()
 		TTObjectRelease(TTObjectHandle(&mInputObserver));
 	
 	// Make a TTReceiver object
-	args.append(mInput->appendAttribute(kTTSym_created));
-	
 	returnInputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnInputCreationCallback, kTTValNONE);
 	returnInputCreationBaton = new TTValue(TTPtr(this));
@@ -233,6 +232,8 @@ TTErr TTMapper::observeInput()
 	
 	mInputObserver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mInputObserver), args);
+	
+	mInputObserver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_created));
 
 	return kTTErrNone;
 }
@@ -247,7 +248,6 @@ TTErr TTMapper::observeInputRange()
 		TTObjectRelease(TTObjectHandle(&mInputRangeObserver));
 	
 	// Make a TTReceiver object
-	args.append(mInput->appendAttribute(kTTSym_rangeBounds));
 	args.append(NULL);
 	
 	returnInputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -259,6 +259,8 @@ TTErr TTMapper::observeInputRange()
 	
 	mInputRangeObserver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mInputRangeObserver), args);
+	
+	mInputRangeObserver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_rangeBounds));
 	
 	return kTTErrNone;
 }
@@ -278,10 +280,10 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	mObserveOutputRange = true;
 		
 	// Make a TTSender object
-	args.append(mOutput->appendAttribute(kTTSym_value));
-	
 	mSender = NULL;
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), args);
+	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), kTTValNONE);
+	
+	mSender->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_value));
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
@@ -320,8 +322,6 @@ TTErr TTMapper::observeOutput()
 		TTObjectRelease(TTObjectHandle(&mOutputObserver));
 	
 	// Make a TTReceiver object
-	args.append(mOutput->appendAttribute(kTTSym_created));
-	
 	returnOutputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnOutputCreationCallback, kTTValNONE);
 	returnOutputCreationBaton = new TTValue(TTPtr(this));
@@ -333,6 +333,8 @@ TTErr TTMapper::observeOutput()
 	
 	mOutputObserver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mOutputObserver), args);
+	
+	mOutputObserver->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_created));
 	
 	return kTTErrNone;
 }
@@ -347,7 +349,6 @@ TTErr TTMapper::observeOutputRange()
 		TTObjectRelease(TTObjectHandle(&mOutputRangeObserver));
 	
 	// Make a TTReceiver object
-	args.append(mOutput->appendAttribute(kTTSym_rangeBounds));
 	args.append(NULL);
 	
 	returnOutputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -359,6 +360,8 @@ TTErr TTMapper::observeOutputRange()
 	
 	mOutputRangeObserver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mOutputRangeObserver), args);
+	
+	mOutputRangeObserver->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_rangeBounds));
 	
 	return kTTErrNone;
 }

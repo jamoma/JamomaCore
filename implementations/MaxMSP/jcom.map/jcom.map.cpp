@@ -24,7 +24,7 @@ void	map_int(TTPtr self, long value);
 void	map_float(TTPtr self, double value);
 void	map_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	map_subscribe(TTPtr self, SymbolPtr relativeAddress);
+void	map_subscribe(TTPtr self);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -60,12 +60,9 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		relativeAddress = _sym_nothing;
 	
-	jamoma_mapper_create((ObjectPtr)x, &x->wrappedObject);
+	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name);
 	
-	// The following must be deferred because we have to interrogate our box,
-	// and our box is not yet valid until we have finished instantiating the object.
-	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)map_subscribe, relativeAddress, 0, 0);
+	jamoma_mapper_create((ObjectPtr)x, &x->wrappedObject);
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -73,6 +70,11 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
+	
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)map_subscribe, NULL, 0, 0);
 }
 
 // Method for Assistance Messages
@@ -92,11 +94,10 @@ void map_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
-void map_subscribe(TTPtr self, SymbolPtr relativeAddress)
+void map_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
-	SymbolPtr					mapperLevelAddress;
 	TTDataPtr					aData;
 	
 	/*	TODO : fix exposeAttribute as parameter because for now 
@@ -104,13 +105,11 @@ void map_subscribe(TTPtr self, SymbolPtr relativeAddress)
 		of observers when the attribute is updated from a Max message.
 	
 	// add 'cue' after the address
-	if (relativeAddress == _sym_nothing)
-		mapperLevelAddress = gensym("/mapper");
-	else
-		mapperLevelAddress = relativeAddress;
+	if (x->address == kTTAdrsEmpty)
+		x->address = TADRS("mapper");
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, mapperLevelAddress), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {
 		
 		// expose attributes of TTMapper as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, TT("input"), kTTSym_parameter, &aData);

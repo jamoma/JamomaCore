@@ -47,7 +47,7 @@ void		preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_edit(TTPtr self);
 void		preset_edclose(TTPtr self, char **text, long size);
 
-void		preset_subscribe(TTPtr self, SymbolPtr relativeAddress);
+void		preset_subscribe(TTPtr self);
 
 t_max_err	preset_get_load_default(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
 t_max_err	preset_set_load_default(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
@@ -101,6 +101,8 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		relativeAddress = _sym_nothing;
 	
+	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name);
+	
 	// create the preset manager
 	jamoma_presetManager_create((ObjectPtr)x, &x->wrappedObject);
 	
@@ -124,7 +126,7 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)preset_subscribe, relativeAddress, 0, 0);
+	defer_low((ObjectPtr)x, (method)preset_subscribe, NULL, 0, 0);
 }
 
 void WrappedPresetManageClass_free(TTPtr self)
@@ -140,7 +142,7 @@ void WrappedPresetManageClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void preset_subscribe(TTPtr self, SymbolPtr relativeAddress)
+void preset_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
@@ -151,15 +153,15 @@ void preset_subscribe(TTPtr self, SymbolPtr relativeAddress)
 	TTXmlHandlerPtr				aXmlHandler;
 	
 	// add 'preset' after the address
-	if (relativeAddress != _sym_nothing) {
-		presetLevelAddress = relativeAddress->s_name;
+	if (x->address != kTTAdrsEmpty) {
+		presetLevelAddress = x->address->getCString();
 		presetLevelAddress += "/preset";
 	}
 	else
 		presetLevelAddress = "preset";
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, jamoma_parse_dieze((ObjectPtr)x, gensym((char*)presetLevelAddress.data())), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTADRS(presetLevelAddress), &x->subscriberObject)) {
 		
 		// get all info relative to our patcher
 		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
