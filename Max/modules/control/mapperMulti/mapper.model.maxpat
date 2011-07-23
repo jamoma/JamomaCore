@@ -22,34 +22,6 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
-					"id" : "obj-24",
-					"linecount" : 2,
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 103.0, 323.0, 54.0, 29.0 ],
-					"text" : "print Mapper"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 10.0,
-					"id" : "obj-23",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 102.0, 297.0, 100.0, 18.0 ],
-					"text" : "jcom.init"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -508,11 +480,11 @@
 					"patching_rect" : [ 223.0, 105.0, 206.0, 18.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontname" : "Arial",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -883,11 +855,11 @@
 					"patching_rect" : [ 740.0, 109.0, 206.0, 18.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontname" : "Arial",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -961,7 +933,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 625.0, 85.0, 283.0, 18.0 ],
-					"text" : "jcom.parameter out/address @priority 3"
+					"text" : "jcom.parameter out/address @priority 3 @type string"
 				}
 
 			}
@@ -974,8 +946,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 113.0, 80.0, 366.0, 18.0 ],
-					"text" : "jcom.parameter in/address @priority 2 type string"
+					"patching_rect" : [ 113.0, 79.0, 366.0, 18.0 ],
+					"text" : "jcom.parameter in/address @priority 2 @type string"
 				}
 
 			}
@@ -1074,15 +1046,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-24", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-23", 0 ]
 				}
 
 			}
