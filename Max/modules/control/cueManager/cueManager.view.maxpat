@@ -546,11 +546,11 @@
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"default_fontsize" : 9.0,
-						"fontsize" : 9.0
+						"fontsize" : 9.0,
+						"default_fontsize" : 9.0
 					}
 ,
 					"text" : "p"
@@ -906,11 +906,11 @@
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"default_fontsize" : 9.0,
-						"fontsize" : 9.0
+						"fontsize" : 9.0,
+						"default_fontsize" : 9.0
 					}
 ,
 					"text" : "p text"
@@ -1229,11 +1229,11 @@
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"default_fontsize" : 9.0,
-						"fontsize" : 9.0
+						"fontsize" : 9.0,
+						"default_fontsize" : 9.0
 					}
 ,
 					"text" : "p File"
@@ -2393,11 +2393,11 @@
 													"saved_object_attributes" : 													{
 														"fontname" : "Arial",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
 														"default_fontname" : "Arial",
+														"globalpatchername" : "",
 														"fontface" : 0,
-														"default_fontsize" : 12.0,
-														"fontsize" : 12.0
+														"fontsize" : 12.0,
+														"default_fontsize" : 12.0
 													}
 ,
 													"text" : "p shiftSelect"
@@ -3464,11 +3464,11 @@
 													"saved_object_attributes" : 													{
 														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
 														"default_fontname" : "Verdana",
+														"globalpatchername" : "",
 														"fontface" : 0,
-														"default_fontsize" : 10.0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p colors"
@@ -4022,11 +4022,11 @@
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"default_fontsize" : 10.0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p switch"
@@ -4688,11 +4688,11 @@
 									"saved_object_attributes" : 									{
 										"fontname" : "Arial",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Arial",
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"default_fontsize" : 10.0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p columns"
@@ -5555,11 +5555,11 @@
 													"saved_object_attributes" : 													{
 														"fontname" : "Arial",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
 														"default_fontname" : "Arial",
+														"globalpatchername" : "",
 														"fontface" : 0,
-														"default_fontsize" : 9.0,
-														"fontsize" : 9.0
+														"fontsize" : 9.0,
+														"default_fontsize" : 9.0
 													}
 ,
 													"text" : "p Modules"
@@ -5847,11 +5847,11 @@
 													"saved_object_attributes" : 													{
 														"fontname" : "Arial",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
 														"default_fontname" : "Arial",
+														"globalpatchername" : "",
 														"fontface" : 0,
-														"default_fontsize" : 9.0,
-														"fontsize" : 9.0
+														"fontsize" : 9.0,
+														"default_fontsize" : 9.0
 													}
 ,
 													"text" : "p Namespace"
@@ -6821,11 +6821,11 @@
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"default_fontsize" : 10.0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p modules"
@@ -6939,7 +6939,7 @@
 									"presentation_rect" : [ 9.0, 94.0, 124.0, 622.0 ],
 									"rowhead" : 1,
 									"rowheight" : 20,
-									"rows" : 3,
+									"rows" : 1,
 									"selmode" : 5,
 									"textcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
 									"varname" : "cues"
@@ -7337,11 +7337,11 @@
 													"saved_object_attributes" : 													{
 														"fontname" : "Arial",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
 														"default_fontname" : "Arial",
+														"globalpatchername" : "",
 														"fontface" : 0,
-														"default_fontsize" : 9.0,
-														"fontsize" : 9.0
+														"fontsize" : 9.0,
+														"default_fontsize" : 9.0
 													}
 ,
 													"text" : "p names"
@@ -7625,11 +7625,11 @@
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"default_fontsize" : 10.0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p cellblock_settings"
@@ -7961,11 +7961,11 @@
 													"saved_object_attributes" : 													{
 														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
 														"default_fontname" : "Verdana",
+														"globalpatchername" : "",
 														"fontface" : 0,
-														"default_fontsize" : 10.0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p l=="
@@ -8598,11 +8598,11 @@
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"default_fontsize" : 10.0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p operations"
@@ -8934,11 +8934,11 @@
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"default_fontsize" : 9.0,
-						"fontsize" : 9.0
+						"fontsize" : 9.0,
+						"default_fontsize" : 9.0
 					}
 ,
 					"text" : "p Cue-Inspector"
@@ -9213,11 +9213,11 @@
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"default_fontsize" : 12.0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p hide"
@@ -9355,8 +9355,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 19.0, 123.0, 176.0, 31.0 ],
-					"text" : "jcom.hub @type control @description \"a cue list module\""
+					"patching_rect" : [ 19.0, 123.0, 185.0, 31.0 ],
+					"text" : "jcom.hub @context view @description \"a cue list module\""
 				}
 
 			}
@@ -9499,7 +9499,7 @@
 					"outlettype" : [ "", "" ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"text" : "/cueManager",
+					"text" : "/cueManager.view",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
