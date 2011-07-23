@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 53.0, 247.0, 975.0, 561.0 ],
+		"rect" : [ 53.0, 247.0, 1023.0, 549.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 53.0, 247.0, 975.0, 561.0 ],
+		"defrect" : [ 53.0, 247.0, 1023.0, 549.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 9.0,
@@ -28,9 +28,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 40.0, 512.0, 100.0, 17.0 ],
+					"patching_rect" : [ 40.0, 500.0, 100.0, 17.0 ],
 					"prefix" : "/degrade.2",
-					"presentation_rect" : [ 46.0, 519.0, 0.0, 0.0 ],
 					"types" : [  ]
 				}
 
@@ -44,8 +43,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 40.0, 489.0, 231.0, 17.0 ],
-					"text" : "jcom.namespace+ jcom.parameter @only/tags generic"
+					"patching_rect" : [ 40.0, 477.0, 267.0, 17.0 ],
+					"text" : "jcom.namespace+ @lookfor jcom.parameter @only/tags generic"
 				}
 
 			}
@@ -58,7 +57,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 313.0, 436.0, 659.0, 20.0 ],
+					"patching_rect" : [ 353.0, 424.0, 659.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 313.0, 436.0, 281.0, 34.0 ],
@@ -75,7 +74,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 313.0, 487.0, 659.0, 20.0 ],
+					"patching_rect" : [ 353.0, 475.0, 659.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 313.0, 431.0, 281.0, 34.0 ],
@@ -92,7 +91,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 311.0, 385.0, 659.0, 20.0 ],
+					"patching_rect" : [ 351.0, 373.0, 659.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
 					"presentation_rect" : [ 311.0, 385.0, 281.0, 48.0 ],
@@ -110,9 +109,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 57.0, 461.0, 100.0, 17.0 ],
+					"patching_rect" : [ 57.0, 449.0, 100.0, 17.0 ],
 					"prefix" : "/degrade.2",
-					"presentation_rect" : [ 64.0, 459.0, 0.0, 0.0 ],
 					"types" : [  ]
 				}
 
@@ -126,8 +124,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 57.0, 438.0, 243.0, 17.0 ],
-					"text" : "jcom.namespace+ jcom.parameter @exclude/tags generic"
+					"patching_rect" : [ 57.0, 426.0, 282.0, 17.0 ],
+					"text" : "jcom.namespace+ @lookfor jcom.parameter @exclude/tags generic"
 				}
 
 			}
@@ -141,9 +139,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 81.0, 409.0, 100.0, 17.0 ],
+					"patching_rect" : [ 81.0, 397.0, 100.0, 17.0 ],
 					"prefix" : "/degrade.2",
-					"presentation_rect" : [ 61.0, 409.0, 0.0, 0.0 ],
 					"types" : [  ]
 				}
 
@@ -157,10 +154,10 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 313.0, 336.0, 637.0, 20.0 ],
+					"patching_rect" : [ 353.0, 324.0, 637.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 303.0, 225.0, 281.0, 48.0 ],
+					"presentation_rect" : [ 303.0, 225.0, 284.0, 48.0 ],
 					"text" : "• sort : \"priority\" will sort by priority - everything else will sort alphabetically (until we find another sorting method)"
 				}
 
@@ -216,7 +213,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 33.0, 49.0, 50.0, 15.0 ],
-									"presentation_rect" : [ 44.0, 144.0, 0.0, 0.0 ],
 									"text" : "/"
 								}
 
@@ -233,7 +229,6 @@
 									"outlettype" : [ "int", "", "" ],
 									"patching_rect" : [ 33.0, 95.0, 100.0, 17.0 ],
 									"prefix" : "Servo:/",
-									"presentation_rect" : [ 44.0, 190.0, 0.0, 0.0 ],
 									"showdotfiles" : 1,
 									"types" : [  ]
 								}
@@ -263,7 +258,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 101.0, 49.0, 350.0, 17.0 ],
-									"presentation_rect" : [ 110.0, 122.0, 0.0, 0.0 ],
 									"text" : "• exclude/name can also  be partial, here for example \"mo\"will filter mouse and movie"
 								}
 
@@ -290,15 +284,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 920.0, 266.0, 35.0, 17.0 ],
+					"patching_rect" : [ 960.0, 266.0, 35.0, 17.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 9.0,
 						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 9.0
+						"fontsize" : 9.0,
+						"default_fontsize" : 9.0
 					}
 ,
 					"text" : "p plus"
@@ -314,7 +308,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 312.0, 265.0, 659.0, 20.0 ],
+					"patching_rect" : [ 352.0, 253.0, 659.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
 					"presentation_rect" : [ 304.0, 227.0, 281.0, 48.0 ],
@@ -331,7 +325,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 310.0, 216.0, 637.0, 20.0 ],
+					"patching_rect" : [ 350.0, 204.0, 637.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
 					"presentation_rect" : [ 343.0, 202.0, 281.0, 48.0 ],
@@ -348,9 +342,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 225.0, 216.0, 71.0, 20.0 ],
+					"patching_rect" : [ 265.0, 204.0, 71.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 176.0, 205.0, 281.0, 34.0 ],
+					"presentation_rect" : [ 176.0, 205.0, 281.0, 20.0 ],
 					"text" : "Attributes :\n"
 				}
 
@@ -378,7 +372,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 115.0, 168.0, 450.0, 20.0 ],
+					"patching_rect" : [ 115.0, 156.0, 450.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 115.0, 168.0, 281.0, 34.0 ],
@@ -395,11 +389,11 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 114.0, 142.0, 450.0, 20.0 ],
+					"patching_rect" : [ 353.0, 518.0, 479.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 287.0, 118.0, 281.0, 34.0 ],
-					"text" : "until bug #824 has been fixed, the lookfor attribute has to be specified as argument"
+					"text" : "note : for backwards compatibility, the lookfor attribute can alsobe specified as argument"
 				}
 
 			}
@@ -599,15 +593,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 81.0, 313.0, 68.0, 15.0 ],
+					"patching_rect" : [ 81.0, 301.0, 68.0, 15.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -623,8 +617,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 81.0, 386.0, 217.0, 17.0 ],
-					"text" : "jcom.namespace+ jcom.parameter @only/name out"
+					"patching_rect" : [ 81.0, 374.0, 256.0, 17.0 ],
+					"text" : "jcom.namespace+ @lookfor jcom.parameter @only/name out"
 				}
 
 			}
@@ -638,9 +632,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 100.0, 359.0, 100.0, 17.0 ],
+					"patching_rect" : [ 100.0, 347.0, 100.0, 17.0 ],
 					"prefix" : "/degrade.2",
-					"presentation_rect" : [ 146.0, 336.0, 0.0, 0.0 ],
 					"types" : [  ]
 				}
 
@@ -650,12 +643,12 @@
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
 					"id" : "obj-11",
-					"items" : [ "degrade.1", ",", "degrade.2", ",", "mouse", ",", "movie", ",", "rand.1", ",", "rand.2", ",", "sine.1", ",", "slider.1" ],
+					"items" : [ "Sel.arr", ",", "Sel.arr/Selador.1", ",", "Sel.arr/Selador.2", ",", "Sel.arr/Selador.3", ",", "Sel.bas", ",", "Sel.bas/Selador.1", ",", "Sel.bas/Selador.2", ",", "Sel.face", ",", "Sel.face/Selador.1", ",", "Sel.face/Selador.2", ",", "Sel.inter", ",", "Sel.inter/Selador.1", ",", "Sel.inter/Selador.2", ",", "Sel.inter/Selador.3", ",", "Sel.poly", ",", "Sel.poly/Selador.1", ",", "Sel.poly/Selador.2", ",", "Sel.poly/Selador.3", ",", "Sel.poly/Selador.4", ",", "Sel.poly/Selador.5", ",", "Sel.poly/Selador.6", ",", "Sel.poly/Selador.7", ",", "Sel.poly/Selador.8", ",", "Sel.rido", ",", "Sel.rido/Selador.1", ",", "Sel.rido/Selador.2", ",", "cueManager", ",", "cyclo", ",", "degrade.1", ",", "degrade.2", ",", "degrade~", ",", "mouse", ",", "mouse.1", ",", "movie", ",", "p.fresnFen", ",", "p.fresntest", ",", "p2.T8", ",", "p2.brabo", ",", "p2.fluo", ",", "p2.fresn", ",", "p2.latV", ",", "p2.raz", ",", "p2.svob", ",", "p4.mask", ",", "track", ",", "track/channel.A", ",", "track/channel.B", ",", "wacom" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 40.0, 289.0, 100.0, 17.0 ],
+					"patching_rect" : [ 40.0, 277.0, 100.0, 17.0 ],
 					"prefix" : "Servo:/",
 					"types" : [  ]
 				}
@@ -670,7 +663,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 40.0, 245.0, 50.0, 15.0 ],
+					"patching_rect" : [ 40.0, 233.0, 50.0, 15.0 ],
 					"text" : "/"
 				}
 
@@ -700,8 +693,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 40.0, 268.0, 217.0, 17.0 ],
-					"text" : "jcom.namespace+ jcom.hub @exclude/name (view)"
+					"patching_rect" : [ 40.0, 256.0, 258.0, 17.0 ],
+					"text" : "jcom.namespace+ @lookfor children @exclude/name (view)"
 				}
 
 			}
@@ -714,8 +707,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 100.0, 337.0, 205.0, 17.0 ],
-					"text" : "jcom.namespace+ jcom.parameter @sort priority"
+					"patching_rect" : [ 100.0, 325.0, 244.0, 17.0 ],
+					"text" : "jcom.namespace+ @lookfor jcom.parameter @sort priority"
 				}
 
 			}
@@ -775,7 +768,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 959.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 975.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 15.0, 945.0, 70.0 ]
 				}
@@ -840,7 +833,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 90.5, 332.0, 109.5, 332.0 ],
+					"midpoints" : [ 90.5, 320.0, 109.5, 320.0 ],
 					"source" : [ "obj-83", 0 ]
 				}
 
@@ -849,7 +842,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 90.5, 331.0, 90.5, 331.0 ],
+					"midpoints" : [ 90.5, 319.0, 90.5, 319.0 ],
 					"source" : [ "obj-83", 0 ]
 				}
 
@@ -858,7 +851,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-37", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 90.5, 332.5, 66.5, 332.5 ],
+					"midpoints" : [ 90.5, 320.5, 66.5, 320.5 ],
 					"source" : [ "obj-83", 0 ]
 				}
 
@@ -867,7 +860,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 90.5, 332.5, 49.5, 332.5 ],
+					"midpoints" : [ 90.5, 320.5, 49.5, 320.5 ],
 					"source" : [ "obj-83", 0 ]
 				}
 
