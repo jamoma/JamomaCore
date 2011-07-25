@@ -150,7 +150,7 @@ void cue_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_description, TT("Store a cue giving his index and his name"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
+		aData->setAttributeValue(kTTSym_type, kTTSym_array);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store into the current cue"));
 		

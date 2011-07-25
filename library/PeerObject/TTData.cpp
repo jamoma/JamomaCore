@@ -55,9 +55,7 @@ mReturnValueCallback(NULL)
 	addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	
-	if (mService == kTTSym_return) {
-		addAttributeWithSetter(Enable, kTypeBoolean);
-	}
+	addAttributeWithSetter(Enable, kTypeBoolean);
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(initialized, readOnly, YES);

@@ -43,7 +43,7 @@ mCurrentIndex(0)
 	addMessage(New);
 	
 	addMessageWithArgument(Store);
-	addMessage(StoreCurrent);
+	addMessageWithArgument(StoreCurrent);
 	addMessageWithArgument(StoreNext);
 	addMessageWithArgument(StorePrevious);
 
@@ -267,8 +267,8 @@ TTErr TTCueManager::StoreCurrent(const TTValue& value)
 {
 	TTCuePtr currentCue;
 	TTUInt32	rampTime = 0;
-	TTValue	newAddresses = mAddresses;	// to don't store with the current cue addresses
 	TTValue		args;
+	TTValue	newAddresses = mAddresses;	// to don't store with the current cue addresses
 	
 	currentCue = getCueCurrent();
 	if (!currentCue)
@@ -286,6 +286,7 @@ TTErr TTCueManager::StoreCurrent(const TTValue& value)
 	
 	mAddresses = newAddresses;
 	currentCue->setAttributeValue(kTTSym_addresses, mAddresses);
+	currentCue->setAttributeValue(kTTSym_ramp, (uint)rampTime);
 	currentCue->sendMessage(kTTSym_Fill);
 	
 	// notify observers of the cue list
