@@ -263,14 +263,26 @@ TTErr TTCueManager::Store(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::StoreCurrent()
+TTErr TTCueManager::StoreCurrent(const TTValue& value)
 {
 	TTCuePtr currentCue;
+	TTUInt32	rampTime = 0;
 	TTValue	newAddresses = mAddresses;	// to don't store with the current cue addresses
+	TTValue		args;
 	
 	currentCue = getCueCurrent();
 	if (!currentCue)
 		return kTTErrGeneric;
+	
+	// First arg (optional) : ramp time
+	if (value.getSize() > 0)
+		if (value.getType(0) == kTypeInt32) {
+			value.get(0, rampTime);
+			if (rampTime < 0)
+				return kTTErrGeneric;
+		}
+		else
+			return kTTErrGeneric;
 	
 	mAddresses = newAddresses;
 	currentCue->setAttributeValue(kTTSym_addresses, mAddresses);
