@@ -22,13 +22,63 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-84",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 827.0, 714.0, 205.0, 20.0 ],
+					"text" : "get the selection state of a jcom.view"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-82",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 809.0, 715.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-75",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 809.0, 757.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-50",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 809.0, 736.0, 203.0, 20.0 ],
+					"text" : "jcom.receive /interface/rate:selected"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-80",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 921.0, 192.0, 187.0, 18.0 ],
-					"text" : "fps 33.339088"
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -392,7 +442,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 809.0, 647.0, 265.0, 103.0 ],
+					"patching_rect" : [ 809.0, 605.0, 265.0, 103.0 ],
 					"text" : "If you press the shift key when you are on a jcom.ui this would show the selection state of each ui object. If you click on the selection label this would change his selection state.\n\nFor instant this information is not used by any client but this will be done soon !"
 				}
 
@@ -445,7 +495,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 809.0, 647.0, 264.0, 103.0 ]
+					"patching_rect" : [ 809.0, 605.0, 264.0, 103.0 ]
 				}
 
 			}
@@ -504,7 +554,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 479.0, 585.0, 153.0, 18.0 ],
-					"text" : "fps 33.3414"
+					"text" : "rate 0."
 				}
 
 			}
@@ -589,7 +639,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 625.0, 143.0, 96.0, 18.0 ],
-					"text" : "fps 33.339088"
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -1226,7 +1276,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 340.0, 143.0, 96.0, 18.0 ],
-					"text" : "fps 33.3414"
+					"text" : "rate 0."
 				}
 
 			}
@@ -1599,6 +1649,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-75", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-50", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-32", 1 ],
 					"hidden" : 0,
 					"midpoints" : [ 488.5, 581.5, 622.5, 581.5 ],
@@ -1774,6 +1833,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 930.5, 188.5, 1098.5, 188.5 ],
 					"source" : [ "obj-81", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-50", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-82", 0 ]
 				}
 
 			}
