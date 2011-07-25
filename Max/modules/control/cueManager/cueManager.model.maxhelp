@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 406.0, 500.0 ],
+		"rect" : [ 0.0, 44.0, 417.0, 487.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 406.0, 500.0 ],
+		"defrect" : [ 0.0, 44.0, 417.0, 487.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-3",
-					"maxclass" : "newobj",
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-9",
+					"linecount" : 2,
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 65.0, 427.0, 100.0, 19.0 ],
-					"text" : "track.model"
+					"numoutlets" : 0,
+					"patching_rect" : [ 64.0, 417.0, 276.0, 31.0 ],
+					"text" : "modules are fetched/recalled by increasing priority (this can be changed in the cue editor (+ button)"
 				}
 
 			}
@@ -41,8 +42,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 56.0, 143.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 70.0, 228.0, 300.0, 70.0 ]
+					"patching_rect" : [ 56.0, 104.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 85.0, 243.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -55,8 +56,22 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 67.0, 341.0, 104.0, 19.0 ],
-					"text" : "cueManager.model"
+					"patching_rect" : [ 64.0, 298.0, 164.0, 19.0 ],
+					"text" : "cueManager.model @priority 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 65.0, 380.0, 100.0, 19.0 ],
+					"text" : "track.model"
 				}
 
 			}
@@ -69,7 +84,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 54.0, 244.0, 300.0, 70.0 ],
+					"patching_rect" : [ 54.0, 197.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 247.0, 337.0, 300.0, 70.0 ]
 				}
 
@@ -80,9 +95,10 @@
 					"id" : "obj-4",
 					"maxclass" : "bpatcher",
 					"name" : "mouse.view.maxpat",
-					"numinlets" : 0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 205.0, 345.0, 150.0, 70.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 205.0, 330.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 150.0, 70.0 ]
 				}
 
@@ -96,8 +112,8 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 65.0, 401.0, 100.0, 17.0 ],
-					"text" : "degrade~.model"
+					"patching_rect" : [ 65.0, 354.0, 122.0, 17.0 ],
+					"text" : "degrade~.model @priority 3"
 				}
 
 			}
@@ -110,8 +126,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 65.0, 374.0, 100.0, 17.0 ],
-					"text" : "mouse.model"
+					"patching_rect" : [ 65.0, 327.0, 119.0, 17.0 ],
+					"text" : "mouse.model @priority 2"
 				}
 
 			}
@@ -124,7 +140,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 431.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 406.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
