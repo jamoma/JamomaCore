@@ -187,9 +187,11 @@ TTErr TTPreset::Fill()
 {
 	TTNodePtr		aNode;
 	TTList			aNodeList, allObjectNodes;
+	TTObjectPtr		anObject;
 	TTNodeAddressPtr anAddress, aRelativeAddress;
 	ItemPtr			aNewItem = NULL;
-	TTValue			hk, attributeToStore;
+	TTValue			hk, attributeToStore, e;
+	TTBoolean		enabled;					
 	
 	Clear();
 	
@@ -207,11 +209,19 @@ TTErr TTPreset::Fill()
 			// get absolute address for the Item
 			aNode->getAddress(&anAddress);
 			aNewItem = new Item(mManager, anAddress);
+			anObject = aNode->getObject();
+
+			//if (anObject->getAttributeValue(kTTSym_enable, e)){
+			anObject->getAttributeValue(kTTSym_enable, e);
+			e.get(0, enabled);
 			
-			// get relative address to store it
-			aNode->getAddress(&aRelativeAddress, mAddress);
-			mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
-			mItemKeysSorted->appendUnique(aRelativeAddress);
+			if (enabled) {
+			
+				// get relative address to store it
+				aNode->getAddress(&aRelativeAddress, mAddress);
+				mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
+				mItemKeysSorted->appendUnique(aRelativeAddress);
+			}	
 		}
 		
 		// 3. Update item's state
