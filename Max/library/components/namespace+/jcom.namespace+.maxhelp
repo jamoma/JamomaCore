@@ -222,7 +222,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 9.0,
 									"id" : "obj-12",
-									"items" : [ "degrade.1", ",", "degrade.2", ",", "rand.1", ",", "rand.2", ",", "sine.1", ",", "slider.1" ],
+									"items" : [ "Sel.arr", ",", "Sel.arr/Selador.1", ",", "Sel.arr/Selador.2", ",", "Sel.arr/Selador.3", ",", "Sel.bas", ",", "Sel.bas/Selador.1", ",", "Sel.bas/Selador.2", ",", "Sel.face", ",", "Sel.face/Selador.1", ",", "Sel.face/Selador.2", ",", "Sel.inter", ",", "Sel.inter/Selador.1", ",", "Sel.inter/Selador.2", ",", "Sel.inter/Selador.3", ",", "Sel.poly", ",", "Sel.poly/Selador.1", ",", "Sel.poly/Selador.2", ",", "Sel.poly/Selador.3", ",", "Sel.poly/Selador.4", ",", "Sel.poly/Selador.5", ",", "Sel.rido", ",", "Sel.rido/Selador.1", ",", "Sel.rido/Selador.2", ",", "cueManager", ",", "cyclo", ",", "degrade.1", ",", "degrade.2", ",", "function.1", ",", "function.10", ",", "function.2", ",", "function.3", ",", "function.4", ",", "function.5", ",", "function.6", ",", "function.7", ",", "function.8", ",", "function.9", ",", "p.fresnFen", ",", "p.fresntest", ",", "p2.T8", ",", "p2.brabo", ",", "p2.fluo", ",", "p2.fresn", ",", "p2.latV", ",", "p2.raz", ",", "p2.svob", ",", "p4.mask", ",", "wacmap.selador", ",", "wacom" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -284,15 +284,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 960.0, 266.0, 35.0, 17.0 ],
+					"patching_rect" : [ 959.0, 254.0, 35.0, 17.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"globalpatchername" : "",
+						"fontname" : "Arial",
+						"default_fontsize" : 9.0,
 						"fontface" : 0,
 						"fontsize" : 9.0,
-						"default_fontsize" : 9.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p plus"
@@ -595,13 +595,13 @@
 ,
 					"patching_rect" : [ 81.0, 301.0, 68.0, 15.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"globalpatchername" : "",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -768,7 +768,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 975.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 1023.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 15.0, 945.0, 70.0 ]
 				}
