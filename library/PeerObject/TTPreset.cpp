@@ -209,13 +209,13 @@ TTErr TTPreset::Fill()
 			// get absolute address for the Item
 			aNode->getAddress(&anAddress);
 			aNewItem = new Item(mManager, anAddress);
+			
 			anObject = aNode->getObject();
-
-			//if (anObject->getAttributeValue(kTTSym_enable, e)){
 			anObject->getAttributeValue(kTTSym_enable, e);
 			e.get(0, enabled);
 			
 			if (enabled) {
+			//if (anObject->getAttributeValue(kTTSym_enable, e)){ -- this doesn't work, replaced by last block
 			
 				// get relative address to store it
 				aNode->getAddress(&aRelativeAddress, mAddress);
