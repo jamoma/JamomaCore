@@ -582,7 +582,7 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 	TTValue				v, r;
 	TTNodePtr			aNode;
 	TTBoolean			selected;
-	TTSymbolPtr			type;
+	TTSymbolPtr			ramp;
 	TTNodeAddressPtr	absoluteAddress;
 	TTObjectPtr			o;
 	
@@ -607,12 +607,12 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 			// If the manager have a ramp attribute
 			if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
 				
-				// for integer and decimal data
-				o->getAttributeValue(kTTSym_type, v);
-				v.get(0, &type);
+				// for data with a rampDrive
+				o->getAttributeValue(kTTSym_rampDrive, v);
+				v.get(0, &ramp);
 				
 				// set ramp time as global
-				if (type == kTTSym_integer || type == kTTSym_decimal)
+				if (ramp != kTTSym_none)
 					anItem->set(kTTSym_ramp, kTTSym_global);
 			}
 			
@@ -649,12 +649,12 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 							// If the manager have a ramp attribute
 							if (!anItem->manager->getAttributeValue(kTTSym_ramp, r)) {
 								
-								// for integer and decimal data
-								o->getAttributeValue(kTTSym_type, v);
-								v.get(0, &type);
+								// for data with a rampDrive
+								o->getAttributeValue(kTTSym_rampDrive, v);
+								v.get(0, &ramp);
 								
 								// set ramp time as global
-								if (type == kTTSym_integer || type == kTTSym_decimal)
+								if (ramp != kTTSym_none)
 									anItem->set(kTTSym_ramp, kTTSym_global);
 							}
 						}
