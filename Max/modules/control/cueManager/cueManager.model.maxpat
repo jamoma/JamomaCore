@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 862.0, 603.0, 520.0, 245.0 ],
+		"rect" : [ 517.0, 466.0, 520.0, 245.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 862.0, 603.0, 520.0, 245.0 ],
+		"defrect" : [ 517.0, 466.0, 520.0, 245.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 9.0,
@@ -946,7 +946,6 @@
 									}
 ,
 									"patching_rect" : [ 248.0, 150.0, 69.0, 20.0 ],
-									"presentation_rect" : [ 143.0, 175.0, 0.0, 0.0 ],
 									"saved_object_attributes" : 									{
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
@@ -1002,21 +1001,7 @@
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
-										"visible" : 1,
 										"boxes" : [ 											{
-												"box" : 												{
-													"fontname" : "Arial",
-													"fontsize" : 9.0,
-													"id" : "obj-15",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 0,
-													"patching_rect" : [ 104.0, 161.0, 100.0, 17.0 ],
-													"text" : "print"
-												}
-
-											}
-, 											{
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 9.0,
@@ -1040,7 +1025,6 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 18.0, 168.0, 40.0, 17.0 ],
-													"presentation_rect" : [ 355.0, 133.0, 0.0, 0.0 ],
 													"text" : "zl iter 1"
 												}
 
@@ -1055,7 +1039,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "int" ],
 													"patching_rect" : [ 18.0, 256.0, 227.0, 17.0 ],
-													"presentation_rect" : [ 357.0, 419.0, 0.0, 0.0 ],
 													"text" : "i"
 												}
 
@@ -1070,7 +1053,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 32.0, 293.0, 100.0, 17.0 ],
-													"presentation_rect" : [ 371.0, 456.0, 0.0, 0.0 ],
 													"text" : "jcom.send"
 												}
 
@@ -1085,7 +1067,6 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "bang", "" ],
 													"patching_rect" : [ 18.0, 192.0, 32.5, 17.0 ],
-													"presentation_rect" : [ 357.0, 355.0, 0.0, 0.0 ],
 													"text" : "t b s"
 												}
 
@@ -1100,7 +1081,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 32.0, 218.0, 114.0, 17.0 ],
-													"presentation_rect" : [ 371.0, 381.0, 0.0, 0.0 ],
 													"text" : "sprintf address %s:enable"
 												}
 
@@ -1216,15 +1196,6 @@
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-14", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-15", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-76", 0 ]
 												}
 
 											}
