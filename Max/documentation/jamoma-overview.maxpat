@@ -166,7 +166,7 @@
 					"numoutlets" : 6,
 					"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "" ],
 					"patching_rect" : [ 20.0, 380.0, 268.0, 19.0 ],
-					"text" : "sel Tutorial Modules Examples Components UserLib"
+					"text" : "sel Tutorials Modules Examples Components UserLib"
 				}
 
 			}

@@ -1494,7 +1494,7 @@
 					"patching_rect" : [ 194.0, 129.0, 161.0, 17.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 197.0, 133.0, 173.0, 17.0 ],
-					"text" : "#1:dump"
+					"text" : "#1:/dump"
 				}
 
 			}
