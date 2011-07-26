@@ -22,6 +22,7 @@ Release
 # Files generated from templates by the build script
 JamomaModular.xcconfig
 TTModularVersion.h
+jcom.js_systeminfo.js
 
 # Git conflict files
 *.orig
