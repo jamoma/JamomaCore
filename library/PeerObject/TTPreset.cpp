@@ -210,17 +210,20 @@ TTErr TTPreset::Fill()
 			aNode->getAddress(&anAddress);
 			aNewItem = new Item(mManager, anAddress);
 			
+			
 			anObject = aNode->getObject();
-			anObject->getAttributeValue(kTTSym_enable, e);
-			e.get(0, enabled);
-			
-			if (enabled) {
-			//if (anObject->getAttributeValue(kTTSym_enable, e)){ -- this doesn't work, replaced by last block
-			
-				// get relative address to store it
-				aNode->getAddress(&aRelativeAddress, mAddress);
-				mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
-				mItemKeysSorted->appendUnique(aRelativeAddress);
+			if (anObject->getName() == TT("Data")) {
+				
+				anObject->getAttributeValue(kTTSym_enable, e);
+				e.get(0, enabled);
+
+				if (enabled) {
+				
+					// get relative address to store it
+					aNode->getAddress(&aRelativeAddress, mAddress);
+					mItemTable->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
+					mItemKeysSorted->appendUnique(aRelativeAddress);
+				}
 			}	
 		}
 		
