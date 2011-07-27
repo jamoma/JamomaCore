@@ -259,7 +259,7 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_description, TT("Read a xml preset file"));
 		
 		makeInternals_data(self, absoluteAddress, TT("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Read from the last xml preset file"));
 		
@@ -269,7 +269,7 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_description, TT("Write a xml preset file"));
 		
 		makeInternals_data(self, absoluteAddress, TT("preset/write/again"), gensym("preset_write_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Write into the last xml preset file"));
 		
