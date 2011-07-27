@@ -493,7 +493,7 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 				data = kTTVal1;
 			return;
 		}
-		/*
+		
 		if (o->getName() == TT("Viewer")) {
 			
 			// Is the viewer selected ?
@@ -521,7 +521,7 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 			
 			return;
 		}
-		*/
+		
 	}
 }
 
