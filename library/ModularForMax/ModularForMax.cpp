@@ -138,13 +138,6 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTNodeAddress
 			v.get(0, &absoluteAddress);
 			object_post(x, "registers at %s", absoluteAddress->getCString());
 		}
-		else {
-			
-			// DEBUG
-			(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
-			v.get(0, &absoluteAddress);
-			object_post(x, "binds on %s", absoluteAddress->getCString());
-		}
 
 		return kTTErrNone;
 	}

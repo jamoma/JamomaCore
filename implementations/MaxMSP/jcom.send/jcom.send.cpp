@@ -65,6 +65,7 @@ void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		address = _sym_nothing;
 	
 	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
+	x->index = 0; // the index member is usefull to count how many time the external tries to bind
 	jamoma_sender_create((ObjectPtr)x, &x->wrappedObject);
 	
 	// No outlets
@@ -104,8 +105,11 @@ void send_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
-	TTNodeAddressPtr			absoluteAddress;
 	TTObjectPtr					anObject;
+	TTErr						err;
+	
+	if (x->address == kTTAdrsEmpty)
+		return;
 	
 	// for absolute address
 	if (x->address->getType() == kAddressAbsolute) {
@@ -114,43 +118,48 @@ void send_subscribe(TTPtr self)
 	}
 	
 	// for relative address
-	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
-	
-	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, x->address, &x->subscriberObject)) {
-		// get the context address to make
-		// a receiver on the contextAddress/model/address parameter
-		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, (TTSymbolPtr*)&contextAddress);
-	}
-	
-	// bind on the /model/address parameter (view patch)  or set address directly
-	if (contextAddress != kTTAdrsEmpty) {
+	// try to binds on internal the model/address
+	if (!x->subscriberObject) {
 		
-		if (x->patcherContext == kTTSym_view) {
+		if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTADRS("model/address"), &x->subscriberObject)) {
+			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+			v.get(0, (TTSymbolPtr*)&contextAddress);
+			
+			// binds the internal model/address return (in a view) or parameter (in a model)
 			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
 			anObject->sendMessage(kTTSym_Refresh);
 		}
+		// while the context is not defined : try to binds again
 		else {
-			absoluteAddress = contextAddress->appendAddress(x->address);
-			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+			
+			// release the subscriber
+			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+			x->subscriberObject = NULL;
+			
+			x->index++; // the index member is usefull to count how many time the external tries to bind
+			if (x->index > 100) {
+				object_error((ObjectPtr)x, "tries to bind too many times on %s", x->address->getCString());
+				object_obex_dumpout((ObjectPtr)x, gensym("error"), 0, NULL);
+				return;
+			}
+			
+			// The following must be deferred because we have to interrogate our box,
+			// and our box is not yet valid until we have finished instantiating the object.
+			// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+			defer_low((ObjectPtr)x, (method)send_subscribe, NULL, 0, 0);
 		}
 	}
 	
-	// while the context node is not registered : try to binds again :(
-	// (to -- this is not a good way todo. For binding we should make a subscription 
-	// to a notification mechanism and each time an TTObjet subscribes to the namespace
-	// using jamoma_subscriber_create we notify all the externals which have used 
-	// jamoma_subscriber_create with NULL object to bind)
+	// else refresh model/address only
 	else {
 		
-		// release the subscriber
-		TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-		x->subscriberObject = NULL;
+		err = x->internals->lookup(TT("/model/address"), v);
 		
-		// The following must be deferred because we have to interrogate our box,
-		// and our box is not yet valid until we have finished instantiating the object.
-		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)send_subscribe, NULL, 0, 0);
+		if (!err) {
+			
+			v.get(0, (TTPtr*)&anObject);
+			anObject->sendMessage(kTTSym_Refresh);
+		}
 	}
 }
 
@@ -164,6 +173,10 @@ void send_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		// set address attribute of the wrapped Receiver object
 		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+		x->index = 0; // the index member is usefull to count how many time the external tries to bind
+		
+		// DEBUG
+		object_post((ObjectPtr)x, "binds on %s", absoluteAddress->getCString());
 	}
 }
 
