@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 206.0, 570.0, 523.0, 238.0 ],
+		"rect" : [ 514.0, 653.0, 523.0, 238.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 206.0, 570.0, 523.0, 238.0 ],
+		"defrect" : [ 514.0, 653.0, 523.0, 238.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 9.0,
@@ -28,9 +28,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 23.0, 632.0, 408.0, 157.0 ],
+						"rect" : [ 25.0, 634.0, 408.0, 157.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 23.0, 632.0, 408.0, 157.0 ],
+						"defrect" : [ 25.0, 634.0, 408.0, 157.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 9.0,
@@ -46,6 +46,48 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 9.0,
+									"id" : "obj-11",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 235.0, 76.0, 54.0, 15.0 ],
+									"text" : "write/again"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 9.0,
+									"id" : "obj-10",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 235.0, 54.0, 142.0, 17.0 ],
+									"text" : "jcom.message preset/write/again"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 9.0,
+									"id" : "obj-4",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 163.0, 70.0, 50.0, 15.0 ],
+									"text" : "names"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
@@ -124,7 +166,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 29.0, 26.0, 115.0, 17.0 ],
+									"patching_rect" : [ 29.0, 24.0, 115.0, 17.0 ],
 									"text" : "jcom.message preset/new"
 								}
 
@@ -155,6 +197,24 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-11", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-10", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 244.5, 93.0, 141.0, 93.0, 141.0, 63.0, 39.5, 63.0 ],
+									"source" : [ "obj-11", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -168,6 +228,15 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 172.5, 87.0, 141.0, 87.0, 141.0, 63.0, 39.5, 63.0 ],
+									"source" : [ "obj-4", 0 ]
 								}
 
 							}
@@ -449,12 +518,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
 					"id" : "obj-76",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 41.0, 23.0, 425.0, 17.0 ],
-					"text" : "jcom.parameter addresses @type array @description \"addresses to include in the cue\" @value/default /"
+					"patching_rect" : [ 41.0, 23.0, 425.0, 27.0 ],
+					"text" : "jcom.parameter addresses @type array @description \"addresses to include in the cue\" @value/default / @priority 3"
 				}
 
 			}
@@ -1231,33 +1301,6 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 9.0,
-													"id" : "obj-25",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 0,
-													"patching_rect" : [ 289.0, 348.0, 100.0, 17.0 ],
-													"text" : "print Xcludes"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Arial",
-													"fontsize" : 9.0,
-													"id" : "obj-21",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 2,
-													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 169.0, 336.0, 100.0, 17.0 ],
-													"text" : "t"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Arial",
-													"fontsize" : 9.0,
 													"id" : "obj-17",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
@@ -2009,7 +2052,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 488.0, 65.0, 207.0, 38.0 ],
-													"text" : "jcom.parameter tags/exclude @type array @description \"keys in addresses to exclude from the cue\" @value/default none @priority 5"
+													"text" : "jcom.parameter tags/exclude @type array @description \"keys in addresses to exclude from the cue\" @value/default none @priority 6"
 												}
 
 											}
@@ -2024,7 +2067,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 257.0, 66.0, 207.0, 38.0 ],
-													"text" : "jcom.parameter keys/exclude @type array @description \"keys in addresses to exclude from the cue\" @value/default none @priority 4"
+													"text" : "jcom.parameter keys/exclude @type array @description \"keys in addresses to exclude from the cue\" @value/default none @priority 5"
 												}
 
 											}
@@ -2137,7 +2180,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 38.0, 66.0, 194.0, 38.0 ],
-													"text" : "jcom.parameter addresses/exclude @type array @description \"addresses to exclude from the cue\" @value/default none @priority 3"
+													"text" : "jcom.parameter addresses/exclude @type array @description \"addresses to exclude from the cue\" @value/default none @priority 4"
 												}
 
 											}
@@ -2228,15 +2271,6 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-21", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-10", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"destination" : [ "obj-10", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -2256,15 +2290,6 @@
 , 											{
 												"patchline" : 												{
 													"destination" : [ "obj-11", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-13", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-21", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-13", 0 ]
@@ -3883,7 +3908,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 478.0, 126.0, 345.0, 31.0 ],
+									"patching_rect" : [ 478.0, 126.0, 347.0, 31.0 ],
 									"text" : "jcom.message file/write/again @type generic @repetitions/allow 1 @description \"save the cues in the last file\""
 								}
 
