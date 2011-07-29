@@ -28,7 +28,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 84.0, 229.0, 98.0, 31.0 ],
+					"patching_rect" : [ 66.0, 229.0, 98.0, 31.0 ],
 					"text" : "jcom.parameter ramp/time"
 				}
 
@@ -43,7 +43,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 197.0, 228.0, 106.0, 31.0 ],
+					"patching_rect" : [ 179.0, 228.0, 106.0, 31.0 ],
 					"text" : "jcom.parameter ramp/active"
 				}
 
@@ -51,7 +51,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontsize" : 12.0,
 					"id" : "obj-10",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -300,7 +300,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 237.0, 184.0, 48.0, 17.0 ],
+					"patching_rect" : [ 47.0, 100.0, 61.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Arial",
 						"default_fontsize" : 9.0,
@@ -325,9 +325,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 575.0, 311.0 ],
+						"rect" : [ 25.0, 69.0, 489.0, 338.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 575.0, 311.0 ],
+						"defrect" : [ 25.0, 69.0, 489.0, 338.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 9.0,
@@ -346,12 +346,41 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 9.0,
+									"id" : "obj-11",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 23.0, 180.0, 43.0, 17.0 ],
+									"text" : "gate 1 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-6",
+									"linecount" : 2,
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 23.0, 22.0, 367.0, 31.0 ],
+									"text" : "jcom.message autofollow/enable @type boolean @repetitions/allow 1 @description \"temporary disable/enable autofollow mode\""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 9.0,
 									"id" : "obj-10",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 65.0, 97.0, 23.0, 17.0 ],
+									"patching_rect" : [ 48.0, 121.0, 23.0, 17.0 ],
 									"text" : "b 1"
 								}
 
@@ -364,7 +393,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 65.0, 32.0, 25.0, 25.0 ]
+									"patching_rect" : [ 48.0, 62.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -377,7 +406,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "int", "int" ],
-									"patching_rect" : [ 65.0, 71.0, 43.0, 17.0 ],
+									"patching_rect" : [ 48.0, 95.0, 43.0, 17.0 ],
 									"text" : "change"
 								}
 
@@ -391,7 +420,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"patching_rect" : [ 65.0, 124.0, 77.0, 17.0 ],
+									"patching_rect" : [ 48.0, 148.0, 77.0, 17.0 ],
 									"text" : "i"
 								}
 
@@ -405,7 +434,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 123.0, 244.0, 141.0, 19.0 ],
+									"patching_rect" : [ 23.0, 284.0, 141.0, 19.0 ],
 									"text" : "jcom.view cue/recall/next"
 								}
 
@@ -419,7 +448,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "float" ],
-									"patching_rect" : [ 204.0, 177.0, 39.0, 17.0 ],
+									"patching_rect" : [ 104.0, 217.0, 39.0, 17.0 ],
 									"text" : "* 1000."
 								}
 
@@ -433,7 +462,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 123.0, 209.0, 100.0, 17.0 ],
+									"patching_rect" : [ 23.0, 249.0, 100.0, 17.0 ],
 									"text" : "del"
 								}
 
@@ -448,7 +477,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 204.0, 131.0, 362.0, 31.0 ],
+									"patching_rect" : [ 104.0, 171.0, 362.0, 31.0 ],
 									"text" : "jcom.parameter autofollow/time @type decimal @repetitions/allow 1 @description \"autofollow time (in seconds)\" @priority 1"
 								}
 
@@ -463,7 +492,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 123.0, 73.0, 370.0, 31.0 ],
+									"patching_rect" : [ 106.0, 97.0, 370.0, 31.0 ],
 									"text" : "jcom.parameter autofollow/active @type boolean @repetitions/allow 1 @description \"enable autofollow mode\" @value/default 0 @priority 2"
 								}
 
@@ -477,7 +506,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
-									"patching_rect" : [ 123.0, 150.0, 50.0, 17.0 ],
+									"patching_rect" : [ 23.0, 220.0, 50.0, 17.0 ],
 									"text" : "sel 1"
 								}
 
@@ -503,6 +532,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-11", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-8", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -521,7 +559,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-3", 0 ],
+									"destination" : [ "obj-11", 1 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-4", 0 ]
@@ -543,6 +581,15 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-11", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-6", 0 ]
 								}
 
 							}
