@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 295.0, 20.0, 300.0, 70.0 ],
+		"rect" : [ 303.0, 14.0, 300.0, 70.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 330.0, 167.0, 771.0, 405.0 ],
+		"defrect" : [ 369.0, 44.0, 771.0, 405.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 9.0,
@@ -30,9 +30,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 279.0, 245.0 ],
+						"rect" : [ 25.0, 69.0, 260.0, 214.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 279.0, 245.0 ],
+						"defrect" : [ 25.0, 69.0, 260.0, 214.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 9.0,
@@ -50,13 +50,55 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-62",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 142.0, 115.0, 67.0, 18.0 ],
+									"text" : "append $2"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 11.0,
+									"id" : "obj-88",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "list" ],
+									"patching_rect" : [ 142.0, 93.0, 54.0, 19.0 ],
+									"text" : "listfunnel"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 11.0,
+									"id" : "obj-58",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "clear" ],
+									"patching_rect" : [ 142.0, 69.0, 82.0, 19.0 ],
+									"text" : "t l clear"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
 									"fontsize" : 9.0,
 									"id" : "obj-47",
 									"maxclass" : "newobj",
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 119.0, 132.0, 100.0, 17.0 ],
+									"patching_rect" : [ 43.0, 149.0, 100.0, 17.0 ],
 									"text" : "r #1PresetMenu"
 								}
 
@@ -98,7 +140,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 33.0, 43.0, 90.0, 17.0 ],
+									"patching_rect" : [ 33.0, 39.0, 90.0, 17.0 ],
 									"text" : "route set"
 								}
 
@@ -154,7 +196,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 33.0, 20.0, 107.0, 17.0 ],
+									"patching_rect" : [ 33.0, 16.0, 107.0, 17.0 ],
 									"text" : "jcom.view preset/names"
 								}
 
@@ -166,7 +208,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 34.0, 160.0, 25.0, 25.0 ],
+									"patching_rect" : [ 33.0, 178.0, 25.0, 25.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 692.0, 490.0, 25.0, 25.0 ]
 								}
@@ -220,6 +262,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-58", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 42.5, 61.0, 151.5, 61.0 ],
+									"source" : [ "obj-32", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-43", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -249,8 +300,44 @@
 								"patchline" : 								{
 									"destination" : [ "obj-43", 0 ],
 									"hidden" : 0,
-									"midpoints" : [  ],
+									"midpoints" : [ 52.5, 171.5, 42.5, 171.5 ],
 									"source" : [ "obj-47", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-43", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 214.5, 168.5, 42.5, 168.5 ],
+									"source" : [ "obj-58", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-88", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-58", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-43", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 151.5, 168.5, 42.5, 168.5 ],
+									"source" : [ "obj-62", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-62", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-88", 0 ]
 								}
 
 							}
@@ -1904,7 +1991,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 322.0, 39.5, 53.0, 19.0 ],
+					"patching_rect" : [ 328.0, 35.5, 53.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -14836,7 +14923,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 145.0, 172.0, 91.0, 17.0 ],
-													"presentation_rect" : [ 150.0, 177.0, 0.0, 0.0 ],
 													"text" : "r #1refreshXcludes"
 												}
 
@@ -14876,8 +14962,7 @@
 																	"maxclass" : "outlet",
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 79.0, 189.0, 25.0, 25.0 ],
-																	"presentation_rect" : [ 126.0, 208.0, 0.0, 0.0 ]
+																	"patching_rect" : [ 79.0, 189.0, 25.0, 25.0 ]
 																}
 
 															}
@@ -14891,7 +14976,6 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 102.0, 154.0, 61.0, 15.0 ],
-																	"presentation_rect" : [ 149.0, 174.0, 0.0, 0.0 ],
 																	"text" : "exclude/tags"
 																}
 
@@ -15179,8 +15263,7 @@
 																	"maxclass" : "outlet",
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 51.0, 212.0, 25.0, 25.0 ],
-																	"presentation_rect" : [ 51.0, 212.0, 0.0, 0.0 ]
+																	"patching_rect" : [ 51.0, 212.0, 25.0, 25.0 ]
 																}
 
 															}
@@ -15194,7 +15277,6 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 50.0, 189.0, 57.0, 15.0 ],
-																	"presentation_rect" : [ 117.0, 179.0, 0.0, 0.0 ],
 																	"text" : "restrict/keys"
 																}
 
@@ -15209,7 +15291,6 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 66.0, 169.0, 112.0, 15.0 ],
-																	"presentation_rect" : [ 68.0, 176.0, 0.0, 0.0 ],
 																	"text" : "exclude/keys model/mute"
 																}
 
@@ -16748,7 +16829,8 @@
 									"outlettype" : [ "", "int", "", "" ],
 									"patching_rect" : [ 483.0, 151.0, 168.0, 21.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 366.0, 198.0, 219.0, 45.0 ]
+									"presentation_rect" : [ 366.0, 198.0, 219.0, 45.0 ],
+									"text" : "generic"
 								}
 
 							}
@@ -16995,7 +17077,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
 									"id" : "obj-25",
-									"items" : [ "/wacmap.selador/enable", ",", "/proj2(view)/model/address", ",", "/proj2(view)/modelInstance", ",", "/proj2(view)/ui/color/border", ",", "/proj2(view)/ui/color/contentBackground", ",", "/proj2(view)/ui/color/toolbarBackground", ",", "/proj2(view)/ui/color/toolbarText", ",", "/proj2(view)/ui/freeze", ",", "/proj2(view)/ui/size", ",", "/proj2(view)/view/mute", ",", "/proj(view)/model/address", ",", "/proj(view)/modelInstance", ",", "/proj(view)/ui/color/border", ",", "/proj(view)/ui/color/contentBackground", ",", "/proj(view)/ui/color/toolbarBackground", ",", "/proj(view)/ui/color/toolbarText", ",", "/proj(view)/ui/freeze", ",", "/proj(view)/ui/size", ",", "/proj(view)/view/mute", ",", "/p4.mask/intensity", ",", "/p4.mask/panSpread", ",", "/p4.mask/panX", ",", "/p4.mask/panY", ",", "/p2.svob/intensity", ",", "/p2.svob/pan", ",", "/p2.svob/panSpread", ",", "/p2.raz/intensity", ",", "/p2.raz/pan", ",", "/p2.raz/panSpread", ",", "/p2.latV/intensity", ",", "/p2.latV/pan", ",", "/p2.latV/panSpread", ",", "/p2.fresn/intensity", ",", "/p2.fresn/pan", ",", "/p2.fresn/panSpread", ",", "/p2.fluo/intensity", ",", "/p2.fluo/pan", ",", "/p2.fluo/panSpread", ",", "/p2.brabo/intensity", ",", "/p2.brabo/pan", ",", "/p2.brabo/panSpread", ",", "/p2.T8/intensity", ",", "/p2.T8/pan", ",", "/p2.T8/panSpread", ",", "/p.fresntest/intensity", ",", "/p.fresnFen/intensity", ",", "/functionMapper(view)/edit", ",", "/functionMapper(view)/model/address", ",", "/functionMapper(view)/modelInstance", ",", "/functionMapper(view)/submodelInstance", ",", "/functionMapper(view)/ui/color/border", ",", "/functionMapper(view)/ui/color/contentBackground", ",", "/functionMapper(view)/ui/color/toolbarBackground", ",", "/functionMapper(view)/ui/color/toolbarText", ",", "/functionMapper(view)/ui/freeze", ",", "/functionMapper(view)/ui/size", ",", "/functionMapper(view)/view/mute", ",", "/function.test/f.1/duration", ",", "/function.test/f.1/grain", ",", "/function.test/f.1/max", ",", "/function.test/f.1/min", ",", "/function.test/f.1/speed", ",", "/function.test/f.1/switch", ",", "/function.test/f.1/target", ",", "/function.test/f.10/duration", ",", "/function.test/f.10/grain", ",", "/function.test/f.10/max", ",", "/function.test/f.10/min", ",", "/function.test/f.10/speed", ",", "/function.test/f.10/switch", ",", "/function.test/f.10/target", ",", "/function.test/f.2/duration", ",", "/function.test/f.2/grain", ",", "/function.test/f.2/max", ",", "/function.test/f.2/min", ",", "/function.test/f.2/speed", ",", "/function.test/f.2/switch", ",", "/function.test/f.2/target", ",", "/function.test/f.3/duration", ",", "/function.test/f.3/grain", ",", "/function.test/f.3/max", ",", "/function.test/f.3/min", ",", "/function.test/f.3/speed", ",", "/function.test/f.3/switch", ",", "/function.test/f.3/target", ",", "/function.test/f.4/duration", ",", "/function.test/f.4/grain", ",", "/function.test/f.4/max", ",", "/function.test/f.4/min", ",", "/function.test/f.4/speed", ",", "/function.test/f.4/switch", ",", "/function.test/f.4/target", ",", "/function.test/f.5/duration", ",", "/function.test/f.5/grain", ",", "/function.test/f.5/max", ",", "/function.test/f.5/min", ",", "/function.test/f.5/speed", ",", "/function.test/f.5/switch", ",", "/function.test/f.5/target", ",", "/function.test/f.6/duration", ",", "/function.test/f.6/grain", ",", "/function.test/f.6/max", ",", "/function.test/f.6/min", ",", "/function.test/f.6/speed", ",", "/function.test/f.6/switch", ",", "/function.test/f.6/target", ",", "/function.test/f.7/duration", ",", "/function.test/f.7/grain", ",", "/function.test/f.7/max", ",", "/function.test/f.7/min", ",", "/function.test/f.7/speed", ",", "/function.test/f.7/switch", ",", "/function.test/f.7/target", ",", "/function.test/f.8/duration", ",", "/function.test/f.8/grain", ",", "/function.test/f.8/max", ",", "/function.test/f.8/min", ",", "/function.test/f.8/speed", ",", "/function.test/f.8/switch", ",", "/function.test/f.8/target", ",", "/function.test/f.9/duration", ",", "/function.test/f.9/grain", ",", "/function.test/f.9/max", ",", "/function.test/f.9/min", ",", "/function.test/f.9/speed", ",", "/function.test/f.9/switch", ",", "/function.test/f.9/target", ",", "/function.glop/f.1/duration", ",", "/function.glop/f.1/grain", ",", "/function.glop/f.1/max", ",", "/function.glop/f.1/min", ",", "/function.glop/f.1/speed", ",", "/function.glop/f.1/switch", ",", "/function.glop/f.1/target", ",", "/function.glop/f.2/duration", ",", "/function.glop/f.2/grain", ",", "/function.glop/f.2/max", ",", "/function.glop/f.2/min", ",", "/function.glop/f.2/speed", ",", "/function.glop/f.2/switch", ",", "/function.glop/f.2/target", ",", "/function.glop/f.3/duration", ",", "/function.glop/f.3/grain", ",", "/function.glop/f.3/max", ",", "/function.glop/f.3/min", ",", "/function.glop/f.3/speed", ",", "/function.glop/f.3/switch", ",", "/function.glop/f.3/target", ",", "/function.glop/f.4/duration", ",", "/function.glop/f.4/grain", ",", "/function.glop/f.4/max", ",", "/function.glop/f.4/min", ",", "/function.glop/f.4/speed", ",", "/function.glop/f.4/switch", ",", "/function.glop/f.4/target", ",", "/function.glop/f.5/duration", ",", "/function.glop/f.5/grain", ",", "/function.glop/f.5/max", ",", "/function.glop/f.5/min", ",", "/function.glop/f.5/speed", ",", "/function.glop/f.5/switch", ",", "/function.glop/f.5/target", ",", "/cyclo/heat", ",", "/cyclo/heatSpread", ",", "/cyclo/intensity", ",", "/cyclo/panSpread", ",", "/cyclo/panX", ",", "/cyclo/panY", ",", "/SeladorArray(view)/Selador(view)/model/address", ",", "/SeladorArray(view)/Selador(view)/view/mute", ",", "/SeladorArray(view)/instanceNumber", ",", "/SeladorArray(view)/model/address", ",", "/SeladorArray(view)/ui/color/border", ",", "/SeladorArray(view)/ui/color/contentBackground", ",", "/SeladorArray(view)/ui/color/toolbarBackground", ",", "/SeladorArray(view)/ui/color/toolbarText", ",", "/SeladorArray(view)/ui/freeze", ",", "/SeladorArray(view)/ui/size", ",", "/SeladorArray(view)/view/mute", ",", "/Sel.rido/Selador.1/amber", ",", "/Sel.rido/Selador.1/blue", ",", "/Sel.rido/Selador.1/cyan", ",", "/Sel.rido/Selador.1/green", ",", "/Sel.rido/Selador.1/indigo", ",", "/Sel.rido/Selador.1/intensity", ",", "/Sel.rido/Selador.1/orange", ",", "/Sel.rido/Selador.1/red", ",", "/Sel.rido/Selador.2/amber", ",", "/Sel.rido/Selador.2/blue", ",", "/Sel.rido/Selador.2/cyan", ",", "/Sel.rido/Selador.2/green", ",", "/Sel.rido/Selador.2/indigo", ",", "/Sel.rido/Selador.2/intensity", ",", "/Sel.rido/Selador.2/orange", ",", "/Sel.rido/Selador.2/red", ",", "/Sel.poly/Selador.1/amber", ",", "/Sel.poly/Selador.1/blue", ",", "/Sel.poly/Selador.1/cyan", ",", "/Sel.poly/Selador.1/green", ",", "/Sel.poly/Selador.1/indigo", ",", "/Sel.poly/Selador.1/intensity", ",", "/Sel.poly/Selador.1/orange", ",", "/Sel.poly/Selador.1/red", ",", "/Sel.poly/Selador.2/amber", ",", "/Sel.poly/Selador.2/blue", ",", "/Sel.poly/Selador.2/cyan", ",", "/Sel.poly/Selador.2/green", ",", "/Sel.poly/Selador.2/indigo", ",", "/Sel.poly/Selador.2/intensity", ",", "/Sel.poly/Selador.2/orange", ",", "/Sel.poly/Selador.2/red", ",", "/Sel.poly/Selador.3/amber", ",", "/Sel.poly/Selador.3/blue", ",", "/Sel.poly/Selador.3/cyan", ",", "/Sel.poly/Selador.3/green", ",", "/Sel.poly/Selador.3/indigo", ",", "/Sel.poly/Selador.3/intensity", ",", "/Sel.poly/Selador.3/orange", ",", "/Sel.poly/Selador.3/red", ",", "/Sel.poly/Selador.4/amber", ",", "/Sel.poly/Selador.4/blue", ",", "/Sel.poly/Selador.4/cyan", ",", "/Sel.poly/Selador.4/green", ",", "/Sel.poly/Selador.4/indigo", ",", "/Sel.poly/Selador.4/intensity", ",", "/Sel.poly/Selador.4/orange", ",", "/Sel.poly/Selador.4/red", ",", "/Sel.poly/Selador.5/amber", ",", "/Sel.poly/Selador.5/blue", ",", "/Sel.poly/Selador.5/cyan", ",", "/Sel.poly/Selador.5/green", ",", "/Sel.poly/Selador.5/indigo", ",", "/Sel.poly/Selador.5/intensity", ",", "/Sel.poly/Selador.5/orange", ",", "/Sel.poly/Selador.5/red", ",", "/Sel.inter/Selador.1/amber", ",", "/Sel.inter/Selador.1/blue", ",", "/Sel.inter/Selador.1/cyan", ",", "/Sel.inter/Selador.1/green", ",", "/Sel.inter/Selador.1/indigo", ",", "/Sel.inter/Selador.1/intensity", ",", "/Sel.inter/Selador.1/orange", ",", "/Sel.inter/Selador.1/red", ",", "/Sel.inter/Selador.2/amber", ",", "/Sel.inter/Selador.2/blue", ",", "/Sel.inter/Selador.2/cyan", ",", "/Sel.inter/Selador.2/green", ",", "/Sel.inter/Selador.2/indigo", ",", "/Sel.inter/Selador.2/intensity", ",", "/Sel.inter/Selador.2/orange", ",", "/Sel.inter/Selador.2/red", ",", "/Sel.inter/Selador.3/amber", ",", "/Sel.inter/Selador.3/blue", ",", "/Sel.inter/Selador.3/cyan", ",", "/Sel.inter/Selador.3/green", ",", "/Sel.inter/Selador.3/indigo", ",", "/Sel.inter/Selador.3/intensity", ",", "/Sel.inter/Selador.3/orange", ",", "/Sel.inter/Selador.3/red", ",", "/Sel.face/Selador.1/amber", ",", "/Sel.face/Selador.1/blue", ",", "/Sel.face/Selador.1/cyan", ",", "/Sel.face/Selador.1/green", ",", "/Sel.face/Selador.1/indigo", ",", "/Sel.face/Selador.1/intensity", ",", "/Sel.face/Selador.1/orange", ",", "/Sel.face/Selador.1/red", ",", "/Sel.face/Selador.2/amber", ",", "/Sel.face/Selador.2/blue", ",", "/Sel.face/Selador.2/cyan", ",", "/Sel.face/Selador.2/green", ",", "/Sel.face/Selador.2/indigo", ",", "/Sel.face/Selador.2/intensity", ",", "/Sel.face/Selador.2/orange", ",", "/Sel.face/Selador.2/red", ",", "/Sel.bas/Selador.1/amber", ",", "/Sel.bas/Selador.1/blue", ",", "/Sel.bas/Selador.1/cyan", ",", "/Sel.bas/Selador.1/green", ",", "/Sel.bas/Selador.1/indigo", ",", "/Sel.bas/Selador.1/intensity", ",", "/Sel.bas/Selador.1/orange", ",", "/Sel.bas/Selador.1/red", ",", "/Sel.bas/Selador.2/amber", ",", "/Sel.bas/Selador.2/blue", ",", "/Sel.bas/Selador.2/cyan", ",", "/Sel.bas/Selador.2/green", ",", "/Sel.bas/Selador.2/indigo", ",", "/Sel.bas/Selador.2/intensity", ",", "/Sel.bas/Selador.2/orange", ",", "/Sel.bas/Selador.2/red", ",", "/Sel.arr/Selador.1/amber", ",", "/Sel.arr/Selador.1/blue", ",", "/Sel.arr/Selador.1/cyan", ",", "/Sel.arr/Selador.1/green", ",", "/Sel.arr/Selador.1/indigo", ",", "/Sel.arr/Selador.1/intensity", ",", "/Sel.arr/Selador.1/orange", ",", "/Sel.arr/Selador.1/red", ",", "/Sel.arr/Selador.2/amber", ",", "/Sel.arr/Selador.2/blue", ",", "/Sel.arr/Selador.2/cyan", ",", "/Sel.arr/Selador.2/green", ",", "/Sel.arr/Selador.2/indigo", ",", "/Sel.arr/Selador.2/intensity", ",", "/Sel.arr/Selador.2/orange", ",", "/Sel.arr/Selador.2/red", ",", "/Sel.arr/Selador.3/amber", ",", "/Sel.arr/Selador.3/blue", ",", "/Sel.arr/Selador.3/cyan", ",", "/Sel.arr/Selador.3/green", ",", "/Sel.arr/Selador.3/indigo", ",", "/Sel.arr/Selador.3/intensity", ",", "/Sel.arr/Selador.3/orange", ",", "/Sel.arr/Selador.3/red" ],
+									"items" : [ "/wacmap.selador/enable", ",", "/proj2(view)/modelInstance", ",", "/proj(view)/modelInstance", ",", "/p4.mask/intensity", ",", "/p4.mask/panSpread", ",", "/p4.mask/panX", ",", "/p4.mask/panY", ",", "/p2.svob/intensity", ",", "/p2.svob/pan", ",", "/p2.svob/panSpread", ",", "/p2.raz/intensity", ",", "/p2.raz/pan", ",", "/p2.raz/panSpread", ",", "/p2.latV/intensity", ",", "/p2.latV/pan", ",", "/p2.latV/panSpread", ",", "/p2.fresn/intensity", ",", "/p2.fresn/pan", ",", "/p2.fresn/panSpread", ",", "/p2.fluo/intensity", ",", "/p2.fluo/pan", ",", "/p2.fluo/panSpread", ",", "/p2.brabo/intensity", ",", "/p2.brabo/pan", ",", "/p2.brabo/panSpread", ",", "/p2.T8/intensity", ",", "/p2.T8/pan", ",", "/p2.T8/panSpread", ",", "/p.fresntest/intensity", ",", "/p.fresnFen/intensity", ",", "/functionMapper(view)/edit", ",", "/functionMapper(view)/modelInstance", ",", "/functionMapper(view)/submodelInstance", ",", "/function.test/f.1/duration", ",", "/function.test/f.1/grain", ",", "/function.test/f.1/max", ",", "/function.test/f.1/min", ",", "/function.test/f.1/speed", ",", "/function.test/f.1/switch", ",", "/function.test/f.1/target", ",", "/function.test/f.10/duration", ",", "/function.test/f.10/grain", ",", "/function.test/f.10/max", ",", "/function.test/f.10/min", ",", "/function.test/f.10/speed", ",", "/function.test/f.10/switch", ",", "/function.test/f.10/target", ",", "/function.test/f.2/duration", ",", "/function.test/f.2/grain", ",", "/function.test/f.2/max", ",", "/function.test/f.2/min", ",", "/function.test/f.2/speed", ",", "/function.test/f.2/switch", ",", "/function.test/f.2/target", ",", "/function.test/f.3/duration", ",", "/function.test/f.3/grain", ",", "/function.test/f.3/max", ",", "/function.test/f.3/min", ",", "/function.test/f.3/speed", ",", "/function.test/f.3/switch", ",", "/function.test/f.3/target", ",", "/function.test/f.4/duration", ",", "/function.test/f.4/grain", ",", "/function.test/f.4/max", ",", "/function.test/f.4/min", ",", "/function.test/f.4/speed", ",", "/function.test/f.4/switch", ",", "/function.test/f.4/target", ",", "/function.test/f.5/duration", ",", "/function.test/f.5/grain", ",", "/function.test/f.5/max", ",", "/function.test/f.5/min", ",", "/function.test/f.5/speed", ",", "/function.test/f.5/switch", ",", "/function.test/f.5/target", ",", "/function.test/f.6/duration", ",", "/function.test/f.6/grain", ",", "/function.test/f.6/max", ",", "/function.test/f.6/min", ",", "/function.test/f.6/speed", ",", "/function.test/f.6/switch", ",", "/function.test/f.6/target", ",", "/function.test/f.7/duration", ",", "/function.test/f.7/grain", ",", "/function.test/f.7/max", ",", "/function.test/f.7/min", ",", "/function.test/f.7/speed", ",", "/function.test/f.7/switch", ",", "/function.test/f.7/target", ",", "/function.test/f.8/duration", ",", "/function.test/f.8/grain", ",", "/function.test/f.8/max", ",", "/function.test/f.8/min", ",", "/function.test/f.8/speed", ",", "/function.test/f.8/switch", ",", "/function.test/f.8/target", ",", "/function.test/f.9/duration", ",", "/function.test/f.9/grain", ",", "/function.test/f.9/max", ",", "/function.test/f.9/min", ",", "/function.test/f.9/speed", ",", "/function.test/f.9/switch", ",", "/function.test/f.9/target", ",", "/function.glop/f.1/duration", ",", "/function.glop/f.1/grain", ",", "/function.glop/f.1/max", ",", "/function.glop/f.1/min", ",", "/function.glop/f.1/speed", ",", "/function.glop/f.1/switch", ",", "/function.glop/f.1/target", ",", "/function.glop/f.2/duration", ",", "/function.glop/f.2/grain", ",", "/function.glop/f.2/max", ",", "/function.glop/f.2/min", ",", "/function.glop/f.2/speed", ",", "/function.glop/f.2/switch", ",", "/function.glop/f.2/target", ",", "/function.glop/f.3/duration", ",", "/function.glop/f.3/grain", ",", "/function.glop/f.3/max", ",", "/function.glop/f.3/min", ",", "/function.glop/f.3/speed", ",", "/function.glop/f.3/switch", ",", "/function.glop/f.3/target", ",", "/function.glop/f.4/duration", ",", "/function.glop/f.4/grain", ",", "/function.glop/f.4/max", ",", "/function.glop/f.4/min", ",", "/function.glop/f.4/speed", ",", "/function.glop/f.4/switch", ",", "/function.glop/f.4/target", ",", "/function.glop/f.5/duration", ",", "/function.glop/f.5/grain", ",", "/function.glop/f.5/max", ",", "/function.glop/f.5/min", ",", "/function.glop/f.5/speed", ",", "/function.glop/f.5/switch", ",", "/function.glop/f.5/target", ",", "/cyclo/heat", ",", "/cyclo/heatSpread", ",", "/cyclo/intensity", ",", "/cyclo/panSpread", ",", "/cyclo/panX", ",", "/cyclo/panY", ",", "/SeladorArray(view)/instanceNumber", ",", "/SeladorArray(view)/modelInstance", ",", "/Sel.rido/Selador.1/amber", ",", "/Sel.rido/Selador.1/blue", ",", "/Sel.rido/Selador.1/cyan", ",", "/Sel.rido/Selador.1/green", ",", "/Sel.rido/Selador.1/indigo", ",", "/Sel.rido/Selador.1/intensity", ",", "/Sel.rido/Selador.1/orange", ",", "/Sel.rido/Selador.1/red", ",", "/Sel.rido/Selador.2/amber", ",", "/Sel.rido/Selador.2/blue", ",", "/Sel.rido/Selador.2/cyan", ",", "/Sel.rido/Selador.2/green", ",", "/Sel.rido/Selador.2/indigo", ",", "/Sel.rido/Selador.2/intensity", ",", "/Sel.rido/Selador.2/orange", ",", "/Sel.rido/Selador.2/red", ",", "/Sel.poly/Selador.1/amber", ",", "/Sel.poly/Selador.1/blue", ",", "/Sel.poly/Selador.1/cyan", ",", "/Sel.poly/Selador.1/green", ",", "/Sel.poly/Selador.1/indigo", ",", "/Sel.poly/Selador.1/intensity", ",", "/Sel.poly/Selador.1/orange", ",", "/Sel.poly/Selador.1/red", ",", "/Sel.poly/Selador.2/amber", ",", "/Sel.poly/Selador.2/blue", ",", "/Sel.poly/Selador.2/cyan", ",", "/Sel.poly/Selador.2/green", ",", "/Sel.poly/Selador.2/indigo", ",", "/Sel.poly/Selador.2/intensity", ",", "/Sel.poly/Selador.2/orange", ",", "/Sel.poly/Selador.2/red", ",", "/Sel.poly/Selador.3/amber", ",", "/Sel.poly/Selador.3/blue", ",", "/Sel.poly/Selador.3/cyan", ",", "/Sel.poly/Selador.3/green", ",", "/Sel.poly/Selador.3/indigo", ",", "/Sel.poly/Selador.3/intensity", ",", "/Sel.poly/Selador.3/orange", ",", "/Sel.poly/Selador.3/red", ",", "/Sel.poly/Selador.4/amber", ",", "/Sel.poly/Selador.4/blue", ",", "/Sel.poly/Selador.4/cyan", ",", "/Sel.poly/Selador.4/green", ",", "/Sel.poly/Selador.4/indigo", ",", "/Sel.poly/Selador.4/intensity", ",", "/Sel.poly/Selador.4/orange", ",", "/Sel.poly/Selador.4/red", ",", "/Sel.poly/Selador.5/amber", ",", "/Sel.poly/Selador.5/blue", ",", "/Sel.poly/Selador.5/cyan", ",", "/Sel.poly/Selador.5/green", ",", "/Sel.poly/Selador.5/indigo", ",", "/Sel.poly/Selador.5/intensity", ",", "/Sel.poly/Selador.5/orange", ",", "/Sel.poly/Selador.5/red", ",", "/Sel.inter/Selador.1/amber", ",", "/Sel.inter/Selador.1/blue", ",", "/Sel.inter/Selador.1/cyan", ",", "/Sel.inter/Selador.1/green", ",", "/Sel.inter/Selador.1/indigo", ",", "/Sel.inter/Selador.1/intensity", ",", "/Sel.inter/Selador.1/orange", ",", "/Sel.inter/Selador.1/red", ",", "/Sel.inter/Selador.2/amber", ",", "/Sel.inter/Selador.2/blue", ",", "/Sel.inter/Selador.2/cyan", ",", "/Sel.inter/Selador.2/green", ",", "/Sel.inter/Selador.2/indigo", ",", "/Sel.inter/Selador.2/intensity", ",", "/Sel.inter/Selador.2/orange", ",", "/Sel.inter/Selador.2/red", ",", "/Sel.inter/Selador.3/amber", ",", "/Sel.inter/Selador.3/blue", ",", "/Sel.inter/Selador.3/cyan", ",", "/Sel.inter/Selador.3/green", ",", "/Sel.inter/Selador.3/indigo", ",", "/Sel.inter/Selador.3/intensity", ",", "/Sel.inter/Selador.3/orange", ",", "/Sel.inter/Selador.3/red", ",", "/Sel.face/Selador.1/amber", ",", "/Sel.face/Selador.1/blue", ",", "/Sel.face/Selador.1/cyan", ",", "/Sel.face/Selador.1/green", ",", "/Sel.face/Selador.1/indigo", ",", "/Sel.face/Selador.1/intensity", ",", "/Sel.face/Selador.1/orange", ",", "/Sel.face/Selador.1/red", ",", "/Sel.face/Selador.2/amber", ",", "/Sel.face/Selador.2/blue", ",", "/Sel.face/Selador.2/cyan", ",", "/Sel.face/Selador.2/green", ",", "/Sel.face/Selador.2/indigo", ",", "/Sel.face/Selador.2/intensity", ",", "/Sel.face/Selador.2/orange", ",", "/Sel.face/Selador.2/red", ",", "/Sel.bas/Selador.1/amber", ",", "/Sel.bas/Selador.1/blue", ",", "/Sel.bas/Selador.1/cyan", ",", "/Sel.bas/Selador.1/green", ",", "/Sel.bas/Selador.1/indigo", ",", "/Sel.bas/Selador.1/intensity", ",", "/Sel.bas/Selador.1/orange", ",", "/Sel.bas/Selador.1/red", ",", "/Sel.bas/Selador.2/amber", ",", "/Sel.bas/Selador.2/blue", ",", "/Sel.bas/Selador.2/cyan", ",", "/Sel.bas/Selador.2/green", ",", "/Sel.bas/Selador.2/indigo", ",", "/Sel.bas/Selador.2/intensity", ",", "/Sel.bas/Selador.2/orange", ",", "/Sel.bas/Selador.2/red", ",", "/Sel.arr/Selador.1/amber", ",", "/Sel.arr/Selador.1/blue", ",", "/Sel.arr/Selador.1/cyan", ",", "/Sel.arr/Selador.1/green", ",", "/Sel.arr/Selador.1/indigo", ",", "/Sel.arr/Selador.1/intensity", ",", "/Sel.arr/Selador.1/orange", ",", "/Sel.arr/Selador.1/red", ",", "/Sel.arr/Selador.2/amber", ",", "/Sel.arr/Selador.2/blue", ",", "/Sel.arr/Selador.2/cyan", ",", "/Sel.arr/Selador.2/green", ",", "/Sel.arr/Selador.2/indigo", ",", "/Sel.arr/Selador.2/intensity", ",", "/Sel.arr/Selador.2/orange", ",", "/Sel.arr/Selador.2/red", ",", "/Sel.arr/Selador.3/amber", ",", "/Sel.arr/Selador.3/blue", ",", "/Sel.arr/Selador.3/cyan", ",", "/Sel.arr/Selador.3/green", ",", "/Sel.arr/Selador.3/indigo", ",", "/Sel.arr/Selador.3/intensity", ",", "/Sel.arr/Selador.3/orange", ",", "/Sel.arr/Selador.3/red" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -23852,7 +23934,7 @@
 									"presentation_rect" : [ 9.0, 129.0, 124.0, 589.0 ],
 									"rowhead" : 1,
 									"rowheight" : 20,
-									"rows" : 2,
+									"rows" : 5,
 									"selmode" : 5,
 									"textcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
 									"varname" : "cues"
@@ -24341,7 +24423,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 139.0, 145.0, 64.0, 17.0 ],
-													"text" : "1"
+													"text" : "3"
 												}
 
 											}
@@ -26956,7 +27038,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 322.0, 19.0, 53.0, 18.0 ],
+					"patching_rect" : [ 328.0, 15.0, 53.0, 18.0 ],
 					"pattrmode" : 1,
 					"presentation" : 1,
 					"presentation_rect" : [ 236.0, 1.0, 47.0, 18.0 ],
@@ -26985,7 +27067,6 @@
 					"bordercolor" : [ 0.615686, 0.615686, 0.615686, 0.403922 ],
 					"fontname" : "Verdana",
 					"fontsize" : 12.0,
-					"hidden" : 1,
 					"id" : "obj-42",
 					"ignoreclick" : 1,
 					"maxclass" : "number",
@@ -27009,7 +27090,7 @@
 					"fontsize" : 12.0,
 					"hint" : "the cuelist menu to select a cue",
 					"id" : "obj-41",
-					"items" : "<empty>",
+					"items" : [ "Cue_1", ",", "Cue_2", ",", "Cue_3", ",", "Cue_4" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -27042,7 +27123,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 49.0, 22.0, 250.0, 22.0 ],
 					"tabmode" : 0,
-					"text" : "init"
+					"text" : "Cue_4"
 				}
 
 			}
@@ -27059,7 +27140,7 @@
 					"outlettype" : [ "", "" ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"text" : "/degrade.1",
+					"text" : "/cueManager",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -27177,7 +27258,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-20", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 571.5, 389.0, 507.0, 389.0, 507.0, 338.0, 530.5, 338.0 ],
+					"midpoints" : [ 571.5, 393.0, 507.0, 393.0, 507.0, 338.0, 530.5, 338.0 ],
 					"source" : [ "obj-18", 0 ]
 				}
 
@@ -27375,7 +27456,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-60", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 331.5, 38.0, 331.5, 38.0 ],
+					"midpoints" : [ 337.5, 34.0, 337.5, 34.0 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -27384,7 +27465,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 331.5, 62.0, 319.0, 62.0, 319.0, 14.0, 331.5, 14.0 ],
+					"midpoints" : [ 337.5, 58.0, 325.0, 58.0, 325.0, 10.0, 337.5, 10.0 ],
 					"source" : [ "obj-60", 0 ]
 				}
 
