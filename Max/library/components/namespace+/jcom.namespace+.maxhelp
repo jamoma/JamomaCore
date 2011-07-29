@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 53.0, 247.0, 1023.0, 549.0 ],
+		"rect" : [ 258.0, 215.0, 1023.0, 549.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 53.0, 247.0, 1023.0, 549.0 ],
+		"defrect" : [ 258.0, 215.0, 1023.0, 549.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 9.0,
@@ -23,13 +23,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
 					"id" : "obj-41",
-					"items" : [ "in/bypass", ",", "in/mute", ",", "model/mute", ",", "out/gain", ",", "out/mix", ",", "out/mute" ],
+					"items" : [ "Selador.1/model/mute", ",", "Selador.2/model/mute", ",", "Selador.3/model/mute", ",", "model/mute" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 40.0, 500.0, 100.0, 17.0 ],
-					"prefix" : "/degrade.2",
+					"prefix" : "/Sel.arr/",
 					"types" : [  ]
 				}
 
@@ -43,8 +43,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 40.0, 477.0, 267.0, 17.0 ],
-					"text" : "jcom.namespace+ @lookfor jcom.parameter @only/tags generic"
+					"patching_rect" : [ 40.0, 477.0, 278.0, 17.0 ],
+					"text" : "jcom.namespace+ @lookfor jcom.parameter @restrict/tags generic"
 				}
 
 			}
@@ -77,8 +77,8 @@
 					"patching_rect" : [ 353.0, 475.0, 659.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 313.0, 431.0, 281.0, 34.0 ],
-					"text" : "• only/tags : only elements  containing one of the given strings will be included"
+					"presentation_rect" : [ 313.0, 431.0, 284.0, 34.0 ],
+					"text" : "• restrict/tags : only elements containing one of the given strings will be included"
 				}
 
 			}
@@ -95,7 +95,7 @@
 					"presentation" : 1,
 					"presentation_linecount" : 3,
 					"presentation_rect" : [ 311.0, 385.0, 281.0, 48.0 ],
-					"text" : "• only/name : only elements  containing one of the given strings will be included (works also with portions)"
+					"text" : "• restrict/keys : only elements containing one of the given strings will be included (works also with portions)"
 				}
 
 			}
@@ -104,13 +104,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
 					"id" : "obj-35",
-					"items" : [ "bitdepth", ",", "samplerateRatio" ],
+					"items" : [ "Selador.1/amber", ",", "Selador.1/blue", ",", "Selador.1/cyan", ",", "Selador.1/green", ",", "Selador.1/indigo", ",", "Selador.1/intensity", ",", "Selador.1/orange", ",", "Selador.1/red", ",", "Selador.1/startChannel", ",", "Selador.2/amber", ",", "Selador.2/blue", ",", "Selador.2/cyan", ",", "Selador.2/green", ",", "Selador.2/indigo", ",", "Selador.2/intensity", ",", "Selador.2/orange", ",", "Selador.2/red", ",", "Selador.2/startChannel", ",", "Selador.3/amber", ",", "Selador.3/blue", ",", "Selador.3/cyan", ",", "Selador.3/green", ",", "Selador.3/indigo", ",", "Selador.3/intensity", ",", "Selador.3/orange", ",", "Selador.3/red", ",", "Selador.3/startChannel", ",", "arraySize" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 57.0, 449.0, 100.0, 17.0 ],
-					"prefix" : "/degrade.2",
+					"prefix" : "/Sel.arr/",
 					"types" : [  ]
 				}
 
@@ -134,13 +134,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
 					"id" : "obj-34",
-					"items" : [ "out/gain", ",", "out/mix", ",", "out/mute" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 81.0, 397.0, 100.0, 17.0 ],
-					"prefix" : "/degrade.2",
+					"prefix" : "/Sel.arr/",
 					"types" : [  ]
 				}
 
@@ -244,7 +244,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 33.0, 72.0, 273.0, 17.0 ],
-									"text" : "jcom.namespace+ jcom.hub @exclude/name mo (view)"
+									"text" : "jcom.namespace+ jcom.hub @exclude/keys mo (view)"
 								}
 
 							}
@@ -258,7 +258,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 101.0, 49.0, 350.0, 17.0 ],
-									"text" : "• exclude/name can also  be partial, here for example \"mo\"will filter mouse and movie"
+									"text" : "• exclude/keys can also  be partial, here for example \"mo\"will filter mouse and movie"
 								}
 
 							}
@@ -288,11 +288,11 @@
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontname" : "Arial",
 						"default_fontsize" : 9.0,
 						"fontface" : 0,
-						"fontsize" : 9.0,
-						"globalpatchername" : ""
+						"fontsize" : 9.0
 					}
 ,
 					"text" : "p plus"
@@ -312,7 +312,7 @@
 					"presentation" : 1,
 					"presentation_linecount" : 3,
 					"presentation_rect" : [ 304.0, 227.0, 281.0, 48.0 ],
-					"text" : "• exclude/name : every address containing one of the given strings will be excluded (works also with portions, see _____)"
+					"text" : "• exclude/keys : every address containing one of the given strings will be excluded (works also with portions, see _____)"
 				}
 
 			}
@@ -597,11 +597,11 @@
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
+						"globalpatchername" : "",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"fontface" : 0,
-						"fontsize" : 12.0,
-						"globalpatchername" : ""
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -617,8 +617,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 81.0, 374.0, 256.0, 17.0 ],
-					"text" : "jcom.namespace+ @lookfor jcom.parameter @only/name out"
+					"patching_rect" : [ 81.0, 374.0, 273.0, 17.0 ],
+					"text" : "jcom.namespace+ @lookfor jcom.parameter @restrict/keys out"
 				}
 
 			}
@@ -627,13 +627,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
 					"id" : "obj-13",
-					"items" : [ "samplerateRatio", ",", "bitdepth", ",", "out/gain", ",", "in/mute", ",", "model/mute", ",", "in/bypass", ",", "out/mix", ",", "out/mute" ],
+					"items" : [ "Selador.1/amber", ",", "Selador.1/blue", ",", "Selador.1/cyan", ",", "Selador.1/green", ",", "Selador.1/indigo", ",", "Selador.1/intensity", ",", "Selador.1/model/mute", ",", "Selador.1/orange", ",", "Selador.1/red", ",", "Selador.1/startChannel", ",", "Selador.2/amber", ",", "Selador.2/blue", ",", "Selador.2/cyan", ",", "Selador.2/green", ",", "Selador.2/indigo", ",", "Selador.2/intensity", ",", "Selador.2/model/mute", ",", "Selador.2/orange", ",", "Selador.2/red", ",", "Selador.2/startChannel", ",", "Selador.3/amber", ",", "Selador.3/blue", ",", "Selador.3/cyan", ",", "Selador.3/green", ",", "Selador.3/indigo", ",", "Selador.3/intensity", ",", "Selador.3/model/mute", ",", "Selador.3/orange", ",", "Selador.3/red", ",", "Selador.3/startChannel", ",", "arraySize", ",", "model/mute" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 100.0, 347.0, 100.0, 17.0 ],
-					"prefix" : "/degrade.2",
+					"prefix" : "/Sel.arr/",
 					"types" : [  ]
 				}
 
@@ -643,7 +643,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
 					"id" : "obj-11",
-					"items" : [ "Sel.arr", ",", "Sel.arr/Selador.1", ",", "Sel.arr/Selador.2", ",", "Sel.arr/Selador.3", ",", "Sel.bas", ",", "Sel.bas/Selador.1", ",", "Sel.bas/Selador.2", ",", "Sel.face", ",", "Sel.face/Selador.1", ",", "Sel.face/Selador.2", ",", "Sel.inter", ",", "Sel.inter/Selador.1", ",", "Sel.inter/Selador.2", ",", "Sel.inter/Selador.3", ",", "Sel.poly", ",", "Sel.poly/Selador.1", ",", "Sel.poly/Selador.2", ",", "Sel.poly/Selador.3", ",", "Sel.poly/Selador.4", ",", "Sel.poly/Selador.5", ",", "Sel.poly/Selador.6", ",", "Sel.poly/Selador.7", ",", "Sel.poly/Selador.8", ",", "Sel.rido", ",", "Sel.rido/Selador.1", ",", "Sel.rido/Selador.2", ",", "cueManager", ",", "cyclo", ",", "degrade.1", ",", "degrade.2", ",", "degrade~", ",", "mouse", ",", "mouse.1", ",", "movie", ",", "p.fresnFen", ",", "p.fresntest", ",", "p2.T8", ",", "p2.brabo", ",", "p2.fluo", ",", "p2.fresn", ",", "p2.latV", ",", "p2.raz", ",", "p2.svob", ",", "p4.mask", ",", "track", ",", "track/channel.A", ",", "track/channel.B", ",", "wacom" ],
+					"items" : [ "Sel.arr", ",", "Sel.arr/Selador.1", ",", "Sel.arr/Selador.2", ",", "Sel.arr/Selador.3", ",", "Sel.bas", ",", "Sel.bas/Selador.1", ",", "Sel.bas/Selador.2", ",", "Sel.face", ",", "Sel.face/Selador.1", ",", "Sel.face/Selador.2", ",", "Sel.inter", ",", "Sel.inter/Selador.1", ",", "Sel.inter/Selador.2", ",", "Sel.inter/Selador.3", ",", "Sel.poly", ",", "Sel.poly/Selador.1", ",", "Sel.poly/Selador.2", ",", "Sel.poly/Selador.3", ",", "Sel.poly/Selador.4", ",", "Sel.poly/Selador.5", ",", "Sel.rido", ",", "Sel.rido/Selador.1", ",", "Sel.rido/Selador.2", ",", "cueManager", ",", "cyclo", ",", "degrade.1", ",", "degrade.2", ",", "function.glop", ",", "function.glop/f.1", ",", "function.glop/f.2", ",", "function.glop/f.3", ",", "function.glop/f.4", ",", "function.glop/f.5", ",", "function.test", ",", "function.test/f.1", ",", "function.test/f.10", ",", "function.test/f.2", ",", "function.test/f.3", ",", "function.test/f.4", ",", "function.test/f.5", ",", "function.test/f.6", ",", "function.test/f.7", ",", "function.test/f.8", ",", "function.test/f.9", ",", "mouse", ",", "movie", ",", "p.fresnFen", ",", "p.fresntest", ",", "p2.T8", ",", "p2.brabo", ",", "p2.fluo", ",", "p2.fresn", ",", "p2.latV", ",", "p2.raz", ",", "p2.svob", ",", "p4.mask", ",", "wacmap.selador", ",", "wacom" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -693,8 +693,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 40.0, 256.0, 258.0, 17.0 ],
-					"text" : "jcom.namespace+ @lookfor children @exclude/name (view)"
+					"patching_rect" : [ 40.0, 256.0, 256.0, 17.0 ],
+					"text" : "jcom.namespace+ @lookfor jcom.hub @exclude/keys (view)"
 				}
 
 			}
@@ -761,7 +761,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.namespace", "@description", "a patcher-based extension of jcom.namespace+ to prototype features" ],
+					"args" : [ "@name", "jcom.namespace+", "@description", "a patcher-based extension of jcom.namespace to prototype features" ],
 					"bgmode" : 1,
 					"id" : "obj-36",
 					"maxclass" : "bpatcher",
