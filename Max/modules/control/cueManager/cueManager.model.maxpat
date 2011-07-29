@@ -1431,7 +1431,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "bang", "zlclear" ],
-													"patching_rect" : [ 5.0, 203.0, 83.0, 17.0 ],
+													"patching_rect" : [ 5.0, 204.0, 83.0, 17.0 ],
 													"text" : "t b zlclear"
 												}
 
@@ -2139,13 +2139,13 @@
 																					"fontname" : "Arial",
 																					"fontsize" : 9.0,
 																					"id" : "obj-9",
-																					"linecount" : 3,
+																					"linecount" : 2,
 																					"maxclass" : "message",
 																					"numinlets" : 2,
 																					"numoutlets" : 1,
 																					"outlettype" : [ "" ],
-																					"patching_rect" : [ 89.0, 92.0, 60.0, 36.0 ],
-																					"text" : "set restrict/keys model/mute"
+																					"patching_rect" : [ 89.0, 92.0, 60.0, 25.0 ],
+																					"text" : "set restrict/keys"
 																				}
 
 																			}
@@ -2415,8 +2415,8 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 3,
 																	"outlettype" : [ "", "", "" ],
-																	"patching_rect" : [ 34.0, 173.0, 163.0, 17.0 ],
-																	"text" : "jcom.namespace+ jcom.parameter"
+																	"patching_rect" : [ 33.0, 173.0, 187.0, 17.0 ],
+																	"text" : "jcom.namespace+ @lookfor jcom.parameter"
 																}
 
 															}
@@ -2518,7 +2518,7 @@
 																"patchline" : 																{
 																	"destination" : [ "obj-58", 0 ],
 																	"hidden" : 0,
-																	"midpoints" : [ 164.5, 164.0, 43.5, 164.0 ],
+																	"midpoints" : [ 164.5, 164.0, 42.5, 164.0 ],
 																	"source" : [ "obj-65", 0 ]
 																}
 
