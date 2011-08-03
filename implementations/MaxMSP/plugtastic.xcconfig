@@ -1,5 +1,11 @@
-#include "../../supports/max/tt-max.xcconfig"
+// Xcode target configuration settings for building Max 5 Externals
+//
+// Changes to the settings in this file will be applied all projects
+// To change settings for only one of the examples, override the settings using Xcode's target inspector.
+//
+// Copyright ¬© 2009, Timothy Place
+// http://electrotap.com/
 
-BUILDS = $(SRCROOT)/../../../../Installers/root/Cycling '74/Plugtastic/externals
+#include "../../../supports/max/tt-max.xcconfig"
 
-DSTROOT = $(BUILDS)
+OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib "$(DSPLIB)/library/build/UninstalledProducts"/JamomaDSP.dylib "$(GRAPH)/library/build/UninstalledProducts"/JamomaGraph.dylib "$(AUDIOGRAPH)/library/build/UninstalledProducts"/JamomaAudioGraph.dylib
