@@ -21,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>${PRODUCT_VERSION} (${SVNREV})</string>
 	<key>CFBundleLongVersionString</key>
-	<string>Jamoma Multicore Layer: ${PRODUCT_NAME} ${PRODUCT_VERSION} (build ${SVNREV})</string>
+	<string>Plugtastic: ${PRODUCT_NAME} ${PRODUCT_VERSION} (build ${SVNREV})</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 </dict>

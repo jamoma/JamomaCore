@@ -280,14 +280,6 @@ TTErr PlugOutBuildGraph(PlugOutPtr self)
 
 MaxErr PlugOutDoBuildAudioUnit(PlugOutPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-	// 0. Check to make sure the user has a Build Key 
-	SymbolPtr key = GENSYM("!a#%UGBe3FfFYIhRB^uSRZDÅ‰˝Ónnﬂ#$l%");
-	if (!key || key->s_thing != (void*)392871541L) {
-		// TODO: pop open a window hear and direct them to purchase a Plugtastic Key
-		object_error(SELF, "You do not have a valid key for building plug-ins with Plugtastic on this computer");
-		return MAX_ERR_GENERIC;
-	}
-	
 	if (self->progressWindow) {
 		object_error(SELF, "Already building a plug-in.  Please wait until the process is complete and try again.");
 		return MAX_ERR_GENERIC;
