@@ -29,6 +29,7 @@ struct Out {
 	void						*s_out;
 	TTPtr						qelem;			// for clumping patcher dirty notifications
 	TTAudioGraphPreprocessData	initData;		// for the preprocess method
+	t_atom						samps[1024];    // allocating list for output samples, 1024 is the maximum channel size in JAG 
 };
 typedef Out* OutPtr;
 
@@ -298,13 +299,11 @@ t_int* OutPerform(t_int* w)
 			
 			numChannels = TTClip<TTUInt16>(self->maxNumChannels, 0, self->audioSignal->getNumChannelsAsInt());	
 			
-			t_atom		argv[numChannels]; //allocating list 
-			//TODO: to improve speed, this list should be part of 'self' and only resized when numChannels is changed. 
 			for(TTUInt16 channel=0; channel<numChannels; channel++) {
-			    atom_setfloat(argv+channel, self->audioSignal->getSample(channel, 0));
+			    atom_setfloat(self->samps+channel, self->audioSignal->getSample(channel, 0));
 			}
 			
-			outlet_list(self->s_out, NULL, numChannels, argv); //list output
+			outlet_list(self->s_out, NULL, numChannels, self->samps); //list output
 		}
 	}
 	
