@@ -1,5 +1,5 @@
 /* 
- * Jamoma DataspaceLib: AngleDataspace test
+ * Jamoma DataspaceLib: AngleDataspace unit test
  * Copyright © 2011 Trond Lossius
  * 
  * License: This code is licensed under the terms of the "New BSD License"

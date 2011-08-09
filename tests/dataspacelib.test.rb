@@ -15,3 +15,9 @@ o = TTObject.new "dataspace.angle"
 o.send "test"
 
 puts
+
+puts "TESTING DEGREE DATASPACE"
+o = TTObject.new "dataspace.gain"
+o.send "test"
+
+puts

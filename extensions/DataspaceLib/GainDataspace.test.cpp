@@ -1,14 +1,14 @@
 /* 
- * Jamoma DataspaceLib: TemperatureDataspace unit tests
+ * Jamoma DataspaceLib: GainDataspace unit tests
  * Copyright © 2011 Trond Lossius
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TemperatureDataspace.h"
+#include "GainDataspace.h"
 
-TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
+TTErr GainDataspace::test(TTValue& returnedTestInfo)
 {
     int					errorCount = 0;
 	int					testAssertionCount = 0;
@@ -17,12 +17,12 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     TTObjectPtr         myDataspace;
     TTErr err;
     err = TTObjectInstantiate(TT("dataspace"), (TTObjectPtr*)&myDataspace, kTTValNONE);
-	myDataspace->setAttributeValue(TT("dataspace"), TT("temperature"));
+	myDataspace->setAttributeValue(TT("dataspace"), TT("gain"));
     
     TTValue v;
     TTValue expected;
     
-        
+    
     /************************************************/
     /*                                              */
     /* Test conversions to neutral unit             */
@@ -30,56 +30,54 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     /************************************************/
     
     
-    // Kelvin => Kelvin
+    // Linear => Linear
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("Kelvin"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("Kelvin"));    
-
-    v = TTValue(256.);
-    expected = TTValue(256.);
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("linear"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("linear"));    
+    
+    v = TTValue(1.23);
+    expected = TTValue(1.23);
     
     myDataspace->sendMessage(TT("convert"), v);
-        
-    TTTestAssertion("Kelvin to Kelvin", 
+    
+    TTTestAssertion("linear to linear", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);
-
     
     
-    // Celsius => Kelvin
-    // Expected value according to Google search: "0 Celsius to Kelvin"
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("Celsius"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("Kelvin"));
+    // dB => Linear
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("dB"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("linear"));
     
     v = TTValue(0.);
-    expected = TTValue(273.15);
+    expected = TTValue(1.0);
     
     myDataspace->sendMessage(TT("convert"), v);
     
-    TTTestAssertion("Celsius to Kelvin", 
+    TTTestAssertion("0 dB to linear", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);
     
     
-    // Fahrenheit => Kelvin
-    // Expected value according to Google search: "32 Farhenheit to Kelvin"
+    // midi => Linear
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("Fahrenheit"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("Kelvin"));    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("linear"));    
     
-    v = TTValue(32.);
-    expected = TTValue(273.15);
+    v = TTValue(100.0);
+    expected = TTValue(1.0);
     
     myDataspace->sendMessage(TT("convert"), v);    
     
-    TTTestAssertion("Fahrenheit to Kelvin", 
+    TTTestAssertion("100 MIDI to linear", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);
-
+    
     
     
     /************************************************/
@@ -87,36 +85,34 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     /* Test conversions from neutral unit           */
     /*                                              */
     /************************************************/
-       
-    // Kelvin => Celsius
-    // Expected value according to Google search: "0 Celsius to Kelvin"
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("Kelvin"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("Celsius"));
+    // linear => dB
     
-    v = TTValue(273.15);
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("linear"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("dB"));
+    
+    v = TTValue(1.0);
     expected = TTValue(0.0);
     
     myDataspace->sendMessage(TT("convert"), v);
     
-    TTTestAssertion("Kelvin to Celsius", 
+    TTTestAssertion("1.0 linear to dB", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);
     
     
-    // Fahrenheit => Kelvin
-    // Expected value according to Google search: "32 Farhenheit to Kelvin"
+    // linear => midi
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("Kelvin"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("Fahrenheit"));    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("linear"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));    
     
-    v = TTValue(273.15);
-    expected = TTValue(32.0);
+    v = TTValue(1.0);
+    expected = TTValue(100.0);
     
     myDataspace->sendMessage(TT("convert"), v);    
     
-    TTTestAssertion("Kelvin to Fahrenheit", 
+    TTTestAssertion("1.0 linear to MIDI", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);

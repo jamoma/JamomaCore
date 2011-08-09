@@ -42,6 +42,8 @@
 		A78F67BF13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */; };
 		A7F5F29813F1711E004761DD /* AngleDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F5F29713F1711E004761DD /* AngleDataspace.test.cpp */; };
 		A7F5F29913F1711E004761DD /* AngleDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F5F29713F1711E004761DD /* AngleDataspace.test.cpp */; };
+		A7F5F29B13F17531004761DD /* GainDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F5F29A13F17531004761DD /* GainDataspace.test.cpp */; };
+		A7F5F29C13F17531004761DD /* GainDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F5F29A13F17531004761DD /* GainDataspace.test.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,7 @@
 		666CF895131B438D0003D7E2 /* TTDataspaceUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceUnit.cpp; path = source/TTDataspaceUnit.cpp; sourceTree = "<group>"; };
 		A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemperatureDataspace.test.cpp; sourceTree = "<group>"; };
 		A7F5F29713F1711E004761DD /* AngleDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AngleDataspace.test.cpp; sourceTree = "<group>"; };
+		A7F5F29A13F17531004761DD /* GainDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GainDataspace.test.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = DataspaceLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -165,6 +168,7 @@
 				666CF871131B43850003D7E2 /* DistanceDataspace.h */,
 				666CF88C131B438D0003D7E2 /* GainDataspace.cpp */,
 				666CF872131B43850003D7E2 /* GainDataspace.h */,
+				A7F5F29A13F17531004761DD /* GainDataspace.test.cpp */,
 				666CF88D131B438D0003D7E2 /* NoneDataspace.cpp */,
 				666CF873131B43850003D7E2 /* NoneDataspace.h */,
 				666CF88E131B438D0003D7E2 /* PitchDataspace.cpp */,
@@ -283,6 +287,7 @@
 				22763F7B131B75480025AEB1 /* TTDataspaceUnit.cpp in Sources */,
 				A78F67BF13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */,
 				A7F5F29913F1711E004761DD /* AngleDataspace.test.cpp in Sources */,
+				A7F5F29C13F17531004761DD /* GainDataspace.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +312,7 @@
 				66316CE3135DEA1B00452517 /* OrientationDataspace.cpp in Sources */,
 				A78F67BE13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */,
 				A7F5F29813F1711E004761DD /* AngleDataspace.test.cpp in Sources */,
+				A7F5F29B13F17531004761DD /* GainDataspace.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

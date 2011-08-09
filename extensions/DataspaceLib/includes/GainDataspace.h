@@ -42,6 +42,9 @@ public:
 // Specification of our base class
 class GainDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(GainDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 
