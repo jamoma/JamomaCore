@@ -1693,19 +1693,6 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"id" : "obj-5",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 309.0, 70.0, 100.0, 18.0 ],
-									"text" : "print"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 10.0,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -2124,15 +2111,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-170", 1 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-128", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-5", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-128", 0 ]
@@ -4192,7 +4170,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 245.0, 104.0, 35.0, 20.0 ],
-					"prefix" : "/movie/rate.",
+					"prefix" : "/movie/play.",
 					"presentation" : 1,
 					"presentation_rect" : [ 354.0, 2.0, 35.0, 20.0 ],
 					"types" : [  ]
