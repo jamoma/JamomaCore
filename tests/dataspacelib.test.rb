@@ -27,3 +27,9 @@ o = TTObject.new "dataspace.distance"
 o.send "test"
 
 puts
+
+puts "TESTING DISTANCE DATASPACE"
+o = TTObject.new "dataspace.speed"
+o.send "test"
+
+puts
