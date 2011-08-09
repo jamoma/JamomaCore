@@ -16,8 +16,14 @@ o.send "test"
 
 puts
 
-puts "TESTING DEGREE DATASPACE"
+puts "TESTING GAIN DATASPACE"
 o = TTObject.new "dataspace.gain"
+o.send "test"
+
+puts
+
+puts "TESTING DISTANCE DATASPACE"
+o = TTObject.new "dataspace.distance"
 o.send "test"
 
 puts
