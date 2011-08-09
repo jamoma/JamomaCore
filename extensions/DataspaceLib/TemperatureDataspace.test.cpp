@@ -13,5 +13,24 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     int					errorCount = 0;
 	int					testAssertionCount = 0;
     
+    TTValue input;
+    TTValue output;
+    
+    // setup Function
+	this->setAttributeValue(TT("dataspace"), TT("temperature"));
+    
+    this->setAttributeValue(TT("input"), TT("Kelvin"));
+    this->setAttributeValue(TT("output"), TT("Kelvin"));
+    
+    input = TTValue(256.);
+    this->convert(input, output);
+    
+    //TTBoolean result = TTTestFloatEquivalence(input, output);
+    
+    TTTestAssertion("Kelvin to Kelvin", 
+					TTTestFloatEquivalence(TTFloat64(input), TTFloat64(output)),
+					testAssertionCount, 
+					errorCount);
+    
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
