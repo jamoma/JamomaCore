@@ -38,6 +38,8 @@
 		666CF8A0131B438D0003D7E2 /* TTDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF893131B438D0003D7E2 /* TTDataspace.cpp */; };
 		666CF8A1131B438D0003D7E2 /* TTDataspaceConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF894131B438D0003D7E2 /* TTDataspaceConverter.cpp */; };
 		666CF8A2131B438D0003D7E2 /* TTDataspaceUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF895131B438D0003D7E2 /* TTDataspaceUnit.cpp */; };
+		A78F67BE13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */; };
+		A78F67BF13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +79,7 @@
 		666CF893131B438D0003D7E2 /* TTDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspace.cpp; path = source/TTDataspace.cpp; sourceTree = "<group>"; };
 		666CF894131B438D0003D7E2 /* TTDataspaceConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceConverter.cpp; path = source/TTDataspaceConverter.cpp; sourceTree = "<group>"; };
 		666CF895131B438D0003D7E2 /* TTDataspaceUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceUnit.cpp; path = source/TTDataspaceUnit.cpp; sourceTree = "<group>"; };
+		A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemperatureDataspace.test.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = DataspaceLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -170,6 +173,7 @@
 				666CF876131B43850003D7E2 /* SpeedDataspace.h */,
 				666CF891131B438D0003D7E2 /* TemperatureDataspace.cpp */,
 				666CF877131B43850003D7E2 /* TemperatureDataspace.h */,
+				A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */,
 				666CF892131B438D0003D7E2 /* TimeDataspace.cpp */,
 				666CF878131B43850003D7E2 /* TimeDataspace.h */,
 			);
@@ -273,6 +277,7 @@
 				22763F79131B75480025AEB1 /* TTDataspace.cpp in Sources */,
 				22763F7A131B75480025AEB1 /* TTDataspaceConverter.cpp in Sources */,
 				22763F7B131B75480025AEB1 /* TTDataspaceUnit.cpp in Sources */,
+				A78F67BF13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +300,7 @@
 				666CF8A1131B438D0003D7E2 /* TTDataspaceConverter.cpp in Sources */,
 				666CF8A2131B438D0003D7E2 /* TTDataspaceUnit.cpp in Sources */,
 				66316CE3135DEA1B00452517 /* OrientationDataspace.cpp in Sources */,
+				A78F67BE13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
