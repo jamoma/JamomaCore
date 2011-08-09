@@ -5,7 +5,7 @@ require 'Jamoma'
 cpu_total = 0.0;
 
 puts
-puts "TESTING LINEAR FUNCTION"
+puts "TESTING TEMPERATURE DATASPACE"
 o = TTObject.new "dataspace.temperature"
 o.send "test"
 err, cpu = o.send "getProcessingBenchmark", 1
