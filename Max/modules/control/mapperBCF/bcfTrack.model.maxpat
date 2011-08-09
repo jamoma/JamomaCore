@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 531.0, 154.0, 288.0, 376.0 ],
+		"rect" : [ 304.0, 55.0, 288.0, 376.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 531.0, 154.0, 288.0, 376.0 ],
+		"defrect" : [ 304.0, 55.0, 288.0, 376.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,26 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
-					"id" : "obj-11",
+					"id" : "obj-12",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 82.0, 303.0, 158.0, 18.0 ],
-					"text" : "BCFMapper.model /fader #1 #2"
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 83.0, 310.0, 100.0, 18.0 ],
+					"text" : "jcom.hub"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-11",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 28.0, 266.0, 158.0, 18.0 ],
+					"text" : "BCFMapper.model fader  #2"
 				}
 
 			}
@@ -38,11 +51,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 82.0, 267.0, 158.0, 18.0 ],
-					"text" : "BCFMapper.model /key.2  #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 26.0, 230.0, 158.0, 18.0 ],
+					"text" : "BCFMapper.model key.2  #2"
 				}
 
 			}
@@ -52,11 +64,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 83.0, 245.0, 158.0, 18.0 ],
-					"text" : "BCFMapper.model /key.1 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 28.0, 208.0, 158.0, 18.0 ],
+					"text" : "BCFMapper.model /key.1  #2"
 				}
 
 			}
@@ -66,11 +77,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 84.0, 217.0, 165.0, 18.0 ],
-					"text" : "BCFMapper.model /press.4 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 29.0, 180.0, 165.0, 18.0 ],
+					"text" : "BCFMapper.model press.4  #2"
 				}
 
 			}
@@ -80,11 +90,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-6",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 83.0, 197.0, 165.0, 18.0 ],
-					"text" : "BCFMapper.model /press.3 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 27.0, 161.0, 165.0, 18.0 ],
+					"text" : "BCFMapper.model press.3  #2"
 				}
 
 			}
@@ -94,11 +103,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 83.0, 177.0, 165.0, 18.0 ],
-					"text" : "BCFMapper.model /press.2 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 27.0, 140.0, 165.0, 18.0 ],
+					"text" : "BCFMapper.model press.2  #2"
 				}
 
 			}
@@ -108,11 +116,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 83.0, 156.0, 165.0, 18.0 ],
-					"text" : "BCFMapper.model /press.1 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 27.0, 119.0, 165.0, 18.0 ],
+					"text" : "BCFMapper.model press.1  #2"
 				}
 
 			}
@@ -122,11 +129,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 82.0, 126.0, 156.0, 18.0 ],
-					"text" : "BCFMapper.model /turn.4 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 26.0, 89.0, 156.0, 18.0 ],
+					"text" : "BCFMapper.model turn.4  #2"
 				}
 
 			}
@@ -136,11 +142,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 82.0, 107.0, 156.0, 18.0 ],
-					"text" : "BCFMapper.model /turn.3 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 26.0, 70.0, 156.0, 18.0 ],
+					"text" : "BCFMapper.model turn.3  #2"
 				}
 
 			}
@@ -150,11 +155,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 82.0, 87.0, 156.0, 18.0 ],
-					"text" : "BCFMapper.model /turn.2 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 26.0, 50.0, 156.0, 18.0 ],
+					"text" : "BCFMapper.model turn.2  #2"
 				}
 
 			}
@@ -164,11 +168,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 82.0, 66.0, 153.0, 18.0 ],
-					"text" : "BCFMapper.model /turn.1 #1 #2"
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 26.0, 28.0, 153.0, 18.0 ],
+					"text" : "BCFMapper.model turn.1 #2"
 				}
 
 			}
