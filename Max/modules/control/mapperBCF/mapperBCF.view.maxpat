@@ -91,7 +91,7 @@
 						"title" : "/mapperBCF(view).1",
 						"boxes" : [ 							{
 								"box" : 								{
-									"args" : [ "#1/track.8", "#0_" ],
+									"args" : [ "track.8", "#0_" ],
 									"id" : "obj-11",
 									"maxclass" : "bpatcher",
 									"name" : "bcfTrack.view.maxpat",
@@ -106,7 +106,7 @@
 							}
 , 							{
 								"box" : 								{
-									"args" : [ "#1/track.7", "#0_" ],
+									"args" : [ "track.7", "#0_" ],
 									"id" : "obj-10",
 									"maxclass" : "bpatcher",
 									"name" : "bcfTrack.view.maxpat",
@@ -121,7 +121,7 @@
 							}
 , 							{
 								"box" : 								{
-									"args" : [ "#1/track.6", "#0_" ],
+									"args" : [ "track.6", "#0_" ],
 									"id" : "obj-9",
 									"maxclass" : "bpatcher",
 									"name" : "bcfTrack.view.maxpat",
@@ -136,7 +136,7 @@
 							}
 , 							{
 								"box" : 								{
-									"args" : [ "#1/track.5", "#0_" ],
+									"args" : [ "track.5", "#0_" ],
 									"id" : "obj-8",
 									"maxclass" : "bpatcher",
 									"name" : "bcfTrack.view.maxpat",
@@ -151,7 +151,7 @@
 							}
 , 							{
 								"box" : 								{
-									"args" : [ "#1/track.4", "#0_" ],
+									"args" : [ "track.4", "#0_" ],
 									"id" : "obj-7",
 									"maxclass" : "bpatcher",
 									"name" : "bcfTrack.view.maxpat",
@@ -265,13 +265,13 @@
 ,
 					"patching_rect" : [ 134.0, 80.0, 100.0, 18.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Arial",
 						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 10.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p BCF2000"
@@ -481,8 +481,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 3.0, 1.0, 150.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"text" : "waiting for a /model/address"
+					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
 				}
 
 			}
