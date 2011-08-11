@@ -84,7 +84,7 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	CLASS_ATTR_SYM(c->maxClass,			"context",	0,		WrappedModularInstance,	patcherContext);
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"context",			hub_get_context,	hub_set_context);
-	CLASS_ATTR_ENUM(c->maxClass,		"context",	0,		"model view");
+	CLASS_ATTR_ENUM(c->maxClass,		"context",	0,		"model view node");
 }
 
 void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -171,6 +171,10 @@ void hub_subscribe(TTPtr self)
 					documentationAdrs = TT("view/documentation/generate");
 					muteAdrs = TT("view/mute");
 				}
+				else if (x->patcherContext == kTTSym_node) {
+					classAdrs = TT("node/class");
+					muteAdrs = TT("node/mute");
+				}
 				
 				// Add a /class data
 				makeInternals_data(x, nodeAdrs, classAdrs, gensym("hub_class"), context, kTTSym_return, &aData);
@@ -179,6 +183,7 @@ void hub_subscribe(TTPtr self)
 				aData->setAttributeValue(kTTSym_description, TT("The patcher class"));
 				aData->setAttributeValue(kTTSym_value, x->patcherClass);
 				
+				if (x->patcherContext != kTTSym_node){
 				// Add a /help data
 				makeInternals_data(x, nodeAdrs, helpAdrs, gensym("hub_help"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
@@ -202,6 +207,7 @@ void hub_subscribe(TTPtr self)
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TT("Make a html page description"));
+				}
 				
 				// Add a /model/mute data
 				makeInternals_data(x, nodeAdrs, muteAdrs, gensym("hub_mute"), context, kTTSym_parameter, &aData);
@@ -210,7 +216,7 @@ void hub_subscribe(TTPtr self)
 				aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
 				
 				// In model *and* view patcher : Add /model/address data
-				if (x->patcherContext == kTTSym_model) // as return
+				if (x->patcherContext == kTTSym_model || x->patcherContext == kTTSym_node) // as return
 					makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("hub_address"), context, kTTSym_return, &aData);
 				
 				if (x->patcherContext == kTTSym_view) // as parameter
@@ -238,7 +244,7 @@ void hub_subscribe(TTPtr self)
 				}
 				
 				// In model patcher : set /modeladdress with his address
-				if (x->patcherContext == kTTSym_model) {
+				if (x->patcherContext == kTTSym_model  || x->patcherContext == kTTSym_node) {
 					aData->setAttributeValue(kTTSym_value, nodeAdrs);
 					
 					// use hubPatcher args to setup the hub attributes (like @priority)
@@ -313,6 +319,8 @@ void hub_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 					strcpy(dst, "model feeback");
 				else if (x->patcherContext == kTTSym_view)
 					strcpy(dst, "view feeback");
+				else if (x->patcherContext == kTTSym_node)
+					strcpy(dst, "node feeback");
 				else 
 					strcpy(dst, "feeback");
 				break;

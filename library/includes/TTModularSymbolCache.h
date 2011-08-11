@@ -57,6 +57,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_name;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_names;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_node;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_object;
