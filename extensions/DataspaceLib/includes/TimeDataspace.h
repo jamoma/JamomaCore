@@ -64,6 +64,9 @@ public:
 // Specification of our base class
 class TimeDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(TimeDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 

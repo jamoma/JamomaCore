@@ -40,6 +40,8 @@
 		666CF8A2131B438D0003D7E2 /* TTDataspaceUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF895131B438D0003D7E2 /* TTDataspaceUnit.cpp */; };
 		A7720F5E13F1797800383162 /* DistanceDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7720F5D13F1797800383162 /* DistanceDataspace.test.cpp */; };
 		A7720F5F13F1797800383162 /* DistanceDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7720F5D13F1797800383162 /* DistanceDataspace.test.cpp */; };
+		A7803C1313F3F20500A42BF7 /* TimeDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7803C1213F3F20500A42BF7 /* TimeDataspace.test.cpp */; };
+		A7803C1413F3F20500A42BF7 /* TimeDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7803C1213F3F20500A42BF7 /* TimeDataspace.test.cpp */; };
 		A78F67BE13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */; };
 		A78F67BF13F1488400D5DC8B /* TemperatureDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */; };
 		A7C4A6B213F2AFCB000BC17B /* SpeedDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C4A6B113F2AFCB000BC17B /* SpeedDataspace.test.cpp */; };
@@ -88,6 +90,7 @@
 		666CF894131B438D0003D7E2 /* TTDataspaceConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceConverter.cpp; path = source/TTDataspaceConverter.cpp; sourceTree = "<group>"; };
 		666CF895131B438D0003D7E2 /* TTDataspaceUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceUnit.cpp; path = source/TTDataspaceUnit.cpp; sourceTree = "<group>"; };
 		A7720F5D13F1797800383162 /* DistanceDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DistanceDataspace.test.cpp; path = tests/DistanceDataspace.test.cpp; sourceTree = "<group>"; };
+		A7803C1213F3F20500A42BF7 /* TimeDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeDataspace.test.cpp; path = tests/TimeDataspace.test.cpp; sourceTree = "<group>"; };
 		A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TemperatureDataspace.test.cpp; path = tests/TemperatureDataspace.test.cpp; sourceTree = "<group>"; };
 		A7C4A6B113F2AFCB000BC17B /* SpeedDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeedDataspace.test.cpp; path = tests/SpeedDataspace.test.cpp; sourceTree = "<group>"; };
 		A7F5F29713F1711E004761DD /* AngleDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AngleDataspace.test.cpp; path = tests/AngleDataspace.test.cpp; sourceTree = "<group>"; };
@@ -179,6 +182,7 @@
 				A7F5F29A13F17531004761DD /* GainDataspace.test.cpp */,
 				A7C4A6B113F2AFCB000BC17B /* SpeedDataspace.test.cpp */,
 				A78F67BD13F1488400D5DC8B /* TemperatureDataspace.test.cpp */,
+				A7803C1213F3F20500A42BF7 /* TimeDataspace.test.cpp */,
 			);
 			name = tests;
 			sourceTree = "<group>";
@@ -314,6 +318,7 @@
 				A7F5F29C13F17531004761DD /* GainDataspace.test.cpp in Sources */,
 				A7720F5F13F1797800383162 /* DistanceDataspace.test.cpp in Sources */,
 				A7C4A6B313F2AFCB000BC17B /* SpeedDataspace.test.cpp in Sources */,
+				A7803C1413F3F20500A42BF7 /* TimeDataspace.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +346,7 @@
 				A7F5F29B13F17531004761DD /* GainDataspace.test.cpp in Sources */,
 				A7720F5E13F1797800383162 /* DistanceDataspace.test.cpp in Sources */,
 				A7C4A6B213F2AFCB000BC17B /* SpeedDataspace.test.cpp in Sources */,
+				A7803C1313F3F20500A42BF7 /* TimeDataspace.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

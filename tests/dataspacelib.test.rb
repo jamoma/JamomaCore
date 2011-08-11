@@ -32,3 +32,8 @@ o.send "test"
 
 puts
 
+puts "TESTING TIME DATASPACE"
+o = TTObject.new "dataspace.time"
+o.send "test"
+
+puts
