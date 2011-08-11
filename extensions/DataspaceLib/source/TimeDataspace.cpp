@@ -25,13 +25,13 @@ MillisecondUnit::~MillisecondUnit(){;}
 
 void MillisecondUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = input;
+	output = 0.001*TTFloat64(input);
 }
 
 
 void MillisecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output = input;
+	output = 1000*TTFloat64(input);
 }
 
 
@@ -52,9 +52,8 @@ TTDataspaceUnit(arguments)
 	TTValue globalSampleRate;	
 	
 	ttEnvironment->getAttributeValue(TT("sr"), globalSampleRate);
-	sample_rate = globalSampleRate; 	//was: sample_rate = (long)DEFAULT_SAMPLE_RATE; [NP]
-	msr = double(sample_rate) / 1000.0;
-	rmsr = 1.0 / msr;
+	sampleRate = globalSampleRate; 	//was: sample_rate = (long)DEFAULT_SAMPLE_RATE; [NP]
+	inverseSampleRate = 1.0 / sampleRate;
 }
 
 SampleUnit::~SampleUnit()
@@ -62,12 +61,12 @@ SampleUnit::~SampleUnit()
 
 void SampleUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = TTFloat64(input) * rmsr;
+	output = TTFloat64(input) * inverseSampleRate;
 }
 
 void SampleUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output = TTFloat64(input) * msr;
+	output = TTFloat64(input) * inverseSampleRate;
 }
 
 
@@ -90,12 +89,12 @@ SecondUnit::~SecondUnit(){;}
 
 void SecondUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = TTFloat64(input) * 1000.0;
+	output = input;
 }
 
 void SecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output = TTFloat64(input) * 0.001;
+	output = input;
 }
 
 
@@ -119,13 +118,13 @@ UpdaterateUnit::~UpdaterateUnit(){;}
 void UpdaterateUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {   
 	//TODO: prevent division with zero
-	output = 1000.0 / TTFloat64(input);
+	output = 1.0 / TTFloat64(input);
 }
 
 void UpdaterateUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
 	//TODO: prevent division with zero
-	output = 1000.0 / TTFloat64(input);
+	output = 1.0 / TTFloat64(input);
 }
 
 
@@ -149,13 +148,13 @@ BpmUnit::~BpmUnit(){;}
 void BpmUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	//TODO: prevent division with zero
-	output = 60000.0 / TTFloat64(input);
+	output = 60.0 / TTFloat64(input);
 }
 
 void BpmUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
 	//TODO: prevent division with zero
-	output = 60000.0 / TTFloat64(input);
+	output = 60.0 / TTFloat64(input);
 }
 
 
@@ -184,7 +183,7 @@ TT_OBJECT_CONSTRUCTOR
 	registerUnit(TT("unit.sample"),	TT("sample"));
 	
 	// Set our neutral unit (the unit through which all conversions are made)
-	neutralUnit = TT("millisecond");
+	neutralUnit = TT("second");
 	
 	// Now that the cache is created, we can create a set of default units
 	// Typically this should be the neutral unit
