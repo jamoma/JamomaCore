@@ -113,7 +113,31 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);
+
+    // MIDI => second (2 tests at MIDI notes 48 and 60)
     
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+    
+    v = TTValue(57.);
+    expected = TTValue(1./220.);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("MIDI note 57 to second", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+
+    v = TTValue(69.);
+    expected = TTValue(1./440.);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("MIDI note 69 to second", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
     
     /************************************************/
     /*                                              */
@@ -183,6 +207,31 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     myDataspace->sendMessage(TT("convert"), v);    
     
     TTTestAssertion("Seconds to beats per minute", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    // Second => MIDI (2 tests at MIDI notes 48 and 60)
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));    
+    
+    v = TTValue(1./220.);
+    expected = TTValue(57.);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Second to MIDI note 57", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    v = TTValue(1./440.);
+    expected = TTValue(69.);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Second to MIDI note 69", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);

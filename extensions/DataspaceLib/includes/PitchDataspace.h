@@ -23,13 +23,6 @@ public:
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class MidiPitchUnit : public TTDataObject, public TTDataspaceUnit {
-	TTCLASS_SETUP(MidiPitchUnit)
-public:
-	void convertToNeutral(const TTValue& input, TTValue& output);
-	void convertFromNeutral(const TTValue& input, TTValue& output);	
-};
-
 class FrequencyUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(FrequencyUnit)
 public:

@@ -14,6 +14,23 @@
 /****************************************************************************************************/
 // Class Specifications
 
+
+class BpmUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(BpmUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
+class MidiPitchUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(MidiPitchUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
 class MillisecondUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(MillisecondUnit)
 public:
@@ -44,14 +61,6 @@ public:
 
 class UpdaterateUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(UpdaterateUnit)
-public:
-	void convertToNeutral(const TTValue& input, TTValue& output);
-	void convertFromNeutral(const TTValue& input, TTValue& output);	
-};
-
-
-class BpmUnit : public TTDataObject, public TTDataspaceUnit {
-	TTCLASS_SETUP(BpmUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	

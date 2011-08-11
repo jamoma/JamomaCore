@@ -12,10 +12,6 @@
 #include <math.h>
 
 
-#define thisTTClass			MidiPitchUnit
-#define thisTTClassName		"unit.midi.pitch"
-#define thisTTClassTags		"dataspace.unit, pitch"
-
 #ifdef TT_PLATFORM_WIN
 template <typename T> T asinh(T value)
 {
@@ -28,27 +24,6 @@ template <typename T> T asinh(T value)
 }
 #endif
 
-TT_OBJECT_CONSTRUCTOR,
-TTDataspaceUnit(arguments)
-{;}
-
-MidiPitchUnit::~MidiPitchUnit(){;}		
-
-void MidiPitchUnit::convertToNeutral(const TTValue& input, TTValue& output)
-{
-	output = 440.0 * pow(2.0, (TTFloat64(input) - 69.0) / 12.0);
-}
-
-
-void MidiPitchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
-{
-	output = 69.0 + 12.0 * log(TTFloat64(input)/440.0)/log(2.0);
-}
-
-
-#undef thisTTClass
-#undef thisTTClassName
-#undef thisTTClassTags
 
 /***********************************************************************************************/
 
