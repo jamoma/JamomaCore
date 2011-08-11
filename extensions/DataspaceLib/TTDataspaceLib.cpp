@@ -57,7 +57,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_DataspaceLib(void)
 	
 	PitchDataspace::registerClass();
 	BarkUnit::registerClass();
-	CentUnit::registerClass();
 	FrequencyUnit::registerClass();
 	MelUnit::registerClass();
 	SpeedUnit::registerClass();
@@ -84,6 +83,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_DataspaceLib(void)
 	
 	TimeDataspace::registerClass();
 	BpmUnit::registerClass();
+    CentUnit::registerClass();
     MidiPitchUnit::registerClass();
 	MillisecondUnit::registerClass();
 	SampleUnit::registerClass();

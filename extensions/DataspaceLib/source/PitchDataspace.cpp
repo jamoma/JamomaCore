@@ -27,34 +27,6 @@ template <typename T> T asinh(T value)
 
 /***********************************************************************************************/
 
-#define thisTTClass			CentUnit
-#define thisTTClassName		"unit.cent"
-#define thisTTClassTags		"dataspace.unit, pitch"
-
-TT_OBJECT_CONSTRUCTOR,
-TTDataspaceUnit(arguments)
-{;}
-
-CentUnit::~CentUnit(){;}		
-
-void CentUnit::convertToNeutral(const TTValue& input, TTValue& output)
-{
-	output = 440.0 * pow(2.0, (TTFloat64(input) - 6900.0) / 1200.0);
-}
-
-
-void CentUnit::convertFromNeutral(const TTValue& input, TTValue& output)
-{
-	output = 6900.0 + 1200.0 * log(TTFloat64(input)/440.0)/log(2.0);
-}
-
-
-#undef thisTTClass
-#undef thisTTClassName
-#undef thisTTClassTags
-
-/***********************************************************************************************/
-
 #define thisTTClass			FrequencyUnit
 #define thisTTClassName		"unit.hz"
 #define thisTTClassTags		"dataspace.unit, pitch"
@@ -175,9 +147,7 @@ TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.bark"),		TT("bark"));
-	registerUnit(TT("unit.cent"),		TT("cents"));
 	registerUnit(TT("unit.hz"),			TT("Hz"));
-	registerUnit(TT("unit.midi.pitch"),	TT("midi"));
 	registerUnit(TT("unit.mel"),		TT("mel"));
 	registerUnit(TT("unit.speed"),		TT("speed"));	// Transposition playback speed of buffers or sound files 
 	

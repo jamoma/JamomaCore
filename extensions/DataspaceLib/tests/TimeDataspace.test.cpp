@@ -114,7 +114,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
 
-    // MIDI => second (2 tests at MIDI notes 48 and 60)
+    // MIDI => second (2 tests at MIDI notes 57 and 69)
     
     myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
@@ -138,6 +138,33 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);
+
+    
+    // cents => second (2 tests at cents values 5700 and 6900)
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("cents"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+    
+    v = TTValue(5700.);
+    expected = TTValue(1./220.);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Cent value 5700 to second", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    v = TTValue(6900.);
+    expected = TTValue(1./440.);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Cent value 6900 to second", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
     
     /************************************************/
     /*                                              */
@@ -211,7 +238,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
     
-    // Second => MIDI (2 tests at MIDI notes 48 and 60)
+    // Second => MIDI (2 tests at MIDI notes 57 and 69)
     
     myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));    
@@ -236,6 +263,31 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
 
+    
+    // Second => cents (2 tests at cent values 5700 and 6900)
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("cents"));    
+    
+    v = TTValue(1./220.);
+    expected = TTValue(5700.);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Second to cent value 5700", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    v = TTValue(1./440.);
+    expected = TTValue(6900.);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Second to cent value 6900", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
     
     
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);

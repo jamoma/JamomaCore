@@ -30,13 +30,6 @@ public:
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class CentUnit : public TTDataObject, public TTDataspaceUnit {
-	TTCLASS_SETUP(CentUnit)
-public:
-	void convertToNeutral(const TTValue& input, TTValue& output);
-	void convertFromNeutral(const TTValue& input, TTValue& output);	
-};
-
 class BarkUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(BarkUnit)
 public:

@@ -44,6 +44,37 @@ void BpmUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 
 /****************************************************************************/
+/* Cent                                                                     */
+/****************************************************************************/
+
+#define thisTTClass			CentUnit
+#define thisTTClassName		"unit.cent"
+#define thisTTClassTags		"dataspace.unit, time"
+
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
+CentUnit::~CentUnit(){;}		
+
+void CentUnit::convertToNeutral(const TTValue& input, TTValue& output)
+{
+    output = 1. / (440.0 * pow(2.0, (TTFloat64(input)-6900.0) / 1200.0 ));
+}
+
+
+void CentUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+    output = 6900.0 + 1200.0 * log(1./(440.0*TTFloat64(input)))/log(2.0);
+    
+}
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
+
+/****************************************************************************/
 /* MIDI Pitch                                                               */
 /****************************************************************************/
 
@@ -223,14 +254,16 @@ TT_OBJECT_CONSTRUCTOR
 	// Register unit names for this dataspace, 
 	// and map them to the actual object names implementing the conversion.
 	registerUnit(TT("unit.bpm"),	TT("bpm"));
-	registerUnit(TT("unit.rate"),	TT("fps"));
-	registerUnit(TT("unit.rate"),	TT("Hz"));
+    registerUnit(TT("unit.cent"),	TT("cents"));
     registerUnit(TT("unit.midi"),	TT("midi"));
 	registerUnit(TT("unit.ms"),		TT("ms"));
 	registerUnit(TT("unit.ms"),		TT("millisecond"));
+	registerUnit(TT("unit.rate"),	TT("fps"));
+	registerUnit(TT("unit.rate"),	TT("Hz"));
+	registerUnit(TT("unit.sample"),	TT("sample"));
 	registerUnit(TT("unit.second"),	TT("s"));
 	registerUnit(TT("unit.second"),	TT("second"));
-	registerUnit(TT("unit.sample"),	TT("sample"));
+
 	
 	// Set our neutral unit (the unit through which all conversions are made)
 	neutralUnit = TT("second");
