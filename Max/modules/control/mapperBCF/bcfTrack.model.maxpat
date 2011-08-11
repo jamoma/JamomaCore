@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 304.0, 55.0, 288.0, 376.0 ],
+		"rect" : [ 304.0, 55.0, 224.0, 354.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 304.0, 55.0, 288.0, 376.0 ],
+		"defrect" : [ 304.0, 55.0, 224.0, 354.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,8 +27,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 83.0, 310.0, 100.0, 18.0 ],
-					"text" : "jcom.hub"
+					"patching_rect" : [ 55.0, 309.0, 121.0, 18.0 ],
+					"text" : "jcom.hub @context node"
 				}
 
 			}
