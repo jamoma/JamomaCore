@@ -12,7 +12,6 @@
 #include "GainDataspace.h"
 #include "NoneDataspace.h"
 #include "OrientationDataspace.h"
-#include "PitchDataspace.h"
 #include "PositionDataspace.h"
 #include "SpeedDataspace.h"
 #include "TemperatureDataspace.h"
@@ -54,11 +53,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_DataspaceLib(void)
 	QuaternionUnit::registerClass();
 	EulerUnit::registerClass();
 	AxisUnit::registerClass();
-	
-	PitchDataspace::registerClass();
-	BarkUnit::registerClass();
-	MelUnit::registerClass();
-	
+		
 	PositionDataspace::registerClass();
 	Cartesian3DUnit::registerClass();
 	Cartesian2DUnit::registerClass();
@@ -80,8 +75,10 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_DataspaceLib(void)
 	KelvinUnit::registerClass();
 	
 	TimeDataspace::registerClass();
+    BarkUnit::registerClass();
 	BpmUnit::registerClass();
     CentUnit::registerClass();
+	MelUnit::registerClass();
     MidiPitchUnit::registerClass();
 	MillisecondUnit::registerClass();
 	SampleUnit::registerClass();

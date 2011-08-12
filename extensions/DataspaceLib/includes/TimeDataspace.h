@@ -15,6 +15,14 @@
 // Class Specifications
 
 
+class BarkUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(BarkUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
 class BpmUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(BpmUnit)
 public:
@@ -26,6 +34,14 @@ public:
 
 class CentUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(CentUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
+class MelUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(MelUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	

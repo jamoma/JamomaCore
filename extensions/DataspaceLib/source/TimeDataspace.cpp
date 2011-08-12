@@ -8,6 +8,51 @@
 
 #include "TimeDataspace.h"
 #include "TTFoundationAPI.h"
+#include <math.h>
+
+#ifdef TT_PLATFORM_WIN
+template <typename T> T asinh(T value)
+{
+	T returned;
+	if(value>0)
+		returned = log(value + sqrt(value * value + 1));
+	else
+		returned = -log(-value + sqrt(value * value + 1));
+	return(returned);
+}
+#endif
+
+/****************************************************************************/
+/* Bark                                                                     */
+/****************************************************************************/
+
+#define thisTTClass			BarkUnit
+#define thisTTClassName		"unit.bark"
+#define thisTTClassTags		"dataspace.unit, time"
+
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
+BarkUnit::~BarkUnit(){;}		
+
+void BarkUnit::convertToNeutral(const TTValue& input, TTValue& output)
+{   // code from http://labrosa.ee.columbia.edu/matlab/rastamat/bark2hz.m 
+	output = -1.0 / (600 * sinh(TTFloat64(input)/6));
+}
+
+
+void BarkUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{  // taken from http://labrosa.ee.columbia.edu/matlab/rastamat/hz2bark.m
+	output = 1.0 / (6 * asinh(TTFloat64(input) / 600));
+}
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
+
 
 
 /****************************************************************************/
@@ -99,6 +144,37 @@ void FrequencyUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
 	//TODO: prevent division with zero
 	output = 1.0 / TTFloat64(input);
+}
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
+
+/****************************************************************************/
+/* Mel                                                                      */
+/****************************************************************************/
+
+#define thisTTClass			MelUnit
+#define thisTTClassName		"unit.mel"
+#define thisTTClassTags		"dataspace.unit, time"
+
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
+MelUnit::~MelUnit(){;}		
+
+void MelUnit::convertToNeutral(const TTValue& input, TTValue& output)
+{   // HTK-code from http://labrosa.ee.columbia.edu/matlab/rastamat/mel2hz.m
+	output = 1.0 / (700.0 *(pow(10,(TTFloat64(input)/2595.0))-1.0));
+}
+
+
+void MelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{  // HTK-code from http://labrosa.ee.columbia.edu/matlab/rastamat/hz2mel.m
+	output = 1.0 / (2595.0 * log10(1+TTFloat64(input)/700.0));
 }
 
 
@@ -309,8 +385,10 @@ TT_OBJECT_CONSTRUCTOR
 {	
 	// Register unit names for this dataspace, 
 	// and map them to the actual object names implementing the conversion.
+	registerUnit(TT("unit.bark"),	TT("bark"));
 	registerUnit(TT("unit.bpm"),	TT("bpm"));
     registerUnit(TT("unit.cent"),	TT("cents"));
+	registerUnit(TT("unit.mel"),	TT("mel"));
     registerUnit(TT("unit.midi"),	TT("midi"));
 	registerUnit(TT("unit.ms"),		TT("ms"));
 	registerUnit(TT("unit.ms"),		TT("millisecond"));
