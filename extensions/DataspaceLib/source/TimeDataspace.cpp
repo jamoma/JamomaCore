@@ -44,7 +44,7 @@ void BpmUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 
 /****************************************************************************/
-/* Cent                                                                     */
+/* Cent - MIDI Cents                                                        */
 /****************************************************************************/
 
 #define thisTTClass			CentUnit
@@ -75,6 +75,39 @@ void CentUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 
 /****************************************************************************/
+/* Frequency (Hz)                                                           */
+/****************************************************************************/
+
+#define thisTTClass			FrequencyUnit
+#define thisTTClassName		"unit.rate"
+#define thisTTClassTags		"dataspace.unit, time"
+
+
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
+FrequencyUnit::~FrequencyUnit(){;}		
+
+void FrequencyUnit::convertToNeutral(const TTValue& input, TTValue& output)
+{   
+	//TODO: prevent division with zero
+	output = 1.0 / TTFloat64(input);
+}
+
+void FrequencyUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+	//TODO: prevent division with zero
+	output = 1.0 / TTFloat64(input);
+}
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
+
+/****************************************************************************/
 /* MIDI Pitch                                                               */
 /****************************************************************************/
 
@@ -96,9 +129,10 @@ void MidiPitchUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void MidiPitchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	//output = 69.0 + 12.0 * log(TTFloat64(input)/440.0)/log(2.0);
-    output = 69.0 + 12.0 * log(1./(440.0*TTFloat64(input)))/log(2.0);
-
+    //output = 69.0 + 12.0 * log(1./(440.0*TTFloat64(input)))/log(2.0);
+    
+    // The above can be transformed to the slightly more optimised:
+    output = 69.0 - 12.0 * log(440.0*TTFloat64(input))/log(2.0);
 }
 
 #undef thisTTClass
@@ -139,40 +173,7 @@ void MillisecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 
 /****************************************************************************/
-/* Rate (Hz)                                                                */
-/****************************************************************************/
-
-#define thisTTClass			UpdaterateUnit
-#define thisTTClassName		"unit.rate"
-#define thisTTClassTags		"dataspace.unit, time"
-
-
-TT_OBJECT_CONSTRUCTOR,
-TTDataspaceUnit(arguments)
-{;}
-
-UpdaterateUnit::~UpdaterateUnit(){;}		
-
-void UpdaterateUnit::convertToNeutral(const TTValue& input, TTValue& output)
-{   
-	//TODO: prevent division with zero
-	output = 1.0 / TTFloat64(input);
-}
-
-void UpdaterateUnit::convertFromNeutral(const TTValue& input, TTValue& output)
-{
-	//TODO: prevent division with zero
-	output = 1.0 / TTFloat64(input);
-}
-
-
-#undef thisTTClass
-#undef thisTTClassName
-#undef thisTTClassTags
-
-
-/****************************************************************************/
-/* Sample                                                                   */
+/* Samples - dynamically adjusted for audio environment sample rate         */
 /****************************************************************************/
 
 #define thisTTClass			SampleUnit
@@ -241,6 +242,47 @@ void SecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 
 /****************************************************************************/
+/* Speed - Transposition playback speed of buffers or sound files           */
+/****************************************************************************/
+
+#define thisTTClass			SpeedUnit
+#define thisTTClassName		"unit.speed"
+#define thisTTClassTags		"dataspace.unit, time"
+
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
+SpeedUnit::~SpeedUnit(){;}		
+
+void SpeedUnit::convertToNeutral(const TTValue& input, TTValue& output)
+{
+	TTFloat64 midi;
+    
+    // First to MIDI
+    midi = 12.0 * log(TTFloat64(input))/log(2.0);
+    // Then from midi to neutral (second)
+    output = 1. / (440.0 * pow(2.0, (midi-69.0) / 12.0 ));
+}
+
+
+void SpeedUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+    TTFloat64 midi;
+    
+	// First to MIDI
+    midi = 69.0 - 12.0 * log(440.0*TTFloat64(input))/log(2.0);
+    // And then from MIDI to speed:
+    output = pow(2.0, (midi/12.0));
+}
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
+
+/****************************************************************************/
 /*                                                                          */
 /****************************************************************************/
 
@@ -263,6 +305,7 @@ TT_OBJECT_CONSTRUCTOR
 	registerUnit(TT("unit.sample"),	TT("sample"));
 	registerUnit(TT("unit.second"),	TT("s"));
 	registerUnit(TT("unit.second"),	TT("second"));
+    registerUnit(TT("unit.speed"),	TT("speed"));
 
 	
 	// Set our neutral unit (the unit through which all conversions are made)

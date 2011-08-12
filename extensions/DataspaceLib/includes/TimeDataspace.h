@@ -68,8 +68,16 @@ public:
 };
 
 
-class UpdaterateUnit : public TTDataObject, public TTDataspaceUnit {
-	TTCLASS_SETUP(UpdaterateUnit)
+class SpeedUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(SpeedUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
+class FrequencyUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(FrequencyUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	

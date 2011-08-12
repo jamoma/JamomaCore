@@ -290,5 +290,85 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					errorCount);
     
     
+    /************************************************/
+    /*                                              */
+    /* Tests bypassing neutral unit                 */
+    /* - where this helps predict expected result   */
+    /*                                              */
+    /************************************************/
+
+    // Speed => MIDI (tests for Speed = 0.5, 1.0 and 2)
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("speed"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));
+    
+    v = TTValue(0.5);
+    expected = TTValue(-12.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("0.5 speed to MIDI", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+
+    v = TTValue(1.0);
+    expected = TTValue(0.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("1.0 speed to MIDI", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    v = TTValue(2.0);
+    expected = TTValue(12.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("2.0 speed to MIDI", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    // MIDI => Speed (tests for Speed = 0.5, 1.0 and 2)
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("speed")); 
+    
+    v = TTValue(-12.0);
+    expected = TTValue(0.5);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("-12 MIDI to speed", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    v = TTValue(0.0);
+    expected = TTValue(1.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("0 MIDI to speed", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    v = TTValue(12.0);
+    expected = TTValue(2.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("12 MIDI to speed", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);  
+
+
+    
+    
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

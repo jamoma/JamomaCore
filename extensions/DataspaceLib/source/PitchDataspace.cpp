@@ -27,62 +27,6 @@ template <typename T> T asinh(T value)
 
 /***********************************************************************************************/
 
-#define thisTTClass			FrequencyUnit
-#define thisTTClassName		"unit.hz"
-#define thisTTClassTags		"dataspace.unit, pitch"
-
-TT_OBJECT_CONSTRUCTOR,
-TTDataspaceUnit(arguments)
-{;}
-
-FrequencyUnit::~FrequencyUnit(){;}		
-		
-void FrequencyUnit::convertToNeutral(const TTValue& input, TTValue& output)
-{
-	output = input;
-}
-
-
-void FrequencyUnit::convertFromNeutral(const TTValue& input, TTValue& output)
-{
-	output = input;
-}
-
-
-#undef thisTTClass
-#undef thisTTClassName
-#undef thisTTClassTags
-
-/***********************************************************************************************/
-
-#define thisTTClass			SpeedUnit
-#define thisTTClassName		"unit.speed"
-#define thisTTClassTags		"dataspace.unit, pitch"
-
-TT_OBJECT_CONSTRUCTOR,
-TTDataspaceUnit(arguments)
-{;}
-
-SpeedUnit::~SpeedUnit(){;}		
-
-void SpeedUnit::convertToNeutral(const TTValue& input, TTValue& output)
-{
-	output = TTFloat64(input) * 440.0 / pow(2.0, 69.0/12.0);
-}
-
-
-void SpeedUnit::convertFromNeutral(const TTValue& input, TTValue& output)
-{
-	output = TTFloat64(input) * pow(2.0, 69.0/12.0) / 440.0;
-}
-
-
-#undef thisTTClass
-#undef thisTTClassName
-#undef thisTTClassTags
-
-/***********************************************************************************************/
-
 #define thisTTClass			BarkUnit
 #define thisTTClassName		"unit.bark"
 #define thisTTClassTags		"dataspace.unit, pitch"
@@ -147,9 +91,7 @@ TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.bark"),		TT("bark"));
-	registerUnit(TT("unit.hz"),			TT("Hz"));
 	registerUnit(TT("unit.mel"),		TT("mel"));
-	registerUnit(TT("unit.speed"),		TT("speed"));	// Transposition playback speed of buffers or sound files 
 	
 	// Set our neutral unit (the unit through which all conversions are made)
 	neutralUnit = TT("Hz");
