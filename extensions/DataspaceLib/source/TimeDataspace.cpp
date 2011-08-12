@@ -257,23 +257,37 @@ SpeedUnit::~SpeedUnit(){;}
 
 void SpeedUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	TTFloat64 midi;
+	/*
+     Here's one way of converting:
+     
+     TTFloat64 midi;
     
-    // First to MIDI
-    midi = 12.0 * log(TTFloat64(input))/log(2.0);
-    // Then from midi to neutral (second)
-    output = 1. / (440.0 * pow(2.0, (midi-69.0) / 12.0 ));
+     // 1) speed => midi
+     midi = 12.0 * log(TTFloat64(input))/log(2.0);
+     // 2) midi => second
+     output = 1. / (440.0 * pow(2.0, (midi-69.0) / 12.0 ));
+     */
+    
+    // This is an optimized version of the above:
+    output = pow(2.0, 69./12.) / (440.0*TTFloat64(input));
 }
 
 
 void SpeedUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-    TTFloat64 midi;
+    /*
+     Here's one way of converting from second to speed:
     
-	// First to MIDI
-    midi = 69.0 - 12.0 * log(440.0*TTFloat64(input))/log(2.0);
-    // And then from MIDI to speed:
-    output = pow(2.0, (midi/12.0));
+     TTFloat64 midi;
+    
+     // 1) second => midi
+     midi = 69.0 - 12.0 * log(440.0*TTFloat64(input))/log(2.0);
+     // 2) midi => speed
+     output = pow(2.0, (midi/12.0));
+     */
+    
+    // Optimized in a similar way to the above:
+    output = pow(2.0, 69./12.) / (440.0*TTFloat64(input));
 }
 
 
