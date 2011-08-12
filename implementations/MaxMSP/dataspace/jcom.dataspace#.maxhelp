@@ -165,7 +165,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
 					"patching_rect" : [ 30.0, 215.0, 315.0, 19.0 ],
-					"text" : "jcom.dataspace# @dataspace pitch @input midi @output hz"
+					"text" : "jcom.dataspace# @dataspace time @input midi @output hz"
 				}
 
 			}
