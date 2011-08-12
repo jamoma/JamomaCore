@@ -251,7 +251,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
 					"patching_rect" : [ 45.0, 80.0, 117.0, 69.0 ],
-					"text" : "dataspace# @dataspace pitch @input midi @output hertz"
+					"text" : "dataspace# @dataspace time @input midi @output hertz"
 				}
 
 			}
