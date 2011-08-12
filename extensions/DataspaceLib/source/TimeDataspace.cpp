@@ -38,7 +38,7 @@ BarkUnit::~BarkUnit(){;}
 
 void BarkUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {   // code from http://labrosa.ee.columbia.edu/matlab/rastamat/bark2hz.m 
-	output = -1.0 / (600 * sinh(TTFloat64(input)/6));
+	output = 1.0 / (600 * sinh(TTFloat64(input)/6));
 }
 
 
