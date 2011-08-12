@@ -147,7 +147,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 450.0, 155.0, 322.0, 19.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input midi @output cents"
+									"text" : "jcom.dataspace @dataspace time @input midi @output cents"
 								}
 
 							}
@@ -188,7 +188,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 75.0, 155.0, 322.0, 19.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input midi @output cents"
+									"text" : "jcom.dataspace @dataspace time @input midi @output cents"
 								}
 
 							}
@@ -1413,7 +1413,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 135.0, 455.0, 102.0, 55.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input Hz @output cents"
+									"text" : "jcom.dataspace @dataspace time @input Hz @output cents"
 								}
 
 							}
@@ -1548,7 +1548,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 500.0, 145.0, 106.0, 55.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input speed @output Hz"
+									"text" : "jcom.dataspace @dataspace time @input speed @output Hz"
 								}
 
 							}
@@ -1563,7 +1563,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 375.0, 145.0, 104.0, 55.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input midi @output Hz"
+									"text" : "jcom.dataspace @dataspace time @input midi @output Hz"
 								}
 
 							}
@@ -1578,7 +1578,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 255.0, 145.0, 101.0, 55.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input Hz @output Hz"
+									"text" : "jcom.dataspace @dataspace time @input Hz @output Hz"
 								}
 
 							}
@@ -1593,7 +1593,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 130.0, 145.0, 112.0, 55.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input cents @output Hz"
+									"text" : "jcom.dataspace @dataspace time @input cents @output Hz"
 								}
 
 							}
@@ -1608,7 +1608,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 505.0, 455.0, 104.0, 55.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input Hz @output speed"
+									"text" : "jcom.dataspace @dataspace time @input Hz @output speed"
 								}
 
 							}
@@ -1623,7 +1623,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 380.0, 455.0, 101.0, 55.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input Hz @output midi"
+									"text" : "jcom.dataspace @dataspace time @input Hz @output midi"
 								}
 
 							}
@@ -1638,7 +1638,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 260.0, 455.0, 92.0, 55.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input Hz @output Hz"
+									"text" : "jcom.dataspace @dataspace time @input Hz @output Hz"
 								}
 
 							}
@@ -1991,7 +1991,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 375.0, 165.0, 183.0, 31.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input nonsense @output midi"
+									"text" : "jcom.dataspace @dataspace time @input nonsense @output midi"
 								}
 
 							}
@@ -2063,7 +2063,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 660.0, 165.0, 183.0, 31.0 ],
-									"text" : "jcom.dataspace @dataspace pitch @input midi @output nonsense"
+									"text" : "jcom.dataspace @dataspace time @input midi @output nonsense"
 								}
 
 							}
