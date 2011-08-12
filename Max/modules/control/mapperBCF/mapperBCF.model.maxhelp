@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 30.0, 55.0, 458.0, 529.0 ],
+		"rect" : [ 30.0, 55.0, 437.0, 489.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 30.0, 55.0, 458.0, 529.0 ],
+		"defrect" : [ 30.0, 55.0, 437.0, 489.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,40 +20,15 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-9",
-					"maxclass" : "button",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 97.0, 155.0, 20.0, 20.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 10.0,
+					"args" : [ "/BCF" ],
 					"id" : "obj-1",
-					"maxclass" : "newobj",
+					"maxclass" : "bpatcher",
+					"name" : "mapperBCF.view.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 77.0, 193.0, 136.0, 18.0 ],
-					"text" : "jcom.send /BCF/track.*/*.*/*"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 10.0,
-					"id" : "obj-7",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 129.0, 484.0, 100.0, 18.0 ],
-					"text" : "jcom.namespace"
+					"patching_rect" : [ 66.0, 110.0, 150.0, 70.0 ],
+					"presentation_rect" : [ 60.0, 60.0, 150.0, 70.0 ]
 				}
 
 			}
@@ -66,7 +41,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 228.0, 130.0, 150.0, 18.0 ],
+					"patching_rect" : [ 218.0, 110.0, 150.0, 18.0 ],
 					"text" : "<- everything's in here"
 				}
 
@@ -78,7 +53,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 315.5, 414.0, 58.0, 44.0 ]
+					"patching_rect" : [ 305.5, 394.0, 58.0, 44.0 ]
 				}
 
 			}
@@ -89,7 +64,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 241.5, 414.0, 58.0, 44.0 ]
+					"patching_rect" : [ 231.5, 394.0, 58.0, 44.0 ]
 				}
 
 			}
@@ -100,7 +75,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 167.0, 414.0, 58.0, 44.0 ]
+					"patching_rect" : [ 157.0, 394.0, 58.0, 44.0 ]
 				}
 
 			}
@@ -370,12 +345,12 @@
 ,
 									"patching_rect" : [ 50.0, 155.0, 42.0, 18.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontname" : "Arial",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
+										"fontname" : "Arial",
+										"default_fontface" : 0,
 										"globalpatchername" : ""
 									}
 ,
@@ -478,14 +453,14 @@
  ]
 					}
 ,
-					"patching_rect" : [ 78.0, 236.0, 54.0, 18.0 ],
+					"patching_rect" : [ 68.0, 225.0, 54.0, 18.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
 						"default_fontsize" : 10.0,
+						"fontname" : "Arial",
+						"default_fontface" : 0,
 						"globalpatchername" : ""
 					}
 ,
@@ -502,7 +477,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 78.0, 381.0, 59.0, 18.0 ],
+					"patching_rect" : [ 68.0, 361.0, 59.0, 18.0 ],
 					"text" : "route /fps"
 				}
 
@@ -517,8 +492,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 78.0, 405.0, 61.0, 27.0 ],
-					"text" : "ui/out/mute 0"
+					"patching_rect" : [ 68.0, 385.0, 61.0, 27.0 ],
+					"text" : "model/address "
 				}
 
 			}
@@ -531,7 +506,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 312.0, 385.0, 67.0, 18.0 ],
+					"patching_rect" : [ 302.0, 365.0, 67.0, 18.0 ],
 					"text" : "movie.model"
 				}
 
@@ -545,7 +520,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 236.0, 385.0, 67.0, 18.0 ],
+					"patching_rect" : [ 226.0, 365.0, 67.0, 18.0 ],
 					"text" : "movie.model"
 				}
 
@@ -559,7 +534,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 160.0, 384.0, 67.0, 18.0 ],
+					"patching_rect" : [ 150.0, 364.0, 67.0, 18.0 ],
 					"text" : "movie.model"
 				}
 
@@ -573,7 +548,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 78.0, 270.0, 300.0, 105.0 ],
+					"patching_rect" : [ 68.0, 250.0, 300.0, 105.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ]
 				}
 
@@ -587,7 +562,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 261.0, 191.0, 124.0, 18.0 ],
+					"patching_rect" : [ 68.0, 201.0, 124.0, 18.0 ],
 					"text" : "mapperBCF.model /BCF"
 				}
 
@@ -621,7 +596,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-24", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 270.5, 229.0, 87.5, 229.0 ],
+					"midpoints" : [ 77.5, 218.0, 77.5, 218.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -668,15 +643,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-6", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-9", 0 ]
 				}
 
 			}

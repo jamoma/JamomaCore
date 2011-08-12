@@ -239,12 +239,12 @@
 ,
 					"patching_rect" : [ 226.0, 33.0, 32.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"globalpatchername" : ""
 					}
 ,
@@ -428,12 +428,12 @@
 ,
 					"patching_rect" : [ 375.0, 93.0, 19.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"globalpatchername" : ""
 					}
 ,
@@ -487,7 +487,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 226.0, 62.0, 168.0, 15.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 56.0, 15.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 54.0, 15.0 ],
 					"togcolor" : [ 0.643137, 0.643137, 0.643137, 1.0 ],
 					"truncate" : 2,
 					"types" : [  ]

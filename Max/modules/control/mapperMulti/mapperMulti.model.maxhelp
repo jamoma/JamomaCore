@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 89.0, 82.0, 877.0, 384.0 ],
+		"rect" : [ 89.0, 82.0, 857.0, 370.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 89.0, 82.0, 877.0, 384.0 ],
+		"defrect" : [ 89.0, 82.0, 857.0, 370.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,7 +27,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 60.0, 119.0, 750.0, 70.0 ],
+					"patching_rect" : [ 60.0, 111.0, 750.0, 70.0 ],
 					"presentation_rect" : [ 75.0, 75.0, 750.0, 70.0 ]
 				}
 
@@ -41,7 +41,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 244.0, 92.0, 558.0, 18.0 ],
+					"patching_rect" : [ 244.0, 84.0, 558.0, 18.0 ],
 					"text" : "the first menu allows to choose which mapperMuli model is managed, the number box, which mapper of this model is edited"
 				}
 
@@ -68,8 +68,9 @@
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
 					"name" : "mouse.view.maxpat",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 377.0, 217.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 150.0, 70.0 ]
 				}
@@ -86,9 +87,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 403.0, 315.0 ],
+						"rect" : [ 162.0, 555.0, 247.0, 194.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 403.0, 315.0 ],
+						"defrect" : [ 162.0, 555.0, 247.0, 194.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -107,12 +108,26 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"id" : "obj-3",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 26.0, 73.0, 171.0, 18.0 ],
+									"text" : "jcom.oscroute /out/address"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 10.0,
 									"id" : "obj-15",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 82.0, 179.0, 118.0, 18.0 ],
+									"patching_rect" : [ 26.0, 128.0, 118.0, 18.0 ],
 									"text" : "prepend model/address"
 								}
 
@@ -311,15 +326,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 82.0, 154.0, 42.0, 18.0 ],
+									"patching_rect" : [ 26.0, 103.0, 42.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
 										"globalpatchername" : "",
 										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontname" : "Arial",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"fontname" : "Arial"
 									}
 ,
 									"text" : "p slash"
@@ -335,8 +350,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 80.0, 123.0, 152.0, 18.0 ],
-									"text" : "route mapper(view)/out/address"
+									"patching_rect" : [ 26.0, 46.0, 171.0, 18.0 ],
+									"text" : "jcom.oscroute mapper.*/out/address"
 								}
 
 							}
@@ -348,7 +363,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
+									"patching_rect" : [ 26.0, 10.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -359,14 +374,14 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 82.0, 257.0, 25.0, 25.0 ]
+									"patching_rect" : [ 25.0, 155.0, 25.0, 25.0 ]
 								}
 
 							}
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-14", 0 ],
+									"destination" : [ "obj-3", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-13", 0 ]
@@ -400,18 +415,27 @@
 								}
 
 							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-14", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
  ]
 					}
 ,
 					"patching_rect" : [ 60.0, 194.0, 84.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
 						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontname" : "Arial",
-						"default_fontsize" : 10.0
+						"default_fontsize" : 10.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p model/address"
@@ -545,8 +569,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-18", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
+					"midpoints" : [ 558.5, 243.0, 546.0, 243.0, 546.0, 189.0, 69.5, 189.0 ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 558.5, 267.0, 546.0, 267.0, 546.0, 189.0, 69.5, 189.0 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}
