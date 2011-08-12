@@ -1585,7 +1585,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 	if (ac && av) {
 		
 		// for model : the first argument is the name
-		if (context == kTTSym_model || hierarchy == _sym_subpatcher)
+		if (context == kTTSym_model || context == kTTSym_node || hierarchy == _sym_subpatcher)
 			argName = atom_getsym(av);
 		
 		// for view : the second argument is the name
