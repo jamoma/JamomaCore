@@ -39,7 +39,7 @@ TTBoolean TTFOUNDATION_EXPORT TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64
     @expectedResult         The expected result when comparing the two floats a and b. Defaults to TRUE
     @maxUnitsInTheLastPlace Error tolerance when comparing the numbers. Defaults to 10
     @return					Returns true if a == b, otherwise returns false.	*/
-TTBoolean TTTestFloat32ArrayEquivalence(TTValue &aFloat, TTValue &bFloat, TTBoolean expectedResult = true, TTFloat32 epsilon = 0.000001);
+TTBoolean TTFOUNDATION_EXPORT TTTestFloat32ArrayEquivalence(TTValue &aFloat, TTValue &bFloat, TTBoolean expectedResult = true, TTFloat32 epsilon = 0.000001);
 
 /**	Determine if two arrays of 64-bit floats are equal in value, but tolerant of floating-point precision.
     @group unittest
@@ -48,7 +48,7 @@ TTBoolean TTTestFloat32ArrayEquivalence(TTValue &aFloat, TTValue &bFloat, TTBool
     @expectedResult         The expected result when comparing the two floats a and b. Defaults to TRUE
     @maxUnitsInTheLastPlace Error tolerance when comparing the numbers. Defaults to 10
     @return					Returns true if a == b, otherwise returns false.	*/
-TTBoolean TTTestFloat64ArrayEquivalence(TTValue &aFloat, TTValue &bFloat, TTBoolean expectedResult = true, TTFloat64 epsilon = 0.0000000000001);
+TTBoolean TTFOUNDATION_EXPORT TTTestFloat64ArrayEquivalence(TTValue &aFloat, TTValue &bFloat, TTBoolean expectedResult = true, TTFloat64 epsilon = 0.0000000000001);
 
 
 /**	Post a message to the console.
