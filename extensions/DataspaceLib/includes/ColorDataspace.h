@@ -52,6 +52,9 @@ public:
 // Specification of our base class
 class ColorDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(ColorDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 

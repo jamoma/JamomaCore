@@ -37,3 +37,9 @@ o = TTObject.new "dataspace.time"
 o.send "test"
 
 puts
+
+puts "TESTING COLOR DATASPACE"
+o = TTObject.new "dataspace.color"
+o.send "test"
+
+puts
