@@ -40,6 +40,9 @@ public:
 // Specification of our base class
 class OrientationDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(OrientationDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 #endif // __ORIENTATIONDATASPACE_H__

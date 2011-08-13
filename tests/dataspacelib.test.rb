@@ -43,3 +43,15 @@ o = TTObject.new "dataspace.color"
 o.send "test"
 
 puts
+
+puts "TESTING COLOR DATASPACE"
+o = TTObject.new "dataspace.position"
+o.send "test"
+
+puts
+
+puts "TESTING COLOR DATASPACE"
+o = TTObject.new "dataspace.orientation"
+o.send "test"
+
+puts

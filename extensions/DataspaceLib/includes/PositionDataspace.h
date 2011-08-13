@@ -62,6 +62,9 @@ public:
 // Specification of our base class
 class PositionDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(PositionDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 #endif // __POSITIONDATASPACE_H__
