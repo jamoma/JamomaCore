@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 419.0, 63.0, 768.0, 375.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 419.0, 63.0, 800.0, 494.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 419.0, 63.0, 768.0, 375.0 ],
+		"defrect" : [ 419.0, 63.0, 800.0, 494.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -52,7 +58,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 340.0, 330.0, 252.0, 19.0 ],
+					"patching_rect" : [ 345.0, 425.0, 252.0, 19.0 ],
 					"text" : "http://redmine.jamoma.org/issues/show/42"
 				}
 
@@ -67,7 +73,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 260.0, 270.0, 150.0, 55.0 ],
+					"patching_rect" : [ 265.0, 365.0, 150.0, 55.0 ],
 					"text" : "this test is disconnected because it is testing something we haven't implemented."
 				}
 
@@ -79,7 +85,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 235.0, 300.0, 20.0, 20.0 ]
+					"patching_rect" : [ 240.0, 395.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -93,6 +99,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 142.0, 177.0, 966.0, 487.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 142.0, 177.0, 966.0, 487.0 ],
@@ -262,15 +274,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 235.0, 330.0, 104.0, 19.0 ],
+					"patching_rect" : [ 240.0, 425.0, 104.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p DealingWithLists"
@@ -298,6 +310,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 14.0, 49.0, 1315.0, 783.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 14.0, 49.0, 1315.0, 783.0 ],
@@ -316,6 +334,34 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-17",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "int", "bang" ],
+									"patching_rect" : [ 140.0, 685.0, 32.5, 19.0 ],
+									"text" : "t i b"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-16",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 155.0, 705.0, 222.0, 17.0 ],
+									"text" : "-- http://redmine.jamoma.org/issues/749"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -349,12 +395,11 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-23",
-									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 140.0, 685.0, 264.0, 43.0 ],
-									"text" : "test.assert.equal TEST/Dataspace/color/pointersNotMixedUp(#749) 1"
+									"patching_rect" : [ 140.0, 735.0, 325.0, 19.0 ],
+									"text" : "test.assert.equal TEST/Dataspace/color/pointersNotMixedUp 1"
 								}
 
 							}
@@ -919,6 +964,33 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-23", 1 ],
+									"hidden" : 0,
+									"midpoints" : [ 164.5, 728.0, 455.5, 728.0 ],
+									"source" : [ "obj-16", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-16", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-17", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-23", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-17", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-19", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -955,7 +1027,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-23", 0 ],
+									"destination" : [ "obj-17", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-20", 0 ]
@@ -1193,12 +1265,12 @@
 					"patching_rect" : [ 470.0, 210.0, 118.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p ColorDataspaceTest"
@@ -1237,9 +1309,15 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 512.0, 101.0, 928.0, 692.0 ],
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
+						"rect" : [ 22.0, 52.0, 1310.0, 724.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 512.0, 101.0, 928.0, 692.0 ],
+						"defrect" : [ 22.0, 52.0, 1310.0, 724.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1255,6 +1333,147 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-20",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 130.0, 20.0, 355.0, 31.0 ],
+									"text" : "August 2011 Pitch and Time datasapces were merged, and native unit was changed from Hz to second. Not all tests are updated yet.",
+									"textcolor" : [ 1.0, 0.0, 0.0, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-18",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "int", "bang" ],
+									"patching_rect" : [ 875.0, 575.0, 32.5, 19.0 ],
+									"text" : "t i b"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-17",
+									"maxclass" : "number",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "int", "bang" ],
+									"patching_rect" : [ 995.0, 525.0, 50.0, 19.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-26",
+									"linecount" : 3,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 1145.0, 610.0, 154.0, 41.0 ],
+									"text" : "-- http://redmine.jamoma.org/issues/917"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-24",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "float", "bang" ],
+									"patching_rect" : [ 875.0, 435.0, 38.0, 19.0 ],
+									"text" : "t 1. b"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-5",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"patching_rect" : [ 875.0, 550.0, 139.0, 19.0 ],
+									"text" : "=="
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-14",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 0,
+									"patching_rect" : [ 875.0, 680.0, 288.0, 19.0 ],
+									"text" : "test.assert.equal Testdataspace/time/neutral2sample 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-6",
+									"maxclass" : "number",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "int", "bang" ],
+									"patching_rect" : [ 875.0, 525.0, 50.0, 19.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-12",
+									"linecount" : 4,
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 875.0, 465.0, 100.0, 55.0 ],
+									"text" : "jcom.dataspace @dataspace time @input second @output sample"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-16",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 4,
+									"outlettype" : [ "int", "float", "int", "int" ],
+									"patching_rect" : [ 980.0, 465.0, 61.0, 19.0 ],
+									"text" : "dspstate~"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -1344,7 +1563,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 505.0, 545.0, 315.0, 19.0 ],
+									"patching_rect" : [ 510.0, 545.0, 315.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/neutralspeed 2."
 								}
 
@@ -1357,7 +1576,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 380.0, 570.0, 319.0, 19.0 ],
+									"patching_rect" : [ 385.0, 570.0, 319.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/neutral2midi 69."
 								}
 
@@ -1395,10 +1614,10 @@
 									"id" : "obj-53",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 4,
-									"outlettype" : [ "float", "float", "float", "float" ],
-									"patching_rect" : [ 135.0, 405.0, 151.0, 19.0 ],
-									"text" : "t 440. 440. 440. 16.351599"
+									"numoutlets" : 5,
+									"outlettype" : [ "float", "float", "float", "float", "bang" ],
+									"patching_rect" : [ 135.0, 405.0, 518.0, 19.0 ],
+									"text" : "t 440. 440. 440. 16.351599 b"
 								}
 
 							}
@@ -1607,7 +1826,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 505.0, 455.0, 104.0, 55.0 ],
+									"patching_rect" : [ 510.0, 455.0, 104.0, 55.0 ],
 									"text" : "jcom.dataspace @dataspace time @input Hz @output speed"
 								}
 
@@ -1622,7 +1841,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 380.0, 455.0, 101.0, 55.0 ],
+									"patching_rect" : [ 385.0, 455.0, 101.0, 55.0 ],
 									"text" : "jcom.dataspace @dataspace time @input Hz @output midi"
 								}
 
@@ -1663,6 +1882,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-6", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-12", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-53", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -1681,10 +1909,73 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-17", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-16", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 1 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-17", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-14", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-18", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-26", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 898.0, 601.5, 1154.5, 601.5 ],
+									"source" : [ "obj-18", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-8", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-12", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-24", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-16", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 903.5, 460.5, 989.5, 460.5 ],
+									"source" : [ "obj-24", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-14", 1 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-26", 0 ]
 								}
 
 							}
@@ -1703,6 +1994,24 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-18", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-24", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 643.5, 429.0, 884.5, 429.0 ],
+									"source" : [ "obj-53", 4 ]
 								}
 
 							}
@@ -1798,6 +2107,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-61", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -1853,18 +2171,18 @@
  ]
 					}
 ,
-					"patching_rect" : [ 345.0, 210.0, 116.0, 19.0 ],
+					"patching_rect" : [ 345.0, 210.0, 117.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
-					"text" : "p PitchDataspaceTest"
+					"text" : "p TimeDataspaceTest"
 				}
 
 			}
@@ -1878,6 +2196,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 25.0, 69.0, 1043.0, 421.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 25.0, 69.0, 1043.0, 421.0 ],
@@ -2235,12 +2559,12 @@
 					"patching_rect" : [ 595.0, 210.0, 147.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p test_units_are_nonsense"
