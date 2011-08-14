@@ -165,7 +165,37 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
     
+	
+    // Bark => second
     
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("bark"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+    
+    v = TTValue(5.0);
+    expected = TTValue(0.001785991);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Bark to second", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+	// Mel => second
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("mel"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+    
+    v = TTValue(5.0);
+    expected = TTValue(0.003);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Mel to second", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+	
     /************************************************/
     /*                                              */
     /* Test conversions from neutral unit           */
@@ -225,8 +255,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     
     // Second => Beats per minute
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("bpm"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("bpm"));    
     
     v = TTValue(0.5);
     expected = TTValue(120.);
@@ -289,7 +319,36 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
     
+	// Second => Bark
     
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("bark"));    
+    
+    v = TTValue(0.001785991);
+    expected = TTValue(5.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Seconds to bark scale", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+	// Second => Mel
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("mel"));    
+    
+    v = TTValue(0.003);
+    expected = TTValue(5.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Seconds to mel scale", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+	
     /************************************************/
     /*                                              */
     /* Tests bypassing neutral unit                 */
@@ -299,7 +358,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 
     // Speed => MIDI (tests for Speed = 0.5, 1.0 and 2)
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("speed"));
+	myDataspace->setAttributeValue(TT("inputUnit"), TT("speed"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));
     
     v = TTValue(0.5);
@@ -332,7 +391,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
     
-    // MIDI => Speed (tests for Speed = 0.5, 1.0 and 2)
+    // MIDI => Speed (tests for Speed = 0.5, 1.0 and 2)*/
     
     myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("speed")); 
@@ -368,7 +427,20 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					errorCount);  
 
 
+    // Hz => Mel
     
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("Hz"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("mel"));    
     
+    v = TTValue(200.0);
+    expected = TTValue(3.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("Hz to mel scale", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+	    
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
