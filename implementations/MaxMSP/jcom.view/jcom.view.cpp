@@ -175,7 +175,7 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 void WrappedViewerClass_free(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	free(EXTRA->ui_qelem);
+	qelem_free(EXTRA->ui_qelem);
 	free(EXTRA);
 }
 
