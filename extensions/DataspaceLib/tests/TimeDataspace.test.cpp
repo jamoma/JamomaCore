@@ -172,7 +172,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
     
     v = TTValue(5.0);
-    expected = TTValue(0.001785991);
+    expected = TTValue(0.001785990780318596);
     
     myDataspace->sendMessage(TT("convert"), v);    
     
@@ -186,8 +186,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("mel"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
     
-    v = TTValue(5.0);
-    expected = TTValue(0.003);
+    v = TTValue(1000.0);
+    expected = TTValue(0.0009999781840186604);
     
     myDataspace->sendMessage(TT("convert"), v);    
     
@@ -324,7 +324,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("bark"));    
     
-    v = TTValue(0.001785991);
+    v = TTValue(0.001785990780318596);
     expected = TTValue(5.0);
     
     myDataspace->sendMessage(TT("convert"), v);    
@@ -339,8 +339,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("mel"));    
     
-    v = TTValue(0.003);
-    expected = TTValue(5.0);
+    v = TTValue(0.001);
+    expected = TTValue(999.9855371396243);
     
     myDataspace->sendMessage(TT("convert"), v);    
     
@@ -432,8 +432,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("Hz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("mel"));    
     
-    v = TTValue(200.0);
-    expected = TTValue(3.0);
+    v = TTValue(1000.0);
+    expected = TTValue(999.9855371396243);
     
     myDataspace->sendMessage(TT("convert"), v);    
     

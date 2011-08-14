@@ -38,13 +38,13 @@ BarkUnit::~BarkUnit(){;}
 
 void BarkUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {   // code from http://labrosa.ee.columbia.edu/matlab/rastamat/bark2hz.m 
-	output = 1.0 / (600 * sinh(TTFloat64(input)/6));
+	output = 1.0 / (600 * sinh(TTFloat64(input) / 6));
 }
 
 
 void BarkUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {  // taken from http://labrosa.ee.columbia.edu/matlab/rastamat/hz2bark.m
-	output = 1.0 / (6 * asinh(TTFloat64(input) / 600));
+	output = (6 * asinh(1.0 / (TTFloat64(input) * 600.0)));
 }
 
 
@@ -174,7 +174,7 @@ void MelUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void MelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {  // HTK-code from http://labrosa.ee.columbia.edu/matlab/rastamat/hz2mel.m
-	output = 1.0 / (2595.0 * log10(1+TTFloat64(input)/700.0));
+	output = 2595.0 * log10(1+1.0/(TTFloat64(input)*700.0));
 }
 
 
