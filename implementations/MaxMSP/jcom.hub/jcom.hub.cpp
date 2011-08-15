@@ -172,8 +172,8 @@ void hub_subscribe(TTPtr self)
 					muteAdrs = TT("view/mute");
 				}
 				else if (x->patcherContext == kTTSym_node) {
-					classAdrs = TT("node/class");
-					muteAdrs = TT("node/mute");
+					classAdrs = TT("model/class");
+					muteAdrs = TT("model/mute");
 				}
 				
 				// Add a /class data
