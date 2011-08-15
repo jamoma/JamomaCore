@@ -56,9 +56,16 @@ Cartesian2DUnit::~Cartesian2DUnit(){;}
 
 void Cartesian2DUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
+	TTFloat64 x; 
+	TTFloat64 y;
+	
+	input.get(0, x);
+	input.get(1, y);
+	
 	output.setSize(3);
-	output = input;
-	output.set(2, 0);
+    output.set(0, x);
+    output.set(1, y);
+	output.set(2, 0.0);
 }
 
 void Cartesian2DUnit::convertFromNeutral(const TTValue& input, TTValue& output)
@@ -87,9 +94,9 @@ SphericalUnit::~SphericalUnit(){;}
 void SphericalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	//TTFloat64 kDegreesToRadians = kDegreesToRadians;
-	TTFloat64 aa;// = (atom_getfloat(inputAtoms+0)) *  kDegreesToRadians; //a  
-	TTFloat64 ee;// = atom_getfloat(inputAtoms+1) *  kDegreesToRadians; //e
-	TTFloat64 dd;// = atom_getfloat(inputAtoms+2); //d
+	TTFloat64 aa;//a  
+	TTFloat64 ee;//e
+	TTFloat64 dd;//d
 	TTFloat64 temp;
 	
 	input.get(0, aa);
@@ -109,9 +116,9 @@ void SphericalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void SphericalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {   
-	TTFloat64 xx;// = *(input+0);
-	TTFloat64 yy;// = *(input+1);
-	TTFloat64 zz;// = *(input+2)
+	TTFloat64 xx;
+	TTFloat64 yy;
+	TTFloat64 zz;
 	TTFloat64 temp;
 	
 	input.get(0, xx);
@@ -243,10 +250,13 @@ CylindricalUnit::~CylindricalUnit(){;}
 
 void CylindricalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	TTFloat64 dd;// = *(input+0);
-	TTFloat64 aa;// = *(input+1);
-	TTFloat64 zz;// = *(input+2)
-	
+	TTFloat64 dd;
+	TTFloat64 aa;
+	TTFloat64 zz;
+
+	input.get(0, dd);
+	input.get(1, aa);
+	input.get(2, zz);
 	aa *= kDegreesToRadians;
 				
 	output.setSize(3);
@@ -258,9 +268,9 @@ void CylindricalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void CylindricalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	TTFloat64 xx;// = *(input+0);
-	TTFloat64 yy;// = *(input+1);
-	TTFloat64 zz;// = *(input+2)
+	TTFloat64 xx;
+	TTFloat64 yy;
+	TTFloat64 zz;
 
 	input.get(0, xx);
 	input.get(1, yy);
