@@ -10,6 +10,8 @@
 
 
 
+#if OLD
+
 void* TTQueueMaster(void* anArgument)
 {
 	TTQueue *queue = (TTQueue*)anArgument;
@@ -82,4 +84,88 @@ void TTQueue::queueToBack(TTObject& anObject, TTSymbol* aMessage, TTValue& aValu
 	queueEventMethods->append(tempValue);
 	queueEventValues->append(aValue);
 }
+
+#else
+
+TTQueue::TTQueue() : 
+	mUpdateCounter(0),
+	mAcknowledgementCounter(0)
+{
+	resize(32);
+}
+
+
+TTQueue::~TTQueue()
+{
+	;
+}
+
+
+TTErr TTQueue::resize(TTUInt32 aNewSize)
+{
+	TTUInt32 size = aNewSize;
+
+	if (size != mBuffer.size() && TTIsPowerOfTwo(size)) {
+		mBuffer.resize(size);
+		mSize = size;
+		mTwiceSize = size * 2;
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTQueue::size(TTUInt32& returnedSize)
+{
+	returnedSize = mSize;
+	return kTTErrNone;
+}
+
+
+// the counters are updated 2 times for successful inserts and reads
+// when the update counter is odd, this indicates that we are in the middle of an insertion
+
+TTQueue::InsertStatus TTQueue::insert(const TTValue& anItem)
+{
+	TTInt32		lastUpdateCounter = mUpdateCounter;
+	TTInt32		lastAcknowledgementCounter = mAcknowledgementCounter;	// this read should be atomic
+	TTUInt32	counterDifference = lastUpdateCounter - lastAcknowledgementCounter;
+	TTUInt32	index;
+	
+	if (counterDifference == mTwiceSize)
+		return kBufferFull;
+	if (counterDifference == mTwiceSize-1)
+		return kBufferFullButCurrentlyReading;
+	
+	TTAtomicIncrement(mUpdateCounter);						// now odd, indicating that we are in the middle of an insertion
+	
+	index = (lastUpdateCounter/2) & (mSize-1);				// fast modulo for power of 2
+	mBuffer[index] = anItem;								// copy
+	
+	TTAtomicIncrement(mUpdateCounter);						// now even, indicating that the insertion has completed
+	return kBufferInsertSuccessful;
+}
+
+
+TTQueue::ReadStatus TTQueue::read(TTValue& returnedItem)
+{
+	TTInt32		lastUpdateCounter = mUpdateCounter;			// this read should be atomic
+	TTInt32		lastAcknowledgementCounter = mAcknowledgementCounter;
+	
+	if (lastUpdateCounter == lastAcknowledgementCounter)
+		return kBufferEmpty;
+	if (lastUpdateCounter - lastAcknowledgementCounter == 1)
+		return kBufferEmptyButCurrentlyWriting;
+	
+	TTAtomicIncrement(mAcknowledgementCounter);				// now odd, indicating that we are in the middle of an insertion
+	
+	index = (lastAcknowledgementCounter/2) & (mSize-1);		// fast modulo for power of 2
+	returnedItem = mBuffer[index];							// copy
+	
+	TTAtomicIncrement(mAcknowledgementCounter);				// now even, indicating that the read has completed
+	
+	return kBufferReadSuccessful;
+}
+
+
+#endif
 
