@@ -200,7 +200,12 @@ static TTInt32 TTRound(T value)
 		return((long)(value - 0.5));
 }
 
-
+/** Determine if an integer is a power of two. */
+template<class T>
+static TTBoolean TTIsPowerOfTwo(T value)
+{
+	return (value > 0) && ((value & (value-1)) == 0);
+}
 
 
 #if 0
