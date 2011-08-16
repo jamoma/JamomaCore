@@ -196,7 +196,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
 	
-	// TODO: speed => seconds
+	// speed => seconds
+    // Rather than checking this, there are tests for speed <=> midi further down
 	
     /************************************************/
     /*                                              */
@@ -351,7 +352,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
 	
-	// TODO: seconds => speed
+    // Second => Speed
+	// Rather than checking this, there are tests for speed <=> midi further down
 	
     /************************************************/
     /*                                              */
@@ -445,6 +447,23 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);
-	    
+
+    // Mel => Hz
+    
+    myDataspace->setAttributeValue(TT("inputUnit"), TT("mel"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("Hz"));    
+    
+    v = TTValue(999.9855371396243);
+    expected = TTValue(1000.0);
+    
+    myDataspace->sendMessage(TT("convert"), v);    
+    
+    TTTestAssertion("mel scale to Hz", 
+					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+					testAssertionCount, 
+					errorCount);
+    
+    
+    
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
