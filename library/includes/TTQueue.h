@@ -101,6 +101,36 @@ public:
 	referencing a pointer at insert() and copying only at read().
 	The reason for this is that we could easily put something on the queue (i.e. a reference to an object)
 	that is temporary (alloc'd on the stack, for example) and then disappears prior to being serviced.
+ 
+
+	There are other implementations of a lock-free queue/FIFO that should be referenced:
+ 
+ 
+	1. PortAudio (pa_ringbuffer.h/.c) does things a little bit differently, for example.
+	Similar to what we have done, the memory for the items in the buffer is owned by the buffer.
+	The counters are not implemented with OS-level atomic operations, but the reads and writes 
+	into the buffer are done using OS-level memory barriers.
+	Question: Because of our use of the atomic operations on the counters, do we still need to use memory barriers?
+	Reference: http://www.rossbencina.com/code/lockfree
+
+ 
+	2. SuperCollider is more like a hybrid of the PortAudio approach and the NBB implementation 
+	on which this class is currently based.  The implementation can be found in common/Headers/server/MsgFifo.h.
+	One cool thing is that it uses a template class in C++ so that the queue could hold any type of items, rather than
+	restricted to a type or even a container like we do with TTValue.
+ 
+	TODO: we should do this template thing like SC
+	
+	SC does not have the busy/retry ability that we have, but it also might be quicker because there is only one
+	atomic increment at write instead of two.  
+	Instead of using an atomic increment, however, it is using OSAtomicCompareAndSwap32Barrier -- apparently for legacy reasons.
+ 
+	Additionally it does in enforce a memory barrier on the Mac by issuing __sync_synchronize() in the 
+	equivalents of both insert() and read().
+ 
+	Unlike NBB, based on a first reading of the code, it looks like it uses shared references rather than copying by value.
+	It looks like this is true for *both* read (perform) and insert (write), which means that the heap usage is not
+	kept isolated as argued to be the most important factor in the NBB paper.
  */
 class TTFOUNDATION_EXPORT TTQueue : public TTBase {
 private:
