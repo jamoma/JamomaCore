@@ -196,6 +196,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
 	
+	// TODO: speed => seconds
+	
     /************************************************/
     /*                                              */
     /* Test conversions from neutral unit           */
@@ -348,6 +350,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
 					testAssertionCount, 
 					errorCount);
+	
+	// TODO: seconds => speed
 	
     /************************************************/
     /*                                              */
