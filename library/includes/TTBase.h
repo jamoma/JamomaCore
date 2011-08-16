@@ -97,6 +97,16 @@ using namespace std;
 
 
 /****************************************************************************************************/
+// Memory alignment
+
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+#define TT_ALIGN_16 __declspec(align(16))
+#else // assuming gcc
+#define TT_ALIGN_16 __attribute__((aligned (16)))
+#endif
+
+
+/****************************************************************************************************/
 // Type Definitions
 
 // Note http://developer.apple.com/mac/library/documentation/Darwin/Conceptual/64bitPorting/MakingCode64-BitClean/MakingCode64-BitClean.html#//apple_ref/doc/uid/TP40001064-CH226-SW2
@@ -159,6 +169,13 @@ typedef TTSampleMatrix::iterator	TTSampleMatrixIter;
 /** An integer that is the same size as a pointer.	*/
 typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on the Mac
 
+/** An integer that can be used for atomic operations.	*/
+#ifdef TT_PLATFORM_WIN
+typedef TT_ALIGN_16 volatile int		TTAtomicInt;
+#else
+typedef TT_ALIGN_16 volatile int32_t	TTAtomicInt;
+#endif
+
 /** A generic pointer. */
 typedef void*				TTPtr;
 typedef TTPtr*				TTHandle;
@@ -172,6 +189,8 @@ typedef void (*TTFunctionWithArgPtr)(TTPtr);
 /**	A simple/generic function pointer with one generic pointer (baton) and one TTValueRef.	*/
 class TTValue;
 typedef void (*TTFunctionWithBatonAndValue)(TTPtr, TTValue&);
+typedef std::vector<TTValue>	TTVector;
+typedef TTVector::iterator		TTVectorIter;
 
 /** Use for finding stuff in a list or a hash or a dictionary. */
 typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found);
@@ -279,6 +298,14 @@ public:
 };
 
 
+#ifdef TT_PLATFORM_MAC
+	#include <libkern/OSAtomic.h>
+#elif defined (TT_PLATFORM_WIN)
+	#pragma intrinsic (_InterlockedIncrement)
+	#pragma intrinsic (_InterlockedDecrement)
+	#pragma intrinsic (_InterlockedCompareExchange)
+#endif
+
 /**	The required base-class from which all TTBlue objects must inherit.
  	This object is the primary base-class for all TTBlue objects, including TTObject.
  	It does not define any real functionality.
@@ -288,6 +315,40 @@ class TTFOUNDATION_EXPORT TTBase {
 public:
 	TTBase();			///< Constructor.
 	virtual ~TTBase();	///< Destructor.
+	
+	
+	void TTAtomicIncrement(TTAtomicInt& value)
+	{
+#ifdef TT_PLATFORM_MAC
+		OSAtomicIncrement32(&value);
+#elif defined (TT_PLATFORM_WIN)
+		_InterlockedIncrement(&value);
+#else // what should we do for thread safety on Linux and iOS?
+		value++;
+#endif
+	}
+	
+	void TTAtomicDecrement(TTAtomicInt& value)
+	{
+#ifdef TT_PLATFORM_MAC
+		OSAtomicDecrement32(&value);
+#elif defined (TT_PLATFORM_WIN)
+		_InterlockedDecrement(&value);
+#else // what should we do for thread safety on Linux and iOS?
+		value--;
+#endif
+	}
+	
+	void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt newValue, const TTAtomicInt oldValue)
+	{
+#ifdef TT_PLATFORM_MAC
+		OSAtomicCompareAndSwap32(oldValue, newValue, &value);
+#elif defined (TT_PLATFORM_WIN)
+		_InterlockedCompareExchange(atomicptr, newvalue, oldvalue);
+#else // what should we do for thread safety on Linux and iOS?
+		value = newValue;
+#endif
+	}
 	
 	
 	/**	Return the current system time in milliseconds.
