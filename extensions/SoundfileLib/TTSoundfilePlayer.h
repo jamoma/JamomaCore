@@ -21,6 +21,7 @@ class TTSoundfilePlayer : public TTAudioObject {
 	TTSymbolPtr			mTitle, mAnnotation, mArtist, mDate;
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open
 	SF_INFO				mSoundFileInfo;		///< libsndfile metadata for the file we open
+	sf_count_t			mSeekInFrames;
 	TTBoolean			mPlay;				///< is actively playing back the file?
 	TTBoolean			mLoop;				///< Loop flag
 	TTFloat64			mSeek;			    ///< Cue time start

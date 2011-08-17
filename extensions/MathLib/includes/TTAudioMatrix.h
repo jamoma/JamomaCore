@@ -26,9 +26,9 @@ class TTAudioMatrix : TTAudioObject {
 	
 	// Messages
 	TTErr clear();
-	TTErr setGain(const TTValue& newValue);
-	TTErr setLinearGain(const TTValue& newValue);
-	TTErr setMidiGain(const TTValue& newValue);	
+	TTErr setGain(TTValue& newValue);
+	TTErr setLinearGain(TTValue& newValue);
+	TTErr setMidiGain(TTValue& newValue);	
 	
 	// Audio
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	

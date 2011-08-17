@@ -78,7 +78,7 @@ TTErr TTMatrixMixer::clear()
 }
 
 
-TTErr TTMatrixMixer::setGain(const TTValue& newValue)
+TTErr TTMatrixMixer::setGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -91,13 +91,13 @@ TTErr TTMatrixMixer::setGain(const TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
-	
+	newValue.clear();
 	mGainMatrix[x][y] = dbToLinear(gainValue);
 	return kTTErrNone;
 }
 
 
-TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue)
+TTErr TTMatrixMixer::setLinearGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -111,13 +111,13 @@ TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);
-	
+	newValue.clear();
 	mGainMatrix[x][y] = gainValue;
 	return kTTErrNone;
 }
 
 
-TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue)
+TTErr TTMatrixMixer::setMidiGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -130,7 +130,7 @@ TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
-	
+	newValue.clear();
 	mGainMatrix[x][y] = midiToLinearGain(gainValue);
 	return kTTErrNone;
 }

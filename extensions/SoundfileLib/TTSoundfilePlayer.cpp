@@ -23,6 +23,7 @@ mSoundFile(NULL),
 mPlay(false),
 mLoop(false),
 mSeek(0),
+mSeekInFrames(0),
 mDuration(0.0),
 mContinue(false),
 mNumChannels(0),
@@ -110,8 +111,12 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 		
 		return kTTErrNone;
 	}
-	else
+	else {
+		char errstr[256];
+		sf_error_str (soundfile, errstr, 256);
+		TTLogMessage("cannot open soundfile %s: %s", potentialFilePath->getCString(), errstr);
 		return kTTErrGeneric;
+	}
 }
 
 TTErr TTSoundfilePlayer::setPlay(const TTValue& newValue)
@@ -131,9 +136,15 @@ TTErr TTSoundfilePlayer::setSeek(const TTValue& newValue)
 {   
 	if (mSoundFile) {
 		mSeek = newValue;
-		mSeek = mSeek * sr * 0.001;
+		TTLimitMin(mSeek, 0.0);
+		mSeekInFrames = mSeek * sr * 0.001;
+		if (sf_seek(mSoundFile, mSeekInFrames, SEEK_SET) != mSeekInFrames) {
+			char errstr[256];
+			sf_error_str (mSoundFile, errstr, 256);
+			TTLogMessage("error in seek of %s: %s", mFilePath->getCString(), errstr);
+			return kTTErrGeneric;
+		}
 		mContinue = 1; //eliminating previous pause state
-		sf_seek(mSoundFile, mSeek, SEEK_SET);
 		mPlay = 1;
 		return kTTErrNone;
 	}
@@ -199,7 +210,7 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		if (mPlay && mContinue) {
 			numSamplesRead = sf_readf_double(mSoundFile, &mBuffer[0], numFrames);
 			if (numSamplesRead < numFrames) {
-				sf_seek(mSoundFile, mSeek, SEEK_SET);
+				sf_seek(mSoundFile, mSeekInFrames, SEEK_SET);
 				mPlay = mLoop;					
 			}
 		}
