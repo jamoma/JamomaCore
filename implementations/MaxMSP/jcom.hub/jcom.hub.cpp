@@ -460,6 +460,7 @@ void hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	// 'setrock' is the message that is used by pcontrol to enable patcher
 	// it was inside former jcom.in or out. Not sure for what it was used (audio mute maybe...)
 	
+	/*
 	if (argc && argv)
 		if (atom_gettype(argv) == A_LONG) {
 			mute = atom_getlong(argv);
@@ -467,6 +468,7 @@ void hub_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			atom_setlong(a+1, 1);
 			object_method(patcher, gensym("setrock"), 2, a);
 		}
+	 */
 }
 
 void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
