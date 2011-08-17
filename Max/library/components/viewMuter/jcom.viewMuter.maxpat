@@ -374,13 +374,13 @@
 ,
 					"patching_rect" : [ 114.0, 172.0, 204.0, 17.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"fontname" : "Arial",
+						"default_fontname" : "Arial",
+						"default_fontsize" : 9.0,
 						"fontface" : 0,
 						"fontsize" : 9.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p subhubs"
@@ -423,7 +423,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "refresh" ],
+					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 25.0, 69.0, 184.0, 215.0 ],
@@ -494,8 +494,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 78.0, 116.868019, 73.0, 17.0 ],
-									"text" : "prepend enable"
+									"patching_rect" : [ 78.0, 116.868019, 78.0, 17.0 ],
+									"text" : "prepend enabled"
 								}
 
 							}
@@ -582,13 +582,13 @@
 ,
 					"patching_rect" : [ 65.0, 125.0, 45.0, 17.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"fontname" : "Arial",
+						"default_fontname" : "Arial",
+						"default_fontsize" : 9.0,
 						"fontface" : 0,
 						"fontsize" : 9.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 9.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p enable"
