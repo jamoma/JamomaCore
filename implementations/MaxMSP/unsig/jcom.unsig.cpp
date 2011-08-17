@@ -26,9 +26,10 @@ struct Out {
 	TTBoolean					hasConnections;	// flag indicating that we have connections so we can mute MSP output
 	ObjectPtr					patcher;		// the patcher -- cached for iterating to make connections
 	ObjectPtr					patcherview;	// first view of the top-level patcher (for dirty notifications)
-	void						*s_out;
+	void						*s_out;          // for the list outlet
 	TTPtr						qelem;			// for clumping patcher dirty notifications
 	TTAudioGraphPreprocessData	initData;		// for the preprocess method
+	t_atom						*output_buffer;    // allocating list for output samples
 };
 typedef Out* OutPtr;
 
@@ -103,6 +104,8 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			self->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
+		// setup the output_buffer according to channnel number 
+		self->output_buffer = (t_atom *)malloc(self->maxNumChannels * sizeof(t_atom));
 		
 		v.setSize(2);
 		v.set(0, TT("thru"));
@@ -115,9 +118,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout	
 		self->s_out = listout((t_pxobject *)self); // the list outlet
 	    dsp_setup((t_pxobject*)self, 1);
-		/*for(i=0; i < self->maxNumChannels; i++)
-			outlet_new((t_pxobject*)self, "signal");*/
-		
+				
 		self->qelem = qelem_new(self, (method)OutQFn);
 		self->obj.z_misc = Z_NO_INPLACE | Z_PUT_LAST;
 	}
@@ -132,6 +133,9 @@ void OutFree(OutPtr self)
 		object_detach_byptr(self, self->patcherview);
 		self->patcherview = NULL;
 	}
+	if (self->output_buffer)
+		free(self->output_buffer);
+	
 	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 	qelem_free(self->qelem);
 }
@@ -298,13 +302,11 @@ t_int* OutPerform(t_int* w)
 			
 			numChannels = TTClip<TTUInt16>(self->maxNumChannels, 0, self->audioSignal->getNumChannelsAsInt());	
 			
-			t_atom		argv[numChannels]; //allocating list 
-			//TODO: to improve speed, this list should be part of 'self' and only resized when numChannels is changed. 
 			for(TTUInt16 channel=0; channel<numChannels; channel++) {
-			    atom_setfloat(argv+channel, self->audioSignal->getSample(channel, 0));
+			    atom_setfloat(self->output_buffer+channel, self->audioSignal->getSample(channel, 0));
 			}
 			
-			outlet_list(self->s_out, NULL, numChannels, argv); //list output
+			outlet_list(self->s_out, NULL, numChannels, self->output_buffer); //list output
 		}
 	}
 	

@@ -46,7 +46,7 @@ class TTAudioGraphPick : public TTAudioObject {
 	{
 		TTAudioSignal&	in = inputs->getSignal(0);
 		TTAudioSignal&	out = outputs->getSignal(0);
-		TTSampleValue	*inSample, *outSample;
+		TTSampleValuePtr	inSample, outSample;
 		TTUInt16		inputChannelCount = in.getNumChannelsAsInt();		
 		TTUInt16		vs = out.getVectorSizeAsInt();
 		TTUInt16		currentPick, n;
