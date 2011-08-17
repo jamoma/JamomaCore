@@ -124,7 +124,7 @@ int TTSoundfileRecorder::translateFormatFromName(TTSymbolPtr name)
 	else if (strstr(cname, "WAV"))
 		format |= SF_FORMAT_WAV;
 	else if (strstr(cname, "Matlab"))
-		format |= SF_FORMAT_MAT5;		
+		format |= SF_FORMAT_MAT4;		
 	else
 		format |= SF_FORMAT_CAF;
 	
