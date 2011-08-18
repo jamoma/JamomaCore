@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 129.0, 75.0, 871.0, 425.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 397.0, 44.0, 871.0, 425.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 129.0, 75.0, 871.0, 425.0 ],
+		"defrect" : [ 397.0, 44.0, 871.0, 425.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,13 +28,97 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-16",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
+					"patching_rect" : [ 668.0, 137.0, 88.0, 19.0 ],
+					"text" : "jcom.midi.out#"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
+					"patching_rect" : [ 580.0, 136.0, 81.0, 19.0 ],
+					"text" : "jcom.midi.in#"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
+					"patching_rect" : [ 580.0, 114.0, 105.0, 19.0 ],
+					"text" : "jcom.midi.format#"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-11",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
+					"patching_rect" : [ 580.0, 92.0, 95.0, 19.0 ],
+					"text" : "jcom.midi.filter#"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-9",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 580.0, 69.0, 64.0, 19.0 ],
+					"text" : "jcom.iter#"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
+					"patching_rect" : [ 580.0, 23.0, 82.0, 19.0 ],
+					"text" : "jcom.append#"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
-					"patching_rect" : [ 581.0, 47.0, 80.0, 19.0 ],
-					"text" : "jcom.append#"
+					"patching_rect" : [ 580.0, 47.0, 100.0, 19.0 ],
+					"text" : "jcom.dataspace#"
 				}
 
 			}
@@ -38,10 +128,9 @@
 					"fontsize" : 10.0,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "graph.connect", "" ],
-					"patching_rect" : [ 581.0, 70.0, 55.0, 19.0 ],
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 580.0, 158.0, 57.0, 19.0 ],
 					"text" : "jcom.op#"
 				}
 
@@ -55,7 +144,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 581.0, 119.0, 79.0, 19.0 ],
+					"patching_rect" : [ 580.0, 207.0, 81.0, 19.0 ],
 					"text" : "jcom.unpack#"
 				}
 
@@ -69,7 +158,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
-					"patching_rect" : [ 581.0, 94.0, 66.0, 19.0 ],
+					"patching_rect" : [ 580.0, 182.0, 68.0, 19.0 ],
 					"text" : "jcom.pack#"
 				}
 
@@ -80,7 +169,7 @@
 					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
+					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 195.0, 325.0, 320.0, 19.0 ],
 					"text" : "test.assert.equal \"TEST Graph AllExternalsLoadingProperly\" 1"
@@ -108,8 +197,8 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "bang", "bang" ],
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 50.0, 85.0, 57.0, 19.0 ],
 					"text" : "test.start"
 				}
