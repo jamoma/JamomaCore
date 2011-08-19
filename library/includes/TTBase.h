@@ -337,6 +337,11 @@ TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated sq
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfSqrt2;
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoSqrt2;
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTEpsilon;						///< a very very small value
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTRadiansToDegrees;
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTDegreesToRadians;
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPower;
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPowerInv;
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;
 
 /** Platform and host independent method for posting messages. */
 void TTFOUNDATION_EXPORT TTLogMessage(TTImmutableCString message, ...);

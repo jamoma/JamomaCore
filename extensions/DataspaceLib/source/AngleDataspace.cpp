@@ -52,12 +52,12 @@ DegreeUnit::~DegreeUnit(){;}
 
 void DegreeUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = TTFloat64(input) * kDegreesToRadians;
+	output = TTFloat64(input) * kTTDegreesToRadians;
 }
 
 void DegreeUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output = TTFloat64(input) * kRadiansToDegrees;
+	output = TTFloat64(input) * kTTRadiansToDegrees;
 }
 
 

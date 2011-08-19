@@ -93,7 +93,7 @@ SphericalUnit::~SphericalUnit(){;}
 
 void SphericalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	//TTFloat64 kDegreesToRadians = kDegreesToRadians;
+	//TTFloat64 kTTDegreesToRadians = kTTDegreesToRadians;
 	TTFloat64 aa;//a  
 	TTFloat64 ee;//e
 	TTFloat64 dd;//d
@@ -103,8 +103,8 @@ void SphericalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	input.get(1, ee);
 	input.get(2, dd);
 	
-	aa *= kDegreesToRadians;
-	ee *= kDegreesToRadians;
+	aa *= kTTDegreesToRadians;
+	ee *= kTTDegreesToRadians;
 	temp = cos(ee) * dd;
 	
 	output.setSize(3);
@@ -128,8 +128,8 @@ void SphericalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	temp = (xx * xx) + (yy * yy);
 
 	output.setSize(3);	
-	output.set(0, atan2(xx, yy) * kRadiansToDegrees); 
-	output.set(1, atan2(zz, (pow((temp), 0.5))) * kRadiansToDegrees);
+	output.set(0, atan2(xx, yy) * kTTRadiansToDegrees); 
+	output.set(1, atan2(zz, (pow((temp), 0.5))) * kTTRadiansToDegrees);
 	output.set(2, pow((temp + (zz * zz)), 0.5));
 }
 
@@ -157,7 +157,7 @@ void PolarUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	
 	input.get(0, aa);
 	input.get(1, dd);
-	aa *= kDegreesToRadians;
+	aa *= kTTDegreesToRadians;
 
     output.setSize(3);
 	output.set(0, sin(aa) * dd);	// x
@@ -175,7 +175,7 @@ void PolarUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	input.get(1, yy);
 
 	output.setSize(2);	
-	output.set(0, atan2(xx, yy) * kRadiansToDegrees); //a
+	output.set(0, atan2(xx, yy) * kTTRadiansToDegrees); //a
 	output.set(1, pow(((xx * xx) + (yy * yy)), 0.5)); //distance	
 }
 
@@ -257,7 +257,7 @@ void CylindricalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	input.get(0, dd);
 	input.get(1, aa);
 	input.get(2, zz);
-	aa *= kDegreesToRadians;
+	aa *= kTTDegreesToRadians;
 				
 	output.setSize(3);
 	output.set(0, sin(aa) * dd); //x
@@ -279,7 +279,7 @@ void CylindricalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	// d a z
 	output.setSize(3);
 	output.set(0, pow(((xx * xx) + (yy * yy)), 0.5)); //distance
-	output.set(1, atan2(xx, yy) * kRadiansToDegrees); //a
+	output.set(1, atan2(xx, yy) * kTTRadiansToDegrees); //a
 	output.set(2, zz);//z
 }
 

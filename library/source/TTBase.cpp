@@ -19,6 +19,11 @@ const TTFloat64 kTTHalfPi				= kTTPi / 2.0;
 const TTFloat64	kTTQuarterPi			= kTTPi / 4.0;
 const TTFloat64 kTTAntiDenormalValue	= 1e-18;
 const TTFloat64 kTTEpsilon				= 1e-21;
+const TTFloat64 kTTRadiansToDegrees		= 180.0 / kTTPi; 
+const TTFloat64 kTTDegreesToRadians		= kTTPi / 180.0;
+const TTFloat64 kTTGainMidiPower		= log(pow(10.,10./20.))/log(127./100.);
+const TTFloat64 kTTGainMidiPowerInv		= 1./kTTGainMidiPower;
+const TTFloat64 kTTInv255				= 1./255.;
 
 const TTFloat32 kTTLookupEqualPower[] = {			// 512 point equal-power table
 	1.0F,				0.999995275372036F,	0.999981101532787F,	0.999957478616186F,	0.999924406845452F,	0.999881886533088F,	0.999829918080880F,	
