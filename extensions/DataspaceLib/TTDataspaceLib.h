@@ -14,7 +14,6 @@
 //#endif // WIN_VERSION
 
 #include "TTFoundationAPI.h"
-#include "TTBase.h"
 
 // Macros used to export classes and methods so that we can use linking in performance-critical code
 #if defined( TT_PLATFORM_MAC ) or defined ( TT_PLATFORM_LINUX )
