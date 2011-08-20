@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 577.0, 208.0, 540.0, 308.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 577.0, 208.0, 540.0, 308.0 ],
@@ -84,6 +90,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 25.0, 69.0, 200.0, 229.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 25.0, 69.0, 200.0, 229.0 ],
@@ -211,13 +223,13 @@
 ,
 					"patching_rect" : [ 405.0, 53.0, 84.0, 27.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p models"
@@ -356,7 +368,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 93.0, 101.0, 269.0, 43.0 ],
-					"text" : "jcom.parameter midiIn @priority 1 @type generic @repetitions/allow 1 @description \"Port to receive MIDI messages on.\"",
+					"text" : "jcom.parameter midiIn @priority 1 @type generic @repetitions/allow 1 @description \"Port to receive MIDI messages on.\" @tag setup",
 					"varname" : "midi_in"
 				}
 
@@ -372,7 +384,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 244.0, 164.0, 271.0, 43.0 ],
-					"text" : "jcom.parameter midiOut @priority 1 @type generic @repetitions/allow 1 @description \"Port to send MIDI messages to.\"",
+					"text" : "jcom.parameter midiOut @priority 1 @type generic @repetitions/allow 1 @description \"Port to send MIDI messages to.\" @tag setup",
 					"varname" : "midi_out"
 				}
 
