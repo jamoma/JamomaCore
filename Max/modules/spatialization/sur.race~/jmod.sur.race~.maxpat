@@ -89,7 +89,7 @@
 						"description" : "Mid High X-over Frequency",
 						"range/bounds" : [ 5.0, 20000.0 ],
 						"type" : "integer",
-						"dataspace" : "pitch",
+						"dataspace" : "time",
 						"range/clipmode" : "both",
 						"dataspace/unit/native" : "Hz",
 						"value/default" : [ 5000 ],
@@ -425,7 +425,7 @@
 					"frozen_object_attributes" : 					{
 						"range/bounds" : [ 5.0, 16000.0 ],
 						"type" : "integer",
-						"dataspace" : "pitch",
+						"dataspace" : "time",
 						"range/clipmode" : "both",
 						"dataspace/unit/native" : "Hz",
 						"value/default" : [ 250 ],
