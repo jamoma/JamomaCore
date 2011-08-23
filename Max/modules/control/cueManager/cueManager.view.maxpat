@@ -7,10 +7,10 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 6.0, 6.0, 300.0, 70.0 ],
+		"rect" : [ 68.0, 515.0, 300.0, 70.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 100.0, 122.0, 771.0, 417.0 ],
+		"defrect" : [ 772.0, 169.0, 771.0, 417.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 9.0,
@@ -372,13 +372,13 @@
 ,
 					"patching_rect" : [ 521.0, 317.0, 107.0, 17.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 9.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 9.0,
+						"fontface" : 0,
+						"fontsize" : 9.0,
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p menu"
@@ -563,13 +563,13 @@
 ,
 					"patching_rect" : [ 158.0, 293.0, 42.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p hide"
@@ -629,7 +629,6 @@
 					"fontname" : "Verdana",
 					"fontsize" : 11.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"hidden" : 1,
 					"id" : "obj-11",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -647,7 +646,6 @@
 					"bordercolor" : [ 0.501961, 0.501961, 0.501961, 0.964706 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hidden" : 1,
 					"id" : "obj-12",
 					"maxclass" : "flonum",
 					"minimum" : 0.0,
@@ -852,13 +850,13 @@
 ,
 					"patching_rect" : [ 390.0, 149.0, 54.0, 17.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 9.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 9.0,
+						"fontface" : 0,
+						"fontsize" : 9.0,
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p reset"
@@ -938,9 +936,9 @@
 							"revision" : 9
 						}
 ,
-						"rect" : [ 69.0, 146.0, 325.0, 225.0 ],
+						"rect" : [ 425.0, 678.0, 325.0, 231.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 69.0, 146.0, 325.0, 225.0 ],
+						"defrect" : [ 425.0, 678.0, 325.0, 231.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 9.0,
@@ -1104,8 +1102,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 193.0, 20.0, 100.0, 17.0 ],
-									"text" : "jcom.view cue/names"
+									"patching_rect" : [ 193.0, 20.0, 108.0, 17.0 ],
+									"text" : "jcom.view cuelist/names"
 								}
 
 							}
@@ -1354,13 +1352,13 @@
 ,
 					"patching_rect" : [ 506.0, 20.0, 51.0, 17.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 9.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 9.0,
+						"fontface" : 0,
+						"fontsize" : 9.0,
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p"
@@ -1720,13 +1718,13 @@
 ,
 					"patching_rect" : [ 506.0, 237.0, 163.0, 17.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 9.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 9.0,
+						"fontface" : 0,
+						"fontsize" : 9.0,
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p text"
@@ -2095,13 +2093,13 @@
 ,
 					"patching_rect" : [ 328.0, 35.5, 53.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 9.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 9.0,
+						"fontface" : 0,
+						"fontsize" : 9.0,
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p File"
@@ -2124,10 +2122,10 @@
 							"revision" : 9
 						}
 ,
-						"rect" : [ 705.0, 47.0, 831.0, 724.0 ],
+						"rect" : [ 938.0, 96.0, 831.0, 724.0 ],
 						"bgcolor" : [ 0.490196, 0.486275, 0.486275, 1.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 705.0, 47.0, 831.0, 724.0 ],
+						"defrect" : [ 938.0, 96.0, 831.0, 724.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 9.0,
@@ -2217,13 +2215,13 @@
 ,
 									"patching_rect" : [ 672.0, 178.0, 19.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -2304,13 +2302,13 @@
 ,
 									"patching_rect" : [ 565.0, 283.0, 19.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -2391,13 +2389,13 @@
 ,
 									"patching_rect" : [ 600.0, 70.0, 19.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -2687,13 +2685,13 @@
 ,
 									"patching_rect" : [ 115.0, 44.0, 33.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -3005,13 +3003,13 @@
 ,
 													"patching_rect" : [ 142.0, 60.0, 37.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p blink"
@@ -3353,13 +3351,13 @@
 ,
 													"patching_rect" : [ 45.0, 89.0, 75.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p globalReceive"
@@ -3688,13 +3686,13 @@
 ,
 									"patching_rect" : [ 662.0, 278.0, 39.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p listen"
@@ -3976,13 +3974,13 @@
 ,
 													"patching_rect" : [ 142.0, 60.0, 37.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p blink"
@@ -4324,13 +4322,13 @@
 ,
 													"patching_rect" : [ 45.0, 89.0, 75.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p globalReceive"
@@ -4659,13 +4657,13 @@
 ,
 									"patching_rect" : [ 562.0, 249.0, 39.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p listen"
@@ -4903,13 +4901,13 @@
 ,
 									"patching_rect" : [ 598.0, 344.0, 19.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -5715,13 +5713,13 @@
 ,
 																	"patching_rect" : [ 246.0, 34.0, 46.0, 17.0 ],
 																	"saved_object_attributes" : 																	{
-																		"fontsize" : 9.0,
-																		"default_fontface" : 0,
-																		"default_fontname" : "Arial",
 																		"fontname" : "Arial",
 																		"default_fontsize" : 9.0,
+																		"fontface" : 0,
+																		"fontsize" : 9.0,
 																		"globalpatchername" : "",
-																		"fontface" : 0
+																		"default_fontface" : 0,
+																		"default_fontname" : "Arial"
 																	}
 ,
 																	"text" : "p current"
@@ -6312,13 +6310,13 @@
 ,
 													"patching_rect" : [ 78.0, 17.0, 87.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p"
@@ -6678,13 +6676,13 @@
 ,
 													"patching_rect" : [ 113.0, 217.0, 163.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p text"
@@ -7004,13 +7002,13 @@
 ,
 													"patching_rect" : [ 225.0, 317.5, 33.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p File"
@@ -8336,13 +8334,13 @@
 ,
 									"patching_rect" : [ 373.0, 318.0, 62.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p columns"
@@ -8804,13 +8802,13 @@
 ,
 													"patching_rect" : [ 283.0, 96.0, 39.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p listen"
@@ -9504,13 +9502,13 @@
 ,
 													"patching_rect" : [ 553.0, 191.0, 139.0, 20.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p Ramps"
@@ -10432,13 +10430,13 @@
 ,
 									"patching_rect" : [ 646.0, 399.0, 67.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p ramps"
@@ -11633,13 +11631,13 @@
 ,
 													"patching_rect" : [ 30.028381, 74.0, 73.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 12.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 12.0,
+														"fontface" : 0,
+														"fontsize" : 12.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p shiftSelect"
@@ -12672,13 +12670,13 @@
 ,
 													"patching_rect" : [ 16.0, 370.0, 48.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
+														"fontface" : 0,
+														"fontsize" : 10.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana"
 													}
 ,
 													"text" : "p colors"
@@ -13239,13 +13237,13 @@
 ,
 									"patching_rect" : [ 646.0, 606.0, 67.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p switch"
@@ -13256,7 +13254,7 @@
 								"box" : 								{
 									"bgcolor" : [ 0.623529, 0.623529, 0.623529, 1.0 ],
 									"coldef" : [ [ 0, 203, 1, 1.0, 1.0, 1.0, 1.0, 1, 4177855.75, 4177855.75, 4177855.75, 1.0, -1, 2, 1 ] ],
-									"cols" : 3,
+									"cols" : 1,
 									"colwidth" : 120,
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -13271,8 +13269,8 @@
 									"patching_rect" : [ 646.0, 435.0, 171.0, 165.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 604.0, 50.0, 219.0, 667.0 ],
-									"rowdef" : [ [ 0, 0, 0, 0.0, 0.0, 0.0, 1.0, 0, 0.0, 0.0, 0.0, 1.0, -1, 2, 0 ], [ 1, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 2, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 3, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 4, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 5, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 6, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 7, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 8, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 9, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 10, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 11, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 12, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 13, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 14, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 15, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 16, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 17, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 18, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 19, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 20, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 21, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 22, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 23, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 24, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 25, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 26, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 27, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 28, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 29, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 30, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 31, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 32, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 33, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 34, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 35, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 36, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 37, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 38, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 39, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 40, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 41, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 42, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 43, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 44, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 45, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 46, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 47, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 48, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 49, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 50, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 51, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 52, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 53, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 54, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 55, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 56, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 57, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 58, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 59, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 60, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 61, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 62, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 63, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 64, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 65, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 66, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 67, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 68, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 69, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 70, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 71, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 72, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 73, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 74, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 75, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 76, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 77, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 78, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 79, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 80, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 81, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 82, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 83, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 84, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 85, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 86, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 87, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 88, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 89, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 90, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 91, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 92, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 93, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 94, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 95, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 96, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 97, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 98, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 99, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 100, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 101, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 102, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 103, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 104, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 105, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 106, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 107, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 108, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 109, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 110, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 111, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 112, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 113, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 114, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 115, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 116, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 117, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 118, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 119, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 120, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 121, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 122, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 123, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 124, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 125, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 126, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 127, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 128, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 129, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 130, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 131, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 132, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 133, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 134, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ], [ 135, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, -1, -1 ] ],
-									"rows" : 267,
+									"rowdef" : [ [ 0, 0, 0, 0.0, 0.0, 0.0, 1.0, 0, 0.498039, 0.498039, 0.498039, 1.0, -1, 2, 0 ] ],
+									"rows" : 1,
 									"selmode" : 5,
 									"varname" : "modules[2]"
 								}
@@ -13480,13 +13478,13 @@
 ,
 									"patching_rect" : [ 500.0, 175.5, 58.5, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -13666,13 +13664,13 @@
 ,
 									"patching_rect" : [ 432.0, 68.5, 47.5, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -13861,13 +13859,13 @@
 ,
 									"patching_rect" : [ 483.0, 197.0, 19.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -14056,13 +14054,13 @@
 ,
 									"patching_rect" : [ 413.0, 70.0, 19.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -14750,13 +14748,13 @@
 ,
 																	"patching_rect" : [ 131.0, 53.0, 53.0, 17.0 ],
 																	"saved_object_attributes" : 																	{
-																		"fontsize" : 9.0,
-																		"default_fontface" : 0,
-																		"default_fontname" : "Arial",
 																		"fontname" : "Arial",
 																		"default_fontsize" : 9.0,
+																		"fontface" : 0,
+																		"fontsize" : 9.0,
 																		"globalpatchername" : "",
-																		"fontface" : 0
+																		"default_fontface" : 0,
+																		"default_fontname" : "Arial"
 																	}
 ,
 																	"text" : "p compare"
@@ -15070,13 +15068,13 @@
 ,
 													"patching_rect" : [ 34.0, 158.0, 90.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p"
@@ -15456,13 +15454,13 @@
 ,
 													"patching_rect" : [ 171.0, 134.0, 68.0, 15.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 12.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 12.0,
+														"fontface" : 0,
+														"fontsize" : 12.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p filter_harddrive:/"
@@ -15875,13 +15873,13 @@
 ,
 									"patching_rect" : [ 416.0, 350.0, 93.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p"
@@ -16314,13 +16312,13 @@
 ,
 													"patching_rect" : [ 283.0, 128.0, 30.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p set"
@@ -16609,13 +16607,13 @@
 ,
 													"patching_rect" : [ 154.0, 126.0, 30.0, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p set"
@@ -16915,13 +16913,13 @@
 ,
 													"patching_rect" : [ 36.0, 328.0, 74.5, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p list"
@@ -17146,13 +17144,13 @@
 ,
 													"patching_rect" : [ 160.0, 310.0, 100.5, 17.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p list"
@@ -17871,13 +17869,13 @@
 ,
 									"patching_rect" : [ 431.0, 234.0, 126.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p excludes"
@@ -17904,7 +17902,7 @@
 								"box" : 								{
 									"bgcolor" : [ 0.235294, 0.235294, 0.235294, 1.0 ],
 									"coldef" : [ [ 0, 203, 0, 0.0, 0.0, 0.0, 1.0, 0, 0.443137, 0.443137, 0.443137, 1.0, -1, 2, 1 ] ],
-									"cols" : 1,
+									"cols" : 2,
 									"colwidth" : 120,
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -17920,7 +17918,7 @@
 									"presentation" : 1,
 									"presentation_rect" : [ 366.0, 310.0, 216.0, 408.0 ],
 									"rowdef" : [ [ 0, 0, 0, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 1.0, 1.0, 1.0, -1, 2, 1 ] ],
-									"rows" : 1,
+									"rows" : 6,
 									"selmode" : 5,
 									"varname" : "modules[3]"
 								}
@@ -18170,13 +18168,13 @@
 ,
 									"patching_rect" : [ 291.0, 23.0, 55.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 9.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 9.0,
+										"fontface" : 0,
+										"fontsize" : 9.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p init"
@@ -18236,7 +18234,6 @@
 									"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 									"id" : "obj-69",
 									"keymode" : 1,
-									"linecount" : 2,
 									"lines" : 1,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
@@ -18245,7 +18242,7 @@
 									"patching_rect" : [ 432.0, 39.0, 152.0, 22.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 366.0, 129.0, 221.0, 45.0 ],
-									"text" : "startChannel arraySize model/instance"
+									"text" : "volume"
 								}
 
 							}
@@ -18254,7 +18251,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
 									"id" : "obj-25",
-									"items" : [ "/wacmap.selador/enable", ",", "/wacmap.selador/model/mute", ",", "/p4.mask/intensity", ",", "/p4.mask/model/mute", ",", "/p4.mask/panSpread", ",", "/p4.mask/panX", ",", "/p4.mask/panY", ",", "/p4.mask/startChannel", ",", "/p2.svob/intensity", ",", "/p2.svob/model/mute", ",", "/p2.svob/pan", ",", "/p2.svob/panSpread", ",", "/p2.svob/startChannel.1", ",", "/p2.svob/startChannel.2", ",", "/p2.raz/intensity", ",", "/p2.raz/model/mute", ",", "/p2.raz/pan", ",", "/p2.raz/panSpread", ",", "/p2.raz/startChannel.1", ",", "/p2.raz/startChannel.2", ",", "/p2.latV/intensity", ",", "/p2.latV/model/mute", ",", "/p2.latV/pan", ",", "/p2.latV/panSpread", ",", "/p2.latV/startChannel.1", ",", "/p2.latV/startChannel.2", ",", "/p2.fresn/intensity", ",", "/p2.fresn/model/mute", ",", "/p2.fresn/pan", ",", "/p2.fresn/panSpread", ",", "/p2.fresn/startChannel.1", ",", "/p2.fresn/startChannel.2", ",", "/p2.fluo/intensity", ",", "/p2.fluo/model/mute", ",", "/p2.fluo/pan", ",", "/p2.fluo/panSpread", ",", "/p2.fluo/startChannel.1", ",", "/p2.fluo/startChannel.2", ",", "/p2.brabo/intensity", ",", "/p2.brabo/model/mute", ",", "/p2.brabo/pan", ",", "/p2.brabo/panSpread", ",", "/p2.brabo/startChannel.1", ",", "/p2.brabo/startChannel.2", ",", "/p2.T8/intensity", ",", "/p2.T8/model/mute", ",", "/p2.T8/pan", ",", "/p2.T8/panSpread", ",", "/p2.T8/startChannel.1", ",", "/p2.T8/startChannel.2", ",", "/p.fresntest/intensity", ",", "/p.fresntest/model/mute", ",", "/p.fresntest/startChannel", ",", "/p.fresnFen/intensity", ",", "/p.fresnFen/model/mute", ",", "/p.fresnFen/startChannel", ",", "/mapperFunction(view)/edit", ",", "/mapperFunction(view)/model/address", ",", "/mapperFunction(view)/modelInstance", ",", "/mapperFunction(view)/submodelInstance", ",", "/mapperFunction(view)/ui/color/border", ",", "/mapperFunction(view)/ui/color/contentBackground", ",", "/mapperFunction(view)/ui/color/toolbarBackground", ",", "/mapperFunction(view)/ui/color/toolbarText", ",", "/mapperFunction(view)/ui/freeze", ",", "/mapperFunction(view)/ui/size", ",", "/mapperFunction(view)/view/mute", ",", "/function.3/arraySize", ",", "/function.3/func.1/duration", ",", "/function.3/func.1/grain", ",", "/function.3/func.1/loop", ",", "/function.3/func.1/max", ",", "/function.3/func.1/min", ",", "/function.3/func.1/model/mute", ",", "/function.3/func.1/points", ",", "/function.3/func.1/ramp", ",", "/function.3/func.1/speed", ",", "/function.3/func.1/switch", ",", "/function.3/func.1/target", ",", "/function.3/model/mute", ",", "/function.2/arraySize", ",", "/function.2/func.1/duration", ",", "/function.2/func.1/grain", ",", "/function.2/func.1/loop", ",", "/function.2/func.1/max", ",", "/function.2/func.1/min", ",", "/function.2/func.1/model/mute", ",", "/function.2/func.1/points", ",", "/function.2/func.1/ramp", ",", "/function.2/func.1/speed", ",", "/function.2/func.1/switch", ",", "/function.2/func.1/target", ",", "/function.2/func.10/duration", ",", "/function.2/func.10/grain", ",", "/function.2/func.10/loop", ",", "/function.2/func.10/max", ",", "/function.2/func.10/min", ",", "/function.2/func.10/model/mute", ",", "/function.2/func.10/points", ",", "/function.2/func.10/ramp", ",", "/function.2/func.10/speed", ",", "/function.2/func.10/switch", ",", "/function.2/func.10/target", ",", "/function.2/func.2/duration", ",", "/function.2/func.2/grain", ",", "/function.2/func.2/loop", ",", "/function.2/func.2/max", ",", "/function.2/func.2/min", ",", "/function.2/func.2/model/mute", ",", "/function.2/func.2/points", ",", "/function.2/func.2/ramp", ",", "/function.2/func.2/speed", ",", "/function.2/func.2/switch", ",", "/function.2/func.2/target", ",", "/function.2/func.3/duration", ",", "/function.2/func.3/grain", ",", "/function.2/func.3/loop", ",", "/function.2/func.3/max", ",", "/function.2/func.3/min", ",", "/function.2/func.3/model/mute", ",", "/function.2/func.3/points", ",", "/function.2/func.3/ramp", ",", "/function.2/func.3/speed", ",", "/function.2/func.3/switch", ",", "/function.2/func.3/target", ",", "/function.2/func.4/duration", ",", "/function.2/func.4/grain", ",", "/function.2/func.4/loop", ",", "/function.2/func.4/max", ",", "/function.2/func.4/min", ",", "/function.2/func.4/model/mute", ",", "/function.2/func.4/points", ",", "/function.2/func.4/ramp", ",", "/function.2/func.4/speed", ",", "/function.2/func.4/switch", ",", "/function.2/func.4/target", ",", "/function.2/func.5/duration", ",", "/function.2/func.5/grain", ",", "/function.2/func.5/loop", ",", "/function.2/func.5/max", ",", "/function.2/func.5/min", ",", "/function.2/func.5/model/mute", ",", "/function.2/func.5/points", ",", "/function.2/func.5/ramp", ",", "/function.2/func.5/speed", ",", "/function.2/func.5/switch", ",", "/function.2/func.5/target", ",", "/function.2/func.6/duration", ",", "/function.2/func.6/grain", ",", "/function.2/func.6/loop", ",", "/function.2/func.6/max", ",", "/function.2/func.6/min", ",", "/function.2/func.6/model/mute", ",", "/function.2/func.6/points", ",", "/function.2/func.6/ramp", ",", "/function.2/func.6/speed", ",", "/function.2/func.6/switch", ",", "/function.2/func.6/target", ",", "/function.2/func.7/duration", ",", "/function.2/func.7/grain", ",", "/function.2/func.7/loop", ",", "/function.2/func.7/max", ",", "/function.2/func.7/min", ",", "/function.2/func.7/model/mute", ",", "/function.2/func.7/points", ",", "/function.2/func.7/ramp", ",", "/function.2/func.7/speed", ",", "/function.2/func.7/switch", ",", "/function.2/func.7/target", ",", "/function.2/func.8/duration", ",", "/function.2/func.8/grain", ",", "/function.2/func.8/loop", ",", "/function.2/func.8/max", ",", "/function.2/func.8/min", ",", "/function.2/func.8/model/mute", ",", "/function.2/func.8/points", ",", "/function.2/func.8/ramp", ",", "/function.2/func.8/speed", ",", "/function.2/func.8/switch", ",", "/function.2/func.8/target", ",", "/function.2/func.9/duration", ",", "/function.2/func.9/grain", ",", "/function.2/func.9/loop", ",", "/function.2/func.9/max", ",", "/function.2/func.9/min", ",", "/function.2/func.9/model/mute", ",", "/function.2/func.9/points", ",", "/function.2/func.9/ramp", ",", "/function.2/func.9/speed", ",", "/function.2/func.9/switch", ",", "/function.2/func.9/target", ",", "/function.2/model/mute", ",", "/function.1/arraySize", ",", "/function.1/func.1/duration", ",", "/function.1/func.1/grain", ",", "/function.1/func.1/loop", ",", "/function.1/func.1/max", ",", "/function.1/func.1/min", ",", "/function.1/func.1/model/mute", ",", "/function.1/func.1/points", ",", "/function.1/func.1/ramp", ",", "/function.1/func.1/speed", ",", "/function.1/func.1/switch", ",", "/function.1/func.1/target", ",", "/function.1/func.10/duration", ",", "/function.1/func.10/grain", ",", "/function.1/func.10/loop", ",", "/function.1/func.10/max", ",", "/function.1/func.10/min", ",", "/function.1/func.10/model/mute", ",", "/function.1/func.10/points", ",", "/function.1/func.10/ramp", ",", "/function.1/func.10/speed", ",", "/function.1/func.10/switch", ",", "/function.1/func.10/target", ",", "/function.1/func.2/duration", ",", "/function.1/func.2/grain", ",", "/function.1/func.2/loop", ",", "/function.1/func.2/max", ",", "/function.1/func.2/min", ",", "/function.1/func.2/model/mute", ",", "/function.1/func.2/points", ",", "/function.1/func.2/ramp", ",", "/function.1/func.2/speed", ",", "/function.1/func.2/switch", ",", "/function.1/func.2/target", ",", "/function.1/func.3/duration", ",", "/function.1/func.3/grain", ",", "/function.1/func.3/loop", ",", "/function.1/func.3/max", ",", "/function.1/func.3/min", ",", "/function.1/func.3/model/mute", ",", "/function.1/func.3/points", ",", "/function.1/func.3/ramp", ",", "/function.1/func.3/speed", ",", "/function.1/func.3/switch", ",", "/function.1/func.3/target", ",", "/function.1/func.4/duration", ",", "/function.1/func.4/grain", ",", "/function.1/func.4/loop", ",", "/function.1/func.4/max", ",", "/function.1/func.4/min", ",", "/function.1/func.4/model/mute", ",", "/function.1/func.4/points", ",", "/function.1/func.4/ramp", ",", "/function.1/func.4/speed", ",", "/function.1/func.4/switch", ",", "/function.1/func.4/target", ",", "/function.1/func.5/duration", ",", "/function.1/func.5/grain", ",", "/function.1/func.5/loop", ",", "/function.1/func.5/max", ",", "/function.1/func.5/min", ",", "/function.1/func.5/model/mute", ",", "/function.1/func.5/points", ",", "/function.1/func.5/ramp", ",", "/function.1/func.5/speed", ",", "/function.1/func.5/switch", ",", "/function.1/func.5/target", ",", "/function.1/func.6/duration", ",", "/function.1/func.6/grain", ",", "/function.1/func.6/loop", ",", "/function.1/func.6/max", ",", "/function.1/func.6/min", ",", "/function.1/func.6/model/mute", ",", "/function.1/func.6/points", ",", "/function.1/func.6/ramp", ",", "/function.1/func.6/speed", ",", "/function.1/func.6/switch", ",", "/function.1/func.6/target", ",", "/function.1/func.7/duration", ",", "/function.1/func.7/grain", ",", "/function.1/func.7/loop", ",", "/function.1/func.7/max", ",", "/function.1/func.7/min", ",", "/function.1/func.7/model/mute", ",", "/function.1/func.7/points", ",", "/function.1/func.7/ramp", ",", "/function.1/func.7/speed", ",", "/function.1/func.7/switch", ",", "/function.1/func.7/target", ",", "/function.1/func.8/duration", ",", "/function.1/func.8/grain", ",", "/function.1/func.8/loop", ",", "/function.1/func.8/max", ",", "/function.1/func.8/min", ",", "/function.1/func.8/model/mute", ",", "/function.1/func.8/points", ",", "/function.1/func.8/ramp", ",", "/function.1/func.8/speed", ",", "/function.1/func.8/switch", ",", "/function.1/func.8/target", ",", "/function.1/func.9/duration", ",", "/function.1/func.9/grain", ",", "/function.1/func.9/loop", ",", "/function.1/func.9/max", ",", "/function.1/func.9/min", ",", "/function.1/func.9/model/mute", ",", "/function.1/func.9/points", ",", "/function.1/func.9/ramp", ",", "/function.1/func.9/speed", ",", "/function.1/func.9/switch", ",", "/function.1/func.9/target", ",", "/function.1/model/mute", ",", "/cyclo/heat", ",", "/cyclo/heatSpread", ",", "/cyclo/intensity", ",", "/cyclo/model/mute", ",", "/cyclo/panSpread", ",", "/cyclo/panX", ",", "/cyclo/panY", ",", "/cyclo/startChannel", ",", "/Zdbap(view)/ZdbapSource(view)/model/address", ",", "/Zdbap(view)/ZdbapSource(view)/view/mute", ",", "/Zdbap(view)/model/address", ",", "/Zdbap(view)/selection-mode", ",", "/Zdbap(view)/show-numbers", ",", "/Zdbap(view)/source-selected", ",", "/Zdbap(view)/ui/color/border", ",", "/Zdbap(view)/ui/color/contentBackground", ",", "/Zdbap(view)/ui/color/toolbarBackground", ",", "/Zdbap(view)/ui/color/toolbarText", ",", "/Zdbap(view)/ui/freeze", ",", "/Zdbap(view)/ui/size", ",", "/Zdbap(view)/view/mute", ",", "/Zdbap/gain", ",", "/Zdbap/model/mute", ",", "/Zdbap/numSources", ",", "/Zdbap/numSpeakers", ",", "/Zdbap/rolloff", ",", "/Zdbap/source.1/area/size/xy", ",", "/Zdbap/source.1/area/xy", ",", "/Zdbap/source.1/blur", ",", "/Zdbap/source.1/color", ",", "/Zdbap/source.1/model/mute", ",", "/Zdbap/source.1/position/xy", ",", "/Zdbap/source.1/trajectory/direction", ",", "/Zdbap/source.1/trajectory/file", ",", "/Zdbap/source.1/trajectory/grain", ",", "/Zdbap/source.1/trajectory/mode", ",", "/Zdbap/source.1/trajectory/speed", ",", "/Zdbap/source.1/trajectory/speed/variation", ",", "/Zdbap/source.1/volume", ",", "/Zdbap/source.1/weight", ",", "/Zdbap/source.2/area/size/xy", ",", "/Zdbap/source.2/area/xy", ",", "/Zdbap/source.2/blur", ",", "/Zdbap/source.2/color", ",", "/Zdbap/source.2/model/mute", ",", "/Zdbap/source.2/position/xy", ",", "/Zdbap/source.2/trajectory/direction", ",", "/Zdbap/source.2/trajectory/file", ",", "/Zdbap/source.2/trajectory/grain", ",", "/Zdbap/source.2/trajectory/mode", ",", "/Zdbap/source.2/trajectory/speed", ",", "/Zdbap/source.2/trajectory/speed/variation", ",", "/Zdbap/source.2/volume", ",", "/Zdbap/source.2/weight", ",", "/Zdbap/source.3/area/size/xy", ",", "/Zdbap/source.3/area/xy", ",", "/Zdbap/source.3/blur", ",", "/Zdbap/source.3/color", ",", "/Zdbap/source.3/model/mute", ",", "/Zdbap/source.3/position/xy", ",", "/Zdbap/source.3/trajectory/direction", ",", "/Zdbap/source.3/trajectory/file", ",", "/Zdbap/source.3/trajectory/grain", ",", "/Zdbap/source.3/trajectory/mode", ",", "/Zdbap/source.3/trajectory/speed", ",", "/Zdbap/source.3/trajectory/speed/variation", ",", "/Zdbap/source.3/volume", ",", "/Zdbap/source.3/weight", ",", "/Zdbap/source.4/area/size/xy", ",", "/Zdbap/source.4/area/xy", ",", "/Zdbap/source.4/blur", ",", "/Zdbap/source.4/color", ",", "/Zdbap/source.4/model/mute", ",", "/Zdbap/source.4/position/xy", ",", "/Zdbap/source.4/trajectory/direction", ",", "/Zdbap/source.4/trajectory/file", ",", "/Zdbap/source.4/trajectory/grain", ",", "/Zdbap/source.4/trajectory/mode", ",", "/Zdbap/source.4/trajectory/speed", ",", "/Zdbap/source.4/trajectory/speed/variation", ",", "/Zdbap/source.4/volume", ",", "/Zdbap/source.4/weight", ",", "/Zdbap/source.5/area/size/xy", ",", "/Zdbap/source.5/area/xy", ",", "/Zdbap/source.5/blur", ",", "/Zdbap/source.5/color", ",", "/Zdbap/source.5/model/mute", ",", "/Zdbap/source.5/position/xy", ",", "/Zdbap/source.5/trajectory/direction", ",", "/Zdbap/source.5/trajectory/file", ",", "/Zdbap/source.5/trajectory/grain", ",", "/Zdbap/source.5/trajectory/mode", ",", "/Zdbap/source.5/trajectory/speed", ",", "/Zdbap/source.5/trajectory/speed/variation", ",", "/Zdbap/source.5/volume", ",", "/Zdbap/source.5/weight", ",", "/Zdbap/source.6/area/size/xy", ",", "/Zdbap/source.6/area/xy", ",", "/Zdbap/source.6/blur", ",", "/Zdbap/source.6/color", ",", "/Zdbap/source.6/model/mute", ",", "/Zdbap/source.6/position/xy", ",", "/Zdbap/source.6/trajectory/direction", ",", "/Zdbap/source.6/trajectory/file", ",", "/Zdbap/source.6/trajectory/grain", ",", "/Zdbap/source.6/trajectory/mode", ",", "/Zdbap/source.6/trajectory/speed", ",", "/Zdbap/source.6/trajectory/speed/variation", ",", "/Zdbap/source.6/volume", ",", "/Zdbap/source.6/weight", ",", "/Zdbap/speaker.1/model/mute", ",", "/Zdbap/speaker.1/position/xy", ",", "/Zdbap/speaker.2/model/mute", ",", "/Zdbap/speaker.2/position/xy", ",", "/Zdbap/speaker.3/model/mute", ",", "/Zdbap/speaker.3/position/xy", ",", "/Zdbap/speaker.4/model/mute", ",", "/Zdbap/speaker.4/position/xy", ",", "/Zdbap/speaker.5/model/mute", ",", "/Zdbap/speaker.5/position/xy", ",", "/Zdbap/speaker.6/model/mute", ",", "/Zdbap/speaker.6/position/xy", ",", "/Zdbap/speaker.7/model/mute", ",", "/Zdbap/speaker.7/position/xy", ",", "/Zdbap/speaker.8/model/mute", ",", "/Zdbap/speaker.8/position/xy", ",", "/Sel.rido/Selador.1/amber", ",", "/Sel.rido/Selador.1/blue", ",", "/Sel.rido/Selador.1/cyan", ",", "/Sel.rido/Selador.1/green", ",", "/Sel.rido/Selador.1/indigo", ",", "/Sel.rido/Selador.1/intensity", ",", "/Sel.rido/Selador.1/model/mute", ",", "/Sel.rido/Selador.1/orange", ",", "/Sel.rido/Selador.1/red", ",", "/Sel.rido/Selador.1/startChannel", ",", "/Sel.rido/Selador.2/amber", ",", "/Sel.rido/Selador.2/blue", ",", "/Sel.rido/Selador.2/cyan", ",", "/Sel.rido/Selador.2/green", ",", "/Sel.rido/Selador.2/indigo", ",", "/Sel.rido/Selador.2/intensity", ",", "/Sel.rido/Selador.2/model/mute", ",", "/Sel.rido/Selador.2/orange", ",", "/Sel.rido/Selador.2/red", ",", "/Sel.rido/Selador.2/startChannel", ",", "/Sel.rido/arraySize", ",", "/Sel.rido/model/mute", ",", "/Sel.inter/Selador.1/amber", ",", "/Sel.inter/Selador.1/blue", ",", "/Sel.inter/Selador.1/cyan", ",", "/Sel.inter/Selador.1/green", ",", "/Sel.inter/Selador.1/indigo", ",", "/Sel.inter/Selador.1/intensity", ",", "/Sel.inter/Selador.1/model/mute", ",", "/Sel.inter/Selador.1/orange", ",", "/Sel.inter/Selador.1/red", ",", "/Sel.inter/Selador.1/startChannel", ",", "/Sel.inter/Selador.2/amber", ",", "/Sel.inter/Selador.2/blue", ",", "/Sel.inter/Selador.2/cyan", ",", "/Sel.inter/Selador.2/green", ",", "/Sel.inter/Selador.2/indigo", ",", "/Sel.inter/Selador.2/intensity", ",", "/Sel.inter/Selador.2/model/mute", ",", "/Sel.inter/Selador.2/orange", ",", "/Sel.inter/Selador.2/red", ",", "/Sel.inter/Selador.2/startChannel", ",", "/Sel.inter/Selador.3/amber", ",", "/Sel.inter/Selador.3/blue", ",", "/Sel.inter/Selador.3/cyan", ",", "/Sel.inter/Selador.3/green", ",", "/Sel.inter/Selador.3/indigo", ",", "/Sel.inter/Selador.3/intensity", ",", "/Sel.inter/Selador.3/model/mute", ",", "/Sel.inter/Selador.3/orange", ",", "/Sel.inter/Selador.3/red", ",", "/Sel.inter/Selador.3/startChannel", ",", "/Sel.inter/arraySize", ",", "/Sel.inter/model/mute", ",", "/Sel.face/Selador.1/amber", ",", "/Sel.face/Selador.1/blue", ",", "/Sel.face/Selador.1/cyan", ",", "/Sel.face/Selador.1/green", ",", "/Sel.face/Selador.1/indigo", ",", "/Sel.face/Selador.1/intensity", ",", "/Sel.face/Selador.1/model/mute", ",", "/Sel.face/Selador.1/orange", ",", "/Sel.face/Selador.1/red", ",", "/Sel.face/Selador.1/startChannel", ",", "/Sel.face/Selador.2/amber", ",", "/Sel.face/Selador.2/blue", ",", "/Sel.face/Selador.2/cyan", ",", "/Sel.face/Selador.2/green", ",", "/Sel.face/Selador.2/indigo", ",", "/Sel.face/Selador.2/intensity", ",", "/Sel.face/Selador.2/model/mute", ",", "/Sel.face/Selador.2/orange", ",", "/Sel.face/Selador.2/red", ",", "/Sel.face/Selador.2/startChannel", ",", "/Sel.face/arraySize", ",", "/Sel.face/model/mute", ",", "/Sel.bas/Selador.1/amber", ",", "/Sel.bas/Selador.1/blue", ",", "/Sel.bas/Selador.1/cyan", ",", "/Sel.bas/Selador.1/green", ",", "/Sel.bas/Selador.1/indigo", ",", "/Sel.bas/Selador.1/intensity", ",", "/Sel.bas/Selador.1/model/mute", ",", "/Sel.bas/Selador.1/orange", ",", "/Sel.bas/Selador.1/red", ",", "/Sel.bas/Selador.1/startChannel", ",", "/Sel.bas/Selador.2/amber", ",", "/Sel.bas/Selador.2/blue", ",", "/Sel.bas/Selador.2/cyan", ",", "/Sel.bas/Selador.2/green", ",", "/Sel.bas/Selador.2/indigo", ",", "/Sel.bas/Selador.2/intensity", ",", "/Sel.bas/Selador.2/model/mute", ",", "/Sel.bas/Selador.2/orange", ",", "/Sel.bas/Selador.2/red", ",", "/Sel.bas/Selador.2/startChannel", ",", "/Sel.bas/arraySize", ",", "/Sel.bas/model/mute", ",", "/Sel.arr/Selador.1/amber", ",", "/Sel.arr/Selador.1/blue", ",", "/Sel.arr/Selador.1/cyan", ",", "/Sel.arr/Selador.1/green", ",", "/Sel.arr/Selador.1/indigo", ",", "/Sel.arr/Selador.1/intensity", ",", "/Sel.arr/Selador.1/model/mute", ",", "/Sel.arr/Selador.1/orange", ",", "/Sel.arr/Selador.1/red", ",", "/Sel.arr/Selador.1/startChannel", ",", "/Sel.arr/Selador.2/amber", ",", "/Sel.arr/Selador.2/blue", ",", "/Sel.arr/Selador.2/cyan", ",", "/Sel.arr/Selador.2/green", ",", "/Sel.arr/Selador.2/indigo", ",", "/Sel.arr/Selador.2/intensity", ",", "/Sel.arr/Selador.2/model/mute", ",", "/Sel.arr/Selador.2/orange", ",", "/Sel.arr/Selador.2/red", ",", "/Sel.arr/Selador.2/startChannel", ",", "/Sel.arr/Selador.3/amber", ",", "/Sel.arr/Selador.3/blue", ",", "/Sel.arr/Selador.3/cyan", ",", "/Sel.arr/Selador.3/green", ",", "/Sel.arr/Selador.3/indigo", ",", "/Sel.arr/Selador.3/intensity", ",", "/Sel.arr/Selador.3/model/mute", ",", "/Sel.arr/Selador.3/orange", ",", "/Sel.arr/Selador.3/red", ",", "/Sel.arr/Selador.3/startChannel", ",", "/Sel.arr/arraySize", ",", "/Sel.arr/model/mute", ",", "/BCF/midiIn", ",", "/BCF/midiOut", ",", "/BCF/model/mute", ",", "/BCF/track.1/fader/address", ",", "/BCF/track.1/fader/enable", ",", "/BCF/track.1/fader/mode", ",", "/BCF/track.1/fader/model/mute", ",", "/BCF/track.1/fader/power", ",", "/BCF/track.1/fader/value", ",", "/BCF/track.1/key.1/address", ",", "/BCF/track.1/key.1/enable", ",", "/BCF/track.1/key.1/mode", ",", "/BCF/track.1/key.1/model/mute", ",", "/BCF/track.1/key.1/power", ",", "/BCF/track.1/key.1/value", ",", "/BCF/track.1/key.2/address", ",", "/BCF/track.1/key.2/enable", ",", "/BCF/track.1/key.2/mode", ",", "/BCF/track.1/key.2/model/mute", ",", "/BCF/track.1/key.2/power", ",", "/BCF/track.1/key.2/value", ",", "/BCF/track.1/model/mute", ",", "/BCF/track.1/press.1/address", ",", "/BCF/track.1/press.1/enable", ",", "/BCF/track.1/press.1/mode", ",", "/BCF/track.1/press.1/model/mute", ",", "/BCF/track.1/press.1/power", ",", "/BCF/track.1/press.1/value", ",", "/BCF/track.1/press.2/address", ",", "/BCF/track.1/press.2/enable", ",", "/BCF/track.1/press.2/mode", ",", "/BCF/track.1/press.2/model/mute", ",", "/BCF/track.1/press.2/power", ",", "/BCF/track.1/press.2/value", ",", "/BCF/track.1/press.3/address", ",", "/BCF/track.1/press.3/enable", ",", "/BCF/track.1/press.3/mode", ",", "/BCF/track.1/press.3/model/mute", ",", "/BCF/track.1/press.3/power", ",", "/BCF/track.1/press.3/value", ",", "/BCF/track.1/press.4/address", ",", "/BCF/track.1/press.4/enable", ",", "/BCF/track.1/press.4/mode", ",", "/BCF/track.1/press.4/model/mute", ",", "/BCF/track.1/press.4/power", ",", "/BCF/track.1/press.4/value", ",", "/BCF/track.1/turn.1/address", ",", "/BCF/track.1/turn.1/enable", ",", "/BCF/track.1/turn.1/mode", ",", "/BCF/track.1/turn.1/model/mute", ",", "/BCF/track.1/turn.1/power", ",", "/BCF/track.1/turn.1/value", ",", "/BCF/track.1/turn.2/address", ",", "/BCF/track.1/turn.2/enable", ",", "/BCF/track.1/turn.2/mode", ",", "/BCF/track.1/turn.2/model/mute", ",", "/BCF/track.1/turn.2/power", ",", "/BCF/track.1/turn.2/value", ",", "/BCF/track.1/turn.3/address", ",", "/BCF/track.1/turn.3/enable", ",", "/BCF/track.1/turn.3/mode", ",", "/BCF/track.1/turn.3/model/mute", ",", "/BCF/track.1/turn.3/power", ",", "/BCF/track.1/turn.3/value", ",", "/BCF/track.1/turn.4/address", ",", "/BCF/track.1/turn.4/enable", ",", "/BCF/track.1/turn.4/mode", ",", "/BCF/track.1/turn.4/model/mute", ",", "/BCF/track.1/turn.4/power", ",", "/BCF/track.1/turn.4/value", ",", "/BCF/track.2/fader/address", ",", "/BCF/track.2/fader/enable", ",", "/BCF/track.2/fader/mode", ",", "/BCF/track.2/fader/model/mute", ",", "/BCF/track.2/fader/power", ",", "/BCF/track.2/fader/value", ",", "/BCF/track.2/key.1/address", ",", "/BCF/track.2/key.1/enable", ",", "/BCF/track.2/key.1/mode", ",", "/BCF/track.2/key.1/model/mute", ",", "/BCF/track.2/key.1/power", ",", "/BCF/track.2/key.1/value", ",", "/BCF/track.2/key.2/address", ",", "/BCF/track.2/key.2/enable", ",", "/BCF/track.2/key.2/mode", ",", "/BCF/track.2/key.2/model/mute", ",", "/BCF/track.2/key.2/power", ",", "/BCF/track.2/key.2/value", ",", "/BCF/track.2/model/mute", ",", "/BCF/track.2/press.1/address", ",", "/BCF/track.2/press.1/enable", ",", "/BCF/track.2/press.1/mode", ",", "/BCF/track.2/press.1/model/mute", ",", "/BCF/track.2/press.1/power", ",", "/BCF/track.2/press.1/value", ",", "/BCF/track.2/press.2/address", ",", "/BCF/track.2/press.2/enable", ",", "/BCF/track.2/press.2/mode", ",", "/BCF/track.2/press.2/model/mute", ",", "/BCF/track.2/press.2/power", ",", "/BCF/track.2/press.2/value", ",", "/BCF/track.2/press.3/address", ",", "/BCF/track.2/press.3/enable", ",", "/BCF/track.2/press.3/mode", ",", "/BCF/track.2/press.3/model/mute", ",", "/BCF/track.2/press.3/power", ",", "/BCF/track.2/press.3/value", ",", "/BCF/track.2/press.4/address", ",", "/BCF/track.2/press.4/enable", ",", "/BCF/track.2/press.4/mode", ",", "/BCF/track.2/press.4/model/mute", ",", "/BCF/track.2/press.4/power", ",", "/BCF/track.2/press.4/value", ",", "/BCF/track.2/turn.1/address", ",", "/BCF/track.2/turn.1/enable", ",", "/BCF/track.2/turn.1/mode", ",", "/BCF/track.2/turn.1/model/mute", ",", "/BCF/track.2/turn.1/power", ",", "/BCF/track.2/turn.1/value", ",", "/BCF/track.2/turn.2/address", ",", "/BCF/track.2/turn.2/enable", ",", "/BCF/track.2/turn.2/mode", ",", "/BCF/track.2/turn.2/model/mute", ",", "/BCF/track.2/turn.2/power", ",", "/BCF/track.2/turn.2/value", ",", "/BCF/track.2/turn.3/address", ",", "/BCF/track.2/turn.3/enable", ",", "/BCF/track.2/turn.3/mode", ",", "/BCF/track.2/turn.3/model/mute", ",", "/BCF/track.2/turn.3/power", ",", "/BCF/track.2/turn.3/value", ",", "/BCF/track.2/turn.4/address", ",", "/BCF/track.2/turn.4/enable", ",", "/BCF/track.2/turn.4/mode", ",", "/BCF/track.2/turn.4/model/mute", ",", "/BCF/track.2/turn.4/power", ",", "/BCF/track.2/turn.4/value", ",", "/BCF/track.3/fader/address", ",", "/BCF/track.3/fader/enable", ",", "/BCF/track.3/fader/mode", ",", "/BCF/track.3/fader/model/mute", ",", "/BCF/track.3/fader/power", ",", "/BCF/track.3/fader/value", ",", "/BCF/track.3/key.1/address", ",", "/BCF/track.3/key.1/enable", ",", "/BCF/track.3/key.1/mode", ",", "/BCF/track.3/key.1/model/mute", ",", "/BCF/track.3/key.1/power", ",", "/BCF/track.3/key.1/value", ",", "/BCF/track.3/key.2/address", ",", "/BCF/track.3/key.2/enable", ",", "/BCF/track.3/key.2/mode", ",", "/BCF/track.3/key.2/model/mute", ",", "/BCF/track.3/key.2/power", ",", "/BCF/track.3/key.2/value", ",", "/BCF/track.3/model/mute", ",", "/BCF/track.3/press.1/address", ",", "/BCF/track.3/press.1/enable", ",", "/BCF/track.3/press.1/mode", ",", "/BCF/track.3/press.1/model/mute", ",", "/BCF/track.3/press.1/power", ",", "/BCF/track.3/press.1/value", ",", "/BCF/track.3/press.2/address", ",", "/BCF/track.3/press.2/enable", ",", "/BCF/track.3/press.2/mode", ",", "/BCF/track.3/press.2/model/mute", ",", "/BCF/track.3/press.2/power", ",", "/BCF/track.3/press.2/value", ",", "/BCF/track.3/press.3/address", ",", "/BCF/track.3/press.3/enable", ",", "/BCF/track.3/press.3/mode", ",", "/BCF/track.3/press.3/model/mute", ",", "/BCF/track.3/press.3/power", ",", "/BCF/track.3/press.3/value", ",", "/BCF/track.3/press.4/address", ",", "/BCF/track.3/press.4/enable", ",", "/BCF/track.3/press.4/mode", ",", "/BCF/track.3/press.4/model/mute", ",", "/BCF/track.3/press.4/power", ",", "/BCF/track.3/press.4/value", ",", "/BCF/track.3/turn.1/address", ",", "/BCF/track.3/turn.1/enable", ",", "/BCF/track.3/turn.1/mode", ",", "/BCF/track.3/turn.1/model/mute", ",", "/BCF/track.3/turn.1/power", ",", "/BCF/track.3/turn.1/value", ",", "/BCF/track.3/turn.2/address", ",", "/BCF/track.3/turn.2/enable", ",", "/BCF/track.3/turn.2/mode", ",", "/BCF/track.3/turn.2/model/mute", ",", "/BCF/track.3/turn.2/power", ",", "/BCF/track.3/turn.2/value", ",", "/BCF/track.3/turn.3/address", ",", "/BCF/track.3/turn.3/enable", ",", "/BCF/track.3/turn.3/mode", ",", "/BCF/track.3/turn.3/model/mute", ",", "/BCF/track.3/turn.3/power", ",", "/BCF/track.3/turn.3/value", ",", "/BCF/track.3/turn.4/address", ",", "/BCF/track.3/turn.4/enable", ",", "/BCF/track.3/turn.4/mode", ",", "/BCF/track.3/turn.4/model/mute", ",", "/BCF/track.3/turn.4/power", ",", "/BCF/track.3/turn.4/value", ",", "/BCF/track.4/fader/address", ",", "/BCF/track.4/fader/enable", ",", "/BCF/track.4/fader/mode", ",", "/BCF/track.4/fader/model/mute", ",", "/BCF/track.4/fader/power", ",", "/BCF/track.4/fader/value", ",", "/BCF/track.4/key.1/address", ",", "/BCF/track.4/key.1/enable", ",", "/BCF/track.4/key.1/mode", ",", "/BCF/track.4/key.1/model/mute", ",", "/BCF/track.4/key.1/power", ",", "/BCF/track.4/key.1/value", ",", "/BCF/track.4/key.2/address", ",", "/BCF/track.4/key.2/enable", ",", "/BCF/track.4/key.2/mode", ",", "/BCF/track.4/key.2/model/mute", ",", "/BCF/track.4/key.2/power", ",", "/BCF/track.4/key.2/value", ",", "/BCF/track.4/model/mute", ",", "/BCF/track.4/press.1/address", ",", "/BCF/track.4/press.1/enable", ",", "/BCF/track.4/press.1/mode", ",", "/BCF/track.4/press.1/model/mute", ",", "/BCF/track.4/press.1/power", ",", "/BCF/track.4/press.1/value", ",", "/BCF/track.4/press.2/address", ",", "/BCF/track.4/press.2/enable", ",", "/BCF/track.4/press.2/mode", ",", "/BCF/track.4/press.2/model/mute", ",", "/BCF/track.4/press.2/power", ",", "/BCF/track.4/press.2/value", ",", "/BCF/track.4/press.3/address", ",", "/BCF/track.4/press.3/enable", ",", "/BCF/track.4/press.3/mode", ",", "/BCF/track.4/press.3/model/mute", ",", "/BCF/track.4/press.3/power", ",", "/BCF/track.4/press.3/value", ",", "/BCF/track.4/press.4/address", ",", "/BCF/track.4/press.4/enable", ",", "/BCF/track.4/press.4/mode", ",", "/BCF/track.4/press.4/model/mute", ",", "/BCF/track.4/press.4/power", ",", "/BCF/track.4/press.4/value", ",", "/BCF/track.4/turn.1/address", ",", "/BCF/track.4/turn.1/enable", ",", "/BCF/track.4/turn.1/mode", ",", "/BCF/track.4/turn.1/model/mute", ",", "/BCF/track.4/turn.1/power", ",", "/BCF/track.4/turn.1/value", ",", "/BCF/track.4/turn.2/address", ",", "/BCF/track.4/turn.2/enable", ",", "/BCF/track.4/turn.2/mode", ",", "/BCF/track.4/turn.2/model/mute", ",", "/BCF/track.4/turn.2/power", ",", "/BCF/track.4/turn.2/value", ",", "/BCF/track.4/turn.3/address", ",", "/BCF/track.4/turn.3/enable", ",", "/BCF/track.4/turn.3/mode", ",", "/BCF/track.4/turn.3/model/mute", ",", "/BCF/track.4/turn.3/power", ",", "/BCF/track.4/turn.3/value", ",", "/BCF/track.4/turn.4/address", ",", "/BCF/track.4/turn.4/enable", ",", "/BCF/track.4/turn.4/mode", ",", "/BCF/track.4/turn.4/model/mute", ",", "/BCF/track.4/turn.4/power", ",", "/BCF/track.4/turn.4/value", ",", "/BCF/track.5/fader/address", ",", "/BCF/track.5/fader/enable", ",", "/BCF/track.5/fader/mode", ",", "/BCF/track.5/fader/model/mute", ",", "/BCF/track.5/fader/power", ",", "/BCF/track.5/fader/value", ",", "/BCF/track.5/key.1/address", ",", "/BCF/track.5/key.1/enable", ",", "/BCF/track.5/key.1/mode", ",", "/BCF/track.5/key.1/model/mute", ",", "/BCF/track.5/key.1/power", ",", "/BCF/track.5/key.1/value", ",", "/BCF/track.5/key.2/address", ",", "/BCF/track.5/key.2/enable", ",", "/BCF/track.5/key.2/mode", ",", "/BCF/track.5/key.2/model/mute", ",", "/BCF/track.5/key.2/power", ",", "/BCF/track.5/key.2/value", ",", "/BCF/track.5/model/mute", ",", "/BCF/track.5/press.1/address", ",", "/BCF/track.5/press.1/enable", ",", "/BCF/track.5/press.1/mode", ",", "/BCF/track.5/press.1/model/mute", ",", "/BCF/track.5/press.1/power", ",", "/BCF/track.5/press.1/value", ",", "/BCF/track.5/press.2/address", ",", "/BCF/track.5/press.2/enable", ",", "/BCF/track.5/press.2/mode", ",", "/BCF/track.5/press.2/model/mute", ",", "/BCF/track.5/press.2/power", ",", "/BCF/track.5/press.2/value", ",", "/BCF/track.5/press.3/address", ",", "/BCF/track.5/press.3/enable", ",", "/BCF/track.5/press.3/mode", ",", "/BCF/track.5/press.3/model/mute", ",", "/BCF/track.5/press.3/power", ",", "/BCF/track.5/press.3/value", ",", "/BCF/track.5/press.4/address", ",", "/BCF/track.5/press.4/enable", ",", "/BCF/track.5/press.4/mode", ",", "/BCF/track.5/press.4/model/mute", ",", "/BCF/track.5/press.4/power", ",", "/BCF/track.5/press.4/value", ",", "/BCF/track.5/turn.1/address", ",", "/BCF/track.5/turn.1/enable", ",", "/BCF/track.5/turn.1/mode", ",", "/BCF/track.5/turn.1/model/mute", ",", "/BCF/track.5/turn.1/power", ",", "/BCF/track.5/turn.1/value", ",", "/BCF/track.5/turn.2/address", ",", "/BCF/track.5/turn.2/enable", ",", "/BCF/track.5/turn.2/mode", ",", "/BCF/track.5/turn.2/model/mute", ",", "/BCF/track.5/turn.2/power", ",", "/BCF/track.5/turn.2/value", ",", "/BCF/track.5/turn.3/address", ",", "/BCF/track.5/turn.3/enable", ",", "/BCF/track.5/turn.3/mode", ",", "/BCF/track.5/turn.3/model/mute", ",", "/BCF/track.5/turn.3/power", ",", "/BCF/track.5/turn.3/value", ",", "/BCF/track.5/turn.4/address", ",", "/BCF/track.5/turn.4/enable", ",", "/BCF/track.5/turn.4/mode", ",", "/BCF/track.5/turn.4/model/mute", ",", "/BCF/track.5/turn.4/power", ",", "/BCF/track.5/turn.4/value", ",", "/BCF/track.6/fader/address", ",", "/BCF/track.6/fader/enable", ",", "/BCF/track.6/fader/mode", ",", "/BCF/track.6/fader/model/mute", ",", "/BCF/track.6/fader/power", ",", "/BCF/track.6/fader/value", ",", "/BCF/track.6/key.1/address", ",", "/BCF/track.6/key.1/enable", ",", "/BCF/track.6/key.1/mode", ",", "/BCF/track.6/key.1/model/mute", ",", "/BCF/track.6/key.1/power", ",", "/BCF/track.6/key.1/value", ",", "/BCF/track.6/key.2/address", ",", "/BCF/track.6/key.2/enable", ",", "/BCF/track.6/key.2/mode", ",", "/BCF/track.6/key.2/model/mute", ",", "/BCF/track.6/key.2/power", ",", "/BCF/track.6/key.2/value", ",", "/BCF/track.6/model/mute", ",", "/BCF/track.6/press.1/address", ",", "/BCF/track.6/press.1/enable", ",", "/BCF/track.6/press.1/mode", ",", "/BCF/track.6/press.1/model/mute", ",", "/BCF/track.6/press.1/power", ",", "/BCF/track.6/press.1/value", ",", "/BCF/track.6/press.2/address", ",", "/BCF/track.6/press.2/enable", ",", "/BCF/track.6/press.2/mode", ",", "/BCF/track.6/press.2/model/mute", ",", "/BCF/track.6/press.2/power", ",", "/BCF/track.6/press.2/value", ",", "/BCF/track.6/press.3/address", ",", "/BCF/track.6/press.3/enable", ",", "/BCF/track.6/press.3/mode", ",", "/BCF/track.6/press.3/model/mute", ",", "/BCF/track.6/press.3/power", ",", "/BCF/track.6/press.3/value", ",", "/BCF/track.6/press.4/address", ",", "/BCF/track.6/press.4/enable", ",", "/BCF/track.6/press.4/mode", ",", "/BCF/track.6/press.4/model/mute", ",", "/BCF/track.6/press.4/power", ",", "/BCF/track.6/press.4/value", ",", "/BCF/track.6/turn.1/address", ",", "/BCF/track.6/turn.1/enable", ",", "/BCF/track.6/turn.1/mode", ",", "/BCF/track.6/turn.1/model/mute", ",", "/BCF/track.6/turn.1/power", ",", "/BCF/track.6/turn.1/value", ",", "/BCF/track.6/turn.2/address", ",", "/BCF/track.6/turn.2/enable", ",", "/BCF/track.6/turn.2/mode", ",", "/BCF/track.6/turn.2/model/mute", ",", "/BCF/track.6/turn.2/power", ",", "/BCF/track.6/turn.2/value", ",", "/BCF/track.6/turn.3/address", ",", "/BCF/track.6/turn.3/enable", ",", "/BCF/track.6/turn.3/mode", ",", "/BCF/track.6/turn.3/model/mute", ",", "/BCF/track.6/turn.3/power", ",", "/BCF/track.6/turn.3/value", ",", "/BCF/track.6/turn.4/address", ",", "/BCF/track.6/turn.4/enable", ",", "/BCF/track.6/turn.4/mode", ",", "/BCF/track.6/turn.4/model/mute", ",", "/BCF/track.6/turn.4/power", ",", "/BCF/track.6/turn.4/value", ",", "/BCF/track.7/fader/address", ",", "/BCF/track.7/fader/enable", ",", "/BCF/track.7/fader/mode", ",", "/BCF/track.7/fader/model/mute", ",", "/BCF/track.7/fader/power", ",", "/BCF/track.7/fader/value", ",", "/BCF/track.7/key.1/address", ",", "/BCF/track.7/key.1/enable", ",", "/BCF/track.7/key.1/mode", ",", "/BCF/track.7/key.1/model/mute", ",", "/BCF/track.7/key.1/power", ",", "/BCF/track.7/key.1/value", ",", "/BCF/track.7/key.2/address", ",", "/BCF/track.7/key.2/enable", ",", "/BCF/track.7/key.2/mode", ",", "/BCF/track.7/key.2/model/mute", ",", "/BCF/track.7/key.2/power", ",", "/BCF/track.7/key.2/value", ",", "/BCF/track.7/model/mute", ",", "/BCF/track.7/press.1/address", ",", "/BCF/track.7/press.1/enable", ",", "/BCF/track.7/press.1/mode", ",", "/BCF/track.7/press.1/model/mute", ",", "/BCF/track.7/press.1/power", ",", "/BCF/track.7/press.1/value", ",", "/BCF/track.7/press.2/address", ",", "/BCF/track.7/press.2/enable", ",", "/BCF/track.7/press.2/mode", ",", "/BCF/track.7/press.2/model/mute", ",", "/BCF/track.7/press.2/power", ",", "/BCF/track.7/press.2/value", ",", "/BCF/track.7/press.3/address", ",", "/BCF/track.7/press.3/enable", ",", "/BCF/track.7/press.3/mode", ",", "/BCF/track.7/press.3/model/mute", ",", "/BCF/track.7/press.3/power", ",", "/BCF/track.7/press.3/value", ",", "/BCF/track.7/press.4/address", ",", "/BCF/track.7/press.4/enable", ",", "/BCF/track.7/press.4/mode", ",", "/BCF/track.7/press.4/model/mute", ",", "/BCF/track.7/press.4/power", ",", "/BCF/track.7/press.4/value", ",", "/BCF/track.7/turn.1/address", ",", "/BCF/track.7/turn.1/enable", ",", "/BCF/track.7/turn.1/mode", ",", "/BCF/track.7/turn.1/model/mute", ",", "/BCF/track.7/turn.1/power", ",", "/BCF/track.7/turn.1/value", ",", "/BCF/track.7/turn.2/address", ",", "/BCF/track.7/turn.2/enable", ",", "/BCF/track.7/turn.2/mode", ",", "/BCF/track.7/turn.2/model/mute", ",", "/BCF/track.7/turn.2/power", ",", "/BCF/track.7/turn.2/value", ",", "/BCF/track.7/turn.3/address", ",", "/BCF/track.7/turn.3/enable", ",", "/BCF/track.7/turn.3/mode", ",", "/BCF/track.7/turn.3/model/mute", ",", "/BCF/track.7/turn.3/power", ",", "/BCF/track.7/turn.3/value", ",", "/BCF/track.7/turn.4/address", ",", "/BCF/track.7/turn.4/enable", ",", "/BCF/track.7/turn.4/mode", ",", "/BCF/track.7/turn.4/model/mute", ",", "/BCF/track.7/turn.4/power", ",", "/BCF/track.7/turn.4/value", ",", "/BCF/track.8/fader/address", ",", "/BCF/track.8/fader/enable", ",", "/BCF/track.8/fader/mode", ",", "/BCF/track.8/fader/model/mute", ",", "/BCF/track.8/fader/power", ",", "/BCF/track.8/fader/value", ",", "/BCF/track.8/key.1/address", ",", "/BCF/track.8/key.1/enable", ",", "/BCF/track.8/key.1/mode", ",", "/BCF/track.8/key.1/model/mute", ",", "/BCF/track.8/key.1/power", ",", "/BCF/track.8/key.1/value", ",", "/BCF/track.8/key.2/address", ",", "/BCF/track.8/key.2/enable", ",", "/BCF/track.8/key.2/mode", ",", "/BCF/track.8/key.2/model/mute", ",", "/BCF/track.8/key.2/power", ",", "/BCF/track.8/key.2/value", ",", "/BCF/track.8/model/mute", ",", "/BCF/track.8/press.1/address", ",", "/BCF/track.8/press.1/enable", ",", "/BCF/track.8/press.1/mode", ",", "/BCF/track.8/press.1/model/mute", ",", "/BCF/track.8/press.1/power", ",", "/BCF/track.8/press.1/value", ",", "/BCF/track.8/press.2/address", ",", "/BCF/track.8/press.2/enable", ",", "/BCF/track.8/press.2/mode", ",", "/BCF/track.8/press.2/model/mute", ",", "/BCF/track.8/press.2/power", ",", "/BCF/track.8/press.2/value", ",", "/BCF/track.8/press.3/address", ",", "/BCF/track.8/press.3/enable", ",", "/BCF/track.8/press.3/mode", ",", "/BCF/track.8/press.3/model/mute", ",", "/BCF/track.8/press.3/power", ",", "/BCF/track.8/press.3/value", ",", "/BCF/track.8/press.4/address", ",", "/BCF/track.8/press.4/enable", ",", "/BCF/track.8/press.4/mode", ",", "/BCF/track.8/press.4/model/mute", ",", "/BCF/track.8/press.4/power", ",", "/BCF/track.8/press.4/value", ",", "/BCF/track.8/turn.1/address", ",", "/BCF/track.8/turn.1/enable", ",", "/BCF/track.8/turn.1/mode", ",", "/BCF/track.8/turn.1/model/mute", ",", "/BCF/track.8/turn.1/power", ",", "/BCF/track.8/turn.1/value", ",", "/BCF/track.8/turn.2/address", ",", "/BCF/track.8/turn.2/enable", ",", "/BCF/track.8/turn.2/mode", ",", "/BCF/track.8/turn.2/model/mute", ",", "/BCF/track.8/turn.2/power", ",", "/BCF/track.8/turn.2/value", ",", "/BCF/track.8/turn.3/address", ",", "/BCF/track.8/turn.3/enable", ",", "/BCF/track.8/turn.3/mode", ",", "/BCF/track.8/turn.3/model/mute", ",", "/BCF/track.8/turn.3/power", ",", "/BCF/track.8/turn.3/value", ",", "/BCF/track.8/turn.4/address", ",", "/BCF/track.8/turn.4/enable", ",", "/BCF/track.8/turn.4/mode", ",", "/BCF/track.8/turn.4/model/mute", ",", "/BCF/track.8/turn.4/power", ",", "/BCF/track.8/turn.4/value" ],
+									"items" : [ "/Zdbap/source.1/volume", ",", "/Zdbap/source.2/volume", ",", "/Zdbap/source.3/volume", ",", "/Zdbap/source.4/volume", ",", "/Zdbap/source.5/volume", ",", "/Zdbap/source.6/volume" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -18467,7 +18464,7 @@
 																	"numoutlets" : 4,
 																	"outlettype" : [ "list", "", "", "" ],
 																	"patching_rect" : [ 59.0, 123.0, 75.0, 81.0 ],
-																	"rows" : 24
+																	"rows" : 8
 																}
 
 															}
@@ -18585,13 +18582,13 @@
 ,
 													"patching_rect" : [ 370.0, 63.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p update_priority"
@@ -19699,13 +19696,13 @@
 ,
 													"patching_rect" : [ 19.028381, 62.0, 73.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 12.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 12.0,
+														"fontface" : 0,
+														"fontsize" : 12.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p shiftSelect"
@@ -20776,13 +20773,13 @@
 ,
 													"patching_rect" : [ 5.0, 358.0, 48.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
+														"fontface" : 0,
+														"fontsize" : 10.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana"
 													}
 ,
 													"text" : "p colors"
@@ -21370,13 +21367,13 @@
 ,
 									"patching_rect" : [ 215.0, 318.0, 93.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p switch"
@@ -22042,13 +22039,13 @@
 ,
 									"patching_rect" : [ 309.0, 74.0, 62.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p columns"
@@ -22090,8 +22087,8 @@
 									"patching_rect" : [ 215.0, 138.0, 186.0, 170.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 154.0, 56.0, 200.0, 663.0 ],
-									"rowdef" : [ [ 0, 0, 0, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, 2, 1 ], [ 1, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 2, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 3, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 4, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 5, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 6, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 7, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 8, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 9, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 10, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 11, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 12, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 13, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 14, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 15, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 16, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 17, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 18, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 19, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 20, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 21, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 22, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 23, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ] ],
-									"rows" : 24,
+									"rowdef" : [ [ 0, 0, 0, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, 2, 1 ], [ 1, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 2, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 3, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 4, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 5, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 6, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ], [ 7, 0, 1, 0.0, 0.0, 0.0, 1.0, 0, 1.0, 0.392157, 0.392157, 1.0, -1, -1, -1 ] ],
+									"rows" : 8,
 									"selmode" : 5,
 									"varname" : "modules[1]"
 								}
@@ -22485,13 +22482,13 @@
 ,
 													"patching_rect" : [ 316.0, 448.0, 46.0, 31.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p priority"
@@ -22726,13 +22723,13 @@
 ,
 																					"patching_rect" : [ 50.0, 315.0, 74.0, 17.0 ],
 																					"saved_object_attributes" : 																					{
-																						"fontsize" : 12.0,
-																						"default_fontface" : 0,
-																						"default_fontname" : "Arial",
 																						"fontname" : "Arial",
 																						"default_fontsize" : 12.0,
+																						"fontface" : 0,
+																						"fontsize" : 12.0,
 																						"globalpatchername" : "",
-																						"fontface" : 0
+																						"default_fontface" : 0,
+																						"default_fontname" : "Arial"
 																					}
 ,
 																					"text" : "p remove_slash"
@@ -22894,13 +22891,13 @@
 ,
 																					"patching_rect" : [ 64.0, 364.0, 71.0, 18.0 ],
 																					"saved_object_attributes" : 																					{
-																						"fontsize" : 10.0,
-																						"default_fontface" : 0,
-																						"default_fontname" : "Arial",
 																						"fontname" : "Arial",
 																						"default_fontsize" : 10.0,
+																						"fontface" : 0,
+																						"fontsize" : 10.0,
 																						"globalpatchername" : "",
-																						"fontface" : 0
+																						"default_fontface" : 0,
+																						"default_fontname" : "Arial"
 																					}
 ,
 																					"text" : "p filter_noInst"
@@ -23204,13 +23201,13 @@
 ,
 																	"patching_rect" : [ 118.0, 174.0, 50.0, 17.0 ],
 																	"saved_object_attributes" : 																	{
-																		"fontsize" : 9.0,
-																		"default_fontface" : 0,
-																		"default_fontname" : "Arial",
 																		"fontname" : "Arial",
 																		"default_fontsize" : 9.0,
+																		"fontface" : 0,
+																		"fontsize" : 9.0,
 																		"globalpatchername" : "",
-																		"fontface" : 0
+																		"default_fontface" : 0,
+																		"default_fontname" : "Arial"
 																	}
 ,
 																	"text" : "p children"
@@ -23851,13 +23848,13 @@
 ,
 													"patching_rect" : [ 258.0, 386.0, 113.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p Modules"
@@ -24268,13 +24265,13 @@
 ,
 													"patching_rect" : [ 316.0, 536.0, 172.0, 20.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p Namespace"
@@ -25232,13 +25229,13 @@
 ,
 									"patching_rect" : [ 215.0, 73.0, 93.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p modules"
@@ -25352,7 +25349,7 @@
 									"presentation_rect" : [ 9.0, 129.0, 124.0, 589.0 ],
 									"rowhead" : 1,
 									"rowheight" : 20,
-									"rows" : 9,
+									"rows" : 2,
 									"selmode" : 5,
 									"textcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
 									"varname" : "cues"
@@ -25806,13 +25803,13 @@
 ,
 													"patching_rect" : [ 353.0, 32.0, 62.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 9.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Arial",
 														"fontname" : "Arial",
 														"default_fontsize" : 9.0,
+														"fontface" : 0,
+														"fontsize" : 9.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Arial"
 													}
 ,
 													"text" : "p names"
@@ -25899,7 +25896,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 139.0, 145.0, 64.0, 17.0 ],
-													"text" : "4"
+													"text" : "1"
 												}
 
 											}
@@ -26094,13 +26091,13 @@
 ,
 									"patching_rect" : [ 59.0, 89.0, 107.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p cellblock_settings"
@@ -26442,13 +26439,13 @@
 ,
 													"patching_rect" : [ 158.0, 159.0, 43.0, 21.0 ],
 													"saved_object_attributes" : 													{
-														"fontsize" : 10.0,
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
+														"fontface" : 0,
+														"fontsize" : 10.0,
 														"globalpatchername" : "",
-														"fontface" : 0
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana"
 													}
 ,
 													"text" : "p l=="
@@ -27079,13 +27076,13 @@
 ,
 									"patching_rect" : [ 59.0, 500.0, 220.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"fontface" : 0
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p operations"
@@ -28078,13 +28075,13 @@
 ,
 					"patching_rect" : [ 281.0, 76.0, 75.0, 17.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 9.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 9.0,
+						"fontface" : 0,
+						"fontsize" : 9.0,
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p Cue-Inspector"
@@ -28383,13 +28380,13 @@
 ,
 					"patching_rect" : [ 281.0, 239.0, 42.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p hide"
