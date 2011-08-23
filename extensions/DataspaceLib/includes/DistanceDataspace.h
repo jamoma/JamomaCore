@@ -47,6 +47,9 @@ public:
 // Specification of our base class
 class DistanceDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(DistanceDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
 };
 
 

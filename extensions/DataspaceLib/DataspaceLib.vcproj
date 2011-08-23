@@ -207,10 +207,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\source\PitchDataspace.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\source\PositionDataspace.cpp"
 				>
 			</File>
@@ -267,10 +263,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\includes\PitchDataspace.h"
-				>
-			</File>
-			<File
 				RelativePath=".\includes\PositionDataspace.h"
 				>
 			</File>
@@ -296,6 +288,46 @@
 			</File>
 			<File
 				RelativePath=".\includes\TTDataspaceUnit.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="tests"
+			>
+			<File
+				RelativePath=".\tests\AngleDataspace.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\ColorDataspace.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\DistanceDataspace.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\GainDataspace.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\OrientationDataspace.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\PositionDataspace.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\SpeedDataspace.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\TemperatureDataspace.test.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\TimeDataspace.test.cpp"
 				>
 			</File>
 		</Filter>

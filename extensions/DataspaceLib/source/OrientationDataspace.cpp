@@ -56,11 +56,11 @@ void EulerUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	TTFloat64 yaw, pitch, roll;
 	
 	input.get(0, yaw);
-	yaw = yaw * kDegreesToRadians * 0.5; 
+	yaw = yaw * kTTDegreesToRadians * 0.5; 
 	input.get(1, pitch);
-	pitch = pitch * kDegreesToRadians * 0.5;
+	pitch = pitch * kTTDegreesToRadians * 0.5;
 	input.get(2, roll);	
-	roll = roll * kDegreesToRadians * 0.5;
+	roll = roll * kTTDegreesToRadians * 0.5;
 	
 	TTFloat64 sinPitch(sin(pitch));
 	TTFloat64 cosPitch(cos(pitch));
@@ -75,12 +75,7 @@ void EulerUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	output.set(0, cosRoll * cosPitchCosYaw     + sinRoll * sinPitchSinYaw); //W
 	output.set(1, cosRoll * sinPitch * cosYaw  + sinRoll * cosPitch * sinYaw); //Y
 	output.set(2, cosRoll * cosPitch * sinYaw  - sinRoll * sinPitch * cosYaw); //Z
-	output.set(3, sinRoll * cosPitchCosYaw     - cosRoll * sinPitchSinYaw); //X
-	
-	
-	
-	
-	
+	output.set(3, sinRoll * cosPitchCosYaw     - cosRoll * sinPitchSinYaw); //X	
 	
 }
 
@@ -96,9 +91,9 @@ void EulerUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	input.get(3, Z);
 	
 	output.setSize(3);
-	output.set(0, kRadiansToDegrees * asin(-2*(X*Z - W*Y))); //yaw
-	output.set(1, kRadiansToDegrees * atan2(2*(Y*Z + W*X), W*W - X*X - Y*Y + Z*Z)); //pitch
-	output.set(2, kRadiansToDegrees * atan2(2*(X*Y + W*Z), W*W + X*X - Y*Y - Z*Z)); //roll
+	output.set(0, kTTRadiansToDegrees * asin(-2*(X*Z - W*Y))); //yaw
+	output.set(1, kTTRadiansToDegrees * atan2(2*(Y*Z + W*X), W*W - X*X - Y*Y + Z*Z)); //pitch
+	output.set(2, kTTRadiansToDegrees * atan2(2*(X*Y + W*Z), W*W + X*X - Y*Y - Z*Z)); //roll
 }
 
 
@@ -126,7 +121,7 @@ void AxisUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	TTFloat64 sinAngle, n;
 		
 	input.get(0, angle);
-	angle = angle * kDegreesToRadians  * 0.5;
+	angle = angle * kTTDegreesToRadians  * 0.5;
 	sinAngle = sin(angle);
 	input.get(1, x);
 	input.get(2, y);
@@ -179,7 +174,7 @@ void AxisUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	
 	
 	output.setSize(4);    
-	output.set(0, kRadiansToDegrees * (acos(W) * 2.0)); //angle
+	output.set(0, kTTRadiansToDegrees * (acos(W) * 2.0)); //angle
     output.set(1, X * sin_a); //x
     output.set(2, Y * sin_a); //y
 	output.set(3, Z * sin_a); //z	

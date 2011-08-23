@@ -53,13 +53,13 @@ MidiGainUnit::~MidiGainUnit(){;}
 
 void MidiGainUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = pow(TTFloat64(input)*0.01, kGainMidiPower);
+	output = pow(TTFloat64(input)*0.01, kTTGainMidiPower);
 }
 
 
 void MidiGainUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output = 100.0 * pow(TTFloat64(input), kGainMidiPowerInv);
+	output = 100.0 * pow(TTFloat64(input), kTTGainMidiPowerInv);
 }
 
 

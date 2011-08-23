@@ -42,9 +42,9 @@ CMYUnit::~CMYUnit(){;}
 void CMYUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	output.setSize(3);
-	output.set(0, (255 - input.getFloat64(0)) * inv255);
-	output.set(1, (255 - input.getFloat64(1)) * inv255);
-	output.set(2, (255 - input.getFloat64(2)) * inv255);	
+	output.set(0, (255 - input.getFloat64(0)) * kTTInv255);
+	output.set(1, (255 - input.getFloat64(1)) * kTTInv255);
+	output.set(2, (255 - input.getFloat64(2)) * kTTInv255);	
 }
 
 
@@ -334,9 +334,9 @@ RGB8Unit::~RGB8Unit(){;}
 void RGB8Unit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	output.setSize(3);
-	output.set(0, input.getFloat64(0)*inv255);
-	output.set(1, input.getFloat64(1)*inv255);
-	output.set(2, input.getFloat64(2)*inv255);	
+	output.set(0, input.getFloat64(0)*kTTInv255);
+	output.set(1, input.getFloat64(1)*kTTInv255);
+	output.set(2, input.getFloat64(2)*kTTInv255);	
 }
 
 

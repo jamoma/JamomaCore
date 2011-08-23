@@ -55,6 +55,9 @@ public:
 // Specification of our base class
 class SpeedDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(SpeedDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
 };
 
 

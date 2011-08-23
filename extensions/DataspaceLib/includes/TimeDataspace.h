@@ -14,6 +14,48 @@
 /****************************************************************************************************/
 // Class Specifications
 
+
+class BarkUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(BarkUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
+class BpmUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(BpmUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
+
+class CentUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(CentUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
+class MelUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(MelUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
+class MidiPitchUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(MidiPitchUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
 class MillisecondUnit : public TTDataObject, public TTDataspaceUnit {
 	TTCLASS_SETUP(MillisecondUnit)
 public:
@@ -23,12 +65,9 @@ public:
 
 
 class SampleUnit : public TTDataObject, public TTDataspaceUnit {
-	// note that we aren't using the SI base unit for time, because the SI base unit for time is a bit wacky
-	// we are just going to use ms because that is the native unit for Max
 	private:
-		long	sample_rate;	///< samples per second
-		double	msr;			///< samples per millisecond
-		double	rmsr;			///< reciprocal of msr
+		long	sampleRate;             ///< samples per second
+		double	inverseSampleRate;      ///< reciprocal of sampleRate
 
 	TTCLASS_SETUP(SampleUnit)
 public:
@@ -45,16 +84,16 @@ public:
 };
 
 
-class UpdaterateUnit : public TTDataObject, public TTDataspaceUnit {
-	TTCLASS_SETUP(UpdaterateUnit)
+class SpeedUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(SpeedUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
-class BpmUnit : public TTDataObject, public TTDataspaceUnit {
-	TTCLASS_SETUP(BpmUnit)
+class FrequencyUnit : public TTDataObject, public TTDataspaceUnit {
+	TTCLASS_SETUP(FrequencyUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
@@ -64,6 +103,9 @@ public:
 // Specification of our base class
 class TimeDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(TimeDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 

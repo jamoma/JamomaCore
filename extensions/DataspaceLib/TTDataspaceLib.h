@@ -15,7 +15,6 @@
 
 #include "TTFoundationAPI.h"
 
-
 // Macros used to export classes and methods so that we can use linking in performance-critical code
 #if defined( TT_PLATFORM_MAC ) or defined ( TT_PLATFORM_LINUX )
 	#define TT_DATASPACE_EXPORT TTFOUNDATION_EXPORT
@@ -27,8 +26,9 @@
 	#endif
 #endif
 
-// TODO: these constants should go into TTBase.h [NP]
 
+/*
+// these constants are now in TTBase.h
 // Constants used for trigonometric convertions:
 static const double kRadiansToDegrees = 180.0 / kTTPi; 
 static const double kDegreesToRadians = kTTPi / 180.0;
@@ -40,6 +40,6 @@ static const double kGainMidiPowerInv = 1./kGainMidiPower;
 
 // This coeff is used for some of the color convertions:
 static const double inv255 = 1./255.;
-
+*/
 
 #endif // __DATASPACELIB_H__

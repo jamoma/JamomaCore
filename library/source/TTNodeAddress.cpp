@@ -112,7 +112,7 @@ TTNodeAddressPtr TTNodeAddress::appendAddress(const TTNodeAddressPtr toAppend)
 	tmp += this->getCString();
 
 	// insert a / if the first part is not the root and the address to append is not absolute
-	if (this != kTTAdrsRoot && toAppend->getType() != kAddressAbsolute) {
+	if (this != kTTAdrsRoot && toAppend->getType() != kAddressAbsolute && toAppend->getName() != NO_NAME) {
 		tmp += C_SEPARATOR;
 		tmp += toAppend->getCString();
 	}

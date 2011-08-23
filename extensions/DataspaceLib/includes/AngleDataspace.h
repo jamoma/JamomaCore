@@ -33,6 +33,9 @@ public:
 
 class AngleDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(AngleDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 

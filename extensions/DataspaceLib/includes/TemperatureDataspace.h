@@ -40,6 +40,9 @@ public:
 // Specification of our base class
 class TemperatureDataspace : public TTDataObject, public TTDataspace {
 	TTCLASS_SETUP(TemperatureDataspace)
+    
+    /**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);	
 };
 
 
