@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
+ <!--TODO : TTContainer Description at mAddress-->
+ <preset number="1" name="default">
+  <!---->
+  <Data address="bands/max" priority="1" value="8"/>
+  <Data address="bands" priority="2" value="5"/>
+  <Data address="out/gain" priority="0"/>
+  <Data address="filter.3/q" priority="0" value="2.000000"/>
+  <Data address="filter.2/frequency" priority="0" value="125."/>
+  <Data address="filter.2/gain" priority="0" value="0."/>
+  <Data address="filter.1/q" priority="0" value="2.000000"/>
+  <Data address="filter.3/frequency" priority="0" value="250."/>
+  <Data address="filter.4/gain" priority="0" value="0."/>
+  <Data address="filter.1/frequency" priority="0" value="50."/>
+  <Data address="filter.3/type" priority="0" value="peaknotch"/>
+  <Data address="filter.8/q" priority="0"/>
+  <Data address="in/mute" priority="0"/>
+  <Data address="filter.6/frequency" priority="0"/>
+  <Data address="filter.7/frequency" priority="0"/>
+  <Data address="filter.8/type" priority="0" value="peaknotch"/>
+  <Data address="filter.8/model/mute" priority="0"/>
+  <Data address="filter.5/frequency" priority="0" value="5000."/>
+  <Data address="filter.1/gain" priority="0" value="0."/>
+  <Data address="filter.5/model/mute" priority="0"/>
+  <Data address="filter.6/q" priority="0"/>
+  <Data address="filter.7/q" priority="0"/>
+  <Data address="filter.5/q" priority="0" value="2.000000"/>
+  <Data address="in/bypass" priority="0"/>
+  <Data address="model/mute" priority="0"/>
+  <Data address="out/mute" priority="0"/>
+  <Data address="filter.2/q" priority="0" value="2.000000"/>
+  <Data address="filter.7/model/mute" priority="0"/>
+  <Data address="filter.4/q" priority="0" value="2.000000"/>
+  <Data address="filter.6/type" priority="0" value="peaknotch"/>
+  <Data address="filter.7/type" priority="0" value="peaknotch"/>
+  <Data address="filter.8/frequency" priority="0"/>
+  <Data address="filter.5/type" priority="0" value="highshelf"/>
+  <Data address="filter.4/frequency" priority="0" value="1000."/>
+  <Data address="filter.4/model/mute" priority="0"/>
+  <Data address="filter.8/gain" priority="0"/>
+  <Data address="filter.2/type" priority="0" value="peaknotch"/>
+  <Data address="filter.1/model/mute" priority="0"/>
+  <Data address="filter.3/gain" priority="0" value="0."/>
+  <Data address="filter.4/type" priority="0" value="peaknotch"/>
+  <Data address="filter.2/model/mute" priority="0"/>
+  <Data address="out/mix" priority="0"/>
+  <Data address="filter.1/type" priority="0" value="lowshelf"/>
+  <Data address="filter.6/model/mute" priority="0"/>
+  <Data address="filter.6/gain" priority="0"/>
+  <Data address="filter.7/gain" priority="0"/>
+  <Data address="filter.3/model/mute" priority="0"/>
+  <Data address="filter.5/gain" priority="0" value="0."/>
+ </preset>
+</jamoma>
