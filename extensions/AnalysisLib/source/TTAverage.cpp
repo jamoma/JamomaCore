@@ -20,7 +20,7 @@
 
 TT_AUDIO_CONSTRUCTOR,
 mMaxInterval(2000),
-mInterval(1)
+mInterval(100)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
     
