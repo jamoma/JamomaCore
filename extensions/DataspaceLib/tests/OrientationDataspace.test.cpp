@@ -163,6 +163,63 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount,
 					errorCount);
 	
+	/************************************************/
+    /*                                              */
+    /* simple rotations to axis-angle               */
+    /*                                              */
+    /************************************************/
+    
+	myDataspace->setAttributeValue(TT("inputUnit"), TT("euler"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
+	
+	//yaw
+	v.setSize(3);
+    v.set(0, TTFloat64(45.0));
+    v.set(1, TTFloat64(0.0));
+    v.set(2, TTFloat64(0.0));
+    
+    expected.setSize(4);
+	expected.set(0, TTFloat64(0.0));
+    expected.set(1, TTFloat64(0.0));
+    expected.set(2, TTFloat64(-1.0));
+	expected.set(3, TTFloat64(45.0));
+    
+    myDataspace->sendMessage(TT("convert"), v);
+    
+    TTTestAssertion("yaw rotation to axis-angle", 
+					TTTestFloat64ArrayEquivalence(v, expected),
+					testAssertionCount, errorCount);
+	//pitch
+    v.set(0, TTFloat64(0.0));
+    v.set(1, TTFloat64(45.0));
+    v.set(2, TTFloat64(0.0));
+    
+	expected.set(0, TTFloat64(1.0));
+    expected.set(1, TTFloat64(0.0));
+    expected.set(2, TTFloat64(0.0));
+	expected.set(3, TTFloat64(45.0));
+    
+    myDataspace->sendMessage(TT("convert"), v);
+    
+    TTTestAssertion("pitch rotation to axis-angle", 
+					TTTestFloat64ArrayEquivalence(v, expected),
+					testAssertionCount, errorCount);
+	
+	//roll
+    v.set(0, TTFloat64(0.0));
+    v.set(1, TTFloat64(0.0));
+    v.set(2, TTFloat64(45.0));
+    
+	expected.set(0, TTFloat64(0.0));
+    expected.set(1, TTFloat64(1.0));
+    expected.set(2, TTFloat64(0.0));
+	expected.set(3, TTFloat64(45.0));
+    
+    myDataspace->sendMessage(TT("convert"), v);
+    
+    TTTestAssertion("roll rotation to axis-angle", 
+					TTTestFloat64ArrayEquivalence(v, expected),
+					testAssertionCount, errorCount);
 	
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
