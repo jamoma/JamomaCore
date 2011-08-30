@@ -59,14 +59,14 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
 	
 	// angle-axis to quaternion
 	
-	myDataspace->setAttributeValue(TT("inputUnit"), TT("axis"));
+	myDataspace->setAttributeValue(TT("inputUnit"), TT("xyza"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("quaternion"));    
 	
 	v.setSize(4); 
     v.set(0, TTFloat64(0.0));
     v.set(1, TTFloat64(-0.5773502691896258));
 	v.set(2, TTFloat64(-0.8164965809277260));	
-	v.set(4, TTFloat64(120.0));
+	v.set(3, TTFloat64(120.0));
 
     
     expected.setSize(4);

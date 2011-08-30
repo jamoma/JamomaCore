@@ -187,7 +187,7 @@ TT_OBJECT_CONSTRUCTOR
 	registerUnit(TT("unit.euler"),			TT("euler"));
 	registerUnit(TT("unit.euler"),			TT("ypr"));
 	registerUnit(TT("unit.axis"),			TT("axis"));
-	registerUnit(TT("unit.axis"),			TT("axyz"));
+	registerUnit(TT("unit.axis"),			TT("xyza"));
 	registerUnit(TT("unit.quaternion"),		TT("quaternion"));
 	registerUnit(TT("unit.quaternion"),		TT("quat"));
 		
