@@ -134,7 +134,6 @@
 			isa = PBXProject;
 			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.receive" */;
 			compatibilityVersion = "Xcode 3.0";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
