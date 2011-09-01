@@ -113,7 +113,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 52.0, 18.0, 41.0, 19.0 ],
 					"saved_object_attributes" : 					{
-
+						"attr_comment" : ""
 					}
 ,
 					"text" : "in 1"
@@ -130,7 +130,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 422.0, 65.0, 136.0, 19.0 ],
-					"text" : "jcom.hub @context node"
+					"text" : "jcom.hub"
 				}
 
 			}
@@ -685,13 +685,13 @@
 ,
 					"patching_rect" : [ 52.0, 456.0, 154.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p PrepareForFiltergraph~",
@@ -709,7 +709,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 52.0, 486.0, 41.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"attr_comment" : ""
+
 					}
 ,
 					"text" : "out 1"
