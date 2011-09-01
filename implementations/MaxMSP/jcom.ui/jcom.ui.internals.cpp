@@ -16,6 +16,7 @@ void ui_data_create_all(t_ui* obj)
 	TTValue			v;
 	
 	// create a ui node with our patcher as context
+	anObject = NULL;
 	TTObjectInstantiate(TT("Container"), &anObject, kTTValNONE);
 	if (!jamoma_subscriber_create((ObjectPtr)obj, anObject, TTADRS("ui"), &obj->uiSubscriber)) {
 		
