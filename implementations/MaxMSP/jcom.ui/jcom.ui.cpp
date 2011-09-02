@@ -190,6 +190,7 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->refmenu_items = NULL;
 		x->hash_datas = new TTHash();
 		x->hash_viewers = new TTHash();
+		x->hash_receivers = new TTHash();
 		x->preset_names = NULL;
 		x->preset_num = 0;
 		
@@ -281,8 +282,8 @@ void ui_free(t_ui *x)
 	}
 	
 	ui_data_destroy_all(x);
-	ui_viewer_destroy(x, TT("model/address"));
 	ui_viewer_destroy_all(x);
+	ui_receiver_destroy_all(x);
 }
 
 

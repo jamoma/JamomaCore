@@ -227,8 +227,8 @@ void view_subscribe(TTPtr self)
 	if (contextAddress != kTTAdrsEmpty) {
 		
 		if (x->patcherContext == kTTSym_view) {
-			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
-			anObject->sendMessage(kTTSym_Refresh);
+			makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+			anObject->sendMessage(kTTSym_Get);
 		}
 		else {
 			absoluteAddress = contextAddress->appendAddress(x->address);

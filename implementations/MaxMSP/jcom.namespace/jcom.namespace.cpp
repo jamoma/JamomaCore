@@ -159,8 +159,8 @@ void nmspc_subscribe(TTPtr self)
 		absoluteAddress = contextAddress->appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		
-		makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
-		anObject->sendMessage(kTTSym_Refresh);
+		makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+		anObject->sendMessage(kTTSym_Get);
 	}
 	
 	// while the context node is not registered : try to binds again :(

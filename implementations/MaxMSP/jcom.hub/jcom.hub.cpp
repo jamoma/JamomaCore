@@ -240,6 +240,7 @@ void hub_subscribe(TTPtr self)
 				// In model patcher : set /modeladdress with his address
 				if (x->patcherContext == kTTSym_model) {
 					aData->setAttributeValue(kTTSym_value, nodeAdrs);
+					aData->setAttributeValue(kTTSym_valueDefault, nodeAdrs); // because of init process
 					
 					// use hubPatcher args to setup the hub attributes (like @priority)
 					if (ac && av)
@@ -254,6 +255,7 @@ void hub_subscribe(TTPtr self)
 					if (ac > 0) {
 						EXTRA->modelAddress = TTADRS(atom_getsym(av)->s_name);
 						aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
+						aData->setAttributeValue(kTTSym_valueDefault, EXTRA->modelAddress); // because of init process
 					}
 					
 					if (EXTRA->modelAddress == kTTAdrsEmpty) {
@@ -499,6 +501,8 @@ void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 					
 					v.get(0, (TTPtr*)&aData);
 					aData->setAttributeValue(kTTSym_value, containerAddress);
+					aData->setAttributeValue(kTTSym_valueDefault, containerAddress); // because of init process
+					return;
 				}
 			}
 		}
