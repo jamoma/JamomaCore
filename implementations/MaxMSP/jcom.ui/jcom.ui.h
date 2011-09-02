@@ -49,6 +49,7 @@ typedef struct _ui{
 	TTHandle			outlets;
 	TTHashPtr			hash_datas;				///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
+	TTHashPtr			hash_receivers;			///< hash table of TTReceiver
 	TTObjectPtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
 	TTObjectPtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
 	TTObjectPtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
@@ -176,6 +177,10 @@ void		ui_data_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_data_destroy_all(t_ui* obj);
 void		ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v);
 void		ui_data_interface(t_ui *x, TTSymbolPtr name);
+
+void		ui_receiver_create(t_ui *obj, TTObjectPtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTNodeAddressPtr address);
+void		ui_receiver_destroy(t_ui *obj, TTSymbolPtr name);
+void		ui_receiver_destroy_all(t_ui *obj);
 
 void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTNodeAddressPtr address, TTBoolean subscribe);
 void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);

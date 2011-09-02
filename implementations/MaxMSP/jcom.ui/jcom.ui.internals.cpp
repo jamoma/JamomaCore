@@ -27,8 +27,8 @@ void ui_data_create_all(t_ui* obj)
 		obj->uiSubscriber->getAttributeValue(TT("contextAddress"), v);
 		v.get(0, &obj->viewAddress);
 		
-		// make a viewer on contextAddress/model/address data
-		ui_viewer_create(obj, &anObject, gensym("return_model_address"), TT("model/address"), obj->viewAddress, NO);
+		// make a receiver on contextAddress/model/address data
+		ui_receiver_create(obj, &anObject, gensym("return_model_address"), TT("model/address"), obj->viewAddress);
 		
 		// Then create all internal datas concerning the jcom.ui
 		// ui/color/contentBackground
@@ -216,6 +216,80 @@ void ui_data_interface(t_ui *x, TTSymbolPtr name)
 	object_method(p, _sym_loadbang);
 }
 
+void ui_receiver_create(t_ui *obj, TTObjectPtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTNodeAddressPtr address)
+{
+	TTValue			v, args;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	TTNodeAddressPtr adrs;
+	
+	// prepare arguments
+	args.append(NULL);
+	
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(obj));
+	returnValueBaton->append(TTPtr(aCallbackMethod));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedReceiver = NULL;
+	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
+	
+	// Set address to bind
+	adrs = address->appendAddress(TTADRS(name->getCString()));
+	(*returnedReceiver)->setAttributeValue(TT("address"), adrs);
+	
+	// refresh receiver
+	(*returnedReceiver)->sendMessage(kTTSym_Get);
+	
+	// Store receiver
+	args = TTValue(TTPtr(*returnedReceiver));
+	obj->hash_receivers->append(name, args);
+}
+
+void ui_receiver_destroy(t_ui *obj, TTSymbolPtr name)
+{
+	TTValue			storedObject;
+	TTObjectPtr		aReceiver;
+	
+	if (obj->hash_receivers)
+		if (!obj->hash_receivers->lookup(name, storedObject)) {
+			
+			// delete
+			storedObject.get(0, (TTPtr*)&aReceiver);
+			if (aReceiver)
+				if (aReceiver->valid)	// to -- should be better to understand why the receiver is not valid
+					TTObjectRelease(&aReceiver);
+			
+			// don't remove from the hash_table here !
+		}
+}
+
+void ui_receiver_destroy_all(t_ui *obj)
+{
+	TTValue			hk, v;
+	TTSymbolPtr		key;
+	TTUInt8			i;
+	
+	// delete all viewers
+	if (obj->hash_receivers) {
+		
+		if (!obj->hash_receivers->isEmpty()) {
+			
+			obj->hash_receivers->getKeys(hk);
+			
+			for (i=0; i<obj->hash_receivers->getSize(); i++) {
+				
+				hk.get(i,(TTSymbolPtr*)&key);
+				ui_receiver_destroy(obj, key);
+			}
+		}
+		delete obj->hash_receivers;
+	}
+}
+
 void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTNodeAddressPtr address, TTBoolean subscribe)
 {
 	TTValue			v, args;
@@ -302,10 +376,7 @@ void ui_viewer_destroy_all(t_ui *obj)
 			for (i=0; i<obj->hash_viewers->getSize(); i++) {
 				
 				hk.get(i,(TTSymbolPtr*)&key);
-				
-				// don't destroy model/address viewer
-				if (key != TT("model/address"))
-					ui_viewer_destroy(obj, key);
+				ui_viewer_destroy(obj, key);
 			}
 		}
 		delete obj->hash_viewers;

@@ -118,11 +118,11 @@ TTErr TTData::Reset()
 {
 	// if valueDefault type is right
 	if (checkType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE))
-			setValue(mValueDefault);
+		if (!(mValueDefault == kTTValNONE)) {
+			return setValue(mValueDefault);
+		}
 	
-	// Set data to be uninitialised
-	// to circumvent filtering of repetitions when outputing value from default preset
+	// In case the data have no default value : set data to be uninitialised
 	mInitialized = NO;
 	notifyObservers(kTTSym_initialized, NO);
 	

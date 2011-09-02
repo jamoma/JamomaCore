@@ -126,8 +126,8 @@ void send_subscribe(TTPtr self)
 			v.get(0, (TTSymbolPtr*)&contextAddress);
 			
 			// binds the internal model/address return (in a view) or parameter (in a model)
-			makeInternals_viewer(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
-			anObject->sendMessage(kTTSym_Refresh);
+			makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+			anObject->sendMessage(kTTSym_Get);
 		}
 		// while the context is not defined : try to binds again
 		else {
