@@ -213,7 +213,8 @@ void hub_subscribe(TTPtr self)
 				makeInternals_data(x, nodeAdrs, muteAdrs, gensym("hub_mute"), context, kTTSym_parameter, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-				aData->setAttributeValue(kTTSym_description, TT("Turned off patcher processing to save CPU"));
+				aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
+				aData->setAttributeValue(kTTSym_description, TT("Mute all parameters in the patcher"));
 				
 				// In model *and* view patcher : Add /model/address data
 				if (x->patcherContext == kTTSym_model || x->patcherContext == kTTSym_node) // as return
