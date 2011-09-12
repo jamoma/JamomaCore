@@ -18,7 +18,8 @@ class TTAudioMatrix : TTAudioObject {
 
 	TTUInt16		mNumInputs;
 	TTUInt16		mNumOutputs;
-	TTSampleMatrix	mGainMatrix;
+//	TTSampleMatrix	mGainMatrix;
+	TTMatrixPtr		mGainMatrix;
 
 	// Attributes
 	TTErr setNumInputs(const TTValue& newValue);

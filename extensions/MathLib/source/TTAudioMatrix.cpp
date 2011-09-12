@@ -20,6 +20,8 @@ TT_AUDIO_CONSTRUCTOR,
 	mNumInputs(0),
 	mNumOutputs(0)
 {
+	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, NULL);
+	
 	addAttributeWithSetter(NumInputs, kTypeUInt16);
 	addAttributeWithSetter(NumOutputs, kTypeUInt16);
 	
@@ -35,7 +37,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTAudioMatrix::~TTAudioMatrix()
 {
-	;
+	TTObjectRelease((TTObjectPtr*)&mGainMatrix);
 }
 
 
@@ -46,12 +48,14 @@ TTAudioMatrix::~TTAudioMatrix()
 
 TTErr TTAudioMatrix::setNumInputs(const TTValue& newValue)
 {
-	TTUInt16 numInputs = newValue;
+	TTUInt16	numInputs = newValue;
+	TTValue		v(numInputs, mNumOutputs);
 	
 	if (numInputs != mNumInputs) {
 		mNumInputs = numInputs;
-		mGainMatrix.resize(mNumInputs);
-		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
+//		mGainMatrix.resize(mNumInputs);
+//		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref((&TTSampleMatrix::value_type::resize), mNumOutputs));
+		mGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
 	return kTTErrNone;
 }
@@ -59,11 +63,13 @@ TTErr TTAudioMatrix::setNumInputs(const TTValue& newValue)
 
 TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
 {
-	TTUInt16 numOutputs = newValue;
+	TTUInt16	numOutputs = newValue;
+	TTValue		v(mNumInputs, numOutputs);
 	
 	if (numOutputs != mNumOutputs) {
-		mNumOutputs = numOutputs;
-		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
+//		mNumOutputs = numOutputs;
+//		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
+		mGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
 	return kTTErrNone;
 }
@@ -71,8 +77,9 @@ TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
 
 TTErr TTAudioMatrix::clear()
 {
-	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
-		column->assign(mNumOutputs, 0.0);
+//	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
+//		column->assign(mNumOutputs, 0.0);
+	mGainMatrix->clear();
 	return kTTErrNone;
 }
 
@@ -92,7 +99,8 @@ TTErr TTAudioMatrix::setGain(TTValue& newValue)
 	newValue.clear();
 
 	if ((x < mNumInputs) && (y < mNumOutputs)) {  
-		mGainMatrix[x][y] = dbToLinear(gainValue);
+//		mGainMatrix[x][y] = dbToLinear(gainValue);
+		mGainMatrix->set2d(x, y, dbToLinear(gainValue));
 		return kTTErrNone;}
 	else 
 		return kTTErrInvalidValue;
@@ -114,7 +122,8 @@ TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 	newValue.clear();
 	
 	if ((x < mNumInputs) && (y < mNumOutputs)) { 
-		mGainMatrix[x][y] = gainValue;
+//		mGainMatrix[x][y] = gainValue;
+		mGainMatrix->set2d(x, y, gainValue);
 		return kTTErrNone;
 	}
 	else 
@@ -137,8 +146,10 @@ TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 	newValue.clear();
 
 	if ((x < mNumInputs) && (y < mNumOutputs)) {
-		mGainMatrix[x][y] = midiToLinearGain(gainValue);
-		return kTTErrNone;}
+//		mGainMatrix[x][y] = midiToLinearGain(gainValue);
+		mGainMatrix->set2d(x, y, midiToLinearGain(gainValue));
+		return kTTErrNone;
+	}
 	else 
 		return kTTErrInvalidValue;
 
@@ -176,12 +187,15 @@ TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 	
 		for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
 			for (inChannel=0; inChannel<numInputChannels; inChannel++) {
-				if (mGainMatrix[inChannel][outChannel] != 0.0){
-					gainValue = mGainMatrix[inChannel][outChannel];
+				TTSampleValue value; 
+				
+				mGainMatrix->get2d(inChannel, outChannel, value);
+				if (value != 0.0){
+					gainValue = value;
 					inSample = in.mSampleVectors[inChannel];
 					outSample = out.mSampleVectors[outChannel];
-				for (int i=0; i<vs; i++) {				
-				outSample[i] += inSample[i] * gainValue;
+					for (int i=0; i<vs; i++) {				
+						outSample[i] += inSample[i] * gainValue;
 				}
 			}
 		}

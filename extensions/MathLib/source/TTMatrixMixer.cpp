@@ -20,6 +20,8 @@ TT_AUDIO_CONSTRUCTOR,
 	mNumInputs(0),
 	mNumOutputs(0)
 {
+	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, NULL);
+
 	addAttribute(NumInputs, kTypeUInt16);	
 	addAttributeProperty(NumInputs,	readOnly, kTTBoolYes);
 	addAttribute(NumOutputs, kTypeUInt16);	
@@ -38,7 +40,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTMatrixMixer::~TTMatrixMixer()
 {
-	;
+	TTObjectRelease((TTObjectPtr*)&mGainMatrix);
 }
 
 
@@ -51,10 +53,14 @@ TTMatrixMixer::~TTMatrixMixer()
 
 TTErr TTMatrixMixer::setNumInputs(const TTUInt16 newValue)
 {
+	TTUInt16	numInputs = newValue;
+	TTValue		v(numInputs, mNumOutputs);
+	
 	if (newValue != mNumInputs) {
-		mNumInputs = newValue;
-		mGainMatrix.resize(mNumInputs);
-		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
+		mNumInputs = numInputs;
+//		mGainMatrix.resize(mNumInputs);
+//		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
+		mGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
 	return kTTErrNone;
 }
@@ -62,9 +68,13 @@ TTErr TTMatrixMixer::setNumInputs(const TTUInt16 newValue)
 
 TTErr TTMatrixMixer::setNumOutputs(const TTUInt16 newValue)
 {
+	TTUInt16	numOutputs = newValue;
+	TTValue		v(mNumInputs, numOutputs);
+	
 	if (newValue != mNumOutputs) {
 		mNumOutputs = newValue;
-		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
+//		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
+		mGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
 	return kTTErrNone;
 }
@@ -72,8 +82,9 @@ TTErr TTMatrixMixer::setNumOutputs(const TTUInt16 newValue)
 
 TTErr TTMatrixMixer::clear()
 {
-	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
-		column->assign(mNumOutputs, 0.0);
+//	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
+//		column->assign(mNumOutputs, 0.0);
+	mGainMatrix->clear();
 	return kTTErrNone;
 }
 
@@ -92,7 +103,8 @@ TTErr TTMatrixMixer::setGain(TTValue& newValue)
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
 	newValue.clear();
-	mGainMatrix[x][y] = dbToLinear(gainValue);
+//	mGainMatrix[x][y] = dbToLinear(gainValue);
+	mGainMatrix->set2d(x, y, dbToLinear(gainValue));
 	return kTTErrNone;
 }
 
@@ -112,7 +124,8 @@ TTErr TTMatrixMixer::setLinearGain(TTValue& newValue)
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);
 	newValue.clear();
-	mGainMatrix[x][y] = gainValue;
+//	mGainMatrix[x][y] = gainValue;
+	mGainMatrix->set2d(x, y, gainValue);
 	return kTTErrNone;
 }
 
@@ -131,7 +144,8 @@ TTErr TTMatrixMixer::setMidiGain(TTValue& newValue)
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
 	newValue.clear();
-	mGainMatrix[x][y] = midiToLinearGain(gainValue);
+//	mGainMatrix[x][y] = midiToLinearGain(gainValue);
+	mGainMatrix->set2d(x, y, midiToLinearGain(gainValue));
 	return kTTErrNone;
 }
 
@@ -182,7 +196,8 @@ TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 		out.clear(); //FIXME: do we have to do a clear() all the time ??
 		if (y < (mNumOutputs)){
 			for (TTUInt16 x=0; x < minChannelIn; x++) {
-				gain = mGainMatrix[x][y];
+//				gain = mGainMatrix[x][y];
+				mGainMatrix->get2d(x, y, gain);
 				if (gain){ //if the gain value is zero, just pass processOne 
 					TTAudioSignal&	in = inputs->getSignal(x);
 					processOne(in, out, gain);
