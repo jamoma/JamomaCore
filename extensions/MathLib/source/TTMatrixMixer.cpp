@@ -18,7 +18,8 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mNumInputs(0),
-	mNumOutputs(0)
+	mNumOutputs(0),
+	mGainMatrix(NULL)
 {
 	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, NULL);
 
@@ -35,6 +36,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	//setAttributeValue(TT("MaxNumChannels"), newMaxNumChannels);
 	setProcessMethod(processAudio);
+	mGainMatrix->setAttributeValue(TT("type"), TT("float64"));
 }
 
 
@@ -104,7 +106,7 @@ TTErr TTMatrixMixer::setGain(TTValue& newValue)
 	checkMatrixSize(x,y);	
 	newValue.clear();
 //	mGainMatrix[x][y] = dbToLinear(gainValue);
-	mGainMatrix->set2d(x, y, dbToLinear(gainValue));
+	mGainMatrix->set2d(x+1, y+1, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 	return kTTErrNone;
 }
 
@@ -125,7 +127,7 @@ TTErr TTMatrixMixer::setLinearGain(TTValue& newValue)
 	checkMatrixSize(x,y);
 	newValue.clear();
 //	mGainMatrix[x][y] = gainValue;
-	mGainMatrix->set2d(x, y, gainValue);
+	mGainMatrix->set2d(x+1, y+1, gainValue); //the Matrix starts similar to Matlab with 1-index 
 	return kTTErrNone;
 }
 
@@ -145,7 +147,7 @@ TTErr TTMatrixMixer::setMidiGain(TTValue& newValue)
 	checkMatrixSize(x,y);	
 	newValue.clear();
 //	mGainMatrix[x][y] = midiToLinearGain(gainValue);
-	mGainMatrix->set2d(x, y, midiToLinearGain(gainValue));
+	mGainMatrix->set2d(x+1, y+1, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 	return kTTErrNone;
 }
 
@@ -195,11 +197,11 @@ TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 		TTAudioSignal&	out = outputs->getSignal(y);
 		out.clear(); //FIXME: do we have to do a clear() all the time ??
 		if (y < (mNumOutputs)){
-			for (TTUInt16 x=0; x < minChannelIn; x++) {
+			for (TTUInt16 x=1; x < minChannelIn+1; x++) {
 //				gain = mGainMatrix[x][y];
-				mGainMatrix->get2d(x, y, gain);
+				mGainMatrix->get2d(x, y+1, gain);  //the Matrix starts similar to Matlab with 1-index 
 				if (gain){ //if the gain value is zero, just pass processOne 
-					TTAudioSignal&	in = inputs->getSignal(x);
+					TTAudioSignal&	in = inputs->getSignal(x-1);
 					processOne(in, out, gain);
 				}
 			}

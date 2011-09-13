@@ -18,7 +18,8 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mNumInputs(0),
-	mNumOutputs(0)
+	mNumOutputs(0),
+	mGainMatrix(NULL)
 {
 	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, NULL);
 	
@@ -32,6 +33,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(clear);	
 
 	setProcessMethod(processAudio);
+	mGainMatrix->setAttributeValue(TT("type"), TT("float64"));
 }
 
 
@@ -67,7 +69,7 @@ TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
 	TTValue		v(mNumInputs, numOutputs);
 	
 	if (numOutputs != mNumOutputs) {
-//		mNumOutputs = numOutputs;
+		mNumOutputs = numOutputs;
 //		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
 		mGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
@@ -100,7 +102,7 @@ TTErr TTAudioMatrix::setGain(TTValue& newValue)
 
 	if ((x < mNumInputs) && (y < mNumOutputs)) {  
 //		mGainMatrix[x][y] = dbToLinear(gainValue);
-		mGainMatrix->set2d(x, y, dbToLinear(gainValue));
+		mGainMatrix->set2d(x+1, y+1, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 		return kTTErrNone;}
 	else 
 		return kTTErrInvalidValue;
@@ -123,7 +125,7 @@ TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 	
 	if ((x < mNumInputs) && (y < mNumOutputs)) { 
 //		mGainMatrix[x][y] = gainValue;
-		mGainMatrix->set2d(x, y, gainValue);
+		mGainMatrix->set2d(x+1, y+1, gainValue); //the Matrix starts similar to Matlab with 1-index 
 		return kTTErrNone;
 	}
 	else 
@@ -147,7 +149,7 @@ TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 
 	if ((x < mNumInputs) && (y < mNumOutputs)) {
 //		mGainMatrix[x][y] = midiToLinearGain(gainValue);
-		mGainMatrix->set2d(x, y, midiToLinearGain(gainValue));
+		mGainMatrix->set2d(x+1, y+1, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 		return kTTErrNone;
 	}
 	else 
@@ -189,7 +191,7 @@ TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 			for (inChannel=0; inChannel<numInputChannels; inChannel++) {
 				TTSampleValue value; 
 				
-				mGainMatrix->get2d(inChannel, outChannel, value);
+				mGainMatrix->get2d(inChannel+1, outChannel+1, value);
 				if (value != 0.0){
 					gainValue = value;
 					inSample = in.mSampleVectors[inChannel];
