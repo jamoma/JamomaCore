@@ -15,7 +15,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;    
     
     // Create dataspace object and set to angle
-    TTObjectPtr         myDataspace;
+    TTObjectPtr         myDataspace = NULL;
     TTErr err;
     err = TTObjectInstantiate(TT("dataspace"), (TTObjectPtr*)&myDataspace, kTTValNONE);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("color"));
