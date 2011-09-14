@@ -230,6 +230,8 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->attr_mixweight = 1.0;                    // default: include parameter in mix
 		x->attr_priority = 0;						// default is no priority
 		x->param_output = &param_output_generic;	// set function pointer to default
+        x->attr_ramp = jps_none;
+        x->attr_rampfunction = jps_linear;
 		x->attr_dataspace = jps_none;
 		x->attr_unitActive = jps_none;
 		x->attr_unitNative = jps_none;
@@ -259,22 +261,11 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		
 		// If no type was specified by the user we call the accessor here
 		// This is important because memory is configured - not just setting a default!
-        
-        // type defaults to "generic"
-		if (x->common.attr_type == NULL) {
+        if (x->common.attr_type == NULL) {
 			Atom a;
 			atom_setsym(&a, jps_generic);
 			object_attr_setvalueof(x, jps_type, 1, &a);
 		}
-        // ramp/drive defaults to "none"
-		if (x->attr_ramp == _sym_nothing) {
-			Atom a;
-			atom_setsym(&a, jps_none);
-			object_attr_setvalueof(x, gensym("ramp/drive"), 1, &a);
-		}
-        // ramp/function defaults to "linear"
-		if (x->attr_rampfunction == _sym_nothing)
-			object_attr_setsym(x, gensym("ramp/function"), jps_linear);
 	}
 	return (x);										// return the pointer to our new instantiation
 }
