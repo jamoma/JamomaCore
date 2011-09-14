@@ -2248,7 +2248,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 330.0, 245.0, 50.0, 17.0 ],
-																	"text" : "100"
+																	"text" : "27"
 																}
 
 															}
@@ -2262,7 +2262,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 155.0, 245.0, 50.0, 17.0 ],
-																	"text" : "100."
+																	"text" : "27."
 																}
 
 															}
@@ -2504,7 +2504,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 330.0, 245.0, 50.0, 17.0 ],
-																	"text" : "0.9"
+																	"text" : "0.26"
 																}
 
 															}
@@ -2518,7 +2518,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 155.0, 245.0, 50.0, 17.0 ],
-																	"text" : "0.9"
+																	"text" : "0.26"
 																}
 
 															}
@@ -3502,7 +3502,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 130.0, 70.0, 206.0, 19.0 ],
-									"presentation_rect" : [ 130.0, 72.0, 0.0, 0.0 ],
 									"text" : "@ramp/function"
 								}
 
@@ -3514,8 +3513,7 @@
 									"maxclass" : "live.line",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 130.0, 80.0, 313.0, 5.0 ],
-									"presentation_rect" : [ 130.0, 82.0, 0.0, 0.0 ]
+									"patching_rect" : [ 130.0, 80.0, 313.0, 5.0 ]
 								}
 
 							}
@@ -3554,6 +3552,18 @@
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
 										"boxes" : [ 											{
+												"box" : 												{
+													"id" : "obj-1",
+													"maxclass" : "button",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "bang" ],
+													"patching_rect" : [ 320.0, 45.0, 20.0, 20.0 ],
+													"presentation_rect" : [ 286.0, 59.0, 0.0, 0.0 ]
+												}
+
+											}
+, 											{
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
@@ -3758,7 +3768,6 @@
 													}
 ,
 													"patching_rect" : [ 510.0, 315.0, 100.0, 19.0 ],
-													"presentation_rect" : [ 512.0, 314.0, 0.0, 0.0 ],
 													"saved_object_attributes" : 													{
 														"fontface" : 0,
 														"default_fontface" : 0,
@@ -3978,7 +3987,6 @@
 													}
 ,
 													"patching_rect" : [ 545.0, 290.0, 100.0, 19.0 ],
-													"presentation_rect" : [ 543.0, 304.0, 0.0, 0.0 ],
 													"saved_object_attributes" : 													{
 														"fontface" : 0,
 														"default_fontface" : 0,
@@ -4198,7 +4206,6 @@
 													}
 ,
 													"patching_rect" : [ 565.0, 265.0, 97.0, 19.0 ],
-													"presentation_rect" : [ 567.0, 269.0, 0.0, 0.0 ],
 													"saved_object_attributes" : 													{
 														"fontface" : 0,
 														"default_fontface" : 0,
@@ -4418,7 +4425,6 @@
 													}
 ,
 													"patching_rect" : [ 585.0, 240.0, 92.0, 19.0 ],
-													"presentation_rect" : [ 195.0, 189.0, 0.0, 0.0 ],
 													"saved_object_attributes" : 													{
 														"fontface" : 0,
 														"default_fontface" : 0,
@@ -4485,22 +4491,8 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 255.0, 460.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:attrDefaultsToNone none @issue 495"
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-23",
-																	"maxclass" : "message",
-																	"numinlets" : 2,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 95.0, 225.0, 50.0, 17.0 ],
-																	"text" : "none"
+																	"patching_rect" : [ 50.0, 255.0, 463.0, 19.0 ],
+																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:attrDefaultsToNone linear @issue 495"
 																}
 
 															}
@@ -4598,15 +4590,6 @@
 															}
 , 															{
 																"patchline" : 																{
-																	"destination" : [ "obj-23", 1 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-14", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
 																	"destination" : [ "obj-37", 0 ],
 																	"hidden" : 0,
 																	"midpoints" : [  ],
@@ -4671,8 +4654,7 @@
  ]
 													}
 ,
-													"patching_rect" : [ 615.0, 190.0, 117.0, 19.0 ],
-													"presentation_rect" : [ 238.0, 152.0, 0.0, 0.0 ],
+													"patching_rect" : [ 615.0, 190.0, 122.0, 19.0 ],
 													"saved_object_attributes" : 													{
 														"fontface" : 0,
 														"default_fontface" : 0,
@@ -4683,7 +4665,7 @@
 														"globalpatchername" : ""
 													}
 ,
-													"text" : "p attrDefaultsToNone"
+													"text" : "p attrDefaultsToLinear"
 												}
 
 											}
@@ -4728,22 +4710,8 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 255.0, 553.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:attrDefaultsToLinearIfSchedulerDrive linear @issue 495"
-																}
-
-															}
-, 															{
-																"box" : 																{
-																	"fontname" : "Verdana",
-																	"fontsize" : 10.0,
-																	"id" : "obj-23",
-																	"maxclass" : "message",
-																	"numinlets" : 2,
-																	"numoutlets" : 1,
-																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 95.0, 225.0, 50.0, 17.0 ],
-																	"text" : "linear"
+																	"patching_rect" : [ 50.0, 255.0, 571.0, 19.0 ],
+																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:ifSchedulerDriveAttrStillDefaultsToLinear linear @issue 495"
 																}
 
 															}
@@ -4841,15 +4809,6 @@
 															}
 , 															{
 																"patchline" : 																{
-																	"destination" : [ "obj-23", 1 ],
-																	"hidden" : 0,
-																	"midpoints" : [  ],
-																	"source" : [ "obj-14", 0 ]
-																}
-
-															}
-, 															{
-																"patchline" : 																{
 																	"destination" : [ "obj-37", 0 ],
 																	"hidden" : 0,
 																	"midpoints" : [  ],
@@ -4914,7 +4873,7 @@
  ]
 													}
 ,
-													"patching_rect" : [ 600.0, 215.0, 206.0, 19.0 ],
+													"patching_rect" : [ 600.0, 215.0, 296.0, 19.0 ],
 													"saved_object_attributes" : 													{
 														"fontface" : 0,
 														"default_fontface" : 0,
@@ -4925,7 +4884,7 @@
 														"globalpatchername" : ""
 													}
 ,
-													"text" : "p attrDefaultsToLinearIfSchedulerDrive"
+													"text" : "p ifSchedulerDriveRampFunctionAttrStillDefaultsToLinear"
 												}
 
 											}
@@ -4996,6 +4955,60 @@
 											}
  ],
 										"lines" : [ 											{
+												"patchline" : 												{
+													"destination" : [ "obj-39", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-40", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-46", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-47", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-48", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-49", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
 												"patchline" : 												{
 													"destination" : [ "obj-39", 0 ],
 													"hidden" : 0,
@@ -5080,7 +5093,6 @@
 									}
 ,
 									"patching_rect" : [ 255.0, 110.0, 142.0, 19.0 ],
-									"presentation_rect" : [ 265.0, 112.0, 0.0, 0.0 ],
 									"saved_object_attributes" : 									{
 										"fontface" : 0,
 										"default_fontface" : 0,
@@ -5139,7 +5151,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 590.0, 355.0, 60.0, 17.0 ],
-													"text" : "0. 0. 100."
+													"text" : "1. 1. 101."
 												}
 
 											}
@@ -6837,7 +6849,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 565.0, 325.0, 46.0, 138.0 ],
-													"text" : "0. 0. 100. 200. 300. 400. 500. 600. 700. 800. 900. 1000."
+													"text" : "1. 1. 101. 201. 301. 401. 501. 601. 701. 801. 901. 1001."
 												}
 
 											}
