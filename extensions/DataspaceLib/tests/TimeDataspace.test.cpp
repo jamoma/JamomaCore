@@ -70,7 +70,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
     
     TTValue globalSampleRate;
-    ttEnvironment->getAttributeValue(TT("sr"), globalSampleRate);
+    ttEnvironment->getAttributeValue(kTTSym_sampleRate, globalSampleRate);
 
     v = TTValue(1.23*TTFloat64(globalSampleRate));
     expected = TTValue(1.23);
@@ -227,7 +227,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("sample"));    
     
-    ttEnvironment->getAttributeValue(TT("sr"), globalSampleRate);
+    ttEnvironment->getAttributeValue(kTTSym_sampleRate, globalSampleRate);
     
     v = TTValue(192000./TTFloat64(globalSampleRate));
     expected = TTValue(192000.);
