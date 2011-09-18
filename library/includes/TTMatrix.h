@@ -99,6 +99,7 @@ public:
 	}
 	
 	
+	
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, TTUInt32 element, T& data)
 	{
@@ -113,6 +114,26 @@ public:
 		return kTTErrNone;
 	}
 
+	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
+	 similar to get2d but the first location in the matrix is (0,0). **/
+	
+	template<typename T>
+	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, T& data) const
+	{
+		TTUInt32 n = mDimensions[1];		
+		data = *(T*)(mData + (i*n+j) * mComponentStride);	
+		return kTTErrNone;
+	}
+		
+	template<typename T>
+	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, TTUInt32 element, T& data)
+	{
+		TTUInt32 n = mDimensions[1];
+		data = *(T*)((mData + (i*n+j) * mComponentStride) + element);	
+		return kTTErrNone;
+	}
+	
+	
 	
 	/**	Set the value of a component located at any location in an N-dimensional matrix.
 	 All dimension indices begin counting at one.		*/
@@ -157,6 +178,25 @@ public:
 		return kTTErrNone;
 	}
 	
+	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.	
+	 Similar to set2d but the first location in the matrix is (0,0). **/
+	
+	template<typename T>
+	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, T data)
+	{
+		TTUInt32 n = mDimensions[1];
+		*(T*)(mData + (i*n+j) * mComponentStride) = data;		
+		return kTTErrNone;
+	}
+	
+	
+	template<typename T>
+	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, TTUInt32 element, T data)
+	{
+		TTUInt32 n = mDimensions[1];
+		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;		
+		return kTTErrNone;
+	}
 	
 	TTSymbolPtr	getTypeAsSymbol()
 	{

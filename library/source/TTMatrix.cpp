@@ -62,7 +62,7 @@ TTErr TTMatrix::resize()
 	mDataCount = productOfDimensions * mElementCount;
 	mDataSize = mDataCount * mTypeSizeInBytes;
 	mComponentStride = mTypeSizeInBytes * mElementCount;
-
+    
 	if (mDataIsLocallyOwned) {
 		// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
 		// TODO: thread protection
@@ -114,7 +114,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 		mDimensions[i] = aNewDimension;
 	}
 	return resize();
-}
+	}
 
 
 TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
