@@ -102,7 +102,7 @@ TTErr TTAudioMatrix::setGain(TTValue& newValue)
 
 	if ((x < mNumInputs) && (y < mNumOutputs)) {  
 //		mGainMatrix[x][y] = dbToLinear(gainValue);
-		mGainMatrix->set2d(x+1, y+1, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
+		mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 		return kTTErrNone;}
 	else 
 		return kTTErrInvalidValue;
@@ -125,7 +125,7 @@ TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 	
 	if ((x < mNumInputs) && (y < mNumOutputs)) { 
 //		mGainMatrix[x][y] = gainValue;
-		mGainMatrix->set2d(x+1, y+1, gainValue); //the Matrix starts similar to Matlab with 1-index 
+		mGainMatrix->set2dZeroIndex(x, y, gainValue); 
 		return kTTErrNone;
 	}
 	else 
@@ -149,7 +149,7 @@ TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 
 	if ((x < mNumInputs) && (y < mNumOutputs)) {
 //		mGainMatrix[x][y] = midiToLinearGain(gainValue);
-		mGainMatrix->set2d(x+1, y+1, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
+		mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 		return kTTErrNone;
 	}
 	else 
@@ -191,7 +191,7 @@ TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 			for (inChannel=0; inChannel<numInputChannels; inChannel++) {
 				TTSampleValue value; 
 				
-				mGainMatrix->get2d(inChannel+1, outChannel+1, value);
+				mGainMatrix->get2dZeroIndex(inChannel, outChannel, value);
 				if (value != 0.0){
 					gainValue = value;
 					inSample = in.mSampleVectors[inChannel];
