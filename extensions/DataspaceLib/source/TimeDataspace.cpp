@@ -260,11 +260,6 @@ void MillisecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
 {   
-	TTValue globalSampleRate;	
-	
-	ttEnvironment->getAttributeValue(TT("sr"), globalSampleRate);
-	sampleRate = globalSampleRate; 	//was: sample_rate = (long)DEFAULT_SAMPLE_RATE; [NP]
-	inverseSampleRate = 1.0 / sampleRate;
 }
 
 SampleUnit::~SampleUnit()
@@ -272,12 +267,22 @@ SampleUnit::~SampleUnit()
 
 void SampleUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = TTFloat64(input) * inverseSampleRate;
+	TTValue globalSampleRate;	
+	
+	ttEnvironment->getAttributeValue(TT("sr"), globalSampleRate);
+	double sampleRate = globalSampleRate;
+    
+	output = TTFloat64(input) / sampleRate;
 }
 
 void SampleUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output = TTFloat64(input) * inverseSampleRate;
+	TTValue globalSampleRate;	
+	
+	ttEnvironment->getAttributeValue(TT("sr"), globalSampleRate);
+	double sampleRate = globalSampleRate;
+	
+    output = TTFloat64(input) * sampleRate;
 }
 
 

@@ -65,10 +65,6 @@ public:
 
 
 class SampleUnit : public TTDataObject, public TTDataspaceUnit {
-	private:
-		long	sampleRate;             ///< samples per second
-		double	inverseSampleRate;      ///< reciprocal of sampleRate
-
 	TTCLASS_SETUP(SampleUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
