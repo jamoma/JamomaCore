@@ -18,7 +18,7 @@
 #include "z_dsp.h"					// MSP Header
 #include "jpatcher_api.h"			// Required for patcher traversal code
 
-#include "TTAudioGraphAPI.h"			// Definitions for Jamoma AudioGraph
+#include "TTAudioGraphAPI.h"		// Definitions for Jamoma AudioGraph
 #include "maxGraph.h"
 
 
@@ -41,7 +41,7 @@ typedef t_max_err	MaxErr;
 #define SELF ObjectPtr(self)
 #endif
 
-typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);		///< A type that can be used to store a pointer to a validity checking function.
+typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);         ///< A type that can be used to store a pointer to a validity checking function.
 
 class MaxAudioGraphWrappedClassOptions;
 
@@ -86,36 +86,88 @@ public:
 };
 	
 
-typedef MaxAudioGraphWrappedClass* MaxAudioGraphWrappedClassPtr;							///< A pointer to a WrappedClass.
+typedef MaxAudioGraphWrappedClass* MaxAudioGraphWrappedClassPtr;						///< A pointer to a WrappedClass.
 typedef MaxAudioGraphWrappedClassOptions* MaxAudioGraphWrappedClassOptionsPtr;			///< A pointer to WrappedClassOptions.
 
 
 // FUNCTIONS
 
-// Wrap a TTBlue class as a Max class.
+/**
+ Wrap a TTBlue class as a Max class. 
+ * @param ttClassName   Name of the Jamoma DSP class that will be wrapped
+ * @param maxClassName  Name of the resulting Max external
+ * @param c             Pointer to the wrapped class
+ */
 TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c);
 
-// This version can be passed a method that is called to make sure it is legit to instantiate the class.
+/** 
+ This version can be passed a method that is called to make sure it is legit to instantiate the class. 
+ * @param ttClassName   Name of the Jamoma DSP class that will be wrapped
+ * @param maxClassName  Name of the resulting Max external
+ * @param c             Pointer to the wrapped class
+ * @param validityCheck
+ */
 TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck);
 
-// This version can be passed a method that is called to make sure it is legit to instantiate the class.
+/**
+ This version can be passed a method that is called to make sure it is legit to instantiate the class. 
+ * @param ttClassName   Name of the Jamoma DSP class that will be wrapped
+ * @param maxClassName  Name of the resulting Max external
+ * @param c             Pointer to the wrapped class
+ * @param validityCheck
+ * @param validityCheckArgument
+ */
 TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
 
 
 // These are versions of the above, but for which additional options can be specified.
+
+/** Wrap a TTBlue class as a Max class. */
 TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, MaxAudioGraphWrappedClassOptionsPtr options);
+
+/** This version can be passed a method that is called to make sure it is legit to instantiate the class. */
 TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxAudioGraphWrappedClassOptionsPtr options);
+
+/** This version can be passed a method that is called to make sure it is legit to instantiate the class. */
 TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxAudioGraphWrappedClassOptionsPtr options);
 
 
 
-
+/** 
+ Method called when a connection from an upstream node is dropped
+ * @param self                  This object.
+ * @param inletNumber           The inlet of this object who is now loosing a connection.
+ * @param sourceMaxObject       The upstream (source) object who is now disconnecting.
+ * @param sourceOutletNumber    The outlet of the source obejct that is now being disconnected.
+ */
 TTErr MaxAudioGraphDrop(ObjectPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
+
+/**
+ What do this one do?
+ * @param self                      This object.
+ * @param returnedAudioGraphObject
+ */
 TTErr MaxAudioGraphObject(ObjectPtr self, TTAudioGraphObjectPtr* returnedAudioGraphObject);
 
+/** 
+ Method called when an upstream node is connected to this node
+ * @param x
+ * @param audioSourceObject     The upstream object/node that is now connecting
+ * @param sourceOutletNumber    What outlet of the upstream object that is now connecting to this object
+ */
 TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber);
+
+/** 
+ Clear the list of source objects from which this object will try to pull audio
+ * @param x
+ * @param vectorSize    Initial vector size, might be overruled by subsequent process calls.
+ */
 TTErr MaxAudioGraphReset(ObjectPtr x, long vectorSize);
 
+/** 
+ Set up fresh connections from this object to nodes that are connected downstream
+ * @param self          This object
+ */
 TTErr MaxAudioGraphSetup(ObjectPtr self);
 
 
