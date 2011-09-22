@@ -128,7 +128,15 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAu
 /** This version can be passed a method that is called to make sure it is legit to instantiate the class. */
 TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxAudioGraphWrappedClassOptionsPtr options);
 
-/** This version can be passed a method that is called to make sure it is legit to instantiate the class. */
+/** 
+ This version can be passed a method that is called to make sure it is legit to instantiate the class. 
+ * @param ttClassName           Name of the Jamoma DSP class that will be wrapped.
+ * @param maxClassName          Name of the resulting Max external.
+ * @param c                     Pointer to the wrapped class.
+ * @param validityCheck
+ * @param validityCheckArgument
+ * @param options               Pointer to additional options that will be forwarded to the wrapped object when instantiated.
+ */
 TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxAudioGraphWrappedClassOptionsPtr options);
 
 
