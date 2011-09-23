@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 285.0, 107.0, 883.0, 519.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 285.0, 107.0, 883.0, 519.0 ],
@@ -17,6 +23,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jcom.sur.UHJ2ambi~", "@description", "Encode two channel stereo UHJ into Ambisonic B-format" ],
@@ -54,7 +61,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 563.0, 277.0, 169.0, 20.0 ],
 					"text" : "jmod.sur.meters~ /B-format"
 				}
@@ -100,6 +107,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 50.0, 94.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 50.0, 94.0, 640.0, 480.0 ],
@@ -116,6 +129,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -177,13 +191,13 @@
 ,
 					"patching_rect" : [ 432.0, 383.0, 52.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p adapt"
@@ -198,7 +212,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 493.0, 383.0, 239.0, 20.0 ],
 					"text" : "jmod.sur.meters~ /speakerSignals"
 				}
@@ -214,9 +228,15 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 54.0, 94.0, 640.0, 480.0 ],
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
+						"rect" : [ 54.0, 94.0, 380.0, 337.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 54.0, 94.0, 640.0, 480.0 ],
+						"defrect" : [ 54.0, 94.0, 380.0, 337.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -230,6 +250,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -239,7 +260,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 51.0, 194.0, 201.0, 20.0 ],
+									"patching_rect" : [ 50.0, 198.0, 201.0, 20.0 ],
 									"text" : "jcom.send jcom.remote.module.to"
 								}
 
@@ -254,8 +275,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 51.0, 147.0, 579.0, 34.0 ],
-									"text" : "/B-format/channels 3, /speakerSignals/channels/alias numSpeakers, /setup/preset/recall 5, /decode~/order 1, /decode~/audio/gain 50 ramp 1000"
+									"patching_rect" : [ 51.0, 147.0, 267.0, 34.0 ],
+									"text" : "/setup/preset/recall 5, /decode~/order 1, /decode~/audio/gain 50 ramp 1000"
 								}
 
 							}
@@ -298,13 +319,13 @@
 ,
 					"patching_rect" : [ 17.0, 344.0, 38.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p init"
@@ -336,6 +357,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 647.0, 241.0, 600.0, 426.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 647.0, 241.0, 600.0, 426.0 ],
@@ -352,6 +379,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -652,13 +680,13 @@
 ,
 					"patching_rect" : [ 297.0, 346.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p xyz2setup"
@@ -676,6 +704,12 @@
 					"outlettype" : [ "", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 215.0, 103.0, 1056.0, 634.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 215.0, 103.0, 1056.0, 634.0 ],
@@ -692,6 +726,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1455,13 +1490,13 @@
 ,
 					"patching_rect" : [ 219.0, 216.0, 100.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p"
@@ -1563,7 +1598,7 @@
 					"name" : "jmod.sur.ambi.decode~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 432.0, 304.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/decode~"
@@ -1652,7 +1687,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 4,
-					"outlettype" : [ "signal", "signal", "signal", "" ],
+					"outlettype" : [ "signal", "signal", "signal", "audio.connect" ],
 					"patching_rect" : [ 441.0, 252.0, 291.0, 19.0 ],
 					"text" : "jcom.sur.UHJ2ambi~"
 				}
@@ -1823,15 +1858,6 @@
 					"destination" : [ "obj-20", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-9", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 441.5, 404.0, 488.0, 404.0, 488.0, 378.0, 502.5, 378.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 

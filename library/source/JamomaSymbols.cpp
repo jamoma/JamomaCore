@@ -87,6 +87,7 @@ t_symbol	*jps_done,
 			*jps_repetitions,
 			*jps_repetitions_allow,
 			*jps_description,
+			*jps_enable,
 			*jps_value,
 			*jps_sigcount,				// signals to module
 			*jps_siglist,
@@ -268,6 +269,7 @@ void jamomaSymbolsInit()
 	jps_repetitions					= SymbolGen("repetitions");
 	jps_repetitions_allow			= SymbolGen("repetitions/allow");
 	jps_description					= SymbolGen("description");
+	jps_enable						= SymbolGen("enable");
 	jps_value						= SymbolGen("value");
 	jps_algorithm_type				= SymbolGen("algorithm_type");
 	jps_name						= SymbolGen("name");

@@ -1327,8 +1327,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 176.0, 188.0, 98.0, 33.0 ],
-					"text" : "sprintf title %s preset_interface"
+					"patching_rect" : [ 25.0, 176.0, 90.0, 31.0 ],
+					"text" : "sprintf title %s preset panel"
 				}
 
 			}
@@ -2942,7 +2942,8 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 452.0, 483.0, 50.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 304.0, 18.0, 42.0, 20.0 ]
+					"presentation_rect" : [ 304.0, 18.0, 42.0, 19.0 ],
+					"triangle" : 0
 				}
 
 			}

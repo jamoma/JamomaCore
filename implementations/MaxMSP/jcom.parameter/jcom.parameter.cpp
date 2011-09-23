@@ -1,7 +1,7 @@
 /* 
- *	jcom.parameter/message/return
- *	External object
- *	Copyright © 2010 by Théo de la Hogue
+ * jcom.parameter
+ * External for Jamoma: parameter definition
+ * By Tim Place and Théo de la Hogue, Copyright © 2011
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/

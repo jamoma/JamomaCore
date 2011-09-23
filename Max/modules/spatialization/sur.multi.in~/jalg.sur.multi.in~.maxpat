@@ -26,7 +26,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "/channel_offset desn't work yet" ],
+					"outlettype" : [ "/channel_offset doesn't work yet" ],
 					"patching_rect" : [ 15.0, 123.0, 186.0, 19.0 ],
 					"text" : "t \"/channel_offset desn't work yet\""
 				}

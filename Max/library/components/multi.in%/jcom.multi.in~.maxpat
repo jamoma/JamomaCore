@@ -453,7 +453,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 32,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 50.0, 120.0, 794.5, 19.0 ],
 					"text" : "jcom.pack≈ 32"
 				}

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="jcom.cuemanager"
 	ProjectGUID="{18B2306C-61CF-4E00-849A-9D9288C31505}"
 	RootNamespace="jcom.dbap"

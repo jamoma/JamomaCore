@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 350.0, 107.0, 300.0, 70.0 ],
+		"rect" : [ 754.0, 48.0, 526.0, 612.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 765.0, 48.0, 526.0, 612.0 ],
+		"defrect" : [ 754.0, 48.0, 526.0, 612.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -18,6 +18,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"comment" : "message",
@@ -418,7 +419,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bordercolor" : [ 0.62, 0.0, 0.36, 1.0 ],
 					"id" : "obj-16",
 					"maxclass" : "jcom.ui",
 					"numinlets" : 1,
@@ -426,7 +426,7 @@
 					"outlettype" : [ "" ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 1.0, 300.0, 70.0 ],
-					"text" : "/onDeck"
+					"text" : "/editing_this_module"
 				}
 
 			}

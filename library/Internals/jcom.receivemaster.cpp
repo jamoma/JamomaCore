@@ -9,12 +9,6 @@
 
 #include "Jamoma.h"
 
-/** ReceiveMaster Object
-  * This is an internal object that manages message dispatching to jcom.receive instances */
-typedef struct _jcom_receivemaster{
-	t_object	obj;			///< REQUIRED: Object "base class"
-} t_jcom_receivemaster;
-
 
 // Prototypes
 void *receivemaster_new(t_symbol *msg, long argc, t_atom *argv);

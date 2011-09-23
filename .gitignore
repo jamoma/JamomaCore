@@ -8,6 +8,7 @@ build
 html
 Debug
 Release
+xcuserdata
 *.mode1v3
 *.pbxuser
 *.perspectivev3
@@ -24,6 +25,7 @@ Release
 # Files generated from templates by the build script
 JamomaModular.xcconfig
 TTModularVersion.h
+jcom.js_systeminfo.js
 
 # Git conflict files
 *.orig

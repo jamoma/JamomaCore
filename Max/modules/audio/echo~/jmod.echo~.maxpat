@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 58.0, 44.0, 1221.0, 744.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 4.0, 44.0, 1221.0, 744.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 58.0, 44.0, 1221.0, 744.0 ],
+		"defrect" : [ 4.0, 44.0, 1221.0, 744.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -227,8 +233,6 @@
 					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "flonum",
-					"maximum" : 1.0,
-					"minimum" : 0.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
@@ -247,8 +251,6 @@
 					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"maxclass" : "number",
-					"maximum" : 10000,
-					"minimum" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
@@ -267,8 +269,6 @@
 					"fontsize" : 10.0,
 					"id" : "obj-11",
 					"maxclass" : "number",
-					"maximum" : 10000,
-					"minimum" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
@@ -291,8 +291,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 560.0, 644.0, 596.0, 43.0 ],
-					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description Feedback. @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
+					"patching_rect" : [ 560.0, 644.0, 589.0, 43.0 ],
+					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode both @description Feedback. @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
 					"varname" : "feedback"
 				}
 
@@ -354,6 +354,12 @@
 					"outlettype" : [ "", "", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 564.0, 189.0, 486.0, 356.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 564.0, 189.0, 486.0, 356.0 ],
@@ -633,13 +639,13 @@
 ,
 					"patching_rect" : [ 497.818176, 323.272736, 111.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontface" : 0,
-						"default_fontsize" : 10.0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p DecodeFilterGraph"
@@ -676,6 +682,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 91.0, 247.0, 597.0, 355.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 91.0, 247.0, 597.0, 355.0 ],
@@ -916,13 +928,13 @@
 ,
 					"patching_rect" : [ 473.545441, 443.545441, 136.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontface" : 0,
-						"default_fontsize" : 10.0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p PrepareForFiltergraph~"
@@ -1003,7 +1015,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 623.545471, 436.545441, 594.0, 43.0 ],
-					"text" : "jcom.parameter frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
+					"text" : "jcom.parameter frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace time @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
 					"varname" : "cf"
 				}
 

@@ -17,7 +17,7 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.plur%", "@description", "Video feedback/washout effet" ],
+					"args" : [ "@name", "jmod.plur%", "@description", "Video feedback/washout effect" ],
 					"bgmode" : 1,
 					"id" : "obj-1",
 					"maxclass" : "bpatcher",
