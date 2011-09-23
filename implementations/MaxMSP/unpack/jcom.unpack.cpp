@@ -391,7 +391,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sp[0]->s_sr);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
@@ -403,7 +403,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 MaxErr OutSetGain(OutPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
-		self->gain = atom_getfloat(argv);
+		self->gain = atom_getfloat(argv); 
 		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("linearGain"), self->gain);
 	}
 	return MAX_ERR_NONE;

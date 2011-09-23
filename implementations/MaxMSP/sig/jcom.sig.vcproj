@@ -205,10 +205,6 @@
 			RelativePath="..\..\..\supports\max\maxGraph.h"
 			>
 		</File>
-		<File
-			RelativePath="..\..\..\supports\max\TTClassWrapperMax.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

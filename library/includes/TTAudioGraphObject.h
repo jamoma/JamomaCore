@@ -117,7 +117,9 @@ public:
 	void getAudioDescription(TTAudioGraphDescription& desc);
 	
 	
-	/**	Clear the list of source objects from which this object will try to pull audio.	*/
+	/**	
+     Clear the list of source objects from which this object will try to pull audio.	
+     */
 	TTErr resetAudio();
 	
 	

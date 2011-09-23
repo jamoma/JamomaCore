@@ -1,6 +1,6 @@
 /* 
  *	MaxAudioGraph
- *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
+ *	A thin wrapper of the Audio Graph audio system for use in the Cycling '74 Max/MSP environment.
  *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
  *	Copyright © 2008 by Timothy Place
  * 
@@ -136,6 +136,7 @@ TTErr MaxAudioGraphSetup(ObjectPtr x)
 }
 
 
+/* A graph link has been established */
 TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
 	WrappedInstancePtr	self = WrappedInstancePtr(x);
@@ -145,6 +146,7 @@ TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject,
 }
 
 
+/* A graph link has been dropped */
 TTErr MaxAudioGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
 {
 	WrappedInstancePtr		self = WrappedInstancePtr(x);
@@ -167,6 +169,7 @@ TTErr MaxAudioGraphObject(ObjectPtr x, TTAudioGraphObjectPtr* returnedAudioGraph
 }
 
 
+/* The attribute getter */
 t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
@@ -206,6 +209,7 @@ t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr a
 }
 
 
+/* The attribute setter */
 t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
@@ -237,6 +241,7 @@ t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr a
 }
 
 
+/* Get number of channels of the audio graph signal */
 t_max_err MaxAudioGraphWrappedClass_attrGetNumChannels(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	*argc = 1;
@@ -248,6 +253,7 @@ t_max_err MaxAudioGraphWrappedClass_attrGetNumChannels(WrappedInstancePtr self, 
 }
 
 
+/* Set number of channels of the audio graph signal */
 t_max_err MaxAudioGraphWrappedClass_attrSetNumChannels(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc)
@@ -256,20 +262,24 @@ t_max_err MaxAudioGraphWrappedClass_attrSetNumChannels(WrappedInstancePtr self, 
 }
 
 
+/* Method for "anything" messages */
 void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {	
 	TTValue		v;
 	TTSymbolPtr	ttName = NULL;
 	MaxErr		err;
 	
+	// Check to see that the message can be understood
 	err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, s, (ObjectPtr*)&ttName);
 	if (err) {
 		object_post(SELF, "no method found for %s", s->s_name);
 		return;
 	}
-
+	
 	if (argc && argv) {
 		v.setSize(argc);
+		
+		// Typechecking - we only want ints, floats and symbols
 		for (AtomCount i=0; i<argc; i++) {
 			if (atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
@@ -280,6 +290,8 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 			else
 				object_error(SELF, "bad type for message arg");
 		}
+		
+		// Now that we know that the message is OK we send it on to the wrapped class
 		self->audioGraphObject->getUnitGenerator()->sendMessage(ttName, v);
 		
 		// process the returned value for the dumpout outlet
@@ -307,6 +319,7 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 					}
 				}
 				object_obex_dumpout(self, s, ac, av);
+				free(av);
 			}
 		}
 	}
@@ -381,7 +394,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 	o->getMessageNames(v);
 	for (TTUInt16 i=0; i<v.getSize(); i++) {
 		v.get(i, &name);
-		nameSize = name->getString().length();
+		nameSize = strlen(name->getCString());
 		nameCString = new char[nameSize+1];
 		strncpy_zero(nameCString, name->getCString(), nameSize+1);
 
@@ -400,7 +413,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 		TTValue			isGenerator = kTTBoolNo;
 		
 		v.get(i, &name);
-		nameSize = name->getString().length();
+		nameSize = strlen(name->getCString());
 		nameCString = new char[nameSize+1];
 		strncpy_zero(nameCString, name->getCString(), nameSize+1);
 		nameMaxSymbol = gensym(nameCString);

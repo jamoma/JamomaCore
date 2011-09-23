@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="AudioGraphUtilityLib"
 	ProjectGUID="{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
 	RootNamespace="tt.overdrive~"
@@ -185,6 +185,10 @@
 		</File>
 		<File
 			RelativePath=".\source\TTAudioGraphJoin.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\source\TTAudioGraphPick.cpp"
 			>
 		</File>
 		<File
