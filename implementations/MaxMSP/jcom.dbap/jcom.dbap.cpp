@@ -154,8 +154,8 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		x->hull2.num_dst = 0;
 		
 		attr_args_process(x, argc, argv);				// handle attribute args
-		dbap_calculate_a(x);							// calculate expo0nent coefficiant used for rolloff
-		dbap_calculate_variance(x);						// this implisitly also calculate all matrix values
+		dbap_calculate_a(x);							// calculate exponent coefficient used for rolloff
+		dbap_calculate_variance(x);						// this implicitly also calculates all matrix values
 	}
 	return (x);											// return the pointer
 }
@@ -214,7 +214,7 @@ void dbap_source(t_dbap *x, void *msg, long argc, t_atom *argv)
 	
 	if (argc >= (x->attr_dimensions + 1)) {
 		n = atom_getlong(argv)-1;						// we start counting from 1 for sources
-		if ( (n<0) || (n>=MAX_NUM_DESTINATIONS) ) {
+		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
 			error("Invalid arguments for source.");
 			return;
 		}
@@ -366,7 +366,7 @@ void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 	if ((argc>=2) && argv) {	
 		n = atom_getlong(argv)-1;						// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
-			error("Invalid argument(s) for source_gain");
+			error("Invalid argument(s) for source_mute");
 			return;
 		}
 		argv++;	
@@ -374,7 +374,7 @@ void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 		dbap_calculate(x, n);
 	}
 	else
-		error("Invalid argument(s) for source_gain");
+		error("Invalid argument(s) for source_mute");
 }
 
 /** Turn on/off the calculation of distance to hull */
@@ -384,7 +384,7 @@ void dbap_hull(t_dbap *x, long f)
 
 	x->hull_io = f > 0;
 
-	// Is the hull has been built ?
+	// Has the hull been built?
 	if (x->hull_io) {
 		if (x->attr_dimensions == 1) {
 			if ((x->hull1.min == 0.)&&(x->hull1.max == 0.)) refresh = true;
@@ -628,7 +628,6 @@ t_max_err dbap_attr_setnum_sources(t_dbap *x, void *attr, long argc, t_atom *arg
 		if (n>MAX_NUM_SOURCES) 
 			n = MAX_NUM_SOURCES;		
 		x->attr_num_sources = n;
-		// The set of destination points has been changed - recalculate blur radius.
 	}	
 	return MAX_ERR_NONE;
 }
