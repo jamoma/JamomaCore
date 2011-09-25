@@ -8,10 +8,14 @@ build
 html
 Debug
 Release
+
+# XCode files to be ignored
 xcuserdata
 *.mode1v3
 *.pbxuser
 *.perspectivev3
+project.xcworkspace
+
 *.layout
 *.depends
 *.map
