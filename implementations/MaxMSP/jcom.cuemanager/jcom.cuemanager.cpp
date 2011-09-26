@@ -2271,35 +2271,42 @@ void cuemng_output_cue(t_cue *c, t_cuemng *x)
 
 void cuemng_output_line(t_line *l, t_cuemng *x)
 {
-	long i;
+	long i, rampTime = 0;
 	t_atom *data_ramp;
 
 	switch(l->type) {
 		case  _PARAM : 
 			{
-				if (((l->ramp != NO_RAMP) || (x->global_ramp != NO_RAMP)) && x->do_ramp ) {
-
-					// create an array to send data + ramp
-					data_ramp = (t_atom *)sysmem_newptr((long)(2+l->n)*sizeof(t_atom));
+				if (x->do_ramp) {
 					
-					// copy data
-					for (i=0; i<l->n; i++) {
-						data_ramp[i] = l->data[i];
+					if (l->ramp >= 0) // NO_RAMP or a particular value
+						rampTime = l->ramp;
+					else
+						rampTime = x->global_ramp;
+					
+					if (rampTime) {
+						
+						// create an array to send : /index data ramp rampTime
+						data_ramp = (t_atom *)sysmem_newptr((long)(2+l->n)*sizeof(t_atom));
+						
+						// copy data
+						for (i=0; i<l->n; i++) {
+							data_ramp[i] = l->data[i];
+						}
+						
+						// copy : ramp rampTime
+						atom_setsym(&data_ramp[l->n], x->ps_ramp);
+						atom_setlong(&data_ramp[l->n+1], rampTime);
+						
+						// send /index data ramp rampTime
+						outlet_anything(x->trigger_out, l->index, l->n+2, data_ramp);
+						
+						return;
 					}
-
-					// copy ramp
-					atom_setsym(&data_ramp[l->n],x->ps_ramp);
-					if ((l->ramp == GLOBAL_RAMP) && (x->global_ramp != NO_RAMP)) {
-						atom_setlong(&data_ramp[l->n+1],x->global_ramp);
-					}
-					else if (l->ramp != NO_RAMP) {
-						atom_setlong(&data_ramp[l->n+1],l->ramp);
-					}
-
-					outlet_anything(x->trigger_out, l->index, l->n+2, data_ramp);
 				}
-				else
-					outlet_anything(x->trigger_out, l->index, l->n, l->data);
+				
+				// in any other case : send /index data
+				outlet_anything(x->trigger_out, l->index, l->n, l->data);
 
 				return;
 			}
