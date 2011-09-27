@@ -1,10 +1,16 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 59.0, 56.0, 738.0, 630.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 59.0, 56.0, 849.0, 645.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 59.0, 56.0, 738.0, 630.0 ],
+		"defrect" : [ 59.0, 56.0, 849.0, 645.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -33,7 +39,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 160.0, 360.0, 255.0, 22.0 ],
+					"patching_rect" : [ 190.0, 360.0, 255.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "spice it up with a little saturation effect...",
@@ -81,7 +87,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 530.0, 130.0, 200.0, 38.0 ],
+					"patching_rect" : [ 590.0, 130.0, 200.0, 38.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "recommendation: something rhythmic or contrasty",
@@ -105,7 +111,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 85.0, 130.0, 200.0, 38.0 ],
+					"patching_rect" : [ 130.0, 130.0, 200.0, 38.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "recommendation: something relatively smooth and sustained",
@@ -218,10 +224,10 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 400.0, 75.0, 49.0, 22.0 ],
+					"patching_rect" : [ 400.0, 75.0, 77.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "pack≈",
+					"text" : "jcom.pack≈",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -240,7 +246,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 505.0, 110.0, 226.0, 22.0 ],
+					"patching_rect" : [ 565.0, 110.0, 226.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "<-- define the plug-in's sidechain input",
@@ -266,6 +272,12 @@
 					"outlettype" : [ "audio.connect" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 29.0, 69.0, 334.0, 305.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 29.0, 69.0, 334.0, 305.0 ],
@@ -320,8 +332,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "audio.connect", "" ],
-									"patching_rect" : [ 40.0, 215.0, 120.0, 22.0 ],
-									"text" : "op≈ @operator sqrt"
+									"patching_rect" : [ 40.0, 215.0, 151.0, 22.0 ],
+									"text" : "jcom.op≈ @operator sqrt"
 								}
 
 							}
@@ -334,8 +346,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "audio.connect", "" ],
-									"patching_rect" : [ 40.0, 185.0, 227.0, 22.0 ],
-									"text" : "filter≈ @type lowpass.1 @frequency 10"
+									"patching_rect" : [ 40.0, 185.0, 258.0, 22.0 ],
+									"text" : "jcom.filter≈ @type lowpass.1 @frequency 10"
 								}
 
 							}
@@ -348,8 +360,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "audio.connect", "" ],
-									"patching_rect" : [ 40.0, 145.0, 103.0, 22.0 ],
-									"text" : "op≈ @operator *"
+									"patching_rect" : [ 40.0, 145.0, 133.0, 22.0 ],
+									"text" : "jcom.op≈ @operator *"
 								}
 
 							}
@@ -425,20 +437,20 @@
  ]
 					}
 ,
-					"patching_rect" : [ 400.0, 185.0, 51.0, 22.0 ],
+					"patching_rect" : [ 400.0, 185.0, 81.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Helvetica Neue Light",
-						"default_fontsize" : 13.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 13.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Helvetica Neue Light"
+						"fontname" : "Helvetica Neue Light",
+						"default_fontname" : "Helvetica Neue Light",
+						"globalpatchername" : "",
+						"default_fontsize" : 13.0,
+						"fontface" : 0,
+						"fontsize" : 13.0
 					}
 ,
-					"text" : "p rms≈",
+					"text" : "p jcom.rms≈",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -458,7 +470,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 455.0, 180.0, 161.0, 38.0 ],
+					"patching_rect" : [ 485.0, 180.0, 161.0, 38.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "subpatcher implements a simple envelope follower",
@@ -482,10 +494,10 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 20.0, 240.0, 399.0, 22.0 ],
+					"patching_rect" : [ 20.0, 240.0, 133.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "op≈ @operator *",
+					"text" : "jcom.op≈ @operator *",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -505,10 +517,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 400.0, 110.0, 105.0, 22.0 ],
+					"patching_rect" : [ 400.0, 110.0, 164.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "in≈ @sidechain 1",
+					"text" : "jcom.plug.in≈ @sidechain 1",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -574,7 +586,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 180.0, 495.0, 205.0, 38.0 ],
+					"patching_rect" : [ 240.0, 495.0, 205.0, 38.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "define the plug-in's output and it's unique four-char-code identifier",
@@ -597,7 +609,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 60.0, 110.0, 200.0, 22.0 ],
+					"patching_rect" : [ 105.0, 110.0, 200.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "<-- define the plug-in's main input",
@@ -708,10 +720,10 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 20.0, 70.0, 49.0, 22.0 ],
+					"patching_rect" : [ 20.0, 70.0, 77.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "pack≈",
+					"text" : "jcom.pack≈",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -810,10 +822,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
-					"patching_rect" : [ 50.0, 325.0, 273.0, 22.0 ],
+					"patching_rect" : [ 50.0, 325.0, 319.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "parameter# drive @range 1. 10. @default 9.9",
+					"text" : "jcom.plug.parameter# drive @range 1. 10. @default 9.9",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -857,10 +869,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 20.0, 360.0, 137.0, 22.0 ],
+					"patching_rect" : [ 20.0, 360.0, 162.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "overdrive≈ @drive 9.9",
+					"text" : "jcom.overdrive≈ @drive 9.9",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -880,10 +892,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 20.0, 110.0, 39.0, 22.0 ],
+					"patching_rect" : [ 20.0, 110.0, 86.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "in≈",
+					"text" : "jcom.plug.in≈",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -903,10 +915,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 20.0, 500.0, 158.0, 22.0 ],
+					"patching_rect" : [ 20.0, 500.0, 217.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "out≈ @pluginIdCode R1ng",
+					"text" : "jcom.plug.out≈ @pluginIdCode R1ng",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -926,10 +938,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 20.0, 540.0, 72.0, 22.0 ],
+					"patching_rect" : [ 20.0, 540.0, 91.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "unpack≈",
+					"text" : "jcom.unpack≈",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
