@@ -352,7 +352,6 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 		}
 		
 		dbap_calculate(x, source);
-		dbap_calculate_hull(x, source);
 		dbap_update_view(x);
 	}
 	else
