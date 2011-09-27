@@ -302,7 +302,7 @@ int main(void)
 	
 
 	// This tells Max 5.0.6 and higher that we want the patcher files to be saved such that they are sorted.
-	// Having the saved this way makes our SVN diffs much more meaningful.
+	// Having the saved this way makes our GIT diffs much more meaningful.
 	object_method_long(sMaxObject, GENSYM("sortpatcherdictonsave"), 1, NULL);
 	
 	// This tells Max 4.5.7 and higher to take any posts to the Max window and also make the
