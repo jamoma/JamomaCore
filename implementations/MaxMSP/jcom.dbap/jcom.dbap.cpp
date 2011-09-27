@@ -731,7 +731,7 @@ void dbap_calculate1D(t_dbap *x, long n)
 	for (i=0; i<x->attr_num_destinations; i++) {
 		dx = xPos - x->dst_position[i].x;
 		dia[i] = pow(dx*dx + r2, 0.5*x->a);
-		k2inv = k2inv + 1./(dia[i]*dia[i]);
+		k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
@@ -739,7 +739,7 @@ void dbap_calculate1D(t_dbap *x, long n)
 	atom_setlong(&a[0], n);
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], k/dia[i]);
+        atom_setfloat(&a[2], x->src_weight[n][i]*k/dia[i]);
 		outlet_anything(x->outlet[0], _sym_list, 3, a);
 	}	
 }
@@ -856,7 +856,7 @@ void dbap_calculate3D(t_dbap *x, long n)
 		dy = x->src_position[n].y - x->dst_position[i].y;
 		dz = x->src_position[n].z - x->dst_position[i].z;
 		dia[i] = pow(double(dx*dx + dy*dy + dz*dz + r2), double(0.5*x->a));
-		k2inv = k2inv + 1./(dia[i]*dia[i]);
+        k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
@@ -865,7 +865,7 @@ void dbap_calculate3D(t_dbap *x, long n)
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], k/dia[i]);
+        atom_setfloat(&a[2], x->src_weight[n][i]*k/dia[i]);
 		outlet_anything(x->outlet[0], _sym_list, 3, a);
 	}	
 }
