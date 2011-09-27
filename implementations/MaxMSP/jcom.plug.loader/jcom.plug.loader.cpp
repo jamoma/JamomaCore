@@ -143,32 +143,32 @@ void plug_setup_db(void)
 	atom_setsym(a+2, _sym_tag);
 
 	atom_setsym(a+3, GENSYM("Plugtastic"));
-	atom_setsym(a+0, GENSYM("plug.input"));
+	atom_setsym(a+0, GENSYM("jcom.plug.input"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
-	atom_setsym(a+0, GENSYM("plug.output"));
+	atom_setsym(a+0, GENSYM("jcom.plug.output"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
-	atom_setsym(a+0, GENSYM("plug.param"));
+	atom_setsym(a+0, GENSYM("jcom.plug.param"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
 	
 	atom_setsym(a+3, GENSYM("Environment"));	
-	atom_setsym(a+0, GENSYM("plug.input"));
+	atom_setsym(a+0, GENSYM("jcom.plug.input"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
-	atom_setsym(a+0, GENSYM("plug.output"));
+	atom_setsym(a+0, GENSYM("jcom.plug.output"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
-	atom_setsym(a+0, GENSYM("plug.param"));
+	atom_setsym(a+0, GENSYM("jcom.plug.param"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
 	
 	atom_setsym(a+2, _sym_description);
 
-	atom_setsym(a+0, GENSYM("plug.input"));
+	atom_setsym(a+0, GENSYM("jcom.plug.input"));
 	atom_setsym(a+3, GENSYM("Input stage for developing a plug-in"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
 	
-	atom_setsym(a+0, GENSYM("plug.output"));
+	atom_setsym(a+0, GENSYM("jcom.plug.output"));
 	atom_setsym(a+3, GENSYM("Output stage for developing a plug-in"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
 	
-	atom_setsym(a+0, GENSYM("plug.param"));
+	atom_setsym(a+0, GENSYM("jcom.plug.param"));
 	atom_setsym(a+3, GENSYM("Expanded parameter with a number box"));
 	object_method_typed(sMaxObject, ps_db_addmetadata, 4, a, NULL);
 	

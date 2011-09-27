@@ -38,7 +38,7 @@ int main(void)
 	PlugtasticInit();	
 	common_symbols_init();
 
-	c = class_new((char*)"plug.out≈", (method)PlugOutNew, (method)PlugOutFree, sizeof(PlugOut), (method)0L, A_GIMME, 0);
+	c = class_new((char*)"jcom.plug.out≈", (method)PlugOutNew, (method)PlugOutFree, sizeof(PlugOut), (method)0L, A_GIMME, 0);
 
 	class_addmethod(c, (method)PlugOutNotify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphReset,		"audio.reset",		A_CANT, 0);
