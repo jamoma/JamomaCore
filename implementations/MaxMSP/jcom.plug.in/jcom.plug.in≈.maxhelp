@@ -22,7 +22,7 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Audio objects in the chain that follow plug.in≈ will adapt to the number of channels they are passed.",
+					"text" : "Audio objects in the chain that follow jcom.plug.in≈ will adapt to the number of channels they are passed.",
 					"linecount" : 2,
 					"underline" : 0,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -116,7 +116,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Output from plug.in≈ is a SmartSignal containing the number of audio channels provided by the plug-in host.",
+					"text" : "Output from jcom.plug.in≈ is a SmartSignal containing the number of audio channels provided by the plug-in host.",
 					"linecount" : 2,
 					"underline" : 0,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -164,7 +164,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "plug.in≈",
+					"text" : "jcom.plug.in≈",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"background" : 0,
 					"outlettype" : [ "audio.connect", "" ],
@@ -257,7 +257,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Input to plug.in≈ is a SmartSignal, which is passed to the object's output in Max, but ignored when the plug-in is built.",
+					"text" : "Input to jcom.plug.in≈ is a SmartSignal, which is passed to the object's output in Max, but ignored when the plug-in is built.",
 					"linecount" : 2,
 					"underline" : 0,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -413,11 +413,11 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"name" : "plug.helpheader.maxpat",
+					"name" : "jcom.plug.helpheader.maxpat",
 					"background" : 0,
 					"offset" : [ 0.0, 0.0 ],
 					"clickthrough" : 0,
-					"args" : [ "plug.in≈", "provide audio input from the plug-in host environment" ],
+					"args" : [ "jcom.plug.in≈", "provide audio input from the plug-in host environment" ],
 					"ignoreclick" : 0,
 					"bgmode" : 0,
 					"enablehscroll" : 0,

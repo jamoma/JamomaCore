@@ -12,7 +12,7 @@ Dir.chdir "#{glibdir}"
 
 if  win32?
 else
-	`cp -r "../../Builds/MaxMSP/plug.loader.mxo" "/Applications/Max5/Cycling '74/max-startup/plug.loader.mxo"`
+	`cp -r "../../Builds/MaxMSP/jcom.plug.loader.mxo" "/Applications/Max5/Cycling '74/max-startup/jcom.plug.loader.mxo"`
 end
 
 puts "done"

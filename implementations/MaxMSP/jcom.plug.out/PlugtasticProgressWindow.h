@@ -6,7 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include "plug.out.h"
+#include "jcom.plug.out.h"
 
 
 @interface PlugtasticProgressWindow : NSWindow {

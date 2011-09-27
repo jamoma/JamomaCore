@@ -93,7 +93,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "The plug.out≈ object mirrors its SmartSignal input to its output so that you can audition the plug-in during development in Max.",
+					"text" : "The jcom.plug.out≈ object mirrors its SmartSignal input to its output so that you can audition the plug-in during development in Max.",
 					"linecount" : 2,
 					"underline" : 0,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -350,7 +350,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Audio objects in the chain that follow plug.in≈ will adapt to the number of channels they are passed.",
+					"text" : "Audio objects in the chain that follow jcom.plug.in≈ will adapt to the number of channels they are passed.",
 					"linecount" : 2,
 					"underline" : 0,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -443,7 +443,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "plug.out≈",
+					"text" : "jcom.plug.out≈",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"background" : 0,
 					"outlettype" : [ "audio.connect", "" ],
@@ -621,11 +621,11 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"name" : "plug.helpheader.maxpat",
+					"name" : "jcom.plug.helpheader.maxpat",
 					"background" : 0,
 					"offset" : [ 0.0, 0.0 ],
 					"clickthrough" : 0,
-					"args" : [ "plug.out≈", "provide audio output from the plug-in to the host environment" ],
+					"args" : [ "jcom.plug.out≈", "provide audio output from the plug-in to the host environment" ],
 					"ignoreclick" : 0,
 					"bgmode" : 0,
 					"enablehscroll" : 0,

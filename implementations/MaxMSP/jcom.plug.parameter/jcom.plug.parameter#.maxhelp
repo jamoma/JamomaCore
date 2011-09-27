@@ -142,7 +142,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "The dictionary produced by plug.parameter# includes both the parameter value and the parameter name.  Thus, the name of the parameter is also the name of the attribute it will try and control in the connected audio object.",
+					"text" : "The dictionary produced by jcom.plug.parameter# includes both the parameter value and the parameter name.  Thus, the name of the parameter is also the name of the attribute it will try and control in the connected audio object.",
 					"linecount" : 5,
 					"underline" : 0,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -270,7 +270,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "The plug.parameter# object defines a parameter that can be automated and contolled by the host environment for the plug-in.",
+					"text" : "The jcom.plug.parameter# object defines a parameter that can be automated and contolled by the host environment for the plug-in.",
 					"linecount" : 3,
 					"underline" : 0,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -318,7 +318,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "The plug.parameter# object produces a dictionary output.  A dictionary is a collection of information where specific pieces of information (values) are associated with a 'key'.",
+					"text" : "The jcom.plug.parameter# object produces a dictionary output.  A dictionary is a collection of information where specific pieces of information (values) are associated with a 'key'.",
 					"linecount" : 4,
 					"underline" : 0,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -480,7 +480,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "plug.parameter#",
+					"text" : "jcom.plug.parameter#",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"background" : 0,
 					"outlettype" : [ "graph.connect", "" ],
@@ -526,11 +526,11 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"name" : "plug.helpheader.maxpat",
+					"name" : "jcom.plug.helpheader.maxpat",
 					"background" : 0,
 					"offset" : [ 0.0, 0.0 ],
 					"clickthrough" : 0,
-					"args" : [ "plug.parameter#", "receive automation from the plug-in host environment" ],
+					"args" : [ "jcom.plug.parameter#", "receive automation from the plug-in host environment" ],
 					"ignoreclick" : 0,
 					"bgmode" : 0,
 					"enablehscroll" : 0,

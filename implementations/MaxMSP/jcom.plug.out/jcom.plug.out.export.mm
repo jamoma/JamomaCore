@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #include <iostream>
-#include "plug.out.h"
+#include "jcom.plug.out.h"
 #include "TTAudioGraphDescription.h"
 #include "PlugtasticParameter.h"
 
