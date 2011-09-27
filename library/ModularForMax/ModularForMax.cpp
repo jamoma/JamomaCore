@@ -1583,14 +1583,14 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 	
 	if (ac && av) {
 		
-		// for model : the first argument is the name
-		if (context == kTTSym_model || hierarchy == _sym_subpatcher)
-			argName = atom_getsym(av);
-		
 		// for view : the second argument is the name
 		// (the first is reserved for the /model/address)
-		else if (context == kTTSym_view && ac > 1)
+		if (context == kTTSym_view && ac > 1)
 			argName = atom_getsym(av+1);
+		
+		// for model : the first argument is the name
+		else if (context == kTTSym_model || hierarchy == _sym_subpatcher)
+			argName = atom_getsym(av);
 		
 		// if the argname begin by a @ ignore it
 		if (argName->s_name[0] == '@')
