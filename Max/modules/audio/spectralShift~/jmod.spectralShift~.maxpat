@@ -190,7 +190,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 610.0, 180.0, 581.0, 31.0 ],
-					"text" : "jcom.parameter frequency/shift @type decimal @range/bounds -500 500 \"Slide all frequency bins up or down (Hz).\" @dataspace pitch @dataspace/unit/native Hz @dataspace/unit/active Hz @dataspace/unit/display Hz"
+					"text" : "jcom.parameter frequency/shift @type decimal @range/bounds -500 500 \"Slide all frequency bins up or down (Hz).\" @dataspace time @dataspace/unit/native Hz @dataspace/unit/active Hz @dataspace/unit/display Hz"
 				}
 
 			}

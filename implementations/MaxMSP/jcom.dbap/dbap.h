@@ -48,7 +48,7 @@ typedef struct _hull2{
 	long		num_dst;								///< number dst in the convex hull
 	long		id_dst[MAX_NUM_DESTINATIONS];			///< index of dst in dst_position[]
 	float		dst2next[MAX_NUM_DESTINATIONS];			///< squared length of each border of the hull
-} t_hull2;												///< Convex hull in 1 dimension
+} t_hull2;												///< Convex hull in 2 dimensions
 	
 typedef struct _dbap{									///< Data structure for this object 
 	t_object	ob;										///< Must always be the first field; used by Max

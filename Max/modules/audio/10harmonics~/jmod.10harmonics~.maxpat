@@ -2568,7 +2568,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 468.0, 74.0, 598.0, 43.0 ],
-					"text" : "jcom.parameter frequency @type decimal @range/bounds 20 20000 @range/clipmode none @ramp/drive scheduler @ramp/function linear @description \"Frequency of the signal.\" @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
+					"text" : "jcom.parameter frequency @type decimal @range/bounds 20 20000 @range/clipmode none @ramp/drive scheduler @ramp/function linear @description \"Frequency of the signal.\" @dataspace time @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
 					"varname" : "frequency"
 				}
 

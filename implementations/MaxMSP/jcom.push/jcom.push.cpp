@@ -225,8 +225,9 @@ void push_bang(t_push *x)
 	int i;
 	float position, velocity, vicinity, repel;
 	float rangeLow, rangeHigh;
-	t_atom a[MAXDIMENSIONS];
-
+	t_atom *a = NULL;
+	a = (AtomPtr)sysmem_newptr(sizeof(Atom) * x->attrDimensions);
+	
 	for (i=0; i<x->attrDimensions; i++) {
 		// Determine range
 		rangeHigh = 0.5*x->attrSize[i];
@@ -271,6 +272,7 @@ void push_bang(t_push *x)
 
 	
 	outlet_anything(x->outlet, _sym_list, x->attrDimensions, a);
+	delete[] a;
 }
 
 

@@ -2213,7 +2213,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 484.0, 255.0, 158.0, 60.0 ],
-																									"text" : "dataspace pitch, dataspace/unit/active midi, dataspace/unit/native midi, dataspace/unit/display midi"
+																									"text" : "dataspace time, dataspace/unit/active midi, dataspace/unit/native midi, dataspace/unit/display midi"
 																								}
 
 																							}
@@ -2228,7 +2228,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 421.0, 167.0, 147.0, 60.0 ],
-																									"text" : "dataspace pitch, dataspace/unit/active Hz, dataspace/unit/native Hz, dataspace/unit/display Hz"
+																									"text" : "dataspace time, dataspace/unit/active Hz, dataspace/unit/native Hz, dataspace/unit/display Hz"
 																								}
 
 																							}
@@ -2243,7 +2243,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 879.0, 253.0, 161.0, 60.0 ],
-																									"text" : "dataspace pitch, dataspace/unit/active cents, dataspace/unit/native cents, dataspace/unit/display cents"
+																									"text" : "dataspace time, dataspace/unit/active cents, dataspace/unit/native cents, dataspace/unit/display cents"
 																								}
 
 																							}
