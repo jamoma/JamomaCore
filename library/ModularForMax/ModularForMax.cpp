@@ -767,11 +767,13 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 		// DATA case
 		if (o->getName() == TT("Data")) {
 			
+			// prepare a command 
+			// (don't use the send method of the Item because it directly set the value)
+			anItem->get(kTTSym_value, v);
+			
 			// if the item have a ramp state
 			if (!anItem->get(kTTSym_ramp, r)) {
 				
-				// prepare a command
-				anItem->get(kTTSym_value, v);
 				v.append(kTTSym_ramp);
 				
 				// Is ramp specific to the item ?
@@ -785,16 +787,17 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 						if (!anItem->manager->getAttributeValue(kTTSym_ramp, r))
 							r.get(0, ramp);
 				}
-				
-				// or no
 				else
-					anItem->send(kTTSym_value);
+					o->sendMessage(kTTSym_Command, v);
 				
 				v.append(ramp);
 				o->sendMessage(kTTSym_Command, v);
+				return;
 			}
-			else
-				anItem->send(kTTSym_value);
+			
+			// in any other case
+			o->sendMessage(kTTSym_Command, v);
+			return;
 		}
 		
 		// VIEWER case : they should have been replaced by DATA
