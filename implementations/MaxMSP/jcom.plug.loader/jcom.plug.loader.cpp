@@ -83,6 +83,7 @@ void plug_setup_db(void)
 	
 	// OBJECTS
 	
+    /*
 	plug_alias_register("adc≈",					"jcom.adc≈",				"Audio",			"Audio input");
 	plug_alias_register("adsr≈",				"jcom.adsr≈",				"Audio",			"ADSR Envelope Generator");
 	plug_alias_register("audiounit≈",			"jcom.audiounit≈",			"Audio",			"Host an AudioUnit plug-in");
@@ -136,6 +137,7 @@ void plug_setup_db(void)
 	//plug_alias_register("op!",					"jcom.op#",					"Control",			"Perform mathematical operations on a dictionary");
 	//plug_alias_register("pack!",				"jcom.pack#",				"Control",			"Convert native Max data into a Plugtastic dictionary");
 	//plug_alias_register("unpack!",				"jcom.unpack#",				"Control",			"Convert a Plugtastic dictionary into native Max data");
+     */
 
 	// CLIPPINGS
 	
