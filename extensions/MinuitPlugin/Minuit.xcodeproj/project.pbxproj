@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -150,8 +150,12 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Minuit" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
@@ -207,7 +211,6 @@
 				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"";
 				LD_DYLIB_INSTALL_NAME = "";
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				PRODUCT_NAME = Minuit;
 				SDKROOT = macosx10.5;
 			};
@@ -222,7 +225,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"";
 				LD_DYLIB_INSTALL_NAME = "";
-				PREBINDING = NO;
 				SDKROOT = macosx10.5;
 			};
 			name = Deployment;
@@ -258,6 +260,7 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 			};
 			name = Development;
@@ -293,7 +296,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = Minuit;
-				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk";
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 			};
 			name = Deployment;
