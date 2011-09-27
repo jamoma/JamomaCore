@@ -7,10 +7,10 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 59.0, 56.0, 849.0, 645.0 ],
+		"rect" : [ 179.0, 65.0, 849.0, 645.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 59.0, 56.0, 849.0, 645.0 ],
+		"defrect" : [ 179.0, 65.0, 849.0, 645.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -442,9 +442,9 @@
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"fontname" : "Helvetica Neue Light",
-						"default_fontname" : "Helvetica Neue Light",
 						"globalpatchername" : "",
+						"default_fontname" : "Helvetica Neue Light",
+						"fontname" : "Helvetica Neue Light",
 						"default_fontsize" : 13.0,
 						"fontface" : 0,
 						"fontsize" : 13.0
@@ -540,10 +540,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 100.0, 15.0, 168.0, 22.0 ],
+					"patching_rect" : [ 100.0, 15.0, 157.0, 22.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "loadmess open cherokee.aif",
+					"text" : "loadmess open cello-f2.aif",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
