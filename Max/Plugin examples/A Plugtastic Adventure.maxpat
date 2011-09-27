@@ -602,10 +602,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 35.0, 400.0, 139.0, 19.0 ],
+					"patching_rect" : [ 35.0, 400.0, 117.0, 19.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "jcom.plug.in≈ @gain -6",
+					"text" : "jcom.gain≈ @gain -6",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
