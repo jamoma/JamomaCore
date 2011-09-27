@@ -4,7 +4,8 @@
 // To change settings for only one of the examples, override the settings using Xcode's target inspector.
 //
 // Copyright ¬© 2009, Timothy Place
-// http://electrotap.com/
+// License: This code is licensed under the terms of the "New BSD License"
+// http://creativecommons.org/licenses/BSD/
 
 #include "../../../supports/max/tt-max.xcconfig"
 
