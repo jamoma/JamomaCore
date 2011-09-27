@@ -787,8 +787,10 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 						if (!anItem->manager->getAttributeValue(kTTSym_ramp, r))
 							r.get(0, ramp);
 				}
-				else
+				else {
 					o->sendMessage(kTTSym_Command, v);
+					return;
+				}
 				
 				v.append(ramp);
 				o->sendMessage(kTTSym_Command, v);

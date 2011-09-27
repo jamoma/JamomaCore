@@ -394,34 +394,30 @@ TTErr TTData::Command(const TTValue& command)
 			convertUnit(aValue);
 		}
 	
-	
-	// 5. Ramp the convertedValue
-	/////////////////////////////////
+	// 5. Filter repetitions
+	//////////////////////////////////
+	if (!mRepetitionsAllow && mInitialized) {
+		
+		// float to integer case
+		if (mType == kTTSym_integer)
+			aValue.truncate();
+		
+		// integer/float to boolean case
+		if (mType == kTTSym_boolean)
+			aValue.booleanize();
+		
+		if (mValue == aValue)
+			return kTTErrNone;	// nothing to do
+	}
+
 #ifdef TTDATA_RAMPLIB
+	// 6. Ramp the convertedValue
+	/////////////////////////////////
 	if (hasRamp) {
 		
 		command.get(commandSize - 1, time);
-
-		if (time <= 0) {
-			setValue(aValue);
-			return kTTErrNone;
-		}	
 		
-		if (!mRepetitionsAllow && mInitialized) {
-			
-			// float to integer case
-			if (mType == kTTSym_integer)
-				aValue.truncate();
-			
-			// integer/float to boolean case
-			if (mType == kTTSym_boolean)
-				aValue.booleanize();
-			
-			if (mValue == aValue)
-				return kTTErrNone;	// nothing to do
-		}
-		
-		if (mRamper) {
+		if (mRamper && time > 0) {
 			TTUInt16	i, s = aValue.getSize();
 			TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
 			TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
@@ -439,38 +435,19 @@ TTErr TTData::Command(const TTValue& command)
 			
 			delete [] startArray;
 			delete [] targetArray;
+			
+			return kTTErrNone;
 		}
-	} 
-	else {
-#endif
-		// check repetitions
-		if (!mRepetitionsAllow && mInitialized) {
-			
-			// float to integer case
-			if (mType == kTTSym_integer)
-				aValue.truncate();
-			
-			// integer/float to boolean case
-			if (mType == kTTSym_boolean)
-				aValue.booleanize();
-			
-			if (mValue == aValue)
-				return kTTErrNone;	// nothing to do
-		}
-
-#ifdef TTDATA_RAMPLIB
-		// stop ramping before to set a value
-		if (mRamper)
-			mRamper->stop();
-#endif
-		
-		setValue(aValue);
-		
-#ifdef TTDATA_RAMPLIB
 	}
+	
+	// in any other cases :
+	// stop ramping before to set a value
+	if (mRamper)
+		mRamper->stop();
 #endif
 	
-	return kTTErrNone;
+	// set the value directly
+	return setValue(aValue);
 }
 
 TTErr TTData::getValue(TTValue& value)
