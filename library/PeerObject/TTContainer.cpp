@@ -1268,8 +1268,15 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 		if (n->getParent()->getName() != S_SEPARATOR)
 			p_c = n->getParent()->getContext();
 	
+	/* to - this doesn't allow data under the root to subscribe to a container at the root
+	 
 	// Keep only nodes from our context if they aren't under the root (p_c is NULL)
 	// if contexts are different, check also if the parent context is the same as our context
 	return (c == t_c && p_c ) || (c != t_c && p_c == t_c );
+	 */
+	
+	// Keep only nodes from our context if they have the same context than the container
+	// if contexts are different, check also if the parent context is the same as our context
+	return (c == t_c) || (c != t_c && p_c == t_c );
 	
 }
