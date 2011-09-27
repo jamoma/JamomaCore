@@ -1,9 +1,11 @@
-//
-//  PlugtasticProgressWindow.m
-//
-//  Created by Timothy Place on 9/19/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
-//
+/* 
+ *	PlugtasticProgressWindow.mm
+ *	Plugtastic Output External
+ *	Copyright © 2010 by Timothy Place
+ * 
+ *	License: This code is licensed under the terms of the "New BSD License"
+ *	http://creativecommons.org/licenses/BSD/
+ */
 
 #import "PlugtasticProgressWindow.h"
 

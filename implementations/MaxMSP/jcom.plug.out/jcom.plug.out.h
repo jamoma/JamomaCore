@@ -1,3 +1,13 @@
+/* 
+ *	jcom.plug.out≈
+ *	Plugtastic Output External
+ *	Copyright © 2010 by Timothy Place
+ * 
+ *	License: This code is licensed under the terms of the "New BSD License"
+ *	http://creativecommons.org/licenses/BSD/
+ */
+
+
 #include "MaxAudioGraph.h"
 #include "PlugtasticAPI.h"
 

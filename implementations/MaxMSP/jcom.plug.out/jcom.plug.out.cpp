@@ -1,8 +1,10 @@
 /* 
- *	plug.out≈
+ *	jcom.plug.out≈
  *	Plugtastic Output External
  *	Copyright © 2010 by Timothy Place
- *	All Rights Reserved
+ * 
+ *	License: This code is licensed under the terms of the "New BSD License"
+ *	http://creativecommons.org/licenses/BSD/
  */
 
 #include "jcom.plug.out.h"
