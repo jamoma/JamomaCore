@@ -298,7 +298,7 @@ int main(void)
 	//defer_low(sMaxObject, (method)plug_setup_db, NULL, 0, NULL);
 	plug_setup_db();
 	
-	post("Plugtastic                                            Version %s | 74Objects.com", PLUGTASTIC_VERSION);
+	post("Plugtastic                                            Version %s | jamoma.org", PLUGTASTIC_VERSION);
 	
 
 	// This tells Max 5.0.6 and higher that we want the patcher files to be saved such that they are sorted.
