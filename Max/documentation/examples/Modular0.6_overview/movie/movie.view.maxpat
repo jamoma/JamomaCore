@@ -29,7 +29,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 266.0, 99.0, 246.0, 34.0 ],
+					"patching_rect" : [ 273.0, 99.0, 249.0, 34.0 ],
 					"text" : "add \"@context view\" as argument of the hub to make this patcher as a view patcher",
 					"textcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ]
 				}
@@ -595,13 +595,13 @@
  ]
 					}
 ,
-					"patching_rect" : [ 247.0, 141.0, 90.0, 20.0 ],
+					"patching_rect" : [ 251.0, 141.0, 90.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0
 					}
@@ -692,11 +692,11 @@
 ,
 					"patching_rect" : [ 746.0, 650.0, 67.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0
 					}
@@ -741,8 +741,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 17.0, 99.0, 249.0, 34.0 ],
-					"text" : "jcom.hub @context view video @description \"an interface for a movie model\"",
+					"patching_rect" : [ 17.0, 99.0, 253.0, 34.0 ],
+					"text" : "jcom.hub @context view @type video @description \"an interface for a movie model\"",
 					"varname" : "_jcom_node"
 				}
 
