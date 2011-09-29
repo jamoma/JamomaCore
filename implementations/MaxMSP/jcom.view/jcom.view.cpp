@@ -185,7 +185,7 @@ void view_subscribe(TTPtr self)
 	TTValue						v;
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
 	TTNodeAddressPtr			absoluteAddress;
-	TTObjectPtr					anObject;
+	TTObjectPtr					toSubscribe, anObject;
 	
 	// for absolute address
 	if (x->address->getType() == kAddressAbsolute) {
@@ -200,28 +200,43 @@ void view_subscribe(TTPtr self)
 	// for relative address
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 	
-	// View patcher case : try to subscribe the wrapped object
+	
+	// Do we subscribe the Viewer ?
+	
+	// View patcher case :
 	if (x->patcherContext == kTTSym_view) {
 		
-		if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {
-			// get the context address to make
-			// a viewer on the contextAddress/model/address parameter
-			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-			v.get(0, (TTSymbolPtr*)&contextAddress);
-		}
-	}
-	// Model patcher case : try to binds on the parameter|message|return of the model
-	else if (x->patcherContext == kTTSym_model) {
+		// if the address refer to the hub (only :attributeName) don't subscribe the Viewer
+		if (x->address->getParent() == NO_PARENT && 
+			x->address->getName() == NO_NAME && 
+			x->address->getInstance() == NO_INSTANCE && 
+			x->address->getAttribute() != NO_ATTRIBUTE)
+			toSubscribe = NULL;
+	
+		// else try to subscribe the Viewer
+		else toSubscribe = x->wrappedObject;
 		
-		if (!jamoma_subscriber_create((ObjectPtr)x, NULL, x->address, &x->subscriberObject)) {
-			// get the context address to make
-			// a viewer on the contextAddress/model/address parameter
-			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-			v.get(0, (TTSymbolPtr*)&contextAddress);
-		}
+	}
+	// Model patcher case : 
+	// try to binds on the parameter|message|return of the model without subscribing the Viewer
+	else if (x->patcherContext == kTTSym_model)
+		toSubscribe = NULL;
+	
+	// Any other case : no subscription
+	else 
+		toSubscribe = NULL;
+
+	
+	// Try to subscribe the Viewer or just use the Subscriber to get the context address
+	if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, x->address, &x->subscriberObject)) {
+		// get the context address to make
+		// a viewer on the contextAddress/model/address parameter
+		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+		v.get(0, (TTSymbolPtr*)&contextAddress);
 	}
 	else
 		contextAddress = kTTAdrsRoot;
+	
 	
 	// bind on the /model/address parameter (in view patch)  or set address directly
 	if (contextAddress != kTTAdrsEmpty) {

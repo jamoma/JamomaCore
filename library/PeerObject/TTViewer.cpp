@@ -99,6 +99,10 @@ TTErr TTViewer::bind()
 	// Prepare arguments
 	if (mAddress == kTTAdrsEmpty)
 		return kTTErrGeneric;
+	
+	// The default attribute to bind is value
+	if (mAddress->getAttribute() == NO_ATTRIBUTE)
+		mAddress->appendAttribute(kTTSym_value);
 
 	// Replace a TTSender object
 	if (mSender)
@@ -107,7 +111,7 @@ TTErr TTViewer::bind()
 	mSender = NULL;							// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), kTTValNONE);
 	
-	mSender->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_value));
+	mSender->setAttributeValue(kTTSym_address, mAddress);
 	
 	// Replace a TTReceiver object
 	if (mReceiver)
@@ -130,7 +134,7 @@ TTErr TTViewer::bind()
 	mReceiver = NULL;						// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
 	
-	mReceiver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_value));
+	mReceiver->setAttributeValue(kTTSym_address, mAddress);
 	
 	observeDataspace();
 	observeDataspaceUnit();
