@@ -60,6 +60,9 @@ private:
 	/**	Setter for mTag attribute. */
 	TTErr setTag(const TTValue& value);
 	
+	/**	Setter for mPriority attribute. */
+	TTErr setPriority(const TTValue& value);
+	
 	/** */
 	TTErr getContent(TTValue& value);
 	

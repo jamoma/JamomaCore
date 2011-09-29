@@ -32,7 +32,7 @@ mObserver(NULL)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	}
 	
-	addAttribute(Priority, kTypeUInt8);
+	addAttributeWithSetter(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	addAttributeWithSetter(Tag, kTypeLocalValue);
@@ -306,6 +306,20 @@ TTErr TTContainer::setTag(const TTValue& value)
 	err = this->findAttribute(kTTSym_tag, &anAttribute);
 	if (!err)
 		anAttribute->sendNotification(kTTSym_notify, mTag);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::setPriority(const TTValue& value)
+{
+	TTAttributePtr	anAttribute;
+	TTErr			err = kTTErrNone;
+	
+	mPriority = value;
+	
+	err = this->findAttribute(kTTSym_priority, &anAttribute);
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mPriority);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }
