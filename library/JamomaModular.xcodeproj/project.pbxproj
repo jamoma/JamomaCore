@@ -25,6 +25,7 @@
 		224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F7E79907B2D74100F64583 /* CoreData.framework */; };
 		224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		D209281F12EC5D1800BD289A /* DataspaceLib.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */; };
+		D21491F114346C07004DCC1B /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D21491F014346C07004DCC1B /* libxml2.2.dylib */; };
 		D22C0CB613B233E800236C81 /* TTMirror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22C0CB513B233E800236C81 /* TTMirror.cpp */; };
 		D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D242BB5A12841CE40036A509 /* TTMapperManager.cpp */; };
 		D266098F133B92020068ACC2 /* TTApplicationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D266098D133B92020068ACC2 /* TTApplicationManager.cpp */; };
@@ -47,7 +48,6 @@
 		D2CA88321213F47D0090DE41 /* TTXmlHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88261213F47D0090DE41 /* TTXmlHandler.cpp */; };
 		D2CA88351213F4A80090DE41 /* TTModular.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88331213F4A80090DE41 /* TTModular.cpp */; };
 		D2CA88361213F4A80090DE41 /* TTModularSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */; };
-		D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */; };
 		D2CDAD6E123A338B00801029 /* TTViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CDAD6C123A338B00801029 /* TTViewer.cpp */; };
 		D2D076BD13C72B2400501757 /* libboost_regex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D076BC13C72B2400501757 /* libboost_regex.a */; };
 		D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */; };
@@ -84,6 +84,7 @@
 		22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = source/Jamoma.cpp; sourceTree = "<group>"; };
 		22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.prefix.pch; path = source/jcom.prefix.pch; sourceTree = "<group>"; };
 		D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = DataspaceLib.ttdylib; path = ../../Foundation/extensions/DataspaceLib/build/UninstalledProducts/DataspaceLib.ttdylib; sourceTree = SOURCE_ROOT; };
+		D21491F014346C07004DCC1B /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = /usr/lib/libxml2.2.dylib; sourceTree = "<absolute>"; };
 		D22C0CB413B233E800236C81 /* TTMirror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMirror.h; sourceTree = "<group>"; };
 		D22C0CB513B233E800236C81 /* TTMirror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror.cpp; sourceTree = "<group>"; };
 		D242BB5A12841CE40036A509 /* TTMapperManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
@@ -125,7 +126,6 @@
 		D2CA88271213F47D0090DE41 /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
 		D2CA88331213F4A80090DE41 /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModular.cpp; path = source/TTModular.cpp; sourceTree = "<group>"; };
 		D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularSymbolCache.cpp; path = source/TTModularSymbolCache.cpp; sourceTree = "<group>"; };
-		D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D2CDAD6C123A338B00801029 /* TTViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
 		D2CDAD6D123A338B00801029 /* TTViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewer.h; sourceTree = "<group>"; };
 		D2D076BC13C72B2400501757 /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = "../../Foundation/library/boost/lib-mac/libboost_regex.a"; sourceTree = SOURCE_ROOT; };
@@ -158,9 +158,9 @@
 				224B086711DEA31700B6EF48 /* MaxAudioAPI.framework in Frameworks */,
 				224B086811DEA31700B6EF48 /* Cocoa.framework in Frameworks */,
 				224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */,
-				D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */,
 				D209281F12EC5D1800BD289A /* DataspaceLib.ttdylib in Frameworks */,
 				D2D076BD13C72B2400501757 /* libboost_regex.a in Frameworks */,
+				D21491F114346C07004DCC1B /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,9 +202,9 @@
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
-				D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */,
 				D2D076BC13C72B2400501757 /* libboost_regex.a */,
 				D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */,
+				D21491F014346C07004DCC1B /* libxml2.2.dylib */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -454,21 +454,23 @@
 /* Begin XCBuildConfiguration section */
 		1DEB91B208733DA50010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22C9F74E1033191A0062F7B8 /* JamomaModular.xcconfig */;
 			buildSettings = {
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.6;
 			};
 			name = Development;
 		};
 		1DEB91B308733DA50010E9CD /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22C9F74E1033191A0062F7B8 /* JamomaModular.xcconfig */;
 			buildSettings = {
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.6;
 			};
 			name = Deployment;
 		};
