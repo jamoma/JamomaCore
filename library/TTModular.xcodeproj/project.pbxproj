@@ -17,8 +17,6 @@
 		D209281F12EC5D1800BD289A /* DataspaceLib.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */; };
 		D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D242BB5A12841CE40036A509 /* TTMapperManager.cpp */; };
 		D266098F133B92020068ACC2 /* TTApplicationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D266098D133B92020068ACC2 /* TTApplicationManager.cpp */; };
-		D29B5A3B13593FB6003B6690 /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29B5A2613593FB6003B6690 /* PluginFactories.cpp */; };
-		D29B5A3C13593FB6003B6690 /* TTPluginHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29B5A2813593FB6003B6690 /* TTPluginHandler.cpp */; };
 		D29D9C0813C4A1590011BD65 /* TTMirror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29D9C0713C4A1590011BD65 /* TTMirror.cpp */; };
 		D2AADF76127980AA00629B73 /* TTApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AADF74127980AA00629B73 /* TTApplication.cpp */; };
 		D2AB7E76123FC21E00DAD340 /* TTData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AB7E74123FC21E00DAD340 /* TTData.cpp */; };
@@ -36,8 +34,9 @@
 		D2CA88321213F47D0090DE41 /* TTXmlHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88261213F47D0090DE41 /* TTXmlHandler.cpp */; };
 		D2CA88351213F4A80090DE41 /* TTModular.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88331213F4A80090DE41 /* TTModular.cpp */; };
 		D2CA88361213F4A80090DE41 /* TTModularSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */; };
-		D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */; };
 		D2CDAD6E123A338B00801029 /* TTViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CDAD6C123A338B00801029 /* TTViewer.cpp */; };
+		D2D758331435CD5B00587BF4 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D758321435CD5B00587BF4 /* libxml2.2.dylib */; };
+		D2D7583A1435CF1200587BF4 /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2D758391435CF1200587BF4 /* Plugin.cpp */; };
 		D2DDA0B01254982B00E2C831 /* TTTextHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */; };
 		D2E27E9A12D53B2000C3EF05 /* TTCue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E27E9812D53B2000C3EF05 /* TTCue.cpp */; };
 		D2E27EA612D54B7000C3EF05 /* TTCueManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E27EA512D54B7000C3EF05 /* TTCueManager.cpp */; };
@@ -57,11 +56,6 @@
 		D242BB5B12841CE40036A509 /* TTMapperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapperManager.h; sourceTree = "<group>"; };
 		D266098D133B92020068ACC2 /* TTApplicationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
 		D266098E133B92020068ACC2 /* TTApplicationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplicationManager.h; sourceTree = "<group>"; };
-		D29B59F113593FB6003B6690 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = includes/Plugin.h; sourceTree = "<group>"; };
-		D29B59F213593FB6003B6690 /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PluginFactories.h; path = includes/PluginFactories.h; sourceTree = "<group>"; };
-		D29B59F313593FB6003B6690 /* TTPluginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPluginHandler.h; path = includes/TTPluginHandler.h; sourceTree = "<group>"; };
-		D29B5A2613593FB6003B6690 /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PluginFactories.cpp; path = source/PluginFactories.cpp; sourceTree = "<group>"; };
-		D29B5A2813593FB6003B6690 /* TTPluginHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPluginHandler.cpp; path = source/TTPluginHandler.cpp; sourceTree = "<group>"; };
 		D29D9C0613C4A1590011BD65 /* TTMirror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMirror.h; sourceTree = "<group>"; };
 		D29D9C0713C4A1590011BD65 /* TTMirror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror.cpp; sourceTree = "<group>"; };
 		D2AADF74127980AA00629B73 /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
@@ -94,11 +88,13 @@
 		D2CA88271213F47D0090DE41 /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
 		D2CA88331213F4A80090DE41 /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModular.cpp; path = source/TTModular.cpp; sourceTree = "<group>"; };
 		D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularSymbolCache.cpp; path = source/TTModularSymbolCache.cpp; sourceTree = "<group>"; };
-		D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D2CDAD6C123A338B00801029 /* TTViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
 		D2CDAD6D123A338B00801029 /* TTViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewer.h; sourceTree = "<group>"; };
 		D2D5B823135753C20033DB0B /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModular.h; path = includes/TTModular.h; sourceTree = "<group>"; };
 		D2D5B824135753C20033DB0B /* TTModularSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularSymbolCache.h; path = includes/TTModularSymbolCache.h; sourceTree = "<group>"; };
+		D2D758321435CD5B00587BF4 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = /usr/lib/libxml2.2.dylib; sourceTree = "<absolute>"; };
+		D2D758381435CF1200587BF4 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
+		D2D758391435CF1200587BF4 /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
 		D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTextHandler.cpp; sourceTree = "<group>"; };
 		D2DDA0AF1254982B00E2C831 /* TTTextHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTextHandler.h; sourceTree = "<group>"; };
 		D2E27E9812D53B2000C3EF05 /* TTCue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCue.cpp; sourceTree = "<group>"; };
@@ -120,8 +116,8 @@
 				224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */,
 				224B086811DEA31700B6EF48 /* Cocoa.framework in Frameworks */,
 				224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */,
-				D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */,
 				D209281F12EC5D1800BD289A /* DataspaceLib.ttdylib in Frameworks */,
+				D2D758331435CD5B00587BF4 /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,8 +153,8 @@
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
-				D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */,
 				D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */,
+				D2D758321435CD5B00587BF4 /* libxml2.2.dylib */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -204,11 +200,8 @@
 		D29B59EF13593FB6003B6690 /* PluginLib */ = {
 			isa = PBXGroup;
 			children = (
-				D29B59F313593FB6003B6690 /* TTPluginHandler.h */,
-				D29B5A2813593FB6003B6690 /* TTPluginHandler.cpp */,
-				D29B59F113593FB6003B6690 /* Plugin.h */,
-				D29B59F213593FB6003B6690 /* PluginFactories.h */,
-				D29B5A2613593FB6003B6690 /* PluginFactories.cpp */,
+				D2D758381435CF1200587BF4 /* Plugin.h */,
+				D2D758391435CF1200587BF4 /* Plugin.cpp */,
 			);
 			path = PluginLib;
 			sourceTree = "<group>";
@@ -289,6 +282,7 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "TTModular" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
@@ -347,9 +341,8 @@
 				D2E27EA612D54B7000C3EF05 /* TTCueManager.cpp in Sources */,
 				D2C1B3671324384E00EACCA7 /* TTOpmlHandler.cpp in Sources */,
 				D266098F133B92020068ACC2 /* TTApplicationManager.cpp in Sources */,
-				D29B5A3B13593FB6003B6690 /* PluginFactories.cpp in Sources */,
-				D29B5A3C13593FB6003B6690 /* TTPluginHandler.cpp in Sources */,
 				D29D9C0813C4A1590011BD65 /* TTMirror.cpp in Sources */,
+				D2D7583A1435CF1200587BF4 /* Plugin.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
