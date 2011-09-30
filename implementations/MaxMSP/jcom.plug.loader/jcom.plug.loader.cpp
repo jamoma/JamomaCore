@@ -22,7 +22,7 @@ static ObjectPtr	sMaxObject;
 static ClassPtr		sPlugtasticClass;
 static ObjectPtr	sPlugtasticObject;
 static SymbolPtr	ps_plugtastic;
-static long			sPlugtasticSplash = 1;
+//static long			sPlugtasticSplash = 1;
 
 static SymbolPtr	ps_objectfile;
 static SymbolPtr	ps_db_object_addinternal;
@@ -202,7 +202,7 @@ typedef struct _plugtastic {
 t_plugtastic* plugtastic_new()
 {
 	t_plugtastic*	self = (t_plugtastic*)(object_alloc(sPlugtasticClass));
-	t_atom			a;
+	//t_atom			a;
 	t_class*		c;
 	t_object*		p;
 
@@ -214,7 +214,7 @@ t_plugtastic* plugtastic_new()
 			freeobject(p);
 			p = NULL;
 		}
-	}
+	}/*
 	atom_setsym(&a, GENSYM("plugtastic_extra_toggle"));
 	self->forward = (t_object*)object_new_typed(CLASS_BOX, _sym_forward, 1, &a);
 	
@@ -223,12 +223,13 @@ t_plugtastic* plugtastic_new()
 	preferences_getatomforkey(GENSYM("plugtastic_splash"), &a);
 	if (a.a_type)
 		*self->openSplash = atom_getlong(&a);
-		
+	*/	
 	return self;
 }
 
 
 // prefs
+/*
 t_max_err plugtastic_getpref(void *dummy, void *attr, long *argc, t_atom **argv)
 {
 	char alloc;
@@ -242,11 +243,11 @@ t_max_err plugtastic_setpref(void *dummy, void *attr, long argc, t_atom *argv)
 {
 	sPlugtasticSplash = atom_getlong(argv);
 	return MAX_ERR_NONE;
-}
+}*/
 
 
 // methods
-
+/*
 void plugtastic_get_splash(t_plugtastic* self)
 {
 	t_atom a;
@@ -262,7 +263,7 @@ void plugtastic_get_splash(t_plugtastic* self)
 void plugtastic_set_splash(t_plugtastic* self, long state)
 {
 	*self->openSplash = state;
-}
+}*/
 
 
 
@@ -270,13 +271,13 @@ void plugtastic_classinit()
 {
 	sPlugtasticClass = class_new((char*)"plugtastic", (method)plugtastic_new, (method)NULL, sizeof(t_plugtastic), (method)NULL, 0);
 	
-	class_addmethod(sPlugtasticClass, (method)plugtastic_get_splash,	"get_show_extra_on_launch",	0);
-	class_addmethod(sPlugtasticClass, (method)plugtastic_set_splash,	"set_show_extra_on_launch",	A_LONG, 0);
+	/*class_addmethod(sPlugtasticClass, (method)plugtastic_get_splash,	"get_show_extra_on_launch",	0);
+	class_addmethod(sPlugtasticClass, (method)plugtastic_set_splash,	"set_show_extra_on_launch",	A_LONG, 0);*/
 	
 	class_register(_sym_nobox, sPlugtasticClass);
 	
-	preferences_define("plugtastic_splash", "long", "Show Plugtastic Intro Screen At Launch", "onoff", "Plugtastic", 0, 
-					   (method)plugtastic_getpref, (method)plugtastic_setpref, 0/*PREFERENCES_FLAGS_INVISIBLE*/);
+	//preferences_define("plugtastic_splash", "long", "Show Plugtastic Intro Screen At Launch", "onoff", "Plugtastic", 0, 
+	//				   (method)plugtastic_getpref, (method)plugtastic_setpref, 0/*PREFERENCES_FLAGS_INVISIBLE*/);
 	
 }
 
@@ -311,7 +312,7 @@ int main(void)
 	// post to the system console, which greatly aids in debugging problems and crashes
 	object_method_long(sMaxObject, GENSYM("setmirrortoconsole"), 1, NULL);
 	
-	
+	/*
 	// OPEN THE SPLASH
 	
 	if (sPlugtasticSplash) {
@@ -345,7 +346,7 @@ int main(void)
 		object_method_parse(p, _sym_window, "flags nozoom", NULL);
 		object_method_parse(p, _sym_window, "flags nogrow", NULL);
 		object_method_parse(p, _sym_window, "exec", NULL);
-	}	
+	}	*/
 	
 	
 	return 0;
