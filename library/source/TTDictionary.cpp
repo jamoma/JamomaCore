@@ -38,10 +38,6 @@ TTDictionary::~TTDictionary()
 
 TTErr TTDictionary::setSchema(const TTSymbolPtr schemaName)
 {
-	TTValue v = new TTKeyVal(TTPtrSizedInt(TT("schema")), TTValue(schemaName));
-
-	remove(schemaName);	
-	mList->append(v);
 	return append(TT("schema"), schemaName);
 }
 
@@ -58,10 +54,6 @@ TTSymbolPtr TTDictionary::getSchema() const
 
 TTErr TTDictionary::setValue(const TTValue& newValue)
 {
-	TTValue v = new TTKeyVal(TTPtrSizedInt(TT("value")), newValue);
-	
-	remove(TT("value"));	
-	mList->append(v);
 	return append(TT("value"), newValue);
 }
 
