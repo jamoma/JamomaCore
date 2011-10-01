@@ -3,22 +3,12 @@
 puts "Building Ruby Language Extensions..."
  
 if (RUBY_PLATFORM == "universal-darwin9.0")
-  `cd library; ARCHFLAGS="-arch i386" ruby extconf.rb; make clean; make`
+  `cd library; ARCHFLAGS="-arch i386" ruby extconf.rb; make clean; make; cd ..`
 else
-  `cd library; /usr/bin/ruby extconf.rb; make clean; make`
+  `cd library; ruby extconf.rb; make clean; make; cd ..`
 end
 
-# TODO: what if the person is using Ruby 1.9? Will this still work?
-
-
-if (RUBY_PLATFORM == "universal-darwin9.0")
-  # on Leopard (10.5) you might want to run these lines instead
-  puts `rm -rf /Library/Ruby/Site/1.8/universal-darwin9.0/Jamoma.bundle`
-  puts `cp library/Jamoma.bundle /Library/Ruby/Site/1.8/universal-darwin9.0/Jamoma.bundle`
-else
-  puts `rm -rf /Library/Ruby/Site/1.8/universal-darwin10.0/Jamoma.bundle`
-  puts `cp library/Jamoma.bundle /Library/Ruby/Site/1.8/universal-darwin10.0/Jamoma.bundle`
-end
+load "install.rb"
 
 puts
 puts "=================DONE===================="
