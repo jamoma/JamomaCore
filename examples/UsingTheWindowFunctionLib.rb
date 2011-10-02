@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -wKU
+# encoding: utf-8
 
 # The Jamoma extension provides access to the Jamoma Platform from within the Ruby environment
 require 'Jamoma'
