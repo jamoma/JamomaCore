@@ -1,8 +1,9 @@
 #!/usr/bin/ruby
+# encoding: utf-8
 
 require 'Jamoma'
 
-o = TTAudio.new "tukey", 1
+o = TTAudio.new "tukey", 1  
 o.send "test"
 
 err, cpu = o.send "getProcessingBenchmark", 1

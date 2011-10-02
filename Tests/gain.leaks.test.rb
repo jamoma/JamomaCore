@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# encoding: utf-8
 
 # Automated way to check for memory leaks while running a unit test
 # TODO: could generalize this and pass the name of the unit test as an argument
