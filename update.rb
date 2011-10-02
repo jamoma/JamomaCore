@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -wKU
+# encoding: utf-8
 
 puts `git submodule foreach git checkout master`
 puts `git submodule foreach git pull origin master`

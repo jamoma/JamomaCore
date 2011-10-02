@@ -1,4 +1,5 @@
 #!/usr/bin/ruby -wKU
+
 # jln-, 2011/08/15
 
 # Lets build an array with all contained *.test.rb files so we can load them successively
