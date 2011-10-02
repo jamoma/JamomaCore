@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby -wKU
 # encoding: utf-8
 
 require 'Jamoma'
