@@ -524,6 +524,13 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					v1.getType(2) == kTypeSymbol,
 					testAssertionCount,
 					errorCount);
+	
+	
+	// BUG :	when value v1 is set as below, 
+	//			there is a problem during the copy of the memory (cf memcpy in copy method)
+	//			and there is a crash when the value is deleted at the end of this method.
+	
+	//v1 = TTString("test");
 
 	TTTestLog("Clearing TTValue");	
 	v1.clear();
@@ -1644,7 +1651,7 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 	
 	// TTInt8
 	v1 = TTInt8(-12);
-	v2 = TTInt8(204);
+	v2 = TTInt8(120);
 	TTTestAssertion("TTInt8 < operator comparison (with A < B)",
 					v1 < v2,
 					testAssertionCount,
@@ -1786,15 +1793,18 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TTString
-	v1 = TTString("azerty");
-	v2 = TTString("qwerty");
+	// BUG :	if we used the value v1 and v2, 
+	//			there is a problem during the copy of the memory (cf memcpy in copy method)
+	//			this bug is relative to a line introduced and commented out into TTValueTestBasic
+	TTValue	s1 = TTString("azerty");
+	TTValue	s2 = TTString("qwerty");
 	TTTestAssertion("TTString < operator comparison (with A < B)",
-					v1 < v2,
+					s1 < s2,
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("TTString < operator comparison (with A > B)",
-					!(v2 < v1),
+					!(s2 < s1),
 					testAssertionCount,
 					errorCount);
 	
@@ -1816,10 +1826,10 @@ TTErr TTValueTest::test(TTValue& returnedTestInfo)
 	int	errorCount = 0;
 	int testAssertionCount = 0;
 	
-	//TTValueTestFloatAssertion(errorCount, testAssertionCount);
-	//TTValueTestBasic(errorCount, testAssertionCount);
-	//TTValueTestStringConversion(errorCount, testAssertionCount);
-	//TTValueTestNumericTransformations(errorCount, testAssertionCount);
+	TTValueTestFloatAssertion(errorCount, testAssertionCount);
+	TTValueTestBasic(errorCount, testAssertionCount);
+	TTValueTestStringConversion(errorCount, testAssertionCount);
+	TTValueTestNumericTransformations(errorCount, testAssertionCount);
 	TTValueTestOperators(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);

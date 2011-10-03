@@ -578,7 +578,7 @@ public:
 					return false;
 				break;
 			case kTypeString:
-				if ( strcmp( (a1.data)->stringPtr->data(), (a2.data)->stringPtr->data() ) >= 0 )
+				if ( strcmp( (a1.data)->stringPtr->c_str(), (a2.data)->stringPtr->c_str() ) >= 0 )
 					return false;
 				break;
 			case kTypeObject:
