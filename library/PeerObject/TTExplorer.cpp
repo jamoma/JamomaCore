@@ -257,7 +257,7 @@ TTErr TTExplorer::Explore()
 		// Return the value result back
 		v.clear();
 		if (mReturnValueCallback) {
-			mResult->getKeys(v);
+			mResult->getKeysSorted(v);
 			if (!(v == mLastResult)) {
 				mReturnValueCallback->notify(v);
 				mLastResult = v;
@@ -523,7 +523,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// Return the value result back
 	if (anExplorer->mReturnValueCallback) {
-		anExplorer->mResult->getKeys(v);
+		anExplorer->mResult->getKeysSorted(v);
 		if (!(v == anExplorer->mLastResult)) {
 			anExplorer->mReturnValueCallback->notify(v);
 			anExplorer->mLastResult = v;

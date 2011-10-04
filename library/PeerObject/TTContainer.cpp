@@ -18,7 +18,6 @@ mDescription(kTTSymEmpty),
 mType(TT("control")),
 mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
-mContent(kTTValNONE),
 mAddress(kTTAdrsEmpty),
 mActivityIn(kTTValNONE),
 mActivityOut(kTTValNONE),
@@ -37,8 +36,17 @@ mObserver(NULL)
 	addAttribute(Type, kTypeSymbol);
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
-	addAttributeWithGetter(Content, kTypeLocalValue);
+	registerAttribute(TT("content"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContent, NULL);
 	addAttributeProperty(content, readOnly, YES);
+	
+	registerAttribute(TT("contentParameters"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentParameters, NULL);
+	addAttributeProperty(contentParameters, readOnly, YES);
+	
+	registerAttribute(TT("contentMessages"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentMessages, NULL);
+	addAttributeProperty(contentMessages, readOnly, YES);
+	
+	registerAttribute(TT("contentReturns"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentReturns, NULL);
+	addAttributeProperty(contentReturns, readOnly, YES);
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(initialized, readOnly, YES);
@@ -326,7 +334,89 @@ TTErr TTContainer::setPriority(const TTValue& value)
 
 TTErr TTContainer::getContent(TTValue& value)
 {
-	return mObjectsObserversCache->getKeys(value);
+	// get keys in priority order
+	return mObjectsObserversCache->getKeysSorted(value);
+}
+
+TTErr TTContainer::getContentParameters(TTValue& value)
+{
+	TTValue		content, v;
+	TTInt32		i;
+	TTSymbolPtr key, service;
+	TTObjectPtr anObject;
+	
+	value.clear();
+	
+	// get keys in priority order
+	mObjectsObserversCache->getKeysSorted(content);
+	
+	for (i=0; i<content.getSize(); i++) {
+		content.get(i, &key);
+		mObjectsObserversCache->lookup(key, v);
+		v.get(0, (TTPtr*)&anObject);
+		
+		anObject->getAttributeValue(kTTSym_service, v);
+		v.get(0, &service);
+		
+		if (service == kTTSym_parameter)
+			value.append(key);
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::getContentMessages(TTValue& value)
+{
+	TTValue		content, v;
+	TTInt32		i;
+	TTSymbolPtr key, service;
+	TTObjectPtr anObject;
+	
+	value.clear();
+	
+	// get keys in priority order
+	mObjectsObserversCache->getKeysSorted(content);
+	
+	for (i=0; i<content.getSize(); i++) {
+		content.get(i, &key);
+		mObjectsObserversCache->lookup(key, v);
+		v.get(0, (TTPtr*)&anObject);
+		
+		anObject->getAttributeValue(kTTSym_service, v);
+		v.get(0, &service);
+		
+		if (service == kTTSym_message)
+			value.append(key);
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::getContentReturns(TTValue& value)
+{
+	TTValue		content, v;
+	TTInt32		i;
+	TTSymbolPtr key, service;
+	TTObjectPtr anObject;
+	
+	value.clear();
+	
+	// get keys in priority order
+	mObjectsObserversCache->getKeysSorted(content);
+	
+	for (i=0; i<content.getSize(); i++) {
+		content.get(i, &key);
+		mObjectsObserversCache->lookup(key, v);
+		v.get(0, (TTPtr*)&anObject);
+		
+		anObject->getAttributeValue(kTTSym_service, v);
+		v.get(0, &service);
+		
+		if (service == kTTSym_return)
+			value.append(key);
+	}
+	
+	return kTTErrNone;
 }
 
 TTErr TTContainer::bind()
@@ -423,7 +513,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		else
 			cacheElement.append(NULL);
 		
-		// observe the Cammand message of parameter and message to get activity
+		// observe the Command message of parameter and message to get activity
 		if (service == kTTSym_parameter || service == kTTSym_message) {
 			
 			// create a Command message observer on it
@@ -520,7 +610,6 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	// add NULL to the cacheElement
 	else
 		cacheElement.append(NULL);
-
 	
 	// append the cacheElement to the cache hash table
 	mObjectsObserversCache->append(aRelativeAddress, cacheElement);
