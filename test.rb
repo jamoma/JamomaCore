@@ -1,14 +1,9 @@
-#!/usr/bin/ruby -wKU
-# jln-, 2011/08/15
+#!/usr/bin/env ruby -wKU
+# encoding: utf-8
 
-# Lets build an array with all contained *.test.rb files so we can load them successively
+glibdir = "."
+Dir.chdir glibdir
+glibdir = Dir.pwd
 
-tests = `find ./Tests/*.rb`.split("\n")
-
-tests.each do |t|
-  puts "========================================="
-  puts "LOADING #{t}"
-  puts "========================================="
-  load "#{t}"
-  puts "=================DONE===================="
-end
+Dir.chdir "#{glibdir}/supports"
+load "test.rb"
