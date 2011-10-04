@@ -147,7 +147,14 @@ void TTList::merge(TTList& newList)
 void TTList::sort(TTBoolean(comparisonFunction)(TTValue&, TTValue&))
 {
 	lock();
-	theList.sort(comparisonFunction);
+	
+	// If a comparison fonction is given : use it
+	if (comparisonFunction)
+		theList.sort(comparisonFunction);
+	
+	// else use the < operator of TTValue to sort the list
+	else
+		theList.sort();
 	unlock();
 }
 
