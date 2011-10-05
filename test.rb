@@ -6,4 +6,4 @@ Dir.chdir glibdir
 glibdir = Dir.pwd
 
 Dir.chdir "#{glibdir}/supports"
-load "build.rb"
+load "test.rb"
