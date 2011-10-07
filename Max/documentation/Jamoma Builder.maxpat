@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 291.0, 44.0, 498.0, 350.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 291.0, 44.0, 498.0, 350.0 ],
@@ -37,7 +43,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-89",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -137,6 +142,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 248.0, 200.0, 352.0, 458.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 248.0, 200.0, 352.0, 458.0 ],
@@ -194,6 +205,12 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 53.0, 47.0, 1179.0, 714.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 53.0, 47.0, 1179.0, 714.0 ],
@@ -1191,13 +1208,13 @@
 ,
 									"patching_rect" : [ 16.0, 309.0, 114.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p copy_XML_presets"
@@ -1215,6 +1232,12 @@
 									"outlettype" : [ "bang" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 29.0, 67.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 29.0, 67.0, 640.0, 480.0 ],
@@ -2101,13 +2124,13 @@
 ,
 									"patching_rect" : [ 16.0, 223.0, 242.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"default_fontsize" : 12.0,
+										"fontsize" : 12.0,
+										"fontname" : "Arial",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p copy_Frameworks"
@@ -2125,6 +2148,12 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 98.0, 44.0, 860.0, 742.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 98.0, 44.0, 860.0, 742.0 ],
@@ -2748,13 +2777,13 @@
 ,
 									"patching_rect" : [ 16.0, 197.0, 148.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"default_fontsize" : 12.0,
+										"fontsize" : 12.0,
+										"fontname" : "Arial",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p create_Jamoma/*_Folder"
@@ -2772,6 +2801,12 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 54.0, 92.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 54.0, 92.0, 640.0, 480.0 ],
@@ -2987,13 +3022,13 @@
 ,
 									"patching_rect" : [ 15.0, 170.0, 165.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"default_fontsize" : 12.0,
+										"fontsize" : 12.0,
+										"fontname" : "Arial",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p copy_jcom.loader"
@@ -3011,6 +3046,12 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 29.0, 67.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 29.0, 67.0, 640.0, 480.0 ],
@@ -3213,13 +3254,13 @@
 ,
 									"patching_rect" : [ 15.0, 144.0, 149.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"default_fontsize" : 12.0,
+										"fontsize" : 12.0,
+										"fontname" : "Arial",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p create_extensions_Folder"
@@ -3429,13 +3470,13 @@
 ,
 					"patching_rect" : [ 105.0, 195.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"default_fontsize" : 10.0,
+						"fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p win"
@@ -3453,6 +3494,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 53.0, 44.0, 690.0, 327.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 53.0, 44.0, 690.0, 327.0 ],
@@ -3481,9 +3528,15 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
-										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
+										"rect" : [ 331.0, 190.0, 640.0, 480.0 ],
 										"bglocked" : 0,
-										"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
+										"defrect" : [ 331.0, 190.0, 640.0, 480.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -3502,12 +3555,70 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
+													"id" : "obj-3",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 530.0, 308.0, 208.0, 19.0 ],
+													"text" : "sprintf symout %s/jcom.message.mxo"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-4",
+													"linecount" : 2,
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 530.0, 330.0, 237.0, 31.0 ],
+													"text" : "prepend copy C74:/Jamoma/externals/jcom.message.mxo"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-1",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 228.0, 308.0, 200.0, 19.0 ],
+													"text" : "sprintf symout %s/jcom.remote.mxo"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-2",
+													"linecount" : 2,
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 228.0, 330.0, 229.0, 31.0 ],
+													"text" : "prepend copy C74:/Jamoma/externals/jcom.remote.mxo"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
 													"id" : "obj-21",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 262.0, 191.0, 19.0 ],
+													"patching_rect" : [ 20.0, 307.0, 191.0, 19.0 ],
 													"text" : "sprintf symout %s/jcom.loader.mxo"
 												}
 
@@ -3521,7 +3632,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 347.0, 56.0, 19.0 ],
+													"patching_rect" : [ 20.0, 407.0, 56.0, 19.0 ],
 													"text" : "deferlow"
 												}
 
@@ -3536,7 +3647,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 284.0, 186.0, 31.0 ],
+													"patching_rect" : [ 20.0, 329.0, 186.0, 31.0 ],
 													"text" : "prepend copy C74:/extensions/jcom.loader.mxo"
 												}
 
@@ -3550,7 +3661,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 323.0, 65.0, 19.0 ],
+													"patching_rect" : [ 20.0, 383.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
 
@@ -3560,13 +3671,13 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-19",
-													"linecount" : 3,
+													"linecount" : 4,
 													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 217.0, 231.0, 41.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/in-out.app/Contents/support/extensions\""
+													"patching_rect" : [ 20.0, 217.0, 231.0, 53.0 ],
+													"text" : "\"Macintosh HD:/Users/admin/MaxMsp/EXTERNALS/m4l.AG/jamoma.app.test.app/Contents/support/extensions\""
 												}
 
 											}
@@ -3579,7 +3690,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 196.0, 56.0, 19.0 ],
+													"patching_rect" : [ 20.0, 196.0, 56.0, 19.0 ],
 													"text" : "deferlow"
 												}
 
@@ -3593,7 +3704,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 148.0, 92.0, 19.0 ],
+													"patching_rect" : [ 20.0, 148.0, 92.0, 19.0 ],
 													"text" : "prepend make"
 												}
 
@@ -3607,7 +3718,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 172.0, 65.0, 19.0 ],
+													"patching_rect" : [ 20.0, 172.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
 
@@ -3621,7 +3732,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 100.0, 253.0, 19.0 ],
+													"patching_rect" : [ 20.0, 100.0, 253.0, 19.0 ],
 													"text" : "sprintf symout %s/Contents/support/extensions"
 												}
 
@@ -3634,7 +3745,7 @@
 													"numinlets" : 0,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
+													"patching_rect" : [ 20.0, 40.0, 25.0, 25.0 ]
 												}
 
 											}
@@ -3645,12 +3756,21 @@
 													"maxclass" : "outlet",
 													"numinlets" : 1,
 													"numoutlets" : 0,
-													"patching_rect" : [ 50.0, 452.0, 25.0, 25.0 ]
+													"patching_rect" : [ 20.0, 452.0, 25.0, 25.0 ]
 												}
 
 											}
  ],
 										"lines" : [ 											{
+												"patchline" : 												{
+													"destination" : [ "obj-2", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
 												"patchline" : 												{
 													"destination" : [ "obj-16", 0 ],
 													"hidden" : 0,
@@ -3663,7 +3783,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-19", 1 ],
 													"hidden" : 0,
-													"midpoints" : [ 59.5, 128.0, 271.5, 128.0 ],
+													"midpoints" : [ 29.5, 128.0, 241.5, 128.0 ],
 													"source" : [ "obj-12", 0 ]
 												}
 
@@ -3697,6 +3817,15 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-1", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-19", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-21", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -3706,10 +3835,46 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-3", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-19", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-63", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 237.5, 379.0, 29.5, 379.0 ],
+													"source" : [ "obj-2", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-59", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-21", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-4", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-3", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-63", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 539.5, 379.0, 29.5, 379.0 ],
+													"source" : [ "obj-4", 0 ]
 												}
 
 											}
@@ -3754,13 +3919,13 @@
 ,
 									"patching_rect" : [ 50.0, 125.0, 80.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"default_fontsize" : 12.0,
+										"fontsize" : 12.0,
+										"fontname" : "Arial",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p jcom.loader"
@@ -3792,6 +3957,12 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 435.0, 76.0, 790.0, 492.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 435.0, 76.0, 790.0, 492.0 ],
@@ -4241,13 +4412,13 @@
 ,
 									"patching_rect" : [ 50.0, 202.0, 342.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p preset_interface"
@@ -4265,6 +4436,12 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -4603,13 +4780,13 @@
 ,
 									"patching_rect" : [ 50.0, 157.0, 250.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p frameworks&Extensions"
@@ -4626,6 +4803,12 @@
 									"numoutlets" : 0,
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 4.0, 44.0, 1179.0, 714.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 4.0, 44.0, 1179.0, 714.0 ],
@@ -5544,13 +5727,13 @@
 ,
 									"patching_rect" : [ 495.800018, 171.399994, 114.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p copy_XML_presets"
@@ -5568,6 +5751,12 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 543.0, 161.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 543.0, 161.0, 640.0, 480.0 ],
@@ -5873,13 +6062,13 @@
 ,
 									"patching_rect" : [ 495.800018, 102.099998, 125.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p crate-Jamoma-folder"
@@ -6071,13 +6260,13 @@
 ,
 					"patching_rect" : [ 185.0, 195.0, 44.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"default_fontsize" : 10.0,
+						"fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p mac"
@@ -6101,7 +6290,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-91",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -6136,7 +6324,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 24.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-88",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6180,7 +6367,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 24.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-80",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6195,7 +6381,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-61",
 					"linecount" : 3,
 					"maxclass" : "comment",
