@@ -14,7 +14,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;
     
     // Create dataspace object and set to temperature
-    TTObjectPtr         myDataspace;
+    TTObjectPtr         myDataspace = NULL;
     TTErr err;
     err = TTObjectInstantiate(TT("dataspace"), (TTObjectPtr*)&myDataspace, kTTValNONE);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("speed"));

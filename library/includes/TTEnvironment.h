@@ -105,6 +105,9 @@ public:
 		@param	tags		An array of tags by which to search the environment's registry.
 		@return				An error code.	*/
 	TTErr getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags);
+
+	/**	A message-bound version of getClassNamesWithTags()	*/
+	TTErr getClassNamesForTags(TTValue& searchTagsIn_classNamesOut);
 	
 	
 	/**	Create a new instance of a registered #TTObject class.

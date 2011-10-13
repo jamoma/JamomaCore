@@ -92,7 +92,13 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 	self = (t_dataspace *)object_alloc(dataspace_class);
 	if (self) {
 		object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
-	    self->outlet_native = outlet_new(self, 0);
+
+        // Make sure that environment sample rate is set correctly at instantiated,
+        // as it is used by time dataspace for conversions to and from sample
+        TTValue		sr(sys_getsr());
+        ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
+        
+        self->outlet_native = outlet_new(self, 0);
 		TTObjectInstantiate(TT("dataspace"), &self->dataspace, kTTValNONE);
 		
 		attr_args_process(self, argc, argv);

@@ -10,27 +10,6 @@
 #define __TT_LIMITS_H__
 
 
-/** Filter out denormaled values, which can make processing extremely slow when present. 
-	@seealso	TTZeroDenormal
- */
-template<class T>
-static T TTAntiDenormal(const T input)
-{
-	T output = input;
-	TTZeroDenormal(output);
-	return output;
-	
-	// This function used to be implemented using the following algorithm:
-	// 
-	// value += kTTAntiDenormalValue;
-	// value -= kTTAntiDenormalValue;
-	//
-	// That algorithm has the advantage of not branching.  On the PPC this yielded a dramatic performance improvement.
-	// When benchmarked on Intel processors, however, it was significantly slightly slower (roughly 50%) than the more traditional
-	// branching version, which is now implemented in the TTZeroDenormal() function.
-}
-
-
 /** Filter out denormaled values, which can make processing extremely slow when present.  Calculation is performed in-place.
  @seealso	TTZeroDenormal
  */
@@ -47,6 +26,27 @@ static void TTZeroDenormal(T& value)
 		value = 0;
 #endif
 #endif
+}
+
+
+/** Filter out denormaled values, which can make processing extremely slow when present. 
+ @seealso	TTZeroDenormal
+ */
+template<class T>
+static T TTAntiDenormal(const T input)
+{
+	T output = input;
+	TTZeroDenormal(output);
+	return output;
+	
+	// This function used to be implemented using the following algorithm:
+	// 
+	// value += kTTAntiDenormalValue;
+	// value -= kTTAntiDenormalValue;
+	//
+	// That algorithm has the advantage of not branching.  On the PPC this yielded a dramatic performance improvement.
+	// When benchmarked on Intel processors, however, it was significantly slightly slower (roughly 50%) than the more traditional
+	// branching version, which is now implemented in the TTZeroDenormal() function.
 }
 
 

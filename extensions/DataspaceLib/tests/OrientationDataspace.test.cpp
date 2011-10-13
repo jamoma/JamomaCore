@@ -15,7 +15,7 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;    
     
     // Create dataspace object and set to angle
-    TTObjectPtr         myDataspace;
+    TTObjectPtr         myDataspace = NULL;
     TTErr err;
     err = TTObjectInstantiate(TT("dataspace"), (TTObjectPtr*)&myDataspace, kTTValNONE);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("orientation"));
@@ -23,8 +23,8 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     TTValue v;
     TTValue expected;
     
-	// for comparison, test values were computed with the quaternion toolbox by Graham Wakefield:
-	// http://www.mat.ucsb.edu/~wakefield/soft/quat_release.zip
+	// for comparison, test values were computed with the spincalc toolbox for matlab:
+	// http://www.mathworks.com/matlabcentral/fileexchange/20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors
     
     /************************************************/
     /*                                              */
@@ -45,11 +45,11 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     v.set(2, TTFloat64(-45.0));
     
     expected.setSize(4);
-    expected.set(0, TTFloat64(0.5));
-    expected.set(1, TTFloat64(0.0));
-    expected.set(2, TTFloat64(0.7071067811865475));
-	expected.set(3, TTFloat64(-0.5));
-    
+    expected.set(0, TTFloat64(0.0));
+    expected.set(1, TTFloat64(-0.5));
+	expected.set(2, TTFloat64(-0.7071067811865475));
+	expected.set(3, TTFloat64(0.5));
+	
     myDataspace->sendMessage(TT("convert"), v);
     
     TTTestAssertion("yaw-pitch-roll to quaternion", 
@@ -59,20 +59,21 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
 	
 	// angle-axis to quaternion
 	
-	myDataspace->setAttributeValue(TT("inputUnit"), TT("axis"));
+	myDataspace->setAttributeValue(TT("inputUnit"), TT("xyza"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("quaternion"));    
 	
-	v.setSize(4);
-	v.set(0, TTFloat64(120.0));
-    v.set(1, TTFloat64(0.0));
-    v.set(2, TTFloat64(0.8164965809277260));
-	v.set(3, TTFloat64(-0.5773502691896258));
+	v.setSize(4); 
+    v.set(0, TTFloat64(0.0));
+    v.set(1, TTFloat64(-0.5773502691896258));
+	v.set(2, TTFloat64(-0.8164965809277260));	
+	v.set(3, TTFloat64(120.0));
+
     
     expected.setSize(4);
-	expected.set(0, TTFloat64(0.5));
-    expected.set(1, TTFloat64(0.0));
-    expected.set(2, TTFloat64(0.7071067811865475));
-	expected.set(3, TTFloat64(-0.5));
+	expected.set(0, TTFloat64(0.0));
+    expected.set(1, TTFloat64(-0.5));
+    expected.set(2, TTFloat64(-0.7071067811865475));
+	expected.set(3, TTFloat64(0.5));
     
     myDataspace->sendMessage(TT("convert"), v);
     
@@ -94,15 +95,15 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("outputUnit"), TT("euler"));    
 	
 	v.setSize(4);
-	v.set(0, TTFloat64(0.5));
-    v.set(1, TTFloat64(0.0));
-    v.set(2, TTFloat64(0.7071067811865475));
-	v.set(3, TTFloat64(-0.5));
+	v.set(0, TTFloat64(0.0));
+    v.set(1, TTFloat64(-0.5));    
+	v.set(2, TTFloat64(-0.7071067811865475));
+	v.set(3, TTFloat64(0.5));
     
     expected.setSize(3);
-    expected.set(0, TTFloat64(45));
-    expected.set(1, TTFloat64(-90));
-    expected.set(2, TTFloat64(-135));
+    expected.set(0, TTFloat64(90));
+    expected.set(1, TTFloat64(45));
+    expected.set(2, TTFloat64(-45));
     
     myDataspace->sendMessage(TT("convert"), v);
     
@@ -117,16 +118,16 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
 	
 	v.setSize(4);
-	v.set(0, TTFloat64(0.5));
-    v.set(1, TTFloat64(0.0));
-    v.set(2, TTFloat64(0.7071067811865475));
-	v.set(3, TTFloat64(-0.5));	
+	v.set(0, TTFloat64(0.0));
+    v.set(1, TTFloat64(-0.5));
+	v.set(2, TTFloat64(-0.7071067811865475));	
+    v.set(3, TTFloat64(0.5));	
     
-    expected.setSize(4);
-    expected.set(0, TTFloat64(120.0));
-    expected.set(1, TTFloat64(0.0));
-    expected.set(2, TTFloat64(0.8164965809277260));
-	expected.set(3, TTFloat64(-0.5773502691896258));
+    expected.setSize(4); 
+    expected.set(0, TTFloat64(0.0));
+    expected.set(1, TTFloat64(-0.5773502691896258));
+    expected.set(2, TTFloat64(-0.8164965809277260));
+	expected.set(3, TTFloat64(120.0));
     
     myDataspace->sendMessage(TT("convert"), v);
     
@@ -150,10 +151,10 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     v.set(2, TTFloat64(-45.0));
     
     expected.setSize(4);
-    expected.set(0, TTFloat64(120.0));
-    expected.set(1, TTFloat64(0.0));
-    expected.set(2, TTFloat64(0.8164965809277260));
-	expected.set(3, TTFloat64(-0.5773502691896258));
+	expected.set(0, TTFloat64(0.0));
+    expected.set(1, TTFloat64(-0.5773502691896258));
+    expected.set(2, TTFloat64(-0.8164965809277260));
+	expected.set(3, TTFloat64(120.0));
     
     myDataspace->sendMessage(TT("convert"), v);
     
@@ -162,6 +163,63 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
 					testAssertionCount,
 					errorCount);
 	
+	/************************************************/
+    /*                                              */
+    /* simple rotations to axis-angle               */
+    /*                                              */
+    /************************************************/
+    
+	myDataspace->setAttributeValue(TT("inputUnit"), TT("euler"));
+    myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
+	
+	//yaw
+	v.setSize(3);
+    v.set(0, TTFloat64(45.0));
+    v.set(1, TTFloat64(0.0));
+    v.set(2, TTFloat64(0.0));
+    
+    expected.setSize(4);
+	expected.set(0, TTFloat64(0.0));
+    expected.set(1, TTFloat64(0.0));
+    expected.set(2, TTFloat64(-1.0));
+	expected.set(3, TTFloat64(45.0));
+    
+    myDataspace->sendMessage(TT("convert"), v);
+    
+    TTTestAssertion("yaw rotation to axis-angle", 
+					TTTestFloat64ArrayEquivalence(v, expected),
+					testAssertionCount, errorCount);
+	//pitch
+    v.set(0, TTFloat64(0.0));
+    v.set(1, TTFloat64(45.0));
+    v.set(2, TTFloat64(0.0));
+    
+	expected.set(0, TTFloat64(1.0));
+    expected.set(1, TTFloat64(0.0));
+    expected.set(2, TTFloat64(0.0));
+	expected.set(3, TTFloat64(45.0));
+    
+    myDataspace->sendMessage(TT("convert"), v);
+    
+    TTTestAssertion("pitch rotation to axis-angle", 
+					TTTestFloat64ArrayEquivalence(v, expected),
+					testAssertionCount, errorCount);
+	
+	//roll
+    v.set(0, TTFloat64(0.0));
+    v.set(1, TTFloat64(0.0));
+    v.set(2, TTFloat64(45.0));
+    
+	expected.set(0, TTFloat64(0.0));
+    expected.set(1, TTFloat64(1.0));
+    expected.set(2, TTFloat64(0.0));
+	expected.set(3, TTFloat64(45.0));
+    
+    myDataspace->sendMessage(TT("convert"), v);
+    
+    TTTestAssertion("roll rotation to axis-angle", 
+					TTTestFloat64ArrayEquivalence(v, expected),
+					testAssertionCount, errorCount);
 	
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

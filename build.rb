@@ -1,4 +1,5 @@
-#!/usr/bin/ruby -wKU
+#!/usr/bin/env ruby -wKU
+# encoding: utf-8
 
 glibdir = "."
 Dir.chdir glibdir
