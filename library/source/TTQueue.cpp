@@ -126,8 +126,8 @@ TTErr TTQueue::size(TTUInt32& returnedSize)
 
 TTQueue::InsertStatus TTQueue::insert(const TTValue& anItem)
 {
-	TTInt32		lastUpdateCounter = mUpdateCounter;
-	TTInt32		lastAcknowledgementCounter = mAcknowledgementCounter;	// this read should be atomic
+	TTUInt32	lastUpdateCounter = mUpdateCounter;
+	TTUInt32	lastAcknowledgementCounter = mAcknowledgementCounter;	// this read should be atomic
 	TTUInt32	counterDifference = lastUpdateCounter - lastAcknowledgementCounter;
 	TTUInt32	index;
 	
@@ -148,8 +148,9 @@ TTQueue::InsertStatus TTQueue::insert(const TTValue& anItem)
 
 TTQueue::ReadStatus TTQueue::read(TTValue& returnedItem)
 {
-	TTInt32		lastUpdateCounter = mUpdateCounter;			// this read should be atomic
-	TTInt32		lastAcknowledgementCounter = mAcknowledgementCounter;
+	TTUInt32	lastUpdateCounter = mUpdateCounter;			// this read should be atomic
+	TTUInt32	lastAcknowledgementCounter = mAcknowledgementCounter;
+	TTUInt32	index;
 	
 	if (lastUpdateCounter == lastAcknowledgementCounter)
 		return kBufferEmpty;

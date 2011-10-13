@@ -171,9 +171,11 @@ typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on t
 
 /** An integer that can be used for atomic operations.	*/
 #ifdef TT_PLATFORM_WIN
-typedef TT_ALIGN_16 volatile int		TTAtomicInt;
+typedef TT_ALIGN_16 volatile int			TTAtomicInt;
+typedef TT_ALIGN_16 volatile unsigned int	TTAtomicUInt;
 #else
-typedef TT_ALIGN_16 volatile int32_t	TTAtomicInt;
+typedef TT_ALIGN_16 volatile int32_t		TTAtomicInt;
+typedef TT_ALIGN_16 volatile u_int32_t		TTAtomicUInt;
 #endif
 
 /** A generic pointer. */
@@ -328,10 +330,32 @@ public:
 #endif
 	}
 	
+	void TTAtomicIncrement(TTAtomicUInt& value)
+	{
+#ifdef TT_PLATFORM_MAC
+		OSAtomicIncrement32((int32_t*)&value);
+#elif defined (TT_PLATFORM_WIN)
+		_InterlockedIncrement(&value);
+#else // what should we do for thread safety on Linux and iOS?
+		value++;
+#endif
+	}
+	
 	void TTAtomicDecrement(TTAtomicInt& value)
 	{
 #ifdef TT_PLATFORM_MAC
 		OSAtomicDecrement32(&value);
+#elif defined (TT_PLATFORM_WIN)
+		_InterlockedDecrement(&value);
+#else // what should we do for thread safety on Linux and iOS?
+		value--;
+#endif
+	}
+
+	void TTAtomicDecrement(TTAtomicUInt& value)
+	{
+#ifdef TT_PLATFORM_MAC
+		OSAtomicDecrement32((int32_t*)&value);
 #elif defined (TT_PLATFORM_WIN)
 		_InterlockedDecrement(&value);
 #else // what should we do for thread safety on Linux and iOS?

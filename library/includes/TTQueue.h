@@ -139,8 +139,8 @@ private:
 
 	// counters must be *aligned* single-word integers
 	
-	TTAtomicInt		mUpdateCounter;				// UC -- only modified by the producer
-	TTAtomicInt		mAcknowledgementCounter;	// AC -- only modified by the consumer
+	TTAtomicUInt	mUpdateCounter;				// UC -- only modified by the producer
+	TTAtomicUInt	mAcknowledgementCounter;	// AC -- only modified by the consumer
 	TTVector		mBuffer;					// Using a std::vector of TTValues right now -- not sure this is best choice?
 	TTUInt32		mSize;						// count of slots in mBuffer -- should be power of 2, will use as a bitmask
 	TTUInt32		mTwiceSize;					// 2 * mBufferSize, cached for performance
