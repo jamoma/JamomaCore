@@ -1124,8 +1124,7 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 void hub_preset_write_again(t_hub *x)
 {
 	t_atom a;
-
-	if (x->user_path->s_name[0]) {
+	if ((x->user_path) && (x->user_path->s_name[0])) {		
 		atom_setsym(&a,jps_slash_preset_slash_writeagain);
 		defer(x, (method)hub_preset_write, NULL, 1, &a);
 	}
