@@ -127,18 +127,24 @@ void Init_Jamoma()
 VALUE TTRubyInitialize(VALUE self, VALUE className)
 {	
 	TTRubyInstance* instance = new TTRubyInstance;
-//	TTValue*		v = new TTValue;
 	TTValue			v;
 	TTValue			args;
 	TTErr			err = kTTErrNone;
 	VALUE			classNameStr = StringValue(className);
+	TTSymbolPtr		classNameTTStr = TT(RSTRING_PTR(classNameStr));
 	long			n;
 	TTValue			names;
 	TTSymbolPtr		aName;
 	TTString		nameString;
 	
 	args.clear();
-	err = TTObjectInstantiate(TT(RSTRING_PTR(classNameStr)), &instance->obj, args);
+	
+	if (classNameTTStr == TT("environment"))
+		instance->obj = (TTAudioObject*)ttEnvironment;
+		// right now we just leak all of our instances (oops), but when we do free them correctly we don't want to free the environment!
+	else
+		err = TTObjectInstantiate(classNameTTStr, &instance->obj, args);
+		
 	if (!err) {
 		instance->parameterNames = new TTHash;	// TODO: need to free this
 		instance->obj->getAttributeNames(names);
@@ -151,7 +157,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 				instance->parameterNames->append(TT(nameString.c_str()), v);
 			}
 		}
-				
+		
 		instance->messageNames = new TTHash;	// TODO: need to free this
 		instance->obj->getMessageNames(names);
 		n = names.getSize();
@@ -163,7 +169,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 				instance->messageNames->append(TT(nameString.c_str()), v);
 			}
 		}
-				
+		
 		v.setSize(1);
 		v.set(0, TTPtr(instance));
 		gTTRubyInstances->append(TTSymbolPtr(self), v);
