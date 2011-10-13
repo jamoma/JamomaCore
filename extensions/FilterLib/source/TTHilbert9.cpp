@@ -63,8 +63,12 @@ TTHilbert9::~TTHilbert9()
 
 TTErr TTHilbert9::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	// TODO: update internal filters
-
+	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF2->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF3->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mDelay->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	
 	clear();
 	return kTTErrNone;
 }
@@ -72,7 +76,11 @@ TTErr TTHilbert9::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTHilbert9::clear()
 {
-	// TODO: update internal filters
+	mF0->sendMessage(kTTSym_clear);
+	mF1->sendMessage(kTTSym_clear);
+	mF2->sendMessage(kTTSym_clear);
+	mF3->sendMessage(kTTSym_clear);
+	mDelay->sendMessage(kTTSym_clear);
 	return kTTErrNone;
 }
 
