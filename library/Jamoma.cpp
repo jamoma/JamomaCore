@@ -310,6 +310,26 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 
 						rb_ary_store(ret, i+1, fv);
 					}
+					else if (v.getType(i) == kTypeObject)
+						cout << "objects as return values are not yet supported" << endl;
+					else if (v.getType(i) == kTypeSymbol) {
+						TTSymbolPtr	sp = NULL;
+						TTCString	c; 
+						
+						v.get(i, &sp);
+						if (sp) {
+							c = (TTCString)sp->getCString();
+							rb_ary_store(ret, i+1, rb_str_new(c, strlen(c)));
+						}
+					}
+					else { // assuming int for now, should probably actually check it
+						TTInt32 l;
+						VALUE 	lv;
+						
+						v.get(i, l);
+						lv = rb_int_new(l);
+						rb_ary_store(ret, i+1, lv);
+					}
 				}
 				return ret;
 			}
@@ -727,6 +747,26 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 						//cout << "return value " << i << " is " << f << endl;
 
 						rb_ary_store(ret, i+1, fv);
+					}
+					else if (v.getType(i) == kTypeObject)
+						cout << "objects as return values are not yet supported" << endl;
+					else if (v.getType(i) == kTypeSymbol) {
+						TTSymbolPtr	sp = NULL;
+						TTCString	c; 
+						
+						v.get(i, &sp);
+						if (sp) {
+							c = (TTCString)sp->getCString();
+							rb_ary_store(ret, i+1, rb_str_new(c, strlen(c)));
+						}
+					}
+					else { // assuming int for now, should probably actually check it
+						TTInt32 l;
+						VALUE 	lv;
+						
+						v.get(i, l);
+						lv = rb_int_new(l);
+						rb_ary_store(ret, i+1, lv);
 					}
 				}
 				return ret;
