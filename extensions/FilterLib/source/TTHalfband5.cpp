@@ -76,7 +76,13 @@ TTErr TTHalfband5::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mY1.resize(maxNumChannels);
 	mY1.assign(maxNumChannels, 0.0);
 
-	// TODO: update internal filters
+	// update internal filters
+	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mR0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mR1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mDelay->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+
 	clear();
 	return kTTErrNone;
 }
@@ -84,7 +90,11 @@ TTErr TTHalfband5::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTHalfband5::clear()
 {
-	// TODO: update internal filters
+	mF0->sendMessage(kTTSym_clear);
+	mF1->sendMessage(kTTSym_clear);
+	mR0->sendMessage(kTTSym_clear);
+	mR1->sendMessage(kTTSym_clear);
+	mDelay->sendMessage(kTTSym_clear);
 	return kTTErrNone;
 }
 
