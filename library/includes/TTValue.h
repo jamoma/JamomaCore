@@ -169,8 +169,11 @@ public:
 	/** Set the number of values, and allocate any needed memory. */	
 	void setSize(const TTUInt16 arg);
 	
+	/** Copy a value starting from an index until another index */
+	void copyRange(const TTValue& obj, TTUInt16 startIndex, TTUInt16 endIndex);
+	
 	/** Copy a value starting at index */
-	void copyFrom(const TTValue& newValue, TTUInt16 index);
+	void copyFrom(const TTValue& obj, TTUInt16 index);
 	
 	/** Perform a copy of a value before and copy ourself after.
 		For example, given a TTValue a <1, 2, 3> and another TTValue b <ga, bu, zo, meu>
