@@ -10,7 +10,8 @@
 
 #define thisTTClass			TTHilbert9
 #define thisTTClassName		"hilbert.9"
-#define thisTTClassTags		"audio, processor, filter, hilbert"
+#define thisTTClassTags		"audio, processor, hilbert"
+// no "filter" tag because this is a special case that produces two outputs for one input and doesn't fit the general filter schema
 
 #ifdef TT_PLATFORM_WIN
 #include <Algorithm>
