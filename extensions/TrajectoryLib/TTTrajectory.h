@@ -22,7 +22,7 @@ protected:
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
 	TTSymbolPtr				mType;					///< The name of the current trajectory type
 	TTSymbolPtr				mMode;
-	TTList					mAnchorPoints;
+	//TTList					mAnchorPoints;
 	TTAudioObjectPtr		mPhasors[1];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
 	TTAudioObjectPtr		mRamps[1];
