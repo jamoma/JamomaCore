@@ -85,8 +85,15 @@ public:
 	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTFloat32* newVector);
 	TTErr setVector32(const TTValue& v);	// A version of the above used by the message passing interface.
 
-	TTFloat64 getSample64(const TTUInt16 channel, const TTUInt16 sampleNumber);
-	TTFloat32 getSample(const TTUInt16 channel, const TTUInt16 sampleNumber);
+	TTFloat64 getSample64(const TTUInt16 channel, const TTUInt16 sampleNumber)
+	{
+		return mSampleVectors[channel][sampleNumber];
+	}
+	
+	TTFloat32 getSample(const TTUInt16 channel, const TTUInt16 sampleNumber)
+	{
+		return ((TTFloat32)mSampleVectors[channel][sampleNumber]);
+	}
 
 	
 	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTSampleValue* returnedVector);
@@ -175,7 +182,7 @@ public:
 		//	But, at the moment, we implement a vector of vectors rather than a block of memory that we index as a single chunk.
 		//	So we have to iterate like this:
 		
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++)
+		for (TTUInt32 channel=0; channel<mNumChannels; channel++)
 			memset(mSampleVectors[channel], 0, sizeof(TTSampleValue) * mVectorSize);
 		
 		return kTTErrNone;
