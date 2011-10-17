@@ -225,7 +225,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 713.0, 726.0, 81.0, 20.0 ],
-					"text" : "print attribute"
+					"text" : "print attribute",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -566,11 +567,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : "",
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p fill_umenu"
@@ -837,8 +838,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 745.0, 74.0, 123.0, 48.0 ],
-					"text" : "jcom.namespace @lookfor jcom.return @format umenu"
+					"patching_rect" : [ 745.0, 74.0, 129.0, 48.0 ],
+					"text" : "jcom.namespace @criterias jcom.return @format umenu"
 				}
 
 			}
@@ -853,8 +854,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 576.0, 74.0, 141.0, 48.0 ],
-					"text" : "jcom.namespace @lookfor jcom.message @format umenu"
+					"patching_rect" : [ 576.0, 74.0, 147.0, 48.0 ],
+					"text" : "jcom.namespace @criterias jcom.message @format umenu"
 				}
 
 			}
@@ -906,8 +907,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 407.0, 74.0, 147.0, 48.0 ],
-					"text" : "jcom.namespace @lookfor jcom.parameter @format umenu"
+					"patching_rect" : [ 407.0, 74.0, 153.0, 48.0 ],
+					"text" : "jcom.namespace @criterias jcom.parameter @format umenu"
 				}
 
 			}

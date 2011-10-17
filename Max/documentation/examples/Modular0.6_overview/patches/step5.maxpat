@@ -121,7 +121,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 921.0, 144.0, 180.0, 18.0 ]
+					"patching_rect" : [ 921.0, 144.0, 180.0, 18.0 ],
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -554,7 +555,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 479.0, 585.0, 153.0, 18.0 ],
-					"text" : "rate 0."
+					"text" : "rate 1."
 				}
 
 			}
@@ -942,8 +943,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 525.0, 117.0, 116.0, 48.0 ],
-									"text" : "jcom.namespace @lookfor jcom.view @format umenu"
+									"patching_rect" : [ 525.0, 117.0, 121.0, 48.0 ],
+									"text" : "jcom.namespace @criterias jcom.view @format umenu"
 								}
 
 							}
@@ -983,8 +984,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 354.0, 117.0, 123.0, 48.0 ],
-									"text" : "jcom.namespace @lookfor jcom.return @format umenu"
+									"patching_rect" : [ 354.0, 117.0, 129.0, 48.0 ],
+									"text" : "jcom.namespace @criterias jcom.return @format umenu"
 								}
 
 							}
@@ -999,8 +1000,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 182.0, 117.0, 141.0, 48.0 ],
-									"text" : "jcom.namespace @lookfor jcom.message @format umenu"
+									"patching_rect" : [ 182.0, 117.0, 146.0, 48.0 ],
+									"text" : "jcom.namespace @criterias jcom.message @format umenu"
 								}
 
 							}
@@ -1015,8 +1016,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 10.0, 117.0, 147.0, 48.0 ],
-									"text" : "jcom.namespace @lookfor jcom.parameter @format umenu"
+									"patching_rect" : [ 10.0, 117.0, 152.0, 48.0 ],
+									"text" : "jcom.namespace @criterias jcom.parameter @format umenu"
 								}
 
 							}
@@ -1179,9 +1180,9 @@
 ,
 					"patching_rect" : [ 4.0, 136.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
@@ -1276,7 +1277,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 340.0, 143.0, 96.0, 18.0 ],
-					"text" : "rate 0."
+					"text" : "out/mute 0"
 				}
 
 			}
