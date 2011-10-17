@@ -55,7 +55,7 @@ typedef struct _meter{
 	
 	long		effectOrientation;	// the effective orientation of the object (0: vertical, 1: horizontal)
 	TTFloat32	envelope;			// the result of the amplitude analysis [0.0, 1.0]
-	TTFloat32	newEnvelope;
+	TTFloat64	newEnvelope;
 	TTFloat32	peak;				// the loudest sample since the last reset
 	t_jsurface*	gradientSurface;	///< precalculated and drawn gradient for the size of this instance
 	t_rect		gradientRect;
@@ -75,7 +75,9 @@ void		meter_float(t_meter *x, double value);
 void		meter_set(t_meter *x, double value);
 void		meter_clock(t_meter *x);
 t_int*		meter_perform(t_int *w);
+void		meter_perform64(t_meter *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
 void		meter_dsp(t_meter *x, t_signal **sp, short *count);
+void		meter_dsp64(t_meter *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
 void		meter_paint(t_meter *x, t_object *view);
 void		meter_dopaint_horizontal(t_meter *x, t_object *view);
 void		meter_dopaint_vertical(t_meter *x, t_object *view);
@@ -109,6 +111,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)meter_float,		"float",		A_FLOAT, 0);
 	class_addmethod(c, (method)meter_set,    	"set",			A_FLOAT, 0);
 	class_addmethod(c, (method)meter_dsp,		"dsp",			A_CANT, 0);
+	class_addmethod(c, (method)meter_dsp64,		"dsp64",		A_CANT, 0);
 	class_addmethod(c, (method)meter_paint,		"paint",		A_CANT, 0);
 	class_addmethod(c, (method)meter_oksize,	"oksize",		A_CANT, 0);
 	class_addmethod(c, (method)meter_bang,		"mousedown",	A_CANT, 0);
@@ -329,6 +332,23 @@ out:
 }
 
 
+
+void meter_perform64(t_meter *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	t_double *in = ins[0];		// we get audio for each inlet of the object from the **ins argument
+	int n = sampleframes;
+	double currentvalue;
+	
+	while (n--) {
+		currentvalue = ((*in) < 0)?-(*in):*in; // get the current sample's absolute value
+		if (currentvalue > x->newEnvelope) 				// if it's a new peak amplitude...
+			x->newEnvelope = currentvalue;
+		in++; 										// increment pointer in the vector
+	}
+	
+}
+
+
 void meter_dsp(t_meter *x, t_signal **sp, short *count)
 {
 	if (count[0]) {
@@ -336,6 +356,11 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
 		x->peak = 0;
 	}
+}
+
+void meter_dsp64(t_meter *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	dsp_add64(dsp64, (t_object*)x, (t_perfroutine64)meter_perform64, 0, NULL);
 }
 
 
