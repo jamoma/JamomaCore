@@ -180,11 +180,11 @@ public:
 		return kTTErrNone;
 	}
 	
-	TTErr setAnchorPoints(const TTValue& newValue)
+	/*TTErr setAnchorPoints(const TTValue& newValue)
 	{	
 		mAnchorPoints = newValue;
 		return mActualTrajectoryObject->setAttributeValue(TT("anchorPoints"), mAnchorPoints);
-	}
+	}*/
 	
 	
 	TTErr setA(const TTValue& newValue)
