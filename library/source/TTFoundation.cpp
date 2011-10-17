@@ -13,10 +13,6 @@
 #include "TTValueCache.h"
 #include "TTCallback.h"
 
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
-#include "TTNodeAddressCache.h"
-
 #include "TTPath.h"
 
 // Unit Tests
@@ -56,13 +52,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
 		
-		// Global regex for TTNodeAddress parsing
-		ttRegexForDirectory = new TTRegex("([\\w]+)\\:/");
-		ttRegexForAttribute = new TTRegex(":+");
-		ttRegexForParent = new TTRegex("(.*)/+(\\S+)");
-		ttRegexForInstance = new TTRegex("[.]");
-		
-		ttNodeAddressTable = new TTNodeAddressTable;
+		TTNodeLibInit();
 
 		ttEnvironment = new TTEnvironment;
 
