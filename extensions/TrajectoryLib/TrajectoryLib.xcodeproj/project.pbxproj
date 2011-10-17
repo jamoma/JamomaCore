@@ -1,0 +1,457 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
+		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
+		22FD46D011E247C5007BBF7E /* TrajectoryLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */; };
+		6603FE571333C62800A05DDA /* Bspline2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6603FE551333C62800A05DDA /* Bspline2D.cpp */; };
+		6603FE581333C62800A05DDA /* Bspline2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 6603FE561333C62800A05DDA /* Bspline2D.h */; };
+		662A5B40132F7EEC00CE46BC /* LogSpiral2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662A5B3E132F7EEC00CE46BC /* LogSpiral2D.cpp */; };
+		662A5B41132F7EEC00CE46BC /* LogSpiral2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 662A5B3F132F7EEC00CE46BC /* LogSpiral2D.h */; };
+		662A5C1D132FB0FE00CE46BC /* Slinky3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662A5C1B132FB0FE00CE46BC /* Slinky3D.cpp */; };
+		662A5C1E132FB0FE00CE46BC /* Slinky3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 662A5C1C132FB0FE00CE46BC /* Slinky3D.h */; };
+		662A5C891330BB4400CE46BC /* Torus3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 662A5C871330BB4400CE46BC /* Torus3D.cpp */; };
+		662A5C8A1330BB4400CE46BC /* Torus3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 662A5C881330BB4400CE46BC /* Torus3D.h */; };
+		663A95831325BED80059009C /* Lissajous2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A957F1325BED80059009C /* Lissajous2D.cpp */; };
+		663A95841325BED80059009C /* Lissajous2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95801325BED80059009C /* Lissajous2D.h */; };
+		663A95851325BED80059009C /* Lissajous3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A95811325BED80059009C /* Lissajous3D.cpp */; };
+		663A95861325BED80059009C /* Lissajous3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95821325BED80059009C /* Lissajous3D.h */; };
+		663A95B71325CDFD0059009C /* Scarabaeus2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A95B51325CDFD0059009C /* Scarabaeus2D.cpp */; };
+		663A95B81325CDFD0059009C /* Scarabaeus2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95B61325CDFD0059009C /* Scarabaeus2D.h */; };
+		663A95E51325D21C0059009C /* Butterfly2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 663A95E31325D21C0059009C /* Butterfly2D.cpp */; };
+		663A95E61325D21C0059009C /* Butterfly2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 663A95E41325D21C0059009C /* Butterfly2D.h */; };
+		66460173132856EE0006792C /* Viviani3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66460171132856EE0006792C /* Viviani3D.cpp */; };
+		66460174132856EE0006792C /* Viviani3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66460172132856EE0006792C /* Viviani3D.h */; };
+		6646019213285C5F0006792C /* Spiral3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6646019013285C5F0006792C /* Spiral3D.cpp */; };
+		6646019313285C5F0006792C /* Spiral3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 6646019113285C5F0006792C /* Spiral3D.h */; };
+		666A22E6132E6FAC009F5CE1 /* Gear2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666A22E4132E6FAC009F5CE1 /* Gear2D.cpp */; };
+		666A22E7132E6FAC009F5CE1 /* Gear2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 666A22E5132E6FAC009F5CE1 /* Gear2D.h */; };
+		6694D8D41380C60300B9D69E /* Catmullrom3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6694D8D21380C60300B9D69E /* Catmullrom3D.cpp */; };
+		6694D8D51380C60300B9D69E /* Catmullrom3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 6694D8D31380C60300B9D69E /* Catmullrom3D.h */; };
+		66B6D21F13276408009A66CB /* Circular2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D21D13276408009A66CB /* Circular2D.cpp */; };
+		66B6D22013276408009A66CB /* Circular2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D21E13276408009A66CB /* Circular2D.h */; };
+		66B6D22B13276593009A66CB /* Hypocycloid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D22913276593009A66CB /* Hypocycloid2D.cpp */; };
+		66B6D22C13276593009A66CB /* Hypocycloid2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D22A13276593009A66CB /* Hypocycloid2D.h */; };
+		66B6D239132769E0009A66CB /* Epitrochoid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D237132769E0009A66CB /* Epitrochoid2D.cpp */; };
+		66B6D23A132769E0009A66CB /* Epitrochoid2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D238132769E0009A66CB /* Epitrochoid2D.h */; };
+		66B6D24913276DC1009A66CB /* Limacon2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D24713276DC1009A66CB /* Limacon2D.cpp */; };
+		66B6D24A13276DC1009A66CB /* Limacon2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D24813276DC1009A66CB /* Limacon2D.h */; };
+		66B6D26D1327708A009A66CB /* Bean2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D26B1327708A009A66CB /* Bean2D.cpp */; };
+		66B6D26E1327708A009A66CB /* Bean2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D26C1327708A009A66CB /* Bean2D.h */; };
+		66B6D2751327FBEC009A66CB /* CircularHelix3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66B6D2731327FBEC009A66CB /* CircularHelix3D.cpp */; };
+		66B6D2761327FBEC009A66CB /* CircularHelix3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B6D2741327FBEC009A66CB /* CircularHelix3D.h */; };
+		66DCAD341325799E009F1A9A /* Linear2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DCAD301325799E009F1A9A /* Linear2D.cpp */; };
+		66DCAD351325799E009F1A9A /* Linear2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DCAD311325799E009F1A9A /* Linear2D.h */; };
+		66DCAD361325799E009F1A9A /* Linear3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DCAD321325799E009F1A9A /* Linear3D.cpp */; };
+		66DCAD371325799E009F1A9A /* Linear3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DCAD331325799E009F1A9A /* Linear3D.h */; };
+		66DCAD6613257DA0009F1A9A /* Rose2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DCAD6213257DA0009F1A9A /* Rose2D.cpp */; };
+		66DCAD6713257DA0009F1A9A /* Rose2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DCAD6313257DA0009F1A9A /* Rose2D.h */; };
+		66DCAD6813257DA0009F1A9A /* Rose3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DCAD6413257DA0009F1A9A /* Rose3D.cpp */; };
+		66DCAD6913257DA0009F1A9A /* Rose3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DCAD6513257DA0009F1A9A /* Rose3D.h */; };
+		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
+		E895565512A2393B00A72559 /* TTTrajectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E895565312A2393B00A72559 /* TTTrajectory.cpp */; };
+		E895565612A2393B00A72559 /* TTTrajectory.h in Headers */ = {isa = PBXBuildFile; fileRef = E895565412A2393B00A72559 /* TTTrajectory.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
+		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
+		22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrajectoryLib.cpp; sourceTree = "<group>"; };
+		6603FE551333C62800A05DDA /* Bspline2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bspline2D.cpp; sourceTree = "<group>"; };
+		6603FE561333C62800A05DDA /* Bspline2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bspline2D.h; sourceTree = "<group>"; };
+		662A5B3E132F7EEC00CE46BC /* LogSpiral2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogSpiral2D.cpp; sourceTree = "<group>"; };
+		662A5B3F132F7EEC00CE46BC /* LogSpiral2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogSpiral2D.h; sourceTree = "<group>"; };
+		662A5C1B132FB0FE00CE46BC /* Slinky3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slinky3D.cpp; sourceTree = "<group>"; };
+		662A5C1C132FB0FE00CE46BC /* Slinky3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slinky3D.h; sourceTree = "<group>"; };
+		662A5C871330BB4400CE46BC /* Torus3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Torus3D.cpp; sourceTree = "<group>"; };
+		662A5C881330BB4400CE46BC /* Torus3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Torus3D.h; sourceTree = "<group>"; };
+		663A957F1325BED80059009C /* Lissajous2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous2D.cpp; sourceTree = "<group>"; };
+		663A95801325BED80059009C /* Lissajous2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous2D.h; sourceTree = "<group>"; };
+		663A95811325BED80059009C /* Lissajous3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous3D.cpp; sourceTree = "<group>"; };
+		663A95821325BED80059009C /* Lissajous3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous3D.h; sourceTree = "<group>"; };
+		663A95B51325CDFD0059009C /* Scarabaeus2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scarabaeus2D.cpp; sourceTree = "<group>"; };
+		663A95B61325CDFD0059009C /* Scarabaeus2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scarabaeus2D.h; sourceTree = "<group>"; };
+		663A95E31325D21C0059009C /* Butterfly2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Butterfly2D.cpp; sourceTree = "<group>"; };
+		663A95E41325D21C0059009C /* Butterfly2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Butterfly2D.h; sourceTree = "<group>"; };
+		66460171132856EE0006792C /* Viviani3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viviani3D.cpp; sourceTree = "<group>"; };
+		66460172132856EE0006792C /* Viviani3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viviani3D.h; sourceTree = "<group>"; };
+		6646019013285C5F0006792C /* Spiral3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spiral3D.cpp; sourceTree = "<group>"; };
+		6646019113285C5F0006792C /* Spiral3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spiral3D.h; sourceTree = "<group>"; };
+		666A22E4132E6FAC009F5CE1 /* Gear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gear2D.cpp; sourceTree = "<group>"; };
+		666A22E5132E6FAC009F5CE1 /* Gear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gear2D.h; sourceTree = "<group>"; };
+		6694D8D21380C60300B9D69E /* Catmullrom3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Catmullrom3D.cpp; sourceTree = "<group>"; };
+		6694D8D31380C60300B9D69E /* Catmullrom3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Catmullrom3D.h; sourceTree = "<group>"; };
+		66B6D21D13276408009A66CB /* Circular2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circular2D.cpp; sourceTree = "<group>"; };
+		66B6D21E13276408009A66CB /* Circular2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circular2D.h; sourceTree = "<group>"; };
+		66B6D22913276593009A66CB /* Hypocycloid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hypocycloid2D.cpp; sourceTree = "<group>"; };
+		66B6D22A13276593009A66CB /* Hypocycloid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hypocycloid2D.h; sourceTree = "<group>"; };
+		66B6D237132769E0009A66CB /* Epitrochoid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Epitrochoid2D.cpp; sourceTree = "<group>"; };
+		66B6D238132769E0009A66CB /* Epitrochoid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Epitrochoid2D.h; sourceTree = "<group>"; };
+		66B6D24713276DC1009A66CB /* Limacon2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Limacon2D.cpp; sourceTree = "<group>"; };
+		66B6D24813276DC1009A66CB /* Limacon2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Limacon2D.h; sourceTree = "<group>"; };
+		66B6D26B1327708A009A66CB /* Bean2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bean2D.cpp; sourceTree = "<group>"; };
+		66B6D26C1327708A009A66CB /* Bean2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bean2D.h; sourceTree = "<group>"; };
+		66B6D2731327FBEC009A66CB /* CircularHelix3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircularHelix3D.cpp; sourceTree = "<group>"; };
+		66B6D2741327FBEC009A66CB /* CircularHelix3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularHelix3D.h; sourceTree = "<group>"; };
+		66DCAD301325799E009F1A9A /* Linear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear2D.cpp; sourceTree = "<group>"; };
+		66DCAD311325799E009F1A9A /* Linear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear2D.h; sourceTree = "<group>"; };
+		66DCAD321325799E009F1A9A /* Linear3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear3D.cpp; sourceTree = "<group>"; };
+		66DCAD331325799E009F1A9A /* Linear3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear3D.h; sourceTree = "<group>"; };
+		66DCAD6213257DA0009F1A9A /* Rose2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rose2D.cpp; sourceTree = "<group>"; };
+		66DCAD6313257DA0009F1A9A /* Rose2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rose2D.h; sourceTree = "<group>"; };
+		66DCAD6413257DA0009F1A9A /* Rose3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rose3D.cpp; sourceTree = "<group>"; };
+		66DCAD6513257DA0009F1A9A /* Rose3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rose3D.h; sourceTree = "<group>"; };
+		D2AAC09D05546B4700DB518D /* TrajectoryLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TrajectoryLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		E895565312A2393B00A72559 /* TTTrajectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTrajectory.cpp; sourceTree = "<group>"; };
+		E895565412A2393B00A72559 /* TTTrajectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTrajectory.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC09B05546B4700DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
+				22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */,
+				22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DDFF38A45A11DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC09D05546B4700DB518D /* TrajectoryLib.ttdylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* TTTrajectoryLib */ = {
+			isa = PBXGroup;
+			children = (
+				22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */,
+				08FB77ACFE841707C02AAC07 /* Source */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DDFF38A45A11DB9C8B /* Products */,
+			);
+			name = TTTrajectoryLib;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				22FA622D11E21BE20097F43B /* JamomaDSP.dylib */,
+				22FA623211E21BE60097F43B /* JamomaFoundation.dylib */,
+				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				22FD46CF11E247C5007BBF7E /* TrajectoryLib.cpp */,
+				E895565412A2393B00A72559 /* TTTrajectory.h */,
+				E895565312A2393B00A72559 /* TTTrajectory.cpp */,
+				2217FAAA0E4F284D00806778 /* Classes */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		2217FAAA0E4F284D00806778 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				66DCAD5713257AC1009F1A9A /* 2D */,
+				66DCAD5813257AC8009F1A9A /* 3D */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		66DCAD5713257AC1009F1A9A /* 2D */ = {
+			isa = PBXGroup;
+			children = (
+				66B6D26B1327708A009A66CB /* Bean2D.cpp */,
+				66B6D26C1327708A009A66CB /* Bean2D.h */,
+				6603FE551333C62800A05DDA /* Bspline2D.cpp */,
+				6603FE561333C62800A05DDA /* Bspline2D.h */,
+				663A95E31325D21C0059009C /* Butterfly2D.cpp */,
+				663A95E41325D21C0059009C /* Butterfly2D.h */,
+				66B6D21D13276408009A66CB /* Circular2D.cpp */,
+				66B6D21E13276408009A66CB /* Circular2D.h */,
+				66B6D237132769E0009A66CB /* Epitrochoid2D.cpp */,
+				66B6D238132769E0009A66CB /* Epitrochoid2D.h */,
+				666A22E4132E6FAC009F5CE1 /* Gear2D.cpp */,
+				666A22E5132E6FAC009F5CE1 /* Gear2D.h */,
+				66B6D22913276593009A66CB /* Hypocycloid2D.cpp */,
+				66B6D22A13276593009A66CB /* Hypocycloid2D.h */,
+				66DCAD6213257DA0009F1A9A /* Rose2D.cpp */,
+				66DCAD6313257DA0009F1A9A /* Rose2D.h */,
+				66B6D24713276DC1009A66CB /* Limacon2D.cpp */,
+				66B6D24813276DC1009A66CB /* Limacon2D.h */,
+				66DCAD301325799E009F1A9A /* Linear2D.cpp */,
+				66DCAD311325799E009F1A9A /* Linear2D.h */,
+				662A5B3E132F7EEC00CE46BC /* LogSpiral2D.cpp */,
+				662A5B3F132F7EEC00CE46BC /* LogSpiral2D.h */,
+				663A957F1325BED80059009C /* Lissajous2D.cpp */,
+				663A95801325BED80059009C /* Lissajous2D.h */,
+				663A95B51325CDFD0059009C /* Scarabaeus2D.cpp */,
+				663A95B61325CDFD0059009C /* Scarabaeus2D.h */,
+			);
+			name = 2D;
+			sourceTree = "<group>";
+		};
+		66DCAD5813257AC8009F1A9A /* 3D */ = {
+			isa = PBXGroup;
+			children = (
+				6694D8D21380C60300B9D69E /* Catmullrom3D.cpp */,
+				6694D8D31380C60300B9D69E /* Catmullrom3D.h */,
+				66B6D2731327FBEC009A66CB /* CircularHelix3D.cpp */,
+				66B6D2741327FBEC009A66CB /* CircularHelix3D.h */,
+				66DCAD321325799E009F1A9A /* Linear3D.cpp */,
+				66DCAD331325799E009F1A9A /* Linear3D.h */,
+				663A95811325BED80059009C /* Lissajous3D.cpp */,
+				663A95821325BED80059009C /* Lissajous3D.h */,
+				66DCAD6413257DA0009F1A9A /* Rose3D.cpp */,
+				66DCAD6513257DA0009F1A9A /* Rose3D.h */,
+				662A5C1B132FB0FE00CE46BC /* Slinky3D.cpp */,
+				662A5C1C132FB0FE00CE46BC /* Slinky3D.h */,
+				6646019013285C5F0006792C /* Spiral3D.cpp */,
+				6646019113285C5F0006792C /* Spiral3D.h */,
+				662A5C871330BB4400CE46BC /* Torus3D.cpp */,
+				662A5C881330BB4400CE46BC /* Torus3D.h */,
+				66460171132856EE0006792C /* Viviani3D.cpp */,
+				66460172132856EE0006792C /* Viviani3D.h */,
+			);
+			name = 3D;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC09905546B4700DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E895565612A2393B00A72559 /* TTTrajectory.h in Headers */,
+				66DCAD351325799E009F1A9A /* Linear2D.h in Headers */,
+				66DCAD371325799E009F1A9A /* Linear3D.h in Headers */,
+				66DCAD6713257DA0009F1A9A /* Rose2D.h in Headers */,
+				66DCAD6913257DA0009F1A9A /* Rose3D.h in Headers */,
+				663A95841325BED80059009C /* Lissajous2D.h in Headers */,
+				663A95861325BED80059009C /* Lissajous3D.h in Headers */,
+				663A95B81325CDFD0059009C /* Scarabaeus2D.h in Headers */,
+				663A95E61325D21C0059009C /* Butterfly2D.h in Headers */,
+				66B6D22013276408009A66CB /* Circular2D.h in Headers */,
+				66B6D22C13276593009A66CB /* Hypocycloid2D.h in Headers */,
+				66B6D23A132769E0009A66CB /* Epitrochoid2D.h in Headers */,
+				66B6D24A13276DC1009A66CB /* Limacon2D.h in Headers */,
+				66B6D26E1327708A009A66CB /* Bean2D.h in Headers */,
+				66B6D2761327FBEC009A66CB /* CircularHelix3D.h in Headers */,
+				66460174132856EE0006792C /* Viviani3D.h in Headers */,
+				6646019313285C5F0006792C /* Spiral3D.h in Headers */,
+				666A22E7132E6FAC009F5CE1 /* Gear2D.h in Headers */,
+				662A5B41132F7EEC00CE46BC /* LogSpiral2D.h in Headers */,
+				662A5C1E132FB0FE00CE46BC /* Slinky3D.h in Headers */,
+				662A5C8A1330BB4400CE46BC /* Torus3D.h in Headers */,
+				6603FE581333C62800A05DDA /* Bspline2D.h in Headers */,
+				6694D8D51380C60300B9D69E /* Catmullrom3D.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
+			buildPhases = (
+				D2AAC09905546B4700DB518D /* Headers */,
+				D2AAC09B05546B4700DB518D /* Frameworks */,
+				D2AAC09A05546B4700DB518D /* Sources */,
+				2217F9FF0E4E194400806778 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JamomaExtension;
+			productName = TTTrajectoryLib;
+			productReference = D2AAC09D05546B4700DB518D /* TrajectoryLib.ttdylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "TrajectoryLib" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* TTTrajectoryLib */;
+			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC09C05546B4700DB518D /* JamomaExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2217F9FF0E4E194400806778 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/mkdir -p -m 775 \"/Library/Application Support/Jamoma/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/Jamoma/Extensions\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC09A05546B4700DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22FD46D011E247C5007BBF7E /* TrajectoryLib.cpp in Sources */,
+				E895565512A2393B00A72559 /* TTTrajectory.cpp in Sources */,
+				66DCAD341325799E009F1A9A /* Linear2D.cpp in Sources */,
+				66DCAD361325799E009F1A9A /* Linear3D.cpp in Sources */,
+				66DCAD6613257DA0009F1A9A /* Rose2D.cpp in Sources */,
+				66DCAD6813257DA0009F1A9A /* Rose3D.cpp in Sources */,
+				663A95831325BED80059009C /* Lissajous2D.cpp in Sources */,
+				663A95851325BED80059009C /* Lissajous3D.cpp in Sources */,
+				663A95B71325CDFD0059009C /* Scarabaeus2D.cpp in Sources */,
+				663A95E51325D21C0059009C /* Butterfly2D.cpp in Sources */,
+				66B6D21F13276408009A66CB /* Circular2D.cpp in Sources */,
+				66B6D22B13276593009A66CB /* Hypocycloid2D.cpp in Sources */,
+				66B6D239132769E0009A66CB /* Epitrochoid2D.cpp in Sources */,
+				66B6D24913276DC1009A66CB /* Limacon2D.cpp in Sources */,
+				66B6D26D1327708A009A66CB /* Bean2D.cpp in Sources */,
+				66B6D2751327FBEC009A66CB /* CircularHelix3D.cpp in Sources */,
+				66460173132856EE0006792C /* Viviani3D.cpp in Sources */,
+				6646019213285C5F0006792C /* Spiral3D.cpp in Sources */,
+				666A22E6132E6FAC009F5CE1 /* Gear2D.cpp in Sources */,
+				662A5B40132F7EEC00CE46BC /* LogSpiral2D.cpp in Sources */,
+				662A5C1D132FB0FE00CE46BC /* Slinky3D.cpp in Sources */,
+				662A5C891330BB4400CE46BC /* Torus3D.cpp in Sources */,
+				6603FE571333C62800A05DDA /* Bspline2D.cpp in Sources */,
+				6694D8D41380C60300B9D69E /* Catmullrom3D.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB916108733D950010E9CD /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					x86_64,
+					i386,
+				);
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+			};
+			name = Development;
+		};
+		1DEB916208733D950010E9CD /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					x86_64,
+					i386,
+				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_OPTIMIZATION_LEVEL = 3;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+			};
+			name = Deployment;
+		};
+		1DEB916508733D950010E9CD /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Development;
+		};
+		1DEB916608733D950010E9CD /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB916108733D950010E9CD /* Development */,
+				1DEB916208733D950010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "TrajectoryLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB916508733D950010E9CD /* Development */,
+				1DEB916608733D950010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
