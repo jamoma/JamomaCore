@@ -620,57 +620,162 @@ TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
 
 TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
 {
-	TTHashPtr		objectCriteria = (TTHashPtr)args;
-	TTHashPtr		attributeCriteria;
-	TTObjectPtr		o;
-	TTValue			v, keys, valueCriteria;
-	TTSymbolPtr		k;
-	TTBoolean		test = true;
-
-	// if there is an object
-	o = n->getObject();
-	if (o) {
-
-		// if objectCriteria table is empty return NO
-		if (!objectCriteria->isEmpty()) {
-
-			// if his type exists into the objectCriteria table
-			if (!objectCriteria->lookup(o->getName(), v)) {
-
-				// get attributeCriteria table
-				v.get(0, (TTPtr*)&attributeCriteria);
-
-				// if attributeCriteria table is empty return YES
-				// else
-				if (!attributeCriteria->isEmpty()) {
-
-					// for each attribute name : test the value
-					attributeCriteria->getKeys(keys);
-					for (TTUInt16 i=0; i<keys.getSize(); i++) {
-
-						keys.get(i, &k);
-						attributeCriteria->lookup(k, valueCriteria);
-
-						if (!o->getAttributeValue(k, v)) {
+	TTValuePtr		argsValue = (TTValuePtr)args;
+	TTHashPtr		criteriaBank;
+	TTListPtr		criteriaList;
+	TTSymbolPtr		aCriteriaName;
+	TTDictionaryPtr aCriteria;
+	TTObjectPtr		anObject;
+	TTNodeAddressPtr anAddress;
+	TTValue			v;
+	TTBoolean		result = YES;
+	TTBoolean		exclude;
+	TTErr			err;
+	
+	argsValue->get(0, (TTPtr*)&criteriaBank);
+	argsValue->get(1, (TTPtr*)&criteriaList);
+	
+	// if the criteria list is empty return NO
+	if (!criteriaList->isEmpty()) {
+		
+		// for each criteria name
+		for (criteriaList->begin(); criteriaList->end(); criteriaList->next()) {
+			
+			// get the next criteria name from the list
+			// and get it from the bank
+			aCriteria = NULL;
+			criteriaList->current().get(0, &aCriteriaName);
+			err = criteriaBank->lookup(aCriteriaName, v);
+			
+			if (!err) {
+				
+				v.get(0, (TTPtr*)&aCriteria);
+				
+				// criteria key for any style
+				if (!aCriteria->lookup(kTTSym_mode, v)) {
+					
+					TTSymbolPtr modeCriteria;
+					v.get(0, &modeCriteria);
+					
+					if (modeCriteria == kTTSym_exclusion)
+						exclude = YES;
+					
+					else if (modeCriteria == kTTSym_inclusion)
+						exclude = NO;
+					
+				}
+				else
+					exclude = NO;
+				
+				// make test depending on the criteria style
+				if (aCriteria->getSchema() == kTTSym_criteriaOnObject) {
+					
+					// if there is an object
+					anObject = n->getObject();
+					if (anObject) {
+						
+						// test object name
+						if (!aCriteria->lookup(kTTSym_object, v)) {
 							
-							// TODO : look into each element of the value
-							// to check among many tags for example
+							TTSymbolPtr objectCriteria;
+							v.get(0, &objectCriteria);
 							
-							test &= (v == valueCriteria) || (valueCriteria == kTTValNONE);
+							result = result && objectCriteria == anObject->getName();
 							
+							if (exclude) result = !result;
+							if (!result) break;
 						}
-						else
-							test = NO;
-
-						if (!test) break;
+						
+						// test attribute name
+						if (!aCriteria->lookup(kTTSym_attribute, v)) {
+							
+							TTSymbolPtr attributeCriteria;
+							TTValue		valueCriteria;
+							v.get(0, &attributeCriteria);
+							err = anObject->getAttributeValue(attributeCriteria, v);
+							
+							result = result && !err;
+							
+							if (!result) break;
+							
+							// test value
+							if (!err && !aCriteria->lookup(kTTSym_value, valueCriteria)) {
+								
+								result = result && valueCriteria == v;
+								
+								if (exclude) result = !result;
+								if (!result) break;
+							}
+						}
+					}
+					else {
+						result = NO;
+						break;
 					}
 				}
-
-				return test;
+				else if (aCriteria->getSchema() == kTTSym_criteriaOnAddress) {
+					
+					n->getAddress(&anAddress, kTTAdrsRoot);
+					
+					TTRegexPtr aRegex;
+					TTString s_toParse;
+					TTRegexStringPosition begin, end;
+					
+					// test address name part
+					if (!aCriteria->lookup(kTTSym_name, v)) {
+						
+						TTSymbolPtr nameCriteria;
+						v.get(0, &nameCriteria);
+						aRegex = new TTRegex(nameCriteria->getCString());
+						
+						s_toParse = anAddress->getName()->getCString();
+						begin = s_toParse.begin();
+						end = s_toParse.end();
+						
+						// test if the regex find something
+						if (!aRegex->parse(begin, end))
+						{
+							result = result && begin != end;
+						}
+						else result = NO;
+						
+						delete aRegex;
+						
+						if (exclude) result = !result;
+						if (!result) break;
+					}
+					
+					// test address instance part
+					if (!aCriteria->lookup(kTTSym_instance, v)) {
+						
+						TTSymbolPtr instanceCriteria;
+						v.get(0, &instanceCriteria);
+						aRegex = new TTRegex(instanceCriteria->getCString());
+						
+						s_toParse = anAddress->getInstance()->getCString();
+						begin = s_toParse.begin();
+						end = s_toParse.end();
+						
+						// test if the regex find something
+						if (!aRegex->parse(begin, end))
+						{
+							result = result && begin != end;
+						}
+						else result = NO;
+						
+						delete aRegex;
+						
+						if (exclude) result = !result;
+						if (!result) break;
+					}
+					
+					// TODO : test on parent address
+				}
 			}
 		}
 	}
-
-	return NO;
+	else return NO;
+	
+	return result;
 }
 

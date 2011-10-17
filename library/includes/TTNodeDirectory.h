@@ -166,32 +166,32 @@ public:
 
 };
 
-/**	An test tool : test the type of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
+/**	An test tool : test the type of the object stored inside the node. 
+	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						An TTSymbolPtr argument for the type
  @return							true if the object have the correct type */
 TTBoolean TTFOUNDATION_EXPORT testNodeObjectType(TTNodePtr n, TTPtr args);
 
-/**	An test tool : test the context of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
+/**	An test tool : test the context of the object stored inside the node. 
+	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						An TTSymbolPtr argument for the type
  @return							true if the object have the correct context */
 TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
 
-/**	An test tool : test a node using a TTCallback. This method could be used as testFunction for the LookFor or IsThere methods.
+/**	An test tool : test a node using a TTCallback. 
+	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						A TTCallback argument
  @return							true if the TTCallback argument is replaced by kTTVal1 */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
 
-/**	An test tool : test a node using a Criteria table.
-	a Criteria table is a hash table of hash table containing <ObjectType, <AttributeName, Value>>
-		- if the Attribute hash table is empty this means any object of the given type matches the test.
-		- if a value is KTTValNone this means any value matches the test.
+/**	An test tool : test a node using a list of Criteria from a bank.
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
- @param args						A TTHashPtr argument
- @return							true if the TTObject of thenode matches all criterias */
+ @param args						A TTValuePtr containing a TTHashPtr (the bank) and a TTListPtr (the name of the criteria)
+ @return							true if the node matches all criterias */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingCriteria(TTNodePtr n, TTPtr args);
 
 #endif // __TT_NODE_DIRECTORY_H__
