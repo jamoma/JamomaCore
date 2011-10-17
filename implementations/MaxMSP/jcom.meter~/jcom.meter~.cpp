@@ -339,13 +339,14 @@ void meter_perform64(t_meter *x, t_object *dsp64, double **ins, long numins, dou
 	int n = sampleframes;
 	double currentvalue;
 	
-	while (n--) {
-		currentvalue = ((*in) < 0)?-(*in):*in; // get the current sample's absolute value
-		if (currentvalue > x->newEnvelope) 				// if it's a new peak amplitude...
-			x->newEnvelope = currentvalue;
-		in++; 										// increment pointer in the vector
+	if (!x->obj.z_disabled){
+		while (n--) {
+			currentvalue = ((*in) < 0)?-(*in):*in; // get the current sample's absolute value
+			if (currentvalue > x->newEnvelope) 				// if it's a new peak amplitude...
+				x->newEnvelope = currentvalue;
+			in++; 										// increment pointer in the vector
+		}
 	}
-	
 }
 
 
@@ -360,7 +361,11 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 
 void meter_dsp64(t_meter *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-	dsp_add64(dsp64, (t_object*)x, (t_perfroutine64)meter_perform64, 0, NULL);
+	if (count[0]) {
+		dsp_add64(dsp64, (t_object*)x, (t_perfroutine64)meter_perform64, 0, NULL);
+		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
+		x->peak = 0;
+	}	
 }
 
 
@@ -460,6 +465,7 @@ void meter_paint(t_meter *x, t_object *view)
 
 
 // Constants from the DataspaceLib:
+//TODO: make that DRYer
 static const double kGainMidiPower = log(pow(10.,10./20.))/log(127./100.);
 static const double kGainMidiPowerInv = 1./kGainMidiPower;
 
