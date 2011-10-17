@@ -464,12 +464,6 @@ void meter_paint(t_meter *x, t_object *view)
 }
 
 
-// Constants from the DataspaceLib:
-//TODO: make that DRYer
-static const double kGainMidiPower = log(pow(10.,10./20.))/log(127./100.);
-static const double kGainMidiPowerInv = 1./kGainMidiPower;
-
-
 void meter_dopaint_horizontal(t_meter *x, t_object *view) {
 
 	t_rect			rect;
@@ -480,7 +474,7 @@ void meter_dopaint_horizontal(t_meter *x, t_object *view) {
 	t_jrgba			c;
 	
 	if (level > 0.0)
-		level = pow(level, kGainMidiPowerInv);	// this is taken from the midi conversion in the Gain Dataspace
+		level = pow(level, kTTGainMidiPowerInv);	// this is taken from the midi conversion in the Gain Dataspace
 	
 	g = (t_jgraphics*) patcherview_get_jgraphics(view);		// obtain graphics context
 	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
@@ -531,7 +525,7 @@ void meter_dopaint_vertical(t_meter *x, t_object *view) {
 	t_jrgba			c;
 	
 	if (level > 0.0)
-		level = pow(level, kGainMidiPowerInv);	// this is taken from the midi conversion in the Gain Dataspace
+		level = pow(level, kTTGainMidiPowerInv);	// this is taken from the midi conversion in the Gain Dataspace
 	
 	g = (t_jgraphics*) patcherview_get_jgraphics(view);		// obtain graphics context
 	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
