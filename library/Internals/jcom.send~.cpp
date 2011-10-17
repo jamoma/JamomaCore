@@ -187,7 +187,7 @@ void audiosend_dsp(t_audiosend *x, t_signal **sp, short *count)
 			for (i=0, j=0; i<numInputs; i++) {
 				if (count[i])
 					j=i;
-				x->audio_in[i] = sp[i]->s_vec;
+				x->audio_in[i] = (t_float*)sp[i]->s_vec;
 			}
 			numInputs = j+1;
 

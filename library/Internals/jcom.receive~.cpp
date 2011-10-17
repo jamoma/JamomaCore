@@ -192,7 +192,7 @@ void audioreceive_dsp(t_audioreceive *x, t_signal **sp, short *count)
 			for (i=0, j=0; i<numOutputs; i++) {
 				if (count[i+1])		// the +1 is to account for the inlet in this object
 					j=i;
-				x->audio_out[i] = sp[i+1]->s_vec;
+				x->audio_out[i] = (t_float*)sp[i+1]->s_vec;
 			}
 			numOutputs = j+1;
 			
