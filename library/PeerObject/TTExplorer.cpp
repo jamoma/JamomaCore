@@ -13,37 +13,41 @@
 #define thisTTClassTags		"explorer"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTAdrsEmpty),
-mLookfor(kTTSymEmpty),
-mEqual(kTTValNONE),
-mDifferent(kTTValNONE),
+mAddress(kTTAdrsRoot),
+mOutput(kTTSymEmpty),
 mDirectory(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL),
 mReturnValueCallback(NULL),
-mLookforObjectCriteria(NULL),
+mCriteriaList(NULL),
 mTempNode(NULL),
 mTempName(kTTSymEmpty),
 mResult(NULL),
 mLastResult(kTTValNONE)
 {
-	if(arguments.getSize() == 1)
+	if(arguments.getSize() >= 1)
 		arguments.get(0, (TTPtr*)&mReturnValueCallback);
 	
+	// It is possible to pass a default criteria bank
+	if(arguments.getSize() >= 2)
+		arguments.get(1, (TTPtr*)&mCriteriaBank);
+	else 
+		mCriteriaBank = new TTHash();
+	
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttributeWithSetter(Lookfor, kTypeSymbol);
-	// TODO : addAttribute(Equal, kTypeLocalValue);
-	// TODO : addAttribute(Different, kTypeLocalValue);
+	addAttributeWithSetter(Output, kTypeSymbol);
+	
+	registerAttribute(TT("criterias"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getCriterias, (TTSetterMethod)&TTExplorer::setCriterias);
 	
 	addMessage(Explore);
 	
-	addMessageWithArgument(CriteriaInclude);
-	addMessage(CriteriaClear);
+	addMessageWithArgument(CriteriaAdd);
+	addMessageWithArgument(CriteriaRemove);
 	
 	addMessageWithArgument(WriteAsOpml);
 	addMessageProperty(WriteAsOpml, hidden, YES);
 	
-	mLookforObjectCriteria = new TTHash();
+	mCriteriaList = new TTList();
 	mResult = new TTHash();
 }
 
@@ -57,19 +61,14 @@ TTExplorer::~TTExplorer()
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 	}
 	
-	CriteriaClear();
-	delete mLookforObjectCriteria;
+	delete mCriteriaBank;
+	delete mCriteriaList;
 	delete mResult;
 }
 
-TTErr TTExplorer::setLookfor(const TTValue& value)
+TTErr TTExplorer::setOutput(const TTValue& value)
 {
-	mLookfor = value;
-	
-	// the criteria have to be cleared
-	// TODO : we need to change the lookfor/criteria mechanism...
-	CriteriaClear();
-	CriteriaInclude(mLookfor);
+	mOutput = value;
 	
 	setAddress(mAddress);
 	
@@ -102,7 +101,7 @@ TTErr TTExplorer::bindAddress()
 		mTempName = mAddress->getName();
 		
 		// bind the new node
-		if (mLookfor == kTTSym_instances)
+		if (mOutput == kTTSym_instances)
 			mTempObserve = mTempParent;
 		else
 			mTempObserve = mAddress;
@@ -200,7 +199,7 @@ TTErr TTExplorer::Explore()
 		return kTTErrGeneric;
 	
 	// bind the right node
-	if (mLookfor == kTTSym_instances)
+	if (mOutput == kTTSym_instances)
 		err = mDirectory->Lookup(mTempParent, aNodeList, &mTempNode);
 	else
 		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
@@ -208,15 +207,15 @@ TTErr TTExplorer::Explore()
 	if (!err){
 		
 		// get children names
-		if (mLookfor == kTTSym_children)
+		if (mOutput == kTTSym_children)
 			mTempNode->getChildrenName(nameList);
 		
 		// get instances names
-		else if (mLookfor == kTTSym_instances)
+		else if (mOutput == kTTSym_instances)
 			mTempNode->getChildrenInstance(mTempName, nameList);
 		
 		// get attributes names
-		else if (mLookfor == kTTSym_attributes) {
+		else if (mOutput == kTTSym_attributes) {
 			if (o = mTempNode->getObject()) {
 				v.clear();
 				o->getAttributeNames(v);
@@ -228,10 +227,13 @@ TTErr TTExplorer::Explore()
 			}
 		}
 		
-		// get relative address of objects looking at mLookforObjectCriteria
+		// get relative address of objects looking at mCriteriaList
 		else {
 			
-			mDirectory->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
+			TTValue args = TTValue((TTPtr)mCriteriaBank);
+			args.append((TTPtr)mCriteriaList);
+			
+			mDirectory->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)&args, allObjectNodes, &aNode);
 			
 			// Memorized the result in a hash table
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
@@ -263,77 +265,152 @@ TTErr TTExplorer::Explore()
 				mLastResult = v;
 			}
 		}
-		
 	}
 	
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::CriteriaInclude(const TTValue& value)
+TTErr TTExplorer::CriteriaAdd(const TTValue& value)
 {
-	TTUInt16	s;
-	TTSymbolPtr	objectType, attributeName;
-	TTHashPtr	attributeCriteria;
-	TTValue		converted, v, valueCriteria;
+	TTDictionaryPtr aCriteria = NULL;
+	TTSymbolPtr		criteriaName, criteriaKey, criteriaSchema = kTTSymEmpty;
+	TTValue			v, criteriaValue;
+	TTErr			err;
 	
-	// Replace none TTnames (because object and attribute names can be customized in order to have a specific application's namespace)
-	converted = value;
-	ToTTNames(converted);
+	if (value.getType() == kTypeSymbol) {
 	
-	s = converted.getSize();
-	if (s > 0)
-		if (converted.getType() == kTypeSymbol) {
+		value.get(0, &criteriaName);
+		
+		err = mCriteriaBank->lookup(criteriaName, v);
+		
+		// if the criteria doesn't exist : create a new one
+		if (err) {
+			aCriteria = new TTDictionary();
+			mCriteriaBank->append(criteriaName, (TTPtr)aCriteria);
+		}
+		// else get the existing criteria and his schema
+		else {
+			v.get(0, (TTPtr*)&aCriteria);
+			criteriaSchema = aCriteria->getSchema();
+		}
+		
+		// set the keys of the criteria
+		for (TTUInt32 i=1; i<value.getSize(); i=i+2) {
 			
-			converted.get(0, &objectType);
-			if (mLookforObjectCriteria->lookup(objectType, v)) {
+			value.get(i, &criteriaKey);
+			criteriaValue.copyRange(value, i+1, i+2);
+			
+			aCriteria->append(criteriaKey, criteriaValue);
+			
+			// criteria schema detection on the first key
+			if (criteriaSchema == kTTSymEmpty && i == 1) {
 				
-				attributeCriteria = new TTHash();
-				mLookforObjectCriteria->append(objectType, TTValue(TTPtr(attributeCriteria)));
+				if (criteriaKey == kTTSym_object || criteriaKey == kTTSym_attribute || criteriaKey == kTTSym_value)
+					criteriaSchema = kTTSym_criteriaOnObject;
+				
+				else if (criteriaKey == kTTSym_name || criteriaKey == kTTSym_instance)
+					criteriaSchema = kTTSym_criteriaOnAddress;
+				
+				// set the schema
+				aCriteria->setSchema(criteriaSchema);
+				
 			}
-			else
-				v.get(0, (TTPtr*)&attributeCriteria);
+			// then check each keys considering the detected schema
+			else {
+				
+				if (criteriaSchema != kTTSym_criteriaOnObject && (criteriaKey == kTTSym_object || criteriaKey == kTTSym_attribute || criteriaKey == kTTSym_value))
+					return kTTErrGeneric;
+				
+				else if (criteriaSchema != kTTSym_criteriaOnAddress && (criteriaKey == kTTSym_name || criteriaKey == kTTSym_instance))
+					return kTTErrGeneric;
+			}
 		}
+	}
+	// the first element have to be a symbol
+	else
+		return kTTErrGeneric;
 	
-	if (s > 1) {
-		if (converted.getType(1) == kTypeSymbol) {
+	// append the new criteria to the criteria list
+	if (aCriteria) {
+		mCriteriaList->appendUnique(criteriaName);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::CriteriaRemove(const TTValue& value)
+{
+	TTDictionaryPtr aCriteria;
+	TTSymbolPtr		criteriaName;
+	TTValue			v, criteriaValue;
+	TTErr			err;
+	
+	if (value.getType() == kTypeSymbol) {
+		
+		value.get(0, &criteriaName);
+		
+		err = mCriteriaBank->lookup(criteriaName, v);
+		
+		// if the criteria exists
+		if (!err) {
 			
-			converted.get(1, &attributeName);
-			if (s > 2) {
-				valueCriteria.copyFrom(converted, 2);
-				attributeCriteria->remove(attributeName);
-				attributeCriteria->append(attributeName, valueCriteria);
-			}
-			else
-				attributeCriteria->append(attributeName, kTTValNONE);
+			// remove the criteria from the global table
+			mCriteriaBank->remove(criteriaName);
+			
+			// delete the criteria
+			v.get(0, (TTPtr*)&aCriteria);
+			delete aCriteria;
 		}
+		
+		// remove the criteria from the criteria list
+		mCriteriaList->remove(criteriaName);
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::getCriterias(TTValue& value)
+{
+	TTSymbolPtr criteriaName;
+	value.clear();
+	
+	for (mCriteriaList->begin(); mCriteriaList->end(); mCriteriaList->next())
+	{
+		mCriteriaList->current().get(0, &criteriaName);
+		value.append(criteriaName);
 	}
 	
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::CriteriaClear()
+TTErr TTExplorer::setCriterias(const TTValue& value)
 {
-	TTHashPtr	attributeCriteria;
-	TTValue			v, keys;
-	TTSymbolPtr		k;
+	TTSymbolPtr criteriaName;
+	TTUInt32	i;
+	TTValue		v;
+	TTBoolean	anError = NO;
+	TTErr		err = kTTErrNone;
 	
-	if (!mLookforObjectCriteria->isEmpty()) {
+	mCriteriaList->clear();
+	
+	for (i=0; i<value.getSize(); i++)
+	{
+		value.get(i, &criteriaName);
 		
-		mLookforObjectCriteria->getKeys(keys);
-		for (TTUInt16 i=0; i<keys.getSize(); i++) {
-			
-			keys.get(i, &k);
-			mLookforObjectCriteria->lookup(k, v);
-			v.get(0, (TTPtr*)&attributeCriteria);
-			delete attributeCriteria;
-		}
+		err = mCriteriaBank->lookup(criteriaName, v);
 		
-		delete mLookforObjectCriteria;
-		mLookforObjectCriteria = new TTHash();
+		if (!err)
+			mCriteriaList->append(criteriaName);
+		else anError = YES;
 	}
 	
-	return kTTErrNone;
+	if (anError) return kTTErrValueNotFound;
+	else return kTTErrNone;
 }
+
 
 TTErr TTExplorer::WriteAsOpml(const TTValue& value)
 {
@@ -454,20 +531,20 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(3, (TTPtr*)&anObserver);
 	
 	// get children names
-	if (anExplorer->mLookfor == kTTSym_children) {
+	if (anExplorer->mOutput == kTTSym_children) {
 		if (aNode->getParent() == anExplorer->mTempNode)
 			v.append(aNode->getName());
 	}
 	
 	// get instances names
-	else if (anExplorer->mLookfor == kTTSym_instances) {
+	else if (anExplorer->mOutput == kTTSym_instances) {
 		 // TODO : if the TempNode is destroyed then rebuilt, the test below fails => observe his destruction and replace mTempNode
 		if ((aNode->getParent() == anExplorer->mTempNode) && (aNode->getName() == anExplorer->mTempName))
 			v.append(aNode->getInstance());
 	}
 	
 	// get attributes names
-	else if (anExplorer->mLookfor == kTTSym_attributes) {
+	else if (anExplorer->mOutput == kTTSym_attributes) {
 		if (aNode == anExplorer->mTempNode) {
 			
 			// always clear the result
@@ -480,8 +557,11 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// get relative address of nodes matching criteria
 	else {
+		
+		TTValue args = TTValue((TTPtr)anExplorer->mCriteriaBank);
+		args.append((TTPtr)anExplorer->mCriteriaList);
 			
-		if (testNodeUsingCriteria(aNode, (TTPtr)anExplorer->mLookforObjectCriteria)) { 
+		if (testNodeUsingCriteria(aNode, (TTPtr)&args)) { 
 				aNode->getAddress(&relativeAddress, anExplorer->mAddress);
 				v.append(relativeAddress);
 		}

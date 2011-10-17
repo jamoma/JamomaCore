@@ -60,8 +60,6 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_name;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_names;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_object;
-
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_parameter;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_preview;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_priority;

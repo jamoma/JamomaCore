@@ -26,19 +26,20 @@ class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 	
 private:
 	
-	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : 
-	TTSymbolPtr			mLookfor;						///< ATTRIBUTE : what the explorer is looking for from the address (Children, Instance, Attribute else use ObjectCriteria table)
-	TTValue				mEqual;							///< ATTRIBUTE : each found elements have to be equal to one element of this attribute (use KTTValNone to don't use this)
-	TTValue				mDifferent;						///< ATTRIBUTE : each found elements have to be different from all elements of this attribute (use KTTValNone to don't use this)
+	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
+	TTSymbolPtr			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
+														///<	- address : any address below the node at any level (default)
+														///<	- children : all names of the children's node
+														///<	- instance : all instances of the node
+														///<	- attribute : all attributes of the node
 	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
 	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
 	TTCallbackPtr		mApplicationObserver;			///< an application life cycle observer
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
-	TTHashPtr			mLookforObjectCriteria;			///< hash table of hash table containing <ObjectType, <AttributeName, Value>>
-														///<	- if the Attribute hash table is empty this means any object of the given type matches the test.
-														///<	- if a value is KTTValNone this means any value matches the test.
+	TTHashPtr			mCriteriaBank;					///< a hash table containing TTDictionaryPtr to store criterias
+	TTListPtr			mCriteriaList;					///< a list containing TTSymbolPtr to retreive criterias in the criteria bank
 	
 	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done (Children and Instances cases)
 	TTSymbolPtr			mTempName;						///< remember the name on which the exploration have been done (Instances case)
@@ -50,17 +51,25 @@ private:
 	/** */
 	TTErr Explore();
 	
-	/** */
-	TTErr CriteriaInclude(const TTValue& value);
+	/** Create a criteria, add it to the bank and append it to the list
+		< criteriaName criteriaKey1 criteriaValue1 criteriaKey2 criteriaValue2 ... >
+		note : the schema of the criteria is automatically detected by the keys */
+	TTErr CriteriaAdd(const TTValue& value);
 	
-	/** */
-	TTErr CriteriaClear();
+	/** Delete a criteria from the bank using his name and remove it from the criteria list */
+	TTErr CriteriaRemove(const TTValue& value);
 	
 	/** */
 	// TODO : TTErr Dump();
 	
 	/** */
-	TTErr setLookfor(const TTValue& value);
+	TTErr getCriterias(TTValue& value);
+	
+	/** */
+	TTErr setCriterias(const TTValue& value);
+	
+	/** */
+	TTErr setOutput(const TTValue& value);
 	
 	/** */
 	TTErr setAddress(const TTValue& value);
