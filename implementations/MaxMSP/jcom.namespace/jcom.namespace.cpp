@@ -199,14 +199,14 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTSymbolPtr	lookfor;
+	TTSymbolPtr	output;
 	TTNodeAddressPtr address;
 	SymbolPtr	s;
 	Atom		a[1], c[2];
 	
 	// Ask Explorer object
-	x->wrappedObject->getAttributeValue(TT("lookfor"), v);
-	v.get(0, &lookfor);
+	x->wrappedObject->getAttributeValue(TT("output"), v);
+	v.get(0, &output);
 	
 	x->wrappedObject->getAttributeValue(kTTSym_address, v);
 	v.get(0, &address);
@@ -230,11 +230,11 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			else {
 				TTString prefix = address->getCString();
 				
-				if(lookfor == kTTSym_children)
+				if(output == kTTSym_children)
 					prefix += "/";
-				else if(lookfor == kTTSym_instances)
+				else if(output == kTTSym_instances)
 					prefix += ".";
-				else if(lookfor == kTTSym_attributes)
+				else if(output == kTTSym_attributes)
 					prefix += ":";
 				else
 					prefix += "/";
@@ -250,10 +250,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		for (long i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
-			if(lookfor == kTTSym_attributes)
+			if(output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
-			if (lookfor == kTTSym_instances && s == _sym_nothing)
+			if (output == kTTSym_instances && s == _sym_nothing)
 				s = gensym("_");
 			if (s) {
 				atom_setsym(a, s);
@@ -287,10 +287,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		for (long i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
-			if (lookfor == kTTSym_attributes)
+			if (output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
-			if (lookfor == kTTSym_instances && s == _sym_nothing)
+			if (output == kTTSym_instances && s == _sym_nothing)
 				s = gensym("_");
 			if (s) {
 				atom_setlong(c, i+1);

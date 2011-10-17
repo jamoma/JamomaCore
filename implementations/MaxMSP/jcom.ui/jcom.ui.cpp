@@ -162,6 +162,7 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 	t_ui			*x = NULL;
 	t_dictionary 	*d = NULL;
 	long 			flags;
+	TTValue			criterias;
 	
 	if (!(d=object_dictionaryarg(argc, argv)))
 		return NULL;	
@@ -231,6 +232,11 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->previewSignal = NULL;
 		
 		ui_explorer_create((ObjectPtr)x, &x->modelExplorer, gensym("return_modelExploration"));
+		
+		criterias.append(TT("data"));
+		criterias.append(TT("genericTag"));
+		
+		x->modelExplorer->setAttributeValue(TT("criterias"), criterias);
 		
 		attr_dictionary_process(x, d); 	// handle attribute args
 		
@@ -359,8 +365,7 @@ void ui_subscribe(t_ui *x, SymbolPtr address)
 		x->modelOutput = NULL;
 	
 		// observe the namespace of the model
-		// by this way, the creation of any widgets depends on the existence of the data		
-		x->modelExplorer->setAttributeValue(kTTSym_lookfor, TT("Data"));
+		// by this way, the creation of any widgets depends on the existence of the data	
 		x->modelExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 		x->modelExplorer->sendMessage(TT("Explore"));
 	}
@@ -1293,15 +1298,9 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelParamExplorer, gensym("return_modelParamExploration"));
 	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_service);
-	criteria.append(kTTSym_parameter);
-	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_tag);
-	criteria.append(kTTSym_none);
-	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
+	criteria = TTValue(TT("jcom.parameter"));
+	criteria.append(TT("noGenericTag"));
+	x->modelParamExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1315,19 +1314,12 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelMessExplorer, gensym("return_modelMessExploration"));
 	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_service);
-	criteria.append(kTTSym_message);
-	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_tag);
-	criteria.append(kTTSym_none);
-	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
+	criteria = TTValue(TT("jcom.message"));
+	criteria.append(TT("noGenericTag"));
+	x->modelMessExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
-	
 	
 	// Look for User-Defined Returns into the model
 	item = (t_symobject *)symobject_new(gensym("-"));
@@ -1338,15 +1330,9 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelRetExplorer, gensym("return_modelRetExploration"));
 	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_service);
-	criteria.append(kTTSym_return);
-	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_tag);
-	criteria.append(kTTSym_none);
-	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
+	criteria = TTValue(TT("jcom.return"));
+	criteria.append(TT("noGenericTag"));
+	x->modelRetExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1358,17 +1344,9 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	x->modelParamExplorer->sendMessage(TT("CriteriaClear"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_service);
-	criteria.append(kTTSym_parameter);
-	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_tag);
-	criteria.append(kTTSym_generic);
-	x->modelParamExplorer->sendMessage(TT("CriteriaInclude"), criteria);
+	criteria = TTValue(TT("jcom.parameter"));
+	criteria.append(TT("genericTag"));
+	x->modelParamExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1380,17 +1358,9 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	x->modelMessExplorer->sendMessage(TT("CriteriaClear"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_service);
-	criteria.append(kTTSym_message);
-	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_tag);
-	criteria.append(kTTSym_generic);
-	x->modelMessExplorer->sendMessage(TT("CriteriaInclude"), criteria);
+	criteria = TTValue(TT("jcom.message"));
+	criteria.append(TT("genericTag"));
+	x->modelMessExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
@@ -1402,21 +1372,12 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	x->modelRetExplorer->sendMessage(TT("CriteriaClear"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_service);
-	criteria.append(kTTSym_return);
-	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
-	
-	criteria = TTValue(TT("Data"));
-	criteria.append(kTTSym_tag);
-	criteria.append(kTTSym_generic);
-	x->modelRetExplorer->sendMessage(TT("CriteriaInclude"), criteria);
+	criteria = TTValue(TT("jcom.return"));
+	criteria.append(TT("genericTag"));
+	x->modelRetExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
-	
 	
 	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
 	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));
