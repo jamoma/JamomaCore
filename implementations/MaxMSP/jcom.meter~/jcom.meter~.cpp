@@ -111,7 +111,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)meter_float,		"float",		A_FLOAT, 0);
 	class_addmethod(c, (method)meter_set,    	"set",			A_FLOAT, 0);
 	class_addmethod(c, (method)meter_dsp,		"dsp",			A_CANT, 0);
-	class_addmethod(c, (method)meter_dsp64,		"dsp64",		A_CANT, 0);
+	//class_addmethod(c, (method)meter_dsp64,		"dsp64",		A_CANT, 0);
 	class_addmethod(c, (method)meter_paint,		"paint",		A_CANT, 0);
 	class_addmethod(c, (method)meter_oksize,	"oksize",		A_CANT, 0);
 	class_addmethod(c, (method)meter_bang,		"mousedown",	A_CANT, 0);
@@ -332,7 +332,7 @@ out:
 }
 
 
-
+/* 
 void meter_perform64(t_meter *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
 	t_double *in = ins[0];		// we get audio for each inlet of the object from the **ins argument
@@ -348,7 +348,7 @@ void meter_perform64(t_meter *x, t_object *dsp64, double **ins, long numins, dou
 		}
 	}
 }
-
+*/
 
 void meter_dsp(t_meter *x, t_signal **sp, short *count)
 {
@@ -359,6 +359,7 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 	}
 }
 
+/*
 void meter_dsp64(t_meter *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
 	if (count[0]) {
@@ -367,7 +368,7 @@ void meter_dsp64(t_meter *x, t_object *dsp64, short *count, double samplerate, l
 		x->peak = 0;
 	}	
 }
-
+*/
 
 #if 0
 #pragma mark -
