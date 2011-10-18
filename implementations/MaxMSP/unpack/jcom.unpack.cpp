@@ -19,7 +19,7 @@ struct Unpack {
 	TTUInt16					maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
 	TTUInt16					numChannels;	// the actual number of channels to use, set by the dsp method
 	TTUInt16					vectorSize;		// cached by the DSP method
-	TTFloat32					gain;			// gain multiplier
+	//TTFloat32					gain;			// gain multiplier
 	TTBoolean					hasReset;		// flag indicating that reset has been called already, so we don't need to reset again
 	TTBoolean					hasConnections;	// flag indicating that we have connections so we can mute MSP output
 	ObjectPtr					patcher;		// the patcher -- cached for iterating to make connections
@@ -44,7 +44,7 @@ void	UnpackAttachToPatchlinesForPatcher(UnpackPtr self, ObjectPtr patcher);
 t_int*	UnpackPerform(t_int* w);
 void	UnpackDsp(UnpackPtr self, t_signal** sp, short* count);
 void	UnpackDsp64(UnpackPtr self, ObjectPtr dsp64, short *count, double samplerate, long maxvectorsize, long flags);
-MaxErr	UnpackSetGain(UnpackPtr self, void* attr, AtomCount argc, AtomPtr argv);
+//MaxErr	UnpackSetGain(UnpackPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
@@ -73,8 +73,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	class_addmethod(c, (method)UnpackAssist,		"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 	
-	CLASS_ATTR_FLOAT(c,		"gain", 0,		Unpack,	gain);
-	CLASS_ATTR_ACCESSORS(c,	"gain",	NULL,	UnpackSetGain);
+	//CLASS_ATTR_FLOAT(c,		"gain", 0,		Unpack,	gain);
+	//CLASS_ATTR_ACCESSORS(c,	"gain",	NULL,	UnpackSetGain);
 
 	class_dspinit(c);
 	class_register(_sym_box, c);
@@ -92,7 +92,7 @@ UnpackPtr UnpackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue		sr(sys_getsr());
  	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	short		i;
-	TTValue		v;
+	TTValue	v;
 	TTErr		err;
    
     self = UnpackPtr(object_alloc(sUnpackClass));
@@ -104,10 +104,10 @@ UnpackPtr UnpackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
 		
 		v.setSize(2);
-		v.set(0, TT("gain"));
+		v.set(0, TT("thru"));
 		v.set(1, 1); // arg is the number of inlets
 		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("linearGain"), 1.0);
+		//self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("linearGain"), 1.0);
 		
 		attr_args_process(self, argc, argv);
 		
@@ -513,12 +513,12 @@ void UnpackDsp64(UnpackPtr self, ObjectPtr dsp64, short *count, double samplerat
 }
 
 
-MaxErr UnpackSetGain(UnpackPtr self, void* attr, AtomCount argc, AtomPtr argv)
+/*MaxErr UnpackSetGain(UnpackPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->gain = atom_getfloat(argv); 
 		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("linearGain"), self->gain);
 	}
 	return MAX_ERR_NONE;
-}
+}*/
 
