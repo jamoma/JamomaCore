@@ -362,7 +362,8 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 void meter_dsp64(t_meter *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
 	if (count[0]) {
-		dsp_add64(dsp64, (t_object*)x, (t_perfroutine64)meter_perform64, 0, NULL);
+		object_method(dsp64, gensym("dsp_add64"), x, meter_perform64, 0, NULL);
+		//dsp_add64(dsp64, (t_object*)x, (t_perfroutine64)meter_perform64, 0, NULL);
 		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
 		x->peak = 0;
 	}	
