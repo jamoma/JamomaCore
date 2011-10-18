@@ -508,8 +508,8 @@ void UnpackDsp64(UnpackPtr self, ObjectPtr dsp64, short *count, double samplerat
 	
 	self->initData.vectorSize = self->vectorSize;
 	
-	//object_method(dsp64, gensym("dsp_add64"), x, UnpackPerform64, 0, NULL);
-	dsp_add64(dsp64, (ObjectPtr)self, (t_perfroutine64)UnpackPerform64, 0, NULL);
+	object_method(dsp64, gensym("dsp_add64"), self, UnpackPerform64, 0, NULL);
+	//dsp_add64(dsp64, (ObjectPtr)self, (t_perfroutine64)UnpackPerform64, 0, NULL);
 }
 
 

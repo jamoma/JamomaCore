@@ -55,7 +55,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	class_addmethod(c, (method)MaxAudioGraphDrop,		"audio.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphObject,		"audio.object",		A_CANT, 0);
  	class_addmethod(c, (method)PackDsp,					"dsp",				A_CANT, 0);		
- 	class_addmethod(c, (method)PackDsp64,				"dsp64",			A_CANT, 0);		
+ 	//class_addmethod(c, (method)PackDsp64,				"dsp64",			A_CANT, 0);		
 	class_addmethod(c, (method)PackAssist,				"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 		
@@ -155,10 +155,9 @@ TTErr PackSetup(PackPtr self)
 t_int*PackPerform(t_int* w)
 {
    	PackPtr		self = (PackPtr)(w[1]);
-	TTUInt32	i;
-	
+		
 	if (!self->obj.z_disabled) {
-		for (i=0; i < self->numChannels; i++)
+		for (TTUInt32 i=0; i < self->numChannels; i++)
 			TTAudioGraphGeneratorPtr(self->audioGraphObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
 	}	
 	return w + (self->numChannels+2);
@@ -167,8 +166,10 @@ t_int*PackPerform(t_int* w)
 
 void PackPerform64(PackPtr self, ObjectPtr dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
+//if (!self->obj.z_disabled) {
 	for (TTUInt32 i=0; i < self->numChannels; i++)
 		TTAudioGraphGeneratorPtr(self->audioGraphObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, ins[i]);
+//}
 }
 
 
@@ -222,6 +223,6 @@ void PackDsp64(PackPtr self, ObjectPtr dsp64, short *count, double samplerate, l
 	self->audioGraphObject->getUnitGenerator()->setAttributeValue(kTTSym_maxNumChannels, (uint)self->maxNumChannels);
 	self->audioGraphObject->getUnitGenerator()->setAttributeValue(kTTSym_sampleRate, (uint)samplerate);
 	
-	//object_method(dsp64, gensym("dsp_add64"), x,PackPerform64, 0, NULL);
-	dsp_add64(dsp64, (ObjectPtr)self, (t_perfroutine64)PackPerform64, 0, NULL);
+	object_method(dsp64, gensym("dsp_add64"), self,PackPerform64, 0, NULL); 
+	//dsp_add64(dsp64, (ObjectPtr)self, (t_perfroutine64)PackPerform64, 0, NULL);
 }
