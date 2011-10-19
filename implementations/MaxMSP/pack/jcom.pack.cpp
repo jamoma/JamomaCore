@@ -31,7 +31,7 @@ TTErr	PackObject(PackPtr self, TTAudioGraphObjectPtr audioSourceObject);
 t_int*	PackPerform(t_int* w);
 void	PackDsp(PackPtr self, t_signal** sp, short* count);
 void	PackDsp64(PackPtr self, ObjectPtr dsp64, short *count, double samplerate, long maxvectorsize, long flags);
-MaxErr	PackSetGain(PackPtr self, void* attr, AtomCount argc, AtomPtr argv);
+//MaxErr	PackSetGain(PackPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
@@ -55,7 +55,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	class_addmethod(c, (method)MaxAudioGraphDrop,		"audio.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphObject,		"audio.object",		A_CANT, 0);
  	class_addmethod(c, (method)PackDsp,					"dsp",				A_CANT, 0);		
- 	//class_addmethod(c, (method)PackDsp64,				"dsp64",			A_CANT, 0);		
+ 	class_addmethod(c, (method)PackDsp64,				"dsp64",			A_CANT, 0);		
 	class_addmethod(c, (method)PackAssist,				"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 		
@@ -166,10 +166,10 @@ t_int*PackPerform(t_int* w)
 
 void PackPerform64(PackPtr self, ObjectPtr dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-//if (!self->obj.z_disabled) {
-	for (TTUInt32 i=0; i < self->numChannels; i++)
-		TTAudioGraphGeneratorPtr(self->audioGraphObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, ins[i]);
-//}
+	if (!self->obj.z_disabled) {
+		for (TTUInt32 i=0; i < self->numChannels; i++)
+			TTAudioGraphGeneratorPtr(self->audioGraphObject->getUnitGenerator())->mBuffer->setVector64Copy(i, self->vectorSize, ins[i]);
+	}
 }
 
 
