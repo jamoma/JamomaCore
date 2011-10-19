@@ -1066,7 +1066,7 @@ TTHashPtr jamoma_explorer_default_criteria_bank(void)
 	
 	// Create some ready-made criterias
 	
-	// to look for any data (parameter | message | return
+	// to look for any data (parameter | message | return)
 	aCriteria = new TTDictionary;
 	aCriteria->setSchema(kTTSym_criteriaOnObject);
 	aCriteria->append(kTTSym_object, TT("Data"));
@@ -1078,7 +1078,7 @@ TTHashPtr jamoma_explorer_default_criteria_bank(void)
 	aCriteria->append(kTTSym_object, TT("Data"));
 	aCriteria->append(kTTSym_attribute, kTTSym_service);
 	aCriteria->append(kTTSym_value, kTTSym_parameter);
-	defaultCriteriaBank->append(TT("jcom.parameter"), (TTPtr)aCriteria);
+	defaultCriteriaBank->append(TT("parameter"), (TTPtr)aCriteria);
 	
 	// to look for jcom.message
 	aCriteria = new TTDictionary;
@@ -1086,7 +1086,7 @@ TTHashPtr jamoma_explorer_default_criteria_bank(void)
 	aCriteria->append(kTTSym_object, TT("Data"));
 	aCriteria->append(kTTSym_attribute, kTTSym_service);
 	aCriteria->append(kTTSym_value, kTTSym_message);
-	defaultCriteriaBank->append(TT("jcom.message"), (TTPtr)aCriteria);
+	defaultCriteriaBank->append(TT("message"), (TTPtr)aCriteria);
 	
 	// to look for jcom.return
 	aCriteria = new TTDictionary;
@@ -1094,19 +1094,19 @@ TTHashPtr jamoma_explorer_default_criteria_bank(void)
 	aCriteria->append(kTTSym_object, TT("Data"));
 	aCriteria->append(kTTSym_attribute, kTTSym_service);
 	aCriteria->append(kTTSym_value, kTTSym_return);
-	defaultCriteriaBank->append(TT("jcom.return"), (TTPtr)aCriteria);
+	defaultCriteriaBank->append(TT("return"), (TTPtr)aCriteria);
 	
 	// to look for jcom.hub
 	aCriteria = new TTDictionary;
 	aCriteria->setSchema(kTTSym_criteriaOnObject);
 	aCriteria->append(kTTSym_object, TT("Container"));
-	defaultCriteriaBank->append(TT("jcom.hub"), (TTPtr)aCriteria);
+	defaultCriteriaBank->append(TT("hub"), (TTPtr)aCriteria);
 	
 	// to look for jcom.view
 	aCriteria = new TTDictionary;
 	aCriteria->setSchema(kTTSym_criteriaOnObject);
 	aCriteria->append(kTTSym_object, TT("Viewer"));
-	defaultCriteriaBank->append(TT("jcom.view"), (TTPtr)aCriteria);
+	defaultCriteriaBank->append(TT("view"), (TTPtr)aCriteria);
 	
 	// to look for user-defined object
 	aCriteria = new TTDictionary;
@@ -1122,19 +1122,6 @@ TTHashPtr jamoma_explorer_default_criteria_bank(void)
 	aCriteria->append(kTTSym_attribute, kTTSym_tag);
 	aCriteria->append(kTTSym_value, kTTSym_generic);
 	defaultCriteriaBank->append(TT("genericTag"), (TTPtr)aCriteria);
-	
-	/* DEBUG : to look for address named test
-	 aCriteria = new TTDictionary;
-	 aCriteria->setSchema(kTTSym_criteriaOnAddress);
-	 aCriteria->append(kTTSym_name, TT("test"));
-	 defaultCriteriaBank->append(TT("testName"), (TTPtr)aCriteria);
-	 
-	 // DEBUG : to look for address with "1" instance
-	 aCriteria = new TTDictionary;
-	 aCriteria->setSchema(kTTSym_criteriaOnAddress);
-	 aCriteria->append(kTTSym_instance, TT("1"));
-	 defaultCriteriaBank->append(TT("testInstance"), (TTPtr)aCriteria);
-	 */
 	
 	return defaultCriteriaBank;
 }

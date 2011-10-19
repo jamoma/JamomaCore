@@ -189,7 +189,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-59",
-					"items" : "<empty>",
+					"items" : [ "file/load", ",", "file/path", ",", "fps", ",", "play", ",", "rate", ",", "ui/out/freeze", ",", "ui/out/mute", ",", "ui/out/preview" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -555,7 +555,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 479.0, 585.0, 153.0, 18.0 ],
-					"text" : "rate 1."
+					"text" : "ui/out/mute 0"
 				}
 
 			}
@@ -943,8 +943,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 525.0, 117.0, 121.0, 48.0 ],
-									"text" : "jcom.namespace @criterias jcom.view @format umenu"
+									"patching_rect" : [ 525.0, 117.0, 100.0, 48.0 ],
+									"text" : "jcom.namespace @criterias view @format umenu"
 								}
 
 							}
@@ -984,8 +984,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 354.0, 117.0, 129.0, 48.0 ],
-									"text" : "jcom.namespace @criterias jcom.return @format umenu"
+									"patching_rect" : [ 354.0, 117.0, 107.0, 48.0 ],
+									"text" : "jcom.namespace @criterias return @format umenu"
 								}
 
 							}
@@ -1000,8 +1000,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 182.0, 117.0, 146.0, 48.0 ],
-									"text" : "jcom.namespace @criterias jcom.message @format umenu"
+									"patching_rect" : [ 182.0, 117.0, 124.0, 48.0 ],
+									"text" : "jcom.namespace @criterias message @format umenu"
 								}
 
 							}
@@ -1016,8 +1016,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 10.0, 117.0, 152.0, 48.0 ],
-									"text" : "jcom.namespace @criterias jcom.parameter @format umenu"
+									"patching_rect" : [ 10.0, 117.0, 130.0, 48.0 ],
+									"text" : "jcom.namespace @criterias parameter @format umenu"
 								}
 
 							}
@@ -1180,10 +1180,10 @@
 ,
 					"patching_rect" : [ 4.0, 136.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0
@@ -1202,7 +1202,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-47",
-					"items" : "<empty>",
+					"items" : "view/class",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1223,7 +1223,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "<empty>",
+					"items" : [ "ui/panel", ",", "ui/refresh", ",", "view/documentation/generate", ",", "view/help", ",", "view/internals", ",", "view/reference" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1244,7 +1244,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-14",
-					"items" : "<empty>",
+					"items" : [ "model/address", ",", "ui/color/border", ",", "ui/color/contentBackground", ",", "ui/color/toolbarBackground", ",", "ui/color/toolbarText", ",", "ui/freeze", ",", "ui/size", ",", "view/mute" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

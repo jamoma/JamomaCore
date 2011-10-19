@@ -1298,7 +1298,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelParamExplorer, gensym("return_modelParamExploration"));
 	
-	criteria = TTValue(TT("jcom.parameter"));
+	criteria = TTValue(TT("parameter"));
 	criteria.append(TT("noGenericTag"));
 	x->modelParamExplorer->setAttributeValue(TT("criterias"), criteria);
 	
@@ -1314,7 +1314,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelMessExplorer, gensym("return_modelMessExploration"));
 	
-	criteria = TTValue(TT("jcom.message"));
+	criteria = TTValue(TT("message"));
 	criteria.append(TT("noGenericTag"));
 	x->modelMessExplorer->setAttributeValue(TT("criterias"), criteria);
 	
@@ -1330,7 +1330,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelRetExplorer, gensym("return_modelRetExploration"));
 	
-	criteria = TTValue(TT("jcom.return"));
+	criteria = TTValue(TT("return"));
 	criteria.append(TT("noGenericTag"));
 	x->modelRetExplorer->setAttributeValue(TT("criterias"), criteria);
 	
@@ -1344,7 +1344,7 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	criteria = TTValue(TT("jcom.parameter"));
+	criteria = TTValue(TT("parameter"));
 	criteria.append(TT("genericTag"));
 	x->modelParamExplorer->setAttributeValue(TT("criterias"), criteria);
 	
@@ -1358,7 +1358,7 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	criteria = TTValue(TT("jcom.message"));
+	criteria = TTValue(TT("message"));
 	criteria.append(TT("genericTag"));
 	x->modelMessExplorer->setAttributeValue(TT("criterias"), criteria);
 	
@@ -1372,7 +1372,7 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	criteria = TTValue(TT("jcom.return"));
+	criteria = TTValue(TT("return"));
 	criteria.append(TT("genericTag"));
 	x->modelRetExplorer->setAttributeValue(TT("criterias"), criteria);
 	

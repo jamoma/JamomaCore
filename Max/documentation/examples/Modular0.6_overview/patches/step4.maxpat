@@ -44,7 +44,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 637.0, 288.0, 184.0, 18.0 ],
-					"text" : "channel.A/out/mute 0"
+					"text" : "channel.A/out/mute"
 				}
 
 			}
@@ -527,7 +527,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 650.0, 333.0, 84.0, 18.0 ],
-					"text" : "/out/mute 0"
+					"text" : "/out/mute"
 				}
 
 			}
@@ -541,7 +541,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 560.0, 333.0, 84.0, 18.0 ],
-					"text" : "/out/mute 0"
+					"text" : "/out/mute"
 				}
 
 			}
@@ -904,8 +904,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 354.0, 117.0, 127.0, 48.0 ],
-									"text" : "jcom.namespace @criterias jcom.return @format umenu"
+									"patching_rect" : [ 354.0, 117.0, 101.0, 48.0 ],
+									"text" : "jcom.namespace @criterias return @format umenu"
 								}
 
 							}
@@ -920,8 +920,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 182.0, 117.0, 144.0, 48.0 ],
-									"text" : "jcom.namespace @criterias jcom.message @format umenu"
+									"patching_rect" : [ 182.0, 117.0, 118.0, 48.0 ],
+									"text" : "jcom.namespace @criterias message @format umenu"
 								}
 
 							}
@@ -936,8 +936,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 10.0, 117.0, 150.0, 48.0 ],
-									"text" : "jcom.namespace @criterias jcom.parameter @format umenu"
+									"patching_rect" : [ 10.0, 117.0, 124.0, 48.0 ],
+									"text" : "jcom.namespace @criterias parameter @format umenu"
 								}
 
 							}
@@ -1073,10 +1073,10 @@
 ,
 					"patching_rect" : [ 10.0, 243.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0
@@ -1095,7 +1095,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-47",
-					"items" : "<empty>",
+					"items" : [ "channel.A/fps", ",", "channel.A/model/address", ",", "channel.A/model/class", ",", "channel.A/preset/names", ",", "channel.B/fps", ",", "channel.B/model/address", ",", "channel.B/model/class", ",", "channel.B/preset/names", ",", "model/address", ",", "model/class" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1116,7 +1116,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "<empty>",
+					"items" : [ "channel.A/file/load", ",", "channel.A/model/documentation/generate", ",", "channel.A/model/help", ",", "channel.A/model/internals", ",", "channel.A/model/reference", ",", "channel.A/preset/read", ",", "channel.A/preset/read/again", ",", "channel.A/preset/recall", ",", "channel.A/preset/recall/current", ",", "channel.A/preset/recall/next", ",", "channel.A/preset/recall/previous", ",", "channel.A/preset/remove", ",", "channel.A/preset/remove/current", ",", "channel.A/preset/remove/next", ",", "channel.A/preset/remove/previous", ",", "channel.A/preset/store", ",", "channel.A/preset/store/current", ",", "channel.A/preset/store/next", ",", "channel.A/preset/store/previous", ",", "channel.A/preset/write", ",", "channel.A/preset/write/again", ",", "channel.B/file/load", ",", "channel.B/model/documentation/generate", ",", "channel.B/model/help", ",", "channel.B/model/internals", ",", "channel.B/model/reference", ",", "channel.B/preset/read", ",", "channel.B/preset/read/again", ",", "channel.B/preset/recall", ",", "channel.B/preset/recall/current", ",", "channel.B/preset/recall/next", ",", "channel.B/preset/recall/previous", ",", "channel.B/preset/remove", ",", "channel.B/preset/remove/current", ",", "channel.B/preset/remove/next", ",", "channel.B/preset/remove/previous", ",", "channel.B/preset/store", ",", "channel.B/preset/store/current", ",", "channel.B/preset/store/next", ",", "channel.B/preset/store/previous", ",", "channel.B/preset/write", ",", "channel.B/preset/write/again", ",", "model/documentation/generate", ",", "model/help", ",", "model/internals", ",", "model/reference" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1137,7 +1137,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-14",
-					"items" : "<empty>",
+					"items" : [ "channel.A/file/path", ",", "channel.A/model/mute", ",", "channel.A/out/freeze", ",", "channel.A/out/mute", ",", "channel.A/out/preview", ",", "channel.A/play", ",", "channel.A/rate", ",", "channel.B/file/path", ",", "channel.B/model/mute", ",", "channel.B/out/freeze", ",", "channel.B/out/mute", ",", "channel.B/out/preview", ",", "channel.B/play", ",", "channel.B/rate", ",", "model/mute" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

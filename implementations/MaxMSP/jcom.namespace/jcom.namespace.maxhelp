@@ -129,8 +129,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 22.0, 448.0, 255.0, 18.0 ],
-									"text" : "criteria/add jcom.hub mode exclusion, explore"
+									"patching_rect" : [ 22.0, 448.0, 226.0, 18.0 ],
+									"text" : "criteria/add hub mode exclusion, explore"
 								}
 
 							}
@@ -143,7 +143,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 38.0, 385.0, 439.0, 20.0 ],
+									"patching_rect" : [ 38.0, 385.0, 441.0, 20.0 ],
 									"text" : "Viewer : any jcom.view."
 								}
 
@@ -157,7 +157,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 38.0, 366.0, 439.0, 20.0 ],
+									"patching_rect" : [ 38.0, 366.0, 441.0, 20.0 ],
 									"text" : "Container : any jcom.hub."
 								}
 
@@ -172,7 +172,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 38.0, 333.0, 439.0, 34.0 ],
+									"patching_rect" : [ 38.0, 333.0, 441.0, 34.0 ],
 									"text" : "Data : any jcom.parameter|message|returns. Actually a jcom.parameter is a Data with his service attribute equals to parameter."
 								}
 
@@ -216,8 +216,8 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 22.0, 412.0, 546.0, 34.0 ],
-									"text" : "For this reason some ready made criterias exists : jcom.parameter, jcom.message, jcom.return, jcom.hub, jcom.view. It is possible to modify their mode like this :"
+									"patching_rect" : [ 22.0, 412.0, 486.0, 34.0 ],
+									"text" : "For this reason some ready made criterias exists : parameter, message, return, hub, view. It is possible to modify their mode like this :"
 								}
 
 							}
@@ -655,13 +655,13 @@
 ,
 					"patching_rect" : [ 404.0, 99.0, 130.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p about_criterias",
@@ -880,13 +880,13 @@
 ,
 					"patching_rect" : [ 835.0, 354.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1132,13 +1132,13 @@
 ,
 					"patching_rect" : [ 87.0, 271.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1701,7 +1701,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-47",
-					"items" : [ "degrade", ",", "degrade~(view)" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1914,7 +1914,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "refresh",
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1935,7 +1935,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : [ "color/border", ",", "color/contentBackground", ",", "color/toolbarBackground", ",", "color/toolbarText", ",", "freeze", ",", "size" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1959,8 +1959,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 396.0, 342.0, 134.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @criterias jcom.return"
+					"patching_rect" : [ 396.0, 342.0, 131.0, 48.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @criterias return"
 				}
 
 			}
@@ -1975,8 +1975,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 246.0, 342.0, 146.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @criterias jcom.message"
+					"patching_rect" : [ 246.0, 342.0, 133.0, 48.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @criterias message"
 				}
 
 			}
@@ -1991,8 +1991,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 87.0, 341.0, 152.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @criterias jcom.parameter"
+					"patching_rect" : [ 87.0, 341.0, 133.0, 48.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @criterias parameter"
 				}
 
 			}
@@ -2020,7 +2020,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-3",
-					"items" : [ "degrade.1", ",", "degrade.2", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/ui", ",", "degrade~(view)/ui" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2044,8 +2044,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 12.0, 194.0, 135.0, 48.0 ],
-					"text" : "jcom.namespace @criterias jcom.hub @format umenu_prefix"
+					"patching_rect" : [ 12.0, 194.0, 133.0, 48.0 ],
+					"text" : "jcom.namespace @criterias hub @format umenu_prefix"
 				}
 
 			}

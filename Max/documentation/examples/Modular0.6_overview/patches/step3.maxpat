@@ -567,11 +567,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial"
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p fill_umenu"
@@ -794,7 +794,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-21",
-					"items" : "<empty>",
+					"items" : "names",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -815,7 +815,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "<empty>",
+					"items" : [ "read", ",", "recall", ",", "recall/current", ",", "recall/next", ",", "recall/previous", ",", "remove", ",", "remove/current", ",", "remove/next", ",", "remove/previous", ",", "store", ",", "store/current", ",", "store/next", ",", "store/previous", ",", "write" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -838,8 +838,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 745.0, 74.0, 129.0, 48.0 ],
-					"text" : "jcom.namespace @criterias jcom.return @format umenu"
+					"patching_rect" : [ 745.0, 72.0, 101.0, 48.0 ],
+					"text" : "jcom.namespace @criterias return @format umenu"
 				}
 
 			}
@@ -854,8 +854,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 576.0, 74.0, 147.0, 48.0 ],
-					"text" : "jcom.namespace @criterias jcom.message @format umenu"
+					"patching_rect" : [ 576.0, 72.0, 118.0, 48.0 ],
+					"text" : "jcom.namespace @criterias message @format umenu"
 				}
 
 			}
@@ -907,8 +907,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 407.0, 74.0, 153.0, 48.0 ],
-					"text" : "jcom.namespace @criterias jcom.parameter @format umenu"
+					"patching_rect" : [ 407.0, 72.0, 124.0, 48.0 ],
+					"text" : "jcom.namespace @criterias parameter @format umenu"
 				}
 
 			}

@@ -28,7 +28,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 105.0, 75.0, 186.0, 425.0 ],
+					"patching_rect" : [ 105.0, 75.0, 190.0, 425.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 19,
 					"presentation_rect" : [ 0.0, 30.0, 280.0, 312.0 ],
@@ -94,7 +94,8 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 71.0, 310.0, 142.0, 27.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 153.0, 360.0, 149.0, 27.0 ]
+					"presentation_rect" : [ 153.0, 360.0, 149.0, 27.0 ],
+					"text" : "Current Step : 5"
 				}
 
 			}
@@ -618,8 +619,8 @@
 									"saved_object_attributes" : 									{
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0
@@ -768,8 +769,8 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0
