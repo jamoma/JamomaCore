@@ -359,6 +359,7 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 	}
 }
 
+
 void meter_dsp64(t_meter *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
 	if (count[0]) {
