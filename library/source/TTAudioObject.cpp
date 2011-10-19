@@ -436,26 +436,28 @@ TTErr TTAudioObject::getProcessingBenchmark(TTValueRef v)
 // hz-to-radians conversion
 TTFloat64 TTAudioObject::hertzToRadians(const TTFloat64 hz)			// NOTE: Be sure to set the sr before calling this function
 {
-	return(hz * (kTTPi / (sr * 0.5)));
+	return(hz * kTTTwoPi / sr);
 }
 
 // radians-to-hz conversion
 TTFloat64 TTAudioObject::radiansToHertz(const TTFloat64 radians)	// NOTE: Be sure to set the sr before calling this function
 {
-	return((radians * sr) / kTTTwoPi);
+	return(radians * sr / kTTTwoPi);
 }
 
 // degrees-to-radians conversion
 TTFloat64 TTAudioObject::degreesToRadians(const TTFloat64 degrees)
 {
-	return((degrees * kTTPi) / 180.);
+	//return((degrees * kTTPi) / 180.);
+	return (degrees * kTTDegreesToRadians);
 }
 
 // radians-to-degrees conversion
 TTFloat64 TTAudioObject::radiansToDegrees(const TTFloat64 radians)
 {
-	return((radians * 180.) / kTTPi);	
-}
+	//return((radians * 180.) / kTTPi);	
+	return (radians * kTTRadiansToDegrees);
+} 
 
 
 // Decay Time (seconds) to feedback coefficient conversion
@@ -531,7 +533,7 @@ TTFloat64 TTAudioObject::linearGainToMidi(TTFloat64 value)
 
 // Deviate
 TTFloat64 TTAudioObject::deviate(TTFloat64 value)
-{
+{   //TODO use Mersedian Twister for rand-generatior
 	value += (2.0 * (TTFloat32(rand()) / TTFloat32(RAND_MAX))) - 1.0;	// randomize input with +1 to -1 ms
 	value = value * 0.001 * sr;											// convert from ms to samples
 	value = (TTFloat32)prime(TTUInt32(value));							// find the nearest prime number (in samples)
