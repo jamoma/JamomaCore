@@ -235,13 +235,13 @@ TTErr TTExplorer::Explore()
 			
 			mDirectory->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)&args, allObjectNodes, &aNode);
 			
-			// Memorized the result in a hash table
+			// Memorized the result in a hash table (the node is stored in order to sort the result)
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 				
 				allObjectNodes.current().get(0, (TTPtr*)&aNode);
 				aNode->getAddress(&name, mAddress);
 				
-				mResult->append(name, kTTValNONE);
+				mResult->append(name, TTValue((TTPtr)aNode));
 			}
 		}
 		
@@ -470,7 +470,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 				// Filter attribute names
 				if (attributeName != kTTSym_value && 
 					attributeName != kTTSym_address && 
-					attributeName != TT("content") &&
+					// attributeName != TT("content") &&
 					attributeName != kTTSym_bypass &&
 					attributeName != kTTSym_activityIn &&
 					attributeName != kTTSym_activityOut) {
@@ -510,6 +510,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 
 TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 {
+	TTValue			keys = kTTValNONE;
 	TTValue			v = kTTValNONE;
 	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
@@ -533,14 +534,14 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	// get children names
 	if (anExplorer->mOutput == kTTSym_children) {
 		if (aNode->getParent() == anExplorer->mTempNode)
-			v.append(aNode->getName());
+			keys.append(aNode->getName());
 	}
 	
 	// get instances names
 	else if (anExplorer->mOutput == kTTSym_instances) {
 		 // TODO : if the TempNode is destroyed then rebuilt, the test below fails => observe his destruction and replace mTempNode
 		if ((aNode->getParent() == anExplorer->mTempNode) && (aNode->getName() == anExplorer->mTempName))
-			v.append(aNode->getInstance());
+			keys.append(aNode->getInstance());
 	}
 	
 	// get attributes names
@@ -551,7 +552,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			anExplorer->mResult->clear();
 			
 			if (o = aNode->getObject())
-				o->getAttributeNames(v);
+				o->getAttributeNames(keys);
 		}
 	}
 	
@@ -562,17 +563,18 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 		args.append((TTPtr)anExplorer->mCriteriaList);
 			
 		if (testNodeUsingCriteria(aNode, (TTPtr)&args)) { 
-				aNode->getAddress(&relativeAddress, anExplorer->mAddress);
-				v.append(relativeAddress);
+			aNode->getAddress(&relativeAddress, anExplorer->mAddress);
+			keys.append(relativeAddress);
+			v.append(TTPtr(aNode));
 		}
 		// sometimes the object can be destroyed before his address
 		else if (flag == kAddressDestroyed) {
 			aNode->getAddress(&relativeAddress, anExplorer->mAddress);
-			v.append(relativeAddress);
+			keys.append(relativeAddress);
 		}
 	}
 	
-	if (v == kTTValNONE)
+	if (keys == kTTValNONE)
 		return kTTErrGeneric;
 	
 	// Add or remove names depending on 
@@ -581,17 +583,17 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			for (TTUInt32 i=0; i<v.getSize(); i++) {
-				v.get(i, &key);
-				anExplorer->mResult->append(key, kTTValNONE);
+			for (TTUInt32 i=0; i<keys.getSize(); i++) {
+				keys.get(i, &key);
+				anExplorer->mResult->append(key, v);
 			}
 			break;
 		}
 			
 		case kAddressDestroyed :
 		{
-			for (TTUInt32 i=0; i<v.getSize(); i++) {
-				v.get(i, &key);
+			for (TTUInt32 i=0; i<keys.getSize(); i++) {
+				keys.get(i, &key);
 				anExplorer->mResult->remove(key);
 			}
 			break;
@@ -603,10 +605,10 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// Return the value result back
 	if (anExplorer->mReturnValueCallback) {
-		anExplorer->mResult->getKeysSorted(v);
-		if (!(v == anExplorer->mLastResult)) {
-			anExplorer->mReturnValueCallback->notify(v);
-			anExplorer->mLastResult = v;
+		anExplorer->mResult->getKeysSorted(keys);
+		if (!(keys == anExplorer->mLastResult)) {
+			anExplorer->mReturnValueCallback->notify(keys);
+			anExplorer->mLastResult = keys;
 		}
 	}
 	
