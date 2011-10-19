@@ -36,6 +36,8 @@ mObserver(NULL)
 	addAttribute(Type, kTypeSymbol);
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
+	/* to - is the content usefull considering Explorer feature ?
+	 
 	registerAttribute(TT("content"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContent, NULL);
 	addAttributeProperty(content, readOnly, YES);
 	
@@ -47,6 +49,7 @@ mObserver(NULL)
 	
 	registerAttribute(TT("contentReturns"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentReturns, NULL);
 	addAttributeProperty(contentReturns, readOnly, YES);
+	 */
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(initialized, readOnly, YES);
@@ -332,6 +335,8 @@ TTErr TTContainer::setPriority(const TTValue& value)
 	return kTTErrNone;
 }
 
+/* to - is the content usefull considering Explorer feature ?
+ 
 TTErr TTContainer::getContent(TTValue& value)
 {
 	// get keys in priority order
@@ -418,6 +423,7 @@ TTErr TTContainer::getContentReturns(TTValue& value)
 	
 	return kTTErrNone;
 }
+*/
 
 TTErr TTContainer::bind()
 {

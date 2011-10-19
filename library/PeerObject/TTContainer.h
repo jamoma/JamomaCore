@@ -62,17 +62,15 @@ private:
 	/**	Setter for mPriority attribute. */
 	TTErr setPriority(const TTValue& value);
 	
-	/** */
+	/* to - is the content usefull considering Explorer feature ?
 	TTErr getContent(TTValue& value);
 	
-	/** */
 	TTErr getContentParameters(TTValue& value);
 	
-	/** */
 	TTErr getContentMessages(TTValue& value);
-	
-	/** */
+
 	TTErr getContentReturns(TTValue& value);
+	*/
 	
 	/** */
 	TTErr bind();
