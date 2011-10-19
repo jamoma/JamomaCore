@@ -339,13 +339,11 @@ void meter_perform64(t_meter *x, t_object *dsp64, double **ins, long numins, dou
 	int n = sampleframes;
 	double currentvalue;
 	
-	if (!x->obj.z_disabled){
-		while (n--) {
-			currentvalue = ((*in) < 0)?-(*in):*in; // get the current sample's absolute value
-			if (currentvalue > x->newEnvelope) 				// if it's a new peak amplitude...
-				x->newEnvelope = currentvalue;
-			in++; 										// increment pointer in the vector
-		}
+	while (n--) {
+		currentvalue = ((*in) < 0)?-(*in):*in; // get the current sample's absolute value
+		if (currentvalue > x->newEnvelope) 				// if it's a new peak amplitude...
+			x->newEnvelope = currentvalue;
+		in++; 										// increment pointer in the vector
 	}
 }
 
