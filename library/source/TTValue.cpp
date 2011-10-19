@@ -298,7 +298,7 @@ void TTValue::copyRange(const TTValue& obj, TTUInt16 startIndex, TTUInt16 endInd
 
 void TTValue::copyFrom(const TTValue& obj, TTUInt16 index)
 {
-	copyRange(obj, index, obj.getSize() - 1);
+	copyRange(obj, index, obj.getSize());
 }
 
 
