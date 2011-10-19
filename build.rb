@@ -26,6 +26,7 @@ Dir.chdir "#{glibdir}"
 
 if  win32?
 else
+  `rm -r "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max5/Cycling '74/init/JamomaConfiguration.xml"`
 end
