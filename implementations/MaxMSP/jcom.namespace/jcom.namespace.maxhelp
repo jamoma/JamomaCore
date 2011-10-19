@@ -30,9 +30,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 538.0, 44.0, 656.0, 483.0 ],
+						"rect" : [ 539.0, 44.0, 664.0, 733.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 538.0, 44.0, 656.0, 483.0 ],
+						"defrect" : [ 539.0, 44.0, 664.0, 733.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -52,12 +52,172 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"id" : "obj-18",
+									"id" : "obj-34",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 27.0, 450.0, 546.0, 20.0 ],
-									"text" : "some ready made criterias exists : jcom.parmeter, jcom.message, jcom.return, jcom.hub, jcom.view"
+									"patching_rect" : [ 435.0, 153.0, 141.0, 34.0 ],
+									"text" : "change the mode of the myCriteriaName filter"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-33",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 72.0, 603.0, 243.0, 18.0 ],
+									"text" : "criteria/add myCriteriaName mode inclusion"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-32",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 69.0, 169.0, 243.0, 18.0 ],
+									"text" : "criteria/add myCriteriaName mode inclusion"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-31",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 357.0, 586.0, 141.0, 34.0 ],
+									"text" : "change the mode of the myCriteriaName filter"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-30",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 357.0, 537.0, 268.0, 34.0 ],
+									"text" : "look for addresses with a name part beginning by \"deg\" and with an instance beginning by \"2\""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-29",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 22.0, 448.0, 255.0, 18.0 ],
+									"text" : "criteria/add jcom.hub mode exclusion, explore"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-24",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 38.0, 385.0, 439.0, 20.0 ],
+									"text" : "Viewer : any jcom.view."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-23",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 38.0, 366.0, 439.0, 20.0 ],
+									"text" : "Container : any jcom.hub."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-20",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 38.0, 333.0, 439.0, 34.0 ],
+									"text" : "Data : any jcom.parameter|message|returns. Actually a jcom.parameter is a Data with his service attribute equals to parameter."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-19",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 23.0, 295.0, 283.0, 34.0 ],
+									"text" : "note : the \"object\" field only understands some low level words which are not very user friendly :"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-15",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 435.0, 125.0, 223.0, 20.0 ],
+									"text" : "look for Data object with a \"generic\" tag."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-18",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 22.0, 412.0, 546.0, 34.0 ],
+									"text" : "For this reason some ready made criterias exists : jcom.parameter, jcom.message, jcom.return, jcom.hub, jcom.view. It is possible to modify their mode like this :"
 								}
 
 							}
@@ -67,11 +227,12 @@
 									"fontsize" : 12.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-16",
+									"linecount" : 4,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 2.0, 2.0, 160.0, 20.0 ],
-									"text" : "TODO : a better explanation"
+									"patching_rect" : [ 2.0, 2.0, 656.0, 62.0 ],
+									"text" : "The jcom.namespace exploration can filter out the result it returns. The filtering use two kinds of criterias based on object or based on address. A criteria on object compares object type and/or attributes value. A criteria on address only compares the name or the instance of an address using a regular expression. It is possible to used a combinaition of many criterias in order to filter out the namespace precisely."
 								}
 
 							}
@@ -84,8 +245,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 88.0, 81.0, 452.0, 18.0 ],
-									"text" : "criteria/add myCriteriaName object Data attribute tag value generic mode exclusion"
+									"patching_rect" : [ 69.0, 148.0, 247.0, 18.0 ],
+									"text" : "criteria/add myCriteriaName mode exclusion"
 								}
 
 							}
@@ -98,7 +259,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 235.0, 162.0, 224.0, 18.0 ],
+									"patching_rect" : [ 216.0, 265.0, 302.0, 18.0 ],
 									"text" : "criteria/remove myCriteriaName"
 								}
 
@@ -113,7 +274,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "int", "", "" ],
-									"patching_rect" : [ 35.0, 162.0, 198.0, 20.0 ],
+									"patching_rect" : [ 16.0, 265.0, 198.0, 20.0 ],
 									"prefix" : "Mac:/",
 									"types" : [  ]
 								}
@@ -128,7 +289,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 35.0, 132.0, 292.0, 20.0 ],
+									"patching_rect" : [ 16.0, 235.0, 292.0, 20.0 ],
 									"text" : "jcom.namespace @address / @format umenu_prefix"
 								}
 
@@ -142,7 +303,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 35.0, 102.0, 50.0, 18.0 ],
+									"patching_rect" : [ 16.0, 127.0, 50.0, 18.0 ],
 									"text" : "explore"
 								}
 
@@ -156,7 +317,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 88.0, 60.0, 365.0, 18.0 ],
+									"patching_rect" : [ 69.0, 127.0, 365.0, 18.0 ],
 									"text" : "criteria/add myCriteriaName object Data attribute tag value generic"
 								}
 
@@ -170,7 +331,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 272.0, 102.0, 180.0, 18.0 ],
+									"patching_rect" : [ 253.0, 205.0, 180.0, 18.0 ],
 									"text" : "criteria/remove myCriteriaName"
 								}
 
@@ -184,36 +345,40 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 454.0, 102.0, 53.0, 18.0 ],
+									"patching_rect" : [ 435.0, 205.0, 53.0, 18.0 ],
 									"text" : "criterias"
 								}
 
 							}
 , 							{
 								"box" : 								{
+									"fontface" : 1,
 									"fontname" : "Arial",
-									"fontsize" : 12.0,
+									"fontsize" : 14.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-3",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 89.0, 34.0, 528.0, 20.0 ],
-									"text" : "Criteria on object : < criteriaName (object x) (attribute y) (value a b c) (mode inclusion|exclusion) >"
+									"patching_rect" : [ 15.0, 79.0, 538.0, 39.0 ],
+									"text" : "Criteria on object : \n< criteriaName (object x) (attribute y) (value a b c) (mode inclusion|exclusion) >"
 								}
 
 							}
 , 							{
 								"box" : 								{
+									"fontface" : 1,
 									"fontname" : "Arial",
-									"fontsize" : 12.0,
+									"fontsize" : 14.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-2",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 90.0, 242.0, 472.0, 20.0 ],
-									"text" : "Criteria on address : < criteriaName (name x) (instance y) (mode inclusion|exclusion) >"
+									"patching_rect" : [ 18.0, 494.0, 535.0, 39.0 ],
+									"text" : "Criteria on address : \n< criteriaName (name x) (instance y) (mode inclusion|exclusion) >"
 								}
 
 							}
@@ -226,8 +391,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 88.0, 285.0, 370.0, 18.0 ],
-									"text" : "criteria/add myCriteriaName name deg instance \"2\" mode exclusion"
+									"patching_rect" : [ 72.0, 582.0, 247.0, 18.0 ],
+									"text" : "criteria/add myCriteriaName mode exclusion"
 								}
 
 							}
@@ -236,13 +401,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-28",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 235.0, 366.0, 224.0, 32.0 ],
-									"text" : "criteria/add jcom.parameter mode exclusion"
+									"patching_rect" : [ 219.0, 701.0, 301.0, 18.0 ],
+									"text" : "criteria/remove myCriteriaName"
 								}
 
 							}
@@ -256,7 +420,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "int", "", "" ],
-									"patching_rect" : [ 35.0, 366.0, 198.0, 20.0 ],
+									"patching_rect" : [ 19.0, 701.0, 198.0, 20.0 ],
 									"prefix" : "Mac:/",
 									"types" : [  ]
 								}
@@ -271,7 +435,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 35.0, 336.0, 292.0, 20.0 ],
+									"patching_rect" : [ 19.0, 671.0, 292.0, 20.0 ],
 									"text" : "jcom.namespace @address / @format umenu_prefix"
 								}
 
@@ -285,7 +449,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 35.0, 306.0, 50.0, 18.0 ],
+									"patching_rect" : [ 19.0, 542.0, 50.0, 18.0 ],
 									"text" : "explore"
 								}
 
@@ -299,7 +463,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 88.0, 264.0, 283.0, 18.0 ],
+									"patching_rect" : [ 72.0, 542.0, 283.0, 18.0 ],
 									"text" : "criteria/add myCriteriaName name deg instance \"2\""
 								}
 
@@ -313,7 +477,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 272.0, 306.0, 180.0, 18.0 ],
+									"patching_rect" : [ 256.0, 641.0, 180.0, 18.0 ],
 									"text" : "criteria/remove myCriteriaName"
 								}
 
@@ -327,7 +491,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 454.0, 306.0, 53.0, 18.0 ],
+									"patching_rect" : [ 438.0, 641.0, 53.0, 18.0 ],
 									"text" : "criterias"
 								}
 
@@ -337,7 +501,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-8", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 317.5, 157.5, 449.5, 157.5 ],
+									"midpoints" : [ 298.5, 260.5, 508.5, 260.5 ],
 									"source" : [ "obj-10", 2 ]
 								}
 
@@ -355,7 +519,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 44.5, 125.5, 44.5, 125.5 ],
+									"midpoints" : [ 25.5, 192.5, 25.5, 192.5 ],
 									"source" : [ "obj-11", 0 ]
 								}
 
@@ -364,7 +528,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 97.5, 125.5, 44.5, 125.5 ],
+									"midpoints" : [ 78.5, 192.5, 25.5, 192.5 ],
 									"source" : [ "obj-12", 0 ]
 								}
 
@@ -373,7 +537,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 281.5, 125.5, 44.5, 125.5 ],
+									"midpoints" : [ 262.5, 228.5, 25.5, 228.5 ],
 									"source" : [ "obj-13", 0 ]
 								}
 
@@ -382,7 +546,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 463.5, 125.5, 44.5, 125.5 ],
+									"midpoints" : [ 444.5, 228.5, 25.5, 228.5 ],
 									"source" : [ "obj-14", 0 ]
 								}
 
@@ -391,7 +555,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 97.5, 329.0, 44.5, 329.0 ],
+									"midpoints" : [ 81.5, 630.0, 28.5, 630.0 ],
 									"source" : [ "obj-21", 0 ]
 								}
 
@@ -400,7 +564,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 97.5, 329.5, 44.5, 329.5 ],
+									"midpoints" : [ 81.5, 630.5, 28.5, 630.5 ],
 									"source" : [ "obj-22", 0 ]
 								}
 
@@ -409,7 +573,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 281.5, 329.5, 44.5, 329.5 ],
+									"midpoints" : [ 265.5, 664.5, 28.5, 664.5 ],
 									"source" : [ "obj-25", 0 ]
 								}
 
@@ -418,7 +582,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 463.5, 329.5, 44.5, 329.5 ],
+									"midpoints" : [ 447.5, 664.5, 28.5, 664.5 ],
 									"source" : [ "obj-26", 0 ]
 								}
 
@@ -427,7 +591,34 @@
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 97.5, 125.0, 44.5, 125.0 ],
+									"midpoints" : [ 31.5, 469.0, 11.0, 469.0, 11.0, 228.0, 25.5, 228.0 ],
+									"source" : [ "obj-29", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-10", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 78.5, 192.5, 25.5, 192.5 ],
+									"source" : [ "obj-32", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 81.5, 630.5, 28.5, 630.5 ],
+									"source" : [ "obj-33", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-10", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 78.5, 192.0, 25.5, 192.0 ],
 									"source" : [ "obj-4", 0 ]
 								}
 
@@ -436,7 +627,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-28", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 317.5, 361.5, 449.5, 361.5 ],
+									"midpoints" : [ 301.5, 696.5, 510.5, 696.5 ],
 									"source" : [ "obj-5", 2 ]
 								}
 
@@ -454,7 +645,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 44.5, 329.5, 44.5, 329.5 ],
+									"midpoints" : [ 28.5, 607.5, 28.5, 607.5 ],
 									"source" : [ "obj-7", 0 ]
 								}
 
@@ -464,13 +655,13 @@
 ,
 					"patching_rect" : [ 404.0, 99.0, 130.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p about_criterias",
@@ -689,13 +880,13 @@
 ,
 					"patching_rect" : [ 835.0, 354.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -941,13 +1132,13 @@
 ,
 					"patching_rect" : [ 87.0, 271.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1420,13 +1611,14 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 762.0, 158.0, 101.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 358.0, 180.0, 101.0, 20.0 ],
+					"presentation_rect" : [ 361.0, 180.0, 101.0, 20.0 ],
 					"text" : "return to the root"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.913725, 0.913725, 0.913725, 0.0 ],
 					"id" : "obj-45",
 					"maxclass" : "button",
 					"numinlets" : 1,
@@ -1488,7 +1680,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-13",
-					"items" : "_",
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1579,8 +1771,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 438.0, 690.0, 152.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 195.0, 405.0, 419.0, 20.0 ],
-					"text" : "bang"
+					"presentation_rect" : [ 195.0, 405.0, 419.0, 20.0 ]
 				}
 
 			}
@@ -1596,7 +1787,7 @@
 					"patching_rect" : [ 149.0, 690.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/degrade.1/bitdepth:value/default"
+					"text" : "/degrade~(view).1/ui:"
 				}
 
 			}
@@ -1663,11 +1854,12 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-27",
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 306.0, 498.0, 328.0, 20.0 ],
+					"patching_rect" : [ 306.0, 498.0, 132.0, 48.0 ],
 					"text" : "jcom.namespace @output attributes @format umenu_prefix"
 				}
 
@@ -1680,13 +1872,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : [ "bypass", ",", "dataspace", ",", "dataspace/unit", ",", "description", ",", "priority", ",", "ramp/drive", ",", "ramp/function", ",", "range/bounds", ",", "range/clipmode", ",", "repetitions/allow", ",", "service", ",", "tag", ",", "type", ",", "value", ",", "value/default", ",", "value/stepsize" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/degrade.1/bitdepth:",
+					"prefix" : "/degrade~(view).1/ui:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1701,7 +1893,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-20",
-					"items" : [ "in/amplitude.1", ",", "in/amplitude.2", ",", "model/address", ",", "model/class", ",", "out/amplitude.1", ",", "out/amplitude.2", ",", "preset/names" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1722,13 +1914,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : [ "model/documentation/generate", ",", "model/help", ",", "model/internals", ",", "model/reference", ",", "preset/read", ",", "preset/read/again", ",", "preset/recall", ",", "preset/recall/current", ",", "preset/recall/next", ",", "preset/recall/previous", ",", "preset/remove", ",", "preset/remove/current", ",", "preset/remove/next", ",", "preset/remove/previous", ",", "preset/store", ",", "preset/store/current", ",", "preset/store/next", ",", "preset/store/previous", ",", "preset/write", ",", "preset/write/again" ],
+					"items" : "refresh",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 246.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade.1/",
+					"prefix" : "/degrade~(view).1/ui/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 270.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1743,13 +1935,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : [ "bitdepth", ",", "in/bypass", ",", "in/mute", ",", "model/mute", ",", "out/gain", ",", "out/mix", ",", "out/mute", ",", "samplerateRatio" ],
+					"items" : [ "color/border", ",", "color/contentBackground", ",", "color/toolbarBackground", ",", "color/toolbarText", ",", "freeze", ",", "size" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 87.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade.1/",
+					"prefix" : "/degrade~(view).1/ui/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 240.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1767,7 +1959,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 396.0, 342.0, 132.0, 48.0 ],
+					"patching_rect" : [ 396.0, 342.0, 134.0, 48.0 ],
 					"text" : "jcom.namespace @format umenu_prefix @criterias jcom.return"
 				}
 
