@@ -104,12 +104,19 @@ TTErr TTDataObject::calculate(const TTMatrixArray* inputs, TTMatrixArray* output
 	TTErr	err = kTTErrGeneric;
 	
 	if (valid) {
-		lock();
-		mStartProcessingTime = TTGetTimeInMicroseconds();
-		err = (this->*mCurrentMatrixCalculateMethod)(inputs, outputs);
-		mAccumulatedProcessingTime += (TTGetTimeInMicroseconds() - mStartProcessingTime);
-		mAccumulatedProcessingCalls++;
-		unlock();
+		if (!ttEnvironment->mBenchmarking){
+			lock();
+			err = (this->*mCurrentMatrixCalculateMethod)(inputs, outputs);
+			unlock();
+		}else {
+			lock();
+			mStartProcessingTime = TTGetTimeInMicroseconds();
+			err = (this->*mCurrentMatrixCalculateMethod)(inputs, outputs);
+			mAccumulatedProcessingTime += (TTGetTimeInMicroseconds() - mStartProcessingTime);
+			mAccumulatedProcessingCalls++;
+			unlock();
+		}
+
 	}
 	return err;
 }
@@ -125,11 +132,15 @@ TTErr TTDataObject::calculate(const TTMatrix& x, TTMatrix& y)
 		mInputArray->setMatrix(0, (TTMatrix&)x);
 		mOutputArray->setMatrixCount(1);
 		mOutputArray->setMatrix(0, y);
-		mStartProcessingTime = TTGetTimeInMicroseconds();
-		err = (this->*mCurrentMatrixCalculateMethod)(mInputArray, mOutputArray);
-		mAccumulatedProcessingTime += (TTGetTimeInMicroseconds() - mStartProcessingTime);
-		mAccumulatedProcessingCalls++;
-		unlock();
+		if (!ttEnvironment->mBenchmarking)
+			err = (this->*mCurrentMatrixCalculateMethod)(mInputArray, mOutputArray);
+		else{
+			mStartProcessingTime = TTGetTimeInMicroseconds();
+			err = (this->*mCurrentMatrixCalculateMethod)(mInputArray, mOutputArray);
+			mAccumulatedProcessingTime += (TTGetTimeInMicroseconds() - mStartProcessingTime);
+			mAccumulatedProcessingCalls++;
+			unlock();
+		}
 	}
 	return err;
 }

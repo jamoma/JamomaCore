@@ -20,7 +20,7 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObject(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0)
+	: TTObject(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0), mBenchmarking(false)
 {
 	classes = new TTHash();
 	tags = new TTHash();
@@ -28,7 +28,8 @@ TTEnvironment::TTEnvironment()
 	addAttribute(DebugBasic,		kTypeBoolean);
 	addAttribute(DebugMessaging,	kTypeBoolean);
 	addAttribute(SampleRate,		kTypeUInt32);
-
+	addAttribute(Benchmarking,		kTypeBoolean);
+	
 	addMessageWithArgument(getVersion);
 	addMessageWithArgument(getAllClassNames);
 	addMessageWithArgument(getClassNamesForTags);

@@ -38,6 +38,7 @@ private:
 public:
 	TTBoolean	mDebugBasic;		///< Attribute: basic debug functionality is enabled when true.
 	TTBoolean	mDebugMessaging;	///< Attribute: should all message traffic be logged?
+	TTBoolean	mBenchmarking;		///< Attribute: enable benchmarking in TTAudioObject and TTDataObject ?
 	TTUInt32	mSampleRate;		///< Current sample rate as understood by the environment as a whole.
 
 	
