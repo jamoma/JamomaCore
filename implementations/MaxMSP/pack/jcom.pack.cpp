@@ -165,11 +165,9 @@ t_int*PackPerform(t_int* w)
 
 
 void PackPerform64(PackPtr self, ObjectPtr dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
-{
-	if (!self->obj.z_disabled) {
-		for (TTUInt32 i=0; i < self->numChannels; i++)
-			TTAudioGraphGeneratorPtr(self->audioGraphObject->getUnitGenerator())->mBuffer->setVector64Copy(i, self->vectorSize, ins[i]);
-	}
+{	
+	for (TTUInt32 i=0; i < self->numChannels; i++)
+		TTAudioGraphGeneratorPtr(self->audioGraphObject->getUnitGenerator())->mBuffer->setVector64Copy(i, self->vectorSize, ins[i]);
 }
 
 
