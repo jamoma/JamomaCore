@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -wKU
+# encoding: utf-8
 
 glibdir = "."
 Dir.chdir glibdir
@@ -25,6 +26,7 @@ Dir.chdir "#{glibdir}"
 
 if  win32?
 else
+  `rm -r "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "./library/DeviceManagerLib/plugins/OSC.dylib" "/Applications/Max5/support/OSC.dylib"`
 	`cp -r "./library/DeviceManagerLib/plugins/Minuit.dylib" "/Applications/Max5/support/Minuit.dylib"`
