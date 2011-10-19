@@ -36,7 +36,7 @@
 					"outlettype" : [ "bang", "bang", "", "int" ],
 					"patching_rect" : [ 397.0, 343.0, 186.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 97.0, 2.0, 70.0, 17.0 ]
+					"presentation_rect" : [ 97.0, 2.0, 56.0, 17.0 ]
 				}
 
 			}
@@ -55,7 +55,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 421.0, 380.0, 77.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 97.0, 2.0, 70.0, 17.0 ],
+					"presentation_rect" : [ 97.0, 2.0, 55.0, 17.0 ],
 					"range" : [ 0.0, 100.0 ],
 					"showvalue" : 0,
 					"text" : "",
@@ -382,10 +382,10 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 307.0, 380.0, 77.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 97.0, 2.0, 70.0, 17.0 ],
+					"presentation_rect" : [ 97.0, 2.0, 57.0, 17.0 ],
 					"range" : [ 0.0, 100.0 ],
 					"showvalue" : 0,
-					"text" : "CPU: 0.00%",
+					"text" : "CPU: 6.00%",
 					"textpos" : [ 4.0, 2.0 ]
 				}
 
@@ -517,7 +517,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 555.0, 478.0, 60.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 205.0, 2.0, 60.0, 16.0 ],
+					"presentation_rect" : [ 189.0, 2.0, 60.0, 16.0 ],
 					"rounded" : 8.0,
 					"text" : "Audio Off",
 					"texton" : "Audio On",
@@ -538,7 +538,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 555.0, 413.0, 35.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 168.0, 2.0, 35.0, 16.0 ],
+					"presentation_rect" : [ 154.0, 2.0, 35.0, 16.0 ],
 					"prototypename" : "jamoma open",
 					"rounded" : 8.0,
 					"text" : "DSP",
@@ -2442,7 +2442,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 14.0, 510.0, 73.0, 19.0 ],
-									"save" : [ "#N", "thispatcher", ";", "#Q", "window", "flags", "grow", "close", "nozoom", "nofloat", "menu", "minimize", ";", "#Q", "window", "constrain", 50, 50, 32768, 32768, ";", "#Q", "window", "size", 100, 100, 238, 681, ";", "#Q", "window", "title", ";", "#Q", "window", "exec", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
+									"save" : [ "#N", "thispatcher", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
 									"text" : "thispatcher"
 								}
 
@@ -3957,6 +3957,7 @@
 			}
 , 			{
 				"box" : 				{
+					"has_gain" : 1,
 					"has_mute" : 1,
 					"has_panel" : 1,
 					"id" : "obj-36",
@@ -4422,15 +4423,15 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.dataspace.mxo",
-				"type" : "iLaX"
-			}
-, 			{
 				"name" : "jcom.stats.mxo",
 				"type" : "iLaX"
 			}
 , 			{
 				"name" : "jcom.limiter≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.gain≈.mxo",
 				"type" : "iLaX"
 			}
 , 			{
