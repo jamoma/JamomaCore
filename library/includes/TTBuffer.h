@@ -40,11 +40,20 @@ public:
 	/**	Attribute accessor: set the buffer length specified as a number of samples.
 		@return Returns a TTErr error code.	*/
 	TTErr setLengthInSamples(const TTValue& newLengthInSamples);
- 	TTErr getLengthInSamples(TTValue& returnedLengthInSamples);
-         
+ 	TTErr getLengthInSamples(TTValue& returnedLengthInSamples);	
+  	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)
+	{
+		returnedLengthInSamples = mDimensions[1];
+		return kTTErrNone;
+	}
 
 	// METHOD: SET_BUFFER
 	//	void set_buffer(tt_buffer *newbuffer);
+	TTErr getContents(TTSampleValuePtr& beggining)
+	{
+		beggining = (TTSampleValuePtr)mData;
+		return kTTErrNone;
+	}
 
 	TTErr	getValueAtIndex(TTValue& index);
 	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value);
