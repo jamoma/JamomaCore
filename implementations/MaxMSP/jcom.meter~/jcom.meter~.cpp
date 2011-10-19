@@ -335,7 +335,7 @@ out:
 
 void meter_perform64(t_meter *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-	t_double *in = ins[0];		// we get audio for each inlet of the object from the **ins argument
+	TTFloat64 *in = ins[0];		// we get audio for each inlet of the object from the **ins argument
 	int n = sampleframes;
 	double currentvalue;
 	
