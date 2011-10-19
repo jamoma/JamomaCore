@@ -60,6 +60,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 #ifdef JCOM_OUT_TILDE
 	class_addmethod(c, (method)out_getAudioForChannel,	"getAudioForChannel",	A_CANT, 0);
 	class_addmethod(c, (method)out_dsp,					"dsp", 					A_CANT, 0L);
+	class_addmethod(c, (method)out_dsp64,				"dsp64",				A_CANT, 0);		
 #else
 	class_addmethod(c, (method)out_anything,			"anything",				A_GIMME, 0L);
 	class_addmethod(c, (method)out_sendbypassedvalue,	"sendbypassedvalue",	A_CANT, 0L);
@@ -501,6 +502,114 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
 	}
 }
+
+void out_perform64(t_out *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short		i; 
+	TTUInt16	n;
+	TTFloat32			currentvalue = 0;
+	TTFloat32			peakvalue = 0;	// values for calculating metering
+	
+	// Store the input from the inlets
+	for (i=0; i < x->numChannels; i++)
+		x->audioIn->setVector(i, x->vectorSize, ins[i]);
+	// if this doesn't work, I need to try setVector64Copy instead of setVector
+	
+	
+	if (x->attr_bypass)
+		TTAudioSignal::copy(*x->in_object->audioOut, *x->audioOut);//TODO: ideally just passing the pointer without copying memory 
+	else if (x->attr_mute)
+		//TTAudioSignal::copy(*x->zeroSignal, *x->audioOut); // we rather do a memset 0 here
+		x->audioOut->clear();  
+	else { 
+		if (x->in_object && x->in_object->numChannels)
+			x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);	// perform bypass/mix control
+		else
+			TTAudioSignal::copy(*x->audioIn, *x->audioTemp);
+		
+		x->gain->process(x->audioTemp, x->audioOut);								// perform gain control
+	}
+	
+	// Send the input on to the outlets for the algorithm
+	for (i=0; i < x->numChannels; i++){	
+		x->audioOut->getVectorCopy(i, x->vectorSize, outs[i]);
+	
+		
+		if (x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute) {
+			TTSampleValue* envelope = outs[i];
+			peakvalue = 0.0;
+			
+			n = x->vectorSize;
+			while (n--) {
+				if ((*envelope) < 0 )						// get the current sample's absolute value
+					currentvalue = -(*envelope);
+				else
+					currentvalue = *envelope;
+				
+				if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
+					peakvalue = currentvalue;
+				envelope++; 										// increment pointer in the vector
+			}
+			//			if (peakvalue != x->peakamp[i]) {					// filter out repetitions
+			if (peakvalue > x->peakamp[i])
+				x->peakamp[i] = peakvalue;
+			//				if (x->clock_is_set == 0) {
+			//					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
+			//					x->clock_is_set = 1;
+			//				}
+			//			}
+		}
+	}
+}
+
+// DSP64 method
+void out_dsp64(t_out *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	short		i, j; 
+	TTUInt8		numChannels = 0;
+	
+	x->ramp_gain->setAttributeValue(TT("sampleRate"), samplerate);	// convert midi to db for tap_gain
+	x->ramp_xfade->setAttributeValue(TT("sampleRate"), samplerate);	// convert midi to db for tap_gain
+	
+	for (i=0; i < x->numOutputs; i++) {
+		j = x->numOutputs + i;
+		if (count[i] || count[j]) {
+			numChannels++;			
+		}
+	}
+	x->numChannels = numChannels;
+	x->vectorSize = maxvectorsize;
+	
+	x->numChannels = numChannels;
+	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioTemp->setAttributeValue(TT("numChannels"), numChannels);
+	//x->zeroSignal->setAttributeValue(TT("numChannels"), numChannels);
+	
+	x->vectorSize = maxvectorsize;
+	x->audioIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	x->audioOut->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	x->audioTemp->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	//x->zeroSignal->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);//Do we need zeroSignal?
+	
+	//audioIn will be set in the perform method
+	x->audioOut->sendMessage(TT("alloc"));
+	x->audioTemp->sendMessage(TT("alloc"));
+	//x->zeroSignal->sendMessage(TT("alloc"));
+	//x->zeroSignal->sendMessage(TT("clear"));
+	//audioIn will be set in the perform method
+	x->audioOut->sendMessage(TT("alloc"));
+	
+	object_method(dsp64, gensym("dsp_add64"), x, out_perform64, 0, NULL); 
+	
+	// start the meters
+	if (x->num_meter_objects) {
+		for (i=0; i<MAX_NUM_CHANNELS; i++)
+			x->peakamp[i] = 0;
+		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
+	}
+}
+
 
 
 void out_alloc(t_out *x, int vector_size)

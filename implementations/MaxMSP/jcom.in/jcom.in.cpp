@@ -54,6 +54,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)in_unlink,				"unlink_out",			0L);
 #ifdef JCOM_IN_TILDE
 	class_addmethod(c, (method)in_dsp,					"dsp", 					A_GIMME, 0L);
+	class_addmethod(c, (method)in_dsp64,				"dsp64",				A_CANT, 0);		
 	class_addmethod(c, (method)in_remoteaudio,			"remoteaudio",			A_CANT, 0);
 #else
 	class_addmethod(c, (method)in_bang,					"bang", 				0L);
@@ -483,6 +484,47 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 	sysmem_freeptr(audioVectors);
 }
 
+void in_perform64(t_in *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short		i; 
+	
+	// Store the input from the inlets
+	for (i=0; i < x->numChannels; i++)
+		x->audioIn->setVector(i, x->vectorSize, ins[i]);
+	// if this doesn't work, I need to try setVector64Copy instead of setVector
+	
+	// TODO: need to mix in input here from jcom.send~ objects (as in the old code above)
+	TTAudioSignal::copy(*x->audioIn, *x->audioOut);
+	
+	// Send the input on to the outlets for the algorithm
+	for (short i=0; i < x->numChannels; i++)	
+		x->audioOut->getVector(i, x->vectorSize, outs[i]);
+}
+
+// DSP64 method
+void in_dsp64(t_in *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	short		i, j; 
+	TTUInt8		numChannels = 0;
+		
+	for (i=0; i < x->numInputs; i++) {
+		j = x->numInputs + i;
+		if (count[i] || count[j]) {
+			numChannels++;			
+		}
+	}
+	x->numChannels = numChannels;
+	x->vectorSize = maxvectorsize;
+	
+	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	x->audioOut->setAttributeValue(TT("vectorSize"),(TTUInt16)maxvectorsize);
+	//audioIn will be set in the perform method
+	x->audioOut->sendMessage(TT("alloc"));
+	
+	object_method(dsp64, gensym("dsp_add64"), x, in_perform64, 0, NULL); 
+}
 
 void in_alloc(t_in *x, int vector_size)
 {

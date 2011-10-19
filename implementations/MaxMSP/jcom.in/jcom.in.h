@@ -41,8 +41,9 @@ void in_free(t_in *x);
 /** Unsubscribe from jcom.hub */
 void in_release(t_in *x);
 
-/** jcom.in~ DSP method */
+/** jcom.in~ DSP methods */
 void in_dsp(t_in *x, t_signal **sp, short *count);
+void in_dsp64(t_in *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
 
 void in_assist(t_in *x, void *b, long m, long a, char *s);			// Assistance Method
 

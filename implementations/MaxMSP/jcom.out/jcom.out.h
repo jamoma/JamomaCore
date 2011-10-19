@@ -36,6 +36,7 @@ void out_getAudioForChannel(t_out *x, int channel, float **vector);
 
 /** jcom.out~ DSP method */
 void out_dsp(t_out *x, t_signal **sp, short *count);
+void out_dsp64(t_out *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
 
 /** Max assistance method */
 void out_assist(t_out *x, void *b, long m, long a, char *s);
