@@ -199,7 +199,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
             void*							handle = NULL;
  
             aPath.getString(aPathString);
-            cout << "EXTENSION: " << aPathString << endl;
+//            cout << "EXTENSION: " << aPathString << endl;
 
 			// make sure the files have the correct extension before trying to load them
 			aPath.getExtension(extensionFileExtension);
@@ -217,7 +217,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #else
             handle = dlopen(aPathString.c_str(), RTLD_LAZY);
 #endif
-            cout << "HANDLE: " << handle << endl;
+//            cout << "HANDLE: " << handle << endl;
             if (!handle)
                 continue;
 

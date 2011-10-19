@@ -38,6 +38,7 @@ private:
 public:
 	TTBoolean	mDebugBasic;		///< Attribute: basic debug functionality is enabled when true.
 	TTBoolean	mDebugMessaging;	///< Attribute: should all message traffic be logged?
+	TTBoolean	mBenchmarking;		///< Attribute: enable benchmarking in TTAudioObject and TTDataObject ?
 	TTUInt32	mSampleRate;		///< Current sample rate as understood by the environment as a whole.
 
 	
@@ -105,6 +106,9 @@ public:
 		@param	tags		An array of tags by which to search the environment's registry.
 		@return				An error code.	*/
 	TTErr getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags);
+
+	/**	A message-bound version of getClassNamesWithTags()	*/
+	TTErr getClassNamesForTags(TTValue& searchTagsIn_classNamesOut);
 	
 	
 	/**	Create a new instance of a registered #TTObject class.

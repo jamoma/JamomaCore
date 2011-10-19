@@ -20,7 +20,7 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObject(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0)
+	: TTObject(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0), mBenchmarking(false)
 {
 	classes = new TTHash();
 	tags = new TTHash();
@@ -28,8 +28,11 @@ TTEnvironment::TTEnvironment()
 	addAttribute(DebugBasic,		kTypeBoolean);
 	addAttribute(DebugMessaging,	kTypeBoolean);
 	addAttribute(SampleRate,		kTypeUInt32);
-
+	addAttribute(Benchmarking,		kTypeBoolean);
+	
 	addMessageWithArgument(getVersion);
+	addMessageWithArgument(getAllClassNames);
+	addMessageWithArgument(getClassNamesForTags);
 
 	// can't use the SymbolCache here because it hasn't been initialized yet!
 	setAttributeValue(TT("sampleRate"), 44100);
@@ -48,7 +51,7 @@ TTEnvironment::~TTEnvironment()
 
 TTErr TTEnvironment::getVersion(TTValue &value)
 {
-	value = TTFOUNDATION_VERSION_STRING;
+	value = TT(TTFOUNDATION_VERSION_STRING);
 	return kTTErrNone;
 }
 
@@ -121,6 +124,18 @@ TTErr TTEnvironment::registerClass(TTClassPtr theClass)
 TTErr TTEnvironment::getAllClassNames(TTValue& returnedClassNames)
 {
 	return classes->getKeys(returnedClassNames);
+}
+
+
+TTErr TTEnvironment::getClassNamesForTags(TTValue& searchTagsIn_classNamesOut)
+{
+	TTValue v;
+	TTErr err;
+	
+	err = getClassNamesWithTags(v, searchTagsIn_classNamesOut);
+	if (!err)
+		searchTagsIn_classNamesOut = v;
+	return err;
 }
 
 
