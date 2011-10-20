@@ -498,7 +498,7 @@ void in_perform64(t_in *x, t_object *dsp64, double **ins, long numins, double **
 	
 	// Send the input on to the outlets for the algorithm
 	for (short i=0; i < x->numChannels; i++)	
-		x->audioOut->getVector(i, x->vectorSize, outs[i]);
+		x->audioOut->getVectorCopy(i, x->vectorSize, outs[i]);
 }
 
 // DSP64 method
