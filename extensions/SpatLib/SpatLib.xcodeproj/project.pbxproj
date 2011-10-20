@@ -8,35 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		226E9E6812F9ABAB00761A91 /* SpatLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226E9E6712F9ABAB00761A91 /* SpatLib.cpp */; };
-		226E9E6B12F9ABB400761A91 /* sources/SpatThru.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226E9E6912F9ABB400761A91 /* sources/SpatThru.cpp */; };
-		226E9E6C12F9ABB400761A91 /* sources/SpatThru.h in Headers */ = {isa = PBXBuildFile; fileRef = 226E9E6A12F9ABB400761A91 /* sources/SpatThru.h */; };
-		226E9EA112F9B1AE00761A91 /* sources/SpatMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226E9E9F12F9B1AE00761A91 /* sources/SpatMatrix.cpp */; };
-		226E9EA212F9B1AE00761A91 /* sources/SpatMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 226E9EA012F9B1AE00761A91 /* sources/SpatMatrix.h */; };
 		226E9EAF12F9B3C000761A91 /* SpatLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 226E9EAE12F9B3C000761A91 /* SpatLib.h */; };
 		226E9EB912F9B41800761A91 /* TTSpat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226E9EB712F9B41800761A91 /* TTSpat.cpp */; };
 		226E9EBA12F9B41800761A91 /* TTSpat.h in Headers */ = {isa = PBXBuildFile; fileRef = 226E9EB812F9B41800761A91 /* TTSpat.h */; };
+		229A4F231450712300ABC0E1 /* SpatDBAP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229A4F211450712300ABC0E1 /* SpatDBAP.cpp */; };
+		229A4F241450712300ABC0E1 /* SpatDBAP.h in Headers */ = {isa = PBXBuildFile; fileRef = 229A4F221450712300ABC0E1 /* SpatDBAP.h */; };
+		229A4F291450713900ABC0E1 /* SpatMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229A4F251450713900ABC0E1 /* SpatMatrix.cpp */; };
+		229A4F2A1450713900ABC0E1 /* SpatMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 229A4F261450713900ABC0E1 /* SpatMatrix.h */; };
+		229A4F2B1450713900ABC0E1 /* SpatThru.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229A4F271450713900ABC0E1 /* SpatThru.cpp */; };
+		229A4F2C1450713900ABC0E1 /* SpatThru.h in Headers */ = {isa = PBXBuildFile; fileRef = 229A4F281450713900ABC0E1 /* SpatThru.h */; };
+		229A4F3E1450717D00ABC0E1 /* SpatDBAP.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229A4F3B1450717D00ABC0E1 /* SpatDBAP.test.cpp */; };
+		229A4F3F1450717D00ABC0E1 /* SpatMatrix.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229A4F3C1450717D00ABC0E1 /* SpatMatrix.test.cpp */; };
+		229A4F401450717D00ABC0E1 /* SpatThru.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229A4F3D1450717D00ABC0E1 /* SpatThru.test.cpp */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
-		A79EBB4D1369D67700A70E48 /* tests/SpatThru.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79EBB4C1369D67700A70E48 /* tests/SpatThru.test.cpp */; };
-		A79EBB571369D79900A70E48 /* tests/SpatMatrix.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79EBB551369D79900A70E48 /* tests/SpatMatrix.test.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		226E9E6712F9ABAB00761A91 /* SpatLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatLib.cpp; sourceTree = "<group>"; };
-		226E9E6912F9ABB400761A91 /* sources/SpatThru.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sources/SpatThru.cpp; sourceTree = "<group>"; };
-		226E9E6A12F9ABB400761A91 /* sources/SpatThru.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sources/SpatThru.h; sourceTree = "<group>"; };
-		226E9E9F12F9B1AE00761A91 /* sources/SpatMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sources/SpatMatrix.cpp; sourceTree = "<group>"; };
-		226E9EA012F9B1AE00761A91 /* sources/SpatMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sources/SpatMatrix.h; sourceTree = "<group>"; };
 		226E9EAE12F9B3C000761A91 /* SpatLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpatLib.h; sourceTree = "<group>"; };
 		226E9EB712F9B41800761A91 /* TTSpat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSpat.cpp; sourceTree = "<group>"; };
 		226E9EB812F9B41800761A91 /* TTSpat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSpat.h; sourceTree = "<group>"; };
+		229A4F211450712300ABC0E1 /* SpatDBAP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatDBAP.cpp; path = sources/SpatDBAP.cpp; sourceTree = "<group>"; };
+		229A4F221450712300ABC0E1 /* SpatDBAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatDBAP.h; path = sources/SpatDBAP.h; sourceTree = "<group>"; };
+		229A4F251450713900ABC0E1 /* SpatMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatMatrix.cpp; path = sources/SpatMatrix.cpp; sourceTree = "<group>"; };
+		229A4F261450713900ABC0E1 /* SpatMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatMatrix.h; path = sources/SpatMatrix.h; sourceTree = "<group>"; };
+		229A4F271450713900ABC0E1 /* SpatThru.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatThru.cpp; path = sources/SpatThru.cpp; sourceTree = "<group>"; };
+		229A4F281450713900ABC0E1 /* SpatThru.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatThru.h; path = sources/SpatThru.h; sourceTree = "<group>"; };
+		229A4F3B1450717D00ABC0E1 /* SpatDBAP.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatDBAP.test.cpp; path = tests/SpatDBAP.test.cpp; sourceTree = "<group>"; };
+		229A4F3C1450717D00ABC0E1 /* SpatMatrix.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatMatrix.test.cpp; path = tests/SpatMatrix.test.cpp; sourceTree = "<group>"; };
+		229A4F3D1450717D00ABC0E1 /* SpatThru.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatThru.test.cpp; path = tests/SpatThru.test.cpp; sourceTree = "<group>"; };
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
-		A79EBB4C1369D67700A70E48 /* tests/SpatThru.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tests/SpatThru.test.cpp; sourceTree = "<group>"; };
-		A79EBB551369D79900A70E48 /* tests/SpatMatrix.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tests/SpatMatrix.test.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* SpatLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = SpatLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -91,6 +97,7 @@
 				226E9EB812F9B41800761A91 /* TTSpat.h */,
 				226E9EB712F9B41800761A91 /* TTSpat.cpp */,
 				2217FAAA0E4F284D00806778 /* Classes */,
+				229A4F2E1450715600ABC0E1 /* Tests */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -98,14 +105,24 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				226E9E6A12F9ABB400761A91 /* sources/SpatThru.h */,
-				226E9E6912F9ABB400761A91 /* sources/SpatThru.cpp */,
-				A79EBB4C1369D67700A70E48 /* tests/SpatThru.test.cpp */,
-				226E9EA012F9B1AE00761A91 /* sources/SpatMatrix.h */,
-				226E9E9F12F9B1AE00761A91 /* sources/SpatMatrix.cpp */,
-				A79EBB551369D79900A70E48 /* tests/SpatMatrix.test.cpp */,
+				229A4F281450713900ABC0E1 /* SpatThru.h */,
+				229A4F271450713900ABC0E1 /* SpatThru.cpp */,
+				229A4F261450713900ABC0E1 /* SpatMatrix.h */,
+				229A4F251450713900ABC0E1 /* SpatMatrix.cpp */,
+				229A4F221450712300ABC0E1 /* SpatDBAP.h */,
+				229A4F211450712300ABC0E1 /* SpatDBAP.cpp */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		229A4F2E1450715600ABC0E1 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				229A4F3B1450717D00ABC0E1 /* SpatDBAP.test.cpp */,
+				229A4F3C1450717D00ABC0E1 /* SpatMatrix.test.cpp */,
+				229A4F3D1450717D00ABC0E1 /* SpatThru.test.cpp */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,10 +132,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226E9E6C12F9ABB400761A91 /* sources/SpatThru.h in Headers */,
-				226E9EA212F9B1AE00761A91 /* sources/SpatMatrix.h in Headers */,
 				226E9EAF12F9B3C000761A91 /* SpatLib.h in Headers */,
 				226E9EBA12F9B41800761A91 /* TTSpat.h in Headers */,
+				229A4F241450712300ABC0E1 /* SpatDBAP.h in Headers */,
+				229A4F2A1450713900ABC0E1 /* SpatMatrix.h in Headers */,
+				229A4F2C1450713900ABC0E1 /* SpatThru.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,11 +208,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				226E9E6812F9ABAB00761A91 /* SpatLib.cpp in Sources */,
-				226E9E6B12F9ABB400761A91 /* sources/SpatThru.cpp in Sources */,
-				226E9EA112F9B1AE00761A91 /* sources/SpatMatrix.cpp in Sources */,
 				226E9EB912F9B41800761A91 /* TTSpat.cpp in Sources */,
-				A79EBB4D1369D67700A70E48 /* tests/SpatThru.test.cpp in Sources */,
-				A79EBB571369D79900A70E48 /* tests/SpatMatrix.test.cpp in Sources */,
+				229A4F231450712300ABC0E1 /* SpatDBAP.cpp in Sources */,
+				229A4F291450713900ABC0E1 /* SpatMatrix.cpp in Sources */,
+				229A4F2B1450713900ABC0E1 /* SpatThru.cpp in Sources */,
+				229A4F3E1450717D00ABC0E1 /* SpatDBAP.test.cpp in Sources */,
+				229A4F3F1450717D00ABC0E1 /* SpatMatrix.test.cpp in Sources */,
+				229A4F401450717D00ABC0E1 /* SpatThru.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

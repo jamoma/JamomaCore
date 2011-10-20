@@ -8,8 +8,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __SPATMATRIX_H__
-#define __SPATMATRIX_H__
+#ifndef __SPATDBAP_H__
+#define __SPATDBAP_H__
 
 #include "SpatLib.h"
 
@@ -17,8 +17,8 @@
 /**	This implements a window function which basically does nothing: 
 	y = 1.0
  */
-class SpatMatrix : TTAudioObject {
-	TTCLASS_SETUP(SpatMatrix)
+class SpatDBAP : TTAudioObject {
+	TTCLASS_SETUP(SpatDBAP)
 	
 	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
 	
@@ -30,4 +30,4 @@ class SpatMatrix : TTAudioObject {
 };
 
 
-#endif // __SPATMATRIX_H__
+#endif // __SPATDBAP_H__

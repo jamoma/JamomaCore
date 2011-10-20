@@ -9,6 +9,7 @@
 
 #include "SpatLib.h"
 
+#include "SpatDBAP.h"
 #include "SpatMatrix.h"
 #include "SpatThru.h"
 
@@ -21,6 +22,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_SpatLib(void)
 
 	SpatMatrix::registerClass();
 	SpatThru::registerClass();
+	SpatDBAP::registerClass();
 
 	TTSpat::registerClass();
 	
