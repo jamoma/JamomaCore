@@ -104,11 +104,11 @@
 				22F25DD8111E0B6F00A67D8D /* TTAudioGraphDescription.h */,
 				22F25F17111FC59900A67D8D /* TTAudioGraphDescription.cpp */,
 				226AAF7510F80EDE002C6057 /* TTAudioGraphInlet.h */,
-				22B04658112F5A6E001D29FD /* TTAudioGraphSource.h */,
-				222019D710F90A2D0010D781 /* TTAudioGraphSource.cpp */,
 				2220192B10F8E7760010D781 /* TTAudioGraphOutlet.h */,
 				226AAF7610F80EDE002C6057 /* TTAudioGraphObject.h */,
 				226AAF7C10F80EDE002C6057 /* TTAudioGraphObject.cpp */,
+				22B04658112F5A6E001D29FD /* TTAudioGraphSource.h */,
+				222019D710F90A2D0010D781 /* TTAudioGraphSource.cpp */,
 			);
 			name = "Core Classes";
 			sourceTree = "<group>";
