@@ -49,7 +49,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 220.0, 335.0, 91.0, 17.0 ],
-					"presentation_rect" : [ 215.0, 335.0, 0.0, 0.0 ],
 					"text" : "getspatFunction"
 				}
 
@@ -244,16 +243,16 @@
 ,
 					"patching_rect" : [ 324.0, 372.0, 54.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"tags" : "",
-						"fontname" : "Arial",
 						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"digest" : "",
-						"default_fontname" : "Arial"
+						"tags" : ""
 					}
 ,
 					"text" : "p format"
@@ -672,7 +671,8 @@
 					"destination" : [ "obj-19", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-1", 0 ]
+					"midpoints" : [ 374.0, 421.0, 333.5, 421.0 ],
+					"source" : [ "obj-1", 1 ]
 				}
 
 			}
