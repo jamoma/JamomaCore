@@ -30,11 +30,13 @@
 class TTAudioGraphInlet {
 	TTAudioGraphSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	TTAudioSignalPtr		mBufferedInput;		///< summed samples from all sources
+	TTAudioSignalPtr		mDirectInput;		///< pointer to the (non-buffered) input samples if there was no requirement to sum them
 	TTBoolean				mClean;
 	
 public:
 	TTAudioGraphInlet() : 
 		mBufferedInput(NULL),
+		mDirectInput(NULL),
 		mClean(NO)
 	{
 		createBuffer();
@@ -60,6 +62,7 @@ public:
 	
 	TTAudioGraphInlet(const TTAudioGraphInlet& original) : 
 		mBufferedInput(NULL),
+		mDirectInput(NULL),
 		mClean(NO)
 	{
 		createBuffer();
@@ -152,22 +155,35 @@ public:
 		int					err = kTTErrNone;
 		TTAudioSignalPtr	foo;
 		
-		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
-			err |= (*source).process(foo);
-			if (mClean) {
-				(*mBufferedInput) = (*foo);
-				mClean = NO;
-			}
-			else
-				(*mBufferedInput) += (*foo);
+		if (mSourceObjects.size() == 1) {
+			// here we optimize the operation:
+			// if there is only one connection to the inlet, then we don't need to copy the samples in the buffer
+			// instead we just reference the pointer to the beginning of the buffer
+			err = mSourceObjects[0].process(mDirectInput);
 		}
+		else {
+			for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+				err |= (*source).process(foo);
+				if (mClean) {
+					(*mBufferedInput) = (*foo);
+					mClean = NO;
+				}
+				else
+					(*mBufferedInput) += (*foo);
+				mDirectInput = NULL;
+			}
+		}
+		
 		return (TTErr)err;
 	}
 	
 	
 	TTAudioSignalPtr getBuffer()
 	{
-		return mBufferedInput;
+		if (mDirectInput)
+			return mDirectInput;
+		else
+			return mBufferedInput;
 	}
 	
 	

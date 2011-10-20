@@ -11,13 +11,14 @@
 #include "maxAudioGraph.h"
 #include "ext_hashtab.h"
 
+#define MAX_NUM_INLETS 16
 
 // Data Structure for this object
 typedef struct _wrappedInstance {
     t_object					obj;					///< Max audio object header
 	TTAudioGraphObjectPtr		audioGraphObject;		///< The DSP instance we are wrapping -- MUST BE 2nd!
-	TTPtr						audioGraphOutlets[16];	///< Array of outlets, may eventually want this to be more dynamic
-	TTPtr						inlets[16];				///< Array of proxy inlets beyond the first inlet
+	TTPtr						audioGraphOutlets[MAX_NUM_INLETS];	///< Array of outlets, may eventually want this to be more dynamic
+	TTPtr						inlets[MAX_NUM_INLETS];				///< Array of proxy inlets beyond the first inlet
 	MaxAudioGraphWrappedClassPtr	wrappedClassDefinition;	///< A pointer to the class definition
 	TTUInt8						numInputs;
 	TTUInt8						numOutputs;
@@ -106,7 +107,11 @@ void MaxAudioGraphWrappedClass_free(WrappedInstancePtr self)
 {
 	if (self->audioGraphObject)
 		TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
-	// FIXME: leaking proxy inlets!
+
+	for (int i=0; i<MAX_NUM_INLETS; i++) {
+		if (self->inlets[i])
+			object_free(self->inlets[i]);
+	}
 }
 
 
