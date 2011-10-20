@@ -454,6 +454,7 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	int			sr = sp[0]->s_sr;
 
 	x->ramp_gain->setAttributeValue(TT("sampleRate"), sr);	// convert midi to db for tap_gain
+	x->gain->setAttributeValue(TT("mode"), TT("interpolated"));
 	x->ramp_xfade->setAttributeValue(TT("sampleRate"), sr);	// convert midi to db for tap_gain
 
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->numOutputs * 2) + 1));
@@ -516,16 +517,22 @@ void out_perform64(t_out *x, t_object *dsp64, double **ins, long numins, double 
 	// if this doesn't work, I need to try setVector64Copy instead of setVector
 	
 	
-	if (x->attr_bypass)
-		TTAudioSignal::copy(*x->in_object->audioOut, *x->audioOut);//TODO: ideally just passing the pointer without copying memory 
-	else if (x->attr_mute)
-		//TTAudioSignal::copy(*x->zeroSignal, *x->audioOut); // we rather do a memset 0 here
+	if (x->attr_bypass)											// perform mix control
+		TTAudioSignal::copy(*x->in_object->audioOut, *x->audioOut);			//TODO: ideally just passing the pointer without copying memory 
+	else if ((x->attr_mute) || (!x->attr_gain))
 		x->audioOut->clear();  
-	else { 
-		if (x->in_object && x->in_object->numChannels)
-			x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);	// perform bypass/mix control
-		else
-			TTAudioSignal::copy(*x->audioIn, *x->audioTemp);
+	else {													// perform mix control
+		if (x->in_object && x->in_object->numChannels) { 
+			if (x->attr_mix == 100) // fully wet
+				TTAudioSignal::copy(*x->audioIn, *x->audioTemp);			//TODO: ideally just passing the pointer without copying memory 
+			else if(!x->attr_mix) //fully dry
+				TTAudioSignal::copy(*x->in_object->audioOut, *x->audioTemp); //TODO: ideally just passing the pointer without copying memory 
+			else 
+				//if ((x->attr_mix > 0.0) && (x->attr_mix != 100)) // we mix wet and dry
+				x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);
+			}
+			else
+				TTAudioSignal::copy(*x->audioIn, *x->audioTemp);
 		
 		x->gain->process(x->audioTemp, x->audioOut);								// perform gain control
 	}
@@ -542,7 +549,7 @@ void out_perform64(t_out *x, t_object *dsp64, double **ins, long numins, double 
 			n = x->vectorSize;
 			while (n--) {
 				if ((*envelope) < 0 )						// get the current sample's absolute value
-					currentvalue = -(*envelope);
+					currentvalue = -(*envelope); //TODO: we could do a sign flip instead of multiply
 				else
 					currentvalue = *envelope;
 				
@@ -569,6 +576,7 @@ void out_dsp64(t_out *x, t_object *dsp64, short *count, double samplerate, long 
 	TTUInt8		numChannels = 0;
 	
 	x->ramp_gain->setAttributeValue(TT("sampleRate"), samplerate);	// convert midi to db for tap_gain
+	x->gain->setAttributeValue(TT("mode"), TT("interpolated"));
 	x->ramp_xfade->setAttributeValue(TT("sampleRate"), samplerate);	// convert midi to db for tap_gain
 	
 	for (i=0; i < x->numOutputs; i++) {
@@ -598,14 +606,14 @@ void out_dsp64(t_out *x, t_object *dsp64, short *count, double samplerate, long 
 	//x->zeroSignal->sendMessage(TT("alloc"));
 	//x->zeroSignal->sendMessage(TT("clear"));
 	//audioIn will be set in the perform method
-	x->audioOut->sendMessage(TT("alloc"));
+	//x->audioOut->sendMessage(TT("alloc"));
 	
 	object_method(dsp64, gensym("dsp_add64"), x, out_perform64, 0, NULL); 
 	
 	// start the meters
 	if (x->num_meter_objects) {
 		for (i=0; i<MAX_NUM_CHANNELS; i++)
-			x->peakamp[i] = 0;
+			x->peakamp[i] = 0;		
 		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
 	}
 }
