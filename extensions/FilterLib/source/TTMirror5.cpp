@@ -49,7 +49,9 @@ TTMirror5::~TTMirror5()
 
 TTErr TTMirror5::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	// TODO: update internal filters
+	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF2->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -57,7 +59,9 @@ TTErr TTMirror5::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTMirror5::clear()
 {
-	// TODO: update internal filters
+	mF0->sendMessage(kTTSym_clear);
+	mF1->sendMessage(kTTSym_clear);
+	mF2->sendMessage(kTTSym_clear);
 	return kTTErrNone;
 }
 

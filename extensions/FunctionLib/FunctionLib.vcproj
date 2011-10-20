@@ -215,6 +215,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\tests\LinearFunction.test.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\LogFunction.cpp"
 				>
 			</File>
@@ -236,6 +240,14 @@
 			</File>
 			<File
 				RelativePath=".\includes\PowerFunction.h"
+				>
+			</File>
+			<File
+				RelativePath=".\source\SmoothPolynomialFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\SmoothPolynomialFunction.test.cpp"
 				>
 			</File>
 			<File

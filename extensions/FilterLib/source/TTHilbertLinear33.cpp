@@ -11,7 +11,8 @@
 
 #define thisTTClass			TTHilbertLinear33
 #define thisTTClassName		"hilbert.linear.33"
-#define thisTTClassTags		"audio, processor, filter, hilbert"
+#define thisTTClassTags		"audio, processor, hilbert"
+// no "filter" tag because this is a special case that produces two outputs for one input and doesn't fit the general filter schema
 
 #ifdef TT_PLATFORM_WIN
 #include <Algorithm>
@@ -75,8 +76,14 @@ TTHilbertLinear33::~TTHilbertLinear33()
 
 TTErr TTHilbertLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	// TODO: update internal filters
-
+	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF2->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF3->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF4->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mP0Delay->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mP1Delay->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	
 	clear();
 	return kTTErrNone;
 }
@@ -84,7 +91,13 @@ TTErr TTHilbertLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTHilbertLinear33::clear()
 {
-	// TODO: update internal filters
+	mF0->sendMessage(kTTSym_clear);
+	mF1->sendMessage(kTTSym_clear);
+	mF2->sendMessage(kTTSym_clear);
+	mF3->sendMessage(kTTSym_clear);
+	mF4->sendMessage(kTTSym_clear);
+	mP0Delay->sendMessage(kTTSym_clear);
+	mP1Delay->sendMessage(kTTSym_clear);
 	return kTTErrNone;
 }
 

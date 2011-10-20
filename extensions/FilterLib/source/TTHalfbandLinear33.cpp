@@ -74,7 +74,15 @@ TTHalfbandLinear33::~TTHalfbandLinear33()
 
 TTErr TTHalfbandLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	// TODO: update internal filters
+	// update internal filters
+	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF2->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF3->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF4->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mP0Delay->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mP1Delay->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+
 	clear();
 	return kTTErrNone;
 }
@@ -82,7 +90,13 @@ TTErr TTHalfbandLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTHalfbandLinear33::clear()
 {
-	// TODO: update internal filters
+	mF0->sendMessage(kTTSym_clear);
+	mF1->sendMessage(kTTSym_clear);
+	mF2->sendMessage(kTTSym_clear);
+	mF3->sendMessage(kTTSym_clear);
+	mF4->sendMessage(kTTSym_clear);
+	mP0Delay->sendMessage(kTTSym_clear);
+	mP1Delay->sendMessage(kTTSym_clear);
 	return kTTErrNone;
 }
 

@@ -320,7 +320,7 @@ t_int *filter_perform(t_int *w)
 
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->setVector(i, vs, (t_float *)w[j+2]);
+		x->audioOut->getVector(i, vs, (t_float *)w[j+2]);
 	}
 
 	return w + ((x->numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object

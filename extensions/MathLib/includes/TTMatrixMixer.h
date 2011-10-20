@@ -18,8 +18,8 @@ class TTMatrixMixer : TTAudioObject {
 
 	TTUInt16		mNumInputs;
 	TTUInt16		mNumOutputs;
-	TTSampleMatrix	mGainMatrix;
-
+//	TTSampleMatrix	mGainMatrix;
+	TTMatrixPtr		mGainMatrix;
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -29,6 +29,7 @@ class TTMatrixMixer : TTAudioObject {
 	
 	TTErr clear();
 
+	TTErr checkMatrixSize(const TTUInt16 x, const TTUInt16 y);
 	
 	/** setter for converting gain input from db to linear. 
 		@param newValue The argument must consist of three values:
@@ -36,9 +37,9 @@ class TTMatrixMixer : TTAudioObject {
 						- The y coordinate of the matrix point (beggining with zero)
 						- The gain level of the matrix point (in dB)
 		@return			An error code.				*/
-	TTErr setGain(const TTValue& newValue);
-	TTErr setLinearGain(const TTValue& newValue);
-	TTErr setMidiGain(const TTValue& newValue);	
+	TTErr setGain(TTValue& newValue);
+	TTErr setLinearGain(TTValue& newValue);
+	TTErr setMidiGain(TTValue& newValue);	
 	
 	void processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 gain);
 

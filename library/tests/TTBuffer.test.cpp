@@ -13,7 +13,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 {
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
-	int					badSampleCount = 0;
+	//int					badSampleCount = 0;
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	

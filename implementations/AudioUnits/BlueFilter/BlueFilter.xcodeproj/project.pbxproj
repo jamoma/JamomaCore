@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		222D5BE50E1BB93F00084AD7 /* BlueFilter.component in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D01CCD20486CAD60068D4B7 /* BlueFilter.component */; };
 		224B0D5111DFE36D00B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0D4F11DFE36D00B6EF48 /* JamomaDSP.dylib */; };
 		224B0D5211DFE36D00B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0D5011DFE36D00B6EF48 /* JamomaFoundation.dylib */; };
 		3EEA126E089847F5002C6BFC /* CAVectorUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EEA126B089847F5002C6BFC /* CAVectorUnit.cpp */; };
@@ -53,19 +52,6 @@
 		8BC6025C073B072D006C4272 /* BlueFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BC6025B073B072D006C4272 /* BlueFilter.h */; };
 		8D01CCCA0486CAD60068D4B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		222D5BE00E1BB91100084AD7 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "/Library/Audio/Plug-Ins/Components";
-			dstSubfolderSpec = 0;
-			files = (
-				222D5BE50E1BB93F00084AD7 /* BlueFilter.component in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -198,7 +184,7 @@
 				8BA05AA6072073D200365D66 /* Utility */,
 			);
 			name = AUPublic;
-			path = Examples/CoreAudio/AudioUnits/AUPublic;
+			path = Extras/CoreAudio/AudioUnits/AUPublic;
 			sourceTree = DEVELOPER_DIR;
 		};
 		8BA05A7E072073D200365D66 /* AUBase */ = {
@@ -309,7 +295,6 @@
 				8D01CCCB0486CAD60068D4B7 /* Sources */,
 				8D01CCCD0486CAD60068D4B7 /* Frameworks */,
 				8D01CCCF0486CAD60068D4B7 /* Rez */,
-				222D5BE00E1BB91100084AD7 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -328,7 +313,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 3E4BA247089833B7007656EC /* Build configuration list for PBXProject "BlueFilter" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 089C166AFE841209C02AAC07 /* BlueFilter */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -430,6 +422,7 @@
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Examples/CoreAudio/AudioUnits/AUPublic/AUBase\"";
 				PRODUCT_NAME = BlueFilter;
+				USER_HEADER_SEARCH_PATHS = "/Developer/Extras/CoreAudio/AudioUnits/AUPublic/**";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -471,6 +464,7 @@
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Examples/CoreAudio/AudioUnits/AUPublic/AUBase\"";
 				PRODUCT_NAME = BlueFilter;
+				USER_HEADER_SEARCH_PATHS = "/Developer/Extras/CoreAudio/AudioUnits/AUPublic/**";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

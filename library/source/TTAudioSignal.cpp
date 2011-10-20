@@ -139,6 +139,17 @@ TTErr TTAudioSignal::setVector64(const TTValue& v)
 	return kTTErrWrongNumValues;
 }
 
+TTErr TTAudioSignal::setVector64Copy(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector)
+{   
+	if (mBitdepth != 64 || !mIsLocallyOwned || vectorSize != mVectorSize) {
+		mBitdepth = 64;
+		mVectorSize = vectorSize;
+		alloc();
+	}
+	memcpy(mSampleVectors[channel], newVector, sizeof(TTSampleValue) * mVectorSize);		
+	
+	return kTTErrNone;
+}
 
 /*
 	It sucks if someone sets a 32-bit audio vector, since we have translate it into a 64-bit buffer.
@@ -186,7 +197,6 @@ TTErr TTAudioSignal::setVector32(const TTValue& v)
 	}
 	return kTTErrWrongNumValues;
 }
-
 
 TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 returnedVectorSize, TTSampleValue* returnedVector)
 {
@@ -295,14 +305,17 @@ TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUI
 		inSample = source.mSampleVectors[channel];
 		outSample = dest.mSampleVectors[ TTClip(channel+channelOffset, 0, maxDestChannels-1)  ];
 		vs = source.getVectorSizeAsInt();
-		while (vs--)
-			*outSample++ = *inSample++;
+		//while (vs--)
+		//	*outSample++ = *inSample++;
+		
+		memcpy(outSample, inSample, sizeof(TTSampleValue) * vs);
 	}
 	for (/*channel*/; channel<(numchannels+additionalOutputChannels-channelOffset); channel++) {
 		outSample = dest.mSampleVectors[channel];
 		vs = dest.getVectorSizeAsInt();
-		while (vs--)
-			*outSample++ = 0.0;
+		memset(outSample, 0, sizeof(TTSampleValue) * vs);
+		//while (vs--)
+		//	*outSample++ = 0.0;
 	}
 	return kTTErrNone;
 }
@@ -321,8 +334,9 @@ TTErr TTAudioSignal::copyDirty(const TTAudioSignal& source, TTAudioSignal& dest,
 		inSample = source.mSampleVectors[channel];
 		outSample = dest.mSampleVectors[ TTClip(channel+channelOffset, 0, maxDestChannels-1)  ];
 		vs = source.getVectorSizeAsInt();
-		while (vs--)
-			*outSample++ = *inSample++;
+		//while (vs--)
+		//	*outSample++ = *inSample++;
+		memcpy(outSample, inSample, sizeof(TTSampleValue) * vs);
 	}
 	return kTTErrNone;
 }
@@ -340,8 +354,9 @@ TTErr TTAudioSignal::copySubset(const TTAudioSignal& source, TTAudioSignal& dest
 		inSample = source.mSampleVectors[sourceChannel];
 		outSample = dest.mSampleVectors[destChannel];
 		vs = source.getVectorSizeAsInt();
-		while (vs--)
-			*outSample++ = *inSample++;
+		//while (vs--)
+		//	*outSample++ = *inSample++;
+		memcpy(outSample, inSample, sizeof(TTSampleValue) * vs);
 	}
 	return kTTErrNone;
 }

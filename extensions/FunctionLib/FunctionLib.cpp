@@ -14,6 +14,7 @@
 #include "LogFunction.h"
 #include "LowpassFunction.h"
 #include "PowerFunction.h"
+#include "SmoothPolynomialFunction.h"
 #include "TanhFunction.h"
 
 #include "Function.h"
@@ -29,6 +30,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FunctionLib(void)
 	LogFunction::registerClass();
 	LowpassFunction::registerClass();
 	PowerFunction::registerClass();
+	SmoothPolynomialFunction::registerClass();
 	TanhFunction::registerClass();
 	
 	TTFunction::registerClass();

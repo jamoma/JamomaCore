@@ -1,5 +1,5 @@
 /* 
- * GeneratorLib
+ * AnalysisLib
  * Extension Class for Jamoma DSP
  * Copyright © 2009, Timothy Place
  * 
@@ -9,13 +9,14 @@
 
 #include "TTDSP.h"
 #include "TTZerocross.h"
-
+#include "TTAverage.h"
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_AnalysisLib(void)
 {
 	TTDSPInit();
 
 	TTZerocross::registerClass();
+	TTAverage::registerClass();
 	
 	return kTTErrNone;
 }

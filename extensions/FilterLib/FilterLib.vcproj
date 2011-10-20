@@ -263,14 +263,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTAverage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\includes\TTAverage.h"
-				>
-			</File>
-			<File
 				RelativePath=".\source\TTBandpassButterworth2.cpp"
 				>
 			</File>
