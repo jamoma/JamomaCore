@@ -49,6 +49,10 @@ TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 	
 	aSpatFunction.get(0, &spatFunctionName);
 	
+	// if the function didn't change, then don't change the function
+	if (spatFunctionName == mSpatFunction)
+		return kTTErrNone;	
+	
 	// TTObjectInstantiate will automatically free the object passed into it
 	err = TTObjectInstantiate(spatFunctionName, &spatFunction, kTTValNONE);
 	if (!err && spatFunction) {
@@ -65,6 +69,10 @@ TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 		// We need to queue this switch to occur at a time when it is safe 
 		// (when audio is not processed by the old object any longer)
 		// Redmine #994
+		//
+		// ACTUALLY: it should be okay because of the locks in the TTObjectInstantiate spinlocking to wait
+		// for any process calls.
+		// However, maybe those need some improvements like using volatile or atomic types
 	}
 	else {
 		// some problems have occurred, not yet sure how we should handle this...
