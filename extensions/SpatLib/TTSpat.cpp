@@ -43,19 +43,34 @@ TTSpat::~TTSpat()
 
 TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 {
-	TTErr err;
+	TTErr				err;
+	TTSymbolPtr			spatFunctionName = NULL;
+	TTAudioObjectPtr	spatFunction = NULL;
 	
-	mSpatFunction = aSpatFunction;
+	aSpatFunction.get(0, &spatFunctionName);
 	
 	// TTObjectInstantiate will automatically free the object passed into it
-	err = TTObjectInstantiate(mSpatFunction, &mSpatFunctionObject, kTTValNONE);
-	if (!err) {
+	err = TTObjectInstantiate(spatFunctionName, &spatFunction, kTTValNONE);
+	if (!err && spatFunction) {
 		// Now set the state of the object to the state we have stored
-		mSpatFunctionObject->setAttributeValue(TT("sourceCount"), mSourceCount);
-		mSpatFunctionObject->setAttributeValue(TT("destinationCount"), mDestinationCount);
-		mSpatFunctionObject->setAttributeValue(TT("sourcePositions"), mSourcePositions);
-		mSpatFunctionObject->setAttributeValue(TT("destinationPositions"), mDestinationPositions);
+		spatFunction->setAttributeValue(TT("sourceCount"), mSourceCount);
+		spatFunction->setAttributeValue(TT("destinationCount"), mDestinationCount);
+		spatFunction->setAttributeValue(TT("sourcePositions"), mSourcePositions);
+		spatFunction->setAttributeValue(TT("destinationPositions"), mDestinationPositions);
+		
+		mSpatFunction = spatFunctionName;
+		mSpatFunctionObject = spatFunction;
+		
+		// FIXME: This is not thread safe if the audio is running
+		// We need to queue this switch to occur at a time when it is safe 
+		// (when audio is not processed by the old object any longer)
+		// Redmine #994
 	}
+	else {
+		// some problems have occurred, not yet sure how we should handle this...
+	}
+	
+	
 	return err;
 }
 
