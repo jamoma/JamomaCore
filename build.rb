@@ -30,9 +30,6 @@ else
   `rm -r "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max5/Cycling '74/init/JamomaConfiguration.xml"`
-	`cp -r "./library/DeviceManagerLib/plugins/OSC.dylib" "/Applications/Max5/support/OSC.dylib"`
-	`cp -r "./library/DeviceManagerLib/plugins/Minuit.dylib" "/Applications/Max5/support/Minuit.dylib"`
-	`cp -r "./library/DeviceManagerLib/plugins/CopperLANPlugin.dylib" "/Applications/Max5/support/CopperLANPlugin.dylib"`
 
   # Copy default files into Max 5 - comment this out if you don't want it
 	`cp -r "Max/support/jcom.label.maxdefines" "/Applications/Max5/Cycling '74/default-definitions/jcom.label.maxdefines"`
