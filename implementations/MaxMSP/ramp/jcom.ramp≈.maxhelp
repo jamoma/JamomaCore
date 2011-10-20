@@ -250,7 +250,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 110.0, 230.0, 352.0, 19.0 ],
-					"text" : "jcom.unpack≈ 2 @gain 1."
+					"text" : "jcom.unpack≈ 2"
 				}
 
 			}
