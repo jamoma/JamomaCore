@@ -16,6 +16,7 @@ struct Op {
    	Object					obj;
 	TTAudioGraphObjectPtr	audioGraphObject;
 	TTPtr					outlet;
+	TTPtr					unused;				// NULL pointer to signal end of JAG outlets to the class wrapper functions
 	TTPtr					inlet;				// proxy for the right inlet
 	long					inletnum;			// proxy input inlet number
 	SymbolPtr				attrOperator;
