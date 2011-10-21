@@ -277,10 +277,9 @@ TTErr TTAudioSignal::alloc()
 
 TTErr TTAudioSignal::allocWithVectorSize(const TTUInt16 newVectorSize)
 {
-//	if ((newVectorSize != mVectorSize) || !mIsLocallyOwned) {
-// *NOT* checking mIsLocallyOwned because of problems it causes -- when we call 
-//	this and the vector size is unchanged then we do NOT want to  monkey around with the memory
-	if (newVectorSize != mVectorSize) {
+	// NOTE: we once tried removing the check for !mIsLocallyOwned
+	// doing so causes Plugtastic plug-ins to crash in auval
+	if ((newVectorSize != mVectorSize) || !mIsLocallyOwned) {
 		mVectorSize = newVectorSize;
 		return alloc();
 	}
