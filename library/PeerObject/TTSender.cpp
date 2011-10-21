@@ -65,6 +65,7 @@ TTErr TTSender::Send(TTValue& valueToSend)
 	TTSymbolPtr		ttAttributeName;
 	TTMessagePtr	aMessage;
 	TTNodeAddressPtr relativeAddress;
+	TTErr			err = kTTErrNone;
 	
 	if (!mDirectory || mAddress == kTTAdrsEmpty)
 		return kTTErrGeneric;
@@ -95,14 +96,19 @@ TTErr TTSender::Send(TTValue& valueToSend)
 					// CONTAINER CASE for value attribute
 					else if (anObject->getName() == TT("Container") && ttAttributeName == kTTSym_value) {
 						
-						valueToSend.get(0, &relativeAddress);
-						c.copyFrom(valueToSend, 1);
+						if (valueToSend.getType() == kTypeSymbol) {
+							valueToSend.get(0, &relativeAddress);
+							c.copyFrom(valueToSend, 1);
 						
-						v = TTValue(relativeAddress);
-						v.append((TTPtr*)&c);
+							v = TTValue(relativeAddress);
+							v.append((TTPtr*)&c);
 						
-						// send the value
-						anObject->sendMessage(kTTSym_Send, v);
+							// send the value
+							anObject->sendMessage(kTTSym_Send, v);
+						}
+						else
+							err = kTTErrGeneric;
+						
 					}
 					// DEFAULT CASE
 					// Look for attribute and set it
