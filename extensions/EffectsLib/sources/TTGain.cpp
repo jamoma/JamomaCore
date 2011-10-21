@@ -75,7 +75,7 @@ TTErr TTGain::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr o
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs = in.getVectorSizeAsInt();
+	TTUInt16		vs;
 	TTSampleValue	*inSample, *outSample;
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		channel;
@@ -83,6 +83,7 @@ TTErr TTGain::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr o
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
 		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
 		while (vs--)
 			*outSample++ = (*inSample++) * mGain;
 	}
