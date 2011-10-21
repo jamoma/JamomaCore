@@ -19,33 +19,51 @@
 TT_AUDIO_CONSTRUCTOR,
 	mNumInputs(0),
 	mNumOutputs(0),
-	mGainMatrix(NULL)
+	mGainMatrix(NULL),
+	mInterpolated(0),
+	mOldGainMatrix(NULL)
 {
 	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, NULL);
+	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mOldGainMatrix, NULL);
 	
-	addAttributeWithSetter(NumInputs, kTypeUInt16);
-	addAttributeWithSetter(NumOutputs, kTypeUInt16);
+	addAttributeWithSetter(NumInputs,	kTypeUInt16);
+	addAttributeWithSetter(NumOutputs,	kTypeUInt16);
+   	addAttributeWithSetter(Interpolated,		kTypeBoolean);	
 	
 	addMessageWithArgument(setGain);
 	addMessageWithArgument(setLinearGain);
 	addMessageWithArgument(setMidiGain);
+
 	//registerMessageWithArgument(updateMaxNumChannels);
 	addMessage(clear);	
 
 	setProcessMethod(processAudio);
 	mGainMatrix->setAttributeValue(TT("type"), TT("float64"));
+	mOldGainMatrix->setAttributeValue(TT("type"), TT("float64"));
 }
 
 
 TTAudioMatrix::~TTAudioMatrix()
 {
 	TTObjectRelease((TTObjectPtr*)&mGainMatrix);
+	TTObjectRelease((TTObjectPtr*)&mOldGainMatrix);
 }
 
 
 // conceptually:
 //	columns == inputs
 //	rows == outputs
+
+TTErr TTAudioMatrix::setInterpolated(const TTValue& newValue)
+{
+	mInterpolated = newValue;
+	if (mInterpolated)
+		setProcessMethod(processAudioInterpolated);
+	else 
+		setProcessMethod(processAudio);	
+	return kTTErrNone;
+}
+
 
 
 TTErr TTAudioMatrix::setNumInputs(const TTValue& newValue)
@@ -58,6 +76,7 @@ TTErr TTAudioMatrix::setNumInputs(const TTValue& newValue)
 //		mGainMatrix.resize(mNumInputs);
 //		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref((&TTSampleMatrix::value_type::resize), mNumOutputs));
 		mGainMatrix->setAttributeValue(TT("dimensions"), v);
+		mOldGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
 	return kTTErrNone;
 }
@@ -72,6 +91,7 @@ TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
 		mNumOutputs = numOutputs;
 //		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
 		mGainMatrix->setAttributeValue(TT("dimensions"), v);
+		mOldGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
 	return kTTErrNone;
 }
@@ -82,6 +102,7 @@ TTErr TTAudioMatrix::clear()
 //	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
 //		column->assign(mNumOutputs, 0.0);
 	mGainMatrix->clear();
+	mOldGainMatrix->clear();
 	return kTTErrNone;
 }
 
@@ -90,7 +111,7 @@ TTErr TTAudioMatrix::setGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
-	TTFloat64	gainValue;
+	TTFloat64	temp, gainValue;
 	
 	if (newValue.getSize() != 3)
 		return kTTErrWrongNumValues;
@@ -102,7 +123,9 @@ TTErr TTAudioMatrix::setGain(TTValue& newValue)
 
 	if ((x < mNumInputs) && (y < mNumOutputs)) {  
 //		mGainMatrix[x][y] = dbToLinear(gainValue);
+		mGainMatrix->get2dZeroIndex(x, y, temp);
 		mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
+		mOldGainMatrix->set2dZeroIndex(x, y, temp); 
 		return kTTErrNone;}
 	else 
 		return kTTErrInvalidValue;
@@ -113,7 +136,7 @@ TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
-	TTFloat64	gainValue;
+	TTFloat64	temp, gainValue;
 	
 	if (newValue.getSize() != 3)
 		return kTTErrWrongNumValues;
@@ -125,7 +148,9 @@ TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 	
 	if ((x < mNumInputs) && (y < mNumOutputs)) { 
 //		mGainMatrix[x][y] = gainValue;
+		mGainMatrix->get2dZeroIndex(x, y, temp);
 		mGainMatrix->set2dZeroIndex(x, y, gainValue); 
+		mOldGainMatrix->set2dZeroIndex(x, y, temp); 
 		return kTTErrNone;
 	}
 	else 
@@ -137,7 +162,7 @@ TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
-	TTFloat64	gainValue;
+	TTFloat64	temp, gainValue;
 	
 	if (newValue.getSize() != 3)
 		return kTTErrWrongNumValues;
@@ -149,7 +174,9 @@ TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 
 	if ((x < mNumInputs) && (y < mNumOutputs)) {
 //		mGainMatrix[x][y] = midiToLinearGain(gainValue);
+		mGainMatrix->get2dZeroIndex(x, y, temp);
 		mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
+		mOldGainMatrix->set2dZeroIndex(x, y, temp); 
 		return kTTErrNone;
 	}
 	else 
@@ -189,17 +216,65 @@ TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 	
 		for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
 			for (inChannel=0; inChannel<numInputChannels; inChannel++) {
-				TTSampleValue value; 
-				
-				mGainMatrix->get2dZeroIndex(inChannel, outChannel, value);
-				if (value != 0.0){
-					gainValue = value;
+				mGainMatrix->get2dZeroIndex(inChannel, outChannel, gainValue);
+				if (gainValue != 0.0){
+					//gainValue = value;
 					inSample = in.mSampleVectors[inChannel];
 					outSample = out.mSampleVectors[outChannel];
 					for (int i=0; i<vs; i++) {				
 						outSample[i] += inSample[i] * gainValue;
 				}
 			}
+		}
+	}		
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioMatrix::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	
+	TTAudioSignal&		in = inputs->getSignal(0);
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTUInt16			vs = in.getVectorSizeAsInt();
+	TTSampleValuePtr	inSample;
+	TTSampleValuePtr	outSample;
+	TTUInt16			numInputChannels = in.getNumChannelsAsInt();
+	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	TTUInt16			outChannel;
+	TTUInt16			inChannel;
+    TTFloat64           gainValue, increment;
+	if (numInputChannels != mNumInputs) {
+		setNumInputs(numInputChannels);
+	}
+	if (numOutputChannels != mNumOutputs) {
+		TTValue v = mNumOutputs;
+		
+		out.setMaxNumChannels(v);
+		out.setNumChannels(v);
+		numOutputChannels = mNumOutputs;
+	}
+	
+	out.clear();
+	TTSampleValue value, oldValue; 
+	// TODO: this multiply-nested for-loop has got to be horrendously slow, there should be a much faster way to do this?
+	
+	for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
+		for (inChannel=0; inChannel<numInputChannels; inChannel++) {		
+			mGainMatrix->get2dZeroIndex(inChannel, outChannel, value);
+			if (value != 0.0){
+				mOldGainMatrix->get2dZeroIndex(inChannel, outChannel, oldValue);
+				increment = (value-oldValue)/vs;
+				TTAntiDenormal(increment);
+				gainValue = oldValue;
+				inSample = in.mSampleVectors[inChannel];
+				outSample = out.mSampleVectors[outChannel];
+				for (int i=0; i<vs; i++) {
+					gainValue += increment;
+					outSample[i] += inSample[i] * gainValue;
+				}				
+			}
+			mOldGainMatrix->set2dZeroIndex(inChannel, outChannel, value);
 		}
 	}		
 	return kTTErrNone;
