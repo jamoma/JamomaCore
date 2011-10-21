@@ -13,15 +13,20 @@
 #define index_out 1
 #define	dump_out 2
 
-#ifndef JMOD_RETURN
+
 // This is used to store extra data
 typedef struct extra {
+	
+	#ifndef JMOD_RETURN
 	SymbolPtr	attr_format;		// Is it 'single' data output or 'array' output
 	TTUInt32	array_size;			// keep array size in memory
 	TTValuePtr	*array_value;		// store each value in an array to output them together
+	#endif
+	
+	TTBoolean	changingAddress;	// a flag to protect from succession of address changes
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
-#endif
+
 
 // Definitions
 void		WrapTTDataClass(WrappedClassPtr c);
@@ -132,20 +137,22 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make outlets (before attr_args_process)
 	/////////////////////////////////////////////////////////////////////////////////
-#ifndef JMOD_RETURN
 	
+#ifndef JMOD_RETURN
 	// Don't create outlets during dynamic changes
 		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
 		x->outlets[index_out] = outlet_new(x, NULL);					// long outlet to output data index
 		x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+#endif
 	
 	// Prepare extra data for parameters and messages
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
+#ifndef JMOD_RETURN
 	EXTRA->attr_format = gensym("single");
 	EXTRA->array_size = 0;
 	EXTRA->array_value = NULL;
-
 #endif
+	EXTRA->changingAddress = NO;
 	
 	// handle args
 	if (argc && argv)
@@ -170,8 +177,9 @@ void WrappedDataClass_free(TTPtr self)
 			
 		free(EXTRA->array_value);
 	}
-	free(EXTRA);
 #endif
+	
+	free(EXTRA);
 }
 	
 void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
@@ -254,6 +262,8 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 	}
 	else 
 		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", relativeAddress->s_name);
+	
+	EXTRA->changingAddress = NO;
 }
 
 void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index)
@@ -330,7 +340,10 @@ void data_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	if (!x->iterateInternals) {
+	// Avoid succession of address changes
+	// the changingAddress flag is set to YES below and 
+	// set to NO at the end of data_new_address method
+	if (!x->iterateInternals && !EXTRA->changingAddress) {
 		
 		// unregister internals
 		wrappedModularClass_unregister(x);
@@ -348,6 +361,7 @@ void data_address(TTPtr self, SymbolPtr address)
 #endif
 		
 		// rebuild internals
+		EXTRA->changingAddress = YES;
 		defer_low(self,(method)data_new_address, address, 0, NULL); // TODO : give all @attribute too
 	}
 	else 
