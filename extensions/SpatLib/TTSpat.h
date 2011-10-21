@@ -43,8 +43,14 @@ class TTSpat : TTAudioObject {
 	/**	set number of destinations */
 	TTErr setDestinationCount(const TTValue& mode);
 		
+
 	/**	return a list of all the available spatialisation methods	*/
 	TTErr getSpatFunctions(TTValue& listOfSpatFunctionsToReturn);
+	
+	TTErr getFunctionParameters(TTValue& listOfParameterNamesToReturn);
+	TTErr getFunctionParameter(TTValue& aParameterNameIn_aValueOut);
+	TTErr setFunctionParameter(TTValue& aParameterNameAndValue);
+	
 	
 	/**	A standard audio processing method as used by Jamoma DSP objects.*/
 	TTErr process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

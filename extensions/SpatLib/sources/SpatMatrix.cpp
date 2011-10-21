@@ -19,6 +19,9 @@ TT_AUDIO_CONSTRUCTOR,
 	// Instantiate an audio matrix
 	TTObjectInstantiate(TT("audiomatrix"), &mMatrixObject, kTTValNONE);
 	
+	addAttribute(DummyTest, kTypeFloat64);
+	addAttribute(DummyTest2, kTypeFloat64);
+	
 	setProcessMethod(processAudio);
 }
 
