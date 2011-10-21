@@ -14,12 +14,12 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, oldGain(0.0), mGain(0.0)
+, oldGain(0.0), mInterpolated(0)
 {
 	registerAttribute(TT("linearGain"),	kTypeFloat64,	&mGain);
 	registerAttribute(TT("gain"),		kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
 	registerAttribute(TT("midiGain"),	kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getMidiGain, (TTSetterMethod)&TTGain::setMidiGain);
-	addAttributeWithSetter(	Mode,		kTypeSymbol);
+	addAttributeWithSetter(Interpolated,		kTypeBoolean);
 	// Set Defaults...
 	setAttributeValue(TT("linearGain"),	0.0);
 	setProcessMethod(processAudio);
@@ -31,10 +31,10 @@ TTGain::~TTGain()
 	;
 }
 
-TTErr TTGain::setMode(const TTValue& newValue)
+TTErr TTGain::setInterpolated(const TTValue& newValue)
 {
-	mMode = newValue;
-	if (mMode == TT("interpolated"))
+	mInterpolated = newValue;
+	if (mInterpolated)
 		setProcessMethod(processAudioInterpolated);
 	else 
 		setProcessMethod(processAudio);	

@@ -17,13 +17,13 @@ class TTGain : public TTAudioObject {
 	TTCLASS_SETUP(TTGain)
 
 	TTFloat64		mGain, oldGain;	///< linear gain to be applied to the input signal
-	TTSymbol*		mMode;
+	TTBoolean		mInterpolated;
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	/** setter for the gain processing mode */
-	TTErr setMode(const TTValue& newValue);
+	TTErr setInterpolated(const TTValue& newValue);
 	
 	/** setter for converting gain input from db to linear. */
 	TTErr setGain(const TTValue& newValue);
