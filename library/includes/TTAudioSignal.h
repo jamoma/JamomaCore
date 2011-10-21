@@ -230,8 +230,16 @@ public:
 	 *	@param		signal1			The first of the two signals to be compared.
 	 *	@param		signal2			The second of the two signals to be compared.
 	 *	@return		The number of channels that are valid for both signal1 and signal2.		*/
-	static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2);
+	//static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2);
 
+	static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
+	{
+		if (signal1.mNumChannels > signal2.mNumChannels)
+			return signal2.mNumChannels;
+		else
+			return signal1.mNumChannels;
+	}
+	
 	/** Use this class method to determine the least number of channels the specified signals have in common.
 	 	In cases where a processAudio method expects to have a matching number of audio inputs and outputs,
 	 	this method can be used to compare the two signals and return the number of channels for which
@@ -240,8 +248,20 @@ public:
 	 	@param		signal2			The second of three signals to be compared.
 		@param		signal3			The third of three signals to be compared.
 	 	@return		The number of channels that are valid for all signals.		*/
-	static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3);
+	//static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3);
 
+	static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3)
+	{
+		TTUInt16	numChannels = signal1.mNumChannels;
+		
+		if (signal2.mNumChannels < numChannels)
+			numChannels = signal2.mNumChannels;
+		if (signal3.mNumChannels < numChannels)
+			numChannels = signal3.mNumChannels;
+		
+		return numChannels;
+	}
+	
 	static TTUInt16 getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2);
 	static TTUInt16 getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3);
 	
