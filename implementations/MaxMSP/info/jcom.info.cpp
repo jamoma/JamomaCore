@@ -15,6 +15,7 @@ struct Info {
     t_object				obj;
 	TTAudioGraphObjectPtr	audioGraphObject;	// we wrap a simple 'thru' audiograph object
 	TTPtr					outletSmartSignal;	// outlet for passing the input to the output, and so we can be pulled
+	TTPtr					unused;				// this is an unused ptr, always set to NULL, to signal the end of the JAG outlets
 	TTPtr					outletSampleRate;
 	TTPtr					outletVectorSize;
 	TTPtr					outletNumChannels;
