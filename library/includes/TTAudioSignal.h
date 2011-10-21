@@ -208,8 +208,8 @@ public:
 	}
 	
 	
-	/**	Copy the audio from one signal into another.	*/
-//	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest);
+	/**	Reference the audio from one signal in another.	*/
+	static TTErr reference(const TTAudioSignal& source, TTAudioSignal& dest);
 	
 	/**	Copy the audio from one signal into another.	*/
 	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset=0);

@@ -291,6 +291,21 @@ TTErr TTAudioSignal::allocWithNewVectorSize(const TTValue& newVectorSize)
 }
 
 
+TTErr TTAudioSignal::reference(const TTAudioSignal& source, TTAudioSignal& dest)
+{
+	dest.chuck(); // sets isLocallyOwned to false
+	dest.mSampleVectors = source.mSampleVectors;
+	
+	dest.mVectorSize = source.mVectorSize;
+	dest.mMaxNumChannels = source.mMaxNumChannels;
+	dest.mNumChannels = source.mNumChannels;
+	dest.mBitdepth = source.mBitdepth;
+	dest.mSampleRate = source.mSampleRate;
+	
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset)
 {
 	TTUInt16		vs;
@@ -300,7 +315,7 @@ TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUI
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(source, dest);
 	TTUInt16		additionalOutputChannels = dest.mNumChannels - numchannels;
 	TTUInt16		channel;
-		
+	
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = source.mSampleVectors[channel];
 		outSample = dest.mSampleVectors[ TTClip(channel+channelOffset, 0, maxDestChannels-1)  ];
