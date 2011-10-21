@@ -454,7 +454,7 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	int			sr = sp[0]->s_sr;
 
 	x->ramp_gain->setAttributeValue(TT("sampleRate"), sr);	// convert midi to db for tap_gain
-	x->gain->setAttributeValue(TT("mode"), TT("interpolated"));
+	x->gain->setAttributeValue(TT("interpolated"), 1);
 	x->ramp_xfade->setAttributeValue(TT("sampleRate"), sr);	// convert midi to db for tap_gain
 
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->numOutputs * 2) + 1));
@@ -576,7 +576,7 @@ void out_dsp64(t_out *x, t_object *dsp64, short *count, double samplerate, long 
 	TTUInt8		numChannels = 0;
 	
 	x->ramp_gain->setAttributeValue(TT("sampleRate"), samplerate);	// convert midi to db for tap_gain
-	x->gain->setAttributeValue(TT("mode"), TT("interpolated"));
+	x->gain->setAttributeValue(TT("interpolated"), 1);
 	x->ramp_xfade->setAttributeValue(TT("sampleRate"), samplerate);	// convert midi to db for tap_gain
 	
 	for (i=0; i < x->numOutputs; i++) {
