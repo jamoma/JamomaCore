@@ -378,30 +378,6 @@ TTErr TTAudioSignal::copySubset(const TTAudioSignal& source, TTAudioSignal& dest
 	return kTTErrNone;
 }
 
-
-TTUInt16 TTAudioSignal::getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
-{
-	if (signal1.mNumChannels > signal2.mNumChannels)
-		return signal2.mNumChannels;
-	else
-		return signal1.mNumChannels;
-}
-
-
-TTUInt16 TTAudioSignal::getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3)
-{
-	TTUInt16	numChannels = signal1.mNumChannels;
-	
-	if (signal2.mNumChannels < numChannels)
-		numChannels = signal2.mNumChannels;
-	if (signal3.mNumChannels < numChannels)
-		numChannels = signal3.mNumChannels;
-	
-	return numChannels;
-}
-
-
-
 TTUInt16 TTAudioSignal::getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
 {
 	if (signal1.mNumChannels < signal2.mNumChannels)

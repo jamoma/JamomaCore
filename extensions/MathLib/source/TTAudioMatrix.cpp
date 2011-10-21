@@ -73,8 +73,6 @@ TTErr TTAudioMatrix::setNumInputs(const TTValue& newValue)
 	
 	if (numInputs != mNumInputs) {
 		mNumInputs = numInputs;
-//		mGainMatrix.resize(mNumInputs);
-//		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref((&TTSampleMatrix::value_type::resize), mNumOutputs));
 		mGainMatrix->setAttributeValue(TT("dimensions"), v);
 		mOldGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
@@ -89,7 +87,6 @@ TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
 	
 	if (numOutputs != mNumOutputs) {
 		mNumOutputs = numOutputs;
-//		for_each(mGainMatrix.begin(), mGainMatrix.end(), bind2nd(mem_fun_ref(&TTSampleMatrix::value_type::resize), mNumOutputs));
 		mGainMatrix->setAttributeValue(TT("dimensions"), v);
 		mOldGainMatrix->setAttributeValue(TT("dimensions"), v);
 	}
@@ -99,10 +96,20 @@ TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
 
 TTErr TTAudioMatrix::clear()
 {
-//	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
-//		column->assign(mNumOutputs, 0.0);
 	mGainMatrix->clear();
 	mOldGainMatrix->clear();
+	return kTTErrNone;
+}
+
+TTErr TTAudioMatrix::checkMatrixSize(TTUInt16 x, TTUInt16 y)
+//this function will resize mGainMatrix if necessary
+{	
+	if (x > (mNumInputs-1)){
+		if (y > (mNumOutputs-1)) mNumOutputs = y+1;
+		setNumInputs(x+1); 
+	}
+	else if (y > (mNumOutputs-1)) setNumOutputs(y+1);
+	
 	return kTTErrNone;
 }
 
@@ -120,15 +127,15 @@ TTErr TTAudioMatrix::setGain(TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	newValue.clear();
-
-	if ((x < mNumInputs) && (y < mNumOutputs)) {  
-//		mGainMatrix[x][y] = dbToLinear(gainValue);
+	checkMatrixSize(x,y);
+    
+	//if ((x < mNumInputs) && (y < mNumOutputs)) {  
 		mGainMatrix->get2dZeroIndex(x, y, temp);
 		mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 		mOldGainMatrix->set2dZeroIndex(x, y, temp); 
-		return kTTErrNone;}
-	else 
-		return kTTErrInvalidValue;
+		return kTTErrNone;//}
+	//else 
+	//	return kTTErrInvalidValue;
 }
 
 
@@ -145,16 +152,16 @@ TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);	
 	newValue.clear();
+	checkMatrixSize(x,y);
 	
-	if ((x < mNumInputs) && (y < mNumOutputs)) { 
-//		mGainMatrix[x][y] = gainValue;
+	//if ((x < mNumInputs) && (y < mNumOutputs)) { 
 		mGainMatrix->get2dZeroIndex(x, y, temp);
 		mGainMatrix->set2dZeroIndex(x, y, gainValue); 
 		mOldGainMatrix->set2dZeroIndex(x, y, temp); 
 		return kTTErrNone;
-	}
-	else 
-		return kTTErrInvalidValue;
+	//}
+	//else 
+	//	return kTTErrInvalidValue;
 }
 
 
@@ -171,16 +178,16 @@ TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	newValue.clear();
+	checkMatrixSize(x,y);
 
-	if ((x < mNumInputs) && (y < mNumOutputs)) {
-//		mGainMatrix[x][y] = midiToLinearGain(gainValue);
-		mGainMatrix->get2dZeroIndex(x, y, temp);
+	//if ((x < mNumInputs) && (y < mNumOutputs)) {
+		//mGainMatrix->get2dZeroIndex(x, y, temp);
 		mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
-		mOldGainMatrix->set2dZeroIndex(x, y, temp); 
+		//mOldGainMatrix->set2dZeroIndex(x, y, temp); 
 		return kTTErrNone;
-	}
-	else 
-		return kTTErrInvalidValue;
+	//}
+	//else 
+	//	return kTTErrInvalidValue;
 
 }
 
@@ -199,7 +206,7 @@ TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 	TTUInt16			outChannel;
 	TTUInt16			inChannel;
     TTFloat64           gainValue;
-	if (numInputChannels != mNumInputs) {
+	if (numInputChannels > mNumInputs) {
 		setNumInputs(numInputChannels);
 	}
 	if (numOutputChannels != mNumOutputs) {
@@ -218,7 +225,6 @@ TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 			for (inChannel=0; inChannel<numInputChannels; inChannel++) {
 				mGainMatrix->get2dZeroIndex(inChannel, outChannel, gainValue);
 				if (gainValue != 0.0){
-					//gainValue = value;
 					inSample = in.mSampleVectors[inChannel];
 					outSample = out.mSampleVectors[outChannel];
 					for (int i=0; i<vs; i++) {				

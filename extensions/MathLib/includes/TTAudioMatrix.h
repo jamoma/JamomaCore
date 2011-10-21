@@ -27,6 +27,7 @@ class TTAudioMatrix : TTAudioObject {
 	// Attributes
 	TTErr setNumInputs(const TTValue& newValue);
 	TTErr setNumOutputs(const TTValue& newValue);
+	TTErr checkMatrixSize(const TTUInt16 x, const TTUInt16 y);
 	TTErr setInterpolated(const TTValue& newValue);	
 	// Messages
 	TTErr clear();
