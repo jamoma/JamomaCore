@@ -277,7 +277,10 @@ TTErr TTAudioSignal::alloc()
 
 TTErr TTAudioSignal::allocWithVectorSize(const TTUInt16 newVectorSize)
 {
-	if ((newVectorSize != mVectorSize) || !mIsLocallyOwned) {
+//	if ((newVectorSize != mVectorSize) || !mIsLocallyOwned) {
+// *NOT* checking mIsLocallyOwned because of problems it causes -- when we call 
+//	this and the vector size is unchanged then we do NOT want to  monkey around with the memory
+	if (newVectorSize != mVectorSize) {
 		mVectorSize = newVectorSize;
 		return alloc();
 	}
