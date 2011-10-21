@@ -48,9 +48,7 @@ else
 	# Copy into Max 6 - comment this out if you don't want it
   `rm -r "/Applications/Max6/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max6/Cycling '74/extensions/jcom.loader.mxo"`
-	`cp -r "./library/DeviceManagerLib/plugins/OSC.dylib" "/Applications/Max6/support/OSC.dylib"`
-	`cp -r "./library/DeviceManagerLib/plugins/Minuit.dylib" "/Applications/Max6/support/Minuit.dylib"`
-	`cp -r "./library/DeviceManagerLib/plugins/CopperLANPlugin.dylib" "/Applications/Max6/support/CopperLANPlugin.dylib"`	
+	`cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max6/Cycling '74/init/JamomaConfiguration.xml"`
 	
 	# Copy default files into Max 6  - comment this out if you don't want it
 	`cp -r "Max/support/jcom.label.maxdefines" "/Applications/Max6/Cycling '74/default-definitions/jcom.label.maxdefines"`
@@ -65,7 +63,7 @@ else
   `cp -r "Max/support/JamomaLight.maxdefaults" "/Applications/Max6/Cycling '74/default-settings/JamomaLight.maxdefaults"`
   `cp -r "Max/support/JamomaMax.maxdefaults" "/Applications/Max6/Cycling '74/default-settings/JamomaMax.maxdefaults"`
   `cp -r "Max/support/JamomaNoir.maxdefaults" "/Applications/Max6/Cycling '74/default-settings/JamomaNoir.maxdefaults"`
-  `cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max6/Cycling '74/init/JamomaConfiguration.xml"`
+  
 end
 
 puts "done"
