@@ -24,6 +24,7 @@ typedef struct extra {
 	#endif
 	
 	TTBoolean	changingAddress;	// a flag to protect from succession of address changes
+	TTValue		args;				// keep attributes argument of the external
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
@@ -35,7 +36,7 @@ void		WrappedDataClass_free(TTPtr self);
 
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
-void		data_new_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		data_new_address(TTPtr self, SymbolPtr msg);
 void		data_subscribe_array(TTPtr self);
 void		data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index);
 void		data_array_select(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -153,15 +154,22 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	EXTRA->array_value = NULL;
 #endif
 	EXTRA->changingAddress = NO;
+	EXTRA->args = kTTValNONE;
 	
 	// handle args
-	if (argc && argv)
+	if (argc && argv) {
+		
+		// set the external attribute
 		attr_args_process(x, argc, argv);
+		
+		// keep args to set the wrapped object attributes
+		jamoma_ttvalue_from_Atom(EXTRA->args, _sym_list, argc--, argv++);
+	}
 
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)data_new_address, relativeAddress, argc--, argv++);
+	defer_low((ObjectPtr)x, (method)data_new_address, relativeAddress, 0, NULL);
 }
 
 void WrappedDataClass_free(TTPtr self)
@@ -182,9 +190,11 @@ void WrappedDataClass_free(TTPtr self)
 	free(EXTRA);
 }
 	
-void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
+void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	AtomCount					argc = 0; 
+	AtomPtr						argv = NULL;
 	long						number, i;
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
@@ -250,6 +260,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 				x->iterateInternals = NO;
 				
 				// handle args
+				jamoma_ttvalue_to_Atom(EXTRA->args, &argc, &argv);
 				if (argc && argv)
 					attr_args_process(x, argc, argv);
 				
@@ -362,7 +373,7 @@ void data_address(TTPtr self, SymbolPtr address)
 		
 		// rebuild internals
 		EXTRA->changingAddress = YES;
-		defer_low(self,(method)data_new_address, address, 0, NULL); // TODO : give all @attribute too
+		defer_low(self,(method)data_new_address, address, 0, NULL);
 	}
 	else 
 		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", address->s_name);
@@ -530,18 +541,21 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 			for (TTUInt32 i=0; i<EXTRA->array_size; i++) {
 				
 				// if the data have not been updated yet
-				if (!EXTRA->array_value[i]) {
+				m = EXTRA->array_value[i];
+				if (m == NULL) {
+					
 					memoCursor = x->cursor;
 					jamoma_edit_numeric_instance(x->i_format, &iAdrs, i+1);
 					x->cursor = TT(iAdrs->s_name);
-					selectedObject->getAttributeValue(kTTSym_value, g);
+					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					
 					m = new TTValue(g);
+					
 					EXTRA->array_value[i] = m;
 					x->cursor = memoCursor;
 				}
 				
-				array.append((TTValuePtr)EXTRA->array_value[i]);
+				array.append((TTValuePtr)m);
 			}
 		
 		jamoma_ttvalue_to_typed_Atom(array, &msg, &argc, &argv, shifted);
