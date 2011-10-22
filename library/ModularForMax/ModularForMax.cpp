@@ -1033,6 +1033,22 @@ TTErr jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	return kTTErrNone;
 }
 
+/**	Send Max data using a viewer object */
+TTErr jamoma_viewer_send(TTViewerPtr aViewer, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	TTValue		v;
+	
+	if (aViewer) {
+		
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+		
+		return aViewer->sendMessage(kTTSym_Send, v);
+	}
+	
+	return kTTErrGeneric;
+}
+
+
 // Method to deal with TTExplorer
 ///////////////////////////////////////////////////////////////////////
 

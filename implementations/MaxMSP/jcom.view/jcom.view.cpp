@@ -276,8 +276,6 @@ void view_subscribe(TTPtr self)
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTBoolean	copyMsg = false;
-	TTUInt8		i;
 	
 	// avoid blank before data
 	if (msg == _sym_nothing)
@@ -286,27 +284,7 @@ void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
 	// Copy msg and atom in order to avoid losing data
-	if (msg != _sym_nothing && msg != _sym_int && msg != _sym_float && msg != _sym_symbol && msg != _sym_list)
-		copyMsg = true;
-	
-	x->msg = msg;
-	x->argc = argc;
-	if (copyMsg)
-		x->argc++;
-	
-	x->argv = NULL;
-	x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * x->argc);
-	
-	if (x->argc) {
-		if (copyMsg) {
-			atom_setsym(&x->argv[0], msg);
-			for (i=1; i<x->argc; i++)
-				x->argv[i] = argv[i-1];
-		}
-		else
-			for (i=0; i<x->argc; i++)
-				x->argv[i] = argv[i];
-	}
+	copy_msg_argc_argv(self, msg, argc, argv);
 	
 	qelem_set(EXTRA->ui_qelem);
 }
@@ -342,11 +320,8 @@ void view_float(TTPtr self, double value)
 void view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue		v;
 	
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
-	
-	x->wrappedObject->sendMessage(kTTSym_Send, v);
+	jamoma_viewer_send((TTViewerPtr)x->wrappedObject, msg, argc, argv);
 }
 
 void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

@@ -148,6 +148,9 @@ extern "C" {
 	
 	/**	Create a viewer object */
 	TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer);
+	
+	/**	Send Max data using a viewer object */
+	TTErr			jamoma_viewer_send(TTViewerPtr aViewer, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 	
 	// Method to deal with TTExplorer
