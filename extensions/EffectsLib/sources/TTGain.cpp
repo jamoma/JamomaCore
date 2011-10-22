@@ -19,7 +19,7 @@ TT_AUDIO_CONSTRUCTOR
 	registerAttribute(TT("linearGain"),	kTypeFloat64,	&mGain);
 	registerAttribute(TT("gain"),		kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
 	registerAttribute(TT("midiGain"),	kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getMidiGain, (TTSetterMethod)&TTGain::setMidiGain);
-	addAttributeWithSetter(Interpolated,		kTypeBoolean);
+	addAttribute(Interpolated,		kTypeBoolean);
 	// Set Defaults...
 	setAttributeValue(TT("linearGain"),	0.0);
 	setProcessMethod(processAudio);
@@ -30,7 +30,7 @@ TTGain::~TTGain()
 {
 	;
 }
-
+/*
 TTErr TTGain::setInterpolated(const TTValue& newValue)
 {
 	mInterpolated = newValue;
@@ -39,12 +39,14 @@ TTErr TTGain::setInterpolated(const TTValue& newValue)
 	else 
 		setProcessMethod(processAudio);	
 	return kTTErrNone;
-}
+}*/
 
 TTErr TTGain::setGain(const TTValue& newValue)
 {   
 	//oldGain = mGain;
 	mGain = dbToLinear(newValue);
+	if (mInterpolated) 
+		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;
 }
 
@@ -52,6 +54,8 @@ TTErr TTGain::setGain(const TTValue& newValue)
 TTErr TTGain::getGain(TTValue& value)
 {
 	value = linearToDb(mGain);
+	if (mInterpolated) 
+		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;
 }
 
@@ -60,6 +64,8 @@ TTErr TTGain::setMidiGain(const TTValue& newValue)
 {
 	//oldGain = mGain;
 	mGain = midiToLinearGain(newValue);
+	if (mInterpolated) 
+		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;
 }
 
@@ -114,6 +120,7 @@ TTErr TTGain::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSign
 		}		
 	}
 	oldGain = mGain;
+	setProcessMethod(processAudio);
 	return kTTErrNone;
 }
 
