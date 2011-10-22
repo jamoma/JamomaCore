@@ -67,8 +67,12 @@ TTErr TTMatrixMixer::setNumInputs(const TTUInt16 newValue)
 	TTValue		v(numInputs, mNumOutputs);
 	
 	if (newValue != mNumInputs) {
+		tempGainMatrix->adaptTo(mGainMatrix); //1. copy mGainMtrix to tempGainMatrix;
+		TTMatrix::copy(*mGainMatrix, *tempGainMatrix);
 		mNumInputs = numInputs;
-		mGainMatrix->setAttributeValue(TT("dimensions"), v);
+		mGainMatrix->setAttributeValue(TT("dimensions"), v);	
+		clear();						//2. clear mGainMatrix
+		restoreMatrix();				//3. element-wise copy tempGainMatrix content over to mGainMatrix
 	}
 	return kTTErrNone;
 }
@@ -80,8 +84,31 @@ TTErr TTMatrixMixer::setNumOutputs(const TTUInt16 newValue)
 	TTValue		v(mNumInputs, numOutputs);
 	
 	if (newValue != mNumOutputs) {
+		tempGainMatrix->adaptTo(mGainMatrix); //1. copy mGainMtrix to tempGainMatrix;
+		TTMatrix::copy(*mGainMatrix, *tempGainMatrix);
 		mNumOutputs = newValue;
-		mGainMatrix->setAttributeValue(TT("dimensions"), v);
+		mGainMatrix->setAttributeValue(TT("dimensions"), v);	
+		clear();						//2. clear mGainMatrix
+		restoreMatrix();				//3. element-wise copy tempGainMatrix content over to mGainMatrix
+
+	}
+	return kTTErrNone;
+}
+
+TTErr TTMatrixMixer::restoreMatrix()
+{
+	
+	TTValue		v;						
+	TTFloat64	tempValue; 	
+	TTUInt16	xx, yy;
+	tempGainMatrix->getDimensions(v);
+	v.get(0,xx);
+	v.get(1,yy);
+	for (TTUInt16 y=0; y < yy; y++) {
+		for (TTUInt16 x=0; x < xx; x++) {
+			tempGainMatrix->get2dZeroIndex(x, y, tempValue);
+			mGainMatrix->set2dZeroIndex(x, y, tempValue);
+		}
 	}
 	return kTTErrNone;
 }
@@ -153,39 +180,15 @@ TTErr TTMatrixMixer::setMidiGain(TTValue& newValue)
 
 TTErr TTMatrixMixer::checkMatrixSize(TTUInt16 x, TTUInt16 y)
 //this function will resize mGainMatrix if necessary while preserving its content 
-{	TTBoolean matrixNeedsUpdate = false;	
-	
-	
+{	
 	if (x > (mNumInputs-1)){
-		matrixNeedsUpdate = true;
-		tempGainMatrix->adaptTo(mGainMatrix); //1. copy mGainMtrix to tempGainMatrix;
-		TTMatrix::copy(*mGainMatrix, *tempGainMatrix);
 		if (y > (mNumOutputs-1)) 
 			mNumOutputs = y+1;
 		setNumInputs(x+1); 
 	}
 	else{ 
-		if (y > (mNumOutputs-1)) {
-			matrixNeedsUpdate = true;
-			tempGainMatrix->adaptTo(mGainMatrix);
-			TTMatrix::copy(*mGainMatrix, *tempGainMatrix); //1. copy mGainMtrix to tempGainMatrix;
+		if (y > (mNumOutputs-1)) 
 			setNumOutputs(y+1);
-		}
-	}
-	if (matrixNeedsUpdate){
-		clear();						//2. clear mGainMatrix
-		TTValue		v;					//3. element-wise copy tempGainMatrix content over to mGainMatrix
-		TTFloat64	tempValue; 	
-		TTUInt16	xx, yy;
-		tempGainMatrix->getDimensions(v);
-		v.get(0,xx);
-		v.get(1,yy);
-		for (TTUInt16 y=0; y < yy; y++) {
-			for (TTUInt16 x=0; x < xx; x++) {
-				tempGainMatrix->get2dZeroIndex(x, y, tempValue);
-				mGainMatrix->set2dZeroIndex(x, y, tempValue);
-			}
-		}
 	}
 	return kTTErrNone;
 }
@@ -225,7 +228,6 @@ TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 		out.clear(); // zeroing output memory
 		if (y < (mNumOutputs)){
 			for (TTUInt16 x=0; x < minChannelIn; x++) {
-//				gain = mGainMatrix[x][y];
 				mGainMatrix->get2dZeroIndex(x, y, gain);  
 				if (gain){ //if the gain value is zero, just pass processOne 
 					TTAudioSignal&	in = inputs->getSignal(x);
