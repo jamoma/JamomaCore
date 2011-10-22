@@ -19,9 +19,8 @@ class TTAudioMatrix : TTAudioObject {
 	TTUInt16		mNumInputs;
 	TTUInt16		mNumOutputs;
 	TTBoolean		mInterpolated;
-//	TTSampleMatrix	mGainMatrix;
 	TTMatrixPtr		mGainMatrix;
-	TTMatrixPtr		mOldGainMatrix;
+	TTMatrixPtr		oldGainMatrix, tempGainMatrix;
 	
 
 	// Attributes
@@ -31,6 +30,7 @@ class TTAudioMatrix : TTAudioObject {
 	TTErr setInterpolated(const TTValue& newValue);	
 	// Messages
 	TTErr clear();
+	TTErr restoreMatrix();
 	TTErr setGain(TTValue& newValue);
 	TTErr setLinearGain(TTValue& newValue);
 	TTErr setMidiGain(TTValue& newValue);	
