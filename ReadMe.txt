@@ -21,15 +21,15 @@ Installing
 Place the folder containing this ReadMe somewhere on your hard-drive. Then Make sure your compiler has access to it in order to compile the code.
 
 Install Locations are as follows:
-	Mac 	library is expected @		/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib
+	Mac 	library is expected @		/usr/local/jamoma/lib/JamomaAudioGraph.dylib
 		extensions are expected @	/Library/Application Support/Jamoma/Extensions/*.ttdylib
 						~/Library/Application Support/Jamoma/Extensions/*.ttdylib
 
-	Linux 	library	is expected @		/usr/lib/jamoma/runtime/libJamomaDSP.so
+	Linux 	library	is expected @		/usr/lib/jamoma/runtime/JamomaAudioGraph.so
 		extensions are expected @	/usr/lib/jamoma/extensions/*.ttso
 						/usr/local/lib/jamoma/extensions/*.ttso
 
-	Windows	library is expected in the applications DLL path (JamomaDSP.dll)
+	Windows	library is expected in the applications DLL path (JamomaAudioGraph.dll)
 		extensions are expected @	\Program Files\Common\Jamoma\Extensions\*.ttdll
 
 
