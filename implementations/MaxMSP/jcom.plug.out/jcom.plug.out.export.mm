@@ -453,6 +453,15 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	filecontents += "DEPLOYMENT_LOCATION = YES\n";
 	filecontents += "\n";
 	
+	// Paths
+	filecontents += "JAMOMALIBS = /usr/local/jamoma/lib";
+	filecontents += "\n";
+	
+	filecontents += "HEADER_SEARCH_PATHS = /usr/local/jamoma/includes";
+	filecontents += "\n";
+	
+	filecontents += "OTHER_LDFLAGS = \"$(JAMOMALIBS)\"/JamomaFoundation.dylib \"$(JAMOMALIBS)\"/JamomaDSP.dylib \"$(JAMOMALIBS)\"/JamomaGraph.dylib \"$(JAMOMALIBS)\"/JamomaAudioGraph.dylib \"$(JAMOMALIBS)\"/JamomaGraphics.dylib \"$(JAMOMALIBS)\"/JamomaPlugtastic.dylib";
+	filecontents += "\n";
 	
 	file = fopen(filepath.c_str(), "w");
 	if (file) {
