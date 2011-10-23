@@ -71,16 +71,12 @@ public:
 	// This one is called, for example, on the Mac when dropping a source and the vector has to be re-arranged.	
 	TTGraphSource& operator=(const TTGraphSource& original)
 	{
-		mSourceObject = NULL;
-		mOutletNumber = 0;
-		mCallbackHandler = NULL;
-		mOwner = NULL;
-	
-		// TODO: We're probably leaking memory here, because mCallbackHandler is potentially never freed...
-		// However, if we don't NULL the mCallbackHandler 
-		// then we end up with crashes when we do something like close a Max patcher after editing connections while running. 
-		
-		create();
+		if (mSourceObject && mCallbackHandler)
+			((TTObjectPtr)mSourceObject)->unregisterObserverForNotifications(*mCallbackHandler);
+
+		TTObjectRelease(&mCallbackHandler);
+		mCallbackHandler = TTObjectReference(original.mCallbackHandler);
+				
 		mOwner = original.mOwner;
 
 		// TODO: evaluate if this is doing the correct thing:
