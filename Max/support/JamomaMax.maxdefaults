@@ -95,7 +95,7 @@
 		"umenu_arrowbgcolor" : [ 0.86, 0.86, 0.86, 1.0 ],
 		"jpatcher_locked_iocolor" : [ 0.45, 0.45, 0.45, 1.0 ],
 		"ezadc~_ongradcolor2" : [ 0.66, 0.66, 0.72, 1.0 ],
-		"jcom.textslider_fgcolor" : [ 0.843137, 0.843137, 0.843137, 1.0 ],
+		"jcom.textslider_fgcolor" : [ 0.80, 0.80, 0.80, 1.0 ],
 		"jcom.ui_headercolor" : [ 0.815686, 0.815686, 0.815686, 1.0 ],
 		"number_bgcolor" : [ 1, 1, 1, 1 ],
 		"rslider_fgcolor" : [ 0.65, 0.65, 0.65, 1.0 ],

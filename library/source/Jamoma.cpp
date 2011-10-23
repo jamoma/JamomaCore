@@ -92,6 +92,10 @@ void jamoma_init(void)
 		atom_setsym(a+2, SymbolGen("inserttextobj"));
 		atom_setsym(a+3, SymbolGen("jcom."));
 		object_method_typed(max, SymbolGen("definecommand"), 4, a, NULL);
+		atom_setsym(a+0, SymbolGen("patcher"));
+		atom_setsym(a+1, SymbolGen("J"));
+		atom_setsym(a+2, SymbolGen("jcom. object"));
+		object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);
 		
 		// M -- Module: a new object box with "jmod." in it
 		atom_setsym(a+0, SymbolGen("M"));
@@ -99,22 +103,41 @@ void jamoma_init(void)
 		atom_setsym(a+2, SymbolGen("inserttextobj"));
 		atom_setsym(a+3, SymbolGen("jmod."));
 		object_method_typed(max, SymbolGen("definecommand"), 4, a, NULL);
-
-		// I -- Input: a new audio input module
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat", NULL);
-		// O -- Output: a new audio output module	
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat", NULL);
-	
-		// B -- BPatcher: a new module in a bpatcher
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"B patcher inserttextobj \"bpatcher @name .module @args /myModule\"", NULL);	
+        atom_setsym(a+0, SymbolGen("patcher"));
+		atom_setsym(a+1, SymbolGen("M"));
+		atom_setsym(a+2, SymbolGen("jmod. object"));
+		object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);
 		
-		// to -- this broken in Modular 0.6 : How to instanciate easily ? Clipping are maybe more usefull than this command ... ?
+		// I -- Input: a new audio input module
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
+		atom_setsym(a+0, SymbolGen("patcher"));
+		atom_setsym(a+1, SymbolGen("I"));
+		atom_setsym(a+2, SymbolGen("jmod.input~"));
+		object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);
+		// O -- Output: a new audio output module	
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
+		atom_setsym(a+0, SymbolGen("patcher"));
+		atom_setsym(a+1, SymbolGen("O"));
+		atom_setsym(a+2, SymbolGen("jmod.output~"));
+		object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);
+		// B -- BPatcher: a new module in a bpatcher
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
+		atom_setsym(a+0, SymbolGen("patcher"));
+		atom_setsym(a+1, SymbolGen("B"));
+		atom_setsym(a+2, SymbolGen("bpatcher @name jmod. @args myModule"));
+		object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);
 		// D -- Demo: a new module in a bpatcher, but with the args reverse which is handy for super-fast demos when you don't care about the OSC name
-		//object_method_parse(max, SymbolGen("definecommand"), (char*)"D patcher inserttextobj \"bpatcher @name .model\"", NULL);		
-
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"D patcher inserttextobj \"bpatcher @name jmod.\"", NULL);		
+		atom_setsym(a+0, SymbolGen("patcher"));
+		atom_setsym(a+1, SymbolGen("D"));
+		atom_setsym(a+2, SymbolGen("bpatcher @name jmod."));
+		object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);
 		// X -- Continuous Mapper module
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat", NULL);		
-
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat @args /mapper", NULL);		
+		atom_setsym(a+0, SymbolGen("patcher"));
+		atom_setsym(a+1, SymbolGen("X"));
+		atom_setsym(a+2, SymbolGen("jmod.mapperContinuous"));
+		object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);		
 		// !!!! --- x is defined here to work around a 'bug' in the Max Toolbox b13 ( http://code.google.com/p/maxtoolbox/downloads/list )
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"x patcher nothing", NULL);		
 
