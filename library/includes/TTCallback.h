@@ -35,6 +35,10 @@ public:
 	
 	/**	usefull to easily free the baton in case the pointer is a TTValue of something which need to be freed corectly */
 	TTPtr getBaton(){return mBaton;};
+	
+	
+	TTErr setOwner(const TTValue& input);
+
 };
 
 typedef TTCallback* TTCallbackPtr;

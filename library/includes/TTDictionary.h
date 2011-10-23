@@ -32,9 +32,16 @@ public:
 	virtual ~TTDictionary();
 	
 	// The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
+	// This operator is used when pushing to an append# object, however...
 	TTDictionary& operator=(const TTDictionary& source)
 	{
-		*mHashTable	= *source.mHashTable;		
+		if (mHashTable)
+			delete mHashTable;
+		mHashTable = new TTHash(*source.mHashTable);
+		
+		if (mList)
+			delete mList;
+		mList = new TTList(*source.mList);
 		return *this;
 	}
 		

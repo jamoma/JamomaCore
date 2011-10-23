@@ -26,6 +26,16 @@ TTList::~TTList()
 }
 
 
+TTList::TTList(TTList& that) :
+	mThreadProtection(YES)
+{
+	mMutex = new TTMutex(false);
+	
+	theList = that.theList;
+}
+
+
+
 TTUInt32 TTList::getSize()
 {
 	return theList.size();
