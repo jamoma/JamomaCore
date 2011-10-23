@@ -516,7 +516,10 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	filecontents += "		TTValue audioObjectArguments;\n";
 	filecontents += "\n";
 	filecontents += "		audioObjectArguments.setSize(3);\n";
-	filecontents += "		PlugtasticInit(\"/Library/Application Support/Plugtastic\");\n";
+// With the initial transition to Jamoma, we are sharing the binaries between Jamoma and compiled plug-ins
+// But we need to ultimately isolate these...
+//	filecontents += "		PlugtasticInit(\"/Library/Application Support/Plugtastic\");\n";
+	filecontents += "		PlugtasticInit();\n";
 	filecontents += "	\n";
 	filecontents += content;	
 	filecontents += "	}\n";

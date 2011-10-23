@@ -29,7 +29,10 @@ public:
 		obj3(NULL),
 		mAudioSignal(NULL)
 	{		
-		PlugtasticInit("/Library/Application Support/Plugtastic");
+// With the initial transition to Jamoma, we are sharing the binaries between Jamoma and compiled plug-ins
+// But we need to ultimately isolate these...
+//		PlugtasticInit("/Library/Application Support/Plugtastic");
+		PlugtasticInit();
 		
 		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj0, TTValue(TT("plugtastic.output")));
 // TODO: the 'filter' object doesn't exist because it is a class that is buried inside of an extern definition
