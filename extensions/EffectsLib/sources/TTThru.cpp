@@ -30,5 +30,9 @@ TTErr TTThru::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr o
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	
+	// We can't reliably simply reference in the case of jcom.unpack≈ because of crashes
+	// not sure what is going wrong with that yet...
+	
+	//return TTAudioSignal::reference(in, out);
 	return TTAudioSignal::copy(in, out);
 }

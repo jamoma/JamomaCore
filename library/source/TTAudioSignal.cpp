@@ -277,6 +277,8 @@ TTErr TTAudioSignal::alloc()
 
 TTErr TTAudioSignal::allocWithVectorSize(const TTUInt16 newVectorSize)
 {
+	// NOTE: we once tried removing the check for !mIsLocallyOwned
+	// doing so causes Plugtastic plug-ins to crash in auval
 	if ((newVectorSize != mVectorSize) || !mIsLocallyOwned) {
 		mVectorSize = newVectorSize;
 		return alloc();
@@ -291,6 +293,21 @@ TTErr TTAudioSignal::allocWithNewVectorSize(const TTValue& newVectorSize)
 }
 
 
+TTErr TTAudioSignal::reference(const TTAudioSignal& source, TTAudioSignal& dest)
+{
+	dest.chuck(); // sets isLocallyOwned to false
+	dest.mSampleVectors = source.mSampleVectors;
+	
+	dest.mVectorSize = source.mVectorSize;
+	dest.mMaxNumChannels = source.mMaxNumChannels;
+	dest.mNumChannels = source.mNumChannels;
+	dest.mBitdepth = source.mBitdepth;
+	dest.mSampleRate = source.mSampleRate;
+	
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset)
 {
 	TTUInt16		vs;
@@ -300,7 +317,7 @@ TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUI
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(source, dest);
 	TTUInt16		additionalOutputChannels = dest.mNumChannels - numchannels;
 	TTUInt16		channel;
-		
+	
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = source.mSampleVectors[channel];
 		outSample = dest.mSampleVectors[ TTClip(channel+channelOffset, 0, maxDestChannels-1)  ];
@@ -360,30 +377,6 @@ TTErr TTAudioSignal::copySubset(const TTAudioSignal& source, TTAudioSignal& dest
 	}
 	return kTTErrNone;
 }
-
-
-TTUInt16 TTAudioSignal::getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
-{
-	if (signal1.mNumChannels > signal2.mNumChannels)
-		return signal2.mNumChannels;
-	else
-		return signal1.mNumChannels;
-}
-
-
-TTUInt16 TTAudioSignal::getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3)
-{
-	TTUInt16	numChannels = signal1.mNumChannels;
-	
-	if (signal2.mNumChannels < numChannels)
-		numChannels = signal2.mNumChannels;
-	if (signal3.mNumChannels < numChannels)
-		numChannels = signal3.mNumChannels;
-	
-	return numChannels;
-}
-
-
 
 TTUInt16 TTAudioSignal::getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
 {

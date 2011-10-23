@@ -18,8 +18,7 @@ class TTMatrixMixer : TTAudioObject {
 
 	TTUInt16		mNumInputs;
 	TTUInt16		mNumOutputs;
-//	TTSampleMatrix	mGainMatrix;
-	TTMatrixPtr		mGainMatrix;
+	TTMatrixPtr		mGainMatrix, tempGainMatrix;
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -28,6 +27,7 @@ class TTMatrixMixer : TTAudioObject {
 	TTErr setNumOutputs(const TTUInt16 newValue);
 	
 	TTErr clear();
+	TTErr restoreMatrix();
 
 	TTErr checkMatrixSize(const TTUInt16 x, const TTUInt16 y);
 	
