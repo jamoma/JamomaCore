@@ -17,7 +17,8 @@ using namespace std;
 
 class TTObject;
 typedef TTObject* TTObjectPtr;
-typedef list<TTValue>::iterator	TTListIter;
+typedef std::list<TTValue>				TTLinkedList;
+typedef std::list<TTValue>::iterator	TTListIter;
 
 /****************************************************************************************************/
 // Class Specification
@@ -30,8 +31,8 @@ private:
 	#ifdef TT_PLATFORM_WIN
 	#pragma warning(disable:4251)
 	#endif
-	std::list<TTValue>	theList;
-	TTListIter theIter;
+	TTLinkedList	theList;
+	TTListIter		theIter;
 	
 	void lock();
 	void unlock();
@@ -39,6 +40,7 @@ private:
 public:
 	TTList();
 	virtual ~TTList();
+	TTList(TTList& that);
 
 	/** Determine the number of values in the list.
 		@return	The count of the values in the list.	*/
