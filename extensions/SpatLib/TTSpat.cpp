@@ -25,6 +25,9 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithGetterAndSetter(DestinationPositions,	kTypeFloat64);
 	
 	addMessageWithArgument(getSpatFunctions);
+	addMessageWithArgument(getFunctionParameters);
+	addMessageWithArgument(getFunctionParameter);
+	addMessageWithArgument(setFunctionParameter);
 	
 	//addUpdate(MaxNumChannels);
 	
@@ -83,6 +86,7 @@ TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 }
 
 
+
 TTErr TTSpat::getSpatFunctions(TTValue& listOfSpatFunctionsToReturn)
 {
 	TTValue v;
@@ -92,6 +96,35 @@ TTErr TTSpat::getSpatFunctions(TTValue& listOfSpatFunctionsToReturn)
 	v.set(1, TT("processing")); // more efficent than append
 	return TTGetRegisteredClassNamesForTags(listOfSpatFunctionsToReturn, v);
 }
+
+
+TTErr TTSpat::getFunctionParameters(TTValue& aListOfParameterNamesToReturn)
+{
+	mSpatFunctionObject->getAttributeNames(aListOfParameterNamesToReturn);
+	return kTTErrNone;
+}
+
+
+TTErr TTSpat::getFunctionParameter(TTValue& aParameterNameIn_aValueOut)
+{
+	TTSymbolPtr parameterName = NULL;
+	
+	aParameterNameIn_aValueOut.get(0, &parameterName);
+	return mSpatFunctionObject->getAttributeValue(parameterName, aParameterNameIn_aValueOut);
+}
+
+
+TTErr TTSpat::setFunctionParameter(TTValue& aParameterNameAndValue)
+{
+	TTSymbolPtr parameterName = NULL;
+	TTValue		parameterValue;
+	
+	aParameterNameAndValue.get(0, &parameterName);
+	parameterValue.copyFrom(aParameterNameAndValue, 1);
+	aParameterNameAndValue.clear(); // only needed so that we don't return a value
+	return mSpatFunctionObject->setAttributeValue(parameterName, parameterValue);
+}
+
 
 
 TTErr TTSpat::setSourceCount(const TTValue& aSourceCount)
