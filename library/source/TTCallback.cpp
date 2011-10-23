@@ -21,7 +21,7 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 	addAttribute(Baton, kTypePointer);
 	
 	// Théo says this is only used for debugging purposes [tap]
-	addAttribute(Owner, kTypeSymbol);
+	addAttributeWithSetter(Owner, kTypeSymbol);
 	
 	addMessageWithArgument(notify);
 }
@@ -31,6 +31,9 @@ TTCallback::~TTCallback()
 {
 	mFunction = NULL;
 	mBaton = NULL;
+	if (mOwner) {
+		mOwner = NULL;
+	}
 }
 
 
@@ -42,3 +45,10 @@ TTErr TTCallback::notify(TTValue& arguments)
 	return kTTErrNone;
 }
 
+
+TTErr TTCallback::setOwner(const TTValue& input)
+{
+	input.get(0, &mOwner);
+	cout << "TTCallback::setOwner() -- " << mOwner->getCString() << endl;
+	return kTTErrNone;
+}
