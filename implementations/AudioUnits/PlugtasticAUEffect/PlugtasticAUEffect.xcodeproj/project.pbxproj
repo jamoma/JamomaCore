@@ -7,127 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2279A0401249A81400C2F3A2 /* JamomaAudioGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2279A03A1249A81400C2F3A2 /* JamomaAudioGraph.dylib */; };
-		2279A0411249A81400C2F3A2 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2279A03B1249A81400C2F3A2 /* JamomaDSP.dylib */; };
-		2279A0421249A81400C2F3A2 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2279A03C1249A81400C2F3A2 /* JamomaFoundation.dylib */; };
-		2279A0431249A81400C2F3A2 /* JamomaGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2279A03D1249A81400C2F3A2 /* JamomaGraph.dylib */; };
-		2279A0441249A81400C2F3A2 /* JamomaGraphics.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2279A03E1249A81400C2F3A2 /* JamomaGraphics.dylib */; };
-		2279A0451249A81400C2F3A2 /* Plugtastic.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2279A03F1249A81400C2F3A2 /* Plugtastic.dylib */; };
 		3EEA126E089847F5002C6BFC /* CAVectorUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EEA126B089847F5002C6BFC /* CAVectorUnit.cpp */; };
-		3EEA126F089847F5002C6BFC /* CAVectorUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EEA126C089847F5002C6BFC /* CAVectorUnit.h */; };
-		3EEA1270089847F5002C6BFC /* CAVectorUnitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EEA126D089847F5002C6BFC /* CAVectorUnitTypes.h */; };
 		8B4119B70749654200361ABE /* PlugtasticAUEffect.r in Rez */ = {isa = PBXBuildFile; fileRef = 8BA05A680720730100365D66 /* PlugtasticAUEffect.r */; };
 		8BA05A6B0720730100365D66 /* PlugtasticAUEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A660720730100365D66 /* PlugtasticAUEffect.cpp */; };
-		8BA05A6E0720730100365D66 /* PlugtasticAUEffectVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A690720730100365D66 /* PlugtasticAUEffectVersion.h */; };
 		8BA05AAE072073D300365D66 /* AUBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A7F072073D200365D66 /* AUBase.cpp */; };
-		8BA05AAF072073D300365D66 /* AUBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A80072073D200365D66 /* AUBase.h */; };
 		8BA05AB0072073D300365D66 /* AUDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A81072073D200365D66 /* AUDispatch.cpp */; };
-		8BA05AB1072073D300365D66 /* AUDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A82072073D200365D66 /* AUDispatch.h */; };
 		8BA05AB2072073D300365D66 /* AUInputElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A83072073D200365D66 /* AUInputElement.cpp */; };
-		8BA05AB3072073D300365D66 /* AUInputElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A84072073D200365D66 /* AUInputElement.h */; };
 		8BA05AB4072073D300365D66 /* AUOutputElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A85072073D200365D66 /* AUOutputElement.cpp */; };
-		8BA05AB5072073D300365D66 /* AUOutputElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A86072073D200365D66 /* AUOutputElement.h */; };
 		8BA05AB7072073D300365D66 /* AUScopeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A88072073D200365D66 /* AUScopeElement.cpp */; };
-		8BA05AB8072073D300365D66 /* AUScopeElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A89072073D200365D66 /* AUScopeElement.h */; };
 		8BA05AB9072073D300365D66 /* ComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A8A072073D200365D66 /* ComponentBase.cpp */; };
-		8BA05ABA072073D300365D66 /* ComponentBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A8B072073D200365D66 /* ComponentBase.h */; };
 		8BA05AC6072073D300365D66 /* AUEffectBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A9A072073D200365D66 /* AUEffectBase.cpp */; };
-		8BA05AC7072073D300365D66 /* AUEffectBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A9B072073D200365D66 /* AUEffectBase.h */; };
 		8BA05AD2072073D300365D66 /* AUBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05AA7072073D200365D66 /* AUBuffer.cpp */; };
-		8BA05AD3072073D300365D66 /* AUBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AA8072073D200365D66 /* AUBuffer.h */; };
 		8BA05AD4072073D300365D66 /* AUDebugDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05AA9072073D200365D66 /* AUDebugDispatcher.cpp */; };
-		8BA05AD5072073D300365D66 /* AUDebugDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AAA072073D200365D66 /* AUDebugDispatcher.h */; };
-		8BA05AD6072073D300365D66 /* AUInputFormatConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AAB072073D200365D66 /* AUInputFormatConverter.h */; };
-		8BA05AD7072073D300365D66 /* AUSilentTimeout.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AAC072073D200365D66 /* AUSilentTimeout.h */; };
-		8BA05AD8072073D300365D66 /* AUTimestampGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AAD072073D200365D66 /* AUTimestampGenerator.h */; };
 		8BA05AE50720742100365D66 /* CAAudioChannelLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05ADF0720742100365D66 /* CAAudioChannelLayout.cpp */; };
-		8BA05AE60720742100365D66 /* CAAudioChannelLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AE00720742100365D66 /* CAAudioChannelLayout.h */; };
 		8BA05AE70720742100365D66 /* CAMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05AE10720742100365D66 /* CAMutex.cpp */; };
-		8BA05AE80720742100365D66 /* CAMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AE20720742100365D66 /* CAMutex.h */; };
 		8BA05AE90720742100365D66 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05AE30720742100365D66 /* CAStreamBasicDescription.cpp */; };
-		8BA05AEA0720742100365D66 /* CAStreamBasicDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AE40720742100365D66 /* CAStreamBasicDescription.h */; };
 		8BA05AFC072074E100365D66 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA05AF9072074E100365D66 /* AudioToolbox.framework */; };
 		8BA05AFD072074E100365D66 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA05AFA072074E100365D66 /* AudioUnit.framework */; };
 		8BA05B02072074F900365D66 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA05B01072074F900365D66 /* CoreServices.framework */; };
 		8BA05B070720754400365D66 /* CAAUParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05B050720754400365D66 /* CAAUParameter.cpp */; };
-		8BA05B080720754400365D66 /* CAAUParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05B060720754400365D66 /* CAAUParameter.h */; };
-		8BC6025C073B072D006C4272 /* PlugtasticAUEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BC6025B073B072D006C4272 /* PlugtasticAUEffect.h */; };
 		F7C347F00ECE5AF8008ADFB6 /* AUBaseHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F7C347EE0ECE5AF8008ADFB6 /* AUBaseHelper.cpp */; };
-		F7C347F10ECE5AF8008ADFB6 /* AUBaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = F7C347EF0ECE5AF8008ADFB6 /* AUBaseHelper.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		22335ED0123C10A900182E8D /* PlugtasticAUEffect.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugtasticAUEffect.xcconfig; sourceTree = "<group>"; };
-		22799FF51249A75200C2F3A2 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAttribute.h; path = "/Library/Application Support/Plugtastic/Includes/TTAttribute.h"; sourceTree = "<absolute>"; };
-		22799FF61249A75200C2F3A2 /* TTAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioEngine.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioEngine.h"; sourceTree = "<absolute>"; };
-		22799FF71249A75200C2F3A2 /* TTAudioGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraph.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraph.h"; sourceTree = "<absolute>"; };
-		22799FF81249A75200C2F3A2 /* TTAudioGraphAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphAPI.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphAPI.h"; sourceTree = "<absolute>"; };
-		22799FF91249A75200C2F3A2 /* TTAudioGraphDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphDescription.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphDescription.h"; sourceTree = "<absolute>"; };
-		22799FFA1249A75200C2F3A2 /* TTAudioGraphGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphGenerator.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphGenerator.h"; sourceTree = "<absolute>"; };
-		22799FFB1249A75200C2F3A2 /* TTAudioGraphInlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphInlet.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphInlet.h"; sourceTree = "<absolute>"; };
-		22799FFC1249A75200C2F3A2 /* TTAudioGraphInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphInput.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphInput.h"; sourceTree = "<absolute>"; };
-		22799FFD1249A75200C2F3A2 /* TTAudioGraphObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphObject.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphObject.h"; sourceTree = "<absolute>"; };
-		22799FFE1249A75200C2F3A2 /* TTAudioGraphOutlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutlet.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphOutlet.h"; sourceTree = "<absolute>"; };
-		22799FFF1249A75200C2F3A2 /* TTAudioGraphOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutput.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphOutput.h"; sourceTree = "<absolute>"; };
-		2279A0001249A75200C2F3A2 /* TTAudioGraphSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSource.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioGraphSource.h"; sourceTree = "<absolute>"; };
-		2279A0011249A75200C2F3A2 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioObject.h"; sourceTree = "<absolute>"; };
-		2279A0021249A75200C2F3A2 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioSignal.h"; sourceTree = "<absolute>"; };
-		2279A0031249A75200C2F3A2 /* TTAudioSignalArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignalArray.h; path = "/Library/Application Support/Plugtastic/Includes/TTAudioSignalArray.h"; sourceTree = "<absolute>"; };
-		2279A0041249A75200C2F3A2 /* TTBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBuffer.h; path = "/Library/Application Support/Plugtastic/Includes/TTBuffer.h"; sourceTree = "<absolute>"; };
-		2279A0051249A75200C2F3A2 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCallback.h; path = "/Library/Application Support/Plugtastic/Includes/TTCallback.h"; sourceTree = "<absolute>"; };
-		2279A0061249A75200C2F3A2 /* TTClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClass.h; path = "/Library/Application Support/Plugtastic/Includes/TTClass.h"; sourceTree = "<absolute>"; };
-		2279A0071249A75200C2F3A2 /* TTDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDataObject.h; path = "/Library/Application Support/Plugtastic/Includes/TTDataObject.h"; sourceTree = "<absolute>"; };
-		2279A0081249A75200C2F3A2 /* TTDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelay.h; path = "/Library/Application Support/Plugtastic/Includes/TTDelay.h"; sourceTree = "<absolute>"; };
-		2279A0091249A75200C2F3A2 /* TTDelayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelayBuffer.h; path = "/Library/Application Support/Plugtastic/Includes/TTDelayBuffer.h"; sourceTree = "<absolute>"; };
-		2279A00A1249A75200C2F3A2 /* TTDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDictionary.h; path = "/Library/Application Support/Plugtastic/Includes/TTDictionary.h"; sourceTree = "<absolute>"; };
-		2279A00B1249A75200C2F3A2 /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = "/Library/Application Support/Plugtastic/Includes/TTDSP.h"; sourceTree = "<absolute>"; };
-		2279A00C1249A75200C2F3A2 /* TTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = "/Library/Application Support/Plugtastic/Includes/TTElement.h"; sourceTree = "<absolute>"; };
-		2279A00D1249A75200C2F3A2 /* TTEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTEnvironment.h; path = "/Library/Application Support/Plugtastic/Includes/TTEnvironment.h"; sourceTree = "<absolute>"; };
-		2279A00E1249A75200C2F3A2 /* TTFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundation.h; path = "/Library/Application Support/Plugtastic/Includes/TTFoundation.h"; sourceTree = "<absolute>"; };
-		2279A00F1249A75200C2F3A2 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = "/Library/Application Support/Plugtastic/Includes/TTFoundationAPI.h"; sourceTree = "<absolute>"; };
-		2279A0101249A75200C2F3A2 /* TTGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraph.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraph.h"; sourceTree = "<absolute>"; };
-		2279A0111249A75200C2F3A2 /* TTGraphAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphAPI.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphAPI.h"; sourceTree = "<absolute>"; };
-		2279A0121249A75200C2F3A2 /* TTGraphDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphDescription.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphDescription.h"; sourceTree = "<absolute>"; };
-		2279A0131249A75200C2F3A2 /* TTGraphDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphDestination.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphDestination.h"; sourceTree = "<absolute>"; };
-		2279A0141249A75200C2F3A2 /* TTGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphics.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphics.h"; sourceTree = "<absolute>"; };
-		2279A0151249A75200C2F3A2 /* TTGraphicsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsAPI.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphicsAPI.h"; sourceTree = "<absolute>"; };
-		2279A0161249A75200C2F3A2 /* TTGraphicsColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsColor.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphicsColor.h"; sourceTree = "<absolute>"; };
-		2279A0171249A75200C2F3A2 /* TTGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsContext.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphicsContext.h"; sourceTree = "<absolute>"; };
-		2279A0181249A75200C2F3A2 /* TTGraphicsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsObject.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphicsObject.h"; sourceTree = "<absolute>"; };
-		2279A0191249A75200C2F3A2 /* TTGraphicsSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsSurface.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphicsSurface.h"; sourceTree = "<absolute>"; };
-		2279A01A1249A75200C2F3A2 /* TTGraphicsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsWindow.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphicsWindow.h"; sourceTree = "<absolute>"; };
-		2279A01B1249A75200C2F3A2 /* TTGraphInlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphInlet.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphInlet.h"; sourceTree = "<absolute>"; };
-		2279A01C1249A75200C2F3A2 /* TTGraphInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphInput.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphInput.h"; sourceTree = "<absolute>"; };
-		2279A01D1249A75200C2F3A2 /* TTGraphObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphObject.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphObject.h"; sourceTree = "<absolute>"; };
-		2279A01E1249A75200C2F3A2 /* TTGraphOutlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphOutlet.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphOutlet.h"; sourceTree = "<absolute>"; };
-		2279A01F1249A75200C2F3A2 /* TTGraphOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphOutput.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphOutput.h"; sourceTree = "<absolute>"; };
-		2279A0201249A75200C2F3A2 /* TTGraphSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphSource.h; path = "/Library/Application Support/Plugtastic/Includes/TTGraphSource.h"; sourceTree = "<absolute>"; };
-		2279A0211249A75200C2F3A2 /* TTHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHash.h; path = "/Library/Application Support/Plugtastic/Includes/TTHash.h"; sourceTree = "<absolute>"; };
-		2279A0221249A75200C2F3A2 /* TTLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLimits.h; path = "/Library/Application Support/Plugtastic/Includes/TTLimits.h"; sourceTree = "<absolute>"; };
-		2279A0231249A75200C2F3A2 /* TTList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTList.h; path = "/Library/Application Support/Plugtastic/Includes/TTList.h"; sourceTree = "<absolute>"; };
-		2279A0241249A75200C2F3A2 /* TTMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMessage.h; path = "/Library/Application Support/Plugtastic/Includes/TTMessage.h"; sourceTree = "<absolute>"; };
-		2279A0251249A75200C2F3A2 /* TTMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMutex.h; path = "/Library/Application Support/Plugtastic/Includes/TTMutex.h"; sourceTree = "<absolute>"; };
-		2279A0261249A75200C2F3A2 /* TTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNode.h; path = "/Library/Application Support/Plugtastic/Includes/TTNode.h"; sourceTree = "<absolute>"; };
-		2279A0271249A75200C2F3A2 /* TTNodeDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeDirectory.h; path = "/Library/Application Support/Plugtastic/Includes/TTNodeDirectory.h"; sourceTree = "<absolute>"; };
-		2279A0281249A75200C2F3A2 /* TTObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTObject.h; path = "/Library/Application Support/Plugtastic/Includes/TTObject.h"; sourceTree = "<absolute>"; };
-		2279A0291249A75200C2F3A2 /* TTQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTQueue.h; path = "/Library/Application Support/Plugtastic/Includes/TTQueue.h"; sourceTree = "<absolute>"; };
-		2279A02A1249A75200C2F3A2 /* TTSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbol.h; path = "/Library/Application Support/Plugtastic/Includes/TTSymbol.h"; sourceTree = "<absolute>"; };
-		2279A02B1249A75200C2F3A2 /* TTSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolCache.h; path = "/Library/Application Support/Plugtastic/Includes/TTSymbolCache.h"; sourceTree = "<absolute>"; };
-		2279A02C1249A75200C2F3A2 /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = "/Library/Application Support/Plugtastic/Includes/TTSymbolTable.h"; sourceTree = "<absolute>"; };
-		2279A02D1249A75200C2F3A2 /* TTThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTThread.h; path = "/Library/Application Support/Plugtastic/Includes/TTThread.h"; sourceTree = "<absolute>"; };
-		2279A02E1249A75200C2F3A2 /* TTValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.h; path = "/Library/Application Support/Plugtastic/Includes/TTValue.h"; sourceTree = "<absolute>"; };
-		2279A02F1249A75200C2F3A2 /* TTValueCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValueCache.h; path = "/Library/Application Support/Plugtastic/Includes/TTValueCache.h"; sourceTree = "<absolute>"; };
-		2279A03A1249A81400C2F3A2 /* JamomaAudioGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaAudioGraph.dylib; path = "/Library/Application Support/Plugtastic/Libraries/JamomaAudioGraph.dylib"; sourceTree = "<absolute>"; };
-		2279A03B1249A81400C2F3A2 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Plugtastic/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		2279A03C1249A81400C2F3A2 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Plugtastic/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
-		2279A03D1249A81400C2F3A2 /* JamomaGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraph.dylib; path = "/Library/Application Support/Plugtastic/Libraries/JamomaGraph.dylib"; sourceTree = "<absolute>"; };
-		2279A03E1249A81400C2F3A2 /* JamomaGraphics.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraphics.dylib; path = "/Library/Application Support/Plugtastic/Libraries/JamomaGraphics.dylib"; sourceTree = "<absolute>"; };
-		2279A03F1249A81400C2F3A2 /* Plugtastic.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Plugtastic.dylib; path = "/Library/Application Support/Plugtastic/Libraries/Plugtastic.dylib"; sourceTree = "<absolute>"; };
-		2279A0471249A84C00C2F3A2 /* Plugtastic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugtastic.h; path = "/Library/Application Support/Plugtastic/Includes/Plugtastic.h"; sourceTree = "<absolute>"; };
-		2279A0481249A84C00C2F3A2 /* PlugtasticAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlugtasticAPI.h; path = "/Library/Application Support/Plugtastic/Includes/PlugtasticAPI.h"; sourceTree = "<absolute>"; };
-		2279A0491249A84C00C2F3A2 /* PlugtasticInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlugtasticInput.h; path = "/Library/Application Support/Plugtastic/Includes/PlugtasticInput.h"; sourceTree = "<absolute>"; };
-		2279A04A1249A84C00C2F3A2 /* PlugtasticOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlugtasticOutput.h; path = "/Library/Application Support/Plugtastic/Includes/PlugtasticOutput.h"; sourceTree = "<absolute>"; };
-		2279A04B1249A84C00C2F3A2 /* PlugtasticParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlugtasticParameter.h; path = "/Library/Application Support/Plugtastic/Includes/PlugtasticParameter.h"; sourceTree = "<absolute>"; };
 		22BF4871123C5316005A24F2 /* PlugtasticAUEffectGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlugtasticAUEffectGraph.h; sourceTree = "<group>"; };
 		3EEA126B089847F5002C6BFC /* CAVectorUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CAVectorUnit.cpp; sourceTree = "<group>"; };
 		3EEA126C089847F5002C6BFC /* CAVectorUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CAVectorUnit.h; sourceTree = "<group>"; };
@@ -185,12 +88,6 @@
 				8BA05AFC072074E100365D66 /* AudioToolbox.framework in Frameworks */,
 				8BA05AFD072074E100365D66 /* AudioUnit.framework in Frameworks */,
 				8BA05B02072074F900365D66 /* CoreServices.framework in Frameworks */,
-				2279A0401249A81400C2F3A2 /* JamomaAudioGraph.dylib in Frameworks */,
-				2279A0411249A81400C2F3A2 /* JamomaDSP.dylib in Frameworks */,
-				2279A0421249A81400C2F3A2 /* JamomaFoundation.dylib in Frameworks */,
-				2279A0431249A81400C2F3A2 /* JamomaGraph.dylib in Frameworks */,
-				2279A0441249A81400C2F3A2 /* JamomaGraphics.dylib in Frameworks */,
-				2279A0451249A81400C2F3A2 /* Plugtastic.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				22335ED0123C10A900182E8D /* PlugtasticAUEffect.xcconfig */,
-				22799FF41249A75200C2F3A2 /* Includes */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
@@ -213,12 +109,6 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				2279A03A1249A81400C2F3A2 /* JamomaAudioGraph.dylib */,
-				2279A03B1249A81400C2F3A2 /* JamomaDSP.dylib */,
-				2279A03C1249A81400C2F3A2 /* JamomaFoundation.dylib */,
-				2279A03D1249A81400C2F3A2 /* JamomaGraph.dylib */,
-				2279A03E1249A81400C2F3A2 /* JamomaGraphics.dylib */,
-				2279A03F1249A81400C2F3A2 /* Plugtastic.dylib */,
 				8B5C7FBF076FB2C200A15F61 /* CoreAudio.framework */,
 				8BA05B01072074F900365D66 /* CoreServices.framework */,
 				8BA05AF9072074E100365D66 /* AudioToolbox.framework */,
@@ -252,78 +142,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		22799FF41249A75200C2F3A2 /* Includes */ = {
-			isa = PBXGroup;
-			children = (
-				2279A0471249A84C00C2F3A2 /* Plugtastic.h */,
-				2279A0481249A84C00C2F3A2 /* PlugtasticAPI.h */,
-				2279A0491249A84C00C2F3A2 /* PlugtasticInput.h */,
-				2279A04A1249A84C00C2F3A2 /* PlugtasticOutput.h */,
-				2279A04B1249A84C00C2F3A2 /* PlugtasticParameter.h */,
-				22799FF51249A75200C2F3A2 /* TTAttribute.h */,
-				22799FF61249A75200C2F3A2 /* TTAudioEngine.h */,
-				22799FF71249A75200C2F3A2 /* TTAudioGraph.h */,
-				22799FF81249A75200C2F3A2 /* TTAudioGraphAPI.h */,
-				22799FF91249A75200C2F3A2 /* TTAudioGraphDescription.h */,
-				22799FFA1249A75200C2F3A2 /* TTAudioGraphGenerator.h */,
-				22799FFB1249A75200C2F3A2 /* TTAudioGraphInlet.h */,
-				22799FFC1249A75200C2F3A2 /* TTAudioGraphInput.h */,
-				22799FFD1249A75200C2F3A2 /* TTAudioGraphObject.h */,
-				22799FFE1249A75200C2F3A2 /* TTAudioGraphOutlet.h */,
-				22799FFF1249A75200C2F3A2 /* TTAudioGraphOutput.h */,
-				2279A0001249A75200C2F3A2 /* TTAudioGraphSource.h */,
-				2279A0011249A75200C2F3A2 /* TTAudioObject.h */,
-				2279A0021249A75200C2F3A2 /* TTAudioSignal.h */,
-				2279A0031249A75200C2F3A2 /* TTAudioSignalArray.h */,
-				2279A0041249A75200C2F3A2 /* TTBuffer.h */,
-				2279A0051249A75200C2F3A2 /* TTCallback.h */,
-				2279A0061249A75200C2F3A2 /* TTClass.h */,
-				2279A0071249A75200C2F3A2 /* TTDataObject.h */,
-				2279A0081249A75200C2F3A2 /* TTDelay.h */,
-				2279A0091249A75200C2F3A2 /* TTDelayBuffer.h */,
-				2279A00A1249A75200C2F3A2 /* TTDictionary.h */,
-				2279A00B1249A75200C2F3A2 /* TTDSP.h */,
-				2279A00C1249A75200C2F3A2 /* TTElement.h */,
-				2279A00D1249A75200C2F3A2 /* TTEnvironment.h */,
-				2279A00E1249A75200C2F3A2 /* TTFoundation.h */,
-				2279A00F1249A75200C2F3A2 /* TTFoundationAPI.h */,
-				2279A0101249A75200C2F3A2 /* TTGraph.h */,
-				2279A0111249A75200C2F3A2 /* TTGraphAPI.h */,
-				2279A0121249A75200C2F3A2 /* TTGraphDescription.h */,
-				2279A0131249A75200C2F3A2 /* TTGraphDestination.h */,
-				2279A0141249A75200C2F3A2 /* TTGraphics.h */,
-				2279A0151249A75200C2F3A2 /* TTGraphicsAPI.h */,
-				2279A0161249A75200C2F3A2 /* TTGraphicsColor.h */,
-				2279A0171249A75200C2F3A2 /* TTGraphicsContext.h */,
-				2279A0181249A75200C2F3A2 /* TTGraphicsObject.h */,
-				2279A0191249A75200C2F3A2 /* TTGraphicsSurface.h */,
-				2279A01A1249A75200C2F3A2 /* TTGraphicsWindow.h */,
-				2279A01B1249A75200C2F3A2 /* TTGraphInlet.h */,
-				2279A01C1249A75200C2F3A2 /* TTGraphInput.h */,
-				2279A01D1249A75200C2F3A2 /* TTGraphObject.h */,
-				2279A01E1249A75200C2F3A2 /* TTGraphOutlet.h */,
-				2279A01F1249A75200C2F3A2 /* TTGraphOutput.h */,
-				2279A0201249A75200C2F3A2 /* TTGraphSource.h */,
-				2279A0211249A75200C2F3A2 /* TTHash.h */,
-				2279A0221249A75200C2F3A2 /* TTLimits.h */,
-				2279A0231249A75200C2F3A2 /* TTList.h */,
-				2279A0241249A75200C2F3A2 /* TTMessage.h */,
-				2279A0251249A75200C2F3A2 /* TTMutex.h */,
-				2279A0261249A75200C2F3A2 /* TTNode.h */,
-				2279A0271249A75200C2F3A2 /* TTNodeDirectory.h */,
-				2279A0281249A75200C2F3A2 /* TTObject.h */,
-				2279A0291249A75200C2F3A2 /* TTQueue.h */,
-				2279A02A1249A75200C2F3A2 /* TTSymbol.h */,
-				2279A02B1249A75200C2F3A2 /* TTSymbolCache.h */,
-				2279A02C1249A75200C2F3A2 /* TTSymbolTable.h */,
-				2279A02D1249A75200C2F3A2 /* TTThread.h */,
-				2279A02E1249A75200C2F3A2 /* TTValue.h */,
-				2279A02F1249A75200C2F3A2 /* TTValueCache.h */,
-			);
-			name = Includes;
-			path = "/Library/Application Support/Plugtastic/Includes";
-			sourceTree = "<absolute>";
 		};
 		8BA05A56072072A900365D66 /* AU Source */ = {
 			isa = PBXGroup;
@@ -415,43 +233,11 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		8D01CCC70486CAD60068D4B7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8BA05A6E0720730100365D66 /* PlugtasticAUEffectVersion.h in Headers */,
-				8BA05AAF072073D300365D66 /* AUBase.h in Headers */,
-				8BA05AB1072073D300365D66 /* AUDispatch.h in Headers */,
-				8BA05AB3072073D300365D66 /* AUInputElement.h in Headers */,
-				8BA05AB5072073D300365D66 /* AUOutputElement.h in Headers */,
-				8BA05AB8072073D300365D66 /* AUScopeElement.h in Headers */,
-				8BA05ABA072073D300365D66 /* ComponentBase.h in Headers */,
-				8BA05AC7072073D300365D66 /* AUEffectBase.h in Headers */,
-				8BA05AD3072073D300365D66 /* AUBuffer.h in Headers */,
-				8BA05AD5072073D300365D66 /* AUDebugDispatcher.h in Headers */,
-				8BA05AD6072073D300365D66 /* AUInputFormatConverter.h in Headers */,
-				8BA05AD7072073D300365D66 /* AUSilentTimeout.h in Headers */,
-				8BA05AD8072073D300365D66 /* AUTimestampGenerator.h in Headers */,
-				8BA05AE60720742100365D66 /* CAAudioChannelLayout.h in Headers */,
-				8BA05AE80720742100365D66 /* CAMutex.h in Headers */,
-				8BA05AEA0720742100365D66 /* CAStreamBasicDescription.h in Headers */,
-				8BA05B080720754400365D66 /* CAAUParameter.h in Headers */,
-				8BC6025C073B072D006C4272 /* PlugtasticAUEffect.h in Headers */,
-				3EEA126F089847F5002C6BFC /* CAVectorUnit.h in Headers */,
-				3EEA1270089847F5002C6BFC /* CAVectorUnitTypes.h in Headers */,
-				F7C347F10ECE5AF8008ADFB6 /* AUBaseHelper.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		8D01CCC60486CAD60068D4B7 /* PlugtasticAUEffect */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E4BA243089833B7007656EC /* Build configuration list for PBXNativeTarget "PlugtasticAUEffect" */;
 			buildPhases = (
-				8D01CCC70486CAD60068D4B7 /* Headers */,
 				8D01CCC90486CAD60068D4B7 /* Resources */,
 				8D01CCCB0486CAD60068D4B7 /* Sources */,
 				8D01CCCD0486CAD60068D4B7 /* Frameworks */,
@@ -553,13 +339,11 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Plugtastic/Libraries\"",
-				);
 				LIBRARY_STYLE = Bundle;
-				OTHER_LDFLAGS = "-bundle";
+				OTHER_LDFLAGS = (
+					"-bundle",
+					"$(inherited)",
+				);
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Examples/CoreAudio/AudioUnits/AUPublic/AUBase\"";
 				WRAPPER_EXTENSION = component;
 			};
@@ -578,13 +362,11 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Plugtastic/Libraries\"",
-				);
 				LIBRARY_STYLE = Bundle;
-				OTHER_LDFLAGS = "-bundle";
+				OTHER_LDFLAGS = (
+					"-bundle",
+					"$(inherited)",
+				);
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Examples/CoreAudio/AudioUnits/AUPublic/AUBase\"";
 				WRAPPER_EXTENSION = component;
 			};
