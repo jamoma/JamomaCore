@@ -17,7 +17,7 @@ Installing
 Place the folder containing this ReadMe somewhere on your hard-drive. Then Make sure your compiler has access to it in order to compile the code.
 
 Install Locations are as follows:
-	Mac 	library is expected @		/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib
+	Mac 	library is expected @		/usr/local/jamoma/lib/JamomaDSP.dylib
 			extensions are expected @	/Library/Application Support/Jamoma/Extensions/*.ttdylib
 										~/Library/Application Support/Jamoma/Extensions/*.ttdylib
 
@@ -40,11 +40,11 @@ TTBlue is licensed as open source software under the terms of the "New BSD Licen
 
 
 Known Issues & Wish List
-See the issue tracker at http://code.google.com/p/ttblue/issues/list
+See the issue tracker at http://redmine.jamoma.org/projects/dsp/issues
 
 
 More Information
-This project hosted is hosted at http://code.google.com/p/ttblue
+This project hosted is hosted at https://github.com/jamoma/JamomaDSP
 
 
 Change Log
