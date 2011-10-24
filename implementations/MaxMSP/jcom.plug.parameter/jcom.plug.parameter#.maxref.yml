@@ -6,7 +6,7 @@ tags:
   
 brief: Define a parameter to be controlled in the host environment
 
-desc:>
+desc: >
   The #plug.parameter# defines a parameter to be controlled in the host environment.
   It outputs a Jamoma dictionary to be connected other Graph or AudioGraph objects.
 
