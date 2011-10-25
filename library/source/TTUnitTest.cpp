@@ -46,6 +46,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean e
 	if (result == expectedResult)
 		return true;
 	else {
+#ifdef NOISY_FAILURE
 		TTLogMessage("\n");
 		TTLogMessage("		TTTestFloatEquivalence: Unexpected result\n");
 		TTLogMessage("\n");
@@ -53,6 +54,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat32 aFloat, TTFloat32 bFloat, TTBoolean e
 		TTLogMessage("		bFloat  = %.8e\n", bFloat);
 		TTLogMessage("		result  = %s\n", (result)?"true":"false");
 		TTLogMessage("\n");
+#endif
 		return false;
 	}
 }
@@ -87,6 +89,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean e
 	if (result == expectedResult)
 		return true;
 	else {
+#ifdef NOISY_FAILURE
 		TTLogMessage("\n");
 		TTLogMessage("		TTTestFloatEquivalence: Unexpected result\n");
 		TTLogMessage("\n");
@@ -94,6 +97,7 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean e
 		TTLogMessage("		bFloat  = %.15e\n", bFloat);
 		TTLogMessage("		result  = %s\n", (result)?"true":"false");
 		TTLogMessage("\n");
+#endif
 		return false;
 	}
 }
