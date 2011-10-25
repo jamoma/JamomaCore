@@ -255,24 +255,30 @@ TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 for
 				// adapt ugen based on the input we are going to process
 				getUnitGenerator()->adaptMaxNumChannels(mInputSignals->getMaxNumChannels());
 				getUnitGenerator()->setSampleRate(mInputSignals->getSignal(0).getSampleRate());
-				
+						
 				// finally, process the audio
 				getUnitGenerator()->process(mInputSignals, mOutputSignals);
 			}
 			
-			// TODO: we're doing a copy below -- is that what we really want?  Or can we just return the pointer?
-			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			// These two lines should be equivalent
+			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+						
 			mStatus = kTTAudioGraphProcessComplete;
 			break;
 		
 		// we already processed everything that needs to be processed, so just set the pointer
 		case kTTAudioGraphProcessComplete:
-			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			// These two lines should be equivalent
+			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
 			break;
 		
 		// to prevent feedback / infinite loops, we just hand back the last calculated output here
 		case kTTAudioGraphProcessingCurrently:
-			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			// These two lines should be equivalent
+			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
 			break;
 		
 		// we should never get here
