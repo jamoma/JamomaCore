@@ -240,7 +240,10 @@ TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 for
 				mInputSignals->clearAll();
 
 				// pull (process, sum, and collect) all of our source audio
-				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
+//				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
+				for(TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet !=  mAudioInlets.end(); inlet++) {
+					inlet->process();
+				}
 
 				if (!(mAudioFlags & kTTAudioGraphNonAdapting)) {
 					// examples of non-adapting objects are join≈ and matrix≈
