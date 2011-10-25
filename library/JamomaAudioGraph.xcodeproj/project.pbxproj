@@ -14,6 +14,7 @@
 		224B070C11DE9E2300B6EF48 /* TTAudioGraphSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222019D710F90A2D0010D781 /* TTAudioGraphSource.cpp */; };
 		224B070D11DE9E2300B6EF48 /* TTAudioGraphDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25F17111FC59900A67D8D /* TTAudioGraphDescription.cpp */; };
 		224B070E11DE9E2300B6EF48 /* TTAudioGraphInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229D14F911210ADF00D45E1B /* TTAudioGraphInput.cpp */; };
+		22B458B7145707DD001C4877 /* split-gain-join.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B458B6145707DD001C4877 /* split-gain-join.test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		229D14F911210ADF00D45E1B /* TTAudioGraphInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphInput.cpp; path = ../source/TTAudioGraphInput.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22B04658112F5A6E001D29FD /* TTAudioGraphSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSource.h; path = includes/TTAudioGraphSource.h; sourceTree = "<group>"; };
+		22B458B6145707DD001C4877 /* split-gain-join.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "split-gain-join.test.cpp"; path = "tests/split-gain-join.test.cpp"; sourceTree = "<group>"; };
 		22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A010325CDF0062F7B8 /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = ../../DSP/library/includes/TTDSP.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A210325CED0062F7B8 /* JamomaAudioGraph.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaAudioGraph.xcconfig; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				2220193110F8E7B40010D781 /* API */,
 				2220193010F8E77F0010D781 /* Core Classes */,
 				226AAF7210F80EDE002C6057 /* AudioGraph Objects */,
+				22B458BB145707E1001C4877 /* Tests */,
 				223813541108C2410031E8B6 /* Debugging */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
@@ -162,6 +165,14 @@
 			name = JamomaGraph;
 			sourceTree = "<group>";
 		};
+		22B458BB145707E1001C4877 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				22B458B6145707DD001C4877 /* split-gain-join.test.cpp */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -232,6 +243,7 @@
 				224B070C11DE9E2300B6EF48 /* TTAudioGraphSource.cpp in Sources */,
 				224B070D11DE9E2300B6EF48 /* TTAudioGraphDescription.cpp in Sources */,
 				224B070E11DE9E2300B6EF48 /* TTAudioGraphInput.cpp in Sources */,
+				22B458B7145707DD001C4877 /* split-gain-join.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

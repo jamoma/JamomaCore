@@ -33,6 +33,8 @@ public:
 	/**	A standard audio processing method as used by TTBlue objects.
 		@param	inputs	unused.				*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
+	
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 typedef TTAudioGraphGenerator*	TTAudioGraphGeneratorPtr;
