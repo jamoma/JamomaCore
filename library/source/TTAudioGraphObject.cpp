@@ -237,7 +237,12 @@ TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 for
 			}
 			else {												// a processor
 				// zero our collected input samples
-				mInputSignals->clearAll();
+
+				// WE CANNOT DO THIS!!!  IF THE INLET IS JUST A POINTER TO MEMORY IN ANOTHER OBJECT'S OUTLET
+				// THEN WE END UP CLEARING THAT OBJECT'S COMPUTED OUTPUT!!!
+				// INSTEAD, WE MOVE THE CLEARING INTO THE inlet->process() call
+				//mInputSignals->clearAll();
+				
 
 				// pull (process, sum, and collect) all of our source audio
 //				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
@@ -245,6 +250,16 @@ TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 for
 					inlet->process();
 				}
 
+				// TEMPORARY -- DUPLICATING CODE FROM PREPROCESS
+				// If there is a change in the inlet/source configuration during processing, including channel counts, then the information cached at preprocess is WRONG!
+				// If there is feedback, then the problem gets compounded into future pulls on the graph!
+				int index = 0;
+				for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
+					TTAudioSignalPtr audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
+					mInputSignals->setSignal(index, audioSignal);
+					index++;
+				}
+								
 				if (!(mAudioFlags & kTTAudioGraphNonAdapting)) {
 					// examples of non-adapting objects are join≈ and matrix≈
 					// non-adapting in this case means channel numbers -- vector sizes still adapt
