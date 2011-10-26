@@ -10,6 +10,7 @@
 
 #define thisTTClass			TTLowpassFourPole
 #define thisTTClassName		"lowpass.4"
+#define thisTTClassDescription	"Four-pole resonant lowpass filter"
 #define thisTTClassTags		"audio, processor, filter, lowpass"
 
 
