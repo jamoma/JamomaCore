@@ -37,7 +37,7 @@
 /**	An 'update' is a message sent to a subclass instance from its parent class.
 	For example, to update the sample rate of the subclass when the parent's sample rate attribute has changed.
  */
-#define addUpdate(updateName)	addMessageWithArgument(update##updateName); addMessageProperty(update##updateName, hidden, YES);
+#define addUpdates(updateName)	addMessageWithArguments(update##updateName); addMessageProperty(update##updateName, hidden, YES);
 
 
 /****************************************************************************************************/
