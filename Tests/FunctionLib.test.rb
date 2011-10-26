@@ -3,6 +3,9 @@
 
 require 'Jamoma'
 
+environment = TTObject.new "environment"
+environment.set "benchmarking", 1
+
 cpu_total = 0.0;
 
 puts
