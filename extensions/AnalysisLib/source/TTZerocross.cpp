@@ -22,7 +22,7 @@ TT_AUDIO_CONSTRUCTOR
 	
 	// Messages
 	addMessage(Clear);
-	addMessageWithArgument(updateMaxNumChannels);
+	addUpdates(MaxNumChannels);
 	
 	// Set Defaults
 	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
@@ -38,7 +38,7 @@ TTZerocross::~TTZerocross()
 }
 
 
-TTErr TTZerocross::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTZerocross::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	return Clear();
 }
