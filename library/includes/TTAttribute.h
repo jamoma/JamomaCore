@@ -126,8 +126,8 @@ public:
 	TTErr sethidden(const TTValue& newHiddenFlag);
 	TTErr gethidden(TTValue& currentHiddenFlag);
 	
-	TTErr setDescription(const TTValue& newDescription);
-	TTErr getDescription(TTValue& returnedDescription);
+	TTErr setdescription(const TTValue& newDescription);
+	TTErr getdescription(TTValue& returnedDescription);
 	
 };
 
