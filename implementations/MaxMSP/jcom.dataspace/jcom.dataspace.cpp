@@ -145,7 +145,7 @@ void dataspace_float(t_dataspace *self, double x)
 {
 	TTValue	v(x);
 	
-	self->dataspace->sendMessage(TT("convert"), v);	
+	self->dataspace->sendMessage(TT("convert"), v, v);	
 	outlet_float(self->outlet_native, v.getFloat64(0));	
 }
 
@@ -159,7 +159,7 @@ void dataspace_list(t_dataspace *self, t_symbol *msg, long argc, t_atom *argv)
 		v.set(i, atom_getfloat(argv+i));
 	
 	//TODO: add dataspace support for lists of single dimensional data conversion
-	self->dataspace->sendMessage(TT("convert"), v);
+	self->dataspace->sendMessage(TT("convert"), v, v);
 	
 	argc = v.getSize(); // in case the output list is longer than the input list (e.g. quaternions)
 	AtomPtr rv = new Atom[argc];
@@ -179,7 +179,7 @@ void dataspace_getDataspaces(t_dataspace *self)
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(self, gensym("DataspacesMenu"), 1, a);
 	
-	self->dataspace->sendMessage(TT("getAvailableDataspaces"), v);	
+	self->dataspace->sendMessage(TT("getAvailableDataspaces"), v, v);	
 	for (int i=0; i < v.getSize(); i++) {
 		TTSymbolPtr	name;
 		
@@ -199,7 +199,7 @@ void dataspace_getUnits(t_dataspace *self)
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(self, gensym("UnitMenu"), 1, a);
 	
-	self->dataspace->sendMessage(TT("getAvailableUnits"), v);	
+	self->dataspace->sendMessage(TT("getAvailableUnits"), v, v);	
 	for (int i=0; i < v.getSize(); i++) {
 		TTSymbolPtr	name;
 		
