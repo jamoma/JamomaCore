@@ -41,8 +41,8 @@ void		out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 #ifdef JCOM_OUT_TILDE
 t_int*		out_perform(t_int *w);
 void		out_dsp(TTPtr self, t_signal **sp, short *count);
-t_int*		out_perform64(t_int *w);
-void		out_dsp64(TTPtr self, t_signal **sp, short *count);
+void		out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
+void		out_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
 void		out_update_amplitude(TTPtr self);
 
 #else
@@ -83,7 +83,7 @@ void WrapTTOutputClass(WrappedClassPtr c)
 	
 #ifdef JCOM_OUT_TILDE
 	class_addmethod(c->maxClass, (method)out_dsp,							"dsp", 					A_GIMME, 0L);
-	class_addmethod(c, (method)out_dsp64,									"dsp64",				A_CANT, 0);	
+	class_addmethod(c->maxClass, (method)out_dsp64,							"dsp64",				A_CANT, 0);	
 	//class_addmethod(c->maxClass, (method)out_remoteaudio,					"remoteaudio",			A_CANT, 0);
 	//class_addmethod(c, (method)out_getAudioForChannel,					"getAudioForChannel",	A_CANT, 0);
 	
@@ -510,105 +510,119 @@ void out_dsp(TTPtr self, t_signal **sp, short *count)
 
 // Perform Method 64 bit - just pass the whole vector straight through
 // (the work is all done in the dsp 64 bit method)
-void out_perform64(t_out *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-	short		i; 
-	TTUInt16	n;
-	TTFloat32			currentvalue = 0;
-	TTFloat32			peakvalue = 0;	// values for calculating metering
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
+	TTInputPtr					anInput = anOutput->mInputObject;
+	TTUInt8						numChannels = 0;
+	TTUInt8						inNumCh = 0;
+	TTUInt16					vectorSize = 0;
+	short						i; 
+	TTUInt16					n;
+	TTFloat32					currentvalue = 0;
+	TTFloat32					peakamp, peakvalue = 0;	// values for calculating metering
 	
-	// Store the input from the inlets
-	for (i=0; i < x->numChannels; i++)
-		x->audioIn->setVector(i, x->vectorSize, ins[i]);
-	// if this doesn't work, I need to try setVector64Copy instead of setVector
-	
-	
-	if (x->attr_bypass)											// perform mix control
-		TTAudioSignal::copy(*x->in_object->audioOut, *x->audioOut);			//TODO: ideally just passing the pointer without copying memory 
-	else if ((x->attr_mute) || (!x->attr_gain))
-		x->audioOut->clear();  
-	else {													// perform mix control
-		if (x->in_object && x->in_object->numChannels) { 
-			if (x->attr_mix == 100) // fully wet
-				TTAudioSignal::copy(*x->audioIn, *x->audioTemp);			//TODO: ideally just passing the pointer without copying memory 
-			else if(!x->attr_mix) //fully dry
-				TTAudioSignal::copy(*x->in_object->audioOut, *x->audioTemp); //TODO: ideally just passing the pointer without copying memory 
-			else 
-				//if ((x->attr_mix > 0.0) && (x->attr_mix != 100)) // we mix wet and dry
-				x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);
+	// get numChannels and vectorSize
+	if (anOutput) {
+		
+		anOutput->mInfo.get(info_numChannels, numChannels);
+		anOutput->mInfo.get(info_vectorSize, vectorSize);
+		
+		// Store the input from the inlets
+		for (i=0; i < numChannels; i++)
+			TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, ins[i]);
+		// if this doesn't work, I need to try setVector64Copy instead of setVector
+		
+		
+		if (anInput->mBypass)																		// perform mix control
+			TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalOut), *TTAudioSignalPtr(anOutput->mSignalOut));							//TODO: ideally just passing the pointer without copying memory 
+		else if ((anOutput->mMute) || (!anOutput->mGain))
+			TTAudioSignalPtr(anOutput->mSignalOut)->clear();  
+		else {																					// perform mix control
+			anInput->mInfo.get(info_numChannels, inNumCh);
+			if (anInput && inNumCh) { 
+				if (anOutput->mMix == 100) // fully wet
+					TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));			//TODO: ideally just passing the pointer without copying memory 
+				else if(!anOutput->mMix) //fully dry
+					TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalOut), *TTAudioSignalPtr(anOutput->mSignalTemp));			//TODO: ideally just passing the pointer without copying memory 
+				else // we mix wet and dry
+					TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));
 			}
 			else
-				TTAudioSignal::copy(*x->audioIn, *x->audioTemp);
-		
-		x->gain->process(x->audioTemp, x->audioOut);								// perform gain control
-	}
-	
-	// Send the input on to the outlets for the algorithm
-	for (i=0; i < x->numChannels; i++){	
-		x->audioOut->getVectorCopy(i, x->vectorSize, outs[i]);
-	
-		
-		if (x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute) {
-			TTSampleValue* envelope = outs[i];
-			peakvalue = 0.0;
+				TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
 			
-			n = x->vectorSize;
-			while (n--) {
-				if ((*envelope) < 0 )						// get the current sample's absolute value
-					currentvalue = -(*envelope); //TODO: we could do a sign flip instead of multiply
-				else
-					currentvalue = *envelope;
+			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));			// perform gain control
+		}
+		
+		// Send the input on to the outlets for the algorithm
+		for (i=0; i < numChannels; i++){	
+			TTAudioSignalPtr(anOutput->mSignalOut)->getVectorCopy(i, vectorSize, outs[i]);
+			
+			// metering
+			if (!anOutput->mMute) {
+				TTSampleValue* envelope = outs[i];
+				peakvalue = 0.0;
 				
-				if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
-					peakvalue = currentvalue;
-				envelope++; 										// increment pointer in the vector
+				n = vectorSize;
+				while (n--) {
+					if ((*envelope) < 0 )						// get the current sample's absolute value
+						currentvalue = -(*envelope); //TODO: we could do a sign flip instead of multiply
+					else
+						currentvalue = *envelope;
+					
+					if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
+						peakvalue = currentvalue;
+					envelope++; 										// increment pointer in the vector
+				}
+				
+				// set meter[i]
+				anOutput->mInfo.set(info_startMeter+i, peakvalue);
+				
+				// set peak[i]
+				anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
+				if (peakvalue > peakamp)
+					anOutput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
 			}
-			//			if (peakvalue != x->peakamp[i]) {					// filter out repetitions
-			if (peakvalue > x->peakamp[i])
-				x->peakamp[i] = peakvalue;
-			//				if (x->clock_is_set == 0) {
-			//					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
-			//					x->clock_is_set = 1;
-			//				}
-			//			}
 		}
 	}
 }
 
 // DSP64 method
-void out_dsp64(t_out *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+void out_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-	short		i, j; 
-	TTUInt8		numChannels = 0;
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
+	TTUInt8						numChannels = 0;
+	short						i, j; 
+
+	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
+	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
+	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
 	
-	x->ramp_gain->setAttributeValue(TT("sampleRate"), samplerate);	// convert midi to db for tap_gain
-	x->gain->setAttributeValue(TT("interpolated"), 1);
-	x->ramp_xfade->setAttributeValue(TT("sampleRate"), samplerate);	// convert midi to db for tap_gain
-	
-	for (i=0; i < x->numOutputs; i++) {
-		j = x->numOutputs + i;
+	for (i=0; i < anOutput->mNumber; i++) {
+		j = anOutput->mNumber + i;
 		if (count[i] || count[j]) {
 			numChannels++;			
 		}
 	}
-	x->numChannels = numChannels;
-	x->vectorSize = maxvectorsize;
+	anOutput->mInfo.set(info_numChannels, numChannels);
 	
-	x->numChannels = numChannels;
-	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
-	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
-	x->audioTemp->setAttributeValue(TT("numChannels"), numChannels);
-	//x->zeroSignal->setAttributeValue(TT("numChannels"), numChannels);
+	anOutput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
 	
-	x->vectorSize = maxvectorsize;
-	x->audioIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	x->audioOut->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	x->audioTemp->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	//x->zeroSignal->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);//Do we need zeroSignal?
+	anOutput->mSignalIn->setAttributeValue(TT("numChannels"), numChannels);
+	anOutput->mSignalOut->setAttributeValue(TT("numChannels"), numChannels);
+	anOutput->mSignalTemp->setAttributeValue(TT("numChannels"), numChannels);
+	//anOutput->mSignalZero->setAttributeValue(TT("numChannels"), numChannels);
 	
-	//audioIn will be set in the perform method
-	x->audioOut->sendMessage(TT("alloc"));
-	x->audioTemp->sendMessage(TT("alloc"));
+	anOutput->mSignalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	anOutput->mSignalOut->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	anOutput->mSignalTemp->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	//anOutput->mSignalZero->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);//Do we need zeroSignal?
+	
+	// mSignalIn will be set in the perform method
+	anOutput->mSignalOut->sendMessage(TT("alloc"));
+	anOutput->mSignalTemp->sendMessage(TT("alloc"));
 	//x->zeroSignal->sendMessage(TT("alloc"));
 	//x->zeroSignal->sendMessage(TT("clear"));
 	//audioIn will be set in the perform method
@@ -616,12 +630,10 @@ void out_dsp64(t_out *x, t_object *dsp64, short *count, double samplerate, long 
 	
 	object_method(dsp64, gensym("dsp_add64"), x, out_perform64, 0, NULL); 
 	
-	// start the meters
-	if (x->num_meter_objects) {
-		for (i=0; i<MAX_NUM_CHANNELS; i++)
-			x->peakamp[i] = 0;		
-		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
-	}
+	// reset the meters info
+	for (i=0; i<numChannels; i++)
+		anOutput->mInfo.set(info_startMeter+numChannels+i, 0.);	
+
 }
 
 void out_update_amplitude(TTPtr self)
