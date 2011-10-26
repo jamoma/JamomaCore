@@ -55,6 +55,7 @@ public:
 	TTMessageFlags		flags;		///< define the behavior of the message.
 	TTMethod			method;		///< method associated with this message.
 	TTBoolean			hidden;		///< Property: this message is private/hidden from outside usage
+	TTSymbolPtr			description;	///< Property: description of this message
 
 	TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags);
 	virtual ~TTMessage();
@@ -62,6 +63,8 @@ public:
 	TTErr sethidden(const TTValue& newHiddenFlag);
 	TTErr gethidden(TTValue& currentHiddenFlag);
 	
+	TTErr setdescription(const TTValue& newDescription);
+	TTErr getdescription(TTValue& returnedDescription);
 };
 
 
