@@ -303,13 +303,13 @@ TTErr TTAttribute::gethidden(TTValue& currentHiddenFlag)
 }
 
 
-TTErr TTAttribute::setDescription(const TTValue& newDescription)
+TTErr TTAttribute::setdescription(const TTValue& newDescription)
 {
 	newDescription.get(0, &description);
 	return kTTErrNone;
 }
 
-TTErr TTAttribute::getDescription(TTValue& returnedDescription)
+TTErr TTAttribute::getdescription(TTValue& returnedDescription)
 {
 	returnedDescription = description;
 	return kTTErrNone;
