@@ -60,10 +60,10 @@ public:
 	TTErr start();
 	TTErr stop();
 	
-	TTErr getCpuLoad(TTValue& returnedValue);
+	TTErr getCpuLoad(const TTValue& unusedInput, TTValue& returnedValue);
 	
-	TTErr getAvailableInputDeviceNames(TTValue& returnedDeviceNames);
-	TTErr getAvailableOutputDeviceNames(TTValue& returnedDeviceNames);
+	TTErr getAvailableInputDeviceNames(const TTValue& unusedInput, TTValue& returnedDeviceNames);
+	TTErr getAvailableOutputDeviceNames(const TTValue& unusedInput, TTValue& returnedDeviceNames);
 	TTAudioSignalPtr TTAudioEngineGetInputSignalReference();
 	TTAudioSignalPtr TTAudioEngineGetOutputSignalReference();
 
@@ -73,8 +73,8 @@ public:
 	TTErr setVectorSize(TTValue& newVectorSize);
 	TTErr setSampleRate(TTValue& newSampleRate);
 	
-	TTErr addCallbackObserver(const TTValue& objectToReceiveNotifications);
-	TTErr removeCallbackObserver(const TTValue& objectCurrentlyReceivingNotifications);
+	TTErr addCallbackObserver(const TTValue& objectToReceiveNotifications, TTValue& unusedOutput);
+	TTErr removeCallbackObserver(const TTValue& objectCurrentlyReceivingNotifications, TTValue& unusedOutput);
 	
 	/**	This is called repeatedly by PortAudio every time a new vector of audio is needed.	*/
 	TTInt32 callback(const TTFloat32*					input, 

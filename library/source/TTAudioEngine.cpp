@@ -51,14 +51,14 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 
 	addMessage(start);
 	addMessage(stop);
-	addMessageWithArgument(getCpuLoad);
+	addMessageWithArguments(getCpuLoad);
 
-	addMessageWithArgument(getAvailableInputDeviceNames);
-	addMessageWithArgument(getAvailableOutputDeviceNames);
+	addMessageWithArguments(getAvailableInputDeviceNames);
+	addMessageWithArguments(getAvailableOutputDeviceNames);
 
-	addMessageWithArgument(addCallbackObserver);
+	addMessageWithArguments(addCallbackObserver);
 	addMessageProperty(addCallbackObserver, hidden, YES);
-	addMessageWithArgument(removeCallbackObserver);
+	addMessageWithArguments(removeCallbackObserver);
 	addMessageProperty(removeCallbackObserver, hidden, YES);
 
 	// Set defaults -- there are no devices actually named 'default', so we set the values directly
@@ -190,7 +190,7 @@ TTErr TTAudioEngine::stop()
 }
 
 
-TTErr TTAudioEngine::getCpuLoad(TTValue& returnedValue)
+TTErr TTAudioEngine::getCpuLoad(const TTValue& unusedInput, TTValue& returnedValue)
 {
 	TTFloat64 cpuLoad = Pa_GetStreamCpuLoad(mStream);
 
@@ -199,7 +199,7 @@ TTErr TTAudioEngine::getCpuLoad(TTValue& returnedValue)
 }
 
 
-TTErr TTAudioEngine::getAvailableInputDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioEngine::getAvailableInputDeviceNames(const TTValue& unusedInput, TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
@@ -221,7 +221,7 @@ TTErr TTAudioEngine::getAvailableInputDeviceNames(TTValue& returnedDeviceNames)
 }
 
 
-TTErr TTAudioEngine::getAvailableOutputDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioEngine::getAvailableOutputDeviceNames(const TTValue& unusedInput, TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
@@ -327,14 +327,14 @@ TTErr TTAudioEngine::setSampleRate(TTValue& newSampleRate)
 }
 
 
-TTErr TTAudioEngine::addCallbackObserver(const TTValue& objectToReceiveNotifications)
+TTErr TTAudioEngine::addCallbackObserver(const TTValue& objectToReceiveNotifications, TTValue& unusedOutput)
 {
 	mCallbackObservers->append(objectToReceiveNotifications);
 	return kTTErrNone;
 }
 
 
-TTErr TTAudioEngine::removeCallbackObserver(const TTValue& objectCurrentlyReceivingNotifications)
+TTErr TTAudioEngine::removeCallbackObserver(const TTValue& objectCurrentlyReceivingNotifications, TTValue& unusedOutput)
 {
 	mCallbackObservers->remove(objectCurrentlyReceivingNotifications);
 	return kTTErrNone;

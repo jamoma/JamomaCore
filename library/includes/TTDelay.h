@@ -29,10 +29,10 @@ class TTDSP_EXPORT TTDelay : public TTAudioObject {
 
 	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	/** Receives notifications when there are changes to the inherited sr attribute. */
-	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
 	
 	// internal - set up the buffer memory
 	TTErr init(TTUInt64 newDelayMaxInSamples);

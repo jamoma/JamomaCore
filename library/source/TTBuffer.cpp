@@ -38,12 +38,12 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	addAttribute(SampleRate,							kTypeFloat64);
 	
 	addMessage(normalize);
-	addMessageWithArgument(fill);
+	addMessageWithArguments(fill);
 
-	addMessageWithArgument(getValueAtIndex);
+	addMessageWithArguments(getValueAtIndex);
 	registerMessage(TT("peek"), (TTMethod)&TTBuffer::getValueAtIndex);
 
-	addMessageWithArgument(setValueAtIndex);
+	addMessageWithArguments(setValueAtIndex);
 	registerMessage(TT("poke"), (TTMethod)&TTBuffer::setValueAtIndex);
 
 	// TODO: more messages to implement
@@ -104,7 +104,7 @@ TTErr TTBuffer::getLengthInSamples(TTValue& returnedLengthInSamples)
 }
 
 
-TTErr TTBuffer::getValueAtIndex(TTValue& index)
+TTErr TTBuffer::getValueAtIndex(const TTValue& index, TTValue &output)
 {
 	TTUInt32		sampleIndex;
 	TTUInt16		sampleChannel = 0;
@@ -118,7 +118,7 @@ TTErr TTBuffer::getValueAtIndex(TTValue& index)
 
 	err = peek(sampleIndex, sampleChannel, sampleValue);
 	if (!err)
-		index.set(i++, sampleValue);
+		output.set(i++, sampleValue);
 	return err;
 }
 
@@ -136,7 +136,7 @@ TTErr TTBuffer::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue
 	If there are three numbers passed, then the second number, if passed, will designate the channel index (defaults to zero).
 	The final value will be used as the sample value that will be copied to the designated index.
 */
-TTErr TTBuffer::setValueAtIndex(const TTValue& index)
+TTErr TTBuffer::setValueAtIndex(const TTValue& index, TTValue& unusedOutput)
 {
 	TTUInt32		sampleIndex;
 	TTUInt16		sampleChannel = 0;
@@ -163,7 +163,7 @@ TTErr TTBuffer::poke(const TTUInt64 index, const TTUInt16 channel, const TTSampl
 #define mNumChannels mDimensions[1]
 
 
-TTErr TTBuffer::fill(const TTValue& value)
+TTErr TTBuffer::fill(const TTValue& value, TTValue& unusedOutput)
 {
 	TTSymbol*	fillAlgorithm = value;
 

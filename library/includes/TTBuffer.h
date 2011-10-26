@@ -55,7 +55,7 @@ public:
 		return kTTErrNone;
 	}
 
-	TTErr	getValueAtIndex(TTValue& index);
+	TTErr	getValueAtIndex(const TTValue& index, TTValue &output);
 	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value);
 	
 	/**	Set the sample value for a given index.
@@ -63,11 +63,11 @@ public:
 		If there are three numbers passed, then the second number, if passed, will designate the channel index (defaults to zero).
 		The final value will be used as the sample value that will be copied to the designated index.
 	*/
-	TTErr	setValueAtIndex(const TTValue& index);
+	TTErr	setValueAtIndex(const TTValue& index, TTValue& unusedOutput);
 	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value);
 	
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
-	TTErr	fill(const TTValue& value);
+	TTErr	fill(const TTValue& value, TTValue& unusedOutput);
 
 	/**	Normalize the contents of a buffer.
 		If no arg is passed, then the buffer is normalized to 1.0.

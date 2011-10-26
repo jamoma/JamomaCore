@@ -69,7 +69,7 @@ TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 		TTValue	oldMaxNumChannels = maxNumChannels;
 		
 		maxNumChannels = newValue;
-		sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels);
+		sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels, kTTValNONE);
 	}
 	return kTTErrNone;
 }
@@ -82,7 +82,7 @@ TTErr TTAudioObject::setSr(const TTValue& newValue)
 	sr = newValue;
 	srInv = 1.0/sr;
 	srMill = sr * 0.001;
-	sendMessage(TT("updateSampleRate"), oldSampleRate);
+	sendMessage(TT("updateSampleRate"), oldSampleRate, kTTValNONE);
 	return kTTErrNone;
 }
 
