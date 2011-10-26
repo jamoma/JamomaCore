@@ -87,7 +87,8 @@ TTErr TTZerocross::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		analysisLocation++;
 		
 		if (analysisLocation >= mSize) {
-			finalCount = ((sr * counter) * rSize) * srInv;
+			//finalCount = ((sr * counter) * rSize) * srInv;
+			finalCount = counter * rSize; //that's the same that the line above 
 			analysisLocation = 0;
 			counter = 0;
 		}
