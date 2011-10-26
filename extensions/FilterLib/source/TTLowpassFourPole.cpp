@@ -29,6 +29,7 @@ TT_AUDIO_CONSTRUCTOR
 
 	// register methods
 	addMessage(clear);
+	addMessageProperty(clear,	description,	TT("Reset the Filter History"));
 
 	// register for notifications
 	addUpdate(MaxNumChannels);
