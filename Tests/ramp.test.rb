@@ -3,6 +3,9 @@
 
 require 'Jamoma'
 
+environment = TTObject.new "environment"
+environment.set "benchmarking", 1
+
 o = TTAudio.new "ramp", 1
 o.send "test"
 
