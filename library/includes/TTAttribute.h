@@ -88,6 +88,7 @@ public:
 	TTFloat64			rangeHighBound;	///< If the range property is defined, this is the top of a value's range.
 	TTSymbolPtr			rangeChecking;	///< If the rangeChecking property is defined, the value should be checked for range and modified accordingly.
 	TTBoolean			hidden;			///< Property: this attribute is private/invisible to the outside world
+	TTSymbolPtr			description;	///< Property: description of this attribute
 	
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress);
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
@@ -124,6 +125,9 @@ public:
 	
 	TTErr sethidden(const TTValue& newHiddenFlag);
 	TTErr gethidden(TTValue& currentHiddenFlag);
+	
+	TTErr setDescription(const TTValue& newDescription);
+	TTErr getDescription(TTValue& returnedDescription);
 	
 };
 
