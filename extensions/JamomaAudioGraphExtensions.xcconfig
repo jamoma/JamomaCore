@@ -17,7 +17,7 @@ SVNREV = $Rev$
 
 // Paths
 DSTROOT = /
-INSTALL_PATH = /Library/Application Support/Jamoma/Extensions
+INSTALL_PATH = /usr/local/jamoma/extensions
 SKIP_INSTALL = YES
 
 
