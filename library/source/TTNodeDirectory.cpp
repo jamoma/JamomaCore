@@ -489,7 +489,7 @@ TTErr TTNodeDirectory::notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNo
 						data.append((TTPtr*)aNode);
 						data.append((TTInt8)flag);
 						data.append((TTPtr*)anObserver);
-						anObserver->notify(data);
+						anObserver->notify(data,data);
 					}
 
 					foundObsv = true;
@@ -613,7 +613,7 @@ TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
 	TTValue			v = TTValue((TTPtr)n);
 	TTCallbackPtr	aCallback = (TTCallbackPtr)args;
 
-	aCallback->notify(v);
+	aCallback->notify(v,v);
 
 	return v == kTTVal1;
 }

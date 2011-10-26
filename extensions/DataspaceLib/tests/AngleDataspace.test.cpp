@@ -39,7 +39,7 @@ TTErr AngleDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(kTTPi);
     expected = TTValue(kTTPi);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("Radian to Radian", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -56,7 +56,7 @@ TTErr AngleDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(180.);
     expected = TTValue(kTTPi);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("Degree to Radian", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -79,7 +79,7 @@ TTErr AngleDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(kTTPi);
     expected = TTValue(180.0);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("Radian to Degree", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),

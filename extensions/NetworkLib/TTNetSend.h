@@ -38,7 +38,7 @@ class TTNetSend : public TTDataObject {
 	
 	
 	/** Transmit a message.	*/
-	TTErr send(const TTValue& arguments);
+	TTErr send(const TTValue& arguments, TTValue& unusedOutput);
 
 };
 

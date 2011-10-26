@@ -31,7 +31,7 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	aColor.set(1, 196);
 	aColor.set(2, 24);
 	aColor.set(3, 240);
-	x->fill(aColor);
+	x->fill(aColor, kTTValNONE);
 	
 	this->setAttributeValue(kTTSym_gain, 0.125);
 	err = this->calculate(x, y);

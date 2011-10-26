@@ -158,7 +158,7 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 		if (attribute->getterFlags & kTTAttrPassObject)
 			err = (this->*attribute->getter)(*attribute, value);
 		else {
-			TTMethodValue getter = (TTMethodValue)attribute->getter;
+			TTMethodOutputValue getter = (TTMethodOutputValue)attribute->getter;
 			err = (this->*getter)(value);
 		}
 	}
@@ -185,7 +185,7 @@ TTErr TTObject::setAttributeValue(const TTSymbolPtr name, TTValue& value)
 			if (attribute->setterFlags & kTTAttrPassObject)
 				err = (this->*attribute->setter)(*attribute, value);
 			else {
-				TTMethodConstValue setter = (TTMethodConstValue)attribute->setter;
+				TTMethodInputValue setter = (TTMethodInputValue)attribute->setter;
 				err = (this->*setter)(value);
 			}
 		}
@@ -373,16 +373,31 @@ TTErr TTObject::findMessage(const TTSymbolPtr name, TTMessage** message)
 
 TTErr TTObject::sendMessage(const TTSymbolPtr name)
 {
-	TTValue	v;
-	return sendMessage(name, v);
+	return sendMessage(name, kTTValNONE, kTTValNONE);
 }
 
 
-TTErr TTObject::sendMessage(const TTSymbolPtr name, TTValue& value)
+#ifdef TT_SUPPORT_SINGLE_ARG_MESSAGE_CALLS
+
+TTErr TTObject::sendMessage(const TTSymbolPtr name, TTValue& anOutputValue)
+{
+	return sendMessage(name, kTTValNONE, anOutputValue);
+}
+
+
+TTErr TTObject::sendMessage(const TTSymbolPtr name, const TTValue& anInputValue)
+{
+	return sendMessage(name, anInputValue, kTTValNONE);
+}
+
+#endif
+
+
+TTErr TTObject::sendMessage(const TTSymbolPtr name, const TTValue& anInputValue, TTValue& anOutputValue)
 {
 	TTMessagePtr	message = NULL;
 	TTErr			err;
-
+	
 	err = findMessage(name, &message);
 	if (!err) {
 		if (message->flags & kTTMessagePassNone) {
@@ -390,11 +405,11 @@ TTErr TTObject::sendMessage(const TTSymbolPtr name, TTValue& value)
 			return (this->*method)();
 		}
 		else if (message->flags & kTTMessagePassNameAndValue) {
-			return (this->*message->method)(name, value);
+			return (this->*message->method)(name, anInputValue, anOutputValue);
 		}
 		else {	// default is kTTMessagePassValue
 			TTMethodValue method = (TTMethodValue)message->method;
-			return (this->*method)(value);
+			return (this->*method)(anInputValue, anOutputValue);
 		}
 	}
 	return kTTErrMethodNotFound;

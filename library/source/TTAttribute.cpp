@@ -220,14 +220,14 @@ TTErr TTAttribute::callbackGetter(const TTAttribute& attribute, TTValue& value)
 {
 	TTCallbackPtr aGetter = (TTCallbackPtr)attribute.getterObject;
 	
-	return aGetter->notify(value);
+	return aGetter->notify(value, value);
 }
 
 TTErr TTAttribute::callbackSetter(const TTAttribute& attribute, TTValue& value)
 {
 	TTCallbackPtr aSetter = (TTCallbackPtr)attribute.setterObject;
 	
-	return aSetter->notify(value);
+	return aSetter->notify(value, value);
 }
 
 TTErr TTAttribute::extendedGetter(const TTAttribute& attribute, TTValue& value)

@@ -112,8 +112,8 @@ void TTFoundationLoadExternalClasses()
 	}
 	else {
 		OSErr		err = noErr;
-		FSRef		ref;
-		UInt8		path[4096];
+//		FSRef		ref;
+//		UInt8		path[4096];
 		TTString	fullpath;
 		
 		// Look in the folder of the host application

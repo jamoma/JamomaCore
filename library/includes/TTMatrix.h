@@ -70,12 +70,12 @@ public:
 	
 
 	TTErr clear();
-	TTErr fill(const TTValue& aValue);
+	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
 
 	
 	/**	Get the value of a component located at any location in an N-dimensional matrix.
 		All dimension indices begin counting at one.	*/
-	TTErr get(TTValue& aValue) const;
+	TTErr get(const TTValue& anInputValue, TTValue &anOutputValue) const;
 
 	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
 		The first location in the matrix is (1,1).
@@ -137,7 +137,7 @@ public:
 	
 	/**	Set the value of a component located at any location in an N-dimensional matrix.
 	 All dimension indices begin counting at one.		*/
-	TTErr set(const TTValue& aValue);
+	TTErr set(const TTValue& anInputValue, TTValue &anOutputValue);
 
 	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.	
 		The first location in the matrix is (1,1).
