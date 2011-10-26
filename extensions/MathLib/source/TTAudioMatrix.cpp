@@ -117,6 +117,8 @@ TTErr TTAudioMatrix::restoreMatrix()
 	tempGainMatrix->getDimensions(dim);
 	dim.get(0,xx);
 	dim.get(1,yy);
+	TTLimit(xx,(TTUInt16) 1, mNumInputs); // in case xx or yy is greater than the current mGainMatrix ...
+	TTLimit(yy,(TTUInt16) 1, mNumOutputs);
 	for (TTUInt16 y=0; y < yy; y++) {
 		for (TTUInt16 x=0; x < xx; x++) {
 			tempGainMatrix->get2dZeroIndex(x, y, tempValue);
@@ -211,18 +213,10 @@ TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 	newValue.get(2, gainValue);
 	newValue.clear();
 	checkMatrixSize(x,y);
-
-	//if ((x < mNumInputs) && (y < mNumOutputs)) {
-		//mGainMatrix->get2dZeroIndex(x, y, temp);
-		mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
-		//oldGainMatrix->set2dZeroIndex(x, y, temp); 
+	mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
-		return kTTErrNone;
-	//}
-	//else 
-	//	return kTTErrInvalidValue;
-
+	return kTTErrNone;
 }
 
 

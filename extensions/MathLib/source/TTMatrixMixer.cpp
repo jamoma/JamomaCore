@@ -104,6 +104,8 @@ TTErr TTMatrixMixer::restoreMatrix()
 	tempGainMatrix->getDimensions(v);
 	v.get(0,xx);
 	v.get(1,yy);
+	TTLimit(xx,(TTUInt16) 1, mNumInputs); // in case xx or yy is greater than the current mGainMatrix ...
+	TTLimit(yy,(TTUInt16) 1, mNumOutputs);
 	for (TTUInt16 y=0; y < yy; y++) {
 		for (TTUInt16 x=0; x < xx; x++) {
 			tempGainMatrix->get2dZeroIndex(x, y, tempValue);
