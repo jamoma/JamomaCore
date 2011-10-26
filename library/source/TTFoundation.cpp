@@ -130,6 +130,7 @@ void TTFoundationLoadExternalClasses()
 			return; // if we loaded classes out of a standalone app, then we don't want to be corrupted by global extensions Redmine #348
 					// it could be that you want to create a standalone with a plug-in architecture -- for now that problem is ignored.
 
+#ifdef OLD_MAC_EXTENSIONS_PATH
 		// Look in ~/Library/Application Support/Jamoma/Extensions
 		err = FSFindFolder(kLocalDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
 		if (!err) {
@@ -147,6 +148,9 @@ void TTFoundationLoadExternalClasses()
 			fullpath += "/Jamoma/Extensions";
 			TTFoundationLoadExternalClassesFromFolder(fullpath);
 		}
+#else // NEW_MAC_EXTENSIONS_PATH
+	    TTFoundationLoadExternalClassesFromFolder("/usr/local/jamoma/extensions");	
+#endif
 
 	}
 #elif TT_PLATFORM_WIN
