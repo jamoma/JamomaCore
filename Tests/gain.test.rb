@@ -3,6 +3,9 @@
 
 require 'Jamoma'
 
+environment = TTObject.new "environment"
+environment.set "benchmarking", 1
+
 o = TTObject.new "gain"
 o.send "test"
 
