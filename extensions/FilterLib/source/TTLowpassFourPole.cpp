@@ -19,10 +19,12 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Frequency,	kTypeFloat64);
 	addAttributeProperty(Frequency,			range,			TTValue(2.0, sr*0.475));
 	addAttributeProperty(Frequency,			rangeChecking,	TT("clip"));
+	addAttributeProperty(Frequency,			description,	TT("Cutoff Frequency in Hertz"));
 
 	addAttributeWithSetter(Resonance,	kTypeFloat64);
 	addAttributeProperty(Resonance,			range,			TTValue(0.01, 100.0));
 	addAttributeProperty(Resonance,			rangeChecking,	TT("cliplow"));
+	addAttributeProperty(Resonance,			description,	TT("Strength of Resonance Near the Cutoff Frequency"));
 
 	// register methods
 	addMessage(clear);
