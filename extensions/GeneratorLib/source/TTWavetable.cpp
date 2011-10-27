@@ -26,7 +26,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Interpolation,	kTypeSymbol);
 	addAttributeWithSetter(Size,			kTypeInt64);
 
-	addUpdate(SampleRate);
+	addUpdates(SampleRate);
 
 	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&mWavetable, kTTValNONE);
 	if (!mWavetable)
@@ -49,7 +49,7 @@ TTWavetable::~TTWavetable()
 }
 
 
-TTErr TTWavetable::updateSampleRate(const TTValue&)
+TTErr TTWavetable::updateSampleRate(const TTValue&, TTValue&)
 {
 	setAttributeValue(TT("frequency"), mFrequency);
 	return kTTErrNone;
@@ -72,7 +72,7 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 	mMode = newValue;	// TODO: should be newValue[0]
 
 	if (mMode != TT("externalBuffer"))
-		return mWavetable->fill(newValue);
+		return mWavetable->fill(newValue, kTTValNONE);
 	else {
 		// TODO: implement the ability to use an externally defined buffer
 		return kTTErrInvalidValue;

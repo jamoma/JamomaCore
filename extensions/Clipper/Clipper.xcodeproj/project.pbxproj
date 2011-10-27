@@ -7,15 +7,15 @@
        objects = {
 
 /* Begin PBXAggregateTarget section */
-              6C82B06C82B06C82B0000000 /* ALL_BUILD */ = {
+              6759D06759D06759D0000000 /* ALL_BUILD */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = 6C92A06C92A06C92A0000000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildConfigurationList = 6769C06769C06769C0000000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
                      buildPhases = (
-                            6C84806C84806C8480000000 /* CMake ReRun */,
-                            6C8B906C8B906C8B90000000 /* CMake Rules */,
+                            675BA0675BA0675BA0000000 /* CMake ReRun */,
+                            6762B06762B06762B0000000 /* CMake Rules */,
                      );
                      dependencies = (
-                            6DB7306DB7306DB730000000 /* PBXTargetDependency */,
+                            688E50688E50688E50000000 /* PBXTargetDependency */,
                      );
                      name = ALL_BUILD;
                      productName = ALL_BUILD;
@@ -23,36 +23,36 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-6CFF206CFF206CFF20000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */ = {isa = PBXBuildFile; fileRef = 6CF3306CF3306CF330000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-6D06B06D06B06D06B0000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 6CF1806CF1806CF180000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+67D64067D64067D640000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */ = {isa = PBXBuildFile; fileRef = 67CA5067CA5067CA50000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+67DDD067DDD067DDD0000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 67C8A067C8A067C8A0000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-              6C41C06C41C06C41C0000000 /*  */ = {
+              6718E06718E06718E0000000 /*  */ = {
                      isa = PBXBuildStyle;
               };
-              6C43306C43306C4330000000 /* Debug */ = {
+              671A50671A50671A50000000 /* Debug */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Debug;
               };
-              6C47006C47006C4700000000 /* Release */ = {
+              671E20671E20671E20000000 /* Release */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Release;
               };
-              6C4AF06C4AF06C4AF0000000 /* MinSizeRel */ = {
+              672210672210672210000000 /* MinSizeRel */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = MinSizeRel;
               };
-              6C4E906C4E906C4E90000000 /* RelWithDebInfo */ = {
+              6725B06725B06725B0000000 /* RelWithDebInfo */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
@@ -62,84 +62,84 @@
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-              6DB3206DB3206DB320000000 /* PBXContainerItemProxy */ = {
+              688A40688A40688A40000000 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
-                     containerPortal = 6B10006B10006B1000000000 /* Project object */;
+                     containerPortal = 65E72065E72065E720000000 /* Project object */;
                      proxyType = 1;
-                     remoteGlobalIDString = 6D1DE06D1DE06D1DE0000000;
+                     remoteGlobalIDString = 67F50067F50067F500000000;
                      remoteInfo = Clipper;
               };
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-6CF1806CF1806CF180000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-6CF3306CF3306CF330000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "Clipper.cpp"; path = "Clipper.cpp"; sourceTree = SOURCE_ROOT; };
-6DABE06DABE06DABE0000000 /* Clipper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = "Clipper.ttdylib"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+67C8A067C8A067C8A0000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+67CA5067CA5067CA50000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "Clipper.cpp"; path = "Clipper.cpp"; sourceTree = SOURCE_ROOT; };
+688300688300688300000000 /* Clipper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = "Clipper.ttdylib"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-              6C32006C32006C3200000000  = {
+              670920670920670920000000  = {
                      isa = PBXGroup;
                      children = (
-                            6C34D06C34D06C34D0000000 /* Sources */,
-                            6C2D306C2D306C2D30000000 /* Resources */,
-                            6C27606C27606C2760000000 /* Products */,
+                            670BF0670BF0670BF0000000 /* Sources */,
+                            670450670450670450000000 /* Resources */,
+                            66FE8066FE8066FE80000000 /* Products */,
                      );
                      sourceTree = "<group>";
               };
-              6C34D06C34D06C34D0000000 /* Sources */ = {
+              670BF0670BF0670BF0000000 /* Sources */ = {
                      isa = PBXGroup;
                      children = (
-                            6C29906C29906C2990000000 /* ALL_BUILD */,
-                            6B2B206B2B206B2B20000000 /* Clipper */,
+                            6700B06700B06700B0000000 /* ALL_BUILD */,
+                            660240660240660240000000 /* Clipper */,
                      );
                      name = Sources;
                      sourceTree = "<group>";
               };
-              6C2D306C2D306C2D30000000 /* Resources */ = {
+              670450670450670450000000 /* Resources */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = Resources;
                      sourceTree = "<group>";
               };
-              6C29906C29906C2990000000 /* ALL_BUILD */ = {
+              6700B06700B06700B0000000 /* ALL_BUILD */ = {
                      isa = PBXGroup;
                      children = (
-                            6C0A806C0A806C0A80000000 /* CMake Rules */,
-                            6CF1806CF1806CF180000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */,
+                            66E1A066E1A066E1A0000000 /* CMake Rules */,
+                            67C8A067C8A067C8A0000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */,
                      );
                      name = ALL_BUILD;
                      sourceTree = "<group>";
               };
-              6C0A806C0A806C0A80000000 /* CMake Rules */ = {
+              66E1A066E1A066E1A0000000 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              6B2B206B2B206B2B20000000 /* Clipper */ = {
+              660240660240660240000000 /* Clipper */ = {
                      isa = PBXGroup;
                      children = (
-                            6BCDC06BCDC06BCDC0000000 /* Source Files */,
-                            6CF1806CF1806CF180000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */,
+                            66A4E066A4E066A4E0000000 /* Source Files */,
+                            67C8A067C8A067C8A0000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */,
                      );
                      name = Clipper;
                      sourceTree = "<group>";
               };
-              6BCDC06BCDC06BCDC0000000 /* Source Files */ = {
+              66A4E066A4E066A4E0000000 /* Source Files */ = {
                      isa = PBXGroup;
                      children = (
-                            6CF3306CF3306CF330000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */,
+                            67CA5067CA5067CA50000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */,
                      );
                      name = "Source Files";
                      sourceTree = "<group>";
               };
-              6C27606C27606C2760000000 /* Products */ = {
+              66FE8066FE8066FE80000000 /* Products */ = {
                      isa = PBXGroup;
                      children = (
-                            6DABE06DABE06DABE0000000 /* Clipper */,
+                            688300688300688300000000 /* Clipper */,
                      );
                      name = Products;
                      sourceTree = "<group>";
@@ -147,13 +147,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-              6D1DE06D1DE06D1DE0000000 /* Clipper */ = {
+              67F50067F50067F500000000 /* Clipper */ = {
                      isa = PBXNativeTarget;
-                     buildConfigurationList = 6D1FE06D1FE06D1FE0000000 /* Build configuration list for PBXNativeTarget "Clipper" */;
+                     buildConfigurationList = 67F70067F70067F700000000 /* Build configuration list for PBXNativeTarget "Clipper" */;
                      buildPhases = (
-                            6D0E406D0E406D0E40000000 /* CMake ReRun */,
-                            6D09C06D09C06D09C0000000 /* Sources */,
-                            6D15206D15206D1520000000 /* CMake PostBuild Rules */,
+                            67E56067E56067E560000000 /* CMake ReRun */,
+                            67E0E067E0E067E0E0000000 /* Sources */,
+                            67EC4067EC4067EC40000000 /* CMake PostBuild Rules */,
                      );
                      buildRules = (
                      );
@@ -161,40 +161,40 @@
                      );
                      name = Clipper;
                      productName = Clipper;
-                     productReference = 6DABE06DABE06DABE0000000 /* Clipper */;
+                     productReference = 688300688300688300000000 /* Clipper */;
                      productType = "com.apple.product-type.library.dynamic";
               };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-              6B10006B10006B1000000000 /* Project object */ = {
+              65E72065E72065E720000000 /* Project object */ = {
                      isa = PBXProject;
                      attributes = {
                             BuildIndependentTargetsInParallel = YES;
                      };
-                     buildConfigurationList = 6BBBE06BBBE06BBBE0000000 /* Build configuration list for PBXProject  "Clipper" */;
+                     buildConfigurationList = 669300669300669300000000 /* Build configuration list for PBXProject  "Clipper" */;
                      buildSettings = {
                      };
                      buildStyles = (
-                            6C43306C43306C4330000000 /* Debug */,
-                            6C47006C47006C4700000000 /* Release */,
-                            6C4AF06C4AF06C4AF0000000 /* MinSizeRel */,
-                            6C4E906C4E906C4E90000000 /* RelWithDebInfo */,
+                            671A50671A50671A50000000 /* Debug */,
+                            671E20671E20671E20000000 /* Release */,
+                            672210672210672210000000 /* MinSizeRel */,
+                            6725B06725B06725B0000000 /* RelWithDebInfo */,
                      );
                      compatibilityVersion = "Xcode 3.1";
                      hasScannedForEncodings = 0;
-                     mainGroup = 6C32006C32006C3200000000;
+                     mainGroup = 670920670920670920000000;
                      projectDirPath = ".";
                      projectRoot = "";
                      targets = (
-                            6C82B06C82B06C82B0000000 /* ALL_BUILD */,
-                            6D1DE06D1DE06D1DE0000000 /* Clipper */,
+                            6759D06759D06759D0000000 /* ALL_BUILD */,
+                            67F50067F50067F500000000 /* Clipper */,
                      );
               };
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-              6C7D106C7D106C7D10000000 /*  */ = {
+              675430675430675430000000 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -208,7 +208,7 @@
                      shellScript = "# shell script goes here
 exit 0";
               };
-              6C84806C84806C8480000000 /* CMake ReRun */ = {
+              675BA0675BA0675BA0000000 /* CMake ReRun */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -218,7 +218,7 @@ exit 0";
                      shellPath = /bin/sh;
                      shellScript = "make -C /code/Jamoma/Modules/DSP/extensions/Clipper -f /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeScripts/ReRunCMake.make";
               };
-              6C8B906C8B906C8B90000000 /* CMake Rules */ = {
+              6762B06762B06762B0000000 /* CMake Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -228,7 +228,7 @@ exit 0";
                      shellPath = /bin/sh;
                      shellScript = "make -C /code/Jamoma/Modules/DSP/extensions/Clipper -f /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
               };
-              6D0E406D0E406D0E40000000 /* CMake ReRun */ = {
+              67E56067E56067E560000000 /* CMake ReRun */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -238,7 +238,7 @@ exit 0";
                      shellPath = /bin/sh;
                      shellScript = "make -C /code/Jamoma/Modules/DSP/extensions/Clipper -f /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeScripts/ReRunCMake.make";
               };
-              6D15206D15206D1520000000 /* CMake PostBuild Rules */ = {
+              67EC4067EC4067EC40000000 /* CMake PostBuild Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -251,26 +251,26 @@ exit 0";
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-              6D09C06D09C06D09C0000000 /* Sources */ = {
+              67E0E067E0E067E0E0000000 /* Sources */ = {
                      isa = PBXSourcesBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
-                            6CFF206CFF206CFF20000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */,
+                            67D64067D64067D640000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */,
                      );
                      runOnlyForDeploymentPostprocessing = 0;
               };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-              6DB7306DB7306DB730000000 /* PBXTargetDependency */ = {
+              688E50688E50688E50000000 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
-                     target = 6D1DE06D1DE06D1DE0000000 /* Clipper */;
-                     targetProxy = 6DB3206DB3206DB320000000 /* PBXContainerItemProxy */;
+                     target = 67F50067F50067F500000000 /* Clipper */;
+                     targetProxy = 688A40688A40688A40000000 /* PBXContainerItemProxy */;
               };
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-              6BBD506BBD506BBD50000000 /* Debug */ = {
+              669470669470669470000000 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "i386 x86_64";
@@ -291,7 +291,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              6BBF906BBF906BBF90000000 /* Release */ = {
+              6696B06696B06696B0000000 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "i386 x86_64";
@@ -312,7 +312,7 @@ exit 0";
                      };
                      name = Release;
               };
-              6BADF06BADF06BADF0000000 /* MinSizeRel */ = {
+              668510668510668510000000 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "i386 x86_64";
@@ -333,7 +333,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              6BAF806BAF806BAF80000000 /* RelWithDebInfo */ = {
+              6686A06686A06686A0000000 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "i386 x86_64";
@@ -354,7 +354,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              6C6A206C6A206C6A20000000 /* Debug */ = {
+              674140674140674140000000 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -376,7 +376,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              6CA4506CA4506CA450000000 /* Release */ = {
+              677B70677B70677B70000000 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -398,7 +398,7 @@ exit 0";
                      };
                      name = Release;
               };
-              6CBCC06CBCC06CBCC0000000 /* MinSizeRel */ = {
+              6793E06793E06793E0000000 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -420,7 +420,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              6CD5306CD5306CD530000000 /* RelWithDebInfo */ = {
+              67AC5067AC5067AC50000000 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -442,7 +442,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              6D22C06D22C06D22C0000000 /* Debug */ = {
+              67F9E067F9E067F9E0000000 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             CONFIGURATION_BUILD_DIR = /code/Jamoma/Modules/DSP/extensions/Clipper/Debug;
@@ -472,7 +472,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              6D2EB06D2EB06D2EB0000000 /* Release */ = {
+              6805D06805D06805D0000000 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             CONFIGURATION_BUILD_DIR = /code/Jamoma/Modules/DSP/extensions/Clipper/Release;
@@ -502,7 +502,7 @@ exit 0";
                      };
                      name = Release;
               };
-              6D4F906D4F906D4F90000000 /* MinSizeRel */ = {
+              6826B06826B06826B0000000 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             CONFIGURATION_BUILD_DIR = /code/Jamoma/Modules/DSP/extensions/Clipper/MinSizeRel;
@@ -532,7 +532,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              6D70A06D70A06D70A0000000 /* RelWithDebInfo */ = {
+              6847C06847C06847C0000000 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             CONFIGURATION_BUILD_DIR = /code/Jamoma/Modules/DSP/extensions/Clipper/RelWithDebInfo;
@@ -565,40 +565,40 @@ exit 0";
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-              6BBBE06BBBE06BBBE0000000 /* Build configuration list for PBXProject  "Clipper" */ = {
+              669300669300669300000000 /* Build configuration list for PBXProject  "Clipper" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            6BBD506BBD506BBD50000000 /* Debug */,
-                            6BBF906BBF906BBF90000000 /* Release */,
-                            6BADF06BADF06BADF0000000 /* MinSizeRel */,
-                            6BAF806BAF806BAF80000000 /* RelWithDebInfo */,
+                            669470669470669470000000 /* Debug */,
+                            6696B06696B06696B0000000 /* Release */,
+                            668510668510668510000000 /* MinSizeRel */,
+                            6686A06686A06686A0000000 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              6C92A06C92A06C92A0000000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+              6769C06769C06769C0000000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            6C6A206C6A206C6A20000000 /* Debug */,
-                            6CA4506CA4506CA450000000 /* Release */,
-                            6CBCC06CBCC06CBCC0000000 /* MinSizeRel */,
-                            6CD5306CD5306CD530000000 /* RelWithDebInfo */,
+                            674140674140674140000000 /* Debug */,
+                            677B70677B70677B70000000 /* Release */,
+                            6793E06793E06793E0000000 /* MinSizeRel */,
+                            67AC5067AC5067AC50000000 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              6D1FE06D1FE06D1FE0000000 /* Build configuration list for PBXNativeTarget "Clipper" */ = {
+              67F70067F70067F700000000 /* Build configuration list for PBXNativeTarget "Clipper" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            6D22C06D22C06D22C0000000 /* Debug */,
-                            6D2EB06D2EB06D2EB0000000 /* Release */,
-                            6D4F906D4F906D4F90000000 /* MinSizeRel */,
-                            6D70A06D70A06D70A0000000 /* RelWithDebInfo */,
+                            67F9E067F9E067F9E0000000 /* Debug */,
+                            6805D06805D06805D0000000 /* Release */,
+                            6826B06826B06826B0000000 /* MinSizeRel */,
+                            6847C06847C06847C0000000 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
 /* End XCConfigurationList section */
        };
-       rootObject = 6B10006B10006B1000000000;
+       rootObject = 65E72065E72065E720000000;
 }

@@ -21,9 +21,9 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Frequency, kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	addUpdate(SampleRate);
+	addUpdates(SampleRate);
 	// make the clear method available to the outside world
 	addMessage(clear);
 
@@ -38,7 +38,7 @@ TTBalance::~TTBalance()
 {;}
 
 
-TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	xm1A.resize(maxNumChannels);
 	xm2A.resize(maxNumChannels);
@@ -52,7 +52,7 @@ TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTBalance::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTBalance::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);

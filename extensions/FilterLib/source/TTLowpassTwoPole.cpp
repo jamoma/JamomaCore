@@ -26,8 +26,8 @@ TT_AUDIO_CONSTRUCTOR
 	addMessage(clear);
 
 	// register for notifications
-	addUpdate(MaxNumChannels);
-	addUpdate(SampleRate);
+	addUpdates(MaxNumChannels);
+	addUpdates(SampleRate);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
@@ -45,7 +45,7 @@ TTLowpassTwoPole::~TTLowpassTwoPole()
 }
 
 
-TTErr TTLowpassTwoPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTLowpassTwoPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mFeedback1.resize(maxNumChannels);
 	mFeedback2.resize(maxNumChannels);
@@ -54,7 +54,7 @@ TTErr TTLowpassTwoPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTLowpassTwoPole::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTLowpassTwoPole::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);

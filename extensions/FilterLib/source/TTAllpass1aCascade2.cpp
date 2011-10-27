@@ -26,7 +26,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttribute(Alpha1, kTypeFloat64);
 	
 	addMessage(clear);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setProcessMethod(processAudio);
@@ -39,7 +39,7 @@ TTAllpass1aCascade2::~TTAllpass1aCascade2()
 }
 
 
-TTErr TTAllpass1aCascade2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAllpass1aCascade2::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mX1.resize(maxNumChannels);
 	mD2.resize(maxNumChannels);

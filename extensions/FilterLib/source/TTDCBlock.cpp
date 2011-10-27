@@ -19,7 +19,7 @@ TT_AUDIO_CONSTRUCTOR
 	addMessage(clear);
 	
 	// this next one is called by the parent class so we can allocate memory as required
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	arguments);
@@ -35,7 +35,7 @@ TTDCBlock::~TTDCBlock()
 }
 
 
-TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mLastInput.resize(maxNumChannels);
 	mLastOutput.resize(maxNumChannels);

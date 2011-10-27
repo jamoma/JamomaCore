@@ -27,7 +27,7 @@ class TTHalfband3 : TTAudioObject {
 	TTSymbolPtr		mMode;		///< Attribute: upsample or downsample
 	
 	// Notifications
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	// attribute accessor
 	TTErr setMode(const TTValue& newValue);

@@ -37,9 +37,9 @@ class TTMatrixMixer : TTAudioObject {
 						- The y coordinate of the matrix point (beggining with zero)
 						- The gain level of the matrix point (in dB)
 		@return			An error code.				*/
-	TTErr setGain(TTValue& newValue);
-	TTErr setLinearGain(TTValue& newValue);
-	TTErr setMidiGain(TTValue& newValue);	
+	TTErr setGain(const TTValue& newValue, TTValue&e);
+	TTErr setLinearGain(const TTValue& newValue, TTValue&);
+	TTErr setMidiGain(const TTValue& newValue, TTValue&);	
 	
 	void processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 gain);
 

@@ -21,8 +21,6 @@ class TTStaircase : TTAudioObject {
 	
 	TTErr setMode(const TTValue& newMode);
 
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);	
-	
 	TTErr processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processUpsample(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	

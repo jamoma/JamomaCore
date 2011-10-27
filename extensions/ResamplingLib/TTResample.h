@@ -25,7 +25,7 @@ class TTResample : TTAudioObject {
 	TTErr setDirection(const TTValue& newDirection);
 	TTErr setMode(const TTValue& newMode);
 	
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	

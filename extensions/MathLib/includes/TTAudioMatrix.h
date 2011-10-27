@@ -16,11 +16,11 @@
 class TTAudioMatrix : TTAudioObject {
 	TTCLASS_SETUP(TTAudioMatrix)
 
+	TTMatrixPtr		mGainMatrix;
+	TTBoolean		mInterpolated;
+	TTMatrixPtr		oldGainMatrix, tempGainMatrix;
 	TTUInt16		mNumInputs;
 	TTUInt16		mNumOutputs;
-	TTBoolean		mInterpolated;
-	TTMatrixPtr		mGainMatrix;
-	TTMatrixPtr		oldGainMatrix, tempGainMatrix;
 	
 
 	// Attributes
@@ -31,9 +31,9 @@ class TTAudioMatrix : TTAudioObject {
 	// Messages
 	TTErr clear();
 	TTErr restoreMatrix();
-	TTErr setGain(TTValue& newValue);
-	TTErr setLinearGain(TTValue& newValue);
-	TTErr setMidiGain(TTValue& newValue);	
+	TTErr setGain(const TTValue& newValue, TTValue&);
+	TTErr setLinearGain(const TTValue& newValue, TTValue&);
+	TTErr setMidiGain(const TTValue& newValue, TTValue&);	
 	
 	// Audio
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

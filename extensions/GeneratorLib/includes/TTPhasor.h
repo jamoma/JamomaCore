@@ -27,7 +27,7 @@ class TTPhasor : TTAudioObject {
 
 	/** Receives notifications when there are changes to the inherited 
 		sr attribute.						*/
-	TTErr updateSampleRate(const TTValue&);
+	TTErr updateSampleRate(const TTValue&, TTValue&);
 
 	/**	Internal method called when the ramp is triggered (by setting the rampTime) */
 	void setStep();

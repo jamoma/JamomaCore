@@ -30,9 +30,9 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttribute(NumOutputs, kTypeUInt16);	
 	addAttributeProperty(NumOutputs, readOnly, kTTBoolYes);
 	
-	addMessageWithArgument(setGain);
-	addMessageWithArgument(setLinearGain);
-	addMessageWithArgument(setMidiGain);
+	addMessageWithArguments(setGain);
+	addMessageWithArguments(setLinearGain);
+	addMessageWithArguments(setMidiGain);
 	//registerMessageWithArgument(updateMaxNumChannels);
 	addMessage(clear);
 
@@ -123,7 +123,7 @@ TTErr TTMatrixMixer::clear()
 }
 
 
-TTErr TTMatrixMixer::setGain(TTValue& newValue)
+TTErr TTMatrixMixer::setGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -136,13 +136,13 @@ TTErr TTMatrixMixer::setGain(TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
-	newValue.clear();
+
 	mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); 
 	return kTTErrNone;
 }
 
 
-TTErr TTMatrixMixer::setLinearGain(TTValue& newValue)
+TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -156,13 +156,13 @@ TTErr TTMatrixMixer::setLinearGain(TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);
-	newValue.clear();
+
 	mGainMatrix->set2dZeroIndex(x, y, gainValue); 
 	return kTTErrNone;
 }
 
 
-TTErr TTMatrixMixer::setMidiGain(TTValue& newValue)
+TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue, TTValue&e)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -175,7 +175,7 @@ TTErr TTMatrixMixer::setMidiGain(TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
-	newValue.clear();
+
 	mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue));
 	return kTTErrNone;
 }

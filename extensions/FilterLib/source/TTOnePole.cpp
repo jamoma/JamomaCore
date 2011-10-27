@@ -25,10 +25,10 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithGetterAndSetter(Coefficient, kTypeFloat64);
 
 	// message called as a notification from the parent class so we can allocate memory as required
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 	
 	// message called as a notification from the parent class so we can recalculate coefficients as required
-	addUpdate(SampleRate);
+	addUpdates(SampleRate);
 	
 	// make the clear method available to the outside world
 	addMessage(clear);
@@ -48,7 +48,7 @@ TTOnePole::~TTOnePole()
 
 // Messages
 
-TTErr TTOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mFeedback.resize(maxNumChannels);
 	clear();
@@ -56,7 +56,7 @@ TTErr TTOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTOnePole::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTOnePole::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);

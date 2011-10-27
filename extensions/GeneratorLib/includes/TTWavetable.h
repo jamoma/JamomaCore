@@ -29,7 +29,7 @@ class TTWavetable : TTAudioObject {
 	TTBuffer*			mWavetable;
 	
 	/**	This method gets called when the inherited sample-rate attribute is changed. */
-	TTErr updateSampleRate(const TTValue&);
+	TTErr updateSampleRate(const TTValue&, TTValue&);
 	
 	/**	Process method 	*/
 	TTErr processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr outputs);

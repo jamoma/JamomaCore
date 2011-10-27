@@ -23,7 +23,7 @@ class TTAllpass1aCascade2 : public TTAudioObject {
 	TTSampleVector		mY1;		///< previous output sample (n-1) for each channel of the cascade
 	
 	// Notifications
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	// Zero filter history
 	TTErr clear();

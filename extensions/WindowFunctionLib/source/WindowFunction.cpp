@@ -23,8 +23,8 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Mode,		kTypeSymbol);
 	addAttributeWithSetter(Padding,		kTypeUInt32);
 	
-	addMessageWithArgument(getFunctions);
-	addMessageWithArgument(setParameter);
+	addMessageWithArguments(getFunctions);
+	addMessageWithArguments(setParameter);
 	
 	setAttributeValue(TT("function"), TT("rectangular"));
 	setAttributeValue(TT("mode"), TT("lookup"));
@@ -49,7 +49,7 @@ TTErr WindowFunction::setFunction(const TTValue& function)
 }
 
 
-TTErr WindowFunction::setParameter(TTValue& aParameterValueForTheFunction)
+TTErr WindowFunction::setParameter(const TTValue& aParameterValueForTheFunction, TTValue&)
 {
 	TTErr err;
 	
@@ -64,7 +64,7 @@ TTErr WindowFunction::setParameter(TTValue& aParameterValueForTheFunction)
 		if (!err)
 			fill();
 	}
-	aParameterValueForTheFunction.clear();
+
 	return err;
 }
 
@@ -126,7 +126,7 @@ TTErr WindowFunction::setMode(const TTValue& mode)
 }
 
 
-TTErr WindowFunction::getFunctions(TTValue& listOfWindowTypesToReturn)
+TTErr WindowFunction::getFunctions(const TTValue&, TTValue& listOfWindowTypesToReturn)
 {
 	return TTGetRegisteredClassNamesForTags(listOfWindowTypesToReturn, TT("window"));
 }

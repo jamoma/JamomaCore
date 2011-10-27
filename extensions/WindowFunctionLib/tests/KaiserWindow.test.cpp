@@ -60,7 +60,7 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 	v.setSize(2);
 	v.set(0, TT("beta"));
 	v.set(1, 6.0);
-	windowObject->sendMessage(TT("setParameter"), v);
+	windowObject->sendMessage(TT("setParameter"), v, kTTValNONE);
 	
 	TTTestAssertion("Internal intermediate value 1 (zeroth-order bessel fn of the first kind, taken of beta = 6.0) is correct.",
 					TTTestFloatEquivalence(((KaiserWindow*)((WindowFunction*)windowObject)->mFunctionObject)->mBesselIOofBeta, 67.2344069764780),
@@ -71,7 +71,7 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 	v.setSize(2);
 	v.set(0, TT("alpha"));
 	v.set(1, 2.0);
-	windowObject->sendMessage(TT("setParameter"), v);
+	windowObject->sendMessage(TT("setParameter"), v, kTTValNONE);
 	
 	TTTestAssertion("Internal intermediate value 2 (zeroth-order bessel fn of the first kind, taken of alpha = 2) is correct.",
 					TTTestFloatEquivalence(((KaiserWindow*)((WindowFunction*)windowObject)->mFunctionObject)->mBesselIOofBeta, 87.10851065339077),
@@ -82,7 +82,7 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 	v.setSize(2);
 	v.set(0, TT("beta"));
 	v.set(1, 3.0 * kTTPi);
-	windowObject->sendMessage(TT("setParameter"), v);
+	windowObject->sendMessage(TT("setParameter"), v, kTTValNONE);
 	
 	TTTestAssertion("Internal intermediate value 2 (zeroth-order bessel fn of the first kind, taken of beta = 3 * pi) is correct.",
 					TTTestFloatEquivalence(((KaiserWindow*)((WindowFunction*)windowObject)->mFunctionObject)->mBesselIOofBeta, 1633.090522058824),

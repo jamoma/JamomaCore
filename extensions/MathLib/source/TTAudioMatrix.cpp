@@ -32,9 +32,9 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(NumOutputs,	kTypeUInt16);
    	addAttribute(Interpolated,		kTypeBoolean);	
 	
-	addMessageWithArgument(setGain);
-	addMessageWithArgument(setLinearGain);
-	addMessageWithArgument(setMidiGain);
+	addMessageWithArguments(setGain);
+	addMessageWithArguments(setLinearGain);
+	addMessageWithArguments(setMidiGain);
 
 	//registerMessageWithArgument(updateMaxNumChannels);
 	addMessage(clear);	
@@ -155,7 +155,7 @@ TTErr TTAudioMatrix::checkMatrixSize(TTUInt16 x, TTUInt16 y)
 
 
 
-TTErr TTAudioMatrix::setGain(TTValue& newValue)
+TTErr TTAudioMatrix::setGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -167,7 +167,7 @@ TTErr TTAudioMatrix::setGain(TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
-	newValue.clear();
+
 	checkMatrixSize(x,y);
     
 	mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
@@ -177,7 +177,7 @@ TTErr TTAudioMatrix::setGain(TTValue& newValue)
 }
 
 
-TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
+TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -189,7 +189,7 @@ TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);	
-	newValue.clear();
+
 	checkMatrixSize(x,y);
 	
 	mGainMatrix->set2dZeroIndex(x, y, gainValue); 
@@ -199,7 +199,7 @@ TTErr TTAudioMatrix::setLinearGain(TTValue& newValue)
 }
 
 
-TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
+TTErr TTAudioMatrix::setMidiGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -211,7 +211,7 @@ TTErr TTAudioMatrix::setMidiGain(TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
-	newValue.clear();
+
 	checkMatrixSize(x,y);
 	mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 	if (mInterpolated) 

@@ -30,7 +30,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addMessage(clear);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("delay"), (TTObjectPtr*)&mP0Delay, initialMaxNumChannels);
 	
@@ -72,7 +72,7 @@ TTHalfbandLinear33::~TTHalfbandLinear33()
 }
 
 
-TTErr TTHalfbandLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTHalfbandLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	// update internal filters
 	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);

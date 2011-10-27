@@ -42,7 +42,7 @@ class TTFunction : TTAudioObject {
 	TTErr fill();
 	
 	/**	return a list of all the available window shapes	*/
-	TTErr getFunctions(TTValue& listOfWindowTypesToReturn);
+	TTErr getFunctions(const TTValue&, TTValue& listOfWindowTypesToReturn);
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

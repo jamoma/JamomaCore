@@ -68,7 +68,7 @@ class TTHalfbandLinear33 : TTAudioObject {
 	TTSymbolPtr		mMode;		///< Attribute: lowpass or highpass
 		
 	// Notifications
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	// Zero filter history
 	TTErr clear();

@@ -24,8 +24,8 @@ TT_AUDIO_CONSTRUCTOR
 	registerAttribute(TT("trigger"), kTypeBoolean, &trigger);
 	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
 
-	addUpdate(SampleRate);
-	addMessageWithArgument(dictionary);
+	addUpdates(SampleRate);
+	addMessageWithArguments(dictionary);
 
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);
@@ -40,7 +40,7 @@ TTAdsr::~TTAdsr()
 }
 
 
-TTErr TTAdsr::dictionary(TTValue& input)
+TTErr TTAdsr::dictionary(const TTValue& input, TTValue& output)
 {
 	TTDictionaryPtr	d = NULL;
 	TTSymbolPtr		schema;
@@ -68,7 +68,7 @@ TTErr TTAdsr::dictionary(TTValue& input)
 }
 
 
-TTErr TTAdsr::updateSampleRate(const TTValue&)
+TTErr TTAdsr::updateSampleRate(const TTValue&, TTValue&)
 {
 	TTValue	v;
 

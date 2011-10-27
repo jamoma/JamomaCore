@@ -28,8 +28,8 @@ TT_AUDIO_CONSTRUCTOR
 
 	// register methods
 	addMessage(clear);
-	addUpdate(MaxNumChannels);
-	addUpdate(SampleRate);
+	addUpdates(MaxNumChannels);
+	addUpdates(SampleRate);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
@@ -45,7 +45,7 @@ TTSvf::~TTSvf()
 }
 
 
-TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mLowpass_output.resize(maxNumChannels);
 	mHighpass_output.resize(maxNumChannels);
@@ -57,7 +57,7 @@ TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTSvf::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTSvf::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);

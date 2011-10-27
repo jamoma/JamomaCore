@@ -32,8 +32,8 @@ TT_AUDIO_CONSTRUCTOR
 	addMessageProperty(clear,	description,	TT("Reset the Filter History"));
 
 	// register for notifications
-	addUpdate(MaxNumChannels);
-	addUpdate(SampleRate);
+	addUpdates(MaxNumChannels);
+	addUpdates(SampleRate);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
@@ -51,7 +51,7 @@ TTLowpassFourPole::~TTLowpassFourPole()
 }
 
 
-TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mX1.resize(maxNumChannels);
 	mX2.resize(maxNumChannels);
@@ -66,7 +66,7 @@ TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTLowpassFourPole::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTLowpassFourPole::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);
