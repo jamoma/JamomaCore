@@ -64,11 +64,11 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue(TT("deltaY"),			0.0);
 	setAttributeValue(TT("deltaZ"),			0.0);
 	
-	addMessageWithArgument(getTypes);
-	addMessageWithArgument(getCurrentAttributeNames);
-	addMessageWithArgument(getCurrentType);
-	addMessageWithArgument(ramp);
-	addUpdate(SampleRate);
+	addMessageWithArguments(getTypes);
+	addMessageWithArguments(getCurrentAttributeNames);
+	addMessageWithArguments(getCurrentType);
+	addMessageWithArguments(ramp);
+	addUpdates(SampleRate);
 	addMessage(reset);
 	
 	//setProcessMethod(processAudio);
