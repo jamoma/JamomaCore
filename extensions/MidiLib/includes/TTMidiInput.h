@@ -31,7 +31,7 @@ public:
 	TTBoolean			mRunning;			///< should the thread be running?  If NO then the thread will know to abort itself
 	TTGraphObjectPtr	mOwner;				///< a graph object that can push() calls when we receive MIDI
 	
-	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);
+	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 	TTErr setDevice(TTValue& newDeviceName);
 };
 

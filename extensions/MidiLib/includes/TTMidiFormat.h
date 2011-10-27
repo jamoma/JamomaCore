@@ -15,7 +15,7 @@
 class TTMidiFormat : TTDataObject {
 	TTCLASS_SETUP(TTMidiFormat)
 	
-	TTErr dictionary(TTValue& input);
+	TTErr dictionary(const TTValue& input, TTValue& output);
 };
 
 
