@@ -34,11 +34,11 @@ public:
 	/** Called by the audio engine every time a new vector of output is required. */
 	TTErr audioEngineWillProcess();
 	
-	TTErr setOwner(TTValue& newOwner);
+	TTErr setOwner(TTValue& newOwner, TTValue&);
 
-	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);
+	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 
-	TTErr getCpuLoad(TTValue& returnedValue);
+	TTErr getCpuLoad(const TTValue&, TTValue& returnedValue);
 	
 	// Attribute Accessors
 	TTErr setSampleRate(const TTValue& newValue);

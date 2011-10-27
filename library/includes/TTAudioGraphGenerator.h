@@ -24,8 +24,8 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphGenerator : public TTAudioObject
 	TTUInt16	mVectorSize;
 	
 	TTErr setVectorSize(const TTValue& newVectorSize);
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
 	
 public:
 	TTAudioSignalPtr		mBuffer;		///< storage for the audioSignal that we provide
