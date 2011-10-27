@@ -7,7 +7,7 @@
 			"revision" : 0
 		}
 ,
-		"rect" : [ 75.0, 111.0, 1270.0, 617.0 ],
+		"rect" : [ 10.0, 111.0, 1270.0, 617.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -36,7 +36,7 @@
 					"outlettype" : [ "bang", "bang", "", "int" ],
 					"patching_rect" : [ 397.0, 343.0, 186.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 97.0, 2.0, 56.0, 17.0 ]
+					"presentation_rect" : [ 91.0, 2.0, 65.0, 17.0 ]
 				}
 
 			}
@@ -55,7 +55,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 421.0, 380.0, 77.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 97.0, 2.0, 55.0, 17.0 ],
+					"presentation_rect" : [ 91.0, 2.0, 55.0, 17.0 ],
 					"range" : [ 0.0, 100.0 ],
 					"showvalue" : 0,
 					"text" : "",
@@ -353,16 +353,16 @@
 ,
 					"patching_rect" : [ 307.0, 351.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"tags" : "",
-						"globalpatchername" : "",
 						"default_fontsize" : 12.0,
 						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"digest" : "",
+						"tags" : "",
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p CPU"
@@ -382,10 +382,10 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 307.0, 380.0, 77.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 97.0, 2.0, 57.0, 17.0 ],
+					"presentation_rect" : [ 91.0, 2.0, 65.0, 17.0 ],
 					"range" : [ 0.0, 100.0 ],
 					"showvalue" : 0,
-					"text" : "CPU: 6.00%",
+					"text" : "CPU: 0.00%",
 					"textpos" : [ 4.0, 2.0 ]
 				}
 
@@ -517,7 +517,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 555.0, 478.0, 60.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 189.0, 2.0, 60.0, 16.0 ],
+					"presentation_rect" : [ 191.0, 2.0, 59.0, 16.0 ],
 					"rounded" : 8.0,
 					"text" : "Audio Off",
 					"texton" : "Audio On",
@@ -538,7 +538,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 555.0, 413.0, 35.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 154.0, 2.0, 35.0, 16.0 ],
+					"presentation_rect" : [ 157.0, 2.0, 33.0, 16.0 ],
 					"prototypename" : "jamoma open",
 					"rounded" : 8.0,
 					"text" : "DSP",
@@ -930,16 +930,16 @@
 ,
 									"patching_rect" : [ 71.0, 396.0, 40.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"tags" : "",
-										"globalpatchername" : "",
 										"default_fontsize" : 10.0,
 										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p text"
@@ -1353,7 +1353,7 @@
  ],
 										"dependency_cache" : [ 											{
 												"name" : "jcom.js_systeminfo.js",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/javascript",
+												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/javascript",
 												"type" : "TEXT",
 												"implicit" : 1
 											}
@@ -1366,16 +1366,16 @@
 ,
 									"patching_rect" : [ 280.0, 411.0, 65.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"tags" : "",
-										"globalpatchername" : "",
 										"default_fontsize" : 10.0,
 										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p FileTypes"
@@ -2061,7 +2061,7 @@
  ],
 						"dependency_cache" : [ 							{
 								"name" : "jcom.js_systeminfo.js",
-								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/javascript",
+								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/javascript",
 								"type" : "TEXT",
 								"implicit" : 1
 							}
@@ -2078,16 +2078,16 @@
 ,
 					"patching_rect" : [ 159.0, 330.0, 66.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"tags" : "",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"digest" : "",
+						"tags" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p inspector"
@@ -2751,16 +2751,16 @@
 ,
 									"patching_rect" : [ 260.0, 190.0, 48.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"tags" : "",
-										"globalpatchername" : "",
 										"default_fontsize" : 10.0,
 										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p thru"
@@ -3801,16 +3801,16 @@
 ,
 					"patching_rect" : [ 20.0, 395.0, 58.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"tags" : "",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"digest" : "",
+						"tags" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p routing",
@@ -4361,35 +4361,35 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jalg.sur.output~.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/spatialization/sur.output~",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/spatialization/sur.output~",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.multi.out~.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/multi.out%",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/multi.out%",
 				"patcherrelativepath" : "../../../library/components/multi.out%",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.thru.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
 				"patcherrelativepath" : "../../../library/components/thru",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.audioOnOff.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
 				"patcherrelativepath" : "../../../library/components/audioOnOff",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.js_systeminfo.js",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/javascript",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/javascript",
 				"patcherrelativepath" : "../../../library/javascript",
 				"type" : "TEXT",
 				"implicit" : 1
