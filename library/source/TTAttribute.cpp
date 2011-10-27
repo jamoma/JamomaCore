@@ -301,3 +301,17 @@ TTErr TTAttribute::gethidden(TTValue& currentHiddenFlag)
 	currentHiddenFlag = hidden;
 	return kTTErrNone;
 }
+
+
+TTErr TTAttribute::setdescription(const TTValue& newDescription)
+{
+	newDescription.get(0, &description);
+	return kTTErrNone;
+}
+
+TTErr TTAttribute::getdescription(TTValue& returnedDescription)
+{
+	returnedDescription = description;
+	return kTTErrNone;
+}
+
