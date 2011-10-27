@@ -126,7 +126,7 @@ void MidiOutGetDeviceNames(MidiOutPtr self)
 	AtomPtr		ap;
 	TTSymbolPtr	name;
 	
-	err = self->graphObject->mKernel->sendMessage(TT("getAvailableDeviceNames"), v);
+	err = self->graphObject->mKernel->sendMessage(TT("getAvailableDeviceNames"), kTTValNONE, v);
 	if (!err) {
 		ac = v.getSize();
 		ap = new Atom[ac];
