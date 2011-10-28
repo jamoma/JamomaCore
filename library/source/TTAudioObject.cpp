@@ -205,14 +205,14 @@ TTErr TTAudioObject::setMute(const TTValue& value)
 }
 
 
-TTErr TTAudioObject::calculateMessage(TTValue& v)
+TTErr TTAudioObject::calculateMessage(TTValueConstRef input, TTValue& output)
 {
-	TTFloat64	x = v;
+	TTFloat64	x = input;
 	TTFloat64	y;
 	TTErr		err;
 	
 	err = calculate(x, y);
-	v = y;
+	output = y;
 	return err;
 }
 
@@ -420,7 +420,7 @@ TTErr TTAudioObject::resetBenchmarking()
 }
 
 
-TTErr TTAudioObject::getProcessingBenchmark(TTValueRef v)
+TTErr TTAudioObject::getProcessingBenchmark(TTValueConstRef, TTValueRef v)
 {
 	v = accumulatedProcessingTime / accumulatedProcessingCalls;
 	return kTTErrNone;
