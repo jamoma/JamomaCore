@@ -170,37 +170,37 @@ TTErr TTBuffer::fill(const TTValue& value, TTValue& unusedOutput)
 	if (fillAlgorithm == kTTSym_sine) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i, channel, sin(kTTTwoPi * (i / (TTFloat64(mDimensions[0]) - 1.0))));
+				set2d(i+1, channel+1, sin(kTTTwoPi * (i / (TTFloat64(mDimensions[0]) - 1.0))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_sineMod) {							// (modulator version: ranges from 0.0 to 1.0, rather than -1.0 to 1.0)
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i, channel, 0.5 + (0.5 * sin(kTTTwoPi * (i / (TTFloat64(mDimensions[0]) - 1.0)))));
+				set2d(i+1, channel+1, 0.5 + (0.5 * sin(kTTTwoPi * (i / (TTFloat64(mDimensions[0]) - 1.0)))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_cosine) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i, channel, cos(kTTTwoPi * (i / (TTFloat64(mDimensions[0]) - 1.0))));
+				set2d(i+1, channel+1, cos(kTTTwoPi * (i / (TTFloat64(mDimensions[0]) - 1.0))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_cosineMod) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i, channel, 0.5 + (0.5 * cos(kTTTwoPi * (i / (TTFloat64(mDimensions[0]) - 1.0)))));
+				set2d(i+1, channel+1, 0.5 + (0.5 * cos(kTTTwoPi * (i / (TTFloat64(mDimensions[0]) - 1.0)))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_ramp) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mDimensions[0]; i++)
-				set2d(i, channel, -1.0 + (2.0 * (float(i) / mDimensions[0])));
+				set2d(i+1, channel+1, -1.0 + (2.0 * (float(i) / mDimensions[0])));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_rampMod) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mDimensions[0]; i++)
-				set2d(i, channel, float(i) / mDimensions[0]);
+				set2d(i+1, channel+1, float(i) / mDimensions[0]);
 		}
 	}
 
