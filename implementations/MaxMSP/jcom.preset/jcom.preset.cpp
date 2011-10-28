@@ -329,8 +329,13 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			aXmlHandler->sendMessage(TT("Read"), v);
+			tterr = aXmlHandler->sendMessage(TT("Read"), v);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_read, argc, argv);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 }
