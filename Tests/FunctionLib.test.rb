@@ -12,13 +12,13 @@ puts
 puts "TESTING LINEAR FUNCTION"
 o = TTObject.new "linear"
 o.send "test"
-err, cpu = o.send "getProcessingBenchmark", 1
+err, cpu = o.send "getProcessingBenchmark"
 cpu_total += cpu
 
 puts "TESTING SMOOTHPOLYNOMIALFUNCTION WINDOW"
 o = TTObject.new "smoothPolynomial"
 o.send "test"
-err, cpu = o.send "getProcessingBenchmark", 1
+err, cpu = o.send "getProcessingBenchmark"
 cpu_total += cpu
 
 puts
