@@ -13,7 +13,7 @@ SVNREV = $Rev$
 
 // Paths
 DSTROOT = /
-INSTALL_PATH = /Library/Application Support/Jamoma/Extensions
+INSTALL_PATH = /usr/local/jamoma/extensions
 SKIP_INSTALL = YES
 
 
@@ -24,13 +24,14 @@ HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../../Foundation/library/inclu
 LIBRARY_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts"
 
 // Per architecture and deployment settings
-ARCHS = i386 x86_64
-SDKROOT = $(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk
-SDKROOT[arch=i386] = $(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk
-SDKROOT[arch=x86_64] = $(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk
+SDKROOT = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+SDKROOT[arch=ppc] = $(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk
+SDKROOT[arch=i386] = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+SDKROOT[arch=x86_64] = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+GCC_VERSION[arch=ppc] = 4.0
 GCC_VERSION[arch=i386] = 4.2
 GCC_VERSION[arch=x86_64] = 4.2
-MACOSX_DEPLOYMENT_TARGET = 10.5
+MACOSX_DEPLOYMENT_TARGET = 10.6
 
 
 // Static Configuration

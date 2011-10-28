@@ -17,14 +17,15 @@
 // This is used to store extra data
 typedef struct extra {
 	
-	#ifndef JMOD_RETURN
-	SymbolPtr	attr_format;		// Is it 'single' data output or 'array' output
-	TTUInt32	array_size;			// keep array size in memory
-	TTValuePtr	*array_value;		// store each value in an array to output them together
-	#endif
+#ifndef JMOD_RETURN
+	SymbolPtr			attr_format;		// Is it 'single' data output or 'array' output
+	TTUInt32			array_size;			// keep array size in memory
+	TTValuePtr			*array_value;		// store each value in an array to output them together
+#endif
 	
-	TTBoolean	changingAddress;	// a flag to protect from succession of address changes
-	TTValue		args;				// keep attributes argument of the external
+	TTNodeAddressPtr	array_address;		// keep the address in memory to filter repetitions
+	TTBoolean			changingAddress;	// a flag to protect from succession of address changes
+	TTValue				args;				// keep attributes argument of the external
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
@@ -99,12 +100,12 @@ void WrapTTDataClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)data_inc,							"+",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)data_dec,							"-",					A_GIMME, 0);
-
+	
 	class_addmethod(c->maxClass, (method)data_array_select,					"array/select",			A_GIMME,0);
 #endif
 	
 	class_addmethod(c->maxClass, (method)data_address,						"address",				A_SYM,0);
-
+	
 #ifndef JMOD_RETURN
 	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	extra);		// use extra member to store format
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	data_get_format,	data_set_format);
@@ -128,7 +129,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		object_error((ObjectPtr)x, "needs a name as first argument");
 		return;
 	}
-
+	
 #ifndef JMOD_MESSAGE
 	// add an inlet for the index
 	x->inlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
@@ -141,9 +142,9 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 #ifndef JMOD_RETURN
 	// Don't create outlets during dynamic changes
-		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
-		x->outlets[index_out] = outlet_new(x, NULL);					// long outlet to output data index
-		x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
+	x->outlets[index_out] = outlet_new(x, NULL);					// long outlet to output data index
+	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 #endif
 	
 	// Prepare extra data for parameters and messages
@@ -153,6 +154,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	EXTRA->array_size = 0;
 	EXTRA->array_value = NULL;
 #endif
+	EXTRA->array_address = kTTAdrsEmpty;
 	EXTRA->changingAddress = NO;
 	EXTRA->args = kTTValNONE;
 	
@@ -165,7 +167,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		// keep args to set the wrapped object attributes
 		jamoma_ttvalue_from_Atom(EXTRA->args, _sym_list, argc--, argv++);
 	}
-
+	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
@@ -175,27 +177,28 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 void WrappedDataClass_free(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-
+	
 #ifndef JMOD_RETURN
 	// delete array
 	if (EXTRA->array_value) {
 		for (TTUInt32 i=0; i<EXTRA->array_size; i++)
 			if (EXTRA->array_value[i])
 				delete EXTRA->array_value[i];
-			
+		
 		free(EXTRA->array_value);
 	}
 #endif
 	
 	free(EXTRA);
 }
-	
+
 void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	AtomCount					argc = 0; 
 	AtomPtr						argv = NULL;
-	long						number, i;
+	TTUInt32					number, i;
+	TTNodeAddressPtr			newAddress = TTADRS(relativeAddress->s_name);
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
 	TTSubscriberPtr				aSubscriber;
@@ -208,68 +211,75 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 		x->internals->setThreadProtection(YES);
 		x->cursor = kTTSymEmpty;
 		
-		if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
-
-			number = jamoma_parse_bracket(relativeAddress, x->i_format, x->s_format);
-
-			if (number) {
+		// filter repetitions
+		if (!(EXTRA->array_address == newAddress)) {
+			
+			EXTRA->array_address = newAddress;
+			
+			if (EXTRA->array_address->getType() == kAddressRelative) {
 				
-				// Starts iteration on internals
-				x->iterateInternals = YES;
-
+				number = jamoma_parse_bracket(relativeAddress, x->i_format, x->s_format);
+				
+				// don't resize to 0
+				if (number) {
+					
+					// Starts iteration on internals
+					x->iterateInternals = YES;
+					
 #ifndef JMOD_RETURN
-				// prepare array_value
-				EXTRA->array_size = number;
-				EXTRA->array_value = (TTValuePtr*)malloc(sizeof(TTValuePtr)*number);
-				for (TTUInt32 j=0; j<EXTRA->array_size; j++)
-					EXTRA->array_value[j] = NULL;
+					// prepare array_value
+					EXTRA->array_size = number;
+					EXTRA->array_value = (TTValuePtr*)malloc(sizeof(TTValuePtr)*number);
+					for (TTUInt32 j=0; j<EXTRA->array_size; j++)
+						EXTRA->array_value[j] = NULL;
 #endif
-				
-				for (i = 1; i <= number; i++) {
 					
-					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
-					
-					// create a data
+					for (i = 1; i <= number; i++) {
+						
+						jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
+						
+						// create a data
 #ifdef JMOD_MESSAGE
-					data_array_create((ObjectPtr)x, &anObject, kTTSym_message, i);
+						data_array_create((ObjectPtr)x, &anObject, kTTSym_message, i);
 #endif
-					
+						
 #if JMOD_RETURN
-					data_array_create((ObjectPtr)x, &anObject, kTTSym_return, i);
+						data_array_create((ObjectPtr)x, &anObject, kTTSym_return, i);
 #endif
-					
+						
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-					data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
+						data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
 #endif
 #endif
-					aSubscriber = NULL;
-					if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTADRS(instanceAddress->s_name),  &aSubscriber)) {
-						
-						if (aSubscriber) {
-							// append the data to the internals table
-							v = TTValue(TTPtr(anObject));
-							v.append(TT(instanceAddress->s_name));
-							v.append(TTPtr(aSubscriber));
-							x->internals->append(TT(instanceAddress->s_name), v);
+						aSubscriber = NULL;
+						if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTADRS(instanceAddress->s_name),  &aSubscriber)) {
+							
+							if (aSubscriber) {
+								// append the data to the internals table
+								v = TTValue(TTPtr(anObject));
+								v.append(TT(instanceAddress->s_name));
+								v.append(TTPtr(aSubscriber));
+								x->internals->append(TT(instanceAddress->s_name), v);
+							}
 						}
 					}
+					
+					// Ends iteration on internals
+					x->iterateInternals = NO;
+					
+					// handle args
+					jamoma_ttvalue_to_Atom(EXTRA->args, &argc, &argv);
+					if (argc && argv)
+						attr_args_process(x, argc, argv);
+					
+					// select all datas
+					data_array_select(self, gensym("*"), 0, NULL);
 				}
-				
-				// Ends iteration on internals
-				x->iterateInternals = NO;
-				
-				// handle args
-				jamoma_ttvalue_to_Atom(EXTRA->args, &argc, &argv);
-				if (argc && argv)
-					attr_args_process(x, argc, argv);
-				
-				// select all datas
-				data_array_select(self, gensym("*"), 0, NULL);
 			}
+			else
+				object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
 		}
-		else
-			object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
 	}
 	else 
 		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", relativeAddress->s_name);
@@ -415,7 +425,7 @@ void data_int(TTPtr self, long value)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	t_atom a;
-
+	
 	if (proxy_getinlet((ObjectPtr)x)) {
 		atom_setlong(&a, value);
 		data_array_select(self, _sym_nothing, 1, &a);
@@ -446,7 +456,7 @@ void data_float(TTPtr self, double value)
 void data_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-
+	
 	if (x->internals) {
 		
 		// send to each data
@@ -518,7 +528,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 		jamoma_edit_numeric_instance(x->i_format, &iAdrs, i);
 		x->cursor = TT(iAdrs->s_name);
 	}
-
+	
 	outlet_int(x->outlets[index_out], i);
 	
 	// store value
@@ -614,7 +624,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue v;
-
+	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 	selectedObject->sendMessage(TT("Inc"), v);
 }
