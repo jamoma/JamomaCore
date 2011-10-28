@@ -223,7 +223,9 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 	TTErr			err = kTTErrNone;
 	VALUE			messageNameStr;
 	VALUE			messageArgStr;
-	TTValue			v;
+	TTValue			v_in;
+	TTValue			v_out;
+	TTValue			v_temp;
 	
 	if (argc < 1) {
 		cout << "ERROR -- TTRuby.send requires at least 1 argument (the name of the message to send)" << endl;
@@ -231,9 +233,9 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 	}
 	
 	messageNameStr = StringValue(argv[0]);	
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v_temp);
 	if (!err) {
-		v.get(0, (TTPtr*)&instance);
+		v_temp.get(0, (TTPtr*)&instance);
 		if (instance) {
 			TTSymbolPtr	messageName;
 			TTValue		messageNameValue;
@@ -242,11 +244,12 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 			instance->messageNames->lookup(messageName, messageNameValue);
 			messageNameValue.get(0, &messageName);
 
-			if (argc == 1) {		// no arguments...
-				err = instance->obj->sendMessage(messageName);
-			}
-			else {					// we have arguments...
-				v.clear();
+//			if (argc == 1) {		// no arguments...
+//				err = instance->obj->sendMessage(messageName);
+//			}
+//			else {					// we have arguments...
+				v_in.clear();
+				v_out.clear();
 				
 				for (int i=1; i<argc; i++) {
 					int t = TYPE(argv[i]);
@@ -254,17 +257,17 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 					//cout << "the type of the message arg is " << t << endl;
 					switch (t) {
 						case T_FLOAT:
-							v.append(NUM2DBL(argv[i]));
+							v_in.append(NUM2DBL(argv[i]));
 							break;
 						case T_FIXNUM:
-							v.append((int)FIX2LONG(argv[i]));
+							v_in.append((int)FIX2LONG(argv[i]));
 							break;
 						case T_BIGNUM:
-							v.append((TTInt64)NUM2LL(argv[i]));
+							v_in.append((TTInt64)NUM2LL(argv[i]));
 							break;
 						case T_STRING:
 							messageArgStr = StringValue(argv[i]);
-							v.append(TT(RSTRING_PTR(messageArgStr)));
+							v_in.append(TT(RSTRING_PTR(messageArgStr)));
 							break;
 						case T_ARRAY:
 							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
@@ -281,16 +284,16 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 				}				
 
 				if (!err) {
-					err = instance->obj->sendMessage(messageName, v);
+					err = instance->obj->sendMessage(messageName, v_in, v_out);
 				}
-			}
+//			}
 			
 			if (err)
 				cout << "TTRubySendMessage: Error " << err << endl;
 			else {
 				// return an array -- the first item is the error code
 				// additional values may follow
-				int		size = v.getSize();
+				int		size = v_out.getSize();
 				int		i;
 				VALUE	ret = rb_ary_new2(size + 1);
 				
@@ -299,24 +302,24 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 					
 					// TODO: support other types
 					
-					if (v.getType(i) == kTypeFloat64 || v.getType(0) == kTypeFloat32) {
+					if (v_out.getType(i) == kTypeFloat64 || v_out.getType(0) == kTypeFloat32) {
 						
 						TTFloat64	f;
 						VALUE		fv;
 							
-						v.get(i, f);
+						v_out.get(i, f);
 						fv = rb_float_new(f);
 						//cout << "return value " << i << " is " << f << endl;
 
 						rb_ary_store(ret, i+1, fv);
 					}
-					else if (v.getType(i) == kTypeObject)
+					else if (v_out.getType(i) == kTypeObject)
 						cout << "objects as return values are not yet supported" << endl;
-					else if (v.getType(i) == kTypeSymbol) {
+					else if (v_out.getType(i) == kTypeSymbol) {
 						TTSymbolPtr	sp = NULL;
 						TTCString	c; 
 						
-						v.get(i, &sp);
+						v_out.get(i, &sp);
 						if (sp) {
 							c = (TTCString)sp->getCString();
 							rb_ary_store(ret, i+1, rb_str_new(c, strlen(c)));
@@ -326,7 +329,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 						TTInt32 l;
 						VALUE 	lv;
 						
-						v.get(i, l);
+						v_out.get(i, l);
 						lv = rb_int_new(l);
 						rb_ary_store(ret, i+1, lv);
 					}
@@ -661,7 +664,9 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 	TTErr				err = kTTErrNone;
 	VALUE				messageNameStr;
 	VALUE				messageArgStr;
-	TTValue				v;
+	TTValue				v_in;
+	TTValue				v_out;
+	TTValue				v_temp;
 
 	if (argc < 1) {
 		cout << "ERROR -- TTRuby.send requires at least 1 argument (the name of the message to send)" << endl;
@@ -669,9 +674,9 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 	}
 
 	messageNameStr = StringValue(argv[0]);	
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v_temp);
 	if (!err) {
-		v.get(0, (TTPtr*)&instance);
+		v_temp.get(0, (TTPtr*)&instance);
 		if (instance) {
 			TTSymbolPtr	messageName;
 			TTValue		messageNameValue;
@@ -680,11 +685,12 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 			instance->messageNames->lookup(messageName, messageNameValue);
 			messageNameValue.get(0, &messageName);
 
-			if (argc == 1) {		// no arguments...
-				err = instance->obj->getUnitGenerator()->sendMessage(messageName);
-			}
-			else {					// we have arguments...
-				v.clear();
+//			if (argc == 1) {		// no arguments...
+//				err = instance->obj->getUnitGenerator()->sendMessage(messageName);
+///			}
+//			else {					// we have arguments...
+			v_in.clear();
+			v_out.clear();
 
 				for (int i=1; i<argc; i++) {
 					int t = TYPE(argv[i]);
@@ -692,17 +698,17 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 					//cout << "the type of the message arg is " << t << endl;
 					switch (t) {
 						case T_FLOAT:
-							v.append(NUM2DBL(argv[i]));
+							v_in.append(NUM2DBL(argv[i]));
 							break;
 						case T_FIXNUM:
-							v.append((int)FIX2LONG(argv[i]));
+							v_in.append((int)FIX2LONG(argv[i]));
 							break;
 						case T_BIGNUM:
-							v.append((TTInt64)NUM2LL(argv[i]));
+							v_in.append((TTInt64)NUM2LL(argv[i]));
 							break;
 						case T_STRING:
 							messageArgStr = StringValue(argv[i]);
-							v.append(TT(RSTRING_PTR(messageArgStr)));
+							v_in.append(TT(RSTRING_PTR(messageArgStr)));
 							break;
 						case T_ARRAY:
 							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
@@ -719,16 +725,16 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 				}				
 
 				if (!err) {
-					err = instance->obj->getUnitGenerator()->sendMessage(messageName, v);
+					err = instance->obj->getUnitGenerator()->sendMessage(messageName, v_in, v_out);
 				}
-			}
+//			}
 
 			if (err)
 				cout << "TTAudioSendMessage ('" << RSTRING_PTR(messageNameStr) << "'): Error " << err << endl;
 			else {
 				// return an array -- the first item is the error code
 				// additional values may follow
-				int		size = v.getSize();
+				int		size = v_out.getSize();
 				int		i;
 				VALUE	ret = rb_ary_new2(size + 1);
 				
@@ -737,24 +743,24 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 					
 					// TODO: support other types
 					
-					if (v.getType(i) == kTypeFloat64 || v.getType(0) == kTypeFloat32) {
+					if (v_out.getType(i) == kTypeFloat64 || v_out.getType(0) == kTypeFloat32) {
 						
 						TTFloat64	f;
 						VALUE		fv;
 							
-						v.get(i, f);
+						v_out.get(i, f);
 						fv = rb_float_new(f);
 						//cout << "return value " << i << " is " << f << endl;
 
 						rb_ary_store(ret, i+1, fv);
 					}
-					else if (v.getType(i) == kTypeObject)
+					else if (v_out.getType(i) == kTypeObject)
 						cout << "objects as return values are not yet supported" << endl;
-					else if (v.getType(i) == kTypeSymbol) {
+					else if (v_out.getType(i) == kTypeSymbol) {
 						TTSymbolPtr	sp = NULL;
 						TTCString	c; 
 						
-						v.get(i, &sp);
+						v_out.get(i, &sp);
 						if (sp) {
 							c = (TTCString)sp->getCString();
 							rb_ary_store(ret, i+1, rb_str_new(c, strlen(c)));
@@ -764,7 +770,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 						TTInt32 l;
 						VALUE 	lv;
 						
-						v.get(i, l);
+						v_out.get(i, l);
 						lv = rb_int_new(l);
 						rb_ary_store(ret, i+1, lv);
 					}
