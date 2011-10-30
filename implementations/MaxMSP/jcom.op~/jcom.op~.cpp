@@ -39,6 +39,7 @@ void		op_free(t_op *x);
 void		op_assist(t_op *x, void *b, long msg, long arg, char *dst);	// Assistance Method
 t_int*		op_perform(t_int *w);												// An MSP Perform (signal) Method
 void		op_dsp(t_op *x, t_signal **sp, short *count);					// DSP Method
+void		op_dsp64(t_op *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags); // DSP64 Method
 t_max_err	op_setOperator(t_op *x, void *attr, long argc, t_atom *argv);
 t_max_err	op_setOperand(t_op *x, void *attr, long argc, t_atom *argv);
 
@@ -59,7 +60,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 	c = class_new("jcom.op~",(method)op_new, (method)op_free, sizeof(t_op), (method)0L, A_GIMME, 0);
 	
- 	class_addmethod(c, (method)op_dsp,					"dsp",			A_CANT, 0);		
+ 	class_addmethod(c, (method)op_dsp,					"dsp",			A_CANT, 0);
+	class_addmethod(c, (method)op_dsp64,				"dsp64",		A_CANT, 0);
 	class_addmethod(c, (method)op_assist,				"assist",		A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout", 		A_CANT, 0);  
 	
@@ -224,5 +226,48 @@ t_max_err op_setOperand(t_op *x, void *attr, long argc, t_atom *argv)
 		x->op->setAttributeValue(TT("operand"), x->attrOperand);
 	}
 	return MAX_ERR_NONE;
+}
+
+
+void op_perform64(t_op *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short		i;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
+	
+	for(i=0; i<x->numChannels; i++)
+		x->audioIn->setVector(i, vs, ins[i]);
+	
+	
+	x->op->process(x->audioIn, x->audioOut);
+	
+	for(i=0; i<x->numChannels; i++)		
+		x->audioOut->getVectorCopy(i, vs, outs[i]);
+}
+
+
+
+void op_dsp64(t_op *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	
+	short		i, j; 
+	
+	x->numChannels = 0;
+	x->vs = (TTUInt16)maxvectorsize;
+	
+	for(i=0; i < x->maxNumChannels; i++){
+		j = x->maxNumChannels + i;
+		if(count[i] && count[j])
+			x->numChannels++;		
+	}
+	
+	x->audioIn->setAttributeValue(kTTSym_numChannels, x->maxNumChannels);
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->maxNumChannels);
+	x->audioIn->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+	x->audioOut->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+	//audioIn will be set in the perform method
+	x->audioOut->sendMessage(TT("alloc"));
+	
+	x->op->setAttributeValue(kTTSym_sampleRate, samplerate);
+	object_method(dsp64, gensym("dsp_add64"), x, op_perform64, 0, NULL);	
 }
 
