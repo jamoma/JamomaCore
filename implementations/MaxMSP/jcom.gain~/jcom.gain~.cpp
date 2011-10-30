@@ -36,6 +36,7 @@ typedef struct _gain{
 void*		gain_new(t_symbol *s, long argc, t_atom *argv);					// New Object Creation Method
 void		gain_free(t_gain *x);											// Object Deletion Method
 void		gain_dsp(t_gain *x, t_signal **sp, short *count);				// DSP Method
+void		gain_dsp64(t_gain *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags); // DSP64 Method
 void		gain_assist(t_gain *x, void *b, long m, long a, char *s);		// Assistance Method
 t_int*		gain_perform(t_int *w);											// MSP Perform Method
 t_max_err	attr_set_gain(t_gain *x, void *attr, long argc, t_atom *argv);
@@ -61,6 +62,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)gain_dsp, 				"dsp", A_CANT, 0L);
+	//class_addmethod(c, (method)gain_dsp64,				"dsp64", A_CANT, 0);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);
     class_addmethod(c, (method)gain_assist, 			"assist", A_CANT, 0L);
 
@@ -269,8 +271,65 @@ void gain_dsp(t_gain *x, t_signal **sp, short *count)
 	
 	x->xfade->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
 	x->gain->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
+	x->gain->setAttributeValue(TT("interpolated"), true);
 	
 	dsp_addv(gain_perform, l, audioVectors);
 	sysmem_freeptr(audioVectors);
+}
+
+void gain_perform64(t_gain *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short		i;
+	TTUInt16	vs = x->signalIn->getVectorSizeAsInt();
+
+	// We sort audioIn so that all channels of signalA comes first, then all channels of signalB
+	for(i=0; i < numouts; i++){
+		x->signalIn->setVector(i, vs, ins[i]);
+		x->signalIn->setVector(i+numouts, vs, ins[i+numouts]); 
+	}
+	
+	//if(!x->obj.z_disabled){								// Max6 takes care of the muting now 
+		x->xfade->process(x->signalIn, x->signalTemp);	// perform bypass and/or mix operation on processed input
+		x->gain->process(x->signalTemp, x->signalOut);	// perform gain boost/cut on processed/bypassed input
+		
+	//}
+	
+	for(i=0; i < numouts; i++)
+		x->signalOut->getVectorCopy(i, vs, outs[i]); //getVector doesn't seem to work
+}
+
+
+
+void gain_dsp64(t_gain *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	short		i, k, j; 
+	TTUInt16	numChannels = 0;
+	
+	for (i=0; i < x->numChannels; i++) {
+		j = x->numChannels + i;
+		k = x->numChannels*2 + i;
+		if (count[i] && count[j] && count[k]) {
+			numChannels++;			
+		}
+	}
+	
+	x->signalIn->setNumChannels(numChannels*2);
+	x->signalOut->setNumChannels(numChannels);
+	x->signalTemp->setNumChannels(numChannels);
+	
+	x->signalIn->setVectorSizeWithInt((TTUInt16)maxvectorsize);
+	x->signalOut->setVectorSizeWithInt((TTUInt16)maxvectorsize);
+	x->signalTemp->setVectorSizeWithInt((TTUInt16)maxvectorsize);
+	
+	//signalIn will be set in the perform method
+	x->signalOut->alloc();
+	x->signalTemp->alloc();
+	
+	x->xfade->setAttributeValue(kTTSym_sampleRate, samplerate);
+	x->gain->setAttributeValue(kTTSym_sampleRate, samplerate);
+	x->gain->setAttributeValue(TT("interpolated"), true);
+	object_method(dsp64, gensym("dsp_add64"), x, gain_perform64, 0, NULL);
+		
+		
 }
 
