@@ -203,6 +203,7 @@
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
 				);
+				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
 			};
 			name = Development;
 		};
@@ -217,6 +218,7 @@
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
 				);
+				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
 			};
 			name = Deployment;
 		};
