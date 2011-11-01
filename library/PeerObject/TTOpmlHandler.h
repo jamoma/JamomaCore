@@ -67,7 +67,7 @@ public:	// use public for recursive access
 		In the path case, TTOpmlWriter starts opml file writting and then calls the WriteAsOpml 
 		method of mObject attribute
 		In the second case, it directly calls the WriteAsOpml method */
-	TTErr Write(const TTValue& args);
+	TTErr Write(const TTValue& args, TTValue& outputValue);
 	TTErr WriteAgain();
 	
 	
@@ -75,7 +75,7 @@ public:	// use public for recursive access
 		In the path case, TTOpmlReader starts opml file reading and then calls the ReadFromOpml 
 		method of mObject attribute
 		In the second case, it directly calls the ReadFromOpml method */
-	TTErr Read(const TTValue& args);
+	TTErr Read(const TTValue& args, TTValue& outputValue);
 	TTErr ReadAgain();
 	
 	/** TTOpmlReader make a TTValue from an opmlChar* using the fromString method (see in TTValue.h) */

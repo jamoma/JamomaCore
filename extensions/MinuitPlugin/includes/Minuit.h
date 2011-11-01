@@ -70,7 +70,7 @@ private:
 	MinuitAnswerManagerPtr	mAnswerManager;
 	
 	TTErr sendMessage(TTSymbolPtr distantApplicationName, TTSymbolPtr header, TTValue& message);
-	TTErr receivedMessage(const TTValue& message);
+	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
 	/** Get parameters names needed by this plugin */
 	TTErr getParameterNames(TTValue& value);

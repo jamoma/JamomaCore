@@ -262,7 +262,7 @@ void hub_subscribe(TTPtr self)
 						makeInternals_explorer((ObjectPtr)x, TT("nmspcExplorer"), gensym("return_nmpscExploration"), &anExplorer);
 						anExplorer->setAttributeValue(kTTSym_lookfor, TT("Container"));
 						anExplorer->setAttributeValue(kTTSym_address, kTTAdrsRoot);
-						anExplorer->sendMessage(TT("Explore"), kTTValNONE);
+						anExplorer->sendMessage(TT("Explore"));
 					}
 				}
 				
@@ -438,7 +438,7 @@ void hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aTextHandler);
 			
 			critical_enter(0);
-			aTextHandler->sendMessage(TT("Write"), v);
+			aTextHandler->sendMessage(TT("Write"), v, kTTValNONE);
 			critical_exit(0);
 		}
 	}

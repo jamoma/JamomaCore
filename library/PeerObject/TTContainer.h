@@ -39,13 +39,13 @@ private:
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop 
 	
 	/** */
-	TTErr Send(TTValue& AddressAndValue);
+	TTErr Send(TTValue& AddressAndValue, TTValue& outputValue);
 	
 	/** */
 	TTErr Init();
 	
 	/**  needed to be handled by a TTTextHandler */
-	TTErr WriteAsText(const TTValue& value);
+	TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr setAddress(const TTValue& value);

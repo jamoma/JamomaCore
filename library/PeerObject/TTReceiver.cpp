@@ -157,11 +157,11 @@ TTErr TTReceiver::Get()
 						v.append(anAddress);
 						
 						if (mReturnAddressCallback)
-							mReturnAddressCallback->notify(v);
+							mReturnAddressCallback->notify(v, kTTValNONE);
 						
 						// return the value
 						if (mReturnValueCallback)
-							mReturnValueCallback->notify(data);
+							mReturnValueCallback->notify(data, kTTValNONE);
 					}
 					else
 						return kTTErrGeneric;
@@ -407,7 +407,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				// return the address
 				address.append(anAddress);
 				if (aReceiver->mReturnAddressCallback)
-					aReceiver->mReturnAddressCallback->notify(address);
+					aReceiver->mReturnAddressCallback->notify(address, kTTValNONE);
 			}
 			else if (ttAttributeName != kTTSym_destroyed)
 			{
@@ -470,7 +470,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				// return the address
 				address.append(anAddress);
 				if (aReceiver->mReturnAddressCallback)
-					aReceiver->mReturnAddressCallback->notify(address);
+					aReceiver->mReturnAddressCallback->notify(address, kTTValNONE);
 			}
 			else if (ttAttributeName != kTTSym_created)
 			{
@@ -534,11 +534,11 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 		
 		// return address
 		if (aReceiver->mReturnAddressCallback)
-			aReceiver->mReturnAddressCallback->notify(v);
+			aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
 		
 		// return the value
 		if (aReceiver->mReturnValueCallback)
-			aReceiver->mReturnValueCallback->notify(data);
+			aReceiver->mReturnValueCallback->notify(data, kTTValNONE);
 	}
 	
 	return kTTErrNone;

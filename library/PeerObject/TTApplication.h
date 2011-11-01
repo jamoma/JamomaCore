@@ -38,12 +38,12 @@ typedef TTMirror* TTMirrorPtr;
 #define	getLocalDirectory TTApplicationGetDirectory(kTTAdrsRoot)
 
 // Macro to convert a TTValue with tt names inside into a value with local application names inside.
-#define	ToAppNames(ttNames) \
-		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToAppName, ttNames); \
+#define	ToAppNames(ttNames, appNames) \
+		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToAppName, ttNames, appNames); \
 
 // Macro to convert a TTValue with local application names inside into a value with tt names inside.
-#define	ToTTNames(appNames) \
-		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToTTName, appNames); \
+#define	ToTTNames(appNames, ttNames) \
+		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToTTName, appNames, ttNames); \
 
 // Macro to convert a local application TTSymbol into a tt name
 #define	ToAppName(ttName) \
@@ -90,37 +90,37 @@ private:
 	TTErr getAllTTNames(TTValue& value);
 	
 	/** Convert TTName into AppName */
-	TTErr ConvertToAppName(TTValue& value);
+	TTErr ConvertToAppName(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Convert AppName into TTName */
-	TTErr ConvertToTTName(TTValue& value);
+	TTErr ConvertToTTName(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Add Directory observer */
-	TTErr AddDirectoryListener(const TTValue& value);
+	TTErr AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Add Attribute observer */
-	TTErr AddAttributeListener(const TTValue& value);
+	TTErr AddAttributeListener(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Remove Directory observer */
-	TTErr RemoveDirectoryListener(const TTValue& value);
+	TTErr RemoveDirectoryListener(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Remove Attribute observer */
-	TTErr RemoveAttributeListener(const TTValue& value);
+	TTErr RemoveAttributeListener(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Update Directory (usually for distant application) */
-	TTErr UpdateDirectory(const TTValue& value);
+	TTErr UpdateDirectory(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Update Attribute value (usually for Mirror objects) */
-	TTErr UpdateAttribute(const TTValue& value);
+	TTErr UpdateAttribute(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** needed to be handled by a TTXmlHandler 
 		read/write plugin parameters */
-	TTErr WriteAsXml(const TTValue& value);
-	TTErr ReadFromXml(const TTValue& value);
+	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** needed to be handled by a TTOpmlHandler 
 		read a directory description */
-	TTErr ReadFromOpml(const TTValue& value);
+	TTErr ReadFromOpml(const TTValue& inputValue, TTValue& outputValue);
 	
 	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTNodeAddressPtr anAddress);
 	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName);

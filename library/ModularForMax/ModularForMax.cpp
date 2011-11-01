@@ -22,7 +22,7 @@ TTErr jamoma_application_dump_configuration(void)
 	TTUInt16 i;
 	TTValue v, appNames;
 	TTSymbolPtr anAppKey;
-	TTValue toConvert;
+	TTValue toConvert, converted;
 	TTString aTTStr;
 	
 	post("--- Jamoma Application : Symbol Convertion ---");
@@ -33,9 +33,9 @@ TTErr jamoma_application_dump_configuration(void)
 		appNames.get(i, &anAppKey);
 		
 		toConvert = TTValue(anAppKey);
-		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, toConvert); 
-		toConvert.toString();
-		toConvert.get(0, aTTStr);
+		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, toConvert, converted); 
+		converted.toString();
+		converted.get(0, aTTStr);
 		post("%s <-> %s", anAppKey->getCString(), aTTStr.data());
 	}
 	
@@ -56,7 +56,7 @@ TTErr jamoma_application_write_configuration(void)
 	anXmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	v = TTValue(TT(JamomaConfigurationFilePath));
-	return anXmlHandler->sendMessage(TT("Write"), v);
+	return anXmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
 }
 
 // Method to deal with the jamoma directory
@@ -246,7 +246,7 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
 		
-		return aContainer->sendMessage(kTTSym_Send, data); // data is [address, attribute, [x, x, ,x , ...]]
+		return aContainer->sendMessage(kTTSym_Send, data, kTTValNONE); // data is [address, attribute, [x, x, ,x , ...]]
 	}
 	
 	return kTTErrGeneric;
@@ -287,7 +287,7 @@ TTErr jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPt
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		aData->sendMessage(kTTSym_Command, v);
+		aData->sendMessage(kTTSym_Command, v, kTTValNONE);
 		return kTTErrNone;
 	}
 	
@@ -314,7 +314,7 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		return aSender->sendMessage(kTTSym_Send, v);
+		return aSender->sendMessage(kTTSym_Send, v, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;
@@ -788,17 +788,17 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 							r.get(0, ramp);
 				}
 				else {
-					o->sendMessage(kTTSym_Command, v);
+					o->sendMessage(kTTSym_Command, v, kTTValNONE);
 					return;
 				}
 				
 				v.append(ramp);
-				o->sendMessage(kTTSym_Command, v);
+				o->sendMessage(kTTSym_Command, v, kTTValNONE);
 				return;
 			}
 			
 			// in any other case
-			o->sendMessage(kTTSym_Command, v);
+			o->sendMessage(kTTSym_Command, v, kTTValNONE);
 			return;
 		}
 		
@@ -877,7 +877,7 @@ TTErr jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomP
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		anInput->sendMessage(kTTSym_Send, v);
+		anInput->sendMessage(kTTSym_Send, v, kTTValNONE);
 		return kTTErrNone;
 	}
 	
@@ -976,7 +976,7 @@ TTErr jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, At
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		anOutput->sendMessage(kTTSym_Send, v);
+		anOutput->sendMessage(kTTSym_Send, v, kTTValNONE);
 		return kTTErrNone;
 	}
 	
@@ -1042,7 +1042,7 @@ TTErr jamoma_viewer_send(TTViewerPtr aViewer, SymbolPtr msg, AtomCount argc, Ato
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		return aViewer->sendMessage(kTTSym_Send, v);
+		return aViewer->sendMessage(kTTSym_Send, v, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;
@@ -1553,7 +1553,7 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 	else {
 		
 		/*	to -- don't get the context from the filename anymore
-			because it make to ways to set it wjth the hub @context attribute
+			because it make two ways to set it with the hub @context attribute
 		 
 		// try to get it from the patcher name
 		patcherName = object_attr_getsym(*patcher, _sym_filename);

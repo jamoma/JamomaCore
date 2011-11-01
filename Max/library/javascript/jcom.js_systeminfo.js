@@ -13,8 +13,8 @@ inlets = 1;
 outlets = 1;
 
 // the following two variables are updated via the build script
-MODULAR_VERSION = "0.6.0 a8";
-MODULAR_REV = "d6bce";
+MODULAR_VERSION = "0.5.6 b1";
+MODULAR_REV = "ab99a";
 
 function bang()
 {

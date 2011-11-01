@@ -72,47 +72,47 @@ private:
 	TTErr getPluginNames(TTValue& value);
 	
 	/** Add an application giving <TTSymbolPtr applicationName, applicationPointer> */
-	TTErr ApplicationAdd(const TTValue& value);
+	TTErr ApplicationAdd(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Remove an application */
-	TTErr ApplicationRemove(const TTValue& value);
+	TTErr ApplicationRemove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Discover the namespace of an application under an address
 		arguments are <TTSymbolPtr whereToDiscover, TTValuePtr returnedChildrenNames, TTValuePtr returnedChildrenTypes, TTValuePtrreturnedAttributes> */
-	TTErr ApplicationDiscover(TTValue& value);
+	TTErr ApplicationDiscover(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get a value from an attribute of an object at an address in an application
 		arguments are <TTSymbolPtr whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
-	TTErr ApplicationGet(TTValue& value);
+	TTErr ApplicationGet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Set a value from an attribute of an object at an address in an application
 		arguments are <TTSymbolPtr whereToDiscover, TTsymbolPtr attributeToSet, TTValuePtr newValue> */
-	TTErr ApplicationSet(TTValue& value);
+	TTErr ApplicationSet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Listen for value changes from an attribute of an object at an address in an application
 		or for creation/destruction under an address.
 		arguments are <TTObjectPtr appToNotify, TTSymbolPtr whereToListen, TTSymbolPtr attribute, TTBoolean enable> */
-	TTErr ApplicationListen(TTValue& value);
+	TTErr ApplicationListen(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Update value changes of an attribute of an object at an address in an application
 		or for creation/destruction under an address.
 		note : this is usually the answer of distant namespace or Mirror attribute listening
 		arguments are <TTObjectPtr appAnswering, TTSymbolPtr whereComesFrom, TTSymbolPtr attribute, TTValuePtr newValue> */
-	TTErr ApplicationListenAnswer(TTValue& value);
+	TTErr ApplicationListenAnswer(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Scan a plugin network in order to add distant application automatically <TTSymbolPtr pluginName> */
-	TTErr PluginScan(const TTValue& value);
+	TTErr PluginScan(const TTValue& inputValue, TTValue& outputValue);
 
 	/** Run the reception thread mecanism of a Plugin <TTSymbolPtr pluginName> */
-	TTErr PluginRun(const TTValue& value);
+	TTErr PluginRun(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Stop the reception thread mecanism of a Plugin <TTSymbolPtr pluginName> */
-	TTErr PluginStop(const TTValue& value);
+	TTErr PluginStop(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler 
 		 read/write local and distant applications setup */
-	TTErr WriteAsXml(const TTValue& value);
-	TTErr ReadFromXml(const TTValue& value);
+	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr notifyApplicationObservers(TTSymbolPtr anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag);

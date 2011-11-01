@@ -89,7 +89,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			// Add it to the application manager as the local application
 			v = TTValue(kTTSym_localApplicationName);
 			v.append((TTPtr)anApplication);
-			TTModularApplications->sendMessage(TT("ApplicationAdd"), v);
+			TTModularApplications->sendMessage(TT("ApplicationAdd"), v, kTTValNONE);
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
@@ -99,7 +99,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			anXmlHandler->setAttributeValue(kTTSym_object, v);
 			
 			v = TTValue(TT(xmlConfigFilePath));
-			anXmlHandler->sendMessage(TT("Read"), v);
+			anXmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
 		}
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", kTTSym_localApplicationName->getCString()); 

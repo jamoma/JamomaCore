@@ -394,7 +394,7 @@ void ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v)
 		if (!err) {
 			storedObject.get(0, (TTPtr*)&anObject);
 			if (anObject)
-				anObject->sendMessage(kTTSym_Send, v);
+				anObject->sendMessage(kTTSym_Send, v, kTTValNONE);
 		}
 	}
 }

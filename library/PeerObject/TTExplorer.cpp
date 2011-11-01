@@ -41,10 +41,10 @@ mLastResult(kTTValNONE)
 	
 	addMessage(Explore);
 	
-	addMessageWithArgument(CriteriaAdd);
-	addMessageWithArgument(CriteriaRemove);
+	addMessageWithArguments(CriteriaAdd);
+	addMessageWithArguments(CriteriaRemove);
 	
-	addMessageWithArgument(WriteAsOpml);
+	addMessageWithArguments(WriteAsOpml);
 	addMessageProperty(WriteAsOpml, hidden, YES);
 	
 	mCriteriaList = new TTList();
@@ -261,7 +261,7 @@ TTErr TTExplorer::Explore()
 		if (mReturnValueCallback) {
 			mResult->getKeysSorted(v);
 			if (!(v == mLastResult)) {
-				mReturnValueCallback->notify(v);
+				mReturnValueCallback->notify(v, kTTValNONE);
 				mLastResult = v;
 			}
 		}
@@ -270,16 +270,16 @@ TTErr TTExplorer::Explore()
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::CriteriaAdd(const TTValue& value)
+TTErr TTExplorer::CriteriaAdd(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr aCriteria = NULL;
 	TTSymbolPtr		criteriaName, criteriaKey, criteriaSchema = kTTSymEmpty;
 	TTValue			v, criteriaValue;
 	TTErr			err;
 	
-	if (value.getType() == kTypeSymbol) {
+	if (inputValue.getType() == kTypeSymbol) {
 	
-		value.get(0, &criteriaName);
+		inputValue.get(0, &criteriaName);
 		
 		err = mCriteriaBank->lookup(criteriaName, v);
 		
@@ -295,10 +295,10 @@ TTErr TTExplorer::CriteriaAdd(const TTValue& value)
 		}
 		
 		// set the keys of the criteria
-		for (TTUInt32 i=1; i<value.getSize(); i=i+2) {
+		for (TTUInt32 i=1; i<inputValue.getSize(); i=i+2) {
 			
-			value.get(i, &criteriaKey);
-			criteriaValue.copyRange(value, i+1, i+2);
+			inputValue.get(i, &criteriaKey);
+			criteriaValue.copyRange(inputValue, i+1, i+2);
 			
 			aCriteria->append(criteriaKey, criteriaValue);
 			
@@ -339,16 +339,16 @@ TTErr TTExplorer::CriteriaAdd(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTExplorer::CriteriaRemove(const TTValue& value)
+TTErr TTExplorer::CriteriaRemove(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr aCriteria;
 	TTSymbolPtr		criteriaName;
 	TTValue			v, criteriaValue;
 	TTErr			err;
 	
-	if (value.getType() == kTypeSymbol) {
+	if (inputValue.getType() == kTypeSymbol) {
 		
-		value.get(0, &criteriaName);
+		inputValue.get(0, &criteriaName);
 		
 		err = mCriteriaBank->lookup(criteriaName, v);
 		
@@ -412,12 +412,12 @@ TTErr TTExplorer::setCriterias(const TTValue& value)
 }
 
 
-TTErr TTExplorer::WriteAsOpml(const TTValue& value)
+TTErr TTExplorer::WriteAsOpml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTOpmlHandlerPtr	anOpmlHandler;
 	TTNodePtr			aNode;
 	
-	value.get(0, (TTPtr*)&anOpmlHandler);
+	inputValue.get(0, (TTPtr*)&anOpmlHandler);
 	
 	if (mDirectory && mAddress != kTTAdrsEmpty) {
 		
@@ -436,7 +436,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	TTNodeAddressPtr nameInstance;
 	TTSymbolPtr objectName, attributeName;
 	TTObjectPtr anObject;
-	TTValue		attributeNameList, v;
+	TTValue		attributeNameList, v, c;
 	TTList		nodeList;
 	TTNodePtr	aChild;
 	TTString	aString;
@@ -478,10 +478,10 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 					anObject->getAttributeValue(attributeName, v);
 					
 					// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
-					ToAppNames(v);
+					ToAppNames(v, c);
 					
-					v.toString();
-					v.get(0, aString);
+					c.toString();
+					c.get(0, aString);
 					
 					xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST attributeName->getCString(), BAD_CAST aString.data());
 				}
@@ -607,7 +607,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	if (anExplorer->mReturnValueCallback) {
 		anExplorer->mResult->getKeysSorted(keys);
 		if (!(keys == anExplorer->mLastResult)) {
-			anExplorer->mReturnValueCallback->notify(keys);
+			anExplorer->mReturnValueCallback->notify(keys, kTTValNONE);
 			anExplorer->mLastResult = keys;
 		}
 	}

@@ -329,9 +329,7 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
-	
-	x->wrappedObject->sendMessage(kTTSym_Send, v);
+	jamoma_viewer_send((TTViewerPtr)x->wrappedObject, msg, argc, argv);
 }
 
 void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

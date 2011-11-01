@@ -158,7 +158,7 @@ TTErr TTSubscriber::subscribe( )
 	aTempValue.clear();
 	aContextList = new TTList();
 	aTempValue.append(aContextList);
-	this->mGetContextListCallback->notify(aTempValue);
+	this->mGetContextListCallback->notify(aTempValue, kTTValNONE);
 	
 	// register each Context of the list as 
 	// TTNode in the tree structure (if they don't exist yet)
@@ -467,7 +467,7 @@ TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
 		v = data;
 		
 		// send data
-		anObject->sendMessage(messageName, data);
+		anObject->sendMessage(messageName, data, kTTValNONE);
 		
 		return kTTErrNone;
 	}

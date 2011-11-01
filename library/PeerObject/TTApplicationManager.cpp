@@ -33,33 +33,33 @@ mApplicationObserversMutex(NULL)
 	addAttributeWithGetter(PluginNames, kTypeLocalValue);
 	addAttributeProperty(pluginNames, readOnly, YES);
 	
-	addMessageWithArgument(ApplicationAdd);
-	addMessageWithArgument(ApplicationRemove);
+	addMessageWithArguments(ApplicationAdd);
+	addMessageWithArguments(ApplicationRemove);
 	
-	addMessageWithArgument(ApplicationDiscover);
+	addMessageWithArguments(ApplicationDiscover);
 	addMessageProperty(ApplicationDiscover, hidden, YES);
 	
-	addMessageWithArgument(ApplicationGet);
+	addMessageWithArguments(ApplicationGet);
 	addMessageProperty(ApplicationGet, hidden, YES);
 	
-	addMessageWithArgument(ApplicationSet);
+	addMessageWithArguments(ApplicationSet);
 	addMessageProperty(ApplicationSet, hidden, YES);
 	
-	addMessageWithArgument(ApplicationListen);
+	addMessageWithArguments(ApplicationListen);
 	addMessageProperty(ApplicationListen, hidden, YES);
 	
-	addMessageWithArgument(ApplicationListenAnswer);
+	addMessageWithArguments(ApplicationListenAnswer);
 	addMessageProperty(ApplicationListenAnswer, hidden, YES);
 	
-	addMessageWithArgument(PluginScan);
-	addMessageWithArgument(PluginRun);
-	addMessageWithArgument(PluginStop);
+	addMessageWithArguments(PluginScan);
+	addMessageWithArguments(PluginRun);
+	addMessageWithArguments(PluginStop);
 	
 	// needed to be handled by a TTXmlHandler
-	addMessageWithArgument(WriteAsXml);
+	addMessageWithArguments(WriteAsXml);
 	addMessageProperty(WriteAsXml, hidden, YES);
 	
-	addMessageWithArgument(ReadFromXml);
+	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mApplications = new TTHash();
@@ -170,17 +170,17 @@ TTErr TTApplicationManager::getPluginNames(TTValue& value)
 	return mPlugins->getKeys(value);
 }
 
-TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
+TTErr TTApplicationManager::ApplicationAdd(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue				v, args, allPluginNames;
 	TTSymbolPtr			applicationName;
 	TTApplicationPtr	anApplication;
 	
-	value.get(0, &applicationName);
+	inputValue.get(0, &applicationName);
 	
 	// if no given application, instantiate it
-	if (value.getSize() == 2)
-		value.get(1, (TTPtr*) &anApplication);
+	if (inputValue.getSize() == 2)
+		inputValue.get(1, (TTPtr*) &anApplication);
 	else {
 		anApplication = NULL;
 		args.append(applicationName);
@@ -201,14 +201,14 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::ApplicationRemove(const TTValue& value)
+TTErr TTApplicationManager::ApplicationRemove(const TTValue& inputValue, TTValue& outputValue)
 {	
 	TTValue				v;
 	TTSymbolPtr			applicationName;
 	TTApplicationPtr	anApplication;
 	TTErr				err;
 
-	value.get(0, &applicationName);
+	inputValue.get(0, &applicationName);
 	
 	err = mApplications->lookup(applicationName, v);
 	
@@ -225,7 +225,7 @@ TTErr TTApplicationManager::ApplicationRemove(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManager::PluginScan(const TTValue& value)
+TTErr TTApplicationManager::PluginScan(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue v, allPluginNames;
 	TTSymbolPtr pluginName;
@@ -233,9 +233,9 @@ TTErr TTApplicationManager::PluginScan(const TTValue& value)
 	TTErr				err;
 	
 	// if no name do it for all plugin
-	if (value.getSize()) {
+	if (inputValue.getSize()) {
 		
-		value.get(0, &pluginName);
+		inputValue.get(0, &pluginName);
 		
 		if (!mPlugins->lookup(pluginName, v)) {
 			v.get(0, (TTPtr*)&aPlugin);
@@ -260,7 +260,7 @@ TTErr TTApplicationManager::PluginScan(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::PluginRun(const TTValue& value)
+TTErr TTApplicationManager::PluginRun(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue				v, allPluginNames, allApplicationNames;
 	TTSymbolPtr			pluginName, applicationName, appPluginName;
@@ -269,9 +269,9 @@ TTErr TTApplicationManager::PluginRun(const TTValue& value)
 	TTErr				err;
 	
 	// if no name do it for all plugin
-	if (value.getSize()) {
+	if (inputValue.getSize()) {
 		
-		value.get(0, &pluginName);
+		inputValue.get(0, &pluginName);
 		
 		if (!mPlugins->lookup(pluginName, v)) {
 			v.get(0, (TTPtr*)&aPlugin);
@@ -285,7 +285,7 @@ TTErr TTApplicationManager::PluginRun(const TTValue& value)
 		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
 			
 			allPluginNames.get(i, &pluginName);
-			this->PluginRun(pluginName);
+			this->PluginRun(pluginName, kTTValNONE);
 		}
 		
 		return kTTErrNone;
@@ -315,18 +315,18 @@ TTErr TTApplicationManager::PluginRun(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::PluginStop(const TTValue& value)
+TTErr TTApplicationManager::PluginStop(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue				v, allPluginNames, allApplicationNames;
 	TTSymbolPtr			pluginName, applicationName, appPluginName;
-	PluginPtr	aPlugin;
+	PluginPtr			aPlugin;
 	TTApplicationPtr	anApplication;
 	TTErr				err;
 	
 	// if no name do it for all plugin
-	if (value.getSize()) {
+	if (inputValue.getSize()) {
 		
-		value.get(0, &pluginName);
+		inputValue.get(0, &pluginName);
 		
 		if (!mPlugins->lookup(pluginName, v)) {
 			v.get(0, (TTPtr*)&aPlugin);
@@ -340,7 +340,7 @@ TTErr TTApplicationManager::PluginStop(const TTValue& value)
 		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
 			
 			allPluginNames.get(i, &pluginName);
-			this->PluginStop(pluginName);
+			this->PluginStop(pluginName, kTTValNONE);
 		}
 		
 		return kTTErrNone;
@@ -370,7 +370,7 @@ TTErr TTApplicationManager::PluginStop(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
+TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodeDirectoryPtr	directory;
 	TTNodeAddressPtr	whereToDiscover;
@@ -378,10 +378,11 @@ TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 	TTValuePtr			returnedChildrenTypes;
 	TTValuePtr			returnedAttributes;
 	
-	value.get(0, &whereToDiscover);
-	value.get(1, (TTPtr*)&returnedChildrenNames);
-	value.get(2, (TTPtr*)&returnedChildrenTypes);
-	value.get(3, (TTPtr*)&returnedAttributes);
+	inputValue.get(0, &whereToDiscover);
+	
+	outputValue.get(0, (TTPtr*)&returnedChildrenNames);
+	outputValue.get(1, (TTPtr*)&returnedChildrenTypes);
+	outputValue.get(2, (TTPtr*)&returnedAttributes);
 	
 	TTLogDebug("TTApplicationManager::Discover");
 	
@@ -435,14 +436,12 @@ TTErr TTApplicationManager::ApplicationDiscover(TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManager::ApplicationGet(TTValue& value)
+TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodeDirectoryPtr	directory;
 	TTNodeAddressPtr	whereToGet;
-	TTValuePtr			returnedValue;
 	
-	value.get(0, &whereToGet);
-	value.get(1, (TTPtr*)&returnedValue);
+	inputValue.get(0, &whereToGet);
 	
 	TTLogDebug("TTApplicationManager::Get");
 	
@@ -459,19 +458,19 @@ TTErr TTApplicationManager::ApplicationGet(TTValue& value)
 	
 	if (!err)
 		if (anObject = nodeToGet->getObject())
-			return anObject->getAttributeValue(whereToGet->getAttribute(), *returnedValue);
+			return anObject->getAttributeValue(whereToGet->getAttribute(), outputValue);
 
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManager::ApplicationSet(TTValue& value)
+TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodeDirectoryPtr	directory;
 	TTNodeAddressPtr	whereToSet;
 	TTValuePtr			newValue;
 	
-	value.get(0, &whereToSet);
-	value.get(1, (TTPtr*)&newValue);
+	inputValue.get(0, &whereToSet);
+	inputValue.get(1, (TTPtr*)&newValue);
 	
 	TTLogDebug("TTApplicationManager::Set");
 	
@@ -502,7 +501,7 @@ TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 			if (objectType == TT("Data")) {
 				
 				if (whereToSet->getAttribute() == kTTSym_value)
-					anObject->sendMessage(kTTSym_Command, *newValue);
+					anObject->sendMessage(kTTSym_Command, *newValue, kTTValNONE);
 				else
 					return anObject->setAttributeValue(whereToSet->getAttribute(), *newValue);
 			}
@@ -514,16 +513,16 @@ TTErr TTApplicationManager::ApplicationSet(TTValue& value)
 	return kTTErrGeneric; // TODO : return an error notification
 }
 
-TTErr TTApplicationManager::ApplicationListen(TTValue& value)
+TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodeAddressPtr	whereToListen;
 	TTSymbolPtr			appToNotify, pluginName;
 	TTBoolean			enableListening;
 	
-	value.get(0, &pluginName);
-	value.get(1, &appToNotify);
-	value.get(2, &whereToListen);
-	value.get(3, enableListening);
+	inputValue.get(0, &pluginName);
+	inputValue.get(1, &appToNotify);
+	inputValue.get(2, &whereToListen);
+	inputValue.get(3, enableListening);
 	
 	TTLogDebug("TTApplicationManager::Listen");
 	
@@ -548,11 +547,11 @@ TTErr TTApplicationManager::ApplicationListen(TTValue& value)
 			
 			// start directory listening
 			if (whereToListen->getAttribute() == TT("life")) // TODO : find a better name
-				return appWhereToListen->sendMessage(TT("AddDirectoryListener"), args);
+				return appWhereToListen->sendMessage(TT("AddDirectoryListener"), args, kTTValNONE);
 	
 			// start attribute listening
 			else 
-				return appWhereToListen->sendMessage(TT("AddAttributeListener"), args);
+				return appWhereToListen->sendMessage(TT("AddAttributeListener"), args, kTTValNONE);
 		}
 		// remove listener
 		else {
@@ -562,27 +561,27 @@ TTErr TTApplicationManager::ApplicationListen(TTValue& value)
 			
 			// stop directory listening
 			if (whereToListen->getAttribute() == TT("life")) // TODO : find a better name
-				return appWhereToListen->sendMessage(TT("RemoveDirectoryListener"), args);
+				return appWhereToListen->sendMessage(TT("RemoveDirectoryListener"), args, kTTValNONE);
 
 			// stop attribute listening
 			else
-				return appWhereToListen->sendMessage(TT("RemoveAttributeListener"), args);
+				return appWhereToListen->sendMessage(TT("RemoveAttributeListener"), args, kTTValNONE);
 		}
 	}	
 
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManager::ApplicationListenAnswer(TTValue& value)
+TTErr TTApplicationManager::ApplicationListenAnswer(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr			appAnswering;
 	TTNodeAddressPtr	whereComesFrom;
 	TTValuePtr			newValue;
 	TTValue				args;
 	
-	value.get(0, &appAnswering);
-	value.get(1, &whereComesFrom);
-	value.get(2, (TTPtr*)&newValue);
+	inputValue.get(0, &appAnswering);
+	inputValue.get(1, &whereComesFrom);
+	inputValue.get(2, (TTPtr*)&newValue);
 	
 	TTLogDebug("TTApplicationManager::ListenAnswer");
 	
@@ -591,23 +590,23 @@ TTErr TTApplicationManager::ApplicationListenAnswer(TTValue& value)
 	
 	// notify directory updates
 	if (whereComesFrom->getAttribute() == TT("life")) // TODO : find a better name
-		return getApplication(appAnswering)->sendMessage(TT("UpdateDirectory"), args);
+		return getApplication(appAnswering)->sendMessage(TT("UpdateDirectory"), args, kTTValNONE);
 	
 	// notify attribute updates
 	else 
-		return getApplication(appAnswering)->sendMessage(TT("UpdateAttribute"), args);
+		return getApplication(appAnswering)->sendMessage(TT("UpdateAttribute"), args, kTTValNONE);
 	
 	return kTTErrGeneric;	
 }
 
-TTErr TTApplicationManager::WriteAsXml(const TTValue& value)
+TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTSymbolPtr			applicationName, version;
 	TTApplicationPtr	anApplication;
     TTValue				keys, v;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
     xmlTextWriterWriteComment(aXmlHandler->mWriter, BAD_CAST "TODO : a TTApplication Manager comment");
 	
@@ -638,7 +637,7 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
+TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;	
 	TTSymbolPtr			applicationName, currentApplicationName, version;
@@ -646,7 +645,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 	TTValue				v, args, allAppNames;
 	TTErr				err;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -658,7 +657,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 		mCurrentApplication = NULL;
 		
 		// stop plugin reception threads
-		PluginStop(v);
+		PluginStop(v, kTTValNONE);
 		
 		// remove all applications except the local one
 		mApplications->getKeys(allAppNames);
@@ -681,7 +680,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 	if (aXmlHandler->mXmlNodeName == TT("end")) {
 		
 		// start plugin reception threads
-		PluginRun(v);
+		PluginRun(v, kTTValNONE);
 		
 		return kTTErrNone;
 	}
@@ -711,7 +710,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& value)
 				if (mApplications->lookup(applicationName, v)) {
 					v = TTValue(applicationName);
 					v.append((TTPtr)mCurrentApplication);
-					ApplicationAdd(v);
+					ApplicationAdd(v, kTTValNONE);
 				}
 				
 				mCurrentApplication = NULL;
@@ -791,7 +790,7 @@ TTErr TTApplicationManager::notifyApplicationObservers(TTSymbolPtr anApplication
 						data.append((TTPtr*)anApplication);
 						data.append((TTInt8)flag);
 						data.append((TTPtr*)anObserver);
-						anObserver->notify(data);
+						anObserver->notify(data, kTTValNONE);
 					}
 					
 					foundObsv = true;

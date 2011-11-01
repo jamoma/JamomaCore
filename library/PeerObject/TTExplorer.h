@@ -54,10 +54,10 @@ private:
 	/** Create a criteria, add it to the bank and append it to the list
 		< criteriaName criteriaKey1 criteriaValue1 criteriaKey2 criteriaValue2 ... >
 		note : the schema of the criteria is automatically detected by the keys */
-	TTErr CriteriaAdd(const TTValue& value);
+	TTErr CriteriaAdd(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Delete a criteria from the bank using his name and remove it from the criteria list */
-	TTErr CriteriaRemove(const TTValue& value);
+	TTErr CriteriaRemove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	// TODO : TTErr Dump();
@@ -90,7 +90,7 @@ private:
 	TTErr unbindApplication();
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsOpml(const TTValue& value);
+	TTErr WriteAsOpml(const TTValue& inputValue, TTValue& outputValue);
 	void writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode);
 	
 	/* TODO :

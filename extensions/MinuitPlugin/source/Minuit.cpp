@@ -75,7 +75,7 @@ mAnswerManager(NULL)
 	addAttribute(Ip, kTypeSymbol);
 	addAttribute(Port, kTypeUInt16);
 	
-	addMessageWithArgument(receivedMessage);
+	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
 }
 
@@ -494,7 +494,7 @@ TTErr Minuit::sendMessage(TTSymbolPtr distantApplicationName, TTSymbolPtr header
 				
 				message = TTValue(header);
 				message.append((TTPtr)&arguments);
-				err = mOscSend->sendMessage(TT("send"), message);
+				err = mOscSend->sendMessage(TT("send"), message, kTTValNONE);
 				
 				TTObjectRelease(&mOscSend);
 			}
@@ -504,7 +504,7 @@ TTErr Minuit::sendMessage(TTSymbolPtr distantApplicationName, TTSymbolPtr header
 	return err;
 }
 
-TTErr Minuit::receivedMessage(const TTValue& message)
+TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 {
 	TTSymbolPtr			aSymbol, sender, operation;
 	TTString			headerString;
