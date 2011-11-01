@@ -17,10 +17,8 @@ TTSymbolPtr				kTTSym_localApplicationName = kTTSymEmpty;
 
 /****************************************************************************************************/
 
-void TTModularInit(TTString pluginFolderPath)
-{
-	TTValue	v;
-	
+void TTModularInit()
+{	
 	// Initialized Foundation framework
 	TTFoundationInit();
 	
@@ -56,8 +54,7 @@ void TTModularInit(TTString pluginFolderPath)
 		//TTModularValueCacheInit();
 		
 		// Create the Modular application manager with no application inside
-		v.append(pluginFolderPath);
-		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), v);
+		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), kTTValNONE);
 		
 #ifdef TT_DEBUG
 		TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
