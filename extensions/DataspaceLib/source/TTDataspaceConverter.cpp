@@ -21,11 +21,11 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithGetterAndSetter(InputUnit, kTypeSymbol);
 	addAttributeWithGetterAndSetter(OutputUnit, kTypeSymbol);
 
-	addMessageWithArgument(dictionary);
-	addMessageWithArgument(convert);
+	addMessageWithArguments(dictionary);
+	addMessageWithArguments(convert);
 	
-	addMessageWithArgument(getAvailableUnits);
-	addMessageWithArgument(getAvailableDataspaces);
+	addMessageWithArguments(getAvailableUnits);
+	addMessageWithArguments(getAvailableDataspaces);
 	
 	setAttributeValue(TT("dataspace"), TT("none"));
 }
@@ -63,29 +63,24 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 }
 
 
-TTErr TTDataspaceConverter::convert(TTValue& io)
+TTErr TTDataspaceConverter::convert(const TTValue& anInputValue, TTValue& anOutputValue)
 {
-	TTValue	output;
-	TTErr	err;
-	
-	err = mDataspaceObject->convert(io, output);
-	io = output;
-	
-	return err;
+	return mDataspaceObject->convert(anInputValue, anOutputValue);
 }
 
 
-TTErr TTDataspaceConverter::dictionary(TTValue& input)
+TTErr TTDataspaceConverter::dictionary(const TTValue& anInputValue, TTValue& anOutputValue)
 {
 	TTDictionaryPtr	d = NULL;
-	TTValue			v;
+	TTValue			in;
+	TTValue			out;
 	TTErr			err;
 	
-	input.get(0, (TTPtr*)(&d));
-	d->getValue(v);
-	err = convert(v);
-	d->setValue(v);
-	
+	anInputValue.get(0, (TTPtr*)(&d));
+	d->getValue(in);
+	err = convert(in, out);
+	d->setValue(out);
+	anOutputValue.set(0, TTPtr(d));
 	return err;
 }
 
@@ -116,13 +111,13 @@ TTErr TTDataspaceConverter::setOutputUnit(const TTValue& outUnitName)
 }
 
 
-TTErr TTDataspaceConverter::getAvailableUnits(TTValue& unitNames)
+TTErr TTDataspaceConverter::getAvailableUnits(const TTValue& anUnusedInputValue, TTValue& unitNames)
 {
 	return mDataspaceObject->getAvailableUnits(unitNames);
 }
 
 
-TTErr TTDataspaceConverter::getAvailableDataspaces(TTValue& dataspaceNames)
+TTErr TTDataspaceConverter::getAvailableDataspaces(const TTValue& anUnusedInputValue, TTValue& dataspaceNames)
 {
 	TTErr err;
 	

@@ -30,9 +30,9 @@ TTEnvironment::TTEnvironment()
 	addAttribute(SampleRate,		kTypeUInt32);
 	addAttribute(Benchmarking,		kTypeBoolean);
 	
-	addMessageWithArgument(getVersion);
-	addMessageWithArgument(getAllClassNames);
-	addMessageWithArgument(getClassNamesForTags);
+	addMessageWithArguments(getVersion);
+	addMessageWithArguments(getAllClassNames);
+	addMessageWithArguments(getClassNamesForTags);
 
 	// can't use the SymbolCache here because it hasn't been initialized yet!
 	setAttributeValue(TT("sampleRate"), 44100);
@@ -49,9 +49,9 @@ TTEnvironment::~TTEnvironment()
 }
 
 
-TTErr TTEnvironment::getVersion(TTValue &value)
+TTErr TTEnvironment::getVersion(const TTValue& anInputValue, TTValue &anOutputValue)
 {
-	value = TT(TTFOUNDATION_VERSION_STRING);
+	anOutputValue = TT(TTFOUNDATION_VERSION_STRING);
 	return kTTErrNone;
 }
 
@@ -121,14 +121,16 @@ TTErr TTEnvironment::registerClass(TTClassPtr theClass)
 }
 
 
-TTErr TTEnvironment::getAllClassNames(TTValue& returnedClassNames)
+TTErr TTEnvironment::getAllClassNames(const TTValue& anInputValue, TTValue &anOutputValue)
 {
-	return classes->getKeys(returnedClassNames);
+	return classes->getKeys(anOutputValue);
 }
 
 
-TTErr TTEnvironment::getClassNamesForTags(TTValue& searchTagsIn_classNamesOut)
+TTErr TTEnvironment::getClassNamesForTags(const TTValue& anInputValue, TTValue &anOutputValue)
 {
+	return getClassNamesWithTags(anOutputValue, anInputValue);
+	/*
 	TTValue v;
 	TTErr err;
 	
@@ -136,6 +138,7 @@ TTErr TTEnvironment::getClassNamesForTags(TTValue& searchTagsIn_classNamesOut)
 	if (!err)
 		searchTagsIn_classNamesOut = v;
 	return err;
+	 */
 }
 
 
@@ -322,7 +325,8 @@ TTErr TTClassRegister(const TTSymbolPtr className, TTImmutableCString tagString,
 
 TTErr TTGetRegisteredClassNames(TTValue& classNames)
 {
-	return ttEnvironment->getAllClassNames(classNames);
+	TTValue unused;
+	return ttEnvironment->getAllClassNames(unused, classNames);
 }
 
 

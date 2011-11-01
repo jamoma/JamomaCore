@@ -38,7 +38,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(256.);
     expected = TTValue(256.);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("Second to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -55,7 +55,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1234.5);
     expected = TTValue(1.2345);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("Millisecond to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -75,7 +75,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1.23*TTFloat64(globalSampleRate));
     expected = TTValue(1.23);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Sample to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -91,7 +91,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(4.);
     expected = TTValue(0.25);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Frequency (Hz) to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -107,7 +107,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(120.);
     expected = TTValue(0.5);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Beats per minute to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -122,7 +122,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(57.);
     expected = TTValue(1./220.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("MIDI note 57 to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -132,7 +132,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(69.);
     expected = TTValue(1./440.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("MIDI note 69 to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -148,7 +148,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(5700.);
     expected = TTValue(1./220.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Cent value 5700 to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -158,7 +158,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(6900.);
     expected = TTValue(1./440.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Cent value 6900 to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -174,7 +174,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(5.0);
     expected = TTValue(0.001785990780318596);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Bark to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -189,7 +189,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1000.0);
     expected = TTValue(0.0009999781840186604);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Mel to second", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -213,7 +213,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1.2345);
     expected = TTValue(1234.5);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("Second to millisecond", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -232,7 +232,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(192000./TTFloat64(globalSampleRate));
     expected = TTValue(192000.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Second to sample", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -248,7 +248,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(0.25);
     expected = TTValue(4.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Second to frequency (Hz)", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -264,7 +264,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(0.5);
     expected = TTValue(120.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Seconds to beats per minute", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -279,7 +279,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1./220.);
     expected = TTValue(57.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Second to MIDI note 57", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -289,7 +289,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1./440.);
     expected = TTValue(69.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Second to MIDI note 69", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -305,7 +305,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1./220.);
     expected = TTValue(5700.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Second to cent value 5700", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -315,7 +315,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1./440.);
     expected = TTValue(6900.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Second to cent value 6900", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -330,7 +330,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(0.001785990780318596);
     expected = TTValue(5.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Seconds to bark scale", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -345,7 +345,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(0.001);
     expected = TTValue(999.9855371396243);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Seconds to mel scale", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -370,7 +370,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(0.5);
     expected = TTValue(-12.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("0.5 speed to MIDI", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -380,7 +380,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1.0);
     expected = TTValue(0.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("1.0 speed to MIDI", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -390,7 +390,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(2.0);
     expected = TTValue(12.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("2.0 speed to MIDI", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -405,7 +405,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(-12.0);
     expected = TTValue(0.5);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("-12 MIDI to speed", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -415,7 +415,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(0.0);
     expected = TTValue(1.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("0 MIDI to speed", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -425,7 +425,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(12.0);
     expected = TTValue(2.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("12 MIDI to speed", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -441,7 +441,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1000.0);
     expected = TTValue(999.9855371396243);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Hz to mel scale", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -456,7 +456,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(999.9855371396243);
     expected = TTValue(1000.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("mel scale to Hz", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),

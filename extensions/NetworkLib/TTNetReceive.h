@@ -34,7 +34,7 @@ public:
 	TTErr setMode(const TTValue& value);
 
 	/**	Callback from socket receive */
-	TTErr networkSocketReceive(const TTValue& message);
+	TTErr networkSocketReceive(const TTValue& message, TTValue& unusedOutput);
 
 };
 

@@ -38,7 +38,7 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(256.);
     expected = TTValue(256.);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
         
     TTTestAssertion("Kelvin to Kelvin", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -56,7 +56,7 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(0.);
     expected = TTValue(273.15);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("Celsius to Kelvin", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -73,7 +73,7 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(32.);
     expected = TTValue(273.15);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Fahrenheit to Kelvin", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -97,7 +97,7 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(273.15);
     expected = TTValue(0.0);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("Kelvin to Celsius", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -114,7 +114,7 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(273.15);
     expected = TTValue(32.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("Kelvin to Fahrenheit", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),

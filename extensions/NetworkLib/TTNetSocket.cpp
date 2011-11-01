@@ -177,7 +177,7 @@ void TTNetSocketConnection::Receive()
             
             message.resize(status-1);
 			v.set(0, message);
-			mSocket->mOwner->sendMessage(TT("networkSocketReceive"), v);
+			mSocket->mOwner->sendMessage(TT("networkSocketReceive"), v, kTTValNONE);
 		}
 		TTThread::sleep(10); // TODO: is this appropriate?
 	}

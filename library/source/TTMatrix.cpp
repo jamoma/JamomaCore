@@ -30,9 +30,9 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithSetter(ElementCount,		kTypeUInt8);
 
 	addMessage(clear);
-	addMessageWithArgument(fill);
-	addMessageWithArgument(get);
-	addMessageWithArgument(set);
+	addMessageWithArguments(fill);
+	addMessageWithArguments(get);
+	addMessageWithArguments(set);
 
 	// TODO: getLockedPointer -- returns a pointer to the data, locks the matrix mutex
 	// TODO: releaseLockedPointer -- releases the matrix mutex
@@ -167,19 +167,19 @@ TTErr TTMatrix::clear()
 }
 
 
-TTErr TTMatrix::fill(const TTValue& aValue)
+TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	TTBytePtr fillValue = new TTByte[mComponentStride];
 
 	// TODO: here we have this ugly switch again...
 	if (mType == TT("uint8"))
-		aValue.getArray((TTUInt8*)fillValue, mElementCount);
+		anInputValue.getArray((TTUInt8*)fillValue, mElementCount);
 	else if (mType == TT("int32"))
-		aValue.getArray((TTInt32*)fillValue, mElementCount);
+		anInputValue.getArray((TTInt32*)fillValue, mElementCount);
 	else if (mType == TT("float32"))
-		aValue.getArray((TTFloat32*)fillValue, mElementCount);
+		anInputValue.getArray((TTFloat32*)fillValue, mElementCount);
 	else if (mType == TT("float64"))
-		aValue.getArray((TTFloat64*)fillValue, mElementCount);
+		anInputValue.getArray((TTFloat64*)fillValue, mElementCount);
 
 	for (TTUInt32 i=0; i<mDataSize; i += mComponentStride)
 		memcpy(mData+i, fillValue, mComponentStride);
@@ -201,9 +201,9 @@ TTErr TTMatrix::fill(const TTValue& aValue)
 
 // args passed-in should be the coordinates
 // args returned will be the value at those coordinates
-TTErr TTMatrix::get(TTValue& aValue) const
+TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 {
-	TTUInt16 dimensionCount = aValue.getSize();
+	TTUInt16 dimensionCount = anInputValue.getSize();
 
 	if (dimensionCount != mDimensions.size())
 		return kTTErrWrongNumValues;
@@ -212,31 +212,31 @@ TTErr TTMatrix::get(TTValue& aValue) const
 	int index = 0;
 
 	for (int d=0; d<dimensionCount; d++) {
-		int position = aValue.getInt32(d);
+		int position = anInputValue.getInt32(d);
 
 		index += position * productOfLowerDimensionSizes;
 		productOfLowerDimensionSizes *= mDimensions[d];
 	}
 
-	aValue.clear();
+	anOutputValue.clear();
 
 	// TODO: here we have this ugly switch again...
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anOutputValue.append((TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anOutputValue.append((TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anOutputValue.append((TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.append((TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anOutputValue.append((TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 
 	return kTTErrNone;
@@ -244,23 +244,23 @@ TTErr TTMatrix::get(TTValue& aValue) const
 
 
 // args passed-in should be the coordinates plus the value
-TTErr TTMatrix::set(const TTValue& aValue)
+TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	TTValue		theValue;
-	TTValue		theDimensions = aValue;
-	TTUInt16	dimensionCount = aValue.getSize() - mElementCount;
+	TTValue		theDimensions = anInputValue;
+	TTUInt16	dimensionCount = anInputValue.getSize() - mElementCount;
 
 	if (dimensionCount != mDimensions.size())
 		return kTTErrWrongNumValues;
 
-	theValue.copyFrom(aValue, dimensionCount);
+	theValue.copyFrom(anInputValue, dimensionCount);
 	theDimensions.setSize(dimensionCount);
 
 	int productOfLowerDimensionSizes = 1;
 	int index = 0;
 
 	for (int d=0; d<dimensionCount; d++) {
-		int position = aValue.getInt32(d) - 1; // subtract 1 to get back to zero-based indices for mem access in C
+		int position = anInputValue.getInt32(d) - 1; // subtract 1 to get back to zero-based indices for mem access in C
 
 		index += position * productOfLowerDimensionSizes;
 		productOfLowerDimensionSizes *= mDimensions[d];
@@ -268,19 +268,19 @@ TTErr TTMatrix::set(const TTValue& aValue)
 	
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anInputValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anInputValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anInputValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			aValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anInputValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
 
 	return kTTErrNone;
