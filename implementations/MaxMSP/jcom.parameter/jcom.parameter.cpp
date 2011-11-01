@@ -1512,11 +1512,11 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				return;
 			
 			if (x->attr_dataspace != _sym_none) {
-				TTValue	v;
+				TTValue	vInput, vOutput;
 				
-				TTValueFromAtoms(v, 1, argv);
-				x->dataspace_active2native->sendMessage(TT("convert"), v);
-				TTAtomsFromValue(v, &x->list_size, &x->atom_list);				
+				TTValueFromAtoms(vInput, 1, argv);
+				x->dataspace_active2native->sendMessage(TT("convert"), vInput, vOutput);
+				TTAtomsFromValue(vOutput, &x->list_size, &x->atom_list);				
 			}
 			else
 				jcom_core_atom_copy(&x->attr_value, argv);
@@ -1569,13 +1569,13 @@ int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
 void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
 {
 	if ((x->attr_dataspace != _sym_none) && (x->attr_unitActive != x->attr_unitNative)) {
-		TTValue	v;
+		TTValue	vInput, vOutput;
 		
 		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
 		
-		TTValueFromAtoms(v, argc, argv);
-		x->dataspace_active2native->sendMessage(TT("convert"), v);
-		TTAtomsFromValue(v, rc, rv);				
+		TTValueFromAtoms(vInput, argc, argv);
+		x->dataspace_active2native->sendMessage(TT("convert"), vInput, vOutput);
+		TTAtomsFromValue(vOutput, rc, rv);
 
 		*alloc = true;
 	}
