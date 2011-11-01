@@ -20,7 +20,7 @@ mSocket(NULL)
 	addAttributeWithSetter(Port, kTypeUInt16);
 
 	// callback from mSocket
-	addMessageWithArgument(oscSocketReceive);
+	addMessageWithArguments(oscSocketReceive);
 	addMessageProperty(oscSocketReceive, hidden, YES);
 }
 
@@ -49,7 +49,7 @@ TTErr TTOscReceive::setPort(const TTValue& newValue)
 	return err;
 }
 
-TTErr TTOscReceive::oscSocketReceive(const TTValue& message)
+TTErr TTOscReceive::oscSocketReceive(const TTValue& message, TTValue& unusedOutput)
 {
 	this->sendNotification(TT("receivedMessage"), message);
 	return kTTErrNone;

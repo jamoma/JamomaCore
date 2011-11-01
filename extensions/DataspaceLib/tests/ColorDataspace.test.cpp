@@ -45,7 +45,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(162.9));
     expected.set(2, TTFloat64(13.163));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("rgb to rgb", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -68,7 +68,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(0.5));
     expected.set(2, TTFloat64(1.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("cmy to rgb", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -91,7 +91,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(1.0));
     expected.set(2, TTFloat64(0.));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("hsl to rgb", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -114,7 +114,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(0.5));
     expected.set(2, TTFloat64(0.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("rgb8 to rgb", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -137,7 +137,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(1.0));
     expected.set(2, TTFloat64(0.));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("hsv to rgb", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -168,7 +168,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(127.5));
     expected.set(2, TTFloat64(0.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("rgb to cmy", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -191,7 +191,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(100.0));
     expected.set(2, TTFloat64(50.));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("rgb to hsl", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -214,7 +214,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(127.5));
     expected.set(2, TTFloat64(0.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("rgb to rgb8", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -237,7 +237,7 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(100.0));
     expected.set(2, TTFloat64(100.));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("rgb to hsv", 
 					TTTestFloat64ArrayEquivalence(v, expected),

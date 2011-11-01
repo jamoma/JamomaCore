@@ -38,7 +38,7 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(256.);
     expected = TTValue(256.);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("meters to meters", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -55,7 +55,7 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(123.4);
     expected = TTValue(1.234);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("cm to meters", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -73,7 +73,7 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(15.);
     expected = TTValue(0.381);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("inch to meters", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected), true, 0.001),
@@ -91,7 +91,7 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(6.);
     expected = TTValue(1.8288);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("inches to meters", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected), true, 0.001),
@@ -112,7 +112,7 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1.234);
     expected = TTValue(123.4);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("meters to cm", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -128,7 +128,7 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(0.381);
     expected = TTValue(15.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("meters to inches", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected), true, 0.001),
@@ -143,7 +143,7 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(1.8288);
     expected = TTValue(6.0);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("meters to feet", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected), true, 0.001),

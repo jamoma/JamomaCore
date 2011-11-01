@@ -38,7 +38,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(256.);
     expected = TTValue(256.);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("m/s to m/s", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -56,7 +56,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(36.);
     expected = TTValue(10.0);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("kmph to m/s", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -73,7 +73,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(50.);
     expected = TTValue(22.35200);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("miles per hour to m/s", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -91,7 +91,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(45.);
     expected = TTValue(23.15);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("knot to m/s", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected), true, 0.1),
@@ -108,7 +108,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(20.);
     expected = TTValue(6.09600);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("foot per hour to m/s", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -131,7 +131,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(10.);
     expected = TTValue(36.0);
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("m/s to kmph", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -148,7 +148,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(22.35200);
     expected = TTValue(50.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("m/s to miles per hour", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected), true, 0.00001),
@@ -166,7 +166,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(23.15);
     expected = TTValue(45.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("m/s to knot", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected), true, 0.1),
@@ -183,7 +183,7 @@ TTErr SpeedDataspace::test(TTValue& returnedTestInfo)
     v = TTValue(6.09600);
     expected = TTValue(20.);
     
-    myDataspace->sendMessage(TT("convert"), v);    
+    myDataspace->sendMessage(TT("convert"), v, v);    
     
     TTTestAssertion("m/s to foot per hour", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected), true, 0.00001),

@@ -34,13 +34,16 @@ typedef TTClass*		TTClassPtr;
 
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTMethod)(const TTSymbol* methodName, TTValue& value);
+typedef TTErr (TTObject::*TTMethod)(const TTSymbol* methodName, const TTValue& anInputValue, TTValue& anOutputValue);
 
 /** A type that can be used to call a message for an object that does not declare the name argument. */
-typedef TTErr (TTObject::*TTMethodValue)(TTValue& value);
+typedef TTErr (TTObject::*TTMethodValue)(const TTValue& anInputValue, TTValue& anOutputValue);
 
 /** A type that can be used to call a message for an object that does not declare the name argument. */
-typedef TTErr (TTObject::*TTMethodConstValue)(const TTValue& value);
+typedef TTErr (TTObject::*TTMethodInputValue)(const TTValue& anInputValue);
+
+/** A type that can be used to call a message for an object that does not declare the name argument. */
+typedef TTErr (TTObject::*TTMethodOutputValue)(TTValue& anOutputValue);
 
 /** A type that can be used to call a message for an object that does not declare any arguments. */
 typedef TTErr (TTObject::*TTMethodNone)();
@@ -238,7 +241,11 @@ public:
 	TTErr registerMessage(const TTSymbolPtr name, TTMethod method, TTMessageFlags flags);
 	TTErr findMessage(const TTSymbolPtr name, TTMessage** message);
 	TTErr sendMessage(const TTSymbolPtr name);
-	TTErr sendMessage(const TTSymbolPtr name, TTValue& value);
+#ifdef TT_SUPPORT_SINGLE_ARG_MESSAGE_CALLS
+	TTErr sendMessage(const TTSymbolPtr name, TTValue& anOutputValue);
+	TTErr sendMessage(const TTSymbolPtr name, const TTValue& anInputValue);
+#endif
+	TTErr sendMessage(const TTSymbolPtr name, const TTValue& anInputValue, TTValue& anOutputValue);
 
 // TODO: implement
 //	TTErr registerMessageProperty(const TTSymbolPtr messageName, const TTSymbolPtr propertyName, const TTValue& initialValue);

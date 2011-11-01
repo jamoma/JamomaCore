@@ -23,7 +23,7 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 	// Théo says this is only used for debugging purposes [tap]
 	addAttributeWithSetter(Owner, kTypeSymbol);
 	
-	addMessageWithArgument(notify);
+	addMessageWithArguments(notify);
 }
 
 
@@ -37,10 +37,10 @@ TTCallback::~TTCallback()
 }
 
 
-TTErr TTCallback::notify(TTValue& arguments)
+TTErr TTCallback::notify(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	if (mFunction)
-		mFunction(mBaton, arguments);
+		mFunction(mBaton, anInputValue);
 	
 	return kTTErrNone;
 }

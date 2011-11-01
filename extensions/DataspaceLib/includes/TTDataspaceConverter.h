@@ -26,8 +26,8 @@ class TTDataspaceConverter : public TTDataObject {
 	TTErr setDataspace(const TTValue& newValue);
 	
 	/** converts input to output, possibly doing a unit conversion.  */
-	TTErr convert(TTValue& io);
-	TTErr dictionary(TTValue& io);
+	TTErr convert(const TTValue& anInputValue, TTValue& anOutputValue);
+	TTErr dictionary(const TTValue& anInputValue, TTValue& anOutputValue);
 
 	/** set the input unit type for this dataspace object by it's name as a symbol */
 	TTErr setInputUnit(const TTValue& inUnitName);
@@ -39,10 +39,10 @@ class TTDataspaceConverter : public TTDataObject {
 
 	/** return a list of all available units for this dataspace */
 	//void getAvailableUnits(long *numUnits, t_symbol ***unitNames);
-	TTErr getAvailableUnits(TTValue& unitNames);
+	TTErr getAvailableUnits(const TTValue& anUnusedInputValue, TTValue& unitNames);
 
 	/**	return a list of all dataspaces */
-	TTErr getAvailableDataspaces(TTValue& dataspaceNames);
+	TTErr getAvailableDataspaces(const TTValue& anUnusedInputValue, TTValue& dataspaceNames);
 };
 
 

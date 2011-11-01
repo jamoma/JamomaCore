@@ -31,7 +31,7 @@ class TTOscSend : public TTDataObject {
 	TTErr setPort(const TTValue& value);
 	
 	/** Transmit a message using a <TTSymbolPtr message, TTValuePtr arguments> value */
-	TTErr send(const TTValue& value);
+	TTErr send(const TTValue& value, TTValue& unusedOutput);
 
 };
 

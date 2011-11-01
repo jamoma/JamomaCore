@@ -21,7 +21,7 @@ mSocket(NULL)
 	addAttributeWithSetter(Address,	kTypeSymbol);
 	addAttributeWithSetter(Port,	kTypeUInt16);
 	
-	addMessageWithArgument(send);
+	addMessageWithArguments(send);
 }
 
 TTOscSend::~TTOscSend()
@@ -62,7 +62,7 @@ TTErr TTOscSend::setPort(const TTValue& newValue)
 	return err;
 }
 
-TTErr TTOscSend::send(const TTValue& value)
+TTErr TTOscSend::send(const TTValue& value, TTValue& unusedOutput)
 {
 	TTSymbolPtr message;
 	TTValuePtr	arguments;

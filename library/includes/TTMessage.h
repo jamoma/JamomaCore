@@ -22,8 +22,8 @@
 /**	A convenience macro to be used by subclasses for registering messages.
 	@param	name	The name of the message, and also the name of the classes' method to be called.
 */
-#define addMessageWithArgument(name)		registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
-#define registerMessageWithArgument(name)	registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
+#define addMessageWithArguments(name)		registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
+#define registerMessageWithArguments(name)	registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
 
 
 /** A convenience macro to be used for registering properties of messages.
@@ -37,7 +37,7 @@
 /**	An 'update' is a message sent to a subclass instance from its parent class.
 	For example, to update the sample rate of the subclass when the parent's sample rate attribute has changed.
  */
-#define addUpdate(updateName)	addMessageWithArgument(update##updateName); addMessageProperty(update##updateName, hidden, YES);
+#define addUpdates(updateName)	addMessageWithArguments(update##updateName); addMessageProperty(update##updateName, hidden, YES);
 
 
 /****************************************************************************************************/

@@ -88,7 +88,7 @@ void TTOscSocket::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 		arguments++;
 	}
 	
-	this->mOwner->sendMessage(TT("oscSocketReceive"), receivedMessage);
+	this->mOwner->sendMessage(TT("oscSocketReceive"), receivedMessage, kTTValNONE);
 }
 
 TTErr TTOscSocket::SendMessage(TTSymbolPtr message, const TTValue& arguments)

@@ -190,7 +190,7 @@ typedef void (*TTFunctionWithArgPtr)(TTPtr);
 
 /**	A simple/generic function pointer with one generic pointer (baton) and one TTValueRef.	*/
 class TTValue;
-typedef void (*TTFunctionWithBatonAndValue)(TTPtr, TTValue&);
+typedef void (*TTFunctionWithBatonAndValue)(TTPtr, const TTValue&);
 typedef std::vector<TTValue>	TTVector;
 typedef TTVector::iterator		TTVectorIter;
 

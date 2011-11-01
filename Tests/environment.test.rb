@@ -3,7 +3,7 @@
 require 'Jamoma'
 
 environment = TTObject.new "environment"              # create an access point to the TTEnvironment class
-classnames = environment.send "getAllClassNames", 0   # query the environment to get a list of all registered classes in the system
+classnames = environment.send "getAllClassNames"      # query the environment to get a list of all registered classes in the system
 error_code = classnames.delete_at 0                   # the first value returned is an error code, which we don't care about in this case
 
 puts

@@ -38,8 +38,8 @@ private:
 public:
 	TTBoolean	mDebugBasic;		///< Attribute: basic debug functionality is enabled when true.
 	TTBoolean	mDebugMessaging;	///< Attribute: should all message traffic be logged?
-	TTBoolean	mBenchmarking;		///< Attribute: enable benchmarking in TTAudioObject and TTDataObject ?
 	TTUInt32	mSampleRate;		///< Current sample rate as understood by the environment as a whole.
+	TTBoolean	mBenchmarking;		///< Attribute: enable benchmarking in TTAudioObject and TTDataObject ?
 
 	
 	/**	Constructor	*/
@@ -51,7 +51,7 @@ public:
 
 	
 	/**	Retrieve the environment version number. */
-	TTErr getVersion(TTValue &value);
+	TTErr getVersion(const TTValue& anInputValue, TTValue &anOutputValue);
 
 	
 	/**	Register the unit name, and associate it with the constructor to be called. 
@@ -97,7 +97,7 @@ public:
 	/**	Retreive the names of all registered #TTObject classes in the environment.
 		@param	unitNames	Pass a #TTValue that will be filled with an array of #TTSymbol pointers with the names of the classes.
 		@return				An error code.	*/
-	TTErr getAllClassNames(TTValue& classNames);
+	TTErr getAllClassNames(const TTValue& anInputValue, TTValue &anOutputValue);
 	
 	
 	/**	Retreive the names of all registered #TTObject classes in the environment that 
@@ -108,7 +108,7 @@ public:
 	TTErr getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags);
 
 	/**	A message-bound version of getClassNamesWithTags()	*/
-	TTErr getClassNamesForTags(TTValue& searchTagsIn_classNamesOut);
+	TTErr getClassNamesForTags(const TTValue& anInputValue, TTValue &anOutputValue);
 	
 	
 	/**	Create a new instance of a registered #TTObject class.

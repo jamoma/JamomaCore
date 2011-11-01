@@ -46,7 +46,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(2.0));
     expected.set(2, TTFloat64(3.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("xyz to xyz", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -68,7 +68,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(-1.0));
     expected.set(2, TTFloat64(0.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("xy to xyz", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -91,7 +91,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(0.0));
     expected.set(2, TTFloat64(0.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("aed to xyz", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -113,7 +113,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(-2.0));
     expected.set(2, TTFloat64(3.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("openGL to xyz", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -133,7 +133,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(sqrt(2.0)));
     expected.set(2, TTFloat64(0.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("polar to xyz", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -153,7 +153,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(sqrt(2)));
     expected.set(2, TTFloat64(2.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("cylindrical to xyz", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -181,7 +181,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(0, TTFloat64(1.0));
     expected.set(1, TTFloat64(-1.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("xyz to xy", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -203,7 +203,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     v.set(1, TTFloat64(0.0));
     v.set(2, TTFloat64(0.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("xyz to aed", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -225,7 +225,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(3.0));
     expected.set(2, TTFloat64(2.0));
         
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("xyz to openGL", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -245,7 +245,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(0, TTFloat64(-45.0));
     expected.set(1, TTFloat64(2.0));
     
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
 	
     TTTestAssertion("xyz to polar", 
@@ -268,7 +268,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(45.0));
     expected.set(2, TTFloat64(2.0));
 	
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("xyz to cylindrical", 
 					TTTestFloat64ArrayEquivalence(v, expected),
@@ -294,7 +294,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     expected.set(1, TTFloat64(sqrt(2.0)));
 
 	
-    myDataspace->sendMessage(TT("convert"), v);
+    myDataspace->sendMessage(TT("convert"), v, v);
     
     TTTestAssertion("cylindrical to xy", 
 					TTTestFloat64ArrayEquivalence(v, expected),

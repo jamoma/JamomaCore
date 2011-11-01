@@ -22,7 +22,7 @@ mSocket(NULL)
 	addAttributeWithSetter(Mode,	kTypeSymbol);
 
 	// callback from mSocket
-	addMessageWithArgument(networkSocketReceive);
+	addMessageWithArguments(networkSocketReceive);
 	addMessageProperty(networkSocketReceive, hidden, YES);
 }
 
@@ -72,7 +72,7 @@ TTErr TTNetReceive::setMode(const TTValue& newValue)
 }
 
 
-TTErr TTNetReceive::networkSocketReceive(const TTValue& message)
+TTErr TTNetReceive::networkSocketReceive(const TTValue& message, TTValue& unusedOutput)
 {
 	this->sendNotification(TT("receivedMessage"), message);
 	return kTTErrNone;

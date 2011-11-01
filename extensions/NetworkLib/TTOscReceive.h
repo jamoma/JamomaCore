@@ -32,7 +32,7 @@ public:
 	TTErr setMode(const TTValue& value);
 	
 	/**	Callback from socket receive */
-	TTErr oscSocketReceive(const TTValue& message);
+	TTErr oscSocketReceive(const TTValue& message, TTValue& unusedOutput);
 
 };
 typedef TTOscReceive* TTOscReceivePtr;
