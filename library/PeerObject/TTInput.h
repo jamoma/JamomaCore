@@ -53,10 +53,10 @@ private:
 	TTCallbackPtr		mAddressObserver;			///< to observe mOutputAddress creation/destruction
 	
 	/** Send signal. The mIndex have to be choosen before */
-	TTErr Send(TTValue& value);
+	TTErr Send(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Set outputObject */
-	TTErr Link(const TTValue& value);
+	TTErr Link(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Remove outputObject */
 	TTErr Unlink();

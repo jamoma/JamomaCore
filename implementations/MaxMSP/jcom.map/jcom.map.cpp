@@ -181,9 +181,11 @@ void map_float(TTPtr self, double value)
 void map_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue		v;
+	TTValue		inputValue, outputValue;
 		
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+	jamoma_ttvalue_from_Atom(inputValue, msg, argc, argv);
 		
-	x->wrappedObject->sendMessage(kTTSym_Map, v);
+	x->wrappedObject->sendMessage(kTTSym_Map, inputValue, outputValue);
+	
+	// we don't send the output value here because there is callback for this
 }

@@ -23,7 +23,7 @@ mApplicationObserver(NULL)
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
-	addMessageWithArgument(Send);
+	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
 	mIsSending = false;
@@ -57,7 +57,7 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 #pragma mark Some Methods
 #endif
 
-TTErr TTSender::Send(TTValue& valueToSend)
+TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 {
 	TTObjectPtr		anObject;
 	TTValue			aCacheElement, v, c;
@@ -91,7 +91,7 @@ TTErr TTSender::Send(TTValue& valueToSend)
 					// DATA CASE for value attribute
 					if (anObject->getName() == TT("Data") && ttAttributeName == kTTSym_value) {
 						// set the value attribute using a command
-						anObject->sendMessage(kTTSym_Command, valueToSend);
+						anObject->sendMessage(kTTSym_Command, valueToSend, kTTValNONE);
 					}
 					// CONTAINER CASE for value attribute
 					else if (anObject->getName() == TT("Container") && ttAttributeName == kTTSym_value) {
@@ -104,7 +104,7 @@ TTErr TTSender::Send(TTValue& valueToSend)
 							v.append((TTPtr*)&c);
 						
 							// send the value
-							anObject->sendMessage(kTTSym_Send, v);
+							anObject->sendMessage(kTTSym_Send, v, kTTValNONE);
 						}
 						else
 							err = kTTErrGeneric;
@@ -117,7 +117,7 @@ TTErr TTSender::Send(TTValue& valueToSend)
 					
 					// Or look for message and send it
 					else if (!anObject->findMessage(ttAttributeName, &aMessage))
-						anObject->sendMessage(ttAttributeName, valueToSend);
+						anObject->sendMessage(ttAttributeName, valueToSend, kTTValNONE);
 				}
 			}
 		}

@@ -17,10 +17,8 @@ TTSymbolPtr				kTTSym_localApplicationName = kTTSymEmpty;
 
 /****************************************************************************************************/
 
-void TTModularInit(TTString pluginFolderPath)
-{
-	TTValue	v;
-	
+void TTModularInit()
+{	
 	// Initialized Foundation framework
 	TTFoundationInit();
 	
@@ -56,8 +54,7 @@ void TTModularInit(TTString pluginFolderPath)
 		//TTModularValueCacheInit();
 		
 		// Create the Modular application manager with no application inside
-		v.append(pluginFolderPath);
-		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), v);
+		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), kTTValNONE);
 		
 #ifdef TT_DEBUG
 		TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
@@ -89,7 +86,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			// Add it to the application manager as the local application
 			v = TTValue(kTTSym_localApplicationName);
 			v.append((TTPtr)anApplication);
-			TTModularApplications->sendMessage(TT("ApplicationAdd"), v);
+			TTModularApplications->sendMessage(TT("ApplicationAdd"), v, kTTValNONE);
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
@@ -99,7 +96,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			anXmlHandler->setAttributeValue(kTTSym_object, v);
 			
 			v = TTValue(TT(xmlConfigFilePath));
-			anXmlHandler->sendMessage(TT("Read"), v);
+			anXmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
 		}
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", kTTSym_localApplicationName->getCString()); 

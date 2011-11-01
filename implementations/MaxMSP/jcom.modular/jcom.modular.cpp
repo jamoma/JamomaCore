@@ -243,8 +243,13 @@ void appmg_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			aXmlHandler->sendMessage(TT("Read"), v);
+			tterr = aXmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_read, argc, argv);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 }
@@ -268,8 +273,13 @@ void appmg_doread_again(TTPtr self)
 		o.get(0, (TTPtr*)&aXmlHandler);
 		
 		critical_enter(0);
-		aXmlHandler->sendMessage(TT("ReadAgain"));
+		tterr = aXmlHandler->sendMessage(TT("ReadAgain"));
 		critical_exit(0);
+		
+		if (!tterr)
+			object_obex_dumpout(self, _sym_read, 0, NULL);
+		else
+			object_obex_dumpout(self, _sym_error, 0, NULL);
 	}
 }
 
@@ -300,8 +310,13 @@ void appmg_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			aXmlHandler->sendMessage(TT("Write"), v);
+			tterr = aXmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_write, argc, argv);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 }
@@ -325,8 +340,13 @@ void appmg_dowrite_again(TTPtr self)
 		o.get(0, (TTPtr*)&aXmlHandler);
 		
 		critical_enter(0);
-		aXmlHandler->sendMessage(TT("WriteAgain"));
+		tterr = aXmlHandler->sendMessage(TT("WriteAgain"));
 		critical_exit(0);
+		
+		if (!tterr)
+			object_obex_dumpout(self, _sym_write, 0, NULL);
+		else
+			object_obex_dumpout(self, _sym_error, 0, NULL);
 	}
 }
 

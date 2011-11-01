@@ -70,11 +70,11 @@ private:
 	
 	
 	/** Send signal. The mIndex have to be choosen before */
-	TTErr Send(TTValue& value);
-	TTErr SendBypassed(TTValue& value);
+	TTErr Send(const TTValue& inputValue, TTValue& outputValue);
+	TTErr SendBypassed(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Set outputObject */
-	TTErr Link(const TTValue& value);
+	TTErr Link(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Remove outputObject */
 	TTErr Unlink();

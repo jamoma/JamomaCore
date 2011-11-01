@@ -379,8 +379,13 @@ void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aOpmlHandler);
 			
 			critical_enter(0);
-			aOpmlHandler->sendMessage(TT("Write"), v);
+			tterr = aOpmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_write, argc, argv);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 }

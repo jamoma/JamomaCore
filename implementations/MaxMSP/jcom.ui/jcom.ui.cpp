@@ -1303,7 +1303,7 @@ void ui_refmenu_build(t_ui *x)
 	x->modelParamExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
-	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	x->modelParamExplorer->sendMessage(TT("Explore"));
 	
 	// Look for User-Defined Messages into the model
 	item = (t_symobject *)symobject_new(gensym("-"));
@@ -1319,7 +1319,7 @@ void ui_refmenu_build(t_ui *x)
 	x->modelMessExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
-	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	x->modelMessExplorer->sendMessage(TT("Explore"));
 	
 	// Look for User-Defined Returns into the model
 	item = (t_symobject *)symobject_new(gensym("-"));
@@ -1335,7 +1335,7 @@ void ui_refmenu_build(t_ui *x)
 	x->modelRetExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
-	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	x->modelRetExplorer->sendMessage(TT("Explore"));
 
 	// Look for Generic Parameters into the model
 	item = (t_symobject *)symobject_new(gensym("-"));
@@ -1349,7 +1349,7 @@ void ui_refmenu_build(t_ui *x)
 	x->modelParamExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelParamExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
-	x->modelParamExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	x->modelParamExplorer->sendMessage(TT("Explore"));
 	
 	// Look for Generic Messages into the model
 	item = (t_symobject *)symobject_new(gensym("-"));
@@ -1363,7 +1363,7 @@ void ui_refmenu_build(t_ui *x)
 	x->modelMessExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelMessExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
-	x->modelMessExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	x->modelMessExplorer->sendMessage(TT("Explore"));
 	
 	// Look for Generic Returns into the model
 	item = (t_symobject *)symobject_new(gensym("-"));
@@ -1377,7 +1377,7 @@ void ui_refmenu_build(t_ui *x)
 	x->modelRetExplorer->setAttributeValue(TT("criterias"), criteria);
 	
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
-	x->modelRetExplorer->sendMessage(TT("Explore"), kTTValNONE);
+	x->modelRetExplorer->sendMessage(TT("Explore"));
 	
 	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
 	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));

@@ -74,11 +74,11 @@ private:
 	TTErr setReturnedValue(const TTValue& value);
 	
 	/** */
-	TTErr Send(TTValue& valueToSend);
+	TTErr Send(const TTValue& valueToSend, TTValue& outputValue);
 	
 	/** */
 	TTErr bind();
-	TTErr convertUnit(TTValue& value);
+	TTErr convertUnit(const TTValue& inputValue, TTValue& outputValue);
 	TTErr observeDataspace();
 	TTErr observeDataspaceUnit();
 	

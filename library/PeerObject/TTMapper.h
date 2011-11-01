@@ -68,7 +68,7 @@ private:
 #endif
 	
 	/** process mapping */
-	TTErr Map(TTValue& value);
+	TTErr Map(TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr getFunctionLibrary(TTValue& value);
@@ -105,7 +105,7 @@ private:
 	TTErr setFunction(const TTValue& value);
 	
 	/** process mapping */
-	TTErr processMapping(TTValue& value);
+	TTErr processMapping(TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr scaleInput();

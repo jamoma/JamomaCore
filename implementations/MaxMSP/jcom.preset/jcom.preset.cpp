@@ -329,7 +329,7 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			tterr = aXmlHandler->sendMessage(TT("Read"), v);
+			tterr = aXmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)
@@ -359,8 +359,13 @@ void preset_doread_again(TTPtr self)
 		o.get(0, (TTPtr*)&aXmlHandler);
 		
 		critical_enter(0);
-		aXmlHandler->sendMessage(TT("ReadAgain"));
+		tterr = aXmlHandler->sendMessage(TT("ReadAgain"));
 		critical_exit(0);
+		
+		if (!tterr)
+			object_obex_dumpout(self, _sym_read, 0, NULL);
+		else
+			object_obex_dumpout(self, _sym_error, 0, NULL);
 	}
 }
 
@@ -395,8 +400,13 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			aXmlHandler->sendMessage(TT("Write"), v);
+			tterr = aXmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_write, argc, argv);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 	
@@ -424,8 +434,13 @@ void preset_dowrite_again(TTPtr self)
 		o.get(0, (TTPtr*)&aXmlHandler);
 		
 		critical_enter(0);
-		aXmlHandler->sendMessage(TT("WriteAgain"));
+		tterr = aXmlHandler->sendMessage(TT("WriteAgain"));
 		critical_exit(0);
+		
+		if (!tterr)
+			object_obex_dumpout(self, _sym_write, 0, NULL);
+		else
+			object_obex_dumpout(self, _sym_error, 0, NULL);
 	}
 }
 
@@ -488,7 +503,7 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	Atom		a;
 	
 	// get current preset
-	x->wrappedObject->sendMessage(TT("current"), v);
+	x->wrappedObject->getAttributeValue(TT("current"), v);
 	
 	path_topathname(path, filename, fullpath);
 	path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
@@ -512,7 +527,7 @@ void preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 			// Then recall the preset
 			v = TTValue((int)atom_getlong(argv));
-			x->wrappedObject->sendMessage(TT("Recall"), v);
+			x->wrappedObject->sendMessage(TT("Recall"), v, kTTValNONE);
 		}
 	}
 }

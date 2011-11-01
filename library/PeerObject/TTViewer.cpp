@@ -52,7 +52,7 @@ mReturnValueCallback(NULL)
 	
 	addMessage(Refresh);
 	
-	addMessageWithArgument(Send);
+	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
 	TTObjectInstantiate(TT("dataspace"),  &mDataspaceConverter, kTTValNONE);
@@ -240,15 +240,17 @@ TTErr TTViewer::Refresh()
 	return kTTErrGeneric;
 }
 
-TTErr TTViewer::Send(TTValue& valueToSend)
+TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
 {
 	if (mSender) {
+		
+		TTValue valueToSend = inputValue;
 		
 		// append view unit
 		if (mDataspaceUnit != kTTSym_none)
 			valueToSend.append(mDataspaceUnit);
 		
-		return mSender->sendMessage(kTTSym_Send, valueToSend);
+		return mSender->sendMessage(kTTSym_Send, valueToSend, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;
@@ -266,10 +268,10 @@ TTErr TTViewer::setDataspaceUnit(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTViewer::convertUnit(TTValue& value)
+TTErr TTViewer::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 {
 	if (mDataspaceConverter)
-		return mDataspaceConverter->sendMessage(TT("convert"), value);
+		return mDataspaceConverter->sendMessage(TT("convert"), inputValue, outputValue);
 	
 	return kTTErrNone;
 }
@@ -288,7 +290,7 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 {
 	TTViewerPtr aViewer;
 	TTValuePtr	b;
-	TTValue		v;
+	TTValue		converted;
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
@@ -297,18 +299,17 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 	if (aViewer->mEnable) {
 		
 		if (!aViewer->mFreeze)
-			// protect data
-			v = data;
+			// convert data
+			aViewer->convertUnit(data, converted);
+		
 		else
 			// use last data
-			v = aViewer->mReturnedValue;
+			converted = aViewer->mReturnedValue;
 			
-		aViewer->convertUnit(v);
-		
 		// return value
 		if (aViewer->mReturnValueCallback) {
-			aViewer->mReturnValueCallback->notify(v);
-			aViewer->setReturnedValue(v);
+			aViewer->mReturnValueCallback->notify(converted, kTTValNONE);
+			aViewer->setReturnedValue(converted);
 		}
 	}
 	

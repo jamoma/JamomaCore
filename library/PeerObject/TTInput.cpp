@@ -56,10 +56,10 @@ mAddressObserver(NULL)
 	addAttributeWithSetter(Info, kTypeLocalValue);
 	addAttributeProperty(info, hidden, YES);
 	
-	addMessageWithArgument(Send);
+	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
-	addMessageWithArgument(Link);
+	addMessageWithArguments(Link);
 	addMessageProperty(Link, hidden, YES);
 	
 	addMessage(Unlink);
@@ -90,21 +90,21 @@ TTInput::~TTInput()
 	}
 }
 
-TTErr TTInput::Send(TTValue& value)
+TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 {	
 	if (mIndex >= mNumber)
 		return kTTErrGeneric;
 	else if (mMute)
 		return kTTErrNone;
 	else if (mBypass && mOutputObject)
-		return mOutputObject->sendMessage(TT("SendBypassed"), value);
+		return mOutputObject->sendMessage(TT("SendBypassed"), inputValue, kTTValNONE);
 	else
-		return mReturnSignalCallback->notify(value);
+		return mReturnSignalCallback->notify(inputValue, kTTValNONE);
 }
 
-TTErr TTInput::Link(const TTValue& value)
+TTErr TTInput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-	value.get(0, (TTPtr*)&mOutputObject);
+	inputValue.get(0, (TTPtr*)&mOutputObject);
 	return kTTErrNone;
 }
 
@@ -128,7 +128,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		if (o = aNode->getObject())
 			if (o->getName() == TT("Output"))
-				Link((TTPtr)o);
+				Link((TTPtr)o, kTTValNONE);
 	}
 	
 	if (!mAddressObserver) {
@@ -191,7 +191,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anInput->Link((TTPtr)o);
+					anInput->Link((TTPtr)o, kTTValNONE);
 					break;
 				}
 					

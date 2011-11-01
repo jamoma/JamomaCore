@@ -41,8 +41,8 @@ public:
 private :
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsXml(const TTValue& value);
-	TTErr ReadFromXml(const TTValue& value);
+	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 
 	/** A setter for the address attribute */
 	TTErr setAddress(const TTValue& value);

@@ -65,12 +65,11 @@ public:
 	virtual TTErr getParameterNames(TTValue& value)=0;
 	
 	
-	
 	/** Register an application as the local client */
-	TTErr registerLocalApplication(TTValue& value);
+	TTErr registerLocalApplication(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Unregister an application as the local client */
-	TTErr unregisterLocalApplication(TTValue& value);
+	TTErr unregisterLocalApplication(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get the name of the local application */
 	TTErr getLocalApplicationName(TTValue& value);
@@ -85,10 +84,10 @@ public:
 
 	
 	/** Register an application as a distant client */
-	TTErr registerDistantApplication(TTValue& value);
+	TTErr registerDistantApplication(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Unregister an application as a distant client */
-	TTErr unregisterDistantApplication(TTValue& value);
+	TTErr unregisterDistantApplication(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get all names of distant applications */
 	TTErr getDistantApplicationNames(TTValue& value);

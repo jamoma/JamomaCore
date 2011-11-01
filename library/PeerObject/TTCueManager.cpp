@@ -42,26 +42,26 @@ mCurrentIndex(0)
 	
 	addMessage(New);
 	
-	addMessageWithArgument(Store);
+	addMessageWithArguments(Store);
 	addMessage(StoreCurrent);
-	addMessageWithArgument(StoreNext);
-	addMessageWithArgument(StorePrevious);
+	addMessageWithArguments(StoreNext);
+	addMessageWithArguments(StorePrevious);
 
-	addMessageWithArgument(Recall);
+	addMessageWithArguments(Recall);
 	addMessage(RecallCurrent);
 	addMessage(RecallNext);
 	addMessage(RecallPrevious);
 	
-	addMessageWithArgument(Remove);
+	addMessageWithArguments(Remove);
 	addMessage(RemoveCurrent);
 	addMessage(RemoveNext);
 	addMessage(RemovePrevious);
 
 	// needed to be handled by a TTXmlHandler
-	addMessageWithArgument(WriteAsXml);
+	addMessageWithArguments(WriteAsXml);
 	addMessageProperty(WriteAsXml, hidden, YES);
 	
-	addMessageWithArgument(ReadFromXml);
+	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mCueList = new TTList();
@@ -208,7 +208,7 @@ TTErr TTCueManager::New()
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::Store(const TTValue& value)
+TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt8		index;
 	TTSymbolPtr	cueName = kTTSymEmpty;
@@ -217,8 +217,8 @@ TTErr TTCueManager::Store(const TTValue& value)
 	TTValue		args;
 	
 	// First arg : index
-	if (value.getType(0) == kTypeInt32) {
-		value.get(0, index);
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, index);
 		if (index < 1)
 			return kTTErrGeneric;
 	}
@@ -226,8 +226,8 @@ TTErr TTCueManager::Store(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// Second arg : cue name
-	if (value.getType(1) == kTypeSymbol) {
-		value.get(1, &cueName);
+	if (inputValue.getType(1) == kTypeSymbol) {
+		inputValue.get(1, &cueName);
 		if (cueName == kTTSymEmpty)
 			return kTTErrGeneric;
 	}
@@ -235,9 +235,9 @@ TTErr TTCueManager::Store(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// Third arg (optional) : ramp time
-	if (value.getSize() > 2)
-		if (value.getType(2) == kTypeInt32) {
-			value.get(2, rampTime);
+	if (inputValue.getSize() > 2)
+		if (inputValue.getType(2) == kTypeInt32) {
+			inputValue.get(2, rampTime);
 			if (rampTime < 0)
 				return kTTErrGeneric;
 		}
@@ -282,7 +282,7 @@ TTErr TTCueManager::StoreCurrent()
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::StoreNext(const TTValue& value)
+TTErr TTCueManager::StoreNext(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr	cueName = kTTSymEmpty;
 	TTUInt32	rampTime = 0;
@@ -290,8 +290,8 @@ TTErr TTCueManager::StoreNext(const TTValue& value)
 	TTValue		args;
 	
 	// First arg : cue name
-	if (value.getType() == kTypeSymbol) {
-		value.get(0, &cueName);
+	if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, &cueName);
 		if (cueName == kTTSymEmpty)
 			return kTTErrGeneric;
 	}
@@ -299,9 +299,9 @@ TTErr TTCueManager::StoreNext(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// Second arg (optional) : ramp time
-	if (value.getSize() > 1)
-		if (value.getType(1) == kTypeInt32) {
-			value.get(1, rampTime);
+	if (inputValue.getSize() > 1)
+		if (inputValue.getType(1) == kTypeInt32) {
+			inputValue.get(1, rampTime);
 			if (rampTime < 0)
 				return kTTErrGeneric;
 		}
@@ -327,7 +327,7 @@ TTErr TTCueManager::StoreNext(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::StorePrevious(const TTValue& value)
+TTErr TTCueManager::StorePrevious(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr	cueName = kTTSymEmpty;
 	TTUInt32	rampTime = 0;
@@ -335,8 +335,8 @@ TTErr TTCueManager::StorePrevious(const TTValue& value)
 	TTValue		args;
 	
 	// First arg : cue name
-	if (value.getType() == kTypeSymbol) {
-		value.get(0, &cueName);
+	if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, &cueName);
 		if (cueName == kTTSymEmpty)
 			return kTTErrGeneric;
 	}
@@ -344,9 +344,9 @@ TTErr TTCueManager::StorePrevious(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// Second arg (optional) : ramp time
-	if (value.getSize() > 1)
-		if (value.getType(1) == kTypeInt32) {
-			value.get(1, rampTime);
+	if (inputValue.getSize() > 1)
+		if (inputValue.getType(1) == kTypeInt32) {
+			inputValue.get(1, rampTime);
 			if (rampTime < 0)
 				return kTTErrGeneric;
 		}
@@ -374,15 +374,15 @@ TTErr TTCueManager::StorePrevious(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::Recall(const TTValue& value)
+TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt8		index;
 	TTSymbolPtr	cueName = kTTSymEmpty;
 	TTCuePtr currentCue;
 	
 	// First arg could be an index
-	if (value.getType() == kTypeInt32) {
-		value.get(0, index);
+	if (inputValue.getType() == kTypeInt32) {
+		inputValue.get(0, index);
 		if (index == 0)
 			return kTTErrGeneric;
 		
@@ -390,8 +390,8 @@ TTErr TTCueManager::Recall(const TTValue& value)
 		currentCue = getCueCurrent();
 	}
 	// or a cue name
-	else if (value.getType() == kTypeSymbol) {
-		value.get(0, &cueName);
+	else if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, &cueName);
 		if (cueName == kTTSymEmpty)
 			return kTTErrGeneric;
 		
@@ -450,15 +450,15 @@ TTErr TTCueManager::RecallPrevious()
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::Remove(const TTValue& value)
+TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt8		index;
 	TTSymbolPtr	cueName = kTTSymEmpty;
 	TTCuePtr currentCue;
 	
 	// First arg could be an index
-	if (value.getType() == kTypeInt32) {
-		value.get(0, index);
+	if (inputValue.getType() == kTypeInt32) {
+		inputValue.get(0, index);
 		if (index == 0)
 			return kTTErrGeneric;
 		
@@ -466,8 +466,8 @@ TTErr TTCueManager::Remove(const TTValue& value)
 		currentCue = getCueCurrent();
 	}
 	// or a cue name
-	else if (value.getType() == kTypeSymbol) {
-		value.get(0, &cueName);
+	else if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, &cueName);
 		if (cueName == kTTSymEmpty)
 			return kTTErrGeneric;
 		
@@ -542,14 +542,14 @@ TTErr TTCueManager::RemovePrevious()
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::WriteAsXml(const TTValue& value)
+TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTCuePtr			aCue;
     TTValue				v;
 	TTUInt8				i;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
     xmlTextWriterWriteComment(aXmlHandler->mWriter, BAD_CAST "TODO : a description");
 	
@@ -575,7 +575,7 @@ TTErr TTCueManager::WriteAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::ReadFromXml(const TTValue& value)
+TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		cueName;
@@ -584,7 +584,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 	TTCuePtr		newCue, currentCue;
 	TTValue			v, args;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -670,12 +670,12 @@ TTErr TTCueManager::ReadFromXml(const TTValue& value)
 	return aXmlHandler->sendMessage(TT("Read"));
 }
 
-TTErr TTCueManager::WriteAsText(const TTValue& value)
+TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
 	*file << "TTCueManager::WriteAsText -- TODO";
@@ -683,12 +683,12 @@ TTErr TTCueManager::WriteAsText(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::ReadFromText(const TTValue& value)
+TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ifstream		*file;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mReader;
 	
 	// TODO

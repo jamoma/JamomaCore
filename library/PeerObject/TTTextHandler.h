@@ -59,14 +59,14 @@ public:	// use public for recursive access
 		In the path case, TTXmlWriter starts xml file writting and then calls the WriteAsXml 
 		method of mObject attribute
 		In the second case, it directly calls the WriteAsText method */
-	TTErr Write(const TTValue& args);
+	TTErr Write(const TTValue& args, TTValue& outputValue);
 	TTErr WriteAgain();
 	
 	/** TTTextReader could takes absolute file path or nothing.
 		In the path case, TTXmlReader starts xml file reading and then calls the ReadFromXml 
 		method of mObject attribute
 		In the second case, it directly calls the ReadFromText method */
-	TTErr Read(const TTValue& args);
+	TTErr Read(const TTValue& args, TTValue& outputValue);
 	TTErr ReadAgain();
 	
 private :

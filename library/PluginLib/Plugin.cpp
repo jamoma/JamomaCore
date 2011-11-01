@@ -40,11 +40,11 @@ mDistantApplicationParameters(NULL)
 	addAttribute(Exploration, kTypeBoolean);
 	addAttributeProperty(exploration, readOnly, YES);
 
-	addMessageWithArgument(registerLocalApplication);
-	addMessageWithArgument(unregisterLocalApplication);
+	addMessageWithArguments(registerLocalApplication);
+	addMessageWithArguments(unregisterLocalApplication);
 	
-	addMessageWithArgument(registerDistantApplication);
-	addMessageWithArgument(unregisterDistantApplication);
+	addMessageWithArguments(registerDistantApplication);
+	addMessageWithArguments(unregisterDistantApplication);
 	
 	addMessage(Run);
 	addMessage(Stop);
@@ -103,13 +103,13 @@ TTErr Plugin::getParameterNames(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr Plugin::registerLocalApplication(TTValue& value)
+TTErr Plugin::registerLocalApplication(const TTValue& inputValue, TTValue& outputValue)
 {
-	mLocalApplicationName = value;
+	mLocalApplicationName = inputValue;
 	return kTTErrNone;
 }
 
-TTErr Plugin::unregisterLocalApplication(TTValue& value)
+TTErr Plugin::unregisterLocalApplication(const TTValue& inputValue, TTValue& outputValue)
 {
 	mLocalApplicationName = kTTSymEmpty;
 	return kTTErrNone;
@@ -164,14 +164,14 @@ TTErr Plugin::setLocalApplicationParameters(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr Plugin::registerDistantApplication(TTValue& value)
+TTErr Plugin::registerDistantApplication(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr applicationName, parameterName;
 	TTHashPtr	applicationParameters = new TTHash();
 	TTValue		v, parameterNames;
 	TTErr		err;
 	
-	value.get(0, &applicationName);
+	inputValue.get(0, &applicationName);
 	
 	// Check the application is not already registered
 	err = mDistantApplicationParameters->lookup(applicationName, v);
@@ -193,14 +193,14 @@ TTErr Plugin::registerDistantApplication(TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr Plugin::unregisterDistantApplication(TTValue& value)
+TTErr Plugin::unregisterDistantApplication(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr applicationName;
 	TTHashPtr	applicationParameters;
 	TTValue		v, parameterNames;
 	TTErr		err;
 	
-	value.get(0, &applicationName);
+	inputValue.get(0, &applicationName);
 	
 	// Check the application is registered
 	err = mDistantApplicationParameters->lookup(applicationName, v);
@@ -266,7 +266,7 @@ TTErr Plugin::setDistantApplicationParameters(TTValue& value)
 
 TTErr Plugin::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address) 
 {
-	TTValue v;
+	TTValue inputValue, outputValue;
 	TTErr	err;
 	TTValue returnedChildrenNames;
 	TTValue returnedChildrenTypes;
@@ -275,11 +275,13 @@ TTErr Plugin::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address)
 	// discover the local namespace
 	if (mApplicationManager != NULL) {
 		
-		v.append(address);
-		v.append((TTPtr)&returnedChildrenNames);
-		v.append((TTPtr)&returnedChildrenTypes);
-		v.append((TTPtr)&returnedAttributes);
-		err = mApplicationManager->sendMessage(TT("ApplicationDiscover"), v);
+		inputValue.append(address);
+		
+		outputValue.append((TTPtr)&returnedChildrenNames);
+		outputValue.append((TTPtr)&returnedChildrenTypes);
+		outputValue.append((TTPtr)&returnedAttributes);
+		
+		err = mApplicationManager->sendMessage(TT("ApplicationDiscover"), inputValue, outputValue);
 		
 		// send result
 		return SendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes, err);
@@ -290,7 +292,6 @@ TTErr Plugin::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address)
 
 TTErr Plugin::ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address)
 {
-	TTValue v;
 	TTErr	err;
 	TTValue returnedValue;
 	
@@ -299,10 +300,8 @@ TTErr Plugin::ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address)
 		
 		if (address->getAttribute() == NO_ATTRIBUTE)
 			address = address->appendAttribute(kTTSym_value);
-		
-		v.append(address);
-		v.append((TTPtr)&returnedValue);
-		err = mApplicationManager->sendMessage(TT("ApplicationGet"), v);
+
+		err = mApplicationManager->sendMessage(TT("ApplicationGet"), address, returnedValue);
 		
 		return SendGetAnswer(from, address, returnedValue, err);
 	}		
@@ -323,7 +322,7 @@ TTErr Plugin::ReceiveSetRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTVa
 		
 		v.append(address);
 		v.append((TTPtr)&newValue);
-		err = mApplicationManager->sendMessage(TT("ApplicationSet"), v);
+		err = mApplicationManager->sendMessage(TT("ApplicationSet"), v, kTTValNONE);
 		
 		// TODO : test error and send notification if error
 		return err;
@@ -348,7 +347,7 @@ TTErr Plugin::ReceiveListenRequest(TTSymbolPtr from, TTNodeAddressPtr address, T
 		v.append(address);
 		v.append(enable);
 		
-		err = mApplicationManager->sendMessage(TT("ApplicationListen"), v);
+		err = mApplicationManager->sendMessage(TT("ApplicationListen"), v, kTTValNONE);
 		
 		if (err)
 			return SendListenAnswer(from, address, kTTValNONE, err);
@@ -372,7 +371,7 @@ TTErr Plugin::ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, TT
 		v.append((TTPtr)&newValue);
 		
 		// TODO
-		err = mApplicationManager->sendMessage(TT("ApplicationListenAnswer"), v);
+		err = mApplicationManager->sendMessage(TT("ApplicationListenAnswer"), v, kTTValNONE);
 		
 		if (err)
 			return SendListenAnswer(from, address, kTTValNONE, err);

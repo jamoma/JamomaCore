@@ -51,7 +51,7 @@ void jamoma_init(void)
 			max6 = true;
 		
 		// Init the Modular library
-		TTModularInit(JamomaPluginFolderPath);
+		TTModularInit();
 		
 		// Create a local application named Jamoma and get it
 		TTModularCreateLocalApplication(JAMOMA, JamomaConfigurationFilePath);

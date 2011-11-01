@@ -64,13 +64,13 @@ mObserver(NULL)
 	addAttributeWithSetter(ActivityOut, kTypeLocalValue);
 	addAttributeProperty(activityOut, readOnly, YES);
 	
-	addMessageWithArgument(Send);
+	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
 	addMessage(Init);
 	
 	// needed to be handled by a TTTextHandler
-	addMessageWithArgument(WriteAsText);
+	addMessageWithArguments(WriteAsText);
 	addMessageProperty(WriteAsText, hidden, YES);
 	
 	mIsSending = false;	
@@ -98,7 +98,7 @@ TTContainer::~TTContainer()
 	}
 }
 
-TTErr TTContainer::Send(TTValue& AddressAndValue)
+TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 {
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
@@ -145,7 +145,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 						return kTTErrNone;
 					
 					// set the value attribute using a command
-					anObject->sendMessage(kTTSym_Command, *valueToSend);
+					anObject->sendMessage(kTTSym_Command, *valueToSend, kTTValNONE);
 					
 					// unlock
 					mIsSending = false;	
@@ -156,7 +156,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 				if (anObject->getName() == TT("Viewer") && attrOrMess == kTTSym_value) {
 					
 					// send the value
-					anObject->sendMessage(kTTSym_Send, *valueToSend);
+					anObject->sendMessage(kTTSym_Send, *valueToSend, kTTValNONE);
 					
 					// unlock
 					mIsSending = false;	
@@ -170,7 +170,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 				
 				// Or look for message and send it
 				else if (!anObject->findMessage(attrOrMess, &aMessage))
-					anObject->sendMessage(attrOrMess, *valueToSend);
+					anObject->sendMessage(attrOrMess, *valueToSend, kTTValNONE);
 			}
 			// maybe the relative address is for Container below ourself
 			else {
@@ -193,7 +193,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 						AddressAndValue.set(0, belowAddress);
 						
 						// send the value
-						anObject->sendMessage(kTTSym_Send, AddressAndValue);
+						anObject->sendMessage(kTTSym_Send, AddressAndValue, kTTValNONE);
 						
 						// unlock
 						mIsSending = false;	
@@ -815,7 +815,7 @@ TTErr TTContainer::unbind()
 	return kTTErrNone;
 }
 
-TTErr TTContainer::WriteAsText(const TTValue& value)
+TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
@@ -824,7 +824,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 	TTSymbolPtr		name, service;
 	TTObjectPtr		anObject;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
 	// html header
@@ -893,7 +893,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -930,7 +930,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -967,7 +967,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -1324,10 +1324,10 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 			
 			// return the address
 			address.append(relativeAddress);
-			aContainer->mReturnAddressCallback->notify(address);
+			aContainer->mReturnAddressCallback->notify(address, kTTValNONE);
 			
 			// return the value
-			aContainer->mReturnValueCallback->notify(v);
+			aContainer->mReturnValueCallback->notify(v, kTTValNONE);
 			
 			// Notify activityOut observers (about value changes only)
 			v.prepend(TTValue(relativeAddress));

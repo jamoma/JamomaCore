@@ -32,8 +32,8 @@ mIsReading(false)
 	addAttribute(HeaderNodeName, kTypeSymbol);
 	addAttribute(Version, kTypeSymbol);
 	
-	addMessageWithArgument(Write);
-	addMessageWithArgument(Read);
+	addMessageWithArguments(Write);
+	addMessageWithArguments(Read);
 	
 	addMessage(WriteAgain);
 	addMessage(ReadAgain);
@@ -44,7 +44,7 @@ TTOpmlHandler::~TTOpmlHandler()
 	;
 }
 
-TTErr TTOpmlHandler::Write(const TTValue& args)
+TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
     TTValue				v;
 	TTObjectPtr			aTTObject;
@@ -122,7 +122,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args)
 			// Write data of the given TTObject (which have to implement a WriteAsOpml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("WriteAsOpml"), v);
+			aTTObject->sendMessage(TT("WriteAsOpml"), v, kTTValNONE);
 			
 			// Close opml body
 			xmlTextWriterEndElement(mWriter);
@@ -149,7 +149,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("WriteAsOpml"), v);
+	return aTTObject->sendMessage(TT("WriteAsOpml"), v, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::WriteAgain()
@@ -157,10 +157,10 @@ TTErr TTOpmlHandler::WriteAgain()
 	TTValue args;
 	
 	args.append(mFilePath);
-	return Write(args);
+	return Write(args, kTTValNONE);
 }
 
-TTErr TTOpmlHandler::Read(const TTValue& args)
+TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 {
 	const xmlChar		*xName = 0;
 	TTObjectPtr			aTTObject;
@@ -214,7 +214,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args)
 					}
 					
 					v.append((TTPtr)this);
-					aTTObject->sendMessage(TT("ReadFromOpml"), v);
+					aTTObject->sendMessage(TT("ReadFromOpml"), v, kTTValNONE);
 					
 					// next node
 					ret = xmlTextReaderRead(mReader);
@@ -238,7 +238,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("ReadFromOpml"), v);
+	return aTTObject->sendMessage(TT("ReadFromOpml"), v, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::ReadAgain()
@@ -246,7 +246,7 @@ TTErr TTOpmlHandler::ReadAgain()
 	TTValue args;
 	
 	args.append(mFilePath);
-	return Read(args);
+	return Read(args, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)

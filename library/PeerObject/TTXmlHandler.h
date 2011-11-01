@@ -70,7 +70,7 @@ public:	// use public for recursive access
 		In the path case, TTXmlWriter starts xml file writting and then calls the WriteAsXml 
 		method of mObject attribute
 		In the second case, it directly calls the WriteAsXml method */
-	TTErr Write(const TTValue& args);
+	TTErr Write(const TTValue& args, TTValue& outputValue);
 	TTErr WriteAgain();
 	
 	
@@ -78,7 +78,7 @@ public:	// use public for recursive access
 		In the path case, TTXmlReader starts xml file reading and then calls the ReadFromXml 
 		method of mObject attribute
 		In the second case, it directly calls the ReadFromXml method */
-	TTErr Read(const TTValue& args);
+	TTErr Read(const TTValue& args, TTValue& outputValue);
 	TTErr ReadAgain();
 	
 	/** TTXmlReader make a TTValue from an xmlChar* using the fromString method (see in TTValue.h) */

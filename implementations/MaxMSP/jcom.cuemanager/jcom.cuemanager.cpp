@@ -276,7 +276,7 @@ void cue_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			tterr = aXmlHandler->sendMessage(TT("Read"), v);
+			tterr = aXmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)
@@ -308,8 +308,13 @@ void cue_doread_again(TTPtr self)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			aXmlHandler->sendMessage(TT("ReadAgain"), v);
+			tterr = aXmlHandler->sendMessage(TT("ReadAgain"), v, kTTValNONE);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_read, 0, NULL);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 }
@@ -345,8 +350,13 @@ void cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			aXmlHandler->sendMessage(TT("Write"), v);
+			tterr = aXmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_write, argc, argv);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 }
@@ -372,8 +382,13 @@ void cue_dowrite_again(TTPtr self)
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			aXmlHandler->sendMessage(TT("WriteAgain"), v);
+			tterr = aXmlHandler->sendMessage(TT("WriteAgain"), v, kTTValNONE);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_write, 0, NULL);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 }
@@ -390,7 +405,7 @@ void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (argc && argv) {
 		if (atom_gettype(argv) == A_LONG) {
 			v = TTValue((int)atom_getlong(argv));
-			x->wrappedObject->sendMessage(TT("Recall"), v);
+			x->wrappedObject->sendMessage(TT("Recall"), v, kTTValNONE);
 		}
 		
 		// Check Context Node

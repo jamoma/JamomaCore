@@ -89,7 +89,7 @@ private:
 			3		: 3 values || 2 values + unit || 1 value + ramp ramptime
 			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
 	 */
-	TTErr	Command(const TTValue& command);
+	TTErr	Command(const TTValue& command, TTValue& outputValue);
 	
 	/**	Increment mValue attribute (and ramp this incrementation)
 		It depends on the command size :
@@ -97,7 +97,7 @@ private:
 			3		: 1 incrementation step + ramp ramptime
 			default	: no value or wrong value
 	 */
-	TTErr	Inc(const TTValue& value);
+	TTErr	Inc(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Decrement mValue attribute (and ramp this decrementation)
 		It depends on the command size :
@@ -105,7 +105,7 @@ private:
 			3		: 1 decrementation step + ramp ramptime
 			default	: no value or wrong value
 	 */
-	TTErr	Dec(const TTValue& value);
+	TTErr	Dec(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Getter and Setter for mValue attribute. */
 	TTErr	getValue(TTValue& value);
@@ -155,12 +155,12 @@ private:
 	TTErr	setDataspaceUnit(const TTValue& value);
 	
 	/**  needed to be handled by a TTTextHandler */
-	TTErr WriteAsText(const TTValue& value);
+	TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTBoolean	checkType(const TTValue& value);
 	TTBoolean	clipValue();
-	TTErr		convertUnit(TTValue& value);
+	TTErr		convertUnit(const TTValue& inputValue, TTValue& outputValue);
 	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
 #ifdef TTDATA_RAMPLIB
