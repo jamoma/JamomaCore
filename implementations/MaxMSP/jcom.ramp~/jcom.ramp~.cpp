@@ -36,6 +36,7 @@ void		ramp_free(t_ramp *x);
 void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);	// Assistance Method
 t_int*		ramp_perform(t_int *w);												// An MSP Perform (signal) Method
 void		ramp_dsp(t_ramp *x, t_signal **sp, short *count);					// DSP Method
+void		ramp_dsp64(t_ramp *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags); // DSP64 Method
 void		ramp_stop(t_ramp *x);
 void		ramp_int(t_ramp *x, long newCurrentValue);
 void		ramp_float(t_ramp *x, double newCurrentValue);
@@ -66,7 +67,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
     class_addmethod(c, (method)ramp_float,				"float",	A_FLOAT, 0L);
     class_addmethod(c, (method)ramp_list,				"list",		A_FLOAT, A_FLOAT);
  	class_addmethod(c, (method)ramp_stop,				"stop",		0L);		
- 	class_addmethod(c, (method)ramp_dsp,				"dsp",		A_CANT, 0L);		
+ 	class_addmethod(c, (method)ramp_dsp,				"dsp",		A_CANT, 0L);
+	class_addmethod(c, (method)ramp_dsp64,				"dsp64",	A_CANT, 0);
 	class_addmethod(c, (method)ramp_assist,				"assist",	A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout", 	A_CANT, 0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
@@ -207,5 +209,22 @@ t_max_err ramp_setMode(t_ramp *x, void *attr, long argc, t_atom *argv)
 			x->ramp->setAttributeValue(TT("mode"), TT("vector"));
 	}
 	return MAX_ERR_NONE;
+}
+
+void ramp_perform64(t_ramp *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	x->ramp->process(*x->audioOut);
+	x->audioOut->getVector(0, x->vs, outs[0]);
+}
+
+void ramp_dsp64(t_ramp *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	x->ramp->setAttributeValue(TT("sampleRate"), samplerate);
+	x->vs = maxvectorsize;
+	
+	x->audioOut->setAttributeValue(TT("numChannels"), x->maxNumChannels);
+	x->audioOut->setAttributeValue(TT("vectorSize"), (TTUInt16) maxvectorsize);
+	x->audioOut->sendMessage(TT("alloc"));
+	object_method(dsp64, gensym("dsp_add64"), x, ramp_perform64, 0, NULL);
 }
 
