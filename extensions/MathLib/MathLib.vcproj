@@ -192,14 +192,6 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Foundation\library\source\TTMatrix.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\includes\TTMatrix.h"
-			>
-		</File>
-		<File
 			RelativePath=".\source\TTMatrixMixer.cpp"
 			>
 		</File>
