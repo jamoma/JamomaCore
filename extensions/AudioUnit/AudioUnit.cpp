@@ -44,15 +44,15 @@ public:
 	{
 		addAttributeWithSetter(Plugin,	kTypeSymbol);
 		
-		addMessageWithArgument(getPluginNames);
-		addMessageWithArgument(getParameterNames);
-		addMessageWithArgument(getPresetNames);
+		addMessageWithArguments(getPluginNames);
+		addMessageWithArguments(getParameterNames);
+		addMessageWithArguments(getPresetNames);
 		
-		addMessageWithArgument(setParameter);
-		addMessageWithArgument(getParameter);
-		addMessageWithArgument(recallPreset);
+		addMessageWithArguments(setParameter);
+		addMessageWithArguments(getParameter);
+		addMessageWithArguments(recallPreset);
 
-		addUpdate(MaxNumChannels);
+		addUpdates(MaxNumChannels);
 
 		parameterNames = new TTHash;
 		timeStamp.mSampleTime = 0;
@@ -77,7 +77,7 @@ public:
 	}
 	
 	
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+	TTErr updateMaxNumChannels(TTValueConstRef oldMaxNumChannels, TTValueRef)
 	{
 		if (inputBufferList)
 			free(inputBufferList);
@@ -99,7 +99,7 @@ public:
 	}
 	
 	
-	TTErr getPluginNames(TTValue& pluginNames)
+	TTErr getPluginNames(TTValueConstRef, TTValueRef pluginNames)
 	{
 		ComponentDescription	searchDesc;
 		Component				comp = NULL;
@@ -232,13 +232,13 @@ public:
 	}
 	
 	
-	TTErr getParameterNames(TTValue& returnedParameterNames)
+	TTErr getParameterNames(TTValueConstRef, TTValueRef returnedParameterNames)
 	{
 		return parameterNames->getKeys(returnedParameterNames);
 	}
 
 	
-	TTErr setParameter(const TTValue& nameAndValue)
+	TTErr setParameter(TTValueConstRef nameAndValue, TTValueRef)
 	{
 		TTSymbolPtr	parameterName;
 		TTFloat32	parameterValue;
@@ -259,9 +259,9 @@ public:
 	}
 	
 	
-	TTErr getParameter(TTValue& nameInAndValueOut)
+	TTErr getParameter(TTValueConstRef nameIn, TTValueRef valueOut)
 	{
-		TTSymbolPtr	parameterName = nameInAndValueOut;
+		TTSymbolPtr	parameterName = nameIn;
 		TTValue		v;
 		TTErr		err;
 		long		parameterID = -1;
@@ -271,13 +271,13 @@ public:
 		if (!err) {
 			parameterID = v;
 			AudioUnitGetParameter(audioUnit, parameterID, kAudioUnitScope_Global, 0, &parameterValue);
-			nameInAndValueOut = parameterValue;
+			valueOut = parameterValue;
 		}
 		return err;
 	}
 	
 
-	TTErr getPresetNames(TTValue& returnedPresetNames)
+	TTErr getPresetNames(TTValueConstRef, TTValueRef returnedPresetNames)
 	{
 		CFArrayRef	factoryPresets = NULL;
 		UInt32		size = sizeof(CFArrayRef);
@@ -304,7 +304,7 @@ public:
 	
 	
 	// We could also keep a hash of factory presets and allow a symbol to set the preset by name at some point...
-	TTErr recallPreset(const TTValue& presetNumber)
+	TTErr recallPreset(TTValueConstRef presetNumber, TTValueRef)
 	{
 		AUPreset	presetInfo;
 		OSStatus	err = noErr;
