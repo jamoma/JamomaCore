@@ -16,7 +16,7 @@
 #include "TTFoundationAPI.h"
 
 // Macros used to export classes and methods so that we can use linking in performance-critical code
-#if defined( TT_PLATFORM_MAC ) or defined ( TT_PLATFORM_LINUX )
+#if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_LINUX )
 	#define TT_DATASPACE_EXPORT TTFOUNDATION_EXPORT
 #else
 	#ifdef TT_DATASPACE_LIB

@@ -8,7 +8,6 @@
 
 #include "PositionDataspace.h"
 
-
 TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 {
     int					errorCount = 0;
@@ -149,8 +148,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     v.set(2, TTFloat64(2.0));
     
     expected.setSize(3);
-    expected.set(0, TTFloat64(sqrt(2)));
-    expected.set(1, TTFloat64(sqrt(2)));
+    expected.set(0, TTFloat64(sqrt(2.0)));
+    expected.set(1, TTFloat64(sqrt(2.0)));
     expected.set(2, TTFloat64(2.0));
     
     myDataspace->sendMessage(TT("convert"), v);
@@ -259,8 +258,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("outputUnit"), TT("daz"));    
 	
     v.setSize(3);
-    v.set(0, TTFloat64(sqrt(2)));
-    v.set(1, TTFloat64(sqrt(2)));
+    v.set(0, TTFloat64(sqrt(2.0)));
+    v.set(1, TTFloat64(sqrt(2.0)));
     v.set(2, TTFloat64(2.0));
 
 	expected.setSize(3);
@@ -290,7 +289,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     v.set(2, TTFloat64(10.0));
 	
 	expected.setSize(2);
-    expected.set(0, TTFloat64(sqrt(2)));
+    expected.set(0, TTFloat64(sqrt(2.0)));
     expected.set(1, TTFloat64(sqrt(2.0)));
 
 	
