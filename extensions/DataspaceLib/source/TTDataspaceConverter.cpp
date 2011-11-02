@@ -131,12 +131,16 @@ TTErr TTDataspaceConverter::getAvailableDataspaces(TTValue& dataspaceNames)
 		// strip the leading "dataspace." prefix off all the names
 		for (int i=0; i < dataspaceNames.getSize(); i++) {
 			TTSymbolPtr s;
-			TTString	str;
+			//TTString	str;
+			const char* cStr;
 			
 			dataspaceNames.get(i, &s);
-			str = s->getString();
+			/* 
+			str = s->getString();	// this causes crashes on Windows, need to use C string instead
 			str.erase(0, 10);
-			s = TT(str);
+			*/
+			cStr = s->getCString() + 10;
+			s = TT(cStr);
 			dataspaceNames.set(i, s);
 		}
 	}
