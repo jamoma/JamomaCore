@@ -1,5 +1,5 @@
 /* 
- * TTAudioUnitPlugin -- AudioUnit plug-in host
+ * TTAudioUnit -- AudioUnit plug-in host
  * Extension Class for Jamoma DSP
  * Copyright © 2008, Timothy Place
  * 
@@ -13,7 +13,7 @@
 #include <AudioUnit/AudioUnit.h>
 
 
-#define thisTTClass TTAudioUnitPlugin
+#define thisTTClass TTAudioUnit
 
 
 /**	An AudioUnit render callback.  
@@ -27,7 +27,7 @@ OSStatus TTAudioUnitGetInputSamples(void*						inRefCon,
 
 
 /**	Host AudioUnit plug-ins. */
-class TTAudioUnitPlugin : public TTAudioObject {
+class TTAudioUnit : public TTAudioObject {
 public:
 	TTSymbolPtr			mPlugin;			///< Attribute: the name of the current plugin
 	AudioUnit			audioUnit;			///< the actual plugin
@@ -37,7 +37,7 @@ public:
 	TTHashPtr			parameterNames;		///< parameter names -> parameter ids
 	
 	/**	Constructor. */
-	TTAudioUnitPlugin(TTValue& arguments)
+	TTAudioUnit(TTValue& arguments)
 		: TTAudioObject(arguments),
 		  inputBufferList(NULL), 
 		  outputBufferList(NULL)
@@ -64,7 +64,7 @@ public:
 	
 
 	/**	Destructor. */
-	~TTAudioUnitPlugin()
+	~TTAudioUnit()
 	{
 		if (audioUnit) {
 			AudioUnitUninitialize(audioUnit);
@@ -364,7 +364,7 @@ OSStatus TTAudioUnitGetInputSamples(void*						inRefCon,
 									UInt32						inNumberFrames,
 									AudioBufferList*			ioData)
 {
-	TTAudioUnitPlugin* ttAudioUnit = (TTAudioUnitPlugin*)inRefCon;
+	TTAudioUnit* ttAudioUnit = (TTAudioUnit*)inRefCon;
 	
 	for (TTUInt16 channel=0; channel < ioData->mNumberBuffers; channel++)
 		memcpy(ioData->mBuffers[channel].mData, ttAudioUnit->inputBufferList->mBuffers[channel].mData, sizeof(TTFloat32) * inNumberFrames);
@@ -373,5 +373,5 @@ OSStatus TTAudioUnitGetInputSamples(void*						inRefCon,
 
 
 
-TT_AUDIO_CLASS_SETUP("audiounit", "audio, processor", TTAudioUnitPlugin);
+TT_AUDIO_CLASS_SETUP("audiounit", "audio, processor", TTAudioUnit);
 
