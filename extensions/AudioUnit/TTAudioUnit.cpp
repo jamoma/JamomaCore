@@ -35,14 +35,22 @@ public:
 	AudioBufferList*	mOutputBufferList;
 	AudioTimeStamp		mTimeStamp;
 	TTHashPtr			mParameterNames;	///< parameter names -> parameter ids
+	TTUInt32			mInputCount;
+	TTUInt32			mOutputCount;
 	
 	/**	Constructor. */
-	TTAudioUnit(TTValue& arguments)
-		: TTAudioObject(arguments),
-		  mInputBufferList(NULL), 
-		  mOutputBufferList(NULL)
+	TTAudioUnit(TTValue& arguments) : 
+		TTAudioObject(arguments),
+		mPlugin(NULL),
+		mAudioUnit(NULL),
+		mInputBufferList(NULL), 
+		mOutputBufferList(NULL),
+		mInputCount(0),
+		mOutputCount(0)
 	{
 		addAttributeWithSetter(Plugin,	kTypeSymbol);
+		addAttributeWithSetter(InputCount, kTypeUInt32);
+		addAttributeWithSetter(OutputCount, kTypeUInt32);
 		
 		addMessageWithArguments(getPluginNames);
 		addMessageWithArguments(getParameterNames);
@@ -58,6 +66,8 @@ public:
 		mTimeStamp.mSampleTime = 0;
 		mTimeStamp.mFlags = kAudioTimeStampSampleTimeValid;
 		
+		setAttributeValue(TT("inputCount"), 1);
+		setAttributeValue(TT("outputCount"), 1);
 		setAttributeValue(TT("plugin"), TT("AULowpass"));
 		setProcessMethod(processAudio);
 	}
@@ -92,9 +102,35 @@ public:
 		for (TTUInt16 channel=0; channel<maxNumChannels; channel++) {
 			mInputBufferList->mBuffers[channel].mNumberChannels = 1; 
 			mInputBufferList->mBuffers[channel].mData = NULL;			// We will set this pointer in the process method
+			mInputBufferList->mBuffers[channel].mDataByteSize = 0;
 			mOutputBufferList->mBuffers[channel].mNumberChannels = 1; 
 			mOutputBufferList->mBuffers[channel].mData = NULL;			// Tell the AU to deal with the memory
+			mOutputBufferList->mBuffers[channel].mDataByteSize = 0;
 		} 
+		return kTTErrNone;
+	}
+	
+	
+	TTErr setInputCount(TTValueConstRef aValue, TTValueRef)
+	{
+		TTUInt32 newInputCount = aValue;
+		
+		if (newInputCount != mInputCount) {
+			mInputCount = newInputCount;
+			// TODO: NEED TO RE-INIT PLUGIN HERE!
+		}
+		return kTTErrNone;
+	}
+	
+	
+	TTErr setOutputCount(TTValueConstRef aValue, TTValueRef)
+	{
+		TTUInt32 newOutputCount = aValue;
+		
+		if (newOutputCount != mOutputCount) {
+			mOutputCount = newOutputCount;
+			// TODO: NEED TO RE-INIT PLUGIN HERE!
+		}
 		return kTTErrNone;
 	}
 	
@@ -145,7 +181,10 @@ public:
 		char*					compNameStr;
 		int						compNameLen;
 		TTSymbolPtr				pluginName = newPluginName;
-		
+		TTUInt32				dataSizeDontCare;
+		AudioStreamBasicDescription		audioStreamBasicDescription;
+		OSStatus						result;
+
 		if (mAudioUnit) {
 			AudioUnitUninitialize(mAudioUnit);
 			CloseComponent(mAudioUnit);
@@ -185,6 +224,23 @@ public:
 				callbackStruct.inputProcRefCon = this;
 				AudioUnitSetProperty(mAudioUnit, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &callbackStruct, sizeof(AURenderCallbackStruct));
 				AudioUnitSetProperty(mAudioUnit, kAudioUnitProperty_SampleRate, kAudioUnitScope_Global, 0, &sr, sizeof(sr));
+
+				
+				// configure for channels in and out
+				dataSizeDontCare = sizeof(audioStreamBasicDescription);
+				result = AudioUnitGetProperty(mAudioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &audioStreamBasicDescription, &dataSizeDontCare);
+				if (!result) {
+					audioStreamBasicDescription.mChannelsPerFrame = mInputCount;
+					result = AudioUnitSetProperty(mAudioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &audioStreamBasicDescription, sizeof(audioStreamBasicDescription));
+				}
+				dataSizeDontCare = sizeof(audioStreamBasicDescription);
+				result = AudioUnitGetProperty(mAudioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &audioStreamBasicDescription, &dataSizeDontCare);
+				if (!result) {
+					audioStreamBasicDescription.mChannelsPerFrame = mOutputCount;
+					result = AudioUnitSetProperty(mAudioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &audioStreamBasicDescription, sizeof(audioStreamBasicDescription));
+				}
+				
+				//
 				AudioUnitInitialize(mAudioUnit);
 				
 				return kTTErrNone;
@@ -324,18 +380,23 @@ public:
 		TTUInt16					vs = in.getVectorSizeAsInt();
 		TTUInt16					numInputChannels = in.getNumChannelsAsInt();
 		TTUInt16					numOutputChannels = out.getNumChannelsAsInt();		
-		TTFloat32*					auInput[numInputChannels];
-		TTFloat32*					auOutput[numOutputChannels];
+//		TTFloat32*					auInput[numInputChannels];
+		TTFloat32*					auOutput;//[numOutputChannels];
 		AudioUnitRenderActionFlags	ioActionFlags = 0;
 		
 		// prepare the input
 		for (TTUInt16 channel=0; channel<numInputChannels; channel++) {
+			TTUInt32 dataByteSize = sizeof(TTFloat32) * vs;
+
+			if (mInputBufferList->mBuffers[channel].mDataByteSize != dataByteSize) {
+				if (mInputBufferList->mBuffers[channel].mDataByteSize)
+					TTFree16(mInputBufferList->mBuffers[channel].mData);
+				mInputBufferList->mBuffers[channel].mData = TTMalloc16(dataByteSize);
+				mInputBufferList->mBuffers[channel].mDataByteSize = dataByteSize;
+			}
 			
-// FIXME: we can't do this! auInput is never alloc'd any memory but then we try writing to it in the following getVector call!
-			
-			in.getVector(channel, vs, auInput[channel]);
-			mInputBufferList->mBuffers[channel].mData = auInput[channel];
-			mInputBufferList->mBuffers[channel].mDataByteSize = sizeof(TTFloat32) * vs;
+			in.getVector(channel, vs, (TTFloat32*)mInputBufferList->mBuffers[channel].mData);
+//			mInputBufferList->mBuffers[channel].mDataByteSize = sizeof(TTFloat32) * vs;
 			mOutputBufferList->mBuffers[channel].mDataByteSize = sizeof(TTFloat32) * vs;
 		}
 		mInputBufferList->mNumberBuffers = numInputChannels;
@@ -347,8 +408,8 @@ public:
 		// handle the output
 		numOutputChannels = mOutputBufferList->mNumberBuffers;
 		for (TTUInt16 channel=0; channel<numOutputChannels; channel++) {
-			auOutput[channel] = (TTFloat32*)mOutputBufferList->mBuffers[channel].mData;
-			out.setVector(channel, vs, auOutput[channel]);
+			auOutput = (TTFloat32*)mOutputBufferList->mBuffers[channel].mData;
+			out.setVector(channel, vs, auOutput);
 		}
 		
 		mTimeStamp.mSampleTime += vs;
