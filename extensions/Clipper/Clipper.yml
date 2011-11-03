@@ -1,6 +1,6 @@
 
 sources:
-  - Clipper.cpp
+  - TTClipper.cpp
   
 includes:
   - "${PROJECT_BINARY_DIR}/../../library/includes"

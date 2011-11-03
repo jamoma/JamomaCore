@@ -10,7 +10,7 @@
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD45AA11E244F2007BBF7E /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD45A911E244F2007BBF7E /* AudioUnit.framework */; };
-		22FD45BB11E244F8007BBF7E /* AudioUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45BA11E244F8007BBF7E /* AudioUnit.cpp */; };
+		22FD45BB11E244F8007BBF7E /* TTAudioUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45BA11E244F8007BBF7E /* TTAudioUnit.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,7 +20,7 @@
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD45A911E244F2007BBF7E /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
-		22FD45BA11E244F8007BBF7E /* AudioUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioUnit.cpp; sourceTree = "<group>"; };
+		22FD45BA11E244F8007BBF7E /* TTAudioUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAudioUnit.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* AudioUnitPlugin.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AudioUnitPlugin.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,7 +72,7 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22FD45BA11E244F8007BBF7E /* AudioUnit.cpp */,
+				22FD45BA11E244F8007BBF7E /* TTAudioUnit.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -154,7 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22FD45BB11E244F8007BBF7E /* AudioUnit.cpp in Sources */,
+				22FD45BB11E244F8007BBF7E /* TTAudioUnit.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
