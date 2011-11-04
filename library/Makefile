@@ -12,6 +12,9 @@ SRC += source/TTBuffer.cpp
 SRC += source/TTDelay.cpp
 SRC += source/TTDSP.cpp
 
+SRC += tests/TTBuffer.test.cpp
+SRC += tests/TTDelay.test.cpp
+
 
 ########################################
 
