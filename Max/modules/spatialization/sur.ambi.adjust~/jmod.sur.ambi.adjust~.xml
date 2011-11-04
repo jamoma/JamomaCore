@@ -9,7 +9,7 @@
     <item name='k/gain' type='decimal' priority='0'>0.000000</item>
     <item name='l/gain' type='decimal' priority='0'>0.000000</item>
     <item name='m/gain' type='decimal' priority='0'>0.000000</item>
-    <item name='meter' type='boolean' priority='0'>0</item>
+    <item name='meter' type='boolean' priority='0'>1</item>
     <item name='n/gain' type='decimal' priority='0'>0.000000</item>
     <item name='o/gain' type='decimal' priority='0'>0.000000</item>
     <item name='order' type='integer' priority='0'>3</item>
