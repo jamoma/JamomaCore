@@ -41,14 +41,18 @@ SRC += source/TTFoundation.cpp
 SRC += source/TTHash.cpp
 SRC += source/TTList.cpp
 SRC += source/TTMatrix.cpp
+SRC += source/TTMatrixArray.cpp
 SRC += source/TTMatrixMath.cpp
 SRC += source/TTMessage.cpp
 SRC += source/TTMutex.cpp
 SRC += source/TTNode.cpp
+SRC += source/TTNodeAddress.cpp
+SRC += source/TTNodeAddressCache.cpp
 SRC += source/TTNodeDirectory.cpp
 SRC += source/TTObject.cpp
 SRC += source/TTPath.cpp
 SRC += source/TTQueue.cpp
+SRC += source/TTRegex.cpp
 SRC += source/TTSymbol.cpp
 SRC += source/TTSymbolCache.cpp
 SRC += source/TTSymbolTable.cpp
@@ -58,6 +62,7 @@ SRC += source/TTValue.cpp
 SRC += source/TTValueCache.cpp
 
 SRC += tests/TTMatrix.test.cpp
+SRC += tests/TTNodeLib.test.cpp
 SRC += tests/TTValue.test.cpp
 
 
