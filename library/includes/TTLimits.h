@@ -49,6 +49,32 @@ static T TTAntiDenormal(const T input)
 	// branching version, which is now implemented in the TTZeroDenormal() function.
 }
 
+#if __SSE3__
+#endif
+
+
+// Macros wrapping the above C++ templates
+// We do this so that we can easily change the behavior of the routines for squashing denormals.
+// On the PPC we don't want to waste cycles unneccessarily;
+// On the Intel processors we can use SSE intrinsics as suggested by Nils Peters (see redmine ticket #799)
+// or we can use SSE intrinsics to disable denormals on a processor completely, in which case these functions should not waste cycles doing anything;
+// On ARM processors what happens?  We might still need to squash denormals, or maybe there is an option as indicated @ http://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html
+
+#if defined ( TT_DISABLE_DENORMAL_FIX ) || defined ( __SSE3__ )
+//	#error hooray!
+	// When SSE3 is defined, then we rely on the denormals being turned-off using a bit in the processor's control register
+	// http://software.intel.com/sites/products/documentation/studio/composer/en-us/2011/compiler_c/fpops/common/fpops_set_ftz_daz.htm
+
+	// Do nothing for denormals
+	#define TT_ZERO_DENORMAL
+	#define TT_ANTI_DENORMAL
+#else
+#error boo
+	#define TT_ZERO_DENORMAL(v) TTZeroDenormal(v)
+	#define TT_ANTI_DENORMAL(v) TTAntiDenormal(v)
+#endif
+
+
 
 /** Constrain a number to within a range.  Calculation is performed in-place. 
 	@seealso	TTClip()

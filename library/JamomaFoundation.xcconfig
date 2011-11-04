@@ -29,13 +29,15 @@ LIBRARY_SEARCH_PATHS = $(inherited)
 
 // Per architecture and deployment settings
 ARCHS = i386 x86_64
-SDKROOT = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
-SDKROOT[arch=i386] = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
-SDKROOT[arch=x86_64] = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
-GCC_VERSION[arch=i386] = com.apple.compilers.llvm.clang.1_0
-GCC_VERSION[arch=x86_64] = com.apple.compilers.llvm.clang.1_0
 MACOSX_DEPLOYMENT_TARGET = 10.6
-
+SDKROOT = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+//SDKROOT[arch=i386] = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+//SDKROOT[arch=x86_64] = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+//GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+GCC_VERSION = com.apple.compilers.llvmgcc42
+GCC_ENABLE_SSE3_EXTENSIONS = YES
+GCC_AUTO_VECTORIZATION = YES;
+GCC_UNROLL_LOOPS = YES;
 
 // Static Configuration
 WRAPPER_EXTENSION = dylib;
