@@ -180,87 +180,99 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Function Units"
+			Name="source"
 			>
 			<File
-				RelativePath=".\source\CosineFunction.cpp"
+				RelativePath=".\source\TTCosineFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\CosineFunction.h"
+				RelativePath=".\source\TTExpFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\ExpFunction.cpp"
+				RelativePath=".\source\TTFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\ExpFunction.h"
+				RelativePath=".\source\TTLinearFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\Function.cpp"
+				RelativePath=".\source\TTLogFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\Function.h"
+				RelativePath=".\source\TTLowpassFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\LinearFunction.cpp"
+				RelativePath=".\source\TTPowerFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\LinearFunction.h"
+				RelativePath=".\source\TTSmoothPolynomialFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\LinearFunction.test.cpp"
+				RelativePath=".\source\TTTanhFunction.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="includes"
+			>
+			<File
+				RelativePath=".\includes\TTCosineFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\LogFunction.cpp"
+				RelativePath=".\includes\TTExpFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\LogFunction.h"
+				RelativePath=".\includes\TTFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\LowpassFunction.cpp"
+				RelativePath=".\includes\TTLinearFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\LowpassFunction.h"
+				RelativePath=".\includes\TTLogFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\PowerFunction.cpp"
+				RelativePath=".\includes\TTLowpassFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\PowerFunction.h"
+				RelativePath=".\includes\TTPowerFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\SmoothPolynomialFunction.cpp"
+				RelativePath=".\includes\TTSmoothPolynomialFunction.h"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\SmoothPolynomialFunction.test.cpp"
+				RelativePath=".\includes\TTTanhFunction.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="tests"
+			>
+			<File
+				RelativePath=".\tests\TTLinearFunction.test.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TanhFunction.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\includes\TanhFunction.h"
+				RelativePath=".\tests\TTSmoothPolynomialFunction.test.cpp"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\FunctionLib.cpp"
+			RelativePath=".\TTFunctionLib.cpp"
 			>
 		</File>
 	</Files>
