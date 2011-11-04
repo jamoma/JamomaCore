@@ -4,19 +4,22 @@ CC = g++
 #########################################
 
 SRC = EffectsLib.cpp
-SRC += TTBalance.cpp
-SRC += TTDegrade.cpp
-SRC += TTGain.cpp
-SRC += TTLimiter.cpp
-SRC += TTOverdrive.cpp
-SRC += TTPulseSub.cpp
+SRC += sources/TTBalance.cpp
+SRC += sources/TTDegrade.cpp
+SRC += sources/TTGain.cpp
+SRC += sources/TTLimiter.cpp
+SRC += sources/TTOverdrive.cpp
+SRC += sources/TTPulseSub.cpp
+SRC += sources/TTThru.cpp
 
-SRC += TTGainTest.cpp
+SRC += tests/TTGain.test.cpp
+SRC += tests/TTThru.test.cpp
 
 
 ########################################
 
 INCLUDES = -I.
+INCLUDES += -I./includes
 INCLUDES += -I../../library/includes
 INCLUDES += -I../../../Foundation/library/includes
 
