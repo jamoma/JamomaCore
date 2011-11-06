@@ -270,6 +270,14 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="tests"
+			>
+			<File
+				RelativePath=".\tests\split-gain-join.test.cpp"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

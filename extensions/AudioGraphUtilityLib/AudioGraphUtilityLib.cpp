@@ -9,6 +9,7 @@
 
 #include "TTDSP.h"
 #include "TTAudioGraphJoin.h"
+#include "TTAudioGraphOffset.h"
 #include "TTAudioGraphPick.h"
 #include "TTAudioGraphSplit.h"
 #include "TTAudioGraphSig.h"
@@ -18,7 +19,8 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_AudioGraphUtilityLib(
 {
 	TTDSPInit();
 
-	TTAudioGraphJoin::registerClass();	
+	TTAudioGraphJoin::registerClass();
+	TTAudioGraphOffset::registerClass();
 	TTAudioGraphPick::registerClass();
 	TTAudioGraphSplit::registerClass();
 	TTAudioGraphSig::registerClass();
