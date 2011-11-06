@@ -17,7 +17,9 @@
 			#ifdef WIN_VERSION
 				#define TT_PLATFORM_WIN
 			#else
-				#define TT_PLATFORM_MAC
+				#ifndef TT_PLATFORM_MAC
+					#define TT_PLATFORM_MAC
+				#endif
 			#endif
 		#endif
 	#endif
