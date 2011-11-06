@@ -1,0 +1,65 @@
+# MAKEFILE, generated from YAML file, and therefor can be Platform Specific
+# This one is for MAC
+
+NAME = Clipper
+CC = g++
+
+#########################################
+
+SRC = TTClipper.cpp
+#SRC += source/TTClass.cpp
+
+
+########################################
+
+INCLUDES = -I../../library/includes
+INCLUDES += -I../../../Foundation/library/includes
+
+
+#########################################
+
+#LIB_INCLUDES = -L../../library/build/UninstalledProducts
+#LIB_INCLUDES += -L../../../Foundation/library/build/UninstalledProducts
+
+#LIBS = -lJamomaFoundation
+#LIBS += -lJamomaDSP
+LIBS = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib
+LIBS += ../../library/build/UninstalledProducts/JamomaDSP.dylib
+
+
+#########################################
+
+#OPTIMIZATION_FLAGS = -O3
+OPTIMIZATION_FLAGS = -O0
+DEFINES = -DTT_PLATFORM_MAC
+OPTIONS = -shared
+#OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared -g
+#OPTIONS += -std=c++0x
+OPTIONS += -msse3 -mfpmath=sse
+
+WARNINGS = -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -Wno-trigraphs -Wreturn-type -Wunused-variable
+
+
+CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES) $(WARNINGS)  -arch i386
+#LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
+LDFLAGS = $(LIBS)
+
+
+#########################################
+
+Debug:
+	mkdir -p build
+	$(CC) $(SRC) $(LDFLAGS)  $(CFLAGS) $(DEFINES) $(OPTIMIZATION_FLAGS) -o build/$(NAME).ttdylib
+                                      
+Release:                              
+	mkdir -p build
+	$(CC) $(SRC) $(LDFLAGS)  $(CFLAGS) $(DEFINES) $(OPTIMIZATION_FLAGS) -o build/$(NAME).ttdylib
+                                                                       
+#all:                                                                   
+#	mkdir -p build
+#	$(CC) $(SRC) $(LDFLAGS)  $(CFLAGS) $(DEFINES) $(OPTIMIZATION_FLAGS) -o build/$(NAME).ttdylib 
+
+clean:
+	rm -f *.o
+	rm -rf build
+
