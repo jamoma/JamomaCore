@@ -1,5 +1,5 @@
 /* 
- * TTClipper
+ * Clipper
  * Extension Class for Jamoma DSP
  * Copyright © 2008, Timothy Place
  * 
@@ -9,14 +9,14 @@
 
 #include "TTDSP.h"
 
-#define thisTTClass			TTClipper
+#define thisTTClass			Clipper
 #define thisTTClassName		"clipper"
 #define thisTTClassTags		"audio, processor"
 
 
 /**	Hard-clip signals to a low and high bound. */
-class TTClipper : TTAudioObject {
-	TTCLASS_SETUP(TTClipper)
+class Clipper : TTAudioObject {
+	TTCLASS_SETUP(Clipper)
 
 	TTFloat64	mLowBound;		///< Attribute: low bound for clipping
 	TTFloat64	mHighBound;		///< Attribute: high bound for clipping
@@ -39,7 +39,7 @@ class TTClipper : TTAudioObject {
 };
 
 
-TT_AUDIO_CONSTRUCTOR_EXPORT(TTClipper)
+TT_AUDIO_CONSTRUCTOR_EXPORT(Clipper)
 {
 	addAttribute(LowBound,	kTypeFloat64);
 	addAttribute(HighBound,	kTypeFloat64);
@@ -50,5 +50,5 @@ TT_AUDIO_CONSTRUCTOR_EXPORT(TTClipper)
 }
 
 
-TTClipper::~TTClipper()
+Clipper::~Clipper()
 {;}
