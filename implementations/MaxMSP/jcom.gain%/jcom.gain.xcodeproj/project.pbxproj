@@ -215,6 +215,7 @@
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 				);
 				PRODUCT_NAME = "$(PROJECT_NAME)%";
+				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
 			};
 			name = Development;
 		};
@@ -233,6 +234,7 @@
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 				);
 				PRODUCT_NAME = "$(PROJECT_NAME)%";
+				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
 			};
 			name = Deployment;
 		};

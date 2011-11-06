@@ -71,6 +71,8 @@
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapFileName="DataspaceLib.map"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
