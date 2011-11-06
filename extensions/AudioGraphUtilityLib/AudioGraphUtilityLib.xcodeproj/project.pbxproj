@@ -15,6 +15,8 @@
 		22FD474F11E248C9007BBF7E /* TTAudioGraphJoin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD474911E248C9007BBF7E /* TTAudioGraphJoin.cpp */; };
 		22FD475011E248C9007BBF7E /* TTAudioGraphSplit.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD474A11E248C9007BBF7E /* TTAudioGraphSplit.h */; };
 		22FD475111E248C9007BBF7E /* TTAudioGraphSplit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD474B11E248C9007BBF7E /* TTAudioGraphSplit.cpp */; };
+		661D68A5146617AF007E60FC /* TTAudioGraphOffset.h in Headers */ = {isa = PBXBuildFile; fileRef = 661D68A4146617AF007E60FC /* TTAudioGraphOffset.h */; };
+		661D68A7146617BA007E60FC /* TTAudioGraphOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 661D68A6146617BA007E60FC /* TTAudioGraphOffset.cpp */; };
 		6627442213AC270600D77162 /* TTAudioGraphPick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6627442113AC270600D77162 /* TTAudioGraphPick.cpp */; };
 		6627442413AC270E00D77162 /* TTAudioGraphPick.h in Headers */ = {isa = PBXBuildFile; fileRef = 6627442313AC270E00D77162 /* TTAudioGraphPick.h */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
@@ -32,6 +34,8 @@
 		22FD474911E248C9007BBF7E /* TTAudioGraphJoin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphJoin.cpp; path = source/TTAudioGraphJoin.cpp; sourceTree = "<group>"; };
 		22FD474A11E248C9007BBF7E /* TTAudioGraphSplit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSplit.h; path = includes/TTAudioGraphSplit.h; sourceTree = "<group>"; };
 		22FD474B11E248C9007BBF7E /* TTAudioGraphSplit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSplit.cpp; path = source/TTAudioGraphSplit.cpp; sourceTree = "<group>"; };
+		661D68A4146617AF007E60FC /* TTAudioGraphOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOffset.h; path = includes/TTAudioGraphOffset.h; sourceTree = "<group>"; };
+		661D68A6146617BA007E60FC /* TTAudioGraphOffset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphOffset.cpp; path = source/TTAudioGraphOffset.cpp; sourceTree = "<group>"; };
 		6627442113AC270600D77162 /* TTAudioGraphPick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphPick.cpp; path = source/TTAudioGraphPick.cpp; sourceTree = "<group>"; };
 		6627442313AC270E00D77162 /* TTAudioGraphPick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphPick.h; path = includes/TTAudioGraphPick.h; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* AudioGraphUtilityLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AudioGraphUtilityLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +96,8 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				661D68A6146617BA007E60FC /* TTAudioGraphOffset.cpp */,
+				661D68A4146617AF007E60FC /* TTAudioGraphOffset.h */,
 				22FD474811E248C9007BBF7E /* TTAudioGraphJoin.h */,
 				22FD474911E248C9007BBF7E /* TTAudioGraphJoin.cpp */,
 				6627442313AC270E00D77162 /* TTAudioGraphPick.h */,
@@ -114,6 +120,7 @@
 				22FD474E11E248C9007BBF7E /* TTAudioGraphJoin.h in Headers */,
 				22FD475011E248C9007BBF7E /* TTAudioGraphSplit.h in Headers */,
 				6627442413AC270E00D77162 /* TTAudioGraphPick.h in Headers */,
+				661D68A5146617AF007E60FC /* TTAudioGraphOffset.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +196,7 @@
 				2270E2EA124455A700537590 /* AudioGraphUtilityLib.cpp in Sources */,
 				225EE041129610C00012DB74 /* TTAudioGraphSig.cpp in Sources */,
 				6627442213AC270600D77162 /* TTAudioGraphPick.cpp in Sources */,
+				661D68A7146617BA007E60FC /* TTAudioGraphOffset.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
