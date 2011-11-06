@@ -329,7 +329,10 @@ void gain_dsp64(t_gain *x, t_object *dsp64, short *count, double samplerate, lon
 	x->gain->setAttributeValue(kTTSym_sampleRate, samplerate);
 	x->gain->setAttributeValue(TT("interpolated"), true);
 	object_method(dsp64, gensym("dsp_add64"), x, gain_perform64, 0, NULL);
-		
+	
+	
+	
+	
 		
 }
 

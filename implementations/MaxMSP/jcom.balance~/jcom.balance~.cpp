@@ -40,6 +40,7 @@ void		balance_free(t_balance *x);
 void		balance_assist(t_balance *x, void *b, long msg, long arg, char *dst);	// Assistance Method
 t_int*		balance_perform(t_int *w);												// An MSP Perform (signal) Method
 void		balance_dsp(t_balance *x, t_signal **sp, short *count);					// DSP Method
+void		balance_dsp64(t_balance *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags); // DSP64 Method
 void		balance_clear(t_balance *x);
 t_max_err	balance_setBypass(t_balance *x, void *attr, long argc, t_atom *argv);
 t_max_err	balance_setFrequency(t_balance *x, void *attr, long argc, t_atom *argv);
@@ -65,7 +66,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 		(method)0L, A_GIMME, 0);
 
  	class_addmethod(c, (method)balance_clear, 			"clear",	0L);		
- 	class_addmethod(c, (method)balance_dsp, 			"dsp",		A_CANT, 0L);		
+ 	class_addmethod(c, (method)balance_dsp, 			"dsp",		A_CANT, 0L);
+	class_addmethod(c, (method)balance_dsp64,			"dsp64",	A_CANT, 0);
 	class_addmethod(c, (method)balance_assist, 			"assist",	A_CANT, 0L); 
 
 	attr = attr_offset_new("bypass", _sym_long, attrflags,
@@ -250,3 +252,53 @@ t_max_err balance_setFrequency(t_balance *x, void *attr, long argc, t_atom *argv
 	}
 	return MAX_ERR_NONE;
 }
+
+
+void balance_perform64(t_balance *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	
+	short		i;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
+	
+	// We sort audioIn so that all channels of signalA comes first, then all channels of signalB
+	for(i=0; i < numouts; i++){
+		x->audioIn->setVector(i, vs, ins[i]);
+		x->audioIn->setVector(i+numouts, vs, ins[i+numouts]); 
+	}
+	
+		x->balance->process(*x->audioIn, *x->audioOut);		// Actual balance process
+	
+	for(i=0; i < x->numChannels; i++)
+		x->audioOut->getVectorCopy(i, vs, outs[i]);
+	
+	
+}
+
+
+
+void balance_dsp64(t_balance *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	short		i, j, k;
+	
+	x->numChannels = 0;
+	x->vs = maxvectorsize;
+	for(i=0; i < x->maxNumChannels; i++){
+		j = x->maxNumChannels + i;
+		k = x->maxNumChannels*2 + i;
+		if(count[i] && count[j] && count[k])
+			x->numChannels++;			
+	}
+	
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->numChannels*2);
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->numChannels);
+	x->audioIn->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+	x->audioOut->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+	//audioIn will be set in the perform method
+	x->audioOut->sendMessage(TT("alloc"));
+	
+	x->balance->setAttributeValue(kTTSym_sampleRate, samplerate);	
+	object_method(dsp64, gensym("dsp_add64"), x, balance_perform64, 0, NULL);
+	
+	
+}
+

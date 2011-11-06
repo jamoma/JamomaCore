@@ -12,6 +12,9 @@ SRC += source/TTBuffer.cpp
 SRC += source/TTDelay.cpp
 SRC += source/TTDSP.cpp
 
+SRC += tests/TTBuffer.test.cpp
+SRC += tests/TTDelay.test.cpp
+
 
 ########################################
 
@@ -33,9 +36,10 @@ LIBS += -lportaudio
 
 OPTIMIZATION_FLAGS = -O3
 DEFINES = -DTT_PLATFORM_LINUX
-OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared
+OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared -g -std=c++0x
+OPTIONS += -msse3 -mfpmath=sse
 
-CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES) -g
+CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES)
 LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
 
 

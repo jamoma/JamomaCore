@@ -4,19 +4,22 @@ CC = g++
 #########################################
 
 SRC = EffectsLib.cpp
-SRC += TTBalance.cpp
-SRC += TTDegrade.cpp
-SRC += TTGain.cpp
-SRC += TTLimiter.cpp
-SRC += TTOverdrive.cpp
-SRC += TTPulseSub.cpp
+SRC += sources/TTBalance.cpp
+SRC += sources/TTDegrade.cpp
+SRC += sources/TTGain.cpp
+SRC += sources/TTLimiter.cpp
+SRC += sources/TTOverdrive.cpp
+SRC += sources/TTPulseSub.cpp
+SRC += sources/TTThru.cpp
 
-SRC += TTGainTest.cpp
+SRC += tests/TTGain.test.cpp
+SRC += tests/TTThru.test.cpp
 
 
 ########################################
 
 INCLUDES = -I.
+INCLUDES += -I./includes
 INCLUDES += -I../../library/includes
 INCLUDES += -I../../../Foundation/library/includes
 
@@ -34,9 +37,10 @@ LIBS += -lJamomaDSP
 
 OPTIMIZATION_FLAGS = -O3
 DEFINES = -DTT_PLATFORM_LINUX
-OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared
+OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared -g -std=c++0x
+OPTIONS += -msse3 -mfpmath=sse
 
-CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES) -g
+CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES)
 LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
 
 

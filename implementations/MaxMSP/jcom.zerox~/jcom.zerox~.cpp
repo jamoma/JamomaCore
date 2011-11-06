@@ -34,7 +34,7 @@ void		zerox_assist(t_zerox *x, void *b, long m, long a, char *s);
 t_max_err	attr_set_size(t_zerox *x, void *attr, long argc, t_atom *argv);
 t_int*		zerox_perform(t_int *w);
 void		zerox_dsp(t_zerox *x, t_signal **sp, short *count);
-
+void		zerox_dsp64(t_zerox *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags); // DSP64 Method
 
 // Globals
 static t_class *s_zerox_class;
@@ -53,8 +53,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 	c = class_new("jcom.zerox~", (method)zerox_new, (method)zerox_free, sizeof(t_zerox), (method)0L, A_GIMME, 0);
 
-	class_addmethod(c, (method)zerox_dsp, 		"dsp", A_CANT, 0L);		
-    class_addmethod(c, (method)zerox_assist, 	"assist", A_CANT, 0L); 
+	class_addmethod(c, (method)zerox_dsp, 		"dsp",		A_CANT, 0L);		
+	class_addmethod(c, (method)zerox_dsp64,		"dsp64",	A_CANT, 0);
+    class_addmethod(c, (method)zerox_assist, 	"assist",	A_CANT, 0L); 
 
 	attr = attr_offset_new("size", _sym_long, attrflags,
 		(method)0L, (method)attr_set_size, calcoffset(t_zerox, attr_size));
@@ -159,4 +160,28 @@ void zerox_dsp(t_zerox *x, t_signal **sp, short *count)
 	
 	//signalIn will be set (alloc'd) in the perform method
 	x->signalOut->sendMessage(TT("alloc"));
+}
+
+
+void zerox_perform64(t_zerox *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	TTUInt16	vs = x->signalIn->getVectorSizeAsInt();
+	
+	x->signalIn->setVector(0, vs, ins[0]);
+	x->zeroxUnit->process(x->signalIn, x->signalOut);
+	x->signalOut->getVectorCopy(0, vs, outs[0]);
+	x->signalOut->getVectorCopy(1, vs, outs[1]);	
+}
+
+void zerox_dsp64(t_zerox *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	x->zeroxUnit->sendMessage(TT("clear"));
+	x->zeroxUnit->setAttributeValue(kTTSym_sampleRate, samplerate);
+	
+	x->signalIn->setAttributeValue(kTTSym_vectorSize,  (TTUInt16)maxvectorsize);
+	x->signalOut->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+	
+	x->signalOut->sendMessage(TT("alloc"));
+	object_method(dsp64, gensym("dsp_add64"), x, zerox_perform64, 0, NULL);
+
 }

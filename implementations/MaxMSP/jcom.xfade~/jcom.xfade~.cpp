@@ -39,6 +39,7 @@ void *fade_new(t_symbol *s, long argc, t_atom *argv);				// New Object Creation 
 t_int *fade_perform1(t_int *w);										// An MSP Perform (signal) Method
 t_int *fade_perform2(t_int *w);										// An MSP Perform (signal) Method
 void fade_dsp(t_fade *x, t_signal **sp, short *count);				// DSP Method
+void fade_dsp64(t_fade *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags); // DSP64 Method
 void fade_assist(t_fade *x, void *b, long m, long a, char *s);		// Assistance Method
 void fade_float(t_fade *x, double value );							// Float Method
 void fade_free(t_fade *x);
@@ -47,6 +48,8 @@ t_max_err attr_set_shape(t_fade *x, void *attr, long argc, t_atom *argv);
 t_max_err attr_set_mode(t_fade *x, void *attr, long argc, t_atom *argv);
 t_int *fade_perform_stereo_1(t_int *w);
 t_int *fade_perform_stereo_2(t_int *w);
+void fade_perform64_1(t_fade *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
+void fade_perform64_2(t_fade *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
 
 // Globals
 static t_class	*s_fade_class;
@@ -66,10 +69,11 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)				// main recieves a copy of the Max fu
 	c = class_new("jcom.xfade~", (method)fade_new, (method)fade_free, sizeof(t_fade), (method)0L, A_GIMME, 0);
 	
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)fade_float,				"float", A_FLOAT, 0L);
-	class_addmethod(c, (method)fade_dsp, 				"dsp", A_CANT, 0L);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);
-    class_addmethod(c, (method)fade_assist, 			"assist", A_CANT, 0L);
+	class_addmethod(c, (method)fade_float,				"float",	A_FLOAT,0L);
+	class_addmethod(c, (method)fade_dsp, 				"dsp",		A_CANT, 0L);
+	class_addmethod(c, (method)fade_dsp64,				"dsp64",	A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,	0);
+    class_addmethod(c, (method)fade_assist, 			"assist",	A_CANT, 0L);
 	
 	// Add attributes to our class:
 	CLASS_ATTR_LONG(c,		"shape",		0,	t_fade, attr_shape);
@@ -237,6 +241,22 @@ t_int *fade_perform1(t_int *w)
 	return w + ((numChannels*3)+2);
 }
 
+void fade_perform64_1(t_fade *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short		i;
+	TTUInt8		numChannels = x->audioIn1->getNumChannelsAsInt();
+	TTUInt16	vs = x->audioIn1->getVectorSizeAsInt();
+	
+	for(i=0; i<numChannels; i++){		
+		x->audioIn1->setVector(i, vs, ins[i]);
+		x->audioIn2->setVector(i, vs, ins[i+numChannels]);
+	}
+	
+	x->xfade->process(*x->audioIn1, *x->audioIn2, *x->audioOut);
+	
+	for(i=0; i<numChannels; i++)
+		x->audioOut->getVectorCopy(i, vs, outs[i]);
+}
 
 // signal rate fading
 t_int *fade_perform2(t_int *w)
@@ -264,6 +284,24 @@ t_int *fade_perform2(t_int *w)
 	
 }
 
+void fade_perform64_2(t_fade *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short		i;
+	TTUInt16	numChannels = x->audioIn1->getNumChannelsAsInt();
+	TTUInt16	vs = x->audioIn1->getVectorSizeAsInt();
+	
+	for(i=0; i<numChannels; i++){
+		x->audioIn1->setVector(i, vs, ins[i]);
+		x->audioIn2->setVector(i, vs, ins[i+numChannels]);
+	}
+	//TOOO: we cast the signal to a float, if Max can handle 64bit attributes, we should change that
+	object_attr_setfloat(x, _sym_position, (t_float)*ins[numChannels*2]);
+	
+	x->xfade->process(*x->audioIn1, *x->audioIn2, *x->audioOut);
+	
+	for(i=0; i<numChannels; i++)
+		x->audioOut->getVectorCopy(i, vs, outs[i]);
+}
 
 // DSP Method
 void fade_dsp(t_fade *x, t_signal **sp, short *count)
@@ -322,3 +360,32 @@ void fade_dsp(t_fade *x, t_signal **sp, short *count)
 	sysmem_freeptr(audioVectors);
 }
 
+void fade_dsp64(t_fade *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	short		i, j, k;
+	TTUInt8		numChannels = 0;	
+	
+	// audioVectors[] passed to balance_perform() as {x, audioInL[0], audioInR[0], audioOut[0], audioInL[1], audioInR[1], audioOut[1],...}
+	for(i=0; i < x->numChannels; i++){
+		j = x->numChannels + i;
+		k = x->numChannels*2 + i + 1;	// + 1 to account for the position input
+		if(count[i] && count[j] && count[k])
+			numChannels++;			
+	}
+	
+	x->audioIn1->setNumChannels(numChannels);
+	x->audioIn2->setNumChannels(numChannels);
+	x->audioOut->setNumChannels(numChannels);
+	x->audioIn1->setVectorSizeWithInt((TTUInt16)maxvectorsize);
+	x->audioIn2->setVectorSizeWithInt((TTUInt16)maxvectorsize);
+	x->audioOut->setVectorSizeWithInt((TTUInt16)maxvectorsize);
+	//audioIn will be set in the perform method
+	x->audioOut->alloc();	
+	
+	x->xfade->setAttributeValue(kTTSym_sampleRate, samplerate);
+	
+	if(count[x->numChannels * 2])		// SIGNAL RATE CROSSFADE CONNECTED
+		object_method(dsp64, gensym("dsp_add64"), x, fade_perform64_2, 0, NULL);
+	else
+		object_method(dsp64, gensym("dsp_add64"), x, fade_perform64_1, 0, NULL);
+}
