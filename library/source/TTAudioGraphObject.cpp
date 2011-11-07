@@ -63,7 +63,7 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 	// if an object supports the 'setOwner' message, then we tell it that we want to become the owner
 	// this is particularly important for the dac object
 	TTValue v = TTPtr(this);
-	mKernel->sendMessage(TT("setOwner"), v);
+	mKernel->sendMessage(TT("setOwner"), v, kTTValNONE);
 	
 	if (!sSharedMutex)
 		sSharedMutex = new TTMutex(false);

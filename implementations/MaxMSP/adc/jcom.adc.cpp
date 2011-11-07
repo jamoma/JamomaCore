@@ -169,7 +169,7 @@ void AdcGetDeviceNames(AdcPtr self)
 	AtomPtr		ap;
 	TTSymbolPtr	name;
 	
-	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), v);
+	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), kTTValNONE, v);
 	if (!err) {
 		ac = v.getSize();
 		ap = new Atom[ac];

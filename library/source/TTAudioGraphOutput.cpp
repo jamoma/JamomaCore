@@ -31,23 +31,23 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addMessage(audioEngineWillProcess);
 	addMessageProperty(audioEngineWillProcess, hidden, YES);
-	addMessageWithArgument(setOwner);
+	addMessageWithArguments(setOwner);
 	addMessageProperty(setOwner, hidden, YES);
 	
-	addMessageWithArgument(getAvailableDeviceNames);
-	addMessageWithArgument(getCpuLoad);
+	addMessageWithArguments(getAvailableDeviceNames);
+	addMessageWithArguments(getCpuLoad);
 	
 	setProcessMethod(processAudio);
 	
 	me = new TTValue;
 	(*me) = (TTObjectPtr)this;
-	audioEngine->sendMessage(TT("addCallbackObserver"), *me);
+	audioEngine->sendMessage(TT("addCallbackObserver"), *me, kTTValNONE);
 }
 
 
 TTAudioGraphOutput::~TTAudioGraphOutput()
 {
-	audioEngine->sendMessage(TT("removeCallbackObserver"), *me);
+	audioEngine->sendMessage(TT("removeCallbackObserver"), *me, kTTValNONE);
 	delete me;
 	TTAudioEngine::destroy();
 	TTObjectRelease(&placeHolder);
@@ -85,22 +85,22 @@ TTErr TTAudioGraphOutput::audioEngineWillProcess()
 }
 
 
-TTErr TTAudioGraphOutput::setOwner(TTValue& newOwner)
+TTErr TTAudioGraphOutput::setOwner(TTValue& newOwner, TTValue&)
 {
 	owner = TTAudioGraphObjectPtr(TTPtr(newOwner));
 	return kTTErrNone;
 }
 
 
-TTErr TTAudioGraphOutput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioGraphOutput::getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames)
 {
-	return audioEngine->sendMessage(TT("getAvailableOutputDeviceNames"), returnedDeviceNames);
+	return audioEngine->sendMessage(TT("getAvailableOutputDeviceNames"), kTTValNONE, returnedDeviceNames);
 }
 
 
-TTErr TTAudioGraphOutput::getCpuLoad(TTValue& returnedValue)
+TTErr TTAudioGraphOutput::getCpuLoad(const TTValue&, TTValue& returnedValue)
 {
-	return audioEngine->sendMessage(TT("getCpuLoad"), returnedValue);
+	return audioEngine->sendMessage(TT("getCpuLoad"), kTTValNONE, returnedValue);
 }
 
 

@@ -17,7 +17,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mValue(0)
 {
 	addAttribute(Value, kTypeFloat64);
-	addMessageWithArgument(dictionary);
+	addMessageWithArguments(dictionary);
 	
 	//setAttributeValue(TT("maxNumChannels"), arguments);		
 	setProcessMethod(processAudio);
@@ -31,7 +31,7 @@ TTAudioGraphSig::~TTAudioGraphSig()
 }
 
 
-TTErr TTAudioGraphSig::dictionary(TTValue& input)
+TTErr TTAudioGraphSig::dictionary(TTValue& input, TTValue&)
 {
 	TTDictionaryPtr	d = NULL;
 	TTValue			v;
