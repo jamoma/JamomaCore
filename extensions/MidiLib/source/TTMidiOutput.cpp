@@ -31,8 +31,8 @@ TT_OBJECT_CONSTRUCTOR,
 	
 	addAttributeWithSetter(Device,	kTypeSymbol);
 	
-	addMessageWithArgument(dictionary);
-	addMessageWithArgument(getAvailableDeviceNames);
+	addMessageWithArguments(dictionary);
+	addMessageWithArguments(getAvailableDeviceNames);
 	
 	setAttributeValue(TT("device"), TT("default"));
 }
@@ -45,7 +45,7 @@ TTMidiOutput::~TTMidiOutput()
 }
 
 
-TTErr TTMidiOutput::dictionary(const TTValue& aDictionaryValue)
+TTErr TTMidiOutput::dictionary(const TTValue& aDictionaryValue, TTValue&)
 {
 	TTDictionaryPtr	d = NULL;
 	TTSymbolPtr		schema;
@@ -73,7 +73,7 @@ TTErr TTMidiOutput::dictionary(const TTValue& aDictionaryValue)
 }
 
 
-TTErr TTMidiOutput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTMidiOutput::getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames)
 {
 	const PmDeviceInfo*	deviceInfo = NULL;
     int					deviceCount = Pm_CountDevices();

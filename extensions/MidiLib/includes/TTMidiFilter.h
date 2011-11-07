@@ -17,7 +17,7 @@ class TTMidiFilter : TTDataObject {
 
 	TTSymbolPtr	mType;
 	
-	TTErr dictionary(TTValue& input);
+	TTErr dictionary(const TTValue& input, TTValue& output);
 };
 
 

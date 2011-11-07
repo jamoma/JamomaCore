@@ -28,8 +28,8 @@ public:
 	PmDeviceID			mID;				///< selected device ID number
 	PortMidiStream*		mStream;			///< a descriptor for a MIDI device that is opened when the device is set
 	
-	TTErr dictionary(const TTValue& aDictionary);
-	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);
+	TTErr dictionary(const TTValue& aDictionary, TTValue&);
+	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 	TTErr setDevice(TTValue& newDeviceName);
 };
 

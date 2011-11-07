@@ -19,7 +19,7 @@
 
 TT_OBJECT_CONSTRUCTOR
 {
-	addMessageWithArgument(dictionary);
+	addMessageWithArguments(dictionary);
 }
 
 
@@ -29,7 +29,7 @@ TTMidiFormat::~TTMidiFormat()
 }
 
 
-TTErr TTMidiFormat::dictionary(TTValue& input)
+TTErr TTMidiFormat::dictionary(const TTValue& input, TTValue& output)
 {
 	TTDictionaryPtr	d = NULL;
 	TTSymbolPtr		schema;
@@ -55,10 +55,11 @@ TTErr TTMidiFormat::dictionary(TTValue& input)
 
 		d->append(TT("data1"), noteNumber);
 		d->append(TT("data2"), noteVelocity);
-		d->setSchema(TT("RawMidiEvent"));		
+		d->setSchema(TT("RawMidiEvent"));
+		output.set(0, TTPtr(d));
 	}
 	else if (schema == TT("RawMidiEvent"))
-		; // Nothing to do...
+		output = input; // Nothing to do...
 	else
 		return kTTErrInvalidType;
 

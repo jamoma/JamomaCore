@@ -21,7 +21,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mType(kTTSymEmpty)
 {
 	addAttribute(Type, kTypeSymbol);	
-	addMessageWithArgument(dictionary);
+	addMessageWithArguments(dictionary);
 	
 	setAttributeValue(TT("type"), TT("note"));
 }
@@ -33,7 +33,7 @@ TTMidiFilter::~TTMidiFilter()
 }
 
 
-TTErr TTMidiFilter::dictionary(TTValue& input)
+TTErr TTMidiFilter::dictionary(const TTValue& input, TTValue& output)
 {
 	TTDictionaryPtr	d = NULL;
 	TTSymbolPtr		schema;
@@ -83,6 +83,7 @@ TTErr TTMidiFilter::dictionary(TTValue& input)
 		}
 	out:
 		d->clear();
+		output.set(0, TTPtr(d));
 		return kTTErrNone;
 	}
 	else {

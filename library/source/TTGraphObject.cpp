@@ -136,14 +136,14 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	if (!err && message) {
 		(*mDictionary) = aDictionary;
 		v.set(0, TTPtr(mDictionary));
-		err = mKernel->sendMessage(TT("dictionary"), v);	// returns an error if dictionary is unhandled
+		err = mKernel->sendMessage(TT("dictionary"), v, v);	// returns an error if dictionary is unhandled
 	}
 	
 	if (err) {
 		if (schema == TT("number")) {
 			aDictionary.getValue(v);
 			// TODO: maybe try seeing if there is a "number" message first and then prefer that if it exists?
-			err = mKernel->sendMessage(TT("calculate"), v);
+			err = mKernel->sendMessage(TT("calculate"), v, v);
 			
 			mDictionary->setSchema(TT("number"));
 			mDictionary->setValue(v);
@@ -156,7 +156,7 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 			aDictionary.lookup(TT("name"), nameValue);
 			aDictionary.getValue(v);
 			nameValue.get(0, &nameSymbol);
-			err = mKernel->sendMessage(nameSymbol, v);
+			err = mKernel->sendMessage(nameSymbol, v, v);
 			
 			mDictionary->setSchema(TT("message"));
 			mDictionary->append(TT("name"), nameValue);

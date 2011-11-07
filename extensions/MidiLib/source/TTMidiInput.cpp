@@ -35,7 +35,7 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttribute(Owner,				kTypePointer);
 	addAttributeWithSetter(Device,	kTypeSymbol);
 	
-	addMessageWithArgument(getAvailableDeviceNames);
+	addMessageWithArguments(getAvailableDeviceNames);
 	
 	setAttributeValue(TT("device"), TT("default"));
 }
@@ -52,7 +52,7 @@ TTMidiInput::~TTMidiInput()
 }
 
 
-TTErr TTMidiInput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTMidiInput::getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames)
 {
 	const PmDeviceInfo*	deviceInfo = NULL;
     int					deviceCount = Pm_CountDevices();
