@@ -67,7 +67,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	
 	CLASS_ATTR_SYM(c,		"operator",		0,	t_op,	attrOperator);
 	CLASS_ATTR_ACCESSORS(c,	"operator",		NULL,	op_setOperator);
-	
+	CLASS_ATTR_ENUM(c,		"operator",	0,	"+ - * / % > >= == != <= < abs acos asin atan ceil cos cosh exp floor log log10 sin sinh sqrt tan tanh");
+
 	CLASS_ATTR_FLOAT(c,		"operand",		0,	t_op,	attrOperand);
 	CLASS_ATTR_ACCESSORS(c,	"operand",		NULL,	op_setOperand);
 
