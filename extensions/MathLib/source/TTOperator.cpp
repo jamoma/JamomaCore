@@ -221,7 +221,8 @@ TTErr TTOperator::processAddSignal(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -270,7 +271,8 @@ TTErr TTOperator::processSubtractSignal(TTAudioSignalArrayPtr inputs, TTAudioSig
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -318,7 +320,8 @@ TTErr TTOperator::processMultiplySignal(TTAudioSignalArrayPtr inputs, TTAudioSig
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -367,7 +370,8 @@ TTErr TTOperator::processDivideSignal(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -421,7 +425,8 @@ TTErr TTOperator::processEqualSignal(TTAudioSignalArrayPtr inputs, TTAudioSignal
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -473,7 +478,8 @@ TTErr TTOperator::processNotEqualSignal(TTAudioSignalArrayPtr inputs, TTAudioSig
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -526,7 +532,8 @@ TTErr TTOperator::processGreaterEqualSignal(TTAudioSignalArrayPtr inputs, TTAudi
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -578,7 +585,8 @@ TTErr TTOperator::processGreaterSignal(TTAudioSignalArrayPtr inputs, TTAudioSign
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -631,7 +639,8 @@ TTErr TTOperator::processSmallerEqualSignal(TTAudioSignalArrayPtr inputs, TTAudi
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -683,7 +692,8 @@ TTErr TTOperator::processSmallerSignal(TTAudioSignalArrayPtr inputs, TTAudioSign
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
@@ -741,7 +751,8 @@ TTErr TTOperator::processModuloSignal(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		}		
 	}
 	else {										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		numChannels = TTAudioSignal::getMinChannelCount(in1, in2);
+		out.setNumChannels(numChannels);
 		for (channel=0; channel<numChannels; channel++) {
 			in1Sample = in1.mSampleVectors[channel];
 			in2Sample = in2.mSampleVectors[channel];
