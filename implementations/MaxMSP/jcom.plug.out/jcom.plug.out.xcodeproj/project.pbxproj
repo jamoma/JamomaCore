@@ -236,7 +236,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"try to remove old resources\"\nrm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUEffect\nrm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUInstrument\n\necho \"try to make dir\"\necho `mkdir -pv \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n\necho \"try to copy\"\necho `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUEffect \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\necho `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUInstrument \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n\necho \"script complete\"\n";
+			shellScript = "echo \"try to remove old resources\"\nrm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUEffect\nrm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUInstrument\nrm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/AUSDK\n\necho \"try to make dir\"\necho `mkdir -pv \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n\necho \"try to copy\"\necho `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUEffect \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\necho `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUInstrument \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\necho `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/AUSDK \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n\necho \"script complete\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

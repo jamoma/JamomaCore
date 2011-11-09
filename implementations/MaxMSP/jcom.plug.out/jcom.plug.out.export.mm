@@ -362,12 +362,15 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 {
 	NSFileManager*		fileManager = [NSFileManager defaultManager];
 	NSMutableString*	tempPath = [[NSMutableString alloc] initWithString:NSTemporaryDirectory()];
+	NSMutableString*	tempPath2 = [[NSMutableString alloc] initWithString:NSTemporaryDirectory()];
 	NSBundle*			plugoutBundle = [NSBundle bundleWithIdentifier:@"org.jamoma.jcom.plug.out≈"];
 	NSString*			plugoutBundlePath = [plugoutBundle bundlePath];
 	NSMutableString*	plugtasticTemplatePath = [[NSMutableString alloc] initWithString:plugoutBundlePath];
+	NSMutableString*	plugtasticSDKPath = [[NSMutableString alloc] initWithString:plugoutBundlePath];
 	NSError*			err = nil;
 	std::string			filecontents = "";
 	std::string			filepath = [tempPath UTF8String];
+	std::string			filepath2 = [tempPath2 UTF8String];
 	FILE				*file;
 	char				str[16];
 	std::string			xcode_log = "";
@@ -413,6 +416,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	// 1. Create and Copy Template Xcode Project
 	
 	[tempPath appendString:@"PlugtasticAU"];
+	[tempPath2 appendString:@"PlugtasticAU"];
 	[fileManager removeFileAtPath:tempPath handler:nil];
 	[fileManager createDirectoryAtPath:tempPath withIntermediateDirectories:TRUE attributes:nil error:&err];
 
@@ -425,6 +429,12 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 		[tempPath appendString:@"/PlugtasticAUEffect"];
 	}
 	[fileManager copyItemAtPath:plugtasticTemplatePath toPath:tempPath error:&err];
+	
+	// and copy the au sdk
+	
+	[plugtasticSDKPath appendString:@"/Contents/Resources/AUSDK"];
+	[tempPath2 appendString:@"/AUSDK"];	
+	[fileManager copyItemAtPath:plugtasticSDKPath toPath:tempPath2 error:&err];
 	
 	
 	// 2. generate PlugtasticAUEffect.xcconfig in the temp location
@@ -457,7 +467,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	filecontents += "JAMOMALIBS = /usr/local/jamoma/lib";
 	filecontents += "\n";
 	
-	filecontents += "HEADER_SEARCH_PATHS = /usr/local/jamoma/includes";
+	filecontents += "HEADER_SEARCH_PATHS = /usr/local/jamoma/includes ../AUSDK";
 	filecontents += "\n";
 	
 	filecontents += "OTHER_LDFLAGS = \"$(JAMOMALIBS)\"/JamomaFoundation.dylib \"$(JAMOMALIBS)\"/JamomaDSP.dylib \"$(JAMOMALIBS)\"/JamomaGraph.dylib \"$(JAMOMALIBS)\"/JamomaAudioGraph.dylib \"$(JAMOMALIBS)\"/JamomaGraphics.dylib \"$(JAMOMALIBS)\"/JamomaPlugtastic.dylib";

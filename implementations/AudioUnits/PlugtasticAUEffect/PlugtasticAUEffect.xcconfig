@@ -8,6 +8,6 @@ DEPLOYMENT_LOCATION = YES
 // Paths
 JAMOMALIBS = /usr/local/jamoma/lib
 
-HEADER_SEARCH_PATHS = /usr/local/jamoma/includes
+HEADER_SEARCH_PATHS = /usr/local/jamoma/includes ../AUSDK
 
 OTHER_LDFLAGS = "$(JAMOMALIBS)"/JamomaFoundation.dylib "$(JAMOMALIBS)"/JamomaDSP.dylib "$(JAMOMALIBS)"/JamomaGraph.dylib "$(JAMOMALIBS)"/JamomaAudioGraph.dylib "$(JAMOMALIBS)"/JamomaGraphics.dylib "$(JAMOMALIBS)"/JamomaPlugtastic.dylib
