@@ -171,7 +171,7 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
-	if (in == &out)
+	if (inputs->numAudioSignals == 0)
 		hasModulation = false;
 	else {
 		in = &inputs->getSignal(0);
