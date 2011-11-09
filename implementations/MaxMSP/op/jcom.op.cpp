@@ -56,7 +56,8 @@ int TTGRAPH_EXTERNAL_EXPORT main(void)
 	
 	CLASS_ATTR_SYM(c,		"operator",	0,		Op,	attrOperator);
 	CLASS_ATTR_ACCESSORS(c,	"operator",	NULL,	OpSetOperator);
-	
+	CLASS_ATTR_ENUM(c,		"operator",	0,	"+ - * / % > >= == != <= < abs acos asin atan ceil cos cosh exp floor log log10 sin sinh sqrt tan tanh");
+
 	CLASS_ATTR_FLOAT(c,		"operand",	0,		Op,	attrOperand);
 	CLASS_ATTR_ACCESSORS(c,	"operand",	NULL,	OpSetOperand);
 	
