@@ -29,7 +29,12 @@ class TTOperator : TTAudioObject {
 	TTErr calculateModulo(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	TTErr calculateSqrt(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	TTErr calculateFabs(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
-	
+	TTErr calculateEqual(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateNotEqual(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateGreaterEqual(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateGreater(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateSmallerEqual(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateSmaller(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	/**	A standard audio processing method as used by TTBlue objects. */
 	TTErr processAdd				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -50,6 +55,24 @@ class TTOperator : TTAudioObject {
 	TTErr processSqrt				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	TTErr processFabs				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	TTErr processEqual				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processEqualSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	TTErr processNotEqual			(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processNotEqualSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	TTErr processGreater			(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processGreaterSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	TTErr processGreaterEqual			(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processGreaterEqualSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	TTErr processSmaller			(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processSmallerSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	TTErr processSmallerEqual			(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processSmallerEqualSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 #define WRAP_C_FUNCTION_AS_TTOp_METHODS(cName, methodName) \
 	TTErr calculate ## methodName (const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)\
