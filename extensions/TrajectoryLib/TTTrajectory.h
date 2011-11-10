@@ -64,7 +64,7 @@ public:
 	}
 	
 	
-	TTErr getTypes(TTValue& listOfTrajectoryTypesToReturn)
+	TTErr getTypes(const TTValue&, TTValue& listOfTrajectoryTypesToReturn)
 	{
 		TTValue v;
 		v.setSize(2);
@@ -73,7 +73,7 @@ public:
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 	
-	TTErr getCurrentType(TTValue& CurrentTypeToReturn)
+	TTErr getCurrentType(const TTValue&, TTValue& CurrentTypeToReturn)
 
 	{
 		CurrentTypeToReturn = mType;
@@ -82,7 +82,7 @@ public:
 	
 	
 	
-	TTErr getCurrentAttributeNames(TTValue& listOfCurrentAttributesToReturn)
+	TTErr getCurrentAttributeNames(const TTValue&, TTValue& listOfCurrentAttributesToReturn)
 	{
 		long		n;
 		TTValue		names;
@@ -105,7 +105,7 @@ public:
 		return kTTErrNone;
 	}
 	
-	TTErr ramp(TTValue& arguments)
+	TTErr ramp(const TTValue& arguments, TTValue&)
 	{
 		/*
 		 ramp <startValue|double> <stopValue|double> <time|double> <type|string>
@@ -228,7 +228,7 @@ public:
 		return mActualTrajectoryObject->setAttributeValue(TT("deltaZ"), mDeltaZ);
 	}
 	
-	TTErr updateSampleRate(const TTValue& oldSampleRate)
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 	{
 		//for (int i=0; i<3; i++) {
 		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, (uint)sr);

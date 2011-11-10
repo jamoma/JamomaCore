@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -180,83 +180,147 @@
 	</References>
 	<Files>
 		<Filter
-			Name="WindowFunction Units"
+			Name="source"
 			>
 			<File
-				RelativePath=".\BartlettWindow.cpp"
+				RelativePath=".\source\TTBartlettWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BartlettWindow.h"
+				RelativePath=".\source\TTBlackmanHarrisWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BlackmanWindow.cpp"
+				RelativePath=".\source\TTBlackmanWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BlackmanWindow.h"
+				RelativePath=".\source\TTExpodecWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\HammingWindow.cpp"
+				RelativePath=".\source\TTGaussWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\HammingWindow.h"
+				RelativePath=".\source\TTHammingWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\HanningWindow.cpp"
+				RelativePath=".\source\TTHanningWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\HanningWindow.h"
+				RelativePath=".\source\TTKaiserWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\KaiserWindow.cpp"
+				RelativePath=".\source\TTNuttallWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\KaiserWindow.h"
+				RelativePath=".\source\TTRectangularWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\RectangularWindow.cpp"
+				RelativePath=".\source\TTTrapezoidWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\RectangularWindow.h"
+				RelativePath=".\source\TTTukeyWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TrapezoidWindow.cpp"
+				RelativePath=".\source\TTWelchWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TrapezoidWindow.h"
+				RelativePath=".\source\TTWindowFunction.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="tests"
+			>
+			<File
+				RelativePath=".\tests\TTGaussWindow.test.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\WelchWindow.cpp"
+				RelativePath=".\tests\TTHammingWindow.test.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\WelchWindow.h"
+				RelativePath=".\tests\TTKaiserWindow.test.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\WindowFunction.cpp"
+				RelativePath=".\tests\TTTukeyWindow.test.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="includes"
+			>
+			<File
+				RelativePath=".\includes\TTBartlettWindow.h"
 				>
 			</File>
 			<File
-				RelativePath=".\WindowFunction.h"
+				RelativePath=".\includes\TTBlackmanHarrisWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTBlackmanWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTExpodecWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTGaussWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTHammingWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTHanningWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTKaiserWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTNuttallWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTRectangularWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTTrapezoidWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTTukeyWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTWelchWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTWindowFunction.h"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\WindowFunctionLib.cpp"
+			RelativePath=".\TTWindowFunctionLib.cpp"
 			>
 		</File>
 	</Files>

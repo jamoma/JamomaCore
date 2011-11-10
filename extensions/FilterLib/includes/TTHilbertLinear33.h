@@ -42,7 +42,7 @@ class TTHilbertLinear33 : TTAudioObject {
 	TTAllpass2b*	mF4;		///< path1	
 	
 	// Notifications
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	// Zero filter history
 	TTErr clear();

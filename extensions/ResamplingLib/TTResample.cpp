@@ -22,7 +22,7 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addAttributeWithSetter(Direction, kTypeSymbol);
 	addAttributeWithSetter(Mode, kTypeSymbol);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 	
 	setAttributeValue(TT("mode"), TT("staircase"));
 	setAttributeValue(TT("direction"), TT("down"));
@@ -77,7 +77,7 @@ TTErr TTResample::setMode(const TTValue& newMode)
 }
 
 
-TTErr TTResample::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTResample::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	return mResamplingFilter->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 }

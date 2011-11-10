@@ -25,7 +25,7 @@ TT_AUDIO_CONSTRUCTOR
 	addAttribute(SrRatio,				kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
@@ -39,7 +39,7 @@ TTDegrade::~TTDegrade()
 {;}
 
 
-TTErr TTDegrade::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTDegrade::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mAccumulator.resize(maxNumChannels);
 	mAccumulator.assign(maxNumChannels, 0.0);

@@ -31,8 +31,8 @@ class TTPulseSub : public TTAudioObject {
 	TTAudioSignalPtr	sig1;
 	TTAudioSignalPtr	sig2;
 	
-	TTErr updateSampleRate(const TTValue& oldSampleRate);
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 		

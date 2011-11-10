@@ -9,27 +9,27 @@
 /* Begin PBXBuildFile section */
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
-		22FD46D011E247C5007BBF7E /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* FunctionLib.cpp */; };
-		666CF817131B41BF0003D7E2 /* CosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF80F131B41BF0003D7E2 /* CosineFunction.h */; };
-		666CF818131B41BF0003D7E2 /* ExpFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF810131B41BF0003D7E2 /* ExpFunction.h */; };
-		666CF819131B41BF0003D7E2 /* Function.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF811131B41BF0003D7E2 /* Function.h */; };
-		666CF81A131B41BF0003D7E2 /* LinearFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF812131B41BF0003D7E2 /* LinearFunction.h */; };
-		666CF81B131B41BF0003D7E2 /* LogFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF813131B41BF0003D7E2 /* LogFunction.h */; };
-		666CF81C131B41BF0003D7E2 /* LowpassFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF814131B41BF0003D7E2 /* LowpassFunction.h */; };
-		666CF81D131B41BF0003D7E2 /* PowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF815131B41BF0003D7E2 /* PowerFunction.h */; };
-		666CF81E131B41BF0003D7E2 /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF816131B41BF0003D7E2 /* TanhFunction.h */; };
-		666CF827131B41C50003D7E2 /* CosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF81F131B41C50003D7E2 /* CosineFunction.cpp */; };
-		666CF828131B41C50003D7E2 /* ExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF820131B41C50003D7E2 /* ExpFunction.cpp */; };
-		666CF829131B41C50003D7E2 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF821131B41C50003D7E2 /* Function.cpp */; };
-		666CF82A131B41C50003D7E2 /* LinearFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF822131B41C50003D7E2 /* LinearFunction.cpp */; };
-		666CF82B131B41C50003D7E2 /* LogFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF823131B41C50003D7E2 /* LogFunction.cpp */; };
-		666CF82C131B41C50003D7E2 /* LowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF824131B41C50003D7E2 /* LowpassFunction.cpp */; };
-		666CF82D131B41C50003D7E2 /* PowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF825131B41C50003D7E2 /* PowerFunction.cpp */; };
-		666CF82E131B41C50003D7E2 /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF826131B41C50003D7E2 /* TanhFunction.cpp */; };
-		66A7448A13A9836300AF9B5B /* LinearFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A7448913A9836300AF9B5B /* LinearFunction.test.cpp */; };
-		66A744B813A98AD600AF9B5B /* SmoothPolynomialFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A744B713A98AD600AF9B5B /* SmoothPolynomialFunction.test.cpp */; };
-		A769B90C13A8F07500441F80 /* SmoothPolynomialFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A769B90B13A8F07500441F80 /* SmoothPolynomialFunction.h */; };
-		A769B90E13A8F08400441F80 /* SmoothPolynomialFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A769B90D13A8F08400441F80 /* SmoothPolynomialFunction.cpp */; };
+		22FD46D011E247C5007BBF7E /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* TTFunctionLib.cpp */; };
+		666CF817131B41BF0003D7E2 /* TTCosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF80F131B41BF0003D7E2 /* TTCosineFunction.h */; };
+		666CF818131B41BF0003D7E2 /* TTExpFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF810131B41BF0003D7E2 /* TTExpFunction.h */; };
+		666CF819131B41BF0003D7E2 /* TTFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF811131B41BF0003D7E2 /* TTFunction.h */; };
+		666CF81A131B41BF0003D7E2 /* TTLinearFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF812131B41BF0003D7E2 /* TTLinearFunction.h */; };
+		666CF81B131B41BF0003D7E2 /* TTLogFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF813131B41BF0003D7E2 /* TTLogFunction.h */; };
+		666CF81C131B41BF0003D7E2 /* TTLowpassFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF814131B41BF0003D7E2 /* TTLowpassFunction.h */; };
+		666CF81D131B41BF0003D7E2 /* TTPowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF815131B41BF0003D7E2 /* TTPowerFunction.h */; };
+		666CF81E131B41BF0003D7E2 /* TTTanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF816131B41BF0003D7E2 /* TTTanhFunction.h */; };
+		666CF827131B41C50003D7E2 /* TTCosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF81F131B41C50003D7E2 /* TTCosineFunction.cpp */; };
+		666CF828131B41C50003D7E2 /* TTExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF820131B41C50003D7E2 /* TTExpFunction.cpp */; };
+		666CF829131B41C50003D7E2 /* TTFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF821131B41C50003D7E2 /* TTFunction.cpp */; };
+		666CF82A131B41C50003D7E2 /* TTLinearFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF822131B41C50003D7E2 /* TTLinearFunction.cpp */; };
+		666CF82B131B41C50003D7E2 /* TTLogFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF823131B41C50003D7E2 /* TTLogFunction.cpp */; };
+		666CF82C131B41C50003D7E2 /* TTLowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF824131B41C50003D7E2 /* TTLowpassFunction.cpp */; };
+		666CF82D131B41C50003D7E2 /* TTPowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF825131B41C50003D7E2 /* TTPowerFunction.cpp */; };
+		666CF82E131B41C50003D7E2 /* TTTanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF826131B41C50003D7E2 /* TTTanhFunction.cpp */; };
+		66A7448A13A9836300AF9B5B /* TTLinearFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A7448913A9836300AF9B5B /* TTLinearFunction.test.cpp */; };
+		66A744B813A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A744B713A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp */; };
+		A769B90C13A8F07500441F80 /* TTSmoothPolynomialFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A769B90B13A8F07500441F80 /* TTSmoothPolynomialFunction.h */; };
+		A769B90E13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A769B90D13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,27 +38,27 @@
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
-		22FD46CF11E247C5007BBF7E /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
-		666CF80F131B41BF0003D7E2 /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CosineFunction.h; path = includes/CosineFunction.h; sourceTree = "<group>"; };
-		666CF810131B41BF0003D7E2 /* ExpFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpFunction.h; path = includes/ExpFunction.h; sourceTree = "<group>"; };
-		666CF811131B41BF0003D7E2 /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Function.h; path = includes/Function.h; sourceTree = "<group>"; };
-		666CF812131B41BF0003D7E2 /* LinearFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinearFunction.h; path = includes/LinearFunction.h; sourceTree = "<group>"; };
-		666CF813131B41BF0003D7E2 /* LogFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogFunction.h; path = includes/LogFunction.h; sourceTree = "<group>"; };
-		666CF814131B41BF0003D7E2 /* LowpassFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LowpassFunction.h; path = includes/LowpassFunction.h; sourceTree = "<group>"; };
-		666CF815131B41BF0003D7E2 /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PowerFunction.h; path = includes/PowerFunction.h; sourceTree = "<group>"; };
-		666CF816131B41BF0003D7E2 /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TanhFunction.h; path = includes/TanhFunction.h; sourceTree = "<group>"; };
-		666CF81F131B41C50003D7E2 /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CosineFunction.cpp; path = source/CosineFunction.cpp; sourceTree = "<group>"; };
-		666CF820131B41C50003D7E2 /* ExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExpFunction.cpp; path = source/ExpFunction.cpp; sourceTree = "<group>"; };
-		666CF821131B41C50003D7E2 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Function.cpp; path = source/Function.cpp; sourceTree = "<group>"; };
-		666CF822131B41C50003D7E2 /* LinearFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LinearFunction.cpp; path = source/LinearFunction.cpp; sourceTree = "<group>"; };
-		666CF823131B41C50003D7E2 /* LogFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LogFunction.cpp; path = source/LogFunction.cpp; sourceTree = "<group>"; };
-		666CF824131B41C50003D7E2 /* LowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LowpassFunction.cpp; path = source/LowpassFunction.cpp; sourceTree = "<group>"; };
-		666CF825131B41C50003D7E2 /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PowerFunction.cpp; path = source/PowerFunction.cpp; sourceTree = "<group>"; };
-		666CF826131B41C50003D7E2 /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TanhFunction.cpp; path = source/TanhFunction.cpp; sourceTree = "<group>"; };
-		66A7448913A9836300AF9B5B /* LinearFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LinearFunction.test.cpp; path = tests/LinearFunction.test.cpp; sourceTree = "<group>"; };
-		66A744B713A98AD600AF9B5B /* SmoothPolynomialFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SmoothPolynomialFunction.test.cpp; path = tests/SmoothPolynomialFunction.test.cpp; sourceTree = "<group>"; };
-		A769B90B13A8F07500441F80 /* SmoothPolynomialFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SmoothPolynomialFunction.h; path = includes/SmoothPolynomialFunction.h; sourceTree = "<group>"; };
-		A769B90D13A8F08400441F80 /* SmoothPolynomialFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SmoothPolynomialFunction.cpp; path = source/SmoothPolynomialFunction.cpp; sourceTree = "<group>"; };
+		22FD46CF11E247C5007BBF7E /* TTFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFunctionLib.cpp; sourceTree = "<group>"; };
+		666CF80F131B41BF0003D7E2 /* TTCosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCosineFunction.h; path = includes/TTCosineFunction.h; sourceTree = "<group>"; };
+		666CF810131B41BF0003D7E2 /* TTExpFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTExpFunction.h; path = includes/TTExpFunction.h; sourceTree = "<group>"; };
+		666CF811131B41BF0003D7E2 /* TTFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFunction.h; path = includes/TTFunction.h; sourceTree = "<group>"; };
+		666CF812131B41BF0003D7E2 /* TTLinearFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLinearFunction.h; path = includes/TTLinearFunction.h; sourceTree = "<group>"; };
+		666CF813131B41BF0003D7E2 /* TTLogFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLogFunction.h; path = includes/TTLogFunction.h; sourceTree = "<group>"; };
+		666CF814131B41BF0003D7E2 /* TTLowpassFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassFunction.h; path = includes/TTLowpassFunction.h; sourceTree = "<group>"; };
+		666CF815131B41BF0003D7E2 /* TTPowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPowerFunction.h; path = includes/TTPowerFunction.h; sourceTree = "<group>"; };
+		666CF816131B41BF0003D7E2 /* TTTanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTanhFunction.h; path = includes/TTTanhFunction.h; sourceTree = "<group>"; };
+		666CF81F131B41C50003D7E2 /* TTCosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCosineFunction.cpp; path = source/TTCosineFunction.cpp; sourceTree = "<group>"; };
+		666CF820131B41C50003D7E2 /* TTExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTExpFunction.cpp; path = source/TTExpFunction.cpp; sourceTree = "<group>"; };
+		666CF821131B41C50003D7E2 /* TTFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTFunction.cpp; path = source/TTFunction.cpp; sourceTree = "<group>"; };
+		666CF822131B41C50003D7E2 /* TTLinearFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLinearFunction.cpp; path = source/TTLinearFunction.cpp; sourceTree = "<group>"; };
+		666CF823131B41C50003D7E2 /* TTLogFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLogFunction.cpp; path = source/TTLogFunction.cpp; sourceTree = "<group>"; };
+		666CF824131B41C50003D7E2 /* TTLowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFunction.cpp; path = source/TTLowpassFunction.cpp; sourceTree = "<group>"; };
+		666CF825131B41C50003D7E2 /* TTPowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPowerFunction.cpp; path = source/TTPowerFunction.cpp; sourceTree = "<group>"; };
+		666CF826131B41C50003D7E2 /* TTTanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTanhFunction.cpp; path = source/TTTanhFunction.cpp; sourceTree = "<group>"; };
+		66A7448913A9836300AF9B5B /* TTLinearFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLinearFunction.test.cpp; path = tests/TTLinearFunction.test.cpp; sourceTree = "<group>"; };
+		66A744B713A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSmoothPolynomialFunction.test.cpp; path = tests/TTSmoothPolynomialFunction.test.cpp; sourceTree = "<group>"; };
+		A769B90B13A8F07500441F80 /* TTSmoothPolynomialFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSmoothPolynomialFunction.h; path = includes/TTSmoothPolynomialFunction.h; sourceTree = "<group>"; };
+		A769B90D13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSmoothPolynomialFunction.cpp; path = source/TTSmoothPolynomialFunction.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* FunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -108,9 +108,9 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22FD46CF11E247C5007BBF7E /* FunctionLib.cpp */,
-				666CF821131B41C50003D7E2 /* Function.cpp */,
-				666CF811131B41BF0003D7E2 /* Function.h */,
+				22FD46CF11E247C5007BBF7E /* TTFunctionLib.cpp */,
+				666CF821131B41C50003D7E2 /* TTFunction.cpp */,
+				666CF811131B41BF0003D7E2 /* TTFunction.h */,
 				2217FAAA0E4F284D00806778 /* Classes */,
 			);
 			name = Source;
@@ -119,24 +119,24 @@
 		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				666CF81F131B41C50003D7E2 /* CosineFunction.cpp */,
-				666CF80F131B41BF0003D7E2 /* CosineFunction.h */,
-				666CF820131B41C50003D7E2 /* ExpFunction.cpp */,
-				666CF810131B41BF0003D7E2 /* ExpFunction.h */,
-				666CF822131B41C50003D7E2 /* LinearFunction.cpp */,
-				666CF812131B41BF0003D7E2 /* LinearFunction.h */,
-				66A7448913A9836300AF9B5B /* LinearFunction.test.cpp */,
-				666CF823131B41C50003D7E2 /* LogFunction.cpp */,
-				666CF813131B41BF0003D7E2 /* LogFunction.h */,
-				666CF824131B41C50003D7E2 /* LowpassFunction.cpp */,
-				666CF814131B41BF0003D7E2 /* LowpassFunction.h */,
-				666CF825131B41C50003D7E2 /* PowerFunction.cpp */,
-				666CF815131B41BF0003D7E2 /* PowerFunction.h */,
-				A769B90B13A8F07500441F80 /* SmoothPolynomialFunction.h */,
-				A769B90D13A8F08400441F80 /* SmoothPolynomialFunction.cpp */,
-				66A744B713A98AD600AF9B5B /* SmoothPolynomialFunction.test.cpp */,
-				666CF826131B41C50003D7E2 /* TanhFunction.cpp */,
-				666CF816131B41BF0003D7E2 /* TanhFunction.h */,
+				666CF81F131B41C50003D7E2 /* TTCosineFunction.cpp */,
+				666CF80F131B41BF0003D7E2 /* TTCosineFunction.h */,
+				666CF820131B41C50003D7E2 /* TTExpFunction.cpp */,
+				666CF810131B41BF0003D7E2 /* TTExpFunction.h */,
+				666CF822131B41C50003D7E2 /* TTLinearFunction.cpp */,
+				666CF812131B41BF0003D7E2 /* TTLinearFunction.h */,
+				66A7448913A9836300AF9B5B /* TTLinearFunction.test.cpp */,
+				666CF823131B41C50003D7E2 /* TTLogFunction.cpp */,
+				666CF813131B41BF0003D7E2 /* TTLogFunction.h */,
+				666CF824131B41C50003D7E2 /* TTLowpassFunction.cpp */,
+				666CF814131B41BF0003D7E2 /* TTLowpassFunction.h */,
+				666CF825131B41C50003D7E2 /* TTPowerFunction.cpp */,
+				666CF815131B41BF0003D7E2 /* TTPowerFunction.h */,
+				A769B90B13A8F07500441F80 /* TTSmoothPolynomialFunction.h */,
+				A769B90D13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp */,
+				66A744B713A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp */,
+				666CF826131B41C50003D7E2 /* TTTanhFunction.cpp */,
+				666CF816131B41BF0003D7E2 /* TTTanhFunction.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -148,15 +148,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				666CF817131B41BF0003D7E2 /* CosineFunction.h in Headers */,
-				666CF818131B41BF0003D7E2 /* ExpFunction.h in Headers */,
-				666CF819131B41BF0003D7E2 /* Function.h in Headers */,
-				666CF81A131B41BF0003D7E2 /* LinearFunction.h in Headers */,
-				666CF81B131B41BF0003D7E2 /* LogFunction.h in Headers */,
-				666CF81C131B41BF0003D7E2 /* LowpassFunction.h in Headers */,
-				666CF81D131B41BF0003D7E2 /* PowerFunction.h in Headers */,
-				666CF81E131B41BF0003D7E2 /* TanhFunction.h in Headers */,
-				A769B90C13A8F07500441F80 /* SmoothPolynomialFunction.h in Headers */,
+				666CF817131B41BF0003D7E2 /* TTCosineFunction.h in Headers */,
+				666CF818131B41BF0003D7E2 /* TTExpFunction.h in Headers */,
+				666CF819131B41BF0003D7E2 /* TTFunction.h in Headers */,
+				666CF81A131B41BF0003D7E2 /* TTLinearFunction.h in Headers */,
+				666CF81B131B41BF0003D7E2 /* TTLogFunction.h in Headers */,
+				666CF81C131B41BF0003D7E2 /* TTLowpassFunction.h in Headers */,
+				666CF81D131B41BF0003D7E2 /* TTPowerFunction.h in Headers */,
+				666CF81E131B41BF0003D7E2 /* TTTanhFunction.h in Headers */,
+				A769B90C13A8F07500441F80 /* TTSmoothPolynomialFunction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,18 +227,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22FD46D011E247C5007BBF7E /* FunctionLib.cpp in Sources */,
-				666CF827131B41C50003D7E2 /* CosineFunction.cpp in Sources */,
-				666CF828131B41C50003D7E2 /* ExpFunction.cpp in Sources */,
-				666CF829131B41C50003D7E2 /* Function.cpp in Sources */,
-				666CF82A131B41C50003D7E2 /* LinearFunction.cpp in Sources */,
-				666CF82B131B41C50003D7E2 /* LogFunction.cpp in Sources */,
-				666CF82C131B41C50003D7E2 /* LowpassFunction.cpp in Sources */,
-				666CF82D131B41C50003D7E2 /* PowerFunction.cpp in Sources */,
-				666CF82E131B41C50003D7E2 /* TanhFunction.cpp in Sources */,
-				A769B90E13A8F08400441F80 /* SmoothPolynomialFunction.cpp in Sources */,
-				66A7448A13A9836300AF9B5B /* LinearFunction.test.cpp in Sources */,
-				66A744B813A98AD600AF9B5B /* SmoothPolynomialFunction.test.cpp in Sources */,
+				22FD46D011E247C5007BBF7E /* TTFunctionLib.cpp in Sources */,
+				666CF827131B41C50003D7E2 /* TTCosineFunction.cpp in Sources */,
+				666CF828131B41C50003D7E2 /* TTExpFunction.cpp in Sources */,
+				666CF829131B41C50003D7E2 /* TTFunction.cpp in Sources */,
+				666CF82A131B41C50003D7E2 /* TTLinearFunction.cpp in Sources */,
+				666CF82B131B41C50003D7E2 /* TTLogFunction.cpp in Sources */,
+				666CF82C131B41C50003D7E2 /* TTLowpassFunction.cpp in Sources */,
+				666CF82D131B41C50003D7E2 /* TTPowerFunction.cpp in Sources */,
+				666CF82E131B41C50003D7E2 /* TTTanhFunction.cpp in Sources */,
+				A769B90E13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp in Sources */,
+				66A7448A13A9836300AF9B5B /* TTLinearFunction.test.cpp in Sources */,
+				66A744B813A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,7 +26,7 @@ class TTDegrade : public TTAudioObject {
 	TTFloat64		mSrRatio;		///< Use a range of 0.0 to 1.0 to specify a ratio of the current sample-rate to emulate in order to intentional aliasing artifacts.
 
 	/**	Setter for the inherited maxNumChannels attribute.		*/
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	/**	Setter for the bitdepth attribute. */
 	TTErr setBitdepth(const TTValue& value);

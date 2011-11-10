@@ -35,12 +35,12 @@ class TTAudioObjectArray : public TTAudioObject {
 	TTAudioSignalPtr	mOutputChannelSignal;	///< Signal used within the process method for passing to individual instances
 	
 	// accessors
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 	TTErr setSize(const TTValueRef newSize);
 	TTErr setClass(const TTValueRef newClass);
 
 	// access the objects inside the array
-	TTErr set(TTValue& arguments);
+	TTErr set(TTValue& arguments, TTValue&);
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	

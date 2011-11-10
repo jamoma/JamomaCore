@@ -43,7 +43,7 @@ class TT_OVERDRIVE_EXPORT TTOverdrive : public TTAudioObject {
 	TTAudioObjectPtr	dcBlockerUnit;	///< A TTDCBlock object
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	/**	Process method when mode == 0	*/
 	TTErr processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

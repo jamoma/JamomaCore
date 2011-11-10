@@ -99,7 +99,7 @@ protected:
 	TTErr resetBenchmarking();
 	
 	/**	Return the average time spent by this object processing audio since the last reset.					*/
-	TTErr getProcessingBenchmark(TTValueRef v);
+	TTErr getProcessingBenchmark(TTValueConstRef, TTValueRef v);
 	
 public:
 	/** Mute the audio processing routine and zero all output.												*/
@@ -147,7 +147,7 @@ public:
 	 */
 	TTErr calculate(const TTFloat64& x, TTFloat64& y);
 	TTErr calculate(const TTValue& x, TTValue& y);
-	TTErr calculateMessage(TTValue& v);
+	TTErr calculateMessage(TTValueConstRef input, TTValueRef output);
 
 	
 	/**	A process method that may be used by subclasses to wrap a calculate method in a semi-standard way.

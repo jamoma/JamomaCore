@@ -49,10 +49,10 @@ class TTLimiter : public TTAudioObject {
 	TTFloat64			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
 
 	/**	Override the setter for the inherited maxNumChannels attribute.					*/
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
-	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
 
 	/** Private utility used by the audio processing routine. */
 	void setRecover();

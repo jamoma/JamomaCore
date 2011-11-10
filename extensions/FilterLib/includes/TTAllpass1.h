@@ -29,8 +29,8 @@ class TTAllpass1 : public TTAudioObject {
 	
 	
 	// Notifications
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
 
 	/** Internal initialization of buffers and pointers etc. */
 	TTErr init(TTUInt64 newDelayMaxInSamples);

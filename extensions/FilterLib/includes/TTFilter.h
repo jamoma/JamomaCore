@@ -61,7 +61,7 @@ public:
 	}
 	
 	
-	TTErr getTypes(TTValue& listOfFilterTypesToReturn)
+	TTErr getTypes(const TTValue&, TTValue& listOfFilterTypesToReturn)
 	{
 		return TTGetRegisteredClassNamesForTags(listOfFilterTypesToReturn, TT("filter"));
 	}
@@ -73,7 +73,7 @@ public:
 	}
 	
 	
-	TTErr mode(const TTValue& newMode)
+	TTErr mode(const TTValue& newMode, TTValue&)
 	{
 		if (mActualFilterObject)
 			return mActualFilterObject->setAttributeValue(TT("mode"), const_cast<TTValue&>(newMode));
@@ -82,7 +82,7 @@ public:
 	}
 	
 	
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 	{
 		if (mActualFilterObject)
 			return mActualFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
@@ -91,7 +91,7 @@ public:
 	}
 	
 	
-	TTErr updateSampleRate(const TTValue& oldSampleRate)
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 	{
 		return mActualFilterObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
 	}

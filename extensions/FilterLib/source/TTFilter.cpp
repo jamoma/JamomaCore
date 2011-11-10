@@ -24,12 +24,12 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Q, kTypeFloat64);
 	addAttributeWithSetter(Type, kTypeSymbol);
 	
-	addMessageWithArgument(getTypes);
+	addMessageWithArguments(getTypes);
 	addMessage(clear);
-	addMessageWithArgument(mode);	// some filters have a 'mode' attribute, some don't, so this is a message instead of an attribute 
+	addMessageWithArguments(mode);	// some filters have a 'mode' attribute, some don't, so this is a message instead of an attribute 
 	
-	addUpdate(SampleRate);
-	addUpdate(MaxNumChannels);
+	addUpdates(SampleRate);
+	addUpdates(MaxNumChannels);
 	
 	setAttributeValue(kTTSym_maxNumChannels, arguments);
 	setAttributeValue(TT("type"), TT("lowpass.1"));

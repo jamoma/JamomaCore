@@ -35,11 +35,11 @@ TT_OBJECT_CONSTRUCTOR,
 	addMessage(clear);
 	
 	addMessage(alloc);
-	addMessageWithArgument(allocWithNewVectorSize);
-	addMessageWithArgument(setVector32);
-	addMessageWithArgument(getVector32);
-	addMessageWithArgument(setVector64);
-	addMessageWithArgument(getVector64);
+	addMessageWithArguments(allocWithNewVectorSize);
+	addMessageWithArguments(setVector32);
+	addMessageWithArguments(getVector32);
+	addMessageWithArguments(setVector64);
+	addMessageWithArguments(getVector64);
 	
 	addMessageProperty(alloc,					hidden, YES);
 	addMessageProperty(allocWithNewVectorSize,	hidden, YES);
@@ -124,7 +124,7 @@ TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorS
 	return kTTErrNone;
 }
 
-TTErr TTAudioSignal::setVector64(const TTValue& v)
+TTErr TTAudioSignal::setVector64(const TTValue& v, TTValue&)
 {
 	TTUInt16		channel;
 	TTUInt16		newVectorSize;
@@ -183,7 +183,7 @@ TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorS
 	return kTTErrNone;
 }
 
-TTErr TTAudioSignal::setVector32(const TTValue& v)
+TTErr TTAudioSignal::setVector32(const TTValue& v, TTValue&)
 {
 	TTUInt16		channel;
 	TTUInt16		newVectorSize;
@@ -214,7 +214,7 @@ TTErr TTAudioSignal::getVectorCopy(const TTUInt16 channel, const TTUInt16 theVec
 }
 
 
-TTErr TTAudioSignal::getVector64(TTValue& v)
+TTErr TTAudioSignal::getVector64(TTValue&, TTValue& v)
 {
 	TTUInt16		channel;
 	TTUInt16		theVectorSize;
@@ -239,7 +239,7 @@ TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 theVectorS
 	return kTTErrNone;
 }
 
-TTErr TTAudioSignal::getVector32(TTValue& v)
+TTErr TTAudioSignal::getVector32(TTValue&, TTValue& v)
 {
 	TTUInt16		channel;
 	TTUInt16		theVectorSize;
@@ -287,7 +287,7 @@ TTErr TTAudioSignal::allocWithVectorSize(const TTUInt16 newVectorSize)
 		return kTTErrNone;
 }
 
-TTErr TTAudioSignal::allocWithNewVectorSize(const TTValue& newVectorSize)
+TTErr TTAudioSignal::allocWithNewVectorSize(const TTValue& newVectorSize, TTValue&)
 {
 	return allocWithVectorSize(TTUInt16(newVectorSize));
 }

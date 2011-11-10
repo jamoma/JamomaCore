@@ -31,7 +31,7 @@ TT_AUDIO_CONSTRUCTOR,
 	TTErr		err;
 	
 	addMessage(clear);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("delay"), (TTObjectPtr*)&mP0Delay, initialMaxNumChannels);
 	
@@ -74,7 +74,7 @@ TTHilbertLinear33::~TTHilbertLinear33()
 }
 
 
-TTErr TTHilbertLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTHilbertLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);

@@ -47,7 +47,6 @@ TTErr TTStaircase::processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() / 2;
-	TTErr			err;
 	
 	out.changeVectorSize(targetVectorSize);
 	out.setSampleRate(in.getSampleRate() / 2);

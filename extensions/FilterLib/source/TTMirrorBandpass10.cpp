@@ -32,7 +32,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Bandwidth, kTypeFloat64);
 	addAttributeWithSetter(Q, kTypeFloat64);
 	addMessage(clear);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("allpass.4a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.2c"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
@@ -53,7 +53,7 @@ TTMirrorBandpass10::~TTMirrorBandpass10()
 }
 
 
-TTErr TTMirrorBandpass10::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTMirrorBandpass10::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);

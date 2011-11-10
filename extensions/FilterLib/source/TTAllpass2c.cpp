@@ -26,7 +26,7 @@ mE2(0)
 	addAttribute(E2, kTypeFloat64);
 	
 	addMessage(clear);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 	
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setProcessMethod(processAudio);
@@ -39,7 +39,7 @@ TTAllpass2c::~TTAllpass2c()
 }
 
 
-TTErr TTAllpass2c::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAllpass2c::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mX1.resize(maxNumChannels);
 	mX2.resize(maxNumChannels);

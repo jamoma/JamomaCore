@@ -32,8 +32,8 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Gain,				kTypeFloat64);
 	
 	addMessage(clear);
-	addUpdate(SampleRate);
-	addUpdate(MaxNumChannels);
+	addUpdates(SampleRate);
+	addUpdates(MaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("linearGain"), 1.0);
@@ -82,7 +82,7 @@ void TTAllpass1::reset()
 }
 
 
-TTErr TTAllpass1::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAllpass1::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mFeedforward.resize(maxNumChannels);
 	mFeedback.resize(maxNumChannels);
@@ -90,7 +90,7 @@ TTErr TTAllpass1::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTAllpass1::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTAllpass1::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	init(long(srMill * mDelayMax));		// allocate a larger delay buffer if neccessary	
 	return setDelay(mDelay);			// hold the delay time in ms constant, despite the change of sr

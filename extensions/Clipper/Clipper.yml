@@ -1,10 +1,10 @@
 
 sources:
-  - Clipper.cpp
+  - TTClipper.cpp
   
 includes:
-  - "${PROJECT_BINARY_DIR}/../../library/includes"
-  - "${PROJECT_BINARY_DIR}/../../../Foundation/library/includes"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
 
 libraries:
   - FOUNDATION

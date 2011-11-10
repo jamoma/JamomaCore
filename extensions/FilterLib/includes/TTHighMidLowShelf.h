@@ -25,11 +25,11 @@ class TTHighMidLowShelf : public TTAudioObject {
 	/**	Receives notifications when there are changes to the inherited 
 		maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
 		so that each channel's previous values are remembered.		*/
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	/** Receives notifications when there are changes to the inherited 
 		sr attribute.						*/
-	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
 	TTErr clear();
 	TTErr calculateCoefficients();
 

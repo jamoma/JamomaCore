@@ -30,8 +30,8 @@ mInterval(100)
 		addAttributeProperty(Interval,			range,			TTValue(1, mMaxInterval));
 		addAttributeProperty(Interval,			rangeChecking,	TT("clip"));
 	addMessage(clear);
-	addUpdate(SampleRate);
-	addUpdate(MaxNumChannels);
+	addUpdates(SampleRate);
+	addUpdates(MaxNumChannels);
 
    	// Set Defaults
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
@@ -62,7 +62,7 @@ return kTTErrNone;
 }
 
 
-TTErr TTAverage::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAverage::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mAccumulator.resize(maxNumChannels);
 	mBins.resize(maxNumChannels);
@@ -122,7 +122,7 @@ TTErr TTAverage::setMaxInterval(const TTValue& newValue)
 }
 
 
-TTErr TTAverage::updateSampleRate(const TTValue&)
+TTErr TTAverage::updateSampleRate(const TTValue&, TTValue&)
 {
 	//TODO: when window length is set with time, we have to recompute the length in samples and resize mBins
 	return kTTErrNone; 

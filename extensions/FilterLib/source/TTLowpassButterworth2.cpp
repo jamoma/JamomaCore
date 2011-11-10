@@ -21,9 +21,9 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeProperty(Frequency,			rangeChecking,	TT("clip"));
 
 	// register for notifications from the parent class so we can allocate memory as required
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	addUpdate(SampleRate);
+	addUpdates(SampleRate);
 	// make the clear method available to the outside world
 	addMessage(clear);
 
@@ -41,7 +41,7 @@ TTLowpassButterworth2::~TTLowpassButterworth2()
 }
 
 
-TTErr TTLowpassButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTLowpassButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mX1.resize(maxNumChannels);
 	mX2.resize(maxNumChannels);
@@ -52,7 +52,7 @@ TTErr TTLowpassButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChanne
 }
 
 
-TTErr TTLowpassButterworth2::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTLowpassButterworth2::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);

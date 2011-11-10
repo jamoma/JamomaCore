@@ -31,7 +31,7 @@ class TTAllpass2b : public TTAudioObject {
 	TTSampleVector		mY4;	///< previous output sample (n-4) for each channel
 	
 	// Notifications
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	// Zero filter history
 	TTErr clear();

@@ -21,8 +21,8 @@ class TTAllpass : public TTAudioObject {
 	
 	
 	// Notifications
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 not be producing any signal (such as turning audio off and then back on in a host) or if the
@@ -37,7 +37,7 @@ class TTAllpass : public TTAudioObject {
 	// Attribute:
 	TTErr setFilter(const TTValue& filter);
 	
-	TTErr SetCoefficients(const TTValue& coefficients);
+	TTErr SetCoefficients(const TTValue& coefficients, TTValue&);
 	
 	/** y = f(x) for a single value */
 	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

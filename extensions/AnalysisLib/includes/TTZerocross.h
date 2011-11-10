@@ -27,7 +27,7 @@ class TTZerocross : TTAudioObject {
 	TTUInt32	analysisLocation;		///< keep track of how many samples so far
 	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 	
 	/**	This method gets called when the inherited sr attribute is changed. */
 	TTErr updateSr();

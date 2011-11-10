@@ -33,8 +33,8 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(clear);
 
 	// updates from the parent class
-	addUpdate(SampleRate);
-	addUpdate(MaxNumChannels);
+	addUpdates(SampleRate);
+	addUpdates(MaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	arguments);
@@ -70,14 +70,14 @@ TTErr TTDelay::init(TTUInt64 newDelayMaxInSamples)
 }
 
 
-TTErr TTDelay::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTDelay::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mBuffers.resize(maxNumChannels);
 	return init(mDelayMaxInSamples);
 }
 
 
-TTErr TTDelay::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTDelay::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	init(long(srMill * mDelayMax));		// allocate a larger delay buffer if neccessary
 	return setDelay(mDelay);			// hold the delay time in ms constant, despite the change of sr

@@ -27,7 +27,7 @@ TT_AUDIO_CONSTRUCTOR
 	
 	// Register Messages
 	addMessage(clear);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 	
 	// Additional Initialization
 	TTObjectInstantiate(kTTSym_dcblock, &dcBlockerUnit, initialMaxNumChannels);
@@ -47,7 +47,7 @@ TTOverdrive::~TTOverdrive()
 }
 
 
-TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {	
 	return dcBlockerUnit->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 }

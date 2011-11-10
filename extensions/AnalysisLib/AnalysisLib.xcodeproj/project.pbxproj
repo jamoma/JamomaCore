@@ -3,275 +3,143 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		22BA7EAB1046F318009771BC /* AnalysisLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7EAA1046F318009771BC /* AnalysisLib.cpp */; };
-		22BA7EAD1046F322009771BC /* TTZerocross.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BA7EAC1046F322009771BC /* TTZerocross.h */; };
-		22BA7EAF1046F32A009771BC /* TTZerocross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7EAE1046F32A009771BC /* TTZerocross.cpp */; };
-		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
-		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
-		661EB51B13A2B9650020E3B6 /* TTAverage.h in Headers */ = {isa = PBXBuildFile; fileRef = 661EB51A13A2B9650020E3B6 /* TTAverage.h */; };
-		661EB51D13A2B9710020E3B6 /* TTAverage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 661EB51C13A2B9710020E3B6 /* TTAverage.cpp */; };
-		6635E19413A6798300DBCE37 /* TTAverage.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6635E19313A6798300DBCE37 /* TTAverage.test.cpp */; };
-		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		22BA7EAA1046F318009771BC /* AnalysisLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnalysisLib.cpp; sourceTree = "<group>"; };
-		22BA7EAC1046F322009771BC /* TTZerocross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTZerocross.h; path = includes/TTZerocross.h; sourceTree = "<group>"; };
-		22BA7EAE1046F32A009771BC /* TTZerocross.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTZerocross.cpp; path = source/TTZerocross.cpp; sourceTree = "<group>"; };
-		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
-		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
-		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
-		661EB51A13A2B9650020E3B6 /* TTAverage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAverage.h; path = includes/TTAverage.h; sourceTree = "<group>"; };
-		661EB51C13A2B9710020E3B6 /* TTAverage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAverage.cpp; path = source/TTAverage.cpp; sourceTree = "<group>"; };
-		6635E19313A6798300DBCE37 /* TTAverage.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAverage.test.cpp; path = tests/TTAverage.test.cpp; sourceTree = "<group>"; };
-		D2AAC09D05546B4700DB518D /* AnalysisLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AnalysisLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		22F19FF114673F8A002CF320 /* AnalysisLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnalysisLib.cpp; sourceTree = "<group>"; };
+		22F19FF314673F8A002CF320 /* TTAverage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAverage.h; sourceTree = "<group>"; };
+		22F19FF414673F8A002CF320 /* TTZerocross.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTZerocross.h; sourceTree = "<group>"; };
+		22F19FF614673F8A002CF320 /* TTAverage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTAverage.cpp; sourceTree = "<group>"; };
+		22F19FF714673F8A002CF320 /* TTZerocross.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTZerocross.cpp; sourceTree = "<group>"; };
+		22F19FF914673F8A002CF320 /* TTAverage.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTAverage.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		D2AAC09B05546B4700DB518D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */,
-				22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		034768DDFF38A45A11DB9C8B /* Products */ = {
+		22F19FDD14673EEA002CF320 = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* AnalysisLib.ttdylib */,
+				22F19FF114673F8A002CF320 /* AnalysisLib.cpp */,
+				22F19FF214673F8A002CF320 /* includes */,
+				22F19FF514673F8A002CF320 /* source */,
+				22F19FF814673F8A002CF320 /* tests */,
 			);
-			name = Products;
 			sourceTree = "<group>";
 		};
-		0867D691FE84028FC02AAC07 /* TTFunctionLib */ = {
+		22F19FF214673F8A002CF320 /* includes */ = {
 			isa = PBXGroup;
 			children = (
-				22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */,
-				08FB77ACFE841707C02AAC07 /* Source */,
-				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
-				034768DDFF38A45A11DB9C8B /* Products */,
+				22F19FF314673F8A002CF320 /* TTAverage.h */,
+				22F19FF414673F8A002CF320 /* TTZerocross.h */,
 			);
-			name = TTFunctionLib;
+			path = includes;
 			sourceTree = "<group>";
 		};
-		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+		22F19FF514673F8A002CF320 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				22FA622D11E21BE20097F43B /* JamomaDSP.dylib */,
-				22FA623211E21BE60097F43B /* JamomaFoundation.dylib */,
-				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
+				22F19FF614673F8A002CF320 /* TTAverage.cpp */,
+				22F19FF714673F8A002CF320 /* TTZerocross.cpp */,
 			);
-			name = "External Frameworks and Libraries";
+			path = source;
 			sourceTree = "<group>";
 		};
-		08FB77ACFE841707C02AAC07 /* Source */ = {
+		22F19FF814673F8A002CF320 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				22BA7EAA1046F318009771BC /* AnalysisLib.cpp */,
-				2217FAAA0E4F284D00806778 /* Classes */,
+				22F19FF914673F8A002CF320 /* TTAverage.test.cpp */,
 			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		2217FAAA0E4F284D00806778 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				22BA7EAC1046F322009771BC /* TTZerocross.h */,
-				22BA7EAE1046F32A009771BC /* TTZerocross.cpp */,
-				661EB51A13A2B9650020E3B6 /* TTAverage.h */,
-				661EB51C13A2B9710020E3B6 /* TTAverage.cpp */,
-				6635E19313A6798300DBCE37 /* TTAverage.test.cpp */,
-			);
-			name = Classes;
+			path = tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D2AAC09905546B4700DB518D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22BA7EAD1046F322009771BC /* TTZerocross.h in Headers */,
-				661EB51B13A2B9650020E3B6 /* TTAverage.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
+/* Begin PBXLegacyTarget section */
+		22F19FE414673EEA002CF320 /* AnalysisLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = 22F19FE714673EEA002CF320 /* Build configuration list for PBXLegacyTarget "AnalysisLib" */;
 			buildPhases = (
-				D2AAC09905546B4700DB518D /* Headers */,
-				D2AAC09B05546B4700DB518D /* Frameworks */,
-				D2AAC09A05546B4700DB518D /* Sources */,
-				2217F9FF0E4E194400806778 /* ShellScript */,
 			);
-			buildRules = (
-			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = JamomaExtension;
-			productName = TTFunctionLib;
-			productReference = D2AAC09D05546B4700DB518D /* AnalysisLib.ttdylib */;
-			productType = "com.apple.product-type.library.dynamic";
+			name = AnalysisLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = AnalysisLib;
 		};
-/* End PBXNativeTarget section */
+/* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		0867D690FE84028FC02AAC07 /* Project object */ = {
+		22F19FDF14673EEA002CF320 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "AnalysisLib" */;
-			compatibilityVersion = "Xcode 3.1";
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 22F19FE214673EEA002CF320 /* Build configuration list for PBXProject "AnalysisLib" */;
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
-			hasScannedForEncodings = 1;
+			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				en,
 			);
-			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
-			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			mainGroup = 22F19FDD14673EEA002CF320;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC09C05546B4700DB518D /* JamomaExtension */,
+				22F19FE414673EEA002CF320 /* AnalysisLib */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		2217F9FF0E4E194400806778 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/mkdir -p -m 775 \"/usr/local/jamoma/extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/usr/local/jamoma/extensions\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		D2AAC09A05546B4700DB518D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22BA7EAB1046F318009771BC /* AnalysisLib.cpp in Sources */,
-				22BA7EAF1046F32A009771BC /* TTZerocross.cpp in Sources */,
-				661EB51D13A2B9710020E3B6 /* TTAverage.cpp in Sources */,
-				6635E19413A6798300DBCE37 /* TTAverage.test.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
 /* Begin XCBuildConfiguration section */
-		1DEB916108733D950010E9CD /* Development */ = {
+		22F19FE514673EEA002CF320 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					x86_64,
-					i386,
-				);
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
 			};
-			name = Development;
+			name = Debug;
 		};
-		1DEB916208733D950010E9CD /* Deployment */ = {
+		22F19FE614673EEA002CF320 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					x86_64,
-					i386,
-				);
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_OPTIMIZATION_LEVEL = 3;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
 			};
-			name = Deployment;
+			name = Release;
 		};
-		1DEB916508733D950010E9CD /* Development */ = {
+		22F19FE814673EEA002CF320 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
 			};
-			name = Development;
+			name = Debug;
 		};
-		1DEB916608733D950010E9CD /* Deployment */ = {
+		22F19FE914673EEA002CF320 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
 			};
-			name = Deployment;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */ = {
+		22F19FE214673EEA002CF320 /* Build configuration list for PBXProject "AnalysisLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916108733D950010E9CD /* Development */,
-				1DEB916208733D950010E9CD /* Deployment */,
+				22F19FE514673EEA002CF320 /* Debug */,
+				22F19FE614673EEA002CF320 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
+			defaultConfigurationName = Release;
 		};
-		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "AnalysisLib" */ = {
+		22F19FE714673EEA002CF320 /* Build configuration list for PBXLegacyTarget "AnalysisLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916508733D950010E9CD /* Development */,
-				1DEB916608733D950010E9CD /* Deployment */,
+				22F19FE814673EEA002CF320 /* Debug */,
+				22F19FE914673EEA002CF320 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+	rootObject = 22F19FDF14673EEA002CF320 /* Project object */;
 }

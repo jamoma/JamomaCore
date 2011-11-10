@@ -29,9 +29,9 @@ TT_AUDIO_CONSTRUCTOR
 	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker,	(TTSetterMethod)&TTLimiter::setDCBlocker);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 	// register for notifications from the parent class so we can update the release/recover values
-	addUpdate(SampleRate);
+	addUpdates(SampleRate);
 
 	// clear the history
 	addMessage(clear);
@@ -69,7 +69,7 @@ TTLimiter::~TTLimiter()
 
 
 // TODO: These message receiver args should be reversed -- this is a change that should be applied throughout TTBlue
-TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	TTUInt16	channel;
 	TTUInt16	numChannels = oldMaxNumChannels;
@@ -95,7 +95,7 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTLimiter::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTLimiter::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	setRecover();
 	return kTTErrNone;

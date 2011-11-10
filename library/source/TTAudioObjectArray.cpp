@@ -28,9 +28,9 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addAttributeWithSetter(Size,	kTypeUInt16);
 	addAttributeWithSetter(Class,	kTypeSymbol);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 
-	addMessageWithArgument(set);
+	addMessageWithArguments(set);
 
 	setAttributeValue(kTTSym_maxNumChannels, initialMaxNumChannels);
 	setAttributeValue(TT("class"), TT("gain"));
@@ -45,7 +45,7 @@ TTAudioObjectArray::~TTAudioObjectArray()
 }
 
 
-TTErr TTAudioObjectArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAudioObjectArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	return setAttributeValue(TT("size"), maxNumChannels);
 }
@@ -91,7 +91,7 @@ TTErr TTAudioObjectArray::setClass(const TTValueRef newClass)
 }
 
 
-TTErr TTAudioObjectArray::set(TTValue& arguments)
+TTErr TTAudioObjectArray::set(TTValue& arguments, TTValue&)
 {
 	// There may be two or more arguments
 	// if the first argument is a number, it specifies which instance in the array to address

@@ -10,6 +10,7 @@
 
 #define thisTTClass			TTLowpassFourPole
 #define thisTTClassName		"lowpass.4"
+#define thisTTClassDescription	"Four-pole resonant lowpass filter"
 #define thisTTClassTags		"audio, processor, filter, lowpass"
 
 
@@ -19,17 +20,20 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Frequency,	kTypeFloat64);
 	addAttributeProperty(Frequency,			range,			TTValue(2.0, sr*0.475));
 	addAttributeProperty(Frequency,			rangeChecking,	TT("clip"));
+	addAttributeProperty(Frequency,			description,	TT("Cutoff Frequency in Hertz"));
 
 	addAttributeWithSetter(Resonance,	kTypeFloat64);
 	addAttributeProperty(Resonance,			range,			TTValue(0.01, 100.0));
 	addAttributeProperty(Resonance,			rangeChecking,	TT("cliplow"));
+	addAttributeProperty(Resonance,			description,	TT("Strength of Resonance Near the Cutoff Frequency"));
 
 	// register methods
 	addMessage(clear);
+	addMessageProperty(clear,	description,	TT("Reset the Filter History"));
 
 	// register for notifications
-	addUpdate(MaxNumChannels);
-	addUpdate(SampleRate);
+	addUpdates(MaxNumChannels);
+	addUpdates(SampleRate);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	arguments);			// This attribute is inherited
@@ -47,7 +51,7 @@ TTLowpassFourPole::~TTLowpassFourPole()
 }
 
 
-TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mX1.resize(maxNumChannels);
 	mX2.resize(maxNumChannels);
@@ -62,7 +66,7 @@ TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTLowpassFourPole::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTLowpassFourPole::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);

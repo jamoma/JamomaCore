@@ -42,7 +42,7 @@ class TTAdsr : TTAudioObject {
 	
 	TTSymbol*	attrMode;
 	
-	TTErr updateSampleRate(const TTValue&);
+	TTErr updateSampleRate(const TTValue&, TTValue&);
 
 	/** Sending a dictionary to this object may perform one of several functions.
 		
@@ -55,7 +55,7 @@ class TTAdsr : TTAudioObject {
 			MidiNoteEvent, we indicate to the calling system that it is free to perform other 
 			tasks with the dictionary.
 	*/
-	TTErr dictionary(TTValue& input);
+	TTErr dictionary(const TTValue& input, TTValue& output);
 	
 	
 	TTErr processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

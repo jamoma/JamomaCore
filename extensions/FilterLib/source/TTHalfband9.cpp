@@ -32,7 +32,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addMessage(clear);
-	addUpdate(MaxNumChannels);
+	addUpdates(MaxNumChannels);
 
 	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
 	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
@@ -84,7 +84,7 @@ TTHalfband9::~TTHalfband9()
 }
 
 
-TTErr TTHalfband9::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTHalfband9::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	// update internal filters
 	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);

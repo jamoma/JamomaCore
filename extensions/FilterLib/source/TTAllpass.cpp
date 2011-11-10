@@ -22,10 +22,10 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Filter,	kTypeSymbol);
 	
 	addMessage(clear);
-	addUpdate(SampleRate);
-	addUpdate(MaxNumChannels);
+	addUpdates(SampleRate);
+	addUpdates(MaxNumChannels);
 	
-	addMessageWithArgument(SetCoefficients);
+	addMessageWithArguments(SetCoefficients);
 	
 	setAttributeValue(kTTSym_maxNumChannels, arguments);
 	setAttributeValue(TT("filter"), TT("allpass.1a"));
@@ -49,7 +49,7 @@ TTErr TTAllpass::setFilter(const TTValue& filter)
 }
 
 
-TTErr TTAllpass::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAllpass::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	if (mFilterObject)
 		return mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
@@ -58,7 +58,7 @@ TTErr TTAllpass::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTAllpass::SetCoefficients(const TTValue& coefficients)
+TTErr TTAllpass::SetCoefficients(const TTValue& coefficients, TTValue&)
 {
 	TTErr err = kTTErrGeneric;
 	
@@ -112,7 +112,7 @@ TTErr TTAllpass::SetCoefficients(const TTValue& coefficients)
 }
 
 
-TTErr TTAllpass::updateSampleRate(const TTValue& oldSampleRate)
+TTErr TTAllpass::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	return mFilterObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
 }

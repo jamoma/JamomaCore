@@ -1,604 +1,111 @@
 // !$*UTF8*$!
 {
-       archiveVersion = 1;
-       classes = {
-       };
-       objectVersion = 45;
-       objects = {
-
-/* Begin PBXAggregateTarget section */
-              6C82B06C82B06C82B0000000 /* ALL_BUILD */ = {
-                     isa = PBXAggregateTarget;
-                     buildConfigurationList = 6C92A06C92A06C92A0000000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
-                     buildPhases = (
-                            6C84806C84806C8480000000 /* CMake ReRun */,
-                            6C8B906C8B906C8B90000000 /* CMake Rules */,
-                     );
-                     dependencies = (
-                            6DB7306DB7306DB730000000 /* PBXTargetDependency */,
-                     );
-                     name = ALL_BUILD;
-                     productName = ALL_BUILD;
-              };
-/* End PBXAggregateTarget section */
-
-/* Begin PBXBuildFile section */
-6CFF206CFF206CFF20000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */ = {isa = PBXBuildFile; fileRef = 6CF3306CF3306CF330000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-6D06B06D06B06D06B0000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 6CF1806CF1806CF180000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
-/* End PBXBuildFile section */
-
-/* Begin PBXBuildStyle section */
-              6C41C06C41C06C41C0000000 /*  */ = {
-                     isa = PBXBuildStyle;
-              };
-              6C43306C43306C4330000000 /* Debug */ = {
-                     isa = PBXBuildStyle;
-                     buildSettings = {
-                            COPY_PHASE_STRIP = NO;
-                     };
-                     name = Debug;
-              };
-              6C47006C47006C4700000000 /* Release */ = {
-                     isa = PBXBuildStyle;
-                     buildSettings = {
-                            COPY_PHASE_STRIP = NO;
-                     };
-                     name = Release;
-              };
-              6C4AF06C4AF06C4AF0000000 /* MinSizeRel */ = {
-                     isa = PBXBuildStyle;
-                     buildSettings = {
-                            COPY_PHASE_STRIP = NO;
-                     };
-                     name = MinSizeRel;
-              };
-              6C4E906C4E906C4E90000000 /* RelWithDebInfo */ = {
-                     isa = PBXBuildStyle;
-                     buildSettings = {
-                            COPY_PHASE_STRIP = NO;
-                     };
-                     name = RelWithDebInfo;
-              };
-/* End PBXBuildStyle section */
-
-/* Begin PBXContainerItemProxy section */
-              6DB3206DB3206DB320000000 /* PBXContainerItemProxy */ = {
-                     isa = PBXContainerItemProxy;
-                     containerPortal = 6B10006B10006B1000000000 /* Project object */;
-                     proxyType = 1;
-                     remoteGlobalIDString = 6D1DE06D1DE06D1DE0000000;
-                     remoteInfo = Clipper;
-              };
-/* End PBXContainerItemProxy section */
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
 
 /* Begin PBXFileReference section */
-6CF1806CF1806CF180000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-6CF3306CF3306CF330000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "Clipper.cpp"; path = "Clipper.cpp"; sourceTree = SOURCE_ROOT; };
-6DABE06DABE06DABE0000000 /* Clipper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = "Clipper.ttdylib"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+		22DE04181467008C004D5DF6 /* TTClipper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTClipper.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-              6C32006C32006C3200000000  = {
-                     isa = PBXGroup;
-                     children = (
-                            6C34D06C34D06C34D0000000 /* Sources */,
-                            6C2D306C2D306C2D30000000 /* Resources */,
-                            6C27606C27606C2760000000 /* Products */,
-                     );
-                     sourceTree = "<group>";
-              };
-              6C34D06C34D06C34D0000000 /* Sources */ = {
-                     isa = PBXGroup;
-                     children = (
-                            6C29906C29906C2990000000 /* ALL_BUILD */,
-                            6B2B206B2B206B2B20000000 /* Clipper */,
-                     );
-                     name = Sources;
-                     sourceTree = "<group>";
-              };
-              6C2D306C2D306C2D30000000 /* Resources */ = {
-                     isa = PBXGroup;
-                     children = (
-                     );
-                     name = Resources;
-                     sourceTree = "<group>";
-              };
-              6C29906C29906C2990000000 /* ALL_BUILD */ = {
-                     isa = PBXGroup;
-                     children = (
-                            6C0A806C0A806C0A80000000 /* CMake Rules */,
-                            6CF1806CF1806CF180000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */,
-                     );
-                     name = ALL_BUILD;
-                     sourceTree = "<group>";
-              };
-              6C0A806C0A806C0A80000000 /* CMake Rules */ = {
-                     isa = PBXGroup;
-                     children = (
-                     );
-                     name = "CMake Rules";
-                     sourceTree = "<group>";
-              };
-              6B2B206B2B206B2B20000000 /* Clipper */ = {
-                     isa = PBXGroup;
-                     children = (
-                            6BCDC06BCDC06BCDC0000000 /* Source Files */,
-                            6CF1806CF1806CF180000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeLists.txt */,
-                     );
-                     name = Clipper;
-                     sourceTree = "<group>";
-              };
-              6BCDC06BCDC06BCDC0000000 /* Source Files */ = {
-                     isa = PBXGroup;
-                     children = (
-                            6CF3306CF3306CF330000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */,
-                     );
-                     name = "Source Files";
-                     sourceTree = "<group>";
-              };
-              6C27606C27606C2760000000 /* Products */ = {
-                     isa = PBXGroup;
-                     children = (
-                            6DABE06DABE06DABE0000000 /* Clipper */,
-                     );
-                     name = Products;
-                     sourceTree = "<group>";
-              };
+		227B1E111466D6B8004BEDEA = {
+			isa = PBXGroup;
+			children = (
+				22DE04181467008C004D5DF6 /* TTClipper.cpp */,
+			);
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
-/* Begin PBXNativeTarget section */
-              6D1DE06D1DE06D1DE0000000 /* Clipper */ = {
-                     isa = PBXNativeTarget;
-                     buildConfigurationList = 6D1FE06D1FE06D1FE0000000 /* Build configuration list for PBXNativeTarget "Clipper" */;
-                     buildPhases = (
-                            6D0E406D0E406D0E40000000 /* CMake ReRun */,
-                            6D09C06D09C06D09C0000000 /* Sources */,
-                            6D15206D15206D1520000000 /* CMake PostBuild Rules */,
-                     );
-                     buildRules = (
-                     );
-                     dependencies = (
-                     );
-                     name = Clipper;
-                     productName = Clipper;
-                     productReference = 6DABE06DABE06DABE0000000 /* Clipper */;
-                     productType = "com.apple.product-type.library.dynamic";
-              };
-/* End PBXNativeTarget section */
+/* Begin PBXLegacyTarget section */
+		227B1E1D1466D942004BEDEA /* extension */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = 227B1E201466D942004BEDEA /* Build configuration list for PBXLegacyTarget "extension" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = extension;
+			passBuildSettingsInEnvironment = 1;
+			productName = extension;
+		};
+/* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-              6B10006B10006B1000000000 /* Project object */ = {
-                     isa = PBXProject;
-                     attributes = {
-                            BuildIndependentTargetsInParallel = YES;
-                     };
-                     buildConfigurationList = 6BBBE06BBBE06BBBE0000000 /* Build configuration list for PBXProject  "Clipper" */;
-                     buildSettings = {
-                     };
-                     buildStyles = (
-                            6C43306C43306C4330000000 /* Debug */,
-                            6C47006C47006C4700000000 /* Release */,
-                            6C4AF06C4AF06C4AF0000000 /* MinSizeRel */,
-                            6C4E906C4E906C4E90000000 /* RelWithDebInfo */,
-                     );
-                     compatibilityVersion = "Xcode 3.1";
-                     hasScannedForEncodings = 0;
-                     mainGroup = 6C32006C32006C3200000000;
-                     projectDirPath = ".";
-                     projectRoot = "";
-                     targets = (
-                            6C82B06C82B06C82B0000000 /* ALL_BUILD */,
-                            6D1DE06D1DE06D1DE0000000 /* Clipper */,
-                     );
-              };
+		227B1E131466D6B8004BEDEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 227B1E161466D6B8004BEDEA /* Build configuration list for PBXProject "Clipper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 227B1E111466D6B8004BEDEA;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				227B1E1D1466D942004BEDEA /* extension */,
+			);
+		};
 /* End PBXProject section */
 
-/* Begin PBXShellScriptBuildPhase section */
-              6C7D106C7D106C7D10000000 /*  */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     inputPaths = (
-                     );
-                     outputPaths = (
-                     );
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "# shell script goes here
-exit 0";
-              };
-              6C84806C84806C8480000000 /* CMake ReRun */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     name = "CMake ReRun";
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "make -C /code/Jamoma/Modules/DSP/extensions/Clipper -f /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeScripts/ReRunCMake.make";
-              };
-              6C8B906C8B906C8B90000000 /* CMake Rules */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     name = "CMake Rules";
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "make -C /code/Jamoma/Modules/DSP/extensions/Clipper -f /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
-              };
-              6D0E406D0E406D0E40000000 /* CMake ReRun */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     name = "CMake ReRun";
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "make -C /code/Jamoma/Modules/DSP/extensions/Clipper -f /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeScripts/ReRunCMake.make";
-              };
-              6D15206D15206D1520000000 /* CMake PostBuild Rules */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     name = "CMake PostBuild Rules";
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "make -C /code/Jamoma/Modules/DSP/extensions/Clipper -f /code/Jamoma/Modules/DSP/extensions/Clipper/CMakeScripts/Clipper_postBuildPhase.make$CONFIGURATION all";
-              };
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-              6D09C06D09C06D09C0000000 /* Sources */ = {
-                     isa = PBXSourcesBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                            6CFF206CFF206CFF20000000 /* /code/Jamoma/Modules/DSP/extensions/Clipper/Clipper.cpp */,
-                     );
-                     runOnlyForDeploymentPostprocessing = 0;
-              };
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-              6DB7306DB7306DB730000000 /* PBXTargetDependency */ = {
-                     isa = PBXTargetDependency;
-                     target = 6D1DE06D1DE06D1DE0000000 /* Clipper */;
-                     targetProxy = 6DB3206DB3206DB320000000 /* PBXContainerItemProxy */;
-              };
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-              6BBD506BBD506BBD50000000 /* Debug */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            ARCHS = "i386 x86_64";
-                            DEPLOYMENT_LOCATION = YES;
-                            DSTROOT = /;
-                            EXECUTABLE_EXTENSION = ttdylib;
-                            GCC_VERSION = "4.2";
-                            INSTALL_PATH = "/Library/Application Support/Jamoma/Extensions";
-                            MACOSX_DEPLOYMENT_TARGET = "10.6";
-                            ONLY_ACTIVE_ARCH = NO;
-                            PRODUCT_VERSION = "0.6";
-                            SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
-                            SKIP_INSTALL = YES;
-                            SVNREV = abc123;
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper/build;
-                            WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
-                            WRAPPER_EXTENSION = ttdylib;
-                     };
-                     name = Debug;
-              };
-              6BBF906BBF906BBF90000000 /* Release */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            ARCHS = "i386 x86_64";
-                            DEPLOYMENT_LOCATION = YES;
-                            DSTROOT = /;
-                            EXECUTABLE_EXTENSION = ttdylib;
-                            GCC_VERSION = "4.2";
-                            INSTALL_PATH = "/Library/Application Support/Jamoma/Extensions";
-                            MACOSX_DEPLOYMENT_TARGET = "10.6";
-                            ONLY_ACTIVE_ARCH = NO;
-                            PRODUCT_VERSION = "0.6";
-                            SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
-                            SKIP_INSTALL = YES;
-                            SVNREV = abc123;
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper/build;
-                            WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
-                            WRAPPER_EXTENSION = ttdylib;
-                     };
-                     name = Release;
-              };
-              6BADF06BADF06BADF0000000 /* MinSizeRel */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            ARCHS = "i386 x86_64";
-                            DEPLOYMENT_LOCATION = YES;
-                            DSTROOT = /;
-                            EXECUTABLE_EXTENSION = ttdylib;
-                            GCC_VERSION = "4.2";
-                            INSTALL_PATH = "/Library/Application Support/Jamoma/Extensions";
-                            MACOSX_DEPLOYMENT_TARGET = "10.6";
-                            ONLY_ACTIVE_ARCH = NO;
-                            PRODUCT_VERSION = "0.6";
-                            SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
-                            SKIP_INSTALL = YES;
-                            SVNREV = abc123;
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper/build;
-                            WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
-                            WRAPPER_EXTENSION = ttdylib;
-                     };
-                     name = MinSizeRel;
-              };
-              6BAF806BAF806BAF80000000 /* RelWithDebInfo */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            ARCHS = "i386 x86_64";
-                            DEPLOYMENT_LOCATION = YES;
-                            DSTROOT = /;
-                            EXECUTABLE_EXTENSION = ttdylib;
-                            GCC_VERSION = "4.2";
-                            INSTALL_PATH = "/Library/Application Support/Jamoma/Extensions";
-                            MACOSX_DEPLOYMENT_TARGET = "10.6";
-                            ONLY_ACTIVE_ARCH = NO;
-                            PRODUCT_VERSION = "0.6";
-                            SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
-                            SKIP_INSTALL = YES;
-                            SVNREV = abc123;
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper/build;
-                            WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
-                            WRAPPER_EXTENSION = ttdylib;
-                     };
-                     name = RelWithDebInfo;
-              };
-              6C6A206C6A206C6A20000000 /* Debug */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = ("/code/Jamoma/Modules/DSP/extensions/Clipper/../../library/includes", "/code/Jamoma/Modules/DSP/extensions/Clipper/../../../Foundation/library/includes", );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = "";
-                            OTHER_REZFLAGS = "";
-                            PREBINDING = NO;
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = Debug;
-              };
-              6CA4506CA4506CA450000000 /* Release */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = ("/code/Jamoma/Modules/DSP/extensions/Clipper/../../library/includes", "/code/Jamoma/Modules/DSP/extensions/Clipper/../../../Foundation/library/includes", );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = "";
-                            OTHER_REZFLAGS = "";
-                            PREBINDING = NO;
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = Release;
-              };
-              6CBCC06CBCC06CBCC0000000 /* MinSizeRel */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = ("/code/Jamoma/Modules/DSP/extensions/Clipper/../../library/includes", "/code/Jamoma/Modules/DSP/extensions/Clipper/../../../Foundation/library/includes", );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = "";
-                            OTHER_REZFLAGS = "";
-                            PREBINDING = NO;
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = MinSizeRel;
-              };
-              6CD5306CD5306CD530000000 /* RelWithDebInfo */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = ("/code/Jamoma/Modules/DSP/extensions/Clipper/../../library/includes", "/code/Jamoma/Modules/DSP/extensions/Clipper/../../../Foundation/library/includes", );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = "";
-                            OTHER_REZFLAGS = "";
-                            PREBINDING = NO;
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = RelWithDebInfo;
-              };
-              6D22C06D22C06D22C0000000 /* Debug */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            CONFIGURATION_BUILD_DIR = /code/Jamoma/Modules/DSP/extensions/Clipper/Debug;
-                            DYLIB_COMPATIBILITY_VERSION = "";
-                            DYLIB_CURRENT_VERSION = "";
-                            EXECUTABLE_PREFIX = "";
-                            EXECUTABLE_SUFFIX = ".ttdylib";
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", Clipper_EXPORTS, );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = ("/code/Jamoma/Modules/DSP/extensions/Clipper/../../library/includes", "/code/Jamoma/Modules/DSP/extensions/Clipper/../../../Foundation/library/includes", );
-                            INSTALL_PATH = /code/Jamoma/Modules/DSP/extensions/Clipper/Debug;
-                            LIBRARY_SEARCH_PATHS = "";
-                            LIBRARY_STYLE = DYNAMIC;
-                            OTHER_CFLAGS = "   -fPIC  ";
-                            OTHER_CPLUSPLUSFLAGS = "-Wno-deprecated     -fPIC  ";
-                            OTHER_LDFLAGS = "$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib $(SRCROOT)/../../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib  -dynamiclib -headerpad_max_install_names ";
-                            OTHER_REZFLAGS = "";
-                            PREBINDING = NO;
-                            PRODUCT_NAME = Clipper;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = Debug;
-              };
-              6D2EB06D2EB06D2EB0000000 /* Release */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            CONFIGURATION_BUILD_DIR = /code/Jamoma/Modules/DSP/extensions/Clipper/Release;
-                            DYLIB_COMPATIBILITY_VERSION = "";
-                            DYLIB_CURRENT_VERSION = "";
-                            EXECUTABLE_PREFIX = "";
-                            EXECUTABLE_SUFFIX = ".ttdylib";
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 3;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", Clipper_EXPORTS, );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = ("/code/Jamoma/Modules/DSP/extensions/Clipper/../../library/includes", "/code/Jamoma/Modules/DSP/extensions/Clipper/../../../Foundation/library/includes", );
-                            INSTALL_PATH = /code/Jamoma/Modules/DSP/extensions/Clipper/Release;
-                            LIBRARY_SEARCH_PATHS = "";
-                            LIBRARY_STYLE = DYNAMIC;
-                            OTHER_CFLAGS = "    -DNDEBUG -fPIC  ";
-                            OTHER_CPLUSPLUSFLAGS = "-Wno-deprecated      -DNDEBUG -fPIC  ";
-                            OTHER_LDFLAGS = "$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib $(SRCROOT)/../../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib  -dynamiclib -headerpad_max_install_names ";
-                            OTHER_REZFLAGS = "";
-                            PREBINDING = NO;
-                            PRODUCT_NAME = Clipper;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = Release;
-              };
-              6D4F906D4F906D4F90000000 /* MinSizeRel */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            CONFIGURATION_BUILD_DIR = /code/Jamoma/Modules/DSP/extensions/Clipper/MinSizeRel;
-                            DYLIB_COMPATIBILITY_VERSION = "";
-                            DYLIB_CURRENT_VERSION = "";
-                            EXECUTABLE_PREFIX = "";
-                            EXECUTABLE_SUFFIX = ".ttdylib";
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = s;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", Clipper_EXPORTS, );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = ("/code/Jamoma/Modules/DSP/extensions/Clipper/../../library/includes", "/code/Jamoma/Modules/DSP/extensions/Clipper/../../../Foundation/library/includes", );
-                            INSTALL_PATH = /code/Jamoma/Modules/DSP/extensions/Clipper/MinSizeRel;
-                            LIBRARY_SEARCH_PATHS = "";
-                            LIBRARY_STYLE = DYNAMIC;
-                            OTHER_CFLAGS = "    -DNDEBUG -fPIC  ";
-                            OTHER_CPLUSPLUSFLAGS = "-Wno-deprecated      -DNDEBUG -fPIC  ";
-                            OTHER_LDFLAGS = "$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib $(SRCROOT)/../../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib  -dynamiclib -headerpad_max_install_names ";
-                            OTHER_REZFLAGS = "";
-                            PREBINDING = NO;
-                            PRODUCT_NAME = Clipper;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = MinSizeRel;
-              };
-              6D70A06D70A06D70A0000000 /* RelWithDebInfo */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            CONFIGURATION_BUILD_DIR = /code/Jamoma/Modules/DSP/extensions/Clipper/RelWithDebInfo;
-                            DYLIB_COMPATIBILITY_VERSION = "";
-                            DYLIB_CURRENT_VERSION = "";
-                            EXECUTABLE_PREFIX = "";
-                            EXECUTABLE_SUFFIX = ".ttdylib";
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 2;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", Clipper_EXPORTS, );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = ("/code/Jamoma/Modules/DSP/extensions/Clipper/../../library/includes", "/code/Jamoma/Modules/DSP/extensions/Clipper/../../../Foundation/library/includes", );
-                            INSTALL_PATH = /code/Jamoma/Modules/DSP/extensions/Clipper/RelWithDebInfo;
-                            LIBRARY_SEARCH_PATHS = "";
-                            LIBRARY_STYLE = DYNAMIC;
-                            OTHER_CFLAGS = "       -fPIC  ";
-                            OTHER_CPLUSPLUSFLAGS = "-Wno-deprecated         -fPIC  ";
-                            OTHER_LDFLAGS = "$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib $(SRCROOT)/../../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib  -dynamiclib -headerpad_max_install_names ";
-                            OTHER_REZFLAGS = "";
-                            PREBINDING = NO;
-                            PRODUCT_NAME = Clipper;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /code/Jamoma/Modules/DSP/extensions/Clipper;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = RelWithDebInfo;
-              };
+		227B1E181466D6B8004BEDEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		227B1E191466D6B8004BEDEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		227B1E1E1466D942004BEDEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		227B1E1F1466D942004BEDEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-              6BBBE06BBBE06BBBE0000000 /* Build configuration list for PBXProject  "Clipper" */ = {
-                     isa = XCConfigurationList;
-                     buildConfigurations = (
-                            6BBD506BBD506BBD50000000 /* Debug */,
-                            6BBF906BBF906BBF90000000 /* Release */,
-                            6BADF06BADF06BADF0000000 /* MinSizeRel */,
-                            6BAF806BAF806BAF80000000 /* RelWithDebInfo */,
-                     );
-                     defaultConfigurationIsVisible = 0;
-                     defaultConfigurationName = Debug;
-              };
-              6C92A06C92A06C92A0000000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
-                     isa = XCConfigurationList;
-                     buildConfigurations = (
-                            6C6A206C6A206C6A20000000 /* Debug */,
-                            6CA4506CA4506CA450000000 /* Release */,
-                            6CBCC06CBCC06CBCC0000000 /* MinSizeRel */,
-                            6CD5306CD5306CD530000000 /* RelWithDebInfo */,
-                     );
-                     defaultConfigurationIsVisible = 0;
-                     defaultConfigurationName = Debug;
-              };
-              6D1FE06D1FE06D1FE0000000 /* Build configuration list for PBXNativeTarget "Clipper" */ = {
-                     isa = XCConfigurationList;
-                     buildConfigurations = (
-                            6D22C06D22C06D22C0000000 /* Debug */,
-                            6D2EB06D2EB06D2EB0000000 /* Release */,
-                            6D4F906D4F906D4F90000000 /* MinSizeRel */,
-                            6D70A06D70A06D70A0000000 /* RelWithDebInfo */,
-                     );
-                     defaultConfigurationIsVisible = 0;
-                     defaultConfigurationName = Debug;
-              };
+		227B1E161466D6B8004BEDEA /* Build configuration list for PBXProject "Clipper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				227B1E181466D6B8004BEDEA /* Debug */,
+				227B1E191466D6B8004BEDEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		227B1E201466D942004BEDEA /* Build configuration list for PBXLegacyTarget "extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				227B1E1E1466D942004BEDEA /* Debug */,
+				227B1E1F1466D942004BEDEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
-       };
-       rootObject = 6B10006B10006B1000000000;
+	};
+	rootObject = 227B1E131466D6B8004BEDEA /* Project object */;
 }

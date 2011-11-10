@@ -25,7 +25,7 @@ TT_AUDIO_CONSTRUCTOR
 	//	period in ms
 	//	period in samples
 	
-	addUpdate(SampleRate);
+	addUpdates(SampleRate);
 
 	setAttributeValue(TT("frequency"), 1.0);
 	setAttributeValue(TT("gain"), 0.0);
@@ -39,7 +39,7 @@ TTPhasor::~TTPhasor()
 }
 
 
-TTErr TTPhasor::updateSampleRate(const TTValue&)
+TTErr TTPhasor::updateSampleRate(const TTValue&, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);
