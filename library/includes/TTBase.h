@@ -17,7 +17,9 @@
 			#ifdef WIN_VERSION
 				#define TT_PLATFORM_WIN
 			#else
-				#define TT_PLATFORM_MAC
+				#ifndef TT_PLATFORM_MAC
+					#define TT_PLATFORM_MAC
+				#endif
 			#endif
 		#endif
 	#endif
@@ -169,7 +171,7 @@ typedef TTSampleMatrix::iterator	TTSampleMatrixIter;
 /** An integer that is the same size as a pointer.	*/
 typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on the Mac
 
-/** An integer that can be used for atomic operations.	*/
+/** An integer that can be used for atomic operations. TODO: consider if other type should be used here	*/
 #ifdef TT_PLATFORM_WIN
 typedef TT_ALIGN_16 volatile int			TTAtomicInt;
 typedef TT_ALIGN_16 volatile unsigned int	TTAtomicUInt;
@@ -324,7 +326,7 @@ public:
 #ifdef TT_PLATFORM_MAC
 		OSAtomicIncrement32(&value);
 #elif defined (TT_PLATFORM_WIN)
-		_InterlockedIncrement(&value);
+		_InterlockedIncrement((volatile long*)&value);
 #else // what should we do for thread safety on Linux and iOS?
 		value++;
 #endif
@@ -335,7 +337,7 @@ public:
 #ifdef TT_PLATFORM_MAC
 		OSAtomicIncrement32((int32_t*)&value);
 #elif defined (TT_PLATFORM_WIN)
-		_InterlockedIncrement(&value);
+		_InterlockedIncrement((volatile long*)&value);
 #else // what should we do for thread safety on Linux and iOS?
 		value++;
 #endif
@@ -346,7 +348,7 @@ public:
 #ifdef TT_PLATFORM_MAC
 		OSAtomicDecrement32(&value);
 #elif defined (TT_PLATFORM_WIN)
-		_InterlockedDecrement(&value);
+		_InterlockedDecrement((volatile long*)&value);
 #else // what should we do for thread safety on Linux and iOS?
 		value--;
 #endif
@@ -357,18 +359,18 @@ public:
 #ifdef TT_PLATFORM_MAC
 		OSAtomicDecrement32((int32_t*)&value);
 #elif defined (TT_PLATFORM_WIN)
-		_InterlockedDecrement(&value);
+		_InterlockedDecrement((volatile long*)&value);
 #else // what should we do for thread safety on Linux and iOS?
 		value--;
 #endif
 	}
 	
-	void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt newValue, const TTAtomicInt oldValue)
+	void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, const TTAtomicInt& oldValue)
 	{
 #ifdef TT_PLATFORM_MAC
 		OSAtomicCompareAndSwap32(oldValue, newValue, &value);
 #elif defined (TT_PLATFORM_WIN)
-		_InterlockedCompareExchange(atomicptr, newvalue, oldvalue);
+		_InterlockedCompareExchange((volatile long*)&value, (long) newValue, (long) oldValue);
 #else // what should we do for thread safety on Linux and iOS?
 		value = newValue;
 #endif

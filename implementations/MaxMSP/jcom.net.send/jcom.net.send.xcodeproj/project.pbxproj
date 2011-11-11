@@ -127,7 +127,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.net.send" */;
 			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -196,6 +200,7 @@
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
 				);
+				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
 			};
 			name = Development;
 		};
@@ -210,6 +215,7 @@
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
 				);
+				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
 			};
 			name = Deployment;
 		};

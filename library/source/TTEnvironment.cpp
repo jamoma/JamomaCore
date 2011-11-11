@@ -67,6 +67,8 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 	TTSymbolPtr	tag;
 	TTValue		result;
 
+	TTLogDebug("Jamoma registering class: %s\n", className->getCString());
+	
 	err = classes->lookup(className, result);
 
 	// If a class is already registered with this name, then we do not want to register another class with the same name!
