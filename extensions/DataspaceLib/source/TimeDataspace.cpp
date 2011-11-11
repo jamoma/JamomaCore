@@ -399,6 +399,8 @@ TT_OBJECT_CONSTRUCTOR
 	registerUnit(TT("unit.ms"),		TT("millisecond"));
 	registerUnit(TT("unit.rate"),	TT("fps"));
 	registerUnit(TT("unit.rate"),	TT("Hz"));
+	registerUnit(TT("unit.rate"),	TT("hz"));
+	registerUnit(TT("unit.rate"),	TT("Hertz"));
 	registerUnit(TT("unit.sample"),	TT("sample"));
 	registerUnit(TT("unit.second"),	TT("s"));
 	registerUnit(TT("unit.second"),	TT("second"));
