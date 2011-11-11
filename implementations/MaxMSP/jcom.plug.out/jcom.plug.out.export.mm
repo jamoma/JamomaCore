@@ -363,7 +363,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	NSFileManager*		fileManager = [NSFileManager defaultManager];
 	NSMutableString*	tempPath = [[NSMutableString alloc] initWithString:NSTemporaryDirectory()];
 	NSMutableString*	tempPath2 = [[NSMutableString alloc] initWithString:NSTemporaryDirectory()];
-	NSBundle*			plugoutBundle = [NSBundle bundleWithIdentifier:@"org.jamoma.jcom.plug.out≈"];
+	NSBundle*			plugoutBundle = [NSBundle bundleWithIdentifier:@"org.jamoma.jcom.plug.out"];
 	NSString*			plugoutBundlePath = [plugoutBundle bundlePath];
 	NSMutableString*	plugtasticTemplatePath = [[NSMutableString alloc] initWithString:plugoutBundlePath];
 	NSMutableString*	plugtasticSDKPath = [[NSMutableString alloc] initWithString:plugoutBundlePath];
