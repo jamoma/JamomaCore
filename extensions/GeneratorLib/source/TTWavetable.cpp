@@ -24,7 +24,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Mode,			kTypeSymbol);
 	addAttributeWithSetter(Gain,			kTypeFloat64);
 	addAttributeWithSetter(Interpolation,	kTypeSymbol);
-	addAttributeWithSetter(Size,			kTypeInt64);
+	addAttributeWithSetter(Size,			kTypeUInt32);
 
 	addUpdates(SampleRate);
 
@@ -58,11 +58,8 @@ TTErr TTWavetable::updateSampleRate(const TTValue&, TTValue&)
 
 TTErr TTWavetable::setFrequency(const TTValue& newValue)
 {
-	TTValue	v;
-
 	mFrequency = TTClip<TTFloat64>(newValue, 0.0, sr/2.0);
-	mWavetable->getAttributeValue(TT("lengthInSamples"), v);
-	mIndexDelta = mFrequency * TTFloat64(v) / sr;
+	mIndexDelta = mFrequency * mSize * srInv;	
 	return kTTErrNone;
 }
 
@@ -104,7 +101,8 @@ TTErr TTWavetable::setGain(const TTValue& newValue)
 TTErr TTWavetable::setSize(const TTValue& newSize)
 {
 	mSize = newSize;
-	return mWavetable->setLengthInSamples(mSize);
+	mWavetable->setLengthInSamples(mSize);
+	return setFrequency(mFrequency); // touch the frequency so that the step size is updated
 }
 
 
@@ -162,11 +160,10 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	TTUInt16			numChannels = out.getNumChannelsAsInt();
 	TTUInt16			channel;
 	TTBoolean			hasModulation = true;
-	TTUInt32			p1 = (TTUInt32)mIndex;						// playback index
-	TTSampleValue*	contents = NULL;
-	TTUInt32		bufferChannelCount;
+	TTSampleValuePtr	contents = NULL;
+	TTUInt32			bufferChannelCount;
 	
-	mWavetable-> getContents(contents);
+	mWavetable->getContents(contents);
 	mWavetable->lengthInSamples(bufferChannelCount);
 	
 	// If the input and output signals are the same, then there really isn't an input signal
@@ -178,6 +175,12 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 		inSample = in->mSampleVectors[0];
 	}
 	while (vs--) {
+		TTUInt32	p1 = (TTUInt32)mIndex;	// playback index
+
+		// TODO: all of this access of mIndex and mIndexDelta etc is really going to be dereference pointers in our struct/class
+		//		 This likely means that the values are not cached (or at least not cached together) in the processors registers
+		//		 We should copy these to local variables at the vector start and then copy them back at the vector's end
+		
 		// Move the play head
 		mIndex += mIndexDelta;
 
