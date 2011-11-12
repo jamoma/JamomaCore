@@ -32,7 +32,7 @@ protected:
 	TTGraphInletVector		mInlets;		///< The inlets through which we pull audio from sources
 	TTGraphOutletVector		mOutlets;		///< The inlets through which we pull audio from sources
 	TTDictionaryPtr			mDictionary;	/// our copy of the data, from which we pass out references to the outlets 
-	TTGraphDescriptionPtr	mDescription;	///< Used to pr	event feedback loops etc. when describing a graph
+	TTGraphDescription		mDescription;	///< Used to pr	event feedback loops etc. when describing a graph
 
 public:	
 	TTObjectPtr				mKernel;		///< The actual TT object doing the processing.
