@@ -47,6 +47,26 @@ public:
 	}
 
 	
+	TTGraphDescription& operator = (const TTGraphDescription &newValue)
+	{
+		// inherited
+		mClassName = newValue.mClassName;
+		mInputDescriptions = newValue.mInputDescriptions;
+		mObjectInstance = newValue.mObjectInstance;
+		mID = newValue.mID;		
+		mUserData = newValue.mUserData;
+		
+		// audio specific
+//		mAudioDescriptionsForInlets = newValue.mAudioDescriptionsForInlets;
+//		mControlDescription = newValue.mControlDescription;
+//		mOutletNumber = newValue.mOutletNumber;
+//		mNumInlets = newValue.mNumInlets;
+//		mNumOutlets = newValue.mNumOutlets;
+		
+		return *this;
+	}
+
+	
 	void exportRuby(const TTString& fullpathToFile);
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
 	
