@@ -19,7 +19,7 @@ mDirectory(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL),
 mReturnValueCallback(NULL),
-mCriteriaList(NULL),
+mFilterList(NULL),
 mTempNode(NULL),
 mTempName(kTTSymEmpty),
 mResult(NULL),
@@ -28,26 +28,26 @@ mLastResult(kTTValNONE)
 	if(arguments.getSize() >= 1)
 		arguments.get(0, (TTPtr*)&mReturnValueCallback);
 	
-	// It is possible to pass a default criteria bank
+	// It is possible to pass a default filter bank
 	if(arguments.getSize() >= 2)
-		arguments.get(1, (TTPtr*)&mCriteriaBank);
+		arguments.get(1, (TTPtr*)&mFilterBank);
 	else 
-		mCriteriaBank = new TTHash();
+		mFilterBank = new TTHash();
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Output, kTypeSymbol);
 	
-	registerAttribute(TT("criterias"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getCriterias, (TTSetterMethod)&TTExplorer::setCriterias);
+	registerAttribute(TT("filterList"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getFilterList, (TTSetterMethod)&TTExplorer::setFilterList);
 	
 	addMessage(Explore);
 	
-	addMessageWithArguments(CriteriaAdd);
-	addMessageWithArguments(CriteriaRemove);
+	addMessageWithArguments(FilterSet);
+	addMessageWithArguments(FilterRemove);
 	
 	addMessageWithArguments(WriteAsOpml);
 	addMessageProperty(WriteAsOpml, hidden, YES);
 	
-	mCriteriaList = new TTList();
+	mFilterList = new TTList();
 	mResult = new TTHash();
 }
 
@@ -61,8 +61,8 @@ TTExplorer::~TTExplorer()
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 	}
 	
-	delete mCriteriaBank;
-	delete mCriteriaList;
+	delete mFilterBank;
+	delete mFilterList;
 	delete mResult;
 }
 
@@ -227,13 +227,13 @@ TTErr TTExplorer::Explore()
 			}
 		}
 		
-		// get relative address of objects looking at mCriteriaList
+		// get relative address of objects looking at mfilterList
 		else {
 			
-			TTValue args = TTValue((TTPtr)mCriteriaBank);
-			args.append((TTPtr)mCriteriaList);
+			TTValue args = TTValue((TTPtr)mFilterBank);
+			args.append((TTPtr)mFilterList);
 			
-			mDirectory->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)&args, allObjectNodes, &aNode);
+			mDirectory->LookFor(&aNodeList, testNodeUsingFilter, (TTPtr)&args, allObjectNodes, &aNode);
 			
 			// Memorized the result in a hash table (the node is stored in order to sort the result)
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
@@ -270,58 +270,58 @@ TTErr TTExplorer::Explore()
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::CriteriaAdd(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr aCriteria = NULL;
-	TTSymbolPtr		criteriaName, criteriaKey, criteriaSchema = kTTSymEmpty;
-	TTValue			v, criteriaValue;
+	TTDictionaryPtr afilter = NULL;
+	TTSymbolPtr		filterName, filterKey, filterSchema = kTTSymEmpty;
+	TTValue			v, filterValue;
 	TTErr			err;
 	
 	if (inputValue.getType() == kTypeSymbol) {
 	
-		inputValue.get(0, &criteriaName);
+		inputValue.get(0, &filterName);
 		
-		err = mCriteriaBank->lookup(criteriaName, v);
+		err = mFilterBank->lookup(filterName, v);
 		
-		// if the criteria doesn't exist : create a new one
+		// if the filter doesn't exist : create a new one
 		if (err) {
-			aCriteria = new TTDictionary();
-			mCriteriaBank->append(criteriaName, (TTPtr)aCriteria);
+			afilter = new TTDictionary();
+			mFilterBank->append(filterName, (TTPtr)afilter);
 		}
-		// else get the existing criteria and his schema
+		// else get the existing filter and his schema
 		else {
-			v.get(0, (TTPtr*)&aCriteria);
-			criteriaSchema = aCriteria->getSchema();
+			v.get(0, (TTPtr*)&afilter);
+			filterSchema = afilter->getSchema();
 		}
 		
-		// set the keys of the criteria
+		// set the keys of the filter
 		for (TTUInt32 i=1; i<inputValue.getSize(); i=i+2) {
 			
-			inputValue.get(i, &criteriaKey);
-			criteriaValue.copyRange(inputValue, i+1, i+2);
+			inputValue.get(i, &filterKey);
+			filterValue.copyRange(inputValue, i+1, i+2);
 			
-			aCriteria->append(criteriaKey, criteriaValue);
+			afilter->append(filterKey, filterValue);
 			
-			// criteria schema detection on the first key
-			if (criteriaSchema == kTTSymEmpty && i == 1) {
+			// filter schema detection on the first key
+			if (filterSchema == kTTSymEmpty && i == 1) {
 				
-				if (criteriaKey == kTTSym_object || criteriaKey == kTTSym_attribute || criteriaKey == kTTSym_value)
-					criteriaSchema = kTTSym_criteriaOnObject;
+				if (filterKey == kTTSym_object || filterKey == kTTSym_attribute || filterKey == kTTSym_value)
+					filterSchema = kTTSym_objectFilter;
 				
-				else if (criteriaKey == kTTSym_name || criteriaKey == kTTSym_instance)
-					criteriaSchema = kTTSym_criteriaOnAddress;
+				else if (filterKey == kTTSym_name || filterKey == kTTSym_instance)
+					filterSchema = kTTSym_addressFilter;
 				
 				// set the schema
-				aCriteria->setSchema(criteriaSchema);
+				afilter->setSchema(filterSchema);
 				
 			}
 			// then check each keys considering the detected schema
 			else {
 				
-				if (criteriaSchema != kTTSym_criteriaOnObject && (criteriaKey == kTTSym_object || criteriaKey == kTTSym_attribute || criteriaKey == kTTSym_value))
+				if (filterSchema != kTTSym_objectFilter && (filterKey == kTTSym_object || filterKey == kTTSym_attribute || filterKey == kTTSym_value))
 					return kTTErrGeneric;
 				
-				else if (criteriaSchema != kTTSym_criteriaOnAddress && (criteriaKey == kTTSym_name || criteriaKey == kTTSym_instance))
+				else if (filterSchema != kTTSym_addressFilter && (filterKey == kTTSym_name || filterKey == kTTSym_instance))
 					return kTTErrGeneric;
 			}
 		}
@@ -330,41 +330,41 @@ TTErr TTExplorer::CriteriaAdd(const TTValue& inputValue, TTValue& outputValue)
 	else
 		return kTTErrGeneric;
 	
-	// append the new criteria to the criteria list
-	if (aCriteria) {
-		mCriteriaList->appendUnique(criteriaName);
+	// append the new filter to the filter list
+	if (afilter) {
+		mFilterList->appendUnique(filterName);
 		return kTTErrNone;
 	}
 	
 	return kTTErrGeneric;
 }
 
-TTErr TTExplorer::CriteriaRemove(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr aCriteria;
-	TTSymbolPtr		criteriaName;
-	TTValue			v, criteriaValue;
+	TTDictionaryPtr afilter;
+	TTSymbolPtr		filterName;
+	TTValue			v, filterValue;
 	TTErr			err;
 	
 	if (inputValue.getType() == kTypeSymbol) {
 		
-		inputValue.get(0, &criteriaName);
+		inputValue.get(0, &filterName);
 		
-		err = mCriteriaBank->lookup(criteriaName, v);
+		err = mFilterBank->lookup(filterName, v);
 		
-		// if the criteria exists
+		// if the filter exists
 		if (!err) {
 			
-			// remove the criteria from the global table
-			mCriteriaBank->remove(criteriaName);
+			// remove the filter from the global table
+			mFilterBank->remove(filterName);
 			
-			// delete the criteria
-			v.get(0, (TTPtr*)&aCriteria);
-			delete aCriteria;
+			// delete the filter
+			v.get(0, (TTPtr*)&afilter);
+			delete afilter;
 		}
 		
-		// remove the criteria from the criteria list
-		mCriteriaList->remove(criteriaName);
+		// remove the filter from the filter list
+		mFilterList->remove(filterName);
 		
 		return kTTErrNone;
 	}
@@ -372,38 +372,38 @@ TTErr TTExplorer::CriteriaRemove(const TTValue& inputValue, TTValue& outputValue
 	return kTTErrGeneric;
 }
 
-TTErr TTExplorer::getCriterias(TTValue& value)
+TTErr TTExplorer::getFilterList(TTValue& value)
 {
-	TTSymbolPtr criteriaName;
+	TTSymbolPtr filterName;
 	value.clear();
 	
-	for (mCriteriaList->begin(); mCriteriaList->end(); mCriteriaList->next())
+	for (mFilterList->begin(); mFilterList->end(); mFilterList->next())
 	{
-		mCriteriaList->current().get(0, &criteriaName);
-		value.append(criteriaName);
+		mFilterList->current().get(0, &filterName);
+		value.append(filterName);
 	}
 	
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::setCriterias(const TTValue& value)
+TTErr TTExplorer::setFilterList(const TTValue& value)
 {
-	TTSymbolPtr criteriaName;
+	TTSymbolPtr filterName;
 	TTUInt32	i;
 	TTValue		v;
 	TTBoolean	anError = NO;
 	TTErr		err = kTTErrNone;
 	
-	mCriteriaList->clear();
+	mFilterList->clear();
 	
 	for (i=0; i<value.getSize(); i++)
 	{
-		value.get(i, &criteriaName);
+		value.get(i, &filterName);
 		
-		err = mCriteriaBank->lookup(criteriaName, v);
+		err = mFilterBank->lookup(filterName, v);
 		
 		if (!err)
-			mCriteriaList->append(criteriaName);
+			mFilterList->append(filterName);
 		else anError = YES;
 	}
 	
@@ -556,13 +556,13 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 		}
 	}
 	
-	// get relative address of nodes matching criteria
+	// get relative address of nodes matching filter
 	else {
 		
-		TTValue args = TTValue((TTPtr)anExplorer->mCriteriaBank);
-		args.append((TTPtr)anExplorer->mCriteriaList);
+		TTValue args = TTValue((TTPtr)anExplorer->mFilterBank);
+		args.append((TTPtr)anExplorer->mFilterList);
 			
-		if (testNodeUsingCriteria(aNode, (TTPtr)&args)) { 
+		if (testNodeUsingFilter(aNode, (TTPtr)&args)) { 
 			aNode->getAddress(&relativeAddress, anExplorer->mAddress);
 			keys.append(relativeAddress);
 			v.append(TTPtr(aNode));

@@ -1067,7 +1067,7 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
 	
-	args.append((TTPtr)jamoma_explorer_default_criteria_bank());
+	args.append((TTPtr)jamoma_explorer_default_filter_bank());
 	
 	*returnedExplorer = NULL;
 	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);
@@ -1075,71 +1075,71 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	return kTTErrNone;
 }
 
-TTHashPtr jamoma_explorer_default_criteria_bank(void)
+TTHashPtr jamoma_explorer_default_filter_bank(void)
 {
-	TTHashPtr		defaultCriteriaBank = new TTHash();
-	TTDictionaryPtr aCriteria;
+	TTHashPtr		defaultFilterBank = new TTHash();
+	TTDictionaryPtr aFilter;
 	
-	// Create some ready-made criterias
+	// Create some ready-made filters
 	
 	// to look for any data (parameter | message | return)
-	aCriteria = new TTDictionary;
-	aCriteria->setSchema(kTTSym_criteriaOnObject);
-	aCriteria->append(kTTSym_object, TT("Data"));
-	defaultCriteriaBank->append(TT("data"), (TTPtr)aCriteria);
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Data"));
+	defaultFilterBank->append(TT("data"), (TTPtr)aFilter);
 	
 	// to look for jcom.parameter
-	aCriteria = new TTDictionary;
-	aCriteria->setSchema(kTTSym_criteriaOnObject);
-	aCriteria->append(kTTSym_object, TT("Data"));
-	aCriteria->append(kTTSym_attribute, kTTSym_service);
-	aCriteria->append(kTTSym_value, kTTSym_parameter);
-	defaultCriteriaBank->append(TT("parameter"), (TTPtr)aCriteria);
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_attribute, kTTSym_service);
+	aFilter->append(kTTSym_value, kTTSym_parameter);
+	defaultFilterBank->append(TT("parameter"), (TTPtr)aFilter);
 	
 	// to look for jcom.message
-	aCriteria = new TTDictionary;
-	aCriteria->setSchema(kTTSym_criteriaOnObject);
-	aCriteria->append(kTTSym_object, TT("Data"));
-	aCriteria->append(kTTSym_attribute, kTTSym_service);
-	aCriteria->append(kTTSym_value, kTTSym_message);
-	defaultCriteriaBank->append(TT("message"), (TTPtr)aCriteria);
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_attribute, kTTSym_service);
+	aFilter->append(kTTSym_value, kTTSym_message);
+	defaultFilterBank->append(TT("message"), (TTPtr)aFilter);
 	
 	// to look for jcom.return
-	aCriteria = new TTDictionary;
-	aCriteria->setSchema(kTTSym_criteriaOnObject);
-	aCriteria->append(kTTSym_object, TT("Data"));
-	aCriteria->append(kTTSym_attribute, kTTSym_service);
-	aCriteria->append(kTTSym_value, kTTSym_return);
-	defaultCriteriaBank->append(TT("return"), (TTPtr)aCriteria);
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_attribute, kTTSym_service);
+	aFilter->append(kTTSym_value, kTTSym_return);
+	defaultFilterBank->append(TT("return"), (TTPtr)aFilter);
 	
 	// to look for jcom.hub
-	aCriteria = new TTDictionary;
-	aCriteria->setSchema(kTTSym_criteriaOnObject);
-	aCriteria->append(kTTSym_object, TT("Container"));
-	defaultCriteriaBank->append(TT("hub"), (TTPtr)aCriteria);
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Container"));
+	defaultFilterBank->append(TT("hub"), (TTPtr)aFilter);
 	
 	// to look for jcom.view
-	aCriteria = new TTDictionary;
-	aCriteria->setSchema(kTTSym_criteriaOnObject);
-	aCriteria->append(kTTSym_object, TT("Viewer"));
-	defaultCriteriaBank->append(TT("view"), (TTPtr)aCriteria);
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Viewer"));
+	defaultFilterBank->append(TT("view"), (TTPtr)aFilter);
 	
 	// to look for user-defined object
-	aCriteria = new TTDictionary;
-	aCriteria->setSchema(kTTSym_criteriaOnObject);
-	aCriteria->append(kTTSym_attribute, kTTSym_tag);
-	aCriteria->append(kTTSym_value, kTTSym_generic);
-	aCriteria->append(kTTSym_mode, kTTSym_exclusion);
-	defaultCriteriaBank->append(TT("noGenericTag"), (TTPtr)aCriteria);
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_value, kTTSym_generic);
+	aFilter->append(kTTSym_mode, kTTSym_exclusion);
+	defaultFilterBank->append(TT("noGenericTag"), (TTPtr)aFilter);
 	
 	// to look for generic tagged object
-	aCriteria = new TTDictionary;
-	aCriteria->setSchema(kTTSym_criteriaOnObject);
-	aCriteria->append(kTTSym_attribute, kTTSym_tag);
-	aCriteria->append(kTTSym_value, kTTSym_generic);
-	defaultCriteriaBank->append(TT("genericTag"), (TTPtr)aCriteria);
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_value, kTTSym_generic);
+	defaultFilterBank->append(TT("genericTag"), (TTPtr)aFilter);
 	
-	return defaultCriteriaBank;
+	return defaultFilterBank;
 }
 
 // Method to return data

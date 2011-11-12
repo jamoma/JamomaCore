@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 0.0, 44.0, 952.0, 483.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 0.0, 44.0, 952.0, 483.0 ],
@@ -30,6 +36,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 539.0, 44.0, 664.0, 733.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 539.0, 44.0, 664.0, 733.0 ],
@@ -51,14 +63,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-34",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 435.0, 153.0, 141.0, 34.0 ],
-									"text" : "change the mode of the myCriteriaName filter"
+									"text" : "change the mode of the myFilterName filter"
 								}
 
 							}
@@ -71,8 +83,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 72.0, 603.0, 243.0, 18.0 ],
-									"text" : "criteria/add myCriteriaName mode inclusion"
+									"patching_rect" : [ 72.0, 603.0, 214.0, 18.0 ],
+									"text" : "filter/set myFilterName mode inclusion"
 								}
 
 							}
@@ -85,8 +97,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 69.0, 169.0, 243.0, 18.0 ],
-									"text" : "criteria/add myCriteriaName mode inclusion"
+									"patching_rect" : [ 69.0, 169.0, 214.0, 18.0 ],
+									"text" : "filter/set myFilterName mode inclusion"
 								}
 
 							}
@@ -94,14 +106,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-31",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 357.0, 586.0, 141.0, 34.0 ],
-									"text" : "change the mode of the myCriteriaName filter"
+									"text" : "change the mode of the myFilterName filter"
 								}
 
 							}
@@ -109,7 +121,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-30",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -129,8 +141,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 22.0, 448.0, 226.0, 18.0 ],
-									"text" : "criteria/add hub mode exclusion, explore"
+									"patching_rect" : [ 22.0, 448.0, 209.0, 18.0 ],
+									"text" : "filter/set hub mode exclusion, explore"
 								}
 
 							}
@@ -138,7 +150,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-24",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -152,7 +164,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-23",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -166,14 +178,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-20",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 38.0, 333.0, 441.0, 34.0 ],
-									"text" : "Data : any jcom.parameter|message|returns. Actually a jcom.parameter is a Data with his service attribute equals to parameter."
+									"text" : "Data : any jcom.parameter|message|return. Actually a jcom.parameter is a Data with his service attribute equals to parameter."
 								}
 
 							}
@@ -181,7 +193,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-19",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -196,7 +208,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-15",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -210,14 +222,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-18",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 22.0, 412.0, 486.0, 34.0 ],
-									"text" : "For this reason some ready made criterias exists : parameter, message, return, hub, view. It is possible to modify their mode like this :"
+									"patching_rect" : [ 22.0, 412.0, 466.0, 34.0 ],
+									"text" : "For this reason some ready made filters exist : parameter, message, return, hub, view. It is possible to modify their mode like this :"
 								}
 
 							}
@@ -225,14 +237,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-16",
 									"linecount" : 4,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 2.0, 2.0, 656.0, 62.0 ],
-									"text" : "The jcom.namespace exploration can filter out the result it returns. The filtering use two kinds of criterias based on object or based on address. A criteria on object compares object type and/or attributes value. A criteria on address only compares the name or the instance of an address using a regular expression. It is possible to used a combinaition of many criterias in order to filter out the namespace precisely."
+									"patching_rect" : [ 2.0, 2.0, 603.0, 62.0 ],
+									"text" : "The jcom.namespace exploration can filter out the result it returns. There are two kinds of filters : those made to filter objects and those made to filter addresses. An object filter compares object type and/or attributes value. An address filter only compares the name or the instance of an address using a regular expression. It is possible to used a combinaition of many filters in order to filter out the namespace precisely."
 								}
 
 							}
@@ -245,8 +257,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 69.0, 148.0, 247.0, 18.0 ],
-									"text" : "criteria/add myCriteriaName mode exclusion"
+									"patching_rect" : [ 69.0, 148.0, 217.0, 18.0 ],
+									"text" : "filter/set myFilterName mode exclusion"
 								}
 
 							}
@@ -259,8 +271,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 216.0, 265.0, 302.0, 18.0 ],
-									"text" : "criteria/remove myCriteriaName"
+									"patching_rect" : [ 216.0, 265.0, 155.0, 18.0 ],
+									"text" : "filter/set"
 								}
 
 							}
@@ -269,7 +281,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-9",
-									"items" : "<empty>",
+									"items" : [ "degrade.1", ",", "degrade.2", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -317,8 +329,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 69.0, 127.0, 365.0, 18.0 ],
-									"text" : "criteria/add myCriteriaName object Data attribute tag value generic"
+									"patching_rect" : [ 69.0, 127.0, 336.0, 18.0 ],
+									"text" : "filter/set myFilterName object Data attribute tag value generic"
 								}
 
 							}
@@ -331,8 +343,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 253.0, 205.0, 180.0, 18.0 ],
-									"text" : "criteria/remove myCriteriaName"
+									"patching_rect" : [ 253.0, 205.0, 155.0, 18.0 ],
+									"text" : "filter/remove myFilterName"
 								}
 
 							}
@@ -345,8 +357,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 435.0, 205.0, 53.0, 18.0 ],
-									"text" : "criterias"
+									"patching_rect" : [ 435.0, 205.0, 51.0, 18.0 ],
+									"text" : "filter/list"
 								}
 
 							}
@@ -355,14 +367,14 @@
 									"fontface" : 1,
 									"fontname" : "Arial",
 									"fontsize" : 14.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-3",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 15.0, 79.0, 538.0, 39.0 ],
-									"text" : "Criteria on object : \n< criteriaName (object x) (attribute y) (value a b c) (mode inclusion|exclusion) >"
+									"text" : "Object filter : \n< filterName (object x) (attribute y) (value a b c) (mode inclusion|exclusion) >"
 								}
 
 							}
@@ -371,14 +383,14 @@
 									"fontface" : 1,
 									"fontname" : "Arial",
 									"fontsize" : 14.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-2",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 18.0, 494.0, 535.0, 39.0 ],
-									"text" : "Criteria on address : \n< criteriaName (name x) (instance y) (mode inclusion|exclusion) >"
+									"text" : "Address filter : \n< filterName (name x) (instance y) (mode inclusion|exclusion) >"
 								}
 
 							}
@@ -391,8 +403,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 72.0, 582.0, 247.0, 18.0 ],
-									"text" : "criteria/add myCriteriaName mode exclusion"
+									"patching_rect" : [ 72.0, 582.0, 217.0, 18.0 ],
+									"text" : "filter/set myFilterName mode exclusion"
 								}
 
 							}
@@ -405,8 +417,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 219.0, 701.0, 301.0, 18.0 ],
-									"text" : "criteria/remove myCriteriaName"
+									"patching_rect" : [ 219.0, 701.0, 155.0, 18.0 ],
+									"text" : "filter/set"
 								}
 
 							}
@@ -415,7 +427,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-6",
-									"items" : "<empty>",
+									"items" : [ "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.1", ",", "degrade.1/in/bypass", ",", "degrade.1/in/mute", ",", "degrade.1/model", ",", "degrade.1/model/address", ",", "degrade.1/model/class", ",", "degrade.1/model/documentation", ",", "degrade.1/model/documentation/generate", ",", "degrade.1/model/help", ",", "degrade.1/model/internals", ",", "degrade.1/model/mute", ",", "degrade.1/model/reference", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.1", ",", "degrade.1/out/gain", ",", "degrade.1/out/mix", ",", "degrade.1/out/mute", ",", "degrade.1/preset", ",", "degrade.1/preset/names", ",", "degrade.1/preset/read", ",", "degrade.1/preset/read/again", ",", "degrade.1/preset/recall", ",", "degrade.1/preset/recall/current", ",", "degrade.1/preset/recall/next", ",", "degrade.1/preset/recall/previous", ",", "degrade.1/preset/remove", ",", "degrade.1/preset/remove/current", ",", "degrade.1/preset/remove/next", ",", "degrade.1/preset/remove/previous", ",", "degrade.1/preset/store", ",", "degrade.1/preset/store/current", ",", "degrade.1/preset/store/next", ",", "degrade.1/preset/store/previous", ",", "degrade.1/preset/write", ",", "degrade.1/preset/write/again", ",", "degrade.1/samplerateRatio", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.1", ",", "degrade.2/in/bypass", ",", "degrade.2/in/mute", ",", "degrade.2/model", ",", "degrade.2/model/address", ",", "degrade.2/model/class", ",", "degrade.2/model/documentation", ",", "degrade.2/model/documentation/generate", ",", "degrade.2/model/help", ",", "degrade.2/model/internals", ",", "degrade.2/model/mute", ",", "degrade.2/model/reference", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.1", ",", "degrade.2/out/gain", ",", "degrade.2/out/mix", ",", "degrade.2/out/mute", ",", "degrade.2/preset", ",", "degrade.2/preset/names", ",", "degrade.2/preset/read", ",", "degrade.2/preset/read/again", ",", "degrade.2/preset/recall", ",", "degrade.2/preset/recall/current", ",", "degrade.2/preset/recall/next", ",", "degrade.2/preset/recall/previous", ",", "degrade.2/preset/remove", ",", "degrade.2/preset/remove/current", ",", "degrade.2/preset/remove/next", ",", "degrade.2/preset/remove/previous", ",", "degrade.2/preset/store", ",", "degrade.2/preset/store/current", ",", "degrade.2/preset/store/next", ",", "degrade.2/preset/store/previous", ",", "degrade.2/preset/write", ",", "degrade.2/preset/write/again", ",", "degrade.2/samplerateRatio", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/model", ",", "degrade~(view).1/model/address", ",", "degrade~(view).1/out", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/color", ",", "degrade~(view).1/ui/color/border", ",", "degrade~(view).1/ui/color/contentBackground", ",", "degrade~(view).1/ui/color/toolbarBackground", ",", "degrade~(view).1/ui/color/toolbarText", ",", "degrade~(view).1/ui/freeze", ",", "degrade~(view).1/ui/in", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view).1/ui/refresh", ",", "degrade~(view).1/ui/size", ",", "degrade~(view).1/view", ",", "degrade~(view).1/view/class", ",", "degrade~(view).1/view/documentation", ",", "degrade~(view).1/view/documentation/generate", ",", "degrade~(view).1/view/help", ",", "degrade~(view).1/view/internals", ",", "degrade~(view).1/view/mute", ",", "degrade~(view).1/view/reference", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/model", ",", "degrade~(view)/model/address", ",", "degrade~(view)/out", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/color", ",", "degrade~(view)/ui/color/border", ",", "degrade~(view)/ui/color/contentBackground", ",", "degrade~(view)/ui/color/toolbarBackground", ",", "degrade~(view)/ui/color/toolbarText", ",", "degrade~(view)/ui/freeze", ",", "degrade~(view)/ui/in", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute", ",", "degrade~(view)/ui/refresh", ",", "degrade~(view)/ui/size", ",", "degrade~(view)/view", ",", "degrade~(view)/view/class", ",", "degrade~(view)/view/documentation", ",", "degrade~(view)/view/documentation/generate", ",", "degrade~(view)/view/help", ",", "degrade~(view)/view/internals", ",", "degrade~(view)/view/mute", ",", "degrade~(view)/view/reference" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -463,8 +475,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 72.0, 542.0, 283.0, 18.0 ],
-									"text" : "criteria/add myCriteriaName name deg instance \"2\""
+									"patching_rect" : [ 72.0, 542.0, 254.0, 18.0 ],
+									"text" : "filter/set myFilterName name deg instance \"2\""
 								}
 
 							}
@@ -477,8 +489,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 256.0, 641.0, 180.0, 18.0 ],
-									"text" : "criteria/remove myCriteriaName"
+									"patching_rect" : [ 256.0, 641.0, 155.0, 18.0 ],
+									"text" : "filter/remove myFilterName"
 								}
 
 							}
@@ -491,8 +503,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 438.0, 641.0, 53.0, 18.0 ],
-									"text" : "criterias"
+									"patching_rect" : [ 438.0, 641.0, 51.0, 18.0 ],
+									"text" : "filter/list"
 								}
 
 							}
@@ -501,7 +513,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-8", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 298.5, 260.5, 508.5, 260.5 ],
+									"midpoints" : [ 298.5, 260.5, 361.5, 260.5 ],
 									"source" : [ "obj-10", 2 ]
 								}
 
@@ -627,7 +639,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-28", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 301.5, 696.5, 510.5, 696.5 ],
+									"midpoints" : [ 301.5, 696.5, 364.5, 696.5 ],
 									"source" : [ "obj-5", 2 ]
 								}
 
@@ -653,18 +665,18 @@
  ]
 					}
 ,
-					"patching_rect" : [ 404.0, 99.0, 130.0, 25.0 ],
+					"patching_rect" : [ 404.0, 99.0, 111.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
-					"text" : "p about_criterias",
+					"text" : "p about_filters",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
@@ -695,6 +707,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 25.0, 69.0, 378.0, 319.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 25.0, 69.0, 378.0, 319.0 ],
@@ -880,13 +898,13 @@
 ,
 					"patching_rect" : [ 835.0, 354.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -947,6 +965,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 25.0, 69.0, 378.0, 319.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 25.0, 69.0, 378.0, 319.0 ],
@@ -1132,13 +1156,13 @@
 ,
 					"patching_rect" : [ 87.0, 271.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1247,7 +1271,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-48",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -1369,7 +1393,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-21",
 					"linecount" : 5,
 					"maxclass" : "comment",
@@ -1387,7 +1411,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-4",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -1421,7 +1445,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-76",
 					"linecount" : 4,
 					"maxclass" : "comment",
@@ -1439,7 +1463,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-75",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -1457,7 +1481,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-74",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -1475,7 +1499,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-73",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1492,7 +1516,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-69",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -1509,7 +1533,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-68",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1525,7 +1549,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-67",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1541,7 +1565,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-66",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1557,7 +1581,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-65",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1573,7 +1597,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-64",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1604,7 +1628,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-59",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1686,7 +1710,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 835.0, 484.0, 35.0, 20.0 ],
-					"prefix" : "/degrade.2/model.",
+					"prefix" : "/degrade.1/model/class.",
 					"presentation" : 1,
 					"presentation_rect" : [ 478.0, 240.0, 35.0, 20.0 ],
 					"types" : [  ]
@@ -1707,7 +1731,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 760.0, 330.0, 168.0, 20.0 ],
-					"prefix" : "Mac:/",
+					"prefix" : "/degrade.1/model/",
 					"presentation" : 1,
 					"presentation_rect" : [ 345.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
@@ -1764,7 +1788,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-41",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1779,7 +1803,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-40",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1787,7 +1811,7 @@
 					"patching_rect" : [ 149.0, 690.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/degrade~(view).1/ui:"
+					"text" : "/degrade.1/model/class:"
 				}
 
 			}
@@ -1878,7 +1902,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/degrade~(view).1/ui:",
+					"prefix" : "/degrade.1/model/class:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1920,7 +1944,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 246.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade~(view).1/ui/",
+					"prefix" : "/degrade.1/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 270.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1941,7 +1965,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 87.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade~(view).1/ui/",
+					"prefix" : "/degrade.1/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 240.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1959,8 +1983,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 396.0, 342.0, 131.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @criterias return"
+					"patching_rect" : [ 396.0, 342.0, 134.0, 48.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list return"
 				}
 
 			}
@@ -1975,8 +1999,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 246.0, 342.0, 133.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @criterias message"
+					"patching_rect" : [ 246.0, 342.0, 134.0, 48.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list message"
 				}
 
 			}
@@ -1991,8 +2015,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 87.0, 341.0, 133.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @criterias parameter"
+					"patching_rect" : [ 87.0, 341.0, 138.0, 48.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list parameter"
 				}
 
 			}
@@ -2044,8 +2068,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 12.0, 194.0, 133.0, 48.0 ],
-					"text" : "jcom.namespace @criterias hub @format umenu_prefix"
+					"patching_rect" : [ 12.0, 194.0, 132.0, 48.0 ],
+					"text" : "jcom.namespace @filter/list hub @format umenu_prefix"
 				}
 
 			}
@@ -2054,6 +2078,7 @@
 					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"gradient" : 0,
 					"id" : "obj-14",
 					"maxclass" : "message",
 					"numinlets" : 2,

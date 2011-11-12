@@ -160,7 +160,7 @@ extern "C" {
 	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer);
 
 	
-	TTHashPtr		jamoma_explorer_default_criteria_bank(void);
+	TTHashPtr		jamoma_explorer_default_filter_bank(void);
 	
 	// Method to return data
 	///////////////////////////////////////////////////////////////////////

@@ -38,8 +38,8 @@ private:
 	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
 	TTCallbackPtr		mApplicationObserver;			///< an application life cycle observer
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
-	TTHashPtr			mCriteriaBank;					///< a hash table containing TTDictionaryPtr to store criterias
-	TTListPtr			mCriteriaList;					///< a list containing TTSymbolPtr to retreive criterias in the criteria bank
+	TTHashPtr			mFilterBank;					///< a hash table containing TTDictionaryPtr to store filters
+	TTListPtr			mFilterList;					///< a list containing TTSymbolPtr to retreive filters in the filter bank
 	
 	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done (Children and Instances cases)
 	TTSymbolPtr			mTempName;						///< remember the name on which the exploration have been done (Instances case)
@@ -51,22 +51,22 @@ private:
 	/** */
 	TTErr Explore();
 	
-	/** Create a criteria, add it to the bank and append it to the list
-		< criteriaName criteriaKey1 criteriaValue1 criteriaKey2 criteriaValue2 ... >
-		note : the schema of the criteria is automatically detected by the keys */
-	TTErr CriteriaAdd(const TTValue& inputValue, TTValue& outputValue);
+	/** Create a filter, add it to the bank and append it to the list
+		< filterName filterKey1 filterValue1 filterKey2 filterValue2 ... >
+		note : the schema of the filter is automatically detected by the keys */
+	TTErr FilterSet(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Delete a criteria from the bank using his name and remove it from the criteria list */
-	TTErr CriteriaRemove(const TTValue& inputValue, TTValue& outputValue);
+	/** Delete a filter from the bank using his name and remove it from the filter list */
+	TTErr FilterRemove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	// TODO : TTErr Dump();
 	
 	/** */
-	TTErr getCriterias(TTValue& value);
+	TTErr getFilterList(TTValue& value);
 	
 	/** */
-	TTErr setCriterias(const TTValue& value);
+	TTErr setFilterList(const TTValue& value);
 	
 	/** */
 	TTErr setOutput(const TTValue& value);
