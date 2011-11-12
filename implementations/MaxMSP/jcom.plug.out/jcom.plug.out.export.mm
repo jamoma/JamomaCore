@@ -271,7 +271,7 @@ public:
 						if (isArray)
 							attributeValueString = "v";
 						else if (attributeValue.getType() == kTypeSymbol) {
-							TTSymbolPtr	attributeValueSymbol;
+							TTSymbolPtr	attributeValueSymbol = NULL;
 							
 							attributeValue.get(0, &attributeValueSymbol);
 							attributeValueString = "TT(\"";
@@ -814,7 +814,10 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	filecontents = "";
 	filepath = [tempPath UTF8String];
 	
-	filepath += "/PlugtasticAUEffectVersion.h";
+	if (isInstrument)
+		filepath += "/PlugtasticAUInstrumentVersion.h";
+	else
+		filepath += "/PlugtasticAUEffectVersion.h";
 	
 	filecontents += "#ifndef __PlugtasticAUEffectVersion_h__\n";
 	filecontents += "#define __PlugtasticAUEffectVersion_h__\n";
@@ -846,19 +849,31 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	}
 	
 	
-	// 4. generate PlugtasticAUEffect.r
+	// 4. generate PlugtasticAUEffect.r or PlugtasticAUInstrument.r
 	
 	filecontents = "";
 	filepath = [tempPath UTF8String];
 	
-	filepath += "/PlugtasticAUEffect.r";
+	if (isInstrument)
+		filepath += "/PlugtasticAUInstrument.r";
+	else
+		filepath += "/PlugtasticAUEffect.r";
 	
 	filecontents += "#include <AudioUnit/AudioUnit.r>\n";
-	filecontents += "#include \"PlugtasticAUEffectVersion.h\"\n";
+	if (isInstrument)
+		filecontents += "#include \"PlugtasticAUInstrumentVersion.h\"\n";
+	else
+		filecontents += "#include \"PlugtasticAUEffectVersion.h\"\n";
+	
 	filecontents += "#define kAudioUnitResID_PlugtasticAUEffect 1000\n";
 	filecontents += "\n";
 	filecontents += "#define RES_ID			kAudioUnitResID_PlugtasticAUEffect\n";
-	filecontents += "#define COMP_TYPE		kAudioUnitType_Effect\n";
+	
+	if (isInstrument)
+		filecontents += "#define COMP_TYPE		kAudioUnitType_MusicDevice\n";
+	else
+		filecontents += "#define COMP_TYPE		kAudioUnitType_Effect\n";
+	
 	filecontents += "#define COMP_SUBTYPE	PlugtasticAUEffect_COMP_SUBTYPE\n";
 	filecontents += "#define COMP_MANUF		PlugtasticAUEffect_COMP_MANF\n";
 	filecontents += "\n";
@@ -874,7 +889,11 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	filecontents += self->pluginName->s_name;
 	filecontents += " AU Plug-in\"\n";
 	
-	filecontents += "#define ENTRY_POINT		\"PlugtasticAUEffectEntry\"\n";
+	if (isInstrument)
+		filecontents += "#define ENTRY_POINT		\"PlugtasticAUInstrumentEntry\"\n";
+	else
+		filecontents += "#define ENTRY_POINT		\"PlugtasticAUEffectEntry\"\n";
+	
 	filecontents += "\n";
 	filecontents += "#include \"AUResources.r\"\n";
 	
