@@ -22,6 +22,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_getVector32;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_setVector64;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_getVector64;
 
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_addressFilter;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_alloc;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_attribute;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
@@ -31,8 +32,6 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clear;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clip;
-TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_criteriaOnAddress;
-TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_criteriaOnObject;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_exclusion;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_wrap;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_fold;
@@ -47,6 +46,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_name;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_notify;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_object;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_objectFilter;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_processInPlace;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_range;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_resonance;
@@ -106,6 +106,7 @@ void TTSymbolCacheInit()
 	kTTSym_setVector64				= TT("setVector64");
 	kTTSym_getVector64				= TT("getVector64");
 
+	kTTSym_addressFilter			= TT("addressFilter");
 	kTTSym_alloc					= TT("alloc");
 	kTTSym_attribute				= TT("attribute");
 	kTTSym_audioEngineWillProcess	= TT("audioEngineWillProcess");
@@ -115,8 +116,6 @@ void TTSymbolCacheInit()
 	kTTSym_clear					= TT("clear");
 	kTTSym_clipmode					= TT("clipmode");
 	kTTSym_clip						= TT("clip");
-	kTTSym_criteriaOnAddress		= TT("criteriaOnAddress");
-	kTTSym_criteriaOnObject			= TT("criteriaOnObject");
 	kTTSym_exclusion				= TT("exclusion");
 	kTTSym_wrap						= TT("wrap");
 	kTTSym_fold						= TT("fold");
@@ -131,6 +130,7 @@ void TTSymbolCacheInit()
 	kTTSym_notify					= TT("notify");
 	kTTSym_numChannels				= TT("numChannels");
 	kTTSym_object					= TT("object");
+	kTTSym_objectFilter				= TT("objectFilter");
 	kTTSym_processInPlace			= TT("processInPlace");
 	kTTSym_range					= TT("range");
 	kTTSym_resonance				= TT("resonance");

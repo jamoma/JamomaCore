@@ -187,11 +187,11 @@ TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
  @return							true if the TTCallback argument is replaced by kTTVal1 */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
 
-/**	An test tool : test a node using a list of Criteria from a bank.
+/**	An test tool : test a node using a list of filter from a bank.
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
- @param args						A TTValuePtr containing a TTHashPtr (the bank) and a TTListPtr (the name of the criteria)
- @return							true if the node matches all criterias */
-TTBoolean TTFOUNDATION_EXPORT testNodeUsingCriteria(TTNodePtr n, TTPtr args);
+ @param args						A TTValuePtr containing a TTHashPtr (the bank) and a TTListPtr (the name of the filter)
+ @return							true if the node matches all filters */
+TTBoolean TTFOUNDATION_EXPORT testNodeUsingFilter(TTNodePtr n, TTPtr args);
 
 #endif // __TT_NODE_DIRECTORY_H__

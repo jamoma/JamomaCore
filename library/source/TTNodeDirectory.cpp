@@ -618,13 +618,13 @@ TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
 	return v == kTTVal1;
 }
 
-TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
+TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 {
 	TTValuePtr		argsValue = (TTValuePtr)args;
-	TTHashPtr		criteriaBank;
-	TTListPtr		criteriaList;
-	TTSymbolPtr		aCriteriaName;
-	TTDictionaryPtr aCriteria;
+	TTHashPtr		filterBank;
+	TTListPtr		filterList;
+	TTSymbolPtr		aFilterName;
+	TTDictionaryPtr aFilter;
 	TTObjectPtr		anObject;
 	TTNodeAddressPtr anAddress;
 	TTValue			v;
@@ -632,76 +632,76 @@ TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
 	TTBoolean		exclude;
 	TTErr			err;
 	
-	argsValue->get(0, (TTPtr*)&criteriaBank);
-	argsValue->get(1, (TTPtr*)&criteriaList);
+	argsValue->get(0, (TTPtr*)&filterBank);
+	argsValue->get(1, (TTPtr*)&filterList);
 	
-	// if the criteria list is empty return NO
-	if (!criteriaList->isEmpty()) {
+	// if the filter list is empty return NO
+	if (!filterList->isEmpty()) {
 		
-		// for each criteria name
-		for (criteriaList->begin(); criteriaList->end(); criteriaList->next()) {
+		// for each filter name
+		for (filterList->begin(); filterList->end(); filterList->next()) {
 			
-			// get the next criteria name from the list
+			// get the next filter name from the list
 			// and get it from the bank
-			aCriteria = NULL;
-			criteriaList->current().get(0, &aCriteriaName);
-			err = criteriaBank->lookup(aCriteriaName, v);
+			aFilter = NULL;
+			filterList->current().get(0, &aFilterName);
+			err = filterBank->lookup(aFilterName, v);
 			
 			if (!err) {
 				
-				v.get(0, (TTPtr*)&aCriteria);
+				v.get(0, (TTPtr*)&aFilter);
 				
-				// criteria key for any style
-				if (!aCriteria->lookup(kTTSym_mode, v)) {
+				// filter key for any style
+				if (!aFilter->lookup(kTTSym_mode, v)) {
 					
-					TTSymbolPtr modeCriteria;
-					v.get(0, &modeCriteria);
+					TTSymbolPtr modeFilter;
+					v.get(0, &modeFilter);
 					
-					if (modeCriteria == kTTSym_exclusion)
+					if (modeFilter == kTTSym_exclusion)
 						exclude = YES;
 					
-					else if (modeCriteria == kTTSym_inclusion)
+					else if (modeFilter == kTTSym_inclusion)
 						exclude = NO;
 					
 				}
 				else
 					exclude = NO;
 				
-				// make test depending on the criteria style
-				if (aCriteria->getSchema() == kTTSym_criteriaOnObject) {
+				// make test depending on the filter style
+				if (aFilter->getSchema() == kTTSym_objectFilter) {
 					
 					// if there is an object
 					anObject = n->getObject();
 					if (anObject) {
 						
 						// test object name
-						if (!aCriteria->lookup(kTTSym_object, v)) {
+						if (!aFilter->lookup(kTTSym_object, v)) {
 							
-							TTSymbolPtr objectCriteria;
-							v.get(0, &objectCriteria);
+							TTSymbolPtr objectFilter;
+							v.get(0, &objectFilter);
 							
-							result = result && objectCriteria == anObject->getName();
+							result = result && objectFilter == anObject->getName();
 							
 							if (exclude) result = !result;
 							if (!result) break;
 						}
 						
 						// test attribute name
-						if (!aCriteria->lookup(kTTSym_attribute, v)) {
+						if (!aFilter->lookup(kTTSym_attribute, v)) {
 							
-							TTSymbolPtr attributeCriteria;
-							TTValue		valueCriteria;
-							v.get(0, &attributeCriteria);
-							err = anObject->getAttributeValue(attributeCriteria, v);
+							TTSymbolPtr attributeFilter;
+							TTValue		valueFilter;
+							v.get(0, &attributeFilter);
+							err = anObject->getAttributeValue(attributeFilter, v);
 							
 							result = result && !err;
 							
 							if (!result) break;
 							
 							// test value
-							if (!err && !aCriteria->lookup(kTTSym_value, valueCriteria)) {
+							if (!err && !aFilter->lookup(kTTSym_value, valueFilter)) {
 								
-								result = result && valueCriteria == v;
+								result = result && valueFilter == v;
 								
 								if (exclude) result = !result;
 								if (!result) break;
@@ -713,7 +713,7 @@ TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
 						break;
 					}
 				}
-				else if (aCriteria->getSchema() == kTTSym_criteriaOnAddress) {
+				else if (aFilter->getSchema() == kTTSym_addressFilter) {
 					
 					n->getAddress(&anAddress, kTTAdrsRoot);
 					
@@ -722,11 +722,11 @@ TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
 					TTRegexStringPosition begin, end;
 					
 					// test address name part
-					if (!aCriteria->lookup(kTTSym_name, v)) {
+					if (!aFilter->lookup(kTTSym_name, v)) {
 						
-						TTSymbolPtr nameCriteria;
-						v.get(0, &nameCriteria);
-						aRegex = new TTRegex(nameCriteria->getCString());
+						TTSymbolPtr nameFilter;
+						v.get(0, &nameFilter);
+						aRegex = new TTRegex(nameFilter->getCString());
 						
 						s_toParse = anAddress->getName()->getCString();
 						begin = s_toParse.begin();
@@ -746,11 +746,11 @@ TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
 					}
 					
 					// test address instance part
-					if (!aCriteria->lookup(kTTSym_instance, v)) {
+					if (!aFilter->lookup(kTTSym_instance, v)) {
 						
-						TTSymbolPtr instanceCriteria;
-						v.get(0, &instanceCriteria);
-						aRegex = new TTRegex(instanceCriteria->getCString());
+						TTSymbolPtr instanceFilter;
+						v.get(0, &instanceFilter);
+						aRegex = new TTRegex(instanceFilter->getCString());
 						
 						s_toParse = anAddress->getInstance()->getCString();
 						begin = s_toParse.begin();
