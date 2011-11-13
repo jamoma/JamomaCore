@@ -194,11 +194,10 @@ TTErr TTSoundfileRecorder::processAudioRecording(TTAudioSignalArrayPtr inputs, T
 	for (channel=0; channel<channelCount; channel++) {
 		inSample = in.mSampleVectors[channel];
 		outSample = out.mSampleVectors[channel]; // sending audio out
-		for (n=0; n<vs; n++){
+		for (n=0; n<vs; n++)
 			//mBuffer[progress+(n * channelCount + channel)] = inSample[n]; //sending audio to recording buffer
 			mBuffer[(n * channelCount + channel)] = inSample[n]; //sending audio to recording buffer
-			outSample[n] = inSample[n];  // sending audio out
-		}
+		memcpy(outSample, inSample, sizeof(TTSampleValue) * vs);
 	}
     //mCycles++;
 	//if (mCycles == 100){
@@ -252,10 +251,9 @@ TTErr TTSoundfileRecorder::processTimedAudioRecording(TTAudioSignalArrayPtr inpu
 	for (channel=0; channel<channelCount; channel++) {
 		inSample = in.mSampleVectors[channel];
 		outSample = out.mSampleVectors[channel]; // sending audio out
-		for (n=0; n<vs; n++){
+		for (n=0; n<vs; n++)
 			mBuffer[progress+(n * channelCount + channel)] = inSample[n]; //sending audio to recording buffer
-			outSample[n] = inSample[n];  // sending audio out
-		}
+		memcpy(outSample, inSample, sizeof(TTSampleValue) * vs); // sending audio out
 	}    
 	
 	mCycles++;
@@ -279,15 +277,14 @@ TTErr TTSoundfileRecorder::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAu
 	TTSampleValuePtr	outSample, inSample;
 	TTUInt16			channelCount = in.getNumChannelsAsInt();
 	TTUInt16			vs = in.getVectorSizeAsInt();
-	TTUInt16			n, channel;
+	TTUInt16			channel;
 
 	
 	// not recording, just bypassing audio and return
 	 for (channel=0; channel<channelCount; channel++) {
 		 inSample = in.mSampleVectors[channel];
 		 outSample = out.mSampleVectors[channel]; // sending audio out
-		 for (n=0; n<vs; n++)
-			 outSample[n] = inSample[n];  // sending audio out
+		 memcpy(outSample, inSample, sizeof(TTSampleValue) * vs); // sending audio out
 	}
 	return kTTErrNone;
 } 
