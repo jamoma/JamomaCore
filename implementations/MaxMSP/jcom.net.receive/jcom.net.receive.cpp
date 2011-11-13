@@ -12,6 +12,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
 	TTValue					value;
+	WrappedClassPtr			c = NULL;
+
 	
 	TTFoundationInit();
 	
@@ -24,5 +26,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	value.append(TT("receivedMessage"));
 	options->append(TT("controlOutletFromNotification"), value);
 	
-	return wrapTTClassAsMaxClass(TT("net.receive"), "jcom.net.receive", NULL, options);
+	wrapTTClassAsMaxClass(TT("net.receive"), "jcom.net.receive", &c, options);
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "tcp udp");
+	return 0;
 }
