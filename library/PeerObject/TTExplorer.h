@@ -28,10 +28,9 @@ private:
 	
 	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
 	TTSymbolPtr			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
-														///<	- address : any address below the node at any level (default)
-														///<	- children : all names of the children's node
-														///<	- instance : all instances of the node
-														///<	- attribute : all attributes of the node
+														///<	- descendants : any address below the node at any level (default)
+														///<	- children : all children of the node
+														///<	- attributes : all attributes of the node
 	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
@@ -41,10 +40,7 @@ private:
 	TTHashPtr			mFilterBank;					///< a hash table containing TTDictionaryPtr to store filters
 	TTListPtr			mFilterList;					///< a list containing TTSymbolPtr to retreive filters in the filter bank
 	
-	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done (Children and Instances cases)
-	TTSymbolPtr			mTempName;						///< remember the name on which the exploration have been done (Instances case)
-	TTNodeAddressPtr	mTempParent;					///< remember the parent address (Instances case)
-	TTNodeAddressPtr	mTempObserve;					///< remember the observed address (Instances case)
+	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done	(Children cases)
 	TTHashPtr			mResult;						///< hash table containing all elements found by the explorer
 	TTValue				mLastResult;					///< keep the last result to filter unchanged list
 		

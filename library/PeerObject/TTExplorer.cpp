@@ -14,14 +14,13 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsRoot),
-mOutput(kTTSymEmpty),
+mOutput(kTTSym_descendants),
 mDirectory(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL),
 mReturnValueCallback(NULL),
 mFilterList(NULL),
 mTempNode(NULL),
-mTempName(kTTSymEmpty),
 mResult(NULL),
 mLastResult(kTTValNONE)
 {
@@ -68,11 +67,18 @@ TTExplorer::~TTExplorer()
 
 TTErr TTExplorer::setOutput(const TTValue& value)
 {
-	mOutput = value;
+	TTSymbolPtr newOutput = value;
 	
-	setAddress(mAddress);
-	
-	return kTTErrNone;
+	if (newOutput == kTTSym_descendants || newOutput == kTTSym_children || newOutput == kTTSym_attributes) {
+		
+		mOutput = newOutput;
+		
+		setAddress(mAddress);
+		
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;	
 }
 
 TTErr TTExplorer::setAddress(const TTValue& value)
@@ -96,18 +102,8 @@ TTErr TTExplorer::bindAddress()
 	// it works only for absolute address
 	if (mAddress->getType() == kAddressAbsolute) {
 		
-		// change internal values
-		mTempParent = mAddress->getParent();
-		mTempName = mAddress->getName();
-		
-		// bind the new node
-		if (mOutput == kTTSym_instances)
-			mTempObserve = mTempParent;
-		else
-			mTempObserve = mAddress;
-		
-		// change the observer
-		if (mTempObserve != kTTSymEmpty){
+		// change the address observer
+		if (mAddress != kTTAdrsEmpty) {
 			
 			// observe any creation or destruction below the address
 			mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -121,7 +117,7 @@ TTErr TTExplorer::bindAddress()
 			
 			mAddressObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
 			
-			mDirectory->addObserverForNotifications(mTempObserve, *mAddressObserver);
+			mDirectory->addObserverForNotifications(mAddress, *mAddressObserver);
 		}
 		
 		return kTTErrNone;
@@ -133,8 +129,8 @@ TTErr TTExplorer::bindAddress()
 TTErr TTExplorer::unbindAddress() 
 {
 	// delete the old observer
-	if (mDirectory && mAddressObserver && mTempObserve != kTTSymEmpty) {
-		mDirectory->removeObserverForNotifications(mTempObserve, *mAddressObserver);
+	if (mDirectory && mAddressObserver && mAddress != kTTSymEmpty) {
+		mDirectory->removeObserverForNotifications(mAddress, *mAddressObserver);
 		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 		
 		return kTTErrNone;
@@ -157,7 +153,7 @@ TTErr TTExplorer::bindApplication()
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
-		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));		// this is usefull only to debug
+		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));		// this is usefull only to debug
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
 	}
@@ -184,11 +180,12 @@ TTErr TTExplorer::unbindApplication()
 
 TTErr TTExplorer::Explore()
 {
-	TTNodeAddressPtr name;
-	TTList		aNodeList, nameList, allObjectNodes;
+	TTNodeAddressPtr relativeAddress;
+	TTSymbolPtr	attributeName;
+	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
 	TTObjectPtr	o;
-	TTValue		v;
+	TTValue		v, args;
 	TTErr		err;
 	
 	mResult->clear();
@@ -199,60 +196,48 @@ TTErr TTExplorer::Explore()
 		return kTTErrGeneric;
 	
 	// bind the right node
-	if (mOutput == kTTSym_instances)
-		err = mDirectory->Lookup(mTempParent, aNodeList, &mTempNode);
-	else
-		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
+	err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
 		
-		// get children names
-		if (mOutput == kTTSym_children)
-			mTempNode->getChildrenName(nameList);
-		
-		// get instances names
-		else if (mOutput == kTTSym_instances)
-			mTempNode->getChildrenInstance(mTempName, nameList);
-		
-		// get attributes names
-		else if (mOutput == kTTSym_attributes) {
+		// get attributes names of the node at mAddress
+		if (mOutput == kTTSym_attributes) {
+			
 			if (o = mTempNode->getObject()) {
 				v.clear();
 				o->getAttributeNames(v);
-				// Memorized the result in a hash table
+				
+				// memorized the result in a hash table
 				for (TTUInt32 i=0; i<v.getSize(); i++) {
-					v.get(i, (TTSymbolPtr*)&name);
-					mResult->append(name, kTTValNONE);
+					v.get(i, (TTSymbolPtr*)&attributeName);
+					mResult->append(attributeName, kTTValNONE);
 				}
 			}
 		}
 		
-		// get relative address of objects looking at mfilterList
+		// explore nodes below the address
 		else {
 			
-			TTValue args = TTValue((TTPtr)mFilterBank);
+			// prepare filters for the exploration
+			args = TTValue((TTPtr)mFilterBank);
 			args.append((TTPtr)mFilterList);
 			
+			// explore
+			// TODO : for the children case, we should avoid exploration below
 			mDirectory->LookFor(&aNodeList, testNodeUsingFilter, (TTPtr)&args, allObjectNodes, &aNode);
 			
-			// Memorized the result in a hash table (the node is stored in order to sort the result)
+			// memorized the result in a hash table (the node is stored in order to sort the result)
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 				
 				allObjectNodes.current().get(0, (TTPtr*)&aNode);
-				aNode->getAddress(&name, mAddress);
+				aNode->getAddress(&relativeAddress, mAddress);
 				
-				mResult->append(name, TTValue((TTPtr)aNode));
-			}
-		}
-		
-		// For Children and Instances cases : 
-		// Memorized the result in a hash table
-		if (!nameList.isEmpty()) {
-			for (nameList.begin(); nameList.end(); nameList.next()) {
+				// children case : ignore address with a parent part
+				// TODO : for the children case, we should avoid exploration below
+				if (mOutput == kTTSym_children && relativeAddress->getParent() != kTTAdrsEmpty)
+					continue;
 				
-				nameList.current().get(0,(TTSymbol **)&name);
-				
-				mResult->append(name, kTTValNONE);
+				mResult->append(relativeAddress, TTValue((TTPtr)aNode));
 			}
 		}
 		
@@ -514,7 +499,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTValue			v = kTTValNONE;
 	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
-	TTNodeAddressPtr anAddress, relativeAddress;
+	TTNodeAddressPtr anAddress, relativeAddress, nameInstance;
 	TTSymbolPtr		key;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
@@ -531,21 +516,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(2, flag);
 	data.get(3, (TTPtr*)&anObserver);
 	
-	// get children names
-	if (anExplorer->mOutput == kTTSym_children) {
-		if (aNode->getParent() == anExplorer->mTempNode)
-			keys.append(aNode->getName());
-	}
-	
-	// get instances names
-	else if (anExplorer->mOutput == kTTSym_instances) {
-		 // TODO : if the TempNode is destroyed then rebuilt, the test below fails => observe his destruction and replace mTempNode
-		if ((aNode->getParent() == anExplorer->mTempNode) && (aNode->getName() == anExplorer->mTempName))
-			keys.append(aNode->getInstance());
-	}
-	
 	// get attributes names
-	else if (anExplorer->mOutput == kTTSym_attributes) {
+	if (anExplorer->mOutput == kTTSym_attributes) {
 		if (aNode == anExplorer->mTempNode) {
 			
 			// always clear the result
@@ -558,10 +530,15 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// get relative address of nodes matching filter
 	else {
+	
+		// children case : check parent
+		if (anExplorer->mOutput == kTTSym_children)
+			if (aNode->getParent() != anExplorer->mTempNode)
+				return kTTErrGeneric;
 		
 		TTValue args = TTValue((TTPtr)anExplorer->mFilterBank);
 		args.append((TTPtr)anExplorer->mFilterList);
-			
+		
 		if (testNodeUsingFilter(aNode, (TTPtr)&args)) { 
 			aNode->getAddress(&relativeAddress, anExplorer->mAddress);
 			keys.append(relativeAddress);
