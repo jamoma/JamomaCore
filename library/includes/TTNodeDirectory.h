@@ -188,6 +188,8 @@ TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
 
 /**	An test tool : test a node using a list of filter from a bank.
+	In default exclusion mode, if one field of a filter matches a node, this node is excluded.
+	In inclusion mode, if all fields of a filter match a node, this node is included.
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						A TTValuePtr containing a TTHashPtr (the bank) and a TTListPtr (the name of the filter)

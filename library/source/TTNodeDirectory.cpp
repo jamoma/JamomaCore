@@ -629,13 +629,13 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTNodeAddressPtr anAddress;
 	TTValue			v;
 	TTBoolean		result = YES;
-	TTBoolean		exclude;
+	TTBoolean		include;
 	TTErr			err;
 	
 	argsValue->get(0, (TTPtr*)&filterBank);
 	argsValue->get(1, (TTPtr*)&filterList);
 	
-	// if the filter list is empty return NO
+	// if the filter list is empty return YES
 	if (!filterList->isEmpty()) {
 		
 		// for each filter name
@@ -651,21 +651,24 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				
 				v.get(0, (TTPtr*)&aFilter);
 				
-				// filter key for any style
+				// filter key for any style : the mode
+				// In default exclusion mode, if one field of a filter matches a node, this node is excluded.
+				// In inclusion mode, if all fields of a filter match a node, this node is included.
 				if (!aFilter->lookup(kTTSym_mode, v)) {
 					
 					TTSymbolPtr modeFilter;
 					v.get(0, &modeFilter);
 					
 					if (modeFilter == kTTSym_exclusion)
-						exclude = YES;
+						include = NO;
 					
 					else if (modeFilter == kTTSym_inclusion)
-						exclude = NO;
+						include = YES;
 					
 				}
+				// by default a filter excludes nodes
 				else
-					exclude = NO;
+					include = NO;
 				
 				// make test depending on the filter style
 				if (aFilter->getSchema() == kTTSym_objectFilter) {
@@ -680,9 +683,11 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 							TTSymbolPtr objectFilter;
 							v.get(0, &objectFilter);
 							
-							result = result && objectFilter == anObject->getName();
+							if (objectFilter == anObject->getName()) 
+								result = include;
+							else
+								result = !include;
 							
-							if (exclude) result = !result;
 							if (!result) break;
 						}
 						
@@ -692,26 +697,39 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 							TTSymbolPtr attributeFilter;
 							TTValue		valueFilter;
 							v.get(0, &attributeFilter);
+							
 							err = anObject->getAttributeValue(attributeFilter, v);
 							
-							result = result && !err;
+							// if the attribute doesn't exist for the object
+							// in inclusion mode, the node must be excluded
+							if (err) 
+								result = !include;
+							
+							// if the attribute exist
+							else {
+								
+								// test value
+								err = aFilter->lookup(kTTSym_value, valueFilter);
+								if (!err)
+									if (valueFilter == v)
+										result = include;
+									else
+										result = !include;
+								
+								// or the existence of the attribute is also a way to filter nodes
+								else result = include;
+
+							}
 							
 							if (!result) break;
-							
-							// test value
-							if (!err && !aFilter->lookup(kTTSym_value, valueFilter)) {
-								
-								result = result && valueFilter == v;
-								
-								if (exclude) result = !result;
-								if (!result) break;
-							}
 						}
 					}
+					// filter out nodes without object
 					else {
 						result = NO;
 						break;
 					}
+					
 				}
 				else if (aFilter->getSchema() == kTTSym_addressFilter) {
 					
@@ -735,13 +753,16 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						// test if the regex find something
 						if (!aRegex->parse(begin, end))
 						{
-							result = result && begin != end;
+							if (begin != end)
+								result = include;
+							else 
+								result = !include;
 						}
-						else result = NO;
-						
+						else 
+							result = !include;
+
 						delete aRegex;
 						
-						if (exclude) result = !result;
 						if (!result) break;
 					}
 					
@@ -759,13 +780,16 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						// test if the regex find something
 						if (!aRegex->parse(begin, end))
 						{
-							result = result && begin != end;
+							if (begin != end)
+								result = include;
+							else 
+								result = !include;
 						}
-						else result = NO;
+						else 
+							result = !include;
 						
 						delete aRegex;
 						
-						if (exclude) result = !result;
 						if (!result) break;
 					}
 					
@@ -774,7 +798,6 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 			}
 		}
 	}
-	else return NO;
 	
 	return result;
 }
