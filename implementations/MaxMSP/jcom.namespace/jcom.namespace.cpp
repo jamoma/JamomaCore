@@ -10,7 +10,7 @@
 #include "TTModularClassWrapperMax.h"
 
 #define data_out 0
-#define none_one_out 1
+#define size_out 1
 #define dump_out 2
 
 // Definitions
@@ -76,6 +76,8 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 
 	//class_addmethod(c->maxClass, (method)nmspc_add_max_namespace,	"add_max_namespace",		0);
 	
+	CLASS_ATTR_ENUM(c->maxClass,		"output",	0,		"addresses children attributes");
+	
 	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	msg);	// use msg member to store format
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	nmspc_get_format,	nmspc_set_format);
 	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"none umenu umenu_prefix jit.cellblock coll");
@@ -97,7 +99,7 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
-	x->outlets[none_one_out] = outlet_new(x, NULL);
+	x->outlets[size_out] = outlet_new(x, NULL);
 	x->outlets[data_out] = outlet_new(x, NULL);
 	
 	x->msg = _sym_none;
@@ -126,8 +128,8 @@ void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 			case data_out:
 				strcpy(dst, "result of exploration");
 				break;
-			case none_one_out:
-				strcpy(dst, "output 'none' or 'one' flag");
+			case size_out:
+				strcpy(dst, "size of the result");
 				break;
 			case dump_out:
 				strcpy(dst, "dumpout");
@@ -260,14 +262,6 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				outlet_anything(x->outlets[data_out], _sym_append, 1, a);
 			}
 		}
-		
-		if (argc == 0)
-			outlet_anything(x->outlets[none_one_out], _sym_none, 0, NULL);
-		
-		if (argc == 1)
-			outlet_anything(x->outlets[none_one_out], _sym_one, 0, NULL);
-		
-		return;
 	}
 	
 	// JIT CELLBLOCK FORMAT
@@ -298,15 +292,19 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				outlet_anything(x->outlets[data_out], _sym_store, 2, c);
 			}
 		}
-		
-		return;
 	}
 	
 	// NO FORMAT
-	if (argc)
-		outlet_atoms(x->outlets[data_out], argc, argv);
-	else if (msg != _sym_nothing)
-		outlet_anything(x->outlets[data_out], msg, argc, argv);
+	if (x->msg == gensym("none") || x->msg == _sym_nothing) {
+		if (argc)
+			outlet_atoms(x->outlets[data_out], argc, argv);
+		else if (msg != _sym_nothing)
+			outlet_anything(x->outlets[data_out], msg, argc, argv);
+	}
+	
+	// output the size of the result after the result
+	atom_setlong(a, argc);
+	outlet_anything(x->outlets[size_out], _sym_int, 1, a);
 }
 
 void nmspc_bang(TTPtr self)

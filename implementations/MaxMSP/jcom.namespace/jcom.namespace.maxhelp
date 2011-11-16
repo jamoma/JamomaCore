@@ -427,7 +427,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-6",
-									"items" : [ "degrade.1/in/amplitude.2", ",", "degrade.1/out/amplitude.2", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/out/amplitude.2", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view)/out/amplitude.2" ],
+									"items" : [ "degrade.1", ",", "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.1", ",", "degrade.1/in/amplitude.2", ",", "degrade.1/in/bypass", ",", "degrade.1/in/mute", ",", "degrade.1/model", ",", "degrade.1/model/address", ",", "degrade.1/model/class", ",", "degrade.1/model/documentation", ",", "degrade.1/model/documentation/generate", ",", "degrade.1/model/help", ",", "degrade.1/model/internals", ",", "degrade.1/model/mute", ",", "degrade.1/model/reference", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.1", ",", "degrade.1/out/amplitude.2", ",", "degrade.1/out/gain", ",", "degrade.1/out/mix", ",", "degrade.1/out/mute", ",", "degrade.1/preset", ",", "degrade.1/preset/names", ",", "degrade.1/preset/read", ",", "degrade.1/preset/read/again", ",", "degrade.1/preset/recall", ",", "degrade.1/preset/recall/current", ",", "degrade.1/preset/recall/next", ",", "degrade.1/preset/recall/previous", ",", "degrade.1/preset/remove", ",", "degrade.1/preset/remove/current", ",", "degrade.1/preset/remove/next", ",", "degrade.1/preset/remove/previous", ",", "degrade.1/preset/store", ",", "degrade.1/preset/store/current", ",", "degrade.1/preset/store/next", ",", "degrade.1/preset/store/previous", ",", "degrade.1/preset/write", ",", "degrade.1/preset/write/again", ",", "degrade.1/samplerateRatio", ",", "degrade.2", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.1", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/in/bypass", ",", "degrade.2/in/mute", ",", "degrade.2/model", ",", "degrade.2/model/address", ",", "degrade.2/model/class", ",", "degrade.2/model/documentation", ",", "degrade.2/model/documentation/generate", ",", "degrade.2/model/help", ",", "degrade.2/model/internals", ",", "degrade.2/model/mute", ",", "degrade.2/model/reference", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.1", ",", "degrade.2/out/amplitude.2", ",", "degrade.2/out/gain", ",", "degrade.2/out/mix", ",", "degrade.2/out/mute", ",", "degrade.2/preset", ",", "degrade.2/preset/names", ",", "degrade.2/preset/read", ",", "degrade.2/preset/read/again", ",", "degrade.2/preset/recall", ",", "degrade.2/preset/recall/current", ",", "degrade.2/preset/recall/next", ",", "degrade.2/preset/recall/previous", ",", "degrade.2/preset/remove", ",", "degrade.2/preset/remove/current", ",", "degrade.2/preset/remove/next", ",", "degrade.2/preset/remove/previous", ",", "degrade.2/preset/store", ",", "degrade.2/preset/store/current", ",", "degrade.2/preset/store/next", ",", "degrade.2/preset/store/previous", ",", "degrade.2/preset/write", ",", "degrade.2/preset/write/again", ",", "degrade.2/samplerateRatio", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/model", ",", "degrade~(view).1/model/address", ",", "degrade~(view).1/out", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/color", ",", "degrade~(view).1/ui/color/border", ",", "degrade~(view).1/ui/color/contentBackground", ",", "degrade~(view).1/ui/color/toolbarBackground", ",", "degrade~(view).1/ui/color/toolbarText", ",", "degrade~(view).1/ui/freeze", ",", "degrade~(view).1/ui/in", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view).1/ui/refresh", ",", "degrade~(view).1/ui/size", ",", "degrade~(view).1/view", ",", "degrade~(view).1/view/class", ",", "degrade~(view).1/view/documentation", ",", "degrade~(view).1/view/documentation/generate", ",", "degrade~(view).1/view/help", ",", "degrade~(view).1/view/internals", ",", "degrade~(view).1/view/mute", ",", "degrade~(view).1/view/reference", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/model", ",", "degrade~(view)/model/address", ",", "degrade~(view)/out", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/color", ",", "degrade~(view)/ui/color/border", ",", "degrade~(view)/ui/color/contentBackground", ",", "degrade~(view)/ui/color/toolbarBackground", ",", "degrade~(view)/ui/color/toolbarText", ",", "degrade~(view)/ui/freeze", ",", "degrade~(view)/ui/in", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute", ",", "degrade~(view)/ui/refresh", ",", "degrade~(view)/ui/size", ",", "degrade~(view)/view", ",", "degrade~(view)/view/class", ",", "degrade~(view)/view/documentation", ",", "degrade~(view)/view/documentation/generate", ",", "degrade~(view)/view/help", ",", "degrade~(view)/view/internals", ",", "degrade~(view)/view/mute", ",", "degrade~(view)/view/reference" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -667,13 +667,13 @@
 ,
 					"patching_rect" : [ 404.0, 99.0, 111.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p about_filters",
@@ -898,13 +898,13 @@
 ,
 					"patching_rect" : [ 835.0, 354.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1156,13 +1156,13 @@
 ,
 					"patching_rect" : [ 87.0, 271.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1518,11 +1518,10 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-69",
-					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 875.0, 484.0, 57.0, 34.0 ],
+					"patching_rect" : [ 870.0, 484.0, 64.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 525.0, 240.0, 62.0, 20.0 ],
 					"text" : "instances"
@@ -1660,11 +1659,11 @@
 					"fontsize" : 12.0,
 					"id" : "obj-17",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 817.0, 295.0, 91.0, 20.0 ],
-					"text" : "route none one"
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "bang", "" ],
+					"patching_rect" : [ 817.0, 295.0, 36.0, 20.0 ],
+					"text" : "sel 1"
 				}
 
 			}
@@ -1677,8 +1676,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 782.0, 458.0, 85.0, 20.0 ],
-					"text" : "sel none one"
+					"patching_rect" : [ 782.0, 458.0, 81.0, 20.0 ],
+					"text" : "sel 0 1"
 				}
 
 			}
@@ -1704,13 +1703,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-13",
-					"items" : "<empty>",
+					"items" : [ "1", ",", "2" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 835.0, 484.0, 35.0, 20.0 ],
-					"prefix" : "/degrade~(view)/ui/in/bypass.",
+					"prefix" : "/degrade.2/in/amplitude.",
 					"presentation" : 1,
 					"presentation_rect" : [ 478.0, 240.0, 35.0, 20.0 ],
 					"types" : [  ]
@@ -1731,7 +1730,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 760.0, 330.0, 168.0, 20.0 ],
-					"prefix" : "/degrade~(view)/ui/in/",
+					"prefix" : "/degrade.2/in/",
 					"presentation" : 1,
 					"presentation_rect" : [ 345.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
@@ -1811,7 +1810,7 @@
 					"patching_rect" : [ 149.0, 690.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/degrade~(view)/ui/in/bypass:"
+					"text" : "/degrade.2/in/amplitude.1:"
 				}
 
 			}
@@ -1896,13 +1895,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : "<empty>",
+					"items" : [ "bypass", ",", "dataspace", ",", "dataspace/unit", ",", "description", ",", "enable", ",", "priority", ",", "ramp/drive", ",", "ramp/function", ",", "range/bounds", ",", "range/clipmode", ",", "repetitions/allow", ",", "service", ",", "tag", ",", "type", ",", "value", ",", "value/default", ",", "value/stepsize" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/degrade~(view)/ui/in/bypass:",
+					"prefix" : "/degrade.2/in/amplitude.1:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -2169,17 +2168,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-47", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 898.5, 325.5, 769.5, 325.5 ],
-					"source" : [ "obj-17", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-47", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 862.5, 325.5, 769.5, 325.5 ],
-					"source" : [ "obj-17", 1 ]
+					"midpoints" : [ 826.5, 325.5, 769.5, 325.5 ],
+					"source" : [ "obj-17", 0 ]
 				}
 
 			}
