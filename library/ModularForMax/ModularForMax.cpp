@@ -1086,6 +1086,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_objectFilter);
 	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("data"), (TTPtr)aFilter);
 	
 	// to look for jcom.parameter
@@ -1094,6 +1095,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_parameter);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("parameter"), (TTPtr)aFilter);
 	
 	// to look for jcom.message
@@ -1102,6 +1104,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_message);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("message"), (TTPtr)aFilter);
 	
 	// to look for jcom.return
@@ -1110,18 +1113,21 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_return);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("return"), (TTPtr)aFilter);
 	
 	// to look for jcom.hub
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_objectFilter);
 	aFilter->append(kTTSym_object, TT("Container"));
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("hub"), (TTPtr)aFilter);
 	
 	// to look for jcom.view
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_objectFilter);
 	aFilter->append(kTTSym_object, TT("Viewer"));
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("view"), (TTPtr)aFilter);
 	
 	// to look for user-defined object
@@ -1137,6 +1143,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->setSchema(kTTSym_objectFilter);
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_generic);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("genericTag"), (TTPtr)aFilter);
 	
 	return defaultFilterBank;

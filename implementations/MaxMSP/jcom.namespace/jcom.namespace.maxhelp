@@ -83,8 +83,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 72.0, 603.0, 214.0, 18.0 ],
-									"text" : "filter/set myFilterName mode inclusion"
+									"patching_rect" : [ 72.0, 603.0, 217.0, 18.0 ],
+									"text" : "filter/set myFilterName mode exclusion"
 								}
 
 							}
@@ -97,8 +97,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 69.0, 169.0, 214.0, 18.0 ],
-									"text" : "filter/set myFilterName mode inclusion"
+									"patching_rect" : [ 69.0, 169.0, 217.0, 18.0 ],
+									"text" : "filter/set myFilterName mode exclusion"
 								}
 
 							}
@@ -127,8 +127,8 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 357.0, 537.0, 268.0, 34.0 ],
-									"text" : "look for addresses with a name part beginning by \"deg\" and with an instance beginning by \"2\""
+									"patching_rect" : [ 357.0, 537.0, 278.0, 34.0 ],
+									"text" : "filter addresses with a name part beginning by \"amplitude\" and with an instance beginning by \"2\""
 								}
 
 							}
@@ -214,7 +214,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 435.0, 125.0, 223.0, 20.0 ],
-									"text" : "look for Data object with a \"generic\" tag."
+									"text" : "filter Data object with a \"generic\" tag."
 								}
 
 							}
@@ -228,7 +228,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 22.0, 412.0, 466.0, 34.0 ],
+									"patching_rect" : [ 22.0, 412.0, 469.0, 34.0 ],
 									"text" : "For this reason some ready made filters exist : parameter, message, return, hub, view. It is possible to modify their mode like this :"
 								}
 
@@ -243,8 +243,8 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 2.0, 2.0, 603.0, 62.0 ],
-									"text" : "The jcom.namespace exploration can filter out the result it returns. There are two kinds of filters : those made to filter objects and those made to filter addresses. An object filter compares object type and/or attributes value. An address filter only compares the name or the instance of an address using a regular expression. It is possible to used a combinaition of many filters in order to filter out the namespace precisely."
+									"patching_rect" : [ 2.0, 2.0, 622.0, 62.0 ],
+									"text" : "The jcom.namespace exploration can filter in or out the result it returns. There are two kinds of filters : those made to filter objects and those made to filter addresses. An object filter compares object type and/or attributes value. An address filter only compares the name or the instance of an address using a regular expression. It is possible to used a combinaition of many filters in order to filter in or out the namespace precisely."
 								}
 
 							}
@@ -257,8 +257,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 69.0, 148.0, 217.0, 18.0 ],
-									"text" : "filter/set myFilterName mode exclusion"
+									"patching_rect" : [ 69.0, 148.0, 214.0, 18.0 ],
+									"text" : "filter/set myFilterName mode inclusion"
 								}
 
 							}
@@ -272,7 +272,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 216.0, 265.0, 155.0, 18.0 ],
-									"text" : "filter/set"
+									"text" : "filter/list myFilterName hub"
 								}
 
 							}
@@ -281,7 +281,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-9",
-									"items" : [ "degrade.1", ",", "degrade.2", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute" ],
+									"items" : [ "degrade.1", ",", "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.1", ",", "degrade.1/in/amplitude.2", ",", "degrade.1/in/bypass", ",", "degrade.1/in/mute", ",", "degrade.1/model", ",", "degrade.1/model/address", ",", "degrade.1/model/class", ",", "degrade.1/model/documentation", ",", "degrade.1/model/documentation/generate", ",", "degrade.1/model/help", ",", "degrade.1/model/internals", ",", "degrade.1/model/mute", ",", "degrade.1/model/reference", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.1", ",", "degrade.1/out/amplitude.2", ",", "degrade.1/out/gain", ",", "degrade.1/out/mix", ",", "degrade.1/out/mute", ",", "degrade.1/preset", ",", "degrade.1/preset/names", ",", "degrade.1/preset/read", ",", "degrade.1/preset/read/again", ",", "degrade.1/preset/recall", ",", "degrade.1/preset/recall/current", ",", "degrade.1/preset/recall/next", ",", "degrade.1/preset/recall/previous", ",", "degrade.1/preset/remove", ",", "degrade.1/preset/remove/current", ",", "degrade.1/preset/remove/next", ",", "degrade.1/preset/remove/previous", ",", "degrade.1/preset/store", ",", "degrade.1/preset/store/current", ",", "degrade.1/preset/store/next", ",", "degrade.1/preset/store/previous", ",", "degrade.1/preset/write", ",", "degrade.1/preset/write/again", ",", "degrade.1/samplerateRatio", ",", "degrade.2", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.1", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/in/bypass", ",", "degrade.2/in/mute", ",", "degrade.2/model", ",", "degrade.2/model/address", ",", "degrade.2/model/class", ",", "degrade.2/model/documentation", ",", "degrade.2/model/documentation/generate", ",", "degrade.2/model/help", ",", "degrade.2/model/internals", ",", "degrade.2/model/mute", ",", "degrade.2/model/reference", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.1", ",", "degrade.2/out/amplitude.2", ",", "degrade.2/out/gain", ",", "degrade.2/out/mix", ",", "degrade.2/out/mute", ",", "degrade.2/preset", ",", "degrade.2/preset/names", ",", "degrade.2/preset/read", ",", "degrade.2/preset/read/again", ",", "degrade.2/preset/recall", ",", "degrade.2/preset/recall/current", ",", "degrade.2/preset/recall/next", ",", "degrade.2/preset/recall/previous", ",", "degrade.2/preset/remove", ",", "degrade.2/preset/remove/current", ",", "degrade.2/preset/remove/next", ",", "degrade.2/preset/remove/previous", ",", "degrade.2/preset/store", ",", "degrade.2/preset/store/current", ",", "degrade.2/preset/store/next", ",", "degrade.2/preset/store/previous", ",", "degrade.2/preset/write", ",", "degrade.2/preset/write/again", ",", "degrade.2/samplerateRatio", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/model", ",", "degrade~(view).1/model/address", ",", "degrade~(view).1/out", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/color", ",", "degrade~(view).1/ui/color/border", ",", "degrade~(view).1/ui/color/contentBackground", ",", "degrade~(view).1/ui/color/toolbarBackground", ",", "degrade~(view).1/ui/color/toolbarText", ",", "degrade~(view).1/ui/freeze", ",", "degrade~(view).1/ui/in", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view).1/ui/refresh", ",", "degrade~(view).1/ui/size", ",", "degrade~(view).1/view", ",", "degrade~(view).1/view/class", ",", "degrade~(view).1/view/documentation", ",", "degrade~(view).1/view/documentation/generate", ",", "degrade~(view).1/view/help", ",", "degrade~(view).1/view/internals", ",", "degrade~(view).1/view/mute", ",", "degrade~(view).1/view/reference", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/model", ",", "degrade~(view)/model/address", ",", "degrade~(view)/out", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/color", ",", "degrade~(view)/ui/color/border", ",", "degrade~(view)/ui/color/contentBackground", ",", "degrade~(view)/ui/color/toolbarBackground", ",", "degrade~(view)/ui/color/toolbarText", ",", "degrade~(view)/ui/freeze", ",", "degrade~(view)/ui/in", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute", ",", "degrade~(view)/ui/refresh", ",", "degrade~(view)/ui/size", ",", "degrade~(view)/view", ",", "degrade~(view)/view/class", ",", "degrade~(view)/view/documentation", ",", "degrade~(view)/view/documentation/generate", ",", "degrade~(view)/view/help", ",", "degrade~(view)/view/internals", ",", "degrade~(view)/view/mute", ",", "degrade~(view)/view/reference" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -403,8 +403,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 72.0, 582.0, 217.0, 18.0 ],
-									"text" : "filter/set myFilterName mode exclusion"
+									"patching_rect" : [ 72.0, 582.0, 214.0, 18.0 ],
+									"text" : "filter/set myFilterName mode inclusion"
 								}
 
 							}
@@ -418,7 +418,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 219.0, 701.0, 155.0, 18.0 ],
-									"text" : "filter/set"
+									"text" : "filter/list myFilterName"
 								}
 
 							}
@@ -427,7 +427,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-6",
-									"items" : [ "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.1", ",", "degrade.1/in/bypass", ",", "degrade.1/in/mute", ",", "degrade.1/model", ",", "degrade.1/model/address", ",", "degrade.1/model/class", ",", "degrade.1/model/documentation", ",", "degrade.1/model/documentation/generate", ",", "degrade.1/model/help", ",", "degrade.1/model/internals", ",", "degrade.1/model/mute", ",", "degrade.1/model/reference", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.1", ",", "degrade.1/out/gain", ",", "degrade.1/out/mix", ",", "degrade.1/out/mute", ",", "degrade.1/preset", ",", "degrade.1/preset/names", ",", "degrade.1/preset/read", ",", "degrade.1/preset/read/again", ",", "degrade.1/preset/recall", ",", "degrade.1/preset/recall/current", ",", "degrade.1/preset/recall/next", ",", "degrade.1/preset/recall/previous", ",", "degrade.1/preset/remove", ",", "degrade.1/preset/remove/current", ",", "degrade.1/preset/remove/next", ",", "degrade.1/preset/remove/previous", ",", "degrade.1/preset/store", ",", "degrade.1/preset/store/current", ",", "degrade.1/preset/store/next", ",", "degrade.1/preset/store/previous", ",", "degrade.1/preset/write", ",", "degrade.1/preset/write/again", ",", "degrade.1/samplerateRatio", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.1", ",", "degrade.2/in/bypass", ",", "degrade.2/in/mute", ",", "degrade.2/model", ",", "degrade.2/model/address", ",", "degrade.2/model/class", ",", "degrade.2/model/documentation", ",", "degrade.2/model/documentation/generate", ",", "degrade.2/model/help", ",", "degrade.2/model/internals", ",", "degrade.2/model/mute", ",", "degrade.2/model/reference", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.1", ",", "degrade.2/out/gain", ",", "degrade.2/out/mix", ",", "degrade.2/out/mute", ",", "degrade.2/preset", ",", "degrade.2/preset/names", ",", "degrade.2/preset/read", ",", "degrade.2/preset/read/again", ",", "degrade.2/preset/recall", ",", "degrade.2/preset/recall/current", ",", "degrade.2/preset/recall/next", ",", "degrade.2/preset/recall/previous", ",", "degrade.2/preset/remove", ",", "degrade.2/preset/remove/current", ",", "degrade.2/preset/remove/next", ",", "degrade.2/preset/remove/previous", ",", "degrade.2/preset/store", ",", "degrade.2/preset/store/current", ",", "degrade.2/preset/store/next", ",", "degrade.2/preset/store/previous", ",", "degrade.2/preset/write", ",", "degrade.2/preset/write/again", ",", "degrade.2/samplerateRatio", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/model", ",", "degrade~(view).1/model/address", ",", "degrade~(view).1/out", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/color", ",", "degrade~(view).1/ui/color/border", ",", "degrade~(view).1/ui/color/contentBackground", ",", "degrade~(view).1/ui/color/toolbarBackground", ",", "degrade~(view).1/ui/color/toolbarText", ",", "degrade~(view).1/ui/freeze", ",", "degrade~(view).1/ui/in", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view).1/ui/refresh", ",", "degrade~(view).1/ui/size", ",", "degrade~(view).1/view", ",", "degrade~(view).1/view/class", ",", "degrade~(view).1/view/documentation", ",", "degrade~(view).1/view/documentation/generate", ",", "degrade~(view).1/view/help", ",", "degrade~(view).1/view/internals", ",", "degrade~(view).1/view/mute", ",", "degrade~(view).1/view/reference", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/model", ",", "degrade~(view)/model/address", ",", "degrade~(view)/out", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/color", ",", "degrade~(view)/ui/color/border", ",", "degrade~(view)/ui/color/contentBackground", ",", "degrade~(view)/ui/color/toolbarBackground", ",", "degrade~(view)/ui/color/toolbarText", ",", "degrade~(view)/ui/freeze", ",", "degrade~(view)/ui/in", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute", ",", "degrade~(view)/ui/refresh", ",", "degrade~(view)/ui/size", ",", "degrade~(view)/view", ",", "degrade~(view)/view/class", ",", "degrade~(view)/view/documentation", ",", "degrade~(view)/view/documentation/generate", ",", "degrade~(view)/view/help", ",", "degrade~(view)/view/internals", ",", "degrade~(view)/view/mute", ",", "degrade~(view)/view/reference" ],
+									"items" : [ "degrade.1/in/amplitude.2", ",", "degrade.1/out/amplitude.2", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/out/amplitude.2", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view)/out/amplitude.2" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -475,8 +475,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 72.0, 542.0, 254.0, 18.0 ],
-									"text" : "filter/set myFilterName name deg instance \"2\""
+									"patching_rect" : [ 72.0, 542.0, 286.0, 18.0 ],
+									"text" : "filter/set myFilterName name amplitude instance \"2\""
 								}
 
 							}
@@ -667,13 +667,13 @@
 ,
 					"patching_rect" : [ 404.0, 99.0, 111.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p about_filters",
@@ -898,13 +898,13 @@
 ,
 					"patching_rect" : [ 835.0, 354.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1156,13 +1156,13 @@
 ,
 					"patching_rect" : [ 87.0, 271.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1710,7 +1710,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 835.0, 484.0, 35.0, 20.0 ],
-					"prefix" : "/degrade.1/model/class.",
+					"prefix" : "/degrade~(view)/ui/in/bypass.",
 					"presentation" : 1,
 					"presentation_rect" : [ 478.0, 240.0, 35.0, 20.0 ],
 					"types" : [  ]
@@ -1731,7 +1731,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 760.0, 330.0, 168.0, 20.0 ],
-					"prefix" : "/degrade.1/model/",
+					"prefix" : "/degrade~(view)/ui/in/",
 					"presentation" : 1,
 					"presentation_rect" : [ 345.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
@@ -1811,7 +1811,7 @@
 					"patching_rect" : [ 149.0, 690.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/degrade.1/model/class:"
+					"text" : "/degrade~(view)/ui/in/bypass:"
 				}
 
 			}
@@ -1902,7 +1902,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/degrade.1/model/class:",
+					"prefix" : "/degrade~(view)/ui/in/bypass:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1944,7 +1944,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 246.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade.1/",
+					"prefix" : "/degrade~(view).1/ui/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 270.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -1965,7 +1965,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 87.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/degrade.1/",
+					"prefix" : "/degrade~(view).1/ui/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 240.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -2044,7 +2044,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-3",
-					"items" : "<empty>",
+					"items" : [ "degrade.1", ",", "degrade.2", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/ui", ",", "degrade~(view)/ui" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
