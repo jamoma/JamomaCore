@@ -740,6 +740,33 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					TTRegexStringPosition begin, end;
 					
 					// test address name part
+					if (!aFilter->lookup(kTTSym_parent, v)) {
+						
+						TTSymbolPtr parentFilter;
+						v.get(0, &parentFilter);
+						aRegex = new TTRegex(parentFilter->getCString());
+						
+						s_toParse = anAddress->getParent()->getCString();
+						begin = s_toParse.begin();
+						end = s_toParse.end();
+						
+						// test if the regex find something
+						if (!aRegex->parse(begin, end))
+						{
+							if (begin != end)
+								result = include;
+							else 
+								result = !include;
+						}
+						else 
+							result = !include;
+						
+						delete aRegex;
+						
+						if (!result) break;
+					}
+					
+					// test address name part
 					if (!aFilter->lookup(kTTSym_name, v)) {
 						
 						TTSymbolPtr nameFilter;

@@ -47,6 +47,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_notify;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_object;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_objectFilter;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_parent;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_processInPlace;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_range;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_resonance;
@@ -131,6 +132,7 @@ void TTSymbolCacheInit()
 	kTTSym_numChannels				= TT("numChannels");
 	kTTSym_object					= TT("object");
 	kTTSym_objectFilter				= TT("objectFilter");
+	kTTSym_parent					= TT("parent");
 	kTTSym_processInPlace			= TT("processInPlace");
 	kTTSym_range					= TT("range");
 	kTTSym_resonance				= TT("resonance");
