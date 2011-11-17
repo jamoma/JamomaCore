@@ -42,6 +42,7 @@ mLastResult(kTTValNONE)
 	
 	addMessageWithArguments(FilterSet);
 	addMessageWithArguments(FilterRemove);
+	addMessageWithArguments(FilterInfo);
 	
 	addMessageWithArguments(WriteAsOpml);
 	addMessageProperty(WriteAsOpml, hidden, YES);
@@ -361,6 +362,47 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 		mFilterList->remove(filterName);
 		
 		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::FilterInfo(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTDictionaryPtr aFilter;
+	TTSymbolPtr		filterName, key;
+	TTValue			v, filterKeys, filterValue;
+	TTErr			err;
+	
+	if (inputValue.getType() == kTypeSymbol) {
+		
+		inputValue.get(0, &filterName);
+		
+		err = mFilterBank->lookup(filterName, v);
+		
+		// if the filter exists
+		if (!err) {
+			
+			outputValue.append(filterName);
+						
+			// get the filter
+			v.get(0, (TTPtr*)&aFilter);
+			
+			// get all keys
+			aFilter->getKeys(filterKeys);
+			
+			// for all key, get the value
+			for (TTUInt8 i=0; i<filterKeys.getSize(); i++) {
+				
+				filterKeys.get(i, &key);
+				aFilter->lookup(key, filterValue);
+				
+				outputValue.append(key);
+				outputValue.append(filterValue);
+			}
+		}
+		
+		return err;
 	}
 	
 	return kTTErrGeneric;

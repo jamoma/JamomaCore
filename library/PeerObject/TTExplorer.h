@@ -55,6 +55,10 @@ private:
 	/** Delete a filter from the bank using his name and remove it from the filter list */
 	TTErr FilterRemove(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Get info about a filter or a filterKey
+	 < filterName filterKey1 filterValue1 filterKey2 filterValue2 ... > */
+	TTErr FilterInfo(const TTValue& inputValue, TTValue& outputValue);
+	
 	/** */
 	// TODO : TTErr Dump();
 	

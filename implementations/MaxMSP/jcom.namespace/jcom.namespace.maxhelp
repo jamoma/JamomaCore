@@ -176,6 +176,34 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
+									"id" : "obj-17",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 90.0, 641.0, 134.0, 18.0 ],
+									"text" : "filter/info myFilterName"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-1",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 96.0, 205.0, 134.0, 18.0 ],
+									"text" : "filter/info myFilterName"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-34",
 									"linecount" : 2,
@@ -384,8 +412,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 216.0, 265.0, 155.0, 18.0 ],
-									"text" : "filter/list myFilterName hub"
+									"patching_rect" : [ 216.0, 265.0, 247.0, 18.0 ]
 								}
 
 							}
@@ -531,8 +558,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 219.0, 701.0, 155.0, 18.0 ],
-									"text" : "filter/list myFilterName"
+									"patching_rect" : [ 219.0, 701.0, 259.0, 18.0 ]
 								}
 
 							}
@@ -626,9 +652,18 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
+									"destination" : [ "obj-10", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 105.5, 228.5, 25.5, 228.5 ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-8", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 298.5, 260.5, 361.5, 260.5 ],
+									"midpoints" : [ 298.5, 260.5, 453.5, 260.5 ],
 									"source" : [ "obj-10", 2 ]
 								}
 
@@ -675,6 +710,15 @@
 									"hidden" : 0,
 									"midpoints" : [ 444.5, 228.5, 25.5, 228.5 ],
 									"source" : [ "obj-14", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 99.5, 664.5, 28.5, 664.5 ],
+									"source" : [ "obj-17", 0 ]
 								}
 
 							}
@@ -754,7 +798,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-28", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 301.5, 696.5, 364.5, 696.5 ],
+									"midpoints" : [ 301.5, 696.5, 468.5, 696.5 ],
 									"source" : [ "obj-5", 2 ]
 								}
 
@@ -782,13 +826,13 @@
 ,
 					"patching_rect" : [ 404.0, 99.0, 111.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p about_filters",
@@ -1013,13 +1057,13 @@
 ,
 					"patching_rect" : [ 835.0, 358.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1271,13 +1315,13 @@
 ,
 					"patching_rect" : [ 87.0, 281.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1974,7 +2018,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-3",
-					"items" : "<empty>",
+					"items" : [ "degrade.1", ",", "degrade.2", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/ui", ",", "degrade~(view)/ui" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
