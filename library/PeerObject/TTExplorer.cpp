@@ -69,7 +69,10 @@ TTErr TTExplorer::setOutput(const TTValue& value)
 {
 	TTSymbolPtr newOutput = value;
 	
-	if (newOutput == kTTSym_descendants || newOutput == kTTSym_children || newOutput == kTTSym_attributes) {
+	if (newOutput == kTTSym_descendants || 
+		newOutput == kTTSym_children || 
+		newOutput == kTTSym_brothers || 
+		newOutput == kTTSym_attributes) {
 		
 		mOutput = newOutput;
 		
@@ -196,7 +199,10 @@ TTErr TTExplorer::Explore()
 		return kTTErrGeneric;
 	
 	// bind the right node
-	err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
+	if (mOutput == kTTSym_brothers)
+		err = mDirectory->Lookup(mAddress->getParent(), aNodeList, &mTempNode);
+	else
+		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
 		
@@ -230,29 +236,32 @@ TTErr TTExplorer::Explore()
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 				
 				allObjectNodes.current().get(0, (TTPtr*)&aNode);
-				aNode->getAddress(&relativeAddress, mAddress);
 				
-				// children case : ignore address with a parent part
-				// TODO : for the children case, we should avoid exploration below
-				if (mOutput == kTTSym_children && relativeAddress->getParent() != kTTAdrsEmpty)
+				if (mOutput == kTTSym_brothers)
+					aNode->getAddress(&relativeAddress, mAddress->getParent());
+				else
+					aNode->getAddress(&relativeAddress, mAddress);
+				
+				// children or brothers case : ignore address with a parent part
+				// TODO : for the children and brothers case, we should avoid exploration below the first level
+				if ((mOutput == kTTSym_children || mOutput == kTTSym_brothers) && relativeAddress->getParent() != kTTAdrsEmpty)
 					continue;
 				
-				mResult->append(relativeAddress, TTValue((TTPtr)aNode));
+				// brothers case : store only the relative address for node with the same name
+				if (mOutput == kTTSym_brothers) {
+					if (mAddress->getName() == relativeAddress->getName())
+						mResult->append(relativeAddress, TTValue((TTPtr)aNode));
+				}
+				// any other case : store the relative address
+				else mResult->append(relativeAddress, TTValue((TTPtr)aNode));
 			}
 		}
 		
 		// Return the value result back
-		v.clear();
-		if (mReturnValueCallback) {
-			mResult->getKeysSorted(v);
-			if (!(v == mLastResult)) {
-				mReturnValueCallback->notify(v, kTTValNONE);
-				mLastResult = v;
-			}
-		}
+		return returnResultBack();
 	}
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
@@ -488,6 +497,62 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	xmlTextWriterEndElement(anOpmlHandler->mWriter);
 }
 
+/** */
+TTErr TTExplorer::returnResultBack()
+{
+	TTValue				keys, result;
+	TTNodeAddressPtr	relativeAddress;
+	TTSymbolPtr			lastName = kTTSymEmpty;
+	TTUInt32			i;
+	
+	// Return the value result back
+	if (mReturnValueCallback) {
+		
+		// sort keys alphabetically
+		// TODO : sort keys depending on nodes property
+		mResult->getKeysSorted(keys);
+		
+		// children case : keep only the name part and filter repetitions
+		if (mOutput == kTTSym_children) {
+			
+			for (i=0; i<keys.getSize(); i++) {
+				
+				keys.get(i, &relativeAddress);
+				
+				// filter repetitions
+				if (relativeAddress->getName() == lastName)
+					continue;
+				
+				lastName = relativeAddress->getName();
+				result.append(lastName);
+			}
+		}
+		
+		// brothers case : keep only instance part
+		else if (mOutput == kTTSym_brothers) {
+			
+			for (i=0; i<keys.getSize(); i++) {
+				
+				keys.get(i, &relativeAddress);
+				result.append(relativeAddress->getInstance());
+			}
+		}
+		
+		// any other case
+		else
+			result = keys;
+		
+		// filter repetitions of a same result
+		if (!(result == mLastResult)) {
+			
+			mLastResult = result;
+			return mReturnValueCallback->notify(result, kTTValNONE);
+		}
+	}
+	
+	return kTTErrNone;
+}
+
 #if 0
 #pragma mark -
 #pragma mark Some Methods
@@ -496,10 +561,10 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValue			keys = kTTValNONE;
-	TTValue			v = kTTValNONE;
+	TTValue			t, v = kTTValNONE;
 	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
-	TTNodeAddressPtr anAddress, relativeAddress, nameInstance;
+	TTNodeAddressPtr anAddress, relativeAddress;
 	TTSymbolPtr		key;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
@@ -531,17 +596,30 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	// get relative address of nodes matching filter
 	else {
 	
-		// children case : check parent
-		if (anExplorer->mOutput == kTTSym_children)
+		// children case and brothers : check parent
+		if (anExplorer->mOutput == kTTSym_children || anExplorer->mOutput == kTTSym_brothers)
 			if (aNode->getParent() != anExplorer->mTempNode)
 				return kTTErrGeneric;
 		
 		TTValue args = TTValue((TTPtr)anExplorer->mFilterBank);
 		args.append((TTPtr)anExplorer->mFilterList);
 		
-		if (testNodeUsingFilter(aNode, (TTPtr)&args)) { 
-			aNode->getAddress(&relativeAddress, anExplorer->mAddress);
-			keys.append(relativeAddress);
+		if (testNodeUsingFilter(aNode, (TTPtr)&args)) {
+			
+			if (anExplorer->mOutput == kTTSym_brothers)
+				aNode->getAddress(&relativeAddress, anExplorer->mAddress->getParent());
+			else
+				aNode->getAddress(&relativeAddress, anExplorer->mAddress);
+			
+			// brothers case : store only the relative address for node with the same name
+			if (anExplorer->mOutput == kTTSym_brothers) {
+				if (anExplorer->mAddress->getName() == relativeAddress->getName())
+					keys.append(relativeAddress);
+			}
+			// any other case : store the relative address
+			else
+				keys.append(relativeAddress);
+
 			v.append(TTPtr(aNode));
 		}
 		// sometimes the object can be destroyed before his address
@@ -580,16 +658,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			break;
 	}
 	
-	// Return the value result back
-	if (anExplorer->mReturnValueCallback) {
-		anExplorer->mResult->getKeysSorted(keys);
-		if (!(keys == anExplorer->mLastResult)) {
-			anExplorer->mReturnValueCallback->notify(keys, kTTValNONE);
-			anExplorer->mLastResult = keys;
-		}
-	}
-	
-	return kTTErrNone;
+	return anExplorer->returnResultBack();
 }
 
 TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)

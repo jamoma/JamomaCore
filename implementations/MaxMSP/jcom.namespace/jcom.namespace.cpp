@@ -42,6 +42,8 @@ void		nmspc_add_max_namespace(TTPtr self);
 long		nmspc_myobject_iterator(TTPtr self, ObjectPtr b);
 */
 
+SymbolPtr nmspc_filter_underscore_instance(SymbolPtr a);
+
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -73,7 +75,7 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 
 	//class_addmethod(c->maxClass, (method)nmspc_add_max_namespace,	"add_max_namespace",		0);
 	
-	CLASS_ATTR_ENUM(c->maxClass,		"output",	0,		"addresses children attributes");
+	CLASS_ATTR_ENUM(c->maxClass,		"output",	0,		"descendants children brothers attributes");
 	
 	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	msg);	// use msg member to store format
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	nmspc_get_format,	nmspc_set_format);
@@ -230,6 +232,8 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				
 				if(output == kTTSym_children)
 					prefix += "/";
+				else if(output == kTTSym_brothers)
+					prefix += ".";
 				else if(output == kTTSym_attributes)
 					prefix += ":";
 				else
@@ -248,6 +252,9 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			if(output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
+			
+			if (output == kTTSym_brothers && s == _sym_nothing)
+				s = gensym("_");
 			
 			if (s) {
 				atom_setsym(a, s);
@@ -275,6 +282,9 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			if (output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
+			
+			if (output == kTTSym_brothers && s == _sym_nothing)
+				s = gensym("_");
 			
 			if (s) {
 				atom_setlong(c, i+1);
@@ -316,13 +326,13 @@ void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	
 	// for absolute address
 	if (TTADRS(msg->s_name)->getType() == kAddressAbsolute) {
-		v.append(TTADRS(msg->s_name));
+		v.append(TTADRS(nmspc_filter_underscore_instance(msg)->s_name));
 	}
 	else {
 		
 		// if the relative attribute is on
 		if (x->index) {
-			absoluteAddress = x->patcherAddress->appendAddress(TTADRS(msg->s_name));
+			absoluteAddress = x->patcherAddress->appendAddress(TTADRS(nmspc_filter_underscore_instance(msg)->s_name));
 			v.append(absoluteAddress);
 		}
 		else {
@@ -505,3 +515,35 @@ t_max_err nmspc_set_relative(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av)
 	return MAX_ERR_NONE;
 }
 
+SymbolPtr nmspc_filter_underscore_instance(SymbolPtr a)
+{
+	SymbolPtr b;
+	TTString toParse = a->s_name;
+	
+	//post("before parsing : %s", a->s_name);
+	int foundDot = toParse.find_last_of('.');
+	int foundUnd = toParse.find_last_of('_');
+	
+	//post("toParse : %d", toParse.size());
+	//post("foundDot : %d", foundDot);
+	//post("foundUnd : %d", foundUnd);
+	
+	if (foundUnd == (foundDot+1)) {
+		
+		if (foundDot > 0 && foundUnd > 0) {
+			
+			TTString parsed = toParse.substr(0,foundDot);
+			if (foundUnd+1 < (int)toParse.size())
+				parsed += toParse.substr(foundUnd+1);
+			
+			b = gensym((char*)parsed.data());
+		}
+		else
+			b = a;
+	}
+	else
+		b = a;
+	
+	//post("after parsing : %s", b->s_name);
+	return b;
+}

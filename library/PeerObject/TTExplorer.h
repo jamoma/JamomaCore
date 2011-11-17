@@ -85,6 +85,9 @@ private:
 	/** */
 	TTErr unbindApplication();
 	
+	/** */
+	TTErr returnResultBack();
+	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr WriteAsOpml(const TTValue& inputValue, TTValue& outputValue);
 	void writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode);

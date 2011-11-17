@@ -20,6 +20,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_attributes;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_brothers;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_children;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Command;
@@ -99,6 +100,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_array					= TT("array");
 	
 	kTTSym_boolean					= TT("boolean");
+	kTTSym_brothers					= TT("brothers");
 	
 	kTTSym_children					= TT("children");
 	kTTSym_Command					= TT("Command");
