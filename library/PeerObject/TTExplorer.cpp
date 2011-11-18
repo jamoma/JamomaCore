@@ -303,7 +303,7 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 				if (filterKey == kTTSym_object || filterKey == kTTSym_attribute || filterKey == kTTSym_value)
 					filterSchema = kTTSym_objectFilter;
 				
-				else if (filterKey == kTTSym_name || filterKey == kTTSym_instance)
+				else if (filterKey == kTTSym_parent || filterKey == kTTSym_name || filterKey == kTTSym_instance)
 					filterSchema = kTTSym_addressFilter;
 				
 				// set the schema
@@ -316,7 +316,7 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 				if (filterSchema != kTTSym_objectFilter && (filterKey == kTTSym_object || filterKey == kTTSym_attribute || filterKey == kTTSym_value))
 					return kTTErrGeneric;
 				
-				else if (filterSchema != kTTSym_addressFilter && (filterKey == kTTSym_name || filterKey == kTTSym_instance))
+				else if (filterSchema != kTTSym_addressFilter && (filterKey == kTTSym_parent || filterKey == kTTSym_name || filterKey == kTTSym_instance))
 					return kTTErrGeneric;
 			}
 		}
