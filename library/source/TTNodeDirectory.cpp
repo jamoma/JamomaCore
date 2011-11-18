@@ -628,18 +628,25 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTObjectPtr		anObject;
 	TTNodeAddressPtr anAddress;
 	TTValue			v;
-	TTBoolean		result = YES;
+	TTBoolean		resultFilter, result;
 	TTBoolean		include;
 	TTErr			err;
 	
 	argsValue->get(0, (TTPtr*)&filterBank);
 	argsValue->get(1, (TTPtr*)&filterList);
 	
-	// if the filter list is empty return YES
 	if (!filterList->isEmpty()) {
+		
+		result = NO;
 		
 		// for each filter name
 		for (filterList->begin(); filterList->end(); filterList->next()) {
+			
+			// by default a filter excludes nodes
+			include = NO;
+			
+			// by default a filter test fails
+			resultFilter = NO;						
 			
 			// get the next filter name from the list
 			// and get it from the bank
@@ -666,80 +673,70 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						include = YES;
 					
 				}
-				// by default a filter excludes nodes
-				else
-					include = NO;
 				
 				// make test depending on the filter style
+				
+				// OBJECT FILTER
 				if (aFilter->getSchema() == kTTSym_objectFilter) {
 					
-					// if there is an object
+					TTBoolean resultObject = YES;
+					TTBoolean resultAttribute = YES;
+					TTBoolean resultValue = YES;
+					
+					// get object
 					anObject = n->getObject();
-					if (anObject) {
+					
+					// a node without object is excluded
+					if (!anObject)
+						return NO;
+					
+					// test object name
+					if (!aFilter->lookup(kTTSym_object, v)) {
 						
-						// test object name
-						if (!aFilter->lookup(kTTSym_object, v)) {
-							
-							TTSymbolPtr objectFilter;
-							v.get(0, &objectFilter);
-							
-							if (objectFilter == anObject->getName()) 
-								result = include;
-							else
-								result = !include;
-							
-							if (!result) break;
-						}
+						TTSymbolPtr objectFilter;
+						v.get(0, &objectFilter);
 						
-						// test attribute name
-						if (!aFilter->lookup(kTTSym_attribute, v)) {
-							
-							TTSymbolPtr attributeFilter;
-							TTValue		valueFilter;
-							v.get(0, &attributeFilter);
-							
-							err = anObject->getAttributeValue(attributeFilter, v);
-							
-							// if the attribute doesn't exist for the object
-							// in inclusion mode, the node must be excluded
-							if (err) 
-								result = !include;
-							
-							// if the attribute exist
-							else {
-								
-								// test value
-								err = aFilter->lookup(kTTSym_value, valueFilter);
-								if (!err)
-									if (valueFilter == v)
-										result = include;
-									else
-										result = !include;
-								
-								// or the existence of the attribute is also a way to filter nodes
-								else result = include;
-
-							}
-							
-							if (!result) break;
-						}
-					}
-					// filter out nodes without object
-					else {
-						result = NO;
-						break;
+						resultObject = objectFilter == anObject->getName();
 					}
 					
+					// test attribute name
+					if (!aFilter->lookup(kTTSym_attribute, v)) {
+						
+						TTSymbolPtr attributeFilter;
+						TTValue		valueFilter;
+						v.get(0, &attributeFilter);
+						
+						err = anObject->getAttributeValue(attributeFilter, v);
+						
+						// the existence of the attribute is also a way to filter nodes
+						resultAttribute = err == kTTErrNone;
+						
+						// if the attribute exists
+						if (!err) {
+							
+							// test value
+							if (!aFilter->lookup(kTTSym_value, valueFilter))
+								resultValue = valueFilter == v;
+						}
+					}
+					
+					// process the filter statement
+					resultFilter = resultObject && resultAttribute && resultValue;
 				}
+				
+				// ADDRESS FILTER
 				else if (aFilter->getSchema() == kTTSym_addressFilter) {
 					
-					n->getAddress(&anAddress, kTTAdrsRoot);
-					
+					TTBoolean resultParent = YES;
+					TTBoolean resultName = YES;
+					TTBoolean resultInstance = YES;
 					TTRegexPtr aRegex;
 					TTString s_toParse;
 					TTRegexStringPosition begin, end;
 					
-					// test address name part
+					n->getAddress(&anAddress, kTTAdrsRoot);
+					
+					// test address parent part
 					if (!aFilter->lookup(kTTSym_parent, v)) {
 						
 						TTSymbolPtr parentFilter;
@@ -752,18 +749,11 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						
 						// test if the regex find something
 						if (!aRegex->parse(begin, end))
-						{
-							if (begin != end)
-								result = include;
-							else 
-								result = !include;
-						}
-						else 
-							result = !include;
+							resultInstance = begin != end;
+						else
+							resultParent = NO;
 						
 						delete aRegex;
-						
-						if (!result) break;
 					}
 					
 					// test address name part
@@ -779,18 +769,11 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						
 						// test if the regex find something
 						if (!aRegex->parse(begin, end))
-						{
-							if (begin != end)
-								result = include;
-							else 
-								result = !include;
-						}
-						else 
-							result = !include;
-
-						delete aRegex;
+							resultInstance = begin != end;
+						else
+							resultParent = NO;
 						
-						if (!result) break;
+						delete aRegex;
 					}
 					
 					// test address instance part
@@ -806,25 +789,26 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						
 						// test if the regex find something
 						if (!aRegex->parse(begin, end))
-						{
-							if (begin != end)
-								result = include;
-							else 
-								result = !include;
-						}
-						else 
-							result = !include;
+							resultInstance = begin != end;
+						else
+							resultParent = NO;
 						
 						delete aRegex;
-						
-						if (!result) break;
 					}
 					
-					// TODO : test on parent address
+					// process the filter statement
+					resultFilter = resultParent && resultName && resultInstance;
 				}
 			}
+			
+			// propagate the resultFilter to the final result
+			result = result || (include == resultFilter);
+
 		}
 	}
+	// if the filter list is empty return YES
+	else
+		result = YES;
 	
 	return result;
 }
