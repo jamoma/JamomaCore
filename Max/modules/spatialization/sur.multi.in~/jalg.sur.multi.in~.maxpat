@@ -28,7 +28,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "/channel_offset doesn't work yet" ],
 					"patching_rect" : [ 15.0, 123.0, 186.0, 19.0 ],
-					"text" : "t \"/channel_offset desn't work yet\""
+					"text" : "t \"/channel_offset doesn't work yet\""
 				}
 
 			}
