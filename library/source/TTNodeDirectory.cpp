@@ -629,15 +629,13 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTNodeAddressPtr anAddress;
 	TTValue			v;
 	TTBoolean		resultFilter, result;
-	TTBoolean		include;
+	TTBoolean		include, firstFilter = YES;
 	TTErr			err;
 	
 	argsValue->get(0, (TTPtr*)&filterBank);
 	argsValue->get(1, (TTPtr*)&filterList);
 	
 	if (!filterList->isEmpty()) {
-		
-		result = NO;
 		
 		// for each filter name
 		for (filterList->begin(); filterList->end(); filterList->next()) {
@@ -800,10 +798,18 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					resultFilter = resultParent && resultName && resultInstance;
 				}
 			}
+			 
+			// the default result is NO if the first filter is in inclusion
+			if (firstFilter) {
+				result = !include;
+				firstFilter = NO;
+			}
 			
-			// propagate the resultFilter to the final result
-			result = result || (include == resultFilter);
-
+			// propagate the resultFilter to the final result depending on the filter mode
+			if (include)
+				result = result || resultFilter;
+			else
+				result = result && !resultFilter;
 		}
 	}
 	// if the filter list is empty return YES
