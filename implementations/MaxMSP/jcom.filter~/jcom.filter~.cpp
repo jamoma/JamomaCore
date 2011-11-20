@@ -104,7 +104,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 	c = class_new("jcom.filter~",(method)filter_new, (method)filter_free, sizeof(t_filter), (method)0L, A_GIMME, 0);
 
-	class_addmethod(c, (method)filter_gettypes,			"gettypes",		0L);
+	class_addmethod(c, (method)filter_gettypes,			"getTypes",		0L);
  	class_addmethod(c, (method)filter_clear, 			"clear",		0L);		
  	class_addmethod(c, (method)filter_dsp, 				"dsp",			A_CANT, 0L);		
 	class_addmethod(c, (method)filter_assist, 			"assist",		A_CANT, 0L); 
@@ -283,6 +283,7 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 				err = x->filter->setAttributeValue(TT("q"), x->attrQ);
 				if(err == kTTErrInvalidAttribute)
 					err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
+				x->filter->setAttributeValue(TT("mode"), x->attrMode->s_name);				
 				x->filter->setAttributeValue(kTTSym_bypass, (TTBoolean)x->attrBypass);
 				x->filter->setAttributeValue(kTTSym_sampleRate, (uint)x->sr);
 			}
@@ -295,7 +296,8 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 t_max_err filter_setMode(t_filter *x, void *attr, long argc, t_atom *argv)
 {	
 	if (argc)
-		x->filter->setAttributeValue(TT("mode"), TT(atom_getsym(argv)->s_name));
+		x->attrMode = atom_getsym(argv);
+		x->filter->setAttributeValue(TT("mode"), TT(x->attrMode->s_name));
 	return MAX_ERR_NONE;
 }
 
