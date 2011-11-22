@@ -4,10 +4,10 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 1
+			"revision" : 2
 		}
 ,
-		"rect" : [ 100.0, 100.0, 995.0, 714.0 ],
+		"rect" : [ 102.0, 44.0, 995.0, 714.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -30,12 +30,39 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-16",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 711.0, 334.0, 34.0, 19.0 ],
+					"text" : "print"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-19",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 420.0, 254.0, 35.0, 17.0 ],
+					"text" : "clear"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-17",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 400.0, 284.0, 60.0, 17.0 ],
+					"patching_rect" : [ 340.0, 254.0, 60.0, 17.0 ],
 					"text" : "getmode"
 				}
 
@@ -178,7 +205,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 661.0, 318.0, 69.0, 19.0 ],
+					"patching_rect" : [ 661.0, 311.0, 69.0, 19.0 ],
 					"text" : "route types"
 				}
 
@@ -188,7 +215,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-25",
-					"items" : [ "filter", ",", "allpass", ",", "allpass.1", ",", "allpass.1a", ",", "allpass.1a.cascade2", ",", "allpass.1b", ",", "allpass.1c", ",", "allpass.2a", ",", "allpass.2b", ",", "allpass.2c", ",", "allpass.4a", ",", "halfband.3", ",", "halfband.5", ",", "halfband.9", ",", "halfband.linear.33", ",", "mirror.5", ",", "mirror.bandpass.10", ",", "bandpass.butterworth.2", ",", "bandreject.butterworth.2", ",", "dcblock", ",", "highmidlowshelf", ",", "highpass.butterworth.1", ",", "highpass.butterworth.2", ",", "highpass.butterworth.3", ",", "highpass.butterworth.4", ",", "highpass.linkwitzriley.2", ",", "highpass.linkwitzriley.4", ",", "lowpass.butterworth.1", ",", "lowpass.butterworth.2", ",", "lowpass.butterworth.3", ",", "lowpass.butterworth.4", ",", "lowpass.linkwitzriley.2", ",", "lowpass.linkwitzriley.4", ",", "lowpass.1", ",", "lowpass.2", ",", "lowpass.4", ",", "onepole", ",", "svf" ],
+					"items" : [ "allpass", ",", "allpass.1", ",", "allpass.1a", ",", "allpass.1a.cascade2", ",", "allpass.1b", ",", "allpass.1c", ",", "allpass.2a", ",", "allpass.2b", ",", "allpass.2c", ",", "allpass.4a", ",", "halfband.3", ",", "halfband.5", ",", "halfband.9", ",", "halfband.linear.33", ",", "mirror.5", ",", "mirror.bandpass.10", ",", "bandpass.butterworth.2", ",", "bandreject.butterworth.2", ",", "dcblock", ",", "highmidlowshelf", ",", "highpass.butterworth.1", ",", "highpass.butterworth.2", ",", "highpass.butterworth.3", ",", "highpass.butterworth.4", ",", "highpass.linkwitzriley.2", ",", "highpass.linkwitzriley.4", ",", "lowpass.butterworth.1", ",", "lowpass.butterworth.2", ",", "lowpass.butterworth.3", ",", "lowpass.butterworth.4", ",", "lowpass.linkwitzriley.2", ",", "lowpass.linkwitzriley.4", ",", "lowpass.1", ",", "lowpass.2", ",", "lowpass.4", ",", "onepole", ",", "svf" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -498,7 +525,18 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [ 349.5, 280.0, 514.5, 280.0 ],
 					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 429.5, 280.0, 514.5, 280.0 ],
+					"source" : [ "obj-19", 0 ]
 				}
 
 			}
@@ -528,6 +566,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 54.5, 240.5, 514.5, 240.5 ],
 					"source" : [ "obj-23", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-24", 1 ]
 				}
 
 			}
@@ -658,35 +705,35 @@
 		"dependency_cache" : [ 			{
 				"name" : "jcom.maxhelpui.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.maxhelpuiButton.png",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.maxhelpuiResize.js",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.jamomaPath.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
-				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/jamomaPath",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/jamomaPath",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.thru.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
-				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/thru",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/thru",
 				"type" : "JSON",
 				"implicit" : 1
 			}

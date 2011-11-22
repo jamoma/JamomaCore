@@ -33,8 +33,8 @@ typedef struct _filter	{
 	TTUInt16				vs;							///< The vector size (number of samples per processing block)
 	long					sr;							///< The sample rate
 	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
-	float					attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
-	float					attrQ;						///< ATTRIBUTE: Filter resonance
+	TTFloat64				attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
+	TTFloat64				attrQ;						///< ATTRIBUTE: Filter resonance
 	t_symbol				*attrType;					///< ATTRIBUTE: what kind of filter to use
 	t_symbol				*attrMode;					// Most filters don't have this attribute...
 } t_filter;
@@ -65,6 +65,7 @@ t_int*		filter_perform_freq_q(t_int *w);
 
 /** This method is called when audio is started in order to compile the audio chain. */
 void		filter_dsp(t_filter *x, t_signal **sp, short *count);
+void		filter_dsp64(t_filter *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags); // DSP64 Method
 
 /** Clear the filter in case it has blown up (NaN). */
 void		filter_clear(t_filter *x);
@@ -106,7 +107,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 	class_addmethod(c, (method)filter_gettypes,			"getTypes",		0L);
  	class_addmethod(c, (method)filter_clear, 			"clear",		0L);		
- 	class_addmethod(c, (method)filter_dsp, 				"dsp",			A_CANT, 0L);		
+ 	class_addmethod(c, (method)filter_dsp, 				"dsp",			A_CANT, 0L);	
+	class_addmethod(c, (method)filter_dsp64,				"dsp64",		A_CANT, 0);
 	class_addmethod(c, (method)filter_assist, 			"assist",		A_CANT, 0L); 
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT, 0);  
 	class_addmethod(c, (method)stdinletinfo,			"inletinfo",	A_CANT, 0);
@@ -419,7 +421,89 @@ t_int *filter_perform_freq_q(t_int *w)
 
 	return w + ((x->numChannels*2)+4);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
+/************************************************************************************/
+// Audio perform64 methods
 
+// Perform (signal) Method: Frequency and q at control rate
+void filter_perform64(t_filter *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short	i;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
+	
+	for(i=0; i<x->numChannels; i++)
+		x->audioIn->setVector(i, vs, ins[i]);
+		
+	x->filter->process(x->audioIn, x->audioOut);		// Actual Filter process
+	
+	for(i=0; i<x->numChannels; i++)
+		x->audioOut->getVectorCopy(i, vs, outs[i]);	
+}
+
+
+// Perform (signal) Method: Frequency at signal rate
+void filter_perform64_freq(t_filter *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+
+{
+   	short			i;
+	TTUInt16		vs = x->audioIn->getVectorSizeAsInt();
+	TTSampleValue*	freq;
+	
+	for(i=0; i<x->numChannels; i++)
+		x->audioIn->setVector(i, vs, ins[i]);
+
+	freq = ins[i];		
+	x->attrFrequency = *freq;
+	x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
+	x->filter->process(x->audioIn, x->audioOut);
+		
+	for(i=0; i<x->numChannels; i++)
+		x->audioOut->getVectorCopy(i, vs, outs[i]);	
+	
+}
+
+
+// Perform (signal) Method: q at signal rate
+void filter_perform64_q(t_filter *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short		i;
+	TTSampleValue*	q;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
+	
+	for(i=0; i<x->numChannels; i++)
+		x->audioIn->setVector(i, vs, ins[i]);
+	
+	q = ins[i+1];	
+	x->attrQ = *q;
+	x->filter->setAttributeValue(TT("q"), x->attrQ);
+	x->filter->process(x->audioIn, x->audioOut);
+	
+	for(i=0; i<x->numChannels; i++)
+		x->audioOut->getVectorCopy(i, vs, outs[i]);	
+}
+
+// Perform (signal) Method: Frequency and q at signal rate
+void filter_perform64_freq_q(t_filter *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	short		i;
+	TTSampleValue*	freq;
+	TTSampleValue*	q;
+	TTUInt16	vs = x->audioIn->getVectorSizeAsInt();
+	
+	for(i=0; i<x->numChannels; i++)
+		x->audioIn->setVector(i, vs, ins[i]);
+	
+	freq = ins[i];
+	q	 = ins[i+1];	
+	x->attrFrequency = *freq;
+	x->attrQ = *q;
+	x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
+	x->filter->setAttributeValue(TT("q"), x->attrQ);
+	x->filter->process(x->audioIn, x->audioOut);
+	
+	
+	for(i=0; i<x->numChannels; i++)
+		x->audioOut->getVectorCopy(i, vs, outs[i]);		
+}
 
 /************************************************************************************/
 // DSP Setup
@@ -482,5 +566,46 @@ void filter_dsp(t_filter *x, t_signal **sp, short *count)
 		dsp_addv(filter_perform, k, audioVectors);
 
 	sysmem_freeptr(audioVectors);
+}
+
+void filter_dsp64(t_filter *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	short		i, j;
+	bool		hasFreq = false;
+	bool		hasQ = false;
+	
+	x->numChannels = 0;
+	x->vs = maxvectorsize;
+	
+	for(i=0; i < x->maxNumChannels; i++){
+		j = x->maxNumChannels + i + 2;
+		if(count[i] && count[j])
+			x->numChannels++;		
+	}
+	
+	if(count[x->maxNumChannels])					// frequency inlet
+		hasFreq = true;
+	
+	if(count[x->maxNumChannels+1])					// q inlet
+		hasQ = true;	
+	
+	x->audioIn->setAttributeValue(kTTSym_numChannels, x->numChannels);
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->numChannels);
+	x->audioIn->setAttributeValue(kTTSym_vectorSize, x->vs);
+	x->audioOut->setAttributeValue(kTTSym_vectorSize, x->vs);
+	//audioIn will be set in the perform method
+	x->audioOut->sendMessage(kTTSym_alloc);
+	
+	x->sr = samplerate;	
+	x->filter->setAttributeValue(kTTSym_sampleRate, samplerate);
+	
+	if(hasFreq && hasQ)
+		object_method(dsp64, gensym("dsp_add64"), x, filter_perform64_freq_q, 0, NULL);
+	else if(hasFreq)
+		object_method(dsp64, gensym("dsp_add64"), x, filter_perform64_freq, 0, NULL);
+	else if(hasQ)
+		object_method(dsp64, gensym("dsp_add64"), x, filter_perform64_q, 0, NULL);
+	else
+		object_method(dsp64, gensym("dsp_add64"), x, filter_perform64, 0, NULL);	
 }
 
