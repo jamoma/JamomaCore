@@ -25,6 +25,8 @@
 	#endif
 #endif
 
+#include <algorithm>
+#include <cstring>
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
@@ -40,12 +42,10 @@ using namespace std;
 
 #ifdef TT_PLATFORM_LINUX
 #include <stdarg.h>
-#include <string.h>
 #endif
 
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
-	#include <algorithm>
 	#include <time.h>
 
 	#pragma warning(disable:4244) // to avoid possible data lost warning with MSVC
