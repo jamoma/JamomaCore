@@ -1,0 +1,15 @@
+
+sources:
+  - DictionaryLib.cpp
+  - source/TTDictionaryAppend.cpp
+  
+includes:
+  - "includes"
+  - "../../../Foundation/library/includes"
+  - "../../../DSP/library/includes"
+  - "../../../Graph/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - GRAPH
