@@ -53,7 +53,7 @@ const char* TTSymbol::getCString()
 }
 
 
-const TTUInt32 TTSymbol::getId()
+/*const*/ TTUInt32 TTSymbol::getId()
 {
 	return id;
 }
