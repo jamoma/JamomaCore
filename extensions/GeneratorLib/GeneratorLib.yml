@@ -1,0 +1,20 @@
+
+sources:
+  - GeneratorLib.cpp
+  - source/TTAdsr.cpp
+  - source/TTNoise.cpp
+  - source/TTPhasor.cpp
+  - source/TTRamp.cpp
+  - source/TTWavetable.cpp
+  - tests/TTPhasor.test.cpp
+  - tests/TTRamp.test.cpp
+  
+includes:
+  - "includes"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+  - "../../../Foundation/library/Mersenne-1.1"
+
+libraries:
+  - FOUNDATION
+  - DSP
