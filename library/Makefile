@@ -69,6 +69,7 @@ SRC += tests/TTValue.test.cpp
 #########################################
 
 Debug:
+	mkdir -p build
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS)
 
 Release:

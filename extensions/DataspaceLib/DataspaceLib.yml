@@ -1,0 +1,34 @@
+
+sources:
+  - TTDataspaceLib.cpp
+  - source/AngleDataspace.cpp
+  - source/ColorDataspace.cpp
+  - source/DistanceDataspace.cpp
+  - source/GainDataspace.cpp
+  - source/NoneDataspace.cpp
+  - source/OrientationDataspace.cpp
+  - source/PositionDataspace.cpp
+  - source/SpeedDataspace.cpp
+  - source/TemperatureDataspace.cpp
+  - source/TimeDataspace.cpp
+  - source/TTDataspace.cpp
+  - source/TTDataspaceConverter.cpp
+  - source/TTDataspaceUnit.cpp
+  - tests/AngleDataspace.test.cpp
+  - tests/ColorDataspace.test.cpp
+  - tests/DistanceDataspace.test.cpp
+  - tests/GainDataspace.test.cpp
+  - tests/OrientationDataspace.test.cpp
+  - tests/PositionDataspace.test.cpp
+  - tests/SpeedDataspace.test.cpp
+  - tests/TemperatureDataspace.test.cpp
+  - tests/TimeDataspace.test.cpp
+  
+includes:
+  - "."
+  - "includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+

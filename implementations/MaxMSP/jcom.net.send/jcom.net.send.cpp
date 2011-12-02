@@ -12,12 +12,15 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
 	TTValue					value;
-	
+	WrappedClassPtr			c = NULL;
+
 	TTFoundationInit();
 	
 	value.clear();
 	value.append(0);
 	options->append(TT("fixedNumChannels"), value);
 	
-	return wrapTTClassAsMaxClass(TT("net.send"), "jcom.net.send", NULL, options);
+	wrapTTClassAsMaxClass(TT("net.send"), "jcom.net.send", &c, options);
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "tcp udp");
+	return 0;
 }
