@@ -23,7 +23,7 @@ mShape(NULL)
 	addAttributeWithSetter(Shape,	kTypeSymbol);
 	setProcessMethod(processAudioSin);
 	setAttributeValue(TT("strength"), 0.000000000001);
-	setAttributeValue(TT("Shape"), TT("sin"));
+	setAttributeValue(TT("shape"), TT("sin"));
 }
 
 
