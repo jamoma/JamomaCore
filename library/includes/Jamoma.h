@@ -1,8 +1,8 @@
-/* 
+/*
  * Jamoma Shared Library
  * Functions and resources used by Jamoma objects.
  * By Tim Place, Copyright © 2007
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -14,21 +14,21 @@
 #include "TTModularVersion.h"
 
 #ifdef WIN_VERSION
- #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
 #include "MaxObjectTypes.h"
 #include "ext_common.h"
-#include "ext_strings.h"			// String Functions
+#include "ext_strings.h" // String Functions
 #include "ext_critical.h"
 #include "jpatcher_api.h"
 #include "z_dsp.h"
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
+#include "commonsyms.h" // Common symbols used by the Max 4.5 API
 
 #include <math.h>
 #include <stdlib.h>
 
-#include "TTFoundationAPI.h"		// TTBlue Headers...
+#include "TTFoundationAPI.h" // TTBlue Headers...
 
 #include "TTModular.h"
 
@@ -52,8 +52,8 @@
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
 
 extern "C" {
-
-	void		jamoma_init(void);
+	
+	void jamoma_init(void);
 	
 }
 

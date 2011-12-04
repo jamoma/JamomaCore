@@ -2782,7 +2782,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 469.0, 445.923065, 215.0, 19.0 ],
-													"text" : "expr pow(10\\, ($f1 - $f3) * $f2 * 0.05);\r"
+													"text" : "expr pow(10\\, ($f1 - $f3) * $f2 * 0.05)"
 												}
 
 											}

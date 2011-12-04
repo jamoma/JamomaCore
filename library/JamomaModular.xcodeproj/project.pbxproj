@@ -24,7 +24,6 @@
 		224B09C211DEA32100B6EF48 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		224B09C311DEA32100B6EF48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F7E79907B2D74100F64583 /* CoreData.framework */; };
 		224B09C411DEA32100B6EF48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
-		D209281F12EC5D1800BD289A /* DataspaceLib.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */; };
 		D21491F114346C07004DCC1B /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D21491F014346C07004DCC1B /* libxml2.2.dylib */; };
 		D22C0CB613B233E800236C81 /* TTMirror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22C0CB513B233E800236C81 /* TTMirror.cpp */; };
 		D242BB5C12841CE40036A509 /* TTMapperManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D242BB5A12841CE40036A509 /* TTMapperManager.cpp */; };
@@ -83,8 +82,8 @@
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = source/Jamoma.cpp; sourceTree = "<group>"; };
 		22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.prefix.pch; path = source/jcom.prefix.pch; sourceTree = "<group>"; };
-		D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = DataspaceLib.ttdylib; path = ../../Foundation/extensions/DataspaceLib/build/UninstalledProducts/DataspaceLib.ttdylib; sourceTree = SOURCE_ROOT; };
 		D21491F014346C07004DCC1B /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = /usr/lib/libxml2.2.dylib; sourceTree = "<absolute>"; };
+		D22B47401488E9CA002CCF10 /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Jamoma.h; path = includes/Jamoma.h; sourceTree = "<group>"; };
 		D22C0CB413B233E800236C81 /* TTMirror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMirror.h; sourceTree = "<group>"; };
 		D22C0CB513B233E800236C81 /* TTMirror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror.cpp; sourceTree = "<group>"; };
 		D242BB5A12841CE40036A509 /* TTMapperManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
@@ -135,7 +134,6 @@
 		D2D5B828135753C20033DB0B /* JamomaThreading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaThreading.h; path = includes/JamomaThreading.h; sourceTree = "<group>"; };
 		D2D5B829135753C20033DB0B /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = includes/JamomaSymbols.h; sourceTree = "<group>"; };
 		D2D5B82A135753C20033DB0B /* JamomaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaObject.h; path = includes/JamomaObject.h; sourceTree = "<group>"; };
-		D2D5B82B135753C20033DB0B /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Jamoma.h; path = includes/Jamoma.h; sourceTree = "<group>"; };
 		D2DDA0AE1254982B00E2C831 /* TTTextHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTextHandler.cpp; sourceTree = "<group>"; };
 		D2DDA0AF1254982B00E2C831 /* TTTextHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTextHandler.h; sourceTree = "<group>"; };
 		D2E27E9812D53B2000C3EF05 /* TTCue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCue.cpp; sourceTree = "<group>"; };
@@ -158,7 +156,6 @@
 				224B086711DEA31700B6EF48 /* MaxAudioAPI.framework in Frameworks */,
 				224B086811DEA31700B6EF48 /* Cocoa.framework in Frameworks */,
 				224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */,
-				D209281F12EC5D1800BD289A /* DataspaceLib.ttdylib in Frameworks */,
 				D2D076BD13C72B2400501757 /* libboost_regex.a in Frameworks */,
 				D21491F114346C07004DCC1B /* libxml2.2.dylib in Frameworks */,
 			);
@@ -203,7 +200,6 @@
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
 				D2D076BC13C72B2400501757 /* libboost_regex.a */,
-				D209281E12EC5D1800BD289A /* DataspaceLib.ttdylib */,
 				D21491F014346C07004DCC1B /* libxml2.2.dylib */,
 			);
 			name = "External Frameworks and Libraries";
@@ -247,7 +243,7 @@
 			children = (
 				D2D5B823135753C20033DB0B /* TTModular.h */,
 				D2D5B824135753C20033DB0B /* TTModularSymbolCache.h */,
-				D2D5B82B135753C20033DB0B /* Jamoma.h */,
+				D22B47401488E9CA002CCF10 /* Jamoma.h */,
 				D2D5B82A135753C20033DB0B /* JamomaObject.h */,
 				22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */,
 				D2D5B829135753C20033DB0B /* JamomaSymbols.h */,
@@ -457,10 +453,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22C9F74E1033191A0062F7B8 /* JamomaModular.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				DEPLOYMENT_LOCATION = NO;
+				GCC_AUTO_VECTORIZATION = NO;
+				GCC_ENABLE_SSE3_EXTENSIONS = NO;
+				GCC_UNROLL_LOOPS = NO;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				SKIP_INSTALL = NO;
 			};
 			name = Development;
 		};
@@ -468,10 +471,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22C9F74E1033191A0062F7B8 /* JamomaModular.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				DEPLOYMENT_LOCATION = NO;
+				GCC_AUTO_VECTORIZATION = NO;
+				GCC_ENABLE_SSE3_EXTENSIONS = NO;
+				GCC_UNROLL_LOOPS = NO;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				SKIP_INSTALL = NO;
 			};
 			name = Deployment;
 		};
@@ -498,6 +508,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Foundation/library/boost/lib-mac\"",
+					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build\"",
+					/usr/local/jamoma/extensions,
 				);
 			};
 			name = Development;
@@ -532,6 +544,8 @@
 					"\"$(SRCROOT)/../extensions/PluginLib/build/PluginLib.build/Development/JamomaExtension.build/Objects-normal/x86_64\"",
 					"\"$(SRCROOT)/../extensions/PluginLib/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../Foundation/library/boost/lib-mac\"",
+					"\"$(SRCROOT)/../../Foundation/extensions/DataspaceLib/build\"",
+					/usr/local/jamoma/extensions,
 				);
 			};
 			name = Deployment;
