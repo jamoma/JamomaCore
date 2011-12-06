@@ -62,84 +62,52 @@ TTErr TTWaveshaper::setShape(const TTValue& newValue)
 
 TTErr TTWaveshaper::processAudioSin(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*inSample, *outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	
-	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.mSampleVectors[channel];
-		outSample = out.mSampleVectors[channel];
-		vs = in.getVectorSizeAsInt();
-		while (vs--)
-			*outSample++ = sin((*inSample++) * mStrength)* mInvStrength;
-	}
+	TT_WRAP_CALCULATE_METHOD(calculateValueSin);
 	return kTTErrNone;	
 }
+
+inline TTErr TTWaveshaper::calculateValueSin(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	y = sin(x * mStrength) * mInvStrength;
+	return kTTErrNone;
+}
+
 
 TTErr TTWaveshaper::processAudioSigmoid(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*inSample, *outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	
-	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.mSampleVectors[channel];
-		outSample = out.mSampleVectors[channel];
-		vs = in.getVectorSizeAsInt();
-		while (vs--)
-			*outSample++ = (2.0/(1.0+exp(-5. * mStrength * *inSample++))-1.0) * mSigmoidGainCorrection;
-	}
+	TT_WRAP_CALCULATE_METHOD(calculateValueSigmoid);
 	return kTTErrNone;	
 }
 
+inline TTErr TTWaveshaper::calculateValueSigmoid(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	y = (2.0/(1.0+exp(-5. * mStrength * x))-1.0) * mSigmoidGainCorrection;
+	return kTTErrNone;
+}
 
 
 TTErr TTWaveshaper::processAudioAtan(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*inSample, *outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	
-	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.mSampleVectors[channel];
-		outSample = out.mSampleVectors[channel];
-		vs = in.getVectorSizeAsInt();
-		while (vs--)
-			*outSample++ = atan((*inSample++) * mStrength) * mInvStrength;
-	}
+	TT_WRAP_CALCULATE_METHOD(calculateValueAtan);
 	return kTTErrNone;	
 }
 
-TTErr TTWaveshaper::processAudioPoly1(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
-{ 
-	// wawveshaping examle by http://www.music.mcgill.ca/~gary/307/week12/node2.html
-	
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*inSample, *outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	TTSampleValue   x;
+inline TTErr TTWaveshaper::calculateValueAtan(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	y = atan(x * mStrength) * mInvStrength;
+	return kTTErrNone;
+}
 
-	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.mSampleVectors[channel];
-		outSample = out.mSampleVectors[channel];
-		vs = in.getVectorSizeAsInt();
-		
-		while (vs--){
-			x = (*inSample++) * mStrength;			
-			*outSample++ = (x + x*x*x) * mPoly1GainCorrection;
-		}
-	}
-	return kTTErrNone;	
+TTErr TTWaveshaper::processAudioPoly1(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TT_WRAP_CALCULATE_METHOD(calculateValuePoly1);
+	return kTTErrNone;
+}
+
+inline TTErr TTWaveshaper::calculateValuePoly1(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{   
+	//wawveshaping examle by http://www.music.mcgill.ca/~gary/307/week12/node2.html
+	y = x * mStrength;
+	y = (y + y*y*y) * mPoly1GainCorrection;	
+	return kTTErrNone;
 }

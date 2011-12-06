@@ -18,14 +18,20 @@ class TTWaveshaper : public TTAudioObject {
 
 	TTFloat64		mStrength, mInvStrength, mSigmoidGainCorrection, mPoly1GainCorrection;
 	TTSymbol*		mShape;
-	
+	/**	Setter for the shape attribute. */
 	TTErr setShape(const TTValue& newValue);
+	/**	Setter for the strength attribute. */
     TTErr setStrength(const TTValue& newValue);	
 	/**	A standard audio processing method as used by TTBlue objects.	*/
 	TTErr processAudioSin(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioAtan(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioPoly1(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioSigmoid(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	/**	Standard single value calculate method as used by DSP objects.	*/
+	inline TTErr calculateValueSin(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	inline TTErr calculateValueAtan(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	inline TTErr calculateValuePoly1(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	inline TTErr calculateValueSigmoid(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
 	/**	Unit testing.	*/
 	//TTErr test(TTValue& returnedTestInfo);
 };
