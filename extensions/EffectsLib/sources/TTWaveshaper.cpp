@@ -15,6 +15,8 @@
 
 TT_AUDIO_CONSTRUCTOR,
 mStrength(1),
+mSigmoidGainCorrection(1),
+mPoly1GainCorrection(1),
 mShape(NULL)
 {
 	addAttributeWithSetter(Strength,			kTypeFloat64);
@@ -36,6 +38,8 @@ TTErr TTWaveshaper::setStrength(const TTValue& newValue)
 {
 	mStrength = newValue;
 	mInvStrength = 1.0/mStrength;
+	mSigmoidGainCorrection = 1.0 / (2.0/(1.0+exp(-5. * mStrength))-1.0);
+	mPoly1GainCorrection = 1.0 /(mStrength + mStrength*mStrength*mStrength);
 	return kTTErrNone; 	
 }
 
@@ -46,7 +50,9 @@ TTErr TTWaveshaper::setShape(const TTValue& newValue)
 	if (mShape == TT("atan"))
 		setProcessMethod(processAudioAtan);
 	else if (mShape == TT("sin"))
-		setProcessMethod(processAudioSin);	
+		setProcessMethod(processAudioSin);
+	else if (mShape == TT("sigmoid"))
+		setProcessMethod(processAudioSigmoid);
 	else
 		setProcessMethod(processAudioPoly1);
 		
@@ -72,6 +78,27 @@ TTErr TTWaveshaper::processAudioSin(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 	}
 	return kTTErrNone;	
 }
+
+TTErr TTWaveshaper::processAudioSigmoid(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTUInt16		vs;
+	TTSampleValue	*inSample, *outSample;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
+	
+	for (channel=0; channel<numchannels; channel++) {
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
+		while (vs--)
+			*outSample++ = (2.0/(1.0+exp(-5. * mStrength * *inSample++))-1.0) * mSigmoidGainCorrection;
+	}
+	return kTTErrNone;	
+}
+
+
 
 TTErr TTWaveshaper::processAudioAtan(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
@@ -103,7 +130,6 @@ TTErr TTWaveshaper::processAudioPoly1(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		channel;
 	TTSampleValue   x;
-	TTSampleValue	gainCorrection = 1/(mStrength + mStrength*mStrength*mStrength);
 
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -112,7 +138,7 @@ TTErr TTWaveshaper::processAudioPoly1(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		
 		while (vs--){
 			x = (*inSample++) * mStrength;			
-			*outSample++ = (x + x*x*x) * gainCorrection;
+			*outSample++ = (x + x*x*x) * mPoly1GainCorrection;
 		}
 	}
 	return kTTErrNone;	

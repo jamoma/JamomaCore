@@ -16,7 +16,7 @@
 class TTWaveshaper : public TTAudioObject {
 	TTCLASS_SETUP(TTWaveshaper)
 
-	TTFloat64		mStrength, mInvStrength;
+	TTFloat64		mStrength, mInvStrength, mSigmoidGainCorrection, mPoly1GainCorrection;
 	TTSymbol*		mShape;
 	
 	TTErr setShape(const TTValue& newValue);
@@ -25,6 +25,7 @@ class TTWaveshaper : public TTAudioObject {
 	TTErr processAudioSin(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioAtan(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioPoly1(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudioSigmoid(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	/**	Unit testing.	*/
 	//TTErr test(TTValue& returnedTestInfo);
 };
