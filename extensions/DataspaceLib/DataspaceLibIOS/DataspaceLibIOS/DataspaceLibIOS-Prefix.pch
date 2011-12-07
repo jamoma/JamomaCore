@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'DataspaceLibIOS' target in the 'DataspaceLibIOS' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#endif
