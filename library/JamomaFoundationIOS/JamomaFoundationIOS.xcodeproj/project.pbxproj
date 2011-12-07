@@ -59,18 +59,6 @@
 		2297CFE814901CBA00CC6D7E /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFA514901CB900CC6D7E /* TTSymbolCache.cpp */; };
 		2297CFE914901CBA00CC6D7E /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFA614901CB900CC6D7E /* TTSymbolTable.h */; };
 		2297CFEA14901CBA00CC6D7E /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFA714901CB900CC6D7E /* TTSymbolTable.cpp */; };
-		2297CFEB14901CBA00CC6D7E /* TTRegex.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFA814901CB900CC6D7E /* TTRegex.h */; };
-		2297CFEC14901CBA00CC6D7E /* TTRegex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFA914901CB900CC6D7E /* TTRegex.cpp */; };
-		2297CFED14901CBA00CC6D7E /* TTNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFAA14901CB900CC6D7E /* TTNode.h */; };
-		2297CFEE14901CBA00CC6D7E /* TTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFAB14901CB900CC6D7E /* TTNode.cpp */; };
-		2297CFEF14901CBA00CC6D7E /* TTNodeAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFAC14901CB900CC6D7E /* TTNodeAddress.h */; };
-		2297CFF014901CBA00CC6D7E /* TTNodeAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFAD14901CB900CC6D7E /* TTNodeAddress.cpp */; };
-		2297CFF114901CBA00CC6D7E /* TTNodeAddressTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFAE14901CB900CC6D7E /* TTNodeAddressTable.h */; };
-		2297CFF214901CBA00CC6D7E /* TTNodeAddressTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFAF14901CB900CC6D7E /* TTNodeAddressTable.cpp */; };
-		2297CFF314901CBA00CC6D7E /* TTNodeAddressCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFB014901CB900CC6D7E /* TTNodeAddressCache.h */; };
-		2297CFF414901CBA00CC6D7E /* TTNodeAddressCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFB114901CB900CC6D7E /* TTNodeAddressCache.cpp */; };
-		2297CFF514901CBA00CC6D7E /* TTNodeDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFB214901CB900CC6D7E /* TTNodeDirectory.h */; };
-		2297CFF614901CBA00CC6D7E /* TTNodeDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFB314901CB900CC6D7E /* TTNodeDirectory.cpp */; };
 		2297CFF714901CBA00CC6D7E /* TTMatrix.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFB414901CB900CC6D7E /* TTMatrix.test.cpp */; };
 		2297CFF814901CBA00CC6D7E /* TTValue.test.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFB514901CB900CC6D7E /* TTValue.test.h */; };
 		2297CFF914901CBA00CC6D7E /* TTValue.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFB614901CB900CC6D7E /* TTValue.test.cpp */; };
@@ -134,18 +122,6 @@
 		2297CFA514901CB900CC6D7E /* TTSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolCache.cpp; path = ../source/TTSymbolCache.cpp; sourceTree = "<group>"; };
 		2297CFA614901CB900CC6D7E /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = ../includes/TTSymbolTable.h; sourceTree = "<group>"; };
 		2297CFA714901CB900CC6D7E /* TTSymbolTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolTable.cpp; path = ../source/TTSymbolTable.cpp; sourceTree = "<group>"; };
-		2297CFA814901CB900CC6D7E /* TTRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTRegex.h; path = ../includes/TTRegex.h; sourceTree = "<group>"; };
-		2297CFA914901CB900CC6D7E /* TTRegex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRegex.cpp; path = ../source/TTRegex.cpp; sourceTree = "<group>"; };
-		2297CFAA14901CB900CC6D7E /* TTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNode.h; path = ../includes/TTNode.h; sourceTree = "<group>"; };
-		2297CFAB14901CB900CC6D7E /* TTNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNode.cpp; path = ../source/TTNode.cpp; sourceTree = "<group>"; };
-		2297CFAC14901CB900CC6D7E /* TTNodeAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeAddress.h; path = ../includes/TTNodeAddress.h; sourceTree = "<group>"; };
-		2297CFAD14901CB900CC6D7E /* TTNodeAddress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeAddress.cpp; path = ../source/TTNodeAddress.cpp; sourceTree = "<group>"; };
-		2297CFAE14901CB900CC6D7E /* TTNodeAddressTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeAddressTable.h; path = ../includes/TTNodeAddressTable.h; sourceTree = "<group>"; };
-		2297CFAF14901CB900CC6D7E /* TTNodeAddressTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeAddressTable.cpp; path = ../source/TTNodeAddressTable.cpp; sourceTree = "<group>"; };
-		2297CFB014901CB900CC6D7E /* TTNodeAddressCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeAddressCache.h; path = ../includes/TTNodeAddressCache.h; sourceTree = "<group>"; };
-		2297CFB114901CB900CC6D7E /* TTNodeAddressCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeAddressCache.cpp; path = ../source/TTNodeAddressCache.cpp; sourceTree = "<group>"; };
-		2297CFB214901CB900CC6D7E /* TTNodeDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeDirectory.h; path = ../includes/TTNodeDirectory.h; sourceTree = "<group>"; };
-		2297CFB314901CB900CC6D7E /* TTNodeDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeDirectory.cpp; path = ../source/TTNodeDirectory.cpp; sourceTree = "<group>"; };
 		2297CFB414901CB900CC6D7E /* TTMatrix.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrix.test.cpp; path = ../tests/TTMatrix.test.cpp; sourceTree = "<group>"; };
 		2297CFB514901CB900CC6D7E /* TTValue.test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.test.h; path = ../tests/TTValue.test.h; sourceTree = "<group>"; };
 		2297CFB614901CB900CC6D7E /* TTValue.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.test.cpp; path = ../tests/TTValue.test.cpp; sourceTree = "<group>"; };
@@ -218,18 +194,6 @@
 				2297CFA514901CB900CC6D7E /* TTSymbolCache.cpp */,
 				2297CFA614901CB900CC6D7E /* TTSymbolTable.h */,
 				2297CFA714901CB900CC6D7E /* TTSymbolTable.cpp */,
-				2297CFA814901CB900CC6D7E /* TTRegex.h */,
-				2297CFA914901CB900CC6D7E /* TTRegex.cpp */,
-				2297CFAA14901CB900CC6D7E /* TTNode.h */,
-				2297CFAB14901CB900CC6D7E /* TTNode.cpp */,
-				2297CFAC14901CB900CC6D7E /* TTNodeAddress.h */,
-				2297CFAD14901CB900CC6D7E /* TTNodeAddress.cpp */,
-				2297CFAE14901CB900CC6D7E /* TTNodeAddressTable.h */,
-				2297CFAF14901CB900CC6D7E /* TTNodeAddressTable.cpp */,
-				2297CFB014901CB900CC6D7E /* TTNodeAddressCache.h */,
-				2297CFB114901CB900CC6D7E /* TTNodeAddressCache.cpp */,
-				2297CFB214901CB900CC6D7E /* TTNodeDirectory.h */,
-				2297CFB314901CB900CC6D7E /* TTNodeDirectory.cpp */,
 				2297CFB414901CB900CC6D7E /* TTMatrix.test.cpp */,
 				2297CFB514901CB900CC6D7E /* TTValue.test.h */,
 				2297CFB614901CB900CC6D7E /* TTValue.test.cpp */,
@@ -307,12 +271,6 @@
 				2297CFE514901CBA00CC6D7E /* TTSymbol.h in Headers */,
 				2297CFE714901CBA00CC6D7E /* TTSymbolCache.h in Headers */,
 				2297CFE914901CBA00CC6D7E /* TTSymbolTable.h in Headers */,
-				2297CFEB14901CBA00CC6D7E /* TTRegex.h in Headers */,
-				2297CFED14901CBA00CC6D7E /* TTNode.h in Headers */,
-				2297CFEF14901CBA00CC6D7E /* TTNodeAddress.h in Headers */,
-				2297CFF114901CBA00CC6D7E /* TTNodeAddressTable.h in Headers */,
-				2297CFF314901CBA00CC6D7E /* TTNodeAddressCache.h in Headers */,
-				2297CFF514901CBA00CC6D7E /* TTNodeDirectory.h in Headers */,
 				2297CFF814901CBA00CC6D7E /* TTValue.test.h in Headers */,
 				2297CFFA14901CBA00CC6D7E /* TTNodeLib.test.h in Headers */,
 			);
@@ -394,12 +352,6 @@
 				2297CFE614901CBA00CC6D7E /* TTSymbol.cpp in Sources */,
 				2297CFE814901CBA00CC6D7E /* TTSymbolCache.cpp in Sources */,
 				2297CFEA14901CBA00CC6D7E /* TTSymbolTable.cpp in Sources */,
-				2297CFEC14901CBA00CC6D7E /* TTRegex.cpp in Sources */,
-				2297CFEE14901CBA00CC6D7E /* TTNode.cpp in Sources */,
-				2297CFF014901CBA00CC6D7E /* TTNodeAddress.cpp in Sources */,
-				2297CFF214901CBA00CC6D7E /* TTNodeAddressTable.cpp in Sources */,
-				2297CFF414901CBA00CC6D7E /* TTNodeAddressCache.cpp in Sources */,
-				2297CFF614901CBA00CC6D7E /* TTNodeDirectory.cpp in Sources */,
 				2297CFF714901CBA00CC6D7E /* TTMatrix.test.cpp in Sources */,
 				2297CFF914901CBA00CC6D7E /* TTValue.test.cpp in Sources */,
 				2297CFFB14901CBA00CC6D7E /* TTNodeLib.test.cpp in Sources */,
@@ -508,6 +460,7 @@
 				2297CF7214901C7900CC6D7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
