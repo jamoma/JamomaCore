@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	dataspace->setAttributeValue(TT("outputUnit"), TT("F"));
 	
 	v = 100.0;
-	dataspace->sendMessage(TT("convert"), v);
+	dataspace->sendMessage(TT("convert"), v, v);
 	TTLogMessage("100ºC should be 212ºF, and the dataspace says it is...  %f", TTFloat64(v));
 	
 	
