@@ -27,8 +27,8 @@
 		1D3623250D0F684500981E51 /* UnitsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Units.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Units.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2297D06D149022D700CC6D7E /* libDataspaceLibIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDataspaceLibIOS.a; path = ../../../../../../../usr/local/jamoma/extensions/libDataspaceLibIOS.a; sourceTree = "<group>"; };
-		2297D06F149022E000CC6D7E /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaFoundationIOS.a; path = ../../../../../../../usr/local/jamoma/lib/libJamomaFoundationIOS.a; sourceTree = "<group>"; };
+		2297D06D149022D700CC6D7E /* libDataspaceLibIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDataspaceLibIOS.a; path = /usr/local/jamoma/extensions/libDataspaceLibIOS.a; sourceTree = "<absolute>"; };
+		2297D06F149022E000CC6D7E /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaFoundationIOS.a; path = /usr/local/jamoma/lib/libJamomaFoundationIOS.a; sourceTree = "<absolute>"; };
 		22F15E06131EF86C0026C358 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAttribute.h; sourceTree = "<group>"; };
 		22F15E07131EF86C0026C358 /* TTBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBase.h; sourceTree = "<group>"; };
 		22F15E08131EF86C0026C358 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCallback.h; sourceTree = "<group>"; };
