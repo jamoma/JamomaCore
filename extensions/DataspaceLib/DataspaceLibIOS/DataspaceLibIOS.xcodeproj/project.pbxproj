@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2297D0111490219900CC6D7E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2297D0101490219900CC6D7E /* Foundation.framework */; };
+		2297D0171490219900CC6D7E /* DataspaceLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0161490219900CC6D7E /* DataspaceLibIOS.m */; };
+		2297D0451490220800CC6D7E /* AngleDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D01E1490220800CC6D7E /* AngleDataspace.h */; };
+		2297D0461490220800CC6D7E /* ColorDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D01F1490220800CC6D7E /* ColorDataspace.h */; };
+		2297D0471490220800CC6D7E /* DistanceDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0201490220800CC6D7E /* DistanceDataspace.h */; };
+		2297D0481490220800CC6D7E /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0211490220800CC6D7E /* GainDataspace.h */; };
+		2297D0491490220800CC6D7E /* NoneDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0221490220800CC6D7E /* NoneDataspace.h */; };
+		2297D04A1490220800CC6D7E /* OrientationDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0231490220800CC6D7E /* OrientationDataspace.h */; };
+		2297D04B1490220800CC6D7E /* PositionDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0241490220800CC6D7E /* PositionDataspace.h */; };
+		2297D04C1490220800CC6D7E /* SpeedDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0251490220800CC6D7E /* SpeedDataspace.h */; };
+		2297D04D1490220800CC6D7E /* TemperatureDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0261490220800CC6D7E /* TemperatureDataspace.h */; };
+		2297D04E1490220800CC6D7E /* TimeDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0271490220800CC6D7E /* TimeDataspace.h */; };
+		2297D04F1490220800CC6D7E /* TTDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0281490220800CC6D7E /* TTDataspace.h */; };
+		2297D0501490220800CC6D7E /* TTDataspaceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0291490220800CC6D7E /* TTDataspaceConverter.h */; };
+		2297D0511490220800CC6D7E /* TTDataspaceUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D02A1490220800CC6D7E /* TTDataspaceUnit.h */; };
+		2297D0521490220800CC6D7E /* AngleDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D02C1490220800CC6D7E /* AngleDataspace.cpp */; };
+		2297D0531490220800CC6D7E /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D02D1490220800CC6D7E /* ColorDataspace.cpp */; };
+		2297D0541490220800CC6D7E /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D02E1490220800CC6D7E /* DistanceDataspace.cpp */; };
+		2297D0551490220800CC6D7E /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D02F1490220800CC6D7E /* GainDataspace.cpp */; };
+		2297D0561490220800CC6D7E /* NoneDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0301490220800CC6D7E /* NoneDataspace.cpp */; };
+		2297D0571490220800CC6D7E /* OrientationDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0311490220800CC6D7E /* OrientationDataspace.cpp */; };
+		2297D0581490220800CC6D7E /* PositionDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0321490220800CC6D7E /* PositionDataspace.cpp */; };
+		2297D0591490220800CC6D7E /* SpeedDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0331490220800CC6D7E /* SpeedDataspace.cpp */; };
+		2297D05A1490220800CC6D7E /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0341490220800CC6D7E /* TemperatureDataspace.cpp */; };
+		2297D05B1490220800CC6D7E /* TimeDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0351490220800CC6D7E /* TimeDataspace.cpp */; };
+		2297D05C1490220800CC6D7E /* TTDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0361490220800CC6D7E /* TTDataspace.cpp */; };
+		2297D05D1490220800CC6D7E /* TTDataspaceConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0371490220800CC6D7E /* TTDataspaceConverter.cpp */; };
+		2297D05E1490220800CC6D7E /* TTDataspaceUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0381490220800CC6D7E /* TTDataspaceUnit.cpp */; };
+		2297D05F1490220800CC6D7E /* AngleDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D03A1490220800CC6D7E /* AngleDataspace.test.cpp */; };
+		2297D0601490220800CC6D7E /* ColorDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D03B1490220800CC6D7E /* ColorDataspace.test.cpp */; };
+		2297D0611490220800CC6D7E /* DistanceDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D03C1490220800CC6D7E /* DistanceDataspace.test.cpp */; };
+		2297D0621490220800CC6D7E /* GainDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D03D1490220800CC6D7E /* GainDataspace.test.cpp */; };
+		2297D0631490220800CC6D7E /* OrientationDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D03E1490220800CC6D7E /* OrientationDataspace.test.cpp */; };
+		2297D0641490220800CC6D7E /* PositionDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D03F1490220800CC6D7E /* PositionDataspace.test.cpp */; };
+		2297D0651490220800CC6D7E /* SpeedDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0401490220800CC6D7E /* SpeedDataspace.test.cpp */; };
+		2297D0661490220800CC6D7E /* TemperatureDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0411490220800CC6D7E /* TemperatureDataspace.test.cpp */; };
+		2297D0671490220800CC6D7E /* TimeDataspace.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0421490220800CC6D7E /* TimeDataspace.test.cpp */; };
+		2297D0681490220800CC6D7E /* TTDataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297D0431490220800CC6D7E /* TTDataspaceLib.cpp */; };
+		2297D0691490220800CC6D7E /* TTDataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297D0441490220800CC6D7E /* TTDataspaceLib.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2297D00D1490219900CC6D7E /* libDataspaceLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDataspaceLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2297D0101490219900CC6D7E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2297D0141490219900CC6D7E /* DataspaceLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DataspaceLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2297D0151490219900CC6D7E /* DataspaceLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataspaceLibIOS.h; sourceTree = "<group>"; };
+		2297D0161490219900CC6D7E /* DataspaceLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataspaceLibIOS.m; sourceTree = "<group>"; };
+		2297D01E1490220800CC6D7E /* AngleDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngleDataspace.h; sourceTree = "<group>"; };
+		2297D01F1490220800CC6D7E /* ColorDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorDataspace.h; sourceTree = "<group>"; };
+		2297D0201490220800CC6D7E /* DistanceDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistanceDataspace.h; sourceTree = "<group>"; };
+		2297D0211490220800CC6D7E /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GainDataspace.h; sourceTree = "<group>"; };
+		2297D0221490220800CC6D7E /* NoneDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoneDataspace.h; sourceTree = "<group>"; };
+		2297D0231490220800CC6D7E /* OrientationDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrientationDataspace.h; sourceTree = "<group>"; };
+		2297D0241490220800CC6D7E /* PositionDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionDataspace.h; sourceTree = "<group>"; };
+		2297D0251490220800CC6D7E /* SpeedDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedDataspace.h; sourceTree = "<group>"; };
+		2297D0261490220800CC6D7E /* TemperatureDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemperatureDataspace.h; sourceTree = "<group>"; };
+		2297D0271490220800CC6D7E /* TimeDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeDataspace.h; sourceTree = "<group>"; };
+		2297D0281490220800CC6D7E /* TTDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspace.h; sourceTree = "<group>"; };
+		2297D0291490220800CC6D7E /* TTDataspaceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspaceConverter.h; sourceTree = "<group>"; };
+		2297D02A1490220800CC6D7E /* TTDataspaceUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataspaceUnit.h; sourceTree = "<group>"; };
+		2297D02C1490220800CC6D7E /* AngleDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AngleDataspace.cpp; sourceTree = "<group>"; };
+		2297D02D1490220800CC6D7E /* ColorDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorDataspace.cpp; sourceTree = "<group>"; };
+		2297D02E1490220800CC6D7E /* DistanceDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DistanceDataspace.cpp; sourceTree = "<group>"; };
+		2297D02F1490220800CC6D7E /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GainDataspace.cpp; sourceTree = "<group>"; };
+		2297D0301490220800CC6D7E /* NoneDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoneDataspace.cpp; sourceTree = "<group>"; };
+		2297D0311490220800CC6D7E /* OrientationDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrientationDataspace.cpp; sourceTree = "<group>"; };
+		2297D0321490220800CC6D7E /* PositionDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PositionDataspace.cpp; sourceTree = "<group>"; };
+		2297D0331490220800CC6D7E /* SpeedDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeedDataspace.cpp; sourceTree = "<group>"; };
+		2297D0341490220800CC6D7E /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemperatureDataspace.cpp; sourceTree = "<group>"; };
+		2297D0351490220800CC6D7E /* TimeDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeDataspace.cpp; sourceTree = "<group>"; };
+		2297D0361490220800CC6D7E /* TTDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspace.cpp; sourceTree = "<group>"; };
+		2297D0371490220800CC6D7E /* TTDataspaceConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspaceConverter.cpp; sourceTree = "<group>"; };
+		2297D0381490220800CC6D7E /* TTDataspaceUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataspaceUnit.cpp; sourceTree = "<group>"; };
+		2297D03A1490220800CC6D7E /* AngleDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AngleDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D03B1490220800CC6D7E /* ColorDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D03C1490220800CC6D7E /* DistanceDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DistanceDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D03D1490220800CC6D7E /* GainDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GainDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D03E1490220800CC6D7E /* OrientationDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrientationDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D03F1490220800CC6D7E /* PositionDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PositionDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D0401490220800CC6D7E /* SpeedDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeedDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D0411490220800CC6D7E /* TemperatureDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemperatureDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D0421490220800CC6D7E /* TimeDataspace.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeDataspace.test.cpp; sourceTree = "<group>"; };
+		2297D0431490220800CC6D7E /* TTDataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataspaceLib.cpp; path = ../TTDataspaceLib.cpp; sourceTree = "<group>"; };
+		2297D0441490220800CC6D7E /* TTDataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDataspaceLib.h; path = ../TTDataspaceLib.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2297D00A1490219900CC6D7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2297D0111490219900CC6D7E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2297D0021490219900CC6D7E = {
+			isa = PBXGroup;
+			children = (
+				2297D01D1490220800CC6D7E /* includes */,
+				2297D02B1490220800CC6D7E /* source */,
+				2297D0391490220800CC6D7E /* tests */,
+				2297D0431490220800CC6D7E /* TTDataspaceLib.cpp */,
+				2297D0441490220800CC6D7E /* TTDataspaceLib.h */,
+				2297D0121490219900CC6D7E /* DataspaceLibIOS */,
+				2297D00F1490219900CC6D7E /* Frameworks */,
+				2297D00E1490219900CC6D7E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2297D00E1490219900CC6D7E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2297D00D1490219900CC6D7E /* libDataspaceLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2297D00F1490219900CC6D7E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2297D0101490219900CC6D7E /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2297D0121490219900CC6D7E /* DataspaceLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2297D0151490219900CC6D7E /* DataspaceLibIOS.h */,
+				2297D0161490219900CC6D7E /* DataspaceLibIOS.m */,
+				2297D0131490219900CC6D7E /* Supporting Files */,
+			);
+			path = DataspaceLibIOS;
+			sourceTree = "<group>";
+		};
+		2297D0131490219900CC6D7E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2297D0141490219900CC6D7E /* DataspaceLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2297D01D1490220800CC6D7E /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				2297D01E1490220800CC6D7E /* AngleDataspace.h */,
+				2297D01F1490220800CC6D7E /* ColorDataspace.h */,
+				2297D0201490220800CC6D7E /* DistanceDataspace.h */,
+				2297D0211490220800CC6D7E /* GainDataspace.h */,
+				2297D0221490220800CC6D7E /* NoneDataspace.h */,
+				2297D0231490220800CC6D7E /* OrientationDataspace.h */,
+				2297D0241490220800CC6D7E /* PositionDataspace.h */,
+				2297D0251490220800CC6D7E /* SpeedDataspace.h */,
+				2297D0261490220800CC6D7E /* TemperatureDataspace.h */,
+				2297D0271490220800CC6D7E /* TimeDataspace.h */,
+				2297D0281490220800CC6D7E /* TTDataspace.h */,
+				2297D0291490220800CC6D7E /* TTDataspaceConverter.h */,
+				2297D02A1490220800CC6D7E /* TTDataspaceUnit.h */,
+			);
+			name = includes;
+			path = ../includes;
+			sourceTree = "<group>";
+		};
+		2297D02B1490220800CC6D7E /* source */ = {
+			isa = PBXGroup;
+			children = (
+				2297D02C1490220800CC6D7E /* AngleDataspace.cpp */,
+				2297D02D1490220800CC6D7E /* ColorDataspace.cpp */,
+				2297D02E1490220800CC6D7E /* DistanceDataspace.cpp */,
+				2297D02F1490220800CC6D7E /* GainDataspace.cpp */,
+				2297D0301490220800CC6D7E /* NoneDataspace.cpp */,
+				2297D0311490220800CC6D7E /* OrientationDataspace.cpp */,
+				2297D0321490220800CC6D7E /* PositionDataspace.cpp */,
+				2297D0331490220800CC6D7E /* SpeedDataspace.cpp */,
+				2297D0341490220800CC6D7E /* TemperatureDataspace.cpp */,
+				2297D0351490220800CC6D7E /* TimeDataspace.cpp */,
+				2297D0361490220800CC6D7E /* TTDataspace.cpp */,
+				2297D0371490220800CC6D7E /* TTDataspaceConverter.cpp */,
+				2297D0381490220800CC6D7E /* TTDataspaceUnit.cpp */,
+			);
+			name = source;
+			path = ../source;
+			sourceTree = "<group>";
+		};
+		2297D0391490220800CC6D7E /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				2297D03A1490220800CC6D7E /* AngleDataspace.test.cpp */,
+				2297D03B1490220800CC6D7E /* ColorDataspace.test.cpp */,
+				2297D03C1490220800CC6D7E /* DistanceDataspace.test.cpp */,
+				2297D03D1490220800CC6D7E /* GainDataspace.test.cpp */,
+				2297D03E1490220800CC6D7E /* OrientationDataspace.test.cpp */,
+				2297D03F1490220800CC6D7E /* PositionDataspace.test.cpp */,
+				2297D0401490220800CC6D7E /* SpeedDataspace.test.cpp */,
+				2297D0411490220800CC6D7E /* TemperatureDataspace.test.cpp */,
+				2297D0421490220800CC6D7E /* TimeDataspace.test.cpp */,
+			);
+			name = tests;
+			path = ../tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2297D00B1490219900CC6D7E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2297D0451490220800CC6D7E /* AngleDataspace.h in Headers */,
+				2297D0461490220800CC6D7E /* ColorDataspace.h in Headers */,
+				2297D0471490220800CC6D7E /* DistanceDataspace.h in Headers */,
+				2297D0481490220800CC6D7E /* GainDataspace.h in Headers */,
+				2297D0491490220800CC6D7E /* NoneDataspace.h in Headers */,
+				2297D04A1490220800CC6D7E /* OrientationDataspace.h in Headers */,
+				2297D04B1490220800CC6D7E /* PositionDataspace.h in Headers */,
+				2297D04C1490220800CC6D7E /* SpeedDataspace.h in Headers */,
+				2297D04D1490220800CC6D7E /* TemperatureDataspace.h in Headers */,
+				2297D04E1490220800CC6D7E /* TimeDataspace.h in Headers */,
+				2297D04F1490220800CC6D7E /* TTDataspace.h in Headers */,
+				2297D0501490220800CC6D7E /* TTDataspaceConverter.h in Headers */,
+				2297D0511490220800CC6D7E /* TTDataspaceUnit.h in Headers */,
+				2297D0691490220800CC6D7E /* TTDataspaceLib.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2297D00C1490219900CC6D7E /* DataspaceLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2297D01A1490219900CC6D7E /* Build configuration list for PBXNativeTarget "DataspaceLibIOS" */;
+			buildPhases = (
+				2297D0091490219900CC6D7E /* Sources */,
+				2297D00A1490219900CC6D7E /* Frameworks */,
+				2297D00B1490219900CC6D7E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DataspaceLibIOS;
+			productName = DataspaceLibIOS;
+			productReference = 2297D00D1490219900CC6D7E /* libDataspaceLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2297D0041490219900CC6D7E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 2297D0071490219900CC6D7E /* Build configuration list for PBXProject "DataspaceLibIOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2297D0021490219900CC6D7E;
+			productRefGroup = 2297D00E1490219900CC6D7E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2297D00C1490219900CC6D7E /* DataspaceLibIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2297D0091490219900CC6D7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2297D0171490219900CC6D7E /* DataspaceLibIOS.m in Sources */,
+				2297D0521490220800CC6D7E /* AngleDataspace.cpp in Sources */,
+				2297D0531490220800CC6D7E /* ColorDataspace.cpp in Sources */,
+				2297D0541490220800CC6D7E /* DistanceDataspace.cpp in Sources */,
+				2297D0551490220800CC6D7E /* GainDataspace.cpp in Sources */,
+				2297D0561490220800CC6D7E /* NoneDataspace.cpp in Sources */,
+				2297D0571490220800CC6D7E /* OrientationDataspace.cpp in Sources */,
+				2297D0581490220800CC6D7E /* PositionDataspace.cpp in Sources */,
+				2297D0591490220800CC6D7E /* SpeedDataspace.cpp in Sources */,
+				2297D05A1490220800CC6D7E /* TemperatureDataspace.cpp in Sources */,
+				2297D05B1490220800CC6D7E /* TimeDataspace.cpp in Sources */,
+				2297D05C1490220800CC6D7E /* TTDataspace.cpp in Sources */,
+				2297D05D1490220800CC6D7E /* TTDataspaceConverter.cpp in Sources */,
+				2297D05E1490220800CC6D7E /* TTDataspaceUnit.cpp in Sources */,
+				2297D05F1490220800CC6D7E /* AngleDataspace.test.cpp in Sources */,
+				2297D0601490220800CC6D7E /* ColorDataspace.test.cpp in Sources */,
+				2297D0611490220800CC6D7E /* DistanceDataspace.test.cpp in Sources */,
+				2297D0621490220800CC6D7E /* GainDataspace.test.cpp in Sources */,
+				2297D0631490220800CC6D7E /* OrientationDataspace.test.cpp in Sources */,
+				2297D0641490220800CC6D7E /* PositionDataspace.test.cpp in Sources */,
+				2297D0651490220800CC6D7E /* SpeedDataspace.test.cpp in Sources */,
+				2297D0661490220800CC6D7E /* TemperatureDataspace.test.cpp in Sources */,
+				2297D0671490220800CC6D7E /* TimeDataspace.test.cpp in Sources */,
+				2297D0681490220800CC6D7E /* TTDataspaceLib.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2297D0181490219900CC6D7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2297D0191490219900CC6D7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2297D01B1490219900CC6D7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DataspaceLibIOS/DataspaceLibIOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					TT_PLATFORM_IOS,
+				);
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INSTALL_PATH = /usr/local/jamoma/extensions;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../library/includes";
+			};
+			name = Debug;
+		};
+		2297D01C1490219900CC6D7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DataspaceLibIOS/DataspaceLibIOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_IOS;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INSTALL_PATH = /usr/local/jamoma/extensions;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../library/includes";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2297D0071490219900CC6D7E /* Build configuration list for PBXProject "DataspaceLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2297D0181490219900CC6D7E /* Debug */,
+				2297D0191490219900CC6D7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2297D01A1490219900CC6D7E /* Build configuration list for PBXNativeTarget "DataspaceLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2297D01B1490219900CC6D7E /* Debug */,
+				2297D01C1490219900CC6D7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2297D0041490219900CC6D7E /* Project object */;
+}

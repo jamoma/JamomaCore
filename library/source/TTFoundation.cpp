@@ -13,11 +13,13 @@
 #include "TTValueCache.h"
 #include "TTCallback.h"
 
+// Nodelib currently requires Boost Regex, which we don't have on the iOS
+#ifndef TT_PLATFORM_IOS
 #include "TTNodeAddress.h"
 #include "TTNodeAddressTable.h"
 #include "TTNodeAddressCache.h"
-
 #include "TTPath.h"
+#endif
 
 // Unit Tests
 #include "TTMatrix.h"
@@ -55,20 +57,25 @@ void TTFoundationInit(const char* pathToBinaries)
 		ttSymbolTable = new TTSymbolTable;
 		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
-		
+
+// Regex requires Boost libraries, not available for iOS for the time-being
+#ifndef TT_PLATFORM_IOS
 		// Global regex for TTNodeAddress parsing
 		ttRegexForDirectory = new TTRegex("([\\w]+)\\:/");
 		ttRegexForAttribute = new TTRegex(":+");
 		ttRegexForParent = new TTRegex("(.*)/+(\\S+)");
 		ttRegexForInstance = new TTRegex("[.]");
-		
 		ttNodeAddressTable = new TTNodeAddressTable;
+#endif	
 
 		ttEnvironment = new TTEnvironment;
 
 		TTSymbolCacheInit();
 		TTValueCacheInit();
+// Regex requires Boost libraries, not available for iOS for the time-being
+#ifndef TT_PLATFORM_IOS
 		TTNodeAddressCacheInit();
+#endif
 		
 #ifdef TT_DEBUG
 		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);
@@ -86,8 +93,10 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTMatrix::registerClass();
 		TTMatrixArray::registerClass();
 		TTValueTest::registerClass();
+// Regex requires Boost libraries, not available for iOS for the time-being
+#ifndef TT_PLATFORM_IOS
 		TTNodeLibTest::registerClass();
-
+#endif
 		TTFoundationLoadExternalClasses();
 	}
 }
