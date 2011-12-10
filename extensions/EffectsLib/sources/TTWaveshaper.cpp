@@ -20,8 +20,8 @@ mPoly1GainCorrection(1),
 mShape(NULL)
 {
 	addAttributeWithSetter(Strength,			kTypeFloat64);
-		addAttributeProperty(strength,			range,			TTValue(0.000000000001, 100000));
-		addAttributeProperty(strength,			rangeChecking,	TT("clip"));
+		addAttributeProperty(Strength,			range,			TTValue(0.000000000001, 100000));
+		addAttributeProperty(Strength,			rangeChecking,	TT("clip"));
 	addAttributeWithSetter(Shape,	kTypeSymbol);
 	setProcessMethod(processAudioSin);
 	setAttributeValue(TT("strength"), 0.000000000001);
