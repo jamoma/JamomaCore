@@ -6,6 +6,7 @@ sources:
   - sources/TTGain.cpp
   - sources/TTLimiter.cpp
   - sources/TTOverdrive.cpp
+  - sources/TTPanorama.cpp
   - sources/TTPulseSub.cpp    
   - sources/TTThru.cpp  
   - sources/TTWaveshaper.cpp

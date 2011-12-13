@@ -13,6 +13,8 @@
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD45E411E245C8007BBF7E /* EffectsLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45E311E245C8007BBF7E /* EffectsLib.cpp */; };
+		661D49351497C28C006E553C /* TTPanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 661D49341497C28C006E553C /* TTPanorama.cpp */; };
+		661D49371497C294006E553C /* TTPanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 661D49361497C294006E553C /* TTPanorama.h */; };
 		666CF848131B42620003D7E2 /* TTBalance.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF842131B42620003D7E2 /* TTBalance.h */; };
 		666CF849131B42620003D7E2 /* TTDegrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF843131B42620003D7E2 /* TTDegrade.h */; };
 		666CF84A131B42620003D7E2 /* TTGain.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF844131B42620003D7E2 /* TTGain.h */; };
@@ -40,6 +42,8 @@
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		22FD45E311E245C8007BBF7E /* EffectsLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectsLib.cpp; sourceTree = "<group>"; };
+		661D49341497C28C006E553C /* TTPanorama.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPanorama.cpp; path = sources/TTPanorama.cpp; sourceTree = "<group>"; };
+		661D49361497C294006E553C /* TTPanorama.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPanorama.h; path = includes/TTPanorama.h; sourceTree = "<group>"; };
 		666CF842131B42620003D7E2 /* TTBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBalance.h; path = includes/TTBalance.h; sourceTree = "<group>"; };
 		666CF843131B42620003D7E2 /* TTDegrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDegrade.h; path = includes/TTDegrade.h; sourceTree = "<group>"; };
 		666CF844131B42620003D7E2 /* TTGain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGain.h; path = includes/TTGain.h; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				666CF853131B426A0003D7E2 /* TTOverdrive.cpp */,
 				666CF847131B42620003D7E2 /* TTPulseSub.h */,
 				666CF854131B426A0003D7E2 /* TTPulseSub.cpp */,
+				661D49341497C28C006E553C /* TTPanorama.cpp */,
+				661D49361497C294006E553C /* TTPanorama.h */,
 				22994089134ACEAF0068439F /* TTThru.h */,
 				2299408B134ACEB80068439F /* TTThru.cpp */,
 				2299408D134AD05B0068439F /* TTThru.test.cpp */,
@@ -150,6 +156,7 @@
 				666CF84D131B42620003D7E2 /* TTPulseSub.h in Headers */,
 				2299408A134ACEAF0068439F /* TTThru.h in Headers */,
 				66AEA86B1485FF8A00FD0234 /* TTWaveshaper.h in Headers */,
+				661D49371497C294006E553C /* TTPanorama.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +241,7 @@
 				2299408C134ACEB80068439F /* TTThru.cpp in Sources */,
 				2299408E134AD05B0068439F /* TTThru.test.cpp in Sources */,
 				66AEA8691485FF8400FD0234 /* TTWaveshaper.cpp in Sources */,
+				661D49351497C28C006E553C /* TTPanorama.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
