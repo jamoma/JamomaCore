@@ -15,8 +15,13 @@
 	using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
 	typedef hash_map<TTPtrSizedInt,TTValue>			TTHashMap;
 #else
-	#include "boost/unordered_map.hpp"
-	using namespace boost;
+	#ifdef TT_PLATFORM_LINUX
+		// at least for GCC 4.6 on the BeagleBoard, the unordered map is standard
+		#include <unordered_map>
+	#else
+		#include "boost/unordered_map.hpp"
+		using namespace boost;
+	#endif
 	typedef unordered_map<TTPtrSizedInt,TTValue>	TTHashMap;
 #endif
 
