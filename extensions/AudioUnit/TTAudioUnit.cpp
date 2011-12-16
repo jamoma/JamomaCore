@@ -8,7 +8,12 @@
  */
 
 #include "TTDSP.h"
+
+#ifdef uint
+#undef uint
+#endif
 #include <CoreServices/CoreServices.h>
+
 #include <AudioToolbox/AudioToolBox.h>
 #include <AudioUnit/AudioUnit.h>
 

@@ -9,3 +9,7 @@ includes:
 libraries:
   - FOUNDATION
   - DSP
+
+frameworks:
+  - Carbon
+  - AudioUnit
