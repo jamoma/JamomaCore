@@ -8,5 +8,5 @@
 
 #include "../../../supports/max/tt-max.xcconfig"
 
-OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib "$(DSPLIB)/library/build/UninstalledProducts"/JamomaDSP.dylib "$(GRAPH)/library/build/UninstalledProducts"/JamomaGraph.dylib "$(AUDIOGRAPH)/library/build/UninstalledProducts"/JamomaAudioGraph.dylib "$(GRAPHICS)/library/build/UninstalledProducts"/JamomaGraphics.dylib "$(MODULAR)/library/build/UninstalledProducts"/JamomaModular.dylib
+OTHER_LDFLAGS = "$(FOUNDATION)/library/build"/JamomaFoundation.dylib "$(DSPLIB)/library/build"/JamomaDSP.dylib "$(GRAPH)/library/build"/JamomaGraph.dylib "$(AUDIOGRAPH)/library/build"/JamomaAudioGraph.dylib "$(MODULAR)/library/build"/JamomaModular.dylib
 
