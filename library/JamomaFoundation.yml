@@ -1,0 +1,51 @@
+
+sources:
+  - source/TTFoundation.cpp
+  - source/TTCallback.cpp
+  - source/TTClass.cpp
+  - source/TTEnvironment.cpp
+  - source/TTMutex.cpp
+  - source/TTPath.cpp
+  - source/TTQueue.cpp
+  - source/TTThread.cpp
+  - source/TTUnitTest.cpp
+  - source/TTValueCache.cpp
+  - source/TTAttribute.cpp
+  - source/TTDataObject.cpp
+  - source/TTBase.cpp
+  - source/TTMessage.cpp
+  - source/TTObject.cpp
+  - source/TTDictionary.cpp
+  - source/TTHash.cpp
+  - source/TTList.cpp
+  - source/TTMatrix.cpp
+  - source/TTMatrixMath.cpp
+  - source/TTMatrixArray.cpp
+  - source/TTValue.cpp
+  - source/TTSymbol.cpp
+  - source/TTSymbolCache.cpp
+  - source/TTSymbolTable.cpp
+  - source/TTRegex.cpp
+  - source/TTNode.cpp
+  - source/TTNodeAddress.cpp
+  - source/TTNodeAddressTable.cpp
+  - source/TTNodeAddressCache.cpp
+  - source/TTNodeDirectory.cpp
+  - tests/TTMatrix.test.cpp
+  - tests/TTValue.test.cpp
+  - tests/TTNodeLib.test.cpp
+  
+includes:
+  - "includes"
+  - "tests"
+  - "Mersenne-1.1"
+  - "boost"
+
+libraries:
+  - boost/lib-mac/libboost_filesystem.a
+  - boost/lib-mac/libboost_system.a
+  - boost/lib-mac/libboost_regex.a
+
+frameworks:
+  - Carbon
+  - CoreServices
