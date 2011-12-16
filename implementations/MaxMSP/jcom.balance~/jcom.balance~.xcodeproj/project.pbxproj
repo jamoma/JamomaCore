@@ -13,8 +13,6 @@
 		226C447A109A338900E2BFB0 /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C4478109A338900E2BFB0 /* TTClassWrapperMax.cpp */; };
 		226C447B109A338900E2BFB0 /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = 226C4479109A338900E2BFB0 /* TTClassWrapperMax.h */; };
 		22BC0B66104579730000111C /* jcom.balance~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BC0B65104579730000111C /* jcom.balance~.cpp */; };
-		A770CD6611FE13500059F3F1 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A770CD6411FE13500059F3F1 /* JamomaDSP.dylib */; };
-		A770CD6711FE13500059F3F1 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A770CD6511FE13500059F3F1 /* JamomaFoundation.dylib */; };
 		A7FAFD6911FE30F000FB034A /* tt-max-dsp.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A7FAFD6811FE30F000FB034A /* tt-max-dsp.xcconfig */; };
 /* End PBXBuildFile section */
 
@@ -26,8 +24,6 @@
 		226C4479109A338900E2BFB0 /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../../../supports/max/TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 		22BC0B65104579730000111C /* jcom.balance~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.balance~.cpp"; sourceTree = "<group>"; };
 		2FBBEAE508F335360078DB84 /* jcom.balance~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.balance~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A770CD6411FE13500059F3F1 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
-		A770CD6511FE13500059F3F1 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		A7FAFD6811FE30F000FB034A /* tt-max-dsp.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-dsp.xcconfig"; path = "../tt-max-dsp.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -38,8 +34,6 @@
 			files = (
 				222AD830109A03EA0074753C /* MaxAPI.framework in Frameworks */,
 				222AD835109A03F60074753C /* MaxAudioAPI.framework in Frameworks */,
-				A770CD6611FE13500059F3F1 /* JamomaDSP.dylib in Frameworks */,
-				A770CD6711FE13500059F3F1 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,8 +54,6 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				A770CD6411FE13500059F3F1 /* JamomaDSP.dylib */,
-				A770CD6511FE13500059F3F1 /* JamomaFoundation.dylib */,
 				222AD834109A03F60074753C /* MaxAudioAPI.framework */,
 				222AD82F109A03EA0074753C /* MaxAPI.framework */,
 			);
