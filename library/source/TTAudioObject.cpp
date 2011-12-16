@@ -35,8 +35,6 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	registerAttribute(kTTSym_sampleRate,	kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
 	registerAttribute(TT("bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
 	registerAttribute(TT("mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
-	registerAttribute(TT("processInPlace"), kTypeBoolean,	&attrProcessInPlace);
-	addAttributeProperty(processInPlace,	hidden,	YES);
 	
 	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
 	registerMessage(TT("test"), TTMethod(&TTObject::test));
