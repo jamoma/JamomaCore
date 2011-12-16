@@ -51,6 +51,8 @@
 * of work.  -msp
 */
 
+#include "mayer_fft.h"
+
 #define REAL double
 #define GOOD_TRIG
 
