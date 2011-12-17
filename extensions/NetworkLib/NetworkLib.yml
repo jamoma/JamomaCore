@@ -1,0 +1,27 @@
+
+sources:
+  - NetworkLib.cpp		
+  - source/TTNetSend.cpp
+  - source/TTOscReceive.cpp
+  - source/TTOscSocket.cpp
+  - source/TTNetReceive.cpp
+  - source/TTNetSocket.cpp
+  - source/TTOscSend.cpp
+  - NetworkCommunication/ip/IpEndpointName.cpp
+  - NetworkCommunication/ip/NetworkingUtils.cpp
+  - NetworkCommunication/ip/UdpSocket.cpp
+  - NetworkCommunication/osc/OscOutboundPacketStream.cpp	
+  - NetworkCommunication/osc/OscPrintReceivedElements.cpp	
+  - NetworkCommunication/osc/OscReceivedElements.cpp		
+  - NetworkCommunication/osc/OscTypes.cpp
+    
+includes:
+  - "."
+  - "includes"
+  - "NetworkCommunication/ip"
+  - "NetworkCommunication/osc"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+
