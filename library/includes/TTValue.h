@@ -13,9 +13,12 @@
 #include "TTLimits.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
+
+// Regex requires Boost libraries, not available for iOS for the time-being
+#ifndef TT_PLATFORM_IOS
 #include "TTNodeAddress.h"
 #include "TTNodeAddressTable.h"
-
+#endif
 
 class TTObject;
 class TTMatrix;
@@ -299,8 +302,11 @@ public:
 	void get(const TTUInt16 index, TTMatrix& value) const;
 	void get(const TTUInt16 index, TTMatrix** value) const;
 	void get(const TTUInt16 index, TTPtr* value) const;
-	void get(const TTUInt16 index, TTNodeAddressPtr* value) const;
 
+// Regex requires Boost libraries, not available for iOS for the time-being
+#ifndef TT_PLATFORM_IOS
+	void get(const TTUInt16 index, TTNodeAddressPtr* value) const;
+#endif
 	
 	// inlined for speed (e.g. for use in the matrix)
 	TTFloat64 getUInt8(TTUInt16 index = 0) const

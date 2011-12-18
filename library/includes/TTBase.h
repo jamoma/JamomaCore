@@ -25,6 +25,10 @@
 	#endif
 #endif
 
+#ifdef TT_PLATFORM_MAC
+#include <Carbon/Carbon.h>
+#endif
+
 #include <algorithm>
 #include <cstring>
 #include <cmath>

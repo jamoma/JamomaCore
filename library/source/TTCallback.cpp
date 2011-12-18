@@ -1,5 +1,5 @@
 /* 
- * TTNode
+ * TTCallback
  * Copyright © 2008, Théo de la Hogue & Tim Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"

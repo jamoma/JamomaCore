@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
 {
  	TTObjectPtr dataspace = NULL;
 	TTErr		err = kTTErrNone;
-	TTValue		v;
+	TTValue		x;
+	TTValue		y;
 	
 	// this loads the DataspaceLib, which calls the Foundation init function.
 	err = TTLoadJamomaExtension_DataspaceLib();
@@ -37,9 +38,9 @@ int main(int argc, char *argv[])
 	dataspace->setAttributeValue(TT("inputUnit"), TT("C"));
 	dataspace->setAttributeValue(TT("outputUnit"), TT("F"));
 	
-	v = 100.0;
-	dataspace->sendMessage(TT("convert"), v);
-	TTLogMessage("100ºC should be 212ºF, and the dataspace says it is...  %f", TTFloat64(v));
+	x = 100.0;
+	dataspace->sendMessage(TT("convert"), x, y);
+	TTLogMessage("100ºC should be 212ºF, and the dataspace says it is...  %f", TTFloat64(y));
 	
 	
 	// This where Apple's code starts the app loop

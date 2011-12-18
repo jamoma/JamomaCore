@@ -1007,11 +1007,17 @@ void TTValue::get(const TTUInt16 index, TTPtr* value) const
 		*value = (data+index)->ptr;
 }
 
+
+// Regex requires Boost libraries, not available for iOS for the time-being
+#ifndef TT_PLATFORM_IOS
+
 void TTValue::get(const TTUInt16 index, TTNodeAddressPtr* value) const
 {
 	if (type[index] == kTypeSymbol)
 		*value = TTADRS((data+index)->sym->getCString());
 }
+
+#endif
 
 
 /****************************************************************************************************/

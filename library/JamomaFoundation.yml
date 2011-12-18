@@ -1,0 +1,66 @@
+
+sources:
+  - source/TTFoundation.cpp
+  - source/TTCallback.cpp
+  - source/TTClass.cpp
+  - source/TTEnvironment.cpp
+  - source/TTMutex.cpp
+  - source/TTPath.cpp
+  - source/TTQueue.cpp
+  - source/TTThread.cpp
+  - source/TTUnitTest.cpp
+  - source/TTValueCache.cpp
+  - source/TTAttribute.cpp
+  - source/TTDataObject.cpp
+  - source/TTBase.cpp
+  - source/TTMessage.cpp
+  - source/TTObject.cpp
+  - source/TTDictionary.cpp
+  - source/TTHash.cpp
+  - source/TTList.cpp
+  - source/TTMatrix.cpp
+  - source/TTMatrixMath.cpp
+  - source/TTMatrixArray.cpp
+  - source/TTValue.cpp
+  - source/TTSymbol.cpp
+  - source/TTSymbolCache.cpp
+  - source/TTSymbolTable.cpp
+  - source/TTRegex.cpp
+  - tests/TTMatrix.test.cpp
+  - tests/TTValue.test.cpp
+  - mac source/TTNode.cpp
+  - mac source/TTNodeAddress.cpp
+  - mac source/TTNodeAddressTable.cpp
+  - mac source/TTNodeAddressCache.cpp
+  - mac source/TTNodeDirectory.cpp
+  - mac tests/TTNodeLib.test.cpp
+  - win source/TTNode.cpp
+  - win source/TTNodeAddress.cpp
+  - win source/TTNodeAddressTable.cpp
+  - win source/TTNodeAddressCache.cpp
+  - win source/TTNodeDirectory.cpp
+  - win tests/TTNodeLib.test.cpp
+  
+# See the note below about us not including the NodeLib on Linux (or iOS)
+  
+includes:
+  - "includes"
+  - "tests"
+  - "Mersenne-1.1"
+  - "boost"
+
+libraries:
+  - mac boost/lib-mac/libboost_filesystem.a
+  - win boost/lib-windows/libboost_filesystem-vc90-mt-s-1_46.lib
+  - mac boost/lib-mac/libboost_system.a
+  - win boost/lib-windows/libboost_system-vc90-mt-s-1_46.lib
+  - mac boost/lib-mac/libboost_regex.a
+  - win boost/lib-windows/libboost_regex-vc90-mt-s-1_46.lib
+
+# For the moment we aren't going to add the dependency on Boost for the Linux platforms.
+# We do have compiled libs for the i386 arch but not for 64-bit or ARM architectures.
+# The only real dependency we have for Boost is the NodeLib.
+
+frameworks:
+  - Carbon
+  - CoreServices
