@@ -11,7 +11,7 @@
 
 #define thisTTClass			TTFilter
 #define thisTTClassName		"filter"
-#define thisTTClassTags		"audio, processor, filter"
+#define thisTTClassTags		"audio, processor"
 
 
 TT_AUDIO_CONSTRUCTOR,

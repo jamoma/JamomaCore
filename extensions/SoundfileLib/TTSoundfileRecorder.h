@@ -10,6 +10,10 @@
 #define __TT_SOUNDFILERECORDER_H__
 
 #include "TTDSP.h"
+
+#ifdef uint
+#undef uint
+#endif
 #include "libsndfile/sndfile.h"
 
 

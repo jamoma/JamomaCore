@@ -1,0 +1,23 @@
+
+sources:
+  - TTFunctionLib.cpp
+  - source/TTCosineFunction.cpp
+  - source/TTExpFunction.cpp
+  - source/TTFunction.cpp
+  - source/TTLinearFunction.cpp
+  - source/TTLogFunction.cpp
+  - source/TTLowpassFunction.cpp    
+  - source/TTPowerFunction.cpp
+  - source/TTSmoothPolynomialFunction.cpp  
+  - source/TTTanhFunction.cpp
+  - tests/TTLinearFunction.test.cpp
+  - tests/TTSmoothPolynomialFunction.test.cpp
+  
+includes:
+  - "includes"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

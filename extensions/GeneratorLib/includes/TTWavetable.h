@@ -18,12 +18,12 @@
 class TTWavetable : TTAudioObject {
 	TTCLASS_SETUP(TTWavetable)
 
-	TTSymbol*			mMode;
+	TTSymbolPtr			mMode;
 	TTFloat64			mFrequency;
 	TTFloat64			mGain;
 	TTFloat64			mLinearGain;
-	TTSymbol*			mInterpolation;	///< should be none, linear, or eventually something better...
-	TTUInt64			mSize;			///< how many samples in the wave table
+	TTSymbolPtr			mInterpolation;	///< should be none, linear, or eventually something better...
+	TTUInt32			mSize;			///< how many samples in the wave table
 	TTFloat64			mIndex;
 	TTFloat64			mIndexDelta;
 	TTBuffer*			mWavetable;

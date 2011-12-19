@@ -46,13 +46,12 @@ LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
 #########################################
 
 Debug:
+	mkdir -p build
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) 
 
 Release:
+	mkdir -p build
 	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) $(OPTIMIZATION_FLAGS)
-
-all:
-	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) 
 
 clean:
 	rm -f *.o

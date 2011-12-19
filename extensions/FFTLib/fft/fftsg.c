@@ -282,7 +282,7 @@ Appendix :
 */
 
 
-void cdft(int n, int isgn, double *a, int *ip, double *w)
+extern "C" void cdft(int n, int isgn, double *a, int *ip, double *w)
 {
     void makewt(int nw, int *ip, double *w);
     void cftfsub(int n, double *a, int *ip, int nw, double *w);
@@ -302,7 +302,7 @@ void cdft(int n, int isgn, double *a, int *ip, double *w)
 }
 
 
-void rdft(int n, int isgn, double *a, int *ip, double *w)
+extern "C" void rdft(int n, int isgn, double *a, int *ip, double *w)
 {
     void makewt(int nw, int *ip, double *w);
     void makect(int nc, int *ip, double *c);
@@ -346,7 +346,7 @@ void rdft(int n, int isgn, double *a, int *ip, double *w)
 }
 
 
-void ddct(int n, int isgn, double *a, int *ip, double *w)
+extern "C" void ddct(int n, int isgn, double *a, int *ip, double *w)
 {
     void makewt(int nw, int *ip, double *w);
     void makect(int nc, int *ip, double *c);
@@ -402,7 +402,7 @@ void ddct(int n, int isgn, double *a, int *ip, double *w)
 }
 
 
-void ddst(int n, int isgn, double *a, int *ip, double *w)
+extern "C" void ddst(int n, int isgn, double *a, int *ip, double *w)
 {
     void makewt(int nw, int *ip, double *w);
     void makect(int nc, int *ip, double *c);
@@ -458,7 +458,7 @@ void ddst(int n, int isgn, double *a, int *ip, double *w)
 }
 
 
-void dfct(int n, double *a, double *t, int *ip, double *w)
+extern "C" void dfct(int n, double *a, double *t, int *ip, double *w)
 {
     void makewt(int nw, int *ip, double *w);
     void makect(int nc, int *ip, double *c);
@@ -551,7 +551,7 @@ void dfct(int n, double *a, double *t, int *ip, double *w)
 }
 
 
-void dfst(int n, double *a, double *t, int *ip, double *w)
+extern "C" void dfst(int n, double *a, double *t, int *ip, double *w)
 {
     void makewt(int nw, int *ip, double *w);
     void makect(int nc, int *ip, double *c);
@@ -640,7 +640,7 @@ void dfst(int n, double *a, double *t, int *ip, double *w)
 
 #include <math.h>
 
-void makewt(int nw, int *ip, double *w)
+extern "C" void makewt(int nw, int *ip, double *w)
 {
     void makeipt(int nw, int *ip);
     int j, nwh, nw0, nw1;
@@ -701,7 +701,7 @@ void makewt(int nw, int *ip, double *w)
 }
 
 
-void makeipt(int nw, int *ip)
+extern "C" void makeipt(int nw, int *ip)
 {
     int j, l, m, m2, p, q;
     
@@ -721,7 +721,7 @@ void makeipt(int nw, int *ip)
 }
 
 
-void makect(int nc, int *ip, double *c)
+extern "C" void makect(int nc, int *ip, double *c)
 {
     int j, nch;
     double delta;
@@ -797,7 +797,7 @@ void makect(int nc, int *ip, double *c)
 #endif /* USE_CDFT_WINTHREADS */
 
 
-void cftfsub(int n, double *a, int *ip, int nw, double *w)
+extern "C" void cftfsub(int n, double *a, int *ip, int nw, double *w)
 {
     void bitrv2(int n, int *ip, double *a);
     void bitrv216(double *a);
@@ -845,7 +845,7 @@ void cftfsub(int n, double *a, int *ip, int nw, double *w)
 }
 
 
-void cftbsub(int n, double *a, int *ip, int nw, double *w)
+extern "C" void cftbsub(int n, double *a, int *ip, int nw, double *w)
 {
     void bitrv2conj(int n, int *ip, double *a);
     void bitrv216neg(double *a);
@@ -893,7 +893,7 @@ void cftbsub(int n, double *a, int *ip, int nw, double *w)
 }
 
 
-void bitrv2(int n, int *ip, double *a)
+extern "C" void bitrv2(int n, int *ip, double *a)
 {
     int j, j1, k, k1, l, m, nh, nm;
     double xr, xi, yr, yi;
@@ -1240,7 +1240,7 @@ void bitrv2(int n, int *ip, double *a)
 }
 
 
-void bitrv2conj(int n, int *ip, double *a)
+extern "C" void bitrv2conj(int n, int *ip, double *a)
 {
     int j, j1, k, k1, l, m, nh, nm;
     double xr, xi, yr, yi;
@@ -1595,7 +1595,7 @@ void bitrv2conj(int n, int *ip, double *a)
 }
 
 
-void bitrv216(double *a)
+extern "C" void bitrv216(double *a)
 {
     double x1r, x1i, x2r, x2i, x3r, x3i, x4r, x4i, 
         x5r, x5i, x7r, x7i, x8r, x8i, x10r, x10i, 
@@ -1652,7 +1652,7 @@ void bitrv216(double *a)
 }
 
 
-void bitrv216neg(double *a)
+extern "C" void bitrv216neg(double *a)
 {
     double x1r, x1i, x2r, x2i, x3r, x3i, x4r, x4i, 
         x5r, x5i, x6r, x6i, x7r, x7i, x8r, x8i, 
@@ -1722,7 +1722,7 @@ void bitrv216neg(double *a)
 }
 
 
-void bitrv208(double *a)
+extern "C" void bitrv208(double *a)
 {
     double x1r, x1i, x3r, x3i, x4r, x4i, x6r, x6i;
     
@@ -1745,7 +1745,7 @@ void bitrv208(double *a)
 }
 
 
-void bitrv208neg(double *a)
+extern "C" void bitrv208neg(double *a)
 {
     double x1r, x1i, x2r, x2i, x3r, x3i, x4r, x4i, 
         x5r, x5i, x6r, x6i, x7r, x7i;
@@ -1781,7 +1781,7 @@ void bitrv208neg(double *a)
 }
 
 
-void cftf1st(int n, double *a, double *w)
+extern "C" void cftf1st(int n, double *a, double *w)
 {
     int j, j0, j1, j2, j3, k, m, mh;
     double wn4r, csc1, csc3, wk1r, wk1i, wk3r, wk3i, 
@@ -1987,7 +1987,7 @@ void cftf1st(int n, double *a, double *w)
 }
 
 
-void cftb1st(int n, double *a, double *w)
+extern "C" void cftb1st(int n, double *a, double *w)
 {
     int j, j0, j1, j2, j3, k, m, mh;
     double wn4r, csc1, csc3, wk1r, wk1i, wk3r, wk3i, 
@@ -2204,7 +2204,7 @@ struct cdft_arg_st {
 typedef struct cdft_arg_st cdft_arg_t;
 
 
-void cftrec4_th(int n, double *a, int nw, double *w)
+extern "C" void cftrec4_th(int n, double *a, int nw, double *w)
 {
     void *cftrec1_th(void *p);
     void *cftrec2_th(void *p);
@@ -2238,7 +2238,7 @@ void cftrec4_th(int n, double *a, int nw, double *w)
 }
 
 
-void *cftrec1_th(void *p)
+extern "C" void *cftrec1_th(void *p)
 {
     int cfttree(int n, int j, int k, double *a, int nw, double *w);
     void cftleaf(int n, int isplt, double *a, int nw, double *w);
@@ -2267,7 +2267,7 @@ void *cftrec1_th(void *p)
 }
 
 
-void *cftrec2_th(void *p)
+extern "C" void *cftrec2_th(void *p)
 {
     int cfttree(int n, int j, int k, double *a, int nw, double *w);
     void cftleaf(int n, int isplt, double *a, int nw, double *w);
@@ -2299,7 +2299,7 @@ void *cftrec2_th(void *p)
 #endif /* USE_CDFT_THREADS */
 
 
-void cftrec4(int n, double *a, int nw, double *w)
+extern "C" void cftrec4(int n, double *a, int nw, double *w)
 {
     int cfttree(int n, int j, int k, double *a, int nw, double *w);
     void cftleaf(int n, int isplt, double *a, int nw, double *w);
@@ -2321,7 +2321,7 @@ void cftrec4(int n, double *a, int nw, double *w)
 }
 
 
-int cfttree(int n, int j, int k, double *a, int nw, double *w)
+extern "C" int cfttree(int n, int j, int k, double *a, int nw, double *w)
 {
     void cftmdl1(int n, double *a, double *w);
     void cftmdl2(int n, double *a, double *w);
@@ -2356,7 +2356,7 @@ int cfttree(int n, int j, int k, double *a, int nw, double *w)
 }
 
 
-void cftleaf(int n, int isplt, double *a, int nw, double *w)
+extern "C" void cftleaf(int n, int isplt, double *a, int nw, double *w)
 {
     void cftmdl1(int n, double *a, double *w);
     void cftmdl2(int n, double *a, double *w);
@@ -2421,7 +2421,7 @@ void cftleaf(int n, int isplt, double *a, int nw, double *w)
 }
 
 
-void cftmdl1(int n, double *a, double *w)
+extern "C" void cftmdl1(int n, double *a, double *w)
 {
     int j, j0, j1, j2, j3, k, m, mh;
     double wn4r, wk1r, wk1i, wk3r, wk3i;
@@ -2531,7 +2531,7 @@ void cftmdl1(int n, double *a, double *w)
 }
 
 
-void cftmdl2(int n, double *a, double *w)
+extern "C" void cftmdl2(int n, double *a, double *w)
 {
     int j, j0, j1, j2, j3, k, kr, m, mh;
     double wn4r, wk1r, wk1i, wk3r, wk3i, wd1r, wd1i, wd3r, wd3i;
@@ -2665,7 +2665,7 @@ void cftmdl2(int n, double *a, double *w)
 }
 
 
-void cftfx41(int n, double *a, int nw, double *w)
+extern "C" void cftfx41(int n, double *a, int nw, double *w)
 {
     void cftf161(double *a, double *w);
     void cftf162(double *a, double *w);
@@ -2686,7 +2686,7 @@ void cftfx41(int n, double *a, int nw, double *w)
 }
 
 
-void cftf161(double *a, double *w)
+extern "C" void cftf161(double *a, double *w)
 {
     double wn4r, wk1r, wk1i, 
         x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i, 
@@ -2845,7 +2845,7 @@ void cftf161(double *a, double *w)
 }
 
 
-void cftf162(double *a, double *w)
+extern "C" void cftf162(double *a, double *w)
 {
     double wn4r, wk1r, wk1i, wk2r, wk2i, wk3r, wk3i, 
         x0r, x0i, x1r, x1i, x2r, x2i, 
@@ -3028,7 +3028,7 @@ void cftf162(double *a, double *w)
 }
 
 
-void cftf081(double *a, double *w)
+extern "C" void cftf081(double *a, double *w)
 {
     double wn4r, x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i, 
         y0r, y0i, y1r, y1i, y2r, y2i, y3r, y3i, 
@@ -3090,7 +3090,7 @@ void cftf081(double *a, double *w)
 }
 
 
-void cftf082(double *a, double *w)
+extern "C" void cftf082(double *a, double *w)
 {
     double wn4r, wk1r, wk1i, x0r, x0i, x1r, x1i, 
         y0r, y0i, y1r, y1i, y2r, y2i, y3r, y3i, 
@@ -3162,7 +3162,7 @@ void cftf082(double *a, double *w)
 }
 
 
-void cftf040(double *a)
+extern "C" void cftf040(double *a)
 {
     double x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i;
     
@@ -3185,7 +3185,7 @@ void cftf040(double *a)
 }
 
 
-void cftb040(double *a)
+extern "C" void cftb040(double *a)
 {
     double x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i;
     
@@ -3208,7 +3208,7 @@ void cftb040(double *a)
 }
 
 
-void cftx020(double *a)
+extern "C" void cftx020(double *a)
 {
     double x0r, x0i;
     
@@ -3221,7 +3221,7 @@ void cftx020(double *a)
 }
 
 
-void rftfsub(int n, double *a, int nc, double *c)
+extern "C" void rftfsub(int n, double *a, int nc, double *c)
 {
     int j, k, kk, ks, m;
     double wkr, wki, xr, xi, yr, yi;
@@ -3246,7 +3246,7 @@ void rftfsub(int n, double *a, int nc, double *c)
 }
 
 
-void rftbsub(int n, double *a, int nc, double *c)
+extern "C" void rftbsub(int n, double *a, int nc, double *c)
 {
     int j, k, kk, ks, m;
     double wkr, wki, xr, xi, yr, yi;
@@ -3271,7 +3271,7 @@ void rftbsub(int n, double *a, int nc, double *c)
 }
 
 
-void dctsub(int n, double *a, int nc, double *c)
+extern "C" void dctsub(int n, double *a, int nc, double *c)
 {
     int j, k, kk, ks, m;
     double wkr, wki, xr;
@@ -3292,7 +3292,7 @@ void dctsub(int n, double *a, int nc, double *c)
 }
 
 
-void dstsub(int n, double *a, int nc, double *c)
+extern "C" void dstsub(int n, double *a, int nc, double *c)
 {
     int j, k, kk, ks, m;
     double wkr, wki, xr;

@@ -203,6 +203,34 @@ TTErr TTBuffer::fill(const TTValue& value, TTValue& unusedOutput)
 				set2d(i+1, channel+1, float(i) / mDimensions[0]);
 		}
 	}
+	else if (fillAlgorithm == kTTSym_sawtooth) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt64 i=0; i<mDimensions[0]; i++)
+				set2d(mDimensions[0]-i, channel+1, -1.0 + (2.0 * (float(i) / mDimensions[0])));
+		}
+	}
+	else if (fillAlgorithm == kTTSym_sawtoothMod) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt64 i=0; i<mDimensions[0]; i++)
+				set2d(mDimensions[0]-i, channel+1, float(i) / mDimensions[0]);
+		}
+	}
+	else if (fillAlgorithm == kTTSym_triangle) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt32 i=0; i < mDimensions[0]/2; i++) {
+				set2d(i+1, channel+1, -1.0 + (4.0 * (float(i) / mDimensions[0])));
+				set2d(mDimensions[0]-i, channel+1, -1.0 + (4.0 * (float(i) / mDimensions[0])));
+			}
+		}
+	}
+	else if (fillAlgorithm == kTTSym_triangleMod) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt32 i=0; i < mDimensions[0]/2; i++) {
+				set2d(i+1, channel+1, -1.0 + (4.0 * (float(i) / mDimensions[0])));
+				set2d(mDimensions[0]-i, channel+1, -1.0 + (4.0 * (float(i) / mDimensions[0])));
+			}
+		}
+	}
 
 	return kTTErrNone;
 }

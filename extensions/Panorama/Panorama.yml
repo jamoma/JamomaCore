@@ -1,0 +1,11 @@
+
+sources:
+  - Panorama.cpp
+  
+includes:
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

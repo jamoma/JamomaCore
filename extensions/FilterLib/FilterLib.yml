@@ -1,0 +1,53 @@
+
+sources:
+  - FilterLib.cpp  
+  - source/TTAllpass.cpp			
+  - source/TTHighpassButterworth2.cpp
+  - source/TTAllpass1.cpp			
+  - source/TTHighpassButterworth3.cpp
+  - source/TTAllpass1a.cpp			
+  - source/TTHighpassButterworth4.cpp
+  - source/TTAllpass1aCascade2.cpp		
+  - source/TTHighpassLinkwitzRiley2.cpp
+  - source/TTAllpass1b.cpp			
+  - source/TTHighpassLinkwitzRiley4.cpp
+  - source/TTAllpass1c.cpp			
+  - source/TTHilbert9.cpp
+  - source/TTAllpass2a.cpp			
+  - source/TTHilbertLinear33.cpp
+  - source/TTAllpass2b.cpp			
+  - source/TTLowpassButterworth1.cpp
+  - source/TTAllpass2c.cpp			
+  - source/TTLowpassButterworth2.cpp
+  - source/TTAllpass4a.cpp			
+  - source/TTLowpassButterworth3.cpp
+  - source/TTBandpassButterworth2.cpp	
+  - source/TTLowpassButterworth4.cpp
+  - source/TTBandrejectButterworth2.cpp	
+  - source/TTLowpassFourPole.cpp
+  - source/TTDCBlock.cpp			
+  - source/TTLowpassLinkwitzRiley2.cpp
+  - source/TTFilter.cpp			
+  - source/TTLowpassLinkwitzRiley4.cpp
+  - source/TTHalfband3.cpp			
+  - source/TTLowpassOnePole.cpp
+  - source/TTHalfband5.cpp			
+  - source/TTLowpassTwoPole.cpp
+  - source/TTHalfband9.cpp			
+  - source/TTMirror5.cpp
+  - source/TTHalfbandLinear33.cpp		
+  - source/TTMirrorBandpass10.cpp
+  - source/TTHighMidLowShelf.cpp		
+  - source/TTOnePole.cpp
+  - source/TTHighpassButterworth1.cpp	
+  - source/TTSvf.cpp
+  - tests/TTAllpass1.test.cpp
+
+includes:
+  - "includes"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

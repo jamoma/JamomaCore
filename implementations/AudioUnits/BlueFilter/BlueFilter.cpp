@@ -38,8 +38,10 @@ OSStatus BlueFilter::GetParameterInfo(AudioUnitScope inScope, AudioUnitParameter
             case kParam_One:
                 AUBase::FillInParameterName(outParameterInfo, kParameterOneName, false);
                 outParameterInfo.unit = kAudioUnitParameterUnit_Hertz;
-                outParameterInfo.minValue = 1.0;
+                outParameterInfo.minValue = 10.0;
                 outParameterInfo.maxValue = 20000.0;
+				outParameterInfo.flags += kAudioUnitParameterFlag_IsHighResolution;
+				outParameterInfo.flags += kAudioUnitParameterFlag_DisplayLogarithmic;
                 outParameterInfo.defaultValue = kDefaultValue_ParamOne;
                 break;
             default:

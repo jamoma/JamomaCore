@@ -1,0 +1,23 @@
+
+sources:
+  - EffectsLib.cpp
+  - sources/TTBalance.cpp
+  - sources/TTDegrade.cpp
+  - sources/TTGain.cpp
+  - sources/TTLimiter.cpp
+  - sources/TTOverdrive.cpp
+  - sources/TTPanorama.cpp
+  - sources/TTPulseSub.cpp    
+  - sources/TTThru.cpp  
+  - sources/TTWaveshaper.cpp
+  - tests/TTGain.test.cpp
+  - tests/TTThru.test.cpp
+  
+includes:
+  - "includes"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

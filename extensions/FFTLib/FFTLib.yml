@@ -1,0 +1,17 @@
+
+sources:
+  - FFTLib.cpp
+  - source/TTFFT.cpp
+  - mayer/mayer_fft.c
+  - fft/fftsg.c   
+    
+includes:
+  - includes
+  - mayer
+  - fft 
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
