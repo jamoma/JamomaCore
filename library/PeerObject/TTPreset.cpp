@@ -141,7 +141,7 @@ mCurrentItem(kTTSymEmpty)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
 	addAttribute(ItemTable, kTypePointer);
-	addAttributeProperty(itemTable, readOnly, YES);
+	addAttributeProperty(ItemTable, readOnly, YES);
 	
 	addMessage(Fill);
 	addMessage(Clear);

@@ -19,12 +19,12 @@ extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClass
 thisTTClass :: thisTTClass (TTValue& arguments) : Plugin(arguments)
 
 #define PLUGIN_INITIALIZE \
-registerAttribute(TT("parameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
-addAttributeProperty(parameterNames, readOnly, YES); \
 mName = TT(thisTTClassName); \
 mVersion = TT(thisPluginVersion); \
 mAuthor = TT(thisPluginAuthor); \
 mExploration = TT(thisPluginExploration); \
+registerAttribute(TT("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
+//addAttributeProperty(ParameterNames, readOnly, YES); \
 
 
 /****************************************************************************************************/

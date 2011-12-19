@@ -32,7 +32,7 @@ mCurrentPreset(kTTSymEmpty)
 	addAttributeWithSetter(Addresses, kTypeLocalValue);
 
 	addAttribute(PresetTable, kTypePointer);
-	addAttributeProperty(presetTable, readOnly, YES);
+	addAttributeProperty(PresetTable, readOnly, YES);
 	
 	addMessage(Fill);
 	addMessage(Clear);

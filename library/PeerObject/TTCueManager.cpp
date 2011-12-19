@@ -29,16 +29,16 @@ mCurrentIndex(0)
 	addAttributeWithSetter(Addresses, kTypeLocalValue);
 	
 	addAttributeWithGetter(Names, kTypeLocalValue);
-	addAttributeProperty(names, readOnly, YES);
+	addAttributeProperty(Names, readOnly, YES);
 	
 	addAttributeWithGetter(Current, kTypeLocalValue);
-	addAttributeProperty(current, readOnly, YES);
+	addAttributeProperty(Current, readOnly, YES);
 	
 	addAttributeWithGetter(Previous, kTypeLocalValue);
-	addAttributeProperty(previous, readOnly, YES);
+	addAttributeProperty(Previous, readOnly, YES);
 	
 	addAttributeWithGetter(Next, kTypeLocalValue);
-	addAttributeProperty(next, readOnly, YES);
+	addAttributeProperty(Next, readOnly, YES);
 	
 	addMessage(New);
 	

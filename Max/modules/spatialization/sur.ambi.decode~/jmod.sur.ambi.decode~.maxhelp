@@ -4,10 +4,10 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 1
+			"revision" : 2
 		}
 ,
-		"rect" : [ 77.0, 44.0, 1185.0, 784.0 ],
+		"rect" : [ 554.0, 94.0, 1185.0, 784.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,6 +27,20 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 633.0, 426.0, 98.0, 19.0 ],
+					"text" : "jcom.pass /flavor"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -51,7 +65,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 773.0, 222.0, 80.0, 19.0 ],
+					"patching_rect" : [ 773.5, 222.0, 80.0, 19.0 ],
 					"text" : "jcom.pack≈ 1"
 				}
 
@@ -185,7 +199,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 1
+							"revision" : 2
 						}
 ,
 						"rect" : [ 16.0, 304.0, 465.0, 266.0 ],
@@ -392,16 +406,16 @@
 ,
 					"patching_rect" : [ 441.0, 619.0, 90.0, 31.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"globalpatchername" : "",
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p demo"
@@ -437,7 +451,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 1
+							"revision" : 2
 						}
 ,
 						"rect" : [ 686.0, 277.0, 594.0, 433.0 ],
@@ -564,16 +578,16 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 553.0, 428.0, 47.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"globalpatchername" : "",
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p adapt"
@@ -609,7 +623,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 1
+							"revision" : 2
 						}
 ,
 						"rect" : [ 224.0, 44.0, 842.0, 595.0 ],
@@ -1180,16 +1194,16 @@
 ,
 					"patching_rect" : [ 268.0, 617.0, 54.0, 21.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"globalpatchername" : "",
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p adapt"
@@ -1255,7 +1269,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 1
+							"revision" : 2
 						}
 ,
 						"rect" : [ 377.0, 246.0, 721.0, 429.0 ],
@@ -1381,16 +1395,16 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 539.0, 504.0, 47.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"globalpatchername" : "",
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p adapt"
@@ -1422,7 +1436,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "audio.connect" ],
-					"patching_rect" : [ 637.0, 425.0, 296.0, 19.0 ],
+					"patching_rect" : [ 761.0, 425.0, 172.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 583.0, 414.0, 153.0, 19.0 ],
 					"text" : "jmod.sur.meters~ B-Format"
@@ -1532,7 +1546,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 1
+							"revision" : 2
 						}
 ,
 						"rect" : [ 69.0, 69.0, 601.0, 531.0 ],
@@ -2001,18 +2015,18 @@
 						"dependency_cache" : [  ]
 					}
 ,
-					"patching_rect" : [ 458.0, 79.0, 50.0, 19.0 ],
+					"patching_rect" : [ 447.0, 77.0, 50.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"globalpatchername" : "",
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p ellipse"
@@ -2283,7 +2297,7 @@
 					"destination" : [ "obj-15", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 467.5, 245.0, 642.5, 245.0 ],
+					"midpoints" : [ 456.5, 245.0, 642.5, 245.0 ],
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -2293,7 +2307,7 @@
 					"destination" : [ "obj-66", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 498.5, 100.0, 487.5, 100.0 ],
+					"midpoints" : [ 487.5, 100.0, 487.5, 100.0 ],
 					"source" : [ "obj-14", 1 ]
 				}
 
@@ -2349,7 +2363,7 @@
 					"destination" : [ "obj-15", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 782.5, 245.0, 923.5, 245.0 ],
+					"midpoints" : [ 783.0, 245.0, 923.5, 245.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -2379,6 +2393,15 @@
 					"disabled" : 0,
 					"hidden" : 1,
 					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-42", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
@@ -2426,6 +2449,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-43", 0 ]
 				}
 
 			}

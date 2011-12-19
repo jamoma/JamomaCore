@@ -53,15 +53,15 @@ mValid(NO)
 	addAttributeWithSetter(Enable, kTypeBoolean);
 	
 	addAttributeWithGetter(FunctionLibrary, kTypeLocalValue);
-	addAttributeProperty(functionLibrary, readOnly, YES);
+	addAttributeProperty(FunctionLibrary, readOnly, YES);
 	
 	addAttributeWithSetter(Function, kTypeSymbol);
 	
 	addAttribute(FunctionParameters, kTypeLocalValue);
-	addAttributeProperty(functionParameters, readOnly, YES);
+	addAttributeProperty(FunctionParameters, readOnly, YES);
 	
 	addAttributeWithGetter(FunctionSamples, kTypeLocalValue);
-	addAttributeProperty(functionSamples, readOnly, YES);
+	addAttributeProperty(FunctionSamples, readOnly, YES);
 	
 	addMessageWithArguments(Map);
 	addMessageProperty(Map, hidden, YES);

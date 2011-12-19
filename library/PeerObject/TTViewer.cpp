@@ -41,14 +41,14 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
 	addAttribute(Dataspace, kTypeSymbol);
-	addAttributeProperty(dataspace, readOnly, YES);
+	addAttributeProperty(Dataspace, readOnly, YES);
 	addAttributeWithSetter(DataspaceUnit, kTypeSymbol);
 	
 	addAttributeWithSetter(Enable, kTypeBoolean);
 	
 	addAttributeWithSetter(ReturnedValue, kTypeLocalValue);
-	addAttributeProperty(returnedValue, readOnly, YES);
-	addAttributeProperty(returnedValue, hidden, YES);
+	addAttributeProperty(ReturnedValue, readOnly, YES);
+	addAttributeProperty(ReturnedValue, hidden, YES);
 	
 	addMessage(Refresh);
 	

@@ -32,22 +32,22 @@ mTempAddress(kTTAdrsEmpty)
 	addAttributeWithSetter(Name, kTypeSymbol);
 	
 	addAttribute(Version, kTypeSymbol);
-	addAttributeProperty(version, readOnly, YES);
+	addAttributeProperty(Version, readOnly, YES);
 	
 	addAttribute(NamespaceFile, kTypeSymbol);
-	addAttributeProperty(namespaceFile, readOnly, YES);
+	addAttributeProperty(NamespaceFile, readOnly, YES);
 	
 	addAttribute(Directory, kTypePointer);
-	addAttributeProperty(directory, readOnly, YES);
+	addAttributeProperty(Directory, readOnly, YES);
 	
 	addAttributeWithGetter(PluginNames, kTypeLocalValue);
-	addAttributeProperty(pluginNames, readOnly, YES);
+	addAttributeProperty(PluginNames, readOnly, YES);
 
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
-	addAttributeProperty(allAppNames, readOnly, YES);
+	addAttributeProperty(AllAppNames, readOnly, YES);
 	
 	addAttributeWithGetter(AllTTNames, kTypeLocalValue);
-	addAttributeProperty(allTTNames, readOnly, YES);
+	addAttributeProperty(AllTTNames, readOnly, YES);
 	
 	addMessageWithArguments(AddDirectoryListener);
 	addMessageWithArguments(AddAttributeListener);

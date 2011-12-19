@@ -22,16 +22,16 @@ mApplicationObservers(NULL),
 mApplicationObserversMutex(NULL)
 {		
 	addAttribute(Applications, kTypePointer);
-	addAttributeProperty(applications, readOnly, YES);
-	addAttributeProperty(applications, hidden, YES);
+	addAttributeProperty(Applications, readOnly, YES);
+	addAttributeProperty(Applications, hidden, YES);
 	
 	addAttributeWithGetter(ApplicationNames, kTypeLocalValue);
-	addAttributeProperty(applicationNames, readOnly, YES);
+	addAttributeProperty(ApplicationNames, readOnly, YES);
 	
 	registerAttribute(TT("localApplicationName"), kTypeSymbol, kTTSym_localApplicationName, (TTGetterMethod)& TTApplicationManager::getLocalApplicationName, (TTSetterMethod)& TTApplicationManager::setLocalApplicationName);
 	
 	addAttributeWithGetter(PluginNames, kTypeLocalValue);
-	addAttributeProperty(pluginNames, readOnly, YES);
+	addAttributeProperty(PluginNames, readOnly, YES);
 	
 	addMessageWithArguments(ApplicationAdd);
 	addMessageWithArguments(ApplicationRemove);

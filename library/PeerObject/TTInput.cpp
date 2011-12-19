@@ -43,10 +43,10 @@ mAddressObserver(NULL)
 	}
 	
 	addAttribute(Number, kTypeUInt16);
-	addAttributeProperty(number, readOnly, YES);
+	addAttributeProperty(Number, readOnly, YES);
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(type, readOnly, YES);
+	addAttributeProperty(Type, readOnly, YES);
 	
 	addAttributeWithSetter(OutputAddress, kTypeSymbol);
 	
@@ -54,7 +54,7 @@ mAddressObserver(NULL)
 	addAttribute(Bypass, kTypeBoolean);
 	
 	addAttributeWithSetter(Info, kTypeLocalValue);
-	addAttributeProperty(info, hidden, YES);
+	addAttributeProperty(Info, hidden, YES);
 	
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);

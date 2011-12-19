@@ -12,6 +12,9 @@
 #define __JAMOMA_H__
 
 #include "TTModularVersion.h"
+#ifndef WIN_VERSION
+#include <Carbon/Carbon.h>
+#endif
 
 #ifdef WIN_VERSION
 #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'

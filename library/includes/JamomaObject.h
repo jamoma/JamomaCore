@@ -15,6 +15,10 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
+#ifndef WIN_VERSION
+#include <Carbon/Carbon.h>
+#endif
+
 #include "ext.h"
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "ext_common.h"

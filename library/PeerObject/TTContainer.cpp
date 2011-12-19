@@ -52,17 +52,17 @@ mObserver(NULL)
 	 */
 	
 	addAttribute(Initialized, kTypeBoolean);
-	addAttributeProperty(initialized, readOnly, YES);
-	addAttributeProperty(initialized, hidden, YES);
+	addAttributeProperty(Initialized, readOnly, YES);
+	addAttributeProperty(Initialized, hidden, YES);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttributeProperty(address, hidden, YES);
+	addAttributeProperty(Address, hidden, YES);
 	
 	addAttributeWithSetter(ActivityIn, kTypeLocalValue);
-	addAttributeProperty(activityIn, readOnly, YES);
+	addAttributeProperty(ActivityIn, readOnly, YES);
 	
 	addAttributeWithSetter(ActivityOut, kTypeLocalValue);
-	addAttributeProperty(activityOut, readOnly, YES);
+	addAttributeProperty(ActivityOut, readOnly, YES);
 	
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);

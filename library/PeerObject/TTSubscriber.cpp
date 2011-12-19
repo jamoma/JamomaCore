@@ -42,12 +42,12 @@ mExposedAttributes(NULL)
 	addAttribute(ContextAddress, kTypeSymbol);
 	addAttribute(NewInstanceCreated, kTypeBoolean);
 	
-	addAttributeProperty(relativeAddress, readOnly, YES);
-	addAttributeProperty(node, readOnly, YES);
-	addAttributeProperty(nodeAddress, readOnly, YES);
-	addAttributeProperty(contextNode, readOnly, YES);
-	addAttributeProperty(contextAddress, readOnly, YES);
-	addAttributeProperty(newInstanceCreated, readOnly, YES);
+	addAttributeProperty(RelativeAddress, readOnly, YES);
+	addAttributeProperty(Node, readOnly, YES);
+	addAttributeProperty(NodeAddress, readOnly, YES);
+	addAttributeProperty(ContextNode, readOnly, YES);
+	addAttributeProperty(ContextAddress, readOnly, YES);
+	addAttributeProperty(NewInstanceCreated, readOnly, YES);
 	
 	mExposedMessages = new TTHash();
 	mExposedAttributes = new TTHash();

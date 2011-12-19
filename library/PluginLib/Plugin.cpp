@@ -21,7 +21,7 @@ mDistantApplicationParameters(NULL)
 	arguments.get(0, (TTPtr*)&mApplicationManager);
 	
 	addAttributeWithGetter(LocalApplicationName, kTypeSymbol);
-	addAttributeProperty(localApplicationName, readOnly, YES);
+	addAttributeProperty(LocalApplicationName, readOnly, YES);
 	
 	registerAttribute(TT("localApplicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Plugin::getLocalApplicationParameters, (TTSetterMethod)& Plugin::setLocalApplicationParameters);
 	
@@ -29,16 +29,16 @@ mDistantApplicationParameters(NULL)
 	registerAttribute(TT("distantApplicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Plugin::getDistantApplicationParameters, (TTSetterMethod)& Plugin::setDistantApplicationParameters);
 
 	addAttribute(Name, kTypeSymbol);
-	addAttributeProperty(name, readOnly, YES);
+	addAttributeProperty(Name, readOnly, YES);
 
 	addAttribute(Version, kTypeSymbol);
-	addAttributeProperty(version, readOnly, YES);
+	addAttributeProperty(Version, readOnly, YES);
 
 	addAttribute(Author, kTypeSymbol);
-	addAttributeProperty(author, readOnly, YES);
+	addAttributeProperty(Author, readOnly, YES);
 
 	addAttribute(Exploration, kTypeBoolean);
-	addAttributeProperty(exploration, readOnly, YES);
+	addAttributeProperty(Exploration, readOnly, YES);
 
 	addMessageWithArguments(registerLocalApplication);
 	addMessageWithArguments(unregisterLocalApplication);

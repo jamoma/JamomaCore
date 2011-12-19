@@ -1,0 +1,16 @@
+
+sources:
+  - ../../library/PluginLib/Plugin.cpp		
+  - source/Minuit.cpp
+  - source/MinuitAnswer.cpp
+  - source/MinuitAnswerManager.cpp
+    
+includes:
+  - "."
+  - "includes"
+  - "../../library/PluginLib"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+

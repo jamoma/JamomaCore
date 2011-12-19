@@ -60,16 +60,16 @@ mReturnValueCallback(NULL)
 	}
 	
 	addAttribute(Initialized, kTypeBoolean);
-	addAttributeProperty(initialized, readOnly, YES);
-	addAttributeProperty(initialized, hidden, YES);
+	addAttributeProperty(Initialized, readOnly, YES);
+	addAttributeProperty(Initialized, hidden, YES);
 	
 	addAttributeWithSetter(RangeBounds, kTypeLocalValue);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
 	
 	addAttribute(DynamicInstances, kTypeBoolean);
-	addAttributeProperty(dynamicInstances, hidden, YES);
+	addAttributeProperty(DynamicInstances, hidden, YES);
 	addAttributeWithSetter(InstanceBounds, kTypeLocalValue);
-	addAttributeProperty(instanceBounds, hidden, YES);
+	addAttributeProperty(InstanceBounds, hidden, YES);
 	
 #ifdef TTDATA_RAMPLIB
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
@@ -80,7 +80,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(DataspaceUnit, kTypeSymbol);
 	
 	addAttribute(Service, kTypeSymbol);
-	addAttributeProperty(service, readOnly, YES);
+	addAttributeProperty(Service, readOnly, YES);
 	
 	addMessage(Reset);
 	addMessageWithArguments(Inc);
