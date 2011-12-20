@@ -1197,30 +1197,20 @@ void TTValue::test()
 
 TTBoolean isTTInt32( const TTString & str )
 {
-	TTInt32 i;
-	return sscanf(str.data(), "%d", &i) != 0;
-	
-	/* This code fails now !?!
 	std::istringstream iss( str );
 	
 	TTInt32 tmp;
 	
 	return ( iss >> tmp ) && ( iss.eof() );
-	 */
 }
 
 TTBoolean isTTFloat32( const TTString & str )
 {
-	TTFloat32 f;
-	return sscanf(str.data(), "%f", &f) != 0;
-		
-	/* This code fails now !?!
 	std::istringstream iss( str );
 	
 	TTFloat32 tmp;
 	
 	return ( iss >> tmp ) && ( iss.eof() );
-	 */
 }
 
 TTInt32 toTTInt32( const TTString & str )
