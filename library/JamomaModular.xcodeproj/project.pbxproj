@@ -102,8 +102,8 @@
 		D246012814A0A95D004CC4FD /* ModularForMax */ = {
 			isa = PBXGroup;
 			children = (
-				D246012914A0A95D004CC4FD /* ModularForMax.cpp */,
 				D246012A14A0A95D004CC4FD /* ModularForMax.h */,
+				D246012914A0A95D004CC4FD /* ModularForMax.cpp */,
 			);
 			path = ModularForMax;
 			sourceTree = "<group>";
@@ -111,48 +111,48 @@
 		D246012B14A0A96C004CC4FD /* PeerObject */ = {
 			isa = PBXGroup;
 			children = (
-				D246012C14A0A96C004CC4FD /* TTApplication.cpp */,
 				D246012D14A0A96C004CC4FD /* TTApplication.h */,
-				D246012E14A0A96C004CC4FD /* TTApplicationManager.cpp */,
+				D246012C14A0A96C004CC4FD /* TTApplication.cpp */,
 				D246012F14A0A96C004CC4FD /* TTApplicationManager.h */,
-				D246013014A0A96C004CC4FD /* TTContainer.cpp */,
+				D246012E14A0A96C004CC4FD /* TTApplicationManager.cpp */,
 				D246013114A0A96C004CC4FD /* TTContainer.h */,
-				D246013214A0A96C004CC4FD /* TTCue.cpp */,
+				D246013014A0A96C004CC4FD /* TTContainer.cpp */,
 				D246013314A0A96C004CC4FD /* TTCue.h */,
-				D246013414A0A96C004CC4FD /* TTCueManager.cpp */,
+				D246013214A0A96C004CC4FD /* TTCue.cpp */,
 				D246013514A0A96C004CC4FD /* TTCueManager.h */,
-				D246013614A0A96C004CC4FD /* TTData.cpp */,
+				D246013414A0A96C004CC4FD /* TTCueManager.cpp */,
 				D246013714A0A96C004CC4FD /* TTData.h */,
-				D246013814A0A96C004CC4FD /* TTExplorer.cpp */,
+				D246013614A0A96C004CC4FD /* TTData.cpp */,
 				D246013914A0A96C004CC4FD /* TTExplorer.h */,
-				D246013A14A0A96C004CC4FD /* TTInput.cpp */,
+				D246013814A0A96C004CC4FD /* TTExplorer.cpp */,
 				D246013B14A0A96C004CC4FD /* TTInput.h */,
-				D246013C14A0A96C004CC4FD /* TTMapper.cpp */,
+				D246013A14A0A96C004CC4FD /* TTInput.cpp */,
 				D246013D14A0A96C004CC4FD /* TTMapper.h */,
-				D246013E14A0A96C004CC4FD /* TTMapperManager.cpp */,
+				D246013C14A0A96C004CC4FD /* TTMapper.cpp */,
 				D246013F14A0A96C004CC4FD /* TTMapperManager.h */,
-				D246014014A0A96C004CC4FD /* TTMirror.cpp */,
+				D246013E14A0A96C004CC4FD /* TTMapperManager.cpp */,
 				D246014114A0A96C004CC4FD /* TTMirror.h */,
-				D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */,
+				D246014014A0A96C004CC4FD /* TTMirror.cpp */,
 				D246014314A0A96C004CC4FD /* TTOpmlHandler.h */,
-				D246014414A0A96C004CC4FD /* TTOutput.cpp */,
+				D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */,
 				D246014514A0A96C004CC4FD /* TTOutput.h */,
-				D246014614A0A96C004CC4FD /* TTPreset.cpp */,
+				D246014414A0A96C004CC4FD /* TTOutput.cpp */,
 				D246014714A0A96C004CC4FD /* TTPreset.h */,
-				D246014814A0A96C004CC4FD /* TTPresetManager.cpp */,
+				D246014614A0A96C004CC4FD /* TTPreset.cpp */,
 				D246014914A0A96C004CC4FD /* TTPresetManager.h */,
-				D246014A14A0A96C004CC4FD /* TTReceiver.cpp */,
+				D246014814A0A96C004CC4FD /* TTPresetManager.cpp */,
 				D246014B14A0A96C004CC4FD /* TTReceiver.h */,
-				D246014C14A0A96C004CC4FD /* TTSender.cpp */,
+				D246014A14A0A96C004CC4FD /* TTReceiver.cpp */,
 				D246014D14A0A96C004CC4FD /* TTSender.h */,
-				D246014E14A0A96C004CC4FD /* TTSubscriber.cpp */,
+				D246014C14A0A96C004CC4FD /* TTSender.cpp */,
 				D246014F14A0A96C004CC4FD /* TTSubscriber.h */,
-				D246015014A0A96C004CC4FD /* TTTextHandler.cpp */,
+				D246014E14A0A96C004CC4FD /* TTSubscriber.cpp */,
 				D246015114A0A96C004CC4FD /* TTTextHandler.h */,
-				D246015214A0A96C004CC4FD /* TTViewer.cpp */,
+				D246015014A0A96C004CC4FD /* TTTextHandler.cpp */,
 				D246015314A0A96C004CC4FD /* TTViewer.h */,
-				D246015414A0A96C004CC4FD /* TTXmlHandler.cpp */,
+				D246015214A0A96C004CC4FD /* TTViewer.cpp */,
 				D246015514A0A96C004CC4FD /* TTXmlHandler.h */,
+				D246015414A0A96C004CC4FD /* TTXmlHandler.cpp */,
 			);
 			path = PeerObject;
 			sourceTree = "<group>";
@@ -192,8 +192,8 @@
 		D246016A14A0A9A0004CC4FD /* FunctionLib */ = {
 			isa = PBXGroup;
 			children = (
-				D246016B14A0A9A0004CC4FD /* FunctionLib.cpp */,
 				D246016C14A0A9A0004CC4FD /* FunctionLib.h */,
+				D246016B14A0A9A0004CC4FD /* FunctionLib.cpp */,
 			);
 			path = FunctionLib;
 			sourceTree = "<group>";
@@ -201,8 +201,8 @@
 		D246016D14A0A9AC004CC4FD /* PluginLib */ = {
 			isa = PBXGroup;
 			children = (
-				D246016E14A0A9AC004CC4FD /* Plugin.cpp */,
 				D246016F14A0A9AC004CC4FD /* Plugin.h */,
+				D246016E14A0A9AC004CC4FD /* Plugin.cpp */,
 			);
 			path = PluginLib;
 			sourceTree = "<group>";
@@ -210,16 +210,16 @@
 		D246017014A0A9BF004CC4FD /* RampLib */ = {
 			isa = PBXGroup;
 			children = (
-				D246017114A0A9BF004CC4FD /* AsyncRamp.cpp */,
-				D246017214A0A9BF004CC4FD /* AsyncRamp.h */,
-				D246017314A0A9BF004CC4FD /* NoneRamp.cpp */,
-				D246017414A0A9BF004CC4FD /* NoneRamp.h */,
-				D246017514A0A9BF004CC4FD /* QueueRamp.cpp */,
-				D246017614A0A9BF004CC4FD /* QueueRamp.h */,
-				D246017714A0A9BF004CC4FD /* RampLib.cpp */,
 				D246017814A0A9BF004CC4FD /* RampLib.h */,
-				D246017914A0A9BF004CC4FD /* SchedulerRamp.cpp */,
+				D246017714A0A9BF004CC4FD /* RampLib.cpp */,
+				D246017214A0A9BF004CC4FD /* AsyncRamp.h */,
+				D246017114A0A9BF004CC4FD /* AsyncRamp.cpp */,
+				D246017414A0A9BF004CC4FD /* NoneRamp.h */,
+				D246017314A0A9BF004CC4FD /* NoneRamp.cpp */,
+				D246017614A0A9BF004CC4FD /* QueueRamp.h */,
+				D246017514A0A9BF004CC4FD /* QueueRamp.cpp */,
 				D246017A14A0A9BF004CC4FD /* SchedulerRamp.h */,
+				D246017914A0A9BF004CC4FD /* SchedulerRamp.cpp */,
 			);
 			path = RampLib;
 			sourceTree = "<group>";

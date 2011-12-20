@@ -36,7 +36,7 @@
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
 
-#ifdef TTDSP
+#ifndef TT_NO_DSP
 #include "TTDSP.h"
 #endif
 

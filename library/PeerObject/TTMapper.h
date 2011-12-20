@@ -62,7 +62,7 @@ private:
 	TTCallbackPtr				mReturnValueCallback;		///< a way to return back value to the owner of this mapper
 	
 	TTFloat64					mA, mB, mC, mD;				//< Coefficients used for normalizing input(A, B) and output (C, D)
-#ifdef TTDSP
+#ifndef TT_NO_DSP
 	TTAudioObjectPtr			mFunctionUnit;
 	TTBoolean					mValid;						//< true if the functionUnit can be used
 #endif

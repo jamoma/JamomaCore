@@ -33,7 +33,7 @@ mOutputRangeObserver(NULL),
 mObserveInputRange(true),
 mObserveOutputRange(true),
 mReturnValueCallback(NULL)
-#ifdef TTDSP
+#ifndef TT_NO_DSP
 ,
 mFunctionUnit(NULL),
 mValid(NO)
@@ -74,7 +74,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 {
 	long		n;
 	TTSymbolPtr	aName;
-#ifdef TTDSP	
+#ifndef TT_NO_DSP	
 	if (mFunctionUnit) {
 		
 		// Remove former datas
@@ -372,7 +372,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	long		n;
 	TTValue		names;
 	TTSymbolPtr	aName;
-#ifdef TTDSP	
+#ifndef TT_NO_DSP	
 	if (mFunctionUnit) {
 
 		// Remove former datas
@@ -528,7 +528,7 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 		in.append(mA * f + mB);
 	}
 
-#ifdef TTDSP
+#ifndef TT_NO_DSP
 	// process function
 	if (mFunctionUnit)
 		mFunctionUnit->calculate(in, out);
