@@ -27,7 +27,7 @@ mRangeBounds(0.0, 1.0),
 mRangeClipmode(kTTSym_none),
 mDynamicInstances(NO),
 mInstanceBounds(0, -1),
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 mRampDrive(kTTSym_none),
 mRampFunction(kTTSymEmpty),
 #endif
@@ -71,7 +71,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(InstanceBounds, kTypeLocalValue);
 	addAttributeProperty(InstanceBounds, hidden, YES);
 	
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
 	addAttributeWithSetter(RampFunction, kTypeSymbol);
 #endif
@@ -94,7 +94,7 @@ mReturnValueCallback(NULL)
 	
 	mIsSending = NO;
 	
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	mRamper = NULL;
 	mRampDataNames = new TTHash();
 #endif
@@ -102,7 +102,7 @@ mReturnValueCallback(NULL)
 
 TTData::~TTData()
 {
-#ifdef TTDATA_RAMPLIB	
+#ifndef TTDATA_NO_RAMPLIB	
 	if (mRamper)
 		TTObjectRelease(TTObjectHandle(&mRamper));
 #endif
@@ -269,7 +269,7 @@ TTErr TTData::Command(const TTValue& command, TTValue& outputValue)
 {
 	TTMessagePtr aMessage;
 	TTErr		err = kTTErrNone;
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	double		time;
 #endif
 	int			commandSize;
@@ -413,7 +413,7 @@ TTErr TTData::Command(const TTValue& command, TTValue& outputValue)
 			return kTTErrNone;	// nothing to do
 	}
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	// 6. Ramp the convertedValue
 	/////////////////////////////////
 	if (hasRamp) {
@@ -497,7 +497,7 @@ TTErr TTData::setValue(const TTValue& value)
 			if (mType == kTTSym_boolean)
 				mValue.booleanize();
 			
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 			if (clipValue() && mRamper)
 				mRamper->stop();
 #else
@@ -648,7 +648,7 @@ TTErr TTData::setType(const TTValue& value)
 			return kTTErrGeneric;
 		}
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 		rampSetup();
 #endif
 		
@@ -715,7 +715,7 @@ TTErr TTData::setInstanceBounds(const TTValue& value)
 	return kTTErrNone;
 }
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 TTErr TTData::setRampDrive(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -862,7 +862,7 @@ TTBoolean TTData::clipValue()
 	return false;
 }
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 TTErr TTData::rampSetup()
 {
 
@@ -936,7 +936,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	// range/clipmode
 	*file << "\t\t\t<td class =\"instructionRangeClipmode\">" << this->mRangeClipmode->getCString() << "</td>";
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	// ramp/drive
 	*file << "\t\t\t<td class =\"instructionRampDrive\">" << this->mRampDrive->getCString() << "</td>";
 	
@@ -966,7 +966,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 void TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
 	TTDataPtr	aData = (TTDataPtr)o;
