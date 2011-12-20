@@ -1857,8 +1857,10 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 	TTString	s_number;
 	TTString	s_before;
 	TTString	s_after;
-	TTRegex		ex_braket("(\\[\\d{1,3}\\])"); // parse until 999
+	TTRegex		ex_braket("\\[(\\d|\\d\\d|\\d\\d\\d)\\]");	// parse until 999. 
+															// "\\[(\\d{1,3})\\]" this regex crashes ! why ? I've test it into a regex tester and it works...
 	TTRegexStringPosition begin, end;
+	TTRegexStringPosition beginNumber, endNumber;
 	
 	begin = s_toParse.begin();
 	end = s_toParse.end();
@@ -1866,9 +1868,12 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 	// parse braket
 	if (!ex_braket.parse(begin, end))
 	{
-		s_before = string(begin, ex_braket.begin());
-		s_number = string(ex_braket.begin()+1, ex_braket.end()-1);
-		s_after = string(ex_braket.end(), end);
+		beginNumber = ex_braket.begin();
+		endNumber = ex_braket.end();
+		
+		s_before = string(begin, ex_braket.begin()-1);
+		s_number = string(ex_braket.begin(), ex_braket.end());
+		s_after = string(ex_braket.end()+1, end);
 		
 		sscanf(s_number.data(), "%ld", &number);
 		

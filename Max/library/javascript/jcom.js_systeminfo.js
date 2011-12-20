@@ -14,7 +14,7 @@ outlets = 1;
 
 // the following two variables are updated via the build script
 MODULAR_VERSION = "0.5.6 b3";
-MODULAR_REV = "5c8ae";
+MODULAR_REV = "61e331";
 
 function bang()
 {
