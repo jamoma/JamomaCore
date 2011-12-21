@@ -66,6 +66,9 @@ class TTMatrix;
 				break;\
 		}
 
+/*	note : isTTFloat32 works only because the TTInt32 case is matched before 
+	see in fromString method 
+ */
 TTBoolean TTFOUNDATION_EXPORT	isTTInt32( const TTString & str );
 TTBoolean TTFOUNDATION_EXPORT	isTTFloat32( const TTString & str );
 

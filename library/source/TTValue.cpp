@@ -1197,20 +1197,21 @@ void TTValue::test()
 
 TTBoolean isTTInt32( const TTString & str )
 {
-	std::istringstream iss( str );
+	char * pEnd;
 	
-	TTInt32 tmp;
-	
-	return ( iss >> tmp ) && ( iss.eof() );
+	TTInt32 tmp = strtol(str.data(), &pEnd, 10);
+	return *pEnd == NULL;
 }
 
+/*	note : isTTFloat32 works only because the TTInt32 case is matched before 
+	see in fromString method 
+ */
 TTBoolean isTTFloat32( const TTString & str )
 {
-	std::istringstream iss( str );
+	char * pEnd;
 	
-	TTFloat32 tmp;
-	
-	return ( iss >> tmp ) && ( iss.eof() );
+	TTFloat32 tmp = strtod(str.data(), &pEnd);
+	return *pEnd == NULL;
 }
 
 TTInt32 toTTInt32( const TTString & str )
