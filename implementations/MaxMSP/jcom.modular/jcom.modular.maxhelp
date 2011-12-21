@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 0.0, 44.0, 527.0, 634.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 0.0, 44.0, 527.0, 634.0 ],
@@ -30,6 +36,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 528.0, 44.0, 403.0, 634.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 528.0, 44.0, 403.0, 634.0 ],
@@ -186,13 +198,13 @@
 ,
 					"patching_rect" : [ 432.0, 554.0, 91.0, 35.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontname" : "Arial",
+						"globalpatchername" : "",
+						"default_fontsize" : 12.0,
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p dlight",
@@ -256,6 +268,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 527.0, 44.0, 680.0, 634.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 527.0, 44.0, 680.0, 634.0 ],
@@ -415,7 +433,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 401.0, 58.0, 276.0, 20.0 ],
-									"text" : "-- answer --",
+									"text" : "myApplication:listen /myFloat:value 0.00",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
@@ -1004,13 +1022,13 @@
 ,
 					"patching_rect" : [ 260.0, 329.0, 151.0, 35.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontname" : "Arial",
+						"globalpatchername" : "",
+						"default_fontsize" : 12.0,
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p distantApp",
@@ -1044,8 +1062,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 216.0, 161.0, 129.0, 18.0 ],
-					"text" : "local/application/name",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "local/application/name"
 				}
 
 			}
@@ -1088,8 +1105,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 159.0, 107.0, 69.0, 18.0 ],
-					"text" : "write/again",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "write/again"
 				}
 
 			}
@@ -1104,8 +1120,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 11.0, 107.0, 35.0, 18.0 ],
-					"text" : "read",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "read"
 				}
 
 			}
@@ -1120,8 +1135,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 25.0, 161.0, 82.0, 18.0 ],
-					"text" : "plugin/names",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "plugin/names"
 				}
 
 			}
@@ -1134,7 +1148,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 10.0, 236.0, 337.0, 18.0 ]
+					"patching_rect" : [ 10.0, 236.0, 337.0, 18.0 ],
+					"text" : "local/application/name myApplication"
 				}
 
 			}
@@ -1164,8 +1179,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 108.0, 161.0, 107.0, 18.0 ],
-					"text" : "application/names",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "application/names"
 				}
 
 			}
@@ -1180,8 +1194,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 47.0, 107.0, 65.0, 18.0 ],
-					"text" : "read/again",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "read/again"
 				}
 
 			}
@@ -1196,8 +1209,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 122.0, 107.0, 36.0, 18.0 ],
-					"text" : "write",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "write"
 				}
 
 			}
