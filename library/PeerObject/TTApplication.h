@@ -12,7 +12,7 @@
 #define __TT_APPLICATION_H__
 
 #include "TTModular.h"
-#include "Plugin.h"
+#include "Protocol.h"
 #include "TTMirror.h"
 
 /** TTApplication ... TODO : an explanation
@@ -25,8 +25,8 @@ typedef TTApplication* TTApplicationPtr;
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-class Plugin;
-typedef Plugin* PluginPtr;
+class Protocol;
+typedef Protocol* ProtocolPtr;
 
 class TTMirror;
 typedef TTMirror* TTMirrorPtr;
@@ -65,7 +65,7 @@ private:
 	TTSymbolPtr					mVersion;			///< ATTRIBUTE : the version of the application
 	TTSymbolPtr					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>)
 	
-	TTValue						mPluginNames;		///< ATTRIBUTE : names of all plugins used by the application
+	TTValue						mProtocolNames;		///< ATTRIBUTE : names of all protocols used by the application
 	
 	TTHashPtr					mDirectoryListenersCache;	///< a hash table containing all <address, Listener> for quick access
 	TTHashPtr					mAttributeListenersCache;	///< a hash table containing all <address:attribute, Listener> for quick access
@@ -80,8 +80,8 @@ private:
 	/** Set name of the application (and his directory) */
 	TTErr setName(TTValue& value);
 	
-	/** Get all plugin names use by the application */
-	TTErr getPluginNames(TTValue& value);
+	/** Get all protocol names use by the application */
+	TTErr getProtocolNames(TTValue& value);
 	
 	/** Get all AppNames */
 	TTErr getAllAppNames(TTValue& value);
@@ -114,7 +114,7 @@ private:
 	TTErr UpdateAttribute(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** needed to be handled by a TTXmlHandler 
-		read/write plugin parameters */
+		read/write protocol parameters */
 	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
 	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	

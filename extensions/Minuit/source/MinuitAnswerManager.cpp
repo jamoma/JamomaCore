@@ -9,9 +9,9 @@
 
 #include "MinuitAnswerManager.h"
 
-MinuitAnswerManager::MinuitAnswerManager(MinuitPtr aMinuitPlugin)
+MinuitAnswerManager::MinuitAnswerManager(MinuitPtr aMinuitProtocol)
 {
-	mPlugin = aMinuitPlugin;
+	mProtocol = aMinuitProtocol;
 }
 
 MinuitAnswerManager::~MinuitAnswerManager()
@@ -97,7 +97,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 					
 					returnedChildrenNames.append(parsed);
 					
-#ifdef TT_PLUGIN_DEBUG	
+#ifdef TT_PROTOCOL_DEBUG	
 					cout << "Parsed node " << parsed->getCString() << endl;
 #endif
 				}
@@ -121,7 +121,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 					
 					returnedChildrenTypes.append(parsed);
 					
-#ifdef TT_PLUGIN_DEBUG	
+#ifdef TT_PROTOCOL_DEBUG	
 					cout << "Parsed type " << parsed->getCString() << endl;
 #endif
 				}
@@ -145,7 +145,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 					
 					returnedAttributes.append(parsed);
 					
-#ifdef TT_PLUGIN_DEBUG	
+#ifdef TT_PROTOCOL_DEBUG	
 					cout << "Parsed attribute " << parsed->getCString() << endl;
 #endif
 				}

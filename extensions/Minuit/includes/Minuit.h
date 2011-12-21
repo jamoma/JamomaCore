@@ -41,21 +41,21 @@
 /*!
  * \class Minuit
  *
- * It's the Minuit plugin which use the Open Sound Control protocol 
+ * It's the Minuit protocol which use the Open Sound Control protocol 
  * 
  */
 
 #ifndef __MINUIT_H__
 #define __MINUIT_H__
 
-#include "Plugin.h"
+#include "Protocol.h"
 #include "MinuitInclude.h"
 #include "MinuitAnswerManager.h"
 
 class MinuitAnswerManager;
 typedef MinuitAnswerManager* MinuitAnswerManagerPtr;
 
-class Minuit : public Plugin {
+class Minuit : public Protocol {
 	
 	TTCLASS_SETUP(Minuit)
 	
@@ -72,7 +72,7 @@ private:
 	TTErr sendMessage(TTSymbolPtr distantApplicationName, TTSymbolPtr header, TTValue& message);
 	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
-	/** Get parameters names needed by this plugin */
+	/** Get parameters names needed by this protocol */
 	TTErr getParameterNames(TTValue& value);
 	
 	/** Scan to find remote applications and add them to the application manager */
@@ -81,7 +81,7 @@ private:
 	/** Run reception thread mechanism */
 	TTErr Run();
 	
-	/** Stop the reception thread mechanism of the plugin */
+	/** Stop the reception thread mechanism of the protocol */
 	TTErr Stop();
 	
 	/**************************************************************************************************************************

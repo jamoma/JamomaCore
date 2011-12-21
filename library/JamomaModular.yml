@@ -28,7 +28,7 @@ sources:
   - PeerObject/TTTextHandler.cpp
   - PeerObject/TTViewer.cpp
   - PeerObject/TTXmlHandler.cpp
-  - PluginLib/Plugin.cpp
+  - ProtocolLib/Protocol.cpp
   - RampLib/RampLib.cpp
   - RampLib/AsyncRamp.cpp
   - RampLib/NoneRamp.cpp
@@ -41,7 +41,7 @@ includes:
   - "includes"
   - "ModularForMax"
   - "PeerObject"
-  - "PluginLib"
+  - "ProtocolLib"
   - "FunctionLib"
   - "RampLib"
   - "../../Foundation/library/includes"

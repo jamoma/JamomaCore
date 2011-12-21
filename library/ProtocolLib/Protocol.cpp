@@ -1,18 +1,18 @@
 /*
- * A Plugin interface
+ * A Protocol interface
  * Copyright © 2011, Laurent Garnier, Théo de la Hogue
  *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "Plugin.h"
+#include "Protocol.h"
 
-#define thisTTClass		Plugin
+#define thisTTClass		Protocol
 
 /****************************************************************************************************/
 
-Plugin::Plugin(TTValue& arguments) :
+Protocol::Protocol(TTValue& arguments) :
 TTObject(arguments),
 mApplicationManager(NULL),
 mLocalApplicationName(kTTSymEmpty),
@@ -23,10 +23,10 @@ mDistantApplicationParameters(NULL)
 	addAttributeWithGetter(LocalApplicationName, kTypeSymbol);
 	addAttributeProperty(LocalApplicationName, readOnly, YES);
 	
-	registerAttribute(TT("localApplicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Plugin::getLocalApplicationParameters, (TTSetterMethod)& Plugin::setLocalApplicationParameters);
+	registerAttribute(TT("localApplicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Protocol::getLocalApplicationParameters, (TTSetterMethod)& Protocol::setLocalApplicationParameters);
 	
-	registerAttribute(TT("distantApplicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& Plugin::getDistantApplicationNames);
-	registerAttribute(TT("distantApplicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Plugin::getDistantApplicationParameters, (TTSetterMethod)& Plugin::setDistantApplicationParameters);
+	registerAttribute(TT("distantApplicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& Protocol::getDistantApplicationNames);
+	registerAttribute(TT("distantApplicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Protocol::getDistantApplicationParameters, (TTSetterMethod)& Protocol::setDistantApplicationParameters);
 
 	addAttribute(Name, kTypeSymbol);
 	addAttributeProperty(Name, readOnly, YES);
@@ -53,7 +53,7 @@ mDistantApplicationParameters(NULL)
 	mDistantApplicationParameters = new TTHash();
 }
 
-Plugin::~Plugin()
+Protocol::~Protocol()
 {
 	TTValue		v, distantApplicationNames;
 	TTSymbolPtr aDistantApplicationName;
@@ -73,13 +73,13 @@ Plugin::~Plugin()
 	delete mDistantApplicationParameters;
 }
 
-TTErr Plugin::setApplicationManager(const TTValue& value)
+TTErr Protocol::setApplicationManager(const TTValue& value)
 {
 	value.get(0, (TTPtr*)&mApplicationManager);
 	return kTTErrNone;
 }
 
-TTErr Plugin::getParameterNames(TTValue& value)
+TTErr Protocol::getParameterNames(TTValue& value)
 {
 	TTValue		attributeNames;
 	TTSymbolPtr	attributeName;
@@ -103,25 +103,25 @@ TTErr Plugin::getParameterNames(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr Plugin::registerLocalApplication(const TTValue& inputValue, TTValue& outputValue)
+TTErr Protocol::registerLocalApplication(const TTValue& inputValue, TTValue& outputValue)
 {
 	mLocalApplicationName = inputValue;
 	return kTTErrNone;
 }
 
-TTErr Plugin::unregisterLocalApplication(const TTValue& inputValue, TTValue& outputValue)
+TTErr Protocol::unregisterLocalApplication(const TTValue& inputValue, TTValue& outputValue)
 {
 	mLocalApplicationName = kTTSymEmpty;
 	return kTTErrNone;
 }
 
-TTErr Plugin::getLocalApplicationName(TTValue& value)
+TTErr Protocol::getLocalApplicationName(TTValue& value)
 {
 	value = mLocalApplicationName;
 	return kTTErrNone;
 }
 
-TTErr Plugin::getLocalApplicationParameters(TTValue& value)
+TTErr Protocol::getLocalApplicationParameters(TTValue& value)
 {
 	TTValue		parametersNames, parameterValue;
 	TTSymbolPtr parameterName;
@@ -141,7 +141,7 @@ TTErr Plugin::getLocalApplicationParameters(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr Plugin::setLocalApplicationParameters(TTValue& value)
+TTErr Protocol::setLocalApplicationParameters(TTValue& value)
 {
 	TTValue		parametersNames, parameterValue;
 	TTSymbolPtr parameterName;
@@ -164,7 +164,7 @@ TTErr Plugin::setLocalApplicationParameters(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr Plugin::registerDistantApplication(const TTValue& inputValue, TTValue& outputValue)
+TTErr Protocol::registerDistantApplication(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr applicationName, parameterName;
 	TTHashPtr	applicationParameters = new TTHash();
@@ -193,7 +193,7 @@ TTErr Plugin::registerDistantApplication(const TTValue& inputValue, TTValue& out
 	return kTTErrGeneric;
 }
 
-TTErr Plugin::unregisterDistantApplication(const TTValue& inputValue, TTValue& outputValue)
+TTErr Protocol::unregisterDistantApplication(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr applicationName;
 	TTHashPtr	applicationParameters;
@@ -216,12 +216,12 @@ TTErr Plugin::unregisterDistantApplication(const TTValue& inputValue, TTValue& o
 	return kTTErrGeneric;
 }
 
-TTErr Plugin::getDistantApplicationNames(TTValue& value)
+TTErr Protocol::getDistantApplicationNames(TTValue& value)
 {
 	return mDistantApplicationParameters->getKeys(value);
 }
 
-TTErr Plugin::getDistantApplicationParameters(TTValue& value)
+TTErr Protocol::getDistantApplicationParameters(TTValue& value)
 {
 	TTSymbolPtr distantApplicationName;
 	
@@ -230,7 +230,7 @@ TTErr Plugin::getDistantApplicationParameters(TTValue& value)
 	return mDistantApplicationParameters->lookup(distantApplicationName, value);
 }
 
-TTErr Plugin::setDistantApplicationParameters(TTValue& value)
+TTErr Protocol::setDistantApplicationParameters(TTValue& value)
 {
 	TTValue		v;
 	TTSymbolPtr applicationName;
@@ -264,7 +264,7 @@ TTErr Plugin::setDistantApplicationParameters(TTValue& value)
 
 
 
-TTErr Plugin::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address) 
+TTErr Protocol::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address) 
 {
 	TTValue inputValue, outputValue;
 	TTErr	err;
@@ -290,7 +290,7 @@ TTErr Plugin::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address)
 	return kTTErrGeneric;
 }
 
-TTErr Plugin::ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address)
+TTErr Protocol::ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address)
 {
 	TTErr	err;
 	TTValue returnedValue;
@@ -309,7 +309,7 @@ TTErr Plugin::ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address)
 	return kTTErrGeneric;
 }
 
-TTErr Plugin::ReceiveSetRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue) 
+TTErr Protocol::ReceiveSetRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue) 
 {
 	TTValue v;
 	TTErr	err;
@@ -331,7 +331,7 @@ TTErr Plugin::ReceiveSetRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTVa
 	return kTTErrGeneric;
 }
 
-TTErr Plugin::ReceiveListenRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTBoolean enable) 
+TTErr Protocol::ReceiveListenRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTBoolean enable) 
 {
 	TTValue v;
 	TTErr	err;
@@ -342,7 +342,7 @@ TTErr Plugin::ReceiveListenRequest(TTSymbolPtr from, TTNodeAddressPtr address, T
 		if (address->getAttribute() == NO_ATTRIBUTE)
 			address = address->appendAttribute(kTTSym_value);
 		
-		v.append(mName);	// the name of the plugin is needed for feed back notifications
+		v.append(mName);	// the name of the protocol is needed for feed back notifications
 		v.append(from);
 		v.append(address);
 		v.append(enable);
@@ -356,7 +356,7 @@ TTErr Plugin::ReceiveListenRequest(TTSymbolPtr from, TTNodeAddressPtr address, T
 	return kTTErrGeneric;
 }
 
-TTErr Plugin::ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue)
+TTErr Protocol::ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue)
 {
 	TTValue v;
 	TTErr	err;
@@ -385,10 +385,10 @@ TTErr Plugin::ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, TT
 #pragma mark Some Methods
 #endif
 
-TTErr PluginDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
-	PluginPtr			aPlugin;
+	ProtocolPtr			aProtocol;
 	TTSymbolPtr			anApplicationName;
 	TTNodeAddressPtr	anAddress;
 	TTNodePtr			aNode;
@@ -398,7 +398,7 @@ TTErr PluginDirectoryCallback(TTPtr baton, TTValue& data)
 
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aPlugin);
+	b->get(0, (TTPtr*)&aProtocol);
 	b->get(1, &anApplicationName);
 	
 	// unpack data (anAddress, aNode, flag, anObserver)
@@ -408,36 +408,36 @@ TTErr PluginDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(3, (TTPtr*)&anObserver);
 	
 	v.append(flag);
-	return aPlugin->SendListenAnswer(anApplicationName, anAddress->appendAttribute(TT("life")), v);
+	return aProtocol->SendListenAnswer(anApplicationName, anAddress->appendAttribute(TT("life")), v);
 }
 
-TTErr PluginAttributeCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
-	PluginPtr			aPlugin;
+	ProtocolPtr			aProtocol;
 	TTSymbolPtr			anApplicationName;
 	TTNodeAddressPtr	anAddress;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aPlugin);
+	b->get(0, (TTPtr*)&aProtocol);
 	b->get(1, &anApplicationName);
 	b->get(2, &anAddress);
 	
-	return aPlugin->SendListenAnswer(anApplicationName, anAddress, data);
+	return aProtocol->SendListenAnswer(anApplicationName, anAddress, data);
 }
 
-TTErr PluginGetAttributeCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b, value;
-	PluginPtr			aPlugin;
+	ProtocolPtr			aProtocol;
 	TTSymbolPtr			anApplicationName;
 	TTNodeAddressPtr	anAddress;
 	TTSymbolPtr			attribute;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aPlugin);
+	b->get(0, (TTPtr*)&aProtocol);
 	b->get(1, &anApplicationName);
 	b->get(2, &anAddress);
 	
@@ -446,20 +446,20 @@ TTErr PluginGetAttributeCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&value);
 	
 	// send a get request
-	return aPlugin->SendGetRequest(anApplicationName, anAddress->appendAttribute(attribute), *value);
+	return aProtocol->SendGetRequest(anApplicationName, anAddress->appendAttribute(attribute), *value);
 }
 
-TTErr PluginSetAttributeCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b, value;
-	PluginPtr			aPlugin;
+	ProtocolPtr			aProtocol;
 	TTSymbolPtr			anApplicationName;
 	TTNodeAddressPtr	anAddress;
 	TTSymbolPtr			attribute;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aPlugin);
+	b->get(0, (TTPtr*)&aProtocol);
 	b->get(1, &anApplicationName);
 	b->get(2, &anAddress);
 	
@@ -468,20 +468,20 @@ TTErr PluginSetAttributeCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&value);
 	
 	// send a set request
-	return aPlugin->SendSetRequest(anApplicationName, anAddress->appendAttribute(attribute), *value);
+	return aProtocol->SendSetRequest(anApplicationName, anAddress->appendAttribute(attribute), *value);
 }
 
-TTErr PluginSendMessageCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b, value;
-	PluginPtr			aPlugin;
+	ProtocolPtr			aProtocol;
 	TTSymbolPtr			anApplicationName;
 	TTNodeAddressPtr	anAddress;
 	TTSymbolPtr			message;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aPlugin);
+	b->get(0, (TTPtr*)&aProtocol);
 	b->get(1, &anApplicationName);
 	b->get(2, &anAddress);
 	
@@ -490,13 +490,13 @@ TTErr PluginSendMessageCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&value);
 	
 	// send a set request
-	return aPlugin->SendSetRequest(anApplicationName, anAddress->appendAttribute(message), *value);
+	return aProtocol->SendSetRequest(anApplicationName, anAddress->appendAttribute(message), *value);
 }
 
-TTErr PluginListenAttributeCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
-	PluginPtr			aPlugin;
+	ProtocolPtr			aProtocol;
 	TTSymbolPtr			anApplicationName;
 	TTNodeAddressPtr	anAddress;
 	TTSymbolPtr			attribute;
@@ -504,7 +504,7 @@ TTErr PluginListenAttributeCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aPlugin);
+	b->get(0, (TTPtr*)&aProtocol);
 	b->get(1, &anApplicationName);
 	b->get(2, &anAddress);
 	
@@ -513,48 +513,48 @@ TTErr PluginListenAttributeCallback(TTPtr baton, TTValue& data)
 	data.get(1, enable);
 	
 	// send a listen request
-	return aPlugin->SendListenRequest(anApplicationName, anAddress->appendAttribute(attribute), enable);
+	return aProtocol->SendListenRequest(anApplicationName, anAddress->appendAttribute(attribute), enable);
 }
 
 /***************************************************************************
  
-	PluginLib
+	ProtocolLib
  
  ***************************************************************************/
 
-TTErr PluginLib::createPlugin(const TTSymbolPtr pluginName, PluginPtr *returnedPlugin, TTObjectPtr manager)
+TTErr ProtocolLib::createProtocol(const TTSymbolPtr protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager)
 {
 	TTValue args;
 	
 	args.append(TTPtr(manager));
 	
 	// These should be alphabetized
-	if (pluginName == TT("Minuit"))
-		return TTObjectInstantiate(TT("Minuit"), (TTObjectPtr*)returnedPlugin, args);
+	if (protocolName == TT("Minuit"))
+		return TTObjectInstantiate(TT("Minuit"), (TTObjectPtr*)returnedProtocol, args);
 	/*
-	else if (pluginName == TT("OSC"))
-		return TTObjectInstantiate(TT("OSC"), (TTObjectPtr*)returnedPlugin, args);
-	else if (pluginName == TT("MIDI"))
-		return TTObjectInstantiate(TT("MIDI"), (TTObjectPtr*)returnedPlugin, args);
-	else if (pluginName == TT("CopperLan"))
-		return TTObjectInstantiate(TT("CopperLan"), (TTObjectPtr*)returnedPlugin, args);
-	else if (pluginName == TT("Serial"))
-		return TTObjectInstantiate(TT("Serial"), (TTObjectPtr*)returnedPlugin, args);
+	else if (protocolName == TT("OSC"))
+		return TTObjectInstantiate(TT("OSC"), (TTObjectPtr*)returnedProtocol, args);
+	else if (protocolName == TT("MIDI"))
+		return TTObjectInstantiate(TT("MIDI"), (TTObjectPtr*)returnedProtocol, args);
+	else if (protocolName == TT("CopperLan"))
+		return TTObjectInstantiate(TT("CopperLan"), (TTObjectPtr*)returnedProtocol, args);
+	else if (protocolName == TT("Serial"))
+		return TTObjectInstantiate(TT("Serial"), (TTObjectPtr*)returnedProtocol, args);
 	 */
 	
-	TTLogError("Jamoma PluginLib : Invalid Plugin ( %s ) specified", pluginName->getCString());
+	TTLogError("Jamoma ProtocolLib : Invalid Protocol ( %s ) specified", protocolName->getCString());
 	return kTTErrValueNotFound;
 }
 
-void PluginLib::getPluginNames(TTValue& pluginNames)
+void ProtocolLib::getProtocolNames(TTValue& protocolNames)
 {
-	pluginNames.clear();
-	pluginNames.append(TT("Minuit"));
+	protocolNames.clear();
+	protocolNames.append(TT("Minuit"));
 	/*
-	pluginNames.append(TT("OSC"));
-	pluginNames.append(TT("MIDI"));
-	pluginNames.append(TT("CopperLan"));
-	pluginNames.append(TT("Serial"));
+	protocolNames.append(TT("OSC"));
+	protocolNames.append(TT("MIDI"));
+	protocolNames.append(TT("CopperLan"));
+	protocolNames.append(TT("Serial"));
 	 */
 }
 

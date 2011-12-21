@@ -41,20 +41,20 @@
 /*!
  * \class Minuit
  *
- * It's the Minuit plugin which use the Open Sound Control protocol 
+ * It's the Minuit protocol which use the Open Sound Control protocol 
  * 
  */
 
-#include "Plugin.h"
+#include "Protocol.h"
 #include "Minuit.h"
 
 #define thisTTClass				Minuit
 #define thisTTClassName			"Minuit"
 #define thisTTClassTags			"network, protocol, minuit"
 
-#define thisPluginVersion		"0.3"
-#define thisPluginAuthor		"Raphael Marczak/Laurent Garnier/Theo de la Hogue"
-#define thisPluginExploration	YES
+#define thisProtocolVersion		"0.3"
+#define thisProtocolAuthor		"Raphael Marczak/Laurent Garnier/Theo de la Hogue"
+#define thisProtocolExploration	YES
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 {
@@ -63,14 +63,14 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 	return kTTErrNone;
 }
 
-PLUGIN_CONSTRUCTOR,
+PROTOCOL_CONSTRUCTOR,
 mIp(TT("localhost")),
 mPort(MINUIT_RECEPTION_PORT),
 mOscSend(NULL),
 mOscReceive(NULL),
 mAnswerManager(NULL)
 {	
-	PLUGIN_INITIALIZE
+	PROTOCOL_INITIALIZE
 	
 	addAttribute(Ip, kTypeSymbol);
 	addAttribute(Port, kTypeUInt16);
@@ -175,7 +175,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 	
 	if (!sendMessage(to, TT(header), arguments)) {
 		
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendDiscoverRequest " << std::endl;
 #endif
 		
@@ -226,7 +226,7 @@ TTErr Minuit::SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 	
 	if (!sendMessage(to, TT(header), arguments)) {
 		
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendGetRequest " << std::endl;
 #endif
 		
@@ -266,7 +266,7 @@ TTErr Minuit::SendSetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 							 TTValue& value)
 {
 		
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendSetRequest " << std::endl;
 #endif
 
@@ -302,7 +302,7 @@ TTErr Minuit::SendListenRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 	else
 		arguments.append(TT(MINUIT_REQUEST_LISTEN_DISABLE));
 	
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendListenRequest " << std::endl;
 #endif
 	
@@ -386,7 +386,7 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	else
 		arguments = TTValue(address);
 	
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendDiscoverAnswer " << std::endl;
 #endif
 	
@@ -422,7 +422,7 @@ TTErr Minuit::SendGetAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	arguments = returnedValue;
 	arguments.prepend(address);
 	
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendGetAnswer" << std::endl;
 #endif
 	
@@ -458,7 +458,7 @@ TTErr Minuit::SendListenAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	arguments = returnedValue;
 	arguments.prepend(address);
 	
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendListenAnswer " << std::endl;
 #endif
 
@@ -549,7 +549,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 		
 		arguments.copyFrom(message, 1);
 		
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 		cout << "Receive set request at " << whereTo->getCString() << endl;
 #endif
 		
@@ -574,7 +574,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 					whereTo = TTADRS(aSymbol->getCString());
 				}
 				
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 				cout << "Receive " << operation->getCString() << " request from "<< sender->getCString() << " at " << whereTo->getCString() << endl;
 #endif
 				
@@ -621,7 +621,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 					whereTo = TTADRS(aSymbol->getCString());
 				}
 				
-#ifdef TT_PLUGIN_DEBUG
+#ifdef TT_PROTOCOL_DEBUG
 				cout << "Receive " << operation->getCString() << " answer from "<< sender->getCString() << " at " << whereTo->getCString() << endl;
 #endif
 				

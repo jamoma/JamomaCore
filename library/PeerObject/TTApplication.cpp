@@ -19,7 +19,7 @@ mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mNamespaceFile(kTTSymEmpty),
-mPluginNames(kTTValNONE),
+mProtocolNames(kTTValNONE),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
@@ -40,8 +40,8 @@ mTempAddress(kTTAdrsEmpty)
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(Directory, readOnly, YES);
 	
-	addAttributeWithGetter(PluginNames, kTypeLocalValue);
-	addAttributeProperty(PluginNames, readOnly, YES);
+	addAttributeWithGetter(ProtocolNames, kTypeLocalValue);
+	addAttributeProperty(ProtocolNames, readOnly, YES);
 
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
 	addAttributeProperty(AllAppNames, readOnly, YES);
@@ -95,14 +95,14 @@ TTApplication::~TTApplication()
 
 TTErr TTApplication::setName(TTValue& value)
 {
-	TTSymbolPtr pluginName;
+	TTSymbolPtr protocolName;
 	
-	// For each plugin, registers using the new name
+	// For each protocol, registers using the new name
 	if (mName == kTTSym_localApplicationName)
-		for (TTUInt32 i=0; i<mPluginNames.getSize(); i++) {
-			mPluginNames.get(i, &pluginName);
-			getPlugin(pluginName)->sendMessage(TT("unregisterLocalApplication"), value, kTTValNONE);
-			getPlugin(pluginName)->sendMessage(TT("registerLocalApplication"), value, kTTValNONE);
+		for (TTUInt32 i=0; i<mProtocolNames.getSize(); i++) {
+			mProtocolNames.get(i, &protocolName);
+			getProtocol(protocolName)->sendMessage(TT("unregisterLocalApplication"), value, kTTValNONE);
+			getProtocol(protocolName)->sendMessage(TT("registerLocalApplication"), value, kTTValNONE);
 		}
 										   
 	mName = value;							
@@ -110,9 +110,9 @@ TTErr TTApplication::setName(TTValue& value)
 	return mDirectory->setName(mName);
 }
 
-TTErr TTApplication::getPluginNames(TTValue& value)
+TTErr TTApplication::getProtocolNames(TTValue& value)
 {
-	value = mPluginNames;
+	value = mProtocolNames;
 	return kTTErrNone;
 }
 
@@ -211,7 +211,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	// if this listener doesn't exist yet
 	if (mAttributeListenersCache->lookup(key, cacheElement)) {
 		
-		// prepare a callback based on PluginDirectoryCallback
+		// prepare a callback based on ProtocolDirectoryCallback
 		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 		
@@ -219,7 +219,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		*returnValueBaton = inputValue;
 		
 		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginDirectoryCallback));
+		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolDirectoryCallback));
 		
 		err = mDirectory->addObserverForNotifications(whereToListen, *returnValueCallback);
 		
@@ -296,7 +296,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 					err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
 					
 					if (!err) {
-						// prepare a callback based on PluginAttributeCallback
+						// prepare a callback based on ProtocolAttributeCallback
 						returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 						TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 						
@@ -304,7 +304,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 						*returnValueBaton = inputValue;
 						
 						returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-						returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginAttributeCallback));
+						returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolAttributeCallback));
 						
 						anAttribute->registerObserverForNotifications(*returnValueCallback);
 						
@@ -423,28 +423,28 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
-	TTSymbolPtr			pluginName, parameterName;
+	TTSymbolPtr			protocolName, parameterName;
 	TTString			aString;
 	TTHashPtr			parameters;
     TTValue				keys, p_keys, v;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
-	// For each plugin
-	for (TTUInt16 i=0; i<mPluginNames.getSize(); i++) {
+	// For each protocol
+	for (TTUInt16 i=0; i<mProtocolNames.getSize(); i++) {
 		
-		mPluginNames.get(i, &pluginName);
+		mProtocolNames.get(i, &protocolName);
 		
 		if (mName == kTTSym_localApplicationName)
-			getPlugin(pluginName)->getAttributeValue(TT("localApplicationParameters"), v);
+			getProtocol(protocolName)->getAttributeValue(TT("localApplicationParameters"), v);
 		else
-			getPlugin(pluginName)->getAttributeValue(TT("distantApplicationParameters"), v);
+			getProtocol(protocolName)->getAttributeValue(TT("distantApplicationParameters"), v);
 		
 		v.get(0, (TTPtr*)&parameters);
 		
-		// Start "plugin" xml node
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "plugin");
-		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST pluginName->getCString());
+		// Start "protocol" xml node
+		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "protocol");
+		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST protocolName->getCString());
 		
 		// For each parameter
 		parameters->getKeys(p_keys);
@@ -456,7 +456,7 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST parameterName->getCString(), "%s", BAD_CAST aString.data());
 		}
 		
-		// End "plugin" xml node
+		// End "protocol" xml node
 		xmlTextWriterEndElement(aXmlHandler->mWriter);
 	}
 	
@@ -502,7 +502,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTString		anAppKey, aTTKey;
 	TTHashPtr		parameters;
-	TTSymbolPtr		pluginName, parameterName;
+	TTSymbolPtr		protocolName, parameterName;
 	TTValue			appValue, ttValue, v, nameValue, parameterValue;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -515,7 +515,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	if (aXmlHandler->mXmlNodeName == TT("start")) {
 		mAppToTT = new TTHash();
 		mNamespaceFile = kTTSymEmpty;
-		mPluginNames = kTTValNONE;
+		mProtocolNames = kTTValNONE;
 		return kTTErrNone;
 	}
 	
@@ -550,32 +550,32 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		mTTToApp->append(TT(aTTKey), appValue);			// here we register the entire value to handle 1 to many conversion
 	}
 	
-	// Plugin node
-	if (aXmlHandler->mXmlNodeName == TT("plugin")) {
+	// Protocol node
+	if (aXmlHandler->mXmlNodeName == TT("protocol")) {
 		
-		// get the plugin name
+		// get the protocol name
 		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
 		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 		if (v.getType() == kTypeSymbol) {
-			v.get(0, &pluginName);
+			v.get(0, &protocolName);
 		}
 		
-		// Check if the plugin have been loaded
-		if (!getPlugin(pluginName))
+		// Check if the protocol have been loaded
+		if (!getProtocol(protocolName))
 			return kTTErrGeneric;
 		
-		// register the application to the plugin
+		// register the application to the protocol
 		nameValue = TTValue(mName);
 		if (mName == kTTSym_localApplicationName) {
-			getPlugin(pluginName)->sendMessage(TT("registerLocalApplication"), nameValue, kTTValNONE);
-			mPluginNames.append(pluginName);
+			getProtocol(protocolName)->sendMessage(TT("registerLocalApplication"), nameValue, kTTValNONE);
+			mProtocolNames.append(protocolName);
 		}
 		else {
-			getPlugin(pluginName)->sendMessage(TT("registerDistantApplication"), nameValue, kTTValNONE);
-			mPluginNames = TTValue(pluginName);
+			getProtocol(protocolName)->sendMessage(TT("registerDistantApplication"), nameValue, kTTValNONE);
+			mProtocolNames = TTValue(protocolName);
 		}
 		
-		// get all plugin attributes and their value
+		// get all protocol attributes and their value
 		parameters = new TTHash();
 		while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
 			
@@ -591,15 +591,15 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			}
 		}
 		
-		// configure the plugin parameters for this application
+		// configure the protocol parameters for this application
 		if (mName == kTTSym_localApplicationName) {
 			v = TTValue((TTPtr)parameters);
-			getPlugin(pluginName)->setAttributeValue(TT("localApplicationParameters"), v);
+			getProtocol(protocolName)->setAttributeValue(TT("localApplicationParameters"), v);
 		}
 		else {
 			v = TTValue(mName);
 			v.append((TTPtr)parameters);
-			getPlugin(pluginName)->setAttributeValue(TT("distantApplicationParameters"), v);
+			getProtocol(protocolName)->setAttributeValue(TT("distantApplicationParameters"), v);
 		}
 	}
 	
@@ -619,8 +619,8 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		}
 	}
 	
-	// load namespace file if one is given and there is a plugin
-	if (mNamespaceFile != kTTSymEmpty && mPluginNames.getSize()) {
+	// load namespace file if one is given and there is a protocol
+	if (mNamespaceFile != kTTSymEmpty && mProtocolNames.getSize()) {
 		
 		TTOpmlHandlerPtr	aOpmlHandler = NULL;
 		TTValue				args, o;
@@ -637,14 +637,14 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTOpmlHandlerPtr	aOpmlHandler = NULL;	
-	TTSymbolPtr			nodeNameInstance, objectName, attributeName, pluginName;
+	TTSymbolPtr			nodeNameInstance, objectName, attributeName, protocolName;
 	TTNodeAddressPtr	absoluteAddress;
 	TTMirrorPtr			aMirror;
 	TTNodePtr			aNode;
 	TTBoolean			empty, newInstanceCreated;
 	TTObjectPtr			getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
 	TTValuePtr			getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
-	PluginPtr			aPlugin;
+	ProtocolPtr			aProtocol;
 	TTValue				v, args;
 	
 	inputValue.get(0, (TTPtr*)&aOpmlHandler);
@@ -696,10 +696,10 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 				if (v.getType() == kTypeSymbol) {
 					v.get(0, &objectName);
 					
-					// a distant application should have one plugin
-					mPluginNames.get(0, &pluginName);
+					// a distant application should have one protocol
+					mProtocolNames.get(0, &protocolName);
 					
-					if (aPlugin = (PluginPtr)getPlugin(pluginName)) {
+					if (aProtocol = (ProtocolPtr)getProtocol(protocolName)) {
 						
 						// instantiate Mirror object for distant application
 						aMirror = NULL;
@@ -707,38 +707,38 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 						
 						getAttributeCallback = NULL;
 						TTObjectInstantiate(TT("callback"), &getAttributeCallback, kTTValNONE);
-						getAttributeBaton = new TTValue(TTPtr(aPlugin));
+						getAttributeBaton = new TTValue(TTPtr(aProtocol));
 						getAttributeBaton->append(mName);
 						getAttributeBaton->append(absoluteAddress);
 						getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
-						getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginGetAttributeCallback));
+						getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
 						args.append(getAttributeCallback);
 						
 						setAttributeCallback = NULL;
 						TTObjectInstantiate(TT("callback"), &setAttributeCallback, kTTValNONE);
-						setAttributeBaton = new TTValue(TTPtr(aPlugin));
+						setAttributeBaton = new TTValue(TTPtr(aProtocol));
 						setAttributeBaton->append(mName);
 						setAttributeBaton->append(absoluteAddress);
 						setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
-						setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginSetAttributeCallback));
+						setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
 						args.append(setAttributeCallback);
 						
 						sendMessageCallback = NULL;
 						TTObjectInstantiate(TT("callback"), &sendMessageCallback, kTTValNONE);
-						sendMessageBaton = new TTValue(TTPtr(aPlugin));
+						sendMessageBaton = new TTValue(TTPtr(aProtocol));
 						sendMessageBaton->append(mName);
 						sendMessageBaton->append(absoluteAddress);
 						sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
-						sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginSendMessageCallback));
+						sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
 						args.append(sendMessageCallback);
 						
 						listenAttributeCallback = NULL;
 						TTObjectInstantiate(TT("callback"), &listenAttributeCallback, kTTValNONE);
-						listenAttributeBaton = new TTValue(TTPtr(aPlugin));
+						listenAttributeBaton = new TTValue(TTPtr(aProtocol));
 						listenAttributeBaton->append(mName);
 						listenAttributeBaton->append(absoluteAddress);
 						listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
-						listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&PluginListenAttributeCallback));
+						listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
 						args.append(listenAttributeCallback);
 						
 						TTObjectInstantiate(TT("Mirror"), TTObjectHandle(&aMirror), args);
@@ -748,7 +748,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 						
 						// ?? to -- is it usefull to set attribute value ?
 						// yes : in modul8 case for example...
-						// so it depends of the plugin features : isGetRequestAllowed ?
+						// so it depends of the protocol features : isGetRequestAllowed ?
 						
 						/*
 						// get all object attributes and their value

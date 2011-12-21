@@ -571,13 +571,13 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kApplicationPluginStarted :
+		case kApplicationProtocolStarted :
 		{
 			aReceiver->setEnable(YES);
 			break;
 		}
 			
-		case kApplicationPluginStopped :
+		case kApplicationProtocolStopped :
 		{
 			aReceiver->setEnable(NO);
 			break;

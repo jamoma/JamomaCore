@@ -318,12 +318,12 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kApplicationPluginStarted :
+		case kApplicationProtocolStarted :
 		{
 			break;
 		}
 			
-		case kApplicationPluginStopped :
+		case kApplicationProtocolStopped :
 		{
 			break;
 		}

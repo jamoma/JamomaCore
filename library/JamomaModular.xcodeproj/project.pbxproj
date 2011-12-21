@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		D220FB4614A21628005607C3 /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
+		D220FB4714A21628005607C3 /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		D246012914A0A95D004CC4FD /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
 		D246012A14A0A95D004CC4FD /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModularForMax.h; sourceTree = "<group>"; };
 		D246012C14A0A96C004CC4FD /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
@@ -71,8 +73,6 @@
 		D246016914A0A98A004CC4FD /* TTModularVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
 		D246016B14A0A9A0004CC4FD /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
 		D246016C14A0A9A0004CC4FD /* FunctionLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
-		D246016E14A0A9AC004CC4FD /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
-		D246016F14A0A9AC004CC4FD /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
 		D246017114A0A9BF004CC4FD /* AsyncRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncRamp.cpp; sourceTree = "<group>"; };
 		D246017214A0A9BF004CC4FD /* AsyncRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncRamp.h; sourceTree = "<group>"; };
 		D246017314A0A9BF004CC4FD /* NoneRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoneRamp.cpp; sourceTree = "<group>"; };
@@ -93,10 +93,19 @@
 				D246016214A0A98A004CC4FD /* source */,
 				D246012814A0A95D004CC4FD /* ModularForMax */,
 				D246012B14A0A96C004CC4FD /* PeerObject */,
+				D220FB4514A21628005607C3 /* ProtocolLib */,
 				D246016A14A0A9A0004CC4FD /* FunctionLib */,
-				D246016D14A0A9AC004CC4FD /* PluginLib */,
 				D246017014A0A9BF004CC4FD /* RampLib */,
 			);
+			sourceTree = "<group>";
+		};
+		D220FB4514A21628005607C3 /* ProtocolLib */ = {
+			isa = PBXGroup;
+			children = (
+				D220FB4614A21628005607C3 /* Protocol.cpp */,
+				D220FB4714A21628005607C3 /* Protocol.h */,
+			);
+			path = ProtocolLib;
 			sourceTree = "<group>";
 		};
 		D246012814A0A95D004CC4FD /* ModularForMax */ = {
@@ -160,6 +169,10 @@
 		D246015614A0A97B004CC4FD /* includes */ = {
 			isa = PBXGroup;
 			children = (
+				D246015E14A0A97B004CC4FD /* TTModular.h */,
+				D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */,
+				D246016014A0A97B004CC4FD /* TTModularVersion.h */,
+				D246016114A0A97B004CC4FD /* TTModularVersion.template.h */,
 				D246015714A0A97B004CC4FD /* Jamoma.h */,
 				D246015814A0A97B004CC4FD /* JamomaObject.h */,
 				D246015914A0A97B004CC4FD /* JamomaSymbols.h */,
@@ -167,10 +180,6 @@
 				D246015B14A0A97B004CC4FD /* JamomaTypes.h */,
 				D246015C14A0A97B004CC4FD /* jcom.core.h */,
 				D246015D14A0A97B004CC4FD /* jcom.list.h */,
-				D246015E14A0A97B004CC4FD /* TTModular.h */,
-				D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */,
-				D246016014A0A97B004CC4FD /* TTModularVersion.h */,
-				D246016114A0A97B004CC4FD /* TTModularVersion.template.h */,
 			);
 			path = includes;
 			sourceTree = "<group>";
@@ -178,13 +187,13 @@
 		D246016214A0A98A004CC4FD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				D246016714A0A98A004CC4FD /* TTModular.cpp */,
+				D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */,
+				D246016914A0A98A004CC4FD /* TTModularVersion.h */,
 				D246016314A0A98A004CC4FD /* Jamoma.cpp */,
 				D246016414A0A98A004CC4FD /* JamomaObject.cpp */,
 				D246016514A0A98A004CC4FD /* JamomaSymbols.cpp */,
 				D246016614A0A98A004CC4FD /* jcom.core.cpp */,
-				D246016714A0A98A004CC4FD /* TTModular.cpp */,
-				D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */,
-				D246016914A0A98A004CC4FD /* TTModularVersion.h */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -196,15 +205,6 @@
 				D246016B14A0A9A0004CC4FD /* FunctionLib.cpp */,
 			);
 			path = FunctionLib;
-			sourceTree = "<group>";
-		};
-		D246016D14A0A9AC004CC4FD /* PluginLib */ = {
-			isa = PBXGroup;
-			children = (
-				D246016F14A0A9AC004CC4FD /* Plugin.h */,
-				D246016E14A0A9AC004CC4FD /* Plugin.cpp */,
-			);
-			path = PluginLib;
 			sourceTree = "<group>";
 		};
 		D246017014A0A9BF004CC4FD /* RampLib */ = {

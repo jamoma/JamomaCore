@@ -14,8 +14,8 @@
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
-class Plugin;
-typedef Plugin* PluginPtr;
+class Protocol;
+typedef Protocol* ProtocolPtr;
 
 /**	TTApplicationManager ... TODO : an explanation
  
@@ -31,15 +31,15 @@ typedef Plugin* PluginPtr;
 // Macro to retreive local application
 #define getLocalApplication TTApplicationManagerGetApplication(kTTSym_localApplicationName)
 
-// Macro to retreive a plugin by name
-#define getPlugin(pluginName) TTApplicationManagerGetPlugin(pluginName)
+// Macro to retreive a protocol by name
+#define getProtocol(protocolName) TTApplicationManagerGetProtocol(protocolName)
 
 // Notification flags to notify observers of application manager
 enum TTApplicationNotificationFlag {
 	kApplicationRemoved = 0,				///< this flag means that an application have been removed from the application manager
 	kApplicationAdded = 1,					///< this flag means that an application have been added to the application manager
-	kApplicationPluginStarted = 2,			///< this flag means that application's plugin have been started
-	kApplicationPluginStopped = 3			///< this flag means that application's plugin will be stopped
+	kApplicationProtocolStarted = 2,			///< this flag means that application's protocol have been started
+	kApplicationProtocolStopped = 3			///< this flag means that application's protocol will be stopped
 };
 
 class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
@@ -49,10 +49,10 @@ class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
 private:
 
 	TTHashPtr			mApplications;						///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
-	TTHashPtr			mPlugins;							///< hash table containing <TTSymbolPtr pluginName, PluginPtr aPlugin>
+	TTHashPtr			mProtocols;							///< hash table containing <TTSymbolPtr protocolName, ProtocolPtr aProtocol>
 	
 	TTValue				mApplicationNames;					///< ATTRIBUTE : all registered application names
-	TTValue				mPluginNames;						///< ATTRIBUTE : all loaded plugin names
+	TTValue				mProtocolNames;						///< ATTRIBUTE : all loaded protocol names
 	
 	TTObjectPtr			mCurrentApplication;				///< used for ReadFromXml mechanism
 	
@@ -68,8 +68,8 @@ private:
 	/** Set local application name */
 	TTErr setLocalApplicationName(TTValue& value);
 	
-	/** Get all plugin names */
-	TTErr getPluginNames(TTValue& value);
+	/** Get all protocol names */
+	TTErr getProtocolNames(TTValue& value);
 	
 	/** Add an application giving <TTSymbolPtr applicationName, applicationPointer> */
 	TTErr ApplicationAdd(const TTValue& inputValue, TTValue& outputValue);
@@ -100,14 +100,14 @@ private:
 		arguments are <TTObjectPtr appAnswering, TTSymbolPtr whereComesFrom, TTSymbolPtr attribute, TTValuePtr newValue> */
 	TTErr ApplicationListenAnswer(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Scan a plugin network in order to add distant application automatically <TTSymbolPtr pluginName> */
-	TTErr PluginScan(const TTValue& inputValue, TTValue& outputValue);
+	/** Scan a protocol network in order to add distant application automatically <TTSymbolPtr protocolName> */
+	TTErr ProtocolScan(const TTValue& inputValue, TTValue& outputValue);
 
-	/** Run the reception thread mecanism of a Plugin <TTSymbolPtr pluginName> */
-	TTErr PluginRun(const TTValue& inputValue, TTValue& outputValue);
+	/** Run the reception thread mecanism of a Protocol <TTSymbolPtr protocolName> */
+	TTErr ProtocolRun(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Stop the reception thread mecanism of a Plugin <TTSymbolPtr pluginName> */
-	TTErr PluginStop(const TTValue& inputValue, TTValue& outputValue);
+	/** Stop the reception thread mecanism of a Protocol <TTSymbolPtr protocolName> */
+	TTErr ProtocolStop(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler 
 		 read/write local and distant applications setup */
@@ -118,7 +118,7 @@ private:
 	TTErr notifyApplicationObservers(TTSymbolPtr anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag);
 	
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
-	friend TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
+	friend TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbolPtr protocolName);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
@@ -140,12 +140,12 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr
  @return							a TTApplicationPtr */
 TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTNodeAddressPtr anAddress);
 
-/**	To get a plugin with a plugin name
+/**	To get a protocol with a protocol name
  note : it uses the extern TTModularApplications variable
  @param	baton						..
  @param	data						..
- @return							a PluginPtr */
-TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetPlugin(TTSymbolPtr pluginName);
+ @return							a ProtocolPtr */
+TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbolPtr protocolName);
 
 /** Add a TTCallback as observer of application creation/destruction
  note : it uses the extern TTModularApplications variable

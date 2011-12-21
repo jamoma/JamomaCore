@@ -730,13 +730,13 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kApplicationPluginStarted :
+		case kApplicationProtocolStarted :
 		{
 			anExplorer->Explore();
 			break;
 		}
 			
-		case kApplicationPluginStopped :
+		case kApplicationProtocolStopped :
 		{
 			break;
 		}

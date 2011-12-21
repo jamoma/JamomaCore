@@ -47,7 +47,7 @@
 
 #include "TTRegex.h"
 
-#include "Plugin.h"
+#include "Protocol.h"
 
 #include "TTApplication.h"
 #include "TTApplicationManager.h"

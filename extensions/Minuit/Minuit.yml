@@ -1,6 +1,6 @@
 
 sources:
-  - ../../library/PluginLib/Plugin.cpp		
+  - ../../library/ProtocolLib/Protocol.cpp		
   - source/Minuit.cpp
   - source/MinuitAnswer.cpp
   - source/MinuitAnswerManager.cpp
@@ -8,7 +8,7 @@ sources:
 includes:
   - "."
   - "includes"
-  - "../../library/PluginLib"
+  - "../../library/ProtocolLib"
   - "../../../Foundation/library/includes"
 
 libraries:

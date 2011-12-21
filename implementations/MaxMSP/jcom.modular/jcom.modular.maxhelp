@@ -198,13 +198,13 @@
 ,
 					"patching_rect" : [ 432.0, 554.0, 91.0, 35.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontsize" : 12.0,
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p dlight",
@@ -274,9 +274,9 @@
 							"revision" : 9
 						}
 ,
-						"rect" : [ 527.0, 44.0, 680.0, 634.0 ],
+						"rect" : [ 528.0, 44.0, 680.0, 634.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 527.0, 44.0, 680.0, 634.0 ],
+						"defrect" : [ 528.0, 44.0, 680.0, 634.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -433,7 +433,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 401.0, 58.0, 276.0, 20.0 ],
-									"text" : "myApplication:listen /myFloat:value 0.00",
+									"text" : "myApplication:listen /mySymbol:value take it easy",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
@@ -476,7 +476,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 3.0, 64.0, 270.0, 34.0 ],
-									"text" : "You need to load the example configuration file before using the 'read message of jcom.modular"
+									"text" : "You need to load the example configuration file before using the 'read' message of jcom.modular"
 								}
 
 							}
@@ -1022,13 +1022,13 @@
 ,
 					"patching_rect" : [ 260.0, 329.0, 151.0, 35.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontsize" : 12.0,
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p distantApp",
@@ -1061,7 +1061,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 216.0, 161.0, 129.0, 18.0 ],
+					"patching_rect" : [ 227.0, 161.0, 129.0, 18.0 ],
 					"text" : "local/application/name"
 				}
 
@@ -1076,7 +1076,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 141.0, 200.0, 20.0 ],
-					"text" : "return plugin and application list"
+					"text" : "return protocol and application list"
 				}
 
 			}
@@ -1134,8 +1134,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 25.0, 161.0, 82.0, 18.0 ],
-					"text" : "plugin/names"
+					"patching_rect" : [ 25.0, 161.0, 93.0, 18.0 ],
+					"text" : "protocol/names"
 				}
 
 			}
@@ -1178,7 +1178,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 108.0, 161.0, 107.0, 18.0 ],
+					"patching_rect" : [ 119.0, 161.0, 107.0, 18.0 ],
 					"text" : "application/names"
 				}
 
@@ -1264,7 +1264,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "int", "", "" ],
 					"patching_rect" : [ 48.0, 515.0, 135.0, 19.0 ],
-					"text" : "takes it easy"
+					"text" : "take it easy"
 				}
 
 			}
@@ -1408,7 +1408,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 117.5, 184.0, 20.5, 184.0 ],
+					"midpoints" : [ 128.5, 184.0, 20.5, 184.0 ],
 					"source" : [ "obj-5", 0 ]
 				}
 
@@ -1435,7 +1435,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 225.5, 184.5, 20.5, 184.5 ],
+					"midpoints" : [ 236.5, 184.5, 20.5, 184.5 ],
 					"source" : [ "obj-8", 0 ]
 				}
 

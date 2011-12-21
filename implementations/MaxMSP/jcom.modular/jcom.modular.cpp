@@ -20,8 +20,8 @@ void	WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv
 
 void	appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void	appmg_application_plugins(TTPtr self, SymbolPtr msg);
-void	appmg_plugin_parameters(TTPtr self, SymbolPtr msg);
+void	appmg_application_protocols(TTPtr self, SymbolPtr msg);
+void	appmg_protocol_parameters(TTPtr self, SymbolPtr msg);
 void	appmg_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	appmg_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -53,8 +53,8 @@ void WrapTTApplicationManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)appmg_return_value,				"return_value",					A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)appmg_application_plugins,			"application/plugins",			A_SYM, 0);
-	class_addmethod(c->maxClass, (method)appmg_plugin_parameters,			"plugin/parameters",			A_SYM, 0);
+	class_addmethod(c->maxClass, (method)appmg_application_protocols,			"application/protocols",			A_SYM, 0);
+	class_addmethod(c->maxClass, (method)appmg_protocol_parameters,			"protocol/parameters",			A_SYM, 0);
 	class_addmethod(c->maxClass, (method)appmg_configuration,				"configuration",				A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)appmg_read,						"read",							A_GIMME, 0);
@@ -122,7 +122,7 @@ void appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
-void appmg_application_plugins(TTPtr self, SymbolPtr msg)
+void appmg_application_protocols(TTPtr self, SymbolPtr msg)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr			applicationName;
@@ -135,7 +135,7 @@ void appmg_application_plugins(TTPtr self, SymbolPtr msg)
 	anApplication = TTApplicationManagerGetApplication(applicationName);
 	
 	if (anApplication) {
-		anApplication->getAttributeValue(TT("pluginNames"), v);
+		anApplication->getAttributeValue(TT("protocolNames"), v);
 		
 		v.prepend(applicationName);
 		jamoma_ttvalue_to_Atom(v, &ac, &av);
@@ -145,35 +145,35 @@ void appmg_application_plugins(TTPtr self, SymbolPtr msg)
 		object_post((ObjectPtr)x, "%s is not an application", applicationName->getCString());
 }
 
-void appmg_plugin_parameters(TTPtr self, SymbolPtr msg)
+void appmg_protocol_parameters(TTPtr self, SymbolPtr msg)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr			pluginName;
-	TTObjectPtr			aPlugin;
+	TTSymbolPtr			protocolName;
+	TTObjectPtr			aProtocol;
 	TTValue				v;
 	AtomCount			ac = 0;
 	AtomPtr				av = NULL;
 	
-	pluginName = TT(msg->s_name);
-	aPlugin = TTApplicationManagerGetPlugin(pluginName);
+	protocolName = TT(msg->s_name);
+	aProtocol = TTApplicationManagerGetProtocol(protocolName);
 	
-	if (aPlugin) {
-		aPlugin->getAttributeValue(TT("parameterNames"), v);
+	if (aProtocol) {
+		aProtocol->getAttributeValue(TT("parameterNames"), v);
 		
-		v.prepend(pluginName);
+		v.prepend(protocolName);
 		jamoma_ttvalue_to_Atom(v, &ac, &av);
 		outlet_anything(x->outlets[config_out], msg, ac, av);
 	}
 	else
-		object_post((ObjectPtr)x, "%s is not a plugin", pluginName->getCString());
+		object_post((ObjectPtr)x, "%s is not a protocol", protocolName->getCString());
 }
 
 void appmg_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr			applicationName, pluginName, parameterName;
+	TTSymbolPtr			applicationName, protocolName, parameterName;
 	TTApplicationPtr	anApplication;
-	TTHashPtr			pluginParameters, parameters;
+	TTHashPtr			protocolParameters, parameters;
 	TTValue				v;
 	AtomCount			ac = 0;
 	AtomPtr				av = NULL;
@@ -186,12 +186,12 @@ void appmg_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 			anApplication = TTApplicationManagerGetApplication(applicationName);
 			
 			if (anApplication) {
-				anApplication->getAttributeValue(TT("pluginParameters"), v);
-				v.get(0, (TTPtr*)&pluginParameters);
+				anApplication->getAttributeValue(TT("protocolParameters"), v);
+				v.get(0, (TTPtr*)&protocolParameters);
 				
 				if (atom_gettype(argv+1) == A_SYM) {
-					pluginName = TT(atom_getsym(argv+1)->s_name);
-					err = pluginParameters->lookup(pluginName, v);
+					protocolName = TT(atom_getsym(argv+1)->s_name);
+					err = protocolParameters->lookup(protocolName, v);
 					v.get(0, (TTPtr*)&parameters);
 					
 					if (!err && atom_gettype(argv+2) == A_SYM) {
@@ -200,16 +200,16 @@ void appmg_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 						
 						if (!err) {
 							v.prepend(parameterName);
-							v.prepend(pluginName);
+							v.prepend(protocolName);
 							v.prepend(applicationName);
 							jamoma_ttvalue_to_Atom(v, &ac, &av);
 							outlet_anything(x->outlets[config_out], msg, ac, av);
 						}
 						else
-							object_post((ObjectPtr)x, "%s is not a parameter of %s plugin", parameterName->getCString(), pluginName->getCString());
+							object_post((ObjectPtr)x, "%s is not a parameter of %s protocol", parameterName->getCString(), protocolName->getCString());
 					}
 					else
-						object_post((ObjectPtr)x, "%s is not a plugin of %s application", pluginName->getCString(), applicationName->getCString());
+						object_post((ObjectPtr)x, "%s is not a protocol of %s application", protocolName->getCString(), applicationName->getCString());
 				}
 			}
 			else

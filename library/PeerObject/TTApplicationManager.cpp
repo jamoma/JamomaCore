@@ -7,7 +7,7 @@
  */
 
 #include "TTApplicationManager.h"
-#include "Plugin.h"
+#include "Protocol.h"
 
 #define thisTTClass			TTApplicationManager
 #define thisTTClassName		"ApplicationManager"
@@ -16,7 +16,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mApplications(NULL),
 mApplicationNames(kTTValNONE),
-mPluginNames(kTTValNONE),
+mProtocolNames(kTTValNONE),
 mCurrentApplication(NULL),
 mApplicationObservers(NULL),
 mApplicationObserversMutex(NULL)
@@ -30,8 +30,8 @@ mApplicationObserversMutex(NULL)
 	
 	registerAttribute(TT("localApplicationName"), kTypeSymbol, kTTSym_localApplicationName, (TTGetterMethod)& TTApplicationManager::getLocalApplicationName, (TTSetterMethod)& TTApplicationManager::setLocalApplicationName);
 	
-	addAttributeWithGetter(PluginNames, kTypeLocalValue);
-	addAttributeProperty(PluginNames, readOnly, YES);
+	addAttributeWithGetter(ProtocolNames, kTypeLocalValue);
+	addAttributeProperty(ProtocolNames, readOnly, YES);
 	
 	addMessageWithArguments(ApplicationAdd);
 	addMessageWithArguments(ApplicationRemove);
@@ -51,9 +51,9 @@ mApplicationObserversMutex(NULL)
 	addMessageWithArguments(ApplicationListenAnswer);
 	addMessageProperty(ApplicationListenAnswer, hidden, YES);
 	
-	addMessageWithArguments(PluginScan);
-	addMessageWithArguments(PluginRun);
-	addMessageWithArguments(PluginStop);
+	addMessageWithArguments(ProtocolScan);
+	addMessageWithArguments(ProtocolRun);
+	addMessageWithArguments(ProtocolStop);
 	
 	// needed to be handled by a TTXmlHandler
 	addMessageWithArguments(WriteAsXml);
@@ -63,7 +63,7 @@ mApplicationObserversMutex(NULL)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mApplications = new TTHash();
-	mPlugins = new TTHash();
+	mProtocols = new TTHash();
 	
 	// create a ApplicationObservers table and protect it from multithreading access
 	// why ? because observers could disappear when they know an application is destroyed
@@ -71,33 +71,33 @@ mApplicationObserversMutex(NULL)
 	mApplicationObservers->setThreadProtection(true);
 	mApplicationObserversMutex = new TTMutex(true);
 	
-	// Instantiate all existing plugins (all ready loaded by Foundation framework)
-	TTValue pluginNames;
-	PluginLib::getPluginNames(pluginNames);
-	if (pluginNames.getSize()) {
+	// Instantiate all existing protocols (all ready loaded by Foundation framework)
+	TTValue protocolNames;
+	ProtocolLib::getProtocolNames(protocolNames);
+	if (protocolNames.getSize()) {
 		
-		TTSymbolPtr pluginName = NULL;
-		PluginPtr	aPluginObject = NULL;
+		TTSymbolPtr protocolName = NULL;
+		ProtocolPtr	aProtocolObject = NULL;
 		TTValue		args;
 		TTErr		err;
 		
-		// for each plugin name
-		for (TTUInt32 i=0; i<pluginNames.getSize(); i++) {
+		// for each protocol name
+		for (TTUInt32 i=0; i<protocolNames.getSize(); i++) {
 			
-			pluginNames.get(i, &pluginName);
+			protocolNames.get(i, &protocolName);
 			
-			// create an instance of a Plugin object
-			err = PluginLib::createPlugin(pluginName, &aPluginObject, (TTObjectPtr)this);
+			// create an instance of a Protocol object
+			err = ProtocolLib::createProtocol(protocolName, &aProtocolObject, (TTObjectPtr)this);
 			
 			if (!err) {
-				// add it to Modular plugins table
-				args = TTValue((TTPtr)aPluginObject);
-				mPlugins->append(pluginName, args);
+				// add it to Modular protocols table
+				args = TTValue((TTPtr)aProtocolObject);
+				mProtocols->append(protocolName, args);
 				
-				TTLogDebug("%s plugin loaded", pluginName->getCString());
+				TTLogDebug("%s protocol loaded", protocolName->getCString());
 			}
 			else
-				TTLogDebug("%s plugin can't be loaded ", pluginName->getCString());
+				TTLogDebug("%s protocol can't be loaded ", protocolName->getCString());
 				
 		}
 	}
@@ -105,23 +105,23 @@ mApplicationObserversMutex(NULL)
 
 TTApplicationManager::~TTApplicationManager()
 {
-	TTValue				v, allPluginNames;
-	TTSymbolPtr			pluginName;
-	PluginPtr	aPlugin;
+	TTValue				v, allProtocolNames;
+	TTSymbolPtr			protocolName;
+	ProtocolPtr	aProtocol;
 	TTErr				err;
 	
 	delete mApplications;
 	
-	// destroy each plugin
-	mPlugins->getKeys(allPluginNames);
-	for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
+	// destroy each protocol
+	mProtocols->getKeys(allProtocolNames);
+	for (TTUInt16 i=0; i<allProtocolNames.getSize(); i++) {
 		
-		allPluginNames.get(i, &pluginName);
-		err = mPlugins->lookup(pluginName, v);
+		allProtocolNames.get(i, &protocolName);
+		err = mProtocols->lookup(protocolName, v);
 		
 		if (!err) {
-			v.get(0, (TTPtr*)&aPlugin);
-			TTObjectRelease(TTObjectHandle(&aPlugin));
+			v.get(0, (TTPtr*)&aProtocol);
+			TTObjectRelease(TTObjectHandle(&aProtocol));
 		}
 	}
 }
@@ -165,14 +165,14 @@ TTErr TTApplicationManager::setLocalApplicationName(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::getPluginNames(TTValue& value)
+TTErr TTApplicationManager::getProtocolNames(TTValue& value)
 {
-	return mPlugins->getKeys(value);
+	return mProtocols->getKeys(value);
 }
 
 TTErr TTApplicationManager::ApplicationAdd(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue				v, args, allPluginNames;
+	TTValue				v, args, allProtocolNames;
 	TTSymbolPtr			applicationName;
 	TTApplicationPtr	anApplication;
 	
@@ -225,34 +225,34 @@ TTErr TTApplicationManager::ApplicationRemove(const TTValue& inputValue, TTValue
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManager::PluginScan(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTApplicationManager::ProtocolScan(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue v, allPluginNames;
-	TTSymbolPtr pluginName;
-	PluginPtr aPlugin;
+	TTValue v, allProtocolNames;
+	TTSymbolPtr protocolName;
+	ProtocolPtr aProtocol;
 	TTErr				err;
 	
-	// if no name do it for all plugin
+	// if no name do it for all protocol
 	if (inputValue.getSize()) {
 		
-		inputValue.get(0, &pluginName);
+		inputValue.get(0, &protocolName);
 		
-		if (!mPlugins->lookup(pluginName, v)) {
-			v.get(0, (TTPtr*)&aPlugin);
-			aPlugin->sendMessage(TT("Scan"));
+		if (!mProtocols->lookup(protocolName, v)) {
+			v.get(0, (TTPtr*)&aProtocol);
+			aProtocol->sendMessage(TT("Scan"));
 		}
 	}
 	else {
-		// Scan each plugin
-		mPlugins->getKeys(allPluginNames);
-		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
+		// Scan each protocol
+		mProtocols->getKeys(allProtocolNames);
+		for (TTUInt16 i=0; i<allProtocolNames.getSize(); i++) {
 			
-			allPluginNames.get(i, &pluginName);
-			err = mPlugins->lookup(pluginName, v);
+			allProtocolNames.get(i, &protocolName);
+			err = mProtocols->lookup(protocolName, v);
 			
 			if (!err) {
-				v.get(0, (TTPtr*)&aPlugin);
-				aPlugin->sendMessage(TT("Scan"));
+				v.get(0, (TTPtr*)&aProtocol);
+				aProtocol->sendMessage(TT("Scan"));
 			}
 		}
 	}
@@ -260,38 +260,38 @@ TTErr TTApplicationManager::PluginScan(const TTValue& inputValue, TTValue& outpu
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::PluginRun(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTApplicationManager::ProtocolRun(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue				v, allPluginNames, allApplicationNames;
-	TTSymbolPtr			pluginName, applicationName, appPluginName;
-	PluginPtr	aPlugin;
+	TTValue				v, allProtocolNames, allApplicationNames;
+	TTSymbolPtr			protocolName, applicationName, appProtocolName;
+	ProtocolPtr	aProtocol;
 	TTApplicationPtr	anApplication;
 	TTErr				err;
 	
-	// if no name do it for all plugin
+	// if no name do it for all protocol
 	if (inputValue.getSize()) {
 		
-		inputValue.get(0, &pluginName);
+		inputValue.get(0, &protocolName);
 		
-		if (!mPlugins->lookup(pluginName, v)) {
-			v.get(0, (TTPtr*)&aPlugin);
-			aPlugin->sendMessage(TT("Run"));
+		if (!mProtocols->lookup(protocolName, v)) {
+			v.get(0, (TTPtr*)&aProtocol);
+			aProtocol->sendMessage(TT("Run"));
 		}
 	}
 	else {
 		
-		// Run each plugin
-		mPlugins->getKeys(allPluginNames);
-		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
+		// Run each protocol
+		mProtocols->getKeys(allProtocolNames);
+		for (TTUInt16 i=0; i<allProtocolNames.getSize(); i++) {
 			
-			allPluginNames.get(i, &pluginName);
-			this->PluginRun(pluginName, kTTValNONE);
+			allProtocolNames.get(i, &protocolName);
+			this->ProtocolRun(protocolName, kTTValNONE);
 		}
 		
 		return kTTErrNone;
 	}
 	
-	// notify application obervers for application that use this plugin
+	// notify application obervers for application that use this protocol
 	mApplications->getKeys(allApplicationNames);
 	for (TTUInt16 j=0; j<allApplicationNames.getSize(); j++) {
 		
@@ -303,11 +303,11 @@ TTErr TTApplicationManager::PluginRun(const TTValue& inputValue, TTValue& output
 			if (!err) {
 				v.get(0, (TTPtr*)&anApplication);
 				
-				anApplication->getAttributeValue(TT("pluginNames"), v); 
-				v.get(0, &appPluginName);
+				anApplication->getAttributeValue(TT("protocolNames"), v); 
+				v.get(0, &appProtocolName);
 				
-				if (appPluginName == pluginName)
-					notifyApplicationObservers(applicationName, anApplication, kApplicationPluginStarted);
+				if (appProtocolName == protocolName)
+					notifyApplicationObservers(applicationName, anApplication, kApplicationProtocolStarted);
 			}
 		}
 	}
@@ -315,38 +315,38 @@ TTErr TTApplicationManager::PluginRun(const TTValue& inputValue, TTValue& output
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManager::PluginStop(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue				v, allPluginNames, allApplicationNames;
-	TTSymbolPtr			pluginName, applicationName, appPluginName;
-	PluginPtr			aPlugin;
+	TTValue				v, allProtocolNames, allApplicationNames;
+	TTSymbolPtr			protocolName, applicationName, appProtocolName;
+	ProtocolPtr			aProtocol;
 	TTApplicationPtr	anApplication;
 	TTErr				err;
 	
-	// if no name do it for all plugin
+	// if no name do it for all protocol
 	if (inputValue.getSize()) {
 		
-		inputValue.get(0, &pluginName);
+		inputValue.get(0, &protocolName);
 		
-		if (!mPlugins->lookup(pluginName, v)) {
-			v.get(0, (TTPtr*)&aPlugin);
-			aPlugin->sendMessage(TT("Stop"));
+		if (!mProtocols->lookup(protocolName, v)) {
+			v.get(0, (TTPtr*)&aProtocol);
+			aProtocol->sendMessage(TT("Stop"));
 		}
 	}
 	else {
 		
-		// Stop each plugin
-		mPlugins->getKeys(allPluginNames);
-		for (TTUInt16 i=0; i<allPluginNames.getSize(); i++) {
+		// Stop each protocol
+		mProtocols->getKeys(allProtocolNames);
+		for (TTUInt16 i=0; i<allProtocolNames.getSize(); i++) {
 			
-			allPluginNames.get(i, &pluginName);
-			this->PluginStop(pluginName, kTTValNONE);
+			allProtocolNames.get(i, &protocolName);
+			this->ProtocolStop(protocolName, kTTValNONE);
 		}
 		
 		return kTTErrNone;
 	}
 	
-	// notify application obervers for application that use this plugin
+	// notify application obervers for application that use this protocol
 	mApplications->getKeys(allApplicationNames);
 	for (TTUInt16 j=0; j<allApplicationNames.getSize(); j++) {
 		
@@ -358,11 +358,11 @@ TTErr TTApplicationManager::PluginStop(const TTValue& inputValue, TTValue& outpu
 			if (!err) {
 				v.get(0, (TTPtr*)&anApplication);
 				
-				anApplication->getAttributeValue(TT("pluginNames"), v); 
-				v.get(0, &appPluginName);
+				anApplication->getAttributeValue(TT("protocolNames"), v); 
+				v.get(0, &appProtocolName);
 				
-				if (appPluginName == pluginName)
-					notifyApplicationObservers(applicationName, anApplication, kApplicationPluginStopped);
+				if (appProtocolName == protocolName)
+					notifyApplicationObservers(applicationName, anApplication, kApplicationProtocolStopped);
 			}
 		}
 	}
@@ -516,10 +516,10 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodeAddressPtr	whereToListen;
-	TTSymbolPtr			appToNotify, pluginName;
+	TTSymbolPtr			appToNotify, protocolName;
 	TTBoolean			enableListening;
 	
-	inputValue.get(0, &pluginName);
+	inputValue.get(0, &protocolName);
 	inputValue.get(1, &appToNotify);
 	inputValue.get(2, &whereToListen);
 	inputValue.get(3, enableListening);
@@ -527,21 +527,21 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
 	TTLogDebug("TTApplicationManager::Listen");
 	
 	TTApplicationPtr	appWhereToListen;
-	PluginPtr			aPlugin;
+	ProtocolPtr			aProtocol;
 	TTValue				v, args;
 	TTErr				err;
 	
 	appWhereToListen = getApplicationFrom(whereToListen);
-	err = mPlugins->lookup(pluginName, v);
+	err = mProtocols->lookup(protocolName, v);
 	
 	if (!err && appWhereToListen) 
 	{
-		v.get(0, (TTPtr*)&aPlugin);
+		v.get(0, (TTPtr*)&aProtocol);
 		
 		// add observer
 		if (enableListening) {
 			
-			args.append((TTPtr)aPlugin);
+			args.append((TTPtr)aProtocol);
 			args.append(appToNotify);
 			args.append(whereToListen);
 			
@@ -656,8 +656,8 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		
 		mCurrentApplication = NULL;
 		
-		// stop plugin reception threads
-		PluginStop(v, kTTValNONE);
+		// stop protocol reception threads
+		ProtocolStop(v, kTTValNONE);
 		
 		// remove all applications except the local one
 		mApplications->getKeys(allAppNames);
@@ -679,8 +679,8 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	// ends reading
 	if (aXmlHandler->mXmlNodeName == TT("end")) {
 		
-		// start plugin reception threads
-		PluginRun(v, kTTValNONE);
+		// start protocol reception threads
+		ProtocolRun(v, kTTValNONE);
 		
 		return kTTErrNone;
 	}
@@ -745,7 +745,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	if (!mCurrentApplication) 
 		return kTTErrNone;
 	
-	// pass the current application to the XmlHandler to fill plugin parameters
+	// pass the current application to the XmlHandler to fill protocol parameters
 	v = TTValue((TTPtr)mCurrentApplication);
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	return aXmlHandler->sendMessage(TT("Read"));
@@ -854,19 +854,19 @@ TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTNodeAddressPtr anAddre
 	return NULL;
 }
 
-TTObjectPtr TTApplicationManagerGetPlugin(TTSymbolPtr pluginName)
+TTObjectPtr TTApplicationManagerGetProtocol(TTSymbolPtr protocolName)
 {
 	TTValue		v;
-	PluginPtr	aPlugin;
+	ProtocolPtr	aProtocol;
 	TTErr		err;
 	
 	if (TTModularApplications) {
 		
-		err = TTModularApplications->mPlugins->lookup(pluginName, v);
+		err = TTModularApplications->mProtocols->lookup(protocolName, v);
 		
 		if (!err) {
-			v.get(0, (TTPtr*)&aPlugin);
-			return (TTObjectPtr)aPlugin;
+			v.get(0, (TTPtr*)&aProtocol);
+			return (TTObjectPtr)aProtocol;
 		}
 	}
 	

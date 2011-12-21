@@ -1,5 +1,5 @@
 /*
- * A Plugin interface
+ * A Protocol interface
  * Copyright © 2011, Laurent Garnier, Théo de la Hogue
  *
  * License: This code is licensed under the terms of the "New BSD License"
@@ -26,14 +26,14 @@ class MinuitAnswerManager {
 	
 private:
 	
-	MinuitPtr			mPlugin;
+	MinuitPtr			mProtocol;
 	
 	MinuitAnswerTable	mDiscoverAnswers;
 	MinuitAnswerTable	mGetAnswers;
 	
 public:
 
-	MinuitAnswerManager(MinuitPtr aMinuitPlugin);
+	MinuitAnswerManager(MinuitPtr aMinuitProtocol);
 	virtual ~MinuitAnswerManager();
 	
 	void	AddDiscoverAnswer(TTString from, TTNodeAddressPtr address, int timeOutInMs = DEFAULT_TIMEOUT);

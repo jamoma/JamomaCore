@@ -1,28 +1,28 @@
 /*
- * A Plugin interface
+ * A Protocol interface
  * Copyright © 2011, Laurent Garnier, Théo de la Hogue
  *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __PLUGIN_H__
-#define __PLUGIN_H__
+#ifndef __PROTOCOL_H__
+#define __PROTOCOL_H__
 
 #include "TTFoundationAPI.h"
 
-#define PLUGIN_CONSTRUCTOR \
+#define PROTOCOL_CONSTRUCTOR \
 TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : Plugin(arguments)
+thisTTClass :: thisTTClass (TTValue& arguments) : Protocol(arguments)
 
-#define PLUGIN_INITIALIZE \
+#define PROTOCOL_INITIALIZE \
 mName = TT(thisTTClassName); \
-mVersion = TT(thisPluginVersion); \
-mAuthor = TT(thisPluginAuthor); \
-mExploration = TT(thisPluginExploration); \
+mVersion = TT(thisProtocolVersion); \
+mAuthor = TT(thisProtocolAuthor); \
+mExploration = TT(thisProtocolExploration); \
 registerAttribute(TT("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 //addAttributeProperty(ParameterNames, readOnly, YES); \
 
@@ -30,38 +30,38 @@ registerAttribute(TT("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)&
 /****************************************************************************************************/
 // Class Specification
 
-/**	Plugin is the base class for all protocol plugin.
+/**	Protocol is the base class for all protocol protocol.
  It still has knowledge and support for ...
  */
-class Plugin : public TTObject {
+class Protocol : public TTObject {
 	
 protected:																																	
 	TTObjectPtr					mApplicationManager;				///< the application manager of the Modular framework.					
-																	///< plugin programmers should not have to deal with this member.
+																	///< protocol programmers should not have to deal with this member.
 	
 	TTSymbolPtr					mLocalApplicationName;				///< the name of the local application
 	
 	TTHashPtr					mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters 
-																	///< for each application registered for communication with this plugin
+																	///< for each application registered for communication with this protocol
 																	///< <TTSymbolPtr applicationName, <TTSymbolPtr parameterName, TTValue value>>
 public:																															
-	TTSymbolPtr					mName;								///< ATTRIBUTE : the name of the plugin to use							
-	TTSymbolPtr					mVersion;							///< ATTRIBUTE : the version of the plugin								
-	TTSymbolPtr					mAuthor;							///< ATTRIBUTE : the author of the plugin								
-	TTBoolean					mExploration;						///< ATTRIBUTE : is the Plugin provide namespace exploration features ?
-	TTBoolean					mRunning;							///< ATTRIBUTE : is the Plugin reception thread enable ?					
+	TTSymbolPtr					mName;								///< ATTRIBUTE : the name of the protocol to use							
+	TTSymbolPtr					mVersion;							///< ATTRIBUTE : the version of the protocol								
+	TTSymbolPtr					mAuthor;							///< ATTRIBUTE : the author of the protocol								
+	TTBoolean					mExploration;						///< ATTRIBUTE : is the Protocol provide namespace exploration features ?
+	TTBoolean					mRunning;							///< ATTRIBUTE : is the Protocol reception thread enable ?					
 	
 public:
 	//** Constructor.	*/
-	Plugin(TTValue& arguments);
+	Protocol(TTValue& arguments);
 	
 	/** Destructor. */
-	virtual ~Plugin();
+	virtual ~Protocol();
 	
 	/** Set application manager */
 	TTErr setApplicationManager(const TTValue& value);
 	
-	/** Get parameters names needed by this plugin */
+	/** Get parameters names needed by this protocol */
 	virtual TTErr getParameterNames(TTValue& value)=0;
 	
 	
@@ -106,7 +106,7 @@ public:
 	/** Run reception thread mechanism */
 	virtual TTErr Run()=0;
 	
-	/** Stop the reception thread mechanism of the plugin */
+	/** Stop the reception thread mechanism of the protocol */
 	virtual TTErr Stop()=0;
 	
 	/**************************************************************************************************************************
@@ -217,9 +217,9 @@ public:
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Notify the plugin that an application ask for a namespace description
+	 * Notify the protocol that an application ask for a namespace description
 	 *
-	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
+	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
 	 *
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to discover
@@ -227,9 +227,9 @@ public:
 	TTErr ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address);
 	
 	/*!
-	 * Notify the plugin that an application ask for value
+	 * Notify the protocol that an application ask for value
 	 *
-	 * !!! This a built-in plugin method which sends automatically the answer (or a notification if error)
+	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
 	 *
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to get
@@ -237,9 +237,9 @@ public:
 	TTErr ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address);
 	
 	/*!
-	 * Notify the plugin that an application wants to set value
+	 * Notify the protocol that an application wants to set value
 	 *
-	 * !!! This a built-in plugin method which set automatically the value (or send a notification if error)
+	 * !!! This a built-in protocol method which set automatically the value (or send a notification if error)
 	 *
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to get
@@ -248,9 +248,9 @@ public:
 	TTErr ReceiveSetRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue);
 	
 	/*!
-	 * Notify the plugin that an application wants to listen (or not) the namespace
+	 * Notify the protocol that an application wants to listen (or not) the namespace
 	 *
-	 * !!! This a built-in plugin method which create/remove automatically the listener (or send a notification if error)
+	 * !!! This a built-in protocol method which create/remove automatically the listener (or send a notification if error)
 	 *
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to listen
@@ -260,16 +260,16 @@ public:
 	
 	/**************************************************************************************************************************
 	 *
-	 *	RECEIVE ANSWER METHODS : each plugin deals with answers when it send a request except for listening mechanism
-	 *							note : maybe we could add a listen answer manager because each plugin have to remember 
+	 *	RECEIVE ANSWER METHODS : each protocol deals with answers when it send a request except for listening mechanism
+	 *							note : maybe we could add a listen answer manager because each protocol have to remember 
 	 *							which listen requests has been done (?)
 	 *
 	 **************************************************************************************************************************/
 	
 	/*!
-	 * Notify the plugin that an application answers to a listen request
+	 * Notify the protocol that an application answers to a listen request
 	 *
-	 * !!! This a built-in plugin method notify automatically the listener (or send a notification if error)
+	 * !!! This a built-in protocol method notify automatically the listener (or send a notification if error)
 	 *
 	 * \param from					: the application where comes from the answer
 	 * \param address				: the address where comes from the answer
@@ -278,67 +278,67 @@ public:
 	TTErr ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue);
 	
 	
-	friend TTErr TT_EXTENSION_EXPORT PluginDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT PluginAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(TTPtr baton, TTValue& data);
 	
-	friend TTErr TT_EXTENSION_EXPORT PluginGetAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT PluginSetAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT PluginSendMessageCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT PluginListenAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
 
 };
-typedef Plugin* PluginPtr;
+typedef Protocol* ProtocolPtr;
 
 /**	Called when an application directory send a 
  notification to registered application observers
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT PluginDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(TTPtr baton, TTValue& data);
 
 /**	Called when an application object attribute send a 
  notification to registered application observers
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT PluginAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT PluginGetAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT PluginSetAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT PluginSendMessageCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT PluginListenAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
 
-#endif	//__PLUGIN_H__
+#endif	//__PROTOCOL_H__
 
-#ifndef __PLUGINLIB_H__
-#define __PLUGINLIB_H__
+#ifndef __PROTOCOLLIB_H__
+#define __PROTOCOLLIB_H__
 
-class TT_EXTENSION_EXPORT PluginLib {
+class TT_EXTENSION_EXPORT ProtocolLib {
 public:
-	/** Instantiate a plugin by name */
-	static TTErr createPlugin(const TTSymbolPtr pluginName, PluginPtr *returnedPlugin, TTObjectPtr manager);
+	/** Instantiate a protocol by name */
+	static TTErr createProtocol(const TTSymbolPtr protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager);
 	
-	/**	Return a list of all available plugins. */
-	static void getPluginNames(TTValue& pluginNames);
+	/**	Return a list of all available protocols. */
+	static void getProtocolNames(TTValue& protocolNames);
 };
 
-#endif	//__PLUGINLIB_H__
+#endif	//__PROTOCOLLIB_H__
