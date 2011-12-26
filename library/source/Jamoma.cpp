@@ -23,12 +23,12 @@ const double k_twopi = 6.2831853071795864;	// 2 * pi
 const double k_anti_denormal_value = 1e-18;	
 */
 // statics and globals
-static long			initialized = false;
-static t_hashtab	*hash_modules = NULL;			// a hashtab of all modules (jcom.hubs) currently instantiated
+static long			initialized = false;			///< Global variabel indicating whether Jamoma has been initiated or not.
+static t_hashtab	*hash_modules = NULL;			///< A hashtab of all modules (jcom.hubs) currently instantiated
 //t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
 //t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
-bool				max5 = false;
-bool				max6 = false;
+bool				max5 = false;					///< Is Jamoma currently running in Max 5 or newer?
+bool				max6 = false;					///< Is Jamoma currently running in Max 6 or newer?
 
 /************************************************************************************/
 // Init the framework
@@ -47,14 +47,16 @@ void jamoma_init(void)
 		
 		TTDSPInit();
 		
+		// Register RampLib classes
 		AsyncRamp::registerClass();
 		NoneRamp::registerClass();
 		QueueRamp::registerClass();
 		SchedulerRamp::registerClass();
 		
+		// Initialize common symbols
 		common_symbols_init();
 		jamomaSymbolsInit();
-
+		
 		receivemaster_initclass();
 		receive_initclass();
 		object_method(max, meth, SymbolGen("jcom.receive"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive"));

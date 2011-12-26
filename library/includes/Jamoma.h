@@ -53,6 +53,7 @@
 
 extern "C" {
 
+	/** Initialize the Jamoma Modular framework. */
 	void		jamoma_init(void);
 	
 	/** Register a Jamoma module and the OSC name of the module. 
@@ -72,7 +73,7 @@ extern "C" {
 	 */
 	t_object*	jamoma_get_hub_for_module_named(t_symbol *name);
 	
-	/** get the OSC names of all Jamoma modules. */
+	/** Get the OSC names of all Jamoma modules. */
 	void		jamoma_get_all_module_names(long *numModules, t_symbol ***moduleNames);
 	
 	
