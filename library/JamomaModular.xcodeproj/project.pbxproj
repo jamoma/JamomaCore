@@ -6,11 +6,120 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		A734367914A9295400C41E3F /* FunctionLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
+		A734367A14A9295400C41E3F /* FunctionLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
+		A734367C14A9295400C41E3F /* Jamoma.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Jamoma.h; sourceTree = "<group>"; };
+		A734367D14A9295400C41E3F /* JamomaObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JamomaObject.h; sourceTree = "<group>"; };
+		A734367E14A9295400C41E3F /* JamomaSymbols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JamomaSymbols.h; sourceTree = "<group>"; };
+		A734367F14A9295400C41E3F /* JamomaThreading.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JamomaThreading.h; sourceTree = "<group>"; };
+		A734368014A9295400C41E3F /* JamomaTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JamomaTypes.h; sourceTree = "<group>"; };
+		A734368114A9295400C41E3F /* jcom.core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.core.h; sourceTree = "<group>"; };
+		A734368214A9295400C41E3F /* jcom.io.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.io.h; sourceTree = "<group>"; };
+		A734368314A9295400C41E3F /* jcom.list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.list.h; sourceTree = "<group>"; };
+		A734368414A9295400C41E3F /* jcom.sendreceive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.sendreceive.h; sourceTree = "<group>"; };
+		A734368514A9295400C41E3F /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
+		A734368614A9295400C41E3F /* TTModularVersion.template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.template.h; sourceTree = "<group>"; };
+		A734368814A9295400C41E3F /* jcom.receive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receive.cpp; sourceTree = "<group>"; };
+		A734368914A9295400C41E3F /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
+		A734368A14A9295400C41E3F /* jcom.receive~.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
+		A734368B14A9295400C41E3F /* jcom.send.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.send.cpp; sourceTree = "<group>"; };
+		A734368C14A9295400C41E3F /* jcom.send~.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
+		A734368E14A9295400C41E3F /* AsyncRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncRamp.cpp; sourceTree = "<group>"; };
+		A734368F14A9295400C41E3F /* AsyncRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsyncRamp.h; sourceTree = "<group>"; };
+		A734369014A9295400C41E3F /* NoneRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NoneRamp.cpp; sourceTree = "<group>"; };
+		A734369114A9295400C41E3F /* NoneRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoneRamp.h; sourceTree = "<group>"; };
+		A734369214A9295400C41E3F /* QueueRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QueueRamp.cpp; sourceTree = "<group>"; };
+		A734369314A9295400C41E3F /* QueueRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueRamp.h; sourceTree = "<group>"; };
+		A734369414A9295400C41E3F /* RampLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RampLib.cpp; sourceTree = "<group>"; };
+		A734369514A9295400C41E3F /* RampLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RampLib.h; sourceTree = "<group>"; };
+		A734369614A9295400C41E3F /* SchedulerRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SchedulerRamp.cpp; sourceTree = "<group>"; };
+		A734369714A9295400C41E3F /* SchedulerRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SchedulerRamp.h; sourceTree = "<group>"; };
+		A734369914A9295400C41E3F /* Jamoma.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Jamoma.cpp; sourceTree = "<group>"; };
+		A734369A14A9295400C41E3F /* JamomaObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaObject.cpp; sourceTree = "<group>"; };
+		A734369B14A9295400C41E3F /* JamomaSymbols.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaSymbols.cpp; sourceTree = "<group>"; };
+		A734369C14A9295400C41E3F /* jcom.core.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.core.cpp; sourceTree = "<group>"; };
+		A734369D14A9295400C41E3F /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		229B5844149C0B0C0093389A = {
 			isa = PBXGroup;
 			children = (
+				A734367814A9295400C41E3F /* FunctionLib */,
+				A734367B14A9295400C41E3F /* includes */,
+				A734368714A9295400C41E3F /* Internals */,
+				A734368D14A9295400C41E3F /* RampLib */,
+				A734369814A9295400C41E3F /* source */,
 			);
+			sourceTree = "<group>";
+		};
+		A734367814A9295400C41E3F /* FunctionLib */ = {
+			isa = PBXGroup;
+			children = (
+				A734367914A9295400C41E3F /* FunctionLib.cpp */,
+				A734367A14A9295400C41E3F /* FunctionLib.h */,
+			);
+			path = FunctionLib;
+			sourceTree = "<group>";
+		};
+		A734367B14A9295400C41E3F /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				A734367C14A9295400C41E3F /* Jamoma.h */,
+				A734367D14A9295400C41E3F /* JamomaObject.h */,
+				A734367E14A9295400C41E3F /* JamomaSymbols.h */,
+				A734367F14A9295400C41E3F /* JamomaThreading.h */,
+				A734368014A9295400C41E3F /* JamomaTypes.h */,
+				A734368114A9295400C41E3F /* jcom.core.h */,
+				A734368214A9295400C41E3F /* jcom.io.h */,
+				A734368314A9295400C41E3F /* jcom.list.h */,
+				A734368414A9295400C41E3F /* jcom.sendreceive.h */,
+				A734368514A9295400C41E3F /* TTModularVersion.h */,
+				A734368614A9295400C41E3F /* TTModularVersion.template.h */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		A734368714A9295400C41E3F /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				A734368814A9295400C41E3F /* jcom.receive.cpp */,
+				A734368914A9295400C41E3F /* jcom.receivemaster.cpp */,
+				A734368A14A9295400C41E3F /* jcom.receive~.cpp */,
+				A734368B14A9295400C41E3F /* jcom.send.cpp */,
+				A734368C14A9295400C41E3F /* jcom.send~.cpp */,
+			);
+			path = Internals;
+			sourceTree = "<group>";
+		};
+		A734368D14A9295400C41E3F /* RampLib */ = {
+			isa = PBXGroup;
+			children = (
+				A734368E14A9295400C41E3F /* AsyncRamp.cpp */,
+				A734368F14A9295400C41E3F /* AsyncRamp.h */,
+				A734369014A9295400C41E3F /* NoneRamp.cpp */,
+				A734369114A9295400C41E3F /* NoneRamp.h */,
+				A734369214A9295400C41E3F /* QueueRamp.cpp */,
+				A734369314A9295400C41E3F /* QueueRamp.h */,
+				A734369414A9295400C41E3F /* RampLib.cpp */,
+				A734369514A9295400C41E3F /* RampLib.h */,
+				A734369614A9295400C41E3F /* SchedulerRamp.cpp */,
+				A734369714A9295400C41E3F /* SchedulerRamp.h */,
+			);
+			path = RampLib;
+			sourceTree = "<group>";
+		};
+		A734369814A9295400C41E3F /* source */ = {
+			isa = PBXGroup;
+			children = (
+				A734369914A9295400C41E3F /* Jamoma.cpp */,
+				A734369A14A9295400C41E3F /* JamomaObject.cpp */,
+				A734369B14A9295400C41E3F /* JamomaSymbols.cpp */,
+				A734369C14A9295400C41E3F /* jcom.core.cpp */,
+				A734369D14A9295400C41E3F /* TTModularVersion.h */,
+			);
+			path = source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +249,7 @@
 				229B5850149C0B0C0093389A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
