@@ -30,8 +30,9 @@
 					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
 					"patching_rect" : [ 580.0, 69.0, 124.0, 19.0 ],
 					"text" : "jcom.plug.parameter#"
 				}
@@ -43,8 +44,9 @@
 					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 580.0, 23.0, 81.0, 19.0 ],
 					"text" : "jcom.plug.in≈"
 				}
@@ -56,8 +58,9 @@
 					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 580.0, 47.0, 88.0, 19.0 ],
 					"text" : "jcom.plug.out≈"
 				}
@@ -71,8 +74,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 195.0, 325.0, 320.0, 19.0 ],
-					"text" : "test.assert.equal \"TEST Graph AllExternalsLoadingProperly\" 1"
+					"patching_rect" : [ 195.0, 325.0, 338.0, 19.0 ],
+					"text" : "test.assert.equal \"TEST Plugtastic AllExternalsLoadingProperly\" 1"
 				}
 
 			}
