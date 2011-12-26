@@ -114,6 +114,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	return 0;
 }
 
+#pragma mark -
+#pragma mark Object life
 
 /************************************************************************************/
 // Object Life
@@ -383,6 +385,9 @@ void hub_notify(t_hub *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 		}
 	}
 }
+
+#pragma mark -
+#pragma mark Communication with jcom.parameter objects
 
 /************************************************************************************/
 // Communication with jcom.param objects
@@ -868,6 +873,8 @@ void hub_gui_build(t_hub *x)
 	}
 }
 
+#pragma mark -
+#pragma mark Methods bound to input/inlets
 
 /************************************************************************************/
 // Methods bound to input/inlets
