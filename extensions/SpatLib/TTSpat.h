@@ -6,8 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __SPAT_H__
-#define __SPAT_H__
+#ifndef __TT_SPAT_H__
+#define __TT_SPAT_H__
 
 #include "TTDSP.h"
 
@@ -58,4 +58,4 @@ class TTSpat : TTAudioObject {
 };
 
 
-#endif // __SPAT_H__
+#endif // __TT_SPAT_H__

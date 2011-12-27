@@ -13,10 +13,14 @@
 #define thisTTClassTags		"audio, spatialization"
 
 
+
 TT_AUDIO_CONSTRUCTOR,
-	mSpatFunctionObject(NULL)
+mSpatFunctionObject(NULL),
+mSpatFunction(NULL),
+mSourceCount(0),
+mDestinationCount(0)
 {
-	TTValue v;
+	//TTValue v;
 	
 	addAttributeWithSetter(SpatFunction,					kTypeSymbol);
 	addAttributeWithSetter(SourceCount,						kTypeUInt16);
@@ -24,19 +28,18 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithGetterAndSetter(SourcePositions,		kTypeFloat64);
 	addAttributeWithGetterAndSetter(DestinationPositions,	kTypeFloat64);
 	
-	addMessageWithArgument(getSpatFunctions);
-	addMessageWithArgument(getFunctionParameters);
-	addMessageWithArgument(getFunctionParameter);
-	addMessageWithArgument(setFunctionParameter);
+	addMessageWithArguments(getSpatFunctions);
+	addMessageWithArguments(getFunctionParameters);
+	addMessageWithArguments(getFunctionParameter);
+	addMessageWithArguments(setFunctionParameter);
 	
 	//addUpdate(MaxNumChannels);
 	
 	setAttributeValue(TT("spatFunction"), TT("spat.thru"));
 	setAttributeValue(TT("sourceCount"), 2);
-	setAttributeValue(TT("destinationCount"), 8);	
+	setAttributeValue(TT("destinationCount"), 8);
 	setProcessMethod(process);
 }
-
 
 TTSpat::~TTSpat()
 {
