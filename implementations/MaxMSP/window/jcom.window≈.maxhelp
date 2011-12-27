@@ -157,7 +157,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 403.0, 204.0, 84.0, 17.0 ],
-					"text" : "getFunctions 1"
+					"text" : "getFunctions"
 				}
 
 			}
