@@ -1372,6 +1372,9 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		TTBoolean		nameConflict = false;
 		t_symbol*		nameOriginal;
 		
+		// If the module has a name from before, this needs to be removed from the list of existing module instances (ref. issue #1058)
+		if (x->osc_name != _sym_nothing)
+			jamoma_hub_remove(x->osc_name);
 		x->osc_name = atom_getsym(argv);
 
 		// No arg is present -- try to invent something intelligent for a name
