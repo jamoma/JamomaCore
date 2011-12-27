@@ -24,7 +24,7 @@ class TTAudioGraphPick : public TTAudioObject {
 		if (args.getSize() != mNumPickChannels){
 			mNumPickChannels = args.getSize();
 			mPickChannels.resize(mNumPickChannels);
-			outputNeedsResize = TRUE;
+			outputNeedsResize = true;
 		}
 				
 		for (TTUInt16 i=0; i<mNumPickChannels; i++) {
@@ -54,7 +54,7 @@ class TTAudioGraphPick : public TTAudioObject {
 		if (outputNeedsResize){
 		out.setMaxNumChannels(mNumPickChannels);
 		out.setNumChannels(mNumPickChannels);
-		outputNeedsResize = FALSE;
+		outputNeedsResize = false;
 		}
 		
 		for (TTUInt16 i=0; i < mNumPickChannels; i++) {

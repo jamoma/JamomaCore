@@ -351,7 +351,7 @@ void DacGetDeviceNames(DacPtr self)
 	AtomPtr		ap;
 	TTSymbolPtr	name;
 	
-	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), v);
+	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), kTTValNONE, v);
 	if (!err) {
 		ac = v.getSize();
 		ap = new Atom[ac];
@@ -370,7 +370,7 @@ TTErr DacGetCpuLoad(DacPtr self)
 {
 	TTValue cpuload = -1.0;
 	
-	self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getCpuLoad"), cpuload);
+	self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getCpuLoad"), kTTValNONE, cpuload);
 	outlet_float(self->outlet, TTFloat64(cpuload));
 	return kTTErrNone;
 }

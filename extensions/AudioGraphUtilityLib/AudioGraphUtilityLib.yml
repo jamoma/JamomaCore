@@ -1,0 +1,19 @@
+
+sources:
+  - AudioGraphUtilityLib.cpp
+  - source/TTAudioGraphJoin.cpp
+  - source/TTAudioGraphOffset.cpp
+  - source/TTAudioGraphPick.cpp
+  - source/TTAudioGraphSig.cpp
+  - source/TTAudioGraphSplit.cpp
+  
+includes:
+  - "includes"
+  - "../../../Foundation/library/includes"
+  - "../../../DSP/library/includes"
+  - "../../../Graph/library/includes"
+  - "../../../AudioGraph/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

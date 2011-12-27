@@ -103,7 +103,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 711.0, 355.0, 98.0, 65.0 ],
-					"text" : "gettitle 1, getartist 1, getannotation 1, getdate 1, getduration 1"
+					"text" : "gettitle, getartist, getannotation, getdate, getduration"
 				}
 
 			}

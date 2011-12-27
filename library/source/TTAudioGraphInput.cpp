@@ -27,7 +27,7 @@ TT_AUDIO_CONSTRUCTOR
 
 	addMessage(start);
 	addMessage(stop);
-	addMessageWithArgument(getAvailableDeviceNames);
+	addMessageWithArguments(getAvailableDeviceNames);
 	
 	setProcessMethod(processAudio);
 	
@@ -43,9 +43,9 @@ TTAudioGraphInput::~TTAudioGraphInput()
 }
 
 
-TTErr TTAudioGraphInput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioGraphInput::getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames)
 {
-	return mAudioEngine->sendMessage(TT("getAvailableInputDeviceNames"), returnedDeviceNames);
+	return mAudioEngine->sendMessage(TT("getAvailableInputDeviceNames"), kTTValNONE, returnedDeviceNames);
 }
 
 

@@ -36,7 +36,6 @@ extern "C" void TTAudioGraphObject::registerClass()
 TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 	TTGraphObject(arguments),
 	mStatus(kTTAudioGraphProcessUnknown),
-	mAudioDescription(NULL),
 	mAudioFlags(kTTAudioGraphProcessor), 
 	mInputSignals(NULL), 
 	mOutputSignals(NULL), 
@@ -63,7 +62,7 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 	// if an object supports the 'setOwner' message, then we tell it that we want to become the owner
 	// this is particularly important for the dac object
 	TTValue v = TTPtr(this);
-	mKernel->sendMessage(TT("setOwner"), v);
+	mKernel->sendMessage(TT("setOwner"), v, kTTValNONE);
 	
 	if (!sSharedMutex)
 		sSharedMutex = new TTMutex(false);
@@ -105,10 +104,9 @@ TTErr TTAudioGraphObject::setNumAudioOutlets(const TTValue& newNumOutlets)
 
 void TTAudioGraphObject::prepareAudioDescription()
 {
-	if (valid && mAudioDescription) {
-		mAudioDescription->sIndex = 0;
-		delete mAudioDescription;
-		mAudioDescription = NULL;
+	if (valid && mAudioDescription.mClassName) {
+		mAudioDescription.sIndex = 0;
+		mAudioDescription.mClassName = NULL;
 		
 		prepareDescription();
 		
@@ -120,8 +118,8 @@ void TTAudioGraphObject::prepareAudioDescription()
 
 void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 {
-	if (mAudioDescription) {		// a description for this object has already been created -- use it.
-		desc = *mAudioDescription;
+	if (mAudioDescription.mClassName) {		// a description for this object has already been created -- use it.
+		desc = mAudioDescription;
 	}
 	else {					// create a new description for this object.
 		desc.mClassName = mKernel->getName();
@@ -130,8 +128,7 @@ void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 		desc.mNumOutlets = mOutlets.size();
 		desc.mAudioDescriptionsForInlets.clear();
 		desc.mID = desc.sIndex++;
-		mAudioDescription = new TTAudioGraphDescription;
-		(*mAudioDescription) = desc;
+		mAudioDescription = desc;
 		
 		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 			TTAudioGraphDescriptionVector	vector;
@@ -140,6 +137,7 @@ void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 			desc.mAudioDescriptionsForInlets.push_back(vector);
 		}
 		
+//		prepareDescription();
 		getDescription(desc.mControlDescription);
 	}
 }
@@ -237,11 +235,29 @@ TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 for
 			}
 			else {												// a processor
 				// zero our collected input samples
-				mInputSignals->clearAll();
+
+				// WE CANNOT DO THIS!!!  IF THE INLET IS JUST A POINTER TO MEMORY IN ANOTHER OBJECT'S OUTLET
+				// THEN WE END UP CLEARING THAT OBJECT'S COMPUTED OUTPUT!!!
+				// INSTEAD, WE MOVE THE CLEARING INTO THE inlet->process() call
+				//mInputSignals->clearAll();
+				
 
 				// pull (process, sum, and collect) all of our source audio
-				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
+//				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
+				for(TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet !=  mAudioInlets.end(); inlet++) {
+					inlet->process();
+				}
 
+				// TEMPORARY -- DUPLICATING CODE FROM PREPROCESS
+				// If there is a change in the inlet/source configuration during processing, including channel counts, then the information cached at preprocess is WRONG!
+				// If there is feedback, then the problem gets compounded into future pulls on the graph!
+				int index = 0;
+				for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
+					TTAudioSignalPtr audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
+					mInputSignals->setSignal(index, audioSignal);
+					index++;
+				}
+								
 				if (!(mAudioFlags & kTTAudioGraphNonAdapting)) {
 					// examples of non-adapting objects are join≈ and matrix≈
 					// non-adapting in this case means channel numbers -- vector sizes still adapt
@@ -252,24 +268,30 @@ TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 for
 				// adapt ugen based on the input we are going to process
 				getUnitGenerator()->adaptMaxNumChannels(mInputSignals->getMaxNumChannels());
 				getUnitGenerator()->setSampleRate(mInputSignals->getSignal(0).getSampleRate());
-				
+						
 				// finally, process the audio
 				getUnitGenerator()->process(mInputSignals, mOutputSignals);
 			}
 			
-			// TODO: we're doing a copy below -- is that what we really want?  Or can we just return the pointer?
-			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			// These two lines should be equivalent
+			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+						
 			mStatus = kTTAudioGraphProcessComplete;
 			break;
 		
 		// we already processed everything that needs to be processed, so just set the pointer
 		case kTTAudioGraphProcessComplete:
-			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			// These two lines should be equivalent
+			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
 			break;
 		
 		// to prevent feedback / infinite loops, we just hand back the last calculated output here
 		case kTTAudioGraphProcessingCurrently:
-			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			// These two lines should be equivalent
+			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
 			break;
 		
 		// we should never get here

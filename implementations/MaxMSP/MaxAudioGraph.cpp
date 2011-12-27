@@ -270,7 +270,8 @@ t_max_err MaxAudioGraphWrappedClass_attrSetNumChannels(WrappedInstancePtr self, 
 /* Method for "anything" messages */
 void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {	
-	TTValue		v;
+	TTValue		v_in;
+	TTValue		v_out;
 	TTSymbolPtr	ttName = NULL;
 	MaxErr		err;
 	
@@ -282,44 +283,44 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 	}
 	
 	if (argc && argv) {
-		v.setSize(argc);
+		v_in.setSize(argc);
 		
 		// Typechecking - we only want ints, floats and symbols
 		for (AtomCount i=0; i<argc; i++) {
 			if (atom_gettype(argv+i) == A_LONG)
-				v.set(i, AtomGetInt(argv+i));
+				v_in.set(i, AtomGetInt(argv+i));
 			else if (atom_gettype(argv+i) == A_FLOAT)
-				v.set(i, atom_getfloat(argv+i));
+				v_in.set(i, atom_getfloat(argv+i));
 			else if (atom_gettype(argv+i) == A_SYM)
-				v.set(i, TT(atom_getsym(argv+i)->s_name));
+				v_in.set(i, TT(atom_getsym(argv+i)->s_name));
 			else
 				object_error(SELF, "bad type for message arg");
 		}
-		
-		// Now that we know that the message is OK we send it on to the wrapped class
-		self->audioGraphObject->getUnitGenerator()->sendMessage(ttName, v);
+	}
+	// Now that we know that the message is OK we send it on to the wrapped class
+	self->audioGraphObject->getUnitGenerator()->sendMessage(ttName, v_in, v_out);
 		
 		// process the returned value for the dumpout outlet
 		{
-			AtomCount	ac = v.getSize();
+			AtomCount	ac = v_out.getSize();
 
 			if (ac) {
 				AtomPtr		av = (AtomPtr)malloc(sizeof(Atom) * ac);
 				
 				for (AtomCount i=0; i<ac; i++) {
-					if (v.getType() == kTypeSymbol){
+					if (v_out.getType() == kTypeSymbol){
 						TTSymbolPtr ttSym = NULL;
-						v.get(i, &ttSym);
+						v_out.get(i, &ttSym);
 						atom_setsym(av+i, gensym((char*)ttSym->getCString()));
 					}
-					else if (v.getType() == kTypeFloat32 || v.getType() == kTypeFloat64) {
+					else if (v_out.getType() == kTypeFloat32 || v_out.getType() == kTypeFloat64) {
 						TTFloat64 f = 0.0;
-						v.get(i, f);
+						v_out.get(i, f);
 						atom_setfloat(av+i, f);
 					}
 					else {
 						TTInt32 l = 0;
-						v.get(i, l);
+						v_out.get(i, l);
 						atom_setfloat(av+i, l);
 					}
 				}
@@ -327,9 +328,9 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 				free(av);
 			}
 		}
-	}
-	else
-		self->audioGraphObject->getUnitGenerator()->sendMessage(ttName);
+//	}
+//	else
+//		self->audioGraphObject->getUnitGenerator()->sendMessage(ttName);
 }
 
 

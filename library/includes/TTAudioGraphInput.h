@@ -26,7 +26,7 @@ public:
 	
 	TTErr start();
 	TTErr stop();
-	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);
+	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 	
 	// Attribute Accessors
 	TTErr setSampleRate(const TTValue& newValue);

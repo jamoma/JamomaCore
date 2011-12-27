@@ -24,8 +24,8 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphGenerator : public TTAudioObject
 	TTUInt16	mVectorSize;
 	
 	TTErr setVectorSize(const TTValue& newVectorSize);
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr updateSampleRate(const TTValue& oldSampleRate);
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
 	
 public:
 	TTAudioSignalPtr		mBuffer;		///< storage for the audioSignal that we provide
@@ -33,6 +33,8 @@ public:
 	/**	A standard audio processing method as used by TTBlue objects.
 		@param	inputs	unused.				*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
+	
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 typedef TTAudioGraphGenerator*	TTAudioGraphGeneratorPtr;
