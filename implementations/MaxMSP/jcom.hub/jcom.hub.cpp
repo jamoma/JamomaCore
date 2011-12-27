@@ -64,20 +64,45 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 //	class_addmethod(c, (method)hub_autodoc,				"/documentation/generate",	0);
 //	class_addmethod(c, (method)hub_presets_post,		"preset/post",	0); 
 //	class_addmethod(c, (method)hub_presets_post,		"/preset/post",	0); 
-	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names:/dump",		0L);
+	
+	
+	// Rename the module instance (the osc_name attribute)
+	class_addmethod(c, (method)hub_attr_setname,		"/name",					A_GIMME, 0L);	// So that the name can be set using OSC messages
+	class_addmethod(c, (method)hub_attr_setname,		"/rename",					A_GIMME, 0L);	// Alternative to the above that might help readability of cues
+	class_addmethod(c, (method)hub_attr_setname,		"rename",					A_GIMME, 0L);	// Non-slash version of the above
+	class_addmethod(c, (method)hub_attr_setname,		"module_name",				A_GIMME, 0L);	// For consistency with the get method
+	class_addmethod(c, (method)hub_attr_setname,		"/module_name",				A_GIMME, 0L);	// For consistency with the get method
+	
+	// Get the name of the module instance (the osc_name attribute)
+	class_addmethod(c, (method)hub_modulename_get,		"name:/get",				0L);
+	class_addmethod(c, (method)hub_modulename_get,		"/name:/get",				0L);
+	class_addmethod(c, (method)hub_modulename_get,		"module_name:/get",			0L);
+	class_addmethod(c, (method)hub_modulename_get,		"/module_name:/get",		0L);
+	
+	// Get the name of the core of the module, whatever that is...
+	class_addmethod(c, (method)core_modulename_get,		"core_module_name:/get",	0L);
+	
+	// Get the parameters of the module
+	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names:/dump",	0L);
 	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names:/dump", 	0L);
+	
+	// Get the messages of the module
 	class_addmethod(c, (method)hub_messagenames_get,	"message_names:/dump",		0L);
 	class_addmethod(c, (method)hub_messagenames_get,	"/message_names:/dump",		0L);
+	
+	// Get the returns of the module
 	class_addmethod(c, (method)hub_returnnames_get,		"return_names:/dump",		0L);
 	class_addmethod(c, (method)hub_returnnames_get,		"/return_names:/dump",		0L);
-	class_addmethod(c, (method)hub_allnames_get,		"*_names:/dump",				0L);
+	
+	// Get parameters, messages and returns of the module
+	class_addmethod(c, (method)hub_allnames_get,		"*_names:/dump",			0L);
 	class_addmethod(c, (method)hub_allnames_get,		"/*_names:/dump",			0L);
+
+	// Get all current parameter values
 	class_addmethod(c, (method)hub_paramvalues_get,		"parameter_values:/dump",	0L);
 	class_addmethod(c, (method)hub_paramvalues_get,		"/parameter_values:/dump",	0L);
-	class_addmethod(c, (method)hub_modulename_get,		"module_name:/get", 0L);
-	class_addmethod(c, (method)hub_modulename_get,		"/module_name:/get",			0L);
-	class_addmethod(c, (method)core_modulename_get,		"core_module_name:/get",			0L);
-	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type:/get", A_CANT);
+
+	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type:/get",		A_CANT);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"/algorithm_type:/get",		A_CANT);
 	
 	class_addmethod(c, (method)hub_paramnames_linklist,		"fetchParameterNamesInLinklist",	A_CANT, 0); // used by the ui ref menu
