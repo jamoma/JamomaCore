@@ -11,7 +11,7 @@
 #ifndef __SPATMATRIX_H__
 #define __SPATMATRIX_H__
 
-#include "SpatLib.h"
+#include "TTDSP.h"
 
 
 /**	This implements a window function which basically does nothing: 

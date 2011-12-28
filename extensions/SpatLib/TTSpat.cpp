@@ -28,6 +28,7 @@ mDestinationCount(0)
 	addAttributeWithGetterAndSetter(SourcePositions,		kTypeFloat64);
 	addAttributeWithGetterAndSetter(DestinationPositions,	kTypeFloat64);
 	
+
 	addMessageWithArguments(getSpatFunctions);
 	addMessageWithArguments(getFunctionParameters);
 	addMessageWithArguments(getFunctionParameter);

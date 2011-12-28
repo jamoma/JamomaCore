@@ -14,7 +14,6 @@
 		660420F814A988D100FEC268 /* SpatMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatMatrix.cpp; path = source/SpatMatrix.cpp; sourceTree = "<group>"; };
 		660420F914A988D100FEC268 /* SpatThru.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatThru.cpp; path = source/SpatThru.cpp; sourceTree = "<group>"; };
 		6659A12414A985CC00D83E3C /* SpatLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatLib.cpp; sourceTree = "<group>"; };
-		6659A12514A985CC00D83E3C /* SpatLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpatLib.h; sourceTree = "<group>"; };
 		6659A12614A985CC00D83E3C /* TTSpat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSpat.cpp; sourceTree = "<group>"; };
 		6659A12714A985CC00D83E3C /* TTSpat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSpat.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -24,7 +23,6 @@
 			isa = PBXGroup;
 			children = (
 				6659A12414A985CC00D83E3C /* SpatLib.cpp */,
-				6659A12514A985CC00D83E3C /* SpatLib.h */,
 				6659A12614A985CC00D83E3C /* TTSpat.cpp */,
 				6659A12714A985CC00D83E3C /* TTSpat.h */,
 				660420F414A988C800FEC268 /* SpatDBAP.h */,

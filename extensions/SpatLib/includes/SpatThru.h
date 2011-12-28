@@ -9,7 +9,7 @@
 #ifndef __SPATTHRU_H__
 #define __SPATTHRU_H__
 
-#include "SpatLib.h"
+#include "TTDSP.h"
 
 
 /**	This implements a spatialisation method that just let sources through */

@@ -7,25 +7,19 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "SpatLib.h"
-
+#include "TTDSP.h"
+#include "TTSpat.h"
 #include "SpatDBAP.h"
 #include "SpatMatrix.h"
 #include "SpatThru.h"
 
-#include "TTSpat.h"
-
-
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_SpatLib(void)
 {
 	TTDSPInit();
-
+	TTSpat::registerClass();
 	SpatMatrix::registerClass();
 	SpatThru::registerClass();
-	SpatDBAP::registerClass();
-
-	TTSpat::registerClass();
-	
+	SpatDBAP::registerClass();	
 	return kTTErrNone;
 }
 
