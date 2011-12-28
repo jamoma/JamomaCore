@@ -91,7 +91,7 @@ TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 
 
 
-TTErr TTSpat::getSpatFunctions(TTValue& listOfSpatFunctionsToReturn)
+TTErr TTSpat::getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToReturn)
 {
 	TTValue v;
 	
@@ -99,26 +99,26 @@ TTErr TTSpat::getSpatFunctions(TTValue& listOfSpatFunctionsToReturn)
 	v.set(0, TT("spatialization"));
 	v.set(1, TT("processing")); // more efficent than append
 	return TTGetRegisteredClassNamesForTags(listOfSpatFunctionsToReturn, v);
-}
+}		   
 
 
-TTErr TTSpat::getFunctionParameters(TTValue& aListOfParameterNamesToReturn)
+TTErr TTSpat::getFunctionParameters(const TTValue&, TTValue& aListOfParameterNamesToReturn)
 {
 	mSpatFunctionObject->getAttributeNames(aListOfParameterNamesToReturn);
 	return kTTErrNone;
 }
 
 
-TTErr TTSpat::getFunctionParameter(TTValue& aParameterNameIn_aValueOut)
+TTErr TTSpat::getFunctionParameter(const TTValue& aParameterNameIn, TTValue& aValueOut)
 {
 	TTSymbolPtr parameterName = NULL;
 	
-	aParameterNameIn_aValueOut.get(0, &parameterName);
-	return mSpatFunctionObject->getAttributeValue(parameterName, aParameterNameIn_aValueOut);
+	aParameterNameIn.get(0, &parameterName);
+	return mSpatFunctionObject->getAttributeValue(parameterName, aValueOut);
 }
 
 
-TTErr TTSpat::setFunctionParameter(TTValue& aParameterNameAndValue)
+TTErr TTSpat::setFunctionParameter(TTValue& aParameterNameAndValue, TTValue&)
 {
 	TTSymbolPtr parameterName = NULL;
 	TTValue		parameterValue;
