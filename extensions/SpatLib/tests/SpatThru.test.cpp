@@ -7,7 +7,7 @@
  */
 
 
-#include "SpatLib.h"
+#include "TTDSP.h"
 #include "SpatThru.h"
 
 
