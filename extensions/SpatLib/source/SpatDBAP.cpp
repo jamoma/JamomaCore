@@ -6,30 +6,30 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "SpatMatrix.h"
+#include "SpatDBAP.h"
 
-#define thisTTClass			SpatMatrix
-#define thisTTClassName		"spat.matrix"
-#define thisTTClassTags		"audio, spatialization, bypass, processing"
+#define thisTTClass			SpatDBAP
+#define thisTTClassName		"spat.dbap"
+#define thisTTClassTags		"audio, spatialization, processing"
 
 
 TT_AUDIO_CONSTRUCTOR,
 	mMatrixObject(NULL)
 {
-	
-	TTObjectInstantiate(TT("matrix"), &mMatrixObject, kTTValNONE);
+	// Instantiate an audio matrix
+	TTObjectInstantiate(TT("audiomatrix"), &mMatrixObject, kTTValNONE);
 	
 	setProcessMethod(processAudio);
 }
 
 
-SpatMatrix::~SpatMatrix()
+SpatDBAP::~SpatDBAP()
 {
 	TTObjectRelease(&mMatrixObject);
 }
 
 
-TTErr SpatMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr SpatDBAP::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	return mMatrixObject->process(inputs, outputs);
 }

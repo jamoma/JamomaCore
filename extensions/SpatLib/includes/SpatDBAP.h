@@ -1,27 +1,33 @@
 /* 
  * Super simple Spatialization object for Jamoma DSP
  * Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place
+ *
+ * Simply provide a matrix where you directly manipulate the coefficients
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __SPATTHRU_H__
-#define __SPATTHRU_H__
+#ifndef __SPATDBAP_H__
+#define __SPATDBAP_H__
 
-#include "SpatLib.h"
+#include "TTDSP.h"
 
 
 /**	This implements a window function which basically does nothing: 
 	y = 1.0
  */
-class SpatThru : TTAudioObject {
-	TTCLASS_SETUP(SpatThru)
+class SpatDBAP : TTAudioObject {
+	TTCLASS_SETUP(SpatDBAP)
+	
+	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
+	/**	Unit Tests	*/
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 
-#endif // __SPATTHRU_H__
+#endif // __SPATDBAP_H__

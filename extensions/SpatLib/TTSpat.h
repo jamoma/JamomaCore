@@ -6,8 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __SPAT_H__
-#define __SPAT_H__
+#ifndef __TT_SPAT_H__
+#define __TT_SPAT_H__
 
 #include "TTDSP.h"
 
@@ -22,25 +22,35 @@ class TTSpat : TTAudioObject {
 	TTValue				mSourcePositions;		
 	TTValue				mDestinationPositions;		
 		
-	/**	choose the window function */
-	TTErr setSpatFunction(const TTValue& function);
-	
-	/**	set position size */
+	/**	choose the spatialisation function */
+	TTErr setSpatFunction(const TTValue& aSpatFunction);
+		
+	/**	get source positions */
 	TTErr getSourcePositions(TTValue& aPosition);
+	
+	/**	set source positions */
 	TTErr setSourcePositions(const TTValue& aPosition);
 	
-	/**	set position size */
+	/**	get destination positions */
 	TTErr getDestinationPositions(TTValue& aPosition);
+	
+	/**	set destination positions */
 	TTErr setDestinationPositions(const TTValue& aPosition);
 	
-	/**	set process method */
+	/**	set number of sources */
 	TTErr setSourceCount(const TTValue& mode);
 	
-	/**	set process method */
+	/**	set number of destinations */
 	TTErr setDestinationCount(const TTValue& mode);
 		
-	/**	return a list of all the available window shapes	*/
-	TTErr getSpatFunctions(TTValue& listOfSpatFunctionsToReturn);
+
+	/**	return a list of all the available spatialisation methods	*/
+	TTErr getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToReturn);
+	
+	TTErr getFunctionParameters(const TTValue&, TTValue& listOfParameterNamesToReturn);
+	TTErr getFunctionParameter(const TTValue& aParameterNameIn, TTValue& aValueOut);
+	TTErr setFunctionParameter(const TTValue& aParameterNameAndValue, TTValue&);
+	
 	
 	/**	A standard audio processing method as used by Jamoma DSP objects.*/
 	TTErr process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -48,4 +58,4 @@ class TTSpat : TTAudioObject {
 };
 
 
-#endif // __SPAT_H__
+#endif // __TT_SPAT_H__
