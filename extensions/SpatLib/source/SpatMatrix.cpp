@@ -21,7 +21,7 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	addAttribute(DummyTest, kTypeFloat64);
 	addAttribute(DummyTest2, kTypeFloat64);
-	
+	setAttributeValue(TT("dummyTest"), 2.22);
 	setProcessMethod(processAudio);
 }
 

@@ -118,14 +118,14 @@ TTErr TTSpat::getFunctionParameter(const TTValue& aParameterNameIn, TTValue& aVa
 }
 
 
-TTErr TTSpat::setFunctionParameter(TTValue& aParameterNameAndValue, TTValue&)
+TTErr TTSpat::setFunctionParameter(const TTValue& aParameterNameAndValue, TTValue&)
 {
 	TTSymbolPtr parameterName = NULL;
 	TTValue		parameterValue;
 	
 	aParameterNameAndValue.get(0, &parameterName);
-	parameterValue.copyFrom(aParameterNameAndValue, 1);
-	aParameterNameAndValue.clear(); // only needed so that we don't return a value
+	parameterValue.copyFrom(aParameterNameAndValue, 1); //TODO: maybe there are more arguments ? 
+	//aParameterNameAndValue.clear(); // only needed so that we don't return a value
 	return mSpatFunctionObject->setAttributeValue(parameterName, parameterValue);
 }
 

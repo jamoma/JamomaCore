@@ -14,16 +14,13 @@
 #include "TTDSP.h"
 
 
-/**	This implements a window function which basically does nothing: 
-	y = 1.0
- */
 class SpatMatrix : TTAudioObject {
 	TTCLASS_SETUP(SpatMatrix)
 	
 	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
 	TTFloat64			mDummyTest;
 	TTFloat64			mDummyTest2;
-	
+
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 

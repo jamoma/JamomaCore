@@ -49,7 +49,7 @@ class TTSpat : TTAudioObject {
 	
 	TTErr getFunctionParameters(const TTValue&, TTValue& listOfParameterNamesToReturn);
 	TTErr getFunctionParameter(const TTValue& aParameterNameIn, TTValue& aValueOut);
-	TTErr setFunctionParameter(TTValue& aParameterNameAndValue, TTValue&);
+	TTErr setFunctionParameter(const TTValue& aParameterNameAndValue, TTValue&);
 	
 	
 	/**	A standard audio processing method as used by Jamoma DSP objects.*/
