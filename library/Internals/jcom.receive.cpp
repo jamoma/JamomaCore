@@ -1,5 +1,5 @@
-/* 
- * jcom.receive
+/** 
+ * \file jcom.receive.cpp
  * External for Jamoma: receive messages from remote
  * By Trond Lossius & Tim Place, Copyright � 2006
  * 
@@ -10,13 +10,69 @@
 #include "Jamoma.h"
 
 // Prototypes
+
+/** Object instantiation.
+ @param s			Pointer to symbol bassed as message argument to the object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to arguments as an array of atoms.
+ @return			Pointer to the newly created object.
+ */
 void		*receive_new(t_symbol *s, long argc, t_atom *argv);
+
+
+/** This method is called when the object is free (deleted).
+ @param x			Pointer to the object.
+ */
 void		receive_free(t_receive *x);
+
+
+/** Method for displaying assist strings for inlets and outlets.
+ @param x			Pointer to this object.
+ @param b
+ @param msg
+ @param argc
+ @param argv
+ */
 void		receive_assist(t_receive *x, void *b, long msg, long arg, char *dst);
+
+
+/** Set the name attribute, the "address" that the receive object will be associated with.
+ @param x			Pointer to this object.
+ @param attr
+ @param argc
+ @param argv
+ @return err		Error if the name fails to be set.
+ */
 t_max_err 	receive_setname(t_receive *x, void *attr, long argc, t_atom *argv);
+
+
+/**	When we are inside of another external, we need a way to transmit messages to it. 
+ This function sets up another callback, which can call a function in that external to transmit the message.
+ @param x			Pointer to this object
+ @param callback	Pointer to the object that is incapsulating this object.
+ @param arg
+ */
 void 		receive_setcallback(t_receive *x, void *callback, void *arg);
+
+
+/** This method is called by jcom.receivemaster. In reponse, we figure out if we should send the data to our outlet.
+ @param x			Pointer to this object.
+ @param msg			The message passed to this object as a pointer to a symbol.
+ @param argc		The number of arguments of the message.
+ @param argv		The arguments as a pointer to an array of atoms.
+ */
 void 		receive_dispatch(t_receive *x, t_symbol *msg, long argc, t_atom *argv);
+
+
+/** Connect to receivemaster, and bind this object to the appropriate name as a receiver.
+ @param x			Pointer to this object.
+ */
 void		receive_bind(t_receive *x);
+
+
+/** Connect to receivemaster, and remove this object as a receiver.
+ @param x			Pointer to this object.
+ */
 void 		receive_remove(t_receive *x);
 
 // Globals

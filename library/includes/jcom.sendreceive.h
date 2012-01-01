@@ -1,6 +1,7 @@
-/* 
- * jcom.sendreceive.h
- * shared code for jcom.send and jcom.receive objects
+/** 
+ * \file jcom.sendreceive.h
+ * Shared code for jcom.send and jcom.receive objects.
+ * These objects are vital for handling remote communication between core objects of a Jamoma module, as well as remote communication between Jamoma modules.
  * By Tim Place, Copyright � 2006
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -43,16 +44,25 @@ typedef struct _jcom_callback{
 
 
 /** ReceiveMaster Object
-  * This is an internal object that manages message dispatching to jcom.receive instances */
+  * This is an internal object functioning as a post office, managing message dispatching to jcom.receive instances. */
 typedef struct _jcom_receivemaster{
 	t_object	obj;			///< REQUIRED: Object "base class"
 } t_jcom_receivemaster;
 
 
+/** Initiate the receive class. */
 void receive_initclass();
+
+/** Initiate the receivemaster class. */
 void receivemaster_initclass();
+
+/** Initiate the send class. */
 void send_initclass();
+
+/** Initiate the receive~ class. */
 void receive_tilde_initclass();
+
+/** Initiate the send~ class. */
 void send_tilde_initclass();
 
 

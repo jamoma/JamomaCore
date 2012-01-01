@@ -1,11 +1,12 @@
-/* 
- * jcom.io.h
- * shared code for jcom.in and jcom.out objects
+/** 
+ * \file jcom.io.h
+ * Shared code for jcom.in and jcom.out objects.
  * By Tim Place, Copyright � 2006
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __JCOM_IO_H__
 #define __JCOM_IO_H__

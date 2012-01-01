@@ -1,6 +1,7 @@
-/* 
- * Class for handling linked lists. 
- * By Dave Watson Copyright � 2007
+/** 
+ * \file jcom.list.h
+ * Class for handling linked lists.
+ * By Dave Watson, Copyright 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
