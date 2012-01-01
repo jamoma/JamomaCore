@@ -1,4 +1,3 @@
-
 sources:
   - FFTLib.cpp
   - source/TTFFT.cpp
@@ -15,3 +14,6 @@ includes:
 libraries:
   - FOUNDATION
   - DSP
+
+compiler: gcc46 #options are icc, gcc46, gcc	
+	 
