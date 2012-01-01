@@ -122,7 +122,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	class_addmethod(c, (method)hub_edclose,				"edclose",	A_CANT, 0);		// notification of closing the /getstate text editor window
 
-	CLASS_ATTR_SYM(c,		"name",				0,	t_hub,	osc_name);				// instance name (osc)
+	CLASS_ATTR_SYM(c,		"name",				0,		t_hub,	osc_name);			// instance name (osc)
 	CLASS_ATTR_ACCESSORS(c,	"name",				NULL,	hub_attr_setname);
 
 	CLASS_ATTR_SYM(c,		"class",			0,	t_hub,	attr_name);				// module class name
@@ -190,6 +190,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		// set default attributes
 		x->attr_name = name;
 		x->osc_name = _sym_nothing;
+		x->osc_name_fixed = _sym_nothing;
 		x->attr_type = jps_control;
 		x->attr_description = _sym_nothing;
 		x->attr_algorithm_type = jps_default;		// poly for audio, jitter for video, control for control
@@ -209,6 +210,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
+		// Set up remote communication to and from the module
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
 		atom_setsym(a, jps_jcom_remote_fromModule);
@@ -347,7 +349,9 @@ void hub_examine_context(t_hub *x)
 		}
 	}
 
+	// By now osc_name has been set to its initial value. This initial value will also be stored as the fixed name of the module, remembered for the lifetime of the instance. This will ensures that the fixed and dynamic names are the same initially, and properly registered. Please note that this registration is necsessary to ensure the uniqueness of osc_name and osc_named_fixed, but it is not used for the actual communication to the module. Communication to the module is instead handled by the hub_receive_callback method.
 	object_attr_setsym(x, _sym_name, x->osc_name);
+	x->osc_name_fixed = x->osc_name;
 	
 	hub_subscriptions_refresh(x);
 	hub_internals_create(x);
@@ -365,6 +369,9 @@ void hub_free(t_hub *x)
 
 	object_free(x->preset_interface);
 	jamoma_hub_remove(x->osc_name);
+	// osc_name_fxed needs to be removed as well if it differs form osc_name.
+	if (x->osc_name_fixed != x->osc_name) 
+		jamoma_hub_remove(x->osc_name_fixed);
 
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
@@ -1397,8 +1404,9 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		TTBoolean		nameConflict = false;
 		t_symbol*		nameOriginal;
 		
-		// If the module has a name from before, this needs to be removed from the list of existing module instances (ref. issue #1058)
-		if (x->osc_name != _sym_nothing)
+		// If the module has a name from before, this needs to be removed from the list of existing module instances (ref. issue #1058). But we make sure not to remove the fixed name.
+		// When this method is first called, x->osx_name_fixed has not been set yet and x->osc_name has not yet been registered, so there's nothing to remove. Below we check for this as well.
+		if ((x->osc_name != _sym_nothing) && (x->osc_name_fixed != _sym_nothing) && (x->osc_name != x->osc_name_fixed))
 			jamoma_hub_remove(x->osc_name);
 		x->osc_name = atom_getsym(argv);
 
@@ -1451,19 +1459,24 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// Register with the framework, and making sure this name hasn't already been used...
 		// TODO: is the framework making sure that this t_object is unique and hasn't already been registered?
-		err = jamoma_hub_register(x->osc_name, (t_object *)x);
-		if (err) {
-			if (instance) {
-				nametest = strrchr(name, '.');
-				if (nametest)
-					*nametest = 0;
+		// UPDATE: We now permit an alias to the module name (x->osc_name) as well as a fixed name (x->osc_name_fixed), so we actually don't want to enforce t_object to be unique. [TL 2011-12-30]
+		
+		// If the name differs from the fixed one, we register it, elseway it is registered already.
+		if (x->osc_name != x->osc_name_fixed) {
+			err = jamoma_hub_register(x->osc_name, (t_object *)x);
+			if (err) {
+				if (instance) {
+					nametest = strrchr(name, '.');
+					if (nametest)
+						*nametest = 0;
+				}
+				instance++;
+				nametest = name;
+				snprintf(name, 256, "%s.%i", name, instance);
+				nameConflict = true;
+				err = MAX_ERR_NONE;
+				goto again;
 			}
-			instance++;
-			nametest = name;
-			snprintf(name, 256, "%s.%i", name, instance);
-			nameConflict = true;
-			err = MAX_ERR_NONE;
-			goto again;
 		}
 		if (nameConflict)
 			object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);

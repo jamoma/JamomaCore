@@ -80,7 +80,8 @@ typedef struct _hub{							///< Data Structure for this object
 	long			flag_init;					///< FLAG: Indicates that the module is in a process of initiaizaiton
 	t_object		*jcom_send;					///< jcom.send and jcom.receive objects for remote communication
 	t_object		*jcom_receive;				//	...
-	t_symbol		*osc_name;					///< the OSC name of this module for remote communication
+	t_symbol		*osc_name;					///< the OSC name of this module for remote communication. This name can be changed dynamically, and can be considered an alias for the module.
+	t_symbol		*osc_name_fixed;			///< A OSC name for the module that will be set at instantiated, and fixed for the lifespan of the module. This ensures that we are able to address the module using remote OSC communication regardless of what the alias might be set to at the time being.
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
 	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects
 	t_object		*preset_interface;
