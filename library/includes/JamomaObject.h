@@ -28,7 +28,9 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 
 
-// Data Structure for this object
+/** Data Structure for the global jamoma object.
+ This object is instantiated once when the jamoma_init() method is first called and the Jamoma environment is loaded.
+ */
 typedef struct _jamoma_object
 {
 	t_object		obj;	
@@ -38,8 +40,19 @@ typedef struct _jamoma_object
 extern "C" {
 #endif
 
+/** Set up the class.
+ */
 void		jamoma_object_initclass(void);
+	
+/** Object instantiation.
+ @return		Pointer to the object.
+ */
 t_object*	jamoma_object_new();
+	
+/**
+ Called when the object is freed.
+ @param obj		Pointer to the object.
+ */
 void		jamoma_object_free(t_jamoma_object *obj);
 
 #ifdef __cplusplus
