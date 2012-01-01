@@ -1,8 +1,6 @@
-/* 
- * jcom.core
- *
+/** 
+ * \file jcom.core.h
  * Shared code used by the jamoma core externals jcom.parameter, jcom.message and jcom.return.
- *
  * By Tim Place, Copyright � 2006
  * 
  * License: This code is licensed under the terms of the "New BSD License"

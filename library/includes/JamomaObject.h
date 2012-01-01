@@ -1,6 +1,8 @@
-/* 
- * Jamoma Shared Library: the global jamoma object
+/** 
+ * \file JamomaObject.h
+ * The global jamoma object.
  * Functions and resources used by Jamoma objects.
+ *
  * By Tim Place, Copyright © 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"

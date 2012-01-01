@@ -1,6 +1,7 @@
 /* 
- * Jamoma Shared Library
- * Type Definitions
+ * \file JamomaTypes.h
+ * Type Definitions.
+ 
  * Copyright © 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"

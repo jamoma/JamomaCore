@@ -1,6 +1,6 @@
-/* 
- * Jamoma Symbols
- * Symbols cached to avoid repeated calls to the expensive SymbolGen() function
+/** 
+ * \file JamomaSymbols.h
+ * Jamoma symbols cached to avoid repeated calls to the expensive SymbolGen() function.
  * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the "New BSD License"
