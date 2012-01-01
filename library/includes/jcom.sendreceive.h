@@ -50,10 +50,19 @@ typedef struct _jcom_receivemaster{
 } t_jcom_receivemaster;
 
 
+/** Initiate the receive class. */
 void receive_initclass();
+
+/** Initiate the receivemaster class. */
 void receivemaster_initclass();
+
+/** Initiate the send class. */
 void send_initclass();
+
+/** Initiate the receive~ class. */
 void receive_tilde_initclass();
+
+/** Initiate the send~ class. */
 void send_tilde_initclass();
 
 

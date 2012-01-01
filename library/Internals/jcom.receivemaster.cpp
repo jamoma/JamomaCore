@@ -40,8 +40,21 @@ void receivemaster_free(t_jcom_receivemaster *x);
 void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *msg, long argc, t_atom *argv);
 
 
-
+/** Add an object to a linked list of receiving objects associated with a certain name.
+ @param x			This object
+ @param name		The symbol that the receiving object is to be associated with.
+					Example: For a "jcom.send foo" object the name would be "foo".
+ @param obj			Pointer to the receiving object that is to be added.
+ */
 void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj);
+
+
+/** Remove an object from the linked list of receiving objects associated with a certain name.
+ @param x			This Object.
+ @param name		The symbol that the receiving object is currently associated with.
+ Example: For a "jcom.send foo" object the name would be "foo".
+ @param obj			Pointer to the receiving object that is to be removed.
+ */
 void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj);
 
 
