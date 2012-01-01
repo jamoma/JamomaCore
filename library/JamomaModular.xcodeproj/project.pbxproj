@@ -40,17 +40,18 @@
 		A734369B14A9295400C41E3F /* JamomaSymbols.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaSymbols.cpp; sourceTree = "<group>"; };
 		A734369C14A9295400C41E3F /* jcom.core.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.core.cpp; sourceTree = "<group>"; };
 		A734369D14A9295400C41E3F /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
+		A7AC5B8514B0535D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../Foundation/library/includes; sourceTree = "<group>"; };
+		A7AC5B8614B0537D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../DSP/library/includes; sourceTree = "<group>"; };
+		A7AC5B8814B054BE004FCA8F /* c74support */ = {isa = PBXFileReference; lastKnownFileType = folder; name = c74support; path = ../supports/objectivemax/SDKs/Max5/c74support; sourceTree = "<group>"; };
+		A7AC5B8914B05558004FCA8F /* MaxObject */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MaxObject; path = ../supports/objectivemax/MaxObject; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		229B5844149C0B0C0093389A = {
 			isa = PBXGroup;
 			children = (
-				A734367814A9295400C41E3F /* FunctionLib */,
-				A734367B14A9295400C41E3F /* includes */,
-				A734368714A9295400C41E3F /* Internals */,
-				A734368D14A9295400C41E3F /* RampLib */,
-				A734369814A9295400C41E3F /* source */,
+				A7AC5B8014B05245004FCA8F /* Source */,
+				A7AC5B8214B0529E004FCA8F /* External Frameworks and Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,6 +121,45 @@
 				A734369D14A9295400C41E3F /* TTModularVersion.h */,
 			);
 			path = source;
+			sourceTree = "<group>";
+		};
+		A7AC5B8014B05245004FCA8F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A734367B14A9295400C41E3F /* includes */,
+				A734369814A9295400C41E3F /* source */,
+				A734368714A9295400C41E3F /* Internals */,
+				A734367814A9295400C41E3F /* FunctionLib */,
+				A734368D14A9295400C41E3F /* RampLib */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		A7AC5B8214B0529E004FCA8F /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				A7AC5B8414B05344004FCA8F /* DSP */,
+				A7AC5B8314B05336004FCA8F /* Foundation */,
+				A7AC5B8914B05558004FCA8F /* MaxObject */,
+				A7AC5B8814B054BE004FCA8F /* c74support */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		A7AC5B8314B05336004FCA8F /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				A7AC5B8514B0535D004FCA8F /* includes */,
+			);
+			name = Foundation;
+			sourceTree = "<group>";
+		};
+		A7AC5B8414B05344004FCA8F /* DSP */ = {
+			isa = PBXGroup;
+			children = (
+				A7AC5B8614B0537D004FCA8F /* includes */,
+			);
+			name = DSP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
