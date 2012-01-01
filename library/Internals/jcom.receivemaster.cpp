@@ -1,6 +1,6 @@
-/* 
- * jcom.receivemaster
- * Manage jcom.receive instances
+/** 
+ * \file jcom.receivemaster.cpp
+ * Manage jcom.receive instances.
  * By Tim Place, Copyright � 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"
