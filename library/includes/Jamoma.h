@@ -58,23 +58,27 @@ extern "C" {
 	void		jamoma_init(void);
 	
 	/** Register a Jamoma module and the OSC name of the module. 
+	 The dictionary of OSC names and modules is currently used to ensure that all OSC names of modules are unique, but it is not (yet) used for the actual communication to modules.
 	 @param name	The OSC name of the module.
 	 @param hub		Pointer to the jcom.hub object of the module.
 	 */
 	t_max_err	jamoma_hub_register(t_symbol *name, t_object *hub);
 	
-	/** Remove a hub and it's OSC name from the list of modules.
+	/** Remove a hub and it's OSC name from the list of modules. 
+	 The dictionary of OSC names and modules is currently used to ensure that all OSC names of modules are unique, but it is not (yet) used for the actual communication to modules.
 	 @param name	The OSC name of the module to remove.
 	 */
 	void		jamoma_hub_remove(t_symbol *name);
 	
 	/** Get the module associated with OSC name. 
+	 The dictionary of OSC names and modules is currently used to ensure that all OSC names of modules are unique, but it is not (yet) used for the actual communication to modules.
 	 @param name	The OSC name of the module we want to address.
 	 @return		Pointer to the jcom.hub object of the module.
 	 */
 	t_object*	jamoma_get_hub_for_module_named(t_symbol *name);
 	
 	/** Get the OSC names of all Jamoma modules. 
+	 The dictionary of OSC names and modules is currently used to ensure that all OSC names of modules are unique, but it is not (yet) used for the actual communication to modules.
 	 @param numModules	The number of modules currently registered. 
 	 @param moduleNames	The OSC names of all modules that are currently registered.
 	 */
