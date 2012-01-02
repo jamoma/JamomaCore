@@ -173,7 +173,7 @@ TTErr TTSender::unbindAddress()
 {
 	TTErr		err = kTTErrNone;	
 	
-	if (mAddress != kTTSymEmpty) {
+	if (mAddress != kTTAdrsEmpty) {
 		
 		if (mObjectCache)
 			delete mObjectCache;

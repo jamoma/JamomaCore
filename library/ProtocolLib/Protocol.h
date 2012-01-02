@@ -27,6 +27,9 @@ registerAttribute(TT("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)&
 //addAttributeProperty(ParameterNames, readOnly, YES); \
 
 
+// Macro to update and get the local application name (to use only inside the protocol class)
+#define protocolGetLocalApplicationName ProtocolGetLocalApplicationName(this)
+
 /****************************************************************************************************/
 // Class Specification
 
@@ -38,9 +41,7 @@ class Protocol : public TTObject {
 protected:																																	
 	TTObjectPtr					mApplicationManager;				///< the application manager of the Modular framework.					
 																	///< protocol programmers should not have to deal with this member.
-	
-	TTSymbolPtr					mLocalApplicationName;				///< the name of the local application
-	
+
 	TTHashPtr					mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters 
 																	///< for each application registered for communication with this protocol
 																	///< <TTSymbolPtr applicationName, <TTSymbolPtr parameterName, TTValue value>>
@@ -65,48 +66,38 @@ public:
 	virtual TTErr getParameterNames(TTValue& value)=0;
 	
 	
-	/** Register an application as the local client */
-	TTErr registerLocalApplication(const TTValue& inputValue, TTValue& outputValue);
+	/** Register an application as a client of the protocol */
+	TTErr registerApplication(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Unregister an application as the local client */
-	TTErr unregisterLocalApplication(const TTValue& inputValue, TTValue& outputValue);
+	/** Unregister an application as a client of the protocol */
+	TTErr unregisterApplication(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Get the name of the local application */
-	TTErr getLocalApplicationName(TTValue& value);
 	
-	/** Get all parameters of the local application via a TTHash 
+	/** Get all parameters of an application via a TTHash 
 		!!! this method allocate a hashtable !!! */
-	TTErr getLocalApplicationParameters(TTValue& value);
+	TTErr getApplicationParameters(TTValue& value);
 	
-	/** Set all parameters of the local application using a TTHash */
-	TTErr setLocalApplicationParameters(TTValue& value);
-	
+	/** Set all parameters of an application using a TTHash */
+	TTErr setApplicationParameters(TTValue& value);
 
-	
-	/** Register an application as a distant client */
-	TTErr registerDistantApplication(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Unregister an application as a distant client */
-	TTErr unregisterDistantApplication(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get all names of distant applications */
 	TTErr getDistantApplicationNames(TTValue& value);
 	
-	/** Get all parameters of a distant application via a TTHash using <applicationName> value */
-	TTErr getDistantApplicationParameters(TTValue& value);
-	
-	/** Set all parameters of a distant application using <applicationName, TTHashPtr> value */
-	TTErr setDistantApplicationParameters(TTValue& value);
-	
 
+	/** Is an application registered for this protocol ? */
+	TTErr isRegistered(const TTValue& inputValue, TTValue& outputValue);
+	
 	
 	/** Scan to find remote applications and add them to the application manager */
 	virtual TTErr Scan()=0;
 	
-	/** Run reception thread mechanism */
+	/** Run reception thread mechanism 
+		return a kTTErrGeneric if the protocol fails to start or if it was running already */
 	virtual TTErr Run()=0;
 	
-	/** Stop the reception thread mechanism of the protocol */
+	/** Stop the reception thread mechanism of the protocol
+		return a kTTErrGeneric if the protocol fails to stop or if it was stopped already */
 	virtual TTErr Stop()=0;
 	
 	/**************************************************************************************************************************
@@ -285,6 +276,8 @@ public:
 	friend TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(TTPtr baton, TTValue& data);
 	friend TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data);
 	friend TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
+	
+	friend TTSymbolPtr TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
 
 };
 typedef Protocol* ProtocolPtr;
@@ -326,6 +319,11 @@ TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data
  @param	data						..
  @return							an error code */
 TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
+
+/** Get the current name of the local application
+ @param	aProtocol					..
+ @return							the name of the local application */
+TTSymbolPtr TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
 
 #endif	//__PROTOCOL_H__
 

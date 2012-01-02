@@ -2049,12 +2049,12 @@ TTSymbolPtr jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* d
 }
 
 /** Get BOOT style filepath grom args or, if no args open a dialog to read a file */
-TTSymbolPtr jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv)
+TTSymbolPtr jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype)
 {
 	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;							// pathID#
-    long			filetype = 'TEXT', outtype;		// the file type that is actually true
+	long			outtype;
 	SymbolPtr		userpath;
 	TTSymbolPtr		result = kTTSymEmpty;
 	

@@ -28,11 +28,17 @@ typedef Protocol* ProtocolPtr;
 // Macro to retreive any application from an address
 #define getApplicationFrom(anAddress) TTApplicationManagerGetApplicationFrom(anAddress)
 
+// Macro to get local application name
+#define getLocalApplicationName TTApplicationManagerGetLocalApplicationName()
+
 // Macro to retreive local application
-#define getLocalApplication TTApplicationManagerGetApplication(kTTSym_localApplicationName)
+#define getLocalApplication TTApplicationManagerGetApplicationFrom(kTTAdrsRoot)
 
 // Macro to retreive a protocol by name
 #define getProtocol(protocolName) TTApplicationManagerGetProtocol(protocolName)
+
+// Macro to get all protocols of an application
+#define getApplicationProtocols(applicationName) TTApplicationManagerGetApplicationProtocols(applicationName)
 
 // Notification flags to notify observers of application manager
 enum TTApplicationNotificationFlag {
@@ -50,11 +56,9 @@ private:
 
 	TTHashPtr			mApplications;						///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
 	TTHashPtr			mProtocols;							///< hash table containing <TTSymbolPtr protocolName, ProtocolPtr aProtocol>
-	
-	TTValue				mApplicationNames;					///< ATTRIBUTE : all registered application names
-	TTValue				mProtocolNames;						///< ATTRIBUTE : all loaded protocol names
-	
-	TTObjectPtr			mCurrentApplication;				///< used for ReadFromXml mechanism
+		
+	TTApplicationPtr	mLocalApplication;					///< a pointer to the local application
+	TTApplicationPtr	mCurrentApplication;				///< a pointer used for ReadFromXml mechanism
 	
 	TTHashPtr			mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
@@ -62,11 +66,8 @@ private:
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
 	
-	/** Get local application name */
-	TTErr getLocalApplicationName(TTValue& value);
-	
-	/** Set local application name */
-	TTErr setLocalApplicationName(TTValue& value);
+	/** Set local application */
+	TTErr setLocalApplication(TTValue& value);
 	
 	/** Get all protocol names */
 	TTErr getProtocolNames(TTValue& value);
@@ -117,8 +118,12 @@ private:
 	/** */
 	TTErr notifyApplicationObservers(TTSymbolPtr anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag);
 	
+	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationName();
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
+	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTNodeAddressPtr anAddress);
+	
 	friend TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbolPtr protocolName);
+	friend TTValue TTMODULAR_EXPORT TTApplicationManagerGetApplicationProtocols(TTSymbolPtr applicationName);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
@@ -126,26 +131,34 @@ private:
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
+/**	To get the local application name
+ note : it uses the extern TTModularApplications variable
+ @return							a TTSymbolPtr */
+TTSymbolPtr TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationName();
+
 /**	To get an application with an application name
  note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
+ @param	applicationName				..
  @return							a TTApplicationPtr */
 TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
 
 /**	To get an application from an address
  note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
+ @param	anAddress					..
  @return							a TTApplicationPtr */
 TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTNodeAddressPtr anAddress);
 
 /**	To get a protocol with a protocol name
  note : it uses the extern TTModularApplications variable
- @param	baton						..
- @param	data						..
+ @param	protocolName				..
  @return							a ProtocolPtr */
 TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbolPtr protocolName);
+
+/**	To get all protocols of an application
+ note : it uses the extern TTModularApplications variable
+ @param	applicationName				..
+ @return							a value */
+TTValue TTMODULAR_EXPORT TTApplicationManagerGetApplicationProtocols(TTSymbolPtr applicationName);
 
 /** Add a TTCallback as observer of application creation/destruction
  note : it uses the extern TTModularApplications variable

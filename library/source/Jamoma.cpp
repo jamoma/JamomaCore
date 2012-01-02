@@ -56,7 +56,7 @@ void jamoma_init(void)
 		// Create a local application named Jamoma and get it
 		TTModularCreateLocalApplication(JAMOMA, JamomaConfigurationFilePath);
 		JamomaApplication = getLocalApplication;
-		JamomaDirectory = TTApplicationGetDirectory(kTTAdrsRoot);
+		JamomaDirectory = getLocalDirectory;
 		kTTSym_Jamoma = TT(JAMOMA);
 		
 		// Check if the configuration file have been loaded correctly

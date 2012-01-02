@@ -11,99 +11,151 @@
 #include "TTModularClassWrapperMax.h"
 
 #define activity_out 0
-#define config_out 1
-#define dump_out 2
+#define dump_out 1
+
+// This is used to store extra data
+typedef struct extra {
+	
+	TTSymbolPtr			protocolName;	// remember the handled protocol 
+	
+} t_extra;
+#define EXTRA ((t_extra*)x->extra)
+
 
 // Definitions
-void	WrapTTApplicationManagerClass(WrappedClassPtr c);
-void	WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrapTTApplicationClass(WrappedClassPtr c);
+void	WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrappedApplicationClass_free(TTPtr self);
 
-void	appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst);
+void	modular_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void	appmg_application_protocols(TTPtr self, SymbolPtr msg);
-void	appmg_protocol_parameters(TTPtr self, SymbolPtr msg);
-void	appmg_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	appmg_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void	appmg_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void	appmg_read_again(TTPtr self);
-void	appmg_doread_again(TTPtr self);
+void	modular_namespace_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	appmg_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void	appmg_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void	appmg_write_again(TTPtr self);
-void	appmg_dowrite_again(TTPtr self);
-
-void	appmg_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void	modular_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
-	spec->_wrap = &WrapTTApplicationManagerClass;
-	spec->_new = &WrappedApplicationManagerClass_new;
+	spec->_wrap = &WrapTTApplicationClass;
+	spec->_new = &WrappedApplicationClass_new;
 	spec->_any = NULL;
-	spec->_free = NULL;
+	spec->_free = &WrappedApplicationClass_free;
 	
-	return wrapTTModularClassAsMaxClass(TT("ApplicationManager"), "jcom.modular", NULL, spec);
+	return wrapTTModularClassAsMaxClass(TT("Application"), "jcom.modular", NULL, spec);
 }
 
-void WrapTTApplicationManagerClass(WrappedClassPtr c)
+void WrapTTApplicationClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)appmg_assist,						"assist",						A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)modular_assist,					"assist",						A_CANT, 0L);
 	
-	class_addmethod(c->maxClass, (method)appmg_return_value,				"return_value",					A_CANT, 0);
+	class_addmethod(c->maxClass, (method)modular_return_value,				"return_value",					A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)appmg_application_protocols,			"application/protocols",			A_SYM, 0);
-	class_addmethod(c->maxClass, (method)appmg_protocol_parameters,			"protocol/parameters",			A_SYM, 0);
-	class_addmethod(c->maxClass, (method)appmg_configuration,				"configuration",				A_GIMME, 0);
+	class_addmethod(c->maxClass, (method)modular_protocol_setup,			"protocol/setup",				A_GIMME, 0);
 	
-	class_addmethod(c->maxClass, (method)appmg_read,						"read",							A_GIMME, 0);
-	class_addmethod(c->maxClass, (method)appmg_write,						"write",						A_GIMME, 0);
-	
-	class_addmethod(c->maxClass, (method)appmg_read_again,					"read/again",					0);
-	class_addmethod(c->maxClass, (method)appmg_write_again,					"write/again",					0);
+	class_addmethod(c->maxClass, (method)modular_namespace_read,			"namespace/read",				A_GIMME, 0);
 }
 
-void WrappedApplicationManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
+void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					localApplicationName = NULL;
-	TTXmlHandlerPtr				aXmlHandler;
+	TTSymbolPtr					applicationName = NULL;
+	TTSymbolPtr					protocolName = NULL;
+	TTOpmlHandlerPtr			aOpmlHandler;
 	TTValue						v, args;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
-	// optionnaly change the local application name (default : Jamoma)
-	if (attrstart && argv) 
-		localApplicationName = atom_getsym(argv);
+	if (attrstart && argv) {
+		
+		// jcom.modular can handle the local application (1 argument to declare a protocol to use)
+		if (attrstart == 1) {
+			
+			// our wrapped object is the local application
+			applicationName = getLocalApplicationName;
+			x->wrappedObject = getLocalApplication;
+			
+			protocolName = TT(atom_getsym(argv)->s_name);
+			
+		}
+		// or it can handle a distant application (2 arguments to declare the name of the distant application and the protocol to use)
+		else if (attrstart == 2) {
+			
+			// our wrapped object is a distant application
+			applicationName = TT(atom_getsym(argv)->s_name);
+			x->wrappedObject = getApplication(applicationName);
+			
+			// if the application doesn't exists
+			if (!x->wrappedObject) {
+				
+				// create the application
+				args = TTValue(applicationName);
+				TTObjectInstantiate(TT("Application"), TTObjectHandle(&x->wrappedObject), args);
+				
+			}
+			
+			protocolName = TT(atom_getsym(argv+1)->s_name);
+			
+		}
+		else {
+			object_error((ObjectPtr)x, "jcom.modular needs 1 or 2 arguments");
+			return;
+		}
+		
+		// jcom.modular handle only one protocol per application
+		
+		// check if the protocol has been loaded
+		if (!getProtocol(protocolName)) {
+			object_error((ObjectPtr)x, "the %s protocol is not available", protocolName->getCString());
+			return;
+		}
+		
+		// register the application to the protocol
+		v = TTValue(applicationName);
+		getProtocol(protocolName)->sendMessage(TT("registerApplication"), v, kTTValNONE);
+		
+		// run this protocol
+		TTModularApplications->sendMessage(TT("ProtocolRun"), protocolName, kTTValNONE);
+			
+		// Make one outlet
+		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
+		x->outlets[activity_out] = outlet_new(x, NULL);					// anything outlet to output activity
+		
+		// Prepare extra data
+		x->extra = (t_extra*)malloc(sizeof(t_extra));
+		EXTRA->protocolName = protocolName;
+		
+		// Prepare Internals hash to store OpmlHanler object
+		x->internals = new TTHash();
+		
+		// create internal TTOpmlHandler
+		aOpmlHandler = NULL;
+		TTObjectInstantiate(TT("OpmlHandler"), TTObjectHandle(&aOpmlHandler), args);
+		v = TTValue(TTPtr(aOpmlHandler));
+		x->internals->append(TT("OpmlHandler"), v);
+		v = TTValue(TTPtr(x->wrappedObject));
+		aOpmlHandler->setAttributeValue(kTTSym_object, v);
+		
+		attr_args_process(x, argc, argv);
+	}
+	else
+		object_error((ObjectPtr)x, "jcom.modular needs 1 or 2 arguments");
+}
+
+void WrappedApplicationClass_free(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+
+	// don't release the local application
+	if (x->wrappedObject != getLocalApplication)
+		TTObjectRelease(&x->wrappedObject);
 	
-	// our wrapped object is the application manager
-	x->wrappedObject = (TTObjectPtr)TTModularApplications;
-	
-	// change the local application name
-	if (localApplicationName)
-		x->wrappedObject->setAttributeValue(TT("localApplicationName"), TT(localApplicationName->s_name));
-	
-	// Make two outlets
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
-	x->outlets[config_out] = outlet_new(x, NULL);					// anything outlet to output configuration
-	x->outlets[activity_out] = outlet_new(x, NULL);					// anything outlet to output activity
-	
-	// Prepare Internals hash to store XmlHanler and TextHandler object
-	x->internals = new TTHash();
-	
-	// create internal TTXmlHandler
-	aXmlHandler = NULL;
-	TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
-	v = TTValue(TTPtr(aXmlHandler));
-	x->internals->append(TT("XmlHandler"), v);
-	v = TTValue(TTPtr(x->wrappedObject));
-	aXmlHandler->setAttributeValue(kTTSym_object, v);
-	
-	attr_args_process(x, argc, argv);
+	free(EXTRA);
 }
 
 // Method for Assistance Messages
-void appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst)
+void modular_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1) 						// Inlet
 		strcpy(dst, "input");
@@ -112,9 +164,6 @@ void appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 			case activity_out:
 				strcpy(dst, "activity");
 				break;
-			case config_out:
-				strcpy(dst, "configuration");
-				break;
 			case dump_out:
 				strcpy(dst, "dumpout");
 				break;
@@ -122,128 +171,105 @@ void appmg_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
-void appmg_application_protocols(TTPtr self, SymbolPtr msg)
+void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr			applicationName;
-	TTApplicationPtr	anApplication;
-	TTValue				v;
-	AtomCount			ac = 0;
-	AtomPtr				av = NULL;
+	TTSymbolPtr applicationName, parameterName;
+	TTObjectPtr	aProtocol = NULL;
+	TTHashPtr	hashParameters;
+	TTValue		v, keys, parameterValue;
+	AtomCount	ac;
+	AtomPtr		av;
+	TTErr		err;
 	
-	applicationName = TT(msg->s_name);
-	anApplication = TTApplicationManagerGetApplication(applicationName);
-	
-	if (anApplication) {
-		anApplication->getAttributeValue(TT("protocolNames"), v);
+	// get the protocol object
+	if (aProtocol = getProtocol(EXTRA->protocolName)) {
 		
-		v.prepend(applicationName);
-		jamoma_ttvalue_to_Atom(v, &ac, &av);
-		outlet_anything(x->outlets[config_out], msg, ac, av);
-	}
-	else
-		object_post((ObjectPtr)x, "%s is not an application", applicationName->getCString());
-}
-
-void appmg_protocol_parameters(TTPtr self, SymbolPtr msg)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr			protocolName;
-	TTObjectPtr			aProtocol;
-	TTValue				v;
-	AtomCount			ac = 0;
-	AtomPtr				av = NULL;
-	
-	protocolName = TT(msg->s_name);
-	aProtocol = TTApplicationManagerGetProtocol(protocolName);
-	
-	if (aProtocol) {
-		aProtocol->getAttributeValue(TT("parameterNames"), v);
-		
-		v.prepend(protocolName);
-		jamoma_ttvalue_to_Atom(v, &ac, &av);
-		outlet_anything(x->outlets[config_out], msg, ac, av);
-	}
-	else
-		object_post((ObjectPtr)x, "%s is not a protocol", protocolName->getCString());
-}
-
-void appmg_configuration(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr			applicationName, protocolName, parameterName;
-	TTApplicationPtr	anApplication;
-	TTHashPtr			protocolParameters, parameters;
-	TTValue				v;
-	AtomCount			ac = 0;
-	AtomPtr				av = NULL;
-	TTErr				err;
-	
-	if (argc && argv) {
-		
-		if (atom_gettype(argv) == A_SYM) {
-			applicationName = TT(atom_getsym(argv)->s_name);
-			anApplication = TTApplicationManagerGetApplication(applicationName);
+		if (x->wrappedObject) {
+			x->wrappedObject->getAttributeValue(kTTSym_name, v);
+			v.get(0, &applicationName);
 			
-			if (anApplication) {
-				anApplication->getAttributeValue(TT("protocolParameters"), v);
-				v.get(0, (TTPtr*)&protocolParameters);
+			// get parameters
+			err = aProtocol->getAttributeValue(TT("applicationParameters"), v);
+
+			if (!err) {
 				
-				if (atom_gettype(argv+1) == A_SYM) {
-					protocolName = TT(atom_getsym(argv+1)->s_name);
-					err = protocolParameters->lookup(protocolName, v);
-					v.get(0, (TTPtr*)&parameters);
+				// get parameter's value
+				v.get(0, (TTPtr*) &hashParameters);
+				
+				// set one application protocol parameter
+				if (argc && argv) {
 					
-					if (!err && atom_gettype(argv+2) == A_SYM) {
-						parameterName = TT(atom_getsym(argv+2)->s_name);
-						err = parameters->lookup(parameterName, v);
+					parameterName = TT(atom_getsym(argv)->s_name);
+					jamoma_ttvalue_from_Atom(parameterValue, _sym_nothing, argc-1, argv+1);
+					
+					// check if parameter exists
+					err = hashParameters->lookup(parameterName, v);
+					
+					if (!err) {
 						
-						if (!err) {
-							v.prepend(parameterName);
-							v.prepend(protocolName);
-							v.prepend(applicationName);
-							jamoma_ttvalue_to_Atom(v, &ac, &av);
-							outlet_anything(x->outlets[config_out], msg, ac, av);
-						}
-						else
-							object_post((ObjectPtr)x, "%s is not a parameter of %s protocol", parameterName->getCString(), protocolName->getCString());
+						// set parameter value
+						hashParameters->remove(parameterName);
+						hashParameters->append(parameterName, parameterValue);
+						
+						// set parameters
+						v = TTValue(TTPtr(hashParameters));
+						err = aProtocol->getAttributeValue(TT("applicationParameters"), v);
+
 					}
 					else
-						object_post((ObjectPtr)x, "%s is not a protocol of %s application", protocolName->getCString(), applicationName->getCString());
+						object_error((ObjectPtr)x, "%s is not a parameter of %s protocol", parameterName->getCString(), EXTRA->protocolName->getCString());
+					
+				}
+				// or if no arg : dumpout the current setup
+				else {
+					
+					hashParameters->getKeys(keys);
+					for (TTUInt8 i=0; i<keys.getSize(); i++) {
+						
+						keys.get(i, &parameterName);
+						hashParameters->lookup(parameterName, parameterValue);
+						
+						parameterValue.prepend(parameterName);
+						ac = 0;
+						av = NULL;
+						jamoma_ttvalue_to_Atom(parameterValue, &ac, &av);
+						object_obex_dumpout(self, gensym("protocol/setup"), ac, av);
+					}
 				}
 			}
-			else
-				object_post((ObjectPtr)x, "%s is not an application", applicationName->getCString());
 		}
+		else
+			object_error((ObjectPtr)x, "doesn't handle any application");
 	}
 }
 
-void appmg_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void modular_namespace_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	defer(self, (method)appmg_doread, msg, argc, argv);
+	defer(self, (method)modular_namespace_doread, msg, argc, argv);
 }
 
-void appmg_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {	
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue			o, v;
-	TTSymbolPtr		fullpath;
-	TTXmlHandlerPtr	aXmlHandler = NULL;
-	TTErr			tterr;
+	TTValue				o, v;
+	TTSymbolPtr			fullpath;
+	TTOpmlHandlerPtr	aOpmlHandler = NULL;
+	TTErr				tterr;
 	
 	if (x->wrappedObject) {
 		
-		fullpath = jamoma_file_read((ObjectPtr)x, argc, argv);
+		fullpath = jamoma_file_read((ObjectPtr)x, argc, argv, NULL);
 		v.append(fullpath);
 		
-		tterr = x->internals->lookup(TT("XmlHandler"), o);
+		tterr = x->internals->lookup(TT("OpmlHandler"), o);
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aXmlHandler);
+			o.get(0, (TTPtr*)&aOpmlHandler);
 			
 			critical_enter(0);
-			tterr = aXmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
+			tterr = aOpmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)
@@ -254,103 +280,7 @@ void appmg_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
-void appmg_read_again(TTPtr self)
-{
-	defer(self, (method)appmg_doread_again, NULL, 0, NULL);
-}
-
-void appmg_doread_again(TTPtr self)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTXmlHandlerPtr	aXmlHandler = NULL;
-	TTValue			o;
-	TTErr			tterr;
-	
-	tterr = x->internals->lookup(TT("XmlHandler"), o);
-	
-	if (!tterr) {
-		
-		o.get(0, (TTPtr*)&aXmlHandler);
-		
-		critical_enter(0);
-		tterr = aXmlHandler->sendMessage(TT("ReadAgain"));
-		critical_exit(0);
-		
-		if (!tterr)
-			object_obex_dumpout(self, _sym_read, 0, NULL);
-		else
-			object_obex_dumpout(self, _sym_error, 0, NULL);
-	}
-}
-
-void appmg_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	defer(self, (method)appmg_dowrite, msg, argc, argv);
-}
-
-void appmg_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char 			filename[MAX_FILENAME_CHARS];
-	TTSymbolPtr		fullpath;
-	TTValue			o, v;
-	TTXmlHandlerPtr	aXmlHandler;
-	TTErr			tterr;
-	
-	if (x->wrappedObject) {
-		
-		// TODO : find a default XML File Name using the name of the patch
-		snprintf(filename, MAX_FILENAME_CHARS, "ModularConfig.xml");
-		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
-		v.append(fullpath);
-		
-		tterr = x->internals->lookup(TT("XmlHandler"), o);
-		
-		if (!tterr) {
-			o.get(0, (TTPtr*)&aXmlHandler);
-			
-			critical_enter(0);
-			tterr = aXmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
-			critical_exit(0);
-			
-			if (!tterr)
-				object_obex_dumpout(self, _sym_write, argc, argv);
-			else
-				object_obex_dumpout(self, _sym_error, 0, NULL);
-		}
-	}
-}
-
-void appmg_write_again(TTPtr self)
-{
-	defer(self, (method)appmg_dowrite_again, NULL, 0, NULL);
-}
-
-void appmg_dowrite_again(TTPtr self)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTXmlHandlerPtr	aXmlHandler = NULL;
-	TTValue			o;
-	TTErr			tterr;
-	
-	tterr = x->internals->lookup(TT("XmlHandler"), o);
-	
-	if (!tterr) {
-		
-		o.get(0, (TTPtr*)&aXmlHandler);
-		
-		critical_enter(0);
-		tterr = aXmlHandler->sendMessage(TT("WriteAgain"));
-		critical_exit(0);
-		
-		if (!tterr)
-			object_obex_dumpout(self, _sym_write, 0, NULL);
-		else
-			object_obex_dumpout(self, _sym_error, 0, NULL);
-	}
-}
-
-void appmg_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void modular_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	outlet_anything(x->outlets[activity_out], msg, argc, argv);

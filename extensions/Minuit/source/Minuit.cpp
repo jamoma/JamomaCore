@@ -119,9 +119,11 @@ TTErr Minuit::Run()
 			
 			mRunning = YES;
 		}
+		
+		return err;
 	}
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 /*!
@@ -135,9 +137,11 @@ TTErr Minuit::Stop()
 		delete mAnswerManager;
 		TTObjectRelease(&mOscReceive);
 		mRunning = NO;
+		
+		return kTTErrNone;
 	}
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 /**************************************************************************************************************************
@@ -167,7 +171,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 	TTInt32		state;
 	
 	// edit header "localAppName?namespace"
-	header = mLocalApplicationName->getCString();
+	header = protocolGetLocalApplicationName->getCString();
 	header += MINUIT_REQUEST_DISCOVER;
 	
 	// edit arguments <header address>
@@ -218,7 +222,7 @@ TTErr Minuit::SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 	TTInt32		state;
 	
 	// edit header "localAppName?get"
-	header = mLocalApplicationName->getCString();
+	header = protocolGetLocalApplicationName->getCString();
 	header += MINUIT_REQUEST_GET;
 	
 	// edit arguments <header address>
@@ -291,7 +295,7 @@ TTErr Minuit::SendListenRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 	TTString	header;
 	
 	// edit header "appName?listen"
-	header = mLocalApplicationName->getCString();
+	header = protocolGetLocalApplicationName->getCString();
 	header += MINUIT_REQUEST_LISTEN;
 	
 	// edit arguments <header address, enable>
@@ -336,11 +340,11 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = mLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName->getCString();
 		header += MINUIT_ANSWER_DISCOVER;
 	}
 	else {
-		header = mLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName->getCString();
 		header += MINUIT_ERROR_DISCOVER;
 	}
 	
@@ -409,11 +413,11 @@ TTErr Minuit::SendGetAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = mLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName->getCString();
 		header += MINUIT_ANSWER_GET;
 	}
 	else {
-		header = mLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName->getCString();
 		header += MINUIT_ERROR_GET;
 	}
 	
@@ -445,11 +449,11 @@ TTErr Minuit::SendListenAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = mLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName->getCString();
 		header += MINUIT_ANSWER_LISTEN;
 	}
 	else {
-		header = mLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName->getCString();
 		header += MINUIT_ERROR_LISTEN;
 	}
 	

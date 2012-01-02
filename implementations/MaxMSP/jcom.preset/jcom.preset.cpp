@@ -319,7 +319,7 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (x->wrappedObject) {
 		
-		fullpath = jamoma_file_read((ObjectPtr)x, argc, argv);
+		fullpath = jamoma_file_read((ObjectPtr)x, argc, argv, 'TEXT');
 		v.append(fullpath);
 		
 		tterr = x->internals->lookup(TT("XmlHandler"), o);

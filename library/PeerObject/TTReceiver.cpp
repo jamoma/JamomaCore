@@ -267,7 +267,7 @@ TTErr TTReceiver::unbindAddress()
 	TTAttributePtr		anAttribute;
 	TTErr				err = kTTErrNone;
 	
-	if (mAddress != kTTSymEmpty) {
+	if (mAddress != kTTAdrsEmpty) {
 		
 		// stop attribute obeservation
 		// for each node of the selection

@@ -39,11 +39,11 @@ typedef TTMirror* TTMirrorPtr;
 
 // Macro to convert a TTValue with tt names inside into a value with local application names inside.
 #define	ToAppNames(ttNames, appNames) \
-		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToAppName, ttNames, appNames); \
+		getLocalApplication->sendMessage(kTTSym_ConvertToAppName, ttNames, appNames); \
 
 // Macro to convert a TTValue with local application names inside into a value with tt names inside.
 #define	ToTTNames(appNames, ttNames) \
-		TTApplicationManagerGetApplication(kTTSym_localApplicationName)->sendMessage(kTTSym_ConvertToTTName, appNames, ttNames); \
+		getLocalApplication->sendMessage(kTTSym_ConvertToTTName, appNames, ttNames); \
 
 // Macro to convert a local application TTSymbol into a tt name
 #define	ToAppName(ttName) \
@@ -63,9 +63,9 @@ private:
 
 	TTSymbolPtr					mName;				///< ATTRIBUTE : the name of the application
 	TTSymbolPtr					mVersion;			///< ATTRIBUTE : the version of the application
-	TTSymbolPtr					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>)
+	TTSymbolPtr					mAuthor;			///< ATTRIBUTE : the author of the application
 	
-	TTValue						mProtocolNames;		///< ATTRIBUTE : names of all protocols used by the application
+	TTSymbolPtr					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>). Usefull to save a config...
 	
 	TTHashPtr					mDirectoryListenersCache;	///< a hash table containing all <address, Listener> for quick access
 	TTHashPtr					mAttributeListenersCache;	///< a hash table containing all <address:attribute, Listener> for quick access
@@ -80,20 +80,6 @@ private:
 	/** Set name of the application (and his directory) */
 	TTErr setName(TTValue& value);
 	
-	/** Get all protocol names use by the application */
-	TTErr getProtocolNames(TTValue& value);
-	
-	/** Get all AppNames */
-	TTErr getAllAppNames(TTValue& value);
-	
-	/** Get all AppNames */
-	TTErr getAllTTNames(TTValue& value);
-	
-	/** Convert TTName into AppName */
-	TTErr ConvertToAppName(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Convert AppName into TTName */
-	TTErr ConvertToTTName(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Add Directory observer */
 	TTErr AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue);
@@ -112,6 +98,20 @@ private:
 	
 	/** Update Attribute value (usually for Mirror objects) */
 	TTErr UpdateAttribute(const TTValue& inputValue, TTValue& outputValue);
+	
+
+	/** Get all AppNames */
+	TTErr getAllAppNames(TTValue& value);
+	
+	/** Get all AppNames */
+	TTErr getAllTTNames(TTValue& value);
+	
+	/** Convert TTName into AppName */
+	TTErr ConvertToAppName(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Convert AppName into TTName */
+	TTErr ConvertToTTName(const TTValue& inputValue, TTValue& outputValue);
+	
 	
 	/** needed to be handled by a TTXmlHandler 
 		read/write protocol parameters */

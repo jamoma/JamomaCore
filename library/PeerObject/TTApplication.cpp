@@ -18,8 +18,8 @@ TT_MODULAR_CONSTRUCTOR,
 mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
+mAuthor(kTTSymEmpty),
 mNamespaceFile(kTTSymEmpty),
-mProtocolNames(kTTValNONE),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
@@ -27,39 +27,59 @@ mTTToApp(NULL),
 mTempAddress(kTTAdrsEmpty)
 {
 	arguments.get(0, &mName);
-	arguments.get(1, &mVersion);
 	
 	addAttributeWithSetter(Name, kTypeSymbol);
 	
 	addAttribute(Version, kTypeSymbol);
 	addAttributeProperty(Version, readOnly, YES);
 	
+	addAttribute(Author, kTypeSymbol);
+	addAttributeProperty(Author, readOnly, YES);
+	
 	addAttribute(NamespaceFile, kTypeSymbol);
+	addAttributeProperty(NamespaceFile, hidden, YES);
 	addAttributeProperty(NamespaceFile, readOnly, YES);
 	
+	
+	// relative to directory and attribute listening
 	addAttribute(Directory, kTypePointer);
+	addAttributeProperty(Directory, hidden, YES);
 	addAttributeProperty(Directory, readOnly, YES);
 	
-	addAttributeWithGetter(ProtocolNames, kTypeLocalValue);
-	addAttributeProperty(ProtocolNames, readOnly, YES);
-
+	addMessageWithArguments(AddDirectoryListener);
+	addMessageProperty(AddDirectoryListener, hidden, YES);
+	
+	addMessageWithArguments(AddAttributeListener);
+	addMessageProperty(AddAttributeListener, hidden, YES);
+	
+	addMessageWithArguments(RemoveDirectoryListener);
+	addMessageProperty(RemoveDirectoryListener, hidden, YES);
+	
+	addMessageWithArguments(RemoveAttributeListener);
+	addMessageProperty(RemoveAttributeListener, hidden, YES);
+	
+	addMessageWithArguments(UpdateDirectory);
+	addMessageProperty(UpdateDirectory, hidden, YES);
+	
+	addMessageWithArguments(UpdateAttribute);
+	addMessageProperty(UpdateAttribute, hidden, YES);
+	
+	
+	// relative to symbol conversion
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
+	addAttributeProperty(AllAppNames, hidden, YES);
 	addAttributeProperty(AllAppNames, readOnly, YES);
 	
 	addAttributeWithGetter(AllTTNames, kTypeLocalValue);
+	addAttributeProperty(AllTTNames, hidden, YES);
 	addAttributeProperty(AllTTNames, readOnly, YES);
 	
-	addMessageWithArguments(AddDirectoryListener);
-	addMessageWithArguments(AddAttributeListener);
-	
-	addMessageWithArguments(RemoveDirectoryListener);
-	addMessageWithArguments(RemoveAttributeListener);
-	
-	addMessageWithArguments(UpdateDirectory);
-	addMessageWithArguments(UpdateAttribute);
-	
 	addMessageWithArguments(ConvertToAppName);
+	addMessageProperty(ConvertToAppName, hidden, YES);
+	
 	addMessageWithArguments(ConvertToTTName);
+	addMessageProperty(ConvertToTTName, hidden, YES);
+	
 	
 	// needed to be handled by a TTXmlHandler
 	addMessageWithArguments(WriteAsXml);
@@ -68,8 +88,10 @@ mTempAddress(kTTAdrsEmpty)
 	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
+	// needed to be handled by a TTOpmlHandler
 	addMessageWithArguments(ReadFromOpml);
 	addMessageProperty(ReadFromOpml, hidden, YES);
+	
 	
 	mDirectory = new TTNodeDirectory(mName);
 	TT_ASSERT("NodeDirectory created successfully", mDirectory != NULL);
@@ -79,119 +101,39 @@ mTempAddress(kTTAdrsEmpty)
 	
 	mDirectoryListenersCache = new TTHash();
 	mAttributeListenersCache = new TTHash();
+	
+	// add itself to the application manager
+	TTValue args = TTValue((TTPtr)this);
+	TTModularApplications->sendMessage(TT("ApplicationAdd"), args, kTTValNONE);
 }
 
 TTApplication::~TTApplication()
 {
-	TTValue			hk, v;
+	TTValue hk, v;
+	
+	// remove itself to the application manager
+	TTValue args = TTValue(mName);
+	TTModularApplications->sendMessage(TT("ApplicationRemove"), args, kTTValNONE);
 	
 	// TODO : delete observers
 	
 	delete mDirectory;
-	
 	delete mTTToApp;
 	delete mAppToTT;
 }
 
 TTErr TTApplication::setName(TTValue& value)
-{
-	TTSymbolPtr protocolName;
-	
-	// For each protocol, registers using the new name
-	if (mName == kTTSym_localApplicationName)
-		for (TTUInt32 i=0; i<mProtocolNames.getSize(); i++) {
-			mProtocolNames.get(i, &protocolName);
-			getProtocol(protocolName)->sendMessage(TT("unregisterLocalApplication"), value, kTTValNONE);
-			getProtocol(protocolName)->sendMessage(TT("registerLocalApplication"), value, kTTValNONE);
-		}
-										   
-	mName = value;							
-	
-	return mDirectory->setName(mName);
-}
-
-TTErr TTApplication::getProtocolNames(TTValue& value)
-{
-	value = mProtocolNames;
-	return kTTErrNone;
-}
-
-TTErr TTApplication::getAllAppNames(TTValue& value)
 {	
-	if (mAppToTT->isEmpty())
-		value = kTTSymEmpty;
-	else
-		mAppToTT->getKeys(value);
+	// remove itself to the application manager
+	TTValue args = TTValue(mName);
+	TTModularApplications->sendMessage(TT("ApplicationRemove"), args, kTTValNONE);
 	
-	return kTTErrNone;
-}
-
-TTErr TTApplication::getAllTTNames(TTValue& value)
-{	
-	if (mTTToApp->isEmpty())
-		value = kTTSymEmpty;
-	else
-		mTTToApp->getKeys(value);
+	mName = value;
+	mDirectory->setName(mName);
 	
-	return kTTErrNone;
-}
-
-TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTValue				c;
-	TTSymbolPtr			ttName;
-	TTSymbolPtr			appName;
-	
-	// if there is only 1 symbol : replace value directly by the found one.
-	// because it's possible to have conversion containing several appNames for 1 ttname
-	if (inputValue.getSize() == 1) 
-		if (inputValue.getType(0) == kTypeSymbol){
-			
-			inputValue.get(0, &ttName);
-			return this->mTTToApp->lookup(ttName, outputValue);
-		}
-	
-	// else convert each symbol of the value.
-	// !!! in this case 1 to many conversion is not handled
-	for (TTUInt8 i=0; i<inputValue.getSize(); i++)
-		if (inputValue.getType(i) == kTypeSymbol) {
-			inputValue.get(i, &ttName);
-			if (!this->mTTToApp->lookup(ttName, c)) {
-				c.get(0, &appName);
-				outputValue.set(i, appName);
-			}
-		}
-	
-	return kTTErrNone;
-}
-
-TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTValue				c;
-	TTSymbolPtr			appName;
-	TTSymbolPtr			ttName;
-	
-	// if there is only 1 symbol : replace value directly by the founded one.
-	// because it's possible to have conversion containing several ttNames for 1 appName
-	if (inputValue.getSize() == 1) 
-		if (inputValue.getType(0) == kTypeSymbol){
-			
-			inputValue.get(0, &appName);
-			return this->mAppToTT->lookup(appName, outputValue);
-		}
-	
-	// else convert each symbol of the value.
-	// !!! in this case 1 to many conversion is not handled
-	for (TTUInt8 i=0; i<inputValue.getSize(); i++)
-		if (inputValue.getType(i) == kTypeSymbol) {
-			inputValue.get(i, &appName);
-			if (!this->mAppToTT->lookup(appName, c)) {
-				c.get(0, &ttName);
-				outputValue.set(i, ttName);
-			}
-		}
-	
-	return kTTErrNone;
+	// add itself to the application manager
+	args = TTValue((TTPtr)this);
+	return TTModularApplications->sendMessage(TT("ApplicationAdd"), args, kTTValNONE);
 }
 
 TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue)
@@ -420,26 +362,102 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	return kTTErrGeneric;
 }
 
+
+TTErr TTApplication::getAllAppNames(TTValue& value)
+{	
+	if (mAppToTT->isEmpty())
+		value = kTTSymEmpty;
+	else
+		mAppToTT->getKeys(value);
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplication::getAllTTNames(TTValue& value)
+{	
+	if (mTTToApp->isEmpty())
+		value = kTTSymEmpty;
+	else
+		mTTToApp->getKeys(value);
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTValue				c;
+	TTSymbolPtr			ttName;
+	TTSymbolPtr			appName;
+	
+	// if there is only 1 symbol : replace value directly by the found one.
+	// because it's possible to have conversion containing several appNames for 1 ttname
+	if (inputValue.getSize() == 1) 
+		if (inputValue.getType(0) == kTypeSymbol){
+			
+			inputValue.get(0, &ttName);
+			return this->mTTToApp->lookup(ttName, outputValue);
+		}
+	
+	// else convert each symbol of the value.
+	// !!! in this case 1 to many conversion is not handled
+	for (TTUInt8 i=0; i<inputValue.getSize(); i++)
+		if (inputValue.getType(i) == kTypeSymbol) {
+			inputValue.get(i, &ttName);
+			if (!this->mTTToApp->lookup(ttName, c)) {
+				c.get(0, &appName);
+				outputValue.set(i, appName);
+			}
+		}
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTValue				c;
+	TTSymbolPtr			appName;
+	TTSymbolPtr			ttName;
+	
+	// if there is only 1 symbol : replace value directly by the founded one.
+	// because it's possible to have conversion containing several ttNames for 1 appName
+	if (inputValue.getSize() == 1) 
+		if (inputValue.getType(0) == kTypeSymbol){
+			
+			inputValue.get(0, &appName);
+			return this->mAppToTT->lookup(appName, outputValue);
+		}
+	
+	// else convert each symbol of the value.
+	// !!! in this case 1 to many conversion is not handled
+	for (TTUInt8 i=0; i<inputValue.getSize(); i++)
+		if (inputValue.getType(i) == kTypeSymbol) {
+			inputValue.get(i, &appName);
+			if (!this->mAppToTT->lookup(appName, c)) {
+				c.get(0, &ttName);
+				outputValue.set(i, ttName);
+			}
+		}
+	
+	return kTTErrNone;
+}
+
+
 TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTSymbolPtr			protocolName, parameterName;
 	TTString			aString;
 	TTHashPtr			parameters;
-    TTValue				keys, p_keys, v;
+    TTValue				keys, p_keys, v, protocolNames;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
 	// For each protocol
-	for (TTUInt16 i=0; i<mProtocolNames.getSize(); i++) {
+	protocolNames = getApplicationProtocols(mName);
+	for (TTUInt16 i=0; i<protocolNames.getSize(); i++) {
 		
-		mProtocolNames.get(i, &protocolName);
-		
-		if (mName == kTTSym_localApplicationName)
-			getProtocol(protocolName)->getAttributeValue(TT("localApplicationParameters"), v);
-		else
-			getProtocol(protocolName)->getAttributeValue(TT("distantApplicationParameters"), v);
-		
+		protocolNames.get(i, &protocolName);
+		getProtocol(protocolName)->getAttributeValue(TT("applicationParameters"), v);
 		v.get(0, (TTPtr*)&parameters);
 		
 		// Start "protocol" xml node
@@ -515,7 +533,6 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	if (aXmlHandler->mXmlNodeName == TT("start")) {
 		mAppToTT = new TTHash();
 		mNamespaceFile = kTTSymEmpty;
-		mProtocolNames = kTTValNONE;
 		return kTTErrNone;
 	}
 	
@@ -566,14 +583,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		
 		// register the application to the protocol
 		nameValue = TTValue(mName);
-		if (mName == kTTSym_localApplicationName) {
-			getProtocol(protocolName)->sendMessage(TT("registerLocalApplication"), nameValue, kTTValNONE);
-			mProtocolNames.append(protocolName);
-		}
-		else {
-			getProtocol(protocolName)->sendMessage(TT("registerDistantApplication"), nameValue, kTTValNONE);
-			mProtocolNames = TTValue(protocolName);
-		}
+		getProtocol(protocolName)->sendMessage(TT("registerApplication"), nameValue, kTTValNONE);
 		
 		// get all protocol attributes and their value
 		parameters = new TTHash();
@@ -592,15 +602,9 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		}
 		
 		// configure the protocol parameters for this application
-		if (mName == kTTSym_localApplicationName) {
-			v = TTValue((TTPtr)parameters);
-			getProtocol(protocolName)->setAttributeValue(TT("localApplicationParameters"), v);
-		}
-		else {
-			v = TTValue(mName);
-			v.append((TTPtr)parameters);
-			getProtocol(protocolName)->setAttributeValue(TT("distantApplicationParameters"), v);
-		}
+		v = TTValue(mName);
+		v.append((TTPtr)parameters);
+		getProtocol(protocolName)->setAttributeValue(TT("applicationParameters"), v);
 	}
 	
 	// Namespace node 
@@ -609,7 +613,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		// note : don't load namespace for local application in order 
 		// to use the same configuration file for local and distant application
 		// (the local application namespace could be loaded using mNamespaceFile attribute)
-		if (mName != kTTSym_localApplicationName) {
+		if (mName != getLocalApplicationName) {
 			
 			// get the file path
 			xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("file"));
@@ -620,7 +624,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	}
 	
 	// load namespace file if one is given and there is a protocol
-	if (mNamespaceFile != kTTSymEmpty && mProtocolNames.getSize()) {
+	if (mNamespaceFile != kTTSymEmpty && getApplicationProtocols(mName).getSize()) {
 		
 		TTOpmlHandlerPtr	aOpmlHandler = NULL;
 		TTValue				args, o;
@@ -645,7 +649,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 	TTObjectPtr			getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
 	TTValuePtr			getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
 	ProtocolPtr			aProtocol;
-	TTValue				v, args;
+	TTValue				v, args, protocolNames;
 	
 	inputValue.get(0, (TTPtr*)&aOpmlHandler);
 	if (!aOpmlHandler)
@@ -656,9 +660,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 	// Starts reading
 	if (aOpmlHandler->mXmlNodeName == TT("start")) {
 		
-		delete mDirectory;
-		mDirectory = new TTNodeDirectory(mName);
-		
+		mDirectory->init();
 		mTempAddress = kTTAdrsEmpty;
 		
 		return kTTErrNone;
@@ -697,7 +699,8 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 					v.get(0, &objectName);
 					
 					// a distant application should have one protocol
-					mProtocolNames.get(0, &protocolName);
+					protocolNames = getApplicationProtocols(mName);
+					protocolNames.get(0, &protocolName);
 					
 					if (aProtocol = (ProtocolPtr)getProtocol(protocolName)) {
 						
@@ -803,7 +806,7 @@ TTNodeDirectoryPtr TTApplicationGetDirectory(TTNodeAddressPtr anAddress)
 		if (applicationName != NO_DIRECTORY)
 			anApplication = TTApplicationManagerGetApplication(applicationName);
 		else
-			anApplication = TTApplicationManagerGetApplication(kTTSym_localApplicationName);
+			anApplication = getLocalApplication;
 		
 		if (anApplication)
 			return anApplication->mDirectory;
@@ -820,7 +823,7 @@ TTSymbolPtr TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName)
 	
 	if (TTModularApplications) {
 		
-		err = TTApplicationManagerGetApplication(kTTSym_localApplicationName)->mAppToTT->lookup(anAppName, c);
+		err = getLocalApplication->mAppToTT->lookup(anAppName, c);
 		
 		if (!err)
 			c.get(0, &converted);
@@ -838,7 +841,7 @@ TTSymbolPtr TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName)
 	
 	if (TTModularApplications) {
 		
-		err = TTApplicationManagerGetApplication(kTTSym_localApplicationName)->mTTToApp->lookup(aTTName, c);
+		err = getLocalApplication->mTTToApp->lookup(aTTName, c);
 		
 		if (!err)
 			c.get(0, &converted);

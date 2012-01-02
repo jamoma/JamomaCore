@@ -15,8 +15,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mApplications(NULL),
-mApplicationNames(kTTValNONE),
-mProtocolNames(kTTValNONE),
+mLocalApplication(NULL),
 mCurrentApplication(NULL),
 mApplicationObservers(NULL),
 mApplicationObserversMutex(NULL)
@@ -25,13 +24,10 @@ mApplicationObserversMutex(NULL)
 	addAttributeProperty(Applications, readOnly, YES);
 	addAttributeProperty(Applications, hidden, YES);
 	
-	addAttributeWithGetter(ApplicationNames, kTypeLocalValue);
-	addAttributeProperty(ApplicationNames, readOnly, YES);
+	addAttributeWithSetter(LocalApplication, kTypePointer);
 	
-	registerAttribute(TT("localApplicationName"), kTypeSymbol, kTTSym_localApplicationName, (TTGetterMethod)& TTApplicationManager::getLocalApplicationName, (TTSetterMethod)& TTApplicationManager::setLocalApplicationName);
-	
-	addAttributeWithGetter(ProtocolNames, kTypeLocalValue);
-	addAttributeProperty(ProtocolNames, readOnly, YES);
+	registerAttribute(TT("applicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplicationManager::getApplicationNames);
+	registerAttribute(TT("protocolNames"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplicationManager::getProtocolNames);
 	
 	addMessageWithArguments(ApplicationAdd);
 	addMessageWithArguments(ApplicationRemove);
@@ -105,18 +101,18 @@ mApplicationObserversMutex(NULL)
 
 TTApplicationManager::~TTApplicationManager()
 {
-	TTValue				v, allProtocolNames;
-	TTSymbolPtr			protocolName;
+	TTValue		v, protocolNames;
+	TTSymbolPtr	protocolName;
 	ProtocolPtr	aProtocol;
-	TTErr				err;
+	TTErr		err;
 	
 	delete mApplications;
 	
 	// destroy each protocol
-	mProtocols->getKeys(allProtocolNames);
-	for (TTUInt16 i=0; i<allProtocolNames.getSize(); i++) {
+	mProtocols->getKeys(protocolNames);
+	for (TTUInt16 i=0; i<protocolNames.getSize(); i++) {
 		
-		allProtocolNames.get(i, &protocolName);
+		protocolNames.get(i, &protocolName);
 		err = mProtocols->lookup(protocolName, v);
 		
 		if (!err) {
@@ -126,43 +122,22 @@ TTApplicationManager::~TTApplicationManager()
 	}
 }
 
+TTErr TTApplicationManager::setLocalApplication(TTValue& value)
+{
+	// change local application
+	if (value.getType() == kTypePointer) {
+		
+		value.get(0, (TTPtr*)&mLocalApplication);
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
 TTErr TTApplicationManager::getApplicationNames(TTValue& value)
 {
 	return mApplications->getKeys(value);
-}
-
-TTErr TTApplicationManager::getLocalApplicationName(TTValue& value)
-{
-	value = kTTSym_localApplicationName;
-	return kTTErrNone;
-}
-
-TTErr TTApplicationManager::setLocalApplicationName(TTValue& value)
-{
-	TTValue				v;
-	TTApplicationPtr	localApplication = NULL;
-	TTErr				err;
-	
-	// get the local application
-	err = mApplications->lookup(kTTSym_localApplicationName, v);
-	
-	// if the local application exists
-	// rename it and remove it
-	if (!err) {
-		v.get(0, (TTPtr*)&localApplication);
-		localApplication->setAttributeValue(kTTSym_name, value);
-		mApplications->remove(kTTSym_localApplicationName);
-	}
-	
-	// in any case change localApplicacationName
-	kTTSym_localApplicationName = value;
-	
-	// if the local application exists
-	// register it to using the new name
-	if (!err)
-		mApplications->append(kTTSym_localApplicationName, v);
-	
-	return kTTErrNone;
 }
 
 TTErr TTApplicationManager::getProtocolNames(TTValue& value)
@@ -172,33 +147,28 @@ TTErr TTApplicationManager::getProtocolNames(TTValue& value)
 
 TTErr TTApplicationManager::ApplicationAdd(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue				v, args, allProtocolNames;
+	TTValue				v;
 	TTSymbolPtr			applicationName;
 	TTApplicationPtr	anApplication;
 	
-	inputValue.get(0, &applicationName);
-	
-	// if no given application, instantiate it
-	if (inputValue.getSize() == 2)
-		inputValue.get(1, (TTPtr*) &anApplication);
-	else {
-		anApplication = NULL;
-		args.append(applicationName);
-		args.append(TT("unknown version"));
-		TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), args);
+	// get the given application and his name
+	if (inputValue.getType() == kTypePointer) {
+		
+		inputValue.get(0, (TTPtr*)&anApplication);
+		
+		anApplication->getAttributeValue(kTTSym_name, v);
+		applicationName = v;
+		
+		// add application to the manager
+		mApplications->append(applicationName, (TTPtr)anApplication);
+		
+		// notify applications observer that an application has been added
+		notifyApplicationObservers(applicationName, anApplication, kApplicationAdded);
+		
+		return kTTErrNone;
 	}
 	
-	// add application to the manager
-	mApplications->append(applicationName, (TTPtr)anApplication);
-	
-	// TODO : notify distant application creation observers
-	if (applicationName != kTTSym_localApplicationName)
-		;
-	
-	// notify applications observer that an application has been added
-	notifyApplicationObservers(applicationName, anApplication, kApplicationAdded);
-	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTApplicationManager::ApplicationRemove(const TTValue& inputValue, TTValue& outputValue)
@@ -218,8 +188,7 @@ TTErr TTApplicationManager::ApplicationRemove(const TTValue& inputValue, TTValue
 		// notify applications observer that an application will be removed
 		notifyApplicationObservers(applicationName, anApplication, kApplicationAdded);
 		
-		mApplications->remove(applicationName);
-		return TTObjectRelease(TTObjectHandle(&anApplication));
+		return mApplications->remove(applicationName);
 	}
 	
 	return kTTErrGeneric;
@@ -262,11 +231,12 @@ TTErr TTApplicationManager::ProtocolScan(const TTValue& inputValue, TTValue& out
 
 TTErr TTApplicationManager::ProtocolRun(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue				v, allProtocolNames, allApplicationNames;
+	TTValue				v, protocolNames, applicationNames;
 	TTSymbolPtr			protocolName, applicationName, appProtocolName;
-	ProtocolPtr	aProtocol;
+	ProtocolPtr			aProtocol;
 	TTApplicationPtr	anApplication;
-	TTErr				err;
+	TTBoolean			isRegistered;
+	TTErr				err, start;
 	
 	// if no name do it for all protocol
 	if (inputValue.getSize()) {
@@ -275,39 +245,43 @@ TTErr TTApplicationManager::ProtocolRun(const TTValue& inputValue, TTValue& outp
 		
 		if (!mProtocols->lookup(protocolName, v)) {
 			v.get(0, (TTPtr*)&aProtocol);
-			aProtocol->sendMessage(TT("Run"));
+			start = aProtocol->sendMessage(TT("Run"));
 		}
 	}
 	else {
 		
 		// Run each protocol
-		mProtocols->getKeys(allProtocolNames);
-		for (TTUInt16 i=0; i<allProtocolNames.getSize(); i++) {
+		mProtocols->getKeys(protocolNames);
+		for (TTUInt16 i=0; i<protocolNames.getSize(); i++) {
 			
-			allProtocolNames.get(i, &protocolName);
+			protocolNames.get(i, &protocolName);
 			this->ProtocolRun(protocolName, kTTValNONE);
 		}
 		
 		return kTTErrNone;
 	}
 	
-	// notify application obervers for application that use this protocol
-	mApplications->getKeys(allApplicationNames);
-	for (TTUInt16 j=0; j<allApplicationNames.getSize(); j++) {
+	// if the protocol starts
+	if (start == kTTErrNone) {
 		
-		allApplicationNames.get(j, &applicationName);
-		
-		if (applicationName != kTTSym_localApplicationName) {
-			err = mApplications->lookup(applicationName, v);
+		// notify application obervers for application that use this protocol
+		mApplications->getKeys(applicationNames);
+		for (TTUInt16 j=0; j<applicationNames.getSize(); j++) {
 			
-			if (!err) {
-				v.get(0, (TTPtr*)&anApplication);
+			// get application
+			applicationNames.get(j, &applicationName);
+			mApplications->lookup(applicationName, v);
+			v.get(0, (TTPtr*)&anApplication);
+			
+			// don't notify local application observers
+			if (anApplication != mLocalApplication) {
 				
-				anApplication->getAttributeValue(TT("protocolNames"), v); 
-				v.get(0, &appProtocolName);
+				aProtocol->sendMessage(TT("isRegistered"), applicationName, v);
+				v.get(0, isRegistered);
 				
-				if (appProtocolName == protocolName)
+				if (isRegistered)
 					notifyApplicationObservers(applicationName, anApplication, kApplicationProtocolStarted);
+				
 			}
 		}
 	}
@@ -317,11 +291,12 @@ TTErr TTApplicationManager::ProtocolRun(const TTValue& inputValue, TTValue& outp
 
 TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue				v, allProtocolNames, allApplicationNames;
+	TTValue				v, protocolNames, applicationNames;
 	TTSymbolPtr			protocolName, applicationName, appProtocolName;
 	ProtocolPtr			aProtocol;
 	TTApplicationPtr	anApplication;
-	TTErr				err;
+	TTBoolean			isRegistered;
+	TTErr				err, stop;
 	
 	// if no name do it for all protocol
 	if (inputValue.getSize()) {
@@ -330,39 +305,43 @@ TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& out
 		
 		if (!mProtocols->lookup(protocolName, v)) {
 			v.get(0, (TTPtr*)&aProtocol);
-			aProtocol->sendMessage(TT("Stop"));
+			stop = aProtocol->sendMessage(TT("Stop"));
 		}
 	}
 	else {
 		
 		// Stop each protocol
-		mProtocols->getKeys(allProtocolNames);
-		for (TTUInt16 i=0; i<allProtocolNames.getSize(); i++) {
+		mProtocols->getKeys(protocolNames);
+		for (TTUInt16 i=0; i<protocolNames.getSize(); i++) {
 			
-			allProtocolNames.get(i, &protocolName);
+			protocolNames.get(i, &protocolName);
 			this->ProtocolStop(protocolName, kTTValNONE);
 		}
 		
 		return kTTErrNone;
 	}
 	
-	// notify application obervers for application that use this protocol
-	mApplications->getKeys(allApplicationNames);
-	for (TTUInt16 j=0; j<allApplicationNames.getSize(); j++) {
+	// if the protocol stops
+	if (stop == kTTErrNone) {
 		
-		allApplicationNames.get(j, &applicationName);
-		
-		if (applicationName != kTTSym_localApplicationName) {
-			err = mApplications->lookup(applicationName, v);
+		// notify application obervers for application that use this protocol
+		mApplications->getKeys(applicationNames);
+		for (TTUInt16 j=0; j<applicationNames.getSize(); j++) {
 			
-			if (!err) {
-				v.get(0, (TTPtr*)&anApplication);
+			// get application
+			applicationNames.get(j, &applicationName);
+			mApplications->lookup(applicationName, v);
+			v.get(0, (TTPtr*)&anApplication);
+			
+			// don't notify local application observers
+			if (anApplication != mLocalApplication) {
 				
-				anApplication->getAttributeValue(TT("protocolNames"), v); 
-				v.get(0, &appProtocolName);
+				aProtocol->sendMessage(TT("isRegistered"), applicationName, v);
+				v.get(0, isRegistered);
 				
-				if (appProtocolName == protocolName)
+				if (isRegistered)
 					notifyApplicationObservers(applicationName, anApplication, kApplicationProtocolStopped);
+				
 			}
 		}
 	}
@@ -642,7 +621,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	TTXmlHandlerPtr		aXmlHandler = NULL;	
 	TTSymbolPtr			applicationName, currentApplicationName, version;
 	TTApplicationPtr	anApplication;
-	TTValue				v, args, allAppNames;
+	TTValue				v, args, applicationNames;
 	TTErr				err;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -660,14 +639,14 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		ProtocolStop(v, kTTValNONE);
 		
 		// remove all applications except the local one
-		mApplications->getKeys(allAppNames);
-		for (TTUInt16 i=0; i<allAppNames.getSize(); i++) {
+		mApplications->getKeys(applicationNames);
+		for (TTUInt16 i=0; i<applicationNames.getSize(); i++) {
 			
-			allAppNames.get(i, &applicationName);
-			err = mApplications->lookup(applicationName, v);
+			applicationNames.get(i, &applicationName);
+			mApplications->lookup(applicationName, v);
+			v.get(0, (TTPtr*)&anApplication);
 			
-			if (!err && applicationName != kTTSym_localApplicationName) {
-				v.get(0, (TTPtr*)&anApplication);
+			if (anApplication != mLocalApplication) {
 				TTObjectRelease(TTObjectHandle(&anApplication));
 				mApplications->remove(applicationName);
 			}
@@ -705,14 +684,6 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			v.get(0, &currentApplicationName);
 			
 			if (applicationName == currentApplicationName) {
-				
-				// if the application is not registered : add it
-				if (mApplications->lookup(applicationName, v)) {
-					v = TTValue(applicationName);
-					v.append((TTPtr)mCurrentApplication);
-					ApplicationAdd(v, kTTValNONE);
-				}
-				
 				mCurrentApplication = NULL;
 				return kTTErrNone;
 			}
@@ -733,8 +704,10 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		else {
 			anApplication = NULL;
 			args = TTValue(applicationName);
-			args.append(version);
 			TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), args);
+			
+			args = TTValue(version);
+			anApplication->setAttributeValue(TT("version"), args);
 		}
 		
 		mCurrentApplication = anApplication;
@@ -815,6 +788,17 @@ TTErr TTApplicationManager::notifyApplicationObservers(TTSymbolPtr anApplication
 #pragma mark Some Methods
 #endif
 
+TTSymbolPtr TTApplicationManagerGetLocalApplicationName()
+{
+	TTValue		v;
+	TTSymbolPtr localName;
+	
+	TTModularApplications->mLocalApplication->getAttributeValue(kTTSym_name, v);
+	localName = v;
+	
+	return localName;
+}
+
 TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr applicationName)
 {
 	TTValue				v;
@@ -846,7 +830,7 @@ TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTNodeAddressPtr anAddre
 		if (applicationName != NO_DIRECTORY)
 			anApplication = TTApplicationManagerGetApplication(applicationName);
 		else
-			anApplication = TTApplicationManagerGetApplication(kTTSym_localApplicationName);
+			anApplication = TTModularApplications->mLocalApplication;
 		
 		return anApplication;
 	}
@@ -871,6 +855,26 @@ TTObjectPtr TTApplicationManagerGetProtocol(TTSymbolPtr protocolName)
 	}
 	
 	return NULL;
+}
+
+TTValue TTApplicationManagerGetApplicationProtocols(TTSymbolPtr applicationName)
+{
+	TTValue		protocolNames, applicationProtocols, result;
+	TTSymbolPtr protocolName;
+	TTBoolean	isRegistered;
+	
+	TTModularApplications->mProtocols->getKeys(protocolNames);
+	for (TTUInt8 i=0; i<protocolNames.getSize(); i++) {
+		
+		protocolNames.get(i, &protocolName);
+		getProtocol(protocolName)->sendMessage(TT("isRegistered"), applicationName, result);
+		result.get(0, isRegistered);
+		
+		if (isRegistered)
+			applicationProtocols.append(protocolName);
+	}
+	
+	return applicationProtocols;
 }
 
 TTErr TTApplicationManagerAddApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver)

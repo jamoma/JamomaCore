@@ -250,7 +250,7 @@ extern "C" {
 	TTSymbolPtr		jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* default_filename);
 	
 	/** Get BOOT style filepath from args or, if no args open a dialog to read a file */
-	TTSymbolPtr		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv);
+	TTSymbolPtr		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype);
 		
 #ifdef __cplusplus
 }

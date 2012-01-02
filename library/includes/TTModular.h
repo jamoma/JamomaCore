@@ -103,7 +103,6 @@ class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
 extern	TTMODULAR_EXPORT	TTApplicationManagerPtr TTModularApplications;
-extern	TTMODULAR_EXPORT	TTSymbolPtr				kTTSym_localApplicationName;
 
 // Prototypes
 

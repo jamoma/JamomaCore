@@ -102,8 +102,8 @@
 		D220FB4514A21628005607C3 /* ProtocolLib */ = {
 			isa = PBXGroup;
 			children = (
-				D220FB4614A21628005607C3 /* Protocol.cpp */,
 				D220FB4714A21628005607C3 /* Protocol.h */,
+				D220FB4614A21628005607C3 /* Protocol.cpp */,
 			);
 			path = ProtocolLib;
 			sourceTree = "<group>";
