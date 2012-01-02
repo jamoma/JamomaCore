@@ -683,8 +683,10 @@ void hub_return_extended(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 // All messages being returned from the module should be funneled through this function!
 void hub_outlet_return(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
+	// Message is passed out the outlet of jcom.hub
 	outlet_anything(x->outlets[k_outlet_return], msg, argc, argv);
 
+	// It is also communicated remotely using jcom.send
 	if (x->osc_alias == NULL)					// it's possible for this method to be called before osc_alias is valid
 		return;								//	...
 	if (x->jcom_send) {
