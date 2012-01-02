@@ -9,30 +9,49 @@
 #include "TTNodeDirectory.h"
 #include <algorithm>
 
-TTNodeDirectory::TTNodeDirectory(TTSymbolPtr aName)
-{
-	TTBoolean nodeCreated = NO;
-
+TTNodeDirectory::TTNodeDirectory(TTSymbolPtr aName) :
+	name(kTTSymEmpty),	
+	root(NULL),	
+	directory(NULL),
+	observers(NULL),
+	mutex(NULL)
+{	
 	// set the name of the tree
 	name = aName;
 
-	// create a new directory
-	directory = new TTHash();
-
-	// create a lifeCycleObservers and protect it from multithreading access
-	// why ? because observers could disappear when they know an address is destroyed
-	this->observers = new TTHash();
-	this->observers->setThreadProtection(true);
-
-	mutex = new TTMutex(true);
-
-	// create a root
-	TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
+	init();
 }
 
 TTNodeDirectory::~TTNodeDirectory()
 {
 	delete root;
+	delete directory;
+	delete observers;
+}
+
+TTErr TTNodeDirectory::init()
+{
+	TTBoolean nodeCreated = NO;
+	
+	if (root) delete root;
+	if (directory) delete directory;
+	
+	// create a new directory
+	directory = new TTHash();
+	
+	// if there are observers keep them
+	if (!observers) {
+		
+		// create a lifeCycleObservers and protect it from multithreading access
+		// why ? because observers could disappear when they know an address is destroyed
+		this->observers = new TTHash();
+		this->observers->setThreadProtection(true);
+	}
+	
+	mutex = new TTMutex(true);
+	
+	// create a root
+	TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
 }
 
 TTErr TTNodeDirectory::setName(TTSymbolPtr aName)

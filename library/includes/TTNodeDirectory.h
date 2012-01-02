@@ -72,6 +72,9 @@ public:
 	
 	/** Destructor */
 	virtual ~TTNodeDirectory ();
+	
+	/** Initialize the TTNodeDirectory */
+	TTErr			init();
 
 	/** Set the name of the TTNodeDirectory. 
 		@param	newName				The name to set */
