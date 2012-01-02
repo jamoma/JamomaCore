@@ -24,9 +24,9 @@ enum outlets{
 
 /** Data structure for storing information about objects subscribed to the hub. */
 typedef struct _subscriber{
-	t_object		*object;	///< the max object instance that represents this subscriber
-	t_symbol		*name;		///< name of the parameter/message/return/remote
-	t_symbol		*type;		///< examples: subscribe_parameter, subscribe_message, subscribe_in, subscribe_out, subscribe_remote, subscribe_return
+	t_object		*object;	///< The max object instance that represents this subscriber
+	t_symbol		*name;		///< Name of the parameter/message/return/remote
+	t_symbol		*type;		///< Examples: subscribe_parameter, subscribe_message, subscribe_in, subscribe_out, subscribe_remote, subscribe_return
 } t_subscriber;
 
 typedef jcomList<t_subscriber*> subscriberList;
@@ -244,6 +244,10 @@ void		hub_messagenames_get(t_hub *x);
 void		hub_returnnames_get(t_hub *x);
 
 
+/** Get the values of all parameters for this module. Values are dumped using hub_outlet_return.
+ @param x			Pointer to this object.
+ @see				hub_outlet_return
+ */
 void		hub_paramvalues_get(t_hub *x);
 
 
@@ -498,7 +502,7 @@ void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
 void 		hub_presets_post(t_hub *x, t_symbol*, long, t_atom*);
 
 
-/** Get the current state of the object and display in a text window.
+/** Display current state of the object in a text window.
  */
 void hub_getstate(t_hub *x);
 
