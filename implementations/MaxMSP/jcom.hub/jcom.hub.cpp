@@ -1330,7 +1330,7 @@ void hub_ui_refresh(t_hub *x, t_symbol*, long, t_atom*)
 }
 
 
-// receive messages from our internal jcom.receive external
+// Receive messages from our internal jcom.receive external
 void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_hub		*x = (t_hub *)z;

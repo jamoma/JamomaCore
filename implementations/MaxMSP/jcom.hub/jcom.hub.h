@@ -139,7 +139,17 @@ t_symbol*	hub_subscribe(t_hub *x, t_symbol *name, t_object *param_object, t_symb
  * @see hub_subscribe
  */
 void		hub_unsubscribe(t_hub *x, t_object *subscriber_object);
+
+/**
+ * Receive parameter values from jcom.parameter
+ * @param x			Pointer to this object
+ * @param name		Name of the parameter that is sending a message.
+ * @param argc		The number of arguments to the message.
+ * @param argv		The arguments as a pointer to an array of atoms.
+ */
 void		hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv);
+
+
 void		hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv);
 void 		hub_return(t_hub *x, t_symbol *name, long argc, t_atom *argv);
 void		hub_return_extended(t_hub *x, t_symbol *name, long argc, t_atom *argv);
@@ -193,7 +203,15 @@ void 		hub_ui_freeze(t_hub *x, t_symbol*, long argc, t_atom *argv);
 void 		hub_ui_refresh(t_hub *x, t_symbol*, long, t_atom*);
 
 
+/** Receive messages from our internal jcom.receive external.
+ * @param x			Pointer to this object.
+ * @param msg		The message received.
+ * @param argc		The argument count for argv
+ * @param argv		The number or name of the preset to recall
+ */
 void		hub_receive_callback(void *x, t_symbol *msg, long argc, t_atom *argv);
+
+
 // These are in jcom.hub.autodoc.cpp
 void		hub_autodoc(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 void		hub_doautodocHtml(t_hub *x, t_symbol *userpath);
