@@ -1393,7 +1393,6 @@ void hub_bang(t_hub *x)
 }
 
 
-// TODO: need a custom setter so that we can update the display of the module name in the ui
 t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 {
 	if (argc && argv) {
