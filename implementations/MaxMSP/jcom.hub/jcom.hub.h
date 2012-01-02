@@ -78,8 +78,8 @@ typedef struct _hub{							///< Data Structure for this object
 	long			flag_init;					///< FLAG: Indicates that the module is in a process of initiaizaiton
 	t_object		*jcom_send;					///< jcom.send and jcom.receive objects for remote communication
 	t_object		*jcom_receive;				//	...
-	t_symbol		*osc_name;					///< the OSC name of this module for remote communication. This name can be changed dynamically, and can be considered an alias for the module.
-	t_symbol		*osc_name_fixed;			///< A OSC name for the module that will be set at instantiated, and fixed for the lifespan of the module. This ensures that we are able to address the module using remote OSC communication regardless of what the alias might be set to at the time being.
+	t_symbol		*osc_alias;					///< The OSC name of this module for remote communication. This name can be changed dynamically, and can be considered an alias for the module.
+	t_symbol		*hub_name;			///< A OSC name for the module that will be set at instantiated, and fixed for the lifespan of the module. This ensures that we are able to address the module using remote OSC communication regardless of what the alias might be set to at the time being.
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
 	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects
 	t_object		*preset_interface;
@@ -372,11 +372,11 @@ void hub_internals_destroy(t_hub *x);
 
 /** Send a message to the appropriate internal parameter or message
  * @param x			the hub
- * @param osc_name	the osc name of the parameter or message
+ * @param osc_alias	the osc name of the parameter or message
  * @param argc		the number of values to send to the parameter or message
  * @param argv		the actual values to send to the parameter or message
  */
-//void hub_internals_dispatch(t_hub * x, t_symbol * osc_name, long argc, t_atom * argv);
+//void hub_internals_dispatch(t_hub * x, t_symbol * osc_alias, long argc, t_atom * argv);
 
 
 // These are in jcom.hub.presets.cpp
@@ -515,13 +515,13 @@ void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av);
 void hub_preset_interface(t_hub* x);
 
 
-/** Set or change the name of the module. This is stored as the x->osc_name attribute, and can be changed dynamically throughout the lifespan of the object and module. In addition we keep a x->osc_name_fixed that is set when the object is created. Later on it is impossible to change x->osc_name_fixed. This way x->osc_name serves as an alias to the module that can be dynamically changed, while x->osc_name_fixed provides a permanent address to the module.
+/** Set the OSC alias of the module. This is stored as the x->osc_alias attribute, and can be changed dynamically throughout the lifespan of the object and module. In addition we keep a permanent x->osc_name that is set when the object is created. This way x->osc_alias serves as an alias to the module that can be dynamically changed, while x->hub_name provides a permanent address to the module.
  * @param x			Pointer to this object.
- * @param attr		The name of the attribute (x->osc_name).
+ * @param attr		The name of the attribute (x->osc_alias).
  * @param argc		The number of arguments.
  * @param argv		Arguments as a pointer to an array of atoms. We will only use the first argument here.
  */
-t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv);
+t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv);
 
 // Globals
 extern 		t_class		*hub_class;				// Required: Global pointer for our class

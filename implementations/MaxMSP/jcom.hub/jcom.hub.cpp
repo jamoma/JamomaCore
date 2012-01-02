@@ -66,14 +66,14 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 //	class_addmethod(c, (method)hub_presets_post,		"/preset/post",	0); 
 	
 	
-	// Rename the module instance (the osc_name attribute)
-	class_addmethod(c, (method)hub_attr_setname,		"/name",					A_GIMME, 0L);	// So that the name can be set using OSC messages
-	class_addmethod(c, (method)hub_attr_setname,		"/rename",					A_GIMME, 0L);	// Alternative to the above that might help readability of cues
-	class_addmethod(c, (method)hub_attr_setname,		"rename",					A_GIMME, 0L);	// Non-slash version of the above
-	class_addmethod(c, (method)hub_attr_setname,		"module_name",				A_GIMME, 0L);	// For consistency with the get method
-	class_addmethod(c, (method)hub_attr_setname,		"/module_name",				A_GIMME, 0L);	// For consistency with the get method
+	// Rename the module instance (the osc_alias attribute)
+	class_addmethod(c, (method)hub_attr_setalias,		"/name",					A_GIMME, 0L);	// So that the name can be set using OSC messages
+	class_addmethod(c, (method)hub_attr_setalias,		"/rename",					A_GIMME, 0L);	// Alternative to the above that might help readability of cues
+	class_addmethod(c, (method)hub_attr_setalias,		"rename",					A_GIMME, 0L);	// Non-slash version of the above
+	class_addmethod(c, (method)hub_attr_setalias,		"module_name",				A_GIMME, 0L);	// For consistency with the get method
+	class_addmethod(c, (method)hub_attr_setalias,		"/module_name",				A_GIMME, 0L);	// For consistency with the get method
 	
-	// Get the name of the module instance (the osc_name attribute)
+	// Get the name of the module instance (the osc_alias attribute)
 	class_addmethod(c, (method)hub_modulename_get,		"name:/get",				0L);
 	class_addmethod(c, (method)hub_modulename_get,		"/name:/get",				0L);
 	class_addmethod(c, (method)hub_modulename_get,		"module_name:/get",			0L);
@@ -122,8 +122,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	class_addmethod(c, (method)hub_edclose,				"edclose",	A_CANT, 0);		// notification of closing the /getstate text editor window
 
-	CLASS_ATTR_SYM(c,		"name",				0,		t_hub,	osc_name);			// instance name (osc)
-	CLASS_ATTR_ACCESSORS(c,	"name",				NULL,	hub_attr_setname);
+	CLASS_ATTR_SYM(c,		"name",				0,		t_hub,	osc_alias);			// instance name (osc)
+	CLASS_ATTR_ACCESSORS(c,	"name",				NULL,	hub_attr_setalias);
 
 	CLASS_ATTR_SYM(c,		"class",			0,	t_hub,	attr_name);				// module class name
 	CLASS_ATTR_SYM(c,		"module_type",		0,	t_hub,	attr_type);
@@ -189,8 +189,8 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 
 		// set default attributes
 		x->attr_name = name;
+		x->osc_alias = _sym_nothing;
 		x->osc_name = _sym_nothing;
-		x->osc_name_fixed = _sym_nothing;
 		x->attr_type = jps_control;
 		x->attr_description = _sym_nothing;
 		x->attr_algorithm_type = jps_default;		// poly for audio, jitter for video, control for control
@@ -279,21 +279,21 @@ void hub_examine_context(t_hub *x)
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
 	if (argc) {
 		if (context == gensym("bpatcher"))
-			x->osc_name = atom_getsym(argv);
+			x->osc_alias = atom_getsym(argv);
 		else if (context == gensym("subpatcher"))
-			x->osc_name = atom_getsym(argv+1);
+			x->osc_alias = atom_getsym(argv+1);
 		sysmem_freeptr(argv);
 	}
 	else
-		x->osc_name = _sym_nothing;
+		x->osc_alias = _sym_nothing;
 	
 	// Try to get OSC name of module from scripting name
-	if (x->osc_name == _sym_nothing)
-		x->osc_name = jamoma_patcher_getvarname(x->container);
+	if (x->osc_alias == _sym_nothing)
+		x->osc_alias = jamoma_patcher_getvarname(x->container);
 
 	// For a top level patch we overwrite whatever happened above
 	if (context == gensym("toplevel")) {
-		x->osc_name = gensym("/editing_this_module");
+		x->osc_alias = gensym("/editing_this_module");
 		x->editing = true;
 	}
 			
@@ -343,15 +343,15 @@ void hub_examine_context(t_hub *x)
 			object_method_parse(patcher, _sym_window, "flags nogrow", NULL); //get rid of the grow thingies
 			object_method_parse(patcher, _sym_window, "flags nozoom", NULL); //disable maximize button 
 			object_method_parse(patcher, _sym_window, "exec", NULL); 
-			object_attr_setsym(patcher, _sym_title, x->attr_name); //set the window title to the module class, jcom.ui shows osc_name already 
+			object_attr_setsym(patcher, _sym_title, x->attr_name); //set the window title to the module class, jcom.ui shows osc_alias already 
 			object_attr_setchar(patcher, _sym_enablehscroll, 0);   // turn off scroll bars
 			object_attr_setchar(patcher, _sym_enablevscroll, 0);				
 		}
 	}
 
-	// By now osc_name has been set to its initial value. This initial value will also be stored as the fixed name of the module, remembered for the lifetime of the instance. This will ensures that the fixed and dynamic names are the same initially, and properly registered. Please note that this registration is necsessary to ensure the uniqueness of osc_name and osc_named_fixed, but it is not used for the actual communication to the module. Communication to the module is instead handled by the hub_receive_callback method.
-	object_attr_setsym(x, _sym_name, x->osc_name);
-	x->osc_name_fixed = x->osc_name;
+	// By now osc_alias has been set to its initial value. This initial value will also be stored as the fixed name of the module, remembered for the lifetime of the instance. This will ensures that the fixed and dynamic names are the same initially, and properly registered. Please note that this registration is necsessary to ensure the uniqueness of osc_alias and osc_named_fixed, but it is not used for the actual communication to the module. Communication to the module is instead handled by the hub_receive_callback method.
+	object_attr_setsym(x, _sym_name, x->osc_alias);
+	x->osc_name = x->osc_alias;
 	
 	hub_subscriptions_refresh(x);
 	hub_internals_create(x);
@@ -368,13 +368,13 @@ void hub_free(t_hub *x)
 	t_atom a[2];
 
 	object_free(x->preset_interface);
-	jamoma_hub_remove(x->osc_name);
-	// osc_name_fxed needs to be removed as well if it differs form osc_name.
-	if (x->osc_name_fixed != x->osc_name) 
-		jamoma_hub_remove(x->osc_name_fixed);
+	jamoma_hub_remove(x->osc_alias);
+	// osc_name needs to be removed as well if it differs from osc_alias.
+	if (x->osc_name != x->osc_alias) 
+		jamoma_hub_remove(x->osc_name);
 
 	atom_setsym(a, x->attr_name);
-	atom_setsym(a+1, x->osc_name);
+	atom_setsym(a+1, x->osc_alias);
 	object_method_typed(g_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
 
 	critical_enter(0);
@@ -433,7 +433,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		if (x->editing)
 			object_error((t_object*)x, "Null object cannot subscribe to jcom.hub (in % module)", x->attr_name->s_name);
 		else	
-			object_error((t_object*)x, "Null object cannot subscribe to jcom.hub (in % module)", x->osc_name->s_name);
+			object_error((t_object*)x, "Null object cannot subscribe to jcom.hub (in % module)", x->osc_alias->s_name);
 		return _sym_nothing;
 	}
 	
@@ -685,13 +685,13 @@ void hub_outlet_return(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlets[k_outlet_return], msg, argc, argv);
 
-	if (x->osc_name == NULL)					// it's possible for this method to be called before osc_name is valid
+	if (x->osc_alias == NULL)					// it's possible for this method to be called before osc_alias is valid
 		return;								//	...
 	if (x->jcom_send) {
 		char		mess[256];
 		t_symbol	*osc;
 		
-		strcpy(mess, x->osc_name->s_name);
+		strcpy(mess, x->osc_alias->s_name);
 		strcat(mess, msg->s_name);
 		osc = gensym(mess);
 		object_method_typed(x->jcom_send, osc, argc, argv, NULL);
@@ -732,7 +732,7 @@ void hub_getstate(t_hub *x)
 				x->text = (char*)realloc(x->text, x->textSize);
 			}
 			
-			strncat_zero(x->text, x->osc_name->s_name, x->textSize);
+			strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
 			strncat_zero(x->text, "/", x->textSize);
 			strncat_zero(x->text, t->name->s_name, x->textSize);
 			strncat_zero(x->text, " ", x->textSize);
@@ -770,9 +770,9 @@ t_symbol *hub_modulename_get(t_hub *x)
 {
 	t_atom	a;
 
-	if (x->osc_name != NULL) {
-		if (x->osc_name != _sym_nothing) {
-			atom_setsym(&a, x->osc_name);	
+	if (x->osc_alias != NULL) {
+		if (x->osc_alias != _sym_nothing) {
+			atom_setsym(&a, x->osc_alias);	
 			hub_outlet_return(x, gensym("/module_name"), 1, &a);
 		}
 	}
@@ -889,7 +889,7 @@ void hub_gui_build(t_hub *x)
 			t = *i;
 			if ((t->type == jps_subscribe_remote) && t->name == jps__gui__) {
 				atom_setsym(&a[0], gensym("module_name"));
-				atom_setsym(&a[1], x->osc_name);
+				atom_setsym(&a[1], x->osc_alias);
 				object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 				
 				atom_setsym(&a[0], gensym("module_class"));
@@ -1272,7 +1272,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 				if (x->editing)
 					object_error((t_object*)x, "No message or parameter named %s (in %s module).", name->s_name, x->attr_name->s_name);
 				else	
-					object_error((t_object*)x, "No message or parameter named %s (in %s module).", name->s_name, x->osc_name->s_name);
+					object_error((t_object*)x, "No message or parameter named %s (in %s module).", name->s_name, x->osc_alias->s_name);
 			}
 		}
 	}
@@ -1350,7 +1350,7 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 										x->attr_name->s_name, mess, x->attr_name->s_name);
 		else	
 			object_error((t_object*)x, "%s module received message from jcom.send with problematic or missing OSC namespace (%s) in %s module", 
-										x->attr_name->s_name, mess, x->osc_name->s_name);
+										x->attr_name->s_name, mess, x->osc_alias->s_name);
 		return;
 	}
 
@@ -1365,9 +1365,9 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
 		x->using_wildcard = false;
 	}
-	// Check if we are the correct module. The message need to fit with either x->osc_name or x->osc_name_fixed.
-	else if ((x->osc_name && x->osc_name->s_name[0] && !strcmp(mess, x->osc_name->s_name)) ||
-			 (x->osc_name_fixed && x->osc_name_fixed->s_name[0] && !strcmp(mess, x->osc_name_fixed->s_name))) {		
+	// Check if we are the correct module. The message need to fit with either x->osc_alias or x->osc_name.
+	else if ((x->osc_alias && x->osc_alias->s_name[0] && !strcmp(mess, x->osc_alias->s_name)) ||
+			 (x->osc_name && x->osc_name->s_name[0] && !strcmp(mess, x->osc_name->s_name))) {		
 		split++;
 		osc = gensym(split);
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
@@ -1393,7 +1393,7 @@ void hub_bang(t_hub *x)
 }
 
 
-t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
+t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 {
 	if (argc && argv) {
 		char			name[256];
@@ -1406,21 +1406,21 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		t_symbol*		nameOriginal;
 		
 		// If the module has a name from before, this needs to be removed from the list of existing module instances (ref. issue #1058). But we make sure not to remove the fixed name.
-		// When this method is first called, x->osx_name_fixed has not been set yet and x->osc_name has not yet been registered, so there's nothing to remove. Below we check for this as well.
-		if ((x->osc_name != _sym_nothing) && (x->osc_name_fixed != _sym_nothing) && (x->osc_name != x->osc_name_fixed))
-			jamoma_hub_remove(x->osc_name);
-		x->osc_name = atom_getsym(argv);
+		// When this method is first called, x->osx_name_fixed has not been set yet and x->osc_alias has not yet been registered, so there's nothing to remove. Below we check for this as well.
+		if ((x->osc_alias != _sym_nothing) && (x->osc_alias_fixed != _sym_nothing) && (x->osc_alias != x->osc_name))
+			jamoma_hub_remove(x->osc_alias);
+		x->osc_alias = atom_getsym(argv);
 
 		// No arg is present -- try to invent something intelligent for a name
-		if (x->osc_name == _sym_nothing) {
+		if (x->osc_alias == _sym_nothing) {
 			// Strip jmod. from the beginning of patch names, this happens if you drag a module from browser to bpatcher
 			if (strncmp(x->attr_name->s_name, "jmod.", 5) == 0)
-				x->osc_name = gensym(x->attr_name->s_name + 5);
+				x->osc_alias = gensym(x->attr_name->s_name + 5);
 			else
-				x->osc_name = x->attr_name;
+				x->osc_alias = x->attr_name;
 		}
 		
-		strcpy(name, x->osc_name->s_name);
+		strcpy(name, x->osc_alias->s_name);
 		
 		// the name is autoprepended with a /
 		if (name[0] != '/') {
@@ -1449,22 +1449,22 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 			object_error((t_object*)x, "%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
 		nameOriginal = gensym(name);
 	again:
-		x->osc_name = gensym(name);
+		x->osc_alias = gensym(name);
 		
 		// update the ui object
 		if (x->gui_object) {
 			atom_setsym(&a[0], gensym("module_name"));
-			atom_setsym(&a[1], x->osc_name);
+			atom_setsym(&a[1], x->osc_alias);
 			object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 		}
 		
 		// Register with the framework, and making sure this name hasn't already been used...
 		// TODO: is the framework making sure that this t_object is unique and hasn't already been registered?
-		// UPDATE: We now permit an alias to the module name (x->osc_name) as well as a fixed name (x->osc_name_fixed), so we actually don't want to enforce t_object to be unique. [TL 2011-12-30]
+		// UPDATE: We now permit an alias to the module name (x->osc_alias) as well as a fixed name (x->osc_name), so we actually don't want to enforce t_object to be unique. [TL 2011-12-30]
 		
 		// If the name differs from the fixed one, we register it, elseway it is registered already.
-		if (x->osc_name != x->osc_name_fixed) {
-			err = jamoma_hub_register(x->osc_name, (t_object *)x);
+		if (x->osc_alias != x->osc_name) {
+			err = jamoma_hub_register(x->osc_alias, (t_object *)x);
 			if (err) {
 				if (instance) {
 					nametest = strrchr(name, '.');
@@ -1484,7 +1484,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// And send a notification to the environment
 		atom_setsym(a, x->attr_name);
-		atom_setsym(a+1, x->osc_name);
+		atom_setsym(a+1, x->osc_alias);
 		object_method_typed(g_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
 	}
 	return MAX_ERR_NONE;

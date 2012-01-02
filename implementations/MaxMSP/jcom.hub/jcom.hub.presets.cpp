@@ -683,7 +683,7 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 		// Is default preset recalled as part of initialization of module?
 		if (x->flag_init) {
 			atom_setsym(args, x->attr_name);
-			atom_setsym(args+1, x->osc_name);
+			atom_setsym(args+1, x->osc_alias);
 			object_method_typed(g_jcom_send_notifications, gensym("module.initialized"), 2, args, NULL);
 			// Initialization is now done
 			x->flag_init = 0;
@@ -1363,7 +1363,7 @@ void hub_preset_interface(t_hub* x)
 	object_method(p, _sym_vis);	// "vis" happens immediately, "front" is defer_lowed
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 
-	OBJ_ATTR_SYM(p, "jmod/modulename", 0, x->osc_name);	// to use in jmod.receive etc.
+	OBJ_ATTR_SYM(p, "jmod/modulename", 0, x->osc_alias);	// to use in jmod.receive etc.
 	OBJ_ATTR_SYM(p, "jmod/presetname", 0, x->preset_lastname);
 	OBJ_ATTR_LONG(p, "jmod/presetnumber", 0, x->preset_lastnum);
 
