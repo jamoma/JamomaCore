@@ -79,7 +79,7 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*jcom_send;					///< jcom.send and jcom.receive objects for remote communication
 	t_object		*jcom_receive;				//	...
 	t_symbol		*osc_alias;					///< The OSC name of this module for remote communication. This name can be changed dynamically, and can be considered an alias for the module.
-	t_symbol		*hub_name;			///< A OSC name for the module that will be set at instantiated, and fixed for the lifespan of the module. This ensures that we are able to address the module using remote OSC communication regardless of what the alias might be set to at the time being.
+	t_symbol		*osc_permanent;			///< A OSC name for the module that will be set when instantiated, and remain fixed for the lifespan of the module. This ensures that we are able to address the module using remote OSC communication regardless of what the alias might be set to at the time being.
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
 	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects
 	t_object		*preset_interface;
@@ -515,7 +515,7 @@ void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av);
 void hub_preset_interface(t_hub* x);
 
 
-/** Set the OSC alias of the module. This is stored as the x->osc_alias attribute, and can be changed dynamically throughout the lifespan of the object and module. In addition we keep a permanent x->osc_name that is set when the object is created. This way x->osc_alias serves as an alias to the module that can be dynamically changed, while x->hub_name provides a permanent address to the module.
+/** Set the OSC alias of the module. This is stored as the x->osc_alias attribute, and can be changed dynamically throughout the lifespan of the object and module. In addition we keep a permanent x->osc_permanent that is set when the object is created. This way x->osc_alias serves as an alias to the module that can be dynamically changed, while x->osc_permanent provides a permanent address to the module.
  * @param x			Pointer to this object.
  * @param attr		The name of the attribute (x->osc_alias).
  * @param argc		The number of arguments.

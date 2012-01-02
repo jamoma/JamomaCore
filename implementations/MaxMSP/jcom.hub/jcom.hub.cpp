@@ -67,11 +67,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	
 	// Rename the module instance (the osc_alias attribute)
-	class_addmethod(c, (method)hub_attr_setalias,		"/name",					A_GIMME, 0L);	// So that the name can be set using OSC messages
-	class_addmethod(c, (method)hub_attr_setalias,		"/rename",					A_GIMME, 0L);	// Alternative to the above that might help readability of cues
-	class_addmethod(c, (method)hub_attr_setalias,		"rename",					A_GIMME, 0L);	// Non-slash version of the above
-	class_addmethod(c, (method)hub_attr_setalias,		"module_name",				A_GIMME, 0L);	// For consistency with the get method
-	class_addmethod(c, (method)hub_attr_setalias,		"/module_name",				A_GIMME, 0L);	// For consistency with the get method
+	class_addmethod(c, (method)hub_attr_setalias,		"/alias",					A_GIMME, 0L);	// So that the alias can be set using OSC messages.
+	class_addmethod(c, (method)hub_attr_setalias,		"alias",					A_GIMME, 0L);	// Non-slash version of the above.
 	
 	// Get the name of the module instance (the osc_alias attribute)
 	class_addmethod(c, (method)hub_modulename_get,		"name:/get",				0L);
@@ -122,7 +119,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	class_addmethod(c, (method)hub_edclose,				"edclose",	A_CANT, 0);		// notification of closing the /getstate text editor window
 
-	CLASS_ATTR_SYM(c,		"name",				0,		t_hub,	osc_alias);			// instance name (osc)
+	CLASS_ATTR_SYM(c,		"name",				0,		t_hub,	osc_alias);			// Instance name (osc). This is actually osc_alias, not osc_permanent.
 	CLASS_ATTR_ACCESSORS(c,	"name",				NULL,	hub_attr_setalias);
 
 	CLASS_ATTR_SYM(c,		"class",			0,	t_hub,	attr_name);				// module class name
@@ -190,7 +187,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		// set default attributes
 		x->attr_name = name;
 		x->osc_alias = _sym_nothing;
-		x->osc_name = _sym_nothing;
+		x->osc_permanent = _sym_nothing;
 		x->attr_type = jps_control;
 		x->attr_description = _sym_nothing;
 		x->attr_algorithm_type = jps_default;		// poly for audio, jitter for video, control for control
@@ -349,9 +346,9 @@ void hub_examine_context(t_hub *x)
 		}
 	}
 
-	// By now osc_alias has been set to its initial value. This initial value will also be stored as the fixed name of the module, remembered for the lifetime of the instance. This will ensures that the fixed and dynamic names are the same initially, and properly registered. Please note that this registration is necsessary to ensure the uniqueness of osc_alias and osc_named_fixed, but it is not used for the actual communication to the module. Communication to the module is instead handled by the hub_receive_callback method.
+	// By now osc_alias has been set to its initial value. This initial value will also be stored as the fixed name of the module, remembered for the lifetime of the instance. This will ensures that the fixed and dynamic names are the same initially, and properly registered. Please note that this registration is necsessary to ensure the uniqueness of osc_alias and osc_permanentd_fixed, but it is not used for the actual communication to the module. Communication to the module is instead handled by the hub_receive_callback method.
 	object_attr_setsym(x, _sym_name, x->osc_alias);
-	x->osc_name = x->osc_alias;
+	x->osc_permanent = x->osc_alias;
 	
 	hub_subscriptions_refresh(x);
 	hub_internals_create(x);
@@ -369,9 +366,9 @@ void hub_free(t_hub *x)
 
 	object_free(x->preset_interface);
 	jamoma_hub_remove(x->osc_alias);
-	// osc_name needs to be removed as well if it differs from osc_alias.
-	if (x->osc_name != x->osc_alias) 
-		jamoma_hub_remove(x->osc_name);
+	// osc_permanent needs to be removed as well if it differs from osc_alias.
+	if (x->osc_permanent != x->osc_alias) 
+		jamoma_hub_remove(x->osc_permanent);
 
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_alias);
@@ -1365,9 +1362,9 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
 		x->using_wildcard = false;
 	}
-	// Check if we are the correct module. The message need to fit with either x->osc_alias or x->osc_name.
+	// Check if we are the correct module. The message need to fit with either x->osc_alias or x->osc_permanent.
 	else if ((x->osc_alias && x->osc_alias->s_name[0] && !strcmp(mess, x->osc_alias->s_name)) ||
-			 (x->osc_name && x->osc_name->s_name[0] && !strcmp(mess, x->osc_name->s_name))) {		
+			 (x->osc_permanent && x->osc_permanent->s_name[0] && !strcmp(mess, x->osc_permanent->s_name))) {		
 		split++;
 		osc = gensym(split);
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
@@ -1407,7 +1404,7 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// If the module has a name from before, this needs to be removed from the list of existing module instances (ref. issue #1058). But we make sure not to remove the fixed name.
 		// When this method is first called, x->osx_name_fixed has not been set yet and x->osc_alias has not yet been registered, so there's nothing to remove. Below we check for this as well.
-		if ((x->osc_alias != _sym_nothing) && (x->osc_alias_fixed != _sym_nothing) && (x->osc_alias != x->osc_name))
+		if ((x->osc_alias != _sym_nothing) && (x->osc_alias != _sym_nothing) && (x->osc_alias != x->osc_permanent))
 			jamoma_hub_remove(x->osc_alias);
 		x->osc_alias = atom_getsym(argv);
 
@@ -1460,10 +1457,10 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// Register with the framework, and making sure this name hasn't already been used...
 		// TODO: is the framework making sure that this t_object is unique and hasn't already been registered?
-		// UPDATE: We now permit an alias to the module name (x->osc_alias) as well as a fixed name (x->osc_name), so we actually don't want to enforce t_object to be unique. [TL 2011-12-30]
+		// UPDATE: We now permit an alias to the module name (x->osc_alias) as well as a fixed name (x->osc_permanent), so we actually don't want to enforce t_object to be unique. [TL 2011-12-30]
 		
 		// If the name differs from the fixed one, we register it, elseway it is registered already.
-		if (x->osc_alias != x->osc_name) {
+		if (x->osc_alias != x->osc_permanent) {
 			err = jamoma_hub_register(x->osc_alias, (t_object *)x);
 			if (err) {
 				if (instance) {
