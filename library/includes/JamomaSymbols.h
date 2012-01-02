@@ -54,6 +54,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_none,
 				*jps_none,						// this type only used by jcom.message
 				*jps_jcom_hub, 
 				*jps_feedback,
+				*jps_alias,
 				*jps_module_name_get,
 				*jps_core_module_name_get,
 				*jps_dumpout,

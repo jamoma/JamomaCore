@@ -37,6 +37,7 @@ t_symbol	*jps_done,
 			*jps_none,				// this type only used by jcom.message
 			*jps_jcom_hub, 
 			*jps_feedback,
+			*jps_alias,
 			*jps_module_name_get,		// common OSC messages according to the JIG
 			*jps_core_module_name_get,
 			*jps_dumpout,
@@ -212,6 +213,7 @@ void jamomaSymbolsInit()
 	jps_jcom_hub					= SymbolGen("jcom.hub"); 
     jps_feedback					= SymbolGen("__feedback__");		// used for parameter feedback to the hub
 	// common OSC messages according to the JIG
+	jps_alias						= SymbolGen("alias");
 	jps_module_name_get				= SymbolGen("/module_name:/get");
 	jps_core_module_name_get		= SymbolGen("core_module_name:/get");
 	jps_dumpout						= SymbolGen("dumpout");
