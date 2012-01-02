@@ -1,6 +1,6 @@
-/* 
- * jcom.hub
- * External for Jamoma: dispatch messages to jcom.parameter objects
+/** 
+ * \file jcom.hub.h
+ * External for Jamoma: Dispatch messages to jcom.parameter objects.
  * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -44,11 +44,11 @@ typedef struct _preset_item{
 typedef jcomList<t_preset_item*> presetItemList;
 typedef list<t_preset_item*>::iterator presetItemListIterator;
 
-/** Linked list of loaded presets */
+/** Linked list of loaded presets. */
 typedef struct _preset{
 	long			number;
 	t_symbol		*name;
-	presetItemList	*item;		///< a preset may have N items (stored as a linked list)
+	presetItemList	*item;		///< A preset may have N items (stored as a linked list)
 	long			last_preset_num;
 	t_symbol		*last_preset_name;
 } t_preset;
@@ -56,9 +56,7 @@ typedef struct _preset{
 typedef jcomList<t_preset*> presetList;
 typedef list<t_preset*>::iterator presetListIterator;
 
-/** The Hub. jcom.hub performs a large part of the automagic part of Jamoma.  This includes
- * things such as saving and recalling presets, resizing modules to one of the standard sizes
- * forwarding of control messages to jcom.in and so on.  */
+/** The Hub. jcom.hub performs a large part of the automagic part of Jamoma.  This includes things such as saving and recalling presets, resizing modules to one of the standard sizes forwarding of control messages to jcom.in and so on.  */
 typedef struct _hub{							///< Data Structure for this object
 	t_object		ob;							///< REQUIRED: Our object
 	void			*outlets[k_num_outlets];	///< outlet array
@@ -97,20 +95,54 @@ typedef struct _hub{							///< Data Structure for this object
 
 // Prototypes for our methods:
 
-/** The jcom.hub constructor */
+/** The jcom.hub constructor 
+ @param s			Symbol passed to the object at instantiation.
+ @param argc		The number of arguments passed to the object.
+ @param argv		The arguments passed to the obejct as an array of atoms.
+ @return			Pointer to the newly created object.
+ @see				hub_examine_context, hub_subscriptions_refresh, hub_free
+ */
 void*		hub_new(t_symbol *s, long argc, t_atom *argv);
+
+
+/** Re-examin the patch that jcom.hub is part of and refresh the list of Jamoma core objects subscribed to this hub.
+ @param x			Pointer to this object.
+ @see				hub_new, hub_examine_context
+ */
 void		hub_subscriptions_refresh(t_hub *x);
+
+
+/** A deferred examination of the context of the hub at instantiation. 
+ @param x			Pointer to this object.
+ @see				hub_new, hub_subscriptions_refresh
+ */
 void		hub_examine_context(t_hub *x);
 
 
-/** The hub deconstructor, free's any memory used by the hub
- * @param x the hub who's memory should be freed
- * @see hub_free */
+/** The hub deconstructor, free's any memory used by the hub.
+ @param x the hub who's memory should be freed
+ @see hub_new */
 void		hub_free(t_hub *x);
+
+
+/** TODO: What is this one doing?
+ */
 void		hub_notify(t_hub *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+
+
+/**
+ Provide assistance strings for inlets and outlets in Max.
+*/
 void		hub_assist(t_hub *x, void *b, long msg, long arg, char *dst);
 
+
+/** TODO: What is this one doing?
+ */
 t_object*	hub_getobj_audioin(t_hub *x);
+
+
+/** TODO: What is this one doing?
+ */
 t_object*	hub_getobj_audioout(t_hub *x);
 
 
@@ -118,65 +150,161 @@ t_object*	hub_getobj_audioout(t_hub *x);
 void hub_bang(t_hub *x);
 
 
-void		hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
+/** A message of some kind (aka a symbol) has been passed to the object.
+ @param x			Pointer to this object.
+ @param msg			The message received.
+ @param argc		The number of arguments to the message.
+ @param argv		The arguments as a pointer to an array of atoms.
+ */
+void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 
 
-/** This is called by clients who wish to register their parameters with the hub.  Meaning
- * these is typically called by jcom.parameter 
- * @param x the hub the client wants to subscribe to
- * @param name the name of the subscribing object
- * @param param_object a pointer to the subscribing object itself
- * @param type the type of the object subscribing to the hub
- * @return the name of the hub subscribed to 
- * @see hub_unsubscribe
+/** This is called by clients who wish to register their parameters with the hub.  Meaning these are typically called by jcom.parameter 
+ @param x the hub the client wants to subscribe to
+ @param name the name of the subscribing object
+ @param param_object a pointer to the subscribing object itself
+ @param type the type of the object subscribing to the hub
+ @return the name of the hub subscribed to 
+ @see hub_unsubscribe, hub_subscriptions_refresh
  */
 t_symbol*	hub_subscribe(t_hub *x, t_symbol *name, t_object *param_object, t_symbol *type);
 
 
 /** Unsubscribe a client from the hub.
- * @param x the hub to be unsubscribed from
- * @param subscriber_object the object to unsubscribe
- * @see hub_subscribe
+ @param x the hub to be unsubscribed from.
+ @param subscriber_object the object to unsubscribe.
+ @see hub_subscribe, hub_subscriptions_refresh
  */
 void		hub_unsubscribe(t_hub *x, t_object *subscriber_object);
 
-/**
- * Receive parameter values from jcom.parameter
- * @param x			Pointer to this object
- * @param name		Name of the parameter that is sending a message.
- * @param argc		The number of arguments to the message.
- * @param argv		The arguments as a pointer to an array of atoms.
+/** Receive parameter values from jcom.parameter.
+ @param x			Pointer to this object
+ @param name		Name of the parameter that is sending a message.
+ @param argc		The number of arguments to the message.
+ @param argv		The arguments as a pointer to an array of atoms.
+ @see				jcom_private, jcom_return, jcom_return_extended
  */
 void		hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv);
 
 
+/** Receive private messages from jcom.remote.
+ @param x			Pointer to this object
+ @param name		Name of the parameter that is sending a message.
+ @param argc		The number of arguments to the message.
+ @param argv		The arguments as a pointer to an array of atoms.
+ @see				jcom_receive, jcom_return, jcom_return_extended
+ */
 void		hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv);
+
+
+/** Receive messages from jcom.return - don't send messages back to the algorithm.
+ @param x			Pointer to this object
+ @param name		Name of the parameter that is sending a message.
+ @param argc		The number of arguments to the message.
+ @param argv		The arguments as a pointer to an array of atoms.
+ @see				jcom_private, jcom_receive, jcom_return_extended
+ */
 void 		hub_return(t_hub *x, t_symbol *name, long argc, t_atom *argv);
+
+
+/** A version of jcom_return that performs wilcard substitution.
+ @param x			Pointer to this object
+ @param name		Name of the parameter that is sending a message.
+ @param argc		The number of arguments to the message.
+ @param argv		The arguments as a pointer to an array of atoms.
+ @see hub_return
+ */
 void		hub_return_extended(t_hub *x, t_symbol *name, long argc, t_atom *argv);
+
+
+/** All messages being returned from the module should be funneled through this function!
+ @param x			Pointer to this object
+ @param msg			The message to be sent.
+ @param argc		The number of arguments to the message.
+ @param argv		The arguments as a pointer to an array of atoms.
+ */
 void 		hub_outlet_return(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
+
+
+/** Get the names of all jcom.parameter objects subscribed to the hub.
+ @param x			Pointer to this object.
+ */
 void		hub_paramnames_get(t_hub *x);
+
+
+/** Get the names of all jcom.message objects subscribed to the hub.
+ @param x			Pointer to this object.
+ */
 void		hub_messagenames_get(t_hub *x);
+
+
+/** Get the names of all jcom.return objects subscribed to the hub.
+ @param x			Pointer to this object.
+ */
 void		hub_returnnames_get(t_hub *x);
+
+
 void		hub_paramvalues_get(t_hub *x);
+
+
+/** Get the names of all jcom.parameter, jcom.message and jcom.return objects subscribed to the hub.
+ @param x			Pointer to this object.
+ */
 void		hub_allnames_get(t_hub *x);
+
+
+/** Get the name of the module.
+ @param x			Pointer to this object.
+ */
 t_symbol*	hub_modulename_get(t_hub *x);
 
+
+/** Get a linked list of parameters subscribed to the hub.
+ @param x			Pointer to this object.
+ @param linklist	The jcom.parameter objects of the module.
+ */
 void hub_paramnames_linklist(t_hub *x, t_linklist *linklist);
+
+
+/** Get a linked list of messages subscribed to the hub.
+ @param x			Pointer to this object.
+ @param linklist	The jcom.message objects of the module.
+ */
 void hub_messagenames_linklist(t_hub *x, t_linklist *linklist);
+
+
+/** Get a linked list of returns subscribed to the hub.
+ @param x			Pointer to this object.
+ @param linklist	The jcom.return obejcts of the module.
+ */
 void hub_returnnames_linklist(t_hub *x, t_linklist *linklist);
+
+
 void hub_presetnames_linklist(t_hub *x, t_linklist *ll);
 
-/** Returns the name of the module.  Only really used by jcom.core.cpp
- * @return the name of the module 
+/** Returns the name of the module.  Only really used by jcom.core.cpp.
+ * @return			The name of the module.
  */
 t_symbol*	core_modulename_get(t_hub *x);
 
 
 t_symbol*	hub_modulename_get(t_hub *x);
+
+
+/** Query the algorithm type of the module.
+ */
 t_symbol*	hub_algorithmtype_get(t_hub *x);
 
 
+/** Open the maxhelp patch for this module.
+ @param x			Pointer to this object.
+ */
 void hub_module_help(t_hub* x);
+
+
+/** Open the HTML reference page for this object.
+ @param x			Pointer to this object.
+ */
 void hub_module_reference(t_hub* x);
 
 
@@ -187,6 +315,11 @@ void hub_module_reference(t_hub* x);
 void		hub_init(t_hub *x, t_symbol*, long, t_atom*);
 void 		hub_qfn_init(t_hub *x);
 void 		hub_gui_build(t_hub *x);
+
+
+/** Open the algorithm subpatch or abstraction embedded in the module.
+ @param x			Poointer to this object. The rest of the arguments are ignored.
+ */
 void		hub_module_view_alg(t_hub *x, t_symbol*, long, t_atom*);
 
 
@@ -365,11 +498,29 @@ void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
 void 		hub_presets_post(t_hub *x, t_symbol*, long, t_atom*);
 
 
+/** Get the current state of the object and display in a text window.
+ */
 void hub_getstate(t_hub *x);
+
+
+/** Notification that the text editing window showing current state has been closed.
+ */
 void hub_edclose(t_hub *x, char **text, long size);
+
+
+/** TODO: What do this one do?
+ */
 void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av);
 
 void hub_preset_interface(t_hub* x);
+
+
+/** Set or change the name of the module. This is stored as the x->osc_name attribute, and can be changed dynamically throughout the lifespan of the object and module. In addition we keep a x->osc_name_fixed that is set when the object is created. Later on it is impossible to change x->osc_name_fixed. This way x->osc_name serves as an alias to the module that can be dynamically changed, while x->osc_name_fixed provides a permanent address to the module.
+ * @param x			Pointer to this object.
+ * @param attr		The name of the attribute (x->osc_name).
+ * @param argc		The number of arguments.
+ * @param argv		Arguments as a pointer to an array of atoms. We will only use the first argument here.
+ */
 t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv);
 
 // Globals
