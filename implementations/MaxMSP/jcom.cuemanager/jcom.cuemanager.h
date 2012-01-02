@@ -1,5 +1,5 @@
-/* 
- * jcom.cuemanager
+/** 
+ * \file jcom.cuemanager.h
  * External for Jamoma: to manage cues in a text file 
  * By ThÈo de la Hogue, Copyright 2009
  * 

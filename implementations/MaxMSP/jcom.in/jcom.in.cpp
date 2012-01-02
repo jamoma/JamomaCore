@@ -1,6 +1,6 @@
 /* 
- * jcom.in~
- * External for Jamoma: manage audio inputs for a module
+ * \file jcom.in.h
+ * jcom.in~: External for Jamoma: manage audio inputs for a module
  * By Tim Place, Copyright � 2006
  * 
  * License: This code is licensed under the terms of the "New BSD License"

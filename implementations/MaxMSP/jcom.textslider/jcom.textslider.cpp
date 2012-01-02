@@ -1,5 +1,5 @@
-/* 
-	jcom.textslider
+/** 
+	\file jcom.textslider.cpp
 	A slider displaying text and value
 	By Trond Lossius, Copyright � 2008
 	Inspired by a GUI widget from radiaL by jhno

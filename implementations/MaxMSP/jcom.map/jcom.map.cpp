@@ -1,5 +1,5 @@
-/* 
- * jcom.map
+/** 
+ * \file jcom.map.cpp
  * External for Jamoma: map input to output: y=f(x)
  * Copyright © 2007
  * 

@@ -1,5 +1,5 @@
-/* 
- * jcom.pass
+/** 
+ * \file jcom.pass.cpp
  * External for Jamoma: pass messages if they match our criteria
  * By Tim Place, Copyright © 2005
  * 

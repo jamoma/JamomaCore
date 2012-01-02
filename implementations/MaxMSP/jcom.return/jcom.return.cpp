@@ -1,5 +1,5 @@
-/* 
- * jcom.return
+/** 
+ * \file jcom.return.cpp
  * External for Jamoma: return data from our module to the outside world
  * By Tim Place, Copyright � 2006
  * 

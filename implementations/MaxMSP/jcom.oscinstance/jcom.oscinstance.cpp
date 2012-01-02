@@ -1,5 +1,5 @@
-/* 
- * jcom.oscinstance
+/** 
+ * \file jcom.oscinstance.cpp
  * External for Jamoma: retrieve instance numbers or ids from osc messages
  * By Trond Lossius, Copyright � 2005
  * 

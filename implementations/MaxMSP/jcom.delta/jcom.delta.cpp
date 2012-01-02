@@ -1,6 +1,8 @@
-/* 
- * jcom.delta (previously names tl.delta)
+/** 
+ * \file jcom.delta.cpp
  * External for Jamoma: calculate 1st order difference
+ * This object replaces tl.delta from the tl.objects distribution.
+ *
  * By Trond Lossius, Copyright © 2001-06
  * 20031227 initial port to OSX compiled by jasch <jasch@kat.ch>
  * 20060813 ported to Jamoma

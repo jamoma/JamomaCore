@@ -1,5 +1,5 @@
-/* 
- * jcom.ui
+/** 
+ * \file jcom.ui.h
  * External for Jamoma: provide standard user interface component for modules
  * By Tim Place, Copyright © 2007
  * 

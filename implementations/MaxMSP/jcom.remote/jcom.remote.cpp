@@ -1,5 +1,5 @@
-/* 
- * jcom.remote
+/** 
+ * \file jcom.remote.cpp
  * External for Jamoma: private means of communication with a jcom.hub
  * By Tim Place, Copyright © 2006
  * 

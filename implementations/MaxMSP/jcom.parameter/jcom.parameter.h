@@ -1,6 +1,6 @@
-/* 
- * jcom.param
- * External for Jamoma: parameter definition using pattr
+/** 
+ * \file jcom.parameter.h
+ * External for Jamoma: Parameter definition
  * By Tim Place, Copyright � 2006
  * 
  * License: This code is licensed under the terms of the "New BSD License"
