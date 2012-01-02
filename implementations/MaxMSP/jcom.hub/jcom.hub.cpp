@@ -1073,6 +1073,16 @@ void hub_paramvalues_get(t_hub *x)
 
 	hub_outlet_return(x, jps_parameter_values_start, 0, NULL);
 	
+	// Do the OSC alias differ from the permanent OSC name?
+	if (x->osc_alias != x->osc_permanent) {
+		t_atom argv[2];
+		snprintf(osc, 512, "%s/alias", x->osc_permanent->s_name);
+		atom_setsym(argv, gensym(osc));
+		atom_setsym(argv+1, x->osc_alias);
+		snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, jps_alias->s_name);
+		hub_outlet_return(x, gensym(osc), 2, argv);
+	}
+	
 	// Count the number of parameters with a priority
 	critical_enter(0);
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
