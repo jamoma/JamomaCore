@@ -719,6 +719,20 @@ void hub_getstate(t_hub *x)
 	x->text[0] = 0;
 	
 	critical_enter(0);
+	
+	// Do we use an OSC alias?
+	if (x->osc_alias != x->osc_permanent) {
+		strncat_zero(x->text, x->osc_permanent->s_name, x->textSize);
+		strncat_zero(x->text, "/alias", x->textSize);
+		strncat_zero(x->text, " ", x->textSize);
+		strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
+		strncat_zero(x->text, "\n", x->textSize);
+		
+		sysmem_freeptr(text);
+		text = NULL;
+		textsize = 0;
+	}
+	
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_parameter) {
@@ -1044,7 +1058,7 @@ void hub_paramnames_get(t_hub *x)
 }
 
 
-// Return a list of parameters and message for this module
+// Get the values of all parameters for this module.
 void hub_paramvalues_get(t_hub *x)
 {
 	subscriberList		*subscriber = x->subscriber;	// head of the linked list
