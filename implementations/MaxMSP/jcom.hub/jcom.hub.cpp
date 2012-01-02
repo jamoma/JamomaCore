@@ -70,6 +70,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)hub_attr_setalias,		"/alias",					A_GIMME, 0L);	// So that the alias can be set using OSC messages.
 	class_addmethod(c, (method)hub_attr_setalias,		"alias",					A_GIMME, 0L);	// Non-slash version of the above.
 	
+	class_addmethod(c, (method)hub_alias_remove,		"/alias/remove",			0);
+	class_addmethod(c, (method)hub_alias_remove,		"alias/remove",				0);
+	
 	// Get the name of the module instance (the osc_alias attribute)
 	class_addmethod(c, (method)hub_modulename_get,		"name:/get",				0L);
 	class_addmethod(c, (method)hub_modulename_get,		"/name:/get",				0L);
@@ -1485,5 +1488,9 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		object_method_typed(g_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
 	}
 	return MAX_ERR_NONE;
+}
+
+t_max_err hub_alias_remove(t_hub* x) {
+	return object_attr_setsym(x, _sym_name, x->osc_permanent);
 }
 

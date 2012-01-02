@@ -516,12 +516,21 @@ void hub_preset_interface(t_hub* x);
 
 
 /** Set the OSC alias of the module. This is stored as the x->osc_alias attribute, and can be changed dynamically throughout the lifespan of the object and module. In addition we keep a permanent x->osc_permanent that is set when the object is created. This way x->osc_alias serves as an alias to the module that can be dynamically changed, while x->osc_permanent provides a permanent address to the module.
- * @param x			Pointer to this object.
- * @param attr		The name of the attribute (x->osc_alias).
- * @param argc		The number of arguments.
- * @param argv		Arguments as a pointer to an array of atoms. We will only use the first argument here.
+ @param x			Pointer to this object.
+ @param attr		The name of the attribute (x->osc_alias).
+ @param argc		The number of arguments.
+ @param argv		Arguments as a pointer to an array of atoms. We will only use the first argument here.
+ @return			Error if the attempt to update the osc_alias attribute failed.
  */
 t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv);
+
+
+/**
+ Get rid of the OSC alias by resetting osc_alias to osc_permant.
+ @param x			Pointer to this object.
+ @return			Error if the attempt to update the osc_alias attribute failed.
+ */
+t_max_err hub_alias_remove(t_hub* x);
 
 // Globals
 extern 		t_class		*hub_class;				// Required: Global pointer for our class
