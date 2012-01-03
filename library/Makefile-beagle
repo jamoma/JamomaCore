@@ -1,0 +1,99 @@
+NAME = JamomaFoundation
+CC = g++
+
+########################################
+
+INCLUDES = -I./includes
+INCLUDES += -I./Mersenne-1.1
+INCLUDES += -I./boost
+INCLUDES += -I./tests
+
+
+#########################################
+
+# WE DONT HAVE ANY BOOST LIBS COMPILED FOR THE BEAGLEBOARD
+#LIB_INCLUDES = -L./boost/lib-linux-i386
+#
+#LIBS = -lboost_filesystem
+#LIBS += -lboost_system
+
+LIB_INCLUDES = 
+LIBS = 
+
+#########################################
+
+OPTIMIZATION_FLAGS = -O3
+DEFINES = -DTT_PLATFORM_LINUX
+OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared -g -std=c++0x
+
+# No SSE on the BeagleBoards
+#OPTIONS += -msse3 -mfpmath=sse
+# Add a preprocessor symbol for the BeagleBoard (and iOS, but only when running on a device?)
+DEFINES += -DTT_ARCHITECTURE_ARM
+
+CFLAGS = ${OPTIMIZATION_FLAGS} $(OPTIONS) $(DEFINES) $(INCLUDES)
+LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g
+
+#BeagleBoard Needs this:
+LDFLAGS += -fPIC
+
+
+#########################################
+
+SRC = source/TTAttribute.cpp
+SRC += source/TTBase.cpp
+SRC += source/TTCallback.cpp
+SRC += source/TTClass.cpp
+SRC += source/TTDataObject.cpp
+SRC += source/TTDictionary.cpp
+SRC += source/TTEnvironment.cpp
+SRC += source/TTFoundation.cpp
+SRC += source/TTHash.cpp
+SRC += source/TTList.cpp
+SRC += source/TTMatrix.cpp
+SRC += source/TTMatrixArray.cpp
+SRC += source/TTMatrixMath.cpp
+SRC += source/TTMessage.cpp
+SRC += source/TTMutex.cpp
+
+# Removing NodeLib for BeagleBoard due to Boost dependency
+#SRC += source/TTNode.cpp
+#SRC += source/TTNodeAddress.cpp
+#SRC += source/TTNodeAddressCache.cpp
+#SRC += source/TTNodeDirectory.cpp
+
+SRC += source/TTObject.cpp
+SRC += source/TTPath.cpp
+SRC += source/TTQueue.cpp
+SRC += source/TTRegex.cpp
+SRC += source/TTSymbol.cpp
+SRC += source/TTSymbolCache.cpp
+SRC += source/TTSymbolTable.cpp
+SRC += source/TTThread.cpp
+SRC += source/TTUnitTest.cpp
+SRC += source/TTValue.cpp
+SRC += source/TTValueCache.cpp
+
+SRC += tests/TTMatrix.test.cpp
+
+# Removing NodeLib for BeagleBoard due to Boost dependency
+#SRC += tests/TTNodeLib.test.cpp
+
+SRC += tests/TTValue.test.cpp
+
+
+#########################################
+
+Debug:
+	mkdir -p build
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS)
+
+Release:
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) $(OPTIMIZATION_FLAGS)
+
+all:
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS)
+
+clean:
+	rm -f *.o
+

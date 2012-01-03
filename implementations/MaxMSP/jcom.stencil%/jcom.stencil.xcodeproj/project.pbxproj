@@ -15,8 +15,8 @@
 		228A1626132D01FC006DD252 /* jcom.stencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228A1625132D01FC006DD252 /* jcom.stencil.cpp */; };
 		228A164C132D062D006DD252 /* jcom.max.stencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228A164B132D062D006DD252 /* jcom.max.stencil.cpp */; };
 		228A1658132D0753006DD252 /* JitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228A1657132D0753006DD252 /* JitterAPI.framework */; };
-		22CDFD5A11FC794D006664CD /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CDFD5911FC794D006664CD /* JamomaFoundation.dylib */; };
-		22CDFD6011FC7A2D006664CD /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CDFD5F11FC7A2D006664CD /* JamomaDSP.dylib */; };
+		229B581D149BE92C0093389A /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 229B581B149BE92C0093389A /* JamomaFoundation.dylib */; };
+		229B581E149BE92C0093389A /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 229B581C149BE92C0093389A /* JamomaDSP.dylib */; };
 		22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */; };
 /* End PBXBuildFile section */
 
@@ -29,8 +29,8 @@
 		228A1625132D01FC006DD252 /* jcom.stencil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.stencil.cpp; sourceTree = "<group>"; };
 		228A164B132D062D006DD252 /* jcom.max.stencil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.max.stencil.cpp; sourceTree = "<group>"; };
 		228A1657132D0753006DD252 /* JitterAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JitterAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/jit-includes/JitterAPI.framework"; sourceTree = SOURCE_ROOT; };
-		22CDFD5911FC794D006664CD /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
-		22CDFD5F11FC7A2D006664CD /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		229B581B149BE92C0093389A /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../library/build/JamomaFoundation.dylib; sourceTree = "<group>"; };
+		229B581C149BE92C0093389A /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../../../DSP/library/build/JamomaDSP.dylib; sourceTree = "<group>"; };
 		22EB3AE0102E6073006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.stencil%.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.stencil%.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -42,9 +42,9 @@
 			files = (
 				222AD830109A03EA0074753C /* MaxAPI.framework in Frameworks */,
 				222AD835109A03F60074753C /* MaxAudioAPI.framework in Frameworks */,
-				22CDFD5A11FC794D006664CD /* JamomaFoundation.dylib in Frameworks */,
-				22CDFD6011FC7A2D006664CD /* JamomaDSP.dylib in Frameworks */,
 				228A1658132D0753006DD252 /* JitterAPI.framework in Frameworks */,
+				229B581D149BE92C0093389A /* JamomaFoundation.dylib in Frameworks */,
+				229B581E149BE92C0093389A /* JamomaDSP.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,11 +65,11 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22CDFD5911FC794D006664CD /* JamomaFoundation.dylib */,
+				229B581B149BE92C0093389A /* JamomaFoundation.dylib */,
+				229B581C149BE92C0093389A /* JamomaDSP.dylib */,
 				228A1657132D0753006DD252 /* JitterAPI.framework */,
 				222AD834109A03F60074753C /* MaxAudioAPI.framework */,
 				222AD82F109A03EA0074753C /* MaxAPI.framework */,
-				22CDFD5F11FC7A2D006664CD /* JamomaDSP.dylib */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -213,6 +213,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../library/build\"",
+					"\"$(SRCROOT)/../../../../DSP/library/build\"",
 				);
 				PRODUCT_NAME = "$(PROJECT_NAME)%";
 				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";
@@ -232,6 +234,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../library/build\"",
+					"\"$(SRCROOT)/../../../../DSP/library/build\"",
 				);
 				PRODUCT_NAME = "$(PROJECT_NAME)%";
 				SDKROOT = "$(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk";

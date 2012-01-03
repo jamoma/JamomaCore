@@ -1,0 +1,15 @@
+
+sources:
+  - TTMatrixProcessingLib.cpp
+  - TTMatrixStencil.cpp
+  - TTMatrixGain.cpp  
+  - tests/TTMatrixGain.test.cpp
+  - tests/TTMatrixStencil.test.cpp
+  
+includes:
+  - "."
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+

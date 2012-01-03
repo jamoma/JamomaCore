@@ -68,7 +68,7 @@ public:
 	const char* getCString();
 	
 	/**	Return this symbol's unique id. */
-	const TTUInt32 getId();
+	/*const*/ TTUInt32 getId();
 	
 	// make sure this is a friend so that it can access the private members of the other
 	/** Compare two symbols for equality. */

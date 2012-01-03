@@ -57,7 +57,7 @@
 	If you are adding a custom property then you must define your own accessor methods and register the property by calling the
 	TTObject::registerAttributeProperty() method directly.
 */
-#define addAttributeProperty(attributeName, propertyName, initialValue)		registerAttributeProperty(TT(#attributeName), TT(#propertyName), initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
+#define addAttributeProperty(attributeName, propertyName, initialValue)	registerAttributeProperty(TT(_attrname_##attributeName), TT(#propertyName), initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
 
 /****************************************************************************************************/
 // Class Specifications
