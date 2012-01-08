@@ -2,9 +2,13 @@
 # encoding: utf-8
 
 glibdir = "."
-
 Dir.chdir glibdir
 glibdir = Dir.pwd
 
-Dir.chdir "#{glibdir}/supports"
+projectNameParts = glibdir.split('/')
+projectName = projectNameParts.last;
+projectName.gsub!(/Jamoma/, "")
+ENV['JAMOMAPROJECT'] = projectName
+
+Dir.chdir "#{glibdir}/../Support"
 load "build.rb"
