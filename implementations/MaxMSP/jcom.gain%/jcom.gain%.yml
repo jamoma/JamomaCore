@@ -12,12 +12,17 @@ includes:
   - "../../../../Support/max"
   - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
   - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+  - "../../../../Support/objectivemax/SDKs/Max5/c74support/jit-includes"
 
 libraries:
   - FOUNDATION
   - DSP
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
+  - ../../../../Support/objectivemax/SDKs/Max5/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI
+
+defines:
+  - TT_JITTER
 
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 arch: "i386"
