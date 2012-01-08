@@ -51,11 +51,17 @@ includes:
 
 libraries:
   - mac boost/lib-mac/libboost_filesystem.a
-  - win boost/lib-windows/libboost_filesystem-vc90-mt-s-1_46.lib
+  - win RELEASE boost/lib-windows/libboost_filesystem-vc90-mt-s-1_46.lib
+  - win DEBUG boost/lib-windows/libboost_filesystem-vc90-mt-sgd-1_46.lib
   - mac boost/lib-mac/libboost_system.a
-  - win boost/lib-windows/libboost_system-vc90-mt-s-1_46.lib
+  - win RELEASE boost/lib-windows/libboost_system-vc90-mt-s-1_46.lib
+  - win DEBUG boost/lib-windows/libboost_system-vc90-mt-sgd-1_46.lib
   - mac boost/lib-mac/libboost_regex.a
-  - win boost/lib-windows/libboost_regex-vc90-mt-s-1_46.lib
+  - win RELEASE boost/lib-windows/libboost_regex-vc90-mt-s-1_46.lib
+  - win DEBUG boost/lib-windows/libboost_regex-vc90-mt-sgd-1_46.lib
+
+defines:
+  - TTFOUNDATION_EXPORTS
 
 # For the moment we aren't going to add the dependency on Boost for the Linux platforms.
 # We do have compiled libs for the i386 arch but not for 64-bit or ARM architectures.
