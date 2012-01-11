@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 1.0, 44.0, 915.0, 522.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 1.0, 44.0, 915.0, 522.0 ],
@@ -84,8 +90,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 614.0, 196.0, 191.0, 18.0 ],
-					"text" : "addresses /degrade~ /degrade~.1"
+					"patching_rect" : [ 614.0, 196.0, 187.0, 18.0 ],
+					"text" : "addresses /degrade.1 /degrade.2"
 				}
 
 			}
@@ -99,34 +105,34 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 595.0, 174.0, 134.0, 18.0 ],
-					"text" : "addresses /degrade~.1"
+					"patching_rect" : [ 595.0, 174.0, 127.0, 18.0 ],
+					"text" : "addresses /degrade.2"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [  ],
+					"args" : [ "/degrade.1" ],
 					"id" : "obj-4",
 					"maxclass" : "bpatcher",
 					"name" : "degrade~.module.maxpat",
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 591.0, 428.0, 301.0, 71.0 ]
+					"patching_rect" : [ 591.0, 344.0, 300.0, 70.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [  ],
+					"args" : [ "/degrade.2" ],
 					"id" : "obj-3",
 					"maxclass" : "bpatcher",
 					"name" : "degrade~.module.maxpat",
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 591.0, 340.0, 301.0, 71.0 ]
+					"patching_rect" : [ 591.0, 428.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -138,7 +144,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 842.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 915.0, 70.0 ]
 				}
 
 			}
@@ -767,8 +773,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 579.0, 152.0, 124.0, 18.0 ],
-					"text" : "addresses /degrade~"
+					"patching_rect" : [ 579.0, 152.0, 127.0, 18.0 ],
+					"text" : "addresses /degrade.1"
 				}
 
 			}
