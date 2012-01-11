@@ -26,6 +26,21 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-25",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 341.0, 432.0, 161.0, 34.0 ],
+					"text" : "jcom.map @input /myFloat @output remoteApp:/foo.1"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"bgcolor" : [ 0.2, 0.2, 0.2, 0.0 ],
 					"border" : 3,
 					"bordercolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
@@ -69,7 +84,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-4",
-					"items" : "<empty>",
+					"items" : [ "/", ",", "foo.1" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -147,7 +162,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 21.0, 315.0, 153.0, 46.0 ],
+					"patching_rect" : [ 21.0, 315.0, 157.0, 46.0 ],
 					"text" : "protocol/setup ip 127.0.0.1, protocol/setup port 7003, name, protocol/setup"
 				}
 
@@ -540,6 +555,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 401.0, 58.0, 276.0, 20.0 ],
+									"text" : "/foo.1 0.91",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
@@ -1123,12 +1139,12 @@
 					"patching_rect" : [ 363.0, 542.0, 154.0, 35.0 ],
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
-						"default_fontsize" : 12.0,
 						"fontsize" : 12.0,
-						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"globalpatchername" : ""
+						"fontname" : "Arial",
+						"globalpatchername" : "",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p remoteApp",
