@@ -16,8 +16,8 @@ libraries:
   - FOUNDATION
   - GRAPH
   - DSP
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
+  - C74-MAX
+  - C74-MSP
 
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 arch: "i386"
