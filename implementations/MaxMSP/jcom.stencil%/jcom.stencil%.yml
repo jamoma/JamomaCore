@@ -17,12 +17,9 @@ includes:
 libraries:
   - FOUNDATION
   - DSP
-  - mac ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI
-  - mac ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
-  - mac ../../../../Support/objectivemax/SDKs/Max5/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI
-  - win ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.lib
-  - win ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudio.lib
-  - win ../../../../Support/objectivemax/SDKs/Max5/c74support/jit-includes/jitlib.lib
+  - C74-MAX
+  - C74-MSP
+  - C74-JITTER
 
 defines:
   - TT_JITTER
