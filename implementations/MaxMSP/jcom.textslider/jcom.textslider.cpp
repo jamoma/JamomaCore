@@ -352,7 +352,7 @@ void textslider_updatestringvalue(t_textslider *x)
 	t_object*	textfield = jbox_get_textfield((t_object*) x);
 	
 	if (textfield) {
-		snprintf(str, 16, "%f", x->attrValueUnclipped);
+		snprintf(str, 16, "%.3f", x->attrValueUnclipped);
 		if (x->attrUnit && x->attrUnit != _sym_nothing)
 			snprintf(str2, 16, "%s %s", str, x->attrUnit->s_name);
 		else
