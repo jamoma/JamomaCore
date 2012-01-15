@@ -1,0 +1,22 @@
+
+sources:
+  - jcom.average~.cpp		
+  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
+  - ../../../../Support/max/TTClassWrapperMax.cpp
+    
+includes:
+  - ../../../../Foundation/library/includes
+  - ../../../../DSP/library/includes
+  - ../../../../Graphics/library/includes
+  - ../../../../Support/max  
+  - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
+  - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - C74-MAX
+  - C74-MSP
+
+prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
+arch: "i386"
