@@ -1,9 +1,11 @@
 
 sources:
-  - jcom.cubicInterpolate.cpp		
+  - jcom.ui.cpp	
+  - jcom.ui.internals.cpp	
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
     
 includes:
+  - .
   - ../../../../Foundation/library/includes
   - ../../../../Modular/library/includes
   - ../../../../Modular/library/FunctionLib
@@ -18,7 +20,6 @@ libraries:
   - FOUNDATION
   - MODULAR  
   - C74-MAX
-  - C74-MSP
-
+  
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 arch: "i386"

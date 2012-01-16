@@ -1,9 +1,10 @@
 
 sources:
-  - jcom.cubicInterpolate.cpp		
+  - jcom.out.cpp		
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
     
 includes:
+  - . 
   - ../../../../Foundation/library/includes
   - ../../../../Modular/library/includes
   - ../../../../Modular/library/FunctionLib
@@ -17,6 +18,7 @@ includes:
 libraries:
   - FOUNDATION
   - MODULAR  
+  - DSP
   - C74-MAX
   - C74-MSP
 
