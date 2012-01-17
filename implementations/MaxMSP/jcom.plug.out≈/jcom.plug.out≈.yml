@@ -25,8 +25,8 @@ libraries:
   - GRAPH
   - DSP
   - ../../../../Plugtastic/library/build/JamomaPlugtastic.dylib
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
+  - C74-MAX
+  - C74-MSP
   
 frameworks:
   - Carbon
@@ -38,4 +38,15 @@ arch: i386
 compiler: gcc 
 # I've set the compiler to gcc beause for gcc46, I got the error:
 # g++: error: PlugtasticProgressWindow.mm: Objective-C++ compiler not installed on this system 
-
+########################################################################################################################
+# TODO: this is missing in the build script, we need to find a way to add this 
+#
+# shellScript = "echo \"try to remove old resources\"\n
+# rm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUEffect\n
+# rm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUInstrument\n
+# rm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/AUSDK\n\necho \"try to make dir\"\n
+# echo `mkdir -pv \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n\necho \"try to copy\"\n
+# echo `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUEffect \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n
+# echo `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUInstrument \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n
+# echo `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/AUSDK \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n
+# \necho \"script complete\"\n";
