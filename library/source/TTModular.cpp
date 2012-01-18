@@ -66,7 +66,7 @@ void TTModularInit()
 
 void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath)
 {
-	TTValue				args, result;
+	TTValue				args;
 	TTApplicationPtr	anApplication = NULL;
 	
 	if (TTModularApplications)
@@ -86,7 +86,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			TTXmlHandlerPtr anXmlHandler = NULL;
 			TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&anXmlHandler), kTTValNONE);
 			
-			anXmlHandler->setAttributeValue(kTTSym_object, result);
+			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			
 			args = TTValue(TT(xmlConfigFilePath));
 			anXmlHandler->sendMessage(TT("Read"), args, kTTValNONE);
