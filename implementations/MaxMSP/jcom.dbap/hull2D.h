@@ -1,4 +1,7 @@
-/*
+/**
+ \file hull2D.h
+ Compute convex hulls in 2 dimensions.
+
 This code is described in "Computational Geometry in C" (Second Edition),
 Chapter 3.  It is not written to be comprehensible without the
 explanation in that book.

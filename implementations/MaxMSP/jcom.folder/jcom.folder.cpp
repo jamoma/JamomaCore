@@ -1,5 +1,5 @@
-/*	
- *	jcom.folder
+/**	
+ *	\file jcom.folder.cpp
  *	Perform operations on folders in the filesystem.
  *	Copyright © 2009 by Tim Place
  */

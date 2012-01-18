@@ -1,5 +1,9 @@
-// Remove the focus from any specific object in a patcher
-// Copyright (c) 2009 by Timothy Place
+/**
+ \file jcom.unfocus.cpp
+ Remove the focus from any specific object in a patcher
+
+ Copyright (c) 2009 by Timothy Place
+*/
 
 #include "Jamoma.h"
 

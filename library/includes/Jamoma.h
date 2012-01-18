@@ -1,6 +1,7 @@
-/*
- * Jamoma Shared Library
- * Functions and resources used by Jamoma objects.
+/** 
+ * \file jamoma.h
+ * Jamoma Shared Library - Functions and resources used by Jamoma objects.
+ *
  * By Tim Place, Copyright © 2007
  *
  * License: This code is licensed under the terms of the "New BSD License"

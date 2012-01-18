@@ -1,5 +1,5 @@
-/* 
- * jcom.receive
+/** 
+ * \file jcom.receive.cpp
  * External for Jamoma: receive messages from remote
  * By Trond Lossius & Tim Place, Copyright � 2006
  * 
@@ -20,8 +20,29 @@ typedef struct _receive{
 } t_receive;
 
 // Prototypes
+
+/** Object instantiation.
+ @param s			Pointer to symbol bassed as message argument to the object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to arguments as an array of atoms.
+ @return			Pointer to the newly created object.
+ */
 void		*receive_new(t_symbol *s, long argc, t_atom *argv);
+
+
+/** This method is called when the object is free (deleted).
+ @param x			Pointer to the object.
+ */
 void		receive_free(t_receive *x);
+
+
+/** Method for displaying assist strings for inlets and outlets.
+ @param x			Pointer to this object.
+ @param b
+ @param msg
+ @param argc
+ @param argv
+ */
 void		receive_assist(t_receive *x, void *b, long msg, long arg, char *dst);
 
 t_max_err 	receive_setaddress(t_receive *x, void *attr, long argc, t_atom *argv);

@@ -1,5 +1,5 @@
-/* 
- * jcom.ui
+/** 
+ * \file jcom.ui.h
  * External for Jamoma: provide standard user interface component for modules
  * By Tim Place, Copyright © 2007
  * 
@@ -18,7 +18,7 @@
 #include "MaxObjectTypes.h"
 #include "ext_symobject.h"
 
-#define NO_MODEL_STRING "waiting for a /model/address"
+#define NO_MODEL_STRING "waiting for a model/address"
 
 #define preview_out 0
 #define panel_out 1

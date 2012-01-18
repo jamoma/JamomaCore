@@ -1,5 +1,5 @@
-/* 
- * jcom.oscroute
+/** 
+ * \file jcom.oscroute.cpp
  * External for Jamoma: parse and pass OpenSoundControl messages
  * By Tim Place, Copyright � 2006
  * 

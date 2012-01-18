@@ -27,7 +27,7 @@ See the issue tracker at http://redmine.jamoma.org/projects/modular/
 
 
 More Information
-This project hosted is hosted at http://github.com/tap/Jamoma
+This project hosted is hosted at https://github.com/jamoma
 
 
 Change Log

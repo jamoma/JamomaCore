@@ -1,10 +1,11 @@
-/* 
- * jcom.push (previously names tl.push)
+/** 
+ * \file jcom.push.cpp
+ * Simple physical modelling: Push an object about within a confined space.
+ * Can be used for e.g. trajectories.
+ *
+ * Previously named tl.push
  * By Trond Lossius, Copyright 2011
  * 
- * Simple physical modelling: Push an object about within a confined space
- * Can be used for e.g. trajectories
- *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */

@@ -39,6 +39,8 @@ private:
 	
 	TTBoolean					mEnable;					///< ATTRIBUTE : do observe Input rangeBounds attribute ?
 	
+	TTBoolean					mInverse;					///< ATTRIBUTE : to make the output equal to mOutputMax - result
+	
 	TTValue						mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
 	TTSymbolPtr					mFunction;					///< ATTRIBUTE : name of the map function
 	TTValue						mFunctionParameters;		///< ATTRIBUTE : names of parameter's function

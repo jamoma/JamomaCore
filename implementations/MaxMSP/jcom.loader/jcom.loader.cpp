@@ -1,5 +1,5 @@
-/* 
- * jcom.loader
+/** 
+ * \file jcom.loader.cpp
  * External for Jamoma: simply used to load the framework when Max is launched
  * Copyright © 2007
  * 

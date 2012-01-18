@@ -1,5 +1,5 @@
-/* 
- * jcom.route
+/** 
+ * \file jcom.route.cpp
  * External for Jamoma: route messages to an outlet if they meet our criteria
  * By Tim Place, Copyright © 2005
  * 

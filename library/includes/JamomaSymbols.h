@@ -1,6 +1,6 @@
-/* 
- * Jamoma Symbols
- * Symbols cached to avoid repeated calls to the expensive SymbolGen() function
+/** 
+ * \file JamomaSymbols.h
+ * Jamoma symbols cached to avoid repeated calls to the expensive SymbolGen() function.
  * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -54,6 +54,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_none,
 				*jps_none,						// this type only used by jcom.message
 				*jps_jcom_hub, 
 				*jps_feedback,
+				*jps_alias,
 				*jps_module_name_get,
 				*jps_core_module_name_get,
 				*jps_dumpout,

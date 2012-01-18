@@ -1,5 +1,5 @@
-/* 
- * jcom.init
+/** 
+ * \file jcom.init.cpp
  * External for Jamoma: send bang to initialize something
  *	bang source may be global or for just one module
  * By Tim Place, Copyright � 2006

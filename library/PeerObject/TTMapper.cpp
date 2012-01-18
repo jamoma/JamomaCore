@@ -20,6 +20,7 @@ mInputMax(1.),
 mOutputMin(0.),
 mOutputMax(1.),
 mEnable(YES),
+mInverse(NO),
 mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
 mFunctionParameters(kTTValNONE),
@@ -51,6 +52,8 @@ mValid(NO)
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
 	
 	addAttributeWithSetter(Enable, kTypeBoolean);
+	
+	addAttribute(Inverse, kTypeBoolean);
 	
 	addAttributeWithGetter(FunctionLibrary, kTypeLocalValue);
 	addAttributeProperty(FunctionLibrary, readOnly, YES);
@@ -539,7 +542,11 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 	// scale output value
 	for (i=0; i<size; i++) {
 		out.get(i, f);
-		outputValue.append(mC * f + mD);
+		
+		if (!mInverse)
+			outputValue.append(mC * f + mD);
+		else
+			outputValue.append(mOutputMax - (mC * f + mD));
 	}
 	
 	// clip output value
