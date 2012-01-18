@@ -1899,7 +1899,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 50.0, 100.0, 189.0, 20.0 ],
-																	"text" : "prepend *jcom.meter~ jcom.thru~"
+																	"text" : "prepend jcom.thru~"
 																}
 
 															}
