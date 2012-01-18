@@ -1,4 +1,3 @@
-
 sources:
   - jcom.plug.out.cpp
   - PlugtasticProgressWindow.mm		
@@ -34,19 +33,15 @@ frameworks:
 
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 
-arch: i386
-compiler: gcc 
+postbuilds:
+  - "rm -rf ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"
+  - "mkdir -p ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"
+  - "cp -r ../../../../Plugtastic/implementations/AudioUnits/ ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"	
+  - "cp Info.plist ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/" 
+
+arch: i386  
+
+compiler: gcc  
 # I've set the compiler to gcc beause for gcc46, I got the error:
 # g++: error: PlugtasticProgressWindow.mm: Objective-C++ compiler not installed on this system 
-########################################################################################################################
-# TODO: this is missing in the build script, we need to find a way to add this 
-#
-# shellScript = "echo \"try to remove old resources\"\n
-# rm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUEffect\n
-# rm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/PlugtasticAUInstrument\n
-# rm -rf \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources/AUSDK\n\necho \"try to make dir\"\n
-# echo `mkdir -pv \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n\necho \"try to copy\"\n
-# echo `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUEffect \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n
-# echo `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/PlugtasticAUInstrument \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n
-# echo `/bin/cp -rv \"$SRCROOT\"/../../AudioUnits/AUSDK \"$DSTROOT\"/$PRODUCT_NAME.$WRAPPER_EXTENSION/Contents/Resources`\n
-# \necho \"script complete\"\n";
+
