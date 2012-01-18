@@ -1,5 +1,5 @@
-/* 
- * jcom.savebang
+/** 
+ * \file jcom.savebang.cpp
  * External for Jamoma: send a bang when a user saves the patcher
  * by Tim Place, Copyright © 2009
  * 

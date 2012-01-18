@@ -1,5 +1,5 @@
 /*
- * jcom.core
+ * \file jcom.core.h
  * shared code used by the jamoma core externals
  * By Tim Place, Copyright � 2006
  *

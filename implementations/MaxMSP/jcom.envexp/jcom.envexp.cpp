@@ -1,6 +1,8 @@
-/* 
- 	jcom.envexp (previously named tl.envexp)
-	create envelope with linear attack and exponential decay.	
+/**
+ \file jcom.envexp.cpp
+ Create envelope with linear attack and exponential decay.	
+ This object replaces tl.envexp, previously a part of the tl.objects distribution.
+
  	By Trond Lossius, Copyright � 2001-08
 	Change History (most recent first):
 

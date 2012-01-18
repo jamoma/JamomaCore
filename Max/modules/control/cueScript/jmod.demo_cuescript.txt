@@ -1,8 +1,8 @@
 ##############################
-
 CUE initialisation
-
 ##############################
+
+# (fold)
 
 # Module output~
 
@@ -49,13 +49,13 @@ CUE initialisation
     /filter~/q 1.472
     /filter~/filtergain -1.780
     
-
+# (end)
 
 ##############################
-
 CUE audio_on
-
 ##############################
+
+# (fold)
 
 # Module output~
     # turn on the dsp
@@ -68,28 +68,24 @@ CUE audio_on
 # Module filter~
     /filter~/audio/gain 100.000 ramp 2000
 
-    
-    
-    
+# (end)    
 
 ##############################
-
 CUE fade_in
-
 ##############################
+
+# (fold)
 
 # Module output~
     /output~/audio/gain 90.000 ramp 2000
 
-
-
+# (end)
 
 ##############################
-
 CUE sweep
-
 ##############################
 
+# (fold)
 
 # Module filter~
     /filter~/frequency 3000 ramp 3000
@@ -99,14 +95,13 @@ CUE sweep
     
     /filter~/frequency 200 ramp 3000
 
-
-
+# (end)
 
 ##############################
-
 CUE fade_out
-
 ##############################
+
+# (fold)
 
 # Playing safe:
 
@@ -120,16 +115,13 @@ CUE fade_out
 # Module output~
     /output~/audio/gain 0.000 ramp 2000    
     
-    
-
-
+# (end)
 
 ##############################
-
 CUE audio_off
-
 ##############################
 
+# (fold)
     
 # Module input~
     /input~/audio/gain 0 ramp 100
@@ -139,3 +131,5 @@ CUE audio_off
 
     # turn off the dsp
     /output~/audio/active 0
+
+# (end)

@@ -1,6 +1,7 @@
-/* 
- * Class for handling linked lists. 
- * By Dave Watson Copyright � 2007
+/** 
+ * \file jcom.list.h
+ * Class for handling linked lists.
+ * By Dave Watson, Copyright 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -12,32 +13,37 @@
 #include <list>
 using namespace std;
 
-/** A template class for managing linked lists */
+/** A template class for managing linked lists. */
 template<class T> 
 class jcomList {
+
 public:
 	
+	/** Class constructor. */
 	jcomList() { };
+
 	jcomList(const T& rhs) // copy constructor
 	{ ll.insert(ll.begin(), rhs.begin(), rhs.end()); }
 	
+	/** Class destructor. */
 	~jcomList() { };
 		
 	typedef typename list<T>::iterator jcomListIterator;
 
-	/** Put an item at the front of the list
-	 * @param x the item to add to the list
+	/** Put an item at the front of the list.
+	 * @param x		The item to add to the list
 	*/
 	void push_front(const T& x) 
 	{ ll.push_front(x); }
-	/** Put an item at the back of the list
-	 * @param x the item to add to the list
+
+	/** Put an item at the back of the list.
+	 * @param x		The item to add to the list
 	*/
 	void push_back(const T& x)
 	{ ll.push_back(x); }
 	
 	/** Remove an item from the list if it exists.
-	 * @param x the item in the list 
+	 * @param x		The item in the list.
 	*/
 	void remove(const T& x)
 	{
@@ -46,6 +52,10 @@ public:
 			ll.erase(i);
 	}
 	
+	/** Test to see if an item is member of the list.
+	 @param x		The item to search for.
+	 @return		true if the item is found, else false.
+	 */
 	bool find(const T& x) 
 	{
 		return find(ll.begin(), ll.end(), x) != ll.end();
@@ -79,24 +89,35 @@ public:
 		m.push_front(x);
 		ll.merge(m, comp);
 	}
-	/** @return the number of elements in the list */	
+	
+	/**  Get the number of elements in the list.
+	 @return		The number of elements in the list */	
 	long size() { return (long)ll.size(); }
-	/** @return true if the list is empty, false otherwise */
+	
+	/** Check if the list is empty.
+	 @return		True if the list is empty, false otherwise */
 	bool empty() const { return ll.empty(); }
-	/** Removes the list item at position.  
-	 * @param position the position of the list item to remove
-	 * @return an updated iterator pointing to the position that followed the removed item
+	
+	/** Remove the list item at given position.  
+	 * @param		Position the position of the list item to remove.
+	 * @return		An updated iterator pointing to the position that followed the removed item.
 	 */
 	jcomListIterator erase(jcomListIterator position) { return ll.erase(position); }
-	/** Removes the list item at position.  
-	 * @param position the position of the list item to remove
+
+	/**	Remove the list item at a given position.
+	 * @param position The position of the list item to remove.
 	 */
 	void remove(jcomListIterator position) { ll.erase(position); }
-	/** @return an iterator to the front of the list */
+	
+	/** Iterate to the front of the list.
+	 @return		An iterator to the front of the list. */
 	jcomListIterator begin() { return ll.begin(); }
-	/** @return an iterator to one past the end of the list */
+	
+	/** Iterate to one past the end of the list.
+	 @return		An iterator to one past the end of the list. */
 	jcomListIterator end() { return ll.end(); }
-	/** Removes all list items */
+	
+	/** Removes all list items. */
 	void clear() { ll.clear(); }
 	
 private:

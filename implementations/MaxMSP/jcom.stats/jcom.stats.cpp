@@ -1,5 +1,5 @@
-/*
- * jcom.stats
+/**
+ * \file jcom.stats.cpp
  * External for Jamoma: calculate running statistical values
  * By Trond Lossius, Copyright � 2001-06
  * 

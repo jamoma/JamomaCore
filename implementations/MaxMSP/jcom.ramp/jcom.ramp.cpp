@@ -1,5 +1,5 @@
-/* 
- * jcom.ramp
+/** 
+ * \file /Modular/implementations/MaxMSP/jcom.ramp.cpp
  * External for Jamoma: ramp values using Jamoma's RampLib library
  * By Tim Place, Copyright � 2006
  * 
