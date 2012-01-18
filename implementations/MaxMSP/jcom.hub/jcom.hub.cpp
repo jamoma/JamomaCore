@@ -48,8 +48,6 @@ void		hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// 
 void		hub_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		hub_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-
 t_max_err	hub_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
 t_max_err	hub_set_context(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 
@@ -73,7 +71,6 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)hub_return_address,			"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_return_value,				"return_value",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)hub_nmspcExplorer_callback,	"return_nmpscExploration",A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)hub_help,						"hub_help",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)hub_reference,					"hub_reference",		A_CANT, 0);
@@ -249,20 +246,12 @@ void hub_subscribe(TTPtr self)
 				
 				// In view patcher :
 				// if exists, the second argument of the patcher is the /model/address value
-				// else observe the entire namespace to find a model of our class
 				if (x->patcherContext == kTTSym_view) {
 					
 					if (ac > 0) {
 						EXTRA->modelAddress = TTADRS(atom_getsym(av)->s_name);
 						aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
 						aData->setAttributeValue(kTTSym_valueDefault, EXTRA->modelAddress); // because of init process
-					}
-					
-					if (EXTRA->modelAddress == kTTAdrsEmpty) {
-						makeInternals_explorer((ObjectPtr)x, TT("nmspcExplorer"), gensym("return_nmpscExploration"), &anExplorer);
-						anExplorer->setAttributeValue(kTTSym_lookfor, TT("Container"));
-						anExplorer->setAttributeValue(kTTSym_address, kTTAdrsRoot);
-						anExplorer->sendMessage(TT("Explore"));
 					}
 				}
 				
@@ -472,39 +461,6 @@ void hub_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (atom_gettype(argv) == A_SYM) {
 			EXTRA->modelAddress = TTADRS(atom_getsym(argv)->s_name);
-		}
-	}
-}
-
-void hub_nmspcExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr	containerAddress;
-	SymbolPtr			containerName;
-	TTValue				v;
-	TTObjectPtr			aData;
-	
-	// if there is no address
-	if (EXTRA->modelAddress == kTTAdrsEmpty) {
-		
-		// look the namelist to know which container exists
-		for (long i=0; i<argc; i++) {
-			
-			containerName = atom_getsym(argv+i);
-			
-			// try to bind on the containerName
-			// if it's equal to the patcherClass and it has no parent
-			containerAddress = kTTAdrsRoot->appendAddress(TTADRS(containerName->s_name));
-			if (containerAddress->getName() == x->patcherClass && containerAddress->getParent() == kTTAdrsRoot) {
-				
-				if (!x->internals->lookup(TT("model/address"), v)) {
-					
-					v.get(0, (TTPtr*)&aData);
-					aData->setAttributeValue(kTTSym_value, containerAddress);
-					aData->setAttributeValue(kTTSym_valueDefault, containerAddress); // because of init process
-					return;
-				}
-			}
 		}
 	}
 }
