@@ -8,9 +8,10 @@
 
 #include "TTDSP.h"
 
-#define thisTTClass			TTCrossfade
-#define thisTTClassName		"crossfade"
-#define thisTTClassTags		"audio, processor, mixing"
+#define thisTTClass				TTCrossfade
+#define thisTTClassName			"crossfade"
+#define thisTTClassDescription	"Multichannel crossfader"
+#define thisTTClassTags			"audio, processor, mixing"
 
 
 static bool zeroed = false;
@@ -62,9 +63,13 @@ TT_AUDIO_CONSTRUCTOR_EXPORT(Crossfade)
 	addAttribute(			Position,	kTypeFloat64);
 	addAttributeProperty(	Position,	range,			TTValue(0.0, 1.0));
 	addAttributeProperty(	Position,	rangeChecking,	TT("clip"));
+	addMessageProperty(		Position,	description,	TT("Sets the crossfader position."));
+
 	
 	addAttributeWithSetter(	Shape,	kTypeSymbol);
+	addMessageProperty(		Shape,	description,	TT("Sets the crossfade function."));
 	addAttributeWithSetter(	Mode,	kTypeSymbol);
+	addMessageProperty(		Mode,	description,	TT("Wether the crossfader is based on a 512-point lookup table or on a real-time weight computation."));
 	
 	if (!zeroed) {
 		memset(zeroVector1, 0, sizeof(TTSampleValue) * 2048);
