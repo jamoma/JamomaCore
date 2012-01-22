@@ -11,13 +11,14 @@
 #include "maxAudioGraph.h"
 #include "ext_hashtab.h"
 
-#define MAX_NUM_INLETS 16
+#define MAX_NUM_INLETS  32
+#define MAX_NUM_OUTLETS 32
 
 // Data Structure for this object
 typedef struct _wrappedInstance {
     t_object					obj;					///< Max audio object header
 	TTAudioGraphObjectPtr		audioGraphObject;		///< The DSP instance we are wrapping -- MUST BE 2nd!
-	TTPtr						audioGraphOutlets[MAX_NUM_INLETS];	///< Array of outlets, may eventually want this to be more dynamic
+	TTPtr						audioGraphOutlets[MAX_NUM_OUTLETS];	///< Array of outlets, may eventually want this to be more dynamic
 	TTPtr						inlets[MAX_NUM_INLETS];				///< Array of proxy inlets beyond the first inlet
 	MaxAudioGraphWrappedClassPtr	wrappedClassDefinition;	///< A pointer to the class definition
 	TTUInt8						numInputs;
@@ -69,6 +70,9 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
 			if (wrapperDefinedNumberOfInlets > 0)
 				self->numInputs = wrapperDefinedNumberOfInlets;
 		}
+		// make sure that numInputs is not too large
+		self->numInputs = min(self->numInputs, (TTUInt8)MAX_NUM_INLETS);
+
 		for (TTUInt16 i=self->numInputs-1; i>0; i--)
 			self->inlets[i-1] = proxy_new(self, i, NULL);
 		
@@ -83,9 +87,13 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
 			if (wrapperDefinedNumberOfOutlets > 0) 
 				self->numOutputs = wrapperDefinedNumberOfOutlets;
 		}		
+		// make sure that numOutputs is not too large
+		self->numOutputs = min(self->numOutputs, (TTUInt8)MAX_NUM_OUTLETS);
+		
 		for (TTInt16 i=self->numOutputs-1; i>=0; i--)
 			self->audioGraphOutlets[i] = outlet_new(self, "audio.connect");
 
+				
 		self->wrappedClassDefinition = wrappedMaxClass;
 		v.setSize(3);
 		v.set(0, wrappedMaxClass->ttClassName);
@@ -96,8 +104,7 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
 			self->audioGraphObject->addAudioFlag(kTTAudioGraphGenerator);
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("nonadapting"), v))
 			self->audioGraphObject->addAudioFlag(kTTAudioGraphNonAdapting);
-			
-		attr_args_process(self, argc, argv);
+				attr_args_process(self, argc, argv);
 	}
 	return ObjectPtr(self);
 }
