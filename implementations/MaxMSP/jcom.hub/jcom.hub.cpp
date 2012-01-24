@@ -706,8 +706,13 @@ void hub_getstate(t_hub *x)
 	subscriberList*		subscriber = x->subscriber;	// head of the linked list
 	subscriberIterator	i;
 	t_subscriber*		t;
+	short				num_params_with_priority = 0;
+	short				num_params_recalled = 0;
+	short				priority;
 	char*				text = NULL;
 	long				textsize = 0;
+	long				ac = NULL; 
+	t_atom*				av = NULL;	
 
 	if (!x->textEditor)
 		x->textEditor = (t_object*)object_new(_sym_nobox, _sym_jed, x, 0);
@@ -732,32 +737,139 @@ void hub_getstate(t_hub *x)
 		text = NULL;
 		textsize = 0;
 	}
+	// If we do not use an alias, we'll start off with an /alias/remove message
+	else {
+		strncat_zero(x->text, x->osc_permanent->s_name, x->textSize);
+		strncat_zero(x->text, "/alias/remove", x->textSize);
+		strncat_zero(x->text, "\n", x->textSize);
+		
+		sysmem_freeptr(text);
+		text = NULL;
+		textsize = 0;
+	}
+
 	
+	// Count the number of parameters with a priority
+	critical_enter(0);
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_parameter) {
-			long	ac = NULL; 
-			t_atom* av = NULL;
-			
-			object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get
-			atom_gettext(ac, av, &textsize, &text, 0);
-			
-			// this is a really lame way to do this...
-			if (strlen(x->text) > (x->textSize - 1024)) {
-				x->textSize += 4096;
-				x->text = (char*)realloc(x->text, x->textSize);
+			ac = NULL; 
+			av = NULL;	
+			object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+			if (atom_getlong(av) > 0)
+				num_params_with_priority++;		
+		}
+	}
+	
+	if (num_params_with_priority > 0) {
+		priority=1;
+		while (num_params_with_priority > num_params_recalled) {
+			for (i = subscriber->begin(); i != subscriber->end(); ++i) {
+				t = *i;
+				if (t->type == jps_subscribe_parameter) {
+					ac = NULL; 
+					av = NULL;	
+					object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+					//					post("Priority" + atom_getlong(av));
+					if (atom_getlong(av) == priority) {
+						
+						long	ac = NULL;											// init
+						t_atom* av = NULL;
+						
+						object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get
+						atom_gettext(ac, av, &textsize, &text, 0);
+						
+						// this is a really lame way to do this...
+						if (strlen(x->text) > (x->textSize - 1024)) {
+							x->textSize += 4096;
+							x->text = (char*)realloc(x->text, x->textSize);
+						}
+						
+						strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
+						strncat_zero(x->text, "/", x->textSize);
+						strncat_zero(x->text, t->name->s_name, x->textSize);
+						strncat_zero(x->text, " ", x->textSize);
+						strncat_zero(x->text, text, x->textSize);
+						strncat_zero(x->text, "\n", x->textSize);
+						
+						sysmem_freeptr(text);
+						text = NULL;
+						textsize = 0;
+						
+						num_params_recalled++;
+					}
+				}
 			}
-			
-			strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
-			strncat_zero(x->text, "/", x->textSize);
-			strncat_zero(x->text, t->name->s_name, x->textSize);
-			strncat_zero(x->text, " ", x->textSize);
-			strncat_zero(x->text, text, x->textSize);
-			strncat_zero(x->text, "\n", x->textSize);
-
-			sysmem_freeptr(text);
-			text = NULL;
-			textsize = 0;
+			priority++;
+		}
+		
+		// Recall items with priority 0 now
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if (t->type == jps_subscribe_parameter) {
+				ac = NULL; 
+				av = NULL;	
+				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+				if (atom_getlong(av) == 0) {
+					long	ac = NULL; 
+					t_atom* av = NULL;
+					
+					object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get
+					atom_gettext(ac, av, &textsize, &text, 0);
+					
+					// this is a really lame way to do this...
+					if (strlen(x->text) > (x->textSize - 1024)) {
+						x->textSize += 4096;
+						x->text = (char*)realloc(x->text, x->textSize);
+					}
+					
+					strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
+					strncat_zero(x->text, "/", x->textSize);
+					strncat_zero(x->text, t->name->s_name, x->textSize);
+					strncat_zero(x->text, " ", x->textSize);
+					strncat_zero(x->text, text, x->textSize);
+					strncat_zero(x->text, "\n", x->textSize);
+					
+					sysmem_freeptr(text);
+					text = NULL;
+					textsize = 0;
+				}
+			}
+		}
+	}
+	else {
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if (t->type == jps_subscribe_parameter) {
+				ac = NULL; 
+				av = NULL;	
+				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+				if (atom_getlong(av) == 0) {
+					long	ac = NULL; 
+					t_atom* av = NULL;
+					
+					object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get
+					atom_gettext(ac, av, &textsize, &text, 0);
+					
+					// this is a really lame way to do this...
+					if (strlen(x->text) > (x->textSize - 1024)) {
+						x->textSize += 4096;
+						x->text = (char*)realloc(x->text, x->textSize);
+					}
+					
+					strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
+					strncat_zero(x->text, "/", x->textSize);
+					strncat_zero(x->text, t->name->s_name, x->textSize);
+					strncat_zero(x->text, " ", x->textSize);
+					strncat_zero(x->text, text, x->textSize);
+					strncat_zero(x->text, "\n", x->textSize);
+					
+					sysmem_freeptr(text);
+					text = NULL;
+					textsize = 0;
+				}
+			}
 		}
 	}
 	critical_exit(0);
@@ -1064,6 +1176,7 @@ void hub_paramvalues_get(t_hub *x)
 	subscriberList		*subscriber = x->subscriber;	// head of the linked list
 	t_atom				*av;
 	long				ac;
+	t_atom				argv[2];
 	char				osc[512];
 	subscriberIterator	i;
 	t_subscriber*		t;
@@ -1075,12 +1188,17 @@ void hub_paramvalues_get(t_hub *x)
 	
 	// Do the OSC alias differ from the permanent OSC name?
 	if (x->osc_alias != x->osc_permanent) {
-		t_atom argv[2];
 		snprintf(osc, 512, "%s/alias", x->osc_permanent->s_name);
 		atom_setsym(argv, gensym(osc));
 		atom_setsym(argv+1, x->osc_alias);
 		snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, jps_alias->s_name);
 		hub_outlet_return(x, gensym(osc), 2, argv);
+	}
+	else {
+		snprintf(osc, 512, "%s/alias/remove", x->osc_permanent->s_name);
+		atom_setsym(argv, gensym(osc));
+		snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, jps_alias->s_name);
+		hub_outlet_return(x, gensym(osc), 1, argv);
 	}
 	
 	// Count the number of parameters with a priority
