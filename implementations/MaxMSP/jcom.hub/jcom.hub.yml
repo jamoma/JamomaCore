@@ -18,7 +18,7 @@ includes:
   - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
   - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes" 
   - win "../../../../Foundation/library/libxml2/win32/include"
-  - mac /opt/local/include/libxml2 
+  - mac /usr/include/libxml2
 
 libraries:
   - FOUNDATION
