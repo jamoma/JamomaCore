@@ -71,7 +71,8 @@ static t_class *vimic_class; // changed [NP]
 //int	main();	// declaring this proto causes linker errors with MSVC [TAP]
 void*	vimic_new(t_symbol *s, int argc, t_atom *argv);
 void	vimic_free(t_vimic *x);
-void	vimic_dsp(t_vimic *x, t_signal **p, short *count);
+void	vimic_dsp(t_vimic *x, t_signal **p, short *count);		
+void	vimic_dsp64(t_vimic *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags); // DSP64 Method
 void	vimic_bang(t_vimic *x);
 void    vimic_sourcePosAbs(t_vimic *x, t_symbol *s, short argc, t_atom *argv);
 void    vimic_sourcePos(t_vimic *x,t_symbol *s, short argc, t_atom *argv);

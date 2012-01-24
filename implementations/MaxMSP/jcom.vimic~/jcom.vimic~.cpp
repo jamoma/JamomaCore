@@ -32,6 +32,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	
 	//setup((t_messlist**)&vimic_class, (method)vimic_new, (method)vimic_free, sizeof(t_vimic), 0L, A_GIMME, 0);
     class_addmethod(c,(method)vimic_dsp, "dsp", A_CANT, 0);
+	class_addmethod(c, (method)vimic_dsp64,		"dsp64",	A_CANT, 0);
 	class_addmethod(c, (method)vimic_bang, "bang",        0);
     //NP	// class_addmethod(c(method)vimic_list, "list", A_GIMME, 0);
     /*----------------------------------------------*/ 
@@ -2462,4 +2463,146 @@ void vimic_assist(t_vimic *x, Object *b, long msg, long arg, char *s)
     } 
     else if (msg == ASSIST_OUTLET)
         snprintf(s, 256, "%s %ld", "Output", arg + 1); 
+}
+
+void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	/*TTUInt16	vs = x->signalIn->getVectorSizeAsInt();
+	
+	x->signalIn->setVector(0, vs, ins[0]);
+	x->zeroxUnit->process(x->signalIn, x->signalOut);
+	x->signalOut->getVectorCopy(0, vs, outs[0]);
+	x->signalOut->getVectorCopy(1, vs, outs[1]);	*/
+	
+	//t_vimic *x = (t_vimic *)(w[1]);
+    int numChannels = x->numOfChannels;
+	
+    //if (x->x_obj.z_disabled) 	// if muted, return 
+        //return (w + 4 + numChannels);
+	
+    //t_sample  *in; 
+	
+    // TM: allocate based on number of channels now.
+    //t_sample *out[Properties::MAXNUMCHANNELS];
+    bool micGainNonZero[Properties::MAXNUMCHANNELS];
+	
+    int n = (t_int)(w[3 + x->numOfChannels]); //can be calculated outside?? maybe?
+    int phase = x->c_phase;
+    int blocksize = n; // it is also good to have 1_over_blocksize calculated to ge rid of the divisions
+    int renderInterval = x->renderInterval;
+    int GrainCounter = x->grainCounter;
+    int numOfRefl = x->numRefl;
+    int maxDynRefl = x->maxDynRefl;
+    int reflOrderIndex = 0;
+    double *reflGains = x->reflGains;
+    double *currentDelay = x->currentDelay;
+    double *currentSensitivity = x->currentSensitivity;
+    double *delGrain = x->delGrain;
+    double *sensiGrain = x->sensiGrain;
+    double *bp = x->c_vec + phase;
+    double *ep = x->c_vec + Properties::DELAYSIZE;
+    double frac;
+    int idelay, idelayOld;
+    double newSamp, oldSamp, newReflSamps, oldReflSamps, reflSamps = 0.0;
+    int sampPos = 0;
+    double *delay = x->delay;		
+    double *sensitivity = x->sensitivity;
+    int numwallsMinusOne = Properties::NUMWALLS - 1;  //optimization
+    int numOfReflTimesK;
+    HiMidLow **walls = x->room->walls;
+    LowPass **air = x->room->air;
+	
+    // for Xfade
+    HiMidLow **xfadeWalls = x->room->xfadeWalls;
+    LowPass *xfadeAir = x->room->xfadeAir;
+	
+    CrossFadeQueue *fades = x->fades;
+	
+    in = (t_sample *)(w[2]);
+    //TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, 0, x->vs, w[2]);  // MONO input only (for now)
+	
+    for (int i = 0; i < numChannels; ++i)
+    {
+        out[i] = (t_sample *)(w[3 + i]);
+        if (x->room->mics[i].gain() != 0.0)
+            micGainNonZero[i] = true;
+        else
+            micGainNonZero[i] = false;
+    }
+	
+    switch (x->AudioProcType)
+    {
+        case Properties::VIMIC_LITE: // ViMiC wtih reduced Filtering
+		case Properties::VIMIC_XL: // reflections are filtered
+		case Properties::X_FADE_LITE: // with crossfade between delay 	
+		case Properties::X_FADE_XL: // with crossfade between delay, independent filtering for each wall 	
+		case Properties::AMP_PAN: // amplitude panning only	
+		case Properties::STATIC: // Nothing moves, only integer delays
+		case Properties::NONE: // no audio
+            while (n--)
+            {				
+                //Write to delay line so that the internal buffer doesn't contain crap if the rendermode changes
+                double f = *in++;		// get input
+                *(bp) = f; 
+                *(bp + Properties::DELAYSIZE) = f; 
+				
+                for (int k = 0; k < numChannels; ++k)
+                    *out[k]++ = 0.0;
+                bp++;
+            }
+            if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
+                x->c_phase = 0;
+            else 
+                x->c_phase = phase + blocksize;
+            if (x->grainCounter < renderInterval)
+                x->grainCounter++;
+            break; 
+	}
+	
+}
+
+void vimic_dsp64(t_vimic *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	// clear out the delay line
+    for (int n = 0; n < Properties::DELAYBYTES; n++)
+        x->c_vec[n] = 0.0;
+	
+    if (x->x_sr != samplerate)
+    {
+        x->x_sr = samplerate;
+        x->speedOfSound = (331.3 * sqrt(1.0 + x->temperature / 273.15)) / x->x_sr;
+        x->invSpeedOfSound = 1.0 / x->speedOfSound;
+    }
+	
+    // sp[0]->s_n  is the vector size
+    if (x->blocksize != (int)maxvectorsize)
+    {
+        x->blocksize = (int)maxvectorsize;
+        //post("Grainsize was %f", x->grainsize);
+        x->grainsize = 1.0 / (x->blocksize * x->renderInterval);
+        //post("Grainsize is now %f", x->grainsize);
+        //post("blocksize is now %d", (int)sp[0]->s_n);
+    }	
+    //short num_args = x->numOfChannels + 3;
+	
+    //if (num_args < 4 || num_args > 147) 
+    //    post( "jcom.vimic~ : Combination of Reflection Order and Channels not supported" );
+	
+    //t_int **vec = (t_int **) getbytes(sizeof(t_int *) * num_args);	// vector of pointers
+	
+    //vec[0] = (t_int *)x;	// first arg is x struct pointer
+    //int i;
+    //for (i = 0; i < num_args - 2; i++)
+     //   vec[i + 1] = (t_int *) sp[i]->s_vec;
+	
+    //vec[i + 1] = (t_int *) sp[0]->s_n;	// last arg = sp[0]->s_n is signal vector size
+	
+    //dsp_addv(vimic_perform, num_args, (void **)vec);
+	
+    //freebytes(vec, sizeof(t_int *) * num_args);		// deallocate vector of pointers
+	
+	
+	//x->signalOut->sendMessage(TT("alloc"));
+	object_method(dsp64, gensym("dsp_add64"), x, vimic_perform64, 0, NULL);
+	
 }
