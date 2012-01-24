@@ -92,7 +92,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_STICKY_ATTR(c,					"category",		0, "Color");
 	
 	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_ui,	bgcolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.93 0.93 0.93 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.933 0.933 0.933 1.0");
 	CLASS_ATTR_STYLE(c,						"bgcolor",		0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_ui,	bordercolor);
@@ -100,7 +100,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_STYLE(c,						"bordercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"headercolor",	0,	t_ui,	headercolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.82 0.82 0.82 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.816 0.816 0.816 1.0");
 	CLASS_ATTR_STYLE(c,						"headercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_ui,	textcolor);

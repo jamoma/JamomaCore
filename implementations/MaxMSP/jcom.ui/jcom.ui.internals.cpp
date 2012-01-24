@@ -25,23 +25,23 @@ void ui_internals_createColors(t_ui* obj)
 	uiInternalObject	*anObject;
 	t_atom				a[2];
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/contentBackground", obj->box.b_patcher, "array", "none", "The background color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/contentBackground", obj->box.b_patcher, "array", "none", "The background color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_contentBackground, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/contentBackground"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/toolbarBackground", obj->box.b_patcher, "array", "none", "The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/toolbarBackground", obj->box.b_patcher, "array", "none", "The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_toolbarBackground, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/toolbarBackground"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/toolbarText", obj->box.b_patcher, "array", "none", "The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/toolbarText", obj->box.b_patcher, "array", "none", "The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_toolbarText, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/toolbarText"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/border", obj->box.b_patcher, "array", "none", "The border color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/border", obj->box.b_patcher, "array", "none", "The border color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_border, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/border"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/size", obj->box.b_patcher, "array", "none", "The size of the module's UI.", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/size", obj->box.b_patcher, "array", "none", "The size of the module's UI.", NULL, NULL, NULL, NULL);
 	//anObject->setAction((method)ui_color_border, (t_object*)obj);
 	anObject->setReadonly(true);
 	atom_setlong(a+0, obj->box.b_patching_rect.width);
