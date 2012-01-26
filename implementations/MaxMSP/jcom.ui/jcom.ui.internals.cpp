@@ -286,91 +286,104 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 
 t_max_err attr_set_highlightcolor(t_ui *x, void *attr, long ac, t_atom *av)
 {
+	uiInternalObject	*anObject	= NULL;
+	t_max_err			err			= MAX_ERR_NONE;
 	
 	if (ac && av) {
+		
 		t_symbol *color = atom_getsym(av);
 		
-		if (color == gensym("none")) {
-			x->highlightcolor = color;
-			TTLogMessage("none\n");
+		if (x->highlightcolor != color) // This test prevents a feedback loop as we try to keep object attribute and jcom.parameter synced
+		{
+			if (color == gensym("none")) {
+				x->highlightcolor = color;
+				TTLogMessage("none\n");
+			}
+			else if (color == gensym("red")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 0., 0., 1.);
+				TTLogMessage("red\n");
+			}
+			else if (color == gensym("orange")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 0.5, 0., 1.);
+				TTLogMessage("orange\n");
+			}
+			else if (color == gensym("yellow")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 1., 0., 1.);
+				TTLogMessage("yellow\n");
+			}
+			else if (color == gensym("chartreuseGreen")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0.5, 1., 0., 1.);
+				TTLogMessage("chartreuseGreen\n");
+			}
+			else if (color == gensym("green")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 1., 0., 1.);
+				TTLogMessage("green\n");
+			}
+			else if (color == gensym("springGreen")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 1., 0.5, 1.);
+				TTLogMessage("springGreen\n");
+			}
+			else if (color == gensym("cyan")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 1., 1., 1.);
+				TTLogMessage("cyan\n");
+			}
+			else if (color == gensym("azure")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 0.5, 1., 1.);
+				TTLogMessage("azure\n");
+			}
+			else if (color == gensym("blue")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 0., 1., 1.);
+				TTLogMessage("blue\n");
+			}
+			else if (color == gensym("violet")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0.5, 0., 1., 1.);
+				TTLogMessage("violet\n");
+			}
+			else if (color == gensym("magenta")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 0., 1., 1.);
+				TTLogMessage("magenta\n");
+			}
+			else if (color == gensym("rose")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 0., 0.5, 1.);
+				TTLogMessage("rose\n");
+			}
+			else if (color == gensym("black")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 0., 0., 1.);
+				TTLogMessage("black\n");
+			}
+			else if (color == gensym("white")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 1., 1., 1.);
+				TTLogMessage("white\n");
+			}
+			else {
+				TTLogWarning("jcom.ui - do not reckognize the color used for module highlighting.\n");
+				return err;
+			}
+			
+			// If highlight color was set using the inspector or a message to jcom.ui, we need to update the jcom.parameter
+			err = hashtab_lookup(x->hash_internals, gensym("view/color/highlight"), (t_object**)&anObject);
+			if (!err)
+				object_method_typed(anObject->theObject, x->highlightcolor, NULL, NULL, NULL);
 		}
-		else if (color == gensym("red")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 1., 0., 0., 1.);
-			TTLogMessage("red\n");
-		}
-		else if (color == gensym("orange")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 1., 0.5, 0., 1.);
-			TTLogMessage("orange\n");
-		}
-		else if (color == gensym("yellow")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 1., 1., 0., 1.);
-			TTLogMessage("yellow\n");
-		}
-		else if (color == gensym("chartreuseGreen")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 0.5, 1., 0., 1.);
-			TTLogMessage("chartreuseGreen\n");
-		}
-		else if (color == gensym("green")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 0., 1., 0., 1.);
-			TTLogMessage("green\n");
-		}
-		else if (color == gensym("springGreen")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 0., 1., 0.5, 1.);
-			TTLogMessage("springGreen\n");
-		}
-		else if (color == gensym("cyan")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 0., 1., 1., 1.);
-			TTLogMessage("cyan\n");
-		}
-		else if (color == gensym("azure")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 0., 0.5, 1., 1.);
-			TTLogMessage("azure\n");
-		}
-		else if (color == gensym("blue")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 0., 0., 1., 1.);
-			TTLogMessage("blue\n");
-		}
-		else if (color == gensym("violet")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 0.5, 0., 1., 1.);
-			TTLogMessage("violet\n");
-		}
-		else if (color == gensym("magenta")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 1., 0., 1., 1.);
-			TTLogMessage("magenta\n");
-		}
-		else if (color == gensym("rose")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 1., 0., 0.5, 1.);
-			TTLogMessage("rose\n");
-		}
-		else if (color == gensym("black")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 0., 0., 0., 1.);
-			TTLogMessage("black\n");
-		}
-		else if (color == gensym("white")) {
-			x->highlightcolor = color;
-			jrgba_set(&x->highlightcolorRGB, 1., 1., 1., 1.);
-			TTLogMessage("white\n");
-		}
-		else
-			TTLogWarning("jcom.ui - do not reckognize the color used for module highlighting.\n");
 	}
 	else
 		TTLogWarning("jcom.ui - Missing argument when attempting to set highlight color.");
 	
-	return MAX_ERR_NONE;
+	return err;
 }
 
 
