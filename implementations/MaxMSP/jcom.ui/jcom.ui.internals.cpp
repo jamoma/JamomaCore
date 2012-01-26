@@ -44,9 +44,9 @@ void ui_internals_createColors(t_ui* obj)
 	anObject->setAction((method)ui_color_border, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/border"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/highlight", obj->box.b_patcher, "string", "none", "Highlight the modul with a color tint such as red, green, or similar.", NULL, NULL, NULL, NULL, "none");
+	anObject = new uiInternalObject("jcom.parameter", "view/highlight", obj->box.b_patcher, "string", "none", "Highlight the modul with a color tint such as red, green, or similar.", NULL, NULL, NULL, NULL, "none");
 	anObject->setAction((method)ui_color_highlight, (t_object*)obj);
-	hashtab_store(obj->hash_internals, gensym("view/color/highlight"), (t_object*)anObject);	
+	hashtab_store(obj->hash_internals, gensym("view/highlight"), (t_object*)anObject);	
 	
 	
 	anObject = new uiInternalObject("jcom.message", "view/size", obj->box.b_patcher, "array", "none", "The size of the module's UI.", NULL, NULL, NULL, NULL, NULL);
@@ -375,7 +375,7 @@ t_max_err attr_set_highlightcolor(t_ui *x, void *attr, long ac, t_atom *av)
 			}
 			
 			// If highlight color was set using the inspector or a message to jcom.ui, we need to update the jcom.parameter
-			err = hashtab_lookup(x->hash_internals, gensym("view/color/highlight"), (t_object**)&anObject);
+			err = hashtab_lookup(x->hash_internals, gensym("view/highlight"), (t_object**)&anObject);
 			if (!err)
 				object_method_typed(anObject->theObject, x->highlightcolor, NULL, NULL, NULL);
 		}
