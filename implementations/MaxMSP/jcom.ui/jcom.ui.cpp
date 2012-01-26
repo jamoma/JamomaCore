@@ -315,9 +315,19 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 	if ((msg == _sym_attr_modified) && (sender == x)) {
 		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
 		textfield = jbox_get_textfield((t_object*) x);
-		if (textfield)
-			textfield_set_textcolor(textfield, &x->textcolor);
-		
+		if (textfield) {
+			t_jrgba		textcolor;
+			
+			if (x->highlightcolor == gensym("none"))
+				textcolor = x->textcolor;
+			else {
+				textcolor.red = 0.8*x->textcolor.red + 0.2*x->highlightcolorRGB.red;
+				textcolor.green = 0.8*x->textcolor.green + 0.2*x->highlightcolorRGB.green;
+				textcolor.blue = 0.8*x->textcolor.blue + 0.2*x->highlightcolorRGB.blue;
+				textcolor.alpha = x->textcolor.alpha;
+			}
+			textfield_set_textcolor(textfield, &textcolor);
+		}
 		if (attrname == gensym("module_name"))
 			object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
 			
@@ -381,10 +391,37 @@ void ui_paint(t_ui *x, t_object *view)
 {
 	t_rect 		rect;
 	t_jgraphics *g;
+	t_jrgba		bgcolor;
+	t_jrgba		headercolor;
+	t_jrgba		bordercolor;
+	
 	double 		border_thickness = 0.5;
 	double 		cornersize = 12.0;
 	double		middle;
 
+	if (x->highlightcolor == gensym("none")) {
+		headercolor = x->headercolor;
+		bgcolor		= x->bgcolor;
+		bordercolor = x->bordercolor;
+	}
+	else {
+		headercolor.red = 0.8*x->headercolor.red + 0.2*x->highlightcolorRGB.red;
+		headercolor.green = 0.8*x->headercolor.green + 0.2*x->highlightcolorRGB.green;
+		headercolor.blue = 0.8*x->headercolor.blue + 0.2*x->highlightcolorRGB.blue;
+		headercolor.alpha = x->headercolor.alpha;
+		
+		bgcolor.red = 0.8*x->bgcolor.red + 0.2*x->highlightcolorRGB.red;
+		bgcolor.green = 0.8*x->bgcolor.green + 0.2*x->highlightcolorRGB.green;
+		bgcolor.blue = 0.8*x->bgcolor.blue + 0.2*x->highlightcolorRGB.blue;
+		bgcolor.alpha = x->bgcolor.alpha;
+		
+		bordercolor.red = 0.8*x->bordercolor.red + 0.2*x->highlightcolorRGB.red;
+		bordercolor.green = 0.8*x->bordercolor.green + 0.2*x->highlightcolorRGB.green;
+		bordercolor.blue = 0.8*x->bordercolor.blue + 0.2*x->highlightcolorRGB.blue;
+		bordercolor.alpha = x->bordercolor.alpha;
+	}
+	
+	
 	g = (t_jgraphics*) patcherview_get_jgraphics(view);
 	jbox_get_rect_for_view((t_object*) &x->box, view, &rect);
 
@@ -394,7 +431,7 @@ void ui_paint(t_ui *x, t_object *view)
 									rect.width - ((border_thickness) * 2.0), 
 									rect.height - ((border_thickness) * 2.0), 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&x->bgcolor);
+	jgraphics_set_source_jrgba(g,	&bgcolor);
 	jgraphics_fill(g);
 	
 	// draw the titlebar
@@ -403,7 +440,7 @@ void ui_paint(t_ui *x, t_object *view)
 									rect.width - (border_thickness * 2.0 + 1.0), 
 									18.0, 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&x->headercolor);
+	jgraphics_set_source_jrgba(g,	&headercolor);
 	jgraphics_fill(g);
 	
 	jgraphics_rectangle_fill_fast(g, border_thickness, 
@@ -417,7 +454,7 @@ void ui_paint(t_ui *x, t_object *view)
 									rect.width - (border_thickness * 2.0), 
 									rect.height - (border_thickness * 2.0), 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&x->bordercolor);
+	jgraphics_set_source_jrgba(g,	&bordercolor);
 	jgraphics_set_line_width(g, 1.0);
 	jgraphics_stroke(g);
 
@@ -1130,6 +1167,17 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 	long		unitWidth = 0;
 	double		unitFrac= 0.0;
 	t_object 	*textfield = NULL;
+	t_jrgba		textcolor;
+	
+	if (x->highlightcolor == gensym("none"))
+		textcolor = x->textcolor;
+	else {
+		textcolor.red = 0.8*x->textcolor.red + 0.2*x->highlightcolorRGB.red;
+		textcolor.green = 0.8*x->textcolor.green + 0.2*x->highlightcolorRGB.green;
+		textcolor.blue = 0.8*x->textcolor.blue + 0.2*x->highlightcolorRGB.blue;
+		textcolor.alpha = x->textcolor.alpha;
+	}
+
 		
 	unitHeight = rect->height / JAMOMA_UNIT_HEIGHT;
 	unitFrac = rect->height - (unitHeight * JAMOMA_UNIT_HEIGHT);
@@ -1154,7 +1202,7 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 	textfield_set_editonclick(textfield, 0);
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
-	textfield_set_textcolor(textfield, &x->textcolor);
+	textfield_set_textcolor(textfield, &textcolor);
 	textfield_set_textmargins(textfield, 20.0, 2.0, 60.0, rect->height - 19.0);
 
 	return (void *)1;
