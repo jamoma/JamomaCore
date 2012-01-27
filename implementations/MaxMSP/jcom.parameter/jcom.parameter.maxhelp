@@ -507,7 +507,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 485.0, 124.0, 19.0 ],
-									"text" : "none, low, high, both"
+									"text" : "none, low, high, both, wrap, fold"
 								}
 
 							}
@@ -522,7 +522,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 190.0, 410.0, 289.0, 31.0 ],
-									"text" : "- suggested normal range of parameter (two ints or floats). Default: 0.-127."
+									"text" : "- suggested normal range of parameter (two ints or floats). Default: 0. -- 1."
 								}
 
 							}
@@ -2159,20 +2159,6 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-46",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 565.0, 131.0, 175.0, 19.0 ],
-					"text" : "This helps keeping the patch tidy"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -2629,7 +2615,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 433.0, 107.0, 303.0, 43.0 ],
-					"text" : "pvar is used for wireless communication between the GUI interface and jcom.parameter. though, we recommend using presentation mode"
+					"text" : "pvar can be used for wireless communication between the GUI interface and jcom.parameter. Since Max5, we recommend using presentation mode instead, this helps keeping the patch tidy."
 				}
 
 			}
