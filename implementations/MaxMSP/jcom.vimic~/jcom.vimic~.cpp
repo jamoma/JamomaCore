@@ -2467,49 +2467,36 @@ void vimic_assist(t_vimic *x, Object *b, long msg, long arg, char *s)
 
 void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-	/*TTUInt16	vs = x->signalIn->getVectorSizeAsInt();
-	
-	x->signalIn->setVector(0, vs, ins[0]);
-	x->zeroxUnit->process(x->signalIn, x->signalOut);
-	x->signalOut->getVectorCopy(0, vs, outs[0]);
-	x->signalOut->getVectorCopy(1, vs, outs[1]);	*/
-	
-	//t_vimic *x = (t_vimic *)(w[1]);
-    int numChannels = x->numOfChannels;
-	
-    //if (x->x_obj.z_disabled) 	// if muted, return 
-        //return (w + 4 + numChannels);
-	
-    //t_sample  *in; 
-	
-    // TM: allocate based on number of channels now.
-    //t_sample *out[Properties::MAXNUMCHANNELS];
+	int numChannels = x->numOfChannels;   
     bool micGainNonZero[Properties::MAXNUMCHANNELS];
 	
-    int n = (t_int)(w[3 + x->numOfChannels]); //can be calculated outside?? maybe?
     int phase = x->c_phase;
-    int blocksize = n; // it is also good to have 1_over_blocksize calculated to ge rid of the divisions
     int renderInterval = x->renderInterval;
     int GrainCounter = x->grainCounter;
     int numOfRefl = x->numRefl;
     int maxDynRefl = x->maxDynRefl;
     int reflOrderIndex = 0;
-    double *reflGains = x->reflGains;
+    
+	double *reflGains = x->reflGains;
     double *currentDelay = x->currentDelay;
     double *currentSensitivity = x->currentSensitivity;
     double *delGrain = x->delGrain;
     double *sensiGrain = x->sensiGrain;
     double *bp = x->c_vec + phase;
     double *ep = x->c_vec + Properties::DELAYSIZE;
+	double *delay = x->delay;		
+    double *sensitivity = x->sensitivity;
+    
     double frac;
     int idelay, idelayOld;
     double newSamp, oldSamp, newReflSamps, oldReflSamps, reflSamps = 0.0;
-    int sampPos = 0;
-    double *delay = x->delay;		
-    double *sensitivity = x->sensitivity;
-    int numwallsMinusOne = Properties::NUMWALLS - 1;  //optimization
+    
+	int sampPos = 0;
+    
+	int numwallsMinusOne = Properties::NUMWALLS - 1;  //optimization
     int numOfReflTimesK;
-    HiMidLow **walls = x->room->walls;
+    
+	HiMidLow **walls = x->room->walls;
     LowPass **air = x->room->air;
 	
     // for Xfade
@@ -2518,12 +2505,8 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
 	
     CrossFadeQueue *fades = x->fades;
 	
-    in = (t_sample *)(w[2]);
-    //TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, 0, x->vs, w[2]);  // MONO input only (for now)
-	
     for (int i = 0; i < numChannels; ++i)
     {
-        out[i] = (t_sample *)(w[3 + i]);
         if (x->room->mics[i].gain() != 0.0)
             micGainNonZero[i] = true;
         else
@@ -2533,27 +2516,1047 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
     switch (x->AudioProcType)
     {
         case Properties::VIMIC_LITE: // ViMiC wtih reduced Filtering
+			
+            if (GrainCounter < renderInterval)
+            {
+                double a, b, c, d, cminusb; // variables for fractional delay line
+                for (int n=0 ; n < sampleframes; n++)
+                {
+                    //Write to delay line                    					
+					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+					
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        outs[k][n] = 0.0;
+                        reflSamps  = 0.0;
+                        numOfReflTimesK =  numOfRefl * k;
+						
+                        if (micGainNonZero[k])
+                        { // TM: if x->maxDynRefl is always same as x->numRefl, why is it necessary?
+                            for (int reflNum = maxDynRefl - 1; reflNum >= Properties::DIRECT; --reflNum) 
+                            {
+                                reflOrderIndex = reflNum + numOfReflTimesK;
+								
+                                *(currentDelay + reflOrderIndex) += *(delGrain + reflOrderIndex);	 // TM: Changed
+                                *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex);
+								
+                                if (*(currentSensitivity + reflOrderIndex) != 0.0)
+                                {    
+                                    idelay = *(currentDelay + reflOrderIndex) + 0.5;  
+                                    frac = *(currentDelay + reflOrderIndex) - (double) idelay;	// fractional part of delay value
+                                    sampPos = Properties::DELAYSIZE - idelay; // was sampPos = DELAYSIZE;
+									
+                                    d = *(bp + sampPos - 3); 
+                                    c = *(bp + sampPos - 2);
+                                    b = *(bp + sampPos - 1);
+                                    a = *(bp + sampPos); 
+                                    cminusb = c - b;
+									
+                                    switch (reflNum)
+                                    {   
+                                        case 0:			// sum direct sound with reflections
+                                            outs[k][n] = (*(currentSensitivity + reflOrderIndex) * (b + frac * (cminusb - 0.1666667 * (1.0 - frac) 
+																											 * ((d - a - 3.0 * cminusb) * frac + (d + 2.0 * a - 3.0 * b))))) + reflSamps;
+                                            break;
+                                        case 1: 	// sum 1st order reflections (potentially with 2nd order reflections)								    
+                                            reflSamps += *(currentSensitivity + reflOrderIndex)
+											* (b + frac * (cminusb - 0.1666667 * (1.0 - frac) * ((d - a - 3.0 * cminusb)
+																								 * frac + (d + 2.0 * a - 3.0 * b))));
+                                            reflSamps = air[k][0].tick(walls[k][0].tick(reflSamps));
+                                            break;	
+                                        case 7:			// sum 2nd order reflections
+                                            reflSamps += *(currentSensitivity + reflOrderIndex) 
+											* (b + frac * (cminusb - 0.1666667 * (1.0 - frac) * ((d - a - 3.0 * cminusb) 
+																								 * frac + (d + 2.0 * a - 3.0 * b))));
+                                            reflSamps = walls[k][6].tick(reflSamps);
+                                            break;	
+                                        default:		
+                                            reflSamps += *(currentSensitivity + reflOrderIndex) 
+											* (b + frac * (cminusb - 0.1666667 * (1.0 - frac) * ((d - a - 3.0 * cminusb) 
+																								 * frac + (d + 2.0 * a - 3.0 * b))));
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    switch (reflNum)
+                                    {   
+                                        case 1: 		// sum 1st order reflections (potentially with 2nd order reflections)	
+                                            reflSamps = air[k][0].tick(walls[k][0].tick(reflSamps));
+                                            break;	
+                                        case 7:			// sum 2nd order reflections
+                                            reflSamps = walls[k][6].tick(reflSamps);
+                                            break;	
+                                    }
+									
+                                }
+                            }
+                        }                        
+                    }
+                    bp++;
+                } // end of while
+                for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)    //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated
+                {    
+                    x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
+                    x->currentDelay[reflNum] =  *(currentDelay + reflNum); 
+                }
+            }
+            else // steady state, non-fractional delay, constant values
+            {
+                for (int n=0 ; n < sampleframes; n++)
+                {
+                    //Write to delay line                    					
+					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+					
+                    for (int k = 0; k < numChannels; ++k)
+                    {   
+                        numOfReflTimesK = numOfRefl * k;
+                        outs[k][n] = 0.0; 
+                        reflSamps = 0.0;
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = numOfRefl - 1; reflNum >= Properties::DIRECT; --reflNum)
+                            {   
+                                reflOrderIndex = reflNum + numOfReflTimesK; 
+                                idelay = *(currentDelay + reflOrderIndex) +1.5; //was - 0.5; but I think that we cause a general delay of 2 samples due to the interpolation, so we have to respect that in the static method too, otherwise we will have small jumps of 2 samples back & forth
+								
+                                switch (reflNum)
+                                {   
+                                    case 0:
+                                        outs[k][n] = *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay) + reflSamps; 
+                                        break;
+										
+                                    case 1: 									    
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps = air[k][0].tick(walls[k][0].tick(reflSamps));
+                                        break;
+										
+                                    case 7:
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps = walls[k][6].tick(reflSamps); 
+                                        break;
+										
+                                    default:		
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        break;
+                                }
+								
+                            }
+                        }                       
+                    }
+                    bp++;
+                } // end of while
+            }
+			
+            if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
+                x->c_phase = 0;
+			//NP: I think this condition has to be checked only at the end of a block (control-rate) and not at sample rate.
+            else 
+                x->c_phase = phase + sampleframes; 
+			
+            if (x->grainCounter < renderInterval)
+                x->grainCounter++;
+            break;
+            ////////////////////////////////////////////////////////////////////////////////
 		case Properties::VIMIC_XL: // reflections are filtered
-		case Properties::X_FADE_LITE: // with crossfade between delay 	
-		case Properties::X_FADE_XL: // with crossfade between delay, independent filtering for each wall 	
-		case Properties::AMP_PAN: // amplitude panning only	
-		case Properties::STATIC: // Nothing moves, only integer delays
-		case Properties::NONE: // no audio
-            while (n--)
-            {				
-                //Write to delay line so that the internal buffer doesn't contain crap if the rendermode changes
-                double f = *in++;		// get input
-                *(bp) = f; 
-                *(bp + Properties::DELAYSIZE) = f; 
+            double frontSamps, rearSamps, floorSamps, ceilSamps, filterInputSamp;
+            if (GrainCounter < renderInterval) // transitional state with fractional delay and interpolated values
+            {
+                double a, b, c, d, cminusb; // variables for fractional delay line
+                for (int n=0 ; n < sampleframes; n++)
+                {
+                    //Write to delay line                    					
+					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		
+					
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        outs[k][n] = 0.0;
+                        frontSamps = rearSamps = floorSamps = ceilSamps = reflSamps = filterInputSamp = 0.0;
+                        numOfReflTimesK = numOfRefl * k;
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = maxDynRefl - 1; reflNum >=  0; --reflNum) // TM: if x->maxDynRefl is always same as x->numRefl, why is it necessary?
+                            {
+                                reflOrderIndex = reflNum + numOfReflTimesK;
+                                *(currentDelay + reflOrderIndex) += *(delGrain + reflOrderIndex);	 // TM: Changed
+                                *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex);
+								
+                                if (*(sensitivity + reflOrderIndex) != 0.0) 
+                                {
+                                    idelay = 0.5 + *(currentDelay + reflOrderIndex);
+                                    frac = *(currentDelay + reflOrderIndex) - (double) idelay;	// fractional part of delay value
+                                    sampPos = Properties::DELAYSIZE - idelay; // was sampPos = Properties::DELAYSIZE;
+									
+                                    d = *(bp + sampPos - 3); 
+                                    c = *(bp + sampPos - 2);
+                                    b = *(bp + sampPos - 1);
+                                    a = *(bp + sampPos); 
+                                    cminusb = c - b;
+									
+                                    filterInputSamp = *(currentSensitivity + reflOrderIndex) 
+									* (b + frac * (cminusb - 0.1666667 * (1.0 - frac) * ((d - a - 3.0 * cminusb) * frac + (d + 2.0 * a - 3.0 * b))));
+									
+                                    switch (reflNum)			// TODO: is there a cleaner and clear way of doing this that is as fast?
+                                    { 
+                                        case Properties::FRONT_FLOOR:
+                                            floorSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::REAR_FLOOR:
+                                            floorSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::LEFT_FLOOR:
+                                            floorSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_FLOOR:
+                                            floorSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+											
+                                        case Properties::LEFT_CEILING:
+                                            ceilSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_CEILING:
+                                            ceilSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::FRONT_CEILING:
+                                            ceilSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::REAR_CEILING:
+                                            ceilSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+											
+                                        case Properties::LEFT_FRONT:
+                                            frontSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;											
+                                        case Properties::RIGHT_FRONT:
+                                            frontSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;											
+											
+                                        case Properties::LEFT_REAR:
+                                            rearSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_REAR:
+                                            rearSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+											
+                                        case Properties::AIR:
+                                            outs[k][n] += filterInputSamp;
+                                            break;
+											
+                                            //after one reflection
+											
+                                        case Properties::LEFT:// after one reflection
+                                            reflSamps += walls[k][0].tick(filterInputSamp);	// write first order reflection to output [Properties::LEFT - 1]
+                                            outs[k][n] = air[k][0].tick(reflSamps);	// reflections are filtered by air absorption LPF
+                                            break;
+											
+                                        case Properties::RIGHT:
+                                            reflSamps += walls[k][1].tick(filterInputSamp);	// write first order reflection to output [Properties::RIGHT - 1]
+                                            break;	
+											
+											
+                                        case Properties::FRONT:
+                                            frontSamps += filterInputSamp;
+                                            reflSamps += walls[k][2].tick(frontSamps);				// write reflections to output [Properties::FRONT - 1]
+                                            break;
+											
+                                        case Properties::REAR:
+                                            rearSamps += filterInputSamp;
+                                            reflSamps += walls[k][3].tick(rearSamps);				// write reflections to output [Properties::REAR - 1]
+                                            break;
+											
+                                        case Properties::FLOOR:
+                                            floorSamps += filterInputSamp;
+                                            reflSamps += walls[k][4].tick(floorSamps);				// write reflections to output [FLOOR - 1]
+                                            break;
+											
+                                        case Properties::CEILING:
+                                            ceilSamps += filterInputSamp;
+                                            reflSamps += walls[k][5].tick(ceilSamps);			// write first order reflection to output [CEILING - 1]
+                                            break;		
+                                    }
+                                }
+                                else
+                                {
+                                    switch (reflNum)			// TODO: is there a cleaner and clear way of doing this that is as fast?
+                                    { 
+                                        case Properties::FRONT_FLOOR:
+                                            floorSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::REAR_FLOOR:
+                                            floorSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::LEFT_FLOOR:
+                                            floorSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_FLOOR:
+                                            floorSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::LEFT_CEILING:
+                                            ceilSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_CEILING:
+                                            ceilSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::FRONT_CEILING:
+                                            ceilSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::REAR_CEILING:
+                                            ceilSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+											
+                                        case Properties::LEFT_FRONT:
+                                            frontSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_FRONT:
+                                            frontSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;											
+											
+                                        case Properties::LEFT_REAR:
+                                            rearSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_REAR:
+                                            rearSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+											
+                                            /*case AIR:
+                                             *out[k] += filterInputSamp;
+                                             break;*/
+											
+                                            //after one reflection
+											
+                                        case Properties::LEFT:// after one reflection
+                                            reflSamps += walls[k][0].tick(filterInputSamp);	// write first order reflection to output [Properties::LEFT - 1]
+                                            outs[k][n] += air[k][0].tick(reflSamps);	// reflections are filtered by air absorption LPF
+                                            break;	
+                                        case Properties::RIGHT:
+                                            reflSamps += walls[k][1].tick(filterInputSamp);	// write first order reflection to output [Properties::RIGHT - 1]
+                                            break;	
+											
+											
+                                        case Properties::FRONT:
+                                            //frontSamps += filterInputSamp;
+                                            reflSamps += walls[k][2].tick(frontSamps);				// write reflections to output [Properties::FRONT - 1]
+                                            break;
+											
+                                        case Properties::REAR:
+                                            //rearSamps += filterInputSamp;
+                                            reflSamps += walls[k][3].tick(rearSamps);				// write reflections to output [Properties::REAR - 1]
+                                            break;
+											
+                                        case Properties::FLOOR:
+                                            //floorSamps += filterInputSamp;
+                                            reflSamps += walls[k][4].tick(floorSamps);				// write reflections to output [FLOOR - 1]
+                                            break;
+											
+                                        case Properties::CEILING:
+                                            //ceilSamps += filterInputSamp;
+                                            reflSamps += walls[k][5].tick(ceilSamps);			// write first order reflection to output [CEILING - 1]
+                                            break;		
+                                    }
+                                }
+                            }
+                        }                        
+                    }
+                    bp++;
+                } // end of while
 				
-                for (int k = 0; k < numChannels; ++k)
-                    *out[k]++ = 0.0;
-                bp++;
+                for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)    
+                {  //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated  
+                    x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
+                    x->currentDelay[reflNum] =  *(currentDelay + reflNum); 
+                }
+            }
+            else // steady state, non-fractional delay, constant values
+            {
+                for (int n=0 ; n < sampleframes; n++)
+                {
+                    //Write to delay line                    					
+					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+					
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        outs[k][n] = 0.0;
+                        frontSamps = rearSamps = floorSamps = ceilSamps = reflSamps = filterInputSamp = 0.0;
+                        numOfReflTimesK =  numOfRefl * k;
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = numOfRefl - 1; reflNum >= 0; --reflNum)
+                            {   
+                                if (reflGains[0] != 0.0 || reflGains[1] != 0.0 || reflGains[2] != 0.0) 	// 0 for direct, 1 for 1st order, 2 for snd order
+                                {
+                                    reflOrderIndex = reflNum + numOfReflTimesK; 
+                                    idelay = *(currentDelay + reflOrderIndex) +0.5; 
+                                    filterInputSamp = *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+									
+                                    switch (reflNum)	// TODO: is there a cleaner but also clear way of doing this that is as fast?
+                                    { 
+                                        case Properties::FRONT_FLOOR:
+                                            floorSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::REAR_FLOOR:
+                                            floorSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::LEFT_FLOOR:
+                                            floorSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_FLOOR:
+                                            floorSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::LEFT_CEILING:
+                                            ceilSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_CEILING:
+                                            ceilSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::FRONT_CEILING:
+                                            ceilSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::REAR_CEILING:
+                                            ceilSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+											
+                                        case Properties::LEFT_FRONT:
+                                            frontSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;											
+                                        case Properties::RIGHT_FRONT:
+                                            frontSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;											
+											
+                                        case Properties::LEFT_REAR:
+                                            rearSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+                                        case Properties::RIGHT_REAR:
+                                            rearSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                            break;
+											
+                                        case Properties::AIR: 			// filtered direct sound
+                                            outs[k][n] += filterInputSamp;
+                                            break;
+											
+                                            // after one reflection
+                                        case Properties::LEFT:
+                                            reflSamps += walls[k][0].tick(filterInputSamp);	// sum first order reflections [Properties::LEFT - 1]
+                                            outs[k][n] += air[k][0].tick(reflSamps);	// reflections are filtered by air absorption LPF
+                                            break;	
+											
+                                        case Properties::RIGHT:
+                                            reflSamps += walls[k][1].tick(filterInputSamp);	// sum first order reflections [Properties::RIGHT - 1]
+                                            break;	
+											
+											
+                                        case Properties::FRONT:
+                                            frontSamps += filterInputSamp;
+                                            reflSamps += walls[k][2].tick(frontSamps);				// write reflections to output [Properties::FRONT - 1]
+                                            break;
+											
+                                        case Properties::REAR:
+                                            rearSamps += filterInputSamp;
+                                            reflSamps += walls[k][3].tick(rearSamps);				// write reflections to output [Properties::REAR - 1]
+                                            break;
+											
+                                        case Properties::FLOOR:
+                                            floorSamps += filterInputSamp;
+                                            reflSamps += walls[k][4].tick(floorSamps);				// write reflections to output [FLOOR - 1]
+                                            break;
+											
+                                        case Properties::CEILING:
+                                            ceilSamps += filterInputSamp;
+                                            reflSamps += walls[k][5].tick(ceilSamps);			// write first order reflection to output [CEILING - 1]
+                                            break;		
+                                    }
+                                }
+                            }
+                        }                        
+                    }
+                    bp++;
+                }	// end of while
+				
+				
             }
             if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
                 x->c_phase = 0;
             else 
-                x->c_phase = phase + blocksize;
+                x->c_phase = phase + sampleframes;
+			
+            if (x->grainCounter < renderInterval)
+                x->grainCounter++;
+            break;
+            ////////////////////////////////////////////////////////////////////////////////
+			
+		case Properties::X_FADE_LITE: // with crossfade between delay 	
+			
+            for (int n=0 ; n < sampleframes; n++)
+            {
+                //Write to delay line
+                *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+				
+                if (fades->isActive()) // we're crossfading!
+                {
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        oldSamp = newSamp = 0.0;
+                        outs[k][n] = 0.0;
+                        newReflSamps = 0.0;
+                        oldReflSamps= 0.0;
+						
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = maxDynRefl - 1; reflNum >= Properties::DIRECT; --reflNum) // TM: if x->maxDynRefl is always same as x->numRefl, why is it necessary?
+                            {
+                                reflOrderIndex = reflNum + maxDynRefl * k;
+								
+                                idelay = *(delay + reflOrderIndex) - 0.5; // a bit more efficient that the two lines above
+                                idelayOld = *(currentDelay + reflOrderIndex) - 0.5; 
+								
+                                switch (reflNum)
+                                {   
+										// direct sound
+                                    case 0:
+                                        oldSamp = *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelayOld);
+                                        newSamp = *(sensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay); 
+                                        outs[k][n] += fades->tick(newSamp, oldSamp); // write cross fade of signals to output
+                                        break;
+										
+                                        // 1st order reflections, filtered by walls and air absorption
+                                    case 1: 									    
+                                        oldReflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelayOld);	
+                                        newReflSamps += *(sensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+										
+                                        outs[k][n] = xfadeWalls[k][0].tick(outs[k][n] + fades->tick(newReflSamps, oldReflSamps));
+                                        outs[k][n] = xfadeAir[k].tick(outs[k][n]);		// filter all by air filter
+                                        break;
+										
+                                        // 2nd order reflections
+                                    case 7:			
+                                        oldReflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelayOld);
+                                        newReflSamps += *(sensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+										
+                                        outs[k][n] = xfadeWalls[k][1].tick(fades->tick(newReflSamps, oldReflSamps));
+                                        newReflSamps = 0.0;
+                                        oldReflSamps = 0.0;
+                                        break;
+										
+                                    default:		
+                                        oldReflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelayOld);
+                                        newReflSamps += *(sensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        break;
+                                }
+                            }
+                        }                       
+                    }
+					
+                    fades->increment(); 	// update crossfade counters by one sample
+                    // TM: Don't take anything else out of this
+                    if (!fades->isActive()) // if done crossfading
+                    {
+                        for (int k = 0; k < numChannels; ++k)
+                        {
+                            numOfReflTimesK = numOfRefl * k;
+                            for (int reflNum = maxDynRefl - 1; reflNum >= Properties::DIRECT; --reflNum) // TM: if x->maxDynRefl is always same as x->numRefl, why is it necessary?
+                            {
+                                reflOrderIndex = reflNum + numOfReflTimesK;//maxDynRefl * k;
+                                *(currentDelay + reflOrderIndex) = *(delay + reflOrderIndex);	 // Update delays and sensitivities
+                                *(currentSensitivity + reflOrderIndex) = *(sensitivity + reflOrderIndex);
+                            }
+                        }
+                    }
+					
+                    for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)     //NP: not sure if we need this for X-fade methods...
+                    {  //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated  
+                        x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
+                        x->currentDelay[reflNum] =  *(currentDelay + reflNum); 
+                    }
+					
+                }
+                else			// steady state, not crossfading
+                {
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        outs[k][n] = 0.0;
+                        reflSamps = 0.0;
+                        numOfReflTimesK =  numOfRefl * k;
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = numOfRefl - 1; reflNum >= Properties::DIRECT; --reflNum)	// iterate backward through reflections, to filter
+                            {   
+                                reflOrderIndex = reflNum +numOfReflTimesK; 
+								
+                                // update sensitivity
+                                if (GrainCounter < renderInterval)
+                                    *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex); 
+                                else
+                                {
+                                    *(currentDelay + reflOrderIndex) = *(delay + reflOrderIndex);	 // Update delay time
+                                    *(currentSensitivity + reflOrderIndex) = *(sensitivity + reflOrderIndex);
+                                }
+								
+                                idelay = *(currentDelay + reflOrderIndex) - 0.5; 
+								
+                                switch (reflNum)
+                                {   
+                                    case Properties::DIRECT:
+                                        outs[k][n] = (*(currentSensitivity + reflOrderIndex) * 
+												   *(bp + Properties::DELAYSIZE - idelay)) + reflSamps; 
+                                        break;
+                                        // sample is filtered by first order reflection filter only and air 
+                                    case 1: 									    
+                                        reflSamps += (*(currentSensitivity + reflOrderIndex) * 
+													  *(bp + Properties::DELAYSIZE - idelay)); 
+										
+                                        reflSamps = xfadeWalls[k][0].tick(reflSamps);
+                                        reflSamps = xfadeAir[k].tick(reflSamps);
+                                        break;	
+										
+                                    case 7:	// sample is filtered by 2nd order reflection filter only
+                                        reflSamps += (*(currentSensitivity + reflOrderIndex) *
+													  *(bp + Properties::DELAYSIZE - idelay)); 
+										
+                                        reflSamps = xfadeWalls[k][1].tick(reflSamps);
+                                        break;	
+										
+                                    default:		
+                                        reflSamps += (*(currentSensitivity + reflOrderIndex) *
+													  *(bp + Properties::DELAYSIZE - idelay)); 
+                                        break;
+                                } 
+                            }
+                        }                        
+                    }
+                } 
+                bp++;
+            }	// end of while
+			
+            if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
+                x->c_phase = 0;
+            else 
+                x->c_phase = phase + sampleframes;
+			
+            if (x->grainCounter < renderInterval)
+                x->grainCounter++; 
+			
+            break;
+/************************************************************************************************/
+		case Properties::X_FADE_XL: // with crossfade between delay, independent filtering for each wall 	
+            double oldFilterInputSamp, newFilterInputSamp;
+			
+            for (int n=0 ; n < sampleframes; n++)
+            {
+                //Write to delay line
+                *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		 
+				
+                if (fades->isActive()) // we're crossfading!
+                {
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        oldFilterInputSamp = newFilterInputSamp = 0.0;
+                        frontSamps = rearSamps = floorSamps = ceilSamps = reflSamps = 0.0;
+                        outs[k][n] = 0.0;
+                        numOfReflTimesK = numOfRefl * k;
+						
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = maxDynRefl - 1; reflNum >= Properties::DIRECT; --reflNum)// TM: if x->maxDynRefl is always same as x->numRefl, why is it necessary?
+                            {
+                                reflOrderIndex = reflNum + numOfReflTimesK;
+                                idelay = *(delay + reflOrderIndex) - 0.5; // a bit more efficient that the two lines above
+                                idelayOld = *(currentDelay + reflOrderIndex) - 0.5; 
+								
+                                oldFilterInputSamp = *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelayOld);
+                                newFilterInputSamp = *(sensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+								
+                                switch (reflNum)
+                                {   
+                                    case Properties::FRONT_FLOOR:
+                                        floorSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+                                    case Properties::REAR_FLOOR:
+                                        floorSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+                                    case Properties::LEFT_FLOOR:
+                                        floorSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+                                    case Properties::RIGHT_FLOOR:
+                                        floorSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+										
+                                    case Properties::LEFT_CEILING:
+                                        ceilSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+                                    case Properties::RIGHT_CEILING:
+                                        ceilSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+                                    case Properties::FRONT_CEILING:
+                                        ceilSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+                                    case Properties::REAR_CEILING:
+                                        ceilSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+										
+                                    case Properties::LEFT_FRONT:
+                                        frontSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;											
+                                    case Properties::RIGHT_FRONT:
+                                        frontSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;											
+										
+                                    case Properties::LEFT_REAR:
+                                        rearSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+                                    case Properties::RIGHT_REAR:
+                                        rearSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+										
+                                        // direct sound
+                                    case Properties::AIR:
+                                        outs[k][n] +=fades->tick(newFilterInputSamp, oldFilterInputSamp);
+                                        break;
+										
+                                    case Properties::LEFT: 									    
+                                        reflSamps = walls[k][Properties::LEFT - 1].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        outs[k][n] = walls[k][0].tick(reflSamps);	// apply air filter at this last stage
+                                        break;
+										
+                                    case Properties::RIGHT: 									    
+                                        reflSamps += walls[k][Properties::RIGHT - 1].tick(fades->tick(newFilterInputSamp, oldFilterInputSamp));
+                                        break;
+										
+                                    case Properties::FRONT:
+                                        frontSamps += fades->tick(newFilterInputSamp, oldFilterInputSamp);
+                                        reflSamps += walls[k][Properties::FRONT - 1].tick(frontSamps);
+                                        break;
+										
+                                    case Properties::REAR:
+                                        rearSamps += fades->tick(newFilterInputSamp, oldFilterInputSamp);
+                                        reflSamps += walls[k][Properties::REAR - 1].tick(rearSamps);
+                                        break;
+										
+                                    case Properties::FLOOR:
+                                        floorSamps += fades->tick(newFilterInputSamp, oldFilterInputSamp);
+                                        reflSamps += walls[k][Properties::FLOOR - 1].tick(floorSamps);
+                                        break;
+										
+                                    case Properties::CEILING:
+                                        ceilSamps += fades->tick(newFilterInputSamp, oldFilterInputSamp);
+                                        reflSamps += walls[k][Properties::CEILING - 1].tick(ceilSamps);
+                                        break;		
+                                }
+                            }
+                        }                        
+                    }
+					
+                    fades->increment(); 	// update crossfade counters by one sample
+					
+                    // TM: Don't take anything else out of this
+                    if (!fades->isActive()) // if done crossfading
+                    {
+                        for (int k = 0; k < numChannels; ++k)
+                        {
+                            numOfReflTimesK = numOfRefl * k;
+                            for (int reflNum = maxDynRefl - 1; reflNum >= Properties::DIRECT; --reflNum) // TM: if x->maxDynRefl is always same as x->numRefl, why is it necessary?
+                            {
+                                reflOrderIndex = reflNum + numOfReflTimesK;//maxDynRefl * k;
+                                *(currentDelay + reflOrderIndex) = *(delay + reflOrderIndex);	 // Update delays and sensitivities
+                                *(currentSensitivity + reflOrderIndex) = *(sensitivity + reflOrderIndex);
+								
+                            }
+                        }
+                    }
+					
+                    for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)     //NP: not sure if we need this for X-fade methods...
+                    {  //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated  
+                        x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
+                        x->currentDelay[reflNum] =  *(currentDelay + reflNum); 
+                    }
+                }
+                else			// steady state, not crossfading
+                {
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        outs[k][n] = 0.0;
+                        reflSamps = 0.0;
+                        frontSamps = rearSamps = floorSamps = ceilSamps = reflSamps = filterInputSamp = 0.0;
+                        numOfReflTimesK = numOfRefl * k;
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = numOfRefl - 1; reflNum >= Properties::DIRECT; --reflNum)	// iterate backward through reflections, to filter
+                            {   
+                                reflOrderIndex = reflNum + numOfReflTimesK; 
+								
+                                // update sensitivity
+                                if (GrainCounter < renderInterval)
+                                    *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex); 
+                                else
+                                {
+                                    *(currentSensitivity + reflOrderIndex) = *(sensitivity + reflOrderIndex);
+                                    *(currentDelay + reflOrderIndex) = *(delay + reflOrderIndex);	 // Update delay time
+                                }
+								
+                                idelay = *(currentDelay + reflOrderIndex) - 0.5; 
+                                filterInputSamp = *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+								
+                                switch (reflNum)	// TODO: is there a cleaner but also clear way of doing this that is as fast?
+                                { 
+                                    case Properties::FRONT_FLOOR:
+                                        floorSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+                                    case Properties::REAR_FLOOR:
+                                        floorSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+                                    case Properties::LEFT_FLOOR:
+                                        floorSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+                                    case Properties::RIGHT_FLOOR:
+                                        floorSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+										
+                                    case Properties::LEFT_CEILING:
+                                        ceilSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+                                    case Properties::RIGHT_CEILING:
+                                        ceilSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+                                    case Properties::FRONT_CEILING:
+                                        ceilSamps += walls[k][Properties::FRONT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+                                    case Properties::REAR_CEILING:
+                                        ceilSamps += walls[k][Properties::REAR + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+										
+                                    case Properties::LEFT_FRONT:
+                                        frontSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;											
+                                    case Properties::RIGHT_FRONT:
+                                        frontSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;											
+										
+                                    case Properties::LEFT_REAR:
+                                        rearSamps += walls[k][Properties::LEFT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+                                    case Properties::RIGHT_REAR:
+                                        rearSamps += walls[k][Properties::RIGHT + numwallsMinusOne].tick(filterInputSamp);
+                                        break;
+										
+                                    case Properties::DIRECT: 			// filtered direct sound
+                                        outs[k][n] += filterInputSamp;
+                                        break;
+										
+                                        // after one reflection
+                                    case Properties::LEFT:
+                                        reflSamps += walls[k][Properties::LEFT - 1].tick(filterInputSamp);	// sum first order reflections
+                                        outs[k][n] = air[k][0].tick(reflSamps);
+                                        break;
+										
+                                    case Properties::RIGHT:
+                                        reflSamps += walls[k][Properties::RIGHT - 1].tick(filterInputSamp);	// sum first order reflections
+                                        break;	
+										
+                                    case Properties::FRONT:
+                                        frontSamps += filterInputSamp;
+                                        reflSamps += walls[k][Properties::FRONT - 1].tick(frontSamps);				// write reflections to output
+                                        break;
+										
+                                    case Properties::REAR:
+                                        rearSamps += filterInputSamp;
+                                        reflSamps += walls[k][Properties::REAR - 1].tick(rearSamps);				// write reflections to output
+                                        break;
+										
+                                    case Properties::FLOOR:
+                                        floorSamps += filterInputSamp;
+                                        reflSamps += walls[k][Properties::FLOOR - 1].tick(floorSamps);				// write reflections to output
+                                        break;
+										
+                                    case Properties::CEILING:
+                                        ceilSamps += filterInputSamp;
+                                        reflSamps += walls[k][Properties::CEILING - 1].tick(ceilSamps);			// write first order reflection to output
+                                        break;		
+                                }
+                            }
+                        }                        
+                    }
+                } 
+                bp++;
+            }	// end of while
+			
+            if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
+                x->c_phase = 0;
+            else 
+                x->c_phase = phase + sampleframes; 
+            if (x->grainCounter < renderInterval)
+                x->grainCounter++; 
+            break;
+			
+////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+        case Properties::AMP_PAN: // amplitude panning only	
+            if (GrainCounter < renderInterval)
+            {
+                for (int n=0 ; n < sampleframes; n++)
+                {
+                    //Write to delay line
+                    *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+					
+                    for (int k = 0; k < numChannels; ++k)
+                    {   
+                        outs[k][n] = 0.0;
+                        if (micGainNonZero[k])
+                        {   
+                            reflOrderIndex = numOfRefl * k;
+                            *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex);
+                            outs[k][n] = (*(currentSensitivity + reflOrderIndex) * ins[0][n]);
+                        }                        
+                    }
+					bp++;
+                } // end of while
+                for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)     //NP: not sure if we need this for X-fade methods...
+                {  //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated  
+                    x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
+                }
+				
+            }
+            else
+            {
+                for (int n=0 ; n < sampleframes; n++)
+                {
+                    //Write to delay line
+                    *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input  
+					
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        if (micGainNonZero[k])// && reflGains[0] != 0.0)
+                            outs[k][n] = (*(currentSensitivity + numOfRefl * k) * ins[0][n]);
+                        else 
+                            outs[k][n] = 0.0;						
+                    }
+					bp++;
+                } // end of while
+            } 
+            if (x->grainCounter < renderInterval)
+                x->grainCounter++;
+            break; 
+ ////////////////////////////////////////////////////////////////////////////////
+		case Properties::STATIC:		// Nothing moves, only integer delays
+            if (GrainCounter < renderInterval)
+            {
+                for (int n=0 ; n < sampleframes; n++)
+                {
+                    //Write to delay line                    					
+					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+					
+                    for (int k = 0; k < numChannels; ++k)
+                    {
+                        outs[k][n]   = 0.0;
+                        reflSamps    = 0.0; 
+                        numOfReflTimesK =  numOfRefl * k; 
+						
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = numOfRefl - 1; reflNum >= Properties::DIRECT; --reflNum)
+                            {   
+                                reflOrderIndex = reflNum + numOfReflTimesK;
+                                *(currentDelay + reflOrderIndex) += *(delGrain + reflOrderIndex);	 // TM: Changed
+                                *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex);
+                                idelay = *(currentDelay + reflOrderIndex) - 0.5;
+								
+                                switch (reflNum)
+                                {   
+                                    case 0:
+                                        outs[k][n] = *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay) + reflSamps; 
+                                        break;
+										
+                                    case 1: 									    
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps = air[k][0].tick(walls[k][0].tick(reflSamps));
+                                        break;
+										
+                                    case 7:
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps = walls[k][6].tick(reflSamps); 
+                                        break;
+										
+                                    default:		
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    bp++;
+                } // end of while
+				
+                for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)    
+                {  //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated  
+                    x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
+                    x->currentDelay[reflNum] =  *(currentDelay + reflNum); 
+                }
+				
+            }
+            else	// steady state
+            {
+                for (int n=0 ; n < sampleframes; n++)
+                {
+                    //Write to delay line
+                    *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+                    for (int k=0; k < numChannels; ++k)
+                    {
+                        outs[k][n] = 0.0;
+                        reflSamps = 0.0; 
+                        numOfReflTimesK =  numOfRefl * k; 
+						
+                        if (micGainNonZero[k])
+                        {
+                            for (int reflNum = numOfRefl - 1; reflNum >= Properties::DIRECT; --reflNum)
+                            {   
+                                reflOrderIndex = reflNum + numOfReflTimesK; 
+                                idelay = *(currentDelay + reflOrderIndex) - 0.5;
+								
+                                switch (reflNum)
+                                {   
+                                    case 0:
+                                        outs[k][n] = *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay) + reflSamps; 
+                                        break;
+										
+                                    case 1: 									    
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps = air[k][0].tick(walls[k][0].tick(reflSamps));
+                                        break;
+										
+                                    case 7:
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps = walls[k][6].tick(reflSamps); 
+                                        break;
+										
+                                    default:		
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    bp++;
+                } // end of while
+            }
+            if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
+                x->c_phase = 0;
+            else 
+                x->c_phase = phase + sampleframes;
+            if (x->grainCounter < renderInterval)
+                x->grainCounter++;
+            break;
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+		case Properties::NONE: // no audio
+            for (int n=0 ; n < sampleframes; n++)
+            {
+				//Write to delay line so that the internal buffer doesn't contain crap if the rendermode changes
+                *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];
+				bp++;
+				
+                for (int k = 0; k < numChannels; k++)
+                    outs[k][n] = 0.0;               
+            }
+            if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
+                x->c_phase = 0;
+            else 
+                x->c_phase = phase + sampleframes;
             if (x->grainCounter < renderInterval)
                 x->grainCounter++;
             break; 
