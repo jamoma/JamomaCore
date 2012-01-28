@@ -78,7 +78,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	//class_addmethod(c(method)vimic_anything, "anything", A_GIMME, 0);
 	class_addmethod(c,(method)vimic_assist, "assist",A_CANT,0); // bind method "vimic_assist" to the assistance message 
 	
-	post("ViMiC for Max/MSP, © 2005-2009 Jonas Braasch, Nils Peters, Tristan Matthews. Version built on " __DATE__ " at " __TIME__);
+	post("ViMiC for Max/MSP, © 2005-2012 Jonas Braasch, Nils Peters, Tristan Matthews. Version built on " __DATE__ " at " __TIME__);
 	
     class_dspinit(c);
 	class_register(CLASS_BOX, c);
@@ -2512,39 +2512,31 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
         else
             micGainNonZero[i] = false;
     }
+	//copying input to delayline
+	memcpy(bp, ins[0], sizeof(double) * sampleframes);
+	memcpy((bp + Properties::DELAYSIZE), ins[0], sizeof(double) * sampleframes);
 	
     switch (x->AudioProcType)
     {
-        case Properties::VIMIC_LITE: // ViMiC wtih reduced Filtering
+        case Properties::VIMIC_LITE: // ViMiC wtih reduced Filtering			
 			
-            if (GrainCounter < renderInterval)
-            {
-                double a, b, c, d, cminusb; // variables for fractional delay line
-                for (int n=0 ; n < sampleframes; n++)
-                {
-                    //Write to delay line                    					
-					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
-					
-                    for (int k = 0; k < numChannels; ++k)
-                    {
-                        outs[k][n] = 0.0;
-                        reflSamps  = 0.0;
-                        numOfReflTimesK =  numOfRefl * k;
-						
-                        if (micGainNonZero[k])
-                        { // TM: if x->maxDynRefl is always same as x->numRefl, why is it necessary?
-                            for (int reflNum = maxDynRefl - 1; reflNum >= Properties::DIRECT; --reflNum) 
-                            {
-                                reflOrderIndex = reflNum + numOfReflTimesK;
-								
+            if (GrainCounter < renderInterval) {
+				double a, b, c, d, cminusb; // variables for fractional delay line
+				for (int k = 0; k < numChannels; ++k) {
+					memset(outs[k], 0, sizeof(double) * sampleframes);            
+					numOfReflTimesK =  numOfRefl * k;
+					if (micGainNonZero[k]) {
+						for (int n=0 ; n < sampleframes; n++) {
+							reflSamps  = 0.0;						
+                         // TM: if x->maxDynRefl is always same as x->numRefl, why is it necessary?
+                            for (int reflNum = maxDynRefl - 1; reflNum >= Properties::DIRECT; --reflNum) {
+								reflOrderIndex = reflNum + numOfReflTimesK;								
                                 *(currentDelay + reflOrderIndex) += *(delGrain + reflOrderIndex);	 // TM: Changed
-                                *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex);
-								
-                                if (*(currentSensitivity + reflOrderIndex) != 0.0)
-                                {    
+                                *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex);								
+                                if (*(currentSensitivity + reflOrderIndex) != 0.0) {
                                     idelay = *(currentDelay + reflOrderIndex) + 0.5;  
                                     frac = *(currentDelay + reflOrderIndex) - (double) idelay;	// fractional part of delay value
-                                    sampPos = Properties::DELAYSIZE - idelay; // was sampPos = DELAYSIZE;
+                                    sampPos = Properties::DELAYSIZE - idelay + n; // was sampPos = DELAYSIZE;
 									
                                     d = *(bp + sampPos - 3); 
                                     c = *(bp + sampPos - 2);
@@ -2552,8 +2544,7 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
                                     a = *(bp + sampPos); 
                                     cminusb = c - b;
 									
-                                    switch (reflNum)
-                                    {   
+                                    switch (reflNum){
                                         case 0:			// sum direct sound with reflections
                                             outs[k][n] = (*(currentSensitivity + reflOrderIndex) * (b + frac * (cminusb - 0.1666667 * (1.0 - frac) 
 																											 * ((d - a - 3.0 * cminusb) * frac + (d + 2.0 * a - 3.0 * b))))) + reflSamps;
@@ -2577,80 +2568,67 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
                                             break;
                                     }
                                 }
-                                else
-                                {
-                                    switch (reflNum)
-                                    {   
+                                else {
+									switch (reflNum) {
                                         case 1: 		// sum 1st order reflections (potentially with 2nd order reflections)	
                                             reflSamps = air[k][0].tick(walls[k][0].tick(reflSamps));
                                             break;	
                                         case 7:			// sum 2nd order reflections
                                             reflSamps = walls[k][6].tick(reflSamps);
                                             break;	
-                                    }
-									
+                                    }									
                                 }
                             }
                         }                        
-                    }
-                    bp++;
-                } // end of while
-                for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)    //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated
-                {    
+                    }                    
+                } 
+				bp = bp + sampleframes; 
+                for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum) {
+					//We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated 
                     x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
-                    x->currentDelay[reflNum] =  *(currentDelay + reflNum); 
+                    x->currentDelay[reflNum] =  *(currentDelay + reflNum); 					
                 }
             }
-            else // steady state, non-fractional delay, constant values
-            {
-                for (int n=0 ; n < sampleframes; n++)
-                {
-                    //Write to delay line                    					
-					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
-					
-                    for (int k = 0; k < numChannels; ++k)
-                    {   
-                        numOfReflTimesK = numOfRefl * k;
-                        outs[k][n] = 0.0; 
-                        reflSamps = 0.0;
-                        if (micGainNonZero[k])
-                        {
-                            for (int reflNum = numOfRefl - 1; reflNum >= Properties::DIRECT; --reflNum)
-                            {   
-                                reflOrderIndex = reflNum + numOfReflTimesK; 
+            else { // steady state, non-fractional delay, constant values
+				for (int k = 0; k < numChannels; ++k) {
+					memset(outs[k], 0, sizeof(double) * sampleframes);
+					numOfReflTimesK = numOfRefl * k;
+					if (micGainNonZero[k]) {
+						for (int n=0 ; n < sampleframes; n++) {							 
+							reflSamps = 0.0;                   
+							sampPos = n + Properties::DELAYSIZE;
+                            for (int reflNum = numOfRefl - 1; reflNum >= Properties::DIRECT; --reflNum){
+								reflOrderIndex = reflNum + numOfReflTimesK; 
                                 idelay = *(currentDelay + reflOrderIndex) +1.5; //was - 0.5; but I think that we cause a general delay of 2 samples due to the interpolation, so we have to respect that in the static method too, otherwise we will have small jumps of 2 samples back & forth
 								
-                                switch (reflNum)
-                                {   
+                                switch (reflNum){
                                     case 0:
-                                        outs[k][n] = *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay) + reflSamps; 
+                                        outs[k][n] = *(currentSensitivity + reflOrderIndex) * *(bp+ sampPos - idelay) + reflSamps; 
                                         break;
 										
                                     case 1: 									    
-                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp+sampPos - idelay);
                                         reflSamps = air[k][0].tick(walls[k][0].tick(reflSamps));
                                         break;
 										
                                     case 7:
-                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp+sampPos - idelay);
                                         reflSamps = walls[k][6].tick(reflSamps); 
                                         break;
 										
                                     default:		
-                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp + Properties::DELAYSIZE - idelay);
+                                        reflSamps += *(currentSensitivity + reflOrderIndex) * *(bp+sampPos - idelay);
                                         break;
-                                }
-								
+                                }								
                             }
                         }                       
                     }
-                    bp++;
-                } // end of while
+                } 
+				bp = bp+sampleframes;
             }
 			
             if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
                 x->c_phase = 0;
-			//NP: I think this condition has to be checked only at the end of a block (control-rate) and not at sample rate.
             else 
                 x->c_phase = phase + sampleframes; 
 			
@@ -2660,16 +2638,10 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
             ////////////////////////////////////////////////////////////////////////////////
 		case Properties::VIMIC_XL: // reflections are filtered
             double frontSamps, rearSamps, floorSamps, ceilSamps, filterInputSamp;
-            if (GrainCounter < renderInterval) // transitional state with fractional delay and interpolated values
-            {
+            if (GrainCounter < renderInterval) { // transitional state with fractional delay and interpolated values
                 double a, b, c, d, cminusb; // variables for fractional delay line
-                for (int n=0 ; n < sampleframes; n++)
-                {
-                    //Write to delay line                    					
-					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		
-					
-                    for (int k = 0; k < numChannels; ++k)
-                    {
+                for (int n=0 ; n < sampleframes; n++) {
+					for (int k = 0; k < numChannels; ++k) {
                         outs[k][n] = 0.0;
                         frontSamps = rearSamps = floorSamps = ceilSamps = reflSamps = filterInputSamp = 0.0;
                         numOfReflTimesK = numOfRefl * k;
@@ -2871,7 +2843,7 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
                 for (int n=0 ; n < sampleframes; n++)
                 {
                     //Write to delay line                    					
-					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+					//*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
 					
                     for (int k = 0; k < numChannels; ++k)
                     {
@@ -2988,7 +2960,7 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
             for (int n=0 ; n < sampleframes; n++)
             {
                 //Write to delay line
-                *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+                //*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
 				
                 if (fades->isActive()) // we're crossfading!
                 {
@@ -3142,7 +3114,7 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
             for (int n=0 ; n < sampleframes; n++)
             {
                 //Write to delay line
-                *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		 
+                //*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		 
 				
                 if (fades->isActive()) // we're crossfading!
                 {
@@ -3387,47 +3359,33 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
 			
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
         case Properties::AMP_PAN: // amplitude panning only	
-            if (GrainCounter < renderInterval)
-            {
-                for (int n=0 ; n < sampleframes; n++)
-                {
-                    //Write to delay line
-                    *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
-					
-                    for (int k = 0; k < numChannels; ++k)
-                    {   
-                        outs[k][n] = 0.0;
-                        if (micGainNonZero[k])
-                        {   
-                            reflOrderIndex = numOfRefl * k;
+            if (GrainCounter < renderInterval) {
+				for (int k = 0; k < numChannels; ++k) {
+					//memset(outs[k], 0, sizeof(double)*sampleframes);
+					reflOrderIndex = numOfRefl * k;
+					for (int n=0 ; n < sampleframes; n++) {
+                        //if (micGainNonZero[k]){
                             *(currentSensitivity + reflOrderIndex) += *(sensiGrain + reflOrderIndex);
                             outs[k][n] = (*(currentSensitivity + reflOrderIndex) * ins[0][n]);
-                        }                        
+                        //}                        
                     }
-					bp++;
+					bp += sampleframes;
                 } // end of while
-                for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum)     //NP: not sure if we need this for X-fade methods...
-                {  //We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated  
+                for (int reflNum = 0 ; reflNum < numChannels * numOfRefl ; ++reflNum){     //NP: not sure if we need this for X-fade methods...
+					//We need to update the Sensi and Delay vector so that in case for a new bang, the correct grains can be calculated  
                     x->currentSensitivity[reflNum] = *(currentSensitivity + reflNum);
-                }
-				
+				} 
             }
-            else
-            {
-                for (int n=0 ; n < sampleframes; n++)
-                {
-                    //Write to delay line
-                    *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input  
-					
-                    for (int k = 0; k < numChannels; ++k)
-                    {
-                        if (micGainNonZero[k])// && reflGains[0] != 0.0)
+            else {
+				for (int k = 0; k < numChannels; ++k) {
+					//memset(outs[k], 0, sizeof(double)*sampleframes);
+					//if (micGainNonZero[k]) { // && reflGains[0] != 0.0)
+						for (int n=0 ; n < sampleframes; n++) {			                        
                             outs[k][n] = (*(currentSensitivity + numOfRefl * k) * ins[0][n]);
-                        else 
-                            outs[k][n] = 0.0;						
-                    }
-					bp++;
-                } // end of while
+						}                        
+                    //}					
+                } 
+				bp += sampleframes;
             } 
             if (x->grainCounter < renderInterval)
                 x->grainCounter++;
@@ -3437,10 +3395,7 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
             if (GrainCounter < renderInterval)
             {
                 for (int n=0 ; n < sampleframes; n++)
-                {
-                    //Write to delay line                    					
-					*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
-					
+                {                    					
                     for (int k = 0; k < numChannels; ++k)
                     {
                         outs[k][n]   = 0.0;
@@ -3494,7 +3449,7 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
                 for (int n=0 ; n < sampleframes; n++)
                 {
                     //Write to delay line
-                    *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
+                    //*(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];		// get input 
                     for (int k=0; k < numChannels; ++k)
                     {
                         outs[k][n] = 0.0;
@@ -3544,19 +3499,15 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
 		case Properties::NONE: // no audio
-            for (int n=0 ; n < sampleframes; n++)
-            {
-				//Write to delay line so that the internal buffer doesn't contain crap if the rendermode changes
-                *(bp) = *(bp + Properties::DELAYSIZE) = ins[0][n];
-				bp++;
-				
-                for (int k = 0; k < numChannels; k++)
-                    outs[k][n] = 0.0;               
-            }
+            bp += sampleframes;
+			for (int k = 0; k < numChannels; k++)
+				memset(outs[k], 0, sizeof(double) * sampleframes);            
+			
             if (bp >= ep) // return pointer to start when it arrives at the end. TM: changed == to >=
                 x->c_phase = 0;
             else 
                 x->c_phase = phase + sampleframes;
+			
             if (x->grainCounter < renderInterval)
                 x->grainCounter++;
             break; 
@@ -3575,37 +3526,12 @@ void vimic_dsp64(t_vimic *x, t_object *dsp64, short *count, double samplerate, l
         x->x_sr = samplerate;
         x->speedOfSound = (331.3 * sqrt(1.0 + x->temperature / 273.15)) / x->x_sr;
         x->invSpeedOfSound = 1.0 / x->speedOfSound;
-    }
-	
-    // sp[0]->s_n  is the vector size
-    if (x->blocksize != (int)maxvectorsize)
-    {
-        x->blocksize = (int)maxvectorsize;
-        //post("Grainsize was %f", x->grainsize);
-        x->grainsize = 1.0 / (x->blocksize * x->renderInterval);
-        //post("Grainsize is now %f", x->grainsize);
-        //post("blocksize is now %d", (int)sp[0]->s_n);
     }	
-    //short num_args = x->numOfChannels + 3;
-	
-    //if (num_args < 4 || num_args > 147) 
-    //    post( "jcom.vimic~ : Combination of Reflection Order and Channels not supported" );
-	
-    //t_int **vec = (t_int **) getbytes(sizeof(t_int *) * num_args);	// vector of pointers
-	
-    //vec[0] = (t_int *)x;	// first arg is x struct pointer
-    //int i;
-    //for (i = 0; i < num_args - 2; i++)
-     //   vec[i + 1] = (t_int *) sp[i]->s_vec;
-	
-    //vec[i + 1] = (t_int *) sp[0]->s_n;	// last arg = sp[0]->s_n is signal vector size
-	
-    //dsp_addv(vimic_perform, num_args, (void **)vec);
-	
-    //freebytes(vec, sizeof(t_int *) * num_args);		// deallocate vector of pointers
-	
-	
-	//x->signalOut->sendMessage(TT("alloc"));
-	object_method(dsp64, gensym("dsp_add64"), x, vimic_perform64, 0, NULL);
-	
+
+    if (x->blocksize != (int)maxvectorsize){
+		x->blocksize = (int)maxvectorsize;        
+        x->grainsize = 1.0 / (x->blocksize * x->renderInterval);
+	}
+
+	object_method(dsp64, gensym("dsp_add64"), x, vimic_perform64, 0, NULL);	
 }
