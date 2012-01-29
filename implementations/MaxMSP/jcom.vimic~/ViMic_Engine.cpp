@@ -117,8 +117,9 @@ void vimic_sensitivity(double *sensi, double *del, Mic *mic, Mirror *mirror, Sou
 
         newSensi *= mic->gain();	
         newSensi *= reflGains[order];
+#ifdef TT_PLATFORM_WIN // on the mac with icc, we use the flushtozero flag which takes care of that
 		TTZeroDenormal(newSensi);
-
+#endif
         if(newSensi > 1.0)
         {
             if (globWarningFlag)

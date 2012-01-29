@@ -10,7 +10,7 @@
 #include "LowPass.h"
 #include "Source.h"
 #include "ext_common.h"
-#include "ext_critical.h"
+//#include "ext_critical.h"
 #include "TTClassWrapperMax.h"
 #include "TTDSP.h"
 
@@ -616,7 +616,7 @@ void vimic_reportAll(t_vimic *x)
 {
     int n = 0;
     int m = 0;
-    post("This is ViMiC for Max/MSP, (c) 2005-2009 Jonas Braasch, Nils Peters, Tristan Matthews. Version built on " __DATE__ " at " __TIME__);
+    post("This is ViMiC for Max/MSP, (c) 2005-2012 Nils Peters, Tristan Matthews, Jonas Braasch. Version built on " __DATE__ " at " __TIME__);
     post("renderInterval: %d",x->renderInterval);
     post("Grainsize: %f",x->grainsize);
     post("expected speed of sound is %f at %f degrees celsius", x->speedOfSound * x->x_sr, x->temperature);
@@ -1177,7 +1177,7 @@ void vimic_bang(t_vimic *x)
 
     if(x->reflOrder < 3)
     {   
-        critical_enter(0);
+        //critical_enter(0);
         for (m = 0; m < x->numOfChannels; m++)
         {
             if (x->room->sources[0].flag() || x->room->mics[m].flag() || x->room->mics.flag() || x->reflGainFlag)
@@ -1195,25 +1195,25 @@ void vimic_bang(t_vimic *x)
             x->room->mics[m].flag(false);
         }
         x->room->mics.flag(false);
-        critical_exit(0);
+        //critical_exit(0);
     } 
 
 
     if (grainCounterFlag)		// something has changed
     {
         if (x->minSensiFlag)
-        {   critical_enter(0);
+        {   //critical_enter(0);
             for (int i = 0; i < x->bufSz; i++)
                 vimic_floorSensi(x->sensitivity + i, x->minSensi);
-            critical_exit(0);
+            //critical_exit(0);
         }
 
         if (x->normalizeSensiFlag){   
-			critical_enter(0);
+			//critical_enter(0);
             float invSqrtSumSensi = vimic_invSqrtSumSensi(x->sensitivity, x->bufSz);
             for (int i = 0; i < x->bufSz; i++)
                 vimic_normalizeSensi(x->sensitivity + i, invSqrtSumSensi);
-            critical_exit(0);
+            //critical_exit(0);
         }
 		        
 		if (x->minimumDelayFlag){
@@ -1222,14 +1222,18 @@ void vimic_bang(t_vimic *x)
 				vimic_minimizeDelay(x->delay + i, minDelay);
 		}
 		
-		critical_enter(0);		
+		//critical_enter(0);		
         for (m = 0; m < x->bufSz; m++){
 			x->delGrain[m] = ((double) x->delay[m] - x->currentDelay[m]) * x->grainsize;  // copy old values into buffer	 
+#ifdef TT_PLATFORM_WIN
             TTZeroDenormal(x->delGrain[m]); // FIXME: necessary?
+#endif			
 			x->sensiGrain[m] = (x->sensitivity[m] - x->currentSensitivity[m]) * x->grainsize; // copy old values into buffer  
+#ifdef TT_PLATFORM_WIN			
             TTZeroDenormal(x->sensiGrain[m]);
+#endif			
         }
-        critical_exit(0);
+        //critical_exit(0);
         x->grainCounter = 0;
     }
     x->room->sources[0].flag(false);
@@ -2645,7 +2649,7 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
                                 if (*(sensitivity + reflOrderIndex) != 0.0){ 
                                     idelay = 0.5 + *(currentDelay + reflOrderIndex);
                                     frac = *(currentDelay + reflOrderIndex) - (double) idelay;	// fractional part of delay value
-                                    sampPos = Properties::DELAYSIZE - idelay + n; // was sampPos = Properties::DELAYSIZE;
+                                    sampPos = Properties::DELAYSIZE - idelay + n;
 									
                                     d = *(bp + sampPos - 3); 
                                     c = *(bp + sampPos - 2);
@@ -2827,8 +2831,8 @@ void vimic_perform64(t_vimic *x, t_object *dsp64, double **ins, long numins, dou
             {
 				for (int k = 0; k < numChannels; ++k){
 					memset(outs[k], 0, sizeof(double)*sampleframes);
-                    numOfReflTimesK =  numOfRefl * k;
                     if (micGainNonZero[k]) {
+						numOfReflTimesK =  numOfRefl * k;
 						for (int n=0 ; n < sampleframes; n++){
 							frontSamps = rearSamps = floorSamps = ceilSamps = reflSamps = filterInputSamp = 0.0;
                             for (int reflNum = numOfRefl - 1; reflNum >= 0; --reflNum)
