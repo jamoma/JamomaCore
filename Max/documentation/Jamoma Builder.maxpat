@@ -601,7 +601,7 @@
 , 											{
 												"box" : 												{
 													"autopopulate" : 1,
-													"depth" : 2,
+													"depth" : 5,
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"frozen_box_attributes" : [ "depth", "types" ],
@@ -5468,7 +5468,7 @@
 , 											{
 												"box" : 												{
 													"autopopulate" : 1,
-													"depth" : 2,
+													"depth" : 5,
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"frozen_box_attributes" : [ "depth", "types" ],
