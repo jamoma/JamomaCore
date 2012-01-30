@@ -7,7 +7,7 @@
 			"revision" : 4
 		}
 ,
-		"rect" : [ 91.0, 44.0, 1076.0, 669.0 ],
+		"rect" : [ 568.0, 519.0, 1076.0, 669.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -337,16 +337,16 @@
 ,
 					"patching_rect" : [ 229.0, 571.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"tags" : "",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"digest" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p changeText"
@@ -664,16 +664,16 @@
 ,
 					"patching_rect" : [ 231.0, 498.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"tags" : "",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"digest" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p changeText"
@@ -991,16 +991,16 @@
 ,
 					"patching_rect" : [ 212.0, 423.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"tags" : "",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"digest" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p changeText"
@@ -1020,7 +1020,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 21.0, 597.0, 82.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 117.0, 54.0, 92.0, 16.0 ],
+					"presentation_rect" : [ 84.0, 54.0, 92.0, 16.0 ],
 					"rounded" : 8.0,
 					"text" : "aux.3 (Off)",
 					"texton" : "aux.3 (On)",
@@ -1041,7 +1041,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 21.0, 521.0, 82.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 117.0, 37.0, 92.0, 16.0 ],
+					"presentation_rect" : [ 84.0, 37.0, 92.0, 16.0 ],
 					"rounded" : 8.0,
 					"text" : "aux.2 (Off)",
 					"texton" : "aux.2 (On)",
@@ -1062,7 +1062,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 21.0, 446.0, 82.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 117.0, 20.0, 92.0, 16.0 ],
+					"presentation_rect" : [ 84.0, 20.0, 92.0, 16.0 ],
 					"rounded" : 8.0,
 					"text" : "aux.1 (Off)",
 					"texton" : "aux.1 (On)",
@@ -1169,7 +1169,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 314.0, 574.0, 86.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 211.0, 53.0, 86.0, 15.0 ],
+					"presentation_rect" : [ 179.0, 53.0, 118.0, 15.0 ],
 					"range" : [ 0.0, 127.0 ],
 					"text" : "gain aux.3",
 					"textpos" : [ 2.0, 1.0 ]
@@ -1201,7 +1201,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 312.0, 502.0, 86.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 211.0, 37.0, 86.0, 15.0 ],
+					"presentation_rect" : [ 179.0, 37.0, 118.0, 15.0 ],
 					"range" : [ 0.0, 127.0 ],
 					"text" : "gain aux.2",
 					"textpos" : [ 2.0, 1.0 ]
@@ -1233,7 +1233,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 295.0, 431.0, 86.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 211.0, 21.0, 86.0, 15.0 ],
+					"presentation_rect" : [ 179.0, 21.0, 118.0, 15.0 ],
 					"range" : [ 0.0, 127.0 ],
 					"text" : "gain aux.1",
 					"textpos" : [ 2.0, 1.0 ]
