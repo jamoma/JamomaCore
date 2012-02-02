@@ -193,7 +193,7 @@ TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue, TTValue&)
 	checkMatrixSize(x,y);
 	
 	mGainMatrix->set2dZeroIndex(x, y, gainValue); 
-	if (mInterpolated) 
+	if (mInterpolated) 		
 		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;	
 }
@@ -279,11 +279,11 @@ TTErr TTAudioMatrix::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAu
 	TTUInt16			outChannel;
 	TTUInt16			inChannel;
     TTSampleValue       gainValue, increment;
-	
+
 	if (numInputChannels > mNumInputs) {
 		numInputChannels = mNumInputs;
-		//setNumInputs(numInputChannels);
 	}
+	
 	if (numOutputChannels != mNumOutputs) {
 		TTValue v = mNumOutputs;
 		
@@ -300,17 +300,17 @@ TTErr TTAudioMatrix::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAu
 		outSample = out.mSampleVectors[outChannel];
 		for (inChannel=0; inChannel<numInputChannels; inChannel++) {		
 			mGainMatrix->get2dZeroIndex(inChannel, outChannel, value);
-			if (value != 0.0){
+			//if (value != 0.0){  // this condition caused a click when the destination value is 0
 				oldGainMatrix->get2dZeroIndex(inChannel, outChannel, oldValue);
 				increment = (value-oldValue)/vs;
-				TTAntiDenormal(increment);
+			TTAntiDenormal(increment); // TODO: necessary if we use flush-to-zero compiling flag?
 				gainValue = oldValue;
 				inSample = in.mSampleVectors[inChannel];				
 				for (int i=0; i<vs; i++) {
 					gainValue += increment;
 					outSample[i] += inSample[i] * gainValue;
 				}				
-			}
+			//}
 			oldGainMatrix->set2dZeroIndex(inChannel, outChannel, value);
 		}
 	}	
