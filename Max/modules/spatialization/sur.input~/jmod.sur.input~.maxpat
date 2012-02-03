@@ -28,6 +28,35 @@
 		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-24",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 376.5, 410.0, 261.0, 31.0 ],
+					"text" : "avoiding that the mute command is disabling the DSP process, sfplay would stop playing"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 275.0, 416.0, 98.0, 19.0 ],
+					"text" : "route audio/mute"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"border" : 0.0,
 					"id" : "obj-68",
 					"ignoreclick" : 1,
@@ -298,14 +327,14 @@
 ,
 					"patching_rect" : [ 671.0, 416.0, 191.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontface" : 0,
+						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
+						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : ""
 					}
@@ -707,14 +736,14 @@
 ,
 									"patching_rect" : [ 635.0, 194.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"tags" : "",
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"digest" : "",
-										"default_fontname" : "Verdana",
 										"fontface" : 0,
+										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
+										"tags" : "",
 										"default_fontsize" : 10.0,
 										"description" : ""
 									}
@@ -1092,14 +1121,14 @@
 ,
 									"patching_rect" : [ 337.0, 195.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"tags" : "",
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"digest" : "",
-										"default_fontname" : "Verdana",
 										"fontface" : 0,
+										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
+										"tags" : "",
 										"default_fontsize" : 10.0,
 										"description" : ""
 									}
@@ -1502,14 +1531,14 @@
 ,
 									"patching_rect" : [ 267.0, 196.0, 68.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"tags" : "",
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"digest" : "",
-										"default_fontname" : "Verdana",
 										"fontface" : 0,
+										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
+										"tags" : "",
 										"default_fontsize" : 10.0,
 										"description" : ""
 									}
@@ -1685,14 +1714,14 @@
 ,
 									"patching_rect" : [ 500.0, 193.0, 132.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"tags" : "",
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"digest" : "",
-										"default_fontname" : "Verdana",
 										"fontface" : 0,
+										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
+										"tags" : "",
 										"default_fontsize" : 10.0,
 										"description" : ""
 									}
@@ -1999,14 +2028,14 @@
 ,
 					"patching_rect" : [ 169.0, 324.0, 54.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontface" : 0,
+						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
+						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : ""
 					}
@@ -2478,14 +2507,14 @@
 ,
 					"patching_rect" : [ 671.0, 438.0, 30.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontface" : 0,
+						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
+						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : ""
 					}
@@ -2731,7 +2760,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 275.0, 418.0, 56.0, 19.0 ],
+					"patching_rect" : [ 275.0, 384.0, 56.0, 19.0 ],
 					"text" : "jcom.in~"
 				}
 
@@ -2814,7 +2843,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 275.0, 385.0, 27.0, 27.0 ]
+					"patching_rect" : [ 275.0, 351.0, 27.0, 27.0 ]
 				}
 
 			}
@@ -2982,6 +3011,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-65", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-21", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-32", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -3138,7 +3176,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-65", 0 ],
+					"destination" : [ "obj-21", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-56", 0 ]
