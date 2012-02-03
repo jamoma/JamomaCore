@@ -30,6 +30,20 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-77",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"patching_rect" : [ 497.0, 111.0, 97.0, 19.0 ],
+					"text" : "opendialog sound"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-24",
 					"linecount" : 2,
@@ -64,7 +78,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 686.0, 85.0, 165.0, 20.0 ],
+					"patching_rect" : [ 603.0, 111.0, 165.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 3.0, 13.0, 295.0, 49.0 ],
 					"rounded" : 0.0
@@ -327,16 +341,16 @@
 ,
 					"patching_rect" : [ 671.0, 416.0, 191.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"digest" : "",
 						"fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
-						"tags" : "",
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"description" : ""
+						"description" : "",
+						"fontname" : "Verdana",
+						"tags" : "",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p osc-routing"
@@ -736,16 +750,16 @@
 ,
 									"patching_rect" : [ 635.0, 194.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
 										"fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
-										"tags" : "",
+										"default_fontface" : 0,
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"fontname" : "Verdana",
+										"tags" : "",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p delete_jcom.meter_receive"
@@ -1121,16 +1135,16 @@
 ,
 									"patching_rect" : [ 337.0, 195.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
 										"fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
-										"tags" : "",
+										"default_fontface" : 0,
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"fontname" : "Verdana",
+										"tags" : "",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p create_jcom.meter_receive"
@@ -1531,16 +1545,16 @@
 ,
 									"patching_rect" : [ 267.0, 196.0, 68.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
 										"fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
-										"tags" : "",
+										"default_fontface" : 0,
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"fontname" : "Verdana",
+										"tags" : "",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p create_to"
@@ -1714,16 +1728,16 @@
 ,
 									"patching_rect" : [ 500.0, 193.0, 132.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
 										"fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
-										"tags" : "",
+										"default_fontface" : 0,
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"fontname" : "Verdana",
+										"tags" : "",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p create_new_jcom_out"
@@ -2028,16 +2042,16 @@
 ,
 					"patching_rect" : [ 169.0, 324.0, 54.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"digest" : "",
 						"fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
-						"tags" : "",
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"description" : ""
+						"description" : "",
+						"fontname" : "Verdana",
+						"tags" : "",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p adapt"
@@ -2156,7 +2170,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "int" ],
-					"patching_rect" : [ 550.0, 87.0, 129.0, 19.0 ],
+					"patching_rect" : [ 497.0, 142.0, 129.0, 19.0 ],
 					"text" : "conformpath slash boot"
 				}
 
@@ -2507,16 +2521,16 @@
 ,
 					"patching_rect" : [ 671.0, 438.0, 30.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"digest" : "",
 						"fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
-						"tags" : "",
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"description" : ""
+						"description" : "",
+						"fontname" : "Verdana",
+						"tags" : "",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p"
@@ -2731,8 +2745,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 497.0, 109.0, 593.0, 31.0 ],
-					"text" : "jcom.message open @type generic @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\""
+					"patching_rect" : [ 497.0, 168.0, 565.0, 31.0 ],
+					"text" : "jcom.parameter open @type string @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\" @value/default NULL"
 				}
 
 			}
@@ -3340,6 +3354,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-77", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -3359,7 +3382,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-51", 0 ],
+					"destination" : [ "obj-77", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-83", 0 ]
@@ -3446,11 +3469,11 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.message.mxo",
+				"name" : "jcom.parameter.mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.parameter.mxo",
+				"name" : "jcom.message.mxo",
 				"type" : "iLaX"
 			}
 , 			{
