@@ -331,13 +331,13 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 		if (attrname == gensym("module_name"))
 			object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
 			
-		char str[5];
+		char str[12]; //5
 		if (x->gainDragging) {
-			snprintf(str, sizeof(str), "%f", x->attr_gain);
+			snprintf(str, sizeof(str), "gain %.2f", x->anchorValue);
 			object_method(textfield, gensym("settext"), str);
 		}
 		if (x->mixDragging) {
-			snprintf(str, sizeof(str), "%f", x->attr_mix);
+			snprintf(str, sizeof(str), "mix %.2f", x->anchorValue);//x->attrPrefix->s_name, 
 			object_method(textfield, gensym("settext"), str);
 		}
 
@@ -826,12 +826,12 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	
 	if (modifiers & eShiftKey)
-		factor = 0.02;
-	
+		factor = 0.02;	
+
 	if (x->mixDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 100.0f);
-		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
+		object_attr_setfloat(x, gensym("mix"), x->anchorValue);		
 	}
 	else if (x->gainDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
