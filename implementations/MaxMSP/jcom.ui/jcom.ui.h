@@ -64,9 +64,9 @@ typedef struct _ui{
 	long				attr_hasinspector;		///< Flag for adding a panel button to the toolbar of the widget.
 	t_rect				rect_inspector;			///< The rectangle of the Panel button.
 
-	long				attr_hasmeters;			///< has_meters is different in that it is the number of meters, not just a toggle
+/*	long				attr_hasmeters;			///< has_meters is different in that it is the number of meters, not just a toggle
 	long				attr_metersdefeated;	///< Flag indicating if meters are currently defeated, or in other words not updating displayed values.
-	t_rect				rect_meters;
+	t_rect				rect_meters;*/
 
 	long				attr_hasmute;			///< Flag for adding a mute toggle to the toolbar of the widget.
 	long				attr_ismuted;			///< Flag indicating if processing is currently set to be muted.

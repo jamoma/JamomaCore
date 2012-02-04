@@ -148,7 +148,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_DEFAULT(c,	"has_panel",		0, "0");
 	CLASS_ATTR_SAVE(c,		"has_panel",		0);
 	CLASS_ATTR_ACCESSORS(c,	"has_panel",		NULL,	attr_set_hasinspector);
-
+/*
 	// this is needed so that we know whether or not to offer the option of turning the meters on and off in the menu
 	CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
 	CLASS_ATTR_DEFAULT(c,	"has_meters",		0, "0");	// number of meters to display
@@ -158,7 +158,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_LONG(c,		"meters_defeated",	0, t_ui, attr_metersdefeated);
 	CLASS_ATTR_STYLE(c,		"meters_defeated",	0, "onoff");
 	CLASS_ATTR_DEFAULT(c,	"meters_defeated",	0, "0");	// number of meters to display
-
+*/
 	CLASS_ATTR_LONG(c,		"has_mute",			0, t_ui, attr_hasmute);
 	CLASS_ATTR_STYLE(c,		"has_mute",			0, "onoff");
 	CLASS_ATTR_DEFAULT(c,	"has_mute",			0, "0");
@@ -884,13 +884,13 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
 		else {
-			if (item->sym == gensym("Defeat Signal Meters")) {
+			/*if (item->sym == gensym("Defeat Signal Meters")) {
 				if (x->attr_metersdefeated)
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 1, 0, NULL);
 				else
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 			}
-			else if (item->sym == gensym("Disable UI Updates")) {
+			else*/ if (item->sym == gensym("Disable UI Updates")) {
 				if (x->attr_ui_freeze)
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 1, 0, NULL);
 				else
@@ -919,14 +919,14 @@ void ui_menu_qfn(t_ui *x)
 {
 	t_symobject *item = (t_symobject *)linklist_getindex(x->menu_items, x->menu_selection);
 
-	if (item->sym == gensym("Defeat Signal Meters")) {
+	/*if (item->sym == gensym("Defeat Signal Meters")) {
 		if (x->attr_metersdefeated)
 			object_attr_setlong(x, gensym("meters_defeated"), 0);
 		else
 			object_attr_setlong(x, gensym("meters_defeated"), 1);
 		object_method_long(x->obj_remote, gensym("audio/meters/freeze"), x->attr_metersdefeated, NULL);
 	}
-	else if (item->sym == gensym("Disable UI Updates")) {
+	else*/ if (item->sym == gensym("Disable UI Updates")) {
 		if (x->attr_ui_freeze)
 			object_attr_setlong(x, gensym("ui_is_frozen"), 0);
 		else
@@ -977,14 +977,14 @@ void ui_menu_build(t_ui *x)
 	item = (t_symobject *)symobject_new(gensym("-"));
 	linklist_append(x->menu_items, item);
 	
-	if (x->attr_hasmeters) {
+	/*if (x->attr_hasmeters) {
 		item = (t_symobject *)symobject_new(gensym("Defeat Signal Meters"));
 		linklist_append(x->menu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Clear Signal Meters"));
 		linklist_append(x->menu_items, item);
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->menu_items, item);
-	}
+	}*/
 	
 	item = (t_symobject *)symobject_new(gensym("Load Settings..."));
 	linklist_append(x->menu_items, item);
