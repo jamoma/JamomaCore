@@ -89,8 +89,8 @@ void *vimic_new(t_symbol *s, int argc, t_atom *argv)
     if(x){
 		
     x->numOfChannels = 8;	
-    x->reflOrder = 1;
-    x->maxReflOrder = 1;
+    x->reflOrder = 2;
+    x->maxReflOrder = 2; //TODO: we don't really need this, don'twe
     globWarningFlag = false;
     globReportFlag = false; 
     x->normalizeSensiFlag = false;
@@ -99,19 +99,19 @@ void *vimic_new(t_symbol *s, int argc, t_atom *argv)
     x->minSensi = 0.0;		
     x->distModel = 1;	
 		
-    if(argc == 2)
+    if(argc)
     {
         if(argv[0].a_w.w_long > 0 && argv[0].a_w.w_long <= Properties::MAXNUMCHANNELS)
             x->numOfChannels = (int) argv[0].a_w.w_long;
         else if (globWarningFlag) 
             post("requested number of channels could not be set. Set to default of 8 instead");
-        if(argv[1].a_w.w_long >= 0 && argv[1].a_w.w_long <= Properties::REFLECTIONORDER)
+        /*if(argv[1].a_w.w_long >= 0 && argv[1].a_w.w_long <= Properties::REFLECTIONORDER)
             x->maxReflOrder = (int) argv[1].a_w.w_long;
         else if (globWarningFlag) 
-            post("requested reflection order could not be set. Set to default of 1 instead");
+            post("requested reflection order could not be set. Set to default of 1 instead");*/
     }
 
-    x->reflOrder = x->maxReflOrder;
+    //x->reflOrder = x->maxReflOrder;
 
     dsp_setup((t_pxobject*)x, 1); // one signal inlet
 
@@ -119,11 +119,12 @@ void *vimic_new(t_symbol *s, int argc, t_atom *argv)
        According to the image Model the number of Reflections can be determined based on the Reflection Order
        that is how many times a ray is allowed to hit a wall.
      */
-    if (x->reflOrder < 0 || x->reflOrder > 3)
+    
+	/*if (x->reflOrder < 0 || x->reflOrder > 3)
     {
         post("Invalid reflection order, defaulting to 2.");
         x->reflOrder = 2;
-    }
+    }*/
     x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
 
     x->maxDynRefl = x->numRefl;
@@ -427,21 +428,39 @@ void vimic_reflGain(t_vimic *x, t_symbol *s, short argc, t_atom *argv) //TODO ch
                     //if (argv[1].a_w.w_float <= 8.0 && argv[1].a_w.w_float >= 0.0)
                     //{
                     x->reflGains[b] = CLIP(argv[1].a_w.w_float,0.0, 8.0);
+					
+					if (x->reflGains[2]){
+						x->reflOrder = 2;
+						x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
+						x->maxReflOrder = x->reflOrder;						
+						x->maxDynRefl = x->numRefl;						
+					}
+					else if(x->reflGains[1]) {
+						x->reflOrder = 1;
+						x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
+						x->maxReflOrder = x->reflOrder;						
+						x->maxDynRefl = x->numRefl;						
+					}
+					else{
+						x->reflOrder = 0;
+						x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
+						x->maxReflOrder = x->reflOrder;						
+						x->maxDynRefl = x->numRefl;						
+					}			
+					//post("reflOrder: %ld, numRefl: %ld ",x->reflOrder,x->numRefl);
+					
                     x->reflGainFlag = true;
+					
                     if (globReportFlag)
                         post("Reflection order %d gain: %f", b, x->reflGains[b]);
-                    //}
-                    //else if (globWarningFlag)
-                    //    error("Reflection order gain must be between 0.0 and 8.0");
+
                 }
             }
-            else if (globWarningFlag)
-                post("Invalid channel number %d", b);
+            else if (globWarningFlag) post("Invalid channel number %d", b);
         }
         if (x->directBang == 1) vimic_bang(x);	
     }
-    else if (globWarningFlag)
-        error("Incorrect # of args.");
+    else if (globWarningFlag) error("Incorrect # of args.");
 }
 
 
