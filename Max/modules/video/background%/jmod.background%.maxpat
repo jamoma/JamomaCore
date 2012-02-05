@@ -110,7 +110,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 157.0, 461.0, 19.0 ],
-					"text" : "jcom.parameter filter/active @type boolean @description \"Turn low pass filter on and off\"",
+					"text" : "jcom.parameter filter/active @type boolean @description \"Turn lowpass filter on and off\"",
 					"varname" : "filter/on"
 				}
 
@@ -206,7 +206,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 221.0, 562.0, 31.0 ],
-					"text" : "jcom.parameter filter/threshold @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Set the threshold level for the low pass filter\"",
+					"text" : "jcom.parameter filter/threshold @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Set the threshold level for the lowpass filter\"",
 					"varname" : "filter/threshold"
 				}
 
