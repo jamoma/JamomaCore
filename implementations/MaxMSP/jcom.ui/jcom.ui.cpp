@@ -397,7 +397,7 @@ void ui_paint(t_ui *x, t_object *view)
 	
 	double 		border_thickness = 0.5;
 	double 		cornersize = 12.0;
-	double		middle;
+	double		middle = 9.0;
 
 	if (x->highlightcolor == gensym("none")) {
 		headercolor = x->headercolor;
@@ -428,8 +428,8 @@ void ui_paint(t_ui *x, t_object *view)
 	// clear the background
 	jgraphics_rectangle_rounded(g,  border_thickness, 
 									border_thickness, 
-									rect.width - ((border_thickness) * 2.0), 
-									rect.height - ((border_thickness) * 2.0), 
+									rect.width - (border_thickness * 2.0), 
+									rect.height - (border_thickness * 2.0), 
 									cornersize, cornersize); 
 	jgraphics_set_source_jrgba(g,	&bgcolor);
 	jgraphics_fill(g);
@@ -437,7 +437,7 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the titlebar
 	jgraphics_rectangle_rounded(g,  border_thickness, 
 									border_thickness, 
-									rect.width - (border_thickness * 2.0 + 1.0), 
+									rect.width - (border_thickness * 2.0), 
 									18.0, 
 									cornersize, cornersize); 
 	jgraphics_set_source_jrgba(g,	&headercolor);
@@ -445,7 +445,7 @@ void ui_paint(t_ui *x, t_object *view)
 	
 	jgraphics_rectangle_fill_fast(g, border_thickness, 
 									9.0, 
-									rect.width - (border_thickness * 2.0 + 1.0), 
+									rect.width - (border_thickness * 2.0), 
 									10.0);
 	
 	// draw borders
@@ -459,8 +459,8 @@ void ui_paint(t_ui *x, t_object *view)
 	jgraphics_stroke(g);
 
 	jgraphics_set_line_width(g, 1.0);
-	jgraphics_move_to(g, border_thickness, 19.5);
-	jgraphics_line_to(g, rect.width - (border_thickness * 1.0), 19.5);
+	jgraphics_move_to(g, border_thickness+0.5, 19);
+	jgraphics_line_to(g, rect.width - border_thickness-0.5, 19);
 	jgraphics_stroke(g);
 	
 	// draw the menu icon
@@ -473,8 +473,7 @@ void ui_paint(t_ui *x, t_object *view)
 	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
 	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., kTTTwoPi);
 	jgraphics_stroke(g);
-
-	middle = 9.0;
+	
 	jgraphics_move_to(g, 9.5, middle + 4.0);
 	jgraphics_line_to(g, 13.5, middle);
 	jgraphics_line_to(g, 5.5, middle);
@@ -514,7 +513,7 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
-		jgraphics_stroke(g);
+		jgraphics_stroke(g); 
 
 		jgraphics_set_source_jrgba(g, &s_color_darkgreen);
 		
@@ -567,13 +566,13 @@ void ui_paint(t_ui *x, t_object *view)
 
 		jgraphics_set_source_jrgba(g, &s_color_darkblue);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((mix / 100.0) * kTTTwoPi) + kTTHalfPi); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, (mix * 0.01 * kTTTwoPi) + kTTHalfPi); // angles are in radians
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_close_path(g);
 		jgraphics_fill(g);	
 
 		jgraphics_set_source_jrgba(g, &s_color_blue_ring);
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((mix / 100.0) * kTTTwoPi) + kTTHalfPi);
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, (mix * 0.01 * kTTTwoPi) + kTTHalfPi);
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_stroke(g);
 		
