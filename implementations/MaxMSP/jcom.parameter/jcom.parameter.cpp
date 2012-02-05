@@ -987,6 +987,14 @@ void param_makereceive(void* z)
 		atom_setsym(&a, gensym(osc));
 		x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
 		object_method(x->receive, jps_setcallback, &param_receive_callback, x);
+		
+
+#ifndef JMOD_MESSAGE 
+		//sending description as annotation to the GUI object which is connected to the leftmost outlet
+		// TODO: this might not be the most elegant place to do this here
+		atom_setsym(&a, x->common.attr_description);		
+		outlet_anything(x->outlets[k_outlet_set], _sym_annotation, 1, &a); //TODO: use defer_low?
+#endif		
 	}
 	else
 		defer_low(x, (method)param_makereceive, 0, 0, 0);
