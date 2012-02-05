@@ -95,6 +95,8 @@ void *stats_new(t_symbol *s, long argc, t_atom *argv)
 	
 	x = (t_stats *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	if (x) {
+		long attrstart = attr_args_offset(argc, argv);
+		
 		// Create outlets
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout		
 		x->outlet5 = floatout(x);				// 5th outlet: standard deviation
@@ -106,10 +108,10 @@ void *stats_new(t_symbol *s, long argc, t_atom *argv)
 		// Setting max window size and actual window size
 		x->maxWindowSize = 0;
 		x->windowSize = 0;
-		if (argc)
+		if (attrstart && argv)		
 			x->maxWindowSize = atom_getlong(argv);
-		
-		if (argc>1)
+
+		if ((attrstart==2) && argv)
 			x->windowSize = atom_getlong(argv+1);
 		if (x->maxWindowSize <= 0)
 			x->maxWindowSize = 500;				// changing to default value
