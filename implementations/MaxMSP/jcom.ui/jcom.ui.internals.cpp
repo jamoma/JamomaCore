@@ -370,7 +370,7 @@ t_max_err attr_set_highlightcolor(t_ui *x, void *attr, long ac, t_atom *av)
 				TTLogMessage("white\n");
 			}
 			else {
-				TTLogWarning("jcom.ui - do not reckognize the color used for module highlighting.\n");
+				TTLogWarning("jcom.ui - unknown color used for module highlighting.\n");
 				return err;
 			}
 			
