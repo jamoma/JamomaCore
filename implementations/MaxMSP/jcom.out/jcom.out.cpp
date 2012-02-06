@@ -107,7 +107,8 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->preview_object = NULL;
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
-		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix is false
+		x->attr_gain = 100;										// Assume 100 gan value, so that processed signal is passed through if @has_gain in jcom.ui is false
+		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix in jcom.ui is false
 		if (attrstart > 0) {
 			int argument = atom_getlong(argv);
 			x->numOutputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
@@ -227,9 +228,6 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 		
 	if (argv->a_type == A_SYM) {
-// jamoma 0.4
-//		if ((argv->a_w.w_sym == jps_slash_audio_gain_midi) || (argv->a_w.w_sym == jps_audio_gain_midi)) {
-// jamoma 0.5
 		if ((argv->a_w.w_sym == gensym("/audio/gain")) || (argv->a_w.w_sym == gensym("audio/gain")) || (argv->a_w.w_sym == gensym("gain")) || (argv->a_w.w_sym == gensym("/gain"))) {
 			// Do gain control here...
 			// Should be that the gain change triggers a short tt_ramp to the new value
