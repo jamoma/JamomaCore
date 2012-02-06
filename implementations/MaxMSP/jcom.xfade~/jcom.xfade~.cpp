@@ -158,15 +158,15 @@ void fade_assist(t_fade *x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1){ 	// Inlets
 		if(arg < x->numChannels) 
-			strcpy(dst, "(signal) Input A");
+			snprintf(dst, 256, "(signal) Input A - channel %ld", arg + 1); 		
 		else if(arg < x->numChannels*2) 
-			strcpy(dst, "(signal) Input B");
+			snprintf(dst, 256, "(signal) Input B - channel %ld", arg - x->numChannels + 1); 
 		else 
 			strcpy(dst, "(float/signal) Crossfade Position");
 	}
 	else if(msg==2){ // Outlets
 		if(arg < x->numChannels) 
-			strcpy(dst, "(signal) Crossfaded between A and B");
+			snprintf(dst, 256, "(signal) Mix between A and B - channel %ld", arg + 1);
 		else 
 			strcpy(dst, "dumpout");
 	}
@@ -362,7 +362,7 @@ void fade_dsp(t_fade *x, t_signal **sp, short *count)
 
 void fade_dsp64(t_fade *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-	short		i, j, k;
+	/*short		i, j, k;
 	TTUInt8		numChannels = 0;	
 	
 	// audioVectors[] passed to balance_perform() as {x, audioInL[0], audioInR[0], audioOut[0], audioInL[1], audioInR[1], audioOut[1],...}
@@ -372,10 +372,13 @@ void fade_dsp64(t_fade *x, t_object *dsp64, short *count, double samplerate, lon
 		if(count[i] && count[j] && count[k])
 			numChannels++;			
 	}
-	
 	x->audioIn1->setNumChannels(numChannels);
 	x->audioIn2->setNumChannels(numChannels);
-	x->audioOut->setNumChannels(numChannels);
+	x->audioOut->setNumChannels(numChannels);*/
+	
+	x->audioIn1->setNumChannels(x->numChannels);
+	x->audioIn2->setNumChannels(x->numChannels);
+	x->audioOut->setNumChannels(x->numChannels);
 	x->audioIn1->setVectorSizeWithInt((TTUInt16)maxvectorsize);
 	x->audioIn2->setVectorSizeWithInt((TTUInt16)maxvectorsize);
 	x->audioOut->setVectorSizeWithInt((TTUInt16)maxvectorsize);
