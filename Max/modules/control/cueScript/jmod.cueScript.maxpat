@@ -350,16 +350,16 @@
 ,
 					"patching_rect" : [ 507.0, 463.0, 67.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
 						"fontname" : "Verdana",
-						"default_fontface" : 0,
+						"default_fontsize" : 10.0,
+						"tags" : "",
+						"description" : "",
 						"globalpatchername" : "",
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"description" : ""
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p set-stuff"
@@ -403,6 +403,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Save cue script to a file using the file dialog.",
 					"border" : 1,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -458,7 +459,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "menu for selecting cues ",
+					"annotation" : "Recall cue event from loaded cue script",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-3",
@@ -702,16 +703,16 @@
 ,
 					"patching_rect" : [ 356.0, 374.0, 70.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
 						"fontname" : "Verdana",
-						"default_fontface" : 0,
+						"default_fontsize" : 10.0,
+						"tags" : "",
+						"description" : "",
 						"globalpatchername" : "",
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"description" : ""
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p cue_menu"
@@ -786,8 +787,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 355.0, 126.0, 602.0, 43.0 ],
-					"text" : "jcom.message loadScript @repetitions/allow 1 @description \"Load cue script from file. <br>NOTE: jcom.cue_list will be watching the file and automatically update if the content of the file is changed. This way you can use an external editor to work on the cue script while Jamoma is running.\""
+					"patching_rect" : [ 355.0, 126.0, 590.0, 43.0 ],
+					"text" : "jcom.message loadScript @repetitions/allow 1 @description \"Load cue script from file. <br>NOTE: jcom.cueScript will be watching the file and automatically update if the content of the file is changed. This way you can use an external editor to work on the cue script while Jamoma is running.\""
 				}
 
 			}
@@ -861,6 +862,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Load cue script from file.",
 					"border" : 1,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,

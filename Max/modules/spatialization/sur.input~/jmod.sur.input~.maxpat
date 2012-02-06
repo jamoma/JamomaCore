@@ -341,16 +341,16 @@
 ,
 					"patching_rect" : [ 671.0, 416.0, 191.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"tags" : "",
+						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"digest" : "",
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"fontname" : "Verdana",
-						"tags" : "",
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p osc-routing"
@@ -750,16 +750,16 @@
 ,
 									"patching_rect" : [ 635.0, 194.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"tags" : "",
+										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"digest" : "",
-										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"fontname" : "Verdana",
-										"tags" : "",
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p delete_jcom.meter_receive"
@@ -1135,16 +1135,16 @@
 ,
 									"patching_rect" : [ 337.0, 195.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"tags" : "",
+										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"digest" : "",
-										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"fontname" : "Verdana",
-										"tags" : "",
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p create_jcom.meter_receive"
@@ -1545,16 +1545,16 @@
 ,
 									"patching_rect" : [ 267.0, 196.0, 68.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"tags" : "",
+										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"digest" : "",
-										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"fontname" : "Verdana",
-										"tags" : "",
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p create_to"
@@ -1728,16 +1728,16 @@
 ,
 									"patching_rect" : [ 500.0, 193.0, 132.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"tags" : "",
+										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"digest" : "",
-										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"fontname" : "Verdana",
-										"tags" : "",
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p create_new_jcom_out"
@@ -2042,16 +2042,16 @@
 ,
 					"patching_rect" : [ 169.0, 324.0, 54.0, 21.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"tags" : "",
+						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"digest" : "",
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"fontname" : "Verdana",
-						"tags" : "",
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p adapt"
@@ -2191,7 +2191,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "",
+					"annotation" : "changes the time displayed in the module to countdown mode",
 					"hint" : "",
 					"id" : "obj-16",
 					"maxclass" : "toggle",
@@ -2207,7 +2207,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "",
+					"annotation" : "Loop soundfile.",
 					"hint" : "",
 					"id" : "obj-14",
 					"maxclass" : "toggle",
@@ -2223,6 +2223,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Pause",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-70",
@@ -2244,6 +2245,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "starts playback",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-84",
@@ -2265,6 +2267,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-83",
@@ -2521,16 +2524,16 @@
 ,
 					"patching_rect" : [ 671.0, 438.0, 30.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"tags" : "",
+						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"digest" : "",
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"fontname" : "Verdana",
-						"tags" : "",
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p"
@@ -2622,8 +2625,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 603.0, 279.0, 439.0, 19.0 ],
-					"text" : "jcom.message pause @type boolean @repetitions/allow 0 @description \\\"Pause\\\"",
+					"patching_rect" : [ 603.0, 279.0, 403.0, 19.0 ],
+					"text" : "jcom.message pause @type boolean @repetitions/allow 0 @description Pause",
 					"varname" : "play[1]"
 				}
 
@@ -2712,8 +2715,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 542.0, 336.0, 470.0, 19.0 ],
-					"text" : "jcom.message play @type boolean @repetitions/allow 0 @description \"starts playback\"",
+					"patching_rect" : [ 542.0, 336.0, 458.0, 19.0 ],
+					"text" : "jcom.parameter play @type boolean @repetitions/allow 0 @description \"starts playback\"",
 					"varname" : "play"
 				}
 
@@ -3137,7 +3140,7 @@
 					"destination" : [ "obj-12", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 777.0, 359.0, 468.25, 359.0, 468.25, 227.0, 612.5, 227.0 ],
+					"midpoints" : [ 771.0, 359.0, 468.25, 359.0, 468.25, 227.0, 612.5, 227.0 ],
 					"source" : [ "obj-48", 1 ]
 				}
 
@@ -3430,6 +3433,27 @@
 				"implicit" : 1
 			}
 , 			{
+				"name" : "metro",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components",
+				"patcherrelativepath" : "../../../library/components",
+				"type" : "fold",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.metro.maxhelp",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/metro",
+				"patcherrelativepath" : "../../../library/components/metro",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.metro.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/metro",
+				"patcherrelativepath" : "../../../library/components/metro",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "input.timeDisplay.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/spatialization/sur.input~",
 				"patcherrelativepath" : "",
@@ -3473,11 +3497,11 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.message.mxo",
+				"name" : "jcom.pack≈.mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.pack≈.mxo",
+				"name" : "jcom.message.mxo",
 				"type" : "iLaX"
 			}
 , 			{

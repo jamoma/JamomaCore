@@ -330,16 +330,16 @@
 ,
 					"patching_rect" : [ 307.0, 351.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"tags" : "",
 						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"tags" : "",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"digest" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial"
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p CPU"
@@ -362,7 +362,7 @@
 					"presentation_rect" : [ 91.0, 2.0, 65.0, 17.0 ],
 					"range" : [ 0.0, 100.0 ],
 					"showvalue" : 0,
-					"text" : "CPU: 1.0%",
+					"text" : "CPU: 18.0%",
 					"textpos" : [ 4.0, 2.0 ]
 				}
 
@@ -481,6 +481,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Toggle the global DSP on and off.",
 					"bgoncolor" : [ 0.54902, 0.54902, 0.54902, 1.0 ],
 					"border" : 1,
 					"fontname" : "Verdana",
@@ -504,6 +505,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Open DSP Status window",
 					"border" : 1,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -688,7 +690,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "Enable or disable multichannel limiting of the signal. Use the inspector to access additional limiter settings.",
+					"annotation" : "Limiter: Active or bypassed.",
 					"hint" : "",
 					"id" : "obj-55",
 					"maxclass" : "toggle",
@@ -907,16 +909,16 @@
 ,
 									"patching_rect" : [ 71.0, 396.0, 40.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"tags" : "",
 										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"tags" : "",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"digest" : "",
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana"
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p text"
@@ -971,7 +973,7 @@
 							}
 , 							{
 								"box" : 								{
-									"annotation" : "Please ensure that selected sample type works with current number of channels.",
+									"annotation" : "Recording: Set sample type for sound files.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-59",
@@ -990,7 +992,7 @@
 							}
 , 							{
 								"box" : 								{
-									"annotation" : "Please ensure that selected file type works with current number of channels.",
+									"annotation" : "Recording: Set file type for sound files.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-57",
@@ -1343,16 +1345,16 @@
 ,
 									"patching_rect" : [ 280.0, 411.0, 65.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"tags" : "",
 										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"tags" : "",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"digest" : "",
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana"
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p FileTypes"
@@ -1423,6 +1425,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Set release time as ms.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-30",
@@ -1444,6 +1447,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Preamp as dB.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-13",
@@ -1618,6 +1622,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "DC blocker feature of the limiter: Active or bypassed.",
 									"id" : "obj-2",
 									"maxclass" : "toggle",
 									"numinlets" : 1,
@@ -1647,6 +1652,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Set the function to be used for calculating the scaling.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-29",
@@ -1665,6 +1671,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Set threshold as dB.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-32",
@@ -1683,6 +1690,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: The number of samples to look ahead.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-34",
@@ -1767,6 +1775,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Postamp as dB.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-35",
@@ -2055,16 +2064,16 @@
 ,
 					"patching_rect" : [ 159.0, 330.0, 66.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"tags" : "",
 						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"tags" : "",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p inspector"
@@ -2104,7 +2113,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "Channel offset",
+					"annotation" : "Set channel offset for the multicable. Changes only take effect when audio is off.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-38",
@@ -2123,7 +2132,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "Set the number of channels used. Change takes place at mouse up or next time audio is turned of.",
+					"annotation" : "Set number of output channels to use. Changes only take effect when audio is off.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hint" : "",
@@ -2728,16 +2737,16 @@
 ,
 									"patching_rect" : [ 260.0, 190.0, 48.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"tags" : "",
 										"description" : "",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"tags" : "",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"digest" : "",
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana"
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p thru"
@@ -3778,16 +3787,16 @@
 ,
 					"patching_rect" : [ 20.0, 395.0, 58.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"tags" : "",
 						"description" : "",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"tags" : "",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p routing",
@@ -4347,6 +4356,27 @@
 				"name" : "jcom.thru.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
 				"patcherrelativepath" : "../../../library/components/thru",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "metro",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components",
+				"patcherrelativepath" : "../../../library/components",
+				"type" : "fold",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.metro.maxhelp",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/metro",
+				"patcherrelativepath" : "../../../library/components/metro",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.metro.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/metro",
+				"patcherrelativepath" : "../../../library/components/metro",
 				"type" : "JSON",
 				"implicit" : 1
 			}
