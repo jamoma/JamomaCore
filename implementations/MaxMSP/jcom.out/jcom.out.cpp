@@ -546,18 +546,21 @@ void out_perform64(t_out *x, t_object *dsp64, double **ins, long numins, double 
 			
 			n = x->vectorSize;
 			while (n--) {
-				if ((*envelope) < 0 )						// get the current sample's absolute value
+				/*if ((*envelope) < 0 )						// get the current sample's absolute value
 					currentvalue = -(*envelope); //TODO: we could do a sign flip instead of multiply
 				else
-					currentvalue = *envelope;
-				
-				if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
-					peakvalue = currentvalue;
+					currentvalue = *envelope;*/
+				currentvalue = fabs(*envelope);
+				//if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
+				//	peakvalue = currentvalue;				
+				peakvalue = max(peakvalue,currentvalue);
 				envelope++; 										// increment pointer in the vector
 			}
 			//			if (peakvalue != x->peakamp[i]) {					// filter out repetitions
-			if (peakvalue > x->peakamp[i])
-				x->peakamp[i] = peakvalue;
+			
+			/*if (peakvalue > x->peakamp[i])
+				x->peakamp[i] = peakvalue;*/
+			x->peakamp[i] = max(x->peakamp[i],peakvalue);
 			//				if (x->clock_is_set == 0) {
 			//					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
 			//					x->clock_is_set = 1;
