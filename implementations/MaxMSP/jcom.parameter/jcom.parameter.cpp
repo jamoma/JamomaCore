@@ -678,9 +678,10 @@ MaxErr param_attr_getfreeze(t_param *x, void *attr, long *argc, AtomPtr *argv)
 }
 
 MaxErr param_attr_setfreeze(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
-{
-	if (argc && argv)
-		x->attr_ui_freeze = atom_getlong(argv);
+{   
+	if (argc && argv){		  
+		x->attr_ui_freeze = atom_getlong(argv);		
+	}
 	return MAX_ERR_NONE;
 }
 
@@ -1475,7 +1476,7 @@ void param_send_feedback(t_param *x)
 	AtomPtr out = (AtomPtr )(&output);
 	
 	// send to our ui outlet
-	if (x->attr_ui_freeze == 0)
+	if (!x->attr_ui_freeze)
 		qelem_set(x->ui_qelem);
 
 	// send to the object in which this parameter is embedded
