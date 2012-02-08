@@ -872,16 +872,16 @@
 ,
 									"patching_rect" : [ 50.0, 219.0, 102.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"tags" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"digest" : "",
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
+										"tags" : "",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"description" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p \"UserLib teaser\""
@@ -1003,16 +1003,16 @@
 ,
 					"patching_rect" : [ 200.0, 410.0, 58.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
+						"tags" : "",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"description" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p UserLib"
@@ -1404,16 +1404,16 @@
 ,
 					"patching_rect" : [ 273.0, 410.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"description" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p JAB"
@@ -1520,16 +1520,16 @@
 ,
 					"patching_rect" : [ 20.0, 410.0, 61.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"description" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p tutorials"
@@ -1837,16 +1837,16 @@
 ,
 													"patching_rect" : [ 42.0, 514.0, 73.0, 20.0 ],
 													"saved_object_attributes" : 													{
-														"tags" : "",
+														"fontface" : 0,
+														"fontsize" : 12.0,
+														"default_fontface" : 0,
 														"digest" : "",
 														"default_fontname" : "Arial",
 														"fontname" : "Arial",
+														"tags" : "",
 														"default_fontsize" : 12.0,
-														"globalpatchername" : "",
 														"description" : "",
-														"fontface" : 0,
-														"fontsize" : 12.0,
-														"default_fontface" : 0
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p unwanted"
@@ -1951,16 +1951,16 @@
 ,
 													"patching_rect" : [ 30.5, 602.0, 59.0, 20.0 ],
 													"saved_object_attributes" : 													{
-														"tags" : "",
+														"fontface" : 0,
+														"fontsize" : 12.0,
+														"default_fontface" : 0,
 														"digest" : "",
 														"default_fontname" : "Arial",
 														"fontname" : "Arial",
+														"tags" : "",
 														"default_fontsize" : 12.0,
-														"globalpatchername" : "",
 														"description" : "",
-														"fontface" : 0,
-														"fontsize" : 12.0,
-														"default_fontface" : 0
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p wanted"
@@ -2753,16 +2753,16 @@
 ,
 									"patching_rect" : [ 1041.0, 117.0, 81.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"tags" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"digest" : "",
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
+										"tags" : "",
 										"default_fontsize" : 12.0,
-										"globalpatchername" : "",
 										"description" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
-										"default_fontface" : 0
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p create--Tab"
@@ -6664,16 +6664,16 @@
 ,
 					"patching_rect" : [ 130.0, 440.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"description" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p components"
@@ -7231,16 +7231,16 @@
 ,
 					"patching_rect" : [ 90.0, 410.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"description" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p examples"
@@ -7286,14 +7286,31 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"id" : "obj-153",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 200.0, 230.0, 150.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 200.0, 250.0, 150.0, 17.0 ],
+									"text" : "jmod.panpot~",
+									"varname" : "jmod.panpot~"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-155",
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 390.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 440.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 430.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 445.0, 150.0, 17.0 ],
 									"text" : "jmod.hilbertModulator~",
 									"varname" : "jmod.hilbertModulator~"
 								}
@@ -7308,9 +7325,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 710.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 270.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 270.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 290.0, 150.0, 17.0 ],
 									"text" : "jmod.spectrogram~",
 									"varname" : "jmod.spectrogram~"
 								}
@@ -7800,16 +7817,16 @@
 ,
 									"patching_rect" : [ 420.0, 44.0, 69.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"tags" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"digest" : "",
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
+										"tags" : "",
 										"default_fontsize" : 12.0,
-										"globalpatchername" : "",
 										"description" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
-										"default_fontface" : 0
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p hoverHint"
@@ -7990,9 +8007,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 270.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 320.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 310.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 325.0, 150.0, 17.0 ],
 									"text" : "jmod.audiounit~",
 									"varname" : "jmod.audiounit~"
 								}
@@ -8041,9 +8058,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 570.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 620.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 610.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 620.0, 150.0, 17.0 ],
 									"text" : "jmod.10harmonics~",
 									"varname" : "jmod.10harmonics~"
 								}
@@ -8259,9 +8276,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 490.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 540.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 530.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 545.0, 150.0, 17.0 ],
 									"text" : "jmod.spectralShift~",
 									"varname" : "jmod.spectralShift~"
 								}
@@ -8276,9 +8293,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 630.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 680.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 670.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 680.0, 150.0, 17.0 ],
 									"text" : "jmod.rissetGlissando~",
 									"varname" : "jmod.rissetGlissando~"
 								}
@@ -8537,9 +8554,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 510.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 560.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 550.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 565.0, 150.0, 17.0 ],
 									"text" : "jmod.tremolo~",
 									"varname" : "jmod.tremolo~"
 								}
@@ -8707,9 +8724,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 670.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 720.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 710.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 720.0, 150.0, 17.0 ],
 									"text" : "jmod.vst~",
 									"varname" : "jmod.vst~"
 								}
@@ -8724,9 +8741,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 530.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 580.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 570.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 585.0, 150.0, 17.0 ],
 									"text" : "jmod.vst~",
 									"varname" : "jmod.vst~[1]"
 								}
@@ -8809,9 +8826,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 430.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 480.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 470.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 485.0, 150.0, 17.0 ],
 									"text" : "jmod.multidelay~",
 									"varname" : "jmod.multidelay~"
 								}
@@ -8910,9 +8927,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 610.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 660.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 650.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 660.0, 150.0, 17.0 ],
 									"text" : "jmod.noise~",
 									"varname" : "jmod.noise~"
 								}
@@ -8927,9 +8944,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 650.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 700.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 690.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 700.0, 150.0, 17.0 ],
 									"text" : "jmod.sine~",
 									"varname" : "jmod.sine~"
 								}
@@ -8944,9 +8961,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 590.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 640.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 630.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 640.0, 150.0, 17.0 ],
 									"text" : "jmod.fluidsynth~",
 									"varname" : "jmod.fluidsynth~"
 								}
@@ -8961,9 +8978,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 200.0, 550.0, 150.0, 19.0 ],
+									"patching_rect" : [ 200.0, 600.0, 150.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 590.0, 150.0, 19.0 ],
+									"presentation_rect" : [ 200.0, 600.0, 150.0, 19.0 ],
 									"text" : "Synths"
 								}
 
@@ -9130,9 +9147,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 350.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 400.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 390.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 405.0, 150.0, 17.0 ],
 									"text" : "jmod.equalizer~",
 									"varname" : "jmod.equalizer~"
 								}
@@ -9164,9 +9181,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 330.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 380.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 370.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 385.0, 150.0, 17.0 ],
 									"text" : "jmod.echo~",
 									"varname" : "jmod.echo~"
 								}
@@ -9442,9 +9459,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 230.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 250.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 250.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 270.0, 150.0, 17.0 ],
 									"text" : "jmod.scope~",
 									"varname" : "jmod.scope~"
 								}
@@ -9769,9 +9786,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 200.0, 250.0, 150.0, 19.0 ],
+									"patching_rect" : [ 200.0, 300.0, 150.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 290.0, 150.0, 19.0 ],
+									"presentation_rect" : [ 200.0, 306.0, 150.0, 19.0 ],
 									"text" : "Audio FX"
 								}
 
@@ -9901,9 +9918,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 410.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 460.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 450.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 465.0, 150.0, 17.0 ],
 									"text" : "jmod.limiter~",
 									"varname" : "jmod.limiter~"
 								}
@@ -9952,9 +9969,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 470.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 520.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 510.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 525.0, 150.0, 17.0 ],
 									"text" : "jmod.saturation~",
 									"varname" : "jmod.saturation~"
 								}
@@ -9969,9 +9986,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 290.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 340.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 330.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 345.0, 150.0, 17.0 ],
 									"text" : "jmod.degrade~",
 									"varname" : "jmod.degrade~"
 								}
@@ -10020,9 +10037,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 310.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 360.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 350.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 365.0, 150.0, 17.0 ],
 									"text" : "jmod.delay~",
 									"varname" : "jmod.delay~"
 								}
@@ -10037,9 +10054,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 370.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 420.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 410.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 425.0, 150.0, 17.0 ],
 									"text" : "jmod.filter~",
 									"varname" : "jmod.filter~"
 								}
@@ -10088,9 +10105,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 200.0, 450.0, 150.0, 17.0 ],
+									"patching_rect" : [ 200.0, 500.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 200.0, 490.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 200.0, 505.0, 150.0, 17.0 ],
 									"text" : "jmod.noisegate~",
 									"varname" : "jmod.noisegate~"
 								}
@@ -10714,6 +10731,15 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-152", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-66", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-153", 0 ]
 								}
 
 							}
@@ -11459,16 +11485,16 @@
 ,
 					"patching_rect" : [ 40.0, 440.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"description" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p modules"
