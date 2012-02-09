@@ -64,7 +64,7 @@ class Filter {
 
 inline double Filter::tick(double input)
 {
-#ifdef TT_PLATFORM_WIN
+#ifndef __INTEL_COMPILER
     if (IEM_NAN(input)) // NAN protect
         input = 0.0;
 #endif
@@ -75,7 +75,7 @@ inline double Filter::tick(double input)
     in_[1] = in_[0];
 
     // NAN and denormal protect
-#ifdef TT_PLATFORM_WIN
+#ifndef __INTEL_COMPILER
     TTZeroDenormal(in_[2]);
     TTZeroDenormal(in_[1]);
     if (IEM_NAN(in_[2]))

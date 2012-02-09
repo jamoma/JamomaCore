@@ -72,8 +72,12 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	class_addmethod(c,(method)vimic_highAbsorption, "highAbsorption", A_GIMME, 0);
 	class_addmethod(c,(method)vimic_wallFilter,		"wallFilter", A_GIMME, 0);
 	class_addmethod(c,(method)vimic_assist,			"assist",A_CANT,0); 
-	
+
+#ifdef __INTEL_COMPILER
+	post("ViMiC for Max/MSP, © 2005-2012 Nils Peters, Tristan Matthews, Jonas Braasch. Version built with icc on " __DATE__ " at " __TIME__);
+#else
 	post("ViMiC for Max/MSP, © 2005-2012 Nils Peters, Tristan Matthews, Jonas Braasch. Version built on " __DATE__ " at " __TIME__);
+#endif	
 	
     class_dspinit(c);
 	class_register(CLASS_BOX, c);
@@ -1244,11 +1248,11 @@ void vimic_bang(t_vimic *x)
 		//critical_enter(0);		
         for (m = 0; m < x->bufSz; m++){
 			x->delGrain[m] = ((double) x->delay[m] - x->currentDelay[m]) * x->grainsize;  // copy old values into buffer	 
-#ifdef TT_PLATFORM_WIN
+#ifndef __INTEL_COMPILER
             TTZeroDenormal(x->delGrain[m]); // FIXME: necessary?
 #endif			
 			x->sensiGrain[m] = (x->sensitivity[m] - x->currentSensitivity[m]) * x->grainsize; // copy old values into buffer  
-#ifdef TT_PLATFORM_WIN			
+#ifndef __INTEL_COMPILER		
             TTZeroDenormal(x->sensiGrain[m]);
 #endif			
         }
