@@ -48,7 +48,7 @@ private:
 	TTErr Store(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr StoreCurrent(const TTValue& value);
+	TTErr StoreCurrent(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr StoreNext(const TTValue& inputValue, TTValue& outputValue);

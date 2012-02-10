@@ -43,7 +43,7 @@ mCurrentIndex(0)
 	addMessage(New);
 	
 	addMessageWithArguments(Store);
-	addMessage(StoreCurrent);
+	addMessageWithArguments(StoreCurrent);
 	addMessageWithArguments(StoreNext);
 	addMessageWithArguments(StorePrevious);
 
@@ -263,7 +263,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::StoreCurrent(const TTValue& value)
+TTErr TTCueManager::StoreCurrent(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTCuePtr currentCue;
 	TTUInt32	rampTime = 0;
@@ -275,9 +275,9 @@ TTErr TTCueManager::StoreCurrent(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// First arg (optional) : ramp time
-	if (value.getSize() > 0)
-		if (value.getType(0) == kTypeInt32) {
-			value.get(0, rampTime);
+	if (inputValue.getSize() > 0)
+		if (inputValue.getType(0) == kTypeInt32) {
+			inputValue.get(0, rampTime);
 			if (rampTime < 0)
 				return kTTErrGeneric;
 		}
