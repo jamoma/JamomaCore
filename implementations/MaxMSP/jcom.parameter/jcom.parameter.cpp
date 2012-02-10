@@ -1,7 +1,7 @@
 /* 
- *	jcom.parameter/message/return
- *	External object
- *	Copyright © 2010 by Théo de la Hogue
+ * jcom.parameter
+ * External for Jamoma: parameter definition
+ * By Tim Place and Théo de la Hogue, Copyright © 2011
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -240,7 +240,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Inc"), v);
+	selectedObject->sendMessage(TT("Inc"), v, kTTValNONE);
 }
 
 void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -249,6 +249,6 @@ void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Dec"), v);
+	selectedObject->sendMessage(TT("Dec"), v, kTTValNONE);
 }
 #endif

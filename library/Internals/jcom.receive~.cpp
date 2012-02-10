@@ -1,6 +1,6 @@
-/* 
- * jcom.receive~
- * External for Jamoma: remote audio signal communication
+/** 
+ * \file jcom.receive~.cpp
+ * External for Jamoma: Remote audio signal communication
  * By Tim Place, Copyright © 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -10,6 +10,8 @@
 #include "Jamoma.h"
 
 
+/** Object receiving remote audio signals within a module.
+ */
 typedef struct _audioreceive{	
 	t_pxobject		obj;
 	void			*dumpout;						///< dumpout outlet
@@ -26,17 +28,58 @@ typedef struct _audioreceive{
 
 
 // Prototypes
+
+/** Object instantiation.
+ @param s			Pointer to symbol bassed as message argument to the object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to arguments as an array of atoms.
+ @return			Pointer to the newly created object.
+ */
 void	*audioreceive_new(t_symbol *s, long argc, t_atom *argv);
+
+
+/** This method is called when the object is free (deleted).
+ @param x			Pointer to the object.
+ */
 void	audioreceive_free(t_audioreceive *x);
+
+
+/** Method for displaying assist strings for inlets and outlets.
+ @param x			Pointer to this object.
+ @param b
+ @param msg
+ @param argc
+ @param argv
+ */
 void	audioreceive_assist(t_audioreceive *x, void *b, long msg, long arg, char *dst);
+
+
+/** When banged, fill a menu with potential targets.
+ @param x			Pointer to this class.
+ */
 void	audioreceive_bang(t_audioreceive *x);
+
+
+/** Audio perform method for the object.
+ */
 t_int*	audioreceive_perform(t_int *w);
+
+
+/** The DSP method for the object, called when compiling the audio chain.
+ @param x
+ @param sp
+ @param count
+ */
 void	audioreceive_dsp(t_audioreceive *x, t_signal **sp, short *count);
+
+
+/** Set the name of the module we are part of as an attribute.
+ */
 t_max_err	audioreceive_attr_settarget(t_audioreceive *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
-static t_class		*s_audioreceive_class;
+static t_class		*s_audioreceive_class;		///< Required: Global pointer for our class
 
 
 /************************************************************************************/
@@ -149,6 +192,7 @@ void audioreceive_bang(t_audioreceive *x)
 }
 
 
+
 t_int* audioreceive_perform(t_int *w)
 {
 	t_audioreceive	*x = (t_audioreceive*)(w[1]);
@@ -192,7 +236,7 @@ void audioreceive_dsp(t_audioreceive *x, t_signal **sp, short *count)
 			for (i=0, j=0; i<numOutputs; i++) {
 				if (count[i+1])		// the +1 is to account for the inlet in this object
 					j=i;
-				x->audio_out[i] = sp[i+1]->s_vec;
+				x->audio_out[i] = (t_float*)sp[i+1]->s_vec;
 			}
 			numOutputs = j+1;
 			

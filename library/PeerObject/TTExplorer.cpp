@@ -13,37 +13,41 @@
 #define thisTTClassTags		"explorer"
 
 TT_MODULAR_CONSTRUCTOR,
-mAddress(kTTAdrsEmpty),
-mLookfor(kTTSymEmpty),
-mEqual(kTTValNONE),
-mDifferent(kTTValNONE),
+mAddress(kTTAdrsRoot),
+mOutput(kTTSym_descendants),
 mDirectory(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL),
 mReturnValueCallback(NULL),
-mLookforObjectCriteria(NULL),
+mFilterList(NULL),
 mTempNode(NULL),
-mTempName(kTTSymEmpty),
 mResult(NULL),
 mLastResult(kTTValNONE)
 {
-	if(arguments.getSize() == 1)
+	if(arguments.getSize() >= 1)
 		arguments.get(0, (TTPtr*)&mReturnValueCallback);
 	
+	// It is possible to pass a default filter bank
+	if(arguments.getSize() >= 2)
+		arguments.get(1, (TTPtr*)&mFilterBank);
+	else 
+		mFilterBank = new TTHash();
+	
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttributeWithSetter(Lookfor, kTypeSymbol);
-	// TODO : addAttribute(Equal, kTypeLocalValue);
-	// TODO : addAttribute(Different, kTypeLocalValue);
+	addAttributeWithSetter(Output, kTypeSymbol);
+	
+	registerAttribute(TT("filterList"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getFilterList, (TTSetterMethod)&TTExplorer::setFilterList);
 	
 	addMessage(Explore);
 	
-	addMessageWithArgument(CriteriaInclude);
-	addMessage(CriteriaClear);
+	addMessageWithArguments(FilterSet);
+	addMessageWithArguments(FilterRemove);
+	addMessageWithArguments(FilterInfo);
 	
-	addMessageWithArgument(WriteAsOpml);
+	addMessageWithArguments(WriteAsOpml);
 	addMessageProperty(WriteAsOpml, hidden, YES);
 	
-	mLookforObjectCriteria = new TTHash();
+	mFilterList = new TTList();
 	mResult = new TTHash();
 }
 
@@ -57,23 +61,28 @@ TTExplorer::~TTExplorer()
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 	}
 	
-	CriteriaClear();
-	delete mLookforObjectCriteria;
+	delete mFilterBank;
+	delete mFilterList;
 	delete mResult;
 }
 
-TTErr TTExplorer::setLookfor(const TTValue& value)
+TTErr TTExplorer::setOutput(const TTValue& value)
 {
-	mLookfor = value;
+	TTSymbolPtr newOutput = value;
 	
-	// the criteria have to be cleared
-	// TODO : we need to change the lookfor/criteria mechanism...
-	CriteriaClear();
-	CriteriaInclude(mLookfor);
-	
-	setAddress(mAddress);
-	
-	return kTTErrNone;
+	if (newOutput == kTTSym_descendants || 
+		newOutput == kTTSym_children || 
+		newOutput == kTTSym_brothers || 
+		newOutput == kTTSym_attributes) {
+		
+		mOutput = newOutput;
+		
+		setAddress(mAddress);
+		
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;	
 }
 
 TTErr TTExplorer::setAddress(const TTValue& value)
@@ -97,18 +106,8 @@ TTErr TTExplorer::bindAddress()
 	// it works only for absolute address
 	if (mAddress->getType() == kAddressAbsolute) {
 		
-		// change internal values
-		mTempParent = mAddress->getParent();
-		mTempName = mAddress->getName();
-		
-		// bind the new node
-		if (mLookfor == kTTSym_instances)
-			mTempObserve = mTempParent;
-		else
-			mTempObserve = mAddress;
-		
-		// change the observer
-		if (mTempObserve != kTTSymEmpty){
+		// change the address observer
+		if (mAddress != kTTAdrsEmpty) {
 			
 			// observe any creation or destruction below the address
 			mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -122,7 +121,7 @@ TTErr TTExplorer::bindAddress()
 			
 			mAddressObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
 			
-			mDirectory->addObserverForNotifications(mTempObserve, *mAddressObserver);
+			mDirectory->addObserverForNotifications(mAddress, *mAddressObserver);
 		}
 		
 		return kTTErrNone;
@@ -134,8 +133,8 @@ TTErr TTExplorer::bindAddress()
 TTErr TTExplorer::unbindAddress() 
 {
 	// delete the old observer
-	if (mDirectory && mAddressObserver && mTempObserve != kTTSymEmpty) {
-		mDirectory->removeObserverForNotifications(mTempObserve, *mAddressObserver);
+	if (mDirectory && mAddressObserver && mAddress != kTTSymEmpty) {
+		mDirectory->removeObserverForNotifications(mAddress, *mAddressObserver);
 		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 		
 		return kTTErrNone;
@@ -158,7 +157,7 @@ TTErr TTExplorer::bindApplication()
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
-		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));		// this is usefull only to debug
+		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));		// this is usefull only to debug
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
 	}
@@ -185,11 +184,12 @@ TTErr TTExplorer::unbindApplication()
 
 TTErr TTExplorer::Explore()
 {
-	TTNodeAddressPtr name;
-	TTList		aNodeList, nameList, allObjectNodes;
+	TTNodeAddressPtr relativeAddress;
+	TTSymbolPtr	attributeName;
+	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
 	TTObjectPtr	o;
-	TTValue		v;
+	TTValue		v, args;
 	TTErr		err;
 	
 	mResult->clear();
@@ -200,147 +200,260 @@ TTErr TTExplorer::Explore()
 		return kTTErrGeneric;
 	
 	// bind the right node
-	if (mLookfor == kTTSym_instances)
-		err = mDirectory->Lookup(mTempParent, aNodeList, &mTempNode);
+	if (mOutput == kTTSym_brothers)
+		err = mDirectory->Lookup(mAddress->getParent(), aNodeList, &mTempNode);
 	else
 		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
 		
-		// get children names
-		if (mLookfor == kTTSym_children)
-			mTempNode->getChildrenName(nameList);
-		
-		// get instances names
-		else if (mLookfor == kTTSym_instances)
-			mTempNode->getChildrenInstance(mTempName, nameList);
-		
-		// get attributes names
-		else if (mLookfor == kTTSym_attributes) {
+		// get attributes names of the node at mAddress
+		if (mOutput == kTTSym_attributes) {
+			
 			if (o = mTempNode->getObject()) {
 				v.clear();
 				o->getAttributeNames(v);
-				// Memorized the result in a hash table
+				
+				// memorized the result in a hash table
 				for (TTUInt32 i=0; i<v.getSize(); i++) {
-					v.get(i, (TTSymbolPtr*)&name);
-					mResult->append(name, kTTValNONE);
+					v.get(i, (TTSymbolPtr*)&attributeName);
+					mResult->append(attributeName, kTTValNONE);
 				}
 			}
 		}
 		
-		// get relative address of objects looking at mLookforObjectCriteria
+		// explore nodes below the address
 		else {
 			
-			mDirectory->LookFor(&aNodeList, testNodeUsingCriteria, (TTPtr)mLookforObjectCriteria, allObjectNodes, &aNode);
+			// prepare filters for the exploration
+			args = TTValue((TTPtr)mFilterBank);
+			args.append((TTPtr)mFilterList);
 			
-			// Memorized the result in a hash table
+			// explore
+			// TODO : for the children case, we should avoid exploration below
+			mDirectory->LookFor(&aNodeList, testNodeUsingFilter, (TTPtr)&args, allObjectNodes, &aNode);
+			
+			// memorized the result in a hash table (the node is stored in order to sort the result)
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 				
 				allObjectNodes.current().get(0, (TTPtr*)&aNode);
-				aNode->getAddress(&name, mAddress);
 				
-				mResult->append(name, kTTValNONE);
-			}
-		}
-		
-		// For Children and Instances cases : 
-		// Memorized the result in a hash table
-		if (!nameList.isEmpty()) {
-			for (nameList.begin(); nameList.end(); nameList.next()) {
+				if (mOutput == kTTSym_brothers)
+					aNode->getAddress(&relativeAddress, mAddress->getParent());
+				else
+					aNode->getAddress(&relativeAddress, mAddress);
 				
-				nameList.current().get(0,(TTSymbol **)&name);
+				// children or brothers case : ignore address with a parent part
+				// TODO : for the children and brothers case, we should avoid exploration below the first level
+				if ((mOutput == kTTSym_children || mOutput == kTTSym_brothers) && relativeAddress->getParent() != kTTAdrsEmpty)
+					continue;
 				
-				mResult->append(name, kTTValNONE);
+				// brothers case : store only the relative address for node with the same name
+				if (mOutput == kTTSym_brothers) {
+					if (mAddress->getName() == relativeAddress->getName())
+						mResult->append(relativeAddress, TTValue((TTPtr)aNode));
+				}
+				// any other case : store the relative address
+				else mResult->append(relativeAddress, TTValue((TTPtr)aNode));
 			}
 		}
 		
 		// Return the value result back
-		v.clear();
-		if (mReturnValueCallback) {
-			mResult->getKeys(v);
-			if (!(v == mLastResult)) {
-				mReturnValueCallback->notify(v);
-				mLastResult = v;
-			}
-		}
-		
+		return returnResultBack();
 	}
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
-TTErr TTExplorer::CriteriaInclude(const TTValue& value)
+TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt16	s;
-	TTSymbolPtr	objectType, attributeName;
-	TTHashPtr	attributeCriteria;
-	TTValue		converted, v, valueCriteria;
+	TTDictionaryPtr afilter = NULL;
+	TTSymbolPtr		filterName, filterKey, filterSchema = kTTSymEmpty;
+	TTValue			v, filterValue;
+	TTErr			err;
 	
-	// Replace none TTnames (because object and attribute names can be customized in order to have a specific application's namespace)
-	converted = value;
-	ToTTNames(converted);
+	if (inputValue.getType() == kTypeSymbol) {
 	
-	s = converted.getSize();
-	if (s > 0)
-		if (converted.getType() == kTypeSymbol) {
+		inputValue.get(0, &filterName);
+		
+		err = mFilterBank->lookup(filterName, v);
+		
+		// if the filter doesn't exist : create a new one
+		if (err) {
+			afilter = new TTDictionary();
+			mFilterBank->append(filterName, (TTPtr)afilter);
+		}
+		// else get the existing filter and his schema
+		else {
+			v.get(0, (TTPtr*)&afilter);
+			filterSchema = afilter->getSchema();
+		}
+		
+		// set the keys of the filter
+		for (TTUInt32 i=1; i<inputValue.getSize(); i=i+2) {
 			
-			converted.get(0, &objectType);
-			if (mLookforObjectCriteria->lookup(objectType, v)) {
+			inputValue.get(i, &filterKey);
+			filterValue.copyRange(inputValue, i+1, i+2);
+			
+			afilter->append(filterKey, filterValue);
+			
+			// filter schema detection on the first key
+			if (filterSchema == kTTSymEmpty && i == 1) {
 				
-				attributeCriteria = new TTHash();
-				mLookforObjectCriteria->append(objectType, TTValue(TTPtr(attributeCriteria)));
+				if (filterKey == kTTSym_object || filterKey == kTTSym_attribute || filterKey == kTTSym_value)
+					filterSchema = kTTSym_objectFilter;
+				
+				else if (filterKey == kTTSym_parent || filterKey == kTTSym_name || filterKey == kTTSym_instance)
+					filterSchema = kTTSym_addressFilter;
+				
+				// set the schema
+				afilter->setSchema(filterSchema);
+				
 			}
-			else
-				v.get(0, (TTPtr*)&attributeCriteria);
-		}
-	
-	if (s > 1) {
-		if (converted.getType(1) == kTypeSymbol) {
-			
-			converted.get(1, &attributeName);
-			if (s > 2) {
-				valueCriteria.copyFrom(converted, 2);
-				attributeCriteria->remove(attributeName);
-				attributeCriteria->append(attributeName, valueCriteria);
+			// then check each keys considering the detected schema
+			else {
+				
+				if (filterSchema != kTTSym_objectFilter && (filterKey == kTTSym_object || filterKey == kTTSym_attribute || filterKey == kTTSym_value))
+					return kTTErrGeneric;
+				
+				else if (filterSchema != kTTSym_addressFilter && (filterKey == kTTSym_parent || filterKey == kTTSym_name || filterKey == kTTSym_instance))
+					return kTTErrGeneric;
 			}
-			else
-				attributeCriteria->append(attributeName, kTTValNONE);
 		}
 	}
+	// the first element have to be a symbol
+	else
+		return kTTErrGeneric;
 	
-	return kTTErrNone;
+	// append the new filter to the filter list
+	if (afilter) {
+		mFilterList->appendUnique(filterName);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
 }
 
-TTErr TTExplorer::CriteriaClear()
+TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTHashPtr	attributeCriteria;
-	TTValue			v, keys;
-	TTSymbolPtr		k;
+	TTDictionaryPtr afilter;
+	TTSymbolPtr		filterName;
+	TTValue			v, filterValue;
+	TTErr			err;
 	
-	if (!mLookforObjectCriteria->isEmpty()) {
+	if (inputValue.getType() == kTypeSymbol) {
 		
-		mLookforObjectCriteria->getKeys(keys);
-		for (TTUInt16 i=0; i<keys.getSize(); i++) {
+		inputValue.get(0, &filterName);
+		
+		err = mFilterBank->lookup(filterName, v);
+		
+		// if the filter exists
+		if (!err) {
 			
-			keys.get(i, &k);
-			mLookforObjectCriteria->lookup(k, v);
-			v.get(0, (TTPtr*)&attributeCriteria);
-			delete attributeCriteria;
+			// remove the filter from the global table
+			mFilterBank->remove(filterName);
+			
+			// delete the filter
+			v.get(0, (TTPtr*)&afilter);
+			delete afilter;
 		}
 		
-		delete mLookforObjectCriteria;
-		mLookforObjectCriteria = new TTHash();
+		// remove the filter from the filter list
+		mFilterList->remove(filterName);
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::FilterInfo(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTDictionaryPtr aFilter;
+	TTSymbolPtr		filterName, key;
+	TTValue			v, filterKeys, filterValue;
+	TTErr			err;
+	
+	if (inputValue.getType() == kTypeSymbol) {
+		
+		inputValue.get(0, &filterName);
+		
+		err = mFilterBank->lookup(filterName, v);
+		
+		// if the filter exists
+		if (!err) {
+			
+			outputValue.append(filterName);
+						
+			// get the filter
+			v.get(0, (TTPtr*)&aFilter);
+			
+			// get all keys
+			aFilter->getKeys(filterKeys);
+			
+			// for all key, get the value
+			for (TTUInt8 i=0; i<filterKeys.getSize(); i++) {
+				
+				filterKeys.get(i, &key);
+				aFilter->lookup(key, filterValue);
+				
+				outputValue.append(key);
+				outputValue.append(filterValue);
+			}
+		}
+		
+		return err;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::getFilterList(TTValue& value)
+{
+	TTSymbolPtr filterName;
+	value.clear();
+	
+	for (mFilterList->begin(); mFilterList->end(); mFilterList->next())
+	{
+		mFilterList->current().get(0, &filterName);
+		value.append(filterName);
 	}
 	
 	return kTTErrNone;
 }
 
-TTErr TTExplorer::WriteAsOpml(const TTValue& value)
+TTErr TTExplorer::setFilterList(const TTValue& value)
+{
+	TTSymbolPtr filterName;
+	TTUInt32	i;
+	TTValue		v;
+	TTBoolean	anError = NO;
+	TTErr		err = kTTErrNone;
+	
+	mFilterList->clear();
+	
+	for (i=0; i<value.getSize(); i++)
+	{
+		value.get(i, &filterName);
+		
+		err = mFilterBank->lookup(filterName, v);
+		
+		if (!err)
+			mFilterList->append(filterName);
+		else anError = YES;
+	}
+	
+	if (anError) return kTTErrValueNotFound;
+	else return kTTErrNone;
+}
+
+
+TTErr TTExplorer::WriteAsOpml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTOpmlHandlerPtr	anOpmlHandler;
 	TTNodePtr			aNode;
 	
-	value.get(0, (TTPtr*)&anOpmlHandler);
+	inputValue.get(0, (TTPtr*)&anOpmlHandler);
 	
 	if (mDirectory && mAddress != kTTAdrsEmpty) {
 		
@@ -359,7 +472,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	TTNodeAddressPtr nameInstance;
 	TTSymbolPtr objectName, attributeName;
 	TTObjectPtr anObject;
-	TTValue		attributeNameList, v;
+	TTValue		attributeNameList, v, c;
 	TTList		nodeList;
 	TTNodePtr	aChild;
 	TTString	aString;
@@ -393,7 +506,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 				// Filter attribute names
 				if (attributeName != kTTSym_value && 
 					attributeName != kTTSym_address && 
-					attributeName != TT("content") &&
+					// attributeName != TT("content") &&
 					attributeName != kTTSym_bypass &&
 					attributeName != kTTSym_activityIn &&
 					attributeName != kTTSym_activityOut) {
@@ -401,10 +514,10 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 					anObject->getAttributeValue(attributeName, v);
 					
 					// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
-					ToAppNames(v);
+					ToAppNames(v, c);
 					
-					v.toString();
-					v.get(0, aString);
+					c.toString();
+					c.get(0, aString);
 					
 					xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST attributeName->getCString(), BAD_CAST aString.data());
 				}
@@ -426,6 +539,62 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	xmlTextWriterEndElement(anOpmlHandler->mWriter);
 }
 
+/** */
+TTErr TTExplorer::returnResultBack()
+{
+	TTValue				keys, result;
+	TTNodeAddressPtr	relativeAddress;
+	TTSymbolPtr			lastName = kTTSymEmpty;
+	TTUInt32			i;
+	
+	// Return the value result back
+	if (mReturnValueCallback) {
+		
+		// sort keys alphabetically
+		// TODO : sort keys depending on nodes property
+		mResult->getKeysSorted(keys);
+		
+		// children case : keep only the name part and filter repetitions
+		if (mOutput == kTTSym_children) {
+			
+			for (i=0; i<keys.getSize(); i++) {
+				
+				keys.get(i, &relativeAddress);
+				
+				// filter repetitions
+				if (relativeAddress->getName() == lastName)
+					continue;
+				
+				lastName = relativeAddress->getName();
+				result.append(lastName);
+			}
+		}
+		
+		// brothers case : keep only instance part
+		else if (mOutput == kTTSym_brothers) {
+			
+			for (i=0; i<keys.getSize(); i++) {
+				
+				keys.get(i, &relativeAddress);
+				result.append(relativeAddress->getInstance());
+			}
+		}
+		
+		// any other case
+		else
+			result = keys;
+		
+		// filter repetitions of a same result
+		if (!(result == mLastResult)) {
+			
+			mLastResult = result;
+			return mReturnValueCallback->notify(result, kTTValNONE);
+		}
+	}
+	
+	return kTTErrNone;
+}
+
 #if 0
 #pragma mark -
 #pragma mark Some Methods
@@ -433,7 +602,8 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 
 TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 {
-	TTValue			v = kTTValNONE;
+	TTValue			keys = kTTValNONE;
+	TTValue			t, v = kTTValNONE;
 	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
 	TTNodeAddressPtr anAddress, relativeAddress;
@@ -453,46 +623,55 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(2, flag);
 	data.get(3, (TTPtr*)&anObserver);
 	
-	// get children names
-	if (anExplorer->mLookfor == kTTSym_children) {
-		if (aNode->getParent() == anExplorer->mTempNode)
-			v.append(aNode->getName());
-	}
-	
-	// get instances names
-	else if (anExplorer->mLookfor == kTTSym_instances) {
-		 // TODO : if the TempNode is destroyed then rebuilt, the test below fails => observe his destruction and replace mTempNode
-		if ((aNode->getParent() == anExplorer->mTempNode) && (aNode->getName() == anExplorer->mTempName))
-			v.append(aNode->getInstance());
-	}
-	
 	// get attributes names
-	else if (anExplorer->mLookfor == kTTSym_attributes) {
+	if (anExplorer->mOutput == kTTSym_attributes) {
 		if (aNode == anExplorer->mTempNode) {
 			
 			// always clear the result
 			anExplorer->mResult->clear();
 			
 			if (o = aNode->getObject())
-				o->getAttributeNames(v);
+				o->getAttributeNames(keys);
 		}
 	}
 	
-	// get relative address of nodes matching criteria
+	// get relative address of nodes matching filter
 	else {
+	
+		// children case and brothers : check parent
+		if (anExplorer->mOutput == kTTSym_children || anExplorer->mOutput == kTTSym_brothers)
+			if (aNode->getParent() != anExplorer->mTempNode)
+				return kTTErrGeneric;
+		
+		TTValue args = TTValue((TTPtr)anExplorer->mFilterBank);
+		args.append((TTPtr)anExplorer->mFilterList);
+		
+		if (testNodeUsingFilter(aNode, (TTPtr)&args)) {
 			
-		if (testNodeUsingCriteria(aNode, (TTPtr)anExplorer->mLookforObjectCriteria)) { 
+			if (anExplorer->mOutput == kTTSym_brothers)
+				aNode->getAddress(&relativeAddress, anExplorer->mAddress->getParent());
+			else
 				aNode->getAddress(&relativeAddress, anExplorer->mAddress);
-				v.append(relativeAddress);
+			
+			// brothers case : store only the relative address for node with the same name
+			if (anExplorer->mOutput == kTTSym_brothers) {
+				if (anExplorer->mAddress->getName() == relativeAddress->getName())
+					keys.append(relativeAddress);
+			}
+			// any other case : store the relative address
+			else
+				keys.append(relativeAddress);
+
+			v.append(TTPtr(aNode));
 		}
 		// sometimes the object can be destroyed before his address
 		else if (flag == kAddressDestroyed) {
 			aNode->getAddress(&relativeAddress, anExplorer->mAddress);
-			v.append(relativeAddress);
+			keys.append(relativeAddress);
 		}
 	}
 	
-	if (v == kTTValNONE)
+	if (keys == kTTValNONE)
 		return kTTErrGeneric;
 	
 	// Add or remove names depending on 
@@ -501,17 +680,17 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			for (TTUInt32 i=0; i<v.getSize(); i++) {
-				v.get(i, &key);
-				anExplorer->mResult->append(key, kTTValNONE);
+			for (TTUInt32 i=0; i<keys.getSize(); i++) {
+				keys.get(i, &key);
+				anExplorer->mResult->append(key, v);
 			}
 			break;
 		}
 			
 		case kAddressDestroyed :
 		{
-			for (TTUInt32 i=0; i<v.getSize(); i++) {
-				v.get(i, &key);
+			for (TTUInt32 i=0; i<keys.getSize(); i++) {
+				keys.get(i, &key);
 				anExplorer->mResult->remove(key);
 			}
 			break;
@@ -521,16 +700,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			break;
 	}
 	
-	// Return the value result back
-	if (anExplorer->mReturnValueCallback) {
-		anExplorer->mResult->getKeys(v);
-		if (!(v == anExplorer->mLastResult)) {
-			anExplorer->mReturnValueCallback->notify(v);
-			anExplorer->mLastResult = v;
-		}
-	}
-	
-	return kTTErrNone;
+	return anExplorer->returnResultBack();
 }
 
 TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
@@ -560,13 +730,13 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kApplicationPluginStarted :
+		case kApplicationProtocolStarted :
 		{
 			anExplorer->Explore();
 			break;
 		}
 			
-		case kApplicationPluginStopped :
+		case kApplicationProtocolStopped :
 		{
 			break;
 		}

@@ -21,6 +21,40 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"border" : 1,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"patching_rect" : [ 356.0, 321.0, 36.0, 21.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 160.166489, 22.0, 54.374352, 20.0 ],
+					"rounded" : 8.0,
+					"text" : "Edit with",
+					"texton" : "View"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-10",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 356.0, 346.0, 594.0, 31.0 ],
+					"text" : "jcom.message editWith @description \"edit current cue script with your preferred editor. e.g. /edit textmate\" @type string"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-7",
@@ -189,13 +223,13 @@
  ]
 					}
 ,
-					"patching_rect" : [ 506.0, 424.0, 67.0, 20.0 ],
+					"patching_rect" : [ 507.0, 463.0, 67.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana"
 					}
@@ -230,7 +264,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 355.0, 270.0, 36.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 123.166489, 22.48205, 72.374352, 20.0 ],
+					"presentation_rect" : [ 104.166489, 22.0, 53.374352, 20.0 ],
 					"rounded" : 8.0,
 					"text" : "View",
 					"texton" : "View"
@@ -249,7 +283,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 355.0, 186.0, 100.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 44.0, 93.215401, 20.0 ],
+					"presentation_rect" : [ 3.0, 44.0, 93.215401, 20.0 ],
 					"rounded" : 8.0,
 					"text" : "Save Cue Script",
 					"texton" : "Save Cue Script"
@@ -300,7 +334,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 355.0, 363.0, 146.0, 19.0 ],
+					"patching_rect" : [ 356.0, 402.0, 146.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 122.446152, 44.0, 173.589752, 19.0 ],
 					"types" : [  ],
@@ -461,13 +495,13 @@
  ]
 					}
 ,
-					"patching_rect" : [ 355.0, 335.0, 70.0, 19.0 ],
+					"patching_rect" : [ 356.0, 374.0, 70.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana"
 					}
@@ -515,7 +549,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 355.0, 390.0, 321.0, 31.0 ],
+					"patching_rect" : [ 356.0, 429.0, 321.0, 31.0 ],
 					"text" : "jcom.message cue @repetitions/allow 1 @type generic @description \"Recall cue event from cue script.\""
 				}
 
@@ -629,7 +663,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 355.0, 103.0, 100.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 6.9641, 22.0, 94.215401, 20.0 ],
+					"presentation_rect" : [ 2.9641, 22.0, 94.215401, 20.0 ],
 					"rounded" : 8.0,
 					"text" : "Load Cue Script",
 					"texton" : "Load Cue Script"
@@ -707,7 +741,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 515.5, 449.0, 345.5, 449.0, 345.5, 358.0, 364.5, 358.0 ],
+					"midpoints" : [ 516.5, 488.0, 346.5, 488.0, 346.5, 397.0, 365.5, 397.0 ],
 					"source" : [ "obj-19", 0 ]
 				}
 
@@ -761,7 +795,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 428.0, 385.5, 364.5, 385.5 ],
+					"midpoints" : [ 429.0, 424.5, 365.5, 424.5 ],
 					"source" : [ "obj-3", 1 ]
 				}
 
@@ -799,6 +833,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 69.5, 119.0, 24.5, 119.0 ],
 					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}

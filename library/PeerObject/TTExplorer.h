@@ -26,41 +26,50 @@ class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 	
 private:
 	
-	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : 
-	TTSymbolPtr			mLookfor;						///< ATTRIBUTE : what the explorer is looking for from the address (Children, Instance, Attribute else use ObjectCriteria table)
-	TTValue				mEqual;							///< ATTRIBUTE : each found elements have to be equal to one element of this attribute (use KTTValNone to don't use this)
-	TTValue				mDifferent;						///< ATTRIBUTE : each found elements have to be different from all elements of this attribute (use KTTValNone to don't use this)
+	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
+	TTSymbolPtr			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
+														///<	- descendants : any address below the node at any level (default)
+														///<	- children : all children of the node
+														///<	- attributes : all attributes of the node
 	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
 	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
 	TTCallbackPtr		mApplicationObserver;			///< an application life cycle observer
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
-	TTHashPtr			mLookforObjectCriteria;			///< hash table of hash table containing <ObjectType, <AttributeName, Value>>
-														///<	- if the Attribute hash table is empty this means any object of the given type matches the test.
-														///<	- if a value is KTTValNone this means any value matches the test.
+	TTHashPtr			mFilterBank;					///< a hash table containing TTDictionaryPtr to store filters
+	TTListPtr			mFilterList;					///< a list containing TTSymbolPtr to retreive filters in the filter bank
 	
-	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done (Children and Instances cases)
-	TTSymbolPtr			mTempName;						///< remember the name on which the exploration have been done (Instances case)
-	TTNodeAddressPtr	mTempParent;					///< remember the parent address (Instances case)
-	TTNodeAddressPtr	mTempObserve;					///< remember the observed address (Instances case)
+	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done	(Children cases)
 	TTHashPtr			mResult;						///< hash table containing all elements found by the explorer
 	TTValue				mLastResult;					///< keep the last result to filter unchanged list
 		
 	/** */
 	TTErr Explore();
 	
-	/** */
-	TTErr CriteriaInclude(const TTValue& value);
+	/** Create a filter, add it to the bank and append it to the list
+		< filterName filterKey1 filterValue1 filterKey2 filterValue2 ... >
+		note : the schema of the filter is automatically detected by the keys */
+	TTErr FilterSet(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** */
-	TTErr CriteriaClear();
+	/** Delete a filter from the bank using his name and remove it from the filter list */
+	TTErr FilterRemove(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Get info about a filter or a filterKey
+	 < filterName filterKey1 filterValue1 filterKey2 filterValue2 ... > */
+	TTErr FilterInfo(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	// TODO : TTErr Dump();
 	
 	/** */
-	TTErr setLookfor(const TTValue& value);
+	TTErr getFilterList(TTValue& value);
+	
+	/** */
+	TTErr setFilterList(const TTValue& value);
+	
+	/** */
+	TTErr setOutput(const TTValue& value);
 	
 	/** */
 	TTErr setAddress(const TTValue& value);
@@ -80,8 +89,11 @@ private:
 	/** */
 	TTErr unbindApplication();
 	
+	/** */
+	TTErr returnResultBack();
+	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsOpml(const TTValue& value);
+	TTErr WriteAsOpml(const TTValue& inputValue, TTValue& outputValue);
 	void writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode);
 	
 	/* TODO :

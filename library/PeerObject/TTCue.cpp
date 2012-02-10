@@ -32,16 +32,16 @@ mCurrentPreset(kTTSymEmpty)
 	addAttributeWithSetter(Addresses, kTypeLocalValue);
 
 	addAttribute(PresetTable, kTypePointer);
-	addAttributeProperty(presetTable, readOnly, YES);
+	addAttributeProperty(PresetTable, readOnly, YES);
 	
 	addMessage(Fill);
 	addMessage(Clear);
 	addMessage(Update);
 	addMessage(Send);
 	
-	addMessageWithArgument(WriteAsXml);
+	addMessageWithArguments(WriteAsXml);
 	addMessageProperty(WriteAsXml, hidden, YES);
-	addMessageWithArgument(ReadFromXml);
+	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mPresetTable = new TTHash();	
@@ -166,7 +166,7 @@ TTErr TTCue::Send()
 	return kTTErrNone;
 }
 
-TTErr TTCue::WriteAsXml(const TTValue& value)
+TTErr TTCue::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTPresetPtr			aPreset;
@@ -176,7 +176,7 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 	TTUInt8				i;
 	TTErr				err;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
 	// Write name attribute
 	xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST mName->getCString());
@@ -213,14 +213,14 @@ TTErr TTCue::WriteAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCue::ReadFromXml(const TTValue& value)
+TTErr TTCue::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	TTNodeAddressPtr	presetAddress;
 	TTPresetPtr			newPreset;
 	TTValue				v;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -285,12 +285,12 @@ TTErr TTCue::ReadFromXml(const TTValue& value)
 	return aXmlHandler->sendMessage(TT("Read"));
 }
 
-TTErr TTCue::WriteAsText(const TTValue& value)
+TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
 	*file << "TTCue::WriteAsText -- TODO";
@@ -298,12 +298,12 @@ TTErr TTCue::WriteAsText(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCue::ReadFromText(const TTValue& value)
+TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ifstream		*file;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mReader;
 	
 	// TODO

@@ -22,7 +22,7 @@ TTErr jamoma_application_dump_configuration(void)
 	TTUInt16 i;
 	TTValue v, appNames;
 	TTSymbolPtr anAppKey;
-	TTValue toConvert;
+	TTValue toConvert, converted;
 	TTString aTTStr;
 	
 	post("--- Jamoma Application : Symbol Convertion ---");
@@ -33,9 +33,9 @@ TTErr jamoma_application_dump_configuration(void)
 		appNames.get(i, &anAppKey);
 		
 		toConvert = TTValue(anAppKey);
-		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, toConvert); 
-		toConvert.toString();
-		toConvert.get(0, aTTStr);
+		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, toConvert, converted); 
+		converted.toString();
+		converted.get(0, aTTStr);
 		post("%s <-> %s", anAppKey->getCString(), aTTStr.data());
 	}
 	
@@ -56,7 +56,7 @@ TTErr jamoma_application_write_configuration(void)
 	anXmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	v = TTValue(TT(JamomaConfigurationFilePath));
-	return anXmlHandler->sendMessage(TT("Write"), v);
+	return anXmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
 }
 
 // Method to deal with the jamoma directory
@@ -246,7 +246,7 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
 		data.append((TTPtr)&v);
 		
-		return aContainer->sendMessage(kTTSym_Send, data); // data is [address, attribute, [x, x, ,x , ...]]
+		return aContainer->sendMessage(kTTSym_Send, data, kTTValNONE); // data is [address, attribute, [x, x, ,x , ...]]
 	}
 	
 	return kTTErrGeneric;
@@ -287,7 +287,7 @@ TTErr jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPt
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		aData->sendMessage(kTTSym_Command, v);
+		aData->sendMessage(kTTSym_Command, v, kTTValNONE);
 		return kTTErrNone;
 	}
 	
@@ -314,7 +314,7 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		return aSender->sendMessage(kTTSym_Send, v);
+		return aSender->sendMessage(kTTSym_Send, v, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;
@@ -768,11 +768,13 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 		// DATA case
 		if (o->getName() == TT("Data")) {
 			
+			// prepare a command 
+			// (don't use the send method of the Item because it directly set the value)
+			anItem->get(kTTSym_value, v);
+			
 			// if the item have a ramp state
 			if (!anItem->get(kTTSym_ramp, r)) {
 				
-				// prepare a command
-				anItem->get(kTTSym_value, v);
 				v.append(kTTSym_ramp);
 				
 				// Is ramp specific to the item ?
@@ -786,16 +788,19 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 						if (!anItem->manager->getAttributeValue(kTTSym_ramp, r))
 							r.get(0, ramp);
 				}
-				
-				// or no
-				else
-					anItem->send(kTTSym_value);
+				else {
+					o->sendMessage(kTTSym_Command, v, kTTValNONE);
+					return;
+				}
 				
 				v.append(ramp);
-				o->sendMessage(kTTSym_Command, v);
+				o->sendMessage(kTTSym_Command, v, kTTValNONE);
+				return;
 			}
-			else
-				anItem->send(kTTSym_value);
+			
+			// in any other case
+			o->sendMessage(kTTSym_Command, v, kTTValNONE);
+			return;
 		}
 		
 		// VIEWER case : they should have been replaced by DATA
@@ -873,7 +878,7 @@ TTErr jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomP
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		anInput->sendMessage(kTTSym_Send, v);
+		anInput->sendMessage(kTTSym_Send, v, kTTValNONE);
 		return kTTErrNone;
 	}
 	
@@ -972,7 +977,7 @@ TTErr jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, At
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		anOutput->sendMessage(kTTSym_Send, v);
+		anOutput->sendMessage(kTTSym_Send, v, kTTValNONE);
 		return kTTErrNone;
 	}
 	
@@ -1029,6 +1034,22 @@ TTErr jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	return kTTErrNone;
 }
 
+/**	Send Max data using a viewer object */
+TTErr jamoma_viewer_send(TTViewerPtr aViewer, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	TTValue		v;
+	
+	if (aViewer) {
+		
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
+		
+		return aViewer->sendMessage(kTTSym_Send, v, kTTValNONE);
+	}
+	
+	return kTTErrGeneric;
+}
+
+
 // Method to deal with TTExplorer
 ///////////////////////////////////////////////////////////////////////
 
@@ -1047,10 +1068,86 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
 	
+	args.append((TTPtr)jamoma_explorer_default_filter_bank());
+	
 	*returnedExplorer = NULL;
 	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);
 	
 	return kTTErrNone;
+}
+
+TTHashPtr jamoma_explorer_default_filter_bank(void)
+{
+	TTHashPtr		defaultFilterBank = new TTHash();
+	TTDictionaryPtr aFilter;
+	
+	// Create some ready-made filters
+	
+	// to look for any data (parameter | message | return)
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("data"), (TTPtr)aFilter);
+	
+	// to look for jcom.parameter
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_attribute, kTTSym_service);
+	aFilter->append(kTTSym_value, kTTSym_parameter);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("parameter"), (TTPtr)aFilter);
+	
+	// to look for jcom.message
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_attribute, kTTSym_service);
+	aFilter->append(kTTSym_value, kTTSym_message);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("message"), (TTPtr)aFilter);
+	
+	// to look for jcom.return
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_attribute, kTTSym_service);
+	aFilter->append(kTTSym_value, kTTSym_return);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("return"), (TTPtr)aFilter);
+	
+	// to look for jcom.hub
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Container"));
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("hub"), (TTPtr)aFilter);
+	
+	// to look for jcom.view
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_object, TT("Viewer"));
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("view"), (TTPtr)aFilter);
+	
+	// to look for user-defined object
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_value, kTTSym_generic);
+	aFilter->append(kTTSym_mode, kTTSym_exclusion);
+	defaultFilterBank->append(TT("noGenericTag"), (TTPtr)aFilter);
+	
+	// to look for generic tagged object
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_value, kTTSym_generic);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("genericTag"), (TTPtr)aFilter);
+	
+	return defaultFilterBank;
 }
 
 // Method to return data
@@ -1464,7 +1561,7 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 	else {
 		
 		/*	to -- don't get the context from the filename anymore
-			because it make to ways to set it wjth the hub @context attribute
+			because it make two ways to set it with the hub @context attribute
 		 
 		// try to get it from the patcher name
 		patcherName = object_attr_getsym(*patcher, _sym_filename);
@@ -1761,8 +1858,10 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 	TTString	s_number;
 	TTString	s_before;
 	TTString	s_after;
-	TTRegex		ex_braket("(\\[\\d{1,3}\\])"); // parse until 999
+	TTRegex		ex_braket("\\[(\\d|\\d\\d|\\d\\d\\d)\\]");	// parse until 999. 
+															// "\\[(\\d{1,3})\\]" this regex crashes ! why ? I've test it into a regex tester and it works...
 	TTRegexStringPosition begin, end;
+	TTRegexStringPosition beginNumber, endNumber;
 	
 	begin = s_toParse.begin();
 	end = s_toParse.end();
@@ -1770,9 +1869,12 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 	// parse braket
 	if (!ex_braket.parse(begin, end))
 	{
-		s_before = string(begin, ex_braket.begin());
-		s_number = string(ex_braket.begin()+1, ex_braket.end()-1);
-		s_after = string(ex_braket.end(), end);
+		beginNumber = ex_braket.begin();
+		endNumber = ex_braket.end();
+		
+		s_before = string(begin, ex_braket.begin()-1);
+		s_number = string(ex_braket.begin(), ex_braket.end());
+		s_after = string(ex_braket.end()+1, end);
 		
 		sscanf(s_number.data(), "%ld", &number);
 		
@@ -1948,12 +2050,12 @@ TTSymbolPtr jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* d
 }
 
 /** Get BOOT style filepath grom args or, if no args open a dialog to read a file */
-TTSymbolPtr jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv)
+TTSymbolPtr jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype)
 {
 	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;							// pathID#
-    long			filetype = 'TEXT', outtype;		// the file type that is actually true
+	long			outtype;
 	SymbolPtr		userpath;
 	TTSymbolPtr		result = kTTSymEmpty;
 	

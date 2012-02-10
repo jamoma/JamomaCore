@@ -30,10 +30,6 @@
     <item name='filter.5/gain' type='decimal' priority='0'>0.000000</item>
     <item name='filter.5/q' type='decimal' priority='0'>2.000000</item>
     <item name='filter.5/type' type='string' priority='0'>highshelf</item>
-    <item name='view/color/border' type='array' priority='0'>0.620000 0.000000 0.360000 1.000000 </item>
-    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 140 </item>
   </preset>

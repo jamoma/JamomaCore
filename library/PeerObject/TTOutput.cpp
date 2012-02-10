@@ -62,10 +62,10 @@ mSignalPreviewAttr(NULL)
 	}
 	
 	addAttribute(Number, kTypeUInt16);
-	addAttributeProperty(number, readOnly, YES);
+	addAttributeProperty(Number, readOnly, YES);
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(type, readOnly, YES);
+	addAttributeProperty(Type, readOnly, YES);
 	
 	addAttributeWithSetter(InputAddress, kTypeSymbol);
 	
@@ -76,18 +76,18 @@ mSignalPreviewAttr(NULL)
 	addAttribute(Preview, kTypeBoolean);
 	
 	addAttributeWithSetter(Info, kTypeLocalValue);
-	addAttributeProperty(info, hidden, YES);
+	addAttributeProperty(Info, hidden, YES);
 	
 	addAttribute(SignalPreview, kTypeLocalValue);
-	addAttributeProperty(signalPreview, hidden, YES);
+	addAttributeProperty(SignalPreview, hidden, YES);
 	
-	addMessageWithArgument(Send);
+	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
-	addMessageWithArgument(SendBypassed);
+	addMessageWithArguments(SendBypassed);
 	addMessageProperty(SendBypassed, hidden, YES);
 	
-	addMessageWithArgument(Link);
+	addMessageWithArguments(Link);
 	addMessageProperty(Link, hidden, YES);
 	
 	addMessage(Unlink);
@@ -141,7 +141,7 @@ TTOutput::~TTOutput()
 	delete [] mLast;
 }
 
-TTErr TTOutput::Send(TTValue& value)
+TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTErr err;
 	
@@ -151,39 +151,39 @@ TTErr TTOutput::Send(TTValue& value)
 	if (mMute)
 		err = kTTErrNone;
 	else if (mFreeze) {
-		err = mReturnSignalCallback->notify(mLast[mIndex]);
+		err = mReturnSignalCallback->notify(mLast[mIndex], kTTValNONE);
 		
 		// preview
 		notifySignalPreview(mLast[mIndex]);
 	}
 	else {
-		err = mReturnSignalCallback->notify(value);
+		err = mReturnSignalCallback->notify(inputValue, kTTValNONE);
 		
 		// preview
-		notifySignalPreview(value);
+		notifySignalPreview(inputValue);
 	}
 		
 	// copy
 	if (!mFreeze)
-		mLast[mIndex] = value;
+		mLast[mIndex] = inputValue;
 	
 	return err;
 }
 
-TTErr TTOutput::SendBypassed(TTValue& value)
+TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 {
 	if (mInputObject)
 		if (mInputObject->mIndex < mNumber) {
 			mIndex = mInputObject->mIndex;
-			return Send(value);
+			return Send(inputValue, kTTValNONE);
 		}
 	
 	return kTTErrGeneric;
 }
 
-TTErr TTOutput::Link(const TTValue& value)
+TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-	value.get(0, (TTPtr*)&mInputObject);
+	inputValue.get(0, (TTPtr*)&mInputObject);
 	return kTTErrNone;
 }
 
@@ -207,7 +207,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		if (o = aNode->getObject())
 			if (o->getName() == TT("Input"))
-				Link((TTPtr)o);
+				Link((TTPtr)o, kTTValNONE);
 	}
 
 	if (!mAddressObserver) {
@@ -314,7 +314,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anOutput->Link((TTPtr)o);
+					anOutput->Link((TTPtr)o, kTTValNONE);
 					break;
 				}
 					

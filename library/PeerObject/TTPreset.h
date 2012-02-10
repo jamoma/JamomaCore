@@ -84,12 +84,12 @@ private:
 	TTErr Send();
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsXml(const TTValue& value);
-	TTErr ReadFromXml(const TTValue& value);
+	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTTextHandler */
-	TTErr WriteAsText(const TTValue& value);
-	TTErr ReadFromText(const TTValue& value);
+	TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 };
 
 typedef TTPreset* TTPresetPtr;

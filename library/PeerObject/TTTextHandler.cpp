@@ -27,8 +27,8 @@ mIsReading(false)
 	
 	addAttribute(Object, kTypePointer);
 	
-	addMessageWithArgument(Write);
-	addMessageWithArgument(Read);
+	addMessageWithArguments(Write);
+	addMessageWithArguments(Read);
 	
 	addMessage(WriteAgain);
 	addMessage(ReadAgain);
@@ -39,7 +39,7 @@ TTTextHandler::~TTTextHandler()
 	;
 }
 
-TTErr TTTextHandler::Write(const TTValue& args)
+TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 {
     TTValue				v;
 	TTObjectPtr			aTTObject;
@@ -73,7 +73,7 @@ TTErr TTTextHandler::Write(const TTValue& args)
 			// Write data of the given TTObject (which have to implement a WriteAsText message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("WriteAsText"), v);
+			aTTObject->sendMessage(TT("WriteAsText"), v, kTTValNONE);
 			
 			/* End the document */
 			mWriter->close();
@@ -99,7 +99,7 @@ TTErr TTTextHandler::Write(const TTValue& args)
 			// Write data of the given TTObject (which have to implement a WriteAsText message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("WriteAsText"), v);
+			aTTObject->sendMessage(TT("WriteAsText"), v, kTTValNONE);
 			
 			/* End the writing */
 			mIsWriting = false;
@@ -113,7 +113,7 @@ TTErr TTTextHandler::Write(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("WriteAsText"), v);
+	return aTTObject->sendMessage(TT("WriteAsText"), v, kTTValNONE);
 }
 
 TTErr TTTextHandler::WriteAgain()
@@ -121,10 +121,10 @@ TTErr TTTextHandler::WriteAgain()
 	TTValue args;
 	
 	args.append(mFilePath);
-	return Write(args);
+	return Write(args, kTTValNONE);
 }
 
-TTErr TTTextHandler::Read(const TTValue& args)
+TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 {
 	TTObjectPtr	aTTObject;
 	TTValue		v;
@@ -159,7 +159,7 @@ TTErr TTTextHandler::Read(const TTValue& args)
 				getline(mReader, line);
 					
 				v.append((TTPtr)this);
-				aTTObject->sendMessage(TT("ReadFromText"), v);
+				aTTObject->sendMessage(TT("ReadFromText"), v, kTTValNONE);
 			}
 			
 			/* End document */
@@ -176,7 +176,7 @@ TTErr TTTextHandler::Read(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("ReadFromText"), v);
+	return aTTObject->sendMessage(TT("ReadFromText"), v, kTTValNONE);
 }
 
 TTErr TTTextHandler::ReadAgain()
@@ -184,5 +184,5 @@ TTErr TTTextHandler::ReadAgain()
 	TTValue args;
 	
 	args.append(mFilePath);
-	return Read(args);
+	return Read(args, kTTValNONE);
 }

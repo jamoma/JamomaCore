@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 1.0, 44.0, 306.0, 396.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 4.0, 44.0, 303.0, 393.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 1.0, 44.0, 306.0, 396.0 ],
+		"defrect" : [ 4.0, 44.0, 303.0, 393.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -28,7 +34,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 105.0, 75.0, 186.0, 425.0 ],
+					"patching_rect" : [ 105.0, 75.0, 190.0, 425.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 19,
 					"presentation_rect" : [ 0.0, 30.0, 280.0, 312.0 ],
@@ -94,7 +100,8 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 71.0, 310.0, 142.0, 27.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 153.0, 360.0, 149.0, 27.0 ]
+					"presentation_rect" : [ 153.0, 360.0, 149.0, 27.0 ],
+					"text" : "Current Step : 4"
 				}
 
 			}
@@ -229,6 +236,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 25.0, 69.0, 309.0, 264.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 25.0, 69.0, 309.0, 264.0 ],
@@ -295,6 +308,12 @@
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -616,13 +635,13 @@
 ,
 									"patching_rect" : [ 64.0, 143.0, 67.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"globalpatchername" : "",
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 12.0,
+										"fontname" : "Arial"
 									}
 ,
 									"text" : "p subfolder"
@@ -766,13 +785,13 @@
 ,
 					"patching_rect" : [ 56.0, 49.0, 19.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p"

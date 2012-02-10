@@ -148,6 +148,9 @@ extern "C" {
 	
 	/**	Create a viewer object */
 	TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer);
+	
+	/**	Send Max data using a viewer object */
+	TTErr			jamoma_viewer_send(TTViewerPtr aViewer, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 	
 	// Method to deal with TTExplorer
@@ -156,6 +159,8 @@ extern "C" {
 	/**	Create an explorer object */
 	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer);
 
+	
+	TTHashPtr		jamoma_explorer_default_filter_bank(void);
 	
 	// Method to return data
 	///////////////////////////////////////////////////////////////////////
@@ -245,7 +250,7 @@ extern "C" {
 	TTSymbolPtr		jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* default_filename);
 	
 	/** Get BOOT style filepath from args or, if no args open a dialog to read a file */
-	TTSymbolPtr		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv);
+	TTSymbolPtr		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype);
 		
 #ifdef __cplusplus
 }

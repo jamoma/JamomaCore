@@ -1,7 +1,7 @@
 /* 
  * jcom.out (~) (TODO %)
  * External for Jamoma: manage any signal outputs
- * Copyright Â© 2010 by ThÃ©o de la Hogue
+ * By Tim Place and ThŽo de la Hogue, Copyright © 2010
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -41,6 +41,8 @@ void		out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 #ifdef JCOM_OUT_TILDE
 t_int*		out_perform(t_int *w);
 void		out_dsp(TTPtr self, t_signal **sp, short *count);
+void		out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
+void		out_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
 void		out_update_amplitude(TTPtr self);
 
 #else
@@ -81,6 +83,7 @@ void WrapTTOutputClass(WrappedClassPtr c)
 	
 #ifdef JCOM_OUT_TILDE
 	class_addmethod(c->maxClass, (method)out_dsp,							"dsp", 					A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)out_dsp64,							"dsp64",				A_CANT, 0);	
 	//class_addmethod(c->maxClass, (method)out_remoteaudio,					"remoteaudio",			A_CANT, 0);
 	//class_addmethod(c, (method)out_getAudioForChannel,					"getAudioForChannel",	A_CANT, 0);
 	
@@ -460,6 +463,7 @@ void out_dsp(TTPtr self, t_signal **sp, short *count)
 	int							sr = sp[0]->s_sr;
 	
 	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
+	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
 	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
 	
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((anOutput->mNumber * 2) + 1));
@@ -502,6 +506,134 @@ void out_dsp(TTPtr self, t_signal **sp, short *count)
 	
 	dsp_addv(out_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
+}
+
+// Perform Method 64 bit - just pass the whole vector straight through
+// (the work is all done in the dsp 64 bit method)
+void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
+	TTInputPtr					anInput = anOutput->mInputObject;
+	TTUInt8						numChannels = 0;
+	TTUInt8						inNumCh = 0;
+	TTUInt16					vectorSize = 0;
+	short						i; 
+	TTUInt16					n;
+	TTFloat32					currentvalue = 0;
+	TTFloat32					peakamp, peakvalue = 0;	// values for calculating metering
+	
+	// get numChannels and vectorSize
+	if (anOutput) {
+		
+		anOutput->mInfo.get(info_numChannels, numChannels);
+		anOutput->mInfo.get(info_vectorSize, vectorSize);
+		
+		// Store the input from the inlets
+		for (i=0; i < numChannels; i++)
+			TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, ins[i]);
+		// if this doesn't work, I need to try setVector64Copy instead of setVector
+		
+		
+		if (anInput->mBypass)																		// perform mix control
+			TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalOut), *TTAudioSignalPtr(anOutput->mSignalOut));							//TODO: ideally just passing the pointer without copying memory 
+		else if ((anOutput->mMute) || (!anOutput->mGain))
+			TTAudioSignalPtr(anOutput->mSignalOut)->clear();  
+		else {																					// perform mix control
+			anInput->mInfo.get(info_numChannels, inNumCh);
+			if (anInput && inNumCh) { 
+				if (anOutput->mMix == 100) // fully wet
+					TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));			//TODO: ideally just passing the pointer without copying memory 
+				else if(!anOutput->mMix) //fully dry
+					TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalOut), *TTAudioSignalPtr(anOutput->mSignalTemp));			//TODO: ideally just passing the pointer without copying memory 
+				else // we mix wet and dry
+					TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));
+			}
+			else
+				TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
+			
+			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));			// perform gain control
+		}
+		
+		// Send the input on to the outlets for the algorithm
+		for (i=0; i < numChannels; i++){	
+			TTAudioSignalPtr(anOutput->mSignalOut)->getVectorCopy(i, vectorSize, outs[i]);
+			
+			// metering
+			if (!anOutput->mMute) {
+				TTSampleValue* envelope = outs[i];
+				peakvalue = 0.0;
+				
+				n = vectorSize;
+				while (n--) {
+					if ((*envelope) < 0 )						// get the current sample's absolute value
+						currentvalue = -(*envelope); //TODO: we could do a sign flip instead of multiply
+					else
+						currentvalue = *envelope;
+					
+					if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
+						peakvalue = currentvalue;
+					envelope++; 										// increment pointer in the vector
+				}
+				
+				// set meter[i]
+				anOutput->mInfo.set(info_startMeter+i, peakvalue);
+				
+				// set peak[i]
+				anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
+				if (peakvalue > peakamp)
+					anOutput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
+			}
+		}
+	}
+}
+
+// DSP64 method
+void out_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
+	TTUInt8						numChannels = 0;
+	short						i, j; 
+
+	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
+	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
+	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
+	
+	for (i=0; i < anOutput->mNumber; i++) {
+		j = anOutput->mNumber + i;
+		if (count[i] || count[j]) {
+			numChannels++;			
+		}
+	}
+	anOutput->mInfo.set(info_numChannels, numChannels);
+	
+	anOutput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
+	
+	anOutput->mSignalIn->setAttributeValue(TT("numChannels"), numChannels);
+	anOutput->mSignalOut->setAttributeValue(TT("numChannels"), numChannels);
+	anOutput->mSignalTemp->setAttributeValue(TT("numChannels"), numChannels);
+	//anOutput->mSignalZero->setAttributeValue(TT("numChannels"), numChannels);
+	
+	anOutput->mSignalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	anOutput->mSignalOut->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	anOutput->mSignalTemp->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	//anOutput->mSignalZero->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);//Do we need zeroSignal?
+	
+	// mSignalIn will be set in the perform method
+	anOutput->mSignalOut->sendMessage(TT("alloc"));
+	anOutput->mSignalTemp->sendMessage(TT("alloc"));
+	//x->zeroSignal->sendMessage(TT("alloc"));
+	//x->zeroSignal->sendMessage(TT("clear"));
+	//audioIn will be set in the perform method
+	//x->audioOut->sendMessage(TT("alloc"));
+	
+	object_method(dsp64, gensym("dsp_add64"), x, out_perform64, 0, NULL); 
+	
+	// reset the meters info
+	for (i=0; i<numChannels; i++)
+		anOutput->mInfo.set(info_startMeter+numChannels+i, 0.);	
+
 }
 
 void out_update_amplitude(TTPtr self)

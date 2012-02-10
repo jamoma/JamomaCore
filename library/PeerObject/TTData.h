@@ -11,7 +11,7 @@
 
 #include "TTModular.h"
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 #include "RampLib.h"			// Excluding RampLib because it use MaxAPI...
 #endif
 
@@ -26,7 +26,7 @@ TODO LIST :
  -> dump :							TODO
  */				
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 class RampUnit;
 typedef RampUnit*	RampUnitPtr;
 #endif
@@ -55,7 +55,7 @@ private:
 	TTBoolean		mDynamicInstances;			///< ATTRIBUTE: is the data can be dynamically instanciated
 	TTValue			mInstanceBounds;			///< ATTRIBUTE: two TTValues for a range of dynamic instances (-1 = infini)
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
 	TTSymbolPtr		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
 #endif
@@ -74,7 +74,7 @@ private:
 	
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
 	TTHashPtr		mRampDataNames;				///< Cache of data names, mapped from lowercase (Max) to uppercase (TT)
 #endif
@@ -89,7 +89,7 @@ private:
 			3		: 3 values || 2 values + unit || 1 value + ramp ramptime
 			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
 	 */
-	TTErr	Command(const TTValue& command);
+	TTErr	Command(const TTValue& command, TTValue& outputValue);
 	
 	/**	Increment mValue attribute (and ramp this incrementation)
 		It depends on the command size :
@@ -97,7 +97,7 @@ private:
 			3		: 1 incrementation step + ramp ramptime
 			default	: no value or wrong value
 	 */
-	TTErr	Inc(const TTValue& value);
+	TTErr	Inc(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Decrement mValue attribute (and ramp this decrementation)
 		It depends on the command size :
@@ -105,7 +105,7 @@ private:
 			3		: 1 decrementation step + ramp ramptime
 			default	: no value or wrong value
 	 */
-	TTErr	Dec(const TTValue& value);
+	TTErr	Dec(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Getter and Setter for mValue attribute. */
 	TTErr	getValue(TTValue& value);
@@ -140,7 +140,7 @@ private:
 	/**	Setter for mInstanceBounds attribute. */
 	TTErr	setInstanceBounds(const TTValue& value);
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	/**	Setter for mRampDrive attribute. */
 	TTErr	setRampDrive(const TTValue& value);
 	
@@ -155,15 +155,15 @@ private:
 	TTErr	setDataspaceUnit(const TTValue& value);
 	
 	/**  needed to be handled by a TTTextHandler */
-	TTErr WriteAsText(const TTValue& value);
+	TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTBoolean	checkType(const TTValue& value);
 	TTBoolean	clipValue();
-	TTErr		convertUnit(TTValue& value);
+	TTErr		convertUnit(const TTValue& inputValue, TTValue& outputValue);
 	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 	TTErr		rampSetup();
 	friend void TTMODULAR_EXPORT TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 #endif
@@ -172,7 +172,7 @@ private:
 
 typedef TTData* TTDataPtr;
 
-#ifdef TTDATA_RAMPLIB
+#ifndef TTDATA_NO_RAMPLIB
 /**	
  @param	baton						..
  @param	data						..

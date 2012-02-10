@@ -27,7 +27,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 319.0, 392.0, 50.0, 19.0 ]
+					"patching_rect" : [ 319.0, 417.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -40,7 +40,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 232.0, 392.0, 50.0, 19.0 ]
+					"patching_rect" : [ 232.0, 417.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -53,7 +53,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 145.0, 392.0, 50.0, 19.0 ]
+					"patching_rect" : [ 145.0, 417.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -66,7 +66,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 145.0, 368.0, 280.0, 19.0 ],
+					"patching_rect" : [ 145.0, 393.0, 280.0, 19.0 ],
 					"text" : "jcom.oscroute /samplerate /vectorsize /numChannels"
 				}
 
@@ -80,7 +80,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 562.0, 361.0, 32.5, 17.0 ],
+					"patching_rect" : [ 621.0, 368.0, 32.5, 17.0 ],
 					"text" : "stop"
 				}
 
@@ -94,7 +94,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 544.0, 340.0, 50.0, 17.0 ],
+					"patching_rect" : [ 603.0, 347.0, 50.0, 17.0 ],
 					"text" : "start"
 				}
 
@@ -122,7 +122,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 642.0, 153.0, 89.0, 17.0 ],
+					"patching_rect" : [ 642.0, 157.0, 89.0, 17.0 ],
 					"text" : "numChannels 1"
 				}
 
@@ -136,7 +136,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 532.0, 153.0, 89.0, 17.0 ],
+					"patching_rect" : [ 532.0, 157.0, 89.0, 17.0 ],
 					"text" : "numChannels 2"
 				}
 
@@ -150,7 +150,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 532.0, 200.0, 73.0, 19.0 ],
+					"patching_rect" : [ 532.0, 204.0, 73.0, 19.0 ],
 					"text" : "jcom.noise≈"
 				}
 
@@ -178,9 +178,9 @@
 					"maxclass" : "bpatcher",
 					"name" : "jmod.sur.info~.maxpat",
 					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 145.0, 249.0, 150.0, 105.0 ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "audio.connect" ],
+					"patching_rect" : [ 401.0, 243.0, 150.0, 105.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 105.0 ],
 					"varname" : "jmod.sur.info~"
 				}
@@ -243,16 +243,16 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-24", 1 ],
+					"destination" : [ "obj-5", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
+					"source" : [ "obj-24", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
+					"destination" : [ "obj-24", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-3", 0 ]

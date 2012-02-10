@@ -39,6 +39,8 @@ private:
 	
 	TTBoolean					mEnable;					///< ATTRIBUTE : do observe Input rangeBounds attribute ?
 	
+	TTBoolean					mInverse;					///< ATTRIBUTE : to make the output equal to mOutputMax - result
+	
 	TTValue						mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
 	TTSymbolPtr					mFunction;					///< ATTRIBUTE : name of the map function
 	TTValue						mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
@@ -62,13 +64,13 @@ private:
 	TTCallbackPtr				mReturnValueCallback;		///< a way to return back value to the owner of this mapper
 	
 	TTFloat64					mA, mB, mC, mD;				//< Coefficients used for normalizing input(A, B) and output (C, D)
-#ifdef TTDSP
+#ifndef TT_NO_DSP
 	TTAudioObjectPtr			mFunctionUnit;
 	TTBoolean					mValid;						//< true if the functionUnit can be used
 #endif
 	
 	/** process mapping */
-	TTErr Map(TTValue& value);
+	TTErr Map(TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr getFunctionLibrary(TTValue& value);
@@ -105,7 +107,7 @@ private:
 	TTErr setFunction(const TTValue& value);
 	
 	/** process mapping */
-	TTErr processMapping(TTValue& value);
+	TTErr processMapping(TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr scaleInput();

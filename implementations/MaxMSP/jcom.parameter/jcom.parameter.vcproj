@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
-	Name="jcom.node"
-	ProjectGUID="{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}"
-	RootNamespace="jcom.loader"
+	Version="9.00"
+	Name="jcom.parameter"
+	ProjectGUID="{EC4B067D-6E03-40DF-BDC9-DA9B7745A637}"
+	RootNamespace="jcom.parameter"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -42,8 +42,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\units&quot;;..\..\..\library\source;..\..\..\library\Dataspacelib;..\..\..\library\Functionlib;..\..\..\library\Ramplib;..\..\..\library\NodeLib"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\units&quot;;&quot;..\..\..\library\source;..\..\..\library\Dataspacelib&quot;;&quot;..\..\..\library\Functionlib&quot;;&quot;..\..\..\library\Ramplib&quot;;&quot;..\..\..\library\NodeLib&quot;;&quot;..\..\..\supports\max&quot;;&quot;..\..\..\library\source&quot;;&quot;..\..\..\..\Graphics\library\includes&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -126,7 +126,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\units&quot;;..\..\..\library\source;..\..\..\library\Dataspacelib;..\..\..\library\Functionlib;..\..\..\library\Ramplib;..\..\..\library\NodeLib"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\units&quot;;&quot;..\..\..\library\source;..\..\..\library\Dataspacelib&quot;;&quot;..\..\..\library\Functionlib&quot;;&quot;..\..\..\library\Ramplib&quot;;&quot;..\..\..\library\NodeLib&quot;;&quot;..\..\..\supports\max&quot;;&quot;..\..\..\library\source&quot;;&quot;..\..\..\..\Graphics\library\includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -189,11 +189,15 @@
 			>
 		</File>
 		<File
-			RelativePath=".\jcom.node.cpp"
+			RelativePath=".\jcom.parameter.clip.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\jcom.node.h"
+			RelativePath=".\jcom.parameter.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\supports\max\TTClassWrapperMax.cpp"
 			>
 		</File>
 	</Files>

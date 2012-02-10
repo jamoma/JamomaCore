@@ -2,13 +2,13 @@
 <jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
  <!--TODO : a TTApplication Manager comment-->
  <application name="myApplication" version="0.1">
-  <plugin name="Minuit" ip="127.0.0.1" port="8002"/>
+  <protocol name="Minuit" ip="127.0.0.1" port="8002"/>
  </application>
  <application name="distantApp" version="">
-  <plugin name="Minuit" ip="127.0.0.1" port="7003"/>
+  <protocol name="Minuit" ip="127.0.0.1" port="7003"/>
  </application>
  <application name="dlight" version="">
-  <plugin name="Minuit" ip="127.0.0.1" port="7000"/>
+  <protocol name="Minuit" ip="127.0.0.1" port="7000"/>
   <namespace file="/Users/TO/Documents/Jamoma/Tools/debugging/olivier_test/namespace_dlight.opml"/>
  </application>
 </jamoma>

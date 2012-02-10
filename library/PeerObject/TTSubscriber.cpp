@@ -42,12 +42,12 @@ mExposedAttributes(NULL)
 	addAttribute(ContextAddress, kTypeSymbol);
 	addAttribute(NewInstanceCreated, kTypeBoolean);
 	
-	addAttributeProperty(relativeAddress, readOnly, YES);
-	addAttributeProperty(node, readOnly, YES);
-	addAttributeProperty(nodeAddress, readOnly, YES);
-	addAttributeProperty(contextNode, readOnly, YES);
-	addAttributeProperty(contextAddress, readOnly, YES);
-	addAttributeProperty(newInstanceCreated, readOnly, YES);
+	addAttributeProperty(RelativeAddress, readOnly, YES);
+	addAttributeProperty(Node, readOnly, YES);
+	addAttributeProperty(NodeAddress, readOnly, YES);
+	addAttributeProperty(ContextNode, readOnly, YES);
+	addAttributeProperty(ContextAddress, readOnly, YES);
+	addAttributeProperty(NewInstanceCreated, readOnly, YES);
 	
 	mExposedMessages = new TTHash();
 	mExposedAttributes = new TTHash();
@@ -158,7 +158,7 @@ TTErr TTSubscriber::subscribe( )
 	aTempValue.clear();
 	aContextList = new TTList();
 	aTempValue.append(aContextList);
-	this->mGetContextListCallback->notify(aTempValue);
+	this->mGetContextListCallback->notify(aTempValue, kTTValNONE);
 	
 	// register each Context of the list as 
 	// TTNode in the tree structure (if they don't exist yet)
@@ -467,7 +467,7 @@ TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
 		v = data;
 		
 		// send data
-		anObject->sendMessage(messageName, data);
+		anObject->sendMessage(messageName, data, kTTValNONE);
 		
 		return kTTErrNone;
 	}

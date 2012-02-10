@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 309.0, 44.0, 923.0, 761.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 308.0, 44.0, 923.0, 764.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 309.0, 44.0, 923.0, 761.0 ],
+		"defrect" : [ 308.0, 44.0, 923.0, 764.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -44,8 +50,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 442.0, 39.0, 48.0, 18.0 ],
-					"text" : "/cuelist",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "/cuelist"
 				}
 
 			}
@@ -90,8 +95,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 390.0, 654.0, 63.0, 18.0 ],
-					"text" : "enable $1",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "enable $1"
 				}
 
 			}
@@ -225,7 +229,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 713.0, 726.0, 81.0, 20.0 ],
-					"text" : "print attribute"
+					"text" : "print attribute",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -282,8 +287,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 692.0, 654.0, 41.0, 18.0 ],
-					"text" : "dump",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "dump"
 				}
 
 			}
@@ -344,8 +348,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 491.0, 446.0, 120.0, 18.0 ],
-					"text" : "store 3 other, names",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "store 3 other, names"
 				}
 
 			}
@@ -408,6 +411,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -564,13 +573,13 @@
 ,
 					"patching_rect" : [ 494.0, 498.0, 75.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p fill_umenu"
@@ -672,7 +681,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 449.0, 229.0, 18.0, 18.0 ],
+					"patching_rect" : [ 449.0, 229.0, 19.0, 18.0 ],
 					"text" : "0"
 				}
 
@@ -686,7 +695,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 429.0, 229.0, 18.0, 18.0 ],
+					"patching_rect" : [ 429.0, 229.0, 19.0, 18.0 ],
 					"text" : "1"
 				}
 
@@ -837,8 +846,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 745.0, 74.0, 123.0, 48.0 ],
-					"text" : "jcom.namespace @lookfor jcom.return @format umenu"
+					"patching_rect" : [ 745.0, 72.0, 103.0, 48.0 ],
+					"text" : "jcom.namespace @filter/list return @format umenu"
 				}
 
 			}
@@ -853,8 +862,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 576.0, 74.0, 141.0, 48.0 ],
-					"text" : "jcom.namespace @lookfor jcom.message @format umenu"
+					"patching_rect" : [ 576.0, 72.0, 119.0, 48.0 ],
+					"text" : "jcom.namespace @filter/list message @format umenu"
 				}
 
 			}
@@ -890,8 +899,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 407.0, 39.0, 32.5, 18.0 ],
-					"text" : "/",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "/"
 				}
 
 			}
@@ -906,8 +914,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 407.0, 74.0, 147.0, 48.0 ],
-					"text" : "jcom.namespace @lookfor jcom.parameter @format umenu"
+					"patching_rect" : [ 407.0, 72.0, 125.0, 48.0 ],
+					"text" : "jcom.namespace @filter/list parameter @format umenu"
 				}
 
 			}
@@ -1066,8 +1074,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 407.0, 446.0, 78.0, 18.0 ],
-					"text" : "store/current",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "store/current"
 				}
 
 			}

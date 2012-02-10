@@ -20,6 +20,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_attributes;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_brothers;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_children;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Command;
@@ -30,6 +31,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspace;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnit;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_descendants;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_description;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
@@ -60,8 +62,6 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_name;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_names;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_node;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
-
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_object;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_parameter;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_preview;
@@ -101,6 +101,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_array					= TT("array");
 	
 	kTTSym_boolean					= TT("boolean");
+	kTTSym_brothers					= TT("brothers");
 	
 	kTTSym_children					= TT("children");
 	kTTSym_Command					= TT("Command");
@@ -111,6 +112,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_dataspace				= TT("dataspace");
 	kTTSym_dataspaceUnit			= TT("dataspaceUnit");
 	kTTSym_decimal					= TT("decimal");
+	kTTSym_descendants				= TT("descendants");
 	kTTSym_description				= TT("description");
 	kTTSym_destroyed				= TT("destroyed");
 	kTTSym_directory				= TT("directory");

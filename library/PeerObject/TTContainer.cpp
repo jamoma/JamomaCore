@@ -18,7 +18,6 @@ mDescription(kTTSymEmpty),
 mType(TT("control")),
 mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
-mContent(kTTValNONE),
 mAddress(kTTAdrsEmpty),
 mActivityIn(kTTValNONE),
 mActivityOut(kTTValNONE),
@@ -32,34 +31,46 @@ mObserver(NULL)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	}
 	
-	addAttribute(Priority, kTypeUInt8);
+	addAttributeWithSetter(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
-	addAttributeWithGetter(Content, kTypeLocalValue);
+	/* to - is the content usefull considering Explorer feature ?
+	 
+	registerAttribute(TT("content"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContent, NULL);
 	addAttributeProperty(content, readOnly, YES);
 	
+	registerAttribute(TT("contentParameters"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentParameters, NULL);
+	addAttributeProperty(contentParameters, readOnly, YES);
+	
+	registerAttribute(TT("contentMessages"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentMessages, NULL);
+	addAttributeProperty(contentMessages, readOnly, YES);
+	
+	registerAttribute(TT("contentReturns"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentReturns, NULL);
+	addAttributeProperty(contentReturns, readOnly, YES);
+	 */
+	
 	addAttribute(Initialized, kTypeBoolean);
-	addAttributeProperty(initialized, readOnly, YES);
-	addAttributeProperty(initialized, hidden, YES);
+	addAttributeProperty(Initialized, readOnly, YES);
+	addAttributeProperty(Initialized, hidden, YES);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttributeProperty(address, hidden, YES);
+	addAttributeProperty(Address, hidden, YES);
 	
 	addAttributeWithSetter(ActivityIn, kTypeLocalValue);
-	addAttributeProperty(activityIn, readOnly, YES);
+	addAttributeProperty(ActivityIn, readOnly, YES);
 	
 	addAttributeWithSetter(ActivityOut, kTypeLocalValue);
-	addAttributeProperty(activityOut, readOnly, YES);
+	addAttributeProperty(ActivityOut, readOnly, YES);
 	
-	addMessageWithArgument(Send);
+	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
 	addMessage(Init);
 	
 	// needed to be handled by a TTTextHandler
-	addMessageWithArgument(WriteAsText);
+	addMessageWithArguments(WriteAsText);
 	addMessageProperty(WriteAsText, hidden, YES);
 	
 	mIsSending = false;	
@@ -87,7 +98,7 @@ TTContainer::~TTContainer()
 	}
 }
 
-TTErr TTContainer::Send(TTValue& AddressAndValue)
+TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 {
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
@@ -134,7 +145,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 						return kTTErrNone;
 					
 					// set the value attribute using a command
-					anObject->sendMessage(kTTSym_Command, *valueToSend);
+					anObject->sendMessage(kTTSym_Command, *valueToSend, kTTValNONE);
 					
 					// unlock
 					mIsSending = false;	
@@ -145,7 +156,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 				if (anObject->getName() == TT("Viewer") && attrOrMess == kTTSym_value) {
 					
 					// send the value
-					anObject->sendMessage(kTTSym_Send, *valueToSend);
+					anObject->sendMessage(kTTSym_Send, *valueToSend, kTTValNONE);
 					
 					// unlock
 					mIsSending = false;	
@@ -159,7 +170,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 				
 				// Or look for message and send it
 				else if (!anObject->findMessage(attrOrMess, &aMessage))
-					anObject->sendMessage(attrOrMess, *valueToSend);
+					anObject->sendMessage(attrOrMess, *valueToSend, kTTValNONE);
 			}
 			// maybe the relative address is for Container below ourself
 			else {
@@ -182,7 +193,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue)
 						AddressAndValue.set(0, belowAddress);
 						
 						// send the value
-						anObject->sendMessage(kTTSym_Send, AddressAndValue);
+						anObject->sendMessage(kTTSym_Send, AddressAndValue, kTTValNONE);
 						
 						// unlock
 						mIsSending = false;	
@@ -310,10 +321,109 @@ TTErr TTContainer::setTag(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTContainer::setPriority(const TTValue& value)
+{
+	TTAttributePtr	anAttribute;
+	TTErr			err = kTTErrNone;
+	
+	mPriority = value;
+	
+	err = this->findAttribute(kTTSym_priority, &anAttribute);
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mPriority);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return kTTErrNone;
+}
+
+/* to - is the content usefull considering Explorer feature ?
+ 
 TTErr TTContainer::getContent(TTValue& value)
 {
-	return mObjectsObserversCache->getKeys(value);
+	// get keys in priority order
+	return mObjectsObserversCache->getKeysSorted(value);
 }
+
+TTErr TTContainer::getContentParameters(TTValue& value)
+{
+	TTValue		content, v;
+	TTInt32		i;
+	TTSymbolPtr key, service;
+	TTObjectPtr anObject;
+	
+	value.clear();
+	
+	// get keys in priority order
+	mObjectsObserversCache->getKeysSorted(content);
+	
+	for (i=0; i<content.getSize(); i++) {
+		content.get(i, &key);
+		mObjectsObserversCache->lookup(key, v);
+		v.get(0, (TTPtr*)&anObject);
+		
+		anObject->getAttributeValue(kTTSym_service, v);
+		v.get(0, &service);
+		
+		if (service == kTTSym_parameter)
+			value.append(key);
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::getContentMessages(TTValue& value)
+{
+	TTValue		content, v;
+	TTInt32		i;
+	TTSymbolPtr key, service;
+	TTObjectPtr anObject;
+	
+	value.clear();
+	
+	// get keys in priority order
+	mObjectsObserversCache->getKeysSorted(content);
+	
+	for (i=0; i<content.getSize(); i++) {
+		content.get(i, &key);
+		mObjectsObserversCache->lookup(key, v);
+		v.get(0, (TTPtr*)&anObject);
+		
+		anObject->getAttributeValue(kTTSym_service, v);
+		v.get(0, &service);
+		
+		if (service == kTTSym_message)
+			value.append(key);
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::getContentReturns(TTValue& value)
+{
+	TTValue		content, v;
+	TTInt32		i;
+	TTSymbolPtr key, service;
+	TTObjectPtr anObject;
+	
+	value.clear();
+	
+	// get keys in priority order
+	mObjectsObserversCache->getKeysSorted(content);
+	
+	for (i=0; i<content.getSize(); i++) {
+		content.get(i, &key);
+		mObjectsObserversCache->lookup(key, v);
+		v.get(0, (TTPtr*)&anObject);
+		
+		anObject->getAttributeValue(kTTSym_service, v);
+		v.get(0, &service);
+		
+		if (service == kTTSym_return)
+			value.append(key);
+	}
+	
+	return kTTErrNone;
+}
+*/
 
 TTErr TTContainer::bind()
 {
@@ -409,7 +519,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		else
 			cacheElement.append(NULL);
 		
-		// observe the Cammand message of parameter and message to get activity
+		// observe the Command message of parameter and message to get activity
 		if (service == kTTSym_parameter || service == kTTSym_message) {
 			
 			// create a Command message observer on it
@@ -506,7 +616,6 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	// add NULL to the cacheElement
 	else
 		cacheElement.append(NULL);
-
 	
 	// append the cacheElement to the cache hash table
 	mObjectsObserversCache->append(aRelativeAddress, cacheElement);
@@ -706,7 +815,7 @@ TTErr TTContainer::unbind()
 	return kTTErrNone;
 }
 
-TTErr TTContainer::WriteAsText(const TTValue& value)
+TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
@@ -715,7 +824,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 	TTSymbolPtr		name, service;
 	TTObjectPtr		anObject;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
 	// html header
@@ -784,7 +893,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -821,7 +930,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -858,7 +967,7 @@ TTErr TTContainer::WriteAsText(const TTValue& value)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg);
+				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
 				*file << "\t\t<tr>";
 			}
 		}
@@ -1215,10 +1324,10 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 			
 			// return the address
 			address.append(relativeAddress);
-			aContainer->mReturnAddressCallback->notify(address);
+			aContainer->mReturnAddressCallback->notify(address, kTTValNONE);
 			
 			// return the value
-			aContainer->mReturnValueCallback->notify(v);
+			aContainer->mReturnValueCallback->notify(v, kTTValNONE);
 			
 			// Notify activityOut observers (about value changes only)
 			v.prepend(TTValue(relativeAddress));
@@ -1268,8 +1377,15 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 		if (n->getParent()->getName() != S_SEPARATOR)
 			p_c = n->getParent()->getContext();
 	
+	/* to - this doesn't allow data under the root to subscribe to a container at the root
+	 
 	// Keep only nodes from our context if they aren't under the root (p_c is NULL)
 	// if contexts are different, check also if the parent context is the same as our context
 	return (c == t_c && p_c ) || (c != t_c && p_c == t_c );
+	 */
+	
+	// Keep only nodes from our context if they have the same context than the container
+	// if contexts are different, check also if the parent context is the same as our context
+	return (c == t_c) || (c != t_c && p_c == t_c );
 	
 }

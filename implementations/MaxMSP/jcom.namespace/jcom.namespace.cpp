@@ -10,7 +10,7 @@
 #include "TTModularClassWrapperMax.h"
 
 #define data_out 0
-#define none_one_out 1
+#define size_out 1
 #define dump_out 2
 
 // Definitions
@@ -42,8 +42,7 @@ void		nmspc_add_max_namespace(TTPtr self);
 long		nmspc_myobject_iterator(TTPtr self, ObjectPtr b);
 */
 
-SymbolPtr	nmspc_filter_underscore_instance(SymbolPtr a);
-
+SymbolPtr nmspc_filter_underscore_instance(SymbolPtr a);
 
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -76,6 +75,8 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 
 	//class_addmethod(c->maxClass, (method)nmspc_add_max_namespace,	"add_max_namespace",		0);
 	
+	CLASS_ATTR_ENUM(c->maxClass,		"output",	0,		"descendants children brothers attributes");
+	
 	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	msg);	// use msg member to store format
 	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	nmspc_get_format,	nmspc_set_format);
 	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"none umenu umenu_prefix jit.cellblock coll");
@@ -97,7 +98,7 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
-	x->outlets[none_one_out] = outlet_new(x, NULL);
+	x->outlets[size_out] = outlet_new(x, NULL);
 	x->outlets[data_out] = outlet_new(x, NULL);
 	
 	x->msg = _sym_none;
@@ -126,8 +127,8 @@ void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 			case data_out:
 				strcpy(dst, "result of exploration");
 				break;
-			case none_one_out:
-				strcpy(dst, "output 'none' or 'one' flag");
+			case size_out:
+				strcpy(dst, "size of the result");
 				break;
 			case dump_out:
 				strcpy(dst, "dumpout");
@@ -199,14 +200,14 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTSymbolPtr	lookfor;
+	TTSymbolPtr	output;
 	TTNodeAddressPtr address;
 	SymbolPtr	s;
 	Atom		a[1], c[2];
 	
 	// Ask Explorer object
-	x->wrappedObject->getAttributeValue(TT("lookfor"), v);
-	v.get(0, &lookfor);
+	x->wrappedObject->getAttributeValue(TT("output"), v);
+	v.get(0, &output);
 	
 	x->wrappedObject->getAttributeValue(kTTSym_address, v);
 	v.get(0, &address);
@@ -224,17 +225,16 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			outlet_anything(x->outlets[data_out], gensym("prefix_mode"), 1, a);
 			
 			// prepare umenu prefix 
-			// (except in case the explorer look for Instances)
 			if (address->getName() == S_SEPARATOR)
 				atom_setsym(a, gensym((char*)address->getCString()));
 			else {
 				TTString prefix = address->getCString();
 				
-				if(lookfor == kTTSym_children)
+				if(output == kTTSym_children)
 					prefix += "/";
-				else if(lookfor == kTTSym_instances)
+				else if(output == kTTSym_brothers)
 					prefix += ".";
-				else if(lookfor == kTTSym_attributes)
+				else if(output == kTTSym_attributes)
 					prefix += ":";
 				else
 					prefix += "/";
@@ -250,24 +250,17 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		for (long i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
-			if(lookfor == kTTSym_attributes)
+			if(output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
-			if (lookfor == kTTSym_instances && s == _sym_nothing)
+			if (output == kTTSym_brothers && s == _sym_nothing)
 				s = gensym("_");
+			
 			if (s) {
 				atom_setsym(a, s);
 				outlet_anything(x->outlets[data_out], _sym_append, 1, a);
 			}
 		}
-		
-		if (argc == 0)
-			outlet_anything(x->outlets[none_one_out], _sym_none, 0, NULL);
-		
-		if (argc == 1)
-			outlet_anything(x->outlets[none_one_out], _sym_one, 0, NULL);
-		
-		return;
 	}
 	
 	// JIT CELLBLOCK FORMAT
@@ -287,26 +280,31 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		for (long i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
-			if (lookfor == kTTSym_attributes)
+			if (output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
-			if (lookfor == kTTSym_instances && s == _sym_nothing)
+			if (output == kTTSym_brothers && s == _sym_nothing)
 				s = gensym("_");
+			
 			if (s) {
 				atom_setlong(c, i+1);
 				atom_setsym(c+1, s);
 				outlet_anything(x->outlets[data_out], _sym_store, 2, c);
 			}
 		}
-		
-		return;
 	}
 	
 	// NO FORMAT
-	if (argc)
-		outlet_atoms(x->outlets[data_out], argc, argv);
-	else if (msg != _sym_nothing)
-		outlet_anything(x->outlets[data_out], msg, argc, argv);
+	if (x->msg == gensym("none") || x->msg == _sym_nothing) {
+		if (argc)
+			outlet_atoms(x->outlets[data_out], argc, argv);
+		else if (msg != _sym_nothing)
+			outlet_anything(x->outlets[data_out], msg, argc, argv);
+	}
+	
+	// output the size of the result after the result
+	atom_setlong(a, argc);
+	outlet_anything(x->outlets[size_out], _sym_int, 1, a);
 }
 
 void nmspc_bang(TTPtr self)
@@ -379,8 +377,13 @@ void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o.get(0, (TTPtr*)&aOpmlHandler);
 			
 			critical_enter(0);
-			aOpmlHandler->sendMessage(TT("Write"), v);
+			tterr = aOpmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
 			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_write, argc, argv);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
 }
@@ -436,39 +439,6 @@ long nmspc_myobject_iterator(t_nmspc *x, t_object *b)
     return 0;
 }
  */
-
-SymbolPtr nmspc_filter_underscore_instance(SymbolPtr a)
-{
-	SymbolPtr b;
-	TTString toParse = a->s_name;
-	
-	//post("before parsing : %s", a->s_name);
-	int foundDot = toParse.find_last_of('.');
-	int foundUnd = toParse.find_last_of('_');
-	
-	//post("toParse : %d", toParse.size());
-	//post("foundDot : %d", foundDot);
-	//post("foundUnd : %d", foundUnd);
-	
-	if (foundUnd == (foundDot+1)) {
-
-		if (foundDot > 0 && foundUnd > 0) {
-			
-			TTString parsed = toParse.substr(0,foundDot);
-			if (foundUnd+1 < (int)toParse.size())
-				parsed += toParse.substr(foundUnd+1);
-		
-			b = gensym((char*)parsed.data());
-		}
-		else
-			b = a;
-	}		
-	else
-		b = a;
-	
-	//post("after parsing : %s", b->s_name);
-	return b;
-}
 
 t_max_err nmspc_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 {
@@ -545,3 +515,35 @@ t_max_err nmspc_set_relative(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av)
 	return MAX_ERR_NONE;
 }
 
+SymbolPtr nmspc_filter_underscore_instance(SymbolPtr a)
+{
+	SymbolPtr b;
+	TTString toParse = a->s_name;
+	
+	//post("before parsing : %s", a->s_name);
+	int foundDot = toParse.find_last_of('.');
+	int foundUnd = toParse.find_last_of('_');
+	
+	//post("toParse : %d", toParse.size());
+	//post("foundDot : %d", foundDot);
+	//post("foundUnd : %d", foundUnd);
+	
+	if (foundUnd == (foundDot+1)) {
+		
+		if (foundDot > 0 && foundUnd > 0) {
+			
+			TTString parsed = toParse.substr(0,foundDot);
+			if (foundUnd+1 < (int)toParse.size())
+				parsed += toParse.substr(foundUnd+1);
+			
+			b = gensym((char*)parsed.data());
+		}
+		else
+			b = a;
+	}
+	else
+		b = a;
+	
+	//post("after parsing : %s", b->s_name);
+	return b;
+}

@@ -27,7 +27,6 @@ private:
 	TTSymbolPtr			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
 	TTValue				mTag;							///< ATTRIBUTE: tag list for this container (to -- why keep the type attribute in this case ?)
 	TTBoolean			mInitialized;					///< ATTRIBUTE: is it initialized ?
-	TTValue				mContent;						///< ATTRIBUTE: all contained relative address
 	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE: the address of the container in the directory
 	TTValue				mActivityIn;					///< ATTRIBUTE : a local value to allow observation of incoming data
 	TTValue				mActivityOut;					///< ATTRIBUTE : a local value to allow observation of outputing data
@@ -35,18 +34,18 @@ private:
 	
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
-	TTHashPtr			mObjectsObserversCache;			///< a hast table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
+	TTHashPtr			mObjectsObserversCache;			///< a hash table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
 	TTCallbackPtr		mObserver;						///< a life cycle observer
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop 
 	
 	/** */
-	TTErr Send(TTValue& AddressAndValue);
+	TTErr Send(TTValue& AddressAndValue, TTValue& outputValue);
 	
 	/** */
 	TTErr Init();
 	
 	/**  needed to be handled by a TTTextHandler */
-	TTErr WriteAsText(const TTValue& value);
+	TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr setAddress(const TTValue& value);
@@ -60,8 +59,18 @@ private:
 	/**	Setter for mTag attribute. */
 	TTErr setTag(const TTValue& value);
 	
-	/** */
+	/**	Setter for mPriority attribute. */
+	TTErr setPriority(const TTValue& value);
+	
+	/* to - is the content usefull considering Explorer feature ?
 	TTErr getContent(TTValue& value);
+	
+	TTErr getContentParameters(TTValue& value);
+	
+	TTErr getContentMessages(TTValue& value);
+
+	TTErr getContentReturns(TTValue& value);
+	*/
 	
 	/** */
 	TTErr bind();
@@ -78,6 +87,8 @@ private:
 	
 	/** CSS definitions -- we include them in the html file itself so that we don't have problems with paths to external references */
 	void cssDefinition(ofstream *file);
+	
+
 	
 	
 	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
@@ -116,5 +127,6 @@ TTErr TTMODULAR_EXPORT TTContainerCommandMessageCallback(TTPtr baton, TTValue& d
  @param	data						..
  @return							an error code */
 TTBoolean TTMODULAR_EXPORT TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args);
+
 
 #endif // __TT_CONTAINER_H__

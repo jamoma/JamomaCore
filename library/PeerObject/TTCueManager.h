@@ -45,19 +45,19 @@ private:
 	TTErr New();
 	
 	/** */
-	TTErr Store(const TTValue& value);
+	TTErr Store(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr StoreCurrent(const TTValue& value);
 	
 	/** */
-	TTErr StoreNext(const TTValue& value);
+	TTErr StoreNext(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr StorePrevious(const TTValue& value);
+	TTErr StorePrevious(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr Recall(const TTValue& value);
+	TTErr Recall(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr RecallCurrent();
@@ -69,7 +69,7 @@ private:
 	TTErr RecallPrevious();
 	
 	/** */
-	TTErr Remove(const TTValue& value);
+	TTErr Remove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr RemoveCurrent();
@@ -81,12 +81,12 @@ private:
 	TTErr RemovePrevious();
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsXml(const TTValue& value);
-	TTErr ReadFromXml(const TTValue& value);
+	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTTextHandler */
-	 TTErr WriteAsText(const TTValue& value);
-	 TTErr ReadFromText(const TTValue& value);
+	 TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
+	 TTErr ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr getNames(TTValue& value);

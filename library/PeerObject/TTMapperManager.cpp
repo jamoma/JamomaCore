@@ -24,8 +24,8 @@ mMapperList(NULL)
 	addMessage(New);
 
 	// needed to be handled by a TTXmlHandler
-	addMessageWithArgument(WriteAsXml);
-	addMessageWithArgument(ReadFromXml);
+	addMessageWithArguments(WriteAsXml);
+	addMessageWithArguments(ReadFromXml);
 
 	mMapperList = new TTList();
 }
@@ -54,7 +54,7 @@ TTErr TTMapperManager::New()
 	return kTTErrNone;
 }
 
-TTErr TTMapperManager::WriteAsXml(const TTValue& value)
+TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTMapperPtr			aMapper;
@@ -62,7 +62,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& value)
 	TTSymbolPtr			attributeName;
 	TTString			s;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
 	// Browse the mapper list
 	for (mMapperList->begin(); mMapperList->end(); mMapperList->next()) {
@@ -103,14 +103,14 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTMapperManager::ReadFromXml(const TTValue& value)
+TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		attributeName, mute;
 	TTMapperPtr		newMapper;
 	TTValue			v, args;
 
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 

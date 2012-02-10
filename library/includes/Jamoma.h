@@ -1,8 +1,9 @@
-/* 
- * Jamoma Shared Library
- * Functions and resources used by Jamoma objects.
+/** 
+ * \file jamoma.h
+ * Jamoma Shared Library - Functions and resources used by Jamoma objects.
+ *
  * By Tim Place, Copyright © 2007
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -12,23 +13,26 @@
 #define __JAMOMA_H__
 
 #include "TTModularVersion.h"
+#ifndef WIN_VERSION
+#include <Carbon/Carbon.h>
+#endif
 
 #ifdef WIN_VERSION
- #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
 #include "MaxObjectTypes.h"
 #include "ext_common.h"
-#include "ext_strings.h"			// String Functions
+#include "ext_strings.h" // String Functions
 #include "ext_critical.h"
 #include "jpatcher_api.h"
 #include "z_dsp.h"
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
+#include "commonsyms.h" // Common symbols used by the Max 4.5 API
 
 #include <math.h>
 #include <stdlib.h>
 
-#include "TTFoundationAPI.h"		// TTBlue Headers...
+#include "TTFoundationAPI.h" // TTBlue Headers...
 
 #include "TTModular.h"
 
@@ -39,13 +43,6 @@
 #include "FunctionLib.h"
 #include "RampLib.h"
 #include "ModularForMax.h"
-
-// TODO : build path like in Foundation...
-#ifdef TT_WIN
-	#define JamomaPluginFolderPath "C:\Program Files\Common Files\TTBlue\Extensions"
-#else
-	#define JamomaPluginFolderPath "/Library/Application Support/Jamoma/Extensions"
-#endif
 
 #define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
 
@@ -59,8 +56,8 @@
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
 
 extern "C" {
-
-	void		jamoma_init(void);
+	
+	void jamoma_init(void);
 	
 }
 

@@ -37,6 +37,7 @@ t_symbol	*jps_done,
 			*jps_none,				// this type only used by jcom.message
 			*jps_jcom_hub, 
 			*jps_feedback,
+			*jps_alias,
 			*jps_module_name_get,		// common OSC messages according to the JIG
 			*jps_core_module_name_get,
 			*jps_dumpout,
@@ -87,6 +88,7 @@ t_symbol	*jps_done,
 			*jps_repetitions,
 			*jps_repetitions_allow,
 			*jps_description,
+			*jps_enable,
 			*jps_value,
 			*jps_sigcount,				// signals to module
 			*jps_siglist,
@@ -214,6 +216,7 @@ void jamomaSymbolsInit()
 	jps_jcom_hub					= SymbolGen("jcom.hub"); 
     jps_feedback					= SymbolGen("__feedback__");		// used for parameter feedback to the hub
 	// common OSC messages according to the JIG
+	jps_alias						= SymbolGen("alias");
 	jps_module_name_get				= SymbolGen("/module_name:/get");
 	jps_core_module_name_get		= SymbolGen("core_module_name:/get");
 	jps_dumpout						= SymbolGen("dumpout");
@@ -268,6 +271,7 @@ void jamomaSymbolsInit()
 	jps_repetitions					= SymbolGen("repetitions");
 	jps_repetitions_allow			= SymbolGen("repetitions/allow");
 	jps_description					= SymbolGen("description");
+	jps_enable						= SymbolGen("enable");
 	jps_value						= SymbolGen("value");
 	jps_algorithm_type				= SymbolGen("algorithm_type");
 	jps_name						= SymbolGen("name");

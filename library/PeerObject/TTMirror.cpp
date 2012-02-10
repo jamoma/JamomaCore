@@ -90,7 +90,7 @@ TTErr TTMirror::getMirrorAttribute(const TTAttribute& anAttribute, TTValue& valu
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
-		return mGetAttributeCallback->notify(data);
+		return mGetAttributeCallback->notify(data, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;
@@ -106,22 +106,22 @@ TTErr TTMirror::setMirrorAttribute(const TTAttribute& anAttribute, const TTValue
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
-		err = mSetAttributeCallback->notify(data);
+		err = mSetAttributeCallback->notify(data, kTTValNONE);
 	}
 	 
 	return err;
 }
 
-TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, TTValue& value)
+TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue data;
 	
 	if (mSendMessageCallback) {
 		
 		data.append(messageName);
-		data.append((TTPtr)&value);
+		data.append((TTPtr)&inputValue);
 		
-		return mSetAttributeCallback->notify(data);
+		return mSetAttributeCallback->notify(data, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;
@@ -149,7 +149,7 @@ TTErr TTMirror::enableListening(const TTAttribute& anAttribute, TTBoolean enable
 		data.append(anAttribute.name);
 		data.append(enable);
 		
-		return mListenAttributeCallback->notify(data);
+		return mListenAttributeCallback->notify(data, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;

@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 308.0, 44.0, 1127.0, 610.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 308.0, 44.0, 1131.0, 622.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 308.0, 44.0, 1127.0, 610.0 ],
+		"defrect" : [ 308.0, 44.0, 1131.0, 622.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -44,7 +50,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 637.0, 288.0, 184.0, 18.0 ],
-					"text" : "channel.B/fps 33.285999"
+					"text" : "channel.A/out/mute 0"
 				}
 
 			}
@@ -289,7 +295,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 930.0, 588.0, 187.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -333,7 +339,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 930.0, 540.0, 180.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -522,13 +528,12 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-50",
-					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 650.0, 333.0, 84.0, 32.0 ],
-					"text" : "/fps 33.285999"
+					"patching_rect" : [ 650.0, 333.0, 84.0, 18.0 ],
+					"text" : "/out/mute 0"
 				}
 
 			}
@@ -542,7 +547,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 560.0, 333.0, 84.0, 18.0 ],
-					"text" : "/play 0"
+					"text" : "/out/mute 0"
 				}
 
 			}
@@ -863,9 +868,15 @@
 					"outlettype" : [ "", "", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 555.0, 255.0 ],
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
+						"rect" : [ 25.0, 69.0, 505.0, 220.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 555.0, 255.0 ],
+						"defrect" : [ 25.0, 69.0, 505.0, 220.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -905,8 +916,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 354.0, 117.0, 123.0, 48.0 ],
-									"text" : "jcom.namespace @lookfor jcom.return @format umenu"
+									"patching_rect" : [ 354.0, 117.0, 103.0, 48.0 ],
+									"text" : "jcom.namespace @filter/list return @format umenu"
 								}
 
 							}
@@ -921,8 +932,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 182.0, 117.0, 141.0, 48.0 ],
-									"text" : "jcom.namespace @lookfor jcom.message @format umenu"
+									"patching_rect" : [ 182.0, 117.0, 119.0, 48.0 ],
+									"text" : "jcom.namespace @filter/list message @format umenu"
 								}
 
 							}
@@ -937,8 +948,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 10.0, 117.0, 147.0, 48.0 ],
-									"text" : "jcom.namespace @lookfor jcom.parameter @format umenu"
+									"patching_rect" : [ 10.0, 117.0, 125.0, 48.0 ],
+									"text" : "jcom.namespace @filter/list parameter @format umenu"
 								}
 
 							}
@@ -1074,13 +1085,13 @@
 ,
 					"patching_rect" : [ 10.0, 243.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p explorer"
@@ -1199,7 +1210,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 306.0, 225.0, 96.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -1335,7 +1346,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 305.0, 533.0, 96.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "out/mute 0"
 				}
 
 			}

@@ -141,7 +141,7 @@ mCurrentItem(kTTSymEmpty)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
 	addAttribute(ItemTable, kTypePointer);
-	addAttributeProperty(itemTable, readOnly, YES);
+	addAttributeProperty(ItemTable, readOnly, YES);
 	
 	addMessage(Fill);
 	addMessage(Clear);
@@ -149,9 +149,9 @@ mCurrentItem(kTTSymEmpty)
 	addMessage(Sort);
 	addMessage(Send);
 	
-	addMessageWithArgument(WriteAsXml);
+	addMessageWithArguments(WriteAsXml);
 	addMessageProperty(WriteAsXml, hidden, YES);
-	addMessageWithArgument(ReadFromXml);
+	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mItemTable = new TTHash();
@@ -284,7 +284,7 @@ TTErr TTPreset::Update()
 			hk.get(i, &key);
 			mItemTable->lookup(key, v);
 			
-			mUpdateItemCallback->notify(v);
+			mUpdateItemCallback->notify(v, kTTValNONE);
 		}
 		
 		return kTTErrNone;
@@ -301,7 +301,7 @@ TTErr TTPreset::Sort()
 		
 		// get the table of item to sort
 		v.append((TTPtr)this->mItemTable);
-		mSortItemCallback->notify(v);
+		mSortItemCallback->notify(v, kTTValNONE);
 		
 		// get the list of sorted keys
 		v.get(0, (TTPtr*)&mItemKeysSorted);
@@ -324,7 +324,7 @@ TTErr TTPreset::Send()
 			mItemKeysSorted->current().get(0, &key);
 			mItemTable->lookup(key, v);
 			
-			mSendItemCallback->notify(v);
+			mSendItemCallback->notify(v, kTTValNONE);
 		}
 		
 		return kTTErrNone;
@@ -333,7 +333,7 @@ TTErr TTPreset::Send()
 		return kTTErrGeneric;
 }
 
-TTErr TTPreset::WriteAsXml(const TTValue& value)
+TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	ItemPtr				anItem;
@@ -342,7 +342,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 	TTString			aString;
 	TTUInt32			j;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
 	// Write name attribute
 	xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST mName->getCString());
@@ -400,7 +400,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPreset::ReadFromXml(const TTValue& value)
+TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	TTNodeAddressPtr	absoluteAddress;
@@ -408,7 +408,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 	ItemPtr				anItem;
 	TTValue				v;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -476,7 +476,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 				
 				// call the read item callback to allow specific application process
 				mItemTable->lookup(mCurrentItem, v);
-				mReadItemCallback->notify(v);
+				mReadItemCallback->notify(v, kTTValNONE);
 			}
 		}
 	}
@@ -484,12 +484,12 @@ TTErr TTPreset::ReadFromXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPreset::WriteAsText(const TTValue& value)
+TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
 	*file << "TTPreset::WriteAsText -- TODO";
@@ -497,12 +497,12 @@ TTErr TTPreset::WriteAsText(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPreset::ReadFromText(const TTValue& value)
+TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ifstream		*file;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mReader;
 	
 	// TODO

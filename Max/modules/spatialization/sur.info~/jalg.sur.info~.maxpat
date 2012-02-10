@@ -20,6 +20,17 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"comment" : "",
+					"id" : "obj-3",
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 112.0, 289.0, 25.0, 25.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-17",
@@ -27,7 +38,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 378.0, 176.0, 216.0, 19.0 ],
+					"patching_rect" : [ 420.0, 171.0, 216.0, 19.0 ],
 					"text" : "jcom.return numChannels @type integer"
 				}
 
@@ -41,7 +52,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 110.0, 235.0, 434.0, 19.0 ],
+					"patching_rect" : [ 191.0, 235.0, 434.0, 19.0 ],
 					"text" : "jcom.return samplerate @type integer @dataspace time @dataspace/unit/native Hz"
 				}
 
@@ -55,7 +66,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 244.0, 205.0, 198.0, 19.0 ],
+					"patching_rect" : [ 325.0, 205.0, 198.0, 19.0 ],
 					"text" : "jcom.return vectorsize @type integer"
 				}
 
@@ -81,8 +92,8 @@
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
+					"numoutlets" : 5,
+					"outlettype" : [ "audio.connect", "", "", "", "" ],
 					"patching_rect" : [ 110.0, 128.0, 421.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
@@ -161,7 +172,7 @@
 					"destination" : [ "obj-15", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-13", 1 ]
+					"source" : [ "obj-13", 2 ]
 				}
 
 			}
@@ -170,7 +181,7 @@
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
+					"source" : [ "obj-13", 1 ]
 				}
 
 			}
@@ -179,7 +190,16 @@
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-13", 2 ]
+					"source" : [ "obj-13", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}

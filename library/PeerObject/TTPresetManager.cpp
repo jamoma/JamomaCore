@@ -30,39 +30,39 @@ mCurrentIndex(0)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
 	addAttributeWithGetter(Names, kTypeLocalValue);
-	addAttributeProperty(names, readOnly, YES);
+	addAttributeProperty(Names, readOnly, YES);
 	
 	addAttributeWithGetter(Current, kTypeLocalValue);
-	addAttributeProperty(current, readOnly, YES);
+	addAttributeProperty(Current, readOnly, YES);
 	
 	addAttributeWithGetter(Previous, kTypeLocalValue);
-	addAttributeProperty(previous, readOnly, YES);
+	addAttributeProperty(Previous, readOnly, YES);
 	
 	addAttributeWithGetter(Next, kTypeLocalValue);
-	addAttributeProperty(next, readOnly, YES);
+	addAttributeProperty(Next, readOnly, YES);
 	
 	addMessage(New);
 	
-	addMessageWithArgument(Store);
+	addMessageWithArguments(Store);
 	addMessage(StoreCurrent);
-	addMessageWithArgument(StoreNext);
-	addMessageWithArgument(StorePrevious);
+	addMessageWithArguments(StoreNext);
+	addMessageWithArguments(StorePrevious);
 
-	addMessageWithArgument(Recall);
+	addMessageWithArguments(Recall);
 	addMessage(RecallCurrent);
 	addMessage(RecallNext);
 	addMessage(RecallPrevious);
 	
-	addMessageWithArgument(Remove);
+	addMessageWithArguments(Remove);
 	addMessage(RemoveCurrent);
 	addMessage(RemoveNext);
 	addMessage(RemovePrevious);
 
 	// needed to be handled by a TTXmlHandler
-	addMessageWithArgument(WriteAsXml);
+	addMessageWithArguments(WriteAsXml);
 	addMessageProperty(WriteAsXml, hidden, YES);
 	
-	addMessageWithArgument(ReadFromXml);
+	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mPresetList = new TTList();
@@ -207,7 +207,7 @@ TTErr TTPresetManager::New()
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::Store(const TTValue& value)
+TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt8		index;
 	TTSymbolPtr	presetName = kTTSymEmpty;
@@ -215,8 +215,8 @@ TTErr TTPresetManager::Store(const TTValue& value)
 	TTValue		args;
 	
 	// First arg : index
-	if (value.getType(0) == kTypeInt32) {
-		value.get(0, index);
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, index);
 		if (index < 1)
 			return kTTErrGeneric;
 	}
@@ -224,8 +224,8 @@ TTErr TTPresetManager::Store(const TTValue& value)
 		return kTTErrGeneric;
 	
 	// Second arg : preset name
-	if (value.getType(1) == kTypeSymbol) {
-		value.get(1, &presetName);
+	if (inputValue.getType(1) == kTypeSymbol) {
+		inputValue.get(1, &presetName);
 		if (presetName == kTTSymEmpty)
 			return kTTErrGeneric;
 	}
@@ -267,15 +267,15 @@ TTErr TTPresetManager::StoreCurrent()
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::StoreNext(const TTValue& value)
+TTErr TTPresetManager::StoreNext(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr	presetName = kTTSymEmpty;
 	TTPresetPtr	newPreset = NULL;
 	TTValue		args;
 	
 	// First arg : preset name
-	if (value.getType() == kTypeSymbol) {
-		value.get(0, &presetName);
+	if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, &presetName);
 		if (presetName == kTTSymEmpty)
 			return kTTErrGeneric;
 	}
@@ -300,15 +300,15 @@ TTErr TTPresetManager::StoreNext(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::StorePrevious(const TTValue& value)
+TTErr TTPresetManager::StorePrevious(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr	presetName = kTTSymEmpty;
 	TTPresetPtr	newPreset = NULL;
 	TTValue		args;
 	
 	// First arg : preset name
-	if (value.getType() == kTypeSymbol) {
-		value.get(0, &presetName);
+	if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, &presetName);
 		if (presetName == kTTSymEmpty)
 			return kTTErrGeneric;
 	}
@@ -335,15 +335,15 @@ TTErr TTPresetManager::StorePrevious(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::Recall(const TTValue& value)
+TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt8		index;
 	TTSymbolPtr	presetName = kTTSymEmpty;
 	TTPresetPtr currentPreset;
 	
 	// First arg could be an index
-	if (value.getType() == kTypeInt32) {
-		value.get(0, index);
+	if (inputValue.getType() == kTypeInt32) {
+		inputValue.get(0, index);
 		if (index == 0)
 			return kTTErrGeneric;
 		
@@ -351,8 +351,8 @@ TTErr TTPresetManager::Recall(const TTValue& value)
 		currentPreset = getPresetCurrent();
 	}
 	// or a preset name
-	else if (value.getType() == kTypeSymbol) {
-		value.get(0, &presetName);
+	else if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, &presetName);
 		if (presetName == kTTSymEmpty)
 			return kTTErrGeneric;
 		
@@ -411,15 +411,15 @@ TTErr TTPresetManager::RecallPrevious()
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::Remove(const TTValue& value)
+TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt8		index;
 	TTSymbolPtr	presetName = kTTSymEmpty;
 	TTPresetPtr currentPreset;
 	
 	// First arg could be an index
-	if (value.getType() == kTypeInt32) {
-		value.get(0, index);
+	if (inputValue.getType() == kTypeInt32) {
+		inputValue.get(0, index);
 		if (index == 0)
 			return kTTErrGeneric;
 		
@@ -427,8 +427,8 @@ TTErr TTPresetManager::Remove(const TTValue& value)
 		currentPreset = getPresetCurrent();
 	}
 	// or a preset name
-	else if (value.getType() == kTypeSymbol) {
-		value.get(0, &presetName);
+	else if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, &presetName);
 		if (presetName == kTTSymEmpty)
 			return kTTErrGeneric;
 		
@@ -503,14 +503,14 @@ TTErr TTPresetManager::RemovePrevious()
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::WriteAsXml(const TTValue& value)
+TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTPresetPtr			aPreset;
     TTValue				v;
 	TTUInt8				i;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
     xmlTextWriterWriteComment(aXmlHandler->mWriter, BAD_CAST "TODO : TTContainer Description at mAddress");
 	
@@ -536,7 +536,7 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::ReadFromXml(const TTValue& value)
+TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		presetName;
@@ -544,7 +544,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& value)
 	TTPresetPtr		newPreset, currentPreset;
 	TTValue			v, args;
 	
-	value.get(0, (TTPtr*)&aXmlHandler);
+	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -622,12 +622,12 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& value)
 	return aXmlHandler->sendMessage(TT("Read"));
 }
 
-TTErr TTPresetManager::WriteAsText(const TTValue& value)
+TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ofstream		*file;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
 	*file << "TTPresetManager::WriteAsText -- TODO";
@@ -635,12 +635,12 @@ TTErr TTPresetManager::WriteAsText(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::ReadFromText(const TTValue& value)
+TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	ifstream		*file;
 	
-	value.get(0, (TTPtr*)&aTextHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mReader;
 	
 	// TODO

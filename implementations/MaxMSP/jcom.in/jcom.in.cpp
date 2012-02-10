@@ -1,7 +1,7 @@
 /* 
  * jcom.in (~) (TODO %)
  * External for Jamoma: manage any signal inputs
- * Copyright Â© 2010 by ThÃ©o de la Hogue
+ * By Tim Place and ThŽo de la Hogue, Copyright © 2010
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -39,6 +39,8 @@ void		in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 #ifdef JCOM_IN_TILDE
 t_int*		in_perform(t_int *w);
 void		in_dsp(TTPtr self, t_signal **sp, short *count);
+void		in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
+void		in_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
 void		in_update_amplitude(TTPtr self);
 
 #else
@@ -77,6 +79,7 @@ void WrapTTInputClass(WrappedClassPtr c)
 	
 #ifdef JCOM_IN_TILDE
 	class_addmethod(c->maxClass, (method)in_dsp,						"dsp", 					A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)in_dsp64,						"dsp64",				A_CANT, 0);
 	//class_addmethod(c->maxClass, (method)in_remoteaudio,				"remoteaudio",			A_CANT, 0);
 #else
 	class_addmethod(c->maxClass, (method)in_return_signal,				"return_signal",		A_CANT, 0);
@@ -433,6 +436,68 @@ void in_dsp(TTPtr self, t_signal **sp, short *count)
 	
 	dsp_addv(in_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
+}
+
+// Perform Method 64 bit - just pass the whole vector straight through
+// (the work is all done in the dsp 64 bit method)
+void in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
+	TTUInt8						numChannels = 0;
+	TTUInt16					vectorSize = 0;
+	short						i; 
+	
+	// get numChannels and vectorSize
+	if (anInput) {
+		
+		anInput->mInfo.get(info_numChannels, numChannels);
+		anInput->mInfo.get(info_vectorSize, vectorSize);
+		
+		// Store the input from the inlets
+		for (i=0; i < numChannels; i++)
+			TTAudioSignalPtr(anInput->mSignalIn)->setVector(i, vectorSize, ins[i]);
+		// if this doesn't work, I need to try setVector64Copy instead of setVector
+		
+		// TODO: need to mix in input here from jcom.send~ objects (as in the old code above)
+		TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
+		
+		// Send the input on to the outlets for the algorithm
+		for (short i=0; i < numChannels; i++)	
+			TTAudioSignalPtr(anInput->mSignalOut)->getVectorCopy(i, vectorSize, outs[i]);
+	}
+}
+
+// DSP64 method
+void in_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
+	TTUInt8						numChannels = 0;
+	short						i, j;
+	
+	// get numChannels and vectorSize
+	if (anInput) {
+		
+		for (i=0; i < anInput->mNumber; i++) {
+			j = anInput->mNumber + i;
+			if (count[i] || count[j]) {
+				numChannels++;			
+			}
+		}
+		anInput->mInfo.set(info_numChannels, numChannels);
+		
+		anInput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
+		
+		anInput->mSignalIn->setAttributeValue(TT("numChannels"), numChannels);
+		anInput->mSignalOut->setAttributeValue(TT("numChannels"), numChannels);
+		anInput->mSignalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+		anInput->mSignalOut->setAttributeValue(TT("vectorSize"),(TTUInt16)maxvectorsize);
+		// mSignalIn will be set in the perform method
+		anInput->mSignalOut->sendMessage(TT("alloc"));
+		
+		object_method(dsp64, gensym("dsp_add64"), x, in_perform64, 0, NULL); 
+	}
 }
 
 void in_update_amplitude(TTPtr self)

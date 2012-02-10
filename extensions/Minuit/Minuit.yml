@@ -1,0 +1,16 @@
+
+sources:
+  - ../../library/ProtocolLib/Protocol.cpp		
+  - source/Minuit.cpp
+  - source/MinuitAnswer.cpp
+  - source/MinuitAnswerManager.cpp
+    
+includes:
+  - "."
+  - "includes"
+  - "../../library/ProtocolLib"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+

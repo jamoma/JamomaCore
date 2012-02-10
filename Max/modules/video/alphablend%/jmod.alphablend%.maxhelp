@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -27,8 +28,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 230.0, 205.0, 108.0, 31.0 ],
-					"text" : "This videoneed to have an alpha layer"
+					"patching_rect" : [ 230.0, 205.0, 119.0, 31.0 ],
+					"text" : "This video needs to have an alpha layer"
 				}
 
 			}

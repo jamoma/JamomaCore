@@ -185,7 +185,7 @@ void view_subscribe(TTPtr self)
 	TTValue						v;
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
 	TTNodeAddressPtr			absoluteAddress;
-	TTObjectPtr					anObject;
+	TTObjectPtr					toSubscribe, anObject;
 	
 	// for absolute address
 	if (x->address->getType() == kAddressAbsolute) {
@@ -200,28 +200,43 @@ void view_subscribe(TTPtr self)
 	// for relative address
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 	
-	// View patcher case : try to subscribe the wrapped object
+	
+	// Do we subscribe the Viewer ?
+	
+	// View patcher case :
 	if (x->patcherContext == kTTSym_view) {
 		
-		if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {
-			// get the context address to make
-			// a viewer on the contextAddress/model/address parameter
-			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-			v.get(0, (TTSymbolPtr*)&contextAddress);
-		}
-	}
-	// Model patcher case : try to binds on the parameter|message|return of the model
-	else if (x->patcherContext == kTTSym_model) {
+		// if the address refer to the hub (only :attributeName) don't subscribe the Viewer
+		if (x->address->getParent() == NO_PARENT && 
+			x->address->getName() == NO_NAME && 
+			x->address->getInstance() == NO_INSTANCE && 
+			x->address->getAttribute() != NO_ATTRIBUTE)
+			toSubscribe = NULL;
+	
+		// else try to subscribe the Viewer
+		else toSubscribe = x->wrappedObject;
 		
-		if (!jamoma_subscriber_create((ObjectPtr)x, NULL, x->address, &x->subscriberObject)) {
-			// get the context address to make
-			// a viewer on the contextAddress/model/address parameter
-			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-			v.get(0, (TTSymbolPtr*)&contextAddress);
-		}
+	}
+	// Model patcher case : 
+	// try to binds on the parameter|message|return of the model without subscribing the Viewer
+	else if (x->patcherContext == kTTSym_model)
+		toSubscribe = NULL;
+	
+	// Any other case : no subscription
+	else 
+		toSubscribe = NULL;
+
+	
+	// Try to subscribe the Viewer or just use the Subscriber to get the context address
+	if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, x->address, &x->subscriberObject)) {
+		// get the context address to make
+		// a viewer on the contextAddress/model/address parameter
+		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+		v.get(0, (TTSymbolPtr*)&contextAddress);
 	}
 	else
 		contextAddress = kTTAdrsRoot;
+	
 	
 	// bind on the /model/address parameter (in view patch)  or set address directly
 	if (contextAddress != kTTAdrsEmpty) {
@@ -261,8 +276,6 @@ void view_subscribe(TTPtr self)
 void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTBoolean	copyMsg = false;
-	TTUInt8		i;
 	
 	// avoid blank before data
 	if (msg == _sym_nothing)
@@ -271,27 +284,7 @@ void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
 	// Copy msg and atom in order to avoid losing data
-	if (msg != _sym_nothing && msg != _sym_int && msg != _sym_float && msg != _sym_symbol && msg != _sym_list)
-		copyMsg = true;
-	
-	x->msg = msg;
-	x->argc = argc;
-	if (copyMsg)
-		x->argc++;
-	
-	x->argv = NULL;
-	x->argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * x->argc);
-	
-	if (x->argc) {
-		if (copyMsg) {
-			atom_setsym(&x->argv[0], msg);
-			for (i=1; i<x->argc; i++)
-				x->argv[i] = argv[i-1];
-		}
-		else
-			for (i=0; i<x->argc; i++)
-				x->argv[i] = argv[i];
-	}
+	copy_msg_argc_argv(self, msg, argc, argv);
 	
 	qelem_set(EXTRA->ui_qelem);
 }
@@ -327,11 +320,8 @@ void view_float(TTPtr self, double value)
 void view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue		v;
 	
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
-	
-	x->wrappedObject->sendMessage(kTTSym_Send, v);
+	jamoma_viewer_send((TTViewerPtr)x->wrappedObject, msg, argc, argv);
 }
 
 void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -339,9 +329,7 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	
-	jamoma_ttvalue_from_Atom(v, msg, argc, argv);
-	
-	x->wrappedObject->sendMessage(kTTSym_Send, v);
+	jamoma_viewer_send((TTViewerPtr)x->wrappedObject, msg, argc, argv);
 }
 
 void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

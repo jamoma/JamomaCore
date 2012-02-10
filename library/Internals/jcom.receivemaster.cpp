@@ -1,6 +1,6 @@
-/* 
- * jcom.receivemaster
- * Manage jcom.receive instances
+/** 
+ * \file jcom.receivemaster.cpp
+ * Manage jcom.receive instances.
  * By Tim Place, Copyright � 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -9,18 +9,52 @@
 
 #include "Jamoma.h"
 
-/** ReceiveMaster Object
-  * This is an internal object that manages message dispatching to jcom.receive instances */
-typedef struct _jcom_receivemaster{
-	t_object	obj;			///< REQUIRED: Object "base class"
-} t_jcom_receivemaster;
-
 
 // Prototypes
+
+/************************************************************************************/
+// Object Life
+
+/** This method is called when a object is instantiated.
+ @param msg			Message passed to the object when instantiated.
+ @param argc		The number of arguments to the object.
+ @param argv		Pointer to arguments as atoms.
+ @return			Pointer to the object.
+ */
 void *receivemaster_new(t_symbol *msg, long argc, t_atom *argv);
+
+
+/** Method called when the object is freed.
+ @param x			Pointer to the object.
+ */
 void receivemaster_free(t_jcom_receivemaster *x);
+
+
+/** Send message to an object by remote communiction. 
+ @param x			Pointer to this object.
+ @param name		The (OCS) name of the receiving object.
+ @param msg			Message passed to the object.
+ @param argc		The number of arguments of the message to send.
+ @param argv		Pointer to arguments of the message as atoms.
+ */
 void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *msg, long argc, t_atom *argv);
+
+
+/** Add an object to a linked list of receiving objects associated with a certain name.
+ @param x			This object
+ @param name		The symbol that the receiving object is to be associated with.
+					Example: For a "jcom.send foo" object the name would be "foo".
+ @param obj			Pointer to the receiving object that is to be added.
+ */
 void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj);
+
+
+/** Remove an object from the linked list of receiving objects associated with a certain name.
+ @param x			This Object.
+ @param name		The symbol that the receiving object is currently associated with.
+ Example: For a "jcom.send foo" object the name would be "foo".
+ @param obj			Pointer to the receiving object that is to be removed.
+ */
 void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj);
 
 
@@ -50,9 +84,6 @@ void receivemaster_initclass()
 	// Finalize our class
 	class_register(CLASS_NOBOX, s_receivemaster_class);
 }
-
-/************************************************************************************/
-// Object Life
 
 void *receivemaster_new(t_symbol *msg, long argc, t_atom *argv)
 {
@@ -88,7 +119,7 @@ void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	if (!list) {
-		list = (t_linklist *)linklist_new();						// if there isn't a linklist for this name yet,
+		list = (t_linklist *)linklist_new();						// If there isn't a linklist for this name yet,
 		hashtab_store(s_receive_lists, name, (t_object *)list);		//	then we make one and store it in the hashtab
 	}
 	linklist_append(list, obj);										// 2. We add the object to the appropriate linklist

@@ -1,6 +1,6 @@
-/* 
- * jcom.send~
- * External for Jamoma: remote audio signal communication
+/** 
+ * \file jcom.send~.cpp
+ * External for Jamoma: Remote audio signal communication
  * By Tim Place, Copyright © 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -40,17 +40,62 @@ typedef struct _audiosend{
 
 
 // Prototypes
+
+/** Called at object instantiation.
+ @param s			Pointer to symbol bassed as message argument to the object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to arguments as an array of atoms.
+ @return			Pointer to the newly created object.
+ */
 void	*audiosend_new(t_symbol *s, long argc, t_atom *argv);
+
+
+/** Free up and dispose of the object.
+ @param x			Pointer to this object.
+ */
 void	audiosend_free(t_audiosend *x);
+
+
+/** Method for displaying assist strings for inlets and outlets.
+ @param x			Pointer to this object.
+ @param b
+ @param msg
+ @param argc
+ @param argv
+ */
 void	audiosend_assist(t_audiosend *x, void *b, long msg, long arg, char *dst);
+
+
+/** When banged, fill a menu with potential targets.
+ @param x			Pointer to this class.
+ */
 void	audiosend_bang(t_audiosend *x);
+
+
+/** Audio perform method for the object.
+ */
 t_int*	audiosend_perform(t_int *w);
+
+
+/** The DSP method for the object, called when compiling the audio chain.
+ @param x
+ @param sp
+ @param count
+ */
 void	audiosend_dsp(t_audiosend *x, t_signal **sp, short *count);
+
+
+/** Set the hub of the module we are sending to as an attribute.
+ @param x			Pointer to this object
+ @param attr		Pointer to the attribute
+ @param argc
+ @param argv
+*/
 t_max_err	audiosend_attr_settarget(t_audiosend *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
-static t_class		*s_audiosend_class;					// Required: Global pointer for our class
+static t_class		*s_audiosend_class;					///< Required: Global pointer for our class
 
 
 /************************************************************************************/
@@ -187,7 +232,7 @@ void audiosend_dsp(t_audiosend *x, t_signal **sp, short *count)
 			for (i=0, j=0; i<numInputs; i++) {
 				if (count[i])
 					j=i;
-				x->audio_in[i] = sp[i]->s_vec;
+				x->audio_in[i] = (t_float*)sp[i]->s_vec;
 			}
 			numInputs = j+1;
 

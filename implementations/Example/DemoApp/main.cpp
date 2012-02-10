@@ -31,12 +31,27 @@ main(int argc, char **argv)
 	
 	init();
 	
+	/*
+	// TEST TTDictionary
+	TTDictionaryPtr aDictionary = new TTDictionary;
+	
+	aDictionary->setSchema(TT("aSchema"));
+	aDictionary->append(TT("name"), TT("toto"));
+	aDictionary->append(TT("type"), TT("gars"));
+	aDictionary->append(TT("tag"), TT("blague"));
+	 */
+	
+	/*
 	// RUN TEST
 	TTObjectPtr testNodeLib = NULL;
 	TTValue	args;
 	TTObjectInstantiate(TT("nodelib.test"), &testNodeLib, args);
 	
 	testNodeLib->sendMessage(TT("test"), args);
+	 */
+	
+	
+	/*
 
 	// Create a TTData object an use it
 	/////////////////////////////////////////////////////////
@@ -88,7 +103,7 @@ main(int argc, char **argv)
 	TTObjectRelease(TTObjectHandle(&myData));
 
 	TTLogMessage("\n*** Ending my DemoApp application *** \n");
-
+*/
 	return EXIT_SUCCESS;
 }
 

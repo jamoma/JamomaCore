@@ -1,7 +1,0 @@
-//
-// Prefix header for all external source files of the Jamoma project.
-//
-
-#include <Carbon/Carbon.h>
-#define TT_TARGET_MAX
-#define TARGET_MACHO 1

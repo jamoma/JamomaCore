@@ -8,9 +8,15 @@ build
 html
 Debug
 Release
+Makefile
+
+# XCode files to be ignored
+xcuserdata
 *.mode1v3
 *.pbxuser
 *.perspectivev3
+project.xcworkspace
+
 *.layout
 *.depends
 *.map
@@ -24,6 +30,7 @@ Release
 # Files generated from templates by the build script
 JamomaModular.xcconfig
 TTModularVersion.h
+jcom.js_systeminfo.js
 
 # Git conflict files
 *.orig

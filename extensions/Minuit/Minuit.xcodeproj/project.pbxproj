@@ -1,0 +1,177 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXFileReference section */
+		D26DFB7714B208E000417FFE /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
+		D26DFB7814B208E000417FFE /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
+		D2AF80B314A0BA940001E901 /* Minuit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Minuit.h; sourceTree = "<group>"; };
+		D2AF80B414A0BA940001E901 /* MinuitAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinuitAnswer.h; sourceTree = "<group>"; };
+		D2AF80B514A0BA940001E901 /* MinuitAnswerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinuitAnswerManager.h; sourceTree = "<group>"; };
+		D2AF80B614A0BA940001E901 /* MinuitInclude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinuitInclude.h; sourceTree = "<group>"; };
+		D2AF80B714A0BA940001E901 /* Time2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Time2.hpp; sourceTree = "<group>"; };
+		D2AF80B914A0BAA00001E901 /* Minuit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Minuit.cpp; sourceTree = "<group>"; };
+		D2AF80BA14A0BAA00001E901 /* MinuitAnswer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinuitAnswer.cpp; sourceTree = "<group>"; };
+		D2AF80BB14A0BAA00001E901 /* MinuitAnswerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinuitAnswerManager.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* MinuitPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				D26DFB7614B208E000417FFE /* ProtocolLib */,
+				D2AF80B214A0BA940001E901 /* includes */,
+				D2AF80B814A0BAA00001E901 /* source */,
+			);
+			name = MinuitPlugin;
+			sourceTree = "<group>";
+		};
+		D26DFB7614B208E000417FFE /* ProtocolLib */ = {
+			isa = PBXGroup;
+			children = (
+				D26DFB7714B208E000417FFE /* Protocol.cpp */,
+				D26DFB7814B208E000417FFE /* Protocol.h */,
+			);
+			name = ProtocolLib;
+			path = ../../library/ProtocolLib;
+			sourceTree = SOURCE_ROOT;
+		};
+		D2AF80B214A0BA940001E901 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				D2AF80B614A0BA940001E901 /* MinuitInclude.h */,
+				D2AF80B314A0BA940001E901 /* Minuit.h */,
+				D2AF80B414A0BA940001E901 /* MinuitAnswer.h */,
+				D2AF80B514A0BA940001E901 /* MinuitAnswerManager.h */,
+				D2AF80B714A0BA940001E901 /* Time2.hpp */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		D2AF80B814A0BAA00001E901 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				D2AF80B914A0BAA00001E901 /* Minuit.cpp */,
+				D2AF80BA14A0BAA00001E901 /* MinuitAnswer.cpp */,
+				D2AF80BB14A0BAA00001E901 /* MinuitAnswerManager.cpp */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		D28A88AD04BDD90700651E21 /* MinuitPlugin */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "MinuitPlugin" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = MinuitPlugin;
+			passBuildSettingsInEnvironment = 1;
+			productName = MinuitPlugin;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Minuit" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* MinuitPlugin */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D28A88AD04BDD90700651E21 /* MinuitPlugin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB919008733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = MinuitPlugin;
+			};
+			name = Debug;
+		};
+		1DEB919108733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = MinuitPlugin;
+			};
+			name = Release;
+		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "MinuitPlugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Minuit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

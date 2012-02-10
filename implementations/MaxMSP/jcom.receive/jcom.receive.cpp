@@ -10,8 +10,8 @@
 #include "TTModularClassWrapperMax.h"
 
 
-#define address_out 0
-#define data_out 1
+#define data_out 0
+#define address_out 1
 #define dump_out 2
 
 // Definitions

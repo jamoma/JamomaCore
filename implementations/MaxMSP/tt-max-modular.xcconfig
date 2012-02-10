@@ -8,7 +8,7 @@
 
 #include "../../../supports/max/tt-max.xcconfig"
 
-OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib "$(DSPLIB)/library/build/UninstalledProducts"/JamomaDSP.dylib "$(GRAPH)/library/build/UninstalledProducts"/JamomaGraph.dylib "$(AUDIOGRAPH)/library/build/UninstalledProducts"/JamomaAudioGraph.dylib "$(GRAPHICS)/library/build/UninstalledProducts"/JamomaGraphics.dylib "$(MODULAR)/library/build/UninstalledProducts"/JamomaModular.dylib
+OTHER_LDFLAGS = "$(FOUNDATION)/library/build"/JamomaFoundation.dylib "$(DSPLIB)/library/build"/JamomaDSP.dylib "$(GRAPH)/library/build"/JamomaGraph.dylib "$(AUDIOGRAPH)/library/build"/JamomaAudioGraph.dylib "$(MODULAR)/library/build"/JamomaModular.dylib
 
 // Only for Théo because he is still developping Modular0.6 under 10.5...
 SDKROOT = $(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk

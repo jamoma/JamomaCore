@@ -67,7 +67,7 @@ private:
 	
 	TTErr						getMirrorAttribute(const TTAttribute& anAttribute, TTValue& value);
 	TTErr						setMirrorAttribute(const TTAttribute& anAttribute, const TTValue& value);
-	TTErr						sendMirrorMessage(const TTSymbol* messageName, TTValue& value);
+	TTErr						sendMirrorMessage(const TTSymbol* messageName, const TTValue& inputValue, TTValue& outputValue);
 	
 	
 public:

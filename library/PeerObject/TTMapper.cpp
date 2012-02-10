@@ -20,6 +20,7 @@ mInputMax(1.),
 mOutputMin(0.),
 mOutputMax(1.),
 mEnable(YES),
+mInverse(NO),
 mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
 mFunctionParameters(kTTValNONE),
@@ -33,7 +34,7 @@ mOutputRangeObserver(NULL),
 mObserveInputRange(true),
 mObserveOutputRange(true),
 mReturnValueCallback(NULL)
-#ifdef TTDSP
+#ifndef TT_NO_DSP
 ,
 mFunctionUnit(NULL),
 mValid(NO)
@@ -52,18 +53,20 @@ mValid(NO)
 	
 	addAttributeWithSetter(Enable, kTypeBoolean);
 	
+	addAttribute(Inverse, kTypeBoolean);
+	
 	addAttributeWithGetter(FunctionLibrary, kTypeLocalValue);
-	addAttributeProperty(functionLibrary, readOnly, YES);
+	addAttributeProperty(FunctionLibrary, readOnly, YES);
 	
 	addAttributeWithSetter(Function, kTypeSymbol);
 	
 	addAttribute(FunctionParameters, kTypeLocalValue);
-	addAttributeProperty(functionParameters, readOnly, YES);
+	addAttributeProperty(FunctionParameters, readOnly, YES);
 	
 	addAttributeWithGetter(FunctionSamples, kTypeLocalValue);
-	addAttributeProperty(functionSamples, readOnly, YES);
+	addAttributeProperty(FunctionSamples, readOnly, YES);
 	
-	addMessageWithArgument(Map);
+	addMessageWithArguments(Map);
 	addMessageProperty(Map, hidden, YES);
 	
 	scaleInput();
@@ -74,7 +77,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 {
 	long		n;
 	TTSymbolPtr	aName;
-#ifdef TTDSP	
+#ifndef TT_NO_DSP	
 	if (mFunctionUnit) {
 		
 		// Remove former datas
@@ -115,18 +118,18 @@ TTMapper::~TTMapper() // TODO : delete things...
 		TTObjectRelease(TTObjectHandle(&mOutputRangeObserver));
 }
 
-TTErr TTMapper::Map(TTValue& value)
+TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 {
 	if (mEnable) {
 		
-		processMapping(value);
+		processMapping(inputValue, outputValue);
 		
 		// return value
 		if (mSender)
-			mSender->sendMessage(kTTSym_Send, value);
+			mSender->sendMessage(kTTSym_Send, outputValue, kTTValNONE);
 		
 		if (mReturnValueCallback)
-			mReturnValueCallback->notify(value);
+			mReturnValueCallback->notify(outputValue, kTTValNONE);
 	}
 	
 	return kTTErrNone;
@@ -142,14 +145,15 @@ TTErr TTMapper::getFunctionLibrary(TTValue& value)
 
 TTErr TTMapper::getFunctionSamples(TTValue& value)
 {
+	TTValue		inputSamples;
 	TTFloat64	s, resolution;
 	
 	resolution = (mInputMax - mInputMin) / 100; // TODO : add an attribute for the number of samples (default : 100)
 	
 	for (s = mInputMin; s < mInputMax; s += resolution)
-		value.append(s);
+		inputSamples.append(s);
 	
-	processMapping(value);
+	processMapping(inputSamples, value);
 	
 	return kTTErrNone;
 }
@@ -371,7 +375,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	long		n;
 	TTValue		names;
 	TTSymbolPtr	aName;
-#ifdef TTDSP	
+#ifndef TT_NO_DSP	
 	if (mFunctionUnit) {
 
 		// Remove former datas
@@ -510,24 +514,24 @@ TTErr TTMapper::scaleOutput()
 	return kTTErrNone;
 }
 
-TTErr TTMapper::processMapping(TTValue& value)
+TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		in, out;
 	TTFloat64	f;
 	TTInt32		i, size;
 	
-	size = value.getSize();
+	size = inputValue.getSize();
 	
-	// clip Input value
-	value.clip(mInputMin, mInputMax);
+	// clip input value
+	inputValue.clip(mInputMin, mInputMax);
 	
-	// scale Input value
+	// scale input value
 	for (i=0; i<size; i++) {
-		value.get(i, f);
+		inputValue.get(i, f);
 		in.append(mA * f + mB);
 	}
 
-#ifdef TTDSP
+#ifndef TT_NO_DSP
 	// process function
 	if (mFunctionUnit)
 		mFunctionUnit->calculate(in, out);
@@ -535,16 +539,18 @@ TTErr TTMapper::processMapping(TTValue& value)
 #endif		
 		out = in;
 	
-	value.clear();
-	
-	// scale Output value
+	// scale output value
 	for (i=0; i<size; i++) {
 		out.get(i, f);
-		value.append(mC * f + mD);
+		
+		if (!mInverse)
+			outputValue.append(mC * f + mD);
+		else
+			outputValue.append(mOutputMax - (mC * f + mD));
 	}
 	
 	// clip output value
-	value.clip(mOutputMin, mOutputMax);
+	outputValue.clip(mOutputMin, mOutputMax);
 	
 	return kTTErrNone;
 }
@@ -699,7 +705,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 {
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
-	TTValue		v;
+	TTValue		mappedValue;
 	
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
@@ -707,18 +713,15 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	
 	if (aMapper->mEnable) {
 		
-		// protect data
-		v = data;
-		
 		// process the mapping
-		aMapper->processMapping(v);
+		aMapper->processMapping(data, mappedValue);
 		
 		// return value
 		if (aMapper->mSender)
-			aMapper->mSender->sendMessage(kTTSym_Send, v);
+			aMapper->mSender->sendMessage(kTTSym_Send, mappedValue, kTTValNONE);
 		
 		if (aMapper->mReturnValueCallback)
-			aMapper->mReturnValueCallback->notify(v);
+			aMapper->mReturnValueCallback->notify(mappedValue, kTTValNONE);
 	}
 	
 	return kTTErrNone;

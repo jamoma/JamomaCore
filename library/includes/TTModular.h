@@ -36,7 +36,7 @@
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
 
-#ifdef TTDSP
+#ifndef TT_NO_DSP
 #include "TTDSP.h"
 #endif
 
@@ -47,7 +47,7 @@
 
 #include "TTRegex.h"
 
-#include "Plugin.h"
+#include "Protocol.h"
 
 #include "TTApplication.h"
 #include "TTApplicationManager.h"
@@ -103,13 +103,12 @@ class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
 extern	TTMODULAR_EXPORT	TTApplicationManagerPtr TTModularApplications;
-extern	TTMODULAR_EXPORT	TTSymbolPtr				kTTSym_localApplicationName;
 
 // Prototypes
 
 /** Init the Modular library, and the Foundation if needed
 	It creates the application manager with no application inside */
-void	TTMODULAR_EXPORT	TTModularInit(TTString pluginFolderPath);
+void	TTMODULAR_EXPORT	TTModularInit();
 
 /** Create the local application and use a configuration file */
 void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);

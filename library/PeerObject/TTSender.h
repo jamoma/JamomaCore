@@ -33,7 +33,7 @@ private:
 	TTErr setAddress(const TTValue& value);
 	
 	/** */
-	TTErr Send(TTValue& valueToSend);				// to -- lower case in order to hide the message during the Class wrapping process
+	TTErr Send(TTValue& valueToSend, TTValue& outputValue);				// to -- lower case in order to hide the message during the Class wrapping process
 	
 	/** */
 	TTErr bindAddress();
