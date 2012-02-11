@@ -301,9 +301,6 @@ TTErr TTReceiver::unbindAddress()
 							TTObjectRelease(&oldObserver);
 					}
 				}
-				
-				// forget this element
-				mNodesObserversCache->remove(oldElement);
 			}
 			
 			delete mNodesObserversCache;
