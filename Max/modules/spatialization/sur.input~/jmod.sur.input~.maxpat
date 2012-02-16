@@ -2716,7 +2716,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 542.0, 336.0, 458.0, 19.0 ],
-					"text" : "jcom.parameter play @type boolean @repetitions/allow 0 @description \"starts playback\"",
+					"text" : "jcom.parameter play @type boolean @repetitions/allow 0 @priority 2 @description \"starts playback\"",
 					"varname" : "play"
 				}
 
@@ -2749,7 +2749,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 168.0, 565.0, 31.0 ],
-					"text" : "jcom.parameter open @type string @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\" @value/default NULL"
+					"text" : "jcom.parameter open @type string @priority 1 @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\" @value/default NULL"
 				}
 
 			}
