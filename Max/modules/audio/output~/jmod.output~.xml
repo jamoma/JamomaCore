@@ -17,7 +17,7 @@
     <item name='limiter/postamp' type='decimal' priority='0'>0.000000</item>
     <item name='limiter/preamp' type='decimal' priority='0'>6.000000</item>
     <item name='limiter/release' type='decimal' priority='0'>300.000000</item>
-    <item name='limiter/threshold' type='decimal' priority='0'>-6.000000</item>
+    <item name='limiter/threshold' type='decimal' priority='0'>-1.000000</item>
     <item name='record/filetype' type='string' priority='0'>aiff</item>
     <item name='record/samptype' type='string' priority='0'>int24</item>
     <item name='saturation/active' type='boolean' priority='0'>1</item>
