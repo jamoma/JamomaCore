@@ -111,10 +111,10 @@ void jamoma_init(void)
 		object_method_typed(max, SymbolGen("definecommand"), 4, a, NULL);
         		
 		// I -- Input: a new audio input module
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat @args input~", NULL);
 				
 		// O -- Output: a new audio output module	
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat @args output~", NULL);
 		
 		// B -- BPatcher: a new module in a bpatcher
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
@@ -123,7 +123,7 @@ void jamoma_init(void)
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"D patcher inserttextobj \"bpatcher @name jmod.\"", NULL);		
 
 		// X -- Continuous Mapper module
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat @args /mapper", NULL);		
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat @args mapper", NULL);		
 		
 		// !!!! --- x is defined here to work around a 'bug' in the Max Toolbox b13 ( http://code.google.com/p/maxtoolbox/downloads/list )
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"x patcher nothing", NULL);		
