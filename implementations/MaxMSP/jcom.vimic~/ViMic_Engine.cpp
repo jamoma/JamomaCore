@@ -48,38 +48,25 @@ void vimic_sensitivity(double *sensi, double *del, Mic *mic, Mirror *mirror, Sou
         orient[0] = mirror->xPos() - mic->xPos();
         orient[1] = mirror->yPos() - mic->yPos();
         orient[2] = mirror->zPos() - mic->zPos();
-        distance = pow(((orient[0] * orient[0]) + (orient[1] * orient[1]) + (orient[2] * orient[2])), 0.5);
-
+        distance = sqrt((orient[0] * orient[0]) + (orient[1] * orient[1]) + (orient[2] * orient[2]));
+		TTLimitMin(distance, 0.1);
+		
         tempcos = cos(mic->ele());
         cosAng = (orient[0] * sin(mic->azi()) * tempcos + orient[1] * cos(mic->azi()) * tempcos + orient[2] * sin(mic->ele())) / distance;
+		TTLimit(cosAng, -1.0, 1.0); // MAKING SURE IT'S NOT A NaN
 
-        if (cosAng > 1.0)	// MAKING SURE IT'S NOT A NaN
-        {
-            cosAng = 1.0;
-            if (globWarningFlag)
-                post("Angle capped at %f", cosAng);
-        }
-        else if (cosAng < -1.0)
-        {
-            cosAng = -1.0;
-            if (globWarningFlag)
-                post("Angle capped at %f", cosAng);
-        }
-
-        newSensi =  pow((mic->dirGainA() + (mic->dirGainB() * cosAng)), mic->dirPow());
-        if (distModel == 1)
-        {
-            newSensi *= pow(distance + 1.0, mic->distPow()); // inverse proportional decrease
-        }
-        else if (distModel == 2)
-        {	
-            newSensi*= pow(10.0,((distance)* mic->dbUnit())); 
-        }  //exponential decrease
+		newSensi =  pow((mic->dirGainA() + (mic->dirGainB() * cosAng)), mic->dirPow());
+        
+		if (distModel == 1){
+			newSensi *= pow(distance, mic->distPow()); // inverse proportional decrease
+        } else { //if (distModel == 2)
+			//exponential decrease
+			newSensi *= pow(10.0,(distance* mic->dbUnit())); 
+        }  
 
         // Source Directivity ... frequency independent...so far
-
-        if (source->directivityFlag())
-        {
+		
+        if (source->directivityFlag()) {
             switch(reflNum) 
             {
                 case 0: //DIRECT SOUND
@@ -115,12 +102,15 @@ void vimic_sensitivity(double *sensi, double *del, Mic *mic, Mirror *mirror, Sou
             }             
         }
 
-        newSensi *= mic->gain();	
+        newSensi *= mic->gain();		
         newSensi *= reflGains[order];
+		
 #ifndef __INTEL_COMPILER // with icc, we use the flushtozero flag which takes care of that
 		TTZeroDenormal(newSensi);
 #endif
-        if(newSensi > 1.0)
+		TTLimit(newSensi, Polarity, 1.0);
+		
+        /*if(newSensi > 1.0)
         {
             if (globWarningFlag)
                 post("Sensitivity %f capped at 1.0", newSensi);
@@ -129,7 +119,7 @@ void vimic_sensitivity(double *sensi, double *del, Mic *mic, Mirror *mirror, Sou
         else if (newSensi < Polarity)//-1.0) //TODO: option restrict polarity, if (newSensi < 0).... newSensi = 0;
         {
             if (globWarningFlag)
-                post("Sensitivity %f capped at -1.0", newSensi);
+                post("Sensitivity %f capped at %f", newSensi, Polarity);
             newSensi = Polarity;//-1.0;	// clip to minimum gain
         }
         else if (IEM_NAN(newSensi)) // if it's NAN 
@@ -137,7 +127,7 @@ void vimic_sensitivity(double *sensi, double *del, Mic *mic, Mirror *mirror, Sou
             newSensi = 0.0;
             if (globWarningFlag)
                 error("Sensitivity caused a NaN!");
-        }
+        }*/
 #if 0
         else if (newSensi != 0.0 && IEM_DENORMAL(newSensi)) // if it's denormal
         {
@@ -153,13 +143,14 @@ void vimic_sensitivity(double *sensi, double *del, Mic *mic, Mirror *mirror, Sou
             *sensi = newSensi;
 
         newDel = distance * One_over_Speedofsound; 	
-
-        if (newDel >= Properties::DELAYSIZE)	// cap max delay time
+		TTLimit(newDel, 0.0, double(Properties::DELAYSIZE));   // check for abnormal values
+		
+        /*if (newDel >= Properties::DELAYSIZE)	// cap max delay time
         {
             newDel = Properties::DELAYSIZE;
             if (globWarningFlag)
                 post("Delay time capped at %f", newDel);
-        }
+        }*/
 
         // only update delay time if it's >= 0, and we're not in crossfade more, or if we are, we are not in the middle of a crossfade
 
