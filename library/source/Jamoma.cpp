@@ -166,14 +166,14 @@ void jamoma_init(void)
 			atom_setsym(a+2, SymbolGen("jmod.mapperContinuous"));
 			object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);	
 		}
-		
+		/*
 		// Here bind the TTBlue environment object to the symbol "TTBlue"
 		{
 			t_symbol* TTBlueMaxSymbol = SymbolGen("TTBlue");
 			
 			TTBlueMaxSymbol->s_thing = 0;
 			// Before we can do this we have to have a ttblue max class to receive the messages, duh...
-		}
+		}*/
 		
 		// now the jamoma object
 		{
