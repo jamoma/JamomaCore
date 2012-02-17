@@ -29,7 +29,8 @@ Mic::Mic(double x, double y, double z, double newAzi, double newEle) : Moveable(
     dirPow_ = 1.0;
     dirGainA_ = 1.0;
     dirGainB_ = 0.0;
-    distPow_ = 1.0;
+    distPow_ = -1.0;
+	//TODO: add dbUnit_
     flag(true);
 }
 
@@ -59,7 +60,8 @@ void Mic::init()
     dirPow_ = 1.0;
     dirGainA_ = 1.0;
     dirGainB_ = 0.0;
-    distPow_ = 1.0;
+    distPow_ = -1.0;
+	//TODO: add dbUnit_
     flag(true);
 }
 
@@ -95,14 +97,12 @@ void Mic::dirGainA(double newDirGain)
 {
     bool capped = false;
 
-    if (newDirGain > 1.0)
-    {
-        newDirGain = 1.0;
+    if (newDirGain > 1.0){
+		newDirGain = 1.0;
         capped = true;
     }
-    else if (newDirGain < -1.0)
-    {
-        newDirGain = -1.0;
+    else if (newDirGain < -1.0){
+		newDirGain = -1.0;
         capped = true;
     }
 
@@ -202,7 +202,7 @@ void Mic::dbUnit(double newDbUnit)
     else if (newDbUnit < 0.0)
     {
         newDbUnit = 0.0;
-        capped = true;
+        capped = true;	
     }
     newDbUnit = -0.05 * newDbUnit; 
     dbUnit_ = newDbUnit;
