@@ -91,33 +91,32 @@ void *vimic_new(t_symbol *s, int argc, t_atom *argv)
     long n;
     t_vimic *x = (t_vimic*)object_alloc(vimic_class);
     if(x){
+		x->numOfSources = 1;	
+		x->numOfChannels = 8;	
+		x->reflOrder = 2;
+		x->maxReflOrder = 2; //TODO: we don't really need this, don'twe
+		globWarningFlag = false;
+		globReportFlag = false; 
+		x->normalizeSensiFlag = false;
+		x->minSensiFlag = false;
+		x->minimumDelayFlag = false;
+		x->minSensi = 0.0;		
+		x->distModel = 1;	
 		
-    x->numOfChannels = 8;	
-    x->reflOrder = 2;
-    x->maxReflOrder = 2; //TODO: we don't really need this, don'twe
-    globWarningFlag = false;
-    globReportFlag = false; 
-    x->normalizeSensiFlag = false;
-    x->minSensiFlag = false;
-	x->minimumDelayFlag = false;
-    x->minSensi = 0.0;		
-    x->distModel = 1;	
-		
-    if(argc)
-    {
-        if(argv[0].a_w.w_long > 0 && argv[0].a_w.w_long <= Properties::MAXNUMCHANNELS)
-            x->numOfChannels = (int) argv[0].a_w.w_long;
-        else if (globWarningFlag) 
-            post("requested number of channels could not be set. Set to default of 8 instead");
+		if(argc){
+			if(argv[0].a_w.w_long > 0 && argv[0].a_w.w_long <= Properties::MAXNUMCHANNELS)
+				x->numOfChannels = (int) argv[0].a_w.w_long;
+			else if (globWarningFlag) 
+				post("requested number of channels could not be set. Set to default of 8 instead");
         /*if(argv[1].a_w.w_long >= 0 && argv[1].a_w.w_long <= Properties::REFLECTIONORDER)
             x->maxReflOrder = (int) argv[1].a_w.w_long;
         else if (globWarningFlag) 
             post("requested reflection order could not be set. Set to default of 1 instead");*/
-    }
+		}
 
-    //x->reflOrder = x->maxReflOrder;
+		//x->reflOrder = x->maxReflOrder;
 
-    dsp_setup((t_pxobject*)x, 1); // one signal inlet
+		dsp_setup((t_pxobject*)x, 1); // one signal inlet
 
     /* 
        According to the image Model the number of Reflections can be determined based on the Reflection Order
@@ -129,71 +128,70 @@ void *vimic_new(t_symbol *s, int argc, t_atom *argv)
         post("Invalid reflection order, defaulting to 2.");
         x->reflOrder = 2;
     }*/
-    x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
+		x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
 
-    x->maxDynRefl = x->numRefl;
-    x->reflGains[0] = 0.0;
-    x->reflGains[1] = 0.0;
-    x->reflGains[2] = 0.0;
-    x->reflGainFlag = true;
+		x->maxDynRefl = x->numRefl;
+		x->reflGains[0] = 0.0;
+		x->reflGains[1] = 0.0;
+		x->reflGains[2] = 0.0;
+		x->reflGainFlag = true;
 
-    x->bufSz = x->numRefl * x->numOfChannels;
-    x->numOfSources = 1;
-    x->room = new Room(20, 30, 8, x->numOfChannels, x->numOfSources, x->reflOrder);		// width, depth, height, channels, sources, reflection order
+		x->bufSz = x->numRefl * x->numOfChannels;
+    
+		x->room = new Room(20, 30, 8, x->numOfChannels, x->numOfSources, x->reflOrder);		// width, depth, height, channels, sources, reflection order
 
-    x->AudioProcType = Properties::VIMIC_LITE; // Set to ViMiC
-    x->c_phase = 0;
-    x->directBang = 0;
-    x->x_sr = Properties::SAMPLERATE;  
-    x->micPolarity = -1.0;
-    /////
-    x->renderInterval = 50;
-    x->blocksize = 64;
-    x->grainsize = (double) 1.0 / (x->renderInterval * x->blocksize);
+		x->AudioProcType = Properties::VIMIC_LITE; // Set to ViMiC
+		x->c_phase = 0;
+		x->directBang = 0;
+		x->x_sr = Properties::SAMPLERATE;  
+		x->micPolarity = -1.0;
+		/////
+		x->renderInterval = 50;
+		x->blocksize = 64;
+		x->grainsize = (double) 1.0 / (x->renderInterval * x->blocksize);
 
-    ///////////////////x-fade parameter
-    x->fades = new CrossFadeQueue(10, Properties::FADE_TABLE_SIZE, Properties::COS, x->x_sr);
+		///////////////////x-fade parameter
+		x->fades = new CrossFadeQueue(10, Properties::FADE_TABLE_SIZE, Properties::COS, x->x_sr);
 
-    ////////////////// air properties
-    x->temperature = 21; //degree Celsius
-    x->speedOfSound = (331.3 * sqrt(1.0 + x->temperature / 273.15)) / x->x_sr; //x->temperature/x->x_sr; //331.3*sqrt(1+temp/273.15)
-    x->invSpeedOfSound = 1.0 / x->speedOfSound; 	
+		////////////////// air properties
+		x->temperature = 21; //degree Celsius
+		x->speedOfSound = (331.3 * sqrt(1.0 + x->temperature / 273.15)) / x->x_sr; //x->temperature/x->x_sr; //331.3*sqrt(1+temp/273.15)
+		x->invSpeedOfSound = 1.0 / x->speedOfSound; 	
 
-    if ((x->c_vec = (double *) malloc(Properties::DELAYBYTES * sizeof(double))) == NULL)	
-        exit(EXIT_FAILURE);
+		if ((x->c_vec = (double *) malloc(Properties::DELAYBYTES * sizeof(double))) == NULL)	
+			exit(EXIT_FAILURE);
 
-    for (n = 0; n < Properties::DELAYBYTES; n++)
-        x->c_vec[n] = 0.0;
+		for (n = 0; n < Properties::DELAYBYTES; n++)
+			x->c_vec[n] = 0.0;
 
-    if ((x->delay = (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
-        exit(EXIT_FAILURE);
-    if ((x->currentDelay = (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
-        exit(EXIT_FAILURE);
-    if ((x->delGrain= (double *) getbytes((short) x->bufSz  * sizeof(double))) == NULL)
-        exit(EXIT_FAILURE);
-    if ((x->sensiGrain= (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
-        exit(EXIT_FAILURE);
-    if ((x->sensitivity= (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
-        exit(EXIT_FAILURE);
-    if ((x->currentSensitivity= (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
-        exit(EXIT_FAILURE);
+		if ((x->delay = (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
+			exit(EXIT_FAILURE);
+		if ((x->currentDelay = (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
+			exit(EXIT_FAILURE);
+		if ((x->delGrain= (double *) getbytes((short) x->bufSz  * sizeof(double))) == NULL)
+			exit(EXIT_FAILURE);
+		if ((x->sensiGrain= (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
+			exit(EXIT_FAILURE);
+		if ((x->sensitivity= (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
+			exit(EXIT_FAILURE);
+		if ((x->currentSensitivity= (double *) getbytes((short) x->bufSz * sizeof(double))) == NULL)
+			exit(EXIT_FAILURE);
 
-    for(n = 0; n < x->bufSz; n++) 
-    {
-        x->currentDelay[n] = 0.0;
-        x->delay[n] = 0.0;
-        x->sensitivity[n] = 0.0;
-        x->currentSensitivity[n] = 0.0;
-        x->delGrain[n] = 0.0;
-        x->sensiGrain[n] = 0.0;
-    }
-    x->grainCounter = 0;
+		for(n = 0; n < x->bufSz; n++){
+			x->currentDelay[n] = 0.0;
+			x->delay[n] = 0.0;
+			x->sensitivity[n] = 0.0;
+			x->currentSensitivity[n] = 0.0;
+			x->delGrain[n] = 0.0;
+			x->sensiGrain[n] = 0.0;
+		}    
+		x->grainCounter = 0;
 
-    for(n = 0; n < x->numOfChannels; n++)
-        outlet_new((t_pxobject *)x, "signal");
+		for(n = 0; n < x->numOfChannels; n++)
+			outlet_new((t_pxobject *)x, "signal");
 
-    x->room->renderMirrors();
-    x->room->mics.renderMics();
+		x->room->renderMirrors();
+		x->room->mics.renderMics();
 	}
     return x;
 }
@@ -433,13 +431,13 @@ void vimic_reflGain(t_vimic *x, t_symbol *s, short argc, t_atom *argv) //TODO ch
                     //{
                     x->reflGains[b] = CLIP(argv[1].a_w.w_float,0.0, 8.0);
 					
-					if (x->reflGains[2]){
+					if (x->reflGains[2] > 0.0){
 						x->reflOrder = 2;
 						x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
 						x->maxReflOrder = x->reflOrder;						
 						x->maxDynRefl = x->numRefl;						
 					}
-					else if(x->reflGains[1]) {
+					else if(x->reflGains[1] > 0.0){
 						x->reflOrder = 1;
 						x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
 						x->maxReflOrder = x->reflOrder;						
@@ -450,8 +448,7 @@ void vimic_reflGain(t_vimic *x, t_symbol *s, short argc, t_atom *argv) //TODO ch
 						x->numRefl = Properties::REFLECTIONS_PER_REFLECTION_ORDER[x->reflOrder];
 						x->maxReflOrder = x->reflOrder;						
 						x->maxDynRefl = x->numRefl;						
-					}			
-					//post("reflOrder: %ld, numRefl: %ld ",x->reflOrder,x->numRefl);
+					}					
 					
                     x->reflGainFlag = true;
 					
@@ -1198,8 +1195,8 @@ void vimic_bang(t_vimic *x)
     }
 
 
-    if(x->reflOrder < 3)
-    {   
+    //if(x->reflOrder < 3)
+    //{   
         //critical_enter(0);
         for (m = 0; m < x->numOfChannels; m++)
         {
@@ -1219,7 +1216,7 @@ void vimic_bang(t_vimic *x)
         }
         x->room->mics.flag(false);
         //critical_exit(0);
-    } 
+    //} 
 
 
     if (grainCounterFlag)		// something has changed
@@ -1233,7 +1230,7 @@ void vimic_bang(t_vimic *x)
 
         if (x->normalizeSensiFlag){   
 			//critical_enter(0);
-            float invSqrtSumSensi = vimic_invSqrtSumSensi(x->sensitivity, x->bufSz);
+            double invSqrtSumSensi = vimic_invSqrtSumSensi(x->sensitivity, x->bufSz);
             for (int i = 0; i < x->bufSz; i++)
                 vimic_normalizeSensi(x->sensitivity + i, invSqrtSumSensi);
             //critical_exit(0);
