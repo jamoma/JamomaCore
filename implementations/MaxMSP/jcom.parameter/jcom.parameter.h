@@ -204,10 +204,14 @@ MaxErr	param_attr_getfreeze(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setfreeze(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getstepsize(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+#ifndef JMOD_MESSAGE
 MaxErr	param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setmixweight(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+#endif
+
 MaxErr	param_attr_getreadonly(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setreadonly(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getvalue(t_param *x, void *attr, long *argc, AtomPtr *argv);
