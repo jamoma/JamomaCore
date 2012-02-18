@@ -15,7 +15,7 @@
     <item name='limiter/postamp' type='decimal' priority='0' mixweight='1'>0.000000</item>
     <item name='limiter/preamp' type='decimal' priority='0' mixweight='1'>6.000000</item>
     <item name='limiter/release' type='decimal' priority='0' mixweight='1'>300.000000</item>
-    <item name='limiter/threshold' type='decimal' priority='0' mixweight='1'>6.000000</item>
+    <item name='limiter/threshold' type='decimal' priority='0' mixweight='1'>-1.000000</item>
     <item name='numSpeakers' type='integer' priority='0' mixweight='1'>8</item>
     <item name='offset' type='integer' priority='0' mixweight='1'>0</item>
     <item name='record/filetype' type='string' priority='0' mixweight='1'>default</item>
