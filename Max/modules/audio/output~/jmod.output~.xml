@@ -22,10 +22,6 @@
     <item name='record/samptype' type='string' priority='0'>int24</item>
     <item name='saturation/active' type='boolean' priority='0'>1</item>
     <item name='saturation/depth' type='decimal' priority='0'>10.000000</item>
-    <item name='view/color/border' type='array' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 140 </item>
   </preset>

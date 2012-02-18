@@ -22,10 +22,6 @@
     <item name='source.7/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='source.8/blur' type='decimal' priority='0'>0.000000</item>
     <item name='source.8/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='view/color/border' type='array' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 210 </item>
   </preset>
