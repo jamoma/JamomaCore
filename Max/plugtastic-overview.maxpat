@@ -7,7 +7,7 @@
 			"revision" : 4
 		}
 ,
-		"rect" : [ 264.0, 173.0, 460.0, 357.0 ],
+		"rect" : [ 264.0, 173.0, 561.0, 402.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -27,6 +27,69 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-10",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 116.5, 383.0, 349.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 153.0, 331.0, 253.0, 20.0 ],
+					"text" : "click here to watch the intro video at youtube ",
+					"underline" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"handoff" : "",
+					"id" : "obj-28",
+					"maxclass" : "ubutton",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "bang", "bang", "", "int" ],
+					"patching_rect" : [ 99.0, 383.0, 86.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 153.0, 331.0, 245.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"hidden" : 1,
+					"id" : "obj-29",
+					"linecount" : 3,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 99.0, 415.0, 208.0, 36.0 ],
+					"text" : ";\rmax launchbrowser http://www.youtube.com/watch?v=8TQ_f1wmq0U"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-5",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 99.0, 355.0, 349.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 143.5, 311.0, 129.0, 20.0 ],
+					"text" : "What is plugtastic?"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -58,14 +121,14 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@description", "Overview of plugtastic examples" ],
+					"args" : [ "@description", "Plugtastic - create Audio Units with Max" ],
 					"bgmode" : 1,
 					"id" : "obj-3",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 552.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 561.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 1232.0, 70.0 ],
 					"prototypename" : "bphelp",
@@ -85,7 +148,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 141.5, 90.0, 269.0, 170.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 112.5, 114.0, 269.0, 170.0 ],
+					"presentation_rect" : [ 143.5, 113.0, 269.0, 170.0 ],
 					"tabs" : [ "A Plugtastic Adventure", "A Plugtastic Instrument", "A Plugtastic Sidechain", "plugtastic.gain" ]
 				}
 
@@ -106,6 +169,15 @@
 					"disabled" : 0,
 					"hidden" : 1,
 					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-29", 0 ],
+					"disabled" : 0,
+					"hidden" : 1,
+					"source" : [ "obj-28", 0 ]
 				}
 
 			}
