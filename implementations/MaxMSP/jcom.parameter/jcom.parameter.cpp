@@ -120,8 +120,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// ATTRIBUTE: stepsize - how much increment or decrement by
 	jamoma_class_attr_new(c,		"value/stepsize",			_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
 
+#ifndef JMOD_MESSAGE
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
 	jamoma_class_attr_new(c,		"priority",					_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
+#endif
 
 	// ATTRIBUTE: value
 	jamoma_class_attr_array_new(c,	"value",					_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
@@ -142,8 +144,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_class_attr_new(c,		"dataspace/unit/display",	_sym_symbol, (method)param_attr_setdisplayunit, (method)param_attr_getdisplayunit);
 	// the override dataspace is not exposed as an attribute
 
+#ifndef JMOD_MESSAGE
 	// ATTRIBUTE: mixweight - used by preset/mix message
 	jamoma_class_attr_new(c,		"mix/weight",			_sym_float32, (method)param_attr_setmixweight, (method)param_attr_getmixweight);
+#endif
+
 	
 	// Default Attribute Order for the Inspector
 	CLASS_ATTR_ORDER(c, "name",						0, "1");
@@ -164,7 +169,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ORDER(c, "value",					0, "16");
 	CLASS_ATTR_ORDER(c, "value/default",			0, "17");
 	CLASS_ATTR_ORDER(c, "value/stepsize",			0, "18");
+#ifndef JMOD_MESSAGE
 	CLASS_ATTR_ORDER(c, "mix/weight",			0, "19");
+#endif
+
 		// Finalize our class
 	class_register(_sym_box, c);
 	parameter_class = c;
@@ -517,6 +525,7 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 // This function allocates memory -- caller must free it!
 void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 {
+#ifndef JMOD_MESSAGE
 	*count = 19;
 	*names = (SymbolPtr*)sysmem_newptr(sizeof(SymbolPtr) * *count);
 	
@@ -541,7 +550,33 @@ void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 		*(*names+16) = gensym("value/default");
 		*(*names+17) = gensym("value/stepsize");
 		*(*names+18) = gensym("mix/weight");
+	}	
+#else
+	*count = 17;
+	*names = (SymbolPtr*)sysmem_newptr(sizeof(SymbolPtr) * *count);
+	
+	// These should be alphabetized
+	if (*count) {
+		*(*names+0) = gensym("name");
+		*(*names+1) = gensym("type");
+		*(*names+2) = gensym("range/bounds");
+		*(*names+3) = gensym("range/clipmode");
+		*(*names+4) = gensym("ramp/drive");
+		*(*names+5) = gensym("ramp/function");
+		*(*names+6) = gensym("repetitions/allow");
+		*(*names+7) = gensym("dataspace");
+		*(*names+8) = gensym("dataspace/unit/native");
+		*(*names+9) = gensym("dataspace/unit/active");
+		*(*names+10) = gensym("dataspace/unit/display");
+		*(*names+11) = gensym("description");
+		*(*names+12) = gensym("readonly");
+		*(*names+13) = gensym("ui/freeze");
+		*(*names+14) = gensym("value");
+		*(*names+15) = gensym("value/default");
+		*(*names+16) = gensym("value/stepsize");
 	}
+#endif
+
 }
 
 
@@ -702,7 +737,7 @@ MaxErr param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr ar
 	return MAX_ERR_NONE;
 }
 
-
+#ifndef JMOD_MESSAGE
 MaxErr param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
@@ -718,8 +753,10 @@ MaxErr param_attr_setmixweight(t_param *x, void *attr, AtomCount argc, AtomPtr a
 		x->attr_mixweight = atom_getfloat(argv);
 	return MAX_ERR_NONE;
 }
+#endif
 
 
+#ifndef JMOD_MESSAGE
 MaxErr param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
@@ -735,6 +772,7 @@ MaxErr param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr ar
 		x->attr_priority = atom_getlong(argv);
 	return MAX_ERR_NONE;
 }
+#endif
 
 
 MaxErr param_attr_getreadonly(t_param *x, void *attr, long *argc, AtomPtr *argv)
@@ -1037,11 +1075,13 @@ void param_dump(t_param *x)
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_unitNative);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-		
+
+#ifndef JMOD_MESSAGE
 		snprintf(s, 256, "%s:/priority", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_priority);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+#endif
 		
 		snprintf(s, 256, "%s:/ramp/drive", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
@@ -1106,11 +1146,13 @@ void param_dump(t_param *x)
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-				
+
+#ifndef JMOD_MESSAGE
 		snprintf(s, 256, "%s:/mix/weight", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->attr_mixweight);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+#endif
 	}
 }
 
