@@ -19,6 +19,9 @@ TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
 	addAttributeWithSetter(Base,	kTypeFloat64);
+		addAttributeProperty(Base,			range,			TTValue(kTTEpsilon, 100000.0));
+		addAttributeProperty(Base,			rangeChecking,	TT("cliplow")); // options are "clip" "cliphigh" "cliplow"
+
 	
 	// Set Defaults (should be sufficient resolution for a while):
 #ifdef TT_PLATFORM_MAC
@@ -40,30 +43,49 @@ TTLogFunction::~TTLogFunction()
 
 TTErr TTLogFunction::setBase(const TTValue& newValue)
 {
-	// TODO: Add test to ensure that base > 0;
 	mBase = newValue;
-
 	k = 1. / log(mBase);
 	l = mBase - 1.;
-	
+	if (mBase == 1) {
+		setProcessMethod(processAudioBypass);
+		setCalculateMethod(calculateValueBypass);
+	}
+	else{ 
+		setProcessMethod(processAudio);
+		setCalculateMethod(calculateValue);
+	}
 	return kTTErrNone;
 }
 
 
 TTErr TTLogFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	// Avoid multiplication by zero
-	if (mBase == 1.0)
-		y = x;
-	else
-		y = k * log(x*l+1.0);
+	/*double temp = x*l+1.0;  
+	if (temp > 0.0) {
+		y = k * log(temp); //avoiding nan and -inf
+		return kTTErrNone;
+	}
+	else 
+		return kTTErrInvalidValue;*/
 	
+	y = k * log(x*l+1.0);  //TODO: we need to make sure that log10() is not -inf or nan
 	return kTTErrNone;
 }
 
+TTErr TTLogFunction::calculateValueBypass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{
+	// Avoid multiplication by zero	
+	y = x;	
+	return kTTErrNone;
+}
 
 TTErr TTLogFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
 
+
+TTErr TTLogFunction::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TT_WRAP_CALCULATE_METHOD(calculateValueBypass);
+}
