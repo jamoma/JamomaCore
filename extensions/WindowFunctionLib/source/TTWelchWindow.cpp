@@ -29,11 +29,13 @@ WelchWindow::~WelchWindow()
 // welch(i) = 1.0 - ((i-n/2)/(n/2)) * ((i-n/2)/(n/2))
 TTErr WelchWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	TTFloat64	w;
-	
 	//w = ((x-1.0/2.0)/(1.0/2.0)); 
-	w = (x-0.5)/0.5; 
-	y = 1.0 - (w * w);
+	
+	//TTFloat64	w;
+	//w = (x-0.5)/0.5; 	
+	//y = 1.0 - (w * w);
+	// [NP]: since we assume that n=1, we can simplified to:
+	y = 4.0 * (-x*x + x);
 	return kTTErrNone;
 }
 
