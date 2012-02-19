@@ -20,11 +20,11 @@ mPoly1GainCorrection(1),
 mShape(NULL)
 {
 	addAttributeWithSetter(Strength,			kTypeFloat64);
-		addAttributeProperty(Strength,			range,			TTValue(0.000000000001, 100000));
+		addAttributeProperty(Strength,			range,			TTValue(kTTEpsilon, 100000.0));
 		addAttributeProperty(Strength,			rangeChecking,	TT("clip"));
 	addAttributeWithSetter(Shape,	kTypeSymbol);
 	setProcessMethod(processAudioSin);
-	setAttributeValue(TT("strength"), 0.000000000001);
+	setAttributeValue(TT("strength"), kTTEpsilon);
 	setAttributeValue(TT("shape"), TT("sin"));
 }
 
@@ -106,7 +106,7 @@ TTErr TTWaveshaper::processAudioPoly1(TTAudioSignalArrayPtr inputs, TTAudioSigna
 
 inline TTErr TTWaveshaper::calculateValuePoly1(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {   
-	//wawveshaping examle by http://www.music.mcgill.ca/~gary/307/week12/node2.html
+	//wawveshaping example by http://www.music.mcgill.ca/~gary/307/week12/node2.html
 	y = x * mStrength;
 	y = (y + y*y*y) * mPoly1GainCorrection;	
 	return kTTErrNone;
