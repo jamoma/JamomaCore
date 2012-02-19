@@ -1,4 +1,4 @@
-Jamoma DSP
+ Jamoma DSP
 Digital Signal Processing library built on the Jamoma Foundation API
 _________________________________________________________________
 
@@ -18,8 +18,7 @@ Place the folder containing this ReadMe somewhere on your hard-drive. Then Make 
 
 Install Locations are as follows:
 	Mac 	library is expected @		/usr/local/jamoma/lib/JamomaDSP.dylib
-			extensions are expected @	/Library/Application Support/Jamoma/Extensions/*.ttdylib
-										~/Library/Application Support/Jamoma/Extensions/*.ttdylib
+			extensions are expected @	/usr/local/jamoma/extensions/*.ttdylib									
 
 	Linux 	library	is expected @		/usr/lib/jamoma/runtime/libJamomaDSP.so
 			extensions are expected @	/usr/lib/jamoma/extensions/*.ttso
@@ -48,4 +47,4 @@ This project hosted is hosted at https://github.com/jamoma/JamomaDSP
 
 
 Change Log
-The change log can be found at http://code.google.com/p/ttblue/wiki/ChangeLog
+The (outdated) change log can be found at http://code.google.com/p/ttblue/wiki/ChangeLog
