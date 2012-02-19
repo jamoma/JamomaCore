@@ -30,9 +30,12 @@ class TTExpFunction : TTAudioObject {
 		
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	inline TTErr calculateValueBypass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudioBypass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 };
 
