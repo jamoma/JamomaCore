@@ -7,7 +7,7 @@
 			"revision" : 4
 		}
 ,
-		"rect" : [ -2.0, 44.0, 1361.0, 595.0 ],
+		"rect" : [ 0.0, 44.0, 1361.0, 595.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -29,13 +29,41 @@
 		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-92",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 577.0, 293.0, 32.5, 17.0 ],
+					"text" : "\" \""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-90",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 577.0, 268.0, 86.0, 19.0 ],
+					"text" : "jcom.savebang"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"annotation" : "Destination module name of the mapping",
 					"arrow" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hint" : "/limiter~",
+					"hint" : " ",
 					"id" : "obj-1",
-					"items" : [ "/input~", ",", "/mapperDiscrete", ",", "/editing_this_module", ",", "/mapper" ],
+					"items" : [ "/editing_this_module", ",", "/mapperDiscrete" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -54,9 +82,9 @@
 					"arrow" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hint" : "/mouse",
+					"hint" : " ",
 					"id" : "obj-80",
-					"items" : [ "/input~", ",", "/mapperDiscrete", ",", "/editing_this_module", ",", "/mapper" ],
+					"items" : [ "/editing_this_module", ",", "/mapperDiscrete" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1173,7 +1201,7 @@
 					"hint" : "current state of input",
 					"id" : "obj-67",
 					"ignoreclick" : 1,
-					"items" : "0.3660",
+					"items" : " ",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -3192,7 +3220,7 @@
 					"arrow" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hint" : "/audio/gain",
+					"hint" : " ",
 					"id" : "obj-55",
 					"items" : [ " ", ",", "/audio/bypass", ",", "/audio/gain", ",", "/audio/mix", ",", "/audio/mute", ",", "/lookahead", ",", "/mode", ",", "/postamp", ",", "/preamp", ",", "/release", ",", "/threshold", ",", "/view/color/border", ",", "/view/color/contentBackground", ",", "/view/color/toolbarBackground", ",", "/view/color/toolbarText", ",", "/view/freeze", ",", "/view/size", ",", "<separator>", ",", "/documentation/generate", ",", "/init", ",", "/preset/clear", ",", "/preset/copy", ",", "/preset/default", ",", "/preset/dump", ",", "/preset/interpolate", ",", "/preset/post", ",", "/preset/read", ",", "/preset/recall", ",", "/preset/store", ",", "/preset/storecurrent", ",", "/preset/storenext", ",", "/preset/write", ",", "/preset/writeagain", ",", "/view/internals", ",", "/view/refresh", ",", "/view/script" ],
 					"maxclass" : "umenu",
@@ -20358,6 +20386,60 @@
 				}
 
 			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-92", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-90", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-35", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-92", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-38", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-92", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-49", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-92", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-50", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-92", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-63", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-92", 0 ]
+				}
+
+			}
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.thru.maxpat",
@@ -20457,6 +20539,10 @@
 			}
 , 			{
 				"name" : "jcom.in.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.savebang.mxo",
 				"type" : "iLaX"
 			}
  ]
