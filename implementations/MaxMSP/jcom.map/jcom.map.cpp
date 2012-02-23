@@ -293,7 +293,7 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 	object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
 
 	obj->parameterNames->getKeys(names);
-	n = names.getSize();
+	n = names.getSize();	
 	if (n) {
 		for (int i=0; i<n; i++) {
 			atom_setsym(a+0, gensym("append"));
@@ -364,11 +364,10 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 				continue;										// don't publish these parameters
 
 			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
-				nameString[0] += 32;							// convert first letter to lower-case for Max
-
-				TTValuePtr v = new TTValue(aName);
-				obj->parameterNames->append(TT(nameString.c_str()), *v);
-			}
+				nameString[0] += 32;                            // convert first letter to lower-case for Max
+			}			
+			TTValuePtr v = new TTValue(aName);
+			obj->parameterNames->append(TT(nameString.c_str()), *v);
 		}
 	}
 	obj->valid = true;
