@@ -15,5 +15,5 @@ libraries:
   - FOUNDATION
   - DSP
 
-compiler: gcc46 #options are icc, gcc46, gcc	
+compiler: gcc #options are icc, gcc46, gcc	
 	 
