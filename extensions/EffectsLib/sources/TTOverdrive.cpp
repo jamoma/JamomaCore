@@ -21,10 +21,10 @@ TT_AUDIO_CONSTRUCTOR
 	
 	// Register Attributes
 	addAttributeWithSetter(Drive,				kTypeFloat64);
-		addAttributeProperty(Drive,			range,			TTValue(1.0, 32.0));
+		addAttributeProperty(Drive,			range,			TTValue(1.0, 10.0));
 		addAttributeProperty(Drive,			rangeChecking,	TT("clip")); // options are "clip" "cliphigh" "cliplow"
 	addAttributeWithSetter(DcBlocker,			kTypeBoolean);
-	addAttributeWithSetter(Mode,				kTypeUInt8);
+	addAttributeWithSetter(Mode,				kTypeBoolean);// IMPORTANT: if we have more modes, the datatype need to change here
 	addAttributeWithGetterAndSetter(Preamp,		kTypeFloat64);
 	
 	// Register Messages
@@ -58,16 +58,17 @@ TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValu
 TTErr TTOverdrive::setDrive(const TTValue& newValue)
 {
 	TTFloat64 	f;
-	int			i;		
+	int			i;	
 	
+	mDrive = newValue;
 	// These calculations really only apply to mode 1...
 	f = (mDrive - 0.999) * 0.111;	// range is roughly [0.001 to 0.999]
 	
 	z = kTTPi * f;
 	s = 1.0 / sin(z);
 	b = 1.0 / f;
-	b = TTClip(b, 0.0, 1.0);
-	nb = b * -1.;
+    TTLimit(b, 0.0, 1.0);
+	nb = b * -1.0;
 	i = int(f);
 	if ((f-(TTFloat64)i) > 0.5) 
 		scale = sin(z); // sin(f * kTTPi);
