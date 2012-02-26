@@ -59,7 +59,7 @@ TTErr SpatThru::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 {
 	TTAudioSignal&	src = inputs->getSignal(0);
 	TTAudioSignal&	dst = outputs->getSignal(0);
-	TTUInt16		vs; // = src.getVectorSizeAsInt();
+	TTUInt16		vs = src.getVectorSizeAsInt();
 	TTSampleValue*	srcSample;
 	TTSampleValue*	dstSample;
 	
@@ -76,29 +76,22 @@ TTErr SpatThru::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 		TTValue v = mDestinationCount;
 		
 		dst.setMaxNumChannels(v);
-		dst.setNumChannelsWithInt(v);
-		//FIXME: would this be faster? dst.setNumChannelsWithInt(mDestinationCount);
+		dst.setNumChannelsWithInt(v);		
 		dstChannelCount = mDestinationCount;
 	}
 	
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(dst,src);
-		
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(dst,src);	
+	
 	for (channel=0; channel<numchannels; channel++) {
 		srcSample = src.mSampleVectors[channel];
 		dstSample = dst.mSampleVectors[channel];
-		vs = src.getVectorSizeAsInt();// FIXME: is this necessary everytime ? 
-		while (vs--) {
-			*dstSample++ = *srcSample++;
-		}
+		memcpy(dstSample, srcSample, sizeof(TTSampleValue) * vs);	
 	}
 	
 	if (dstChannelCount > srcChannelCount) {
 		for (channel; channel<dstChannelCount; channel++) {
 			dstSample = dst.mSampleVectors[channel];
-			vs = dst.getVectorSizeAsInt();// FIXME: is this necessary everytime ? 
-			while (vs--) {
-				*dstSample++ = 0.0;
-			}
+			memset(dstSample, 0, sizeof(TTSampleValue) * vs);
 		}
 	}
 	
