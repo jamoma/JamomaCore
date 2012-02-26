@@ -1,6 +1,0 @@
-[submodule "rosc"]
-	path = rosc
-	url = git://github.com/tap/rosc.git
-[submodule "objectivemax"]
-	path = objectivemax
-	url = git://github.com/jamoma/ObjectiveMax.git
