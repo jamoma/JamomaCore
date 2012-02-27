@@ -235,8 +235,10 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->common.attr_name = name;
 		x->attr_ui_freeze = 0;
 		x->attr_stepsize = 1.0;
+#ifndef JMOD_MESSAGE		
 		x->attr_mixweight = 1.0;                    // default: include parameter in mix
 		x->attr_priority = 0;						// default is no priority
+#endif
 		x->param_output = &param_output_generic;	// set function pointer to default
         x->attr_ramp = jps_none;
         x->attr_rampfunction = jps_linear;
@@ -594,7 +596,7 @@ MaxErr param_attr_settype(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 		x->param_output = &param_output_float;
 	}
 	else if (arg == jps_string) {
-		x->param_output = &param_output_symbol;
+		x->param_output = &param_output_symbol;	
 	}
 	else if (arg == jps_boolean) {
 		x->param_output = &param_output_int;
@@ -749,14 +751,11 @@ MaxErr param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv
 
 MaxErr param_attr_setmixweight(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
-	if (argc && argv)
+	if (argc && argv) 
 		x->attr_mixweight = atom_getfloat(argv);
 	return MAX_ERR_NONE;
 }
-#endif
 
-
-#ifndef JMOD_MESSAGE
 MaxErr param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;

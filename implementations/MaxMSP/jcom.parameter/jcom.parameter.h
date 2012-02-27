@@ -47,9 +47,11 @@ typedef struct _param{
 	SymbolPtr		attr_ramp;					///< ATTRIBUTE: ramp mode 
 	long			attr_ui_freeze;				///< ATTRIBUTE: freeze updating of graphical user interface
 	float			attr_stepsize;				///< ATTRIBUTE: amount to increment or decrement by
+#ifndef JMOD_MESSAGE	
 	long			attr_priority;				///< ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
-	long			attr_readonly;
 	float			attr_mixweight;				///< ATTRIBUTE: weight for preset/mix message
+#endif	
+	long			attr_readonly;
 	//	Atom			name_atom;					///< the above name, but cached as an atom for quick referencing
 	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
 	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
