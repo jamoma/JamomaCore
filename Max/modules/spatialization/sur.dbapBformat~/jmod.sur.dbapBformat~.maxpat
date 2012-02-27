@@ -1,10 +1,14 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 223.0, 157.0, 1150.0, 577.0 ],
+		"appversion" : 		{
+			"major" : 6,
+			"minor" : 0,
+			"revision" : 4
+		}
+,
+		"rect" : [ 130.0, 183.0, 1150.0, 551.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 223.0, 157.0, 1150.0, 577.0 ],
-		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
@@ -12,12 +16,16 @@
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
+		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -158,8 +166,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 460.0, 593.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"patching_rect" : [ 470.0, 460.0, 602.0, 31.0 ],
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @description \"Position of the nth source.\""
 				}
 
 			}
@@ -173,8 +181,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 255.0, 580.0, 31.0 ],
-					"text" : "jcom.message.array 8 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"patching_rect" : [ 470.0, 255.0, 589.0, 31.0 ],
+					"text" : "jcom.message.array 8 source position @type array @dataspace position @dataspace/unit/active xyz @description \"Position of the nth source.\""
 				}
 
 			}
@@ -197,9 +205,9 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
+						"description" : "Get info on current positions of sources and speakers",
 						"type" : "none",
-						"name" : "info",
-						"description" : "Get info on current positions of sources and speakers"
+						"name" : "info"
 					}
 ,
 					"id" : "obj-28",
@@ -214,6 +222,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Rolloff in dB with doubling of distance.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-17",
@@ -222,6 +231,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
+					"parameter_enable" : 0,
 					"patching_rect" : [ 468.0, 77.0, 40.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 245.0, 45.0, 40.0, 19.0 ]
@@ -246,6 +256,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "The number of speakers to diffuse to.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-10",
@@ -256,6 +267,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
+					"parameter_enable" : 0,
 					"patching_rect" : [ 468.0, 119.0, 40.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 120.0, 45.0, 40.0, 19.0 ]
@@ -280,6 +292,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "The number of sources to process.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
@@ -290,6 +303,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
+					"parameter_enable" : 0,
 					"patching_rect" : [ 468.0, 188.0, 40.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 120.0, 25.0, 40.0, 19.0 ]
@@ -526,8 +540,8 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-31", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -535,8 +549,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-10", 0 ]
 				}
 
@@ -544,8 +558,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -553,8 +567,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -562,8 +576,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-17", 0 ]
 				}
 
@@ -571,8 +585,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-31", 1 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-26", 0 ]
 				}
 
@@ -580,6 +594,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 49.5, 138.5, 14.5, 138.5 ],
 					"source" : [ "obj-3", 0 ]
@@ -589,8 +604,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-31", 1 ]
 				}
 
@@ -598,8 +613,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-34", 0 ]
 				}
 
@@ -607,8 +622,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-36", 0 ]
 				}
 
@@ -616,8 +631,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-44", 0 ]
 				}
 
@@ -625,6 +640,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 284.5, 138.0, 14.5, 138.0 ],
 					"source" : [ "obj-5", 0 ]
@@ -634,6 +650,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 79.5, 138.0, 14.5, 138.0 ],
 					"source" : [ "obj-8", 0 ]
@@ -643,11 +660,98 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-44", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-9", 0 ]
 				}
 
+			}
+ ],
+		"dependency_cache" : [ 			{
+				"name" : "jalg.sur.dbapBformat~.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/spatialization/sur.dbapBformat~",
+				"patcherrelativepath" : "",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.thru.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+				"patcherrelativepath" : "../../../library/components/thru",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.message.array.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/message.array",
+				"patcherrelativepath" : "../../../library/components/message.array",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.message.array.instance.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/message.array",
+				"patcherrelativepath" : "../../../library/components/message.array",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.parameter.array.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/parameter.array",
+				"patcherrelativepath" : "../../../library/components/parameter.array",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.parameter.array.instance.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/parameter.array",
+				"patcherrelativepath" : "../../../library/components/parameter.array",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.ui.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.parameter.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.hub.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.matrix≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.dbapBformat.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.oscinstance.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.pass.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.oscroute.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.dataspace.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.in.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.message.mxo",
+				"type" : "iLaX"
 			}
  ]
 	}
