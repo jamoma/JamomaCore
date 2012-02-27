@@ -329,25 +329,27 @@ static float mix_one_preset (t_preset_item *item1, int nmix, float factor, float
     if (item1->type == jps_integer) {
 	*val += atom_getfloat(&item1->value_list[0]) * factor * mixweight;
 	atom_setfloat(&newValue[0], *val);
-    } else if (item1->type == jps_decimal) {
+    } 
+	else if (item1->type == jps_decimal) {
 	*val += atom_getfloat(&item1->value_list[0]) * factor * mixweight;
 	atom_setfloat(&newValue[0], *val);
-    } else if (item1->type == jps_boolean) {	// bool: mean thresholded to bool
+    } 
+	else if (item1->type == jps_boolean) {	// bool: mean thresholded to bool
 	*val += atom_getlong(&item1->value) * factor * mixweight;
 	atom_setlong(&newValue[0], (*val / nmix >= 0.5));
-    } else if (item1->type == jps_array || item1->type == jps_list_int || item1->type == jps_list_float) 
-    {
-	for (int i = 0; i < item1->list_size; i++) {
-	    val[i] += atom_getfloat(&item1->value_list[i]) * factor * mixweight;
-	    atom_setfloat(&newValue[i], val[i]);
+    } 
+	else if (item1->type == jps_array || item1->type == jps_list_int || item1->type == jps_list_float) {
+		for (int i = 0; i < item1->list_size; i++) {
+			val[i] += atom_getfloat(&item1->value_list[i]) * factor * mixweight;
+			atom_setfloat(&newValue[i], val[i]);
+		}
 	}
-    } else if (item1->type == jps_string) {	// symbol: take max coef
-	if (factor * mixweight > *val)
-	{
-	    atom_setsym(&newValue[0], atom_getsym(&item1->value));
-	    *val = factor * mixweight;
+    else if (item1->type == jps_string) {	// symbol: take max coef
+		if (factor * mixweight >= *val) {
+			atom_setsym(&newValue[0], atom_getsym(&item1->value));
+			*val = factor * mixweight;
+		}
 	}
-    }
 
     return mixweight * factor;
 }
