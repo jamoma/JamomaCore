@@ -83,7 +83,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 100.0, 235.0, 136.0, 19.0 ],
-					"text" : "jcom.oscroute /view/size"
+					"text" : "jcom.oscroute view/freeze"
 				}
 
 			}
