@@ -1030,8 +1030,9 @@ void param_makereceive(void* z)
 #ifndef JMOD_MESSAGE 
 		//sending description as annotation to the GUI object which is connected to the leftmost outlet
 		// TODO: this might not be the most elegant place to do this here
-		atom_setsym(&a, x->common.attr_description);		
-		outlet_anything(x->outlets[k_outlet_set], _sym_annotation, 1, &a); //TODO: use defer_low?
+		atom_setsym(&a, _sym_annotation);
+		atom_setsym(&a+1, x->common.attr_description);		
+		outlet_anything(x->outlets[k_outlet_set], _sym_sendbox, 2, &a); //TODO: use defer_low?
 #endif		
 	}
 	else
