@@ -1368,7 +1368,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 787.0, 266.0, 155.0, 79.0 ],
-					"text" : "jcom.message tempo/value @type decimal @description \"tempo of the global transport\" @range/clipmode 0. 200. @ramp/drive scheduler @priority 6",
+					"text" : "jcom.message tempo/value @type decimal @description \"tempo of the global transport\" @range/clipmode 0. 200. @ramp/drive scheduler",
 					"varname" : "tempo/value"
 				}
 
