@@ -51,6 +51,8 @@
 #define JAMOMA_DEFAULT_FONTSIZE 9.0
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
 
+#define JAMOMA_LISTSIZE 512	// TODO: Discuss longer list support for Max 5
+
 
 extern "C" {
 

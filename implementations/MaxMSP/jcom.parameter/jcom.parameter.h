@@ -19,9 +19,6 @@
 // TODO: Does this actually work now with the headers in the frameworks? [TAP]
 #include "Jamoma.h"
 
-
-#define LISTSIZE 512	// TODO: Discuss longer list support for Max 5
-
 enum outlets{
 	k_outlet_set = 0,
 	k_outlet_direct,
@@ -38,8 +35,8 @@ typedef struct _param{
 	t_jcom_core_subscriber_extended	common;
 	pf_noargs		param_output;				///< bang method for the instance points to an optimized function
 	TTPtr 			outlets[num_outlets];		///< my outlet array
-//	Atom			atom_list[LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
-//	Atom			atom_listDefault[LISTSIZE];
+//	Atom			atom_list[JAMOMA_LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
+//	Atom			atom_listDefault[JAMOMA_LISTSIZE];
 	AtomPtr			atom_list;
 	AtomPtr			atom_listDefault;
 	long			list_size;					///< size of currently stored list

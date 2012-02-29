@@ -126,10 +126,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 #endif
 
 	// ATTRIBUTE: value
-	jamoma_class_attr_array_new(c,	"value",					_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
+	jamoma_class_attr_array_new(c,	"value",					_sym_atom, JAMOMA_LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
 
 	// ATTRIBUTE: value/default
-	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
+	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, JAMOMA_LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
 	jamoma_class_attr_new(c,		"readonly",					_sym_long, (method)param_attr_setreadonly, (method)param_attr_getreadonly);
 	CLASS_ATTR_STYLE(c,				"readonly",					0, "onoff");
@@ -212,8 +212,8 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->rampParameterNames = new TTHash;
 
 		// TODO: we shouldn't really allocate this much memory unless we actually need it...
-		x->atom_list = new Atom[LISTSIZE];
-		x->atom_listDefault = new Atom[LISTSIZE];
+		x->atom_list = new Atom[JAMOMA_LISTSIZE];
+		x->atom_listDefault = new Atom[JAMOMA_LISTSIZE];
 		
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2active, kTTValNONE);
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_active2display, kTTValNONE);
@@ -228,7 +228,7 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		// defaulted to one long above, set list to be of size 1
 		x->list_size = 1;
 		x->listDefault_size = 0;
-		for (i = 0; i < LISTSIZE; i++) {
+		for (i = 0; i < JAMOMA_LISTSIZE; i++) {
 			atom_setlong(&x->atom_list[i], 0);
 			atom_setlong(&x->atom_listDefault[i], 0);
 		}
@@ -1520,7 +1520,7 @@ void param_ui_refresh(t_param *x)
 // Send feedback to the hub
 void param_send_feedback(t_param *x)
 {
-	Atom output[LISTSIZE + 1];
+	Atom output[JAMOMA_LISTSIZE + 1];
 	AtomPtr out = (AtomPtr )(&output);
 	
 	// send to our ui outlet
@@ -1625,6 +1625,8 @@ int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
 
 void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
 {
+	TTLimitMax(argc, (long)JAMOMA_LISTSIZE);
+	
 	if ((x->attr_dataspace != _sym_none) && (x->attr_unitActive != x->attr_unitNative)) {
 		TTValue	vInput, vOutput;
 		
@@ -1647,8 +1649,8 @@ void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, Atom
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	double		start[LISTSIZE],
-				values[LISTSIZE],
+	double		start[JAMOMA_LISTSIZE],
+				values[JAMOMA_LISTSIZE],
 				time;
 	int			i;
 	AtomPtr		ramp;
