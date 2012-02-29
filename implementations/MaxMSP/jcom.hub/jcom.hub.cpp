@@ -751,7 +751,6 @@ void hub_getstate(t_hub *x)
 
 	
 	// Count the number of parameters with a priority
-	critical_enter(0);
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if (t->type == jps_subscribe_parameter) {
