@@ -353,7 +353,7 @@ void param_reset(t_param *x)
 	Atom a[2];
 	
 	/* We are using @description to set @annotation of the GUI object which is connected to the leftmost outlet
-	 The reason why we do it here, is that the parameter will be banged by the hub when the module is initialising.
+	 The reason why we do it here, is that the parameter will be reset by the hub when the module is initialising.
 	 By then callback has been properly set up, and can be checked for. This way we avoid setting
 	 annotation when the parameter is embedded in another object (e.g. jcom.ui), ref. redmine issue 1099.
 	 */
