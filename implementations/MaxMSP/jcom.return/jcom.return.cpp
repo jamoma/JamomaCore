@@ -19,9 +19,9 @@ enum outlets{
 typedef struct _return {
 	t_jcom_core_subscriber_extended	common;
 	void 							*outlets[num_outlets];	// my outlet array
-	t_atom							output[512];			// buffer that gets sent to the hub
-	short							output_len;
-	short							input_len;				//used in return_lis, stores the length of a list w/o the OSC name 
+	t_atom							output[JAMOMA_LISTSIZE+1];// buffer that gets sent to the hub
+	int								output_len;
+	int								input_len;				//used in return_lis, stores the length of a list w/o the OSC name 
 	char							attrEnable;
 	t_symbol						*attrDataspace;
 	t_symbol						*attrUnitNative;
@@ -417,22 +417,27 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 // LIST INPUT 
 void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	short i;
-	
 	if (!x->attrEnable)
 		return;
+	
+	int i;
+
+	TTLimitMax(argc, (long)JAMOMA_LISTSIZE); //making sure that the incoming list is not longer than our allocated memory 
 	
 	if (x->common.attr_repetitions == 0) {
 		if (param_list_compare(x->output+1, x->input_len, argv, argc))
 			return;	// nothing to do
-	}
+	}	
+	
+	
 			
 	for (i=1; i<=argc; i++) {
-		jcom_core_atom_copy(&x->output[i], argv++);
-		x->output_len++;	
+		jcom_core_atom_copy(&x->output[i], argv++);		
 	}
-	x->input_len = x->output_len-1;
-	outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-1, &x->output[1]);
+	
+	x->output_len = i;
+	x->input_len = x->output_len-1;	
+	outlet_anything(x->outlets[k_outlet_thru], msg, x->input_len, &x->output[1]);
 	return_send_feedback(x);
 }
 
