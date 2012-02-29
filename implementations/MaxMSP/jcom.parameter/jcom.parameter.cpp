@@ -1025,15 +1025,6 @@ void param_makereceive(void* z)
 		atom_setsym(&a, gensym(osc));
 		x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
 		object_method(x->receive, jps_setcallback, &param_receive_callback, x);
-		
-
-#ifndef JMOD_MESSAGE 
-		//sending description as annotation to the GUI object which is connected to the leftmost outlet
-		// TODO: this might not be the most elegant place to do this here
-		atom_setsym(&a, _sym_annotation);
-		atom_setsym(&a+1, x->common.attr_description);		
-		outlet_anything(x->outlets[k_outlet_set], _sym_sendbox, 2, &a); //TODO: use defer_low?
-#endif		
 	}
 	else
 		defer_low(x, (method)param_makereceive, 0, 0, 0);
@@ -1160,8 +1151,9 @@ void param_dump(t_param *x)
 // 'bang'method for user input
 void param_bang(t_param *x)
 {
+	Atom	a[2];
 #ifdef JMOD_MESSAGE
-	Atom	a;
+	
 	
 	atom_setsym(&a, gensym(""));
 	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
@@ -1174,6 +1166,17 @@ void param_bang(t_param *x)
 	}
 #else
 	x->param_output(x);
+	
+	/* We are using @description to set @annotation of the GUI object which is connected to the leftmost outlet
+	 The reason why we do it here, is that the parameter will be banged by the hub when the module is initialising.
+	 By then callback has been properly set up, and can be checked for. This way we avoid setting
+	 annotation when the parameter is embedded in another object (e.g. jcom.ui), ref. redmine issue 1099.
+	 */
+	atom_setsym(&a[0], _sym_annotation);
+	atom_setsym(&a[1], x->common.attr_description);
+	if (!x->callback)
+		outlet_anything(x->outlets[k_outlet_set], _sym_sendbox, 2, a); //TODO: use defer_low?
+
 #endif
 	if (x->callback)
 		x->callback(x, x->common.attr_name, x->list_size, x->atom_list);
