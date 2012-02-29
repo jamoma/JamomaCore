@@ -350,6 +350,20 @@ MaxErr param_getvalueof(t_param *x, long *argc, AtomPtr *argv)
 // resets to default value
 void param_reset(t_param *x)
 {
+	Atom a[2];
+	
+	/* We are using @description to set @annotation of the GUI object which is connected to the leftmost outlet
+	 The reason why we do it here, is that the parameter will be banged by the hub when the module is initialising.
+	 By then callback has been properly set up, and can be checked for. This way we avoid setting
+	 annotation when the parameter is embedded in another object (e.g. jcom.ui), ref. redmine issue 1099.
+	 */
+	atom_setsym(&a[0], _sym_annotation);
+	atom_setsym(&a[1], x->common.attr_description);
+	if (!x->callback)
+		outlet_anything(x->outlets[k_outlet_set], _sym_sendbox, 2, a); //TODO: use defer_low?
+
+	
+	
 	if (x->listDefault_size) {						// copy the default values to the current value
 		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(Atom) * x->listDefault_size);
 		x->list_size = x->listDefault_size;
@@ -1151,9 +1165,8 @@ void param_dump(t_param *x)
 // 'bang'method for user input
 void param_bang(t_param *x)
 {
-	Atom	a[2];
 #ifdef JMOD_MESSAGE
-	
+	Atom	a;
 	
 	atom_setsym(&a, gensym(""));
 	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
@@ -1167,16 +1180,6 @@ void param_bang(t_param *x)
 #else
 	x->param_output(x);
 	
-	/* We are using @description to set @annotation of the GUI object which is connected to the leftmost outlet
-	 The reason why we do it here, is that the parameter will be banged by the hub when the module is initialising.
-	 By then callback has been properly set up, and can be checked for. This way we avoid setting
-	 annotation when the parameter is embedded in another object (e.g. jcom.ui), ref. redmine issue 1099.
-	 */
-	atom_setsym(&a[0], _sym_annotation);
-	atom_setsym(&a[1], x->common.attr_description);
-	if (!x->callback)
-		outlet_anything(x->outlets[k_outlet_set], _sym_sendbox, 2, a); //TODO: use defer_low?
-
 #endif
 	if (x->callback)
 		x->callback(x, x->common.attr_name, x->list_size, x->atom_list);
