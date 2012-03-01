@@ -7,7 +7,7 @@
 			"revision" : 4
 		}
 ,
-		"rect" : [ 484.0, 114.0, 796.0, 482.0 ],
+		"rect" : [ 341.0, 151.0, 796.0, 482.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -31,12 +31,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-24",
-					"linecount" : 5,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 509.0, 356.0, 116.5, 67.0 ],
-					"text" : "test.assert.equal TESTfunctions.get clear cosine exponential linear logarithm"
+					"patching_rect" : [ 570.333313, 356.0, 206.5, 43.0 ],
+					"text" : "test.assert.equal jcom.map:method:functions.get clear cosine exponential linear logarithm"
 				}
 
 			}
@@ -50,7 +50,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 585.0, 264.0, 111.0, 46.0 ],
+					"patching_rect" : [ 646.333313, 264.0, 111.0, 46.0 ],
 					"text" : "clear cosine exponential linear logarithm"
 				}
 
@@ -60,12 +60,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-16",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 509.0, 264.0, 70.0, 20.0 ],
-					"text" : "zl group 64"
+					"patching_rect" : [ 570.333313, 264.0, 55.0, 34.0 ],
+					"text" : "zl group 127"
 				}
 
 			}
@@ -78,7 +79,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 509.0, 324.857117, 95.0, 21.0 ],
+					"patching_rect" : [ 570.333313, 324.857117, 95.0, 21.0 ],
 					"text" : "zl sect"
 				}
 
@@ -99,20 +100,6 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-3",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 219.0, 230.0, 56.0, 20.0 ],
-					"text" : "deferlow"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-27",
@@ -120,8 +107,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 395.5, 264.0, 113.0, 43.0 ],
-					"text" : "test.assert.equal TESTparameter.get symmetry none"
+					"patching_rect" : [ 383.0, 281.857117, 180.0, 43.0 ],
+					"text" : "test.assert.equal jcom.map:method:parameter.get symmetry none"
 				}
 
 			}
@@ -148,7 +135,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "bang", "bang", "bang", "bang", "bang" ],
-					"patching_rect" : [ 118.0, 113.0, 379.0, 20.0 ],
+					"patching_rect" : [ 73.0, 112.0, 455.0, 20.0 ],
 					"text" : "t b b b b b"
 				}
 
@@ -158,11 +145,12 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-13",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 282.0, 275.5, 70.0, 20.0 ],
+					"patching_rect" : [ 282.0, 318.357117, 55.0, 34.0 ],
 					"text" : "zl group 10"
 				}
 
@@ -190,7 +178,7 @@
 					"numinlets" : 4,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 282.0, 230.0, 359.5, 20.0 ],
+					"patching_rect" : [ 282.0, 230.0, 451.5, 20.0 ],
 					"text" : "route function.parameters current.parameter functions"
 				}
 
@@ -231,7 +219,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 118.0, 63.0, 20.0, 20.0 ]
+					"patching_rect" : [ 73.0, 62.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -240,12 +228,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-14",
-					"linecount" : 4,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 282.0, 356.0, 166.0, 55.0 ],
-					"text" : "test.assert.equal TESTfunction.parameters.get clear append symmetry append powerValue"
+					"patching_rect" : [ 282.0, 356.0, 215.0, 43.0 ],
+					"text" : "test.assert.equal jcom.map:method:parameters.get clear append symmetry append powerValue"
 				}
 
 			}
@@ -258,7 +246,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 118.0, 88.0, 58.0, 19.0 ],
+					"patching_rect" : [ 73.0, 87.0, 58.0, 19.0 ],
 					"text" : "loadbang"
 				}
 
@@ -336,18 +324,18 @@
 						"dependency_cache" : [  ]
 					}
 ,
-					"patching_rect" : [ 145.0, 178.0, 46.0, 19.0 ],
+					"patching_rect" : [ 145.0, 180.0, 46.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"description" : ""
+						"description" : "",
+						"tags" : "",
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p thru"
@@ -407,6 +395,24 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-15", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-15", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-19", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -425,19 +431,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-15", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 127.5, 145.0, 82.5, 145.0 ],
+					"midpoints" : [ 82.5, 145.0, 82.5, 145.0 ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -447,7 +444,7 @@
 					"destination" : [ "obj-9", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-15", 3 ]
+					"source" : [ "obj-15", 4 ]
 				}
 
 			}
@@ -493,24 +490,6 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-21", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-16", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-3", 0 ]
 				}
 
 			}

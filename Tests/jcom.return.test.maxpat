@@ -5103,7 +5103,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 570.0, 590.0, 281.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/type/get decimal"
+									"text" : "test.assert.equal jcom.return:method:/type/get decimal"
 								}
 
 							}
@@ -5116,7 +5116,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 525.0, 610.0, 311.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/repetitions/allow/get 1"
+									"text" : "test.assert.equal jcom.return:method:/repetitions/allow/get 1"
 								}
 
 							}
@@ -5129,7 +5129,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 470.0, 630.0, 321.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/range/clipmode/get both"
+									"text" : "test.assert.equal jcom.return:method:/range/clipmode/get both"
 								}
 
 							}
@@ -5142,7 +5142,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 420.0, 650.0, 331.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/range/bounds/get -90. 90."
+									"text" : "test.assert.equal jcom.return:method:/range/bounds/get -90. 90."
 								}
 
 							}
@@ -5155,7 +5155,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 370.0, 670.0, 268.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/name/get test"
+									"text" : "test.assert.equal jcom.return:method:/name/get test"
 								}
 
 							}
@@ -5168,7 +5168,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 330.0, 690.0, 260.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/enable/get 0"
+									"text" : "test.assert.equal jcom.return:method:/enable/get 0"
 								}
 
 							}
@@ -5181,7 +5181,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 235.0, 730.0, 299.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/dataspace/get angle"
+									"text" : "test.assert.equal jcom.return:method:/dataspace/get angle"
 								}
 
 							}
@@ -5194,7 +5194,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 280.0, 710.0, 365.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/dataspace/unit/native/get degree"
+									"text" : "test.assert.equal jcom.return:method:/dataspace/unit/native/get degree"
 								}
 
 							}
@@ -5207,7 +5207,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 190.0, 750.0, 315.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.return::/description/get working"
+									"text" : "test.assert.equal jcom.return:method:/description/get working"
 								}
 
 							}
