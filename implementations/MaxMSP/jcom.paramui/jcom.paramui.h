@@ -1,5 +1,5 @@
-/* 
- * jcom.paramui
+/** 
+ * \file jcom.paramui.h
  * External for Jamoma: provide standard user interface component for parameters
  * By Tim Place, Copyright © 2007
  * 

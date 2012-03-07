@@ -23,12 +23,12 @@ const double k_twopi = 6.2831853071795864;	// 2 * pi
 const double k_anti_denormal_value = 1e-18;	
 */
 // statics and globals
-static long			initialized = false;
-static t_hashtab	*hash_modules = NULL;			// a hashtab of all modules (jcom.hubs) currently instantiated
+static long			initialized = false;			///< Global variabel indicating whether Jamoma has been initiated or not.
+static t_hashtab	*hash_modules = NULL;			///< A hashtab of all modules (jcom.hubs) currently instantiated
 //t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
 //t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
-bool				max5 = false;
-bool				max6 = false;
+bool				max5 = false;					///< Is Jamoma currently running in Max 5 or newer?
+bool				max6 = false;					///< Is Jamoma currently running in Max 6 or newer?
 
 /************************************************************************************/
 // Init the framework
@@ -47,14 +47,16 @@ void jamoma_init(void)
 		
 		TTDSPInit();
 		
+		// Register RampLib classes
 		AsyncRamp::registerClass();
 		NoneRamp::registerClass();
 		QueueRamp::registerClass();
 		SchedulerRamp::registerClass();
 		
+		// Initialize common symbols
 		common_symbols_init();
 		jamomaSymbolsInit();
-
+		
 		receivemaster_initclass();
 		receive_initclass();
 		object_method(max, meth, SymbolGen("jcom.receive"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive"));
@@ -109,10 +111,10 @@ void jamoma_init(void)
 		object_method_typed(max, SymbolGen("definecommand"), 4, a, NULL);
         		
 		// I -- Input: a new audio input module
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat @args input~", NULL);
 				
 		// O -- Output: a new audio output module	
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat @args output~", NULL);
 		
 		// B -- BPatcher: a new module in a bpatcher
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
@@ -121,7 +123,7 @@ void jamoma_init(void)
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"D patcher inserttextobj \"bpatcher @name jmod.\"", NULL);		
 
 		// X -- Continuous Mapper module
-		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat @args /mapper", NULL);		
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat @args mapper", NULL);		
 		
 		// !!!! --- x is defined here to work around a 'bug' in the Max Toolbox b13 ( http://code.google.com/p/maxtoolbox/downloads/list )
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"x patcher nothing", NULL);		
@@ -164,14 +166,14 @@ void jamoma_init(void)
 			atom_setsym(a+2, SymbolGen("jmod.mapperContinuous"));
 			object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);	
 		}
-		
+		/*
 		// Here bind the TTBlue environment object to the symbol "TTBlue"
 		{
 			t_symbol* TTBlueMaxSymbol = SymbolGen("TTBlue");
 			
 			TTBlueMaxSymbol->s_thing = 0;
 			// Before we can do this we have to have a ttblue max class to receive the messages, duh...
-		}
+		}*/
 		
 		// now the jamoma object
 		{

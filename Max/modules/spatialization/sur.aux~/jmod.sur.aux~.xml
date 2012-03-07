@@ -13,8 +13,6 @@
     <item name='aux.2/gain' type='decimal' priority='0'>100.000000</item>
     <item name='aux.3/active' type='boolean' priority='0'>0</item>
     <item name='aux.3/gain' type='decimal' priority='0'>100.000000</item>
-    <item name='channels' type='integer' priority='0'>1</item>
-    <item name='channels/alias' type='string' priority='2'>channels</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

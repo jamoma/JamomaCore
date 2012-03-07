@@ -13,10 +13,13 @@
 //			Should create a more DRY way of doing this.
 
 
+
+
 void ui_color_contentBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
 void ui_color_toolbarBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
 void ui_color_toolbarText(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
 void ui_color_border(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
+void ui_color_highlight(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
 
 
 
@@ -25,23 +28,28 @@ void ui_internals_createColors(t_ui* obj)
 	uiInternalObject	*anObject;
 	t_atom				a[2];
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/contentBackground", obj->box.b_patcher, "array", "none", "The background color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/contentBackground", obj->box.b_patcher, "array", "none", "The background color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_contentBackground, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/contentBackground"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/toolbarBackground", obj->box.b_patcher, "array", "none", "The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/toolbarBackground", obj->box.b_patcher, "array", "none", "The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_toolbarBackground, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/toolbarBackground"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/toolbarText", obj->box.b_patcher, "array", "none", "The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/toolbarText", obj->box.b_patcher, "array", "none", "The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_toolbarText, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/toolbarText"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/color/border", obj->box.b_patcher, "array", "none", "The border color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/border", obj->box.b_patcher, "array", "none", "The border color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_border, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/border"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/size", obj->box.b_patcher, "array", "none", "The size of the module's UI.", NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.parameter", "view/highlight", obj->box.b_patcher, "string", "none", "Highlight the modul with a color tint such as red, green, or similar.", NULL, NULL, NULL, NULL, "none");
+	anObject->setAction((method)ui_color_highlight, (t_object*)obj);
+	hashtab_store(obj->hash_internals, gensym("view/highlight"), (t_object*)anObject);	
+	
+	
+	anObject = new uiInternalObject("jcom.message", "view/size", obj->box.b_patcher, "array", "none", "The size of the module's UI.", NULL, NULL, NULL, NULL, NULL);
 	//anObject->setAction((method)ui_color_border, (t_object*)obj);
 	anObject->setReadonly(true);
 	atom_setlong(a+0, obj->box.b_patching_rect.width);
@@ -79,19 +87,7 @@ void ui_internals_destroy(t_ui *obj)
 #pragma mark message handlers
 #endif
 
-
-void ui_mute(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	object_attr_setvalueof(obj, gensym("is_muted"), argc, argv);
-}
-
-
-void ui_bypass(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	obj->attr_isbypassed = atom_getlong(argv);
-	jbox_redraw(&obj->box);
-}
-
+// Callback methods - called by internal jcom.parameter or jcom.message objects after updates
 
 void ui_mix(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 {
@@ -103,6 +99,30 @@ void ui_mix(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 void ui_gain(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 {
 	obj->attr_gain = atom_getlong(argv);
+	jbox_redraw(&obj->box);
+}
+
+
+void setGainDataspaceUnit(t_ui* obj, t_symbol* unit)
+{
+	uiInternalObject	*anObject = NULL;
+	t_max_err			err = MAX_ERR_NONE;
+	
+	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
+	if (!err)
+		object_attr_setsym(anObject->theObject, gensym("dataspace/unit/active"), unit);
+}
+
+
+void ui_mute(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	object_attr_setvalueof(obj, gensym("is_muted"), argc, argv);
+}
+
+
+void ui_bypass(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	obj->attr_isbypassed = atom_getlong(argv);
 	jbox_redraw(&obj->box);
 }
 
@@ -150,290 +170,19 @@ void ui_color_border(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
-
-
-t_max_err attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv)
+void ui_color_highlight(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	uiInternalObject	*anObject = NULL;
-	long				value = atom_getlong(argv);
-	t_max_err			err = MAX_ERR_NONE;
-
-	if (obj->attr_ismuted != value) {
-		obj->attr_ismuted = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_int, obj->attr_ismuted);
-	}
-	return err;
+	if (argc && argv)
+		object_attr_setvalueof(obj, gensym("highlightcolor"), argc, argv);
 }
 
 
-t_max_err attr_set_bypass(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	long				value = atom_getlong(argv);
-	t_max_err			err = MAX_ERR_NONE;
-
-	if (obj->attr_isbypassed != value) {
-		obj->attr_isbypassed = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_int, obj->attr_isbypassed);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_mix(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	float				value = atom_getfloat(argv);
-	t_max_err			err = MAX_ERR_NONE;
-
-	if (obj->attr_mix != value) {
-		obj->attr_mix = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_float, obj->attr_mix);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_gain(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	float				value = atom_getfloat(argv);
-	t_max_err			err = MAX_ERR_NONE;
-
-	if (obj->attr_gain != value) {
-		obj->attr_gain = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_float, obj->attr_gain);
-	}
-	return err;
-}
-
-
-void setGainDataspaceUnit(t_ui* obj, t_symbol* unit)
-{
-	uiInternalObject	*anObject = NULL;
-	t_max_err			err = MAX_ERR_NONE;
-	
-	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-	if (!err)
-		object_attr_setsym(anObject->theObject, gensym("dataspace/unit/active"), unit);
-}
-
-
-t_max_err attr_set_freeze(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	long				value = atom_getlong(argv);
-	t_max_err			err = MAX_ERR_NONE;
-
-	if (obj->attr_isfrozen != value) {
-		obj->attr_isfrozen = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_int, obj->attr_isfrozen);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_preview(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	long				value = atom_getlong(argv);
-	t_max_err			err = MAX_ERR_NONE;
-
-	if (obj->attr_ispreviewing != value) {
-		obj->attr_ispreviewing = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_int, obj->attr_ispreviewing);
-	}
-	return err;
-}
 
 
 #if 0
 #pragma mark -
 #pragma mark attr accessors
 #endif
-
-t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-
-	obj->attr_hasmute = atom_getlong(argv);
-	
-	if (obj->attr_hasmute) {
-		anObject = new uiInternalObject("jcom.parameter", "mute", obj->box.b_patcher, "boolean", "none", "When active, this attribute turns off the module's processing algorithm to save CPU", NULL, NULL, NULL, NULL);
-		anObject->setAction((method)ui_mute, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("mute"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("mute"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-t_max_err attr_set_hasinspector(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-	
-	obj->attr_hasinspector = atom_getlong(argv);
-	
-	
-	if (obj->attr_hasinspector) {
-		anObject = new uiInternalObject("jcom.message", 	"view/panel",	obj->box.b_patcher,	"none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL);
-		hashtab_store(obj->hash_internals, gensym("panel/open"), (t_object*)anObject);	
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("panel/open"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("panel/open"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-
-	obj->attr_hasbypass = atom_getlong(argv);
-	
-	if (obj->attr_hasbypass) {
-		anObject = new uiInternalObject("jcom.parameter", "bypass", obj->box.b_patcher, "boolean", "none", "When active, this attribute bypasses the module's processing algorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL);
-		anObject->setAction((method)ui_bypass, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("bypass"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-	float				range[2];
-
-	obj->attr_hasmix = atom_getlong(argv);
-	
-	if (obj->attr_hasmix) {
-		range[0] = 0.0;
-		range[1] = 100.0;
-		anObject = new uiInternalObject("jcom.parameter", "mix", obj->box.b_patcher, "decimal", "scheduler", "Controls the wet/dry mix of the module's processing routine in percent.", range, NULL, NULL, NULL);
-		anObject->setAction((method)ui_mix, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("mix"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-	float				range[2];
-
-	obj->attr_hasgain = atom_getlong(argv);
-	
-	if (obj->attr_hasgain) {
-		range[0] = 0.0;
-		range[1] = 127.0;
-		anObject = new uiInternalObject("jcom.parameter", "gain", obj->box.b_patcher, "decimal", "scheduler", "Set gain (as MIDI value by default).", range, "gain", "midi", "midi");
-		anObject->setAction((method)ui_gain, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("gain"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-
-	obj->attr_hasfreeze = atom_getlong(argv);
-	
-	if (obj->attr_hasfreeze) {
-		anObject = new uiInternalObject("jcom.parameter", "freeze", obj->box.b_patcher, "boolean", "none", "Freezes the last frame of output from the module's processing algorithm.", NULL, NULL, NULL, NULL);
-		anObject->setAction((method)ui_freeze, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("freeze"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("freeze"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-
-	obj->attr_haspreview = atom_getlong(argv);
-	
-	if (obj->attr_haspreview) {
-		anObject = new uiInternalObject("jcom.parameter", "preview", obj->box.b_patcher, "boolean", "none", "Turns on/off the video display in the module's preview window.", NULL, NULL, NULL, NULL);
-		anObject->setAction((method)ui_preview, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("preview"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("preview"));
-			delete anObject;
-		}
-	}
-	return err;
-}
 
 
 t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
@@ -481,7 +230,7 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 		if (obj->attrPrefix!=gensym(""))
 		{
 			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
-			strncpy_zero(name, obj->attrPrefix->s_name, 256);
+				strncpy_zero(name, obj->attrPrefix->s_name, 256);
 			strncat_zero(name, "/mix", 256);
 		}
 		else
@@ -532,4 +281,376 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	
 	return MAX_ERR_NONE;
+}
+
+
+t_max_err attr_set_highlightcolor(t_ui *x, void *attr, long ac, t_atom *av)
+{
+	uiInternalObject	*anObject	= NULL;
+	t_max_err			err			= MAX_ERR_NONE;
+	
+	if (ac && av) {
+		
+		t_symbol *color = atom_getsym(av);
+		
+		if (x->highlightcolor != color) // This test prevents a feedback loop as we try to keep object attribute and jcom.parameter synced
+		{
+			if (color == gensym("none")) {
+				x->highlightcolor = color;
+				TTLogMessage("none\n");
+			}
+			else if (color == gensym("red")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 0., 0., 1.);
+				TTLogMessage("red\n");
+			}
+			else if (color == gensym("orange")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 0.5, 0., 1.);
+				TTLogMessage("orange\n");
+			}
+			else if (color == gensym("yellow")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 1., 0., 1.);
+				TTLogMessage("yellow\n");
+			}
+			else if (color == gensym("chartreuseGreen")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0.5, 1., 0., 1.);
+				TTLogMessage("chartreuseGreen\n");
+			}
+			else if (color == gensym("green")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 1., 0., 1.);
+				TTLogMessage("green\n");
+			}
+			else if (color == gensym("springGreen")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 1., 0.5, 1.);
+				TTLogMessage("springGreen\n");
+			}
+			else if (color == gensym("cyan")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 1., 1., 1.);
+				TTLogMessage("cyan\n");
+			}
+			else if (color == gensym("azure")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 0.5, 1., 1.);
+				TTLogMessage("azure\n");
+			}
+			else if (color == gensym("blue")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 0., 1., 1.);
+				TTLogMessage("blue\n");
+			}
+			else if (color == gensym("violet")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0.5, 0., 1., 1.);
+				TTLogMessage("violet\n");
+			}
+			else if (color == gensym("magenta")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 0., 1., 1.);
+				TTLogMessage("magenta\n");
+			}
+			else if (color == gensym("rose")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 0., 0.5, 1.);
+				TTLogMessage("rose\n");
+			}
+			else if (color == gensym("black")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 0., 0., 0., 1.);
+				TTLogMessage("black\n");
+			}
+			else if (color == gensym("white")) {
+				x->highlightcolor = color;
+				jrgba_set(&x->highlightcolorRGB, 1., 1., 1., 1.);
+				TTLogMessage("white\n");
+			}
+			else {
+				TTLogWarning("jcom.ui - unknown color used for module highlighting.\n");
+				return err;
+			}
+			
+			// If highlight color was set using the inspector or a message to jcom.ui, we need to update the jcom.parameter
+			err = hashtab_lookup(x->hash_internals, gensym("view/highlight"), (t_object**)&anObject);
+			if (!err)
+				object_method_typed(anObject->theObject, x->highlightcolor, NULL, NULL, NULL);
+		}
+	}
+	else
+		TTLogWarning("jcom.ui - Missing argument when attempting to set highlight color.");
+	
+	return err;
+}
+
+
+t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject;
+	t_max_err			err = MAX_ERR_NONE;
+	float				range[2];
+	
+	obj->attr_hasgain = atom_getlong(argv);
+	
+	if (obj->attr_hasgain) {
+		range[0] = 0.0;
+		range[1] = 127.0;
+		anObject = new uiInternalObject("jcom.parameter", "gain", obj->box.b_patcher, "decimal", "scheduler", "Set gain (as MIDI value by default).", range, "gain", "midi", "midi", NULL);
+		anObject->setAction((method)ui_gain, (t_object*)obj);
+		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
+		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
+	}
+	else {
+		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
+		if (!err) {
+			hashtab_chuckkey(obj->hash_internals, gensym("gain"));
+			delete anObject;
+		}
+	}
+	return err;
+}
+
+
+t_max_err attr_set_gain(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject = NULL;
+	float				value = atom_getfloat(argv);
+	t_max_err			err = MAX_ERR_NONE;
+	
+	if (obj->attr_gain != value) {
+		obj->attr_gain = value;
+		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
+		if (!err)
+			object_method(anObject->theObject, _sym_float, obj->attr_gain);
+	}
+	return err;
+}
+
+
+t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject;
+	t_max_err			err = MAX_ERR_NONE;
+	float				range[2];
+	
+	obj->attr_hasmix = atom_getlong(argv);
+	
+	if (obj->attr_hasmix) {
+		range[0] = 0.0;
+		range[1] = 100.0;
+		anObject = new uiInternalObject("jcom.parameter", "mix", obj->box.b_patcher, "decimal", "scheduler", "Controls the wet/dry mix of the module's processing routine in percent.", range, NULL, NULL, NULL, NULL);
+		anObject->setAction((method)ui_mix, (t_object*)obj);
+		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
+		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
+	}
+	else {
+		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
+		if (!err) {
+			hashtab_chuckkey(obj->hash_internals, gensym("mix"));
+			delete anObject;
+		}
+	}
+	return err;
+}
+
+
+t_max_err attr_set_mix(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject = NULL;
+	float				value = atom_getfloat(argv);
+	t_max_err			err = MAX_ERR_NONE;
+	
+	if (obj->attr_mix != value) {
+		obj->attr_mix = value;
+		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
+		if (!err)
+			object_method(anObject->theObject, _sym_float, obj->attr_mix);
+	}
+	return err;
+}
+
+
+t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject;
+	t_max_err			err = MAX_ERR_NONE;
+
+	obj->attr_hasmute = atom_getlong(argv);
+	
+	if (obj->attr_hasmute) {
+		anObject = new uiInternalObject("jcom.parameter", "mute", obj->box.b_patcher, "boolean", "none", "When active, this attribute turns off the module's processing algorithm to save CPU", NULL, NULL, NULL, NULL, NULL);
+		anObject->setAction((method)ui_mute, (t_object*)obj);
+		hashtab_store(obj->hash_internals, gensym("mute"), (t_object*)anObject);
+		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
+	}
+	else {
+		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
+		if (!err) {
+			hashtab_chuckkey(obj->hash_internals, gensym("mute"));
+			delete anObject;
+		}
+	}
+	return err;
+}
+
+
+t_max_err attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject = NULL;
+	long				value = atom_getlong(argv);
+	t_max_err			err = MAX_ERR_NONE;
+	
+	if (obj->attr_ismuted != value) {
+		obj->attr_ismuted = value;
+		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
+		if (!err)
+			object_method(anObject->theObject, _sym_int, obj->attr_ismuted);
+	}
+	return err;
+}
+
+
+t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject;
+	t_max_err			err = MAX_ERR_NONE;
+
+	obj->attr_hasbypass = atom_getlong(argv);
+	
+	if (obj->attr_hasbypass) {
+		anObject = new uiInternalObject("jcom.parameter", "bypass", obj->box.b_patcher, "boolean", "none", "When active, this attribute bypasses the module's processing algorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL, NULL);
+		anObject->setAction((method)ui_bypass, (t_object*)obj);
+		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
+		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
+	}
+	else {
+		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
+		if (!err) {
+			hashtab_chuckkey(obj->hash_internals, gensym("bypass"));
+			delete anObject;
+		}
+	}
+	return err;
+}
+
+
+t_max_err attr_set_bypass(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject = NULL;
+	long				value = atom_getlong(argv);
+	t_max_err			err = MAX_ERR_NONE;
+	
+	if (obj->attr_isbypassed != value) {
+		obj->attr_isbypassed = value;
+		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
+		if (!err)
+			object_method(anObject->theObject, _sym_int, obj->attr_isbypassed);
+	}
+	return err;
+}
+
+
+t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject;
+	t_max_err			err = MAX_ERR_NONE;
+
+	obj->attr_hasfreeze = atom_getlong(argv);
+	
+	if (obj->attr_hasfreeze) {
+		anObject = new uiInternalObject("jcom.parameter", "freeze", obj->box.b_patcher, "boolean", "none", "Freezes the last frame of output from the module's processing algorithm.", NULL, NULL, NULL, NULL, NULL);
+		anObject->setAction((method)ui_freeze, (t_object*)obj);
+		hashtab_store(obj->hash_internals, gensym("freeze"), (t_object*)anObject);
+		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
+	}
+	else {
+		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
+		if (!err) {
+			hashtab_chuckkey(obj->hash_internals, gensym("freeze"));
+			delete anObject;
+		}
+	}
+	return err;
+}
+
+
+t_max_err attr_set_freeze(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject = NULL;
+	long				value = atom_getlong(argv);
+	t_max_err			err = MAX_ERR_NONE;
+	
+	if (obj->attr_isfrozen != value) {
+		obj->attr_isfrozen = value;
+		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
+		if (!err)
+			object_method(anObject->theObject, _sym_int, obj->attr_isfrozen);
+	}
+	return err;
+}
+
+
+t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject;
+	t_max_err			err = MAX_ERR_NONE;
+
+	obj->attr_haspreview = atom_getlong(argv);
+	
+	if (obj->attr_haspreview) {
+		anObject = new uiInternalObject("jcom.parameter", "preview", obj->box.b_patcher, "boolean", "none", "Turns on/off the video display in the module's preview window.", NULL, NULL, NULL, NULL, NULL);
+		anObject->setAction((method)ui_preview, (t_object*)obj);
+		hashtab_store(obj->hash_internals, gensym("preview"), (t_object*)anObject);
+		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
+	}
+	else {
+		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
+		if (!err) {
+			hashtab_chuckkey(obj->hash_internals, gensym("preview"));
+			delete anObject;
+		}
+	}
+	return err;
+}
+
+
+t_max_err attr_set_preview(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject = NULL;
+	long				value = atom_getlong(argv);
+	t_max_err			err = MAX_ERR_NONE;
+	
+	if (obj->attr_ispreviewing != value) {
+		obj->attr_ispreviewing = value;
+		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
+		if (!err)
+			object_method(anObject->theObject, _sym_int, obj->attr_ispreviewing);
+	}
+	return err;
+}
+
+
+t_max_err attr_set_hasinspector(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject;
+	t_max_err			err = MAX_ERR_NONE;
+	
+	obj->attr_hasinspector = atom_getlong(argv);
+	
+	
+	if (obj->attr_hasinspector) {
+		anObject = new uiInternalObject("jcom.message", 	"view/panel",	obj->box.b_patcher,	"none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL, NULL);
+		hashtab_store(obj->hash_internals, gensym("panel/open"), (t_object*)anObject);	
+	}
+	else {
+		err = hashtab_lookup(obj->hash_internals, gensym("panel/open"), (t_object**)&anObject);
+		if (!err) {
+			hashtab_chuckkey(obj->hash_internals, gensym("panel/open"));
+			delete anObject;
+		}
+	}
+	return err;
 }

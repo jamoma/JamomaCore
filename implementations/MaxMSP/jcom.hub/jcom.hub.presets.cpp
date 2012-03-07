@@ -329,25 +329,27 @@ static float mix_one_preset (t_preset_item *item1, int nmix, float factor, float
     if (item1->type == jps_integer) {
 	*val += atom_getfloat(&item1->value_list[0]) * factor * mixweight;
 	atom_setfloat(&newValue[0], *val);
-    } else if (item1->type == jps_decimal) {
+    } 
+	else if (item1->type == jps_decimal) {
 	*val += atom_getfloat(&item1->value_list[0]) * factor * mixweight;
 	atom_setfloat(&newValue[0], *val);
-    } else if (item1->type == jps_boolean) {	// bool: mean thresholded to bool
+    } 
+	else if (item1->type == jps_boolean) {	// bool: mean thresholded to bool
 	*val += atom_getlong(&item1->value) * factor * mixweight;
 	atom_setlong(&newValue[0], (*val / nmix >= 0.5));
-    } else if (item1->type == jps_array || item1->type == jps_list_int || item1->type == jps_list_float) 
-    {
-	for (int i = 0; i < item1->list_size; i++) {
-	    val[i] += atom_getfloat(&item1->value_list[i]) * factor * mixweight;
-	    atom_setfloat(&newValue[i], val[i]);
+    } 
+	else if (item1->type == jps_array || item1->type == jps_list_int || item1->type == jps_list_float) {
+		for (int i = 0; i < item1->list_size; i++) {
+			val[i] += atom_getfloat(&item1->value_list[i]) * factor * mixweight;
+			atom_setfloat(&newValue[i], val[i]);
+		}
 	}
-    } else if (item1->type == jps_string) {	// symbol: take max coef
-	if (factor * mixweight > *val)
-	{
-	    atom_setsym(&newValue[0], atom_getsym(&item1->value));
-	    *val = factor * mixweight;
+    else if (item1->type == jps_string) {	// symbol: take max coef
+		if (factor * mixweight >= *val) {
+			atom_setsym(&newValue[0], atom_getsym(&item1->value));
+			*val = factor * mixweight;
+		}
 	}
-    }
 
     return mixweight * factor;
 }
@@ -683,7 +685,7 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 		// Is default preset recalled as part of initialization of module?
 		if (x->flag_init) {
 			atom_setsym(args, x->attr_name);
-			atom_setsym(args+1, x->osc_name);
+			atom_setsym(args+1, x->osc_alias);
 			object_method_typed(g_jcom_send_notifications, gensym("module.initialized"), 2, args, NULL);
 			// Initialization is now done
 			x->flag_init = 0;
@@ -1363,7 +1365,7 @@ void hub_preset_interface(t_hub* x)
 	object_method(p, _sym_vis);	// "vis" happens immediately, "front" is defer_lowed
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 
-	OBJ_ATTR_SYM(p, "jmod/modulename", 0, x->osc_name);	// to use in jmod.receive etc.
+	OBJ_ATTR_SYM(p, "jmod/modulename", 0, x->osc_alias);	// to use in jmod.receive etc.
 	OBJ_ATTR_SYM(p, "jmod/presetname", 0, x->preset_lastname);
 	OBJ_ATTR_LONG(p, "jmod/presetnumber", 0, x->preset_lastnum);
 

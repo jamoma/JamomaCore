@@ -1,5 +1,5 @@
-/* 
- * jcom.send
+/** 
+ * \file jcom.send.cpp
  * External for Jamoma: send messages from remote
  * By Trond Lossius & Tim Place, Copyright � 2006
  * 
@@ -10,17 +10,63 @@
 #include "Jamoma.h"
 
 // Prototypes
+
+/** Called at object instantiation.
+ @param s			Pointer to symbol bassed as message argument to the object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to arguments as an array of atoms.
+ @return			Pointer to the newly created object.
+ */
 void *send_new(t_symbol *s, long argc, t_atom *argv);
+
+
+/** Free up and dispose of the object.
+ @param x			Pointer to this object.
+ */
 void send_free(t_send *x);
+
+
+/** Method for displaying assist strings for inlets and outlets.
+ @param x			Pointer to this object.
+ @param b
+ @param msg
+ @param argc
+ @param argv
+ */
 void send_assist(t_send *x, void *b, long msg, long arg, char *dst);
+
+
+/** Forward a bang to the associated receive objects.
+ @param c			Pointer to this object.
+ */
 void send_bang(t_send *x);
+
+
+/** Forward an int to the associated receive objects.
+ @param c			Pointer to this object.
+ @param value		The value to send.
+ */
 void send_int(t_send *x, long value);
+
+
+/** Forward a float to the associated receive objects.
+ @param c			Pointer to this object.
+ @param value		The value to send.
+ */
 void send_float(t_send *x, double value);
+
+
+/** Forward a list or message to the associated receive objects.
+ @param c			Pointer to this object.
+ @param msg			The message to send as pointer to a symbol.
+ @param argc		The number of arguments of the message.
+ @param argv		The arguments as a pointer to an array of atoms.
+ */
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Globals
-static t_class		*s_send_class;				// Required: Global pointer for our class
-extern t_object		*g_receivemaster_object;	// An instance of the jcom.receivemaster class
+static t_class		*s_send_class;				///< Required: Global pointer for our class
+extern t_object		*g_receivemaster_object;	///< An instance of the jcom.receivemaster class
 
 
 /************************************************************************************/

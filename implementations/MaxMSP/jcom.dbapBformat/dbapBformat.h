@@ -1,5 +1,5 @@
-/* 
- * jcom.dbapBformat
+/** 
+ * \file dbapBformat.h
  * External for Jamoma: DBAP - Distance Based Amplitude Panning
  * By Trond Lossius, Copyright 2011
  * 

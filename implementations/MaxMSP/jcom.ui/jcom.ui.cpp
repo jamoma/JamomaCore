@@ -33,6 +33,7 @@
 
 #include "jcom.ui.h"
 
+
 // class variables
 static t_class		*s_ui_class = NULL;
 
@@ -63,6 +64,25 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	jamoma_init();
 	common_symbols_init();
+	
+	/*
+	ps_color_none				= gensym("none");
+	ps_color_black				= gensym("black");
+	ps_color_white				= gensym("white");
+	ps_color_red				= gensym("red");
+	ps_color_orange				= gensym("orange");
+	ps_color_yellow				= gensym("yellow");
+	ps_color_chartreuseGreen	= gensym("chartreuseGreen");
+	ps_color_green				= gensym("green");
+	ps_color_springGreen		= gensym("springGreen");
+	ps_color_cyan				= gensym("cyan");
+	ps_color_azure				= gensym("azure");
+	ps_color_blue				= gensym("blue");
+	ps_color_violet				= gensym("violet");
+	ps_color_magenta			= gensym("magenta");
+	ps_color_rose				= gensym("rose");
+	 */
+
 
 	c = class_new("jcom.ui",
 				  (method)ui_new,
@@ -92,7 +112,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_STICKY_ATTR(c,					"category",		0, "Color");
 	
 	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_ui,	bgcolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.93 0.93 0.93 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.933 0.933 0.933 1.0");
 	CLASS_ATTR_STYLE(c,						"bgcolor",		0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_ui,	bordercolor);
@@ -100,12 +120,19 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_STYLE(c,						"bordercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"headercolor",	0,	t_ui,	headercolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.82 0.82 0.82 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.816 0.816 0.816 1.0");
 	CLASS_ATTR_STYLE(c,						"headercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_ui,	textcolor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0. 0. 0. 1.0");
 	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
+	
+	CLASS_ATTR_SYM(c,		"highlightcolor",	0,	t_ui,	highlightcolor);
+	CLASS_ATTR_DEFAULT(c,	"highlightcolor",	0, "none");
+	CLASS_ATTR_ENUM(c,		"highlightcolor",	0,	"none black white red orange yellow chartreuseGreen green springGreen cyan azure blue violet magenta rose");
+	CLASS_ATTR_SAVE(c,		"highlightcolor",	0);
+	CLASS_ATTR_LABEL(c,		"highlightcolor",	0,	"Module highlight color tint");
+	CLASS_ATTR_ACCESSORS(c,	"highlightcolor",	NULL,	attr_set_highlightcolor);
 	
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
 	CLASS_STICKY_ATTR(c,	"category",			0, "Jamoma");
@@ -121,7 +148,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_DEFAULT(c,	"has_panel",		0, "0");
 	CLASS_ATTR_SAVE(c,		"has_panel",		0);
 	CLASS_ATTR_ACCESSORS(c,	"has_panel",		NULL,	attr_set_hasinspector);
-
+/*
 	// this is needed so that we know whether or not to offer the option of turning the meters on and off in the menu
 	CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
 	CLASS_ATTR_DEFAULT(c,	"has_meters",		0, "0");	// number of meters to display
@@ -131,7 +158,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_LONG(c,		"meters_defeated",	0, t_ui, attr_metersdefeated);
 	CLASS_ATTR_STYLE(c,		"meters_defeated",	0, "onoff");
 	CLASS_ATTR_DEFAULT(c,	"meters_defeated",	0, "0");	// number of meters to display
-
+*/
 	CLASS_ATTR_LONG(c,		"has_mute",			0, t_ui, attr_hasmute);
 	CLASS_ATTR_STYLE(c,		"has_mute",			0, "onoff");
 	CLASS_ATTR_DEFAULT(c,	"has_mute",			0, "0");
@@ -288,19 +315,29 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 	if ((msg == _sym_attr_modified) && (sender == x)) {
 		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
 		textfield = jbox_get_textfield((t_object*) x);
-		if (textfield)
-			textfield_set_textcolor(textfield, &x->textcolor);
-		
+		if (textfield) {
+			t_jrgba		textcolor;
+			
+			if (x->highlightcolor == gensym("none"))
+				textcolor = x->textcolor;
+			else {
+				textcolor.red = 0.8*x->textcolor.red + 0.2*x->highlightcolorRGB.red;
+				textcolor.green = 0.8*x->textcolor.green + 0.2*x->highlightcolorRGB.green;
+				textcolor.blue = 0.8*x->textcolor.blue + 0.2*x->highlightcolorRGB.blue;
+				textcolor.alpha = x->textcolor.alpha;
+			}
+			textfield_set_textcolor(textfield, &textcolor);
+		}
 		if (attrname == gensym("module_name"))
 			object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
 			
-		char str[5];
+		char str[12]; //5
 		if (x->gainDragging) {
-			snprintf(str, sizeof(str), "%f", x->attr_gain);
+			snprintf(str, sizeof(str), "gain %.2f", x->anchorValue);
 			object_method(textfield, gensym("settext"), str);
 		}
 		if (x->mixDragging) {
-			snprintf(str, sizeof(str), "%f", x->attr_mix);
+			snprintf(str, sizeof(str), "mix %.2f", x->anchorValue);//x->attrPrefix->s_name, 
 			object_method(textfield, gensym("settext"), str);
 		}
 
@@ -347,7 +384,6 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 //		; // TODO: Should do something here?
 }
 
-
 #pragma mark -
 #pragma mark drawing and appearance
 
@@ -355,34 +391,61 @@ void ui_paint(t_ui *x, t_object *view)
 {
 	t_rect 		rect;
 	t_jgraphics *g;
+	t_jrgba		bgcolor;
+	t_jrgba		headercolor;
+	t_jrgba		bordercolor;
+	
 	double 		border_thickness = 0.5;
 	double 		cornersize = 12.0;
-	double		middle;
+	double		middle = 9.0;
 
+	if (x->highlightcolor == gensym("none")) {
+		headercolor = x->headercolor;
+		bgcolor		= x->bgcolor;
+		bordercolor = x->bordercolor;
+	}
+	else {
+		headercolor.red = 0.8*x->headercolor.red + 0.2*x->highlightcolorRGB.red;
+		headercolor.green = 0.8*x->headercolor.green + 0.2*x->highlightcolorRGB.green;
+		headercolor.blue = 0.8*x->headercolor.blue + 0.2*x->highlightcolorRGB.blue;
+		headercolor.alpha = x->headercolor.alpha;
+		
+		bgcolor.red = 0.8*x->bgcolor.red + 0.2*x->highlightcolorRGB.red;
+		bgcolor.green = 0.8*x->bgcolor.green + 0.2*x->highlightcolorRGB.green;
+		bgcolor.blue = 0.8*x->bgcolor.blue + 0.2*x->highlightcolorRGB.blue;
+		bgcolor.alpha = x->bgcolor.alpha;
+		
+		bordercolor.red = 0.8*x->bordercolor.red + 0.2*x->highlightcolorRGB.red;
+		bordercolor.green = 0.8*x->bordercolor.green + 0.2*x->highlightcolorRGB.green;
+		bordercolor.blue = 0.8*x->bordercolor.blue + 0.2*x->highlightcolorRGB.blue;
+		bordercolor.alpha = x->bordercolor.alpha;
+	}
+	
+	
 	g = (t_jgraphics*) patcherview_get_jgraphics(view);
 	jbox_get_rect_for_view((t_object*) &x->box, view, &rect);
 
 	// clear the background
 	jgraphics_rectangle_rounded(g,  border_thickness, 
 									border_thickness, 
-									rect.width - ((border_thickness) * 2.0), 
-									rect.height - ((border_thickness) * 2.0), 
+									rect.width - (border_thickness * 2.0), 
+									rect.height - (border_thickness * 2.0), 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&x->bgcolor);
+	jgraphics_set_source_jrgba(g,	&bgcolor);
 	jgraphics_fill(g);
 	
 	// draw the titlebar
 	jgraphics_rectangle_rounded(g,  border_thickness, 
 									border_thickness, 
-									rect.width - (border_thickness * 2.0 + 1.0), 
+									rect.width - (border_thickness * 2.0), 
 									18.0, 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&x->headercolor);
+	jgraphics_set_source_jrgba(g,	&headercolor);
 	jgraphics_fill(g);
 	
 	jgraphics_rectangle_fill_fast(g, border_thickness, 
 									9.0, 
-									rect.width - (border_thickness * 2.0 + 1.0), 
+									rect.width - (border_thickness * 2.0), 
 									10.0);
 	
 	// draw borders
@@ -391,13 +454,13 @@ void ui_paint(t_ui *x, t_object *view)
 									rect.width - (border_thickness * 2.0), 
 									rect.height - (border_thickness * 2.0), 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&x->bordercolor);
+	jgraphics_set_source_jrgba(g,	&bordercolor);
 	jgraphics_set_line_width(g, 1.0);
 	jgraphics_stroke(g);
 
 	jgraphics_set_line_width(g, 1.0);
-	jgraphics_move_to(g, border_thickness, 19.5);
-	jgraphics_line_to(g, rect.width - (border_thickness * 1.0), 19.5);
+	jgraphics_move_to(g, border_thickness+0.5, 19);
+	jgraphics_line_to(g, rect.width - border_thickness-0.5, 19);
 	jgraphics_stroke(g);
 	
 	// draw the menu icon
@@ -410,8 +473,7 @@ void ui_paint(t_ui *x, t_object *view)
 	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
 	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., kTTTwoPi);
 	jgraphics_stroke(g);
-
-	middle = 9.0;
+	
 	jgraphics_move_to(g, 9.5, middle + 4.0);
 	jgraphics_line_to(g, 13.5, middle);
 	jgraphics_line_to(g, 5.5, middle);
@@ -451,7 +513,7 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
 		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
-		jgraphics_stroke(g);
+		jgraphics_stroke(g); 
 
 		jgraphics_set_source_jrgba(g, &s_color_darkgreen);
 		
@@ -504,13 +566,13 @@ void ui_paint(t_ui *x, t_object *view)
 
 		jgraphics_set_source_jrgba(g, &s_color_darkblue);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((mix / 100.0) * kTTTwoPi) + kTTHalfPi); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, (mix * 0.01 * kTTTwoPi) + kTTHalfPi); // angles are in radians
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_close_path(g);
 		jgraphics_fill(g);	
 
 		jgraphics_set_source_jrgba(g, &s_color_blue_ring);
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((mix / 100.0) * kTTTwoPi) + kTTHalfPi);
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, (mix * 0.01 * kTTTwoPi) + kTTHalfPi);
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_stroke(g);
 		
@@ -763,12 +825,12 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	
 	if (modifiers & eShiftKey)
-		factor = 0.02;
-	
+		factor = 0.02;	
+
 	if (x->mixDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 100.0f);
-		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
+		object_attr_setfloat(x, gensym("mix"), x->anchorValue);		
 	}
 	else if (x->gainDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
@@ -821,13 +883,13 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
 		else {
-			if (item->sym == gensym("Defeat Signal Meters")) {
+			/*if (item->sym == gensym("Defeat Signal Meters")) {
 				if (x->attr_metersdefeated)
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 1, 0, NULL);
 				else
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 			}
-			else if (item->sym == gensym("Disable UI Updates")) {
+			else*/ if (item->sym == gensym("Disable UI Updates")) {
 				if (x->attr_ui_freeze)
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 1, 0, NULL);
 				else
@@ -856,14 +918,14 @@ void ui_menu_qfn(t_ui *x)
 {
 	t_symobject *item = (t_symobject *)linklist_getindex(x->menu_items, x->menu_selection);
 
-	if (item->sym == gensym("Defeat Signal Meters")) {
+	/*if (item->sym == gensym("Defeat Signal Meters")) {
 		if (x->attr_metersdefeated)
 			object_attr_setlong(x, gensym("meters_defeated"), 0);
 		else
 			object_attr_setlong(x, gensym("meters_defeated"), 1);
 		object_method_long(x->obj_remote, gensym("audio/meters/freeze"), x->attr_metersdefeated, NULL);
 	}
-	else if (item->sym == gensym("Disable UI Updates")) {
+	else*/ if (item->sym == gensym("Disable UI Updates")) {
 		if (x->attr_ui_freeze)
 			object_attr_setlong(x, gensym("ui_is_frozen"), 0);
 		else
@@ -914,14 +976,14 @@ void ui_menu_build(t_ui *x)
 	item = (t_symobject *)symobject_new(gensym("-"));
 	linklist_append(x->menu_items, item);
 	
-	if (x->attr_hasmeters) {
+	/*if (x->attr_hasmeters) {
 		item = (t_symobject *)symobject_new(gensym("Defeat Signal Meters"));
 		linklist_append(x->menu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Clear Signal Meters"));
 		linklist_append(x->menu_items, item);
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->menu_items, item);
-	}
+	}*/
 	
 	item = (t_symobject *)symobject_new(gensym("Load Settings..."));
 	linklist_append(x->menu_items, item);
@@ -1104,6 +1166,17 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 	long		unitWidth = 0;
 	double		unitFrac= 0.0;
 	t_object 	*textfield = NULL;
+	t_jrgba		textcolor;
+	
+	if (x->highlightcolor == gensym("none"))
+		textcolor = x->textcolor;
+	else {
+		textcolor.red = 0.8*x->textcolor.red + 0.2*x->highlightcolorRGB.red;
+		textcolor.green = 0.8*x->textcolor.green + 0.2*x->highlightcolorRGB.green;
+		textcolor.blue = 0.8*x->textcolor.blue + 0.2*x->highlightcolorRGB.blue;
+		textcolor.alpha = x->textcolor.alpha;
+	}
+
 		
 	unitHeight = rect->height / JAMOMA_UNIT_HEIGHT;
 	unitFrac = rect->height - (unitHeight * JAMOMA_UNIT_HEIGHT);
@@ -1128,7 +1201,7 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 	textfield_set_editonclick(textfield, 0);
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
-	textfield_set_textcolor(textfield, &x->textcolor);
+	textfield_set_textcolor(textfield, &textcolor);
 	textfield_set_textmargins(textfield, 20.0, 2.0, 60.0, rect->height - 19.0);
 
 	return (void *)1;

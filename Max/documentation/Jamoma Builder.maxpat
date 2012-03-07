@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 0
+			"revision" : 4
 		}
 ,
 		"rect" : [ 291.0, 44.0, 498.0, 350.0 ],
@@ -27,6 +27,270 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-20",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patcher" : 					{
+						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 6,
+							"minor" : 0,
+							"revision" : 4
+						}
+,
+						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
+						"bglocked" : 0,
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 0,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 0,
+						"statusbarvisible" : 2,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"description" : "",
+						"digest" : "",
+						"tags" : "",
+						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-5",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 290.0, 270.0, 47.0, 18.0 ],
+									"text" : "wclose"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-3",
+									"maxclass" : "outlet",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 50.0, 338.0, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-2",
+									"maxclass" : "outlet",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 290.0, 345.0, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-38",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 50.0, 243.0, 166.0, 19.0 ],
+									"text" : "set Done! closing in $1 sec"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-27",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 50.0, 154.0, 76.0, 21.0 ],
+									"text" : "metro 1000"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-15",
+									"maxclass" : "newobj",
+									"numinlets" : 5,
+									"numoutlets" : 4,
+									"outlettype" : [ "int", "", "", "int" ],
+									"patching_rect" : [ 50.0, 188.0, 86.0, 21.0 ],
+									"text" : "counter 1 5 0"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-6",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 2,
+									"outlettype" : [ "bang", "" ],
+									"patching_rect" : [ 50.0, 121.0, 58.0, 19.0 ],
+									"text" : "sel Done!"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-1",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 50.0, 100.0, 56.0, 19.0 ],
+									"text" : "route set"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-19",
+									"maxclass" : "inlet",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-6", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-38", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-15", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-15", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-19", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-15", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-27", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-38", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-27", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+ ],
+						"dependency_cache" : [  ]
+					}
+,
+					"patching_rect" : [ 129.0, 242.0, 75.0, 19.0 ],
+					"saved_object_attributes" : 					{
+						"tags" : "",
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"digest" : "",
+						"default_fontname" : "Arial",
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"description" : ""
+					}
+,
+					"text" : "p countdown"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 185.0, 267.0, 67.0, 19.0 ],
+					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
+					"text" : "thispatcher"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"autofit" : 1,
 					"id" : "obj-2",
@@ -149,7 +413,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 0
+							"revision" : 4
 						}
 ,
 						"rect" : [ 248.0, 200.0, 352.0, 458.0 ],
@@ -214,7 +478,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 53.0, 47.0, 1179.0, 714.0 ],
@@ -352,8 +616,8 @@
 													"id" : "obj-8",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
+													"numoutlets" : 3,
+													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 663.0, 437.0, 260.0, 19.0 ],
 													"text" : "jcom.route @searchstring jmod. @partialmatch 1"
 												}
@@ -601,10 +865,10 @@
 , 											{
 												"box" : 												{
 													"autopopulate" : 1,
-													"depth" : 2,
+													"depth" : 5,
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frozen_box_attributes" : [ "depth", "types" ],
+													"frozen_box_attributes" : [ "types", "depth" ],
 													"id" : "obj-38",
 													"items" : "<empty>",
 													"maxclass" : "umenu",
@@ -769,7 +1033,8 @@
 													"id" : "obj-31",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
 													"patching_rect" : [ 594.0, 614.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
@@ -1236,21 +1501,29 @@
 												"type" : "JSON",
 												"implicit" : 1
 											}
+, 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+, 											{
+												"name" : "jcom.route.mxo",
+												"type" : "iLaX"
+											}
  ]
 									}
 ,
 									"patching_rect" : [ 16.0, 309.0, 114.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p copy_XML_presets"
@@ -1271,7 +1544,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 29.0, 67.0, 640.0, 480.0 ],
@@ -2167,21 +2440,25 @@
 
 											}
  ],
-										"dependency_cache" : [  ]
+										"dependency_cache" : [ 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+ ]
 									}
 ,
 									"patching_rect" : [ 16.0, 223.0, 242.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Arial",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"fontsize" : 12.0,
+										"default_fontsize" : 12.0,
+										"description" : ""
 									}
 ,
 									"text" : "p copy_Frameworks"
@@ -2202,7 +2479,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 98.0, 44.0, 860.0, 742.0 ],
@@ -2829,21 +3106,25 @@
 
 											}
  ],
-										"dependency_cache" : [  ]
+										"dependency_cache" : [ 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+ ]
 									}
 ,
 									"patching_rect" : [ 16.0, 197.0, 148.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Arial",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"fontsize" : 12.0,
+										"default_fontsize" : 12.0,
+										"description" : ""
 									}
 ,
 									"text" : "p create_Jamoma/*_Folder"
@@ -2864,7 +3145,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 54.0, 92.0, 640.0, 480.0 ],
@@ -3080,21 +3361,25 @@
 
 											}
  ],
-										"dependency_cache" : [  ]
+										"dependency_cache" : [ 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+ ]
 									}
 ,
 									"patching_rect" : [ 15.0, 170.0, 165.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Arial",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"fontsize" : 12.0,
+										"default_fontsize" : 12.0,
+										"description" : ""
 									}
 ,
 									"text" : "p copy_jcom.loader"
@@ -3115,7 +3400,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 29.0, 67.0, 640.0, 480.0 ],
@@ -3319,21 +3604,25 @@
 
 											}
  ],
-										"dependency_cache" : [  ]
+										"dependency_cache" : [ 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+ ]
 									}
 ,
 									"patching_rect" : [ 15.0, 144.0, 149.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Arial",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"fontsize" : 12.0,
+										"default_fontsize" : 12.0,
+										"description" : ""
 									}
 ,
 									"text" : "p create_extensions_Folder"
@@ -3555,21 +3844,29 @@
 								"type" : "JSON",
 								"implicit" : 1
 							}
+, 							{
+								"name" : "jcom.folder.mxo",
+								"type" : "iLaX"
+							}
+, 							{
+								"name" : "jcom.route.mxo",
+								"type" : "iLaX"
+							}
  ]
 					}
 ,
 					"patching_rect" : [ 105.0, 195.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"tags" : "",
-						"default_fontface" : 0,
-						"digest" : "",
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"digest" : "",
+						"default_fontname" : "Verdana",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p win"
@@ -3590,7 +3887,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 0
+							"revision" : 4
 						}
 ,
 						"rect" : [ 53.0, 44.0, 690.0, 327.0 ],
@@ -3626,7 +3923,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 331.0, 190.0, 741.0, 480.0 ],
@@ -3753,7 +4050,8 @@
 													"id" : "obj-6",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
 													"patching_rect" : [ 228.0, 373.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
@@ -3766,7 +4064,8 @@
 													"id" : "obj-5",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
 													"patching_rect" : [ 530.0, 373.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
@@ -3892,13 +4191,13 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-19",
-													"linecount" : 3,
+													"linecount" : 4,
 													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 20.0, 217.0, 231.0, 41.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled4.app/Contents/support/extensions\""
+													"patching_rect" : [ 20.0, 217.0, 231.0, 53.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/Max 6 Projects/ViMiC-demo.app/Contents/support/extensions\""
 												}
 
 											}
@@ -4218,21 +4517,25 @@
 
 											}
  ],
-										"dependency_cache" : [  ]
+										"dependency_cache" : [ 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+ ]
 									}
 ,
 									"patching_rect" : [ 50.0, 125.0, 80.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Arial",
 										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Arial",
 										"fontface" : 0,
-										"fontsize" : 12.0
+										"fontsize" : 12.0,
+										"default_fontsize" : 12.0,
+										"description" : ""
 									}
 ,
 									"text" : "p jcom.loader"
@@ -4267,7 +4570,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 435.0, 76.0, 790.0, 492.0 ],
@@ -4336,12 +4639,13 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-39",
+													"linecount" : 2,
 													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 21.0, 273.0, 388.0, 17.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled4.app\""
+													"patching_rect" : [ 21.0, 273.0, 388.0, 29.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/Max 6 Projects/ViMiC-demo.app\""
 												}
 
 											}
@@ -4435,12 +4739,13 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-17",
+													"linecount" : 2,
 													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 21.0, 100.0, 359.0, 17.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled4.app\""
+													"patching_rect" : [ 21.0, 100.0, 359.0, 29.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/Max 6 Projects/ViMiC-demo.app\""
 												}
 
 											}
@@ -4726,21 +5031,25 @@
 												"type" : "JSON",
 												"implicit" : 1
 											}
+, 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
  ]
 									}
 ,
 									"patching_rect" : [ 50.0, 202.0, 342.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p preset_interface"
@@ -4761,7 +5070,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -4788,12 +5097,13 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-17",
+													"linecount" : 2,
 													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 251.0, 401.0, 17.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled4.app\""
+													"patching_rect" : [ 50.0, 251.0, 401.0, 29.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/Max 6 Projects/ViMiC-demo.app\""
 												}
 
 											}
@@ -4928,12 +5238,13 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-11",
+													"linecount" : 2,
 													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 50.0, 100.0, 344.0, 17.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled4.app\""
+													"patching_rect" : [ 50.0, 100.0, 344.0, 29.0 ],
+													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/Max 6 Projects/ViMiC-demo.app\""
 												}
 
 											}
@@ -5100,21 +5411,25 @@
 
 											}
  ],
-										"dependency_cache" : [  ]
+										"dependency_cache" : [ 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+ ]
 									}
 ,
 									"patching_rect" : [ 50.0, 157.0, 250.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p frameworks&Extensions"
@@ -5134,7 +5449,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 4.0, 44.0, 1179.0, 714.0 ],
@@ -5233,8 +5548,8 @@
 													"id" : "obj-8",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
+													"numoutlets" : 3,
+													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 663.0, 437.0, 261.0, 19.0 ],
 													"text" : "jcom.route @searchstring jmod. @partialmatch 1"
 												}
@@ -5468,12 +5783,12 @@
 , 											{
 												"box" : 												{
 													"autopopulate" : 1,
-													"depth" : 2,
+													"depth" : 5,
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frozen_box_attributes" : [ "depth", "types" ],
+													"frozen_box_attributes" : [ "types", "depth" ],
 													"id" : "obj-38",
-													"items" : [ "audio/10harmonics~/jmod.10harmonics~.html", ",", "audio/10harmonics~/jmod.10harmonics~.xml", ",", "audio/_template~/jmod._template~.html", ",", "audio/_template~/jmod._template~.xml", ",", "audio/audiounit~/jmod.audiounit~.html", ",", "audio/audiounit~/jmod.audiounit~.xml", ",", "audio/crossfade~/jmod.crossfade~.html", ",", "audio/crossfade~/jmod.crossfade~.xml", ",", "audio/degrade~/jmod.degrade~.html", ",", "audio/degrade~/jmod.degrade~.xml", ",", "audio/delay~/jmod.delay~.html", ",", "audio/delay~/jmod.delay~.xml", ",", "audio/echo~/jmod.echo~.html", ",", "audio/echo~/jmod.echo~.xml", ",", "audio/equalizer~/jmod.equalizer~.html", ",", "audio/equalizer~/jmod.equalizer~.xml", ",", "audio/filter~/jmod.filter~.html", ",", "audio/filter~/jmod.filter~.xml", ",", "audio/fluidsynth~/jmod.fluidsynth~.html", ",", "audio/fluidsynth~/jmod.fluidsynth~.xml", ",", "audio/input~/jmod.input~.html", ",", "audio/input~/jmod.input~.xml", ",", "audio/limiter~/jmod.limiter~.html", ",", "audio/limiter~/jmod.limiter~.xml", ",", "audio/multidelay~/jmod.multidelay~.html", ",", "audio/multidelay~/jmod.multidelay~.xml", ",", "audio/noisegate~/jmod.noisegate~.html", ",", "audio/noisegate~/jmod.noisegate~.xml", ",", "audio/noise~/jmod.noise~.html", ",", "audio/noise~/jmod.noise~.xml", ",", "audio/output~/jmod.output~.html", ",", "audio/output~/jmod.output~.xml", ",", "audio/rissetGlissando/jmod.rissetGlissando~.html", ",", "audio/rissetGlissando/jmod.rissetGlissando~.xml", ",", "audio/samplePlayer2~/jmod.samplePlayer2~.html", ",", "audio/samplePlayer2~/jmod.samplePlayer2~.xml", ",", "audio/samplePlayer~/jmod.samplePlayer~.html", ",", "audio/samplePlayer~/jmod.samplePlayer~.xml", ",", "audio/saturation~/jmod.saturation~.html", ",", "audio/saturation~/jmod.saturation~.xml", ",", "audio/scope~/jmod.scope~.html", ",", "audio/scope~/jmod.scope~.xml", ",", "audio/sine~/jmod.sine~.html", ",", "audio/sine~/jmod.sine~.xml", ",", "audio/sonifyer~/jmod.sonifyer~.html", ",", "audio/sonifyer~/jmod.sonifyer~.xml", ",", "audio/spectralShift~/jmod.spectralShift~.html", ",", "audio/spectralShift~/jmod.spectralShift~.xml", ",", "audio/spectrogram~/jmod.spectrogram~.html", ",", "audio/spectrogram~/jmod.spectrogram~.xml", ",", "audio/tremolo~/jmod.tremolo~.html", ",", "audio/tremolo~/jmod.tremolo~.xml", ",", "audio/vst~/jmod.vst~.html", ",", "audio/vst~/jmod.vst~.xml", ",", "control/_template/jmod._template.html", ",", "control/_template/jmod._template.xml", ",", "control/bcf2000/jmod.bcf2000.html", ",", "control/bcf2000/jmod.bcf2000.xml", ",", "control/colorpicker/jmod.colorpicker.html", ",", "control/colorpicker/jmod.colorpicker.xml", ",", "control/continuum/jmod.continuum.html", ",", "control/continuum/jmod.continuum.xml", ",", "control/cueComment/jmod.cueComment.html", ",", "control/cueComment/jmod.cueComment.xml", ",", "control/cueManager/cuelist_help.txt", ",", "control/cueManager/jmod.cueManager.html", ",", "control/cueManager/jmod.cueManager.xml", ",", "control/cueScript/jmod.cueScript.html", ",", "control/cueScript/jmod.cueScript.xml", ",", "control/cueScript/jmod.demo_cuescript.txt", ",", "control/cueTrigger/jmod.cueTrigger.html", ",", "control/cueTrigger/jmod.cueTrigger.xml", ",", "control/fileBrowser/jmod.fileBrowser.html", ",", "control/fileBrowser/jmod.fileBrowser.xml", ",", "control/fileNameGenerator/jmod.fileNameGenerator.html", ",", "control/fileNameGenerator/jmod.fileNameGenerator.xml", ",", "control/globalTransport/jmod.globalTransport.html", ",", "control/globalTransport/jmod.globalTransport.xml", ",", "control/hi/jmod.hi.html", ",", "control/hi/jmod.hi.xml", ",", "control/layout/jmod.layout.html", ",", "control/layout/jmod.layout.locate_patcher.js", ",", "control/layout/jmod.layout.xml", ",", "control/layout/jmod.layouthelp.xml", ",", "control/layout/modules.txt", ",", "control/mapper/jcom.mappings.js", ",", "control/mapper/jmod.mapper.html", ",", "control/mapper/jmod.mapper.xml", ",", "control/mapperContinuous/jmod.mapperContinuous.html", ",", "control/mapperContinuous/jmod.mapperContinuous.xml", ",", "control/mapperDiscrete/jmod.mapperDiscrete.html", ",", "control/mapperDiscrete/jmod.mapperDiscrete.xml", ",", "control/mapperDiscrete/mappperDiscreteHelp1.xml", ",", "control/mapperDiscrete/mappperDiscreteHelp2.xml", ",", "control/messages/jmod.messages.html", ",", "control/messages/jmod.messages.xml", ",", "control/midiin/jmod.midiin.html", ",", "control/midiin/jmod.midiin.xml", ",", "control/mouse/jmod.mouse.html", ",", "control/mouse/jmod.mouse.xml", ",", "control/mouse.gdif/jmod.mouse.gdif.html", ",", "control/mouse.gdif/jmod.mouse.gdif.xml", ",", "control/multicast/jmod.multicast.html", ",", "control/multicast/jmod.multicast.xml", ",", "control/oscnet/jmod.oscnet.html", ",", "control/oscnet/jmod.oscnet.xml", ",", "control/palette/jmod.palette.html", ",", "control/palette/jmod.palette.xml", ",", "control/polhemus/jmod.polhemus.html", ",", "control/polhemus/jmod.polhemus.xml", ",", "control/qmetro/jmod.qmetro.html", ",", "control/qmetro/jmod.qmetro.xml", ",", "control/qualisys/jmod.qualisys.html", ",", "control/qualisys/jmod.qualisys.xml", ",", "control/spacenavigator/jmod.spacenavigator.html", ",", "control/spacenavigator/jmod.spacenavigator.xml", ",", "control/uc-33/jmod.uc-33.html", ",", "control/uc-33/jmod.uc-33.xml", ",", "control/wacom/jmod.wacom.html", ",", "control/wacom/jmod.wacom.xml", ",", "data/condition/jmod.condition.html", ",", "data/condition/jmod.condition.xml", ",", "data/textwriter/jalg.textwriter.mxt", ",", "data/textwriter/jmod.textwriter.html", ",", "data/textwriter/jmod.textwriter.xml", ",", "openGL/gl.alphamixer%/jmod.gl.alphamixer%.html", ",", "openGL/gl.alphamixer%/jmod.gl.alphamixer%.xml", ",", "openGL/gl.chromakey%/jmod.gl.chromakey%.html", ",", "openGL/gl.chromakey%/jmod.gl.chromakey%.xml", ",", "openGL/gl.chromakey%/jmod.gl.td.chromakey-demo.txt", ",", "openGL/gl.edgeblend%/jmod.gl.edgeblend%.html", ",", "openGL/gl.edgeblend%/jmod.gl.edgeblend%.xml", ",", "openGL/gl.td.background%/jmod.gl.background%.html", ",", "openGL/gl.td.background%/jmod.gl.background%.xml", ",", "openGL/gl.td.rota%/jmod.gl.td.rota%.html", ",", "openGL/gl.td.rota%/jmod.gl.td.rota%.xml", ",", "openGL/gl.text2d%/GNU-LGPL.txt", ",", "openGL/gl.text2d%/jmod.gl.text2d%-demo.txt", ",", "openGL/gl.text2d%/jmod.gl.text2d%.html", ",", "openGL/gl.text2d%/jmod.gl.text2d%.xml", ",", "openGL/gl.videoplane%/jmod.gl.videoplane%.html", ",", "openGL/gl.videoplane%/jmod.gl.videoplane%.xml", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.html", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.xml", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.html", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.xml", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.html", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.xml", ",", "spatialization/sur.ambipanning~/jmod.sur.ambipanning~.html", ",", "spatialization/sur.ambipanning~/jmod.sur.ambipanning~.xml", ",", "spatialization/sur.ambisonics~/jmod.sur.ambisonics~.html", ",", "spatialization/sur.ambisonics~/jmod.sur.ambisonics~.xml", ",", "spatialization/sur.audiounit~/jmod.sur.audiounit~.html", ",", "spatialization/sur.audiounit~/jmod.sur.audiounit~.xml", ",", "spatialization/sur.aux~/jmod.sur.aux~.html", ",", "spatialization/sur.aux~/jmod.sur.aux~.xml", ",", "spatialization/sur.dbapBformat~/jmod.sur.dbapBformat~.html", ",", "spatialization/sur.dbapBformat~/jmod.sur.dbapBformat~.xml", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.html", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.xml", ",", "spatialization/sur.doppler~/jcom.sur.doppler.js", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.html", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.xml", ",", "spatialization/sur.info~/jmod.sur.info~.html", ",", "spatialization/sur.info~/jmod.sur.info~.xml", ",", "spatialization/sur.input~/jmod.sur.input~.html", ",", "spatialization/sur.input~/jmod.sur.input~.xml", ",", "spatialization/sur.meters~/jmod.sur.meters~.html", ",", "spatialization/sur.meters~/jmod.sur.meters~.xml", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.html", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.xml", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.html", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.xml", ",", "spatialization/sur.output~/jmod.sur.output~.html", ",", "spatialization/sur.output~/jmod.sur.output~.xml", ",", "spatialization/sur.position/jmod.sur.position.html", ",", "spatialization/sur.position/jmod.sur.position.xml", ",", "spatialization/sur.race~/jmod.sur.race~.html", ",", "spatialization/sur.race~/jmod.sur.race~.xml", ",", "spatialization/sur.rolloff~/jcom.sur.rolloff.js", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.html", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.xml", ",", "spatialization/sur.setup/jmod.sur.setup.html", ",", "spatialization/sur.setup/jmod.sur.setup.xml", ",", "spatialization/sur.speaker.delay~/jcom.sur.speaker.delays.js", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.html", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.xml", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.html", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.xml", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.html", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.xml", ",", "spatialization/sur.waveformViewer/jmod.sur.waveformViewer~.html", ",", "spatialization/sur.waveformViewer/jmod.sur.waveformViewer~.xml", ",", "spatialization/sur.zoomH2ambi~/jmod.sur.zoomH2ambi~.html", ",", "spatialization/sur.zoomH2ambi~/jmod.sur.zoomH2ambi~.xml", ",", "video/alphablend%/jmod.alphablend%.html", ",", "video/alphablend%/jmod.alphablend%.xml", ",", "video/avg4%/jmod.avg4%.html", ",", "video/avg4%/jmod.avg4%.xml", ",", "video/background%/jmod.background%.html", ",", "video/background%/jmod.background%.xml", ",", "video/blur%/jmod.blur%.html", ",", "video/blur%/jmod.blur%.xml", ",", "video/box%/jmod.box%.html", ",", "video/box%/jmod.box%.xml", ",", "video/brcosa%/jmod.brcosa%.html", ",", "video/brcosa%/jmod.brcosa%.xml", ",", "video/chromakey%/jmod.chromakey%.html", ",", "video/chromakey%/jmod.chromakey%.xml", ",", "video/edge%/jmod.edge%.html", ",", "video/edge%/jmod.edge%.xml", ",", "video/emboss%/jmod.emboss%.html", ",", "video/emboss%/jmod.emboss%.xml", ",", "video/fft%/jmod.fft%.html", ",", "video/fft%/jmod.fft%.xml", ",", "video/fluoride%/jmod.fluoride%.html", ",", "video/fluoride%/jmod.fluoride%.xml", ",", "video/foregroundMask%/jmod.foregroundMask%.html", ",", "video/foregroundMask%/jmod.foregroundMask%.xml", ",", "video/ifft%/jmod.ifft%.html", ",", "video/ifft%/jmod.ifft%.xml", ",", "video/input%/jmod.input%.html", ",", "video/input%/jmod.input%.xml", ",", "video/keyscreen%/jmod.keyscreen%.html", ",", "video/keyscreen%/jmod.keyscreen%.xml", ",", "video/mblur%/jmod.mblur%.html", ",", "video/mblur%/jmod.mblur%.xml", ",", "video/motion%/jmod.motion%.html", ",", "video/motion%/jmod.motion%.xml", ",", "video/motion2%/jmod.motion2%.html", ",", "video/motion2%/jmod.motion2%.xml", ",", "video/motiongram%/jmod.motiongram%.html", ",", "video/motiongram%/jmod.motiongram%.xml", ",", "video/moviePlayer%/jmod.moviePlayer%.html", ",", "video/moviePlayer%/jmod.moviePlayer%.xml", ",", "video/op%/jmod.op%.html", ",", "video/op%/jmod.op%.xml", ",", "video/orsize%/jmod.orsize%.html", ",", "video/orsize%/jmod.orsize%.xml", ",", "video/output%/jmod.output%.html", ",", "video/output%/jmod.output%.xml", ",", "video/plur%/jmod.plur%.html", ",", "video/plur%/jmod.plur%.xml", ",", "video/posterize%/jmod.posterize%.html", ",", "video/posterize%/jmod.posterize%.xml", ",", "video/record%/jmod.record%.html", ",", "video/record%/jmod.record%.xml", ",", "video/rgb2gray%/jmod.rgb2gray%.html", ",", "video/rgb2gray%/jmod.rgb2gray%.xml", ",", "video/similarity%/jmod.similarity%.html", ",", "video/similarity%/jmod.similarity%.xml", ",", "video/slitscan%/jmod.slitscan%.html", ",", "video/slitscan%/jmod.slitscan%.xml", ",", "video/television%/jmod.television%.html", ",", "video/television%/jmod.television%.xml", ",", "video/wake%/jmod.wake%.html", ",", "video/wake%/jmod.wake%.xml", ",", "video/xfade%/jmod.xfade%.html", ",", "video/xfade%/jmod.xfade%.xml", ",", "video/yfade%/jmod.yfade%.html", ",", "video/yfade%/jmod.yfade%.xml" ],
+													"items" : [ "audio/10harmonics~/jmod.10harmonics~.html", ",", "audio/10harmonics~/jmod.10harmonics~.xml", ",", "audio/_template~/jmod._template~.html", ",", "audio/_template~/jmod._template~.xml", ",", "audio/audiounit~/jmod.audiounit~.html", ",", "audio/audiounit~/jmod.audiounit~.xml", ",", "audio/crossfade~/jmod.crossfade~.html", ",", "audio/crossfade~/jmod.crossfade~.xml", ",", "audio/degrade~/jmod.degrade~.html", ",", "audio/degrade~/jmod.degrade~.xml", ",", "audio/delay~/jmod.delay~.html", ",", "audio/delay~/jmod.delay~.xml", ",", "audio/echo~/jmod.echo~.html", ",", "audio/echo~/jmod.echo~.xml", ",", "audio/equalizer~/jmod.equalizer~.html", ",", "audio/equalizer~/jmod.equalizer~.xml", ",", "audio/filter~/jmod.filter~.html", ",", "audio/filter~/jmod.filter~.xml", ",", "audio/fluidsynth~/jmod.fluidsynth~.html", ",", "audio/fluidsynth~/jmod.fluidsynth~.xml", ",", "audio/hilbertModulator~/jmod.hilbertModulator~.html", ",", "audio/hilbertModulator~/jmod.hilbertModulator~.xml", ",", "audio/input~/jmod.input~.html", ",", "audio/input~/jmod.input~.xml", ",", "audio/limiter~/jmod.limiter~.html", ",", "audio/limiter~/jmod.limiter~.xml", ",", "audio/multidelay~/jmod.multidelay~.html", ",", "audio/multidelay~/jmod.multidelay~.xml", ",", "audio/noisegate~/jmod.noisegate~.html", ",", "audio/noisegate~/jmod.noisegate~.xml", ",", "audio/noise~/jmod.noise~.html", ",", "audio/noise~/jmod.noise~.xml", ",", "audio/output~/jmod.output~.html", ",", "audio/output~/jmod.output~.xml", ",", "audio/rissetGlissando/jmod.rissetGlissando~.html", ",", "audio/rissetGlissando/jmod.rissetGlissando~.xml", ",", "audio/samplePlayer2~/jmod.samplePlayer2~.html", ",", "audio/samplePlayer2~/jmod.samplePlayer2~.xml", ",", "audio/samplePlayer~/jmod.samplePlayer~.html", ",", "audio/samplePlayer~/jmod.samplePlayer~.xml", ",", "audio/saturation~/jmod.saturation~.html", ",", "audio/saturation~/jmod.saturation~.xml", ",", "audio/scope~/jmod.scope~.html", ",", "audio/scope~/jmod.scope~.xml", ",", "audio/sine~/jmod.sine~.html", ",", "audio/sine~/jmod.sine~.xml", ",", "audio/sonifyer~/jmod.sonifyer~.html", ",", "audio/sonifyer~/jmod.sonifyer~.xml", ",", "audio/spectralGate~/jmod.spectralGate~.html", ",", "audio/spectralGate~/jmod.spectralGate~.xml", ",", "audio/spectralShift~/jmod.spectralShift~.html", ",", "audio/spectralShift~/jmod.spectralShift~.xml", ",", "audio/spectrogram~/jmod.spectrogram~.html", ",", "audio/spectrogram~/jmod.spectrogram~.xml", ",", "audio/tremolo~/jmod.tremolo~.html", ",", "audio/tremolo~/jmod.tremolo~.xml", ",", "audio/vst~/jmod.vst~.html", ",", "audio/vst~/jmod.vst~.xml", ",", "control/_template/jmod._template.html", ",", "control/_template/jmod._template.xml", ",", "control/bcf2000/jmod.bcf2000.html", ",", "control/bcf2000/jmod.bcf2000.xml", ",", "control/colorpicker/jmod.colorpicker.html", ",", "control/colorpicker/jmod.colorpicker.xml", ",", "control/continuum/jmod.continuum.html", ",", "control/continuum/jmod.continuum.xml", ",", "control/cueComment/jmod.cueComment.html", ",", "control/cueComment/jmod.cueComment.xml", ",", "control/cueManager/cuelist_help.txt", ",", "control/cueManager/jmod.cueManager.html", ",", "control/cueManager/jmod.cueManager.xml", ",", "control/cueScript/jmod.cueScript.html", ",", "control/cueScript/jmod.cueScript.xml", ",", "control/cueScript/jmod.demo_cuescript.txt", ",", "control/cueTrigger/jmod.cueTrigger.html", ",", "control/cueTrigger/jmod.cueTrigger.xml", ",", "control/fileBrowser/jmod.fileBrowser.html", ",", "control/fileBrowser/jmod.fileBrowser.xml", ",", "control/fileNameGenerator/jmod.fileNameGenerator.html", ",", "control/fileNameGenerator/jmod.fileNameGenerator.xml", ",", "control/globalTransport/jmod.globalTransport.html", ",", "control/globalTransport/jmod.globalTransport.xml", ",", "control/hi/jmod.hi.html", ",", "control/hi/jmod.hi.xml", ",", "control/layout/jmod.layout.html", ",", "control/layout/jmod.layout.locate_patcher.js", ",", "control/layout/jmod.layout.xml", ",", "control/layout/jmod.layouthelp.xml", ",", "control/layout/modules.txt", ",", "control/mapper/jcom.mappings.js", ",", "control/mapper/jmod.mapper.html", ",", "control/mapper/jmod.mapper.xml", ",", "control/mapperContinuous/jmod.mapperContinuous.html", ",", "control/mapperContinuous/jmod.mapperContinuous.xml", ",", "control/mapperDiscrete/jmod.mapperDiscrete.html", ",", "control/mapperDiscrete/jmod.mapperDiscrete.xml", ",", "control/mapperDiscrete/mappperDiscreteHelp1.xml", ",", "control/mapperDiscrete/mappperDiscreteHelp2.xml", ",", "control/messages/jmod.messages.html", ",", "control/messages/jmod.messages.xml", ",", "control/midiin/jmod.midiin.html", ",", "control/midiin/jmod.midiin.xml", ",", "control/mouse/jmod.mouse.html", ",", "control/mouse/jmod.mouse.xml", ",", "control/mouse.gdif/jmod.mouse.gdif.html", ",", "control/mouse.gdif/jmod.mouse.gdif.xml", ",", "control/multicast/jmod.multicast.html", ",", "control/multicast/jmod.multicast.xml", ",", "control/oscnet/jmod.oscnet.html", ",", "control/oscnet/jmod.oscnet.xml", ",", "control/palette/jmod.palette.html", ",", "control/palette/jmod.palette.xml", ",", "control/polhemus/jmod.polhemus.html", ",", "control/polhemus/jmod.polhemus.xml", ",", "control/qmetro/jmod.qmetro.html", ",", "control/qmetro/jmod.qmetro.xml", ",", "control/qualisys/jmod.qualisys.html", ",", "control/qualisys/jmod.qualisys.xml", ",", "control/spacenavigator/jmod.spacenavigator.html", ",", "control/spacenavigator/jmod.spacenavigator.xml", ",", "control/uc-33/jmod.uc-33.html", ",", "control/uc-33/jmod.uc-33.xml", ",", "control/wacom/jmod.wacom.html", ",", "control/wacom/jmod.wacom.xml", ",", "data/condition/jmod.condition.html", ",", "data/condition/jmod.condition.xml", ",", "data/textwriter/jalg.textwriter.mxt", ",", "data/textwriter/jmod.textwriter.html", ",", "data/textwriter/jmod.textwriter.xml", ",", "openGL/gl.alphamixer%/jmod.gl.alphamixer%.html", ",", "openGL/gl.alphamixer%/jmod.gl.alphamixer%.xml", ",", "openGL/gl.alphamixer%/shaders/jcom.4ch_alphamixer.jxs", ",", "openGL/gl.alphamixer%/shaders/jcom.4ch_alphamixer.vp.glsl", ",", "openGL/gl.chromakey%/jmod.gl.chromakey%.html", ",", "openGL/gl.chromakey%/jmod.gl.chromakey%.xml", ",", "openGL/gl.chromakey%/jmod.gl.td.chromakey-demo.txt", ",", "openGL/gl.edgeblend%/jmod.gl.edgeblend%.html", ",", "openGL/gl.edgeblend%/jmod.gl.edgeblend%.xml", ",", "openGL/gl.td.background%/jmod.gl.background%.html", ",", "openGL/gl.td.background%/jmod.gl.background%.xml", ",", "openGL/gl.td.rota%/jmod.gl.td.rota%.html", ",", "openGL/gl.td.rota%/jmod.gl.td.rota%.xml", ",", "openGL/gl.text2d%/GNU-LGPL.txt", ",", "openGL/gl.text2d%/jmod.gl.text2d%-demo.txt", ",", "openGL/gl.text2d%/jmod.gl.text2d%.html", ",", "openGL/gl.text2d%/jmod.gl.text2d%.xml", ",", "openGL/gl.videoplane%/jmod.gl.videoplane%.html", ",", "openGL/gl.videoplane%/jmod.gl.videoplane%.xml", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.html", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.xml", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.html", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.xml", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.html", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.xml", ",", "spatialization/sur.ambipanning~/jmod.sur.ambipanning~.html", ",", "spatialization/sur.ambipanning~/jmod.sur.ambipanning~.xml", ",", "spatialization/sur.ambisonics~/jmod.sur.ambisonics~.html", ",", "spatialization/sur.ambisonics~/jmod.sur.ambisonics~.xml", ",", "spatialization/sur.audiounit~/jmod.sur.audiounit~.html", ",", "spatialization/sur.audiounit~/jmod.sur.audiounit~.xml", ",", "spatialization/sur.aux~/jmod.sur.aux~.html", ",", "spatialization/sur.aux~/jmod.sur.aux~.xml", ",", "spatialization/sur.dbapBformat~/jmod.sur.dbapBformat~.html", ",", "spatialization/sur.dbapBformat~/jmod.sur.dbapBformat~.xml", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.html", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.xml", ",", "spatialization/sur.doppler~/jcom.sur.doppler.js", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.html", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.xml", ",", "spatialization/sur.info~/jmod.sur.info~.html", ",", "spatialization/sur.info~/jmod.sur.info~.xml", ",", "spatialization/sur.input~/jmod.sur.input~.html", ",", "spatialization/sur.input~/jmod.sur.input~.xml", ",", "spatialization/sur.meters~/jmod.sur.meters~.html", ",", "spatialization/sur.meters~/jmod.sur.meters~.xml", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.html", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.xml", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.html", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.xml", ",", "spatialization/sur.output~/jmod.sur.output~.html", ",", "spatialization/sur.output~/jmod.sur.output~.xml", ",", "spatialization/sur.position/jmod.sur.position.html", ",", "spatialization/sur.position/jmod.sur.position.xml", ",", "spatialization/sur.race~/jmod.sur.race~.html", ",", "spatialization/sur.race~/jmod.sur.race~.xml", ",", "spatialization/sur.rolloff~/jcom.sur.rolloff.js", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.html", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.xml", ",", "spatialization/sur.setup/jmod.sur.setup.html", ",", "spatialization/sur.setup/jmod.sur.setup.xml", ",", "spatialization/sur.speaker.delay~/jcom.sur.speaker.delays.js", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.html", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.xml", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.html", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.xml", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.html", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.xml", ",", "spatialization/sur.waveformViewer/jmod.sur.waveformViewer~.html", ",", "spatialization/sur.waveformViewer/jmod.sur.waveformViewer~.xml", ",", "spatialization/sur.zoomH2ambi~/jmod.sur.zoomH2ambi~.html", ",", "spatialization/sur.zoomH2ambi~/jmod.sur.zoomH2ambi~.xml", ",", "video/alphablend%/jmod.alphablend%.html", ",", "video/alphablend%/jmod.alphablend%.xml", ",", "video/avg4%/jmod.avg4%.html", ",", "video/avg4%/jmod.avg4%.xml", ",", "video/background%/jmod.background%.html", ",", "video/background%/jmod.background%.xml", ",", "video/blur%/jmod.blur%.html", ",", "video/blur%/jmod.blur%.xml", ",", "video/box%/jmod.box%.html", ",", "video/box%/jmod.box%.xml", ",", "video/brcosa%/jmod.brcosa%.html", ",", "video/brcosa%/jmod.brcosa%.xml", ",", "video/chromakey%/jmod.chromakey%.html", ",", "video/chromakey%/jmod.chromakey%.xml", ",", "video/edge%/jmod.edge%.html", ",", "video/edge%/jmod.edge%.xml", ",", "video/emboss%/jmod.emboss%.html", ",", "video/emboss%/jmod.emboss%.xml", ",", "video/fft%/jmod.fft%.html", ",", "video/fft%/jmod.fft%.xml", ",", "video/fluoride%/jmod.fluoride%.html", ",", "video/fluoride%/jmod.fluoride%.xml", ",", "video/foregroundMask%/jmod.foregroundMask%.html", ",", "video/foregroundMask%/jmod.foregroundMask%.xml", ",", "video/ifft%/jmod.ifft%.html", ",", "video/ifft%/jmod.ifft%.xml", ",", "video/input%/jmod.input%.html", ",", "video/input%/jmod.input%.xml", ",", "video/keyscreen%/jmod.keyscreen%.html", ",", "video/keyscreen%/jmod.keyscreen%.xml", ",", "video/mblur%/jmod.mblur%.html", ",", "video/mblur%/jmod.mblur%.xml", ",", "video/motion%/jmod.motion%.html", ",", "video/motion%/jmod.motion%.xml", ",", "video/motion2%/jmod.motion2%.html", ",", "video/motion2%/jmod.motion2%.xml", ",", "video/motiongram%/jmod.motiongram%.html", ",", "video/motiongram%/jmod.motiongram%.xml", ",", "video/moviePlayer%/jmod.moviePlayer%.html", ",", "video/moviePlayer%/jmod.moviePlayer%.xml", ",", "video/op%/jmod.op%.html", ",", "video/op%/jmod.op%.xml", ",", "video/orsize%/jmod.orsize%.html", ",", "video/orsize%/jmod.orsize%.xml", ",", "video/output%/jmod.output%.html", ",", "video/output%/jmod.output%.xml", ",", "video/plur%/jmod.plur%.html", ",", "video/plur%/jmod.plur%.xml", ",", "video/posterize%/jmod.posterize%.html", ",", "video/posterize%/jmod.posterize%.xml", ",", "video/record%/jmod.record%.html", ",", "video/record%/jmod.record%.xml", ",", "video/rgb2gray%/jmod.rgb2gray%.html", ",", "video/rgb2gray%/jmod.rgb2gray%.xml", ",", "video/similarity%/jmod.similarity%.html", ",", "video/similarity%/jmod.similarity%.xml", ",", "video/slitscan%/jmod.slitscan%.html", ",", "video/slitscan%/jmod.slitscan%.xml", ",", "video/television%/jmod.television%.html", ",", "video/television%/jmod.television%.xml", ",", "video/wake%/jmod.wake%.html", ",", "video/wake%/jmod.wake%.xml", ",", "video/xfade%/jmod.xfade%.html", ",", "video/xfade%/jmod.xfade%.xml", ",", "video/yfade%/jmod.yfade%.html", ",", "video/yfade%/jmod.yfade%.xml" ],
 													"maxclass" : "umenu",
 													"numinlets" : 1,
 													"numoutlets" : 3,
@@ -5637,7 +5952,8 @@
 													"id" : "obj-31",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
 													"patching_rect" : [ 594.0, 647.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
@@ -6077,21 +6393,29 @@
 												"type" : "JSON",
 												"implicit" : 1
 											}
+, 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+, 											{
+												"name" : "jcom.route.mxo",
+												"type" : "iLaX"
+											}
  ]
 									}
 ,
 									"patching_rect" : [ 495.800018, 171.399994, 114.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p copy_XML_presets"
@@ -6112,7 +6436,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 543.0, 161.0, 640.0, 480.0 ],
@@ -6145,7 +6469,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 49.0, 383.0, 193.0, 41.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled4.app\""
+													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/Max 6 Projects/ViMiC-demo.app\""
 												}
 
 											}
@@ -6227,7 +6551,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 50.0, 202.0, 193.0, 41.0 ],
-													"text" : "\"Macintosh HD:/Users/nilspeters/Desktop/Untitled4.app\""
+													"text" : "\"Macintosh HD:/Users/nilspeters/Documents/Max 6 Projects/ViMiC-demo.app\""
 												}
 
 											}
@@ -6418,21 +6742,25 @@
 
 											}
  ],
-										"dependency_cache" : [  ]
+										"dependency_cache" : [ 											{
+												"name" : "jcom.folder.mxo",
+												"type" : "iLaX"
+											}
+ ]
 									}
 ,
 									"patching_rect" : [ 495.800018, 102.099998, 125.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"tags" : "",
-										"default_fontface" : 0,
-										"digest" : "",
-										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p crate-Jamoma-folder"
@@ -6636,21 +6964,29 @@
 								"type" : "JSON",
 								"implicit" : 1
 							}
+, 							{
+								"name" : "jcom.folder.mxo",
+								"type" : "iLaX"
+							}
+, 							{
+								"name" : "jcom.route.mxo",
+								"type" : "iLaX"
+							}
  ]
 					}
 ,
 					"patching_rect" : [ 185.0, 195.0, 44.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"tags" : "",
-						"default_fontface" : 0,
-						"digest" : "",
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"digest" : "",
+						"default_fontname" : "Verdana",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p mac"
@@ -6761,7 +7097,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 272.0, 250.0, 106.0, 36.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 189.0, 244.0, 204.0, 36.0 ]
+					"presentation_rect" : [ 131.0, 244.0, 302.0, 36.0 ]
 				}
 
 			}
@@ -6837,7 +7173,25 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-20", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-80", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-44", 0 ]
@@ -6846,7 +7200,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-80", 0 ],
+					"destination" : [ "obj-20", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-46", 0 ]
@@ -6938,6 +7292,14 @@
 				"patcherrelativepath" : "../documentation/graphics",
 				"type" : "PNG ",
 				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.folder.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.route.mxo",
+				"type" : "iLaX"
 			}
  ]
 	}

@@ -161,15 +161,15 @@ void hub_internals_destroy(t_hub *x)
 }
 
 /*
-void hub_internals_dispatch(t_hub *x, t_symbol *osc_name, long argc, t_atom *argv)
+void hub_internals_dispatch(t_hub *x, t_symbol *osc_alias, long argc, t_atom *argv)
 {
 	hubInternalObject	*theObject;
 	t_max_err			err;
 	
-	err = hashtab_lookup(x->hash_internals, osc_name, (t_object**)&theObject);
+	err = hashtab_lookup(x->hash_internals, osc_alias, (t_object**)&theObject);
 	if (!err) {
 		if (theObject->action)
-			theObject->action(x, osc_name, argc, argv);
+			theObject->action(x, osc_alias, argc, argv);
 	}
 }
 */

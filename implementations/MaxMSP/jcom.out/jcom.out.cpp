@@ -107,7 +107,8 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->preview_object = NULL;
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
-		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix is false
+		x->attr_gain = 100;										// Assume 100 gan value, so that processed signal is passed through if @has_gain in jcom.ui is false
+		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix in jcom.ui is false
 		if (attrstart > 0) {
 			int argument = atom_getlong(argv);
 			x->numOutputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
@@ -227,9 +228,6 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 		
 	if (argv->a_type == A_SYM) {
-// jamoma 0.4
-//		if ((argv->a_w.w_sym == jps_slash_audio_gain_midi) || (argv->a_w.w_sym == jps_audio_gain_midi)) {
-// jamoma 0.5
 		if ((argv->a_w.w_sym == gensym("/audio/gain")) || (argv->a_w.w_sym == gensym("audio/gain")) || (argv->a_w.w_sym == gensym("gain")) || (argv->a_w.w_sym == gensym("/gain"))) {
 			// Do gain control here...
 			// Should be that the gain change triggers a short tt_ramp to the new value
@@ -250,7 +248,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 		else if ((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))) {
 			x->attr_bypass = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
-			if (x->attr_bypass == 0)
+			if (!x->attr_bypass) //bypass is disabled
 				x->xfade->setAttributeValue(TT("position"), x->attr_mix * 0.01);
 			else
 				x->xfade->setAttributeValue(TT("position"), 0.0);
@@ -259,7 +257,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 		else if ((argv->a_w.w_sym == jps_audio_mix) || (argv->a_w.w_sym == jps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))) {
 			x->attr_mix = atom_getfloat(argv+1);
 #ifdef JCOM_OUT_TILDE
-			if (x->attr_bypass == 0)
+			if (!x->attr_bypass) //bypass is disabled
 				x->xfade->setAttributeValue(TT("position"), x->attr_mix * 0.01);		
 #endif
 		}
@@ -408,7 +406,7 @@ t_int *out_perform(t_int *w)
 		x->audioOut->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
 		
 		// since we are already looping through the channels here, we will also do the per-channel metering here
-		if (x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute) {
+		if (!x->attr_defeat_meters && x->num_meter_objects && !x->attr_mute) {
 			t_float* envelope = (t_float *)(w[j+2]);
 			peakvalue = 0.0;
 			
@@ -542,29 +540,16 @@ void out_perform64(t_out *x, t_object *dsp64, double **ins, long numins, double 
 		x->audioOut->getVectorCopy(i, x->vectorSize, outs[i]);
 	
 		
-		if (x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute) {
+		if (!x->attr_defeat_meters  && x->num_meter_objects && !x->attr_mute) {
 			TTSampleValue* envelope = outs[i];
-			peakvalue = 0.0;
-			
+			peakvalue = 0.0;			
 			n = x->vectorSize;
 			while (n--) {
-				if ((*envelope) < 0 )						// get the current sample's absolute value
-					currentvalue = -(*envelope); //TODO: we could do a sign flip instead of multiply
-				else
-					currentvalue = *envelope;
-				
-				if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
-					peakvalue = currentvalue;
+				currentvalue = fabs(*envelope);		
+				peakvalue = max(peakvalue,currentvalue);			// if it's a new peak amplitude...
 				envelope++; 										// increment pointer in the vector
 			}
-			//			if (peakvalue != x->peakamp[i]) {					// filter out repetitions
-			if (peakvalue > x->peakamp[i])
-				x->peakamp[i] = peakvalue;
-			//				if (x->clock_is_set == 0) {
-			//					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
-			//					x->clock_is_set = 1;
-			//				}
-			//			}
+			x->peakamp[i] = max(x->peakamp[i],peakvalue);
 		}
 	}
 }

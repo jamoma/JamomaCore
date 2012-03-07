@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 246.0, 44.0, 759.0, 692.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 100.0, 76.0, 759.0, 692.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 246.0, 44.0, 759.0, 692.0 ],
+		"defrect" : [ 100.0, 76.0, 759.0, 692.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,6 +26,64 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"handoff" : "",
+					"id" : "obj-18",
+					"maxclass" : "ubutton",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "bang", "bang", "", "int" ],
+					"patching_rect" : [ 459.75, 519.0, 133.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"hidden" : 1,
+					"id" : "obj-19",
+					"linecount" : 2,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 517.0, 523.0, 200.0, 25.0 ],
+					"text" : ";\rmax launchbrowser http://vimeo.com/34349947"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-20",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 459.75, 519.0, 141.5, 19.0 ],
+					"text" : "the screencast  at Vimeo",
+					"underline" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-5",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 426.0, 507.0, 291.0, 31.0 ],
+					"text" : "we also created a nifty Textmate bundle for Jamoma. watch"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-8",
@@ -27,7 +91,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 415.0, 519.0, 57.0, 17.0 ],
+					"patching_rect" : [ 415.0, 564.0, 57.0, 17.0 ],
 					"text" : "/editWith"
 				}
 
@@ -41,7 +105,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 474.0, 518.0, 243.0, 19.0 ],
+					"patching_rect" : [ 474.0, 563.0, 243.0, 19.0 ],
 					"text" : "TextEdit (mac) and Notepad (Win) by default"
 				}
 
@@ -55,8 +119,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 414.0, 495.0, 106.0, 17.0 ],
-					"text" : "/editWith textmate"
+					"patching_rect" : [ 415.0, 486.0, 128.0, 17.0 ],
+					"text" : "/editWith TextMate.app"
 				}
 
 			}
@@ -69,7 +133,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 572.0, 260.0, 150.0, 19.0 ],
+					"patching_rect" : [ 572.0, 260.0, 145.0, 19.0 ],
 					"text" : ".... this also works"
 				}
 
@@ -172,7 +236,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 35.0, 245.0, 341.0, 17.0 ],
-					"text" : "/editWith"
+					"text" : "/view/color/border 0.62 0. 0.36 1."
 				}
 
 			}
@@ -186,7 +250,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 415.0, 397.0, 290.0, 31.0 ],
+					"patching_rect" : [ 415.0, 362.0, 302.0, 31.0 ],
 					"text" : "You can poll current state of all parameters, and copy, paste and edit into the cue script."
 				}
 
@@ -197,12 +261,12 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
-					"linecount" : 5,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 415.0, 430.0, 290.0, 67.0 ],
-					"text" : "The cue script can be edited in an external program (e.g. TextWrangler on Mac or Notepad on Win). jmod.cuelist is autowatching for changes to the cue script.\nYou can start the exernal editor (e.g., Textmate) with "
+					"patching_rect" : [ 415.0, 430.0, 302.0, 55.0 ],
+					"text" : "The cue script can be edited in an external program (e.g. TextWrangler on Mac or Notepad on Win). jmod.cuelist is autowatching for changes to the cue script.\nYou can start an exernal editor (e.g., Textmate) with "
 				}
 
 			}
@@ -404,7 +468,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 508.0, 100.0, 227.0, 31.0 ],
+					"patching_rect" : [ 491.5, 99.0, 225.0, 31.0 ],
 					"text" : "Load jmod.demo_cuescript.txt and try passing through these cues one at a time."
 				}
 
@@ -419,7 +483,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 415.0, 350.0, 290.0, 43.0 ],
+					"patching_rect" : [ 415.0, 319.0, 302.0, 43.0 ],
 					"text" : "jmod.cuelist sets up a remote communication with the modules. For this to work an unique OSC-aware name have to be assigned to each module as an argument."
 				}
 
@@ -501,6 +565,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 189.5, 136.0, 44.5, 136.0 ],
 					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-18", 0 ]
 				}
 
 			}
@@ -625,7 +698,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-24", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 423.5, 513.0, 383.0, 513.0, 383.0, 135.0, 44.0, 135.0, 44.0, 141.0, 44.5, 141.0 ],
+					"midpoints" : [ 424.5, 543.0, 383.0, 543.0, 383.0, 135.0, 44.0, 135.0, 44.0, 141.0, 44.5, 141.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -634,7 +707,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-24", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 424.5, 545.0, 383.5, 545.0, 383.5, 135.0, 44.5, 135.0 ],
+					"midpoints" : [ 424.5, 586.0, 383.5, 586.0, 383.5, 135.0, 44.5, 135.0 ],
 					"source" : [ "obj-8", 0 ]
 				}
 

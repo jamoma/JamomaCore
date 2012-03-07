@@ -1,5 +1,5 @@
-/* 
- * jcom.cubicInterpolate
+/** 
+ \file jcom.cubicInterpolate.cpp
  * External for Jamoma: cubic interpolation on a stream of floats
  * By Trond Lossius, Copyright � 2006
  * 

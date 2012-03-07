@@ -120,14 +120,16 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// ATTRIBUTE: stepsize - how much increment or decrement by
 	jamoma_class_attr_new(c,		"value/stepsize",			_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
 
+#ifndef JMOD_MESSAGE
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
 	jamoma_class_attr_new(c,		"priority",					_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
+#endif
 
 	// ATTRIBUTE: value
-	jamoma_class_attr_array_new(c,	"value",					_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
+	jamoma_class_attr_array_new(c,	"value",					_sym_atom, JAMOMA_LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
 
 	// ATTRIBUTE: value/default
-	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
+	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, JAMOMA_LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
 	jamoma_class_attr_new(c,		"readonly",					_sym_long, (method)param_attr_setreadonly, (method)param_attr_getreadonly);
 	CLASS_ATTR_STYLE(c,				"readonly",					0, "onoff");
@@ -142,8 +144,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_class_attr_new(c,		"dataspace/unit/display",	_sym_symbol, (method)param_attr_setdisplayunit, (method)param_attr_getdisplayunit);
 	// the override dataspace is not exposed as an attribute
 
+#ifndef JMOD_MESSAGE
 	// ATTRIBUTE: mixweight - used by preset/mix message
 	jamoma_class_attr_new(c,		"mix/weight",			_sym_float32, (method)param_attr_setmixweight, (method)param_attr_getmixweight);
+#endif
+
 	
 	// Default Attribute Order for the Inspector
 	CLASS_ATTR_ORDER(c, "name",						0, "1");
@@ -164,7 +169,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ORDER(c, "value",					0, "16");
 	CLASS_ATTR_ORDER(c, "value/default",			0, "17");
 	CLASS_ATTR_ORDER(c, "value/stepsize",			0, "18");
+#ifndef JMOD_MESSAGE
 	CLASS_ATTR_ORDER(c, "mix/weight",			0, "19");
+#endif
+
 		// Finalize our class
 	class_register(_sym_box, c);
 	parameter_class = c;
@@ -204,8 +212,8 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->rampParameterNames = new TTHash;
 
 		// TODO: we shouldn't really allocate this much memory unless we actually need it...
-		x->atom_list = new Atom[LISTSIZE];
-		x->atom_listDefault = new Atom[LISTSIZE];
+		x->atom_list = new Atom[JAMOMA_LISTSIZE];
+		x->atom_listDefault = new Atom[JAMOMA_LISTSIZE];
 		
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2active, kTTValNONE);
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_active2display, kTTValNONE);
@@ -220,15 +228,17 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		// defaulted to one long above, set list to be of size 1
 		x->list_size = 1;
 		x->listDefault_size = 0;
-		for (i = 0; i < LISTSIZE; i++) {
+		for (i = 0; i < JAMOMA_LISTSIZE; i++) {
 			atom_setlong(&x->atom_list[i], 0);
 			atom_setlong(&x->atom_listDefault[i], 0);
 		}
 		x->common.attr_name = name;
 		x->attr_ui_freeze = 0;
 		x->attr_stepsize = 1.0;
+#ifndef JMOD_MESSAGE		
 		x->attr_mixweight = 1.0;                    // default: include parameter in mix
 		x->attr_priority = 0;						// default is no priority
+#endif
 		x->param_output = &param_output_generic;	// set function pointer to default
         x->attr_ramp = jps_none;
         x->attr_rampfunction = jps_linear;
@@ -340,6 +350,20 @@ MaxErr param_getvalueof(t_param *x, long *argc, AtomPtr *argv)
 // resets to default value
 void param_reset(t_param *x)
 {
+	Atom a[2];
+	
+	/* We are using @description to set @annotation of the GUI object which is connected to the leftmost outlet
+	 The reason why we do it here, is that the parameter will be reset by the hub when the module is initialising.
+	 By then callback has been properly set up, and can be checked for. This way we avoid setting
+	 annotation when the parameter is embedded in another object (e.g. jcom.ui), ref. redmine issue 1099.
+	 */
+	atom_setsym(&a[0], _sym_annotation);
+	atom_setsym(&a[1], x->common.attr_description);
+	if (!x->callback)
+		outlet_anything(x->outlets[k_outlet_set], _sym_sendbox, 2, a); //TODO: use defer_low?
+
+	
+	
 	if (x->listDefault_size) {						// copy the default values to the current value
 		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(Atom) * x->listDefault_size);
 		x->list_size = x->listDefault_size;
@@ -517,6 +541,7 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 // This function allocates memory -- caller must free it!
 void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 {
+#ifndef JMOD_MESSAGE
 	*count = 19;
 	*names = (SymbolPtr*)sysmem_newptr(sizeof(SymbolPtr) * *count);
 	
@@ -541,7 +566,33 @@ void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 		*(*names+16) = gensym("value/default");
 		*(*names+17) = gensym("value/stepsize");
 		*(*names+18) = gensym("mix/weight");
+	}	
+#else
+	*count = 17;
+	*names = (SymbolPtr*)sysmem_newptr(sizeof(SymbolPtr) * *count);
+	
+	// These should be alphabetized
+	if (*count) {
+		*(*names+0) = gensym("name");
+		*(*names+1) = gensym("type");
+		*(*names+2) = gensym("range/bounds");
+		*(*names+3) = gensym("range/clipmode");
+		*(*names+4) = gensym("ramp/drive");
+		*(*names+5) = gensym("ramp/function");
+		*(*names+6) = gensym("repetitions/allow");
+		*(*names+7) = gensym("dataspace");
+		*(*names+8) = gensym("dataspace/unit/native");
+		*(*names+9) = gensym("dataspace/unit/active");
+		*(*names+10) = gensym("dataspace/unit/display");
+		*(*names+11) = gensym("description");
+		*(*names+12) = gensym("readonly");
+		*(*names+13) = gensym("ui/freeze");
+		*(*names+14) = gensym("value");
+		*(*names+15) = gensym("value/default");
+		*(*names+16) = gensym("value/stepsize");
 	}
+#endif
+
 }
 
 
@@ -559,7 +610,7 @@ MaxErr param_attr_settype(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 		x->param_output = &param_output_float;
 	}
 	else if (arg == jps_string) {
-		x->param_output = &param_output_symbol;
+		x->param_output = &param_output_symbol;	
 	}
 	else if (arg == jps_boolean) {
 		x->param_output = &param_output_int;
@@ -678,9 +729,10 @@ MaxErr param_attr_getfreeze(t_param *x, void *attr, long *argc, AtomPtr *argv)
 }
 
 MaxErr param_attr_setfreeze(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
-{
-	if (argc && argv)
-		x->attr_ui_freeze = atom_getlong(argv);
+{   
+	if (argc && argv){		  
+		x->attr_ui_freeze = atom_getlong(argv);		
+	}
 	return MAX_ERR_NONE;
 }
 
@@ -701,7 +753,7 @@ MaxErr param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr ar
 	return MAX_ERR_NONE;
 }
 
-
+#ifndef JMOD_MESSAGE
 MaxErr param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
@@ -713,11 +765,10 @@ MaxErr param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv
 
 MaxErr param_attr_setmixweight(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
-	if (argc && argv)
+	if (argc && argv) 
 		x->attr_mixweight = atom_getfloat(argv);
 	return MAX_ERR_NONE;
 }
-
 
 MaxErr param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
@@ -734,6 +785,7 @@ MaxErr param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr ar
 		x->attr_priority = atom_getlong(argv);
 	return MAX_ERR_NONE;
 }
+#endif
 
 
 MaxErr param_attr_getreadonly(t_param *x, void *attr, long *argc, AtomPtr *argv)
@@ -1028,11 +1080,13 @@ void param_dump(t_param *x)
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_unitNative);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-		
+
+#ifndef JMOD_MESSAGE
 		snprintf(s, 256, "%s:/priority", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_priority);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+#endif
 		
 		snprintf(s, 256, "%s:/ramp/drive", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
@@ -1097,11 +1151,13 @@ void param_dump(t_param *x)
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-				
+
+#ifndef JMOD_MESSAGE
 		snprintf(s, 256, "%s:/mix/weight", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->attr_mixweight);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+#endif
 	}
 }
 
@@ -1123,6 +1179,7 @@ void param_bang(t_param *x)
 	}
 #else
 	x->param_output(x);
+	
 #endif
 	if (x->callback)
 		x->callback(x, x->common.attr_name, x->list_size, x->atom_list);
@@ -1463,11 +1520,11 @@ void param_ui_refresh(t_param *x)
 // Send feedback to the hub
 void param_send_feedback(t_param *x)
 {
-	Atom output[LISTSIZE + 1];
+	Atom output[JAMOMA_LISTSIZE + 1];
 	AtomPtr out = (AtomPtr )(&output);
 	
 	// send to our ui outlet
-	if (x->attr_ui_freeze == 0)
+	if (!x->attr_ui_freeze)
 		qelem_set(x->ui_qelem);
 
 	// send to the object in which this parameter is embedded
@@ -1512,11 +1569,11 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				return;
 			
 			if (x->attr_dataspace != _sym_none) {
-				TTValue	v;
+				TTValue	vInput, vOutput;
 				
-				TTValueFromAtoms(v, 1, argv);
-				x->dataspace_active2native->sendMessage(TT("convert"), v);
-				TTAtomsFromValue(v, &x->list_size, &x->atom_list);				
+				TTValueFromAtoms(vInput, 1, argv);
+				x->dataspace_active2native->sendMessage(TT("convert"), vInput, vOutput);
+				TTAtomsFromValue(vOutput, &x->list_size, &x->atom_list);				
 			}
 			else
 				jcom_core_atom_copy(&x->attr_value, argv);
@@ -1568,14 +1625,16 @@ int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
 
 void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
 {
+	TTLimitMax(argc, (long)JAMOMA_LISTSIZE);
+	
 	if ((x->attr_dataspace != _sym_none) && (x->attr_unitActive != x->attr_unitNative)) {
-		TTValue	v;
+		TTValue	vInput, vOutput;
 		
 		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
 		
-		TTValueFromAtoms(v, argc, argv);
-		x->dataspace_active2native->sendMessage(TT("convert"), v);
-		TTAtomsFromValue(v, rc, rv);				
+		TTValueFromAtoms(vInput, argc, argv);
+		x->dataspace_active2native->sendMessage(TT("convert"), vInput, vOutput);
+		TTAtomsFromValue(vOutput, rc, rv);
 
 		*alloc = true;
 	}
@@ -1590,8 +1649,8 @@ void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, Atom
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	double		start[LISTSIZE],
-				values[LISTSIZE],
+	double		start[JAMOMA_LISTSIZE],
+				values[JAMOMA_LISTSIZE],
 				time;
 	int			i;
 	AtomPtr		ramp;

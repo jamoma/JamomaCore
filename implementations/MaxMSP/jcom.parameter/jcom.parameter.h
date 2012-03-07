@@ -1,6 +1,6 @@
-/* 
- * jcom.param
- * External for Jamoma: parameter definition using pattr
+/** 
+ * \file jcom.parameter.h
+ * External for Jamoma: Parameter definition
  * By Tim Place, Copyright � 2006
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -19,9 +19,6 @@
 // TODO: Does this actually work now with the headers in the frameworks? [TAP]
 #include "Jamoma.h"
 
-
-#define LISTSIZE 512	// TODO: Discuss longer list support for Max 5
-
 enum outlets{
 	k_outlet_set = 0,
 	k_outlet_direct,
@@ -38,8 +35,8 @@ typedef struct _param{
 	t_jcom_core_subscriber_extended	common;
 	pf_noargs		param_output;				///< bang method for the instance points to an optimized function
 	TTPtr 			outlets[num_outlets];		///< my outlet array
-//	Atom			atom_list[LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
-//	Atom			atom_listDefault[LISTSIZE];
+//	Atom			atom_list[JAMOMA_LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
+//	Atom			atom_listDefault[JAMOMA_LISTSIZE];
 	AtomPtr			atom_list;
 	AtomPtr			atom_listDefault;
 	long			list_size;					///< size of currently stored list
@@ -47,9 +44,11 @@ typedef struct _param{
 	SymbolPtr		attr_ramp;					///< ATTRIBUTE: ramp mode 
 	long			attr_ui_freeze;				///< ATTRIBUTE: freeze updating of graphical user interface
 	float			attr_stepsize;				///< ATTRIBUTE: amount to increment or decrement by
+#ifndef JMOD_MESSAGE	
 	long			attr_priority;				///< ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
-	long			attr_readonly;
 	float			attr_mixweight;				///< ATTRIBUTE: weight for preset/mix message
+#endif	
+	long			attr_readonly;
 	//	Atom			name_atom;					///< the above name, but cached as an atom for quick referencing
 	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
 	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
@@ -204,10 +203,14 @@ MaxErr	param_attr_getfreeze(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setfreeze(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getstepsize(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+#ifndef JMOD_MESSAGE
 MaxErr	param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setmixweight(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+#endif
+
 MaxErr	param_attr_getreadonly(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setreadonly(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getvalue(t_param *x, void *attr, long *argc, AtomPtr *argv);

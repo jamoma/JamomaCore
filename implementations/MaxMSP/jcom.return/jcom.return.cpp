@@ -1,5 +1,5 @@
-/* 
- * jcom.return
+/** 
+ * \file jcom.return.cpp
  * External for Jamoma: return data from our module to the outside world
  * By Tim Place, Copyright � 2006
  * 
@@ -19,9 +19,9 @@ enum outlets{
 typedef struct _return {
 	t_jcom_core_subscriber_extended	common;
 	void 							*outlets[num_outlets];	// my outlet array
-	t_atom							output[512];			// buffer that gets sent to the hub
-	short							output_len;
-	short							input_len;				//used in return_lis, stores the length of a list w/o the OSC name 
+	t_atom							output[JAMOMA_LISTSIZE+1];// buffer that gets sent to the hub
+	int								output_len;
+	int								input_len;				//used in return_lis, stores the length of a list w/o the OSC name 
 	char							attrEnable;
 	t_symbol						*attrDataspace;
 	t_symbol						*attrUnitNative;
@@ -398,42 +398,80 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 
 	if (!x->attrEnable)
 		return;
-    if (x->common.attr_repetitions == 0) {
-		if (msg == atom_getsym(&x->output[1]))
+
+	if (x->common.attr_type == jps_decimal){
+		return_float(x, 0.0);
+		}
+	else 
+		if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean)){
+			return_int(x, 0);
+		}
+	else 
+		if ((x->common.attr_type == jps_array) || (x->common.attr_type == jps_generic)){
+			return_list(x, msg, argc, argv);
+			}
+	else {	//assuming jps_string now		
+		if (x->common.attr_repetitions == 0) {
+			if (msg == atom_getsym(&x->output[1]))
 			return;
-	}
-	atom_setsym(&x->output[1], msg);
-	x->output_len++;
-	
-	for (i=1; i<=argc; i++) {
-		jcom_core_atom_copy(&x->output[i+1], argv++);
+		}
+		atom_setsym(&x->output[1], msg);
 		x->output_len++;
-	}	
-	outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-2, &x->output[2]);
-	return_send_feedback(x);
+	
+		/*for (i=1; i<=argc; i++) {
+			jcom_core_atom_copy(&x->output[i+1], argv++);
+			x->output_len++;
+		}*/
+		
+		outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-2, &x->output[2]);
+		return_send_feedback(x);
+	}
 }
 
 
 // LIST INPUT 
 void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	short i;
 	
 	if (!x->attrEnable)
 		return;
 	
-	if (x->common.attr_repetitions == 0) {
-		if (param_list_compare(x->output+1, x->input_len, argv, argc))
-			return;	// nothing to do
-	}
-			
-	for (i=1; i<=argc; i++) {
-		jcom_core_atom_copy(&x->output[i], argv++);
-		x->output_len++;	
-	}
-	x->input_len = x->output_len-1;
-	outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-1, &x->output[1]);
-	return_send_feedback(x);
+	int i;	
+	
+	if (x->common.attr_type == jps_integer){
+		return_int(x, atom_getlong(argv));
+		}
+	else 
+		if (x->common.attr_type == jps_decimal){
+			return_float(x, atom_getfloat(argv));
+		}
+	else
+		if (x->common.attr_type == jps_boolean){
+			return_int(x, atom_getlong(argv));
+		}
+	else
+		if (x->common.attr_type == jps_string){
+			post("hre");
+			return_symbol(x, msg, 1, argv);
+		}
+	else { //if (x->common.attr_type == jps_array){
+		
+		TTLimitMax(argc, (long)JAMOMA_LISTSIZE); //making sure that the incoming list is not longer than our allocated memory 
+		
+		if (x->common.attr_repetitions == 0) {
+			if (param_list_compare(x->output+1, x->input_len, argv, argc))
+				return;	// nothing to do
+		}	
+		
+		for (i=1; i<=argc; i++) {
+			jcom_core_atom_copy(&x->output[i], argv++);		
+		}
+		
+		x->output_len = i;
+		x->input_len = x->output_len-1;	
+		outlet_anything(x->outlets[k_outlet_thru], msg, x->input_len, &x->output[1]);
+		return_send_feedback(x);
+	}	
 }
 
 // Returns true if lists are identical

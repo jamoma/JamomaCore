@@ -1,5 +1,7 @@
-// gang multiple objects together
-// © 2005 by Tim Place
+/** \file jcom.gang.cpp
+ Gang multiple objects together
+ © 2005 by Tim Place
+*/
 
 #include "Jamoma.h"
 

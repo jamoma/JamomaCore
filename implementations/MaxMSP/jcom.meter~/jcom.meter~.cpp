@@ -1,5 +1,5 @@
-/* 
-	jcom.meter~
+/** 
+	\file jcom.meter~.cpp
 	External for Jamoma: signal level meter
 	By Tim Place, Copyright � 2005
 	Modifications for Compiling on Windows by Thomas Grill, 2005

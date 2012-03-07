@@ -11,10 +11,6 @@
     <item name='position/bars' type='integer' priority='10'>1</item>
     <item name='position/beats' type='integer' priority='11'>1</item>
     <item name='position/units' type='decimal' priority='12'>0.000000</item>
-    <item name='view/color/border' type='array' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>

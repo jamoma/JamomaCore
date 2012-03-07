@@ -5716,7 +5716,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 65.0, 670.0, 19.0 ],
-					"text" : "jcom.message au/preset/read @type string @priority 2 @ramp/drive none @repetitions/allow 1 @description \"recalls AU presets.\"",
+					"text" : "jcom.message au/preset/read @type string @ramp/drive none @repetitions/allow 1 @description \"recalls AU presets.\"",
 					"varname" : "vst/program"
 				}
 

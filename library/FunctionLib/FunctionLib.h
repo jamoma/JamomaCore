@@ -1,4 +1,5 @@
-/* 
+/**
+ * \file FunctionLib.h
  * Jamoma FunctionLib Base Class
  * Copyright © 2007 by Tim Place
  * 
@@ -19,7 +20,10 @@
 
 class JAMOMA_EXPORT FunctionLib {
 public:
-	/** Instantiate a function by name */
+	/** Instantiate a function by name.
+	 @param unitName	The name of the unit.
+	 @param unit		Pointer to the unit.
+	 */
 	static TTErr createUnit(const TTSymbolPtr unitName, TTObject **unit);
 
 	/**	Return a list of all available functions. */

@@ -37,6 +37,7 @@ t_symbol	*jps_done,
 			*jps_none,				// this type only used by jcom.message
 			*jps_jcom_hub, 
 			*jps_feedback,
+			*jps_alias,
 			*jps_module_name_get,		// common OSC messages according to the JIG
 			*jps_core_module_name_get,
 			*jps_dumpout,
@@ -67,7 +68,7 @@ t_symbol	*jps_done,
 			*jps_subscribe_return,
 			*jps_subscribe_init,
 			*jps_subscribe_meter,
-			*jps_inspector,
+			//*jps_inspector,
 			*jps_num_inputs,				// signal inlets and outlets
 			*jps_num_outputs,
 			*jps_type,						// parameter/message/return attributes
@@ -95,7 +96,7 @@ t_symbol	*jps_done,
 			*jps_algorithm,
 			*jps_get_num_channels,
 			*jps_module_type,			// module type
-			*jps_poly,
+			//*jps_poly,
 			*jps_default,
 			*jps_jitter,
 			*jps_1U,
@@ -140,8 +141,8 @@ t_symbol	*jps_done,
 			*jps_slash_audio_bypass,
 			*jps_audio_mix,
 			*jps_slash_audio_mix,
-			*jps_audio_sample_rate,
-			*jps_slash_audio_sample_rate,
+			//*jps_audio_sample_rate,
+			//*jps_slash_audio_sample_rate,
 			*jps_audio_meters_freeze,
 			*jps_slash_audio_meters_freeze,
 			*jps_video_mute,
@@ -169,7 +170,7 @@ t_symbol	*jps_done,
 			*jps_slash_ui_slash_refresh,			//	/view/refresh		
 			*jps_register_meter,
 			*jps_register_preview,
-			*jps_voices,
+			//*jps_voices,
 			*jps_mute,
 			*jps_target,
 			*jps_sendlastvalue,
@@ -212,6 +213,7 @@ void jamomaSymbolsInit()
 	jps_jcom_hub					= SymbolGen("jcom.hub"); 
     jps_feedback					= SymbolGen("__feedback__");		// used for parameter feedback to the hub
 	// common OSC messages according to the JIG
+	jps_alias						= SymbolGen("alias");
 	jps_module_name_get				= SymbolGen("/module_name:/get");
 	jps_core_module_name_get		= SymbolGen("core_module_name:/get");
 	jps_dumpout						= SymbolGen("dumpout");
@@ -247,7 +249,7 @@ void jamomaSymbolsInit()
 	jps_num_inputs					= SymbolGen("num_inputs");
 	jps_num_outputs					= SymbolGen("num_outputs");
 	// parameter/message/return attributes
-	jps_inspector					= SymbolGen("inspector");
+	    //jps_inspector					= SymbolGen("inspector");
 	jps_type						= SymbolGen("type");
 	jps_dataspace					= SymbolGen("dataspace");
 	jps_unit_native					= SymbolGen("dataspace/unit/native");
@@ -278,7 +280,7 @@ void jamomaSymbolsInit()
 	jps_get_num_channels			= SymbolGen("get_num_channels");
 	// module type
 	jps_module_type					= SymbolGen("module_type");
-	jps_poly						= SymbolGen("poly");
+	   //jps_poly						= SymbolGen("poly");
 	jps_default						= SymbolGen("default");
 	jps_jitter						= SymbolGen("jitter");
 	jps_1U							= SymbolGen("1U");
@@ -323,8 +325,8 @@ void jamomaSymbolsInit()
 	jps_slash_audio_bypass			= SymbolGen("/audio/bypass");
 	jps_audio_mix					= SymbolGen("audio/mix");
 	jps_slash_audio_mix				= SymbolGen("/audio/mix");
-	jps_audio_sample_rate			= SymbolGen("audio/sample_rate");
-	jps_slash_audio_sample_rate		= SymbolGen("/audio/sample_rate");
+	   //jps_audio_sample_rate			= SymbolGen("audio/sample_rate");
+	   //jps_slash_audio_sample_rate		= SymbolGen("/audio/sample_rate");
 	jps_audio_meters_freeze			= SymbolGen("audio/meters/freeze");
 	jps_slash_audio_meters_freeze 	= SymbolGen("/audio/meters/freeze");
 	jps_video_mute					= SymbolGen("video/mute");
@@ -352,7 +354,7 @@ void jamomaSymbolsInit()
 	jps_slash_ui_slash_freeze		= SymbolGen("/view/freeze");
 	jps_ui_slash_refresh			= SymbolGen("view/refresh");
 	jps_slash_ui_slash_refresh		= SymbolGen("/view/refresh");
-	jps_voices						= SymbolGen("voices");
+	   //jps_voices						= SymbolGen("voices");
 	jps_mute						= SymbolGen("mute");
 	jps_target						= SymbolGen("target");
 	jps_sendlastvalue				= SymbolGen("sendlastvalue");
