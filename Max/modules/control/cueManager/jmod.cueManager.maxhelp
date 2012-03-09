@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 1.0, 44.0, 678.0, 628.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 308.0, 143.0, 678.0, 628.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 1.0, 44.0, 678.0, 628.0 ],
+		"defrect" : [ 308.0, 143.0, 678.0, 628.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -28,9 +34,15 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 696.0, 181.0, 644.0, 206.0 ],
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
+						"rect" : [ 696.0, 174.0, 644.0, 206.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 696.0, 181.0, 644.0, 206.0 ],
+						"defrect" : [ 696.0, 174.0, 644.0, 206.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -49,13 +61,12 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-7",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 19.0, 182.0, 592.0, 18.0 ],
-									"presentation_rect" : [ 19.0, 182.0, 0.0, 0.0 ],
 									"text" : "• It is possible to turn an ABSOLUTE CUE to DIFFERENTIAL by pressing the (Switch mode) button. This affects the current CUE."
 								}
 
@@ -64,13 +75,12 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-5",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 19.0, 159.0, 592.0, 18.0 ],
-									"presentation_rect" : [ 21.0, 173.0, 0.0, 0.0 ],
 									"text" : "• autofollow mode and ramps can be disabled from the inspector as well as with messages (see [p more_features])"
 								}
 
@@ -79,14 +89,13 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-4",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 19.0, 130.0, 592.0, 18.0 ],
-									"presentation_rect" : [ 20.0, 156.0, 0.0, 0.0 ],
-									"text" : "• CUEs can be renamed inline - the copy/move/remove operations are  acting on the currently selected CUE in the CUELIST  below"
+									"text" : "• CUEs can be renamed inline - the copy/move/remove operations are acting on the currently selected CUE in the CUELIST  below"
 								}
 
 							}
@@ -94,14 +103,13 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-3",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 38.0, 102.0, 475.0, 18.0 ],
-									"presentation_rect" : [ 42.0, 127.0, 0.0, 0.0 ],
-									"text" : "-  there is a little utility in the module's folder, which allows to propagate piorities of modules among CUEs"
+									"patching_rect" : [ 38.0, 103.0, 479.0, 18.0 ],
+									"text" : "-  there is a little utility in the module's folder, which allows to propagate priorities of modules among CUEs"
 								}
 
 							}
@@ -109,14 +117,13 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-1",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 18.0, 72.0, 582.0, 29.0 ],
-									"presentation_rect" : [ 19.0, 85.0, 0.0, 0.0 ],
 									"text" : "•The priority of each module can be set independently for each CUE by editing it inline in the right column : lower priorities will be stored and recalled first."
 								}
 
@@ -125,14 +132,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-2",
 									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 17.0, 17.0, 526.0, 41.0 ],
-									"text" : "• Modules can be included/excluded by cicking on the name of the module :\nRed means the module is included (for this CUE), grey means it is excluded.\nSeveral modules can be selected in a row, using the shift key. All can be included.excluded in a row using the butons."
+									"text" : "• Modules can be included/excluded by clicking on the name of the module :\nRed means the module is included (for this CUE), grey means it is excluded.\nSeveral modules can be selected in a row, using the shift key. All can be included.excluded in a row using the butons."
 								}
 
 							}
@@ -141,15 +148,14 @@
 					}
 ,
 					"patching_rect" : [ 587.0, 345.0, 53.0, 21.0 ],
-					"presentation_rect" : [ 582.0, 342.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"globalpatchername" : "",
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p more"
@@ -160,7 +166,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-18",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -183,6 +189,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 696.0, 411.0, 646.0, 304.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 696.0, 411.0, 646.0, 304.0 ],
@@ -204,14 +216,13 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-14",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 11.0, 271.0, 596.0, 29.0 ],
-									"presentation_rect" : [ 12.0, 210.0, 0.0, 0.0 ],
 									"text" : "It is possible to turn an ABSOLUTE CUE to DIFFERENTIAL by pressing the (Switch mode) button in the inspector.  This affects only the current CUE, and will process according to all previous differential CUEs, up to the last absolute one, includging it."
 								}
 
@@ -220,15 +231,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-13",
 									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 221.0, 598.0, 41.0 ],
-									"presentation_rect" : [ 10.0, 234.0, 0.0, 0.0 ],
-									"text" : "Instead of  the way jmod.cueScript works, and because of this absokute/differential cue system (and the fact that data is captured by one click), there is no possibility to create WAIT commands in jmod.cueManager. \nThough, creating a sequential row of CUEs is possisble using the autofollow command, allowing similar temporal compositions."
+									"patching_rect" : [ 9.0, 221.0, 598.0, 41.0 ],
+									"text" : "Instead of the way jmod.cueScript works, and because of this absolute/differential cue system (and the fact that data is captured by one click), there is no possibility to create WAIT commands in jmod.cueManager. \nThough, creating a sequential row of CUEs is possisble using the autofollow command, allowing similar temporal compositions."
 								}
 
 							}
@@ -236,14 +246,13 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-12",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 565.0, 133.0, 78.0, 18.0 ],
-									"presentation_rect" : [ 17.0, 133.0, 0.0, 0.0 ],
-									"text" : "for more details"
+									"patching_rect" : [ 565.0, 133.0, 81.0, 18.0 ],
+									"text" : "for more details."
 								}
 
 							}
@@ -257,9 +266,15 @@
 									"numoutlets" : 0,
 									"patcher" : 									{
 										"fileversion" : 1,
-										"rect" : [ 87.0, 167.0, 637.0, 509.0 ],
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
+										"rect" : [ 615.0, 169.0, 637.0, 509.0 ],
 										"bglocked" : 0,
-										"defrect" : [ 87.0, 167.0, 637.0, 509.0 ],
+										"defrect" : [ 615.0, 169.0, 637.0, 509.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -278,14 +293,13 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-5",
 													"linecount" : 5,
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 49.0, 354.0, 278.0, 64.0 ],
-													"presentation_rect" : [ 71.0, 88.0, 0.0, 0.0 ],
 													"text" : "i.e. here : \n\nfrom 'Cue 4' :\n \t \t \t \t /input~/source pink \n \t \t \t \t /output~/audio/gain 30.386505 ramp global "
 												}
 
@@ -294,15 +308,14 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-4",
 													"linecount" : 2,
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 22.0, 451.0, 586.0, 29.0 ],
-													"presentation_rect" : [ 23.0, 366.0, 0.0, 0.0 ],
-													"text" : "In other words, when jumping to a (differential) CUE,before triggering the chosen CUE,  the whole system will be set in the state it would have been in if we passed all CUEs one by one, waiting for all ramps to be completed, "
+													"text" : "In other words, when jumping to a (differential) CUE, before triggering the chosen CUE, the whole system will be set in the state it would have been in if we passed all CUEs one by one, waiting for all ramps to be completed, "
 												}
 
 											}
@@ -310,13 +323,12 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 23.0, 328.0, 588.0, 18.0 ],
-													"presentation_rect" : [ 23.0, 328.0, 0.0, 0.0 ],
 													"text" : "Then, the actually selected CUE will be triggered, with ramps whenever applicable."
 												}
 
@@ -325,13 +337,12 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-2",
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 23.0, 299.0, 588.0, 18.0 ],
-													"presentation_rect" : [ 23.0, 299.0, 0.0, 0.0 ],
 													"text" : "No parameter values  from the previous CUEs will be ramped, but instead directly sent to their final state."
 												}
 
@@ -340,14 +351,13 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-1",
 													"linecount" : 18,
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 47.0, 69.0, 278.0, 213.0 ],
-													"presentation_rect" : [ 22.0, 84.0, 0.0, 0.0 ],
 													"text" : "i.e. :\nfrom 'Cue 1' :\n \t \t \t \t /input~/audio/active 1 \n \t \t \t \t /output~/audio/active 1 \n \t \t \t \t /degrade~/audio/mute 0 \n \t \t \t \t /degrade~/audio/gain 127.000000 \n \t \t \t \t /input~/audio/gain 98.136368 \n \t \t \t \t /input~/source 1KHz \nWill be dumped\n\n\nfrom 'Cue 2' :\n \t \t \t \t /output~/audio/gain 30.386517 \nwill not be sent because this parameter is present in ‘Cue 3'\n\nfrom 'Cue 3' :\n \t \t \t \t /output~/audio/gain 0.000000\nwill be sent as it is the last state of this particular parameter"
 												}
 
@@ -356,7 +366,7 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-7",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -373,13 +383,13 @@
 ,
 									"patching_rect" : [ 517.0, 133.0, 52.0, 17.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
+										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p example"
@@ -390,14 +400,13 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-9",
 									"linecount" : 4,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 10.0, 110.0, 623.0, 52.0 ],
-									"presentation_rect" : [ 12.0, 105.0, 0.0, 0.0 ],
 									"text" : "The check mark in the cue menu shows the current reference KEYCUE.\nWhen jumping to a DIFFERENTIAL CUE (e.g. with the CUE menu), jmod.cueManager will buffer all changes in any parameter since (and including) the last ABSOLUTE CUE, and will trigger only the last of them. Then it will trigger the selected cue. See \nThis allows simpler and more efficient navigation among CUEs in production situations (e.g. rehearsals)"
 								}
 
@@ -406,15 +415,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-8",
 									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 9.0, 173.0, 598.0, 41.0 ],
-									"presentation_rect" : [ 14.0, 152.0, 0.0, 0.0 ],
-									"text" : "When creating/updating a DIFFERENTIAL CUE, all rampable parameters will be ramped, if the Ramp value is other than 0.\nThis value can be updated afterthe CUE is created, by changing the value, and clicking on the Update button. Please notice that this will update all changed parameter values in the Jamoma system into the current CUE."
+									"text" : "When creating/updating a DIFFERENTIAL CUE, all rampable parameters will be ramped, if the Ramp value is other than 0.\nThis value can be updated after the CUE is created, by changing the value, and clicking on the Update button. Please notice that this will update all changed parameter values in the Jamoma system into the current CUE."
 								}
 
 							}
@@ -422,14 +430,13 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-7",
 									"linecount" : 5,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 10.0, 40.0, 604.0, 64.0 ],
-									"presentation_rect" : [ 38.0, 47.0, 0.0, 0.0 ],
 									"text" : "These are somehow similar to the way temporal video compression works :\nThe global state of the information (here the parameters' values) is stored in ABSOLUTE CUEs, and DIFFERENTIAL CUEs only store the differences from the previous CUEs, up to the last ABSOLUTE CUEs (also called KEYCUE). \nHence this system only works for linear CUElists : each (differential) CUE depends on all previous (differential) CUEs (up to the last ABSOLUTE CUE)"
 								}
 
@@ -438,7 +445,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-6",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -453,15 +460,14 @@
 					}
 ,
 					"patching_rect" : [ 349.0, 553.0, 159.0, 19.0 ],
-					"presentation_rect" : [ 500.0, 468.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"globalpatchername" : "",
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p more_about_abs/diff CUES"
@@ -478,9 +484,15 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 2.0, 741.0, 635.0, 271.0 ],
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
+						"rect" : [ 154.0, 473.0, 635.0, 271.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 2.0, 741.0, 635.0, 271.0 ],
+						"defrect" : [ 154.0, 473.0, 635.0, 271.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -499,15 +511,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-17",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 51.0, 211.0, 550.0, 29.0 ],
-									"presentation_rect" : [ 51.0, 211.0, 0.0, 0.0 ],
-									"text" : "- the jmod.cueComment module allows displaying and editing of the next and current CUEs - when editing, the  comments are automatically saved, no need to update the CUEs (but they need to be written to disk manually with the CUElist)"
+									"patching_rect" : [ 51.0, 211.0, 551.0, 29.0 ],
+									"text" : "- the jmod.cueComment module allows displaying and editing of the next and current CUEs - when editing, the comments are automatically saved, no need to update the CUEs (but they need to be written to disk manually with the CUElist)"
 								}
 
 							}
@@ -515,15 +526,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-16",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 20.0, 178.0, 578.0, 29.0 ],
-									"presentation_rect" : [ 20.0, 178.0, 0.0, 0.0 ],
-									"text" : "• Comments can be added to each CUE, with the command message, they will be stored in the CUElist, and be accessible from outside of the module, e.g. with the jmod.cueComment module"
+									"patching_rect" : [ 20.0, 179.0, 578.0, 29.0 ],
+									"text" : "• Comments can be added to each CUE, with the comment message, they will be stored in the CUElist, and be accessible from outside of the module, e.g. with the jmod.cueComment module"
 								}
 
 							}
@@ -531,15 +541,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-15",
 									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 35.0, 105.0, 570.0, 41.0 ],
-									"presentation_rect" : [ 39.0, 121.0, 0.0, 0.0 ],
-									"text" : "- when working on a particular CUE in a sequence of autofollowed CUEs, it is often handy to be able to  disable the autofollow mode and/or to jump directly to the target values of the ramps. two messages have been introduced for this purpose : autofollow/enable and ramp/enable, check :"
+									"text" : "- when working on a particular CUE in a sequence of autofollowed CUEs, it is often handy to be able to disable the autofollow mode and/or to jump directly to the target values of the ramps. Two messages have been introduced for this purpose : autofollow/enable and ramp/enable, check :"
 								}
 
 							}
@@ -553,6 +562,12 @@
 									"numoutlets" : 0,
 									"patcher" : 									{
 										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 5,
+											"minor" : 1,
+											"revision" : 9
+										}
+,
 										"rect" : [ 25.0, 69.0, 305.0, 259.0 ],
 										"bglocked" : 0,
 										"defrect" : [ 25.0, 69.0, 305.0, 259.0 ],
@@ -574,13 +589,12 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-15",
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 29.0, 56.0, 170.0, 18.0 ],
-													"presentation_rect" : [ 78.0, 73.0, 0.0, 0.0 ],
 													"text" : "disable ramps by pressing the a key"
 												}
 
@@ -589,7 +603,7 @@
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-14",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -835,13 +849,13 @@
 ,
 									"patching_rect" : [ 236.0, 132.0, 125.0, 18.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
+										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p enable_ramp/autofollow"
@@ -852,14 +866,13 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-3",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 18.0, 71.0, 580.0, 29.0 ],
-									"presentation_rect" : [ 19.0, 81.0, 0.0, 0.0 ],
 									"text" : "• Autofollow allows to have CUEs being automatically triggered after a defined amount of time, thus allowing to build complex scenarios in time (as with the WAIT command in jmod.cueScript) while keeping the storing process of parameters straightforward"
 								}
 
@@ -868,7 +881,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-2",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -885,13 +898,13 @@
 ,
 					"patching_rect" : [ 350.0, 593.0, 127.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"globalpatchername" : "",
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p more_features"
@@ -925,6 +938,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 270.0, 44.0, 87.0, 156.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 270.0, 44.0, 87.0, 156.0 ],
@@ -1028,13 +1047,13 @@
 ,
 					"patching_rect" : [ 35.0, 95.0, 65.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"globalpatchername" : "",
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p spacebar"
@@ -1060,7 +1079,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-13",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1083,6 +1102,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 62.0, 255.0, 368.0, 298.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 62.0, 255.0, 368.0, 298.0 ],
@@ -1215,13 +1240,13 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 36.0, 185.0, 191.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"globalpatchername" : "",
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p cueTriggerCompatibility"
@@ -1237,7 +1262,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 699.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 678.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -1274,7 +1299,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1305,7 +1330,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-14",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -1323,7 +1348,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
 					"linecount" : 9,
 					"maxclass" : "comment",
@@ -1341,7 +1366,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1357,7 +1382,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -1375,7 +1400,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
 					"linecount" : 2,
 					"maxclass" : "comment",
