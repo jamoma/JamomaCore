@@ -663,16 +663,14 @@ void vimic_report(t_vimic *x, long n)
     switch (n) 
     {
         case 0:
-            if (globReportFlag == true) 
-            {
-                post("Report off"); //this condition prevents postings when the module is initialized.
+            if (globReportFlag == true){ 
+				post("Report off"); //this condition prevents postings when the module is initialized.
             }
             globReportFlag = false;
             break;
         case 1:
-            if (globReportFlag == false) 
-            {
-                post("Report on"); //this condition prevents postings when the module is initialized.
+            if (globReportFlag == false){
+				post("Report on"); //this condition prevents postings when the module is initialized.
             }
             globReportFlag = true;
             break;
@@ -823,18 +821,15 @@ void vimic_xFadeThreshold(t_vimic *x, long n) //fadelength in samples
 
 void vimic_airfilter(t_vimic *x, long n)
 {
-    if (x->reflOrder > 0)
-    {				
-        for (int i = 0; i < x->numOfChannels; i++)
-        {
-            x->room->air[i][0].cutOff(n);
-            x->room->xfadeAir[i].cutOff(n);
-            if (x->reflOrder == 2) x->room->air[i][1].cutOff(n);
-        }
-        if (x->directBang == 1) vimic_bang(x);
-        if (globReportFlag) post("Air absorption cutoff: %ld", n);
-    }
-    else if (globWarningFlag) error("No filtering for reflection order of 0.");
+	for (int i = 0; i < x->numOfChannels; i++){
+		x->room->air[i][0].cutOff(n);
+		x->room->xfadeAir[i].cutOff(n);
+		x->room->air[i][1].cutOff(n);
+	}
+    if (x->directBang == 1) 
+		vimic_bang(x);
+	if (globReportFlag) 
+		post("Air absorption cutoff: %ld", n);
 }
 
 // Render Type
@@ -907,8 +902,8 @@ void vimic_getDirTable(t_vimic *x, t_symbol *s)
 
 void vimic_highCf(t_vimic *x, long n, long freq)
 {
-    if (x->reflOrder > 0)
-    {
+    //if (x->reflOrder > 0)
+    //{
         if (n > 0 && n <= Properties::NUMWALLS)
         {
             for (int i = 0; i < x->numOfChannels; i++)
@@ -920,22 +915,22 @@ void vimic_highCf(t_vimic *x, long n, long freq)
                 }
                 x->room->walls[i][n - 1].highShelfFrequency(freq);
 
-                if (x->reflOrder == 2)
+                //if (x->reflOrder == 2)
                     x->room->walls[i][n + Properties::NUMWALLS - 1].highShelfFrequency(freq);
             }
         }
         else if (globWarningFlag) post("Invalid wall index %d", n);		
         if (x->directBang == 1) vimic_bang(x);
         if (globReportFlag) post("Wall %d high shelf centre frequency: %ld", n, freq);
-    }
-    else if (globWarningFlag)	error("No filtering for reflection order of 0.");
+    //}
+    //else if (globWarningFlag)	error("No filtering for reflection order of 0.");
 }
 
 
 void vimic_lowCf(t_vimic *x, long n, long freq)
 {
-    if (x->reflOrder > 0)
-    {
+    //if (x->reflOrder > 0)
+    //{
         if (n > 0 && n <= Properties::NUMWALLS)
         {
             for (int i = 0; i < x->numOfChannels; i++)
@@ -946,21 +941,21 @@ void vimic_lowCf(t_vimic *x, long n, long freq)
                         x->room->xfadeWalls[i][filterNum].lowShelfFrequency(freq); 
                 }
                 x->room->walls[i][n - 1].lowShelfFrequency(freq);
-                if (x->reflOrder == 2)
+                //if (x->reflOrder == 2)
                     x->room->walls[i][n + Properties::NUMWALLS - 1].lowShelfFrequency(freq);
             }
         }
         else if (globWarningFlag) post("Invalid wall index %d", n);
         if (x->directBang == 1) vimic_bang(x);
         if (globReportFlag) post("Wall %d low shelf centre frequency: %ld", n, freq);
-    }
-    else if (globWarningFlag)	error("No filtering for reflection order of 0.");
+    //}
+    //else if (globWarningFlag)	error("No filtering for reflection order of 0.");
 }
 
 void vimic_lowAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
 {
-    if (x->reflOrder > 0)
-    {   
+    //if (x->reflOrder > 0)
+    //{   
         long b = 0;
 
         if (argc == 2)
@@ -982,10 +977,10 @@ void vimic_lowAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
 
                             x->room->walls[i][b - 1].lowGain(argv[1].a_w.w_float);
 
-                            if (x->reflOrder == 2)
-                            {
+                            //if (x->reflOrder == 2)
+                            //{
                                 x->room->walls[i][b + Properties::NUMWALLS - 1].lowGain(argv[1].a_w.w_float);
-                            }
+                            //}
                         }
                     }
                     else if (globWarningFlag) post("Invalid wall index %d", b);
@@ -996,8 +991,8 @@ void vimic_lowAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
         }
         else if (globWarningFlag) error("Incorrect # of args.");
         if (x->directBang == 1) vimic_bang(x);
-    }
-    else if (globWarningFlag) error("No filtering for reflection order of 0.");
+    //}
+    //else if (globWarningFlag) error("No filtering for reflection order of 0.");
 }
 
 
@@ -1006,8 +1001,8 @@ void vimic_lowAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
 
 void vimic_midAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
 {
-    if (x->reflOrder > 0)
-    {
+    //if (x->reflOrder > 0)
+    //{
         long b = 0;
 
         if (argc == 2)
@@ -1029,10 +1024,10 @@ void vimic_midAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
 
                             x->room->walls[i][b - 1].midGain(argv[1].a_w.w_float);
 
-                            if (x->reflOrder == 2)
-                            {
+                            //if (x->reflOrder == 2)
+                            //{
                                 x->room->walls[i][b + Properties::NUMWALLS - 1].midGain(argv[1].a_w.w_float);
-                            }
+                            //}
                         }
                     }					
                     else if (globWarningFlag) post("Invalid wall index %d", b);
@@ -1042,16 +1037,16 @@ void vimic_midAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
         }
         else if (globWarningFlag)
             error("Incorrect # of args.");
-    }
-    else if (globWarningFlag)
-        error("No filtering for reflection order of 0.");
+    //}
+    //else if (globWarningFlag)
+    //    error("No filtering for reflection order of 0.");
 }
 
 
 void vimic_highAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
 {
-    if (x->reflOrder > 0)
-    {
+  //  if (x->reflOrder > 0)
+   // {
         long b = 0;
 
         if (argc == 2)
@@ -1074,11 +1069,11 @@ void vimic_highAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
 
                             x->room->walls[i][b - 1].highGain(argv[1].a_w.w_float);
 
-                            if (x->reflOrder == 2)
-                            {
+                            //if (x->reflOrder == 2)
+                            //{
                                 //post("b: %d", b);
                                 x->room->walls[i][b + Properties::NUMWALLS - 1].highGain(argv[1].a_w.w_float);
-                            }
+                            //}
                         }
                     }
                     else if (globWarningFlag) post("Invalid wall index %d", b);
@@ -1088,14 +1083,14 @@ void vimic_highAbsorption(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
             }
         }
         else if (globWarningFlag) error("Incorrect # of args.");
-    }
-    else if (globWarningFlag) error("No filtering for reflection order of 0.");
+    //}
+    //else if (globWarningFlag) error("No filtering for reflection order of 0.");
 }
 
 void vimic_wallFilter(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
 {
-    if (x->reflOrder > 0)
-    {
+  //  if (x->reflOrder > 0)
+  //  {
         long b = 0;
 
         if (argc == 6)
@@ -1129,14 +1124,14 @@ void vimic_wallFilter(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
                             x->room->walls[i][b - 1].highShelfFrequency(argv[5].a_w.w_long);
 
 
-                            if (x->reflOrder == 2)
-                            {
+                            //if (x->reflOrder == 2)
+                            //{
                                 x->room->walls[i][b + Properties::NUMWALLS - 1].lowGain(argv[1].a_w.w_float);
                                 x->room->walls[i][b + Properties::NUMWALLS - 1].midGain(argv[2].a_w.w_float);
                                 x->room->walls[i][b + Properties::NUMWALLS - 1].highGain(argv[3].a_w.w_float);
                                 x->room->walls[i][b + Properties::NUMWALLS - 1].lowShelfFrequency(argv[4].a_w.w_long); 
                                 x->room->walls[i][b + Properties::NUMWALLS - 1].highShelfFrequency(argv[5].a_w.w_long);
-                            }
+                            //}
                         }
                     }
                     else if (globWarningFlag) post("Invalid wall index %d", b);
@@ -1146,8 +1141,8 @@ void vimic_wallFilter(t_vimic *x, t_symbol *s, short argc, t_atom *argv)
             }
         }
         else if (globWarningFlag) error("Incorrect # of args.");
-    }
-    else if (globWarningFlag) error("No filtering for reflection order of 0.");
+  //  }
+  //  else if (globWarningFlag) error("No filtering for reflection order of 0.");
 }
 
 
