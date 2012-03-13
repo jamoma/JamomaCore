@@ -5,19 +5,16 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='codec' type='string' priority='0'>0</item>
-    <item name='framerate' type='decimal' priority='0'>1.000000</item>
-    <item name='interp' type='boolean' priority='0'>0</item>
-    <item name='quality' type='string' priority='0'>0</item>
-    <item name='realtime' type='boolean' priority='0'>0</item>
-    <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='video/bypass' type='boolean' priority='0'>0</item>
-    <item name='video/freeze' type='boolean' priority='0'>0</item>
-    <item name='video/mute' type='boolean' priority='0'>0</item>
-    <item name='video/preview' type='boolean' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 70 </item>
+    <item name='codec' type='string' priority='0' mixweight='1'>0</item>
+    <item name='framerate' type='decimal' priority='0' mixweight='1'>1.000000</item>
+    <item name='interp' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='quality' type='string' priority='0' mixweight='1'>0</item>
+    <item name='realtime' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='video/bypass' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='video/freeze' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='video/mute' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='video/preview' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='view/freeze' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='view/highlight' type='string' priority='0' mixweight='1'>none</item>
   </preset>
 </jamoma>
