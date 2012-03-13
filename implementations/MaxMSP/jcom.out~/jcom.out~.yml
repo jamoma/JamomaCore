@@ -1,4 +1,5 @@
 defines:
+  - AUDIO_EXTERNAL
   - JCOM_OUT_TILDE
   
 sources:
