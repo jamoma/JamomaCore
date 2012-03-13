@@ -273,7 +273,7 @@ void push_bang(t_push *x)
 
 	
 	outlet_anything(x->outlet, _sym_list, x->attrDimensions, a);
-	delete[] a;
+	sysmem_freeptr(a);
 }
 
 
