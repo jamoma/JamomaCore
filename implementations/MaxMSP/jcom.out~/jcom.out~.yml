@@ -1,5 +1,6 @@
 defines:
-  - JMOD_OUT_TILDE
+  - AUDIO_EXTERNAL
+  - JCOM_OUT_TILDE
   
 sources:
   - ../jcom.out/jcom.out.cpp		

@@ -81,34 +81,38 @@ TTPresetManager::~TTPresetManager()
 	delete mPresetList;
 	mPresetList = NULL;
 	
-	mPresetArguments.get(0, (TTPtr*)&oldCallback);
-	if (oldCallback) {
-		delete (TTValuePtr)oldCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&oldCallback));
-	}
+	// if the arguments are not only himself
+	if (mPresetArguments.getSize() > 1) {
 	
-	mPresetArguments.get(1, (TTPtr*)&oldCallback);
-	if (oldCallback) {
-		delete (TTValuePtr)oldCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&oldCallback));
-	}
-	
-	mPresetArguments.get(2, (TTPtr*)&oldCallback);
-	if (oldCallback) {
-		delete (TTValuePtr)oldCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&oldCallback));
-	}
-	
-	mPresetArguments.get(3, (TTPtr*)&oldCallback);
-	if (oldCallback) {
-		delete (TTValuePtr)oldCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&oldCallback));
-	}
-	
-	mPresetArguments.get(4, (TTPtr*)&oldCallback);
-	if (oldCallback) {
-		delete (TTValuePtr)oldCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&oldCallback));
+		mPresetArguments.get(0, (TTPtr*)&oldCallback);
+		if (oldCallback) {
+			delete (TTValuePtr)oldCallback->getBaton();
+			TTObjectRelease(TTObjectHandle(&oldCallback));
+		}
+		
+		mPresetArguments.get(1, (TTPtr*)&oldCallback);
+		if (oldCallback) {
+			delete (TTValuePtr)oldCallback->getBaton();
+			TTObjectRelease(TTObjectHandle(&oldCallback));
+		}
+		
+		mPresetArguments.get(2, (TTPtr*)&oldCallback);
+		if (oldCallback) {
+			delete (TTValuePtr)oldCallback->getBaton();
+			TTObjectRelease(TTObjectHandle(&oldCallback));
+		}
+		
+		mPresetArguments.get(3, (TTPtr*)&oldCallback);
+		if (oldCallback) {
+			delete (TTValuePtr)oldCallback->getBaton();
+			TTObjectRelease(TTObjectHandle(&oldCallback));
+		}
+		
+		mPresetArguments.get(4, (TTPtr*)&oldCallback);
+		if (oldCallback) {
+			delete (TTValuePtr)oldCallback->getBaton();
+			TTObjectRelease(TTObjectHandle(&oldCallback));
+		}
 	}
 }
 
