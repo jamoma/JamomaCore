@@ -1,5 +1,5 @@
 defines:
-  - JMOD_OUT_TILDE
+  - JCOM_OUT_TILDE
   
 sources:
   - ../jcom.out/jcom.out.cpp		

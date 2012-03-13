@@ -1,5 +1,5 @@
 defines:
-  - JMOD_IN_TILDE
+  - JCOM_IN_TILDE
   
 sources:
   - ../jcom.in/jcom.in.cpp		
