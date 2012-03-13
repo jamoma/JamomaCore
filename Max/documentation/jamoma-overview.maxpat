@@ -224,16 +224,16 @@
 ,
 					"patching_rect" : [ 364.666626, 570.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"digest" : "",
 						"tags" : "",
-						"description" : "",
+						"default_fontname" : "Arial",
 						"globalpatchername" : "",
+						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial"
+						"description" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p plugtastic"
@@ -1041,31 +1041,31 @@
  ],
 										"dependency_cache" : [ 											{
 												"name" : "jcom.maxhelpui.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 												"type" : "JSON",
 												"implicit" : 1
 											}
 , 											{
 												"name" : "jcom.maxhelpuiButton.png",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 												"type" : "PNG ",
 												"implicit" : 1
 											}
 , 											{
 												"name" : "jcom.maxhelpuiResize.js",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 												"type" : "TEXT",
 												"implicit" : 1
 											}
 , 											{
 												"name" : "jcom.jamomaPath.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
 												"type" : "JSON",
 												"implicit" : 1
 											}
 , 											{
 												"name" : "jcom.thru.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
 												"type" : "JSON",
 												"implicit" : 1
 											}
@@ -1086,16 +1086,16 @@
 ,
 									"patching_rect" : [ 50.0, 219.0, 102.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"digest" : "",
 										"tags" : "",
-										"description" : "",
+										"default_fontname" : "Verdana",
 										"globalpatchername" : "",
+										"default_fontsize" : 10.0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana"
+										"description" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p \"UserLib teaser\""
@@ -1172,31 +1172,31 @@
  ],
 						"dependency_cache" : [ 							{
 								"name" : "jcom.maxhelpui.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.maxhelpuiButton.png",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "PNG ",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.maxhelpuiResize.js",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "TEXT",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.jamomaPath.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.thru.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
 								"type" : "JSON",
 								"implicit" : 1
 							}
@@ -1217,16 +1217,16 @@
 ,
 					"patching_rect" : [ 313.499969, 540.0, 58.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"digest" : "",
 						"tags" : "",
-						"description" : "",
+						"default_fontname" : "Arial",
 						"globalpatchername" : "",
+						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial"
+						"description" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p UserLib"
@@ -1475,7 +1475,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 26.0, 90.0, 158.0, 210.0 ],
 					"spacing_y" : 10.0,
-					"tabs" : [ "Modules", "Components", "Examples", "Application Builder", "UserLib", "Tutorials", "Plugtastic" ]
+					"tabs" : [ "Modules", "Components", "Examples", "Application Builder", "UserLib", "Tutorials" ]
 				}
 
 			}
@@ -1618,16 +1618,16 @@
 ,
 					"patching_rect" : [ 415.833313, 540.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"digest" : "",
 						"tags" : "",
-						"description" : "",
+						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"description" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p JAB"
@@ -1734,16 +1734,16 @@
 ,
 					"patching_rect" : [ 108.833313, 540.0, 61.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"digest" : "",
 						"tags" : "",
-						"description" : "",
+						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"description" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p tutorials"
@@ -2079,16 +2079,16 @@
 ,
 													"patching_rect" : [ 30.5, 514.0, 73.0, 20.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontsize" : 12.0,
+														"fontname" : "Arial",
+														"digest" : "",
 														"tags" : "",
-														"description" : "",
+														"default_fontname" : "Arial",
 														"globalpatchername" : "",
+														"default_fontsize" : 12.0,
 														"fontface" : 0,
 														"fontsize" : 12.0,
-														"default_fontface" : 0,
-														"digest" : "",
-														"default_fontname" : "Arial",
-														"fontname" : "Arial"
+														"description" : "",
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p unwanted"
@@ -2193,16 +2193,16 @@
 ,
 													"patching_rect" : [ 30.5, 591.0, 59.0, 20.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontsize" : 12.0,
+														"fontname" : "Arial",
+														"digest" : "",
 														"tags" : "",
-														"description" : "",
+														"default_fontname" : "Arial",
 														"globalpatchername" : "",
+														"default_fontsize" : 12.0,
 														"fontface" : 0,
 														"fontsize" : 12.0,
-														"default_fontface" : 0,
-														"digest" : "",
-														"default_fontname" : "Arial",
-														"fontname" : "Arial"
+														"description" : "",
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p wanted"
@@ -2483,7 +2483,7 @@
 													"outlettype" : [ "int", "", "" ],
 													"parameter_enable" : 0,
 													"patching_rect" : [ 50.0, 324.0, 224.0, 20.0 ],
-													"prefix" : "Macintosh HD:/Users/nilspeters/Documents/gits/Jamoma/Builds/MaxMSP/",
+													"prefix" : "Macintosh HD:/Users/lossius/dev/Jamoma/Builds/MaxMSP/",
 													"types" : "JSON"
 												}
 
@@ -2850,16 +2850,16 @@
 ,
 									"patching_rect" : [ 1041.0, 117.0, 81.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontsize" : 12.0,
+										"fontname" : "Arial",
+										"digest" : "",
 										"tags" : "",
-										"description" : "",
+										"default_fontname" : "Arial",
 										"globalpatchername" : "",
+										"default_fontsize" : 12.0,
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"digest" : "",
-										"default_fontname" : "Arial",
-										"fontname" : "Arial"
+										"description" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p create--Tab"
@@ -6716,31 +6716,31 @@
  ],
 						"dependency_cache" : [ 							{
 								"name" : "jcom.maxhelpui.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.maxhelpuiButton.png",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "PNG ",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.maxhelpuiResize.js",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "TEXT",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.jamomaPath.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.thru.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
 								"type" : "JSON",
 								"implicit" : 1
 							}
@@ -6761,16 +6761,16 @@
 ,
 					"patching_rect" : [ 262.333252, 570.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"digest" : "",
 						"tags" : "",
-						"description" : "",
+						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"description" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p components"
@@ -6793,7 +6793,7 @@
 							"revision" : 4
 						}
 ,
-						"rect" : [ 320.0, 44.0, 650.0, 403.0 ],
+						"rect" : [ 320.0, 44.0, 604.0, 402.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
@@ -6821,10 +6821,54 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 437.0, 160.0, 112.0, 17.0 ],
+									"patching_rect" : [ 437.0, 160.0, 109.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 440.0, 260.0, 123.0, 17.0 ],
-									"text" : "Module_highlighting"
+									"presentation_rect" : [ 440.0, 270.0, 123.0, 17.0 ],
+									"text" : "Module highlighting"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-22",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 437.0, 190.0, 84.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 440.0, 290.0, 123.0, 17.0 ],
+									"text" : "Module aliases"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-13",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "ModuleAliasDemo" ],
+									"patching_rect" : [ 550.0, 190.0, 107.0, 19.0 ],
+									"text" : "t ModuleAliasDemo"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-23",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "Module_highlighting" ],
+									"patching_rect" : [ 550.0, 160.0, 119.0, 19.0 ],
+									"text" : "t Module_highlighting"
 								}
 
 							}
@@ -6901,9 +6945,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 437.0, 190.0, 195.0, 19.0 ],
+									"patching_rect" : [ 437.0, 230.0, 195.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 440.0, 190.0, 195.0, 19.0 ],
+									"presentation_rect" : [ 440.0, 200.0, 195.0, 19.0 ],
 									"text" : "Communication in Jamoma"
 								}
 
@@ -6917,9 +6961,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 437.0, 321.0, 194.0, 19.0 ],
+									"patching_rect" : [ 437.0, 361.0, 194.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 440.0, 300.0, 194.0, 19.0 ],
+									"presentation_rect" : [ 440.0, 320.0, 194.0, 19.0 ],
 									"text" : "Mapping example"
 								}
 
@@ -6965,9 +7009,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 437.0, 231.0, 86.0, 17.0 ],
+									"patching_rect" : [ 437.0, 271.0, 86.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 440.0, 240.0, 123.0, 17.0 ],
+									"presentation_rect" : [ 440.0, 250.0, 123.0, 17.0 ],
 									"text" : "wildcard_demo"
 								}
 
@@ -6997,9 +7041,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 437.0, 339.0, 43.0, 17.0 ],
+									"patching_rect" : [ 437.0, 379.0, 43.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 440.0, 330.0, 123.0, 17.0 ],
+									"presentation_rect" : [ 440.0, 350.0, 123.0, 17.0 ],
 									"text" : "teatrix"
 								}
 
@@ -7029,9 +7073,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 437.0, 209.0, 102.0, 17.0 ],
+									"patching_rect" : [ 437.0, 249.0, 102.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 440.0, 220.0, 123.0, 17.0 ],
+									"presentation_rect" : [ 440.0, 230.0, 123.0, 17.0 ],
 									"text" : "separate-interface"
 								}
 
@@ -7061,7 +7105,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 437.0, 295.0, 107.0, 17.0 ],
+									"patching_rect" : [ 437.0, 335.0, 107.0, 17.0 ],
 									"text" : "jmod.qlist.example"
 								}
 
@@ -7075,7 +7119,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 437.0, 253.0, 109.0, 17.0 ],
+									"patching_rect" : [ 437.0, 293.0, 109.0, 17.0 ],
 									"text" : "jmod.pattr.example"
 								}
 
@@ -7104,7 +7148,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 437.0, 274.0, 143.0, 17.0 ],
+									"patching_rect" : [ 437.0, 314.0, 143.0, 17.0 ],
 									"text" : "jmod.pattr.communication"
 								}
 
@@ -7219,6 +7263,15 @@
 								"patchline" : 								{
 									"destination" : [ "obj-16", 0 ],
 									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-13", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-16", 0 ],
+									"disabled" : 0,
 									"hidden" : 1,
 									"source" : [ "obj-14", 0 ]
 								}
@@ -7253,10 +7306,28 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-16", 0 ],
+									"destination" : [ "obj-23", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-21", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-13", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-22", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-16", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-23", 0 ]
 								}
 
 							}
@@ -7308,31 +7379,31 @@
  ],
 						"dependency_cache" : [ 							{
 								"name" : "jcom.maxhelpui.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.maxhelpuiButton.png",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "PNG ",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.maxhelpuiResize.js",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "TEXT",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.jamomaPath.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.thru.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
 								"type" : "JSON",
 								"implicit" : 1
 							}
@@ -7353,16 +7424,16 @@
 ,
 					"patching_rect" : [ 211.166626, 540.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"digest" : "",
 						"tags" : "",
-						"description" : "",
+						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"description" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p examples"
@@ -7926,7 +7997,7 @@
  ],
 										"dependency_cache" : [ 											{
 												"name" : "jcom.getDescriptionFromHtml.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/getDescriptionFromHtml",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/getDescriptionFromHtml",
 												"type" : "JSON",
 												"implicit" : 1
 											}
@@ -7939,16 +8010,16 @@
 ,
 									"patching_rect" : [ 420.0, 44.0, 69.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontsize" : 12.0,
+										"fontname" : "Arial",
+										"digest" : "",
 										"tags" : "",
-										"description" : "",
+										"default_fontname" : "Arial",
 										"globalpatchername" : "",
+										"default_fontsize" : 12.0,
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"digest" : "",
-										"default_fontname" : "Arial",
-										"fontname" : "Arial"
+										"description" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p hoverHint"
@@ -11552,37 +11623,37 @@
  ],
 						"dependency_cache" : [ 							{
 								"name" : "jcom.maxhelpui.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.maxhelpuiButton.png",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "PNG ",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.maxhelpuiResize.js",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 								"type" : "TEXT",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.jamomaPath.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.thru.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.getDescriptionFromHtml.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/getDescriptionFromHtml",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/getDescriptionFromHtml",
 								"type" : "JSON",
 								"implicit" : 1
 							}
@@ -11607,16 +11678,16 @@
 ,
 					"patching_rect" : [ 159.999939, 570.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"digest" : "",
 						"tags" : "",
-						"description" : "",
+						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana"
+						"description" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p modules"
@@ -11929,49 +12000,49 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.maxhelpui.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 				"patcherrelativepath" : "../library/components/maxhelpui",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.maxhelpuiButton.png",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 				"patcherrelativepath" : "../library/components/maxhelpui",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.maxhelpuiResize.js",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 				"patcherrelativepath" : "../library/components/maxhelpui",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.jamomaPath.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
 				"patcherrelativepath" : "../library/components/jamomaPath",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.thru.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
 				"patcherrelativepath" : "../library/components/thru",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.getDescriptionFromHtml.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/getDescriptionFromHtml",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/getDescriptionFromHtml",
 				"patcherrelativepath" : "../library/components/getDescriptionFromHtml",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.js_systeminfo.js",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/javascript",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/javascript",
 				"patcherrelativepath" : "../library/javascript",
 				"type" : "TEXT",
 				"implicit" : 1
