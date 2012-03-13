@@ -44,7 +44,7 @@ void ui_internals_createColors(t_ui* obj)
 	anObject->setAction((method)ui_color_border, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/border"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/highlight", obj->box.b_patcher, "string", "none", "Highlight the modul with a color tint such as red, green, or similar.", NULL, NULL, NULL, NULL, "none");
+	anObject = new uiInternalObject("jcom.parameter", "view/highlight", obj->box.b_patcher, "string", "none", "Highlight the module with a color tint such as red, green, or similar.", NULL, NULL, NULL, NULL, "none");
 	anObject->setAction((method)ui_color_highlight, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/highlight"), (t_object*)anObject);	
 	
