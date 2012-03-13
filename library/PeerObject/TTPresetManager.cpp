@@ -81,6 +81,9 @@ TTPresetManager::~TTPresetManager()
 	delete mPresetList;
 	mPresetList = NULL;
 	
+	if (mPresetArguments == kTTValNONE)
+		return;
+	
 	mPresetArguments.get(0, (TTPtr*)&oldCallback);
 	if (oldCallback) {
 		delete (TTValuePtr)oldCallback->getBaton();

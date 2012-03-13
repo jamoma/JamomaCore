@@ -6,10 +6,15 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXFileReference section */
+		D289EADC150F62E200FC7F7E /* jcom.parameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameter.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* jcom.parameter */ = {
 			isa = PBXGroup;
 			children = (
+				D289EADC150F62E200FC7F7E /* jcom.parameter.cpp */,
 			);
 			name = jcom.parameter;
 			sourceTree = "<group>";
