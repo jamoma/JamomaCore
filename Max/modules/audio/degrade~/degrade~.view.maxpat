@@ -1,7 +1,13 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 54.0, 244.0, 300.0, 70.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 265.0, 319.0, 873.0, 468.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 265.0, 319.0, 873.0, 468.0 ],
@@ -25,11 +31,11 @@
 					"fontsize" : 13.0,
 					"id" : "obj-12",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 515.0, 285.0, 161.0, 22.0 ],
-					"text" : "jcom.view out/amplitude.2"
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 515.0, 285.0, 172.0, 22.0 ],
+					"text" : "jcom.remote out/amplitude.2"
 				}
 
 			}
@@ -65,11 +71,11 @@
 					"fontsize" : 13.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 305.0, 285.0, 161.0, 22.0 ],
-					"text" : "jcom.view out/amplitude.1"
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 305.0, 285.0, 172.0, 22.0 ],
+					"text" : "jcom.remote out/amplitude.1"
 				}
 
 			}
@@ -77,7 +83,7 @@
 				"box" : 				{
 					"fontname" : "Helvetica Neue Light",
 					"fontsize" : 13.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -93,7 +99,7 @@
 				"box" : 				{
 					"fontname" : "Helvetica Neue Light",
 					"fontsize" : 13.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -112,10 +118,10 @@
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 508.0, 78.0, 119.0, 22.0 ],
-					"text" : "jcom.view bitdepth"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 509.0, 78.0, 131.0, 22.0 ],
+					"text" : "jcom.remote bitdepth"
 				}
 
 			}
@@ -126,10 +132,10 @@
 					"id" : "obj-8",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 555.0, 153.0, 164.0, 22.0 ],
-					"text" : "jcom.view samplerateRatio"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 555.0, 153.0, 175.0, 22.0 ],
+					"text" : "jcom.remote samplerateRatio"
 				}
 
 			}
@@ -172,7 +178,7 @@
 					"outlettype" : [ "", "" ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"text" : "/degrade~"
+					"text" : "waiting for a model/address"
 				}
 
 			}
@@ -206,10 +212,10 @@
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 20.0, 195.0, 449.0, 22.0 ],
-					"text" : "jcom.hub @context view @description \"A default view for the degrade.model~\""
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 20.0, 195.0, 368.0, 22.0 ],
+					"text" : "jcom.view @description \"A default view for the degrade.model~\""
 				}
 
 			}

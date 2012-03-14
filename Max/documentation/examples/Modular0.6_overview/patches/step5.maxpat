@@ -33,8 +33,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 827.0, 714.0, 205.0, 20.0 ],
-					"text" : "get the selection state of a jcom.view"
+					"patching_rect" : [ 827.0, 714.0, 236.0, 20.0 ],
+					"text" : "get the highlight state of a jcom.remote"
 				}
 
 			}
@@ -70,7 +70,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 809.0, 736.0, 203.0, 20.0 ],
-					"text" : "jcom.receive /interface/rate:selected"
+					"text" : "jcom.receive /interface/rate:highlight"
 				}
 
 			}
@@ -84,7 +84,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 921.0, 192.0, 187.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -128,7 +128,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 921.0, 144.0, 180.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -182,7 +182,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 179.0, 230.0, 72.0, 20.0 ],
-					"text" : "views"
+					"text" : "remotes"
 				}
 
 			}
@@ -195,7 +195,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-59",
-					"items" : [ "file/load", ",", "file/path", ",", "fps", ",", "play", ",", "rate", ",", "ui/out/freeze", ",", "ui/out/mute", ",", "ui/out/preview" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -379,8 +379,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 330.0, 655.0, 106.0, 34.0 ],
-					"text" : "Set attribute of a  jcom.view object."
+					"patching_rect" : [ 330.0, 655.0, 144.0, 34.0 ],
+					"text" : "Set attribute of a  jcom.remote object."
 				}
 
 			}
@@ -435,7 +435,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 330.0, 501.0, 138.0, 62.0 ],
-					"text" : "It is possible to talk to a parameter/message if a jcom.view binds on it in a view bpatcher."
+					"text" : "It is possible to talk to a parameter/message if a jcom.remote binds on it in a view bpatcher."
 				}
 
 			}
@@ -450,7 +450,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 809.0, 605.0, 265.0, 103.0 ],
-					"text" : "If you press the shift key when you are on a jcom.ui this would show the selection state of each ui object. If you click on the selection label this would change his selection state.\n\nFor instant this information is not used by any client but this will be done soon !"
+					"text" : "If you press the shift key when you are on a jcom.ui this would show the highlight state of each ui object. If you click on the highlight label this would change his highlight state.\n\nFor instant this information is not used by any client but this will be done soon !"
 				}
 
 			}
@@ -561,7 +561,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 479.0, 585.0, 153.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "ui/out/mute 0"
 				}
 
 			}
@@ -644,7 +644,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 625.0, 143.0, 96.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "out/mute 0"
 				}
 
 			}
@@ -925,9 +925,9 @@
 							"revision" : 9
 						}
 ,
-						"rect" : [ 48.0, 230.0, 662.0, 226.0 ],
+						"rect" : [ 48.0, 230.0, 647.0, 226.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 48.0, 230.0, 662.0, 226.0 ],
+						"defrect" : [ 48.0, 230.0, 647.0, 226.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -953,8 +953,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 525.0, 117.0, 103.0, 48.0 ],
-									"text" : "jcom.namespace @filter/list view @format umenu"
+									"patching_rect" : [ 525.0, 117.0, 104.0, 48.0 ],
+									"text" : "jcom.namespace @filter/list remote @format umenu"
 								}
 
 							}
@@ -1190,12 +1190,12 @@
 ,
 					"patching_rect" : [ 4.0, 136.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
+						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"fontname" : "Arial"
 					}
 ,
@@ -1212,7 +1212,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-47",
-					"items" : "view/class",
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1233,7 +1233,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : [ "ui/panel", ",", "ui/refresh", ",", "view/documentation/generate", ",", "view/help", ",", "view/internals", ",", "view/reference" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1254,7 +1254,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-14",
-					"items" : [ "model/address", ",", "ui/color/border", ",", "ui/color/contentBackground", ",", "ui/color/toolbarBackground", ",", "ui/color/toolbarText", ",", "ui/freeze", ",", "ui/size", ",", "view/mute" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1287,7 +1287,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 340.0, 143.0, 96.0, 18.0 ],
-					"text" : "play 0"
+					"text" : "out/mute 0"
 				}
 
 			}

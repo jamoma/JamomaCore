@@ -1,8 +1,8 @@
 defines:
-  - JCOM_VIEW
+  - JCOM_MODEL
   
 sources:
-  - ../jcom.model/jcom.model.cpp
+  - jcom.model.cpp
   - ../../../../Support/max/TTModularClassWrapperMax.cpp
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
     

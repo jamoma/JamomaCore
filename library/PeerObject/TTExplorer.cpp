@@ -281,6 +281,7 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 		// if the filter doesn't exist : create a new one
 		if (err) {
 			afilter = new TTDictionary();
+			afilter->setSchema(kTTSym_filter);
 			mFilterBank->append(filterName, (TTPtr)afilter);
 		}
 		// else get the existing filter and his schema
@@ -295,30 +296,15 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 			inputValue.get(i, &filterKey);
 			filterValue.copyRange(inputValue, i+1, i+2);
 			
-			afilter->append(filterKey, filterValue);
+			// convert Int32 into symbol for instance parsing
+			if (filterValue.getType() == kTypeInt32) {
+				filterValue.toString();
+				TTString instanceString;
+				filterValue.get(0, instanceString);
+				filterValue.set(0, TT(instanceString));
+			}
 			
-			// filter schema detection on the first key
-			if (filterSchema == kTTSymEmpty && i == 1) {
-				
-				if (filterKey == kTTSym_object || filterKey == kTTSym_attribute || filterKey == kTTSym_value)
-					filterSchema = kTTSym_objectFilter;
-				
-				else if (filterKey == kTTSym_parent || filterKey == kTTSym_name || filterKey == kTTSym_instance)
-					filterSchema = kTTSym_addressFilter;
-				
-				// set the schema
-				afilter->setSchema(filterSchema);
-				
-			}
-			// then check each keys considering the detected schema
-			else {
-				
-				if (filterSchema != kTTSym_objectFilter && (filterKey == kTTSym_object || filterKey == kTTSym_attribute || filterKey == kTTSym_value))
-					return kTTErrGeneric;
-				
-				else if (filterSchema != kTTSym_addressFilter && (filterKey == kTTSym_parent || filterKey == kTTSym_name || filterKey == kTTSym_instance))
-					return kTTErrGeneric;
-			}
+			afilter->append(filterKey, filterValue);
 		}
 	}
 	// the first element have to be a symbol

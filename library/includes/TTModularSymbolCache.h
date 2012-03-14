@@ -38,6 +38,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_enable;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Fill;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_filter;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;

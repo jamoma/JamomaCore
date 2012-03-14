@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 380.0, 221.0, 752.0, 593.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 380.0, 221.0, 752.0, 593.0 ],
@@ -50,7 +56,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 280.0, 28.0, 69.0, 18.0 ],
+					"patching_rect" : [ 299.0, 16.0, 69.0, 18.0 ],
 					"text" : "write/again"
 				}
 
@@ -64,7 +70,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 243.0, 28.0, 36.0, 18.0 ],
+					"patching_rect" : [ 262.0, 16.0, 36.0, 18.0 ],
 					"text" : "write"
 				}
 
@@ -78,7 +84,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 353.0, 28.0, 87.0, 18.0 ],
+					"patching_rect" : [ 372.0, 16.0, 87.0, 18.0 ],
 					"text" : "store 1 default"
 				}
 
@@ -93,7 +99,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 243.0, 59.0, 70.0, 19.0 ],
+					"patching_rect" : [ 262.0, 47.0, 70.0, 19.0 ],
 					"text" : "jcom.preset"
 				}
 
@@ -122,7 +128,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 318.0, 191.0, 55.0, 20.0 ],
+					"patching_rect" : [ 317.0, 191.0, 55.0, 20.0 ],
 					"text" : "jcom.init"
 				}
 
@@ -133,13 +139,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-14",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 30.0, 36.0, 201.0, 43.0 ],
-					"text" : "jcom.hub @type control @description \"Output information from mouse\" @context model",
+					"patching_rect" : [ 30.0, 36.0, 210.0, 31.0 ],
+					"text" : "jcom.model @type control @description \"Output information from mouse\"",
 					"varname" : "jcom.hub"
 				}
 
@@ -279,6 +285,12 @@
 					"outlettype" : [ "float", "float" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 10.0, 59.0, 259.0, 373.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 10.0, 59.0, 259.0, 373.0 ],
@@ -511,13 +523,13 @@
 ,
 					"patching_rect" : [ 220.0, 260.0, 116.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p normalize"
@@ -536,6 +548,12 @@
 					"outlettype" : [ "float", "float" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 10.0, 59.0, 219.0, 292.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 10.0, 59.0, 219.0, 292.0 ],
@@ -800,13 +818,13 @@
 ,
 					"patching_rect" : [ 121.0, 436.0, 119.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p normalize"
@@ -1014,7 +1032,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 252.5, 52.0, 252.5, 52.0 ],
+					"midpoints" : [ 271.5, 40.0, 271.5, 40.0 ],
 					"source" : [ "obj-10", 0 ]
 				}
 
@@ -1059,7 +1077,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 362.5, 52.0, 252.5, 52.0 ],
+					"midpoints" : [ 381.5, 40.0, 271.5, 40.0 ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -1068,7 +1086,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 289.5, 52.0, 252.5, 52.0 ],
+					"midpoints" : [ 308.5, 40.0, 271.5, 40.0 ],
 					"source" : [ "obj-16", 0 ]
 				}
 

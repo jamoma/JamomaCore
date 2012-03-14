@@ -1085,14 +1085,14 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	
 	// to look for any data (parameter | message | return)
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("data"), (TTPtr)aFilter);
 	
 	// to look for jcom.parameter
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_parameter);
@@ -1101,7 +1101,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	
 	// to look for jcom.message
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_message);
@@ -1110,30 +1110,41 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	
 	// to look for jcom.return
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_return);
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("return"), (TTPtr)aFilter);
 	
-	// to look for jcom.hub
+	// to look for jcom.model
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Container"));
+	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_value, kTTSym_model);
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
-	defaultFilterBank->append(TT("hub"), (TTPtr)aFilter);
+	defaultFilterBank->append(TT("model"), (TTPtr)aFilter);
 	
 	// to look for jcom.view
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
-	aFilter->append(kTTSym_object, TT("Viewer"));
+	aFilter->setSchema(kTTSym_filter);
+	aFilter->append(kTTSym_object, TT("Container"));
+	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_value, kTTSym_view);
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("view"), (TTPtr)aFilter);
 	
+	// to look for jcom.remote
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_filter);
+	aFilter->append(kTTSym_object, TT("Viewer"));
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("remote"), (TTPtr)aFilter);
+	
 	// to look for user-defined object
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_generic);
 	aFilter->append(kTTSym_mode, kTTSym_exclusion);
@@ -1141,7 +1152,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	
 	// to look for generic tagged object
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_generic);
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
@@ -1522,58 +1533,56 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 	}
 }
 
-/** Get the context from the upper hub in the patcher or from patcher's name */
+/** Get the context from the upper jcom model|view in the patcher or from patcher's name */
 void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext)
 {
-	SymbolPtr	hierarchy, context, _sym_jcomhub, _sym_context, patcherName;
-	TTBoolean	hubThere;
+	SymbolPtr	hierarchy, _sym_jcommodel, _sym_jcomview, _sym_context, patcherName;
 	ObjectPtr	obj, upperPatcher;
+	TTBoolean	found = NO;
 	
-	context = NULL;
-	
-	// Look for jcom.hubs in the patcher
+	// Look for jcom model|view in the patcher
 	obj = object_attr_getobj(*patcher, _sym_firstobject);
 	
 	// TODO : cache those t_symbol else where ...
-	_sym_jcomhub = gensym("jcom.hub");
-	_sym_context = gensym("context");
+	_sym_jcommodel = gensym("jcom.model");
+	_sym_jcomview = gensym("jcom.view");
 	
-	hubThere = NO;
 	while (obj) {
-		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
+		
+		_sym_context = object_attr_getsym(obj, _sym_maxclass);
+		
+		if (_sym_context == _sym_jcommodel) {
 			
-			// if there is a hub : remind it exist
-			hubThere = YES;
+			*returnedContext = kTTSym_model;
+			found = YES;
+			break;
 			
-			// ask it his context attribute
-			context = object_attr_getsym(obj, _sym_context);
+		} else if (_sym_context == _sym_jcomview) {
 			
-			if (context)
-				break;
+			*returnedContext = kTTSym_view;
+			found = YES;
+			break;
 		}
+
 		obj = object_attr_getobj(obj, _sym_nextobject);
 	}
 	
-	if (context) 
-		*returnedContext = TT(context->s_name);
-	
 	// if no context
-	else {
+	if (!found) {
 		
-		/*	to -- don't get the context from the filename anymore
-			because it make two ways to set it with the hub @context attribute
+		/*	to -- don't get the context from the filename anymore because it make two ways to set it...
 		 
 		// try to get it from the patcher name
 		patcherName = object_attr_getsym(*patcher, _sym_filename);
 		if (patcherName != _sym_nothing) {
 			// Is there a ".model.maxpat" string in the patcher name ?
 			if (strstr(patcherName->s_name, ".model.maxpat")) {
-				*returnedContext = TT(ModelPatcher);
+				*returnedContext = kTTSym_model;
 				return;
 			}
 			// Is there a ".view.maxpat" string in the patcher name ?
 			else if (strstr(patcherName->s_name, ".view.maxpat")) {
-				*returnedContext = TT(ViewPatcher);
+				*returnedContext = kTTSym_view;
 				return;
 			}
 		}
@@ -1588,18 +1597,18 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 			
 			jamoma_patcher_get_context(&upperPatcher, returnedContext);
 			
-			// if the context is still NULL and there is a hub at this level
-			// the default case would be to set it as a ModelPatcher by default
-			if (!(*returnedContext) && hubThere)
-				*returnedContext = TT(ModelPatcher);
-			// keep the upperPatcher if no hub around
+			// if the context is still NULL and there is a jcom model|view at this level
+			// the default case would be to set it as a model patcher by default
+			if (!(*returnedContext) && found)
+				*returnedContext = kTTSym_model;
+			// keep the upperPatcher if no jcom model|view around
 			// because it is where the context is defined
-			else if (!hubThere)
+			else if (!found)
 				*patcher = upperPatcher;
 		}
 		// default case : a patcher has no type
 		else if (hierarchy == _sym_topmost)
-			*returnedContext = NULL;	
+			*returnedContext = NULL;
 	}
 }
 
@@ -1710,20 +1719,22 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 	}
 }
 
-/** Get all context info from the root hub in the patcher */
+/** Get all context info from the root jcom model|view in the patcher */
 void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName)
 {
 	TTValue		patcherInfo;
 	ObjectPtr	obj;
-	SymbolPtr	_sym_jcomhub, _sym_share;
+	SymbolPtr	_sym_jcommodel, _sym_jcomview, _sym_jcomcontext, _sym_share;
 	
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
 	// TODO : cache those t_symbol else where ...
-	_sym_jcomhub = gensym("jcom.hub");
+	_sym_jcommodel = gensym("jcom.model");
+	_sym_jcomview = gensym("jcom.view");
 	_sym_share = gensym("share_patcher_info");
 	while (obj) {
-		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
+		_sym_jcomcontext = object_attr_getsym(obj, _sym_maxclass);
+		if (_sym_jcomcontext == _sym_jcommodel || _sym_jcomcontext == _sym_jcomview) {
 		
 			// ask it patcher info
 			object_method(object_attr_getobj(obj, _sym_object), _sym_share, &patcherInfo);
@@ -1741,21 +1752,23 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 }
 
 
-/** Get patcher's node from the root hub in the patcher */
+/** Get patcher's node from the root jcom model|view in the patcher */
 void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 {
 	ObjectPtr	obj;
-	SymbolPtr	_sym_jcomhub, _sym_share;
+	SymbolPtr	_sym_jcommodel, _sym_jcomview, _sym_jcomcontext, _sym_share;
 	
 	*patcherNode = NULL;
 	
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
 	// TODO : cache those t_symbol else where ...
-	_sym_jcomhub = gensym("jcom.hub");
+	_sym_jcommodel = gensym("jcom.model");
+	_sym_jcomview = gensym("jcom.view");
 	_sym_share = gensym("share_patcher_node");
 	while (obj) {
-		if (object_attr_getsym(obj, _sym_maxclass) == _sym_jcomhub) {
+		_sym_jcomcontext = object_attr_getsym(obj, _sym_maxclass);
+		if (_sym_jcomcontext == _sym_jcommodel || _sym_jcomcontext == _sym_jcomview) {
 			
 			// ask it patcher info
 			object_method(object_attr_getobj(obj, _sym_object), _sym_share, patcherNode);
@@ -1770,9 +1783,10 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 /** Get all context info from an object (his patcher and the context, the class and the name of his patcher) */
 TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName)
 {
-	TTBoolean	isHub;
+	TTBoolean	canShare;
+	SymbolPtr	_sym_jcomcontext;
 	TTString	viewName;
-	ObjectPtr	hubPatcher;
+	ObjectPtr	patcher;
 	ObjectPtr	sharedPatcher = NULL;
 	TTSymbolPtr sharedContext = NULL;
 	TTSymbolPtr sharedClass = NULL;
@@ -1780,14 +1794,16 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 	
 	*returnedPatcher = jamoma_patcher_get(obj);
 	
-	isHub = object_classname(obj) == gensym("jcom.hub");
-	hubPatcher = *returnedPatcher;
+	_sym_jcomcontext = object_classname(obj);
+	canShare = _sym_jcomcontext == gensym("jcom.model") || _sym_jcomcontext == gensym("jcom.view");
+	
+	patcher = *returnedPatcher;
 
 	// Get the context, the class and the name of the patcher
 	if (*returnedPatcher) {
 		
-		// try to get them from a hub around to go faster (except for hub of course)
-		if (!isHub) {
+		// try to get them from a jcom model|view around to go faster (except for jcom model|view of course)
+		if (!canShare) {
 			
 			jamoma_patcher_share_info(*returnedPatcher, &sharedPatcher, &sharedContext, &sharedClass, &sharedName);
 			
@@ -1800,14 +1816,14 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 			}
 		}
 		
-		// get the context looking for a hub in the patcher
-		// it will also return a patcher above where a hub has been found
+		// get the context looking for a jcom model|view in the patcher
+		// it will also return a patcher above where a jcom model|view has been found
 		jamoma_patcher_get_context(returnedPatcher, returnedContext);
 		
 		// if still no context : stop the subscription process
 		if (!*returnedContext) {
 			*returnedName = S_SEPARATOR;
-			// can't find any hub with a correct context attribute in the patcher
+			// can't find any jcom model|view with a correct context attribute in the patcher
 			// so this means the object have to be registered under the root
 			return kTTErrGeneric;
 		}
@@ -1819,9 +1835,9 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		if (!*returnedClass)
 			*returnedClass = TT("Untitled");
 		
-		// for hub object, use the patcher where it is to get the name
-		if (isHub)
-			jamoma_patcher_get_name(hubPatcher, *returnedContext, returnedName);
+		// for jcom model|view object, use the patcher where it is to get the name
+		if (canShare)
+			jamoma_patcher_get_name(patcher, *returnedContext, returnedName);
 		// else get the name from the argument of the patcher
 		else
 			jamoma_patcher_get_name(*returnedPatcher, *returnedContext, returnedName);

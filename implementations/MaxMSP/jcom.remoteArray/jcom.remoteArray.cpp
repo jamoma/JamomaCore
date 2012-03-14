@@ -1,5 +1,5 @@
 /* 
- *	jcom.viewArray
+ *	jcom.remoteArray
  *	External object
  *	Copyright © 2011 by Théo de la Hogue
  * 
@@ -36,26 +36,26 @@ void		WrapTTDataClass(WrappedClassPtr c);
 void		WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void		WrappedDataClass_free(TTPtr self);
 
-void		view_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
+void		remote_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
-void		view_new_address(TTPtr self, SymbolPtr msg);
-void		view_array_subscribe(TTPtr self, SymbolPtr address, AtomCount index, AtomPtr argv);
-void		view_array_create(ObjectPtr x, TTObjectPtr *returnedViewer, long index);
-void		view_array_select(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		view_address(TTPtr self, SymbolPtr name);
+void		remote_new_address(TTPtr self, SymbolPtr msg);
+void		remote_array_subscribe(TTPtr self, SymbolPtr address, AtomCount index, AtomPtr argv);
+void		remote_array_create(ObjectPtr x, TTObjectPtr *returnedViewer, long index);
+void		remote_array_select(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		remote_address(TTPtr self, SymbolPtr name);
 
-void		view_array_return_value(TTPtr baton, TTValue& v);
+void		remote_array_return_value(TTPtr baton, TTValue& v);
 
-t_max_err	view_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
-t_max_err	view_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
+t_max_err	remote_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
+t_max_err	remote_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 
 void		WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		view_bang(TTPtr self);
-void		view_int(TTPtr self, long value);
-void		view_float(TTPtr self, double value);
-void		view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		remote_bang(TTPtr self);
+void		remote_int(TTPtr self, long value);
+void		remote_float(TTPtr self, double value);
+void		remote_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		view_ui_queuefn(TTPtr self);
+void		remote_ui_queuefn(TTPtr self);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -65,25 +65,25 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_free = &WrappedDataClass_free;
 	spec->_any = &WrappedDataClass_anything;
 
-	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.viewArray", NULL, spec);
+	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.remoteArray", NULL, spec);
 
 }
 
 void WrapTTDataClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)view_assist,						"assist",				A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)remote_assist,						"assist",				A_CANT, 0L);
 		
-	class_addmethod(c->maxClass, (method)view_bang,							"bang",					0L);
-	class_addmethod(c->maxClass, (method)view_int,							"int",					A_LONG, 0);
-	class_addmethod(c->maxClass, (method)view_float,						"float",				A_FLOAT, 0);
-	class_addmethod(c->maxClass, (method)view_list,							"list",					A_GIMME, 0);
+	class_addmethod(c->maxClass, (method)remote_bang,						"bang",					0L);
+	class_addmethod(c->maxClass, (method)remote_int,						"int",					A_LONG, 0);
+	class_addmethod(c->maxClass, (method)remote_float,						"float",				A_FLOAT, 0);
+	class_addmethod(c->maxClass, (method)remote_list,						"list",					A_GIMME, 0);
 	
-	class_addmethod(c->maxClass, (method)view_array_select,					"array/select",			A_GIMME,0);
+	class_addmethod(c->maxClass, (method)remote_array_select,				"array/select",			A_GIMME,0);
 	
-	class_addmethod(c->maxClass, (method)view_address,						"address",				A_SYM,0);
+	class_addmethod(c->maxClass, (method)remote_address,					"address",				A_SYM,0);
 
 	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	extra);		// use extra member to store format
-	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	view_get_format,	view_set_format);
+	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	remote_get_format,	remote_set_format);
 	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"single array");
 
 }
@@ -122,7 +122,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 
 	// Make qelem object
-	EXTRA->ui_qelem = qelem_new(x, (method)view_ui_queuefn);
+	EXTRA->ui_qelem = qelem_new(x, (method)remote_ui_queuefn);
 	
 	EXTRA->attr_format = gensym("single");
 	EXTRA->array_size = 0;
@@ -144,7 +144,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)view_new_address, relativeAddress, 0, NULL);
+	defer_low((ObjectPtr)x, (method)remote_new_address, relativeAddress, 0, NULL);
 }
 
 void WrappedDataClass_free(TTPtr self)
@@ -165,7 +165,7 @@ void WrappedDataClass_free(TTPtr self)
 	free(EXTRA);
 }
 	
-void view_new_address(TTPtr self, SymbolPtr relativeAddress)
+void remote_new_address(TTPtr self, SymbolPtr relativeAddress)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	AtomCount					argc = 0; 
@@ -203,7 +203,7 @@ void view_new_address(TTPtr self, SymbolPtr relativeAddress)
 				jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
 				
 				// create a viewer
-				view_array_create((ObjectPtr)x, &anObject, i);
+				remote_array_create((ObjectPtr)x, &anObject, i);
 				
 				// append the viewer to the internals table
 				v = TTValue(TTPtr(anObject));
@@ -211,7 +211,7 @@ void view_new_address(TTPtr self, SymbolPtr relativeAddress)
 				x->internals->append(TT(instanceAddress->s_name), v);
 				
 				// subscribe the viewer
-				view_array_subscribe(anObject, instanceAddress, i, NULL);
+				remote_array_subscribe(anObject, instanceAddress, i, NULL);
 			}
 			
 			// Ends iteration on internals
@@ -223,7 +223,7 @@ void view_new_address(TTPtr self, SymbolPtr relativeAddress)
 				attr_args_process(x, argc, argv);
 			
 			// select all views
-			view_array_select(self, gensym("*"), 0, NULL);
+			remote_array_select(self, gensym("*"), 0, NULL);
 		}
 	}
 	else 
@@ -232,7 +232,7 @@ void view_new_address(TTPtr self, SymbolPtr relativeAddress)
 	EXTRA->changingAddress = NO;
 }
 
-void view_array_subscribe(TTPtr obj, SymbolPtr msg, AtomCount index, AtomPtr argv)
+void remote_array_subscribe(TTPtr obj, SymbolPtr msg, AtomCount index, AtomPtr argv)
 {
 	TTViewerPtr			aViewer = (TTViewerPtr)self;
 	TTSubscriberPtr		aSubscriber = NULL;
@@ -289,7 +289,7 @@ void view_array_subscribe(TTPtr obj, SymbolPtr msg, AtomCount index, AtomPtr arg
 	if (contextAddress != kTTAdrsEmpty) {
 		
 		if (x->patcherContext == kTTSym_view) {
-			post("TODO jcom.viewArray : makeInternals_receiver for model/address");
+			post("TODO jcom.remoteArray : makeInternals_receiver for model/address");
 			// makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
 			// anObject->sendMessage(kTTSym_Get);
 		}
@@ -313,12 +313,12 @@ void view_array_subscribe(TTPtr obj, SymbolPtr msg, AtomCount index, AtomPtr arg
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)view_array_subscribe, msg, index, argv);
+		defer_low((ObjectPtr)x, (method)remote_array_subscribe, msg, index, argv);
 		return;
 	}
 }
 
-void view_array_create(ObjectPtr x, TTObjectPtr *returnedViewer, long index)
+void remote_array_create(ObjectPtr x, TTObjectPtr *returnedViewer, long index)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -332,7 +332,7 @@ void view_array_create(ObjectPtr x, TTObjectPtr *returnedViewer, long index)
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTUInt32(index));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&view_array_return_value));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&remote_array_return_value));
 	
 	args.append(returnValueCallback);
 	
@@ -340,7 +340,7 @@ void view_array_create(ObjectPtr x, TTObjectPtr *returnedViewer, long index)
 	TTObjectInstantiate(TT("Viewer"), TTObjectHandle(returnedViewer), args);
 }
 
-void view_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+void remote_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					instanceAddress;
@@ -385,13 +385,13 @@ void view_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 		object_error((ObjectPtr)x, "array/select : the array is empty");
 }
 
-void view_address(TTPtr self, SymbolPtr address)
+void remote_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	// Avoid succession of address changes
 	// the changingAddress flag is set to YES below and 
-	// set to NO at the end of view_new_address method
+	// set to NO at the end of remote_new_address method
 	if (!x->iterateInternals && !EXTRA->changingAddress) {
 		
 		// unregister internals
@@ -409,14 +409,14 @@ void view_address(TTPtr self, SymbolPtr address)
 		
 		// rebuild internals
 		EXTRA->changingAddress = YES;
-		defer_low(self,(method)view_new_address, address, 0, NULL);
+		defer_low(self,(method)remote_new_address, address, 0, NULL);
 	}
 	else 
 		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", address->s_name);
 }
 
 // Method for Assistance Messages
-void view_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
+void remote_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 {
 	if (msg==1) 						// Inlet
 		strcpy(dst, "input");
@@ -435,50 +435,50 @@ void view_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
  	}
 }
 
-void view_bang(TTPtr self)
+void remote_bang(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (x->internals) {
-		view_list(self, _sym_bang, 0, NULL);
+		remote_list(self, _sym_bang, 0, NULL);
 	}
 	else
 		object_error((ObjectPtr)x, "bang : the array is empty");
 }
 
-void view_int(TTPtr self, long value)
+void remote_int(TTPtr self, long value)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	t_atom a;
 
 	if (proxy_getinlet((ObjectPtr)x)) {
 		atom_setlong(&a, value);
-		view_array_select(self, _sym_nothing, 1, &a);
+		remote_array_select(self, _sym_nothing, 1, &a);
 	}
 	else {
 		if (x->internals) {
 			atom_setlong(&a, value);
-			view_list(self, _sym_int, 1, &a);
+			remote_list(self, _sym_int, 1, &a);
 		}
 		else
 			object_error((ObjectPtr)x, "int : the array is empty");
 	}
 }
 
-void view_float(TTPtr self, double value)
+void remote_float(TTPtr self, double value)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	t_atom a;
 	
 	if (x->internals) {
 		atom_setfloat(&a, value);
-		view_list(self, _sym_float, 1, &a);
+		remote_list(self, _sym_float, 1, &a);
 	}
 	else
 		object_error((ObjectPtr)x, "float : the array is empty");
 }
 
-void view_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+void remote_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 
@@ -509,7 +509,7 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (proxy_getinlet((ObjectPtr)x)) {
-		view_array_select(self, msg, argc, argv);
+		remote_array_select(self, msg, argc, argv);
 	}
 	else {
 		
@@ -530,7 +530,7 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	}
 }
 
-void view_array_return_value(TTPtr baton, TTValue& v)
+void remote_array_return_value(TTPtr baton, TTValue& v)
 {
 	WrappedModularInstancePtr	x;
 	TTValue						array, g;
@@ -613,14 +613,14 @@ void view_array_return_value(TTPtr baton, TTValue& v)
 	sysmem_freeptr(argv);
 }
 
-void view_ui_queuefn(TTPtr self)
+void remote_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
 }
 
-t_max_err view_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
+t_max_err remote_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
@@ -640,7 +640,7 @@ t_max_err view_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 	return MAX_ERR_NONE;
 }
 
-t_max_err view_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
+t_max_err remote_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	

@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Max External"
-	ProjectGUID="{E3F6789F-D53D-458B-88CC-D5718E89B940}"
-	RootNamespace="tt.balance~"
+	Name="jcom.node"
+	ProjectGUID="{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}"
+	RootNamespace="jcom.loader"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\builds"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -42,8 +42,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\max&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\units&quot;;..\..\..\library\source;..\..\..\library\Dataspacelib;..\..\..\library\Functionlib;..\..\..\library\Ramplib;..\..\..\library\NodeLib"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -64,11 +64,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib"
-				OutputFile="$(OutDir)\$(InputName).mxe"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib JamomaFoundation.lib JamomaDSP.lib JamomaModular.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\..\..\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
+				IgnoreAllDefaultLibraries="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -98,8 +99,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\builds"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -107,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -122,13 +123,20 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\max&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\units&quot;;..\..\..\library\source;..\..\..\library\Dataspacelib;..\..\..\library\Functionlib;..\..\..\library\Ramplib;..\..\..\library\NodeLib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				BasicRuntimeChecks="0"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -141,16 +149,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib"
-				OutputFile="$(OutDir)\$(InputName).mxe"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;"
-				GenerateManifest="false"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib JamomaFoundation.lib JamomaDSP.lib JamomaModular.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\..\..\library\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -180,15 +185,15 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes\common\commonsyms.cpp"
+			RelativePath="..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes\common\commonsyms.c"
 			>
 		</File>
 		<File
-			RelativePath=".\$(InputName).cpp"
+			RelativePath=".\jcom.node.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\supports\max\TTClassWrapperMax.cpp"
+			RelativePath=".\jcom.node.h"
 			>
 		</File>
 	</Files>

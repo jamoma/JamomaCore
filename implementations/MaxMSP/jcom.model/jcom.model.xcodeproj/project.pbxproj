@@ -6,36 +6,41 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXFileReference section */
+		D289EBD4150FC13A00FC7F7E /* jcom.model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.model.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
-		08FB7794FE84155DC02AAC07 /* jcom.hub */ = {
+		08FB7794FE84155DC02AAC07 /* jcom.model */ = {
 			isa = PBXGroup;
 			children = (
+				D289EBD4150FC13A00FC7F7E /* jcom.model.cpp */,
 			);
-			name = jcom.hub;
+			name = jcom.model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		D28A88AD04BDD90700651E21 /* jcom.hub */ = {
+		D28A88AD04BDD90700651E21 /* jcom.model */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(Configuration) $(ACTION)";
-			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.hub" */;
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.model" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
 			dependencies = (
 			);
-			name = jcom.hub;
+			name = jcom.model;
 			passBuildSettingsInEnvironment = 1;
-			productName = jcom.hub;
+			productName = jcom.model;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.hub" */;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.model" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -45,11 +50,11 @@
 				French,
 				German,
 			);
-			mainGroup = 08FB7794FE84155DC02AAC07 /* jcom.hub */;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* jcom.model */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D28A88AD04BDD90700651E21 /* jcom.hub */,
+				D28A88AD04BDD90700651E21 /* jcom.model */,
 			);
 		};
 /* End PBXProject section */
@@ -66,7 +71,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = jcom.hub;
+				PRODUCT_NAME = jcom.model;
 			};
 			name = Debug;
 		};
@@ -77,7 +82,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = jcom.hub;
+				PRODUCT_NAME = jcom.model;
 			};
 			name = Release;
 		};
@@ -107,7 +112,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.hub" */ = {
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.model" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB919008733D9F0010E9CD /* Debug */,
@@ -116,7 +121,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.hub" */ = {
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.model" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB919408733D9F0010E9CD /* Debug */,

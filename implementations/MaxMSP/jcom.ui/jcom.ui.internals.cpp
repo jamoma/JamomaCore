@@ -75,14 +75,14 @@ void ui_data_create_all(t_ui* obj)
 		anObject->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-		anObject->setAttributeValue(kTTSym_description, TT("Freeze each jcom.view in the patch"));
+		anObject->setAttributeValue(kTTSym_description, TT("Freeze each jcom.remote in the patch"));
 		
 		// ui/refresh
 		ui_data_create(obj, &anObject, gensym("return_ui_refresh"), kTTSym_message, TT("refresh"));
 		anObject->setAttributeValue(kTTSym_type, kTTSym_none);
 		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-		anObject->setAttributeValue(kTTSym_description, TT("Refresh each jcom.view in the patch"));
+		anObject->setAttributeValue(kTTSym_description, TT("Refresh each jcom.remote in the patch"));
 	}
 }
 
@@ -898,7 +898,7 @@ void ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 {
 	t_ui* obj = (t_ui*)self;
 	
-	// TODO : refresh all jcom.view of the view patch
+	// TODO : refresh all jcom.remote of the view patch
 	// 1. Get the TTContainer object of the view patch
 	// 2. use his send message : /*.*:refresh
 	
@@ -935,7 +935,7 @@ void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	if (argc == 1)
 		object_attr_setvalueof(obj, gensym("ui_is_frozen"), argc, argv);
 	
-	// TODO : Freeze all jcom.view of the view patch
+	// TODO : Freeze all jcom.remote of the view patch
 	// 1. Get the TTContainer object of the view patch
 	// 2. use his send message : /*.*:freeze 0/1
 	
