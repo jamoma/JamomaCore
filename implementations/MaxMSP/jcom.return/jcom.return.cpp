@@ -307,8 +307,10 @@ void return_send_feedback(t_return *x)
 				object_method_typed(x->send, _sym_float, x->output_len-1, x->output+1, NULL);		
 			else if (x->output[1].a_type == A_LONG)
 				object_method_typed(x->send, _sym_int, x->output_len-1, x->output+1, NULL);		
-			else
+			else{
+				post("here2");
 				object_method_typed(x->send, atom_getsym(x->output), 0, NULL, NULL);
+			}
 		}
 		else
 			object_method_typed(x->send, _sym_bang, 0, NULL, NULL);	
@@ -407,10 +409,10 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			return_int(x, 0);
 		}
 	else 
-		if ((x->common.attr_type == jps_array) || (x->common.attr_type == jps_generic)){
-			return_list(x, msg, argc, argv);
-			}
-	else {	//assuming jps_string now		
+		if ((x->common.attr_type == jps_array) || (x->common.attr_type == jps_generic)){							
+			return_list(x, msg, ++argc, --argv);
+		}
+	else { //assuming jps_string now		
 		if (x->common.attr_repetitions == 0) {
 			if (msg == atom_getsym(&x->output[1]))
 			return;
@@ -436,7 +438,8 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 	if (!x->attrEnable)
 		return;
 	
-	int i;	
+	int i;
+	short offset = 1;
 	
 	if (x->common.attr_type == jps_integer){
 		return_int(x, atom_getlong(argv));
@@ -450,12 +453,15 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			return_int(x, atom_getlong(argv));
 		}
 	else
-		if (x->common.attr_type == jps_string){
-			post("hre");
+		if (x->common.attr_type == jps_string){			
 			return_symbol(x, msg, 1, argv);
 		}
 	else { //if (x->common.attr_type == jps_array){
-		
+		if (argv[0].a_type == A_SYM){ //otherwise we get for lists starting with a symbol a wrong output a k_outlet_thru
+			offset++; 
+		}
+			
+			
 		TTLimitMax(argc, (long)JAMOMA_LISTSIZE); //making sure that the incoming list is not longer than our allocated memory 
 		
 		if (x->common.attr_repetitions == 0) {
@@ -468,8 +474,8 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 		}
 		
 		x->output_len = i;
-		x->input_len = x->output_len-1;	
-		outlet_anything(x->outlets[k_outlet_thru], msg, x->input_len, &x->output[1]);
+		x->input_len = x->output_len-offset;	
+		outlet_anything(x->outlets[k_outlet_thru], msg, x->input_len, &x->output[offset]);
 		return_send_feedback(x);
 	}	
 }
