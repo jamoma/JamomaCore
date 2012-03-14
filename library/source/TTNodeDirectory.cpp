@@ -695,6 +695,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				TTBoolean resultObject = YES;
 				TTBoolean resultAttribute = YES;
 				TTBoolean resultValue = YES;
+				TTBoolean resultPart = YES;
 				TTBoolean resultParent = YES;
 				TTBoolean resultName = YES;
 				TTBoolean resultInstance = YES;
@@ -743,6 +744,26 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					}
 				}
 				
+				// test any part of address 
+				if (!aFilter->lookup(kTTSym_part, v)) {
+					
+					TTSymbolPtr partFilter;
+					v.get(0, &partFilter);
+					aRegex = new TTRegex(partFilter->getCString());
+					
+					s_toParse = anAddress->getCString();
+					begin = s_toParse.begin();
+					end = s_toParse.end();
+					
+					// test if the regex find something
+					if (!aRegex->parse(begin, end))
+						resultPart = begin != end;
+					else
+						resultPart = NO;
+					
+					delete aRegex;
+				}
+				
 				// test address parent part
 				if (!aFilter->lookup(kTTSym_parent, v)) {
 					
@@ -756,7 +777,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					
 					// test if the regex find something
 					if (!aRegex->parse(begin, end))
-						resultInstance = begin != end;
+						resultParent = begin != end;
 					else
 						resultParent = NO;
 					
@@ -776,9 +797,9 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					
 					// test if the regex find something
 					if (!aRegex->parse(begin, end))
-						resultInstance = begin != end;
+						resultName = begin != end;
 					else
-						resultParent = NO;
+						resultName = NO;
 					
 					delete aRegex;
 				}
@@ -798,13 +819,13 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					if (!aRegex->parse(begin, end))
 						resultInstance = begin != end;
 					else
-						resultParent = NO;
+						resultInstance = NO;
 					
 					delete aRegex;
 				}
 				
 				// process the filter statement
-				resultFilter = resultObject && resultAttribute && resultValue && resultParent && resultName && resultInstance;
+				resultFilter = resultObject && resultAttribute && resultValue && resultPart && resultParent && resultName && resultInstance;
 			}
 			 
 			// the default result is NO if the first filter is in inclusion
