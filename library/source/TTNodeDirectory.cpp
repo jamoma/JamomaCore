@@ -675,9 +675,9 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				
 				v.get(0, (TTPtr*)&aFilter);
 				
-				// filter key for any style : the mode
-				// In default exclusion mode, if one field of a filter matches a node, this node is excluded.
-				// In inclusion mode, if all fields of a filter match a node, this node is included.
+				// Filter mode key :
+				//		- in default exclusion mode, if one field of a filter matches a node, this node is excluded.
+				//		- in inclusion mode, if all fields of a filter match a node, this node is included.
 				if (!aFilter->lookup(kTTSym_mode, v)) {
 					
 					TTSymbolPtr modeFilter;
@@ -691,131 +691,120 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					
 				}
 				
-				// make test depending on the filter style
+				// TEST FILTER
+				TTBoolean resultObject = YES;
+				TTBoolean resultAttribute = YES;
+				TTBoolean resultValue = YES;
+				TTBoolean resultParent = YES;
+				TTBoolean resultName = YES;
+				TTBoolean resultInstance = YES;
 				
-				// OBJECT FILTER
-				if (aFilter->getSchema() == kTTSym_objectFilter) {
+				TTRegexPtr aRegex;
+				TTString s_toParse;
+				TTRegexStringPosition begin, end;
 					
-					TTBoolean resultObject = YES;
-					TTBoolean resultAttribute = YES;
-					TTBoolean resultValue = YES;
+				// get object
+				anObject = n->getObject();
+				
+				// get address
+				n->getAddress(&anAddress, kTTAdrsRoot);
+				
+				// a node without object is excluded
+				if (!anObject)
+					return NO;
+				
+				// test object name
+				if (!aFilter->lookup(kTTSym_object, v)) {
 					
-					// get object
-					anObject = n->getObject();
+					TTSymbolPtr objectFilter;
+					v.get(0, &objectFilter);
 					
-					// a node without object is excluded
-					if (!anObject)
-						return NO;
-					
-					// test object name
-					if (!aFilter->lookup(kTTSym_object, v)) {
-						
-						TTSymbolPtr objectFilter;
-						v.get(0, &objectFilter);
-						
-						resultObject = objectFilter == anObject->getName();
-					}
-					
-					// test attribute name
-					if (!aFilter->lookup(kTTSym_attribute, v)) {
-						
-						TTSymbolPtr attributeFilter;
-						TTValue		valueFilter;
-						v.get(0, &attributeFilter);
-						
-						err = anObject->getAttributeValue(attributeFilter, v);
-						
-						// the existence of the attribute is also a way to filter nodes
-						resultAttribute = err == kTTErrNone;
-						
-						// if the attribute exists
-						if (!err) {
-							
-							// test value
-							if (!aFilter->lookup(kTTSym_value, valueFilter))
-								resultValue = valueFilter == v;
-						}
-					}
-					
-					// process the filter statement
-					resultFilter = resultObject && resultAttribute && resultValue;
+					resultObject = objectFilter == anObject->getName();
 				}
 				
-				// ADDRESS FILTER
-				else if (aFilter->getSchema() == kTTSym_addressFilter) {
+				// test attribute name
+				if (!aFilter->lookup(kTTSym_attribute, v)) {
 					
-					TTBoolean resultParent = YES;
-					TTBoolean resultName = YES;
-					TTBoolean resultInstance = YES;
-					TTRegexPtr aRegex;
-					TTString s_toParse;
-					TTRegexStringPosition begin, end;
+					TTSymbolPtr attributeFilter;
+					TTValue		valueFilter;
+					v.get(0, &attributeFilter);
 					
-					n->getAddress(&anAddress, kTTAdrsRoot);
+					err = anObject->getAttributeValue(attributeFilter, v);
 					
-					// test address parent part
-					if (!aFilter->lookup(kTTSym_parent, v)) {
+					// the existence of the attribute is also a way to filter nodes
+					resultAttribute = err == kTTErrNone;
+					
+					// if the attribute exists
+					if (!err) {
 						
-						TTSymbolPtr parentFilter;
-						v.get(0, &parentFilter);
-						aRegex = new TTRegex(parentFilter->getCString());
-						
-						s_toParse = anAddress->getParent()->getCString();
-						begin = s_toParse.begin();
-						end = s_toParse.end();
-						
-						// test if the regex find something
-						if (!aRegex->parse(begin, end))
-							resultInstance = begin != end;
-						else
-							resultParent = NO;
-						
-						delete aRegex;
+						// test value
+						if (!aFilter->lookup(kTTSym_value, valueFilter))
+							resultValue = valueFilter == v;
 					}
-					
-					// test address name part
-					if (!aFilter->lookup(kTTSym_name, v)) {
-						
-						TTSymbolPtr nameFilter;
-						v.get(0, &nameFilter);
-						aRegex = new TTRegex(nameFilter->getCString());
-						
-						s_toParse = anAddress->getName()->getCString();
-						begin = s_toParse.begin();
-						end = s_toParse.end();
-						
-						// test if the regex find something
-						if (!aRegex->parse(begin, end))
-							resultInstance = begin != end;
-						else
-							resultParent = NO;
-						
-						delete aRegex;
-					}
-					
-					// test address instance part
-					if (!aFilter->lookup(kTTSym_instance, v)) {
-						
-						TTSymbolPtr instanceFilter;
-						v.get(0, &instanceFilter);
-						aRegex = new TTRegex(instanceFilter->getCString());
-						
-						s_toParse = anAddress->getInstance()->getCString();
-						begin = s_toParse.begin();
-						end = s_toParse.end();
-						
-						// test if the regex find something
-						if (!aRegex->parse(begin, end))
-							resultInstance = begin != end;
-						else
-							resultParent = NO;
-						
-						delete aRegex;
-					}
-					
-					// process the filter statement
-					resultFilter = resultParent && resultName && resultInstance;
 				}
+				
+				// test address parent part
+				if (!aFilter->lookup(kTTSym_parent, v)) {
+					
+					TTSymbolPtr parentFilter;
+					v.get(0, &parentFilter);
+					aRegex = new TTRegex(parentFilter->getCString());
+					
+					s_toParse = anAddress->getParent()->getCString();
+					begin = s_toParse.begin();
+					end = s_toParse.end();
+					
+					// test if the regex find something
+					if (!aRegex->parse(begin, end))
+						resultInstance = begin != end;
+					else
+						resultParent = NO;
+					
+					delete aRegex;
+				}
+				
+				// test address name part
+				if (!aFilter->lookup(kTTSym_name, v)) {
+					
+					TTSymbolPtr nameFilter;
+					v.get(0, &nameFilter);
+					aRegex = new TTRegex(nameFilter->getCString());
+					
+					s_toParse = anAddress->getName()->getCString();
+					begin = s_toParse.begin();
+					end = s_toParse.end();
+					
+					// test if the regex find something
+					if (!aRegex->parse(begin, end))
+						resultInstance = begin != end;
+					else
+						resultParent = NO;
+					
+					delete aRegex;
+				}
+				
+				// test address instance part
+				if (!aFilter->lookup(kTTSym_instance, v)) {
+					
+					TTSymbolPtr instanceFilter;
+					v.get(0, &instanceFilter);
+					aRegex = new TTRegex(instanceFilter->getCString());
+					
+					s_toParse = anAddress->getInstance()->getCString();
+					begin = s_toParse.begin();
+					end = s_toParse.end();
+					
+					// test if the regex find something
+					if (!aRegex->parse(begin, end))
+						resultInstance = begin != end;
+					else
+						resultParent = NO;
+					
+					delete aRegex;
+				}
+				
+				// process the filter statement
+				resultFilter = resultObject && resultAttribute && resultValue && resultParent && resultName && resultInstance;
 			}
 			 
 			// the default result is NO if the first filter is in inclusion
