@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 3.0, 49.0, 1162.0, 681.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 3.0, 49.0, 1162.0, 681.0 ],
@@ -100,14 +106,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-15",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 44.0, 609.0, 295.0, 43.0 ],
-					"text" : "In Jamoma 0.6 the view of your algorithm is also a model and jcom.hub is used to managed this view as in model algorithm patcher (see jcom.view to know more)"
+					"patching_rect" : [ 44.0, 609.0, 331.0, 43.0 ],
+					"text" : "In Jamoma 0.6 the gui of your model is a view patcher and jcom.view is used to managed it as in the model patcher (see jcom.view to know more)"
 				}
 
 			}
@@ -115,7 +121,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -129,14 +135,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-14",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 44.0, 519.0, 254.0, 31.0 ],
-					"text" : "In Jamoma 0.6 the jcom.hub is directly embbed inside your algorithm (which is a model)"
+					"patching_rect" : [ 44.0, 519.0, 266.0, 31.0 ],
+					"text" : "In Jamoma 0.6 the jcom.model is directly embbed inside your algorithm (which is a model)"
 				}
 
 			}
@@ -144,7 +150,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -158,7 +164,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-24",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -177,8 +183,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 891.0, 589.0, 86.0, 17.0 ],
-					"text" : "jcom.initialized"
+					"patching_rect" : [ 990.0, 569.0, 75.0, 17.0 ],
+					"text" : "jcom.remote"
 				}
 
 			}
@@ -198,7 +204,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.hub", "@description", "The central nervous system of a Jamoma module" ],
+					"args" : [ "@name", "jcom.model", "@description", "The central nervous system of a model patcher" ],
 					"bgmode" : 1,
 					"id" : "obj-44",
 					"maxclass" : "bpatcher",
@@ -214,7 +220,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-7",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -229,7 +235,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -285,13 +291,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-9",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 160.0, 402.0, 331.0, 19.0 ],
-					"text" : "- Leftmost inlet of module is connected to left inlet of jcom.hub."
+					"patching_rect" : [ 160.0, 402.0, 348.0, 19.0 ],
+					"text" : "- Leftmost inlet of model is connected to left inlet of jcom.model."
 				}
 
 			}
@@ -299,13 +305,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 160.0, 433.0, 334.0, 19.0 ],
-					"text" : "- Left outlet of jcom.hub connected to leftmost outlet of module."
+					"patching_rect" : [ 160.0, 433.0, 348.0, 19.0 ],
+					"text" : "- Left outlet of jcom.model connected to leftmost outlet of model."
 				}
 
 			}
@@ -313,7 +319,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -327,7 +333,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-12",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -341,7 +347,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-13",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -355,7 +361,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-17",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -369,7 +375,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-22",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -383,7 +389,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-23",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -397,14 +403,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-29",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 155.0, 225.0, 326.0, 31.0 ],
-					"text" : "- what kind of module is this? Possible values: control, audio, audio.ambisonic,  video"
+					"text" : "- what kind of model is this? Possible values : control, audio, audio.ambisonic,  video"
 				}
 
 			}
@@ -412,7 +418,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-32",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -529,8 +535,8 @@
 					"id" : "obj-49",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 885.0, 245.0, 214.0, 19.0 ],
 					"text" : "jcom.message mymessage @type string"
 				}
@@ -547,21 +553,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 885.0, 220.0, 93.0, 19.0 ],
 					"text" : "pvar MyMessage"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-51",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 645.0, 288.0, 187.0, 17.0 ],
-					"text" : "And thanks for all the fish!",
-					"varname" : "MyMessage"
 				}
 
 			}
@@ -589,7 +580,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 595.0, 483.0, 229.0, 17.0 ],
-					"text" : "/mymessage And thanks for all the fish!"
+					"text" : "ui/size 300. 70."
 				}
 
 			}
@@ -597,13 +588,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-58",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 550.0, 353.0, 84.0, 24.0 ],
-					"text" : "jcom.hub"
+					"patching_rect" : [ 550.0, 353.0, 100.0, 24.0 ],
+					"text" : "jcom.model"
 				}
 
 			}
@@ -618,8 +609,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 555.0, 418.0, 201.0, 31.0 ],
-					"text" : "jcom.hub @type control @description \"this model doesn't do anything\"",
+					"patching_rect" : [ 555.0, 418.0, 213.0, 31.0 ],
+					"text" : "jcom.model @type control @description \"this model doesn't do anything\"",
 					"varname" : "jcom.hub"
 				}
 
@@ -628,7 +619,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-60",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -665,35 +656,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-63",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 565.0, 288.0, 75.0, 19.0 ],
-					"text" : "my_message"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-64",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 550.0, 228.0, 82.0, 24.0 ],
-					"text" : "jcom.ui"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-65",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -707,14 +670,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-67",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 117.0, 596.0, 31.0 ],
-					"text" : "For information on configuring the attributes to the jcom.hub object, please refer to the Jamoma tutorials. These are the best source for getting familiar with the steps involved in building modules."
+					"patching_rect" : [ 16.0, 117.0, 560.0, 31.0 ],
+					"text" : "For information on configuring the attributes to the jcom.model object, please refer to the Jamoma tutorials. These are the best source for getting familiar with the steps involved in building modules."
 				}
 
 			}
@@ -722,14 +685,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-71",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 80.0, 599.0, 31.0 ],
-					"text" : "jcom.hub is the central brain in a jamoma model. It parses input, distributes messaging to subscribed jcom external (as jcom.parmater, jcom.view, jcom.preset, ...) and generates documentation about it."
+					"patching_rect" : [ 16.0, 79.0, 611.0, 31.0 ],
+					"text" : "jcom.model is the central brain in a jamoma model. It parses input, distributes messaging to subscribed jcom external (as jcom.parmater, jcom.view, jcom.preset, ...) and generates documentation about it."
 				}
 
 			}
@@ -737,40 +700,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-72",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 891.0, 489.0, 52.0, 19.0 ],
 					"text" : "See also"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-8",
-					"maxclass" : "jcom.ui",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 545.0, 253.0, 300.0, 70.0 ],
-					"text" : "/editing_this_view"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"background" : 1,
-					"bgcolor" : [ 0.780392, 0.780392, 0.839216, 0.0 ],
-					"border" : 2,
-					"bordercolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
-					"id" : "obj-75",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 535.0, 215.0, 323.0, 120.0 ],
-					"rounded" : 15
 				}
 
 			}

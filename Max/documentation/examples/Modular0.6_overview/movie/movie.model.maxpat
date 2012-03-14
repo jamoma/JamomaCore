@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 34.0, 166.0, 1250.0, 511.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
@@ -30,22 +36,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 979.0, 74.0, 100.0, 20.0 ],
 					"text" : "deferlow"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"frgb" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"id" : "obj-37",
-					"linecount" : 3,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 227.0, 150.0, 306.0, 48.0 ],
-					"text" : "look at the @context : it comes from the patcher name. But it is also possible to set it manually ( \"@context model\" as argument of the hub - set to model by defaul)",
-					"textcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ]
 				}
 
 			}
@@ -577,8 +567,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 139.0, 410.0, 79.0, 18.0 ],
-					"text" : "recall/current",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "recall/current"
 				}
 
 			}
@@ -595,8 +584,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 102.0, 410.0, 35.0, 18.0 ],
-					"text" : "read",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "read"
 				}
 
 			}
@@ -613,8 +601,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 64.0, 410.0, 36.0, 18.0 ],
-					"text" : "write",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "write"
 				}
 
 			}
@@ -628,8 +615,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 290.0, 75.0 ],
-					"text" : "The jcom.hub is the control tower of your model. It creates a default /movie (or #1 @varname.) level and binds on each jcom.parameter, message, return of this patch (even those embedded inside jcom externals like jcom.preset or jcom.out). "
+					"patching_rect" : [ 0.0, 0.0, 294.0, 75.0 ],
+					"text" : "The jcom.model is the control tower of your model. It creates a default /movie (or #1 @varname.) level and binds on each jcom.parameter, message, return of this patch (even those embedded inside jcom externals like jcom.preset or jcom.out). "
 				}
 
 			}
@@ -741,8 +728,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 9.0, 155.0, 221.0, 34.0 ],
-					"text" : "jcom.hub @type video @description \"a movie playback model\"",
+					"patching_rect" : [ 9.0, 155.0, 217.0, 34.0 ],
+					"text" : "jcom.model @type video @description \"a movie playback model\"",
 					"varname" : "_jcom_node"
 				}
 
@@ -760,8 +747,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 42.0, 125.0, 179.0, 18.0 ],
-					"text" : "/model/documentation/generate",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "/model/documentation/generate"
 				}
 
 			}
@@ -778,8 +764,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 410.0, 47.0, 18.0 ],
-					"text" : "names",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "names"
 				}
 
 			}
@@ -796,8 +781,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 139.0, 388.0, 77.0, 18.0 ],
-					"text" : "store/current",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "store/current"
 				}
 
 			}

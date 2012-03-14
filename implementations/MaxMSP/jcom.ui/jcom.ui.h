@@ -68,7 +68,7 @@ typedef struct _ui{
 	
 	TTBoolean			hover;					// is the mouse hover the jcom.ui panel ?
 	TTBoolean			selection;				// is the user selecting things ?
-	TTBoolean			selectAll;				// to select/unselect all jcom.view
+	TTBoolean			selectAll;				// to select/unselect all jcom.remote
 	t_jrgba				memo_bordercolor;		// to keep the choosen border color during selection
 
 	t_jrgba				bgcolor;

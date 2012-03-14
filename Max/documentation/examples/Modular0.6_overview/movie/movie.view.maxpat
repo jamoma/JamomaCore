@@ -1,10 +1,16 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 15.0, 58.0, 922.0, 702.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 15.0, 58.0, 946.0, 702.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 15.0, 58.0, 922.0, 702.0 ],
+		"defrect" : [ 15.0, 58.0, 946.0, 702.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -20,22 +26,6 @@
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"frgb" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"id" : "obj-22",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 273.0, 99.0, 249.0, 34.0 ],
-					"text" : "add \"@context view\" as argument of the hub to make this patcher as a view patcher",
-					"textcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ]
-				}
-
-			}
-, 			{
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
@@ -126,10 +116,10 @@
 					"id" : "obj-46",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 468.0, 448.0, 87.0, 20.0 ],
-					"text" : "jcom.view rate"
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 468.0, 448.0, 101.0, 20.0 ],
+					"text" : "jcom.remote rate"
 				}
 
 			}
@@ -328,10 +318,10 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 468.0, 199.0, 159.0, 20.0 ],
-					"text" : "jcom.view play @selected 0"
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 468.0, 199.0, 172.0, 20.0 ],
+					"text" : "jcom.remote play @selected 0"
 				}
 
 			}
@@ -342,11 +332,11 @@
 					"fontsize" : 12.0,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 735.0, 287.0, 153.0, 20.0 ],
-					"text" : "jcom.view fps @selected 0"
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 735.0, 287.0, 166.0, 20.0 ],
+					"text" : "jcom.remote fps @selected 0"
 				}
 
 			}
@@ -374,11 +364,11 @@
 					"fontsize" : 12.0,
 					"id" : "obj-8",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 468.0, 287.0, 178.0, 20.0 ],
-					"text" : "jcom.view file/path"
+					"numinlets" : 0,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 468.0, 287.0, 122.0, 20.0 ],
+					"text" : "jcom.remote file/path"
 				}
 
 			}
@@ -406,10 +396,9 @@
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 735.0, 199.0, 178.0, 20.0 ],
-					"text" : "jcom.view file/load @selected 0"
+					"numoutlets" : 0,
+					"patching_rect" : [ 735.0, 199.0, 191.0, 20.0 ],
+					"text" : "jcom.remote file/load @selected 0"
 				}
 
 			}
@@ -423,8 +412,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 277.0, 48.0 ],
-					"text" : "The jcom.hub is the control tower of your patch. It creates a default /movie(view) (or #1) level and binds on each jcom.ui and jcom.view of the patch."
+					"patching_rect" : [ 0.0, 0.0, 282.0, 48.0 ],
+					"text" : "The jcom.view is the control tower of your view. It creates a default /movie(view) (or #1) level and binds on each jcom.ui and jcom.view of the patch."
 				}
 
 			}
@@ -439,7 +428,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 15.0, 178.0, 410.0, 241.0 ],
-					"text" : "Each jcom.view binds on the parameter/message/return given in first argument. But this information is not enough to bind on a particular intance of a model. That's why an internal /model/address parameter is created by the jcom.hub (if it is in a view patch).\n\nListening at the /model/address parameter, jcom.view and jcom.ui binds automatically on parameter/message/return of the given model.\n\nAn other feature is the selection of ui object in presentation mode if a jcom.ui exists. As explain in the main patch, this feature would allows users to show selection state by pressing the shift key if the mouse is over the jcom.ui. Then, still pressing the shift key, a click on the selection zone would change the selection state.\n\nTo make this feature available, you only have to connect the middle outlet of the jcom.view to the ui object. Then close and open you're patcher in presentation mode to test it. "
+					"text" : "Each jcom.remote binds on the parameter/message/return given in first argument. But this information is not enough to bind on a particular intance of a model. That's why an internal /model/address parameter is created by the jcom.view.\n\nListening at the /model/address parameter, jcom.remote and jcom.ui binds automatically on parameter/message/return of the given model.\n\nAn other feature is the selection of ui object in presentation mode if a jcom.ui exists. As explain in the main patch, this feature would allows users to show selection state by pressing the shift key if the mouse is over the jcom.ui. Then, still pressing the shift key, a click on the selection zone would change the selection state.\n\nTo make this feature available, you only have to connect the middle outlet of the jcom.view to the ui object. Then close and open you're patcher in presentation mode to test it. "
 				}
 
 			}
@@ -455,6 +444,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 824.0, 77.0, 182.0, 414.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 824.0, 77.0, 182.0, 414.0 ],
@@ -507,13 +502,13 @@
 ,
 					"patching_rect" : [ 746.0, 650.0, 67.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p myPanel"
@@ -554,10 +549,10 @@
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 17.0, 99.0, 253.0, 34.0 ],
-					"text" : "jcom.hub @context view @type video @description \"an interface for a movie model\"",
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 17.0, 91.0, 207.0, 34.0 ],
+					"text" : "jcom.view @type video @description \"an interface for a movie model\"",
 					"varname" : "_jcom_node"
 				}
 
@@ -574,7 +569,7 @@
 					"patching_rect" : [ 465.0, 553.0, 300.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ],
-					"text" : "waiting for a /model/address"
+					"text" : "waiting for a model/address"
 				}
 
 			}

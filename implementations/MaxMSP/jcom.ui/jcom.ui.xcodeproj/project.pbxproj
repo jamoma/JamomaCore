@@ -6,10 +6,21 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXFileReference section */
+		D289EC59150FD6A900FC7F7E /* jcom.ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.ui.cpp; sourceTree = "<group>"; };
+		D289EC5A150FD6A900FC7F7E /* jcom.ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.ui.h; sourceTree = "<group>"; };
+		D289EC5B150FD6A900FC7F7E /* jcom.ui.internals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.ui.internals.cpp; sourceTree = "<group>"; };
+		D289EC5C150FD6A900FC7F7E /* jcom.ui.presets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.ui.presets.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* jcom.ui */ = {
 			isa = PBXGroup;
 			children = (
+				D289EC5A150FD6A900FC7F7E /* jcom.ui.h */,
+				D289EC59150FD6A900FC7F7E /* jcom.ui.cpp */,
+				D289EC5B150FD6A900FC7F7E /* jcom.ui.internals.cpp */,
+				D289EC5C150FD6A900FC7F7E /* jcom.ui.presets.cpp */,
 			);
 			name = jcom.ui;
 			sourceTree = "<group>";

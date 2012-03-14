@@ -1,5 +1,5 @@
 /* 
- *	jcom.view
+ *	jcom.remote
  *	External object
  *	Copyright © 2010 by Théo de la Hogue
  * 
@@ -48,24 +48,24 @@ void	WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void	WrappedViewerClass_free(TTPtr self);
 void	WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	view_assist(TTPtr self, void *b, long msg, long arg, char *dst);
+void	remote_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void	view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void	view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	remote_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	view_bang(TTPtr self);
-void	view_int(TTPtr self, long value);
-void	view_float(TTPtr self, double value);
-void	view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	remote_bang(TTPtr self);
+void	remote_int(TTPtr self, long value);
+void	remote_float(TTPtr self, double value);
+void	remote_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	view_attach(TTPtr self);
-void 	view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
-void	view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
-void	view_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
+void	remote_attach(TTPtr self);
+void 	remote_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
+void	remote_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
+void	remote_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers);
 
-void	view_subscribe(TTPtr self);
+void	remote_subscribe(TTPtr self);
 
-void	view_ui_queuefn(TTPtr self);
+void	remote_ui_queuefn(TTPtr self);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -75,24 +75,24 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_free = &WrappedViewerClass_free;
 	spec->_any = &WrappedViewerClass_anything;
 	
-	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.view", NULL, spec);
+	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.remote", NULL, spec);
 }
 
 void WrapTTViewerClass(WrappedClassPtr c)
 {
-	class_addmethod(c->maxClass, (method)view_assist,				"assist",				A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)remote_assist,					"assist",				A_CANT, 0L);
 	
-	class_addmethod(c->maxClass, (method)view_mousemove,			"mousemove",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)view_mouseleave,			"mouseleave",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)view_mousedown,			"mousedown",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)remote_mousemove,				"mousemove",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)remote_mouseleave,				"mouseleave",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)remote_mousedown,				"mousedown",			A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)view_return_value,			"return_value",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)view_return_model_address,	"return_model_address",	A_CANT, 0);
+	class_addmethod(c->maxClass, (method)remote_return_value,			"return_value",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)remote_return_model_address,	"return_model_address",	A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)view_bang,					"bang",					0L);
-	class_addmethod(c->maxClass, (method)view_int,					"int",					A_LONG, 0L);
-	class_addmethod(c->maxClass, (method)view_float,				"float",				A_FLOAT, 0L);
-	class_addmethod(c->maxClass, (method)view_list,					"list",					A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)remote_bang,					"bang",					0L);
+	class_addmethod(c->maxClass, (method)remote_int,					"int",					A_LONG, 0L);
+	class_addmethod(c->maxClass, (method)remote_float,					"float",				A_FLOAT, 0L);
+	class_addmethod(c->maxClass, (method)remote_list,					"list",					A_GIMME, 0L);
 }
 
 void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -138,7 +138,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output qlim data
 	
 	// Make qelem object
-	EXTRA->ui_qelem = qelem_new(x, (method)view_ui_queuefn);
+	EXTRA->ui_qelem = qelem_new(x, (method)remote_ui_queuefn);
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
@@ -146,11 +146,11 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)view_subscribe, NULL, 0, 0);
+	defer_low((ObjectPtr)x, (method)remote_subscribe, NULL, 0, 0);
 }
 
 // Method for Assistance Messages
-void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
+void remote_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1) 						// Inlet
 		strcpy(dst, "input");
@@ -163,7 +163,7 @@ void view_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 				strcpy(dst, "value");
 				break;
 			case select_out:
-				strcpy(dst, "select: connect to ui object to manage selection state");
+				strcpy(dst, "highlight : connect to ui object to manage highlight state");
 				break;
 			case dump_out:
 				strcpy(dst, "dumpout");
@@ -179,7 +179,7 @@ void WrappedViewerClass_free(TTPtr self)
 	free(EXTRA);
 }
 
-void view_subscribe(TTPtr self)
+void remote_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
@@ -192,8 +192,8 @@ void view_subscribe(TTPtr self)
 		
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		
-		// attach the jcom.view to connected ui object
-		view_attach(self);
+		// attach the jcom.remote to connected ui object
+		remote_attach(self);
 		return;
 	}
 	
@@ -265,15 +265,15 @@ void view_subscribe(TTPtr self)
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)view_subscribe, NULL, 0, 0);
+		defer_low((ObjectPtr)x, (method)remote_subscribe, NULL, 0, 0);
 		return;
 	}
 	
-	// attach the jcom.view to connected ui object
-	view_attach(self);
+	// attach the jcom.remote to connected ui object
+	remote_attach(self);
 }
 
-void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void remote_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
@@ -289,35 +289,35 @@ void view_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	qelem_set(EXTRA->ui_qelem);
 }
 
-void view_ui_queuefn(TTPtr self)
+void remote_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
 }
 
-void view_bang(TTPtr self)
+void remote_bang(TTPtr self)
 {
-	view_list(self, _sym_bang, 0, NULL);
+	remote_list(self, _sym_bang, 0, NULL);
 }
 
-void view_int(TTPtr self, long value)
+void remote_int(TTPtr self, long value)
 {
 	t_atom a;
 	
 	atom_setlong(&a, value);
-	view_list(self, _sym_int, 1, &a);
+	remote_list(self, _sym_int, 1, &a);
 }
 
-void view_float(TTPtr self, double value)
+void remote_float(TTPtr self, double value)
 {
 	t_atom a;
 	
 	atom_setfloat(&a, value);
-	view_list(self, _sym_float, 1, &a);
+	remote_list(self, _sym_float, 1, &a);
 }
 
-void view_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void remote_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
@@ -332,7 +332,7 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	jamoma_viewer_send((TTViewerPtr)x->wrappedObject, msg, argc, argv);
 }
 
-void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTNodeAddressPtr address;
@@ -369,7 +369,7 @@ void view_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	}
 }
 
-void view_attach(TTPtr self)
+void remote_attach(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	t_outlet*	myoutlet = NULL;
@@ -403,8 +403,8 @@ void view_attach(TTPtr self)
 	}
 }
 
-// When the mouse is moving on the jcom.ui (not our view !)
-void view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
+// When the mouse is moving on the jcom.ui (not our remote object !)
+void remote_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
@@ -439,7 +439,7 @@ void view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 			}
 			
 			// display selected attribute by changing background color if selected
-			x->wrappedObject->getAttributeValue(TT("selected"), v);
+			x->wrappedObject->getAttributeValue(TT("highlight"), v);
 			v.get(0, selected);
 			
 			if (EXTRA->label)
@@ -465,8 +465,8 @@ void view_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 	}
 }
 
-// When the mouse is leaving on the jcom.ui (not our view !)
-void view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
+// When the mouse is leaving on the jcom.ui (not our remote object !)
+void remote_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	Atom		a;
@@ -490,7 +490,7 @@ void view_mouseleave(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 	}
 }
 
-void view_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
+void remote_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
@@ -502,17 +502,17 @@ void view_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers)
 		// if mouse leave jcom.ui maybe it is on our object
 		if (pt.x > EXTRA->x && pt.x < EXTRA->x+EXTRA->w && pt.y > EXTRA->y && pt.y < EXTRA->y+EXTRA->h) {
 			
-			x->wrappedObject->getAttributeValue(TT("selected"), v);
+			x->wrappedObject->getAttributeValue(TT("highlight"), v);
 			v.get(0, selected);
 			
 			// reverse selected attribute and change color
 			if (EXTRA->label)
 				if (selected) {
-					x->wrappedObject->setAttributeValue(TT("selected"), NO);
+					x->wrappedObject->setAttributeValue(TT("highlight"), NO);
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color0);
 				}
 				else {
-					x->wrappedObject->setAttributeValue(TT("selected"), YES);
+					x->wrappedObject->setAttributeValue(TT("highlight"), YES);
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color1);
 				}
 		}

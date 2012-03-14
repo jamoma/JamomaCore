@@ -1,7 +1,13 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 277.0, 307.0, 150.0, 70.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 68.0, 100.0, 607.0, 311.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 68.0, 100.0, 607.0, 311.0 ],
@@ -51,8 +57,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 367.0, 235.0, 113.0, 19.0 ],
-					"text" : "jcom.view reference",
+					"patching_rect" : [ 367.0, 235.0, 125.0, 19.0 ],
+					"text" : "jcom.remote reference",
 					"varname" : "mouse_on[3]"
 				}
 
@@ -66,8 +72,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 228.0, 235.0, 95.0, 19.0 ],
-					"text" : "jcom.view active",
+					"patching_rect" : [ 228.0, 235.0, 108.0, 19.0 ],
+					"text" : "jcom.remote active",
 					"varname" : "mouse_on[2]"
 				}
 
@@ -134,8 +140,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 16.0, 155.0, 455.0, 19.0 ],
-					"text" : "jcom.hub @type control @description \"Output information from mouse\" @context view",
+					"patching_rect" : [ 16.0, 155.0, 376.0, 19.0 ],
+					"text" : "jcom.view @type control @description \"Output information from mouse\"",
 					"varname" : "jcom.hub"
 				}
 
@@ -152,7 +158,7 @@
 					"patching_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"text" : "/mouse"
+					"text" : "waiting for a model/address"
 				}
 
 			}

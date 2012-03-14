@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 25.0, 69.0, 513.0, 123.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 25.0, 69.0, 513.0, 123.0 ],
@@ -101,8 +107,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 5.0, 37.0, 99.0, 20.0 ],
-					"text" : "jcom.hub"
+					"patching_rect" : [ 5.0, 37.0, 72.0, 20.0 ],
+					"text" : "jcom.model"
 				}
 
 			}

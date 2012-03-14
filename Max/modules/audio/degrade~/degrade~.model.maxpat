@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 494.0, 146.0, 620.0, 566.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 494.0, 146.0, 620.0, 566.0 ],
@@ -196,8 +202,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 25.0, 45.0, 569.0, 20.0 ],
-					"text" : "jcom.hub @context model @description \"Emulate the use of lower sample-rates and bit-resolution.\""
+					"patching_rect" : [ 25.0, 45.0, 484.0, 20.0 ],
+					"text" : "jcom.model @description \"Emulate the use of lower sample-rates and bit-resolution.\""
 				}
 
 			}

@@ -7,30 +7,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-// TODO: Color of the gain know should change color over the range the same as the meter does?
-// TODO: When dragging dials, give a live read out of the current value in the ui object's textfield, the slip back to the module name
-// TODO: preset ui window: create a patcher, read a patcher file from disk, and then open this in a new window owned by the hub?
-
-/*
- The UI sends the following to the hub (some are from the preset ui window?):
- jps_slash_preset_slash_default
- jps_slash_preset_slash_load
- jps_slash_preset_slash_recall
- jps_slash_preset_slash_store
- jps_slash_preset_slash_storenext
- jps_slash_preset_slash_copy
- jps_slash_preset_slash_write
- 
- jps_slash_module_view_internals
- jps_slash_ui_slash_freeze (toggle)
- jps_slash_ui_slash_refresh
- 
- The UI receives the following from the hub:
- jps_NEW_PRESETS_START
- jps_NEW_PRESETS
- jps_MENU_REBUILD
- */
-
 #include "jcom.ui.h"
 
 // class variables
@@ -816,7 +792,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect); 
 	
-	// a click on jcom.ui panel will select/unselect all jcom.view
+	// a click on jcom.ui panel will select/unselect all jcom.remote
 	if (px.y > 20.0) {
 		
 		// if the control key is pressed
@@ -825,7 +801,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			obj = object_attr_getobj(jamoma_patcher_get((ObjectPtr)x), _sym_firstobject);
 			while (obj) {
 				objclass = object_attr_getsym(obj, _sym_maxclass);
-				if (objclass == gensym("jcom.view")) {
+				if (objclass == gensym("jcom.remote")) {
 					
 					object_method(object_attr_getobj(obj, _sym_object), gensym("mousedown"), patcherview, px, modifiers);
 					
@@ -991,7 +967,7 @@ void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	
 	while (obj) {
 		objclass = object_attr_getsym(obj, _sym_maxclass);
-		if (objclass == gensym("jcom.view")) {
+		if (objclass == gensym("jcom.remote")) {
 			
 			object_method(object_attr_getobj(obj, _sym_object), gensym("mousemove"), patcherview, pt, modifiers);
 
@@ -1014,7 +990,7 @@ void ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 
 	while (obj) {
 		objclass = object_attr_getsym(obj, _sym_maxclass);
-		if (objclass == gensym("jcom.view")) {
+		if (objclass == gensym("jcom.remote")) {
 			
 			object_method(object_attr_getobj(obj, _sym_object), gensym("mouseleave"), patcherview, pt, modifiers*x->hover); // * hover allows to return to a normal display
 			
