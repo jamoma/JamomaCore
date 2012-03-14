@@ -182,7 +182,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 179.0, 230.0, 72.0, 20.0 ],
-					"text" : "views"
+					"text" : "remotes"
 				}
 
 			}
@@ -925,9 +925,9 @@
 							"revision" : 9
 						}
 ,
-						"rect" : [ 48.0, 230.0, 662.0, 226.0 ],
+						"rect" : [ 48.0, 230.0, 647.0, 226.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 48.0, 230.0, 662.0, 226.0 ],
+						"defrect" : [ 48.0, 230.0, 647.0, 226.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -953,8 +953,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 525.0, 117.0, 103.0, 48.0 ],
-									"text" : "jcom.namespace @filter/list view @format umenu"
+									"patching_rect" : [ 525.0, 117.0, 104.0, 48.0 ],
+									"text" : "jcom.namespace @filter/list remote @format umenu"
 								}
 
 							}
@@ -1190,13 +1190,13 @@
 ,
 					"patching_rect" : [ 4.0, 136.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
-						"globalpatchername" : "",
 						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p explorer"

@@ -1084,14 +1084,14 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	
 	// to look for any data (parameter | message | return)
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("data"), (TTPtr)aFilter);
 	
 	// to look for jcom.parameter
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_parameter);
@@ -1100,7 +1100,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	
 	// to look for jcom.message
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_message);
@@ -1109,30 +1109,41 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	
 	// to look for jcom.return
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Data"));
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_return);
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("return"), (TTPtr)aFilter);
 	
-	// to look for jcom.model & view
+	// to look for jcom.model
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Container"));
+	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_value, kTTSym_model);
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
-	defaultFilterBank->append(TT("modelAndView"), (TTPtr)aFilter);
+	defaultFilterBank->append(TT("model"), (TTPtr)aFilter);
+	
+	// to look for jcom.view
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_filter);
+	aFilter->append(kTTSym_object, TT("Container"));
+	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_value, kTTSym_view);
+	aFilter->append(kTTSym_mode, kTTSym_inclusion);
+	defaultFilterBank->append(TT("view"), (TTPtr)aFilter);
 	
 	// to look for jcom.remote
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, TT("Viewer"));
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);
 	defaultFilterBank->append(TT("remote"), (TTPtr)aFilter);
 	
 	// to look for user-defined object
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_generic);
 	aFilter->append(kTTSym_mode, kTTSym_exclusion);
@@ -1140,7 +1151,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	
 	// to look for generic tagged object
 	aFilter = new TTDictionary;
-	aFilter->setSchema(kTTSym_objectFilter);
+	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_generic);
 	aFilter->append(kTTSym_mode, kTTSym_inclusion);

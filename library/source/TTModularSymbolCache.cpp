@@ -39,6 +39,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_enable;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Fill;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_filter;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
@@ -119,6 +120,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_enable					= TT("enable");
 	
 	kTTSym_Fill						= TT("Fill");
+	kTTSym_filter					= TT("filter");
 	kTTSym_freeze					= TT("freeze");
 	
 	kTTSym_generic					= TT("generic");

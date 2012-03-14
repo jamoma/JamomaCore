@@ -91,8 +91,10 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 #ifndef JCOM_VIEW
 	x->patcherContext = kTTSym_model;
+	x->wrappedObject->setAttributeValue(TT("tag"), kTTSym_model);
 #else
 	x->patcherContext = kTTSym_view;
+	x->wrappedObject->setAttributeValue(TT("tag"), kTTSym_view);
 #endif
 	
 	// handle attribute args
