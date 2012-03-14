@@ -35,7 +35,7 @@ private:
 	TTSymbolPtr					mDescription;				///< ATTRIBUTE : text to describe the role of this data
 	TTSymbolPtr					mType;						///< ATTRIBUTE : type of the gui
 	TTSymbolPtr					mTag;						///< ATTRIBUTE: a tag for this viewer
-	TTBoolean					mSelected;					///< ATTRIBUTE : selection state of the gui
+	TTBoolean					mHighlight;					///< ATTRIBUTE : highlight state of the gui
 	TTBoolean					mFreeze;					///< ATTRIBUTE : freeze data returning
 	
 	TTSymbolPtr					mDataspace;					///< ATTRIBUTE: The dataspace that this view uses (default is 'none')

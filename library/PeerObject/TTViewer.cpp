@@ -17,7 +17,7 @@ mAddress(kTTAdrsEmpty),
 mDescription(kTTSymEmpty),
 mType(kTTSymEmpty),
 mTag(kTTSymEmpty),
-mSelected(YES),
+mHighlight(NO),
 mFreeze(NO),
 mDataspace(kTTSym_none),
 mDataspaceUnit(kTTSym_none),
@@ -37,7 +37,7 @@ mReturnValueCallback(NULL)
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	addAttribute(Tag, kTypeSymbol);
-	addAttribute(Selected, kTypeBoolean);
+	addAttribute(Highlight, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
 	addAttribute(Dataspace, kTypeSymbol);
