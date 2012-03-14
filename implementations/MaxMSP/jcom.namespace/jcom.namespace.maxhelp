@@ -181,8 +181,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 83.0, 386.0, 137.0, 18.0 ],
-									"text" : "filter/info myParentFilter"
+									"patching_rect" : [ 83.0, 386.0, 124.0, 18.0 ],
+									"text" : "filter/info myPartFilter"
 								}
 
 							}
@@ -195,8 +195,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 240.0, 386.0, 158.0, 18.0 ],
-									"text" : "filter/remove myParentFilter"
+									"patching_rect" : [ 240.0, 386.0, 145.0, 18.0 ],
+									"text" : "filter/remove myPartFilter"
 								}
 
 							}
@@ -216,9 +216,9 @@
 											"revision" : 9
 										}
 ,
-										"rect" : [ 25.0, 69.0, 643.0, 244.0 ],
+										"rect" : [ 25.0, 69.0, 713.0, 240.0 ],
 										"bglocked" : 0,
-										"defrect" : [ 25.0, 69.0, 643.0, 244.0 ],
+										"defrect" : [ 25.0, 69.0, 713.0, 240.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -234,6 +234,19 @@
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
 										"boxes" : [ 											{
+												"box" : 												{
+													"fontname" : "Arial",
+													"fontsize" : 12.0,
+													"id" : "obj-5",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 0,
+													"patching_rect" : [ 607.0, 211.0, 58.0, 20.0 ],
+													"text" : "print part"
+												}
+
+											}
+, 											{
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 12.0,
@@ -295,7 +308,7 @@
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 0,
-													"patching_rect" : [ 451.0, 211.0, 67.0, 20.0 ],
+													"patching_rect" : [ 450.0, 211.0, 67.0, 20.0 ],
 													"text" : "print name"
 												}
 
@@ -386,10 +399,10 @@
 													"id" : "obj-4",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 8,
-													"outlettype" : [ "", "", "", "", "", "", "", "" ],
-													"patching_rect" : [ 57.0, 183.0, 570.0, 20.0 ],
-													"text" : "route schema object atribute value parent name instance"
+													"numoutlets" : 9,
+													"outlettype" : [ "", "", "", "", "", "", "", "", "" ],
+													"patching_rect" : [ 57.0, 183.0, 648.0, 20.0 ],
+													"text" : "route schema object attribute value parent name instance part"
 												}
 
 											}
@@ -517,6 +530,15 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-5", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-4", 7 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-7", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -565,13 +587,13 @@
 ,
 									"patching_rect" : [ 487.0, 454.0, 66.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 12.0,
-										"default_fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"fontname" : "Arial",
 										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
 										"default_fontface" : 0,
-										"fontface" : 0
+										"default_fontname" : "Arial",
+										"fontname" : "Arial",
+										"default_fontsize" : 12.0
 									}
 ,
 									"text" : "p filter/info"
@@ -584,12 +606,11 @@
 									"fontsize" : 12.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-36",
-									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 415.0, 288.0, 197.0, 34.0 ],
-									"text" : "filter addresses with a /out into the parent part of their address"
+									"patching_rect" : [ 415.0, 288.0, 223.0, 20.0 ],
+									"text" : "filter addresses with a \"/preset\" part into"
 								}
 
 							}
@@ -602,8 +623,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 70.0, 290.0, 281.0, 18.0 ],
-									"text" : "filter/set myParentFilter parent /out mode exclusion"
+									"patching_rect" : [ 70.0, 290.0, 185.0, 18.0 ],
+									"text" : "filter/set myPartFilter part /preset"
 								}
 
 							}
@@ -716,7 +737,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 415.0, 237.0, 163.0, 20.0 ],
+									"patching_rect" : [ 415.0, 235.0, 163.0, 20.0 ],
 									"text" : "change the mode of the filter"
 								}
 
@@ -731,7 +752,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 415.0, 204.0, 278.0, 34.0 ],
+									"patching_rect" : [ 415.0, 202.0, 278.0, 34.0 ],
 									"text" : "filter addresses with a name part beginning by \"amplitude\" and with an instance beginning by \"2\""
 								}
 
@@ -872,12 +893,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-8",
+									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 216.0, 454.0, 247.0, 18.0 ],
-									"text" : "filter/set"
+									"patching_rect" : [ 216.0, 454.0, 247.0, 32.0 ],
+									"text" : "filter/info myPartFilter part /preset schema filter"
 								}
 
 							}
@@ -889,7 +911,7 @@
 									"fontsize" : 12.0,
 									"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 									"id" : "obj-9",
-									"items" : [ "degrade.1", ",", "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.2", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.2", ",", "degrade.1/preset", ",", "degrade.1/samplerateRatio", ",", "degrade.2", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.2", ",", "degrade.2/preset", ",", "degrade.2/samplerateRatio", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute" ],
+									"items" : [ "degrade.1", ",", "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.1", ",", "degrade.1/in/amplitude.2", ",", "degrade.1/in/bypass", ",", "degrade.1/in/mute", ",", "degrade.1/model/address", ",", "degrade.1/model/class", ",", "degrade.1/model/documentation/generate", ",", "degrade.1/model/help", ",", "degrade.1/model/internals", ",", "degrade.1/model/mute", ",", "degrade.1/model/reference", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.1", ",", "degrade.1/out/amplitude.2", ",", "degrade.1/out/gain", ",", "degrade.1/out/mix", ",", "degrade.1/out/mute", ",", "degrade.1/samplerateRatio", ",", "degrade.2", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.1", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/in/bypass", ",", "degrade.2/in/mute", ",", "degrade.2/model/address", ",", "degrade.2/model/class", ",", "degrade.2/model/documentation/generate", ",", "degrade.2/model/help", ",", "degrade.2/model/internals", ",", "degrade.2/model/mute", ",", "degrade.2/model/reference", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.1", ",", "degrade.2/out/amplitude.2", ",", "degrade.2/out/gain", ",", "degrade.2/out/mix", ",", "degrade.2/out/mute", ",", "degrade.2/samplerateRatio", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/model/address", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/color/border", ",", "degrade~(view).1/ui/color/contentBackground", ",", "degrade~(view).1/ui/color/toolbarBackground", ",", "degrade~(view).1/ui/color/toolbarText", ",", "degrade~(view).1/ui/freeze", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view).1/ui/refresh", ",", "degrade~(view).1/ui/size", ",", "degrade~(view).1/view/class", ",", "degrade~(view).1/view/documentation/generate", ",", "degrade~(view).1/view/help", ",", "degrade~(view).1/view/internals", ",", "degrade~(view).1/view/mute", ",", "degrade~(view).1/view/reference", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/model/address", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/color/border", ",", "degrade~(view)/ui/color/contentBackground", ",", "degrade~(view)/ui/color/toolbarBackground", ",", "degrade~(view)/ui/color/toolbarText", ",", "degrade~(view)/ui/freeze", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute", ",", "degrade~(view)/ui/refresh", ",", "degrade~(view)/ui/size", ",", "degrade~(view)/view/class", ",", "degrade~(view)/view/documentation/generate", ",", "degrade~(view)/view/help", ",", "degrade~(view)/view/internals", ",", "degrade~(view)/view/mute", ",", "degrade~(view)/view/reference" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -1225,13 +1247,13 @@
 ,
 					"patching_rect" : [ 404.0, 99.0, 111.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"fontface" : 0
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p about_filters",
@@ -1456,13 +1478,13 @@
 ,
 					"patching_rect" : [ 835.0, 358.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"fontface" : 0
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1714,13 +1736,13 @@
 ,
 					"patching_rect" : [ 87.0, 281.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"fontface" : 0
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
