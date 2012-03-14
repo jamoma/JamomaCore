@@ -115,18 +115,35 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunction)(TTValue&, TTValue&))
 {
 	lock();
-	TTList listKeys;
+	TTList		listToSort;
+	TTValue		v;
+	TTSymbolPtr key;
 	
 	// fill a list to sort
-	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++)
-		listKeys.append(TTSymbolPtr(iter->first));
+	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++) {
+		
+		if (comparisonFunction) {
+			v = TTSymbolPtr(iter->first);	// the key
+			v.append(TTPtr(iter->second));	// a pointer to the stored value
+			listToSort.append(v);
+		}
+		else
+			listToSort.append(TTSymbolPtr(iter->first));
+	}
 	
-	listKeys.sort(comparisonFunction);
+	listToSort.sort(comparisonFunction);
 	
-	// fill the value
+	// fill the result
 	hashKeysSorted.clear();
-	for (listKeys.begin(); listKeys.end(); listKeys.next())
-		hashKeysSorted.append(listKeys.current());
+	for (listToSort.begin(); listToSort.end(); listToSort.next()) {
+		
+		if (comparisonFunction) {
+			listToSort.current().get(0, &key);
+			hashKeysSorted.append(key);
+		}
+		else
+			hashKeysSorted.append(listToSort.current());
+	}
 	
 	unlock();
 	return kTTErrNone;
