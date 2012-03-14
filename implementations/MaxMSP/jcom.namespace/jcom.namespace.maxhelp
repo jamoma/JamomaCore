@@ -565,13 +565,13 @@
 ,
 									"patching_rect" : [ 487.0, 454.0, 66.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontsize" : 12.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
-										"fontname" : "Arial"
+										"default_fontsize" : 12.0,
+										"fontname" : "Arial",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0
 									}
 ,
 									"text" : "p filter/info"
@@ -848,7 +848,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 2.0, 2.0, 618.0, 48.0 ],
+									"patching_rect" : [ 2.0, 2.0, 621.0, 48.0 ],
 									"text" : "The jcom.namespace exploration can filter in or out the result it returns. It is possible to compare object type and/or attributes value, the name or the instance of an address using a regular expression. It is also possible to use a combination of many filters in order to filter in or out the namespace precisely."
 								}
 
@@ -889,7 +889,7 @@
 									"fontsize" : 12.0,
 									"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 									"id" : "obj-9",
-									"items" : [ "degrade.1", ",", "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/out", ",", "degrade.1/preset", ",", "degrade.1/samplerateRatio", ",", "degrade.2", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/out", ",", "degrade.2/preset", ",", "degrade.2/samplerateRatio", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/in/bypass" ],
+									"items" : [ "degrade.1", ",", "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.2", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.2", ",", "degrade.1/preset", ",", "degrade.1/samplerateRatio", ",", "degrade.2", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.2", ",", "degrade.2/preset", ",", "degrade.2/samplerateRatio", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -1010,8 +1010,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 69.0, 204.0, 297.0, 18.0 ],
-									"text" : "filter/set myAddressFilter name amplitude instance \"2\""
+									"patching_rect" : [ 69.0, 204.0, 289.0, 18.0 ],
+									"text" : "filter/set myAddressFilter name amplitude instance 2"
 								}
 
 							}
@@ -1225,13 +1225,13 @@
 ,
 					"patching_rect" : [ 404.0, 99.0, 111.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial"
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0
 					}
 ,
 					"text" : "p about_filters",
@@ -1456,13 +1456,13 @@
 ,
 					"patching_rect" : [ 835.0, 358.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial"
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1714,13 +1714,13 @@
 ,
 					"patching_rect" : [ 87.0, 281.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial"
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0
 					}
 ,
 					"text" : "p filter_harddrive:/"

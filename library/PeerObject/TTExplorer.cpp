@@ -296,6 +296,14 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 			inputValue.get(i, &filterKey);
 			filterValue.copyRange(inputValue, i+1, i+2);
 			
+			// convert Int32 into symbol for instance parsing
+			if (filterValue.getType() == kTypeInt32) {
+				filterValue.toString();
+				TTString instanceString;
+				filterValue.get(0, instanceString);
+				filterValue.set(0, TT(instanceString));
+			}
+			
 			afilter->append(filterKey, filterValue);
 		}
 	}
