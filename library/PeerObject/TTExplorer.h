@@ -32,6 +32,8 @@ private:
 														///<	- children : all children of the node
 														///<	- attributes : all attributes of the node
 	
+	TTBoolean			mUpdate;						///< ATTRIBUTE : is the explorer listen to the namespace to update the result ?
+	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
 	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
@@ -73,6 +75,9 @@ private:
 	
 	/** */
 	TTErr setAddress(const TTValue& value);
+	
+	/** */
+	TTErr setUpdate(const TTValue& value);
 	
 	/** */
 	TTErr getObjectsByType(TTValue& value);

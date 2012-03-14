@@ -15,6 +15,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsRoot),
 mOutput(kTTSym_descendants),
+mUpdate(YES),
 mDirectory(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL),
@@ -35,6 +36,7 @@ mLastResult(kTTValNONE)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Output, kTypeSymbol);
+	addAttributeWithSetter(Update, kTypeBoolean);
 	
 	registerAttribute(TT("filterList"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getFilterList, (TTSetterMethod)&TTExplorer::setFilterList);
 	
@@ -99,6 +101,19 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 		return bindApplication();
 }
 
+TTErr TTExplorer::setUpdate(const TTValue& value)
+{
+	TTBoolean oldUpdate = mUpdate;
+	
+	mUpdate = value;
+	
+	// check change
+	if (mUpdate == oldUpdate)
+		return kTTErrNone;
+	
+	return setAddress(mAddress);
+}
+
 TTErr TTExplorer::bindAddress() 
 {
 	TTValuePtr	newBaton;
@@ -107,7 +122,7 @@ TTErr TTExplorer::bindAddress()
 	if (mAddress->getType() == kAddressAbsolute) {
 		
 		// change the address observer
-		if (mAddress != kTTAdrsEmpty) {
+		if (mUpdate && mAddress != kTTAdrsEmpty) {
 			
 			// observe any creation or destruction below the address
 			mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -134,8 +149,10 @@ TTErr TTExplorer::unbindAddress()
 {
 	// delete the old observer
 	if (mDirectory && mAddressObserver && mAddress != kTTSymEmpty) {
+		
 		mDirectory->removeObserverForNotifications(mAddress, *mAddressObserver);
 		TTObjectRelease(TTObjectHandle(&mAddressObserver));
+		mAddressObserver = NULL;
 		
 		return kTTErrNone;
 	}
