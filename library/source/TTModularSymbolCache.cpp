@@ -16,6 +16,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityIn;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityOut;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_address;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_addresses;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_alphabetic;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_attributes;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
@@ -97,6 +98,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_activityOut				= TT("activityOut");
 	kTTSym_address					= TT("address");
 	kTTSym_addresses				= TT("addresses");
+	kTTSym_alphabetic				= TT("alphabetic");
 	kTTSym_attributes				= TT("attributes");
 	kTTSym_array					= TT("array");
 	

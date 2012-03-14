@@ -34,6 +34,8 @@ private:
 	
 	TTBoolean			mUpdate;						///< ATTRIBUTE : is the explorer listen to the namespace to update the result ?
 	
+	TTSymbolPtr			mSort;							///< ATTRIBUTE : to sort the result : none, alphabetic, priority (default : alphabetic)
+	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
 	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
@@ -80,6 +82,9 @@ private:
 	TTErr setUpdate(const TTValue& value);
 	
 	/** */
+	TTErr setSort(const TTValue& value);
+	
+	/** */
 	TTErr getObjectsByType(TTValue& value);
 	
 	/** */
@@ -123,5 +128,11 @@ TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(TTPtr baton, TTValue& data);
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data);
+
+/** compare priority attribute of object's node
+ @param	v1							< relativeAddress, a pointer to a value containing a pointer to a TTNode >
+ @param	v2							< relativeAddress, a pointer to a value containing a pointer to a TTNode >
+ @return							is the priority of v1 is smaller than v2 (except if equal 0) ? */ 
+TTBoolean TTMODULAR_EXPORT comparePriority(TTValue& v1, TTValue& v2);
 
 #endif // __TT_EXPLORER_H__

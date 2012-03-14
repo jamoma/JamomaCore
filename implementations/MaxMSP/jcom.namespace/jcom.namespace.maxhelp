@@ -587,13 +587,13 @@
 ,
 									"patching_rect" : [ 487.0, 454.0, 66.0, 20.0 ],
 									"saved_object_attributes" : 									{
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0
+										"default_fontsize" : 12.0
 									}
 ,
 									"text" : "p filter/info"
@@ -1247,13 +1247,13 @@
 ,
 					"patching_rect" : [ 404.0, 99.0, 111.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p about_filters",
@@ -1478,13 +1478,13 @@
 ,
 					"patching_rect" : [ 835.0, 358.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1736,13 +1736,13 @@
 ,
 					"patching_rect" : [ 87.0, 281.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -2206,7 +2206,8 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 149.0, 690.0, 254.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ]
+					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
+					"text" : "/degrade.1:"
 				}
 
 			}
@@ -2291,13 +2292,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : "<empty>",
+					"items" : [ "activity/in", ",", "activity/out", ",", "bypass", ",", "description", ",", "priority", ",", "tag", ",", "type" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/degrade~(view):",
+					"prefix" : "/degrade.1:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -2312,7 +2313,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-20",
-					"items" : "<empty>",
+					"items" : [ "model/address", ",", "in/amplitude.1", ",", "in/amplitude.2", ",", "model/class", ",", "out/amplitude.1", ",", "out/amplitude.2", ",", "preset/names" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2333,7 +2334,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "<empty>",
+					"items" : [ "model/documentation/generate", ",", "model/help", ",", "model/internals", ",", "model/reference", ",", "preset/read", ",", "preset/read/again", ",", "preset/recall", ",", "preset/recall/current", ",", "preset/recall/next", ",", "preset/recall/previous", ",", "preset/remove", ",", "preset/remove/current", ",", "preset/remove/next", ",", "preset/remove/previous", ",", "preset/store", ",", "preset/store/current", ",", "preset/store/next", ",", "preset/store/previous", ",", "preset/write", ",", "preset/write/again" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2354,7 +2355,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : "<empty>",
+					"items" : [ "samplerateRatio", ",", "bitdepth", ",", "in/bypass", ",", "in/mute", ",", "model/mute", ",", "out/gain", ",", "out/mix", ",", "out/mute" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2373,13 +2374,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-15",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 396.0, 342.0, 134.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @filter/list return"
+					"patching_rect" : [ 396.0, 325.0, 131.0, 62.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list return @sort priority"
 				}
 
 			}
@@ -2389,13 +2390,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-9",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 246.0, 342.0, 134.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @filter/list message"
+					"patching_rect" : [ 246.0, 325.0, 148.0, 62.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list message @sort priority"
 				}
 
 			}
@@ -2405,13 +2406,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-8",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 87.0, 341.0, 138.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @filter/list parameter"
+					"patching_rect" : [ 87.0, 325.0, 134.0, 62.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list parameter @sort priority"
 				}
 
 			}
@@ -2439,7 +2440,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-3",
-					"items" : "<empty>",
+					"items" : [ "degrade.1", ",", "degrade.2" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

@@ -16,6 +16,7 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsRoot),
 mOutput(kTTSym_descendants),
 mUpdate(YES),
+mSort(kTTSym_alphabetic),
 mDirectory(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL),
@@ -37,6 +38,7 @@ mLastResult(kTTValNONE)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Output, kTypeSymbol);
 	addAttributeWithSetter(Update, kTypeBoolean);
+	addAttributeWithSetter(Sort, kTypeSymbol);
 	
 	registerAttribute(TT("filterList"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getFilterList, (TTSetterMethod)&TTExplorer::setFilterList);
 	
@@ -112,6 +114,24 @@ TTErr TTExplorer::setUpdate(const TTValue& value)
 		return kTTErrNone;
 	
 	return setAddress(mAddress);
+}
+
+TTErr TTExplorer::setSort(const TTValue& value)
+{
+	TTSymbolPtr oldSort = mSort;
+	
+	mSort = value;
+	
+	// check change
+	if (mSort == oldSort)
+		return kTTErrNone;
+	
+	if (mSort == kTTSym_none || mSort == kTTSym_alphabetic || mSort == kTTSym_priority) {
+		Explore();
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
 }
 
 TTErr TTExplorer::bindAddress() 
@@ -553,9 +573,12 @@ TTErr TTExplorer::returnResultBack()
 	// Return the value result back
 	if (mReturnValueCallback) {
 		
-		// sort keys alphabetically
-		// TODO : sort keys depending on nodes property
-		mResult->getKeysSorted(keys);
+		// sort keys if needed
+		if (mSort == kTTSym_alphabetic)
+			mResult->getKeysSorted(keys);
+		
+		else if (mSort == kTTSym_priority)
+			mResult->getKeysSorted(keys, &comparePriority);
 		
 		// children case : keep only the name part and filter repetitions
 		if (mOutput == kTTSym_children) {
@@ -755,4 +778,39 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 	}
 	
 	return kTTErrNone;
+}
+
+TTBoolean comparePriority(TTValue& v1, TTValue& v2) 
+{
+	TTNodePtr	n1, n2;
+	TTObjectPtr o1, o2;
+	TTValue		v;
+	TTInt32		p1, p2;
+	
+	// get priority of v1
+	v1.get(1, (TTPtr*)&n1);
+	if (n1) {
+		o1 = n1->getObject();
+	
+		if (o1)
+			if (!o1->getAttributeValue(kTTSym_priority, v))
+				v.get(0, p1);
+	}
+	
+	// get priority of v2
+	v2.get(1, (TTPtr*)&n2);
+	if (n2) {
+		o2 = n2->getObject();
+	
+		if (o2)
+			if (!o2->getAttributeValue(kTTSym_priority, v))
+				v.get(0, p2);
+	}
+	
+	if (p1 == 0 && p2 == 0) return v1 < v2;
+	
+	if (p1 == 0) return NO;
+	if (p2 == 0) return YES;
+	
+	return p1 < p2;
 }
