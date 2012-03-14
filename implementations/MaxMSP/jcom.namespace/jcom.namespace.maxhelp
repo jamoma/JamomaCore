@@ -911,7 +911,7 @@
 									"fontsize" : 12.0,
 									"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 									"id" : "obj-9",
-									"items" : [ "degrade.1", ",", "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.1", ",", "degrade.1/in/amplitude.2", ",", "degrade.1/in/bypass", ",", "degrade.1/in/mute", ",", "degrade.1/model/address", ",", "degrade.1/model/class", ",", "degrade.1/model/documentation/generate", ",", "degrade.1/model/help", ",", "degrade.1/model/internals", ",", "degrade.1/model/mute", ",", "degrade.1/model/reference", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.1", ",", "degrade.1/out/amplitude.2", ",", "degrade.1/out/gain", ",", "degrade.1/out/mix", ",", "degrade.1/out/mute", ",", "degrade.1/samplerateRatio", ",", "degrade.2", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.1", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/in/bypass", ",", "degrade.2/in/mute", ",", "degrade.2/model/address", ",", "degrade.2/model/class", ",", "degrade.2/model/documentation/generate", ",", "degrade.2/model/help", ",", "degrade.2/model/internals", ",", "degrade.2/model/mute", ",", "degrade.2/model/reference", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.1", ",", "degrade.2/out/amplitude.2", ",", "degrade.2/out/gain", ",", "degrade.2/out/mix", ",", "degrade.2/out/mute", ",", "degrade.2/samplerateRatio", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/model/address", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/color/border", ",", "degrade~(view).1/ui/color/contentBackground", ",", "degrade~(view).1/ui/color/toolbarBackground", ",", "degrade~(view).1/ui/color/toolbarText", ",", "degrade~(view).1/ui/freeze", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view).1/ui/refresh", ",", "degrade~(view).1/ui/size", ",", "degrade~(view).1/view/class", ",", "degrade~(view).1/view/documentation/generate", ",", "degrade~(view).1/view/help", ",", "degrade~(view).1/view/internals", ",", "degrade~(view).1/view/mute", ",", "degrade~(view).1/view/reference", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/model/address", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/color/border", ",", "degrade~(view)/ui/color/contentBackground", ",", "degrade~(view)/ui/color/toolbarBackground", ",", "degrade~(view)/ui/color/toolbarText", ",", "degrade~(view)/ui/freeze", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute", ",", "degrade~(view)/ui/refresh", ",", "degrade~(view)/ui/size", ",", "degrade~(view)/view/class", ",", "degrade~(view)/view/documentation/generate", ",", "degrade~(view)/view/help", ",", "degrade~(view)/view/internals", ",", "degrade~(view)/view/mute", ",", "degrade~(view)/view/reference" ],
+									"items" : [ "degrade.1", ",", "degrade.1/bitdepth", ",", "degrade.1/in", ",", "degrade.1/in/amplitude.1", ",", "degrade.1/in/amplitude.2", ",", "degrade.1/in/bypass", ",", "degrade.1/in/mute", ",", "degrade.1/model", ",", "degrade.1/model/address", ",", "degrade.1/model/class", ",", "degrade.1/model/documentation", ",", "degrade.1/model/documentation/generate", ",", "degrade.1/model/help", ",", "degrade.1/model/internals", ",", "degrade.1/model/mute", ",", "degrade.1/model/reference", ",", "degrade.1/out", ",", "degrade.1/out/amplitude.1", ",", "degrade.1/out/amplitude.2", ",", "degrade.1/out/gain", ",", "degrade.1/out/mix", ",", "degrade.1/out/mute", ",", "degrade.1/preset", ",", "degrade.1/preset/names", ",", "degrade.1/preset/read", ",", "degrade.1/preset/read/again", ",", "degrade.1/preset/recall", ",", "degrade.1/preset/recall/current", ",", "degrade.1/preset/recall/next", ",", "degrade.1/preset/recall/previous", ",", "degrade.1/preset/remove", ",", "degrade.1/preset/remove/current", ",", "degrade.1/preset/remove/next", ",", "degrade.1/preset/remove/previous", ",", "degrade.1/preset/store", ",", "degrade.1/preset/store/current", ",", "degrade.1/preset/store/next", ",", "degrade.1/preset/store/previous", ",", "degrade.1/preset/write", ",", "degrade.1/preset/write/again", ",", "degrade.1/samplerateRatio", ",", "degrade.2", ",", "degrade.2/bitdepth", ",", "degrade.2/in", ",", "degrade.2/in/amplitude.1", ",", "degrade.2/in/amplitude.2", ",", "degrade.2/in/bypass", ",", "degrade.2/in/mute", ",", "degrade.2/model", ",", "degrade.2/model/address", ",", "degrade.2/model/class", ",", "degrade.2/model/documentation", ",", "degrade.2/model/documentation/generate", ",", "degrade.2/model/help", ",", "degrade.2/model/internals", ",", "degrade.2/model/mute", ",", "degrade.2/model/reference", ",", "degrade.2/out", ",", "degrade.2/out/amplitude.1", ",", "degrade.2/out/amplitude.2", ",", "degrade.2/out/gain", ",", "degrade.2/out/mix", ",", "degrade.2/out/mute", ",", "degrade.2/preset", ",", "degrade.2/preset/names", ",", "degrade.2/preset/read", ",", "degrade.2/preset/read/again", ",", "degrade.2/preset/recall", ",", "degrade.2/preset/recall/current", ",", "degrade.2/preset/recall/next", ",", "degrade.2/preset/recall/previous", ",", "degrade.2/preset/remove", ",", "degrade.2/preset/remove/current", ",", "degrade.2/preset/remove/next", ",", "degrade.2/preset/remove/previous", ",", "degrade.2/preset/store", ",", "degrade.2/preset/store/current", ",", "degrade.2/preset/store/next", ",", "degrade.2/preset/store/previous", ",", "degrade.2/preset/write", ",", "degrade.2/preset/write/again", ",", "degrade.2/samplerateRatio", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/model", ",", "degrade~(view).1/model/address", ",", "degrade~(view).1/out", ",", "degrade~(view).1/out/amplitude.1", ",", "degrade~(view).1/out/amplitude.2", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/color", ",", "degrade~(view).1/ui/color/border", ",", "degrade~(view).1/ui/color/contentBackground", ",", "degrade~(view).1/ui/color/toolbarBackground", ",", "degrade~(view).1/ui/color/toolbarText", ",", "degrade~(view).1/ui/freeze", ",", "degrade~(view).1/ui/in", ",", "degrade~(view).1/ui/in/bypass", ",", "degrade~(view).1/ui/out", ",", "degrade~(view).1/ui/out/gain", ",", "degrade~(view).1/ui/out/mix", ",", "degrade~(view).1/ui/out/mute", ",", "degrade~(view).1/ui/refresh", ",", "degrade~(view).1/ui/size", ",", "degrade~(view).1/view", ",", "degrade~(view).1/view/class", ",", "degrade~(view).1/view/documentation", ",", "degrade~(view).1/view/documentation/generate", ",", "degrade~(view).1/view/help", ",", "degrade~(view).1/view/internals", ",", "degrade~(view).1/view/mute", ",", "degrade~(view).1/view/reference", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/model", ",", "degrade~(view)/model/address", ",", "degrade~(view)/out", ",", "degrade~(view)/out/amplitude.1", ",", "degrade~(view)/out/amplitude.2", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/color", ",", "degrade~(view)/ui/color/border", ",", "degrade~(view)/ui/color/contentBackground", ",", "degrade~(view)/ui/color/toolbarBackground", ",", "degrade~(view)/ui/color/toolbarText", ",", "degrade~(view)/ui/freeze", ",", "degrade~(view)/ui/in", ",", "degrade~(view)/ui/in/bypass", ",", "degrade~(view)/ui/out", ",", "degrade~(view)/ui/out/gain", ",", "degrade~(view)/ui/out/mix", ",", "degrade~(view)/ui/out/mute", ",", "degrade~(view)/ui/refresh", ",", "degrade~(view)/ui/size", ",", "degrade~(view)/view", ",", "degrade~(view)/view/class", ",", "degrade~(view)/view/documentation", ",", "degrade~(view)/view/documentation/generate", ",", "degrade~(view)/view/help", ",", "degrade~(view)/view/internals", ",", "degrade~(view)/view/mute", ",", "degrade~(view)/view/reference" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -1877,15 +1877,15 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
-					"linecount" : 2,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 823.0, 80.0, 197.0, 34.0 ],
+					"patching_rect" : [ 823.0, 80.0, 197.0, 62.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 2,
-					"presentation_rect" : [ 628.0, 420.0, 195.0, 34.0 ],
-					"text" : "umenus are automatically updated when the namespace changes."
+					"presentation_linecount" : 3,
+					"presentation_rect" : [ 675.0, 405.0, 248.0, 48.0 ],
+					"text" : "umenus are automatically updated when the namespace changes but this can be disable setting the update attribute to 0."
 				}
 
 			}
@@ -2004,7 +2004,7 @@
 					"patching_rect" : [ 189.0, 248.0, 78.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 195.0, 210.0, 69.0, 20.0 ],
-					"text" : "modules"
+					"text" : "models"
 				}
 
 			}
@@ -2207,7 +2207,7 @@
 					"patching_rect" : [ 149.0, 690.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/degrade~(view):"
+					"text" : "/degrade.1:"
 				}
 
 			}
@@ -2292,13 +2292,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : "<empty>",
+					"items" : [ "activity/in", ",", "activity/out", ",", "bypass", ",", "description", ",", "priority", ",", "tag", ",", "type" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/degrade~(view):",
+					"prefix" : "/degrade.1:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -2313,7 +2313,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-20",
-					"items" : "<empty>",
+					"items" : [ "model/address", ",", "in/amplitude.1", ",", "in/amplitude.2", ",", "model/class", ",", "out/amplitude.1", ",", "out/amplitude.2", ",", "preset/names" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2334,7 +2334,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "<empty>",
+					"items" : [ "model/documentation/generate", ",", "model/help", ",", "model/internals", ",", "model/reference", ",", "preset/read", ",", "preset/read/again", ",", "preset/recall", ",", "preset/recall/current", ",", "preset/recall/next", ",", "preset/recall/previous", ",", "preset/remove", ",", "preset/remove/current", ",", "preset/remove/next", ",", "preset/remove/previous", ",", "preset/store", ",", "preset/store/current", ",", "preset/store/next", ",", "preset/store/previous", ",", "preset/write", ",", "preset/write/again" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2355,7 +2355,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : "<empty>",
+					"items" : [ "samplerateRatio", ",", "bitdepth", ",", "in/bypass", ",", "in/mute", ",", "model/mute", ",", "out/gain", ",", "out/mix", ",", "out/mute" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2374,13 +2374,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-15",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 396.0, 342.0, 134.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @filter/list return"
+					"patching_rect" : [ 396.0, 325.0, 131.0, 62.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list return @sort priority"
 				}
 
 			}
@@ -2390,13 +2390,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-9",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 246.0, 342.0, 134.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @filter/list message"
+					"patching_rect" : [ 246.0, 325.0, 148.0, 62.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list message @sort priority"
 				}
 
 			}
@@ -2406,13 +2406,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-8",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 87.0, 341.0, 138.0, 48.0 ],
-					"text" : "jcom.namespace @format umenu_prefix @filter/list parameter"
+					"patching_rect" : [ 87.0, 325.0, 134.0, 62.0 ],
+					"text" : "jcom.namespace @format umenu_prefix @filter/list parameter @sort priority"
 				}
 
 			}
@@ -2459,12 +2459,12 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-1",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 12.0, 194.0, 168.0, 34.0 ],
+					"patching_rect" : [ 12.0, 190.0, 134.0, 48.0 ],
 					"text" : "jcom.namespace @filter/list model @format umenu_prefix"
 				}
 
