@@ -32,28 +32,28 @@ void ui_data_create_all(t_ui* obj)
 		
 		// Then create all internal datas concerning the jcom.ui
 		// ui/color/contentBackground
-		ui_data_create(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_parameter, TT("color/contentBackground"));
+		ui_data_create(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_message, TT("color/contentBackground"));
 		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
 		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		anObject->setAttributeValue(kTTSym_description, TT("The background color of the module in the format RGBA where values range [0.0, 1.0]."));
 		
 		// ui/color/toolbarBackground
-		ui_data_create(obj, &anObject, gensym("return_color_toolbarBackground"), kTTSym_parameter, TT("color/toolbarBackground"));
+		ui_data_create(obj, &anObject, gensym("return_color_toolbarBackground"), kTTSym_message, TT("color/toolbarBackground"));
 		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
 		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		anObject->setAttributeValue(kTTSym_description, TT("The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]."));
 		
 		// ui/color/toolbarText
-		ui_data_create(obj, &anObject, gensym("return_color_toolbarText"), kTTSym_parameter, TT("color/toolbarText"));
+		ui_data_create(obj, &anObject, gensym("return_color_toolbarText"), kTTSym_message, TT("color/toolbarText"));
 		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
 		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		anObject->setAttributeValue(kTTSym_description, TT("The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]."));
 		
 		// ui/color/border
-		ui_data_create(obj, &anObject, gensym("return_color_border"), kTTSym_parameter, TT("color/border"));
+		ui_data_create(obj, &anObject, gensym("return_color_border"), kTTSym_message, TT("color/border"));
 		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
 		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
