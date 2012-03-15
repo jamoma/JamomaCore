@@ -15,6 +15,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityIn;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityOut;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_address;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_addresses;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_alphabetic;
 extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_attributes;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
