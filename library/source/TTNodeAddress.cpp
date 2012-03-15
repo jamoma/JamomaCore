@@ -177,8 +177,8 @@ TTErr TTNodeAddress::parse()
 	// parse and remove ".0"
 	while (!ttRegexForInstanceZero->parse(begin, end))
 	{
-		s_before = string(begin, ttRegexForInstanceZero->begin()-1);	// -1 to remove .
-		s_after = string(ttRegexForInstanceZero->end()+1, end);			// +1 to remove 0
+		s_before = string(begin, ttRegexForInstanceZero->begin()-2);	// -2 to remove .0
+		s_after = string(ttRegexForInstanceZero->end(), end);
 		
 		s_toParse = s_before + s_after;
 		
