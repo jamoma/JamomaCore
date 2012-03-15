@@ -27,6 +27,50 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-20",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 74.0, 369.0, 150.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 170.0, 322.0, 110.0, 20.0 ],
+					"text" : "active debug mode"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-17",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 54.0, 369.0, 20.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 279.0, 323.0, 18.0, 18.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-7",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 54.0, 411.0, 83.0, 20.0 ],
+					"text" : "jcom.modular"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
 					"fontsize" : 14.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-13",
@@ -34,7 +78,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 105.0, 75.0, 190.0, 425.0 ],
+					"patching_rect" : [ 343.0, 22.0, 190.0, 425.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 19,
 					"presentation_rect" : [ 0.0, 30.0, 280.0, 312.0 ],
@@ -52,7 +96,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 181.0, 194.0, 153.0, 48.0 ],
+					"patching_rect" : [ 121.0, 6.0, 153.0, 48.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 266.0, 27.0 ],
 					"text" : "Jamoma Modular 0.6 overview"
@@ -100,8 +144,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 71.0, 310.0, 142.0, 27.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 153.0, 360.0, 149.0, 27.0 ],
-					"text" : "Current Step : 4"
+					"presentation_rect" : [ 153.0, 360.0, 149.0, 27.0 ]
 				}
 
 			}
@@ -635,13 +678,13 @@
 ,
 									"patching_rect" : [ 64.0, 143.0, 67.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"globalpatchername" : "",
+										"default_fontsize" : 12.0,
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"fontname" : "Arial"
+										"default_fontface" : 0,
+										"fontname" : "Arial",
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p subfolder"
@@ -785,13 +828,13 @@
 ,
 					"patching_rect" : [ 56.0, 49.0, 19.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial"
+						"default_fontface" : 0,
+						"fontname" : "Arial",
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p"
@@ -859,6 +902,20 @@
 				}
 
 			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-12",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 54.0, 391.0, 59.0, 18.0 ],
+					"text" : "debug $1"
+				}
+
+			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
@@ -889,10 +946,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
 				}
 
 			}

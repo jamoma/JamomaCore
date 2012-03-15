@@ -275,8 +275,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 340.0, 237.0, 276.0, 48.0 ],
-					"text" : "The basic view patch  show how to use jcom.view in none model or view patch. In this case the jcom.view is not registered into the namespace."
+					"patching_rect" : [ 340.0, 237.0, 302.0, 48.0 ],
+					"text" : "The basic view patch show how to use jcom.remote in one model or view patch. In this case the jcom.remote is not registered into the namespace."
 				}
 
 			}
@@ -561,7 +561,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 479.0, 585.0, 153.0, 18.0 ],
-					"text" : "ui/out/mute 0"
+					"text" : "play 0"
 				}
 
 			}
@@ -953,7 +953,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 525.0, 117.0, 104.0, 48.0 ],
+									"patching_rect" : [ 525.0, 117.0, 105.0, 48.0 ],
 									"text" : "jcom.namespace @filter/list remote @format umenu"
 								}
 
@@ -1190,13 +1190,13 @@
 ,
 					"patching_rect" : [ 4.0, 136.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial"
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p explorer"

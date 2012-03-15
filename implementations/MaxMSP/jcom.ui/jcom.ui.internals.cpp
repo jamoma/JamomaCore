@@ -142,8 +142,7 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	args.append(dataAddress);
 	obj->hash_datas->append(name, args);
 	
-	// DEBUG
-	object_post((ObjectPtr)obj, "Make internal ui/%s object at : %s", name->getCString(), dataAddress->getCString());
+	JamomaDebug object_post((ObjectPtr)obj, "Make internal ui/%s object at : %s", name->getCString(), dataAddress->getCString());
 }								   
 
 void ui_data_destroy(t_ui *obj, TTSymbolPtr name)

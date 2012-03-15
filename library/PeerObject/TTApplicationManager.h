@@ -31,6 +31,9 @@ typedef Protocol* ProtocolPtr;
 // Macro to get local application name
 #define getLocalApplicationName TTApplicationManagerGetLocalApplicationName()
 
+// Macro to get local application debug status
+#define getLocalApplicationDebug TTApplicationManagerGetLocalApplicationDebug()
+
 // Macro to retreive local application
 #define getLocalApplication TTApplicationManagerGetApplicationFrom(kTTAdrsRoot)
 
@@ -119,6 +122,7 @@ private:
 	TTErr notifyApplicationObservers(TTSymbolPtr anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag);
 	
 	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationName();
+	friend TTBoolean TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationDebug();
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbolPtr applicationName);
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTNodeAddressPtr anAddress);
 	
@@ -135,6 +139,11 @@ typedef TTApplicationManager* TTApplicationManagerPtr;
  note : it uses the extern TTModularApplications variable
  @return							a TTSymbolPtr */
 TTSymbolPtr TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationName();
+
+/**	To get the local application debug status
+ note : it uses the extern TTModularApplications variable
+ @return							a TTBoolean */
+TTBoolean TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationDebug();
 
 /**	To get an application with an application name
  note : it uses the extern TTModularApplications variable

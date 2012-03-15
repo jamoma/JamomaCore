@@ -799,6 +799,11 @@ TTSymbolPtr TTApplicationManagerGetLocalApplicationName()
 	return localName;
 }
 
+TTBoolean TTApplicationManagerGetLocalApplicationDebug()
+{	
+	return TTModularApplications->mLocalApplication->mDebug;
+}
+
 TTApplicationPtr TTApplicationManagerGetApplication(TTSymbolPtr applicationName)
 {
 	TTValue				v;

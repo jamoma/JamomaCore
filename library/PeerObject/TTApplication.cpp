@@ -20,6 +20,7 @@ mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mNamespaceFile(kTTSymEmpty),
+mDebug(NO),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
@@ -40,6 +41,7 @@ mTempAddress(kTTAdrsEmpty)
 	addAttributeProperty(NamespaceFile, hidden, YES);
 	addAttributeProperty(NamespaceFile, readOnly, YES);
 	
+	addAttribute(Debug, kTypeBoolean);
 	
 	// relative to directory and attribute listening
 	addAttribute(Directory, kTypePointer);

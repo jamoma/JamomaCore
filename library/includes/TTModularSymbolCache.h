@@ -30,6 +30,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspace;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnit;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_debug;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_descendants;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_description;

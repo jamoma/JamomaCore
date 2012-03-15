@@ -133,10 +133,11 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTNodeAddress
 				object_warn(x, "Jamoma cannot registers multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress->getCString(), newRelativeAddress->getCString());
 			}
 			
-			// DEBUG
-			(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
-			v.get(0, &absoluteAddress);
-			object_post(x, "registers at %s", absoluteAddress->getCString());
+			JamomaDebug {
+				(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
+				v.get(0, &absoluteAddress);
+				object_post(x, "registers at %s", absoluteAddress->getCString());
+			}
 		}
 
 		return kTTErrNone;
