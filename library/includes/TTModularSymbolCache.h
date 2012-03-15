@@ -11,6 +11,7 @@
 
 #include "TTSymbol.h"
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activity;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityIn;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityOut;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_address;

@@ -10,8 +10,7 @@
 
 #include "TTModularClassWrapperMax.h"
 
-#define activity_out 0
-#define dump_out 1
+#define dump_out 0
 
 // This is used to store extra data
 typedef struct extra {
@@ -34,8 +33,6 @@ void	modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 void	modular_namespace_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void	modular_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
-
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
@@ -50,8 +47,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTApplicationClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)modular_assist,					"assist",						A_CANT, 0L);
-	
-	class_addmethod(c->maxClass, (method)modular_return_value,				"return_value",					A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)modular_protocol_setup,			"protocol/setup",				A_GIMME, 0);
 	
@@ -115,10 +110,6 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		TTModularApplications->sendMessage(TT("ProtocolRun"), protocolName, kTTValNONE);
 	}
 	
-	// Make one outlet
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
-	x->outlets[activity_out] = outlet_new(x, NULL);					// anything outlet to output activity
-	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->protocolName = protocolName;
@@ -155,9 +146,6 @@ void modular_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "input");
 	else {								// Outlets
 		switch(arg) {
-			case activity_out:
-				strcpy(dst, "activity");
-				break;
 			case dump_out:
 				strcpy(dst, "dumpout");
 				break;
@@ -272,10 +260,4 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
 	}
-}
-
-void modular_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[activity_out], msg, argc, argv);
 }

@@ -1355,17 +1355,17 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 	
 	if (*argc && !(v == kTTValNONE)) {
 		for (i=0; i<*argc; i++) {
-			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+			if (v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
 				TTFloat64	value;
 				v.get(i, value);
 				atom_setfloat((*argv)+i, value);
 			}
-			else if(v.getType(i) == kTypeSymbol){
+			else if (v.getType(i) == kTypeSymbol){
 				TTSymbolPtr	value = NULL;
 				v.get(i, &value);
 				atom_setsym((*argv)+i, gensym((char*)value->getCString()));
 			}
-			else{	// assume int
+			else {	// assume int
 				TTInt32	value;
 				v.get(i, value);
 				atom_setlong((*argv)+i, value);

@@ -74,6 +74,8 @@ mApplicationObserversMutex(NULL)
 		
 		TTSymbolPtr protocolName = NULL;
 		ProtocolPtr	aProtocolObject = NULL;
+		TTObjectPtr	activityInCallback, activityOutCallback;
+		TTValuePtr	activityInBaton, activityOutBaton;
 		TTValue		args;
 		TTErr		err;
 		
@@ -82,10 +84,24 @@ mApplicationObserversMutex(NULL)
 			
 			protocolNames.get(i, &protocolName);
 			
+			// create 2 callbacks to get raw protocol messages back
+			activityInCallback = NULL;
+			TTObjectInstantiate(TT("callback"), &activityInCallback, kTTValNONE);
+			activityInBaton = new TTValue(protocolName);
+			activityInCallback->setAttributeValue(kTTSym_baton, TTPtr(activityInBaton));
+			activityInCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityInCallback));
+			
+			activityOutCallback = NULL;
+			TTObjectInstantiate(TT("callback"), &activityOutCallback, kTTValNONE);
+			activityOutBaton = new TTValue(protocolName);
+			activityOutCallback->setAttributeValue(kTTSym_baton, TTPtr(activityOutBaton));
+			activityOutCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityOutCallback));
+			
 			// create an instance of a Protocol object
-			err = ProtocolLib::createProtocol(protocolName, &aProtocolObject, (TTObjectPtr)this);
+			err = ProtocolLib::createProtocol(protocolName, &aProtocolObject, (TTObjectPtr)this, (TTCallbackPtr)activityInCallback, (TTCallbackPtr)activityOutCallback);
 			
 			if (!err) {
+				
 				// add it to Modular protocols table
 				args = TTValue((TTPtr)aProtocolObject);
 				mProtocols->append(protocolName, args);
@@ -958,4 +974,40 @@ TTErr TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationNam
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data)
+{
+	TTValuePtr		b;
+	TTSymbolPtr		aProtocolName;
+	TTValue			v;
+	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, &aProtocolName);
+	
+	// set the activityIn attribute of the local application
+	v = data;
+	v.prepend(aProtocolName);
+	TTModularApplications->mLocalApplication->setAttributeValue(kTTSym_activityIn, v);
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data)
+{
+	TTValuePtr		b;
+	TTSymbolPtr		aProtocolName;
+	TTValue			v;
+	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, &aProtocolName);
+	
+	// set the activityOut attribute of the local application
+	v = data;
+	v.prepend(aProtocolName);
+	TTModularApplications->mLocalApplication->setAttributeValue(kTTSym_activityOut, v);
+	
+	return kTTErrNone;
 }

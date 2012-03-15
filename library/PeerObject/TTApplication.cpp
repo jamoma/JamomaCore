@@ -20,6 +20,7 @@ mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mNamespaceFile(kTTSymEmpty),
+mActivity(NO),
 mDebug(NO),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
@@ -42,6 +43,14 @@ mTempAddress(kTTAdrsEmpty)
 	addAttributeProperty(NamespaceFile, readOnly, YES);
 	
 	addAttribute(Debug, kTypeBoolean);
+	
+	addAttributeWithSetter(Activity, kTypeBoolean);
+	
+	addAttributeWithSetter(ActivityIn, kTypeLocalValue);
+	addAttributeProperty(NamespaceFile, hidden, YES);
+	
+	addAttributeWithSetter(ActivityOut, kTypeLocalValue);
+	addAttributeProperty(NamespaceFile, hidden, YES);
 	
 	// relative to directory and attribute listening
 	addAttribute(Directory, kTypePointer);
@@ -96,6 +105,7 @@ mTempAddress(kTTAdrsEmpty)
 	
 	
 	mDirectory = new TTNodeDirectory(mName);
+	mDirectory->getRoot()->setObject(this);
 	TT_ASSERT("NodeDirectory created successfully", mDirectory != NULL);
 	
 	mAppToTT = new TTHash();
@@ -124,7 +134,7 @@ TTApplication::~TTApplication()
 	delete mAppToTT;
 }
 
-TTErr TTApplication::setName(TTValue& value)
+TTErr TTApplication::setName(const TTValue& value)
 {	
 	// remove itself to the application manager
 	TTValue args = TTValue(mName);
@@ -136,6 +146,50 @@ TTErr TTApplication::setName(TTValue& value)
 	// add itself to the application manager
 	args = TTValue((TTPtr)this);
 	return TTModularApplications->sendMessage(TT("ApplicationAdd"), args, kTTValNONE);
+}
+
+TTErr TTApplication::setActivity(const TTValue& value)
+{	
+	TTValue		protocols = getApplicationProtocols(mName);
+	TTSymbolPtr protocolName;
+	
+	mActivity = value;
+	
+	for (TTUInt32 i=0; i<protocols.getSize(); i++) {
+		
+		protocols.get(i, &protocolName);
+		getProtocol(protocolName)->setAttributeValue(kTTSym_activity, mActivity);
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplication::setActivityIn(const TTValue& value)
+{	
+	TTAttributePtr	anAttribute;
+	TTErr			err = kTTErrNone;
+	
+	mActivityIn = value;
+	
+	err = this->findAttribute(kTTSym_activityIn, &anAttribute);
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mActivityIn);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return kTTErrNone;
+}
+
+TTErr TTApplication::setActivityOut(const TTValue& value)
+{	
+	TTAttributePtr	anAttribute;
+	TTErr			err = kTTErrNone;
+	
+	mActivityOut = value;
+	
+	err = this->findAttribute(kTTSym_activityOut, &anAttribute);
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mActivityOut);	// we use kTTSym_notify because we know that observers are TTCallback
+	
+	return kTTErrNone;
 }
 
 TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue)

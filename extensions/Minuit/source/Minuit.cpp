@@ -498,9 +498,16 @@ TTErr Minuit::sendMessage(TTSymbolPtr distantApplicationName, TTSymbolPtr header
 				
 				message = TTValue(header);
 				message.append((TTPtr)&arguments);
+				
 				err = mOscSend->sendMessage(TT("send"), message, kTTValNONE);
 				
 				TTObjectRelease(&mOscSend);
+				
+				if (mActivity) {
+					v = arguments;
+					v.prepend(header);
+					ActivityOutMessage(v);
+				}
 			}
 		}
 	}
@@ -541,6 +548,8 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 	 if :listen
 	 
 	 */
+	
+	if (mActivity) ActivityInMessage(message);
 	
 	message.get(0, &aSymbol);
 	headerString = aSymbol->getCString();

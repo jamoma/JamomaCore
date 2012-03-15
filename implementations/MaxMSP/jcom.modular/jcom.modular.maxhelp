@@ -26,6 +26,58 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-36",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 367.0, 111.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 345.0, 219.0, 145.0, 20.0 ],
+					"text" : "jcom.receive /:activity/out"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-29",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 345.0, 241.0, 94.0, 20.0 ],
+					"text" : "print activity/out"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-23",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 345.0, 172.0, 137.0, 20.0 ],
+					"text" : "jcom.receive /:activity/in"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-25",
@@ -36,19 +88,6 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 341.0, 432.0, 161.0, 34.0 ],
 					"text" : "jcom.map @input /myFloat @output remoteApp:/foo.1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 0.2, 0.2, 0.2, 0.0 ],
-					"border" : 3,
-					"bordercolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"id" : "obj-38",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 499.0, 351.0, 127.0 ]
 				}
 
 			}
@@ -141,21 +180,6 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-48",
-					"linecount" : 3,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 23.0, 407.0, 131.0, 48.0 ],
-					"text" : "listen any incoming protocol messages from the distant device"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
 					"id" : "obj-28",
 					"linecount" : 3,
 					"maxclass" : "message",
@@ -175,7 +199,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 182.0, 386.0, 149.0, 20.0 ],
+					"patching_rect" : [ 21.0, 386.0, 149.0, 20.0 ],
 					"text" : "print remoteApp_dumpout"
 				}
 
@@ -196,27 +220,14 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-23",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 21.0, 387.0, 139.0, 20.0 ],
-					"text" : "print remoteApp_activity"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-27",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 21.0, 364.0, 180.0, 20.0 ],
 					"text" : "jcom.modular remoteApp Minuit"
 				}
@@ -245,7 +256,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 242.0, 185.0, 165.0, 20.0 ],
+					"patching_rect" : [ 20.0, 184.0, 165.0, 20.0 ],
 					"text" : "print myApplication_dumpout"
 				}
 
@@ -260,7 +271,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 6.0, 78.0, 490.0, 20.0 ],
+					"patching_rect" : [ 6.0, 78.0, 494.0, 20.0 ],
 					"text" : "With 1 argument, jcom.modular enable a protocol to deal with the patcher :"
 				}
 
@@ -301,8 +312,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 185.0, 155.0, 20.0 ],
-					"text" : "print myApplication_activity"
+					"patching_rect" : [ 345.0, 194.0, 87.0, 20.0 ],
+					"text" : "print activity/in"
 				}
 
 			}
@@ -342,8 +353,8 @@
 					"id" : "obj-33",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 20.0, 162.0, 241.0, 20.0 ],
 					"text" : "jcom.modular Minuit @name myApplication"
 				}
@@ -355,12 +366,12 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-51",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 206.0, 160.0, 48.0 ],
-					"text" : "listen any incoming protocol messages from any distant devices"
+					"patching_rect" : [ 387.0, 99.0, 135.0, 34.0 ],
+					"text" : "listen messages from/to remote application"
 				}
 
 			}
@@ -413,7 +424,6 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
@@ -555,7 +565,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 401.0, 58.0, 276.0, 20.0 ],
-									"text" : "/foo.1 0.91",
+									"text" : "myApplication:listen /myFloat:value 1.00",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
@@ -1138,13 +1148,13 @@
 ,
 					"patching_rect" : [ 363.0, 542.0, 154.0, 35.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p remoteApp",
@@ -1208,16 +1218,18 @@
 			}
 , 			{
 				"box" : 				{
+					"autoscroll" : 0,
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-12",
+					"keymode" : 1,
 					"maxclass" : "textedit",
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "int", "", "" ],
 					"patching_rect" : [ 187.0, 537.0, 135.0, 19.0 ],
-					"text" : "takes it easy"
+					"text" : "hello to"
 				}
 
 			}
@@ -1277,6 +1289,33 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 341.0, 297.0, 50.0, 18.0 ],
 					"text" : "explore"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-32",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 367.0, 133.0, 62.0, 18.0 ],
+					"text" : "activity $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.2, 0.2, 0.2, 0.0 ],
+					"border" : 3,
+					"bordercolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"id" : "obj-38",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 7.0, 499.0, 351.0, 127.0 ]
 				}
 
 			}
@@ -1355,6 +1394,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 240.5, 362.5, 30.5, 362.5 ],
@@ -1364,16 +1412,16 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-15", 0 ],
+					"destination" : [ "obj-29", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-27", 1 ]
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-23", 0 ],
+					"destination" : [ "obj-15", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-27", 0 ]
@@ -1409,10 +1457,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-33", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-33", 0 ]
+					"midpoints" : [ 376.5, 156.0, 29.5, 156.0 ],
+					"source" : [ "obj-32", 0 ]
 				}
 
 			}
@@ -1421,7 +1469,7 @@
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-33", 1 ]
+					"source" : [ "obj-33", 0 ]
 				}
 
 			}
@@ -1431,6 +1479,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 158.5, 156.0, 29.5, 156.0 ],
 					"source" : [ "obj-35", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-36", 0 ]
 				}
 
 			}
