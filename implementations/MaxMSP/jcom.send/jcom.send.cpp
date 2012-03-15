@@ -175,8 +175,7 @@ void send_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		x->index = 0; // the index member is usefull to count how many time the external tries to bind
 		
-		// DEBUG
-		object_post((ObjectPtr)x, "binds on %s", absoluteAddress->getCString());
+		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress->getCString());
 	}
 }
 

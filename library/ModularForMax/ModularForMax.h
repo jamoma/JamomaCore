@@ -17,7 +17,9 @@ extern TTApplicationPtr		JamomaApplication;
 extern TTNodeDirectoryPtr	JamomaDirectory;
 
 #define ModelPatcher "model" 
-#define ViewPatcher "view" 
+#define ViewPatcher "view"
+
+#define JamomaDebug if (getLocalApplicationDebug)
 
 #ifdef __cplusplus
 extern "C" {

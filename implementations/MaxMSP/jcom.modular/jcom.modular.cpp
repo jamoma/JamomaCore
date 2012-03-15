@@ -66,44 +66,40 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	TTOpmlHandlerPtr			aOpmlHandler;
 	TTValue						v, args;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
-	
-	if (attrstart && argv) {
 		
-		// jcom.modular can handle the local application (1 argument to declare a protocol to use)
-		if (attrstart == 1) {
-			
-			// our wrapped object is the local application
-			applicationName = getLocalApplicationName;
-			x->wrappedObject = getLocalApplication;
-			
+	// jcom.modular can handle the local application (1 argument to declare a protocol to use)
+	if (attrstart <= 1) {
+		
+		// our wrapped object is the local application
+		applicationName = getLocalApplicationName;
+		x->wrappedObject = getLocalApplication;
+		
+		if (attrstart == 1)
 			protocolName = TT(atom_getsym(argv)->s_name);
+		
+	}
+	// or it can handle a distant application (2 arguments to declare the name of the distant application and the protocol to use)
+	else if (attrstart == 2) {
+		
+		// our wrapped object is a distant application
+		applicationName = TT(atom_getsym(argv)->s_name);
+		x->wrappedObject = getApplication(applicationName);
+		
+		// if the application doesn't exists
+		if (!x->wrappedObject) {
 			
-		}
-		// or it can handle a distant application (2 arguments to declare the name of the distant application and the protocol to use)
-		else if (attrstart == 2) {
+			// create the application
+			args = TTValue(applicationName);
+			TTObjectInstantiate(TT("Application"), TTObjectHandle(&x->wrappedObject), args);
 			
-			// our wrapped object is a distant application
-			applicationName = TT(atom_getsym(argv)->s_name);
-			x->wrappedObject = getApplication(applicationName);
-			
-			// if the application doesn't exists
-			if (!x->wrappedObject) {
-				
-				// create the application
-				args = TTValue(applicationName);
-				TTObjectInstantiate(TT("Application"), TTObjectHandle(&x->wrappedObject), args);
-				
-			}
-			
-			protocolName = TT(atom_getsym(argv+1)->s_name);
-			
-		}
-		else {
-			object_error((ObjectPtr)x, "jcom.modular needs 1 or 2 arguments");
-			return;
 		}
 		
-		// jcom.modular handle only one protocol per application
+		protocolName = TT(atom_getsym(argv+1)->s_name);
+		
+	}
+	
+	// jcom.modular handle only one protocol per application
+	if (protocolName) {
 		
 		// check if the protocol has been loaded
 		if (!getProtocol(protocolName)) {
@@ -117,30 +113,28 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		
 		// run this protocol
 		TTModularApplications->sendMessage(TT("ProtocolRun"), protocolName, kTTValNONE);
-			
-		// Make one outlet
-		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
-		x->outlets[activity_out] = outlet_new(x, NULL);					// anything outlet to output activity
-		
-		// Prepare extra data
-		x->extra = (t_extra*)malloc(sizeof(t_extra));
-		EXTRA->protocolName = protocolName;
-		
-		// Prepare Internals hash to store OpmlHanler object
-		x->internals = new TTHash();
-		
-		// create internal TTOpmlHandler
-		aOpmlHandler = NULL;
-		TTObjectInstantiate(TT("OpmlHandler"), TTObjectHandle(&aOpmlHandler), args);
-		v = TTValue(TTPtr(aOpmlHandler));
-		x->internals->append(TT("OpmlHandler"), v);
-		v = TTValue(TTPtr(x->wrappedObject));
-		aOpmlHandler->setAttributeValue(kTTSym_object, v);
-		
-		attr_args_process(x, argc, argv);
 	}
-	else
-		object_error((ObjectPtr)x, "jcom.modular needs 1 or 2 arguments");
+	
+	// Make one outlet
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
+	x->outlets[activity_out] = outlet_new(x, NULL);					// anything outlet to output activity
+	
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	EXTRA->protocolName = protocolName;
+	
+	// Prepare Internals hash to store OpmlHanler object
+	x->internals = new TTHash();
+	
+	// create internal TTOpmlHandler
+	aOpmlHandler = NULL;
+	TTObjectInstantiate(TT("OpmlHandler"), TTObjectHandle(&aOpmlHandler), args);
+	v = TTValue(TTPtr(aOpmlHandler));
+	x->internals->append(TT("OpmlHandler"), v);
+	v = TTValue(TTPtr(x->wrappedObject));
+	aOpmlHandler->setAttributeValue(kTTSym_object, v);
+	
+	if (attrstart && argv) attr_args_process(x, argc, argv);
 }
 
 void WrappedApplicationClass_free(TTPtr self)

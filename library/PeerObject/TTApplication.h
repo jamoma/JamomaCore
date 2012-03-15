@@ -57,6 +57,9 @@ typedef TTMirror* TTMirrorPtr;
 class TTMODULAR_EXPORT TTApplication : public TTDataObject
 {
 	TTCLASS_SETUP(TTApplication)
+	
+public:
+	TTBoolean					mDebug;				///< ATTRIBUTE : to enable the debug mode of the application (default : NO)
 
 private:
 	TTNodeDirectoryPtr			mDirectory;			///< ATTRIBUTE : the namespace directory of the application
