@@ -131,6 +131,9 @@ private:
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
+	
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data);
 };
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
@@ -182,5 +185,17 @@ TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbolPtr an
  @param observer				a TTCallbackPtr to remove
  @return						a kTTErrGeneric if there isn't observer */
 TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbolPtr anApplicationName, const TTObject& anObserver);
+
+/** To get back raw incoming messages from any protocol
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data);
+
+/** To get back raw outputing messages from any protocol
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_APPLICATION_MANAGER_H__

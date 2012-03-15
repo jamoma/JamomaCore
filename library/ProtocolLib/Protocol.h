@@ -41,6 +41,9 @@ class Protocol : public TTObject {
 protected:																																	
 	TTObjectPtr					mApplicationManager;				///< the application manager of the Modular framework.					
 																	///< protocol programmers should not have to deal with this member.
+	
+	TTCallbackPtr				mActivityInCallback;				///< a callback to trace raw incoming messages.
+	TTCallbackPtr				mActivityOutCallback;				///< a callback to trace raw outputing messages.
 
 	TTHashPtr					mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters 
 																	///< for each application registered for communication with this protocol
@@ -50,7 +53,9 @@ public:
 	TTSymbolPtr					mVersion;							///< ATTRIBUTE : the version of the protocol								
 	TTSymbolPtr					mAuthor;							///< ATTRIBUTE : the author of the protocol								
 	TTBoolean					mExploration;						///< ATTRIBUTE : is the Protocol provide namespace exploration features ?
-	TTBoolean					mRunning;							///< ATTRIBUTE : is the Protocol reception thread enable ?					
+	TTBoolean					mRunning;							///< ATTRIBUTE : is the Protocol reception thread enable ?
+	TTBoolean					mActivity;							///< ATTRIBUTE : is the Protocol activity thread enable ?
+
 	
 public:
 	//** Constructor.	*/
@@ -268,6 +273,31 @@ public:
 	 */
 	TTErr ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue);
 	
+	/**************************************************************************************************************************
+	 *
+	 *	ACTIVITY METHOD : a set of built-in methods to report raw incoming or outputing messages to the manager
+	 *
+	 **************************************************************************************************************************/
+	
+	/*!
+	 * Notify the protocol that a message is arriving
+	 *
+	 * !!! This a built-in protocol method
+	 *
+	 * \param message				: an incoming message
+	 */
+	TTErr ActivityInMessage(const TTValue& message);
+	
+	/*!
+	 * Notify the protocol that a message is outputing
+	 *
+	 * !!! This a built-in protocol method
+	 *
+	 * \param message				: an outputing message
+	 */
+	TTErr ActivityOutMessage(const TTValue& message);
+	
+	
 	
 	friend TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(TTPtr baton, TTValue& data);
@@ -333,7 +363,7 @@ TTSymbolPtr TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol)
 class TT_EXTENSION_EXPORT ProtocolLib {
 public:
 	/** Instantiate a protocol by name */
-	static TTErr createProtocol(const TTSymbolPtr protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager);
+	static TTErr createProtocol(const TTSymbolPtr protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback);
 	
 	/**	Return a list of all available protocols. */
 	static void getProtocolNames(TTValue& protocolNames);

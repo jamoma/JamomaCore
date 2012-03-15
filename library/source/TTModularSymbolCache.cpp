@@ -12,6 +12,7 @@
 #include "TTModularSymbolCache.h"
 
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activity;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityIn;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityOut;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_address;
@@ -95,6 +96,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_view;
 
 void TTModularSymbolCacheInit()
 {
+	kTTSym_activity					= TT("activity");
 	kTTSym_activityIn				= TT("activityIn");
 	kTTSym_activityOut				= TT("activityOut");
 	kTTSym_address					= TT("address");

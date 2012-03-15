@@ -59,7 +59,7 @@ class TTMODULAR_EXPORT TTApplication : public TTDataObject
 	TTCLASS_SETUP(TTApplication)
 	
 public:
-	TTBoolean					mDebug;				///< ATTRIBUTE : to enable the debug mode of the application (default : NO)
+	TTBoolean					mDebug;				///< ATTRIBUTE : to enable the debug mode for the application (default : NO)
 
 private:
 	TTNodeDirectoryPtr			mDirectory;			///< ATTRIBUTE : the namespace directory of the application
@@ -69,6 +69,10 @@ private:
 	TTSymbolPtr					mAuthor;			///< ATTRIBUTE : the author of the application
 	
 	TTSymbolPtr					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>). Usefull to save a config...
+	
+	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
+	TTValue						mActivityIn;		///< ATTRIBUTE : a local value to allow observation of incoming protocol messages
+	TTValue						mActivityOut;		///< ATTRIBUTE : a local value to allow observation of outputing protocol messages
 	
 	TTHashPtr					mDirectoryListenersCache;	///< a hash table containing all <address, Listener> for quick access
 	TTHashPtr					mAttributeListenersCache;	///< a hash table containing all <address:attribute, Listener> for quick access
@@ -81,8 +85,17 @@ private:
 	TTNodeAddressPtr			mTempAddress;		///< a temporary address to parse opml file
 	
 	/** Set name of the application (and his directory) */
-	TTErr setName(TTValue& value);
+	TTErr setName(const TTValue& value);
 	
+	/** */
+	TTErr setActivity(const TTValue& value);
+	
+	/** */
+	TTErr setActivityIn(const TTValue& value);
+	
+	/** */
+	TTErr setActivityOut(const TTValue& value);
+
 	
 	/** Add Directory observer */
 	TTErr AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue);

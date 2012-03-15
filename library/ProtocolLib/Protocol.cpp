@@ -15,9 +15,13 @@
 Protocol::Protocol(TTValue& arguments) :
 TTObject(arguments),
 mApplicationManager(NULL),
+mActivityInCallback(NULL),
+mActivityOutCallback(NULL),
 mDistantApplicationParameters(NULL)
 {
 	arguments.get(0, (TTPtr*)&mApplicationManager);
+	arguments.get(1, (TTPtr*)&mActivityInCallback);
+	arguments.get(2, (TTPtr*)&mActivityOutCallback);
 	
 	registerAttribute(TT("applicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Protocol::getApplicationParameters, (TTSetterMethod)& Protocol::setApplicationParameters);
 
@@ -34,6 +38,8 @@ mDistantApplicationParameters(NULL)
 
 	addAttribute(Exploration, kTypeBoolean);
 	addAttributeProperty(Exploration, readOnly, YES);
+	
+	addAttribute(Activity, kTypeBoolean);
 
 	addMessageWithArguments(registerApplication);
 	addMessageWithArguments(unregisterApplication);
@@ -65,6 +71,17 @@ Protocol::~Protocol()
 	}
 	
 	delete mDistantApplicationParameters;
+	
+	// delete activity callbacks
+	if (mActivityInCallback) {
+		delete (TTValuePtr)mActivityInCallback->getBaton();
+		TTObjectRelease(TTObjectHandle(&mActivityInCallback));
+	}
+	
+	if (mActivityOutCallback) {
+		delete (TTValuePtr)mActivityOutCallback->getBaton();
+		TTObjectRelease(TTObjectHandle(&mActivityOutCallback));
+	}
 }
 
 TTErr Protocol::setApplicationManager(const TTValue& value)
@@ -378,6 +395,24 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, 
 	return kTTErrGeneric;
 }
 
+TTErr Protocol::ActivityInMessage(const TTValue& message)
+{
+	if (mActivityInCallback != NULL)
+		return mActivityInCallback->notify(message, kTTValNONE);
+	
+	return kTTErrGeneric;
+}
+
+TTErr Protocol::ActivityOutMessage(const TTValue& message)
+{
+	if (mActivityOutCallback != NULL)
+		return mActivityOutCallback->notify(message, kTTValNONE);
+	
+	return kTTErrGeneric;
+}
+
+
+
 #if 0
 #pragma mark -
 #pragma mark Some Methods
@@ -537,11 +572,13 @@ TTSymbolPtr ProtocolGetLocalApplicationName(TTPtr aProtocol)
  
  ***************************************************************************/
 
-TTErr ProtocolLib::createProtocol(const TTSymbolPtr protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager)
+TTErr ProtocolLib::createProtocol(const TTSymbolPtr protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback)
 {
 	TTValue args;
 	
 	args.append(TTPtr(manager));
+	args.append(TTPtr(activityInCallback));
+	args.append(TTPtr(activityOutCallback));
 	
 	// These should be alphabetized
 	if (protocolName == TT("Minuit"))
