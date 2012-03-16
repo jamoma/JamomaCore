@@ -13,6 +13,7 @@
 typedef struct extra {
 	ObjectPtr			modelInternal;		// store an internal model patcher
 	TTNodeAddressPtr	modelAddress;		// store the /model/address parameter
+	TTBoolean			component;			// is the model a simple component ?
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
@@ -111,6 +112,14 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->modelAddress = kTTAdrsEmpty;
 	
+	// read first argument to know if the model is a component
+	if (attrstart && argv) {
+		if (atom_getsym(argv) == gensym("component"))
+			EXTRA->component = YES;
+		else
+			object_error((ObjectPtr)x, "%s is not expected as argument", atom_getsym(argv)->s_name);
+	}
+	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
@@ -134,27 +143,25 @@ void model_subscribe(TTPtr self)
 	TTPtr						context;
 	AtomCount					ac;
 	AtomPtr						av;
-	ObjectPtr					modelPatcher = jamoma_patcher_get((ObjectPtr)x);;
-	
+	ObjectPtr					modelPatcher = jamoma_patcher_get((ObjectPtr)x);
+
 	// if the subscription is successful
 	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, kTTAdrsEmpty, &x->subscriberObject)) {
 		
 		// get all info relative to our patcher
 		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 		
-		// Get absolute address in the namespace 
+		// get absolute address in the namespace 
 		// and set the address attribute of the Container 
 		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &nodeAdrs);
 		x->wrappedObject->setAttributeValue(TT("address"), v);
 		
-		// if it is a root model
-		// note : in case of a subpatcher into a topmost patcher
-		// all model datas will be created. is this a problem ?
-		if (modelPatcher == x->patcherPtr) {
+		// if the jcom.model is well subscribed
+		if (modelPatcher == x->patcherPtr && x->patcherContext != NULL) {
 			
-			// Special case for jcom.model at the root of the model
-			if (x->patcherContext) {
+			// no internal parameter for component
+			if (!EXTRA->component) {
 				
 				if (x->patcherContext == kTTSym_model) {
 					classAdrs = TT("model/class");
@@ -211,73 +218,73 @@ void model_subscribe(TTPtr self)
 				aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
 				aData->setAttributeValue(kTTSym_description, TT("Mute all parameters in the patcher"));
 				
-				// In model *and* view patcher : Add /model/address data
-				if (x->patcherContext == kTTSym_model) // as return
-					makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("model_address"), context, kTTSym_return, &aData);
-				
-				if (x->patcherContext == kTTSym_view) // as parameter
-					makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("model_address"), context, kTTSym_parameter, &aData);
-				
-				aData->setAttributeValue(kTTSym_type, kTTSym_string);
-				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-				aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A model patcher bind on himself"));
-				aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
-				
-				// Get patcher arguments
-				ac = 0;
-				av = NULL;
-				
-				// If x is in a bpatcher, the patcher is NULL
-				if (!modelPatcher)
-					modelPatcher = object_attr_getobj(x, _sym_parentpatcher);
-				
-				jamoma_patcher_get_args(modelPatcher, &ac, &av);
-				
-				// in subpatcher the name of the patcher is part of the argument
-				if (jamoma_patcher_get_hierarchy(modelPatcher) == _sym_subpatcher) {
-					ac--;
-					av++;
-				}
-				
-				// In model patcher : set /model/address with his address
-				if (x->patcherContext == kTTSym_model) {
-					aData->setAttributeValue(kTTSym_value, nodeAdrs);
-					aData->setAttributeValue(kTTSym_valueDefault, nodeAdrs); // because of init process
-					
-					// use modelPatcher args to setup the model attributes (like @priority)
-					if (ac && av)
-						attr_args_process(x, ac, av);
-				}
-				
-				// In view patcher :
-				// if exists, the second argument of the patcher is the /model/address value
-				if (x->patcherContext == kTTSym_view) {
-					
-					if (ac > 0) {
-						EXTRA->modelAddress = TTADRS(atom_getsym(av)->s_name);
-						aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
-						aData->setAttributeValue(kTTSym_valueDefault, EXTRA->modelAddress); // because of init process
-					}
-				}
-				
-				// create internal TTTextHandler and expose Write message
+				// for auto documentation : create internal TTTextHandler and expose Write message
 				aTextHandler = NULL;
 				TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler), args);
 				v = TTValue(TTPtr(aTextHandler));
 				x->internals->append(TT("TextHandler"), v);
 				v = TTValue(TTPtr(x->wrappedObject));
 				aTextHandler->setAttributeValue(kTTSym_object, v);
-				
-				// output ContextNode address
-				Atom a;
-				x->subscriberObject->getAttributeValue(TT("contextNodeAddress"), v);
-				v.get(0, (TTSymbolPtr*)&nodeAdrs);
-				atom_setsym(&a, gensym((char*)nodeAdrs->getCString()));
-				object_obex_dumpout(self, gensym("address"), 1, &a);
-				
-				// init the model
-				defer_low(x, (method)model_init, 0, 0, 0L);
 			}
+			
+			// In model *and* view patcher : Add /model/address data
+			if (x->patcherContext == kTTSym_model) // as return
+				makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("model_address"), context, kTTSym_return, &aData);
+			
+			if (x->patcherContext == kTTSym_view) // as parameter
+				makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("model_address"), context, kTTSym_parameter, &aData);
+			
+			aData->setAttributeValue(kTTSym_type, kTTSym_string);
+			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+			aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A model patcher bind on himself"));
+			aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
+			
+			// Get patcher arguments
+			ac = 0;
+			av = NULL;
+			
+			// If x is in a bpatcher, the patcher is NULL
+			if (!modelPatcher)
+				modelPatcher = object_attr_getobj(x, _sym_parentpatcher);
+			
+			jamoma_patcher_get_args(modelPatcher, &ac, &av);
+			
+			// in subpatcher the name of the patcher is part of the argument
+			if (jamoma_patcher_get_hierarchy(modelPatcher) == _sym_subpatcher) {
+				ac--;
+				av++;
+			}
+			
+			// In model patcher : set /model/address with his address
+			if (x->patcherContext == kTTSym_model) {
+				aData->setAttributeValue(kTTSym_value, nodeAdrs);
+				aData->setAttributeValue(kTTSym_valueDefault, nodeAdrs); // because of init process
+				
+				// use modelPatcher args to setup the model attributes (like @priority)
+				if (ac && av)
+					attr_args_process(x, ac, av);
+			}
+			
+			// In view patcher :
+			// if exists, the second argument of the patcher is the /model/address value
+			if (x->patcherContext == kTTSym_view) {
+				
+				if (ac > 0) {
+					EXTRA->modelAddress = TTADRS(atom_getsym(av)->s_name);
+					aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
+					aData->setAttributeValue(kTTSym_valueDefault, EXTRA->modelAddress); // because of init process
+				}
+			}
+			
+			// output ContextNode address
+			Atom a;
+			x->subscriberObject->getAttributeValue(TT("contextNodeAddress"), v);
+			v.get(0, (TTSymbolPtr*)&nodeAdrs);
+			atom_setsym(&a, gensym((char*)nodeAdrs->getCString()));
+			object_obex_dumpout(self, gensym("address"), 1, &a);
+			
+			// init the model
+			defer_low(x, (method)model_init, 0, 0, 0L);
 		}
 	}
 }
@@ -471,41 +478,3 @@ void model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 	}
 }
-
-t_max_err model_get_context(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	
-	if ((*ac)&&(*av)) {
-		//memory passed in, use it
-	} else {
-		//otherwise allocate memory
-		*ac = 1;
-		if (!(*av = (AtomPtr)getbytes(sizeof(Atom)*(*ac)))) {
-			*ac = 0;
-			return MAX_ERR_OUT_OF_MEM;
-		}
-	}
-	
-	if (x->patcherContext)
-		atom_setsym(*av, gensym((char*)x->patcherContext->getCString()));
-	else
-		atom_setsym(*av, NULL);
-	
-	return MAX_ERR_NONE;
-}
-
-t_max_err model_set_context(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	
-	if (ac&&av) {
-		x->patcherContext = TT(atom_getsym(av)->s_name);
-	}
-	else
-		x->patcherContext = kTTSym_none;
-	
-	return MAX_ERR_NONE;
-}
-
-
