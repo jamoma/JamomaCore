@@ -89,7 +89,7 @@ TTSubscriber::~TTSubscriber()
 			aDirectory->notifyObservers(mNodeAddress, mNode, kAddressDestroyed);
 			
 			// Set NULL object
-			this->mNode->setObject(NULL);
+			//this->mNode->setObject(NULL);					// to -- this has been commented out to allow alias destruction after unregistration
 		}
 	}
 	

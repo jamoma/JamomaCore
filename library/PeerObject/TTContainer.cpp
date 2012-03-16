@@ -19,6 +19,7 @@ mType(TT("control")),
 mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
+mAlias(kTTAdrsEmpty),
 mActivityIn(kTTValNONE),
 mActivityOut(kTTValNONE),
 mReturnAddressCallback(NULL),
@@ -58,6 +59,8 @@ mObserver(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeProperty(Address, hidden, YES);
 	
+	addAttributeWithSetter(Alias, kTypeSymbol);
+	
 	addAttributeWithSetter(ActivityIn, kTypeLocalValue);
 	addAttributeProperty(ActivityIn, readOnly, YES);
 	
@@ -68,6 +71,7 @@ mObserver(NULL)
 	addMessageProperty(Send, hidden, YES);
 	
 	addMessage(Init);
+	addMessage(AliasRemove);
 	
 	// needed to be handled by a TTTextHandler
 	addMessageWithArguments(WriteAsText);
@@ -80,6 +84,7 @@ mObserver(NULL)
 
 TTContainer::~TTContainer()
 {
+	setAlias(kTTAdrsEmpty);
 	unbind();
 	
 	if (mReturnAddressCallback) {
@@ -216,7 +221,7 @@ TTErr TTContainer::Init()
 	TTObjectPtr		anObject;
 	TTAttributePtr	anAttribute;
 	TTSymbolPtr		key, service;
-	TTUInt8			i;
+	TTUInt32		i;
 	
 	// Restart initialisation
 	mInitialized = NO;
@@ -271,12 +276,106 @@ TTErr TTContainer::Init()
 	return kTTErrNone;
 }
 
+/** */
+TTErr TTContainer::AliasRemove()
+{
+	return setAlias(kTTAdrsEmpty);
+}
+
 TTErr TTContainer::setAddress(const TTValue& value)
 {	
 	unbind();
 	value.get(0, &mAddress);
 	
 	return bind();
+}
+
+TTErr TTContainer::setAlias(const TTValue& value)
+{
+	TTNodeDirectoryPtr localDirectory = getLocalDirectory;
+	TTNodeAddressPtr oldAlias = mAlias;
+	TTNodePtr		aNode;
+	TTObjectPtr		anObject;
+	TTBoolean		nodeCreated;
+	TTValue			hk, cacheElement;
+	TTSymbolPtr		key;
+	TTUInt32		i;
+	TTString		aliasKey;
+	
+	value.get(0, &mAlias);
+	
+	// check it changes
+	if (oldAlias != mAlias) {
+		
+		if (oldAlias != kTTAdrsEmpty) {
+			
+			localDirectory->AliasRemove(oldAlias);
+			
+			// notify the deletion of all /alias/key address
+			if (mObjectsObserversCache) {
+				
+				mObjectsObserversCache->getKeys(hk);
+				for (i=0; i<mObjectsObserversCache->getSize(); i++) {
+					hk.get(i, &key);
+					
+					// edit alias/key address
+					aliasKey = oldAlias->getCString();
+					aliasKey += S_SEPARATOR->getCString();
+					aliasKey += key->getCString();
+					
+					// get the node at this address
+					mObjectsObserversCache->lookup(key, cacheElement);
+					cacheElement.get(3, (TTPtr*)&aNode);
+					
+					localDirectory->notifyObservers(TTADRS(aliasKey), aNode, kAddressDestroyed);
+					
+					// remove alias of Container object
+					anObject = NULL;
+					cacheElement.get(0, (TTPtr*)&anObject);
+					
+					if (anObject->getName() == TT("Container"))
+						anObject->setAttributeValue(kTTSym_alias, kTTAdrsEmpty);
+				}
+			}
+		}
+			
+		if (mAlias != kTTAdrsEmpty && mAddress != kTTAdrsEmpty) {
+			
+			localDirectory->AliasCreate(mAlias, mAddress);
+			
+			// notify the creation of all /alias/key address
+			if (mObjectsObserversCache) {
+				
+				mObjectsObserversCache->getKeys(hk);
+				for (i=0; i<mObjectsObserversCache->getSize(); i++) {
+					hk.get(i, &key);
+					
+					// edit alias/key address
+					aliasKey = mAlias->getCString();
+					aliasKey += S_SEPARATOR->getCString();
+					aliasKey += key->getCString();
+					
+					// get the node at this address
+					mObjectsObserversCache->lookup(key, cacheElement);
+					cacheElement.get(3, (TTPtr*)&aNode);
+					
+					localDirectory->notifyObservers(TTADRS(aliasKey), aNode, kAddressCreated);
+					
+					// set alias of Container object
+					anObject = NULL;
+					cacheElement.get(0, (TTPtr*)&anObject);
+					
+					if (anObject->getName() == TT("Container"))
+						anObject->setAttributeValue(kTTSym_alias, TTADRS(aliasKey));
+					
+				}
+			}
+		}
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTContainer::setActivityIn(const TTValue& value)
@@ -485,6 +584,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	if (!anObject)
 		return kTTErrGeneric;
 	
+	// 0 : cache Object
 	cacheElement.append((TTPtr)anObject);
 	
 	// Special case for Data : observe his value
@@ -512,10 +612,10 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 			
 			anAttribute->registerObserverForNotifications(*valueObserver);
 			
-			// add observer to the cacheElement
+			// 1 : cache observer
 			cacheElement.append((TTPtr)valueObserver);
 		}
-		// add NULL to the cacheElement
+		// 1 : cache NULL
 		else
 			cacheElement.append(NULL);
 		
@@ -537,11 +637,11 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 			
 			aMessage->registerObserverForNotifications(*commandObserver);
 			
-			// add observer to the cacheElement
+			// 2 : cache observer
 			cacheElement.append((TTPtr)commandObserver);
 			
 		}
-		// add NULL to the cacheElement
+		// 2 : cache NULL
 		else
 			cacheElement.append(NULL);
 	}
@@ -564,16 +664,15 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		
 		anAttribute->registerObserverForNotifications(*returnedValueObserver);
 		
-		// add observer to the cacheElement
+		// 1 : cache observer
 		cacheElement.append((TTPtr)returnedValueObserver);
+		
+		// 2 : cache NULL
+		cacheElement.append(NULL);
 	}
 	
-	// add NULL to the cacheElement
-	else
-	cacheElement.append(NULL);
-	
-	// Special case for Container : observe what his activity
-	if (anObject->getName() == TT("Container")) {
+	// Special case for Container : observe his activity
+	else if (anObject->getName() == TT("Container")) {
 		
 		// create a activityIn Attribute observer on it
 		anObject->findAttribute(kTTSym_activityIn, &anAttribute);
@@ -590,7 +689,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		
 		anAttribute->registerObserverForNotifications(*activityInObserver);
 		
-		// add observer to the cacheElement
+		// 1 : cache observer
 		cacheElement.append((TTPtr)activityInObserver);
 		
 		// create a activityIn Attribute observer on it
@@ -609,13 +708,19 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		
 		anAttribute->registerObserverForNotifications(*activityOutObserver);
 		
-		// add observer to the cacheElement
+		// 2 : cache observer
 		cacheElement.append((TTPtr)activityOutObserver);
 	}
 	
-	// add NULL to the cacheElement
-	else
+	else {
+		// 1 : cache NULL
 		cacheElement.append(NULL);
+		// 2 : cache NULL
+		cacheElement.append(NULL);
+	}
+	
+	// 3 : cache the node too (used during alias creation/destruction)
+	cacheElement.append((TTPtr)aNode);
 	
 	// append the cacheElement to the cache hash table
 	mObjectsObserversCache->append(aRelativeAddress, cacheElement);

@@ -28,6 +28,7 @@ private:
 	TTValue				mTag;							///< ATTRIBUTE: tag list for this container (to -- why keep the type attribute in this case ?)
 	TTBoolean			mInitialized;					///< ATTRIBUTE: is it initialized ?
 	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE: the address of the container in the directory
+	TTNodeAddressPtr	mAlias;							///< ATTRIBUTE: an alias address to retrieve the container using another address
 	TTValue				mActivityIn;					///< ATTRIBUTE : a local value to allow observation of incoming data
 	TTValue				mActivityOut;					///< ATTRIBUTE : a local value to allow observation of outputing data
 	
@@ -44,11 +45,17 @@ private:
 	/** */
 	TTErr Init();
 	
+	/** */
+	TTErr AliasRemove();
+	
 	/**  needed to be handled by a TTTextHandler */
 	TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr setAddress(const TTValue& value);
+	
+	/** */
+	TTErr setAlias(const TTValue& value);
 	
 	/** */
 	TTErr setActivityIn(const TTValue& value);
@@ -62,23 +69,14 @@ private:
 	/**	Setter for mPriority attribute. */
 	TTErr setPriority(const TTValue& value);
 	
-	/* to - is the content usefull considering Explorer feature ?
-	TTErr getContent(TTValue& value);
-	
-	TTErr getContentParameters(TTValue& value);
-	
-	TTErr getContentMessages(TTValue& value);
-
-	TTErr getContentReturns(TTValue& value);
-	*/
-	
 	/** */
 	TTErr bind();
 	
 	/** */
 	TTErr unbind();
 	
-	/** */
+	/** cacheElement contains all info needed to handle all objects registered below this container in the directory 
+		< object, observer1, observer2, node > */
 	TTErr makeCacheElement(TTNodePtr aNode);
 	TTErr deleteCacheElement(TTNodePtr aNode);
 	
@@ -89,7 +87,6 @@ private:
 	void cssDefinition(ofstream *file);
 	
 
-	
 	
 	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& data);
