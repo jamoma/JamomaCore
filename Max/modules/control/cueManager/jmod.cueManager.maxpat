@@ -4253,7 +4253,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 206.0, 400.0, 19.0 ],
-													"text" : "jcom.return cues @type array @description \"output all cues in the cuelist\""
+													"text" : "jcom.return cues @type string @description \"output all cues in the cuelist\""
 												}
 
 											}
