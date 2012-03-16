@@ -1372,7 +1372,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/device/mouse/button/2/press @type toggle @range/bounds 0 1 @description \"Button up or down\"",
+									"text" : "jcom.return gdif/device/mouse/button/2/press @type boolean @range/bounds 0 1 @description \"Button up or down\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -3515,7 +3515,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return button @type toggle @range/bounds 0 1 @description \"Mouse button\"",
+					"text" : "jcom.return button @type boolean @range/bounds 0 1 @description \"Mouse button\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -4126,7 +4126,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/body/hand/right/finger/2/press @type toggle @range/bounds 0 1 @description \"Finger up or down\"",
+									"text" : "jcom.return gdif/body/hand/right/finger/2/press @type boolean @range/bounds 0 1 @description \"Finger up or down\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -4972,7 +4972,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/cooked/button @type toggle @range/bounds 0 1 @description \"Mouse button on or off\"",
+									"text" : "jcom.return gdif/cooked/button @type boolean @range/bounds 0 1 @description \"Mouse button on or off\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -5673,7 +5673,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/raw/button @type toggle @range/bounds 0 1 @description \"Mouse button on off\"",
+									"text" : "jcom.return gdif/raw/button @type boolean @range/bounds 0 1 @description \"Mouse button on off\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",

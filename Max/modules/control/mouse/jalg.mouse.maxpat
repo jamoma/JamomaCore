@@ -864,7 +864,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 67.0, 232.0, 258.0, 30.0 ],
-					"text" : "jcom.return button @type toggle @range/bounds 0 1 @description \"Mouse button\""
+					"text" : "jcom.return button @type boolean @description \"Mouse button\""
 				}
 
 			}
