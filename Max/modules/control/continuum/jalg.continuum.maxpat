@@ -2968,7 +2968,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 71.0, 371.0, 344.0, 33.0 ],
-									"text" : "jcom.return gdif/device/mouse/button/2/press @type toggle @range/bounds 0 1 @description \"Button up or down\""
+									"text" : "jcom.return gdif/device/mouse/button/2/press @type boolean @range/bounds 0 1 @description \"Button up or down\""
 								}
 
 							}
@@ -5214,7 +5214,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 71.0, 371.0, 345.0, 33.0 ],
-									"text" : "jcom.return gdif/body/hand/right/finger/2/press @type toggle @range/bounds 0 1 @description \"Finger up or down\""
+									"text" : "jcom.return gdif/body/hand/right/finger/2/press @type boolean @range/bounds 0 1 @description \"Finger up or down\""
 								}
 
 							}
@@ -6020,7 +6020,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 71.0, 241.0, 333.0, 33.0 ],
-									"text" : "jcom.return gdif/cooked/button @type toggle @range/bounds 0 1 @description \"Mouse button on or off\""
+									"text" : "jcom.return gdif/cooked/button @type boolean @range/bounds 0 1 @description \"Mouse button on or off\""
 								}
 
 							}
