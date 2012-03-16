@@ -13,6 +13,7 @@ TTNodeDirectory::TTNodeDirectory(TTSymbolPtr aName) :
 	name(kTTSymEmpty),	
 	root(NULL),	
 	directory(NULL),
+	aliases(NULL),
 	observers(NULL),
 	mutex(NULL)
 {	
@@ -26,6 +27,7 @@ TTNodeDirectory::~TTNodeDirectory()
 {
 	delete root;
 	delete directory;
+	delete aliases;
 	delete observers;
 }
 
@@ -35,9 +37,13 @@ TTErr TTNodeDirectory::init()
 	
 	if (root) delete root;
 	if (directory) delete directory;
+	if (aliases) delete aliases;
 	
 	// create a new directory
 	directory = new TTHash();
+	
+	// create a new aliases table
+	aliases = new TTHash();
 	
 	// if there are observers keep them
 	if (!observers) {
@@ -83,23 +89,70 @@ TTErr TTNodeDirectory::getTTNode(const char* anAddress, TTNodePtr* returnedTTNod
 TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returnedTTNode)
 {
 	TTErr err;
-	TTValue found;
+	TTValue	found, ak;
+	TTUInt32 s;
 
-	if (directory) {
+	if (!directory) 
+		return kTTErrGeneric;
+	
+	// look into the hashtab to check if the address exist in the tree
+	err = directory->lookup(anAddress->normalize(), found);
+	
+	// if the address exists : return the TTNode
+	if (err != kTTErrValueNotFound) {
+		found.get(0,(TTPtr*)returnedTTNode);
+		return kTTErrNone;
+	}
+	
+	// if this address doesn't exist look into aliases
+	aliases->getKeys(ak);
+	s = ak.getSize();
+	if (s == 0)
+		return kTTErrGeneric;
+	
+	// compare the address to each aliases
+	TTUInt32 i, c;
+	TTNodeAddressPtr alias, aliasNodeAddress, p1, p2;
+	TTNodePtr aliasNode;
+	TTNodeAddressComparisonFlag comp;
+	TTString join;
+	
+	found = kTTValNONE;
+	
+	for (i=0; i<s; i++) {
+		ak.get(i, &alias);
+		comp = anAddress->compare(alias);
 		
-		// look into the hashtab to check if the address exist in the tree
-		err = directory->lookup(anAddress->normalize(), found);
-
-		// if this address doesn't exist
-		if (err == kTTErrValueNotFound) {
-			return kTTErrGeneric;
-		}
-		else {
+		// if the address is an alias : return the TTNode
+		if (comp == kAddressEqual) {
+			aliases->lookup(alias, found);
 			found.get(0,(TTPtr*)returnedTTNode);
-			return kTTErrNone;
+			
+			break;
+		}
+		
+		// the address is under an alias : 
+		// get the address of the alias and join anAddress (without the alias part)
+		if (comp == kAddressLower) {
+			aliases->lookup(alias, found);
+			found.get(1, &aliasNodeAddress);
+			found.get(2, c);
+
+			anAddress->splitAt(c, &p1, &p2);
+			
+			join = aliasNodeAddress->getCString();
+			join += S_SEPARATOR->getCString();
+			join += p2->getCString();
+			
+			getTTNode(TTADRS(join), returnedTTNode);
+			break;
 		}
 	}
-	return kTTErrGeneric;
+	
+	if (found == kTTValNONE)
+		return kTTErrGeneric;
+	
+	return kTTErrNone;
 }
 
 TTErr TTNodeDirectory::TTNodeCreate(TTNodeAddressPtr anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
@@ -219,6 +272,64 @@ TTErr TTNodeDirectory::TTNodeRemove(TTNodeAddressPtr anAddress)
 	else
 		return kTTErrGeneric;
 
+	return err;
+}
+
+TTErr TTNodeDirectory::AliasCreate(TTNodeAddressPtr alias, TTNodeAddressPtr anAddress)
+{
+	TTNodePtr	aNode;
+	TTValue		v;
+	TTErr		err;
+	
+	if (alias->getType() == kAddressRelative || 
+		alias->getAttribute() != NO_ATTRIBUTE || 
+		anAddress->getAttribute() != NO_ATTRIBUTE)
+		return kTTErrGeneric;
+	
+	// find the address in the directory
+	err = this->getTTNode(anAddress, &aNode);
+	
+	if (!err) {
+		
+		// add the alias and store the TTNode and info usefull for getTTNode method
+		v = TTValue(aNode);
+		v.append(anAddress);
+		v.append(alias->countSeparator());
+		
+		err = aliases->append(alias, v);
+		
+		if (!err)
+			// notify observers that an address has been created
+			this->notifyObservers(alias, aNode, kAddressCreated);
+	}
+	
+	return err;
+}
+
+TTErr TTNodeDirectory::AliasRemove(TTNodeAddressPtr alias)
+{
+	TTNodePtr		aNode;
+	TTNodeAddressPtr anAddress;
+	TTErr			err;
+	
+	// find the alias in the directory
+	err = this->getTTNode(alias, &aNode);
+	
+	if (!err) {
+		
+		// check if the alias is an effective alias
+		aNode->getAddress(&anAddress);
+		if (alias == anAddress)
+			return kTTErrGeneric;
+		
+		// remove the alias from the directory
+		err = aliases->remove(alias);
+		
+		if (!err)
+			// notify observers that an address has been removed
+			this->notifyObservers(alias, aNode, kAddressDestroyed);
+	}
+	
 	return err;
 }
 

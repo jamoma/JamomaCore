@@ -61,6 +61,7 @@ private:
 	TTSymbolPtr		name;					///< the name of the tree
 	TTNodePtr		root;					///< the root of the tree
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all address of the tree
+	TTHashPtr		aliases;				///< a pointer to a global hashtab which reference all aliases of the tree
 	TTHashPtr		observers;				///< a pointer to a hashtab which register all life cycle observers below that node
 											///< (address/relative/to/this/node, TTList of all observers below that address)
 	TTMutexPtr		mutex;					///< a Mutex to protect the mObservers hash table.
@@ -145,6 +146,17 @@ public:
 									The address may (optionally) include an instance name or number in the address of the terminal TTNode.
 	 @return						An error code. */
 	TTErr			TTNodeRemove(TTNodeAddressPtr anAddress);
+	
+	/**	Create an alias address
+	 @param	alias					The alias address (absolute)
+	 @param	anAddress				The address for which you wish to create an alias.
+	 @return							An error code. */
+	TTErr			AliasCreate(TTNodeAddressPtr alias, TTNodeAddressPtr anAddress);
+	
+	/**	Create an alias address
+	 @param	alias					The alias address to remove
+	 @return						An error code. */
+	TTErr			AliasRemove(TTNodeAddressPtr alias);
 	
 	/** Add a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address to observe
