@@ -155,6 +155,37 @@ TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returned
 	return kTTErrNone;
 }
 
+TTErr TTNodeDirectory::getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *returnedAlias)
+{
+	TTUInt32 i;
+	TTValue	 v, ak;
+	TTNodeAddressPtr alias, aliasNodeAddress;
+	TTNodeAddressComparisonFlag comp;
+	
+	*returnedAlias = NULL;
+	
+	// Retrieve the alias binding on this address
+	aliases->getKeys(ak);
+	for (i=0; i<aliases->getKeys(ak); i++) {
+		
+		ak.get(i, &alias);
+		aliases->lookup(alias, v);
+		v.get(1, &aliasNodeAddress);
+		comp = anAddress->compare(aliasNodeAddress);
+		
+		if (comp == kAddressEqual) {
+			
+			*returnedAlias = aliasNodeAddress;
+			break;
+		}
+	}
+	
+	if (*returnedAlias == NULL)
+		return kTTErrGeneric;
+	
+	return kTTErrNone;
+}
+
 TTErr TTNodeDirectory::TTNodeCreate(TTNodeAddressPtr anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
 	TTNodeAddressPtr	effectiveAddress;

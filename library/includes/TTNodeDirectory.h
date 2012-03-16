@@ -90,13 +90,19 @@ public:
 	/** Get the directory of the TTNodeDirectory */
 	TTHashPtr		getDirectory();
 
-	/**	Given a string with an address, return a pointer to a TTNode.
-	 @param	anAddress				The address string for which to find the TTNode.
+	/**	Given an address, return a pointer to a TTNode.
+	 @param	anAddress				The address for which to find the TTNode.
 	 @param	returnedTTNode			The .
 	 @return						An error code. */
 	TTErr			getTTNode(const char* anAddress, TTNodePtr *returnedTTNode);
 	
 	TTErr			getTTNode(TTNodeAddressPtr anAddress, TTNodePtr *returnedTTNode);
+	
+	/** Given an address, return an alias if exists
+	 @param	anAddress				The address for which to find the TTNode.
+	 @param	returnedAlias			The .
+	 @return						An error code if there is no alias. */
+	TTErr			getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *returnedAlias);
 	
 	/**	Find TTNodes by address
 	 @param	anAddress				The address you wish to find, possibly including wildcards and instance names/numbers.
