@@ -86,10 +86,15 @@ TTSubscriber::~TTSubscriber()
 		// introduce a new flag (kAddressObjectUnregistered) ?
 		else {
 			
+			// remove alias for TTContainer object before
+			if (mObject->getName() == TT("Container"))
+				mObject->sendMessage(TT("AliasRemove"));
+			
+			// notify
 			aDirectory->notifyObservers(mNodeAddress, mNode, kAddressDestroyed);
 			
-			// Set NULL object
-			//this->mNode->setObject(NULL);					// to -- this has been commented out to allow alias destruction after unregistration
+			// set NULL object
+			this->mNode->setObject(NULL);
 		}
 	}
 	

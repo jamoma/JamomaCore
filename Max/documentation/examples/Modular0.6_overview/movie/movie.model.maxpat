@@ -29,6 +29,55 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-41",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 266.0, 95.0, 181.0, 34.0 ],
+					"text" : "create an alias to use a specific or temporary address"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frozen_box_attributes" : [ "gradient" ],
+					"gradient" : 0,
+					"id" : "obj-37",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 368.0, 125.0, 79.0, 18.0 ],
+					"text" : "alias/remove"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frozen_box_attributes" : [ "gradient" ],
+					"gradient" : 0,
+					"id" : "obj-20",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 266.0, 125.0, 97.0, 18.0 ],
+					"text" : "alias /madMovie"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-51",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -615,7 +664,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 294.0, 75.0 ],
+					"patching_rect" : [ 0.0, 0.0, 295.0, 75.0 ],
 					"text" : "The jcom.model is the control tower of your model. It creates a default /movie (or #1 @varname.) level and binds on each jcom.parameter, message, return of this patch (even those embedded inside jcom externals like jcom.preset or jcom.out). "
 				}
 
@@ -957,6 +1006,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 275.5, 148.5, 18.5, 148.5 ],
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1074,6 +1132,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 377.5, 148.5, 18.5, 148.5 ],
+					"source" : [ "obj-37", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-52", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 820.5, 306.5, 641.5, 306.5 ],
@@ -1085,7 +1152,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 51.5, 147.0, 18.5, 147.0 ],
+					"midpoints" : [ 51.5, 148.5, 18.5, 148.5 ],
 					"source" : [ "obj-40", 0 ]
 				}
 
