@@ -93,7 +93,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	// ATTRIBUTE: type - options are generic, integer, decimal, string, boolean
 	jamoma_class_attr_new(c, "type", _sym_symbol, (method)return_attr_settype, (method)return_attr_gettype);
-	
+	CLASS_ATTR_ENUM(c,		 "type",	0,					"integer decimal boolean string array generic");
 	// ATTRIBUTES: dataspace stuff
 	
 	CLASS_ATTR_SYM(c,						"dataspace",					0,	t_return, attrDataspace);
@@ -307,8 +307,7 @@ void return_send_feedback(t_return *x)
 				object_method_typed(x->send, _sym_float, x->output_len-1, x->output+1, NULL);		
 			else if (x->output[1].a_type == A_LONG)
 				object_method_typed(x->send, _sym_int, x->output_len-1, x->output+1, NULL);		
-			else{
-				post("here2");
+			else{				
 				object_method_typed(x->send, atom_getsym(x->output), 0, NULL, NULL);
 			}
 		}
@@ -409,23 +408,26 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			return_int(x, 0);
 		}
 	else 
-		if ((x->common.attr_type == jps_array) || (x->common.attr_type == jps_generic)){							
-			return_list(x, msg, ++argc, --argv);
+		if ((x->common.attr_type == jps_array) || (x->common.attr_type == jps_generic)){
+			return_list(x, msg, argc, argv-1);
 		}
 	else { //assuming jps_string now		
 		if (x->common.attr_repetitions == 0) {
 			if (msg == atom_getsym(&x->output[1]))
 			return;
 		}
-		atom_setsym(&x->output[1], msg);
-		x->output_len++;
-	
+		
+		atom_setsym(&x->output[1], msg);	
+		x->output_len= 2;
+		x->input_len = 1;
+			
+		
 		/*for (i=1; i<=argc; i++) {
 			jcom_core_atom_copy(&x->output[i+1], argv++);
 			x->output_len++;
 		}*/
 		
-		outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-2, &x->output[2]);
+		outlet_anything(x->outlets[k_outlet_thru], msg, 0, &x->output[2]);
 		return_send_feedback(x);
 	}
 }
@@ -453,12 +455,13 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			return_int(x, atom_getlong(argv));
 		}
 	else
-		if (x->common.attr_type == jps_string){			
-			return_symbol(x, msg, 1, argv);
+		if (x->common.attr_type == jps_string){					
+			return_symbol(x, msg, 0, argv);
 		}
 	else { //if (x->common.attr_type == jps_array){
 		if (argv[0].a_type == A_SYM){ //otherwise we get for lists starting with a symbol a wrong output a k_outlet_thru
-			offset++; 
+			offset++; 	
+			argc++;		
 		}
 			
 			
@@ -474,8 +477,8 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 		}
 		
 		x->output_len = i;
-		x->input_len = x->output_len-offset;	
-		outlet_anything(x->outlets[k_outlet_thru], msg, x->input_len, &x->output[offset]);
+		x->input_len = x->output_len-1;
+		outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-offset, &x->output[offset]);
 		return_send_feedback(x);
 	}	
 }
