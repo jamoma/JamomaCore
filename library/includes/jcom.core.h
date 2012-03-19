@@ -101,7 +101,7 @@ bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2);
 
 /** Utility for writing newline terminated text to a file with the Max API.
  */ 
-void jcom_core_file_writeline(t_filehandle *fh, long *the_eof, char *the_text);
+void jcom_core_file_writeline(t_filehandle *fh, long *the_eof, const char *the_text);
 
 
 /** Compares two strings.
