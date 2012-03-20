@@ -6,26 +6,40 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		A7FD86251518999400FAD6D7 /* jcom.route.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.route.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		A72D873215188DFD001DA7C1 = {
 			isa = PBXGroup;
 			children = (
+				A7FD86241518998800FAD6D7 /* Sources */,
 			);
+			sourceTree = "<group>";
+		};
+		A7FD86241518998800FAD6D7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A7FD86251518999400FAD6D7 /* jcom.route.cpp */,
+			);
+			name = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		A72D873915188DFF001DA7C1 /* jcom */ = {
+		A72D873915188DFF001DA7C1 /* jcom.route */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom" */;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom.route" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = jcom;
+			name = jcom.route;
 			passBuildSettingsInEnvironment = 1;
 			productName = jcom;
 		};
@@ -38,7 +52,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
-			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom" */;
+			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.route" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -49,7 +63,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A72D873915188DFF001DA7C1 /* jcom */,
+				A72D873915188DFF001DA7C1 /* jcom.route */,
 			);
 		};
 /* End PBXProject section */
@@ -110,7 +124,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = jcom.route;
 			};
 			name = Debug;
 		};
@@ -119,14 +133,14 @@
 			buildSettings = {
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = jcom.route;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom" */ = {
+		A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.route" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A72D873A15188DFF001DA7C1 /* Debug */,
@@ -135,13 +149,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom" */ = {
+		A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom.route" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A72D873D15188DFF001DA7C1 /* Debug */,
 				A72D873E15188DFF001DA7C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
