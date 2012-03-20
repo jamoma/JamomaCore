@@ -798,6 +798,16 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	
 	if (!filterList->isEmpty()) {
 		
+		// get object
+		anObject = n->getObject();
+		
+		// a node without object is excluded
+		if (!anObject)
+			return NO;
+		
+		// get address
+		n->getAddress(&anAddress, kTTAdrsRoot);
+		
 		// for each filter name
 		for (filterList->begin(); filterList->end(); filterList->next()) {
 			
@@ -813,13 +823,6 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 			// TEST FILTER : the result is YES if the node have to be in the result
 			if (!err) {
 				
-				// get object
-				anObject = n->getObject();
-				
-				// a node without object is excluded
-				if (!anObject)
-					return NO;
-				
 				// local declarations for the test
 				TTBoolean resultObject = YES;
 				TTBoolean resultAttribute = YES;
@@ -832,9 +835,6 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				TTRegexPtr aRegex;
 				TTString s_toParse;
 				TTRegexStringPosition begin, end;
-				
-				// get address
-				n->getAddress(&anAddress, kTTAdrsRoot);
 				
 				// get filter
 				v.get(0, (TTPtr*)&aFilter);
@@ -961,7 +961,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 			
 			// the mode of the first filter precises if we start 
 			// from a full set (E : default result is YES) or 
-			// from an empty set (ø : : default result is NO)
+			// from an empty set (ø : default result is NO)
 			if (firstFilter) {
 				if (filterMode == kTTSym_include)
 					result = NO;					// a node isn't into the result by default (and resultFilter have to be YES to keep it)
@@ -971,7 +971,6 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					result = YES;					// a node is into the result by default (and resultFilter have to be NO to keep it)
 				else if (filterMode == TT("hamlet"))
 					result = NO;					// a node isn't into the result by default (and resultFilter have to be NO to keep it)
-				
 				
 				firstFilter = NO;					// the next filter will not be a first filter anymore...
 			}
