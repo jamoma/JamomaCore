@@ -6,40 +6,26 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXFileReference section */
-		A704D8AB1518920A003B78A9 /* jcom.loader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.loader.cpp; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
 /* Begin PBXGroup section */
-		A704D8AA151891FF003B78A9 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A704D8AB1518920A003B78A9 /* jcom.loader.cpp */,
-			);
-			name = Sources;
-			sourceTree = "<group>";
-		};
 		A72D873215188DFD001DA7C1 = {
 			isa = PBXGroup;
 			children = (
-				A704D8AA151891FF003B78A9 /* Sources */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		A72D873915188DFF001DA7C1 /* jcom.loader */ = {
+		A72D873915188DFF001DA7C1 /* jcom */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
-			buildConfigurationList = A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom.loader" */;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = jcom.loader;
+			name = jcom;
 			passBuildSettingsInEnvironment = 1;
 			productName = jcom;
 		};
@@ -52,7 +38,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
-			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.loader" */;
+			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -63,7 +49,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A72D873915188DFF001DA7C1 /* jcom.loader */,
+				A72D873915188DFF001DA7C1 /* jcom */,
 			);
 		};
 /* End PBXProject section */
@@ -124,7 +110,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = jcom.loader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -133,14 +119,14 @@
 			buildSettings = {
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = jcom.loader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.loader" */ = {
+		A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A72D873A15188DFF001DA7C1 /* Debug */,
@@ -149,14 +135,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom.loader" */ = {
+		A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A72D873D15188DFF001DA7C1 /* Debug */,
 				A72D873E15188DFF001DA7C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
