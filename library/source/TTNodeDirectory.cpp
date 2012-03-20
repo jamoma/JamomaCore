@@ -784,13 +784,13 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTValuePtr		argsValue = (TTValuePtr)args;
 	TTHashPtr		filterBank;
 	TTListPtr		filterList;
-	TTSymbolPtr		aFilterName;
+	TTSymbolPtr		aFilterName, filterMode;
 	TTDictionaryPtr aFilter;
 	TTObjectPtr		anObject;
 	TTNodeAddressPtr anAddress;
 	TTValue			v;
 	TTBoolean		resultFilter, result;
-	TTBoolean		include, firstFilter = YES;
+	TTBoolean		firstFilter = YES;
 	TTErr			err;
 	
 	argsValue->get(0, (TTPtr*)&filterBank);
@@ -801,11 +801,8 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 		// for each filter name
 		for (filterList->begin(); filterList->end(); filterList->next()) {
 			
-			// by default a filter excludes nodes
-			include = NO;
-			
-			// by default a filter test fails
-			resultFilter = NO;						
+			// if no filter all nodes are included in the result
+			filterMode = kTTSym_include;
 			
 			// get the next filter name from the list
 			// and get it from the bank
@@ -813,27 +810,17 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 			filterList->current().get(0, &aFilterName);
 			err = filterBank->lookup(aFilterName, v);
 			
+			// TEST FILTER : the result is YES if the node have to be in the result
 			if (!err) {
 				
-				v.get(0, (TTPtr*)&aFilter);
+				// get object
+				anObject = n->getObject();
 				
-				// Filter mode key :
-				//		- in default exclusion mode, if one field of a filter matches a node, this node is excluded.
-				//		- in inclusion mode, if all fields of a filter match a node, this node is included.
-				if (!aFilter->lookup(kTTSym_mode, v)) {
-					
-					TTSymbolPtr modeFilter;
-					v.get(0, &modeFilter);
-					
-					if (modeFilter == kTTSym_exclusion)
-						include = NO;
-					
-					else if (modeFilter == kTTSym_inclusion)
-						include = YES;
-					
-				}
+				// a node without object is excluded
+				if (!anObject)
+					return NO;
 				
-				// TEST FILTER
+				// local declarations for the test
 				TTBoolean resultObject = YES;
 				TTBoolean resultAttribute = YES;
 				TTBoolean resultValue = YES;
@@ -845,16 +832,18 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				TTRegexPtr aRegex;
 				TTString s_toParse;
 				TTRegexStringPosition begin, end;
-					
-				// get object
-				anObject = n->getObject();
 				
 				// get address
 				n->getAddress(&anAddress, kTTAdrsRoot);
 				
-				// a node without object is excluded
-				if (!anObject)
-					return NO;
+				// get filter
+				v.get(0, (TTPtr*)&aFilter);
+				
+				// get filter mode :
+				//		- in default exclusion mode, if one field of a filter matches a node, this node is excluded.
+				//		- in inclusion mode, if all fields of a filter match a node, this node is included.
+				if (!aFilter->lookup(kTTSym_mode, v))
+					v.get(0, &filterMode);
 				
 				// test object name
 				if (!aFilter->lookup(kTTSym_object, v)) {
@@ -969,18 +958,35 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				// process the filter statement
 				resultFilter = resultObject && resultAttribute && resultValue && resultPart && resultParent && resultName && resultInstance;
 			}
-			 
-			// the default result is NO if the first filter is in inclusion
+			
+			// the mode of the first filter precises if we start 
+			// from a full set (E : default result is YES) or 
+			// from an empty set (ø : : default result is NO)
 			if (firstFilter) {
-				result = !include;
-				firstFilter = NO;
+				if (filterMode == kTTSym_include)
+					result = NO;					// a node isn't into the result by default (and resultFilter have to be YES to keep it)
+				else if (filterMode == kTTSym_restrict)
+					result = YES;					// a node is into the result by default (and resultFilter have to be YES to keep it)
+				else if (filterMode == kTTSym_exclude)
+					result = YES;					// a node is into the result by default (and resultFilter have to be NO to keep it)
+				else if (filterMode == TT("hamlet"))
+					result = NO;					// a node isn't into the result by default (and resultFilter have to be NO to keep it)
+				
+				
+				firstFilter = NO;					// the next filter will not be a first filter anymore...
 			}
 			
-			// propagate the resultFilter to the final result depending on the filter mode
-			if (include)
-				result = result || resultFilter;
-			else
-				result = result && !resultFilter;
+			// propagate the resultFilter to the 
+			// final result depending on the filter mode
+			if (filterMode == kTTSym_include)
+				result = result || resultFilter;	// keep the node if it matches this filter (what ever the first filters)
+			else if (filterMode == kTTSym_restrict)
+				result = result & resultFilter;		// keep the node if it matches this filter (and matches the first filters)
+			else if (filterMode == kTTSym_exclude)
+				result = result & !resultFilter;	// keep the node if it doesn't matches this filter (and matches the first filters)
+			else if (filterMode == TT("hamlet"))
+				result = result || !resultFilter;	// keep the node if it doesn't match this filter (what ever the first filters)
+			
 		}
 	}
 	// if the filter list is empty return YES

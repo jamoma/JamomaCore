@@ -214,7 +214,7 @@ TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						A TTValuePtr containing a TTHashPtr (the bank) and a TTListPtr (the name of the filter)
- @return							true if the node matches all filters */
+ @return							true if the node have to be include in the result */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingFilter(TTNodePtr n, TTPtr args);
 
 #endif // __TT_NODE_DIRECTORY_H__
