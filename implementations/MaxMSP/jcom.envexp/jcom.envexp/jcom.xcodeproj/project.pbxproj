@@ -6,76 +6,56 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXFileReference section */
-		A75C3DF81518891E00774BD7 /* dbap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dbap.h; sourceTree = "<group>"; };
-		A75C3DF91518891E00774BD7 /* hull2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hull2D.cpp; sourceTree = "<group>"; };
-		A75C3DFA1518891E00774BD7 /* hull2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hull2D.h; sourceTree = "<group>"; };
-		A75C3DFB1518891E00774BD7 /* jcom.dbap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.dbap.cpp; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
 /* Begin PBXGroup section */
-		A75C3DE6151888C000774BD7 = {
+		A7D5FC4B15188AF500B3F1CC = {
 			isa = PBXGroup;
 			children = (
-				A75C3DF71518890500774BD7 /* Sources */,
 			);
-			sourceTree = "<group>";
-		};
-		A75C3DF71518890500774BD7 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A75C3DF81518891E00774BD7 /* dbap.h */,
-				A75C3DFB1518891E00774BD7 /* jcom.dbap.cpp */,
-				A75C3DF91518891E00774BD7 /* hull2D.cpp */,
-				A75C3DFA1518891E00774BD7 /* hull2D.h */,
-			);
-			name = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		A75C3DED151888C100774BD7 /* jcom.dbap */ = {
+		A7D5FC5215188AF500B3F1CC /* jcom */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
-			buildConfigurationList = A75C3DF0151888C100774BD7 /* Build configuration list for PBXLegacyTarget "jcom.dbap" */;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = A7D5FC5515188AF500B3F1CC /* Build configuration list for PBXLegacyTarget "jcom" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = jcom.dbap;
+			name = jcom;
 			passBuildSettingsInEnvironment = 1;
 			productName = jcom;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		A75C3DE8151888C000774BD7 /* Project object */ = {
+		A7D5FC4D15188AF500B3F1CC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
-			buildConfigurationList = A75C3DEB151888C000774BD7 /* Build configuration list for PBXProject "jcom.dbap" */;
+			buildConfigurationList = A7D5FC5015188AF500B3F1CC /* Build configuration list for PBXProject "jcom" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = A75C3DE6151888C000774BD7;
+			mainGroup = A7D5FC4B15188AF500B3F1CC;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A75C3DED151888C100774BD7 /* jcom.dbap */,
+				A7D5FC5215188AF500B3F1CC /* jcom */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		A75C3DEE151888C100774BD7 /* Debug */ = {
+		A7D5FC5315188AF500B3F1CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -102,7 +82,7 @@
 			};
 			name = Debug;
 		};
-		A75C3DEF151888C100774BD7 /* Release */ = {
+		A7D5FC5415188AF500B3F1CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -122,7 +102,7 @@
 			};
 			name = Release;
 		};
-		A75C3DF1151888C100774BD7 /* Debug */ = {
+		A7D5FC5615188AF500B3F1CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUGGING_SYMBOLS = YES;
@@ -130,41 +110,40 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = jcom.dbap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		A75C3DF2151888C100774BD7 /* Release */ = {
+		A7D5FC5715188AF500B3F1CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = jcom.dbap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A75C3DEB151888C000774BD7 /* Build configuration list for PBXProject "jcom.dbap" */ = {
+		A7D5FC5015188AF500B3F1CC /* Build configuration list for PBXProject "jcom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A75C3DEE151888C100774BD7 /* Debug */,
-				A75C3DEF151888C100774BD7 /* Release */,
+				A7D5FC5315188AF500B3F1CC /* Debug */,
+				A7D5FC5415188AF500B3F1CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A75C3DF0151888C100774BD7 /* Build configuration list for PBXLegacyTarget "jcom.dbap" */ = {
+		A7D5FC5515188AF500B3F1CC /* Build configuration list for PBXLegacyTarget "jcom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A75C3DF1151888C100774BD7 /* Debug */,
-				A75C3DF2151888C100774BD7 /* Release */,
+				A7D5FC5615188AF500B3F1CC /* Debug */,
+				A7D5FC5715188AF500B3F1CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A75C3DE8151888C000774BD7 /* Project object */;
+	rootObject = A7D5FC4D15188AF500B3F1CC /* Project object */;
 }
