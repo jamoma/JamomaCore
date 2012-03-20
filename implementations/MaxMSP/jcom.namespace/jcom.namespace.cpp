@@ -226,7 +226,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// prepare umenu prefix 
 			if (address->getName() == S_SEPARATOR)
-				atom_setsym(a, gensym((char*)address->getCString()));
+				atom_setsym(a, gensym(address->getName()->getCString()));
 			else {
 				TTString prefix = address->getCString();
 				
@@ -250,7 +250,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		for (long i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
-			if(output == kTTSym_attributes)
+			if (output == kTTSym_descendants && address->getName() == S_SEPARATOR)
+				s = gensym(s->s_name+1); // remove the / in this case
+			
+			if (output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
 			if (output == kTTSym_brothers && s == _sym_nothing)

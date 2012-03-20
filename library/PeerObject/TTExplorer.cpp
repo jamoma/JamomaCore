@@ -51,6 +51,8 @@ mLastResult(kTTValNONE)
 	addMessageWithArguments(WriteAsOpml);
 	addMessageProperty(WriteAsOpml, hidden, YES);
 	
+	mDirectory = getLocalDirectory;
+	
 	mFilterList = new TTList();
 	mResult = new TTHash();
 }
@@ -126,10 +128,8 @@ TTErr TTExplorer::setSort(const TTValue& value)
 	if (mSort == oldSort)
 		return kTTErrNone;
 	
-	if (mSort == kTTSym_none || mSort == kTTSym_alphabetic || mSort == kTTSym_priority) {
-		Explore();
+	if (mSort == kTTSym_none || mSort == kTTSym_alphabetic || mSort == kTTSym_priority)
 		return kTTErrNone;
-	}
 	else
 		return kTTErrGeneric;
 }
@@ -267,7 +267,7 @@ TTErr TTExplorer::Explore()
 			args.append((TTPtr)mFilterList);
 			
 			// explore
-			// TODO : for the children case, we should avoid exploration below
+			// TODO : for the children and brothers case, we should avoid exploration below the first level
 			mDirectory->LookFor(&aNodeList, testNodeUsingFilter, (TTPtr)&args, allObjectNodes, &aNode);
 			
 			// memorized the result in a hash table (the node is stored in order to sort the result)
@@ -275,23 +275,42 @@ TTErr TTExplorer::Explore()
 				
 				allObjectNodes.current().get(0, (TTPtr*)&aNode);
 				
-				if (mOutput == kTTSym_brothers)
-					aNode->getAddress(&relativeAddress, mAddress->getParent());
-				else
+				// children case :
+				if (mOutput == kTTSym_children){
+					
 					aNode->getAddress(&relativeAddress, mAddress);
+					
+					// ignore address with a parent part
+					if (relativeAddress->getParent() != kTTAdrsEmpty)
+						continue;
+					
+					mResult->append(relativeAddress, TTValue((TTPtr)aNode));
+				}
 				
-				// children or brothers case : ignore address with a parent part
-				// TODO : for the children and brothers case, we should avoid exploration below the first level
-				if ((mOutput == kTTSym_children || mOutput == kTTSym_brothers) && relativeAddress->getParent() != kTTAdrsEmpty)
-					continue;
-				
-				// brothers case : store only the relative address for node with the same name
-				if (mOutput == kTTSym_brothers) {
+				// brothers case : 
+				else if (mOutput == kTTSym_brothers) {
+					
+					aNode->getAddress(&relativeAddress, mAddress->getParent());
+					
+					// ignore address with a parent part
+					if (relativeAddress->getParent() != kTTAdrsEmpty)
+						continue;
+					
+					// store only the relative address for node with the same name
 					if (mAddress->getName() == relativeAddress->getName())
 						mResult->append(relativeAddress, TTValue((TTPtr)aNode));
 				}
-				// any other case : store the relative address
-				else mResult->append(relativeAddress, TTValue((TTPtr)aNode));
+				
+				// any other case : store the address
+				else {
+					
+					if (mAddress == kTTAdrsRoot)
+						aNode->getAddress(&relativeAddress);
+					else
+						aNode->getAddress(&relativeAddress, mAddress);
+					
+					mResult->append(relativeAddress, TTValue((TTPtr)aNode));
+				}
 			}
 		}
 		
@@ -385,6 +404,11 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 		mFilterList->remove(filterName);
 		
 		return kTTErrNone;
+	}
+	// remove all
+	else {
+		delete mFilterList;
+		mFilterList = new TTList();
 	}
 	
 	return kTTErrGeneric;
