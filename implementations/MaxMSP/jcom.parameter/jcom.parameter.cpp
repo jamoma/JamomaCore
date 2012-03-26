@@ -1836,7 +1836,7 @@ void param_ramp_callback_float(void *v, long, double *value)
 void param_ramp_callback_int(void *v, long, double *value)
 {
 	t_param	*x= (t_param *)v;
-	long	val	= *value;
+	long	val	= round(*value);
 	long	oldval;
 
 	oldval = atom_getlong(&x->attr_value);
