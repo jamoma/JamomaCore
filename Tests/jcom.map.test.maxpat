@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 5
 		}
 ,
 		"rect" : [ 341.0, 151.0, 796.0, 482.0 ],
@@ -30,10 +30,39 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-6",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 337.0, 356.0, 150.0, 43.0 ],
+					"text" : "the order of params is not deterministic, therefore we sort the results"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 282.0, 356.0, 55.0, 20.0 ],
+					"text" : "zl sort"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-24",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 570.333313, 356.0, 206.5, 43.0 ],
 					"text" : "test.assert.equal jcom.map:method:functions.get clear cosine exponential linear logarithm"
@@ -105,7 +134,7 @@
 					"id" : "obj-27",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 383.0, 281.857117, 180.0, 43.0 ],
 					"text" : "test.assert.equal jcom.map:method:parameter.get symmetry none"
@@ -228,12 +257,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-14",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 282.0, 356.0, 215.0, 43.0 ],
-					"text" : "test.assert.equal jcom.map:method:parameters.get clear append symmetry append powerValue"
+					"patching_rect" : [ 282.0, 399.0, 184.0, 55.0 ],
+					"text" : "test.assert.equal jcom.map:method:parameters.get append append clear powerValue symmetry"
 				}
 
 			}
@@ -265,7 +294,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 44.0, 74.0, 600.0, 426.0 ],
@@ -326,16 +355,16 @@
 ,
 					"patching_rect" : [ 145.0, 180.0, 46.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"tags" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"tags" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p thru"
@@ -377,7 +406,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
+					"destination" : [ "obj-3", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-13", 0 ]
@@ -416,7 +445,7 @@
 					"destination" : [ "obj-19", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-15", 2 ]
+					"source" : [ "obj-15", 3 ]
 				}
 
 			}
@@ -434,7 +463,6 @@
 					"destination" : [ "obj-8", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 82.5, 145.0, 82.5, 145.0 ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -490,6 +518,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
@@ -558,6 +595,20 @@
 			}
  ],
 		"dependency_cache" : [ 			{
+				"name" : "test.finished.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
+				"patcherrelativepath" : "../../Test/components",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "test.assert.equal.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
+				"patcherrelativepath" : "../../Test/components",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "jcom.map.mxo",
 				"type" : "iLaX"
 			}
