@@ -81,7 +81,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 805.599976, 284.0, 194.0, 43.0 ],
+									"patching_rect" : [ 805.599976, 284.0, 197.0, 43.0 ],
 									"text" : "test.assert.equal TEST/dataspace/message/dataspace angle"
 								}
 
@@ -579,16 +579,16 @@
 ,
 					"patching_rect" : [ 223.75, 210.0, 117.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"tags" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p getMessageTest"
@@ -605,7 +605,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 170.0, 68.0, 19.0 ],
-					"text" : "loadmess 0"
+					"text" : "loadmess 2"
 				}
 
 			}
@@ -863,16 +863,16 @@
 ,
 					"patching_rect" : [ 240.0, 425.0, 104.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"tags" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p DealingWithLists"
@@ -1823,16 +1823,16 @@
 ,
 					"patching_rect" : [ 471.25, 210.0, 118.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"tags" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p ColorDataspaceTest"
@@ -2701,16 +2701,16 @@
 ,
 					"patching_rect" : [ 347.5, 210.0, 117.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"tags" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p TimeDataspaceTest"
@@ -3102,16 +3102,16 @@
 ,
 					"patching_rect" : [ 595.0, 210.0, 147.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 10.0,
 						"description" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"tags" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p test_units_are_nonsense"
