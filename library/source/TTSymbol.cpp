@@ -41,10 +41,12 @@ void TTSymbol::init(const TTString& newString, TTInt32 newId)
 }
 
 
+#ifdef LIVE_DANGEROUSLY
 const TTString TTSymbol::getString()
 {
 	return theString;
 }
+#endif
 
 
 const char* TTSymbol::getCString()

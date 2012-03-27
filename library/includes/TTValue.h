@@ -919,7 +919,7 @@ public:
 						str->append("0");
 					break;
 				case kTypeSymbol:
-					str->append(data[i].sym->getString());
+					str->append(data[i].sym->getCString());
 					break;
 				case kTypeString:
 					str->append(*data[i].stringPtr);
