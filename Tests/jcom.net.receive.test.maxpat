@@ -30,6 +30,20 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 120.0, 126.0, 54.0, 19.0 ],
+					"text" : "del 2000"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -176,7 +190,7 @@
 									"id" : "obj-4",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 2,
+									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 872.0, 248.0, 190.0, 43.0 ],
 									"text" : "test.assert.equal TESTnet.receive:TCP:string \"this is jamoma\" @issue 1110"
@@ -248,7 +262,7 @@
 									"id" : "obj-29",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 2,
+									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 666.5, 248.0, 190.0, 43.0 ],
 									"text" : "test.assert.equal TESTnet.receive:TCP:symbol jamoma @issue 1110"
@@ -320,7 +334,7 @@
 									"id" : "obj-22",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 2,
+									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 461.0, 248.0, 202.0, 43.0 ],
 									"text" : "test.assert.equal TESTnet.receive:TCP:decimal 123.45 @issue 1110"
@@ -392,7 +406,7 @@
 									"id" : "obj-15",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 2,
+									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 257.0, 248.0, 160.0, 43.0 ],
 									"text" : "test.assert.equal TESTnet.receive:TCP:int 123 @issue 1110"
@@ -661,12 +675,6 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
 								"name" : "jcom.net.send.mxo",
 								"type" : "iLaX"
 							}
@@ -677,18 +685,18 @@
  ]
 					}
 ,
-					"patching_rect" : [ 120.0, 107.0, 39.0, 19.0 ],
+					"patching_rect" : [ 120.0, 102.0, 39.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"digest" : "",
 						"default_fontname" : "Arial",
-						"fontface" : 0,
-						"fontsize" : 12.0,
+						"fontname" : "Arial",
+						"tags" : "",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"tags" : "",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"digest" : ""
 					}
 ,
 					"text" : "p TCP"
@@ -865,7 +873,7 @@
 									"id" : "obj-4",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 2,
+									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 872.0, 248.0, 190.0, 43.0 ],
 									"text" : "test.assert.equal TESTnet.receive:UDP:string \"this is jamoma\" @issue 1044"
@@ -937,7 +945,7 @@
 									"id" : "obj-29",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 2,
+									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 666.5, 248.0, 190.0, 43.0 ],
 									"text" : "test.assert.equal TESTnet.receive:UDP:symbol jamoma @issue 1044"
@@ -1009,7 +1017,7 @@
 									"id" : "obj-22",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 2,
+									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 461.0, 248.0, 192.0, 43.0 ],
 									"text" : "test.assert.equal TESTnet.receive:UDP:decimal 123.45 @issue 1044"
@@ -1081,7 +1089,7 @@
 									"id" : "obj-15",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 2,
+									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 257.0, 248.0, 148.0, 43.0 ],
 									"text" : "test.assert.equal TESTnet.receive:UDP:int 123 @issue 1044"
@@ -1350,12 +1358,6 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
 								"name" : "jcom.net.send.mxo",
 								"type" : "iLaX"
 							}
@@ -1368,16 +1370,16 @@
 ,
 					"patching_rect" : [ 120.0, 77.0, 41.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"digest" : "",
 						"default_fontname" : "Arial",
-						"fontface" : 0,
-						"fontsize" : 12.0,
+						"fontname" : "Arial",
+						"tags" : "",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"tags" : "",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"digest" : ""
 					}
 ,
 					"text" : "p UDP"
@@ -1478,10 +1480,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-3", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
@@ -1541,20 +1552,6 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "test.finished.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-				"patcherrelativepath" : "../../Test/components",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "test.assert.equal.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-				"patcherrelativepath" : "../../Test/components",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "jcom.net.send.mxo",
 				"type" : "iLaX"
 			}
