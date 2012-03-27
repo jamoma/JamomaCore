@@ -61,9 +61,11 @@ public:
 	/** Copy Constructor */
 	TTSymbol(const TTSymbol& oldSymbol);
 
+#ifdef LIVE_DANGEROUSLY
 	/**	Return a pointer to the internal string. */
 	const TTString getString();
-
+#endif
+	
 	/**	Return a pointer to the internal string as a C-string. */
 	const char* getCString();
 	
@@ -86,11 +88,13 @@ public:
 		return theString.c_str();
 	}
 	
+#ifdef LIVE_DANGEROUSLY
 	/** Cast a symbol to a std::string. */
 	operator TTString() const
 	{
 		return theString;
 	}
+#endif
 };
 
 
