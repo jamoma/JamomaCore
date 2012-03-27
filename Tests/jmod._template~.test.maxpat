@@ -78,7 +78,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"outlettype" : [ "", "bang", "bang" ],
 					"patching_rect" : [ 115.0, 60.0, 87.0, 19.0 ],
 					"text" : "test.start"
 				}
@@ -222,7 +222,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 425.0, 390.0, 99.0, 17.0 ],
-					"text" : "/audio/bypass 0"
+					"text" : "/audio/gain 86.64"
 				}
 
 			}
@@ -286,7 +286,7 @@
 					"fontsize" : 10.0,
 					"id" : "obj-16",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 65.0, 400.0, 172.0, 19.0 ],
 					"text" : "test.assert.equal NoMaxErrors 0"
@@ -367,7 +367,7 @@
 					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 425.0, 555.0, 236.0, 19.0 ],
 					"text" : "test.assert.equal correctGainConversionDb 1"
@@ -429,6 +429,15 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-13", 3 ],
 					"disabled" : 0,
@@ -652,28 +661,49 @@
 		"dependency_cache" : [ 			{
 				"name" : "jmod._template~.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/audio/_template~",
-				"patcherrelativepath" : "",
+				"patcherrelativepath" : "../Max/modules/audio/_template~",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jalg._template~.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/audio/_template~",
-				"patcherrelativepath" : "",
+				"patcherrelativepath" : "../Max/modules/audio/_template~",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.meter_receive.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/meter_receive",
-				"patcherrelativepath" : "../../../library/components/meter_receive",
+				"patcherrelativepath" : "../Max/library/components/meter_receive",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.parameterCreate.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/parameterCreate",
-				"patcherrelativepath" : "../../../library/components/parameterCreate",
+				"patcherrelativepath" : "../Max/library/components/parameterCreate",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "test.assert.equal.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
+				"patcherrelativepath" : "../../Test/components",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "test.finished.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
+				"patcherrelativepath" : "../../Test/components",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "test.start.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
+				"patcherrelativepath" : "../../Test/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
