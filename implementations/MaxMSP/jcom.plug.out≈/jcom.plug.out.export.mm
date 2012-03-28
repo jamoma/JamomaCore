@@ -81,7 +81,7 @@ public:
 					content += "		TTObjectInstantiate(TT(\"graph.object\"), (TTObjectPtr*)&";
 					content += objName;
 					content += ", TTValue(TT(\"";
-					content += mClassName->getString();
+					content += mClassName->getCString();
 					content += "\")));\n";
 					
 					if (mClassName == TT("plugtastic.parameter")) {
@@ -111,14 +111,14 @@ public:
 							content += "		";
 							content += objName;
 							content += "->mKernel->setAttributeValue(TT(\"";
-							content += attributeName->getString();
+							content += attributeName->getCString();
 							content += "\"), ";
 							if (attributeValue.getType() == kTypeSymbol) {
 								TTSymbolPtr	attributeValueSymbol;
 								
 								attributeValue.get(0, &attributeValueSymbol);
 								attributeValueString = "TT(\"";
-								attributeValueString += attributeValueSymbol->getString();
+								attributeValueString += attributeValueSymbol->getCString();
 								attributeValueString += "\")";
 							}
 							else if (attributeValue.getSize() > 1) {
@@ -202,7 +202,7 @@ public:
 				if (isPlugtasticInput)
 					content += "audio.generator";
 				else
-					content += mClassName->getString();
+					content += mClassName->getCString();
 				content += "\"));\n";
 
 				content += "		audioObjectArguments.set(1, ";
@@ -266,7 +266,7 @@ public:
 						content += "		";
 						content += objName;
 						content += "->mKernel->setAttributeValue(TT(\"";
-						content += attributeName->getString();
+						content += attributeName->getCString();
 						content += "\"), ";
 						if (isArray)
 							attributeValueString = "v";
@@ -275,7 +275,7 @@ public:
 							
 							attributeValue.get(0, &attributeValueSymbol);
 							attributeValueString = "TT(\"";
-							attributeValueString += attributeValueSymbol->getString();
+							attributeValueString += attributeValueSymbol->getCString();
 							attributeValueString += "\")";
 						}
 						else {
