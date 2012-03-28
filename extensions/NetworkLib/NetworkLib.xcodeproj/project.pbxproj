@@ -6,415 +6,146 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		2232875D11F4EC360076C498 /* NetworkLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232875C11F4EC360076C498 /* NetworkLib.cpp */; };
-		2232876211F4EC4A0076C498 /* TTNetReceive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232875E11F4EC4A0076C498 /* TTNetReceive.cpp */; };
-		2232876311F4EC4A0076C498 /* TTNetReceive.h in Headers */ = {isa = PBXBuildFile; fileRef = 2232875F11F4EC4A0076C498 /* TTNetReceive.h */; };
-		2232876411F4EC4A0076C498 /* TTNetSend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232876011F4EC4A0076C498 /* TTNetSend.cpp */; };
-		2232876511F4EC4A0076C498 /* TTNetSend.h in Headers */ = {isa = PBXBuildFile; fileRef = 2232876111F4EC4A0076C498 /* TTNetSend.h */; };
-		22CDFE0611FC9C30006664CD /* TTNetSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CDFE0511FC9C30006664CD /* TTNetSocket.cpp */; };
-		22FA62F011E21EAA0097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */; };
-		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
-		D2C0269C13D353180037E368 /* TTOscSend.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C0269813D353180037E368 /* TTOscSend.h */; };
-		D2C0269D13D353180037E368 /* TTOscSend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C0269913D353180037E368 /* TTOscSend.cpp */; };
-		D2C0269E13D353180037E368 /* TTOscReceive.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C0269A13D353180037E368 /* TTOscReceive.h */; };
-		D2C0269F13D353180037E368 /* TTOscReceive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C0269B13D353180037E368 /* TTOscReceive.cpp */; };
-		D2C026B713D3558B0037E368 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C026A213D3558B0037E368 /* IpEndpointName.cpp */; };
-		D2C026B813D3558B0037E368 /* IpEndpointName.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026A313D3558B0037E368 /* IpEndpointName.h */; };
-		D2C026B913D3558B0037E368 /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C026A413D3558B0037E368 /* NetworkingUtils.cpp */; };
-		D2C026BA13D3558B0037E368 /* NetworkingUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026A513D3558B0037E368 /* NetworkingUtils.h */; };
-		D2C026BB13D3558B0037E368 /* PacketListener.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026A613D3558B0037E368 /* PacketListener.h */; };
-		D2C026BC13D3558B0037E368 /* TimerListener.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026A713D3558B0037E368 /* TimerListener.h */; };
-		D2C026BD13D3558B0037E368 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C026A813D3558B0037E368 /* UdpSocket.cpp */; };
-		D2C026BE13D3558B0037E368 /* UdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026A913D3558B0037E368 /* UdpSocket.h */; };
-		D2C026BF13D3558B0037E368 /* MessageMappingOscPacketListener.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026AB13D3558B0037E368 /* MessageMappingOscPacketListener.h */; };
-		D2C026C013D3558B0037E368 /* OscException.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026AC13D3558B0037E368 /* OscException.h */; };
-		D2C026C113D3558B0037E368 /* OscHostEndianness.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026AD13D3558B0037E368 /* OscHostEndianness.h */; };
-		D2C026C213D3558B0037E368 /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C026AE13D3558B0037E368 /* OscOutboundPacketStream.cpp */; };
-		D2C026C313D3558B0037E368 /* OscOutboundPacketStream.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026AF13D3558B0037E368 /* OscOutboundPacketStream.h */; };
-		D2C026C413D3558B0037E368 /* OscPacketListener.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026B013D3558B0037E368 /* OscPacketListener.h */; };
-		D2C026C513D3558B0037E368 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C026B113D3558B0037E368 /* OscPrintReceivedElements.cpp */; };
-		D2C026C613D3558B0037E368 /* OscPrintReceivedElements.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026B213D3558B0037E368 /* OscPrintReceivedElements.h */; };
-		D2C026C713D3558B0037E368 /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C026B313D3558B0037E368 /* OscReceivedElements.cpp */; };
-		D2C026C813D3558B0037E368 /* OscReceivedElements.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026B413D3558B0037E368 /* OscReceivedElements.h */; };
-		D2C026C913D3558B0037E368 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C026B513D3558B0037E368 /* OscTypes.cpp */; };
-		D2C026CA13D3558B0037E368 /* OscTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C026B613D3558B0037E368 /* OscTypes.h */; };
-		D2C0271C13D35D7B0037E368 /* TTOscSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C0271A13D35D7B0037E368 /* TTOscSocket.h */; };
-		D2C0271D13D35D7B0037E368 /* TTOscSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2C0271B13D35D7B0037E368 /* TTOscSocket.cpp */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXFileReference section */
-		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		2232875C11F4EC360076C498 /* NetworkLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLib.cpp; sourceTree = "<group>"; };
-		2232875E11F4EC4A0076C498 /* TTNetReceive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTNetReceive.cpp; sourceTree = "<group>"; };
-		2232875F11F4EC4A0076C498 /* TTNetReceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetReceive.h; sourceTree = "<group>"; };
-		2232876011F4EC4A0076C498 /* TTNetSend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTNetSend.cpp; sourceTree = "<group>"; };
-		2232876111F4EC4A0076C498 /* TTNetSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetSend.h; sourceTree = "<group>"; };
-		2232896011FBA5680076C498 /* TTNetSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetSocket.h; sourceTree = "<group>"; };
-		22CDFE0511FC9C30006664CD /* TTNetSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTNetSocket.cpp; sourceTree = "<group>"; };
-		22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
-		D2AAC09D05546B4700DB518D /* NetworkLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = NetworkLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2C0269813D353180037E368 /* TTOscSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOscSend.h; sourceTree = "<group>"; };
-		D2C0269913D353180037E368 /* TTOscSend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOscSend.cpp; sourceTree = "<group>"; };
-		D2C0269A13D353180037E368 /* TTOscReceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOscReceive.h; sourceTree = "<group>"; };
-		D2C0269B13D353180037E368 /* TTOscReceive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOscReceive.cpp; sourceTree = "<group>"; };
-		D2C026A213D3558B0037E368 /* IpEndpointName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
-		D2C026A313D3558B0037E368 /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
-		D2C026A413D3558B0037E368 /* NetworkingUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingUtils.cpp; sourceTree = "<group>"; };
-		D2C026A513D3558B0037E368 /* NetworkingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingUtils.h; sourceTree = "<group>"; };
-		D2C026A613D3558B0037E368 /* PacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketListener.h; sourceTree = "<group>"; };
-		D2C026A713D3558B0037E368 /* TimerListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerListener.h; sourceTree = "<group>"; };
-		D2C026A813D3558B0037E368 /* UdpSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UdpSocket.cpp; sourceTree = "<group>"; };
-		D2C026A913D3558B0037E368 /* UdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdpSocket.h; sourceTree = "<group>"; };
-		D2C026AB13D3558B0037E368 /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMappingOscPacketListener.h; sourceTree = "<group>"; };
-		D2C026AC13D3558B0037E368 /* OscException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscException.h; sourceTree = "<group>"; };
-		D2C026AD13D3558B0037E368 /* OscHostEndianness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscHostEndianness.h; sourceTree = "<group>"; };
-		D2C026AE13D3558B0037E368 /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscOutboundPacketStream.cpp; sourceTree = "<group>"; };
-		D2C026AF13D3558B0037E368 /* OscOutboundPacketStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscOutboundPacketStream.h; sourceTree = "<group>"; };
-		D2C026B013D3558B0037E368 /* OscPacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscPacketListener.h; sourceTree = "<group>"; };
-		D2C026B113D3558B0037E368 /* OscPrintReceivedElements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscPrintReceivedElements.cpp; sourceTree = "<group>"; };
-		D2C026B213D3558B0037E368 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscPrintReceivedElements.h; sourceTree = "<group>"; };
-		D2C026B313D3558B0037E368 /* OscReceivedElements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscReceivedElements.cpp; sourceTree = "<group>"; };
-		D2C026B413D3558B0037E368 /* OscReceivedElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscReceivedElements.h; sourceTree = "<group>"; };
-		D2C026B513D3558B0037E368 /* OscTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscTypes.cpp; sourceTree = "<group>"; };
-		D2C026B613D3558B0037E368 /* OscTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscTypes.h; sourceTree = "<group>"; };
-		D2C0271A13D35D7B0037E368 /* TTOscSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOscSocket.h; sourceTree = "<group>"; };
-		D2C0271B13D35D7B0037E368 /* TTOscSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOscSocket.cpp; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		D2AAC09B05546B4700DB518D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22FA62F011E21EAA0097F43B /* JamomaFoundation.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		034768DDFF38A45A11DB9C8B /* Products */ = {
+		A74952881523484300798834 = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* NetworkLib.ttdylib */,
 			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		0867D691FE84028FC02AAC07 /* TTFilterLib */ = {
-			isa = PBXGroup;
-			children = (
-				08FB77ACFE841707C02AAC07 /* Source */,
-				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
-				034768DDFF38A45A11DB9C8B /* Products */,
-			);
-			name = TTFilterLib;
-			sourceTree = "<group>";
-		};
-		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */,
-				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
-			);
-			name = "External Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		08FB77ACFE841707C02AAC07 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				2232875C11F4EC360076C498 /* NetworkLib.cpp */,
-				2217FAAA0E4F284D00806778 /* Filters */,
-				D2C0269113D353030037E368 /* Osc */,
-				D2C026A013D3558B0037E368 /* NetworkCommunication */,
-			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		2217FAAA0E4F284D00806778 /* Filters */ = {
-			isa = PBXGroup;
-			children = (
-				2232896011FBA5680076C498 /* TTNetSocket.h */,
-				22CDFE0511FC9C30006664CD /* TTNetSocket.cpp */,
-				2232875F11F4EC4A0076C498 /* TTNetReceive.h */,
-				2232875E11F4EC4A0076C498 /* TTNetReceive.cpp */,
-				2232876111F4EC4A0076C498 /* TTNetSend.h */,
-				2232876011F4EC4A0076C498 /* TTNetSend.cpp */,
-			);
-			name = Filters;
-			sourceTree = "<group>";
-		};
-		D2C0269113D353030037E368 /* Osc */ = {
-			isa = PBXGroup;
-			children = (
-				D2C0271A13D35D7B0037E368 /* TTOscSocket.h */,
-				D2C0271B13D35D7B0037E368 /* TTOscSocket.cpp */,
-				D2C0269813D353180037E368 /* TTOscSend.h */,
-				D2C0269913D353180037E368 /* TTOscSend.cpp */,
-				D2C0269A13D353180037E368 /* TTOscReceive.h */,
-				D2C0269B13D353180037E368 /* TTOscReceive.cpp */,
-			);
-			name = Osc;
-			sourceTree = "<group>";
-		};
-		D2C026A013D3558B0037E368 /* NetworkCommunication */ = {
-			isa = PBXGroup;
-			children = (
-				D2C026A113D3558B0037E368 /* ip */,
-				D2C026AA13D3558B0037E368 /* osc */,
-			);
-			path = NetworkCommunication;
-			sourceTree = "<group>";
-		};
-		D2C026A113D3558B0037E368 /* ip */ = {
-			isa = PBXGroup;
-			children = (
-				D2C026A213D3558B0037E368 /* IpEndpointName.cpp */,
-				D2C026A313D3558B0037E368 /* IpEndpointName.h */,
-				D2C026A413D3558B0037E368 /* NetworkingUtils.cpp */,
-				D2C026A513D3558B0037E368 /* NetworkingUtils.h */,
-				D2C026A613D3558B0037E368 /* PacketListener.h */,
-				D2C026A713D3558B0037E368 /* TimerListener.h */,
-				D2C026A813D3558B0037E368 /* UdpSocket.cpp */,
-				D2C026A913D3558B0037E368 /* UdpSocket.h */,
-			);
-			path = ip;
-			sourceTree = "<group>";
-		};
-		D2C026AA13D3558B0037E368 /* osc */ = {
-			isa = PBXGroup;
-			children = (
-				D2C026AB13D3558B0037E368 /* MessageMappingOscPacketListener.h */,
-				D2C026AC13D3558B0037E368 /* OscException.h */,
-				D2C026AD13D3558B0037E368 /* OscHostEndianness.h */,
-				D2C026AE13D3558B0037E368 /* OscOutboundPacketStream.cpp */,
-				D2C026AF13D3558B0037E368 /* OscOutboundPacketStream.h */,
-				D2C026B013D3558B0037E368 /* OscPacketListener.h */,
-				D2C026B113D3558B0037E368 /* OscPrintReceivedElements.cpp */,
-				D2C026B213D3558B0037E368 /* OscPrintReceivedElements.h */,
-				D2C026B313D3558B0037E368 /* OscReceivedElements.cpp */,
-				D2C026B413D3558B0037E368 /* OscReceivedElements.h */,
-				D2C026B513D3558B0037E368 /* OscTypes.cpp */,
-				D2C026B613D3558B0037E368 /* OscTypes.h */,
-			);
-			path = osc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D2AAC09905546B4700DB518D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2232876311F4EC4A0076C498 /* TTNetReceive.h in Headers */,
-				2232876511F4EC4A0076C498 /* TTNetSend.h in Headers */,
-				D2C0269C13D353180037E368 /* TTOscSend.h in Headers */,
-				D2C0269E13D353180037E368 /* TTOscReceive.h in Headers */,
-				D2C026B813D3558B0037E368 /* IpEndpointName.h in Headers */,
-				D2C026BA13D3558B0037E368 /* NetworkingUtils.h in Headers */,
-				D2C026BB13D3558B0037E368 /* PacketListener.h in Headers */,
-				D2C026BC13D3558B0037E368 /* TimerListener.h in Headers */,
-				D2C026BE13D3558B0037E368 /* UdpSocket.h in Headers */,
-				D2C026BF13D3558B0037E368 /* MessageMappingOscPacketListener.h in Headers */,
-				D2C026C013D3558B0037E368 /* OscException.h in Headers */,
-				D2C026C113D3558B0037E368 /* OscHostEndianness.h in Headers */,
-				D2C026C313D3558B0037E368 /* OscOutboundPacketStream.h in Headers */,
-				D2C026C413D3558B0037E368 /* OscPacketListener.h in Headers */,
-				D2C026C613D3558B0037E368 /* OscPrintReceivedElements.h in Headers */,
-				D2C026C813D3558B0037E368 /* OscReceivedElements.h in Headers */,
-				D2C026CA13D3558B0037E368 /* OscTypes.h in Headers */,
-				D2C0271C13D35D7B0037E368 /* TTOscSocket.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		D2AAC09C05546B4700DB518D /* NetworkLib */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "NetworkLib" */;
+/* Begin PBXLegacyTarget section */
+		A749528F1523484400798834 /* NetworkLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = A74952921523484400798834 /* Build configuration list for PBXLegacyTarget "NetworkLib" */;
 			buildPhases = (
-				D2AAC09905546B4700DB518D /* Headers */,
-				D2AAC09B05546B4700DB518D /* Frameworks */,
-				D2AAC09A05546B4700DB518D /* Sources */,
-				2217F9FF0E4E194400806778 /* ShellScript */,
 			);
-			buildRules = (
-			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = NetworkLib;
-			productName = TTFilterLib;
-			productReference = D2AAC09D05546B4700DB518D /* NetworkLib.ttdylib */;
-			productType = "com.apple.product-type.library.dynamic";
+			passBuildSettingsInEnvironment = 1;
+			productName = NetworkLib;
 		};
-/* End PBXNativeTarget section */
+/* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		0867D690FE84028FC02AAC07 /* Project object */ = {
+		A749528A1523484300798834 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0410;
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
-			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "NetworkLib" */;
+			buildConfigurationList = A749528D1523484300798834 /* Build configuration list for PBXProject "NetworkLib" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
-			hasScannedForEncodings = 1;
+			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				en,
 			);
-			mainGroup = 0867D691FE84028FC02AAC07 /* TTFilterLib */;
-			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			mainGroup = A74952881523484300798834;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC09C05546B4700DB518D /* NetworkLib */,
+				A749528F1523484400798834 /* NetworkLib */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		2217F9FF0E4E194400806778 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/mkdir -p -m 775 \"/usr/local/jamoma/extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/usr/local/jamoma/extensions\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		D2AAC09A05546B4700DB518D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2232875D11F4EC360076C498 /* NetworkLib.cpp in Sources */,
-				2232876211F4EC4A0076C498 /* TTNetReceive.cpp in Sources */,
-				2232876411F4EC4A0076C498 /* TTNetSend.cpp in Sources */,
-				22CDFE0611FC9C30006664CD /* TTNetSocket.cpp in Sources */,
-				D2C0269D13D353180037E368 /* TTOscSend.cpp in Sources */,
-				D2C0269F13D353180037E368 /* TTOscReceive.cpp in Sources */,
-				D2C026B713D3558B0037E368 /* IpEndpointName.cpp in Sources */,
-				D2C026B913D3558B0037E368 /* NetworkingUtils.cpp in Sources */,
-				D2C026BD13D3558B0037E368 /* UdpSocket.cpp in Sources */,
-				D2C026C213D3558B0037E368 /* OscOutboundPacketStream.cpp in Sources */,
-				D2C026C513D3558B0037E368 /* OscPrintReceivedElements.cpp in Sources */,
-				D2C026C713D3558B0037E368 /* OscReceivedElements.cpp in Sources */,
-				D2C026C913D3558B0037E368 /* OscTypes.cpp in Sources */,
-				D2C0271D13D35D7B0037E368 /* TTOscSocket.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
 /* Begin XCBuildConfiguration section */
-		1DEB916108733D950010E9CD /* Development */ = {
+		A74952901523484400798834 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					x86_64,
-				);
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				EXECUTABLE_EXTENSION = ttdylib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = ../prefix.pch;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../library/build/UninstalledProducts\"";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
 				);
-				PRODUCT_NAME = NetworkLib;
-				SDKROOT = macosx10.6;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/boost\" \"$(SRCROOT)/../../library/includes\"";
-			};
-			name = Development;
-		};
-		1DEB916208733D950010E9CD /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					i386,
-					x86_64,
-				);
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EXECUTABLE_EXTENSION = ttdylib;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = ../prefix.pch;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../library/build/UninstalledProducts\"";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				PRODUCT_NAME = NetworkLib;
-				SDKROOT = macosx10.6;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/boost\" \"$(SRCROOT)/../../library/includes\"";
-			};
-			name = Deployment;
-		};
-		1DEB916508733D950010E9CD /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
-			name = Development;
+			name = Debug;
 		};
-		1DEB916608733D950010E9CD /* Deployment */ = {
+		A74952911523484400798834 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
 			};
-			name = Deployment;
+			name = Release;
+		};
+		A74952931523484400798834 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A74952941523484400798834 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "NetworkLib" */ = {
+		A749528D1523484300798834 /* Build configuration list for PBXProject "NetworkLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916108733D950010E9CD /* Development */,
-				1DEB916208733D950010E9CD /* Deployment */,
+				A74952901523484400798834 /* Debug */,
+				A74952911523484400798834 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
+			defaultConfigurationName = Release;
 		};
-		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "NetworkLib" */ = {
+		A74952921523484400798834 /* Build configuration list for PBXLegacyTarget "NetworkLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916508733D950010E9CD /* Development */,
-				1DEB916608733D950010E9CD /* Deployment */,
+				A74952931523484400798834 /* Debug */,
+				A74952941523484400798834 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+	rootObject = A749528A1523484300798834 /* Project object */;
 }
