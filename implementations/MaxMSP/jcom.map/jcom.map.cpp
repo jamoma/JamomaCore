@@ -358,7 +358,7 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
-			nameString = aName->getString();
+			nameString = aName->getCString();
 
 			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 				continue;										// don't publish these parameters
