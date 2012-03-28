@@ -158,7 +158,7 @@ TTUInt32 TTOscSocket::computeMessageSize(TTSymbolPtr message, const TTValue& arg
 	 result += 8;														//timetag
 	 result += 4;														//datasize
 	 
-	 TTUInt32 messageSize = message->getString().size();
+	 TTUInt32 messageSize = message->getCString().size();
 	 messageSize += 1;													// /0 for end of string
 	 
 	 result += ((messageSize/4) + 1) * 4;
@@ -174,7 +174,7 @@ TTUInt32 TTOscSocket::computeMessageSize(TTSymbolPtr message, const TTValue& arg
 			 
 			 TTSymbolPtr symValue;
 			 arguments.get(i, &symValue);
-			 TTUInt32 stringSize = symValue->getString().size();
+			 TTUInt32 stringSize = symValue->getCString().size();
 			 stringSize += 1;											// /0 for end of string
 			 result += ((stringSize/4) + 1) * 4;						// String Size
 		 }
