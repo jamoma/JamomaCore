@@ -151,7 +151,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
-			nameString = aName->getString();
+			nameString = aName-> getCString();
 			{
 				v = aName;
 				instance->parameterNames->append(TT(nameString.c_str()), v);
@@ -163,7 +163,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
-			nameString = aName->getString();
+			nameString = aName-> getCString();
 			{
 				v = aName;
 				instance->messageNames->append(TT(nameString.c_str()), v);
@@ -596,7 +596,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
-			nameString = aName->getString();
+			nameString = aName-> getCString();
 			{
 				v = aName;
 				instance->parameterNames->append(TT(nameString.c_str()), v);
@@ -608,7 +608,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
 			names.get(i, &aName);
-			nameString = aName->getString();
+			nameString = aName-> getCString();
 			{
 				v = aName;
 				instance->messageNames->append(TT(nameString.c_str()), v);
