@@ -1,0 +1,80 @@
+title: jcom.map
+author: [Jamoma]
+created_at: 2012/1/1
+tags: [mapping, max]
+
+brief: scaling and mapping of control data 
+
+desc: >
+ use jcom.map to scale a number or a list using the Jamoma function library
+
+inlets:
+  - id: 0
+    type: float/int/list
+    desc: x	
+
+outlets:
+ - id: 0
+   type: float/int/list
+   desc: y=f(x)  
+ - id: 1
+   type: dumpout
+   desc: returns .get and get* messages	
+
+outputs:
+ - name: int
+   desc: The scaled value of the input integer number.
+ - name: float
+   desc: The scaled value of the input floating point number.
+ - name: list
+   desc: The scaled values when the input is a list of numbers.       	   
+   
+args:
+
+attributes:
+ - name: function
+   type: string
+   desc: type of the mapping function
+   default: linear
+ - name: inputMin
+   type: float
+   desc: minimum input value
+   default: 0.0
+ - name: inputMax
+   type: float
+   desc: maximum input value
+   default: 1.0   
+ - name: outputMin
+   type: float
+   desc: minimum input value
+   default: 0.0
+ - name: outputMax
+   type: float
+   desc: maximum output value
+   default: 1.0
+      
+messages:
+ - name: getfunction
+   type: generic
+   desc: return the current function	
+ - name: function.get
+   type: generic
+   desc: returns a list of all mapping functions at the dumpout
+ - name: function.parameters.get
+   type: generic
+   desc: returns a list of all parameter affecting the current mapping function 
+ - name: parameter
+   type: string float
+   desc: ADD_TEXT
+ - name: parameter.get
+   type: string 
+   desc: returns the current state of the requested parameter
+
+seealso:
+ - jmod.mapperContinuous
+ - jmod.mapper
+ - jcom.function
+ - jcom.dataspace
+ - scale
+
+discussion: Jamoma is a free and open source project. http://www.jamoma.org 
