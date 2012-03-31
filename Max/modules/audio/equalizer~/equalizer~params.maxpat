@@ -130,7 +130,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 422.0, 65.0, 136.0, 19.0 ],
-					"text" : "jcom.hub @context/node"
+					"text" : "jcom.model @context/node"
 				}
 
 			}

@@ -29,7 +29,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 50.0, 152.0, 55.0, 41.0 ],
-					"text" : "jcom.hub @context node"
+					"text" : "jcom.model component"
 				}
 
 			}

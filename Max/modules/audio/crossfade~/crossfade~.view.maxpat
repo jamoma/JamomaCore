@@ -74,7 +74,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 308.0, 48.0, 146.0, 19.0 ],
-					"text" : "jcom.view out/amplitude.2"
+					"text" : "jcom.remote out/amplitude.2"
 				}
 
 			}
@@ -88,7 +88,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 308.0, 3.0, 146.0, 19.0 ],
-					"text" : "jcom.view out/amplitude.1"
+					"text" : "jcom.remote out/amplitude.1"
 				}
 
 			}
@@ -207,7 +207,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 19.0, 418.0, 484.0, 19.0 ],
-					"text" : "jcom.hub @context view @type audio @description \"A default view for the crossfade~ model\""
+					"text" : "jcom.model @context view @type audio @description \"A default view for the crossfade~ model\""
 				}
 
 			}
@@ -238,7 +238,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 227.0, 173.0, 600.0, 31.0 ],
-					"text" : "jcom.view mode @type string @description \"choose the calculation mode for the crossfade: fast uses a lookup table while precisision performs trig calculations\"",
+					"text" : "jcom.remote mode @type string @description \"choose the calculation mode for the crossfade: fast uses a lookup table while precisision performs trig calculations\"",
 					"varname" : "mode[1]"
 				}
 
@@ -253,7 +253,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 227.0, 133.0, 533.0, 19.0 ],
-					"text" : "jcom.view shape @type string @description \"Choose the shape of the crossfade: linear or equal-power\"",
+					"text" : "jcom.remote shape @type string @description \"Choose the shape of the crossfade: linear or equal-power\"",
 					"varname" : "shape[1]"
 				}
 
@@ -269,7 +269,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 227.0, 213.0, 603.0, 43.0 ],
-					"text" : "jcom.view position @type decimal @range/bounds 1. 2. @ramp/drive scheduler @description \"set the position of the crossfade.  1 is entirely source 1 - 2 is entirely source 2 - positions in the middle are a location between source one and two.\"",
+					"text" : "jcom.remote position @type decimal @range/bounds 1. 2. @ramp/drive scheduler @description \"set the position of the crossfade.  1 is entirely source 1 - 2 is entirely source 2 - positions in the middle are a location between source one and two.\"",
 					"varname" : "position"
 				}
 

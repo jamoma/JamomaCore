@@ -322,8 +322,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 34.0, 113.0, 100.0, 31.0 ],
-					"text" : "jcom.hub @context view",
-					"varname" : "jcom.hub"
+					"text" : "jcom.view",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -454,7 +454,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 240.0, 235.0, 109.0, 19.0 ],
-					"text" : "jcom.view midiOut"
+					"text" : "jcom.remote midiOut"
 				}
 
 			}
@@ -468,7 +468,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 122.0, 243.0, 101.0, 19.0 ],
-					"text" : "jcom.view midiIn"
+					"text" : "jcom.remote midiIn"
 				}
 
 			}

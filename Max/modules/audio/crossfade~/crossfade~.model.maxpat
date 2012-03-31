@@ -192,7 +192,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 3.0, 109.0, 580.0, 31.0 ],
-					"text" : "jcom.hub @context model @type audio @description \"Allows crossfades between 2 stereo sources. The first two inputs are the first source while the second 2 inputs are the second source\""
+					"text" : "jcom.model @context model @type audio @description \"Allows crossfades between 2 stereo sources. The first two inputs are the first source while the second 2 inputs are the second source\""
 				}
 
 			}

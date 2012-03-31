@@ -897,7 +897,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 517.0, 308.0, 167.0, 18.0 ],
-					"text" : "jcom.view function/parameter/value"
+					"text" : "jcom.remote function/parameter/value"
 				}
 
 			}
@@ -911,7 +911,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 496.0, 283.0, 141.0, 18.0 ],
-					"text" : "jcom.view function/parameter"
+					"text" : "jcom.remote function/parameter"
 				}
 
 			}
@@ -2082,7 +2082,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 300.0, 234.0, 92.0, 18.0 ],
-					"text" : "jcom.view function"
+					"text" : "jcom.remote function"
 				}
 
 			}
@@ -2172,7 +2172,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 121.0, 210.0, 87.0, 18.0 ],
-					"text" : "jcom.view enable"
+					"text" : "jcom.remote enable"
 				}
 
 			}
@@ -2201,7 +2201,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 332.0, 124.0, 87.0, 18.0 ],
-					"text" : "jcom.view in/max"
+					"text" : "jcom.remote in/max"
 				}
 
 			}
@@ -2215,7 +2215,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 191.0, 123.0, 84.0, 18.0 ],
-					"text" : "jcom.view in/min"
+					"text" : "jcom.remote in/min"
 				}
 
 			}
@@ -2244,7 +2244,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 746.0, 122.0, 93.0, 18.0 ],
-					"text" : "jcom.view out/max"
+					"text" : "jcom.remote out/max"
 				}
 
 			}
@@ -2258,7 +2258,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 606.0, 121.0, 90.0, 18.0 ],
-					"text" : "jcom.view out/min"
+					"text" : "jcom.remote out/min"
 				}
 
 			}
@@ -2272,7 +2272,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 444.0, 56.0, 113.0, 18.0 ],
-					"text" : "jcom.view out/address"
+					"text" : "jcom.remote out/address"
 				}
 
 			}
@@ -2286,7 +2286,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 60.0, 105.0, 18.0 ],
-					"text" : "jcom.view in/address"
+					"text" : "jcom.remote in/address"
 				}
 
 			}
@@ -2338,7 +2338,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 36.0, 170.0, 119.0, 18.0 ],
-					"text" : "jcom.hub @context view"
+					"text" : "jcom.view"
 				}
 
 			}

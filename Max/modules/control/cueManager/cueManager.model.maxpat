@@ -627,7 +627,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 23.0, 284.0, 141.0, 19.0 ],
-									"text" : "jcom.view cue/recall/next"
+									"text" : "jcom.remote cue/recall/next"
 								}
 
 							}
@@ -1001,7 +1001,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 179.0, 213.0, 110.0, 17.0 ],
-									"text" : "jcom.view ramp/time"
+									"text" : "jcom.remote ramp/time"
 								}
 
 							}
@@ -1277,7 +1277,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 333.0, 76.0, 100.0, 17.0 ],
-													"text" : "jcom.view addresses"
+													"text" : "jcom.remote addresses"
 												}
 
 											}
@@ -2459,7 +2459,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 154.0, 102.0, 100.0, 17.0 ],
-																	"text" : "jcom.view addresses"
+																	"text" : "jcom.remote addresses"
 																}
 
 															}
@@ -3076,7 +3076,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 47.0, 77.0, 100.0, 17.0 ],
-																	"text" : "jcom.view addresses"
+																	"text" : "jcom.remote addresses"
 																}
 
 															}
@@ -3625,7 +3625,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 60.0, 116.0, 100.0, 17.0 ],
-																	"text" : "jcom.view addresses"
+																	"text" : "jcom.remote addresses"
 																}
 
 															}
@@ -6741,7 +6741,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 36.0, 171.0, 176.0, 31.0 ],
-					"text" : "jcom.hub @type control @description \"a cue list module\""
+					"text" : "jcom.model @type control @description \"a cue list module\""
 				}
 
 			}
