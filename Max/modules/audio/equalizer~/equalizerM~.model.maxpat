@@ -7,7 +7,7 @@
 			"revision" : 4
 		}
 ,
-		"rect" : [ 254.0, 547.0, 678.0, 356.0 ],
+		"rect" : [ 684.0, 356.0, 678.0, 356.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,6 +27,34 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-26",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 381.0, 216.0, 50.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-4",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 78.0, 19.0, 50.0, 17.0 ],
+					"text" : "5"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -204,16 +232,16 @@
 ,
 					"patching_rect" : [ 598.0, 29.0, 44.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
-						"description" : "",
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Arial",
+						"fontname" : "Arial",
 						"default_fontsize" : 10.0,
-						"fontname" : "Arial"
+						"globalpatchername" : "",
+						"description" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"tags" : ""
 					}
 ,
 					"text" : "p init#"
@@ -316,7 +344,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 214.0, 104.0, 86.0, 19.0 ],
+					"patching_rect" : [ 214.0, 109.0, 86.0, 19.0 ],
 					"text" : "prepend voices"
 				}
 
@@ -340,13 +368,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-14",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 214.0, 61.0, 410.0, 31.0 ],
-					"text" : "jcom.parameter bands/max @type integer @repetitions/allow 1 @priority 1 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0",
+					"patching_rect" : [ 214.0, 61.0, 410.0, 43.0 ],
+					"text" : "jcom.parameter bands/max @type integer @repetitions/allow 1 @priority 1 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @value/default 8",
 					"varname" : "bands"
 				}
 
@@ -422,7 +450,7 @@
 					"outlettype" : [ "list", "float", "float", "float", "float", "list", "int" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 214.0, 172.0, 133.0, 53.0 ],
-					"setfilter" : [ 4, 1, 1, 0, 0, 5354.065918, 0.400326, 2.647681, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 1395.845337, 3.620793, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 264.950989, 3.411814, 1.391999, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 93.040253, 1.03845, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 2, 1, 0, 0, 58.179367, 0.572499, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+					"setfilter" : [ 4, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 92.847565, 1.051168, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 359.441589, 1.167328, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
 				}
 
 			}
@@ -455,7 +483,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 65.0, 185.0, 25.0, 25.0 ]
 				}
 
@@ -471,6 +499,20 @@
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 65.0, 250.0, 59.0, 19.0 ],
 					"text" : "cascade~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-22",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 381.0, 250.0, 50.0, 17.0 ],
+					"text" : "open $1"
 				}
 
 			}
@@ -551,6 +593,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-4", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-65", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -575,6 +626,24 @@
 					"hidden" : 0,
 					"midpoints" : [ 134.5, 163.5, 223.5, 163.5 ],
 					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
@@ -667,10 +736,6 @@
 			}
 , 			{
 				"name" : "jcom.parameter.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{
