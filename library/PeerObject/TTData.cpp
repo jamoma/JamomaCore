@@ -747,7 +747,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 			for (int i=0; i<n; i++) {
 				
 				names.get(i, &aName);
-				nameString = aName->getString();
+				nameString = aName->getCString();
 				
 				if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
 					continue;										// don't publish these datas

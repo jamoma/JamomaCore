@@ -194,6 +194,7 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 
 TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue)
 {
+	TTString			editKey;
 	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
 	TTObjectPtr			returnValueCallback;
@@ -204,7 +205,10 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	inputValue.get(1, &appToNotify);
 	inputValue.get(2, &whereToListen);
 	
-	key = TT(appToNotify->getString() + "<>" + whereToListen->getString());
+	editKey = appToNotify->getCString();
+	editKey += "<>";
+	editKey	+= whereToListen->getCString();
+	key = TT(editKey);
 	
 	// if this listener doesn't exist yet
 	if (mAttributeListenersCache->lookup(key, cacheElement)) {
@@ -236,6 +240,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 
 TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue& outputValue)
 {
+	TTString			editKey;
 	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
 	TTObjectPtr			returnValueCallback;
@@ -244,7 +249,10 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	inputValue.get(0, &appToNotify);
 	inputValue.get(1, &whereToListen);
 	
-	key = TT(appToNotify->getString() + "<>" + whereToListen->getString());
+	editKey = appToNotify->getCString();
+	editKey += "<>";
+	editKey	+= whereToListen->getCString();
+	key = TT(editKey);
 	
 	// if this listener exists
 	if (!mDirectoryListenersCache->lookup(key, cacheElement)) {
@@ -260,6 +268,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 
 TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& outputValue)
 {
+	TTString			editKey;
 	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
 	TTList				aNodeList;
@@ -273,8 +282,11 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 	inputValue.get(1, &appToNotify);
 	inputValue.get(2, &whereToListen);
 	
-	key = TT(appToNotify->getString() + "<>" + whereToListen->getString());
-	
+	editKey = appToNotify->getCString();
+	editKey += "<>";
+	editKey	+= whereToListen->getCString();
+	key = TT(editKey);
+
 	// if this listener doesn't exist yet
 	if (mAttributeListenersCache->lookup(key, cacheElement)) {
 		
@@ -323,6 +335,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 
 TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue& outputValue)
 {
+	TTString			editKey;
 	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
 	TTList				aNodeList;
@@ -336,8 +349,11 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 	inputValue.get(0, &appToNotify);
 	inputValue.get(1, &whereToListen);
 	
-	key = TT(appToNotify->getString() + "<>" + whereToListen->getString());
-	
+	editKey = appToNotify->getCString();
+	editKey += "<>";
+	editKey	+= whereToListen->getCString();
+	key = TT(editKey);
+
 	// if this listener exists
 	if (!mAttributeListenersCache->lookup(key, cacheElement)) {
 		

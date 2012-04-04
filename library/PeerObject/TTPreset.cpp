@@ -445,7 +445,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 			// if the item doesn't exist create it 
 			if (mItemTable->lookup(mCurrentItem, v)) {
 				
-				absoluteAddress = mAddress->appendAddress(TTADRS(mCurrentItem->getString()));
+				absoluteAddress = mAddress->appendAddress(TTADRS(mCurrentItem->getCString()));
 				
 				anItem = new Item(mManager, absoluteAddress);
 				anItem->type = aXmlHandler->mXmlNodeName;
