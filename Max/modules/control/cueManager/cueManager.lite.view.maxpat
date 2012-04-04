@@ -197,7 +197,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 33.0, 16.0, 107.0, 17.0 ],
-									"text" : "jcom.view preset/names"
+									"text" : "jcom.remote preset/names"
 								}
 
 							}
@@ -369,7 +369,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 562.0, 370.0, 128.0, 19.0 ],
-					"text" : "jcom.view preset/recall"
+					"text" : "jcom.remote preset/recall"
 				}
 
 			}
@@ -554,7 +554,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 9.0, 321.0, 143.0, 19.0 ],
-					"text" : "jcom.view autofollow/time"
+					"text" : "jcom.remote autofollow/time"
 				}
 
 			}
@@ -568,7 +568,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 114.0, 269.0, 151.0, 19.0 ],
-					"text" : "jcom.view ramp/active"
+					"text" : "jcom.remote ramp/active"
 				}
 
 			}
@@ -724,7 +724,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 102.0, 63.0, 51.0, 27.0 ],
-									"text" : "jcom.view file/new"
+									"text" : "jcom.remote file/new"
 								}
 
 							}
@@ -991,7 +991,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 104.0, 81.0, 86.0, 17.0 ],
-									"text" : "jcom.view file/new"
+									"text" : "jcom.remote file/new"
 								}
 
 							}
@@ -1047,7 +1047,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 34.0, 51.0, 129.0, 17.0 ],
-									"text" : "jcom.view cue/current/number"
+									"text" : "jcom.remote cue/current/number"
 								}
 
 							}
@@ -1061,7 +1061,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 193.0, 20.0, 100.0, 17.0 ],
-									"text" : "jcom.view cue/names"
+									"text" : "jcom.remote cue/names"
 								}
 
 							}
@@ -1721,7 +1721,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 91.0, 200.5, 105.0, 19.0 ],
-									"text" : "jcom.view file/new"
+									"text" : "jcom.remote file/new"
 								}
 
 							}
@@ -1735,7 +1735,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 145.0, 324.5, 103.0, 19.0 ],
-									"text" : "jcom.view file/edit"
+									"text" : "jcom.remote file/edit"
 								}
 
 							}
@@ -1763,7 +1763,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 105.0, 231.5, 105.0, 19.0 ],
-									"text" : "jcom.view file/load"
+									"text" : "jcom.remote file/load"
 								}
 
 							}
@@ -1777,7 +1777,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 118.0, 262.5, 141.0, 19.0 ],
-									"text" : "jcom.view file/write/again"
+									"text" : "jcom.remote file/write/again"
 								}
 
 							}
@@ -1791,7 +1791,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 132.0, 293.5, 109.0, 19.0 ],
-									"text" : "jcom.view file/write"
+									"text" : "jcom.remote file/write"
 								}
 
 							}
@@ -2065,7 +2065,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 506.0, 260.0, 68.0, 27.0 ],
-					"text" : "jcom.view cue/create"
+					"text" : "jcom.remote cue/create"
 				}
 
 			}
@@ -2121,7 +2121,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 579.0, 84.0, 114.0, 19.0 ],
-					"text" : "jcom.view cue/recall"
+					"text" : "jcom.remote cue/recall"
 				}
 
 			}
@@ -2135,7 +2135,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 342.0, 294.0, 143.0, 19.0 ],
-					"text" : "jcom.view autofollow/time"
+					"text" : "jcom.remote autofollow/time"
 				}
 
 			}
@@ -2149,7 +2149,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 237.0, 211.0, 151.0, 19.0 ],
-					"text" : "jcom.view autofollow/active"
+					"text" : "jcom.remote autofollow/active"
 				}
 
 			}
@@ -2387,7 +2387,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 246.0, 156.0, 122.0, 19.0 ],
-					"text" : "jcom.view cue/update"
+					"text" : "jcom.remote cue/update"
 				}
 
 			}
@@ -2437,7 +2437,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 19.0, 123.0, 185.0, 31.0 ],
-					"text" : "jcom.hub @context view @description \"a cue list module\""
+					"text" : "jcom.model @context view @description \"a cue list module\""
 				}
 
 			}

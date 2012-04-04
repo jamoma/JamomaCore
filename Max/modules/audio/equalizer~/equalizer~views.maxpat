@@ -7,7 +7,7 @@
 			"revision" : 4
 		}
 ,
-		"rect" : [ 397.0, 277.0, 1215.0, 656.0 ],
+		"rect" : [ 95.0, 107.0, 1215.0, 656.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,6 +27,20 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 540.0, 37.0, 121.0, 19.0 ],
+					"text" : "jcom.view component"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -235,7 +249,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "/eq", "int" ],
+					"outlettype" : [ "/track.1/eq", "int" ],
 					"patching_rect" : [ 980.0, 94.0, 100.0, 18.0 ],
 					"text" : "t #1 i"
 				}
@@ -644,16 +658,16 @@
 ,
 					"patching_rect" : [ 179.0, 337.0, 121.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
-						"description" : "",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 12.0,
-						"fontname" : "Verdana"
+						"description" : "",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p DecodeFilterGraph",
@@ -1252,16 +1266,16 @@
 ,
 					"patching_rect" : [ 177.0, 581.0, 153.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"tags" : "",
-						"description" : "",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"tags" : "",
 						"default_fontsize" : 12.0,
-						"fontname" : "Verdana"
+						"description" : "",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p PrepareForFiltergraph~",
@@ -1769,6 +1783,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-31", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-33", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-19", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -1854,6 +1877,10 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.remote.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.view.mxo",
 				"type" : "iLaX"
 			}
  ]

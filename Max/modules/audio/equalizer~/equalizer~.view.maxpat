@@ -1314,7 +1314,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 25.0, 260.0, 61.0, 19.0 ],
 					"text" : "jcom.view",
-					"varname" : "jcom.hub"
+					"varname" : "jcom.model"
 				}
 
 			}
