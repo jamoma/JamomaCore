@@ -203,8 +203,35 @@ void send_float(TTPtr self, double value)
 void send_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-
-	jamoma_sender_send((TTSenderPtr)x->wrappedObject, msg, argc, argv);
+	
+	// dynamic address setting for jcom.send without address
+	if (x->address == kTTAdrsEmpty) {
+			
+			TTNodeAddressPtr anAddress = TTADRS(msg->s_name);
+			SymbolPtr newMsg;
+			
+			// send only to absolute address
+			if (anAddress->getType() == kAddressAbsolute) {
+				
+				x->wrappedObject->setAttributeValue(kTTSym_address, anAddress);
+				
+				// edit message type
+				if (argc == 0)
+					newMsg = _sym_nothing;
+				else if (argc > 1)
+					newMsg = _sym_list;
+				else if (atom_gettype(argv) == A_LONG)
+					newMsg = _sym_int;
+				else if (atom_gettype(argv) == A_FLOAT)
+					newMsg = _sym_float;
+				else if (atom_gettype(argv) == A_SYM)
+					newMsg = _sym_symbol;
+				
+				jamoma_sender_send((TTSenderPtr)x->wrappedObject, newMsg, argc, argv);
+			}
+	}
+	else
+		jamoma_sender_send((TTSenderPtr)x->wrappedObject, msg, argc, argv);
 }
 
 void send_set(TTPtr self, SymbolPtr address)
