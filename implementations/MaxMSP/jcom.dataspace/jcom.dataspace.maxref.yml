@@ -38,14 +38,19 @@ attributes:
 messages:
  - name: getinput
    type: generic
-   desc: A @getinput@ message return the current input unit at the dumpout outlet 
+   desc: A @getinput@ message returns the current input unit at the dumpout outlet 
    unit:
    default:
  - name: getoutput
    type: generic
-   desc: A @getoutput@ message return the current output unit at the dumpout outlet 
+   desc: A @getoutput@ message returns the current output unit at the dumpout outlet 
    unit:
    default:
+ - name: getdataspace
+   type: generic
+   desc: A @getdataspace@ message returns the current dataspace at the dumpout outlet 
+   default:
+   unit:   
  - name: units.get
    type: generic
    desc: A @units.get@ message returns a list of all units of the selected dataspace at the dumpout outlet 
@@ -61,3 +66,5 @@ seealso:
  - jcom.parameter
  - jcom.message
  - jcom.dataspace#
+ 
+discussion: Jamoma is a free and open source project. http://www.jamoma.org

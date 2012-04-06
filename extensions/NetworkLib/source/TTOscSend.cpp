@@ -34,7 +34,7 @@ void TTOscSend::connect()
 	if (mAddress && mPort && (mAddress != kTTSymEmpty)) {
 
 		delete mSocket;
-		mSocket = new TTOscSocket(mAddress->getString(), mPort);
+		mSocket = new TTOscSocket(mAddress->getCString(), mPort);
 	}
 }
 

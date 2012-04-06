@@ -47,8 +47,12 @@ public:
     TTBoolean isDirectory();
     TTErr getDirectoryListing(TTPathVector& returnedPaths);
 
+#define LIVE_DANGEROUSLY
+#ifdef LIVE_DANGEROUSLY
 	/**	Returns the complete path as a string. */
     void getString(TTString& pathString);
+#endif
+#undef LIVE_DANGEROUSLY
 	
 	/**	Returns just the filename, without the extension, as a string. */
 	void getStem(TTString& pathStemString);

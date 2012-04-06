@@ -46,7 +46,7 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 	newValue.get(0, &name);
 	
 	// TODO: validate the name provided before proceeding
-	objectName += name->getString();
+	objectName += name->getCString();
 	err = TTObjectInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
 	if (err) {
         // Rather than crashing:
