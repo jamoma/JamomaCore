@@ -72,7 +72,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 275.0, 230.0, 214.0, 19.0 ],
-					"text" : "test.assert.equal.old TESTpi:bang 3.141593"
+					"text" : "jcom.test.assert.equal.old TESTpi:bang 3.141593"
 				}
 
 			}
@@ -152,7 +152,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 555.0, 230.0, 235.0, 19.0 ],
-					"text" : "test.assert.equal.old TESTpi:loadbang 3.141593"
+					"text" : "jcom.test.assert.equal.old TESTpi:loadbang 3.141593"
 				}
 
 			}
@@ -234,7 +234,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 120.0, 150.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}

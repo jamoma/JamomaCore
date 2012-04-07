@@ -248,7 +248,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1156.75, 320.0, 243.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:generic:truncateTooLongArray 2"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:generic:truncateTooLongArray 2"
 												}
 
 											}
@@ -333,7 +333,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 888.75, 295.0, 216.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:generic:receiveLongArray 1"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:generic:receiveLongArray 1"
 												}
 
 											}
@@ -462,7 +462,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 660.0, 295.0, 227.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:generic:receiveSymbol jamoma 1 3.14"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:generic:receiveSymbol jamoma 1 3.14"
 												}
 
 											}
@@ -490,7 +490,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 295.0, 205.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:generic:receiveInt 3.14"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:generic:receiveInt 3.14"
 												}
 
 											}
@@ -519,7 +519,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 240.0, 295.0, 195.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:generic:receiveInt 10"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:generic:receiveInt 10"
 												}
 
 											}
@@ -573,7 +573,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 90.0, 295.0, 152.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:generic 1 2. 3 tjotlandotte"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:generic 1 2. 3 tjotlandotte"
 												}
 
 											}
@@ -1274,7 +1274,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1156.75, 320.0, 243.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:array:truncateTooLongArray 2 @issue 628"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:array:truncateTooLongArray 2 @issue 628"
 												}
 
 											}
@@ -1359,7 +1359,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 888.75, 295.0, 216.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:array:receiveLongArray 1"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:array:receiveLongArray 1"
 												}
 
 											}
@@ -1488,7 +1488,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 660.0, 295.0, 227.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:array:receiveSymbol jamoma 1 3.14"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:array:receiveSymbol jamoma 1 3.14"
 												}
 
 											}
@@ -1516,7 +1516,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 295.0, 205.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:array:receiveInt 3.14"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:array:receiveInt 3.14"
 												}
 
 											}
@@ -1545,7 +1545,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 240.0, 295.0, 195.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:array:receiveInt 10"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:array:receiveInt 10"
 												}
 
 											}
@@ -1599,7 +1599,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 90.0, 295.0, 152.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:type:array 1 2. 3 tjotlandotte"
+													"text" : "jcom.test.assert.equal.old jcom.return:type:array 1 2. 3 tjotlandotte"
 												}
 
 											}
@@ -2160,7 +2160,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 565.0, 485.0, 231.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:string:float2string ??? @issue 923"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:string:float2string ??? @issue 923"
 												}
 
 											}
@@ -2174,7 +2174,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 320.0, 485.0, 222.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:string:int2string ??? @issue 923"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:string:int2string ??? @issue 923"
 												}
 
 											}
@@ -2330,7 +2330,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 880.0, 485.0, 315.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:string:symbolWithArguments2symbol jamoma"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:string:symbolWithArguments2symbol jamoma"
 												}
 
 											}
@@ -2445,7 +2445,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 125.0, 485.0, 177.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:string tjotlandotte"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:string tjotlandotte"
 												}
 
 											}
@@ -3098,7 +3098,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 59.0, 691.0, 290.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:noRepetition:list2float 1 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:noRepetition:list2float 1 1"
 																}
 
 															}
@@ -3169,7 +3169,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 59.0, 519.0, 290.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:repetition:list2float 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:repetition:list2float 1"
 																}
 
 															}
@@ -3306,7 +3306,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 190.0, 363.0, 279.0, 19.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:list2float 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:list2float 1"
 																}
 
 															}
@@ -3661,7 +3661,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 8.5, 616.0, 290.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:noRepetition:symbol2float 0. 0."
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:noRepetition:symbol2float 0. 0."
 																}
 
 															}
@@ -3718,7 +3718,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 8.5, 459.0, 290.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:repetition:symbol2float 0."
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:repetition:symbol2float 0."
 																}
 
 															}
@@ -3814,7 +3814,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 189.5, 284.0, 278.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:symbol2float 0."
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:symbol2float 0."
 																}
 
 															}
@@ -4083,7 +4083,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 100.0, 675.0, 290.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:noRepetition:int2float 1 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:noRepetition:int2float 1 1"
 																}
 
 															}
@@ -4154,7 +4154,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 106.0, 497.0, 290.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:repetition:int2float 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:repetition:int2float 1"
 																}
 
 															}
@@ -4277,7 +4277,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 151.0, 329.0, 277.0, 19.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:int2float 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:int2float 1"
 																}
 
 															}
@@ -4646,7 +4646,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 9.5, 649.0, 290.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:noRepetition:float 1 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:noRepetition:float 1 1"
 																}
 
 															}
@@ -4717,7 +4717,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 9.5, 497.0, 290.0, 31.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:repetition:float 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:repetition:float 1"
 																}
 
 															}
@@ -4843,7 +4843,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 135.0, 363.0, 258.0, 19.0 ],
-																	"text" : "test.assert.equal.old jcom.return:method:float 1"
+																	"text" : "jcom.test.assert.equal.old jcom.return:method:float 1"
 																}
 
 															}
@@ -5395,7 +5395,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 984.0, 685.0, 275.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:noRepetition:listTruncate 5 5"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:noRepetition:listTruncate 5 5"
 												}
 
 											}
@@ -5452,7 +5452,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 649.0, 685.0, 284.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:noRepetition:symbol2zero 0 0"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:noRepetition:symbol2zero 0 0"
 												}
 
 											}
@@ -5509,7 +5509,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 324.0, 685.0, 285.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:noRepetition:truncateFloat 1 1"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:noRepetition:truncateFloat 1 1"
 												}
 
 											}
@@ -5580,7 +5580,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 52.0, 685.0, 273.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:noRepetition:receivedInt 1 1"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:noRepetition:receivedInt 1 1"
 												}
 
 											}
@@ -5679,7 +5679,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1005.0, 491.0, 260.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:repetition:listTruncate 5"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:repetition:listTruncate 5"
 												}
 
 											}
@@ -5736,7 +5736,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 670.0, 491.0, 266.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:repetition:symbol2zero 0"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:repetition:symbol2zero 0"
 												}
 
 											}
@@ -5793,7 +5793,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 345.0, 491.0, 242.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:repetition:truncateFloat 1"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:repetition:truncateFloat 1"
 												}
 
 											}
@@ -5864,7 +5864,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 90.0, 491.0, 242.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:repetition:receivedInt 1"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:repetition:receivedInt 1"
 												}
 
 											}
@@ -5921,7 +5921,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1100.0, 305.0, 207.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:listTruncate 5"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:listTruncate 5"
 												}
 
 											}
@@ -5977,7 +5977,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 759.0, 305.0, 213.0, 43.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:symbol2zero 0"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:symbol2zero 0"
 												}
 
 											}
@@ -6033,7 +6033,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 432.5, 300.0, 235.0, 31.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:truncateFloat 1"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:truncateFloat 1"
 												}
 
 											}
@@ -6100,7 +6100,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 177.5, 300.0, 225.0, 31.0 ],
-													"text" : "test.assert.equal.old jcom.return:method:int:receivedInt 1"
+													"text" : "jcom.test.assert.equal.old jcom.return:method:int:receivedInt 1"
 												}
 
 											}
@@ -7222,7 +7222,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 570.0, 590.0, 293.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/type/get decimal"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/type/get decimal"
 								}
 
 							}
@@ -7235,7 +7235,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 525.0, 610.0, 321.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/repetitions/allow/get 1"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/repetitions/allow/get 1"
 								}
 
 							}
@@ -7248,7 +7248,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 470.0, 630.0, 333.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/range/clipmode/get both"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/range/clipmode/get both"
 								}
 
 							}
@@ -7261,7 +7261,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 420.0, 650.0, 343.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/range/bounds/get -90. 90."
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/range/bounds/get -90. 90."
 								}
 
 							}
@@ -7274,7 +7274,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 370.0, 670.0, 278.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/name/get test"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/name/get test"
 								}
 
 							}
@@ -7287,7 +7287,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 330.0, 690.0, 272.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/enable/get 0"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/enable/get 0"
 								}
 
 							}
@@ -7300,7 +7300,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 235.0, 730.0, 309.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/dataspace/get angle"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/dataspace/get angle"
 								}
 
 							}
@@ -7313,7 +7313,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 280.0, 710.0, 377.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/dataspace/unit/native/get degree"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/dataspace/unit/native/get degree"
 								}
 
 							}
@@ -7326,7 +7326,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 190.0, 750.0, 327.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:method:/description/get working"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/description/get working"
 								}
 
 							}
@@ -8314,7 +8314,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 120.0, 150.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}

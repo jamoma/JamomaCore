@@ -98,7 +98,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 201.199997, 261.0, 261.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:type:string:test4 1."
+									"text" : "jcom.test.assert.equal.old jcom.return:type:string:test4 1."
 								}
 
 							}
@@ -111,7 +111,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 150.800003, 223.0, 257.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:type:string:test3 1"
+									"text" : "jcom.test.assert.equal.old jcom.return:type:string:test3 1"
 								}
 
 							}
@@ -138,7 +138,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 100.400002, 187.0, 292.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:type:string:test2 jamoma"
+									"text" : "jcom.test.assert.equal.old jcom.return:type:string:test2 jamoma"
 								}
 
 							}
@@ -151,7 +151,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 50.0, 155.0, 257.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:type:string:test1 1"
+									"text" : "jcom.test.assert.equal.old jcom.return:type:string:test1 1"
 								}
 
 							}
@@ -256,7 +256,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.old.maxpat",
+								"name" : "jcom.test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -358,7 +358,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 68.400002, 189.0, 322.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:type:array:test2 jamoma 1 2. 3"
+									"text" : "jcom.test.assert.equal.old jcom.return:type:array:test2 jamoma 1 2. 3"
 								}
 
 							}
@@ -371,7 +371,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 18.0, 138.0, 340.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.return:type:array:test1 1 2. 3 tjotlandotte"
+									"text" : "jcom.test.assert.equal.old jcom.return:type:array:test1 1 2. 3 tjotlandotte"
 								}
 
 							}
@@ -440,7 +440,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.old.maxpat",
+								"name" : "jcom.test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -1214,7 +1214,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 120.0, 150.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}
@@ -1284,14 +1284,14 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "test.finished.maxpat",
+				"name" : "jcom.test.finished.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../Test/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "test.assert.equal.old.maxpat",
+				"name" : "jcom.test.assert.equal.old.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../Test/components",
 				"type" : "JSON",

@@ -167,7 +167,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 491.0, 456.5, 158.0, 31.0 ],
-									"text" : "test.assert.equal.old Wildcard 1. @issue 52"
+									"text" : "jcom.test.assert.equal.old Wildcard 1. @issue 52"
 								}
 
 							}
@@ -210,7 +210,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 86.0, 389.0, 226.0, 19.0 ],
-									"text" : "test.assert.equal.old Wildcard 1 2 3 @issue 52"
+									"text" : "jcom.test.assert.equal.old Wildcard 1 2 3 @issue 52"
 								}
 
 							}
@@ -251,7 +251,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 295.0, 283.0, 294.0, 19.0 ],
-									"text" : "test.assert.equal.old Wildcard/*/ /finger 0.2"
+									"text" : "jcom.test.assert.equal.old Wildcard/*/ /finger 0.2"
 								}
 
 							}
@@ -264,7 +264,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 221.0, 251.0, 329.0, 19.0 ],
-									"text" : "test.assert.equal.old Wildcard.n/ /param 0.1"
+									"text" : "jcom.test.assert.equal.old Wildcard.n/ /param 0.1"
 								}
 
 							}
@@ -277,7 +277,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 111.0, 217.0, 302.0, 19.0 ],
-									"text" : "test.assert.equal.old Wildcard. 0.5"
+									"text" : "jcom.test.assert.equal.old Wildcard. 0.5"
 								}
 
 							}
@@ -290,7 +290,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 37.0, 183.0, 294.0, 19.0 ],
-									"text" : "test.assert.equal.old Wildcard/ 0.5"
+									"text" : "jcom.test.assert.equal.old Wildcard/ 0.5"
 								}
 
 							}
@@ -670,7 +670,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 544.0, 206.0, 391.0, 19.0 ],
-					"text" : "test.assert.equal.old TESTdumpoutlet /meat/chicken roasted"
+					"text" : "jcom.test.assert.equal.old TESTdumpoutlet /meat/chicken roasted"
 				}
 
 			}
@@ -683,7 +683,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 628.0, 321.0, 329.0, 19.0 ],
-					"text" : "test.assert.equal.old TEST/adress /beans"
+					"text" : "jcom.test.assert.equal.old TEST/adress /beans"
 				}
 
 			}
@@ -696,7 +696,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 554.0, 290.0, 302.0, 19.0 ],
-					"text" : "test.assert.equal.old TESTlist 1 2 3"
+					"text" : "jcom.test.assert.equal.old TESTlist 1 2 3"
 				}
 
 			}
@@ -709,7 +709,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 480.0, 262.0, 294.0, 19.0 ],
-					"text" : "test.assert.equal.old TESTfloat 7.8"
+					"text" : "jcom.test.assert.equal.old TESTfloat 7.8"
 				}
 
 			}
@@ -722,7 +722,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 205.0, 313.0, 329.0, 19.0 ],
-					"text" : "test.assert.equal.old TEST/adress+int /banana 3"
+					"text" : "jcom.test.assert.equal.old TEST/adress+int /banana 3"
 				}
 
 			}
@@ -735,7 +735,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 131.0, 283.0, 302.0, 19.0 ],
-					"text" : "test.assert.equal.old TESTbang bang"
+					"text" : "jcom.test.assert.equal.old TESTbang bang"
 				}
 
 			}
@@ -994,7 +994,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 13.0, 314.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}
@@ -1007,7 +1007,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 58.0, 254.0, 294.0, 19.0 ],
-					"text" : "test.assert.equal.old TESTsymbol red"
+					"text" : "jcom.test.assert.equal.old TESTsymbol red"
 				}
 
 			}
