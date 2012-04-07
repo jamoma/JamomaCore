@@ -57,7 +57,7 @@ TTErr TTNodeDirectory::init()
 	mutex = new TTMutex(true);
 	
 	// create a root
-	TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
+	return TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
 }
 
 TTErr TTNodeDirectory::setName(TTSymbolPtr aName)
