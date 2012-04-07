@@ -358,7 +358,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 485.0, 605.0, 48.0, 19.0 ],
-					"text" : "test.log"
+					"text" : "jcom.test.log"
 				}
 
 			}
@@ -371,7 +371,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 365.0, 790.0, 389.0, 19.0 ],
-					"text" : "test.assert.equal.old \"TEST JamomaDSP NoErrorsRunningDSPinHelpPatchers\" 0"
+					"text" : "jcom.test.assert.equal.old \"TEST JamomaDSP NoErrorsRunningDSPinHelpPatchers\" 0"
 				}
 
 			}
@@ -939,7 +939,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 40.0, 57.0, 19.0 ],
-					"text" : "test.start"
+					"text" : "jcom.test.start"
 				}
 
 			}
@@ -979,7 +979,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 55.0, 405.0, 72.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}
