@@ -4,10 +4,10 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 5
 		}
 ,
-		"rect" : [ 65.0, 108.0, 562.0, 547.0 ],
+		"rect" : [ 461.0, 85.0, 562.0, 547.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -40,7 +40,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -117,16 +117,16 @@
 ,
 					"patching_rect" : [ 245.0, 230.0, 151.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"description" : "",
 						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"digest" : "",
+						"tags" : "",
+						"default_fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p dataspaceAndRampsTests"
@@ -147,7 +147,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -224,16 +224,16 @@
 ,
 					"patching_rect" : [ 245.0, 195.0, 98.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"description" : "",
 						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"digest" : "",
+						"tags" : "",
+						"default_fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p dataspaceTests"
@@ -265,7 +265,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 160.0, 380.0, 68.0, 19.0 ],
-					"text" : "loadmess 2"
+					"text" : "loadmess 1"
 				}
 
 			}
@@ -283,7 +283,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 571.0, 76.0, 640.0, 480.0 ],
@@ -319,7 +319,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 18.0, 156.0, 1344.0, 535.0 ],
@@ -348,7 +348,7 @@
 													"id" : "obj-26",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1157.75, 295.0, 129.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:none:tooLongArray bang"
@@ -405,7 +405,7 @@
 													"id" : "obj-15",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 888.75, 295.0, 168.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:none:receiveLongArray bang"
@@ -519,7 +519,7 @@
 													"id" : "obj-24",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 660.0, 295.0, 227.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:none:receiveSymbol bang"
@@ -547,7 +547,7 @@
 													"id" : "obj-20",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 295.0, 209.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:none:receiveInt bang"
@@ -576,7 +576,7 @@
 													"id" : "obj-18",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 240.0, 295.0, 207.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:none:receiveInt bang"
@@ -630,7 +630,7 @@
 													"id" : "obj-10",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 90.0, 295.0, 152.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:array bang"
@@ -935,6 +935,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -943,16 +949,16 @@
 ,
 									"patching_rect" : [ 175.0, 195.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p none"
@@ -973,7 +979,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 0.0, 86.0, 1153.0, 454.0 ],
@@ -1114,7 +1120,7 @@
 													"id" : "obj-26",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1146.75, 351.0, 240.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:array:cropTooLongArray 2 @issue 628"
@@ -1185,7 +1191,7 @@
 													"id" : "obj-15",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 888.75, 295.0, 243.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:array:receiveLongArray 511"
@@ -1314,7 +1320,7 @@
 													"id" : "obj-24",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 660.0, 295.0, 227.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:array:receiveSymbol jamoma 1 3.14"
@@ -1342,7 +1348,7 @@
 													"id" : "obj-20",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 295.0, 209.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:array:receiveInt 3.14"
@@ -1371,7 +1377,7 @@
 													"id" : "obj-18",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 240.0, 295.0, 207.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:array:receiveInt 10"
@@ -1425,7 +1431,7 @@
 													"id" : "obj-10",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 90.0, 295.0, 152.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:type:array 1 2. 3 tjotlandotte"
@@ -1857,6 +1863,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -1865,16 +1877,16 @@
 ,
 									"patching_rect" : [ 175.0, 166.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p array"
@@ -1895,10 +1907,10 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
-										"rect" : [ -135.0, 87.0, 1415.0, 711.0 ],
+										"rect" : [ 132.0, 68.0, 1415.0, 711.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -1921,10 +1933,24 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
+													"id" : "obj-7",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 2,
+													"outlettype" : [ "bang", "bang" ],
+													"patching_rect" : [ 55.0, 62.0, 34.0, 19.0 ],
+													"text" : "t b b"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
 													"id" : "obj-18",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 565.0, 485.0, 231.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:string:float2string ??? @issue 923"
@@ -1938,7 +1964,7 @@
 													"id" : "obj-4",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 320.0, 485.0, 222.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:string:int2string ??? @issue 923"
@@ -2023,7 +2049,7 @@
 													"id" : "obj-50",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 850.0, 600.0, 403.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:string:symbolWithArguments2symbol:leftOutlet jamoma"
@@ -2149,7 +2175,7 @@
 													"id" : "obj-34",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 950.0, 485.0, 421.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:string:symbolWithArguments2symbol:middleOutlet jamoma"
@@ -2264,7 +2290,7 @@
 													"id" : "obj-10",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 125.0, 485.0, 177.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:string tjotlandotte"
@@ -2364,7 +2390,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "bang" ],
-													"patching_rect" : [ 20.0, 35.0, 20.0, 20.0 ]
+													"patching_rect" : [ 97.0, 62.0, 20.0, 20.0 ]
 												}
 
 											}
@@ -2375,10 +2401,10 @@
 													"id" : "obj-5",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 5,
-													"outlettype" : [ "bang", "tjotlandotte", "int", "float", "bang" ],
-													"patching_rect" : [ 55.0, 95.0, 132.0, 19.0 ],
-													"text" : "t b tjotlandotte 4 3.14 b"
+													"numoutlets" : 4,
+													"outlettype" : [ "tjotlandotte", "int", "float", "bang" ],
+													"patching_rect" : [ 70.0, 94.0, 122.0, 19.0 ],
+													"text" : "t tjotlandotte 4 3.14 b"
 												}
 
 											}
@@ -2416,14 +2442,14 @@
 													"numinlets" : 0,
 													"numoutlets" : 1,
 													"outlettype" : [ "bang" ],
-													"patching_rect" : [ 55.0, 35.0, 25.0, 25.0 ]
+													"patching_rect" : [ 55.0, 28.0, 25.0, 25.0 ]
 												}
 
 											}
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
-													"destination" : [ "obj-5", 0 ],
+													"destination" : [ "obj-7", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
 													"source" : [ "obj-1", 0 ]
@@ -2694,20 +2720,11 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-2", 0 ],
-													"disabled" : 0,
-													"hidden" : 0,
-													"source" : [ "obj-5", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"destination" : [ "obj-22", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 121.0, 126.5, 329.5, 126.5 ],
-													"source" : [ "obj-5", 2 ]
+													"midpoints" : [ 113.833336, 126.5, 329.5, 126.5 ],
+													"source" : [ "obj-5", 1 ]
 												}
 
 											}
@@ -2716,8 +2733,8 @@
 													"destination" : [ "obj-23", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 149.25, 123.5, 574.5, 123.5 ],
-													"source" : [ "obj-5", 3 ]
+													"midpoints" : [ 148.166672, 123.5, 574.5, 123.5 ],
+													"source" : [ "obj-5", 2 ]
 												}
 
 											}
@@ -2726,7 +2743,7 @@
 													"destination" : [ "obj-3", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"source" : [ "obj-5", 1 ]
+													"source" : [ "obj-5", 0 ]
 												}
 
 											}
@@ -2735,8 +2752,8 @@
 													"destination" : [ "obj-31", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 177.5, 118.0, 834.5, 118.0 ],
-													"source" : [ "obj-5", 4 ]
+													"midpoints" : [ 182.5, 118.0, 834.5, 118.0 ],
+													"source" : [ "obj-5", 3 ]
 												}
 
 											}
@@ -2812,6 +2829,24 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-2", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-7", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-5", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-7", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-5", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
@@ -2821,6 +2856,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -2829,16 +2870,16 @@
 ,
 									"patching_rect" : [ 175.0, 137.0, 49.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p string"
@@ -2859,7 +2900,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 652.0, 91.0, 628.0, 262.0 ],
@@ -2894,7 +2935,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 633.0, 660.0 ],
@@ -2937,7 +2978,7 @@
 																	"id" : "obj-14",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 59.0, 691.0, 290.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:noRepetition:list2float 1 1"
@@ -3008,7 +3049,7 @@
 																	"id" : "obj-11",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 59.0, 519.0, 290.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:repetition:list2float 1"
@@ -3145,7 +3186,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-10",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 190.0, 363.0, 279.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:method:list2float 1"
@@ -3434,6 +3475,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -3442,16 +3489,16 @@
 ,
 													"patching_rect" : [ 395.0, 127.0, 84.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p receiveArray"
@@ -3471,7 +3518,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 641.0, 630.0 ],
@@ -3500,7 +3547,7 @@
 																	"id" : "obj-1",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 8.5, 616.0, 290.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:noRepetition:symbol2float 0. 0."
@@ -3557,7 +3604,7 @@
 																	"id" : "obj-11",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 8.5, 459.0, 290.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:repetition:symbol2float 0."
@@ -3653,7 +3700,7 @@
 																	"id" : "obj-10",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 189.5, 284.0, 278.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:symbol2float 0."
@@ -3842,6 +3889,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -3850,16 +3903,16 @@
 ,
 													"patching_rect" : [ 285.0, 127.0, 94.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p receiveSymbol"
@@ -3879,7 +3932,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 625.0, 645.0 ],
@@ -3922,7 +3975,7 @@
 																	"id" : "obj-8",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 100.0, 675.0, 290.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:noRepetition:int2float 1 1"
@@ -3993,7 +4046,7 @@
 																	"id" : "obj-11",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 106.0, 497.0, 290.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:repetition:int2float 1"
@@ -4092,7 +4145,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 330.0, 245.0, 50.0, 17.0 ],
-																	"text" : "53"
+																	"text" : "26"
 																}
 
 															}
@@ -4106,7 +4159,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 170.0, 245.0, 50.0, 17.0 ],
-																	"text" : "53."
+																	"text" : "26."
 																}
 
 															}
@@ -4116,7 +4169,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-10",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 151.0, 329.0, 277.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:method:int2float 1"
@@ -4405,6 +4458,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -4413,16 +4472,16 @@
 ,
 													"patching_rect" : [ 85.0, 127.0, 71.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p receiveInt"
@@ -4442,7 +4501,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 648.0, 662.0 ],
@@ -4485,7 +4544,7 @@
 																	"id" : "obj-9",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 9.5, 649.0, 290.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:noRepetition:float 1 1"
@@ -4556,7 +4615,7 @@
 																	"id" : "obj-11",
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 9.5, 497.0, 290.0, 31.0 ],
 																	"text" : "test.assert.equal jcom.message:method:repetition:float 1"
@@ -4644,7 +4703,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 330.0, 245.0, 50.0, 17.0 ],
-																	"text" : "0.81"
+																	"text" : "0.18"
 																}
 
 															}
@@ -4658,7 +4717,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 155.0, 245.0, 50.0, 17.0 ],
-																	"text" : "0.81"
+																	"text" : "0.18"
 																}
 
 															}
@@ -4682,7 +4741,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-10",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 135.0, 363.0, 258.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:method:float 1"
@@ -4973,6 +5032,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -4981,16 +5046,16 @@
 ,
 													"patching_rect" : [ 180.0, 127.0, 81.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p receiveFloat"
@@ -5111,6 +5176,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -5119,16 +5190,16 @@
 ,
 									"patching_rect" : [ 175.0, 112.0, 43.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p float"
@@ -5149,7 +5220,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 2.0, 44.0, 1404.0, 697.0 ],
@@ -5234,9 +5305,9 @@
 													"id" : "obj-41",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 984.0, 685.0, 271.0, 43.0 ],
+													"patching_rect" : [ 984.0, 685.0, 275.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:noRepetition:listTruncate 5 5"
 												}
 
@@ -5291,7 +5362,7 @@
 													"id" : "obj-50",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 649.0, 685.0, 284.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:noRepetition:symbol2zero 0 0"
@@ -5348,7 +5419,7 @@
 													"id" : "obj-54",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 324.0, 685.0, 285.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:noRepetition:truncateFloat 1 1"
@@ -5419,9 +5490,9 @@
 													"id" : "obj-59",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 52.0, 685.0, 270.0, 43.0 ],
+													"patching_rect" : [ 52.0, 685.0, 273.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:noRepetition:receivedInt 1 1"
 												}
 
@@ -5518,7 +5589,7 @@
 													"id" : "obj-33",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1005.0, 491.0, 260.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:repetition:listTruncate 5"
@@ -5575,7 +5646,7 @@
 													"id" : "obj-28",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 670.0, 491.0, 266.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:repetition:symbol2zero 0"
@@ -5632,7 +5703,7 @@
 													"id" : "obj-23",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 345.0, 491.0, 242.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:repetition:truncateFloat 1"
@@ -5703,7 +5774,7 @@
 													"id" : "obj-7",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 90.0, 491.0, 242.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:repetition:receivedInt 1"
@@ -5760,7 +5831,7 @@
 													"id" : "obj-46",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1100.0, 305.0, 207.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:listTruncate 5"
@@ -5816,7 +5887,7 @@
 													"id" : "obj-40",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 759.0, 305.0, 213.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:symbol2zero 0"
@@ -5872,7 +5943,7 @@
 													"id" : "obj-14",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 432.5, 300.0, 235.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:truncateFloat 1"
@@ -5939,7 +6010,7 @@
 													"id" : "obj-10",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 177.5, 300.0, 225.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:method:int:receivedInt 1"
@@ -6768,6 +6839,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -6776,16 +6853,16 @@
 ,
 									"patching_rect" : [ 175.0, 82.0, 33.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p int"
@@ -6872,6 +6949,12 @@
 							}
  ],
 						"dependency_cache" : [ 							{
+								"name" : "test.assert.equal.maxpat",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+								"type" : "JSON",
+								"implicit" : 1
+							}
+, 							{
 								"name" : "jcom.message.mxo",
 								"type" : "iLaX"
 							}
@@ -6880,16 +6963,16 @@
 ,
 					"patching_rect" : [ 245.0, 90.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"description" : "",
 						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"digest" : "",
+						"tags" : "",
+						"default_fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p typeTests"
@@ -6910,7 +6993,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 633.0, 79.0, 655.0, 693.0 ],
@@ -6972,7 +7055,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -7018,7 +7101,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7046,7 +7129,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-37",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 569.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:ramp:ramp/drive:attrSetToSmoothPolynomial smoothPolynomial @issue 495"
@@ -7214,6 +7297,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -7222,16 +7311,16 @@
 ,
 													"patching_rect" : [ 510.0, 315.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p attrSetToCosine"
@@ -7251,7 +7340,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7279,7 +7368,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-37",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 450.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:ramp:ramp/drive:attrSetToCosine cosine @issue 495"
@@ -7447,6 +7536,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -7455,16 +7550,16 @@
 ,
 													"patching_rect" : [ 545.0, 290.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p attrSetToCosine"
@@ -7484,7 +7579,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7512,7 +7607,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-37",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 444.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:ramp:ramp/drive:attrSetToLinear linear @issue 495"
@@ -7680,6 +7775,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -7688,16 +7789,16 @@
 ,
 													"patching_rect" : [ 565.0, 265.0, 97.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p attrSetToLinear"
@@ -7717,7 +7818,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7745,7 +7846,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-37",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 435.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:ramp:ramp/drive:attrSetToNone none @issue 495"
@@ -7913,6 +8014,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -7921,16 +8028,16 @@
 ,
 													"patching_rect" : [ 585.0, 240.0, 92.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p attrSetToNone"
@@ -7961,7 +8068,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7989,7 +8096,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-37",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 463.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:ramp:ramp/drive:attrDefaultsToNone linear @issue 495"
@@ -8157,6 +8264,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -8165,16 +8278,16 @@
 ,
 													"patching_rect" : [ 615.0, 190.0, 122.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p attrDefaultsToLinear"
@@ -8194,7 +8307,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -8222,7 +8335,7 @@
 																	"fontsize" : 10.0,
 																	"id" : "obj-37",
 																	"maxclass" : "newobj",
-																	"numinlets" : 1,
+																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 571.0, 19.0 ],
 																	"text" : "test.assert.equal jcom.message:ramp:ramp/drive:ifSchedulerDriveAttrStillDefaultsToLinear linear @issue 495"
@@ -8390,6 +8503,12 @@
 															}
  ],
 														"dependency_cache" : [ 															{
+																"name" : "test.assert.equal.maxpat",
+																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+																"type" : "JSON",
+																"implicit" : 1
+															}
+, 															{
 																"name" : "jcom.message.mxo",
 																"type" : "iLaX"
 															}
@@ -8398,16 +8517,16 @@
 ,
 													"patching_rect" : [ 600.0, 215.0, 296.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"description" : "",
 														"fontname" : "Verdana",
-														"globalpatchername" : "",
 														"default_fontface" : 0,
+														"globalpatchername" : "",
+														"digest" : "",
+														"tags" : "",
+														"default_fontname" : "Verdana",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"digest" : "",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0
+														"default_fontsize" : 10.0,
+														"description" : ""
 													}
 ,
 													"text" : "p ifSchedulerDriveRampFunctionAttrStillDefaultsToLinear"
@@ -8617,6 +8736,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -8625,16 +8750,16 @@
 ,
 									"patching_rect" : [ 255.0, 110.0, 142.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p rampDriveAttributeTests"
@@ -8655,7 +8780,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 210.0, 64.0, 1073.0, 743.0 ],
@@ -8775,7 +8900,7 @@
 													"id" : "obj-43",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 465.0, 530.0, 262.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:decimal:fastRampTiming 1"
@@ -8986,7 +9111,7 @@
 													"id" : "obj-10",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 180.0, 530.0, 261.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:decimal:fastRampValues 1"
@@ -9466,6 +9591,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -9474,16 +9605,16 @@
 ,
 									"patching_rect" : [ 255.0, 520.0, 97.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p arrayFastRamp"
@@ -9504,7 +9635,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 180.0, 44.0, 1073.0, 743.0 ],
@@ -9794,7 +9925,7 @@
 													"id" : "obj-43",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 505.0, 545.0, 276.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:array:instantRampTiming 1"
@@ -9836,7 +9967,7 @@
 													"id" : "obj-10",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 180.0, 545.0, 270.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:array:instantRampValue 1"
@@ -10334,6 +10465,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -10342,16 +10479,16 @@
 ,
 									"patching_rect" : [ 255.0, 550.0, 112.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p arrayInstantRamp"
@@ -10386,7 +10523,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -10470,7 +10607,7 @@
 													"id" : "obj-10",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 150.0, 600.0, 239.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:array:correctValues 1"
@@ -10535,7 +10672,7 @@
 													"id" : "obj-43",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 600.0, 240.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:array:correctTiming 1"
@@ -11220,6 +11357,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -11228,16 +11371,16 @@
 ,
 									"patching_rect" : [ 255.0, 495.0, 70.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p typeArray"
@@ -11258,7 +11401,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -11317,7 +11460,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 265.0, 325.0, 42.0, 138.0 ],
-													"text" : "0 0 100 200 300 400 500 600 700 799 899 1000"
+													"text" : "0 0 100 200 300 400 500 600 700 800 900 1000"
 												}
 
 											}
@@ -11342,7 +11485,7 @@
 													"id" : "obj-10",
 													"linecount" : 3,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 150.0, 600.0, 252.0, 43.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:integer:correctValues 1 @issue 564"
@@ -11407,7 +11550,7 @@
 													"id" : "obj-43",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 600.0, 251.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:integer:correctTiming 1"
@@ -12094,6 +12237,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -12102,16 +12251,16 @@
 ,
 									"patching_rect" : [ 255.0, 410.0, 79.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p typeInteger"
@@ -12132,7 +12281,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 24.0, 45.0, 1073.0, 743.0 ],
@@ -12420,7 +12569,7 @@
 													"id" : "obj-43",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 505.0, 500.0, 286.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:decimal:instantRampTiming 1"
@@ -12462,7 +12611,7 @@
 													"id" : "obj-10",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 180.0, 500.0, 280.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:decimal:instantRampValue 1"
@@ -12937,6 +13086,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -12945,16 +13100,16 @@
 ,
 									"patching_rect" : [ 255.0, 340.0, 124.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p decimalInstantRamp"
@@ -12975,7 +13130,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 210.0, 64.0, 1073.0, 743.0 ],
@@ -13066,7 +13221,7 @@
 													"id" : "obj-43",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 465.0, 505.0, 262.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:decimal:fastRampTiming 1"
@@ -13276,7 +13431,7 @@
 													"id" : "obj-10",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 180.0, 505.0, 261.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:decimal:fastRampValues 1"
@@ -13736,6 +13891,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -13744,16 +13905,16 @@
 ,
 									"patching_rect" : [ 255.0, 315.0, 109.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p decimalFastRamp"
@@ -13800,7 +13961,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -13843,7 +14004,7 @@
 													"id" : "obj-10",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 150.0, 600.0, 256.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:decimal:correctValues 1"
@@ -13908,7 +14069,7 @@
 													"id" : "obj-43",
 													"linecount" : 2,
 													"maxclass" : "newobj",
-													"numinlets" : 1,
+													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 600.0, 257.0, 31.0 ],
 													"text" : "test.assert.equal jcom.message:ramp:decimal:correctTiming 1"
@@ -14567,6 +14728,12 @@
 											}
  ],
 										"dependency_cache" : [ 											{
+												"name" : "test.assert.equal.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
 												"name" : "jcom.message.mxo",
 												"type" : "iLaX"
 											}
@@ -14575,16 +14742,16 @@
 ,
 									"patching_rect" : [ 255.0, 290.0, 82.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"description" : "",
 										"fontname" : "Verdana",
-										"globalpatchername" : "",
 										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"digest" : "",
+										"tags" : "",
+										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"digest" : "",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0
+										"default_fontsize" : 10.0,
+										"description" : ""
 									}
 ,
 									"text" : "p typeDecimal"
@@ -14698,6 +14865,12 @@
 							}
  ],
 						"dependency_cache" : [ 							{
+								"name" : "test.assert.equal.maxpat",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+								"type" : "JSON",
+								"implicit" : 1
+							}
+, 							{
 								"name" : "jcom.message.mxo",
 								"type" : "iLaX"
 							}
@@ -14706,16 +14879,16 @@
 ,
 					"patching_rect" : [ 245.0, 160.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"description" : "",
 						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"digest" : "",
+						"tags" : "",
+						"default_fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p rampTests"
@@ -14725,7 +14898,6 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-5",
-					"int" : 1,
 					"maxclass" : "gswitch2",
 					"numinlets" : 2,
 					"numoutlets" : 2,
@@ -14874,6 +15046,20 @@
 			}
  ],
 		"dependency_cache" : [ 			{
+				"name" : "test.finished.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+				"patcherrelativepath" : "../../Test/components",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "test.assert.equal.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+				"patcherrelativepath" : "../../Test/components",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "jcom.message.mxo",
 				"type" : "iLaX"
 			}
