@@ -103,7 +103,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 195.0, 325.0, 345.0, 19.0 ],
-					"text" : "test.assert.equal \"TEST Foundation AllExternalsLoadingProperly\" 1"
+					"text" : "test.assert.equal.old \"TEST Foundation AllExternalsLoadingProperly\" 1"
 				}
 
 			}

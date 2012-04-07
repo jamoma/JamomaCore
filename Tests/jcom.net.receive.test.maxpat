@@ -193,7 +193,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 872.0, 248.0, 190.0, 43.0 ],
-									"text" : "test.assert.equal TESTnet.receive:TCP:string \"this is jamoma\" @issue 1110"
+									"text" : "test.assert.equal.old TESTnet.receive:TCP:string \"this is jamoma\" @issue 1110"
 								}
 
 							}
@@ -265,7 +265,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 666.5, 248.0, 190.0, 43.0 ],
-									"text" : "test.assert.equal TESTnet.receive:TCP:symbol jamoma @issue 1110"
+									"text" : "test.assert.equal.old TESTnet.receive:TCP:symbol jamoma @issue 1110"
 								}
 
 							}
@@ -337,7 +337,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 461.0, 248.0, 202.0, 43.0 ],
-									"text" : "test.assert.equal TESTnet.receive:TCP:decimal 123.45 @issue 1110"
+									"text" : "test.assert.equal.old TESTnet.receive:TCP:decimal 123.45 @issue 1110"
 								}
 
 							}
@@ -409,7 +409,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 257.0, 248.0, 160.0, 43.0 ],
-									"text" : "test.assert.equal TESTnet.receive:TCP:int 123 @issue 1110"
+									"text" : "test.assert.equal.old TESTnet.receive:TCP:int 123 @issue 1110"
 								}
 
 							}
@@ -876,7 +876,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 872.0, 248.0, 190.0, 43.0 ],
-									"text" : "test.assert.equal TESTnet.receive:UDP:string \"this is jamoma\" @issue 1044"
+									"text" : "test.assert.equal.old TESTnet.receive:UDP:string \"this is jamoma\" @issue 1044"
 								}
 
 							}
@@ -948,7 +948,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 666.5, 248.0, 190.0, 43.0 ],
-									"text" : "test.assert.equal TESTnet.receive:UDP:symbol jamoma @issue 1044"
+									"text" : "test.assert.equal.old TESTnet.receive:UDP:symbol jamoma @issue 1044"
 								}
 
 							}
@@ -1020,7 +1020,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 461.0, 248.0, 192.0, 43.0 ],
-									"text" : "test.assert.equal TESTnet.receive:UDP:decimal 123.45 @issue 1044"
+									"text" : "test.assert.equal.old TESTnet.receive:UDP:decimal 123.45 @issue 1044"
 								}
 
 							}
@@ -1092,7 +1092,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 257.0, 248.0, 148.0, 43.0 ],
-									"text" : "test.assert.equal TESTnet.receive:UDP:int 123 @issue 1044"
+									"text" : "test.assert.equal.old TESTnet.receive:UDP:int 123 @issue 1044"
 								}
 
 							}
