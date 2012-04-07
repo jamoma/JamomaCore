@@ -75,7 +75,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 195.0, 325.0, 338.0, 19.0 ],
-					"text" : "test.assert.equal \"TEST Plugtastic AllExternalsLoadingProperly\" 1"
+					"text" : "test.assert.equal.old \"TEST Plugtastic AllExternalsLoadingProperly\" 1"
 				}
 
 			}
