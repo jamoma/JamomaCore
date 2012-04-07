@@ -103,7 +103,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 195.0, 325.0, 345.0, 19.0 ],
-					"text" : "test.assert.equal.old \"TEST Foundation AllExternalsLoadingProperly\" 1"
+					"text" : "jcom.test.assert.equal.old \"TEST Foundation AllExternalsLoadingProperly\" 1"
 				}
 
 			}
@@ -131,7 +131,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "bang", "bang" ],
 					"patching_rect" : [ 50.0, 85.0, 57.0, 19.0 ],
-					"text" : "test.start"
+					"text" : "jcom.test.start"
 				}
 
 			}
@@ -171,7 +171,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 50.0, 200.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}
