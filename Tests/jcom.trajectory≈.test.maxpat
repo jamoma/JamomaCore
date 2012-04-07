@@ -136,7 +136,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 447.333313, 343.0, 575.0, 31.0 ],
-									"text" : "test.assert.equal.old jcom.trajectory≈:messages:getTypes bean.2D butterfly.2D circular.2D epitrochoid.2D gear.2D hypocycloid.2D limacon.2D viviani.3D"
+									"text" : "jcom.test.assert.equal.old jcom.trajectory≈:messages:getTypes bean.2D butterfly.2D circular.2D epitrochoid.2D gear.2D hypocycloid.2D limacon.2D viviani.3D"
 								}
 
 							}
@@ -192,7 +192,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 259.0, 404.0, 367.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.trajectory≈:messages:getCurrentType linear.2D"
+									"text" : "jcom.test.assert.equal.old jcom.trajectory≈:messages:getCurrentType linear.2D"
 								}
 
 							}
@@ -275,7 +275,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 159.0, 433.0, 384.0, 19.0 ],
-									"text" : "test.assert.equal.old jcom.trajectory≈:messages:getCurrentAttributeNames a"
+									"text" : "jcom.test.assert.equal.old jcom.trajectory≈:messages:getCurrentAttributeNames a"
 								}
 
 							}
@@ -576,7 +576,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.old.maxpat",
+								"name" : "jcom.test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -656,7 +656,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 73.0, 353.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}
@@ -699,14 +699,14 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "test.finished.maxpat",
+				"name" : "jcom.test.finished.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../Test/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "test.assert.equal.old.maxpat",
+				"name" : "jcom.test.assert.equal.old.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../Test/components",
 				"type" : "JSON",
