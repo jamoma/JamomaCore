@@ -371,7 +371,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 365.0, 790.0, 389.0, 19.0 ],
-					"text" : "test.assert.equal \"TEST JamomaDSP NoErrorsRunningDSPinHelpPatchers\" 0"
+					"text" : "test.assert.equal.old \"TEST JamomaDSP NoErrorsRunningDSPinHelpPatchers\" 0"
 				}
 
 			}

@@ -343,7 +343,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 195.0, 325.0, 310.0, 19.0 ],
-					"text" : "test.assert.equal \"TEST DSP AllExternalsLoadingProperly\" 1"
+					"text" : "test.assert.equal.old \"TEST DSP AllExternalsLoadingProperly\" 1"
 				}
 
 			}
