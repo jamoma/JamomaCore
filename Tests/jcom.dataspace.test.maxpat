@@ -82,7 +82,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 805.599976, 284.0, 197.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/message/dataspace angle"
+									"text" : "test.assert.equal.old TEST/dataspace/message/dataspace angle"
 								}
 
 							}
@@ -139,7 +139,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 661.200012, 340.0, 185.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/message/getoutput deg"
+									"text" : "test.assert.equal.old TEST/dataspace/message/getoutput deg"
 								}
 
 							}
@@ -153,7 +153,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 516.799988, 284.0, 188.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/message/getinput rad"
+									"text" : "test.assert.equal.old TEST/dataspace/message/getinput rad"
 								}
 
 							}
@@ -167,7 +167,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 408.5, 394.0, 185.0, 55.0 ],
-									"text" : "test.assert.equal TEST/dataspace/message/unit.get append append append append clear deg degree rad radian"
+									"text" : "test.assert.equal.old TEST/dataspace/message/unit.get append append append append clear deg degree rad radian"
 								}
 
 							}
@@ -181,7 +181,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 228.0, 456.0, 223.0, 92.0 ],
-									"text" : "test.assert.equal TEST/dataspace/message/dataspaces.get clear append angle append color append distance append gain append none append orientation append position append speed append temperature append time"
+									"text" : "test.assert.equal.old TEST/dataspace/message/dataspaces.get clear append angle append color append distance append gain append none append orientation append position append speed append temperature append time"
 								}
 
 							}
@@ -565,7 +565,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
+								"name" : "test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -706,7 +706,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 450.0, 190.0, 308.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/convertLists1:NotImplementedYet 60. 70. @issue 42"
+									"text" : "test.assert.equal.old TEST/dataspace/convertLists1:NotImplementedYet 60. 70. @issue 42"
 								}
 
 							}
@@ -748,7 +748,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 75.0, 190.0, 356.0, 31.0 ],
-									"text" : "test.assert.equal TEST/dataspace/convertLists2:NotImplementedYet 6000. 7200. @issue 42"
+									"text" : "test.assert.equal.old TEST/dataspace/convertLists2:NotImplementedYet 6000. 7200. @issue 42"
 								}
 
 							}
@@ -849,7 +849,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
+								"name" : "test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -963,7 +963,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 140.0, 690.0, 386.0, 19.0 ],
-									"text" : "test.assert.equal TEST/Dataspace/color/pointersNotMixedUp 1 @issue 749"
+									"text" : "test.assert.equal.old TEST/Dataspace/color/pointersNotMixedUp 1 @issue 749"
 								}
 
 							}
@@ -1034,7 +1034,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 535.0, 440.0, 186.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/color/neutral2hsv 120. 100. 100."
+									"text" : "test.assert.equal.old TEST/dataspace/color/neutral2hsv 120. 100. 100."
 								}
 
 							}
@@ -1048,7 +1048,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 730.0, 440.0, 202.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/color/rgb82neutral 255. 127.5 0."
+									"text" : "test.assert.equal.old TEST/dataspace/color/rgb82neutral 255. 127.5 0."
 								}
 
 							}
@@ -1091,7 +1091,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 730.0, 215.0, 191.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/color/rgb82neutral 1. 0.5 0."
+									"text" : "test.assert.equal.old TEST/dataspace/color/rgb82neutral 1. 0.5 0."
 								}
 
 							}
@@ -1148,7 +1148,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 150.0, 440.0, 191.0, 43.0 ],
-									"text" : "test.assert.equal TEST/Dataspace/color/neutral2cmy 255. 127.5 0."
+									"text" : "test.assert.equal.old TEST/Dataspace/color/neutral2cmy 255. 127.5 0."
 								}
 
 							}
@@ -1162,7 +1162,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 350.0, 440.0, 178.0, 43.0 ],
-									"text" : "test.assert.equal TEST/datapace/color/neutral2hsl 120. 100. 50."
+									"text" : "test.assert.equal.old TEST/datapace/color/neutral2hsl 120. 100. 50."
 								}
 
 							}
@@ -1263,7 +1263,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 150.0, 215.0, 194.0, 43.0 ],
-									"text" : "test.assert.equal TEST/Dataspace/color/cmy2neutral 0. 0.5 1."
+									"text" : "test.assert.equal.old TEST/Dataspace/color/cmy2neutral 0. 0.5 1."
 								}
 
 							}
@@ -1277,7 +1277,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 350.0, 215.0, 178.0, 43.0 ],
-									"text" : "test.assert.equal TEST/datapace/color/hsl2neutral 0. 1. 0."
+									"text" : "test.assert.equal.old TEST/datapace/color/hsl2neutral 0. 1. 0."
 								}
 
 							}
@@ -1291,7 +1291,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 535.0, 215.0, 188.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/color/hsv2neutral 0. 1. 0."
+									"text" : "test.assert.equal.old TEST/dataspace/color/hsv2neutral 0. 1. 0."
 								}
 
 							}
@@ -1320,7 +1320,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 925.0, 215.0, 186.0, 43.0 ],
-									"text" : "test.assert.equal TEST/dataspace/color/rgb2neutral 0.912911 0.291039 0.500228"
+									"text" : "test.assert.equal.old TEST/dataspace/color/rgb2neutral 0.912911 0.291039 0.500228"
 								}
 
 							}
@@ -1809,7 +1809,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
+								"name" : "test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -1978,7 +1978,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 875.0, 575.0, 350.0, 31.0 ],
-									"text" : "test.assert.equal TEST/dataspace/time/neutral2sample 1 @issue 917"
+									"text" : "test.assert.equal.old TEST/dataspace/time/neutral2sample 1 @issue 917"
 								}
 
 							}
@@ -2103,7 +2103,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 510.0, 545.0, 315.0, 19.0 ],
-									"text" : "test.assert.equal TEST/dataspace/pitch/neutralspeed 2."
+									"text" : "test.assert.equal.old TEST/dataspace/pitch/neutralspeed 2."
 								}
 
 							}
@@ -2116,7 +2116,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 385.0, 570.0, 319.0, 19.0 ],
-									"text" : "test.assert.equal TEST/dataspace/pitch/neutral2midi 69."
+									"text" : "test.assert.equal.old TEST/dataspace/pitch/neutral2midi 69."
 								}
 
 							}
@@ -2129,7 +2129,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 260.0, 595.0, 317.0, 19.0 ],
-									"text" : "test.assert.equal TEST/dataspace/pitch/neutral2Hz 440."
+									"text" : "test.assert.equal.old TEST/dataspace/pitch/neutral2Hz 440."
 								}
 
 							}
@@ -2142,7 +2142,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 135.0, 620.0, 337.0, 19.0 ],
-									"text" : "test.assert.equal TEST/dataspace/pitch/neutral2cents 6900."
+									"text" : "test.assert.equal.old TEST/dataspace/pitch/neutral2cents 6900."
 								}
 
 							}
@@ -2239,7 +2239,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 500.0, 235.0, 365.0, 19.0 ],
-									"text" : "test.assert.equal TEST/dataspace/pitch/speed2neutral 16.351599"
+									"text" : "test.assert.equal.old TEST/dataspace/pitch/speed2neutral 16.351599"
 								}
 
 							}
@@ -2252,7 +2252,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 375.0, 260.0, 326.0, 19.0 ],
-									"text" : "test.assert.equal TEST/dataspace/pitch/midi2neutral 440."
+									"text" : "test.assert.equal.old TEST/dataspace/pitch/midi2neutral 440."
 								}
 
 							}
@@ -2265,7 +2265,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 255.0, 285.0, 317.0, 19.0 ],
-									"text" : "test.assert.equal TEST/dataspace/pitch/Hz2neutral 440."
+									"text" : "test.assert.equal.old TEST/dataspace/pitch/Hz2neutral 440."
 								}
 
 							}
@@ -2278,7 +2278,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 130.0, 310.0, 331.0, 19.0 ],
-									"text" : "test.assert.equal TEST/dataspace/pitch/cents2neutral 440."
+									"text" : "test.assert.equal.old TEST/dataspace/pitch/cents2neutral 440."
 								}
 
 							}
@@ -2687,7 +2687,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
+								"name" : "test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -2805,7 +2805,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 100.0, 235.0, 244.0, 31.0 ],
-									"text" : "test.assert.equal TESTdataspace/nonexisting_dataspace 0."
+									"text" : "test.assert.equal.old TESTdataspace/nonexisting_dataspace 0."
 								}
 
 							}
@@ -2862,7 +2862,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 350.0, 235.0, 241.0, 31.0 ],
-									"text" : "test.assert.equal TESTdataspace/input_unit_is_nonsense 0."
+									"text" : "test.assert.equal.old TESTdataspace/input_unit_is_nonsense 0."
 								}
 
 							}
@@ -2934,7 +2934,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 635.0, 235.0, 233.0, 31.0 ],
-									"text" : "test.assert.equal TESTdataspace/output_unit_is_nonsense 0."
+									"text" : "test.assert.equal.old TESTdataspace/output_unit_is_nonsense 0."
 								}
 
 							}
@@ -3088,7 +3088,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
+								"name" : "test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -3332,7 +3332,7 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "test.assert.equal.maxpat",
+				"name" : "test.assert.equal.old.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../Test/components",
 				"type" : "JSON",

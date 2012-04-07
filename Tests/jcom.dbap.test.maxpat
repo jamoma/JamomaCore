@@ -812,7 +812,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 225.0, 630.0, 270.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::blurAll:isRelative:3D 1"
+													"text" : "test.assert.equal.old TESTdbap::blurAll:isRelative:3D 1"
 												}
 
 											}
@@ -1858,7 +1858,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 225.0, 630.0, 270.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::blurAll:isRelative:1D 1"
+													"text" : "test.assert.equal.old TESTdbap::blurAll:isRelative:1D 1"
 												}
 
 											}
@@ -2936,7 +2936,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 225.0, 630.0, 270.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::blurAll:isRelative:2D 1"
+													"text" : "test.assert.equal.old TESTdbap::blurAll:isRelative:2D 1"
 												}
 
 											}
@@ -3504,7 +3504,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 780.0, 590.0, 275.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::RollOff::3D::9.325dB 1"
+													"text" : "test.assert.equal.old TESTdbap::RollOff::3D::9.325dB 1"
 												}
 
 											}
@@ -3784,7 +3784,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 190.0, 590.0, 252.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::RollOff::3D::6dB 1"
+													"text" : "test.assert.equal.old TESTdbap::RollOff::3D::6dB 1"
 												}
 
 											}
@@ -4686,7 +4686,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 780.0, 590.0, 275.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::RollOff::1D::9.325dB 1"
+													"text" : "test.assert.equal.old TESTdbap::RollOff::1D::9.325dB 1"
 												}
 
 											}
@@ -4966,7 +4966,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 190.0, 590.0, 252.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::RollOff::1D::6dB 1"
+													"text" : "test.assert.equal.old TESTdbap::RollOff::1D::6dB 1"
 												}
 
 											}
@@ -5880,7 +5880,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 780.0, 590.0, 275.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::RollOff::2D::9.325dB 1"
+													"text" : "test.assert.equal.old TESTdbap::RollOff::2D::9.325dB 1"
 												}
 
 											}
@@ -6160,7 +6160,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 190.0, 590.0, 252.0, 19.0 ],
-													"text" : "test.assert.equal TESTdbap::RollOff::2D::6dB 1"
+													"text" : "test.assert.equal.old TESTdbap::RollOff::2D::6dB 1"
 												}
 
 											}
@@ -7026,7 +7026,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 640.0, 480.0, 257.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::num_destinations 6"
+									"text" : "test.assert.equal.old TESTdbap::num_destinations 6"
 								}
 
 							}
@@ -7053,7 +7053,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 155.0, 480.0, 237.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::unityIntensity 1"
+									"text" : "test.assert.equal.old TESTdbap::unityIntensity 1"
 								}
 
 							}
@@ -8066,7 +8066,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 725.0, 430.0, 250.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::getnum_sources 7"
+									"text" : "test.assert.equal.old TESTdbap::getnum_sources 7"
 								}
 
 							}
@@ -8079,7 +8079,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 725.0, 220.0, 257.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::getnum_sources 11"
+									"text" : "test.assert.equal.old TESTdbap::getnum_sources 11"
 								}
 
 							}
@@ -8092,7 +8092,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 800.0, 410.0, 215.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::setrolloff 2."
+									"text" : "test.assert.equal.old TESTdbap::setrolloff 2."
 								}
 
 							}
@@ -8105,7 +8105,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 650.0, 450.0, 272.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::setnum_destinations 4"
+									"text" : "test.assert.equal.old TESTdbap::setnum_destinations 4"
 								}
 
 							}
@@ -8118,7 +8118,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 575.0, 470.0, 239.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::setdimensions 1"
+									"text" : "test.assert.equal.old TESTdbap::setdimensions 1"
 								}
 
 							}
@@ -8174,7 +8174,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 800.0, 200.0, 222.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::getrolloff 4.2"
+									"text" : "test.assert.equal.old TESTdbap::getrolloff 4.2"
 								}
 
 							}
@@ -8187,7 +8187,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 650.0, 240.0, 279.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::getnum_destinations 12"
+									"text" : "test.assert.equal.old TESTdbap::getnum_destinations 12"
 								}
 
 							}
@@ -8200,7 +8200,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 575.0, 260.0, 240.0, 19.0 ],
-									"text" : "test.assert.equal TESTdbap::getdimensions 3"
+									"text" : "test.assert.equal.old TESTdbap::getdimensions 3"
 								}
 
 							}

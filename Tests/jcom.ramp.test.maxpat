@@ -127,7 +127,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 145.0, 325.0, 216.0, 43.0 ],
-									"text" : "test.assert.equal jcom.ramp:functionAttribute:setfunction 1"
+									"text" : "test.assert.equal.old jcom.ramp:functionAttribute:setfunction 1"
 								}
 
 							}
@@ -198,7 +198,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 395.0, 325.0, 224.0, 43.0 ],
-									"text" : "test.assert.equal jcom.ramp:driveAttribute:setAsArgument 1"
+									"text" : "test.assert.equal.old jcom.ramp:driveAttribute:setAsArgument 1"
 								}
 
 							}
@@ -268,7 +268,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 665.0, 325.0, 182.0, 43.0 ],
-									"text" : "test.assert.equal jcom.ramp:driveAttribute:default 1"
+									"text" : "test.assert.equal.old jcom.ramp:driveAttribute:default 1"
 								}
 
 							}
@@ -677,7 +677,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 130.0, 310.0, 215.0, 43.0 ],
-									"text" : "test.assert.equal jcom.ramp:functionAttribute:setfunction 1"
+									"text" : "test.assert.equal.old jcom.ramp:functionAttribute:setfunction 1"
 								}
 
 							}
@@ -750,7 +750,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 380.0, 310.0, 240.0, 43.0 ],
-									"text" : "test.assert.equal jcom.ramp:functionAttribute:setAsArgument 1"
+									"text" : "test.assert.equal.old jcom.ramp:functionAttribute:setAsArgument 1"
 								}
 
 							}
@@ -820,7 +820,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 650.0, 310.0, 198.0, 43.0 ],
-									"text" : "test.assert.equal jcom.ramp:functionAttribute:default 1"
+									"text" : "test.assert.equal.old jcom.ramp:functionAttribute:default 1"
 								}
 
 							}
@@ -1358,7 +1358,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 150.0, 575.0, 234.0, 19.0 ],
-									"text" : "test.assert.equal jcom.ramp:scheduler:list 1"
+									"text" : "test.assert.equal.old jcom.ramp:scheduler:list 1"
 								}
 
 							}
@@ -1918,7 +1918,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 465.0, 455.0, 229.0, 31.0 ],
-									"text" : "test.assert.equal jcom.ramp:scheduler:instantRampTiming 1"
+									"text" : "test.assert.equal.old jcom.ramp:scheduler:instantRampTiming 1"
 								}
 
 							}
@@ -1988,7 +1988,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 180.0, 455.0, 223.0, 31.0 ],
-									"text" : "test.assert.equal jcom.ramp:scheduler:instantRampValue 1"
+									"text" : "test.assert.equal.old jcom.ramp:scheduler:instantRampValue 1"
 								}
 
 							}
@@ -2587,7 +2587,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 465.0, 505.0, 225.0, 31.0 ],
-									"text" : "test.assert.equal jcom.ramp:scheduler:fastRampTiming 1"
+									"text" : "test.assert.equal.old jcom.ramp:scheduler:fastRampTiming 1"
 								}
 
 							}
@@ -2797,7 +2797,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 180.0, 505.0, 224.0, 31.0 ],
-									"text" : "test.assert.equal jcom.ramp:scheduler:fastRampValues 1"
+									"text" : "test.assert.equal.old jcom.ramp:scheduler:fastRampValues 1"
 								}
 
 							}
@@ -3537,7 +3537,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 160.0, 330.0, 192.0, 19.0 ],
-									"text" : "test.assert.equal jcom.ramp:set 74."
+									"text" : "test.assert.equal.old jcom.ramp:set 74."
 								}
 
 							}
@@ -3785,7 +3785,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 435.0, 600.0, 213.0, 31.0 ],
-									"text" : "test.assert.equal jcom.ramp:scheduler:correctTiming 1"
+									"text" : "test.assert.equal.old jcom.ramp:scheduler:correctTiming 1"
 								}
 
 							}
@@ -3997,7 +3997,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 150.0, 600.0, 212.0, 31.0 ],
-									"text" : "test.assert.equal jcom.ramp:scheduler:correctValues 1"
+									"text" : "test.assert.equal.old jcom.ramp:scheduler:correctValues 1"
 								}
 
 							}
@@ -4611,7 +4611,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 240.0, 470.0, 188.0, 19.0 ],
-									"text" : "test.assert.equal jcom.ramp:stop 1"
+									"text" : "test.assert.equal.old jcom.ramp:stop 1"
 								}
 
 							}

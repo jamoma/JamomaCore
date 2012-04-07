@@ -33,7 +33,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "test.assert.equal InAndOutCrashTest 0",
+					"text" : "test.assert.equal.old InAndOutCrashTest 0",
 					"fontname" : "Arial",
 					"numinlets" : 2,
 					"numoutlets" : 0,

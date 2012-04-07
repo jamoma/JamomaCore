@@ -463,7 +463,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1131.75, 336.0, 256.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:type:array:cropTooLongArray 2 @issue 628"
+													"text" : "test.assert.equal.old jcom.parameter:type:array:cropTooLongArray 2 @issue 628"
 												}
 
 											}
@@ -520,7 +520,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 888.75, 295.0, 241.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:type:array:receiveLongArray 1"
+													"text" : "test.assert.equal.old jcom.parameter:type:array:receiveLongArray 1"
 												}
 
 											}
@@ -635,7 +635,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 660.0, 295.0, 227.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:type:array:receiveSymbol jamoma 1 3.14"
+													"text" : "test.assert.equal.old jcom.parameter:type:array:receiveSymbol jamoma 1 3.14"
 												}
 
 											}
@@ -663,7 +663,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 295.0, 209.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:type:array:receiveInt 3.14"
+													"text" : "test.assert.equal.old jcom.parameter:type:array:receiveInt 3.14"
 												}
 
 											}
@@ -692,7 +692,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 240.0, 295.0, 209.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:type:array:receiveInt 10"
+													"text" : "test.assert.equal.old jcom.parameter:type:array:receiveInt 10"
 												}
 
 											}
@@ -746,7 +746,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 90.0, 295.0, 150.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:type:array 1 2. 3 tjotlandotte"
+													"text" : "test.assert.equal.old jcom.parameter:type:array 1 2. 3 tjotlandotte"
 												}
 
 											}
@@ -1166,7 +1166,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -1242,7 +1242,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 565.0, 485.0, 231.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:string:float2string ??? @issue 923"
+													"text" : "test.assert.equal.old jcom.parameter:method:string:float2string ??? @issue 923"
 												}
 
 											}
@@ -1256,7 +1256,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 320.0, 485.0, 222.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:string:int2string ??? @issue 923"
+													"text" : "test.assert.equal.old jcom.parameter:method:string:int2string ??? @issue 923"
 												}
 
 											}
@@ -1341,7 +1341,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 850.0, 600.0, 403.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:string:symbolWithArguments2symbol:leftOutlet jamoma"
+													"text" : "test.assert.equal.old jcom.parameter:method:string:symbolWithArguments2symbol:leftOutlet jamoma"
 												}
 
 											}
@@ -1467,7 +1467,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 950.0, 485.0, 421.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:string:symbolWithArguments2symbol:middleOutlet jamoma"
+													"text" : "test.assert.equal.old jcom.parameter:method:string:symbolWithArguments2symbol:middleOutlet jamoma"
 												}
 
 											}
@@ -1582,7 +1582,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 125.0, 485.0, 177.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:string tjotlandotte"
+													"text" : "test.assert.equal.old jcom.parameter:method:string tjotlandotte"
 												}
 
 											}
@@ -2136,7 +2136,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -2327,7 +2327,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 190.0, 375.0, 279.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:method:list2float 1"
+																	"text" : "test.assert.equal.old jcom.parameter:method:list2float 1"
 																}
 
 															}
@@ -2478,7 +2478,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -2591,7 +2591,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 190.0, 350.0, 262.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:method:float 0."
+																	"text" : "test.assert.equal.old jcom.parameter:method:float 0."
 																}
 
 															}
@@ -2669,7 +2669,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -2810,7 +2810,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 135.0, 375.0, 277.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:method:int2float 1"
+																	"text" : "test.assert.equal.old jcom.parameter:method:int2float 1"
 																}
 
 															}
@@ -2952,7 +2952,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -3096,7 +3096,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 135.0, 375.0, 258.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:method:float 1"
+																	"text" : "test.assert.equal.old jcom.parameter:method:float 1"
 																}
 
 															}
@@ -3240,7 +3240,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -3384,7 +3384,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -3474,7 +3474,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 1145.0, 315.0, 226.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:int:listTruncate 5"
+													"text" : "test.assert.equal.old jcom.parameter:method:int:listTruncate 5"
 												}
 
 											}
@@ -3530,7 +3530,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 815.0, 315.0, 246.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:int:symbol2zero 0"
+													"text" : "test.assert.equal.old jcom.parameter:method:int:symbol2zero 0"
 												}
 
 											}
@@ -3586,7 +3586,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 430.0, 315.0, 235.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:int:truncateFloat 1"
+													"text" : "test.assert.equal.old jcom.parameter:method:int:truncateFloat 1"
 												}
 
 											}
@@ -3653,7 +3653,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 175.0, 315.0, 225.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:method:int:receivedInt 1"
+													"text" : "test.assert.equal.old jcom.parameter:method:int:receivedInt 1"
 												}
 
 											}
@@ -3939,7 +3939,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -4040,7 +4040,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
+								"name" : "test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -4223,7 +4223,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 569.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:attrSetToSmoothPolynomial smoothPolynomial @issue 495"
+																	"text" : "test.assert.equal.old jcom.parameter:ramp:ramp/drive:attrSetToSmoothPolynomial smoothPolynomial @issue 495"
 																}
 
 															}
@@ -4388,7 +4388,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -4462,7 +4462,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 450.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:attrSetToCosine cosine @issue 495"
+																	"text" : "test.assert.equal.old jcom.parameter:ramp:ramp/drive:attrSetToCosine cosine @issue 495"
 																}
 
 															}
@@ -4627,7 +4627,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -4701,7 +4701,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 444.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:attrSetToLinear linear @issue 495"
+																	"text" : "test.assert.equal.old jcom.parameter:ramp:ramp/drive:attrSetToLinear linear @issue 495"
 																}
 
 															}
@@ -4866,7 +4866,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -4940,7 +4940,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 435.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:attrSetToNone none @issue 495"
+																	"text" : "test.assert.equal.old jcom.parameter:ramp:ramp/drive:attrSetToNone none @issue 495"
 																}
 
 															}
@@ -5105,7 +5105,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -5190,7 +5190,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 463.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:attrDefaultsToNone linear @issue 495"
+																	"text" : "test.assert.equal.old jcom.parameter:ramp:ramp/drive:attrDefaultsToNone linear @issue 495"
 																}
 
 															}
@@ -5355,7 +5355,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -5429,7 +5429,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 50.0, 255.0, 571.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:ramp/drive:ifSchedulerDriveAttrStillDefaultsToLinear linear @issue 495"
+																	"text" : "test.assert.equal.old jcom.parameter:ramp:ramp/drive:ifSchedulerDriveAttrStillDefaultsToLinear linear @issue 495"
 																}
 
 															}
@@ -5594,7 +5594,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -5827,7 +5827,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -5994,7 +5994,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 465.0, 530.0, 262.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:decimal:fastRampTiming 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:decimal:fastRampTiming 1"
 												}
 
 											}
@@ -6205,7 +6205,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 180.0, 530.0, 261.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:decimal:fastRampValues 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:decimal:fastRampValues 1"
 												}
 
 											}
@@ -6682,7 +6682,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -7019,7 +7019,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 505.0, 545.0, 276.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:array:instantRampTiming 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:array:instantRampTiming 1"
 												}
 
 											}
@@ -7061,7 +7061,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 180.0, 545.0, 270.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:array:instantRampValue 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:array:instantRampValue 1"
 												}
 
 											}
@@ -7556,7 +7556,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -7701,7 +7701,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 150.0, 600.0, 239.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:array:correctValues 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:array:correctValues 1"
 												}
 
 											}
@@ -7766,7 +7766,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 600.0, 240.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:array:correctTiming 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:array:correctTiming 1"
 												}
 
 											}
@@ -8448,7 +8448,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -8629,7 +8629,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 150.0, 600.0, 437.0, 19.0 ],
-																	"text" : "test.assert.equal jcom.parameter:ramp:integer:correctNegativeValues 1 @issue 564"
+																	"text" : "test.assert.equal.old jcom.parameter:ramp:integer:correctNegativeValues 1 @issue 564"
 																}
 
 															}
@@ -9048,7 +9048,7 @@
 															}
  ],
 														"dependency_cache" : [ 															{
-																"name" : "test.assert.equal.maxpat",
+																"name" : "test.assert.equal.old.maxpat",
 																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 																"type" : "JSON",
 																"implicit" : 1
@@ -9143,7 +9143,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 150.0, 600.0, 252.0, 43.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:integer:correctValues 1 @issue 564"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:integer:correctValues 1 @issue 564"
 												}
 
 											}
@@ -9208,7 +9208,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 600.0, 251.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:integer:correctTiming 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:integer:correctTiming 1"
 												}
 
 											}
@@ -9901,7 +9901,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -10236,7 +10236,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 505.0, 500.0, 286.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:decimal:instantRampTiming 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:decimal:instantRampTiming 1"
 												}
 
 											}
@@ -10278,7 +10278,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 180.0, 500.0, 280.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:decimal:instantRampValue 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:decimal:instantRampValue 1"
 												}
 
 											}
@@ -10750,7 +10750,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -10888,7 +10888,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 465.0, 505.0, 262.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:decimal:fastRampTiming 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:decimal:fastRampTiming 1"
 												}
 
 											}
@@ -11098,7 +11098,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 180.0, 505.0, 261.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:decimal:fastRampValues 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:decimal:fastRampValues 1"
 												}
 
 											}
@@ -11555,7 +11555,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -11671,7 +11671,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 150.0, 600.0, 256.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:decimal:correctValues 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:decimal:correctValues 1"
 												}
 
 											}
@@ -11736,7 +11736,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 450.0, 600.0, 257.0, 31.0 ],
-													"text" : "test.assert.equal jcom.parameter:ramp:decimal:correctTiming 1"
+													"text" : "test.assert.equal.old jcom.parameter:ramp:decimal:correctTiming 1"
 												}
 
 											}
@@ -12392,7 +12392,7 @@
 											}
  ],
 										"dependency_cache" : [ 											{
-												"name" : "test.assert.equal.maxpat",
+												"name" : "test.assert.equal.old.maxpat",
 												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 												"type" : "JSON",
 												"implicit" : 1
@@ -12529,7 +12529,7 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "test.assert.equal.maxpat",
+								"name" : "test.assert.equal.old.maxpat",
 								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 								"type" : "JSON",
 								"implicit" : 1
@@ -12717,7 +12717,7 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "test.assert.equal.maxpat",
+				"name" : "test.assert.equal.old.maxpat",
 				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../Test/components",
 				"type" : "JSON",

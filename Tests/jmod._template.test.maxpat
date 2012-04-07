@@ -281,7 +281,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 65.0, 400.0, 172.0, 19.0 ],
-					"text" : "test.assert.equal NoMaxErrors 0"
+					"text" : "test.assert.equal.old NoMaxErrors 0"
 				}
 
 			}
@@ -361,7 +361,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 425.0, 555.0, 236.0, 19.0 ],
-					"text" : "test.assert.equal correctGainConversionDb 1"
+					"text" : "test.assert.equal.old correctGainConversionDb 1"
 				}
 
 			}

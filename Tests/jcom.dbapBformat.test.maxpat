@@ -598,7 +598,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 335.0, 775.0, 269.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.dbapBformat:polarity 1"
+									"text" : "test.assert.equal.old TESTjcom.dbapBformat:polarity 1"
 								}
 
 							}
@@ -2908,7 +2908,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 485.0, 695.0, 383.0, 19.0 ],
-									"text" : "test.assert.equal TESTjcom.dbapBformat:compareToAmbisonicDecoding 1"
+									"text" : "test.assert.equal.old TESTjcom.dbapBformat:compareToAmbisonicDecoding 1"
 								}
 
 							}

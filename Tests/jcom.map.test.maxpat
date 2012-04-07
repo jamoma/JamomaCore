@@ -142,7 +142,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 579.0, 236.0, 195.0, 31.0 ],
-									"text" : "test.assert.equal jcom.map:method:list 1. 0.5 0.5 1."
+									"text" : "test.assert.equal.old jcom.map:method:list 1. 0.5 0.5 1."
 								}
 
 							}
@@ -156,7 +156,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 402.5, 236.0, 149.0, 31.0 ],
-									"text" : "test.assert.equal jcom.map:method:float 1."
+									"text" : "test.assert.equal.old jcom.map:method:float 1."
 								}
 
 							}
@@ -198,7 +198,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 226.25, 236.0, 151.0, 31.0 ],
-									"text" : "test.assert.equal jcom.map:method:int 1."
+									"text" : "test.assert.equal.old jcom.map:method:int 1."
 								}
 
 							}
@@ -426,7 +426,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 547.333313, 344.0, 206.5, 43.0 ],
-									"text" : "test.assert.equal jcom.map:method:functions.get clear cosine exponential linear logarithm"
+									"text" : "test.assert.equal.old jcom.map:method:functions.get clear cosine exponential linear logarithm"
 								}
 
 							}
@@ -498,7 +498,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 360.0, 269.857117, 180.0, 43.0 ],
-									"text" : "test.assert.equal jcom.map:method:parameter.get symmetry none"
+									"text" : "test.assert.equal.old jcom.map:method:parameter.get symmetry none"
 								}
 
 							}
@@ -597,7 +597,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 259.0, 387.0, 187.0, 55.0 ],
-									"text" : "test.assert.equal jcom.map:method:parameters.get append append clear powerValue symmetry"
+									"text" : "test.assert.equal.old jcom.map:method:parameters.get append append clear powerValue symmetry"
 								}
 
 							}
