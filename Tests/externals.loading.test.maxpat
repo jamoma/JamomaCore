@@ -582,7 +582,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 195.0, 325.0, 348.0, 19.0 ],
-					"text" : "test.assert.equal \"TEST AudioGraph AllExternalsLoadingProperly\" 1"
+					"text" : "test.assert.equal.old \"TEST AudioGraph AllExternalsLoadingProperly\" 1"
 				}
 
 			}
