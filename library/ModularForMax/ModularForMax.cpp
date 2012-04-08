@@ -478,7 +478,8 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 	//		- Data with @service == parameter
 	//		- Viewer which binds on a Data @service == parameter
 	data = kTTVal0;
-	if (o = aNode->getObject()) {
+	o = aNode->getObject();
+	if (o) {
 		
 		if (o->getName() == TT("Data")) {
 			o->getAttributeValue(kTTSym_service, v);
@@ -502,7 +503,8 @@ void jamoma_callback_test_object(TTPtr p_baton, TTValue& data)
 				if (getDirectoryFrom(absoluteAddress)) {
 					getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 					
-					if (o = aNode->getObject()) {
+					o = aNode->getObject();
+					if (o) {
 						if (o->getName() == TT("Data")) {
 							o->getAttributeValue(kTTSym_service, v);
 							v.get(0, &s);
@@ -536,8 +538,8 @@ void jamoma_callback_read_item(TTPtr p_baton, TTValue& data)
 	
 	// unpack data (an item)
 	data.get(0, (TTPtr*)&anItem);
-	
-	if (o = anItem->getObject()) {
+	o = anItem->getObject();
+	if (o) {
 		
 		// DATA case : do nothing
 		
@@ -553,7 +555,8 @@ void jamoma_callback_read_item(TTPtr p_baton, TTValue& data)
 				getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 				
 				// if the address binds on a Data object
-				if (o = aNode->getObject()) {
+				o = aNode->getObject();
+				if (o) {
 					if (o->getName() == TT("Data")) {
 						
 						// replace the Viewer node by the Data node
@@ -591,7 +594,8 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 	// clear the item in any case
 	anItem->clear();
 	
-	if (o = anItem->getObject()) {
+	o = anItem->getObject();
+	if (o) {
 	
 		// DATA case
 		if (o->getName() == TT("Data")) {
@@ -632,7 +636,8 @@ void jamoma_callback_update_item(TTPtr p_baton, TTValue& data)
 					getDirectoryFrom(absoluteAddress)->getTTNode(absoluteAddress, &aNode);
 					
 					// if the address binds on a Data object
-					if (o = aNode->getObject()) {
+					o = aNode->getObject();
+					if (o) {
 						if (o->getName() == TT("Data")) {
 							
 							// replace the Viewer address by the Data address
@@ -764,7 +769,8 @@ void jamoma_callback_send_item(TTPtr p_baton, TTValue& data)
 	// unpack data (an item)
 	data.get(0, (TTPtr*)&anItem);
 	
-	if (o = anItem->getObject()) {
+	o = anItem->getObject();
+	if (o) {
 		
 		// DATA case
 		if (o->getName() == TT("Data")) {
@@ -1496,7 +1502,8 @@ long jamoma_patcher_get_args(ObjectPtr patcher, AtomCount *argc, AtomPtr *argv)
 			// for poly, return the index to edit an instance
 			// according to the voice number of the poly~ 
 			// (see in jamoma_patcher_get_name)
-			if(m = zgetfn(assoc, gensym("getindex")))
+			m = zgetfn(assoc, gensym("getindex"));
+			if(m)
 				return index = (long)(*m)(assoc, patcher);
 			
 		}  

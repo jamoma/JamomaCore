@@ -99,7 +99,8 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	// change the address
 	value.get(0, &mAddress);
 	
-	if (mDirectory = getDirectoryFrom(mAddress))
+	mDirectory = getDirectoryFrom(mAddress);
+	if (mDirectory)
 		return bindAddress();
 	else
 		return bindApplication();
@@ -204,7 +205,7 @@ TTErr TTExplorer::bindApplication()
 
 TTErr TTExplorer::unbindApplication() 
 {
-	TTErr err = kTTErrNone;
+	TTErr err;
 	
 	if (mApplicationObserver) {
 		
@@ -247,7 +248,8 @@ TTErr TTExplorer::Explore()
 		// get attributes names of the node at mAddress
 		if (mOutput == kTTSym_attributes) {
 			
-			if (o = mTempNode->getObject()) {
+			o = mTempNode->getObject();
+			if (o) {
 				v.clear();
 				o->getAttributeNames(v);
 				
@@ -324,7 +326,7 @@ TTErr TTExplorer::Explore()
 TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr afilter = NULL;
-	TTSymbolPtr		filterName, filterKey, filterSchema = kTTSymEmpty;
+	TTSymbolPtr		filterName, filterKey;
 	TTValue			v, filterValue;
 	TTErr			err;
 	
@@ -341,10 +343,8 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 			mFilterBank->append(filterName, (TTPtr)afilter);
 		}
 		// else get the existing filter and his schema
-		else {
+		else
 			v.get(0, (TTPtr*)&afilter);
-			filterSchema = afilter->getSchema();
-		}
 		
 		// set the keys of the filter
 		for (TTUInt32 i=1; i<inputValue.getSize(); i=i+2) {
@@ -531,7 +531,8 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	nameInstance = makeTTNodeAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
 	xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance->getCString());
 	
-	if (anObject = aNode->getObject()) {
+	anObject = aNode->getObject();
+	if (anObject) {
 		
 		// Write object name attribute
 		objectName = anObject->getName();
@@ -680,7 +681,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			// always clear the result
 			anExplorer->mResult->clear();
 			
-			if (o = aNode->getObject())
+			o = aNode->getObject();
+			if (o)
 				o->getAttributeNames(keys);
 		}
 	}

@@ -296,7 +296,6 @@ TTErr TTContainer::setAlias(const TTValue& value)
 	TTNodeAddressPtr oldAlias = mAlias;
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject;
-	TTBoolean		nodeCreated;
 	TTValue			hk, cacheElement;
 	TTSymbolPtr		key;
 	TTUInt32		i;
@@ -531,7 +530,7 @@ TTErr TTContainer::bind()
 	TTPtr			aContext;
 	TTList			aNodeList, allObjectsNodes;
 	TTValue			v;
-	TTErr			err = kTTErrNone;
+	TTErr			err;
 	
 	mObjectsObserversCache  = new TTHash();
 	
@@ -563,7 +562,7 @@ TTErr TTContainer::bind()
 	
 	getLocalDirectory->addObserverForNotifications(mAddress, *mObserver);
 	
-	return kTTErrNone;
+	return err;
 }
 
 TTErr TTContainer::makeCacheElement(TTNodePtr aNode)

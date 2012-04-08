@@ -250,7 +250,6 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 	TTNodePtr			contextNode, lowerContextNode;
 	TTPtr				aContext, lowerContext;
 	TTBoolean			found, newInstanceCreated;
-	TTErr				err;
 	
 	// Build the /topContext/subContext/.../contextName/ structure
 	// Check each context instance looking at the patcher.
@@ -276,7 +275,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 				return kTTErrGeneric;
 			
 			// 1. Look for relativeContextName.* in order to find a child with the same context
-			err = contextNode->getChildren(relativeContextAddress->getName(), S_WILDCARD, contextNodeList);
+			contextNode->getChildren(relativeContextAddress->getName(), S_WILDCARD, contextNodeList);
 			
 			/*	Former step 1.
 				This introduced a bug when a user edits /anAddress.I several times.

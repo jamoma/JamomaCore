@@ -196,7 +196,8 @@ TTErr TTMapper::setInput(const TTValue& value)
 		
 		if (!err) {
 			
-			if (anObject = aNode->getObject())
+			anObject = aNode->getObject();
+			if (anObject)
 				if (anObject->getName() == TT("Data")) {
 					
 					anObject->getAttributeValue(kTTSym_rangeBounds, v);
@@ -297,7 +298,8 @@ TTErr TTMapper::setOutput(const TTValue& value)
 		
 		if (!err) {
 			
-			if (anObject = aNode->getObject())
+			anObject = aNode->getObject();
+			if (anObject)
 				if (anObject->getName() == TT("Data")) {
 					
 					anObject->getAttributeValue(kTTSym_rangeBounds, v);
@@ -595,7 +597,8 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	
 	if (!err) {
 		
-		if (anObject = aNode->getObject())
+		anObject = aNode->getObject();
+		if (anObject) {
 			if (anObject->getName() == TT("Data")) {
 				
 				anObject->getAttributeValue(kTTSym_rangeBounds, v);
@@ -612,6 +615,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 					
 				aMapper->observeInputRange();
 			}
+		}
 	}
 	
 	return err;
@@ -639,7 +643,8 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	
 	if (!err) {
 		
-		if (anObject = aNode->getObject())
+		anObject = aNode->getObject();
+		if (anObject) {
 			if (anObject->getName() == TT("Data")) {
 				
 				anObject->getAttributeValue(kTTSym_rangeBounds, v);
@@ -656,6 +661,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 					
 				aMapper->observeOutputRange();
 			}
+		}
 	}
 	
 	return err;

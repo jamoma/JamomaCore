@@ -40,12 +40,15 @@ TTObjectPtr	Item::getObject()
 	TTObjectPtr			o;
 	TTErr				err;
 	
-	if (d = getDirectoryFrom(address)) {
+	d = getDirectoryFrom(address);
+	if (d) {
 		
 		err = d->getTTNode(address, &n);
 		
 		if (!err) {
-			if (o = n->getObject())
+			
+			o = n->getObject();
+			if (o)
 				type = o->getName();
 			
 			return o;
@@ -500,10 +503,10 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	ifstream		*file;
+	//ifstream		*file;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mReader;
+	//file = aTextHandler->mReader;
 	
 	// TODO
 	

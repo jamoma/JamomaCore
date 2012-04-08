@@ -67,7 +67,8 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 	if (mAddress->getAttribute() == NO_ATTRIBUTE)
 		mAddress = mAddress->appendAttribute(kTTSym_value);
 	
-	if (mDirectory = getDirectoryFrom(mAddress))
+	mDirectory = getDirectoryFrom(mAddress);
+	if (mDirectory)
 		return bindAddress();
 	else
 		return bindApplication();
@@ -98,7 +99,8 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 				mNodesObserversCache->current().get(0,(TTPtr*)&aNode);
 				
 				// get the type and the attribute of the object
-				if (anObject = aNode->getObject()) {
+				anObject = aNode->getObject();
+				if (anObject) {
 					
 					err = anObject->findAttribute(ttAttributeName, &anAttribute); 
 					
@@ -142,7 +144,8 @@ TTErr TTReceiver::Get()
 				mNodesObserversCache->current().get(0,(TTPtr*)&aNode);
 				
 				// get the value of the attribute
-				if (anObject = aNode->getObject()) {
+				anObject = aNode->getObject();
+				if (anObject) {
 					
 					err = anObject->getAttributeValue(ttAttributeName, data); 
 					
@@ -211,7 +214,8 @@ TTErr TTReceiver::bindAddress()
 				// prepare the callback mecanism to
 				// be notified about changing value attribute
 				// if the attribute exist
-				if (o = aNode->getObject()) {
+				o = aNode->getObject();
+				if (o) {
 					
 					err = o->findAttribute(ttAttributeName, &anAttribute);
 					
@@ -288,7 +292,8 @@ TTErr TTReceiver::unbindAddress()
 				
 				// stop attribute observation of the node
 				// if the attribute exist
-				if (o = aNode->getObject()) {
+				o = aNode->getObject();
+				if (o) {
 					
 					anAttribute = NULL;
 					err = o->findAttribute(ttAttributeName, &anAttribute);
@@ -346,11 +351,9 @@ TTErr TTReceiver::bindApplication()
 
 TTErr TTReceiver::unbindApplication() 
 {
-	TTErr err = kTTErrNone;
-	
 	if (mApplicationObserver) {
 		
-		err = TTApplicationManagerRemoveApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
+		TTApplicationManagerRemoveApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
 		
 		delete (TTValuePtr)mApplicationObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
@@ -429,7 +432,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					// prepare the callback mecanism to
 					// be notified about changing value attribute
 					// if the attribute exist
-					if (o = aNode->getObject()) {
+					o = aNode->getObject();
+					if (o) {
 						
 						err = o->findAttribute(ttAttributeName, &anAttribute);
 						

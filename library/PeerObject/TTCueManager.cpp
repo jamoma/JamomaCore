@@ -235,7 +235,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// Third arg (optional) : ramp time
-	if (inputValue.getSize() > 2)
+	if (inputValue.getSize() > 2) {
 		if (inputValue.getType(2) == kTypeInt32) {
 			inputValue.get(2, rampTime);
 			if (rampTime < 0)
@@ -243,6 +243,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		}
 		else
 			return kTTErrGeneric;
+	}
 	
 	// Create a new cue
 	TTObjectInstantiate(TT("Cue"), TTObjectHandle(&newCue), mPresetArguments);
@@ -275,7 +276,7 @@ TTErr TTCueManager::StoreCurrent(const TTValue& inputValue, TTValue& outputValue
 		return kTTErrGeneric;
 	
 	// First arg (optional) : ramp time
-	if (inputValue.getSize() > 0)
+	if (inputValue.getSize() > 0) {
 		if (inputValue.getType(0) == kTypeInt32) {
 			inputValue.get(0, rampTime);
 			if (rampTime < 0)
@@ -283,6 +284,7 @@ TTErr TTCueManager::StoreCurrent(const TTValue& inputValue, TTValue& outputValue
 		}
 		else
 			return kTTErrGeneric;
+	}
 	
 	mAddresses = newAddresses;
 	currentCue->setAttributeValue(kTTSym_addresses, mAddresses);
@@ -312,7 +314,7 @@ TTErr TTCueManager::StoreNext(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// Second arg (optional) : ramp time
-	if (inputValue.getSize() > 1)
+	if (inputValue.getSize() > 1) {
 		if (inputValue.getType(1) == kTypeInt32) {
 			inputValue.get(1, rampTime);
 			if (rampTime < 0)
@@ -320,6 +322,7 @@ TTErr TTCueManager::StoreNext(const TTValue& inputValue, TTValue& outputValue)
 		}
 		else
 			return kTTErrGeneric;
+	}
 	
 	// Create a new cue
 	TTObjectInstantiate(TT("Cue"), TTObjectHandle(&newCue), mPresetArguments);
@@ -357,7 +360,7 @@ TTErr TTCueManager::StorePrevious(const TTValue& inputValue, TTValue& outputValu
 		return kTTErrGeneric;
 	
 	// Second arg (optional) : ramp time
-	if (inputValue.getSize() > 1)
+	if (inputValue.getSize() > 1) {
 		if (inputValue.getType(1) == kTypeInt32) {
 			inputValue.get(1, rampTime);
 			if (rampTime < 0)
@@ -365,6 +368,7 @@ TTErr TTCueManager::StorePrevious(const TTValue& inputValue, TTValue& outputValu
 		}
 		else
 			return kTTErrGeneric;
+	}
 	
 	// Create a new cue
 	TTObjectInstantiate(TT("Cue"), TTObjectHandle(&newCue), mPresetArguments);
@@ -699,10 +703,10 @@ TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	ifstream		*file;
+	//ifstream		*file;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mReader;
+	//file = aTextHandler->mReader;
 	
 	// TODO
 	

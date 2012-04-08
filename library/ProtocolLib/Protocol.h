@@ -24,7 +24,7 @@ mVersion = TT(thisProtocolVersion); \
 mAuthor = TT(thisProtocolAuthor); \
 mExploration = TT(thisProtocolExploration); \
 registerAttribute(TT("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
-//addAttributeProperty(ParameterNames, readOnly, YES); \
+/*addAttributeProperty(ParameterNames, readOnly, YES); \ */
 
 
 // Macro to update and get the local application name (to use only inside the protocol class)

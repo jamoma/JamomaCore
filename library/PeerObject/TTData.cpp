@@ -124,7 +124,7 @@ TTErr TTData::Reset()
 	
 	// In case the data have no default value : set data to be uninitialised
 	mInitialized = NO;
-	notifyObservers(kTTSym_initialized, NO);
+	this->notifyObservers(kTTSym_initialized, NO);
 	
 	return kTTErrNone;
 }
@@ -344,8 +344,8 @@ TTErr TTData::Command(const TTValue& command, TTValue& outputValue)
 			}
 			
 			// Is the X-3 or last element a unit symbol ?
-			if (mDataspace != kTTSym_none && command.getType(0) != kTypeSymbol)
-				if (hasRamp)
+			if (mDataspace != kTTSym_none && command.getType(0) != kTypeSymbol) {
+				if (hasRamp) {
 					if (command.getType(commandSize - 3) == kTypeSymbol) {
 						hasUnit = true;
 						command.get(commandSize - 3, &unit);
@@ -355,6 +355,8 @@ TTErr TTData::Command(const TTValue& command, TTValue& outputValue)
 							hasUnit = true;
 							command.get(commandSize - 1, &unit);
 						}
+				}
+			}
 			
 			break;	
 		}
@@ -478,7 +480,7 @@ TTErr TTData::setValue(const TTValue& value)
 			// if mType is 'none' we have had our value set at least once
 			if (mService == kTTSym_parameter && mType == kTTSym_none && !mInitialized) {
 				mInitialized = YES;
-				notifyObservers(kTTSym_initialized, YES);
+				this->notifyObservers(kTTSym_initialized, YES);
 			}
 		}
 		// otherwise check the type of the incoming value
@@ -518,13 +520,13 @@ TTErr TTData::setValue(const TTValue& value)
 		
 		// notify each observers
 		//if (!(mService == kTTSym_message))		// to -- to allow message to be mapped for example
-			notifyObservers(kTTSym_value, n);
+			this->notifyObservers(kTTSym_value, n);
 		
 		// we have had our value set at least once
 		// only parameters notify their initialisation
 		if (mService == kTTSym_parameter && !mInitialized) {
 			mInitialized = YES;
-			notifyObservers(kTTSym_initialized, YES);
+			this->notifyObservers(kTTSym_initialized, YES);
 		}
 		else if (!mInitialized) mInitialized = YES;
 		
@@ -547,7 +549,7 @@ TTErr TTData::setValueDefault(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mValueDefault = value;
-	notifyObservers(kTTSym_valueDefault, n);
+	this->notifyObservers(kTTSym_valueDefault, n);
 	return kTTErrNone;
 }
 
@@ -561,7 +563,7 @@ TTErr TTData::setValueStepsize(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mValueStepsize = value;
-	notifyObservers(kTTSym_valueStepsize, n);
+	this->notifyObservers(kTTSym_valueStepsize, n);
 	return kTTErrNone;
 }
 
@@ -650,7 +652,7 @@ TTErr TTData::setType(const TTValue& value)
 		rampSetup();
 #endif
 		
-		notifyObservers(kTTSym_type, n);
+		this->notifyObservers(kTTSym_type, n);
 	}
 	return kTTErrNone;
 }
@@ -659,7 +661,7 @@ TTErr TTData::setTag(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mTag = value;
-	notifyObservers(kTTSym_tag, n);
+	this->notifyObservers(kTTSym_tag, n);
 	return kTTErrNone;
 }
 
@@ -667,7 +669,7 @@ TTErr TTData::setRepetitionsAllow(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mRepetitionsAllow = value;
-	notifyObservers(kTTSym_repetitionsAllow, n);
+	this->notifyObservers(kTTSym_repetitionsAllow, n);
 	return kTTErrNone;
 }
 
@@ -675,7 +677,7 @@ TTErr TTData::setEnable(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mEnable = value;
-	notifyObservers(kTTSym_enable, n);
+	this->notifyObservers(kTTSym_enable, n);
 	return kTTErrNone;
 }
 
@@ -689,7 +691,7 @@ TTErr TTData::setRangeBounds(const TTValue& value)
 	
 	n = mRangeBounds;
 	
-	notifyObservers(kTTSym_rangeBounds, n);
+	this->notifyObservers(kTTSym_rangeBounds, n);
 	return kTTErrNone;
 }
 
@@ -697,7 +699,7 @@ TTErr TTData::setRangeClipmode(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mRangeClipmode = value;
-	notifyObservers(kTTSym_rangeClipmode, n);
+	this->notifyObservers(kTTSym_rangeClipmode, n);
 	return kTTErrNone;
 }
 
@@ -721,7 +723,7 @@ TTErr TTData::setRampDrive(const TTValue& value)
 	
 	rampSetup();
 	
-	notifyObservers(kTTSym_rampDrive, n);
+	this->notifyObservers(kTTSym_rampDrive, n);
 	return kTTErrNone;
 }
 
@@ -761,7 +763,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 			}
 	}
 	
-	notifyObservers(kTTSym_rampFunction, n);
+	this->notifyObservers(kTTSym_rampFunction, n);
 	return kTTErrNone;
 }
 #endif
@@ -788,7 +790,7 @@ TTErr TTData::setDataspace(const TTValue& value)
 		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
 	}
 	
-	notifyObservers(kTTSym_dataspace, n);
+	this->notifyObservers(kTTSym_dataspace, n);
 	return kTTErrNone;
 }
 
@@ -799,7 +801,7 @@ TTErr TTData::setDataspaceUnit(const TTValue& value)
 	if (mDataspaceConverter)
 		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
 	
-	notifyObservers(kTTSym_dataspaceUnit, n);
+	this->notifyObservers(kTTSym_dataspaceUnit, n);
 	return kTTErrNone;
 }
 

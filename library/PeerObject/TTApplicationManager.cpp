@@ -248,11 +248,11 @@ TTErr TTApplicationManager::ProtocolScan(const TTValue& inputValue, TTValue& out
 TTErr TTApplicationManager::ProtocolRun(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue				v, protocolNames, applicationNames;
-	TTSymbolPtr			protocolName, applicationName, appProtocolName;
+	TTSymbolPtr			protocolName, applicationName;
 	ProtocolPtr			aProtocol;
 	TTApplicationPtr	anApplication;
 	TTBoolean			isRegistered;
-	TTErr				err, start;
+	TTErr				start;
 	
 	// if no name do it for all protocol
 	if (inputValue.getSize()) {
@@ -308,11 +308,11 @@ TTErr TTApplicationManager::ProtocolRun(const TTValue& inputValue, TTValue& outp
 TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue				v, protocolNames, applicationNames;
-	TTSymbolPtr			protocolName, applicationName, appProtocolName;
+	TTSymbolPtr			protocolName, applicationName;
 	ProtocolPtr			aProtocol;
 	TTApplicationPtr	anApplication;
 	TTBoolean			isRegistered;
-	TTErr				err, stop;
+	TTErr				stop;
 	
 	// if no name do it for all protocol
 	if (inputValue.getSize()) {
@@ -399,7 +399,8 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 		firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
 		
 		// fill returned attributes
-		if (anObject = firstNode->getObject())
+		anObject = firstNode->getObject();
+		if (anObject)
 			anObject->getAttributeNames(*returnedAttributes);
 		
 		// fill returned children names and types value
@@ -413,7 +414,8 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 			returnedChildrenNames->append(nodeAddress);
 			
 			// add the type of each refered object
-			if (anObject = aNode->getObject()) {
+			anObject = aNode->getObject();
+			if (anObject) {
 				objectType = anObject->getName();
 				
 				if (objectType != kTTSymEmpty)
@@ -451,9 +453,12 @@ TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& o
 	// can't allow to use wilcards here because one value is returned
 	err = directory->getTTNode(whereToGet, &nodeToGet);
 	
-	if (!err)
-		if (anObject = nodeToGet->getObject())
+	if (!err) {
+		
+		anObject = nodeToGet->getObject();
+		if (anObject)
 			return anObject->getAttributeValue(whereToGet->getAttribute(), outputValue);
+	}
 
 	return kTTErrGeneric;
 }
@@ -638,7 +643,6 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	TTSymbolPtr			applicationName, currentApplicationName, version;
 	TTApplicationPtr	anApplication;
 	TTValue				v, args, applicationNames;
-	TTErr				err;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)

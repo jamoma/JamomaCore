@@ -205,7 +205,9 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	value.get(0, &newAddress);
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
-		if (o = aNode->getObject())
+		
+		o = aNode->getObject();
+		if (o)
 			if (o->getName() == TT("Input"))
 				Link((TTPtr)o, kTTValNONE);
 	}
@@ -238,11 +240,13 @@ TTErr TTOutput::setMute(const TTValue& value)
 {
 	mMute = value;
 	
-	if (mGainUnit)
+	if (mGainUnit) {
+		
 		if (mMute)
 			return mGainUnit->setAttributeValue(TT("linearGain"), 0.0);
 		else 
 			return mGainUnit->setAttributeValue(TT("midiGain"), mGain);
+	}
 	
 	return kTTErrNone;
 }
@@ -307,7 +311,8 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	
-	if (o = aNode->getObject()) {
+	o = aNode->getObject();
+	if (o) {
 		if (o->getName() == TT("Input")) {
 			
 			switch (flag) {

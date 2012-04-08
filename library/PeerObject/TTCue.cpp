@@ -301,10 +301,10 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	ifstream		*file;
+	//ifstream		*file;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mReader;
+	//file = aTextHandler->mReader;
 	
 	// TODO
 	

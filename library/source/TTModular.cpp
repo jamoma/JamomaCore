@@ -69,7 +69,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 	TTValue				args;
 	TTApplicationPtr	anApplication = NULL;
 	
-	if (TTModularApplications)
+	if (TTModularApplications) {
 		
 		// if the local application doesn't exist yet
 		if (!getLocalApplication) {
@@ -92,7 +92,8 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			anXmlHandler->sendMessage(TT("Read"), args, kTTValNONE);
 		}
 		else
-			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName->getCString()); 
+			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName->getCString());
+	}
 }
 
 #ifdef TT_PLATFORM_LINUX

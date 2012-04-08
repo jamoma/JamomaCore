@@ -46,7 +46,8 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 	if (mAddress->getAttribute() == NO_ATTRIBUTE)
 		mAddress = mAddress->appendAttribute(kTTSym_value);
 	
-	if (mDirectory = getDirectoryFrom(mAddress))
+	mDirectory = getDirectoryFrom(mAddress);
+	if (mDirectory)
 		return bindAddress();
 	else 
 		return bindApplication();
@@ -126,7 +127,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 		mIsSending = false;	
 	}
 	
-	return kTTErrNone;
+	return err;
 }
 
 TTErr TTSender::bindAddress()
@@ -137,10 +138,9 @@ TTErr TTSender::bindAddress()
 	TTValue		aCacheElement;
 	TTList		aNodeList;
 	TTValue		v;
-	TTErr		err;
 	
 	// 1. Look for the node(s) into the directory
-	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
+	mDirectory->Lookup(mAddress, aNodeList, &aNode);
 	
 	// 2. make a cache containing each object
 	mObjectCache  = new TTList();
@@ -218,11 +218,10 @@ TTErr TTSender::bindApplication()
 
 TTErr TTSender::unbindApplication() 
 {
-	TTErr err = kTTErrNone;
 	
 	if (mApplicationObserver) {
 		
-		err = TTApplicationManagerRemoveApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
+		TTApplicationManagerRemoveApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
 		
 		delete (TTValuePtr)mApplicationObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
@@ -258,7 +257,9 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 		case kAddressCreated :
 		{
 			if (anAddress->compare(aSender->mAddress) == kAddressEqual) {
-				if (anObject = aNode->getObject()) {
+				
+				anObject = aNode->getObject();
+				if (anObject) {
 					aCacheElement = (TTPtr)anObject;
 					aSender->mObjectCache->appendUnique(aCacheElement);
 				}

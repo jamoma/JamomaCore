@@ -126,7 +126,9 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	value.get(0, &newAddress);
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
-		if (o = aNode->getObject())
+		
+		o = aNode->getObject();
+		if (o)
 			if (o->getName() == TT("Output"))
 				Link((TTPtr)o, kTTValNONE);
 	}
@@ -184,7 +186,8 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	
-	if (o = aNode->getObject()) {
+	o = aNode->getObject();
+	if (o) {
 		if (o->getName() == TT("Output")) {
 			
 			switch (flag) {

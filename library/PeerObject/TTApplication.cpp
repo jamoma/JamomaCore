@@ -15,13 +15,13 @@
 #define thisTTClassTags		"application"
 
 TT_MODULAR_CONSTRUCTOR,
+mDebug(NO),
 mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mNamespaceFile(kTTSymEmpty),
 mActivity(NO),
-mDebug(NO),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
@@ -299,7 +299,8 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 				// get a node from the selection
 				aNodeList.current().get(0,(TTPtr*)&nodeToListen);
 				
-				if (anObject = nodeToListen->getObject()) {
+				anObject = nodeToListen->getObject();
+				if (anObject) {
 					
 					// create an Attribute observer 
 					anAttribute = NULL;
@@ -367,7 +368,8 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 				// get a node from the selection
 				aNodeList.current().get(0,(TTPtr*)&nodeToListen);
 				
-				if (anObject = nodeToListen->getObject()) {
+				anObject = nodeToListen->getObject();
+				if (anObject) {
 					
 					// delete Attribute observer 
 					anAttribute = NULL;
@@ -426,10 +428,13 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	
 	err = mDirectory->getTTNode(whereComesFrom, &nodeToUpdate);
 	
-	if (!err)
-		if (aMirror = (TTMirrorPtr)nodeToUpdate->getObject())
+	if (!err) {
+		
+		aMirror = (TTMirrorPtr)nodeToUpdate->getObject();
+		if (aMirror)
 			if (aMirror->getName() == TT("Mirror"))
 				return aMirror->updateAttributeValue(whereComesFrom->getAttribute(), *newValue);
+	}
 	
 	return kTTErrGeneric;
 }
@@ -774,7 +779,8 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 					protocolNames = getApplicationProtocols(mName);
 					protocolNames.get(0, &protocolName);
 					
-					if (aProtocol = (ProtocolPtr)getProtocol(protocolName)) {
+					aProtocol = (ProtocolPtr)getProtocol(protocolName);
+					if (aProtocol) {
 						
 						// instantiate Mirror object for distant application
 						aMirror = NULL;

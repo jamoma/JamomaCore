@@ -277,6 +277,8 @@ TTErr Protocol::isRegistered(const TTValue& inputValue, TTValue& outputValue)
 		outputValue = TTValue(YES);
 	else
 		outputValue = TTValue(mDistantApplicationParameters->lookup(applicationName, v) == kTTErrNone);
+	
+	return kTTErrNone;
 }
 
 TTErr Protocol::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address) 

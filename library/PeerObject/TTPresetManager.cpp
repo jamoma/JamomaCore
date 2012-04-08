@@ -642,10 +642,10 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	ifstream		*file;
+	//ifstream		*file;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mReader;
+	//file = aTextHandler->mReader;
 	
 	// TODO
 	
