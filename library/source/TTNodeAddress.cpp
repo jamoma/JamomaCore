@@ -15,6 +15,7 @@ TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForParent = NULL;	
 TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance = NULL;
+TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero = NULL;
 
 TTNodeAddress::TTNodeAddress(const TTString& newAddressString, TTInt32 newId)
 	: directory(NO_DIRECTORY), parent(NO_PARENT), name(NO_NAME), instance(NO_INSTANCE), attribute(NO_ATTRIBUTE), parsed(NO)
@@ -160,6 +161,8 @@ TTErr TTNodeAddress::parse()
 	
 	// All other case needs a regex parsing
 	TTString s_toParse = this->getCString();
+	TTString s_before;
+	TTString s_after;
 	TTString s_directory;
 	TTString s_parent;
 	TTString s_name;
@@ -170,6 +173,21 @@ TTErr TTNodeAddress::parse()
 	//cout << "*** s_toParse    " << s_toParse << "    ***" << endl;
 	begin = s_toParse.begin();
 	end = s_toParse.end();
+	
+	// parse and remove ".0"
+	while (!ttRegexForInstanceZero->parse(begin, end))
+	{
+		s_before = string(begin, ttRegexForInstanceZero->begin()-2);	// -2 to remove .0
+		s_after = string(ttRegexForInstanceZero->end(), end);
+		
+		s_toParse = s_before + s_after;
+		
+		begin = s_toParse.begin();
+		end = s_toParse.end();
+		
+		//cout << "s_before :  " << s_before << endl;
+		//cout << "s_after :  " << s_after << endl;
+	}
 	
 	// parse directory
 	if (!ttRegexForDirectory->parse(begin, end))

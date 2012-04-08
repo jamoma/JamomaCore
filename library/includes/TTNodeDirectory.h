@@ -61,6 +61,7 @@ private:
 	TTSymbolPtr		name;					///< the name of the tree
 	TTNodePtr		root;					///< the root of the tree
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all address of the tree
+	TTHashPtr		aliases;				///< a pointer to a global hashtab which reference all aliases of the tree
 	TTHashPtr		observers;				///< a pointer to a hashtab which register all life cycle observers below that node
 											///< (address/relative/to/this/node, TTList of all observers below that address)
 	TTMutexPtr		mutex;					///< a Mutex to protect the mObservers hash table.
@@ -72,6 +73,9 @@ public:
 	
 	/** Destructor */
 	virtual ~TTNodeDirectory ();
+	
+	/** Initialize the TTNodeDirectory */
+	TTErr			init();
 
 	/** Set the name of the TTNodeDirectory. 
 		@param	newName				The name to set */
@@ -86,13 +90,19 @@ public:
 	/** Get the directory of the TTNodeDirectory */
 	TTHashPtr		getDirectory();
 
-	/**	Given a string with an address, return a pointer to a TTNode.
-	 @param	anAddress				The address string for which to find the TTNode.
+	/**	Given an address, return a pointer to a TTNode.
+	 @param	anAddress				The address for which to find the TTNode.
 	 @param	returnedTTNode			The .
 	 @return						An error code. */
 	TTErr			getTTNode(const char* anAddress, TTNodePtr *returnedTTNode);
 	
 	TTErr			getTTNode(TTNodeAddressPtr anAddress, TTNodePtr *returnedTTNode);
+	
+	/** Given an address, return an alias if exists
+	 @param	anAddress				The address for which to find the TTNode.
+	 @param	returnedAlias			The .
+	 @return						An error code if there is no alias. */
+	TTErr			getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *returnedAlias);
 	
 	/**	Find TTNodes by address
 	 @param	anAddress				The address you wish to find, possibly including wildcards and instance names/numbers.
@@ -143,6 +153,17 @@ public:
 	 @return						An error code. */
 	TTErr			TTNodeRemove(TTNodeAddressPtr anAddress);
 	
+	/**	Create an alias address
+	 @param	alias					The alias address (absolute)
+	 @param	anAddress				The address for which you wish to create an alias.
+	 @return							An error code. */
+	TTErr			AliasCreate(TTNodeAddressPtr alias, TTNodeAddressPtr anAddress);
+	
+	/**	Create an alias address
+	 @param	alias					The alias address to remove
+	 @return						An error code. */
+	TTErr			AliasRemove(TTNodeAddressPtr alias);
+	
 	/** Add a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address to observe
 	 @param observer				a TTCallbackPtr to add
@@ -166,32 +187,34 @@ public:
 
 };
 
-/**	An test tool : test the type of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
+/**	An test tool : test the type of the object stored inside the node. 
+	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						An TTSymbolPtr argument for the type
  @return							true if the object have the correct type */
 TTBoolean TTFOUNDATION_EXPORT testNodeObjectType(TTNodePtr n, TTPtr args);
 
-/**	An test tool : test the context of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
+/**	An test tool : test the context of the object stored inside the node. 
+	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						An TTSymbolPtr argument for the type
  @return							true if the object have the correct context */
 TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
 
-/**	An test tool : test a node using a TTCallback. This method could be used as testFunction for the LookFor or IsThere methods.
+/**	An test tool : test a node using a TTCallback. 
+	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						A TTCallback argument
  @return							true if the TTCallback argument is replaced by kTTVal1 */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
 
-/**	An test tool : test a node using a Criteria table.
-	a Criteria table is a hash table of hash table containing <ObjectType, <AttributeName, Value>>
-		- if the Attribute hash table is empty this means any object of the given type matches the test.
-		- if a value is KTTValNone this means any value matches the test.
+/**	An test tool : test a node using a list of filter from a bank.
+	In default exclusion mode, if one field of a filter matches a node, this node is excluded.
+	In inclusion mode, if all fields of a filter match a node, this node is included.
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
- @param args						A TTHashPtr argument
- @return							true if the TTObject of thenode matches all criterias */
-TTBoolean TTFOUNDATION_EXPORT testNodeUsingCriteria(TTNodePtr n, TTPtr args);
+ @param args						A TTValuePtr containing a TTHashPtr (the bank) and a TTListPtr (the name of the filter)
+ @return							true if the node have to be include in the result */
+TTBoolean TTFOUNDATION_EXPORT testNodeUsingFilter(TTNodePtr n, TTPtr args);
 
 #endif // __TT_NODE_DIRECTORY_H__

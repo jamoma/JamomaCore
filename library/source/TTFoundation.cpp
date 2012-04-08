@@ -15,9 +15,7 @@
 
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
 #ifndef TT_PLATFORM_IOS
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
-#include "TTNodeAddressCache.h"
+#include "TTNodeLib.h"
 #include "TTPath.h"
 #endif
 
@@ -25,8 +23,10 @@
 #include "TTMatrix.h"
 #include "TTMatrixArray.h"
 #include "TTValue.test.h"
+// Nodelib currently requires Boost Regex, which we don't have on the iOS
+#ifndef TT_PLATFORM_IOS
 #include "TTNodeLib.test.h"
-
+#endif
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
@@ -60,20 +60,15 @@ void TTFoundationInit(const char* pathToBinaries)
 
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef TT_PLATFORM_IOS
-		// Global regex for TTNodeAddress parsing
-		ttRegexForDirectory = new TTRegex("([\\w]+)\\:/");
-		ttRegexForAttribute = new TTRegex(":+");
-		ttRegexForParent = new TTRegex("(.*)/+(\\S+)");
-		ttRegexForInstance = new TTRegex("[.]");
-		ttNodeAddressTable = new TTNodeAddressTable;
-#endif	
+		TTNodeLibInit();
+#endif
 
 		ttEnvironment = new TTEnvironment;
 
 		TTSymbolCacheInit();
 		TTValueCacheInit();
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
+#ifndef TT_PLATFORM_IOS		
 		TTNodeAddressCacheInit();
 #endif
 		
@@ -97,6 +92,7 @@ void TTFoundationInit(const char* pathToBinaries)
 #ifndef TT_PLATFORM_IOS
 		TTNodeLibTest::registerClass();
 #endif
+
 		TTFoundationLoadExternalClasses();
 	}
 }

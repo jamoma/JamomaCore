@@ -274,16 +274,15 @@ void TTValue::setSize(const TTUInt16 arg)
 	}
 }
 
-
 /****************************************************************************************************/
-// copyFrom
+// copyRange
 /****************************************************************************************************/
 
-void TTValue::copyFrom(const TTValue& obj, TTUInt16 index)
+void TTValue::copyRange(const TTValue& obj, TTUInt16 startIndex, TTUInt16 endIndex)
 {
-	TTUInt16 s = obj.getSize() - index;
-	TTPtr t = (obj.type)+index;
-	TTPtr d = (obj.data)+index;
+	TTUInt16 s = endIndex - startIndex;
+	TTPtr t = (obj.type)+startIndex;
+	TTPtr d = (obj.data)+startIndex;
 	
 	setSize(s);
 	memcpy(type, t, sizeof(TTDataType) * s);
@@ -291,6 +290,15 @@ void TTValue::copyFrom(const TTValue& obj, TTUInt16 index)
 	
 	reserved = obj.reserved;
 	stringsPresent = obj.stringsPresent;
+}
+
+/****************************************************************************************************/
+// copyFrom
+/****************************************************************************************************/
+
+void TTValue::copyFrom(const TTValue& obj, TTUInt16 index)
+{
+	copyRange(obj, index, obj.getSize());
 }
 
 
@@ -1189,20 +1197,21 @@ void TTValue::test()
 
 TTBoolean isTTInt32( const TTString & str )
 {
-	std::istringstream iss( str );
+	char * pEnd;
 	
-	TTInt32 tmp;
-	
-	return ( iss >> tmp ) && ( iss.eof() );
+	TTInt32 tmp = strtol(str.data(), &pEnd, 10);
+	return *pEnd == NULL;
 }
 
+/*	note : isTTFloat32 works only because the TTInt32 case is matched before 
+	see in fromString method 
+ */
 TTBoolean isTTFloat32( const TTString & str )
 {
-	std::istringstream iss( str );
+	char * pEnd;
 	
-	TTFloat32 tmp;
-	
-	return ( iss >> tmp ) && ( iss.eof() );
+	TTFloat32 tmp = strtod(str.data(), &pEnd);
+	return *pEnd == NULL;
 }
 
 TTInt32 toTTInt32( const TTString & str )

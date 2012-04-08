@@ -7,6 +7,7 @@
  */
 
 #include "TTHash.h"
+#include "TTList.h"
 #include "TTSymbolTable.h"
 #include "TTMutex.h"
 
@@ -106,6 +107,44 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++)
 		hashKeys.append(TTSymbolPtr(iter->first));
+	unlock();
+	return kTTErrNone;
+}
+
+
+TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunction)(TTValue&, TTValue&))
+{
+	lock();
+	TTList		listToSort;
+	TTValue		v;
+	TTSymbolPtr key;
+	
+	// fill a list to sort
+	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++) {
+		
+		if (comparisonFunction) {
+			v = TTSymbolPtr(iter->first);	// the key
+			v.append(TTPtr(iter->second));	// a pointer to the stored value
+			listToSort.append(v);
+		}
+		else
+			listToSort.append(TTSymbolPtr(iter->first));
+	}
+	
+	listToSort.sort(comparisonFunction);
+	
+	// fill the result
+	hashKeysSorted.clear();
+	for (listToSort.begin(); listToSort.end(); listToSort.next()) {
+		
+		if (comparisonFunction) {
+			listToSort.current().get(0, &key);
+			hashKeysSorted.append(key);
+		}
+		else
+			hashKeysSorted.append(listToSort.current());
+	}
+	
 	unlock();
 	return kTTErrNone;
 }

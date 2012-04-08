@@ -64,6 +64,7 @@ extern TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory;	///< The global regex t
 extern TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute;	///< The global regex to parse attribute part
 extern TTFOUNDATION_EXPORT TTRegex* ttRegexForParent;		///< The global regex to parse parent part
 extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance;		///< The global regex to parse instance part
+extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero;	///< The global regex to parse instance .0
 
 /****************************************************************************************************/
 // Class Specifications

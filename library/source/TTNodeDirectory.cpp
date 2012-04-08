@@ -9,30 +9,55 @@
 #include "TTNodeDirectory.h"
 #include <algorithm>
 
-TTNodeDirectory::TTNodeDirectory(TTSymbolPtr aName)
-{
-	TTBoolean nodeCreated = NO;
-
+TTNodeDirectory::TTNodeDirectory(TTSymbolPtr aName) :
+	name(kTTSymEmpty),	
+	root(NULL),	
+	directory(NULL),
+	aliases(NULL),
+	observers(NULL),
+	mutex(NULL)
+{	
 	// set the name of the tree
 	name = aName;
 
-	// create a new directory
-	directory = new TTHash();
-
-	// create a lifeCycleObservers and protect it from multithreading access
-	// why ? because observers could disappear when they know an address is destroyed
-	this->observers = new TTHash();
-	this->observers->setThreadProtection(true);
-
-	mutex = new TTMutex(true);
-
-	// create a root
-	TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
+	init();
 }
 
 TTNodeDirectory::~TTNodeDirectory()
 {
 	delete root;
+	delete directory;
+	delete aliases;
+	delete observers;
+}
+
+TTErr TTNodeDirectory::init()
+{
+	TTBoolean nodeCreated = NO;
+	
+	if (root) delete root;
+	if (directory) delete directory;
+	if (aliases) delete aliases;
+	
+	// create a new directory
+	directory = new TTHash();
+	
+	// create a new aliases table
+	aliases = new TTHash();
+	
+	// if there are observers keep them
+	if (!observers) {
+		
+		// create a lifeCycleObservers and protect it from multithreading access
+		// why ? because observers could disappear when they know an address is destroyed
+		this->observers = new TTHash();
+		this->observers->setThreadProtection(true);
+	}
+	
+	mutex = new TTMutex(true);
+	
+	// create a root
+	return TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
 }
 
 TTErr TTNodeDirectory::setName(TTSymbolPtr aName)
@@ -64,23 +89,101 @@ TTErr TTNodeDirectory::getTTNode(const char* anAddress, TTNodePtr* returnedTTNod
 TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returnedTTNode)
 {
 	TTErr err;
-	TTValue found;
+	TTValue	found, ak;
+	TTUInt32 s;
 
-	if (directory) {
+	if (!directory) 
+		return kTTErrGeneric;
+	
+	// look into the hashtab to check if the address exist in the tree
+	err = directory->lookup(anAddress->normalize(), found);
+	
+	// if the address exists : return the TTNode
+	if (err != kTTErrValueNotFound) {
+		found.get(0,(TTPtr*)returnedTTNode);
+		return kTTErrNone;
+	}
+	
+	// if this address doesn't exist look into aliases
+	aliases->getKeys(ak);
+	s = ak.getSize();
+	if (s == 0)
+		return kTTErrGeneric;
+	
+	// compare the address to each aliases
+	TTUInt32 i, c;
+	TTNodeAddressPtr alias, aliasNodeAddress, p1, p2;
+	TTNodePtr aliasNode;
+	TTNodeAddressComparisonFlag comp;
+	TTString join;
+	
+	found = kTTValNONE;
+	
+	for (i=0; i<s; i++) {
+		ak.get(i, &alias);
+		comp = anAddress->compare(alias);
 		
-		// look into the hashtab to check if the address exist in the tree
-		err = directory->lookup(anAddress->normalize(), found);
-
-		// if this address doesn't exist
-		if (err == kTTErrValueNotFound) {
-			return kTTErrGeneric;
-		}
-		else {
+		// if the address is an alias : return the TTNode
+		if (comp == kAddressEqual) {
+			aliases->lookup(alias, found);
 			found.get(0,(TTPtr*)returnedTTNode);
-			return kTTErrNone;
+			
+			break;
+		}
+		
+		// the address is under an alias : 
+		// get the address of the alias and join anAddress (without the alias part)
+		if (comp == kAddressLower) {
+			aliases->lookup(alias, found);
+			found.get(1, &aliasNodeAddress);
+			found.get(2, c);
+
+			anAddress->splitAt(c, &p1, &p2);
+			
+			join = aliasNodeAddress->getCString();
+			join += S_SEPARATOR->getCString();
+			join += p2->getCString();
+			
+			getTTNode(TTADRS(join), returnedTTNode);
+			break;
 		}
 	}
-	return kTTErrGeneric;
+	
+	if (found == kTTValNONE)
+		return kTTErrGeneric;
+	
+	return kTTErrNone;
+}
+
+TTErr TTNodeDirectory::getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *returnedAlias)
+{
+	TTUInt32 i;
+	TTValue	 v, ak;
+	TTNodeAddressPtr alias, aliasNodeAddress;
+	TTNodeAddressComparisonFlag comp;
+	
+	*returnedAlias = NULL;
+	
+	// Retrieve the alias binding on this address
+	aliases->getKeys(ak);
+	for (i=0; i<aliases->getKeys(ak); i++) {
+		
+		ak.get(i, &alias);
+		aliases->lookup(alias, v);
+		v.get(1, &aliasNodeAddress);
+		comp = anAddress->compare(aliasNodeAddress);
+		
+		if (comp == kAddressEqual) {
+			
+			*returnedAlias = aliasNodeAddress;
+			break;
+		}
+	}
+	
+	if (*returnedAlias == NULL)
+		return kTTErrGeneric;
+	
+	return kTTErrNone;
 }
 
 TTErr TTNodeDirectory::TTNodeCreate(TTNodeAddressPtr anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
@@ -200,6 +303,64 @@ TTErr TTNodeDirectory::TTNodeRemove(TTNodeAddressPtr anAddress)
 	else
 		return kTTErrGeneric;
 
+	return err;
+}
+
+TTErr TTNodeDirectory::AliasCreate(TTNodeAddressPtr alias, TTNodeAddressPtr anAddress)
+{
+	TTNodePtr	aNode;
+	TTValue		v;
+	TTErr		err;
+	
+	if (alias->getType() == kAddressRelative || 
+		alias->getAttribute() != NO_ATTRIBUTE || 
+		anAddress->getAttribute() != NO_ATTRIBUTE)
+		return kTTErrGeneric;
+	
+	// find the address in the directory
+	err = this->getTTNode(anAddress, &aNode);
+	
+	if (!err) {
+		
+		// add the alias and store the TTNode and info usefull for getTTNode method
+		v = TTValue(aNode);
+		v.append(anAddress);
+		v.append(alias->countSeparator());
+		
+		err = aliases->append(alias, v);
+		
+		if (!err)
+			// notify observers that an address has been created
+			this->notifyObservers(alias, aNode, kAddressCreated);
+	}
+	
+	return err;
+}
+
+TTErr TTNodeDirectory::AliasRemove(TTNodeAddressPtr alias)
+{
+	TTNodePtr		aNode;
+	TTNodeAddressPtr anAddress;
+	TTErr			err;
+	
+	// find the alias in the directory
+	err = this->getTTNode(alias, &aNode);
+	
+	if (!err) {
+		
+		// check if the alias is an effective alias
+		aNode->getAddress(&anAddress);
+		if (alias == anAddress)
+			return kTTErrGeneric;
+		
+		// remove the alias from the directory
+		err = aliases->remove(alias);
+		
+		if (!err)
+			// notify observers that an address has been removed
+			this->notifyObservers(alias, aNode, kAddressDestroyed);
+	}
+	
 	return err;
 }
 
@@ -618,59 +779,219 @@ TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
 	return v == kTTVal1;
 }
 
-TTBoolean testNodeUsingCriteria(TTNodePtr n, TTPtr args)
+TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 {
-	TTHashPtr		objectCriteria = (TTHashPtr)args;
-	TTHashPtr		attributeCriteria;
-	TTObjectPtr		o;
-	TTValue			v, keys, valueCriteria;
-	TTSymbolPtr		k;
-	TTBoolean		test = true;
-
-	// if there is an object
-	o = n->getObject();
-	if (o) {
-
-		// if objectCriteria table is empty return NO
-		if (!objectCriteria->isEmpty()) {
-
-			// if his type exists into the objectCriteria table
-			if (!objectCriteria->lookup(o->getName(), v)) {
-
-				// get attributeCriteria table
-				v.get(0, (TTPtr*)&attributeCriteria);
-
-				// if attributeCriteria table is empty return YES
-				// else
-				if (!attributeCriteria->isEmpty()) {
-
-					// for each attribute name : test the value
-					attributeCriteria->getKeys(keys);
-					for (TTUInt16 i=0; i<keys.getSize(); i++) {
-
-						keys.get(i, &k);
-						attributeCriteria->lookup(k, valueCriteria);
-
-						if (!o->getAttributeValue(k, v)) {
-							
-							// TODO : look into each element of the value
-							// to check among many tags for example
-							
-							test &= (v == valueCriteria) || (valueCriteria == kTTValNONE);
-							
-						}
-						else
-							test = NO;
-
-						if (!test) break;
+	TTValuePtr		argsValue = (TTValuePtr)args;
+	TTHashPtr		filterBank;
+	TTListPtr		filterList;
+	TTSymbolPtr		aFilterName, filterMode;
+	TTDictionaryPtr aFilter;
+	TTObjectPtr		anObject;
+	TTNodeAddressPtr anAddress;
+	TTValue			v;
+	TTBoolean		resultFilter, result;
+	TTBoolean		firstFilter = YES;
+	TTErr			err;
+	
+	argsValue->get(0, (TTPtr*)&filterBank);
+	argsValue->get(1, (TTPtr*)&filterList);
+	
+	if (!filterList->isEmpty()) {
+		
+		// get object
+		anObject = n->getObject();
+		
+		// a node without object is excluded
+		if (!anObject)
+			return NO;
+		
+		// get address
+		n->getAddress(&anAddress, kTTAdrsRoot);
+		
+		// for each filter name
+		for (filterList->begin(); filterList->end(); filterList->next()) {
+			
+			// if no filter all nodes are included in the result
+			filterMode = kTTSym_include;
+			
+			// get the next filter name from the list
+			// and get it from the bank
+			aFilter = NULL;
+			filterList->current().get(0, &aFilterName);
+			err = filterBank->lookup(aFilterName, v);
+			
+			// TEST FILTER : the result is YES if the node have to be in the result
+			if (!err) {
+				
+				// local declarations for the test
+				TTBoolean resultObject = YES;
+				TTBoolean resultAttribute = YES;
+				TTBoolean resultValue = YES;
+				TTBoolean resultPart = YES;
+				TTBoolean resultParent = YES;
+				TTBoolean resultName = YES;
+				TTBoolean resultInstance = YES;
+				
+				TTRegexPtr aRegex;
+				TTString s_toParse;
+				TTRegexStringPosition begin, end;
+				
+				// get filter
+				v.get(0, (TTPtr*)&aFilter);
+				
+				// get filter mode :
+				//		- in default exclusion mode, if one field of a filter matches a node, this node is excluded.
+				//		- in inclusion mode, if all fields of a filter match a node, this node is included.
+				if (!aFilter->lookup(kTTSym_mode, v))
+					v.get(0, &filterMode);
+				
+				// test object name
+				if (!aFilter->lookup(kTTSym_object, v)) {
+					
+					TTSymbolPtr objectFilter;
+					v.get(0, &objectFilter);
+					
+					resultObject = objectFilter == anObject->getName();
+				}
+				
+				// test attribute name
+				if (!aFilter->lookup(kTTSym_attribute, v)) {
+					
+					TTSymbolPtr attributeFilter;
+					TTValue		valueFilter;
+					v.get(0, &attributeFilter);
+					
+					err = anObject->getAttributeValue(attributeFilter, v);
+					
+					// the existence of the attribute is also a way to filter nodes
+					resultAttribute = err == kTTErrNone;
+					
+					// if the attribute exists
+					if (!err) {
+						
+						// test value
+						if (!aFilter->lookup(kTTSym_value, valueFilter))
+							resultValue = valueFilter == v;
 					}
 				}
-
-				return test;
+				
+				// test any part of address 
+				if (!aFilter->lookup(kTTSym_part, v)) {
+					
+					TTSymbolPtr partFilter;
+					v.get(0, &partFilter);
+					aRegex = new TTRegex(partFilter->getCString());
+					
+					s_toParse = anAddress->getCString();
+					begin = s_toParse.begin();
+					end = s_toParse.end();
+					
+					// test if the regex find something
+					if (!aRegex->parse(begin, end))
+						resultPart = begin != end;
+					else
+						resultPart = NO;
+					
+					delete aRegex;
+				}
+				
+				// test address parent part
+				if (!aFilter->lookup(kTTSym_parent, v)) {
+					
+					TTSymbolPtr parentFilter;
+					v.get(0, &parentFilter);
+					aRegex = new TTRegex(parentFilter->getCString());
+					
+					s_toParse = anAddress->getParent()->getCString();
+					begin = s_toParse.begin();
+					end = s_toParse.end();
+					
+					// test if the regex find something
+					if (!aRegex->parse(begin, end))
+						resultParent = begin != end;
+					else
+						resultParent = NO;
+					
+					delete aRegex;
+				}
+				
+				// test address name part
+				if (!aFilter->lookup(kTTSym_name, v)) {
+					
+					TTSymbolPtr nameFilter;
+					v.get(0, &nameFilter);
+					aRegex = new TTRegex(nameFilter->getCString());
+					
+					s_toParse = anAddress->getName()->getCString();
+					begin = s_toParse.begin();
+					end = s_toParse.end();
+					
+					// test if the regex find something
+					if (!aRegex->parse(begin, end))
+						resultName = begin != end;
+					else
+						resultName = NO;
+					
+					delete aRegex;
+				}
+				
+				// test address instance part
+				if (!aFilter->lookup(kTTSym_instance, v)) {
+					
+					TTSymbolPtr instanceFilter;
+					v.get(0, &instanceFilter);
+					aRegex = new TTRegex(instanceFilter->getCString());
+					
+					s_toParse = anAddress->getInstance()->getCString();
+					begin = s_toParse.begin();
+					end = s_toParse.end();
+					
+					// test if the regex find something
+					if (!aRegex->parse(begin, end))
+						resultInstance = begin != end;
+					else
+						resultInstance = NO;
+					
+					delete aRegex;
+				}
+				
+				// process the filter statement
+				resultFilter = resultObject && resultAttribute && resultValue && resultPart && resultParent && resultName && resultInstance;
 			}
+			
+			// the mode of the first filter precises if we start 
+			// from a full set (E : default result is YES) or 
+			// from an empty set (ø : default result is NO)
+			if (firstFilter) {
+				if (filterMode == kTTSym_include)
+					result = NO;					// a node isn't into the result by default (and resultFilter have to be YES to keep it)
+				else if (filterMode == kTTSym_restrict)
+					result = YES;					// a node is into the result by default (and resultFilter have to be YES to keep it)
+				else if (filterMode == kTTSym_exclude)
+					result = YES;					// a node is into the result by default (and resultFilter have to be NO to keep it)
+				else if (filterMode == TT("hamlet"))
+					result = NO;					// a node isn't into the result by default (and resultFilter have to be NO to keep it)
+				
+				firstFilter = NO;					// the next filter will not be a first filter anymore...
+			}
+			
+			// propagate the resultFilter to the 
+			// final result depending on the filter mode
+			if (filterMode == kTTSym_include)
+				result = result || resultFilter;	// keep the node if it matches this filter (what ever the first filters)
+			else if (filterMode == kTTSym_restrict)
+				result = result & resultFilter;		// keep the node if it matches this filter (and matches the first filters)
+			else if (filterMode == kTTSym_exclude)
+				result = result & !resultFilter;	// keep the node if it doesn't matches this filter (and matches the first filters)
+			else if (filterMode == TT("hamlet"))
+				result = result || !resultFilter;	// keep the node if it doesn't match this filter (what ever the first filters)
+			
 		}
 	}
-
-	return NO;
+	// if the filter list is empty return YES
+	else
+		result = YES;
+	
+	return result;
 }
 

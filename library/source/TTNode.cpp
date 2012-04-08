@@ -536,7 +536,7 @@ TTPtr TTNode::getContext()
 TTErr TTNode::getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr from)
 {
 	unsigned int	i, nb_ancestor, len = 0;
-	TTNodeAddressPtr returnedPart1, returnedPart2;
+	TTNodeAddressPtr fromNorm, returnedPart1, returnedPart2;
 	TTNodePtr		ptr;
 	TTNodePtr		*ancestor;
 	TTString		anAddressString;
@@ -614,10 +614,12 @@ TTErr TTNode::getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr fro
 
 		// make it relative from
 		if (from != kTTAdrsEmpty) {
-			if (from == kTTAdrsRoot)
+			
+			fromNorm = from->normalize();
+			if (fromNorm == kTTAdrsRoot)
 				(*returnedAddress)->splitAt(0, &returnedPart1, &returnedPart2);
 			else
-				(*returnedAddress)->splitAt(from->countSeparator(), &returnedPart1, &returnedPart2);
+				(*returnedAddress)->splitAt(fromNorm->countSeparator(), &returnedPart1, &returnedPart2);
 			
 			*returnedAddress = returnedPart2;
 		}

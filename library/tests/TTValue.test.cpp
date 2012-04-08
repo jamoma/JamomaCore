@@ -528,6 +528,13 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					v1.getType(2) == kTypeSymbol,
 					testAssertionCount,
 					errorCount);
+	
+	
+	// BUG :	when value v1 is set as below, 
+	//			there is a problem during the copy of the memory (cf memcpy in copy method)
+	//			and there is a crash when the value is deleted at the end of this method.
+	
+	//v1 = TTString("test");
 
 	TTTestLog("Clearing TTValue");	
 	v1.clear();
@@ -1639,13 +1646,179 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing TTValue operators");
 	
-	// TODO: test >
+	/****************************************************************************************************/
+	TTTestLog("\n");
+	TTTestLog("Testing < operator");
+	/****************************************************************************************************/
+	
+	TTValue v1, v2;
+	
+	// TTInt8
+	v1 = TTInt8(-12);
+	v2 = TTInt8(120);
+	TTTestAssertion("TTInt8 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTInt8 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTUInt8
+	v1 = TTUInt8(12);
+	v2 = TTUInt8(204);
+	TTTestAssertion("TTUInt8 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTUInt8 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTInt16
+	v1 = TTInt16(-12);
+	v2 = TTInt16(204);
+	TTTestAssertion("TTInt16 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTInt16 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTUInt16
+	v1 = TTUInt16(12);
+	v2 = TTUInt16(204);
+	TTTestAssertion("TTUInt16 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTUInt16 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTInt32
+	v1 = TTInt32(-12);
+	v2 = TTInt32(204);
+	TTTestAssertion("TTInt32 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTInt32 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTUInt32
+	v1 = TTUInt32(12);
+	v2 = TTUInt32(204);
+	TTTestAssertion("TTUInt32 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTUInt32 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTInt64
+	v1 = TTInt64(-12);
+	v2 = TTInt64(204);
+	TTTestAssertion("TTInt64 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTInt64 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTUInt64
+	v1 = TTUInt64(12);
+	v2 = TTUInt64(204);
+	TTTestAssertion("TTUInt64 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTUInt64 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTFloat32
+	v1 = TTFloat32(-12);
+	v2 = TTFloat32(204);
+	TTTestAssertion("TTFloat32 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat32 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTFloat64
+	v1 = TTFloat64(-12);
+	v2 = TTFloat64(204);
+	TTTestAssertion("TTFloat64 < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTFloat64 < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTSymbol
+	v1 = TT("azerty");
+	v2 = TT("qwerty");
+	TTTestAssertion("TTSymbol < operator comparison (with A < B)",
+					v1 < v2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTSymbol < operator comparison (with A > B)",
+					!(v2 < v1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTString
+	// BUG :	if we used the value v1 and v2, 
+	//			there is a problem during the copy of the memory (cf memcpy in copy method)
+	//			this bug is relative to a line introduced and commented out into TTValueTestBasic
+	TTValue	s1 = TTString("azerty");
+	TTValue	s2 = TTString("qwerty");
+	TTTestAssertion("TTString < operator comparison (with A < B)",
+					s1 < s2,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("TTString < operator comparison (with A > B)",
+					!(s2 < s1),
+					testAssertionCount,
+					errorCount);
+	
+	// TTPtr ? TTObject ?
+	
+	
 	// TODO: test ==
 	// TODO: test =
 	// TODO: test casting
 	// TODO: should + be concatenating elements to create a new value of a+b element count?
-	
-	TTValue v1(3.14);
 }	
 
 
