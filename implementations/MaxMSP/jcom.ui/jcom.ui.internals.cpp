@@ -889,8 +889,18 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void ui_return_ui_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
+	t_rect* rect;
 	
-	; // do nothing ?
+	rect = (t_rect*)malloc(sizeof(t_rect));
+	rect->x = 0;
+	rect->y = 0;
+	rect->width = atom_getlong(argv);
+	rect->height = atom_getlong(argv+1);
+
+	object_attr_set_rect((t_object*)obj, _sym_presentation_rect, rect);
+	
+	jbox_redraw(&obj->box);
+	free(rect);
 }
 
 void ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
