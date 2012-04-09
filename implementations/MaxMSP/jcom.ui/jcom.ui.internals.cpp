@@ -59,6 +59,8 @@ void ui_data_create_all(t_ui* obj)
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		anObject->setAttributeValue(kTTSym_description, TT("The border color of the module in the format RGBA where values range [0.0, 1.0]."));
 		
+		obj->memo_bordercolor = obj->bordercolor;
+		
 		// ui/size
 		ui_data_create(obj, &anObject, gensym("return_ui_size"), kTTSym_parameter, TT("size"));
 		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
@@ -1007,8 +1009,10 @@ void ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 {
 	t_ui* obj = (t_ui*)self;
 	
-	if (argc>1)
+	if (argc>1) {
 		object_attr_setvalueof(obj, gensym("bordercolor"), argc, argv);
+		obj->memo_bordercolor = obj->bordercolor;
+	}
 }
 
 void ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

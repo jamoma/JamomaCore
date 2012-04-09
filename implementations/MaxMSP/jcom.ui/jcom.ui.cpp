@@ -951,7 +951,6 @@ void ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 			atom_setfloat(&selected_color[1], 0.);
 			atom_setfloat(&selected_color[2], 0.36);
 			atom_setfloat(&selected_color[3], 0.70);
-			x->memo_bordercolor = x->bordercolor;
 			object_attr_setvalueof(x, gensym("bordercolor"), 4, selected_color);
 		}
 	}
