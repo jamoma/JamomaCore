@@ -263,7 +263,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 480.0, 370.0, 229.0, 19.0 ],
-					"text" : "test.assert.equal TEST_initToHub true"
+					"text" : "jcom.test.assert.equal.old TEST_initToHub true"
 				}
 
 			}
@@ -430,7 +430,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 790.0, 690.0, 219.0, 31.0 ],
-					"text" : "test.assert.equal TEST_bangToInitOutputFromOther true"
+					"text" : "jcom.test.assert.equal.old TEST_bangToInitOutputFromOther true"
 				}
 
 			}
@@ -472,7 +472,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 560.0, 690.0, 219.0, 31.0 ],
-					"text" : "test.assert.equal TEST_bangToInitOutputFromSame true"
+					"text" : "jcom.test.assert.equal.old TEST_bangToInitOutputFromSame true"
 				}
 
 			}
@@ -637,7 +637,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 480.0, 140.0, 242.0, 19.0 ],
-					"text" : "test.assert.equal TEST_initialization true"
+					"text" : "jcom.test.assert.equal.old TEST_initialization true"
 				}
 
 			}
@@ -695,7 +695,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 115.0, 635.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}

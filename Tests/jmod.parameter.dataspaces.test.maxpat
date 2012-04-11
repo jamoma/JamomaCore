@@ -498,7 +498,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 400.0, 321.0, 19.0 ],
-									"text" : "test.assert.equal TESTparameter/dataspace/gain/db2native 1"
+									"text" : "jcom.test.assert.equal.old TESTparameter/dataspace/gain/db2native 1"
 								}
 
 							}
@@ -553,7 +553,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 175.0, 340.0, 19.0 ],
-									"text" : "test.assert.equal TESTparameter/dataspace/gain/midi2native 99."
+									"text" : "jcom.test.assert.equal.old TESTparameter/dataspace/gain/midi2native 99."
 								}
 
 							}
@@ -851,7 +851,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 335.0, 397.0, 19.0 ],
-									"text" : "test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 1. 0."
+									"text" : "jcom.test.assert.equal.old TESTparameter/dataspace/color/hsl2native 0. 1. 0."
 								}
 
 							}
@@ -906,7 +906,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 175.0, 419.0, 19.0 ],
-									"text" : "test.assert.equal TESTparameter/dataspace/color/rgb2native 120. 100. 80."
+									"text" : "jcom.test.assert.equal.old TESTparameter/dataspace/color/rgb2native 120. 100. 80."
 								}
 
 							}
@@ -1065,7 +1065,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 130.0, 345.0, 72.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}

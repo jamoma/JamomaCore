@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 0
+			"revision" : 4
 		}
 ,
 		"rect" : [ 10.0, 111.0, 1270.0, 617.0 ],
@@ -28,6 +28,7 @@
 		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"annotation" : "click to refresh the DSP peak meter",
 					"handoff" : "",
 					"id" : "obj-50",
 					"maxclass" : "ubutton",
@@ -55,7 +56,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 421.0, 380.0, 77.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 91.0, 2.0, 55.0, 17.0 ],
+					"presentation_rect" : [ 91.0, 2.0, 65.0, 17.0 ],
 					"range" : [ 0.0, 100.0 ],
 					"showvalue" : 0,
 					"text" : "",
@@ -78,10 +79,10 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 0
+							"revision" : 4
 						}
 ,
-						"rect" : [ 201.0, 112.0, 304.0, 255.0 ],
+						"rect" : [ 201.0, 112.0, 389.0, 414.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -104,12 +105,41 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
+									"id" : "obj-4",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 154.0, 133.25, 77.0, 20.0 ],
+									"text" : "prepend text"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-7",
+									"linecount" : 2,
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 154.0, 95.0, 93.0, 34.0 ],
+									"text" : "sprintf symout CPU: %.1f%%"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
 									"id" : "obj-9",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "float" ],
-									"patching_rect" : [ 270.0, 38.0, 27.0, 20.0 ],
+									"patching_rect" : [ 301.0, 40.0, 27.0, 20.0 ],
 									"text" : "t 0."
 								}
 
@@ -122,7 +152,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 271.0, 4.0, 25.0, 25.0 ]
+									"patching_rect" : [ 301.0, 6.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -133,7 +163,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 242.0, 154.25, 25.0, 25.0 ]
+									"patching_rect" : [ 270.0, 155.25, 25.0, 25.0 ]
 								}
 
 							}
@@ -146,7 +176,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 3,
 									"outlettype" : [ "float", "int", "int" ],
-									"patching_rect" : [ 237.0, 64.0, 50.0, 20.0 ],
+									"patching_rect" : [ 270.0, 66.0, 50.0, 20.0 ],
 									"text" : "peak 0."
 								}
 
@@ -174,7 +204,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 80.0, 44.0, 56.0, 20.0 ],
+									"patching_rect" : [ 80.0, 58.0, 56.0, 20.0 ],
 									"text" : "qlim 250"
 								}
 
@@ -188,48 +218,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "float" ],
 									"patching_rect" : [ 80.0, 16.0, 25.0, 25.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"id" : "obj-4",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 158.0, 95.25, 56.0, 19.0 ],
-									"text" : "tosymbol"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"id" : "obj-26",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 158.0, 120.25, 75.0, 19.0 ],
-									"text" : "prepend text"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 11.0,
-									"id" : "obj-29",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 158.0, 72.25, 68.0, 18.0 ],
-									"text" : "CPU: $1%"
 								}
 
 							}
@@ -275,25 +263,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-32", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"midpoints" : [ 167.5, 146.75, 89.5, 146.75 ],
-									"source" : [ "obj-26", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-4", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"source" : [ "obj-29", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-6", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
@@ -303,7 +272,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-26", 0 ],
+									"destination" : [ "obj-32", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-4", 0 ]
@@ -321,11 +290,19 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-29", 0 ],
+									"destination" : [ "obj-7", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 89.5, 67.625, 167.5, 67.625 ],
 									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-4", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-7", 0 ]
 								}
 
 							}
@@ -355,13 +332,13 @@
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"tags" : "",
 						"description" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
 						"default_fontname" : "Arial"
 					}
 ,
@@ -385,7 +362,7 @@
 					"presentation_rect" : [ 91.0, 2.0, 65.0, 17.0 ],
 					"range" : [ 0.0, 100.0 ],
 					"showvalue" : 0,
-					"text" : "CPU: 0.00%",
+					"text" : "CPU: 18.0%",
 					"textpos" : [ 4.0, 2.0 ]
 				}
 
@@ -504,6 +481,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Toggle the global DSP on and off.",
 					"bgoncolor" : [ 0.54902, 0.54902, 0.54902, 1.0 ],
 					"border" : 1,
 					"fontname" : "Verdana",
@@ -527,6 +505,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Open DSP Status window",
 					"border" : 1,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -711,7 +690,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "Enable or disable multichannel limiting of the signal. Use the inspector to access additional limiter settings.",
+					"annotation" : "Limiter: Active or bypassed.",
 					"hint" : "",
 					"id" : "obj-55",
 					"maxclass" : "toggle",
@@ -753,7 +732,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 0
+							"revision" : 4
 						}
 ,
 						"rect" : [ 243.0, 101.0, 203.0, 370.0 ],
@@ -789,7 +768,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 527.0, 44.0, 640.0, 480.0 ],
@@ -932,13 +911,13 @@
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"tags" : "",
 										"description" : "",
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana"
 									}
 ,
@@ -994,7 +973,7 @@
 							}
 , 							{
 								"box" : 								{
-									"annotation" : "Please ensure that selected sample type works with current number of channels.",
+									"annotation" : "Recording: Set sample type for sound files.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-59",
@@ -1013,7 +992,7 @@
 							}
 , 							{
 								"box" : 								{
-									"annotation" : "Please ensure that selected file type works with current number of channels.",
+									"annotation" : "Recording: Set file type for sound files.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-57",
@@ -1108,7 +1087,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 14.0, 59.0, 371.0, 338.0 ],
@@ -1368,13 +1347,13 @@
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"tags" : "",
 										"description" : "",
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana"
 									}
 ,
@@ -1446,6 +1425,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Set release time as ms.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-30",
@@ -1467,6 +1447,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Preamp as dB.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-13",
@@ -1641,6 +1622,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "DC blocker feature of the limiter: Active or bypassed.",
 									"id" : "obj-2",
 									"maxclass" : "toggle",
 									"numinlets" : 1,
@@ -1670,6 +1652,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Set the function to be used for calculating the scaling.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-29",
@@ -1688,6 +1671,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Set threshold as dB.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-32",
@@ -1706,6 +1690,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: The number of samples to look ahead.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-34",
@@ -1790,6 +1775,7 @@
 							}
 , 							{
 								"box" : 								{
+									"annotation" : "Limiter: Postamp as dB.",
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-35",
@@ -2080,13 +2066,13 @@
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"tags" : "",
 						"description" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
 						"default_fontname" : "Verdana"
 					}
 ,
@@ -2127,7 +2113,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "Channel offset",
+					"annotation" : "Set channel offset for the multicable. Changes only take effect when audio is off.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-38",
@@ -2146,7 +2132,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "Set the number of channels used. Change takes place at mouse up or next time audio is turned of.",
+					"annotation" : "Set number of output channels to use. Changes only take effect when audio is off.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hint" : "",
@@ -2263,7 +2249,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 0
+							"revision" : 4
 						}
 ,
 						"rect" : [ 100.0, 100.0, 138.0, 581.0 ],
@@ -2658,7 +2644,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 0
+											"revision" : 4
 										}
 ,
 										"rect" : [ 20.0, 74.0, 600.0, 426.0 ],
@@ -2753,13 +2739,13 @@
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"tags" : "",
 										"description" : "",
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana"
 									}
 ,
@@ -3803,13 +3789,13 @@
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"tags" : "",
 						"description" : "",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
 						"default_fontname" : "Verdana"
 					}
 ,
@@ -4367,16 +4353,30 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "jcom.multi.out~.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/multi.out%",
-				"patcherrelativepath" : "../../../library/components/multi.out%",
+				"name" : "jcom.thru.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+				"patcherrelativepath" : "../../../library/components/thru",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "jcom.thru.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
-				"patcherrelativepath" : "../../../library/components/thru",
+				"name" : "metro",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components",
+				"patcherrelativepath" : "../../../library/components",
+				"type" : "fold",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.metro.maxhelp",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/metro",
+				"patcherrelativepath" : "../../../library/components/metro",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.metro.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/metro",
+				"patcherrelativepath" : "../../../library/components/metro",
 				"type" : "JSON",
 				"implicit" : 1
 			}

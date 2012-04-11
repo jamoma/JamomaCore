@@ -89,25 +89,35 @@
  
  
  
- CUE "Cue 2 " ramp 3000 
+ CUE "Cue 2 " ramp 3000 comment "This info is for Cue 2" 
  
  
  	 	 	 	 /output~/audio/gain 30.386517 ramp global 
  
  
  
- CUE "Cue 3 " ramp 3000 
+ CUE "Cue 3 " ramp 3000 comment "something happening in cue 3" 
  
  
+ 	 	 	 	 /AUTOFOLLOW 4.000000 
+ # 
+ ######################## 
  	 	 	 	 /output~/audio/gain 0.000000 ramp global 
+ # 
+ ######################## 
  
  
  
  CUE "Cue 4 " ramp 3000 
  
  
+ 	 	 	 	 /AUTOFOLLOW 0 
+ # 
+ ######################## 
  	 	 	 	 /input~/source pink 
  	 	 	 	 /output~/audio/gain 30.386505 ramp global 
+ # 
+ ######################## 
  
  
  

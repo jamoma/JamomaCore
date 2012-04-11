@@ -1712,7 +1712,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 623.0, 278.0, 213.0, 67.0 ],
-					"text" : "If no argument is provided to jcom.oscroute, a second inlet will be created. You can then an OSC string to this second inlet to set the pattern to match."
+					"text" : "If no argument is provided to jcom.oscroute, a second inlet will be created. You can then send an OSC string to the second inlet to set the pattern to match."
 				}
 
 			}

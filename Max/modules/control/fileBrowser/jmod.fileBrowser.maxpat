@@ -250,7 +250,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 457.0, 420.0, 587.0, 31.0 ],
-					"text" : "jcom.message item @type integer @range/bounds 0 100 @range/clipmode low @priority 6 @repetitions/allow 1 @description \"The file number being played\"",
+					"text" : "jcom.message item @type integer @range/bounds 0 100 @range/clipmode low @repetitions/allow 1 @description \"The file number being played\"",
 					"varname" : "depth[2]"
 				}
 

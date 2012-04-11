@@ -33,7 +33,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "test.assert.equal InAndOutCrashTest 0",
+					"text" : "jcom.test.assert.equal.old InAndOutCrashTest 0",
 					"fontname" : "Arial",
 					"numinlets" : 2,
 					"numoutlets" : 0,
@@ -132,7 +132,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "test.finished",
+					"text" : "jcom.test.finished",
 					"fontname" : "Arial",
 					"numinlets" : 1,
 					"numoutlets" : 1,

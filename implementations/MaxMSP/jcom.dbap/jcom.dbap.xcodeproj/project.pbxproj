@@ -3,271 +3,168 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		22C6B0FB109A5BC200AD8BBF /* dbap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C6B0F7109A5BC200AD8BBF /* dbap.h */; };
-		22C6B0FC109A5BC200AD8BBF /* hull2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C6B0F8109A5BC200AD8BBF /* hull2D.cpp */; };
-		22C6B0FD109A5BC200AD8BBF /* hull2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C6B0F9109A5BC200AD8BBF /* hull2D.h */; };
-		22C6B0FE109A5BC200AD8BBF /* jcom.dbap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C6B0FA109A5BC200AD8BBF /* jcom.dbap.cpp */; };
-		22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F7D1103338310062F7B8 /* commonsyms.cpp */; };
-		22C9F7D8103338390062F7B8 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7D7103338390062F7B8 /* MaxAPI.framework */; };
-		22C9F7DC1033383F0062F7B8 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */; };
-		22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F81810333A130062F7B8 /* MaxObjectTypes.h */; };
-		A79D29EE1205B6E2006A158E /* tt-max-modular.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A79D29ED1205B6E2006A158E /* tt-max-modular.xcconfig */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		22C6B0F7109A5BC200AD8BBF /* dbap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbap.h; sourceTree = "<group>"; };
-		22C6B0F8109A5BC200AD8BBF /* hull2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hull2D.cpp; sourceTree = "<group>"; };
-		22C6B0F9109A5BC200AD8BBF /* hull2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hull2D.h; sourceTree = "<group>"; };
-		22C6B0FA109A5BC200AD8BBF /* jcom.dbap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.dbap.cpp; sourceTree = "<group>"; };
-		22C9F7D1103338310062F7B8 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
-		22C9F7D7103338390062F7B8 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
-		22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
-		22C9F81810333A130062F7B8 /* MaxObjectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxObjectTypes.h; path = ../../../supports/objectivemax/MaxObject/MaxObjectTypes.h; sourceTree = SOURCE_ROOT; };
-		2FBBEAE508F335360078DB84 /* jcom.dbap.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.dbap.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
-		A79D29ED1205B6E2006A158E /* tt-max-modular.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-modular.xcconfig"; path = "../tt-max-modular.xcconfig"; sourceTree = SOURCE_ROOT; };
+		A75C3DF81518891E00774BD7 /* dbap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dbap.h; sourceTree = "<group>"; };
+		A75C3DF91518891E00774BD7 /* hull2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hull2D.cpp; sourceTree = "<group>"; };
+		A75C3DFA1518891E00774BD7 /* hull2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hull2D.h; sourceTree = "<group>"; };
+		A75C3DFB1518891E00774BD7 /* jcom.dbap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.dbap.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		2FBBEADC08F335360078DB84 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C9F7D8103338390062F7B8 /* MaxAPI.framework in Frameworks */,
-				22C9F7DC1033383F0062F7B8 /* MaxAudioAPI.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		089C166AFE841209C02AAC07 /* iterator */ = {
+		A75C3DE6151888C000774BD7 = {
 			isa = PBXGroup;
 			children = (
-				A79D29ED1205B6E2006A158E /* tt-max-modular.xcconfig */,
-				22C9F81810333A130062F7B8 /* MaxObjectTypes.h */,
-				08FB77ADFE841716C02AAC07 /* Source */,
-				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
-				19C28FB4FE9D528D11CA2CBB /* Products */,
+				A75C3DF71518890500774BD7 /* Sources */,
 			);
-			name = iterator;
 			sourceTree = "<group>";
 		};
-		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+		A75C3DF71518890500774BD7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				22C9F7D7103338390062F7B8 /* MaxAPI.framework */,
-				22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */,
+				A75C3DF81518891E00774BD7 /* dbap.h */,
+				A75C3DFB1518891E00774BD7 /* jcom.dbap.cpp */,
+				A75C3DF91518891E00774BD7 /* hull2D.cpp */,
+				A75C3DFA1518891E00774BD7 /* hull2D.h */,
 			);
-			name = "External Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		08FB77ADFE841716C02AAC07 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				22C6B0F7109A5BC200AD8BBF /* dbap.h */,
-				22C6B0F8109A5BC200AD8BBF /* hull2D.cpp */,
-				22C6B0F9109A5BC200AD8BBF /* hull2D.h */,
-				22C6B0FA109A5BC200AD8BBF /* jcom.dbap.cpp */,
-				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
-			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		19C28FB4FE9D528D11CA2CBB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2FBBEAE508F335360078DB84 /* jcom.dbap.mxo */,
-			);
-			name = Products;
+			name = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		2FBBEAD708F335360078DB84 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */,
-				22C6B0FB109A5BC200AD8BBF /* dbap.h in Headers */,
-				22C6B0FD109A5BC200AD8BBF /* hull2D.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		2FBBEAD608F335360078DB84 /* max-external */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */;
+/* Begin PBXLegacyTarget section */
+		A75C3DED151888C100774BD7 /* jcom.dbap */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = A75C3DF0151888C100774BD7 /* Build configuration list for PBXLegacyTarget "jcom.dbap" */;
 			buildPhases = (
-				2FBBEAD708F335360078DB84 /* Headers */,
-				2FBBEAD808F335360078DB84 /* Resources */,
-				2FBBEADA08F335360078DB84 /* Sources */,
-				2FBBEADC08F335360078DB84 /* Frameworks */,
-				2FBBEADF08F335360078DB84 /* Rez */,
 			);
-			buildRules = (
-			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = "max-external";
-			productName = iterator;
-			productReference = 2FBBEAE508F335360078DB84 /* jcom.dbap.mxo */;
-			productType = "com.apple.product-type.bundle";
+			name = jcom.dbap;
+			passBuildSettingsInEnvironment = 1;
+			productName = jcom;
 		};
-/* End PBXNativeTarget section */
+/* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		089C1669FE841209C02AAC07 /* Project object */ = {
+		A75C3DE8151888C000774BD7 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.dbap" */;
-			compatibilityVersion = "Xcode 3.0";
-			hasScannedForEncodings = 1;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
+			};
+			buildConfigurationList = A75C3DEB151888C000774BD7 /* Build configuration list for PBXProject "jcom.dbap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				en,
 			);
-			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
+			mainGroup = A75C3DE6151888C000774BD7;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2FBBEAD608F335360078DB84 /* max-external */,
+				A75C3DED151888C100774BD7 /* jcom.dbap */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		2FBBEAD808F335360078DB84 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A79D29EE1205B6E2006A158E /* tt-max-modular.xcconfig in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXRezBuildPhase section */
-		2FBBEADF08F335360078DB84 /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXRezBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		2FBBEADA08F335360078DB84 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
-				22C6B0FC109A5BC200AD8BBF /* hull2D.cpp in Sources */,
-				22C6B0FE109A5BC200AD8BBF /* jcom.dbap.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
 /* Begin XCBuildConfiguration section */
-		2FBBEAD008F335010078DB84 /* Development */ = {
+		A75C3DEE151888C100774BD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-			};
-			name = Development;
-		};
-		2FBBEAD108F335010078DB84 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Deployment;
-		};
-		2FBBEAE108F335360078DB84 /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A79D29ED1205B6E2006A158E /* tt-max-modular.xcconfig */;
-			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
-					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
-					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
-					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../Framework/build/Development\"",
-					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
-					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
-					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../AudioGraph/library/build/UninstalledProducts\"",
-				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				LIBRARY_SEARCH_PATHS = (
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
 					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
 			};
-			name = Development;
+			name = Debug;
 		};
-		2FBBEAE208F335360078DB84 /* Deployment */ = {
+		A75C3DEF151888C100774BD7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A79D29ED1205B6E2006A158E /* tt-max-modular.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
-					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
-					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
-					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
-					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../Framework/build/Development\"",
-					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
-					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
-					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../AudioGraph/library/build/UninstalledProducts\"",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
 			};
-			name = Deployment;
+			name = Release;
+		};
+		A75C3DF1151888C100774BD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = jcom.dbap;
+			};
+			name = Debug;
+		};
+		A75C3DF2151888C100774BD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = jcom.dbap;
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.dbap" */ = {
+		A75C3DEB151888C000774BD7 /* Build configuration list for PBXProject "jcom.dbap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2FBBEAD008F335010078DB84 /* Development */,
-				2FBBEAD108F335010078DB84 /* Deployment */,
+				A75C3DEE151888C100774BD7 /* Debug */,
+				A75C3DEF151888C100774BD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Release;
 		};
-		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */ = {
+		A75C3DF0151888C100774BD7 /* Build configuration list for PBXLegacyTarget "jcom.dbap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2FBBEAE108F335360078DB84 /* Development */,
-				2FBBEAE208F335360078DB84 /* Deployment */,
+				A75C3DF1151888C100774BD7 /* Debug */,
+				A75C3DF2151888C100774BD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+	rootObject = A75C3DE8151888C000774BD7 /* Project object */;
 }

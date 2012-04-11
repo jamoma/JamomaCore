@@ -83,7 +83,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 100.0, 235.0, 136.0, 19.0 ],
-					"text" : "jcom.oscroute /view/size"
+					"text" : "jcom.oscroute /view/freeze"
 				}
 
 			}
@@ -532,7 +532,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1150.0, 480.0, 249.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/ui/preview=nonZero 1"
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/ui/preview=nonZero 1"
 				}
 
 			}
@@ -546,7 +546,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1095.0, 525.0, 217.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/ui/mute=zero 0"
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/ui/mute=zero 0"
 				}
 
 			}
@@ -560,7 +560,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1040.0, 570.0, 228.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/ui/mix=nonZero 50."
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/ui/mix=nonZero 50."
 				}
 
 			}
@@ -574,7 +574,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 985.0, 615.0, 212.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/ui/gain=zero 0."
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/ui/gain=zero 0."
 				}
 
 			}
@@ -588,7 +588,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 935.0, 660.0, 220.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/view/freeze=zero 0"
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/view/freeze=zero 0"
 				}
 
 			}
@@ -602,7 +602,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 880.0, 710.0, 244.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/ui/bypass=nonZero 1"
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/ui/bypass=nonZero 1"
 				}
 
 			}
@@ -630,7 +630,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 670.0, 480.0, 227.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/toggle=nonZero 1"
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/toggle=nonZero 1"
 				}
 
 			}
@@ -644,7 +644,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 605.0, 525.0, 207.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/toggle=zero 0"
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/toggle=zero 0"
 				}
 
 			}
@@ -658,7 +658,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 540.0, 570.0, 210.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/int=nonZero 1"
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/int=nonZero 1"
 				}
 
 			}
@@ -672,7 +672,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 475.0, 615.0, 191.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/int=zero 0"
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/int=zero 0"
 				}
 
 			}
@@ -686,7 +686,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 410.0, 660.0, 218.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/float=nonZero 1."
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/float=nonZero 1."
 				}
 
 			}
@@ -728,7 +728,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 345.0, 710.0, 200.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/float=zero 0."
+					"text" : "jcom.test.assert.equal.old TEST/moduleInitialization/float=zero 0."
 				}
 
 			}
@@ -836,7 +836,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 100.0, 530.0, 72.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}

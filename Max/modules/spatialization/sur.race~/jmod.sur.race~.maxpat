@@ -1,10 +1,14 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 6,
+			"minor" : 0,
+			"revision" : 4
+		}
+,
 		"rect" : [ 502.0, 69.0, 640.0, 506.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 502.0, 69.0, 640.0, 506.0 ],
-		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
@@ -12,14 +16,19 @@
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
+		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"annotation" : "gain for controlling the effect of the recursive bandpass sidechain",
 					"fontsize" : 9.0,
 					"id" : "obj-18",
 					"maxclass" : "jcom.textslider",
@@ -67,6 +76,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Mid High X-over Frequency",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-10",
@@ -74,6 +84,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
+					"parameter_enable" : 0,
 					"patching_rect" : [ 321.0, 166.0, 50.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 263.0, 46.0, 36.0, 19.0 ],
@@ -86,14 +97,14 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"description" : "Mid High X-over Frequency",
 						"range/bounds" : [ 5.0, 20000.0 ],
-						"type" : "integer",
 						"dataspace" : "time",
 						"range/clipmode" : "both",
 						"dataspace/unit/native" : "Hz",
+						"dataspace/unit/active" : "Hz",
 						"value/default" : [ 5000 ],
-						"dataspace/unit/active" : "Hz"
+						"type" : "integer",
+						"description" : "Mid-high crossover frequency"
 					}
 ,
 					"id" : "obj-11",
@@ -124,13 +135,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"description" : "delaytime for the crosstalk cancelling [µseconds]",
+						"value/stepsize" : 0.01,
 						"range/bounds" : [ 0.0, 1.0 ],
-						"type" : "decimal",
 						"dataspace" : "time",
 						"range/clipmode" : "low",
 						"value/default" : [ 0.07 ],
-						"value/stepsize" : 0.01
+						"type" : "decimal",
+						"description" : "delaytime for the crosstalk cancelling [µseconds]"
 					}
 ,
 					"id" : "obj-13",
@@ -145,6 +156,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "delaytime for the crosstalk cancelling [µseconds]",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-15",
@@ -152,6 +164,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
+					"parameter_enable" : 0,
 					"patching_rect" : [ 321.0, 193.0, 50.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 81.0, 24.0, 50.0, 19.0 ],
@@ -161,6 +174,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "attenation value for the crosstalk frequency",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-16",
@@ -168,6 +182,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
+					"parameter_enable" : 0,
 					"patching_rect" : [ 322.0, 221.0, 50.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 95.0, 45.0, 36.0, 19.0 ],
@@ -180,12 +195,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"description" : "attenation value for the crosstalk frequency",
-						"ramp/drive" : "scheduler",
 						"range/bounds" : [ -10.0, 0.0 ],
-						"type" : "decimal",
+						"ramp/drive" : "none",
 						"range/clipmode" : "both",
-						"value/default" : [ -2.5 ]
+						"value/default" : [ -2.5 ],
+						"type" : "decimal",
+						"description" : "attenation value for the crosstalk frequency"
 					}
 ,
 					"id" : "obj-17",
@@ -381,7 +396,6 @@
 					"background" : 1,
 					"has_bypass" : 1,
 					"has_gain" : 1,
-					"has_meters" : 1,
 					"has_mute" : 1,
 					"id" : "obj-4",
 					"maxclass" : "jcom.ui",
@@ -424,12 +438,13 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"range/bounds" : [ 5.0, 16000.0 ],
-						"type" : "integer",
 						"dataspace" : "time",
 						"range/clipmode" : "both",
 						"dataspace/unit/native" : "Hz",
+						"dataspace/unit/active" : "Hz",
 						"value/default" : [ 250 ],
-						"dataspace/unit/active" : "Hz"
+						"type" : "integer",
+						"description" : "Low-Mid crossover frequency"
 					}
 ,
 					"id" : "obj-7",
@@ -457,6 +472,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
@@ -464,6 +480,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
+					"parameter_enable" : 0,
 					"patching_rect" : [ 321.0, 140.0, 50.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 263.0, 23.0, 36.0, 19.0 ],
@@ -475,8 +492,8 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 1 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-1", 1 ]
 				}
 
@@ -484,8 +501,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -493,8 +510,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-10", 0 ]
 				}
 
@@ -502,8 +519,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -511,8 +528,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 1 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-12", 0 ]
 				}
 
@@ -520,8 +537,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -529,8 +546,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-18", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -538,8 +555,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -547,8 +564,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-16", 0 ]
 				}
 
@@ -556,8 +573,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-17", 0 ]
 				}
 
@@ -565,8 +582,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-14", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-18", 0 ]
 				}
 
@@ -574,6 +591,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
+					"disabled" : 0,
 					"hidden" : 1,
 					"midpoints" : [ 69.5, 157.0, 34.5, 157.0 ],
 					"source" : [ "obj-19", 0 ]
@@ -583,8 +601,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-2", 1 ]
 				}
 
@@ -592,8 +610,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -602,8 +620,8 @@
 				"patchline" : 				{
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
 					"destination" : [ "obj-33", 0 ],
+					"disabled" : 0,
 					"hidden" : 1,
-					"midpoints" : [  ],
 					"source" : [ "obj-22", 0 ]
 				}
 
@@ -611,8 +629,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
+					"disabled" : 0,
 					"hidden" : 1,
-					"midpoints" : [  ],
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -620,6 +638,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
+					"disabled" : 0,
 					"hidden" : 1,
 					"midpoints" : [ 214.5, 160.0, 34.5, 160.0 ],
 					"source" : [ "obj-25", 0 ]
@@ -629,8 +648,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-28", 0 ]
 				}
 
@@ -638,8 +657,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-3", 2 ]
 				}
 
@@ -647,8 +666,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 2 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-3", 1 ]
 				}
 
@@ -656,8 +675,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-3", 0 ]
 				}
 
@@ -665,8 +684,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -674,8 +693,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-8", 0 ]
 				}
 
@@ -683,11 +702,62 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-9", 0 ]
 				}
 
+			}
+ ],
+		"dependency_cache" : [ 			{
+				"name" : "jalg.sur.race~.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/spatialization/sur.race~",
+				"patcherrelativepath" : "",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "pingpong.poly.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/spatialization/sur.race~",
+				"patcherrelativepath" : "",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.parameter.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.ui.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.in~.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.hub.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.out~.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.dataspace.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.oscroute.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.filter~.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.textslider.mxo",
+				"type" : "iLaX"
 			}
  ]
 	}

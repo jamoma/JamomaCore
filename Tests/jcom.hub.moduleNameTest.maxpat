@@ -103,7 +103,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 140.0, 340.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}
@@ -196,7 +196,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 130.0, 265.0, 291.0, 19.0 ],
-									"text" : "test.assert.equal moduleRenamedBar true @issue 1058"
+									"text" : "jcom.test.assert.equal.old moduleRenamedBar true @issue 1058"
 								}
 
 							}
@@ -460,7 +460,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 130.0, 265.0, 292.0, 19.0 ],
-									"text" : "test.assert.equal moduleRenamedFoo true @issue 1058"
+									"text" : "jcom.test.assert.equal.old moduleRenamedFoo true @issue 1058"
 								}
 
 							}

@@ -68,7 +68,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 120.0, 195.0, 100.0, 19.0 ],
-					"text" : "test.finished"
+					"text" : "jcom.test.finished"
 				}
 
 			}
@@ -185,7 +185,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 245.0, 290.0, 524.0, 19.0 ],
-													"text" : "test.assert.equal TEST1/jcom.oscinstance/osc_int_instance_no_subbranch:ARGUMENTS 1. 1. 2."
+													"text" : "jcom.test.assert.equal.old TEST1/jcom.oscinstance/osc_int_instance_no_subbranch:ARGUMENTS 1. 1. 2."
 												}
 
 											}
@@ -293,7 +293,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 70.0, 353.5, 482.0, 19.0 ],
-													"text" : "test.assert.equal TEST3/jcom.oscinstance/osc_int_instance_no_subbranch:OSC /source"
+													"text" : "jcom.test.assert.equal.old TEST3/jcom.oscinstance/osc_int_instance_no_subbranch:OSC /source"
 												}
 
 											}
@@ -306,7 +306,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 135.0, 320.0, 487.0, 19.0 ],
-													"text" : "test.assert.equal TEST2/jcom.oscinstance/osc_int_instance_no_subbranch:INSTANCE 47"
+													"text" : "jcom.test.assert.equal.old TEST2/jcom.oscinstance/osc_int_instance_no_subbranch:INSTANCE 47"
 												}
 
 											}
@@ -544,7 +544,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 250.0, 305.0, 530.0, 19.0 ],
-													"text" : "test.assert.equal TEST1/jcom.oscinstance/osc_int_instance_and_subbranch:ARGUMENTS 1. 1. 2."
+													"text" : "jcom.test.assert.equal.old TEST1/jcom.oscinstance/osc_int_instance_and_subbranch:ARGUMENTS 1. 1. 2."
 												}
 
 											}
@@ -571,7 +571,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 155.0, 335.0, 493.0, 19.0 ],
-													"text" : "test.assert.equal TEST2/jcom.oscinstance/osc_int_instance_and_subbranch:INSTANCE 72"
+													"text" : "jcom.test.assert.equal.old TEST2/jcom.oscinstance/osc_int_instance_and_subbranch:INSTANCE 72"
 												}
 
 											}
@@ -665,7 +665,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 75.0, 373.5, 510.0, 19.0 ],
-													"text" : "test.assert.equal TEST3/jcom.oscinstance/osc_int_instance_and_subbranch:OSC /source/xyz"
+													"text" : "jcom.test.assert.equal.old TEST3/jcom.oscinstance/osc_int_instance_and_subbranch:OSC /source/xyz"
 												}
 
 											}
@@ -903,7 +903,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 330.0, 310.0, 547.0, 19.0 ],
-													"text" : "test.assert.equal TEST1/jcom.oscinstance/osc_symbol_instance_no_subbranch:ARGUMENTS 1. 1. 2."
+													"text" : "jcom.test.assert.equal.old TEST1/jcom.oscinstance/osc_symbol_instance_no_subbranch:ARGUMENTS 1. 1. 2."
 												}
 
 											}
@@ -930,7 +930,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 155.0, 350.0, 513.0, 19.0 ],
-													"text" : "test.assert.equal TEST2/jcom.oscinstance/osc_symbol_instance_no_subbranch:INSTANCE left"
+													"text" : "jcom.test.assert.equal.old TEST2/jcom.oscinstance/osc_symbol_instance_no_subbranch:INSTANCE left"
 												}
 
 											}
@@ -1010,7 +1010,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 80.0, 398.5, 511.0, 19.0 ],
-													"text" : "test.assert.equal TEST3/jcom.oscinstance/osc_symbol_instance_no_subbranch:OSC /channel"
+													"text" : "jcom.test.assert.equal.old TEST3/jcom.oscinstance/osc_symbol_instance_no_subbranch:OSC /channel"
 												}
 
 											}
@@ -1239,7 +1239,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 340.0, 315.0, 542.0, 19.0 ],
-													"text" : "test.assert.equal TEST1/jcom.oscinstance/osc_symbol_instance_and_subbranch:ARGUMENTS 1 2 3"
+													"text" : "jcom.test.assert.equal.old TEST1/jcom.oscinstance/osc_symbol_instance_and_subbranch:ARGUMENTS 1 2 3"
 												}
 
 											}
@@ -1266,7 +1266,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 185.0, 365.0, 526.0, 19.0 ],
-													"text" : "test.assert.equal TEST2/jcom.oscinstance/osc_symbol_instance_and_subbranch:INSTANCE then"
+													"text" : "jcom.test.assert.equal.old TEST2/jcom.oscinstance/osc_symbol_instance_and_subbranch:INSTANCE then"
 												}
 
 											}
@@ -1346,7 +1346,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 75.0, 405.0, 524.0, 19.0 ],
-													"text" : "test.assert.equal TEST3/jcom.oscinstance/osc_symbol_instance_and_subbranch:OSC /dot/slash"
+													"text" : "jcom.test.assert.equal.old TEST3/jcom.oscinstance/osc_symbol_instance_and_subbranch:OSC /dot/slash"
 												}
 
 											}
@@ -1628,7 +1628,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"patching_rect" : [ 75.0, 221.5, 499.0, 19.0 ],
-													"text" : "test.assert.equal TEST/jcom.oscinstance/osc_subbranch_has_instance /slah/then.dot 1 2 3"
+													"text" : "jcom.test.assert.equal.old TEST/jcom.oscinstance/osc_subbranch_has_instance /slah/then.dot 1 2 3"
 												}
 
 											}
@@ -1903,7 +1903,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 900.0, 250.0, 193.0, 19.0 ],
-									"text" : "test.assert.equal TESTbang 10"
+									"text" : "jcom.test.assert.equal.old TESTbang 10"
 								}
 
 							}
@@ -1987,7 +1987,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 50.0, 250.0, 209.0, 31.0 ],
-									"text" : "test.assert.equal TESTnon_osc_symbol no_slash 1 2 3"
+									"text" : "jcom.test.assert.equal.old TESTnon_osc_symbol no_slash 1 2 3"
 								}
 
 							}
@@ -2056,7 +2056,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 250.0, 196.0, 19.0 ],
-									"text" : "test.assert.equal TESTlist 1 2 3"
+									"text" : "jcom.test.assert.equal.old TESTlist 1 2 3"
 								}
 
 							}
@@ -2111,7 +2111,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 700.0, 250.0, 181.0, 19.0 ],
-									"text" : "test.assert.equal TESTint 10"
+									"text" : "jcom.test.assert.equal.old TESTint 10"
 								}
 
 							}
@@ -2166,7 +2166,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 480.0, 250.0, 200.0, 19.0 ],
-									"text" : "test.assert.equal TESTfloat 3.14"
+									"text" : "jcom.test.assert.equal.old TESTfloat 3.14"
 								}
 
 							}
@@ -2614,7 +2614,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 90.0, 265.0, 215.0, 43.0 ],
-									"text" : "test.assert.equal TESTosc_several_branches_no_instance /two/branches 1 2 3"
+									"text" : "jcom.test.assert.equal.old TESTosc_several_branches_no_instance /two/branches 1 2 3"
 								}
 
 							}
@@ -2684,7 +2684,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 315.0, 265.0, 194.0, 43.0 ],
-									"text" : "test.assert.equal TESTosc_one_branch_no_instance /one_branch 1 2 3"
+									"text" : "jcom.test.assert.equal.old TESTosc_one_branch_no_instance /one_branch 1 2 3"
 								}
 
 							}
