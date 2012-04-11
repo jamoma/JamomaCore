@@ -1022,6 +1022,23 @@ void ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr 
 	object_attr_setvalueof(obj, gensym("address"), argc, argv);
 }
 
+void ui_return_model_init(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	long		init = atom_getlong(argv);
+	TTValue		v;
+	TTObjectPtr anObject;
+	TTErr		err;
+	
+	if (init) {
+		
+		// observe the namespace of the model
+		// by this way, the creation of any widgets depends on the existence of the data	
+		obj->modelExplorer->setAttributeValue(kTTSym_address, obj->modelAddress);
+		obj->modelExplorer->sendMessage(TT("Explore"));
+	}
+}
+
 void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;

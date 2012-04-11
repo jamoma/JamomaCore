@@ -7,9 +7,9 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 380.0, 221.0, 752.0, 593.0 ],
+		"rect" : [ 24.0, 359.0, 752.0, 593.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 380.0, 221.0, 752.0, 593.0 ],
+		"defrect" : [ 24.0, 359.0, 752.0, 593.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -144,7 +144,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 30.0, 36.0, 210.0, 31.0 ],
+					"patching_rect" : [ 30.0, 47.0, 213.0, 31.0 ],
 					"text" : "jcom.model @type control @description \"Output information from mouse\"",
 					"varname" : "jcom.hub"
 				}
@@ -523,13 +523,13 @@
 ,
 					"patching_rect" : [ 220.0, 260.0, 116.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
+						"default_fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p normalize"
@@ -818,13 +818,13 @@
 ,
 					"patching_rect" : [ 121.0, 436.0, 119.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
+						"default_fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p normalize"

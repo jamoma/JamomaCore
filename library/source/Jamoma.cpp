@@ -34,6 +34,12 @@ TTSymbolPtr					kTTSym_Jamoma = NULL;
 TTApplicationPtr			JamomaApplication = NULL;
 TTNodeDirectoryPtr			JamomaDirectory = NULL;
 
+TTRegexPtr					ttRegexForJmodJcom = NULL;
+TTRegexPtr					ttRegexForModel = NULL;
+TTRegexPtr					ttRegexForView = NULL;
+TTRegexPtr					ttRegexForMaxpat = NULL;
+TTRegexPtr					ttRegexForBracket = NULL;
+
 /************************************************************************************/
 // Init the framework
 
@@ -77,6 +83,15 @@ void jamoma_init(void)
 		// Initialize common symbols
 		common_symbols_init();
 		jamomaSymbolsInit();
+		
+		// Initialize common regex
+		ttRegexForJmodJcom = new TTRegex("(jmod.)|(jcom.)");
+		ttRegexForModel = new TTRegex("(.model)");
+		ttRegexForView = new TTRegex("(.view)");
+		ttRegexForMaxpat = new TTRegex("(.maxpat)");
+		ttRegexForBracket = new TTRegex("\\[(\\d|\\d\\d|\\d\\d\\d)\\]");	// parse until 999. 
+																		// "\\[(\\d{1,3})\\]" this regex crashes ! why ? I've test it into a regex tester and it works...
+
 		
 		// Create Required Global Instances
 		hash_modules = (t_hashtab*)hashtab_new(0);

@@ -9,12 +9,19 @@
 #include "Jamoma.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
+#include "TTRegex.h"
 #include "TTModular.h"
 #include "TTSubscriber.h"
 
 extern TTSymbolPtr			kTTSym_Jamoma;
 extern TTApplicationPtr		JamomaApplication;
 extern TTNodeDirectoryPtr	JamomaDirectory;
+
+extern TTRegexPtr			ttRegexForJmodJcom;		///< A global regex to parse jmod. or jcom. part
+extern TTRegexPtr			ttRegexForModel;		///< A global regex to parse .model part
+extern TTRegexPtr			ttRegexForView;			///< A global regex to parse .view part
+extern TTRegexPtr			ttRegexForMaxpat;		///< A global regex to parse .maxpat part
+extern TTRegexPtr			ttRegexForBracket;		///< A global regex to parse [ and ]
 
 #define ModelPatcher "model" 
 #define ViewPatcher "view"
@@ -214,6 +221,10 @@ extern "C" {
 	/** Get all context info from an object (his patcher and the context, the class and the name of his patcher) */
 	TTErr			jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName);
 
+	/** Get the "aClass.model" external in the patcher */
+	void			jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbolPtr modelClass, ObjectPtr *returnedModelPatcher);
+
+	
 	// Tools
 	///////////////////////////////////////////////
 	

@@ -160,6 +160,7 @@ void jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data)
 	TTSymbolPtr	patcherContext = NULL;
 	TTSymbolPtr	patcherName = NULL;
 	TTSymbolPtr patcherClass = NULL;
+	TTSymbolPtr lowerContext = NULL;
 	TTListPtr	nameAndPtrList;
 	
 	// unpack baton
@@ -177,13 +178,25 @@ void jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data)
 		
 		if (patcherName && patcherPtr) {
 			
-			// insert the current patcher name and his pointer to the list
-			v = patcherName;
-			v.append((TTPtr)patcherPtr);
-			nameAndPtrList->insert(0, v);
-			
-			// replace current object by his parent patcher
-			objPtr = patcherPtr;
+			// check if the patcher have the same context than lower patchers
+			if (patcherContext == lowerContext || lowerContext == NULL) {
+				
+				// keep it as lowerContext
+				lowerContext = patcherContext;
+				
+				// insert the current patcher name and his pointer to the list
+				v = patcherName;
+				v.append((TTPtr)patcherPtr);
+				nameAndPtrList->insert(0, v);
+				
+				// replace current object by his parent patcher
+				objPtr = patcherPtr;
+			}
+			else {
+				
+				// skip the patcher to go directly to an upper one
+				objPtr = patcherPtr;
+			}
 		}
 		else
 			break;
@@ -1623,40 +1636,55 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 /** Get the class of the patcher from the file name (removing .model and .view convention name if they exist) */
 void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedClass)
 {
-	char			*isCtxPatcher, *last_dot, *to_split;
-	TTString		contextMaxpat;
-	SymbolPtr		patcherName, hierarchy;
-	ObjectPtr		upperPatcher;
-	long			patcherNameLen;
-
+	SymbolPtr	patcherName, hierarchy;
+	ObjectPtr	upperPatcher;
+	TTString	s_toParse;
+	TTRegexStringPosition begin, end;
+	
 	// extract class from the file name
-	patcherName = object_attr_getsym(patcher, _sym_filename);
+	patcherName =  object_attr_getsym(patcher, _sym_filename);
 	
 	if (patcherName != _sym_nothing) {
 		
-		// Is there a ".context.maxpat" string in the patcher name ?
-		contextMaxpat = context->getCString();
-		contextMaxpat += ".maxpat";
-		isCtxPatcher = strstr(patcherName->s_name, contextMaxpat.data());
-				
-		// Strip ".context.maxpat" at the end
-		if (isCtxPatcher) {
-			patcherNameLen = strlen(patcherName->s_name) - strlen(contextMaxpat.data()) - 1;
-			to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
-			strncpy(to_split, patcherName->s_name, patcherNameLen);
-			to_split[patcherNameLen] = NULL;
-			*returnedClass = TT(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
+		s_toParse = patcherName->s_name;
+	
+		begin = s_toParse.begin();
+		end = s_toParse.end();
+
+		// parse jmod.
+		if (!ttRegexForJmodJcom->parse(begin, end)) {
+			
+			s_toParse = string(ttRegexForJmodJcom->end(), end);
+			begin = s_toParse.begin();
+			end = s_toParse.end();
 		}
 		
-		// Else strip from the last "."
-		else  {
-			last_dot = strrchr(patcherName->s_name, '.');
-			patcherNameLen = (int)last_dot - (int)patcherName->s_name;
-			to_split = (char *)malloc(sizeof(char)*(patcherNameLen+1));
-			strncpy(to_split, patcherName->s_name, patcherNameLen);
-			to_split[patcherNameLen] = NULL;
-			*returnedClass = TT(to_split);										// TODO : replace each "." by the Uppercase of the letter after the "."
+		// parse context
+		if (context == kTTSym_model) {
+			
+			if (!ttRegexForModel->parse(begin, end)) {
+				s_toParse = string(begin, ttRegexForModel->begin());
+				begin = s_toParse.begin();
+				end = s_toParse.end();
+			}
 		}
+		else if (context == kTTSym_view) {
+			
+			if (!ttRegexForView->parse(begin, end)) {
+				s_toParse = string(begin, ttRegexForView->begin());
+				begin = s_toParse.begin();
+				end = s_toParse.end();
+			}
+		}
+		
+		// parse .maxpat
+		if (!ttRegexForMaxpat->parse(begin, end)) {
+			s_toParse = string(begin, ttRegexForMaxpat->begin());
+			begin = s_toParse.begin();
+			end = s_toParse.end();
+		}
+		
+		*returnedClass = TT(s_toParse);	// TODO : replace each "." by the Uppercase of the letter after the "."
 	}
 	else {
 		
@@ -1759,6 +1787,38 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 	}
 }
 
+/** Get the "aClass.model" external in the patcher */
+void jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbolPtr modelClass, ObjectPtr *returnedModelPatcher)
+{
+	ObjectPtr	obj;
+	TTString	modelName;
+	SymbolPtr	_sym_modelfilename, _sym_objmaxclass, _sym_objfilename;
+	
+	obj = object_attr_getobj(patcher, _sym_firstobject);
+	
+	modelName = "jmod.";
+	modelName += modelClass->getCString();
+	modelName += ".model.maxpat";
+	_sym_modelfilename = gensym(modelName.data());
+	
+	*returnedModelPatcher = NULL;
+	while (obj) {
+		
+		// look for jpatcher
+		_sym_objmaxclass = object_attr_getsym(obj, _sym_maxclass);
+		if (_sym_objmaxclass == _sym_jpatcher) {
+			
+			// look for _sym_modelfilename
+			_sym_objfilename = object_attr_getsym(obj, _sym_filename);
+			if (_sym_objfilename == _sym_modelfilename) {
+			
+				*returnedModelPatcher = object_attr_getobj(obj, _sym_object);
+				break;
+			}
+		}
+		obj = object_attr_getobj(obj, _sym_nextobject);
+	}
+}
 
 /** Get patcher's node from the root jcom model|view in the patcher */
 void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
@@ -1816,6 +1876,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 			jamoma_patcher_share_info(*returnedPatcher, &sharedPatcher, &sharedContext, &sharedClass, &sharedName);
 			
 			if (sharedPatcher && sharedContext && sharedClass && sharedName) {
+
 				*returnedPatcher = sharedPatcher;
 				*returnedContext = sharedContext;
 				*returnedClass = sharedClass;
@@ -1882,8 +1943,6 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 	TTString	s_number;
 	TTString	s_before;
 	TTString	s_after;
-	TTRegex		ex_braket("\\[(\\d|\\d\\d|\\d\\d\\d)\\]");	// parse until 999. 
-															// "\\[(\\d{1,3})\\]" this regex crashes ! why ? I've test it into a regex tester and it works...
 	TTRegexStringPosition begin, end;
 	TTRegexStringPosition beginNumber, endNumber;
 	
@@ -1891,14 +1950,14 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 	end = s_toParse.end();
 	
 	// parse braket
-	if (!ex_braket.parse(begin, end))
+	if (!ttRegexForBracket->parse(begin, end))
 	{
-		beginNumber = ex_braket.begin();
-		endNumber = ex_braket.end();
+		beginNumber = ttRegexForBracket->begin();
+		endNumber = ttRegexForBracket->end();
 		
-		s_before = string(begin, ex_braket.begin()-1);
-		s_number = string(ex_braket.begin(), ex_braket.end());
-		s_after = string(ex_braket.end()+1, end);
+		s_before = string(begin, ttRegexForBracket->begin()-1);
+		s_number = string(ttRegexForBracket->begin(), ttRegexForBracket->end());
+		s_after = string(ttRegexForBracket->end()+1, end);
 		
 		sscanf(s_number.data(), "%ld", &number);
 		

@@ -81,6 +81,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	class_addmethod(c, (method)ui_return_model_address,				"return_model_address",				A_CANT, 0);
 	
+	class_addmethod(c, (method)ui_return_model_init,				"return_model_init",				A_CANT, 0);
+	
 	class_addmethod(c, (method)ui_return_metersdefeated,			"return_metersdefeated",			A_CANT, 0);
 	class_addmethod(c, (method)ui_return_mute,						"return_mute",						A_CANT, 0);
 	class_addmethod(c, (method)ui_return_bypass,					"return_bypass",					A_CANT, 0);
@@ -306,6 +308,7 @@ void ui_subscribe(t_ui *x, SymbolPtr address)
 	TTNodeAddressPtr adrs = TTADRS(address->s_name);
 	TTValue			v;
 	TTAttributePtr	anAttribute;
+	TTObjectPtr		aReceiver;
 	TTErr			err;
 
 	if ((x->modelAddress == kTTAdrsEmpty && adrs != kTTAdrsEmpty) || adrs != x->modelAddress) {
@@ -339,11 +342,10 @@ void ui_subscribe(t_ui *x, SymbolPtr address)
 			}
 		}
 		x->modelOutput = NULL;
-	
-		// observe the namespace of the model
-		// by this way, the creation of any widgets depends on the existence of the data	
-		x->modelExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
-		x->modelExplorer->sendMessage(TT("Explore"));
+		
+		// observe model initialisation to explore
+		ui_receiver_create(x, &aReceiver, gensym("return_model_init"), kTTSymEmpty, x->modelAddress->appendAttribute(kTTSym_initialized));
+		aReceiver->sendMessage(kTTSym_Get);
 	}
 	
 	// The following must be deferred because 

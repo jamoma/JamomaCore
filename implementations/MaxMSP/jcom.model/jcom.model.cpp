@@ -136,11 +136,15 @@ void model_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
-	TTNodeAddressPtr			nodeAdrs;
+	TTNodeAddressPtr			nodeAdrs, argAdrs;
 	TTSymbolPtr					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
 	TTObjectPtr					aData, anExplorer;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
+	TTList						whereToSearch;
+	TTBoolean					isThere;
+	TTNodePtr					firstTTNode;
+	TTNodeAddressPtr			containerAdrs;
 	AtomCount					ac;
 	AtomPtr						av;
 	ObjectPtr					modelPatcher = jamoma_patcher_get((ObjectPtr)x);
@@ -266,11 +270,37 @@ void model_subscribe(TTPtr self)
 			}
 			
 			// In view patcher :
-			// if exists, the second argument of the patcher is the /model/address value
 			if (x->patcherContext == kTTSym_view) {
 				
-				if (ac > 0) {
-					EXTRA->modelAddress = TTADRS(atom_getsym(av)->s_name);
+				// look for a model of the same class into the patcher to get his model/address
+				jamoma_patcher_get_model_patcher(x->patcherPtr, x->patcherClass, &modelPatcher);
+				
+				// if a model exists
+				if (modelPatcher) {
+					
+					// is there a container (e.g. a jcom.model) registered with the same context in this patcher ?
+					whereToSearch.append(JamomaDirectory->getRoot());
+					JamomaDirectory->IsThere(&whereToSearch, &testNodeContext, (TTPtr)modelPatcher, &isThere, &firstTTNode);
+					
+					if (isThere) {
+						firstTTNode->getAddress(&containerAdrs);
+						EXTRA->modelAddress = containerAdrs;
+					}
+				}
+
+				// else, if args exists, the first argument of the patcher is the model/address value
+				else if (ac > 0) {
+					
+					argAdrs = TTADRS(atom_getsym(av)->s_name);
+					
+					// the model/address have to be absolute
+					if (argAdrs->getType() == kAddressAbsolute)
+						EXTRA->modelAddress = argAdrs;
+					else
+						EXTRA->modelAddress = kTTAdrsRoot->appendAddress(argAdrs);
+				}
+				
+				if (EXTRA->modelAddress != kTTAdrsEmpty) {
 					aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
 					aData->setAttributeValue(kTTSym_valueDefault, EXTRA->modelAddress); // because of init process
 				}
@@ -383,10 +413,10 @@ void model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	if (x->patcherContext && x->patcherClass) {
-		TTString helpfile = x->patcherClass->getCString();
-		helpfile += ".";
-		helpfile += x->patcherContext->getCString();
+	// opening the module helpfile (no help file dedicated for model or view)
+	if (x->patcherClass) {
+		TTString helpfile = "jmod.";
+		helpfile += x->patcherClass->getCString();
 		classname_openhelp((char*)helpfile.data());
 	}
 }
@@ -396,7 +426,8 @@ void model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (x->patcherContext && x->patcherClass) {
-		TTString refpage = x->patcherClass->getCString();
+		TTString refpage = "jmod.";
+		refpage += x->patcherClass->getCString();
 		refpage += ".";
 		refpage += x->patcherContext->getCString();
 		classname_openrefpage((char*)refpage.data());
@@ -429,7 +460,7 @@ void model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default HTML file name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s%s.html", x->patcherClass->getCString(), x->patcherContext->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "jmod.%s.%s.html", x->patcherClass->getCString(), x->patcherContext->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		

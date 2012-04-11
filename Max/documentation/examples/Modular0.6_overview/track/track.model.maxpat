@@ -7,9 +7,9 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 25.0, 69.0, 513.0, 123.0 ],
+		"rect" : [ 25.0, 69.0, 510.0, 103.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 25.0, 69.0, 513.0, 123.0 ],
+		"defrect" : [ 25.0, 69.0, 510.0, 103.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -31,7 +31,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 463.0, 80.0, 25.0, 25.0 ]
+					"patching_rect" : [ 472.0, 66.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -42,7 +42,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 326.0, 80.0, 25.0, 25.0 ]
+					"patching_rect" : [ 298.0, 66.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -55,8 +55,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 347.0, 37.0, 135.0, 20.0 ],
-					"text" : "movie.model channel.B"
+					"patching_rect" : [ 326.0, 37.0, 165.0, 20.0 ],
+					"text" : "jmod.movie.model channel.B"
 				}
 
 			}
@@ -69,8 +69,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 210.0, 37.0, 135.0, 20.0 ],
-					"text" : "movie.model channel.A"
+					"patching_rect" : [ 152.0, 37.0, 165.0, 20.0 ],
+					"text" : "jmod.movie.model channel.A"
 				}
 
 			}
@@ -81,7 +81,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 5.0, 80.0, 25.0, 25.0 ]
+					"patching_rect" : [ 5.0, 66.0, 25.0, 25.0 ]
 				}
 
 			}

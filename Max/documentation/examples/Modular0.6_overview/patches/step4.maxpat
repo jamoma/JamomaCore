@@ -50,7 +50,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 637.0, 288.0, 184.0, 18.0 ],
-					"text" : "channel.A/out/mute 0"
+					"text" : "model/address /track"
 				}
 
 			}
@@ -1086,12 +1086,12 @@
 					"patching_rect" : [ 10.0, 243.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial"
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p explorer"
@@ -1196,7 +1196,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 493.0, 222.0, 80.0, 60.0 ]
+					"patching_rect" : [ 519.0, 222.0, 80.0, 60.0 ]
 				}
 
 			}
@@ -1331,8 +1331,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 383.0, 200.0, 129.0, 20.0 ],
-					"text" : "movie.model player.A"
+					"patching_rect" : [ 383.0, 200.0, 155.0, 20.0 ],
+					"text" : "jmod.movie.model player.A"
 				}
 
 			}
@@ -1391,7 +1391,7 @@
 					"args" : [ "player.B" ],
 					"id" : "obj-21",
 					"maxclass" : "bpatcher",
-					"name" : "movie.model.maxpat",
+					"name" : "jmod.movie.model.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
@@ -1423,8 +1423,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 14.0, 66.0, 232.0, 27.0 ],
-					"text" : "Open movie.model.maxpat"
+					"patching_rect" : [ 14.0, 66.0, 272.0, 27.0 ],
+					"text" : "Open jmod.movie.model.maxpat"
 				}
 
 			}
@@ -1467,8 +1467,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 4.0, 111.0, 147.0, 18.0 ],
-					"text" : "load movie.model.maxpat"
+					"patching_rect" : [ 4.0, 111.0, 177.0, 18.0 ],
+					"text" : "load jmod.movie.model.maxpat"
 				}
 
 			}

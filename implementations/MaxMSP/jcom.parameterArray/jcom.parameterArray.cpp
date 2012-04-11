@@ -565,7 +565,12 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 					x->cursor = memoCursor;
 				}
 				
-				array.append((TTValuePtr)m);
+				TTValue v = *m;
+				v.prepend(array);
+				array = v;
+				
+				// TODO : a real append method for value !
+				// array.append((TTValuePtr)m);
 			}
 		
 		jamoma_ttvalue_to_typed_Atom(array, &msg, &argc, &argv, shifted);

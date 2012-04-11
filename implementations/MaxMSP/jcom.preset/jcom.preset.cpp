@@ -390,7 +390,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "jmod.%s.%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
@@ -455,7 +455,8 @@ void preset_default(TTPtr self)
 
 	if (x->patcherClass) {
 		
-		TTString xmlfile = x->patcherClass->getCString();
+		TTString xmlfile = "jmod.";
+		xmlfile += x->patcherClass->getCString();
 		if (x->patcherContext) {
 			xmlfile += ".";
 			xmlfile +=  x->patcherContext->getCString();
