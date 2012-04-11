@@ -222,21 +222,6 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-7",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 886.0, 300.0, 205.0, 31.0 ],
-					"text" : "as a smarter alternative to pvar, you can use Max5's presentation mode"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
 					"fontsize" : 14.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
