@@ -153,6 +153,11 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 	t_symbol		*name = _sym_nothing;
 	t_atom			a[2];
 	
+	if (strstr(TT_MODULAR_VERSION, "0.6.")) {
+		post("jcom.hub is not available in Jamoma 0.6. see jcom.model");
+		return NULL;
+	}
+	
 	if (attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
 	else {
