@@ -17,10 +17,12 @@ extern TTSymbolPtr			kTTSym_Jamoma;
 extern TTApplicationPtr		JamomaApplication;
 extern TTNodeDirectoryPtr	JamomaDirectory;
 
-extern TTRegexPtr			ttRegexForJmodJcom;		///< A global regex to parse jmod. or jcom. part
-extern TTRegexPtr			ttRegexForModel;		///< A global regex to parse .model part
-extern TTRegexPtr			ttRegexForView;			///< A global regex to parse .view part
-extern TTRegexPtr			ttRegexForMaxpat;		///< A global regex to parse .maxpat part
+extern TTRegexPtr			ttRegexForJmod;			///< A global regex to parse jmod.
+extern TTRegexPtr			ttRegexForJcom;			///< A global regex to parse jcom.
+extern TTRegexPtr			ttRegexForModel;		///< A global regex to parse .model
+extern TTRegexPtr			ttRegexForView;			///< A global regex to parse .view
+extern TTRegexPtr			ttRegexForMaxpat;		///< A global regex to parse .maxpat
+extern TTRegexPtr			ttRegexForMaxhelp;		///< A global regex to parse .maxhelp
 extern TTRegexPtr			ttRegexForBracket;		///< A global regex to parse [ and ]
 
 #define ModelPatcher "model" 

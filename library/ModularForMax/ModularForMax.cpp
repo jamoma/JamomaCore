@@ -1652,9 +1652,16 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 		end = s_toParse.end();
 
 		// parse jmod.
-		if (!ttRegexForJmodJcom->parse(begin, end)) {
+		if (!ttRegexForJmod->parse(begin, end)) {
 			
-			s_toParse = string(ttRegexForJmodJcom->end(), end);
+			s_toParse = string(ttRegexForJmod->end(), end);
+			begin = s_toParse.begin();
+			end = s_toParse.end();
+		} 
+		// parse jcom.
+		else if (!ttRegexForJcom->parse(begin, end)) {
+			
+			s_toParse = string(ttRegexForJcom->end(), end);
 			begin = s_toParse.begin();
 			end = s_toParse.end();
 		}
@@ -1680,6 +1687,12 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 		// parse .maxpat
 		if (!ttRegexForMaxpat->parse(begin, end)) {
 			s_toParse = string(begin, ttRegexForMaxpat->begin());
+			begin = s_toParse.begin();
+			end = s_toParse.end();
+		}
+		// parse .maxhelp
+		else if (!ttRegexForMaxhelp->parse(begin, end)) {
+			s_toParse = string(begin, ttRegexForMaxhelp->begin());
 			begin = s_toParse.begin();
 			end = s_toParse.end();
 		}

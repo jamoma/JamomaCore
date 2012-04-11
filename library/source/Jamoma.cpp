@@ -34,10 +34,12 @@ TTSymbolPtr					kTTSym_Jamoma = NULL;
 TTApplicationPtr			JamomaApplication = NULL;
 TTNodeDirectoryPtr			JamomaDirectory = NULL;
 
-TTRegexPtr					ttRegexForJmodJcom = NULL;
+TTRegexPtr					ttRegexForJmod = NULL;
+TTRegexPtr					ttRegexForJcom = NULL;
 TTRegexPtr					ttRegexForModel = NULL;
 TTRegexPtr					ttRegexForView = NULL;
 TTRegexPtr					ttRegexForMaxpat = NULL;
+TTRegexPtr					ttRegexForMaxhelp = NULL;
 TTRegexPtr					ttRegexForBracket = NULL;
 
 /************************************************************************************/
@@ -85,10 +87,12 @@ void jamoma_init(void)
 		jamomaSymbolsInit();
 		
 		// Initialize common regex
-		ttRegexForJmodJcom = new TTRegex("(jmod.)|(jcom.)");
+		ttRegexForJmod = new TTRegex("(jmod.)");
+		ttRegexForJcom = new TTRegex("(jcom.)");
 		ttRegexForModel = new TTRegex("(.model)");
 		ttRegexForView = new TTRegex("(.view)");
 		ttRegexForMaxpat = new TTRegex("(.maxpat)");
+		ttRegexForMaxhelp = new TTRegex("(.maxhelp)");
 		ttRegexForBracket = new TTRegex("\\[(\\d|\\d\\d|\\d\\d\\d)\\]");	// parse until 999. 
 																		// "\\[(\\d{1,3})\\]" this regex crashes ! why ? I've test it into a regex tester and it works...
 
