@@ -592,8 +592,9 @@ TTErr TTExplorer::returnResultBack()
 {
 	TTValue				keys, result;
 	TTNodeAddressPtr	relativeAddress;
-	TTSymbolPtr			lastName = kTTSymEmpty;
-	TTUInt32			i;
+	TTSymbolPtr			newName, lastName = kTTSymEmpty;
+	TTUInt32			i, j;
+	TTBoolean			found;
 	
 	// Return the value result back
 	if (mReturnValueCallback) {
@@ -611,13 +612,22 @@ TTErr TTExplorer::returnResultBack()
 			for (i=0; i<keys.getSize(); i++) {
 				
 				keys.get(i, &relativeAddress);
+				newName = relativeAddress->getName();
 				
 				// filter repetitions
-				if (relativeAddress->getName() == lastName)
+				found = false;
+				for (j=0; j<result.getSize(); j++) {
+					result.get(j, &lastName);
+					if (newName == lastName) {
+						found = true;
+						break;
+					}
+				}
+				
+				if (found)
 					continue;
 				
-				lastName = relativeAddress->getName();
-				result.append(lastName);
+				result.append(newName);
 			}
 		}
 		
