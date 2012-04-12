@@ -1334,7 +1334,10 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 			else if(v.getType(i) == kTypeSymbol){
 				TTSymbolPtr	value = NULL;
 				v.get(i, &value);
-				atom_setsym((*argv)+i, gensym((char*)value->getCString()));
+				if (value == kTTSymEmpty || value == kTTAdrsEmpty)
+					atom_setsym((*argv)+i, _sym_bang);
+				else
+					atom_setsym((*argv)+i, gensym((char*)value->getCString()));
 				//*msg = _sym_symbol;
 			}
 			else{	// assume int
@@ -1379,7 +1382,7 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 				v.get(i, value);
 				atom_setfloat((*argv)+i, value);
 			}
-			else if (v.getType(i) == kTypeSymbol){
+			else if (v.getType(i) == kTypeSymbol) {
 				TTSymbolPtr	value = NULL;
 				v.get(i, &value);
 				atom_setsym((*argv)+i, gensym((char*)value->getCString()));
