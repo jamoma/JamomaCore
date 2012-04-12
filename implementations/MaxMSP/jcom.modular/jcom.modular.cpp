@@ -194,10 +194,16 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 						hashParameters->remove(parameterName);
 						hashParameters->append(parameterName, parameterValue);
 						
+						// stop the protocol
+						aProtocol->sendMessage(TT("Stop"));
+						
 						// set parameters
-						v = TTValue(TTPtr(hashParameters));
-						err = aProtocol->getAttributeValue(TT("applicationParameters"), v);
-
+						v = TTValue(applicationName);
+						v.append(TTPtr(hashParameters));
+						err = aProtocol->setAttributeValue(TT("applicationParameters"), v);
+						
+						// run the protocol
+						aProtocol->sendMessage(TT("Run"));
 					}
 					else
 						object_error((ObjectPtr)x, "%s is not a parameter of %s protocol", parameterName->getCString(), EXTRA->protocolName->getCString());
