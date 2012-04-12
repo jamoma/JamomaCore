@@ -645,8 +645,8 @@ TTErr TTExplorer::returnResultBack()
 		else
 			result = keys;
 		
-		// filter repetitions of a same result
-		if (!(result == mLastResult)) {
+		// filter repetitions of a same result (but output empty result)
+		if (!(result == mLastResult) || result == kTTValNONE) {
 			
 			mLastResult = result;
 			return mReturnValueCallback->notify(result, kTTValNONE);
