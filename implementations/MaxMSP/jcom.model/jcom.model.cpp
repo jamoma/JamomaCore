@@ -313,8 +313,9 @@ void model_subscribe(TTPtr self)
 			atom_setsym(&a, gensym((char*)nodeAdrs->getCString()));
 			object_obex_dumpout(self, gensym("address"), 1, &a);
 			
-			// init the model
-			defer_low(x, (method)model_init, 0, 0, 0L);
+			// init the model (except if it's in a subpatcher)
+			if (jamoma_patcher_get_hierarchy(modelPatcher) != _sym_subpatcher)
+				defer_low(x, (method)model_init, 0, 0, 0L);
 		}
 	}
 }

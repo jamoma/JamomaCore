@@ -133,6 +133,6 @@ TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue
  @param	v1							< relativeAddress, a pointer to a value containing a pointer to a TTNode >
  @param	v2							< relativeAddress, a pointer to a value containing a pointer to a TTNode >
  @return							is the priority of v1 is smaller than v2 (except if equal 0) ? */ 
-TTBoolean TTMODULAR_EXPORT comparePriority(TTValue& v1, TTValue& v2);
+TTBoolean TTMODULAR_EXPORT TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2);
 
 #endif // __TT_EXPLORER_H__

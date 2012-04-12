@@ -113,4 +113,5 @@ void	TTMODULAR_EXPORT	TTModularInit();
 /** Create the local application and use a configuration file */
 void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);
 
+
 #endif // __TT_MODULAR_H__

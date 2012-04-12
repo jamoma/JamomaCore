@@ -226,15 +226,15 @@ TTErr TTContainer::Init()
 	// Restart initialisation
 	mInitialized = NO;
 	
-	// Notify observers
+	// Notify observers (this can't be prioritized because observers have no priority)
 	findAttribute(kTTSym_initialized, &anAttribute);
 	anAttribute->sendNotification(kTTSym_notify, mInitialized);
 	
 	// Send Init message to all Object in the cache
-	// TODO : send it according their priority order
 	if (mObjectsObserversCache) {
 		
-		mObjectsObserversCache->getKeys(hk);
+		// send it according their priority order
+		mObjectsObserversCache->getKeysSorted(hk, &TTContainerCompareObjectPriority);
 		
 		// Send Reset message to all Data service parameter
 		for (i=0; i<mObjectsObserversCache->getSize(); i++) {
@@ -1492,4 +1492,30 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 	// if contexts are different, check also if the parent context is the same as our context
 	return (c == t_c) || (c != t_c && p_c == t_c );
 	
+}
+
+TTBoolean TTContainerCompareObjectPriority(TTValue& v1, TTValue& v2) 
+{
+	TTObjectPtr o1, o2;
+	TTValue		v;
+	TTInt32		p1, p2;
+	
+	// get priority of v1
+	v1.get(1, (TTPtr*)&o1);
+	if (o1)
+		if (!o1->getAttributeValue(kTTSym_priority, v))
+			v.get(0, p1);
+	
+	// get priority of v2
+	v2.get(1, (TTPtr*)&o2);
+	if (o2)
+		if (!o2->getAttributeValue(kTTSym_priority, v))
+			v.get(0, p2);
+	
+	if (p1 == 0 && p2 == 0) return v1 < v2;
+	
+	if (p1 == 0) return NO;
+	if (p2 == 0) return YES;
+	
+	return p1 < p2;
 }

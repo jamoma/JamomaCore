@@ -603,7 +603,7 @@ TTErr TTExplorer::returnResultBack()
 			mResult->getKeysSorted(keys);
 		
 		else if (mSort == kTTSym_priority)
-			mResult->getKeysSorted(keys, &comparePriority);
+			mResult->getKeysSorted(keys, &TTExplorerCompareNodePriority);
 		
 		// children case : keep only the name part and filter repetitions
 		if (mOutput == kTTSym_children) {
@@ -806,7 +806,7 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTBoolean comparePriority(TTValue& v1, TTValue& v2) 
+TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
 	TTNodePtr	n1, n2;
 	TTObjectPtr o1, o2;
@@ -817,7 +817,7 @@ TTBoolean comparePriority(TTValue& v1, TTValue& v2)
 	v1.get(1, (TTPtr*)&n1);
 	if (n1) {
 		o1 = n1->getObject();
-	
+		
 		if (o1)
 			if (!o1->getAttributeValue(kTTSym_priority, v))
 				v.get(0, p1);
@@ -827,7 +827,7 @@ TTBoolean comparePriority(TTValue& v1, TTValue& v2)
 	v2.get(1, (TTPtr*)&n2);
 	if (n2) {
 		o2 = n2->getObject();
-	
+		
 		if (o2)
 			if (!o2->getAttributeValue(kTTSym_priority, v))
 				v.get(0, p2);
