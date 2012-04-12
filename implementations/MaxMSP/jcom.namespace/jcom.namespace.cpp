@@ -225,8 +225,13 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			outlet_anything(x->outlets[data_out], gensym("prefix_mode"), 1, a);
 			
 			// prepare umenu prefix 
-			if (address->getName() == S_SEPARATOR)
-				atom_setsym(a, gensym(address->getName()->getCString()));
+			if (address->getName() == S_SEPARATOR) {
+				
+				if(output == kTTSym_attributes)
+					atom_setsym(a, gensym("/:"));
+				else
+					atom_setsym(a, gensym("/"));
+			}
 			else {
 				TTString prefix = address->getCString();
 				
