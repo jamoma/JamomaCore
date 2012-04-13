@@ -416,9 +416,10 @@ void model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// opening the module helpfile (no help file dedicated for model or view)
 	if (x->patcherClass) {
-		TTString helpfile = "jmod.";
-		helpfile += x->patcherClass->getCString();
-		classname_openhelp((char*)helpfile.data());
+		
+		SymbolPtr helpfileName;
+		jamoma_edit_filename(HelpPatcherFormat, x->patcherClass, &helpfileName);
+		classname_openhelp((char*)helpfileName->s_name);
 	}
 }
 
@@ -427,11 +428,10 @@ void model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (x->patcherContext && x->patcherClass) {
-		TTString refpage = "jmod.";
-		refpage += x->patcherClass->getCString();
-		refpage += ".";
-		refpage += x->patcherContext->getCString();
-		classname_openrefpage((char*)refpage.data());
+		
+		SymbolPtr refpagefileName;
+		jamoma_edit_filename(RefpageFormat, x->patcherClass, &refpagefileName);
+		classname_openrefpage((char*)refpagefileName->s_name);
 	}
 }
 
@@ -461,7 +461,7 @@ void model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default HTML file name
-		snprintf(filename, MAX_FILENAME_CHARS, "jmod.%s.%s.html", x->patcherClass->getCString(), x->patcherContext->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, DocumentationFormat->data(), x->patcherClass->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		

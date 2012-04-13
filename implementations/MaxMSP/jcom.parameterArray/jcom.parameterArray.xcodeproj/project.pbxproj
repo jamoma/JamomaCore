@@ -6,10 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		D292468C153834DB0033D414 /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
+		D292468D153835010033D414 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../Support/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
+		D292468E153835010033D414 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../Support/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		A717234F15358F8600B25503 = {
 			isa = PBXGroup;
 			children = (
+				D292468C153834DB0033D414 /* jcom.parameterArray.cpp */,
+				D292468D153835010033D414 /* TTModularClassWrapperMax.h */,
+				D292468E153835010033D414 /* TTModularClassWrapperMax.cpp */,
 			);
 			sourceTree = "<group>";
 		};

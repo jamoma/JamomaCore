@@ -17,13 +17,21 @@ extern TTSymbolPtr			kTTSym_Jamoma;
 extern TTApplicationPtr		JamomaApplication;
 extern TTNodeDirectoryPtr	JamomaDirectory;
 
-extern TTRegexPtr			ttRegexForJmod;			///< A global regex to parse jmod.
+extern TTRegexPtr			ttRegexForJmod;			///< A global regex to parse jmod. (usefull to detect a 0.5 module)
 extern TTRegexPtr			ttRegexForJcom;			///< A global regex to parse jcom.
 extern TTRegexPtr			ttRegexForModel;		///< A global regex to parse .model
+extern TTRegexPtr			ttRegexForModule;		///< A global regex to parse .module
 extern TTRegexPtr			ttRegexForView;			///< A global regex to parse .view
 extern TTRegexPtr			ttRegexForMaxpat;		///< A global regex to parse .maxpat
 extern TTRegexPtr			ttRegexForMaxhelp;		///< A global regex to parse .maxhelp
 extern TTRegexPtr			ttRegexForBracket;		///< A global regex to parse [ and ]
+
+extern TTString				*ModelPatcherFormat;
+extern TTString				*ModelPresetFormat;
+extern TTString				*ViewPresetFormat;
+extern TTString				*HelpPatcherFormat;
+extern TTString				*RefpageFormat;
+extern TTString				*DocumentationFormat;
 
 #define ModelPatcher "model" 
 #define ViewPatcher "view"
@@ -254,6 +262,9 @@ extern "C" {
 	
 	/** edit a new instance of the given format address using string */
 	void			jamoma_edit_string_instance(TTString *format, SymbolPtr *returnedName, TTString *s);
+	
+	/** edit a file name from a given file format and a class name */
+	void			jamoma_edit_filename(TTString *format, TTSymbolPtr className, SymbolPtr *returnedFileName);
 	
 	/** Parse #N inside address and replace them by parent patcher arguments if there are */
 	SymbolPtr		jamoma_parse_dieze(ObjectPtr x, SymbolPtr address);

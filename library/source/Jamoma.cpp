@@ -37,10 +37,18 @@ TTNodeDirectoryPtr			JamomaDirectory = NULL;
 TTRegexPtr					ttRegexForJmod = NULL;
 TTRegexPtr					ttRegexForJcom = NULL;
 TTRegexPtr					ttRegexForModel = NULL;
+TTRegexPtr					ttRegexForModule = NULL;
 TTRegexPtr					ttRegexForView = NULL;
 TTRegexPtr					ttRegexForMaxpat = NULL;
 TTRegexPtr					ttRegexForMaxhelp = NULL;
 TTRegexPtr					ttRegexForBracket = NULL;
+
+TTString					*ModelPatcherFormat = NULL;
+TTString					*ModelPresetFormat = NULL;
+TTString					*ViewPresetFormat = NULL;
+TTString					*HelpPatcherFormat = NULL;
+TTString					*RefpageFormat = NULL;
+TTString					*DocumentationFormat = NULL;
 
 /************************************************************************************/
 // Init the framework
@@ -90,12 +98,18 @@ void jamoma_init(void)
 		ttRegexForJmod = new TTRegex("(jmod.)");
 		ttRegexForJcom = new TTRegex("(jcom.)");
 		ttRegexForModel = new TTRegex("(.model)");
+		ttRegexForModule = new TTRegex("(.module)");
 		ttRegexForView = new TTRegex("(.view)");
 		ttRegexForMaxpat = new TTRegex("(.maxpat)");
 		ttRegexForMaxhelp = new TTRegex("(.maxhelp)");
 		ttRegexForBracket = new TTRegex("\\[(\\d|\\d\\d|\\d\\d\\d)\\]");	// parse until 999. 
 																		// "\\[(\\d{1,3})\\]" this regex crashes ! why ? I've test it into a regex tester and it works...
-
+		ModelPatcherFormat = new TTString("%s.model.maxpat");
+		ModelPresetFormat = new TTString("%s.model.xml");
+		ViewPresetFormat = new TTString("%s.view.xml");
+		HelpPatcherFormat = new TTString("%s.module");
+		RefpageFormat = new TTString("%s.model");
+		DocumentationFormat = new TTString("%s.model.html");
 		
 		// Create Required Global Instances
 		hash_modules = (t_hashtab*)hashtab_new(0);

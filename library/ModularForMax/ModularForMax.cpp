@@ -1657,6 +1657,8 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 		// parse jmod.
 		if (!ttRegexForJmod->parse(begin, end)) {
 			
+			object_error(patcher, "jmod. prefix in %s is a 0.5 convention. Please use .module suffix instead", patcherName->s_name);
+			
 			s_toParse = string(ttRegexForJmod->end(), end);
 			begin = s_toParse.begin();
 			end = s_toParse.end();
@@ -1669,8 +1671,13 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 			end = s_toParse.end();
 		}
 		
-		// parse context
-		if (context == kTTSym_model) {
+		// parse .module or if not parse context (model or view)
+		if (!ttRegexForModule->parse(begin, end)) {
+			s_toParse = string(begin, ttRegexForModule->begin());
+			begin = s_toParse.begin();
+			end = s_toParse.end();
+		}
+		else if (context == kTTSym_model) {
 			
 			if (!ttRegexForModel->parse(begin, end)) {
 				s_toParse = string(begin, ttRegexForModel->begin());
@@ -1807,17 +1814,14 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 void jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbolPtr modelClass, ObjectPtr *returnedModelPatcher)
 {
 	ObjectPtr	obj;
-	TTString	modelName;
 	SymbolPtr	_sym_modelfilename, _sym_objmaxclass, _sym_objfilename;
+	
+	jamoma_edit_filename(ModelPatcherFormat, modelClass, &_sym_modelfilename);
 	
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
-	modelName = "jmod.";
-	modelName += modelClass->getCString();
-	modelName += ".model.maxpat";
-	_sym_modelfilename = gensym(modelName.data());
-	
 	*returnedModelPatcher = NULL;
+	
 	while (obj) {
 		
 		// look for jpatcher
@@ -2018,6 +2022,19 @@ void jamoma_edit_string_instance(TTString *format, SymbolPtr *returnedName, TTSt
 	s_str = (char *)malloc(sizeof(char)*len);
 	snprintf(s_str, len, format->data(), s->data());
 	*returnedName = gensym(s_str);
+	free(s_str);
+}
+
+/** edit a file name from a given file format and a class name */
+void jamoma_edit_filename(TTString *format, TTSymbolPtr className, SymbolPtr *returnedFileName)
+{
+	char *s_str;
+	long len;
+	
+	len = strlen(format->data()) + strlen(className->getCString());
+	s_str = (char *)malloc(sizeof(char)*len);
+	snprintf(s_str, len, format->data(), className->getCString());
+	*returnedFileName = gensym(s_str);
 	free(s_str);
 }
 

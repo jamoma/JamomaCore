@@ -452,26 +452,24 @@ void preset_default(TTPtr self)
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	char		posixpath[MAX_PATH_CHARS];
 	Atom		a;
+	SymbolPtr	xmlfile;
 
 	if (x->patcherClass) {
 		
-		TTString xmlfile = "jmod.";
-		xmlfile += x->patcherClass->getCString();
-		if (x->patcherContext) {
-			xmlfile += ".";
-			xmlfile +=  x->patcherContext->getCString();
-		}
+		if (x->patcherContext == kTTSym_model)
+			jamoma_edit_filename(ModelPresetFormat, x->patcherClass, &xmlfile);
+		
+		else if (x->patcherContext == kTTSym_view)
+			jamoma_edit_filename(ViewPresetFormat, x->patcherClass, &xmlfile);
 		else
 			object_error((ObjectPtr)x, "preset_default : can't get the context of the patcher");
 		
-		xmlfile += ".xml";
-		
-		if (locatefile_extended((char*)xmlfile.data(), &outvol, &outtype, &filetype, 1)) {
+		if (locatefile_extended((char*)xmlfile->s_name, &outvol, &outtype, &filetype, 1)) {
 			//object_warn((ObjectPtr)x, "preset_default : can't find %s file in the Max search path", xmlfile.data());
 			return;
 		}
 		
-		path_topathname(outvol, (char*)xmlfile.data(), fullpath);
+		path_topathname(outvol, (char*)xmlfile->s_name, fullpath);
 		path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 		
 		atom_setsym(&a, gensym(posixpath));
@@ -487,7 +485,7 @@ void preset_default(TTPtr self)
 			object_free(EXTRA->filewatcher);
 		}
 		
-		EXTRA->filewatcher = filewatcher_new((ObjectPtr)x, outvol, (char*)xmlfile.data());
+		EXTRA->filewatcher = filewatcher_new((ObjectPtr)x, outvol, (char*)xmlfile->s_name);
 		filewatcher_start(EXTRA->filewatcher);
 	}
 	else
