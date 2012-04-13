@@ -1,9 +1,15 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 229.0, 47.0, 733.0, 676.0 ],
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
+		"rect" : [ 229.0, 47.0, 733.0, 597.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 229.0, 47.0, 733.0, 676.0 ],
+		"defrect" : [ 229.0, 47.0, 733.0, 597.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +23,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jmod.crossfade~", "@description", "Module for crossfading between two sound sources" ],
@@ -56,6 +63,12 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 4.0, 44.0, 815.0, 615.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 4.0, 44.0, 815.0, 615.0 ],
@@ -72,6 +85,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -306,7 +320,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
-									"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-28",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -432,13 +446,13 @@
 ,
 					"patching_rect" : [ 523.0, 342.0, 139.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p controlling_the_module"
@@ -492,24 +506,10 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-24",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 172.0, 399.0, 182.0, 17.0 ],
-					"text" : "/view/color/border 0.62 0. 0.36 1."
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "/crossfade~" ],
 					"id" : "obj-26",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.crossfade~.maxpat",
+					"name" : "crossfade~.module.maxpat",
 					"numinlets" : 5,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
@@ -524,7 +524,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 4 ],
 					"hidden" : 0,
-					"midpoints" : [ 660.5, 260.5, 498.5, 260.5 ],
+					"midpoints" : [  ],
 					"source" : [ "obj-11", 2 ]
 				}
 
@@ -533,7 +533,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 3 ],
 					"hidden" : 0,
-					"midpoints" : [ 520.0, 248.0, 428.25, 248.0 ],
+					"midpoints" : [  ],
 					"source" : [ "obj-11", 1 ]
 				}
 
@@ -542,7 +542,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 2 ],
 					"hidden" : 0,
-					"midpoints" : [ 358.5, 276.5, 358.0, 276.5 ],
+					"midpoints" : [  ],
 					"source" : [ "obj-15", 2 ]
 				}
 
@@ -551,7 +551,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 218.0, 249.5, 287.75, 249.5 ],
+					"midpoints" : [  ],
 					"source" : [ "obj-15", 1 ]
 				}
 
@@ -580,15 +580,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-26", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-24", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 217.5, 395.0, 344.5, 395.0 ],
-					"source" : [ "obj-26", 0 ]
 				}
 
 			}
