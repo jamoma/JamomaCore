@@ -446,13 +446,13 @@
 ,
 					"patching_rect" : [ 523.0, 342.0, 139.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p controlling_the_module"
@@ -506,7 +506,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/crossfade~" ],
+					"args" : [ "crossfade~" ],
 					"id" : "obj-26",
 					"maxclass" : "bpatcher",
 					"name" : "crossfade~.module.maxpat",
@@ -514,8 +514,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 208.0, 319.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "/crossfade~"
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}

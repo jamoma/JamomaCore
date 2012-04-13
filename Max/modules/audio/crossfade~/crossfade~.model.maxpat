@@ -1,6 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
+		}
+,
 		"rect" : [ 258.0, 108.0, 779.0, 564.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 258.0, 108.0, 779.0, 564.0 ],
@@ -186,13 +192,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-54",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 3.0, 109.0, 580.0, 31.0 ],
-					"text" : "jcom.model @context model @type audio @description \"Allows crossfades between 2 stereo sources. The first two inputs are the first source while the second 2 inputs are the second source\""
+					"patching_rect" : [ 3.0, 109.0, 307.0, 43.0 ],
+					"text" : "jcom.model @type audio @description \"Allows crossfades between 2 stereo sources. The first two inputs are the first source while the second 2 inputs are the second source\""
 				}
 
 			}
@@ -255,6 +261,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 275.0, 322.0, 325.0, 283.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 275.0, 322.0, 325.0, 283.0 ],
@@ -411,13 +423,13 @@
 ,
 					"patching_rect" : [ 372.0, 388.0, 68.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"fontsize" : 10.0,
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p modeMsg"
@@ -435,6 +447,12 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
+						}
+,
 						"rect" : [ 775.0, 187.0, 325.0, 283.0 ],
 						"bglocked" : 0,
 						"defrect" : [ 775.0, 187.0, 325.0, 283.0 ],
@@ -591,13 +609,13 @@
 ,
 					"patching_rect" : [ 442.0, 387.0, 68.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"fontsize" : 10.0,
 						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p shapeMsg"

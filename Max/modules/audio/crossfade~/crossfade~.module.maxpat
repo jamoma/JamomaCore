@@ -7,7 +7,8 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 109.0, 111.0, 502.0, 520.0 ],
+		"rect" : [ 208.0, 319.0, 300.0, 70.0 ],
+		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 109.0, 111.0, 502.0, 520.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
@@ -67,7 +68,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 451.0, 408.0, 25.0, 25.0 ]
 				}
 
@@ -79,7 +80,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 343.0, 408.0, 25.0, 25.0 ]
 				}
 
@@ -91,7 +92,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 235.0, 408.0, 25.0, 25.0 ]
 				}
 
@@ -103,7 +104,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 127.0, 408.0, 25.0, 25.0 ]
 				}
 
@@ -424,7 +425,7 @@
 					"outlettype" : [ "", "" ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"text" : "/crossfade~.view"
+					"text" : "waiting for a model/address"
 				}
 
 			}
