@@ -142,7 +142,7 @@ void model_subscribe(TTPtr self)
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
 	TTList						whereToSearch;
-	TTBoolean					isThere;
+	TTBoolean					isThere, isSubModel;
 	TTNodePtr					firstTTNode;
 	TTNodeAddressPtr			containerAdrs;
 	AtomCount					ac;
@@ -253,6 +253,9 @@ void model_subscribe(TTPtr self)
 			
 			jamoma_patcher_get_args(modelPatcher, &ac, &av);
 			
+			// check if it's a sub model
+			isSubModel = atom_getsym(av) == _sym_p;
+			
 			// in subpatcher the name of the patcher is part of the argument
 			if (jamoma_patcher_get_hierarchy(modelPatcher) == _sym_subpatcher) {
 				ac--;
@@ -278,7 +281,7 @@ void model_subscribe(TTPtr self)
 				// if a model exists
 				if (modelPatcher) {
 					
-					// is there a container (e.g. a jcom.model) registered with the same context in this patcher ?
+					// is there a container (e.g. a jcom.model) registered with the same context in this model patcher ?
 					whereToSearch.append(JamomaDirectory->getRoot());
 					JamomaDirectory->IsThere(&whereToSearch, &testNodeContext, (TTPtr)modelPatcher, &isThere, &firstTTNode);
 					
@@ -313,8 +316,8 @@ void model_subscribe(TTPtr self)
 			atom_setsym(&a, gensym((char*)nodeAdrs->getCString()));
 			object_obex_dumpout(self, gensym("address"), 1, &a);
 			
-			// init the model (except if it's in a subpatcher)
-			if (jamoma_patcher_get_hierarchy(modelPatcher) != _sym_subpatcher)
+			// init the model (but not subModel)
+			if (!isSubModel)
 				defer_low(x, (method)model_init, 0, 0, 0L);
 		}
 	}
