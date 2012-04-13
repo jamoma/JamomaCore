@@ -81,7 +81,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 11.0, 128.0, 135.0, 22.0 ],
-					"text" : "jmod.degrade~.model"
+					"text" : "degrade~.model #1"
 				}
 
 			}

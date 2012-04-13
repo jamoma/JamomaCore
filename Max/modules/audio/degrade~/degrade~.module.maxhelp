@@ -82,7 +82,7 @@
 					"args" : [  ],
 					"id" : "obj-7",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.degrade~.maxpat",
+					"name" : "degrade~.module.maxpat",
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
