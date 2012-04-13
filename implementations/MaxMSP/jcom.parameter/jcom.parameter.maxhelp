@@ -35,7 +35,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 620.0, 569.0, 39.0, 17.0 ],
+					"patching_rect" : [ 620.0, 527.0, 39.0, 17.0 ],
 					"text" : "dump"
 				}
 
@@ -50,7 +50,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 327.5, 556.0, 345.0, 43.0 ],
+					"patching_rect" : [ 327.5, 515.0, 345.0, 43.0 ],
 					"text" : "- dump outlet to get back attribute's value by sending a message with the name of an attribute without argument or using             \nto get them all."
 				}
 
@@ -64,7 +64,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 279.5, 555.0, 41.0, 19.0 ],
+					"patching_rect" : [ 279.5, 514.0, 41.0, 19.0 ],
 					"text" : "Right:"
 				}
 
@@ -78,7 +78,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 327.5, 530.0, 355.0, 19.0 ],
+					"patching_rect" : [ 327.5, 489.0, 355.0, 19.0 ],
 					"text" : "- to connect jcom.parameter directly to the rest of the patch"
 				}
 
@@ -92,7 +92,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 279.5, 528.0, 34.0, 19.0 ],
+					"patching_rect" : [ 279.5, 487.0, 34.0, 19.0 ],
 					"text" : "Left:"
 				}
 
@@ -106,7 +106,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 259.5, 498.0, 68.0, 24.0 ],
+					"patching_rect" : [ 259.5, 457.0, 68.0, 24.0 ],
 					"text" : "Outlets:"
 				}
 
@@ -121,7 +121,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 81.0, 398.0, 50.0, 19.0 ]
+					"patching_rect" : [ 81.0, 357.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -135,7 +135,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 94.0, 482.0, 50.0, 17.0 ],
+					"patching_rect" : [ 94.0, 441.0, 50.0, 17.0 ],
 					"text" : "286."
 				}
 
@@ -854,7 +854,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 398.0, 490.0, 86.0, 19.0 ],
+					"patching_rect" : [ 398.0, 449.0, 86.0, 19.0 ],
 					"text" : "print attributes"
 				}
 
@@ -1153,7 +1153,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 81.0, 427.0, 336.0, 43.0 ],
+					"patching_rect" : [ 81.0, 386.0, 336.0, 43.0 ],
 					"text" : "jcom.parameter frequency @type decimal @description \"the frequency value of my patch\" @dataspace pitch @dataspace/unit hz @ramp/drive scheduler @value/default 440.",
 					"varname" : "my_float[1]"
 				}
@@ -1202,12 +1202,12 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-11",
-					"linecount" : 7,
+					"linecount" : 8,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 80.0, 339.0, 109.0 ],
-					"text" : "The jcom.parameter is a core component of the Jamoma library. It allows Max programmers to declare a parameter of an algorithm.\n\nIn Jamoma, a parameter means a significant value to control or listen to, which is relative to the state of the algorithm while storing or recalling a preset."
+					"patching_rect" : [ 10.0, 80.0, 305.0, 123.0 ],
+					"text" : "The jcom.parameter is a core component of the Jamoma library. It allows Max programmers to declare a parameter of an algorithm.\n\nIn Jamoma, a parameter means a significant value to control or listen and which is relative to the state of the algorithm while storing or recalling a preset."
 				}
 
 			}
