@@ -84,7 +84,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 921.0, 192.0, 187.0, 18.0 ],
-					"text" : "out/mute 0"
+					"text" : "model/address /player.B"
 				}
 
 			}
@@ -614,7 +614,7 @@
 					"args" : [ "/player.A", "/interface" ],
 					"id" : "obj-51",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.movie.view.maxpat",
+					"name" : "movie.view.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -630,7 +630,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 810.0, 143.0, 80.0, 60.0 ]
+					"patching_rect" : [ 780.0, 143.0, 80.0, 60.0 ]
 				}
 
 			}
@@ -639,12 +639,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-3",
+					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 597.0, 143.0, 96.0, 18.0 ],
-					"text" : "out/mute 0"
+					"patching_rect" : [ 597.0, 143.0, 96.0, 32.0 ],
+					"text" : "model/address /player.B"
 				}
 
 			}
@@ -723,8 +724,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 674.0, 118.0, 155.0, 20.0 ],
-					"text" : "jmod.movie.model player.B"
+					"patching_rect" : [ 674.0, 118.0, 125.0, 20.0 ],
+					"text" : "movie.model player.B"
 				}
 
 			}
@@ -1190,13 +1191,13 @@
 ,
 					"patching_rect" : [ 4.0, 136.0, 46.0, 16.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p explorer"
@@ -1273,7 +1274,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 515.0, 143.0, 80.0, 60.0 ]
+					"patching_rect" : [ 485.0, 143.0, 80.0, 60.0 ]
 				}
 
 			}
@@ -1282,12 +1283,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-42",
+					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 302.0, 143.0, 96.0, 18.0 ],
-					"text" : "out/mute 0"
+					"patching_rect" : [ 302.0, 143.0, 96.0, 32.0 ],
+					"text" : "model/address /player.A"
 				}
 
 			}
@@ -1366,8 +1368,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 379.0, 118.0, 155.0, 20.0 ],
-					"text" : "jmod.movie.model player.A"
+					"patching_rect" : [ 379.0, 118.0, 125.0, 20.0 ],
+					"text" : "movie.model player.A"
 				}
 
 			}
@@ -1395,8 +1397,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 14.0, 388.0, 258.0, 27.0 ],
-					"text" : "Open jmod.movie.view.maxpat"
+					"patching_rect" : [ 14.0, 388.0, 217.0, 27.0 ],
+					"text" : "Open movie.view.maxpat"
 				}
 
 			}
@@ -1439,8 +1441,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 4.0, 433.0, 167.0, 18.0 ],
-					"text" : "load jmod.movie.view.maxpat"
+					"patching_rect" : [ 4.0, 433.0, 138.0, 18.0 ],
+					"text" : "load movie.view.maxpat"
 				}
 
 			}
@@ -1500,7 +1502,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-51", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 354.5, 496.0, 421.5, 496.0, 421.5, 466.0, 488.5, 466.0 ],
+					"midpoints" : [ 354.5, 495.0, 473.5, 495.0, 473.5, 466.0, 488.5, 466.0 ],
 					"source" : [ "obj-21", 0 ]
 				}
 
@@ -1669,18 +1671,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-32", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 488.5, 581.5, 622.5, 581.5 ],
-					"source" : [ "obj-51", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-51", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 358.5, 654.0, 472.5, 654.0, 472.5, 466.0, 488.5, 466.0 ],
+					"midpoints" : [ 358.5, 653.0, 473.5, 653.0, 473.5, 466.0, 488.5, 466.0 ],
 					"source" : [ "obj-53", 0 ]
 				}
 
@@ -1824,7 +1817,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-51", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 357.5, 607.0, 472.0, 607.0, 472.0, 466.0, 488.5, 466.0 ],
+					"midpoints" : [ 357.5, 606.0, 473.0, 606.0, 473.0, 466.0, 488.5, 466.0 ],
 					"source" : [ "obj-77", 0 ]
 				}
 
