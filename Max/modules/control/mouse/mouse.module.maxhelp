@@ -7,9 +7,9 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 288.0, 81.0, 482.0, 701.0 ],
+		"rect" : [ 108.0, 86.0, 482.0, 701.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 288.0, 81.0, 482.0, 701.0 ],
+		"defrect" : [ 108.0, 86.0, 482.0, 701.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -29,7 +29,7 @@
 					"args" : [  ],
 					"id" : "obj-11",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.mouse.maxpat",
+					"name" : "mouse.module.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

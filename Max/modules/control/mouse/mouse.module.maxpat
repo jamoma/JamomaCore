@@ -34,8 +34,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 10.0, 110.0, 125.0, 19.0 ],
-					"text" : "jmod.mouse.model #1"
+					"patching_rect" : [ 10.0, 110.0, 96.0, 19.0 ],
+					"text" : "mouse.model #1"
 				}
 
 			}
@@ -140,7 +140,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 75.0, 135.0, 61.0, 19.0 ],
+					"patching_rect" : [ 46.0, 135.0, 61.0, 19.0 ],
 					"text" : "jcom.view",
 					"varname" : "jcom.hub"
 				}
