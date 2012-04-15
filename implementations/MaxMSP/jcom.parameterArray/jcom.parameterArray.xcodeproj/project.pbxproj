@@ -3,32 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXFileReference section */
-		D292468C153834DB0033D414 /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
-		D292468D153835010033D414 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../Support/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
-		D292468E153835010033D414 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../Support/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
+		D2661D4C153AD7FF0003EE67 /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
+		D2661D67153AD82B0003EE67 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../Support/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
+		D2661D68153AD82B0003EE67 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../Support/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		A717234F15358F8600B25503 = {
+		08FB7794FE84155DC02AAC07 /* jcom.parameterArray */ = {
 			isa = PBXGroup;
 			children = (
-				D292468C153834DB0033D414 /* jcom.parameterArray.cpp */,
-				D292468D153835010033D414 /* TTModularClassWrapperMax.h */,
-				D292468E153835010033D414 /* TTModularClassWrapperMax.cpp */,
+				D2661D4C153AD7FF0003EE67 /* jcom.parameterArray.cpp */,
+				D2661D67153AD82B0003EE67 /* TTModularClassWrapperMax.h */,
+				D2661D68153AD82B0003EE67 /* TTModularClassWrapperMax.cpp */,
 			);
+			name = jcom.parameterArray;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		A717235615358F8600B25503 /* jcom.parameterArray */ = {
+		D28A88AD04BDD90700651E21 /* jcom.parameterArray */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = A717235915358F8600B25503 /* Build configuration list for PBXLegacyTarget "jcom.parameterArray" */;
+			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.parameterArray" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
@@ -36,85 +37,40 @@
 			);
 			name = jcom.parameterArray;
 			passBuildSettingsInEnvironment = 1;
-			productName = jcom;
+			productName = jcom.parameterArray;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		A717235115358F8600B25503 /* Project object */ = {
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
-			};
-			buildConfigurationList = A717235415358F8600B25503 /* Build configuration list for PBXProject "jcom.parameterArray" */;
-			compatibilityVersion = "Xcode 3.2";
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.parameterArray" */;
+			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
-			hasScannedForEncodings = 0;
+			hasScannedForEncodings = 1;
 			knownRegions = (
-				en,
+				English,
+				Japanese,
+				French,
+				German,
 			);
-			mainGroup = A717234F15358F8600B25503;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* jcom.parameterArray */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A717235615358F8600B25503 /* jcom.parameterArray */,
+				D28A88AD04BDD90700651E21 /* jcom.parameterArray */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		A717235715358F8600B25503 /* Debug */ = {
+		1DEB919008733D9F0010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		A717235815358F8600B25503 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		A717235A15358F8600B25503 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = "";
@@ -123,37 +79,62 @@
 			};
 			name = Debug;
 		};
-		A717235B15358F8600B25503 /* Release */ = {
+		1DEB919108733D9F0010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = jcom.parameterArray;
 			};
 			name = Release;
 		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A717235415358F8600B25503 /* Build configuration list for PBXProject "jcom.parameterArray" */ = {
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.parameterArray" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A717235715358F8600B25503 /* Debug */,
-				A717235815358F8600B25503 /* Release */,
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A717235915358F8600B25503 /* Build configuration list for PBXLegacyTarget "jcom.parameterArray" */ = {
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.parameterArray" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A717235A15358F8600B25503 /* Debug */,
-				A717235B15358F8600B25503 /* Release */,
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A717235115358F8600B25503 /* Project object */;
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
 }

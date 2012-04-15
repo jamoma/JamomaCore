@@ -127,6 +127,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	if (relativeAddress == _sym_nothing) {
 		object_error((ObjectPtr)x, "needs a name as first argument");
+		x->extra = NULL;
 		return;
 	}
 	
@@ -180,7 +181,7 @@ void WrappedDataClass_free(TTPtr self)
 	
 #ifndef JMOD_RETURN
 	// delete array
-	if (EXTRA->array_value) {
+	if (x->extra && EXTRA->array_value) {
 		for (TTUInt32 i=0; i<EXTRA->array_size; i++)
 			if (EXTRA->array_value[i])
 				delete EXTRA->array_value[i];
