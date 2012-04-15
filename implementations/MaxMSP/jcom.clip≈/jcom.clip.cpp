@@ -1,7 +1,7 @@
 /* 
- *	limiter≈
+ *	clip≈
  *	Jamoma AudioGraph external object for Max
- *	Copyright © 2008 by Timothy Place
+ *	Copyright © 2012 by Nils Peters
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
