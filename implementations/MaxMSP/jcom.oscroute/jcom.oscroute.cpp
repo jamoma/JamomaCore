@@ -250,7 +250,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 			if (strlen(msg->s_name) > x->arglen[pos]) {
 				// ...it is only a match if it continues with a slash
 				if (input[x->arglen[pos]] == '/') {
-					output = gensym(msg->s_name + x->arglen[pos]);
+					output = gensym(msg->s_name + x->arglen[pos] +1);		// 0.6 changes : +1 to remove don't have a leading slash and output a relative adddress 
 					outlet_anything(x->outlets[pos], output, argc , argv);
 					overFlow = false;
 					break;
