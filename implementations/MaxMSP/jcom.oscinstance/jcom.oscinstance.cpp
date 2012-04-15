@@ -140,14 +140,22 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 	t_symbol		*output;
 	t_symbol		*osc = NULL;
 	long			i;
+	bool			leadingSlash;
 
 	strcpy(input, msg->s_name);
+	
+	/*	to -- the introduction of relative address feature
+		in modular0.6 make this test useless
+	 
 	
 	// This object only deals with OSC messages
 	if (!(*input2 == '/')) {
 		goto spillover;
 	}
-	input2++;								// jump past the leading slash
+	*/
+	leadingSlash = *input2 == '/';
+	if (leadingSlash)
+		input2++;							// jump past the leading slash
 
 	dot = strchr(input2, '.');				// look for dot
 	if (dot == NULL)
@@ -157,7 +165,7 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 
 	if ( slash == 0) {
 		*dot = NULL;
-		osc = gensym(input2-1);				// reintroduce the leading slash		
+		osc = gensym(input2 - leadingSlash);// reintroduce the leading slash if needed
 		instance = gensym(dot+1);
 	}
 	else {
@@ -168,7 +176,7 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 		instance = gensym(dot+1);
 		*slash = '/';						// put slash back in
 		strcat(input, slash);				// remove the instance part and concatenate
-		osc = gensym(input2-1);				// reintroduce the leading slash	
+		osc = gensym(input2 - leadingSlash); // reintroduce the leading slash if needed
 	}	
 		
 	// Output from 3rd outlet: The arguments of the OSC message
