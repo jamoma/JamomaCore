@@ -553,8 +553,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 8.0, 218.0, 326.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Simple 2-source chromakey : Keying based on chromatic distance\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Simple 2-source chromakey : Keying based on chromatic distance\"",
+					"varname" : "jcom.model"
 				}
 
 			}

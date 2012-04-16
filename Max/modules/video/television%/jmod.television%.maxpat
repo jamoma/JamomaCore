@@ -411,8 +411,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 14.0, 211.0, 206.0, 19.0 ],
-					"text" : "jcom.hub @description \"Bad-TV effect\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Bad-TV effect\"",
+					"varname" : "jcom.model"
 				}
 
 			}

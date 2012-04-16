@@ -1308,8 +1308,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 210.0, 548.0, 19.0 ],
-					"text" : "jcom.hub @description \"Adjust relative weight of components of ambisonic signal.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Adjust relative weight of components of ambisonic signal.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

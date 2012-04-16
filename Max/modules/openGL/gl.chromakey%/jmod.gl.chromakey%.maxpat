@@ -616,7 +616,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 5.0, 215.0, 280.0, 19.0 ],
-					"text" : "jcom.hub @description \"Chromakey using jit.gl.slab.\"",
+					"text" : "jcom.model @description \"Chromakey using jit.gl.slab.\"",
 					"varname" : "jmod.hub"
 				}
 

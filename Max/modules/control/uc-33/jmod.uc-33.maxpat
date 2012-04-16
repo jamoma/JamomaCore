@@ -4301,8 +4301,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 150.0, 362.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"A module interfacing with the Edirol UC-33 MIDI fader.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"A module interfacing with the Edirol UC-33 MIDI fader.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

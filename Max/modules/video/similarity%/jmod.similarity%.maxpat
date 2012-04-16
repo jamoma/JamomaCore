@@ -230,7 +230,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 4.0, 171.0, 269.0, 55.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Creates a similarity matrix from a running video input. This could be either a regular video or a motiongram.\"",
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Creates a similarity matrix from a running video input. This could be either a regular video or a motiongram.\"",
 					"varname" : "jmod.hub"
 				}
 

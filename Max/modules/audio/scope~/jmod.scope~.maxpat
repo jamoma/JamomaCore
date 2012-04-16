@@ -333,8 +333,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 590.0, 614.0, 31.0 ],
-					"text" : "jcom.hub @module_type audio @description \"An oscilloscope emulator for viewing waverforms or analyzing phase relationships.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"An oscilloscope emulator for viewing waverforms or analyzing phase relationships.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

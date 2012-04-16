@@ -189,8 +189,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 16.0, 123.0, 371.0, 19.0 ],
-					"text" : "jcom.hub @module_type control @description \"Use any MIDI device\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Use any MIDI device\"",
+					"varname" : "jcom.model"
 				}
 
 			}

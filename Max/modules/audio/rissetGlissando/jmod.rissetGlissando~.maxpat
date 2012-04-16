@@ -350,8 +350,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 220.0, 393.0, 31.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Audio module generating Risset/Shepard glissando.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"Audio module generating Risset/Shepard glissando.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

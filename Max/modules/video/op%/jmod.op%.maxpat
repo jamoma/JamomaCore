@@ -166,8 +166,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 124.0, 267.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Perform mathematical operations using two video inputs as the operands\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Perform mathematical operations using two video inputs as the operands\"",
+					"varname" : "jcom.model"
 				}
 
 			}

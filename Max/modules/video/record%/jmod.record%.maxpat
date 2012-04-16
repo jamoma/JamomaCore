@@ -514,8 +514,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 7.0, 153.0, 263.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Record video to QuickTime movie.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Record video to QuickTime movie.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

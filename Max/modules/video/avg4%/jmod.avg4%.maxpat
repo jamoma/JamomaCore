@@ -247,8 +247,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 140.0, 310.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"averages 4 pixels of input for each pixel of output\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"averages 4 pixels of input for each pixel of output\"",
+					"varname" : "jcom.model"
 				}
 
 			}

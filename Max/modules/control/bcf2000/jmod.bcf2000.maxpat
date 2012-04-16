@@ -2559,8 +2559,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 16.0, 133.0, 598.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"A module interfacing with the Behringer BCF2000 motorized MIDI fader.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"A module interfacing with the Behringer BCF2000 motorized MIDI fader.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

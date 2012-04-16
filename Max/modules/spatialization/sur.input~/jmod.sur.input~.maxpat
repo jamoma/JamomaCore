@@ -2807,8 +2807,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 22.0, 266.0, 410.0, 19.0 ],
-					"text" : "jcom.hub @description \"A simple multichannel sampleplayer based on sfplay~\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"A simple multichannel sampleplayer based on sfplay~\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -3485,7 +3485,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

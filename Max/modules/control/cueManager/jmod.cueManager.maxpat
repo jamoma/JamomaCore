@@ -16437,7 +16437,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 246.0, 176.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"a cue list module\""
+					"text" : "jcom.model @type control @description \"a cue list module\""
 				}
 
 			}

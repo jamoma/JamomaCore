@@ -198,8 +198,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 14.0, 191.0, 309.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @description \"This module doesn't do much yet\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @description \"This module doesn't do much yet\"",
+					"varname" : "jcom.model"
 				}
 
 			}

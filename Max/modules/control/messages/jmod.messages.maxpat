@@ -502,8 +502,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 18.0, 239.0, 416.0, 19.0 ],
-					"text" : "jcom.hub @module_type control @description \"Message Display\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Message Display\"",
+					"varname" : "jcom.model"
 				}
 
 			}

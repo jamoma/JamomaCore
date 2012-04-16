@@ -339,8 +339,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 140.0, 220.0, 43.0 ],
-					"text" : "jcom.hub @module_type control @description \"Create various blends of the RGB colors available.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Create various blends of the RGB colors available.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

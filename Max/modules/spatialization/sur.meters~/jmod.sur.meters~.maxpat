@@ -1382,8 +1382,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 30.0, 300.0, 251.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"meterbridge for mutlichannel signals\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"meterbridge for mutlichannel signals\"",
+					"varname" : "jcom.model"
 				}
 
 			}

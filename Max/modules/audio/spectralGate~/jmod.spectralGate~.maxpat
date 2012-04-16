@@ -315,7 +315,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 25.0, 200.0, 382.0, 31.0 ],
-					"text" : "jcom.hub @description \"Spectral purification and noise reduction. This module is based on the Brita plugin that was part of the Hipno plugins.\""
+					"text" : "jcom.model @description \"Spectral purification and noise reduction. This module is based on the Brita plugin that was part of the Hipno plugins.\""
 				}
 
 			}

@@ -236,8 +236,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 20.0, 200.0, 291.0, 31.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Apply tremolo to incoming signal.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"Apply tremolo to incoming signal.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

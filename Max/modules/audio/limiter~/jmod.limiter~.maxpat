@@ -633,8 +633,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 155.0, 274.0, 31.0 ],
-					"text" : "jcom.hub @module_type audio @description \"A stereo limiter\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"A stereo limiter\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -980,7 +980,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

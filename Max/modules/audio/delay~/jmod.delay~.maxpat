@@ -229,8 +229,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.hub",
-					"text" : "jcom.hub @module_type audio @description \"Sample-accurate stereo delay.\"",
+					"varname" : "jcom.model",
+					"text" : "jcom.model @type audio @description \"Sample-accurate stereo delay.\"",
 					"patching_rect" : [ 20.0, 390.0, 401.0, 19.0 ],
 					"outlettype" : [ "", "" ],
 					"fontname" : "Verdana",

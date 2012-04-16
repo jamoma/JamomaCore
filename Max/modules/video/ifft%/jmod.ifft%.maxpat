@@ -343,7 +343,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 50.0, 225.0, 203.0, 31.0 ],
-					"text" : "jcom.hub @description \"Inverse FFT processing of incoming matrix.\""
+					"text" : "jcom.model @description \"Inverse FFT processing of incoming matrix.\""
 				}
 
 			}

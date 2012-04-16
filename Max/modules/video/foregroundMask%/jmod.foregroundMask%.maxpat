@@ -246,8 +246,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 14.0, 191.0, 348.0, 19.0 ],
-					"text" : "jcom.hub @description \"Create mask based on image foreground.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Create mask based on image foreground.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

@@ -188,8 +188,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 140.0, 303.0, 31.0 ],
-					"text" : "jcom.hub @description \"Vector base amplitude panning (VBAP) of multiple sources for multiple speakers.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Vector base amplitude panning (VBAP) of multiple sources for multiple speakers.\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -696,7 +696,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

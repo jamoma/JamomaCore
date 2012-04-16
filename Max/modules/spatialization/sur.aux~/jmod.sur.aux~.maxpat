@@ -1510,7 +1510,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 140.0, 337.0, 19.0 ],
-					"text" : "jcom.hub @description \"auxiluaries for multichannel modules\"",
+					"text" : "jcom.model @description \"auxiluaries for multichannel modules\"",
 					"varname" : "jalg.hub"
 				}
 
@@ -1838,7 +1838,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

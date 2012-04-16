@@ -1251,8 +1251,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 14.0, 198.0, 182.0, 43.0 ],
-					"text" : "jcom.hub @module_type control @description \"Control interface to Max's global transport\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Control interface to Max's global transport\"",
+					"varname" : "jcom.model"
 				}
 
 			}

@@ -706,8 +706,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 7.0, 195.0, 262.0, 30.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Choke chromakey 3 sources\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Choke chromakey 3 sources\"",
+					"varname" : "jcom.model"
 				}
 
 			}

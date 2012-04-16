@@ -1042,7 +1042,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 205.0, 128.0, 43.0 ],
-					"text" : "jcom.hub @description \"Spectral shifting with feedback\""
+					"text" : "jcom.model @description \"Spectral shifting with feedback\""
 				}
 
 			}

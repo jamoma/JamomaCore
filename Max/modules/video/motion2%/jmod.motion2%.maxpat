@@ -501,8 +501,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 36.0, 123.332855, 255.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Motion-related analysis\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Motion-related analysis\"",
+					"varname" : "jcom.model"
 				}
 
 			}

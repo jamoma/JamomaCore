@@ -146,7 +146,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 30.0, 47.0, 213.0, 31.0 ],
 					"text" : "jcom.model @type control @description \"Output information from mouse\"",
-					"varname" : "jcom.hub"
+					"varname" : "jcom.model"
 				}
 
 			}

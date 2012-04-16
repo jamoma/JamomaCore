@@ -1105,8 +1105,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 19.0, 600.0, 308.0, 19.0 ],
-					"text" : "jcom.hub @description \"Stereo echo module.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Stereo echo module.\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -1712,7 +1712,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

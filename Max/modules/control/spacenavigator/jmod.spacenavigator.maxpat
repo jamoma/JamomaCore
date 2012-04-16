@@ -152,8 +152,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 20.0, 165.0, 473.0, 19.0 ],
-					"text" : "jcom.hub @description \"Use the Space Navigator from 3D Connexion\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Use the Space Navigator from 3D Connexion\"",
+					"varname" : "jcom.model"
 				}
 
 			}

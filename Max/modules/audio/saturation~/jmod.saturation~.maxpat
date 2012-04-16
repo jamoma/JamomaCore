@@ -640,8 +640,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 460.0, 396.0, 19.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Saturation (distortion) effect.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"Saturation (distortion) effect.\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -1046,7 +1046,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

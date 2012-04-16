@@ -247,8 +247,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 4.0, 132.0, 226.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"crossfade a source to two outputs\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"crossfade a source to two outputs\"",
+					"varname" : "jcom.model"
 				}
 
 			}

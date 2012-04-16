@@ -719,8 +719,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 12.0, 168.0, 269.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"Browsing and organizing sessions of new files\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Browsing and organizing sessions of new files\"",
+					"varname" : "jcom.model"
 				}
 
 			}

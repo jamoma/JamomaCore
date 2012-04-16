@@ -313,8 +313,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 25.0, 315.0, 315.0, 31.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Play sine tones - square - triangle waves etc.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"Play sine tones - square - triangle waves etc.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

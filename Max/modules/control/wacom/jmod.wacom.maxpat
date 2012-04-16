@@ -358,8 +358,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 120.0, 461.0, 19.0 ],
-					"text" : "jcom.hub @module_type control @description \"Use Wacom graphic tablets\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Use Wacom graphic tablets\"",
+					"varname" : "jcom.model"
 				}
 
 			}

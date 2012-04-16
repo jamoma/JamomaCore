@@ -5702,8 +5702,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 30.0, 270.0, 393.0, 19.0 ],
-					"text" : "jcom.hub @description \"A Jamoma module wrapper for AudioUnit plug-ins.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"A Jamoma module wrapper for AudioUnit plug-ins.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

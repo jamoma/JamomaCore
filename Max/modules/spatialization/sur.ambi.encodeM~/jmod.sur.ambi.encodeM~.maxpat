@@ -6855,8 +6855,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 48.0, 182.0, 324.0, 19.0 ],
-					"text" : "jcom.hub @description \"Ambisonic encoding of mono signals.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Ambisonic encoding of mono signals.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

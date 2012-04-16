@@ -3371,8 +3371,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 36.0, 259.0, 308.0, 19.0 ],
-					"text" : "jcom.hub @description \"simple monophonic sampleplayer\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"simple monophonic sampleplayer\"",
+					"varname" : "jcom.model"
 				}
 
 			}

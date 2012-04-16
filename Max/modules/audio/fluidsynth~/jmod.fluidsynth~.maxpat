@@ -1163,8 +1163,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 145.0, 286.0, 19.0 ],
-					"text" : "jcom.hub @description \"Synthesizer using soundfonts\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Synthesizer using soundfonts\"",
+					"varname" : "jcom.model"
 				}
 
 			}

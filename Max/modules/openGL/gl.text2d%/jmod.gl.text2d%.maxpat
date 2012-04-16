@@ -917,7 +917,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 215.0, 339.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Write bitmap text.\"",
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Write bitmap text.\"",
 					"varname" : "jmod.hub"
 				}
 

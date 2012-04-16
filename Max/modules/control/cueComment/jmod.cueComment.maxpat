@@ -389,8 +389,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 7.0, 440.0, 89.0, 104.0 ],
-					"text" : "jcom.hub @module_type control @description \"manages comments for jmod.cueManager\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"manages comments for jmod.cueManager\"",
+					"varname" : "jcom.model"
 				}
 
 			}

@@ -235,8 +235,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 16.0, 124.0, 311.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Crossfade between two video sources.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Crossfade between two video sources.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

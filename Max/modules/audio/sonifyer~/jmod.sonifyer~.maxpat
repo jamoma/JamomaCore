@@ -509,7 +509,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 9.0, 216.0, 271.0, 43.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Sonification of a video matrix, preferably based on a motiongram.\""
+					"text" : "jcom.model @type audio @description \"Sonification of a video matrix, preferably based on a motiongram.\""
 				}
 
 			}

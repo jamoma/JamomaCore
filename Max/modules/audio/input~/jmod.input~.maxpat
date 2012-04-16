@@ -1360,8 +1360,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 9.0, 204.0, 304.0, 19.0 ],
-					"text" : "jcom.hub @description \"A generic module for audio input\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"A generic module for audio input\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -6627,7 +6627,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

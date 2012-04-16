@@ -2483,8 +2483,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 205.0, 336.0, 31.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Additive synthesis using 10 harmonic partials.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"Additive synthesis using 10 harmonic partials.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

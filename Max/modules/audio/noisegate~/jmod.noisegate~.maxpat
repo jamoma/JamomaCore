@@ -692,8 +692,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 30.0, 430.0, 304.0, 19.0 ],
-					"text" : "jcom.hub @module_type audio @description \"noise gate.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"noise gate.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

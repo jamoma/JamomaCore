@@ -12727,8 +12727,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 191.0, 178.0, 311.0, 31.0 ],
-					"text" : "jcom.hub jmod.layout @module_type control @description \"store presentation position of modules in presets\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model jmod.layout @type control @description \"store presentation position of modules in presets\"",
+					"varname" : "jcom.model"
 				}
 
 			}

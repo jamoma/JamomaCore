@@ -907,7 +907,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 220.0, 319.0, 31.0 ],
-					"text" : "jcom.hub @description \"A four channel slab-based video mixer with alpha channels and Photoshop-style layers.\"",
+					"text" : "jcom.model @description \"A four channel slab-based video mixer with alpha channels and Photoshop-style layers.\"",
 					"varname" : "jmod.hub"
 				}
 

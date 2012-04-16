@@ -461,8 +461,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 17.0, 130.0, 272.0, 42.0 ],
-					"text" : "jcom.hub @module_type control @description \"Condition a continuous control signal: smooth - scale - clip - repeat.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Condition a continuous control signal: smooth - scale - clip - repeat.\"",
+					"varname" : "jcom.model"
 				}
 
 			}
