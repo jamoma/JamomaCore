@@ -32,12 +32,22 @@ class TTAllpass : public TTAudioObject {
 	TTErr clear();
 	
 	/**	return a list of all the available filters	*/
-	TTErr GetFilters(TTValue& listOfFilterTypesToReturn);
+	//TTErr getFilters(TTValue& listOfFilterTypesToReturn);
+		TTErr getFilters(const TTValue&, TTValue& listOfFiltersToReturn)
+	{
+		TTValue v;
+		v.setSize(2);
+		v.set(0, TT("allpass"));
+		v.set(1, TT("audio")); 
+		return TTGetRegisteredClassNamesForTags(listOfFiltersToReturn, v);
+	}
+	
+	
 
 	// Attribute:
 	TTErr setFilter(const TTValue& filter);
 	
-	TTErr SetCoefficients(const TTValue& coefficients, TTValue&);
+	TTErr setCoefficients(const TTValue& coefficients, TTValue&);
 	
 	/** y = f(x) for a single value */
 	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
