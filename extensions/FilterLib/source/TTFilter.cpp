@@ -33,6 +33,7 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	setAttributeValue(kTTSym_maxNumChannels, arguments);
 	setAttributeValue(TT("type"), TT("lowpass.1"));
+	setAttributeValue(TT("mode"), TT("lowpass"));
 	setAttributeValue(TT("frequency"), 1000.0);
 	setAttributeValue(TT("q"), 1.0);
 	setProcessMethod(processAudio);
