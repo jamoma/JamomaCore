@@ -10,6 +10,11 @@
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
+	WrappedClassOptionsPtr	options = new WrappedClassOptions;
+	WrappedClassPtr			c = NULL;
+	
 	TTDSPInit();
-	return wrapTTClassAsMaxClass(TT("average"), "jcom.average~", NULL);
+	wrapTTClassAsMaxClass(TT("average"), "jcom.average~", &c, options);
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "absolute bipolar rms");
+	return 0;
 }
