@@ -59,11 +59,11 @@
 					"fontsize" : 12.0,
 					"id" : "obj-12",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 93.0, 11.0, 60.0, 20.0 ],
-					"text" : "loadbang"
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 93.0, 11.0, 152.0, 20.0 ],
+					"text" : "jcom.initialized /input~ 500"
 				}
 
 			}
@@ -318,6 +318,13 @@
 				"name" : "jcom.test.finished.maxpat",
 				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../../../Test/components",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.initialized.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/initialized",
+				"patcherrelativepath" : "../../../Max/library/components/initialized",
 				"type" : "JSON",
 				"implicit" : 1
 			}
