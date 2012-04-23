@@ -304,7 +304,7 @@ void hub_doautodocHtml(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, "\t<div id=\"jmod_header\">");
 
 	// Top of page displaying name of module etc.
-	jcom_core_file_writeline(&file_handle, &myEof, "\t<img src=\"../../../documentation/graphics/jmodular.icon.png\" width=\"128\" height=\"128\">");	
+	jcom_core_file_writeline(&file_handle, &myEof, "\t<img src=\"../../../documentation/graphics/jmodular.icon.png\" onError=\"this.src='../images/jmodular.icon.png';\" width=\"128\" height=\"128\">");	
 	snprintf(tempstring, 1024, "\t<h1> %s </h1>", x->attr_name->s_name);
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	snprintf(tempstring, 1024, "\t<h2> %s </h2>", x->attr_description->s_name);
