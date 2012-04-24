@@ -225,18 +225,6 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-16",
-					"ignoreclick" : 1,
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 667.0, 264.0, 316.0, 380.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -317,7 +305,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 369.0, 370.0, 258.0, 19.0 ],
+					"patching_rect" : [ 349.5, 361.0, 258.0, 19.0 ],
 					"text" : "5. the destination for the data as an OSC address"
 				}
 
@@ -331,7 +319,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 369.0, 356.0, 239.0, 19.0 ],
+					"patching_rect" : [ 349.5, 347.0, 239.0, 19.0 ],
 					"text" : "4. An arrow (->)"
 				}
 
@@ -345,7 +333,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 369.0, 342.0, 239.0, 19.0 ],
+					"patching_rect" : [ 349.5, 333.0, 239.0, 19.0 ],
 					"text" : "3. (optional) algorithm to apply to the data"
 				}
 
@@ -359,7 +347,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 369.0, 328.0, 316.0, 19.0 ],
+					"patching_rect" : [ 349.5, 319.0, 316.0, 19.0 ],
 					"text" : "2. the source of the data we want to map as an OSC address"
 				}
 
@@ -373,7 +361,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 369.0, 314.0, 273.0, 19.0 ],
+					"patching_rect" : [ 349.5, 305.0, 273.0, 19.0 ],
 					"text" : "1. name of the mapping (so we can manage it later)"
 				}
 
@@ -914,16 +902,16 @@
 ,
 					"patching_rect" : [ 787.0, 172.5, 87.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"description" : "",
+						"fontname" : "Verdana",
 						"tags" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"digest" : "",
+						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : ""
 					}
 ,
 					"text" : "p js-component"
@@ -963,7 +951,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 356.0, 300.0, 249.0, 19.0 ],
+					"patching_rect" : [ 336.5, 291.0, 249.0, 19.0 ],
 					"text" : "Arguments for mappings:"
 				}
 
@@ -985,6 +973,20 @@
 			}
 , 			{
 				"box" : 				{
+					"background" : 1,
+					"id" : "obj-16",
+					"ignoreclick" : 1,
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 667.0, 264.0, 316.0, 380.0 ],
+					"rounded" : 15
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"background" : 1,
 					"id" : "obj-46",
 					"ignoreclick" : 1,
 					"maxclass" : "panel",
