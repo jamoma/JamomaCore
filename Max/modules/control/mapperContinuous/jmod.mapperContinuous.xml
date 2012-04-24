@@ -29,7 +29,7 @@
     <item name='slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>600 70 </item>
+
   </preset>
   <preset number='2' name='mouse'>
     <item name='clipmode' type='string' priority='0'>none</item>

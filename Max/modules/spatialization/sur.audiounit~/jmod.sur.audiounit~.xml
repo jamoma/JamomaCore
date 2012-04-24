@@ -11,6 +11,6 @@
     <item name='numInputs' type='integer' priority='3'>2</item>
     <item name='numOutputs' type='integer' priority='1'>2</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 210 </item>
+
   </preset>
 </jamoma>
