@@ -25,6 +25,7 @@ typedef struct extra {
 	
 	TTNodeAddressPtr	array_address;		// keep the address in memory to filter repetitions
 	TTBoolean			changingAddress;	// a flag to protect from succession of address changes
+	TTBoolean			firstArray;			// a flag to know if it is the first instanciation (do not init data)
 	TTValue				args;				// keep attributes argument of the external
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -157,6 +158,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 #endif
 	EXTRA->array_address = kTTAdrsEmpty;
 	EXTRA->changingAddress = NO;
+	EXTRA->firstArray = YES;
 	EXTRA->args = kTTValNONE;
 	
 	// handle args
@@ -276,6 +278,12 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 					
 					// select all datas
 					data_array_select(self, gensym("*"), 0, NULL);
+
+#ifndef JMOD_MESSAGE
+					// reset all datas created dynamically
+					if (!EXTRA->firstArray)
+						defer_low((ObjectPtr)x, (method)wrappedModularClass_anything, _sym_reset, 0, NULL);
+#endif
 				}
 			}
 			else
@@ -286,6 +294,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", relativeAddress->s_name);
 	
 	EXTRA->changingAddress = NO;
+	EXTRA->firstArray = NO;
 }
 
 void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index)
