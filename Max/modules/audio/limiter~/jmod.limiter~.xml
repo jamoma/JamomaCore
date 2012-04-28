@@ -7,7 +7,6 @@
 	
 	<preset number="1" name="default">
 		<item name="audio/gain" type="integer">0</item>
-		<item name="audio/meters/freeze" type="boolean">0</item>
 		<item name="audio/mix" type="decimal">100.</item>
 		<item name="audio/bypass" type="integer">0</item>
 		<item name="audio/mute" type="integer">1</item>

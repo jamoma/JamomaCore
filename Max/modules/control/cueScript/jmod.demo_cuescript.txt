@@ -40,7 +40,6 @@ CUE initialisation
 # Module filter~
     /filter~/filtertype bandpass
     /filter~/audio/gain 0
-    /filter~/audio/meters/freeze 0
     /filter~/audio/mix 100.000
     /filter~/audio/bypass 0
     /filter~/audio/mute 0
