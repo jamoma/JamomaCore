@@ -260,10 +260,10 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			if (!x->attr_bypass) //bypass is disabled
 				x->xfade->setAttributeValue(TT("position"), x->attr_mix * 0.01);		
 #endif
-		}
+		}/* defeat meters is deprecated
 		else if ((argv->a_w.w_sym == jps_audio_meters_freeze) || (argv->a_w.w_sym == jps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))) {
 			x->attr_defeat_meters = atom_getlong(argv+1);
-		}
+		}*/
 		else if ((argv->a_w.w_sym == jps_video_preview) || (argv->a_w.w_sym == jps_slash_video_preview) || (argv->a_w.w_sym == gensym("preview")) || (argv->a_w.w_sym == gensym("/preview")))
 			x->attr_preview = atom_getlong(argv+1);
 	}

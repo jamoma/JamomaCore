@@ -1404,13 +1404,15 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		}
 		else {
 			// Check to see if it's a message we need to forward to jcom.out
-			if (name == jps_slash_audio_meters_freeze || name == jps_audio_meters_freeze) {
+			/* audio/meter/freeze is deprecated 
+			 if (name == jps_slash_audio_meters_freeze || name == jps_audio_meters_freeze) {
 				t_atom msg[2];
 				atom_setsym(msg, name);
 				jcom_core_atom_copy(msg+1, argv);
 				if (x->out_object != NULL)
 					object_method_typed(x->out_object, jps_algorithm_message, 2, msg, NULL);	
-			} else if (!x->using_wildcard) {
+			} else */
+			if (!x->using_wildcard) {
 				// if we got here through the use a remote message to modules named by a wildcard
 				// then we need don't post annoying errors to the Max window
 				if (x->editing)
