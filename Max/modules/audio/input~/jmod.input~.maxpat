@@ -4,10 +4,10 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 5
 		}
 ,
-		"rect" : [ 33.0, 44.0, 1377.0, 753.0 ],
+		"rect" : [ 0.0, 44.0, 1377.0, 753.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -204,6 +204,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "The Frequency of the test tone. in [Hz] by default.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hidden" : 1,
@@ -391,7 +392,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 542.0, 99.0, 640.0, 480.0 ],
@@ -630,16 +631,16 @@
 ,
 					"patching_rect" : [ 170.0, 398.0, 130.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0,
-						"description" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : "",
+						"tags" : "",
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"digest" : "",
 						"globalpatchername" : "",
-						"default_fontface" : 0
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p time"
@@ -694,7 +695,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 21.0, 223.0, 1102.0, 446.0 ],
@@ -934,16 +935,16 @@
 ,
 					"patching_rect" : [ 1056.0, 47.0, 17.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0,
-						"description" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : "",
+						"tags" : "",
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"digest" : "",
 						"globalpatchername" : "",
-						"default_fontface" : 0
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p"
@@ -952,6 +953,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "How often a click is generated. in [Hz] by default.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hidden" : 1,
@@ -987,6 +989,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Pan-pot for the stereo signal",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hint" : "Balance",
@@ -1049,6 +1052,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Toggle audio on and off.",
 					"bgoncolor" : [ 0.54902, 0.54902, 0.54902, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1071,6 +1075,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Loop soundfile.",
 					"id" : "obj-8",
 					"maxclass" : "toggle",
 					"numinlets" : 1,
@@ -1099,6 +1104,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : " Set logical input for right channel.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hidden" : 1,
@@ -1122,6 +1128,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : " Set logical input for left channel.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hidden" : 1,
@@ -1165,7 +1172,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "Master Gain",
+					"annotation" : "master gain",
 					"hint" : "Master Gain",
 					"id" : "obj-35",
 					"maxclass" : "jcom.textslider",
@@ -1182,6 +1189,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Play sound file.",
 					"bgoncolor" : [ 0.0, 0.54902, 0.0, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1204,6 +1212,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Open sound file using file dialog ",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-83",
@@ -1224,7 +1233,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "Selector for input source",
+					"annotation" : "Select what audio source to use.",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hint" : "Selector for input source",
@@ -1245,6 +1254,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Open Max's Audio Status",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-82",
@@ -1309,6 +1319,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "Pan-pot for the stereo signal",
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-58",
@@ -1625,7 +1636,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 0.0, 44.0, 946.0, 733.0 ],
@@ -1742,7 +1753,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 867.0, 149.0, 344.0, 297.0 ],
@@ -1961,16 +1972,16 @@
 ,
 									"patching_rect" : [ 623.0, 312.0, 99.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontname" : "Verdana",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0,
-										"description" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"tags" : "",
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"digest" : "",
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p clicktrain~"
@@ -2203,7 +2214,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 185.0, 98.0, 617.0, 390.0 ],
@@ -2545,16 +2556,16 @@
 ,
 									"patching_rect" : [ 20.0, 557.0, 185.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontname" : "Verdana",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0,
-										"description" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"tags" : "",
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"digest" : "",
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p smooth_in_out"
@@ -2707,7 +2718,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 349.0, 139.0, 529.0, 535.0 ],
@@ -3307,16 +3318,16 @@
 ,
 									"patching_rect" : [ 20.0, 520.0, 185.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontname" : "Verdana",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0,
-										"description" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"tags" : "",
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"digest" : "",
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p gain"
@@ -3379,7 +3390,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 218.0, 133.0, 933.0, 411.0 ],
@@ -3550,7 +3561,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 448.0, 77.0, 832.0, 519.0 ],
@@ -3834,16 +3845,16 @@
 ,
 													"patching_rect" : [ 372.0, 292.0, 80.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontname" : "Verdana",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0,
-														"description" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"tags" : "",
+														"fontname" : "Verdana",
+														"default_fontface" : 0,
+														"digest" : "",
 														"globalpatchername" : "",
-														"default_fontface" : 0
+														"default_fontname" : "Verdana"
 													}
 ,
 													"text" : "p playPosition"
@@ -3920,7 +3931,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 4
+															"revision" : 5
 														}
 ,
 														"rect" : [ 848.0, 46.0, 432.0, 397.0 ],
@@ -4170,16 +4181,16 @@
 ,
 													"patching_rect" : [ 8.0, 72.0, 101.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontname" : "Verdana",
-														"default_fontname" : "Verdana",
-														"tags" : "",
-														"default_fontsize" : 10.0,
-														"description" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"tags" : "",
+														"fontname" : "Verdana",
+														"default_fontface" : 0,
+														"digest" : "",
 														"globalpatchername" : "",
-														"default_fontface" : 0
+														"default_fontname" : "Verdana"
 													}
 ,
 													"text" : "p OLD_open_stuff"
@@ -4589,16 +4600,16 @@
 ,
 									"patching_rect" : [ 376.0, 315.0, 56.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontname" : "Verdana",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0,
-										"description" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"tags" : "",
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"digest" : "",
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p sfplay~"
@@ -4619,7 +4630,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 44.0, 59.0, 305.0, 403.0 ],
@@ -4883,16 +4894,16 @@
 ,
 									"patching_rect" : [ 270.0, 313.0, 61.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontname" : "Verdana",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0,
-										"description" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"tags" : "",
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"digest" : "",
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p audio_in"
@@ -4913,7 +4924,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 141.0, 153.0, 600.0, 426.0 ],
@@ -5055,16 +5066,16 @@
 ,
 									"patching_rect" : [ 455.0, 313.0, 70.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontname" : "Verdana",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0,
-										"description" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"tags" : "",
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"digest" : "",
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p testtone~"
@@ -5085,7 +5096,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 40.0, 59.0, 344.0, 297.0 ],
@@ -5183,16 +5194,16 @@
 ,
 									"patching_rect" : [ 540.0, 313.0, 48.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontname" : "Verdana",
-										"default_fontname" : "Verdana",
-										"tags" : "",
-										"default_fontsize" : 10.0,
-										"description" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"tags" : "",
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"digest" : "",
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p pink~"
@@ -5736,16 +5747,16 @@
 ,
 					"patching_rect" : [ 45.0, 376.0, 143.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"tags" : "",
-						"default_fontsize" : 10.0,
-						"description" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"description" : "",
+						"tags" : "",
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"digest" : "",
 						"globalpatchername" : "",
-						"default_fontface" : 0
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p Sound_sources"
@@ -5890,6 +5901,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "amplitude of output signal 1",
 					"id" : "obj-37",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
@@ -5903,6 +5915,7 @@
 			}
 , 			{
 				"box" : 				{
+					"annotation" : "amplitude of output signal 2",
 					"id" : "obj-3",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
@@ -6000,7 +6013,6 @@
 , 			{
 				"box" : 				{
 					"background" : 1,
-					"has_meters" : 1,
 					"id" : "obj-78",
 					"maxclass" : "jcom.ui",
 					"numinlets" : 1,
