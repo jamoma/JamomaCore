@@ -28,89 +28,45 @@ class TTMODULAR_EXPORT TTPresetManager : public TTDataObject
 	
 private:
 	
-	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the address of the preset manager in the directory
+	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the container address to manage
 	TTValue				mNames;							///< ATTRIBUTE : all preset names
-	TTValue				mCurrent;						///< ATTRIBUTE : <index, name, comment> of the current preset
-	TTValue				mPrevious;						///< ATTRIBUTE : <index, name, comment> of the previous preset
-	TTValue				mNext;							///< ATTRIBUTE : <index, name, comment> of the next preset
+	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current preset name
 
-	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)
-	TTListPtr			mPresetList;					///< a list containing <TTPresetPtr> sorted by Number attribute
-	TTUInt8				mCurrentIndex;					///< ATTRIBUTE : the position of the current preset in the list (from 1 to list size, 0 mean no current index)
+	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>
+	TTPresetPtr			mCurrentPreset;					///< the current preset
 	
 	/** */
-	TTErr New();
+	TTErr	setAddress(const TTValue& value);
 	
 	/** */
-	TTErr Store(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	setNames(const TTValue& value);
+
+	/** */
+	TTErr	New();
 	
 	/** */
-	TTErr StoreCurrent();
+	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr StoreNext(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr StorePrevious(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr Recall(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr RecallCurrent();
-	
-	/** */
-	TTErr RecallNext();
-	
-	/** */
-	TTErr RecallPrevious();
-	
-	/** */
-	TTErr Remove(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr RemoveCurrent();
-	
-	/** */
-	TTErr RemoveNext();
-	
-	/** */
-	TTErr RemovePrevious();
+	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
-	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTTextHandler */
-	 TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
-	 TTErr ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+	
+	/**  needed to be handled by a TTBufferHandler */
+	TTErr	WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr getNames(TTValue& value);
-	
-	/** */
-	TTErr getCurrent(TTValue& value);
-	
-	/** */
-	TTErr getPrevious(TTValue& value);
-	
-	/** */
-	TTErr getNext(TTValue& value);
-		
-	/** */
-	TTErr setAddress(const TTValue& value);
-	
-	/** */
-	TTPresetPtr getPresetCurrent();
-	
-	/** */
-	TTPresetPtr getPresetWithName(TTSymbolPtr name);
-	
-	/** */
-	TTErr refreshList();
-	
-	/** */
-	TTErr notifyNamesObservers();
+	TTErr	notifyNamesObservers();
 };
 
 typedef TTPresetManager* TTPresetManagerPtr;

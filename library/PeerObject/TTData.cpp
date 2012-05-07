@@ -263,132 +263,49 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
-TTErr TTData::Command(const TTValue& command, TTValue& outputValue)
+TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 {
-	TTMessagePtr aMessage;
-	TTErr		err = kTTErrNone;
+	TTDictionaryPtr command = NULL;
+	TTMessagePtr	aMessage;
+	TTSymbolPtr		unit;
 #ifndef TTDATA_NO_RAMPLIB
-	double		time;
+	double			time;
 #endif
-	int			commandSize;
-	TTSymbolPtr	unit, ramp;
-	TTValue		aValue, c;
-	bool		hasRamp = false;
-	bool		hasUnit = false;
+	TTValue			v, aValue, c;
+	TTErr			err = kTTErrNone;
 	
+	// 0. Get the command TTDictionnary 
+	// or parse any incoming value into a TTDictionnary
+	///////////////////////////////////////////////////
+	if (commandValue.getType() == kTypePointer)
+		commandValue.get(0, (TTPtr*)&command);
+	else 
+		command = TTDataParseCommand(commandValue);
+	
+	if (!command)
+		return kTTErrGeneric;
+
 	// 1. Notify Command observer for value changes only
 	///////////////////////////////////////////////////
-	c = command;											// protect the command value
+	c = commandValue;									// protect the command value
 	err = this->findMessage(kTTSym_Command, &aMessage);
 	if (!err)
 		aMessage->sendNotification(kTTSym_notify, c);	// we use kTTSym_notify because we know that observers are TTCallback
 	
-	// 2. Parse the command to handle unit and ramp
-	///////////////////////////////////////////////////
-	commandSize = command.getSize();
-	switch(commandSize) {
-			
-		// no value	
-		case 0 :
-		{
-			// nothing to do
-			break;	
-		}
-			
-		// 1 value	
-		case 1 :
-		{
-			// nothing to do
-			break;	
-		}
-			
-		// 2 values || 1 value + unit
-		case 2 :
-		{
-			// Is the second element is a unit symbol ?
-			if (mDataspaceUnit != kTTSym_none)
-				if (command.getType(0) != kTypeSymbol && command.getType(1) == kTypeSymbol) {
-					hasUnit = true;
-					command.get(1, &unit);
-				}
-			
-			break;	
-		}
-			
-		// 3 values || 2 values + unit || 1 value + ramp ramptime
-		case 3 :
-		{
-			// Is the second element is a ramp symbol ?
-			if (command.getType(1) == kTypeSymbol) {
-				command.get(1, &ramp);
-				if (ramp == kTTSym_ramp)
-					hasRamp = true;
-			}
-			// or is the last element is a unit symbol ?
-			else if (mDataspace != kTTSym_none && command.getType(0) != kTypeSymbol && command.getType(2) == kTypeSymbol) {
-				hasUnit = true;
-				command.get(2, &unit);
-			}
-			
-			break;	
-		}
-			
-		// X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
-		default :
-		{
-			// Is the X-2 element is a ramp symbol ?
-			if (command.getType(commandSize - 2) == kTypeSymbol) {
-				command.get(commandSize - 2, &ramp);
-				if (ramp == kTTSym_ramp)
-					hasRamp = true;
-			}
-			
-			// Is the X-3 or last element a unit symbol ?
-			if (mDataspace != kTTSym_none && command.getType(0) != kTypeSymbol) {
-				if (hasRamp) {
-					if (command.getType(commandSize - 3) == kTypeSymbol) {
-						hasUnit = true;
-						command.get(commandSize - 3, &unit);
-					}
-					else
-						if (command.getType(commandSize - 1) == kTypeSymbol) {
-							hasUnit = true;
-							command.get(commandSize - 1, &unit);
-						}
-				}
-			}
-			
-			break;	
-		}
-			
-	}
-
+	// 2. Get the value
+	command->getValue(aValue);
 	
-	// 3. Strip ramp or unit informations if needed
-	if (hasRamp && hasUnit) {
-		aValue = command;
-		aValue.setSize(commandSize - 3);
-	}
-	else if (hasRamp) {
-		aValue = command;
-		aValue.setSize(commandSize - 2);
-	}
-	else if (hasUnit) {
-		aValue = command;
-		aValue.setSize(commandSize - 1);
-	}
-	else
-		aValue = command;
-	
-	
-	// 4. Set Dataspace input unit and convert the value
+	// 3. Set Dataspace input unit and convert the value
 	// Note : The current implementation does not override the active unit temporarily or anything fancy.
 	// It just sets the input unit and then runs with it...
 	// For this initial implementation we are converting the values prior to ramping, as it is easier.
 	// Ultimately though, we actually want to convert the units after the ramping, 
 	// for example to perform a sweep that is linear vs logarithmic
 	////////////////////////////////////////////////////////////////
-	if (hasUnit)
+	if (!command->lookup(kTTSym_unit, v)) {
+		
+		v.get(0, &unit);
+		
 		if (mDataspaceConverter) {
 			TTValue convertedValue;
 			
@@ -396,8 +313,9 @@ TTErr TTData::Command(const TTValue& command, TTValue& outputValue)
 			convertUnit(aValue, convertedValue);
 			aValue = convertedValue;
 		}
+	}
 	
-	// 5. Filter repetitions
+	// 4. Filter repetitions
 	//////////////////////////////////
 	if (!mRepetitionsAllow && mInitialized) {
 		
@@ -414,11 +332,11 @@ TTErr TTData::Command(const TTValue& command, TTValue& outputValue)
 	}
 
 #ifndef TTDATA_NO_RAMPLIB
-	// 6. Ramp the convertedValue
+	// 5. Ramp the convertedValue
 	/////////////////////////////////
-	if (hasRamp) {
+	if (!command->lookup(kTTSym_ramp, v)) {
 		
-		command.get(commandSize - 1, time);
+		v.get(0, time);
 		
 		if (mRamper && time > 0) {
 			TTUInt16	i, s = aValue.getSize();
@@ -449,7 +367,7 @@ TTErr TTData::Command(const TTValue& command, TTValue& outputValue)
 		mRamper->stop();
 #endif
 	
-	// set the value directly
+	// 6. Set the value directly
 	return setValue(aValue);
 }
 
@@ -965,6 +883,126 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark -
 #pragma mark Some Methods
 #endif
+
+TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
+{
+	TTDictionaryPtr		command = new TTDictionary();
+	double				time;
+	int					commandSize;
+	TTSymbolPtr			unit, ramp;
+	TTValue				aValue, c;
+	bool				hasRamp = false;
+	bool				hasUnit = false;
+	
+	// Parse the command to handle unit and ramp
+	///////////////////////////////////////////////////
+	commandSize = commandValue.getSize();
+	switch(commandSize) {
+			
+			// no value	
+		case 0 :
+		{
+			// nothing to do
+			break;	
+		}
+			
+			// 1 value	
+		case 1 :
+		{
+			// nothing to do
+			break;	
+		}
+			
+			// 2 values || 1 value + unit
+		case 2 :
+		{
+			// Is the second element is a unit symbol ?
+			if (commandValue.getType(0) != kTypeSymbol && commandValue.getType(1) == kTypeSymbol) {
+				hasUnit = true;
+				commandValue.get(1, &unit);
+			}
+			
+			break;	
+		}
+			
+			// 3 values || 2 values + unit || 1 value + ramp ramptime
+		case 3 :
+		{
+			// Is the second element is a ramp symbol ?
+			if (commandValue.getType(1) == kTypeSymbol) {
+				commandValue.get(1, &ramp);
+				if (ramp == kTTSym_ramp)
+					hasRamp = true;
+			}
+			// or is the last element is a unit symbol ?
+			else if (commandValue.getType(0) != kTypeSymbol && commandValue.getType(2) == kTypeSymbol) {
+				hasUnit = true;
+				commandValue.get(2, &unit);
+			}
+			
+			break;	
+		}
+			
+			// X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
+		default :
+		{
+			// Is the X-2 element is a ramp symbol ?
+			if (commandValue.getType(commandSize - 2) == kTypeSymbol) {
+				commandValue.get(commandSize - 2, &ramp);
+				if (ramp == kTTSym_ramp)
+					hasRamp = true;
+			}
+			
+			// Is the X-3 or last element a unit symbol ?
+			if (commandValue.getType(0) != kTypeSymbol) {
+				if (hasRamp) {
+					if (commandValue.getType(commandSize - 3) == kTypeSymbol) {
+						hasUnit = true;
+						commandValue.get(commandSize - 3, &unit);
+					}
+					else
+						if (commandValue.getType(commandSize - 1) == kTypeSymbol) {
+							hasUnit = true;
+							commandValue.get(commandSize - 1, &unit);
+						}
+				}
+			}
+			
+			break;	
+		}
+	}
+	
+	// 3. Strip ramp or unit informations if needed
+	if (hasRamp && hasUnit) {
+		aValue = commandValue;
+		aValue.setSize(commandSize - 3);
+	}
+	else if (hasRamp) {
+		aValue = commandValue;
+		aValue.setSize(commandSize - 2);
+	}
+	else if (hasUnit) {
+		aValue = commandValue;
+		aValue.setSize(commandSize - 1);
+	}
+	else
+		aValue = commandValue;
+	
+	// 4. Edit command
+	command->setValue(aValue);
+	
+	if (hasUnit)
+		command->append(kTTSym_unit, unit);
+	
+	if (hasRamp) {
+		commandValue.get(commandSize - 1, time);
+		command->append(kTTSym_ramp, time);
+	}
+	
+	command->setSchema(kTTSym_command);
+	
+	return command;
+}
 
 #ifndef TTDATA_NO_RAMPLIB
 void TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)

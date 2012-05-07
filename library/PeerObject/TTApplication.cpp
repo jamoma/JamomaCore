@@ -607,18 +607,18 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	// Switch on the name of the XML node
 	
 	// Starts reading
-	if (aXmlHandler->mXmlNodeName == TT("start")) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
 		mAppToTT = new TTHash();
 		mNamespaceFile = kTTSymEmpty;
 		return kTTErrNone;
 	}
 	
 	// Ends reading
-	if (aXmlHandler->mXmlNodeName == TT("end"))
+	if (aXmlHandler->mXmlNodeName == kTTSym_stop)
 		return kTTErrNone;
 	
 	// Comment Node
-	if (aXmlHandler->mXmlNodeName == TT("#comment"))
+	if (aXmlHandler->mXmlNodeName == kTTSym_comment)
 		return kTTErrNone;
 	
 	// Entry node

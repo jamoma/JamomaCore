@@ -51,6 +51,7 @@
 
 #include "TTApplication.h"
 #include "TTApplicationManager.h"
+#include "TTBufferHandler.h"
 #include "TTContainer.h"
 #include "TTCue.h"
 #include "TTCueManager.h"
@@ -66,6 +67,7 @@
 #include "TTPresetManager.h"
 #include "TTReceiver.h"
 #include "TTSender.h"
+#include "TTScript.h"
 #include "TTSubscriber.h"
 #include "TTTextHandler.h"
 #include "TTViewer.h"

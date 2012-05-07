@@ -26,7 +26,9 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_brothers;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_children;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_command;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Command;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_comment;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToAppName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToTTName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
@@ -41,9 +43,11 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_enable;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_end;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Fill;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_filter;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_flag;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
@@ -85,9 +89,14 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_selected;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_stop;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_tag;
+
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_unit;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueStepsize;
@@ -111,7 +120,9 @@ void TTModularSymbolCacheInit()
 	kTTSym_brothers					= TT("brothers");
 	
 	kTTSym_children					= TT("children");
+	kTTSym_command					= TT("command");
 	kTTSym_Command					= TT("Command");
+	kTTSym_comment					= TT("comment");
 	kTTSym_ConvertToAppName			= TT("ConvertToAppName");
 	kTTSym_ConvertToTTName			= TT("ConvertToTTName");
 	kTTSym_created					= TT("created");
@@ -126,9 +137,11 @@ void TTModularSymbolCacheInit()
 	kTTSym_directory				= TT("directory");
 	
 	kTTSym_enable					= TT("enable");
+	kTTSym_end						= TT("end");
 	
 	kTTSym_Fill						= TT("Fill");
 	kTTSym_filter					= TT("filter");
+	kTTSym_flag						= TT("flag");
 	kTTSym_freeze					= TT("freeze");
 	
 	kTTSym_generic					= TT("generic");
@@ -172,9 +185,14 @@ void TTModularSymbolCacheInit()
 	kTTSym_Send						= TT("Send");
 	kTTSym_selected					= TT("selected");
 	kTTSym_service					= TT("service");
+	kTTSym_sharp					= TT("#");
+	kTTSym_start					= TT("start");
+	kTTSym_stop						= TT("stop");
 	kTTSym_string					= TT("string");
 
 	kTTSym_tag						= TT("tag");
+	
+	kTTSym_unit						= TT("unit");
 	
 	kTTSym_value					= TT("value");
 	kTTSym_valueDefault				= TT("valueDefault");

@@ -89,7 +89,7 @@ private:
 			3		: 3 values || 2 values + unit || 1 value + ramp ramptime
 			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
 	 */
-	TTErr	Command(const TTValue& command, TTValue& outputValue);
+	TTErr	Command(const TTValue& commandValue, TTValue& outputValue);
 	
 	/**	Increment mValue attribute (and ramp this incrementation)
 		It depends on the command size :
@@ -171,6 +171,14 @@ private:
 };
 
 typedef TTData* TTDataPtr;
+
+/** Parse command like < value (unit) (ramp ramptime) >
+	It depends on the command size :
+	1		: 1 value 
+	2		: 2 values || 1 value + unit
+	3		: 3 values || 2 values + unit || 1 value + ramp ramptime
+	X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime */
+TTDictionaryPtr	TTMODULAR_EXPORT TTDataParseCommand(const TTValue& command);
 
 #ifndef TTDATA_NO_RAMPLIB
 /**	

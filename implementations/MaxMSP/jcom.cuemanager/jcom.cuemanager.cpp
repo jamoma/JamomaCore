@@ -12,8 +12,9 @@
 
 // This is used to store extra data
 typedef struct extra {
-	char*		text;				// text used by /getstate window
-	TTUInt32	textSize;			// how many chars are alloc'd to text
+	TTObjectPtr	toEdit;				// the object to edit (a cue or all the cuelist)
+	TTSymbolPtr	cueName;			// the name of the edited cue
+	TTString	*text;				// the text of the editor to read after edclose
 	ObjectPtr	textEditor;			// the text editor window
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -40,8 +41,9 @@ void		cue_dowrite_again(TTPtr self);
 
 void		cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		cue_edit(TTPtr self);
+void		cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_edclose(TTPtr self, char **text, long size);
+void		cue_doedit(TTPtr self);
 
 void		cue_subscribe(TTPtr self);
 
@@ -69,6 +71,7 @@ void WrapTTCueManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)cue_read,					"read",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)cue_write,					"write",				A_GIMME, 0);
+	class_addmethod(c->maxClass, (method)cue_edit,					"edit",					A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)cue_read_again,			"read/again",			0);
 	class_addmethod(c->maxClass, (method)cue_write_again,			"write/again",			0);
@@ -105,7 +108,9 @@ void WrappedCueManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
-	EXTRA->textSize = 0;
+	EXTRA->toEdit = x->wrappedObject;
+	EXTRA->cueName = kTTSymEmpty;
+	EXTRA->text = NULL;
 	EXTRA->textEditor = NULL;
 	
 	// handle attribute args
@@ -127,6 +132,7 @@ void cue_subscribe(TTPtr self)
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
+	TTBufferHandlerPtr			aBufferHandler;
 	
 	// register the object under a cuelist address
 	if (x->address == kTTAdrsEmpty)
@@ -147,62 +153,17 @@ void cue_subscribe(TTPtr self)
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store a cue giving his index and his name"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_array);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store into the current cue"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreNext"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store into the next cue"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StorePrevious"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store into the previous cue"));
+		aData->setAttributeValue(kTTSym_description, TT("Store a cue giving his name"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall a cue using his name or his index"));
 		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(v, TT("Recall the current cue"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallNext"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the next cue"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallPrevious"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the previous cue"));
-		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Remove a cue using his name or his index"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the current cue"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveNext"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the next cue"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemovePrevious"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the previous cue"));
+		aData->setAttributeValue(kTTSym_description, TT("Remove a cue using his name"));
 		
 		// expose attributes of TTCue as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_names, kTTSym_return, &aData);
@@ -218,6 +179,12 @@ void cue_subscribe(TTPtr self)
 		v = TTValue(TTPtr(x->wrappedObject));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
+		// create internal TTBufferHandler
+		aBufferHandler = NULL;
+		TTObjectInstantiate(TT("BufferHandler"), TTObjectHandle(&aBufferHandler), args);
+		v = TTValue(TTPtr(aBufferHandler));
+		x->internals->append(TT("BufferHandler"), v);
+		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
 		makeInternals_data(self, absoluteAddress, TT("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
@@ -229,8 +196,6 @@ void cue_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Write a xml cue file"));
-		
-		// TODO : create internal TTTextHandler to edit in Max edition window
 	}
 }
 
@@ -336,10 +301,7 @@ void cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		if (x->patcherContext && x->patcherClass)
-			snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherContext->getCString(), x->patcherClass->getCString());
-		else
-			snprintf(filename, MAX_FILENAME_CHARS, "cuelist.xml");
+		snprintf(filename, MAX_FILENAME_CHARS, "cuelist.xml");
 		
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
@@ -393,7 +355,6 @@ void cue_dowrite_again(TTPtr self)
 	}
 }
 
-
 void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
@@ -403,8 +364,8 @@ void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTBoolean	initialized;
 	
 	if (argc && argv) {
-		if (atom_gettype(argv) == A_LONG) {
-			v = TTValue((int)atom_getlong(argv));
+		if (atom_gettype(argv) == A_SYM) {
+			v = TTValue((int)atom_getsym(argv));
 			x->wrappedObject->sendMessage(TT("Recall"), v, kTTValNONE);
 		}
 		
@@ -428,65 +389,121 @@ void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
-void cue_edit(TTPtr self)
+void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char* text = NULL;
-	long textsize = 0;
+	TTString			*buffer;
+	char				title[MAX_FILENAME_CHARS];
+	TTBufferHandlerPtr	aBufferHandler = NULL;
+	TTHashPtr			allCues;
+	TTValue				v, o, args;
+	TTErr				tterr;
 	
-	if (!EXTRA->textEditor)
-		EXTRA->textEditor = (t_object*)object_new(_sym_nobox, _sym_jed, x, 0);
+	// choose object to edit : default the cuelist
+	EXTRA->toEdit = x->wrappedObject;
+	EXTRA->cueName = kTTSymEmpty;
 	
-	if (!EXTRA->textSize) {
-		EXTRA->textSize = 4096;
-		EXTRA->text = (char*)malloc(sizeof(char) * EXTRA->textSize);
+	if (argc && argv) {
+		if (atom_gettype(argv) == A_SYM) {
+
+			// get cue object table
+			x->wrappedObject->getAttributeValue(TT("cues"), v);
+			v.get(0, (TTPtr*)&allCues);
+			
+			if (allCues) {
+				
+				// get cue to edit
+				if (!allCues->lookup(TT(atom_getsym(argv)->s_name), v)) {
+					
+					// edit a cue
+					v.get(0, (TTPtr*)&EXTRA->toEdit);
+					EXTRA->cueName = TT(atom_getsym(argv)->s_name);
+				}
+				else {
+					object_error((ObjectPtr)x, "%s does'nt exist", atom_getsym(argv)->s_name);
+					return;
+				}
+			}
+		}
 	}
-	EXTRA->text[0] = 0;
 	
-	critical_enter(0);
-	// TODO : fill the editor
-	/*
-	 for (i = subscriber->begin(); i != subscriber->end(); ++i) {
-	 t = *i;
-	 if (t->type == jps_subscribe_parameter) {
-	 long ac = NULL;
-	 t_atom* av = NULL;
-	 
-	 object_attr_getvalueof(t->object, jps_value, &ac, &av); // get
-	 atom_gettext(ac, av, &textsize, &text, 0);
-	 
-	 // this is a really lame way to do this...
-	 if (strlen(x->text) > (x->textSize - 1024)) {
-	 x->textSize += 4096;
-	 x->text = (char*)realloc(x->text, x->textSize);
-	 }
-	 
-	 strncat_zero(x->text, x->osc_name->s_name, x->textSize);
-	 strncat_zero(x->text, "/", x->textSize);
-	 strncat_zero(x->text, t->name->s_name, x->textSize);
-	 strncat_zero(x->text, " ", x->textSize);
-	 strncat_zero(x->text, text, x->textSize);
-	 strncat_zero(x->text, "\n", x->textSize);
-	 
-	 sysmem_freeptr(text);
-	 text = NULL;
-	 textsize = 0;
-	 }
-	 }
-	 */
-	critical_exit(0);
-	
-	// TODO : pass the buffer
-	object_method(EXTRA->textEditor, _sym_settext, EXTRA->text, _sym_utf_8);
-	object_attr_setchar(EXTRA->textEditor, gensym("scratch"), 1);
-	object_attr_setsym(EXTRA->textEditor, _sym_title, gensym("jamoma module state"));
-	
-	sysmem_freeptr(text);
+	// only one editor can be open in the same time
+	if (!EXTRA->textEditor) {
+		
+		EXTRA->textEditor = (t_object*)object_new(_sym_nobox, _sym_jed, x, 0);
+		
+		buffer = new TTString();
+		
+		// get the buffer handler
+		tterr = x->internals->lookup(TT("BufferHandler"), o);
+		
+		if (!tterr) {
+			
+			o.get(0, (TTPtr*)&aBufferHandler);
+			
+			critical_enter(0);
+			o = TTValue(TTPtr(EXTRA->toEdit));
+			aBufferHandler->setAttributeValue(kTTSym_object, o);
+			args = TTValue((TTPtr)buffer);
+			tterr = aBufferHandler->sendMessage(TT("Write"), args, kTTValNONE);
+			critical_exit(0);
+		}
+		
+		// pass the buffer to the editor
+		object_method(EXTRA->textEditor, _sym_settext, buffer->c_str(), _sym_utf_8);
+		object_attr_setchar(EXTRA->textEditor, gensym("scratch"), 1);
+		
+		snprintf(title, MAX_FILENAME_CHARS, "cuelist editor");
+		object_attr_setsym(EXTRA->textEditor, _sym_title, gensym(title));
+		
+		buffer->clear();
+		delete buffer;
+		buffer = NULL;
+	}
 }
 
 void cue_edclose(TTPtr self, char **text, long size)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
+	EXTRA->text = new TTString(*text);
 	EXTRA->textEditor = NULL;
+	
+	defer_low((ObjectPtr)x, (method)cue_doedit, NULL, 0, NULL);
+}
+
+void cue_doedit(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTBufferHandlerPtr	aBufferHandler = NULL;
+	TTValue				o, args;
+	TTErr				tterr;
+	
+	// get the buffer handler
+	tterr = x->internals->lookup(TT("BufferHandler"), o);
+	
+	if (!tterr) {
+		
+		o.get(0, (TTPtr*)&aBufferHandler);
+		
+		critical_enter(0);
+		args = TTValue((TTPtr)EXTRA->text);
+		tterr = aBufferHandler->sendMessage(TT("Read"), args, kTTValNONE);
+		critical_exit(0);
+		
+		// recall the current
+		if (EXTRA->cueName != kTTSymEmpty)
+			x->wrappedObject->sendMessage(TT("Recall"), EXTRA->cueName, kTTValNONE);
+		
+		if (!tterr)
+			object_obex_dumpout(self, _sym_read, 0, NULL);
+		else
+			object_obex_dumpout(self, _sym_error, 0, NULL);
+	}
+	
+	delete EXTRA->text;
+	EXTRA->text = NULL;
+	EXTRA->textEditor = NULL;
+	EXTRA->toEdit = x->wrappedObject;
+	EXTRA->cueName = kTTSymEmpty;
 }

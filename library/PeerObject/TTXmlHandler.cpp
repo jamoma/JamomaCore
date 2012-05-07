@@ -25,7 +25,9 @@ mXmlSchemaLocation(TT("'http://jamoma.org/ file:jamoma.xsd'")),
 mWriter(NULL),
 mReader(NULL),
 mIsWriting(false),
-mIsReading(false)
+mIsReading(false),
+mXmlNodeName(kTTSymEmpty),
+mXmlNodeValue(kTTValNONE)
 {
 	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.getSize() == 0);
 	
@@ -137,8 +139,11 @@ TTErr TTXmlHandler::WriteAgain()
 
 TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 {
+	TTUInt8				xType;
 	const xmlChar		*xName = 0;
+	const xmlChar		*xValue = 0;
 	TTObjectPtr			aTTObject;
+	TTSymbolPtr			lastNodeName;
 	TTValue				v;
 	int					ret;
 	
@@ -163,34 +168,85 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 			mReader = xmlReaderForFile(mFilePath->getCString(), NULL, 0);
 			if (mReader != NULL) {
 				
+				// Start reading
+				mIsReading = true;
+				
 				ret = xmlTextReaderRead(mReader);
 				while (ret == 1) {
 					
-					// Get the name of the XML node
-					xName = xmlTextReaderName(mReader);
-					if (xName == NULL)
-						break;
-					mXmlNodeName = TT((char*)xName);
-					xmlFree((void*)xName);
+					// Get the type of the XML node
+					xType = xmlTextReaderNodeType(mReader);
 					
-					// Header node
-					if (mXmlNodeName == mHeaderNodeName) {
+					// Keep element (1) and comment (8) and end element (15) nodes
+					if (xType == 1 || xType == 8 || xType == 15) {
 						
-						// Starting
-						if (!mIsReading) {
-							mIsReading = true;
-							mXmlNodeName = TT("start");
-						}
-						// Ending
-						else {
-							mIsReading = false;
-							mXmlNodeName = TT("end");
-						}
+						switch (xType) {
+							
+							case 1: // For element node
+								
+								// Get the node name
+								xName = xmlTextReaderName(mReader);
+								if (xName == NULL)
+									break;
+								mXmlNodeName = TT((char*)xName);
+								xmlFree((void*)xName);
+								
+								// to filter one line element
+								lastNodeName = mXmlNodeName;
+								
+								// replace header node name by start
+								if (mXmlNodeName == mHeaderNodeName) mXmlNodeName = kTTSym_start;
+								
+								// Get the node value
+								xValue = xmlTextReaderReadString(mReader);
+								fromXmlChar(xValue, mXmlNodeValue);
+								if (xValue)	xmlFree((void*)xValue);
+								
+								break;
+								
+							case 15: // For end element node
+								
+								// Get the node name
+								xName = xmlTextReaderName(mReader);
+								if (xName == NULL)
+									break;
+								mXmlNodeName = TT((char*)xName);
+								xmlFree((void*)xName);
+								
+								// filter one line element
+								if (mXmlNodeName == lastNodeName) {
+									ret = xmlTextReaderRead(mReader);
+									continue;
+								}
+								
+								// replace header node name by stop
+								if (mXmlNodeName == mHeaderNodeName) mXmlNodeName = kTTSym_stop;
+								
+								// Set the node value
+								mXmlNodeValue = kTTValNONE;
+								
+								break;
+								
+							case 8: // For comment node
+								
+								// Set the node name
+								mXmlNodeName = kTTSym_comment;
+								
+								// Get the node value
+								xValue = xmlTextReaderValue(mReader);
+								fromXmlChar(xValue, mXmlNodeValue, YES);
+								if (xValue)	xmlFree((void*)xValue);
+								break;
+								
+							default:
+								break;
+						}	
+						
+						// process the mObject parsing on this node
+						v.append((TTPtr)this);
+						aTTObject->sendMessage(TT("ReadFromXml"), v, kTTValNONE);
 					}
-					
-					v.append((TTPtr)this);
-					aTTObject->sendMessage(TT("ReadFromXml"), v, kTTValNONE);
-					
+						
 					// next node
 					ret = xmlTextReaderRead(mReader);
 				}
@@ -198,6 +254,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 				if (ret != 0)
 					;// TODO : failed to parse
 				
+				// End reading
 				xmlFreeTextReader(mReader);
 				mIsReading = false;
 				
@@ -228,21 +285,56 @@ TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuo
 {
 	TTString cString;
 	
+	v.clear();
+	
 	if (xCh) {
 		
-		if (addQuote) {
-			cString = TTString("\"");
-			cString += (char*)xCh;
-			cString += "\"";
-		}
-		else
-			cString = TTString((char*)xCh);
+		if (xCh[0] != '\n' && xCh[0] != '\0') {
 		
-		v.clear();
-		v = cString;
-		v.fromString();
-		xmlFree((void*)xCh);
-		return kTTErrNone;
+			if (addQuote) {
+				cString = TTString("\"");
+				cString += (char*)xCh;
+				cString += "\"";
+			}
+			else
+				cString = TTString((char*)xCh);
+			
+			v = cString;
+			v.fromString();
+			xmlFree((void*)xCh);
+			return kTTErrNone;
+		}
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTXmlHandler::getXmlAttribute(TTSymbolPtr attributeName, TTValue& returnedValue)
+{
+	TTErr err;
+	
+	if (xmlTextReaderMoveToAttribute(mReader, BAD_CAST attributeName->getCString()) == 1) {
+		
+		return fromXmlChar(xmlTextReaderValue(mReader), returnedValue);
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTValue& returnedValue)
+{
+	TTValue v;
+	TTErr	err;
+	
+	if (xmlTextReaderMoveToNextAttribute(mReader) == 1) {
+		
+		fromXmlChar(xmlTextReaderName(mReader), v);
+		
+		if (v.getType() == kTypeSymbol) {
+			
+			v.get(0, returnedAttributeName);
+			return fromXmlChar(xmlTextReaderValue(mReader), returnedValue);
+		}
 	}
 	
 	return kTTErrGeneric;

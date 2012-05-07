@@ -28,89 +28,51 @@ class TTMODULAR_EXPORT TTCueManager : public TTDataObject
 	
 private:
 	
-	TTValue				mAddresses;						///< ATTRIBUTE : all addresses to store into presets
 	TTValue				mNames;							///< ATTRIBUTE : all cue names
-	TTValue				mCurrent;						///< ATTRIBUTE : <index, name, ramp, comment> of the current cue
-	TTValue				mPrevious;						///< ATTRIBUTE : <index, name, ramp, comment> of the previous cue
-	TTValue				mNext;							///< ATTRIBUTE : <index, name, ramp, comment> of the next cue
-
-	TTValue				mPresetArguments;				///< arguments for preset creation (see TTPreset constructor)
-	TTListPtr			mCueList;						///< a list containing <TTCuePtr> sorted by Number attribute
-	TTUInt8				mCurrentIndex;					///< ATTRIBUTE : the position of the current cue in the list (from 1 to list size, 0 mean no current index)
+	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current cue name
+	TTValue				mNamespace;						///< ATTRIBUTE : the set of addresses of the current cue
+	
+	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
+	TTCuePtr			mCurrentCue;					///< the current cue
 	
 	/** */
-	TTErr setAddresses(const TTValue& value);
+	TTErr	setNames(const TTValue& value);
 	
 	/** */
-	TTErr New();
+	TTErr	setNamespace(const TTValue& value);
 	
 	/** */
-	TTErr Store(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	New();
 	
-	/** */
-	TTErr StoreCurrent(const TTValue& inputValue, TTValue& outputValue);
+	/** Store a cue : 
+		name + absolute address list : create a new cue.
+		absolute address list : store into the current cue using the given absolute address list */
+	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** */
-	TTErr StoreNext(const TTValue& inputValue, TTValue& outputValue);
+	/** Recall a cue : 
+		name : recall the cue.
+		nothing : recall the current cue */
+	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** */
-	TTErr StorePrevious(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr Recall(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr RecallCurrent();
-	
-	/** */
-	TTErr RecallNext();
-	
-	/** */
-	TTErr RecallPrevious();
-	
-	/** */
-	TTErr Remove(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr RemoveCurrent();
-	
-	/** */
-	TTErr RemoveNext();
-	
-	/** */
-	TTErr RemovePrevious();
+	/** Remove a cue : 
+		name : remove the cue.
+		nothing : remove the current cue */
+	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
-	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTTextHandler */
-	 TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
-	 TTErr ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+	
+	/**  needed to be handled by a TTBufferHandler */
+	TTErr	WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr getNames(TTValue& value);
-	
-	/** */
-	TTErr getCurrent(TTValue& value);
-	
-	/** */
-	TTErr getPrevious(TTValue& value);
-	
-	/** */
-	TTErr getNext(TTValue& value);
-	
-	/** */
-	TTCuePtr getCueCurrent();
-	
-	/** */
-	TTCuePtr getCueWithName(TTSymbolPtr name);
-	
-	/** */
-	TTErr refreshList();
-	
-	/** */
-	TTErr notifyNamesObservers();
+	TTErr	notifyNamesObservers();
 };
 
 typedef TTCueManager* TTCueManagerPtr;

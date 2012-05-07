@@ -651,7 +651,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	// switch on the name of the XML node
 	
 	// starts reading
-	if (aXmlHandler->mXmlNodeName == TT("start")) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
 		
 		mCurrentApplication = NULL;
 		
@@ -676,7 +676,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	}
 	
 	// ends reading
-	if (aXmlHandler->mXmlNodeName == TT("end")) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
 		
 		// start protocol reception threads
 		ProtocolRun(v, kTTValNONE);

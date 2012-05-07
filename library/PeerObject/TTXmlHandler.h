@@ -59,11 +59,11 @@ public:	// use public for recursive access
 	TTSymbolPtr			mXmlSchemaInstance;				///< the URL of the schema instance location
 	TTSymbolPtr			mXmlSchemaLocation;				///< the URL of the xml schema location
 
-	
 	xmlTextWriterPtr	mWriter;
 	xmlTextReaderPtr	mReader;
 	
-	TTSymbolPtr			mXmlNodeName;					///< the Node being read by the Reader
+	TTSymbolPtr			mXmlNodeName;					///< the Node name being read by the Reader
+	TTValue				mXmlNodeValue;					///< the Node value being read by the Reader
 	
 
 	/** TTXmlWriter could takes absolute file path or nothing.
@@ -83,6 +83,12 @@ public:	// use public for recursive access
 	
 	/** TTXmlReader make a TTValue from an xmlChar* using the fromString method (see in TTValue.h) */
 	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
+	
+	/** Get the value of an xml element attribute */
+	TTErr getXmlAttribute(TTSymbolPtr attributeName, TTValue& returnedValue);
+	
+	/** Get the value of the next xml element attribute */
+	TTErr getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTValue& returnedValue);
 	
 private :
 	

@@ -15,171 +15,67 @@
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
 mNames(kTTValNONE),
-mCurrent(kTTValNONE),
-mPrevious(kTTValNONE),
-mNext(kTTValNONE),
-mPresetArguments(kTTValNONE),
-mPresetList(NULL),
-mCurrentIndex(0)
+mCurrent(kTTSymEmpty),
+mPresets(NULL),
+mCurrentPreset(NULL)
 {
 	TTValue v;
 	
-	mPresetArguments = arguments;
-	mPresetArguments.append((TTPtr)this);	// append the preset manager object as argument
-	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
-	addAttributeWithGetter(Names, kTypeLocalValue);
-	addAttributeProperty(Names, readOnly, YES);
+	addAttributeWithSetter(Names, kTypeLocalValue);
 	
-	addAttributeWithGetter(Current, kTypeLocalValue);
+	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
 	
-	addAttributeWithGetter(Previous, kTypeLocalValue);
-	addAttributeProperty(Previous, readOnly, YES);
-	
-	addAttributeWithGetter(Next, kTypeLocalValue);
-	addAttributeProperty(Next, readOnly, YES);
+	addAttribute(Presets, kTypePointer);
+	addAttributeProperty(Presets, readOnly, YES);
+	addAttributeProperty(Presets, hidden, YES);
 	
 	addMessage(New);
 	
 	addMessageWithArguments(Store);
-	addMessage(StoreCurrent);
-	addMessageWithArguments(StoreNext);
-	addMessageWithArguments(StorePrevious);
-
 	addMessageWithArguments(Recall);
-	addMessage(RecallCurrent);
-	addMessage(RecallNext);
-	addMessage(RecallPrevious);
-	
 	addMessageWithArguments(Remove);
-	addMessage(RemoveCurrent);
-	addMessage(RemoveNext);
-	addMessage(RemovePrevious);
 
 	// needed to be handled by a TTXmlHandler
 	addMessageWithArguments(WriteAsXml);
 	addMessageProperty(WriteAsXml, hidden, YES);
-	
 	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
-	mPresetList = new TTList();
+	// needed to be handled by a TTTextHandler
+	addMessageWithArguments(WriteAsText);
+	addMessageProperty(WriteAsText, hidden, YES);
+	addMessageWithArguments(ReadFromText);
+	addMessageProperty(ReadFromText, hidden, YES);
+	
+	// needed to be handled by a TTBufferHandler
+	addMessageWithArguments(WriteAsBuffer);
+	addMessageProperty(WriteAsBuffer, hidden, YES);
+	addMessageWithArguments(ReadFromBuffer);
+	addMessageProperty(ReadFromBuffer, hidden, YES);
+	
+	mPresets = new TTHash();
 }
 
 TTPresetManager::~TTPresetManager()
 {
 	TTPresetPtr oldPreset;
-	TTCallbackPtr oldCallback = NULL;
+	TTSymbolPtr presetName;
+	TTValue		v, names;
+	TTUInt32	i;
 	
-	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
-		mPresetList->current().get(0, (TTPtr*)&oldPreset);
+	mPresets->getKeys(names);
+	for (i = 0; i < names.getSize(); i++) {
+		names.get(i, &presetName);
+		mPresets->lookup(presetName, v);
+		v.get(0, (TTPtr*)&oldPreset);
 		TTObjectRelease(TTObjectHandle(&oldPreset));
 	}
 	
-	delete mPresetList;
-	mPresetList = NULL;
-	
-	// if the arguments are not only himself
-	if (mPresetArguments.getSize() > 1) {
-	
-		mPresetArguments.get(0, (TTPtr*)&oldCallback);
-		if (oldCallback) {
-			delete (TTValuePtr)oldCallback->getBaton();
-			TTObjectRelease(TTObjectHandle(&oldCallback));
-		}
-		
-		mPresetArguments.get(1, (TTPtr*)&oldCallback);
-		if (oldCallback) {
-			delete (TTValuePtr)oldCallback->getBaton();
-			TTObjectRelease(TTObjectHandle(&oldCallback));
-		}
-		
-		mPresetArguments.get(2, (TTPtr*)&oldCallback);
-		if (oldCallback) {
-			delete (TTValuePtr)oldCallback->getBaton();
-			TTObjectRelease(TTObjectHandle(&oldCallback));
-		}
-		
-		mPresetArguments.get(3, (TTPtr*)&oldCallback);
-		if (oldCallback) {
-			delete (TTValuePtr)oldCallback->getBaton();
-			TTObjectRelease(TTObjectHandle(&oldCallback));
-		}
-		
-		mPresetArguments.get(4, (TTPtr*)&oldCallback);
-		if (oldCallback) {
-			delete (TTValuePtr)oldCallback->getBaton();
-			TTObjectRelease(TTObjectHandle(&oldCallback));
-		}
-	}
-}
-
-TTErr TTPresetManager::getNames(TTValue& value)
-{	
-	TTPresetPtr aPreset;
-	
-	if (mPresetList->isEmpty())
-		value = kTTSymEmpty;
-	else
-		for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
-			mPresetList->current().get(0, (TTPtr*)&aPreset);
-			value.append(aPreset->mName);
-		}
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::getCurrent(TTValue& value)
-{	
-	TTPresetPtr aPreset;
-	
-	aPreset = getPresetCurrent();
-	
-	if (aPreset) {
-		value.append(mCurrentIndex);
-		value.append(aPreset->mName);
-		value.append(aPreset->mComment);
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::getPrevious(TTValue& value)
-{	
-	TTPresetPtr previousPreset;
-	
-	mCurrentIndex--;
-	previousPreset = getPresetCurrent();
-	
-	if (previousPreset) {
-		value.append(mCurrentIndex);
-		value.append(previousPreset->mName);
-		value.append(previousPreset->mComment);
-	}
-	
-	mCurrentIndex++;
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::getNext(TTValue& value)
-{	
-	TTPresetPtr nextPreset;
-	
-	mCurrentIndex++;
-	nextPreset = getPresetCurrent();
-	
-	if (nextPreset) {
-		value.append(mCurrentIndex);
-		value.append(nextPreset->mName);
-		value.append(nextPreset->mComment);
-	}
-	
-	mCurrentIndex--;
-	
-	return kTTErrNone;
+	delete mPresets;
+	mPresets = NULL;
 }
 
 TTErr TTPresetManager::setAddress(const TTValue& value)
@@ -191,350 +87,168 @@ TTErr TTPresetManager::setAddress(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTPresetManager::setNames(const TTValue& value)
+{	
+	TTSymbolPtr name;
+	TTValue		v, newNames;
+	
+	// check if each name is part of the list
+	for (TTUInt32 i=0; i<value.getSize(); i++) {
+		
+		value.get(i, &name);
+		
+		if (!mPresets->lookup(name, v))
+			newNames.append(name);
+	}
+	
+	// if the newNames size is equal to the current name list 
+	if (newNames.getSize() != mNames.getSize())
+		return kTTErrGeneric;
+
+	mNames = newNames;
+	return kTTErrNone;
+}
+
 TTErr TTPresetManager::New()
 {
 	TTPresetPtr oldPreset;
+	TTSymbolPtr presetName;
+	TTValue		v, names;
+	TTUInt32	i;
 	
-	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
-		mPresetList->current().get(0, (TTPtr*)&oldPreset);
-		TTObjectRelease(TTObjectHandle(&oldPreset));
+	mPresets->getKeys(names);
+	if (names.getSize()) {
+		
+		for (i = 0; i < names.getSize(); i++) {
+			
+			names.get(i, &presetName);
+			mPresets->lookup(presetName, v);
+			v.get(0, (TTPtr*)&oldPreset);
+			TTObjectRelease(TTObjectHandle(&oldPreset));
+		}
+		
+		delete mPresets;
+		mPresets = new TTHash();
+		mCurrentPreset = NULL;
+		mCurrent = kTTSymEmpty;
+		mNames = kTTValNONE;
+		
+		notifyNamesObservers();
 	}
-	
-	delete mPresetList;
-	mPresetList = NULL;
-	mPresetList = new TTList();
-	mCurrentIndex = 0;
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
 	
 	return kTTErrNone;
 }
 
 TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt8		index;
-	TTSymbolPtr	presetName = kTTSymEmpty;
-	TTPresetPtr	newPreset = NULL;
-	TTValue		args;
+	TTValue v;
 	
-	// First arg : index
-	if (inputValue.getType(0) == kTypeInt32) {
-		inputValue.get(0, index);
-		if (index < 1)
-			return kTTErrGeneric;
+	// get preset name
+	if (inputValue.getType(0) == kTypeSymbol)
+		inputValue.get(0, &mCurrent);
+	
+	if (mCurrent == kTTSymEmpty)
+		return kTTErrGeneric;
+	
+	// don't create two presets with the same name
+	if (mPresets->lookup(mCurrent, v)) {
+		
+		// Create a new preset
+		mCurrentPreset = NULL;
+		TTObjectInstantiate(TT("Preset"), TTObjectHandle(&mCurrentPreset), kTTValNONE);
+	
+		mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
+		mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
+		
+		// Append the new preset
+		v = TTValue((TTPtr)mCurrentPreset);
+		mPresets->append(mCurrent, v);
+		mNames.append(mCurrent);
+		
+		notifyNamesObservers();
 	}
-	else
-		return kTTErrGeneric;
-	
-	// Second arg : preset name
-	if (inputValue.getType(1) == kTypeSymbol) {
-		inputValue.get(1, &presetName);
-		if (presetName == kTTSymEmpty)
-			return kTTErrGeneric;
+	else {
+		v.get(0, (TTPtr*)&mCurrentPreset);
+		mCurrentPreset->sendMessage(TT("Clear"));
 	}
-	else
-		return kTTErrGeneric;
 	
-	// Create a new preset
-	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
-	
-	newPreset->setAttributeValue(kTTSym_address, mAddress);
-	newPreset->setAttributeValue(kTTSym_name, presetName);
-	
-	newPreset->sendMessage(kTTSym_Fill);
-	
-	// Insert at index
-	mCurrentIndex = index;
-	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::StoreCurrent()
-{
-	TTPresetPtr currentPreset;
-	
-	currentPreset = getPresetCurrent();
-	if (!currentPreset)
-		return kTTErrGeneric;
-	
-	currentPreset->sendMessage(TT("Clear"));
-	currentPreset->sendMessage(kTTSym_Fill);
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::StoreNext(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTSymbolPtr	presetName = kTTSymEmpty;
-	TTPresetPtr	newPreset = NULL;
-	TTValue		args;
-	
-	// First arg : preset name
-	if (inputValue.getType() == kTypeSymbol) {
-		inputValue.get(0, &presetName);
-		if (presetName == kTTSymEmpty)
-			return kTTErrGeneric;
-	}
-	else
-		return kTTErrGeneric;
-	
-	// Create a new preset
-	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
-	
-	newPreset->setAttributeValue(kTTSym_address, mAddress);
-	newPreset->setAttributeValue(kTTSym_name, presetName);
-	
-	newPreset->sendMessage(kTTSym_Fill);
-	
-	// Insert AFTER current
-	mCurrentIndex++;
-	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::StorePrevious(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTSymbolPtr	presetName = kTTSymEmpty;
-	TTPresetPtr	newPreset = NULL;
-	TTValue		args;
-	
-	// First arg : preset name
-	if (inputValue.getType() == kTypeSymbol) {
-		inputValue.get(0, &presetName);
-		if (presetName == kTTSymEmpty)
-			return kTTErrGeneric;
-	}
-	else
-		return kTTErrGeneric;
-	
-	// Create a new preset
-	TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
-	
-	newPreset->setAttributeValue(kTTSym_address, mAddress);
-	newPreset->setAttributeValue(kTTSym_name, presetName);
-	
-	newPreset->sendMessage(kTTSym_Fill);
-	
-	// Insert BEFORE current
-	mCurrentIndex--;
-	if (mCurrentIndex < 1) 
-		mCurrentIndex = 1;
-	mPresetList->insert(mCurrentIndex-1, (TTPtr)newPreset);		// -1 because user starts at 1 and TTList starts at 0
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
+	mCurrentPreset->sendMessage(TT("Store"));
 	
 	return kTTErrNone;
 }
 
 TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt8		index;
-	TTSymbolPtr	presetName = kTTSymEmpty;
-	TTPresetPtr currentPreset;
+	TTValue		v;
 	
-	// First arg could be an index
-	if (inputValue.getType() == kTypeInt32) {
-		inputValue.get(0, index);
-		if (index == 0)
-			return kTTErrGeneric;
+	// get preset name
+	if (inputValue.getType() == kTypeSymbol)
+		inputValue.get(0, &mCurrent);
+	
+	// if preset exists
+	if (!mPresets->lookup(mCurrent, v)) {
 		
-		mCurrentIndex = index;
-		currentPreset = getPresetCurrent();
+		v.get(0, (TTPtr*)&mCurrentPreset);
+		
+		if (mCurrentPreset)
+			return mCurrentPreset->sendMessage(TT("Recall"));
 	}
-	// or a preset name
-	else if (inputValue.getType() == kTypeSymbol) {
-		inputValue.get(0, &presetName);
-		if (presetName == kTTSymEmpty)
-			return kTTErrGeneric;
-		
-		currentPreset = getPresetWithName(presetName);
-	}
-	else
-		return kTTErrGeneric;
-	
-	// Is the asked preset exists
-	if (!currentPreset)
-		return kTTErrGeneric;
-	
-	currentPreset->sendMessage(kTTSym_Send);
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::RecallCurrent()
-{
-	TTPresetPtr currentPreset;
-	
-	currentPreset = getPresetCurrent();
-	if (!currentPreset)
-		return kTTErrGeneric;
-	
-	currentPreset->sendMessage(kTTSym_Send);
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::RecallNext()
-{
-	TTPresetPtr nextPreset;
-	
-	mCurrentIndex++;
-	nextPreset = getPresetCurrent();
-	if (!nextPreset)
-		return kTTErrGeneric;
-		
-	nextPreset->sendMessage(kTTSym_Send);
-			
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::RecallPrevious()
-{
-	TTPresetPtr previousPreset;
-	
-	mCurrentIndex--;
-	previousPreset = getPresetCurrent();
-	if (!previousPreset)
-		return kTTErrGeneric;
-	
-	previousPreset->sendMessage(kTTSym_Send);
-	
-	return kTTErrNone;
 }
 
 TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt8		index;
-	TTSymbolPtr	presetName = kTTSymEmpty;
-	TTPresetPtr currentPreset;
+	TTSymbolPtr name;
+	TTValue		v, newNames;
 	
-	// First arg could be an index
-	if (inputValue.getType() == kTypeInt32) {
-		inputValue.get(0, index);
-		if (index == 0)
-			return kTTErrGeneric;
+	// get preset name
+	if (inputValue.getType() == kTypeSymbol)
+		inputValue.get(0, &mCurrent);
+	
+	// if preset exists
+	if (!mPresets->lookup(mCurrent, v)) {
 		
-		mCurrentIndex = index;
-		currentPreset = getPresetCurrent();
-	}
-	// or a preset name
-	else if (inputValue.getType() == kTypeSymbol) {
-		inputValue.get(0, &presetName);
-		if (presetName == kTTSymEmpty)
-			return kTTErrGeneric;
+		v.get(0, (TTPtr*)&mCurrentPreset);
+		TTObjectRelease(TTObjectHandle(&mCurrentPreset));
+		mPresets->remove(mCurrent);
 		
-		currentPreset = getPresetWithName(presetName);
+		// remove the name without changing the order
+		for (TTUInt32 i=0; i<mNames.getSize(); i++) {
+			
+			mNames.get(i, &name);
+			
+			if (name != mCurrent)
+				newNames.append(name);
+		}
+		
+		mCurrentPreset = NULL;
+		mCurrent = kTTSymEmpty;
+		mNames = newNames;
+		
+		notifyNamesObservers();
+		
+		return kTTErrNone;
 	}
-	else
-		return kTTErrGeneric;
 	
-	// Is the asked preset exists
-	if (!currentPreset)
-		return kTTErrGeneric;
-	
-	mPresetList->remove(TTValue((TTPtr)currentPreset));
-	TTObjectRelease(TTObjectHandle(&currentPreset));
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::RemoveCurrent()
-{
-	TTPresetPtr currentPreset;
-	
-	currentPreset = getPresetCurrent();
-	if (!currentPreset)
-		return kTTErrGeneric;
-	
-	mPresetList->remove(TTValue((TTPtr)currentPreset));
-	TTObjectRelease(TTObjectHandle(&currentPreset));
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::RemoveNext()
-{
-	TTPresetPtr nextPreset;
-	
-	mCurrentIndex++;
-	nextPreset = getPresetCurrent();
-	if (!nextPreset)
-		return kTTErrGeneric;
-	
-	mPresetList->remove(TTValue((TTPtr)nextPreset));
-	TTObjectRelease(TTObjectHandle(&nextPreset));
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::RemovePrevious()
-{
-	TTPresetPtr previousPreset;
-	
-	mCurrentIndex--;
-	previousPreset = getPresetCurrent();
-	if (!previousPreset)
-		return kTTErrGeneric;
-	
-	mPresetList->remove(TTValue((TTPtr)previousPreset));
-	TTObjectRelease(TTObjectHandle(&previousPreset));
-	
-	// notify observers of the preset list
-	notifyNamesObservers();
-	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
-	TTPresetPtr			aPreset;
+	TTSymbolPtr			presetName;
     TTValue				v;
-	TTUInt8				i;
+	TTUInt32			i;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
-    xmlTextWriterWriteComment(aXmlHandler->mWriter, BAD_CAST "TODO : TTContainer Description at mAddress");
-	
-	// Check if current preset exists
-	i = 1;
-	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
+	for (i = 0; i < mNames.getSize(); i++) {
 		
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "preset");
-		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "number", "%ld", BAD_CAST i);
-
-		mPresetList->current().get(0, (TTPtr*)&aPreset);
+		mNames.get(i, &presetName);
+		if (!mPresets->lookup(presetName, v)) {
 		
-		v = TTValue(TTPtr(aPreset));
-		aXmlHandler->setAttributeValue(kTTSym_object, v);
-		aXmlHandler->sendMessage(TT("Write"));
-		
-		// End a preset
-		xmlTextWriterEndElement(aXmlHandler->mWriter);
-		
-		i++;
+			aXmlHandler->setAttributeValue(kTTSym_object, v);
+			aXmlHandler->sendMessage(TT("Write"));
+		}
 	}
     	
 	return kTTErrNone;
@@ -543,10 +257,9 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
-	TTSymbolPtr		presetName;
-	TTUInt8			presetNumber;
-	TTPresetPtr		newPreset, currentPreset;
-	TTValue			v, args;
+	TTSymbolPtr		flagName;
+	TTPresetPtr		aPreset;
+	TTValue			v;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
@@ -554,87 +267,93 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	
 	// Switch on the name of the XML node
 	
-	// Starts reading
-	if (aXmlHandler->mXmlNodeName == TT("start")) {
+	// Starts file reading : clear the preset list
+	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
 		New();
 		return kTTErrNone;
 	}
 	
-	// Ends reading
-	if (aXmlHandler->mXmlNodeName == TT("end")) {
-		mCurrentIndex = 1;
+	// Ends file reading : bind on first preset
+	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
 		
-		// notify observers of the preset list
+		mNames.get(0, &mCurrent);
+		if (!mPresets->lookup(mCurrent, v))
+			v.get(0, (TTPtr*)&mCurrentPreset);
+		
 		notifyNamesObservers();
 		
 		return kTTErrNone;
 	}
-	
-	// Comment Node
-	if (aXmlHandler->mXmlNodeName == TT("#comment"))
-		return kTTErrNone;
 
-	// Preset node
-	if (aXmlHandler->mXmlNodeName == TT("preset")) {
+	// Flag node :
+	if (aXmlHandler->mXmlNodeName == kTTSym_flag) {
 		
-		currentPreset = getPresetCurrent();
-		presetName = kTTSymEmpty;
-		presetNumber = 0;
-		
-		// get number
-		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "number") == 1) {
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-			if (v.getType() == kTypeInt32)
-				v.get(0, presetNumber);
+		// Get flag name
+		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v)) {
+			
+			if (v.getType() == kTypeSymbol) {
+				
+				v.get(0, &flagName);
+				
+				// if it is a preset flag
+				if (flagName == TT("preset")) {
+					
+					// get preset name
+					aXmlHandler->mXmlNodeValue.get(0, &mCurrent);
+					
+					// Create a new preset
+					mCurrentPreset = NULL;
+					TTObjectInstantiate(TT("Preset"), TTObjectHandle(&mCurrentPreset), kTTValNONE);
+					
+					mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
+					mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
+					
+					v = TTValue((TTPtr)mCurrentPreset);
+					mPresets->append(mCurrent, v);
+					mNames.append(mCurrent);
+				}
+			}
+			
+			// go back to the element to allow the preset to parse it
+			xmlTextReaderMoveToElement(aXmlHandler->mReader);
 		}
-		
-		// get name
-		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "name") == 1) {
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v, true);
-			if (v.getType() == kTypeSymbol)
-				v.get(0, &presetName);
-		}
-		
-		// Is it the beginning of a new preset or the end of one ?
-		if (currentPreset)
-			if (presetName == currentPreset->mName && presetNumber == mCurrentIndex)
-				return kTTErrNone;
-		
-		// Create a new preset
-		newPreset = NULL;
-		TTObjectInstantiate(TT("Preset"), TTObjectHandle(&newPreset), mPresetArguments);
-		
-		newPreset->setAttributeValue(kTTSym_address, mAddress);
-		newPreset->setAttributeValue(kTTSym_name, presetName);
-		
-		mPresetList->append((TTPtr)newPreset);
-		
-		mCurrentIndex++;
-		
-		return kTTErrNone;
 	}
 	
-	// if there is a current preset
-	currentPreset = getPresetCurrent();
-	if (!currentPreset)
+	// edit the current preset from the xml file using the XmlHandler
+	if (mCurrentPreset) {
+		
+		v = TTValue(TTPtr(mCurrentPreset));
+		aXmlHandler->setAttributeValue(kTTSym_object, v);
+		return aXmlHandler->sendMessage(TT("Read"));
+	}
+	else
 		return kTTErrGeneric;
-	
-	// fill the current preset by reading his content 
-	// from the xml file using the XmlHandler
-	v = TTValue(TTPtr(currentPreset));
-	aXmlHandler->setAttributeValue(kTTSym_object, v);
-	return aXmlHandler->sendMessage(TT("Read"));
 }
 
 TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTTextHandlerPtr aTextHandler;
-	ofstream		*file;
+	TTTextHandlerPtr	aTextHandler;
+	ofstream			*file;
+	TTSymbolPtr			presetName;
+    TTValue				v;
+	TTUInt32			i;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
 	file = aTextHandler->mWriter;
 	
-	*file << "TTPresetManager::WriteAsText -- TODO";
+	for (i = 0; i < mNames.getSize(); i++) {
+		
+		mNames.get(i, &presetName);
+		if (!mPresets->lookup(presetName, v)) {
+			
+			*file << "\n";
+			
+			aTextHandler->setAttributeValue(kTTSym_object, v);
+			aTextHandler->sendMessage(TT("Write"));
+			
+			*file << "\n";
+		}
+	}
 	
 	return kTTErrNone;
 }
@@ -652,97 +371,113 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 	return kTTErrNone;
 }
 
-TTPresetPtr TTPresetManager::getPresetCurrent()
+TTErr TTPresetManager::WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTPresetPtr	aPreset;
-	TTUInt8		i;
+	TTBufferHandlerPtr aBufferHandler;
+	TTString	*buffer;
+	TTSymbolPtr presetName;
+	TTValue		v;
 	
-	// Note : user starts at 1 and TTList starts at 0
+	inputValue.get(0, (TTPtr*)&aBufferHandler);
 	
-	if (mPresetList->isEmpty()) {
-		mCurrentIndex = 0;
-		return NULL;
-	}
+	buffer = aBufferHandler->mWriter;
 	
-	// if there are presets but no current
-	// always set the current on the first
-	if (mCurrentIndex < 1) {
-		mCurrentIndex = 1;
-		return NULL;
-	}
-	
-	// if the current index is higher 
-	if (mCurrentIndex > mPresetList->getSize()) {
-		mCurrentIndex = mPresetList->getSize();
-		return NULL;
-	}
-	
-	i = 1;
-	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
+	for (TTUInt32 i = 0; i < mNames.getSize(); i++) {
 		
-		mPresetList->current().get(0, (TTPtr*)&aPreset);
-		
-		if (i == mCurrentIndex)
-			break;
-
-		i++;
+		mNames.get(i, &presetName);
+		if (!mPresets->lookup(presetName, v)) {
+			
+			*buffer += "\n";
+			
+			aBufferHandler->setAttributeValue(kTTSym_object, v);
+			aBufferHandler->sendMessage(TT("Write"));
+		}
 	}
 	
-	mCurrentIndex = i;
-	return aPreset;
+	return kTTErrNone;
 }
 
-TTPresetPtr TTPresetManager::getPresetWithName(TTSymbolPtr name)
+TTErr TTPresetManager::ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTPresetPtr	aPreset;
-	TTValue		v;
-	TTSymbolPtr n;
-	TTUInt8		i;
-	TTBoolean	found;
+	TTBufferHandlerPtr aBufferHandler;
+	TTDictionaryPtr	line;
+	TTSymbolPtr		flagName;
+	TTValue			v;
 	
-	if (mPresetList->isEmpty()) {
-		mCurrentIndex = 0;
-		return NULL;
-	}
+	inputValue.get(0, (TTPtr*)&aBufferHandler);
 	
-	i = 1;
-	found = false;
-	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
-
-			mPresetList->current().get(0, (TTPtr*)&aPreset);
+	// if it is the first line :
+	if (aBufferHandler->mFirstLine)
+		New();
+	
+	// parse the buffer line into TTDictionary
+	line = TTScriptParseLine(*(aBufferHandler->mLine));
+	
+	if (line) {
+		
+		// replace the buffer line value by the parsed line dictionary
+		aBufferHandler->mLine = new TTValue((TTPtr)line);
+		
+		// match preset flag line : # (preset) name
+		if (line->getSchema() == kTTSym_flag) {
 			
-			aPreset->getAttributeValue(kTTSym_name, v);
-			v.get(0, &n);
-			if (n == name) {
-				found = true;
-				break;
+			line->lookup(kTTSym_name, v);
+			v.get(0, &flagName);
+			
+			if (flagName == TT("preset")) {
+				
+				// get preset name
+				if (!line->getValue(v)) {
+					
+					v.get(0, &mCurrent);
+					
+					// Create a new preset
+					mCurrentPreset = NULL;
+					TTObjectInstantiate(TT("Preset"), TTObjectHandle(&mCurrentPreset), kTTValNONE);
+					
+					mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
+					mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
+					
+					v = TTValue((TTPtr)mCurrentPreset);
+					mPresets->append(mCurrent, v);
+					mNames.append(mCurrent);
+				}
 			}
-			
-			i++;
 		}
+		
+		// edit the current preset with the line
+		if (mCurrentPreset) {
+			
+			v = TTValue(TTPtr(mCurrentPreset));
+			aBufferHandler->setAttributeValue(kTTSym_object, v);
+			aBufferHandler->sendMessage(TT("Read"));
+		}
+		
+		// if it is the last line : bind on the first preset
+		if (aBufferHandler->mLastLine) {
+			
+			mNames.get(0, &mCurrent);
+			if (!mPresets->lookup(mCurrent, v))
+				v.get(0, (TTPtr*)&mCurrentPreset);
+			
+			notifyNamesObservers();
+		}
+		
+		return kTTErrNone;
+	}
 	
-	if (found) {
-		mCurrentIndex = i;
-		return aPreset;
-	}
-	else {
-		mCurrentIndex = 0;
-		return NULL;
-	}
+	return kTTErrGeneric;
 }
 
 TTErr TTPresetManager::notifyNamesObservers()
 {
-	TTValue v;
 	TTAttributePtr	anAttribute = NULL;
 	TTErr			err;
 	
 	err = this->findAttribute(TT("names"), &anAttribute);
 	
-	if (!err) {
-		getNames(v);
-		anAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
-	}
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mNames);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }

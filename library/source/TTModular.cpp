@@ -28,6 +28,7 @@ void TTModularInit()
 		// register classes -- both internal and external
 		TTApplication::registerClass();
 		TTApplicationManager::registerClass();
+		TTBufferHandler::registerClass();
 		TTContainer::registerClass();
 		TTCue::registerClass();
 		TTCueManager::registerClass();
@@ -43,6 +44,7 @@ void TTModularInit()
 		TTPresetManager::registerClass();
 		TTReceiver::registerClass();
 		TTSender::registerClass();
+		TTScript::registerClass();
 		TTSubscriber::registerClass();
 		TTTextHandler::registerClass();
 		TTViewer::registerClass();
@@ -51,6 +53,20 @@ void TTModularInit()
 		// TODO: someday implement these so that we have project-scoped caches and don't stuff everything into the foundation?
 		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
+		
+		// to - this a very strange bug : the two first toString() parsing on number failed !?!
+		// so here are two parsing to avoid this strange bug for instant ...
+		TTString s;
+		TTValue v;
+		
+		s = "0.001";
+		v = s;
+		v.fromString();
+		
+		v.clear();
+		s = "1";
+		v = s;
+		v.fromString();
 		
 		// Create the Modular application manager with no application inside
 		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), kTTValNONE);

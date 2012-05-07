@@ -1089,7 +1089,7 @@ void ui_menu_qfn(t_ui *x)
 		ui_viewer_send(x, TT("preset/recall"), 1);
 	
 	else if (item->sym == gensym("Store Current Preset"))
-		ui_viewer_send(x, TT("preset/store/current"), kTTValNONE);
+		ui_viewer_send(x, TT("preset/store"), kTTValNONE);
 	
 	else if (item->sym == gensym("Store as Next Preset"))
 		ui_preset_store_next(x);

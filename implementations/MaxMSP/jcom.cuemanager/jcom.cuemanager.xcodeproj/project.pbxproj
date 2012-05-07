@@ -3,125 +3,70 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXFileReference section */
-		A75C3DE41518888000774BD7 /* jcom.cuemanager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.cuemanager.cpp; sourceTree = "<group>"; };
-		A75C3DE51518888000774BD7 /* jcom.cuemanager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.cuemanager.h; sourceTree = "<group>"; };
+		D2ED7A65155133C90026141C /* jcom.cuemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.cuemanager.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		A75C3DE31518886E00774BD7 /* Sources */ = {
+		08FB7794FE84155DC02AAC07 /* jcom.cuemanager */ = {
 			isa = PBXGroup;
 			children = (
-				A75C3DE41518888000774BD7 /* jcom.cuemanager.cpp */,
-				A75C3DE51518888000774BD7 /* jcom.cuemanager.h */,
+				D2ED7A65155133C90026141C /* jcom.cuemanager.cpp */,
 			);
-			name = Sources;
-			sourceTree = "<group>";
-		};
-		A7768C681518873200D38CC4 = {
-			isa = PBXGroup;
-			children = (
-				A75C3DE31518886E00774BD7 /* Sources */,
-			);
+			name = jcom.cuemanager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		A7768C6F1518873200D38CC4 /* jcom.cuemanager */ = {
+		D28A88AD04BDD90700651E21 /* jcom.cuemanager */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
-			buildConfigurationList = A7768C721518873200D38CC4 /* Build configuration list for PBXLegacyTarget "jcom.cuemanager" */;
+			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.cuemanager" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = jcom.cuemanager;
 			passBuildSettingsInEnvironment = 1;
-			productName = jcom;
+			productName = jcom.cuemanager;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		A7768C6A1518873200D38CC4 /* Project object */ = {
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
-			};
-			buildConfigurationList = A7768C6D1518873200D38CC4 /* Build configuration list for PBXProject "jcom.cuemanager" */;
-			compatibilityVersion = "Xcode 3.2";
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.cuemanager" */;
+			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
-			hasScannedForEncodings = 0;
+			hasScannedForEncodings = 1;
 			knownRegions = (
-				en,
+				English,
+				Japanese,
+				French,
+				German,
 			);
-			mainGroup = A7768C681518873200D38CC4;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* jcom.cuemanager */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A7768C6F1518873200D38CC4 /* jcom.cuemanager */,
+				D28A88AD04BDD90700651E21 /* jcom.cuemanager */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		A7768C701518873200D38CC4 /* Debug */ = {
+		1DEB919008733D9F0010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		A7768C711518873200D38CC4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		A7768C731518873200D38CC4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = "";
@@ -130,37 +75,62 @@
 			};
 			name = Debug;
 		};
-		A7768C741518873200D38CC4 /* Release */ = {
+		1DEB919108733D9F0010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = jcom.cuemanager;
 			};
 			name = Release;
 		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A7768C6D1518873200D38CC4 /* Build configuration list for PBXProject "jcom.cuemanager" */ = {
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.cuemanager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A7768C701518873200D38CC4 /* Debug */,
-				A7768C711518873200D38CC4 /* Release */,
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A7768C721518873200D38CC4 /* Build configuration list for PBXLegacyTarget "jcom.cuemanager" */ = {
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.cuemanager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A7768C731518873200D38CC4 /* Debug */,
-				A7768C741518873200D38CC4 /* Release */,
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A7768C6A1518873200D38CC4 /* Project object */;
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
 }

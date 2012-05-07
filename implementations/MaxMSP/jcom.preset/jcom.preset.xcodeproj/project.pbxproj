@@ -16,9 +16,9 @@
 		08FB7794FE84155DC02AAC07 /* jcom.preset */ = {
 			isa = PBXGroup;
 			children = (
+				D289EAD2150F62B500FC7F7E /* jcom.preset.cpp */,
 				D289EADE150F636100FC7F7E /* TTModularClassWrapperMax.h */,
 				D289EADD150F636100FC7F7E /* TTModularClassWrapperMax.cpp */,
-				D289EAD2150F62B500FC7F7E /* jcom.preset.cpp */,
 			);
 			name = jcom.preset;
 			sourceTree = "<group>";

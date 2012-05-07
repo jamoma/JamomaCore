@@ -21,7 +21,7 @@ void ui_preset_store_next(t_ui *x)
 	if (result != 1)
 		return;
 	
-	ui_viewer_send(x, TT("preset/store/next"), TT(text));
+	ui_viewer_send(x, TT("preset/store"), TT(text));
 	
 	// TODO: do we not have to free text?
 }

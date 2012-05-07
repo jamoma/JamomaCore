@@ -622,8 +622,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 				ui_viewer_create(obj, &anObject, NULL, TT("preset/write"), obj->modelAddress, NO);
 				ui_viewer_create(obj, &anObject, NULL, TT("preset/read"), obj->modelAddress, NO);
 				ui_viewer_create(obj, &anObject, NULL, TT("preset/recall"), obj->modelAddress, NO);
-				ui_viewer_create(obj, &anObject, NULL, TT("preset/store/current"), obj->modelAddress, NO);
-				ui_viewer_create(obj, &anObject, NULL, TT("preset/store/next"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TT("preset/store"), obj->modelAddress, NO);
 				ui_viewer_create(obj, &anObject, gensym("return_preset_names"), TT("preset/names"), obj->modelAddress, NO);
 			}
 			else {
@@ -633,10 +632,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 				obj->hash_viewers->remove(TT("read"));
 				ui_viewer_destroy(obj, TT("recall"));
 				obj->hash_viewers->remove(TT("recall"));
-				ui_viewer_destroy(obj, TT("store/current"));
-				obj->hash_viewers->remove(TT("store/current"));
-				ui_viewer_destroy(obj, TT("store/next"));
-				obj->hash_viewers->remove(TT("store/next"));
+				ui_viewer_destroy(obj, TT("store"));
+				obj->hash_viewers->remove(TT("store"));
 				ui_viewer_destroy(obj, TT("names"));
 				obj->hash_viewers->remove(TT("names"));
 			}

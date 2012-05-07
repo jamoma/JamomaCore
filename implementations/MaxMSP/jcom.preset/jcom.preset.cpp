@@ -17,8 +17,9 @@
 typedef struct extra {
 	TTBoolean	attr_load_default;
 	TTPtr		filewatcher;		// a preset filewather
-	char*		text;				// text used by /getstate window
-	TTUInt32	textSize;			// how many chars are alloc'd to text
+	TTObjectPtr	toEdit;				// the object to edit (a preset or all the preset list)
+	TTSymbolPtr	presetName;			// the name of the edited cue
+	TTString	*text;				// the text of the editor to read after edclose
 	ObjectPtr	textEditor;			// the text editor window
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -44,8 +45,9 @@ void		preset_dowrite_again(TTPtr self);
 void		preset_default(TTPtr self);
 void		preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		preset_edit(TTPtr self);
+void		preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_edclose(TTPtr self, char **text, long size);
+void		preset_doedit(TTPtr self);
 
 void		preset_subscribe(TTPtr self);
 
@@ -79,6 +81,7 @@ void WrapTTPresetManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)preset_read,					"read",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)preset_write,					"write",				A_GIMME, 0);
+	class_addmethod(c->maxClass, (method)preset_edit,					"edit",					A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)preset_read_again,				"read/again",			0);
 	class_addmethod(c->maxClass, (method)preset_write_again,			"write/again",			0);
@@ -110,7 +113,9 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->attr_load_default = true;
 	EXTRA->filewatcher = NULL;
-	EXTRA->textSize = 0;
+	EXTRA->toEdit = x->wrappedObject;
+	EXTRA->presetName = kTTSymEmpty;
+	EXTRA->text = NULL;
 	EXTRA->textEditor = NULL;
 	
 	// handle attribute args
@@ -151,6 +156,7 @@ void preset_subscribe(TTPtr self)
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
+	TTBufferHandlerPtr			aBufferHandler;
 	
 	// add 'preset' after the address
 	if (x->address != kTTAdrsEmpty) {
@@ -180,64 +186,19 @@ void preset_subscribe(TTPtr self)
 
 		// expose messages of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_array);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store a preset giving his index and his name"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store into the current preset"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StoreNext"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store into the next preset"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("StorePrevious"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store into the previous preset"));
+		aData->setAttributeValue(kTTSym_description, TT("Store a preset giving a name"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall a preset using his name or his index"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(v, TT("Recall the current preset"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallNext"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the next preset"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RecallPrevious"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the previous preset"));
+		aData->setAttributeValue(kTTSym_description, TT("Recall a preset using a name"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Remove a preset using his name or his index"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveCurrent"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the current preset"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemoveNext"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the next preset"));
-		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("RemovePrevious"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_none);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall the previous preset"));
+		aData->setAttributeValue(kTTSym_description, TT("Remove a preset using a name"));		
 		
 		// expose attributes of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_names, kTTSym_return, &aData);
@@ -245,7 +206,7 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("The preset name list"));
 		
-		// create internal TTXmlHandler and internal messages for Read and Write
+		// create internal TTXmlHandler
 		aXmlHandler = NULL;
 		TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
 		v = TTValue(TTPtr(aXmlHandler));
@@ -253,29 +214,38 @@ void preset_subscribe(TTPtr self)
 		v = TTValue(TTPtr(x->wrappedObject));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
+		// create internal TTBufferHandler
+		aBufferHandler = NULL;
+		TTObjectInstantiate(TT("BufferHandler"), TTObjectHandle(&aBufferHandler), args);
+		v = TTValue(TTPtr(aBufferHandler));
+		x->internals->append(TT("BufferHandler"), v);
+		
+		// Create internal messages for Read and Write
 		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Read a xml preset file"));
+
+		makeInternals_data(self, absoluteAddress, TT("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Write a xml preset file"));
+		
 		/*
 		makeInternals_data(self, absoluteAddress, TT("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Read from the last xml preset file"));
-		*/
-		makeInternals_data(self, absoluteAddress, TT("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Write a xml preset file"));
-		/*
+
 		makeInternals_data(self, absoluteAddress, TT("preset/write/again"), gensym("preset_write_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Write into the last xml preset file"));
 		*/
-		// TODO : create internal TTTextHandler to edit in Max edition window
+		
+		// TODO : display in Max edition window
 	
-		// if desired, load default xxx.patcherContext.xml file preset
+		// if desired, load default modelClass.patcherContext.xml file preset
 		if (EXTRA->attr_load_default)
 			defer_low(x, (method)preset_default, 0, 0, 0L);
 	}
@@ -390,7 +360,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "jmod.%s.%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, "%s.%s.xml", x->patcherClass->getCString(), x->patcherContext->getCString());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
@@ -476,8 +446,7 @@ void preset_default(TTPtr self)
 		defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 		
 		// recall first preset
-		atom_setlong(&a, 1);
-		defer_low((ObjectPtr)x, (method)preset_dorecall, NULL, 1, &a);
+		defer_low((ObjectPtr)x, (method)preset_dorecall, NULL, 0, NULL);
 		
 		// replace filewatcher
 		if (EXTRA->filewatcher) {
@@ -498,7 +467,7 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	char			posixpath[MAX_PATH_CHARS];
 	TTValue		v;
-	long		i;
+	TTSymbolPtr current;
 	Atom		a;
 	
 	// get current preset
@@ -511,8 +480,8 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 	
 	// try to recall last current preset
-	v.get(0, i);
-	atom_setlong(&a, i);
+	v.get(0, &current);
+	atom_setsym(&a, gensym((char*)current->getCString()));
 	defer_low((ObjectPtr)x, (method)preset_dorecall, NULL, 1, &a);
 }
 
@@ -521,77 +490,131 @@ void preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 
-	if (argc && argv) {
-		if (atom_gettype(argv) == A_LONG) {
-
-			// Then recall the preset
-			v = TTValue((int)atom_getlong(argv));
-			x->wrappedObject->sendMessage(TT("Recall"), v, kTTValNONE);
-		}
-	}
+	if (argc && argv)
+		if (atom_gettype(argv) == A_SYM)
+			v = TTValue(TT(atom_getsym(argv)->s_name));
+	
+	// recall the preset
+	x->wrappedObject->sendMessage(TT("Recall"), v, kTTValNONE);
 }
 
-void preset_edit(TTPtr self)
+void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char* text = NULL;
-	long textsize = 0;
+	TTString			*buffer;
+	char				title[MAX_FILENAME_CHARS];
+	TTBufferHandlerPtr	aBufferHandler = NULL;
+	TTHashPtr			allPresets;
+	TTValue				v, o, args;
+	TTErr				tterr;
 	
-	if (!EXTRA->textEditor)
-		EXTRA->textEditor = (t_object*)object_new(_sym_nobox, _sym_jed, x, 0);
+	// choose object to edit : default the cuelist
+	EXTRA->toEdit = x->wrappedObject;
+	EXTRA->presetName = kTTSymEmpty;
 	
-	if (!EXTRA->textSize) {
-		EXTRA->textSize = 4096;
-		EXTRA->text = (char*)malloc(sizeof(char) * EXTRA->textSize);
-	}
-	EXTRA->text[0] = 0;
-	
-	critical_enter(0);
-	// TODO : fill the editor
-	/*
-	 for (i = subscriber->begin(); i != subscriber->end(); ++i) {
-		t = *i;
-		if (t->type == jps_subscribe_parameter) {
-			long ac = NULL;
-			t_atom* av = NULL;
-	 
-			object_attr_getvalueof(t->object, jps_value, &ac, &av); // get
-			atom_gettext(ac, av, &textsize, &text, 0);
-	 
-			// this is a really lame way to do this...
-			if (strlen(x->text) > (x->textSize - 1024)) {
-				x->textSize += 4096;
-				x->text = (char*)realloc(x->text, x->textSize);
+	if (argc && argv) {
+		if (atom_gettype(argv) == A_SYM) {
+			
+			// get preset object table
+			x->wrappedObject->getAttributeValue(TT("presets"), v);
+			v.get(0, (TTPtr*)&allPresets);
+			
+			if (allPresets) {
+				
+				// get cue to edit
+				if (!allPresets->lookup(TT(atom_getsym(argv)->s_name), v)) {
+					
+					// edit a preset
+					v.get(0, (TTPtr*)&EXTRA->toEdit);
+					EXTRA->presetName = TT(atom_getsym(argv)->s_name);
+				}
+				else {
+					object_error((ObjectPtr)x, "%s does'nt exist", atom_getsym(argv)->s_name);
+					return;
+				}
 			}
-	 
-			strncat_zero(x->text, x->osc_name->s_name, x->textSize);
-			strncat_zero(x->text, "/", x->textSize);
-			strncat_zero(x->text, t->name->s_name, x->textSize);
-			strncat_zero(x->text, " ", x->textSize);
-			strncat_zero(x->text, text, x->textSize);
-			strncat_zero(x->text, "\n", x->textSize);
-	 
-			sysmem_freeptr(text);
-			text = NULL;
-			textsize = 0;
 		}
-	 }
-	 */
-	critical_exit(0);
+	}
 	
-	// TODO : pass the buffer
-	object_method(EXTRA->textEditor, _sym_settext, EXTRA->text, _sym_utf_8);
-	object_attr_setchar(EXTRA->textEditor, gensym("scratch"), 1);
-	object_attr_setsym(EXTRA->textEditor, _sym_title, gensym("jamoma module state"));
+	// only one editor can be open in the same time
+	if (!EXTRA->textEditor) {
 	
-	sysmem_freeptr(text);
+		EXTRA->textEditor = (t_object*)object_new(_sym_nobox, _sym_jed, x, 0);
+		
+		buffer = new TTString();
+		
+		// get the buffer handler
+		tterr = x->internals->lookup(TT("BufferHandler"), o);
+		
+		if (!tterr) {
+			
+			o.get(0, (TTPtr*)&aBufferHandler);
+			
+			critical_enter(0);
+			o = TTValue(TTPtr(EXTRA->toEdit));
+			aBufferHandler->setAttributeValue(kTTSym_object, o);
+			args = TTValue((TTPtr)buffer);
+			tterr = aBufferHandler->sendMessage(TT("Write"), args, kTTValNONE);
+			critical_exit(0);
+		}
+		
+		// pass the buffer to the editor
+		object_method(EXTRA->textEditor, _sym_settext, buffer->c_str(), _sym_utf_8);
+		object_attr_setchar(EXTRA->textEditor, gensym("scratch"), 1);
+		
+		snprintf(title, MAX_FILENAME_CHARS, "%s preset editor", x->patcherClass->getCString());
+		object_attr_setsym(EXTRA->textEditor, _sym_title, gensym(title));
+		
+		buffer->clear();
+		delete buffer;
+		buffer = NULL;
+	}
 }
 
 void preset_edclose(TTPtr self, char **text, long size)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
+	EXTRA->text = new TTString(*text);
 	EXTRA->textEditor = NULL;
+	
+	defer_low((ObjectPtr)x, (method)preset_doedit, NULL, 0, NULL);
+}
+
+void preset_doedit(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTBufferHandlerPtr	aBufferHandler = NULL;
+	TTValue				o, args;
+	TTErr				tterr;
+	
+	// get the buffer handler
+	tterr = x->internals->lookup(TT("BufferHandler"), o);
+	
+	if (!tterr) {
+		
+		o.get(0, (TTPtr*)&aBufferHandler);
+		
+		critical_enter(0);
+		args = TTValue((TTPtr)EXTRA->text);
+		tterr = aBufferHandler->sendMessage(TT("Read"), args, kTTValNONE);
+		critical_exit(0);
+		
+		// recall the current
+		if (EXTRA->presetName != kTTSymEmpty)
+			x->wrappedObject->sendMessage(TT("Recall"), EXTRA->presetName, kTTValNONE);
+		
+		if (!tterr)
+			object_obex_dumpout(self, _sym_read, 0, NULL);
+		else
+			object_obex_dumpout(self, _sym_error, 0, NULL);
+	}
+	
+	delete EXTRA->text;
+	EXTRA->text = NULL;
+	EXTRA->textEditor = NULL;
+	EXTRA->toEdit = x->wrappedObject;
+	EXTRA->presetName = kTTSymEmpty;
 }
 
 t_max_err preset_set_load_default(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 

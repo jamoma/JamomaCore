@@ -11,87 +11,57 @@
 
 #include "TTModular.h"
 
+class TTScript;
+typedef TTScript* TTScriptPtr;
 
 /**	TTPreset ... TODO : an explanation
  
  
  */
 
-/** Internal class to store an Object and his state <attribute, value> 
-	The attributes to store are chosen when the item is created */
-class Item
-	{
-	public :
-		TTObjectPtr			manager;
-		TTNodeAddressPtr	address;
-		TTSymbolPtr			type;
-		TTHashPtr			state;
-		
-		Item(TTObjectPtr aManager, TTNodeAddressPtr anAddress);
-		~Item();
-		
-		TTObjectPtr	getObject();
-		
-		TTErr clear();
-		TTErr update(TTSymbolPtr attributeName);
-		TTErr set(TTSymbolPtr attributeName, const TTValue& value);
-		TTErr get(TTSymbolPtr attributeName, TTValue& value);
-		TTErr send(TTSymbolPtr attributeName);
-	};
-typedef Item* ItemPtr;
-
 class TTMODULAR_EXPORT TTPreset : public TTDataObject
 {
 	TTCLASS_SETUP(TTPreset)
 	
-public:		// use public to allow PresetManager to have a direct access
+private :
 	
-	TTSymbolPtr					mName;							///< ATTRIBUTE: the name of the preset
-	TTNodeAddressPtr			mAddress;						///< ATTRIBUTE: the parent address from where to search object to store
-	TTSymbolPtr					mComment;						///< ATTRIBUTE: a comment for the preset
-	
-private:
+	TTSymbolPtr					mName;							///< ATTRIBUTE : the name of the preset
+	TTNodeAddressPtr			mAddress;						///< ATTRIBUTE : the parent address from where to search object to store
+	TTSymbolPtr					mComment;						///< ATTRIBUTE : a comment for the preset
 	
 	TTNodeDirectoryPtr			mDirectory;						///< a preset depends on a directory
-	
-	TTObjectPtr					mManager;						///< the object which is currently managing this preset
-	TTCallbackPtr				mTestObjectCallback;			///< a callback used to test object to store in item or not
-	TTCallbackPtr				mReadItemCallback;				///< a callback used when item's state is read from a file
-	TTCallbackPtr				mUpdateItemCallback;			///< a callback used to update the item's state
-	TTCallbackPtr				mSortItemCallback;				///< a callback used to sort the item list
-	TTCallbackPtr				mSendItemCallback;				///< a callback used to send the item's state
-	TTHashPtr					mItemTable;						///< a hash table containing <relativeAddress, ItemPtr>
-	TTListPtr					mItemKeysSorted;				///< a linked list containing keys of sorted item
-	TTSymbolPtr					mCurrentItem;					///< a key to retrieve the current Item in the ItemTable
-	
+	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
 	
 	/** */
-	TTErr setAddress(const TTValue& value);
+	TTErr	setAddress(const TTValue& value);
 	
 	/** */
-	TTErr Fill();
+	TTErr	Clear();
 	
 	/** */
-	TTErr Clear();
-	
-	/** */
-	TTErr Update();
-	
-	/** */
-	TTErr Sort();
+	TTErr	Store();
 
 	/** */
-	TTErr Send();
+	TTErr	Recall();
 	
 	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
-	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTTextHandler */
-	TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);
-	TTErr ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+	
+	/**  needed to be handled by a TTBufferHandler */
+	TTErr	WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue);
 };
 
 typedef TTPreset* TTPresetPtr;
+
+/** Return Yes if the node have to be part of the preset */
+TTBoolean TTMODULAR_EXPORT TTPresetTestObject(TTNodePtr node, TTPtr args);
+
+TTBoolean TTMODULAR_EXPORT TTPresetCompareNodePriority(TTValue& v1, TTValue& v2);
 
 #endif // __TT_PRESET_H__

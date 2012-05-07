@@ -113,21 +113,6 @@ extern "C" {
 	/**	Create a cue manager object */
 	TTErr			jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager);
 	
-	/** Sets data as kTTVal1 if the node have to be part of a preset */
-	void			jamoma_callback_test_object(TTPtr p_baton, TTValue& data);
-	
-	/**  */
-	void			jamoma_callback_read_item(TTPtr p_baton, TTValue& data);
-	
-	/**  */
-	void			jamoma_callback_update_item(TTPtr p_baton, TTValue& data);
-	
-	/**  */
-	void			jamoma_callback_sort_item(TTPtr p_baton, TTValue& data);
-	
-	/**  */
-	void			jamoma_callback_send_item(TTPtr p_baton, TTValue& data);
-	
 	
 	// Method to deal with TTInput
 	///////////////////////////////////////////////////////////////////////

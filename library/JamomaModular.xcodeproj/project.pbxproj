@@ -83,6 +83,10 @@
 		D246017814A0A9BF004CC4FD /* RampLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RampLib.h; sourceTree = "<group>"; };
 		D246017914A0A9BF004CC4FD /* SchedulerRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SchedulerRamp.cpp; sourceTree = "<group>"; };
 		D246017A14A0A9BF004CC4FD /* SchedulerRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchedulerRamp.h; sourceTree = "<group>"; };
+		D2B8F99C1546CE6200B93C6C /* TTScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTScript.cpp; sourceTree = "<group>"; };
+		D2B8F99D1546CE6200B93C6C /* TTScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScript.h; sourceTree = "<group>"; };
+		D2FB0CE5154BFFA8003A2082 /* TTBufferHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBufferHandler.cpp; sourceTree = "<group>"; };
+		D2FB0CE6154BFFA8003A2082 /* TTBufferHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBufferHandler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -124,6 +128,8 @@
 				D246012C14A0A96C004CC4FD /* TTApplication.cpp */,
 				D246012F14A0A96C004CC4FD /* TTApplicationManager.h */,
 				D246012E14A0A96C004CC4FD /* TTApplicationManager.cpp */,
+				D2FB0CE6154BFFA8003A2082 /* TTBufferHandler.h */,
+				D2FB0CE5154BFFA8003A2082 /* TTBufferHandler.cpp */,
 				D246013114A0A96C004CC4FD /* TTContainer.h */,
 				D246013014A0A96C004CC4FD /* TTContainer.cpp */,
 				D246013314A0A96C004CC4FD /* TTCue.h */,
@@ -154,6 +160,8 @@
 				D246014A14A0A96C004CC4FD /* TTReceiver.cpp */,
 				D246014D14A0A96C004CC4FD /* TTSender.h */,
 				D246014C14A0A96C004CC4FD /* TTSender.cpp */,
+				D2B8F99D1546CE6200B93C6C /* TTScript.h */,
+				D2B8F99C1546CE6200B93C6C /* TTScript.cpp */,
 				D246014F14A0A96C004CC4FD /* TTSubscriber.h */,
 				D246014E14A0A96C004CC4FD /* TTSubscriber.cpp */,
 				D246015114A0A96C004CC4FD /* TTTextHandler.h */,
