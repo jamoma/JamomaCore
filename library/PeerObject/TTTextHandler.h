@@ -13,10 +13,6 @@
 #define __TT_TEXT_HANDLER_H__
 
 #include "TTModular.h"
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
-using namespace std;
 
 /** Write / Read mecanism
  
@@ -51,28 +47,25 @@ public:	// use public for recursive access
 	
 	TTObjectPtr			mObject;						///< the last handled object
 	TTSymbolPtr			mFilePath;						///< the path to the last writen/read file
-
-	ofstream			*mWriter;
-	ifstream			*mReader;
-
-	/** TTTextWriter could takes absolute file path or nothing.
-		In the path case, TTXmlWriter starts xml file writting and then calls the WriteAsXml 
-		method of mObject attribute
-		In the second case, it directly calls the WriteAsText method */
-	TTErr Write(const TTValue& args, TTValue& outputValue);
-	TTErr WriteAgain();
 	
-	/** TTTextReader could takes absolute file path or nothing.
-		In the path case, TTXmlReader starts xml file reading and then calls the ReadFromXml 
-		method of mObject attribute
-		In the second case, it directly calls the ReadFromText method */
+	TTString			*mWriter;						///< the text where to write
+	TTString			*mReader;						///< the text to read
+	
+	TTValuePtr			mLine;							///< the line being read by the Reader
+	
+	TTBoolean			mFirstLine;						///< a flag to know if it is the first line
+	TTBoolean			mLastLine;						///< a flag to know if it is the last line
+
+	/** TTTextWriter could takes a file path or a string buffer pointer. */
+	TTErr Write(const TTValue& args, TTValue& outputValue);
+	
+	/** TTTextReader could takes a file path or a string buffer pointer. */
 	TTErr Read(const TTValue& args, TTValue& outputValue);
-	TTErr ReadAgain();
 	
 private :
 	
-	TTBoolean				mIsWriting;				///< a flag to know if it is writing a file
-	TTBoolean				mIsReading;				///< a flag to know if it is reading a file
+	TTBoolean			mIsWriting;						///< a flag to know if it is writing
+	TTBoolean			mIsReading;						///< a flag to know if it is reading
 	
 };
 

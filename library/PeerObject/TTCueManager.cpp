@@ -50,12 +50,6 @@ mCurrentCue(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	// needed to be handled by a TTBufferHandler
-	addMessageWithArguments(WriteAsBuffer);
-	addMessageProperty(WriteAsBuffer, hidden, YES);
-	addMessageWithArguments(ReadFromBuffer);
-	addMessageProperty(ReadFromBuffer, hidden, YES);
-	
 	mCues = new TTHash();
 }
 
@@ -338,26 +332,24 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTTextHandlerPtr	aTextHandler;
-	ofstream			*file;
-	TTSymbolPtr			cueName;
-    TTValue				v;
-	TTUInt32			i;
+	TTTextHandlerPtr aTextHandler;
+	TTString	*buffer;
+	TTSymbolPtr cueName;
+	TTValue		v;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mWriter;
 	
-	for (i = 0; i < mNames.getSize(); i++) {
+	buffer = aTextHandler->mWriter;
+	
+	for (TTUInt32 i = 0; i < mNames.getSize(); i++) {
 		
 		mNames.get(i, &cueName);
 		if (!mCues->lookup(cueName, v)) {
 			
-			*file << "\n";
+			*buffer += "\n";
 			
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TT("Write"));
-			
-			*file << "\n";
 		}
 	}
 	
@@ -367,62 +359,23 @@ TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	//ifstream		*file;
-	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
-	//file = aTextHandler->mReader;
-	
-	// TODO
-	
-	return kTTErrNone;
-}
-
-TTErr TTCueManager::WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTBufferHandlerPtr aBufferHandler;
-	TTString	*buffer;
-	TTSymbolPtr cueName;
-	TTValue		v;
-	
-	inputValue.get(0, (TTPtr*)&aBufferHandler);
-	
-	buffer = aBufferHandler->mWriter;
-	
-	for (TTUInt32 i = 0; i < mNames.getSize(); i++) {
-		
-		mNames.get(i, &cueName);
-		if (!mCues->lookup(cueName, v)) {
-			
-			*buffer += "\n";
-			
-			aBufferHandler->setAttributeValue(kTTSym_object, v);
-			aBufferHandler->sendMessage(TT("Write"));
-		}
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTCueManager::ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTBufferHandlerPtr aBufferHandler;
 	TTDictionaryPtr	line;
 	TTSymbolPtr		flagName;
 	TTValue			v;
 	
-	inputValue.get(0, (TTPtr*)&aBufferHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	
 	// if it is the first line :
-	if (aBufferHandler->mFirstLine)
+	if (aTextHandler->mFirstLine)
 		New();
 	
 	// parse the buffer line into TTDictionary
-	line = TTScriptParseLine(*(aBufferHandler->mLine));
+	line = TTScriptParseLine(*(aTextHandler->mLine));
 	
 	if (line) {
 		
 		// replace the buffer line value by the parsed line dictionary
-		aBufferHandler->mLine = new TTValue((TTPtr)line);
+		aTextHandler->mLine = new TTValue((TTPtr)line);
 		
 		// match cue flag line : # (cue) name
 		if (line->getSchema() == kTTSym_flag) {
@@ -454,12 +407,12 @@ TTErr TTCueManager::ReadFromBuffer(const TTValue& inputValue, TTValue& outputVal
 		if (mCurrentCue) {
 			
 			v = TTValue(TTPtr(mCurrentCue));
-			aBufferHandler->setAttributeValue(kTTSym_object, v);
-			aBufferHandler->sendMessage(TT("Read"));
+			aTextHandler->setAttributeValue(kTTSym_object, v);
+			aTextHandler->sendMessage(TT("Read"));
 		}
 		
 		// if it is the last line : bind on the first cue
-		if (aBufferHandler->mLastLine) {
+		if (aTextHandler->mLastLine) {
 			
 			mNames.get(0, &mCurrent);
 			if (!mCues->lookup(mCurrent, v)) {

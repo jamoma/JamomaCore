@@ -45,12 +45,6 @@ mContainer(NULL)
 	addMessageProperty(WriteAsText, hidden, YES);
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
-	
-	// needed to be handled by a TTBufferHandler
-	addMessageWithArguments(WriteAsBuffer);
-	addMessageProperty(WriteAsBuffer, hidden, YES);
-	addMessageWithArguments(ReadFromBuffer);
-	addMessageProperty(ReadFromBuffer, hidden, YES);
 }
 
 TTScript::~TTScript()
@@ -559,84 +553,6 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr	aTextHandler;
-	ofstream			*file;
-	TTDictionaryPtr		aLine;
-	TTNodeAddressPtr	address;
-	TTSymbolPtr			flagName;
-	TTString			aString;
-	TTValue				v;
-	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mWriter;
-	
-	// Write all lines
-	for (mLines->begin(); mLines->end(); mLines->next()) {
-		
-		mLines->current().get(0, (TTPtr*)&aLine);
-		
-		// Write script line depending on his schema
-		if (aLine->getSchema() == kTTSym_flag) {
-
-			// get flag name
-			aLine->lookup(kTTSym_name, v);
-			v.get(0, &flagName);
-
-			// get flag arguments value
-			aLine->getValue(v);
-			v.toString();
-			v.get(0, aString);
-			
-			// write flag name and arguments
-			*file << "# (" << flagName->getCString() << ") " << aString.data();
-		}	
-		if (aLine->getSchema() == kTTSym_comment) {
-			
-			// get comment value
-			aLine->getValue(v);
-			v.toString();
-			v.get(0, aString);
-			
-			// write comment
-			*file << "# " << aString.data();
-		}
-		else if (aLine->getSchema() == kTTSym_command) {
-			
-			// get address
-			aLine->lookup(kTTSym_address, v);
-			v.get(0, &address);
-			
-			// get value
-			aLine->getValue(v);
-			v.toString();
-			v.get(0, aString);
-			
-			// write address and value
-			if (address->getType() == kAddressAbsolute)
-				*file << "\t" << address->getCString() << " " << aString.data();
-			else
-				*file << "\t\t" << address->getCString() << " " << aString.data();
-		}
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTTextHandlerPtr aTextHandler;
-	//ifstream		*file;
-	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
-	//file = aTextHandler->mReader;
-	
-	// TODO
-	
-	return kTTErrNone;
-}
-
-TTErr TTScript::WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTBufferHandlerPtr	aBufferHandler;
 	TTString			*buffer;
 	TTDictionaryPtr		aLine;
 	TTNodeAddressPtr	address;
@@ -645,8 +561,8 @@ TTErr TTScript::WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue)
 	TTBoolean			addQuote;
 	TTValue				v;
 	
-	inputValue.get(0, (TTPtr*)&aBufferHandler);
-	buffer = aBufferHandler->mWriter;
+	inputValue.get(0, (TTPtr*)&aTextHandler);
+	buffer = aTextHandler->mWriter;
 	
 	// Write all lines
 	for (mLines->begin(); mLines->end(); mLines->next()) {
@@ -739,14 +655,14 @@ TTErr TTScript::WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;	
 }
 
-TTErr TTScript::ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTBufferHandlerPtr aBufferHandler;
+	TTTextHandlerPtr aTextHandler;
 	TTValue		v;
 	
-	inputValue.get(0, (TTPtr*)&aBufferHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	
-	this->Append(*(aBufferHandler->mLine), outputValue);
+	this->Append(*(aTextHandler->mLine), outputValue);
 	
 	return kTTErrNone;
 }

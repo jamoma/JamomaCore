@@ -51,7 +51,6 @@
 
 #include "TTApplication.h"
 #include "TTApplicationManager.h"
-#include "TTBufferHandler.h"
 #include "TTContainer.h"
 #include "TTCue.h"
 #include "TTCueManager.h"

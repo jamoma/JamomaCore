@@ -51,10 +51,6 @@ private :
 	/**  needed to be handled by a TTTextHandler */
 	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
-	
-	/**  needed to be handled by a TTBufferHandler */
-	TTErr	WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue);
-	TTErr	ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue);
 };
 
 typedef TTPreset* TTPresetPtr;

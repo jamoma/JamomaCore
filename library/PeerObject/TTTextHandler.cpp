@@ -20,8 +20,10 @@ mObject(NULL),
 mFilePath(kTTSymEmpty),
 mWriter(NULL),
 mReader(NULL),
-mIsWriting(false),
-mIsReading(false)
+mIsWriting(NO),
+mIsReading(NO),
+mFirstLine(NO),
+mLastLine(NO)
 {
 	TT_ASSERT("Correct number of args to create TTTextHandler", arguments.getSize() == 0);
 	
@@ -29,9 +31,6 @@ mIsReading(false)
 	
 	addMessageWithArguments(Write);
 	addMessageWithArguments(Read);
-	
-	addMessage(WriteAgain);
-	addMessage(ReadAgain);
 }
 
 TTTextHandler::~TTTextHandler()
@@ -51,64 +50,60 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 	// memorize this object because it could change if the handler is used recursively
 	aTTObject = mObject;
 	
-	// if the first argument is kTypeSymbol : this is an *absolute* file path
-	// start a text file reading from the given file
 	if (args.getSize() == 1) {
+		
+		mIsWriting = true;
+		
+		// if the first argument is kTypeSymbol : get the path of the file to write
 		if (args.getType(0) == kTypeSymbol) {
 			
 			args.get(0, &mFilePath);
 			
-			// Create a new TextWriter for filePath.
-			ofstream file(mFilePath->getCString());
-			mWriter = &file;
+			/* Create a new text file
+			std::ofstream file(mFilePath->getCString());
 			
-			if (!mWriter->is_open()){
-				TT_ASSERT("testTextwriterFilename: Error creating the text writer\n", true);
+			// Create a new string text
+			this->mWriter = new TTString();
+			
+			if (!file.is_open()) {
+				TT_ASSERT("TTTextHandler : Error creating the text file\n", true);
 				return kTTErrGeneric;
 			}
 			
-			/* Start the document */
-			mIsWriting = true;
-			
-			// Write data of the given TTObject (which have to implement a WriteAsText message)
-			v.clear();
-			v.append((TTPtr)this);
+			// Call the WriteAsText method of the handled object
+			v = TTValue((TTPtr)this);
 			aTTObject->sendMessage(TT("WriteAsText"), v, kTTValNONE);
 			
-			/* End the document */
-			mWriter->close();
+			// TODO : Write the writer string into the file
+			;
 			
-			mIsWriting = false;
+			// Close the text file
+			file.close();
 			
-			// memorize the TTObject as the last handled object
-			mObject = aTTObject;
-			
-			return kTTErrNone;
+			// Clear the text
+			delete this->mWriter;
+			 */
 		}
+		
+		// if the first argument is kTypePointer : get the text where to write
 		else if (args.getType(0) == kTypePointer) {
 			
-			//args.get(0, (TTPtr*)&mBuffer);
-			
-			// Create a new TextWriter for a buffer.
-			//ostream buffer;
-			//mWriter = &buffer;
-			
-			/* Start the writing */
-			mIsWriting = true;
-			
-			// Write data of the given TTObject (which have to implement a WriteAsText message)
-			v.clear();
-			v.append((TTPtr)this);
+			args.get(0, (TTPtr*)&mWriter);
+
+			// Call the WriteAsText method of the handled object
+			v = TTValue((TTPtr)this);
 			aTTObject->sendMessage(TT("WriteAsText"), v, kTTValNONE);
 			
-			/* End the writing */
-			mIsWriting = false;
-			
-			// memorize the TTObject as the last handled object
-			mObject = aTTObject;
-			
-			return kTTErrNone;
 		}
+		else
+			return kTTErrGeneric;
+		
+		mIsWriting = false;
+		
+		// Memorize the TTObject as the last handled object
+		mObject = aTTObject;
+		
+		return kTTErrNone;
 	}
 	
 	// else
@@ -116,19 +111,12 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 	return aTTObject->sendMessage(TT("WriteAsText"), v, kTTValNONE);
 }
 
-TTErr TTTextHandler::WriteAgain()
-{
-	TTValue args;
-	
-	args.append(mFilePath);
-	return Write(args, kTTValNONE);
-}
-
 TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 {
 	TTObjectPtr	aTTObject;
-	TTValue		v;
+	size_t		found, last, size;
 	TTString	line;
+	TTValue		v;
 	
 	// an object have to be selected
 	if (mObject == NULL)
@@ -137,52 +125,103 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	// memorize this object because it could change if the handler is used recursively
 	aTTObject = mObject;
 	
-	// if the first argument is kTypeSymbol : this is an *absolute* file path
-	// start an text file reading from the given file
+	
 	if (args.getSize() == 1) {
+		
+		mIsReading = true;
+		
+		// if the first argument is kTypeSymbol : get the path of the file to read
 		if (args.getType(0) == kTypeSymbol) {
 			
 			args.get(0, &mFilePath);
 			
-			ifstream mReader(mFilePath->getCString());
+			/*
+			std::ifstream file(mFilePath->getCString());
 			
-			if (!mReader.is_open()){
-				TT_ASSERT("testTextreaderFilename: Error creating the text reader\n", true);
+			if (!file.is_open()) {
+				TT_ASSERT("TTTextHandler: Error opening the text file\n", true);
 				return kTTErrGeneric;
 			}
 			
-			/* Start the document */
-			while (!mReader.eof() )
-			{
-				// Header lines
-				getline(mReader, line);
-				getline(mReader, line);
-					
-				v.append((TTPtr)this);
-				aTTObject->sendMessage(TT("ReadFromText"), v, kTTValNONE);
-			}
+			// Start the document
+			mFirstLine = YES;
+			mLastLine = NO;
+			v = TTValue((TTPtr)this);
 			
-			/* End document */
-			mIsReading = false;
+			while (!file.eof()) {
 				
-			// memorize the TTObject as the last handled object
-			mObject = aTTObject;
+				// parse line
+				getline(file, line);
+				mLine = new TTValue(line);
+				mLine->fromString();
 				
-			mReader.close();
+				if (file.eof()) mLastLine = YES;
+				
+				aTTObject->sendMessage(TT("ReadFromText"), v, kTTValNONE);
+				
+				if (mFirstLine) mFirstLine = NO;
+			}
+			 */
 		}
-		else
-			return kTTErrGeneric;
+		
+		// if the first argument is kTypePointer : get the text to read
+		else if (args.getType(0) == kTypePointer) {
+			
+			mReader = NULL;
+			args.get(0, (TTPtr*)&mReader);
+			
+			if (mReader) {
+				
+				last = 0;
+				mFirstLine = YES;
+				mLastLine = NO;
+				found = mReader->find_first_of('\n');
+				size = mReader->size();
+				v = TTValue((TTPtr)this);
+				
+				while (!mLastLine)
+				{
+					mLine = NULL;
+					
+					// parse line
+					if (found != last) {
+						line = mReader->substr(last, found-last);
+						mLine = new TTValue(line);
+						mLine->fromString();
+					}
+					
+					// check for a next line
+					last = found+1;
+					if (last < size)
+						found = mReader->find_first_of('\n', last);
+					
+					// else set last line flag on
+					else  
+						mLastLine = YES;
+
+					// send the line
+					if (mLine) {
+						
+						aTTObject->sendMessage(TT("ReadFromText"), v, kTTValNONE);
+						
+						// set first line flag off
+						mFirstLine = NO;
+						delete mLine;
+					}
+				}
+			}
+		}
+		else return kTTErrGeneric;
+		
+		mIsReading = false;
+		
+		// memorize the TTObject as the last handled object
+		mObject = aTTObject;
+		
+		return kTTErrNone;
 	}
 	
 	// else
 	v.append((TTPtr)this);
 	return aTTObject->sendMessage(TT("ReadFromText"), v, kTTValNONE);
-}
-
-TTErr TTTextHandler::ReadAgain()
-{
-	TTValue args;
-	
-	args.append(mFilePath);
-	return Read(args, kTTValNONE);
 }

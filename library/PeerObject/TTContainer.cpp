@@ -922,62 +922,70 @@ TTErr TTContainer::unbind()
 TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	ofstream		*file;
+	TTString		*buffer;
 	TTUInt16		i;
 	TTValue			keys, cacheElement, s, arg;
 	TTSymbolPtr		name, service;
 	TTObjectPtr		anObject;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mWriter;
+	buffer = aTextHandler->mWriter;
 	
 	// html header
-	*file <<  "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";	
-	*file << "<html>";
-	*file << "\t<head>";
-	*file << "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=ISO-8859-1\">";
-	*file << "<title>" << this->mAddress->getCString() << "</title>";	
+	*buffer =  "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";	
+	*buffer += "<html>";
+	*buffer += "\t<head>";
+	*buffer += "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=ISO-8859-1\">";
+	*buffer += "<title>";
+	*buffer += this->mAddress->getCString();
+	*buffer += "</title>";	
 	
-	this->cssDefinition(file);
+	this->cssDefinition(buffer);
 	
-	*file << "\t</head>";
-	*file << "";
+	*buffer += "\t</head>";
+	*buffer += "";
 	
 	// html body
-	*file << "<body>";
-	*file << "\t<div id=\"jmod_header\">";
+	*buffer += "<body>";
+	*buffer += "\t<div id=\"jmod_header\">";
 	
 	// Top of page displaying name of module etc.
-	*file << "\t<img src=\"../../../documentation/graphics/jmodular.icon.png\" width=\"128\" height=\"128\">";	
-	*file << "\t<h1>" << this->mAddress->getCString() << "</h1>";
-	*file << "\t<h2>" << this->mDescription->getCString() << "</h2>";
+	*buffer += "\t<img src=\"../../../documentation/graphics/jmodular.icon.png\" width=\"128\" height=\"128\">";	
+	*buffer += "\t<h1>";
+	*buffer += this->mAddress->getCString();
+	*buffer += "</h1>";
+	*buffer += "\t<h2>";
+	*buffer += this->mDescription->getCString();
+	*buffer += "</h2>";
 	
 	// Menu
-	*file << "\t<h6><a href=\"../../../documentation/html/index.html\">Table of Contents</a> | <a href=\"../../../documentation/html/modules.html\">Index of Modules</a> | <a href=\"../../../documentation/html/credits.html\">Credits</a> | <a href=\"http://pledgie.com/campaigns/5615\">Donate</a> | <a href=\"http://www.jamoma.org/\">Jamoma.org</a></h6>";
-	*file << "\t</div>";
-	*file << "";
+	*buffer += "\t<h6><a href=\"../../../documentation/html/index.html\">Table of Contents</a> | <a href=\"../../../documentation/html/modules.html\">Index of Modules</a> | <a href=\"../../../documentation/html/credits.html\">Credits</a> | <a href=\"http://pledgie.com/campaigns/5615\">Donate</a> | <a href=\"http://www.jamoma.org/\">Jamoma.org</a></h6>";
+	*buffer += "\t</div>";
+	*buffer += "";
 	
 	/* 
 	 Configuration
 	 */
-	*file << "\t<h3> Configuration </h3>";
-	*file << "\t<p> Model Type: <code>" << this->mType->getCString() << "</code> <br>";
+	*buffer += "\t<h3> Configuration </h3>";
+	*buffer += "\t<p> Model Type: <code>";
+	*buffer += this->mType->getCString();
+	*buffer += "</code> <br>";
 	
 	/* 
 	 Inlets and outlets Objects 
 	 */
 	
 	// TODO : Make TTIn and TTOut and store them
-	*file << "\t<p>Number of signal inlets: <code> 0 </code> <br/>";
-	*file << "\t<p>Number of signal outlets: <code> 0 </code> <br/>";
+	*buffer += "\t<p>Number of signal inlets: <code> 0 </code> <br/>";
+	*buffer += "\t<p>Number of signal outlets: <code> 0 </code> <br/>";
 	
 	
 	mObjectsObserversCache->getKeys(keys);
 	/* 
 	 Data @service parameter
 	 */
-	*file << "\t<h3> Parameters </h3>";	
-	this->dataHeading(file);
+	*buffer += "\t<h3> Parameters </h3>";	
+	this->dataHeading(buffer);
 	
 	for (i=0; i<keys.getSize(); i++)
 	{
@@ -990,31 +998,32 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			s.get(0, &service);
 			
 			if (service == kTTSym_parameter) {
-				*file << "\t\t<tr>";
-				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
+				*buffer += "\t\t<tr>";
+				*buffer += "\t\t\t<td class=\"instructionName\"> ";
+				*buffer += name->getCString();
+				*buffer += "</td>";
 				
 				arg = TTValue(TTPtr(anObject));
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
 				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
-				*file << "\t\t<tr>";
+				*buffer += "\t\t<tr>";
 			}
 		}
 	}
 	
 	// End of table
-	*file << "\t</table>";
-	*file << "";
-	*file << "\t<p>&nbsp;</p>";
-	*file << "";
-	
+	*buffer += "\t</table>";
+	*buffer += "";
+	*buffer += "\t<p>&nbsp;</p>";
+	*buffer += "";
 	
 	/* 
 	 Data @service message
 	 */
-	*file << "\t<h3> Messages </h3>";	
-	this->dataHeading(file);
+	*buffer += "\t<h3> Messages </h3>";	
+	this->dataHeading(buffer);
 	
 	for (i=0; i<keys.getSize(); i++)
 	{
@@ -1027,31 +1036,33 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			s.get(0, &service);
 			
 			if (service == kTTSym_message) {
-				*file << "\t\t<tr>";
-				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
+				*buffer += "\t\t<tr>";
+				*buffer += "\t\t\t<td class=\"instructionName\"> ";
+				*buffer += name->getCString();
+				*buffer += "</td>";
 				
 				arg = TTValue(TTPtr(anObject));
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
 				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
-				*file << "\t\t<tr>";
+				*buffer += "\t\t<tr>";
 			}
 		}
 	}
 	
 	// End of table
-	*file << "\t</table>";
-	*file << "";
-	*file << "\t<p>&nbsp;</p>";
-	*file << "";
+	*buffer += "\t</table>";
+	*buffer += "";
+	*buffer += "\t<p>&nbsp;</p>";
+	*buffer += "";
 	
 	
 	/* 
 	 Data @service return
 	 */
-	*file << "\t<h3> Returns </h3>";	
-	this->dataHeading(file);
+	*buffer += "\t<h3> Returns </h3>";	
+	this->dataHeading(buffer);
 	
 	for (i=0; i<keys.getSize(); i++)
 	{
@@ -1064,63 +1075,65 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			s.get(0, &service);
 			
 			if (service == kTTSym_return) {
-				*file << "\t\t<tr>";
-				*file << "\t\t\t<td class=\"instructionName\"> " << name->getCString() << "</td>";
+				*buffer += "\t\t<tr>";
+				*buffer += "\t\t\t<td class=\"instructionName\"> ";
+				*buffer += name->getCString();
+				*buffer += "</td>";
 				
 				arg = TTValue(TTPtr(anObject));
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
 				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
-				*file << "\t\t<tr>";
+				*buffer += "\t\t<tr>";
 			}
 		}
 	}
 	
 	// End of table
-	*file << "\t</table>";
-	*file << "";
-	*file << "\t<p>&nbsp;</p>";
-	*file << "";
+	*buffer += "\t</table>";
+	*buffer += "";
+	*buffer += "\t<p>&nbsp;</p>";
+	*buffer += "";
 	
 	
 	// Some final info on Jamoma
-	*file << "\t<h3> About Jamoma </h3>";		
-	*file << "\t<p> Jamoma is a system for creating and exchanging structured Max patches. ";
-	*file << "\tIt consists of both a set of guidelines and an implementation of those guidelines. ";
-	*file << "\tFor more information please visit <a href=\"http://jamoma.org/\">jamoma.org</a>. </p> ";
+	*buffer += "\t<h3> About Jamoma </h3>";		
+	*buffer += "\t<p> Jamoma is a system for creating and exchanging structured Max patches. ";
+	*buffer += "\tIt consists of both a set of guidelines and an implementation of those guidelines. ";
+	*buffer += "\tFor more information please visit <a href=\"http://jamoma.org/\">jamoma.org</a>. </p> ";
 	
 	// End of page
-	*file << "</body>";
-	*file << "</html>";
+	*buffer += "</body>";
+	*buffer += "</html>";
 	
 	return kTTErrNone;
 }
 
-void TTContainer::dataHeading(ofstream *file)
+void TTContainer::dataHeading(TTString *buffer)
 {		
-	*file << "\t<table>";
-	*file << "\t\t<tr class=\"tableHeading2\">";
-	*file << "\t\t\t<td> /name </td>";
-	*file << "\t\t\t<td> /type </td>";
-	*file << "\t\t\t<td> /range/bounds </td>";
-	*file << "\t\t\t<td> /range/clipmode </td>";
+	*buffer += "\t<table>";
+	*buffer += "\t\t<tr class=\"tableHeading2\">";
+	*buffer += "\t\t\t<td> /name </td>";
+	*buffer += "\t\t\t<td> /type </td>";
+	*buffer += "\t\t\t<td> /range/bounds </td>";
+	*buffer += "\t\t\t<td> /range/clipmode </td>";
 #ifdef TTDATA_RAMPLIB
-	*file << "\t\t\t<td> /ramp/drive </td>";
-	*file << "\t\t\t<td> /ramp/function </td>";
+	*buffer += "\t\t\t<td> /ramp/drive </td>";
+	*buffer += "\t\t\t<td> /ramp/function </td>";
 #endif
-	*file << "\t\t\t<td> /dataspace </td>"; 
-	*file << "\t\t\t<td> /dataspace/unit/native </td>"; 
-	*file << "\t\t\t<td> /repetitions/allow </td>";	
-	*file << "\t\t\t<td> /description </td>";
-	*file << "\t\t<tr>";
+	*buffer += "\t\t\t<td> /dataspace </td>"; 
+	*buffer += "\t\t\t<td> /dataspace/unit/native </td>"; 
+	*buffer += "\t\t\t<td> /repetitions/allow </td>";	
+	*buffer += "\t\t\t<td> /description </td>";
+	*buffer += "\t\t<tr>";
 }
 
-void TTContainer::cssDefinition(ofstream *file)
+void TTContainer::cssDefinition(TTString *buffer)
 {
-	*file << "<style type=\"text/css\">";
+	*buffer += "<style type=\"text/css\">";
 	
-	*file <<	"\
+	*buffer +=	"\
 	body {\
 	margin: 0px;\
 	font-family: Arial, Helvetica, sans-serif;\
@@ -1244,7 +1257,7 @@ void TTContainer::cssDefinition(ofstream *file)
 	}\
 	";
 	
-	*file <<	"\
+	*buffer +=	"\
 	\
 	.instructionName {\
 	font-family: 'Courier New', Courier, mono;\
@@ -1329,7 +1342,7 @@ void TTContainer::cssDefinition(ofstream *file)
 	}\
 	";
 	
-	*file << "</style>";
+	*buffer += "</style>";
 }
 
 #if 0

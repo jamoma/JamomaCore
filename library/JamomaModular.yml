@@ -9,7 +9,6 @@ sources:
   - ModularForMax/ModularForMax.cpp
   - PeerObject/TTApplication.cpp
   - PeerObject/TTApplicationManager.cpp
-  - PeerObject/TTBufferHandler.cpp
   - PeerObject/TTContainer.cpp
   - PeerObject/TTCue.cpp
   - PeerObject/TTCueManager.cpp

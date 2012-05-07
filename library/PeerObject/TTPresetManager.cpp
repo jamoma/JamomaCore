@@ -50,12 +50,6 @@ mCurrentPreset(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	// needed to be handled by a TTBufferHandler
-	addMessageWithArguments(WriteAsBuffer);
-	addMessageProperty(WriteAsBuffer, hidden, YES);
-	addMessageWithArguments(ReadFromBuffer);
-	addMessageProperty(ReadFromBuffer, hidden, YES);
-	
 	mPresets = new TTHash();
 }
 
@@ -332,26 +326,24 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 
 TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTTextHandlerPtr	aTextHandler;
-	ofstream			*file;
-	TTSymbolPtr			presetName;
-    TTValue				v;
-	TTUInt32			i;
+	TTTextHandlerPtr aTextHandler;
+	TTString	*buffer;
+	TTSymbolPtr presetName;
+	TTValue		v;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mWriter;
 	
-	for (i = 0; i < mNames.getSize(); i++) {
+	buffer = aTextHandler->mWriter;
+	
+	for (TTUInt32 i = 0; i < mNames.getSize(); i++) {
 		
 		mNames.get(i, &presetName);
 		if (!mPresets->lookup(presetName, v)) {
 			
-			*file << "\n";
+			*buffer += "\n";
 			
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TT("Write"));
-			
-			*file << "\n";
 		}
 	}
 	
@@ -361,62 +353,23 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	//ifstream		*file;
-	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
-	//file = aTextHandler->mReader;
-	
-	// TODO
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTBufferHandlerPtr aBufferHandler;
-	TTString	*buffer;
-	TTSymbolPtr presetName;
-	TTValue		v;
-	
-	inputValue.get(0, (TTPtr*)&aBufferHandler);
-	
-	buffer = aBufferHandler->mWriter;
-	
-	for (TTUInt32 i = 0; i < mNames.getSize(); i++) {
-		
-		mNames.get(i, &presetName);
-		if (!mPresets->lookup(presetName, v)) {
-			
-			*buffer += "\n";
-			
-			aBufferHandler->setAttributeValue(kTTSym_object, v);
-			aBufferHandler->sendMessage(TT("Write"));
-		}
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTBufferHandlerPtr aBufferHandler;
 	TTDictionaryPtr	line;
 	TTSymbolPtr		flagName;
 	TTValue			v;
 	
-	inputValue.get(0, (TTPtr*)&aBufferHandler);
+	inputValue.get(0, (TTPtr*)&aTextHandler);
 	
 	// if it is the first line :
-	if (aBufferHandler->mFirstLine)
+	if (aTextHandler->mFirstLine)
 		New();
 	
 	// parse the buffer line into TTDictionary
-	line = TTScriptParseLine(*(aBufferHandler->mLine));
+	line = TTScriptParseLine(*(aTextHandler->mLine));
 	
 	if (line) {
 		
 		// replace the buffer line value by the parsed line dictionary
-		aBufferHandler->mLine = new TTValue((TTPtr)line);
+		aTextHandler->mLine = new TTValue((TTPtr)line);
 		
 		// match preset flag line : # (preset) name
 		if (line->getSchema() == kTTSym_flag) {
@@ -449,12 +402,12 @@ TTErr TTPresetManager::ReadFromBuffer(const TTValue& inputValue, TTValue& output
 		if (mCurrentPreset) {
 			
 			v = TTValue(TTPtr(mCurrentPreset));
-			aBufferHandler->setAttributeValue(kTTSym_object, v);
-			aBufferHandler->sendMessage(TT("Read"));
+			aTextHandler->setAttributeValue(kTTSym_object, v);
+			aTextHandler->sendMessage(TT("Read"));
 		}
 		
 		// if it is the last line : bind on the first preset
-		if (aBufferHandler->mLastLine) {
+		if (aTextHandler->mLastLine) {
 			
 			mNames.get(0, &mCurrent);
 			if (!mPresets->lookup(mCurrent, v))

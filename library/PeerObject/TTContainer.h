@@ -81,10 +81,10 @@ private:
 	TTErr deleteCacheElement(TTNodePtr aNode);
 	
 	/** Generates table heading for Datas */
-	void dataHeading(ofstream *file);
+	void dataHeading(TTString *buffer);
 	
 	/** CSS definitions -- we include them in the html file itself so that we don't have problems with paths to external references */
-	void cssDefinition(ofstream *file);
+	void cssDefinition(TTString *buffer);
 	
 
 	

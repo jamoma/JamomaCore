@@ -40,12 +40,6 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	// needed to be handled by a TTBufferHandler
-	addMessageWithArguments(WriteAsBuffer);
-	addMessageProperty(WriteAsBuffer, hidden, YES);
-	addMessageWithArguments(ReadFromBuffer);
-	addMessageProperty(ReadFromBuffer, hidden, YES);
-	
 	TTObjectInstantiate(TT("Script"), TTObjectHandle(&mScript), args);
 }
 
@@ -257,44 +251,14 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
 	
-	// use ReadAsText of the script
-	v = TTValue(TTPtr(mScript));
-	aTextHandler->setAttributeValue(kTTSym_object, v);
-	aTextHandler->sendMessage(TT("Read"));
-	
-	return kTTErrNone;
-}
-
-TTErr TTCue::WriteAsBuffer(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTBufferHandlerPtr aBufferHandler;
-	TTValue	v;
-	
-	inputValue.get(0, (TTPtr*)&aBufferHandler);
-	
-	// use WriteAsBuffer of the script
-	v = TTValue(TTPtr(mScript));
-	aBufferHandler->setAttributeValue(kTTSym_object, v);
-	aBufferHandler->sendMessage(TT("Write"));
-	
-	return kTTErrNone;
-}
-
-TTErr TTCue::ReadFromBuffer(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTBufferHandlerPtr aBufferHandler;
-	TTValue	v;
-	
-	inputValue.get(0, (TTPtr*)&aBufferHandler);
-	
 	// if it is the first line :
-	if (aBufferHandler->mFirstLine)
+	if (aTextHandler->mFirstLine)
 		Clear();
 	
 	// use ReadAsbuffer of the script
 	v = TTValue(TTPtr(mScript));
-	aBufferHandler->setAttributeValue(kTTSym_object, v);
-	aBufferHandler->sendMessage(TT("Read"));
+	aTextHandler->setAttributeValue(kTTSym_object, v);
+	aTextHandler->sendMessage(TT("Read"));
 	
 	return kTTErrNone;
 }

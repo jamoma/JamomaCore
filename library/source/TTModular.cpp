@@ -28,7 +28,6 @@ void TTModularInit()
 		// register classes -- both internal and external
 		TTApplication::registerClass();
 		TTApplicationManager::registerClass();
-		TTBufferHandler::registerClass();
 		TTContainer::registerClass();
 		TTCue::registerClass();
 		TTCueManager::registerClass();

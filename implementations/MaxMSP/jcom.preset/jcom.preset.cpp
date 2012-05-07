@@ -156,7 +156,7 @@ void preset_subscribe(TTPtr self)
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
-	TTBufferHandlerPtr			aBufferHandler;
+	TTTextHandlerPtr			aTextHandler;
 	
 	// add 'preset' after the address
 	if (x->address != kTTAdrsEmpty) {
@@ -214,11 +214,11 @@ void preset_subscribe(TTPtr self)
 		v = TTValue(TTPtr(x->wrappedObject));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
-		// create internal TTBufferHandler
-		aBufferHandler = NULL;
-		TTObjectInstantiate(TT("BufferHandler"), TTObjectHandle(&aBufferHandler), args);
-		v = TTValue(TTPtr(aBufferHandler));
-		x->internals->append(TT("BufferHandler"), v);
+		// create internal TTTextHandler
+		aTextHandler = NULL;
+		TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler), args);
+		v = TTValue(TTPtr(aTextHandler));
+		x->internals->append(TT("TextHandler"), v);
 		
 		// Create internal messages for Read and Write
 		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
@@ -503,7 +503,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTString			*buffer;
 	char				title[MAX_FILENAME_CHARS];
-	TTBufferHandlerPtr	aBufferHandler = NULL;
+	TTTextHandlerPtr	aTextHandler = NULL;
 	TTHashPtr			allPresets;
 	TTValue				v, o, args;
 	TTErr				tterr;
@@ -544,17 +544,17 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		buffer = new TTString();
 		
 		// get the buffer handler
-		tterr = x->internals->lookup(TT("BufferHandler"), o);
+		tterr = x->internals->lookup(TT("TextHandler"), o);
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aBufferHandler);
+			o.get(0, (TTPtr*)&aTextHandler);
 			
 			critical_enter(0);
 			o = TTValue(TTPtr(EXTRA->toEdit));
-			aBufferHandler->setAttributeValue(kTTSym_object, o);
+			aTextHandler->setAttributeValue(kTTSym_object, o);
 			args = TTValue((TTPtr)buffer);
-			tterr = aBufferHandler->sendMessage(TT("Write"), args, kTTValNONE);
+			tterr = aTextHandler->sendMessage(TT("Write"), args, kTTValNONE);
 			critical_exit(0);
 		}
 		
@@ -584,20 +584,20 @@ void preset_edclose(TTPtr self, char **text, long size)
 void preset_doedit(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTBufferHandlerPtr	aBufferHandler = NULL;
+	TTTextHandlerPtr	aTextHandler = NULL;
 	TTValue				o, args;
 	TTErr				tterr;
 	
 	// get the buffer handler
-	tterr = x->internals->lookup(TT("BufferHandler"), o);
+	tterr = x->internals->lookup(TT("TextHandler"), o);
 	
 	if (!tterr) {
 		
-		o.get(0, (TTPtr*)&aBufferHandler);
+		o.get(0, (TTPtr*)&aTextHandler);
 		
 		critical_enter(0);
 		args = TTValue((TTPtr)EXTRA->text);
-		tterr = aBufferHandler->sendMessage(TT("Read"), args, kTTValNONE);
+		tterr = aTextHandler->sendMessage(TT("Read"), args, kTTValNONE);
 		critical_exit(0);
 		
 		// recall the current

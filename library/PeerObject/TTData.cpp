@@ -831,51 +831,70 @@ TTErr TTData::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	ofstream		*file;
+	TTString		*buffer;
 	TTValue			toString;
 	TTString		line;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
-	file = aTextHandler->mWriter;
+	buffer = aTextHandler->mWriter;
 	
 	// Type
-	*file << "\t\t\t<td class =\"instructionType\">" << this->mType->getCString() <<  "</td>";
+	*buffer += "\t\t\t<td class =\"instructionType\">";
+	*buffer += this->mType->getCString();
+	*buffer += "</td>";
 
 	// range/bounds
 	toString = this->mRangeBounds;
 	toString.toString();
 	toString.get(0, line);
 	
-	if ( (this->mType == kTTSym_integer) || (this->mType == kTTSym_boolean) || (this->mType == kTTSym_decimal) || (this->mType == kTTSym_generic) )
-		*file << "\t\t\t<td class =\"instructionRangeBounds\">" << line.data() << "</td>";
+	if ( (this->mType == kTTSym_integer) || (this->mType == kTTSym_boolean) || (this->mType == kTTSym_decimal) || (this->mType == kTTSym_generic) ) {
+		*buffer +="\t\t\t<td class =\"instructionRangeBounds\">";
+		*buffer +=line.data();
+		*buffer += "</td>";
+	}
 	else
-		*file << "\t\t\t<td class = \"instructionRangeBounds\"> N/A </td>";
+		*buffer += "\t\t\t<td class = \"instructionRangeBounds\"> N/A </td>";
 
 	// range/clipmode
-	*file << "\t\t\t<td class =\"instructionRangeClipmode\">" << this->mRangeClipmode->getCString() << "</td>";
+	*buffer += "\t\t\t<td class =\"instructionRangeClipmode\">";
+	*buffer += this->mRangeClipmode->getCString();
+	*buffer += "</td>";
 
 #ifndef TTDATA_NO_RAMPLIB
 	// ramp/drive
-	*file << "\t\t\t<td class =\"instructionRampDrive\">" << this->mRampDrive->getCString() << "</td>";
+	*buffer += "\t\t\t<td class =\"instructionRampDrive\">";
+	*buffer += this->mRampDrive->getCString();
+	*buffer += "</td>";
 	
 	// ramp/function
-	*file << "\t\t\t<td class =\"instructionRampFunction\">" << this->mRampFunction->getCString() << "</td>";
+	*buffer += "\t\t\t<td class =\"instructionRampFunction\">";
+	*buffer += this->mRampFunction->getCString();
+	*buffer += "</td>";
 #endif
 	
 	// dataspace
-	*file << "\t\t\t<td class =\"instructionDataspace\">" << this->mDataspace->getCString() << "</td>";
+	*buffer += "\t\t\t<td class =\"instructionDataspace\">";
+	*buffer += this->mDataspace->getCString();
+	*buffer += "</td>";
 	
 	// dataspace/unit/native
-	*file << "\t\t\t<td class =\"instructionDataspaceUnit\">" << this->mDataspaceUnit->getCString() << "</td>";
+	*buffer += "\t\t\t<td class =\"instructionDataspaceUnit\">";
+	*buffer += this->mDataspaceUnit->getCString();
+	*buffer += "</td>";
 	
 	// repetitions/allow
 	toString = this->mRepetitionsAllow;
 	toString.toString();
 	toString.get(0, line);
-	*file << "\t\t\t<td class =\"instructionRepetitionsAllow\">" << line.data() << "</td>";
+	*buffer += "\t\t\t<td class =\"instructionRepetitionsAllow\">";
+	*buffer += line.data();
+	*buffer += "</td>";
 	
 	// description
-	*file << "\t\t\t<td class =\"instructionDescription\">" << this->mDescription->getCString() << "</td>";
+	*buffer += "\t\t\t<td class =\"instructionDescription\">";
+	*buffer += this->mDescription->getCString();
+	*buffer += "</td>";
 	return kTTErrNone;
 }
 
