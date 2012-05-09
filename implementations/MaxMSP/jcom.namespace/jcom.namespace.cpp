@@ -256,7 +256,8 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			s = atom_getsym(argv+i);
 			
 			if (output == kTTSym_descendants && address->getName() == S_SEPARATOR)
-				s = gensym(s->s_name+1); // remove the / in this case
+				if (s->s_name[0] == C_SEPARATOR)
+					s = gensym(s->s_name+1); // remove the / in this case
 			
 			if (output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
