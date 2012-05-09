@@ -7,7 +7,7 @@
 			"revision" : 5
 		}
 ,
-		"rect" : [ 159.0, 529.0, 425.0, 214.0 ],
+		"rect" : [ 735.0, 228.0, 659.0, 547.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -28,6 +28,96 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"color" : [ 0.419608, 0.435294, 0.521569, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 270.0, 246.0, 135.0, 19.0 ],
+					"text" : "jcom.remote delta/angle"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.419608, 0.435294, 0.521569, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-24",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 270.0, 272.0, 161.0, 19.0 ],
+					"text" : "jcom.remote delta/magnitude"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.419608, 0.435294, 0.521569, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 270.0, 221.0, 113.0, 19.0 ],
+					"text" : "jcom.remote delta/y"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.419608, 0.435294, 0.521569, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-27",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 270.0, 297.0, 113.0, 19.0 ],
+					"text" : "jcom.remote delta/x"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.419608, 0.435294, 0.521569, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-28",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 270.0, 323.0, 128.0, 19.0 ],
+					"text" : "jcom.remote position/y"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.419608, 0.435294, 0.521569, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-29",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 270.0, 353.0, 128.0, 19.0 ],
+					"text" : "jcom.remote position/x"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-3",
@@ -146,7 +236,7 @@
 					"patching_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"text" : "/#1.1"
+					"text" : "waiting for a model/address"
 				}
 
 			}
