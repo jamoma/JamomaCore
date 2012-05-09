@@ -321,7 +321,6 @@ TTErr TTViewerDataspaceCallback(TTPtr baton, TTValue& data)
 	TTViewerPtr aViewer;
 	TTValuePtr	b;
 	TTValue		v;
-	TTErr		err;
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
@@ -329,16 +328,8 @@ TTErr TTViewerDataspaceCallback(TTPtr baton, TTValue& data)
 	
 	aViewer->mDataspace = data;
 	
-	if (aViewer->mDataspaceConverter) {
+	if (aViewer->mDataspaceConverter)
 		aViewer->mDataspaceConverter->setAttributeValue(TT("dataspace"), aViewer->mDataspace);
-		
-		err = aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
-		if (err) {
-			aViewer->mDataspaceConverter->getAttributeValue(TT("outputUnit"), v);
-			v.get(0, &aViewer->mDataspaceUnit);
-			aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
-		}
-	}
 	
 	return kTTErrNone;
 }
@@ -348,13 +339,29 @@ TTErr TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data)
 	TTViewerPtr aViewer;
 	TTValuePtr	b;
 	TTValue		v;
+	TTErr		err;
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aViewer);
 	
-	if (aViewer->mDataspaceConverter)
+	if (aViewer->mDataspaceConverter) {
+		
+		// set input unit like the data unit
 		aViewer->mDataspaceConverter->setAttributeValue(TT("inputUnit"), data);
+		
+		// if no unit : set the output unit like the the data unit
+		if (aViewer->mDataspaceUnit == kTTSym_none)
+			aViewer->mDataspaceUnit = data;
+		
+		// if the unit is wrong : use the default unit
+		err = aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
+		if (err) {
+			aViewer->mDataspaceConverter->getAttributeValue(TT("outputUnit"), v);
+			v.get(0, &aViewer->mDataspaceUnit);
+			aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
+		}
+	}
 	
 	return kTTErrNone;
 }
