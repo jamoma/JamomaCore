@@ -19,7 +19,7 @@ void		WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		data_new_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		data_subscribe(TTPtr self, SymbolPtr address);
+void		data_subscribe(TTPtr self, SymbolPtr address, AtomCount argc, AtomPtr argv);
 void		data_address(TTPtr self, SymbolPtr name);
 
 #ifndef JMOD_RETURN
@@ -135,22 +135,24 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 	jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_parameter);
 #endif
 #endif
-	if (argc && argv)
-		attr_args_process(x, argc, argv);
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)data_subscribe, relativeAddress, 0, 0);
+	defer_low((ObjectPtr)x, (method)data_subscribe, relativeAddress, argc, argv);
 }
 
-void data_subscribe(TTPtr self, SymbolPtr relativeAddress)
+void data_subscribe(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 
 	// for relative address
-	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative)
+	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
 		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name), &x->subscriberObject);
+		
+		if (argc && argv)
+			attr_args_process(x, argc, argv);
+	}
 	else
 		object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
 }
