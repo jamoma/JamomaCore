@@ -168,7 +168,8 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		attr_args_process(x, argc, argv);
 		
 		// keep args to set the wrapped object attributes
-		jamoma_ttvalue_from_Atom(EXTRA->args, _sym_list, argc--, argv++);
+		if (argc > 1)
+			jamoma_ttvalue_from_Atom(EXTRA->args, _sym_list, argc--, argv++);
 	}
 	
 	// The following must be deferred because we have to interrogate our box,
