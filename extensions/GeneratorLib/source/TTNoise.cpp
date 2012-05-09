@@ -20,10 +20,17 @@ accum(0),
 mNumChannels(0)
 {
 	addAttributeWithSetter(Mode,			kTypeSymbol); 
-	addAttributeWithGetterAndSetter(Gain,	kTypeFloat64);
-	
+	addAttributeWithGetterAndSetter(Gain,	kTypeFloat64);	
 	setAttributeValue(TT("mode"), TT("white"));    
 	setAttributeValue(TT("gain"), 0.0);			// 0 dB 
+#ifdef USE_MERSENNE_TWISTER_ALGORITHM	
+	addAttribute(Mean,						kTypeFloat64); 
+	addAttribute(Std,						kTypeFloat64); 
+	addAttributeProperty(Std,			range,			TTValue(0.0, 1.0));
+	addAttributeProperty(Std,			rangeChecking,	TT("low"));	
+	setAttributeValue(TT("mean"), 0.0);	
+	setAttributeValue(TT("std"), 1.0);	
+#endif	
 }
 
 
@@ -70,6 +77,8 @@ TTErr TTNoise::setMode(const TTValue& newMode)
 		return setProcessMethod(processBrownNoise);
 	if (mMode == TT("blue"))
 		return setProcessMethod(processBlueNoise);
+	if (mMode == TT("gauss"))
+		return setProcessMethod(processGauss);
 	else
 		return setProcessMethod(processWhiteNoise);
 }
@@ -78,7 +87,7 @@ TTErr TTNoise::setMode(const TTValue& newMode)
 TTErr TTNoise::setGain(const TTValue& newValue)
 {
 	mGain = dbToLinear(newValue);
-	return kTTErrNone;
+	return kTTErrNone;	
 }
 
 
@@ -232,4 +241,26 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	}
 	return kTTErrNone;
 }
+#ifdef USE_MERSENNE_TWISTER_ALGORITHM
+TTErr TTNoise::processGauss(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTSampleValue	tempSample;
+	TTSampleValuePtr	outSample;
+	TTUInt16		numChannels = out.getNumChannelsAsInt();
+	TTUInt16		channel;
+	TTUInt16		vs = out.getVectorSizeAsInt();
+	
+	if (numChannels != mNumChannels)
+		setNumChannels(numChannels);
+	
+	for (channel=0; channel<numChannels; channel++) {
+		outSample = out.mSampleVectors[channel];
+		for (TTUInt16 n=0; n<vs; n++) {
+			*outSample++ = mTwister.randNorm(mMean,mStd);
+		}
+	}
+	return kTTErrNone;
+}
+#endif
 

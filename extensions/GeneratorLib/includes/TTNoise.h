@@ -24,6 +24,8 @@ class TTNoise : TTAudioObject {
 
 #ifdef USE_MERSENNE_TWISTER_ALGORITHM
 	MTRand				mTwister;	///< class implementing Mersenne Twister algorithm
+	TTFloat64			mMean;		///< mean value for gauss distribution process method
+	TTFloat64			mStd;		///< Standard deviation value for gauss distribution process method	
 #endif
 	TTSymbol*			mMode;		///< Attribute: what color is the noise?
 	TTFloat64			mGain;		// gain stage
@@ -39,7 +41,10 @@ class TTNoise : TTAudioObject {
 
 	/**	Audio Processing Method	*/
 	TTErr processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
+#ifdef USE_MERSENNE_TWISTER_ALGORITHM	
+	/**	Audio Processing Method	*/
+	TTErr processGauss(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+#endif
 	/**	Audio Processing Method	*/
 	TTErr processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
