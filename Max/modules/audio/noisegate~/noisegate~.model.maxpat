@@ -7,7 +7,7 @@
 			"revision" : 5
 		}
 ,
-		"rect" : [ 0.0, 44.0, 1440.0, 806.0 ],
+		"rect" : [ 0.0, 44.0, 1294.0, 643.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -36,7 +36,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 972.0, 528.0, 267.0, 43.0 ],
+					"patching_rect" : [ 857.0, 511.0, 267.0, 43.0 ],
 					"text" : "jcom.return status @type boolean @description \"Indicates if the input signal is currently gated or not.\""
 				}
 
@@ -50,7 +50,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 741.0, 528.0, 89.0, 19.0 ],
+					"patching_rect" : [ 626.0, 511.0, 89.0, 19.0 ],
 					"text" : "jcom.out~ 2"
 				}
 
@@ -64,7 +64,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 741.0, 271.0, 159.0, 19.0 ],
+					"patching_rect" : [ 626.0, 254.0, 159.0, 19.0 ],
 					"text" : "jcom.in~ 2"
 				}
 
@@ -93,7 +93,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 606.0, 157.5, 569.0, 43.0 ],
+					"patching_rect" : [ 491.0, 140.5, 569.0, 43.0 ],
 					"text" : "jcom.parameter threshold @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds -90 24 @range/clipmode both @description \"The threshold sets the level at which the Noise Gate opens and closes..\" @dataspace gain @dataspace/unit dB",
 					"varname" : "threshold"
 				}
@@ -109,7 +109,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 476.0, 108.5, 593.0, 43.0 ],
+					"patching_rect" : [ 361.0, 91.5, 593.0, 43.0 ],
 					"text" : "jcom.parameter release @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode both @description \"When the gate closes, this parameter sets how many milliseconds it will take to fade out.\" @dataspace time @dataspace/unit ms",
 					"varname" : "release"
 				}
@@ -125,7 +125,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 396.0, 51.0, 600.0, 43.0 ],
+					"patching_rect" : [ 281.0, 34.0, 600.0, 43.0 ],
 					"text" : "jcom.parameter attack @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode low @description \"When the gate opens, this parameter sets how many milliseconds it will take to fade in.\" @dataspace time @dataspace/unit ms",
 					"varname" : "attack"
 				}
@@ -141,7 +141,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 960.0, 217.0, 412.0, 43.0 ],
+					"patching_rect" : [ 845.0, 200.0, 412.0, 43.0 ],
 					"text" : "jcom.parameter lookahead @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 100 @range/clipmode low @description \"How many samples to look ahead while monitoring incoming signal.\"",
 					"varname" : "lookahead"
 				}
@@ -156,8 +156,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 30.0, 336.0, 272.0, 19.0 ],
-					"text" : "jcom.model @type audio @description \"noise gate.\"",
+					"patching_rect" : [ 30.0, 336.0, 207.0, 19.0 ],
+					"text" : "jcom.model @description \"Noise gate.\"",
 					"varname" : "jcom.model"
 				}
 
@@ -180,7 +180,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 776.0, 592.0, 24.0, 24.0 ]
+					"patching_rect" : [ 661.0, 575.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -191,7 +191,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 741.0, 592.0, 24.0, 24.0 ]
+					"patching_rect" : [ 626.0, 575.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -203,7 +203,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 741.0, 217.0, 24.0, 24.0 ]
+					"patching_rect" : [ 626.0, 200.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -215,7 +215,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 881.0, 217.0, 24.0, 24.0 ]
+					"patching_rect" : [ 766.0, 200.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -240,7 +240,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "int", "int" ],
-					"patching_rect" : [ 972.0, 498.0, 45.0, 19.0 ],
+					"patching_rect" : [ 857.0, 481.0, 45.0, 19.0 ],
 					"text" : "change"
 				}
 
@@ -254,7 +254,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 811.0, 326.0, 60.0, 19.0 ],
+					"patching_rect" : [ 696.0, 309.0, 60.0, 19.0 ],
 					"text" : "delay~ 10"
 				}
 
@@ -268,7 +268,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 811.0, 496.0, 27.0, 19.0 ],
+					"patching_rect" : [ 696.0, 479.0, 27.0, 19.0 ],
 					"text" : "*~"
 				}
 
@@ -282,7 +282,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
-					"patching_rect" : [ 972.0, 476.0, 78.0, 19.0 ],
+					"patching_rect" : [ 857.0, 459.0, 78.0, 19.0 ],
 					"text" : "snapshot~ 40"
 				}
 
@@ -296,7 +296,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 741.0, 326.0, 60.0, 19.0 ],
+					"patching_rect" : [ 626.0, 309.0, 60.0, 19.0 ],
 					"text" : "delay~ 10"
 				}
 
@@ -310,7 +310,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 741.0, 496.0, 27.0, 19.0 ],
+					"patching_rect" : [ 626.0, 479.0, 27.0, 19.0 ],
 					"text" : "*~"
 				}
 
@@ -324,7 +324,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 606.0, 326.0, 37.0, 19.0 ],
+					"patching_rect" : [ 491.0, 309.0, 37.0, 19.0 ],
 					"text" : "dbtoa"
 				}
 
@@ -338,7 +338,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 888.0, 394.0, 107.0, 19.0 ],
+					"patching_rect" : [ 773.0, 377.0, 107.0, 19.0 ],
 					"text" : ">~ 0."
 				}
 
@@ -352,7 +352,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 888.0, 326.0, 132.0, 19.0 ],
+					"patching_rect" : [ 773.0, 309.0, 132.0, 19.0 ],
 					"text" : "average~ 1000 absolute"
 				}
 
@@ -366,7 +366,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 476.0, 326.0, 74.0, 19.0 ],
+					"patching_rect" : [ 361.0, 309.0, 74.0, 19.0 ],
 					"text" : "mstosamps~"
 				}
 
@@ -380,7 +380,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 396.0, 326.0, 74.0, 19.0 ],
+					"patching_rect" : [ 281.0, 309.0, 74.0, 19.0 ],
 					"text" : "mstosamps~"
 				}
 
@@ -394,7 +394,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 531.0, 366.0, 78.0, 17.0 ],
+					"patching_rect" : [ 416.0, 349.0, 78.0, 17.0 ],
 					"text" : "rampdown $1"
 				}
 
@@ -408,7 +408,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 451.0, 366.0, 63.0, 17.0 ],
+					"patching_rect" : [ 336.0, 349.0, 63.0, 17.0 ],
 					"text" : "rampup $1"
 				}
 
@@ -422,7 +422,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 888.0, 447.0, 80.0, 19.0 ],
+					"patching_rect" : [ 773.0, 430.0, 80.0, 19.0 ],
 					"text" : "rampsmooth~"
 				}
 
@@ -483,7 +483,7 @@
 					"destination" : [ "obj-15", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 615.5, 359.0, 985.5, 359.0 ],
+					"midpoints" : [ 500.5, 342.0, 870.5, 342.0 ],
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -493,7 +493,7 @@
 					"destination" : [ "obj-11", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 897.5, 430.0, 981.5, 430.0 ],
+					"midpoints" : [ 782.5, 413.0, 866.5, 413.0 ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -539,7 +539,7 @@
 					"destination" : [ "obj-21", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 540.5, 437.5, 897.5, 437.5 ],
+					"midpoints" : [ 425.5, 420.5, 782.5, 420.5 ],
 					"source" : [ "obj-19", 0 ]
 				}
 
@@ -549,7 +549,7 @@
 					"destination" : [ "obj-21", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 460.5, 437.5, 897.5, 437.5 ],
+					"midpoints" : [ 345.5, 420.5, 782.5, 420.5 ],
 					"source" : [ "obj-20", 0 ]
 				}
 
