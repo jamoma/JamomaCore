@@ -18,14 +18,12 @@
 // This is used to store extra data
 typedef struct extra {
 	
-	void	*clock;			///< clock to update amplitude returns
+	void		*clock;			///< clock to update amplitude returns
+	TTUInt32	pollInterval;	///< the sample rate of the amplitude follower
 	//short	clock_is_set;	///< is the clock currently scheduled to fire?
 	
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
-
-// Constants
-const double kPollIntervalDefault = 150;	// for amplitude updates
 
 #endif
 
@@ -41,6 +39,7 @@ t_int*		in_perform(t_int *w);
 void		in_dsp(TTPtr self, t_signal **sp, short *count);
 void		in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
 void		in_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
+void		in_return_amplitude_active(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		in_update_amplitude(TTPtr self);
 
 #else
@@ -81,6 +80,7 @@ void WrapTTInputClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)in_dsp,						"dsp", 					A_GIMME, 0L);
 	class_addmethod(c->maxClass, (method)in_dsp64,						"dsp64",				A_CANT, 0);
 	//class_addmethod(c->maxClass, (method)in_remoteaudio,				"remoteaudio",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)in_return_amplitude_active,	"return_amplitude_active",	A_CANT, 0);
 #else
 	class_addmethod(c->maxClass, (method)in_return_signal,				"return_signal",		A_CANT, 0);
 	
@@ -143,6 +143,7 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->clock = NULL;
+	EXTRA->pollInterval = 150;
 	
 #else
 	
@@ -232,10 +233,22 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
 		}
 		
+		// make internal data to parameter in/amplitude/active
+		makeInternals_data(x, nodeAddress, TT("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		v = TTValue(EXTRA->pollInterval);
+		aData->setAttributeValue(kTTSym_valueDefault, v);
+		v = TTValue(0, 1000);
+		aData->setAttributeValue(kTTSym_rangeBounds, v);
+		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_low);
+		aData->setAttributeValue(kTTSym_description, TT("set the sample rate of the amplitude follower"));
+		
 		// launch the clock to update amplitude regulary
 		EXTRA->clock = clock_new(x, (method)in_update_amplitude);
-		clock_delay(EXTRA->clock, kPollIntervalDefault);
+		clock_delay(EXTRA->clock, EXTRA->pollInterval);
 		//EXTRA->clock_is_set = 0;
+		
 #endif
 		
 		// expose bypass and mute attributes of TTInput as TTData in the tree structure
@@ -504,6 +517,23 @@ void in_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long
 	}
 }
 
+void in_return_amplitude_active(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr x = (WrappedModularInstancePtr)self;
+	TTBoolean clockStopped;
+	
+	if (argc && argv) {
+		
+		clockStopped = EXTRA->pollInterval == 0;
+		
+		EXTRA->pollInterval = atom_getlong(argv);
+		
+		// start our clock
+		if (clockStopped && EXTRA->pollInterval)
+			clock_delay(EXTRA->clock, EXTRA->pollInterval);
+	}
+}
+
 void in_update_amplitude(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
@@ -518,31 +548,40 @@ void in_update_amplitude(TTPtr self)
 	
 	//EXTRA->clock_is_set = 0;
 	
-	if (x->internals) {
-		if (!x->internals->isEmpty()) {
-			
-			err = x->internals->getKeys(keys);
-			
-			if (!err) {
-				for (i=0; i<keys.getSize(); i++) {
-					
-					keys.get(i, &name);
-					// get internal data object
-					x->internals->lookup(name, storedObject);
-					storedObject.get(0, (TTPtr*)&anObject);
-					
-					// get current meter value
-					anInput->mInfo.get(info_startMeter+i, metervalue);
-					//anInput->mInfo.get(info_startMeter+numChannels+i, peakamp);
-					
-					// set the value
-					anObject->setAttributeValue(kTTSym_value, metervalue);
+	if (anInput) {
+		
+		if (x->internals) {
+			if (!x->internals->isEmpty()) {
+				
+				err = x->internals->getKeys(keys);
+				
+				if (!err) {
+					for (i=0; i<keys.getSize(); i++) {
+						
+						keys.get(i, &name);
+						
+						if (name == TT("amplitude/active"))
+							continue;
+						
+						// get internal data object
+						x->internals->lookup(name, storedObject);
+						storedObject.get(0, (TTPtr*)&anObject);
+						
+						// get current meter value
+						anInput->mInfo.get(info_startMeter+i, metervalue);
+						//anInput->mInfo.get(info_startMeter+numChannels+i, peakamp);
+						
+						// set the value
+						anObject->setAttributeValue(kTTSym_value, metervalue);
+					}
 				}
 			}
 		}
+		
+		// restart the clock
+		if (EXTRA->pollInterval)
+			clock_delay(EXTRA->clock, EXTRA->pollInterval);
 	}
-	
-	clock_delay(EXTRA->clock, kPollIntervalDefault); // restart the clock
 }
 
 #endif // JCOM_IN_TILDE
