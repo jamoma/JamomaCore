@@ -15,12 +15,12 @@
 #define info_vectorSize 1
 #define info_startMeter 2
 
-// This is used to store extra data
+/** Store extra data relating to envelope tracking. Only available to jcom.in~. */
 typedef struct extra {
 	
-	void		*clock;			///< clock to update amplitude returns
-	TTUInt32	pollInterval;	///< the sample rate of the amplitude follower
-	//short	clock_is_set;	///< is the clock currently scheduled to fire?
+	void		*clock;			///< Clock to update amplitude returns.
+	TTUInt32	pollInterval;	///< The sample rate of the amplitude follower.
+	//short	clock_is_set;		///< Is the clock currently scheduled to fire?
 	
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -28,31 +28,115 @@ typedef struct extra {
 #endif
 
 // Definitions
+
+/** Wrap the jcom.in class as a Max object.
+ @param c			The class to be wrapped
+ @see				WrappedInputClass_new, WrappedInputClass_free
+ */
 void		WrapTTInputClass(WrappedClassPtr c);
+
+/** Wrapper for the jcom.in constructor class, called when an instance is created. 
+ @param self		Pointer to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				WrappedInputClass_free, in_subscribe
+ */
 void		WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+
+/** Wrapper for the jcom.in deconstructor class, called when an instance is destroyed. 
+ @param self		Pointer to this object.
+ @see				WrappedInputClass_new
+ */
 void		WrappedInputClass_free(TTPtr self);
+
+/** Assistance Method. 
+ @param self		Pointer to this object.
+ @param b			Pointer to (exactly what?)
+ @param msg			The message passed to the object.
+ @param arg			
+ @param dst			Pointer to the destination that assistance strings are passed to for display.
+ */
 void		in_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
+
+/** Associate jcom.in(~) with NodeLib. This is a prerequisit for communication with other Jamoma onject in the module and beyond.  */
 void		in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 #ifdef JCOM_IN_TILDE
+
+/** jcom.in~ 32-bit MSP perform method (for Max 5). Only defineed for jcom.in~. */
 t_int*		in_perform(t_int *w);
+
+/** jcom.in~ 32-bit DSP method (for Max 5).Only defineed for jcom.in~. */
 void		in_dsp(TTPtr self, t_signal **sp, short *count);
+
+/** jcom.in~ 64-bit MSP perform method (for Max 6). Only defineed for jcom.in~. */
 void		in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
+
+/** jcom.in~ 64-bit DSP method (for Max 6). Only defineed for jcom.in~. */
 void		in_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
+
+/** Activate envelope tracking in jcom.in~. 
+ @param self		Pointer to this object.
+ @param msg			The message sent to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				in_update_amplitude
+ */
 void		in_return_amplitude_active(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+/** Perform envelope tracking in jcom.in~.
+ @param self		Pointer to this object.
+ @see				in_return_amplitude_active
+ */
 void		in_update_amplitude(TTPtr self);
 
 #else
 
+/** Method used to pass messages from the module outlet. */
 void		in_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+/** bang handler for jcom.in 
+ @param self		Pointer to this object.
+ @see				in_int, in_float, in_list, WrappedInputClass_anything
+ */
 void		in_bang(TTPtr self);
+
+/** int handler for jcom.in 
+ @param self		Pointer to this object.
+ @param value		The value sent to this object.
+ @see				in_bang, in_float, in_list, WrappedInputClass_anything
+ */
 void		in_int(TTPtr self, long value);
+
+/** float handler for jcom.in 
+ @param self		Pointer to this object.
+ @param value		The value sent to this object.
+ @see				in_bang, in_int, in_list, WrappedInputClass_anything
+ */
 void		in_float(TTPtr self, double value);
+
+/** list handler for jcom.in 
+ @param self		Pointer to this object.
+ @param msg			The message sent to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				in_bang, in_int, in_float, WrappedInputClass_anything
+ */
 void		in_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+/** anything else handler for jcom.in 
+ @param self		Pointer to this object.
+ @param msg			The message sent to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				in_bang, in_int, in_float, in_list
+ */
 void		WrappedInputClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 #endif
 
 
+#pragma mark -
+#pragma mark main
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -96,6 +180,9 @@ void WrapTTInputClass(WrappedClassPtr c)
 #endif
 
 }
+
+#pragma mark -
+#pragma mark Object life
 
 void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
@@ -177,6 +264,9 @@ void WrappedInputClass_free(TTPtr self)
 		freeobject((t_object *)EXTRA->clock);	// delete our clock
 #endif
 }
+
+#pragma mark -
+#pragma mark NodeLib association
 
 void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
@@ -268,6 +358,10 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
+
+#pragma mark -
+#pragma mark Methods bound to input/inlets
+
 // Method for Assistance Messages
 void in_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 {
@@ -340,6 +434,9 @@ void in_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		outlet_anything(x->outlets[index], msg, argc, argv);
 }
 #endif
+
+#pragma mark -
+#pragma mark Methods relating to audio processing
 
 #ifdef JCOM_IN_TILDE
 // Perform Method - just pass the whole vector straight through
