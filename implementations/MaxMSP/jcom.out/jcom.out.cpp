@@ -369,6 +369,7 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue(0., 100.);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
+		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_both);
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);							// Assume 100%, so that processed signal is passed through
 		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
@@ -380,6 +381,7 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue(0., 127.);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
+		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_both);
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
