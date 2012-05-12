@@ -18,44 +18,129 @@
 // This is used to store extra data
 typedef struct extra {
 	
-	void	*clock;			///< clock to update amplitude returns
-	//short	clock_is_set;	///< is the clock currently scheduled to fire?
+	void		*clock;			///< Clock to update amplitude returns.
+	TTUInt32	pollInterval;	///< The sample rate of the amplitude follower.
+	TTHashPtr	instanceTable;	///< A table to associate "amplitude.N" to N for quick instance number access
+	//short	clock_is_set;		///< Is the clock currently scheduled to fire?
 	
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
-// Constants
-const double kPollIntervalDefault = 150;	// for amplitude updates
-
 #endif
 
+
 // Definitions
+
+/** Wrap the jcom.out class as a Max object.
+ @param c			The class to be wrapped
+ @see				WrappedInputClass_new, WrappedInputClass_free
+ */
 void		WrapTTOutputClass(WrappedClassPtr c);
+
+/** Wrapper for the jcom.out constructor class, called when an instance is created. 
+ @param self		Pointer to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				WrappedInputClass_free, in_subscribe
+ */
 void		WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+
+/** Wrapper for the jcom.out deconstructor class, called when an instance is destroyed. 
+ @param self		Pointer to this object.
+ @see				WrappedInputClass_new
+ */
 void		WrappedOutputClass_free(TTPtr self);
+
+/** Assistance Method. 
+ @param self		Pointer to this object.
+ @param b			Pointer to (exactly what?)
+ @param msg			The message passed to the object.
+ @param arg			
+ @param dst			Pointer to the destination that assistance strings are passed to for display.
+ */
 void		out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
+
+/** Associate jcom.out(~) with NodeLib. This is a prerequisit for communication with other Jamoma object in the module and beyond.  */
 void		out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 //TODO :	void out_register_preview(t_out *x, void *preview_object){ x->preview_object = preview_object; }
 
 #ifdef JCOM_OUT_TILDE
+
+/** jcom.out~ 32-bit MSP perform method (for Max 5). Only defined for jcom.out~. */
 t_int*		out_perform(t_int *w);
+
+/** jcom.out~ 32-bit DSP method (for Max 5).Only defined for jcom.out~. */
 void		out_dsp(TTPtr self, t_signal **sp, short *count);
+
+/** jcom.out~ 64-bit MSP perform method (for Max 6). Only defined for jcom.out~. */
 void		out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
+
+/** jcom.out~ 64-bit DSP method (for Max 6). Only defined for jcom.out~. */
 void		out_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
+
+/** Activate envelope tracking in jcom.out~. 
+ @param self		Pointer to this object.
+ @param msg			The message sent to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				out_update_amplitude
+ */
+void		out_return_amplitude_active(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+/** Perform envelope tracking in jcom.out~.
+ @param self		Pointer to this object.
+ @see				out_return_amplitude_active
+ */
 void		out_update_amplitude(TTPtr self);
 
 #else
 
+/** Method used to pass messages from the module outlet. */
 void		out_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+/** bang handler for jcom.out 
+ @param self		Pointer to this object.
+ @see				out_int, out_float, out_list, WrappedOutputClass_anything
+ */
 void		out_bang(TTPtr self);
+
+/** int handler for jcom.out 
+ @param self		Pointer to this object.
+ @param value		The value sent to this object.
+ @see				out_bang, out_float, out_list, WrappedOutputClass_anything
+ */
 void		out_int(TTPtr self, long value);
+
+/** float handler for jcom.out 
+ @param self		Pointer to this object.
+ @param value		The value sent to this object.
+ @see				out_bang, out_int, out_list, WrappedOutputClass_anything
+ */
 void		out_float(TTPtr self, double value);
+
+/** list handler for jcom.out 
+ @param self		Pointer to this object.
+ @param msg			The message sent to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				out_bang, out_int, out_float, WrappedOutputClass_anything
+ */
 void		out_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
+/** anything else handler for jcom.out 
+ @param self		Pointer to this object.
+ @param msg			The message sent to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				out_bang, out_int, out_float, out_list
+ */
 void		WrappedOutputClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 #endif
 
-
+#pragma mark -
+#pragma mark main
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -83,8 +168,9 @@ void WrapTTOutputClass(WrappedClassPtr c)
 	
 #ifdef JCOM_OUT_TILDE
 	class_addmethod(c->maxClass, (method)out_dsp,							"dsp", 					A_GIMME, 0L);
-	class_addmethod(c->maxClass, (method)out_dsp64,							"dsp64",				A_CANT, 0);	
+	class_addmethod(c->maxClass, (method)out_dsp64,							"dsp64",				A_CANT, 0);
 	//class_addmethod(c->maxClass, (method)out_remoteaudio,					"remoteaudio",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)out_return_amplitude_active,		"return_amplitude_active",	A_CANT, 0);
 	//class_addmethod(c, (method)out_getAudioForChannel,					"getAudioForChannel",	A_CANT, 0);
 	
 #else
@@ -102,6 +188,9 @@ void WrapTTOutputClass(WrappedClassPtr c)
 #endif
 	
 }
+
+#pragma mark -
+#pragma mark Object life
 
 void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
@@ -148,6 +237,8 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->clock = NULL;
+	EXTRA->pollInterval = 150;
+	EXTRA->instanceTable = new TTHash();
 	
 #else
 	
@@ -182,6 +273,9 @@ void WrappedOutputClass_free(TTPtr self)
 		freeobject((t_object *)EXTRA->clock);	// delete our clock
 #endif
 }
+
+#pragma mark -
+#pragma mark NodeLib association
 
 void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
@@ -237,12 +331,28 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			aData->setAttributeValue(kTTSym_description, TT(outDescription->s_name));
 			aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
 			aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
+			
+			// store name and index to retrieve instance number in the update_amplitude method
+			v = TTValue((TTUInt32)i);
+			EXTRA->instanceTable->append(TT(outAmplitudeInstance->s_name), v);
 		}
+		
+		// make internal data to parameter in/amplitude/active
+		makeInternals_data(x, nodeAddress, TT("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		v = TTValue(EXTRA->pollInterval);
+		aData->setAttributeValue(kTTSym_valueDefault, v);
+		v = TTValue(0, 1000);
+		aData->setAttributeValue(kTTSym_rangeBounds, v);
+		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_low);
+		aData->setAttributeValue(kTTSym_description, TT("set the sample rate of the amplitude follower"));
 		
 		// launch the clock to update amplitude regulary
 		EXTRA->clock = clock_new(x, (method)out_update_amplitude);
-		clock_delay(EXTRA->clock, kPollIntervalDefault);
-		//EXTRA->clock_is_set = 0;
+		if (EXTRA->pollInterval)
+			clock_delay(EXTRA->clock, EXTRA->pollInterval);
+			//EXTRA->clock_is_set = 0;
 #endif
 		
 		// expose attributes of TTOutput as TTData in the tree structure
@@ -290,6 +400,9 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 #endif
 	}
 }
+
+#pragma mark -
+#pragma mark Methods bound to input/inlets
 
 // Method for Assistance Messages
 void out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
@@ -357,6 +470,9 @@ void out_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		outlet_anything(x->outlets[index], msg, argc, argv);
 }
 #endif
+
+#pragma mark -
+#pragma mark Methods relating to audio processing
 
 #ifdef JCOM_OUT_TILDE
 // Perform Method - just pass the whole vector straight through
@@ -638,45 +754,73 @@ void out_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, lon
 
 }
 
+void out_return_amplitude_active(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr x = (WrappedModularInstancePtr)self;
+	TTBoolean clockStopped;
+	
+	if (argc && argv) {
+		
+		clockStopped = EXTRA->pollInterval == 0;
+		
+		EXTRA->pollInterval = atom_getlong(argv);
+		
+		// start our clock
+		if (clockStopped && EXTRA->pollInterval)
+			clock_delay(EXTRA->clock, EXTRA->pollInterval);
+	}
+}
+
 void out_update_amplitude(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTOutputPtr		anOutput = (TTOutputPtr)x->wrappedObject;
 	float			metervalue;
-	short			i;
+	short			i, index;
 	TTValue			keys;
 	TTSymbolPtr		name;
-	TTValue			storedObject;
+	TTValue			v, storedObject;
 	TTObjectPtr		anObject;
 	TTErr			err;
 	
 	//EXTRA->clock_is_set = 0;
 	
-	if (x->internals) {
-		if (!x->internals->isEmpty()) {
-			
-			err = x->internals->getKeys(keys);
-			
-			if (!err) {
-				for (i=0; i<keys.getSize(); i++) {
-					
-					keys.get(i, &name);
-					// get internal data object
-					x->internals->lookup(name, storedObject);
-					storedObject.get(0, (TTPtr*)&anObject);
-					
-					// get current meter value
-					anOutput->mInfo.get(info_startMeter+i, metervalue);
-					//anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
-					
-					// set the value
-					anObject->setAttributeValue(kTTSym_value, metervalue);
+	if (anOutput) {
+		
+		if (x->internals) {
+			if (!x->internals->isEmpty()) {
+				
+				err = x->internals->getKeys(keys);
+				
+				if (!err) {
+					for (i=0; i<keys.getSize(); i++) {
+						
+						keys.get(i, &name);
+						
+						if (!EXTRA->instanceTable->lookup(name, v)) {
+							
+							v.get(0, index);
+							
+							// get internal data object
+							x->internals->lookup(name, storedObject);
+							storedObject.get(0, (TTPtr*)&anObject);
+							
+							// get current meter value
+							anOutput->mInfo.get(info_startMeter+index, metervalue);
+							//anOutput->mInfo.get(info_startMeter+numChannels+index, peakamp);
+							
+							// set the value
+							anObject->setAttributeValue(kTTSym_value, metervalue);
+						}						
+					}
 				}
 			}
 		}
+		
+		// restart the clock
+		if (EXTRA->pollInterval)
+			clock_delay(EXTRA->clock, EXTRA->pollInterval);
 	}
-	
-	clock_delay(EXTRA->clock, kPollIntervalDefault); // restart the clock
 }
 
 #endif // JCOM_OUT_TILDE

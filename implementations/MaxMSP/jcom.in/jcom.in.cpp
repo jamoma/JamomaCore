@@ -20,6 +20,7 @@ typedef struct extra {
 	
 	void		*clock;			///< Clock to update amplitude returns.
 	TTUInt32	pollInterval;	///< The sample rate of the amplitude follower.
+	TTHashPtr	instanceTable;	///< A table to associate "amplitude.N" to N for quick instance number access
 	//short	clock_is_set;		///< Is the clock currently scheduled to fire?
 	
 } t_extra;
@@ -230,7 +231,8 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->clock = NULL;
-	EXTRA->pollInterval = 150;
+	EXTRA->pollInterval = 0;	// not active by default
+	EXTRA->instanceTable = new TTHash();
 	
 #else
 	
@@ -262,6 +264,8 @@ void WrappedInputClass_free(TTPtr self)
 	
 	if (EXTRA->clock)
 		freeobject((t_object *)EXTRA->clock);	// delete our clock
+	
+	delete EXTRA->instanceTable;
 #endif
 }
 
@@ -321,6 +325,10 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			aData->setAttributeValue(kTTSym_description, TT(inDescription->s_name));
 			aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
 			aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
+			
+			// store name and index to retrieve instance number in the update_amplitude method
+			v = TTValue((TTUInt32)i);
+			EXTRA->instanceTable->append(TT(inAmplitudeInstance->s_name), v);
 		}
 		
 		// make internal data to parameter in/amplitude/active
@@ -336,8 +344,9 @@ void in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// launch the clock to update amplitude regulary
 		EXTRA->clock = clock_new(x, (method)in_update_amplitude);
-		clock_delay(EXTRA->clock, EXTRA->pollInterval);
-		//EXTRA->clock_is_set = 0;
+		if (EXTRA->pollInterval)
+			clock_delay(EXTRA->clock, EXTRA->pollInterval);
+			//EXTRA->clock_is_set = 0;
 		
 #endif
 		
@@ -636,10 +645,10 @@ void in_update_amplitude(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTInputPtr		anInput = (TTInputPtr)x->wrappedObject;
 	float			metervalue;
-	short			i;
+	short			i, index;
 	TTValue			keys;
 	TTSymbolPtr		name;
-	TTValue			storedObject;
+	TTValue			v, storedObject;
 	TTObjectPtr		anObject;
 	TTErr			err;
 	
@@ -657,19 +666,21 @@ void in_update_amplitude(TTPtr self)
 						
 						keys.get(i, &name);
 						
-						if (name == TT("amplitude/active"))
-							continue;
-						
-						// get internal data object
-						x->internals->lookup(name, storedObject);
-						storedObject.get(0, (TTPtr*)&anObject);
-						
-						// get current meter value
-						anInput->mInfo.get(info_startMeter+i, metervalue);
-						//anInput->mInfo.get(info_startMeter+numChannels+i, peakamp);
-						
-						// set the value
-						anObject->setAttributeValue(kTTSym_value, metervalue);
+						if (!EXTRA->instanceTable->lookup(name, v)) {
+							
+							v.get(0, index);
+							
+							// get internal data object
+							x->internals->lookup(name, storedObject);
+							storedObject.get(0, (TTPtr*)&anObject);
+							
+							// get current meter value
+							anInput->mInfo.get(info_startMeter+index, metervalue);
+							//anInput->mInfo.get(info_startMeter+numChannels+index, peakamp);
+							
+							// set the value
+							anObject->setAttributeValue(kTTSym_value, metervalue);
+						}
 					}
 				}
 			}
