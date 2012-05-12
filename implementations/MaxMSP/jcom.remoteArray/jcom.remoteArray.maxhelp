@@ -2,13 +2,15 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 6,
-			"minor" : 0,
-			"revision" : 5
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
 		}
 ,
-		"rect" : [ 525.0, 80.0, 679.0, 576.0 ],
+		"rect" : [ 174.0, 136.0, 679.0, 576.0 ],
 		"bglocked" : 0,
+		"defrect" : [ 174.0, 136.0, 679.0, 576.0 ],
+		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
@@ -16,16 +18,12 @@
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
-		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -49,7 +47,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 391.0, 435.0, 50.0, 19.0 ]
 				}
 
@@ -61,10 +58,10 @@
 					"id" : "obj-32",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 391.0, 456.0, 106.0, 19.0 ],
-					"text" : "jcom.view object.*"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 391.0, 456.0, 107.0, 19.0 ],
+					"text" : "jcom.send object.*"
 				}
 
 			}
@@ -118,7 +115,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 391.0, 389.0, 50.0, 19.0 ]
 				}
 
@@ -130,10 +126,10 @@
 					"id" : "obj-25",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 391.0, 410.0, 106.0, 19.0 ],
-					"text" : "jcom.view object.*"
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 391.0, 410.0, 119.0, 19.0 ],
+					"text" : "jcom.remote object.*"
 				}
 
 			}
@@ -146,7 +142,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 391.0, 340.0, 50.0, 19.0 ]
 				}
 
@@ -158,10 +153,10 @@
 					"id" : "obj-27",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 391.0, 360.0, 106.0, 19.0 ],
-					"text" : "jcom.view object.2"
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 391.0, 360.0, 119.0, 19.0 ],
+					"text" : "jcom.remote object.2"
 				}
 
 			}
@@ -174,7 +169,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 454.0, 226.0, 102.0, 19.0 ],
+					"patching_rect" : [ 369.0, 227.0, 102.0, 19.0 ],
 					"text" : "<- or all instances"
 				}
 
@@ -188,7 +183,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 421.0, 228.0, 32.5, 17.0 ],
+					"patching_rect" : [ 336.0, 227.0, 32.5, 17.0 ],
 					"text" : "*"
 				}
 
@@ -203,7 +198,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 36.0, 306.0, 318.0, 19.0 ],
-					"text" : "(the outlets have the same  behaviour than jcom.parameter)"
+					"text" : "(the outlets have the same behaviour than jcom.remote)"
 				}
 
 			}
@@ -216,7 +211,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 281.0, 218.0, 19.0 ],
+					"patching_rect" : [ 334.0, 281.0, 218.0, 19.0 ],
 					"text" : "<- and retrieve values from this instance"
 				}
 
@@ -230,7 +225,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 196.0, 227.0, 172.0, 19.0 ],
+					"patching_rect" : [ 111.0, 227.0, 172.0, 19.0 ],
 					"text" : "address a particular instance ->"
 				}
 
@@ -244,7 +239,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 40.0, 281.0, 50.0, 19.0 ]
 				}
 
@@ -258,8 +252,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 204.0, 281.0, 50.0, 19.0 ]
+					"patching_rect" : [ 283.0, 281.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -272,7 +265,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 40.0, 227.0, 50.0, 19.0 ]
 				}
 
@@ -286,8 +278,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 368.0, 227.0, 50.0, 19.0 ]
+					"patching_rect" : [ 283.0, 227.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -299,16 +290,16 @@
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 40.0, 254.0, 347.0, 19.0 ],
-					"text" : "jcom.parameterArray object.[6] @type decimal @description Hello"
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 40.0, 254.0, 262.0, 19.0 ],
+					"text" : "jcom.remoteArray object.{1 3 5}"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.parameterArray", "@description", "Define an array of parameter instances" ],
+					"args" : [ "@name", "jcom.parameterArray", "@description", "Define an array of remote access" ],
 					"bgmode" : 1,
 					"id" : "obj-19",
 					"maxclass" : "bpatcher",
@@ -329,7 +320,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 370.0, 520.0, 113.0, 17.0 ],
+					"patching_rect" : [ 562.0, 546.0, 113.0, 17.0 ],
 					"text" : "jcom.messageArray"
 				}
 
@@ -344,7 +335,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 505.0, 509.0, 76.0, 19.0 ],
+					"patching_rect" : [ 476.0, 526.0, 76.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
@@ -359,7 +350,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 505.0, 534.0, 51.0, 19.0 ],
+					"patching_rect" : [ 476.0, 551.0, 51.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -373,7 +364,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 365.0, 500.0, 52.0, 19.0 ],
+					"patching_rect" : [ 557.0, 526.0, 52.0, 19.0 ],
 					"text" : "See also"
 				}
 
@@ -388,7 +379,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 38.0, 439.0, 211.0, 17.0 ],
-					"text" : "model/address /remoteArray"
+					"text" : "ui/size 300. 70."
 				}
 
 			}
@@ -401,7 +392,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 188.0, 338.0, 50.0, 19.0 ]
 				}
 
@@ -412,11 +402,12 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-13",
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 40.0, 166.0, 345.0, 19.0 ],
-					"text" : "- an array of six parameters named /objetc.N"
+					"patching_rect" : [ 40.0, 180.0, 241.0, 31.0 ],
+					"text" : "- an array of remote controller to select a sub set of parameter to control"
 				}
 
 			}
@@ -429,8 +420,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 40.0, 151.0, 345.0, 19.0 ],
-					"text" : "- an array of four parameters named /source.N/position"
+					"patching_rect" : [ 40.0, 143.0, 241.0, 19.0 ],
+					"text" : "- an array of six parameters named /object.N"
 				}
 
 			}
@@ -440,12 +431,11 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
-					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 40.0, 90.0, 425.0, 31.0 ],
-					"text" : "This component is a utility for creating an array of parameter instances in one go. Currently the number of instances can not be changed on the fly."
+					"patching_rect" : [ 25.0, 90.0, 502.0, 19.0 ],
+					"text" : "This component is a utility for creating an array of remote access to several parameter in one go."
 				}
 
 			}
@@ -458,7 +448,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 40.0, 136.0, 345.0, 19.0 ],
+					"patching_rect" : [ 25.0, 120.0, 258.0, 19.0 ],
 					"text" : "The help patch mimicks a module containing "
 				}
 
@@ -486,7 +476,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 38.0, 338.0, 50.0, 19.0 ]
 				}
 
@@ -529,22 +518,23 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 38.0, 469.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"text" : "waiting for a model/address"
+					"text" : "/remoteArray"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
+					"color" : [ 0.8, 0.84, 0.71, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 39.0, 192.0, 390.0, 19.0 ],
-					"text" : "jcom.parameterArray source.[4]/position @type integer @description Hello"
+					"patching_rect" : [ 333.0, 143.0, 181.0, 31.0 ],
+					"text" : "jcom.parameterArray source.[6] @type integer @description Hello"
 				}
 
 			}
@@ -552,8 +542,8 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-1", 1 ]
 				}
 
@@ -561,8 +551,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -570,8 +560,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -579,8 +569,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -588,9 +578,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
-					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 430.5, 249.0, 377.5, 249.0 ],
+					"midpoints" : [ 345.5, 249.0, 292.5, 249.0 ],
 					"source" : [ "obj-22", 0 ]
 				}
 
@@ -598,8 +587,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -607,7 +596,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-24", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 400.5, 431.0, 381.0, 431.0, 381.0, 386.0, 400.5, 386.0 ],
 					"source" : [ "obj-25", 0 ]
@@ -617,8 +605,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-26", 0 ]
 				}
 
@@ -626,7 +614,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-26", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 400.5, 380.0, 381.0, 380.0, 381.0, 335.0, 400.5, 335.0 ],
 					"source" : [ "obj-27", 0 ]
@@ -636,7 +623,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-28", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 47.5, 434.5, 262.5, 434.5 ],
 					"source" : [ "obj-3", 0 ]
@@ -646,7 +632,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-9", 1 ],
-					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 47.5, 434.0, 239.5, 434.0 ],
 					"source" : [ "obj-3", 0 ]
@@ -656,7 +641,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-9", 1 ],
-					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 47.5, 434.0, 239.5, 434.0 ],
 					"source" : [ "obj-3", 0 ]
@@ -666,8 +650,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-32", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-31", 0 ]
 				}
 
@@ -675,8 +659,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-35", 0 ]
 				}
 
@@ -684,8 +668,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-47", 0 ],
-					"disabled" : 0,
 					"hidden" : 1,
+					"midpoints" : [  ],
 					"source" : [ "obj-46", 0 ]
 				}
 
@@ -693,8 +677,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-48", 0 ],
-					"disabled" : 0,
 					"hidden" : 1,
+					"midpoints" : [  ],
 					"source" : [ "obj-47", 0 ]
 				}
 
@@ -702,8 +686,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -711,7 +695,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 197.5, 397.0, 47.5, 397.0 ],
 					"source" : [ "obj-7", 0 ]
@@ -721,68 +704,11 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-8", 0 ]
 				}
 
-			}
- ],
-		"dependency_cache" : [ 			{
-				"name" : "jcom.maxhelpui.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.maxhelpuiButton.png",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.maxhelpuiResize.js",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.jamomaPath.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
-				"patcherrelativepath" : "../../../Max/library/components/jamomaPath",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.parameterArray.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.ui.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.model.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.route.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.receive.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.send.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.view.mxo",
-				"type" : "iLaX"
 			}
  ]
 	}
