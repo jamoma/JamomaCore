@@ -934,31 +934,29 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 	AtomCount	i;
 	
 	*argc = v.getSize();
+	
+	if (*argc == 0 || v == kTTValNONE)
+		return;
+	
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * (*argc));
 	
-	if (*argc && !(v == kTTValNONE)) {
-		for (i=0; i<*argc; i++) {
-			if (v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
-				TTFloat64	value;
-				v.get(i, value);
-				atom_setfloat((*argv)+i, value);
-			}
-			else if (v.getType(i) == kTypeSymbol) {
-				TTSymbolPtr	value = NULL;
-				v.get(i, &value);
-				atom_setsym((*argv)+i, gensym((char*)value->getCString()));
-			}
-			else {	// assume int
-				TTInt32	value;
-				v.get(i, value);
-				atom_setlong((*argv)+i, value);
-			}
+	for (i=0; i<*argc; i++) {
+		if (v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+			TTFloat64	value;
+			v.get(i, value);
+			atom_setfloat((*argv)+i, value);
 		}
-	}
-	else {
-		*argc = 0;
-		*argv = NULL;
+		else if (v.getType(i) == kTypeSymbol) {
+			TTSymbolPtr	value = NULL;
+			v.get(i, &value);
+			atom_setsym((*argv)+i, gensym((char*)value->getCString()));
+		}
+		else {	// assume int
+			TTInt32	value;
+			v.get(i, value);
+			atom_setlong((*argv)+i, value);
+		}
 	}
 }
 

@@ -168,7 +168,8 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		attr_args_process(x, argc, argv);
 		
 		// keep args to set the wrapped object attributes
-		jamoma_ttvalue_from_Atom(EXTRA->args, _sym_list, argc--, argv++);
+		if (argc > 1)
+			jamoma_ttvalue_from_Atom(EXTRA->args, _sym_list, argc--, argv++);
 	}
 	
 	// The following must be deferred because we have to interrogate our box,
@@ -520,8 +521,9 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 void data_array_return_value(TTPtr baton, TTValue& v)
 {
 	WrappedModularInstancePtr	x;
-	TTValue						array, g;
+	TTValue						array, g, t;
 	TTValuePtr					b, m;
+	TTSymbolPtr					type;
 	SymbolPtr					msg, iAdrs;
 	long						i, argc = 0;
 	AtomPtr						argv = NULL;
@@ -568,8 +570,20 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 					jamoma_edit_numeric_instance(x->i_format, &iAdrs, i+1);
 					x->cursor = TT(iAdrs->s_name);
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
+					selectedObject->getAttributeValue(kTTSym_type, t);
 					
-					m = new TTValue(g);
+					t.get(0, &type);
+					
+					// if there is no default value
+					if (g == kTTValNONE) {
+						
+						if (type == kTTSym_string)
+							m = new TTValue(kTTSym_none);
+						else
+							m = new TTValue(0);
+					}
+					else		
+						m = new TTValue(g);
 					
 					EXTRA->array_value[i] = m;
 					x->cursor = memoCursor;

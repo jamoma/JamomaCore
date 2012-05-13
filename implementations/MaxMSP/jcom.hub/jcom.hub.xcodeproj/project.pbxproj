@@ -7,44 +7,40 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		D2624ABE155C636700FEFEA2 /* jcom.in.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.in.cpp; path = ../jcom.in/jcom.in.cpp; sourceTree = SOURCE_ROOT; };
-		D2624AE5155C711400FEFEA2 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../Support/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
-		D2624AE6155C711400FEFEA2 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../Support/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
+		D2116E31155E6014004410F4 /* jcom.hub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		08FB7794FE84155DC02AAC07 /* jcom.in~ */ = {
+		08FB7794FE84155DC02AAC07 /* jcom.model */ = {
 			isa = PBXGroup;
 			children = (
-				D2624ABE155C636700FEFEA2 /* jcom.in.cpp */,
-				D2624AE6155C711400FEFEA2 /* TTModularClassWrapperMax.h */,
-				D2624AE5155C711400FEFEA2 /* TTModularClassWrapperMax.cpp */,
+				D2116E31155E6014004410F4 /* jcom.hub.cpp */,
 			);
-			name = "jcom.in~";
+			name = jcom.model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		D28A88AD04BDD90700651E21 /* jcom.in~ */ = {
+		D28A88AD04BDD90700651E21 /* jcom.model */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(Configuration) $(ACTION)";
-			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.in~" */;
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.model" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
 			dependencies = (
 			);
-			name = "jcom.in~";
+			name = jcom.model;
 			passBuildSettingsInEnvironment = 1;
-			productName = "jcom.in~";
+			productName = jcom.model;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.in~" */;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.hub" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -54,11 +50,11 @@
 				French,
 				German,
 			);
-			mainGroup = 08FB7794FE84155DC02AAC07 /* jcom.in~ */;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* jcom.model */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D28A88AD04BDD90700651E21 /* jcom.in~ */,
+				D28A88AD04BDD90700651E21 /* jcom.model */,
 			);
 		};
 /* End PBXProject section */
@@ -75,7 +71,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "jcom.in~";
+				PRODUCT_NAME = jcom.model;
 			};
 			name = Debug;
 		};
@@ -86,7 +82,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "jcom.in~";
+				PRODUCT_NAME = jcom.model;
 			};
 			name = Release;
 		};
@@ -116,7 +112,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.in~" */ = {
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.model" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB919008733D9F0010E9CD /* Debug */,
@@ -125,7 +121,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.in~" */ = {
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.hub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB919408733D9F0010E9CD /* Debug */,

@@ -7,25 +7,15 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A7CC3145151894C200992C6E /* jcom.out.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.out.cpp; path = ../jcom.out/jcom.out.cpp; sourceTree = "<group>"; };
-		A7CC3146151894C200992C6E /* jcom.out.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = jcom.out.h; path = ../jcom.out/jcom.out.h; sourceTree = "<group>"; };
+		D22F0B89155E673E0090ED01 /* jcom.out.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.out.cpp; path = ../jcom.out/jcom.out.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		A72D873215188DFD001DA7C1 = {
 			isa = PBXGroup;
 			children = (
-				A7CC3144151894B200992C6E /* Sources */,
+				D22F0B89155E673E0090ED01 /* jcom.out.cpp */,
 			);
-			sourceTree = "<group>";
-		};
-		A7CC3144151894B200992C6E /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A7CC3145151894C200992C6E /* jcom.out.cpp */,
-				A7CC3146151894C200992C6E /* jcom.out.h */,
-			);
-			name = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
