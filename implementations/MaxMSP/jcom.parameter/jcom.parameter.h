@@ -37,8 +37,8 @@ typedef struct _param{
 	TTPtr 			outlets[num_outlets];		///< my outlet array
 //	Atom			atom_list[JAMOMA_LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
 //	Atom			atom_listDefault[JAMOMA_LISTSIZE];
-	AtomPtr			atom_list;
-	AtomPtr			atom_listDefault;
+	AtomPtr			atom_list;					///< currently stored list
+	AtomPtr			atom_listDefault;			///< the default list
 	long			list_size;					///< size of currently stored list
 	long			listDefault_size;
 	SymbolPtr		attr_ramp;					///< ATTRIBUTE: ramp mode 
@@ -79,7 +79,7 @@ void		*param_new(SymbolPtr s, AtomCount argc, AtomPtr argv);
 
 /** The parameter deconstructor, frees any memory used by the parameter
  * @param x the parameter who's memory should be freed
- * @see param_free */
+ * @see param_new */
 void		param_free(t_param *x);
 
 
