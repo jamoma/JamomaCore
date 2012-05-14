@@ -28,7 +28,7 @@ var num_active = 16;						// number of active voices
 var rnum_voices = 1.0 / num_voices;
 var hrnum_voices = rnum_voices / 2;
 
-var vmode = 0;								// 0: [0,157] MIDI Gain, 1: [-24,24] dB
+var vmode = 0;								// 0: [0,127] MIDI Gain, 1: [-24,24] dB
 
 // Gains and displayed levels
 var gain_left = new Array(MAX_VOICES);		// stored internally as [0.0, 1.0]...
@@ -110,7 +110,7 @@ function voices(variable)
 	hrnum_voices = rnum_voices / 2;
 	if (vmode==0) {
 		for (var i=0; i<num_voices; i++)
-			gain_left[i] = 127./157.
+			gain_left[i] = 1.
 	}
 	else {
 		for (var i=0; i<num_voices; i++)
@@ -229,7 +229,7 @@ function bang()
 	{
 		for(var i=0; i<num_active; i++)
 		{
-			temp[i] = gain_left[i] * 157.0;
+			temp[i] = gain_left[i] * 127.0;
 		}	
 	}
 	else
@@ -255,7 +255,7 @@ function gain()
 	
 	if (vmode==0) {
 		for (var i=0; i<num_active; i++) {
-			gain_left[i] = ((Math.min(Math.max(0, arguments[i]), 157))) / 157.;		// clip range & scale	
+			gain_left[i] = ((Math.min(Math.max(0, arguments[i]), 127))) / 127.;		// clip range & scale	
 		}
 	}
 	else
@@ -281,7 +281,7 @@ function set()
 	
 	if (vmode==0) {
 		for (var i=0; i<num_active; i++) {
-			gain_left[i] = ((Math.min(Math.max(0, arguments[i]), 157))) / 157.;		// clip range & scale	
+			gain_left[i] = ((Math.min(Math.max(0, arguments[i]), 127))) / 127.;		// clip range & scale	
 		}
 	}
 	else
@@ -339,13 +339,14 @@ function fsaa(v)
 }
 
 
-// Two modes: 0: [0,157] MIDI Gain, 1: [-24,24] dB
+// Two modes: 0: [0,127] MIDI Gain, 1: [-24,24] dB
 function mode(v)
 {
 	vmode = v;
 	if (vmode==0) {
 		for (var i=0; i<num_voices; i++)
-			gain_left[i] = 127./157.
+			//gain_left[i] = 127./157.
+			gain_left[i] = 1.
 	}
 	else {
 		for (var i=0; i<num_voices; i++)
@@ -375,15 +376,6 @@ function draw()
 		// erase background
 		glclearcolor(vbrgb);
 		glclear();			
-
-		// Draw 0 dB marker
-		glcolor(vrgb3);
-		//shapeslice(1, 1);
-		if (vmode==0)
-			moveto(-1.+(0.2*rnum_voices),((128./158)*1.6)-0.8);
-		else
-			moveto(-1.+(0.2*rnum_voices), 0.0);
-		line(2*rnum_voices*(num_active-0.2),0);
 		
 		for(var i=0; i<num_active; i++){
 			// FIRST, Draw RTA Meter
@@ -395,14 +387,13 @@ function draw()
 			}
 		}
 		
-		// SECOND, Draw 0 dB marker
-		glcolor(vrgb3);
-		//shapeslice(1, 1);
-		if (vmode==0)
-			moveto(-1.+(0.2*rnum_voices),((128./158)*1.6)-0.8);
-		else
+		// SECOND, Draw 0 dB marker, if we are in dB mode
+		if (vmode==1) {
+			glcolor(vrgb3);
 			moveto(-1.+(0.2*rnum_voices), 0.0);
-		line(2*rnum_voices*(num_active-0.2),0);		
+			line(2*rnum_voices*(num_active-0.2),0);
+		}
+
 		
 		for(var i=0; i<num_active; i++){	
 			// THIRD, Draw the gutter for the slider
