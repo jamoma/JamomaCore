@@ -15,7 +15,7 @@ static ClassPtr	parameter_class;	// Required: Global pointer for our class
 //static char		units[2048];
 
 // Prototypes
-int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy);
+int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long lengthB);
 
 
 /************************************************************************************/
@@ -1565,7 +1565,7 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if (argc == 1) {
 			// If repetitions are disabled, we check for a repetition by treating
 			// this as a 1 element list
-			if (x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x->atom_list, x->list_size, argv, argc)) 
+			if (x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x, x->atom_list, x->list_size, argv, argc)) 
 				return;
 			
 			if (x->attr_dataspace != _sym_none) {
@@ -1594,25 +1594,39 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 }
 
 // Returns true if lists are identical
-int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
+int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long lengthB)
 {
+	long length1 = lengthA;
+	long length2 = lengthB;
+	
+	// Crop list length for @type integer, decimal and string
+	if ((x->common.attr_type==jps_integer) || (x->common.attr_type==jps_decimal) || (x->common.attr_type==jps_string)) {
+		if (length1>1)
+			length1 = 1;
+		if (length2>1)
+			length2 = 1;
+	}
+	
 	// If lists differ in length they're obviously not the same
-	if (lengthx == lengthy) {
+	if (length1 == length2) {
 		short type;
 		
-		for (int i = 0; i < lengthx; i++) {
-			if ((x->a_type) != (y->a_type))
+		for (int i = 0; i < length1; i++) {
+			
+			// Compare type
+			type = a->a_type;
+			if (type != (b->a_type))
 				return 0; // not identical, types differ
 			
-			type = x->a_type;
-			if ((type == A_FLOAT) && (x->a_w.w_float != y->a_w.w_float))
+			// Compare value
+			if 		((type == A_FLOAT) && (a->a_w.w_float != b->a_w.w_float))
 				return 0;
-			else if ((type == A_LONG) && (x->a_w.w_long != y->a_w.w_long))
+			else if ((type == A_LONG)  && (a->a_w.w_long  != b->a_w.w_long))
 				return 0;
-			else if ((type == A_SYM) && (x->a_w.w_sym != y->a_w.w_sym))
+			else if ((type == A_SYM)   && (a->a_w.w_sym   != b->a_w.w_sym))
 				return 0;
 			
-			x++; y++;  // keep going
+			a++; b++;  // keep going
 		}
 	} 
 	else {
@@ -1770,7 +1784,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}	
 
 		if (x->common.attr_repetitions == 0 && x->isInitialised) {
-			if (param_list_compare(x->atom_list, x->list_size, av, ac))
+			if (param_list_compare(x, x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
 		
@@ -1781,7 +1795,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	else {
 		// Don't output if the input data is identical
 		if (x->common.attr_repetitions == 0 && x->isInitialised) {
-			if (param_list_compare(x->atom_list, x->list_size, av, ac))
+			if (param_list_compare(x, x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
 		
