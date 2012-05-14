@@ -41,12 +41,13 @@ class TTMODULAR_EXPORT TTScript : public TTDataObject
 private:
 	
 	TTValue				mNamespace;			///< ATTRIBUTE : the set of addresses being in the script
-	TTNodeAddressPtr	mContainerAddress;	///< AATRIBUTE : to allow the script to work using relative address
+	TTNodeAddressPtr	mContainerAddress;	///< ATTRIBUTE : to select the parent container object to use to run the script
 	
 	TTListPtr			mLines;				///< a linked list containing all lines of the script
 	TTBoolean			mInFold;			///< is the script inside a fold ? (we assume that a fold is closed before to open a new one)
 	
-	TTObjectPtr			mContainer;			///< to allow the script to work using relative address
+	TTUInt8				mLastLevel;			///< the level hierarchy of the last parsed line
+	TTDictionaryPtr		mLastCommand;		///< the last parsed command used to parse command line hierarchy
 	
 	/**	get the set of addresses being in the script */
 	TTErr	getNamespace(TTValue& value);
@@ -63,15 +64,15 @@ private:
 	/**	Append anything line to the script (a parsing will find which kind of line it is)	*/
 	TTErr	Append(const TTValue& newLine, TTValue& outputValue);
 	
-	/**	Append a command line to the script
+	/**	Append a command line to the script and output the dictionnary associated to the parsed line
 		<address, value, unit, ramp, ...>	*/
 	TTErr	AppendCommand(const TTValue& newCommand, TTValue& outputValue);
 	
-	/**	Append a comment line to the script
+	/**	Append a comment line to the script and output the dictionnary associated to the parsed line
 		<comment>	*/
 	TTErr	AppendComment(const TTValue& newComment, TTValue& outputValue);
 	
-	/**	Append a flag line to the script
+	/**	Append a flag line to the script and output the dictionnary associated to the parsed line
 		<name, arg1, arg2, ...>	*/
 	TTErr	AppendFlag(const TTValue& newflagAndArguments, TTValue& outputValue);
 	

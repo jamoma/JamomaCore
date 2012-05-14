@@ -72,7 +72,7 @@ TTErr TTPreset::Store()
 	TTObjectPtr		anObject;
 	TTList			aNodeList, allObjectNodes;
 	TTNodeAddressPtr aRelativeAddress;
-	TTValue			v;					
+	TTValue			v, parsedLine;					
 	
 	Clear();
 	
@@ -81,14 +81,14 @@ TTErr TTPreset::Store()
 		// 1. Append a preset flag with the name
 		v = TTValue(TT("preset"));
 		v.append(mName);
-		mScript->sendMessage(TT("AppendFlag"), v, kTTValNONE);
+		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
 		
 		// 2. Append a comment
 		v = TTValue(mComment);
-		mScript->sendMessage(TT("AppendComment"), v, kTTValNONE);
+		mScript->sendMessage(TT("AppendComment"), v, parsedLine);
 		
 		// 3. Append the fold flag to open the preset
-		mScript->sendMessage(TT("AppendFlag"), kTTSym_fold, kTTValNONE);
+		mScript->sendMessage(TT("AppendFlag"), kTTSym_fold, parsedLine);
 		
 		// 4. Look for all Objects under the address into the directory
 		mDirectory->Lookup(mAddress, aNodeList, &aNode);
@@ -121,13 +121,13 @@ TTErr TTPreset::Store()
 						continue;
 					
 					v.prepend(aRelativeAddress);
-					mScript->sendMessage(TT("AppendCommand"), v, kTTValNONE);
+					mScript->sendMessage(TT("AppendCommand"), v, parsedLine);
 				}
 			}
 		}
 		
 		// 7. Append the end flag to close the preset
-		mScript->sendMessage(TT("AppendFlag"), kTTSym_end, kTTValNONE);
+		mScript->sendMessage(TT("AppendFlag"), kTTSym_end, parsedLine);
 		return kTTErrNone;
 	}
 	else

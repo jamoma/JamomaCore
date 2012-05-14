@@ -71,41 +71,55 @@ TTErr TTCue::setNamespace(const TTValue& value)
 
 TTErr TTCue::Store()
 {
+	TTSymbolPtr		name, nextName, lastName;
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject;
 	TTList			aNodeList, allObjectNodes;
-	TTNodeAddressPtr address, anAbsoluteAddress, nextAddress, lastContainerAddress;
-	TTValue			v;					
+	TTNodeAddressPtr address, parentAddress, dataAddress;
+	TTValue			v, dataLine, containerLine, parsedLine;	
+	TTDictionaryPtr line;
 	
 	Clear();
 		
 	// 1. Append a cue flag with the name
 	v = TTValue(TT("cue"));
 	v.append(mName);
-	mScript->sendMessage(TT("AppendFlag"), v, kTTValNONE);
+	mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
 	
 	// 2. Append a comment
 	v = TTValue(mComment);
-	mScript->sendMessage(TT("AppendComment"), v, kTTValNONE);
+	mScript->sendMessage(TT("AppendComment"), v, parsedLine);
 	
 	// 3. Append the fold flag to open the cue
-	mScript->sendMessage(TT("AppendFlag"), kTTSym_fold, kTTValNONE);
+	mScript->sendMessage(TT("AppendFlag"), kTTSym_fold, parsedLine);
 	
 	// 4. Look for all Objects of the namespace into the directory
+	parentAddress = kTTAdrsRoot;
 	for (TTUInt32 i = 0; i < mNamespace.getSize(); i++) {
 		
-		mNamespace.get(i, &address);
+		mNamespace.get(i, &name);
 		
-		// for relative address : append the last container address
-		if (address->getType() == kAddressRelative) {
+		// parse namespace hierarchy marker
+		if (name == TT("{")) {
 			
-			if (lastContainerAddress != kTTAdrsEmpty)
-				anAbsoluteAddress = lastContainerAddress->appendAddress(address);
+			// append the last name to the parent address
+			parentAddress = parentAddress->appendAddress(TTADRS(lastName->getCString()));
+			continue;
 		}
-		else anAbsoluteAddress = address;
+		else if (name == TT("}")) {
+			
+			// get the parent of the parent address
+			parentAddress = parentAddress->getParent();
+			continue;
+		}
+		
+		lastName = name;
+
+		// edit absolute address to retreive the node
+		address = parentAddress->appendAddress(TTADRS(name->getCString()));
 		
 		aNodeList.clear();
-		getDirectoryFrom(anAbsoluteAddress)->Lookup(anAbsoluteAddress, aNodeList, &aNode);
+		getDirectoryFrom(address)->Lookup(address, aNodeList, &aNode);
 		
 		// get object
 		anObject = aNode->getObject();
@@ -122,30 +136,32 @@ TTErr TTCue::Store()
 				if (v == kTTValNONE)
 					continue;
 				
-				v.prepend(address);
-				mScript->sendMessage(TT("AppendCommand"), v, kTTValNONE);
+				// append the command to the script
+				v.prepend(TTADRS(name->getCString()));
+				mScript->sendMessage(TT("AppendCommand"), v, dataLine);
+				
+				// edit command line hierarchy
+				dataLine.get(0, (TTPtr*)&line);
+				if (line && !(containerLine == kTTValNONE)) line->append(kTTSym_parent, containerLine);
 			}
 			/* CONTAINER case : 
-					- if the container address is followed by relative address : just write his address
-					- if the container address is followed by absolute address : lookfor all parameters below itself
+					- if the container address is followed by a hierarchy marker { : just write his address
+					- else : lookfor all parameters below itself
 			*/	
 			else if (anObject->getName() == TT("Container")) {
 				
-				mScript->sendMessage(TT("AppendComment"), kTTValNONE, kTTValNONE);
-				mScript->sendMessage(TT("AppendCommand"), anAbsoluteAddress, kTTValNONE);
+				mScript->sendMessage(TT("AppendComment"), kTTValNONE, parsedLine);
+				mScript->sendMessage(TT("AppendCommand"), TTADRS(name->getCString()), containerLine);
 				
-				// check the next address type
+				// check the next name
 				if (i+1 < mNamespace.getSize()) {
 					
-					mNamespace.get(i+1, &nextAddress);
-					if (nextAddress->getType() == kAddressRelative) {
-						lastContainerAddress = anAbsoluteAddress;
-						continue;
-					}
+					mNamespace.get(i+1, &nextName);
+					if (nextName == TT("{")) continue;
 				}
 				
 				allObjectNodes.clear();
-				getDirectoryFrom(anAbsoluteAddress)->LookFor(&aNodeList, &TTCueTestObject, NULL, allObjectNodes, &aNode);
+				getDirectoryFrom(address)->LookFor(&aNodeList, &TTCueTestObject, NULL, allObjectNodes, &aNode);
 				
 				// sort the NodeList using object priority order
 				allObjectNodes.sort(&TTCueCompareNodePriority);
@@ -155,8 +171,8 @@ TTErr TTCue::Store()
 					
 					allObjectNodes.current().get(0, (TTPtr*)&aNode);
 					
-					// get relative address
-					aNode->getAddress(&address, anAbsoluteAddress);
+					// get name
+					aNode->getAddress(&dataAddress, address);
 					
 					// get object
 					anObject = aNode->getObject();
@@ -173,19 +189,24 @@ TTErr TTCue::Store()
 							if (v == kTTValNONE)
 								continue;
 							
-							v.prepend(address);
-							mScript->sendMessage(TT("AppendCommand"), v, kTTValNONE);
+							// append the command to the script
+							v.prepend(dataAddress);
+							mScript->sendMessage(TT("AppendCommand"), v, dataLine);
+							
+							// edit command line hierarchy
+							dataLine.get(0, (TTPtr*)&line);
+							if (line && !(containerLine == kTTValNONE)) line->append(kTTSym_parent, containerLine);
 						}
 					}
 				}
 				
-				mScript->sendMessage(TT("AppendComment"), kTTValNONE, kTTValNONE);
+				mScript->sendMessage(TT("AppendComment"), kTTValNONE, parsedLine);
 			}
 		}
 	}
 	
 	// 7. Append the end flag to close the cue
-	mScript->sendMessage(TT("AppendFlag"), kTTSym_end, kTTValNONE);
+	mScript->sendMessage(TT("AppendFlag"), kTTSym_end, parsedLine);
 	return kTTErrNone;
 }
 

@@ -20,14 +20,18 @@ mObject(NULL),
 mFilePath(kTTSymEmpty),
 mWriter(NULL),
 mReader(NULL),
-mIsWriting(NO),
-mIsReading(NO),
+mLine(NULL),
+mTabCount(0),
+mSpaceNumberForTab(4),
 mFirstLine(NO),
-mLastLine(NO)
+mLastLine(NO),
+mIsWriting(NO),
+mIsReading(NO)
 {
 	TT_ASSERT("Correct number of args to create TTTextHandler", arguments.getSize() == 0);
 	
 	addAttribute(Object, kTypePointer);
+	addAttribute(SpaceNumberForTab, kTypeInt8);
 	
 	addMessageWithArguments(Write);
 	addMessageWithArguments(Read);
@@ -89,7 +93,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 		else if (args.getType(0) == kTypePointer) {
 			
 			args.get(0, (TTPtr*)&mWriter);
-
+			
 			// Call the WriteAsText method of the handled object
 			v = TTValue((TTPtr)this);
 			aTTObject->sendMessage(TT("WriteAsText"), v, kTTValNONE);
@@ -115,6 +119,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 {
 	TTObjectPtr	aTTObject;
 	size_t		found, last, size;
+	TTUInt8		i;
 	TTString	line;
 	TTValue		v;
 	
@@ -186,6 +191,16 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 					// parse line
 					if (found != last) {
 						line = mReader->substr(last, found-last);
+						
+						// count white space
+						i = 0;
+						while (line[i] == ' ') i++;
+						mTabCount = i / mSpaceNumberForTab;
+						
+						// or count tab
+						if (mTabCount == 0) 
+							while (line[mTabCount] == '\t') mTabCount++;
+						
 						mLine = new TTValue(line);
 						mLine->fromString();
 					}

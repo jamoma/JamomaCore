@@ -52,6 +52,8 @@ public:	// use public for recursive access
 	TTString			*mReader;						///< the text to read
 	
 	TTValuePtr			mLine;							///< the line being read by the Reader
+	TTUInt8				mTabCount;						///< count the number of tabulation at the beginning of the line
+	TTUInt8				mSpaceNumberForTab;				///< ATTRIBUTE : depending on the text editor a tab can be equal to 4, 5, 8 white space
 	
 	TTBoolean			mFirstLine;						///< a flag to know if it is the first line
 	TTBoolean			mLastLine;						///< a flag to know if it is the last line
