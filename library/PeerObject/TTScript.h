@@ -41,19 +41,19 @@ class TTMODULAR_EXPORT TTScript : public TTDataObject
 private:
 	
 	TTValue				mNamespace;			///< ATTRIBUTE : the set of addresses being in the script
-	TTNodeAddressPtr	mContainerAddress;	///< ATTRIBUTE : to select the parent container object to use to run the script
-	
+	TTNodeAddressPtr	mAddress;			///< ATTRIBUTE : the absolute address to use for relative address command line
+	TTUInt8				mLevel;				///< ATTRIBUTE : the level of the script when it is embedded inside other script
+
 	TTListPtr			mLines;				///< a linked list containing all lines of the script
 	TTBoolean			mInFold;			///< is the script inside a fold ? (we assume that a fold is closed before to open a new one)
 	
-	TTUInt8				mLastLevel;			///< the level hierarchy of the last parsed line
-	TTDictionaryPtr		mLastCommand;		///< the last parsed command used to parse command line hierarchy
+	TTObjectPtr			mSubScript;			///< the current sub script to manage
 	
 	/**	get the set of addresses being in the script */
 	TTErr	getNamespace(TTValue& value);
 	
-	/**	set address to use in case of relative address command	*/
-	TTErr	setContainerAddress(const TTValue& value);
+	/**	set address to use with relative address command	*/
+	TTErr	setAddress(const TTValue& value);
 	
 	/**	Clear all lines of the script	*/
 	TTErr	Clear();
@@ -76,6 +76,9 @@ private:
 		<name, arg1, arg2, ...>	*/
 	TTErr	AppendFlag(const TTValue& newflagAndArguments, TTValue& outputValue);
 	
+	/**	Append a sub script */
+	TTErr	AppendScript(const TTValue& newScript, TTValue& outputValue);
+	
 	/**  needed to be handled by a TTXmlHandler	*/
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
@@ -84,8 +87,6 @@ private:
 	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
-	TTSymbolPtr parseFlagName(TTSymbolPtr toParse);
-
 };
 
 typedef TTScript* TTScriptPtr;
@@ -105,6 +106,10 @@ TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseFlag(const TTValue& newflagAndArgu
 /* Parse a value into a command line. 
    Returns NULL in case of error */
 TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseCommand(const TTValue& newCommand);
+
+/* Parse a value into a sub script line. 
+   Returns NULL in case of error */
+TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript);
 
 /* Parse parenthesis around a flag name : (flagName) returns flagName */
 TTSymbolPtr		TTMODULAR_EXPORT TTScriptParseFlagName(TTSymbolPtr toParse);

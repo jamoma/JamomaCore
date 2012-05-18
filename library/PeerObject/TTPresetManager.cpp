@@ -187,6 +187,8 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		if (mCurrentPreset)
 			return mCurrentPreset->sendMessage(TT("Recall"));
 	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
@@ -252,7 +254,6 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		flagName;
-	TTPresetPtr		aPreset;
 	TTValue			v;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);

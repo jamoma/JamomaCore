@@ -59,7 +59,7 @@ TTErr TTPreset::setAddress(const TTValue& value)
 	
 	if (mDirectory) {
 		
-		mScript->setAttributeValue(TT("containerAddress"), mAddress);
+		mScript->setAttributeValue(kTTSym_address, mAddress);
 		return kTTErrNone;
 	}
 	else
@@ -108,7 +108,7 @@ TTErr TTPreset::Store()
 			// get object
 			anObject = aNode->getObject();
 			
-			// append script line
+			// append command line
 			if (anObject) {
 				
 				// DATA case
@@ -218,8 +218,6 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 	TTObjectPtr o;
 	TTValue		v;
 	TTSymbolPtr s;
-	TTNodePtr	aNode;
-	TTNodeAddressPtr absoluteAddress;
 
 	// Here we decide to keep nodes which binds on :
 	//		- Data with @service == parameter

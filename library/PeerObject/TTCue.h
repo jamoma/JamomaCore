@@ -51,6 +51,9 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	/**  needed to be handled by a TTTextHandler */
 	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** a recursive method to store a namespace into a script object */
+	TTErr	processStorage(TTObjectPtr aScript, const TTValue aNamespace);
 };
 
 typedef TTCue* TTCuePtr;

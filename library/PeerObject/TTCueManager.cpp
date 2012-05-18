@@ -190,6 +190,8 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 			return mCurrentCue->sendMessage(TT("Recall"));
 		}
 	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
@@ -256,7 +258,6 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTSymbolPtr		flagName;
-	TTCuePtr		aCue;
 	TTValue			v;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);

@@ -32,7 +32,6 @@ private:
 	TTValue				mActivityIn;					///< ATTRIBUTE : a local value to allow observation of incoming data
 	TTValue				mActivityOut;					///< ATTRIBUTE : a local value to allow observation of outputing data
 	
-	
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
 	TTHashPtr			mObjectsObserversCache;			///< a hash table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
