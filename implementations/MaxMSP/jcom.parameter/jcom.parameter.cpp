@@ -1674,13 +1674,6 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	long		ac = 0;				// These two hold the input, but the input is converted into the native units
 	AtomPtr		av = NULL;
 	bool		alloc = false;
-	
-	/*	If the list is only 1 atom, then we know it is just a value 
-		If it is two atoms, then it could be 2 values or a value + a unit
-		If it is three atoms, then it could be 3 values, 2 values + a unit, or 1 value + a ramp
-		If it is four atoms, then it could be 4 values, 3 values + a unit, 2 values + a ramp, or 1 value with a unit and a ramp
-		etc.
-	 */
 
 	char*	c = strrchr(msg->s_name, ':');
 	
@@ -1689,14 +1682,24 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			return;
 	}
 
+	
+	/*
+	 Check for unit and/or ramp:
+	 */
+	
+	// If the list is only 1 atom, then it is just a value 
 	if (argc == 1)
 		;	// nothing to do
+	
+	// If it is two atoms, then it could be 2 values or a value + a unit
 	else if (argc == 2 && x->attr_unitActive != jps_none) {
 		if (atom_gettype(argv) != A_SYM && atom_gettype(argv+1) == A_SYM) {	// assume the second atom is a unit
 			hasUnit = true;
 			unit = atom_getsym(argv+1);
 		}
 	}
+	
+	// If it is three atoms, then it could be 3 values, 2 values + a unit, or 1 value + a ramp
 	else if (argc == 3) {
 		ramp = argv + (argc - 2);
 		if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
@@ -1707,17 +1710,22 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			unit = atom_getsym(argv+2);
 		}
 	}
-	else {	// 4 or more atoms (could have both a ramp and a unit
+	
+	// If the list is four or more atoms, then we might have a unit and/or a ramp
+	else {
 		ramp = argv + (argc - 2);
 		if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
 			hasRamp = true;
-		}
-		if ((x->attr_dataspace != jps_none) && atom_gettype(argv) != A_SYM && atom_gettype(argv+argc-1) == A_SYM) {	// assume the last atom is a unit
-			hasUnit = true;
-			if (hasRamp)
+			// Check if the 3rd last argument might be a unit
+			if ((x->attr_dataspace != jps_none) && atom_gettype(argv) != A_SYM && atom_gettype(argv+argc-3) == A_SYM) {	// assume the last atom is a unit
+				hasUnit = true;
 				unit = atom_getsym(argv+(argc-3));
-			else
-				unit = atom_getsym(argv+(argc-1));
+			}
+		}
+		// If no ramp, then we check if the last argument might be a unit
+		else if ((x->attr_dataspace != jps_none) && atom_gettype(argv) != A_SYM && atom_gettype(argv+argc-1) == A_SYM) {	// assume the last atom is a unit
+			hasUnit = true;
+			unit = atom_getsym(argv+(argc-1));
 		}
 	}
 	
