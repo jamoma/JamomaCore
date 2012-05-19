@@ -175,8 +175,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 51.0, 300.0, 605.0, 19.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.parameter:method:decimal:repetitions/allow::true::whenReceivingList 1.1 @issue 31"
+													"patching_rect" : [ 51.0, 300.0, 619.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::method::decimal::repetitions/allow::true::whenReceivingList 1.1 @issue 31"
 												}
 
 											}
@@ -321,18 +321,17 @@
 									}
 ,
 									"patching_rect" : [ 285.25, 334.0, 293.0, 20.0 ],
-									"presentation_rect" : [ 565.25, 340.0, 0.0, 0.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Arial"
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p decimal::repetitions/allow::false::whenRecievingList"
@@ -355,7 +354,7 @@
 											"revision" : 5
 										}
 ,
-										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
+										"rect" : [ 25.0, 69.0, 677.0, 430.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -438,8 +437,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 51.0, 300.0, 570.0, 19.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.parameter:method:int:repetitions/allow::true::whenReceivingList 1 @issue 31"
+													"patching_rect" : [ 51.0, 300.0, 583.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::method::int::repetitions/allow::true::whenReceivingList 1 @issue 31"
 												}
 
 											}
@@ -584,18 +583,17 @@
 									}
 ,
 									"patching_rect" : [ 692.25, 334.0, 289.0, 20.0 ],
-									"presentation_rect" : [ 564.25, 286.0, 0.0, 0.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Arial"
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p integer::repetitions/allow::false::whenRecievingList"
@@ -638,6 +636,17 @@
 										"digest" : "",
 										"tags" : "",
 										"boxes" : [ 											{
+												"box" : 												{
+													"id" : "obj-2",
+													"maxclass" : "button",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "bang" ],
+													"patching_rect" : [ 124.0, 62.0, 20.0, 20.0 ]
+												}
+
+											}
+, 											{
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 12.0,
@@ -687,8 +696,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 50.0, 243.0, 458.0, 19.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.parameter:method:decimal:repetitions/allow::false 15.1"
+													"patching_rect" : [ 50.0, 243.0, 424.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::decimal::repetitions/allow::false 15.1"
 												}
 
 											}
@@ -814,6 +823,15 @@
 													"destination" : [ "obj-15", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
+													"source" : [ "obj-2", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-15", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
 													"source" : [ "obj-31", 0 ]
 												}
 
@@ -833,18 +851,17 @@
 									}
 ,
 									"patching_rect" : [ 325.25, 281.0, 182.0, 20.0 ],
-									"presentation_rect" : [ 413.25, 269.0, 0.0, 0.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Arial"
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p decimal::repetitions/allow::true"
@@ -936,8 +953,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 50.0, 243.0, 508.0, 19.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.parameter:method:decimal:repetitions/allow::true 14.1 14.1 14.1"
+													"patching_rect" : [ 50.0, 243.0, 521.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::method::decimal::repetitions/allow::true 14.1 14.1 14.1"
 												}
 
 											}
@@ -1073,18 +1090,17 @@
 									}
 ,
 									"patching_rect" : [ 305.25, 307.0, 187.0, 20.0 ],
-									"presentation_rect" : [ 201.25, 269.0, 0.0, 0.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Arial"
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p decimal::repetitions/allow::false"
@@ -1176,8 +1192,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 50.0, 243.0, 423.0, 19.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.parameter:method:int:repetitions/allow::false 15"
+													"patching_rect" : [ 50.0, 243.0, 436.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::method::int::repetitions/allow::false 15"
 												}
 
 											}
@@ -1323,16 +1339,16 @@
 ,
 									"patching_rect" : [ 742.25, 281.0, 177.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Arial"
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p integer::repetitions/allow::true"
@@ -1424,8 +1440,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 50.0, 243.0, 452.0, 19.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.parameter:method:int:repetitions/allow::true 14 14 14"
+													"patching_rect" : [ 50.0, 243.0, 466.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::method::int::repetitions/allow::true 14 14 14"
 												}
 
 											}
@@ -1562,16 +1578,16 @@
 ,
 									"patching_rect" : [ 721.25, 307.0, 182.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Arial"
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p integer::repetitions/allow::false"
@@ -1690,16 +1706,16 @@
 ,
 					"patching_rect" : [ 245.0, 285.0, 94.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"description" : "",
-						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
-						"default_fontname" : "Arial"
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"description" : "",
+						"fontname" : "Arial",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p repetitionsTest"
@@ -1797,16 +1813,16 @@
 ,
 					"patching_rect" : [ 245.0, 230.0, 151.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"description" : "",
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p dataspaceAndRampsTests"
@@ -1830,7 +1846,7 @@
 							"revision" : 5
 						}
 ,
-						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
+						"rect" : [ 393.0, 264.0, 913.0, 543.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1850,6 +1866,761 @@
 						"digest" : "",
 						"tags" : "",
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-20",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patcher" : 									{
+										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 6,
+											"minor" : 0,
+											"revision" : 5
+										}
+,
+										"rect" : [ 25.0, 69.0, 1325.0, 482.0 ],
+										"bglocked" : 0,
+										"openinpresentation" : 0,
+										"default_fontsize" : 12.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Arial",
+										"gridonopen" : 0,
+										"gridsize" : [ 15.0, 15.0 ],
+										"gridsnaponopen" : 0,
+										"statusbarvisible" : 2,
+										"toolbarvisible" : 1,
+										"boxanimatetime" : 200,
+										"imprint" : 0,
+										"enablehscroll" : 1,
+										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
+										"description" : "",
+										"digest" : "",
+										"tags" : "",
+										"boxes" : [ 											{
+												"box" : 												{
+													"fontname" : "Arial",
+													"fontsize" : 12.0,
+													"id" : "obj-1",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 118.0, 205.0, 45.0, 18.0 ],
+													"presentation_rect" : [ 121.0, 205.0, 0.0, 0.0 ],
+													"text" : "10. dB"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-3",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "float" ],
+													"patching_rect" : [ 50.0, 292.0, 32.5, 19.0 ],
+													"presentation_rect" : [ 53.0, 292.0, 0.0, 0.0 ],
+													"text" : "f"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-4",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "bang", "bang", "float" ],
+													"patching_rect" : [ 50.0, 123.0, 58.0, 19.0 ],
+													"presentation_rect" : [ 53.0, 123.0, 0.0, 0.0 ],
+													"text" : "t b b -99."
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-5",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 0,
+													"patching_rect" : [ 50.0, 320.0, 395.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::dataspace::db2midi::test2 127."
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-6",
+													"linecount" : 2,
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "", "", "" ],
+													"patching_rect" : [ 118.0, 234.0, 572.0, 31.0 ],
+													"presentation_rect" : [ 121.0, 234.0, 0.0, 0.0 ],
+													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit/native midi @dataspace/unit/active midi @dataspace/unit/display midi @ramp/drive scheduler @ramp/function linear"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Arial",
+													"fontsize" : 12.0,
+													"id" : "obj-2",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 760.0, 205.0, 39.0, 18.0 ],
+													"text" : "0. dB"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-12",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "float" ],
+													"patching_rect" : [ 692.0, 292.0, 32.5, 19.0 ],
+													"text" : "f"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-9",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "bang", "bang", "float" ],
+													"patching_rect" : [ 692.0, 123.0, 58.0, 19.0 ],
+													"text" : "t b b -99."
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-14",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 0,
+													"patching_rect" : [ 692.0, 320.0, 395.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::dataspace::db2midi::test1 100."
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-17",
+													"linecount" : 2,
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "", "", "" ],
+													"patching_rect" : [ 760.0, 234.0, 572.0, 31.0 ],
+													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit/native midi @dataspace/unit/active midi @dataspace/unit/display midi @ramp/drive scheduler @ramp/function linear"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"comment" : "",
+													"id" : "obj-16",
+													"maxclass" : "inlet",
+													"numinlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "bang" ],
+													"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
+												}
+
+											}
+ ],
+										"lines" : [ 											{
+												"patchline" : 												{
+													"destination" : [ "obj-6", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-14", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-12", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-4", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-16", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-16", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 1 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-17", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-17", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-2", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-5", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-3", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-1", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-4", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-3", 1 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-4", 2 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-3", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-4", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-3", 1 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-6", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 1 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 2 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-2", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 1 ]
+												}
+
+											}
+ ],
+										"dependency_cache" : [ 											{
+												"name" : "jcom.test.assert.equal.old.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
+												"name" : "jcom.parameter.mxo",
+												"type" : "iLaX"
+											}
+ ]
+									}
+,
+									"patching_rect" : [ 243.0, 217.0, 120.0, 19.0 ],
+									"presentation_rect" : [ 243.0, 214.0, 0.0, 0.0 ],
+									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
+										"tags" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
+										"digest" : "",
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
+									}
+,
+									"text" : "p dataspace::db2midi"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-19",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patcher" : 									{
+										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 6,
+											"minor" : 0,
+											"revision" : 5
+										}
+,
+										"rect" : [ 25.0, 69.0, 895.0, 482.0 ],
+										"bglocked" : 0,
+										"openinpresentation" : 0,
+										"default_fontsize" : 12.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Arial",
+										"gridonopen" : 0,
+										"gridsize" : [ 15.0, 15.0 ],
+										"gridsnaponopen" : 0,
+										"statusbarvisible" : 2,
+										"toolbarvisible" : 1,
+										"boxanimatetime" : 200,
+										"imprint" : 0,
+										"enablehscroll" : 1,
+										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
+										"description" : "",
+										"digest" : "",
+										"tags" : "",
+										"boxes" : [ 											{
+												"box" : 												{
+													"fontname" : "Arial",
+													"fontsize" : 12.0,
+													"id" : "obj-2",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 118.0, 182.0, 53.0, 18.0 ],
+													"text" : "1. linear"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-12",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "float" ],
+													"patching_rect" : [ 50.0, 269.0, 32.5, 19.0 ],
+													"text" : "f"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-9",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "bang", "bang", "float" ],
+													"patching_rect" : [ 50.0, 100.0, 58.0, 19.0 ],
+													"text" : "t b b -99."
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-14",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 0,
+													"patching_rect" : [ 50.0, 297.0, 353.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::dataspace::noUnit 100."
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-17",
+													"linecount" : 2,
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "", "", "" ],
+													"patching_rect" : [ 118.0, 211.0, 572.0, 31.0 ],
+													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit/native midi @dataspace/unit/active midi @dataspace/unit/display midi @ramp/drive scheduler @ramp/function linear"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"comment" : "",
+													"id" : "obj-16",
+													"maxclass" : "inlet",
+													"numinlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "bang" ],
+													"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
+												}
+
+											}
+ ],
+										"lines" : [ 											{
+												"patchline" : 												{
+													"destination" : [ "obj-14", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-12", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-16", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 1 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-17", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-17", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-2", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 1 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 2 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-2", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 1 ]
+												}
+
+											}
+ ],
+										"dependency_cache" : [ 											{
+												"name" : "jcom.test.assert.equal.old.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
+												"name" : "jcom.parameter.mxo",
+												"type" : "iLaX"
+											}
+ ]
+									}
+,
+									"patching_rect" : [ 392.0, 217.0, 136.0, 19.0 ],
+									"presentation_rect" : [ 392.0, 217.0, 0.0, 0.0 ],
+									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
+										"tags" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
+										"digest" : "",
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
+									}
+,
+									"text" : "p dataspace::linear2midi"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-18",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patcher" : 									{
+										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 6,
+											"minor" : 0,
+											"revision" : 5
+										}
+,
+										"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+										"bglocked" : 0,
+										"openinpresentation" : 0,
+										"default_fontsize" : 12.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Arial",
+										"gridonopen" : 0,
+										"gridsize" : [ 15.0, 15.0 ],
+										"gridsnaponopen" : 0,
+										"statusbarvisible" : 2,
+										"toolbarvisible" : 1,
+										"boxanimatetime" : 200,
+										"imprint" : 0,
+										"enablehscroll" : 1,
+										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
+										"description" : "",
+										"digest" : "",
+										"tags" : "",
+										"boxes" : [ 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-12",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "float" ],
+													"patching_rect" : [ 50.0, 200.0, 32.5, 19.0 ],
+													"text" : "f"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-9",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "bang", "float", "float" ],
+													"patching_rect" : [ 50.0, 100.0, 75.0, 19.0 ],
+													"text" : "t b 87.5 -99."
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-14",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 0,
+													"patching_rect" : [ 50.0, 228.0, 353.0, 19.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter::dataspace::noUnit 87.5"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-17",
+													"linecount" : 2,
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "", "", "" ],
+													"patching_rect" : [ 118.0, 142.0, 572.0, 31.0 ],
+													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit/native midi @dataspace/unit/active midi @dataspace/unit/display midi @ramp/drive scheduler @ramp/function linear"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"comment" : "",
+													"id" : "obj-16",
+													"maxclass" : "inlet",
+													"numinlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "bang" ],
+													"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
+												}
+
+											}
+ ],
+										"lines" : [ 											{
+												"patchline" : 												{
+													"destination" : [ "obj-14", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-12", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-16", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 1 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-17", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 1 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 2 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-12", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-17", 0 ],
+													"disabled" : 0,
+													"hidden" : 0,
+													"source" : [ "obj-9", 1 ]
+												}
+
+											}
+ ],
+										"dependency_cache" : [ 											{
+												"name" : "jcom.test.assert.equal.old.maxpat",
+												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+												"type" : "JSON",
+												"implicit" : 1
+											}
+, 											{
+												"name" : "jcom.parameter.mxo",
+												"type" : "iLaX"
+											}
+ ]
+									}
+,
+									"patching_rect" : [ 567.0, 217.0, 113.0, 19.0 ],
+									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
+										"tags" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
+										"digest" : "",
+										"default_fontname" : "Arial",
+										"default_fontsize" : 12.0,
+										"description" : "",
+										"fontname" : "Arial",
+										"globalpatchername" : ""
+									}
+,
+									"text" : "p dataspace::noUnit"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -1891,6 +2662,24 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
+									"destination" : [ "obj-18", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-19", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-2", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
@@ -1898,22 +2687,41 @@
 								}
 
 							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-20", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
  ],
-						"dependency_cache" : [  ]
+						"dependency_cache" : [ 							{
+								"name" : "jcom.test.assert.equal.old.maxpat",
+								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
+								"type" : "JSON",
+								"implicit" : 1
+							}
+, 							{
+								"name" : "jcom.parameter.mxo",
+								"type" : "iLaX"
+							}
+ ]
 					}
 ,
 					"patching_rect" : [ 245.0, 195.0, 98.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"description" : "",
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p dataspaceTests"
@@ -2860,16 +3668,16 @@
 ,
 									"patching_rect" : [ 175.0, 225.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p array"
@@ -3830,16 +4638,16 @@
 ,
 									"patching_rect" : [ 175.0, 195.0, 49.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p string"
@@ -4172,16 +4980,16 @@
 ,
 													"patching_rect" : [ 500.0, 140.0, 84.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p receiveArray"
@@ -4363,16 +5171,16 @@
 ,
 													"patching_rect" : [ 390.0, 140.0, 94.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p receiveSymbol"
@@ -4463,7 +5271,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 330.0, 245.0, 50.0, 17.0 ],
-																	"text" : "89"
+																	"text" : "19"
 																}
 
 															}
@@ -4477,7 +5285,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 155.0, 245.0, 50.0, 17.0 ],
-																	"text" : "89."
+																	"text" : "19."
 																}
 
 															}
@@ -4646,16 +5454,16 @@
 ,
 													"patching_rect" : [ 190.0, 140.0, 71.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p receiveInt"
@@ -4735,7 +5543,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 330.0, 245.0, 50.0, 17.0 ],
-																	"text" : "0.8"
+																	"text" : "0.26"
 																}
 
 															}
@@ -4749,7 +5557,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 155.0, 245.0, 50.0, 17.0 ],
-																	"text" : "0.8"
+																	"text" : "0.26"
 																}
 
 															}
@@ -4934,16 +5742,16 @@
 ,
 													"patching_rect" : [ 295.0, 140.0, 81.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p receiveFloat"
@@ -5078,16 +5886,16 @@
 ,
 									"patching_rect" : [ 175.0, 170.0, 43.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p float"
@@ -5111,7 +5919,7 @@
 											"revision" : 5
 										}
 ,
-										"rect" : [ 378.0, 245.0, 1403.0, 389.0 ],
+										"rect" : [ 37.0, 245.0, 1403.0, 389.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -5633,16 +6441,16 @@
 ,
 									"patching_rect" : [ 175.0, 140.0, 33.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p int"
@@ -5734,16 +6542,16 @@
 ,
 					"patching_rect" : [ 245.0, 90.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"description" : "",
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p typeTests"
@@ -6082,16 +6890,16 @@
 ,
 													"patching_rect" : [ 510.0, 315.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p attrSetToCosine"
@@ -6321,16 +7129,16 @@
 ,
 													"patching_rect" : [ 545.0, 290.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p attrSetToCosine"
@@ -6560,16 +7368,16 @@
 ,
 													"patching_rect" : [ 565.0, 265.0, 97.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p attrSetToLinear"
@@ -6799,16 +7607,16 @@
 ,
 													"patching_rect" : [ 585.0, 240.0, 92.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p attrSetToNone"
@@ -7049,16 +7857,16 @@
 ,
 													"patching_rect" : [ 615.0, 190.0, 122.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p attrDefaultsToLinear"
@@ -7288,16 +8096,16 @@
 ,
 													"patching_rect" : [ 600.0, 215.0, 296.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p ifSchedulerDriveRampFunctionAttrStillDefaultsToLinear"
@@ -7521,16 +8329,16 @@
 ,
 									"patching_rect" : [ 255.0, 110.0, 142.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p rampDriveAttributeTests"
@@ -8376,16 +9184,16 @@
 ,
 									"patching_rect" : [ 255.0, 520.0, 97.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p arrayFastRamp"
@@ -9250,16 +10058,16 @@
 ,
 									"patching_rect" : [ 255.0, 550.0, 112.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p arrayInstantRamp"
@@ -10142,16 +10950,16 @@
 ,
 									"patching_rect" : [ 255.0, 495.0, 70.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p typeArray"
@@ -10742,16 +11550,16 @@
 ,
 													"patching_rect" : [ 85.0, 698.0, 192.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"description" : "",
-														"globalpatchername" : "",
+														"default_fontface" : 0,
+														"tags" : "",
 														"fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0,
 														"digest" : "",
-														"tags" : "",
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"description" : "",
+														"fontname" : "Verdana",
+														"globalpatchername" : ""
 													}
 ,
 													"text" : "p intRoundingWithNegativeNumbers"
@@ -11595,16 +12403,16 @@
 ,
 									"patching_rect" : [ 255.0, 410.0, 79.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p typeInteger"
@@ -12444,16 +13252,16 @@
 ,
 									"patching_rect" : [ 255.0, 340.0, 124.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p decimalInstantRamp"
@@ -13249,16 +14057,16 @@
 ,
 									"patching_rect" : [ 255.0, 315.0, 109.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p decimalFastRamp"
@@ -14086,16 +14894,16 @@
 ,
 									"patching_rect" : [ 255.0, 290.0, 82.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"description" : "",
-										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"tags" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
-										"tags" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"description" : "",
+										"fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p typeDecimal"
@@ -14223,16 +15031,16 @@
 ,
 					"patching_rect" : [ 245.0, 160.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"tags" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"digest" : "",
-						"tags" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"description" : "",
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p rampTests"
