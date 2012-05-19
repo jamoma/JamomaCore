@@ -254,7 +254,6 @@ void jamomaSymbolsInit()
 	jps_dataspace					= SymbolGen("dataspace");
 	jps_unit_native					= SymbolGen("dataspace/unit/native");
 	jps_unit_active					= SymbolGen("dataspace/unit/active");
-	jps_unit_display				= SymbolGen("dataspace/unit/display");
 	// %TODO: jps_range should probably be removed
 	jps_range						= SymbolGen("range");
 	jps_range_bounds				= SymbolGen("range/bounds");

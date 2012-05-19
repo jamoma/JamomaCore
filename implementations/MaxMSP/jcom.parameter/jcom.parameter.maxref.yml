@@ -73,11 +73,6 @@ attributes:
    desc: "The dataspace unit used for communication to the algorithm from the outside world."
    unit:
    default: none
- - name: dataspace/unit/display
-   type: symbol
-   desc:
-   unit:
-   default: none
  - name: priority
    type: int
    desc: "Used to determine order of parameter recall in a preset. When presets of modules are recalled, parameters are set according to priority, so that parameters with priority 1 get updated first, then	parameters with priority 2, then priority 3, and so on. If the priority attribute is not set, it defaults to 0. Parameters with priority 0 are regarded the lowest priority, and end up at the end of the queue of parameters to be set."

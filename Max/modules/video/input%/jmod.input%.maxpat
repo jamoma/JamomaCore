@@ -120,7 +120,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 489.0, 248.0, 604.0, 31.0 ],
-					"text" : "jcom.parameter updaterate @type integer @range/bounds 1 100 @range/clipmode low @description \"Update rate in milliseconds\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms",
+					"text" : "jcom.parameter updaterate @type integer @range/bounds 1 100 @range/clipmode low @description \"Update rate in milliseconds\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms",
 					"varname" : "camera/camera[2]"
 				}
 

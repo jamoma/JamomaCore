@@ -73,11 +73,6 @@ attributes:
    desc: "The dataspace unit used for communication to the algorithm from the outside world."
    unit:
    default: none
- - name: dataspace/unit/display
-   type: symbol
-   desc:
-   unit:
-   default: none
  - name: description
    type: symbol
    desc: "Short info about the message. Used for auto-documentation of the module."

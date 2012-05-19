@@ -233,7 +233,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 819.0, 119.0, 595.0, 43.0 ],
-					"text" : "jcom.parameter testtone/frequency @type integer @ramp/drive scheduler @description \"The Frequency of the test tone. in [Hz] by default.\" @range/bounds 0.2 16000. @range/clipmode both @dataspace time @dataspace/unit/active hz @dataspace/unit/native hz @dataspace/unit/display hz",
+					"text" : "jcom.parameter testtone/frequency @type integer @ramp/drive scheduler @description \"The Frequency of the test tone. in [Hz] by default.\" @range/bounds 0.2 16000. @range/clipmode both @dataspace time @dataspace/unit/active hz @dataspace/unit/native hz",
 					"varname" : "ch_1[2]"
 				}
 
@@ -982,7 +982,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 819.0, 73.0, 526.0, 43.0 ],
-					"text" : "jcom.parameter clicktrain/rate @type decimal @ramp/drive scheduler @description \"How often a click is generated. in [Hz] by default.\" @range/bounds 0.01 100. @range/clipmode both @dataspace time @dataspace/unit/active hz @dataspace/unit/native hz @dataspace/unit/display hz",
+					"text" : "jcom.parameter clicktrain/rate @type decimal @ramp/drive scheduler @description \"How often a click is generated. in [Hz] by default.\" @range/bounds 0.01 100. @range/clipmode both @dataspace time @dataspace/unit/active hz @dataspace/unit/native hz",
 					"varname" : "ch_1[1]"
 				}
 
@@ -1429,7 +1429,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 334.0, 81.0, 358.0, 55.0 ],
-					"text" : "jcom.parameter audio/gain @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/display midi @description \"master gain\"",
+					"text" : "jcom.parameter audio/gain @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"master gain\"",
 					"varname" : "jcom.parameter.gain"
 				}
 

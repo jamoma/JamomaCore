@@ -2109,7 +2109,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 280.0, 247.0, 171.0, 60.0 ],
-																									"text" : "dataspace angle, dataspace/unit/active degree, dataspace/unit/native degree, dataspace/unit/display degree"
+																									"text" : "dataspace angle, dataspace/unit/active degree, dataspace/unit/native degree"
 																								}
 
 																							}
@@ -2124,7 +2124,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 1096.0, 236.0, 150.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active ms, dataspace/unit/native ms, dataspace/unit/display ms"
+																									"text" : "dataspace time, dataspace/unit/active ms, dataspace/unit/native ms"
 																								}
 
 																							}
@@ -2139,7 +2139,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 1011.0, 164.0, 157.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active bpm, dataspace/unit/native bpm, dataspace/unit/display bpm"
+																									"text" : "dataspace time, dataspace/unit/active bpm, dataspace/unit/native bpm"
 																								}
 
 																							}
@@ -2154,7 +2154,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 772.0, 189.0, 171.0, 60.0 ],
-																									"text" : "dataspace distance, dataspace/unit/active meters, dataspace/unit/native meters, dataspace/unit/display meters"
+																									"text" : "dataspace distance, dataspace/unit/active meters, dataspace/unit/native meters"
 																								}
 
 																							}
@@ -2169,7 +2169,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 661.0, 251.0, 162.0, 60.0 ],
-																									"text" : "dataspace gain, dataspace/unit/active linear, dataspace/unit/native linear, dataspace/unit/display linear"
+																									"text" : "dataspace gain, dataspace/unit/active linear, dataspace/unit/native linear"
 																								}
 
 																							}
@@ -2184,7 +2184,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 618.0, 187.0, 150.0, 60.0 ],
-																									"text" : "dataspace gain, dataspace/unit/active dB, dataspace/unit/native dB, dataspace/unit/display dB"
+																									"text" : "dataspace gain, dataspace/unit/active dB, dataspace/unit/native dB"
 																								}
 
 																							}
@@ -2213,7 +2213,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 484.0, 255.0, 158.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active midi, dataspace/unit/native midi, dataspace/unit/display midi"
+																									"text" : "dataspace time, dataspace/unit/active midi, dataspace/unit/native midi"
 																								}
 
 																							}
@@ -2228,7 +2228,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 421.0, 167.0, 147.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active Hz, dataspace/unit/native Hz, dataspace/unit/display Hz"
+																									"text" : "dataspace time, dataspace/unit/active Hz, dataspace/unit/native Hz"
 																								}
 
 																							}
@@ -2243,7 +2243,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 879.0, 253.0, 161.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active cents, dataspace/unit/native cents, dataspace/unit/display cents"
+																									"text" : "dataspace time, dataspace/unit/active cents, dataspace/unit/native cents"
 																								}
 
 																							}
@@ -2286,7 +2286,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 126.0, 244.0, 143.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active s, dataspace/unit/native s, dataspace/unit/display s"
+																									"text" : "dataspace time, dataspace/unit/active s, dataspace/unit/native s"
 																								}
 
 																							}

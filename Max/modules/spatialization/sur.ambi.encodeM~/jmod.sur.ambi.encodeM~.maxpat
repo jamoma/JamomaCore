@@ -7120,7 +7120,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 536.0, 610.0, 495.0, 43.0 ],
-					"text" : "jcom.parameter center/decay @repetitions/allow 0 @type decimal @range/bounds 0 60 @range/clipmode low @description \"max. attenuation inside the center area in dB\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+					"text" : "jcom.parameter center/decay @repetitions/allow 0 @type decimal @range/bounds 0 60 @range/clipmode low @description \"max. attenuation inside the center area in dB\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB",
 					"varname" : "destination/voices[4]"
 				}
 

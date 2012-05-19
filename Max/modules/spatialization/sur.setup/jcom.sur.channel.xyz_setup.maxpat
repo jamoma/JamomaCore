@@ -102,7 +102,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 213.0, 594.0, 43.0 ],
-									"text" : "jcom.message xyz.2 @type array @repetitions/allow 1 @description \"alternative description of position of voice #1 as xyz coodinate.\" @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @ramp/drive scheduler",
+									"text" : "jcom.message xyz.2 @type array @repetitions/allow 1 @description \"alternative description of position of voice #1 as xyz coodinate.\" @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @ramp/drive scheduler",
 									"varname" : "parameter[3]"
 								}
 
@@ -1332,7 +1332,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 301.0, 448.0, 570.0, 43.0 ],
-					"text" : "jcom.parameter xyz.0 @type array @repetitions/allow 1 @description \"Position of voice 0 as xyz coordinates.\" @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @ramp/drive scheduler",
+					"text" : "jcom.parameter xyz.0 @type array @repetitions/allow 1 @description \"Position of voice 0 as xyz coordinates.\" @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @ramp/drive scheduler",
 					"varname" : "parameter"
 				}
 

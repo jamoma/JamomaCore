@@ -449,7 +449,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 184.0, 577.0, 55.0 ],
-									"text" : "jcom.parameter chorus/depth @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"depth-parameter of the fluidsynth~.\" @ramp/drive scheduler @range/clipmode low @description \"level of the chorus.\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms",
+									"text" : "jcom.parameter chorus/depth @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"depth-parameter of the fluidsynth~.\" @ramp/drive scheduler @range/clipmode low @description \"level of the chorus.\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms",
 									"varname" : "chorus[3]"
 								}
 
@@ -465,7 +465,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 110.0, 577.0, 55.0 ],
-									"text" : "jcom.parameter chorus/speed @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"speed-parameter of the fluidsynth~.\" @ramp/drive scheduler @range/clipmode low @description \"level of the chorus.\" @dataspace time @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
+									"text" : "jcom.parameter chorus/speed @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"speed-parameter of the fluidsynth~.\" @ramp/drive scheduler @range/clipmode low @description \"level of the chorus.\" @dataspace time @dataspace/unit/active Hz @dataspace/unit/native Hz",
 									"varname" : "chorus[2]"
 								}
 
@@ -481,7 +481,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 59.0, 587.0, 43.0 ],
-									"text" : "jcom.parameter chorus/level @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"level of the chorus.\" @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear @ramp/drive scheduler",
+									"text" : "jcom.parameter chorus/level @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"level of the chorus.\" @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @ramp/drive scheduler",
 									"varname" : "chorus[1]"
 								}
 
@@ -545,7 +545,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 344.0, 586.0, 43.0 ],
-									"text" : "jcom.parameter reverb/level @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"level of the reverb.\" @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
+									"text" : "jcom.parameter reverb/level @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"level of the reverb.\" @dataspace gain @dataspace/unit/active linear",
 									"varname" : "reverb[2]"
 								}
 

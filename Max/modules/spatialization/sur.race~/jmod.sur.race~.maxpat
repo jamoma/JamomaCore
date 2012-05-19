@@ -56,7 +56,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 415.0, 82.0, 588.0, 43.0 ],
-					"text" : "jcom.parameter sidechain @type decimal @range/bounds -60. 3. @range/clipmode both @description \"gain for controlling the effect of the recursive bandpass sidechain\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/display dB @dataspace/unit/native dB"
+					"text" : "jcom.parameter sidechain @type decimal @range/bounds -60. 3. @range/clipmode both @description \"gain for controlling the effect of the recursive bandpass sidechain\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB"
 				}
 
 			}

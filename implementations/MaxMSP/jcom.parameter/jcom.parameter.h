@@ -56,12 +56,9 @@ typedef struct _param{
 	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
 	TTObjectPtr		dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
-	TTObjectPtr		dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
-	TTObjectPtr		dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
 	TTObjectPtr		dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
 	SymbolPtr		attr_unitNative;			///< The native (model/algorithm) unit within the dataspace.
 	SymbolPtr		attr_unitActive;			///< The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
-	SymbolPtr		attr_unitDisplay;			///< The display unit within the dataspace -- sent to/from the inlet/outlet of this instance
 	SymbolPtr		attr_unitOverride;			///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
 	method			callback;					///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
 	ObjectPtr		callbackArg;				///< The object for which the callback method should be applied
@@ -223,8 +220,6 @@ MaxErr	param_attr_getactiveunit(t_param *x, void *attr, long *argc, AtomPtr *arg
 MaxErr	param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getnativeunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setnativeunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
-MaxErr	param_attr_getdisplayunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
-MaxErr	param_attr_setdisplayunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);

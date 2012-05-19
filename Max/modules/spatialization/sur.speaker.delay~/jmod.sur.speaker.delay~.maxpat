@@ -125,7 +125,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 6.0, 603.0, 43.0 ],
-					"text" : "jcom.parameter temperature @type decimal @repetitions/allow 0 @range/bounds -273. 40. @range/clipmode low @description \"temperature to calculate speed of sound.\" @dataspace temperature @dataspace/unit/active Celsius @dataspace/unit/native Celsius @dataspace/unit/display Celsius",
+					"text" : "jcom.parameter temperature @type decimal @repetitions/allow 0 @range/bounds -273. 40. @range/clipmode low @description \"temperature to calculate speed of sound.\" @dataspace temperature @dataspace/unit/active Celsius @dataspace/unit/native Celsius",
 					"varname" : "voices[1]"
 				}
 
@@ -1809,7 +1809,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 427.0, 294.0, 589.0, 43.0 ],
-					"text" : "jcom.parameter.array 32 speaker delay @type decimal @repetitions/allow 1 @value/default 0. @range/bounds 0. 1000. @range/clipmode both @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms @description \"delay to be applied on the Nth speaker  in [ms] by default\""
+					"text" : "jcom.parameter.array 32 speaker delay @type decimal @repetitions/allow 1 @value/default 0. @range/bounds 0. 1000. @range/clipmode both @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @description \"delay to be applied on the Nth speaker  in [ms] by default\""
 				}
 
 			}
@@ -1824,7 +1824,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 427.0, 248.0, 567.0, 43.0 ],
-					"text" : "jcom.message.array 32 speaker position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
+					"text" : "jcom.message.array 32 speaker position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
 			}

@@ -529,7 +529,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 130.0, 574.0, 43.0 ],
-					"text" : "jcom.parameter preamp @ramp/drive scheduler @repetitions/allow 0 @type decimal @range/bounds -12 48 @range/clipmode none @description \"Preamp (dB).\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+					"text" : "jcom.parameter preamp @ramp/drive scheduler @repetitions/allow 0 @type decimal @range/bounds -12 48 @range/clipmode none @description \"Preamp (dB).\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB",
 					"varname" : "preamp"
 				}
 

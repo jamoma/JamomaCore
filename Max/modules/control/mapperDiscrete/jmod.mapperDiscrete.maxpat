@@ -2576,7 +2576,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 779.0, 547.0, 554.0, 43.0 ],
-					"text" : "jcom.parameter out/ramp @repetitions/allow 1 @type integer @description \"ramp time,  sent as {ramp #} together with the trigger message. in [ms] by default\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms @range/bounds 0 9999 @range/clipmode low",
+					"text" : "jcom.parameter out/ramp @repetitions/allow 1 @type integer @description \"ramp time,  sent as {ramp #} together with the trigger message. in [ms] by default\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @range/bounds 0 9999 @range/clipmode low",
 					"varname" : "out_value[3]"
 				}
 

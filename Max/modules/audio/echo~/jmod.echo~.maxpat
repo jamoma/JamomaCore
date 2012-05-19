@@ -298,7 +298,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 644.0, 589.0, 43.0 ],
-					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode both @description Feedback. @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
+					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode both @description Feedback. @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear",
 					"varname" : "feedback"
 				}
 
@@ -314,7 +314,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 674.181824, 270.0, 583.0, 43.0 ],
-					"text" : "jcom.parameter delay/right @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\" @dataspace time @dataspace/unit/native ms @dataspace/unit/display ms @dataspace/unit/active ms",
+					"text" : "jcom.parameter delay/right @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\" @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms",
 					"varname" : "right"
 				}
 
@@ -1001,7 +1001,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 624.545471, 390.545441, 599.0, 43.0 ],
-					"text" : "jcom.parameter filter/gain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+					"text" : "jcom.parameter filter/gain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB",
 					"varname" : "filtergain"
 				}
 
@@ -1033,7 +1033,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 623.545471, 436.545441, 591.0, 43.0 ],
-					"text" : "jcom.parameter filter/frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace time @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
+					"text" : "jcom.parameter filter/frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace time @dataspace/unit/active Hz @dataspace/unit/native Hz",
 					"varname" : "cf"
 				}
 
@@ -1184,7 +1184,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 674.181824, 193.0, 576.0, 43.0 ],
-					"text" : "jcom.parameter delay/left @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\" @dataspace time @dataspace/unit/native ms @dataspace/unit/display ms @dataspace/unit/active ms",
+					"text" : "jcom.parameter delay/left @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\" @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms",
 					"varname" : "left"
 				}
 

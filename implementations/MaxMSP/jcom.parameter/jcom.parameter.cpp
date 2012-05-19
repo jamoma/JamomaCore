@@ -141,7 +141,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_class_attr_new(c,		"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
 	//CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);	
 	jamoma_class_attr_new(c,		"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
-	jamoma_class_attr_new(c,		"dataspace/unit/display",	_sym_symbol, (method)param_attr_setdisplayunit, (method)param_attr_getdisplayunit);
 	// the override dataspace is not exposed as an attribute
 
 #ifndef JMOD_MESSAGE
@@ -161,7 +160,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ORDER(c, "dataspace",				0, "8");
 	CLASS_ATTR_ORDER(c, "dataspace/unit/native",	0, "9");
 	CLASS_ATTR_ORDER(c, "dataspace/unit/active",	0, "10");
-	CLASS_ATTR_ORDER(c, "dataspace/unit/display",	0, "11");
 	CLASS_ATTR_ORDER(c, "priority",					0, "12");
 	CLASS_ATTR_ORDER(c, "description",				0, "13");	
 	CLASS_ATTR_ORDER(c, "readonly",					0, "14");	
@@ -216,8 +214,6 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->atom_listDefault = new Atom[JAMOMA_LISTSIZE];
 		
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2active, kTTValNONE);
-		TTObjectInstantiate(TT("dataspace"), &x->dataspace_active2display, kTTValNONE);
-		TTObjectInstantiate(TT("dataspace"), &x->dataspace_display2active, kTTValNONE);
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_active2native, kTTValNONE);		
 		
 		// set defaults...
@@ -245,7 +241,6 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->attr_dataspace = jps_none;
 		x->attr_unitActive = jps_none;
 		x->attr_unitNative = jps_none;
-		x->attr_unitDisplay = jps_none;
 		x->isInitialised = NO;						// the message/parameter has not yet been initialised
 
 #ifdef JMOD_MESSAGE
@@ -292,8 +287,6 @@ void param_free(t_param *x)
 	delete x->rampParameterNames;
 	
 	TTObjectRelease(&x->dataspace_override2active);
-	TTObjectRelease(&x->dataspace_active2display);
-	TTObjectRelease(&x->dataspace_display2active);
 	TTObjectRelease(&x->dataspace_active2native);
 	
 	delete [] x->atom_list;
@@ -557,15 +550,14 @@ void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 		*(*names+7) = gensym("dataspace");
 		*(*names+8) = gensym("dataspace/unit/native");
 		*(*names+9) = gensym("dataspace/unit/active");
-		*(*names+10) = gensym("dataspace/unit/display");
-		*(*names+11) = gensym("priority");
-		*(*names+12) = gensym("description");
-		*(*names+13) = gensym("readonly");
-		*(*names+14) = gensym("ui/freeze");
-		*(*names+15) = gensym("value");
-		*(*names+16) = gensym("value/default");
-		*(*names+17) = gensym("value/stepsize");
-		*(*names+18) = gensym("mix/weight");
+		*(*names+10) = gensym("priority");
+		*(*names+11) = gensym("description");
+		*(*names+12) = gensym("readonly");
+		*(*names+13) = gensym("ui/freeze");
+		*(*names+14) = gensym("value");
+		*(*names+15) = gensym("value/default");
+		*(*names+16) = gensym("value/stepsize");
+		*(*names+17) = gensym("mix/weight");
 	}	
 #else
 	*count = 17;
@@ -583,13 +575,12 @@ void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 		*(*names+7) = gensym("dataspace");
 		*(*names+8) = gensym("dataspace/unit/native");
 		*(*names+9) = gensym("dataspace/unit/active");
-		*(*names+10) = gensym("dataspace/unit/display");
-		*(*names+11) = gensym("description");
-		*(*names+12) = gensym("readonly");
-		*(*names+13) = gensym("ui/freeze");
-		*(*names+14) = gensym("value");
-		*(*names+15) = gensym("value/default");
-		*(*names+16) = gensym("value/stepsize");
+		*(*names+10) = gensym("description");
+		*(*names+11) = gensym("readonly");
+		*(*names+12) = gensym("ui/freeze");
+		*(*names+13) = gensym("value");
+		*(*names+14) = gensym("value/default");
+		*(*names+15) = gensym("value/stepsize");
 	}
 #endif
 
@@ -865,8 +856,6 @@ MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 		
 		v = TT(x->attr_dataspace->s_name);
 		x->dataspace_active2native->setAttributeValue(TT("dataspace"), v);
-		x->dataspace_active2display->setAttributeValue(TT("dataspace"), v);
-		x->dataspace_display2active->setAttributeValue(TT("dataspace"), v);
 		x->dataspace_override2active->setAttributeValue(TT("dataspace"), v);
 		
 		// If there is already a unit defined, then we try to use that
@@ -874,8 +863,6 @@ MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 		err = MAX_ERR_GENERIC;
 		if (x->attr_unitActive) {
 			err = x->dataspace_active2native->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
-			err = x->dataspace_active2display->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
-			err = x->dataspace_display2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
 
 			// override always defaults to the active unit
 			err = x->dataspace_override2active->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
@@ -887,8 +874,6 @@ MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 			x->attr_unitActive = gensym(s->getCString());
 
 			err = x->dataspace_active2native->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
-			err = x->dataspace_active2display->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
-			err = x->dataspace_display2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
 			err = x->dataspace_override2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
 		}
 		
@@ -902,15 +887,6 @@ MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 		}
 		
 		err = MAX_ERR_GENERIC;
-		if (x->attr_unitDisplay) {
-			err = x->dataspace_active2display->setAttributeValue(TT("outputUnit"), TT(x->attr_unitDisplay->s_name));
-			err = x->dataspace_display2active->setAttributeValue(TT("inputUnit"), TT(x->attr_unitDisplay->s_name));
-		}
-		if (err) {
-			x->dataspace_active2native->getAttributeValue(TT("inputUnit"), v);
-			v.get(0, &s);
-			x->attr_unitDisplay = gensym(s->getCString());
-		}
 	}
 	return MAX_ERR_NONE;
 }
@@ -932,7 +908,6 @@ MaxErr param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr 
 
 		x->dataspace_active2native->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
 		x->dataspace_active2native->setAttributeValue(TT("inputUnit"), TT(x->attr_unitActive->s_name));
-		x->dataspace_display2active->setAttributeValue(TT("outputUnit"), TT(x->attr_unitActive->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -956,25 +931,6 @@ MaxErr param_attr_setnativeunit(t_param *x, void *attr, AtomCount argc, AtomPtr 
 	return MAX_ERR_NONE;
 }
 
-
-MaxErr param_attr_getdisplayunit(t_param *x, void *attr, long *argc, AtomPtr *argv)
-{
-	*argc = 1;
-	if (!(*argv)) // otherwise use memory passed in
-		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
-	atom_setsym(*argv, x->attr_unitDisplay);
-	return MAX_ERR_NONE;
-}
-
-MaxErr param_attr_setdisplayunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
-{
-	if (argc && argv) {
-		x->attr_unitDisplay = atom_getsym(argv);
-		x->dataspace_active2display->setAttributeValue(TT("outputUnit"), TT(x->attr_unitDisplay->s_name));
-		x->dataspace_display2active->setAttributeValue(TT("inputUnit"), TT(x->attr_unitDisplay->s_name));
-	}
-	return MAX_ERR_NONE;
-}
 
 
 /************************************************************************************/
@@ -1069,11 +1025,6 @@ void param_dump(t_param *x)
 		snprintf(s, 256, "%s:/dataspace/unit/active", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_unitActive);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-		
-		snprintf(s, 256, "%s:/dataspace/unit/display", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attr_unitDisplay);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
 		snprintf(s, 256, "%s:/dataspace/unit/native", x->common.attr_name->s_name);
