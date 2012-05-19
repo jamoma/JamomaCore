@@ -42,12 +42,12 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	dataspaces[0] = 0;
 	for (int i=0; i < dataspaceNames.getSize(); i++) {
 		TTSymbolPtr	name;
-		
 		dataspaceNames.get(i, &name);
-		strcat(dataspaces, name->getCString());
+		// We jump past the first 10 characters of the name string in order to
+		// remove the initial "dataspace." part of the string. Resolves issue #707
+		strcat(dataspaces, name->getCString()+10);
 		strcat(dataspaces, " ");
 	}
-	
 	
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
