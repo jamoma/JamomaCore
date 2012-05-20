@@ -175,12 +175,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_SAVE(c,			"dataspace/unit/active",		0);
 	CLASS_ATTR_ACCESSORS(c,		"dataspace/unit/active",		paramui_getUnitActive, paramui_setUnitActive);
 
-	CLASS_ATTR_SYM(c,			"dataspace/unit/native",		0, t_paramui, attr_unitNative);
-	CLASS_ATTR_LABEL(c,			"dataspace/unit/native",		0, "Native Unit within the Dataspace");
-	CLASS_ATTR_DEFAULT(c,		"dataspace/unit/native",		0, "none");
-	CLASS_ATTR_SAVE(c,			"dataspace/unit/native",		0);
-	CLASS_ATTR_ACCESSORS(c,		"dataspace/unit/native",		paramui_getUnitNative, paramui_setUnitNative);
-
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
 
 	class_register(CLASS_BOX, c);
@@ -265,15 +259,13 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(a+23, x->attr_dataspace);
 		atom_setsym(a+24, gensym("@dataspace/unit/active"));
 		atom_setsym(a+25, x->attr_unitActive);
-		atom_setsym(a+26, gensym("@dataspace/unit/native"));
-		atom_setsym(a+27, x->attr_unitNative);
 		if (x->attr_defaultSize) {
-			atom_setsym(a+28, gensym("@value/default"));
+			atom_setsym(a+26, gensym("@value/default"));
 			sysmem_copyptr(x->attr_default, a+29, sizeof(t_atom) * x->attr_defaultSize);
-			argLen = 29 + x->attr_defaultSize;
+			argLen = 27 + x->attr_defaultSize;
 		}
 		else
-			argLen = 28;
+			argLen = 26;
 
 		jcom_core_loadextern(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
 	}

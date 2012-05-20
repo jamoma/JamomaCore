@@ -239,20 +239,3 @@ t_max_err paramui_setUnitActive(t_paramui *x, void *attr, long argc, t_atom *arg
 	object_attr_setvalueof(x->obj_parameter, gensym("dataspace/unit/active"), argc, argv);
 	return MAX_ERR_NONE;
 }
-
-
-t_max_err paramui_getUnitNative(t_paramui *x, void *attr, long *argc, t_atom **argv)
-{
-	t_symbol	*attrName = (t_symbol*)object_method(attr, _sym_getname);		
-	return object_attr_getvalueof(x->obj_parameter, attrName, argc, argv);
-}
-
-t_max_err paramui_setUnitNative(t_paramui *x, void *attr, long argc, t_atom *argv)
-{
-	if (argc)
-		x->attr_unitNative = atom_getsym(argv);
-	
-	object_attr_setvalueof(x->obj_parameter, gensym("dataspace/unit/native"), argc, argv);
-	return MAX_ERR_NONE;
-}
-

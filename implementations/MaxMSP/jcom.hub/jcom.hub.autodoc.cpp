@@ -528,12 +528,12 @@ void hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* 
 	snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspace\"> %s </td>", msg_type->s_name);
 	jcom_core_file_writeline(file_handle, myEof, tempstring);			
 	
-	 // dataspace/unit/native
+	 // dataspace/unit
 	argc = NULL;
 	argv = NULL;
-	object_attr_getvalueof(t->object ,jps_unit_native , &argc, &argv);
+	object_attr_getvalueof(t->object ,jps_unit_active , &argc, &argv);
 	msg_type = atom_getsym(argv);
-	snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspaceUnitNative\"> %s </td>", msg_type->s_name);
+	snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspaceUnit\"> %s </td>", msg_type->s_name);
 	jcom_core_file_writeline(file_handle, myEof, tempstring);
 	
 	// repetitions/allow
@@ -633,10 +633,10 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	object_attr_getvalueof(t->object ,jps_dataspace , &argc, &argv);
 	resultDataspace = atom_getsym(argv);
 	
-	// dataspace/unit/native
+	// dataspace/unit
 	argc = NULL;
 	argv = NULL;
-	object_attr_getvalueof(t->object ,jps_unit_native , &argc, &argv);
+	object_attr_getvalueof(t->object ,jps_unit_active , &argc, &argv);
 	resultDataspaceUnitActive = atom_getsym(argv);
 	
 	// repetitions/allow
@@ -679,7 +679,7 @@ void table_headingHtml(t_filehandle *file_handle, long *myEof, int nodeType)
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /ramp/drive </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /ramp/function </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace </td>"); 
-	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace/unit/native </td>"); 
+	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace/unit </td>"); 
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /repetitions/allow </td>");	
 	if (nodeType == RETURN)
 		jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /enable </td>");
@@ -693,12 +693,12 @@ void table_headingTex(t_filehandle *file_handle, long *myEof, int nodeType)
 	if (nodeType == RETURN){
 		jcom_core_file_writeline(file_handle, myEof, "\\begin{longtable}{llp{1.5cm}lllllcc p{6cm}} \\hline \\hline ");
 		jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\multicolumn{1}{l}{\\textbf{/repetitions}} & \\multicolumn{1}{l}{\\textbf{/enable}} & \\textbf{/description}\\\\");
-		jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit/native} & \\multicolumn{1}{l}{\\textbf{/allow}} & & \\\\");
+		jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit} & \\multicolumn{1}{l}{\\textbf{/allow}} & & \\\\");
 		}
 	else{
 		jcom_core_file_writeline(file_handle, myEof, "\\begin{longtable}{llp{1.5cm}lllllc p{7cm}} \\hline \\hline ");
 		jcom_core_file_writeline(file_handle, myEof, "\\rowcolor{white}  \\textbf{/name} & \\textbf{/type} & \\textbf{/range}  & \\textbf{/range} & \\textbf{/ramp} & \\textbf{/ramp} & \\textbf{/dataspace} & \\textbf{/dataspace} & \\multicolumn{1}{l}{\\textbf{/repetitions}} & \\textbf{/description}\\\\");
-		jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit/native} & \\multicolumn{1}{l}{\\textbf{/allow}} & \\\\");
+		jcom_core_file_writeline(file_handle, myEof, "       &       &  \\textbf{/bounds} & \\textbf{/clipmode} & \\textbf{/drive} & \\textbf{/function} &  & \\textbf{/unit} & \\multicolumn{1}{l}{\\textbf{/allow}} & \\\\");
 		}
 	jcom_core_file_writeline(file_handle, myEof, "\\hline\\hline \\endhead");
 }
@@ -852,7 +852,7 @@ table {\
 	vertical-align: top;\
 }\
 \
-.instructionDataspaceUnitNative {\
+.instructionDataspaceUnit {\
 font-family: 'Times New Roman', Times, serif;\
 background-color: #eee;\
 vertical-align: top;\

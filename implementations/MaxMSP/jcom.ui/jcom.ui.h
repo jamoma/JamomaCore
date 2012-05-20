@@ -258,7 +258,7 @@ public:
 	t_object	*theObject;
 	//method		action;
 	
-	uiInternalObject(char *classname, char *subscribername, ObjectPtr patcher, char *subscribertype, char *ramptype, char *description, float *rangebounds, char *dataspace, char *nativeUnit, char *activeUnit, char *defaultValue)
+	uiInternalObject(char *classname, char *subscribername, ObjectPtr patcher, char *subscribertype, char *ramptype, char *description, float *rangebounds, char *dataspace, char *activeUnit, char *defaultValue)
 	{
 		t_atom	a[20];
 		int		i=0;
@@ -277,11 +277,9 @@ public:
 			atom_setfloat(a+(i++), rangebounds[0]);	
 			atom_setfloat(a+(i++), rangebounds[1]);	
 		}	
-		if (dataspace && nativeUnit && activeUnit) {
+		if (dataspace && activeUnit) {
 			atom_setsym(a+(i++), gensym("@dataspace"));
 			atom_setsym(a+(i++), gensym(dataspace));
-			atom_setsym(a+(i++), gensym("@dataspace/unit/native"));
-			atom_setsym(a+(i++), gensym(nativeUnit));
 			atom_setsym(a+(i++), gensym("@dataspace/unit/active"));
 			atom_setsym(a+(i++), gensym(activeUnit));
 		}

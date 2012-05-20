@@ -56,10 +56,9 @@ typedef struct _param{
 	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
 	TTObjectPtr		dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
-	TTObjectPtr		dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
-	SymbolPtr		attr_unitNative;			///< The native (model/algorithm) unit within the dataspace.
 	SymbolPtr		attr_unitActive;			///< The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
 	SymbolPtr		attr_unitOverride;			///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
+	TTBoolean		isOverriding;				///< flag indicating if we are currently overriding the active unit.
 	method			callback;					///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
 	ObjectPtr		callbackArg;				///< The object for which the callback method should be applied
 	ObjectPtr		receive;					///< Direct receive
@@ -165,7 +164,7 @@ void		param_symbol(t_param *x, SymbolPtr s);
 void		param_anything(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void 		param_send_feedback(t_param *x);
 
-/**	Convert a list of atoms through the DataspaceLib from the active units into the native units.
+/**	Convert a list of atoms through the DataspaceLib from the override unit to active unit.
 	@param	x		Parameter or Message instance pointer.
 	@param	argc	The number of input atoms.
 	@param	argv	The address of the first of an array of input atoms.
@@ -218,8 +217,12 @@ MaxErr	param_attr_getdataspace(t_param *x, void *attr, long *argc, AtomPtr *argv
 MaxErr	param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr	param_attr_getactiveunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
-MaxErr	param_attr_getnativeunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
-MaxErr	param_attr_setnativeunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+/** Set the override dataspace unit. Temporarily overrides x->attr_unitActive. x->attr_unitOverride is not exposed as an attribute, and hence we van make do with a simpler interface when calling the method.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The unit to be used while temprarily overriding x->attr_unitActive.
+ */
+MaxErr param_attr_setoverrideunit(t_param *x, SymbolPtr unit);
 
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);

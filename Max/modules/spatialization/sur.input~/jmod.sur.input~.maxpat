@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 5
 		}
 ,
 		"rect" : [ 0.0, 44.0, 1280.0, 688.0 ],
@@ -115,7 +115,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 25.0, 69.0, 1043.0, 537.0 ],
@@ -176,7 +176,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 294.0, 178.0, 356.0, 31.0 ],
+									"patching_rect" : [ 294.0, 178.0, 530.0, 31.0 ],
 									"text" : "jcom.return info/length @type integer @description \"length of the soundfile in [ms]\" @dataspace time @dataspace/unit/native ms"
 								}
 
@@ -341,14 +341,14 @@
 ,
 					"patching_rect" : [ 671.0, 416.0, 191.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"tags" : "",
 						"description" : "",
+						"fontname" : "Verdana",
+						"tags" : "",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana"
 					}
@@ -386,7 +386,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 314.0, 80.0, 966.0, 550.0 ],
@@ -533,7 +533,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 480.0, 316.0, 640.0, 480.0 ],
@@ -750,14 +750,14 @@
 ,
 									"patching_rect" : [ 635.0, 194.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"tags" : "",
 										"description" : "",
+										"fontname" : "Verdana",
+										"tags" : "",
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
 										"default_fontname" : "Verdana"
 									}
@@ -780,7 +780,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 464.0, 197.0, 640.0, 480.0 ],
@@ -1135,14 +1135,14 @@
 ,
 									"patching_rect" : [ 337.0, 195.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"tags" : "",
 										"description" : "",
+										"fontname" : "Verdana",
+										"tags" : "",
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
 										"default_fontname" : "Verdana"
 									}
@@ -1204,7 +1204,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 50.0, 94.0, 640.0, 480.0 ],
@@ -1545,14 +1545,14 @@
 ,
 									"patching_rect" : [ 267.0, 196.0, 68.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"tags" : "",
 										"description" : "",
+										"fontname" : "Verdana",
+										"tags" : "",
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
 										"default_fontname" : "Verdana"
 									}
@@ -1575,7 +1575,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 4
+											"revision" : 5
 										}
 ,
 										"rect" : [ 50.0, 94.0, 640.0, 480.0 ],
@@ -1728,14 +1728,14 @@
 ,
 									"patching_rect" : [ 500.0, 193.0, 132.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"tags" : "",
 										"description" : "",
+										"fontname" : "Verdana",
+										"tags" : "",
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"digest" : "",
 										"default_fontname" : "Verdana"
 									}
@@ -2042,14 +2042,14 @@
 ,
 					"patching_rect" : [ 169.0, 324.0, 54.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"tags" : "",
 						"description" : "",
+						"fontname" : "Verdana",
+						"tags" : "",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana"
 					}
@@ -2342,8 +2342,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 826.0, 506.0, 337.0, 55.0 ],
-					"text" : "jcom.message start @type decimal @repetitions/allow 0 @dataspace time @dataspace/unit/active second @dataspace/unit/native second @dataspace/unit/native second @description \"start time in soundfile to play in [sec]\"",
+					"patching_rect" : [ 826.0, 506.0, 281.0, 55.0 ],
+					"text" : "jcom.message start @type decimal @repetitions/allow 0 @dataspace time @dataspace/unit/active second @description \"start time in soundfile to play in [sec]\"",
 					"varname" : "start"
 				}
 
@@ -2362,7 +2362,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 10.0, 59.0, 600.0, 426.0 ],
@@ -2524,14 +2524,14 @@
 ,
 					"patching_rect" : [ 671.0, 438.0, 30.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"tags" : "",
 						"description" : "",
+						"fontname" : "Verdana",
+						"tags" : "",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"digest" : "",
 						"default_fontname" : "Verdana"
 					}
@@ -2715,7 +2715,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 542.0, 336.0, 458.0, 19.0 ],
+					"patching_rect" : [ 542.0, 336.0, 516.0, 19.0 ],
 					"text" : "jcom.parameter play @type boolean @repetitions/allow 0 @priority 2 @description \"starts playback\"",
 					"varname" : "play"
 				}
@@ -3140,7 +3140,7 @@
 					"destination" : [ "obj-12", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 771.0, 359.0, 468.25, 359.0, 468.25, 227.0, 612.5, 227.0 ],
+					"midpoints" : [ 800.0, 359.0, 468.25, 359.0, 468.25, 227.0, 612.5, 227.0 ],
 					"source" : [ "obj-48", 1 ]
 				}
 
@@ -3413,49 +3413,28 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.meter_receive.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/meter_receive",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/meter_receive",
 				"patcherrelativepath" : "../../../library/components/meter_receive",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jalg.sur.input~.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/spatialization/sur.input~",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/spatialization/sur.input~",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.thru.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/thru",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
 				"patcherrelativepath" : "../../../library/components/thru",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "metro",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components",
-				"patcherrelativepath" : "../../../library/components",
-				"type" : "fold",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.metro.maxhelp",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/metro",
-				"patcherrelativepath" : "../../../library/components/metro",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.metro.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/metro",
-				"patcherrelativepath" : "../../../library/components/metro",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "input.timeDisplay.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/modules/spatialization/sur.input~",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/spatialization/sur.input~",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1

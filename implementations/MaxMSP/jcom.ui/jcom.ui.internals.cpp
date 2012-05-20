@@ -28,28 +28,28 @@ void ui_internals_createColors(t_ui* obj)
 	uiInternalObject	*anObject;
 	t_atom				a[2];
 	
-	anObject = new uiInternalObject("jcom.message", "view/color/contentBackground", obj->box.b_patcher, "array", "none", "The background color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/contentBackground", obj->box.b_patcher, "array", "none", "The background color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_contentBackground, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/contentBackground"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.message", "view/color/toolbarBackground", obj->box.b_patcher, "array", "none", "The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/toolbarBackground", obj->box.b_patcher, "array", "none", "The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_toolbarBackground, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/toolbarBackground"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.message", "view/color/toolbarText", obj->box.b_patcher, "array", "none", "The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/toolbarText", obj->box.b_patcher, "array", "none", "The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_toolbarText, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/toolbarText"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.message", "view/color/border", obj->box.b_patcher, "array", "none", "The border color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/color/border", obj->box.b_patcher, "array", "none", "The border color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_border, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/border"), (t_object*)anObject);
 	
-	anObject = new uiInternalObject("jcom.parameter", "view/highlight", obj->box.b_patcher, "string", "none", "Highlight the module with a color tint such as red, green, or similar.", NULL, NULL, NULL, NULL, "none");
+	anObject = new uiInternalObject("jcom.parameter", "view/highlight", obj->box.b_patcher, "string", "none", "Highlight the module with a color tint such as red, green, or similar.", NULL, NULL, NULL, "none");
 	anObject->setAction((method)ui_color_highlight, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/highlight"), (t_object*)anObject);	
 	
 	
-	anObject = new uiInternalObject("jcom.message", "view/size", obj->box.b_patcher, "array", "none", "The size of the module's UI.", NULL, NULL, NULL, NULL, NULL);
+	anObject = new uiInternalObject("jcom.message", "view/size", obj->box.b_patcher, "array", "none", "The size of the module's UI.", NULL, NULL, NULL, NULL);
 	//anObject->setAction((method)ui_color_border, (t_object*)obj);
 	anObject->setReadonly(true);
 	atom_setlong(a+0, obj->box.b_patching_rect.width);
@@ -398,7 +398,7 @@ t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
 	if (obj->attr_hasgain) {
 		range[0] = 0.0;
 		range[1] = 127.0;
-		anObject = new uiInternalObject("jcom.parameter", "gain", obj->box.b_patcher, "decimal", "scheduler", "Set gain (as MIDI value by default).", range, "gain", "midi", "midi", NULL);
+		anObject = new uiInternalObject("jcom.parameter", "gain", obj->box.b_patcher, "decimal", "scheduler", "Set gain (as MIDI value by default).", range, "gain", "midi", NULL);
 		anObject->setAction((method)ui_gain, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -441,7 +441,7 @@ t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	if (obj->attr_hasmix) {
 		range[0] = 0.0;
 		range[1] = 100.0;
-		anObject = new uiInternalObject("jcom.parameter", "mix", obj->box.b_patcher, "decimal", "scheduler", "Controls the wet/dry mix of the module's processing routine in percent.", range, NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "mix", obj->box.b_patcher, "decimal", "scheduler", "Controls the wet/dry mix of the module's processing routine in percent.", range, NULL, NULL, NULL);
 		anObject->setAction((method)ui_mix, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -481,7 +481,7 @@ t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasmute = atom_getlong(argv);
 	
 	if (obj->attr_hasmute) {
-		anObject = new uiInternalObject("jcom.parameter", "mute", obj->box.b_patcher, "boolean", "none", "When active, this attribute turns off the module's processing algorithm to save CPU", NULL, NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "mute", obj->box.b_patcher, "boolean", "none", "When active, this attribute turns off the module's processing algorithm to save CPU", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_mute, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mute"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -521,7 +521,7 @@ t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasbypass = atom_getlong(argv);
 	
 	if (obj->attr_hasbypass) {
-		anObject = new uiInternalObject("jcom.parameter", "bypass", obj->box.b_patcher, "boolean", "none", "When active, this attribute bypasses the module's processing algorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "bypass", obj->box.b_patcher, "boolean", "none", "When active, this attribute bypasses the module's processing algorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_bypass, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -561,7 +561,7 @@ t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasfreeze = atom_getlong(argv);
 	
 	if (obj->attr_hasfreeze) {
-		anObject = new uiInternalObject("jcom.parameter", "freeze", obj->box.b_patcher, "boolean", "none", "Freezes the last frame of output from the module's processing algorithm.", NULL, NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "freeze", obj->box.b_patcher, "boolean", "none", "Freezes the last frame of output from the module's processing algorithm.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_freeze, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("freeze"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -601,7 +601,7 @@ t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_haspreview = atom_getlong(argv);
 	
 	if (obj->attr_haspreview) {
-		anObject = new uiInternalObject("jcom.parameter", "preview", obj->box.b_patcher, "boolean", "none", "Turns on/off the video display in the module's preview window.", NULL, NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "preview", obj->box.b_patcher, "boolean", "none", "Turns on/off the video display in the module's preview window.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_preview, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("preview"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -642,7 +642,7 @@ t_max_err attr_set_hasinspector(t_ui *obj, void *attr, long argc, t_atom *argv)
 	
 	
 	if (obj->attr_hasinspector) {
-		anObject = new uiInternalObject("jcom.message", 	"view/panel",	obj->box.b_patcher,	"none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.message", 	"view/panel",	obj->box.b_patcher,	"none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL);
 		hashtab_store(obj->hash_internals, gensym("panel/open"), (t_object*)anObject);	
 	}
 	else {

@@ -51,7 +51,6 @@ typedef struct _paramui{
 	t_symbol			*attr_description;
 	t_symbol			*attr_dataspace;
 	t_symbol			*attr_unitActive;
-	t_symbol			*attr_unitNative;
 	
 	t_jtextlayout		*layout_value;			///< used to display the parameter value
 	t_jtextlayout		*layout_unit;			///< used to display the current unit for the parameter's dataspace
@@ -104,6 +103,3 @@ t_max_err	paramui_getDataspace(t_paramui *x, void *attr, long *argc, t_atom **ar
 t_max_err	paramui_setDataspace(t_paramui *x, void *attr, long argc, t_atom *argv);
 t_max_err	paramui_getUnitActive(t_paramui *x, void *attr, long *argc, t_atom **argv);
 t_max_err	paramui_setUnitActive(t_paramui *x, void *attr, long argc, t_atom *argv);
-t_max_err	paramui_getUnitNative(t_paramui *x, void *attr, long *argc, t_atom **argv);
-t_max_err	paramui_setUnitNative(t_paramui *x, void *attr, long argc, t_atom *argv);
-
