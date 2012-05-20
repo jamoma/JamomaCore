@@ -572,7 +572,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	t_symbol		*resultRampDrive;
 	t_symbol		*resultRampFct;
 	t_symbol		*resultDataspace;
-	t_symbol		*resultDataspaceUnitActive;
+	t_symbol		*resultDataspaceUnit;
 	t_symbol		*resultDescription;
 	t_symbol		*msg_type;
 	float			range[2];
@@ -637,7 +637,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	argc = NULL;
 	argv = NULL;
 	object_attr_getvalueof(t->object ,jps_unit , &argc, &argv);
-	resultDataspaceUnitActive = atom_getsym(argv);
+	resultDataspaceUnit = atom_getsym(argv);
 	
 	// repetitions/allow
 	argc = NULL;
@@ -660,9 +660,9 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	resultDescription = atom_getsym(argv);
 	
 	if (nodeType == RETURN)
-		snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClipMode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnitActive->s_name, repetitionAllow, resultEnable, resultDescription->s_name);
+		snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClipMode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnit->s_name, repetitionAllow, resultEnable, resultDescription->s_name);
 	else
-		snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClipMode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnitActive->s_name, repetitionAllow, resultDescription->s_name);
+		snprintf(tempstring, 1024, "%s & %s & %s & %s & %s & %s & %s & %s & %ld & %s \\\\", t->name->s_name, humantype, rangeBounds , resultClipMode->s_name,  resultRampDrive->s_name, resultRampFct->s_name, resultDataspace->s_name, resultDataspaceUnit->s_name, repetitionAllow, resultDescription->s_name);
 	jcom_core_file_writeline(file_handle, myEof, tempstring); 
 	
 }

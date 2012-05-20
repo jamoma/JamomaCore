@@ -24,8 +24,8 @@ typedef struct _return {
 	int								input_len;				//used in return_lis, stores the length of a list w/o the OSC name 
 	char							attrEnable;
 	t_symbol						*attrDataspace;
-	t_symbol						*attrUnitNative;
-	//t_symbol						*native
+	t_symbol						*attrUnit;
+
 	t_object*						send;					// send object for direct sending
 } t_return;
 
@@ -101,9 +101,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ENUM(c,						"dataspace",					0, dataspaces);
 	class_addmethod(c, (method)jamoma_class_attr_get, "dataspace/get", A_GIMME, 0);
 
-	CLASS_ATTR_SYM(c,						"dataspace/unit/native",		0,	t_return, attrUnitNative);
-	CLASS_ATTR_LABEL(c,						"dataspace/unit/native",		0,	"dataspace/unit/native");
-	class_addmethod(c, (method)jamoma_class_attr_get, "dataspace/unit/native/get", A_GIMME, 0);
+	CLASS_ATTR_SYM(c,						"dataspace/unit",		0,	t_return, attrUnit);
+	CLASS_ATTR_LABEL(c,						"dataspace/unit",		0,	"dataspace/unit");
+	class_addmethod(c, (method)jamoma_class_attr_get, "dataspace/unit/get", A_GIMME, 0);
 
 	CLASS_ATTR_CHAR(c,						"enable",						0,	t_return,	attrEnable);
 	CLASS_ATTR_STYLE(c,						"enable",						0,	"onoff");
@@ -147,7 +147,7 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		x->output_len = 1;
 		x->attrEnable = true;
 		x->attrDataspace = jps_none;
-		x->attrUnitNative = jps_none;
+		x->attrUnit = jps_none;
 		
 		if (patcher)
 			x->common.container = patcher;
@@ -227,9 +227,9 @@ void return_dump(t_return *x)
 		atom_setsym(&a[1], x->attrDataspace);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		snprintf(s, 256, "%s:/dataspace/unit/native", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/dataspace/unit", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attrUnitNative);
+		atom_setsym(&a[1], x->attrUnit);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
 		snprintf(s, 256, "%s:/enable", x->common.attr_name->s_name);

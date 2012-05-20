@@ -435,7 +435,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 90.0, 166.5, 569.0, 47.0 ],
-					"text" : "jcom.return audio/amplitude @repetitions/allow 1 @type decimal @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number #1\" @dataspace gain @dataspace/unit/native linear"
+					"text" : "jcom.return audio/amplitude @repetitions/allow 1 @type decimal @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number #1\" @dataspace gain @dataspace/unit linear"
 				}
 
 			}

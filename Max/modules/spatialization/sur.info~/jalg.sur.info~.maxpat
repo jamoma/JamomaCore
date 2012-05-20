@@ -61,7 +61,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 191.0, 235.0, 434.0, 19.0 ],
-					"text" : "jcom.return samplerate @type integer @dataspace time @dataspace/unit/native Hz"
+					"text" : "jcom.return samplerate @type integer @dataspace time @dataspace/unit Hz"
 				}
 
 			}

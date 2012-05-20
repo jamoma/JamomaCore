@@ -7313,7 +7313,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 280.0, 710.0, 377.0, 19.0 ],
-									"text" : "jcom.test.assert.equal.old jcom.return:method:/dataspace/unit/native/get degree"
+									"text" : "jcom.test.assert.equal.old jcom.return:method:/dataspace/unit/get degree"
 								}
 
 							}
@@ -7481,7 +7481,7 @@
 									"numoutlets" : 10,
 									"outlettype" : [ "", "", "", "", "", "", "", "", "", "" ],
 									"patching_rect" : [ 340.0, 370.0, 178.0, 116.0 ],
-									"text" : "route /test:/description/get /test:/dataspace/get /test:/dataspace/unit/native/get /test:/enable/get /test:/name/get /test:/range/bounds/get /test:/range/clipmode/get /test:/repetitions/allow/get /test:/type/get"
+									"text" : "route /test:/description/get /test:/dataspace/get /test:/dataspace/unit/get /test:/enable/get /test:/name/get /test:/range/bounds/get /test:/range/clipmode/get /test:/repetitions/allow/get /test:/type/get"
 								}
 
 							}
@@ -7565,7 +7565,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 390.0, 185.0, 169.0, 17.0 ],
-									"text" : "test:/dataspace/unit/native/get"
+									"text" : "test:/dataspace/unit/get"
 								}
 
 							}
@@ -7636,7 +7636,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 775.0, 370.0, 147.0, 116.0 ],
-									"text" : "jcom.return test @description working @dataspace angle @dataspace/unit/native degree @enable 0 @range/bounds -90. 90. @range/clipmode both @repetitions/allow 1 @type decimal"
+									"text" : "jcom.return test @description working @dataspace angle @dataspace/unit degree @enable 0 @range/bounds -90. 90. @range/clipmode both @repetitions/allow 1 @type decimal"
 								}
 
 							}
