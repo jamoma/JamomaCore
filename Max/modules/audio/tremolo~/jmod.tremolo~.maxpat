@@ -42,7 +42,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 456.0, 319.0, 558.0, 43.0 ],
-					"text" : "jcom.parameter lfo/frequency @type decimal @range/bounds 0. 100. @range/clipmode low @ramp/drive scheduler @repetitions/allow 0 @dataspace time @dataspace/unit/active Hz @description \"LFO frequency (Hz).\"",
+					"text" : "jcom.parameter lfo/frequency @type decimal @range/bounds 0. 100. @range/clipmode low @ramp/drive scheduler @repetitions/allow 0 @dataspace time @dataspace/unit Hz @description \"LFO frequency (Hz).\"",
 					"varname" : "#1/lfo/frequency"
 				}
 

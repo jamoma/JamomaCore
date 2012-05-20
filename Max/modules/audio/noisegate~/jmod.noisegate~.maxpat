@@ -227,7 +227,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 520.0, 241.0, 573.0, 43.0 ],
-					"text" : "jcom.parameter threshold @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds -90 24 @range/clipmode both @description \"The threshold sets the level at which the Noise Gate opens and closes..\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB",
+					"text" : "jcom.parameter threshold @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds -90 24 @range/clipmode both @description \"The threshold sets the level at which the Noise Gate opens and closes..\" @dataspace gain @dataspace/unit dB",
 					"varname" : "threshold"
 				}
 
@@ -259,7 +259,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 520.0, 405.0, 593.0, 43.0 ],
-					"text" : "jcom.parameter release @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode both @description \"When the gate closes, this parameter sets how many milliseconds it will take to fade out.\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms",
+					"text" : "jcom.parameter release @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode both @description \"When the gate closes, this parameter sets how many milliseconds it will take to fade out.\" @dataspace time @dataspace/unit ms",
 					"varname" : "release"
 				}
 
@@ -327,7 +327,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 520.0, 325.0, 601.0, 43.0 ],
-					"text" : "jcom.parameter attack @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode low @description \"When the gate opens, this parameter sets how many milliseconds it will take to fade in.\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms",
+					"text" : "jcom.parameter attack @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode low @description \"When the gate opens, this parameter sets how many milliseconds it will take to fade in.\" @dataspace time @dataspace/unit ms",
 					"varname" : "attack"
 				}
 

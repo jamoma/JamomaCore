@@ -42,7 +42,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 894.0, 387.0, 155.0, 55.0 ],
-					"text" : "@dataspace color @dataspace/unit/active rgb @dataspace/unit/native rgb"
+					"text" : "@dataspace color @dataspace/unit rgb"
 				}
 
 			}

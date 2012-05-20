@@ -110,7 +110,7 @@ void setGainDataspaceUnit(t_ui* obj, t_symbol* unit)
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
 	if (!err)
-		object_attr_setsym(anObject->theObject, gensym("dataspace/unit/active"), unit);
+		object_attr_setsym(anObject->theObject, gensym("dataspace/unit"), unit);
 }
 
 

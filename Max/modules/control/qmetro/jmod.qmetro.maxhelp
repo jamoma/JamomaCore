@@ -55,7 +55,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 487.0, 236.0, 215.0, 17.0 ],
-					"text" : "/time:/dataspace/unit/active millisecond"
+					"text" : "/time:/dataspace/unit millisecond"
 				}
 
 			}
@@ -69,7 +69,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 487.0, 211.0, 194.0, 17.0 ],
-					"text" : "/time:/dataspace/unit/active second"
+					"text" : "/time:/dataspace/unit second"
 				}
 
 			}

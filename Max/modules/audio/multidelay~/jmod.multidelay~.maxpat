@@ -155,7 +155,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 195.0, 604.0, 43.0 ],
-					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/clipmode both @range/bounds 0. 1. @description \"Amount of delay feedback.\" @dataspace gain @dataspace/unit/active linear",
+					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/clipmode both @range/bounds 0. 1. @description \"Amount of delay feedback.\" @dataspace gain @dataspace/unit linear",
 					"varname" : "feedback[1]"
 				}
 
@@ -860,7 +860,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 125.0, 527.0, 43.0 ],
-					"text" : "jcom.parameter delay/max @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode low @description \"Max delay time in milliseconds.\" @dataspace time @dataspace/unit/active ms",
+					"text" : "jcom.parameter delay/max @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode low @description \"Max delay time in milliseconds.\" @dataspace time @dataspace/unit ms",
 					"varname" : "maxdelay"
 				}
 
