@@ -37,7 +37,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 385.0, 439.0, 602.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit xyz @description \"Position of the nth source.\""
 				}
 
 			}
@@ -67,7 +67,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 426.0, 302.0, 583.0, 31.0 ],
-					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\" @ramp/drive scheduler @ramp/function linear"
+					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit linear @description \"Input gain for the nth source.\" @ramp/drive scheduler @ramp/function linear"
 				}
 
 			}
@@ -173,7 +173,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 426.0, 232.0, 596.0, 31.0 ],
-					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit xyz @description \"Position of the nth source.\""
 				}
 
 			}
@@ -204,7 +204,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 416.0, 88.0, 588.0, 43.0 ],
-					"text" : "jcom.parameter interpolationTime @repetitions/allow 0 @type integer @range/bounds 10 2000 @range/clipmode low @description \"Sets the interpolation time in [ms] for the maitrix~ object. default value is 10 ms\" @dataspace time @dataspace/unit/active ms",
+					"text" : "jcom.parameter interpolationTime @repetitions/allow 0 @type integer @range/bounds 10 2000 @range/clipmode low @description \"Sets the interpolation time in [ms] for the maitrix~ object. default value is 10 ms\" @dataspace time @dataspace/unit ms",
 					"varname" : "destination/dimensions[1]"
 				}
 

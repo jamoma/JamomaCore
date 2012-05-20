@@ -2109,7 +2109,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 280.0, 247.0, 171.0, 60.0 ],
-																									"text" : "dataspace angle, dataspace/unit/active degree"
+																									"text" : "dataspace angle, dataspace/unit degree"
 																								}
 
 																							}
@@ -2124,7 +2124,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 1096.0, 236.0, 150.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active ms"
+																									"text" : "dataspace time, dataspace/unit ms"
 																								}
 
 																							}
@@ -2139,7 +2139,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 1011.0, 164.0, 157.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active bpm"
+																									"text" : "dataspace time, dataspace/unit bpm"
 																								}
 
 																							}
@@ -2154,7 +2154,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 772.0, 189.0, 171.0, 60.0 ],
-																									"text" : "dataspace distance, dataspace/unit/active meters"
+																									"text" : "dataspace distance, dataspace/unit meters"
 																								}
 
 																							}
@@ -2169,7 +2169,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 661.0, 251.0, 162.0, 60.0 ],
-																									"text" : "dataspace gain, dataspace/unit/active linear"
+																									"text" : "dataspace gain, dataspace/unit linear"
 																								}
 
 																							}
@@ -2184,7 +2184,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 618.0, 187.0, 150.0, 60.0 ],
-																									"text" : "dataspace gain, dataspace/unit/active dB"
+																									"text" : "dataspace gain, dataspace/unit dB"
 																								}
 
 																							}
@@ -2213,7 +2213,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 484.0, 255.0, 158.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active midi"
+																									"text" : "dataspace time, dataspace/unit midi"
 																								}
 
 																							}
@@ -2228,7 +2228,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 421.0, 167.0, 147.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active Hz"
+																									"text" : "dataspace time, dataspace/unit Hz"
 																								}
 
 																							}
@@ -2243,7 +2243,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 879.0, 253.0, 161.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active cents"
+																									"text" : "dataspace time, dataspace/unit cents"
 																								}
 
 																							}
@@ -2286,7 +2286,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 126.0, 244.0, 143.0, 60.0 ],
-																									"text" : "dataspace time, dataspace/unit/active s"
+																									"text" : "dataspace time, dataspace/unit s"
 																								}
 
 																							}

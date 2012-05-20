@@ -75,7 +75,7 @@ t_symbol	*jps_done,
 			*jps_algorithm_type,
 			*jps_name,
 			*jps_dataspace,
-			*jps_unit_active,				
+			*jps_unit,
 			*jps_range,
 			*jps_range_bounds,
 			*jps_range_clipmode,
@@ -250,7 +250,7 @@ void jamomaSymbolsInit()
 	    //jps_inspector					= SymbolGen("inspector");
 	jps_type						= SymbolGen("type");
 	jps_dataspace					= SymbolGen("dataspace");
-	jps_unit_active					= SymbolGen("dataspace/unit/active");
+	jps_unit						= SymbolGen("dataspace/unit");
 	// %TODO: jps_range should probably be removed
 	jps_range						= SymbolGen("range");
 	jps_range_bounds				= SymbolGen("range/bounds");

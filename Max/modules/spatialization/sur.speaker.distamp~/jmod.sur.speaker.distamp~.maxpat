@@ -43,7 +43,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 524.0, 199.0, 567.0, 43.0 ],
-					"text" : "jcom.message.array 32 speaker position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
+					"text" : "jcom.message.array 32 speaker position @type array @repetitions/allow 1 @dataspace position @dataspace/unit xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
 			}

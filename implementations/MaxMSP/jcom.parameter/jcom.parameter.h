@@ -55,8 +55,8 @@ typedef struct _param{
 	SymbolPtr		attr_rampfunction;			///< Attribute for setting the function used by the ramping
 	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
-	TTObjectPtr		dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
-	SymbolPtr		attr_unitActive;			///< The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
+	TTObjectPtr		dataspace_override2unit;	///< Performs conversion from messages like 'gain -6 db' to the active unit
+	SymbolPtr		attr_unit;			///< The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
 	SymbolPtr		attr_unitOverride;			///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
 	TTBoolean		isOverriding;				///< flag indicating if we are currently overriding the active unit.
 	method			callback;					///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
@@ -218,9 +218,9 @@ MaxErr	param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 MaxErr	param_attr_getactiveunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
 MaxErr	param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 
-/** Set the override dataspace unit. Temporarily overrides x->attr_unitActive. x->attr_unitOverride is not exposed as an attribute, and hence we van make do with a simpler interface when calling the method.
+/** Set the override dataspace unit. Temporarily overrides x->attr_unit. x->attr_unitOverride is not exposed as an attribute, and hence we van make do with a simpler interface when calling the method.
  @param	x		Parameter or Message instance pointer.
- @param	msg		The unit to be used while temprarily overriding x->attr_unitActive.
+ @param	msg		The unit to be used while temprarily overriding x->attr_unit.
  */
 MaxErr param_attr_setoverrideunit(t_param *x, SymbolPtr unit);
 

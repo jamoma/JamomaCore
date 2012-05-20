@@ -111,7 +111,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 878.0, 506.0, 262.0, 55.0 ],
-					"text" : "jcom.return info/length @type integer @description \"returns the length in [ms] of the internal buffer\" @repetitions/allow 1 @dataspace time @dataspace/unit/native ms"
+					"text" : "jcom.return info/length @type integer @description \"returns the length in [ms] of the internal buffer\" @repetitions/allow 1 @dataspace time @dataspace/unit ms"
 				}
 
 			}

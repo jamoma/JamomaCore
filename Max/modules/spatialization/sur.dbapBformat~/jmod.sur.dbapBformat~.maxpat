@@ -109,7 +109,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 325.0, 577.0, 31.0 ],
-					"text" : "jcom.message.array 8 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
+					"text" : "jcom.message.array 8 source gain @type decimal @dataspace gain @dataspace/unit linear @description \"Input gain for the nth source.\""
 				}
 
 			}
@@ -167,7 +167,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 460.0, 602.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit xyz @description \"Position of the nth source.\""
 				}
 
 			}
@@ -182,7 +182,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 255.0, 589.0, 31.0 ],
-					"text" : "jcom.message.array 8 source position @type array @dataspace position @dataspace/unit/active xyz @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 8 source position @type array @dataspace position @dataspace/unit xyz @description \"Position of the nth source.\""
 				}
 
 			}

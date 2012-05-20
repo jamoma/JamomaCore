@@ -169,11 +169,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_SAVE(c,			"dataspace",		0);
 	CLASS_ATTR_ACCESSORS(c,		"dataspace",		paramui_getDataspace, paramui_setDataspace);
 
-	CLASS_ATTR_SYM(c,			"dataspace/unit/active",		0, t_paramui, attr_unitActive);
-	CLASS_ATTR_LABEL(c,			"dataspace/unit/active",		0, "Active Unit within the Dataspace");
-	CLASS_ATTR_DEFAULT(c,		"dataspace/unit/active",		0, "none");
-	CLASS_ATTR_SAVE(c,			"dataspace/unit/active",		0);
-	CLASS_ATTR_ACCESSORS(c,		"dataspace/unit/active",		paramui_getUnitActive, paramui_setUnitActive);
+	CLASS_ATTR_SYM(c,			"dataspace/unit",		0, t_paramui, attr_unitActive);
+	CLASS_ATTR_LABEL(c,			"dataspace/unit",		0, "Active Unit within the Dataspace");
+	CLASS_ATTR_DEFAULT(c,		"dataspace/unit",		0, "none");
+	CLASS_ATTR_SAVE(c,			"dataspace/unit",		0);
+	CLASS_ATTR_ACCESSORS(c,		"dataspace/unit",		paramui_getUnitActive, paramui_setUnitActive);
 
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
 
@@ -257,7 +257,7 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(a+21, x->attr_description);
 		atom_setsym(a+22, gensym("@dataspace"));
 		atom_setsym(a+23, x->attr_dataspace);
-		atom_setsym(a+24, gensym("@dataspace/unit/active"));
+		atom_setsym(a+24, gensym("@dataspace/unit"));
 		atom_setsym(a+25, x->attr_unitActive);
 		if (x->attr_defaultSize) {
 			atom_setsym(a+26, gensym("@value/default"));

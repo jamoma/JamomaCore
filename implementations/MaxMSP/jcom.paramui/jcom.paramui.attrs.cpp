@@ -236,6 +236,6 @@ t_max_err paramui_setUnitActive(t_paramui *x, void *attr, long argc, t_atom *arg
 	if (argc)
 		x->attr_unitActive = atom_getsym(argv);
 	
-	object_attr_setvalueof(x->obj_parameter, gensym("dataspace/unit/active"), argc, argv);
+	object_attr_setvalueof(x->obj_parameter, gensym("dataspace/unit"), argc, argv);
 	return MAX_ERR_NONE;
 }

@@ -280,7 +280,7 @@ public:
 		if (dataspace && activeUnit) {
 			atom_setsym(a+(i++), gensym("@dataspace"));
 			atom_setsym(a+(i++), gensym(dataspace));
-			atom_setsym(a+(i++), gensym("@dataspace/unit/active"));
+			atom_setsym(a+(i++), gensym("@dataspace/unit"));
 			atom_setsym(a+(i++), gensym(activeUnit));
 		}
 		if (defaultValue) {

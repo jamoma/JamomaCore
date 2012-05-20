@@ -1994,7 +1994,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 118.0, 234.0, 572.0, 31.0 ],
-													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit/active midi @ramp/drive scheduler @ramp/function linear"
+													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit midi @ramp/drive scheduler @ramp/function linear"
 												}
 
 											}
@@ -2064,7 +2064,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 760.0, 234.0, 572.0, 31.0 ],
-													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit/active midi @ramp/drive scheduler @ramp/function linear"
+													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit midi @ramp/drive scheduler @ramp/function linear"
 												}
 
 											}
@@ -2340,7 +2340,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 118.0, 211.0, 572.0, 31.0 ],
-													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit/active midi @ramp/drive scheduler @ramp/function linear"
+													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit midi @ramp/drive scheduler @ramp/function linear"
 												}
 
 											}
@@ -2539,7 +2539,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 118.0, 142.0, 572.0, 31.0 ],
-													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit/active midi @ramp/drive scheduler @ramp/function linear"
+													"text" : "jcom.parameter aa @type decimal @dataspace gain @dataspace/unit midi @ramp/drive scheduler @ramp/function linear"
 												}
 
 											}

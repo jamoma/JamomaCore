@@ -2343,7 +2343,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 826.0, 506.0, 281.0, 55.0 ],
-					"text" : "jcom.message start @type decimal @repetitions/allow 0 @dataspace time @dataspace/unit/active second @description \"start time in soundfile to play in [sec]\"",
+					"text" : "jcom.message start @type decimal @repetitions/allow 0 @dataspace time @dataspace/unit second @description \"start time in soundfile to play in [sec]\"",
 					"varname" : "start"
 				}
 

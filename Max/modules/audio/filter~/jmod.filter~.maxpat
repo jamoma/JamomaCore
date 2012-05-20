@@ -880,8 +880,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 198.0, 431.0, 579.0, 31.0 ],
-					"text" : "jcom.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @dataspace gain @dataspace/unit/active db",
+					"patching_rect" : [ 198.0, 431.0, 598.0, 43.0 ],
+					"text" : "jcom.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @dataspace gain @dataspace/unit db",
 					"varname" : "filtergain"
 				}
 
@@ -912,8 +912,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 198.0, 512.0, 606.0, 31.0 ],
-					"text" : "jcom.parameter frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace time @dataspace/unit/active Hz",
+					"patching_rect" : [ 198.0, 512.0, 594.0, 43.0 ],
+					"text" : "jcom.parameter frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace time @dataspace/unit Hz",
 					"varname" : "cf"
 				}
 

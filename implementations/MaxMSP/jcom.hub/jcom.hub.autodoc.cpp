@@ -531,7 +531,7 @@ void hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* 
 	 // dataspace/unit
 	argc = NULL;
 	argv = NULL;
-	object_attr_getvalueof(t->object ,jps_unit_active , &argc, &argv);
+	object_attr_getvalueof(t->object ,jps_unit , &argc, &argv);
 	msg_type = atom_getsym(argv);
 	snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspaceUnit\"> %s </td>", msg_type->s_name);
 	jcom_core_file_writeline(file_handle, myEof, tempstring);
@@ -636,7 +636,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	// dataspace/unit
 	argc = NULL;
 	argv = NULL;
-	object_attr_getvalueof(t->object ,jps_unit_active , &argc, &argv);
+	object_attr_getvalueof(t->object ,jps_unit , &argc, &argv);
 	resultDataspaceUnitActive = atom_getsym(argv);
 	
 	// repetitions/allow
