@@ -86,6 +86,7 @@ TTErr TTCue::getNamespace(TTValue& value)
 
 	processNamespace(mScript, &mNamespace);
 
+	value.clear();
 	TTCueNamespaceEdit(mNamespace, value);
 }
 
@@ -142,8 +143,7 @@ TTErr TTCue::processNamespace(TTObjectPtr aScript, NamespacePtr *returnedNamespa
 TTErr TTCue::setNamespace(const TTValue& value)
 {
 	delete mNamespace;
-	mNamespace = NULL;
-	
+
 	mNamespace = TTCueNamespaceParse(value);
 }
 

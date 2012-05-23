@@ -26,7 +26,7 @@ mCurrentCue(NULL)
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
 	
-	addAttribute(Namespace, kTypeLocalValue);
+	addAttributeWithSetter(Namespace, kTypeLocalValue);
 	
 	addAttribute(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
@@ -98,6 +98,12 @@ TTErr TTCueManager::setNames(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTCueManager::setNamespace(const TTValue& value)
+{
+	mNamespace = value;
+	return kTTErrNone;
+}
+
 TTErr TTCueManager::NamespaceClear()
 {
 	mNamespace = kTTValNONE;
@@ -147,7 +153,6 @@ TTErr TTCueManager::New()
 
 TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	NamespacePtr	aNamespace;
 	TTValue			v;
 	
 	// get cue name

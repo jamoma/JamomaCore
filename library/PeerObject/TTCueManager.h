@@ -39,6 +39,9 @@ private:
 	TTErr	setNames(const TTValue& value);
 	
 	/** */
+	TTErr	setNamespace(const TTValue& value);
+	
+	/** */
 	TTErr	NamespaceClear();
 	
 	/** */
