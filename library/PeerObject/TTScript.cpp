@@ -13,24 +13,16 @@
 #define thisTTClassTags		"script"
 
 TT_MODULAR_CONSTRUCTOR,
-mNamespace(kTTValNONE),
-mAddress(kTTAdrsRoot),
-mLevel(0),
 mLines(NULL),
-mInFold(NO),
 mSubScript(NULL)
 {
 	mLines = new TTList();
 	
-	addAttributeWithGetter(Namespace, kTypeLocalValue);
-	addAttributeProperty(Namespace, readOnly, YES);
-	
-	addAttributeWithSetter(Address, kTypeSymbol);
-	
-	addAttribute(Level, kTypeUInt8);
+	addAttribute(Lines, kTypePointer);
+	addAttributeProperty(Lines, readOnly, YES);
 	
 	addMessage(Clear);
-	addMessage(Run);
+	addMessageWithArguments(Run);
 	
 	addMessageWithArguments(Append);
 	addMessageWithArguments(AppendCommand);
@@ -80,63 +72,6 @@ TTScript::~TTScript()
 	mLines = NULL;
 }
 
-TTErr TTScript::getNamespace(TTValue& value)
-{
-	TTDictionaryPtr		aLine;
-	TTNodeAddressPtr	address;
-	TTValue				v, n;
-	
-	value.clear();
-	
-	for (mLines->begin(); mLines->end(); mLines->next()) {
-		
-		mLines->current().get(0, (TTPtr*)&aLine);
-		
-		if (aLine) {
-			
-			if (aLine->getSchema() == kTTSym_command) {
-				
-				// get address
-				aLine->lookup(kTTSym_address, v);
-				v.get(0, &address);
-				
-				value.append(address);
-			}
-			else if (aLine->getSchema() == kTTSym_script) {
-				
-				// get script
-				aLine->getValue(v);
-				v.get(0, (TTPtr*)&mSubScript);
-				
-				if (mSubScript) {
-				
-					// open script namespace
-					value.append(TT("{"));
-				
-					// get namespace
-					mSubScript->getAttributeValue(TT("namespace"), n);
-					
-					// append the namespace
-					// TODO : a real append method for value !
-					// value.append(n);
-					n.prepend(value);
-					value = n;
-					
-					// close script namespace
-					value.append(TT("}"));
-				}
-			}
-		}
-	}
-}
-
-TTErr TTScript::setAddress(const TTValue& value)
-{	
-	value.get(0, &mAddress);
-	
-	return kTTErrNone;
-}
-
 TTErr TTScript::Clear()
 {
 	TTDictionaryPtr aLine = NULL;
@@ -166,26 +101,36 @@ TTErr TTScript::Clear()
 	mLines = new TTList();
 }
 
-TTErr TTScript::Run(const TTValue& newLine, TTValue& outputValue)
+TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr		aLine;
 	TTSymbolPtr			name;
 	TTNodePtr			aNode;
-	TTNodeAddressPtr	address;
+	TTNodeAddressPtr	address, containerAddress = kTTAdrsRoot;
 	TTObjectPtr			anObject, container;
 	TTValue				v, c;
+	TTErr				err;
 	
-	// check for container object at the mAddress attribute
-	container = NULL;
-	getDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
-	if (aNode) {
+	// It is possible to run the script passing command to a container object
+	if (inputValue.getType() == kTypeSymbol) {
 		
-		anObject = aNode->getObject();
+		inputValue.get(0, &containerAddress);
+
+		container = NULL;
+		err = getDirectoryFrom(containerAddress)->getTTNode(containerAddress, &aNode);
 		
-		// check if it's a container
-		if (anObject)
-			if (anObject->getName() == TT("Container"))
-				container = anObject;
+		if (!err) {
+			
+			if (aNode) {
+				
+				anObject = aNode->getObject();
+				
+				// check if it's a container
+				if (anObject)
+					if (anObject->getName() == TT("Container"))
+						container = anObject;
+			}
+		}
 	}
 	
 	// run each line of the script
@@ -199,19 +144,6 @@ TTErr TTScript::Run(const TTValue& newLine, TTValue& outputValue)
 			// get flag name
 			aLine->lookup(kTTSym_name, v);
 			v.get(0, &name);
-			
-			// special case for "fold" and "end" flags
-			if (name == TT("fold")) {
-				mInFold = YES;
-				continue;
-			}
-			else if (name == TT("end")) {
-				mInFold = NO;
-				continue;
-			}
-			else if (name == TT("wait")) {
-				// TODO : wait
-			}
 			
 			// TODO : output current flag to display it
 		}	
@@ -235,9 +167,8 @@ TTErr TTScript::Run(const TTValue& newLine, TTValue& outputValue)
 				
 				container->sendMessage(kTTSym_Send, v, kTTValNONE);
 			}
+			// or use data directly for absolute
 			else if (address->getType() == kAddressAbsolute) {
-				
-				address = mAddress->appendAddress(address);
 				
 				getDirectoryFrom(address)->getTTNode(address, &aNode);
 				if (aNode) {
@@ -262,8 +193,16 @@ TTErr TTScript::Run(const TTValue& newLine, TTValue& outputValue)
 			aLine->getValue(v);
 			v.get(0, (TTPtr*)&mSubScript);
 			
+			// get address
+			aLine->lookup(kTTSym_address, v);
+			v.get(0, &address);
+			
+			// if relative, append to container address
+			if (address->getType() ==kAddressRelative)
+				address = containerAddress->appendAddress(address);
+			
 			// run the script
-			mSubScript->sendMessage(TT("Run"));
+			mSubScript->sendMessage(TT("Run"), address, kTTValNONE);
 		}
 	}
 	
@@ -301,8 +240,10 @@ TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 
 TTErr TTScript::AppendCommand(const TTValue& newCommand, TTValue& outputValue)
 {
-	TTDictionaryPtr line = NULL;
-	TTValue			v;
+	TTDictionaryPtr		line = NULL;
+	NamespaceItemPtr	anItem;
+	TTNodeAddressPtr	address;
+	TTValue				v;
 	
 	line = TTScriptParseCommand(newCommand);
 	
@@ -311,8 +252,8 @@ TTErr TTScript::AppendCommand(const TTValue& newCommand, TTValue& outputValue)
 		// append the line
 		v = TTValue((TTPtr)line);
 		mLines->append(v);
-		
 		outputValue = v;
+		
 		return kTTErrNone;
 	}
 	
@@ -341,8 +282,11 @@ TTErr TTScript::AppendComment(const TTValue& newComment, TTValue& outputValue)
 
 TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 {
-	TTDictionaryPtr line = new TTDictionary();
-	TTValue			v;
+	TTDictionaryPtr		line = new TTDictionary();
+	NamespacePtr		aSubNamespace;
+	NamespaceItemPtr	anItem;
+	TTNodeAddressPtr	address;
+	TTValue				v;
 	
 	line = TTScriptParseScript(newScript);
 	
@@ -352,15 +296,11 @@ TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 		line->getValue(v);
 		v.get(0, (TTPtr*)&mSubScript);
 		
-		// set the sub script level
-		v = TTValue(mLevel + 1);
-		mSubScript->setAttributeValue(TT("level"), v);
-		
 		// append the line
 		v = TTValue((TTPtr)line);
 		mLines->append(v);
-		
 		outputValue = v;
+		
 		return kTTErrNone;
 	}
 	
@@ -412,17 +352,10 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			aLine->lookup(kTTSym_name, v);
 			v.get(0, &name);
 			
-			// special case for "fold" and "end" flags
-			if (name == kTTSym_fold) {
-				mInFold = YES;
-				xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "fold");
+			// dont't write preset or cue flags
+			// TODO : we need to filter those flag line before (in TTPreset or TTCue)
+			if (name == TT("preset") || name == TT("cue"))
 				continue;
-			}
-			else if (name == kTTSym_end) {
-				xmlTextWriterEndElement(aXmlHandler->mWriter);
-				mInFold = NO;
-				continue;
-			}
 			
 			// else get flag arguments value
 			aLine->getValue(v);
@@ -450,50 +383,38 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// get address
 			aLine->lookup(kTTSym_address, v);
 			v.get(0, &address);
-				
-			// retreive the node
-			getDirectoryFrom(address)->getTTNode(address, &aNode);
+					
+			// start command Element
+			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST kTTSym_command->getCString());
 			
-			// if the node exists
-			if (aNode) {
+			// write name attribute
+			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST address->getCString());
+			
+			// write unit attribute
+			if (!aLine->lookup(kTTSym_unit, v)) {
+				v.get(0, &unit);
 				
-				anObject = aNode->getObject();
-				
-				if (anObject) {
-					
-					// start command Element
-					xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST kTTSym_command->getCString());
-					
-					// write name attribute
-					xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST address->getCString());
-					
-					// write unit attribute
-					if (!aLine->lookup(kTTSym_unit, v)) {
-						v.get(0, &unit);
-						
-						xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "unit", BAD_CAST unit->getCString());
-					}
-					
-					// write ramp attribute
-					if (!aLine->lookup(kTTSym_ramp, v)) {
-						v.toString();
-						v.get(0, aString);
-						
-						xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "ramp", BAD_CAST aString.data());
-					}
-					
-					// write value
-					if (!aLine->getValue(v)) {
-						v.toString();
-						v.get(0, aString);
-						
-						xmlTextWriterWriteRaw(aXmlHandler->mWriter, BAD_CAST aString.data());
-					}
-					
-					// close command Element
-					xmlTextWriterEndElement(aXmlHandler->mWriter);
-				}
+				xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "unit", BAD_CAST unit->getCString());
 			}
+			
+			// write ramp attribute
+			if (!aLine->lookup(kTTSym_ramp, v)) {
+				v.toString();
+				v.get(0, aString);
+				
+				xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "ramp", BAD_CAST aString.data());
+			}
+			
+			// write value
+			if (!aLine->getValue(v)) {
+				v.toString();
+				v.get(0, aString);
+				
+				xmlTextWriterWriteRaw(aXmlHandler->mWriter, BAD_CAST aString.data());
+			}
+			
+			// close command Element
+			xmlTextWriterEndElement(aXmlHandler->mWriter);
 		}
 		else if (aLine->getSchema() == kTTSym_script) {
 			
@@ -548,26 +469,6 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	if (aXmlHandler->mXmlNodeName == kTTSym_stop)
 		return kTTErrNone;
 	
-	// Fold node : used to open and close Element
-	if (aXmlHandler->mXmlNodeName == kTTSym_fold) {
-		
-		// edit fold or end flag line
-		aLine = new TTDictionary();
-		aLine->setSchema(kTTSym_flag);
-		
-		if (!mInFold) aLine->append(kTTSym_name, kTTSym_fold);
-		else aLine->append(kTTSym_name, kTTSym_end);
-		
-		// append the line
-		v = TTValue((TTPtr)aLine);
-		mLines->append(v);
-		
-		// swith InFold state
-		mInFold = !mInFold;
-		
-		return kTTErrNone;
-	}
-	
 	// Comment node : edit comment line
 	if (aXmlHandler->mXmlNodeName == kTTSym_comment) {
 		
@@ -586,13 +487,16 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// Flag node : edit flag line
 	if (aXmlHandler->mXmlNodeName == kTTSym_flag) {
 		
+		if (!aXmlHandler->mXmlNodeStart)
+			return kTTErrNone;
+		
 		// Get flag name
 		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v)) {
 			
 			if (v.getType() == kTypeSymbol) {
 				
 				v.get(0, &name);
-
+				
 				// edit flag line
 				aLine = new TTDictionary();
 				aLine->setSchema(kTTSym_flag);
@@ -610,6 +514,9 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	
 	// Command node : edit command line
 	if (aXmlHandler->mXmlNodeName == kTTSym_command) {
+		
+		if (!aXmlHandler->mXmlNodeStart)
+			return kTTErrNone;
 		
 		// get address attribute
 		if (!aXmlHandler->getXmlAttribute(kTTSym_address, v)) {
@@ -641,6 +548,9 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	
 	// Script node : edit script line
 	if (aXmlHandler->mXmlNodeName == kTTSym_script) {
+		
+		if (!aXmlHandler->mXmlNodeStart)
+			return kTTErrNone;
 		
 		// Get address
 		if (!aXmlHandler->getXmlAttribute(kTTSym_address, v)) {
@@ -687,8 +597,9 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		
 		mLines->current().get(0, (TTPtr*)&aLine);
 		
-		// write tabulation for each level
-		for (i=0; i<mLevel; i++) *buffer += "\t";
+		// write tabulation
+		for (i = 0; i < aTextHandler->mTabCount; i++)
+			*buffer += "\t";
 		
 		// Write script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
@@ -772,16 +683,24 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, &address);
 			
 			// write address
+			*buffer += "\n";
 			*buffer += address->getCString();
+			*buffer += "\n";
 			
 			// get the script
 			aLine->getValue(v);
 			v.get(0, (TTPtr*)&mSubScript);
 			
+			// increment the tab count to indent lines
+			aTextHandler->mTabCount++;
+			
 			// use WriteAsXml of the script
 			v = TTValue(TTPtr(mSubScript));
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TT("Write"));
+			
+			// decrement the tab count
+			aTextHandler->mTabCount--;
 		}
 	}
 	
@@ -800,17 +719,28 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	if (aTextHandler->mTabCount == 0) {
 		
 		this->Append(*(aTextHandler->mLine), parsedLine);
+		
+		// check for script line to set it as current mSubScript
+		parsedLine.get(0 ,(TTPtr*)&aLine);
+		
+		if (aLine) {
+			
+			if (aLine->getSchema() == kTTSym_script) {
+				
+				// get script
+				aLine->getValue(v);
+				v.get(0, (TTPtr*)&mSubScript);
+			}
+		}
 	}
 	
 	// else it is for a sub script
 	else {
 		
-		// if no sub script
-		if (!mSubScript)
-		
-			// append a script line
-			this->AppendScript(*(aTextHandler->mLine), parsedLine);
-
+		// if no sub script something goes wrong
+		if (!mSubScript) 
+			return kTTErrGeneric;
+			
 		aTextHandler->mTabCount--;
 		
 		// use ReadFromText of the sub script
@@ -928,7 +858,7 @@ TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript)
 {
 	TTDictionaryPtr line = NULL;
 	TTSymbolPtr		firstSymbol;
-	TTObjectPtr		script;
+	TTObjectPtr		script = NULL;
 	TTValue			v;
 	
 	// parse script address
@@ -944,7 +874,6 @@ TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript)
 			line->append(kTTSym_address, firstSymbol);
 			
 			TTObjectInstantiate(TT("Script"), &script, kTTValNONE);
-			script->setAttributeValue(kTTSym_address, firstSymbol);
 			
 			v = TTValue((TTPtr)script);
 			line->setValue(v);

@@ -241,9 +241,16 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 		
 		mNames.get(i, &presetName);
 		if (!mPresets->lookup(presetName, v)) {
-		
+			
+			// start to write a preset
+			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "preset");
+			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST presetName->getCString());
+			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TT("Write"));
+			
+			// end to write a preset
+			xmlTextWriterEndElement(aXmlHandler->mWriter);
 		}
 	}
     	
@@ -280,33 +287,29 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 		return kTTErrNone;
 	}
 
-	// Flag node :
-	if (aXmlHandler->mXmlNodeName == kTTSym_flag) {
+	// Preset node :
+	if (aXmlHandler->mXmlNodeName == TT("preset")) {
 		
-		// Get flag name
-		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v)) {
+		if (!aXmlHandler->mXmlNodeStart)
+			return kTTErrNone;
+		
+		// Get preset name
+		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v, YES)) {
 			
 			if (v.getType() == kTypeSymbol) {
 				
-				v.get(0, &flagName);
+				v.get(0, &mCurrent);
 				
-				// if it is a preset flag
-				if (flagName == TT("preset")) {
-					
-					// get preset name
-					aXmlHandler->mXmlNodeValue.get(0, &mCurrent);
-					
-					// Create a new preset
-					mCurrentPreset = NULL;
-					TTObjectInstantiate(TT("Preset"), TTObjectHandle(&mCurrentPreset), kTTValNONE);
-					
-					mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
-					mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
-					
-					v = TTValue((TTPtr)mCurrentPreset);
-					mPresets->append(mCurrent, v);
-					mNames.append(mCurrent);
-				}
+				// Create a new preset
+				mCurrentPreset = NULL;
+				TTObjectInstantiate(TT("Preset"), TTObjectHandle(&mCurrentPreset), kTTValNONE);
+				
+				mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
+				mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
+				
+				v = TTValue((TTPtr)mCurrentPreset);
+				mPresets->append(mCurrent, v);
+				mNames.append(mCurrent);
 			}
 			
 			// go back to the element to allow the preset to parse it

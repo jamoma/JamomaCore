@@ -699,7 +699,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		}
 		
 		// if it is the end of a "application" xml node
-		if (mCurrentApplication) {
+		if (aXmlHandler->mXmlNodeStart && mCurrentApplication) {
 			mCurrentApplication->getAttributeValue(kTTSym_name, v);
 			v.get(0, &currentApplicationName);
 			

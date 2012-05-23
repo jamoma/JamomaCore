@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
- <flag name="preset">default</flag>
+ <preset name="default">
  <!--this is the default preset-->
- <fold>
-  <Data address="myParameter">0.020000</Data>
-  <Data address="myIndex">45</Data>
-  <Data address="myLabel">"foo and bar"</Data>
-  <Data address="any">65 "is that true ?" 4.500000</Data>
- </fold>
- <flag name="preset">"standard setup"</flag>
+  <command address="myParameter">0.020000</command>
+  <command address="myIndex">45</command>
+  <command address="myLabel">"foo and bar"</command>
+  <command address="any">65 "is that true ?" 4.500000</command>
+ </preset>
+ <preset name="standard setup">
  <!--this is an usual setup for this model-->
- <fold>
-  <Data address="myParameter" ramp="5000">0.030000</Data>
-  <Data address="myIndex" unit="db" ramp="3000">56</Data>
-  <Data address="myLabel">foo</Data>
-  <Data address="any">33 gege 7.900000</Data>
- </fold>
- <flag name="preset">"another case"</flag>
-<!--this is a setup used for a specific purpose-->
- <fold>
-  <Data address="myParameter">1000</Data>
-  <Data address="myIndex" unit="db">2</Data>
-  <Data address="myLabel">ernest</Data>
-  <Data address="any">"bla bla bla"</Data>
- </fold>
+  <command address="myParameter" ramp="5000">0.030000</command>
+  <command address="myIndex" unit="db" ramp="3000">56</command>
+  <command address="myLabel">foo</command>
+  <command address="any">33 gege 7.900000</command>
+ </preset>
+ <preset name="another case">
+ <!--this is a setup used for a specific purpose-->
+  <command address="myParameter">1000</command>
+  <command address="myIndex" unit="db">2</command>
+  <command address="myLabel">ernest</command>
+  <command address="any">"bla bla bla"</command>
+ </preset>
 </jamoma>

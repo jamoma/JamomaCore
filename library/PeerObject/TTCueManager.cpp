@@ -26,11 +26,15 @@ mCurrentCue(NULL)
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
 	
-	addAttributeWithSetter(Namespace, kTypeLocalValue);
+	addAttribute(Namespace, kTypeLocalValue);
 	
 	addAttribute(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
 	addAttributeProperty(Cues, hidden, YES);
+	
+	addMessage(NamespaceClear);
+	addMessageWithArguments(NamespaceAppend);
+	addMessageWithArguments(NamespaceRemove);
 	
 	addMessage(New);
 	
@@ -94,10 +98,19 @@ TTErr TTCueManager::setNames(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::setNamespace(const TTValue& value)
+TTErr TTCueManager::NamespaceClear()
 {
-	mNamespace = value;
-	
+	mNamespace = kTTValNONE;
+	return kTTErrNone;
+}
+
+TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputValue)
+{
+	return kTTErrNone;
+}
+
+TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputValue)
+{
 	return kTTErrNone;
 }
 
@@ -124,6 +137,7 @@ TTErr TTCueManager::New()
 		mCurrentCue = NULL;
 		mCurrent = kTTSymEmpty;
 		mNames = kTTValNONE;
+		mNamespace = kTTValNONE;
 		
 		notifyNamesObservers();
 	}
@@ -133,7 +147,8 @@ TTErr TTCueManager::New()
 
 TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue v;
+	NamespacePtr	aNamespace;
+	TTValue			v;
 	
 	// get cue name
 	if (inputValue.getType(0) == kTypeSymbol)
@@ -246,8 +261,15 @@ TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 		mNames.get(i, &cueName);
 		if (!mCues->lookup(cueName, v)) {
 			
+			// start to write a preset
+			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "cue");
+			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST cueName->getCString());
+			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TT("Write"));
+			
+			// end to write a preset
+			xmlTextWriterEndElement(aXmlHandler->mWriter);
 		}
 	}
 	
@@ -257,7 +279,6 @@ TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
-	TTSymbolPtr		flagName;
 	TTValue			v;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -277,8 +298,8 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		
 		mNames.get(0, &mCurrent);
 		if (!mCues->lookup(mCurrent, v)) {
-			v.get(0, (TTPtr*)&mCurrentCue);
 			
+			v.get(0, (TTPtr*)&mCurrentCue);
 			mCurrentCue->getAttributeValue(TT("namespace"), mNamespace);
 		}
 		
@@ -288,36 +309,33 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	// Flag node :
-	if (aXmlHandler->mXmlNodeName == kTTSym_flag) {
+	if (aXmlHandler->mXmlNodeName == TT("cue")) {
 		
-		// Get flag name
-		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v)) {
+		if (!aXmlHandler->mXmlNodeStart)
+			return kTTErrNone;
+		
+		// Get preset name
+		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v, YES)) {
 			
 			if (v.getType() == kTypeSymbol) {
 				
-				v.get(0, &flagName);
+				v.get(0, &mCurrent);
 				
-				// if it is a cue flag
-				if (flagName == TT("cue")) {
-					
-					// get cue name
-					aXmlHandler->mXmlNodeValue.get(0, &mCurrent);
-					
-					// Create a new cue
-					mCurrentCue = NULL;
-					TTObjectInstantiate(TT("Cue"), TTObjectHandle(&mCurrentCue), kTTValNONE);
-					
-					mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
-					
-					v = TTValue((TTPtr)mCurrentCue);
-					mCues->append(mCurrent, v);
-					mNames.append(mCurrent);
-				}
+				
+				// Create a new cue
+				mCurrentCue = NULL;
+				TTObjectInstantiate(TT("Cue"), TTObjectHandle(&mCurrentCue), kTTValNONE);
+				
+				mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
+				
+				v = TTValue((TTPtr)mCurrentCue);
+				mCues->append(mCurrent, v);
+				mNames.append(mCurrent);
 			}
-			
-			// go back to the element to allow the cue to parse it
-			xmlTextReaderMoveToElement(aXmlHandler->mReader);
 		}
+		
+		// go back to the element to allow the cue to parse it
+		xmlTextReaderMoveToElement(aXmlHandler->mReader);
 	}
 	
 	// edit the current cue from the xml file using the XmlHandler
@@ -417,8 +435,8 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 			
 			mNames.get(0, &mCurrent);
 			if (!mCues->lookup(mCurrent, v)) {
-				v.get(0, (TTPtr*)&mCurrentCue);
 				
+				v.get(0, (TTPtr*)&mCurrentCue);
 				mCurrentCue->getAttributeValue(TT("namespace"), mNamespace);
 			}
 			

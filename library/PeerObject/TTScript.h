@@ -40,26 +40,18 @@ class TTMODULAR_EXPORT TTScript : public TTDataObject
 	
 private:
 	
-	TTValue				mNamespace;			///< ATTRIBUTE : the set of addresses being in the script
-	TTNodeAddressPtr	mAddress;			///< ATTRIBUTE : the absolute address to use for relative address command line
-	TTUInt8				mLevel;				///< ATTRIBUTE : the level of the script when it is embedded inside other script
-
 	TTListPtr			mLines;				///< a linked list containing all lines of the script
-	TTBoolean			mInFold;			///< is the script inside a fold ? (we assume that a fold is closed before to open a new one)
 	
 	TTObjectPtr			mSubScript;			///< the current sub script to manage
 	
-	/**	get the set of addresses being in the script */
-	TTErr	getNamespace(TTValue& value);
-	
-	/**	set address to use with relative address command	*/
-	TTErr	setAddress(const TTValue& value);
+	/** */
+	TTErr	getLines(TTValue& value);
 	
 	/**	Clear all lines of the script	*/
 	TTErr	Clear();
 	
 	/**	Run all command lines of the script (considering also wait flag lines) */
-	TTErr	Run(const TTValue& newLine, TTValue& outputValue);
+	TTErr	Run(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Append anything line to the script (a parsing will find which kind of line it is)	*/
 	TTErr	Append(const TTValue& newLine, TTValue& outputValue);
@@ -91,6 +83,7 @@ private:
 
 typedef TTScript* TTScriptPtr;
 
+
 /* Parse a value into a comment, a flag or a command line.
    Returns NULL in case of error */
 TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseLine(const TTValue& newLine);
@@ -113,5 +106,6 @@ TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript);
 
 /* Parse parenthesis around a flag name : (flagName) returns flagName */
 TTSymbolPtr		TTMODULAR_EXPORT TTScriptParseFlagName(TTSymbolPtr toParse);
+
 
 #endif // __TT_SCRIPT_H__

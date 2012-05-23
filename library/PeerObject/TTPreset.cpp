@@ -87,17 +87,14 @@ TTErr TTPreset::Store()
 		v = TTValue(mComment);
 		mScript->sendMessage(TT("AppendComment"), v, parsedLine);
 		
-		// 3. Append the fold flag to open the preset
-		mScript->sendMessage(TT("AppendFlag"), kTTSym_fold, parsedLine);
-		
-		// 4. Look for all Objects under the address into the directory
+		// 3. Look for all Objects under the address into the directory
 		mDirectory->Lookup(mAddress, aNodeList, &aNode);
 		mDirectory->LookFor(&aNodeList, &TTPresetTestObject, NULL, allObjectNodes, &aNode);
 		
-		// 5. Sort the NodeList using object priority order
+		// 4. Sort the NodeList using object priority order
 		allObjectNodes.sort(&TTPresetCompareNodePriority);
 		
-		// 6. Append a script line for each object found
+		// 5. Append a script line for each object found
 		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 			
 			allObjectNodes.current().get(0, (TTPtr*)&aNode);
@@ -126,8 +123,6 @@ TTErr TTPreset::Store()
 			}
 		}
 		
-		// 7. Append the end flag to close the preset
-		mScript->sendMessage(TT("AppendFlag"), kTTSym_end, parsedLine);
 		return kTTErrNone;
 	}
 	else
@@ -141,7 +136,7 @@ TTErr TTPreset::Clear()
 
 TTErr TTPreset::Recall()
 {
-	return mScript->sendMessage(TT("Run"));
+	return mScript->sendMessage(TT("Run"), mAddress, kTTValNONE);
 }
 
 TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
@@ -162,9 +157,22 @@ TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTValue				v;
+	TTValue				v, parsedLine;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	
+	// Preset node : append a preset flag with the name
+	if (aXmlHandler->mXmlNodeName == TT("preset")) {
+		
+		if (!aXmlHandler->mXmlNodeStart)
+			return kTTErrNone;
+		
+		v = TTValue(TT("preset"));
+		v.append(mName);
+		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
+		
+		return kTTErrNone;
+	}
 	
 	// use ReadFromXml of the script
 	v = TTValue(TTPtr(mScript));

@@ -62,6 +62,7 @@ public:	// use public for recursive access
 	xmlTextWriterPtr	mWriter;
 	xmlTextReaderPtr	mReader;
 	
+	TTBoolean			mXmlNodeStart;					///< true if the Reader starts to read a Node
 	TTSymbolPtr			mXmlNodeName;					///< the Node name being read by the Reader
 	TTValue				mXmlNodeValue;					///< the Node value being read by the Reader
 	
@@ -85,10 +86,10 @@ public:	// use public for recursive access
 	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
 	
 	/** Get the value of an xml element attribute */
-	TTErr getXmlAttribute(TTSymbolPtr attributeName, TTValue& returnedValue);
+	TTErr getXmlAttribute(TTSymbolPtr attributeName, TTValue& returnedValue, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
 	
 	/** Get the value of the next xml element attribute */
-	TTErr getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTValue& returnedValue);
+	TTErr getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
 	
 private :
 	

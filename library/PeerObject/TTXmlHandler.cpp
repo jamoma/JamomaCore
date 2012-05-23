@@ -184,6 +184,9 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 							
 							case 1: // For element node
 								
+								// Start to read a node
+								mXmlNodeStart = YES;
+								
 								// Get the node name
 								xName = xmlTextReaderName(mReader);
 								if (xName == NULL)
@@ -213,11 +216,8 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								mXmlNodeName = TT((char*)xName);
 								xmlFree((void*)xName);
 								
-								// filter one line element
-								if (mXmlNodeName == lastNodeName) {
-									ret = xmlTextReaderRead(mReader);
-									continue;
-								}
+								// End to read a node
+								mXmlNodeStart = NO;
 								
 								// replace header node name by stop
 								if (mXmlNodeName == mHeaderNodeName) mXmlNodeName = kTTSym_stop;
@@ -309,19 +309,19 @@ TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuo
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlAttribute(TTSymbolPtr attributeName, TTValue& returnedValue)
+TTErr TTXmlHandler::getXmlAttribute(TTSymbolPtr attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTErr err;
 	
 	if (xmlTextReaderMoveToAttribute(mReader, BAD_CAST attributeName->getCString()) == 1) {
 		
-		return fromXmlChar(xmlTextReaderValue(mReader), returnedValue);
+		return fromXmlChar(xmlTextReaderValue(mReader), returnedValue, addQuote, numberAsSymbol);
 	}
 	
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTValue& returnedValue)
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
 	TTErr	err;
@@ -333,7 +333,7 @@ TTErr TTXmlHandler::getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTVa
 		if (v.getType() == kTypeSymbol) {
 			
 			v.get(0, returnedAttributeName);
-			return fromXmlChar(xmlTextReaderValue(mReader), returnedValue);
+			return fromXmlChar(xmlTextReaderValue(mReader), returnedValue, addQuote, numberAsSymbol);
 		}
 	}
 	
