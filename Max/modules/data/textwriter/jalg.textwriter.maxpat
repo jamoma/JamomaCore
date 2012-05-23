@@ -30,6 +30,21 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-21",
+					"linecount" : 2,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 39.5, 75.0, 50.0, 29.0 ],
+					"text" : "wclose, clear"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-19",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -153,7 +168,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 40.0, 65.0, 169.0, 19.0 ],
+					"patching_rect" : [ 39.5, 50.0, 169.0, 19.0 ],
 					"text" : "jcom.pass /clear /write /settitle"
 				}
 
@@ -251,7 +266,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 216.0, 65.0, 164.0, 19.0 ],
+					"patching_rect" : [ 215.5, 50.0, 164.0, 19.0 ],
 					"text" : "jcom.oscroute /show /active"
 				}
 
@@ -411,6 +426,16 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 49.0, 199.0, 49.5, 199.0 ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -451,7 +476,7 @@
 					"destination" : [ "obj-15", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 149.5, 97.0, 49.5, 97.0 ],
+					"midpoints" : [ 149.0, 118.0, 49.5, 118.0 ],
 					"source" : [ "obj-9", 2 ]
 				}
 
@@ -461,18 +486,8 @@
 					"destination" : [ "obj-15", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 99.5, 96.0, 49.5, 96.0 ],
+					"midpoints" : [ 99.0, 112.0, 49.5, 112.0 ],
 					"source" : [ "obj-9", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-15", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"midpoints" : [ 49.5, 95.0, 49.5, 95.0 ],
-					"source" : [ "obj-9", 0 ]
 				}
 
 			}
@@ -482,6 +497,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-9", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-21", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
@@ -496,6 +520,10 @@
 			}
 , 			{
 				"name" : "jcom.pass.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "message.mxo",
 				"type" : "iLaX"
 			}
  ]
