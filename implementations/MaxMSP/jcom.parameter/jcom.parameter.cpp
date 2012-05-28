@@ -801,9 +801,6 @@ MaxErr param_attr_getvalue(t_param *x, void *attr, long *argc, AtomPtr *argv)
 MaxErr param_attr_setvalue(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	x->list_size = argc;
-	//sysmem_copyptr(argv, x->atom_list, argc * sizeof(Atom));
-	//memcpy(x->atom_list, argv, argc * sizeof(Atom));
-	// the two calls above fail to copy the atoms ???
 	for (int i=0; i<argc; i++) {
 		x->atom_list[i].a_type = argv[i].a_type;
 		x->atom_list[i].a_w.w_long = argv[i].a_w.w_long;
@@ -1671,12 +1668,10 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 
 	// Check the second to last item in the list first, which when ramping should == the string ramp
-//	ramp = argv + (argc - 2);
-//	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
 	if (hasRamp) {
 		time = atom_getfloat(argv+(argc-1));
 
-		// Only one list member if @type is integer of decimal
+		// Only one list member if @type is integer or decimal
 		if ( x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal)
 			ac = 1;
 		
