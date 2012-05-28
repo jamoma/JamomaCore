@@ -24,6 +24,9 @@ mSubScript(NULL)
 	addMessage(Clear);
 	addMessageWithArguments(Run);
 	
+	addMessageWithArguments(Bind);
+	addMessageProperty(Bind, hidden, YES);
+	
 	addMessageWithArguments(Append);
 	addMessageWithArguments(AppendCommand);
 	addMessageWithArguments(AppendComment);
@@ -198,11 +201,97 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, &address);
 			
 			// if relative, append to container address
-			if (address->getType() ==kAddressRelative)
+			if (address->getType() == kAddressRelative)
 				address = containerAddress->appendAddress(address);
 			
 			// run the script
 			mSubScript->sendMessage(TT("Run"), address, kTTValNONE);
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTDictionaryPtr		aLine;
+	TTSymbolPtr			name;
+	TTNodePtr			aNode;
+	TTNodeAddressPtr	address, containerAddress = kTTAdrsRoot;
+	TTObjectPtr			anObject, container;
+	TTValue				v, c;
+	TTErr				err;
+	
+	// It is possible to make the script bind from a container address
+	if (inputValue.getType() == kTypeSymbol) {
+		
+		inputValue.get(0, &containerAddress);
+		
+		container = NULL;
+		err = getDirectoryFrom(containerAddress)->getTTNode(containerAddress, &aNode);
+		
+		if (!err) {
+			
+			if (aNode) {
+				
+				anObject = aNode->getObject();
+				
+				// check if it's a container
+				if (anObject)
+					if (anObject->getName() == TT("Container"))
+						container = anObject;
+			}
+		}
+	}
+	
+	// make each command line of the script to bind on their TTObject
+	for (mLines->begin(); mLines->end(); mLines->next()) {
+		
+		mLines->current().get(0, (TTPtr*)&aLine);
+		
+		// lookfor command line only
+		if (aLine->getSchema() == kTTSym_command) {
+			
+			// clear any object key
+			aLine->remove(kTTSym_object);
+			
+			// get the address
+			aLine->lookup(kTTSym_address, v);
+			v.get(0, &address);
+			
+			// use container for relative address
+			if (container && address->getType() == kAddressRelative)
+				address = containerAddress->appendAddress(address);
+				
+			// retreive the object
+			getDirectoryFrom(address)->getTTNode(address, &aNode);
+			if (aNode) {
+				
+				anObject = aNode->getObject();
+				
+				if (anObject) {
+					
+					v = TTValue((TTPtr)anObject);
+					aLine->append(kTTSym_object, v);
+				}
+			}
+		}
+		else if (aLine->getSchema() == kTTSym_script) {
+			
+			// get the script
+			aLine->getValue(v);
+			v.get(0, (TTPtr*)&mSubScript);
+			
+			// get address
+			aLine->lookup(kTTSym_address, v);
+			v.get(0, &address);
+			
+			// if relative, append to container address
+			if (address->getType() == kAddressRelative)
+				address = containerAddress->appendAddress(address);
+			
+			// prepare the sub script
+			mSubScript->sendMessage(TT("Bind"), address, kTTValNONE);
 		}
 	}
 	

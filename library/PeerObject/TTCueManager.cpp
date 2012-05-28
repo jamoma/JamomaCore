@@ -28,6 +28,8 @@ mCurrentCue(NULL)
 	addAttributeWithGetter(CurrentNamespace, kTypeLocalValue);
 	addAttributeProperty(CurrentNamespace, readOnly, YES);
 	
+	registerAttribute(TT("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
+	
 	registerAttribute(TT("namespace"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getNamespace, (TTSetterMethod)&TTCueManager::setNamespace);
 	
 	addAttribute(Cues, kTypePointer);
@@ -110,6 +112,41 @@ TTErr TTCueManager::getCurrentNamespace(TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTCueManager::getCurrentRamp(TTValue& value)
+{
+	TTValue v;
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		if (mCurrentCue) {
+			mCurrentCue->getAttributeValue(TT("ramp"), value);
+		}
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTCueManager::setCurrentRamp(const TTValue& value)
+{
+	TTValue v;
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		if (mCurrentCue) {
+			v = value;
+			mCurrentCue->setAttributeValue(TT("ramp"), v);
+		}
+	}
+	
+	return kTTErrGeneric;
+}
+
 TTErr TTCueManager::getNamespace(TTValue& value)
 {
 	return TTCueNamespaceEdit(mNamespace, value);
@@ -117,6 +154,7 @@ TTErr TTCueManager::getNamespace(TTValue& value)
 
 TTErr TTCueManager::setNamespace(const TTValue& value)
 {
+	delete mNamespace;
 	mNamespace = TTCueNamespaceParse(value);
 	return kTTErrNone;
 }
@@ -360,7 +398,6 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 			if (v.getType() == kTypeSymbol) {
 				
 				v.get(0, &mCurrent);
-				
 				
 				// Create a new cue
 				mCurrentCue = NULL;

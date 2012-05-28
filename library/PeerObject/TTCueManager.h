@@ -44,6 +44,10 @@ private:
 	
 	/** */
 	TTErr	getCurrentNamespace(TTValue& value);
+	
+	/** */
+	TTErr	getCurrentRamp(TTValue& value);
+	TTErr	setCurrentRamp(const TTValue& value);
 
 	/** */
 	TTErr	getNamespace(TTValue& value);

@@ -43,12 +43,14 @@ NamespaceItem::~NamespaceItem()
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mComment(TT("TODO : edit comment")),
+mRamp(0),
 mScript(NULL)
 {
 	TTValue args;
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
+	addAttributeWithSetter(Ramp, kTypeInt32);
 	
 	registerAttribute(TT("namespace"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCue::getNamespace);
 	
@@ -83,7 +85,72 @@ TTErr TTCue::getNamespace(TTValue& value)
 	
 	value.clear();
 	processNamespace(mScript, &aNamespace);
-	TTCueNamespaceEdit(aNamespace, value);
+	return TTCueNamespaceEdit(aNamespace, value);
+}
+
+TTErr TTCue::setRamp(const TTValue& value)
+{
+	mRamp = value;
+	
+	// ask the script to bind each line on his TTObject 
+	// to make test on the rampDrive attribute
+	mScript->sendMessage(TT("Bind"), kTTAdrsRoot, kTTValNONE);
+	
+	return processRamp(mScript, mRamp);
+}
+
+TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
+{
+	TTListPtr			lines;
+	TTScriptPtr			aSubScript;
+	TTDictionaryPtr		aLine;
+	TTObjectPtr			anObject;
+	TTSymbolPtr			rampDrive;
+	TTValue				v, r = TTValue(ramp);
+	
+	aScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_command) {
+			
+			// if it is a Data object with a ramp drive
+			if (!aLine->lookup(kTTSym_object, v)) {
+				
+				v.get(0, (TTPtr*)&anObject);
+				
+				if (anObject->getName() == TT("Data")) {
+					
+					anObject->getAttributeValue(kTTSym_rampDrive, v);
+					v.get(0, &rampDrive);
+					
+					if (rampDrive != kTTSym_none) {
+						
+						// set the ramp
+						if (ramp)
+							aLine->append(kTTSym_ramp, r);
+						else
+							aLine->remove(kTTSym_ramp);
+					}
+				}
+			}
+		}
+		else if (aLine->getSchema() == kTTSym_script) {
+			
+			// get the script
+			aLine->getValue(v);
+			v.get(0, (TTPtr*)&aSubScript);
+			
+			if (aSubScript)
+				processRamp(aSubScript, ramp);
+		}
+	}
+	
+	return kTTErrNone;
 }
 
 TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
@@ -114,7 +181,10 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		// 3. Process namespace storage
 		processStore(mScript, kTTAdrsRoot, aNamespace);
 		
-		// 4. Process the effective namespace of the script
+		// 4. Process ramp
+		if (mRamp) setRamp(mRamp);
+		
+		// 5. Process the effective namespace of the script
 		outputValue.clear();
 		processNamespace(mScript, &returnedNamespace);
 		TTCueNamespaceEdit(returnedNamespace, outputValue);

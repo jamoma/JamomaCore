@@ -53,6 +53,10 @@ private:
 	/**	Run all command lines of the script (considering also wait flag lines) */
 	TTErr	Run(const TTValue& inputValue, TTValue& outputValue);
 	
+	/**	Process all command lines of the script to bind on each TTObject.
+		This is usefull for client which have to manage lines depending on their object */
+	TTErr	Bind(const TTValue& inputValue, TTValue& outputValue);
+	
 	/**	Append anything line to the script (a parsing will find which kind of line it is)	*/
 	TTErr	Append(const TTValue& newLine, TTValue& outputValue);
 	
