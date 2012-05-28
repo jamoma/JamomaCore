@@ -15,18 +15,20 @@
 TT_MODULAR_CONSTRUCTOR,
 mNames(kTTValNONE),
 mCurrent(kTTSymEmpty),
-mNamespace(kTTValNONE),
+mCurrentNamespace(kTTValNONE),
+mNamespace(NULL),
 mCues(NULL),
 mCurrentCue(NULL)
 {
-	TTValue v;
-	
 	addAttributeWithSetter(Names, kTypeLocalValue);
 	
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
 	
-	addAttributeWithSetter(Namespace, kTypeLocalValue);
+	addAttributeWithGetter(CurrentNamespace, kTypeLocalValue);
+	addAttributeProperty(CurrentNamespace, readOnly, YES);
+	
+	registerAttribute(TT("namespace"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getNamespace, (TTSetterMethod)&TTCueManager::setNamespace);
 	
 	addAttribute(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
@@ -55,6 +57,7 @@ mCurrentCue(NULL)
 	addMessageProperty(ReadFromText, hidden, YES);
 	
 	mCues = new TTHash();
+	mNamespace = new TTList();
 }
 
 TTCueManager::~TTCueManager()
@@ -74,6 +77,9 @@ TTCueManager::~TTCueManager()
 	
 	delete mCues;
 	mCues = NULL;
+	
+	delete mNamespace;
+	mNamespace = NULL;
 }
 
 TTErr TTCueManager::setNames(const TTValue& value)
@@ -98,31 +104,55 @@ TTErr TTCueManager::setNames(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTCueManager::getCurrentNamespace(TTValue& value)
+{
+	value = mCurrentNamespace;
+	return kTTErrNone;
+}
+
+TTErr TTCueManager::getNamespace(TTValue& value)
+{
+	return TTCueNamespaceEdit(mNamespace, value);
+}
+
 TTErr TTCueManager::setNamespace(const TTValue& value)
 {
-	mNamespace = value;
+	mNamespace = TTCueNamespaceParse(value);
 	return kTTErrNone;
 }
 
 TTErr TTCueManager::NamespaceClear()
 {
-	mNamespace = kTTValNONE;
+	delete mNamespace;
+	mNamespace = new TTList();
 	return kTTErrNone;
 }
 
 TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputValue)
 {
+	NamespacePtr aNamespaceToAppend = TTCueNamespaceParse(inputValue);
+	
+	TTCueNamespaceAppend(aNamespaceToAppend, mNamespace);
+	
+	TTCueNamespaceEdit(mNamespace, outputValue);
+	
 	return kTTErrNone;
 }
 
 TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputValue)
 {
+	NamespacePtr aNamespaceToRemove = TTCueNamespaceParse(inputValue);
+	
+	TTCueNamespaceRemove(aNamespaceToRemove, mNamespace);
+	
+	TTCueNamespaceEdit(mNamespace, outputValue);
+	
 	return kTTErrNone;
 }
 
 TTErr TTCueManager::New()
 {
-	TTCuePtr oldCue;
+	TTCuePtr	oldCue;
 	TTSymbolPtr cueName;
 	TTValue		v, names;
 	TTUInt32	i;
@@ -142,8 +172,10 @@ TTErr TTCueManager::New()
 		mCues = new TTHash();
 		mCurrentCue = NULL;
 		mCurrent = kTTSymEmpty;
+		mCurrentNamespace = kTTValNONE;
 		mNames = kTTValNONE;
-		mNamespace = kTTValNONE;
+		delete mNamespace;
+		mNamespace = new TTList();
 		
 		notifyNamesObservers();
 	}
@@ -153,16 +185,13 @@ TTErr TTCueManager::New()
 
 TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue			v;
+	TTValue	v;
 	
 	// get cue name
 	if (inputValue.getType(0) == kTypeSymbol)
 		inputValue.get(0, &mCurrent);
 	
 	if (mCurrent == kTTSymEmpty)
-		return kTTErrGeneric;
-	
-	if (mNamespace == kTTValNONE)
 		return kTTErrGeneric;
 	
 	// don't create two cues with the same name
@@ -186,8 +215,8 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentCue->sendMessage(TT("Clear"));
 	}
 	
-	mCurrentCue->setAttributeValue(TT("namespace"), mNamespace);
-	mCurrentCue->sendMessage(TT("Store"));
+	v = TTValue((TTPtr)mNamespace);
+	mCurrentCue->sendMessage(TT("Store"), v, mCurrentNamespace);
 	
 	return kTTErrNone;
 }
@@ -206,7 +235,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		v.get(0, (TTPtr*)&mCurrentCue);
 		
 		if (mCurrentCue) {
-			mCurrentCue->getAttributeValue(TT("namespace"), mNamespace);
+			mCurrentCue->getAttributeValue(TT("namespace"), mCurrentNamespace);
 			return mCurrentCue->sendMessage(TT("Recall"));
 		}
 	}
@@ -241,7 +270,7 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = NULL;
 		mCurrent = kTTSymEmpty;
-		mNamespace = kTTValNONE;
+		mCurrentNamespace = kTTValNONE;
 		mNames = newNames;
 		
 		notifyNamesObservers();
@@ -305,7 +334,13 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		if (!mCues->lookup(mCurrent, v)) {
 			
 			v.get(0, (TTPtr*)&mCurrentCue);
-			mCurrentCue->getAttributeValue(TT("namespace"), mNamespace);
+			
+			// send the end file to the cue to process the namespace
+			v = TTValue(TTPtr(mCurrentCue));
+			aXmlHandler->setAttributeValue(kTTSym_object, v);
+			aXmlHandler->sendMessage(TT("Read"));
+			
+			mCurrentCue->getAttributeValue(TT("namespace"), mCurrentNamespace);
 		}
 		
 		notifyNamesObservers();
@@ -442,7 +477,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 			if (!mCues->lookup(mCurrent, v)) {
 				
 				v.get(0, (TTPtr*)&mCurrentCue);
-				mCurrentCue->getAttributeValue(TT("namespace"), mNamespace);
+				mCurrentCue->getAttributeValue(TT("namespace"), mCurrentNamespace);
 			}
 			
 			notifyNamesObservers();

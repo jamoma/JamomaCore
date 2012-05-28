@@ -46,19 +46,16 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	
 	TTSymbolPtr					mName;							///< ATTRIBUTE : the name of the cue
 	TTSymbolPtr					mComment;						///< ATTRIBUTE : a comment for the cue
-	NamespacePtr				mNamespace;						///< ATTRIBUTE : a set of addresses to store/recall
-	
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
 	
 	/** */
 	TTErr	getNamespace(TTValue& value);
-	TTErr	setNamespace(const TTValue& value);
 	
 	/** */
 	TTErr	Clear();
 	
-	/** Store namespace object values */
-	TTErr	Store();
+	/** Store a namespace object values */
+	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Recall namespace object values */
 	TTErr	Recall();
@@ -101,5 +98,6 @@ TTErr			TTMODULAR_EXPORT TTCueNamespaceAppend(NamespacePtr aNamespaceToAppend, N
 /* Remove a namespace from another */
 TTErr			TTMODULAR_EXPORT TTCueNamespaceRemove(NamespacePtr aNamespaceToRemove, NamespacePtr aNamespace);
 
-
+/* a TTFunctionMatch to find a namepace item */
+void			TTMODULAR_EXPORT TTCueNamespaceFindItem(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found);
 #endif // __TT_CUE_H__

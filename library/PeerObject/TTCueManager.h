@@ -22,6 +22,9 @@ typedef TTCue* TTCuePtr;
 class TTXmlHandler;
 typedef TTXmlHandler* TTXmlHandlerPtr;
 
+// a namespace is a TTList
+typedef	TTList* NamespacePtr;
+
 class TTMODULAR_EXPORT TTCueManager : public TTDataObject
 {
 	TTCLASS_SETUP(TTCueManager)
@@ -30,15 +33,20 @@ private:
 	
 	TTValue				mNames;							///< ATTRIBUTE : all cue names
 	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current cue name
-	TTValue				mNamespace;						///< ATTRIBUTE : the set of addresses of the current cue
-	
+	TTValue				mCurrentNamespace;				///< ATTRIBUTE : the set of addresses of the current cue
+	NamespacePtr		mNamespace;						///< ATTRIBUTE : a namespace to manage before to store
 	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
+	
 	TTCuePtr			mCurrentCue;					///< the current cue
 	
 	/** */
 	TTErr	setNames(const TTValue& value);
 	
 	/** */
+	TTErr	getCurrentNamespace(TTValue& value);
+
+	/** */
+	TTErr	getNamespace(TTValue& value);
 	TTErr	setNamespace(const TTValue& value);
 	
 	/** */

@@ -43,17 +43,17 @@ NamespaceItem::~NamespaceItem()
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mComment(TT("TODO : edit comment")),
-mNamespace(NULL),
 mScript(NULL)
 {
 	TTValue args;
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
-	addAttributeWithGetterAndSetter(Namespace, kTypePointer);
+	
+	registerAttribute(TT("namespace"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCue::getNamespace);
 	
 	addMessage(Clear);
-	addMessage(Store);
+	addMessageWithArguments(Store);
 	addMessage(Recall);
 	
 	// needed to be handled by a TTXmlHandler
@@ -75,85 +75,32 @@ TTCue::~TTCue()
 {
 	TTObjectRelease(TTObjectHandle(&mScript));
 	mScript = NULL;
-	
-	delete mNamespace;
-	mNamespace = NULL;
 }
 
 TTErr TTCue::getNamespace(TTValue& value)
 {
-	delete mNamespace;
-
-	processNamespace(mScript, &mNamespace);
-
+	NamespacePtr aNamespace;
+	
 	value.clear();
-	TTCueNamespaceEdit(mNamespace, value);
+	processNamespace(mScript, &aNamespace);
+	TTCueNamespaceEdit(aNamespace, value);
 }
 
-TTErr TTCue::processNamespace(TTObjectPtr aScript, NamespacePtr *returnedNamespace)
+TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTListPtr			lines;
-	NamespacePtr		aSubNamespace;
-	NamespaceItemPtr	anItem;
-	TTScriptPtr			aSubScript;
-	TTDictionaryPtr		aLine;
-	TTNodeAddressPtr	address;
-	TTValue				v;
-	
-	aScript->getAttributeValue(TT("lines"), v);
-	v.get(0, (TTPtr*)&lines);
-	
-	*returnedNamespace = new TTList();
-	
-	// lookat each line of the script
-	for (lines->begin(); lines->end(); lines->next()) {
-		
-		lines->current().get(0, (TTPtr*)&aLine);
-		
-		if (aLine->getSchema() == kTTSym_command) {
-			
-			// get the address
-			aLine->lookup(kTTSym_address, v);
-			v.get(0, &address);
-			
-			// append to the namespace
-			anItem = new NamespaceItem(address, NULL);
-			(*returnedNamespace)->append((TTPtr)anItem);
-		}
-		else if (aLine->getSchema() == kTTSym_script) {
-			
-			// get the script
-			aLine->getValue(v);
-			v.get(0, (TTPtr*)&aSubScript);
-			
-			if (aSubScript)
-				processNamespace(aSubScript, &aSubNamespace);
-			
-			// get the address
-			aLine->lookup(kTTSym_address, v);
-			v.get(0, &address);
-			
-			// append to the namespace
-			anItem = new NamespaceItem(address, aSubNamespace);
-			(*returnedNamespace)->append((TTPtr)anItem);
-		}
-	}
-}
-
-TTErr TTCue::setNamespace(const TTValue& value)
-{
-	delete mNamespace;
-
-	mNamespace = TTCueNamespaceParse(value);
-}
-
-TTErr TTCue::Store()
-{
+	NamespacePtr aNamespace = NULL;
+	NamespacePtr returnedNamespace;
 	TTValue	v, parsedLine;
 	
-	Clear();
+	// get the namespace to store
+	if (inputValue.getType() == kTypePointer)
+		inputValue.get(0, (TTPtr*)&aNamespace);
+	else
+		aNamespace = TTCueNamespaceParse(inputValue);
 	
-	if (mNamespace) {
+	if (aNamespace) {
+		
+		Clear();
 		
 		// 1. Append a cue flag with the name
 		v = TTValue(TT("cue"));
@@ -165,7 +112,14 @@ TTErr TTCue::Store()
 		mScript->sendMessage(TT("AppendComment"), v, parsedLine);
 		
 		// 3. Process namespace storage
-		return processStore(mScript, kTTAdrsRoot, mNamespace);
+		processStore(mScript, kTTAdrsRoot, aNamespace);
+		
+		// 4. Process the effective namespace of the script
+		outputValue.clear();
+		processNamespace(mScript, &returnedNamespace);
+		TTCueNamespaceEdit(returnedNamespace, outputValue);
+		
+		return kTTErrNone;
 	}
 	
 	return kTTErrGeneric;
@@ -256,6 +210,58 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, c
 					processStore(aSubScript, address, anItem->children);
 				}
 			}
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTCue::processNamespace(TTObjectPtr aScript, NamespacePtr *returnedNamespace)
+{
+	TTListPtr			lines;
+	NamespacePtr		aSubNamespace;
+	NamespaceItemPtr	anItem;
+	TTScriptPtr			aSubScript;
+	TTDictionaryPtr		aLine;
+	TTNodeAddressPtr	address;
+	TTValue				v;
+	
+	aScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	*returnedNamespace = new TTList();
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_command) {
+			
+			// get the address
+			aLine->lookup(kTTSym_address, v);
+			v.get(0, &address);
+			
+			// append to the namespace
+			anItem = new NamespaceItem(address, NULL);
+			(*returnedNamespace)->append((TTPtr)anItem);
+		}
+		else if (aLine->getSchema() == kTTSym_script) {
+			
+			// get the script
+			aLine->getValue(v);
+			v.get(0, (TTPtr*)&aSubScript);
+			
+			if (aSubScript)
+				processNamespace(aSubScript, &aSubNamespace);
+			
+			// get the address
+			aLine->lookup(kTTSym_address, v);
+			v.get(0, &address);
+			
+			// append to the namespace
+			anItem = new NamespaceItem(address, aSubNamespace);
+			(*returnedNamespace)->append((TTPtr)anItem);
 		}
 	}
 	
@@ -500,7 +506,7 @@ TTErr TTCueNamespaceCopy(const NamespacePtr aNamespace, NamespacePtr* aNamespace
 	if (!aNamespace)
 		return kTTErrGeneric;
 	
-	if (!aNamespaceCopy)
+	if (!(*aNamespaceCopy))
 		*aNamespaceCopy = new TTList();
 	
 	for (aNamespace->begin(); aNamespace->end(); aNamespace->next()) {
@@ -519,16 +525,68 @@ TTErr TTCueNamespaceCopy(const NamespacePtr aNamespace, NamespacePtr* aNamespace
 
 TTErr TTCueNamespaceAppend(NamespacePtr aNamespaceToAppend, NamespacePtr aNamespace)
 {
+	NamespaceItemPtr	anItemToAppend, anItem;
+	TTValue				found;
+	
 	if (!aNamespaceToAppend || !aNamespace)
 		return kTTErrGeneric;
+	
+	for (aNamespaceToAppend->begin(); aNamespaceToAppend->end(); aNamespaceToAppend->next()) {
+		
+		aNamespaceToAppend->current().get(0, (TTPtr*)&anItemToAppend);
+		
+		aNamespace->find(&TTCueNamespaceFindItem, (TTPtr)anItemToAppend, found);
+		
+		if (found == kTTValNONE)
+			aNamespace->append((TTPtr)anItemToAppend);
+		else {
+			found.get(0, (TTPtr*)&anItem);
+			TTCueNamespaceAppend(anItemToAppend->children, anItem->children);
+		}
+	}
 	
 	return kTTErrNone;
 }
 
 TTErr TTCueNamespaceRemove(NamespacePtr aNamespaceToRemove, NamespacePtr aNamespace)
 {
+	NamespaceItemPtr	anItemToRemove, anItem;
+	TTValue				found;
+	
 	if (!aNamespaceToRemove || !aNamespace)
 		return kTTErrGeneric;
 	
+	for (aNamespaceToRemove->begin(); aNamespaceToRemove->end(); aNamespaceToRemove->next()) {
+		
+		aNamespaceToRemove->current().get(0, (TTPtr*)&anItemToRemove);
+		
+		aNamespace->find(&TTCueNamespaceFindItem, (TTPtr)anItemToRemove, found);
+		
+		if (found == kTTValNONE)
+			; // nothing to do
+		else {
+			found.get(0, (TTPtr*)&anItem);
+			TTCueNamespaceRemove(anItemToRemove->children, anItem->children);
+			
+			// check for children
+			if (anItemToRemove->children && anItem->children)
+				if (anItemToRemove->children->getSize() != 0 && anItem->children->getSize() != 0)
+					continue;
+			
+			// remove an Item if it has no child
+			delete anItem;
+			aNamespace->remove(found);
+		}
+	}
+	
 	return kTTErrNone;
+}
+
+void TTCueNamespaceFindItem(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found)
+{
+	NamespaceItemPtr	anItem;
+	
+	itemValue.get(0, (TTPtr*)&anItem);
+	
+	found = anItem->address == ((NamespaceItemPtr)itemPtrToMatch)->address;
 }
