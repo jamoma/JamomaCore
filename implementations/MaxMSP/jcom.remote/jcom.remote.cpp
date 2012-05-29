@@ -439,7 +439,7 @@ void remote_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 			}
 			
 			// display selected attribute by changing background color if selected
-			x->wrappedObject->getAttributeValue(TT("highlight"), v);
+			x->wrappedObject->getAttributeValue(kTTSym_highlight, v);
 			v.get(0, selected);
 			
 			if (EXTRA->label)
@@ -502,17 +502,17 @@ void remote_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 		// if mouse leave jcom.ui maybe it is on our object
 		if (pt.x > EXTRA->x && pt.x < EXTRA->x+EXTRA->w && pt.y > EXTRA->y && pt.y < EXTRA->y+EXTRA->h) {
 			
-			x->wrappedObject->getAttributeValue(TT("highlight"), v);
+			x->wrappedObject->getAttributeValue(kTTSym_highlight, v);
 			v.get(0, selected);
 			
 			// reverse selected attribute and change color
 			if (EXTRA->label)
 				if (selected) {
-					x->wrappedObject->setAttributeValue(TT("highlight"), NO);
+					x->wrappedObject->setAttributeValue(kTTSym_highlight, NO);
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color0);
 				}
 				else {
-					x->wrappedObject->setAttributeValue(TT("highlight"), YES);
+					x->wrappedObject->setAttributeValue(kTTSym_highlight, YES);
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color1);
 				}
 		}

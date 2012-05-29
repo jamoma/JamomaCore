@@ -218,31 +218,13 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbolPtr			name;
 	TTNodePtr			aNode;
 	TTNodeAddressPtr	address, containerAddress = kTTAdrsRoot;
-	TTObjectPtr			anObject, container;
+	TTObjectPtr			anObject;
 	TTValue				v, c;
 	TTErr				err;
 	
 	// It is possible to make the script bind from a container address
-	if (inputValue.getType() == kTypeSymbol) {
-		
+	if (inputValue.getType() == kTypeSymbol)
 		inputValue.get(0, &containerAddress);
-		
-		container = NULL;
-		err = getDirectoryFrom(containerAddress)->getTTNode(containerAddress, &aNode);
-		
-		if (!err) {
-			
-			if (aNode) {
-				
-				anObject = aNode->getObject();
-				
-				// check if it's a container
-				if (anObject)
-					if (anObject->getName() == TT("Container"))
-						container = anObject;
-			}
-		}
-	}
 	
 	// make each command line of the script to bind on their TTObject
 	for (mLines->begin(); mLines->end(); mLines->next()) {
@@ -250,7 +232,7 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 		mLines->current().get(0, (TTPtr*)&aLine);
 		
 		// lookfor command line only
-		if (aLine->getSchema() == kTTSym_command) {
+		if (aLine->getSchema() == kTTSym_command || aLine->getSchema() == kTTSym_script) {
 			
 			// clear any object key
 			aLine->remove(kTTSym_object);
@@ -260,7 +242,7 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, &address);
 			
 			// use container for relative address
-			if (container && address->getType() == kAddressRelative)
+			if (address->getType() == kAddressRelative)
 				address = containerAddress->appendAddress(address);
 				
 			// retreive the object
@@ -275,23 +257,17 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 					aLine->append(kTTSym_object, v);
 				}
 			}
-		}
-		else if (aLine->getSchema() == kTTSym_script) {
 			
-			// get the script
-			aLine->getValue(v);
-			v.get(0, (TTPtr*)&mSubScript);
-			
-			// get address
-			aLine->lookup(kTTSym_address, v);
-			v.get(0, &address);
-			
-			// if relative, append to container address
-			if (address->getType() == kAddressRelative)
-				address = containerAddress->appendAddress(address);
-			
-			// prepare the sub script
-			mSubScript->sendMessage(TT("Bind"), address, kTTValNONE);
+			// make sub script binds
+			if (aLine->getSchema() == kTTSym_script) {
+				
+				// get the script
+				aLine->getValue(v);
+				v.get(0, (TTPtr*)&mSubScript);
+				
+				// prepare the sub script
+				mSubScript->sendMessage(TT("Bind"), address, kTTValNONE);
+			}
 		}
 	}
 	
@@ -736,7 +712,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				*buffer += address->getCString();
 				
 				// get and write value
-				if (!aLine->getValue(v)) {
+				if (!aLine->getValue(v)) {	
 					v.toString();
 					v.get(0, aString);
 					
@@ -943,7 +919,7 @@ TTDictionaryPtr TTScriptParseCommand(const TTValue& newCommand)
 	return line;
 }
 
-TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript)
+TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 {
 	TTDictionaryPtr line = NULL;
 	TTSymbolPtr		firstSymbol;
@@ -991,4 +967,119 @@ TTSymbolPtr TTScriptParseFlagName(TTSymbolPtr toParse)
 	}	
 	
 	return kTTSymEmpty;
+}
+
+TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position)
+{
+	TTDictionaryPtr line1, line2;
+	TTSymbolPtr		type1;
+	TTObjectPtr		obj1, obj2;
+	TTScriptPtr		sub1, sub2;
+	TTFloat64		value;
+	TTValue			v, v1, v2, newValue;
+	TTValue			found;
+	TTUInt32		i, s;
+	
+	for (script1->mLines->begin(), script2->mLines->begin(); 
+		 script1->mLines->end() && script2->mLines->end(); 
+		 script1->mLines->next(), script2->mLines->next()) {
+		
+		script1->mLines->current().get(0, (TTPtr*)&line1);
+		script2->mLines->current().get(0, (TTPtr*)&line2);
+		
+		// get objects
+		obj1 = NULL;
+		if (!line1->lookup(kTTSym_object, v))
+			v.get(0, (TTPtr*)&obj1);
+		
+		obj2 = NULL;
+		if (!line2->lookup(kTTSym_object, v))
+			v.get(0, (TTPtr*)&obj2);
+		
+		if (obj1 && obj2) {
+			
+			// obj1 and obj2 have to be the same object
+			if (obj1 != obj1) {
+				script2->mLines->find(&TTScriptFindObject, (TTPtr)obj1, found);
+				
+				// couldn't find the same object in script2, skip the command
+				if (found == kTTValNONE) {
+					script2->mLines->begin();
+					continue;
+				}
+				else {
+					found.get(0, (TTPtr*)&line2);
+					
+					obj2 = NULL;
+					if (!line2->lookup(kTTSym_object, v))
+						v.get(0, (TTPtr*)&obj2);
+					else
+						continue;
+				}
+			}
+			
+			if (line1->getSchema() == kTTSym_command && line2->getSchema() == kTTSym_command) {
+				
+				if (!obj1->getAttributeValue(kTTSym_type, v)) {
+					v.get(0, &type1);
+					
+					// get line values
+					line1->getValue(v1);
+					line2->getValue(v2);
+					
+					if (type1 == kTTSym_integer) {
+						newValue = TTValue(v1.getInt32() * (1. - position) + v2.getInt32() * position);
+						
+					} else if (type1 == kTTSym_decimal) {
+						newValue = TTValue((TTFloat64)(v1.getFloat64() * (1. - position) + v2.getFloat64() * position));
+						
+					} else if (type1 == kTTSym_array) {
+						s = v1.getSize();
+						if (s == v2.getSize()) {
+							
+							newValue.setSize(s);
+							for (i = 0; i < s; i++)
+								newValue.set(i, (TTFloat64)(v1.getFloat64(i) * (1. - position) + v2.getFloat64(i) * position));
+						}
+						
+					} else
+						newValue = position <= 0.5 ? v1 : v2;
+					
+					// set the interpolated value
+					obj1->setAttributeValue(kTTSym_value, newValue);
+				}
+			}
+			else if (line1->getSchema() == kTTSym_script && line2->getSchema() == kTTSym_script) {
+				
+				// get the sub scripts
+				sub1 = NULL;
+				if (!line1->getValue(v))
+					v.get(0, (TTPtr*)&sub1);
+				
+				sub2 = NULL;
+				if (!line2->getValue(v))
+					v.get(0, (TTPtr*)&sub2);
+				
+				// interpolate the script
+				if (sub1 && sub2)
+					TTScriptInterpolate(sub1, sub2, position);
+			}
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+void TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBoolean& found)
+{
+	TTDictionaryPtr aLine;
+	TTObjectPtr		object = NULL;
+	TTValue			v;
+	
+	lineValue.get(0, (TTPtr*)&aLine);
+	
+	if (!aLine->lookup(kTTSym_object, v))
+		v.get(0, (TTPtr*)&object);
+	
+	found = object == ((TTObjectPtr)objectPtrToMatch);
 }

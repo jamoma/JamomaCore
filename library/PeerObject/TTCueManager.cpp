@@ -44,6 +44,7 @@ mCurrentCue(NULL)
 	
 	addMessageWithArguments(Store);
 	addMessageWithArguments(Recall);
+	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Remove);
 	
 	// needed to be handled by a TTXmlHandler
@@ -281,6 +282,37 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
+TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTValue		v1, v2;
+	TTSymbolPtr name1, name2;
+	TTCuePtr	cue1, cue2;
+	TTFloat32	position;
+	
+	// get cues name
+	if (inputValue.getSize() == 3) {
+		
+		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat32) {
+			
+			inputValue.get(0, &name1);
+			inputValue.get(1, &name2);
+			inputValue.get(2, position);
+			
+			// if cues exist
+			if (!mCues->lookup(name1, v1) && !mCues->lookup(name2, v2)) {
+				
+				v1.get(0, (TTPtr*)&cue1);
+				v2.get(0, (TTPtr*)&cue2);
+				
+				if (cue1 && cue2)
+					return TTCueInterpolate(cue1, cue2, position);
+			}
+		}
+	}
+	
+	return kTTErrGeneric;
+}
+
 TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr name;
@@ -471,6 +503,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 	if (line) {
 		
 		// replace the buffer line value by the parsed line dictionary
+		delete aTextHandler->mLine;
 		aTextHandler->mLine = new TTValue((TTPtr)line);
 		
 		// match cue flag line : # (cue) name

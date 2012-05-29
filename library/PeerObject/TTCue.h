@@ -80,6 +80,8 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	
 	/** a recursive method to change each ramping value into a script */
 	TTErr	processRamp(TTObjectPtr aScript, TTUInt32 ramp);
+	
+	friend TTErr TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 };
 
 typedef TTCue* TTCuePtr;
@@ -107,4 +109,6 @@ TTErr			TTMODULAR_EXPORT TTCueNamespaceRemove(NamespacePtr aNamespaceToRemove, N
 
 /* a TTFunctionMatch to find a namepace item */
 void			TTMODULAR_EXPORT TTCueNamespaceFindItem(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found);
+
+TTErr			TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 #endif // __TT_CUE_H__

@@ -341,7 +341,7 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		makeInternals_data(x, nodeAddress, TT("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		v = TTValue(EXTRA->pollInterval);
+		v = TTValue((int)EXTRA->pollInterval);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 		v = TTValue(0, 1000);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);

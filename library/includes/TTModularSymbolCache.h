@@ -53,6 +53,8 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Get;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_global;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_highlight;
+
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_instances;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
@@ -89,7 +91,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_script;
-extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_selected;
+//extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_selected;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;

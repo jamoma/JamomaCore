@@ -75,6 +75,11 @@ private:
 		nothing : recall the current cue */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Interpolate 2 cues : 
+		name1 + name2 + position : interpolate between the 2 given cues
+		TODO : name1 + position : interpolate between the current cue and the given cue */
+	TTErr	Interpolate(const TTValue& inputValue, TTValue& outputValue);
+	
 	/** Remove a cue : 
 		name : remove the cue.
 		nothing : remove the current cue */

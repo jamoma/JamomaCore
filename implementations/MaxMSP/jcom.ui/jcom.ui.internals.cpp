@@ -400,7 +400,7 @@ void ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v)
 	}
 }
 
-void ui_viewer_select(t_ui *obj, TTSymbolPtr name, TTBoolean s)
+void ui_viewer_highlight(t_ui *obj, TTSymbolPtr name, TTBoolean s)
 {
 	TTValue			storedObject;
 	TTObjectPtr		anObject;
@@ -411,7 +411,7 @@ void ui_viewer_select(t_ui *obj, TTSymbolPtr name, TTBoolean s)
 		if (!err) {
 			storedObject.get(0, (TTPtr*)&anObject);
 			if (anObject)
-				anObject->setAttributeValue(kTTSym_selected, s);
+				anObject->setAttributeValue(kTTSym_highlight, s);
 		}
 	}
 }

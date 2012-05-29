@@ -274,3 +274,11 @@ TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2)
 	
 	return p1 < p2;
 }
+
+TTErr TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position)
+{
+	preset1->mScript->sendMessage(TT("Bind"), preset1->mAddress, kTTValNONE);
+	preset2->mScript->sendMessage(TT("Bind"), preset2->mAddress, kTTValNONE);
+	
+	return TTScriptInterpolate(preset1->mScript, preset2->mScript, position);
+}

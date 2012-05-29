@@ -50,7 +50,7 @@ mScript(NULL)
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttribute(Comment, kTypeSymbol);
-	addAttributeWithSetter(Ramp, kTypeInt32);
+	addAttributeWithSetter(Ramp, kTypeUInt32);
 	
 	registerAttribute(TT("namespace"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCue::getNamespace);
 	
@@ -106,7 +106,9 @@ TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
 	TTDictionaryPtr		aLine;
 	TTObjectPtr			anObject;
 	TTSymbolPtr			rampDrive;
-	TTValue				v, r = TTValue(ramp);
+	TTValue				v, r;
+	
+	r = TTValue((int)ramp);
 	
 	aScript->getAttributeValue(TT("lines"), v);
 	v.get(0, (TTPtr*)&lines);
@@ -659,4 +661,12 @@ void TTCueNamespaceFindItem(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBo
 	itemValue.get(0, (TTPtr*)&anItem);
 	
 	found = anItem->address == ((NamespaceItemPtr)itemPtrToMatch)->address;
+}
+
+TTErr TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position)
+{
+	cue1->mScript->sendMessage(TT("Bind"), kTTAdrsRoot, kTTValNONE);
+	cue2->mScript->sendMessage(TT("Bind"), kTTAdrsRoot, kTTValNONE);
+	
+	return TTScriptInterpolate(cue1->mScript, cue2->mScript, position);
 }

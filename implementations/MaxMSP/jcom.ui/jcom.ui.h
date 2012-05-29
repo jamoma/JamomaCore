@@ -186,7 +186,7 @@ void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallba
 void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);
 void		ui_viewer_destroy_all(t_ui *obj);
 void		ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v);
-void		ui_viewer_select(t_ui *obj, TTSymbolPtr name, TTBoolean s);
+void		ui_viewer_highlight(t_ui *obj, TTSymbolPtr name, TTBoolean s);
 void		ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f);
 void		ui_viewer_refresh(t_ui *obj, TTSymbolPtr name);
 

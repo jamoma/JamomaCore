@@ -36,6 +36,7 @@ mCurrentPreset(NULL)
 	
 	addMessageWithArguments(Store);
 	addMessageWithArguments(Recall);
+	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Remove);
 
 	// needed to be handled by a TTXmlHandler
@@ -186,6 +187,38 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		
 		if (mCurrentPreset)
 			return mCurrentPreset->sendMessage(TT("Recall"));
+	}
+	
+	return kTTErrGeneric;
+}
+
+
+TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTValue		v1, v2;
+	TTSymbolPtr name1, name2;
+	TTPresetPtr preset1, preset2;
+	TTFloat32	position;
+	
+	// get presets name
+	if (inputValue.getSize() == 3) {
+		
+		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat32) {
+			
+			inputValue.get(0, &name1);
+			inputValue.get(1, &name2);
+			inputValue.get(2, position);
+			
+			// if presets exist
+			if (!mPresets->lookup(name1, v1) && !mPresets->lookup(name2, v2)) {
+				
+				v1.get(0, (TTPtr*)&preset1);
+				v2.get(0, (TTPtr*)&preset2);
+				
+				if (preset1 && preset2)
+					return TTPresetInterpolate(preset1, preset2, position);
+			}
+		}
 	}
 	
 	return kTTErrGeneric;

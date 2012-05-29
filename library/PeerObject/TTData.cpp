@@ -906,12 +906,12 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 {
 	TTDictionaryPtr		command = new TTDictionary();
-	double				time;
-	int					commandSize;
+	TTUInt32			time;
+	TTUInt32			commandSize;
 	TTSymbolPtr			unit, ramp;
 	TTValue				aValue, c;
-	bool				hasRamp = false;
-	bool				hasUnit = false;
+	TTBoolean			hasRamp = false;
+	TTBoolean			hasUnit = false;
 	
 	// Parse the command to handle unit and ramp
 	///////////////////////////////////////////////////
@@ -1015,7 +1015,7 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 	
 	if (hasRamp) {
 		commandValue.get(commandSize - 1, time);
-		command->append(kTTSym_ramp, time);
+		command->append(kTTSym_ramp, (int)time);
 	}
 	
 	command->setSchema(kTTSym_command);

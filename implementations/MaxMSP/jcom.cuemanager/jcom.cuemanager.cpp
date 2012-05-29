@@ -158,7 +158,12 @@ void cue_subscribe(TTPtr self)
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall a cue using his name or his index"));
+		aData->setAttributeValue(kTTSym_description, TT("Recall a cue using his name"));
+		
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Interpolate"), &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Interpolate 2 cues using their names and a ratio"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);

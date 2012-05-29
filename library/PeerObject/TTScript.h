@@ -83,6 +83,8 @@ private:
 	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
+	friend	TTErr TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position);
+	
 };
 
 typedef TTScript* TTScriptPtr;
@@ -111,5 +113,11 @@ TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript);
 /* Parse parenthesis around a flag name : (flagName) returns flagName */
 TTSymbolPtr		TTMODULAR_EXPORT TTScriptParseFlagName(TTSymbolPtr toParse);
 
+/* Interpolate between two scripts
+   note : we assume that the Bind method have been called before on the two scripts */
+TTErr			TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position);
+
+/* a TTFunctionMatch to find a line in the script */
+void			TTMODULAR_EXPORT TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBoolean& found);
 
 #endif // __TT_SCRIPT_H__

@@ -54,6 +54,8 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Get;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_global;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_highlight;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_instances;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
@@ -88,7 +90,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_script;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_selected;
+//TTMODULAR_EXPORT TTSymbolPtr	kTTSym_selected;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;
@@ -149,6 +151,8 @@ void TTModularSymbolCacheInit()
 	kTTSym_Get						= TT("Get");
 	kTTSym_global					= TT("global");
 	
+	kTTSym_highlight				= TT("highlight");
+	
 	kTTSym_initialized				= TT("initialized");
 	kTTSym_instances				= TT("instances");
 	kTTSym_integer					= TT("integer");
@@ -185,7 +189,7 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_Send						= TT("Send");
 	kTTSym_script					= TT("script");
-	kTTSym_selected					= TT("selected");
+//	kTTSym_selected					= TT("selected");
 	kTTSym_service					= TT("service");
 	kTTSym_sharp					= TT("#");
 	kTTSym_start					= TT("start");

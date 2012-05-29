@@ -51,6 +51,9 @@ private:
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
+	TTErr	Interpolate(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** */
 	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler */

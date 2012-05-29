@@ -26,6 +26,36 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"contdata" : 1,
+					"id" : "obj-46",
+					"maxclass" : "multislider",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"orientation" : 0,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 203.0, 210.0, 133.0, 14.0 ],
+					"setminmax" : [ 0.0, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"bgcolor2" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-1",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 203.0, 229.0, 190.0, 18.0 ],
+					"text" : "interpolate Init \"Act I - Scene I\" $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
@@ -228,7 +258,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 835.0, 145.0, 180.0, 62.0 ],
+					"patching_rect" : [ 835.0, 145.0, 186.0, 62.0 ],
 					"text" : "precise only model addresses to manage all parameters inside \nor select model and which parameter to manage"
 				}
 
@@ -356,7 +386,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 184.0, 103.0, 34.0 ],
+					"patching_rect" : [ 318.0, 165.0, 103.0, 34.0 ],
 					"text" : "change the order of the cue list"
 				}
 
@@ -415,7 +445,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 184.0, 135.0, 32.0 ],
+					"patching_rect" : [ 182.0, 165.0, 135.0, 32.0 ],
 					"text" : "names \"Act I - Scene I\" \"Act I - Scene II\" Init"
 				}
 
@@ -482,7 +512,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-63",
-					"items" : [ "Init", ",", "Act I - Scene I" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -891,6 +921,15 @@
 				"patchline" : 				{
 					"destination" : [ "obj-47", 0 ],
 					"hidden" : 1,
+					"midpoints" : [ 212.5, 310.0, 235.5, 310.0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-47", 0 ],
+					"hidden" : 1,
 					"midpoints" : [ 550.5, 310.5, 235.5, 310.5 ],
 					"source" : [ "obj-11", 1 ]
 				}
@@ -1211,6 +1250,15 @@
 					"hidden" : 1,
 					"midpoints" : [ 518.5, 282.5, 484.5, 282.5 ],
 					"source" : [ "obj-45", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-46", 0 ]
 				}
 
 			}
