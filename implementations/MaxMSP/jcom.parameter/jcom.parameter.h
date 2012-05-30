@@ -29,17 +29,19 @@ enum outlets{
 typedef void (*pf_noargs)(void *x);			// pointer to a function with only the struct pointer given
 											// must be defined so the struct will know what to do, but can't define it as requiring the struct
 #define attr_value			atom_list[0]
+#define attr_valueTemp		atom_listTemp[0]
 #define attr_valueDefault	atom_listDefault[0]
+
 
 typedef struct _param{
 	t_jcom_core_subscriber_extended	common;
 	pf_noargs		param_output;				///< bang method for the instance points to an optimized function
 	TTPtr 			outlets[num_outlets];		///< my outlet array
-//	Atom			atom_list[JAMOMA_LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
-//	Atom			atom_listDefault[JAMOMA_LISTSIZE];
 	AtomPtr			atom_list;					///< currently stored list
+	AtomPtr			atom_listTemp;				///< Used temporarily when updating stored values, for purposes of repetion filtering and dataspace conversion
 	AtomPtr			atom_listDefault;			///< the default list
 	long			list_size;					///< size of currently stored list
+	long			listTemp_size;				///< size of list temporarily stored
 	long			listDefault_size;
 	SymbolPtr		attr_ramp;					///< ATTRIBUTE: ramp mode 
 	long			attr_ui_freeze;				///< ATTRIBUTE: freeze updating of graphical user interface

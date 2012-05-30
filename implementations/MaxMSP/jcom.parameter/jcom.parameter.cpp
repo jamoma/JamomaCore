@@ -207,8 +207,9 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->rampParameterNames = new TTHash;
 
 		// TODO: we shouldn't really allocate this much memory unless we actually need it...
-		x->atom_list = new Atom[JAMOMA_LISTSIZE];
-		x->atom_listDefault = new Atom[JAMOMA_LISTSIZE];
+		x->atom_list		 = new Atom[JAMOMA_LISTSIZE];
+		x->atom_listTemp = new Atom[JAMOMA_LISTSIZE];
+		x->atom_listDefault  = new Atom[JAMOMA_LISTSIZE];
 		
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2unit, kTTValNONE);
 		
@@ -222,6 +223,7 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->listDefault_size = 0;
 		for (i = 0; i < JAMOMA_LISTSIZE; i++) {
 			atom_setlong(&x->atom_list[i], 0);
+			atom_setlong(&x->atom_listTemp[i], 0);
 			atom_setlong(&x->atom_listDefault[i], 0);
 		}
 		x->common.attr_name = name;
@@ -285,6 +287,7 @@ void param_free(t_param *x)
 	TTObjectRelease(&x->dataspace_override2unit);
 	
 	delete [] x->atom_list;
+	delete [] x->atom_listTemp;
 	delete [] x->atom_listDefault;
 }
 
@@ -1143,16 +1146,45 @@ void param_output_float(void *z)
 {
 	t_param *x = (t_param *)z;
 	TTBoolean	didClip;
+	
+	float oldval = atom_getfloat(&x->attr_value);
+	float newval = atom_getfloat(&x->attr_valueTemp);
 
-	didClip = param_clip_float(x);
-	x->isSending = YES;
-	outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
-	param_send_feedback(x);
-	x->isSending = NO;
-	x->isInitialised = YES;	// We have had our value set at least once
+	// Dataspace conversion
+	if (x->isOverriding)
+	{
+		Atom	a;
+		long	ac = 0;
+		AtomPtr	av = NULL;
+		bool	alloc = false;
+	 
+		atom_setfloat(&a, newval);
+		param_convert_units(x, 1, &a, &ac, &av, &alloc);
+		newval = atom_getfloat(av);
+		if (alloc)
+			delete[] av;
+	}
+	
+	// Filter repetitions
+	if (x->common.attr_repetitions || newval != oldval) {
+		
+		// Update stored value
+		atom_setfloat(&x->attr_value, newval);
+		
+		// Clip to specified range, depending on clipmode
+		didClip = param_clip_float(x);
+		
+		x->isSending = YES;
+		outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
+		param_send_feedback(x);
+		x->isSending = NO;
+		
+		x->isInitialised = YES;	// We have had our value set at least once
 
-	if (didClip && x->ramper)
-		x->ramper->stop();
+		// TODO: This test need to be more sofisticated to cater for wrap and fold clip modes - Redmine issue 47
+		if (didClip && x->ramper)
+			x->ramper->stop();
+	}
 }
 
 void param_output_symbol(void *z)
@@ -1251,6 +1283,8 @@ void param_inc(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 	}
 	
+	// New input - halt dataspace override and ramping
+	x->isOverriding = false;
 	if (x->ramper)
 		x->ramper->stop();
 		
@@ -1315,7 +1349,8 @@ void param_dec(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 	}
 
-	// new input - halt any ramping...
+	// New input - halt dataspace override and ramping
+	x->isOverriding = false;
 	if (x->ramper)
 		x->ramper->stop();
 		
@@ -1348,9 +1383,12 @@ void param_int(t_param *x, long value)
 		if (value == atom_getlong(&x->attr_value))
 			return;
 	}
-	// new input - halt any ramping...
+
+	// New input - halt dataspace override and ramping
+	x->isOverriding = false;
 	if (x->ramper)
 		x->ramper->stop();
+	
 	atom_setlong(&x->attr_value, value);
 	x->param_output(x);
 }
@@ -1364,26 +1402,14 @@ void param_float(t_param *x, double value)
 		if (value == atom_getfloat(&x->attr_value))
 			return;
 	}
-	// new input - halt any ramping...
+	
+	// New input - halt dataspace override and ramping
+	x->isOverriding = false;
 	if (x->ramper)
 		x->ramper->stop();
-	
-	// this block added for implementing the dataspace features [TAP]
-	{
-		//Atom	a;
-		//AtomPtr	r = NULL;
-		//bool	alloc = false;
-		//long	count = 0;
-		
-		// TODO: Her må det gjøres mer......
-		
-		//atom_setfloat(&a, value);
-		//param_convert_units(x, 1, &a, &count, &r, &alloc);
-		atom_setfloat(&x->attr_value, value);
-		//if (alloc)
-		//	delete[] r;
-	}
-//	atom_setfloat(&x->attr_value, value);
+
+	// Store new value in temp location for now
+	atom_setfloat(&x->attr_valueTemp, value);
 	x->param_output(x);
 }
 
@@ -1398,6 +1424,7 @@ void param_symbol(t_param *x, SymbolPtr value)
 	// new input - halt any ramping...
 	if (x->ramper)
 		x->ramper->stop();
+	
 	atom_setsym(&x->attr_value, value);
 	x->param_output(x);
 }
@@ -1473,13 +1500,17 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// new input - halt any ramping...
 		if (x->ramper)
 			x->ramper->stop();
+		x->isOverriding = 0;
 
 		if (argc == 1) {
+			// CHANGED: Not checking for repetitions here any longer
 			// If repetitions are disabled, we check for a repetition by treating
 			// this as a 1 element list
-			if (x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x, x->atom_list, x->list_size, argv, argc)) 
-				return;
+			//if (x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x, x->atom_list, x->list_size, argv, argc)) 
+			//	return;
 			
+			// CHANGED: Not addressing dataspace here any longer
+			/*
 			if (x->attr_dataspace != _sym_none) {
 				TTValue	vInput, vOutput;
 				
@@ -1489,7 +1520,10 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			else
 				jcom_core_atom_copy(&x->attr_value, argv);
 			x->list_size = 1;
-			
+			*/
+
+			jcom_core_atom_copy(&x->attr_valueTemp, argv);
+			x->listTemp_size = 1;
 			x->param_output(x);
 		} 
 		else if (argc > 1)
@@ -1571,7 +1605,7 @@ void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, Atom
 }
 
 
-// LIST INPUT <value, ramptime>
+// LIST INPUT <value, dataspace, ramptime>
 void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	double		start[JAMOMA_LISTSIZE],
@@ -1642,12 +1676,8 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// The current implementation does not override the active unit temporarily or anything fancy
 	//	It just sets the active unit and then runs with it...
-	if (hasUnit) {
-		param_attr_setoverrideunit(x, unit);
-		x->isOverriding = true;
-	}
-	else
-		x->isOverriding = false;
+
+	x->isOverriding = false;
 	
 	/*
 		For this initial implementation we are converting the values prior to ramping, as it is easier.
@@ -1665,6 +1695,12 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 	else {
 		param_convert_units(x, argc, argv, &ac, &av, &alloc);
+	}
+
+	// This implementation is pretty lame at the moment, but prevents the conversions above from happening....
+	if (hasUnit) {
+		param_attr_setoverrideunit(x, unit);
+		x->isOverriding = true;
 	}
 
 	// Check the second to last item in the list first, which when ramping should == the string ramp
@@ -1729,20 +1765,20 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		for (i = 0; i < ac; i++) {
 			switch(av[i].a_type) {
 				case A_LONG:
-					atom_setlong(&x->atom_list[i], atom_getlong(av + i));
+					atom_setlong(&x->atom_listTemp[i], atom_getlong(av + i));
 					break;
 				case A_FLOAT:
-					atom_setfloat(&x->atom_list[i], atom_getfloat(av + i));
+					atom_setfloat(&x->atom_listTemp[i], atom_getfloat(av + i));
 					break;
 				case A_SYM:
-					atom_setsym(&x->atom_list[i], atom_getsym(av + i));
+					atom_setsym(&x->atom_listTemp[i], atom_getsym(av + i));
 					break;
 				default:
 					error("param_list: no type specification");
 					break;
 			}
 		}
-		x->list_size = ac;
+		x->listTemp_size = ac;
 		x->param_output(x);
 	}
 	
@@ -1757,26 +1793,58 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void param_ramp_callback_float(void *v, long, double *value)
 {
 	t_param *x = (t_param *)v;
-	float	oldval = atom_getfloat(&x->attr_value);
-	
-	// we don't need to check this here for init state, because that is checked in param_output_float()
-	// if (x->common.attr_repetitions || *value != oldval || !(x->isInitialised)) {
-	if (x->common.attr_repetitions || *value != oldval) {
-		atom_setfloat(&x->attr_value, *value);
-		param_output_float(x);
+	//float	oldval = atom_getfloat(&x->attr_value);
+	//float	newval = *value;
+
+	/*
+	// Dataspace conversion
+	if (x->isOverriding)
+	{
+		Atom	a;
+		long	ac = 0;
+		AtomPtr	av = NULL;
+		bool	alloc = false;
+		
+		atom_setfloat(&a, newval);
+		param_convert_units(x, 1, &a, &ac, &av, &alloc);
+		newval = atom_getfloat(av);
+		if (alloc)
+			delete[] av;
 	}
+	 */
+	
+	// TODO: Repetition filtering need to happen in output method instead, after dataspace conversion. For this reaosn we copy to valueTemp for now, and continue processing in the output method
+	//if (x->common.attr_repetitions || newval != oldval) {
+	atom_setfloat(&x->attr_valueTemp, *value);
+	param_output_float(x);
 }
 
 
 void param_ramp_callback_int(void *v, long, double *value)
 {
 	t_param	*x= (t_param *)v;
-	long	val	= round(*value);
-	long	oldval;
-
-	oldval = atom_getlong(&x->attr_value);
-	// we don't need to check this here for init state, because that is checked in param_output_int()
-	//	if (x->common.attr_repetitions || val != oldval || !(x->isInitialised)) {
+	
+	long	oldval = atom_getlong(&x->attr_value);
+	float	newval = (float)*value;
+	
+	// Dataspace conversion is done as float
+	if (x->isOverriding)
+	{
+		Atom	a;
+		long	ac = 0;
+		AtomPtr	av = NULL;
+		bool	alloc = false;
+		
+		atom_setfloat(&a, newval);
+		param_convert_units(x, 1, &a, &ac, &av, &alloc);
+		newval = atom_getfloat(av);
+		if (alloc)
+			delete[] av;
+	}
+	
+	// Round to int
+	long	val	= round(newval);
+	
 	if (x->common.attr_repetitions || val != oldval) {
 		atom_setlong(&x->attr_value, val);
 		param_output_int(x);
