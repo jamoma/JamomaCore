@@ -394,6 +394,9 @@ void return_float(t_return *x, double value)
 // SYMBOL INPUT
 void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {
+	if (msg==jps_dispatched)
+		return;
+	
 	if (!x->attrEnable)
 		return;
 
