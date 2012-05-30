@@ -336,6 +336,12 @@ void return_int(t_return *x, long value)
 {
 	if (!x->attrEnable)
 		return;
+	
+	if (x->common.attr_type == jps_decimal) {
+		return_float(x, (double)value);
+		return;
+	}
+	
 	if (x->common.attr_repetitions == 0) {
 		if (value == atom_getlong(&x->output[1]))
 			return;
@@ -365,7 +371,13 @@ void return_int(t_return *x, long value)
 void return_float(t_return *x, double value)
 {
 	if (!x->attrEnable)
-		return;    
+		return;
+	
+	if (x->common.attr_type == jps_integer) {
+		return_int(x, (long)value);
+		return;
+	}
+	
 	if (x->common.attr_repetitions == 0) {
 		if (value == atom_getfloat(&x->output[1]))
 			return;
