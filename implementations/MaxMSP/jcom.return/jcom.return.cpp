@@ -61,7 +61,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	t_object 	*attr = NULL;
 	TTValue		dataspaceNames;
 	char		dataspaces[2048];
-	short		i;
 
 	jamoma_init();
 	common_symbols_init();
@@ -395,8 +394,6 @@ void return_float(t_return *x, double value)
 // SYMBOL INPUT
 void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	short i;
-
 	if (!x->attrEnable)
 		return;
 
@@ -408,8 +405,19 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			return_int(x, 0);
 		}
 	else 
-		if ((x->common.attr_type == jps_array) || (x->common.attr_type == jps_generic)){
-			return_list(x, msg, argc, argv-1);
+		if ((x->common.attr_type == jps_array) || (x->common.attr_type == jps_generic)){			
+			int rc = argc+1;
+			AtomPtr rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * rc);
+			
+			// Concatenate msg and argv to new array:
+			atom_setsym(&rv[0], msg);
+			for (int i=1; i<=argc; i++) {
+				jcom_core_atom_copy(&rv[i], argv++);		
+			}
+			
+			return_list(x, msg, rc, rv);
+			
+			delete[] rv;
 		}
 	else { //assuming jps_string now		
 		if (x->common.attr_repetitions == 0) {
@@ -443,27 +451,22 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 	int i;
 	short offset = 1;
 	
-	if (x->common.attr_type == jps_integer){
+	if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean)) {
 		return_int(x, atom_getlong(argv));
 		}
-	else 
-		if (x->common.attr_type == jps_decimal){
+	else if (x->common.attr_type == jps_decimal){
 			return_float(x, atom_getfloat(argv));
 		}
-	else
-		if (x->common.attr_type == jps_boolean){
-			return_int(x, atom_getlong(argv));
-		}
-	else
-		if (x->common.attr_type == jps_string){					
+	else if (x->common.attr_type == jps_string){					
 			return_symbol(x, msg, 0, argv);
 		}
-	else { //if (x->common.attr_type == jps_array){
-		if (argv[0].a_type == A_SYM){ //otherwise we get for lists starting with a symbol a wrong output a k_outlet_thru
+	
+	else {								// type is none, generic or array:
+		
+		// If the list starts with a symbol, this need to be passed as the message from k_outlet_thru, and the list of arguments need to be reduced by one
+		if (argv[0].a_type == A_SYM){
 			offset++; 	
-			argc++;		
 		}
-			
 			
 		TTLimitMax(argc, (long)JAMOMA_LISTSIZE); //making sure that the incoming list is not longer than our allocated memory 
 		
