@@ -1002,7 +1002,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 			if (obj1 != obj1) {
 				script2->mLines->find(&TTScriptFindObject, (TTPtr)obj1, found);
 				
-				// couldn't find the same object in script2, skip the command
+				// couldn't find the same object in script2 : skip the command
 				if (found == kTTValNONE) {
 					script2->mLines->begin();
 					continue;
@@ -1068,6 +1068,203 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 	}
 	
 	return kTTErrNone;
+}
+
+TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
+{
+	TTScriptPtr		firstScript, aScript, aSubScript;
+	TTDictionaryPtr firstScriptLine, aLine;
+	TTObjectPtr		anObject;
+    TTValue			v, valueToMix, mixedValue, found, subScripts;
+	TTSymbolPtr		firstScriptLineSchema, dataType;
+    TTFloat64		sumFactors;
+    TTUInt32		i, mixSize;
+	
+    if (scripts == kTTValNONE)
+		return kTTErrGeneric;
+	
+	mixSize = scripts.getSize();
+	
+	// initialized lines list iterator
+	scripts.get(0, (TTPtr*)&firstScript);
+	firstScript->mLines->begin();
+	
+    for (i = 1; i < mixSize; i++) {
+		scripts.get(i, (TTPtr*)&aScript);
+		aScript->mLines->begin();
+    }
+	
+	// iterate over all command lines of first given script
+    for (; firstScript->mLines->end(); firstScript->mLines->next()) {
+		
+		firstScript->mLines->current().get(0, (TTPtr*)&firstScriptLine);
+		
+		firstScriptLineSchema = firstScriptLine->getSchema();
+		
+		// only mix command or script line
+		if (firstScriptLineSchema != kTTSym_command && firstScriptLineSchema != kTTSym_script) {
+			for (i = 1; i < mixSize; i++) {
+				scripts.get(i, (TTPtr*)&aScript);
+				aScript->mLines->next();
+			}
+			continue;
+		}
+		
+		// get object
+		anObject = NULL;
+		if (!firstScriptLine->lookup(kTTSym_object, v))
+			v.get(0, (TTPtr*)&anObject);
+		else continue;
+		
+		if (firstScriptLineSchema == kTTSym_command) {
+			
+			if (!anObject->getAttributeValue(kTTSym_type, v))
+				v.get(0, &dataType);
+			else continue;
+			
+			// initialize the mix with the command of the first script
+			sumFactors = TTScriptMixLine(firstScriptLine, dataType, mixSize, factors.getFloat64(), mixedValue, YES);
+			
+			for (i = 1; i < mixSize; i++) {
+				
+				scripts.get(i, (TTPtr*)&aScript);
+				
+				if (aScript->mLines->end()) {
+					
+					// try to find the same object
+					aScript->mLines->find(&TTScriptFindObject, (TTPtr)anObject, found);
+					
+					// couldn't find the same object in the script : 
+					// look into to next script for this command
+					if (found == kTTValNONE) {
+						aScript->mLines->begin();
+						continue;
+					}
+					else {
+						found.get(0, (TTPtr*)&aLine);
+						
+						// mix the command of this script
+						// TODO : introduce a mixWeight information into command lines
+						sumFactors += TTScriptMixLine(aLine, dataType, mixSize, factors.getFloat64(i), mixedValue, NO);
+						
+						aScript->mLines->next();
+					}
+				}
+			}
+			
+			if (sumFactors > 0) {
+				
+				// if numeric : normalise by sum of mixWeight
+				if (dataType == kTTSym_integer)
+					mixedValue.set(0, (mixedValue.getInt32() / sumFactors) + 1); // +1 because the value is truncate in TTData::setValue
+				
+				else if (dataType == kTTSym_decimal)
+					mixedValue.set(0, mixedValue.getFloat64() / sumFactors);
+				
+				else if (dataType == kTTSym_array)
+					for (int i = 0; i < mixedValue.getSize(); i++) 
+						mixedValue.set(i, mixedValue.getFloat64(i) / sumFactors);
+				// for any other type : remove the coef at the end of the value
+				else
+					mixedValue.setSize(mixedValue.getSize()-1);
+				
+				// set the mixed value
+				anObject->setAttributeValue(kTTSym_value, mixedValue);
+			}
+		}
+		else if (firstScriptLineSchema == kTTSym_script) {
+			
+			subScripts.clear();
+			
+			// get the first sub script
+			aSubScript = NULL;
+			if (!firstScriptLine->getValue(v))
+				v.get(0, (TTPtr*)&aSubScript);
+			
+			subScripts.append((TTPtr*)aSubScript);
+			
+			// get all other sub scripts
+			for (i = 1; i < mixSize; i++) {
+				
+				scripts.get(i, (TTPtr*)&aScript);
+				
+				if (aScript->mLines->end()) {
+					
+					// try to find the same object
+					aScript->mLines->find(&TTScriptFindObject, (TTPtr)anObject, found);
+					
+					// couldn't find the same object in the script : 
+					// look into to next script for this subscript
+					if (found == kTTValNONE) {
+						aScript->mLines->begin();
+						continue;
+					}
+					else {
+						found.get(0, (TTPtr*)&aLine);
+						
+						// get the sub script
+						aSubScript = NULL;
+						if (!aLine->getValue(v))
+							v.get(0, (TTPtr*)&aSubScript);
+						
+						subScripts.append((TTPtr*)aSubScript);
+						
+						aScript->mLines->next();
+					}
+				}
+			}
+			
+			// mix the sub scripts
+			if (subScripts.getSize() == mixSize)
+				TTScriptMix(subScripts, factors);
+		}
+    }
+	
+	return kTTErrNone;
+}
+
+TTFloat64 TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbolPtr dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init)
+{
+	TTUInt32	i, s;
+	TTFloat64	mixWeight = 1.;	// TODO : introduce a mixWeight information into command lines
+	TTValue		valueToMix;
+	
+	lineToMix->getValue(valueToMix);
+	
+	if (init) {
+		mixedValue.clear();
+		for (i = 0; i < valueToMix.getSize(); i++)
+			mixedValue.append(0);
+	}
+	
+    if (dataType == kTTSym_integer)
+		mixedValue.set(0, mixedValue.getInt32() + (valueToMix.getInt32() * factor * mixWeight));
+
+	else if (dataType == kTTSym_decimal)
+		mixedValue.set(0, mixedValue.getFloat64() + (valueToMix.getFloat64() * factor * mixWeight));
+
+	else if (dataType == kTTSym_array) {
+		
+		s = valueToMix.getSize();
+		if (s == mixedValue.getSize()) {
+			
+			for (i = 0; i < s; i++)
+				mixedValue.set(i, mixedValue.getFloat64(i) + (valueToMix.getFloat64(i) * factor * mixWeight));
+		}
+	}
+	// for any other type : store the coef at the end of the value to keep only the max coef
+    else {
+		
+		if (init) mixedValue.append((TTFloat64)0.);
+		
+		if (factor * mixWeight >= mixedValue.getFloat64(mixedValue.getSize()-1)) {
+			
+			mixedValue = valueToMix;
+			mixedValue.append((TTFloat64) factor * mixWeight);
+		}
+	}
+	
+    return factor * mixWeight;
 }
 
 void TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBoolean& found)

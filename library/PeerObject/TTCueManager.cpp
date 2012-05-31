@@ -45,6 +45,7 @@ mCurrentCue(NULL)
 	addMessageWithArguments(Store);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Interpolate);
+	addMessageWithArguments(Mix);
 	addMessageWithArguments(Remove);
 	
 	// needed to be handled by a TTXmlHandler
@@ -313,6 +314,39 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
+TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTUInt32 i, mixSize;
+	TTSymbolPtr name;
+	TTPresetPtr cue;
+	TTValue		v, cues, factors;
+	
+	mixSize = inputValue.getSize() / 2;
+	if (inputValue.getSize() != mixSize * 2)
+		return kTTErrGeneric;
+	
+	for (i = 0; i < mixSize * 2; i = i+2) {
+		
+		if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat32) {
+			
+			inputValue.get(i, &name);
+			
+			// if cue exist
+			if (!mCues->lookup(name, v)) {
+				
+				v.get(0, (TTPtr*)&cue);
+				
+				if (cue) {
+					cues.append((TTPtr)cue);
+					factors.append((TTFloat64)inputValue.getFloat32(i+1));
+				}
+			}
+		}
+	}
+	
+	return TTCueMix(cues, factors);
+}
+
 TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr name;
@@ -365,14 +399,14 @@ TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 		mNames.get(i, &cueName);
 		if (!mCues->lookup(cueName, v)) {
 			
-			// start to write a preset
+			// start to write a cue
 			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "cue");
 			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST cueName->getCString());
 			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TT("Write"));
 			
-			// end to write a preset
+			// end to write a cue
 			xmlTextWriterEndElement(aXmlHandler->mWriter);
 		}
 	}
@@ -424,7 +458,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		if (!aXmlHandler->mXmlNodeStart)
 			return kTTErrNone;
 		
-		// Get preset name
+		// Get cue name
 		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v, YES)) {
 			
 			if (v.getType() == kTypeSymbol) {

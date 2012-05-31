@@ -26,6 +26,39 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"bgcolor2" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-28",
+					"linecount" : 2,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 464.0, 229.0, 170.0, 32.0 ],
+					"text" : "mix Init $1 \"Act I - Scene I\" $2 \"Act I - Scene II\" $3"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-48",
+					"maxclass" : "nodes",
+					"mousemode" : 2,
+					"nodenumber" : 3,
+					"nsize" : [ 0.341026, 0.417949, 0.2 ],
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 464.0, 146.0, 78.0, 78.0 ],
+					"xplace" : [ 0.41, 0.23, 0.935897 ],
+					"yplace" : [ 0.2, 0.77, 0.615385 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"contdata" : 1,
 					"id" : "obj-46",
 					"maxclass" : "multislider",
@@ -64,7 +97,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 509.0, 134.0, 112.0, 18.0 ],
+					"patching_rect" : [ 654.0, 147.0, 112.0, 18.0 ],
 					"text" : "namespace mouse"
 				}
 
@@ -120,7 +153,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "namespace", "" ],
-					"patching_rect" : [ 475.0, 286.0, 85.0, 20.0 ],
+					"patching_rect" : [ 620.0, 286.0, 85.0, 20.0 ],
 					"text" : "t namespace l"
 				}
 
@@ -135,7 +168,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 509.0, 204.0, 155.0, 18.0 ],
+					"patching_rect" : [ 654.0, 217.0, 155.0, 18.0 ],
 					"text" : "namespace/remove mouse"
 				}
 
@@ -150,7 +183,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 509.0, 223.0, 231.0, 18.0 ],
+					"patching_rect" : [ 654.0, 236.0, 231.0, 18.0 ],
 					"text" : "namespace/remove degrade~ { bitdepth }"
 				}
 
@@ -165,7 +198,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 509.0, 247.0, 102.0, 18.0 ],
+					"patching_rect" : [ 654.0, 260.0, 102.0, 18.0 ],
 					"text" : "namespace/clear"
 				}
 
@@ -258,7 +291,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 835.0, 145.0, 186.0, 62.0 ],
+					"patching_rect" : [ 827.0, 128.0, 186.0, 62.0 ],
 					"text" : "precise only model addresses to manage all parameters inside \nor select model and which parameter to manage"
 				}
 
@@ -286,7 +319,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 509.0, 178.0, 322.0, 18.0 ],
+					"patching_rect" : [ 654.0, 191.0, 322.0, 18.0 ],
 					"text" : "namespace/append degrade~ { bitdepth samplerateRatio }"
 				}
 
@@ -857,7 +890,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 509.0, 90.0, 329.0, 34.0 ],
+					"patching_rect" : [ 654.0, 90.0, 329.0, 34.0 ],
 					"text" : "Select the namespace to manage before to store anything. \nThe order of addresses precises the order for the recall."
 				}
 
@@ -911,7 +944,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 509.0, 159.0, 170.0, 18.0 ],
+					"patching_rect" : [ 654.0, 172.0, 170.0, 18.0 ],
 					"text" : "namespace/append degrade~"
 				}
 
@@ -930,7 +963,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-47", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 550.5, 310.5, 235.5, 310.5 ],
+					"midpoints" : [ 695.5, 310.5, 235.5, 310.5 ],
 					"source" : [ "obj-11", 1 ]
 				}
 
@@ -939,7 +972,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-47", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 484.5, 310.0, 235.5, 310.0 ],
+					"midpoints" : [ 629.5, 310.0, 235.5, 310.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -948,7 +981,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 518.5, 282.5, 484.5, 282.5 ],
+					"midpoints" : [ 663.5, 282.5, 629.5, 282.5 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -1084,6 +1117,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-47", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 473.5, 310.0, 235.5, 310.0 ],
+					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"color" : [ 0.258824, 0.258824, 0.258824, 1.0 ],
 					"destination" : [ "obj-52", 0 ],
 					"hidden" : 1,
@@ -1096,7 +1138,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 518.5, 282.5, 484.5, 282.5 ],
+					"midpoints" : [ 663.5, 282.5, 629.5, 282.5 ],
 					"source" : [ "obj-3", 0 ]
 				}
 
@@ -1200,7 +1242,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 518.5, 282.5, 484.5, 282.5 ],
+					"midpoints" : [ 663.5, 282.5, 629.5, 282.5 ],
 					"source" : [ "obj-40", 0 ]
 				}
 
@@ -1219,7 +1261,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 518.5, 282.0, 484.5, 282.0 ],
+					"midpoints" : [ 663.5, 282.0, 629.5, 282.0 ],
 					"source" : [ "obj-42", 0 ]
 				}
 
@@ -1248,7 +1290,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 518.5, 282.5, 484.5, 282.5 ],
+					"midpoints" : [ 663.5, 282.5, 629.5, 282.5 ],
 					"source" : [ "obj-45", 0 ]
 				}
 
@@ -1273,6 +1315,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-28", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-48", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1284,7 +1335,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 518.5, 282.0, 484.5, 282.0 ],
+					"midpoints" : [ 663.5, 282.0, 629.5, 282.0 ],
 					"source" : [ "obj-5", 0 ]
 				}
 

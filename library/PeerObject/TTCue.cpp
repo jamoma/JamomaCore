@@ -670,3 +670,19 @@ TTErr TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position)
 	
 	return TTScriptInterpolate(cue1->mScript, cue2->mScript, position);
 }
+
+TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
+{
+	TTCuePtr	aCue;
+	TTValue		scripts;
+	TTUInt32	i;
+	
+	for (i = 0; i < cues.getSize(); i++) {
+		cues.get(i, (TTPtr*)&aCue);
+		aCue->mScript->sendMessage(TT("Bind"), kTTAdrsRoot, kTTValNONE);
+		
+		scripts.append((TTPtr)aCue->mScript);
+	}
+	
+	return TTScriptMix(scripts, factors);
+}

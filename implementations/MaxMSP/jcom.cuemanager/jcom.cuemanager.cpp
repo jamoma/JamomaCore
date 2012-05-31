@@ -165,6 +165,11 @@ void cue_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Interpolate 2 cues using their names and a ratio"));
 		
+		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Mix"), &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_description, TT("Mix several cues using their names followed by a factor"));
+		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);

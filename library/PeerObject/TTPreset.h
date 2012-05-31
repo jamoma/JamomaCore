@@ -53,6 +53,7 @@ private :
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	friend TTErr TTMODULAR_EXPORT TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position);
+	friend TTErr TTMODULAR_EXPORT TTPresetMix(const TTValue& presets, const TTValue& factors);
 };
 
 typedef TTPreset* TTPresetPtr;
@@ -63,5 +64,7 @@ TTBoolean	TTMODULAR_EXPORT TTPresetTestObject(TTNodePtr node, TTPtr args);
 TTBoolean	TTMODULAR_EXPORT TTPresetCompareNodePriority(TTValue& v1, TTValue& v2);
 
 TTErr		TTMODULAR_EXPORT TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position);
+
+TTErr		TTMODULAR_EXPORT TTPresetMix(const TTValue& presets, const TTValue& factors);
 
 #endif // __TT_PRESET_H__

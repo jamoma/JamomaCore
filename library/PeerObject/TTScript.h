@@ -84,6 +84,7 @@ private:
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	friend	TTErr TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position);
+	friend	TTErr TTMODULAR_EXPORT TTScriptMix(const TTValue& scripts, const TTValue& factors);
 	
 };
 
@@ -116,6 +117,11 @@ TTSymbolPtr		TTMODULAR_EXPORT TTScriptParseFlagName(TTSymbolPtr toParse);
 /* Interpolate between two scripts
    note : we assume that the Bind method have been called before on the two scripts */
 TTErr			TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position);
+
+/* Mix several scripts together
+   note : we assume that the Bind method have been called before on each scripts */
+TTErr			TTMODULAR_EXPORT TTScriptMix(const TTValue& scripts, const TTValue& factors);
+TTFloat64		TTMODULAR_EXPORT TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbolPtr dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init=NO);
 
 /* a TTFunctionMatch to find a line in the script */
 void			TTMODULAR_EXPORT TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBoolean& found);

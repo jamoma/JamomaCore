@@ -37,6 +37,7 @@ mCurrentPreset(NULL)
 	addMessageWithArguments(Store);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Interpolate);
+	addMessageWithArguments(Mix);
 	addMessageWithArguments(Remove);
 
 	// needed to be handled by a TTXmlHandler
@@ -222,6 +223,39 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTUInt32 i, mixSize;
+	TTSymbolPtr name;
+	TTPresetPtr preset;
+	TTValue		v, presets, factors;
+	
+	mixSize = inputValue.getSize() / 2;
+	if (inputValue.getSize() != mixSize * 2)
+		return kTTErrGeneric;
+	
+	for (i = 0; i < mixSize * 2; i = i+2) {
+		
+		if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat32) {
+			
+			inputValue.get(i, &name);
+			
+			// if preset exist
+			if (!mPresets->lookup(name, v)) {
+				
+				v.get(0, (TTPtr*)&preset);
+				
+				if (preset) {
+					presets.append((TTPtr)preset);
+					factors.append((TTFloat64)inputValue.getFloat32(i+1));
+				}
+			}
+		}
+	}
+	
+	return TTPresetMix(presets, factors);
 }
 
 TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)

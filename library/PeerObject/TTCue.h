@@ -82,6 +82,7 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	TTErr	processRamp(TTObjectPtr aScript, TTUInt32 ramp);
 	
 	friend TTErr TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
+	friend TTErr TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
 };
 
 typedef TTCue* TTCuePtr;
@@ -111,4 +112,7 @@ TTErr			TTMODULAR_EXPORT TTCueNamespaceRemove(NamespacePtr aNamespaceToRemove, N
 void			TTMODULAR_EXPORT TTCueNamespaceFindItem(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found);
 
 TTErr			TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
+
+TTErr			TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
+
 #endif // __TT_CUE_H__

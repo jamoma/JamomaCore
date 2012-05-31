@@ -282,3 +282,19 @@ TTErr TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 positi
 	
 	return TTScriptInterpolate(preset1->mScript, preset2->mScript, position);
 }
+
+TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
+{
+	TTPresetPtr aPreset;
+	TTValue		scripts;
+	TTUInt32	i;
+	
+	for (i = 0; i < presets.getSize(); i++) {
+		presets.get(i, (TTPtr*)&aPreset);
+		aPreset->mScript->sendMessage(TT("Bind"), aPreset->mAddress, kTTValNONE);
+		
+		scripts.append((TTPtr)aPreset->mScript);
+	}
+	
+	return TTScriptMix(scripts, factors);
+}

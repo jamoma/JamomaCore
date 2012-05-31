@@ -54,6 +54,9 @@ private:
 	TTErr	Interpolate(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
+	TTErr	Mix(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** */
 	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler */
