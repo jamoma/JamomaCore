@@ -9,8 +9,8 @@
  </preset>
  <preset name="standard setup">
  <!--this is an usual setup for this model-->
-  <command address="myParameter" ramp="5000">0.030000</command>
-  <command address="myIndex" unit="db" ramp="3000">56</command>
+  <command address="myParameter">0.030000</command>
+  <command address="myIndex" unit="db">56</command>
   <command address="myLabel">foo</command>
   <command address="any">33 gege 7.900000</command>
  </preset>
