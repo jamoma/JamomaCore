@@ -385,7 +385,8 @@ TTErr TTData::getValue(TTValue& value)
 
 TTErr TTData::setValue(const TTValue& value)
 {
-	TTValue r, n;
+	TTValue		r, n;
+	TTString	s;
 	
 	if (!mIsSending && mEnable) {
 		
@@ -422,7 +423,16 @@ TTErr TTData::setValue(const TTValue& value)
 			clipValue();
 #endif
 		}
+		// in string case : change anything to string
+		else if (mType == kTTSym_string) {
+		
+			mValue = value;
+			mValue.toString();
+			mValue.get(0, s);
+			mValue = TTValue(TT(s.data()));
+		}
 		else {
+			
 			// unlock
 			mIsSending = NO;
 			return kTTErrInvalidValue;
