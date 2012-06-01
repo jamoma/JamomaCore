@@ -14,7 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
-mNames(kTTValNONE),
+mOrder(kTTValNONE),
 mCurrent(kTTSymEmpty),
 mPresets(NULL),
 mCurrentPreset(NULL)
@@ -23,7 +23,7 @@ mCurrentPreset(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
-	addAttributeWithSetter(Names, kTypeLocalValue);
+	addAttributeWithSetter(Order, kTypeLocalValue);
 	
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
@@ -83,10 +83,10 @@ TTErr TTPresetManager::setAddress(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::setNames(const TTValue& value)
+TTErr TTPresetManager::setOrder(const TTValue& value)
 {	
 	TTSymbolPtr name;
-	TTValue		v, newNames;
+	TTValue		v, newOrder;
 	
 	// check if each name is part of the list
 	for (TTUInt32 i=0; i<value.getSize(); i++) {
@@ -94,14 +94,14 @@ TTErr TTPresetManager::setNames(const TTValue& value)
 		value.get(i, &name);
 		
 		if (!mPresets->lookup(name, v))
-			newNames.append(name);
+			newOrder.append(name);
 	}
 	
-	// if the newNames size is equal to the current name list 
-	if (newNames.getSize() != mNames.getSize())
+	// if the newOrder size is equal to the current name list 
+	if (newOrder.getSize() != mOrder.getSize())
 		return kTTErrGeneric;
 
-	mNames = newNames;
+	mOrder = newOrder;
 	return kTTErrNone;
 }
 
@@ -127,9 +127,9 @@ TTErr TTPresetManager::New()
 		mPresets = new TTHash();
 		mCurrentPreset = NULL;
 		mCurrent = kTTSymEmpty;
-		mNames = kTTValNONE;
+		mOrder = kTTValNONE;
 		
-		notifyNamesObservers();
+		notifyOrderObservers();
 	}
 	
 	return kTTErrNone;
@@ -159,9 +159,9 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		// Append the new preset
 		v = TTValue((TTPtr)mCurrentPreset);
 		mPresets->append(mCurrent, v);
-		mNames.append(mCurrent);
+		mOrder.append(mCurrent);
 		
-		notifyNamesObservers();
+		notifyOrderObservers();
 	}
 	else {
 		v.get(0, (TTPtr*)&mCurrentPreset);
@@ -261,7 +261,7 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr name;
-	TTValue		v, newNames;
+	TTValue		v, newOrder;
 	
 	// get preset name
 	if (inputValue.getType() == kTypeSymbol)
@@ -275,19 +275,19 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		mPresets->remove(mCurrent);
 		
 		// remove the name without changing the order
-		for (TTUInt32 i=0; i<mNames.getSize(); i++) {
+		for (TTUInt32 i=0; i<mOrder.getSize(); i++) {
 			
-			mNames.get(i, &name);
+			mOrder.get(i, &name);
 			
 			if (name != mCurrent)
-				newNames.append(name);
+				newOrder.append(name);
 		}
 		
 		mCurrentPreset = NULL;
 		mCurrent = kTTSymEmpty;
-		mNames = newNames;
+		mOrder = newOrder;
 		
-		notifyNamesObservers();
+		notifyOrderObservers();
 		
 		return kTTErrNone;
 	}
@@ -304,9 +304,9 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
-	for (i = 0; i < mNames.getSize(); i++) {
+	for (i = 0; i < mOrder.getSize(); i++) {
 		
-		mNames.get(i, &presetName);
+		mOrder.get(i, &presetName);
 		if (!mPresets->lookup(presetName, v)) {
 			
 			// start to write a preset
@@ -345,11 +345,11 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	// Ends file reading : bind on first preset
 	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
 		
-		mNames.get(0, &mCurrent);
+		mOrder.get(0, &mCurrent);
 		if (!mPresets->lookup(mCurrent, v))
 			v.get(0, (TTPtr*)&mCurrentPreset);
 		
-		notifyNamesObservers();
+		notifyOrderObservers();
 		
 		return kTTErrNone;
 	}
@@ -376,7 +376,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 				
 				v = TTValue((TTPtr)mCurrentPreset);
 				mPresets->append(mCurrent, v);
-				mNames.append(mCurrent);
+				mOrder.append(mCurrent);
 			}
 			
 			// go back to the element to allow the preset to parse it
@@ -406,9 +406,9 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 	
 	buffer = aTextHandler->mWriter;
 	
-	for (TTUInt32 i = 0; i < mNames.getSize(); i++) {
+	for (TTUInt32 i = 0; i < mOrder.getSize(); i++) {
 		
-		mNames.get(i, &presetName);
+		mOrder.get(i, &presetName);
 		if (!mPresets->lookup(presetName, v)) {
 			
 			*buffer += "\n";
@@ -464,7 +464,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 					
 					v = TTValue((TTPtr)mCurrentPreset);
 					mPresets->append(mCurrent, v);
-					mNames.append(mCurrent);
+					mOrder.append(mCurrent);
 				}
 			}
 		}
@@ -480,11 +480,11 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 		// if it is the last line : bind on the first preset
 		if (aTextHandler->mLastLine) {
 			
-			mNames.get(0, &mCurrent);
+			mOrder.get(0, &mCurrent);
 			if (!mPresets->lookup(mCurrent, v))
 				v.get(0, (TTPtr*)&mCurrentPreset);
 			
-			notifyNamesObservers();
+			notifyOrderObservers();
 		}
 		
 		return kTTErrNone;
@@ -493,15 +493,15 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 	return kTTErrGeneric;
 }
 
-TTErr TTPresetManager::notifyNamesObservers()
+TTErr TTPresetManager::notifyOrderObservers()
 {
 	TTAttributePtr	anAttribute = NULL;
 	TTErr			err;
 	
-	err = this->findAttribute(TT("names"), &anAttribute);
+	err = this->findAttribute(kTTSym_order, &anAttribute);
 	
 	if (!err)
-		anAttribute->sendNotification(kTTSym_notify, mNames);	// we use kTTSym_notify because we know that observers are TTCallback
+		anAttribute->sendNotification(kTTSym_notify, mOrder);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }

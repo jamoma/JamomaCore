@@ -70,8 +70,10 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_model;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_name;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_names;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
+
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_object;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_order;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_parameter;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_preview;
@@ -90,7 +92,6 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_script;
-//TTMODULAR_EXPORT TTSymbolPtr	kTTSym_selected;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;
@@ -167,10 +168,10 @@ void TTModularSymbolCacheInit()
 	kTTSym_mute						= TT("mute");
 	
 	kTTSym_name						= TT("name");
-	kTTSym_names					= TT("names");
 	kTTSym_none						= TT("none");
 	
 	kTTSym_object					= TT("object");
+	kTTSym_order					= TT("order");
 	
 	kTTSym_parameter				= TT("parameter");
 	kTTSym_preview					= TT("preview");
@@ -189,7 +190,6 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_Send						= TT("Send");
 	kTTSym_script					= TT("script");
-//	kTTSym_selected					= TT("selected");
 	kTTSym_service					= TT("service");
 	kTTSym_sharp					= TT("#");
 	kTTSym_start					= TT("start");

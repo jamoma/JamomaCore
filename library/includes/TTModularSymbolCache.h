@@ -69,10 +69,10 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_model;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_name;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_names;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_object;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_order;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_parameter;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_preview;
@@ -91,7 +91,6 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_script;
-//extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_selected;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;

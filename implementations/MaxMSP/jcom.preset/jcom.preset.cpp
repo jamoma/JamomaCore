@@ -31,7 +31,7 @@ void		WrappedPresetManageClass_free(TTPtr self);
 
 void		preset_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
-void		preset_return_names(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void		preset_return_order(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 void		preset_filechanged(TTPtr self, char *filename, short path);
 
 void		preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -70,7 +70,7 @@ void WrapTTPresetManagerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)preset_assist,					"assist",				A_CANT, 0L);
 	
-	class_addmethod(c->maxClass, (method)preset_return_names,			"return_names",			A_CANT, 0);
+	class_addmethod(c->maxClass, (method)preset_return_order,			"return_order",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)preset_filechanged,			"filechanged",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)preset_read,					"preset_read",			A_CANT, 0);
@@ -210,11 +210,11 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Remove a preset using a name"));		
 		
-		// expose attributes of TTPreset as TTData in the tree structure
-		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_names, kTTSym_return, &aData);
+		// expose attributes of TTPresetManager as TTData in the tree structure
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_order, kTTSym_return, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("The preset name list"));
+		aData->setAttributeValue(kTTSym_description, TT("The order of the preset list"));
 		
 		// create internal TTXmlHandler
 		aXmlHandler = NULL;
@@ -278,10 +278,10 @@ void preset_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
-void preset_return_names(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void preset_return_order(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[data_out], gensym("names"), argc, argv);
+	outlet_anything(x->outlets[data_out], gensym("order"), argc, argv);
 }
 
 void preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

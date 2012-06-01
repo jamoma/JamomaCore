@@ -304,8 +304,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 162.0, 139.0, 32.0 ],
-					"text" : "names \"standard setup\" \"another case\" default"
+					"patching_rect" : [ 182.0, 162.0, 131.0, 32.0 ],
+					"text" : "order \"standard setup\" \"another case\" default"
 				}
 
 			}
@@ -390,7 +390,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "", "", "", "", "" ],
 					"patching_rect" : [ 280.0, 342.0, 238.0, 20.0 ],
-					"text" : "route names current read error"
+					"text" : "route order current read error"
 				}
 
 			}
@@ -889,7 +889,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 606.0, 335.0, 57.0, 18.0 ],
-					"text" : "31."
+					"text" : "45"
 				}
 
 			}
@@ -1002,8 +1002,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 287.0, 91.0, 18.0 ],
-					"text" : "names, current"
+					"patching_rect" : [ 182.0, 287.0, 82.0, 18.0 ],
+					"text" : "order, current"
 				}
 
 			}

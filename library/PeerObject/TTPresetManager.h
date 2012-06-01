@@ -29,7 +29,7 @@ class TTMODULAR_EXPORT TTPresetManager : public TTDataObject
 private:
 	
 	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the container address to manage
-	TTValue				mNames;							///< ATTRIBUTE : all preset names
+	TTValue				mOrder;							///< ATTRIBUTE : presets are ordered by name
 	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current preset name
 
 	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>
@@ -39,7 +39,7 @@ private:
 	TTErr	setAddress(const TTValue& value);
 	
 	/** */
-	TTErr	setNames(const TTValue& value);
+	TTErr	setOrder(const TTValue& value);
 
 	/** */
 	TTErr	New();
@@ -68,7 +68,7 @@ private:
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr	notifyNamesObservers();
+	TTErr	notifyOrderObservers();
 };
 
 typedef TTPresetManager* TTPresetManagerPtr;

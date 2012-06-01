@@ -31,7 +31,7 @@ class TTMODULAR_EXPORT TTCueManager : public TTDataObject
 	
 private:
 	
-	TTValue				mNames;							///< ATTRIBUTE : all cue names
+	TTValue				mOrder;							///< ATTRIBUTE : cues are ordered by name
 	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current cue name
 	TTValue				mCurrentNamespace;				///< ATTRIBUTE : the set of addresses of the current cue
 	NamespacePtr		mNamespace;						///< ATTRIBUTE : a namespace to manage before to store
@@ -40,7 +40,7 @@ private:
 	TTCuePtr			mCurrentCue;					///< the current cue
 	
 	/** */
-	TTErr	setNames(const TTValue& value);
+	TTErr	setOrder(const TTValue& value);
 	
 	/** */
 	TTErr	getCurrentNamespace(TTValue& value);
@@ -102,7 +102,7 @@ private:
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr	notifyNamesObservers();
+	TTErr	notifyOrderObservers();
 };
 
 typedef TTCueManager* TTCueManagerPtr;

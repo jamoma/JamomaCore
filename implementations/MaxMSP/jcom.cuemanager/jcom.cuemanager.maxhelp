@@ -42,9 +42,9 @@
 							"revision" : 9
 						}
 ,
-						"rect" : [ 1022.0, 44.0, 419.0, 305.0 ],
+						"rect" : [ 1021.0, 44.0, 419.0, 305.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 1022.0, 44.0, 419.0, 305.0 ],
+						"defrect" : [ 1021.0, 44.0, 419.0, 305.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -59,7 +59,6 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"bgcolor2" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
@@ -303,13 +302,13 @@
 ,
 					"patching_rect" : [ 209.0, 215.0, 107.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"fontname" : "Arial",
 						"default_fontname" : "Arial",
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p sequencing"
@@ -583,7 +582,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 845.0, 128.0, 181.0, 62.0 ],
+					"patching_rect" : [ 845.0, 128.0, 184.0, 62.0 ],
 					"text" : "precise only model addresses to manage all parameters inside \nor select model and which parameter to manage"
 				}
 
@@ -711,7 +710,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 165.0, 103.0, 34.0 ],
+					"patching_rect" : [ 310.0, 165.0, 103.0, 34.0 ],
 					"text" : "change the order of the cue list"
 				}
 
@@ -770,8 +769,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 165.0, 135.0, 32.0 ],
-					"text" : "names \"Act I - Scene I\" \"Act I - Scene II\" Init"
+					"patching_rect" : [ 182.0, 165.0, 127.0, 32.0 ],
+					"text" : "order \"Act I - Scene I\" \"Act I - Scene II\" Init"
 				}
 
 			}
@@ -800,7 +799,7 @@
 					"numoutlets" : 7,
 					"outlettype" : [ "", "", "", "", "", "", "" ],
 					"patching_rect" : [ 313.0, 340.0, 388.0, 20.0 ],
-					"text" : "route names current current/namespace namespace current/ramp read"
+					"text" : "route order current current/namespace namespace current/ramp read"
 				}
 
 			}
@@ -837,7 +836,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-63",
-					"items" : "initialState",
+					"items" : "Init",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1167,8 +1166,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 287.0, 275.0, 18.0 ],
-					"text" : "names, current, current/namespace, current/ramp"
+					"patching_rect" : [ 182.0, 287.0, 266.0, 18.0 ],
+					"text" : "order, current, current/namespace, current/ramp"
 				}
 
 			}

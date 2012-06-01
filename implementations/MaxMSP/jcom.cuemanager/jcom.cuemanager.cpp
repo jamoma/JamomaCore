@@ -29,6 +29,8 @@ void		WrappedCueManageClass_free(TTPtr self);
 
 void		cue_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
+void		cue_return_order(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+
 void		cue_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_read_again(TTPtr self);
@@ -62,6 +64,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTCueManagerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)cue_assist,				"assist",				A_CANT, 0L);
+	
+	class_addmethod(c->maxClass, (method)cue_return_order,			"return_order",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)cue_read,					"cue_read",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)cue_write,					"cue_write",			A_CANT, 0);
@@ -175,11 +179,11 @@ void cue_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Remove a cue using his name"));
 		
-		// expose attributes of TTCue as TTData in the tree structure
-		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_names, kTTSym_return, &aData);
+		// expose attributes of TTCueManager as TTData in the tree structure
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_order, kTTSym_return, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("The cue name list"));
+		aData->setAttributeValue(kTTSym_description, TT("The order of the cue list"));
 		
 		// create internal TTXmlHandler and internal messages for Read and Write
 		aXmlHandler = NULL;
@@ -224,6 +228,12 @@ void cue_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 				break;
 		}
  	}
+}
+
+void cue_return_order(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	outlet_anything(x->outlets[data_out], gensym("order"), argc, argv);
 }
 
 void cue_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
