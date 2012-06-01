@@ -227,7 +227,7 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
 
 TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt32 i, mixSize;
+	TTUInt32	i, mixSize;
 	TTSymbolPtr name;
 	TTPresetPtr preset;
 	TTValue		v, presets, factors;

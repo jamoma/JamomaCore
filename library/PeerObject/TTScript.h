@@ -85,6 +85,8 @@ private:
 	
 	friend	TTErr TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position);
 	friend	TTErr TTMODULAR_EXPORT TTScriptMix(const TTValue& scripts, const TTValue& factors);
+	friend	TTErr TTMODULAR_EXPORT TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript);
+	friend	TTErr TTMODULAR_EXPORT TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScriptPtr optimizedScript);
 	
 };
 
@@ -123,7 +125,20 @@ TTErr			TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr sc
 TTErr			TTMODULAR_EXPORT TTScriptMix(const TTValue& scripts, const TTValue& factors);
 TTFloat64		TTMODULAR_EXPORT TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbolPtr dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init=NO);
 
-/* a TTFunctionMatch to find a line in the script */
+/* Merge a script into another without redundant command lines */
+TTErr			TTMODULAR_EXPORT TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript);
+
+/* Optimize a script comparing to another to remove redundant command lines */
+TTErr			TTMODULAR_EXPORT TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScriptPtr optimizedScript);
+
+/* a TTFunctionMatch to find a line in the script depending on the object it binds */
 void			TTMODULAR_EXPORT TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBoolean& found);
+
+/* a TTFunctionMatch to find a line in the script depending on the address */
+void			TTMODULAR_EXPORT TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found);
+
+/* Copy a line */
+TTDictionaryPtr	TTMODULAR_EXPORT TTScriptCopyLine(TTDictionaryPtr lineTocopy);
+
 
 #endif // __TT_SCRIPT_H__

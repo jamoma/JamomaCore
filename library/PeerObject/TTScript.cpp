@@ -1099,24 +1099,20 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 		
 		firstScript->mLines->current().get(0, (TTPtr*)&firstScriptLine);
 		
-		firstScriptLineSchema = firstScriptLine->getSchema();
-		
-		// only mix command or script line
-		if (firstScriptLineSchema != kTTSym_command && firstScriptLineSchema != kTTSym_script) {
-			for (i = 1; i < mixSize; i++) {
-				scripts.get(i, (TTPtr*)&aScript);
-				aScript->mLines->next();
-			}
-			continue;
-		}
-		
 		// get object
 		anObject = NULL;
 		if (!firstScriptLine->lookup(kTTSym_object, v))
 			v.get(0, (TTPtr*)&anObject);
-		else continue;
 		
-		if (firstScriptLineSchema == kTTSym_command) {
+		else {
+			for (i = 1; i < mixSize; i++) {
+				scripts.get(i, (TTPtr*)&aScript);
+				aScript->mLines->next();
+			}
+			continue;			
+		}
+		
+		if (firstScriptLine->getSchema() == kTTSym_command) {
 			
 			if (!anObject->getAttributeValue(kTTSym_type, v))
 				v.get(0, &dataType);
@@ -1172,7 +1168,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 				anObject->setAttributeValue(kTTSym_value, mixedValue);
 			}
 		}
-		else if (firstScriptLineSchema == kTTSym_script) {
+		else if (firstScriptLine->getSchema() == kTTSym_script) {
 			
 			subScripts.clear();
 			
@@ -1267,6 +1263,222 @@ TTFloat64 TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbolPtr dataType, TTUIn
     return factor * mixWeight;
 }
 
+TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
+{
+	TTDictionaryPtr		lineToMerge, mergedLine;
+	TTScriptPtr			subScriptToMerge, mergedSubScript;
+	TTNodeAddressPtr	addressToMerged, mergedAddress;
+	TTValue				v, valueToMerged, mergedValue, found, parsedLine;
+	TTBoolean			merged = NO; // to know if a line have already been merged
+	TTErr				err;
+	
+	if (!scriptToMerge->mLines || !mergedScript->mLines)
+		return kTTErrGeneric;
+	
+	for (scriptToMerge->mLines->begin(); scriptToMerge->mLines->end(); scriptToMerge->mLines->next()) {
+		
+		scriptToMerge->mLines->current().get(0, (TTPtr*)&lineToMerge);
+		
+		// get address
+		addressToMerged = NULL;
+		if (!lineToMerge->lookup(kTTSym_address, v))
+			v.get(0, &addressToMerged);
+		
+		if (addressToMerged) {
+			
+			// try to find a line for this address into the merged script
+			merged = NO;
+			if (mergedScript->mLines) {
+				
+				mergedScript->mLines->find(&TTScriptFindAddress, (TTPtr)addressToMerged, found);
+				
+				if (!(found == kTTValNONE)) {
+					found.get(0, (TTPtr*)&mergedLine);
+					merged = YES;
+				}
+			}
+			
+			// merge a line depending on his schema
+			if (lineToMerge->getSchema() == kTTSym_command) {
+				
+				// if this script line haven't been merged yet
+				if (!merged) {
+					// copy the command line and append it to the merged script
+					v = TTValue((TTPtr)TTScriptCopyLine(lineToMerge));
+					mergedScript->Append(v, parsedLine);
+				}
+				else {
+					// get lines value
+					lineToMerge->getValue(valueToMerged);
+					mergedLine->getValue(mergedValue);
+				
+					// don't merge a command if it already exists
+					if (valueToMerged == mergedValue)
+						continue;
+					
+					// otherwise replace by the value to merge
+					mergedLine->setValue(valueToMerged);
+				}
+			}
+			else if (lineToMerge->getSchema() == kTTSym_script) {
+				
+				// get the sub scripts
+				subScriptToMerge = NULL;
+				if (!lineToMerge->getValue(v))
+					v.get(0, (TTPtr*)&subScriptToMerge);
+				
+				// if this script line haven't been merged yet
+				if (!merged)
+					// create a line for the merged sub script
+					mergedLine = TTScriptParseScript(addressToMerged);
+				
+				// get the new sub script
+				mergedSubScript = NULL;
+				mergedLine->getValue(v);
+				v.get(0, (TTPtr*)&mergedSubScript);
+				
+				// merge the sub scripts if they exist
+				if (subScriptToMerge && mergedSubScript) {
+					
+					err = TTScriptMerge(subScriptToMerge, mergedSubScript);
+					
+					// if this script line haven't been merged yet
+					if (!merged) {
+						
+						// append the line to the merged script
+						v = TTValue((TTPtr)mergedLine);
+						mergedScript->Append(v, parsedLine);
+					}
+				}
+			}
+		}
+		// else copy the line and append it to the merged script
+		else {
+			v = TTValue((TTPtr)TTScriptCopyLine(lineToMerge));
+			mergedScript->Append(v, parsedLine);
+		}
+	}
+	
+	return kTTErrNone;	
+}
+
+TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScriptPtr optimizedScript)
+{
+	TTDictionaryPtr		lineToOptimize, aLine, optimizedLine;
+	TTScriptPtr			subScriptToOptimize, aSubScript, optimizedSubScript;
+	TTNodeAddressPtr	addressToOptimize, address;
+	TTValue				v, valueToOptimize, value, found, parsedLine;
+	TTBoolean			empty = YES; // to know if the optimized script contains at least one command
+	TTErr				err;
+	
+	if (!aScriptToOptimize->mLines || !aScript->mLines)
+		return kTTErrGeneric;
+	
+	for (aScriptToOptimize->mLines->begin(), aScript->mLines->begin(); 
+		 aScriptToOptimize->mLines->end() && aScript->mLines->end(); 
+		 aScriptToOptimize->mLines->next(), aScript->mLines->next()) {
+		
+		aScriptToOptimize->mLines->current().get(0, (TTPtr*)&lineToOptimize);
+		aScript->mLines->current().get(0, (TTPtr*)&aLine);
+		
+		// get addresses
+		addressToOptimize = NULL;
+		if (!lineToOptimize->lookup(kTTSym_address, v))
+			v.get(0, &addressToOptimize);
+
+		address = NULL;
+		if (!aLine->lookup(kTTSym_address, v))
+			v.get(0, &address);
+		
+		if (addressToOptimize && address) {
+			
+			// the both addresses have to be the same
+			if (addressToOptimize != address) {
+				aScript->mLines->find(&TTScriptFindAddress, (TTPtr)addressToOptimize, found);
+				
+				// couldn't find the same address in the script : skip the command
+				if (found == kTTValNONE) {
+					aScript->mLines->begin();
+					continue;
+				}
+				else
+					found.get(0, (TTPtr*)&aLine);
+			}
+			
+			// optimize the line depending on the schema
+			if (lineToOptimize->getSchema() == kTTSym_command && aLine->getSchema() == kTTSym_command) {
+				
+				// get line values
+				lineToOptimize->getValue(valueToOptimize);
+				aLine->getValue(value);
+				
+				// don't copy a command if it already exists
+				if (valueToOptimize == value)
+					continue;
+				
+				// copy the command line and append it to the optimized script
+				v = TTValue((TTPtr)TTScriptCopyLine(lineToOptimize));
+				optimizedScript->Append(v, parsedLine);
+				
+				// the optimized script contains at least one command line now
+				empty = NO;
+			}
+			else if (lineToOptimize->getSchema() == kTTSym_script && aLine->getSchema() == kTTSym_script) {
+				
+				// get the sub scripts
+				subScriptToOptimize = NULL;
+				if (!lineToOptimize->getValue(v))
+					v.get(0, (TTPtr*)&subScriptToOptimize);
+				
+				aSubScript = NULL;
+				if (!aLine->getValue(v))
+					v.get(0, (TTPtr*)&aSubScript);
+				
+				// optimize the sub scripts if they exist
+				if (subScriptToOptimize && aSubScript) {
+					
+					// create a line for the optimized sub script
+					optimizedLine = TTScriptParseScript(addressToOptimize);
+					
+					// get the new sub script
+					optimizedSubScript = NULL;
+					optimizedLine->getValue(v);
+					v.get(0, (TTPtr*)&optimizedSubScript);
+					
+					err = TTScriptOptimize(subScriptToOptimize, aSubScript, optimizedSubScript);
+					
+					// if no error occurs during th optimization of the sub script
+					if (!err) {
+						
+						// copy the script line and append it to the optimized script
+						v = TTValue((TTPtr)optimizedLine);
+						optimizedScript->Append(v, parsedLine);
+						
+						// the optimized script contains at least one command line now
+						empty = NO;
+					}
+					else {
+						
+						// delete the line and his sub script
+						TTObjectRelease(TTObjectHandle(&optimizedSubScript));
+						delete optimizedLine;
+					}
+				}
+			}
+		}
+		// else copy the line and append it to the optimized script
+		else {
+			v = TTValue((TTPtr)TTScriptCopyLine(lineToOptimize));
+			optimizedScript->Append(v, parsedLine);
+		}
+	}
+	
+	if (empty)
+		return kTTErrGeneric;
+	
+	return kTTErrNone;	
+}
+
 void TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBoolean& found)
 {
 	TTDictionaryPtr aLine;
@@ -1279,4 +1491,36 @@ void TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBool
 		v.get(0, (TTPtr*)&object);
 	
 	found = object == ((TTObjectPtr)objectPtrToMatch);
+}
+
+void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found)
+{
+	TTDictionaryPtr		aLine;
+	TTNodeAddressPtr	address;
+	TTValue				v;
+	
+	lineValue.get(0, (TTPtr*)&aLine);
+	
+	if (!aLine->lookup(kTTSym_address, v))
+		v.get(0, &address);
+	
+	found = address == ((TTNodeAddressPtr)addressPtrToMatch);
+}
+
+TTDictionaryPtr TTScriptCopyLine(TTDictionaryPtr lineTocopy)
+{
+	TTValue		keys, v;
+	TTSymbolPtr key;
+	TTUInt32	i;
+	
+	TTDictionaryPtr newLine = new TTDictionary();
+	
+	lineTocopy->getKeys(keys);
+	for (i = 0; i < keys.getSize(); i++) {
+		keys.get(i, &key);
+		lineTocopy->lookup(key, v);
+		newLine->append(key, v);
+	}
+	
+	return newLine;
 }

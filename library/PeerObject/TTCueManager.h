@@ -89,6 +89,10 @@ private:
 		nothing : remove the current cue */
 	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Sequence a sub set of cues clearing redundant command lines :
+		name1, name2, name3, ... : make the optimization between all given cues. */
+	TTErr	Sequence(const TTValue& inputValue, TTValue& outputValue);
+	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromXml(const TTValue& inputValue, TTValue& outputValue);

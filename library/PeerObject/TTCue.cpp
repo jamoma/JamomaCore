@@ -686,3 +686,13 @@ TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
 	
 	return TTScriptMix(scripts, factors);
 }
+
+TTErr TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue)
+{
+	return TTScriptMerge(aCueToMerge->mScript, mergedCue->mScript);
+}
+
+TTErr TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue)
+{
+	return TTScriptOptimize(aCueToOptimize->mScript, aCue->mScript, optimizedCue->mScript);
+}

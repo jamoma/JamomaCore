@@ -47,6 +47,7 @@ mCurrentCue(NULL)
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Remove);
+	addMessageWithArguments(Sequence);
 	
 	// needed to be handled by a TTXmlHandler
 	addMessageWithArguments(WriteAsXml);
@@ -124,10 +125,11 @@ TTErr TTCueManager::getCurrentRamp(TTValue& value)
 		v.get(0, (TTPtr*)&mCurrentCue);
 		
 		if (mCurrentCue) {
-			mCurrentCue->getAttributeValue(TT("ramp"), value);
+			return mCurrentCue->getAttributeValue(TT("ramp"), value);
 		}
 	}
 	
+	value = kTTVal0;
 	return kTTErrGeneric;
 }
 
@@ -316,9 +318,9 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt32 i, mixSize;
+	TTUInt32	i, mixSize;
 	TTSymbolPtr name;
-	TTPresetPtr cue;
+	TTCuePtr	cue;
 	TTValue		v, cues, factors;
 	
 	mixSize = inputValue.getSize() / 2;
@@ -383,6 +385,65 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTUInt32	i;
+	TTSymbolPtr nameToMerge, nameToOptimize;
+	TTCuePtr	aCueToMerge, aCueToOptimize, stateCue, optimizedCue;
+	TTValue		v;
+	TTErr		err;
+	
+	// create an empty cue to merge the current state into
+	stateCue = NULL;
+	TTObjectInstantiate(TT("Cue"), TTObjectHandle(&stateCue), kTTValNONE);
+	
+	// merge and optimize each cues except the first
+	for (i = 1; i < inputValue.getSize(); i++) {
+		
+		if (inputValue.getType(i-1) == kTypeSymbol && inputValue.getType(i) == kTypeSymbol) {
+			
+			inputValue.get(i-1, &nameToMerge);
+			inputValue.get(i, &nameToOptimize);
+			
+			// if cue exists
+			aCueToMerge = NULL;
+			if (!mCues->lookup(nameToMerge, v))
+				v.get(0, (TTPtr*)&aCueToMerge);
+			
+			aCueToOptimize = NULL;
+			if (!mCues->lookup(nameToOptimize, v))
+				v.get(0, (TTPtr*)&aCueToOptimize);
+				
+			if (aCueToMerge && aCueToOptimize) {
+				
+				// merge the cue before into the current state
+				TTCueMerge(aCueToMerge, stateCue);
+				
+				// create an empty cue to store the result of optimization
+				optimizedCue = NULL;
+				TTObjectInstantiate(TT("Cue"), TTObjectHandle(&optimizedCue), kTTValNONE);
+				optimizedCue->setAttributeValue(kTTSym_name, nameToOptimize);
+				
+				// optimize the cue considering the current state
+				err = TTCueOptimize(aCueToOptimize, stateCue, optimizedCue);
+				
+				if (!err) {
+					
+					// replace the cue to optimize by the optimized cue
+					TTObjectRelease(TTObjectHandle(&aCueToOptimize));
+					mCues->remove(nameToOptimize);
+					v = TTValue((TTPtr)optimizedCue);
+					mCues->append(nameToOptimize, v);
+				}
+				else
+					TTObjectRelease(TTObjectHandle(&optimizedCue));
+			}
+		}
+	}
+	
+	return kTTErrNone;
 }
 
 TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)

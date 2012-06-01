@@ -83,6 +83,8 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	
 	friend TTErr TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 	friend TTErr TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
+	friend TTErr TTMODULAR_EXPORT TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue);
+	friend TTErr TTMODULAR_EXPORT TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue);
 };
 
 typedef TTCue* TTCuePtr;
@@ -114,5 +116,9 @@ void			TTMODULAR_EXPORT TTCueNamespaceFindItem(const TTValue& itemValue, TTPtr i
 TTErr			TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 
 TTErr			TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
+
+TTErr			TTMODULAR_EXPORT TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue);
+
+TTErr			TTMODULAR_EXPORT TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue);
 
 #endif // __TT_CUE_H__
