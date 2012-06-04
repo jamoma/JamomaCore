@@ -144,7 +144,8 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 71.0, 310.0, 142.0, 27.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 153.0, 360.0, 149.0, 27.0 ]
+					"presentation_rect" : [ 153.0, 360.0, 149.0, 27.0 ],
+					"text" : "Current Step : 1"
 				}
 
 			}
@@ -678,12 +679,12 @@
 ,
 									"patching_rect" : [ 64.0, 143.0, 67.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"globalpatchername" : "",
+										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"default_fontface" : 0,
-										"fontname" : "Arial",
 										"default_fontname" : "Arial"
 									}
 ,
@@ -828,12 +829,12 @@
 ,
 					"patching_rect" : [ 56.0, 49.0, 19.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
+						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"fontname" : "Arial",
 						"default_fontname" : "Arial"
 					}
 ,

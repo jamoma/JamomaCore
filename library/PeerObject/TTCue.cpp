@@ -42,14 +42,12 @@ NamespaceItem::~NamespaceItem()
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
-mComment(TT("TODO : edit comment")),
 mRamp(0),
 mScript(NULL)
 {
 	TTValue args;
 	
 	addAttribute(Name, kTypeSymbol);
-	addAttribute(Comment, kTypeSymbol);
 	addAttributeWithSetter(Ramp, kTypeUInt32);
 	
 	registerAttribute(TT("namespace"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCue::getNamespace);
@@ -176,8 +174,8 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		v.append(mName);
 		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
 		
-		// 2. Append a comment
-		v = TTValue(mComment);
+		// 2. Append a comment line
+		v = TTValue(TT("edit a comment"));
 		mScript->sendMessage(TT("AppendComment"), v, parsedLine);
 		
 		// 3. Process namespace storage

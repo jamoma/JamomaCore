@@ -361,12 +361,12 @@
 					"patching_rect" : [ 209.0, 215.0, 107.0, 25.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
+						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p sequencing"
@@ -562,7 +562,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 53.0, 425.0, 87.0, 20.0 ],
-					"text" : "all the cuelist"
+					"text" : "all the cue list"
 				}
 
 			}
@@ -894,7 +894,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-63",
-					"items" : "Init",
+					"items" : [ "initialState", ",", "anotherState", ",", "optionalState" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -956,8 +956,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 226.0, 318.0, 106.0, 20.0 ],
-					"text" : "jcom.cuemanager"
+					"patching_rect" : [ 226.0, 318.0, 105.0, 20.0 ],
+					"text" : "jcom.cue"
 				}
 
 			}
@@ -1260,7 +1260,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.cuemanager", "@description", "Store and recall the state of several model" ],
+					"args" : [ "@name", "jcom.cue", "@description", "Store and recall the state of several model" ],
 					"id" : "obj-10",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",

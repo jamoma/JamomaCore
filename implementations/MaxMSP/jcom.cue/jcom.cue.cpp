@@ -1,5 +1,5 @@
 /* 
- *	jcom.cuemanager
+ *	jcom.cue
  *	External object
  *	Copyright © 2010 by Théo de la Hogue
  * 
@@ -58,7 +58,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_free = &WrappedCueManageClass_free;
 	spec->_any = NULL;
 	
-	return wrapTTModularClassAsMaxClass(TT("CueManager"), "jcom.cuemanager", NULL, spec);
+	return wrapTTModularClassAsMaxClass(TT("CueManager"), "jcom.cue", NULL, spec);
 }
 
 void WrapTTCueManagerClass(WrappedClassPtr c)
@@ -138,9 +138,9 @@ void cue_subscribe(TTPtr self)
 	TTXmlHandlerPtr				aXmlHandler;
 	TTTextHandlerPtr			aTextHandler;
 	
-	// register the object under a cuelist address
+	// register the object under a cue address
 	if (x->address == kTTAdrsEmpty)
-		x->address = TTADRS("cuelist");
+		x->address = TTADRS("cue");
 	
 	// if the subscription is successful
 	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {

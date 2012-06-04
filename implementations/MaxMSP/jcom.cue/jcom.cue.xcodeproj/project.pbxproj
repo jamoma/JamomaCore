@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		D2ED7A65155133C90026141C /* jcom.cuemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.cuemanager.cpp; sourceTree = "<group>"; };
+		D2AFB57B157CE81C0060BDE5 /* jcom.cue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.cue.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* jcom.cuemanager */ = {
 			isa = PBXGroup;
 			children = (
-				D2ED7A65155133C90026141C /* jcom.cuemanager.cpp */,
+				D2AFB57B157CE81C0060BDE5 /* jcom.cue.cpp */,
 			);
 			name = jcom.cuemanager;
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.cuemanager" */;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.cue" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -121,7 +121,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.cuemanager" */ = {
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.cue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB919408733D9F0010E9CD /* Debug */,

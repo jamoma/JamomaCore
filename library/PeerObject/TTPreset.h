@@ -27,7 +27,6 @@ private :
 	
 	TTSymbolPtr					mName;							///< ATTRIBUTE : the name of the preset
 	TTNodeAddressPtr			mAddress;						///< ATTRIBUTE : the parent address from where to search object to store
-	TTSymbolPtr					mComment;						///< ATTRIBUTE : a comment for the preset
 	
 	TTNodeDirectoryPtr			mDirectory;						///< a preset depends on a directory
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value

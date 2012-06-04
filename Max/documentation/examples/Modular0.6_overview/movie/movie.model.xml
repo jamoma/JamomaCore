@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
- <!--TODO : TTContainer Description at mAddress-->
- <preset number="1" name="default">
-  <!---->
-  <Data address="/file/path" value="oh.mov" priority="1"/>
-  <Data address="/play" value="0" priority="2"/>
-  <Data address="/out/preview" value="1" priority="0"/>
-  <Data address="/model/mute" value="0" priority="0"/>
-  <Data address="/out/freeze" value="0" priority="0"/>
-  <Data address="/rate" value="1.000000" priority="0"/>
-  <Data address="/out/mute" value="0" priority="0"/>
+ <preset name="default">
+  <!--"TODO : edit comment"-->
+  <command address="file/path">oh.mov</command>
+  <command address="play">0</command>
+  <command address="out/preview">1</command>
+  <command address="model/mute">0</command>
+  <command address="out/freeze">0</command>
+  <command address="rate">1.000000</command>
+  <command address="out/mute">0</command>
  </preset>
- <preset number="2" name="the last preset">
-  <!---->
-  <Data address="/file/path" value="bball.mov" priority="1"/>
-  <Data address="/play" value="1" priority="2"/>
-  <Data address="/out/preview" value="1" priority="0"/>
-  <Data address="/model/mute" value="0" priority="0"/>
-  <Data address="/out/freeze" value="0" priority="0"/>
-  <Data address="/rate" value="1.000000" priority="0"/>
-  <Data address="/out/mute" value="0" priority="0"/>
+ <preset name="the last preset">
+  <!--"TODO : edit comment"-->
+  <command address="file/path">bball.mov</command>
+  <command address="play">1</command>
+  <command address="out/preview">1</command>
+  <command address="model/mute">0</command>
+  <command address="out/freeze">0</command>
+  <command address="rate">1.000000</command>
+  <command address="out/mute">0</command>
  </preset>
- <preset number="3" name="another preset">
-  <!---->
-  <Data address="/file/path" value="countdown15.mov" priority="1"/>
-  <Data address="/play" value="1" priority="2"/>
-  <Data address="/out/preview" value="1" priority="0"/>
-  <Data address="/model/mute" value="0" priority="0"/>
-  <Data address="/out/freeze" value="0" priority="0"/>
-  <Data address="/rate" value="1.000000" priority="0"/>
-  <Data address="/out/mute" value="0" priority="0"/>
+ <preset name="another preset">
+  <!--"TODO : edit comment"-->
+  <command address="file/path">countdown15.mov</command>
+  <command address="play">1</command>
+  <command address="out/preview">1</command>
+  <command address="model/mute">0</command>
+  <command address="out/freeze">0</command>
+  <command address="rate">1.000000</command>
+  <command address="out/mute">0</command>
  </preset>
 </jamoma>

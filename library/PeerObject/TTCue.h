@@ -45,7 +45,6 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	private :
 	
 	TTSymbolPtr					mName;							///< ATTRIBUTE : the name of the cue
-	TTSymbolPtr					mComment;						///< ATTRIBUTE : a comment for the cue
 	TTUInt32					mRamp;							///< ATTRIBUTE : a time ramping value for the cue
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
 	

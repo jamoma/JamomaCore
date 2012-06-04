@@ -15,7 +15,6 @@
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mAddress(kTTAdrsEmpty),
-mComment(TT("TODO : edit comment")),
 mDirectory(NULL),
 mScript(NULL)
 {
@@ -23,7 +22,6 @@ mScript(NULL)
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttribute(Comment, kTypeSymbol);
 	
 	addMessage(Clear);
 	addMessage(Store);
@@ -83,8 +81,8 @@ TTErr TTPreset::Store()
 		v.append(mName);
 		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
 		
-		// 2. Append a comment
-		v = TTValue(mComment);
+		// 2. Append a comment line
+		v = TTValue(TT("edit a comment"));
 		mScript->sendMessage(TT("AppendComment"), v, parsedLine);
 		
 		// 3. Look for all Objects under the address into the directory
