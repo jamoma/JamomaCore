@@ -43,6 +43,7 @@ private:
 	TTListPtr			mLines;				///< a linked list containing all lines of the script
 	
 	TTObjectPtr			mSubScript;			///< the current sub script to manage
+	TTObjectPtr			mParentScript;		///< the current parent script to manage (usefull for ReadFrom method)
 	
 	/** */
 	TTErr	getLines(TTValue& value);

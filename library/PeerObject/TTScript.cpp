@@ -14,12 +14,19 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mLines(NULL),
-mSubScript(NULL)
+mSubScript(NULL),
+mParentScript(NULL)
 {
 	mLines = new TTList();
 	
 	addAttribute(Lines, kTypePointer);
 	addAttributeProperty(Lines, readOnly, YES);
+	
+	addAttribute(SubScript, kTypePointer);
+	addAttributeProperty(SubScript, hidden, YES);
+	
+	addAttribute(ParentScript, kTypePointer);
+	addAttributeProperty(ParentScript, hidden, YES);
 	
 	addMessage(Clear);
 	addMessageWithArguments(Run);
@@ -522,6 +529,13 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
+	// if there is a current sub script : pass it the XML content
+	if (mSubScript) {
+		
+		// use ReadFromXml of the sub script
+		return mSubScript->sendMessage(TT("ReadFromXml"), inputValue, outputValue);
+	}
+	
 	// Switch on the name of the XML node
 	
 	// Starts file reading
@@ -614,25 +628,28 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// Script node : edit script line
 	if (aXmlHandler->mXmlNodeName == kTTSym_script) {
 		
-		if (!aXmlHandler->mXmlNodeStart)
-			return kTTErrNone;
+		// end of the script node
+		if (!aXmlHandler->mXmlNodeStart) {
+			
+			if (mParentScript) {
+				
+				// set NULL as sub script of the parent script
+				v = TTValue((TTPtr)NULL);
+				mParentScript->setAttributeValue(TT("subScript"), v);
+			}
+		}
 		
-		// Get address
-		if (!aXmlHandler->getXmlAttribute(kTTSym_address, v)) {
+		// get address attribute of the node
+		else if (!aXmlHandler->getXmlAttribute(kTTSym_address, v)) {
 			
 			if (v.getType() == kTypeSymbol) {
 				
 				// edit sub script line
 				this->AppendScript(v, parsedLine);
 				
-				// use ReadAsXml of the script
-				v = TTValue((TTPtr)mSubScript);
-				aXmlHandler->setAttributeValue(kTTSym_object, v);
-				aXmlHandler->sendMessage(TT("Write"));
-				
-				// append the line
-				v = TTValue((TTPtr)aLine);
-				mLines->append(v);
+				// set this as parent script of the subscript
+				v = TTValue((TTPtr)this);
+				mSubScript->setAttributeValue(TT("parentScript"), v);
 			}
 		}
 		
@@ -656,6 +673,10 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
 	buffer = aTextHandler->mWriter;
+	
+	// write a new line for level 0
+	if (!aTextHandler->mTabCount)
+		*buffer += "\n";
 	
 	// Write all lines
 	for (mLines->begin(); mLines->end(); mLines->next()) {
@@ -748,7 +769,6 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, &address);
 			
 			// write address
-			*buffer += "\n";
 			*buffer += address->getCString();
 			*buffer += "\n";
 			
@@ -756,17 +776,26 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			aLine->getValue(v);
 			v.get(0, (TTPtr*)&mSubScript);
 			
+			// set this as parent script of the subscript
+			v = TTValue((TTPtr)this);
+			mSubScript->setAttributeValue(TT("parentScript"), v);
+			
 			// increment the tab count to indent lines
 			aTextHandler->mTabCount++;
 			
-			// use WriteAsXml of the script
-			v = TTValue(TTPtr(mSubScript));
-			aTextHandler->setAttributeValue(kTTSym_object, v);
-			aTextHandler->sendMessage(TT("Write"));
+			// use WriteAsText of the sub script
+			mSubScript->sendMessage(TT("WriteAsText"), inputValue, outputValue);
 			
 			// decrement the tab count
 			aTextHandler->mTabCount--;
 		}
+	}
+	
+	if (mParentScript) {
+		
+		// set NULL as sub script of the parent script
+		v = TTValue((TTPtr)NULL);
+		mParentScript->setAttributeValue(TT("subScript"), v);
 	}
 	
 	return kTTErrNone;	
@@ -807,6 +836,10 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 			return kTTErrGeneric;
 			
 		aTextHandler->mTabCount--;
+		
+		// set this as parent script of the subscript
+		v = TTValue((TTPtr)this);
+		mSubScript->setAttributeValue(TT("parentScript"), v);
 		
 		// use ReadFromText of the sub script
 		v = TTValue(TTPtr(mSubScript));

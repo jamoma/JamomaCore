@@ -54,13 +54,16 @@ private:
 	TTErr	setNamespace(const TTValue& value);
 	
 	/** */
-	TTErr	NamespaceClear();
+	TTErr	NamespaceClear(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	NamespaceAppend(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	NamespaceRemove(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** */
+	TTErr	NamespaceSync();
 	
 	/** */
 	TTErr	New();

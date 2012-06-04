@@ -36,9 +36,10 @@ mCurrentCue(NULL)
 	addAttributeProperty(Cues, readOnly, YES);
 	addAttributeProperty(Cues, hidden, YES);
 	
-	addMessage(NamespaceClear);
+	addMessageWithArguments(NamespaceClear);
 	addMessageWithArguments(NamespaceAppend);
 	addMessageWithArguments(NamespaceRemove);
+	addMessage(NamespaceSync);
 	
 	addMessage(New);
 	
@@ -163,10 +164,21 @@ TTErr TTCueManager::setNamespace(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::NamespaceClear()
+TTErr TTCueManager::NamespaceClear(const TTValue& inputValue, TTValue& outputValue)
 {
-	delete mNamespace;
-	mNamespace = new TTList();
+	if (inputValue == kTTValNONE) {
+		delete mNamespace;
+		mNamespace = new TTList();
+	}
+	else {
+		NamespacePtr aNamespaceToClear = TTCueNamespaceParse(inputValue);
+		
+		TTCueNamespaceRemove(aNamespaceToClear, mNamespace);
+		TTCueNamespaceAppend(aNamespaceToClear, mNamespace);
+		
+		TTCueNamespaceEdit(mNamespace, outputValue);
+	}
+	
 	return kTTErrNone;
 }
 
@@ -189,6 +201,13 @@ TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputVa
 	
 	TTCueNamespaceEdit(mNamespace, outputValue);
 	
+	return kTTErrNone;
+}
+
+TTErr TTCueManager::NamespaceSync()
+{
+	delete mNamespace;
+	mNamespace = TTCueNamespaceParse(mCurrentNamespace);
 	return kTTErrNone;
 }
 
@@ -216,8 +235,6 @@ TTErr TTCueManager::New()
 		mCurrent = kTTSymEmpty;
 		mCurrentNamespace = kTTValNONE;
 		mOrder = kTTValNONE;
-		delete mNamespace;
-		mNamespace = new TTList();
 		
 		notifyOrderObservers();
 	}

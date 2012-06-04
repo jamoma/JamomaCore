@@ -89,9 +89,6 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 
 typedef TTCue* TTCuePtr;
 
-/** Return Yes if the node have to be part of the cue */
-TTBoolean TTMODULAR_EXPORT TTCueTestObject(TTNodePtr node, TTPtr args);
-
 TTBoolean TTMODULAR_EXPORT TTCueCompareNodePriority(TTValue& v1, TTValue& v2);
 
 
