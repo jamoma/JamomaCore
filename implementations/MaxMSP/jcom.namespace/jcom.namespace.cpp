@@ -203,7 +203,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTSymbolPtr	output;
 	TTNodeAddressPtr address;
 	SymbolPtr	s;
-	Atom		a[1], c[2];
+	Atom		a[1], c[2], j[3];
 	
 	// Ask Explorer object
 	x->wrappedObject->getAttributeValue(TT("output"), v);
@@ -274,7 +274,33 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// JIT CELLBLOCK FORMAT
 	if (x->msg == gensym("jit.cellblock")) {
-		object_error((ObjectPtr)x, "sorry the jit.cellblock format is not available");
+		
+		// clear jit.cellblock
+		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
+		
+		// prepare jit.cellblock structure
+		atom_setlong(a, argc);
+		outlet_anything(x->outlets[data_out], gensym("rows"), 1, a);
+		
+		// fill jit.cellblock
+		// output argv
+		for (long i=0; i<argc; i++) {
+			s = atom_getsym(argv+i);
+			
+			if (output == kTTSym_attributes)
+				s = jamoma_TTName_To_MaxName(TT(s->s_name));
+			
+			if (output == kTTSym_brothers && s == _sym_nothing)
+				s = gensym("_");
+			
+			if (s) {
+				atom_setlong(j, 0);
+				atom_setlong(j+1, i);
+				atom_setsym(j+2, s);
+				outlet_anything(x->outlets[data_out], _sym_set, 3, j);
+			}
+		}
+		
 		return;
 	}
 	
@@ -296,8 +322,8 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				s = gensym("_");
 			
 			if (s) {
-				atom_setlong(c, i+1);
-				atom_setsym(c+1, s);
+				atom_setsym(c, s);
+				atom_setlong(c+1, 0); // any data to avoid storage error
 				outlet_anything(x->outlets[data_out], _sym_store, 2, c);
 			}
 		}
