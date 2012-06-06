@@ -358,7 +358,6 @@ public:
 			return value;
 		}
 	}
-	
 
 	template <typename T>
 	void getIfExists(const TTUInt16 index, T arg)
@@ -865,6 +864,7 @@ public:
 	{
 		TTString*	str = new TTString;
 		TTCString	temp;
+		TTBoolean	addQuotes;
 		
 		for (TTUInt16 i=0; i<numValues; i++) {
 			temp = NULL;
@@ -925,7 +925,10 @@ public:
 						str->append("0");
 					break;
 				case kTypeSymbol:
+					addQuotes = strchr(data[i].sym->getCString(), ' ') != 0;
+					if (addQuotes) str->append("\"");
 					str->append(data[i].sym->getCString());
+					if (addQuotes) str->append("\"");
 					break;
 				case kTypeString:
 					str->append(*data[i].stringPtr);
