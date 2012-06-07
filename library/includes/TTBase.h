@@ -415,24 +415,26 @@ TTFOUNDATION_EXPORT TTFloat64 TTRandom64();
 
 
 
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];			///< Square Root lookup table
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table, 512 elements
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];			///< Square Root lookup table, 512 elements
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPowerSymetric[];	///< Equal Power lookup table with 0.701 at element 256
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRootSymetric[];	///< Square Root lookup table with 0.701 at element 256
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi     (3.1416)
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;						///< pre-calculated value of pi/2
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTQuarterPi;					///< pre-calculated value of pi/2
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTQuarterPi;					///< pre-calculated value of pi/4
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfSqrt2;
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoSqrt2;
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2 (1.4142)
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfSqrt2;					///< pre-calculated value of sqrt(2)/2 (0.701)
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoSqrt2;						///< pre-calculated value of 2 * sqrt(2) (2.8284)
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTEpsilon;						///< a very very small value
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTRadiansToDegrees;
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTDegreesToRadians;
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPower;
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPowerInv;
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;						///< pre-calculated value of 1/255
 
 /** Platform and host independent method for posting messages. */
 void TTFOUNDATION_EXPORT TTLogMessage(TTImmutableCString message, ...);
