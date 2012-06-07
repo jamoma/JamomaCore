@@ -23,7 +23,6 @@ args:
    type: symbol
    optional: 1
    desc: name of the message routed to the Nth outlet
-	
 
 attributes:
  - name: strip
@@ -48,5 +47,5 @@ seealso:
  - jcom.instance2instance
  - route
  - select
- 
+
 discussion: Jamoma is a free and open source project. http://www.jamoma.org 
