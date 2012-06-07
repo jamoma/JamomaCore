@@ -1,14 +1,10 @@
-author: 74 Objects
-tags:
-  - Jamoma
-  - Plugtastic
-  - Environment
+author: [74 Objects]
+tags: [Jamoma, Plugtastic, Environment]
 
 brief: Define a parameter to be controlled in the host environment
 
 desc: >
-  The jcom.plug.parameter# defines a parameter to be controlled in the host environment.
-  It outputs a Jamoma dictionary to be connected other Graph or AudioGraph objects.
+  The jcom.plug.parameter# defines a parameter to be controlled in the host environment. It outputs a Jamoma dictionary to be connected other Graph or AudioGraph objects.
 
 args:
   - name: parameter-name
@@ -38,4 +34,3 @@ attributes:
 seealso:
   - jcom.plug.in≈
   - jcom.plug.out≈
-
