@@ -35,10 +35,10 @@ attributes:
    type: symbol
    desc: set the output unit
    unit:
-   default: 
-	   
+   default:
+
 messages:
-	  
+
 seealso:
  - jcom.parameter
  - jcom.message
