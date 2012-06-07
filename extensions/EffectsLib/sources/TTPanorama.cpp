@@ -126,7 +126,7 @@ TTErr TTPanorama::processEqualPowerLookup(TTAudioSignalArrayPtr inputs, TTAudioS
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSizeAsInt();
-	int				index= (int)(mScaledPosition * 511.0);
+	int				index= (int)(mScaledPosition * 510.0);
 	TTUInt16		numOutChannels	= out.getNumChannelsAsInt();
 	TTUInt16		numInChannels	= in.getNumChannelsAsInt();
 	
@@ -141,14 +141,14 @@ TTErr TTPanorama::processEqualPowerLookup(TTAudioSignalArrayPtr inputs, TTAudioS
 	if (numInChannels > 1) { //panning a stereo source
 		TTSampleValuePtr	inSampleB		= in.mSampleVectors[1];
 		while (vs--){
-			*outSampleA++ = (*inSampleA++ * kTTLookupEqualPower[index]);
-			*outSampleB++ = (*inSampleB++ * kTTLookupEqualPower[511 - index]);
+			*outSampleA++ = (*inSampleA++ * kTTLookupEqualPowerSymetric[index]);
+			*outSampleB++ = (*inSampleB++ * kTTLookupEqualPowerSymetric[510 - index]);
 		}
 	}
 	else{ // single channel input
 		while (vs--){
-			*outSampleA++ = (*inSampleA * kTTLookupEqualPower[index]);
-			*outSampleB++ = (*inSampleA++ * kTTLookupEqualPower[511 - index]);
+			*outSampleA++ = (*inSampleA * kTTLookupEqualPowerSymetric[index]);
+			*outSampleB++ = (*inSampleA++ * kTTLookupEqualPowerSymetric[510 - index]);
 		}
 	}	
 	return kTTErrNone;
@@ -160,7 +160,7 @@ TTErr TTPanorama::processSquareRootLookup(TTAudioSignalArrayPtr inputs, TTAudioS
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSizeAsInt();
-	int				index= (int)(mScaledPosition * 511.0);
+	int				index= (int)(mScaledPosition * 510.0);
 	TTUInt16		numOutChannels	= out.getNumChannelsAsInt();
 	TTUInt16		numInChannels	= in.getNumChannelsAsInt();
 	
@@ -175,14 +175,14 @@ TTErr TTPanorama::processSquareRootLookup(TTAudioSignalArrayPtr inputs, TTAudioS
 	if (numInChannels > 1) { //panning a stereo source
 		TTSampleValuePtr	inSampleB		= in.mSampleVectors[1];
 		while (vs--){
-			*outSampleA++ = (*inSampleA++ * kTTLookupSquareRoot[index]);
-			*outSampleB++ = (*inSampleB++ * kTTLookupSquareRoot[511 - index]);
+			*outSampleA++ = (*inSampleA++ * kTTLookupSquareRootSymetric[index]);
+			*outSampleB++ = (*inSampleB++ * kTTLookupSquareRootSymetric[510 - index]);
 		}
 	}
 	else{ // single channel input
 		while (vs--){
-			*outSampleA++ = (*inSampleA * kTTLookupSquareRoot[index]);
-			*outSampleB++ = (*inSampleA++ * kTTLookupSquareRoot[511 - index]);
+			*outSampleA++ = (*inSampleA * kTTLookupSquareRootSymetric[index]);
+			*outSampleB++ = (*inSampleA++ * kTTLookupSquareRootSymetric[510 - index]);
 		}
 	}	
 	
