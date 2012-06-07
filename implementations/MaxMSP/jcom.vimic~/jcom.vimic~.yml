@@ -1,6 +1,20 @@
-
+  
 sources:
-  - *.cpp
+  - Angle.cpp
+  - Coordinate.cpp
+  - CrossFade.cpp
+  - CrossFadeQueue.cpp
+  - Filter.cpp
+  - HiMidLow.cpp
+  - jcom.vimic~.cpp
+  - LowPass.cpp
+  - Mic.cpp
+  - MicArray.cpp
+  - Mirror.cpp
+  - Moveable.cpp
+  - Room.cpp
+  - Source.cpp
+  - ViMic_Engine.cpp
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
     
 includes:  
