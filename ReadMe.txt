@@ -45,6 +45,10 @@ See the issue tracker at http://redmine.jamoma.org/projects/dsp/issues
 More Information
 This project hosted is hosted at https://github.com/jamoma/JamomaDSP
 
+Paper
+A flexible and dynamic C++ framework and library for digital audio signal processing. 
+In Proc. of the International Computer Music Conference, pages 157–164, New York, US, 2010.
+http://www.jamoma.org/papers/jamoma-icmc2010.pdf
 
 Change Log
 The (outdated) change log can be found at http://code.google.com/p/ttblue/wiki/ChangeLog
