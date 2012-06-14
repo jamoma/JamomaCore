@@ -318,7 +318,7 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 		if (textfield) {
 			t_jrgba		textcolor;
 			
-			if (x->highlightcolor == gensym("none"))
+			if (x->highlightcolor == jps_none)
 				textcolor = x->textcolor;
 			else {
 				textcolor.red = 0.8*x->textcolor.red + 0.2*x->highlightcolorRGB.red;
@@ -328,17 +328,17 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 			}
 			textfield_set_textcolor(textfield, &textcolor);
 		}
-		if (attrname == gensym("module_name"))
-			object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
+		if (attrname == jps_module_name)
+			object_method(textfield, jps_settext, x->attr_modulename->s_name);
 			
 		char str[12]; //5
 		if (x->gainDragging) {
 			snprintf(str, sizeof(str), "gain %.2f", x->anchorValue);
-			object_method(textfield, gensym("settext"), str);
+			object_method(textfield, jps_settext, str);
 		}
 		if (x->mixDragging) {
 			snprintf(str, sizeof(str), "mix %.2f", x->anchorValue);//x->attrPrefix->s_name, 
-			object_method(textfield, gensym("settext"), str);
+			object_method(textfield, jps_settext, str);
 		}
 
 		jbox_redraw(&x->box);
@@ -376,9 +376,9 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 		else if (s == _sym_jit_gl_texture)
 			outlet_anything(x->outlet, _sym_jit_gl_texture, argc, argv);
 	}
-	else if (message == gensym("module_name") && argc == 2)
-		object_attr_setvalueof(x, gensym("module_name"), 1, argv+1);
-	else if (message == gensym("module_class") && argc == 2)
+	else if (message == jps_module_name && argc == 2)
+		object_attr_setvalueof(x, jps_module_name, 1, argv+1);
+	else if (message == jps_module_class && argc == 2)
 		x->attrModuleClass = atom_getsym(argv+1);
 //	else if (message == gensym("module_type") && argc == 2)
 //		; // TODO: Should do something here?
@@ -399,7 +399,7 @@ void ui_paint(t_ui *x, t_object *view)
 	double 		cornersize = 12.0;
 	double		middle = 9.0;
 
-	if (x->highlightcolor == gensym("none")) {
+	if (x->highlightcolor == jps_none) {
 		headercolor = x->headercolor;
 		bgcolor		= x->bgcolor;
 		bordercolor = x->bordercolor;
@@ -798,7 +798,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if (x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
-			object_method_typed(x->obj_remote, gensym("/view/panel"), 0, NULL, NULL);
+			object_method_typed(x->obj_remote, jps_slash_view_slash_panel, 0, NULL, NULL);
 		else if (x->attr_haspreview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			object_attr_setlong(x, gensym("is_previewing"), !x->attr_ispreviewing);
 		else if (x->attr_hasfreeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
@@ -830,12 +830,12 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	if (x->mixDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 100.0f);
-		object_attr_setfloat(x, gensym("mix"), x->anchorValue);		
+		object_attr_setfloat(x, jps_mix, x->anchorValue);		
 	}
 	else if (x->gainDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 127.0f);
-		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
+		object_attr_setfloat(x, jps_gain, x->anchorValue);
 	}
 }
 
@@ -846,7 +846,7 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 	x->gainDragging = false;
 	t_object *textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
-		object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
+		object_method(textfield, jps_settext, x->attr_modulename->s_name);
 	
 	jbox_redraw(&x->box);
 }
@@ -930,32 +930,32 @@ void ui_menu_qfn(t_ui *x)
 			object_attr_setlong(x, gensym("ui_is_frozen"), 0);
 		else
 			object_attr_setlong(x, gensym("ui_is_frozen"), 1);
-		object_method_long(x->obj_remote, gensym("/view/freeze"), x->attr_ui_freeze, NULL);
+		object_method_long(x->obj_remote, jps_slash_ui_slash_freeze, x->attr_ui_freeze, NULL);
 	}
 	else if (item->sym == gensym("Refresh UI"))
-		object_method_sym(x->obj_remote, gensym("/view/refresh"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_ui_slash_refresh, item->sym, NULL);
 	else if (item->sym == gensym("Load Settings..."))
-		object_method_sym(x->obj_remote, gensym("/preset/load"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_preset_slash_load, item->sym, NULL);
 	else if (item->sym == gensym("Save Settings..."))
-		object_method_sym(x->obj_remote, gensym("/preset/write"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_preset_slash_write, item->sym, NULL);
 	else if (item->sym == gensym("Restore Default Settings"))
-		object_method_sym(x->obj_remote, gensym("/preset/default"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_preset_slash_default, item->sym, NULL);
 	else if (item->sym == gensym("Store Current Preset"))
-		object_method_sym(x->obj_remote, gensym("/preset/store"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_preset_slash_store, item->sym, NULL);
 	else if (item->sym == gensym("Store as Next Preset"))
-		object_method_typed(x->obj_remote, gensym("/preset/storenext"), 0, NULL, NULL); // don't send menu item
+		object_method_typed(x->obj_remote, jps_slash_preset_slash_storenext, 0, NULL, NULL); // don't send menu item
 	else if (item->sym == gensym("Open Preset Interface"))
-		object_method_sym(x->obj_remote, gensym("/preset/interface"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_preset_slash_interface, item->sym, NULL);
 	else if (item->sym == gensym("Get Current State as Text"))
-		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_getstate, item->sym, NULL);
 	else if (item->sym == gensym("View Internal Components"))
-		object_method_sym(x->obj_remote, gensym("/view/internals"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_ui_slash_internals, item->sym, NULL);
 	else if (item->sym == gensym("Open Help Patch"))
-		object_method_sym(x->obj_remote, gensym("/module/help"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_module_slash_help, item->sym, NULL);
 	else if (item->sym == gensym("Open Reference Page"))
-		object_method_sym(x->obj_remote, gensym("/module/reference"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_module_slash_reference, item->sym, NULL);
 	else	// assume the menu item is a preset name
-		object_method_sym(x->obj_remote, gensym("/preset/recall"), item->sym, NULL);
+		object_method_sym(x->obj_remote, jps_slash_preset_slash_recall, item->sym, NULL);
 }
 
 
@@ -1168,7 +1168,7 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 	t_object 	*textfield = NULL;
 	t_jrgba		textcolor;
 	
-	if (x->highlightcolor == gensym("none"))
+	if (x->highlightcolor == jps_none)
 		textcolor = x->textcolor;
 	else {
 		textcolor.red = 0.8*x->textcolor.red + 0.2*x->highlightcolorRGB.red;
@@ -1180,7 +1180,7 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 		
 	unitHeight = rect->height / JAMOMA_UNIT_HEIGHT;
 	unitFrac = rect->height - (unitHeight * JAMOMA_UNIT_HEIGHT);
-	if (unitFrac > (JAMOMA_UNIT_HEIGHT/2))
+	if (unitFrac > (JAMOMA_UNIT_HEIGHT*0.5))
 		unitHeight += 1;	
 	if (unitHeight < 1)
 		unitHeight = 1;
@@ -1188,7 +1188,7 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 
 	unitWidth = rect->width / JAMOMA_UNIT_WIDTH;
 	unitFrac = rect->width - (unitWidth * JAMOMA_UNIT_WIDTH);
-	if (unitFrac > (JAMOMA_UNIT_WIDTH/2))
+	if (unitFrac > (JAMOMA_UNIT_WIDTH*0.5))
 		unitWidth += 1;
 	if (unitWidth < 1)
 		unitWidth = 1;

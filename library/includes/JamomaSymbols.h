@@ -173,6 +173,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_slash_video_preview,
 				*jps_open,							//  open
 		 		*jps_slash_getstate,
+			    *jps_slash_view_slash_panel,        // /view/panel
 		 		*jps_slash_module_view_internals,	//	/module/view_internals
 		 		*jps_slash_module_slash_reference,	//	/module/reference
 		 		*jps_slash_module_slash_help,		//	/module/help				
@@ -186,6 +187,8 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_slash_preset_slash_write,		// /preset/save
 				*jps_slash_preset_slash_writeagain,	// /preset/save
 				*jps_slash_preset_slash_copy,		// /preset/save
+				*jps_slash_ui_slash_internals,      // /view/internals	 
+				 *jps_ui_slash_internals,      		// view/internals
 				*jps_ui_slash_freeze,				//	view/freeze
 				*jps_slash_ui_slash_freeze,			// /view/freeze
 				*jps_ui_slash_refresh,				//	view/refresh
@@ -193,6 +196,9 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_register_meter,
 				*jps_register_preview,
 				//*jps_voices,
+				*jps_gain,
+				*jps_mix,
+				*jps_settext,
 				*jps_mute,
 				*jps_target,
 				*jps_sendlastvalue,

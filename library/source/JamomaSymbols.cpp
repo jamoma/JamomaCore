@@ -136,12 +136,14 @@ t_symbol	*jps_done,
 			*jps_unlink_out,
 			*jps_audio_gain_midi,
 			*jps_slash_audio_gain_midi,
+			*jps_gain,
 			*jps_audio_mute,
 			*jps_slash_audio_mute,
 			*jps_audio_bypass,
 			*jps_slash_audio_bypass,
 			*jps_audio_mix,
 			*jps_slash_audio_mix,
+			*jps_mix,
 			//*jps_audio_sample_rate,
 			//*jps_slash_audio_sample_rate,
 			*jps_audio_meters_freeze,
@@ -155,7 +157,8 @@ t_symbol	*jps_done,
 			*jps_video_preview,
 			*jps_slash_video_preview,			
 			*jps_open,							// 	open
-		    *jps_slash_getstate,
+		    *jps_slash_getstate,                //  /getstate
+		    *jps_slash_view_slash_panel,        //  /view/panel
 			*jps_slash_module_view_internals,	//	/module/view_internals
 			*jps_slash_module_slash_reference,	//	/module/reference
 			*jps_slash_module_slash_help,		//	/module/help				
@@ -169,6 +172,8 @@ t_symbol	*jps_done,
 			*jps_slash_preset_slash_write,		// 	/preset/save
 			*jps_slash_preset_slash_writeagain,	// 	/preset/save
 			*jps_slash_preset_slash_copy,		// 	/preset/save
+			*jps_slash_ui_slash_internals,
+			*jps_ui_slash_internals,
 			*jps_ui_slash_freeze,				//	view/freeze
 			*jps_slash_ui_slash_freeze,			//	/view/freeze
 			*jps_ui_slash_refresh,				//	view/refresh
@@ -176,6 +181,7 @@ t_symbol	*jps_done,
 			*jps_register_meter,
 			*jps_register_preview,
 			//*jps_voices,
+			*jps_settext,
 			*jps_mute,
 			*jps_target,
 			*jps_sendlastvalue,
@@ -325,12 +331,14 @@ void jamomaSymbolsInit()
 	jps_unlink_out					= SymbolGen("unlink_out");
 	jps_audio_gain_midi				= SymbolGen("audio/gain/midi");		// used by the i/o objects...
 	jps_slash_audio_gain_midi		= SymbolGen("/audio/gain/midi");
+	jps_gain						= SymbolGen("gain");
 	jps_audio_mute					= SymbolGen("audio/mute");
 	jps_slash_audio_mute			= SymbolGen("/audio/mute");
 	jps_audio_bypass				= SymbolGen("audio/bypass");
 	jps_slash_audio_bypass			= SymbolGen("/audio/bypass");
 	jps_audio_mix					= SymbolGen("audio/mix");
 	jps_slash_audio_mix				= SymbolGen("/audio/mix");
+	jps_mix							= SymbolGen("mix");
 	   //jps_audio_sample_rate			= SymbolGen("audio/sample_rate");
 	   //jps_slash_audio_sample_rate		= SymbolGen("/audio/sample_rate");
 	jps_audio_meters_freeze			= SymbolGen("audio/meters/freeze");
@@ -347,6 +355,7 @@ void jamomaSymbolsInit()
 	jps_register_preview			= SymbolGen("register_preview");
 	jps_open						= SymbolGen("open");
 	jps_slash_getstate				= SymbolGen("/getstate");
+	jps_slash_view_slash_panel      = SymbolGen("/viewl/panel");
 	jps_slash_module_view_internals = SymbolGen("/module/view_internals");
 	jps_slash_module_slash_reference = SymbolGen("/module/reference");	
 	jps_slash_module_slash_help     = SymbolGen("/module/help");	
@@ -359,12 +368,15 @@ void jamomaSymbolsInit()
 	jps_slash_preset_slash_store	= SymbolGen("/preset/store");
 	jps_slash_preset_slash_storenext	= SymbolGen("/preset/storenext");
 	jps_slash_preset_slash_storecurrent = SymbolGen("/preset/storecurrent");
-	jps_slash_preset_slash_copy		= SymbolGen("/preset/copy");		
+	jps_slash_preset_slash_copy		= SymbolGen("/preset/copy");	
+	jps_slash_ui_slash_internals	= SymbolGen("/view/internals");	
+	jps_ui_slash_internals			= SymbolGen("view/internals");
 	jps_ui_slash_freeze				= SymbolGen("view/freeze");
 	jps_slash_ui_slash_freeze		= SymbolGen("/view/freeze");
 	jps_ui_slash_refresh			= SymbolGen("view/refresh");
 	jps_slash_ui_slash_refresh		= SymbolGen("/view/refresh");
 	   //jps_voices						= SymbolGen("voices");
+	jps_settext						= SymbolGen("settext");
 	jps_mute						= SymbolGen("mute");
 	jps_target						= SymbolGen("target");
 	jps_sendlastvalue				= SymbolGen("sendlastvalue");
