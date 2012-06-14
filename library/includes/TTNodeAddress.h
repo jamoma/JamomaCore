@@ -17,8 +17,13 @@
 
 class TTNodeAddress;
 typedef TTNodeAddress*	TTNodeAddressPtr;
+
 class TTRegex;
 typedef TTRegex*	TTRegexPtr;
+
+class TTList;
+typedef TTList*		TTListPtr;
+
 
 #define NO_DIRECTORY	kTTSymEmpty
 #define NO_PARENT		kTTAdrsEmpty
@@ -152,6 +157,10 @@ public:
 	/**	A parsing tool : count how many C_SEPARATOR there is in the address
 	 @return							The number of C_SEPARATOR */
 	TTUInt32					countSeparator();
+	
+	/**	A parsing tool : return a list containing all name.instance part (without any S_SEPARATOR)
+	 @param								The list of name.instance part to fill */
+	TTErr						listNameInstance(TTList& nameInstanceList);
 	
 	
 private:

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		D2333F301580D97F00D5CBAF /* TTNodeAddressItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeAddressItem.cpp; sourceTree = "<group>"; };
+		D2333F311580D98F00D5CBAF /* TTNodeAddressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNodeAddressItem.h; sourceTree = "<group>"; };
 		D2F0974B14A0D70100EC0396 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAttribute.h; sourceTree = "<group>"; };
 		D2F0974C14A0D70100EC0396 /* TTBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBase.h; sourceTree = "<group>"; };
 		D2F0974D14A0D70100EC0396 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCallback.h; sourceTree = "<group>"; };
@@ -90,6 +92,34 @@
 			name = JamomaFoundation;
 			sourceTree = "<group>";
 		};
+		D2333F1F1580D85900D5CBAF /* TTNodeLib */ = {
+			isa = PBXGroup;
+			children = (
+				D2F0978214A0D70F00EC0396 /* TTNodeLib.cpp */,
+				D2F0977D14A0D70F00EC0396 /* TTNode.cpp */,
+				D2F0977E14A0D70F00EC0396 /* TTNodeAddress.cpp */,
+				D2F0977F14A0D70F00EC0396 /* TTNodeAddressCache.cpp */,
+				D2333F301580D97F00D5CBAF /* TTNodeAddressItem.cpp */,
+				D2F0978014A0D70F00EC0396 /* TTNodeAddressTable.cpp */,
+				D2F0978114A0D70F00EC0396 /* TTNodeDirectory.cpp */,
+			);
+			name = TTNodeLib;
+			sourceTree = "<group>";
+		};
+		D2333F201580D88200D5CBAF /* TTNodeLib */ = {
+			isa = PBXGroup;
+			children = (
+				D2F0976014A0D70100EC0396 /* TTNodeLib.h */,
+				D2F0975B14A0D70100EC0396 /* TTNode.h */,
+				D2F0975C14A0D70100EC0396 /* TTNodeAddress.h */,
+				D2F0975D14A0D70100EC0396 /* TTNodeAddressCache.h */,
+				D2333F311580D98F00D5CBAF /* TTNodeAddressItem.h */,
+				D2F0975E14A0D70100EC0396 /* TTNodeAddressTable.h */,
+				D2F0975F14A0D70100EC0396 /* TTNodeDirectory.h */,
+			);
+			name = TTNodeLib;
+			sourceTree = "<group>";
+		};
 		D2F0974A14A0D70100EC0396 /* includes */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,12 +139,7 @@
 				D2F0975814A0D70100EC0396 /* TTMatrixArray.h */,
 				D2F0975914A0D70100EC0396 /* TTMessage.h */,
 				D2F0975A14A0D70100EC0396 /* TTMutex.h */,
-				D2F0975B14A0D70100EC0396 /* TTNode.h */,
-				D2F0975C14A0D70100EC0396 /* TTNodeAddress.h */,
-				D2F0975D14A0D70100EC0396 /* TTNodeAddressCache.h */,
-				D2F0975E14A0D70100EC0396 /* TTNodeAddressTable.h */,
-				D2F0975F14A0D70100EC0396 /* TTNodeDirectory.h */,
-				D2F0976014A0D70100EC0396 /* TTNodeLib.h */,
+				D2333F201580D88200D5CBAF /* TTNodeLib */,
 				D2F0976114A0D70100EC0396 /* TTObject.h */,
 				D2F0976214A0D70100EC0396 /* TTPath.h */,
 				D2F0976314A0D70100EC0396 /* TTQueue.h */,
@@ -148,12 +173,7 @@
 				D2F0977A14A0D70F00EC0396 /* TTMatrixMath.cpp */,
 				D2F0977B14A0D70F00EC0396 /* TTMessage.cpp */,
 				D2F0977C14A0D70F00EC0396 /* TTMutex.cpp */,
-				D2F0977D14A0D70F00EC0396 /* TTNode.cpp */,
-				D2F0977E14A0D70F00EC0396 /* TTNodeAddress.cpp */,
-				D2F0977F14A0D70F00EC0396 /* TTNodeAddressCache.cpp */,
-				D2F0978014A0D70F00EC0396 /* TTNodeAddressTable.cpp */,
-				D2F0978114A0D70F00EC0396 /* TTNodeDirectory.cpp */,
-				D2F0978214A0D70F00EC0396 /* TTNodeLib.cpp */,
+				D2333F1F1580D85900D5CBAF /* TTNodeLib */,
 				D2F0978314A0D70F00EC0396 /* TTObject.cpp */,
 				D2F0978414A0D70F00EC0396 /* TTPath.cpp */,
 				D2F0978514A0D70F00EC0396 /* TTQueue.cpp */,
@@ -173,10 +193,10 @@
 			isa = PBXGroup;
 			children = (
 				D2F097EA14A0E03400EC0396 /* TTMatrix.test.cpp */,
-				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,
 				D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */,
-				D2F097ED14A0E03400EC0396 /* TTValue.test.cpp */,
+				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,
 				D2F097EE14A0E03400EC0396 /* TTValue.test.h */,
+				D2F097ED14A0E03400EC0396 /* TTValue.test.cpp */,
 			);
 			path = tests;
 			sourceTree = "<group>";

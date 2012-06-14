@@ -498,7 +498,6 @@ TTErr TTNodeAddress::splitAt(TTUInt32 whereToSplit, TTNodeAddressPtr *returnedPa
 			pos = part2.find_first_of(C_SEPARATOR);
 			part1 += part2.substr(0, pos+1);
 			part2 = part2.substr(pos+1, part2.size());
-
 		}
 		else
 		{
@@ -527,6 +526,21 @@ TTUInt32 TTNodeAddress::countSeparator()
 	TTString toCount = this->getCString();
 	
 	return count(toCount.begin(), toCount.end(), C_SEPARATOR);
+}
+
+TTErr TTNodeAddress::listNameInstance(TTList& nameInstanceList)
+{
+	if (!parsed) parse();
+	
+	if (this != kTTAdrsEmpty && this != kTTAdrsRoot) {
+		
+		this->parent->listNameInstance(nameInstanceList);
+
+		nameInstanceList.append(this->getName());
+		nameInstanceList.append(this->getInstance());
+	}
+	
+	return kTTErrNone;
 }
 
 /***********************************************************************************

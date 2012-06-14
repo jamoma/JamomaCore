@@ -20,11 +20,12 @@
 #include "TTNodeDirectory.h"
 
 class TTNode;
-class TTNodeDirectory;
-class TTCallback;
-
 typedef TTNode*	TTNodePtr;
+
+class TTNodeDirectory;
 typedef TTNodeDirectory* TTNodeDirectoryPtr;
+
+class TTCallback;
 typedef TTCallback* TTCallbackPtr;
 
 /****************************************************************************************************/

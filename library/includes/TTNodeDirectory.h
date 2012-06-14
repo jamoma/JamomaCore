@@ -13,15 +13,15 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "TTNode.h"
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
 #include "TTObject.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
 #include "TTHash.h"
 #include "TTList.h"
 #include "TTMutex.h"
+#include "TTNode.h"
+#include "TTNodeAddress.h"
+#include "TTNodeAddressTable.h"
 
 class TTNode;
 typedef TTNode*	TTNodePtr;

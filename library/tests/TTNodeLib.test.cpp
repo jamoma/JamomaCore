@@ -129,14 +129,153 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress6 is bad",
-					directory5 == NO_DIRECTORY &&
-					parent5 == TTADRS("/gran/parent6") &&
-					name5 == TT("name6") &&
-					instance5 == NO_INSTANCE &&
-					attribute5 == TT("attribute6") &&
-					type5 == kAddressAbsolute,
+					directory6 == NO_DIRECTORY &&
+					parent6 == TTADRS("/gran/parent6") &&
+					name6 == TT("name6") &&
+					instance6 == NO_INSTANCE &&
+					attribute6 == TT("attribute6") &&
+					type6 == kAddressAbsolute,
 					testAssertionCount,
 					errorCount);
+}
+
+void TTNodeLibTestNodeAddressItem(int& errorCount, int&testAssertionCount)
+{
+	TTNodeAddressItemPtr aNamespace, aParent, n, f;
+	TTSymbolPtr	aSymbol;
+	TTBoolean aSelection, empty;
+	TTUInt8 size;
+	TTErr err;
+	
+	TTTestLog("\n");
+	TTTestLog("Testing Node Address Item management");
+	
+	// The first test checks item creation and member access
+	aNamespace = new TTNodeAddressItem();
+	aSymbol = aNamespace->getSymbol();
+	aParent = aNamespace->getParent();
+	aSelection = aNamespace->getSelection();
+	empty = aNamespace->isEmpty();
+
+	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not empty",
+					empty &&
+					aSymbol == NO_NAME &&
+					aParent == NULL &&
+					aSelection == NO,
+					testAssertionCount,
+					errorCount);
+	
+	// The second set of tests checks item management
+	n = new TTNodeAddressItem(TT("test"));
+	aNamespace->merge(n);
+	
+	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace size is not equal 1",
+					aNamespace->getSize() == 1,
+					testAssertionCount,
+					errorCount);
+	
+	f = aNamespace->getItem(n->getSymbol());
+	
+	if (f) {
+		aSymbol = f->getSymbol();
+		aParent = f->getParent();
+		aSelection = f->getSelection();
+		empty = f->isEmpty();
+	}
+	
+	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"test\" or have no parent",
+					empty &&
+					aSymbol == TT("test") &&
+					aParent == aNamespace &&
+					aSelection == NO,
+					testAssertionCount,
+					errorCount);
+	
+	aNamespace->destroy(n);
+	
+	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not empty",
+					aNamespace->isEmpty(),
+					testAssertionCount,
+					errorCount);
+	
+	// The third set of tests checks item management using TTNodeAddress
+	aNamespace->clear();
+	aNamespace->append(TTADRS("/parent/name.instance"), &f);
+	aSymbol = aNamespace->getSymbol();
+	size = aNamespace->getSize();
+	
+	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"/\" and size is not equal 1",
+					size == 1 &&
+					aSymbol == kTTSymEmpty,
+					testAssertionCount,
+					errorCount);
+	
+	f = NULL;
+	err = aNamespace->find(TTADRS("/parent"), &f);
+	
+	if (!err) {
+		aSymbol = f->getSymbol();
+		aParent = f->getParent();
+		aSelection = f->getSelection();
+		empty = f->isEmpty();
+	}
+	
+	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"\" or have no parent or no child",
+					!empty &&
+					aSymbol == kTTSymEmpty &&
+					aParent == aNamespace->getItem(TT("parent")) &&
+					aSelection == NO,
+					testAssertionCount,
+					errorCount);
+	
+	n = f;
+	f = NULL;
+	err = aNamespace->find(TTADRS("/parent/name"), &f);
+	
+	if (!err) {
+		aSymbol = f->getSymbol();
+		aParent = f->getParent();
+		aSelection = f->getSelection();
+		empty = f->isEmpty();
+	}
+	
+	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"name\" or have no parent or is empty",
+					!empty &&
+					aSymbol == TT("name") &&
+					aParent == n &&
+					aSelection == NO,
+					testAssertionCount,
+					errorCount);
+	
+	n = f;
+	f = NULL;
+	err = aNamespace->find(TTADRS("/parent/name.instance"), &f);
+	
+	if (!err) {
+		aSymbol = f->getSymbol();
+		aParent = f->getParent();
+		aSelection = f->getSelection();
+		empty = f->isEmpty();
+	}
+	
+	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"instance\" or have no parent or is not empty",
+					empty &&
+					aSymbol == TT("instance") &&
+					aParent == n &&
+					aSelection == NO,
+					testAssertionCount,
+					errorCount);
+	
+	f = NULL;
+	aNamespace->append(TTADRS("/parent/name.other"), &f);
+	
+	size = f->getParent()->getSize();
+	
+	TTTestAssertion("TTNodeAddressItem: Test fails if size is not equal to 2",
+					size == 2,
+					testAssertionCount,
+					errorCount);
+	
 }
 
 // TODO: Benchmarking
@@ -147,6 +286,8 @@ TTErr TTNodeLibTest::test(TTValue& returnedTestInfo)
 	int testAssertionCount = 0;
 	
 	TTNodeLibTestNodeAddressTable(errorCount, testAssertionCount);
+	
+	TTNodeLibTestNodeAddressItem(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

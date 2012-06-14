@@ -32,6 +32,7 @@
 #include "TTNodeAddress.h"
 #include "TTNodeAddressTable.h"
 #include "TTNodeAddressCache.h"
+#include "TTNodeAddressItem.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 

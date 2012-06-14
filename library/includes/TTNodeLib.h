@@ -12,6 +12,7 @@
 #include "TTHash.h"
 #include "TTNodeAddress.h"
 #include "TTNodeAddressTable.h"
+#include "TTNodeAddressItem.h"
 #include "TTNodeAddressCache.h"
 
 void TTFOUNDATION_EXPORT TTNodeLibInit();

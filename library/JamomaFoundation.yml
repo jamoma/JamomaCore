@@ -33,6 +33,7 @@ sources:
   - mac source/TTNodeAddress.cpp
   - mac source/TTNodeAddressTable.cpp
   - mac source/TTNodeAddressCache.cpp
+  - mac source/TTNodeAddressItem.cpp
   - mac source/TTNodeDirectory.cpp
   - mac tests/TTNodeLib.test.cpp
   - win source/TTNodeLib.cpp

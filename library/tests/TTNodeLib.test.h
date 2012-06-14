@@ -14,6 +14,7 @@
 
 #include "TTNode.h"
 #include "TTNodeAddress.h"
+#include "TTNodeAddressItem.h"
 #include "TTNodeDirectory.h"
 
 /**	Provide unit tests for #TTValue */
