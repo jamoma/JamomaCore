@@ -212,11 +212,6 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2unit, kTTValNONE);
 		
-		// set defaults...
-		x->attr_rampfunction = _sym_nothing;
-		x->attr_ramp = _sym_none;
-		x->ramper = NULL;
-
 		// defaulted to one long above, set list to be of size 1
 		x->list_size = 1;
 		x->listDefault_size = 0;
@@ -234,6 +229,7 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->param_output = &param_output_generic;	// set function pointer to default
         x->attr_ramp = jps_none;
         x->attr_rampfunction = jps_linear;
+		x->ramper = NULL;
 		x->attr_dataspace = jps_none;
 		x->attr_unit = jps_none;
 		x->attr_unitOverride = jps_none;
