@@ -18,7 +18,8 @@ t_symbol	*jps_done,
 //		*jps_none,					// ramp stuff
 			*jps_linear,
 			*jps_linear_q,
-			*jps_ramp_update,
+			//*jps_ramp_update,
+			*jps_slash_ramp_slash_update,
 			*jps_low,					// clip stuff
 			*jps_high, 
 			*jps_both,
@@ -93,6 +94,8 @@ t_symbol	*jps_done,
 			*jps_config_changed,
 			*jps_algorithm,
 			*jps_get_num_channels,
+			*jps_module_name,
+			*jps_module_class,
 			*jps_module_type,			// module type
 			//*jps_poly,
 			*jps_default,
@@ -111,7 +114,7 @@ t_symbol	*jps_done,
 			*jps_init,
 			*jps_ATTRIBUTES,
 			*jps_BUILD,
-			*jps_MODULE_NAME,			// name of this module class
+			//*jps_MODULE_NAME,			// name of this module class
 			*jps_MODULE_TITLE,			// OSC name of this module instance
 			*jps_PARAMETER,
 			*jps_NEW_PRESETS_START,
@@ -152,8 +155,12 @@ t_symbol	*jps_done,
 			*jps_video_preview,
 			*jps_slash_video_preview,			
 			*jps_open,							// 	open
+		    *jps_slash_getstate,
 			*jps_slash_module_view_internals,	//	/module/view_internals
-			*jps_slash_preset_slash_default,		// 	/preset/default
+			*jps_slash_module_slash_reference,	//	/module/reference
+			*jps_slash_module_slash_help,		//	/module/help				
+			*jps_slash_preset_slash_interface,	// /preset/interface
+			*jps_slash_preset_slash_default,	// 	/preset/default
 			*jps_slash_preset_slash_load,		// 	/preset/load
 			*jps_slash_preset_slash_store,
 			*jps_slash_preset_slash_storenext,
@@ -188,7 +195,8 @@ void jamomaSymbolsInit()
 	jps_none						= SymbolGen("none");
 	jps_linear						= SymbolGen("linear");
 	jps_linear_q					= SymbolGen("linear.q");
-	jps_ramp_update					= SymbolGen("ramp_update");
+	//jps_ramp_update					= SymbolGen("ramp_update");
+	jps_slash_ramp_slash_update     = SymbolGen("/ramp/update");
 	//clip stuff
 	jps_low							= SymbolGen("low"); 
 	jps_high						= SymbolGen("high"); 
@@ -275,6 +283,8 @@ void jamomaSymbolsInit()
 	jps_algorithm					= SymbolGen("algorithm");
 	jps_get_num_channels			= SymbolGen("get_num_channels");
 	// module type
+	jps_module_name					= SymbolGen("module_name");
+	jps_module_class				= SymbolGen("module_class");
 	jps_module_type					= SymbolGen("module_type");
 	   //jps_poly						= SymbolGen("poly");
 	jps_default						= SymbolGen("default");
@@ -293,7 +303,7 @@ void jamomaSymbolsInit()
 	jps_init						= SymbolGen("/init");			// method in the hub called from jcom.init
 	jps_ATTRIBUTES					= SymbolGen("ATTRIBUTES");
 	jps_BUILD						= SymbolGen("BUILD");
-	jps_MODULE_NAME					= SymbolGen("MODULE_NAME");	// name of this module class
+	//jps_MODULE_NAME					= SymbolGen("MODULE_NAME");	// name of this module class
 	jps_MODULE_TITLE				= SymbolGen("MODULE_TITLE");	// OSC id of of this module instance
 	jps_PARAMETER					= SymbolGen("PARAMETER");
 	jps_NEW_PRESETS_START			= SymbolGen("NEW_PRESETS_START");
@@ -336,7 +346,11 @@ void jamomaSymbolsInit()
 	jps_register_meter				= SymbolGen("register_meter");
 	jps_register_preview			= SymbolGen("register_preview");
 	jps_open						= SymbolGen("open");
+	jps_slash_getstate				= SymbolGen("/getstate");
 	jps_slash_module_view_internals = SymbolGen("/module/view_internals");
+	jps_slash_module_slash_reference = SymbolGen("/module/reference");	
+	jps_slash_module_slash_help     = SymbolGen("/module/help");	
+	jps_slash_preset_slash_interface = SymbolGen("/preset/interface");
 	jps_slash_preset_slash_default 	= SymbolGen("/preset/default");
 	jps_slash_preset_slash_load		= SymbolGen("/preset/load");
 	jps_slash_preset_slash_recall	= SymbolGen("/preset/recall");

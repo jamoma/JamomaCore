@@ -36,6 +36,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				//*jps_none,				
 				*jps_linear,
 				*jps_linear_q,
+			    *jps_slash_ramp_slash_update,
 				*jps_low,							// clip stuff
 				*jps_high, 
 				*jps_both,
@@ -110,6 +111,8 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_config_changed,
 				*jps_algorithm,
 				*jps_get_num_channels,
+				*jps_module_name,
+				*jps_module_class,
 				*jps_module_type,
 				//*jps_poly,
 				*jps_default,
@@ -128,7 +131,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_init,
 				*jps_ATTRIBUTES,					// used by the hub for setting up the gui...
 				*jps_BUILD,
-				*jps_MODULE_NAME,
+				//*jps_MODULE_NAME,
 				*jps_MODULE_TITLE,
 				*jps_PARAMETER,
 				*jps_NEW_PRESETS_START,
@@ -169,7 +172,11 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_video_preview,
 				*jps_slash_video_preview,
 				*jps_open,							//  open
-				*jps_slash_module_view_internals,	// /module/view_internals
+		 		*jps_slash_getstate,
+		 		*jps_slash_module_view_internals,	//	/module/view_internals
+		 		*jps_slash_module_slash_reference,	//	/module/reference
+		 		*jps_slash_module_slash_help,		//	/module/help				
+		 		*jps_slash_preset_slash_interface,	// /preset/interface
 				*jps_slash_preset_slash_default,	// /preset/default
 				*jps_slash_preset_slash_load,		// /preset/load
 				*jps_slash_preset_slash_store,		// /preset/store

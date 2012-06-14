@@ -607,27 +607,23 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		}
 		else if (private_message == jps_slash_module_view_internals)		//	/module/view_internals
 			hub_module_view_alg(x, NULL, 0, NULL);
-		else if (private_message == gensym("/module/help"))
+		else if (private_message == jps_slash_module_slash_help)            // /module/help
 			hub_module_help(x);
-		else if (private_message == gensym("/module/reference")) {
+		else if (private_message == jps_slash_module_slash_reference) {     // /module/reference
 			char refstr[MAX_FILENAME_CHARS];
 			
 			strncpy_zero(refstr, x->attr_name->s_name, MAX_FILENAME_CHARS);
 			object_method_sym(gensym("max")->s_thing, gensym("html_ref"), gensym(refstr), NULL);
 			//hub_module_reference(x);
 		}
-		else if (private_message == gensym("/preset/interface")) {
-			hub_preset_interface(x);
-		}
-		else if (private_message == gensym("/getstate")) {
-			hub_getstate(x);
-		}
-		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/view/freeze			
-			hub_symbol(x, jps_slash_ui_slash_freeze, argc, argv);
-		}
-		else if ( private_message == jps_slash_ui_slash_refresh )	{	//	/view/refresh			
+		else if (private_message == jps_slash_preset_slash_interface) //preset/interface
+			hub_preset_interface(x);		
+		else if (private_message == jps_slash_getstate)  // /getstate
+			hub_getstate(x);		
+		else if (private_message == jps_slash_ui_slash_freeze) 			// 	/view/freeze			
+			hub_symbol(x, jps_slash_ui_slash_freeze, argc, argv);		
+		else if ( private_message == jps_slash_ui_slash_refresh )		//	/view/refresh			
 			hub_ui_refresh(x, NULL, 0, NULL);
-		}
 		else if (private_message == gensym("fetchParameterNamesInLinklist"))
 			hub_paramnames_linklist(x, (t_linklist*)atom_getobj(argv));
 		else if (private_message == gensym("fetchMessageNamesInLinklist"))
@@ -1016,15 +1012,15 @@ void hub_gui_build(t_hub *x)
 		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i;
 			if ((t->type == jps_subscribe_remote) && t->name == jps__gui__) {
-				atom_setsym(&a[0], gensym("module_name"));
+				atom_setsym(&a[0], jps_module_name);
 				atom_setsym(&a[1], x->osc_alias);
 				object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 				
-				atom_setsym(&a[0], gensym("module_class"));
+				atom_setsym(&a[0], jps_module_class);
 				atom_setsym(&a[1], x->attr_name);
 				object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 				
-				atom_setsym(&a[0], gensym("module_type"));
+				atom_setsym(&a[0], jps_module_type);
 				atom_setsym(&a[1], x->attr_type);
 				object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 			}
@@ -1534,7 +1530,7 @@ void hub_bang(t_hub *x)
 		t = *i; 
 		type = t->type;		
 		if (type == jps_subscribe_parameter || type == jps_subscribe_message)
-			object_method(t->object, gensym("/ramp/update"));
+			object_method(t->object, jps_slash_ramp_slash_update);
 	}	
 }
 
@@ -1599,7 +1595,7 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// update the ui object
 		if (x->gui_object) {
-			atom_setsym(&a[0], gensym("module_name"));
+			atom_setsym(&a[0], jps_module_name);
 			atom_setsym(&a[1], x->osc_alias);
 			object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 		}
