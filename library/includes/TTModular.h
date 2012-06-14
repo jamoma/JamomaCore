@@ -42,6 +42,7 @@
 
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
+#include "TTNodeAddressItem.h"
 
 #include "TTModularSymbolCache.h"
 
@@ -95,15 +96,20 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 	\
 	TT_MODULAR_CONSTRUCTOR
 
+// Macro to retreive a namespace by name
+#define lookupNamespace(namespaceName) TTModularNamespacesLookup(namespaceName)
+
 // Global
 
 /** The main objects of TTModular */
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
+
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
 extern	TTMODULAR_EXPORT	TTApplicationManagerPtr TTModularApplications;
+extern	TTMODULAR_EXPORT	TTHashPtr				TTModularNamespaces;
 
 // Prototypes
 
@@ -113,6 +119,9 @@ void	TTMODULAR_EXPORT	TTModularInit();
 
 /** Create the local application and use a configuration file */
 void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);
+
+/** Get a namespace */
+TTNodeAddressItemPtr	TTMODULAR_EXPORT	TTModularNamespacesLookup(TTSymbolPtr namespaceName);
 
 
 #endif // __TT_MODULAR_H__

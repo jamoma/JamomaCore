@@ -21,6 +21,8 @@ void		nmspc_assist(TTPtr self, void *b, long m, long a, char *s);
 
 void		nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+void		nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 void		nmspc_bang(TTPtr self);
 void		nmspc_symbol(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
@@ -64,6 +66,8 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)nmspc_return_value,		"return_value",				A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)nmspc_return_model_address,"return_model_address",		A_CANT, 0);
+
+	class_addmethod(c->maxClass, (method)nmspc_return_selection,	"return_selection",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)nmspc_bang,				"bang",						0);
 	
@@ -90,11 +94,24 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
+	SymbolPtr					name;
 	TTOpmlHandlerPtr			aOpmlHandler;
 	TTValue						v, args;
 	
 	// create the explorer
 	jamoma_explorer_create((ObjectPtr)x, &x->wrappedObject);
+	
+	// read first argument to know if the explorer handle a namespace
+	if (attrstart && argv) {
+		
+		if (atom_gettype(argv) == A_SYM) {
+			
+			name = atom_getsym(argv);
+			x->wrappedObject->setAttributeValue(kTTSym_namespace, TT(name->s_name));
+		}
+		else
+			object_error((ObjectPtr)x, "argument not expected");
+	}
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
@@ -105,6 +122,25 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare Internals hash to store XmlHanler object
 	x->internals = new TTHash();
+	
+	// create internal observer for selection attribute
+	/*
+	 TTObjectPtr newObserver;
+	 TTValuePtr newBaton;
+	 
+	newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
+	
+	newBaton = new TTValue(TTPtr(aReceiver));
+	newBaton->append(anAddress->appendAttribute(aReceiver->mAddress->getAttribute()));
+	
+	newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+	newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
+	
+	newObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));			// this is usefull only to debug
+	
+	anAttribute->registerObserverForNotifications(*newObserver);
+	 */
 	
 	// create internal TTOpmlHandler
 	aOpmlHandler = NULL;
@@ -203,6 +239,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTSymbolPtr	output;
 	TTNodeAddressPtr address;
 	SymbolPtr	s;
+	TTUInt32	i;
 	Atom		a[1], c[2], j[3];
 	
 	// Ask Explorer object
@@ -252,7 +289,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// fill umenu
 		// output argv
-		for (long i=0; i<argc; i++) {
+		for (i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
 			if (output == kTTSym_descendants && address->getName() == S_SEPARATOR)
@@ -273,7 +310,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 	
 	// JIT CELLBLOCK FORMAT
-	if (x->msg == gensym("jit.cellblock")) {
+	else if (x->msg == gensym("jit.cellblock")) {
 		
 		// clear jit.cellblock
 		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
@@ -284,7 +321,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// fill jit.cellblock
 		// output argv
-		for (long i=0; i<argc; i++) {
+		for (i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
 			if (output == kTTSym_attributes)
@@ -300,19 +337,17 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				outlet_anything(x->outlets[data_out], _sym_set, 3, j);
 			}
 		}
-		
-		return;
 	}
 	
 	// COLL FORMAT
-	if (x->msg == gensym("coll")) {
+	else if (x->msg == gensym("coll")) {
 		
 		// clear coll
 		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
 		
 		// fill coll
 		// output argv
-		for (long i=0; i<argc; i++) {
+		for (i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
 			if (output == kTTSym_attributes)
@@ -330,7 +365,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 	
 	// NO FORMAT
-	if (x->msg == gensym("none") || x->msg == _sym_nothing) {
+	else if (x->msg == gensym("none") || x->msg == _sym_nothing) {
 		if (argc)
 			outlet_atoms(x->outlets[data_out], argc, argv);
 		else if (msg != _sym_nothing)
@@ -340,6 +375,71 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	// output the size of the result after the result
 	atom_setlong(a, argc);
 	outlet_anything(x->outlets[size_out], _sym_int, 1, a);
+}
+
+void nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue		v;
+	TTSymbolPtr	output;
+	TTUInt32	i, state;
+	Atom		u[2], j[6];
+	
+	// Ask Explorer object
+	x->wrappedObject->getAttributeValue(TT("output"), v);
+	v.get(0, &output);
+	
+	// UMENU OR UMENU_PREFIX FORMAT
+	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
+		
+		// clear check item
+		outlet_anything(x->outlets[data_out], gensym("clearchecks"), 0, NULL);
+		
+		// update check item
+		for (i=0; i<argc; i++) {
+			state = atom_getlong(argv+i);
+			atom_setlong(u, i);
+			atom_setlong(u+1, state);
+			outlet_anything(x->outlets[data_out], gensym("checkitem"), 2, u);
+		}
+	}
+	
+	// JIT CELLBLOCK FORMAT
+	else if (x->msg == gensym("jit.cellblock")) {
+		
+		// update background color
+		for (i=0; i<argc; i++) {
+			
+			atom_setlong(j, 0);
+			atom_setlong(j+1, i);
+			atom_setsym(j+2, gensym("brgb"));
+			
+			state = atom_getlong(argv+i);
+			
+			if (state) {
+				atom_setlong(j+3, 158);
+				atom_setlong(j+4, 0);
+				atom_setlong(j+5, 92);
+			}
+			else {
+				atom_setlong(j+3, 0);
+				atom_setlong(j+4, 0);
+				atom_setlong(j+5, 0);
+			}
+			
+			outlet_anything(x->outlets[data_out], gensym("cell"), 6, j);
+		}
+	}
+	
+	// COLL FORMAT
+	else if (x->msg == gensym("coll")) {
+		;
+	}
+	
+	// NO FORMAT
+	else if (x->msg == gensym("none") || x->msg == _sym_nothing) {
+		;
+	}
 }
 
 void nmspc_bang(TTPtr self)

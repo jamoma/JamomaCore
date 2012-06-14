@@ -8,7 +8,6 @@
 
 /* Begin PBXFileReference section */
 		A7CC313E1518947A00992C6E /* jcom.out.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.out.cpp; sourceTree = "<group>"; };
-		A7CC313F1518947A00992C6E /* jcom.out.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.out.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -23,7 +22,6 @@
 			isa = PBXGroup;
 			children = (
 				A7CC313E1518947A00992C6E /* jcom.out.cpp */,
-				A7CC313F1518947A00992C6E /* jcom.out.h */,
 			);
 			name = Sources;
 			sourceTree = "<group>";

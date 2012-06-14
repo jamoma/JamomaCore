@@ -15,8 +15,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mOrder(kTTValNONE),
 mCurrent(kTTSymEmpty),
-mCurrentNamespace(kTTValNONE),
-mNamespace(NULL),
+mNamespace(kTTSymEmpty),
 mCues(NULL),
 mCurrentCue(NULL)
 {
@@ -25,12 +24,9 @@ mCurrentCue(NULL)
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
 	
-	addAttributeWithGetter(CurrentNamespace, kTypeLocalValue);
-	addAttributeProperty(CurrentNamespace, readOnly, YES);
+	addAttribute(Namespace, kTypeSymbol);
 	
 	registerAttribute(TT("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
-	
-	registerAttribute(TT("namespace"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getNamespace, (TTSetterMethod)&TTCueManager::setNamespace);
 	
 	addAttribute(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
@@ -39,12 +35,12 @@ mCurrentCue(NULL)
 	addMessageWithArguments(NamespaceClear);
 	addMessageWithArguments(NamespaceAppend);
 	addMessageWithArguments(NamespaceRemove);
-	addMessage(NamespaceSync);
 	
 	addMessage(New);
 	
 	addMessageWithArguments(Store);
 	addMessageWithArguments(Recall);
+	addMessageWithArguments(Select);
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Remove);
@@ -63,7 +59,6 @@ mCurrentCue(NULL)
 	addMessageProperty(ReadFromText, hidden, YES);
 	
 	mCues = new TTHash();
-	mNamespace = new TTList();
 }
 
 TTCueManager::~TTCueManager()
@@ -83,9 +78,6 @@ TTCueManager::~TTCueManager()
 	
 	delete mCues;
 	mCues = NULL;
-	
-	delete mNamespace;
-	mNamespace = NULL;
 }
 
 TTErr TTCueManager::setOrder(const TTValue& value)
@@ -107,12 +99,6 @@ TTErr TTCueManager::setOrder(const TTValue& value)
 		return kTTErrGeneric;
 	
 	mOrder = newOrder;
-	return kTTErrNone;
-}
-
-TTErr TTCueManager::getCurrentNamespace(TTValue& value)
-{
-	value = mCurrentNamespace;
 	return kTTErrNone;
 }
 
@@ -152,63 +138,63 @@ TTErr TTCueManager::setCurrentRamp(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTCueManager::getNamespace(TTValue& value)
-{
-	return TTCueNamespaceEdit(mNamespace, value);
-}
-
-TTErr TTCueManager::setNamespace(const TTValue& value)
-{
-	delete mNamespace;
-	mNamespace = TTCueNamespaceParse(value);
-	return kTTErrNone;
-}
-
 TTErr TTCueManager::NamespaceClear(const TTValue& inputValue, TTValue& outputValue)
 {
-	if (inputValue == kTTValNONE) {
-		delete mNamespace;
-		mNamespace = new TTList();
-	}
-	else {
-		NamespacePtr aNamespaceToClear = TTCueNamespaceParse(inputValue);
+	TTNodeAddressItemPtr aNamespace;
+	TTNodeAddressPtr	address;
+	
+	if (inputValue.getType() == kTypeSymbol)
+		inputValue.get(0, &address);
+	
+	aNamespace = lookupNamespace(mNamespace);
+	
+	if (aNamespace) {
 		
-		TTCueNamespaceRemove(aNamespaceToClear, mNamespace);
-		TTCueNamespaceAppend(aNamespaceToClear, mNamespace);
+		if (address != kTTAdrsEmpty)
+			aNamespace->find(address, &aNamespace);
 		
-		TTCueNamespaceEdit(mNamespace, outputValue);
+		aNamespace->clear();
+		
+		return kTTErrNone;
 	}
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputValue)
 {
-	NamespacePtr aNamespaceToAppend = TTCueNamespaceParse(inputValue);
+	TTNodeAddressItemPtr aNamespace, anItem;
+	TTNodeAddressPtr	address;
 	
-	TTCueNamespaceAppend(aNamespaceToAppend, mNamespace);
+	if (inputValue.getType() == kTypeSymbol) {
+		
+		inputValue.get(0, &address);
+		
+		aNamespace = lookupNamespace(mNamespace);
+		
+		if (aNamespace)
+			return aNamespace->append(address, &anItem);
+	}
 	
-	TTCueNamespaceEdit(mNamespace, outputValue);
-	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputValue)
 {
-	NamespacePtr aNamespaceToRemove = TTCueNamespaceParse(inputValue);
+	TTNodeAddressItemPtr aNamespace;
+	TTNodeAddressPtr	address;
 	
-	TTCueNamespaceRemove(aNamespaceToRemove, mNamespace);
+	if (inputValue.getType() == kTypeSymbol) {
+		
+		inputValue.get(0, &address);
+		
+		aNamespace = lookupNamespace(mNamespace);
+		
+		if (aNamespace)
+			return aNamespace->remove(address);
+	}
 	
-	TTCueNamespaceEdit(mNamespace, outputValue);
-	
-	return kTTErrNone;
-}
-
-TTErr TTCueManager::NamespaceSync()
-{
-	delete mNamespace;
-	mNamespace = TTCueNamespaceParse(mCurrentNamespace);
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTCueManager::New()
@@ -233,7 +219,6 @@ TTErr TTCueManager::New()
 		mCues = new TTHash();
 		mCurrentCue = NULL;
 		mCurrent = kTTSymEmpty;
-		mCurrentNamespace = kTTValNONE;
 		mOrder = kTTValNONE;
 		
 		notifyOrderObservers();
@@ -261,6 +246,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		TTObjectInstantiate(TT("Cue"), TTObjectHandle(&mCurrentCue), kTTValNONE);
 		
 		mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
+		mCurrentCue->setAttributeValue(kTTSym_namespace, mNamespace);
 		
 		// Append the new cue
 		v = TTValue((TTPtr)mCurrentCue);
@@ -274,10 +260,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentCue->sendMessage(TT("Clear"));
 	}
 	
-	v = TTValue((TTPtr)mNamespace);
-	mCurrentCue->sendMessage(TT("Store"), v, mCurrentNamespace);
-	
-	return kTTErrNone;
+	return mCurrentCue->sendMessage(TT("Store"), mNamespace, kTTValNONE);
 }
 
 TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
@@ -293,14 +276,33 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		
 		v.get(0, (TTPtr*)&mCurrentCue);
 		
-		if (mCurrentCue) {
-			mCurrentCue->getAttributeValue(TT("namespace"), mCurrentNamespace);
+		if (mCurrentCue)
 			return mCurrentCue->sendMessage(TT("Recall"));
-		}
 	}
 	
 	return kTTErrGeneric;
 }
+
+TTErr TTCueManager::Select(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTValue		v;
+	
+	// get cue name
+	if (inputValue.getType() == kTypeSymbol)
+		inputValue.get(0, &mCurrent);
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		if (mCurrentCue)
+			return mCurrentCue->sendMessage(TT("Select"));
+	}
+	
+	return kTTErrGeneric;
+}
+
 
 TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -393,7 +395,6 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = NULL;
 		mCurrent = kTTSymEmpty;
-		mCurrentNamespace = kTTValNONE;
 		mOrder = newOrder;
 		
 		notifyOrderObservers();
@@ -432,7 +433,7 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 			aCueToOptimize = NULL;
 			if (!mCues->lookup(nameToOptimize, v))
 				v.get(0, (TTPtr*)&aCueToOptimize);
-				
+			
 			if (aCueToMerge && aCueToOptimize) {
 				
 				// merge the cue before into the current state
@@ -521,8 +522,6 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 			v = TTValue(TTPtr(mCurrentCue));
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TT("Read"));
-			
-			mCurrentCue->getAttributeValue(TT("namespace"), mCurrentNamespace);
 		}
 		
 		notifyOrderObservers();
@@ -643,24 +642,22 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 				}
 			}
 		}
+	}
+	
+	// edit the current cue with the line
+	if (mCurrentCue) {
 		
-		// edit the current cue with the line
-		if (mCurrentCue) {
-			
-			v = TTValue(TTPtr(mCurrentCue));
-			aTextHandler->setAttributeValue(kTTSym_object, v);
-			aTextHandler->sendMessage(TT("Read"));
-		}
+		v = TTValue(TTPtr(mCurrentCue));
+		aTextHandler->setAttributeValue(kTTSym_object, v);
+		aTextHandler->sendMessage(TT("Read"));
+	}
+	
+	// if it is the last line : bind on the first cue
+	if (aTextHandler->mLastLine) {
 		
-		// if it is the last line : bind on the first cue
-		if (aTextHandler->mLastLine) {
-			
-			mOrder.get(0, &mCurrent);
-			if (!mCues->lookup(mCurrent, v)) {
-				
-				v.get(0, (TTPtr*)&mCurrentCue);
-				mCurrentCue->getAttributeValue(TT("namespace"), mCurrentNamespace);
-			}
+		mOrder.get(0, &mCurrent);
+		if (!mCues->lookup(mCurrent, v)) {
+			v.get(0, (TTPtr*)&mCurrentCue);
 			
 			notifyOrderObservers();
 		}

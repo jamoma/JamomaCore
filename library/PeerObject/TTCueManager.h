@@ -33,8 +33,7 @@ private:
 	
 	TTValue				mOrder;							///< ATTRIBUTE : cues are ordered by name
 	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current cue name
-	TTValue				mCurrentNamespace;				///< ATTRIBUTE : the set of addresses of the current cue
-	NamespacePtr		mNamespace;						///< ATTRIBUTE : a namespace to manage before to store
+	TTSymbolPtr			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
 	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
 	
 	TTCuePtr			mCurrentCue;					///< the current cue
@@ -43,15 +42,8 @@ private:
 	TTErr	setOrder(const TTValue& value);
 	
 	/** */
-	TTErr	getCurrentNamespace(TTValue& value);
-	
-	/** */
 	TTErr	getCurrentRamp(TTValue& value);
 	TTErr	setCurrentRamp(const TTValue& value);
-
-	/** */
-	TTErr	getNamespace(TTValue& value);
-	TTErr	setNamespace(const TTValue& value);
 	
 	/** */
 	TTErr	NamespaceClear(const TTValue& inputValue, TTValue& outputValue);
@@ -61,9 +53,6 @@ private:
 	
 	/** */
 	TTErr	NamespaceRemove(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr	NamespaceSync();
 	
 	/** */
 	TTErr	New();
@@ -77,6 +66,11 @@ private:
 		name : recall the cue.
 		nothing : recall the current cue */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Select a cue to synchronise selection state of his namespace :
+		name : select the cue.
+		nothing : select the current cue */
+	TTErr	Select(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Interpolate 2 cues : 
 		name1, name2, position : interpolate between the 2 given cues

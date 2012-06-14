@@ -313,7 +313,6 @@ TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 TTErr TTScript::AppendCommand(const TTValue& newCommand, TTValue& outputValue)
 {
 	TTDictionaryPtr		line = NULL;
-	NamespaceItemPtr	anItem;
 	TTNodeAddressPtr	address;
 	TTValue				v;
 	
@@ -355,8 +354,6 @@ TTErr TTScript::AppendComment(const TTValue& newComment, TTValue& outputValue)
 TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 {
 	TTDictionaryPtr		line = new TTDictionary();
-	NamespacePtr		aSubNamespace;
-	NamespaceItemPtr	anItem;
 	TTNodeAddressPtr	address;
 	TTValue				v;
 	

@@ -19,25 +19,6 @@ typedef TTScript* TTScriptPtr;
  
  */
 
-
-/** Internal class to describe and manage the namespace of a cue */
-
-// a namespace is a TTList
-typedef	TTList* NamespacePtr;
-
-class NamespaceItem
-{
-	public :
-	TTNodeAddressPtr	address;	// an absolute or a relative address
-	NamespacePtr		children;	// a sub namespace relative to the address
-	
-	NamespaceItem(const TTNodeAddressPtr anAddress, const NamespacePtr aNamespace);
-	~NamespaceItem();
-};
-typedef NamespaceItem* NamespaceItemPtr;
-
-
-
 class TTMODULAR_EXPORT TTCue : public TTDataObject
 {
 	TTCLASS_SETUP(TTCue)
@@ -45,11 +26,9 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	private :
 	
 	TTSymbolPtr					mName;							///< ATTRIBUTE : the name of the cue
+	TTSymbolPtr					mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
 	TTUInt32					mRamp;							///< ATTRIBUTE : a time ramping value for the cue
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
-	
-	/** */
-	TTErr	getNamespace(TTValue& value);
 	
 	/** */
 	TTErr	setRamp(const TTValue& value);
@@ -57,11 +36,14 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	/** */
 	TTErr	Clear();
 	
-	/** Store a namespace object values */
-	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
+	/** Fill the cue according mNamespace */
+	TTErr	Store();
 	
-	/** Recall namespace object values */
+	/** Run the cue */
 	TTErr	Recall();
+	
+	/** Edit namespace selection according the content of the cue  */
+	TTErr	Select();
 	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
@@ -72,10 +54,10 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** a recursive method to store a namespace into a script object */
-	TTErr	processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, const NamespacePtr aNamespace);
+	TTErr	processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, const TTNodeAddressItemPtr aNamespace);
 	
 	/** a recursive method to process a namespace from a script object */
-	TTErr	processNamespace(TTObjectPtr aScript, NamespacePtr *returnedNamespace);
+	TTErr	processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace);
 	
 	/** a recursive method to change each ramping value into a script */
 	TTErr	processRamp(TTObjectPtr aScript, TTUInt32 ramp);
@@ -90,24 +72,13 @@ typedef TTCue* TTCuePtr;
 
 TTBoolean TTMODULAR_EXPORT TTCueCompareNodePriority(TTValue& v1, TTValue& v2);
 
-
-/* Parse a namespace value : < address1, address2, {, subAddress1, subAddress2, }, address3, ... > */
-NamespacePtr	TTMODULAR_EXPORT TTCueNamespaceParse(const TTValue& aNamespaceValue);
-
-/* Edit a namespace value : < address1, address2, {, subAddress1, subAddress2, }, address3, ... > */
-TTErr			TTMODULAR_EXPORT TTCueNamespaceEdit(const NamespacePtr aNamespace, TTValue& returnedNamespaceValue);
-
-/* Copy a namespace */
-TTErr			TTMODULAR_EXPORT TTCueNamespaceCopy(const NamespacePtr aNamespace, NamespacePtr* aNamespaceCopy);
-
-/* Append a namespace to another */
-TTErr			TTMODULAR_EXPORT TTCueNamespaceAppend(NamespacePtr aNamespaceToAppend, NamespacePtr aNamespace);
-
-/* Remove a namespace from another */
-TTErr			TTMODULAR_EXPORT TTCueNamespaceRemove(NamespacePtr aNamespaceToRemove, NamespacePtr aNamespace);
-
-/* a TTFunctionMatch to find a namepace item */
-void			TTMODULAR_EXPORT TTCueNamespaceFindItem(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found);
+/* 
+ Parse a namespace value : < address1, address2, {, subAddress1, subAddress2, }, address3, ... > 
+TTNodeAddressItemPtr	TTMODULAR_EXPORT TTCueNamespaceParse(const TTValue& aNamespaceValue);
+ 
+ Edit a namespace value : < address1, address2, {, subAddress1, subAddress2, }, address3, ... >
+TTErr			TTMODULAR_EXPORT TTCueNamespaceEdit(const TTNodeAddressItemPtr aNamespace, TTValue& returnedNamespaceValue);
+*/
 
 TTErr			TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 

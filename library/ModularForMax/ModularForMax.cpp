@@ -639,8 +639,8 @@ TTErr jamoma_viewer_send(TTViewerPtr aViewer, SymbolPtr msg, AtomCount argc, Ato
 TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 {
 	TTValue			args;
-	TTObjectPtr		returnValueCallback;
-	TTValuePtr		returnValueBaton;
+	TTObjectPtr		returnValueCallback, returnSelectionCallback;
+	TTValuePtr		returnValueBaton, returnSelectionBaton;
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -651,6 +651,14 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	args.append(returnValueCallback);
 	
 	args.append((TTPtr)jamoma_explorer_default_filter_bank());
+
+	returnSelectionCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &returnSelectionCallback, kTTValNONE);
+	returnSelectionBaton = new TTValue(TTPtr(x));
+	returnSelectionBaton->append((TTPtr)gensym("return_selection"));
+	returnSelectionCallback->setAttributeValue(kTTSym_baton, TTPtr(returnSelectionBaton));
+	returnSelectionCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(returnSelectionCallback);
 	
 	*returnedExplorer = NULL;
 	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);

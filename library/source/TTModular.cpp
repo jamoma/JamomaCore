@@ -14,12 +14,19 @@ static bool TTModularHasInitialized = false;
 
 TTApplicationManagerPtr	TTModularApplications = NULL;
 
+TTHashPtr TTModularNamespaces = NULL;
+
 /****************************************************************************************************/
 
 void TTModularInit()
 {	
 	// Initialized Foundation framework
 	TTFoundationInit();
+	
+	// DEBUG NodeLib
+	//TTObjectPtr test;
+	//TTObjectInstantiate(TT("nodelib.test"), &test, kTTValNONE);
+	//test->sendMessage(TT("test"));
 	
 	if (!TTModularHasInitialized) {
 		
@@ -70,6 +77,9 @@ void TTModularInit()
 		// Create the Modular application manager with no application inside
 		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), kTTValNONE);
 		
+		// Create a hash table to manage namespace selections
+		TTModularNamespaces = new TTHash();
+		
 #ifdef TT_DEBUG
 		TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
 #else
@@ -109,6 +119,27 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName->getCString());
 	}
+}
+
+TTNodeAddressItemPtr	TTModularNamespacesLookup(TTSymbolPtr namespaceName)
+{
+	TTNodeAddressItemPtr	aNamespace = NULL;
+	TTValue			v;
+	
+	if (namespaceName != kTTSymEmpty) {
+		
+		if (!TTModularNamespaces->lookup(namespaceName, v))
+			v.get(0, (TTPtr*)&aNamespace);
+		
+		else {
+			aNamespace = new TTNodeAddressItem(kTTAdrsRoot);
+			
+			v = TTValue((TTPtr)aNamespace);
+			TTModularNamespaces->append(namespaceName, v);
+		}
+	}
+
+	return aNamespace;
 }
 
 #ifdef TT_PLATFORM_LINUX

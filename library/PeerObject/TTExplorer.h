@@ -26,6 +26,7 @@ class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 	
 private:
 	
+	TTSymbolPtr			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to manage
 	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
 	TTSymbolPtr			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
 														///<	- descendants : any address below the node at any level (default)
@@ -41,6 +42,7 @@ private:
 	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
 	TTCallbackPtr		mApplicationObserver;			///< an application life cycle observer
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
+	TTCallbackPtr		mReturnSelectionCallback;		///< a way to return back selection to the owner of this explorer
 	TTHashPtr			mFilterBank;					///< a hash table containing TTDictionaryPtr to store filters
 	TTListPtr			mFilterList;					///< a list containing TTSymbolPtr to retreive filters in the filter bank
 	
@@ -50,6 +52,10 @@ private:
 		
 	/** */
 	TTErr Explore();
+	
+	/** Set the selection state of a namespace item using his name and a new selection state
+		if no selection state : switch the state */
+	TTErr Select(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Create a filter, add it to the bank and append it to the list
 		< filterName filterKey1 filterValue1 filterKey2 filterValue2 ... >
@@ -102,6 +108,9 @@ private:
 	/** */
 	TTErr returnResultBack();
 	
+	/** */
+	TTErr returnSelectionBack();
+
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr WriteAsOpml(const TTValue& inputValue, TTValue& outputValue);
 	void writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode);
