@@ -34,6 +34,7 @@ private:
 	TTSymbolPtr					symbol;					// any symbol
 	TTNodeAddressItemPtr		parent;					// the parent item
 	TTBoolean					selection;				// selection state of the item
+	TTList						handlers;				// list of all TTObject handling the item
 	
 public:
 	
@@ -46,12 +47,12 @@ public:
 	/** Set the parent of the item
 	 @param	newParent					a namespace item pointer
 	 @return							a error code	*/
-	TTErr						setParent(const TTNodeAddressItemPtr newParent);
+	void						setParent(const TTNodeAddressItemPtr newParent);
 
 	/** Set the selection state of the item
 		@param	newSelectionState		YES to select the item
 		@return							a error code	*/
-	TTErr						setSelection(const TTBoolean newSelectionState);
+	void						setSelection(const TTBoolean newSelectionState, TTBoolean recursively=NO);
 
 	/** Get the symbol of the item */
 	TTSymbolPtr					getSymbol();
@@ -93,9 +94,15 @@ public:
 	/** Copy the item into a given item */
 	TTErr						copy(TTNodeAddressItemPtr *anItemCopy);
 	
-	/** Check selection state of all items below to find at least one selected item.
-		Set selection to NO if no item is selected below */
-	void						checkSelection();
+	/** Register a TTObject handler */
+	void						registerHandler(TTObject& anObject);
+	
+	/** Unregister a TTObject handler */
+	void						unregisterHandler(TTObject& anObject);
+	
+	/** Send a message to all handlers */
+	void						iterateHandlersSendingMessage(TTSymbolPtr messageName);
+	void						iterateHandlersSendingMessage(TTSymbolPtr messageName, TTValue& aValue);
 	
 	friend void TTFOUNDATION_EXPORT TTNodeAddressItemFind(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found);
 };

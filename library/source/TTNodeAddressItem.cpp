@@ -24,35 +24,21 @@ TTNodeAddressItem::~TTNodeAddressItem()
 	this->clear();
 }
 
-TTErr TTNodeAddressItem::setSelection(const TTBoolean newSelectionState)
+void TTNodeAddressItem::setSelection(const TTBoolean newSelectionState, TTBoolean recursively)
 {
 	// filter repetitions
-	if (newSelectionState != this->selection) {
-		
+	if (newSelectionState != this->selection)
 		this->selection = newSelectionState;
-		
-		// if the item become selected
-		if (this->selection)
-			// his parent have to be selected too
-			if (this->parent) this->parent->setSelection(this->selection);
-		
-		// if the item become unselected
-		else {
-			
-			// unselect all items below
-			for (this->begin(); this->end(); this->next())
-				this->current()->setSelection(this->selection);
-			
-			// parent have to check if there are still selected items below
-			if (this->parent) this->parent->checkSelection();
-		}
-	}
+	
+	// propagate if needed
+	if (recursively)
+		for (this->begin(); this->end(); this->next())
+			this->current()->setSelection(newSelectionState, recursively);
 }
 
-TTErr TTNodeAddressItem::setParent(const TTNodeAddressItemPtr newParent)
+void TTNodeAddressItem::setParent(const TTNodeAddressItemPtr newParent)
 {
 	this->parent = newParent;
-	return kTTErrNone;
 }
 
 TTSymbolPtr TTNodeAddressItem::getSymbol()
@@ -275,16 +261,28 @@ TTErr TTNodeAddressItem::copy(TTNodeAddressItemPtr *anItemCopy)
 		
 		(*anItemCopy)->merge(anItem);
 	}
-	
-	return kTTErrNone;
 }
 
-void TTNodeAddressItem::checkSelection()
+void TTNodeAddressItem::registerHandler(TTObject& anObject)
 {
-	for (this->begin(); this->end(); this->next())
-		if (this->current()->getSelection()) return;
-	
-	this->selection = NO;
+	TTValue v = TTValue(anObject);
+	this->handlers.appendUnique(v);
+}
+
+void TTNodeAddressItem::unregisterHandler(TTObject& anObject)
+{
+	TTValue v = TTValue(anObject);
+	this->handlers.remove(v);
+}
+
+void TTNodeAddressItem::iterateHandlersSendingMessage(TTSymbolPtr messageName)
+{
+	this->handlers.iterateObjectsSendingMessage(messageName);
+}
+
+void TTNodeAddressItem::iterateHandlersSendingMessage(TTSymbolPtr messageName, TTValue& aValue)
+{
+	this->handlers.iterateObjectsSendingMessage(messageName, aValue);
 }
 
 #if 0
