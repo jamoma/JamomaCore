@@ -33,8 +33,8 @@ attributes:
    type: symbol
    desc: set the output unit
    unit:
-   default: 
-	   
+   default:
+
 messages:
  - name: getinput
    type: generic
@@ -61,10 +61,10 @@ messages:
    desc: A @dataspaces.get@ message returns a list of all implemented dataspaces at the dumpout outlet
    unit:
    default:
-	  
+
 seealso:
  - jcom.parameter
  - jcom.message
  - jcom.dataspace#
- 
+
 discussion: Jamoma is a free and open source project. http://www.jamoma.org
