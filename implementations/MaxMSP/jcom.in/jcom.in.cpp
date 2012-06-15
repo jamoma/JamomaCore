@@ -264,11 +264,11 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 			}
 		}
 	}
-	else if ((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
+	else if ((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == jps_mute) || (argv->a_w.w_sym == jps_slash_mute))
 		x->attr_mute = atom_getlong(argv+1);
-	else if ((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
+	else if ((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == jps_bypass) || (argv->a_w.w_sym == jps_slash_bypass))
 		x->attr_bypass = atom_getlong(argv+1);
-	else if ((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
+	else if ((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == jps_freeze) || (argv->a_w.w_sym == jps_slash_freeze))
 		x->attr_freeze = atom_getlong(argv+1);
 
 	if (argv->a_w.w_sym->s_name[0] != '/')

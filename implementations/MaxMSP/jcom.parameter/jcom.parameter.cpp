@@ -531,23 +531,23 @@ void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 	
 	// These should be alphabetized
 	if (*count) {
-		*(*names+0) = gensym("name");
-		*(*names+1) = gensym("type");
-		*(*names+2) = gensym("range/bounds");
-		*(*names+3) = gensym("range/clipmode");
-		*(*names+4) = gensym("ramp/drive");
-		*(*names+5) = gensym("ramp/function");
-		*(*names+6) = gensym("repetitions/allow");
-		*(*names+7) = gensym("dataspace");
-		*(*names+8) = gensym("dataspace/unit");
-		*(*names+9) = gensym("priority");
-		*(*names+10) = gensym("description");
-		*(*names+11) = gensym("readonly");
+		*(*names+0) = jps_name;
+		*(*names+1) = jps_type;
+		*(*names+2) = jps_range_bounds;
+		*(*names+3) = jps_range_clipmode;
+		*(*names+4) = jps_ramp_drive;
+		*(*names+5) = jps_ramp_function;
+		*(*names+6) = jps_repetitions_allow;
+		*(*names+7) = jps_dataspace;
+		*(*names+8) = jps_unit; //dataspace/unit
+		*(*names+9) = jps_priority;
+		*(*names+10) = jps_description;
+		*(*names+11) = jps_readonly;
 		*(*names+12) = gensym("ui/freeze");
-		*(*names+13) = gensym("value");
-		*(*names+14) = gensym("value/default");
-		*(*names+15) = gensym("value/stepsize");
-		*(*names+16) = gensym("mix/weight");
+		*(*names+13) = jps_value;
+		*(*names+14) = jps_value_default;
+		*(*names+15) = jps_value_stepsize;
+		*(*names+16) = jps_mix_slash_weight;
 	}	
 #else
 	*count = 15;
@@ -555,21 +555,21 @@ void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 	
 	// These should be alphabetized
 	if (*count) {
-		*(*names+0) = gensym("name");
-		*(*names+1) = gensym("type");
-		*(*names+2) = gensym("range/bounds");
-		*(*names+3) = gensym("range/clipmode");
-		*(*names+4) = gensym("ramp/drive");
-		*(*names+5) = gensym("ramp/function");
-		*(*names+6) = gensym("repetitions/allow");
-		*(*names+7) = gensym("dataspace");
-		*(*names+8) = gensym("dataspace/unit");
-		*(*names+9) = gensym("description");
-		*(*names+10) = gensym("readonly");
+		*(*names+0) = jps_name;
+		*(*names+1) = jps_type;
+		*(*names+2) = jps_range_bounds;
+		*(*names+3) = jps_range_clipmode;
+		*(*names+4) = jps_ramp_drive;
+		*(*names+5) = jps_ramp_function;
+		*(*names+6) = jps_repetitions_allow;
+		*(*names+7) = jps_dataspace;
+		*(*names+8) = jps_unit; //dataspace/unit
+		*(*names+9) = jps_description;
+		*(*names+10) = jps_readonly;
 		*(*names+11) = gensym("ui/freeze");
-		*(*names+12) = gensym("value");
-		*(*names+13) = gensym("value/default");
-		*(*names+14) = gensym("value/stepsize");
+		*(*names+12) = jps_value;
+		*(*names+13) = jps_value_default;
+		*(*names+14) = jps_value_stepsize;
 	}
 #endif
 
@@ -1811,7 +1811,7 @@ void param_ramp_setup(t_param *x)
 	// 2. create the new rampunit
 	// For some types ramping doesn't make sense, so they will be set to none
 	if ((x->common.attr_type == jps_none) || (x->common.attr_type == jps_string) || (x->common.attr_type == jps_generic))
-		x->attr_ramp = gensym("none");
+		x->attr_ramp = jps_none;
 		
 		
 	if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean))
@@ -1824,8 +1824,8 @@ void param_ramp_setup(t_param *x)
 	if (x->ramper == NULL)
 		error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
 		
-	if (x->attr_rampfunction && x->attr_rampfunction != _sym_nothing && x->attr_rampfunction != gensym("linear"))
-		object_attr_setsym(x, gensym("ramp/function"), x->attr_rampfunction);
+	if (x->attr_rampfunction && x->attr_rampfunction != _sym_nothing && x->attr_rampfunction != jps_linear)
+		object_attr_setsym(x, jps_ramp_function, x->attr_rampfunction);
 }
 
 void param_notify(t_param *x, SymbolPtr s, SymbolPtr msg, void *sender, void *data)

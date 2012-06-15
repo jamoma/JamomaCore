@@ -67,7 +67,7 @@ void hub_internals_create(t_hub *x)
 
 	anObject = new hubInternalObject("jcom.message", 	"view/internals",	x->container,	"none",		"none",	"Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.", 1);
 	anObject->setAction((method)hub_module_view_alg, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("view/internals"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, jps_ui_slash_internals, (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/read",				x->container,	"generic",	"none",	"Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.", 1);
 	anObject->setAction((method)hub_preset_read, (t_object*)x);
@@ -75,11 +75,11 @@ void hub_internals_create(t_hub *x)
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/write",				x->container,	"generic",	"none",	"Write an xml-preset file to disk.  An optional argument defines the file to open.", 1);
 	anObject->setAction((method)hub_preset_write, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("preset/write"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, jps_preset_slash_write, (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/writeagain",		x->container,	"none",		"none",	"Write on same xml-preset file.", 1);
 	anObject->setAction((method)hub_preset_write_again, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("preset/writeagain"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, jps_preset_slash_writeagain, (t_object*)anObject); 
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/recall",			x->container,	"generic",	"none",	"Recall a preset by number - you can also choose presets from the module menu.", 1);
 	anObject->setAction((method)hub_preset_recall, (t_object*)x);
@@ -103,15 +103,15 @@ void hub_internals_create(t_hub *x)
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/interpolate",		x->container,	"array",		"none",	"Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.", 0);
 	anObject->setAction((method)hub_preset_interpolate, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("preset/interpolate"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, jps_preset_slash_interpolate, (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/mix",			x->container,	"array",		"none",	"Mix list of pairs of (preset name, mix value) using a ratio (float).", 0);
 	anObject->setAction((method)hub_preset_mix, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("preset/mix"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, jps_preset_slash_mix, (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/default",			x->container,	"none",		"none",	"Open the default preset file and recall the first preset in that file.", 1);
 	anObject->setAction((method)hub_preset_default, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("preset/default"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, jps_preset_slash_default, (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/clear",				x->container,	"none",		"none",	"Clears all presets, providing a blank slate for saving new presets.", 1);
 	anObject->setAction((method)hub_presets_clear, (t_object*)x);
@@ -127,11 +127,11 @@ void hub_internals_create(t_hub *x)
 
 	anObject = new hubInternalObject("jcom.parameter",	"view/freeze",				x->container,	"boolean",	"none",	"Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.", 0);
 	anObject->setAction((method)hub_ui_freeze, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("view/freeze"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, jps_ui_slash_freeze, (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"view/refresh",				x->container,	"none",		"none",	"Update displayed values for module to reflect current state.", 1);
 	anObject->setAction((method)hub_ui_refresh, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("view/refresh"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, jps_ui_slash_refresh, (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"view/script",					x->container,	"generic",	"none",	"Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module.", 1);
 	anObject->setAction((method)hub_script, (t_object*)x);

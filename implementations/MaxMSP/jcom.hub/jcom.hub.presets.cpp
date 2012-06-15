@@ -593,7 +593,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 			newItem->priority = atom_getlong(av);									// copy
 
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(t->object, gensym("mix/weight"), &ac, &av);	// get jps_mixweight
+			object_attr_getvalueof(t->object, jps_mix_slash_weight, &ac, &av);	// get mix/weight
 			newItem->mixweight = atom_getfloat(av);									// copy
 			
 			ac = NULL; av = NULL;												// init
@@ -639,7 +639,7 @@ void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	  b[1] = *argv;
 
 	atom_setlong(&b[0], x->preset->size() + 1);
-	hub_preset_store(x, gensym("/preset/store"), 2, b);
+	hub_preset_store(x, jps_slash_preset_slash_store, 2, b);
 	// TODO: do we not have to free text?
 }
 
@@ -1147,7 +1147,7 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 
 		atom_setlong(&a[0], 1);
 		atom_setsym(&a[1], jps_default);
-		hub_preset_store(x, gensym("/preset/store"), 2, a);
+		hub_preset_store(x, jps_slash_preset_slash_store, 2, a);
 	} else {
 		// recall the number of the preset we recalled last in the first preset (the one being recalled now)
 		long num = (*(x->preset->begin()))->last_preset_num;
@@ -1156,7 +1156,7 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		t_atom b[2];
 		atom_setlong(&b[0], num);
 		atom_setsym(&b[1], name);
-		hub_preset_store(x, gensym("/preset/store"), 2, b);
+		hub_preset_store(x, jps_slash_preset_slash_store, 2, b);
 	}
 	
 	defer(x, (method)hub_preset_dowrite, arg_path, 0, 0L);
