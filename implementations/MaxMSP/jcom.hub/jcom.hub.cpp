@@ -727,24 +727,17 @@ void hub_getstate(t_hub *x)
 		strncat_zero(x->text, x->osc_permanent->s_name, x->textSize);
 		strncat_zero(x->text, "/alias", x->textSize);
 		strncat_zero(x->text, " ", x->textSize);
-		strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
-		strncat_zero(x->text, "\n", x->textSize);
-		
-		sysmem_freeptr(text);
-		text = NULL;
-		textsize = 0;
+		strncat_zero(x->text, x->osc_alias->s_name, x->textSize);		
 	}
 	// If we do not use an alias, we'll start off with an /alias/remove message
 	else {
 		strncat_zero(x->text, x->osc_permanent->s_name, x->textSize);
-		strncat_zero(x->text, "/alias/remove", x->textSize);
-		strncat_zero(x->text, "\n", x->textSize);
-		
-		sysmem_freeptr(text);
-		text = NULL;
-		textsize = 0;
+		strncat_zero(x->text, "/alias/remove", x->textSize);	
 	}
 
+	sysmem_freeptr(text);
+	text = NULL;
+	textsize = 0;
 	
 	// Count the number of parameters with a priority
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
@@ -781,13 +774,12 @@ void hub_getstate(t_hub *x)
 							x->textSize += 4096;
 							x->text = (char*)realloc(x->text, x->textSize);
 						}
-						
+						strncat_zero(x->text, "\n", x->textSize);
 						strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
 						strncat_zero(x->text, "/", x->textSize);
 						strncat_zero(x->text, t->name->s_name, x->textSize);
 						strncat_zero(x->text, " ", x->textSize);
 						strncat_zero(x->text, text, x->textSize);
-						strncat_zero(x->text, "\n", x->textSize);
 						
 						sysmem_freeptr(text);
 						text = NULL;
@@ -819,13 +811,12 @@ void hub_getstate(t_hub *x)
 						x->textSize += 4096;
 						x->text = (char*)realloc(x->text, x->textSize);
 					}
-					
+					strncat_zero(x->text, "\n", x->textSize);
 					strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
 					strncat_zero(x->text, "/", x->textSize);
 					strncat_zero(x->text, t->name->s_name, x->textSize);
 					strncat_zero(x->text, " ", x->textSize);
 					strncat_zero(x->text, text, x->textSize);
-					strncat_zero(x->text, "\n", x->textSize);
 					
 					sysmem_freeptr(text);
 					text = NULL;
@@ -853,13 +844,12 @@ void hub_getstate(t_hub *x)
 						x->textSize += 4096;
 						x->text = (char*)realloc(x->text, x->textSize);
 					}
-					
+					strncat_zero(x->text, "\n", x->textSize);
 					strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
 					strncat_zero(x->text, "/", x->textSize);
 					strncat_zero(x->text, t->name->s_name, x->textSize);
 					strncat_zero(x->text, " ", x->textSize);
 					strncat_zero(x->text, text, x->textSize);
-					strncat_zero(x->text, "\n", x->textSize);
 					
 					sysmem_freeptr(text);
 					text = NULL;
