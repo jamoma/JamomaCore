@@ -132,7 +132,7 @@ TTNodeAddressItemPtr	TTModularNamespacesLookup(TTSymbolPtr namespaceName)
 			v.get(0, (TTPtr*)&aNamespace);
 		
 		else {
-			aNamespace = new TTNodeAddressItem(kTTAdrsRoot);
+			aNamespace = new TTNodeAddressItem();
 			
 			v = TTValue((TTPtr)aNamespace);
 			TTModularNamespaces->append(namespaceName, v);

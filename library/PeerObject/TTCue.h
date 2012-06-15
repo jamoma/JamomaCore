@@ -26,7 +26,6 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	private :
 	
 	TTSymbolPtr					mName;							///< ATTRIBUTE : the name of the cue
-	TTSymbolPtr					mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
 	TTUInt32					mRamp;							///< ATTRIBUTE : a time ramping value for the cue
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
 	
@@ -36,14 +35,14 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	/** */
 	TTErr	Clear();
 	
-	/** Fill the cue according mNamespace */
-	TTErr	Store();
+	/** Fill the cue on a namespace using namespace pointer or name */
+	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Run the cue */
 	TTErr	Recall();
 	
-	/** Edit namespace selection according the content of the cue  */
-	TTErr	Select();
+	/** Edit selection on a namespace using namespace pointer or name */
+	TTErr	Select(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
@@ -56,7 +55,7 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	/** a recursive method to store a namespace into a script object */
 	TTErr	processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, const TTNodeAddressItemPtr aNamespace);
 	
-	/** a recursive method to process a namespace from a script object */
+	/** a recursive method to process a namespace selection from a script object */
 	TTErr	processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace);
 	
 	/** a recursive method to change each ramping value into a script */
@@ -71,14 +70,6 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 typedef TTCue* TTCuePtr;
 
 TTBoolean TTMODULAR_EXPORT TTCueCompareNodePriority(TTValue& v1, TTValue& v2);
-
-/* 
- Parse a namespace value : < address1, address2, {, subAddress1, subAddress2, }, address3, ... > 
-TTNodeAddressItemPtr	TTMODULAR_EXPORT TTCueNamespaceParse(const TTValue& aNamespaceValue);
- 
- Edit a namespace value : < address1, address2, {, subAddress1, subAddress2, }, address3, ... >
-TTErr			TTMODULAR_EXPORT TTCueNamespaceEdit(const TTNodeAddressItemPtr aNamespace, TTValue& returnedNamespaceValue);
-*/
 
 TTErr			TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 

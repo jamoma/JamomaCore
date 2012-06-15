@@ -439,7 +439,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-63",
-					"items" : [ "default", ",", "standard setup", ",", "another case" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -796,8 +796,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 93.0, 36.0, 18.0 ],
-					"text" : "new"
+					"patching_rect" : [ 182.0, 93.0, 37.0, 18.0 ],
+					"text" : "clear"
 				}
 
 			}

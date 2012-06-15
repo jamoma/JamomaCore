@@ -101,7 +101,7 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// create the explorer
 	jamoma_explorer_create((ObjectPtr)x, &x->wrappedObject);
 	
-	// read first argument to know if the explorer handle a namespace
+	// read first argument to know if the explorer handles a namespace
 	if (attrstart && argv) {
 		
 		if (atom_gettype(argv) == A_SYM) {

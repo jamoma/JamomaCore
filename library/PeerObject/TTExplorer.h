@@ -57,6 +57,15 @@ private:
 		if no selection state : switch the state */
 	TTErr Select(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Set all selection state to YES */
+	TTErr SelectAll();
+	
+	/** Set all selection state to NO */
+	TTErr SelectNone();
+	
+	/** Return selection back to the owner of this explorer */
+	TTErr SelectRefresh();
+	
 	/** Create a filter, add it to the bank and append it to the list
 		< filterName filterKey1 filterValue1 filterKey2 filterValue2 ... >
 		note : the schema of the filter is automatically detected by the keys */
@@ -71,6 +80,9 @@ private:
 	
 	/** */
 	// TODO : TTErr Dump();
+	
+	/** */
+	TTErr setNamespace(const TTValue& value);
 	
 	/** */
 	TTErr getFilterList(TTValue& value);

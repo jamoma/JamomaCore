@@ -85,15 +85,20 @@ void WrappedCueManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					relativeAddress;
+	SymbolPtr					name;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
-	// possible relativeAddress
-	if (attrstart && argv) 
-		relativeAddress = atom_getsym(argv);
-	else
-		relativeAddress = _sym_nothing;
-	
-	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name);
+	// read first argument to know if the cue binds a namespace
+	if (attrstart && argv) {
+		
+		if (atom_gettype(argv) == A_SYM) {
+			
+			name = atom_getsym(argv);
+			x->wrappedObject->setAttributeValue(kTTSym_namespace, TT(name->s_name));
+		}
+		else
+			object_error((ObjectPtr)x, "argument not expected");
+	}
 	
 	// create the cue manager
 	jamoma_cueManager_create((ObjectPtr)x, &x->wrappedObject);
@@ -138,12 +143,8 @@ void cue_subscribe(TTPtr self)
 	TTXmlHandlerPtr				aXmlHandler;
 	TTTextHandlerPtr			aTextHandler;
 	
-	// register the object under a cue address
-	if (x->address == kTTAdrsEmpty)
-		x->address = TTADRS("cue");
-	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTADRS("cue"), &x->subscriberObject)) {
 		
 		// get patcher
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);

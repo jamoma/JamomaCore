@@ -42,7 +42,7 @@ private:
 	TTErr	setOrder(const TTValue& value);
 
 	/** */
-	TTErr	New();
+	TTErr	Clear();
 	
 	/** */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);

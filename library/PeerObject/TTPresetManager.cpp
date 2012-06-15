@@ -32,7 +32,7 @@ mCurrentPreset(NULL)
 	addAttributeProperty(Presets, readOnly, YES);
 	addAttributeProperty(Presets, hidden, YES);
 	
-	addMessage(New);
+	addMessage(Clear);
 	
 	addMessageWithArguments(Store);
 	addMessageWithArguments(Recall);
@@ -76,7 +76,7 @@ TTPresetManager::~TTPresetManager()
 
 TTErr TTPresetManager::setAddress(const TTValue& value)
 {	
-	New();
+	Clear();
 	
 	value.get(0, &mAddress);
 	
@@ -105,7 +105,7 @@ TTErr TTPresetManager::setOrder(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::New()
+TTErr TTPresetManager::Clear()
 {
 	TTPresetPtr oldPreset;
 	TTSymbolPtr presetName;
@@ -338,7 +338,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	
 	// Starts file reading : clear the preset list
 	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
-		New();
+		Clear();
 		return kTTErrNone;
 	}
 	
@@ -432,7 +432,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 	
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
-		New();
+		Clear();
 	
 	// parse the buffer line into TTDictionary
 	line = TTScriptParseLine(*(aTextHandler->mLine));

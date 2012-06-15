@@ -40,7 +40,7 @@ mLastResult(kTTValNONE)
 	if(arguments.getSize() >= 3)
 		arguments.get(2, (TTPtr*)&mReturnSelectionCallback);
 	
-	addAttribute(Namespace, kTypeSymbol);
+	addAttributeWithSetter(Namespace, kTypeSymbol);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Output, kTypeSymbol);
@@ -51,6 +51,11 @@ mLastResult(kTTValNONE)
 	
 	addMessage(Explore);
 	addMessageWithArguments(Select);
+	addMessageWithArguments(SelectAll);
+	addMessageWithArguments(SelectNone);
+	
+	addMessage(SelectRefresh);
+	addMessageProperty(SelectRefresh, hidden, YES);
 	
 	addMessageWithArguments(FilterSet);
 	addMessageWithArguments(FilterRemove);
@@ -78,6 +83,31 @@ TTExplorer::~TTExplorer()
 	delete mFilterBank;
 	delete mFilterList;
 	delete mResult;
+	
+	// unregister from the namespace
+	setNamespace(kTTSymEmpty);
+}
+
+TTErr TTExplorer::setNamespace(const TTValue& value)
+{
+	TTNodeAddressItemPtr aNamespace;
+	
+	// unregister from the former namespace
+	aNamespace = lookupNamespace(mNamespace);
+	
+	if (aNamespace)
+		aNamespace->unregisterHandler(*this);
+	
+	// get new namespace
+	mNamespace = value;
+	
+	// register to the new namespace
+	aNamespace = lookupNamespace(mNamespace);
+	
+	if (aNamespace)
+		aNamespace->registerHandler(*this);
+	
+	return kTTErrNone;
 }
 
 TTErr TTExplorer::setOutput(const TTValue& value)
@@ -398,6 +428,62 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTExplorer::SelectAll()
+{
+	TTNodeAddressItemPtr aNamespace = lookupNamespace(mNamespace);
+	TTNodeAddressItemPtr anItem;
+	TTNodeAddressPtr	itemSymbol;	
+	TTInt32				i;
+	
+	if (aNamespace) {
+		// set all selection state
+		for (i = 0; i < mLastResult.getSize(); i++) {
+			
+			mLastResult.get(i, &itemSymbol);
+			
+			// move to mAddress + itemSymbol namespace
+			aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+			
+			if (anItem)
+				anItem->setSelection(YES);
+		}
+	}
+	
+	// return selection to the owner of the explorer
+	return returnSelectionBack();
+}
+
+/** Set all selection state to NO */
+TTErr TTExplorer::SelectNone()
+{
+	TTNodeAddressItemPtr aNamespace = lookupNamespace(mNamespace);
+	TTNodeAddressItemPtr anItem;
+	TTNodeAddressPtr	itemSymbol;	
+	TTInt32				i;
+	
+	if (aNamespace) {
+		// set all selection state
+		for (i = 0; i < mLastResult.getSize(); i++) {
+			
+			mLastResult.get(i, &itemSymbol);
+			
+			// move to mAddress + itemSymbol namespace
+			aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+			
+			if (anItem)
+				anItem->setSelection(NO);
+		}
+	}
+	
+	// return selection to the owner of the explorer
+	return returnSelectionBack();
+}
+
+TTErr TTExplorer::SelectRefresh()
+{
+	return returnSelectionBack();
 }
 
 TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)

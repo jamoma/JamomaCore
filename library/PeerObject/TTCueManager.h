@@ -37,6 +37,7 @@ private:
 	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
 	
 	TTCuePtr			mCurrentCue;					///< the current cue
+	TTNodeAddressItemPtr mDefaultNamespace;				///< an internal default namespace
 	
 	/** */
 	TTErr	setOrder(const TTValue& value);
@@ -54,8 +55,13 @@ private:
 	/** */
 	TTErr	NamespaceRemove(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Select all items of the namespace which are in a cue.
+	 name : use the given cue.
+	 nothing : use the current cue */
+	TTErr	NamespaceSelect(const TTValue& inputValue, TTValue& outputValue);
+	
 	/** */
-	TTErr	New();
+	TTErr	Clear();
 	
 	/** Store a cue : 
 		name + absolute address list : create a new cue.
@@ -66,11 +72,6 @@ private:
 		name : recall the cue.
 		nothing : recall the current cue */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Select a cue to synchronise selection state of his namespace :
-		name : select the cue.
-		nothing : select the current cue */
-	TTErr	Select(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Interpolate 2 cues : 
 		name1, name2, position : interpolate between the 2 given cues
