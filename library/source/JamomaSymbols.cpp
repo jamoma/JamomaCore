@@ -384,7 +384,7 @@ void jamomaSymbolsInit()
 	jps_register_preview			= SymbolGen("register_preview");
 	jps_open						= SymbolGen("open");
 	jps_slash_getstate				= SymbolGen("/getstate");
-	jps_slash_view_slash_panel      = SymbolGen("/viewl/panel");
+	jps_slash_view_slash_panel      = SymbolGen("/view/panel");
 	jps_slash_module_view_internals = SymbolGen("/module/view_internals");
 	jps_slash_module_slash_reference = SymbolGen("/module/reference");	
 	jps_slash_module_slash_help     = SymbolGen("/module/help");	
