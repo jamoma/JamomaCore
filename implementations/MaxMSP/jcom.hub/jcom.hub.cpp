@@ -274,6 +274,7 @@ void hub_examine_context(t_hub *x)
 	AtomCount	argc = 0;
 	AtomPtr		argv = NULL;
 	SymbolPtr	context = jamoma_patcher_getcontext(x->container);
+	char name [256];
 
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
@@ -283,6 +284,12 @@ void hub_examine_context(t_hub *x)
 		else if (context == jps_subpatcher)
 			x->osc_alias = atom_getsym(argv+1);
 		sysmem_freeptr(argv);
+		
+		// in case we have a leading slash in the given name, we remove it, fix for http://redmine.jamoma.org/issues/1070
+		// this looks silly since we add a slash in hub_attr_setalias, but this is the only way I could fix the bug [NP] 
+		strcpy(name, x->osc_alias->s_name);		
+		if (name[0] == '/')
+			x->osc_alias = gensym(name+1);		
 	}
 	else
 		x->osc_alias = _sym_nothing;
@@ -351,7 +358,7 @@ void hub_examine_context(t_hub *x)
 
 	// By now osc_alias has been set to its initial value. This initial value will also be stored as the fixed name of the module, remembered for the lifetime of the instance. This will ensures that the fixed and dynamic names are the same initially, and properly registered. Please note that this registration is necsessary to ensure the uniqueness of osc_alias and osc_permanentd_fixed, but it is not used for the actual communication to the module. Communication to the module is instead handled by the hub_receive_callback method.
 	object_attr_setsym(x, _sym_name, x->osc_alias);
-	x->osc_permanent = x->osc_alias;
+	x->osc_permanent = x->osc_alias;	
 	
 	hub_subscriptions_refresh(x);
 	hub_internals_create(x);
@@ -1528,7 +1535,7 @@ void hub_bang(t_hub *x)
 t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 {
 	if (argc && argv) {
-		char			name[256];
+		char			name[256];		
 		unsigned short	i;
 		t_max_err		err = MAX_ERR_NONE;
 		char*			nametest;
@@ -1554,15 +1561,13 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		strcpy(name, x->osc_alias->s_name);
 		
-		// the name is autoprepended with a /
-		if (name[0] != '/') {
+		if (name[0] != '/'){			
 			char newname[256];
-			
 			strcpy(newname, "/");
 			strcat(newname, name);
-			strcpy(name, newname);
-		}
-		
+			strcpy(name, newname);			
+		}		
+				
 		// search for illegal characters as specified by the OSC standard and replace them
 		for (i=0; i<strlen(name); i++) {
 /*			TODO :This has to happen only when setting the OSC name from the module's file name
@@ -1574,6 +1579,7 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 			else if (name[i] == ']')
 				name[i] = 0;
 		}
+	
 		
 		// if arg contains a slash then we must complain
 		nametest = name + 1;
@@ -1595,7 +1601,8 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		// UPDATE: We now permit an alias to the module name (x->osc_alias) as well as a fixed name (x->osc_permanent), so we actually don't want to enforce t_object to be unique. [TL 2011-12-30]
 		
 		// If the name differs from the fixed one, we register it, elseway it is registered already.
-		if (x->osc_alias != x->osc_permanent) {
+		
+		if (x->osc_alias != x->osc_permanent) {			
 			err = jamoma_hub_register(x->osc_alias, (t_object *)x);
 			if (err) {
 				if (instance) {
@@ -1614,7 +1621,7 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		if (nameConflict)
 			object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
 		
-		// And send a notification to the environment
+			// And send a notification to the environment
 		atom_setsym(a, x->attr_name);
 		atom_setsym(a+1, x->osc_alias);
 		object_method_typed(g_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
