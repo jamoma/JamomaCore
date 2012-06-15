@@ -278,9 +278,9 @@ void hub_examine_context(t_hub *x)
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
 	if (argc) {
-		if (context == gensym("bpatcher"))
+		if (context == jps_bpatcher)
 			x->osc_alias = atom_getsym(argv);
-		else if (context == gensym("subpatcher"))
+		else if (context == jps_subpatcher)
 			x->osc_alias = atom_getsym(argv+1);
 		sysmem_freeptr(argv);
 	}
@@ -320,7 +320,7 @@ void hub_examine_context(t_hub *x)
 		t_object*	box = object_attr_getobj(patcher, jps_box);		
 		t_rect	boxRect;
 			
-		if (context == gensym("bpatcher")) {
+		if (context == jps_bpatcher) {
 			// Set box size in patching mode
 			object_attr_get_rect(box, _sym_patching_rect, &boxRect);
 			boxRect.width  = x->attr_size[0];
@@ -332,7 +332,7 @@ void hub_examine_context(t_hub *x)
 			boxRect.height = x->attr_size[1];
 			object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
 		}
-		else if (context == gensym("subpatcher")) {
+		else if (context == jps_subpatcher) {
 			// Set submodule window size
 			object_attr_get_rect(patcher, _sym_defrect, &boxRect);
 			boxRect.width  = x->attr_size[0];

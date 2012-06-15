@@ -224,7 +224,9 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_star,
 				*jps_add,							// used for calling methods on jcom.receivemaster
 				*jps_remove,
-				*jps_dispatch
+				*jps_dispatch,
+	  			*jps_subpatcher,
+	  			*jps_bpatcher						  
 				;
 
 extern "C" void jamomaSymbolsInit();

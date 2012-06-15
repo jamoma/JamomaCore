@@ -270,7 +270,7 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(a+0, jps__gui__);
 		atom_setobj(a+1, x->box.b_patcher);
 		jcom_core_loadextern(gensym("jcom.remote"), 2, a, &x->obj_remote);
-		object_method(x->obj_remote, gensym("setcallback"), ui_remote_callback, x);
+		object_method(x->obj_remote, jps_setcallback, ui_remote_callback, x);
 
 		attr_dictionary_process(x, d); 					// handle attribute args
 		jbox_ready(&x->box);

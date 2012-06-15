@@ -207,7 +207,9 @@ t_symbol	*jps_done,
 			*jps_star,
 			*jps_add,							// used for calling methods on jcom.receivemaster
 			*jps_remove,
-			*jps_dispatch
+			*jps_dispatch,
+			*jps_subpatcher,
+			*jps_bpatcher	
 			;
 
 
@@ -420,5 +422,7 @@ void jamomaSymbolsInit()
 	jps_add							= SymbolGen("add");					// used for calling methods on jcom.receivemaster
 	jps_remove						= SymbolGen("remove");
 	jps_dispatch					= SymbolGen("dispatch");
+	jps_bpatcher					= SymbolGen("bpatcher");
+	jps_subpatcher					= SymbolGen("subpatcher");
 }
 
