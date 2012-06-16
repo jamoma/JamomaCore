@@ -96,6 +96,7 @@ t_symbol	*jps_done,
 			*jps_algorithm,
 			*jps_get_num_channels,
 			*jps_module_name,
+			*jps_slash_module_name,	
 			*jps_module_class,
 			*jps_module_type,			// module type
 			//*jps_poly,
@@ -310,6 +311,7 @@ void jamomaSymbolsInit()
 	jps_get_num_channels			= SymbolGen("get_num_channels");
 	// module type
 	jps_module_name					= SymbolGen("module_name");
+	jps_slash_module_name			= SymbolGen("/module_name");
 	jps_module_class				= SymbolGen("module_class");
 	jps_module_type					= SymbolGen("module_type");
 	   //jps_poly						= SymbolGen("poly");

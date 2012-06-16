@@ -889,12 +889,14 @@ void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av)
 
 t_symbol *hub_modulename_get(t_hub *x)
 {
-	t_atom	a;
+	t_atom	a[2];
 
 	if (x->osc_alias != NULL) {
 		if (x->osc_alias != _sym_nothing) {
-			atom_setsym(&a, x->osc_alias);	
-			hub_outlet_return(x, gensym("/module_name"), 1, &a);
+			atom_setsym(&a[0], jps_slash_module_name);	
+			atom_setsym(&a[1], x->osc_alias);	
+			hub_outlet_return(x, jps_slash_module_name, 1, &a[1]);			
+			object_method_typed(x->in_object, gensym("algorithm_message"), 2, a, NULL);	// send "/module_name ... " also to jcom.in
 		}
 	}
 	return x->attr_name;
