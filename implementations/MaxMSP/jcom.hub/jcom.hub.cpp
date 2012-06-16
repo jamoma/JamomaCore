@@ -274,15 +274,22 @@ void hub_examine_context(t_hub *x)
 	AtomCount	argc = 0;
 	AtomPtr		argv = NULL;
 	SymbolPtr	context = jamoma_patcher_getcontext(x->container);
+	char name [256];
 
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
 	if (argc) {
-		if (context == gensym("bpatcher"))
+		if (context == jps_bpatcher)
 			x->osc_alias = atom_getsym(argv);
-		else if (context == gensym("subpatcher"))
+		else if (context == jps_subpatcher)
 			x->osc_alias = atom_getsym(argv+1);
 		sysmem_freeptr(argv);
+		
+		// in case we have a leading slash in the given name, we remove it, fix for http://redmine.jamoma.org/issues/1070
+		// this looks silly since we add a slash in hub_attr_setalias, but this is the only way I could fix the bug [NP] 
+		strcpy(name, x->osc_alias->s_name);		
+		if (name[0] == '/')
+			x->osc_alias = gensym(name+1);		
 	}
 	else
 		x->osc_alias = _sym_nothing;
@@ -320,7 +327,7 @@ void hub_examine_context(t_hub *x)
 		t_object*	box = object_attr_getobj(patcher, jps_box);		
 		t_rect	boxRect;
 			
-		if (context == gensym("bpatcher")) {
+		if (context == jps_bpatcher) {
 			// Set box size in patching mode
 			object_attr_get_rect(box, _sym_patching_rect, &boxRect);
 			boxRect.width  = x->attr_size[0];
@@ -332,7 +339,7 @@ void hub_examine_context(t_hub *x)
 			boxRect.height = x->attr_size[1];
 			object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
 		}
-		else if (context == gensym("subpatcher")) {
+		else if (context == jps_subpatcher) {
 			// Set submodule window size
 			object_attr_get_rect(patcher, _sym_defrect, &boxRect);
 			boxRect.width  = x->attr_size[0];
@@ -351,7 +358,7 @@ void hub_examine_context(t_hub *x)
 
 	// By now osc_alias has been set to its initial value. This initial value will also be stored as the fixed name of the module, remembered for the lifetime of the instance. This will ensures that the fixed and dynamic names are the same initially, and properly registered. Please note that this registration is necsessary to ensure the uniqueness of osc_alias and osc_permanentd_fixed, but it is not used for the actual communication to the module. Communication to the module is instead handled by the hub_receive_callback method.
 	object_attr_setsym(x, _sym_name, x->osc_alias);
-	x->osc_permanent = x->osc_alias;
+	x->osc_permanent = x->osc_alias;	
 	
 	hub_subscriptions_refresh(x);
 	hub_internals_create(x);
@@ -607,27 +614,23 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		}
 		else if (private_message == jps_slash_module_view_internals)		//	/module/view_internals
 			hub_module_view_alg(x, NULL, 0, NULL);
-		else if (private_message == gensym("/module/help"))
+		else if (private_message == jps_slash_module_slash_help)            // /module/help
 			hub_module_help(x);
-		else if (private_message == gensym("/module/reference")) {
+		else if (private_message == jps_slash_module_slash_reference) {     // /module/reference
 			char refstr[MAX_FILENAME_CHARS];
 			
 			strncpy_zero(refstr, x->attr_name->s_name, MAX_FILENAME_CHARS);
 			object_method_sym(gensym("max")->s_thing, gensym("html_ref"), gensym(refstr), NULL);
 			//hub_module_reference(x);
 		}
-		else if (private_message == gensym("/preset/interface")) {
-			hub_preset_interface(x);
-		}
-		else if (private_message == gensym("/getstate")) {
-			hub_getstate(x);
-		}
-		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/view/freeze			
-			hub_symbol(x, jps_slash_ui_slash_freeze, argc, argv);
-		}
-		else if ( private_message == jps_slash_ui_slash_refresh )	{	//	/view/refresh			
+		else if (private_message == jps_slash_preset_slash_interface) //preset/interface
+			hub_preset_interface(x);		
+		else if (private_message == jps_slash_getstate)  // /getstate
+			hub_getstate(x);		
+		else if (private_message == jps_slash_ui_slash_freeze) 			// 	/view/freeze			
+			hub_symbol(x, jps_slash_ui_slash_freeze, argc, argv);		
+		else if ( private_message == jps_slash_ui_slash_refresh )		//	/view/refresh			
 			hub_ui_refresh(x, NULL, 0, NULL);
-		}
 		else if (private_message == gensym("fetchParameterNamesInLinklist"))
 			hub_paramnames_linklist(x, (t_linklist*)atom_getobj(argv));
 		else if (private_message == gensym("fetchMessageNamesInLinklist"))
@@ -731,24 +734,17 @@ void hub_getstate(t_hub *x)
 		strncat_zero(x->text, x->osc_permanent->s_name, x->textSize);
 		strncat_zero(x->text, "/alias", x->textSize);
 		strncat_zero(x->text, " ", x->textSize);
-		strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
-		strncat_zero(x->text, "\n", x->textSize);
-		
-		sysmem_freeptr(text);
-		text = NULL;
-		textsize = 0;
+		strncat_zero(x->text, x->osc_alias->s_name, x->textSize);		
 	}
 	// If we do not use an alias, we'll start off with an /alias/remove message
 	else {
 		strncat_zero(x->text, x->osc_permanent->s_name, x->textSize);
-		strncat_zero(x->text, "/alias/remove", x->textSize);
-		strncat_zero(x->text, "\n", x->textSize);
-		
-		sysmem_freeptr(text);
-		text = NULL;
-		textsize = 0;
+		strncat_zero(x->text, "/alias/remove", x->textSize);	
 	}
 
+	sysmem_freeptr(text);
+	text = NULL;
+	textsize = 0;
 	
 	// Count the number of parameters with a priority
 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
@@ -785,13 +781,12 @@ void hub_getstate(t_hub *x)
 							x->textSize += 4096;
 							x->text = (char*)realloc(x->text, x->textSize);
 						}
-						
+						strncat_zero(x->text, "\n", x->textSize);
 						strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
 						strncat_zero(x->text, "/", x->textSize);
 						strncat_zero(x->text, t->name->s_name, x->textSize);
 						strncat_zero(x->text, " ", x->textSize);
 						strncat_zero(x->text, text, x->textSize);
-						strncat_zero(x->text, "\n", x->textSize);
 						
 						sysmem_freeptr(text);
 						text = NULL;
@@ -823,13 +818,12 @@ void hub_getstate(t_hub *x)
 						x->textSize += 4096;
 						x->text = (char*)realloc(x->text, x->textSize);
 					}
-					
+					strncat_zero(x->text, "\n", x->textSize);
 					strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
 					strncat_zero(x->text, "/", x->textSize);
 					strncat_zero(x->text, t->name->s_name, x->textSize);
 					strncat_zero(x->text, " ", x->textSize);
 					strncat_zero(x->text, text, x->textSize);
-					strncat_zero(x->text, "\n", x->textSize);
 					
 					sysmem_freeptr(text);
 					text = NULL;
@@ -857,13 +851,12 @@ void hub_getstate(t_hub *x)
 						x->textSize += 4096;
 						x->text = (char*)realloc(x->text, x->textSize);
 					}
-					
+					strncat_zero(x->text, "\n", x->textSize);
 					strncat_zero(x->text, x->osc_alias->s_name, x->textSize);
 					strncat_zero(x->text, "/", x->textSize);
 					strncat_zero(x->text, t->name->s_name, x->textSize);
 					strncat_zero(x->text, " ", x->textSize);
 					strncat_zero(x->text, text, x->textSize);
-					strncat_zero(x->text, "\n", x->textSize);
 					
 					sysmem_freeptr(text);
 					text = NULL;
@@ -896,12 +889,14 @@ void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av)
 
 t_symbol *hub_modulename_get(t_hub *x)
 {
-	t_atom	a;
+	t_atom	a[2];
 
 	if (x->osc_alias != NULL) {
 		if (x->osc_alias != _sym_nothing) {
-			atom_setsym(&a, x->osc_alias);	
-			hub_outlet_return(x, gensym("/module_name"), 1, &a);
+			atom_setsym(&a[0], jps_slash_module_name);	
+			atom_setsym(&a[1], x->osc_alias);	
+			hub_outlet_return(x, jps_slash_module_name, 1, &a[1]);			
+			object_method_typed(x->in_object, gensym("algorithm_message"), 2, a, NULL);	// send "/module_name ... " also to jcom.in
 		}
 	}
 	return x->attr_name;
@@ -1016,15 +1011,15 @@ void hub_gui_build(t_hub *x)
 		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i;
 			if ((t->type == jps_subscribe_remote) && t->name == jps__gui__) {
-				atom_setsym(&a[0], gensym("module_name"));
+				atom_setsym(&a[0], jps_module_name);
 				atom_setsym(&a[1], x->osc_alias);
 				object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 				
-				atom_setsym(&a[0], gensym("module_class"));
+				atom_setsym(&a[0], jps_module_class);
 				atom_setsym(&a[1], x->attr_name);
 				object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 				
-				atom_setsym(&a[0], gensym("module_type"));
+				atom_setsym(&a[0], jps_module_type);
 				atom_setsym(&a[1], x->attr_type);
 				object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 			}
@@ -1534,7 +1529,7 @@ void hub_bang(t_hub *x)
 		t = *i; 
 		type = t->type;		
 		if (type == jps_subscribe_parameter || type == jps_subscribe_message)
-			object_method(t->object, gensym("/ramp/update"));
+			object_method(t->object, jps_slash_ramp_slash_update);
 	}	
 }
 
@@ -1542,7 +1537,7 @@ void hub_bang(t_hub *x)
 t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 {
 	if (argc && argv) {
-		char			name[256];
+		char			name[256];		
 		unsigned short	i;
 		t_max_err		err = MAX_ERR_NONE;
 		char*			nametest;
@@ -1568,15 +1563,13 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		strcpy(name, x->osc_alias->s_name);
 		
-		// the name is autoprepended with a /
-		if (name[0] != '/') {
+		if (name[0] != '/'){			
 			char newname[256];
-			
 			strcpy(newname, "/");
 			strcat(newname, name);
-			strcpy(name, newname);
-		}
-		
+			strcpy(name, newname);			
+		}		
+				
 		// search for illegal characters as specified by the OSC standard and replace them
 		for (i=0; i<strlen(name); i++) {
 /*			TODO :This has to happen only when setting the OSC name from the module's file name
@@ -1588,6 +1581,7 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 			else if (name[i] == ']')
 				name[i] = 0;
 		}
+	
 		
 		// if arg contains a slash then we must complain
 		nametest = name + 1;
@@ -1599,7 +1593,7 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// update the ui object
 		if (x->gui_object) {
-			atom_setsym(&a[0], gensym("module_name"));
+			atom_setsym(&a[0], jps_module_name);
 			atom_setsym(&a[1], x->osc_alias);
 			object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 		}
@@ -1609,7 +1603,8 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		// UPDATE: We now permit an alias to the module name (x->osc_alias) as well as a fixed name (x->osc_permanent), so we actually don't want to enforce t_object to be unique. [TL 2011-12-30]
 		
 		// If the name differs from the fixed one, we register it, elseway it is registered already.
-		if (x->osc_alias != x->osc_permanent) {
+		
+		if (x->osc_alias != x->osc_permanent) {			
 			err = jamoma_hub_register(x->osc_alias, (t_object *)x);
 			if (err) {
 				if (instance) {
@@ -1628,7 +1623,7 @@ t_max_err hub_attr_setalias(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		if (nameConflict)
 			object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
 		
-		// And send a notification to the environment
+			// And send a notification to the environment
 		atom_setsym(a, x->attr_name);
 		atom_setsym(a+1, x->osc_alias);
 		object_method_typed(g_jcom_send_notifications, gensym("module.new"), 2, a, NULL);

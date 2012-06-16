@@ -28,22 +28,30 @@ bool param_clip_generic(t_param *x)
 bool param_clip_int(t_param *x)
 {
 	long val = atom_getlong(&x->attr_value);
-	long clipped;
-	clipped = val;
+	long clipped = val;
+	bool  reportClipping = true;
+
 	if (x->common.attr_clipmode == jps_low)
 		TTLimitMin(clipped, (long)x->common.attr_range[0]);
 	else if (x->common.attr_clipmode == jps_high)
 		TTLimitMax(clipped, (long)x->common.attr_range[1]);
 	else if (x->common.attr_clipmode == jps_both)
 		TTLimit(clipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-	else if (x->common.attr_clipmode == jps_wrap)
+	else if (x->common.attr_clipmode == jps_wrap){
 		clipped = TTInfWrap(clipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-	else if (x->common.attr_clipmode == jps_fold)
+		reportClipping = false;
+	}
+	else if (x->common.attr_clipmode == jps_fold){
 		clipped = TTFold(clipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-	
+		reportClipping = false;
+	}	
 	
 	atom_setlong(&x->attr_value, clipped); // must be set for all cases to cast the jps_none type correctly too
-	return clipped != val;
+	
+	if (reportClipping and (clipped != val))
+		return true;
+	else 
+		return false;
 }
 
 
@@ -51,27 +59,31 @@ bool param_clip_int(t_param *x)
 bool param_clip_float(t_param *x)
 {
 	float val = atom_getfloat(&x->attr_value);
-	float clipped;
-	
-    clipped = val;
+	float clipped = val;	
+	bool  reportClipping = true;
+
 	if (x->common.attr_clipmode == jps_low)
 		TTLimitMin(clipped, x->common.attr_range[0]);
 	else if (x->common.attr_clipmode == jps_high)
 		TTLimitMax(clipped, x->common.attr_range[1]);
 	else if (x->common.attr_clipmode == jps_both)
 		TTLimit(clipped, x->common.attr_range[0], x->common.attr_range[1]);
-	else if (x->common.attr_clipmode == jps_wrap)
+	else if (x->common.attr_clipmode == jps_wrap){
 		clipped = TTInfWrap(clipped, x->common.attr_range[0], x->common.attr_range[1]);
-	else if (x->common.attr_clipmode == jps_fold)
+		reportClipping = false;
+	}
+	else if (x->common.attr_clipmode == jps_fold){
 		clipped = TTFold(clipped, x->common.attr_range[0], x->common.attr_range[1]);
+		reportClipping = false;
+	}
 	
 	atom_setfloat(&x->attr_value, clipped); // must be set for all cases to cast the jps_none type correctly too
 	
 	// cannot just compare the two floats here, unfortunately, because of rounding errors from the clipping functions [TAP]
-	if (fabs(clipped-val) < 0.0001)
-		return false; // did not clip, or difference was so small that we assume we didn't.
-	else
+	if (reportClipping and (fabs(clipped-val) > 0.0001))
 		return true; // did clip
+	else
+		return false; // did not clip, or difference was so small that we assume we didn't.
 }
 
 

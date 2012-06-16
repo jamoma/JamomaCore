@@ -74,7 +74,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addattr(c, attr);
 	
 	CLASS_ATTR_SYM(c,	"algorithm/type",	0,	t_in,	attr_algorithm_type);
-
+	
 #ifdef JCOM_IN_TILDE
 //	// ATTRIBUTE: manage_channels
 //	attr = attr_offset_new("manage_channels", _sym_long, attrflags,
@@ -115,7 +115,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_mute = 0;
 		x->attr_freeze = 0;
 		x->attr_algorithm_type = _sym_patcher;
-
+		
 		if (attrstart > 0) {
 			int argument = atom_getlong(argv);
 			x->numInputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
@@ -264,20 +264,20 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 			}
 		}
 	}
-	else if ((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
+	else if ((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == jps_mute) || (argv->a_w.w_sym == jps_slash_mute))
 		x->attr_mute = atom_getlong(argv+1);
-	else if ((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
+	else if ((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == jps_bypass) || (argv->a_w.w_sym == jps_slash_bypass))
 		x->attr_bypass = atom_getlong(argv+1);
-	else if ((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
+	else if ((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == jps_freeze) || (argv->a_w.w_sym == jps_slash_freeze))
 		x->attr_freeze = atom_getlong(argv+1);
 
-	if (argv->a_w.w_sym->s_name[0] != '/')
+	if (argv->a_w.w_sym->s_name[0] != '/'){
 		strcpy(namestring, "/");						// perhaps we could optimize this operation
+		strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
+		osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
+	}
 	else
-		namestring[0] = 0;
-
-	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
-	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
+		osc = argv->a_w.w_sym;	
 
 	outlet_anything(x->algout, osc, argc-1, argv+1);
 }

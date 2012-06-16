@@ -52,7 +52,7 @@ attributes:
    type: float
    desc: maximum output value
    default: 1.0
-      
+
 messages:
  - name: getfunction
    type: generic

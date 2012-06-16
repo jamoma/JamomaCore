@@ -17,7 +17,7 @@ outputs:
    desc: "Connect to left outlet of the module. Used for OSC communication from the module."
  - name: right
    desc: "dumpout"
-   
+
 args:
     
 messages:
@@ -57,10 +57,9 @@ messages:
    desc: "Get the names of all jcom.return objects associated with this module"
  - name: /*_names:/dump
    desc: "Get the names of all jcom.message, jcom.parameter and jcom.return objects associated with this module"
-   
  - name: (anything)
    desc: a
-    
+
 attributes:
  - name: algorithm_type
    desc: "What kind of algorithm do the module embed (control, jitter, etc.)?"
@@ -74,7 +73,7 @@ attributes:
    desc: "Name of the module"
  - name: user_path
    desc: "The path of the last file used to save the presets"
-    
+
 seealso:
  - jcom.message
  - jcom.parameter

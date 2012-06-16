@@ -228,7 +228,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 		
 	if (argv->a_type == A_SYM) {
-		if ((argv->a_w.w_sym == gensym("/audio/gain")) || (argv->a_w.w_sym == gensym("audio/gain")) || (argv->a_w.w_sym == gensym("gain")) || (argv->a_w.w_sym == gensym("/gain"))) {
+		if ((argv->a_w.w_sym == jps_slash_audio_gain) || (argv->a_w.w_sym == jps_audio_gain) || (argv->a_w.w_sym == jps_gain) || (argv->a_w.w_sym == jps_slash_gain)) {
 			// Do gain control here...
 			// Should be that the gain change triggers a short tt_ramp to the new value
 			x->attr_gain = atom_getfloat(argv+1);	// store as midi values
@@ -236,7 +236,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			x->gain->setAttributeValue(TT("midiGain"), x->attr_gain);
 #endif
 		}
-		else if ((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))) {
+		else if ((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute) || (argv->a_w.w_sym == jps_mute) || (argv->a_w.w_sym == jps_slash_mute)) {
 			x->attr_mute = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if (x->attr_mute)
@@ -245,7 +245,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 				x->gain->setAttributeValue(TT("midiGain"), x->attr_gain);			
 #endif
 		}
-		else if ((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))) {
+		else if ((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == jps_bypass) || (argv->a_w.w_sym == jps_slash_bypass)) {
 			x->attr_bypass = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if (!x->attr_bypass) //bypass is disabled
@@ -254,7 +254,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 				x->xfade->setAttributeValue(TT("position"), 0.0);
 #endif
 		}
-		else if ((argv->a_w.w_sym == jps_audio_mix) || (argv->a_w.w_sym == jps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))) {
+		else if ((argv->a_w.w_sym == jps_audio_mix) || (argv->a_w.w_sym == jps_slash_audio_mix) || (argv->a_w.w_sym == jps_mix) || (argv->a_w.w_sym == jps_slash_mix)) {
 			x->attr_mix = atom_getfloat(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if (!x->attr_bypass) //bypass is disabled
@@ -264,7 +264,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 		else if ((argv->a_w.w_sym == jps_audio_meters_freeze) || (argv->a_w.w_sym == jps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))) {
 			x->attr_defeat_meters = atom_getlong(argv+1);
 		}*/
-		else if ((argv->a_w.w_sym == jps_video_preview) || (argv->a_w.w_sym == jps_slash_video_preview) || (argv->a_w.w_sym == gensym("preview")) || (argv->a_w.w_sym == gensym("/preview")))
+		else if ((argv->a_w.w_sym == jps_video_preview) || (argv->a_w.w_sym == jps_slash_video_preview) || (argv->a_w.w_sym == jps_preview) || (argv->a_w.w_sym == jps_slash_preview))
 			x->attr_preview = atom_getlong(argv+1);
 	}
 }

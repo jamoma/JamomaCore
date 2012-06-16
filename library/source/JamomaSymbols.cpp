@@ -18,7 +18,8 @@ t_symbol	*jps_done,
 //		*jps_none,					// ramp stuff
 			*jps_linear,
 			*jps_linear_q,
-			*jps_ramp_update,
+			//*jps_ramp_update,
+			*jps_slash_ramp_slash_update,
 			*jps_low,					// clip stuff
 			*jps_high, 
 			*jps_both,
@@ -74,25 +75,29 @@ t_symbol	*jps_done,
 			*jps_type,						// parameter/message/return attributes
 			*jps_algorithm_type,
 			*jps_name,
+			*jps_priority,	
+			*jps_readonly,
 			*jps_dataspace,
 			*jps_unit,
-			*jps_range,
 			*jps_range_bounds,
 			*jps_range_clipmode,
-			*jps_clipmode,
-			*jps_ramp,
+			*jps_ramp,	
 			*jps_ramp_drive,
 			*jps_ramp_function,
-			*jps_repetitions,
 			*jps_repetitions_allow,
 			*jps_description,
 			*jps_enable,
 			*jps_value,
+			*jps_value_default,
+			*jps_value_stepsize,	
 			*jps_sigcount,				// signals to module
 			*jps_siglist,
 			*jps_config_changed,
 			*jps_algorithm,
 			*jps_get_num_channels,
+			*jps_module_name,
+			*jps_slash_module_name,	
+			*jps_module_class,
 			*jps_module_type,			// module type
 			//*jps_poly,
 			*jps_default,
@@ -109,16 +114,16 @@ t_symbol	*jps_done,
 			*jps_return_extended,
 			*jps_go,
 			*jps_init,
-			*jps_ATTRIBUTES,
-			*jps_BUILD,
-			*jps_MODULE_NAME,			// name of this module class
-			*jps_MODULE_TITLE,			// OSC name of this module instance
-			*jps_PARAMETER,
-			*jps_NEW_PRESETS_START,
-			*jps_NEW_PRESETS,
-			*jps_MENU_REBUILD,
+			//*jps_ATTRIBUTES,
+			//*jps_BUILD,
+			//*jps_MODULE_NAME,			// name of this module class
+			//*jps_MODULE_TITLE,			// OSC name of this module instance
+			//*jps_PARAMETER,
+			//*jps_NEW_PRESETS_START,
+			//*jps_NEW_PRESETS,
+			//*jps_MENU_REBUILD,
 			*jps_size,
-			*jps_skin,
+			//*jps_skin,
 			*jps_jcom_send,	
 			*jps_jcom_receive,
 			*jps_jcom_remote_fromModule, 			
@@ -131,14 +136,23 @@ t_symbol	*jps_done,
 			*jps_link_out,
 			*jps_unlink_in,
 			*jps_unlink_out,
-			*jps_audio_gain_midi,
-			*jps_slash_audio_gain_midi,
+			*jps_audio_gain,
+			*jps_slash_audio_gain,			
+			//*jps_audio_gain_midi,
+			//*jps_slash_audio_gain_midi,
+			*jps_slash_gain,
+			*jps_gain,
 			*jps_audio_mute,
 			*jps_slash_audio_mute,
 			*jps_audio_bypass,
 			*jps_slash_audio_bypass,
+ 			*jps_bypass,
+ 			*jps_slash_bypass,	
 			*jps_audio_mix,
 			*jps_slash_audio_mix,
+			*jps_mix,
+			*jps_slash_mix,
+			*jps_mix_slash_weight,
 			//*jps_audio_sample_rate,
 			//*jps_slash_audio_sample_rate,
 			*jps_audio_meters_freeze,
@@ -150,34 +164,53 @@ t_symbol	*jps_done,
 			*jps_video_freeze,
 			*jps_slash_video_freeze,
 			*jps_video_preview,
-			*jps_slash_video_preview,			
+			*jps_slash_video_preview,
+			*jps_preview,		
+			*jps_slash_preview,			
 			*jps_open,							// 	open
+		    *jps_slash_getstate,                //  /getstate
+		    *jps_slash_view_slash_panel,        //  /view/panel
 			*jps_slash_module_view_internals,	//	/module/view_internals
-			*jps_slash_preset_slash_default,		// 	/preset/default
+			*jps_slash_module_slash_reference,	//	/module/reference
+			*jps_slash_module_slash_help,		//	/module/help				
+			*jps_slash_preset_slash_interface,	// /preset/interface
+			*jps_slash_preset_slash_default,	// 	/preset/default
 			*jps_slash_preset_slash_load,		// 	/preset/load
 			*jps_slash_preset_slash_store,
 			*jps_slash_preset_slash_storenext,
 			*jps_slash_preset_slash_storecurrent,
 			*jps_slash_preset_slash_recall,
-			*jps_slash_preset_slash_write,		// 	/preset/save
-			*jps_slash_preset_slash_writeagain,	// 	/preset/save
+			*jps_slash_preset_slash_write,		// 	/preset/write
+			*jps_preset_slash_write,			// 	preset/write	
+			*jps_slash_preset_slash_writeagain,	// 	/preset/writeagain
+			*jps_preset_slash_writeagain,		// 	preset/writeagain				
 			*jps_slash_preset_slash_copy,		// 	/preset/save
+			*jps_preset_slash_mix,				//  preset/mix
+			*jps_preset_slash_default,			//  preset/default		
+			*jps_preset_slash_interpolate,		// preset/interpolate	 			
+			*jps_slash_ui_slash_internals,
+			*jps_ui_slash_internals,
 			*jps_ui_slash_freeze,				//	view/freeze
 			*jps_slash_ui_slash_freeze,			//	/view/freeze
+			*jps_freeze,
+			*jps_slash_freeze,
 			*jps_ui_slash_refresh,				//	view/refresh
 			*jps_slash_ui_slash_refresh,			//	/view/refresh		
 			*jps_register_meter,
 			*jps_register_preview,
 			//*jps_voices,
+			*jps_settext,
 			*jps_mute,
+			*jps_slash_mute,
 			*jps_target,
 			*jps_sendlastvalue,
 			*jps_sendbypassedvalue,
 			*jps_star,
-			*jps_priority,
 			*jps_add,							// used for calling methods on jcom.receivemaster
 			*jps_remove,
-			*jps_dispatch
+			*jps_dispatch,
+			*jps_subpatcher,
+			*jps_bpatcher	
 			;
 
 
@@ -188,7 +221,8 @@ void jamomaSymbolsInit()
 	jps_none						= SymbolGen("none");
 	jps_linear						= SymbolGen("linear");
 	jps_linear_q					= SymbolGen("linear.q");
-	jps_ramp_update					= SymbolGen("ramp_update");
+	//jps_ramp_update					= SymbolGen("ramp_update");
+	jps_slash_ramp_slash_update     = SymbolGen("/ramp/update");
 	//clip stuff
 	jps_low							= SymbolGen("low"); 
 	jps_high						= SymbolGen("high"); 
@@ -251,23 +285,24 @@ void jamomaSymbolsInit()
 	jps_type						= SymbolGen("type");
 	jps_dataspace					= SymbolGen("dataspace");
 	jps_unit						= SymbolGen("dataspace/unit");
-	// %TODO: jps_range should probably be removed
-	jps_range						= SymbolGen("range");
+		
 	jps_range_bounds				= SymbolGen("range/bounds");
 	jps_range_clipmode				= SymbolGen("range/clipmode");
-	// %TODO: jps_clipmode should probably be removed
-	jps_clipmode					= SymbolGen("clipmode");
+	
 	jps_ramp						= SymbolGen("ramp");
 	jps_ramp_drive					= SymbolGen("ramp/drive");
 	jps_ramp_function				= SymbolGen("ramp/function");
-	// %TODO: jps_repetitions should probably be removed
-	jps_repetitions					= SymbolGen("repetitions");
+	
 	jps_repetitions_allow			= SymbolGen("repetitions/allow");
 	jps_description					= SymbolGen("description");
 	jps_enable						= SymbolGen("enable");
 	jps_value						= SymbolGen("value");
+	jps_value_default				= SymbolGen("value/default");
+	jps_value_stepsize				= SymbolGen("value/stepsize");
 	jps_algorithm_type				= SymbolGen("algorithm_type");
 	jps_name						= SymbolGen("name");
+	jps_readonly					= SymbolGen("readonly");
+	jps_priority					= SymbolGen("priority");
 	// signals to module
 	jps_sigcount					= SymbolGen("sigcount");
 	jps_siglist						= SymbolGen("siglist");
@@ -275,6 +310,9 @@ void jamomaSymbolsInit()
 	jps_algorithm					= SymbolGen("algorithm");
 	jps_get_num_channels			= SymbolGen("get_num_channels");
 	// module type
+	jps_module_name					= SymbolGen("module_name");
+	jps_slash_module_name			= SymbolGen("/module_name");
+	jps_module_class				= SymbolGen("module_class");
 	jps_module_type					= SymbolGen("module_type");
 	   //jps_poly						= SymbolGen("poly");
 	jps_default						= SymbolGen("default");
@@ -291,16 +329,16 @@ void jamomaSymbolsInit()
 	jps_return_extended				= SymbolGen("return_extended");
 	jps_go							= SymbolGen("go");				// method in jcom.init called by the hub
 	jps_init						= SymbolGen("/init");			// method in the hub called from jcom.init
-	jps_ATTRIBUTES					= SymbolGen("ATTRIBUTES");
-	jps_BUILD						= SymbolGen("BUILD");
-	jps_MODULE_NAME					= SymbolGen("MODULE_NAME");	// name of this module class
-	jps_MODULE_TITLE				= SymbolGen("MODULE_TITLE");	// OSC id of of this module instance
-	jps_PARAMETER					= SymbolGen("PARAMETER");
-	jps_NEW_PRESETS_START			= SymbolGen("NEW_PRESETS_START");
-	jps_NEW_PRESETS					= SymbolGen("NEW_PRESETS");
-	jps_MENU_REBUILD				= SymbolGen("MENU_REBUILD");
+	//jps_ATTRIBUTES					= SymbolGen("ATTRIBUTES");
+	//jps_BUILD						= SymbolGen("BUILD");
+	//jps_MODULE_NAME					= SymbolGen("MODULE_NAME");	// name of this module class
+	//jps_MODULE_TITLE				= SymbolGen("MODULE_TITLE");	// OSC id of of this module instance
+	//jps_PARAMETER					= SymbolGen("PARAMETER");
+	//jps_NEW_PRESETS_START			= SymbolGen("NEW_PRESETS_START");
+	//jps_NEW_PRESETS					= SymbolGen("NEW_PRESETS");
+	//jps_MENU_REBUILD				= SymbolGen("MENU_REBUILD");
 	jps_size						= SymbolGen("size");
-	jps_skin						= SymbolGen("skin");
+	//jps_skin						= SymbolGen("skin");
 	jps_jcom_send					= SymbolGen("jcom.send");	
 	jps_jcom_receive				= SymbolGen("jcom.receive");
 	jps_jcom_remote_fromModule 		= SymbolGen("jcom.remote.module.from");	// different than in jamoma 0.3.x to avoid conflicts...
@@ -313,14 +351,23 @@ void jamomaSymbolsInit()
 	jps_link_out					= SymbolGen("link_out");
 	jps_unlink_in					= SymbolGen("unlink_in");
 	jps_unlink_out					= SymbolGen("unlink_out");
-	jps_audio_gain_midi				= SymbolGen("audio/gain/midi");		// used by the i/o objects...
-	jps_slash_audio_gain_midi		= SymbolGen("/audio/gain/midi");
+	jps_audio_gain					= SymbolGen("audio/gain");		// used by the i/o objects...
+	jps_slash_audio_gain			= SymbolGen("/audio/gain");	
+	//jps_audio_gain_midi				= SymbolGen("audio/gain/midi");		// used by the i/o objects...
+	//jps_slash_audio_gain_midi		= SymbolGen("/audio/gain/midi");
+	jps_gain						= SymbolGen("gain");
+	jps_slash_gain					= SymbolGen("/gain");
 	jps_audio_mute					= SymbolGen("audio/mute");
 	jps_slash_audio_mute			= SymbolGen("/audio/mute");
 	jps_audio_bypass				= SymbolGen("audio/bypass");
 	jps_slash_audio_bypass			= SymbolGen("/audio/bypass");
+	jps_bypass						= SymbolGen("bypass");
+	jps_slash_bypass				= SymbolGen("/bypass");
 	jps_audio_mix					= SymbolGen("audio/mix");
 	jps_slash_audio_mix				= SymbolGen("/audio/mix");
+	jps_mix							= SymbolGen("mix");
+	jps_slash_mix					= SymbolGen("/mix");
+	jps_mix_slash_weight 		    = SymbolGen("mix/weight");
 	   //jps_audio_sample_rate			= SymbolGen("audio/sample_rate");
 	   //jps_slash_audio_sample_rate		= SymbolGen("/audio/sample_rate");
 	jps_audio_meters_freeze			= SymbolGen("audio/meters/freeze");
@@ -329,36 +376,55 @@ void jamomaSymbolsInit()
 	jps_slash_video_mute			= SymbolGen("/video/mute");
 	jps_video_bypass				= SymbolGen("video/bypass");
 	jps_slash_video_bypass			= SymbolGen("/video/bypass");
+	jps_freeze						= SymbolGen("freeze");
+	jps_slash_freeze				= SymbolGen("/freeze");	
 	jps_video_freeze				= SymbolGen("video/freeze");
 	jps_slash_video_freeze			= SymbolGen("/video/freeze");
 	jps_video_preview				= SymbolGen("video/preview");
-	jps_slash_video_preview			= SymbolGen("/video/preview");	
+	jps_slash_video_preview			= SymbolGen("/video/preview");
+	jps_preview						= SymbolGen("preview");
+	jps_slash_preview				= SymbolGen("/preview");	
 	jps_register_meter				= SymbolGen("register_meter");
 	jps_register_preview			= SymbolGen("register_preview");
 	jps_open						= SymbolGen("open");
+	jps_slash_getstate				= SymbolGen("/getstate");
+	jps_slash_view_slash_panel      = SymbolGen("/view/panel");
 	jps_slash_module_view_internals = SymbolGen("/module/view_internals");
+	jps_slash_module_slash_reference = SymbolGen("/module/reference");	
+	jps_slash_module_slash_help     = SymbolGen("/module/help");	
+	jps_slash_preset_slash_interface = SymbolGen("/preset/interface");
 	jps_slash_preset_slash_default 	= SymbolGen("/preset/default");
 	jps_slash_preset_slash_load		= SymbolGen("/preset/load");
 	jps_slash_preset_slash_recall	= SymbolGen("/preset/recall");
 	jps_slash_preset_slash_write	= SymbolGen("/preset/write");
+	jps_preset_slash_write			= SymbolGen("preset/write");
 	jps_slash_preset_slash_writeagain	= SymbolGen("/preset/writeagain");
+	jps_preset_slash_writeagain	    = SymbolGen("preset/writeagain");
 	jps_slash_preset_slash_store	= SymbolGen("/preset/store");
 	jps_slash_preset_slash_storenext	= SymbolGen("/preset/storenext");
 	jps_slash_preset_slash_storecurrent = SymbolGen("/preset/storecurrent");
-	jps_slash_preset_slash_copy		= SymbolGen("/preset/copy");		
+	jps_preset_slash_mix 			= SymbolGen("preset/mix");
+	jps_preset_slash_default		= SymbolGen("preset/default");
+	jps_preset_slash_interpolate    = SymbolGen("preset/interpolate");
+	jps_slash_preset_slash_copy		= SymbolGen("/preset/copy");	
+	jps_slash_ui_slash_internals	= SymbolGen("/view/internals");	
+	jps_ui_slash_internals			= SymbolGen("view/internals");
 	jps_ui_slash_freeze				= SymbolGen("view/freeze");
 	jps_slash_ui_slash_freeze		= SymbolGen("/view/freeze");
 	jps_ui_slash_refresh			= SymbolGen("view/refresh");
 	jps_slash_ui_slash_refresh		= SymbolGen("/view/refresh");
 	   //jps_voices						= SymbolGen("voices");
+	jps_settext						= SymbolGen("settext");
 	jps_mute						= SymbolGen("mute");
+	jps_slash_mute					= SymbolGen("/mute");
 	jps_target						= SymbolGen("target");
 	jps_sendlastvalue				= SymbolGen("sendlastvalue");
 	jps_sendbypassedvalue			= SymbolGen("sendbypassedvalue");
-	jps_star						= SymbolGen("*");
-	jps_priority					= SymbolGen("priority");
+	jps_star						= SymbolGen("*");	
 	jps_add							= SymbolGen("add");					// used for calling methods on jcom.receivemaster
 	jps_remove						= SymbolGen("remove");
 	jps_dispatch					= SymbolGen("dispatch");
+	jps_bpatcher					= SymbolGen("bpatcher");
+	jps_subpatcher					= SymbolGen("subpatcher");
 }
 

@@ -300,7 +300,7 @@ public:
 	void setAction(method aCallback, t_object *aCallbackArg)
 	{
 		if (theObject)
-			object_method(theObject, gensym("setcallback"), aCallback, aCallbackArg);
+			object_method(theObject, jps_setcallback, aCallback, aCallbackArg);
 	}
 	
 	void setName(char* newName)

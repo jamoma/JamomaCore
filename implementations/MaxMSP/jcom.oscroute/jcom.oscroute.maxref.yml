@@ -13,7 +13,6 @@ inputs:
     desc: Incoming OSC messages
   - name: right
     desc: If no argument is provided, an OSC string can be send here to set the pattern to match.
-	
 
 outputs:
  - name: Nth
@@ -26,7 +25,6 @@ args:
    type: symbol
    optional: 1
    desc: name of the OSC message routed to the Nth outlet. If no argument is provided, a second inlet will be created. You can then send an OSC string to this second inlet to set the pattern to match.
-	
 
 attributes:
 
@@ -41,5 +39,5 @@ seealso:
  - jcom.oscinstance
  - route
  - select
- 
+
 discussion: Jamoma is a free and open source project. http://www.jamoma.org 
