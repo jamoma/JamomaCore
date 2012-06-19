@@ -30,6 +30,7 @@ struct Out {
 	TTPtr						qelem;			// for clumping patcher dirty notifications
 	TTAudioGraphPreprocessData	initData;		// for the preprocess method
 	t_atom						*output_buffer;    // allocating list for output samples
+	void*						clock;			///< clock for pushing the data onto the scheduler from the audio thread
 };
 typedef Out* OutPtr;
 
@@ -46,6 +47,7 @@ void	OutIterateResetCallback(OutPtr self, ObjectPtr obj);
 void	OutIterateSetupCallback(OutPtr self, ObjectPtr obj);
 void	OutAttachToPatchlinesForPatcher(OutPtr self, ObjectPtr patcher);
 t_int*	OutPerform(t_int* w);
+void	OutTick(OutPtr self);
 void	OutDsp(OutPtr self, t_signal** sp, short* count);
 //MaxErr	OutSetGain(OutPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
@@ -118,6 +120,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout	
 		self->s_out = listout((t_pxobject *)self); // the list outlet
 	    dsp_setup((t_pxobject*)self, 1);
+		self->clock = clock_new(self, (method)OutTick);
 				
 		self->qelem = qelem_new(self, (method)OutQFn);
 		self->obj.z_misc = Z_NO_INPLACE | Z_PUT_LAST;
@@ -129,6 +132,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void OutFree(OutPtr self)
 {
 	dsp_free((t_pxobject*)self);
+	object_free(self->clock);
 	if (self->patcherview) {
 		object_detach_byptr(self, self->patcherview);
 		self->patcherview = NULL;
@@ -305,8 +309,9 @@ t_int* OutPerform(t_int* w)
 			for(TTUInt16 channel=0; channel<numChannels; channel++) {
 			    atom_setfloat(self->output_buffer+channel, self->audioSignal->getSample(channel, 0));
 			}
-			
-			outlet_list(self->s_out, NULL, numChannels, self->output_buffer); //list output
+			self->numChannels = numChannels;
+			clock_delay(self->clock, 0);			
+			//outlet_list(self->s_out, NULL, numChannels, self->output_buffer); //list output
 		}
 	}
 	
@@ -315,6 +320,10 @@ t_int* OutPerform(t_int* w)
 	
 }
 
+void OutTick(OutPtr self)
+{	
+	outlet_list(self->s_out, NULL, self->numChannels, self->output_buffer); //list output
+}
 
 // DSP Method
 void OutDsp(OutPtr self, t_signal** sp, short* count)
