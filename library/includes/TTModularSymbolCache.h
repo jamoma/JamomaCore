@@ -69,7 +69,6 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_model;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_namespace;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_object;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_order;

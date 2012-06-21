@@ -44,7 +44,7 @@ void		nmspc_add_max_namespace(TTPtr self);
 long		nmspc_myobject_iterator(TTPtr self, ObjectPtr b);
 */
 
-SymbolPtr nmspc_filter_underscore_instance(SymbolPtr a);
+//SymbolPtr nmspc_filter_underscore_instance(SymbolPtr a);
 
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -95,6 +95,7 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	SymbolPtr					name;
+	TTNodeAddressPtr			address;
 	TTOpmlHandlerPtr			aOpmlHandler;
 	TTValue						v, args;
 	
@@ -122,25 +123,6 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Prepare Internals hash to store XmlHanler object
 	x->internals = new TTHash();
-	
-	// create internal observer for selection attribute
-	/*
-	 TTObjectPtr newObserver;
-	 TTValuePtr newBaton;
-	 
-	newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
-	
-	newBaton = new TTValue(TTPtr(aReceiver));
-	newBaton->append(anAddress->appendAttribute(aReceiver->mAddress->getAttribute()));
-	
-	newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-	newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
-	
-	newObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));			// this is usefull only to debug
-	
-	anAttribute->registerObserverForNotifications(*newObserver);
-	 */
 	
 	// create internal TTOpmlHandler
 	aOpmlHandler = NULL;
@@ -300,7 +282,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
 			if (output == kTTSym_brothers && s == _sym_nothing)
-				s = gensym("_");
+				s = gensym("0");
 			
 			if (s) {
 				atom_setsym(a, s);
@@ -313,7 +295,8 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	else if (x->msg == gensym("jit.cellblock")) {
 		
 		// clear jit.cellblock
-		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
+		atom_setsym(a, gensym("all"));
+		outlet_anything(x->outlets[data_out], _sym_clear, 1, a);
 		
 		// prepare jit.cellblock structure
 		atom_setlong(a, argc);
@@ -328,7 +311,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
 			if (output == kTTSym_brothers && s == _sym_nothing)
-				s = gensym("_");
+				s = gensym("0");
 			
 			if (s) {
 				atom_setlong(j, 0);
@@ -354,7 +337,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				s = jamoma_TTName_To_MaxName(TT(s->s_name));
 			
 			if (output == kTTSym_brothers && s == _sym_nothing)
-				s = gensym("_");
+				s = gensym("0");
 			
 			if (s) {
 				atom_setsym(c, s);
@@ -461,13 +444,13 @@ void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	
 	// for absolute address
 	if (TTADRS(msg->s_name)->getType() == kAddressAbsolute) {
-		v.append(TTADRS(nmspc_filter_underscore_instance(msg)->s_name));
+		v.append(TTADRS(msg->s_name));
 	}
 	else {
 		
 		// if the relative attribute is on
 		if (x->index) {
-			absoluteAddress = x->patcherAddress->appendAddress(TTADRS(nmspc_filter_underscore_instance(msg)->s_name));
+			absoluteAddress = x->patcherAddress->appendAddress(TTADRS(msg->s_name));
 			v.append(absoluteAddress);
 		}
 		else {
@@ -522,7 +505,6 @@ void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 	}
 }
-
 
 /*
 void nmspc_add_max_namespace(t_nmspc *x)
@@ -608,7 +590,6 @@ t_max_err nmspc_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av)
 	return MAX_ERR_NONE;
 }
 
-
 t_max_err nmspc_get_relative(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
@@ -648,37 +629,4 @@ t_max_err nmspc_set_relative(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av)
 		x->index = 0;
 	}
 	return MAX_ERR_NONE;
-}
-
-SymbolPtr nmspc_filter_underscore_instance(SymbolPtr a)
-{
-	SymbolPtr b;
-	TTString toParse = a->s_name;
-	
-	//post("before parsing : %s", a->s_name);
-	int foundDot = toParse.find_last_of('.');
-	int foundUnd = toParse.find_last_of('_');
-	
-	//post("toParse : %d", toParse.size());
-	//post("foundDot : %d", foundDot);
-	//post("foundUnd : %d", foundUnd);
-	
-	if (foundUnd == (foundDot+1)) {
-		
-		if (foundDot > 0 && foundUnd > 0) {
-			
-			TTString parsed = toParse.substr(0,foundDot);
-			if (foundUnd+1 < (int)toParse.size())
-				parsed += toParse.substr(foundUnd+1);
-			
-			b = gensym((char*)parsed.data());
-		}
-		else
-			b = a;
-	}
-	else
-		b = a;
-	
-	//post("after parsing : %s", b->s_name);
-	return b;
 }

@@ -14,7 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mNamespace(kTTSymEmpty),
-mAddress(kTTAdrsRoot),
+mAddress(kTTAdrsEmpty),
 mOutput(kTTSym_descendants),
 mUpdate(YES),
 mSort(kTTSym_alphabetic),
@@ -63,8 +63,6 @@ mLastResult(kTTValNONE)
 	
 	addMessageWithArguments(WriteAsOpml);
 	addMessageProperty(WriteAsOpml, hidden, YES);
-	
-	mDirectory = getLocalDirectory;
 	
 	mFilterList = new TTList();
 	mResult = new TTHash();
@@ -377,14 +375,18 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 			inputValue.get(0, &itemSymbol);
 			
 			// get the item
-			if (itemSymbol->getType() == kAddressRelative)
+			if (mOutput == kTTSym_children) {
 				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+				anItem = anItem->getParent();
+			}
+			else if (mOutput == kTTSym_brothers)
+				aNamespace->find(mAddress->appendInstance(itemSymbol), &anItem);
+			
+			else if (itemSymbol->getType() == kAddressRelative)
+				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+			
 			else
 				aNamespace->find(itemSymbol, &anItem);
-			
-			// in brother case : go to the parent namespace item
-			if (mOutput == kTTSym_brothers)
-				anItem = anItem->getParent();
 			
 			if (anItem) {
 				
@@ -416,7 +418,15 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 				state = number == 1;
 				
 				// move to mAddress + itemSymbol namespace
-				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+				if (mOutput == kTTSym_children) {
+					aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+					anItem = anItem->getParent();
+				}
+				else if (mOutput == kTTSym_brothers)
+					aNamespace->find(mAddress->appendInstance(itemSymbol), &anItem);
+				
+				else
+					aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
 				
 				if (anItem)
 					anItem->setSelection(state);
@@ -444,7 +454,15 @@ TTErr TTExplorer::SelectAll()
 			mLastResult.get(i, &itemSymbol);
 			
 			// move to mAddress + itemSymbol namespace
-			aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+			if (mOutput == kTTSym_children) {
+				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+				anItem = anItem->getParent();
+			}
+			else if (mOutput == kTTSym_brothers)
+				aNamespace->find(mAddress->appendInstance(itemSymbol), &anItem);
+			
+			else
+				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
 			
 			if (anItem)
 				anItem->setSelection(YES);
@@ -470,7 +488,14 @@ TTErr TTExplorer::SelectNone()
 			mLastResult.get(i, &itemSymbol);
 			
 			// move to mAddress + itemSymbol namespace
-			aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+			if (mOutput == kTTSym_children) {
+				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+				anItem = anItem->getParent();
+			}
+			else if (mOutput == kTTSym_brothers)
+				aNamespace->find(mAddress->appendInstance(itemSymbol), &anItem);
+			else
+				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
 			
 			if (anItem)
 				anItem->setSelection(NO);
@@ -858,8 +883,16 @@ TTErr TTExplorer::returnSelectionBack()
 			mLastResult.get(i, &itemSymbol);
 			
 			// get the item
-			if (itemSymbol->getType() == kAddressRelative)
+			if (mOutput == kTTSym_children) {
 				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+				anItem = anItem->getParent();
+			}
+			else if (mOutput == kTTSym_brothers)
+				aNamespace->find(mAddress->appendInstance(itemSymbol), &anItem);
+			
+			else if (itemSymbol->getType() == kAddressRelative)
+				aNamespace->find(mAddress->appendAddress(itemSymbol), &anItem);
+			
 			else
 				aNamespace->find(itemSymbol, &anItem);
 			
@@ -925,28 +958,28 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 		TTValue args = TTValue((TTPtr)anExplorer->mFilterBank);
 		args.append((TTPtr)anExplorer->mFilterList);
 		
-		if (testNodeUsingFilter(aNode, (TTPtr)&args)) {
-			
-			if (anExplorer->mOutput == kTTSym_brothers)
-				aNode->getAddress(&relativeAddress, anExplorer->mAddress->getParent());
-			else
-				aNode->getAddress(&relativeAddress, anExplorer->mAddress);
+		// test the node or add any destroyed node (because sometimes the object can be destroyed before his address)
+		if (testNodeUsingFilter(aNode, (TTPtr)&args) || flag == kAddressDestroyed) {
 			
 			// brothers case : store only the relative address for node with the same name
 			if (anExplorer->mOutput == kTTSym_brothers) {
+				aNode->getAddress(&relativeAddress, anExplorer->mAddress->getParent());
+				
 				if (anExplorer->mAddress->getName() == relativeAddress->getName())
 					keys.append(relativeAddress);
 			}
-			// any other case : store the relative address
-			else
+			else {
+				
+				if (anExplorer->mAddress == kTTAdrsRoot)
+					aNode->getAddress(&relativeAddress);
+				else
+					aNode->getAddress(&relativeAddress, anExplorer->mAddress);
+				
 				keys.append(relativeAddress);
+			}
 
+			// prepare to store the node with the relativeAddress
 			v.append(TTPtr(aNode));
-		}
-		// sometimes the object can be destroyed before his address
-		else if (flag == kAddressDestroyed) {
-			aNode->getAddress(&relativeAddress, anExplorer->mAddress);
-			keys.append(relativeAddress);
 		}
 	}
 	

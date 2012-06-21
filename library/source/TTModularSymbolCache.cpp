@@ -70,7 +70,6 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_model;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_namespace;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_object;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_order;
@@ -168,7 +167,6 @@ void TTModularSymbolCacheInit()
 	kTTSym_mute						= TT("mute");
 	
 	kTTSym_namespace				= TT("namespace");
-	kTTSym_none						= TT("none");
 	
 	kTTSym_object					= TT("object");
 	kTTSym_order					= TT("order");
