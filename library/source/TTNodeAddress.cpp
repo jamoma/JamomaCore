@@ -20,7 +20,16 @@ TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero = NULL;
 TTNodeAddress::TTNodeAddress(const TTString& newAddressString, TTInt32 newId)
 	: directory(NO_DIRECTORY), parent(NO_PARENT), name(NO_NAME), instance(NO_INSTANCE), attribute(NO_ATTRIBUTE), parsed(NO)
 {
-	this->init(newAddressString, newId);
+	// check if there is a '0'
+	if (strchr(newAddressString.data(), C_ZERO) != 0) {
+
+		TTString parsed;
+		parseInstanceZero(newAddressString, parsed);
+		
+		this->init(parsed, newId);
+	}
+	else
+		this->init(newAddressString, newId);
 }
 
 TTNodeAddress::~TTNodeAddress()
@@ -129,6 +138,34 @@ TTNodeAddressPtr TTNodeAddress::appendAddress(const TTNodeAddressPtr toAppend)
 	return TTADRS(tmp.data());
 }
 
+TTNodeAddressPtr TTNodeAddress::appendInstance(TTSymbolPtr anInstance)
+{
+	if (!parsed) parse();
+	
+	return edit(this->directory, this->parent, this->name, anInstance, this->attribute);
+}
+
+TTErr TTNodeAddress::parseInstanceZero(const TTString& toParse, TTString& parsed)
+{
+	// filter single "0" string
+	if (toParse.size() > 1) {
+		
+		parsed = toParse;
+		
+		TTRegexStringPosition begin = parsed.begin();
+		TTRegexStringPosition end = parsed.end();
+		
+		// parse and remove ".0"
+		while (!ttRegexForInstanceZero->parse(begin, end)) {
+			parsed = string(begin, ttRegexForInstanceZero->begin()-2) + string(ttRegexForInstanceZero->end(), end);	// -2 to remove .0
+			begin = parsed.begin();
+			end = parsed.end();
+		}
+	}
+
+	return kTTErrNone;
+}
+
 #ifndef TTNODEADDRESS_OLD_WAY_TO_PARSE
 
 TTErr TTNodeAddress::parse()
@@ -173,21 +210,6 @@ TTErr TTNodeAddress::parse()
 	//cout << "*** s_toParse    " << s_toParse << "    ***" << endl;
 	begin = s_toParse.begin();
 	end = s_toParse.end();
-	
-	// parse and remove ".0"
-	while (!ttRegexForInstanceZero->parse(begin, end))
-	{
-		s_before = string(begin, ttRegexForInstanceZero->begin()-2);	// -2 to remove .0
-		s_after = string(ttRegexForInstanceZero->end(), end);
-		
-		s_toParse = s_before + s_after;
-		
-		begin = s_toParse.begin();
-		end = s_toParse.end();
-		
-		//cout << "s_before :  " << s_before << endl;
-		//cout << "s_after :  " << s_after << endl;
-	}
 	
 	// parse directory
 	if (!ttRegexForDirectory->parse(begin, end))

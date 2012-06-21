@@ -42,6 +42,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_mode;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_name;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_none;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_notify;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_object;
@@ -127,6 +128,7 @@ void TTSymbolCacheInit()
 	kTTSym_maxNumChannels			= TT("maxNumChannels");
 	kTTSym_mode						= TT("mode");
 	kTTSym_name						= TT("name");
+	kTTSym_none						= TT("none");
 	kTTSym_notify					= TT("notify");
 	kTTSym_numChannels				= TT("numChannels");
 	kTTSym_object					= TT("object");

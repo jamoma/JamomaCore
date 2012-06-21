@@ -801,10 +801,6 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 		// get object
 		anObject = n->getObject();
 		
-		// a node without object is excluded
-		if (!anObject)
-			return NO;
-		
 		// get address
 		n->getAddress(&anAddress, kTTAdrsRoot);
 		
@@ -851,7 +847,11 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					TTSymbolPtr objectFilter;
 					v.get(0, &objectFilter);
 					
-					resultObject = objectFilter == anObject->getName();
+					// a node without object can be selected using the none symbol
+					if (!anObject)
+						resultObject = objectFilter == kTTSym_none;
+					else
+						resultObject = objectFilter == anObject->getName();
 				}
 				
 				// test attribute name
@@ -861,17 +861,25 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					TTValue		valueFilter;
 					v.get(0, &attributeFilter);
 					
-					err = anObject->getAttributeValue(attributeFilter, v);
-					
-					// the existence of the attribute is also a way to filter nodes
-					resultAttribute = err == kTTErrNone;
-					
-					// if the attribute exists
-					if (!err) {
+					// a node without object have no attribute
+					if (!anObject) {
+						resultAttribute = NO;
+						resultValue = NO;
+					}
+					else {
 						
-						// test value
-						if (!aFilter->lookup(kTTSym_value, valueFilter))
-							resultValue = valueFilter == v;
+						err = anObject->getAttributeValue(attributeFilter, v);
+						
+						// the existence of the attribute is also a way to filter nodes
+						resultAttribute = err == kTTErrNone;
+						
+						// if the attribute exists
+						if (!err) {
+							
+							// test value
+							if (!aFilter->lookup(kTTSym_value, valueFilter))
+								resultValue = valueFilter == v;
+						}
 					}
 				}
 				

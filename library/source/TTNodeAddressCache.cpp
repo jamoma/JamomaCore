@@ -11,9 +11,11 @@
 
 TTFOUNDATION_EXPORT TTNodeAddressPtr kTTAdrsEmpty;
 TTFOUNDATION_EXPORT TTNodeAddressPtr kTTAdrsRoot;
+TTFOUNDATION_EXPORT TTNodeAddressPtr kTTAdrsZero;
 
 void TTNodeAddressCacheInit()
 {
 	kTTAdrsEmpty				= TTADRS("");
 	kTTAdrsRoot					= TTADRS("/");
+	kTTAdrsZero					= TTADRS("0");
 }

@@ -35,6 +35,7 @@ typedef TTList*		TTListPtr;
 #define C_INSTANCE		'.'
 #define C_ATTRIBUTE		':'
 #define C_WILDCARD		'*'
+#define C_ZERO			'0'
 
 #define S_SEPARATOR		kTTSymSlash
 #define S_INSTANCE		kTTSymDot
@@ -42,6 +43,7 @@ typedef TTList*		TTListPtr;
 #define S_WILDCARD		kTTSymStar
 
 #define S_DIRECTORY		TT(":/")
+#define S_ZERO			TT("0")
 
 
 // Comparison flags between address returned by address1->compare(address2)
@@ -141,6 +143,9 @@ public:
 	
 	/** Return a new TTNodeAddress with the appended part */
 	TTNodeAddressPtr			appendAddress(const TTNodeAddressPtr toAppend);
+	
+	/** Return a new TTNodeAddress with a instance part */
+	TTNodeAddressPtr			appendInstance(TTSymbolPtr anInstance);
 
 	/**	A comparison tool
 	 @param	toCompare					An address to compare (it doesn't compare attribute part)
@@ -164,6 +169,10 @@ public:
 	
 	
 private:
+	/** Parse ".0"
+	 @return							An error code if the parsing failed */
+	TTErr						parseInstanceZero(const TTString& toParse, TTString& parsed);
+	
 	/** Parse the address to get directory, parent, name, instance and attribute part 
 	 @return							An error code if the parsing failed */
 	TTErr						parse();

@@ -14,6 +14,7 @@
 
 extern TTFOUNDATION_EXPORT TTNodeAddressPtr	kTTAdrsEmpty;
 extern TTFOUNDATION_EXPORT TTNodeAddressPtr	kTTAdrsRoot;
+extern TTFOUNDATION_EXPORT TTNodeAddressPtr	kTTAdrsZero;
 
 void TTNodeAddressCacheInit();
 
