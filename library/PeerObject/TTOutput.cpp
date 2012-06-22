@@ -34,31 +34,37 @@ mInfo(kTTValNONE),
 mIndex(0),
 mInputObject(NULL),
 mReturnSignalCallback(NULL),
+mReturnLinkCallback(NULL),
 mLast(NULL),
 mAddressObserver(NULL),
 mSignalPreview(kTTValNONE),
 mSignalPreviewAttr(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 3);
+	TT_ASSERT("Correct number of args to create TTOutput", arguments.getSize() >= 3);
 	
 	arguments.get(0, mNumber);
-	TT_ASSERT("Number passed to TTInput is not 0", mNumber);
+	TT_ASSERT("Number passed to TTOutput is not 0", mNumber);
 	arguments.get(1, &mType);
 	arguments.get(2, (TTPtr*)&mReturnSignalCallback);
-	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
+	TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
 	
 	if (arguments.getSize() > 3) {
-		arguments.get(3, (TTPtr*)&mSignalIn);
-		arguments.get(4, (TTPtr*)&mSignalOut);
-		arguments.get(5, (TTPtr*)&mSignalTemp);
-		arguments.get(6, (TTPtr*)&mSignalZero);
+		arguments.get(3, (TTPtr*)&mReturnLinkCallback);
+		TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
 	}
 	
-	if (arguments.getSize() > 7) {
-		arguments.get(7, (TTPtr*)&mMixUnit);
-		arguments.get(8, (TTPtr*)&mGainUnit);
-		arguments.get(9, (TTPtr*)&mRampMixUnit);
-		arguments.get(10, (TTPtr*)&mRampGainUnit);
+	if (arguments.getSize() > 4) {
+		arguments.get(4, (TTPtr*)&mSignalIn);
+		arguments.get(5, (TTPtr*)&mSignalOut);
+		arguments.get(6, (TTPtr*)&mSignalTemp);
+		arguments.get(7, (TTPtr*)&mSignalZero);
+	}
+	
+	if (arguments.getSize() > 8) {
+		arguments.get(8, (TTPtr*)&mMixUnit);
+		arguments.get(9, (TTPtr*)&mGainUnit);
+		arguments.get(10, (TTPtr*)&mRampMixUnit);
+		arguments.get(11, (TTPtr*)&mRampGainUnit);
 	}
 	
 	addAttribute(Number, kTypeUInt16);
@@ -105,6 +111,11 @@ TTOutput::~TTOutput()
 	if (mReturnSignalCallback) {
 		delete (TTValuePtr)mReturnSignalCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnSignalCallback));
+	}
+	
+	if (mReturnLinkCallback) {
+		delete (TTValuePtr)mReturnLinkCallback->getBaton();
+		TTObjectRelease(TTObjectHandle(&mReturnLinkCallback));
 	}
 	
 	if (mSignalIn)
@@ -184,13 +195,15 @@ TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
 	inputValue.get(0, (TTPtr*)&mInputObject);
-	return kTTErrNone;
+	
+	return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
 }
 
 TTErr TTOutput::Unlink()
 {
 	mInputObject = NULL;
-	return kTTErrNone;
+	
+	return mReturnLinkCallback->notify(kTTVal0, kTTValNONE);
 }
 
 TTErr TTOutput::setInputAddress(const TTValue& value)

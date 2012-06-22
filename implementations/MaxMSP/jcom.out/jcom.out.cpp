@@ -94,6 +94,15 @@ void		out_return_amplitude_active(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
  */
 void		out_update_amplitude(TTPtr self);
 
+/** Method used to notify that a jcom.in is linked/unlinked to the jcom.out
+ @param self		Pointer to this object.
+ @param msg			The message sent to this object.
+ @param argc		The number of arguments passed to the object.
+ @param argv		Pointer to an array of atoms passed to the object.
+ @see				out_subscribe
+ */
+void		out_return_link(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 #else
 
 /** Method used to pass messages from the module outlet. */
@@ -172,6 +181,7 @@ void WrapTTOutputClass(WrappedClassPtr c)
 	//class_addmethod(c->maxClass, (method)out_remoteaudio,					"remoteaudio",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)out_return_amplitude_active,		"return_amplitude_active",	A_CANT, 0);
 	//class_addmethod(c, (method)out_getAudioForChannel,					"getAudioForChannel",	A_CANT, 0);
+	class_addmethod(c->maxClass, (method)out_return_link,					"return_link",			A_CANT, 0);
 	
 #else
 	class_addmethod(c->maxClass, (method)out_return_signal,					"return_signal",		A_CANT, 0);
@@ -337,7 +347,7 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			EXTRA->instanceTable->append(TT(outAmplitudeInstance->s_name), v);
 		}
 		
-		// make internal data to parameter in/amplitude/active
+		// make internal data to parameter out/amplitude/active
 		makeInternals_data(x, nodeAddress, TT("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
@@ -364,17 +374,8 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 
 #ifdef JCOM_OUT_TILDE
-		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mix, kTTSym_parameter, &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
-		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		v = TTValue(0., 100.);
-		aData->setAttributeValue(kTTSym_rangeBounds, v);
-		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_both);
-		v = TTValue(100.);
-		aData->setAttributeValue(kTTSym_valueDefault, v);							// Assume 100%, so that processed signal is passed through
-		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
-		aData->setAttributeValue(kTTSym_rampFunction, TT("linear"));
-		aData->setAttributeValue(kTTSym_description, TT("Controls the wet/dry mix of the model's processing routine in percent."));
+		
+		// note : the mix attribute is exposed only there is a jcom.in : see out_return_in method
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_gain, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
@@ -823,6 +824,30 @@ void out_update_amplitude(TTPtr self)
 		if (EXTRA->pollInterval)
 			clock_delay(EXTRA->clock, EXTRA->pollInterval);
 	}
+}
+
+void out_return_link(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTDataPtr		aData;
+	TTValue			v;
+	
+	if (atom_getlong(argv) == 1) {
+		
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mix, kTTSym_parameter, &aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		v = TTValue(0., 100.);
+		aData->setAttributeValue(kTTSym_rangeBounds, v);
+		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_both);
+		v = TTValue(100.);
+		aData->setAttributeValue(kTTSym_valueDefault, v);							// Assume 100%, so that processed signal is passed through
+		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
+		aData->setAttributeValue(kTTSym_rampFunction, TT("linear"));
+		aData->setAttributeValue(kTTSym_description, TT("Controls the wet/dry mix of the model's processing routine in percent."));
+	}
+	else 
+		x->subscriberObject->unexposeAttribute(kTTSym_mix);
 }
 
 #endif // JCOM_OUT_TILDE

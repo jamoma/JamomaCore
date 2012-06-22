@@ -81,6 +81,12 @@ public:
 	
 	/** Expose an attribute of any TTObject as TTData (parameter or return) in the same context than subscribed object */
 	TTErr exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeName, TTSymbolPtr service, TTDataPtr *returnedData);
+	
+	/** Remove message exposition */
+	TTErr unexposeMessage(TTSymbolPtr messageName);
+	
+	/** Remove attribute exposition */
+	TTErr unexposeAttribute(TTSymbolPtr attributeName);
 };
 
 typedef TTSubscriber* TTSubscriberPtr;

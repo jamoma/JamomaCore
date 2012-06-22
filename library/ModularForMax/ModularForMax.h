@@ -219,7 +219,6 @@ extern "C" {
 	/** Get the "aClass.model" external in the patcher */
 	void			jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbolPtr modelClass, ObjectPtr *returnedModelPatcher);
 
-	
 	// Tools
 	///////////////////////////////////////////////
 	

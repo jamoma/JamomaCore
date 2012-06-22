@@ -501,6 +501,8 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long 
 	TTValue				args;
 	TTObjectPtr			signalOutCallback = NULL;
 	TTValuePtr			signalOutBaton;
+	TTObjectPtr			inputLinkCallback = NULL;
+	TTValuePtr			inputLinkBaton;
 	TTAudioSignalPtr	audioIn = NULL;
 	TTAudioSignalPtr	audioOut = NULL;
 	TTAudioSignalPtr	audioTemp = NULL;
@@ -521,6 +523,14 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long 
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
 	signalOutCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(signalOutCallback);
+	
+	inputLinkCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &inputLinkCallback, kTTValNONE);
+	inputLinkBaton = new TTValue(TTPtr(x));
+	inputLinkBaton->append(TTPtr(gensym("return_link")));
+	inputLinkCallback->setAttributeValue(kTTSym_baton, TTPtr(inputLinkBaton));
+	inputLinkCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(inputLinkCallback);
 	
 	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, number);
 	args.append((TTPtr)audioIn);

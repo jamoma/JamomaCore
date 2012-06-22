@@ -62,6 +62,7 @@ public:	// use public for quick acces during signal processing
 private:
 	
 	TTCallbackPtr				mReturnSignalCallback;		///< a way to return back signal to the owner of this output
+	TTCallbackPtr				mReturnLinkCallback;		///< a way to return back the input link status to the owner of this output
 	TTValuePtr					mLast;						///< keep a copy of the last sent signal for each index
 	TTCallbackPtr				mAddressObserver;			///< to observe mInputAddress creation/destruction
 	

@@ -442,6 +442,58 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 	return kTTErrNone;
 }
 
+TTErr TTSubscriber::unexposeMessage(TTSymbolPtr messageName)
+{
+	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+	TTValue				storedObject;
+	TTNodeAddressPtr	objectAddress, nameToAddress;
+	TTObjectPtr			anObject;
+	
+	if (!mExposedMessages->lookup(messageName, storedObject)) {
+		storedObject.get(0, (TTPtr*)&anObject);
+		
+		nameToAddress = convertTTNameInTTNodeAddress(messageName);
+		objectAddress = mNodeAddress->appendAddress(nameToAddress);
+		
+		aDirectory->TTNodeRemove(objectAddress);
+		
+		if (anObject)
+			TTObjectRelease(&anObject);
+		
+		mExposedMessages->remove(messageName);
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTSubscriber::unexposeAttribute(TTSymbolPtr attributeName)
+{
+	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+	TTValue				storedObject;
+	TTNodeAddressPtr	objectAddress, nameToAddress;
+	TTObjectPtr			anObject;
+	
+	if (!mExposedAttributes->lookup(attributeName, storedObject)) {
+		storedObject.get(0, (TTPtr*)&anObject);
+		
+		nameToAddress = convertTTNameInTTNodeAddress(attributeName);
+		objectAddress = mNodeAddress->appendAddress(nameToAddress);
+		
+		aDirectory->TTNodeRemove(objectAddress);
+		
+		if (anObject)
+			TTObjectRelease(&anObject);
+		
+		mExposedAttributes->remove(attributeName);
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
 #if 0
 #pragma mark -
 #pragma mark Some Methods
