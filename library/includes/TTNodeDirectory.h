@@ -120,8 +120,9 @@ public:
 	 @param	returnedTTNodes			If non-null, a pointer will be set to the linked-list of TTNodes at the given address pattern.
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
+	 @param	depthLimit				Precise the depth limit of the exploration (0 means no limit)
 	 @return						An error code. */
-	TTErr			LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	TTErr			LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode, TTUInt8 depthLimit=0);
 	
 	/**	Is there is one TTNode or more that respect a test below an address 
 	 @param	whereToSearch			A TTNode list from where to start the research
@@ -167,14 +168,15 @@ public:
 	/** Add a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address to observe
 	 @param observer				a TTCallbackPtr to add
+	 @param maxDepthDifference		precise the max depth difference to filter nodes which are below this limit
 	 @return						an error code */
-	TTErr			addObserverForNotifications(TTNodeAddressPtr anAddress, const TTObject& anObserver);
+	TTErr			addObserverForNotifications(TTNodeAddressPtr anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference=-1);
 	
 	/** Remove a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address
 	 @param observer				a TTCallbackPtr to remove
 	 @return						a kTTErrGeneric if there isn't observer */
-	TTErr			removeObserverForNotifications(TTNodeAddressPtr anAddress, const TTObject& anObserver);
+	TTErr			removeObserverForNotifications(TTNodeAddressPtr anAddress, TTCallbackPtr anObserver);
 	
 	/** Notify life cycle observers that something appends below this TTNode
 	 @param data					an address where something append
@@ -216,5 +218,10 @@ TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
  @param args						A TTValuePtr containing a TTHashPtr (the bank) and a TTListPtr (the name of the filter)
  @return							true if the node have to be include in the result */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingFilter(TTNodePtr n, TTPtr args);
+
+
+/**	An method used to find an observer in the observers table */
+void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found);
+
 
 #endif // __TT_NODE_DIRECTORY_H__

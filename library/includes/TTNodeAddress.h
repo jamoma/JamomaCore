@@ -149,8 +149,9 @@ public:
 
 	/**	A comparison tool
 	 @param	toCompare					An address to compare (it doesn't compare attribute part)
+	 @param	depthDifference				Return the number of level separating the compared addresses (> 0 for lower result, < 0 for upper result)
 	 @return							An comparison flag */
-	TTNodeAddressComparisonFlag compare(const TTNodeAddressPtr toCompare);
+	TTNodeAddressComparisonFlag compare(const TTNodeAddressPtr toCompare, TTInt8& depthDifference);
 	
 	/**	A parsing tool : split address in two part from a given '/' position
 	 @param whereToSplit				An int to give the '/' id where to split

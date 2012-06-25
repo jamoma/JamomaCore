@@ -18,7 +18,7 @@ TT_OBJECT_CONSTRUCTOR
 TTNodeLibTest::~TTNodeLibTest()
 {;}
 
-void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
+void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 {
 	TTTestLog("\n");
 	TTTestLog("Testing Node Address Table access");
@@ -139,7 +139,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int&testAssertionCount)
 					errorCount);
 }
 
-void TTNodeLibTestNodeAddressItem(int& errorCount, int&testAssertionCount)
+void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 {
 	TTNodeAddressItemPtr aNamespace, aParent, n, f;
 	TTSymbolPtr	aSymbol;
@@ -278,6 +278,67 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int&testAssertionCount)
 	
 }
 
+void TTNodeLibTestNodeAddressComparison(int& errorCount, int& testAssertionCount)
+{
+	TTNodeAddressComparisonFlag result;
+	TTInt8 depthDifference;
+	
+	TTTestLog("\n");
+	TTTestLog("Testing Node Address Comparison");
+	
+	TTNodeAddressPtr testAddressA = TTADRS("/gran/parent/name.instance");
+	TTNodeAddressPtr testAddressB = TTADRS("/gran");
+	TTNodeAddressPtr testAddressC = TTADRS("gran/parent/name.instance");
+	TTNodeAddressPtr testAddressD = TTADRS("gran");
+	
+	result = testAddressA->compare(testAddressA, depthDifference);
+	TTTestAssertion("TTNodeAddressComparison: Test fails if comparison returns anything else than equality",
+					result == kAddressEqual &&
+					depthDifference == 0,
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressA->compare(testAddressB, depthDifference);
+	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
+					result == kAddressLower &&
+					depthDifference == 2,
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressB->compare(testAddressA, depthDifference);
+	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
+					result == kAddressUpper &&
+					depthDifference == -2,
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressC->compare(testAddressD, depthDifference);
+	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
+					result == kAddressLower &&
+					depthDifference == 2,
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressD->compare(testAddressC, depthDifference);
+	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
+					result == kAddressUpper &&
+					depthDifference == -2,
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressA->compare(testAddressD, depthDifference);
+	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
+					result == kAddressDifferent,
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressC->compare(testAddressB, depthDifference);
+	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
+					result == kAddressDifferent,
+					testAssertionCount,
+					errorCount);
+}
+
 // TODO: Benchmarking
 
 TTErr TTNodeLibTest::test(TTValue& returnedTestInfo)
@@ -288,6 +349,8 @@ TTErr TTNodeLibTest::test(TTValue& returnedTestInfo)
 	TTNodeLibTestNodeAddressTable(errorCount, testAssertionCount);
 	
 	TTNodeLibTestNodeAddressItem(errorCount, testAssertionCount);
+	
+	TTNodeLibTestNodeAddressComparison(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

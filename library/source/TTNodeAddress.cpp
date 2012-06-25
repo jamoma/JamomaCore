@@ -441,8 +441,7 @@ TTNodeAddressPtr TTNodeAddress::edit(const TTSymbolPtr newDirectory,
 	return TTADRS(address);
 }
 
-
-TTNodeAddressComparisonFlag TTNodeAddress::compare(const TTNodeAddressPtr toCompare)
+TTNodeAddressComparisonFlag TTNodeAddress::compare(const TTNodeAddressPtr toCompare, TTInt8& depthDifference)
 {
 	TTErr err1 = kTTErrNone;
 	TTErr err2 = kTTErrNone;
@@ -453,12 +452,28 @@ TTNodeAddressComparisonFlag TTNodeAddress::compare(const TTNodeAddressPtr toComp
 	adrs1 = this->normalize();
 	adrs2 = toCompare->normalize();
 	
-	if (adrs1 == adrs2)
+	if (adrs1 == adrs2) {
+		
+		depthDifference = 0;
+		
 		return kAddressEqual;
-	else if (adrs1 == kTTAdrsRoot)
+	}
+	else if (adrs1 == kTTAdrsRoot) {
+	
+		depthDifference = -(adrs2->countSeparator());								// the depth difference is < 0
+		if (adrs2->getType() == kAddressRelative) 
+			depthDifference--;
+		
 		return kAddressUpper;
-	else if (adrs2 == kTTAdrsRoot)
+	}
+	else if (adrs2 == kTTAdrsRoot) {
+		
+		depthDifference = adrs1->countSeparator();								// the depth diffrence is > 0
+		if (adrs1->getType() == kAddressRelative) 
+			depthDifference++;
+		
 		return kAddressLower;
+	}
 	else {
 		
 		err1 = adrs1->splitAt(0, &top1, &rest1);
@@ -489,12 +504,18 @@ TTNodeAddressComparisonFlag TTNodeAddress::compare(const TTNodeAddressPtr toComp
 		if (cParent && cName && cInstance ){
 			
 			// look at returned error to know if there is a rest
-			if (err1 && !err2)																// address1 is shorter than address2
+			if (err1 && !err2) {															// address1 is shorter than address2
+				depthDifference = -(rest2->countSeparator()+1);								// the depth difference is < 0
 				return kAddressUpper;
-			else if (!err1 && err2)															// address2 is shorter than address1
+			}
+			else if (!err1 && err2)	{														// address2 is shorter than address1
+				depthDifference = rest1->countSeparator()+1;								// the depth diffrence is > 0
 				return kAddressLower;
-			else																			// address1 ? address2
-				return rest1->compare(rest2);
+			}
+			else {																			// address1 ? address2
+				depthDifference = 0;
+				return rest1->compare(rest2, depthDifference);
+			}
 		}
 	}
 	

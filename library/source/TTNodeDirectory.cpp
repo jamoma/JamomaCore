@@ -91,6 +91,7 @@ TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returned
 	TTErr err;
 	TTValue	found, ak;
 	TTUInt32 s;
+	TTInt8 d;
 
 	if (!directory) 
 		return kTTErrGeneric;
@@ -121,7 +122,7 @@ TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returned
 	
 	for (i=0; i<s; i++) {
 		ak.get(i, &alias);
-		comp = anAddress->compare(alias);
+		comp = anAddress->compare(alias, d);
 		
 		// if the address is an alias : return the TTNode
 		if (comp == kAddressEqual) {
@@ -161,6 +162,7 @@ TTErr TTNodeDirectory::getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *re
 	TTValue	 v, ak;
 	TTNodeAddressPtr alias, aliasNodeAddress;
 	TTNodeAddressComparisonFlag comp;
+	TTInt8 d;
 	
 	*returnedAlias = NULL;
 	
@@ -171,7 +173,7 @@ TTErr TTNodeDirectory::getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *re
 		ak.get(i, &alias);
 		aliases->lookup(alias, v);
 		v.get(1, &aliasNodeAddress);
-		comp = anAddress->compare(aliasNodeAddress);
+		comp = anAddress->compare(aliasNodeAddress, d);
 		
 		if (comp == kAddressEqual) {
 			
@@ -425,13 +427,21 @@ TTErr TTNodeDirectory::Lookup(TTNodeAddressPtr anAddress, TTList& returnedTTNode
 	}
 }
 
-TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode, TTUInt8 depthLimit)
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child, n_first;
+	TTBoolean limitReached = false;
+	TTUInt8	newLimit;
 	TTErr err;
 
 	*firstReturnedTTNode = NULL;
+	
+	// is the limit is reached ?
+	if (depthLimit > 0) {
+		newLimit = depthLimit - 1;
+		limitReached = newLimit <= 0;
+	}
 
 	// if there are nodes from where to start
 	if (!whereToSearch->isEmpty()) {
@@ -460,9 +470,11 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 							n_first = n_child;
 					}
 				}
-
-				// continu the research below all children
-				err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode);
+				
+				if (!limitReached)
+					err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit);
+				else
+					err = kTTErrNone;
 
 				if(!returnedTTNodes.isEmpty() && !n_first)
 					returnedTTNodes.getHead().get(0, (TTPtr*)firstReturnedTTNode);
@@ -530,11 +542,11 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::addObserverForNotifications(TTNodeAddressPtr anAddress, const TTObject& anObserver)
+TTErr TTNodeDirectory::addObserverForNotifications(TTNodeAddressPtr anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference)
 {
 	TTErr			err;
 	TTValue			lk;
-	TTValue			o = anObserver;
+	TTValue			o = (TTPtr)anObserver;
 	TTListPtr		lk_o;
 	TTNodeAddressPtr adrs;
 
@@ -543,6 +555,10 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTNodeAddressPtr anAddress, c
 	
 	// don't look at attribute and directory
 	adrs = anAddress->normalize();
+	
+	// append maxDepthDifference criteria if it is different from 0
+	if (maxDepthDifference >= 0)
+		o.append(maxDepthDifference);
 
 	// is the key already exists ?
 	err = this->observers->lookup(adrs, lk);
@@ -566,7 +582,7 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTNodeAddressPtr anAddress, c
 	return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::removeObserverForNotifications(TTNodeAddressPtr anAddress, const TTObject&  anObserver)
+TTErr TTNodeDirectory::removeObserverForNotifications(TTNodeAddressPtr anAddress, TTCallbackPtr anObserver)
 {
 	TTErr			err;
 	TTValue			lk, o, v;
@@ -587,8 +603,7 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTNodeAddressPtr anAddress
 		lk.get(0,(TTPtr*)&lk_o);
 
 		// is observer exists ?
-		o = TTValue(anObserver);
-		err = lk_o->findEquals(o, v);
+		err = lk_o->find(&findObserver, (TTPtr)anObserver, v);
 		if(!err)
 			lk_o->remove(v);
 
@@ -613,6 +628,7 @@ TTErr TTNodeDirectory::notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNo
 	TTNodeAddressComparisonFlag comp;
 	TTListPtr lk_o;
 	TTCallbackPtr anObserver;
+	TTInt8	depthDifference, maxDepthDifference;
 	bool foundObsv = false;
 
 	// if there are observers
@@ -632,7 +648,7 @@ TTErr TTNodeDirectory::notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNo
 			hk.get(i, &key);
 
 			// compare the key with the address
-			comp = adrs->compare(key);
+			comp = adrs->compare(key, depthDifference);
 
 			if ((comp == kAddressEqual) || (comp == kAddressLower)){
 
@@ -644,8 +660,18 @@ TTErr TTNodeDirectory::notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNo
 					for (lk_o->begin(); lk_o->end(); lk_o->next())
 					{
 						anObserver = NULL;
-						lk_o->current().get(0, TTObjectHandle(&anObserver));
+						lk_o->current().get(0, (TTPtr*)&anObserver);
 						TT_ASSERT("TTNode observer list member is not NULL", anObserver);
+						
+						// filter on the depth difference if specified
+						if (lk_o->current().getSize() > 1) {
+							lk_o->current().get(1, maxDepthDifference);
+							
+							// we can cast the depth difference because it is always positive in the lower case
+							if (depthDifference > maxDepthDifference)
+								continue;
+						}
+						
 						data.append(anAddress);
 						data.append((TTPtr*)aNode);
 						data.append((TTInt8)flag);
@@ -706,7 +732,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 				for (lk_o->begin(); lk_o->end(); lk_o->next())
 				{
 					anObserver = NULL;
-					lk_o->current().get(0, TTObjectHandle(&anObserver));
+					lk_o->current().get(0, (TTPtr*)&anObserver);
 					TT_ASSERT("TTNode observer list member is not NULL", anObserver);
 
 					anObserver->getAttributeValue(TT("Owner"), vo);
@@ -1003,3 +1029,10 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	return result;
 }
 
+void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found)
+{
+	TTCallbackPtr anObserver;
+	value.get(0, (TTPtr*)&anObserver);
+	
+	found = anObserver == observerToMatch;
+}
